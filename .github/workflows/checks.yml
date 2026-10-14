@@ -25,6 +25,13 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install real backend for client integration test
+        run: |
+          python -m venv ../backend/.venv
+          ../backend/.venv/bin/python -m pip install -r ../backend/requirements.lock
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.47.7'
@@ -47,11 +54,25 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        if: runner.os == 'Windows'
+        with:
+          python-version: '3.12'
+      - name: Install Windows backend for client integration test
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -m venv ../backend/.venv
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & ../backend/.venv/Scripts/python.exe -m pip install -r ../backend/requirements.lock
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.47.7'
           channel: stable
       - run: flutter pub get --enforce-lockfile
+      - name: Test Windows client against real backend
+        if: runner.os == 'Windows'
+        run: flutter test --reporter expanded
       - run: ${{ matrix.command }}
       - name: Prepare portable Windows package
         if: runner.os == 'Windows'
@@ -88,7 +109,7 @@ jobs:
             }
           }
           $smartplanReadme = @'
-          Smartplan Office 0.2 - Windows-Testpaket (x64)
+          Smartplan Office 0.2.1 - Windows-Testpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bereits eingerichteten Python-Server starten und sein Terminal offen lassen.

@@ -24,7 +24,12 @@ void main() {
     'JSON requests preserve UTF-8, bearer token and POST body',
     () => withServer((server, api) async {
       api.token = 'test-bearer';
+      int? declaredLength;
+      String? transferEncoding;
+      final body = {'description': 'Geräte geprüft'};
       server.listen((request) async {
+        declaredLength = request.contentLength;
+        transferEncoding = request.headers.value('Transfer-Encoding');
         expect(request.method, 'POST');
         expect(request.headers.value('Authorization'), 'Bearer test-bearer');
         expect(request.headers.contentType?.mimeType, 'application/json');
@@ -35,10 +40,9 @@ void main() {
         request.response.write(jsonEncode({'name': 'Büro'}));
         await request.response.close();
       });
-      expect(
-        await api.call('/api/projects', {'description': 'Geräte geprüft'}),
-        {'name': 'Büro'},
-      );
+      expect(await api.call('/api/projects', body), {'name': 'Büro'});
+      expect(declaredLength, utf8.encode(jsonEncode(body)).length);
+      expect(transferEncoding, isNull);
     }),
   );
 

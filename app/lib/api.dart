@@ -49,8 +49,10 @@ class OfficeApi extends ChangeNotifier {
       if (sessionToken != null)
         request.headers.set('Authorization', 'Bearer $sessionToken');
       if (body != null) {
+        final encodedBody = utf8.encode(jsonEncode(body));
         request.headers.contentType = ContentType.json;
-        request.write(jsonEncode(body));
+        request.contentLength = encodedBody.length;
+        request.add(encodedBody);
       }
       final response = await request.close().timeout(
         const Duration(seconds: 40),

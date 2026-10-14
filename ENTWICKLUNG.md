@@ -1,4 +1,16 @@
-# Smartplan Office 0.2 – Entwicklung und Abnahme
+# Smartplan Office 0.2.1 – Entwicklung und Abnahme
+
+Version 0.2.1 korrigiert die JSON-Übertragung der App: POST-Anfragen enthalten
+eine feste Content-Length anhand der tatsächlich gesendeten UTF-8-Bytes. Damit
+kann auch der lokale Python-Server die Anfrage lesen; bei der ursprünglichen
+Übertragung mit Chunked-Encoding lehnte er sie als leer ab. Der vorhandene
+Backend-Stand 0.2.0 bleibt kompatibel und benötigt für diese Korrektur kein Update.
+
+Zusätzlich zu den Oberflächen- und Transporttests wird der Dart-Client gegen
+einen echten Python-Server mit temporärer Datenbank geprüft: Anmeldung,
+Benutzeranlage, Projektzuweisung, Bericht mit Umlauten, Unterschrift, PDF,
+Entzug des Projektzugriffs und Abmeldung. Die CI richtet dafür Python auch im
+Flutter-Job und auf dem Windows-Buildrechner ein.
 
 ## Quellpaket herunterladen
 

@@ -1,4 +1,4 @@
-# Smartplan Office - Entwicklungsstand 0.2
+# Smartplan Office - Entwicklungsstand 0.2.1
 
 Der aktuelle Stand ergänzt Benutzerverwaltung, Projektzugriff, Berichtslisten,
 PDF-Vorschau/-Speicherung und Sicherung/Wiederherstellung. Windows- und iOS-Gerüste

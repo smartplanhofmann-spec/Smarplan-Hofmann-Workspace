@@ -49,6 +49,11 @@ cd /workspace/Smarplan-Hofmann-Workspace/app
 
 ## Backend auf Windows
 
+Bei Verbindungszeitlimits zu `pypi.org` kann das geprüfte Paket unter
+`downloads/Smartplan_Windows_Python312_Offline.zip` verwendet werden.
+Siehe [OFFLINE_INSTALLATION.md](OFFLINE_INSTALLATION.md). Es installiert die
+Backend-Abhängigkeiten für Windows x64 / Python 3.12 ohne Zugriff auf PyPI.
+
 PowerShell im Repository:
 
 ```powershell

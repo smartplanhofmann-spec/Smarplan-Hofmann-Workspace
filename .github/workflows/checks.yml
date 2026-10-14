@@ -58,11 +58,15 @@ jobs:
         shell: pwsh
         run: |
           trap {
+            $smartplanError = $_.Exception.Message.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows packaging::$smartplanError"
             '### Windows package error' | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
             $_.Exception.Message | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
             throw
           }
           $smartplanBundle = (Resolve-Path 'build/windows/x64/runner/Release').Path
+          $smartplanBundleFiles = (Get-ChildItem $smartplanBundle -Name) -join ', '
+          Write-Host "::notice title=Windows bundle files::$smartplanBundleFiles"
           foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll')) {
             if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
               throw "Required application file is missing: $smartplanFile"
@@ -73,8 +77,8 @@ jobs:
           if ($LASTEXITCODE -ne 0 -or -not $smartplanVsRoot) { throw 'Visual C++ toolchain not found' }
           $smartplanRedistRoot = Join-Path $smartplanVsRoot 'VC/Redist/MSVC'
           $smartplanCrt = Get-ChildItem $smartplanRedistRoot -Directory |
-            Sort-Object { [version]$_.Name } -Descending |
             ForEach-Object { Get-ChildItem (Join-Path $_.FullName 'x64/Microsoft.VC*.CRT') -Directory -ErrorAction SilentlyContinue } |
+            Sort-Object FullName -Descending |
             Select-Object -First 1
           if (-not $smartplanCrt) { throw 'Redistributable x64 Visual C++ runtime not found' }
           Copy-Item (Join-Path $smartplanCrt.FullName '*.dll') -Destination $smartplanBundle

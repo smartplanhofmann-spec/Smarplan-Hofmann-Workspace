@@ -1,5 +1,13 @@
 # Smartplan Office 0.2 – Entwicklung und Abnahme
 
+## Quellpaket herunterladen
+
+Auf GitHub das Repository `smartplanhofmann-spec/Smarplan-Hofmann-Workspace`
+öffnen und den Branch `codex/smartplan-office-0.2` auswählen.
+Über **Code → Download ZIP** herunterladen und unter Windows entpacken.
+Das Paket enthält Quellcode und Startanleitungen; eine fertige EXE mit Installer
+ist noch nicht enthalten.
+
 ## Was umgesetzt ist
 
 Die gelieferten Quellen liegen jetzt im vorgesehenen Repository. Die Anwendung ergänzt Benutzeranlage, Rollen-/Zugangsbearbeitung und Passwortwechsel für die Geschäftsführung; Projektzugriff kann zugeordnet und entfernt werden. Sitzungen werden bei Passwortwechsel, Rollenwechsel oder Sperrung beendet. Eine Anmeldung mit alten Sitzungen wird nach Reaktivierung nicht wieder gültig.
@@ -101,7 +109,7 @@ Zum Wiederherstellen den Server anhalten und die aktuelle Datenbank sichern. Aus
 6. Technikerzugriff entfernen: ein erneuter Abruf ist gesperrt. Benutzer deaktivieren: die nächste API-Anfrage beendet die Sitzung. Bereits exportierte Dateien lassen sich dadurch nicht zurückrufen.
 7. Kleinere Fenster, iPhone-Hochformat, Abbruch des Dateidialogs, unterbrochene Verbindung und fehlerhafte Anmeldung prüfen.
 
-Die CI-Datei `.github/workflows/checks.yml` bereitet Backend-, Flutter-, Windows- und iOS-Simulatorchecks vor. Sie läuft erst nach einer entsprechenden GitHub-Aktion; bisher wurde weder gepusht noch ein CI-Ergebnis beobachtet.
+Die CI-Datei `.github/workflows/checks.yml` bereitet Backend-, Flutter-, Windows- und iOS-Simulatorchecks vor. Ein Push kann diese Prüfungen auslösen, sofern GitHub Actions im Repository aktiviert ist. Ergebnisse im GitHub-Reiter Actions separat prüfen; die erfolgreichen lokalen Tests belegen keinen erfolgreichen nativen CI-Build.
 
 ## Noch offen
 

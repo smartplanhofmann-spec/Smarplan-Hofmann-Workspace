@@ -1,0 +1,331 @@
+"""Smartplan Office foundation. Local development service; no public deployment."""
+import base64
+import hashlib
+import hmac
+import io
+import json
+import re
+import secrets
+import sqlite3
+import threading
+import time
+import uuid
+from pathlib import Path
+from xml.sax.saxutils import escape
+
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Flowable
+
+
+class Problem(Exception):
+    def __init__(self, status, message):
+        self.status, self.message = status, message
+
+
+def digest(value):
+    return hashlib.sha256(value.encode()).hexdigest()
+
+
+def canonical(value):
+    return json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+
+
+def text_field(value, name, maximum=500):
+    if not isinstance(value, str) or not value.strip() or len(value) > maximum:
+        raise Problem(400, f"Ungültiges Feld: {name}")
+    return value.strip()
+
+
+def password_hash(password, salt):
+    return hashlib.pbkdf2_hmac("sha256", password.encode(), bytes.fromhex(salt), 310000).hex()
+
+
+ROLES = ("owner", "manager", "technician", "accountant")
+
+
+def validate_password(password):
+    if not isinstance(password, str) or not 12 <= len(password) <= 512:
+        raise Problem(400, "Passwort benötigt 12 bis 512 Zeichen")
+
+
+class Signature(Flowable):
+    width, height = 420, 110
+
+    def __init__(self, strokes):
+        super().__init__()
+        self.width, self.height = 420, 110
+        self.strokes = strokes
+
+    def draw(self):
+        self.canv.setStrokeColor(colors.HexColor("#172b38"))
+        self.canv.setLineWidth(1.5)
+        for stroke in self.strokes:
+            p = self.canv.beginPath()
+            p.moveTo(stroke[0][0] * self.width, (1 - stroke[0][1]) * self.height)
+            for x, y in stroke[1:]:
+                p.lineTo(x * self.width, (1-y) * self.height)
+            self.canv.drawPath(p)
+        self.canv.setStrokeColor(colors.HexColor("#cdd8dc"))
+        self.canv.line(0, 0, self.width, 0)
+
+
+def make_pdf(report):
+    content = report["content"]
+    stream = io.BytesIO()
+    doc = SimpleDocTemplate(stream, pagesize=(595, 842), leftMargin=48, rightMargin=48,
+                            topMargin=48, bottomMargin=48)
+    styles = getSampleStyleSheet()
+    story = [Paragraph("SMARTPLAN HOFMANN", styles["Title"]), Spacer(1, 12),
+             Paragraph(escape(content["kind"]), styles["Heading1"])]
+    for label, value in [("Projekt", content["project_name"]), ("Kunde", content["customer"]),
+                         ("Dokument", report["id"]), ("Erstellt (UTC)", content["created_at"])]:
+        story.append(Paragraph(f"<b>{label}:</b> {escape(str(value))}", styles["Normal"]))
+    story += [Spacer(1, 16), Paragraph("Leistungen / gelieferte Positionen", styles["Heading2"]),
+              Paragraph(escape(content["description"]).replace("\n", "<br/>"), styles["Normal"]),
+              Spacer(1, 20)]
+    if report["status"] == "signed":
+        story += [Paragraph("Unterschrift", styles["Heading2"]), Signature(report["strokes"]),
+                  Spacer(1, 10), Paragraph(escape(report["signer"]), styles["Normal"]),
+                  Paragraph("Unterzeichnet (UTC): " + escape(report["signed_at"]), styles["Normal"])]
+    else:
+        story.append(Paragraph("ENTWURF - noch nicht unterzeichnet", styles["Heading2"]))
+    story += [Spacer(1, 18), Paragraph("Dokumentinhalt SHA-256:", styles["Normal"]),
+              Paragraph(report["content_hash"], styles["Code"])]
+    doc.build(story)
+    return stream.getvalue()
+
+
+def now_iso():
+    import datetime
+    return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+
+
+class Office:
+    def __init__(self, path):
+        self.lock = threading.RLock()
+        self.db = sqlite3.connect(path, check_same_thread=False)
+        self.db.row_factory = sqlite3.Row
+        self.db.executescript("""
+        PRAGMA foreign_keys=ON;
+        CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY, email TEXT UNIQUE, salt TEXT,
+          password TEXT, role TEXT, active INTEGER DEFAULT 1);
+        CREATE TABLE IF NOT EXISTS sessions(token TEXT PRIMARY KEY,user_id TEXT REFERENCES users(id),expiry REAL);
+        CREATE TABLE IF NOT EXISTS projects(id TEXT PRIMARY KEY,name TEXT,customer TEXT);
+        CREATE TABLE IF NOT EXISTS assignments(user_id TEXT REFERENCES users(id),project_id TEXT REFERENCES projects(id),
+          PRIMARY KEY(user_id,project_id));
+        CREATE TABLE IF NOT EXISTS reports(id TEXT PRIMARY KEY,project_id TEXT REFERENCES projects(id),
+          payload TEXT,pdf BLOB,pdf_hash TEXT,onedrive_id TEXT);
+        CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,user_id TEXT,action TEXT,object_id TEXT,at TEXT);
+        CREATE TABLE IF NOT EXISTS secrets(name TEXT PRIMARY KEY,value TEXT);
+        """)
+        self.db.commit()
+        self.failed_logins = {}
+
+    def audit(self, user, action, object_id):
+        self.db.execute("INSERT INTO audit(user_id,action,object_id,at) VALUES(?,?,?,?)",
+                        (user["id"], action, object_id, now_iso()))
+
+    def add_user(self, email, password, role="technician"):
+        if role not in ROLES:
+            raise Problem(400, "Unbekannte Rolle")
+        validate_password(password)
+        email = text_field(email, "E-Mail", 254).lower()
+        if not re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", email):
+            raise Problem(400, "Ungültige E-Mail-Adresse")
+        salt, user_id = secrets.token_hex(16), uuid.uuid4().hex
+        with self.lock, self.db:
+            try:
+                self.db.execute("INSERT INTO users(id,email,salt,password,role) VALUES(?,?,?,?,?)",
+                                (user_id,email,salt,password_hash(password,salt),role))
+            except sqlite3.IntegrityError:
+                raise Problem(409, "Benutzer existiert bereits")
+        return user_id
+
+    def users(self, actor):
+        self.require(actor, ("owner",))
+        with self.lock:
+            return [dict(r) for r in self.db.execute(
+                "SELECT id,email,role,active FROM users ORDER BY email")]
+
+    def create_user(self, actor, email, password, role):
+        self.require(actor, ("owner",))
+        with self.lock, self.db:
+            user_id = self.add_user(email, password, role)
+            self.audit(actor, "user.created", user_id)
+            return user_id
+
+    def update_user(self, actor, user_id, changes):
+        self.require(actor, ("owner",))
+        if not changes or set(changes) - {"role", "active", "password"}:
+            raise Problem(400, "Ungültige Benutzeränderung")
+        if "role" in changes and changes["role"] not in ROLES:
+            raise Problem(400, "Unbekannte Rolle")
+        if "active" in changes and type(changes["active"]) is not bool:
+            raise Problem(400, "Aktiv muss ein Wahrheitswert sein")
+        if "password" in changes:
+            validate_password(changes["password"])
+        with self.lock, self.db:
+            row = self.db.execute("SELECT * FROM users WHERE id=?", (user_id,)).fetchone()
+            if not row:
+                raise Problem(404, "Benutzer nicht verfügbar")
+            role = changes.get("role", row["role"])
+            active = changes.get("active", bool(row["active"]))
+            if actor["id"] == user_id and (role != row["role"] or not active):
+                raise Problem(409, "Eigene Rolle und eigenen Zugang nicht sperren")
+            if row["role"] == "owner" and row["active"] and (role != "owner" or not active):
+                count = self.db.execute("SELECT COUNT(*) FROM users WHERE role='owner' AND active=1").fetchone()[0]
+                if count <= 1:
+                    raise Problem(409, "Mindestens eine aktive Geschäftsführung ist erforderlich")
+            self.db.execute("UPDATE users SET role=?,active=? WHERE id=?", (role, int(active), user_id))
+            if "password" in changes:
+                salt = secrets.token_hex(16)
+                self.db.execute("UPDATE users SET salt=?,password=? WHERE id=?",
+                                (salt, password_hash(changes["password"], salt), user_id))
+            if not active or role != row["role"] or "password" in changes:
+                self.db.execute("DELETE FROM sessions WHERE user_id=?", (user_id,))
+            self.audit(actor, "user.updated", user_id)
+            return dict(self.db.execute("SELECT id,email,role,active FROM users WHERE id=?", (user_id,)).fetchone())
+
+    def assignments(self, actor, project_id):
+        self.require(actor, ("owner",))
+        with self.lock:
+            self.project(actor, project_id)
+            return [dict(r) for r in self.db.execute(
+                "SELECT u.id,u.email,u.role,u.active FROM users u JOIN assignments a ON u.id=a.user_id "
+                "WHERE a.project_id=? ORDER BY u.email", (project_id,))]
+
+    def assign(self, actor, project_id, user_id, remove=False):
+        self.require(actor, ("owner",))
+        if type(remove) is not bool:
+            raise Problem(400, "Entfernen muss ein Wahrheitswert sein")
+        with self.lock, self.db:
+            self.project(actor, project_id)
+            if not self.db.execute("SELECT 1 FROM users WHERE id=?", (user_id,)).fetchone():
+                raise Problem(404, "Benutzer nicht verfügbar")
+            if remove:
+                self.db.execute("DELETE FROM assignments WHERE user_id=? AND project_id=?", (user_id, project_id))
+            else:
+                self.db.execute("INSERT OR IGNORE INTO assignments VALUES(?,?)", (user_id, project_id))
+            self.audit(actor, "assignment.removed" if remove else "assignment.added", project_id)
+
+    def login(self, email, password):
+        email = text_field(email, "E-Mail", 254).lower()
+        if not isinstance(password, str) or len(password) > 512:
+            raise Problem(401, "Anmeldung fehlgeschlagen")
+        with self.lock, self.db:
+            failures = [t for t in self.failed_logins.get(email, []) if t > time.time()-300]
+            self.failed_logins[email] = failures
+            if len(failures) >= 5:
+                raise Problem(429, "Bitte in fünf Minuten erneut versuchen")
+            user = self.db.execute("SELECT * FROM users WHERE email=? AND active=1", (email,)).fetchone()
+            salt = user["salt"] if user else "00"*16
+            calculated = password_hash(password, salt)
+            if not user or not hmac.compare_digest(calculated,user["password"]):
+                failures.append(time.time())
+                raise Problem(401, "Anmeldung fehlgeschlagen")
+            self.failed_logins.pop(email, None)
+            token = secrets.token_urlsafe(32)
+            self.db.execute("INSERT INTO sessions VALUES(?,?,?)",(digest(token),user["id"],time.time()+8*3600))
+            self.audit(user,"login",user["id"])
+            return token
+
+    def user(self, token):
+        with self.lock:
+            row = self.db.execute("SELECT u.id,u.email,u.role FROM users u JOIN sessions s ON u.id=s.user_id "
+                                  "WHERE s.token=? AND s.expiry>? AND u.active=1",(digest(token),time.time())).fetchone()
+            if not row:
+                raise Problem(401,"Bitte anmelden")
+            return dict(row)
+
+    def require(self, user, roles):
+        if user["role"] not in roles:
+            raise Problem(403,"Keine Berechtigung")
+
+    def project(self, user, project_id):
+        with self.lock:
+            row = self.db.execute("SELECT * FROM projects WHERE id=?",(project_id,)).fetchone()
+            if not row or (user["role"] != "owner" and not self.db.execute(
+                "SELECT 1 FROM assignments WHERE user_id=? AND project_id=?",(user["id"],project_id)).fetchone()):
+                raise Problem(404,"Projekt nicht verfügbar")
+            return dict(row)
+
+    def projects(self, user):
+        with self.lock:
+            if user["role"] == "owner":
+                return [dict(r) for r in self.db.execute("SELECT * FROM projects ORDER BY name")]
+            return [dict(r) for r in self.db.execute("SELECT p.* FROM projects p JOIN assignments a "
+                    "ON p.id=a.project_id WHERE a.user_id=? ORDER BY name",(user["id"],))]
+
+    def add_project(self, user, name, customer):
+        self.require(user,("owner",))
+        project_id = uuid.uuid4().hex
+        with self.lock, self.db:
+            self.db.execute("INSERT INTO projects VALUES(?,?,?)",(project_id,text_field(name,"Projekt"),text_field(customer,"Kunde")))
+            self.audit(user,"project.created",project_id)
+        return project_id
+
+    def draft(self, user, project_id, kind, description):
+        self.require(user,("owner","manager","technician"))
+        p = self.project(user,project_id)
+        if kind not in ("Servicebericht","Lieferschein"):
+            raise Problem(400,"Ungültiger Dokumenttyp")
+        content = dict(project_id=p["id"],project_name=p["name"],customer=p["customer"],kind=kind,
+                       description=text_field(description,"Beschreibung",10000),created_at=now_iso(),creator=user["id"])
+        report = dict(id=uuid.uuid4().hex,content=content,content_hash=digest(canonical(content)),status="draft")
+        with self.lock, self.db:
+            self.db.execute("INSERT INTO reports(id,project_id,payload) VALUES(?,?,?)",(report["id"],project_id,canonical(report)))
+            self.audit(user,"report.drafted",report["id"])
+        return report
+
+    def report(self, user, report_id):
+        with self.lock:
+            row = self.db.execute("SELECT * FROM reports WHERE id=?",(report_id,)).fetchone()
+            if not row:
+                raise Problem(404,"Dokument nicht verfügbar")
+            self.project(user,row["project_id"])
+            return json.loads(row["payload"])
+
+    def reports(self,user,project_id):
+        self.project(user,project_id)
+        with self.lock:
+            return [json.loads(r[0]) for r in self.db.execute("SELECT payload FROM reports WHERE project_id=? ORDER BY rowid DESC",(project_id,))]
+
+    def sign(self,user,report_id,expected_hash,signer,strokes):
+        self.require(user,("owner","manager","technician"))
+        signer = text_field(signer,"Name des Unterzeichners",200)
+        if not isinstance(strokes,list) or not 1 <= len(strokes) <= 100:
+            raise Problem(400,"Unterschrift fehlt")
+        count=0
+        for stroke in strokes:
+            if not isinstance(stroke,list) or not 2 <= len(stroke) <= 2000:
+                raise Problem(400,"Ungültige Unterschrift")
+            count+=len(stroke)
+            for point in stroke:
+                if (not isinstance(point,list) or len(point)!=2 or
+                    any(type(v) not in (int,float) or not 0<=v<=1 for v in point)):
+                    raise Problem(400,"Ungültige Unterschrift")
+        if count > 10000:
+            raise Problem(400,"Unterschrift zu groß")
+        with self.lock, self.db:
+            r=self.report(user,report_id)
+            if r["status"] != "draft":
+                raise Problem(409,"Dokument bereits unterzeichnet")
+            if expected_hash != r["content_hash"]:
+                raise Problem(409,"Dokumentversion stimmt nicht überein")
+            r.update(status="signed",signer=signer,strokes=strokes,signed_at=now_iso(),signed_by=user["id"])
+            pdf=make_pdf(r)
+            self.db.execute("UPDATE reports SET payload=?,pdf=?,pdf_hash=? WHERE id=?",
+                            (canonical(r),pdf,hashlib.sha256(pdf).hexdigest(),report_id))
+            self.audit(user,"report.signed",report_id)
+            return r
+
+    def pdf(self,user,report_id):
+        r=self.report(user,report_id)
+        with self.lock:
+            row=self.db.execute("SELECT pdf,pdf_hash FROM reports WHERE id=?",(report_id,)).fetchone()
+            if row["pdf"]:
+                if hashlib.sha256(row["pdf"]).hexdigest()!=row["pdf_hash"]:
+                    raise Problem(500,"Integritätsprüfung fehlgeschlagen")
+                return bytes(row["pdf"])
+        return make_pdf(r)

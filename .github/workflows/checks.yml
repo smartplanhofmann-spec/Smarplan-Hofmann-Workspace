@@ -38,7 +38,7 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            command: flutter build windows --debug
+            command: flutter build windows --release
           - os: macos-latest
             command: flutter build ios --simulator --debug
     runs-on: ${{ matrix.os }}
@@ -53,3 +53,51 @@ jobs:
           channel: stable
       - run: flutter pub get --enforce-lockfile
       - run: ${{ matrix.command }}
+      - name: Prepare portable Windows package
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanBundle = (Resolve-Path 'build/windows/x64/runner/Release').Path
+          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll')) {
+            if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
+              throw "Required application file is missing: $smartplanFile"
+            }
+          }
+          $smartplanVswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+          $smartplanVsRoot = & $smartplanVswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          if ($LASTEXITCODE -ne 0 -or -not $smartplanVsRoot) { throw 'Visual C++ toolchain not found' }
+          $smartplanRedistRoot = Join-Path $smartplanVsRoot 'VC/Redist/MSVC'
+          $smartplanCrt = Get-ChildItem $smartplanRedistRoot -Directory |
+            Sort-Object { [version]$_.Name } -Descending |
+            ForEach-Object { Get-ChildItem (Join-Path $_.FullName 'x64/Microsoft.VC*.CRT') -Directory -ErrorAction SilentlyContinue } |
+            Select-Object -First 1
+          if (-not $smartplanCrt) { throw 'Redistributable x64 Visual C++ runtime not found' }
+          Copy-Item (Join-Path $smartplanCrt.FullName '*.dll') -Destination $smartplanBundle
+          foreach ($smartplanFile in @('msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')) {
+            if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
+              throw "Required runtime file is missing: $smartplanFile"
+            }
+          }
+          $smartplanReadme = @'
+          Smartplan Office 0.2 - Windows-Testpaket (x64)
+
+          1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
+          2. Den bereits eingerichteten Python-Server starten und sein Terminal offen lassen.
+          3. smartplan_office.exe doppelt anklicken.
+          4. Mit der selbst eingerichteten E-Mail-Adresse und dem eigenen Passwort anmelden.
+
+          Die App verwendet den lokalen Server unter http://127.0.0.1:8765.
+          Flutter, Visual Studio und C++-Buildwerkzeuge werden zum Start dieses Pakets nicht benoetigt.
+          Die benoetigten Visual-C++-Laufzeit-DLLs sind enthalten.
+          Das Paket ist eine Entwicklungsstufe, kein signierter Installer und kein produktiver Mehrbenutzerbetrieb.
+          OneDrive ist erst nach einer gesonderten Einrichtung nutzbar.
+          '@
+          Set-Content -Path (Join-Path $smartplanBundle 'START_HIER.txt') -Value $smartplanReadme -Encoding utf8
+      - name: Upload Windows package
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Office-Windows
+          path: app/build/windows/x64/runner/Release/
+          if-no-files-found: error
+          retention-days: 14

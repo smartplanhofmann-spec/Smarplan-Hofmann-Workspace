@@ -69,6 +69,37 @@ Den Initialisierungsschritt nur für eine neue Datenbank ausführen. Das Passwor
 
 ## Windows-App
 
+### Vorgebautes Windows-Paket
+
+Die GitHub-Prüfungen erstellen jetzt auch ein Windows-Releasepaket. Nach einem
+erfolgreichen Lauf im GitHub-Reiter **Actions** den entsprechenden Lauf von
+**Development checks** öffnen und unter **Artifacts** das Paket
+**Smartplan-Office-Windows** herunterladen. Ein angemeldetes GitHub-Konto kann
+für den Artifact-Download erforderlich sein; die Aufbewahrung beträgt 14 Tage.
+
+Das ZIP vollständig entpacken und alle DLLs sowie den `data`-Ordner zusammen
+lassen. Bei gestartetem lokalem Backend auf Port 8765 `smartplan_office.exe`
+doppelt anklicken und mit dem selbst angelegten Konto anmelden. Die enthaltenen
+Visual-C++-Laufzeit-DLLs ermöglichen den Start ohne Installation der
+C++-Buildwerkzeuge. Python und die Backend-Abhängigkeiten werden weiterhin für
+den lokalen Server benötigt. Es handelt sich um ein Testpaket ohne Installer
+oder Codesignatur; der tatsächliche Start, die Anmeldung und die PDF-Funktionen
+werden auf dem Windows-PC abgenommen.
+
+Für die bereits außerhalb von OneDrive eingerichtete Python-Umgebung den
+Server aus dem Quellordner mit `app` und `backend` starten:
+
+```powershell
+$env:OFFICE_DATA_DIR = "$env:LOCALAPPDATA\SmartplanOffice\data"
+& "$env:LOCALAPPDATA\SmartplanOffice\.venv\Scripts\python.exe" .\backend\server.py
+```
+
+Das Serverterminal bleibt während der App-Nutzung geöffnet. Die bestehende
+Datenbank und der bereits angelegte Zugang werden mit diesem Datenordner
+weiterverwendet.
+
+### Selbst bauen
+
 In einem zweiten PowerShell-Fenster im Repository:
 
 ```powershell
@@ -89,7 +120,10 @@ Auf macOS aus `app` zunächst `flutter pub get --enforce-lockfile`, `flutter ana
 flutter run -d <geraete-id> --dart-define=API_URL=https://<eigener-testserver>
 ```
 
-Dies sind native Abnahmeschritte; ihr Erfolg wurde in der Linux-Cloud nicht bestätigt. Keine TLS-Ausnahmen für entfernte HTTP-Server hinzufügen. Die vorhandenen Standard-App-Icons und die Bundle-ID sind Platzhalter für die Entwicklungsphase.
+Der Simulator-Build wurde in GitHub CI erfolgreich geprüft. Installation und
+Nutzung auf einem echten iPhone einschließlich Signierung bleiben offen. Keine
+TLS-Ausnahmen für entfernte HTTP-Server hinzufügen. Die vorhandenen
+Standard-App-Icons und die Bundle-ID sind Platzhalter für die Entwicklungsphase.
 
 ## Sicherung und Wiederherstellung
 
@@ -118,6 +152,15 @@ Die CI-Datei `.github/workflows/checks.yml` bereitet Backend-, Flutter-, Windows
 
 ## Noch offen
 
-Native Builds und Tests auf Windows/iPhone einschließlich PDF-Plugin, Signaturgesten und Speichern; produktive API, PostgreSQL, HTTPS und Mehrbenutzerbetrieb; echte OneDrive-Anmeldung; CRM/Angebote/Planung; Zeiten/Material/Offline; Buchhaltung/Banken; WhatsApp/Kalender/KI/MCP; Installer, Signierung und Veröffentlichung. Siehe `UMSETZUNGSPLAN.md`.
+Native Builds wurden im GitHub-Lauf `38548684395` für Windows (Debug) und den
+iOS-Simulator erfolgreich abgeschlossen. Auf dem Nutzer-PC bestanden inzwischen
+auch die 17 Backend-Tests sowie PDF-Erzeugung und Verschlüsselung. Das neue
+Windows-Releasepaket wird durch die ergänzte CI separat geprüft.
+
+Noch offen sind tatsächliche Windows-/iPhone-App-Läufe einschließlich
+PDF-Vorschau, Signaturgesten und Speichern; produktive API, PostgreSQL, HTTPS und
+Mehrbenutzerbetrieb; echte OneDrive-Anmeldung; CRM/Angebote/Planung;
+Zeiten/Material/Offline; Buchhaltung/Banken; WhatsApp/Kalender/KI/MCP; Installer,
+Signierung und Veröffentlichung. Siehe `UMSETZUNGSPLAN.md`.
 
 Die derzeitige Implementierung ist eine lokal testbare Entwicklungsstufe, keine fertige Gesamtsoftware und kein freigegebener produktiver Betrieb.

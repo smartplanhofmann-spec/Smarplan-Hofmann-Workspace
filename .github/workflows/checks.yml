@@ -57,6 +57,11 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          trap {
+            '### Windows package error' | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            $_.Exception.Message | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            throw
+          }
           $smartplanBundle = (Resolve-Path 'build/windows/x64/runner/Release').Path
           foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll')) {
             if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
@@ -93,6 +98,23 @@ jobs:
           OneDrive ist erst nach einer gesonderten Einrichtung nutzbar.
           '@
           Set-Content -Path (Join-Path $smartplanBundle 'START_HIER.txt') -Value $smartplanReadme -Encoding utf8
+      - name: Report Windows package diagnostics
+        if: failure() && runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          '### Windows bundle files' | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          if (Test-Path 'build/windows/x64/runner/Release') {
+            Get-ChildItem 'build/windows/x64/runner/Release' -Name | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
+          '### Visual C++ runtime directories' | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          $smartplanVswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+          $smartplanVsRoot = & $smartplanVswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          if ($smartplanVsRoot) {
+            Get-ChildItem (Join-Path $smartplanVsRoot 'VC/Redist/MSVC') -Directory -ErrorAction SilentlyContinue |
+              ForEach-Object { Get-ChildItem (Join-Path $_.FullName 'x64/Microsoft.VC*.CRT') -Directory -ErrorAction SilentlyContinue } |
+              ForEach-Object { $_.FullName; Get-ChildItem $_.FullName -Name } |
+              Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
       - name: Upload Windows package
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4

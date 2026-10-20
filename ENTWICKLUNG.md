@@ -5,7 +5,9 @@ Vorhandene Datenbanken werden additiv auf Schema 1 erweitert; der Starter erstel
 vorher eine Sicherung. Projekt-IDs, Konten und bestehende Berichte/PDFs bleiben
 erhalten. Siehe [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md). Die Backend-Suite umfasst
 32 Fälle (ein Windows-spezifischer Fall wird auf Linux übersprungen), die App-Suite
-23 Tests. Der Nutzer möchte zunächst keine laufenden Hostingkosten.
+23 Tests. Nach der lokalen Stufe hat der Nutzer Hetzner als Hosting-Anbieter
+gewählt. Konto, genauer Tarif und öffentliche Bereitstellung stehen noch aus;
+siehe [HETZNER_START.md](HETZNER_START.md).
 
 Version 0.3.0 gestaltet Anmeldung, Projektübersicht, Dokumente, Teamverwaltung,
 Projektzugriff und Ablage neu. Die Projektsuche, alphabetische Sortierung und

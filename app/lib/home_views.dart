@@ -368,7 +368,12 @@ class WorkspaceView extends StatefulWidget {
   final Map<String, dynamic>? storage;
   final bool busy;
   final String? error;
-  final VoidCallback onRefresh, onLogout, onNewProject, onConnectDrive, onUsers;
+  final VoidCallback onRefresh,
+      onLogout,
+      onNewProject,
+      onConnectDrive,
+      onUsers,
+      onCustomers;
   final void Function(Map<String, dynamic>) onProject;
   const WorkspaceView({
     super.key,
@@ -382,6 +387,7 @@ class WorkspaceView extends StatefulWidget {
     required this.onNewProject,
     required this.onConnectDrive,
     required this.onUsers,
+    required this.onCustomers,
     required this.onProject,
   });
   @override
@@ -450,6 +456,15 @@ class _WorkspaceViewState extends State<WorkspaceView> {
               },
             ),
             if (owner) ...[
+              const SizedBox(height: 5),
+              _NavItem(
+                icon: Icons.contacts_outlined,
+                label: 'Kunden',
+                onTap: () {
+                  if (drawer) Navigator.pop(context);
+                  widget.onCustomers();
+                },
+              ),
               const SizedBox(height: 5),
               _NavItem(
                 icon: Icons.people_outline_rounded,

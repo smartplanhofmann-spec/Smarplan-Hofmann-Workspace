@@ -12,6 +12,31 @@ import 'workflow_test.dart' show TestApi;
 class DesignApi extends TestApi {
   @override
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
+    if (path == '/api/customers' && body == null)
+      return [
+        {
+          'id': 'customer-1',
+          'name': 'Muster Gebäudetechnik',
+          'contact': 'Anna Muster',
+          'email': 'kontakt@example.test',
+          'phone': '+49 123 456789',
+          'address': 'Parkweg 7\n12345 Musterstadt',
+          'notes': 'Vor dem Besuch telefonisch einen Termin abstimmen.',
+          'active': 1,
+          'project_count': 2,
+        },
+        {
+          'id': 'customer-2',
+          'name': 'Planungsbüro Westend',
+          'contact': 'Max Beispiel',
+          'email': 'buero@example.test',
+          'phone': '+49 987 654321',
+          'address': 'Westendstraße 12\n54321 Beispielstadt',
+          'notes': '',
+          'active': 1,
+          'project_count': 1,
+        },
+      ];
     if (path == '/api/projects' && body == null) {
       return [
         {
@@ -168,6 +193,14 @@ void main() {
         tester.widget<TextField>(find.byType(TextField)).focusNode!.hasFocus,
         isTrue,
       );
+      if (const bool.fromEnvironment('DESIGN_PREVIEW')) {
+        await tester.tap(find.text('Kunden'));
+        await tester.pumpAndSettle();
+        await capture(tester, '10-kunden');
+        await tester.tap(find.text('Muster Gebäudetechnik'));
+        await tester.pumpAndSettle();
+        await capture(tester, '11-kundenkontakt');
+      }
       expect(tester.takeException(), isNull);
     },
   );

@@ -1,4 +1,7 @@
-# Smartplan Office 0.3.0
+# Smartplan Office – Oberfläche 0.4.0
+
+Die Designbasis aus Version 0.3.0 wird in 0.4.0 um
+[Kundenverwaltung und Kontaktformular](KUNDENVERWALTUNG.md) erweitert.
 
 Die neue Gestaltung orientiert sich an ruhigen Desktop-Oberflächen:
 helle neutrale Flächen, Graphit für Text, Blau für Aktionen, feine Trennlinien,

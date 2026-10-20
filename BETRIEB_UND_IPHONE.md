@@ -2,6 +2,13 @@
 
 Stand: 20. Oktober 2026. Vorbereitung, keine Buchung oder erfolgte Bereitstellung.
 
+**Aktuelle Entscheidung:** Der Nutzer wünscht zunächst keine laufenden Kosten.
+Hosting-Auswahl und kostenpflichtige Bereitstellung werden daher zurückgestellt.
+Die nächste umgesetzte Fachstufe ist die lokale Kundenverwaltung in Version 0.4.0;
+siehe [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md). Die folgenden Online-Lieferpakete
+bleiben die spätere Planung. Es wird weder ein kostenloser dauerhafter
+Cloud-Betrieb noch eine bereits nutzbare iPhone-Verbindung zugesagt.
+
 ## Ausgangslage und Ziel
 
 Die Windows-App, Starter, Sicherung und Wiederherstellung sind auf dem Nutzer-PC

@@ -1,4 +1,11 @@
-# Smartplan Office 0.3.0 – Entwicklung und Abnahme
+# Smartplan Office 0.4.0 – Entwicklung und Abnahme
+
+Version 0.4.0 ergänzt Kundenstammdaten und Projektzuordnung im lokalen Betrieb.
+Vorhandene Datenbanken werden additiv auf Schema 1 erweitert; der Starter erstellt
+vorher eine Sicherung. Projekt-IDs, Konten und bestehende Berichte/PDFs bleiben
+erhalten. Siehe [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md). Die Backend-Suite umfasst
+32 Fälle (ein Windows-spezifischer Fall wird auf Linux übersprungen), die App-Suite
+23 Tests. Der Nutzer möchte zunächst keine laufenden Hostingkosten.
 
 Version 0.3.0 gestaltet Anmeldung, Projektübersicht, Dokumente, Teamverwaltung,
 Projektzugriff und Ablage neu. Die Projektsuche, alphabetische Sortierung und
@@ -12,7 +19,7 @@ Ergänzung vom 20. Oktober 2026: [Start und Datensicherung unter Windows](WINDOW
 beschreibt den neuen gemeinsamen Start per `Starten.cmd`, automatische
 Sicherungen und Wiederherstellung ohne Überschreiben vorhandener Daten.
 Für den bereits eingerichteten Windows-PC ist dies der bevorzugte Startweg.
-Die Backend-Suite umfasst jetzt 24 Tests, davon einen ausschließlich für Windows.
+Das Start-/Sicherungsverfahren ist auch für die neue Kundendatenbank eingerichtet.
 
 Version 0.2.1 korrigiert die JSON-Übertragung der App: POST-Anfragen enthalten
 eine feste Content-Length anhand der tatsächlich gesendeten UTF-8-Bytes. Damit
@@ -192,7 +199,9 @@ Zugriff auf Projekte, unterschriebene Berichte und PDF bestätigt.
 
 Der maßgebliche erfolgreiche GUI-0.3.0-Build ist GitHub-Lauf `39416338557`
 (Windows-Artefakt `12261258366`). Die App-Suite umfasst 18 erfolgreiche Tests.
-Es gibt noch keinen Hosting-/Serverzugang für den gemeinsamen Gerätebetrieb.
+Die neue Kundenstufe benötigt noch eine kurze Abnahme auf dem Nutzer-PC.
+Es gibt noch keinen Hosting-/Serverzugang für den gemeinsamen Gerätebetrieb;
+dieser bleibt wegen des gewünschten lokalen Betriebs vorerst zurückgestellt.
 Siehe [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
 Noch offen sind tatsächliche iPhone-App-Läufe einschließlich

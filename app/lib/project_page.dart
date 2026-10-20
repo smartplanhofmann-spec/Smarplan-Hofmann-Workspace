@@ -4,6 +4,7 @@ import 'admin_pages.dart';
 import 'api.dart';
 import 'pdf_page.dart';
 import 'design.dart';
+import 'customer_pages.dart';
 
 String localDate(String value) {
   final date = DateTime.tryParse(value)?.toLocal();
@@ -34,12 +35,16 @@ class _ProjectPageState extends State<ProjectPage> {
   List<List<Offset>> strokes = [];
   bool checked = false, busy = false;
   String? message;
+  late String customerName;
+  String? customerId;
   bool get canWrite => ['owner', 'manager', 'technician'].contains(widget.role);
   bool get canSign => canWrite && report?['status'] == 'draft';
   bool get hasSignature => strokes.any((s) => s.length > 1);
   @override
   void initState() {
     super.initState();
+    customerName = widget.project['customer'];
+    customerId = widget.project['customer_id'];
     run(readReports);
   }
 
@@ -137,6 +142,36 @@ class _ProjectPageState extends State<ProjectPage> {
     (position.dx / width).clamp(0, 1).toDouble(),
     (position.dy / 160).clamp(0, 1).toDouble(),
   );
+  Future<void> changeCustomer() async {
+    if (busy) return;
+    List<Map<String, dynamic>> choices = [];
+    await run(() async {
+      final result = await widget.api.call('/api/customers');
+      choices = [
+        for (final c in result)
+          if (c['active'] == 1) Map<String, dynamic>.from(c),
+      ];
+    });
+    if (!mounted || message != null) return;
+    final selected = await showDialog<String>(
+      context: context,
+      builder: (_) =>
+          CustomerAssignmentDialog(customers: choices, customerId: customerId),
+    );
+    if (!mounted || selected == null) return;
+    await run(() async {
+      final updated = await widget.api.call(
+        '/api/projects/${widget.project['id']}/customer',
+        {'customer_id': selected},
+      );
+      if (mounted)
+        setState(() {
+          customerName = updated['customer'];
+          customerId = updated['customer_id'];
+        });
+    });
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -147,6 +182,12 @@ class _ProjectPageState extends State<ProjectPage> {
           onPressed: busy ? null : () => run(readReports),
           icon: const Icon(Icons.refresh_rounded, size: 21),
         ),
+        if (widget.role == 'owner')
+          IconButton(
+            tooltip: 'Kunden zuordnen',
+            onPressed: busy ? null : changeCustomer,
+            icon: const Icon(Icons.contacts_outlined, size: 21),
+          ),
         if (widget.role == 'owner')
           IconButton(
             tooltip: 'Projektzugriff verwalten',
@@ -183,7 +224,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 PageHeading(
                   eyebrow: 'Projekt',
                   title: widget.project['name'],
-                  subtitle: widget.project['customer'],
+                  subtitle: customerName,
                   action: canWrite
                       ? OutlinedButton.icon(
                           onPressed: busy ? null : newDraft,

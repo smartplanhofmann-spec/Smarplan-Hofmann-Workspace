@@ -101,6 +101,12 @@ def validate_database(path):
         tables = {row[0] for row in database.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         if not {"users", "sessions", "projects", "assignments", "reports", "audit", "secrets"} <= tables:
             raise SupportError("Die Datei ist keine vollständige Smartplan-Datenbank.")
+        version = database.execute("PRAGMA user_version").fetchone()[0]
+        if version > 1:
+            raise SupportError("Die Datenbank benötigt eine neuere Smartplan-Version.")
+        if version == 1 and ("customers" not in tables or "customer_id" not in {
+                row[1] for row in database.execute("PRAGMA table_info(projects)")}):
+            raise SupportError("Die Kundendatenbank ist unvollständig.")
         if not database.execute("SELECT 1 FROM users WHERE role='owner' AND active=1").fetchone():
             raise SupportError("In dieser Datenbank fehlt ein aktiver Zugang der Geschäftsführung.")
 

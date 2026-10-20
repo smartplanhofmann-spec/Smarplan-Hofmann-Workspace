@@ -11,7 +11,7 @@ import urllib.request
 
 from core import Office, Problem
 from windows_office import (InstallationLock, SupportError, create_backup, file_hash,
-                            launch, load_config, save_config, verified_restore)
+                            launch, load_config, save_config, verified_restore, validate_database)
 
 
 class WindowsOfficeTests(unittest.TestCase):
@@ -89,6 +89,17 @@ class WindowsOfficeTests(unittest.TestCase):
                 raise RuntimeError("simulated")
         with InstallationLock(self.root):
             pass
+
+    def test_future_or_incomplete_customer_database_is_not_started_or_backed_up(self):
+        path = Path(self.config["data_dir"]) / "office.sqlite3"
+        self.office.db.execute("PRAGMA user_version=2")
+        with self.assertRaisesRegex(SupportError, "neuere"):
+            create_backup(self.config["data_dir"], self.root / "USB")
+        self.assertFalse((self.root / "USB").exists())
+        self.office.db.execute("PRAGMA user_version=1")
+        self.office.db.execute("DROP TABLE customers")
+        with self.assertRaisesRegex(SupportError, "unvollständig"):
+            validate_database(path)
 
     def test_existing_listener_is_not_stopped_or_reused(self):
         with socket.socket() as listener:

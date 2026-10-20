@@ -7,6 +7,7 @@ import 'api.dart';
 import 'project_page.dart';
 import 'design.dart';
 import 'home_views.dart';
+import 'customer_pages.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -140,10 +141,20 @@ class _OfficeHomeState extends State<OfficeHome> {
         });
     }
   });
-  Future<void> newProject() async {
+  Future<void> newProject({String? customerId}) async {
+    if (busy) return;
+    List<Map<String, dynamic>> choices = [];
+    await run(() async {
+      final result = await api.call('/api/customers');
+      choices = [
+        for (final c in result)
+          if (c['active'] == 1) Map<String, dynamic>.from(c),
+      ];
+    });
+    if (!mounted || user == null || error != null) return;
     final values = await showDialog<Map<String, dynamic>>(
       context: context,
-      builder: (_) => const ProjectDialog(),
+      builder: (_) => ProjectDialog(customers: choices, customerId: customerId),
     );
     if (!mounted || values == null) return;
     await run(() async {
@@ -195,6 +206,19 @@ class _OfficeHomeState extends State<OfficeHome> {
       onRefresh: () => run(loadProjects),
       onLogout: logout,
       onNewProject: newProject,
+      onCustomers: () async {
+        await Navigator.push<void>(
+          context,
+          MaterialPageRoute(
+            builder: (_) => CustomersPage(
+              api: api,
+              onNewProject: (customer) =>
+                  newProject(customerId: customer['id']),
+            ),
+          ),
+        );
+        if (mounted && user != null) await run(loadProjects);
+      },
       onConnectDrive: connectDrive,
       onUsers: () => Navigator.push<void>(
         context,
@@ -202,19 +226,24 @@ class _OfficeHomeState extends State<OfficeHome> {
           builder: (_) => UsersPage(api: api, currentUserId: user!['id']),
         ),
       ),
-      onProject: (project) => Navigator.push<void>(
-        context,
-        MaterialPageRoute(
-          builder: (_) =>
-              ProjectPage(api: api, project: project, role: user!['role']),
-        ),
-      ),
+      onProject: (project) async {
+        await Navigator.push<void>(
+          context,
+          MaterialPageRoute(
+            builder: (_) =>
+                ProjectPage(api: api, project: project, role: user!['role']),
+          ),
+        );
+        if (mounted && user != null) await run(loadProjects);
+      },
     );
   }
 }
 
 class ProjectDialog extends StatefulWidget {
-  const ProjectDialog({super.key});
+  final List<Map<String, dynamic>> customers;
+  final String? customerId;
+  const ProjectDialog({super.key, this.customers = const [], this.customerId});
   @override
   State<ProjectDialog> createState() => _ProjectDialogState();
 }
@@ -222,6 +251,15 @@ class ProjectDialog extends StatefulWidget {
 class _ProjectDialogState extends State<ProjectDialog> {
   final form = GlobalKey<FormState>();
   final name = TextEditingController(), customer = TextEditingController();
+  late String selectedCustomer;
+  @override
+  void initState() {
+    super.initState();
+    selectedCustomer = widget.customers.any((c) => c['id'] == widget.customerId)
+        ? widget.customerId!
+        : '';
+  }
+
   @override
   void dispose() {
     name.dispose();
@@ -249,12 +287,39 @@ class _ProjectDialogState extends State<ProjectDialog> {
                 decoration: const InputDecoration(labelText: 'Projektname'),
               ),
               const SizedBox(height: 12),
-              TextFormField(
-                controller: customer,
-                maxLength: 500,
-                validator: requiredText,
-                decoration: const InputDecoration(labelText: 'Kunde'),
-              ),
+              if (widget.customers.isNotEmpty) ...[
+                DropdownButtonFormField<String>(
+                  initialValue: selectedCustomer,
+                  isExpanded: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Kunde auswählen',
+                  ),
+                  items: [
+                    const DropdownMenuItem(
+                      value: '',
+                      child: Text('Neuen Kunden anlegen'),
+                    ),
+                    for (final c in widget.customers)
+                      DropdownMenuItem(
+                        value: c['id'] as String,
+                        child: Text(
+                          customerChoiceLabel(c),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                  ],
+                  onChanged: (v) => setState(() => selectedCustomer = v!),
+                ),
+                const SizedBox(height: 16),
+              ],
+              if (selectedCustomer.isEmpty)
+                TextFormField(
+                  controller: customer,
+                  maxLength: 500,
+                  validator: requiredText,
+                  decoration: const InputDecoration(labelText: 'Kunde'),
+                ),
             ],
           ),
         ),
@@ -270,7 +335,10 @@ class _ProjectDialogState extends State<ProjectDialog> {
           if (form.currentState!.validate())
             Navigator.pop(context, <String, dynamic>{
               'name': name.text.trim(),
-              'customer': customer.text.trim(),
+              if (selectedCustomer.isEmpty)
+                'customer': customer.text.trim()
+              else
+                'customer_id': selectedCustomer,
             });
         },
         child: const Text('Anlegen'),

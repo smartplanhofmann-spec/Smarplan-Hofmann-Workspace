@@ -38,10 +38,15 @@ def make_handler(office,drive,launch_id=""):
                     "/health": "GET", "/api/login": "POST", "/oauth/callback": "GET",
                     "/api/me": "GET", "/api/logout": "POST", "/api/users": "GET, POST",
                     "/api/assignments": "POST", "/api/projects": "GET, POST",
+                    "/api/customers": "GET, POST",
                     "/api/storage/status": "GET", "/api/storage/connect": "POST",
                 }
                 self.allowed_methods = methods.get(path, "")
                 if re.fullmatch(r"/api/users/[a-f0-9]{32}", path):
+                    self.allowed_methods = "POST"
+                if re.fullmatch(r"/api/customers/[a-f0-9]{32}", path):
+                    self.allowed_methods = "GET, POST"
+                if re.fullmatch(r"/api/projects/[a-f0-9]{32}/customer", path):
                     self.allowed_methods = "POST"
                 if re.fullmatch(r"/api/projects/[a-f0-9]{32}/reports", path):
                     self.allowed_methods = "GET, POST"
@@ -87,6 +92,19 @@ def make_handler(office,drive,launch_id=""):
                         return self.send(200,office.users(user))
                     uid=office.create_user(user,data.get("email"),data.get("password"),data.get("role","technician"))
                     return self.send(201,{"id":uid})
+                if path=="/api/customers":
+                    if self.command=="GET":
+                        return self.send(200,office.customers(user))
+                    return self.send(201,office.create_customer(user,data))
+                match=re.fullmatch(r"/api/customers/([a-f0-9]{32})",path)
+                if match:
+                    return self.send(200,office.customer(user,match[1]) if self.command=="GET"
+                                     else office.update_customer(user,match[1],data))
+                match=re.fullmatch(r"/api/projects/([a-f0-9]{32})/customer",path)
+                if match:
+                    if set(data) != {"customer_id"}:
+                        raise Problem(400,"Kundenzuordnung erwartet")
+                    return self.send(200,office.project_customer(user,match[1],data["customer_id"]))
                 match=re.fullmatch(r"/api/users/([a-f0-9]{32})",path)
                 if match:
                     return self.send(200,office.update_user(user,match[1],data))
@@ -99,7 +117,7 @@ def make_handler(office,drive,launch_id=""):
                 if path=="/api/projects":
                     if self.command=="GET":
                         return self.send(200,office.projects(user))
-                    return self.send(201,{"id":office.add_project(user,data.get("name"),data.get("customer"))})
+                    return self.send(201,{"id":office.add_project(user,data.get("name"),data.get("customer"),data.get("customer_id"))})
                 match=re.fullmatch(r"/api/projects/([a-f0-9]{32})/reports",path)
                 if match:
                     if self.command=="GET":

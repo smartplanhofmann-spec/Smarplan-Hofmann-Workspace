@@ -30,6 +30,12 @@ Hosting oder einen eigenen Server; dies hat der Nutzer ausdrücklich angegeben.
 Die nächste Stufe und ihre Voraussetzungen stehen in
 [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
+**Reihenfolge nach Budgetentscheidung:** Zunächst keine laufenden Kosten.
+Der gemeinsame Onlinebetrieb wird zurückgestellt; die lokale Entwicklung geht
+mit Kundenstammdaten und Projektzuordnung aus Etappe 3 weiter. Version 0.4.0
+enthält die dafür erste Kundenstufe, noch keine vollständige CRM-/Angebotslösung.
+Details und ausstehende Nutzerabnahme: [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md).
+
 ## Zielbild und Rahmen
 
 Smartplan Office wird die gemeinsame Arbeitsoberfläche für Büro und Baustelle: Windows im Büro, iPhone unterwegs. Kunden, Projekte, Aufgaben, Zeiten, Materialien und Dokumente bilden eine zusammenhängende Datenbasis. Funktionen und Datenzugriff hängen von Rolle, Projektzuordnung und später Einzelrechten ab.
@@ -163,7 +169,9 @@ Eine seriöse Termin- und Kostenzusage ist mit dem vorhandenen Prototyp und unge
 
 Nach Etappe 0 und der Integrationsprüfung wird jede Etappe in kleine Arbeitspakete mit Aufwand, Abhängigkeiten und Verantwortlichen zerlegt. Pro Paket: konkrete Änderung, automatisierte Tests soweit sinnvoll, relevanter Geräte-/Integrationstest und nachvollziehbares Ergebnis. Fehlende Zugänge werden früh gemeldet; unabhängige Arbeiten gehen weiter. Keine Funktion wird durch Demo-Daten als live fertig ausgewiesen.
 
-Als Nächstes folgt die Vorbereitung von Etappe 2. Die dafür noch benötigten
+Etappe 2 bleibt bis zur Entscheidung für gemeinsamen Betrieb zurückgestellt.
+Vorgezogen wird zunächst die lokale Kundenverwaltung aus Etappe 3. Die für
+den späteren gemeinsamen Betrieb noch benötigten
 Entscheidungen zu Hosting und Apple-Verteilung werden gezielt eingeholt;
 unabhängige Entwicklung kann währenddessen fortgesetzt werden. Eine produktive
 Freigabe und die Abnahme der übrigen Fachmodule stehen weiterhin aus.

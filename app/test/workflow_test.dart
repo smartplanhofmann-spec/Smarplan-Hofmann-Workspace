@@ -271,6 +271,7 @@ void main() {
     expect(find.text('Baustelle'), findsOneWidget);
     expect(find.text('Benutzerverwaltung'), findsNothing);
     expect(find.text('Projekt anlegen'), findsNothing);
+    expect(find.text('Kunden'), findsNothing);
     expect(find.text('OneDrive Family verbinden'), findsNothing);
     expect(api.calls.where((c) => c.path == '/api/storage/status'), isEmpty);
   });

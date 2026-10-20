@@ -1,4 +1,10 @@
-# Smartplan Office - Entwicklungsstand 0.3.0
+# Smartplan Office - Entwicklungsstand 0.4.0
+
+Version 0.4.0 ergänzt eine lokale Kundenverwaltung: Kontaktdaten, Ansprechpartner,
+Adressen und Notizen, Suche, Archivierung sowie die Zuordnung zu Projekten.
+Bestehende Projektkunden werden übernommen; unterschriebene Berichte und PDF-Dateien
+behalten ihren ursprünglichen Inhalt. Siehe [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md).
+Die Entwicklung erfolgt auf Wunsch zunächst ohne laufende Hostingkosten lokal.
 
 Der aktuelle Stand ergänzt Benutzerverwaltung, Projektzugriff, Berichtslisten,
 PDF-Vorschau/-Speicherung und Sicherung/Wiederherstellung. Windows- und iOS-Gerüste

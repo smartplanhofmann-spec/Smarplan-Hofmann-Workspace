@@ -75,9 +75,16 @@ void main() {
           owner.token = login['token'];
           expect((await owner.call('/api/me'))['role'], 'owner');
           expect(await owner.call('/api/projects'), isEmpty);
+          final customer = await owner.call('/api/customers', {
+            'name': 'Müller & Söhne',
+            'contact': 'Jürgen Müller',
+            'email': 'kunde@example.test',
+            'address': 'Südstraße 7\n12345 Musterstadt',
+            'notes': 'Termin vorher abstimmen.',
+          });
           final project = await owner.call('/api/projects', {
             'name': 'Projekt Büro',
-            'customer': 'Müller & Söhne',
+            'customer_id': customer['id'],
           });
           final user = await owner.call('/api/users', {
             'email': 'tech@example.test',
@@ -121,6 +128,24 @@ void main() {
           expect(signed['status'], 'signed');
           final pdf = await technician.pdf(report['id']);
           expect(ascii.decode(pdf.sublist(0, 4)), '%PDF');
+          expect(await owner.pdf(report['id']), pdf);
+          await expectLater(
+            technician.call('/api/customers'),
+            throwsA(isA<ApiException>().having((e) => e.status, 'status', 403)),
+          );
+          await owner.call('/api/customers/${customer['id']}', {
+            'name': 'Müller Gebäudetechnik',
+          });
+          expect(
+            (await owner.call('/api/projects') as List).single['customer'],
+            'Müller Gebäudetechnik',
+          );
+          expect(
+            (await owner.call(
+              '/api/reports/${report['id']}',
+            ))['content']['customer'],
+            'Müller & Söhne',
+          );
           expect(await owner.pdf(report['id']), pdf);
           await owner.call('/api/assignments', {
             'user_id': user['id'],

@@ -1,4 +1,4 @@
-Smartplan Office - Start und Sicherung, Version 1.0
+Smartplan Office - Start und Sicherung, Version 1.1
 
 Einmal vorbereiten
 1. Das gesamte ZIP entpacken. Alle Dateien und den backend-Ordner zusammen lassen.
@@ -23,6 +23,11 @@ Deine vorhandenen Daten
 Standardmaessig: %LOCALAPPDATA%\SmartplanOffice\data\office.sqlite3
 Die Konfiguration liegt in %LOCALAPPDATA%\SmartplanOffice\start-config.json.
 Es wird keine neue leere Datenbank und kein Standardkonto angelegt.
+Ab App 0.4.0 wird die vorhandene Datenbank beim ersten Serverstart um die
+Kundenverwaltung erweitert. Die Sicherung vor dem Start liegt davor und enthaelt
+den bisherigen Stand. Vorhandene Projektkunden erscheinen danach in der Kundenliste.
+Fuer Updates das vollstaendige neue Windows-App-Paket verwenden und dessen
+Starten.cmd oeffnen. Der kleine Starter-ZIP allein ersetzt die Oberflaeche nicht.
 Der Flutter-Unterordner data im App-Paket enthaelt Oberflaechenressourcen,
 nicht deine Geschaeftsdaten. Bitte diesen Ordner ebenfalls zusammen lassen.
 

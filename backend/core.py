@@ -10,6 +10,7 @@ import sqlite3
 import threading
 import time
 import uuid
+import unicodedata
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -101,6 +102,35 @@ def now_iso():
     return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
 
 
+CUSTOMER_FIELDS = ("name", "contact", "email", "phone", "address", "notes", "active")
+
+
+def customer_values(changes, previous=None):
+    if not isinstance(changes, dict) or not changes or set(changes) - set(CUSTOMER_FIELDS):
+        raise Problem(400, "Ungültige Kundenangaben")
+    value = {"name": "", "contact": "", "email": "", "phone": "", "address": "", "notes": "", "active": True}
+    if previous:
+        value.update({key: previous[key] for key in CUSTOMER_FIELDS})
+        value["active"] = bool(value["active"])
+    value.update(changes)
+    value["name"] = text_field(value["name"], "Kundenname")
+    for field, maximum in (("contact", 200), ("email", 254), ("phone", 100), ("address", 2000), ("notes", 5000)):
+        if not isinstance(value[field], str) or len(value[field]) > maximum:
+            raise Problem(400, "Ungültiges Kundenfeld: " + field)
+        value[field] = value[field].strip()
+    if value["email"] and not re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", value["email"]):
+        raise Problem(400, "Gültige E-Mail-Adresse eingeben")
+    if type(value["active"]) is not bool:
+        raise Problem(400, "Aktiv muss ein Wahrheitswert sein")
+    return value
+
+
+def customer_key(name, address=""):
+    def normalize(text):
+        return " ".join(unicodedata.normalize("NFKC", text).casefold().split())
+    return digest(canonical([normalize(name), normalize(address)]))
+
+
 class Office:
     def __init__(self, path):
         self.lock = threading.RLock()
@@ -120,7 +150,103 @@ class Office:
         CREATE TABLE IF NOT EXISTS secrets(name TEXT PRIMARY KEY,value TEXT);
         """)
         self.db.commit()
+        try:
+            self.migrate_customers()
+        except Exception:
+            self.db.close()
+            raise
         self.failed_logins = {}
+
+    def migrate_customers(self):
+        version = self.db.execute("PRAGMA user_version").fetchone()[0]
+        if version > 1:
+            raise RuntimeError("Diese Datenbank benötigt eine neuere Smartplan-Version")
+        if version == 1:
+            return
+        # A single additive transaction; no existing payload, PDF or account is rewritten.
+        with self.db:
+            self.db.execute("BEGIN IMMEDIATE")
+            if self.db.execute("PRAGMA user_version").fetchone()[0] == 1:
+                return
+            self.db.execute("""CREATE TABLE customers(
+                id TEXT PRIMARY KEY, name TEXT NOT NULL, contact TEXT NOT NULL,
+                email TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL,
+                notes TEXT NOT NULL, active INTEGER NOT NULL CHECK(active IN (0,1)),
+                dedupe_key TEXT NOT NULL UNIQUE, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)""")
+            self.db.execute("ALTER TABLE projects ADD COLUMN customer_id TEXT REFERENCES customers(id)")
+            self.db.execute("CREATE INDEX projects_customer ON projects(customer_id)")
+            for project in self.db.execute("SELECT id,customer FROM projects ORDER BY rowid").fetchall():
+                value = customer_values({"name": project["customer"]})
+                key = customer_key(value["name"])
+                row = self.db.execute("SELECT id FROM customers WHERE dedupe_key=?", (key,)).fetchone()
+                customer_id = row["id"] if row else self.insert_customer(value)
+                self.db.execute("UPDATE projects SET customer_id=? WHERE id=?", (customer_id, project["id"]))
+            self.db.execute("PRAGMA user_version=1")
+
+    def insert_customer(self, value):
+        customer_id, timestamp = uuid.uuid4().hex, now_iso()
+        try:
+            self.db.execute("INSERT INTO customers VALUES(?,?,?,?,?,?,?,?,?,?,?)", (
+                customer_id, value["name"], value["contact"], value["email"], value["phone"],
+                value["address"], value["notes"], int(value["active"]),
+                customer_key(value["name"], value["address"]), timestamp, timestamp))
+        except sqlite3.IntegrityError:
+            raise Problem(409, "Kunde mit diesem Namen und dieser Adresse existiert bereits; auch archivierte Kunden prüfen")
+        return customer_id
+
+    def customer(self, actor, customer_id):
+        self.require(actor, ("owner",))
+        with self.lock:
+            row = self.db.execute("SELECT id,name,contact,email,phone,address,notes,active,created_at,updated_at "
+                                  "FROM customers WHERE id=?", (customer_id,)).fetchone()
+            if not row:
+                raise Problem(404, "Kunde nicht verfügbar")
+            return dict(row)
+
+    def customers(self, actor):
+        self.require(actor, ("owner",))
+        with self.lock:
+            return [dict(row) for row in self.db.execute(
+                "SELECT c.id,c.name,c.contact,c.email,c.phone,c.address,c.notes,c.active,c.created_at,c.updated_at,"
+                "(SELECT COUNT(*) FROM projects p WHERE p.customer_id=c.id) AS project_count "
+                "FROM customers c ORDER BY c.name COLLATE NOCASE,c.id")]
+
+    def create_customer(self, actor, changes):
+        self.require(actor, ("owner",))
+        value = customer_values(changes)
+        with self.lock, self.db:
+            customer_id = self.insert_customer(value)
+            self.audit(actor, "customer.created", customer_id)
+            return self.customer(actor, customer_id)
+
+    def update_customer(self, actor, customer_id, changes):
+        self.require(actor, ("owner",))
+        with self.lock, self.db:
+            value = customer_values(changes, self.customer(actor, customer_id))
+            try:
+                self.db.execute("UPDATE customers SET name=?,contact=?,email=?,phone=?,address=?,notes=?,active=?,"
+                                "dedupe_key=?,updated_at=? WHERE id=?", (
+                    value["name"], value["contact"], value["email"], value["phone"], value["address"], value["notes"],
+                    int(value["active"]), customer_key(value["name"], value["address"]), now_iso(), customer_id))
+            except sqlite3.IntegrityError:
+                raise Problem(409, "Kunde mit diesem Namen und dieser Adresse existiert bereits")
+            # Reports contain independent, immutable snapshots of their original customer name.
+            self.db.execute("UPDATE projects SET customer=? WHERE customer_id=?", (value["name"], customer_id))
+            self.audit(actor, "customer.updated", customer_id)
+            return self.customer(actor, customer_id)
+
+    def project_customer(self, actor, project_id, customer_id):
+        self.require(actor, ("owner",))
+        customer_id = text_field(customer_id, "Kunde", 32)
+        with self.lock, self.db:
+            self.project(actor, project_id)
+            customer = self.customer(actor, customer_id)
+            if not customer["active"]:
+                raise Problem(409, "Kunde ist archiviert; zuerst reaktivieren")
+            self.db.execute("UPDATE projects SET customer_id=?,customer=? WHERE id=?",
+                            (customer_id, customer["name"], project_id))
+            self.audit(actor, "project.customer_changed", project_id)
+            return self.project(actor, project_id)
 
     def audit(self, user, action, object_id):
         self.db.execute("INSERT INTO audit(user_id,action,object_id,at) VALUES(?,?,?,?)",
@@ -257,11 +383,26 @@ class Office:
             return [dict(r) for r in self.db.execute("SELECT p.* FROM projects p JOIN assignments a "
                     "ON p.id=a.project_id WHERE a.user_id=? ORDER BY name",(user["id"],))]
 
-    def add_project(self, user, name, customer):
+    def add_project(self, user, name, customer=None, customer_id=None):
         self.require(user,("owner",))
+        name = text_field(name,"Projekt")
         project_id = uuid.uuid4().hex
         with self.lock, self.db:
-            self.db.execute("INSERT INTO projects VALUES(?,?,?)",(project_id,text_field(name,"Projekt"),text_field(customer,"Kunde")))
+            if customer_id is not None:
+                record = self.customer(user, text_field(customer_id, "Kunde", 32))
+                if not record["active"]:
+                    raise Problem(409, "Kunde ist archiviert; zuerst reaktivieren")
+            else:
+                value = customer_values({"name": customer})
+                row = self.db.execute("SELECT id FROM customers WHERE dedupe_key=?", (customer_key(value["name"]),)).fetchone()
+                customer_id = row["id"] if row else self.insert_customer(value)
+                if not row:
+                    self.audit(user, "customer.created", customer_id)
+                record = self.customer(user, customer_id)
+                if not record["active"]:
+                    raise Problem(409, "Kunde ist archiviert; zuerst reaktivieren")
+            self.db.execute("INSERT INTO projects(id,name,customer,customer_id) VALUES(?,?,?,?)",
+                            (project_id,name,record["name"],customer_id))
             self.audit(user,"project.created",project_id)
         return project_id
 

@@ -1,6 +1,7 @@
 # Windows: Start und Datensicherung
 
-Stand: 20. Oktober 2026. Zusatzpaket 1.0 zur bereits getesteten App 0.2.1.
+Stand: 20. Oktober 2026. Starter 1.1, einschließlich der Datenprüfung für
+App 0.4.0. Das vollständige Windows-Paket enthält den aktuellen Starter.
 
 ## Einrichten
 
@@ -81,13 +82,14 @@ Die drei CMD-Dateien unter `windows/` verwenden die eingerichtete Python-Umgebun
 festen Liste von Quellen. Benutzerdateien, Konten und Datenbanken werden nie
 eingepackt. Das vollständige Windows-CI-Paket enthält dieselben Dateien.
 
-Die Backend-Suite umfasst jetzt 24 Tests, davon sieben für beschädigte/fehlende
+Die Backend-Suite umfasst jetzt 32 Tests. Die Start-/Sicherungstests prüfen beschädigte/fehlende
 Prüfsummen, wiederholte Sicherung, fehlende Datenbank, doppelte Starter,
 belegte Ports, echten Serverstart und -stopp bei App-Fehler sowie Erhalt von
 Projekten und identischen signierten PDF-Bytes nach Wiederherstellung.
 Der Lebenszyklustest verwendet einen echten Python-Server und einen simulierten
 App-Aufruf. Ein Test prüft zusätzlich auf Windows das zwangsweise Beenden des
-Starters und das automatische Ende seines versteckten Servers; auf Linux wird
+Starters und das automatische Ende seines versteckten Servers sowie abgewiesene
+unvollständige oder zu neue Datenbankschemata; auf Linux wird
 nur dieser Test übersprungen. Die CMD-Dateidialoge und der gemeinsame Start mit der tatsächlichen
 Flutter-EXE müssen zusätzlich auf dem Nutzer-PC abgenommen werden.
 

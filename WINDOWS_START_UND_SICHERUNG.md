@@ -23,7 +23,9 @@ Danach immer **Starten.cmd** verwenden. Es startet den Server ausschließlich
 auf `127.0.0.1:8765`, wartet auf dessen Gesundheitsantwort mit einer Kennung
 dieses Starts und öffnet die App. Das Startfenster bleibt während der Nutzung
 geöffnet. Beim Schließen der App beendet der Starter ausschließlich seinen
-eigenen Server. Keine Administratorrechte oder PowerShell-Ausführungsrichtlinien
+eigenen Server. Ein Windows-Jobobjekt beendet diesen Server auch dann, wenn
+das Startfenster zwangsweise geschlossen wird; dabei gibt es keine abschließende
+Sicherung. Keine Administratorrechte oder PowerShell-Ausführungsrichtlinien
 müssen geändert werden. Für einen Desktop-Zugang im Explorer eine Verknüpfung
 zu `Starten.cmd` anlegen; alle Dateien im entpackten Paket zusammen lassen.
 
@@ -79,12 +81,14 @@ Die drei CMD-Dateien unter `windows/` verwenden die eingerichtete Python-Umgebun
 festen Liste von Quellen. Benutzerdateien, Konten und Datenbanken werden nie
 eingepackt. Das vollständige Windows-CI-Paket enthält dieselben Dateien.
 
-Die Backend-Suite umfasst jetzt 23 Tests, davon sechs für beschädigte/fehlende
+Die Backend-Suite umfasst jetzt 24 Tests, davon sieben für beschädigte/fehlende
 Prüfsummen, wiederholte Sicherung, fehlende Datenbank, doppelte Starter,
 belegte Ports, echten Serverstart und -stopp bei App-Fehler sowie Erhalt von
 Projekten und identischen signierten PDF-Bytes nach Wiederherstellung.
 Der Lebenszyklustest verwendet einen echten Python-Server und einen simulierten
-App-Aufruf. Die CMD-Dateidialoge und der gemeinsame Start mit der tatsächlichen
+App-Aufruf. Ein Test prüft zusätzlich auf Windows das zwangsweise Beenden des
+Starters und das automatische Ende seines versteckten Servers; auf Linux wird
+nur dieser Test übersprungen. Die CMD-Dateidialoge und der gemeinsame Start mit der tatsächlichen
 Flutter-EXE müssen zusätzlich auf dem Nutzer-PC abgenommen werden.
 
 Der Nutzer bestätigte zuvor unter Windows Anmeldung, Projekte,

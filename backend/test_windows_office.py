@@ -1,8 +1,12 @@
 import json
+import os
 from pathlib import Path
 import socket
+import subprocess
+import sys
 import tempfile
 import unittest
+import time
 import urllib.request
 
 from core import Office, Problem
@@ -128,6 +132,48 @@ class WindowsOfficeTests(unittest.TestCase):
         with socket.socket() as connection:
             connection.settimeout(1)
             self.assertNotEqual(connection.connect_ex(("127.0.0.1", port)), 0)
+
+    @unittest.skipUnless(os.name == "nt", "Windows job-object cleanup; exercised by Windows CI")
+    def test_force_closed_launcher_does_not_leave_hidden_server(self):
+        port = self.unused_port()
+        ready = self.root / "app-ready.txt"
+        code = """
+import sys, time
+from pathlib import Path
+from windows_office import InstallationLock, launch, load_config
+root, ready, port = Path(sys.argv[1]), Path(sys.argv[2]), int(sys.argv[3])
+def app(port):
+    ready.write_text('ready')
+    time.sleep(60)
+with InstallationLock(root):
+    launch(root, load_config(root), Path(__file__) if '__file__' in globals() else Path('server.py'), port=port, run_app=app)
+"""
+        process = subprocess.Popen([sys.executable, "-c", code, str(self.root), str(ready), str(port)],
+                                   cwd=Path(__file__).parent, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        try:
+            deadline = time.monotonic() + 20
+            while not ready.exists():
+                if process.poll() is not None:
+                    self.fail(process.stderr.read().decode(errors="replace"))
+                self.assertLess(time.monotonic(), deadline, "launcher never reached app")
+                time.sleep(0.1)
+            process.kill()  # Like closing the console: no Python finally/atexit runs.
+            process.wait(timeout=5)
+            deadline = time.monotonic() + 5
+            while True:
+                with socket.socket() as connection:
+                    connection.settimeout(0.2)
+                    if connection.connect_ex(("127.0.0.1", port)) != 0:
+                        break
+                self.assertLess(time.monotonic(), deadline, "hidden server survived launcher termination")
+                time.sleep(0.1)
+            with InstallationLock(self.root):
+                pass
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.wait(timeout=5)
+            process.stderr.close()
 
 
 if __name__ == "__main__":

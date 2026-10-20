@@ -13,6 +13,8 @@ Einmal vorbereiten
 Spaeter starten
 Immer Starten.cmd oeffnen. Es startet den lokalen Server und die App gemeinsam.
 Beim Schliessen der App wird der von diesem Starter gestartete Server beendet.
+Wird das Startfenster zwangsweise geschlossen, beendet Windows auch den Server;
+dabei entfaellt die Sicherung nach dem Schliessen.
 Eine Desktop-Verknuepfung zu Starten.cmd kann im Explorer angelegt werden.
 Die vorher eingerichtete Python-3.12-Umgebung wird weiterverwendet; es gibt
 keine neue Installation und keinen Download von Abhaengigkeiten.

@@ -4,7 +4,7 @@ Ergänzung vom 20. Oktober 2026: [Start und Datensicherung unter Windows](WINDOW
 beschreibt den neuen gemeinsamen Start per `Starten.cmd`, automatische
 Sicherungen und Wiederherstellung ohne Überschreiben vorhandener Daten.
 Für den bereits eingerichteten Windows-PC ist dies der bevorzugte Startweg.
-Die Backend-Suite umfasst jetzt 23 Tests.
+Die Backend-Suite umfasst jetzt 24 Tests, davon einen ausschließlich für Windows.
 
 Version 0.2.1 korrigiert die JSON-Übertragung der App: POST-Anfragen enthalten
 eine feste Content-Length anhand der tatsächlich gesendeten UTF-8-Bytes. Damit

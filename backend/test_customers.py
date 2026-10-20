@@ -114,13 +114,17 @@ class CustomerApiTests(unittest.TestCase):
         root = Path(self.temp.name)
         saved = backup(root / "office.sqlite3", root / "backup.sqlite3")
         restored = Office(restore(saved, root / "restored.sqlite3"))
-        self.addCleanup(restored.db.close)
-        with self.assertRaises(Problem):
-            restored.user(self.owner)
-        actor = restored.user(restored.login("owner@example.test", "Owner-password-123"))
-        self.assertEqual(restored.customer(actor, customer["id"])["notes"], "Gesicherte Notiz")
-        self.assertEqual(restored.projects(actor)[0]["customer_id"], customer["id"])
-        self.assertEqual(restored.pdf(actor, report["id"]), expected_pdf)
+        try:
+            with self.assertRaises(Problem):
+                restored.user(self.owner)
+            actor = restored.user(restored.login("owner@example.test", "Owner-password-123"))
+            self.assertEqual(restored.customer(actor, customer["id"])["notes"], "Gesicherte Notiz")
+            self.assertEqual(restored.projects(actor)[0]["customer_id"], customer["id"])
+            self.assertEqual(restored.pdf(actor, report["id"]), expected_pdf)
+        finally:
+            # tearDown removes this directory before unittest runs addCleanup.
+            # Windows requires the database handle closed before that removal.
+            restored.db.close()
 
 
 class CustomerMigrationTests(unittest.TestCase):

@@ -69,7 +69,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          & ../backend/.venv/Scripts/python.exe -m unittest discover -s ../backend -v
+          & ../backend/.venv/Scripts/python.exe ../scripts/test-backend-ci.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - uses: subosito/flutter-action@v2
         with:

@@ -1,6 +1,34 @@
 # Smartplan Office – konkreter Umsetzungsplan
 
-Stand: 14. Oktober 2026. Dieser Plan beschreibt die Umsetzung; er ist keine Aussage, dass die Funktionen bereits fertig sind. Auftrag dieser Etappe: den gesamten Funktionsumfang planen. Keine Kontoanbindung, Veröffentlichung oder Bestellung wird durch diesen Plan ausgelöst.
+Aktualisiert: 20. Oktober 2026. Die ursprüngliche Planung vom 14. Oktober bleibt
+als Rahmen erhalten; der aktuelle Abnahmestand steht unmittelbar darunter.
+Kontoverbindungen, Hosting-Buchungen und Apple-Mitgliedschaften erfordern jeweils
+einen konkreten Auftrag. Die laufende Entwicklung im freigegebenen GitHub-Branch
+ist bereits beauftragt.
+
+## Aktueller Abnahmestand
+
+Die lokale Windows-Stufe mit GUI 0.3.0 wurde vom Nutzer bestätigt: Anmeldung,
+Projektanlage, Servicebericht, Unterschrift, PDF-Ausgabe, Benutzerverwaltung,
+Technikerzuweisung und Entzug des Projektzugriffs. Auch die neue Oberfläche,
+der gemeinsame Start per `Starten.cmd`, die manuelle Sicherung und die
+Wiederherstellung einschließlich erneutem Öffnen der vorhandenen Daten/PDFs
+wurden im Gespräch erfolgreich zurückgemeldet. Die neuen Prüfabläufe müssen
+nicht erneut von Anfang an durchlaufen werden.
+
+Die technische Grundlage ist vorhanden: Backend mit 24 Testfällen (unter Linux
+wird der eine Windows-spezifische Fall übersprungen), 18 erfolgreiche App-Tests
+einschließlich echtem Python-Backend sowie erfolgreiche Windows-Release- und
+iOS-Simulator-Builds im GitHub-Lauf `39416338557`. Für die Rolle Buchhaltung,
+Sitzungssperren und unveränderliche Signaturdaten liegen automatisierte
+Prüfungen vor; eine gesonderte manuelle Buchhaltungs-Abnahme wurde nicht behauptet.
+
+Die Stufen 0 und der lokale Windows-Teil von Stufe 1 sind damit geprüft.
+Der gemeinsame Windows-/iPhone-Betrieb, eine echte iPhone-Installation, reale
+OneDrive-Anmeldung und die übrigen Fachmodule bleiben offen. Es gibt noch kein
+Hosting oder einen eigenen Server; dies hat der Nutzer ausdrücklich angegeben.
+Die nächste Stufe und ihre Voraussetzungen stehen in
+[BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
 ## Zielbild und Rahmen
 
@@ -10,7 +38,7 @@ Festgehaltene Vorgaben aus dem gelieferten Projekt: Windows und iPhone zuerst; O
 
 Die vollständige Software entsteht in abnehmbaren Etappen. Der erste interne Einsatz umfasst Projekte und Berichte. Der volle Funktionsumfang ist erst erreicht, wenn auch die benötigten realen Integrationen und Offline-Abläufe abgenommen sind. Ein interner Pilot, eine veröffentlichte App und ein produktiver Mehrbenutzerbetrieb sind unterschiedliche Meilensteine.
 
-## Nachgewiesener Ausgangsstand
+## Ursprünglicher Ausgangsstand vom 14. Oktober 2026
 
 Vorhanden sind Python/SQLite, REST-Endpunkte, Passwortanmeldung, vier feste Rollen, Projektzuweisungen, Berichts- und Lieferscheinentwürfe, Unterschrift und PDF-Erzeugung sowie ein vorbereiteter OneDrive-Adapter. Neun Backend-Tests bestanden in der Cloud. OneDrive-Antworten sind simuliert. Der lokale Server beantwortet den Gesundheitscheck und weist unberechtigte Projektzugriffe zurück.
 
@@ -135,4 +163,7 @@ Eine seriöse Termin- und Kostenzusage ist mit dem vorhandenen Prototyp und unge
 
 Nach Etappe 0 und der Integrationsprüfung wird jede Etappe in kleine Arbeitspakete mit Aufwand, Abhängigkeiten und Verantwortlichen zerlegt. Pro Paket: konkrete Änderung, automatisierte Tests soweit sinnvoll, relevanter Geräte-/Integrationstest und nachvollziehbares Ergebnis. Fehlende Zugänge werden früh gemeldet; unabhängige Arbeiten gehen weiter. Keine Funktion wird durch Demo-Daten als live fertig ausgewiesen.
 
-Der nächste Entwicklungsauftrag ist Etappe 0, anschließend Etappe 1. Erst danach wird der Pilot freigegeben. Der Nutzer kann anhand dieses Plans die Reihenfolge anpassen, ohne dass dadurch ungeprüfte Integrationen als erledigt gelten.
+Als Nächstes folgt die Vorbereitung von Etappe 2. Die dafür noch benötigten
+Entscheidungen zu Hosting und Apple-Verteilung werden gezielt eingeholt;
+unabhängige Entwicklung kann währenddessen fortgesetzt werden. Eine produktive
+Freigabe und die Abnahme der übrigen Fachmodule stehen weiterhin aus.

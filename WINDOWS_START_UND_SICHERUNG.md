@@ -91,7 +91,11 @@ Starters und das automatische Ende seines versteckten Servers; auf Linux wird
 nur dieser Test übersprungen. Die CMD-Dateidialoge und der gemeinsame Start mit der tatsächlichen
 Flutter-EXE müssen zusätzlich auf dem Nutzer-PC abgenommen werden.
 
-Der Nutzer bestätigte zuvor unter Windows Anmeldung, Projekte,
+Der Nutzer bestätigte unter Windows Anmeldung, Projekte,
 Servicebericht und Unterschrift, PDF-Ausgabe, Benutzerverwaltung,
-Technikerzuweisung und Entzug des Projektzugriffs. Diese Bestätigungen gelten
-für die bestehende App; sie sind noch keine Abnahme des neuen Starters.
+Technikerzuweisung und Entzug des Projektzugriffs. Nach dem Wechsel auf die
+neue Oberfläche wurden auch der gemeinsame Start, die manuelle Sicherung und
+die Wiederherstellung erfolgreich zurückgemeldet: Projekte und unterschriebene
+Berichte waren vorhanden; die PDF ließ sich erneut öffnen. Das ist eine
+manuelle Abnahme dieses lokalen Ablaufs, keine Prüfung eines produktiven
+Mehrbenutzerbetriebs oder des Verlusts sämtlicher PC-Daten.

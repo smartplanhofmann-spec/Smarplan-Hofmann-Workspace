@@ -186,7 +186,14 @@ Windows-Releasepaket wird durch die ergänzte CI separat geprüft.
 
 Der Nutzer hat unter Windows inzwischen Anmeldung, Projektanlage,
 Servicebericht, Unterschrift, PDF-Ausgabe, Benutzerverwaltung und Entzug des
-Technikerzugriffs bestätigt. Die Abnahme des neuen Start-/Sicherungspakets bleibt offen.
+Technikerzugriffs bestätigt. Anschließend wurden auch die neue Oberfläche,
+der Starter, die manuelle Sicherung und die Wiederherstellung mit erneutem
+Zugriff auf Projekte, unterschriebene Berichte und PDF bestätigt.
+
+Der maßgebliche erfolgreiche GUI-0.3.0-Build ist GitHub-Lauf `39416338557`
+(Windows-Artefakt `12261258366`). Die App-Suite umfasst 18 erfolgreiche Tests.
+Es gibt noch keinen Hosting-/Serverzugang für den gemeinsamen Gerätebetrieb.
+Siehe [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
 Noch offen sind tatsächliche iPhone-App-Läufe einschließlich
 PDF-Vorschau, Signaturgesten und Speichern; produktive API, PostgreSQL, HTTPS und

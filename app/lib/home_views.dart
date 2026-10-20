@@ -556,107 +556,113 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         searchFocus.requestFocus();
       },
     },
-    child: LayoutBuilder(
-      builder: (context, box) {
-        final desktop = box.maxWidth >= 1000;
-        final content = Column(
-          children: [
-            Container(
-              height: 78,
-              padding: EdgeInsets.symmetric(horizontal: desktop ? 40 : 16),
-              decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: OfficeColors.line)),
+    child: Focus(
+      autofocus: true,
+      child: LayoutBuilder(
+        builder: (context, box) {
+          final desktop = box.maxWidth >= 1000;
+          final content = Column(
+            children: [
+              Container(
+                height: 78,
+                padding: EdgeInsets.symmetric(horizontal: desktop ? 40 : 16),
+                decoration: const BoxDecoration(
+                  border: Border(bottom: BorderSide(color: OfficeColors.line)),
+                ),
+                child: Row(
+                  children: [
+                    if (!desktop)
+                      Builder(
+                        builder: (context) => IconButton(
+                          tooltip: 'Navigation öffnen',
+                          onPressed: () => Scaffold.of(context).openDrawer(),
+                          icon: const Icon(Icons.menu_rounded),
+                        ),
+                      ),
+                    if (desktop) ...[
+                      const Text(
+                        'Arbeitsbereich',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: OfficeColors.muted,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: Icon(
+                          Icons.chevron_right_rounded,
+                          size: 14,
+                          color: OfficeColors.muted,
+                        ),
+                      ),
+                    ],
+                    Text(
+                      storagePage ? 'Ablage' : 'Projekte',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const Spacer(),
+                    if (desktop) ...[
+                      Text(
+                        _today(),
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: OfficeColors.muted,
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                    ],
+                    IconButton(
+                      tooltip: 'Aktualisieren',
+                      onPressed: widget.busy ? null : widget.onRefresh,
+                      icon: const Icon(Icons.refresh_rounded, size: 20),
+                    ),
+                    IconButton(
+                      tooltip: 'Abmelden',
+                      onPressed: widget.busy ? null : widget.onLogout,
+                      icon: const Icon(Icons.logout_rounded, size: 19),
+                    ),
+                  ],
+                ),
               ),
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.all(desktop ? 40 : 20),
+                  children: [
+                    if (widget.busy)
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: LinearProgressIndicator(minHeight: 2),
+                      ),
+                    if (widget.error != null) Notice(widget.error!),
+                    if (storagePage) storageContent() else projectsContent(),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+              ),
+            ],
+          );
+          return Scaffold(
+            drawer: desktop
+                ? null
+                : Drawer(
+                    width: 260,
+                    shape: const RoundedRectangleBorder(),
+                    child: navigation(drawer: true),
+                  ),
+            body: SafeArea(
               child: Row(
                 children: [
-                  if (!desktop)
-                    Builder(
-                      builder: (context) => IconButton(
-                        tooltip: 'Navigation öffnen',
-                        onPressed: () => Scaffold.of(context).openDrawer(),
-                        icon: const Icon(Icons.menu_rounded),
-                      ),
-                    ),
-                  if (desktop) ...[
-                    const Text(
-                      'Arbeitsbereich',
-                      style: TextStyle(fontSize: 12, color: OfficeColors.muted),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: Icon(
-                        Icons.chevron_right_rounded,
-                        size: 14,
-                        color: OfficeColors.muted,
-                      ),
-                    ),
-                  ],
-                  Text(
-                    storagePage ? 'Ablage' : 'Projekte',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const Spacer(),
-                  if (desktop) ...[
-                    Text(
-                      _today(),
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: OfficeColors.muted,
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                  ],
-                  IconButton(
-                    tooltip: 'Aktualisieren',
-                    onPressed: widget.busy ? null : widget.onRefresh,
-                    icon: const Icon(Icons.refresh_rounded, size: 20),
-                  ),
-                  IconButton(
-                    tooltip: 'Abmelden',
-                    onPressed: widget.busy ? null : widget.onLogout,
-                    icon: const Icon(Icons.logout_rounded, size: 19),
-                  ),
+                  if (desktop) navigation(),
+                  Expanded(child: content),
                 ],
               ),
             ),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.all(desktop ? 40 : 20),
-                children: [
-                  if (widget.busy)
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: LinearProgressIndicator(minHeight: 2),
-                    ),
-                  if (widget.error != null) Notice(widget.error!),
-                  if (storagePage) storageContent() else projectsContent(),
-                  const SizedBox(height: 30),
-                ],
-              ),
-            ),
-          ],
-        );
-        return Scaffold(
-          drawer: desktop
-              ? null
-              : Drawer(
-                  width: 260,
-                  shape: const RoundedRectangleBorder(),
-                  child: navigation(drawer: true),
-                ),
-          body: SafeArea(
-            child: Row(
-              children: [
-                if (desktop) navigation(),
-                Expanded(child: content),
-              ],
-            ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     ),
   );
 

@@ -105,6 +105,14 @@ void main() {
       await signIn(tester);
       expect(find.text('Wohnhaus am Park'), findsOneWidget);
       await capture(tester, '02-projekte');
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
+      await tester.sendKeyEvent(LogicalKeyboardKey.keyF);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<TextField>(find.byType(TextField)).focusNode!.hasFocus,
+        isTrue,
+      );
       await tester.enterText(find.byType(TextField), 'Berger');
       await tester.pumpAndSettle();
       expect(find.text('Wohnhaus am Park'), findsOneWidget);
@@ -152,6 +160,14 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Noch nicht eingerichtet'), findsOneWidget);
       await capture(tester, '07-ablage');
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
+      await tester.sendKeyEvent(LogicalKeyboardKey.keyF);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<TextField>(find.byType(TextField)).focusNode!.hasFocus,
+        isTrue,
+      );
       expect(tester.takeException(), isNull);
     },
   );

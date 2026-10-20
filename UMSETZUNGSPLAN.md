@@ -1,6 +1,6 @@
 # Smartplan Office – konkreter Umsetzungsplan
 
-Aktualisiert: 20. Oktober 2026. Die ursprüngliche Planung vom 14. Oktober bleibt
+Aktualisiert: 21. Oktober 2026. Die ursprüngliche Planung vom 14. Oktober bleibt
 als Rahmen erhalten; der aktuelle Abnahmestand steht unmittelbar darunter.
 Kontoverbindungen, Hosting-Buchungen und Apple-Mitgliedschaften erfordern jeweils
 einen konkreten Auftrag. Die laufende Entwicklung im freigegebenen GitHub-Branch
@@ -27,6 +27,9 @@ Die Stufen 0 und der lokale Windows-Teil von Stufe 1 sind damit geprüft.
 Der gemeinsame Windows-/iPhone-Betrieb, eine echte iPhone-Installation, reale
 OneDrive-Anmeldung und die übrigen Fachmodule bleiben offen. Ein Hetzner-CAX11-
 Testserver in Nürnberg besteht inzwischen; SSH und ARM-Backend-Tests sind bestätigt.
+Auch privater systemd-Dienst, Windows-Fachablauf, manueller Sicherungslauf und
+Datenzugriff nach einem VM-Neustart sind bestätigt. Einzelbelege:
+[private Pilotabnahme](deploy/hetzner/ABNAHME.md).
 Die nächste Stufe und ihre Voraussetzungen stehen in
 [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
@@ -34,7 +37,7 @@ Die nächste Stufe und ihre Voraussetzungen stehen in
 Nutzer Hetzner als Hosting-Anbieter gewählt. Die Vorbereitung des gemeinsamen
 Betriebs aus Etappe 2 wird wieder aufgenommen. Konto und Testserver sind
 eingerichtet; die Bestellübersicht lag bei 9,15 Euro brutto monatlich inklusive
-Hetzner-Backups und IPv4. Der private systemd-Testdienst ist vorbereitet;
+Hetzner-Backups und IPv4. Der private systemd-Testdienst ist abgenommen;
 öffentliche API, Domainzugriff und weitere Betriebsleistungen bleiben offen.
 Siehe [HETZNER_START.md](HETZNER_START.md). Version 0.4.0 enthält die erste lokale
 Kundenstufe aus Etappe 3, noch keine vollständige CRM-/Angebotslösung.

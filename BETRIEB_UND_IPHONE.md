@@ -1,14 +1,16 @@
 # Nächste Stufe: gemeinsame Daten auf Windows und iPhone
 
-Stand: 20. Oktober 2026. Vorbereitung, keine Buchung oder erfolgte Bereitstellung.
+Stand: 21. Oktober 2026. Privater Testserver eingerichtet, öffentliche Bereitstellung offen.
 
 **Aktuelle Entscheidung:** Nach der zunächst kostenfreien lokalen Entwicklung
 hat der Nutzer einen Hetzner-CAX11-Testserver in Nürnberg eingerichtet. Die
 ausgewählte Übersicht zeigte 7,69 Euro netto bzw. 9,15 Euro mit 19 Prozent
 Umsatzsteuer monatlich einschließlich Hetzner-Backups und IPv4. Ein separates
 Sicherungsziel und gegebenenfalls eine Domain sind darin nicht enthalten.
-SSH und ARM-Backend-Tests sind bestätigt; systemd-Testdienst und öffentliche
-Bereitstellung stehen noch aus. Siehe [HETZNER_START.md](HETZNER_START.md).
+SSH, ARM-Backend-Tests und systemd-Testdienst sind bestätigt. Auch Windows-Zugriff
+über SSH, fiktive Fachabläufe, manuelle Sicherung und Datenzugriff nach VM-Neustart
+sind bestätigt; öffentliche Bereitstellung steht noch aus. Siehe
+[HETZNER_START.md](HETZNER_START.md).
 Die lokale Kundenverwaltung in Version 0.4.0
 bleibt nutzbar; ein öffentlicher Server oder gemeinsamer iPhone-Zugriff ist noch
 nicht bereitgestellt.
@@ -58,6 +60,12 @@ insbesondere SQL-Platzhalter, Schema-/Schreiboperationen, Verbindungen und
 Transaktionen angepasst werden. Eine neue Verbindungsadresse allein genügt nicht.
 Der heutige Python-Standardbibliothekserver bleibt als lokaler Pilot verwendbar;
 ein öffentlicher Betrieb erhält eine dafür geeignete API-Laufzeit.
+
+Der davon getrennte private systemd-Pilot hat Dienststart, Windows-Fachablauf,
+manuellen Sicherungslauf und VM-Wiederanlauf bestanden. Siehe die
+[Abnahme](deploy/hetzner/ABNAHME.md). Die Gesundheitsantwort dieses Piloten
+identifiziert den Prozess; die hier geplante Produktions-Bereitschaftsprüfung
+mit Datenbankzugriff bleibt offen. Eine echte iPhone-Abnahme folgt erst später.
 
 ## iPhone-Verteilung
 

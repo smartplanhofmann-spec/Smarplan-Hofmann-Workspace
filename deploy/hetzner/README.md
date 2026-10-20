@@ -6,6 +6,12 @@ auf `127.0.0.1:8765`. Sie dient zum Testen von Neustart, privatem Windows-Zugrif
 PostgreSQL, MFA, HTTPS und die echte iPhone-Installation bleiben eigene Lieferpakete.
 Es werden weder öffentliche Ports geöffnet noch echte Windows-Daten übernommen.
 
+Stand 21. Oktober 2026: Der Nutzer hat Dienststart, privaten Windows-Ablauf,
+manuelle Sicherung und Datenzugriff nach einem VM-Neustart bestätigt. Die
+Einzelbelege und verbleibenden Schritte stehen in [ABNAHME.md](ABNAHME.md).
+Die Installationsanleitung darunter bleibt für Wiederholung und neue Testinstanzen
+erhalten; sie muss auf dem bereits eingerichteten Server nicht erneut ausgeführt werden.
+
 ## Voraussetzungen und Installation
 
 Ziel: Ubuntu 24.04 LTS, ARM64 oder x86-64 mit systemd. Der root-eigene Checkout
@@ -123,6 +129,16 @@ einem versehentlich noch laufenden lokalen Backend unterschieden.
 
 Dieser Test benutzt die verschlüsselte SSH-Verbindung. Er ist kein öffentlicher
 HTTPS-Zugang und kein Nachweis des gemeinsamen Windows-/iPhone-Betriebs.
+
+Für den bestätigten VM-Neustarttest wurde stattdessen die kombinierte Verbindung
+verwendet: derselbe SSH-Befehl ohne `-N` öffnet zugleich die interaktive
+Serverkonsole und den App-Tunnel. Das Fenster bleibt geöffnet. Es dürfen nicht
+beide Varianten gleichzeitig denselben lokalen Port 8765 belegen.
+
+Bei den Windows-PowerShell-/SSH-Sitzungen erschienen beim Einfügen teilweise
+Steuerzeichen `^[[200~`. `bind 'set enable-bracketed-paste off'` wurde in der
+betroffenen Server-Bash von Hand eingegeben und behob das Problem für diese
+Sitzung. Ein Prompt-Zeichen `#` wird nicht als Teil eines Befehls eingegeben.
 
 ## Lokale Sicherungen und Wiederherstellung
 

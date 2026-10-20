@@ -8,7 +8,8 @@ erhalten. Siehe [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md). Die Backend-Suite um
 23 Tests. Nach der lokalen Stufe hat der Nutzer Hetzner als Hosting-Anbieter
 gewählt und einen CAX11-Testserver in Nürnberg eingerichtet. Der bisherige
 Backend-Testlauf ist auch dort bestätigt (31 bestanden, ein Windows-Fall übersprungen).
-Öffentliche Bereitstellung steht noch aus; der private systemd-Pilot ist vorbereitet;
+Der private systemd-Pilot, Windows-Zugriff, Fachablauf, Sicherungsdienst und
+Datenzugriff nach VM-Neustart sind bestätigt; öffentliche Bereitstellung steht aus;
 siehe [HETZNER_START.md](HETZNER_START.md).
 
 Version 0.3.0 gestaltet Anmeldung, Projektübersicht, Dokumente, Teamverwaltung,
@@ -205,7 +206,8 @@ Der maßgebliche erfolgreiche GUI-0.3.0-Build ist GitHub-Lauf `39416338557`
 (Windows-Artefakt `12261258366`). Die App-Suite umfasst 18 erfolgreiche Tests.
 Die neue Kundenstufe benötigt noch eine kurze Abnahme auf dem Nutzer-PC.
 Ein CAX11-Testserver mit SSH-Zugang ist inzwischen vorhanden. Der private
-Loopback-Testdienst ist vorbereitet; öffentlicher gemeinsamer Gerätebetrieb
+Loopback-Testdienst und der Windows-Ablauf einschließlich Datenzugriff nach
+VM-Neustart sind bestätigt; öffentlicher gemeinsamer Gerätebetrieb
 ist noch nicht freigegeben. Der Domain-Verwaltungszugriff ist noch unklar.
 Siehe [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 

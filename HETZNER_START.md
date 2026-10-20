@@ -1,19 +1,26 @@
 # Smartplan-Testserver bei Hetzner
 
-Stand: 20. Oktober 2026. Konto und CAX11-Testserver `smartplan-test` sind eingerichtet.
+Stand: 21. Oktober 2026. Konto und CAX11-Testserver `smartplan-test` sind eingerichtet.
 Ubuntu 24.04 wurde aktualisiert und mit Kernel `6.8.0-147-generic` neu gestartet.
 SSH-Zugang von Windows, Firewall und Hetzner-Backups sind bestätigt. Auf dem
 ARM64-Server wurden die Backend-Pakete installiert und 32 Testfälle ausgeführt:
 31 bestanden, ein Windows-Fall erwartungsgemäß übersprungen. Ein echter Windows-
-Datenbestand wurde nicht hochgeladen. Die vorhandene App bleibt lokal nutzbar.
+Datenbestand wurde nicht hochgeladen. Der private Testdienst ist inzwischen
+installiert; Windows-Zugriff, Anmeldung, fiktiver Kunden-/Projekt-/Berichtsablauf,
+Unterschrift und PDF sind bestätigt. Eine manuelle Datenbanksicherung war
+erfolgreich. Auch nach einem VM-Neustart konnte der Nutzer die Testdaten und
+das PDF wieder öffnen. Die Einzelbelege stehen in
+[ABNAHME.md](deploy/hetzner/ABNAHME.md). Die vorhandene App bleibt lokal nutzbar.
 
-## Dein nächster Schritt: privater Testdienst
+## Nächste Stufe: öffentliche API und HTTPS
 
-Konto und VM müssen nicht erneut angelegt werden. Vorbereitet sind ein eigenes
-Dienstkonto, automatischer Start und konsistente lokale Sicherungen für einen
-privaten Testdienst. Die tatsächliche systemd-Installation auf Hetzner steht noch
-aus. Siehe [Anleitung](deploy/hetzner/README.md). Der Zugriff erfolgt zunächst
-über einen SSH-Tunnel; öffentliche API und HTTPS sind damit nicht freigegeben.
+Konto, VM und privater systemd-Testdienst sind eingerichtet und müssen nicht
+erneut angelegt werden. Eigenes Dienstkonto, automatischer Start und manuell
+ausgelöste konsistente Sicherung sind auf Hetzner bestätigt. Siehe
+[Anleitung](deploy/hetzner/README.md). Der Zugriff erfolgt über einen SSH-Tunnel;
+öffentliche API und HTTPS sind damit noch nicht freigegeben. Die nächsten
+unabhängigen Arbeiten sind Produktions-API/Datenhaltung und das Klären des
+Domainanbieters beziehungsweise DNS-Zugriffs.
 
 Eine Domain ist vorhanden; der DNS-Verwaltungszugriff ist laut Nutzer noch
 unklar. `office.smartplan-hofmann.de` ist nur eine mögliche spätere Adresse.
@@ -58,7 +65,7 @@ Cloud-Server kann auch im ausgeschalteten Zustand Kosten verursachen.
 | SQLite-Schema 1 mit Konten, Kunden, Projekten und PDF-Bytes | Gemäß Betriebsplanung PostgreSQL-Anbindung, Migration und geprüfte parallele Änderungen |
 | Passwortanmeldung, Rollen und Projektzuordnung | Festgelegtes MFA-Verfahren für gemeinsamen Betrieb und Schutz gegen wiederholte Anmeldeversuche |
 | App akzeptiert entfernte Adressen ausschließlich über HTTPS | Eigene erreichbare HTTPS-Adresse, Zertifikat und darauf konfiguriertes Windows-Paket |
-| Lokale Sicherung und Wiederherstellung getestet | Automatischer Sicherungsplan, getrenntes verschlüsseltes Ziel und überprüfte Wiederherstellung |
+| Sicherungsdienst auf Hetzner erfolgreich, Timer registriert; Wiederherstellung synthetischer Daten automatisiert geprüft | Getrenntes verschlüsseltes Ziel und Wiederherstellung einer tatsächlichen Serversicherung |
 | `/health` meldet den lokalen Prozess | Bereitschaftsprüfung mit echtem Datenbankzugriff und Überwachung |
 
 Der aktuelle `backend/server.py` ist ausdrücklich ein Entwicklungsserver.
@@ -70,8 +77,8 @@ Server verbindet daher das bestehende Windows-Paket oder das iPhone noch nicht.
 
 ## Reihenfolge bis zur ersten Online-Abnahme
 
-1. Konto und Testserver sind eingerichtet; Grundinstallation und ARM-Tests bestehen.
-   Den privaten Testdienst installieren und dessen Wiederanlauf nachweisen.
+1. Konto, Testserver und privater Dienst sind eingerichtet. Grundinstallation,
+   ARM-Tests, privater Windows-Ablauf, Sicherung und VM-Wiederanlauf sind bestätigt.
 2. Produktions-API und Datenübernahme entwickeln und unabhängig vom echten
    Kundendatenbestand testen. Die übrigen Lieferpakete stehen in
    [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).

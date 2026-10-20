@@ -25,15 +25,17 @@ Prüfungen vor; eine gesonderte manuelle Buchhaltungs-Abnahme wurde nicht behaup
 
 Die Stufen 0 und der lokale Windows-Teil von Stufe 1 sind damit geprüft.
 Der gemeinsame Windows-/iPhone-Betrieb, eine echte iPhone-Installation, reale
-OneDrive-Anmeldung und die übrigen Fachmodule bleiben offen. Es gibt noch kein
-Hosting oder einen eigenen Server; dies hat der Nutzer ausdrücklich angegeben.
+OneDrive-Anmeldung und die übrigen Fachmodule bleiben offen. Ein Hetzner-CAX11-
+Testserver in Nürnberg besteht inzwischen; SSH und ARM-Backend-Tests sind bestätigt.
 Die nächste Stufe und ihre Voraussetzungen stehen in
 [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
 **Aktuelle Reihenfolge:** Nach der zunächst kostenfreien lokalen Stufe hat der
 Nutzer Hetzner als Hosting-Anbieter gewählt. Die Vorbereitung des gemeinsamen
-Betriebs aus Etappe 2 wird wieder aufgenommen; ein Hetzner-Konto besteht noch
-nicht. Tarif und Infrastrukturkosten werden vor Bestellung konkret geprüft.
+Betriebs aus Etappe 2 wird wieder aufgenommen. Konto und Testserver sind
+eingerichtet; die Bestellübersicht lag bei 9,15 Euro brutto monatlich inklusive
+Hetzner-Backups und IPv4. Der private systemd-Testdienst ist vorbereitet;
+öffentliche API, Domainzugriff und weitere Betriebsleistungen bleiben offen.
 Siehe [HETZNER_START.md](HETZNER_START.md). Version 0.4.0 enthält die erste lokale
 Kundenstufe aus Etappe 3, noch keine vollständige CRM-/Angebotslösung.
 Details und Geräteabnahme stehen in [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md).

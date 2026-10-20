@@ -1,0 +1,35 @@
+[Unit]
+Description=Smartplan private pilot (loopback only)
+After=network.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=exec
+User=smartplan-pilot
+Group=smartplan-pilot
+WorkingDirectory=/opt/smartplan-test
+Environment=OFFICE_DATA_DIR=/var/lib/smartplan-pilot
+Environment=SMARTPLAN_PILOT_PORT=8765
+StateDirectory=smartplan-pilot
+StateDirectoryMode=0700
+UMask=0077
+ExecStartPre=/bin/bash /opt/smartplan-test/deploy/hetzner/run-pilot.sh backup
+ExecStart=/bin/bash /opt/smartplan-test/deploy/hetzner/run-pilot.sh run
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target

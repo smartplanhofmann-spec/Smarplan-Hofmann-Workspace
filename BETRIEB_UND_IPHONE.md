@@ -3,18 +3,20 @@
 Stand: 20. Oktober 2026. Vorbereitung, keine Buchung oder erfolgte Bereitstellung.
 
 **Aktuelle Entscheidung:** Nach der zunächst kostenfreien lokalen Entwicklung
-hat der Nutzer Hetzner als Hosting-Anbieter gewählt. Ein Hetzner-Konto besteht
-noch nicht. Der besprochene Planungsrahmen von etwa 10–20 Euro brutto monatlich
-für Infrastruktur ist eine Schätzung; ein konkreter Tarif wurde noch nicht
-geprüft oder bestellt. Die Auswahl und der nächste Kontoschritt stehen in
-[HETZNER_START.md](HETZNER_START.md). Die lokale Kundenverwaltung in Version 0.4.0
+hat der Nutzer einen Hetzner-CAX11-Testserver in Nürnberg eingerichtet. Die
+ausgewählte Übersicht zeigte 7,69 Euro netto bzw. 9,15 Euro mit 19 Prozent
+Umsatzsteuer monatlich einschließlich Hetzner-Backups und IPv4. Ein separates
+Sicherungsziel und gegebenenfalls eine Domain sind darin nicht enthalten.
+SSH und ARM-Backend-Tests sind bestätigt; systemd-Testdienst und öffentliche
+Bereitstellung stehen noch aus. Siehe [HETZNER_START.md](HETZNER_START.md).
+Die lokale Kundenverwaltung in Version 0.4.0
 bleibt nutzbar; ein öffentlicher Server oder gemeinsamer iPhone-Zugriff ist noch
 nicht bereitgestellt.
 
 ## Ausgangslage und Ziel
 
 Die Windows-App, Starter, Sicherung und Wiederherstellung sind auf dem Nutzer-PC
-geprüft. Es gibt noch keinen eigenen Server und kein Hosting. Der Nutzer hat
+geprüft. Ein eigener Hetzner-Testserver ist jetzt vorhanden. Der Nutzer hat
 Windows und ein iPhone; ein Mac ist nicht vorhanden. Der aktuelle iOS-Simulator-
 Build läuft auf dem macOS-Rechner der GitHub-CI.
 
@@ -30,10 +32,10 @@ Geplant ist eine kleine Hetzner-Cloud-VM in Deutschland mit eigener HTTPS-Adress
 PostgreSQL, dauerhaftem Speicher und getrennten Sicherungen. Hetzner Cloud ist
 kein betreuter Anwendungsbetrieb: Zuständigkeit für Updates, Überwachung und
 Wiederherstellung muss vor dem echten Einsatz feststehen. Ausgangspunkt für den
-Test sind 2 vCPU, 4 GB RAM und mindestens 40 GB SSD (x86-64, Ubuntu 24.04 LTS).
+Test sind 2 vCPU, 4 GB RAM und 40 GB SSD (ARM64, Ubuntu 24.04 LTS).
 Nutzerzahl, PDF-Datenmenge und Lasttests bestimmen die endgültige Größe.
-Preis und enthaltene Leistungen müssen vor einer Buchung anhand des aktuellen
-Angebots geprüft werden. Es liegt noch kein geprüftes Angebot vor.
+Der Basistarif samt Hetzner-Backups und IPv4 wurde vor Bestellung geprüft;
+weitere Leistungen werden vor einer zusätzlichen Buchung geprüft.
 
 Das bestehende Microsoft-365-Family-Konto bleibt als Dokumentablage vorgesehen.
 Die gemeinsame Datenbank wird durch das Backend verwaltet. Ein OneDrive-App-Ordner
@@ -74,15 +76,17 @@ auf jedem Gerät auf dieses Gerät selbst.
 
 ## Noch benötigte Angaben
 
-1. Hetzner-Konto und konkreter Tarif samt Gesamtkosten sowie Zahl der ersten Nutzer und Geräte.
+1. Zahl der ersten Nutzer und Geräte sowie Zuständigkeit für den laufenden Betrieb.
 2. Vorhandene eigene Domain beziehungsweise administrativer Zugriff darauf;
    ein Anbieter-Testhostname kann für den ersten Test ausreichend sein.
 3. Vorhandener Apple-Developer-Zugang und gewünschter erster iPhone-Testweg.
 4. Zugang zur Microsoft-Appregistrierung für das bestehende Family-Konto.
 
-Diese Angaben werden schrittweise geklärt. Der nächste Nutzerschritt ist die
-Kontoerstellung, zunächst ohne Serverbestellung. Die Anbieterwahl ist geklärt;
-der genaue Tarif und die laufende Betriebsverantwortung stehen noch aus.
+Diese Angaben werden schrittweise geklärt. Konto und Basistarif sind geklärt;
+ein weiterer Server muss nicht bestellt werden. Die Domain ist vorhanden,
+DNS-Verwaltungszugriff ist laut Nutzer noch unklar. Der private Loopback-Pilot
+mit SSH-Tunnel kann unabhängig davon geprüft werden; er erfüllt die öffentlichen
+Lieferpakete nicht. Die laufende Betriebsverantwortung bleibt festzulegen.
 Passwörter, Tokens, private Schlüssel und Zertifikate gehören nicht in den Chat.
 Ohne konkrete Freigabe werden weder Hosting gebucht noch Apple-Mitgliedschaften
 abgeschlossen oder Microsoft-Konten verbunden.

@@ -32,6 +32,12 @@ jobs:
         run: |
           python -m venv ../backend/.venv
           ../backend/.venv/bin/python -m pip install -r ../backend/requirements.lock
+      - name: Check private Linux pilot launcher and backup
+        run: |
+          bash -n ../deploy/hetzner/install-pilot.sh
+          bash -n ../deploy/hetzner/run-pilot.sh
+          systemd-analyze verify ../deploy/hetzner/smartplan-pilot.service ../deploy/hetzner/smartplan-pilot-backup.service ../deploy/hetzner/smartplan-pilot-backup.timer
+          ../backend/.venv/bin/python -m unittest discover -s ../deploy/hetzner -p test_pilot.py -v
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.47.7'

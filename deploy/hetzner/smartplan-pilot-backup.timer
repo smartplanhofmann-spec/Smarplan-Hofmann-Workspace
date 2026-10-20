@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily local backup of the Smartplan private pilot
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=15m
+Persistent=true
+Unit=smartplan-pilot-backup.service
+
+[Install]
+WantedBy=timers.target

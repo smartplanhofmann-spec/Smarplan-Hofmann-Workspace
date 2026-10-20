@@ -4,8 +4,9 @@ Version 0.4.0 ergänzt eine lokale Kundenverwaltung: Kontaktdaten, Ansprechpartn
 Adressen und Notizen, Suche, Archivierung sowie die Zuordnung zu Projekten.
 Bestehende Projektkunden werden übernommen; unterschriebene Berichte und PDF-Dateien
 behalten ihren ursprünglichen Inhalt. Siehe [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md).
-Die bisherige Version läuft lokal. Als nächster Hosting-Anbieter ist inzwischen
-Hetzner gewählt; Konto, konkreter Tarif und Bereitstellung stehen noch aus.
+Die bisherige Version läuft lokal. Ein Hetzner-CAX11-Testserver in Nürnberg ist
+eingerichtet; auf ARM bestanden 31 Backend-Tests (ein weiterer Windows-Test
+übersprungen). Öffentliche Bereitstellung und iPhone-Zugriff stehen noch aus.
 Der nächste Schritt und die Vorbereitung stehen in [HETZNER_START.md](HETZNER_START.md).
 
 Der aktuelle Stand ergänzt Benutzerverwaltung, Projektzugriff, Berichtslisten,

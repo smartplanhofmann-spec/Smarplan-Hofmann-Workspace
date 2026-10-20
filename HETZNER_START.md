@@ -1,47 +1,53 @@
-# Smartplan bei Hetzner vorbereiten
+# Smartplan-Testserver bei Hetzner
 
-Stand: 20. Oktober 2026. Der Nutzer hat Hetzner als Hosting-Anbieter gewählt.
-Ein Hetzner-Konto besteht noch nicht. Es wurde kein Server bestellt und kein
-Kundendatenbestand hochgeladen. Die vorhandene Windows-App bleibt lokal nutzbar.
+Stand: 20. Oktober 2026. Konto und CAX11-Testserver `smartplan-test` sind eingerichtet.
+Ubuntu 24.04 wurde aktualisiert und mit Kernel `6.8.0-147-generic` neu gestartet.
+SSH-Zugang von Windows, Firewall und Hetzner-Backups sind bestätigt. Auf dem
+ARM64-Server wurden die Backend-Pakete installiert und 32 Testfälle ausgeführt:
+31 bestanden, ein Windows-Fall erwartungsgemäß übersprungen. Ein echter Windows-
+Datenbestand wurde nicht hochgeladen. Die vorhandene App bleibt lokal nutzbar.
 
-## Dein nächster Schritt
+## Dein nächster Schritt: privater Testdienst
 
-1. [Hetzner Console](https://console.hetzner.com/) öffnen und ein Konto anlegen.
-2. E-Mail-Adresse bestätigen und die von Hetzner verlangte Kontoprüfung abschließen.
-3. Zwei-Faktor-Anmeldung für das Hetzner-Konto einrichten.
-4. Nach der Anmeldung zur Cloud-Konsole wechseln. Zunächst keinen Server bestellen.
+Konto und VM müssen nicht erneut angelegt werden. Vorbereitet sind ein eigenes
+Dienstkonto, automatischer Start und konsistente lokale Sicherungen für einen
+privaten Testdienst. Die tatsächliche systemd-Installation auf Hetzner steht noch
+aus. Siehe [Anleitung](deploy/hetzner/README.md). Der Zugriff erfolgt zunächst
+über einen SSH-Tunnel; öffentliche API und HTTPS sind damit nicht freigegeben.
 
-Für die anschließende Auswahl genügt ein Bildschirmfoto der angebotenen
-Servertypen mit Preisen. Zahlungsdaten, Kontonummern, Passwörter, Tokens und
-private Schlüssel vorher ausblenden. Zugangsdaten werden ausschließlich in
-dafür vorgesehenen sicheren Einstellungen hinterlegt.
+Eine Domain ist vorhanden; der DNS-Verwaltungszugriff ist laut Nutzer noch
+unklar. `office.smartplan-hofmann.de` ist nur eine mögliche spätere Adresse.
+Zugangsdaten gehören ausschließlich in geeignete sichere Einstellungen.
+Ob Konto-2FA bereits aktiviert ist, wurde nicht gesondert bestätigt.
 
-## Vorgesehene Auswahl für einen ersten Testserver
+## Bestätigte Auswahl des Testservers
 
 | Einstellung | Vorgesehener Wert | Warum |
 | --- | --- | --- |
 | Produkt | Hetzner Cloud, virtuelle Maschine mit geteilter CPU | Kleiner Einstieg ohne dedizierten Server |
-| Standort | Deutschland, je nach verfügbarem Angebot Nürnberg oder Falkenstein | Gewählter Datenstandort |
-| Architektur | x86-64 (Intel/AMD) | Einheitliche Python-/PDF-Laufzeit für den ersten Server |
+| Standort | Nürnberg, Deutschland | Gewählter Datenstandort |
+| Architektur | CAX11, ARM64 (Ampere) | Backend-Pakete und Tests auf dem echten ARM-Server geprüft |
 | Betriebssystem | Ubuntu 24.04 LTS | Gepflegtes Linux-System mit Python 3.12 |
-| Größe | Zunächst 2 vCPU, 4 GB RAM, mindestens 40 GB SSD | Ausgangspunkt für wenige Nutzer; Last und Speicherverbrauch noch zu prüfen |
-| Netz | Öffentliche IPv4 und IPv6, sofern im gewählten Tarif angeboten | Erreichbarkeit für Büro- und Mobilfunknetze |
+| Größe | 2 vCPU, 4 GB RAM, 40 GB SSD | Ausgangspunkt für wenige Nutzer; Last und Speicherverbrauch noch zu prüfen |
+| Netz | IPv4 und IPv6; SSH auf Verwaltungs-IP beschränkt | Firewall angewendet; keine öffentliche App/API eingerichtet |
 | Servername | `smartplan-test` | Getrennte erste Testumgebung |
 | Weitere Produkte | Zunächst keine Load Balancer, Kubernetes oder zusätzlichen Datenbankserver | Für den ersten Test nicht erforderlich |
 
-Die tatsächlichen Tarife, Verfügbarkeit, Backup- und IPv4-Aufpreise müssen in
-der Konsole vor dem Bestellschritt überprüft werden. Die vorher genannten
-**10–20 Euro brutto pro Monat** sind ein grober Planungsrahmen für Server,
-Sicherungen und gegebenenfalls Domain, kein verifizierter Hetzner-Tarif.
+Die Bestellübersicht zeigte monatlich **5,99 Euro netto** für CAX11, **1,20 Euro
+netto** für Backups und **0,50 Euro netto** für IPv4: insgesamt **7,69 Euro netto
+bzw. 9,15 Euro mit 19 Prozent Umsatzsteuer**. Der Nutzer hat den Server bestellt.
+Ein separates Sicherungsziel und gegebenenfalls eine Domain kommen hinzu.
+Die vorher genannten **10–20 Euro brutto pro Monat** bleiben ein grober
+Planungsrahmen für die gesamte Infrastruktur, keine garantierte Gesamtrechnung.
 Einrichtung, laufende Betreuung und eine mögliche Apple-Mitgliedschaft sind
 darin nicht enthalten. Hetzner Cloud ist ein selbst verwalteter Server:
 Systemupdates, Betrieb und Kontrolle der Sicherungen brauchen eine zuständige Person.
 
-Vor Bestellung werden Tarif, monatlicher Bruttopreis, IPv4, Sicherungsziel und
-weitere gebuchte Leistungen zusammengefasst. Falls die Summe den genannten
+Vor weiteren Bestellungen werden Tarif, monatlicher Bruttopreis, Sicherungsziel und
+weitere Leistungen zusammengefasst. Falls die Summe den genannten
 Planungsrahmen überschreitet, wird zuerst die Auswahl angepasst oder der höhere
-Betrag geklärt. Die Anbieterwahl allein ist keine Bestätigung eines unbekannten
-Tarifs. Die Abrechnung des gewählten Angebots ist vorab zu prüfen; ein laufender
+Betrag geklärt. Die Anbieterwahl allein ist keine Bestätigung eines weiteren unbekannten
+Tarifs. Die Abrechnung neuer Angebote ist vorab zu prüfen; ein laufender
 Cloud-Server kann auch im ausgeschalteten Zustand Kosten verursachen.
 
 ## Technische Prüfung des vorhandenen Standes
@@ -64,7 +70,8 @@ Server verbindet daher das bestehende Windows-Paket oder das iPhone noch nicht.
 
 ## Reihenfolge bis zur ersten Online-Abnahme
 
-1. Konto und Angebot klären. Vor einer Bestellung den genauen Gesamtpreis sehen.
+1. Konto und Testserver sind eingerichtet; Grundinstallation und ARM-Tests bestehen.
+   Den privaten Testdienst installieren und dessen Wiederanlauf nachweisen.
 2. Produktions-API und Datenübernahme entwickeln und unabhängig vom echten
    Kundendatenbestand testen. Die übrigen Lieferpakete stehen in
    [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
@@ -97,6 +104,5 @@ allein bestätigt keine vollständige Datenschutz- oder GoBD-Konformität.
 Die iPhone-Installation braucht weiterhin einen geeigneten Verteilungsweg und
 Apple-Signierung. Ein funktionierender Windows-Serverzugang bestätigt diese
 Installation nicht. OneDrive ist eine separate Verbindung und ersetzt die
-Serverdatenbank oder deren Sicherung nicht. Hetzner-Konto, Server und Domain
-werden erst eingerichtet beziehungsweise verbunden, wenn die jeweiligen
-Zugänge vorhanden sind.
+Serverdatenbank oder deren Sicherung nicht. Konto und VM bestehen bereits;
+Domain und weitere Konten werden mit den jeweils vorhandenen Zugängen verbunden.

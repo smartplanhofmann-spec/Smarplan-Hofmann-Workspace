@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 import 'admin_pages.dart';
 import 'api.dart';
 import 'project_page.dart';
+import 'design.dart';
+import 'home_views.dart';
 
-void main() => runApp(const OfficeApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks([
+      'Inter',
+    ], await rootBundle.loadString('assets/fonts/OFL.txt'));
+  });
+  runApp(const OfficeApp());
+}
 
 class OfficeApp extends StatelessWidget {
   final OfficeApi? api;
@@ -13,14 +25,7 @@ class OfficeApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
     title: 'Smartplan Office',
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff163d46)),
-      scaffoldBackgroundColor: const Color(0xfff4f6f7),
-      inputDecorationTheme: const InputDecorationTheme(
-        border: OutlineInputBorder(),
-      ),
-    ),
+    theme: officeTheme(),
     home: OfficeHome(api: api),
   );
 }
@@ -170,162 +175,42 @@ class _OfficeHomeState extends State<OfficeHome> {
     await loadProjects();
   });
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: const Text('Smartplan Office'),
-      actions: [
-        if (user != null) ...[
-          IconButton(
-            tooltip: 'Aktualisieren',
-            onPressed: busy ? null : () => run(loadProjects),
-            icon: const Icon(Icons.refresh),
-          ),
-          IconButton(
-            tooltip: 'Abmelden',
-            onPressed: busy ? null : logout,
-            icon: const Icon(Icons.logout),
-          ),
-        ],
-      ],
-    ),
-    body: Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 1080),
-        child: ListView(
-          padding: const EdgeInsets.all(24),
-          children: [
-            if (busy) const LinearProgressIndicator(),
-            if (error != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  error!,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
-                ),
-              ),
-            if (user == null)
-              Form(
-                key: loginForm,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text(
-                      'Ihr Büro. Ihre Projekte.',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    TextFormField(
-                      controller: email,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(labelText: 'E-Mail'),
-                      validator: (v) =>
-                          (v ?? '').trim().isEmpty ? 'E-Mail eingeben.' : null,
-                    ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: password,
-                      obscureText: true,
-                      autocorrect: false,
-                      enableSuggestions: false,
-                      onFieldSubmitted: (_) {
-                        if (!busy) login();
-                      },
-                      decoration: const InputDecoration(labelText: 'Passwort'),
-                      validator: (v) =>
-                          (v ?? '').isEmpty ? 'Passwort eingeben.' : null,
-                    ),
-                    const SizedBox(height: 16),
-                    FilledButton(
-                      onPressed: busy ? null : login,
-                      child: const Text('Anmelden'),
-                    ),
-                  ],
-                ),
-              )
-            else ...[
-              Text(
-                user!['email'],
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(roleLabels[user!['role']] ?? user!['role']),
-              const SizedBox(height: 24),
-              const Text(
-                'Projekte',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 12),
-              if (projects.isEmpty)
-                const Text('Noch keine freigegebenen Projekte.'),
-              for (final p in projects)
-                Card(
-                  child: ListTile(
-                    title: Text(p['name']),
-                    subtitle: Text(p['customer']),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: busy
-                        ? null
-                        : () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ProjectPage(
-                                api: api,
-                                project: Map<String, dynamic>.from(p),
-                                role: user!['role'],
-                              ),
-                            ),
-                          ),
-                  ),
-                ),
-              if (user!['role'] == 'owner') ...[
-                const SizedBox(height: 16),
-                FilledButton.icon(
-                  onPressed: busy ? null : newProject,
-                  icon: const Icon(Icons.add),
-                  label: const Text('Projekt anlegen'),
-                ),
-                const SizedBox(height: 12),
-                OutlinedButton.icon(
-                  onPressed: busy
-                      ? null
-                      : () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                UsersPage(api: api, currentUserId: user!['id']),
-                          ),
-                        ),
-                  icon: const Icon(Icons.people),
-                  label: const Text('Benutzerverwaltung'),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  storage?['connected'] == true
-                      ? 'OneDrive: Anmeldung gespeichert'
-                      : storage?['configured'] == true
-                      ? 'OneDrive: noch nicht verbunden'
-                      : 'OneDrive: noch nicht eingerichtet',
-                ),
-                const SizedBox(height: 8),
-                OutlinedButton.icon(
-                  onPressed: busy || storage?['configured'] != true
-                      ? null
-                      : connectDrive,
-                  icon: const Icon(Icons.cloud_outlined),
-                  label: const Text('OneDrive Family verbinden'),
-                ),
-              ],
-            ],
-          ],
+  Widget build(BuildContext context) {
+    if (user == null) {
+      return LoginView(
+        email: email,
+        password: password,
+        formKey: loginForm,
+        busy: busy,
+        error: error,
+        onLogin: login,
+      );
+    }
+    return WorkspaceView(
+      user: user!,
+      projects: projects,
+      storage: storage,
+      busy: busy,
+      error: error,
+      onRefresh: () => run(loadProjects),
+      onLogout: logout,
+      onNewProject: newProject,
+      onConnectDrive: connectDrive,
+      onUsers: () => Navigator.push<void>(
+        context,
+        MaterialPageRoute(
+          builder: (_) => UsersPage(api: api, currentUserId: user!['id']),
         ),
       ),
-    ),
-  );
+      onProject: (project) => Navigator.push<void>(
+        context,
+        MaterialPageRoute(
+          builder: (_) =>
+              ProjectPage(api: api, project: project, role: user!['role']),
+        ),
+      ),
+    );
+  }
 }
 
 class ProjectDialog extends StatefulWidget {

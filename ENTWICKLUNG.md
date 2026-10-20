@@ -1,4 +1,12 @@
-# Smartplan Office 0.2.1 – Entwicklung und Abnahme
+# Smartplan Office 0.3.0 – Entwicklung und Abnahme
+
+Version 0.3.0 gestaltet Anmeldung, Projektübersicht, Dokumente, Teamverwaltung,
+Projektzugriff und Ablage neu. Die Projektsuche, alphabetische Sortierung und
+Listen-/Kachelansicht arbeiten auf den freigegebenen Projekten. Die mitgelieferte
+Schrift Inter benötigt keinen externen Abruf. Siehe [DESIGN.md](DESIGN.md) für
+Ansichten, Tests und die Aktualisierung der Windows-App. Der lokale Backend-Stand
+0.2.0-development bleibt kompatibel; vorhandene Daten und Konten benötigen keine
+Migration. Die Geschäftslogik für Freigaben und Unterschriften bleibt erhalten.
 
 Ergänzung vom 20. Oktober 2026: [Start und Datensicherung unter Windows](WINDOWS_START_UND_SICHERUNG.md)
 beschreibt den neuen gemeinsamen Start per `Starten.cmd`, automatische
@@ -141,7 +149,8 @@ flutter run -d <geraete-id> --dart-define=API_URL=https://<eigener-testserver>
 Der Simulator-Build wurde in GitHub CI erfolgreich geprüft. Installation und
 Nutzung auf einem echten iPhone einschließlich Signierung bleiben offen. Keine
 TLS-Ausnahmen für entfernte HTTP-Server hinzufügen. Die vorhandenen
-Standard-App-Icons und die Bundle-ID sind Platzhalter für die Entwicklungsphase.
+App-Icons zeigen das eigene Smartplan-Planzeichen; die Bundle-ID ist weiterhin
+ein Platzhalter für die Entwicklungsphase.
 
 ## Sicherung und Wiederherstellung
 

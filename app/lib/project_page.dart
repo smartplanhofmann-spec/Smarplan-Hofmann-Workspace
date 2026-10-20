@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'admin_pages.dart';
 import 'api.dart';
 import 'pdf_page.dart';
+import 'design.dart';
 
 String localDate(String value) {
   final date = DateTime.tryParse(value)?.toLocal();
@@ -139,12 +140,12 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text(widget.project['name']),
+      title: const Text('Projektübersicht'),
       actions: [
         IconButton(
           tooltip: 'Berichte aktualisieren',
           onPressed: busy ? null : () => run(readReports),
-          icon: const Icon(Icons.refresh),
+          icon: const Icon(Icons.refresh_rounded, size: 21),
         ),
         if (widget.role == 'owner')
           IconButton(
@@ -160,106 +161,325 @@ class _ProjectPageState extends State<ProjectPage> {
                       ),
                     ),
                   ),
-            icon: const Icon(Icons.group),
+            icon: const Icon(Icons.group_outlined, size: 21),
+          ),
+        const SizedBox(width: 16),
+      ],
+    ),
+    body: LayoutBuilder(
+      builder: (context, box) {
+        final wide = box.maxWidth >= 1100;
+        return Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1420),
+            child: ListView(
+              padding: EdgeInsets.fromLTRB(
+                wide ? 40 : 20,
+                12,
+                wide ? 40 : 20,
+                40,
+              ),
+              children: [
+                PageHeading(
+                  eyebrow: 'Projekt',
+                  title: widget.project['name'],
+                  subtitle: widget.project['customer'],
+                  action: canWrite
+                      ? OutlinedButton.icon(
+                          onPressed: busy ? null : newDraft,
+                          icon: const Icon(Icons.add_rounded, size: 18),
+                          label: const Text('Neues Dokument'),
+                        )
+                      : null,
+                ),
+                const SizedBox(height: 28),
+                if (busy)
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: LinearProgressIndicator(minHeight: 2),
+                  ),
+                if (message != null)
+                  Notice(
+                    message!,
+                    error: message != 'PDF wurde in OneDrive abgelegt.',
+                  ),
+                if (!canWrite)
+                  const Notice(
+                    'Lesender Zugriff. Dokumenterstellung und Unterschriften sind für diese Rolle gesperrt.',
+                    error: false,
+                  ),
+                if (wide)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 300, child: documents()),
+                      const SizedBox(width: 24),
+                      Expanded(child: editor()),
+                    ],
+                  )
+                else ...[
+                  documents(),
+                  const SizedBox(height: 24),
+                  editor(),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
+    ),
+  );
+
+  Widget documents() => OfficeSurface(
+    padding: const EdgeInsets.all(20),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                'Dokumente',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            StatusPill('${reports.length}'),
+          ],
+        ),
+        const SizedBox(height: 6),
+        const Text(
+          'Berichte und Lieferscheine',
+          style: TextStyle(fontSize: 12, color: OfficeColors.muted),
+        ),
+        const SizedBox(height: 20),
+        if (reports.isEmpty && !busy)
+          const EmptyState(
+            title: 'Noch keine Dokumente vorhanden.',
+            description: 'Ihr erster Bericht beginnt hier.',
+            icon: Icons.description_outlined,
+          ),
+        for (final item in reports)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Material(
+              color: report?['id'] == item['id']
+                  ? OfficeColors.blueTint
+                  : const Color(0xfffafafa),
+              borderRadius: BorderRadius.circular(12),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: busy ? null : () => select(item['id']),
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            item['status'] == 'signed'
+                                ? Icons.task_alt_rounded
+                                : Icons.description_outlined,
+                            size: 18,
+                            color: item['status'] == 'signed'
+                                ? OfficeColors.green
+                                : OfficeColors.blue,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              item['content']['kind'],
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const Icon(
+                            Icons.chevron_right_rounded,
+                            size: 16,
+                            color: OfficeColors.muted,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        item['content']['description'],
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          height: 1.6,
+                          color: OfficeColors.muted,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          StatusPill(
+                            item['status'] == 'signed'
+                                ? 'Unterzeichnet'
+                                : 'Entwurf',
+                            positive: item['status'] == 'signed',
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              localDate(item['content']['created_at']),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 9,
+                                color: OfficeColors.muted,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
       ],
     ),
-    body: Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 900),
-        child: ListView(
-          padding: const EdgeInsets.all(24),
-          children: [
+  );
+
+  Widget editor() {
+    if (!canWrite && report == null)
+      return const OfficeSurface(
+        child: EmptyState(
+          title: 'Ein Dokument auswählen.',
+          description: 'Öffnen Sie einen Bericht, um ihn zu lesen\noder das PDF zu speichern.',
+          icon: Icons.article_outlined,
+        ),
+      );
+    return OfficeSurface(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (canWrite) ...[
+            Row(
+              children: [
+                for (var index = 0; index < 3; index++) ...[
+                  if (index > 0)
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Icon(
+                        Icons.chevron_right_rounded,
+                        size: 14,
+                        color: OfficeColors.muted,
+                      ),
+                    ),
+                  Expanded(
+                    child: Text(
+                      ['01 Erfassen', '02 Prüfen', '03 Abschließen'][index],
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color:
+                            (report == null
+                                    ? 0
+                                    : report!['status'] == 'draft'
+                                    ? 1
+                                    : 2) ==
+                                index
+                            ? OfficeColors.blue
+                            : OfficeColors.muted,
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+            const SizedBox(height: 24),
+            const Divider(),
+            const SizedBox(height: 28),
+          ],
+          if (report == null && canWrite) ...[
+            const Eyebrow('Dokument erstellen'),
+            const SizedBox(height: 10),
             Text(
-              widget.project['customer'],
-              style: const TextStyle(fontSize: 22),
+              'Neues Dokument',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 24),
-            if (busy) const LinearProgressIndicator(),
-            if (message != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text(message!),
-              ),
+            const SizedBox(height: 8),
             const Text(
-              'Vorhandene Dokumente',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              'Halten Sie fest, was vor Ort geleistet wurde.',
+              style: TextStyle(color: OfficeColors.muted, fontSize: 13),
             ),
-            if (reports.isEmpty && !busy)
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                child: Text('Noch keine Dokumente vorhanden.'),
-              ),
-            for (final item in reports)
-              Card(
-                child: ListTile(
-                  leading: Icon(
-                    item['status'] == 'signed'
-                        ? Icons.verified_outlined
-                        : Icons.edit_document,
-                  ),
-                  title: Text(item['content']['kind']),
-                  subtitle: Text(
-                    '${item['status'] == 'signed' ? 'Unterzeichnet' : 'Entwurf'} · ${localDate(item['content']['created_at'])}\n${item['content']['description']}',
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  selected: report?['id'] == item['id'],
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: busy ? null : () => select(item['id']),
-                ),
-              ),
             const SizedBox(height: 24),
-            if (!canWrite)
-              const Text(
-                'Lesender Zugriff. Dokumenterstellung und Unterschriften sind für diese Rolle gesperrt.',
+            DropdownButtonFormField<String>(
+              key: ValueKey(kind),
+              initialValue: kind,
+              items: [
+                'Servicebericht',
+                'Lieferschein',
+              ].map((k) => DropdownMenuItem(value: k, child: Text(k))).toList(),
+              onChanged: busy ? null : (v) => setState(() => kind = v!),
+              decoration: const InputDecoration(labelText: 'Dokumenttyp'),
+            ),
+            const SizedBox(height: 18),
+            TextField(
+              controller: description,
+              enabled: !busy,
+              minLines: 5,
+              maxLines: 12,
+              maxLength: 10000,
+              decoration: const InputDecoration(
+                labelText: 'Leistungen / gelieferte Positionen',
+                alignLabelWithHint: true,
+                hintText: 'Beschreiben Sie die ausgeführten Arbeiten …',
               ),
-            if (report == null && canWrite) ...[
-              const Text(
-                'Neues Dokument',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                key: ValueKey(kind),
-                initialValue: kind,
-                items: ['Servicebericht', 'Lieferschein']
-                    .map((k) => DropdownMenuItem(value: k, child: Text(k)))
-                    .toList(),
-                onChanged: busy ? null : (v) => setState(() => kind = v!),
-                decoration: const InputDecoration(labelText: 'Dokumenttyp'),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: description,
-                enabled: !busy,
-                minLines: 4,
-                maxLines: 12,
-                maxLength: 10000,
-                decoration: const InputDecoration(
-                  labelText: 'Leistungen / gelieferte Positionen',
-                ),
-              ),
-              const SizedBox(height: 16),
-              FilledButton(
+            ),
+            const SizedBox(height: 22),
+            Align(
+              alignment: Alignment.centerRight,
+              child: FilledButton.icon(
                 onPressed: busy ? null : draft,
-                child: const Text('Dokument zur Prüfung erstellen'),
+                icon: const Icon(Icons.arrow_forward_rounded, size: 17),
+                label: const Text('Dokument zur Prüfung erstellen'),
               ),
-            ],
-            if (report != null) ...[
-              Text(
-                report!['content']['kind'],
-                style: const TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
+            ),
+          ],
+          if (report != null) ...[
+            Row(
+              children: [
+                const Expanded(child: Eyebrow('Dokumentansicht')),
+                StatusPill(
+                  report!['status'] == 'signed' ? 'Unterzeichnet' : 'Entwurf',
+                  positive: report!['status'] == 'signed',
                 ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(
+              report!['content']['kind'],
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Erstellt: ${localDate(report!['content']['created_at'])}',
+              style: const TextStyle(fontSize: 11, color: OfficeColors.muted),
+            ),
+            const SizedBox(height: 24),
+            Container(
+              padding: const EdgeInsets.all(22),
+              decoration: BoxDecoration(
+                color: const Color(0xfffafafa),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: OfficeColors.line),
               ),
-              const SizedBox(height: 12),
-              SelectableText(report!['content']['description']),
-              const SizedBox(height: 12),
-              Text('Erstellt: ${localDate(report!['content']['created_at'])}'),
-              const SizedBox(height: 16),
-              OutlinedButton.icon(
+              child: SelectableText(
+                report!['content']['description'],
+                style: const TextStyle(fontSize: 14, height: 1.8),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: OutlinedButton.icon(
                 onPressed: busy
                     ? null
                     : () => Navigator.push(
@@ -271,38 +491,93 @@ class _ProjectPageState extends State<ProjectPage> {
                           ),
                         ),
                       ),
-                icon: const Icon(Icons.picture_as_pdf),
+                icon: const Icon(Icons.picture_as_pdf_outlined, size: 18),
                 label: const Text('PDF ansehen / speichern'),
               ),
-              const SizedBox(height: 24),
-              if (report!['status'] == 'signed') ...[
-                const Icon(Icons.check_circle, color: Colors.green, size: 48),
-                Text(
-                  'Unterzeichnet von ${report!['signer']}\n${localDate(report!['signed_at'])}',
-                ),
-                if (['owner', 'manager'].contains(widget.role))
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: FilledButton(
-                      onPressed: busy ? null : upload,
-                      child: const Text('PDF in OneDrive ablegen'),
+            ),
+            const SizedBox(height: 24),
+            const Divider(),
+            const SizedBox(height: 24),
+            if (report!['status'] == 'signed') ...[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const IconTile(
+                    Icons.task_alt_rounded,
+                    color: OfficeColors.green,
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Abgeschlossen und unterzeichnet.',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          'Unterzeichnet von ${report!['signer']}\n${localDate(report!['signed_at'])}',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: OfficeColors.muted,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-              ],
-              if (canSign) ...[
-                TextField(
-                  controller: signer,
-                  enabled: !busy,
-                  maxLength: 200,
-                  onChanged: (_) => setState(() {}),
-                  decoration: const InputDecoration(
-                    labelText: 'Name des Unterzeichners',
+                ],
+              ),
+              if (['owner', 'manager'].contains(widget.role))
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: OutlinedButton.icon(
+                      onPressed: busy ? null : upload,
+                      icon: const Icon(Icons.cloud_upload_outlined, size: 18),
+                      label: const Text('PDF in OneDrive ablegen'),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 12),
-                const Text('Unterschrift'),
-                const SizedBox(height: 8),
-                SizedBox(
+            ],
+            if (canSign) ...[
+              Text(
+                'Zur Unterschrift',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Bitte prüfen Sie den Dokumentinhalt vor dem Unterzeichnen.',
+                style: TextStyle(fontSize: 12, color: OfficeColors.muted),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: signer,
+                enabled: !busy,
+                maxLength: 200,
+                onChanged: (_) => setState(() {}),
+                decoration: const InputDecoration(
+                  labelText: 'Name des Unterzeichners',
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'Unterschrift',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: const Color(0xffd2d2d7)),
+                ),
+                child: SizedBox(
                   height: 160,
                   child: LayoutBuilder(
                     builder: (context, constraints) => GestureDetector(
@@ -326,17 +601,40 @@ class _ProjectPageState extends State<ProjectPage> {
                                   ),
                                 );
                             },
-                      child: Container(
-                        color: Colors.white,
-                        child: CustomPaint(
-                          painter: SignaturePainter(strokes),
-                          size: Size(constraints.maxWidth, 160),
-                        ),
+                      child: Stack(
+                        children: [
+                          CustomPaint(
+                            painter: SignaturePainter(strokes),
+                            size: Size(constraints.maxWidth, 160),
+                          ),
+                          const Positioned(
+                            left: 20,
+                            right: 20,
+                            bottom: 35,
+                            child: IgnorePointer(child: Divider()),
+                          ),
+                          const Positioned(
+                            right: 20,
+                            bottom: 12,
+                            child: IgnorePointer(
+                              child: Text(
+                                'Hier unterschreiben',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: OfficeColors.muted,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-                TextButton(
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
                   onPressed: busy
                       ? null
                       : () => setState(() {
@@ -345,35 +643,45 @@ class _ProjectPageState extends State<ProjectPage> {
                         }),
                   child: const Text('Unterschrift neu zeichnen'),
                 ),
-                CheckboxListTile(
-                  value: checked,
-                  onChanged: busy ? null : (v) => setState(() => checked = v!),
-                  title: const Text(
-                    'Der Unterzeichner hat den oben angezeigten Dokumentinhalt geprüft.',
+              ),
+              CheckboxListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 0),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: checked,
+                onChanged: busy ? null : (v) => setState(() => checked = v!),
+                title: const Text(
+                  'Der Unterzeichner hat den oben angezeigten Dokumentinhalt geprüft.',
+                  style: TextStyle(fontSize: 12, height: 1.6),
+                ),
+              ),
+              const SizedBox(height: 18),
+              FilledButton(
+                onPressed:
+                    busy ||
+                        !checked ||
+                        !hasSignature ||
+                        signer.text.trim().isEmpty
+                    ? null
+                    : sign,
+                child: const Text('Unterschrift speichern'),
+              ),
+            ],
+            if (canWrite)
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: busy ? null : newDraft,
+                    child: const Text('Neuen Entwurf erstellen'),
                   ),
                 ),
-                FilledButton(
-                  onPressed:
-                      busy ||
-                          !checked ||
-                          !hasSignature ||
-                          signer.text.trim().isEmpty
-                      ? null
-                      : sign,
-                  child: const Text('Unterschrift speichern'),
-                ),
-              ],
-              if (canWrite)
-                TextButton(
-                  onPressed: busy ? null : newDraft,
-                  child: const Text('Neuen Entwurf erstellen'),
-                ),
-            ],
+              ),
           ],
-        ),
+        ],
       ),
-    ),
-  );
+    );
+  }
 }
 
 class SignaturePainter extends CustomPainter {

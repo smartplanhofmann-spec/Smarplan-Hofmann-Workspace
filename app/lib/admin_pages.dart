@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'api.dart';
+import 'design.dart';
 
 class UsersPage extends StatefulWidget {
   final OfficeApi api;
@@ -68,41 +69,133 @@ class _UsersPageState extends State<UsersPage> {
         IconButton(
           tooltip: 'Aktualisieren',
           onPressed: busy ? null : refresh,
-          icon: const Icon(Icons.refresh),
+          icon: const Icon(Icons.refresh_rounded),
         ),
+        const SizedBox(width: 16),
       ],
-    ),
-    floatingActionButton: FloatingActionButton.extended(
-      onPressed: busy ? null : () => edit(),
-      icon: const Icon(Icons.person_add),
-      label: const Text('Benutzer anlegen'),
     ),
     body: Center(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 900),
+        constraints: const BoxConstraints(maxWidth: 1120),
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 100),
+          padding: const EdgeInsets.fromLTRB(24, 12, 24, 40),
           children: [
-            if (busy) const LinearProgressIndicator(),
-            if (error != null)
-              Padding(padding: const EdgeInsets.all(12), child: Text(error!)),
-            if (!busy && users.isEmpty) const Text('Keine Benutzer vorhanden.'),
-            for (final user in users)
-              Card(
-                child: ListTile(
-                  leading: Icon(
-                    user['active'] == 1 ? Icons.person : Icons.person_off,
-                  ),
-                  title: Text(user['email']),
-                  subtitle: Text(
-                    '${roleLabels[user['role']] ?? user['role']} · ${user['active'] == 1 ? 'Aktiv' : 'Gesperrt'}',
-                  ),
-                  trailing: const Icon(Icons.edit),
-                  onTap: busy
-                      ? null
-                      : () => edit(Map<String, dynamic>.from(user)),
-                ),
+            PageHeading(
+              eyebrow: 'Zusammenarbeit',
+              title: 'Das Team.',
+              subtitle: 'Menschen, Rollen und Zugänge. Klar geregelt.',
+              action: FilledButton.icon(
+                onPressed: busy ? null : () => edit(),
+                icon: const Icon(Icons.person_add_outlined, size: 18),
+                label: const Text('Benutzer anlegen'),
               ),
+            ),
+            const SizedBox(height: 30),
+            if (busy)
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: LinearProgressIndicator(minHeight: 2),
+              ),
+            if (error != null) Notice(error!),
+            OfficeSurface(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Alle Benutzer',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(width: 10),
+                      StatusPill('${users.length}'),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Divider(),
+                  if (!busy && users.isEmpty)
+                    const EmptyState(
+                      title: 'Keine Benutzer vorhanden.',
+                      description: 'Legen Sie einen Zugang für Ihr Team an.',
+                      icon: Icons.people_outline_rounded,
+                    ),
+                  for (final user in users)
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: busy
+                            ? null
+                            : () => edit(Map<String, dynamic>.from(user)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 18,
+                            horizontal: 4,
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 42,
+                                height: 42,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: OfficeColors.canvas,
+                                  borderRadius: BorderRadius.circular(13),
+                                ),
+                                child: Text(
+                                  user['email']
+                                      .toString()
+                                      .substring(0, 1)
+                                      .toUpperCase(),
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: OfficeColors.muted,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      user['email'],
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      '${roleLabels[user['role']] ?? user['role']}${user['id'] == widget.currentUserId ? ' · Ihr Zugang' : ''}',
+                                      style: const TextStyle(
+                                        fontSize: 11,
+                                        color: OfficeColors.muted,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              StatusPill(
+                                user['active'] == 1 ? 'Aktiv' : 'Gesperrt',
+                                positive: user['active'] == 1,
+                              ),
+                              const SizedBox(width: 12),
+                              const Icon(
+                                Icons.chevron_right_rounded,
+                                size: 18,
+                                color: OfficeColors.muted,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -296,42 +389,103 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('Projektzugriff: ${widget.project['name']}'),
+      title: const Text('Projektzugriff'),
       actions: [
         IconButton(
           tooltip: 'Aktualisieren',
           onPressed: busy ? null : refresh,
-          icon: const Icon(Icons.refresh),
+          icon: const Icon(Icons.refresh_rounded),
         ),
+        const SizedBox(width: 16),
       ],
     ),
     body: Center(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 900),
+        constraints: const BoxConstraints(maxWidth: 1000),
         child: ListView(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.fromLTRB(24, 12, 24, 40),
           children: [
-            const Text(
-              'Die Geschäftsführung sieht alle Projekte. Andere Rollen benötigen eine ausdrückliche Zuordnung.',
+            PageHeading(
+              eyebrow: 'Zusammenarbeit',
+              title: 'Die richtigen Menschen.',
+              subtitle: 'Projektzugriff für ${widget.project['name']}',
             ),
-            const SizedBox(height: 16),
-            if (busy) const LinearProgressIndicator(),
-            if (error != null)
-              Padding(padding: const EdgeInsets.all(12), child: Text(error!)),
-            for (final user in users)
-              if (user['role'] != 'owner')
-                Card(
-                  child: CheckboxListTile(
-                    title: Text(user['email']),
-                    subtitle: Text(
-                      '${roleLabels[user['role']]}${user['active'] == 1 ? '' : ' · Zugang gesperrt'}',
-                    ),
-                    value: assigned.contains(user['id']),
-                    onChanged: busy
-                        ? null
-                        : (v) => change(Map<String, dynamic>.from(user), v!),
+            const SizedBox(height: 28),
+            const Notice(
+              'Die Geschäftsführung sieht alle Projekte. Andere Rollen benötigen eine ausdrückliche Zuordnung.',
+              error: false,
+            ),
+            if (busy)
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: LinearProgressIndicator(minHeight: 2),
+              ),
+            if (error != null) Notice(error!),
+            OfficeSurface(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Zugriff verwalten',
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Änderungen werden sofort übernommen.',
+                    style: TextStyle(fontSize: 12, color: OfficeColors.muted),
+                  ),
+                  const SizedBox(height: 20),
+                  if (!busy && users.where((u) => u['role'] != 'owner').isEmpty)
+                    const EmptyState(
+                      title: 'Noch keine weiteren Benutzer.',
+                      description: 'Legen Sie zuerst einen Benutzer in der Benutzerverwaltung an.',
+                      icon: Icons.people_outline_rounded,
+                    ),
+                  for (final user in users)
+                    if (user['role'] != 'owner')
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Material(
+                          color: assigned.contains(user['id'])
+                              ? OfficeColors.blueTint
+                              : const Color(0xfffafafa),
+                          borderRadius: BorderRadius.circular(12),
+                          child: CheckboxListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 8,
+                            ),
+                            controlAffinity: ListTileControlAffinity.leading,
+                            title: Text(
+                              user['email'],
+                              style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(
+                                '${roleLabels[user['role']]}${user['active'] == 1 ? '' : ' · Zugang gesperrt'}',
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  color: OfficeColors.muted,
+                                ),
+                              ),
+                            ),
+                            value: assigned.contains(user['id']),
+                            onChanged: busy
+                                ? null
+                                : (v) => change(
+                                    Map<String, dynamic>.from(user),
+                                    v!,
+                                  ),
+                          ),
+                        ),
+                      ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

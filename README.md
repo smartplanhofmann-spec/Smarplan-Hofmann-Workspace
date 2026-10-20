@@ -1,4 +1,4 @@
-# Smartplan Office - Entwicklungsstand 0.2.1
+# Smartplan Office - Entwicklungsstand 0.3.0
 
 Der aktuelle Stand ergänzt Benutzerverwaltung, Projektzugriff, Berichtslisten,
 PDF-Vorschau/-Speicherung und Sicherung/Wiederherstellung. Windows- und iOS-Gerüste
@@ -12,6 +12,11 @@ Ergänzung vom 20. Oktober 2026: Für den eingerichteten Windows-PC gibt es jetz
 Das kleine Zusatzpaket verwendet die vorhandene App und Python-Umgebung;
 es sichert vor dem Start und nach dem Schließen und stellt Sicherungen in
 einem neuen Datenordner wieder her.
+
+Version 0.3.0 überarbeitet die gesamte App-Oberfläche: einheitliche Typografie,
+helle Arbeitsflächen, Seitenleiste, Projektsuche und Listenansicht sowie eine
+anpassungsfähige Dokument- und Unterschriftenansicht. Gerenderte Ansichten und
+Hinweise zum Aktualisieren stehen in [DESIGN.md](DESIGN.md).
 
 Individuelle Unternehmenssoftware für Smartplan Hofmann. Ziel: Windows-Desktop-App
 und iPhone-App mit gemeinsamer Datenbasis, Benutzerrechten und KI-Anbindungen.

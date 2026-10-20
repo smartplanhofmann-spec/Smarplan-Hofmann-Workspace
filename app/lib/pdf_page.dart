@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
 
 import 'api.dart';
+import 'design.dart';
 
 class ReportPdfPage extends StatefulWidget {
   final OfficeApi api;
@@ -85,10 +86,18 @@ class _ReportPdfPageState extends State<ReportPdfPage> {
     appBar: AppBar(
       title: const Text('PDF-Vorschau'),
       actions: [
-        IconButton(
-          tooltip: 'Speichern / Teilen',
-          onPressed: bytes == null || saving ? null : save,
-          icon: const Icon(Icons.save_alt),
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: FilledButton.icon(
+            onPressed: bytes == null || saving ? null : save,
+            icon: Icon(
+              saving ? Icons.hourglass_top_rounded : Icons.save_alt_rounded,
+              size: 17,
+            ),
+            label: Text(
+              Platform.isWindows ? 'PDF speichern' : 'Speichern / Teilen',
+            ),
+          ),
         ),
       ],
     ),
@@ -97,7 +106,10 @@ class _ReportPdfPageState extends State<ReportPdfPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(error!, textAlign: TextAlign.center),
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Notice(error!),
+                ),
                 TextButton(
                   onPressed: load,
                   child: const Text('Erneut versuchen'),

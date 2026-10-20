@@ -7,6 +7,12 @@ Abnahmeschritte stehen in [ENTWICKLUNG.md](ENTWICKLUNG.md).
 Die folgenden ursprünglichen Abschnitte beschreiben den gelieferten Stand 0.1;
 für aktualisierte Einrichtung und verbleibende Einschränkungen gilt ENTWICKLUNG.md.
 
+Ergänzung vom 20. Oktober 2026: Für den eingerichteten Windows-PC gibt es jetzt
+[Start und Datensicherung](WINDOWS_START_UND_SICHERUNG.md) per Doppelklick.
+Das kleine Zusatzpaket verwendet die vorhandene App und Python-Umgebung;
+es sichert vor dem Start und nach dem Schließen und stellt Sicherungen in
+einem neuen Datenordner wieder her.
+
 Individuelle Unternehmenssoftware für Smartplan Hofmann. Ziel: Windows-Desktop-App
 und iPhone-App mit gemeinsamer Datenbasis, Benutzerrechten und KI-Anbindungen.
 OneDrive Family bleibt für den ersten Stand vorgesehen. Ein Wechsel auf Business

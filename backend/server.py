@@ -10,7 +10,7 @@ from core import Office, Problem, digest
 from onedrive import OneDrive
 
 
-def make_handler(office,drive):
+def make_handler(office,drive,launch_id=""):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self,*args):
             pass  # OAuth codes, passwords and tokens must not appear in request logs.
@@ -62,7 +62,10 @@ def make_handler(office,drive):
                     if not isinstance(data,dict):
                         raise Problem(400,"JSON-Objekt erwartet")
                 if path=="/health" and self.command=="GET":
-                    return self.send(200,{"status":"ok","version":"0.2.0-development"})
+                    health={"status":"ok","version":"0.2.0-development"}
+                    if launch_id:
+                        health["launch_id"]=launch_id
+                    return self.send(200,health)
                 if path=="/api/login" and self.command=="POST":
                     return self.send(200,{"token":office.login(data.get("email"),data.get("password"))})
                 if path=="/oauth/callback" and self.command=="GET":
@@ -153,4 +156,4 @@ if __name__=="__main__":
         print("Benutzer angelegt")
     else:
         print(f"Smartplan Office Entwicklungsserver: http://localhost:{args.port}")
-        ThreadingHTTPServer(("127.0.0.1",args.port),make_handler(office,OneDrive(office))).serve_forever()
+        ThreadingHTTPServer(("127.0.0.1",args.port),make_handler(office,OneDrive(office),os.getenv("SMARTPLAN_LAUNCH_ID",""))).serve_forever()

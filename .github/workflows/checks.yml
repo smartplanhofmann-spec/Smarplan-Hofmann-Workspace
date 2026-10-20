@@ -65,6 +65,12 @@ jobs:
           python -m venv ../backend/.venv
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           & ../backend/.venv/Scripts/python.exe -m pip install -r ../backend/requirements.lock
+      - name: Test Windows backup, restore and launcher lifecycle
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          & ../backend/.venv/Scripts/python.exe -m unittest discover -s ../backend -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.47.7'
@@ -108,12 +114,18 @@ jobs:
               throw "Required runtime file is missing: $smartplanFile"
             }
           }
+          New-Item -ItemType Directory -Force (Join-Path $smartplanBundle 'backend') | Out-Null
+          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'requirements.lock')) {
+            Copy-Item (Join-Path '../backend' $smartplanFile) -Destination (Join-Path $smartplanBundle 'backend')
+          }
+          Copy-Item '../windows/*.cmd' -Destination $smartplanBundle
+          Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           $smartplanReadme = @'
           Smartplan Office 0.2.1 - Windows-Testpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
-          2. Den bereits eingerichteten Python-Server starten und sein Terminal offen lassen.
-          3. smartplan_office.exe doppelt anklicken.
+          2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
+          3. Starten.cmd doppelt anklicken. Es startet Server und App und erstellt Sicherungen.
           4. Mit der selbst eingerichteten E-Mail-Adresse und dem eigenen Passwort anmelden.
 
           Die App verwendet den lokalen Server unter http://127.0.0.1:8765.
@@ -122,7 +134,7 @@ jobs:
           Das Paket ist eine Entwicklungsstufe, kein signierter Installer und kein produktiver Mehrbenutzerbetrieb.
           OneDrive ist erst nach einer gesonderten Einrichtung nutzbar.
           '@
-          Set-Content -Path (Join-Path $smartplanBundle 'START_HIER.txt') -Value $smartplanReadme -Encoding utf8
+          Set-Content -Path (Join-Path $smartplanBundle 'APP_VERSION.txt') -Value $smartplanReadme -Encoding utf8
       - name: Report Windows package diagnostics
         if: failure() && runner.os == 'Windows'
         shell: pwsh

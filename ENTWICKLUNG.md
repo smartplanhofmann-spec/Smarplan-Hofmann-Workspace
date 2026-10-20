@@ -1,5 +1,11 @@
 # Smartplan Office 0.2.1 – Entwicklung und Abnahme
 
+Ergänzung vom 20. Oktober 2026: [Start und Datensicherung unter Windows](WINDOWS_START_UND_SICHERUNG.md)
+beschreibt den neuen gemeinsamen Start per `Starten.cmd`, automatische
+Sicherungen und Wiederherstellung ohne Überschreiben vorhandener Daten.
+Für den bereits eingerichteten Windows-PC ist dies der bevorzugte Startweg.
+Die Backend-Suite umfasst jetzt 23 Tests.
+
 Version 0.2.1 korrigiert die JSON-Übertragung der App: POST-Anfragen enthalten
 eine feste Content-Length anhand der tatsächlich gesendeten UTF-8-Bytes. Damit
 kann auch der lokale Python-Server die Anfrage lesen; bei der ursprünglichen
@@ -169,7 +175,11 @@ iOS-Simulator erfolgreich abgeschlossen. Auf dem Nutzer-PC bestanden inzwischen
 auch die 17 Backend-Tests sowie PDF-Erzeugung und Verschlüsselung. Das neue
 Windows-Releasepaket wird durch die ergänzte CI separat geprüft.
 
-Noch offen sind tatsächliche Windows-/iPhone-App-Läufe einschließlich
+Der Nutzer hat unter Windows inzwischen Anmeldung, Projektanlage,
+Servicebericht, Unterschrift, PDF-Ausgabe, Benutzerverwaltung und Entzug des
+Technikerzugriffs bestätigt. Die Abnahme des neuen Start-/Sicherungspakets bleibt offen.
+
+Noch offen sind tatsächliche iPhone-App-Läufe einschließlich
 PDF-Vorschau, Signaturgesten und Speichern; produktive API, PostgreSQL, HTTPS und
 Mehrbenutzerbetrieb; echte OneDrive-Anmeldung; CRM/Angebote/Planung;
 Zeiten/Material/Offline; Buchhaltung/Banken; WhatsApp/Kalender/KI/MCP; Installer,

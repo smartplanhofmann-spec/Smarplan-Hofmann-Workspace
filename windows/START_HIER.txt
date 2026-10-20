@@ -1,0 +1,64 @@
+Smartplan Office - Start und Sicherung, Version 1.0
+
+Einmal vorbereiten
+1. Das gesamte ZIP entpacken. Alle Dateien und den backend-Ordner zusammen lassen.
+2. Die bisherige Smartplan-App schliessen.
+3. Den bisher von Hand gestarteten Server im VS-Code-/PowerShell-Terminal
+   mit Strg+C beenden. Einmalig notwendig, weil Starten.cmd den Server uebernimmt.
+4. Starten.cmd doppelt anklicken. Im Dateidialog einmal die bereits entpackte
+   smartplan_office.exe auswaehlen. Die Auswahl wird gespeichert.
+   Im vollstaendigen Windows-App-Paket wird die EXE automatisch gefunden.
+5. Mit dem bisherigen Konto anmelden. Das Startfenster geoeffnet lassen.
+
+Spaeter starten
+Immer Starten.cmd oeffnen. Es startet den lokalen Server und die App gemeinsam.
+Beim Schliessen der App wird der von diesem Starter gestartete Server beendet.
+Eine Desktop-Verknuepfung zu Starten.cmd kann im Explorer angelegt werden.
+Die vorher eingerichtete Python-3.12-Umgebung wird weiterverwendet; es gibt
+keine neue Installation und keinen Download von Abhaengigkeiten.
+
+Deine vorhandenen Daten
+Standardmaessig: %LOCALAPPDATA%\SmartplanOffice\data\office.sqlite3
+Die Konfiguration liegt in %LOCALAPPDATA%\SmartplanOffice\start-config.json.
+Es wird keine neue leere Datenbank und kein Standardkonto angelegt.
+Der Flutter-Unterordner data im App-Paket enthaelt Oberflaechenressourcen,
+nicht deine Geschaeftsdaten. Bitte diesen Ordner ebenfalls zusammen lassen.
+
+Automatische Sicherung
+Vor dem Start und nach dem Schliessen entstehen Sicherungen unter
+%LOCALAPPDATA%\SmartplanOffice\backups.
+Jede besteht aus einer .sqlite3-Datei und ihrer .sqlite3.sha256-Pruefsumme.
+Sicherungen werden nicht automatisch geloescht. Speicherplatz gelegentlich pruefen.
+Bei ausgeschaltetem PC oder geschlossener App gibt es keine laufende Sicherung.
+Bei Stromausfall fehlt die Sicherung nach dem Schliessen; der Stand vor dem
+Start bleibt erhalten. Die SQLite-Datenbank bleibt der aktuelle Arbeitsstand.
+
+Sicherung auf USB oder ein anderes Laufwerk
+Smartplan schliessen. Sicherung_erstellen.cmd doppelt anklicken und einen
+geschuetzten Zielordner auf einem anderen Laufwerk waehlen. Beide Dateien
+zusammen aufbewahren. Die Sicherung enthaelt Benutzer, Projekte, Berichte,
+Unterschriften, PDF-Dateien, Passwort-Hashes und Sitzungsdaten.
+Sie ist nicht verschluesselt. Nur berechtigten Personen Zugriff geben.
+Kopien auf demselben PC schuetzen nicht vor einem Defekt oder Verlust des PCs.
+Die Pruefsumme erkennt Dateischaeden; sie ist keine digitale Signatur.
+Ein fuer OneDrive verwendeter OFFICE_VAULT_KEY gehoert nicht zur Datenbank und
+muss, falls eingerichtet, separat sicher aufbewahrt werden.
+
+Wiederherstellen
+1. Smartplan-App und Startfenster schliessen; auch einen alten Server beenden.
+2. Sicherung_wiederherstellen.cmd oeffnen und eine .sqlite3-Sicherung auswaehlen.
+   Die dazugehoerige .sqlite3.sha256-Datei muss im selben Ordner liegen.
+3. Den angegebenen Sicherungsstand bestaetigen. Neuere Aenderungen sind in
+   diesem Stand nicht enthalten und werden nicht automatisch zusammengefuehrt.
+4. Starten.cmd oeffnen und erneut anmelden.
+
+Die bisherigen Daten werden vorher gesichert und bleiben erhalten.
+Die Wiederherstellung legt einen neuen Ordner unter
+%LOCALAPPDATA%\SmartplanOffice\restored an und schaltet die Startkonfiguration
+erst nach erfolgreicher Pruefung um. Alte Sitzungen werden ungueltig.
+Die bisherige und die wiederhergestellte Datenbank werden nie ueberschrieben.
+Alte manuelle Serverbefehle verwenden die neue Startkonfiguration nicht;
+nach einer Wiederherstellung deshalb immer Starten.cmd verwenden.
+
+Dies ist weiterhin ein lokaler Windows-Entwicklungsstand, kein signierter
+Installer und kein freigegebener produktiver Mehrbenutzerbetrieb.

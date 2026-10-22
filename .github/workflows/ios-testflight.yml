@@ -70,7 +70,21 @@ jobs:
           PY
       - run: flutter pub get --enforce-lockfile
       - run: flutter analyze
-      - run: flutter test
+      - name: App-Tests mit Fehlerdetails ausfuehren
+        run: |
+          set +e
+          flutter test --reporter expanded 2>&1 | tee "$RUNNER_TEMP/flutter-test.log"
+          result=${PIPESTATUS[0]}
+          set -e
+          if [ "$result" -ne 0 ]; then
+            {
+              echo '### App-Test fehlgeschlagen'
+              echo '```text'
+              tail -n 160 "$RUNNER_TEMP/flutter-test.log"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit "$result"
+          fi
       - name: Flutter iOS Release bauen (Online-Server, ohne Signierung)
         run: >-
           flutter build ios --release --no-codesign

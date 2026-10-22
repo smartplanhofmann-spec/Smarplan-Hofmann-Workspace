@@ -138,6 +138,18 @@ Abnahme: Reale autorisierte Nachrichten und Termine erreichen das richtige Proje
 
 ### 7 – Betrieb und vollständige Freigabe
 
+**Für das nächste Windows-Update vorgezogen (Nutzerwunsch vom 22. Oktober 2026):**
+Die SmartScreen-Warnung des heruntergeladenen Online-Testpakets bearbeiten.
+Vertrauenswürdige Authenticode-Signierung der EXE und eines Installationspakets
+mit festem Herausgeber und Zeitstempel vorbereiten; Signatur im Release prüfen
+und das tatsächlich heruntergeladene Paket auf einem Windows-PC abnehmen.
+Zertifikats-/Signierdienst, Herausgebernachweis, Kosten und sichere Bereitstellung
+der Signierzugänge sind vor einer Buchung konkret zu klären. Eine gültige
+Signatur garantiert keine sofortige SmartScreen-Reputation. Die Warnung durch
+Abschalten von SmartScreen oder Entfernen der Downloadmarkierung zu umgehen
+gilt nicht als Lösung. Der Nutzer hat das aktuelle Paket manuell gestartet;
+die Behebung ist noch offen.
+
 Installer/Updates für Windows, iPhone-Verteilung zunächst über geeigneten Testweg und anschließend den gewählten regulären Weg; Dokumentation, Datenübernahme, Supportabläufe, Last-/Rechtetests, Backup/Restore und Pilot mit echten Anwendern. Business/NAS wird als spätere Erweiterung separat abgenommen.
 
 Abnahme: Die tatsächlich benötigten Funktionen jeder vorigen Etappe bestehen ihre Abnahme; bekannte Einschränkungen sind entschieden; Wiederherstellung und Updates sind erprobt; Pilotanwender können die vereinbarten Alltagsabläufe ohne Entwicklerhilfe durchführen. Keine Behauptung rechtlicher Konformität allein aufgrund technischer Tests.

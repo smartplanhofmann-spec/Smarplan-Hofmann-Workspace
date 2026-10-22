@@ -150,6 +150,16 @@ flutter run -d windows
 
 Die Plattformgerüste existieren bereits: `flutter create` ist nicht erneut nötig. Ein Entwicklungsbuild wird mit `flutter build windows --debug` erzeugt. Das Ergebnis muss mitsamt seinen DLLs und dem Datenordner verwendet werden; eine einzelne EXE reicht nicht. Ein Installer und signierte Updates sind noch nicht umgesetzt.
 
+Am 22. Oktober zeigte Windows SmartScreen beim Online-Pilotpaket die Warnung
+vor einer unbekannten App. Der Nutzer startete es manuell und verlangte die
+Bearbeitung im nächsten Update. Das Paket besitzt derzeit keine Authenticode-
+Signatur. Für das nächste Windows-Release sind Herausgeber-/Zeitstempelsignierung,
+ein signiertes Installationspaket und eine Prüfung des tatsächlichen Downloads
+vorgezogen. `Get-AuthenticodeSignature` muss eine gültige Signatur und den
+erwarteten Herausgeber bestätigen. SmartScreen bewertet zusätzlich Reputation;
+Warnungsfreiheit wird deshalb nicht allein aus `Status=Valid` abgeleitet.
+Signierdienst/Zertifikat und Kosten sind noch nicht ausgewählt oder bestellt.
+
 ## iOS
 
 Auf macOS aus `app` zunächst `flutter pub get --enforce-lockfile`, `flutter analyze` und `flutter test`; dann `flutter build ios --simulator --debug`. Für einen echten iPhone-Lauf das Gerät in `flutter devices` auswählen und ein geeignetes HTTPS-Testbackend übergeben:

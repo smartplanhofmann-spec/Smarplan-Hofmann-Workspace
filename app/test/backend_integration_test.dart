@@ -16,6 +16,7 @@ import os
 import sys
 from pathlib import Path
 from http.server import ThreadingHTTPServer
+from socketserver import TCPServer
 from core import Office
 from onedrive import OneDrive
 from server import make_handler
@@ -24,7 +25,14 @@ for name in ('MS_CLIENT_ID', 'MS_CLIENT_SECRET', 'MS_REDIRECT_URI', 'OFFICE_VAUL
     os.environ.pop(name, None)
 office = Office(Path(sys.argv[1]) / 'office.sqlite3')
 office.add_user('owner@example.test', 'Integration-password-123', 'owner')
-server = ThreadingHTTPServer(('127.0.0.1', 0), make_handler(office, OneDrive(office)))
+class LoopbackTestServer(ThreadingHTTPServer):
+    def server_bind(self):
+        # This synthetic fixture has a numeric loopback address. HTTPServer's
+        # optional reverse-DNS name lookup can stall on macOS CI runners.
+        TCPServer.server_bind(self)
+        self.server_name, self.server_port = self.server_address
+
+server = LoopbackTestServer(('127.0.0.1', 0), make_handler(office, OneDrive(office)))
 print('PORT:' + str(server.server_port), flush=True)
 faulthandler.cancel_dump_traceback_later()
 server.serve_forever()

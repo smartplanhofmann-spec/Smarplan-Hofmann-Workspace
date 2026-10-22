@@ -8,6 +8,7 @@ import 'project_page.dart';
 import 'design.dart';
 import 'home_views.dart';
 import 'customer_pages.dart';
+import 'mfa_dialog.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -103,10 +104,34 @@ class _OfficeHomeState extends State<OfficeHome> {
   Future<void> login() async {
     if (!loginForm.currentState!.validate()) return;
     await run(() async {
-      final result = await api.call('/api/login', {
+      var result = await api.call('/api/login', {
         'email': email.text.trim(),
         'password': password.text,
       });
+      password.clear();
+      if (result['mfa_required'] == true) {
+        final pending = Map<String, dynamic>.from(result);
+        if (!mounted) return;
+        result = await showDialog<Map<String, dynamic>>(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => MfaDialog(
+            api: api,
+            challenge: pending['challenge'] as String,
+            enrollment: pending['enrollment'] as Map<String, dynamic>?,
+          ),
+        );
+        if (result == null || !mounted) return;
+        final codes = result['recovery_codes'];
+        if (codes is List) {
+          await showDialog<void>(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => RecoveryCodesDialog(codes: codes.cast<String>()),
+          );
+          if (!mounted) return;
+        }
+      }
       api.token = result['token'];
       try {
         final me = Map<String, dynamic>.from(await api.call('/api/me'));
@@ -195,6 +220,9 @@ class _OfficeHomeState extends State<OfficeHome> {
         busy: busy,
         error: error,
         onLogin: login,
+        connectionLabel: api.version == 'v1'
+            ? 'Online-Pilot · ${Uri.parse(api.base).host}'
+            : null,
       );
     }
     return WorkspaceView(

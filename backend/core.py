@@ -132,6 +132,7 @@ def customer_key(name, address=""):
 
 
 class Office:
+    integrity_error = sqlite3.IntegrityError
     def __init__(self, path):
         self.lock = threading.RLock()
         self.db = sqlite3.connect(path, check_same_thread=False)
@@ -190,7 +191,7 @@ class Office:
                 customer_id, value["name"], value["contact"], value["email"], value["phone"],
                 value["address"], value["notes"], int(value["active"]),
                 customer_key(value["name"], value["address"]), timestamp, timestamp))
-        except sqlite3.IntegrityError:
+        except self.integrity_error:
             raise Problem(409, "Kunde mit diesem Namen und dieser Adresse existiert bereits; auch archivierte Kunden prüfen")
         return customer_id
 
@@ -209,7 +210,7 @@ class Office:
             return [dict(row) for row in self.db.execute(
                 "SELECT c.id,c.name,c.contact,c.email,c.phone,c.address,c.notes,c.active,c.created_at,c.updated_at,"
                 "(SELECT COUNT(*) FROM projects p WHERE p.customer_id=c.id) AS project_count "
-                "FROM customers c ORDER BY c.name COLLATE NOCASE,c.id")]
+                "FROM customers c ORDER BY lower(c.name),c.id")]
 
     def create_customer(self, actor, changes):
         self.require(actor, ("owner",))
@@ -228,7 +229,7 @@ class Office:
                                 "dedupe_key=?,updated_at=? WHERE id=?", (
                     value["name"], value["contact"], value["email"], value["phone"], value["address"], value["notes"],
                     int(value["active"]), customer_key(value["name"], value["address"]), now_iso(), customer_id))
-            except sqlite3.IntegrityError:
+            except self.integrity_error:
                 raise Problem(409, "Kunde mit diesem Namen und dieser Adresse existiert bereits")
             # Reports contain independent, immutable snapshots of their original customer name.
             self.db.execute("UPDATE projects SET customer=? WHERE customer_id=?", (value["name"], customer_id))
@@ -264,7 +265,7 @@ class Office:
             try:
                 self.db.execute("INSERT INTO users(id,email,salt,password,role) VALUES(?,?,?,?,?)",
                                 (user_id,email,salt,password_hash(password,salt),role))
-            except sqlite3.IntegrityError:
+            except self.integrity_error:
                 raise Problem(409, "Benutzer existiert bereits")
         return user_id
 
@@ -332,7 +333,7 @@ class Office:
             if remove:
                 self.db.execute("DELETE FROM assignments WHERE user_id=? AND project_id=?", (user_id, project_id))
             else:
-                self.db.execute("INSERT OR IGNORE INTO assignments VALUES(?,?)", (user_id, project_id))
+                self.db.execute("INSERT INTO assignments VALUES(?,?) ON CONFLICT DO NOTHING", (user_id, project_id))
             self.audit(actor, "assignment.removed" if remove else "assignment.added", project_id)
 
     def login(self, email, password):

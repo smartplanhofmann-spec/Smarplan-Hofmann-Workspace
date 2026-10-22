@@ -83,6 +83,15 @@ App-Endpunkte ist lokal getestet, noch nicht separat am öffentlichen Host.
 
 ## Vor der öffentlichen und echten gemeinsamen Nutzung noch offen
 
+Der separate [Online-Pilot 0.5](online/README.md) ist inzwischen im Code vorbereitet.
+In der Entwicklungsumgebung bestehen 19 PostgreSQL-/Anmeldefälle einschließlich
+Dump/Restore, Rechteentzug und paralleler Unterschrift. Ein weiterer echter
+Caddy/Gunicorn/PostgreSQL-Test prüft MFA, PDF und API-Neustart über verifiziertes
+TLS. Flutter-Analyse und alle 27 App-Tests bestehen; die bisherigen 32 lokalen
+Backend-Fälle laufen weiterhin mit einem erwarteten Windows-Skip auf Linux.
+Diese Ergebnisse bestätigen keine Installation des neuen Online-Dienstes auf
+Hetzner und keine tatsächliche Windows-Online- oder iPhone-Abnahme.
+
 - HTTPS-Erneuerung überwachen und die öffentliche Sperre der App-Endpunkte
   gesondert prüfen. TCP 8765 bleibt gesperrt.
 - Öffentliche API-Laufzeit, PostgreSQL-Datenhaltung und Migration, MFA,

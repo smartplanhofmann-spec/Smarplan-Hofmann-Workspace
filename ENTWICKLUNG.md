@@ -216,6 +216,13 @@ systemd-Status und öffentlicher Browseraufruf über HTTPS ohne sichtbare
 Zertifikatswarnung sind per Screenshot bestätigt.
 Siehe [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
+Die nächste Stufe 0.5 ergänzt `backend/online` mit PostgreSQL, Flask/Gunicorn und
+Passwort/TOTP sowie QR-Einrichtung und Recovery-Codes in Flutter. Die
+[Online-Pilot-Anleitung](deploy/hetzner/online/README.md) trennt lokale Tests,
+Installation und noch offene echte Geräteabnahme. CI erzeugt zusätzlich das
+separate Artefakt `Smartplan-Office-Windows-Online-Pilot` mit festem HTTPS-Host
+und API-Version `v1`; das lokale Windows-Paket bleibt erhalten.
+
 Noch offen sind tatsächliche iPhone-App-Läufe einschließlich
 PDF-Vorschau, Signaturgesten und Speichern; produktive API, PostgreSQL, App-Anbindung über HTTPS und
 Mehrbenutzerbetrieb; echte OneDrive-Anmeldung; CRM/Angebote/Planung;

@@ -12,6 +12,7 @@ class LoginView extends StatefulWidget {
   final bool busy;
   final String? error;
   final VoidCallback onLogin;
+  final String? connectionLabel;
   const LoginView({
     super.key,
     required this.email,
@@ -20,6 +21,7 @@ class LoginView extends StatefulWidget {
     required this.busy,
     this.error,
     required this.onLogin,
+    this.connectionLabel,
   });
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -142,6 +144,17 @@ class _LoginViewState extends State<LoginView> {
                                               CrossAxisAlignment.stretch,
                                           children: [
                                             const Eyebrow('Ihr Arbeitsbereich'),
+                                            if (widget.connectionLabel !=
+                                                null) ...[
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                widget.connectionLabel!,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: OfficeColors.muted,
+                                                ),
+                                              ),
+                                            ],
                                             const SizedBox(height: 15),
                                             Text(
                                               'Willkommen\nzurück.',

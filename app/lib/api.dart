@@ -14,14 +14,16 @@ class ApiException implements Exception {
 }
 
 class OfficeApi extends ChangeNotifier {
-  OfficeApi({String? baseUrl})
+  OfficeApi({String? baseUrl, String? apiVersion})
     : base =
           baseUrl ??
           const String.fromEnvironment(
             'API_URL',
             defaultValue: 'http://127.0.0.1:8765',
-          );
+          ),
+      version = apiVersion ?? const String.fromEnvironment('API_VERSION');
   final String base;
+  final String version;
   String? token;
 
   Future<Uint8List> _request(
@@ -29,7 +31,12 @@ class OfficeApi extends ChangeNotifier {
     Map<String, dynamic>? body, {
     bool pdf = false,
   }) async {
-    final uri = Uri.parse('${base.replaceFirst(RegExp(r'/+$'), '')}$path');
+    final versionedPath = version == 'v1' && path.startsWith('/api/')
+        ? '/api/v1/${path.substring(5)}'
+        : path;
+    final uri = Uri.parse(
+      '${base.replaceFirst(RegExp(r'/+$'), '')}$versionedPath',
+    );
     if (uri.scheme != 'https' &&
         !(uri.scheme == 'http' &&
             ['localhost', '127.0.0.1'].contains(uri.host))) {

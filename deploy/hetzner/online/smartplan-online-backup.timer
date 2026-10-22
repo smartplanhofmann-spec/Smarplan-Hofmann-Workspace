@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily PostgreSQL backup of Smartplan online pilot
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=15m
+Persistent=true
+Unit=smartplan-online-backup.service
+
+[Install]
+WantedBy=timers.target

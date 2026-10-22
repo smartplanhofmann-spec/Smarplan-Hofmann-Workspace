@@ -64,7 +64,7 @@ class OneDrive:
         tokens["expires_at"]=time.time()+int(tokens.get("expires_in",3600))
         encrypted=self.vault.encrypt(canonical(tokens).encode()).decode()
         with self.office.lock,self.office.db:
-            self.office.db.execute("INSERT OR REPLACE INTO secrets VALUES('onedrive',?)",(encrypted,))
+            self.office.db.execute("INSERT INTO secrets VALUES('onedrive',?) ON CONFLICT(name) DO UPDATE SET value=excluded.value",(encrypted,))
 
     def callback(self,state,code):
         with self.office.lock:

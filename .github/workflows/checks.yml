@@ -6,6 +6,38 @@ on:
 permissions:
   contents: read
 jobs:
+  online-api:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_DB: smartplan_check
+          POSTGRES_PASSWORD: disposable-ci-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d smartplan_check"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PYTHONPATH: backend
+      SMARTPLAN_TEST_DSN: host=127.0.0.1 port=5432 dbname=smartplan_check user=postgres password=disposable-ci-only
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backend/online/requirements.lock
+      - run: python -m pip check
+      - run: python -m unittest discover -s backend/online -p test_online.py -v
+      - name: Check online units, scripts and real HTTPS runtime
+        run: |
+          bash -n deploy/hetzner/online/*.sh
+          systemd-analyze verify deploy/hetzner/online/*.service deploy/hetzner/online/*.timer
+          smartplan_caddy_test=$(mktemp -d)
+          trap 'rm -rf -- "$smartplan_caddy_test"' EXIT
+          bash deploy/hetzner/https/fetch-caddy.sh "$smartplan_caddy_test"
+          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python backend/online/test_runtime.py
   https-setup:
     runs-on: ubuntu-latest
     steps:
@@ -141,7 +173,7 @@ jobs:
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.4.0 - Windows-Testpaket (x64)
+          Smartplan Office 0.5.0 - lokales Windows-Testpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -178,5 +210,44 @@ jobs:
         with:
           name: Smartplan-Office-Windows
           path: app/build/windows/x64/runner/Release/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Build separate online Windows pilot
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanOnline = Join-Path (Get-Location) 'build/online-package'
+          New-Item -ItemType Directory -Path $smartplanOnline | Out-Null
+          Copy-Item 'build/windows/x64/runner/Release/*' -Destination $smartplanOnline -Recurse
+          flutter build windows --release --dart-define=API_URL=https://office.smartplan-hofmann.de --dart-define=API_VERSION=v1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Copy-Item 'build/windows/x64/runner/Release/*' -Destination $smartplanOnline -Recurse -Force
+          if (Test-Path (Join-Path $smartplanOnline 'backend')) { Remove-Item (Join-Path $smartplanOnline 'backend') -Recurse -Force }
+          Get-ChildItem $smartplanOnline -Filter '*.cmd' | Remove-Item -Force
+          foreach ($smartplanFile in @('START_HIER.txt', 'APP_VERSION.txt')) {
+            if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
+          }
+          $smartplanInstructions = @'
+          Smartplan Office 0.5.0 - Online-Pilot fuer Windows (x64)
+
+          Alle Dateien vollstaendig in einen neuen Ordner entpacken.
+          smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
+          Dieses Paket verbindet ausschliesslich https://office.smartplan-hofmann.de ueber API v1.
+          Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
+          und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
+          Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
+          Das Paket ist ein Online-Pilot, kein signierter Installer. Echte iPhone-Verteilung,
+          OneDrive, Datenuebernahme und getrennte verschluesselte Backups sind weitere Schritte.
+          '@
+          Set-Content -Path (Join-Path $smartplanOnline 'ONLINE_START_HIER.txt') -Value $smartplanInstructions -Encoding utf8
+          foreach ($smartplanFile in @('smartplan_office.exe', 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')) {
+            if (-not (Test-Path (Join-Path $smartplanOnline $smartplanFile))) { throw "Online package file missing: $smartplanFile" }
+          }
+      - name: Upload separate online Windows pilot
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Office-Windows-Online-Pilot
+          path: app/build/online-package/
           if-no-files-found: error
           retention-days: 14

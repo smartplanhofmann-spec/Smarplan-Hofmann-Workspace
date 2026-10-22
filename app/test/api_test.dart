@@ -132,4 +132,22 @@ void main() {
       api.dispose();
     }
   });
+
+  test(
+    'Online configuration uses the versioned API path',
+    () => withServer((server, local) async {
+      final online = OfficeApi(baseUrl: local.base, apiVersion: 'v1');
+      try {
+        server.listen((request) async {
+          expect(request.uri.path, '/api/v1/projects');
+          request.response.headers.contentType = ContentType.json;
+          request.response.write('[]');
+          await request.response.close();
+        });
+        expect(await online.call('/api/projects'), isEmpty);
+      } finally {
+        online.dispose();
+      }
+    }),
+  );
 }

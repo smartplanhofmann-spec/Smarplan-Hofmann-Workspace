@@ -59,7 +59,7 @@ Der Gesamtlauf ist fehlgeschlagen, weil GitHub nach mehreren Versuchen keinen
 gehosteten macOS-Runner zuweisen konnte und einen internen Fehler meldete.
 Daraus wird kein erfolgreicher iOS-Simulator-Build für diesen Lauf abgeleitet.
 
-## DNS und vorbereitetes HTTPS-Paket
+## DNS und installierte HTTPS-Einrichtungsseite
 
 Wix-Verwaltungszugriff ist bestätigt. Der Nutzer ergänzte den A-Eintrag
 `office.smartplan-hofmann.de` → `116.203.43.69`; die Windows-Abfrage
@@ -70,15 +70,23 @@ Das [HTTPS-Paket](https/README.md) wurde mit dem echten Caddy 2.11.7 ohne root
 lokal geprüft: verifiziertes TLS mit eigener Test-CA, Ablehnung ohne Vertrauen,
 HTTP-Weiterleitung, statische Seite und gesperrte API-/Gesundheitsendpunkte.
 Bash- und systemd-Syntax sind geprüft. Kein öffentlicher API-Proxy ist enthalten.
-Installation auf Hetzner und ein reguläres öffentliches Zertifikat sind noch
-nicht nachgewiesen; der lokale Test wird dafür nicht als Ersatz gewertet.
+
+Nach der Korrektur `f1e8f9c` der DNS-Vorprüfung ist die Installation auf Hetzner
+bestätigt: Der Screenshot zeigt `smartplan-https.service` als aktiviert und
+`active (running)`, Prozess `caddy`. Der Nutzer hatte zuvor die zusätzlichen
+Firewall-Regeln für TCP 80/443 bestätigt. Ein weiterer Screenshot vom
+22. Oktober zeigt `https://office.smartplan-hofmann.de/` mit der korrekten
+Einrichtungsseite ohne sichtbare Zertifikatswarnung. Dies bestätigt den
+öffentlichen HTTPS-Seitenabruf. Zertifikatserneuerung und HTTP-Weiterleitung
+wurden auf dem Nutzer-Server nicht gesondert abgenommen. Die 503-Sperre der
+App-Endpunkte ist lokal getestet, noch nicht separat am öffentlichen Host.
 
 ## Vor der öffentlichen und echten gemeinsamen Nutzung noch offen
 
-- HTTPS-Paket installieren, TCP 80/443 erlauben und gültiges öffentliches
-  Zertifikat sowie Seitenabruf bestätigen. TCP 8765 bleibt gesperrt.
+- HTTPS-Erneuerung überwachen und die öffentliche Sperre der App-Endpunkte
+  gesondert prüfen. TCP 8765 bleibt gesperrt.
 - Öffentliche API-Laufzeit, PostgreSQL-Datenhaltung und Migration, MFA,
-  HTTPS-Zertifikat und App-Konfiguration gemäß [Betriebsplan](../../BETRIEB_UND_IPHONE.md).
+  App-Konfiguration gemäß [Betriebsplan](../../BETRIEB_UND_IPHONE.md).
 - Wiederherstellung aus einer tatsächlichen Pilot-Serversicherung in eine
   getrennte Instanz; getrenntes verschlüsseltes Sicherungsziel, Aufbewahrung,
   Betriebsüberwachung und zuständige Betreuung. Die derzeitigen lokalen Kopien

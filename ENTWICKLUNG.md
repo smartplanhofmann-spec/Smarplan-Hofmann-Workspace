@@ -211,12 +211,13 @@ VM-Neustart sind bestätigt; öffentlicher gemeinsamer Gerätebetrieb
 ist noch nicht freigegeben. Wix-DNS-Zugriff und der A-Eintrag für
 `office.smartplan-hofmann.de` auf die VM sind am 22. Oktober bestätigt.
 Das [HTTPS-Einrichtungspaket](deploy/hetzner/https/README.md) mit isolierter
-statischer Seite ist lokal geprüft; Installation und reguläres Zertifikat
-auf dem Nutzer-Server sind noch nicht bestätigt.
+statischer Seite ist lokal geprüft und auf dem Nutzer-Server installiert.
+systemd-Status und öffentlicher Browseraufruf über HTTPS ohne sichtbare
+Zertifikatswarnung sind per Screenshot bestätigt.
 Siehe [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
 Noch offen sind tatsächliche iPhone-App-Läufe einschließlich
-PDF-Vorschau, Signaturgesten und Speichern; produktive API, PostgreSQL, HTTPS und
+PDF-Vorschau, Signaturgesten und Speichern; produktive API, PostgreSQL, App-Anbindung über HTTPS und
 Mehrbenutzerbetrieb; echte OneDrive-Anmeldung; CRM/Angebote/Planung;
 Zeiten/Material/Offline; Buchhaltung/Banken; WhatsApp/Kalender/KI/MCP; Installer,
 Signierung und Veröffentlichung. Siehe `UMSETZUNGSPLAN.md`.

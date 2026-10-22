@@ -18,15 +18,16 @@ Konto, VM und privater systemd-Testdienst sind eingerichtet und müssen nicht
 erneut angelegt werden. Eigenes Dienstkonto, automatischer Start und manuell
 ausgelöste konsistente Sicherung sind auf Hetzner bestätigt. Siehe
 [Anleitung](deploy/hetzner/README.md). Der Zugriff erfolgt über einen SSH-Tunnel;
-öffentliche API und HTTPS sind damit noch nicht freigegeben. Wix-DNS-Zugriff
+die öffentliche API ist damit noch nicht freigegeben. Wix-DNS-Zugriff
 ist inzwischen bestätigt: `office.smartplan-hofmann.de` zeigt per A-Eintrag auf
 `116.203.43.69`; die Windows-DNS-Abfrage vom 22. Oktober bestätigt das.
 Website und E-Mail verbleiben bei den bestehenden Anbietern.
 
 Das [separate HTTPS-Einrichtungspaket](deploy/hetzner/https/README.md) liefert
-zunächst nur eine statische Seite, ohne Verbindung zur privaten API. Code und
-lokaler TLS-Test sind vorbereitet; Installation und echtes öffentliches
-Zertifikat sind auf dem Nutzer-Server noch zu bestätigen. Produktions-API,
+zunächst nur eine statische Seite, ohne Verbindung zur privaten API. Nach der
+DNS-Prüfkorrektur `f1e8f9c` hat der Nutzer es installiert: systemd meldet
+`active (running)`, und der Browser zeigt die Seite über HTTPS ohne sichtbare
+Zertifikatswarnung. Diese Nachweise liegen vom 22. Oktober vor. Produktions-API,
 Datenhaltung, MFA und darauf konfigurierte Apps bleiben weitere Entwicklung.
 Zugangsdaten gehören ausschließlich in geeignete sichere Einstellungen.
 Ob Konto-2FA bereits aktiviert ist, wurde nicht gesondert bestätigt.
@@ -89,9 +90,9 @@ Server verbindet daher das bestehende Windows-Paket oder das iPhone noch nicht.
 3. Server mit SSH-Schlüssel und Firewall vorbereiten: Verwaltung nur aus
    festgelegten Zugängen, öffentlich später ausschließlich HTTP/HTTPS;
    Datenbank- und interne API-Ports bleiben geschlossen.
-4. DNS für `office.smartplan-hofmann.de` ist bestätigt. Das separate HTTPS-Paket
-   installieren und das reguläre Zertifikat prüfen; die Einrichtungsseite
-   allein bestätigt noch keinen öffentlichen App-Betrieb.
+4. DNS, Installation des separaten HTTPS-Pakets und Seitenaufruf über HTTPS
+   sind bestätigt. Die Einrichtungsseite allein bestätigt noch keinen
+   öffentlichen App-Betrieb.
 5. Dienste mit automatischem Neustart, eingeschränktem Dienstkonto, geschützten
    Schlüsseln, Systemupdates und Betriebsüberwachung einrichten.
 6. Zuerst fiktive Daten verwenden. Anmeldung, Rollen, Projektzugriff, Unterschrift,

@@ -92,8 +92,9 @@ auf jedem Gerät auf dieses Gerät selbst.
 
 Diese Angaben werden schrittweise geklärt. Konto und Basistarif sind geklärt;
 ein weiterer Server muss nicht bestellt werden. DNS ist eingerichtet; das
-[HTTPS-Einrichtungspaket](deploy/hetzner/https/README.md) ist lokal geprüft,
-auf dem Nutzer-Server aber noch nicht installiert/abgenommen. Der private Loopback-Pilot
+[HTTPS-Einrichtungspaket](deploy/hetzner/https/README.md) läuft auf dem Nutzer-Server.
+systemd-Start und Browseraufruf der statischen Seite über HTTPS ohne sichtbare
+Zertifikatswarnung sind am 22. Oktober per Screenshot bestätigt. Der private Loopback-Pilot
 mit SSH-Tunnel kann unabhängig davon geprüft werden; er erfüllt die öffentlichen
 Lieferpakete nicht. Die laufende Betriebsverantwortung bleibt festzulegen.
 Passwörter, Tokens, private Schlüssel und Zertifikate gehören nicht in den Chat.

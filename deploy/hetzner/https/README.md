@@ -5,6 +5,14 @@ Stand 22. Oktober 2026: Der Nutzer hat bei Wix den A-Eintrag
 `Resolve-DnsName` bestätigt diese Zuordnung. Die drei bisherigen Wix-A-Einträge
 der Hauptdomain, `www`, Google-Workspace-Mail und Nameserver bleiben erhalten.
 
+Auf dem bestehenden Nutzer-Server ist dieses Paket nach der DNS-Vorprüfkorrektur
+`f1e8f9c` installiert. Der Nutzer bestätigte die Firewall-Regeln für TCP 80/443;
+sein Screenshot zeigt den Dienst als `active (running)`. Ein weiterer Screenshot
+zeigt die Einrichtungsseite im Browser über HTTPS ohne sichtbare
+Zertifikatswarnung. Die Anleitung darunter dient der Dokumentation; die
+Installation nicht erneut auf demselben Server ausführen. Erneuerung und die
+öffentliche 503-Sperre wurden noch nicht separat am Nutzer-Server beobachtet.
+
 Dieses Paket veröffentlicht ausschließlich eine statische Einrichtungsseite.
 Es enthält **keinen Reverse-Proxy** zum privaten Entwicklungsserver. `/api`,
 `/auth`, `/oauth` samt Unterpfaden sowie `/health` und `/ready` antworten mit
@@ -106,5 +114,5 @@ Der HTTPS-Client vertraut explizit deren Root-Zertifikat und prüft den Hostname
 eine Anfrage ohne dieses Vertrauen muss scheitern. Geprüft werden die statische
 Seite, HTTP-Weiterleitung, Header, 404 und die Sperre der API-Endpunkte auch bei
 POST. Weder System-Vertrauensspeicher noch App-Daten werden verändert. Zusätzlich
-werden Bash und systemd-Unit statisch geprüft. Ein tatsächlicher systemd-Start
-und ein öffentliches ACME-Zertifikat müssen am Nutzer-Server bestätigt werden.
+werden Bash und systemd-Unit statisch geprüft. Der tatsächliche systemd-Start
+und Browseraufruf auf dem Nutzer-Server sind oben getrennt dokumentiert.

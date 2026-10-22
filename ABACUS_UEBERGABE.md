@@ -18,7 +18,9 @@ Passwörter, private SSH-Schlüssel und Apple-Signierschlüssel gehören nicht i
 - Plattformen: Flutter/Dart, Windows und natives iOS; App-Version `0.5.0+6`.
 - Funktionscode des abgenommenen Online-Piloten:
   `6777fb9ee64eaf05d08cfc13be98049641b663bc`.
-  Spätere Commits bis zu dieser Übergabe ergänzen Abnahmen/Planung.
+  Abacus ergänzt in `6e8e37d` die iOS-Bundle-ID, Exportoptionen und Anleitung.
+  Die anschließenden Workflow-Änderungen bereiten den unsignierten Release-Prüflauf
+  und einen separat angeforderten TestFlight-Upload vor.
 - App unter `app/`, lokales Backend unter `backend/`, Online-Backend unter
   `backend/online/`, Serverinstallation unter `deploy/hetzner/`.
 - Flutter **3.47.7**, Dart **3.13.5**, Python **3.12**, PostgreSQL **16**.
@@ -82,12 +84,12 @@ Die genauen manuellen Nachweise stehen in `deploy/hetzner/ABNAHME.md`.
 
 ## Konkrete nächste Arbeit: native iPhone-App
 
-1. Vorhandenes Flutter-iOS-Projekt prüfen. Die Bundle-ID ist derzeit noch
-   `com.example.smartplanOffice`; eine eigene ID auf Basis der kontrollierten
-   Domain `smartplan-hofmann.de` festlegen und mit dem Apple-Konto abgleichen.
-2. Online-Konfiguration für Geräte- und Simulator-Builds setzen. Der bisherige
-   generische Simulator-Job baut noch mit der lokalen Standardadresse;
-   auf dem iPhone muss die obige HTTPS-/API-v1-Konfiguration verwendet werden.
+1. Die Bundle-ID `de.smartplanhofmann.office` ist im Flutter-iOS-Projekt gesetzt.
+   Nach Apples Freischaltung mit dem Apple-Konto abgleichen und registrieren.
+2. Die Online-Konfiguration für Geräte- und Simulator-Builds ist in den Workflows
+   gesetzt. Der unsignierte Release-Prüflauf kontrolliert API-URL/API-Version,
+   die erzeugte Bundle-ID und Build-Nummer. Den erfolgreichen macOS-Prüflauf
+   abnehmen, bevor die Signierung angefordert wird.
 3. Apple-Team, App-ID, Distribution-Zertifikat und App-Store-Connect-Profil
    prüfen und die sichere Signierung auf einem macOS-CI-Runner vorbereiten.
    Der Nutzer hat keinen lokalen Mac. Die Apple-Mitgliedschaft ist bestellt;

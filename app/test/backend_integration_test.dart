@@ -10,6 +10,8 @@ class BackendHttp extends HttpOverrides {}
 // This fixture uses synthetic accounts in a temporary database. It never opens
 // the developer's Office database or a real Microsoft connection.
 const backendFixture = r'''
+import faulthandler
+faulthandler.dump_traceback_later(12)
 import os
 import sys
 from pathlib import Path
@@ -24,6 +26,7 @@ office = Office(Path(sys.argv[1]) / 'office.sqlite3')
 office.add_user('owner@example.test', 'Integration-password-123', 'owner')
 server = ThreadingHTTPServer(('127.0.0.1', 0), make_handler(office, OneDrive(office)))
 print('PORT:' + str(server.server_port), flush=True)
+faulthandler.cancel_dump_traceback_later()
 server.serve_forever()
 ''';
 
@@ -61,7 +64,13 @@ void main() {
                 .transform(utf8.decoder)
                 .transform(const LineSplitter()),
           );
-          if (!await output.moveNext().timeout(const Duration(seconds: 20))) {
+          if (!await output.moveNext().timeout(
+            const Duration(seconds: 20),
+            onTimeout: () => throw StateError(
+              'Test backend did not signal readiness within 20 seconds. '
+              'Python startup diagnostics: $diagnostics',
+            ),
+          )) {
             throw StateError('Test backend did not start: $diagnostics');
           }
           expect(output.current, startsWith('PORT:'));

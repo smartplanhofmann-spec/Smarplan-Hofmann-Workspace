@@ -125,3 +125,6 @@ abgeschlossen oder Microsoft-Konten verbunden.
 
 Erst diese Nachweise bestätigen gemeinsamen Gerätebetrieb. Die weiteren Module
 aus `UMSETZUNGSPLAN.md` bleiben davon getrennte Entwicklungsaufgaben.
+
+## iPhone über TestFlight
+Schritt-für-Schritt-Anleitung ohne Mac: siehe [IPHONE_TESTFLIGHT.md](IPHONE_TESTFLIGHT.md) (Workflow `.github/workflows/ios-testflight.yml`).

@@ -134,3 +134,6 @@ praktische Ersteinrichtung über den manuellen Schlüssel bzw. ein zweites Gerä
 Das Übergabepaket enthält verfolgte Projektdateien. Laufende Datenbanken,
 Benutzerpasswörter, private SSH-/Apple-Schlüssel, virtuelle Umgebungen und
 lokale Buildverzeichnisse gehören nicht in das Paket.
+
+## iPhone über TestFlight
+Schritt-für-Schritt-Anleitung ohne Mac: siehe [IPHONE_TESTFLIGHT.md](IPHONE_TESTFLIGHT.md) (Workflow `.github/workflows/ios-testflight.yml`).

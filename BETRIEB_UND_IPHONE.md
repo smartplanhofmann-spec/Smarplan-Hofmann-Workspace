@@ -1,7 +1,8 @@
 # Nächste Stufe: gemeinsame Daten auf Windows und iPhone
 
 Stand: 22. Oktober 2026. Privater Testserver und HTTPS-Seite eingerichtet;
-Online-Pilot auf Hetzner aktiviert, Windows-Online- und iPhone-Abnahme offen.
+Online-Pilot auf Hetzner aktiviert und unter Windows samt VM-Neustart bestätigt;
+gemeinsame iPhone-Abnahme offen.
 
 **Aktuelle Entscheidung:** Nach der zunächst kostenfreien lokalen Entwicklung
 hat der Nutzer einen Hetzner-CAX11-Testserver in Nürnberg eingerichtet. Die
@@ -10,11 +11,12 @@ Umsatzsteuer monatlich einschließlich Hetzner-Backups und IPv4. Ein separates
 Sicherungsziel und gegebenenfalls eine Domain sind darin nicht enthalten.
 SSH, ARM-Backend-Tests und systemd-Testdienst sind bestätigt. Auch Windows-Zugriff
 über SSH, fiktive Fachabläufe, manuelle Sicherung und Datenzugriff nach VM-Neustart
-sind bestätigt; öffentliche Bereitstellung steht noch aus. Siehe
+sind bestätigt. Der separate Online-Pilot ist inzwischen über HTTPS bereitgestellt;
+Windows-Anmeldung, fiktiver Fachablauf und Wiederanlauf nach VM-Neustart sind vom
+Nutzer bestätigt. Siehe
 [HETZNER_START.md](HETZNER_START.md).
 Die lokale Kundenverwaltung in Version 0.4.0
-bleibt nutzbar; ein öffentlicher Server oder gemeinsamer iPhone-Zugriff ist noch
-nicht bereitgestellt.
+bleibt nutzbar; der gemeinsame iPhone-Zugriff ist noch nicht bereitgestellt.
 
 ## Ausgangslage und Ziel
 
@@ -51,8 +53,9 @@ prüfbaren Teil: PostgreSQL-Schema, versionierte API mit Gunicorn, TOTP-/Recover
 Anmeldung, separate Windows-Online-Konfiguration und lokale PostgreSQL-Sicherung
 mit Wiederherstellung in eine neue Datenbank. Die bisherige SQLite-Anwendung
 bleibt separat. Öffentliche Installation und 401-Test sind auf Hetzner bestätigt;
-tatsächliche Windows-Online-Anmeldung und MFA-Einrichtung,
-echte Datenübernahme, unabhängige Sicherung und iPhone bleiben offen.
+Windows-Online-Anmeldung und fiktiver Fachablauf mit Unterschrift/PDF ohne
+SSH-Fenster sowie Datenzugriff nach VM-Neustart sind vom Nutzer bestätigt.
+Echte Datenübernahme, unabhängige Sicherung und iPhone bleiben offen.
 
 | Paket | Konkretes Ergebnis | Nachweis |
 | --- | --- | --- |
@@ -73,8 +76,9 @@ ein öffentlicher Betrieb erhält eine dafür geeignete API-Laufzeit.
 Der davon getrennte private systemd-Pilot hat Dienststart, Windows-Fachablauf,
 manuellen Sicherungslauf und VM-Wiederanlauf bestanden. Siehe die
 [Abnahme](deploy/hetzner/ABNAHME.md). Die Gesundheitsantwort dieses Piloten
-identifiziert den Prozess; die hier geplante Produktions-Bereitschaftsprüfung
-mit Datenbankzugriff bleibt offen. Eine echte iPhone-Abnahme folgt erst später.
+identifiziert den Prozess. Der separate Online-Pilot besitzt inzwischen eine
+Bereitschaftsprüfung mit Datenbankzugriff, die vor Aktivierung erfolgreich
+ausgeführt wurde. Eine echte iPhone-Abnahme folgt erst später.
 
 ## iPhone-Verteilung
 

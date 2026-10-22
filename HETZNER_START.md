@@ -17,8 +17,8 @@ das PDF wieder öffnen. Die Einzelbelege stehen in
 Konto, VM und privater systemd-Testdienst sind eingerichtet und müssen nicht
 erneut angelegt werden. Eigenes Dienstkonto, automatischer Start und manuell
 ausgelöste konsistente Sicherung sind auf Hetzner bestätigt. Siehe
-[Anleitung](deploy/hetzner/README.md). Der Zugriff erfolgt über einen SSH-Tunnel;
-die öffentliche API ist damit noch nicht freigegeben. Wix-DNS-Zugriff
+[Anleitung](deploy/hetzner/README.md). Dieser private Zugriff erfolgt über einen
+SSH-Tunnel; der separate Online-Pilot verwendet inzwischen direkt HTTPS. Wix-DNS-Zugriff
 ist inzwischen bestätigt: `office.smartplan-hofmann.de` zeigt per A-Eintrag auf
 `116.203.43.69`; die Windows-DNS-Abfrage vom 22. Oktober bestätigt das.
 Website und E-Mail verbleiben bei den bestehenden Anbietern.
@@ -33,8 +33,9 @@ Der nächste [Online-Pilot 0.5](deploy/hetzner/online/README.md) enthält inzwis
 eine separate PostgreSQL-Datenhaltung, versionierte Flask/Gunicorn-API und
 Authenticator-Anmeldung. Installation, getrenntes Online-Konto und öffentlicher
 401-Test sind auf dem Nutzer-Server bestätigt. Das Windows-Online-Paket ist in
-CI gebaut; Anmeldung, MFA und Fachablauf auf dem Nutzer-PC bleiben abzunehmen.
-Eine echte Datenübernahme bleibt offen.
+CI gebaut; der Nutzer bestätigte Anmeldung und fiktiven Kunden-/Projekt-/Berichts-
+ablauf mit Unterschrift/PDF ohne geöffnetes SSH-Fenster sowie erneuten Zugriff
+nach VM-Neustart. Echte Datenübernahme, iPhone und weitere Betriebsabnahme bleiben offen.
 Zugangsdaten gehören ausschließlich in geeignete sichere Einstellungen.
 Ob Konto-2FA bereits aktiviert ist, wurde nicht gesondert bestätigt.
 
@@ -84,7 +85,8 @@ Er wird weder an `0.0.0.0` gebunden noch durch eine Firewall-Freigabe zum
 öffentlichen Server erklärt. Die lokale `Office`-Klasse benutzt eine SQLite-
 Verbindung; mehrere API-Prozesse erfordern eine geeignete Datenhaltung.
 Die App-Adresse ist aktuell beim Build über `API_URL` festgelegt. Ein gekaufter
-Server verbindet daher das bestehende Windows-Paket oder das iPhone noch nicht.
+Server verbindet daher das bestehende lokale Windows-Paket oder das iPhone nicht
+automatisch. Das separate Windows-Online-Paket 0.5 ist mit dem neuen API-Dienst verbunden.
 
 ## Reihenfolge bis zur ersten Online-Abnahme
 

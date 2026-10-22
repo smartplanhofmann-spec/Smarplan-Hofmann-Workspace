@@ -5,8 +5,11 @@ vor: PostgreSQL, versionierte Flask/Gunicorn-API, Passwort plus Authenticator-Co
 QR-Einrichtung und Wiederherstellungscodes. CI erstellt zusätzlich das Windows-
 Artefakt `Smartplan-Office-Windows-Online-Pilot` mit der festen HTTPS-Testadresse.
 Die HTTPS-Seite, API-Installation und öffentliche Zugriffssperre sind auf Hetzner
-bestätigt; Windows-Online-Anmeldung und MFA sind noch am Nutzer-System abzunehmen. Bestehende
-lokale Daten bleiben getrennt. Echte Datenübernahme und iPhone-Verteilung folgen.
+bestätigt. Der Nutzer bestätigte die Windows-Online-Anmeldung und den fiktiven
+Kunden-/Projekt-/Berichtsablauf mit Unterschrift/PDF ohne SSH-Fenster sowie
+erneuten Datenzugriff nach VM-Neustart. Bestehende lokale Daten bleiben getrennt.
+Echte Datenübernahme und iPhone-Verteilung folgen. Die SmartScreen-Warnung des
+unsignierten Testpakets ist für das nächste Windows-Update zu bearbeiten.
 
 Version 0.4.0 ergänzt eine lokale Kundenverwaltung: Kontaktdaten, Ansprechpartner,
 Adressen und Notizen, Suche, Archivierung sowie die Zuordnung zu Projekten.
@@ -14,7 +17,8 @@ Bestehende Projektkunden werden übernommen; unterschriebene Berichte und PDF-Da
 behalten ihren ursprünglichen Inhalt. Siehe [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md).
 Die bisherige Version läuft lokal. Ein Hetzner-CAX11-Testserver in Nürnberg ist
 eingerichtet; auf ARM bestanden 31 Backend-Tests (ein weiterer Windows-Test
-übersprungen). Öffentliche Bereitstellung und iPhone-Zugriff stehen noch aus.
+übersprungen). Der separate Online-Pilot ist inzwischen wie oben beschrieben
+bereitgestellt; iPhone-Zugriff steht noch aus.
 Der nächste Schritt und die Vorbereitung stehen in [HETZNER_START.md](HETZNER_START.md).
 
 Der aktuelle Stand ergänzt Benutzerverwaltung, Projektzugriff, Berichtslisten,

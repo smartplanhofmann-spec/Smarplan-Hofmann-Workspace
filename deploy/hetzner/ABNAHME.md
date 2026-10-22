@@ -107,13 +107,36 @@ abgeschlossen: Online-API, HTTPS, Backend, Flutter sowie beide nativen Builds
 `Smartplan-Office-Windows-Online-Pilot`, Größe 15,4 MB, SHA-256
 `9915d6c401ac830cbae3970ce5881fe94115c23662ca66ce88bdedc180538a1c`.
 Der iOS-Simulator-Build ist weiterhin keine signierte Geräteinstallation.
-Windows-Online-Anmeldung und MFA-Einrichtung auf dem Nutzer-PC sind noch offen.
+
+### Windows-Online-Abnahme durch den Nutzer
+
+Der Nutzer bestätigte anschließend die Anmeldung in der separaten Online-App.
+Die App fordert dafür die Authenticator-Bestätigung an; eine Einzelprüfung
+seiner privat aufzubewahrenden Wiederherstellungscodes wurde nicht verlangt.
+Das SSH-Fenster war laut Nutzer schon geschlossen, bevor er die App startete:
+Der Ablauf benötigt keinen geöffneten SSH-Tunnel.
+
+Auf die Anleitung, einen fiktiven Kunden und das Projekt „Online-Test“ anzulegen,
+einen Servicebericht mit Testnamen zu unterzeichnen und das PDF zu öffnen,
+bestätigte der Nutzer die erfolgreiche Durchführung. Anschließend wurde ein
+geordneter VM-Neustart per SSH `reboot` angeleitet. Nach Wartezeit, erneuter
+App-Anmeldung und Prüfung von Projekt und unterschriebenem PDF bestätigte er:
+„ja passt alles“. Damit sind der Online-Windows-Fachablauf und der Wiederanlauf
+nach VM-Neustart manuell bestätigt. Ein manueller Bytevergleich des PDFs wurde
+dabei nicht behauptet; dieser ist separat durch die automatisierten Tests belegt.
+
+Windows zeigte beim ersten Start SmartScreen für das unsignierte Paket. Der
+Nutzer führte es manuell aus und verlangte die Bearbeitung im nächsten Update.
+Vertrauenswürdige Signierung/Installer samt Prüfung des tatsächlichen Downloads
+sind dafür im Umsetzungsplan vorgezogen; die Warnung ist noch nicht behoben.
 
 ## Vor der echten gemeinsamen Nutzung noch offen
 
-- Online-Paket auf Windows starten, Authenticator einrichten und Fachablauf
-  sowie Wiederanlauf auf dem echten Server abnehmen. Öffentlicher Projektzugriff
-  ohne Anmeldung ist mit 401 bestätigt. TCP 8765, 8766 und 5432 bleiben gesperrt.
+- Gemeinsamen echten Windows-/iPhone-Ablauf und Mehrbenutzer-Rechteentzug am
+  Nutzer-System abnehmen. Öffentlicher Projektzugriff ohne Anmeldung ist mit
+  401 bestätigt. TCP 8765, 8766 und 5432 bleiben gesperrt.
+- SmartScreen-Rückmeldung beim nächsten Windows-Update bearbeiten: gültige
+  Herausgebersignierung und signiertes Installationspaket vorbereiten und prüfen.
 - HTTPS-Erneuerung und Betrieb überwachen; Last-/Mehrbenutzerabnahme und
   geprüfte Datenübernahme gemäß [Betriebsplan](../../BETRIEB_UND_IPHONE.md).
 - Wiederherstellung aus einer tatsächlichen Pilot-Serversicherung in eine

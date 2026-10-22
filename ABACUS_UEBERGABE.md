@@ -140,3 +140,13 @@ lokale Buildverzeichnisse gehören nicht in das Paket.
 
 ## iPhone über TestFlight
 Schritt-für-Schritt-Anleitung ohne Mac: siehe [IPHONE_TESTFLIGHT.md](IPHONE_TESTFLIGHT.md) (Workflow `.github/workflows/ios-testflight.yml`).
+
+Der anschließende iPhone-Prüflauf
+[39852877486](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39852877486)
+ist für `0ee80c0` erfolgreich: alle 27 App-Tests samt echtem Backend und der
+unsignierte Geräte-Release inklusive Online-Konfiguration und App-Kennung.
+Auch die vollständigen Projektprüfungen
+[39852877525](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39852877525)
+sind grün. Nächster Schritt ist Apples Freischaltung mit anschließendem sicheren
+Einrichten der vier Secrets und ausdrücklich angefordertem Signier-/Upload-Lauf.
+Die bisherigen Nachweise umfassen noch keine iPhone-Installation.

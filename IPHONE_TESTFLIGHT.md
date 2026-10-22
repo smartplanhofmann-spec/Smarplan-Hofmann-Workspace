@@ -18,6 +18,22 @@ Signieridentitäten und Profile tatsächlich erzeugt, muss der erste authentifiz
 Archivierungs-/Exportlauf zeigen. Bis dahin sind Signierung und TestFlight-Upload
 nicht abgenommen. Upload mit `xcrun altool` und demselben Schlüssel.
 
+### Technischer Nachweis vom 22. Oktober 2026
+
+Commit `0ee80c0` ist auf GitHub geprüft:
+
+- [iPhone-Prüflauf 39852877486](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39852877486)
+  erfolgreich: App-Analyse, alle 27 App-Tests einschließlich echtem Python-Backend,
+  unsignierter iOS-Geräte-Release und Prüfung von API-URL/API-Version, Bundle-ID
+  und Buildnummer. Artefakt `Smartplan-Office-iOS-UNSIGNED-105` ist kein installierbares IPA.
+- [Projektprüfungen 39852877525](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39852877525)
+  vollständig erfolgreich, einschließlich Windows und iOS-Simulator.
+- Der lokale Testserver verwendet seine numerische Loopback-Adresse, damit der
+  Teststart auf macOS nicht an einer Reverse-DNS-Abfrage hängt. Anmeldung,
+  Unterschrift und PDF werden weiterhin vollständig geprüft.
+- Der Signier-/Upload-Job wurde beim automatischen Lauf wie vorgesehen übersprungen.
+  Apple-Freischaltung, echte Signierung, TestFlight-Upload und Geräteabnahme bleiben offen.
+
 **Wichtig – Rolle des API-Keys:** Cloud-verwaltete Distributionszertifikate darf laut Apple nur ein Schlüssel mit
 Rolle **Admin** anlegen. Ein Key mit „App Manager“ reicht für Upload, aber nicht sicher für die Cloud-Signierung.
 Erstellen Sie den Team-Key daher mit Rolle **Admin**. Schlüssel nur in GitHub Secrets speichern, nie im Code.

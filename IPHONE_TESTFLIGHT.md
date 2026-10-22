@@ -4,18 +4,27 @@ Gebaut und signiert wird ausschließlich auf GitHub Actions (`macos-latest`) mit
 `.github/workflows/ios-testflight.yml`. Die Windows-App (lokal und Online-Pilot) bleibt unverändert.
 Die iPhone-App verbindet sich nur mit `https://office.smartplan-hofmann.de` (API v1, HTTPS; keine ATS-Ausnahme nötig).
 
-## Gewählter Signierweg und Begründung
-`xcodebuild` mit Cloud-Signierung (`-allowProvisioningUpdates` + App-Store-Connect-API-Key).
-Xcode erzeugt Distributionszertifikat und Provisioning-Profil selbst bei Apple – Sie müssen **keine**
-Zertifikate, .p12-Dateien oder Profile manuell erzeugen und brauchen keinen Mac. Kein zusätzliches Werkzeug
-(fastlane/Ruby) nötig, weniger bewegliche Teile. Upload mit `xcrun altool` und demselben Schlüssel.
+## Vorbereiteter Signierweg und aktueller Stand
+
+Der Nutzer hat die Apple-Mitgliedschaft am 22. Oktober 2026 als Einzelunternehmer
+für 99 Euro pro Jahr bestellt. Zuletzt war die Aktivierung noch in Bearbeitung;
+Apple nennt dafür bis zu 48 Stunden. Eine erneute Bestellung ist nicht nötig.
+
+Vorbereitet ist `xcodebuild` mit automatischer Signierung
+(`-allowProvisioningUpdates` + App-Store-Connect-API-Key) auf einem macOS-Runner.
+Ein eigener Mac ist für diesen Ablauf nicht erforderlich. Ob Xcode auf einem
+frischen Runner mit den bereitgestellten Apple-Zugängen die erforderlichen
+Signieridentitäten und Profile tatsächlich erzeugt, muss der erste authentifizierte
+Archivierungs-/Exportlauf zeigen. Bis dahin sind Signierung und TestFlight-Upload
+nicht abgenommen. Upload mit `xcrun altool` und demselben Schlüssel.
 
 **Wichtig – Rolle des API-Keys:** Cloud-verwaltete Distributionszertifikate darf laut Apple nur ein Schlüssel mit
 Rolle **Admin** anlegen. Ein Key mit „App Manager“ reicht für Upload, aber nicht sicher für die Cloud-Signierung.
 Erstellen Sie den Team-Key daher mit Rolle **Admin**. Schlüssel nur in GitHub Secrets speichern, nie im Code.
 
 ## Schritt für Schritt
-1. **Apple Developer Program** beitreten (developer.apple.com/programs, kostenpflichtig ca. 99 €/Jahr). Ohne Mitgliedschaft kein TestFlight.
+1. **Apple Developer Program:** Die Mitgliedschaft ist bereits bestellt. Auf Apples
+   Mitgliedschaftsbestätigung warten; ohne aktive Mitgliedschaft kein TestFlight.
 2. **Team-ID finden:** developer.apple.com/account → „Membership details“ → *Team ID* (10 Zeichen).
 3. **Bundle-ID registrieren:** Certificates, Identifiers & Profiles → Identifiers → „+“ → App IDs → App →
    Beschreibung „Smartplan Office“, *Explicit* Bundle ID `de.smartplanhofmann.office`. Keine Zusatzfunktionen nötig.
@@ -30,9 +39,19 @@ Erstellen Sie den Team-Key daher mit Rolle **Admin**. Schlüssel nur in GitHub S
    - `APP_STORE_CONNECT_ISSUER_ID` – Issuer ID
    - `APP_STORE_CONNECT_PRIVATE_KEY` – kompletter Inhalt der .p8 (mit Editor öffnen, inkl. `-----BEGIN PRIVATE KEY-----`/`-----END…`)
    - `APPLE_TEAM_ID` – Team-ID
-7. **Workflow starten:** Actions → „iPhone TestFlight“ → „Run workflow“ → Branch wählen. Build-Nummer leer lassen
-   (automatisch Laufnummer + 100, immer > 6) oder eine höhere Zahl als die letzte eingeben. Dauer ca. 15–30 Minuten.
-   Fehlen Secrets, bricht der erste Schritt mit klarer Meldung ab. Die IPA liegt zusätzlich als Artefakt bereit.
+7. **Workflow starten:** Actions → „iPhone TestFlight“ → „Run workflow“ → Branch
+   `codex/smartplan-office-0.2` wählen. Dieser Branch ist zugleich der Standardbranch;
+   der manuelle Start ist verfügbar, sobald die Workflow-Datei dort liegt.
+   Build-Nummer leer lassen (automatisch Laufnummer + 100, immer > 6) oder eine
+   höhere Zahl als die letzte hochgeladene eingeben.
+   Änderungen lösen zunächst einen unsignierten Prüflauf aus. Dieser führt Analyse,
+   App-Tests einschließlich echtem lokalem Python-Backend und einen Online-Release-Build
+   aus. Apple-Schlüssel werden diesem Job nicht bereitgestellt.
+   Erst nach Apples Freischaltung und Einrichtung der vier Secrets bei einem
+   **manuellen** Start `upload_to_testflight` aktivieren. Nur dann läuft der separate
+   Signier-/Upload-Job; fehlende Secrets führen dort zu einer klaren Fehlermeldung.
+   Das signierte IPA wird nach erfolgreichem Export als Artefakt bereitgestellt.
+   Ein unsignierter Prüflauf erzeugt noch keine installierbare iPhone-App.
 8. **Exportkonformität:** In der App ist `ITSAppUsesNonExemptEncryption = false` gesetzt (nur Standard-HTTPS).
    Die Frage in App Store Connect entfällt dadurch normalerweise.
 9. **Interne Tester:** App Store Connect → App → TestFlight. Nach 5–30 Min. „Verarbeitung“ erscheint der Build.
@@ -48,7 +67,8 @@ Erstellen Sie den Team-Key daher mit Rolle **Admin**. Schlüssel nur in GitHub S
 5. Lokale Windows-App starten: bisherige Daten, Unterschriften und PDFs unverändert vorhanden.
 
 ## Fehlerbehebung
-- **„Fehlende GitHub Secrets“** – Namen exakt wie oben, ohne Leerzeichen.
+- **„Fehlende GitHub Secrets“** – beim ausdrücklich angeforderten Upload die vier
+  Namen exakt wie oben anlegen. Der unsignierte Prüflauf benötigt diese Secrets nicht.
 - **„No profiles / Cloud signing permission error“** – API-Key hat nicht die Rolle Admin, oder Bundle-ID nicht registriert.
 - **„No suitable application records were found“** beim Upload – App in App Store Connect fehlt oder Bundle-ID abweichend.
 - **„The bundle version must be higher…“** – Workflow mit höherer Build-Nummer erneut starten.
@@ -57,8 +77,9 @@ Erstellen Sie den Team-Key daher mit Rolle **Admin**. Schlüssel nur in GitHub S
 - **Build fehlt in TestFlight** – E-Mail von Apple prüfen (z. B. fehlende Datenschutz-Texte), Verarbeitung abwarten.
 
 ## Kosten-Hinweis
-Bei privaten Repositories zählen macOS-Minuten mit Faktor 10 gegen das kostenlose GitHub-Kontingent
-(Free: 2.000 Minuten/Monat ≈ 200 macOS-Minuten). Ein Lauf kostet ca. 15–30 macOS-Minuten. Öffentliche Repos: kostenlos.
+Dieses Repository ist öffentlich. Standardmäßige von GitHub gehostete Runner
+sind dafür kostenfrei. Bei einem späteren Wechsel auf ein privates Repository
+gelten das Kontingent und die aktuellen Runner-Preise des GitHub-Kontos.
 
 ## Technische Änderungen
 - Bundle-ID `de.smartplanhofmann.office` (Tests `.RunnerTests`); DEVELOPMENT_TEAM nur im CI. Deployment Target iOS 15.0 (passt).

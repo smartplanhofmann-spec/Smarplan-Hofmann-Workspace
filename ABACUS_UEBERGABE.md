@@ -5,8 +5,9 @@
 Der Nutzer möchte mit **Abacus** weiterarbeiten und ausdrücklich eine **native
 iPhone-App**. Ziel ist eine installierbare App mit der vorhandenen Flutter-
 Oberfläche und gemeinsamem Datenbestand mit Windows. Der geplante erste
-Verteilungsweg ist TestFlight. Die Apple-Developer-Mitgliedschaft ist noch
-ungeklärt. Die Entwicklung und technischen Vorbereitungen selbständig fortsetzen;
+Verteilungsweg ist TestFlight. Die Apple-Developer-Mitgliedschaft wurde am
+22. Oktober 2026 als Einzelunternehmer für 99 Euro pro Jahr bestellt; die Aktivierung
+war zuletzt noch in Bearbeitung. Die Entwicklung und technischen Vorbereitungen selbständig fortsetzen;
 für echte Kontozugänge ausschließlich geeignete sichere Einstellungen verwenden.
 Passwörter, private SSH-Schlüssel und Apple-Signierschlüssel gehören nicht in Chats.
 
@@ -89,8 +90,8 @@ Die genauen manuellen Nachweise stehen in `deploy/hetzner/ABNAHME.md`.
    auf dem iPhone muss die obige HTTPS-/API-v1-Konfiguration verwendet werden.
 3. Apple-Team, App-ID, Distribution-Zertifikat und App-Store-Connect-Profil
    prüfen und die sichere Signierung auf einem macOS-CI-Runner vorbereiten.
-   Der Nutzer hat keinen lokalen Mac. Ein Anbieter für Signierung oder eine
-   bestehende Apple-Mitgliedschaft ist noch nicht eingerichtet/bestätigt.
+   Der Nutzer hat keinen lokalen Mac. Die Apple-Mitgliedschaft ist bestellt;
+   ihre Freischaltung und die Bereitstellung der Apple-Signierzugänge stehen noch aus.
 4. Zuerst lauffähigen Simulator-/Gerätebuild und passende Release-Prüfungen
    herstellen. Danach das signierte TestFlight-Paket mit den tatsächlich
    bereitgestellten Apple-Zugängen erstellen und auf dem Nutzer-iPhone testen.

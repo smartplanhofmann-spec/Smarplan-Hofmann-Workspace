@@ -97,6 +97,10 @@ SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python3 deploy/hetzner/http
 ```
 
 Der Test startet den echten geprüften Caddy-Prozess auf lokalen hohen Ports.
+Die separate DNS-Prüfung wird mit `python3 -m unittest discover -s deploy/hetzner/https -p test_dns.py -v`
+geprüft: unvollständige Netzwerkdatensätze dürfen keinen Absturz verursachen;
+fehlende lokale Adressen, fremde DNS-Ziele und abweichende AAAA-Antworten
+werden weiterhin abgewiesen.
 Nur im Test werden Domain/Pfade/Ports angepasst und eine interne Test-CA benutzt.
 Der HTTPS-Client vertraut explizit deren Root-Zertifikat und prüft den Hostnamen;
 eine Anfrage ohne dieses Vertrauen muss scheitern. Geprüft werden die statische

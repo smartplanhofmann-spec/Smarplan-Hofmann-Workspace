@@ -27,16 +27,7 @@ done
 [[ -z "$(ss -H -ltn '( sport = :80 or sport = :443 )')" ]] || fail 'Port 80 oder 443 ist belegt; kein Dienst wird gestoppt.'
 
 # All DNS answers must belong to this VM; stray AAAA records can break ACME.
-python3 - <<'PY'
-import ipaddress, json, socket, subprocess
-host = 'office.smartplan-hofmann.de'
-addresses = json.loads(subprocess.check_output(['ip', '-j', 'address', 'show', 'scope', 'global']))
-local = {str(ipaddress.ip_address(a['local'])) for interface in addresses for a in interface.get('addr_info', [])}
-answers = {str(ipaddress.ip_address(a[4][0])) for a in socket.getaddrinfo(host, 443, type=socket.SOCK_STREAM)}
-if not answers or not answers.issubset(local):
-    raise SystemExit('DNS zeigt nicht ausschließlich auf diese VM. A- und AAAA-Einträge prüfen.')
-print('DNS passt zu dieser VM:', ', '.join(sorted(answers)))
-PY
+python3 "$smartplan_source/check-dns.py"
 systemd-analyze verify "$smartplan_source/smartplan-https.service"
 smartplan_tmp="$(mktemp -d)"
 trap 'rm -rf -- "$smartplan_tmp"' EXIT

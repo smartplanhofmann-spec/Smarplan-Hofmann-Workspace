@@ -13,6 +13,7 @@ jobs:
       - name: Check isolated HTTPS setup with real Caddy and verified TLS
         run: |
           bash -n deploy/hetzner/https/install-https.sh deploy/hetzner/https/fetch-caddy.sh
+          python3 -m unittest discover -s deploy/hetzner/https -p test_dns.py -v
           systemd-analyze verify deploy/hetzner/https/smartplan-https.service
           smartplan_caddy_test=$(mktemp -d)
           trap 'rm -rf -- "$smartplan_caddy_test"' EXIT

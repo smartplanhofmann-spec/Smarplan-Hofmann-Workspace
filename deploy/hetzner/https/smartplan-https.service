@@ -1,0 +1,38 @@
+[Unit]
+Description=Smartplan HTTPS setup page (no application proxy)
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=exec
+User=smartplan-https
+Group=smartplan-https
+Environment=XDG_DATA_HOME=/var/lib/smartplan-https
+Environment=XDG_CONFIG_HOME=/var/lib/smartplan-https/config
+StateDirectory=smartplan-https
+StateDirectoryMode=0700
+RuntimeDirectory=smartplan-https
+RuntimeDirectoryMode=0700
+UMask=0077
+ExecStart=/usr/bin/env /opt/smartplan-https/bin/caddy run --config /etc/smartplan-https/Caddyfile --adapter caddyfile
+ExecReload=/usr/bin/env /opt/smartplan-https/bin/caddy reload --config /etc/smartplan-https/Caddyfile --adapter caddyfile --address unix//run/smartplan-https/admin.sock
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+TasksMax=128
+
+[Install]
+WantedBy=multi-user.target

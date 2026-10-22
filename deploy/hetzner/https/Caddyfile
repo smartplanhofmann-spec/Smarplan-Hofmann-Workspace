@@ -1,0 +1,34 @@
+{
+	admin unix//run/smartplan-https/admin.sock
+	servers {
+		protocols h1 h2
+	}
+}
+
+office.smartplan-hofmann.de {
+	header {
+		-Server
+		Content-Security-Policy "default-src 'none'; style-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		X-Robots-Tag "noindex, nofollow"
+		Cache-Control no-store
+	}
+
+	# This stage deliberately has no connection to the private development API.
+	@application path /api /api/* /auth /auth/* /oauth /oauth/* /health /ready
+	handle @application {
+		header Content-Type application/json
+		respond `{"status":"setup"}` 503
+	}
+
+	@page path / /index.html /style.css
+	handle @page {
+		root * /usr/share/smartplan-setup
+		file_server
+	}
+
+	handle {
+		respond "Nicht gefunden" 404
+	}
+}

@@ -9,6 +9,9 @@ Es werden weder öffentliche Ports geöffnet noch echte Windows-Daten übernomme
 Stand 21. Oktober 2026: Der Nutzer hat Dienststart, privaten Windows-Ablauf,
 manuelle Sicherung und Datenzugriff nach einem VM-Neustart bestätigt. Die
 Einzelbelege und verbleibenden Schritte stehen in [ABNAHME.md](ABNAHME.md).
+DNS ist seit 22. Oktober bestätigt. Das davon getrennte
+[HTTPS-Einrichtungspaket](https/README.md) veröffentlicht nur eine statische
+Seite und verbindet den privaten Testdienst nicht mit dem öffentlichen Netz.
 Die Installationsanleitung darunter bleibt für Wiederholung und neue Testinstanzen
 erhalten; sie muss auf dem bereits eingerichteten Server nicht erneut ausgeführt werden.
 

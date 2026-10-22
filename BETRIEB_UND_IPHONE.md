@@ -85,14 +85,15 @@ auf jedem Gerät auf dieses Gerät selbst.
 ## Noch benötigte Angaben
 
 1. Zahl der ersten Nutzer und Geräte sowie Zuständigkeit für den laufenden Betrieb.
-2. Vorhandene eigene Domain beziehungsweise administrativer Zugriff darauf;
-   ein Anbieter-Testhostname kann für den ersten Test ausreichend sein.
+2. Domain/DNS inzwischen geklärt: Wix-Zugriff vorhanden, A-Eintrag für
+   `office.smartplan-hofmann.de` auf die VM am 22. Oktober bestätigt.
 3. Vorhandener Apple-Developer-Zugang und gewünschter erster iPhone-Testweg.
 4. Zugang zur Microsoft-Appregistrierung für das bestehende Family-Konto.
 
 Diese Angaben werden schrittweise geklärt. Konto und Basistarif sind geklärt;
-ein weiterer Server muss nicht bestellt werden. Die Domain ist vorhanden,
-DNS-Verwaltungszugriff ist laut Nutzer noch unklar. Der private Loopback-Pilot
+ein weiterer Server muss nicht bestellt werden. DNS ist eingerichtet; das
+[HTTPS-Einrichtungspaket](deploy/hetzner/https/README.md) ist lokal geprüft,
+auf dem Nutzer-Server aber noch nicht installiert/abgenommen. Der private Loopback-Pilot
 mit SSH-Tunnel kann unabhängig davon geprüft werden; er erfüllt die öffentlichen
 Lieferpakete nicht. Die laufende Betriebsverantwortung bleibt festzulegen.
 Passwörter, Tokens, private Schlüssel und Zertifikate gehören nicht in den Chat.

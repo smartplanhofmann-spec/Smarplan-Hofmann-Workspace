@@ -1,6 +1,6 @@
 # Abnahme des privaten Hetzner-Piloten
 
-Abnahmestand: 21. Oktober 2026. Bestätigungen aus dem Nutzergespräch und die
+Abnahmestand: 22. Oktober 2026. Bestätigungen aus dem Nutzergespräch und die
 technischen Prüfungen werden getrennt aufgeführt. Dieser Stand betrifft den
 privaten Windows-Zugriff über SSH auf den Testserver; er ist keine öffentliche
 Produktionsfreigabe oder iPhone-Abnahme.
@@ -59,10 +59,24 @@ Der Gesamtlauf ist fehlgeschlagen, weil GitHub nach mehreren Versuchen keinen
 gehosteten macOS-Runner zuweisen konnte und einen internen Fehler meldete.
 Daraus wird kein erfolgreicher iOS-Simulator-Build für diesen Lauf abgeleitet.
 
+## DNS und vorbereitetes HTTPS-Paket
+
+Wix-Verwaltungszugriff ist bestätigt. Der Nutzer ergänzte den A-Eintrag
+`office.smartplan-hofmann.de` → `116.203.43.69`; die Windows-Abfrage
+`Resolve-DnsName` bestätigt ihn am 22. Oktober. Die bisherigen drei A-Einträge
+der Wix-Hauptseite sind im gespeicherten DNS-Screenshot weiterhin vorhanden.
+
+Das [HTTPS-Paket](https/README.md) wurde mit dem echten Caddy 2.11.7 ohne root
+lokal geprüft: verifiziertes TLS mit eigener Test-CA, Ablehnung ohne Vertrauen,
+HTTP-Weiterleitung, statische Seite und gesperrte API-/Gesundheitsendpunkte.
+Bash- und systemd-Syntax sind geprüft. Kein öffentlicher API-Proxy ist enthalten.
+Installation auf Hetzner und ein reguläres öffentliches Zertifikat sind noch
+nicht nachgewiesen; der lokale Test wird dafür nicht als Ersatz gewertet.
+
 ## Vor der öffentlichen und echten gemeinsamen Nutzung noch offen
 
-- Domainanbieter und DNS-Verwaltungszugriff klären. Eine Domain ist vorhanden;
-  Zugriff ist laut Nutzer noch unklar. Es wurde kein DNS-Eintrag geändert.
+- HTTPS-Paket installieren, TCP 80/443 erlauben und gültiges öffentliches
+  Zertifikat sowie Seitenabruf bestätigen. TCP 8765 bleibt gesperrt.
 - Öffentliche API-Laufzeit, PostgreSQL-Datenhaltung und Migration, MFA,
   HTTPS-Zertifikat und App-Konfiguration gemäß [Betriebsplan](../../BETRIEB_UND_IPHONE.md).
 - Wiederherstellung aus einer tatsächlichen Pilot-Serversicherung in eine

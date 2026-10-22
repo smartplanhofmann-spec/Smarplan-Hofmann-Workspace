@@ -6,6 +6,18 @@ on:
 permissions:
   contents: read
 jobs:
+  https-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check isolated HTTPS setup with real Caddy and verified TLS
+        run: |
+          bash -n deploy/hetzner/https/install-https.sh deploy/hetzner/https/fetch-caddy.sh
+          systemd-analyze verify deploy/hetzner/https/smartplan-https.service
+          smartplan_caddy_test=$(mktemp -d)
+          trap 'rm -rf -- "$smartplan_caddy_test"' EXIT
+          bash deploy/hetzner/https/fetch-caddy.sh "$smartplan_caddy_test"
+          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python3 deploy/hetzner/https/test_https.py
   backend:
     runs-on: ubuntu-latest
     steps:

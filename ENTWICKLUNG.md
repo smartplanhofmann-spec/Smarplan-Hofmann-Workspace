@@ -208,7 +208,11 @@ Die neue Kundenstufe benötigt noch eine kurze Abnahme auf dem Nutzer-PC.
 Ein CAX11-Testserver mit SSH-Zugang ist inzwischen vorhanden. Der private
 Loopback-Testdienst und der Windows-Ablauf einschließlich Datenzugriff nach
 VM-Neustart sind bestätigt; öffentlicher gemeinsamer Gerätebetrieb
-ist noch nicht freigegeben. Der Domain-Verwaltungszugriff ist noch unklar.
+ist noch nicht freigegeben. Wix-DNS-Zugriff und der A-Eintrag für
+`office.smartplan-hofmann.de` auf die VM sind am 22. Oktober bestätigt.
+Das [HTTPS-Einrichtungspaket](deploy/hetzner/https/README.md) mit isolierter
+statischer Seite ist lokal geprüft; Installation und reguläres Zertifikat
+auf dem Nutzer-Server sind noch nicht bestätigt.
 Siehe [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
 Noch offen sind tatsächliche iPhone-App-Läufe einschließlich

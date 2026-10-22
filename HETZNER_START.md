@@ -1,6 +1,6 @@
 # Smartplan-Testserver bei Hetzner
 
-Stand: 21. Oktober 2026. Konto und CAX11-Testserver `smartplan-test` sind eingerichtet.
+Stand: 22. Oktober 2026. Konto und CAX11-Testserver `smartplan-test` sind eingerichtet.
 Ubuntu 24.04 wurde aktualisiert und mit Kernel `6.8.0-147-generic` neu gestartet.
 SSH-Zugang von Windows, Firewall und Hetzner-Backups sind bestätigt. Auf dem
 ARM64-Server wurden die Backend-Pakete installiert und 32 Testfälle ausgeführt:
@@ -18,12 +18,16 @@ Konto, VM und privater systemd-Testdienst sind eingerichtet und müssen nicht
 erneut angelegt werden. Eigenes Dienstkonto, automatischer Start und manuell
 ausgelöste konsistente Sicherung sind auf Hetzner bestätigt. Siehe
 [Anleitung](deploy/hetzner/README.md). Der Zugriff erfolgt über einen SSH-Tunnel;
-öffentliche API und HTTPS sind damit noch nicht freigegeben. Die nächsten
-unabhängigen Arbeiten sind Produktions-API/Datenhaltung und das Klären des
-Domainanbieters beziehungsweise DNS-Zugriffs.
+öffentliche API und HTTPS sind damit noch nicht freigegeben. Wix-DNS-Zugriff
+ist inzwischen bestätigt: `office.smartplan-hofmann.de` zeigt per A-Eintrag auf
+`116.203.43.69`; die Windows-DNS-Abfrage vom 22. Oktober bestätigt das.
+Website und E-Mail verbleiben bei den bestehenden Anbietern.
 
-Eine Domain ist vorhanden; der DNS-Verwaltungszugriff ist laut Nutzer noch
-unklar. `office.smartplan-hofmann.de` ist nur eine mögliche spätere Adresse.
+Das [separate HTTPS-Einrichtungspaket](deploy/hetzner/https/README.md) liefert
+zunächst nur eine statische Seite, ohne Verbindung zur privaten API. Code und
+lokaler TLS-Test sind vorbereitet; Installation und echtes öffentliches
+Zertifikat sind auf dem Nutzer-Server noch zu bestätigen. Produktions-API,
+Datenhaltung, MFA und darauf konfigurierte Apps bleiben weitere Entwicklung.
 Zugangsdaten gehören ausschließlich in geeignete sichere Einstellungen.
 Ob Konto-2FA bereits aktiviert ist, wurde nicht gesondert bestätigt.
 
@@ -85,9 +89,9 @@ Server verbindet daher das bestehende Windows-Paket oder das iPhone noch nicht.
 3. Server mit SSH-Schlüssel und Firewall vorbereiten: Verwaltung nur aus
    festgelegten Zugängen, öffentlich später ausschließlich HTTP/HTTPS;
    Datenbank- und interne API-Ports bleiben geschlossen.
-4. Eine eigene Subdomain mit gültigem HTTPS-Zertifikat einrichten, beispielsweise
-   `office.deine-domain.de`. Das ist ein Platzhalter. Eine vorhandene Domain kann
-   weiterverwendet werden; die Website und E-Mail müssen dafür nicht umziehen.
+4. DNS für `office.smartplan-hofmann.de` ist bestätigt. Das separate HTTPS-Paket
+   installieren und das reguläre Zertifikat prüfen; die Einrichtungsseite
+   allein bestätigt noch keinen öffentlichen App-Betrieb.
 5. Dienste mit automatischem Neustart, eingeschränktem Dienstkonto, geschützten
    Schlüsseln, Systemupdates und Betriebsüberwachung einrichten.
 6. Zuerst fiktive Daten verwenden. Anmeldung, Rollen, Projektzugriff, Unterschrift,

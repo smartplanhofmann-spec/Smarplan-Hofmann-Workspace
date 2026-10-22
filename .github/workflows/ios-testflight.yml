@@ -83,6 +83,14 @@ jobs:
               tail -n 160 "$RUNNER_TEMP/flutter-test.log"
               echo '```'
             } >> "$GITHUB_STEP_SUMMARY"
+            python - <<'PY'
+          import os
+          from pathlib import Path
+          log = Path(os.environ['RUNNER_TEMP']) / 'flutter-test.log'
+          detail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])[-25000:]
+          detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print(f'::error title=macOS App-Test::{detail}')
+          PY
             exit "$result"
           fi
       - name: Flutter iOS Release bauen (Online-Server, ohne Signierung)

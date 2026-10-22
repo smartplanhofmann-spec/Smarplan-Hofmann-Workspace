@@ -31,9 +31,10 @@ Zertifikatswarnung. Diese Nachweise liegen vom 22. Oktober vor. Produktions-API,
 Datenhaltung, MFA und darauf konfigurierte Apps bleiben weitere Entwicklung.
 Der nächste [Online-Pilot 0.5](deploy/hetzner/online/README.md) enthält inzwischen
 eine separate PostgreSQL-Datenhaltung, versionierte Flask/Gunicorn-API und
-Authenticator-Anmeldung. Code und lokale Prüfungen sind vorbereitet;
-Serverinstallation, öffentlicher API-Zugriff und Windows-Online-Paket sind
-noch getrennt am Nutzer-System abzunehmen. Eine echte Datenübernahme bleibt offen.
+Authenticator-Anmeldung. Installation, getrenntes Online-Konto und öffentlicher
+401-Test sind auf dem Nutzer-Server bestätigt. Das Windows-Online-Paket ist in
+CI gebaut; Anmeldung, MFA und Fachablauf auf dem Nutzer-PC bleiben abzunehmen.
+Eine echte Datenübernahme bleibt offen.
 Zugangsdaten gehören ausschließlich in geeignete sichere Einstellungen.
 Ob Konto-2FA bereits aktiviert ist, wurde nicht gesondert bestätigt.
 

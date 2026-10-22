@@ -81,7 +81,7 @@ Einrichtungsseite ohne sichtbare Zertifikatswarnung. Dies bestätigt den
 wurden auf dem Nutzer-Server nicht gesondert abgenommen. Die 503-Sperre der
 App-Endpunkte ist lokal getestet, noch nicht separat am öffentlichen Host.
 
-## Vor der öffentlichen und echten gemeinsamen Nutzung noch offen
+## Online-Pilot auf Hetzner und CI-Build bestätigt
 
 Der separate [Online-Pilot 0.5](online/README.md) ist inzwischen im Code vorbereitet.
 In der Entwicklungsumgebung bestehen 19 PostgreSQL-/Anmeldefälle einschließlich
@@ -89,13 +89,33 @@ Dump/Restore, Rechteentzug und paralleler Unterschrift. Ein weiterer echter
 Caddy/Gunicorn/PostgreSQL-Test prüft MFA, PDF und API-Neustart über verifiziertes
 TLS. Flutter-Analyse und alle 27 App-Tests bestehen; die bisherigen 32 lokalen
 Backend-Fälle laufen weiterhin mit einem erwarteten Windows-Skip auf Linux.
-Diese Ergebnisse bestätigen keine Installation des neuen Online-Dienstes auf
-Hetzner und keine tatsächliche Windows-Online- oder iPhone-Abnahme.
 
-- HTTPS-Erneuerung überwachen und die öffentliche Sperre der App-Endpunkte
-  gesondert prüfen. TCP 8765 bleibt gesperrt.
-- Öffentliche API-Laufzeit, PostgreSQL-Datenhaltung und Migration, MFA,
-  App-Konfiguration gemäß [Betriebsplan](../../BETRIEB_UND_IPHONE.md).
+Der Nutzer hat den Online-Piloten inzwischen auf derselben VM installiert.
+Sein Screenshot zeigt Gunicorn 26.2.0 mit zwei Workern auf `127.0.0.1:8766`.
+Ein getrenntes Online-Geschäftsführungskonto wurde über die verdeckte
+Passwortabfrage angelegt. Der Aktivierungs-Screenshot vom 22. Oktober um
+18:59 UTC zeigt gültige Caddy-Konfiguration und die erfolgreiche öffentliche
+Prüfung: „Versionierte Online-API über HTTPS erreichbar; unangemeldeter
+Projektzugriff gesperrt (401)“. Der Aktivierungsablauf führt vor der Umschaltung
+auch die lokale PostgreSQL-Sicherung aus und bricht bei deren Fehler ab.
+Es wurden keine echten lokalen Windows-Daten übernommen.
+
+Der [GitHub-Lauf 39835146915](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39835146915)
+für `6777fb9ee64eaf05d08cfc13be98049641b663bc` hat insgesamt erfolgreich
+abgeschlossen: Online-API, HTTPS, Backend, Flutter sowie beide nativen Builds
+(Windows und iOS-Simulator). Das separate Online-Artefakt heißt
+`Smartplan-Office-Windows-Online-Pilot`, Größe 15,4 MB, SHA-256
+`9915d6c401ac830cbae3970ce5881fe94115c23662ca66ce88bdedc180538a1c`.
+Der iOS-Simulator-Build ist weiterhin keine signierte Geräteinstallation.
+Windows-Online-Anmeldung und MFA-Einrichtung auf dem Nutzer-PC sind noch offen.
+
+## Vor der echten gemeinsamen Nutzung noch offen
+
+- Online-Paket auf Windows starten, Authenticator einrichten und Fachablauf
+  sowie Wiederanlauf auf dem echten Server abnehmen. Öffentlicher Projektzugriff
+  ohne Anmeldung ist mit 401 bestätigt. TCP 8765, 8766 und 5432 bleiben gesperrt.
+- HTTPS-Erneuerung und Betrieb überwachen; Last-/Mehrbenutzerabnahme und
+  geprüfte Datenübernahme gemäß [Betriebsplan](../../BETRIEB_UND_IPHONE.md).
 - Wiederherstellung aus einer tatsächlichen Pilot-Serversicherung in eine
   getrennte Instanz; getrenntes verschlüsseltes Sicherungsziel, Aufbewahrung,
   Betriebsüberwachung und zuständige Betreuung. Die derzeitigen lokalen Kopien

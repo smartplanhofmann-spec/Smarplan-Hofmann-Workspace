@@ -8,6 +8,14 @@ VM und die Windows-Anmeldung müssen nach den automatisierten Prüfungen separat
 abgenommen werden. Eine fertige iPhone-Verteilung und Produktionsfreigabe sind
 damit nicht verbunden.
 
+Aktueller Abnahmestand: Der Nutzer hat Installation, getrenntes Online-Konto und
+HTTPS-Aktivierung am 22. Oktober bestätigt. Der öffentliche Projektabruf ohne
+Anmeldung liefert wie vorgesehen 401. Der zugehörige
+[CI-Lauf 39835146915](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39835146915)
+ist einschließlich beider nativen Builds erfolgreich. Windows-Online-Anmeldung,
+Authenticator-Einrichtung und Fachablauf auf dem Nutzer-PC folgen noch. Die
+Erstinstallation und Aktivierung auf diesem Server nicht wiederholen.
+
 ## Trennung vom bisherigen Test
 
 - Der SQLite-Pilot auf `127.0.0.1:8765` und `/var/lib/smartplan-pilot` bleibt erhalten.

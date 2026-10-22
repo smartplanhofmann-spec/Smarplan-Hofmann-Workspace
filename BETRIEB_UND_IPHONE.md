@@ -1,7 +1,7 @@
 # Nächste Stufe: gemeinsame Daten auf Windows und iPhone
 
 Stand: 22. Oktober 2026. Privater Testserver und HTTPS-Seite eingerichtet;
-Online-Pilot vorbereitet, öffentliche API-Bereitstellung und Geräteabnahme offen.
+Online-Pilot auf Hetzner aktiviert, Windows-Online- und iPhone-Abnahme offen.
 
 **Aktuelle Entscheidung:** Nach der zunächst kostenfreien lokalen Entwicklung
 hat der Nutzer einen Hetzner-CAX11-Testserver in Nürnberg eingerichtet. Die
@@ -50,7 +50,8 @@ Der [Online-Pilot 0.5](deploy/hetzner/online/README.md) implementiert einen erst
 prüfbaren Teil: PostgreSQL-Schema, versionierte API mit Gunicorn, TOTP-/Recovery-
 Anmeldung, separate Windows-Online-Konfiguration und lokale PostgreSQL-Sicherung
 mit Wiederherstellung in eine neue Datenbank. Die bisherige SQLite-Anwendung
-bleibt separat. Öffentliche Installation und tatsächliche Windows-Abnahme,
+bleibt separat. Öffentliche Installation und 401-Test sind auf Hetzner bestätigt;
+tatsächliche Windows-Online-Anmeldung und MFA-Einrichtung,
 echte Datenübernahme, unabhängige Sicherung und iPhone bleiben offen.
 
 | Paket | Konkretes Ergebnis | Nachweis |

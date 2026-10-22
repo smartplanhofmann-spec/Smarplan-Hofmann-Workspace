@@ -4,8 +4,8 @@ Version 0.5.0 bereitet den getrennten [Online-Piloten](deploy/hetzner/online/REA
 vor: PostgreSQL, versionierte Flask/Gunicorn-API, Passwort plus Authenticator-Code,
 QR-Einrichtung und Wiederherstellungscodes. CI erstellt zusätzlich das Windows-
 Artefakt `Smartplan-Office-Windows-Online-Pilot` mit der festen HTTPS-Testadresse.
-Die HTTPS-Einrichtungsseite auf Hetzner ist bestätigt; die neue API-Installation
-und Windows-Online-Anmeldung sind noch am Nutzer-System abzunehmen. Bestehende
+Die HTTPS-Seite, API-Installation und öffentliche Zugriffssperre sind auf Hetzner
+bestätigt; Windows-Online-Anmeldung und MFA sind noch am Nutzer-System abzunehmen. Bestehende
 lokale Daten bleiben getrennt. Echte Datenübernahme und iPhone-Verteilung folgen.
 
 Version 0.4.0 ergänzt eine lokale Kundenverwaltung: Kontaktdaten, Ansprechpartner,

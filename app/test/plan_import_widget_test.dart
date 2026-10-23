@@ -150,6 +150,8 @@ class _ReviewServer extends _ImportServer {
   late Uint8List recognitionBytes;
   final previewStarted = Completer<void>();
   final releasePreview = Completer<void>();
+  final resultStarted = Completer<void>();
+  final releaseResult = Completer<void>();
 
   Future<void> prepare(Map<String, dynamic> record) async {
     final result = _candidates()
@@ -206,6 +208,8 @@ class _ReviewServer extends _ImportServer {
     }
     if (path.endsWith('/result')) {
       expect(mediaType, 'application/json');
+      if (!resultStarted.isCompleted) resultStarted.complete();
+      await releaseResult.future;
       return Uint8List.fromList(recognitionBytes);
     }
     throw StateError('Unexpected synthetic download: $path');
@@ -371,6 +375,12 @@ Future<void> _close(WidgetTester tester, _Fixture fixture) async {
   await tester.pumpWidget(const SizedBox());
   await tester.runAsync(fixture.dispose);
 }
+
+Future<void> _finishDetailLoad(WidgetTester tester) => _pumpUntil(
+  tester,
+  () => find.byType(LinearProgressIndicator).evaluate().isEmpty,
+  reason: 'The detail page did not finish reading its encrypted fixture',
+);
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -892,6 +902,10 @@ void main() {
         expect(find.byType(Image), findsNothing);
         expect(find.text('Servervorschau'), findsNothing);
         expect(find.text('review-source.pdf · Seite 50'), findsOneWidget);
+        // Each server-controlled arrival follows the preceding complete load.
+        // The latest busy flag cannot drain older, superseded load futures;
+        // this fixture therefore keeps those reads from overlapping at teardown.
+        await _finishDetailLoad(tester);
 
         await tester.runAsync(() async {
           server.online = true;
@@ -931,8 +945,27 @@ void main() {
           findsNothing,
           reason: 'A ready status alone must not label an uncached source as a server preview',
         );
+        await _finishDetailLoad(tester);
 
         server.releasePreview.complete();
+        await _pumpUntil(
+          tester,
+          () => server.resultStarted.isCompleted || refreshFinished,
+          reason: 'Synthetic recognition download did not start',
+        );
+        expect(refreshError, isNull);
+        expect(server.resultStarted.isCompleted, isTrue);
+        await _finishDetailLoad(tester);
+        expect(find.text('Servervorschau'), findsOneWidget);
+        expect(
+          fixture.repository.getImport(record['local_id'])['preview'],
+          isA<Map>(),
+        );
+        expect(
+          fixture.repository.getImport(record['local_id'])['recognition'],
+          isNull,
+        );
+        server.releaseResult.complete();
         await _pumpUntil(
           tester,
           () => refreshFinished,
@@ -1008,8 +1041,19 @@ void main() {
           reason: 'Source PDF, server PNG and recognition JSON must all use real encrypted files',
         );
       } finally {
+        if (refresh != null) await _finishDetailLoad(tester);
         if (!server.releasePreview.isCompleted)
           server.releasePreview.complete();
+        if (refresh != null) {
+          await _pumpUntil(
+            tester,
+            () => server.resultStarted.isCompleted || refreshFinished,
+            reason:
+                'Synthetic recognition fixture did not reach its release gate',
+          );
+          await _finishDetailLoad(tester);
+        }
+        if (!server.releaseResult.isCompleted) server.releaseResult.complete();
         if (refresh != null) {
           await _pumpUntil(tester, () => refreshFinished);
           await tester.runAsync(() => refresh!);

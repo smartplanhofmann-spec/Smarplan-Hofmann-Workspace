@@ -208,15 +208,17 @@ jobs:
           --build-number=${{ needs.unsigned.outputs.build_number }}
           --dart-define=API_URL=https://office.smartplan-hofmann.de
           --dart-define=API_VERSION=v1
-      - name: Archivieren mit Cloud-Signierung
+      - name: Archivieren (unsigniert, Signierung erst beim Export)
         working-directory: app/ios
+        # Ohne registriertes Geraet kann Xcode kein Entwicklungsprofil erzeugen.
+        # Fuer TestFlight genuegt die Distributionssignierung beim IPA-Export.
         run: |
           xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release \
             -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/Runner.xcarchive" \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$ASC_KEY_PATH" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
             DEVELOPMENT_TEAM="$APPLE_TEAM_ID" CODE_SIGN_STYLE=Automatic \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             archive
+          test -d "$RUNNER_TEMP/Runner.xcarchive/Products/Applications/Runner.app"
       - name: IPA exportieren
         run: |
           xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/Runner.xcarchive" \

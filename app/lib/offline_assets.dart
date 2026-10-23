@@ -154,8 +154,8 @@ class EncryptedAssets {
     if (create &&
         await FileSystemEntity.type(_assets.path, followLinks: false) ==
             FileSystemEntityType.notFound) {
-      // createTemp uses a private directory on POSIX. Directory.create alone
-      // inherits the umask and could otherwise produce a world-readable folder.
+      // Dart directory creation inherits the process umask. The iOS entrypoint
+      // and POSIX test launcher set 0077; still verify every actual directory.
       final pending = await _root.createTemp('.assets-');
       try {
         await _privateDirectory(pending);

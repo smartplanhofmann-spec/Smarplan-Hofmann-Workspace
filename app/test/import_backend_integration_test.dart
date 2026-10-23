@@ -156,6 +156,8 @@ void main() {
           repo = OfflinePlans(api: full, transport: connection, device: device);
           await repo.login(user, projects);
           await idle(repo);
+        final granted = await (await device.open(repo.server, user['id'])).read();
+        expect(granted?['imports_supported'], isTrue);
           connection.connected = false;
           // A vector PDF with a long synthetic comment exercises two real PUTs.
           final source = syntheticPdf();

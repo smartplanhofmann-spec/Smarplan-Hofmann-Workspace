@@ -21,8 +21,11 @@ Prüfsumme und verschlüsselte Bytes werden beim Lesen gemeinsam geprüft.
 Die sieben Tage nach einer Online-Anmeldung begrenzen den Offline-Zugriff;
 sie sind keine Löschfrist. App-Wechsel, Rechteentzug oder Uploadfehler löschen
 keine bestätigten Originale. Bei fehlenden neuen Routen auf einem alten Server
-bleibt die Quelle lokal; eine 404-Antwort führt zum Hinweis auf ein notwendiges
-Serverupdate. Ein noch lokaler Upload ist kein bereits laufender Erkennungsauftrag.
+bleibt die Quelle lokal. Die Anmeldung meldet die unterstützten Funktionen;
+nur bei unbekannter Importfunktion gilt eine 404-Antwort als fehlendes
+Serverupdate. Bei bekannter Importfunktion sperrt ein nicht mehr verfügbares
+Projekt den Zugriff auf die behaltenen Originale. Ein noch lokaler Upload ist
+kein bereits laufender Erkennungsauftrag.
 Eine beendete iOS-App garantiert keine sofortige Hintergrundübertragung.
 
 Für iOS sind Kameraerlaubnis, `NSFileProtectionComplete` und
@@ -32,6 +35,10 @@ gerätegebundenen Keychain-Zugang. Die Kamera-Tempdatei wird nach bestätigter
 verschlüsselter Übernahme bereinigt. Die App exportiert die Aufnahme nicht in die
 Fotomediathek. Kamera, Sperrverhalten und tatsächlicher Backup-Ausschluss sind
 noch auf iPhone/iPad abzunehmen; ein CI-Build ist kein Gerätenachweis.
+
+Der iOS-Prozess setzt vor Flutter-/Plugin-Initialisierung `umask 0077`, damit
+auch neu angelegte Binärordner privat sind. POSIX-Entwicklungs-/Testbefehle laufen
+ebenfalls unter `umask 0077`; die Prüfung tatsächlich privater Ordner bleibt aktiv.
 
 Dateiflush und Umbenennung kommen vor dem Metadatencommit. Dart bietet hier
 keinen Verzeichnis-fsync; garantierte Stromausfallsicherheit ist nicht belegt.
@@ -47,7 +54,7 @@ der vorhandene Projekt-/Rollenvertrag bleibt maßgeblich.
 
 | Methode / relativer Pfad | Zweck |
 | --- | --- |
-| `GET` Basisroute | Zuletzt angelegte Projektimporte, derzeit höchstens 100. |
+| `GET` Basisroute | Projektimporte, zuletzt angelegte zuerst. |
 | `POST` Basisroute | Manifest anlegen oder mit derselben Anfrage-ID wieder aufnehmen. |
 | `GET /IMPORT_ID` | Status, Prüfsummen und bestätigte Abschnittsindizes. |
 | `PUT /IMPORT_ID/chunks/INDEX` | Genau einen Binärabschnitt übertragen. |

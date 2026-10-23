@@ -43,6 +43,8 @@ class ImportServer extends PlanServer {
   bool loseChunkAcknowledgment = false;
   bool loseManifestAcknowledgment = false;
   bool mutateManifestHash = false;
+  bool grantImportCapability = false;
+  int deniedStatus = 403;
   DateTime now = DateTime.utc(2026, 10, 23);
   final records = <String, Map<String, dynamic>>{};
   final importRequests = <String, String>{};
@@ -64,7 +66,7 @@ class ImportServer extends PlanServer {
 
   void guard() {
     if (!online) throw const ApiException(0, 'Offline');
-    if (forbidden) throw const ApiException(403, 'Project access revoked');
+    if (forbidden) throw ApiException(deniedStatus, 'Project access revoked');
     if (!supported) throw const ApiException(404, 'Import route unavailable');
   }
 
@@ -88,6 +90,12 @@ class ImportServer extends PlanServer {
       return {
         'token': 'offline-test',
         'expires_at': now.add(const Duration(days: 7)).toIso8601String(),
+        if (grantImportCapability)
+          'capabilities': [
+            'project_plans',
+            'offline_plan_access',
+            'plan_imports',
+          ],
       };
     }
     if (!path.contains('/plan-imports')) return super.call(path, body);
@@ -510,6 +518,72 @@ void main() {
       expect(repo.canAccessProject('project'), isTrue);
     },
   );
+
+  for (final supportSource in ['accepted_manifest', 'grant_capability']) {
+    test(
+      'A known import server 404 revokes access after $supportSource and preserves resumable uploads',
+      () async {
+        if (supportSource == 'grant_capability') {
+          server.grantImportCapability = true;
+          await repo.login(user, projects);
+          await idle(repo);
+        }
+        server.online = false;
+        final record = await capture();
+        final id = record['local_id'] as String;
+        if (supportSource == 'accepted_manifest') {
+          server.online = true;
+          server.loseChunkAcknowledgment = true;
+          await repo.sync();
+          expect(server.chunkCalls, [0]);
+          expect(repo.getImport(id)['status'], 'uploading');
+        }
+        expect((await persisted())['imports_supported'], isTrue);
+        expect(repo.pending, 1);
+        server.online = true;
+        server.forbidden = true;
+        server.deniedStatus = 404;
+        if (supportSource == 'accepted_manifest') {
+          await repo.refreshImports('project');
+        } else {
+          await repo.sync();
+        }
+        expect(repo.canAccessProject('project'), isFalse);
+        expect(
+          () => repo.getImport(id),
+          throwsA(
+            isA<ApiException>().having((error) => error.status, 'status', 404),
+          ),
+        );
+        await expectLater(
+          repo.importSource(id),
+          throwsA(
+            isA<ApiException>().having((error) => error.status, 'status', 404),
+          ),
+        );
+        final state = await persisted();
+        expect(state['import_outbox'], [id]);
+        expect(state['imports'][id]['source'], record['source']);
+        expect(repo.pending, 1);
+        final vault = await device.open(repo.server, user['id']);
+        expect(
+          await EncryptedAssets(vault)
+              .read(Map<String, dynamic>.from(record['source'])),
+          orderedEquals(syntheticPdf()),
+        );
+        server.forbidden = false;
+        await repo.login(user, projects);
+        await idle(repo);
+        expect(repo.canAccessProject('project'), isTrue);
+        expect(repo.pending, 0);
+        expect(repo.getImport(id)['source'], record['source']);
+        expect(repo.getImport(id)['status'], 'queued');
+        expect(server.records, hasLength(1));
+        expect(server.chunkCalls, [0, 1, 2]);
+        expect(server.sources.values.single, orderedEquals(syntheticPdf()));
+      },
+    );
+  }
 
   test(
     'Revoked project access hides sources without deleting encrypted inputs',

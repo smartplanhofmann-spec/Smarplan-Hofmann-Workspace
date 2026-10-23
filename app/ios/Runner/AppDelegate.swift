@@ -1,3 +1,4 @@
+import Darwin
 import Flutter
 import UIKit
 
@@ -5,6 +6,13 @@ import UIKit
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
   private var offlineStorageChannel: FlutterMethodChannel?
   private let offlineStorageQueue = DispatchQueue(label: "smartplan.offline-storage", qos: .utility)
+
+  override init() {
+    // Set private creation modes before UIKit/Flutter can initialize plugins or
+    // create temporary source/media files. Existing paths are checked separately.
+    umask(mode_t(0o077))
+    super.init()
+  }
 
   override func application(
     _ application: UIApplication,

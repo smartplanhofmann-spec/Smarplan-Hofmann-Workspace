@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+umask 0077
 
 # Use the existing isolated checkout. Do not create a Git worktree.
 smartplan_repo="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"

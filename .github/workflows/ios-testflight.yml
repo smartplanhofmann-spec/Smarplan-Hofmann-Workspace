@@ -81,6 +81,7 @@ jobs:
       - run: flutter analyze
       - name: App-Tests mit Fehlerdetails ausfuehren
         run: |
+          umask 0077
           set +e
           flutter test --reporter expanded 2>&1 | tee "$RUNNER_TEMP/flutter-test.log"
           result=${PIPESTATUS[0]}
@@ -103,11 +104,32 @@ jobs:
             exit "$result"
           fi
       - name: Flutter iOS Release bauen (Online-Server, ohne Signierung)
-        run: >-
-          flutter build ios --release --no-codesign
-          --build-number=${{ steps.build.outputs.number }}
-          --dart-define=API_URL=https://office.smartplan-hofmann.de
-          --dart-define=API_VERSION=v1
+        shell: bash
+        run: |
+          set +e
+          flutter build ios --release --no-codesign \
+            --build-number=${{ steps.build.outputs.number }} \
+            --dart-define=API_URL=https://office.smartplan-hofmann.de \
+            --dart-define=API_VERSION=v1 2>&1 | tee "$RUNNER_TEMP/smartplan-ios-unsigned-build.log"
+          result=${PIPESTATUS[0]}
+          set -e
+          if [ "$result" -ne 0 ]; then
+            {
+              echo '### iOS unsigned native build failed'
+              echo '```text'
+              tail -n 120 "$RUNNER_TEMP/smartplan-ios-unsigned-build.log"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            python - <<'PY'
+          import os
+          from pathlib import Path
+          log = Path(os.environ['RUNNER_TEMP']) / 'smartplan-ios-unsigned-build.log'
+          detail = '\n'.join(log.read_text(errors='replace').splitlines()[-120:])[-25000:]
+          detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print(f'::error title=iOS unsigned native build::{detail}')
+          PY
+            exit "$result"
+          fi
       - name: iPhone-/iPad-Konfiguration und Buildmanifest pruefen
         run: >-
           python ../scripts/native-release.py ios

@@ -43,7 +43,8 @@ def dispatch(office, user, path, method, data, token):
     if path == '/offline/access':
         if data:
             raise Problem(400, 'Keine Zugangsdaten im Anfrageinhalt erwartet')
-        return plan_access.issue(office, user), 201
+        return {**plan_access.issue(office, user),
+                'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports']}, 201
     if path == '/offline/logout':
         return plan_access.revoke(office, token), 200
     if path == '/me':

@@ -109,6 +109,9 @@ class OfflinePlans extends ChangeNotifier {
       'server_expires_at': grant['expires_at'],
       'last_seen': now,
       'locked': false,
+      'imports_supported': (grant['capabilities'] as List? ?? []).contains(
+        'plan_imports',
+      ),
     });
     for (final record in (state['records'] as Map).values) {
       if (record['sync_status'] == 'Zugriff gesperrt')

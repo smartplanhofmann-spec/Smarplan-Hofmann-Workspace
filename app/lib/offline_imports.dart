@@ -177,6 +177,7 @@ extension PlanImports on OfflinePlans {
     _validateImport(remote, project);
     await _change((state) {
       _importAccess(epoch, project);
+      state['imports_supported'] = true;
       final records = state['imports'] ??= {};
       final matches = records.values.where(
         (r) => r['server_id'] == remote['id'],
@@ -315,6 +316,10 @@ extension PlanImports on OfflinePlans {
       _importAccess(epoch, project);
       if (remote is! List)
         throw const ApiException(0, 'Ungültige Importliste.');
+      await _change((state) {
+        _importAccess(epoch, project);
+        state['imports_supported'] = true;
+      });
       for (final item in remote) {
         final data = Map<String, dynamic>.from(item);
         await _mergeImport(epoch, project, data);
@@ -340,7 +345,10 @@ extension PlanImports on OfflinePlans {
       await lock();
       return;
     }
-    final message = error.status == 404
+    final revoked =
+        error.status == 403 ||
+        (error.status == 404 && _state?['imports_supported'] == true);
+    final message = error.status == 404 && !revoked
         ? 'Import wartet auf das Server-Update. Original bleibt auf diesem Gerät.'
         : error.status == 0 || error.status >= 500
         ? 'Keine Verbindung · Original bleibt auf diesem Gerät gespeichert.'
@@ -348,7 +356,7 @@ extension PlanImports on OfflinePlans {
     notice = message;
     await _change((state) {
       if (localId != null) {
-        state['imports'][localId]['sync_status'] = error.status == 403
+        state['imports'][localId]['sync_status'] = revoked
             ? 'Zugriff gesperrt'
             : [400, 409, 413, 415].contains(error.status)
             ? 'Eingabe prüfen'
@@ -357,7 +365,7 @@ extension PlanImports on OfflinePlans {
             : 'Wartet auf Verbindung';
         state['imports'][localId]['error_message'] = message;
       }
-      if (error.status == 403) {
+      if (revoked) {
         (state['projects'] as List).removeWhere((p) => p['id'] == project);
       }
     });

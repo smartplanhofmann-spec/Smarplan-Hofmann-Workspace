@@ -108,7 +108,24 @@ jobs:
           python ../scripts/native-release.py source
           python -m unittest discover -s ../scripts -p test_native_release.py -v
       - run: flutter analyze
-      - run: flutter test
+      - name: Test app and retain bounded failure diagnostics
+        shell: bash
+        run: |
+          umask 0077
+          smartplan_test_log="$RUNNER_TEMP/smartplan-flutter-tests.log"
+          set +e
+          flutter test --reporter expanded 2>&1 | tee "$smartplan_test_log"
+          smartplan_test_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_test_exit" -ne 0 ]; then
+            python - "$smartplan_test_log" <<'PY'
+          import pathlib, sys
+          tail = '\n'.join(pathlib.Path(sys.argv[1]).read_text(errors='replace').splitlines()[-180:])[-40000:]
+          escaped = tail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print('::error title=Flutter app tests::' + escaped)
+          PY
+          fi
+          exit "$smartplan_test_exit"
   native-build:
     strategy:
       fail-fast: false
@@ -159,7 +176,20 @@ jobs:
       - run: flutter pub get --enforce-lockfile
       - name: Test Windows client against real backend
         if: runner.os == 'Windows'
-        run: flutter test --reporter expanded
+        shell: pwsh
+        run: |
+          $smartplanTestLog = Join-Path $env:RUNNER_TEMP 'smartplan-windows-tests.log'
+          $PSNativeCommandUseErrorActionPreference = $false
+          & flutter test --reporter expanded 2>&1 | Tee-Object -FilePath $smartplanTestLog
+          $smartplanTestExit = $LASTEXITCODE
+          if ($smartplanTestExit -ne 0) {
+            $smartplanTestTail = (Get-Content -LiteralPath $smartplanTestLog -Tail 120) -join "`n"
+            @('### Windows app tests failed', '', '```text', $smartplanTestTail, '```') | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            if ($smartplanTestTail.Length -gt 25000) { $smartplanTestTail = $smartplanTestTail.Substring($smartplanTestTail.Length - 25000) }
+            $smartplanTestAnnotation = $smartplanTestTail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows App-Test::$smartplanTestAnnotation"
+            exit $smartplanTestExit
+          }
       - name: Build Windows release with compiler diagnostics
         if: runner.os == 'Windows'
         shell: pwsh
@@ -178,7 +208,29 @@ jobs:
           }
       - name: Build iOS simulator
         if: runner.os == 'macOS'
-        run: ${{ matrix.command }}
+        shell: bash
+        run: |
+          set +e
+          ${{ matrix.command }} 2>&1 | tee "$RUNNER_TEMP/smartplan-ios-simulator-build.log"
+          result=${PIPESTATUS[0]}
+          set -e
+          if [ "$result" -ne 0 ]; then
+            {
+              echo '### iOS simulator native build failed'
+              echo '```text'
+              tail -n 120 "$RUNNER_TEMP/smartplan-ios-simulator-build.log"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            python - <<'PY'
+          import os
+          from pathlib import Path
+          log = Path(os.environ['RUNNER_TEMP']) / 'smartplan-ios-simulator-build.log'
+          detail = '\n'.join(log.read_text(errors='replace').splitlines()[-120:])[-25000:]
+          detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print(f'::error title=iOS simulator native build::{detail}')
+          PY
+            exit "$result"
+          fi
       - name: Prepare portable Windows package
         if: runner.os == 'Windows'
         shell: pwsh

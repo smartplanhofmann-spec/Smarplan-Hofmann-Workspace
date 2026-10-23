@@ -1,8 +1,9 @@
 # Testupdate 0.7.0 – Projektpläne auf Windows, iPhone und iPad
 
 Dieser Stand bereitet das Testupdate vor. Die App ist mit Version `0.7.0+9`
-gekennzeichnet. Es wurde noch kein neuer nativer Build ausgeführt, kein IPA
-hochgeladen und kein Nutzer-Server aktualisiert.
+gekennzeichnet. Native Prüfergebnisse und Artefakte sind am jeweiligen
+GitHub-Run und dessen vollständigem Quell-Commit zu prüfen. Es wurde kein IPA
+zu TestFlight hochgeladen und kein Nutzer-Server aktualisiert.
 
 ## Reihenfolge
 
@@ -65,6 +66,13 @@ neuen nativen DLLs für sicheren Speicher und Geräteauthentifizierung.
   optionale JNI/JVM-Suche eines transitiven Android-Pakets ist für diesen
   Windows-Client ausdrücklich deaktiviert; seine Windows-Funktionen verwenden
   Win32 und benötigen keine Java-Laufzeit.
+- `local_auth_windows` 2.0.2 verwendet noch Legacy-Coroutinen mit `/await`.
+  Visual Studio 18 mit MSVC 14.51 meldet dafür `STL1011`. Die dafür vorgesehene
+  Übergangsfreigabe `_SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS` gilt
+  ausschließlich für dieses Plugin-Target; `/W4`, `/WX` und die übrigen Targets
+  bleiben unverändert. Die Migration des Upstream-Plugins zu Standard-C++20-
+  Coroutinen bleibt eine spätere Wartungsaufgabe. Erst der erneute native
+  CI-Build bestätigt die Kompatibilität dieses vorbereiteten Stands.
 - iOS: macOS/Xcode mit Swift-Tools mindestens 5.9, bestehende App-ID
   `de.smartplanhofmann.office`. iOS 15, iPhone und iPad bleiben aktiviert.
 - Die neue Face-ID-Beschreibung und Keychain-Entitlements sind für

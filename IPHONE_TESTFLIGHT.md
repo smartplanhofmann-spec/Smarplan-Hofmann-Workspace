@@ -22,8 +22,8 @@ Face-ID-Beschreibung, Version, Buildnummer, API-Ziel und Bundle-ID. Beim
 signierten IPA werden zusätzlich Codesignatur, erwartetes Team und tatsächliche
 Keychain-Entitlements geprüft. Das geprüfte IPA samt Manifest und SHA-256-Datei
 wird vor dem separat angeforderten TestFlight-Upload als Artefakt gesichert.
-Die Quellprüfung und Paketprüfungen liefen hier erfolgreich; ein nativer
-macOS-/Windows-Build dieses neuen Standes wurde hier noch nicht ausgeführt.
+Maßgeblich sind die Prüfläufe und Artefakte zum exakten Quell-Commit des
+jeweiligen Updates. Erfolgreiche native Builds ersetzen die Geräteabnahme nicht.
 
 ## Vorbereiteter Signierweg und aktueller Stand
 

@@ -119,13 +119,19 @@ def work_one(office, *, worker_python=None, process_timeout=PROCESS_TIMEOUT_SECO
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--worker-python', default=os.environ.get('SMARTPLAN_IMPORT_WORKER_PYTHON'))
+    parser.add_argument('--worker-python', default=os.environ.get('SMARTPLAN_IMPORT_WORKER_PYTHON'),
+                        help='Required absolute executable path, or SMARTPLAN_IMPORT_WORKER_PYTHON.')
     parser.add_argument('--watch', action='store_true')
     parser.add_argument('--once', action='store_true')
     parser.add_argument('--ocr-languages', default='eng')
     args = parser.parse_args(argv)
     if args.once and args.watch:
         parser.error('Use either --once or --watch.')
+    if not args.worker_python:
+        parser.error('Configure --worker-python or SMARTPLAN_IMPORT_WORKER_PYTHON before starting the worker.')
+    worker_python = Path(args.worker_python)
+    if not worker_python.is_absolute() or not worker_python.is_file() or not os.access(worker_python, os.X_OK):
+        parser.error('Worker Python must be an existing absolute executable path.')
     from online.store import PostgresOffice
     office = PostgresOffice(os.environ['SMARTPLAN_DATABASE_DSN'])
     signal.signal(signal.SIGTERM, lambda signum, frame: sys.exit(128 + signum))
@@ -135,7 +141,7 @@ def main(argv=None):
             # No source names, extracted text, raw parser diagnostics or secrets.
             print(json.dumps({'id': result['id'], 'status': result['status']} if result else {'status': 'idle'}), flush=True)
             if not args.watch:
-                return 0
+                return 1 if result and result['status'] == 'failed' else 0
             if result is None:
                 time.sleep(2)
     finally:

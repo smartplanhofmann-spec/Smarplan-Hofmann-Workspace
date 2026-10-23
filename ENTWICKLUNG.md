@@ -84,9 +84,13 @@ bash scripts/setup-cloud.sh
 
 Das Skript installiert die festgehaltenen Python-Abhängigkeiten, verwendet die geprüfte Flutter-Revision und führt Backend-Tests, Flutter-Analyse und Flutter-Tests aus. Es setzt Flutter-Konfiguration, Paketcache und Analyzer-Cache auf beschreibbare Pfade in `/workspace/toolchains`, ohne `HOME` umzusetzen. Für Flutter-Artefakte ist `storage.googleapis.com` zusätzlich zu GitHub und den Paketregistries erforderlich.
 
-Für einzelne Flutter-Befehle in dieser Cloud:
+Für einzelne Flutter-Befehle in dieser Cloud zuerst `umask 0077` in der
+aufrufenden Shell setzen. Neue Offline-Dateien und Verzeichnisse müssen privat
+sein; die Tests prüfen diese Rechte. Die Umask des Setupskripts gilt nur für
+dessen Prozess und verändert die aufrufende Shell nach seiner Rückkehr nicht.
 
 ```bash
+umask 0077
 export FLUTTER_SUPPRESS_ANALYTICS=true
 export XDG_CONFIG_HOME=/workspace/toolchains/config
 export ANALYZER_STATE_LOCATION_OVERRIDE=/workspace/toolchains/analyzer-cache
@@ -95,6 +99,13 @@ cd /workspace/Smarplan-Hofmann-Workspace/app
 /workspace/toolchains/flutter/bin/flutter analyze
 /workspace/toolchains/flutter/bin/flutter test
 ```
+
+Der neue Import-HTTP-Test startet auf Linux/macOS die Online-/Hetzner-API als
+lokale Flask-Fixture mit temporärer SQLite-Datenbank; er verbindet keinen
+produktiven Hetzner-Server. Dafür sind zusätzlich die Abhängigkeiten aus
+`backend/online/requirements.lock` nötig, die das Cloudsetup mit installiert.
+Auf Windows wird nur diese einzelne Online-HTTP-Fixture übersprungen. Der echte
+Desktop-Backend-Test und die Import-Unit-/Widgettests laufen dort weiterhin.
 
 ## Backend auf Windows
 
@@ -180,14 +191,33 @@ Abnahmepunkte; verbindliche Nachweise stehen in
 
 ## iOS
 
-Auf macOS aus `app` zunächst `flutter pub get --enforce-lockfile`, `flutter analyze` und `flutter test`; dann `flutter build ios --simulator --debug`. Für einen echten iPhone-Lauf das Gerät in `flutter devices` auswählen und ein geeignetes HTTPS-Testbackend übergeben:
+Auf macOS im Repository die Shell-Umask ebenfalls vor den Flutter-Befehlen setzen:
 
 ```bash
-flutter run -d <geraete-id> --dart-define=API_URL=https://<eigener-testserver>
+umask 0077
+python3 -m venv backend/.venv
+backend/.venv/bin/python -m pip install -r backend/requirements.lock -r backend/online/requirements.lock
+backend/.venv/bin/python -m pip check
+cd app
+flutter pub get --enforce-lockfile
+flutter analyze
+flutter test
+flutter build ios --simulator --debug
 ```
 
-Der Simulator-Build wurde in GitHub CI erfolgreich geprüft. Installation und
-Nutzung auf einem echten iPhone einschließlich Signierung bleiben offen. Keine
+Für einen echten iPhone-Lauf das Gerät in `flutter devices` auswählen und ein
+geeignetes HTTPS-Online-Testbackend mit API-Version `v1` übergeben. Die
+Platzhalter im folgenden Befehl ersetzen:
+
+```bash
+umask 0077
+flutter run -d '<geraete-id>' --dart-define='API_URL=https://<eigener-testserver>' --dart-define=API_VERSION=v1
+```
+
+Frühere Simulator-Builds wurden in GitHub CI erfolgreich geprüft. Die native
+Prüfung der neuen Importstufe 0.8.0 ist noch nicht abgeschlossen; sie wird
+dadurch nicht als freigegeben ausgewiesen. Installation und Nutzung auf einem
+echten iPhone einschließlich Signierung bleiben gesondert abzunehmen. Keine
 TLS-Ausnahmen für entfernte HTTP-Server hinzufügen. Die vorhandenen
 App-Icons zeigen das eigene Smartplan-Planzeichen; die Bundle-ID ist weiterhin
 ein Platzhalter für die Entwicklungsphase.

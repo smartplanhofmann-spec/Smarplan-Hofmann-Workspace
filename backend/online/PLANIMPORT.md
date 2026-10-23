@@ -39,6 +39,10 @@ noch auf iPhone/iPad abzunehmen; ein CI-Build ist kein Gerätenachweis.
 Der iOS-Prozess setzt vor Flutter-/Plugin-Initialisierung `umask 0077`, damit
 auch neu angelegte Binärordner privat sind. POSIX-Entwicklungs-/Testbefehle laufen
 ebenfalls unter `umask 0077`; die Prüfung tatsächlich privater Ordner bleibt aktiv.
+Bei direkten Flutter-Befehlen muss dies in der eigenen Shell gesetzt werden;
+die Umask eines zuvor ausgeführten Setupskripts bleibt auf dessen Prozess
+beschränkt. Konkrete Cloud-/macOS-Befehle stehen in
+[ENTWICKLUNG.md](../../ENTWICKLUNG.md#cloud-einrichten-und-prüfen).
 
 Dateiflush und Umbenennung kommen vor dem Metadatencommit. Dart bietet hier
 keinen Verzeichnis-fsync; garantierte Stromausfallsicherheit ist nicht belegt.
@@ -117,7 +121,11 @@ PYTHONPATH=backend SMARTPLAN_DATABASE_DSN="${SMARTPLAN_TEST_DSN:?Lokale Einweg-T
 ```
 
 `--watch` arbeitet die Warteschlange fortlaufend ab. Alternativ benennt
-`SMARTPLAN_IMPORT_WORKER_PYTHON` den Parser-Pythonpfad. `--ocr-languages deu+eng`
+`SMARTPLAN_IMPORT_WORKER_PYTHON` den Parser-Pythonpfad. Der CLI verlangt diesen
+ausdrücklich konfigurierten absoluten, ausführbaren Pfad vor dem ersten
+Datenbankzugriff; er verwendet nicht still die Online-Venv als Parser.
+Ein Einzellauf endet bei `failed` mit Exitcode 1, bei `idle` oder `needs_review`
+mit 0. `--ocr-languages deu+eng`
 verwendet lokal installierte Sprachdaten; fehlende Sprachen und gegebenenfalls
 englischer Ersatz werden im Ergebnis gemeldet. Eine Deutsch- oder
 Handschriftqualität ist nicht abgenommen.
@@ -139,8 +147,15 @@ Maße. Handschrift, Durchstreichungen und Pfeile werden nicht fachlich verstande
 Linien werden nicht automatisch in den bisherigen Wandplan übernommen.
 Perspektivkorrektur, Maßkalibrierung, DXF und DWG folgen später.
 
-Die App-/HTTP-, Neustart-, Upload- und Rechteprüfungen laufen. Native CI-Builds
-folgen nach dem Push; iPhone-/iPad- und Serverabnahme bleiben erforderlich.
+Die neue echte Online-HTTP-Fixture läuft auf Linux/macOS lokal gegen Flask,
+ohne Verbindung zum produktiven Hetzner-Server. Auf Windows wird nur diese
+einzelne Fixture übersprungen; der echte Desktop-Backend-Test sowie die
+Import-Unit-/Widgettests bleiben aktiv. Die Online-Abhängigkeiten werden für
+diese Testumgebungen separat mit installiert.
+
+Die App-/HTTP-, Neustart-, Upload- und Rechteprüfungen sowie native CI-Builds
+sind noch nicht vollständig abgeschlossen; iPhone-/iPad- und Serverabnahme
+bleiben erforderlich.
 Vor einer neuen Windows-Veröffentlichung ist außerdem die bestehende
 Authenticode-/SmartScreen-Signierungsaufgabe abzuschließen. Dieser Durchstich
 behauptet keine Behebung der Warnung des bisherigen unsignierten Testpakets.

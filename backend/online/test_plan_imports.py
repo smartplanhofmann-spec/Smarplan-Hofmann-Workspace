@@ -1,5 +1,6 @@
 """Real authenticated Flask uploads and DB leases, with synthetic sources only."""
 import base64
+from contextlib import redirect_stderr, redirect_stdout
 import hashlib
 import io
 import json
@@ -19,7 +20,7 @@ from reportlab.pdfgen import canvas
 from core import Office
 from online.web import create_app
 from online.plan_imports import CHUNK_SIZE, PlanImports, LeaseLost, validate_integrity
-from online.import_worker import work_one
+from online.import_worker import work_one, main as worker_main
 
 
 def sha(data):
@@ -247,6 +248,46 @@ class PlanImportApiTests(unittest.TestCase):
                           'from pathlib import Path\n' + body)
         script.chmod(0o700)
         return script
+
+    def test_unconfigured_or_invalid_cli_never_opens_database_or_claims_queued_source(self):
+        path, _ = self.upload()
+        invalid = self.directory / 'not-executable'
+        invalid.write_text('synthetic non-executable configuration')
+        invalid.chmod(0o600)
+        environment = {key: value for key, value in os.environ.items()
+                       if key not in ('SMARTPLAN_IMPORT_WORKER_PYTHON', 'SMARTPLAN_DATABASE_DSN')}
+        for arguments in (['--once'], ['--once', '--worker-python', 'python'],
+                          ['--once', '--worker-python', str(invalid)],
+                          ['--once', '--worker-python', str(self.directory / 'missing')]):
+            with self.subTest(arguments=arguments), patch.dict(os.environ, environment, clear=True):
+                with patch('online.store.PostgresOffice') as database, redirect_stderr(io.StringIO()):
+                    with self.assertRaises(SystemExit) as stopped:
+                        worker_main(arguments)
+                self.assertEqual(stopped.exception.code, 2)
+                database.assert_not_called()
+            job = self.call('GET', path).json
+            self.assertEqual((job['status'], job['attempts']), ('queued', 0))
+            self.assertEqual(self.call('GET', path + '/source').data, png())
+
+    def test_configured_cli_reports_processing_failure_with_nonzero_exit(self):
+        path, _ = self.upload()
+        worker = self.fake_worker("print(json.dumps({'status':'failed','error_code':'recognizer_unavailable'}))\nsys.exit(1)\n")
+        output = io.StringIO()
+        with patch.dict(os.environ, {'SMARTPLAN_DATABASE_DSN': 'synthetic-not-a-real-dsn',
+                                     'SMARTPLAN_IMPORT_WORKER_PYTHON': str(worker)}):
+            with patch('online.store.PostgresOffice', return_value=self.office) as database, \
+                    patch('online.import_worker.signal.signal'), redirect_stdout(output):
+                exit_code = worker_main(['--once'])
+                database.assert_called_once_with('synthetic-not-a-real-dsn')
+        self.assertEqual(exit_code, 1)
+        self.assertEqual(json.loads(output.getvalue())['status'], 'failed')
+        # The CLI owns/closes its connection; reopening models another process.
+        self.office = Office(self.database)
+        self.open_app()
+        status = self.call('GET', path).json
+        self.assertEqual((status['status'], status['error_code']), ('failed', 'recognizer_unavailable'))
+        self.assertEqual(self.call('GET', path + '/source').data, png())
+        self.assertTrue(validate_integrity(self.office))
 
     def test_supervised_worker_publishes_database_results_without_inherited_secrets(self):
         path, job = self.upload()

@@ -155,7 +155,25 @@ jobs:
       - name: Test Windows client against real backend
         if: runner.os == 'Windows'
         run: flutter test --reporter expanded
-      - run: ${{ matrix.command }}
+      - name: Build Windows release with compiler diagnostics
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanBuildLog = Join-Path $env:RUNNER_TEMP 'smartplan-windows-local-build.log'
+          $PSNativeCommandUseErrorActionPreference = $false
+          & flutter build windows --release 2>&1 | Tee-Object -FilePath $smartplanBuildLog
+          $smartplanBuildExit = $LASTEXITCODE
+          if ($smartplanBuildExit -ne 0) {
+            $smartplanBuildTail = (Get-Content -LiteralPath $smartplanBuildLog -Tail 120) -join "`n"
+            @('### Windows local native build failed', '', '```text', $smartplanBuildTail, '```') | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            if ($smartplanBuildTail.Length -gt 40000) { $smartplanBuildTail = $smartplanBuildTail.Substring($smartplanBuildTail.Length - 40000) }
+            $smartplanBuildAnnotation = $smartplanBuildTail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows local native build::$smartplanBuildAnnotation"
+            exit $smartplanBuildExit
+          }
+      - name: Build iOS simulator
+        if: runner.os == 'macOS'
+        run: ${{ matrix.command }}
       - name: Prepare portable Windows package
         if: runner.os == 'Windows'
         shell: pwsh
@@ -249,8 +267,18 @@ jobs:
           $smartplanOnline = Join-Path (Get-Location) 'build/online-package'
           New-Item -ItemType Directory -Path $smartplanOnline | Out-Null
           Copy-Item 'build/windows/x64/runner/Release/*' -Destination $smartplanOnline -Recurse
-          flutter build windows --release --dart-define=API_URL=https://office.smartplan-hofmann.de --dart-define=API_VERSION=v1
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $smartplanBuildLog = Join-Path $env:RUNNER_TEMP 'smartplan-windows-online-build.log'
+          $PSNativeCommandUseErrorActionPreference = $false
+          & flutter build windows --release --dart-define=API_URL=https://office.smartplan-hofmann.de --dart-define=API_VERSION=v1 2>&1 | Tee-Object -FilePath $smartplanBuildLog
+          $smartplanBuildExit = $LASTEXITCODE
+          if ($smartplanBuildExit -ne 0) {
+            $smartplanBuildTail = (Get-Content -LiteralPath $smartplanBuildLog -Tail 120) -join "`n"
+            @('### Windows online native build failed', '', '```text', $smartplanBuildTail, '```') | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            if ($smartplanBuildTail.Length -gt 40000) { $smartplanBuildTail = $smartplanBuildTail.Substring($smartplanBuildTail.Length - 40000) }
+            $smartplanBuildAnnotation = $smartplanBuildTail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows online native build::$smartplanBuildAnnotation"
+            exit $smartplanBuildExit
+          }
           Copy-Item 'build/windows/x64/runner/Release/*' -Destination $smartplanOnline -Recurse -Force
           if (Test-Path (Join-Path $smartplanOnline 'backend')) { Remove-Item (Join-Path $smartplanOnline 'backend') -Recurse -Force }
           Get-ChildItem $smartplanOnline -Filter '*.cmd' | Remove-Item -Force

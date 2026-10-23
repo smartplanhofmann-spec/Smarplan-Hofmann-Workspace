@@ -6,8 +6,9 @@ Der Nutzer möchte mit **Abacus** weiterarbeiten und ausdrücklich eine **native
 iPhone-App**. Ziel ist eine installierbare App mit der vorhandenen Flutter-
 Oberfläche und gemeinsamem Datenbestand mit Windows. Der geplante erste
 Verteilungsweg ist TestFlight. Die Apple-Developer-Mitgliedschaft wurde am
-22. Oktober 2026 als Einzelunternehmer für 99 Euro pro Jahr bestellt; die Aktivierung
-war zuletzt noch in Bearbeitung. Die Entwicklung und technischen Vorbereitungen selbständig fortsetzen;
+22. Oktober 2026 als Einzelunternehmer für 99 Euro pro Jahr bestellt. Am 23. Oktober
+bestätigte der Nutzer die installierte iPhone-App nach der Meldung zu TestFlight-Build 108
+und einen gemeinsamen Windows-/iPhone-Berichtsablauf. Die Entwicklung selbständig fortsetzen;
 für echte Kontozugänge ausschließlich geeignete sichere Einstellungen verwenden.
 Passwörter, private SSH-Schlüssel und Apple-Signierschlüssel gehören nicht in Chats.
 
@@ -15,7 +16,7 @@ Passwörter, private SSH-Schlüssel und Apple-Signierschlüssel gehören nicht i
 
 - Repository: https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace
 - Arbeitsbranch: `codex/smartplan-office-0.2`
-- Plattformen: Flutter/Dart, Windows und natives iOS; App-Version `0.5.0+6`.
+- Plattformen: Flutter/Dart, Windows und natives iOS; App-Version `0.5.1+7`.
 - Funktionscode des abgenommenen Online-Piloten:
   `6777fb9ee64eaf05d08cfc13be98049641b663bc`.
   Abacus ergänzt in `6e8e37d` die iOS-Bundle-ID, Exportoptionen und Anleitung.
@@ -82,25 +83,27 @@ Technische Nachweise des Online-Standes:
 Ein erfolgreicher Simulator-Build ist noch keine Geräteinstallation.
 Die genauen manuellen Nachweise stehen in `deploy/hetzner/ABNAHME.md`.
 
-## Konkrete nächste Arbeit: native iPhone-App
+## Konkrete nächste Arbeit: Signatur-Update 0.5.1
 
 1. Die Bundle-ID `de.smartplanhofmann.office` ist im Flutter-iOS-Projekt gesetzt.
-   Nach Apples Freischaltung mit dem Apple-Konto abgleichen und registrieren.
+   Sie wurde bereits für den installierten TestFlight-Build 108 verwendet.
 2. Die Online-Konfiguration für Geräte- und Simulator-Builds ist in den Workflows
    gesetzt. Der unsignierte Release-Prüflauf kontrolliert API-URL/API-Version,
-   die erzeugte Bundle-ID und Build-Nummer. Den erfolgreichen macOS-Prüflauf
-   abnehmen, bevor die Signierung angefordert wird.
-3. Apple-Team, App-ID, Distribution-Zertifikat und App-Store-Connect-Profil
-   prüfen und die sichere Signierung auf einem macOS-CI-Runner vorbereiten.
-   Der Nutzer hat keinen lokalen Mac. Die Apple-Mitgliedschaft ist bestellt;
-   ihre Freischaltung und die Bereitstellung der Apple-Signierzugänge stehen noch aus.
-4. Zuerst lauffähigen Simulator-/Gerätebuild und passende Release-Prüfungen
-   herstellen. Danach das signierte TestFlight-Paket mit den tatsächlich
-   bereitgestellten Apple-Zugängen erstellen und auf dem Nutzer-iPhone testen.
-5. Mit fiktiven Daten prüfen: Windows legt ein Projekt an, ein zugewiesener
-   iPhone-Nutzer öffnet es, erstellt und unterschreibt einen Bericht; Windows
-   öffnet dasselbe PDF. Projektentzug sperrt weitere Abrufe. PDF-Teilen,
-   Signaturgesten und erneute Anmeldung auf echtem iOS abnehmen.
+   die erzeugte Bundle-ID und Build-Nummer. Für das neue Update die erfolgreichen
+   App-/Geräte-Prüfungen abwarten, bevor die Signierung angefordert wird.
+3. Bestehende Apple-Zugänge und die GitHub-Secrets wiederverwenden. Der Nutzer
+   hat keinen lokalen Mac. Der aktuelle Workflow archiviert unsigniert und
+   signiert beim Export für TestFlight; kein neues Apple-Konto erforderlich.
+4. Nutzer meldete mitscrollende Berichtsseite beim Zeichnen. Version 0.5.1 ergänzt
+   `app/lib/signature_editor.dart`: Vorschaufeld antippen, im separaten Querformat-
+   Editor unterschreiben, „Fertig“ übernimmt die Vorschau, Abbrechen verwirft Änderungen.
+   Der endgültige Signieraufruf braucht weiterhin Name und Dokumentbestätigung.
+   Nach erfolgreichen Prüfungen ausdrücklich den TestFlight-Upload starten,
+   neue Buildnummer über 108 wählen und den Build der internen Testgruppe zuordnen.
+5. Bereits bestätigt: Windows-Projekt erscheint auf dem iPhone; dort erstellter
+   und unterschriebener Bericht ist als PDF mit Text/Unterschrift unter Windows
+   sichtbar. Noch offen: neuer Gesten-/Drehablauf auf dem echten iPhone,
+   separater Techniker-Rechteentzug, PDF-Teilen und weitere Geräteabnahme.
 
 Eine neue kostenpflichtige Apple-Mitgliedschaft, ein Signierdienst oder andere
 Abos werden erst nach konkreter Preis-/Leistungsfreigabe gebucht. Vorhandene
@@ -116,7 +119,8 @@ praktische Ersteinrichtung über den manuellen Schlüssel bzw. ein zweites Gerä
   Prüfung des tatsächlichen Downloads sind vorgezogen. Zertifikat/Signierdienst
   und Kosten sind noch nicht ausgewählt. Eine Signatur allein garantiert keine
   sofortige SmartScreen-Reputation.
-- Eigene native iPhone-App samt Signierung und Geräteabnahme ist noch offen.
+- Native iPhone-App ist per TestFlight installiert; das Signatur-Update 0.5.1 und
+  die ergänzenden Rechte-/Geräteprüfungen sind noch abzunehmen.
 - OneDrive Personal/Family: vorbereitet, aber noch kein echtes Microsoft-Konto
   verbunden; Online-API meldet es derzeit bewusst als unkonfiguriert.
 - Übernahme echter Daten aus einer geprüften SQLite-Sicherung bleibt ein
@@ -147,6 +151,7 @@ ist für `0ee80c0` erfolgreich: alle 27 App-Tests samt echtem Backend und der
 unsignierte Geräte-Release inklusive Online-Konfiguration und App-Kennung.
 Auch die vollständigen Projektprüfungen
 [39852877525](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39852877525)
-sind grün. Nächster Schritt ist Apples Freischaltung mit anschließendem sicheren
-Einrichten der vier Secrets und ausdrücklich angefordertem Signier-/Upload-Lauf.
-Die bisherigen Nachweise umfassen noch keine iPhone-Installation.
+sind grün. Dies war der unsignierte Nachweis vom 22. Oktober; die am 23. Oktober
+bestätigte TestFlight-Installation und der gemeinsame Geräteablauf sind in
+`deploy/hetzner/ABNAHME.md` ergänzt. Nächster Schritt ist der geprüfte neue
+TestFlight-Build für den separaten Signaturdialog.

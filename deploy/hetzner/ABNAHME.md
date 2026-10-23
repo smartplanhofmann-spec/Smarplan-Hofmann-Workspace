@@ -1,9 +1,9 @@
 # Abnahme des privaten Hetzner-Piloten
 
-Abnahmestand: 22. Oktober 2026. Bestätigungen aus dem Nutzergespräch und die
+Abnahmestand: 23. Oktober 2026. Bestätigungen aus dem Nutzergespräch und die
 technischen Prüfungen werden getrennt aufgeführt. Dieser Stand betrifft den
-privaten Windows-Zugriff über SSH auf den Testserver; er ist keine öffentliche
-Produktionsfreigabe oder iPhone-Abnahme.
+privaten Pilotzugriff, den anschließenden Online-Piloten und die unten ausdrücklich
+bestätigten Windows-/iPhone-Schritte mit fiktiven Testdaten.
 
 ## Auf dem Nutzer-Testserver und Windows bestätigt
 
@@ -130,10 +130,32 @@ Nutzer führte es manuell aus und verlangte die Bearbeitung im nächsten Update.
 Vertrauenswürdige Signierung/Installer samt Prüfung des tatsächlichen Downloads
 sind dafür im Umsetzungsplan vorgezogen; die Warnung ist noch nicht behoben.
 
-## Vor der echten gemeinsamen Nutzung noch offen
+## Geräteabnahme und offener Betrieb
 
-- Gemeinsamen echten Windows-/iPhone-Ablauf und Mehrbenutzer-Rechteentzug am
-  Nutzer-System abnehmen. Öffentlicher Projektzugriff ohne Anmeldung ist mit
+### Gemeinsamer Geräteablauf am 23. Oktober bestätigt
+
+Abacus meldete TestFlight-Build 108 in der internen Gruppe „Smartplan intern“.
+Der Nutzer bestätigte anschließend die Installation/Anmeldung auf dem iPhone,
+das Öffnen des unter Windows angelegten Projekts „iPhone-Test“ und folgenden
+Fachablauf: auf dem iPhone einen Servicebericht mit Testtext und Testunterschrift
+abschließen, danach Text und Unterschrift im PDF unter Windows öffnen.
+Auf die Frage nach vollständigem Text und Unterschrift antwortete er:
+„ja das funktioniert“. Dies bestätigt den gemeinsamen Online-Datenstand und
+die sichtbare PDF-Ausgabe. Ein manueller Bytevergleich oder ein eigener
+Techniker-/Mehrbenutzertest wurde dabei nicht behauptet.
+
+Dabei meldete der Nutzer einen Bedienfehler: Beim Zeichnen im eingebetteten
+Unterschriftenfeld scrollt die Berichtsseite mit und der Strich beginnt verspätet.
+Version 0.5.1 bereitet dafür einen separaten Vollbildeditor im Querformat vor:
+Feld antippen, zeichnen, mit „Fertig“ in die Vorschau übernehmen. Abbrechen
+verwirft nur die Bearbeitung; das abschließende Speichern mit Name und
+Dokumentbestätigung bleibt erforderlich. Dieser neue Gesten-/Drehablauf muss
+nach dem nächsten TestFlight-Update noch auf dem echten iPhone bestätigt werden.
+
+### Weiterhin offen
+
+- Mehrbenutzer-Rechteentzug am Nutzer-System und der neue Signaturdialog auf
+  dem echten iPhone. Öffentlicher Projektzugriff ohne Anmeldung ist mit
   401 bestätigt. TCP 8765, 8766 und 5432 bleiben gesperrt.
 - SmartScreen-Rückmeldung beim nächsten Windows-Update bearbeiten: gültige
   Herausgebersignierung und signiertes Installationspaket vorbereiten und prüfen.
@@ -143,8 +165,8 @@ sind dafür im Umsetzungsplan vorgezogen; die Warnung ist noch nicht behoben.
   getrennte Instanz; getrenntes verschlüsseltes Sicherungsziel, Aufbewahrung,
   Betriebsüberwachung und zuständige Betreuung. Die derzeitigen lokalen Kopien
   und Hetzner-Backups ersetzen dieses Lieferpaket nicht.
-- Übernahme einer geprüften Kopie des echten Windows-Datenbestands, tatsächliche
-  OneDrive-Verbindung, signierte iPhone-Verteilung und gemeinsame Geräteabnahme.
+- Übernahme einer geprüften Kopie des echten Windows-Datenbestands und tatsächliche
+  OneDrive-Verbindung. Die bestätigten Geräte-Schritte ersetzen diese Prüfungen nicht.
 
 Die bestehende private Verbindung kann weiter für fiktive Tests verwendet werden.
 `backend/server.py` wird nicht durch eine neue Firewallregel oder einen

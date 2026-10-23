@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:smartplan_office/admin_pages.dart';
 import 'package:smartplan_office/api.dart';
@@ -229,10 +232,20 @@ void main() {
       await tester.tap(find.byType(CheckboxListTile));
       await tester.pumpAndSettle();
       expect(tester.widget<FilledButton>(save).onPressed, isNull);
-      final canvas = find.byWidgetPredicate(
-        (w) => w is CustomPaint && w.painter is SignaturePainter,
-      );
+      await tester.tap(find.byKey(const ValueKey('signature-preview')));
+      await tester.pumpAndSettle();
+      final canvas = find.byKey(const ValueKey('signature-canvas'));
       await tester.drag(canvas, const Offset(100, 30));
+      await tester.pumpAndSettle();
+      expect(api.calls.where((c) => c.path.endsWith('/sign')), isEmpty);
+      await tester.tap(find.byKey(const ValueKey('signature-done')));
+      await tester.pumpAndSettle();
+      expect(tester.widget<FilledButton>(save).onPressed, isNull);
+      expect(
+        tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
+        isFalse,
+      );
+      await tester.tap(find.byType(CheckboxListTile));
       await tester.pumpAndSettle();
       expect(tester.widget<FilledButton>(save).onPressed, isNotNull);
       await tester.tap(save);
@@ -241,10 +254,73 @@ void main() {
       final body = api.calls.lastWhere((c) => c.path.endsWith('/sign')).body!;
       expect(body['content_hash'], 'version-1');
       expect(body['strokes'], isNotEmpty);
+      for (final stroke in body['strokes']) {
+        for (final point in stroke) {
+          expect(point[0], inInclusiveRange(0.0, 1.0));
+          expect(point[1], inInclusiveRange(0.0, 1.0));
+        }
+      }
       expect(find.text('Unterschrift speichern'), findsNothing);
       expect(find.text('Neuen Entwurf erstellen'), findsOneWidget);
     },
+    variant: TargetPlatformVariant.only(TargetPlatform.windows),
   );
+
+  testWidgets('Repeated taps while rotating open only one signature editor', (
+    tester,
+  ) async {
+    await desktopSize(tester);
+    final api = TestApi();
+    final rotation = Completer<void>();
+    final requests = <List<dynamic>>[];
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(SystemChannels.platform, (call) async {
+      if (call.method == 'SystemChrome.setPreferredOrientations') {
+        requests.add(List<dynamic>.from(call.arguments as List));
+        if (requests.length == 1) await rotation.future;
+      }
+      return null;
+    });
+    addTearDown(() {
+      if (!rotation.isCompleted) rotation.complete();
+      messenger.setMockMethodCallHandler(SystemChannels.platform, null);
+    });
+    await tester.pumpWidget(
+      MaterialApp(
+        home: ProjectPage(
+          api: api,
+          project: const {
+            'id': 'project-1',
+            'name': 'Baustelle',
+            'customer': 'Kunde',
+          },
+          role: 'technician',
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Servicebericht').first);
+    await tester.pumpAndSettle();
+    final preview = find.byKey(const ValueKey('signature-preview'));
+    await tester.ensureVisible(preview);
+    await tester.tap(preview);
+    await tester.tap(preview);
+    await tester.pump();
+    expect(requests, [
+      ['DeviceOrientation.landscapeLeft', 'DeviceOrientation.landscapeRight'],
+    ]);
+    expect(find.byKey(const ValueKey('signature-canvas')), findsNothing);
+    rotation.complete();
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('signature-canvas')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('signature-cancel')));
+    await tester.pumpAndSettle();
+    expect(requests.last, isEmpty);
+    expect(requests, hasLength(2));
+    expect(find.byKey(const ValueKey('signature-canvas')), findsNothing);
+    expect(api.calls.where((c) => c.path.endsWith('/sign')), isEmpty);
+  }, variant: TargetPlatformVariant.only(TargetPlatform.iOS));
 
   testWidgets('Expired session closes administration and returns to login', (
     tester,

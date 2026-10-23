@@ -1,22 +1,40 @@
 # Smartplan Office auf das iPhone (TestFlight) – ohne Mac
 
 Gebaut und signiert wird ausschließlich auf GitHub Actions (`macos-latest`) mit dem Workflow
-`.github/workflows/ios-testflight.yml`. Die Windows-App (lokal und Online-Pilot) bleibt unverändert.
+`.github/workflows/ios-testflight.yml`. Der Flutter-Client wird gemeinsam mit Windows entwickelt.
 Die iPhone-App verbindet sich nur mit `https://office.smartplan-hofmann.de` (API v1, HTTPS; keine ATS-Ausnahme nötig).
 
 ## Vorbereiteter Signierweg und aktueller Stand
 
 Der Nutzer hat die Apple-Mitgliedschaft am 22. Oktober 2026 als Einzelunternehmer
-für 99 Euro pro Jahr bestellt. Zuletzt war die Aktivierung noch in Bearbeitung;
-Apple nennt dafür bis zu 48 Stunden. Eine erneute Bestellung ist nicht nötig.
+für 99 Euro pro Jahr bestellt. Am 23. Oktober bestätigte er die installierte
+TestFlight-App nach Abacus' Meldung zu Build 108 und den gemeinsamen
+Windows-/iPhone-Berichtsablauf. Eine erneute Bestellung ist nicht nötig.
 
 Vorbereitet ist `xcodebuild` mit automatischer Signierung
 (`-allowProvisioningUpdates` + App-Store-Connect-API-Key) auf einem macOS-Runner.
 Ein eigener Mac ist für diesen Ablauf nicht erforderlich. Ob Xcode auf einem
-frischen Runner mit den bereitgestellten Apple-Zugängen die erforderlichen
-Signieridentitäten und Profile tatsächlich erzeugt, muss der erste authentifizierte
-Archivierungs-/Exportlauf zeigen. Bis dahin sind Signierung und TestFlight-Upload
-nicht abgenommen. Upload mit `xcrun altool` und demselben Schlüssel.
+frischen Runner die erforderlichen Signieridentitäten und Profile erhält,
+war beim ersten unsignierten Nachweis noch offen. Inzwischen wurde die
+Archivierung auf unsigniert umgestellt; die Distributionssignierung erfolgt beim
+Export. Der Nutzer bestätigte die anschließend per TestFlight installierte App.
+Upload mit `xcrun altool` und demselben Schlüssel.
+
+### Update 0.5.1: Unterschrift im Querformat
+
+Im Bericht das Unterschriftenfeld antippen. Die separate Zeichenfläche öffnet
+im Querformat und erfasst den Stift/Finger ab dem ersten Kontakt, ohne die
+Berichtsseite zu scrollen. „Neu zeichnen“ leert die aktuelle Bearbeitung,
+„Abbrechen“ verwirft sie und „Fertig“ übernimmt die Unterschrift in die Vorschau.
+Der Name und die Dokumentbestätigung werden beim endgültigen Speichern geprüft.
+Die Zeichenfläche behält das Seitenverhältnis des PDF-Felds bei.
+
+Nach erfolgreichen Prüfungen den bestehenden Workflow manuell mit
+`upload_to_testflight` starten. Die neue Buildnummer muss über 108 liegen; die
+automatische Nummerierung steigt mit jedem Lauf weiter. Nach Apples Verarbeitung
+den Build der internen Testgruppe zuordnen und über TestFlight aktualisieren.
+Erste Striche, Querformat, Abbrechen und Rückkehr zur Berichtsansicht am echten
+iPhone prüfen, auch mit aktivierter Rotationssperre.
 
 ### Technischer Nachweis vom 22. Oktober 2026
 
@@ -31,16 +49,22 @@ Commit `0ee80c0` ist auf GitHub geprüft:
 - Der lokale Testserver verwendet seine numerische Loopback-Adresse, damit der
   Teststart auf macOS nicht an einer Reverse-DNS-Abfrage hängt. Anmeldung,
   Unterschrift und PDF werden weiterhin vollständig geprüft.
-- Der Signier-/Upload-Job wurde beim automatischen Lauf wie vorgesehen übersprungen.
-  Apple-Freischaltung, echte Signierung, TestFlight-Upload und Geräteabnahme bleiben offen.
+- Der Signier-/Upload-Job wurde bei diesem automatischen Lauf wie vorgesehen übersprungen.
+  Apple-Signierung, TestFlight-Upload und Geräteinstallation wurden damit noch nicht geprüft;
+  die spätere Bestätigung für Build 108 steht im aktuellen Stand oben.
 
 **Wichtig – Rolle des API-Keys:** Cloud-verwaltete Distributionszertifikate darf laut Apple nur ein Schlüssel mit
 Rolle **Admin** anlegen. Ein Key mit „App Manager“ reicht für Upload, aber nicht sicher für die Cloud-Signierung.
 Erstellen Sie den Team-Key daher mit Rolle **Admin**. Schlüssel nur in GitHub Secrets speichern, nie im Code.
 
 ## Schritt für Schritt
-1. **Apple Developer Program:** Die Mitgliedschaft ist bereits bestellt. Auf Apples
-   Mitgliedschaftsbestätigung warten; ohne aktive Mitgliedschaft kein TestFlight.
+
+Für das Update werden das bestehende Apple-Konto, die App-ID, der App-Store-Connect-
+Eintrag und die vier bereits eingerichteten GitHub-Secrets wiederverwendet.
+Die Schritte 2–6 dokumentieren die Ersteinrichtung; sie sind nicht erneut auszuführen.
+
+1. **Apple Developer Program:** Mitgliedschaft und erster TestFlight-Zugang wurden
+   inzwischen für Build 108 verwendet; für dieses Update ist keine neue Anmeldung nötig.
 2. **Team-ID finden:** developer.apple.com/account → „Membership details“ → *Team ID* (10 Zeichen).
 3. **Bundle-ID registrieren:** Certificates, Identifiers & Profiles → Identifiers → „+“ → App IDs → App →
    Beschreibung „Smartplan Office“, *Explicit* Bundle ID `de.smartplanhofmann.office`. Keine Zusatzfunktionen nötig.

@@ -5,6 +5,9 @@ import 'api.dart';
 import 'pdf_page.dart';
 import 'design.dart';
 import 'customer_pages.dart';
+import 'signature_editor.dart';
+
+export 'signature_editor.dart' show SignaturePainter;
 
 String localDate(String value) {
   final date = DateTime.tryParse(value)?.toLocal();
@@ -33,7 +36,7 @@ class _ProjectPageState extends State<ProjectPage> {
   Map<String, dynamic>? report;
   List<dynamic> reports = [];
   List<List<Offset>> strokes = [];
-  bool checked = false, busy = false;
+  bool checked = false, busy = false, editingSignature = false;
   String? message;
   late String customerName;
   String? customerId;
@@ -138,10 +141,33 @@ class _ProjectPageState extends State<ProjectPage> {
     await widget.api.call('/api/reports/${report!['id']}/onedrive', {});
     if (mounted) setState(() => message = 'PDF wurde in OneDrive abgelegt.');
   });
-  Offset point(Offset position, double width) => Offset(
-    (position.dx / width).clamp(0, 1).toDouble(),
-    (position.dy / 160).clamp(0, 1).toDouble(),
-  );
+  Future<void> editSignature() async {
+    if (busy || editingSignature || !canSign) return;
+    final reportId = report!['id'];
+    final contentHash = report!['content_hash'];
+    setState(() => editingSignature = true);
+    try {
+      final edited = await showSignatureEditor(
+        context,
+        initialStrokes: strokes,
+      );
+      if (!mounted ||
+          edited == null ||
+          busy ||
+          !canSign ||
+          report!['id'] != reportId ||
+          report!['content_hash'] != contentHash) {
+        return;
+      }
+      setState(() {
+        strokes = edited;
+        checked = false;
+      });
+    } finally {
+      if (mounted) setState(() => editingSignature = false);
+    }
+  }
+
   Future<void> changeCustomer() async {
     if (busy) return;
     List<Map<String, dynamic>> choices = [];
@@ -611,80 +637,56 @@ class _ProjectPageState extends State<ProjectPage> {
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
-              Container(
+              Material(
+                color: Colors.white,
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: Colors.white,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0xffd2d2d7)),
+                  side: const BorderSide(color: Color(0xffd2d2d7)),
                 ),
-                child: SizedBox(
-                  height: 160,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) => GestureDetector(
-                      onPanStart: busy
-                          ? null
-                          : (d) => setState(
-                              () => strokes.add([
-                                point(d.localPosition, constraints.maxWidth),
-                              ]),
-                            ),
-                      onPanUpdate: busy
-                          ? null
-                          : (d) {
-                              if (strokes.isNotEmpty)
-                                setState(
-                                  () => strokes.last.add(
-                                    point(
-                                      d.localPosition,
-                                      constraints.maxWidth,
-                                    ),
+                child: InkWell(
+                  key: const ValueKey('signature-preview'),
+                  onTap: busy || editingSignature ? null : editSignature,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        AspectRatio(
+                          aspectRatio: signatureAspectRatio,
+                          child: hasSignature
+                              ? CustomPaint(painter: SignaturePainter(strokes))
+                              : const Center(
+                                  child: Icon(
+                                    Icons.draw_outlined,
+                                    size: 30,
+                                    color: OfficeColors.muted,
                                   ),
-                                );
-                            },
-                      child: Stack(
-                        children: [
-                          CustomPaint(
-                            painter: SignaturePainter(strokes),
-                            size: Size(constraints.maxWidth, 160),
-                          ),
-                          const Positioned(
-                            left: 20,
-                            right: 20,
-                            bottom: 35,
-                            child: IgnorePointer(child: Divider()),
-                          ),
-                          const Positioned(
-                            right: 20,
-                            bottom: 12,
-                            child: IgnorePointer(
+                                ),
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Expanded(
                               child: Text(
-                                'Hier unterschreiben',
-                                style: TextStyle(
-                                  fontSize: 10,
+                                hasSignature
+                                    ? 'Unterschrift bearbeiten'
+                                    : 'Zum Unterschreiben antippen',
+                                style: const TextStyle(
+                                  fontSize: 12,
                                   color: OfficeColors.muted,
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                            const SizedBox(width: 8),
+                            const Icon(Icons.open_in_full_rounded, size: 18),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: busy
-                      ? null
-                      : () => setState(() {
-                          strokes = [];
-                          checked = false;
-                        }),
-                  child: const Text('Unterschrift neu zeichnen'),
-                ),
-              ),
+              const SizedBox(height: 12),
               CheckboxListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                 controlAffinity: ListTileControlAffinity.leading,
@@ -699,6 +701,7 @@ class _ProjectPageState extends State<ProjectPage> {
               FilledButton(
                 onPressed:
                     busy ||
+                        editingSignature ||
                         !checked ||
                         !hasSignature ||
                         signer.text.trim().isEmpty
@@ -723,29 +726,4 @@ class _ProjectPageState extends State<ProjectPage> {
       ),
     );
   }
-}
-
-class SignaturePainter extends CustomPainter {
-  final List<List<Offset>> strokes;
-  SignaturePainter(this.strokes);
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = const Color(0xff172b38)
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-    for (final stroke in strokes) {
-      if (stroke.length < 2) continue;
-      final path = Path()
-        ..moveTo(stroke.first.dx * size.width, stroke.first.dy * size.height);
-      for (final p in stroke.skip(1)) {
-        path.lineTo(p.dx * size.width, p.dy * size.height);
-      }
-      canvas.drawPath(path, paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant SignaturePainter oldDelegate) => true;
 }

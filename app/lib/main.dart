@@ -210,6 +210,13 @@ class _OfficeHomeState extends State<OfficeHome> {
     );
     await loadProjects();
   });
+
+  Future<void> selectStorage(String provider) => run(() async {
+    final result = await api.call('/api/storage/provider', {
+      'provider': provider,
+    });
+    if (mounted) setState(() => storage = Map<String, dynamic>.from(result));
+  });
   @override
   Widget build(BuildContext context) {
     if (user == null) {
@@ -248,6 +255,7 @@ class _OfficeHomeState extends State<OfficeHome> {
         if (mounted && user != null) await run(loadProjects);
       },
       onConnectDrive: connectDrive,
+      onSelectStorage: selectStorage,
       onUsers: () => Navigator.push<void>(
         context,
         MaterialPageRoute(

@@ -10,11 +10,13 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from core import Problem, digest
 from online.auth import Authentication
 from online.store import PostgresOffice
+from online.storage import Storage
 
 METHODS = {
     '/me': 'GET', '/logout': 'POST', '/users': 'GET, POST',
     '/customers': 'GET, POST', '/projects': 'GET, POST', '/assignments': 'POST',
     '/storage/status': 'GET', '/storage/connect': 'POST',
+    '/storage/provider': 'POST', '/storage/disconnect': 'POST',
 }
 PATTERNS = [
     (r'/users/[a-f0-9]{32}', 'POST'),
@@ -24,6 +26,7 @@ PATTERNS = [
     (r'/projects/[a-f0-9]{32}/reports', 'GET, POST'),
     (r'/reports/[a-f0-9]{32}(?:/pdf)?', 'GET'),
     (r'/reports/[a-f0-9]{32}/sign', 'POST'),
+    (r'/reports/[a-f0-9]{32}/(?:storage|onedrive)', 'POST'),
 ]
 
 
@@ -44,11 +47,6 @@ def dispatch(office, user, path, method, data, token):
     if path == '/assignments':
         office.assign(user, data.get('project_id'), data.get('user_id'), data.get('remove', False))
         return {'ok': True}, 200
-    if path.startswith('/storage/'):
-        office.require(user, ('owner',))
-        if path == '/storage/status':
-            return {'configured': False, 'connected': False, 'account_type': 'personal'}, 200
-        raise Problem(409, 'OneDrive wird in einem eigenen Einrichtungsschritt verbunden')
     parts = path.strip('/').split('/')
     if parts[0] == 'users':
         return office.update_user(user, parts[1], data), 200
@@ -71,7 +69,7 @@ def dispatch(office, user, path, method, data, token):
     return office.report(user, parts[1]), 200
 
 
-def create_app(*, office=None, key=None, host=None):
+def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None, storage_config=None):
     host = host or os.environ['SMARTPLAN_PUBLIC_HOST']
     if not re.fullmatch(r'[a-z0-9]+(?:[.-][a-z0-9]+)+', host):
         raise RuntimeError('Gültiger öffentlicher Hostname erforderlich.')
@@ -79,7 +77,10 @@ def create_app(*, office=None, key=None, host=None):
         key = Path(os.environ['SMARTPLAN_VAULT_KEY_FILE']).read_bytes().strip()
     office = office or PostgresOffice(os.environ['SMARTPLAN_DATABASE_DSN'])
     authentication = Authentication(office, key)
+    storage = storage or Storage(office, key, host, config=storage_config, onedrive=onedrive)
     app = Flask(__name__, static_folder=None)
+    app.extensions['smartplan_storage'] = storage
+    app.extensions['smartplan_onedrive'] = storage.onedrive
     app.config.update(MAX_CONTENT_LENGTH=1_000_000, PROPAGATE_EXCEPTIONS=False)
     # Only reachable on loopback; Caddy replaces these two forwarding headers.
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=0, x_port=0, x_prefix=0)
@@ -130,7 +131,7 @@ def create_app(*, office=None, key=None, host=None):
         try:
             with office.lock, office.db:
                 office.db.execute('SELECT COUNT(*) FROM users').fetchone()
-            return jsonify(status='ok', version='0.5.0-online-pilot', database='ok')
+            return jsonify(status='ok', version='0.6.0-online-pilot', database='ok')
         except Exception:
             return jsonify(status='unavailable'), 503
 
@@ -143,6 +144,19 @@ def create_app(*, office=None, key=None, host=None):
     def verify():
         data = body()
         return jsonify(authentication.finish(data.get('challenge'), data.get('code')))
+
+    @app.post('/api/v1/storage/callback')
+    def storage_callback():
+        # The external browser has no Office bearer token. The connector uses
+        # the one-use PKCE state and its initiating Office session instead.
+        # Microsoft sends form_post: codes and state stay out of proxy URLs.
+        if request.mimetype != 'application/x-www-form-urlencoded':
+            raise Problem(415, 'Microsoft-Anmeldung erwartet Formulardaten.')
+        if request.query_string or any(len(request.form.getlist(name)) > 1 for name in ('state', 'code', 'error')):
+            raise Problem(400, 'Microsoft-Anmeldung ist nicht gültig.')
+        storage.callback(request.form.get('state'), request.form.get('code'), request.form.get('error'))
+        return Response('OneDrive verbunden. Sie können dieses Browserfenster schließen '
+                        'und zu Smartplan zurückkehren.', mimetype='text/plain')
 
     @app.route('/api/v1/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     def api(path):
@@ -160,6 +174,22 @@ def create_app(*, office=None, key=None, host=None):
         if not authorization.startswith('Bearer ') or len(authorization) > 200:
             raise Problem(401, 'Bitte anmelden')
         token = authorization[7:]
+        if path.startswith('/storage/'):
+            if path == '/storage/status':
+                return jsonify(storage.status(token))
+            if path == '/storage/provider':
+                if set(data) != {'provider'}:
+                    raise Problem(400, 'Dokumentablage erwartet.')
+                return jsonify(storage.select(token, data['provider']))
+            if path == '/storage/connect':
+                return jsonify(url=storage.begin(token))
+            return jsonify(storage.disconnect(token))
+        transfer = re.fullmatch(r'/reports/([a-f0-9]{32})/(storage|onedrive)', path)
+        if transfer:
+            if data:
+                raise Problem(400, 'Die Ablage verwendet das vorhandene unterschriebene PDF.')
+            return jsonify(storage.upload(token, transfer[1],
+                                          expected_provider='onedrive' if transfer[2] == 'onedrive' else None))
         # One transaction includes fresh authorization, all reads/writes, and PDF access.
         with office.lock, office.db:
             user = office.user(token)

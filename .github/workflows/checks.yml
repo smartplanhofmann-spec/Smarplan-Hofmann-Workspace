@@ -29,7 +29,11 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r backend/online/requirements.lock
       - run: python -m pip check
-      - run: python -m unittest discover -s backend/online -p test_online.py -v
+      - name: PostgreSQL-, Speicher- und OneDrive-Vertraege pruefen
+        run: |
+          python -m unittest discover -s backend/online -p test_online.py -v
+          python -m unittest discover -s backend/online -p test_storage.py -v
+          python -m unittest discover -s backend/online -p test_onedrive.py -v
       - name: Check online units, scripts and real HTTPS runtime
         run: |
           bash -n deploy/hetzner/online/*.sh
@@ -173,7 +177,7 @@ jobs:
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.5.0 - lokales Windows-Testpaket (x64)
+          Smartplan Office 0.6.0 - lokales Windows-Testpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -228,7 +232,7 @@ jobs:
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
           $smartplanInstructions = @'
-          Smartplan Office 0.5.0 - Online-Pilot fuer Windows (x64)
+          Smartplan Office 0.6.0 - Online-Pilot fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
@@ -237,7 +241,8 @@ jobs:
           und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
           Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
           Das Paket ist ein Online-Pilot, kein signierter Installer. Echte iPhone-Verteilung,
-          OneDrive, Datenuebernahme und getrennte verschluesselte Backups sind weitere Schritte.
+          Eine zusaetzliche PDF-Ablage ist nach Einrichtung und Auswahl in der App nutzbar.
+          Echte Kontoverbindung, Datenuebernahme und getrennte verschluesselte Backups separat pruefen.
           '@
           Set-Content -Path (Join-Path $smartplanOnline 'ONLINE_START_HIER.txt') -Value $smartplanInstructions -Encoding utf8
           foreach ($smartplanFile in @('smartplan_office.exe', 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')) {

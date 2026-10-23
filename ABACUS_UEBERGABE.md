@@ -16,7 +16,7 @@ Passwörter, private SSH-Schlüssel und Apple-Signierschlüssel gehören nicht i
 
 - Repository: https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace
 - Arbeitsbranch: `codex/smartplan-office-0.2`
-- Plattformen: Flutter/Dart, Windows und natives iOS; App-Version `0.5.1+7`.
+- Plattformen: Flutter/Dart, Windows und natives iOS; vorbereitete App-Version `0.6.0+8`.
 - Funktionscode des abgenommenen Online-Piloten:
   `6777fb9ee64eaf05d08cfc13be98049641b663bc`.
   Abacus ergänzt in `6e8e37d` die iOS-Bundle-ID, Exportoptionen und Anleitung.
@@ -103,8 +103,45 @@ Die genauen manuellen Nachweise stehen in `deploy/hetzner/ABNAHME.md`.
    damit als vom Nutzer abgenommen; die genaue neue Buildnummer wurde nicht genannt.
 5. Bereits bestätigt: Windows-Projekt erscheint auf dem iPhone; dort erstellter
    und unterschriebener Bericht ist als PDF mit Text/Unterschrift unter Windows
-   sichtbar. Noch offen: separater Techniker-Rechteentzug, PDF-Teilen und weitere
-   Mehrbenutzer-/Betriebsabnahme.
+   sichtbar. Laut Nutzer sind die Rechteprüfungen bereits durchgeführt; die
+   erneute Abfrage soll übersprungen werden. PDF-Teilen und weitere Last-/
+   Betriebsabnahme bleiben gesonderte Punkte.
+
+## Nächste Stufe: optionale Dokumentablage 0.6
+
+Der Nutzer hat sich am 23. Oktober auf Hetzner als Standard festgelegt:
+Projektmanagement, Benutzer, Datenbank und Original-PDFs bleiben zentral dort.
+PDFs können zusätzlich in einer wählbaren Ablage gespeichert werden, etwa in
+OneDrive-Projektordnern. Eine zusätzliche NAS-Ablage ist kein vollständiger
+Vor-Ort-Betrieb. OneDrive ist eine Option, keine Voraussetzung für Smartplan.
+
+Vorbereitet sind `backend/online/storage.py` mit ausdrücklicher Auswahl in der
+App, privates Serververzeichnis, persönliches OneDrive und HTTPS-WebDAV für
+geeignete Clouds/NAS. Weitere Adapter können ergänzt werden. S3, SFTP und direkte
+SMB-Verbindungen sind nicht implementiert. Standard ohne Auswahl: keine zusätzliche
+Ablage; Projektarbeit und PDFs bleiben trotzdem in Smartplan verfügbar.
+
+Der Online-OneDrive-Adapter `backend/online/onedrive_connector.py` nutzt
+Authorization Code + PKCE mit einmaligem, verschlüsseltem PostgreSQL-State und
+einem Formular-Callback unter `/api/v1/storage/callback`. Microsoft-Tokens sind
+verschlüsselt. Netzwerkaufrufe halten keinen globalen Datenbank-Lock und haben
+ein begrenztes Gesamtbudget. Ein eigener Projektordner liegt im engen App-Ordner;
+bereits vorhandene andere OneDrive-Projektordner werden nicht eingelesen.
+
+Die vorhandene Serverinstallation benötigt `update-online.sh`; `git pull` allein
+aktualisiert die installierte Codekopie nicht. `configure-storage.sh` fragt
+Anschlussdaten verdeckt am Server ab und erhält vorhandene Daten, MFA-Schlüssel
+und andere Anschlüsse. Sichere Aktualisierung, Registrierung und Abnahmeschritte:
+`deploy/hetzner/online/STORAGE.md`. Die laufende Nutzer-VM ist noch nicht mit dieser
+Stufe aktualisiert und ein echtes Microsoft-Konto ist noch nicht verbunden.
+
+Nach erfolgreichen CI-Prüfungen erst den Online-Dienst aktualisieren, dann den
+iPhone-Client über den bestehenden TestFlight-Weg verteilen. Bestehende Apple-
+Zugänge wiederverwenden. Ein neues allgemeines Windows-Paket erst nach Klärung
+der unten offenen Herausgebersignierung verteilen; der Windows-Prüfbuild ist
+weiterhin unsigniert. Die bisherige Online-Windows-App kann den bestehenden
+OneDrive-Upload-Endpunkt nutzen, wenn OneDrive serverseitig als Ziel ausgewählt
+und verbunden ist.
 
 Künftige Updates: erst Prüfungen abwarten, dann den Workflow „iPhone TestFlight“
 manuell mit `upload_to_testflight` starten, nach Apples Verarbeitung der bestehenden
@@ -128,10 +165,10 @@ praktische Ersteinrichtung über den manuellen Schlüssel bzw. ein zweites Gerä
   Prüfung des tatsächlichen Downloads sind vorgezogen. Zertifikat/Signierdienst
   und Kosten sind noch nicht ausgewählt. Eine Signatur allein garantiert keine
   sofortige SmartScreen-Reputation.
-- Native iPhone-App und Signatur-Update 0.5.1 sind vom Nutzer bestätigt;
-  ergänzende Rechte-/Mehrbenutzerprüfungen sind noch abzunehmen.
-- OneDrive Personal/Family: vorbereitet, aber noch kein echtes Microsoft-Konto
-  verbunden; Online-API meldet es derzeit bewusst als unkonfiguriert.
+- Native iPhone-App, Signatur-Update 0.5.1 und Rechteprüfungen sind vom Nutzer
+  bestätigt; zusätzliche Last-/Betriebsprüfungen bleiben offen.
+- Speicherstufe 0.6: technisch vorbereitet, noch nicht auf dem Nutzer-Server
+  installiert. Echte Microsoft-Zustimmung/Dateiablage stehen noch aus.
 - Übernahme echter Daten aus einer geprüften SQLite-Sicherung bleibt ein
   eigener Migrations-/Abnahmeschritt.
 - Lokale PostgreSQL-Dumps und Hetzner-Backups sind vorhanden. Getrennte

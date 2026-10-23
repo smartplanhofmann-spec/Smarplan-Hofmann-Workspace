@@ -41,6 +41,11 @@ class RuntimeTest(unittest.TestCase):
         self.assertEqual(conninfo_to_dict(dsn).get('dbname'), 'smartplan_check', 'Disposable test database required.')
         migrate(dsn)
         office = PostgresOffice(dsn)
+        # This fixture uses a new vault key. Isolate it from storage/OAuth
+        # records encrypted by the preceding disposable-database test suites.
+        with office.lock, office.db:
+            office.db.execute('TRUNCATE users,customers,projects,assignments,reports,audit,secrets,'
+                              'sessions,mfa,auth_challenges,login_limits RESTART IDENTITY CASCADE')
         email = 'runtime-' + str(time.time_ns()) + '@example.test'
         office.add_user(email, 'Runtime-test-password-123', 'owner')
         office.db.close()
@@ -54,8 +59,12 @@ class RuntimeTest(unittest.TestCase):
             keyfile = temporary / 'vault.key'
             keyfile.write_bytes(Fernet.generate_key())
             keyfile.chmod(0o400)
+            storage_config = temporary / 'storage.json'
+            storage_config.write_text(json.dumps({'server': {'path': str(temporary / 'documents')}}))
+            storage_config.chmod(0o600)
             environment = dict(os.environ, SMARTPLAN_DATABASE_DSN=dsn,
-                SMARTPLAN_PUBLIC_HOST='office.example.test', SMARTPLAN_VAULT_KEY_FILE=str(keyfile))
+                SMARTPLAN_PUBLIC_HOST='office.example.test', SMARTPLAN_VAULT_KEY_FILE=str(keyfile),
+                SMARTPLAN_STORAGE_CONFIG_FILE=str(storage_config))
             unit = configparser.ConfigParser(interpolation=None)
             unit.read(root / 'deploy/hetzner/online/smartplan-online.service')
             command = [sys.executable, '-m', 'gunicorn', *shlex.split(unit['Service']['ExecStart'])[2:]]
@@ -125,6 +134,14 @@ class RuntimeTest(unittest.TestCase):
                         'signer': 'Testkunde', 'strokes': [[[0.1, 0.2], [0.7, 0.8]]]}, token)
                     pdf = request(f"/api/v1/reports/{report['id']}/pdf", token=token)
                     self.assertTrue(pdf.startswith(b'%PDF'))
+                    storage = json.loads(request('/api/v1/storage/status', token=token))
+                    self.assertEqual(storage['selected_provider'], 'none')
+                    self.assertTrue(next(p for p in storage['providers'] if p['id'] == 'server')['configured'])
+                    request('/api/v1/storage/provider', {'provider': 'server'}, token)
+                    uploaded = json.loads(request(f"/api/v1/reports/{report['id']}/storage", {}, token))
+                    self.assertEqual(uploaded, {'uploaded': True, 'provider': 'server'})
+                    saved = temporary / 'documents' / project / (report['id'] + '.pdf')
+                    self.assertEqual(saved.read_bytes(), pdf)
                     stop(worker)
                     worker = subprocess.Popen(command, cwd=root / 'backend', env=environment, stdout=log, stderr=log)
                     deadline = time.monotonic() + 15
@@ -137,6 +154,8 @@ class RuntimeTest(unittest.TestCase):
                                 raise
                             time.sleep(.1)
                     self.assertEqual(pdf, request(f"/api/v1/reports/{report['id']}/pdf", token=token))
+                    self.assertEqual(json.loads(request('/api/v1/storage/status', token=token))['selected_provider'], 'server')
+                    self.assertEqual(saved.read_bytes(), pdf)
                     request('/api/projects', expected=503)
                 finally:
                     stop(caddy)

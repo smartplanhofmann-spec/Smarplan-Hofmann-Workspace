@@ -1,8 +1,8 @@
 # Nächste Stufe: gemeinsame Daten auf Windows und iPhone
 
-Stand: 22. Oktober 2026. Privater Testserver und HTTPS-Seite eingerichtet;
+Stand: 23. Oktober 2026. Privater Testserver und HTTPS eingerichtet;
 Online-Pilot auf Hetzner aktiviert und unter Windows samt VM-Neustart bestätigt;
-gemeinsame iPhone-Abnahme offen.
+gemeinsamer Windows-/iPhone-Ablauf und Signatur-Update 0.5.1 vom Nutzer bestätigt.
 
 **Aktuelle Entscheidung:** Nach der zunächst kostenfreien lokalen Entwicklung
 hat der Nutzer einen Hetzner-CAX11-Testserver in Nürnberg eingerichtet. Die
@@ -16,7 +16,16 @@ Windows-Anmeldung, fiktiver Fachablauf und Wiederanlauf nach VM-Neustart sind vo
 Nutzer bestätigt. Siehe
 [HETZNER_START.md](HETZNER_START.md).
 Die lokale Kundenverwaltung in Version 0.4.0
-bleibt nutzbar; der gemeinsame iPhone-Zugriff ist noch nicht bereitgestellt.
+bleibt separat nutzbar; der gemeinsame iPhone-Zugriff erfolgt inzwischen über
+die installierte TestFlight-App. Einzelbelege stehen in
+[ABNAHME.md](deploy/hetzner/ABNAHME.md).
+
+**Architekturentscheidung vom 23. Oktober:** Das gesamte Projektmanagement samt
+Benutzern, Datenbank und Original-PDFs bleibt auf Hetzner. PDFs werden optional
+zusätzlich in einer gewählten Dokumentablage gespeichert, beispielsweise je
+Projekt in OneDrive. Die Speicheranschlüsse sind austauschbar; eine solche
+zusätzliche Ablage verlagert nicht die Smartplan-Datenbank. Die neue Stufe 0.6
+ist in Vorbereitung: [Speicheranschlüsse](deploy/hetzner/online/STORAGE.md).
 
 ## Ausgangslage und Ziel
 
@@ -25,10 +34,10 @@ geprüft. Ein eigener Hetzner-Testserver ist jetzt vorhanden. Der Nutzer hat
 Windows und ein iPhone; ein Mac ist nicht vorhanden. Der aktuelle iOS-Simulator-
 Build läuft auf dem macOS-Rechner der GitHub-CI.
 
-Ziel der nächsten Stufe ist eine gemeinsame Testdatenbasis: Ein in Windows
+Die gemeinsame Testdatenbasis ist auf beiden Geräten bestätigt: Ein in Windows
 angelegtes Projekt kann auf einem berechtigten iPhone geöffnet und ein dort
 erstellter Bericht anschließend unter Windows gelesen werden. Für diesen
-ersten Test werden fiktive Daten verwendet; die Übernahme des echten Windows-
+Geräteablauf werden fiktive Daten verwendet; die Übernahme des echten Windows-
 Datenbestands erfolgt erst nach einem getrennt geprüften Migrationslauf.
 
 ## Empfohlener Betriebsweg
@@ -55,7 +64,9 @@ mit Wiederherstellung in eine neue Datenbank. Die bisherige SQLite-Anwendung
 bleibt separat. Öffentliche Installation und 401-Test sind auf Hetzner bestätigt;
 Windows-Online-Anmeldung und fiktiver Fachablauf mit Unterschrift/PDF ohne
 SSH-Fenster sowie Datenzugriff nach VM-Neustart sind vom Nutzer bestätigt.
-Echte Datenübernahme, unabhängige Sicherung und iPhone bleiben offen.
+Die TestFlight-App ist inzwischen installiert; Projekt, Bericht, Signatur und
+PDF sind auf Windows und iPhone bestätigt. Echte Datenübernahme, unabhängige
+Sicherung und reale OneDrive-Verbindung bleiben offen.
 
 | Paket | Konkretes Ergebnis | Nachweis |
 | --- | --- | --- |
@@ -67,40 +78,33 @@ Echte Datenübernahme, unabhängige Sicherung und iPhone bleiben offen.
 | OneDrive Personal | Registrierte Microsoft-App, passende Callback-Adresse, geschützter Tokenspeicher und tatsächlicher Upload | Ein freigegebener unterschriebener Bericht ist im eigenen App-Ordner vorhanden; erneute Anmeldung und Fehler sind geprüft |
 | iPhone-Testpaket | Eigene Bundle-ID, Signierung und gewählter Testverteilungsweg; HTTPS-Adresse als App-Konfiguration | Installation und kompletter Projekt-/Berichts-/PDF-Ablauf auf dem echten iPhone |
 
-Die vorhandene `Office`-Klasse ist an SQLite gebunden. Für PostgreSQL müssen
-insbesondere SQL-Platzhalter, Schema-/Schreiboperationen, Verbindungen und
-Transaktionen angepasst werden. Eine neue Verbindungsadresse allein genügt nicht.
-Der heutige Python-Standardbibliothekserver bleibt als lokaler Pilot verwendbar;
-ein öffentlicher Betrieb erhält eine dafür geeignete API-Laufzeit.
+Die gemeinsame Domänenlogik besitzt inzwischen einen PostgreSQL-Adapter mit
+expliziten Migrationen und Transaktionen. Die öffentliche API läuft mit
+Flask/Gunicorn hinter Caddy. Der Python-Standardbibliothekserver bleibt der
+getrennte lokale Pilot; die alte SQLite-Datenbank wurde nicht übernommen.
 
 Der davon getrennte private systemd-Pilot hat Dienststart, Windows-Fachablauf,
 manuellen Sicherungslauf und VM-Wiederanlauf bestanden. Siehe die
 [Abnahme](deploy/hetzner/ABNAHME.md). Die Gesundheitsantwort dieses Piloten
 identifiziert den Prozess. Der separate Online-Pilot besitzt inzwischen eine
 Bereitschaftsprüfung mit Datenbankzugriff, die vor Aktivierung erfolgreich
-ausgeführt wurde. Eine echte iPhone-Abnahme folgt erst später.
+ausgeführt wurde. Die spätere iPhone-Abnahme ist inzwischen ebenfalls bestätigt.
 
 ## iPhone-Verteilung
 
-Ein Simulator-Build ist keine installierbare iPhone-App. Mit dem vorhandenen
-Windows-PC ist ein eigener lokaler Xcode-Build nicht möglich. Der vorhandene
-macOS-CI-Build kann als technische Grundlage dienen; Zertifikate, Provisionierung,
-eigene App-Kennung und die Apple-Verteilung müssen separat eingerichtet werden.
-Für TestFlight oder eine reguläre Verteilung ist der passende Apple-Developer-
-Zugang mit dessen aktuellen Bedingungen und Kosten zu prüfen. Ein Zugang wurde
-bislang weder vorausgesetzt noch beantragt. Zertifikate und private Schlüssel
-werden ausschließlich über geeignete sichere Einstellungen bereitgestellt.
-
-Die reguläre Geräteabnahme erfolgt erst, wenn die App das gemeinsame HTTPS-
-Backend erreichen kann. Die Adresse `127.0.0.1` der jetzigen Windows-App verweist
-auf jedem Gerät auf dieses Gerät selbst.
+Der Apple-Developer-Zugang und die Signierung über GitHub Actions sind eingerichtet.
+Der Nutzer hat die native App über TestFlight auf dem echten iPhone installiert
+und den gemeinsamen HTTPS-Datenstand bestätigt. Ein eigener Mac wird dafür nicht
+benötigt. Der Workflow archiviert unsigniert und signiert beim IPA-Export.
+Private Schlüssel bleiben in GitHub Secrets. Weitere Updates werden nach grünen
+Prüfläufen über den manuell gestarteten TestFlight-Upload verteilt.
 
 ## Noch benötigte Angaben
 
 1. Zahl der ersten Nutzer und Geräte sowie Zuständigkeit für den laufenden Betrieb.
 2. Domain/DNS inzwischen geklärt: Wix-Zugriff vorhanden, A-Eintrag für
    `office.smartplan-hofmann.de` auf die VM am 22. Oktober bestätigt.
-3. Vorhandener Apple-Developer-Zugang und gewünschter erster iPhone-Testweg.
+3. Apple-Developer-Zugang und TestFlight sind eingerichtet; keine neue Anmeldung nötig.
 4. Zugang zur Microsoft-Appregistrierung für das bestehende Family-Konto.
 
 Diese Angaben werden schrittweise geklärt. Konto und Basistarif sind geklärt;
@@ -123,8 +127,10 @@ abgeschlossen oder Microsoft-Konten verbunden.
 5. Nach einem Neustart sind die Daten weiterhin vorhanden.
 6. Eine getrennte Wiederherstellung und der reale OneDrive-Upload werden nachgewiesen.
 
-Erst diese Nachweise bestätigen gemeinsamen Gerätebetrieb. Die weiteren Module
-aus `UMSETZUNGSPLAN.md` bleiben davon getrennte Entwicklungsaufgaben.
+Der gemeinsame Projekt-/Berichts-/PDF-Ablauf ist inzwischen bestätigt; laut Nutzer
+wurden auch die Rechteprüfungen bereits durchgeführt und sollen nicht wiederholt
+werden. Getrennte Wiederherstellung, echte OneDrive-Ablage und weitere Fachmodule
+bleiben eigene Arbeitsschritte.
 
 ## iPhone über TestFlight
 Schritt-für-Schritt-Anleitung ohne Mac: siehe [IPHONE_TESTFLIGHT.md](IPHONE_TESTFLIGHT.md) (Workflow `.github/workflows/ios-testflight.yml`).

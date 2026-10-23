@@ -1,6 +1,6 @@
 # Smartplan Office – konkreter Umsetzungsplan
 
-Aktualisiert: 21. Oktober 2026. Die ursprüngliche Planung vom 14. Oktober bleibt
+Aktualisiert: 23. Oktober 2026. Die ursprüngliche Planung vom 14. Oktober bleibt
 als Rahmen erhalten; der aktuelle Abnahmestand steht unmittelbar darunter.
 Kontoverbindungen, Hosting-Buchungen und Apple-Mitgliedschaften erfordern jeweils
 einen konkreten Auftrag. Die laufende Entwicklung im freigegebenen GitHub-Branch
@@ -23,23 +23,32 @@ iOS-Simulator-Builds im GitHub-Lauf `39416338557`. Für die Rolle Buchhaltung,
 Sitzungssperren und unveränderliche Signaturdaten liegen automatisierte
 Prüfungen vor; eine gesonderte manuelle Buchhaltungs-Abnahme wurde nicht behauptet.
 
-Die Stufen 0 und der lokale Windows-Teil von Stufe 1 sind damit geprüft.
-Der gemeinsame Windows-/iPhone-Betrieb, eine echte iPhone-Installation, reale
-OneDrive-Anmeldung und die übrigen Fachmodule bleiben offen. Ein Hetzner-CAX11-
-Testserver in Nürnberg besteht inzwischen; SSH und ARM-Backend-Tests sind bestätigt.
-Auch privater systemd-Dienst, Windows-Fachablauf, manueller Sicherungslauf und
-Datenzugriff nach einem VM-Neustart sind bestätigt. Einzelbelege:
-[private Pilotabnahme](deploy/hetzner/ABNAHME.md).
+Inzwischen ist auch der Online-Pilot mit PostgreSQL, MFA und HTTPS auf dem
+Hetzner-CAX11 in Nürnberg eingerichtet. Windows und die über TestFlight
+installierte iPhone-App arbeiten nach Nutzerbestätigung auf demselben Projekt.
+Der am iPhone unterschriebene Bericht wird unter Windows als PDF geöffnet.
+Das separate Signaturfenster im Querformat (0.5.1) ist ebenfalls vom Nutzer
+abgenommen. Die Rechteprüfungen sollen laut Nutzer nicht erneut durchgeführt
+werden: Sie seien bereits getestet. Einzelbelege:
+[Pilot- und Geräteabnahme](deploy/hetzner/ABNAHME.md).
 Die nächste Stufe und ihre Voraussetzungen stehen in
 [BETRIEB_UND_IPHONE.md](BETRIEB_UND_IPHONE.md).
 
-**Aktuelle Reihenfolge:** Nach der zunächst kostenfreien lokalen Stufe hat der
-Nutzer Hetzner als Hosting-Anbieter gewählt. Die Vorbereitung des gemeinsamen
-Betriebs aus Etappe 2 wird wieder aufgenommen. Konto und Testserver sind
-eingerichtet; die Bestellübersicht lag bei 9,15 Euro brutto monatlich inklusive
-Hetzner-Backups und IPv4. Der private systemd-Testdienst ist abgenommen;
-öffentliche API, Domainzugriff und weitere Betriebsleistungen bleiben offen.
-Siehe [HETZNER_START.md](HETZNER_START.md). Version 0.4.0 enthält die erste lokale
+**Aktuelle Architekturentscheidung vom 23. Oktober:** Projektmanagement,
+Benutzer, Datenbank und die ursprünglichen signierten PDFs bleiben auf Hetzner.
+Unterschriebene PDFs werden auf Wunsch zusätzlich in einer wählbaren
+Dokumentablage gespeichert, beispielsweise in je einem Projektordner auf
+OneDrive. OneDrive ist optional; Speicheradapter erlauben auch Serververzeichnisse
+und HTTPS-WebDAV-Ziele (Cloud/NAS). Der Betriebsort der Datenbank und die
+zusätzliche Dokumentablage sind getrennte Entscheidungen. Ein NAS als PDF-Ablage
+bedeutet nicht, dass die gesamten Smartplan-Daten beim Nutzer vor Ort liegen.
+
+**Aktuelle Reihenfolge:** Die optionalen Speicheranschlüsse für den Online-Piloten
+bereitstellen und anschließend das gewählte Konto tatsächlich verbinden.
+Die Bestellübersicht des vorhandenen Servers lag bei 9,15 Euro brutto monatlich
+inklusive Hetzner-Backups und IPv4; ein weiterer Server ist nicht erforderlich.
+Echte OneDrive-Zustimmung, getrennte Sicherungswiederherstellung, Betriebsbetreuung
+und die übrigen Fachmodule bleiben offen. Version 0.4.0 enthält die erste lokale
 Kundenstufe aus Etappe 3, noch keine vollständige CRM-/Angebotslösung.
 Details und Geräteabnahme stehen in [KUNDENVERWALTUNG.md](KUNDENVERWALTUNG.md).
 Die übrigen Fachmodule bleiben offen.
@@ -189,9 +198,8 @@ Eine seriöse Termin- und Kostenzusage ist mit dem vorhandenen Prototyp und unge
 
 Nach Etappe 0 und der Integrationsprüfung wird jede Etappe in kleine Arbeitspakete mit Aufwand, Abhängigkeiten und Verantwortlichen zerlegt. Pro Paket: konkrete Änderung, automatisierte Tests soweit sinnvoll, relevanter Geräte-/Integrationstest und nachvollziehbares Ergebnis. Fehlende Zugänge werden früh gemeldet; unabhängige Arbeiten gehen weiter. Keine Funktion wird durch Demo-Daten als live fertig ausgewiesen.
 
-Etappe 2 wird nach der Entscheidung für Hetzner wieder vorbereitet.
-Die erste lokale Kundenstufe aus Etappe 3 ist bereits umgesetzt. Die für
-den gemeinsamen Betrieb noch benötigten Angaben zu Konto, genauem Tarif,
-Betriebsverantwortung, Domain und Apple-Verteilung werden gezielt eingeholt;
-unabhängige Entwicklung kann währenddessen fortgesetzt werden. Eine produktive
-Freigabe und die Abnahme der übrigen Fachmodule stehen weiterhin aus.
+Etappe 2 besitzt inzwischen einen auf Windows und iPhone bestätigten gemeinsamen
+Online-Piloten. Domain, Tarif und TestFlight-Zugang sind eingerichtet. Die erste
+lokale Kundenstufe aus Etappe 3 ist bereits umgesetzt. Weitere Angaben werden
+gezielt für die nächste Integration eingeholt; reale Speicherverbindungen,
+Betriebsverantwortung und die Abnahme der übrigen Fachmodule bleiben offen.

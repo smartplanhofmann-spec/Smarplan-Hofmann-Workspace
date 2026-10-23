@@ -138,8 +138,10 @@ class _ProjectPageState extends State<ProjectPage> {
     await readReports();
   });
   Future<void> upload() => run(() async {
-    await widget.api.call('/api/reports/${report!['id']}/onedrive', {});
-    if (mounted) setState(() => message = 'PDF wurde in OneDrive abgelegt.');
+    final target = widget.api.version == 'v1' ? 'storage' : 'onedrive';
+    await widget.api.call('/api/reports/${report!['id']}/$target', {});
+    if (mounted)
+      setState(() => message = 'PDF wurde in der Ablage gespeichert.');
   });
   Future<void> editSignature() async {
     if (busy || editingSignature || !canSign) return;
@@ -268,7 +270,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 if (message != null)
                   Notice(
                     message!,
-                    error: message != 'PDF wurde in OneDrive abgelegt.',
+                    error: message != 'PDF wurde in der Ablage gespeichert.',
                   ),
                 if (!canWrite)
                   const Notice(
@@ -606,7 +608,7 @@ class _ProjectPageState extends State<ProjectPage> {
                     child: OutlinedButton.icon(
                       onPressed: busy ? null : upload,
                       icon: const Icon(Icons.cloud_upload_outlined, size: 18),
-                      label: const Text('PDF in OneDrive ablegen'),
+                      label: const Text('PDF in Ablage speichern'),
                     ),
                   ),
                 ),

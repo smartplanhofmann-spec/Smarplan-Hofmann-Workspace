@@ -171,9 +171,10 @@ Caddy-Datei aus `/etc/smartplan-online/Caddyfile.before` wieder nach
 Anschließend nur Online-Dienst und dessen Backup-Timer deaktivieren. Datenbank,
 Schlüssel, Sicherungen und der bisherige SQLite-Pilot bleiben bestehen.
 
-Updates sind keine erneute Erstinstallation. Dafür werden vorab Sicherung,
-geprüfte Migration und Austausch der separaten Codekopie mit anschließendem
-Neustart und Abnahme vorbereitet.
+Updates sind keine erneute Erstinstallation. Für die Speicherstufe 0.6 ist der
+erhaltende Updateablauf `update-online.sh` vorbereitet. Er erstellt vor dem
+Austausch der Codekopie eine Sicherung und prüft den neu gestarteten Dienst.
+Anschlüsse und Konfiguration stehen in [STORAGE.md](STORAGE.md).
 
 ## Automatisierte Nachweise und verbleibende Arbeiten
 
@@ -186,6 +187,6 @@ API-Neustart werden durch die verschlüsselte Verbindung geprüft. Diese lokalen
 Tests sind kein Nachweis des systemd-Starts auf der Nutzer-VM.
 
 Noch separat: geprüfte Übernahme einer SQLite-Sicherung mit echten Daten,
-OneDrive-Verbindung, echte iPhone-Signierung/Verteilung, Last-/Betriebsabnahme,
+reale Speicherverbindung, Last-/Betriebsabnahme,
 getrennte verschlüsselte Backups und Betreuung. Die bestehende lokale Nutzung
 bleibt bis zur erfolgreichen späteren Datenübernahme verfügbar.

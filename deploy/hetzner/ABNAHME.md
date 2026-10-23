@@ -166,10 +166,38 @@ Updates festgehalten. Der beigefügte Screenshot enthält Abacus' Meldung über 
 funktionierenden TestFlight-Weg ohne eigenen Mac. Eine genaue Buildnummer dieses
 Updates wurde nicht genannt.
 
+### Vorbereitete Speicherstufe 0.6
+
+Der Nutzer hat am 23. Oktober Hetzner als Standard gewählt: gesamtes
+Projektmanagement, Benutzer und Datenbank bleiben dort. PDFs können zusätzlich
+in je einem Projektordner einer gewählten Ablage liegen, etwa OneDrive.
+Serververzeichnis und HTTPS-WebDAV sind weitere austauschbare Anschlüsse.
+
+In der Entwicklungsumgebung bestehen die Codeanalyse und alle 39 App-Tests.
+Die 32 bisherigen lokalen Backend-Fälle bestehen mit einem erwarteten
+Windows-spezifischen Skip. Die 57 PostgreSQL-/Speicher-/OneDrive-Fälle prüfen
+unter anderem die ausdrückliche Ablagewahl, verschlüsselte Tokens und Belege,
+prozessübergreifende Anmeldung mit PKCE, Rechte, Projektordner, unveränderte
+PDF-Bytes, wiederholbare Uploads, Anbieterfehler und begrenzte Wartezeiten.
+Microsoft-/WebDAV-Antworten sind in diesen Prüfungen simuliert; Serverdateien und
+PostgreSQL werden tatsächlich verwendet.
+
+Ein weiterer echter Caddy/Gunicorn/PostgreSQL-Lauf mit verifizierter Test-TLS-
+Verbindung prüft Auswahl der Serverablage und byteidentische zusätzliche
+PDF-Datei über die API. Ablagewahl und PDF bleiben nach dem Worker-Neustart erhalten.
+Shell-/Workflow-Syntax ist geprüft; Update- und Rückkehrskripte sind durchgesehen.
+Ein Start dieser Stufe auf der Nutzer-VM und eine echte Microsoft-Zustimmung/
+Dateiablage sind noch nicht erfolgt. Anleitung: [STORAGE.md](online/STORAGE.md).
+
+Der Nutzer bat am 23. Oktober, die erneute Rechteprüfung zu überspringen:
+„die haben wir ja bereits getestet“. Die bestehende Nutzerbestätigung wird
+beibehalten; ein neuer manueller Durchlauf wurde nicht durchgeführt.
+Öffentlicher Projektzugriff ohne Anmeldung ist mit 401 bestätigt. TCP 8765,
+8766 und 5432 bleiben gesperrt.
+
 ### Weiterhin offen
 
-- Mehrbenutzer-Rechteentzug am Nutzer-System. Öffentlicher Projektzugriff ohne
-  Anmeldung ist mit 401 bestätigt. TCP 8765, 8766 und 5432 bleiben gesperrt.
+- Ergänzende Last-/Mehrbenutzerabnahme für den späteren tatsächlichen Nutzerkreis.
 - SmartScreen-Rückmeldung beim nächsten Windows-Update bearbeiten: gültige
   Herausgebersignierung und signiertes Installationspaket vorbereiten und prüfen.
 - HTTPS-Erneuerung und Betrieb überwachen; Last-/Mehrbenutzerabnahme und

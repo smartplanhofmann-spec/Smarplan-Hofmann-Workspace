@@ -388,6 +388,7 @@ class WorkspaceView extends StatefulWidget {
       onUsers,
       onCustomers;
   final void Function(Map<String, dynamic>) onProject;
+  final ValueChanged<String> onSelectStorage;
   const WorkspaceView({
     super.key,
     required this.user,
@@ -399,6 +400,7 @@ class WorkspaceView extends StatefulWidget {
     required this.onLogout,
     required this.onNewProject,
     required this.onConnectDrive,
+    required this.onSelectStorage,
     required this.onUsers,
     required this.onCustomers,
     required this.onProject,
@@ -949,6 +951,137 @@ class _WorkspaceViewState extends State<WorkspaceView> {
     );
   }
 
+  List<Map<String, dynamic>>? get storageProviders {
+    final source = widget.storage?['providers'];
+    if (source is! List) return null;
+    final providers = <Map<String, dynamic>>[];
+    final seen = <String>{};
+    for (final value in source) {
+      if (value is! Map ||
+          value['id'] is! String ||
+          value['label'] is! String ||
+          (value['id'] as String).isEmpty ||
+          !seen.add(value['id'])) {
+        continue;
+      }
+      providers.add(Map<String, dynamic>.from(value));
+    }
+    if (!seen.contains('none')) {
+      providers.insert(0, {'id': 'none', 'label': 'Noch keine Ablage'});
+    }
+    return providers;
+  }
+
+  Widget storageSelection(List<Map<String, dynamic>> providers) {
+    final selected = widget.storage?['selected_provider'];
+    final current = providers.where((item) => item['id'] == selected);
+    final known = current.isNotEmpty;
+    final provider = known ? current.first : null;
+    final noStorage = selected == 'none';
+    final configured = known && widget.storage?['configured'] == true;
+    final requiresConnection = provider?['requires_connection'] == true;
+    final connected = known && widget.storage?['connected'] == true;
+    final status = !known
+        ? 'Ablage nicht verfügbar'
+        : noStorage
+        ? 'Noch keine Ablage gewählt'
+        : !configured
+        ? 'Noch nicht eingerichtet'
+        : requiresConnection
+        ? connected
+              ? 'Anmeldung gespeichert'
+              : 'Noch nicht verbunden'
+        : 'Eingerichtet';
+    final description = switch (selected) {
+      'server' =>
+        'Speichern Sie Dokumente auf dem Server, auf dem Smartplan läuft.',
+      'onedrive' => 'Speichern Sie Dokumente im App-Ordner Ihres persönlichen OneDrive-Kontos.',
+      'webdav' =>
+        'Verbinden Sie einen Cloudspeicher oder ein NAS mit WebDAV-Zugang.',
+      'none' => 'Wählen Sie, wo zusätzliche Dokumentkopien abgelegt werden.',
+      _ => 'Wählen Sie eine verfügbare Dokumentablage.',
+    };
+    final setup = switch (selected) {
+      'server' => 'Die Serverablage muss zuerst eingerichtet werden.',
+      'onedrive' =>
+        'Für OneDrive ist zunächst die Microsoft-Einrichtung erforderlich.',
+      _ => 'Die Verbindungsdaten für dieses Ziel werden einmal am Smartplan-Server eingerichtet.',
+    };
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const IconTile(Icons.folder_copy_outlined),
+        const SizedBox(height: 22),
+        Text(
+          'Ihre Dokumentablage',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        const SizedBox(height: 20),
+        InputDecorator(
+          decoration: const InputDecoration(labelText: 'Ablage wählen'),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              key: const ValueKey('storage-provider'),
+              value: known ? selected as String : null,
+              hint: const Text('Bitte auswählen'),
+              isExpanded: true,
+              isDense: true,
+              onChanged: widget.busy
+                  ? null
+                  : (value) {
+                      if (value != null && value != selected) {
+                        widget.onSelectStorage(value);
+                      }
+                    },
+              items: [
+                for (final item in providers)
+                  DropdownMenuItem<String>(
+                    value: item['id'],
+                    child: Text(item['label'], overflow: TextOverflow.ellipsis),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        StatusPill(status),
+        const SizedBox(height: 20),
+        Text(description, style: const TextStyle(color: OfficeColors.muted)),
+        if (known && !noStorage && !configured)
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Text(
+              setup,
+              style: const TextStyle(color: OfficeColors.muted, fontSize: 13),
+            ),
+          ),
+        if (known && !noStorage && requiresConnection) ...[
+          const SizedBox(height: 24),
+          OutlinedButton.icon(
+            onPressed: widget.busy || !configured
+                ? null
+                : widget.onConnectDrive,
+            icon: const Icon(Icons.link_rounded, size: 18),
+            label: Text(
+              selected == 'onedrive'
+                  ? 'Mit OneDrive verbinden'
+                  : 'Anmeldung öffnen',
+            ),
+          ),
+        ],
+        const SizedBox(height: 24),
+        const Text(
+          'Ein Wechsel gilt für neue Uploads. Bereits abgelegte Dateien werden nicht verschoben. Berichte und PDFs bleiben in Smartplan verfügbar.',
+          style: TextStyle(
+            color: OfficeColors.muted,
+            fontSize: 12,
+            height: 1.6,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget storageContent() => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -959,46 +1092,52 @@ class _WorkspaceViewState extends State<WorkspaceView> {
       ),
       const SizedBox(height: 32),
       OfficeSurface(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const IconTile(Icons.cloud_outlined),
-            const SizedBox(height: 22),
-            Text(
-              'OneDrive Family',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 12),
-            StatusPill(
-              widget.storage?['connected'] == true
-                  ? 'Anmeldung gespeichert'
-                  : widget.storage?['configured'] == true
-                  ? 'Noch nicht verbunden'
-                  : 'Noch nicht eingerichtet',
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Legen Sie unterschriebene PDFs direkt in Ihrem OneDrive-App-Ordner ab.',
-              style: TextStyle(color: OfficeColors.muted),
-            ),
-            if (widget.storage?['configured'] != true)
-              const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text(
-                  'Für die Verbindung ist zunächst die Microsoft-Einrichtung erforderlich.',
-                  style: TextStyle(color: OfficeColors.muted, fontSize: 13),
-                ),
+        child: storageProviders != null
+            ? storageSelection(storageProviders!)
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const IconTile(Icons.cloud_outlined),
+                  const SizedBox(height: 22),
+                  Text(
+                    'OneDrive Family',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  StatusPill(
+                    widget.storage?['connected'] == true
+                        ? 'Anmeldung gespeichert'
+                        : widget.storage?['configured'] == true
+                        ? 'Noch nicht verbunden'
+                        : 'Noch nicht eingerichtet',
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Legen Sie unterschriebene PDFs direkt in Ihrem OneDrive-App-Ordner ab.',
+                    style: TextStyle(color: OfficeColors.muted),
+                  ),
+                  if (widget.storage?['configured'] != true)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Text(
+                        'Für die Verbindung ist zunächst die Microsoft-Einrichtung erforderlich.',
+                        style: TextStyle(
+                          color: OfficeColors.muted,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  const SizedBox(height: 24),
+                  OutlinedButton.icon(
+                    onPressed:
+                        widget.busy || widget.storage?['configured'] != true
+                        ? null
+                        : widget.onConnectDrive,
+                    icon: const Icon(Icons.link_rounded, size: 18),
+                    label: const Text('OneDrive Family verbinden'),
+                  ),
+                ],
               ),
-            const SizedBox(height: 24),
-            OutlinedButton.icon(
-              onPressed: widget.busy || widget.storage?['configured'] != true
-                  ? null
-                  : widget.onConnectDrive,
-              icon: const Icon(Icons.link_rounded, size: 18),
-              label: const Text('OneDrive Family verbinden'),
-            ),
-          ],
-        ),
       ),
     ],
   );

@@ -125,6 +125,15 @@ noch unbestätigt und der erste Schritt in der lokalen Codex-Umgebung.
 
 ## OneDrive Family verbinden
 
+Für den gemeinsamen Online-Piloten sind Projektverwaltung und Datenbank auf
+Hetzner die führende Quelle. Version 0.6 ergänzt eine wählbare zusätzliche
+Dokumentablage mit Projektordnern: Smartplan-Server, OneDrive oder HTTPS-WebDAV
+(Cloud/NAS). Einrichtung und sichere Aktualisierung des vorhandenen Dienstes:
+[Speicheranschlüsse](deploy/hetzner/online/STORAGE.md). Ein Speicherkonto wurde
+dadurch noch nicht tatsächlich verbunden.
+
+Die folgende Konfiguration betrifft den getrennten lokalen SQLite-Piloten.
+
 Eine Microsoft-App-Registrierung anlegen, die persönliche Microsoft-Konten
 unterstützt. Falls noch kein Entra-Entwicklermandant besteht, muss dieser Zugang
 zuerst eingerichtet werden; das ersetzt nicht das Family-Abonnement.

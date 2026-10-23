@@ -57,9 +57,14 @@ Die übrigen Fachmodule bleiben offen.
 
 **Erweiterung vom 23. Oktober:** Der Nutzer möchte größere gemeinsame Updates
 und mehrere KI-Assistenten, darunter eigene vorhandene Bots und Anbieter wie
-OpenAI, Anthropic und xAI. Agenten sollen aktiv unterstützen. Erste Aufgaben,
-vorhandene Produkte und Automatisierungsgrad werden abgestimmt; Konzept:
-[KI_AGENTEN.md](KI_AGENTEN.md). Die geprüfte Speicherstufe kann in dieses größere
+OpenAI, Anthropic und xAI. Konkret gewählt sind Sprache/Fotos/Videos für Aufmaß,
+bearbeitbare Pläne aus Skizzen und vorhandenen Unterlagen sowie das Positionieren
+von Geräten und Notizen durch Antippen und Sprache. Routinearbeiten sollen
+automatisch nach Regeln laufen, wichtige Aktionen mit Freigabe. Genannte
+Assistenten: Grok-Bot, „ChatGPT Work“ und Codex. iPhone: 17; die Grundfunktionen
+setzen LiDAR nicht voraus. Erste Ausgaben: DXF und PDF, DWG optional über einen
+geeigneten Anschluss. Konzepte: [KI_AGENTEN.md](KI_AGENTEN.md) und
+[AUFMASS_UND_PLAENE.md](AUFMASS_UND_PLAENE.md). Die geprüfte Speicherstufe kann in dieses größere
 Paket einfließen. Ihr Update auf der Nutzer-VM ist noch nicht bestätigt.
 
 Smartplan Office wird die gemeinsame Arbeitsoberfläche für Büro und Baustelle: Windows im Büro, iPhone unterwegs. Kunden, Projekte, Aufgaben, Zeiten, Materialien und Dokumente bilden eine zusammenhängende Datenbasis. Funktionen und Datenzugriff hängen von Rolle, Projektzuordnung und später Einzelrechten ab.

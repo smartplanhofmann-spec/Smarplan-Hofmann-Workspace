@@ -1,10 +1,15 @@
 # Mehrere KI-Assistenten für Smartplan
 
-Konzeptentwurf vom 23. Oktober 2026. Der Nutzer möchte größere Updatepakete,
-mehrere Anbieter und eigene bestehende Assistenten einbinden. Agenten sollen
-aktiv unterstützen. Die ersten Aufgaben, vorhandenen Produkte/Bots und der
-Automatisierungsgrad werden gerade mit dem Nutzer geklärt. Dies dokumentiert
-das Zielbild, keine bereits laufenden KI-Verbindungen.
+Konzeptstand vom 23. Oktober 2026. Der Nutzer möchte größere Updatepakete,
+mehrere Anbieter und eigene bestehende Assistenten einbinden. Seine ersten
+Aufgaben sind inzwischen konkret: multimodales Aufmaß, bearbeitbare Pläne und
+sprachgesteuerte Gerätepositionen. Bestätigte Autonomie: Routinearbeiten
+automatisch nach festgelegten Regeln, wichtige Aktionen mit Freigabe.
+Dies dokumentiert das Zielbild, keine bereits laufenden KI-Verbindungen.
+
+Verwendete Produkte laut Nutzer: Grok-Bot, „ChatGPT Work“ und Codex. Der genaue
+offizielle Anschluss des als „ChatGPT Work“ bezeichneten Produkts wird beim
+Verbinden geprüft; daraus wird kein automatischer API-Zugang abgeleitet.
 
 ## Zielbild
 
@@ -42,16 +47,26 @@ MCP ist eine Werkzeug-Schnittstelle; es ersetzt weder ein KI-Modell noch dessen
 Nutzerkonto. Für eingebaute Assistenten und externe Zugriffe gelten dieselben
 Projekt- und Werkzeugfreigaben.
 
-## Vorschlag für das erste größere Paket
+## Vom Nutzer gewählte erste Arbeitsabläufe
 
 | Arbeitsablauf | Konkretes Ergebnis | Schon vorhandene Grundlage |
 | --- | --- | --- |
-| Baustellennotizen aufbereiten | Prüffähiger Serviceberichtentwurf mit markierten fehlenden Angaben | Projekte und Berichtentwürfe |
-| Projektüberblick vorbereiten | Zusammenfassung erledigter Arbeiten und offener Punkte mit Bericht-/Versionsnachweisen | Projektberichte und unveränderliche PDF-Versionen |
-| Kundenanfrage aufbereiten | Vorschlag für vorhandenen/neuen Kunden und ein zugehöriges Projekt | Kundenverwaltung und Projektzuordnung |
+| Aufmaß per Sprache, Foto und kurzem Video | Transkript, Zusammenfassung, ausdrücklich genannte Maße und Beobachtungen mit Quellen | Projekte, Rechte und spätere Übernahme in Berichtentwürfe |
+| Skizze oder vorhandenen Plan einlesen | Prüffähiger, bearbeitbarer 2D-Plan mit Wänden, Räumen und Öffnungen | Neues Planmodul erforderlich; bisher nur Dokument-/Berichtsfunktionen |
+| Im Plan Geräte und Notizen anlegen | Wand antippen und beispielsweise „hier zwei Steckdosen“ sagen; echte Planobjekte mit Rückgängig | Neues Plan-/Gerätemodell und begrenzte Agentenwerkzeuge erforderlich |
 
-Die tatsächlichen ersten zwei bis drei Abläufe werden nach der Nutzerantwort
-festgelegt. Kundenstammdaten bleiben auf die dafür berechtigten Benutzer
+Das konkrete Erfassungs-, Geometrie- und Exportkonzept steht in
+[AUFMASS_UND_PLAENE.md](AUFMASS_UND_PLAENE.md). Der Nutzer verwendet ein iPhone 17;
+die Grundfunktionen setzen keinen LiDAR-Sensor voraus. Ein unterstützter
+Raumscan wäre eine zusätzliche, zur Laufzeit geprüfte Erfassungsart.
+Reguläre Rundgangvideos und freie Skizzen sind keine verlässlichen Maßnachweise.
+Der Nutzer kann meistens mindestens ein gemessenes Maß ergänzen, aber nicht
+bei jeder Vorlage. Unbekannte Maße bleiben kenntlich und werden nicht erfunden.
+
+DXF und PDF sind die ersten vorgesehenen Ausgaben, unabhängig von einem
+bestimmten CAD-Zielprogramm. DWG ist ein zusätzlicher Anschluss über einen
+geeigneten Konverter nach Prüfung seiner Verfügbarkeit und Lizenzbedingungen.
+Kundenstammdaten bleiben auf die dafür berechtigten Benutzer
 beschränkt. Aufgabenverwaltung, Terminplanung, Angebote, E-Mail und WhatsApp
 benötigen ihre jeweiligen Fachmodule beziehungsweise Kontoverbindungen und
 werden nicht als bereits nutzbare Agentenwerkzeuge ausgegeben.
@@ -64,14 +79,17 @@ bleiben nachvollziehbar.
 
 ## Aktive Unterstützung
 
-Mögliche Betriebsarten pro Assistent:
+Bestätigtes Ziel ist **Routinearbeiten automatisch nach festgelegten Regeln;
+wichtige Aktionen mit Freigabe**. Die Einstellungen pro Assistent erlauben:
 
 - **Auf Anfrage:** Der Nutzer startet einen Auftrag.
 - **Automatisch vorbereiten:** Ein freigegebenes Ereignis oder ein Zeitplan
   erzeugt einen Vorschlag, etwa nach einem neuen Projektbericht.
 - **Freigegebene Arbeiten ausführen:** Klar benannte Routineaktionen dürfen im
-  zugewiesenen Umfang selbst ausgeführt werden. Welche Arbeiten darunterfallen
-  und welche eine Bestätigung brauchen, wird mit dem Nutzer festgelegt.
+  zugewiesenen Umfang selbst ausgeführt werden. Ausdrücklich angeforderte Geräte
+  und Notizen können in der Arbeitsfassung mit Rückgängig entstehen. Bestätigte
+  Maße, Wandgeometrie und freigegebene Planstände werden über Änderungsvorschläge
+  bearbeitet; unklare Zahlen werden zur Prüfung gestellt.
 
 Mehrere Assistenten können verschiedene Aufgaben haben und Ergebnisse
 weiterreichen. Eine Weitergabe erweitert weder Projektumfang noch Befugnisse.
@@ -106,11 +124,14 @@ Eine neue Datenbankschemaversion und ein geprüfter Migrations-/Rückkehrweg
 gehören zum größeren Paket. Der bereits vorbereitete Speicher-Updateablauf
 führt ausdrücklich noch keine solchen Schemaänderungen durch.
 
-## Noch zu klären
+## Noch für die Umsetzung zu klären
 
-1. Die ersten zwei bis drei tatsächlichen Aufgaben aus dem Arbeitsalltag.
-2. Gewünschte Selbstständigkeit und konkrete automatisch erlaubte Routineaktionen.
-3. Bereits verwendete Assistenten/Bots mit genauem Produktnamen und Aufgaben.
+1. Repräsentative Plan-/Aufmaßbeispiele, um Erkennung und Bedienung an echten
+   Vorlagen zu prüfen; für die erste Prüfung reichen fiktive beziehungsweise
+   entsprechend bereinigte Beispiele und ein bekanntes Maß, falls vorhanden.
+2. Tatsächlich verfügbare offizielle Zugänge der genannten Assistenten und
+   Speech-/Vision-Funktionen sowie ein Kostenlimit für ihre Verwendung.
+3. Optionaler DWG-Konverter und gegebenenfalls geeignete Karten-/Luftbildquellen.
 
 Anschließend werden tatsächliche Anschlussmöglichkeiten, Anbieterzugänge und
 ein passendes Kostenlimit geklärt. Zugangsdaten gehören in sichere Einstellungen.

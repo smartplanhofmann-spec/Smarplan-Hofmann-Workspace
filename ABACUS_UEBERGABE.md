@@ -161,7 +161,14 @@ praktische Ersteinrichtung über den manuellen Schlüssel bzw. ein zweites Gerä
 
 - **Aktuell vorgezogen:** Der Nutzer möchte größere gemeinsame Updates und
   mehrere aktive KI-Assistenten beziehungsweise eigene vorhandene Bots
-  anbinden. Anforderungen werden besprochen; siehe `KI_AGENTEN.md`. Noch keine
+  anbinden. Erste Aufgaben sind konkretisiert: Aufmaß per Fließtext-Audio mit
+  Fotos/kurzen Videos, bearbeitbare Pläne aus Skizzen und vorhandenen Unterlagen,
+  Wand antippen und per Sprache Geräte/Notizen anlegen. Routinearbeiten
+  automatisch, wichtige Aktionen mit Freigabe. iPhone 17, keine LiDAR-Pflicht
+  für Grundfunktionen. Ausgaben DXF/PDF, DWG optional; kein bestimmtes CAD-
+  Zielprogramm vorgeschrieben. Siehe `KI_AGENTEN.md` und `AUFMASS_UND_PLAENE.md`.
+  Grok-Bot, „ChatGPT Work“ und Codex sind die genannten Produkte; ihre offiziellen
+  Zugänge und Speech-/Vision-Funktionen sind noch zu prüfen. Noch keine
   echten KI-Verbindungen, Agentenlaufzeit oder MCP-Zugänge implementiert.
   Die geprüfte Speicherstufe 0.6 ist noch nicht auf der Nutzer-VM bestätigt.
   Der SSH-Zugang hing im mobilen Netz wegen mutmaßlich geänderter Quell-IP;

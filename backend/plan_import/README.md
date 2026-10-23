@@ -213,9 +213,9 @@ Mounts, tatsächlich begrenzten tmpfs-Speicher, abgetrennte Nachfahren und die e
 PNG-/PDF-/OCR-Pipeline. Fehlende Namespace-Fähigkeiten sind im Pflichtlauf Fehler;
 ein Überspringen oder ungeschützter Ersatz ist nicht zulässig. Die lokale
 Namespace- und PostgreSQL-Integration ist mit synthetischen Quellen bestanden.
-Eine zusätzliche CI-Abnahme mit der tatsächlichen Ubuntu-24.04-systemd-Unit wird
-gerade ergänzt und ist noch nicht bestanden; die reale ARM64-Serverabnahme bleibt
-ebenfalls offen.
+Die zusätzliche Ubuntu-24.04-CI-Abnahme verarbeitet eigene synthetische
+PostgreSQL-Aufträge unter derselben systemd-Unit und prüft Stopp, Prozessbereinigung
+und Wiederaufnahme. Die reale ARM64-Serverabnahme bleibt zusätzlich erforderlich.
 
 Die reguläre Backend-Lockdatei enthält keine schweren
 OCR-/Bildverarbeitungsabhängigkeiten; die Worker-Tests werden bei deren normaler

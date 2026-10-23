@@ -43,8 +43,20 @@ Im SSH-Serverfenster als root, aus dem sauberen, geprüften Checkout:
 
 ```bash
 cd /opt/smartplan-test
+apt-get update
+apt-get install --yes --no-install-recommends apparmor apparmor-profiles
+bash deploy/hetzner/online/prepare-bwrap-apparmor.sh
 bash deploy/hetzner/online/install-plan-import.sh
 ```
+
+Ubuntu 24.04 beschränkt standardmäßig die Rechte neuer Benutzer-Namespaces.
+Der erste Helfer bereitet dafür unter der Updatesperre ausschließlich das
+offizielle Ubuntu-Profil `bwrap-userns-restrict` vor. Er prüft dessen bekannten
+Inhalt, verweigert abweichende vorhandene Profile oder lokale Overrides und
+lädt nur die beiden zugehörigen Profile. Die globale AppArmor-Konfiguration und
+die Userns-Schutzschalter bleiben aktiv. Bei einer Umgebung ohne diese
+Restriktion ist keine Profiländerung nötig. Das Profil bleibt als gemeinsame
+Systemkonfiguration über Neustarts erhalten.
 
 Der Installer verlangt denselben bereits installierten Quellcommit. Er nutzt
 die gemeinsame Updatesperre und verweigert einen offenen Updatevorgang oder

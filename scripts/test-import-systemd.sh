@@ -13,9 +13,16 @@ source /etc/os-release
 smartplan_checkout="$(realpath -- "$GITHUB_WORKSPACE")"
 smartplan_git() { git -c "safe.directory=$smartplan_checkout" -C "$smartplan_checkout" "$@"; }
 [[ "$(smartplan_git rev-parse HEAD)" == "$GITHUB_SHA" ]] || fail 'The checked-out source must equal the workflow commit.'
-for smartplan_path in /opt/smartplan-test /opt/smartplan-online /opt/smartplan-plan-import /etc/smartplan-online /run/lock/smartplan-online-update.lock; do
+for smartplan_path in /opt/smartplan-test /opt/smartplan-online /opt/smartplan-plan-import /etc/smartplan-online; do
   [[ ! -e "$smartplan_path" && ! -L "$smartplan_path" ]] || fail "Refusing an existing server path: $smartplan_path"
 done
+if [[ -e /run/lock/smartplan-online-update.lock || -L /run/lock/smartplan-online-update.lock ]]; then
+  # The preceding targeted AppArmor preparation uses the same persistent lock.
+  [[ -f /run/lock/smartplan-online-update.lock && ! -L /run/lock/smartplan-online-update.lock &&
+     "$(stat -c %u:%h:%s /run/lock/smartplan-online-update.lock)" == 0:1:0 ]] || fail 'An unexpected shared update lock must be reviewed.'
+  smartplan_lock_mode="$(stat -c %a /run/lock/smartplan-online-update.lock)"
+  (( (8#$smartplan_lock_mode & 8#022) == 0 )) || fail 'The shared update lock must not be group/other writable.'
+fi
 for smartplan_path in /etc/systemd/system/smartplan-plan-import* /run/systemd/system/smartplan-plan-import*; do
   [[ ! -e "$smartplan_path" && ! -L "$smartplan_path" ]] || fail "Refusing an existing import unit or drop-in: $smartplan_path"
 done
@@ -92,9 +99,7 @@ smartplan_cleanup() {
       smartplan_exit=1
     fi
   fi
-  if [[ -f /run/lock/smartplan-online-update.lock && ! -L /run/lock/smartplan-online-update.lock ]]; then
-    (flock -n 8 && rm -- /run/lock/smartplan-online-update.lock) 8<>/run/lock/smartplan-online-update.lock || smartplan_exit=1
-  fi
+  # The shared management lock is persistent and is never unlinked by a fixture.
   if (( smartplan_started_postgres )); then systemctl stop postgresql@16-main.service || smartplan_exit=1; fi
   exit "$smartplan_exit"
 }

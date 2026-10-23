@@ -11,6 +11,7 @@ on:
       - 'deploy/hetzner/online/smartplan-plan-import.service'
       - 'deploy/hetzner/online/accept-plan-import.sh'
       - 'deploy/hetzner/online/accept-plan-import-fixture.py'
+      - 'deploy/hetzner/online/prepare-bwrap-apparmor.sh'
       - 'scripts/test-import-systemd.sh'
       - '.github/workflows/plan-import.yml'
   pull_request:
@@ -23,6 +24,7 @@ on:
       - 'deploy/hetzner/online/smartplan-plan-import.service'
       - 'deploy/hetzner/online/accept-plan-import.sh'
       - 'deploy/hetzner/online/accept-plan-import-fixture.py'
+      - 'deploy/hetzner/online/prepare-bwrap-apparmor.sh'
       - 'scripts/test-import-systemd.sh'
       - '.github/workflows/plan-import.yml'
   workflow_dispatch:
@@ -50,8 +52,10 @@ jobs:
       - name: Install unprivileged Linux isolation and local OCR tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends bubblewrap python3-venv tesseract-ocr tesseract-ocr-eng tesseract-ocr-deu fonts-dejavu-core libseccomp2 postgresql-16
+          sudo apt-get install -y --no-install-recommends bubblewrap python3-venv tesseract-ocr tesseract-ocr-eng tesseract-ocr-deu fonts-dejavu-core libseccomp2 postgresql-16 apparmor apparmor-profiles
           /usr/bin/bwrap --version
+      - name: Prepare only the official targeted Ubuntu bubblewrap AppArmor profile
+        run: sudo /usr/bin/bash deploy/hetzner/online/prepare-bwrap-apparmor.sh
       - name: Prepare dedicated parser runtime from locked dependencies
         run: |
           umask 0077

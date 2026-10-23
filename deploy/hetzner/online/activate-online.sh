@@ -4,6 +4,9 @@ set -euo pipefail
 umask 0077
 fail() { echo "$*" >&2; exit 1; }
 (( EUID == 0 )) || fail 'Im SSH-Serverfenster als root ausführen.'
+exec 9>/run/lock/smartplan-online-update.lock
+flock -n 9 || { echo 'Ein Update oder eine Verwaltung läuft bereits.' >&2; exit 1; }
+[[ ! -e /etc/smartplan-online/UPDATE_IN_PROGRESS && ! -L /etc/smartplan-online/UPDATE_IN_PROGRESS ]] || { echo 'Unvollständiges Update zuerst über das Journal klären.' >&2; exit 1; }
 smartplan_source="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 smartplan_repo="$(cd -- "$smartplan_source/../../.." && pwd)"
 [[ "$smartplan_repo" == /opt/smartplan-test ]] || fail 'Erwarteter Checkout: /opt/smartplan-test.'

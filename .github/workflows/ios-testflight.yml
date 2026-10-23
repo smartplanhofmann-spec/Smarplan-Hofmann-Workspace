@@ -3,12 +3,14 @@ name: iPhone TestFlight
 # Signierung/Upload erst nach Apple-Freischaltung ausdruecklich auswaehlen.
 on:
   push:
-    branches: [codex/smartplan-office-0.2]
+    branches: [codex/smartplan-office-0.2, 'codex/testupdate-0.7-*']
     paths:
       - '.github/workflows/ios-testflight.yml'
       - '.github/workflows/checks.yml'
       - 'app/**'
       - 'backend/**'
+      - 'scripts/native-release.py'
+      - 'scripts/test_native_release.py'
   workflow_dispatch:
     inputs:
       build_number:
@@ -28,7 +30,7 @@ concurrency:
 jobs:
   unsigned:
     name: Online-Release ohne Apple-Zugang pruefen
-    if: github.ref == 'refs/heads/codex/smartplan-office-0.2'
+    if: github.ref == 'refs/heads/codex/smartplan-office-0.2' || startsWith(github.ref, 'refs/heads/codex/testupdate-0.7-')
     runs-on: macos-latest
     timeout-minutes: 60
     defaults:
@@ -52,6 +54,10 @@ jobs:
         with:
           flutter-version: '3.47.7'
           channel: stable
+      - name: Native Offline-Voraussetzungen pruefen
+        run: |
+          python ../scripts/native-release.py source
+          python -m unittest discover -s ../scripts -p test_native_release.py -v
       - name: Build-Nummer bestimmen
         id: build
         env:
@@ -60,9 +66,12 @@ jobs:
         run: |
           python - <<'PY'
           import os
+          import re
+          from pathlib import Path
+          default = int(re.search(r'^version:.*\+(\d+)\s*$', Path('pubspec.yaml').read_text(), re.MULTILINE).group(1))
           raw = os.environ['INPUT_BUILD'] or str(int(os.environ['RUN_NUMBER']) + 100)
-          if not raw.isascii() or not raw.isdecimal() or not 7 <= int(raw) <= 999999999:
-              raise SystemExit('Build-Nummer muss eine ganze Zahl zwischen 7 und 999999999 sein')
+          if not raw.isascii() or not raw.isdecimal() or not default <= int(raw) <= 999999999:
+              raise SystemExit('Build-Nummer muss numerisch und mindestens so hoch wie die Quell-Buildnummer sein')
           number = str(int(raw))
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               print(f'number={number}', file=output)
@@ -99,30 +108,14 @@ jobs:
           --build-number=${{ steps.build.outputs.number }}
           --dart-define=API_URL=https://office.smartplan-hofmann.de
           --dart-define=API_VERSION=v1
-      - name: Online-Konfiguration und App-Kennung im Build pruefen
-        env:
-          EXPECTED_BUILD: ${{ steps.build.outputs.number }}
-        run: |
-          python - <<'PY'
-          import base64
-          import os
-          from pathlib import Path
-          import plistlib
-          lines = Path('ios/Flutter/Generated.xcconfig').read_text().splitlines()
-          encoded = next((line.split('=', 1)[1] for line in lines if line.startswith('DART_DEFINES=')), '')
-          definitions = dict(base64.b64decode(value, validate=True).decode().split('=', 1)
-                             for value in encoded.split(',') if value)
-          expected = {'API_URL': 'https://office.smartplan-hofmann.de', 'API_VERSION': 'v1'}
-          if any(definitions.get(key) != value for key, value in expected.items()):
-              raise SystemExit('Online-Konfiguration fehlt im erzeugten iOS-Build')
-          with Path('build/ios/iphoneos/Runner.app/Info.plist').open('rb') as source:
-              info = plistlib.load(source)
-          if info.get('CFBundleIdentifier') != 'de.smartplanhofmann.office':
-              raise SystemExit('Unerwartete Bundle-ID im erzeugten iOS-Build')
-          if str(info.get('CFBundleVersion')) != os.environ['EXPECTED_BUILD']:
-              raise SystemExit('Unerwartete Build-Nummer im erzeugten iOS-Build')
-          print('Online-Konfiguration, Bundle-ID und Build-Nummer bestaetigt.')
-          PY
+      - name: iPhone-/iPad-Konfiguration und Buildmanifest pruefen
+        run: >-
+          python ../scripts/native-release.py ios
+          --plist build/ios/iphoneos/Runner.app/Info.plist
+          --config ios/Flutter/Generated.xcconfig
+          --build-number=${{ steps.build.outputs.number }}
+          --commit "$GITHUB_SHA"
+          --output "$RUNNER_TEMP/RELEASE_MANIFEST.json"
       - name: Unsigniertes Pruefartefakt packen
         run: |
           ditto -c -k --keepParent build/ios/iphoneos/Runner.app "$RUNNER_TEMP/Smartplan-iOS-UNSIGNED.zip"
@@ -130,7 +123,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: Smartplan-Office-iOS-UNSIGNED-${{ steps.build.outputs.number }}
-          path: ${{ runner.temp }}/Smartplan-iOS-UNSIGNED.zip
+          path: |
+            ${{ runner.temp }}/Smartplan-iOS-UNSIGNED.zip
+            ${{ runner.temp }}/RELEASE_MANIFEST.json
           if-no-files-found: error
           retention-days: 14
 
@@ -225,6 +220,30 @@ jobs:
             -exportOptionsPlist "$RUNNER_TEMP/smartplan-asc/ExportOptions.plist" -exportPath build/ipa \
             -allowProvisioningUpdates \
             -authenticationKeyPath "$ASC_KEY_PATH" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+      - name: Signiertes iPhone-/iPad-Paket pruefen
+        run: |
+          shopt -s nullglob
+          files=("$GITHUB_WORKSPACE"/app/build/ipa/*.ipa)
+          [ "${#files[@]}" -eq 1 ] || { echo 'Genau eine IPA erwartet'; exit 1; }
+          unzip -q "${files[0]}" -d "$RUNNER_TEMP/smartplan-signed-app"
+          smartplan_app="$RUNNER_TEMP/smartplan-signed-app/Payload/Runner.app"
+          codesign --verify --deep --strict "$smartplan_app"
+          codesign -d --entitlements :- "$smartplan_app" > "$RUNNER_TEMP/smartplan-signed-entitlements.plist"
+          python ../scripts/native-release.py ios \
+            --plist "$smartplan_app/Info.plist" --config ios/Flutter/Generated.xcconfig \
+            --build-number=${{ needs.unsigned.outputs.build_number }} --commit "$GITHUB_SHA" \
+            --signed-entitlements "$RUNNER_TEMP/smartplan-signed-entitlements.plist" --team "$APPLE_TEAM_ID" \
+            --output build/ipa/RELEASE_MANIFEST.json
+          (cd build/ipa && shasum -a 256 "$(basename -- "${files[0]}")") > build/ipa/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Office-iOS-${{ needs.unsigned.outputs.build_number }}
+          path: |
+            app/build/ipa/*.ipa
+            app/build/ipa/RELEASE_MANIFEST.json
+            app/build/ipa/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14
       - name: Zu TestFlight hochladen
         run: |
           shopt -s nullglob
@@ -234,12 +253,6 @@ jobs:
           cd "$RUNNER_TEMP/smartplan-asc"
           xcrun altool --upload-app --type ios --file "${files[0]}" \
             --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Smartplan-Office-iOS-${{ needs.unsigned.outputs.build_number }}
-          path: app/build/ipa/*.ipa
-          if-no-files-found: error
-          retention-days: 14
       - name: API-Schluessel loeschen
         if: always()
         working-directory: .

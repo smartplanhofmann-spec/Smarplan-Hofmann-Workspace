@@ -11,7 +11,8 @@ from psycopg.conninfo import make_conninfo
 from online.store import PostgresOffice
 
 
-def restore(source, active_dsn, target_dsn):
+def restore_dump(source, active_dsn, target_dsn):
+    """Restore into a different empty DB; caller must validate schema and contents."""
     source = Path(source)
     sidecar = Path(str(source) + '.sha256')
     if source.is_symlink() or sidecar.is_symlink():
@@ -32,13 +33,17 @@ def restore(source, active_dsn, target_dsn):
                                 stderr=subprocess.PIPE, timeout=300)
     if result.returncode:
         raise RuntimeError('Wiederherstellung fehlgeschlagen; neue Zieldatenbank bleibt vom Betrieb getrennt.')
+
+
+def restore(source, active_dsn, target_dsn):
+    restore_dump(source, active_dsn, target_dsn)
     office = PostgresOffice(target_dsn)
     try:
         with office.lock, office.db:
             for row in office.db.execute('SELECT pdf,pdf_hash FROM reports WHERE pdf IS NOT NULL'):
                 if hashlib.sha256(row['pdf']).hexdigest() != row['pdf_hash']:
                     raise ValueError('PDF-Integritätsprüfung fehlgeschlagen.')
-            for table in ('sessions', 'auth_challenges', 'login_limits'):
+            for table in ('sessions', 'plan_sessions', 'auth_challenges', 'login_limits'):
                 office.db.execute(f'DELETE FROM {table}')
     finally:
         office.db.close()

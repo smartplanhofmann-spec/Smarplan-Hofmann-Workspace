@@ -188,6 +188,7 @@ class OnlineApiTests(unittest.TestCase):
 
     def test_dump_restore_preserves_pdf_and_revokes_sessions(self):
         token = self.login()['token']
+        device = self.request('/offline/access', {}, token, 201).json['token']
         owner = self.office.user(token)
         project = self.office.add_project(owner, 'Restore', 'Testkunde')
         report = self.office.draft(owner, project, 'Servicebericht', 'Test')
@@ -209,6 +210,10 @@ class OnlineApiTests(unittest.TestCase):
                     self.assertEqual(target.pdf(owner, report['id']), pdf)
                     self.assertEqual(target.db.execute('SELECT COUNT(*) FROM sessions').fetchone()[0], 0)
                     self.assertEqual(target.db.execute('SELECT COUNT(*) FROM mfa').fetchone()[0], 1)
+                    self.assertEqual(target.db.execute('SELECT COUNT(*) FROM plan_sessions').fetchone()[0], 0)
+                    import plan_access
+                    with self.assertRaises(Problem):
+                        plan_access.user(target, device)
                     with self.assertRaises(Problem):
                         target.user(token)
                 finally:

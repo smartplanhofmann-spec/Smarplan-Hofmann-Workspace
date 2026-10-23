@@ -12,6 +12,8 @@ def restore(source, destination):
     try:
         with closing(sqlite3.connect(target)) as database, database:
             database.execute("DELETE FROM sessions")
+            if database.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='plan_sessions'").fetchone():
+                database.execute("DELETE FROM plan_sessions")
     except Exception:
         target.unlink(missing_ok=True)
         raise

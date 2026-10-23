@@ -6,6 +6,12 @@ on:
 permissions:
   contents: read
 jobs:
+  update-flow:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check update and recovery in an isolated container
+        run: bash scripts/test-update-flow.sh
   online-api:
     runs-on: ubuntu-24.04
     services:
@@ -32,6 +38,8 @@ jobs:
       - name: PostgreSQL-, Speicher- und OneDrive-Vertraege pruefen
         run: |
           python -m unittest discover -s backend/online -p test_online.py -v
+          python -m unittest discover -s backend/online -p test_plans_online.py -v
+          python -m unittest discover -s backend/online -p test_release.py -v
           python -m unittest discover -s backend/online -p test_storage.py -v
           python -m unittest discover -s backend/online -p test_onedrive.py -v
       - name: Check online units, scripts and real HTTPS runtime
@@ -42,6 +50,7 @@ jobs:
           trap 'rm -rf -- "$smartplan_caddy_test"' EXIT
           bash deploy/hetzner/https/fetch-caddy.sh "$smartplan_caddy_test"
           SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python backend/online/test_runtime.py
+          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python -m unittest discover -s backend/online -p test_release_tls.py -v
   https-setup:
     runs-on: ubuntu-latest
     steps:
@@ -92,6 +101,10 @@ jobs:
           flutter-version: '3.47.7'
           channel: stable
       - run: flutter pub get --enforce-lockfile
+      - name: Check native release configuration and package contracts
+        run: |
+          python ../scripts/native-release.py source
+          python -m unittest discover -s ../scripts -p test_native_release.py -v
       - run: flutter analyze
       - run: flutter test
   native-build:
@@ -110,9 +123,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        if: runner.os == 'Windows'
         with:
           python-version: '3.12'
+      - name: Check native release configuration
+        run: python ../scripts/native-release.py source
+      - name: Check Visual C++ ATL for protected device storage
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanVswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+          $smartplanAtl = & $smartplanVswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.ATL -property installationPath
+          if ($LASTEXITCODE -ne 0 -or -not $smartplanAtl) { throw 'Visual Studio C++ x64 and ATL components are required for the offline storage plugin.' }
       - name: Install Windows backend for client integration test
         if: runner.os == 'Windows'
         shell: pwsh
@@ -149,7 +170,7 @@ jobs:
           $smartplanBundle = (Resolve-Path 'build/windows/x64/runner/Release').Path
           $smartplanBundleFiles = (Get-ChildItem $smartplanBundle -Name) -join ', '
           Write-Host "::notice title=Windows bundle files::$smartplanBundleFiles"
-          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll')) {
+          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll', 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll')) {
             if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
               throw "Required application file is missing: $smartplanFile"
             }
@@ -170,14 +191,14 @@ jobs:
             }
           }
           New-Item -ItemType Directory -Force (Join-Path $smartplanBundle 'backend') | Out-Null
-          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'requirements.lock')) {
+          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'requirements.lock')) {
             Copy-Item (Join-Path '../backend' $smartplanFile) -Destination (Join-Path $smartplanBundle 'backend')
           }
           Copy-Item '../windows/*.cmd' -Destination $smartplanBundle
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.6.0 - lokales Windows-Testpaket (x64)
+          Smartplan Office 0.7.0 - lokales Windows-Testpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -188,9 +209,14 @@ jobs:
           Flutter, Visual Studio und C++-Buildwerkzeuge werden zum Start dieses Pakets nicht benoetigt.
           Die benoetigten Visual-C++-Laufzeit-DLLs sind enthalten.
           Das Paket ist eine Entwicklungsstufe, kein signierter Installer und kein produktiver Mehrbenutzerbetrieb.
+          Projektplaene werden zuerst lokal geschuetzt gespeichert und spaeter synchronisiert.
+          Offline-Berechtigung: bis zu sieben Tage nach Online-Anmeldung; ohne Verbindung sind nur vorbereitete Plaene verfuegbar.
+          Berichte und Medien benoetigen weiterhin Verbindung. Geraeteentsperrung separat pruefen.
           OneDrive ist erst nach einer gesonderten Einrichtung nutzbar.
           '@
           Set-Content -Path (Join-Path $smartplanBundle 'APP_VERSION.txt') -Value $smartplanReadme -Encoding utf8
+          python ../scripts/native-release.py windows --bundle $smartplanBundle --config windows/flutter/ephemeral/generated_config.cmake --flavor local --commit $env:GITHUB_SHA
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Report Windows package diagnostics
         if: failure() && runner.os == 'Windows'
         shell: pwsh
@@ -232,7 +258,7 @@ jobs:
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
           $smartplanInstructions = @'
-          Smartplan Office 0.6.0 - Online-Pilot fuer Windows (x64)
+          Smartplan Office 0.7.0 - Online-Pilot fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
@@ -240,7 +266,11 @@ jobs:
           Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
           und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
           Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
-          Das Paket ist ein Online-Pilot, kein signierter Installer. Echte iPhone-Verteilung,
+          Servervoraussetzung: freigegebenes Plan-/Offline-Update mit PostgreSQL-Schema 2.
+          Projektplaene vor der Fahrt oeffnen; neue Plaene und Wand-/Titelaenderungen werden zuerst lokal gespeichert.
+          Offline bis zu sieben Tage; Berichte, Kundenverwaltung und Medien benoetigen weiterhin Verbindung.
+          Ausstehende Plaene nicht durch Deinstallation oder Loeschen von App-Daten entfernen.
+          Das Paket ist ein Online-Pilot, kein signierter Installer.
           Eine zusaetzliche PDF-Ablage ist nach Einrichtung und Auswahl in der App nutzbar.
           Echte Kontoverbindung, Datenuebernahme und getrennte verschluesselte Backups separat pruefen.
           '@
@@ -248,6 +278,8 @@ jobs:
           foreach ($smartplanFile in @('smartplan_office.exe', 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')) {
             if (-not (Test-Path (Join-Path $smartplanOnline $smartplanFile))) { throw "Online package file missing: $smartplanFile" }
           }
+          python ../scripts/native-release.py windows --bundle $smartplanOnline --config windows/flutter/ephemeral/generated_config.cmake --flavor online --commit $env:GITHUB_SHA
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Upload separate online Windows pilot
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4

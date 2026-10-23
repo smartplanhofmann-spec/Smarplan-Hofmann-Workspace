@@ -1,8 +1,29 @@
-# Smartplan Office auf das iPhone (TestFlight) – ohne Mac
+# Smartplan Office auf iPhone und iPad (TestFlight) – ohne Mac
 
 Gebaut und signiert wird ausschließlich auf GitHub Actions (`macos-latest`) mit dem Workflow
 `.github/workflows/ios-testflight.yml`. Der Flutter-Client wird gemeinsam mit Windows entwickelt.
 Die iPhone-App verbindet sich nur mit `https://office.smartplan-hofmann.de` (API v1, HTTPS; keine ATS-Ausnahme nötig).
+
+## Testupdate 0.7.0: Projektpläne und Offline-Speicherung
+
+Für das nächste Update ist die App als `0.7.0+9` gekennzeichnet; der TestFlight-
+Workflow ersetzt die Buildnummer weiter durch seine aufsteigende Laufnummer.
+Die [Vorbereitung und Geräteabnahme](TESTUPDATE_0_7.md) beschreibt Reihenfolge,
+Artefakte und Flugmodusprüfung. Der neue Client benötigt das freigegebene
+Serverupdate mit Datenbankschema 2, bevor die Plan-/Offline-Anmeldung funktioniert.
+Bestehende App-ID, Apple-Mitgliedschaft und Secrets werden weiterverwendet.
+
+Ein separater `codex/testupdate-0.7-*`-Branch löst nur die unsignierte
+Geräteprüfung aus. Der signierte Upload bleibt auf den manuellen Start des
+bisherigen Releasebranchs beschränkt.
+
+Die CI prüft jetzt im erzeugten Paket iPhone- **und** iPad-Unterstützung,
+Face-ID-Beschreibung, Version, Buildnummer, API-Ziel und Bundle-ID. Beim
+signierten IPA werden zusätzlich Codesignatur, erwartetes Team und tatsächliche
+Keychain-Entitlements geprüft. Das geprüfte IPA samt Manifest und SHA-256-Datei
+wird vor dem separat angeforderten TestFlight-Upload als Artefakt gesichert.
+Die Quellprüfung und Paketprüfungen liefen hier erfolgreich; ein nativer
+macOS-/Windows-Build dieses neuen Standes wurde hier noch nicht ausgeführt.
 
 ## Vorbereiteter Signierweg und aktueller Stand
 
@@ -81,7 +102,7 @@ Die Schritte 2–6 dokumentieren die Ersteinrichtung; sie sind nicht erneut ausz
    inzwischen für Build 108 verwendet; für dieses Update ist keine neue Anmeldung nötig.
 2. **Team-ID finden:** developer.apple.com/account → „Membership details“ → *Team ID* (10 Zeichen).
 3. **Bundle-ID registrieren:** Certificates, Identifiers & Profiles → Identifiers → „+“ → App IDs → App →
-   Beschreibung „Smartplan Office“, *Explicit* Bundle ID `de.smartplanhofmann.office`. Keine Zusatzfunktionen nötig.
+   Beschreibung „Smartplan Office“, *Explicit* Bundle ID `de.smartplanhofmann.office`. Die Offline-Stufe verwendet die im Repository vorbereiteten Keychain-Entitlements; keine neue App-ID anlegen.
 4. **App in App Store Connect anlegen:** appstoreconnect.apple.com → Apps → „+“ → Neue App: Plattform iOS,
    Name „Smartplan Office“ (falls belegt z. B. „Smartplan Office Hofmann“), Sprache Deutsch,
    Bundle-ID `de.smartplanhofmann.office`, SKU z. B. `smartplan-office-001`, Zugriff: Vollständig.
@@ -96,8 +117,8 @@ Die Schritte 2–6 dokumentieren die Ersteinrichtung; sie sind nicht erneut ausz
 7. **Workflow starten:** Actions → „iPhone TestFlight“ → „Run workflow“ → Branch
    `codex/smartplan-office-0.2` wählen. Dieser Branch ist zugleich der Standardbranch;
    der manuelle Start ist verfügbar, sobald die Workflow-Datei dort liegt.
-   Build-Nummer leer lassen (automatisch Laufnummer + 100, immer > 6) oder eine
-   höhere Zahl als die letzte hochgeladene eingeben.
+   Build-Nummer leer lassen (automatisch Laufnummer + 100, mindestens Quell-Buildnummer) oder eine
+   höhere Zahl als die letzte hochgeladene eingeben; mindestens die Quell-Buildnummer aus `pubspec.yaml`.
    Änderungen lösen zunächst einen unsignierten Prüflauf aus. Dieser führt Analyse,
    App-Tests einschließlich echtem lokalem Python-Backend und einen Online-Release-Build
    aus. Apple-Schlüssel werden diesem Job nicht bereitgestellt.
@@ -106,8 +127,12 @@ Die Schritte 2–6 dokumentieren die Ersteinrichtung; sie sind nicht erneut ausz
    Signier-/Upload-Job; fehlende Secrets führen dort zu einer klaren Fehlermeldung.
    Das signierte IPA wird nach erfolgreichem Export als Artefakt bereitgestellt.
    Ein unsignierter Prüflauf erzeugt noch keine installierbare iPhone-App.
-8. **Exportkonformität:** In der App ist `ITSAppUsesNonExemptEncryption = false` gesetzt (nur Standard-HTTPS).
-   Die Frage in App Store Connect entfällt dadurch normalerweise.
+8. **Exportkonformität:** Der bestehende Flag `ITSAppUsesNonExemptEncryption = false` bleibt erhalten.
+   Die App verwendet jetzt zusätzlich AES-GCM für lokale Dateien über `package:cryptography`;
+   die frühere Beschreibung „nur Standard-HTTPS“ gilt nicht mehr. Der Flag allein belegt
+   keine Ausnahme. Die Angaben im vorhandenen App-Store-Connect-Eintrag müssen vor
+   einem echten Upload zur aktuellen Verschlüsselungsverwendung passen; eine rechtliche
+   Einstufung wird nicht aus einer erfolgreichen technischen Buildprüfung abgeleitet.
 9. **Interne Tester:** App Store Connect → App → TestFlight. Nach 5–30 Min. „Verarbeitung“ erscheint der Build.
    „Interne Tests“ → Gruppe anlegen → Tester (müssen Benutzer im App-Store-Connect-Team sein) hinzufügen → Build zuweisen.
 10. **iPhone:** App „TestFlight“ aus dem App Store installieren, Einladungs-E-Mail öffnen → „Annehmen“ → „Installieren“.

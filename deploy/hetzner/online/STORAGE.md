@@ -44,20 +44,17 @@ git pull --ff-only origin codex/smartplan-office-0.2
 bash deploy/hetzner/online/update-online.sh
 ```
 
-Der Updateablauf erstellt zuerst mit dem vorhandenen Dienst eine PostgreSQL-
-Sicherung. Neue Quellen und Abhängigkeiten werden in einem eigenen Releasepfad
-vorbereitet. Erst danach wird der Dienst kurz angehalten und auf den neuen Stand
-umgestellt. Schlägt Start oder Bereitschaftsprüfung fehl, werden die vorherigen
-Codepfade wiederhergestellt. Alte Releases werden nicht automatisch gelöscht.
-
-Datenbank, Microsoft-Tokens, bestehende Berichte, MFA-Tresorschlüssel und HTTPS-
-Konfiguration bleiben erhalten. Das Skript führt keine Datenmigration oder
-Datenwiederherstellung aus. Ein Wechsel des Datenbankschemas braucht einen eigenen
-Migrations- und Rückkehrplan. Die Sicherung bleibt auf dem Server; das ersetzt
-kein getrenntes Sicherungsziel.
+Für Version 0.7 gilt der [Kandidaten-Updateablauf](UPDATE_0_7.md): Nach wirksamer
+Wartung und Dienststopp wird der vorhandene Bestand gesichert und in eine
+separate DB restauriert. Erst nach Inhaltsvergleich und Schema-Migration wird
+umgeschaltet. Die Original-DB und die geschützte Speicher-/Vault-Konfiguration
+bleiben erhalten. Ab öffentlicher Freigabe wird bei Fehlern nicht automatisch
+zurückgeschaltet, um neue Schreibvorgänge zu erhalten. Ein unvollständiges
+Updatejournal sperrt auch die Speichereinrichtung bis zur Klärung.
 
 Die vorhandene Erstinstallation `install-online.sh` nicht erneut ausführen.
 Ein `git pull` allein aktualisiert die installierte Codekopie nicht.
+Die Sicherung auf derselben VM ersetzt kein getrenntes Sicherungsziel.
 
 ## Anschluss vorbereiten
 

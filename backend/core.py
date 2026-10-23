@@ -149,6 +149,16 @@ class Office:
           payload TEXT,pdf BLOB,pdf_hash TEXT,onedrive_id TEXT);
         CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,user_id TEXT,action TEXT,object_id TEXT,at TEXT);
         CREATE TABLE IF NOT EXISTS secrets(name TEXT PRIMARY KEY,value TEXT);
+        CREATE TABLE IF NOT EXISTS plan_versions(
+            id TEXT NOT NULL, revision INTEGER NOT NULL, project_id TEXT NOT NULL REFERENCES projects(id),
+            payload TEXT NOT NULL, PRIMARY KEY(id,revision));
+            CREATE TABLE IF NOT EXISTS plan_requests(
+            user_id TEXT NOT NULL REFERENCES users(id), request_id TEXT NOT NULL,
+            project_id TEXT NOT NULL REFERENCES projects(id), request_hash TEXT NOT NULL,
+            result TEXT NOT NULL, PRIMARY KEY(user_id,request_id));
+            CREATE TABLE IF NOT EXISTS plan_sessions(
+            token TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
+            expiry DOUBLE PRECISION NOT NULL, credential TEXT NOT NULL);
         """)
         self.db.commit()
         try:
@@ -311,6 +321,7 @@ class Office:
                                 (salt, password_hash(changes["password"], salt), user_id))
             if not active or role != row["role"] or "password" in changes:
                 self.db.execute("DELETE FROM sessions WHERE user_id=?", (user_id,))
+                self.db.execute("DELETE FROM plan_sessions WHERE user_id=?", (user_id,))
             self.audit(actor, "user.updated", user_id)
             return dict(self.db.execute("SELECT id,email,role,active FROM users WHERE id=?", (user_id,)).fetchone())
 
@@ -406,6 +417,59 @@ class Office:
                             (project_id,name,record["name"],customer_id))
             self.audit(user,"project.created",project_id)
         return project_id
+
+    def plans(self, user, project_id):
+        with self.lock:
+            self.project(user, project_id)
+            return [json.loads(row[0]) for row in self.db.execute(
+                'SELECT p.payload FROM plan_versions p WHERE p.project_id=? AND p.revision='
+                '(SELECT MAX(v.revision) FROM plan_versions v WHERE v.id=p.id) ORDER BY p.id', (project_id,))]
+
+    def plan(self, user, project_id, plan_id):
+        with self.lock:
+            self.project(user, project_id)
+            row = self.db.execute('SELECT payload FROM plan_versions WHERE id=? AND project_id=? '
+                                  'ORDER BY revision DESC LIMIT 1', (plan_id, project_id)).fetchone()
+            if not row:
+                raise Problem(404, 'Plan nicht verfügbar')
+            return json.loads(row[0])
+
+    def save_plan(self, user, project_id, data, plan_id=None):
+        from plans import validate_drawing
+        self.require(user, ('owner', 'manager', 'technician'))
+        if set(data) - {'request_id'} != ({'title', 'walls', 'revision'} if plan_id else {'title', 'walls'}):
+            raise Problem(400, 'Plantitel, Wände und gegebenenfalls Ausgangsversion erwartet')
+        title = text_field(data.get('title'), 'Plantitel', 200)
+        walls = validate_drawing(data.get('walls'))
+        request_id = data.get('request_id')
+        if 'request_id' in data and (not isinstance(request_id, str) or not re.fullmatch(r'[a-f0-9]{32}', request_id)):
+            raise Problem(400, 'Eindeutige Synchronisierungs-ID erwartet')
+        fingerprint = digest(canonical(dict(project_id=project_id, plan_id=plan_id, data=data)))
+        with self.lock, self.db:
+            self.project(user, project_id)
+            if request_id:
+                previous = self.db.execute('SELECT request_hash,result FROM plan_requests WHERE user_id=? AND request_id=?',
+                                           (user['id'], request_id)).fetchone()
+                if previous:
+                    if previous['request_hash'] != fingerprint:
+                        raise Problem(409, 'Synchronisierungs-ID wurde bereits für einen anderen Inhalt verwendet')
+                    return json.loads(previous['result'])
+            revision = 1
+            if plan_id:
+                current = self.plan(user, project_id, plan_id)
+                if type(data['revision']) is not int or data['revision'] != current['revision']:
+                    raise Problem(409, 'Der Plan wurde inzwischen geändert. Neu laden; Ihre Zeichnung bleibt geöffnet.')
+                revision = current['revision'] + 1
+            plan_id = plan_id or uuid.uuid4().hex
+            result = dict(id=plan_id, project_id=project_id, title=title, revision=revision,
+                          status='draft', units='unitless', walls=walls, updated_at=now_iso(), updated_by=user['id'])
+            self.db.execute('INSERT INTO plan_versions(id,revision,project_id,payload) VALUES(?,?,?,?)',
+                            (plan_id, revision, project_id, canonical(result)))
+            self.audit(user, 'plan.saved', plan_id)
+            if request_id:
+                self.db.execute('INSERT INTO plan_requests(user_id,request_id,project_id,request_hash,result) VALUES(?,?,?,?,?)',
+                                (user['id'], request_id, project_id, fingerprint, canonical(result)))
+            return result
 
     def draft(self, user, project_id, kind, description):
         self.require(user,("owner","manager","technician"))

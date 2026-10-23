@@ -12,6 +12,7 @@ class LoginView extends StatefulWidget {
   final bool busy;
   final String? error;
   final VoidCallback onLogin;
+  final VoidCallback? onOffline;
   final String? connectionLabel;
   const LoginView({
     super.key,
@@ -21,6 +22,7 @@ class LoginView extends StatefulWidget {
     required this.busy,
     this.error,
     required this.onLogin,
+    this.onOffline,
     this.connectionLabel,
   });
   @override
@@ -256,6 +258,18 @@ class _LoginViewState extends State<LoginView> {
                                                 ],
                                               ),
                                             ),
+                                            if (widget.onOffline != null)
+                                              TextButton.icon(
+                                                onPressed: widget.busy
+                                                    ? null
+                                                    : widget.onOffline,
+                                                icon: const Icon(
+                                                  Icons.offline_pin_outlined,
+                                                ),
+                                                label: const Text(
+                                                  'Offline-Pläne entsperren',
+                                                ),
+                                              ),
                                             const SizedBox(height: 22),
                                             const Row(
                                               mainAxisAlignment:

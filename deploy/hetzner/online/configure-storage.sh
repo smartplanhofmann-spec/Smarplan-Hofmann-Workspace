@@ -11,6 +11,7 @@ fail() { echo "$*" >&2; exit 1; }
 [[ -x /opt/smartplan-online/venv/bin/python ]] || fail 'Vorhandene Online-Installation fehlt.'
 exec 9>/run/lock/smartplan-online-update.lock
 flock -n 9 || fail 'Ein Update oder eine Speichereinrichtung läuft bereits.'
+[[ ! -e /etc/smartplan-online/UPDATE_IN_PROGRESS && ! -L /etc/smartplan-online/UPDATE_IN_PROGRESS ]] || fail 'Unvollständiges Update zuerst über das Journal klären.'
 systemctl is-active --quiet smartplan-online.service || fail 'Online-Dienst muss vor der Einrichtung laufen.'
 if [[ -e /etc/smartplan-online/storage.json || -L /etc/smartplan-online/storage.json ]]; then
   [[ -f /etc/smartplan-online/storage.json && ! -L /etc/smartplan-online/storage.json ]] || fail 'Vorhandene Speicherkonfiguration zuerst prüfen.'

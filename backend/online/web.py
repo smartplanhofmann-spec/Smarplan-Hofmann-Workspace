@@ -9,16 +9,19 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 
 from core import Problem, digest
 from online.auth import Authentication
-from online.store import PostgresOffice
+from online.store import PostgresOffice, SCHEMA_VERSION
 from online.storage import Storage
+import plan_access
 
 METHODS = {
+    '/offline/access': 'POST', '/offline/logout': 'POST',
     '/me': 'GET', '/logout': 'POST', '/users': 'GET, POST',
     '/customers': 'GET, POST', '/projects': 'GET, POST', '/assignments': 'POST',
     '/storage/status': 'GET', '/storage/connect': 'POST',
     '/storage/provider': 'POST', '/storage/disconnect': 'POST',
 }
 PATTERNS = [
+    (r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', 'GET, POST'),
     (r'/users/[a-f0-9]{32}', 'POST'),
     (r'/customers/[a-f0-9]{32}', 'GET, POST'),
     (r'/projects/[a-f0-9]{32}/customer', 'POST'),
@@ -31,6 +34,12 @@ PATTERNS = [
 
 
 def dispatch(office, user, path, method, data, token):
+    if path == '/offline/access':
+        if data:
+            raise Problem(400, 'Keine Zugangsdaten im Anfrageinhalt erwartet')
+        return plan_access.issue(office, user), 201
+    if path == '/offline/logout':
+        return plan_access.revoke(office, token), 200
     if path == '/me':
         return user, 200
     if path == '/logout':
@@ -53,6 +62,11 @@ def dispatch(office, user, path, method, data, token):
     if parts[0] == 'customers':
         return (office.customer(user, parts[1]) if method == 'GET' else office.update_customer(user, parts[1], data)), 200
     if parts[0] == 'projects':
+        if parts[2] == 'plans':
+            plan_id = parts[3] if len(parts) == 4 else None
+            if method == 'GET':
+                return (office.plan(user, parts[1], plan_id) if plan_id else office.plans(user, parts[1])), 200
+            return office.save_plan(user, parts[1], data, plan_id), 200 if plan_id else 201
         if parts[2] == 'customer':
             if set(data) != {'customer_id'}:
                 raise Problem(400, 'Kundenzuordnung erwartet')
@@ -131,7 +145,8 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         try:
             with office.lock, office.db:
                 office.db.execute('SELECT COUNT(*) FROM users').fetchone()
-            return jsonify(status='ok', version='0.6.0-online-pilot', database='ok')
+            return jsonify(status='ok', version='0.7.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
+                           capabilities=['project_plans', 'offline_plan_access'])
         except Exception:
             return jsonify(status='unavailable'), 503
 
@@ -174,6 +189,11 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         if not authorization.startswith('Bearer ') or len(authorization) > 200:
             raise Problem(401, 'Bitte anmelden')
         token = authorization[7:]
+        plan_token = token.startswith(plan_access.PREFIX)
+        if plan_token and not (path == '/offline/logout' or
+                (path == '/projects' and request.method == 'GET') or
+                re.fullmatch(r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path)):
+            raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne')
         if path.startswith('/storage/'):
             if path == '/storage/status':
                 return jsonify(storage.status(token))
@@ -192,7 +212,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                                           expected_provider='onedrive' if transfer[2] == 'onedrive' else None))
         # One transaction includes fresh authorization, all reads/writes, and PDF access.
         with office.lock, office.db:
-            user = office.user(token)
+            user = plan_access.user(office, token) if plan_token else office.user(token)
             result, status = dispatch(office, user, path, request.method, data, token)
         return (result if isinstance(result, Response) else jsonify(result)), status
 

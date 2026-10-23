@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +11,8 @@ import 'design.dart';
 import 'home_views.dart';
 import 'customer_pages.dart';
 import 'mfa_dialog.dart';
+import 'offline_plans.dart';
+import 'plan_pages.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,8 +43,10 @@ class OfficeHome extends StatefulWidget {
   State<OfficeHome> createState() => _OfficeHomeState();
 }
 
-class _OfficeHomeState extends State<OfficeHome> {
+class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
   late final OfficeApi api;
+  OfflinePlans? offline;
+  bool offlineMode = false;
   final email = TextEditingController(), password = TextEditingController();
   final loginForm = GlobalKey<FormState>();
   Map<String, dynamic>? user, storage;
@@ -50,17 +56,57 @@ class _OfficeHomeState extends State<OfficeHome> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     api = widget.api ?? OfficeApi();
     api.addListener(sessionChanged);
+    if (widget.api == null) {
+      offline = OfflinePlans(api: api)..addListener(offlineChanged);
+    }
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    offline?.removeListener(offlineChanged);
+    offline?.dispose();
     api.removeListener(sessionChanged);
     if (widget.api == null) api.dispose();
     email.dispose();
     password.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed && offline?.active == true)
+      unawaited(offline!.sync());
+  }
+
+  void offlineChanged() {
+    if (mounted) setState(() {});
+  }
+
+  Future<void> resumeOffline() => run(() async {
+    await offline!.resume();
+    if (mounted)
+      setState(() {
+        user = offline!.user;
+        projects = offline!.projects;
+        offlineMode = true;
+      });
+  });
+  Future<void> openOfflinePlans(Map<String, dynamic> project) async {
+    await Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => PlansPage(
+          api: api,
+          project: project,
+          canWrite: ['owner', 'manager', 'technician'].contains(user!['role']),
+          repository: offline,
+        ),
+      ),
+    );
   }
 
   void sessionChanged() {
@@ -70,6 +116,7 @@ class _OfficeHomeState extends State<OfficeHome> {
       user = null;
       projects = [];
       storage = null;
+      offlineMode = false;
       error = 'Sitzung beendet. Bitte erneut anmelden.';
     });
   }
@@ -94,6 +141,7 @@ class _OfficeHomeState extends State<OfficeHome> {
     Map<String, dynamic>? state;
     if (user?['role'] == 'owner')
       state = Map<String, dynamic>.from(await api.call('/api/storage/status'));
+    if (offline?.active == true) await offline!.refreshProjects(items);
     if (mounted)
       setState(() {
         projects = items;
@@ -104,6 +152,7 @@ class _OfficeHomeState extends State<OfficeHome> {
   Future<void> login() async {
     if (!loginForm.currentState!.validate()) return;
     await run(() async {
+      await offline?.leave();
       var result = await api.call('/api/login', {
         'email': email.text.trim(),
         'password': password.text,
@@ -138,6 +187,18 @@ class _OfficeHomeState extends State<OfficeHome> {
         if (!mounted) return;
         setState(() => user = me);
         await loadProjects();
+        offlineMode = false;
+        if (offline != null) {
+          try {
+            await offline!.login(me, projects);
+          } catch (e) {
+            if (mounted)
+              setState(
+                () => error =
+                    'Online angemeldet; Offline-Speicher nicht verfügbar: $e',
+              );
+          }
+        }
       } catch (_) {
         api.token = null;
         if (mounted)
@@ -154,12 +215,36 @@ class _OfficeHomeState extends State<OfficeHome> {
   }
 
   Future<void> logout() => run(() async {
+    if ((offline?.pending ?? 0) > 0) {
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Noch nicht übertragene Pläne'),
+          content: const Text(
+            'Lokale Änderungen bleiben auf diesem Gerät gespeichert. Abmelden?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('Zurück'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: const Text('Abmelden'),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true) return;
+    }
     try {
-      await api.call('/api/logout', {});
+      if (api.token != null) await api.call('/api/logout', {});
     } finally {
       api.token = null;
+      await offline?.logout();
       if (mounted)
         setState(() {
+          offlineMode = false;
           user = null;
           projects = [];
           storage = null;
@@ -227,9 +312,48 @@ class _OfficeHomeState extends State<OfficeHome> {
         busy: busy,
         error: error,
         onLogin: login,
+        onOffline: offline == null ? null : resumeOffline,
         connectionLabel: api.version == 'v1'
             ? 'Online-Pilot · ${Uri.parse(api.base).host}'
             : null,
+      );
+    }
+    if (offlineMode) {
+      final usable = offline!.permitted;
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Offline-Projektpläne'),
+          actions: [
+            TextButton(
+              onPressed: busy ? null : logout,
+              child: const Text('Online anmelden'),
+            ),
+          ],
+        ),
+        body: ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            Text(
+              usable
+                  ? 'Bis zu sieben Tage offline · ${offline!.pending} Änderungen ausstehend'
+                  : 'Offline-Freigabe abgelaufen. Bitte online anmelden. Eingaben bleiben erhalten.',
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Offline sind hier die lokal gespeicherten Projektpläne verfügbar. Berichte, Kundenverwaltung und Medien benötigen weiterhin Verbindung.',
+            ),
+            if (error != null) Text(error!),
+            if (usable)
+              for (final project in offline!.projects)
+                ListTile(
+                  title: Text(project['name']),
+                  leading: const Icon(Icons.architecture),
+                  enabled: usable && !busy,
+                  onTap: () =>
+                      openOfflinePlans(Map<String, dynamic>.from(project)),
+                ),
+          ],
+        ),
       );
     }
     return WorkspaceView(
@@ -266,8 +390,12 @@ class _OfficeHomeState extends State<OfficeHome> {
         await Navigator.push<void>(
           context,
           MaterialPageRoute(
-            builder: (_) =>
-                ProjectPage(api: api, project: project, role: user!['role']),
+            builder: (_) => ProjectPage(
+              api: api,
+              project: project,
+              role: user!['role'],
+              repository: offline?.active == true ? offline : null,
+            ),
           ),
         );
         if (mounted && user != null) await run(loadProjects);

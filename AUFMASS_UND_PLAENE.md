@@ -24,6 +24,13 @@ Aufmaß ist ein eigenes Erfassungsergebnis mit Originalaufnahme, Transkript, Ma�
 Beobachtungen und gegebenenfalls geprüften Mengen. Es wird nicht in einen
 Servicebericht umbenannt; eine spätere Übernahme in Berichte ist eine eigene Aktion.
 
+## Offline-Nutzung
+
+Verbindlich ergänzt: iPhone und iPad müssen Eingaben ohne Empfang dauerhaft
+lokal behalten und später synchronisieren. Bestätigte Offline-Dauer: sieben Tage
+nach erfolgreicher Online-Anmeldung. Verhalten, Schutz, Konflikte und noch
+offene Implementierung stehen in [Offline und Synchronisierung](OFFLINE_UND_SYNCHRONISIERUNG.md).
+
 ## Ablauf auf dem iPhone
 
 1. Im Projekt „Aufmaß“ öffnen, Raum auswählen oder einen neuen Raum benennen.

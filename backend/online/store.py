@@ -6,7 +6,7 @@ from psycopg.rows import dict_row
 
 from core import Office
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 # Serialize mutations across processes as well as threads in this small pilot.
 LOCK_ID = 741290518
 
@@ -91,7 +91,19 @@ def migrate(dsn):
         connection.execute('CREATE TABLE IF NOT EXISTS smartplan_schema(version INTEGER NOT NULL)')
         row = connection.execute('SELECT version FROM smartplan_schema').fetchone()
         if row:
-            if row['version'] != SCHEMA_VERSION:
+            if row['version'] == 1:
+                connection.execute('''CREATE TABLE IF NOT EXISTS plan_versions(
+            id TEXT NOT NULL, revision INTEGER NOT NULL, project_id TEXT NOT NULL REFERENCES projects(id),
+            payload TEXT NOT NULL, PRIMARY KEY(id,revision));
+            CREATE TABLE IF NOT EXISTS plan_requests(
+            user_id TEXT NOT NULL REFERENCES users(id), request_id TEXT NOT NULL,
+            project_id TEXT NOT NULL REFERENCES projects(id), request_hash TEXT NOT NULL,
+            result TEXT NOT NULL, PRIMARY KEY(user_id,request_id));
+            CREATE TABLE IF NOT EXISTS plan_sessions(
+            token TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
+            expiry DOUBLE PRECISION NOT NULL, credential TEXT NOT NULL);''')
+                connection.execute('UPDATE smartplan_schema SET version=2')
+            elif row['version'] != SCHEMA_VERSION:
                 raise RuntimeError('Nicht unterstützte PostgreSQL-Schemaversion.')
             return
         connection.execute('''
@@ -122,5 +134,15 @@ def migrate(dsn):
               failures INTEGER NOT NULL DEFAULT 0);
             CREATE TABLE login_limits(key TEXT PRIMARY KEY,failures INTEGER NOT NULL,
               reset_at DOUBLE PRECISION NOT NULL);
-            INSERT INTO smartplan_schema VALUES(1);
+            CREATE TABLE IF NOT EXISTS plan_versions(
+            id TEXT NOT NULL, revision INTEGER NOT NULL, project_id TEXT NOT NULL REFERENCES projects(id),
+            payload TEXT NOT NULL, PRIMARY KEY(id,revision));
+            CREATE TABLE IF NOT EXISTS plan_requests(
+            user_id TEXT NOT NULL REFERENCES users(id), request_id TEXT NOT NULL,
+            project_id TEXT NOT NULL REFERENCES projects(id), request_hash TEXT NOT NULL,
+            result TEXT NOT NULL, PRIMARY KEY(user_id,request_id));
+            CREATE TABLE IF NOT EXISTS plan_sessions(
+            token TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
+            expiry DOUBLE PRECISION NOT NULL, credential TEXT NOT NULL);
+            INSERT INTO smartplan_schema VALUES(2);
         ''')

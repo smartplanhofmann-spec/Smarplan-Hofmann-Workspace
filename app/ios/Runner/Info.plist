@@ -28,6 +28,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Smartplan entsperrt lokal gespeicherte Projektpläne mit Face ID oder Gerätecode.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Smartplan Office speichert auf Wunsch exportierte Berichte oder Bilder in Ihrer Fotomediathek.</string>
 	<key>UIApplicationSceneManifest</key>

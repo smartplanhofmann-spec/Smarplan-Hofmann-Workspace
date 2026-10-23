@@ -1,5 +1,10 @@
 # Smartplan Office - Entwicklungsstand 0.5.0
 
+Neue Entwicklungsstufe: [Projektpläne](PROJEKTPLAENE.md) mit projektbezogener
+Speicherung, Wandzeichnung, Versionskonfliktprüfung und verschlüsselter
+[Offline-Nutzung für sieben Tage](OFFLINE_UND_SYNCHRONISIERUNG.md). Flutter-Analyse
+und automatisierte Tests bestanden; Bereitstellung und Geräteprüfung stehen aus.
+
 Version 0.5.0 bereitet den getrennten [Online-Piloten](deploy/hetzner/online/README.md)
 vor: PostgreSQL, versionierte Flask/Gunicorn-API, Passwort plus Authenticator-Code,
 QR-Einrichtung und Wiederherstellungscodes. CI erstellt zusätzlich das Windows-

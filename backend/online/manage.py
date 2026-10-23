@@ -36,7 +36,7 @@ def main():
                 user = office.db.execute('SELECT * FROM users WHERE email=?', (args.email.strip().lower(),)).fetchone()
                 if not user:
                     raise SystemExit('Konto nicht gefunden.')
-                for table in ('mfa', 'sessions', 'auth_challenges'):
+                for table in ('mfa', 'sessions', 'plan_sessions', 'auth_challenges'):
                     office.db.execute(f'DELETE FROM {table} WHERE user_id=?', (user['id'],))
                 office.audit(user, 'mfa.operator_reset', user['id'])
             print('Authenticator zurückgesetzt, Sitzungen widerrufen. Nächste Anmeldung erfordert Neueinrichtung.')

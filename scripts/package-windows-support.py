@@ -6,7 +6,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
 BACKEND_FILES = ("backup.py", "restore.py", "core.py", "server.py", "onedrive.py",
-                 "windows_office.py", "requirements.lock")
+                 "windows_office.py", "plans.py", "plan_access.py", "requirements.lock")
 WINDOWS_FILES = ("Starten.cmd", "Sicherung_erstellen.cmd", "Sicherung_wiederherstellen.cmd",
                  "Run.cmd", "START_HIER.txt")
 

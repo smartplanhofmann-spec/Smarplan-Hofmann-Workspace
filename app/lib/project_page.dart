@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'admin_pages.dart';
+import 'plan_pages.dart';
+import 'offline_plans.dart';
 import 'api.dart';
 import 'pdf_page.dart';
 import 'design.dart';
@@ -20,11 +22,13 @@ class ProjectPage extends StatefulWidget {
   final OfficeApi api;
   final Map<String, dynamic> project;
   final String role;
+  final OfflinePlans? repository;
   const ProjectPage({
     super.key,
     required this.api,
     required this.project,
     required this.role,
+    this.repository,
   });
   @override
   State<ProjectPage> createState() => _ProjectPageState();
@@ -232,6 +236,21 @@ class _ProjectPageState extends State<ProjectPage> {
                   ),
             icon: const Icon(Icons.group_outlined, size: 21),
           ),
+        IconButton(
+          tooltip: 'Projektpläne',
+          icon: const Icon(Icons.architecture),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => PlansPage(
+                api: widget.api,
+                project: widget.project,
+                canWrite: canWrite,
+                repository: widget.repository,
+              ),
+            ),
+          ),
+        ),
         const SizedBox(width: 16),
       ],
     ),

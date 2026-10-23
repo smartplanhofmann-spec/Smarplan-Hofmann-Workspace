@@ -53,6 +53,10 @@ add_subdirectory(${FLUTTER_MANAGED_DIR})
 add_subdirectory("runner")
 
 
+# JNI is a transitive Android dependency. The Windows client uses Win32 APIs
+# and must not acquire an optional JVM dependency from a runner's Java install.
+set(CMAKE_DISABLE_FIND_PACKAGE_JNI TRUE)
+
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
 include(flutter/generated_plugins.cmake)

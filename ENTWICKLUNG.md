@@ -54,6 +54,17 @@ Die App listet vorhandene Berichte und Lieferscheine und öffnet Entwürfe erneu
 
 PDFs werden mit Anmeldung binär geladen, in der App angezeigt und unter Windows über einen Dateidialog gespeichert. Auf iOS erfolgt die Ausgabe über das Teilen-Menü, beispielsweise in Dateien. Fehler beim Abrufen und Ausgeben werden angezeigt. Die OneDrive-Startseite unterscheidet fehlende Einrichtung von gespeicherter Anmeldung; eine gespeicherte Anmeldung ist kein Nachweis einer aktuell funktionierenden Microsoft-Verbindung.
 
+## Neue Plan- und Offline-Entwicklungsstufe
+
+[Projektpläne](PROJEKTPLAENE.md) und [Offline-Nutzung](OFFLINE_UND_SYNCHRONISIERUNG.md)
+ergänzen die Entwicklung. Die Flutter-Pakete sind festgehalten. Die iOS-Konfiguration
+enthält die Face-ID-Beschreibung und Keychain-Entitlements. Unter Windows benötigt
+`flutter_secure_storage` zusätzlich die C++-ATL-Bibliotheken der Visual-Studio-Installation.
+Native Builds sowie Face ID/Gerätespeicher auf echten Geräten sind für diese
+Erweiterung noch nicht geprüft. Der Server benötigt eine explizite Schema-Migration;
+der neue geprüfte Kandidaten-Ablauf steht in
+[UPDATE_0_7.md](deploy/hetzner/online/UPDATE_0_7.md).
+
 ## Voraussetzungen
 
 - Backend: Python 3.11 oder neuer; in der Cloud getestet mit Python 3.12.14.

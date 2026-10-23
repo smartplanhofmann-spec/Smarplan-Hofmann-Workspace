@@ -1,3 +1,4 @@
+import plan_access
 import argparse
 import getpass
 import json
@@ -39,6 +40,7 @@ def make_handler(office,drive,launch_id=""):
                     "/api/me": "GET", "/api/logout": "POST", "/api/users": "GET, POST",
                     "/api/assignments": "POST", "/api/projects": "GET, POST",
                     "/api/customers": "GET, POST",
+                    "/api/offline/access": "POST", "/api/offline/logout": "POST",
                     "/api/storage/status": "GET", "/api/storage/connect": "POST",
                 }
                 self.allowed_methods = methods.get(path, "")
@@ -58,6 +60,10 @@ def make_handler(office,drive,launch_id=""):
                     self.allowed_methods = "POST"
                 if self.allowed_methods and self.command not in self.allowed_methods.split(", "):
                     raise Problem(405, "HTTP-Methode nicht erlaubt")
+                if re.fullmatch(r"/api/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?", path):
+                    self.allowed_methods = "GET, POST"
+                    if self.command not in ("GET", "POST"):
+                        raise Problem(405, "HTTP-Methode nicht erlaubt")
                 data={}
                 if self.command=="POST":
                     size=int(self.headers.get("Content-Length","0"))
@@ -80,7 +86,21 @@ def make_handler(office,drive,launch_id=""):
                 auth=self.headers.get("Authorization","")
                 if not auth.startswith("Bearer "):
                     raise Problem(401,"Bitte anmelden")
-                user=office.user(auth[7:])
+                token = auth[7:]
+                plan_token = token.startswith(plan_access.PREFIX)
+                if plan_token and not (path == '/api/offline/logout' or
+                        (path == '/api/projects' and self.command == 'GET') or
+                        re.fullmatch(r'/api/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path)):
+                    raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne')
+                user = plan_access.user(office, token) if plan_token else office.user(token)
+                if path == '/api/offline/access':
+                    if data:
+                        raise Problem(400, 'Keine Zugangsdaten im Anfrageinhalt erwartet')
+                    with office.lock, office.db:
+                        return self.send(201, plan_access.issue(office, user))
+                if path == '/api/offline/logout':
+                    with office.lock, office.db:
+                        return self.send(200, plan_access.revoke(office, token))
                 if path=="/api/me" and self.command=="GET":
                     return self.send(200,user)
                 if path=="/api/logout" and self.command=="POST":
@@ -118,6 +138,12 @@ def make_handler(office,drive,launch_id=""):
                     if self.command=="GET":
                         return self.send(200,office.projects(user))
                     return self.send(201,{"id":office.add_project(user,data.get("name"),data.get("customer"),data.get("customer_id"))})
+                match=re.fullmatch(r"/api/projects/([a-f0-9]{32})/plans(?:/([a-f0-9]{32}))?",path)
+                if match:
+                    project_id, plan_id = match.groups()
+                    if self.command == "GET":
+                        return self.send(200, office.plan(user, project_id, plan_id) if plan_id else office.plans(user, project_id))
+                    return self.send(200 if plan_id else 201, office.save_plan(user, project_id, data, plan_id))
                 match=re.fullmatch(r"/api/projects/([a-f0-9]{32})/reports",path)
                 if match:
                     if self.command=="GET":

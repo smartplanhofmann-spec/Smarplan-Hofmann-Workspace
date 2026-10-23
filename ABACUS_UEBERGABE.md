@@ -159,6 +159,15 @@ praktische Ersteinrichtung über den manuellen Schlüssel bzw. ein zweites Gerä
 
 ## Offene Aufgaben erhalten
 
+- **Aktuell vorgezogen:** Der Nutzer möchte größere gemeinsame Updates und
+  mehrere aktive KI-Assistenten beziehungsweise eigene vorhandene Bots
+  anbinden. Anforderungen werden besprochen; siehe `KI_AGENTEN.md`. Noch keine
+  echten KI-Verbindungen, Agentenlaufzeit oder MCP-Zugänge implementiert.
+  Die geprüfte Speicherstufe 0.6 ist noch nicht auf der Nutzer-VM bestätigt.
+  Der SSH-Zugang hing im mobilen Netz wegen mutmaßlich geänderter Quell-IP;
+  die vorübergehende zusätzliche Freigabe für TCP 22 ist nach dem Update wieder
+  zu entfernen. Es wurde kein Anwendungsdefekt oder Datenverlust nachgewiesen.
+
 - **Nächstes Windows-Update:** Der Nutzer sah SmartScreen und verlangte eine
   Verbesserung. Aktuelle Testpakete sind unsigniert. Vertrauenswürdige Windows-
   Codesignierung, Herausgeber/Zeitstempel, signiertes Installationspaket und

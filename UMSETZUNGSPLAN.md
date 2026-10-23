@@ -55,6 +55,13 @@ Die übrigen Fachmodule bleiben offen.
 
 ## Zielbild und Rahmen
 
+**Erweiterung vom 23. Oktober:** Der Nutzer möchte größere gemeinsame Updates
+und mehrere KI-Assistenten, darunter eigene vorhandene Bots und Anbieter wie
+OpenAI, Anthropic und xAI. Agenten sollen aktiv unterstützen. Erste Aufgaben,
+vorhandene Produkte und Automatisierungsgrad werden abgestimmt; Konzept:
+[KI_AGENTEN.md](KI_AGENTEN.md). Die geprüfte Speicherstufe kann in dieses größere
+Paket einfließen. Ihr Update auf der Nutzer-VM ist noch nicht bestätigt.
+
 Smartplan Office wird die gemeinsame Arbeitsoberfläche für Büro und Baustelle: Windows im Büro, iPhone unterwegs. Kunden, Projekte, Aufgaben, Zeiten, Materialien und Dokumente bilden eine zusammenhängende Datenbasis. Funktionen und Datenzugriff hängen von Rolle, Projektzuordnung und später Einzelrechten ab.
 
 Festgehaltene Vorgaben aus dem gelieferten Projekt: Windows und iPhone zuerst; OneDrive Personal/Family zunächst als Dokumentablage; Business und NAS später; keine Ablösung von ETS, DDS-CAD oder DIALux. Diese Vorgaben sind die Planungsbasis und bei Bedarf mit dem Nutzer zu bestätigen. sevdesk ist ein Vorschlag, keine festgelegte Anbieterentscheidung.

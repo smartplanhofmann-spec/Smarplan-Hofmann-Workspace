@@ -114,18 +114,29 @@ Transformation, Kalibrierung und Erkennungslauf. Übernahme als neue Revision mi
 stabiler Anfrage-ID und Prüfung der Ausgangsversion. Der bestehende reine
 `title/walls`-Vertrag muss dafür ausdrücklich erweitert werden.
 
-## Belegter Stand und erste Machbarkeitsprobe
+## Belegter Stand: isolierter Importkern
 
-Die Cloud-Entwicklungsumgebung konnte ohne Installation PDF-Vektorpfade/Text
-lesen und Seiten rastern (PyMuPDF), DXF-Linien/Text lesen (ezdxf) sowie einfachen
-synthetischen Drucktext erkennen (Tesseract 5.5). Dort sind derzeit nur die
-OCR-Sprachen `eng` und `osd` nachgewiesen. Ein DWG-Konverter und ein lokales
-Modell für Handschrift oder semantische Grundrisserkennung sind nicht nachgewiesen.
+Unter [`backend/plan_import`](backend/plan_import/README.md) ist jetzt ein
+isolierter Linux-CLI-Importkern implementiert: JPEG/PNG und PDF werden nach
+Dateiinhalt erkannt, das Original samt Prüfsumme erhalten und die gewählte
+PDF-Seite als Vorschau gerendert. PDFium liefert zusätzlich vorhandenen
+PDF-Text mit Positionsbezug; OpenCV erzeugt Linienkandidaten, Tesseract erkennt
+Drucktext. Erfolgreich verarbeitete Aufträge stehen zur fachlichen Prüfung in
+`needs_review`; PNG-Vorschau, JSON-Ergebnis und eine eigenständige
+HTML-Prüfansicht gehören dazu.
+**67 Tests bestanden im Docker-Lauf ohne Netzwerkzugang.**
 
-Das ist kein Nachweis für die Backend-Venv, den Hetzner-Server oder das Handy.
-Kein OCR-/KI-Paket wurde auf dem Nutzer-Server installiert. Es wurde kein Plan
-an einen externen Auswertungsdienst gesendet. Ein Linienparser allein erkennt
-noch keine Wände, Türen, Räume oder die Bedeutung handschriftlicher Änderungen.
+Kameraaufnahme, verschlüsselte Offline-Medien, Upload und die Anbindung an
+Office-API/-Datenbank sind damit noch nicht umgesetzt. Wandsemantik,
+Handschriftauswertung und DXF/DWG-Import stehen ebenfalls aus. Dieser Kern wurde
+nicht auf Hetzner bereitgestellt; der produktive Stand 0.7 bleibt unverändert.
+
+Die frühere Machbarkeitsprobe in der Cloud verwendete PyMuPDF für PDF und ezdxf
+für DXF sowie synthetischen Tesseract-Drucktext. Sie war eine getrennte Probe;
+der neue Importkern verwendet PDFium, OpenCV und Tesseract. Daraus folgt weiterhin
+kein Nachweis auf dem Nutzer-Server oder Handy. Es wurde kein Plan an einen
+externen Auswertungsdienst gesendet. Ein Linienkandidat ist noch keine bestätigte
+Wand und interpretiert keine handschriftliche Änderung.
 
 Der nächste konkrete Qualitätsnachweis verwendet einen repräsentativen
 abfotografierten Plan mit Handnotizen und möglichst die dazugehörige PDF-/DXF-

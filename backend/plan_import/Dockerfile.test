@@ -1,0 +1,57 @@
+# syntax=docker/dockerfile:1
+# Test tooling only. No application deployment or imported customer documents.
+FROM python:3.12-slim-bookworm
+
+ARG SMARTPLAN_OCR_DEU=0
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/source/backend \
+    OPENBLAS_NUM_THREADS=1 \
+    OMP_NUM_THREADS=1 \
+    OMP_THREAD_LIMIT=1 \
+    OPENCV_FOR_THREADS_NUM=1
+
+# BuildKit secrets extend trust for managed proxies without retaining a session
+# certificate in an image layer. Normal CI also works without these secrets.
+RUN --mount=type=secret,id=system_ca --mount=type=secret,id=proxy_ca \
+    set -eu; \
+    smartplan_ca=/etc/ssl/certs/ca-certificates.crt; \
+    if [ -s /run/secrets/system_ca ] || [ -s /run/secrets/proxy_ca ]; then \
+      cp "$smartplan_ca" /tmp/smartplan-build-ca.pem; \
+      for smartplan_extra in /run/secrets/system_ca /run/secrets/proxy_ca; do \
+        if [ -s "$smartplan_extra" ]; then cat "$smartplan_extra" >> /tmp/smartplan-build-ca.pem; fi; \
+      done; \
+      smartplan_ca=/tmp/smartplan-build-ca.pem; \
+    fi; \
+    case "$SMARTPLAN_OCR_DEU" in \
+      0) smartplan_extra_package='' ;; \
+      1) smartplan_extra_package=tesseract-ocr-deu ;; \
+      *) echo 'SMARTPLAN_OCR_DEU must be 0 or 1.' >&2; exit 1 ;; \
+    esac; \
+    apt-get -o "Acquire::https::CaInfo=$smartplan_ca" update; \
+    apt-get -o "Acquire::https::CaInfo=$smartplan_ca" install -y --no-install-recommends \
+      tesseract-ocr tesseract-ocr-eng tesseract-ocr-osd fonts-dejavu-core $smartplan_extra_package; \
+    rm -rf /var/lib/apt/lists/* /tmp/smartplan-build-ca.pem
+
+WORKDIR /opt/smartplan-test-dependencies
+COPY requirements.lock requirements-test.lock ./
+RUN --mount=type=secret,id=system_ca --mount=type=secret,id=proxy_ca \
+    set -eu; \
+    smartplan_ca=/etc/ssl/certs/ca-certificates.crt; \
+    if [ -s /run/secrets/system_ca ] || [ -s /run/secrets/proxy_ca ]; then \
+      cp "$smartplan_ca" /tmp/smartplan-build-ca.pem; \
+      for smartplan_extra in /run/secrets/system_ca /run/secrets/proxy_ca; do \
+        if [ -s "$smartplan_extra" ]; then cat "$smartplan_extra" >> /tmp/smartplan-build-ca.pem; fi; \
+      done; \
+      smartplan_ca=/tmp/smartplan-build-ca.pem; \
+    fi; \
+    PIP_CERT="$smartplan_ca" python -m pip install --no-cache-dir --only-binary=:all: -r requirements-test.lock; \
+    python -m pip check; \
+    python -c 'import cv2, numpy, PIL, pypdfium2, reportlab'; \
+    tesseract --list-langs; \
+    test -r /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf; \
+    rm -f /tmp/smartplan-build-ca.pem; \
+    mkdir -p /source/backend/plan_import
+
+WORKDIR /source
+CMD ["python", "-m", "unittest", "discover", "-s", "backend/plan_import/tests", "-v"]

@@ -1,0 +1,4 @@
+**
+!Dockerfile.test
+!requirements.lock
+!requirements-test.lock

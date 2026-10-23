@@ -49,9 +49,18 @@ Wandeditors. Der Nutzer kann in 0.7 zeichnen, lehnt diesen Hauptablauf aber ab.
 Zuerst abfotografierte Papierpläne mit handschriftlichen Ergänzungen sowie PDF,
 danach DXF und lokal konvertierbares DWG. **Die Erkennung bleibt auf Hetzner;
 die vorher kurz erwogene Nutzung externer KI-Dienste wurde zurückgenommen.**
-Originale bleiben erhalten; ohne Empfang werden Aufnahmen zuerst verschlüsselt
-auf Handy/iPad gespeichert. Ablauf, Datenvertrag und erste Qualitätsabnahme:
+Das Ziel umfasst Originalerhalt und verschlüsselte Aufnahmen auf Handy/iPad
+ohne Empfang. Ablauf, Datenvertrag und erste Qualitätsabnahme:
 [Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md).
+
+Neu implementiert ist der getrennte
+[Linux-CLI-Importkern](backend/plan_import/README.md) für JPEG/PNG/PDF:
+Original mit Prüfsumme, PDF-Seitenwahl, Vorschau, lokale Linienkandidaten und
+Tesseract-Drucktext sowie eine HTML-Prüfansicht mit Status `needs_review`.
+67 Tests bestanden im netzlosen Docker-Lauf. Kamera, Offline-Medien, Upload,
+Office-API/-Datenbank-Anbindung, Wand-/Handschriftsemantik und DXF/DWG bleiben
+offen. Der Kern ist nicht auf Hetzner bereitgestellt; der produktive Stand 0.7
+bleibt unverändert.
 
 Die bereits vorbereiteten optionalen Speicheranschlüsse bleiben bestehen;
 eine echte Kontoverbindung ist weiterhin ein gesonderter Schritt.

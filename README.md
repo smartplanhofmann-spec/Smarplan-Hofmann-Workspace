@@ -3,7 +3,15 @@
 Aktuelle Priorität: [Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md).
 Vorhandene Pläne und Fotos von Papierplänen mit Handnotizen sollen auf Hetzner
 digitalisiert werden; keine externen Auswertungsdienste. Foto/PDF zuerst,
-DXF/DWG danach. Dieser Import ist noch nicht implementiert.
+DXF/DWG danach.
+
+Neu ist ein isolierter [Linux-CLI-Importkern](backend/plan_import/README.md) für
+JPEG/PNG/PDF: Originalerhalt mit Prüfsumme, PDF-Seitenwahl, Vorschau, lokale
+Linienkandidaten und Tesseract-Drucktext sowie eine eigenständige HTML-Prüfansicht
+mit Status `needs_review`. 67 Tests bestanden im Docker-Lauf ohne Netzwerk.
+Kamera, Offline-Medien, Upload, Office-API/-Datenbank-Anbindung,
+Wand-/Handschriftsemantik und DXF/DWG sind noch offen. Auf Hetzner wurde dieser
+Kern nicht bereitgestellt; der produktive Stand 0.7 bleibt unverändert.
 
 Bereits vorhandene Entwicklungsstufe 0.7: [Projektpläne](PROJEKTPLAENE.md) mit projektbezogener
 Speicherung, Wandzeichnung, Versionskonfliktprüfung und verschlüsselter

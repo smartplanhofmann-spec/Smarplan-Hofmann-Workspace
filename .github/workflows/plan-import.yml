@@ -1,0 +1,24 @@
+name: Local plan import worker
+
+on:
+  push:
+    paths:
+      - 'backend/plan_import/**'
+      - '.github/workflows/plan-import.yml'
+  pull_request:
+    paths:
+      - 'backend/plan_import/**'
+      - '.github/workflows/plan-import.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  local-worker:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build local OCR/PDF tooling and run synthetic tests without network
+        run: bash backend/plan_import/test-docker.sh

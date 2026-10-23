@@ -169,9 +169,9 @@ begrenzt Controller und Nachfahren gemeinsam und beendet die gesamte Kontrollgru
 beim Stopp. Native Parserabstürze werden von Infrastrukturfehlern unterschieden;
 Originale bleiben erhalten und geordnet unterbrochene gültige Versuche werden
 zurückgegeben. Lokale echte Namespace- und Datenbanktests sind bestanden.
-Die obligatorische Namespace-CI wird um eine echte Ubuntu-24.04-systemd-Prüfung
-ergänzt; deren Ergebnis und die Abnahme auf dem ARM64-Hetzner-Server stehen aus.
-Bis dahin werden nur synthetische Unterlagen verarbeitet. Deutsche OCR benötigt
+Die obligatorische Namespace-CI prüft auch dieselbe Unit unter Ubuntu-24.04-
+systemd mit eigenen synthetischen PostgreSQL-Aufträgen. Vor echten Unterlagen
+steht zusätzlich die Abnahme auf dem ARM64-Hetzner-Server aus. Deutsche OCR benötigt
 lokale Sprachdaten; ihre Qualität ist nicht abgenommen.
 Wandsemantik, Handschriftauswertung, Perspektivkorrektur, Maßkalibrierung und
 DXF/DWG-Import stehen aus; Linien werden nicht automatisch als Wände übernommen.

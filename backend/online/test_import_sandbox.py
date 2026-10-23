@@ -75,6 +75,49 @@ def escaped_children(marker):
     return result
 
 
+def synthetic_launcher_diagnostic(runner):
+    """Test-only startup evidence; no imported source or production logs."""
+    from online.import_sandbox import launch_environment
+    report = {}
+    for name, path in {
+        'apparmor_context': '/proc/self/attr/current',
+        'apparmor_userns_restriction': '/proc/sys/kernel/apparmor_restrict_unprivileged_userns',
+        'unprivileged_userns_clone': '/proc/sys/kernel/unprivileged_userns_clone',
+    }.items():
+        try:
+            report[name] = Path(path).read_text().strip()[:512]
+        except OSError:
+            report[name] = 'unavailable'
+    try:
+        version = subprocess.run([str(runner.bwrap), '--version'], env=launch_environment(),
+                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=2)
+        report['bwrap_version'] = version.stdout.decode(errors='replace')[:512].strip()
+        with tempfile.TemporaryDirectory(prefix='smartplan-synthetic-launcher-diagnostic-') as temporary:
+            stage = Path(temporary)
+            (stage / 'output').mkdir(mode=0o700)
+            (stage / 'source.bin').write_bytes(b'Synthetic launcher diagnostic only')
+            command = runner._command(stage, ['/runtime/bin/python', '-c', 'print("synthetic-runtime-ready")'])
+            process = subprocess.Popen(command, env=launch_environment(), stdin=subprocess.DEVNULL,
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                       close_fds=True, start_new_session=True)
+            try:
+                output, errors = process.communicate(timeout=5)
+            except subprocess.TimeoutExpired:
+                os.killpg(process.pid, signal.SIGKILL)
+                output, errors = process.communicate(timeout=3)
+                report['timed_out'] = True
+            finally:
+                if process.poll() is None:
+                    os.killpg(process.pid, signal.SIGKILL)
+                    process.wait(timeout=3)
+            report.update(returncode=process.returncode,
+                          stdout=output.decode(errors='replace')[-2048:],
+                          stderr=errors.decode(errors='replace')[-4096:])
+    except Exception as error:
+        report['diagnostic_error'] = type(error).__name__ + ': ' + str(error)[:2048]
+    return report
+
+
 @unittest.skipUnless(
     REQUIRED,
     'Real Linux isolation is opt-in: SMARTPLAN_REQUIRE_IMPORT_SANDBOX=1 '
@@ -88,7 +131,12 @@ class RealImportSandboxTests(unittest.TestCase):
         from online.import_sandbox import SandboxRunner
         cls.worker_python = os.environ.get('SMARTPLAN_IMPORT_TEST_WORKER_PYTHON', sys.executable)
         cls.runner = SandboxRunner(cls.worker_python)
-        cls.readiness = cls.runner.doctor(ocr_languages='eng')
+        try:
+            cls.readiness = cls.runner.doctor(ocr_languages='eng')
+        except Exception as error:
+            diagnostic = synthetic_launcher_diagnostic(cls.runner)
+            raise AssertionError('Mandatory real sandbox startup failed; synthetic launcher diagnostic: '
+                                 + json.dumps(diagnostic, sort_keys=True)) from error
         if cls.readiness.get('ready') is not True:
             raise AssertionError('The real parser sandbox did not pass its startup probe.')
 

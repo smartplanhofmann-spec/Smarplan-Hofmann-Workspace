@@ -162,6 +162,10 @@ def wait_review(office, job_id, timeout):
 def wait_running(office, job_id, unit, database, timeout):
     from online.plan_imports import PlanImports
     imports = PlanImports(office)
+    # Verify the large original before the live observation. Regenerating it
+    # after observing a parser could let the job finish before the shell stops
+    # the unit; verify_stopped checks the source again after the actual stop.
+    source_hash = source_is_unchanged(imports, imports._row(job_id))
     deadline = time.monotonic() + timeout
     group = control_group(unit)
     while time.monotonic() < deadline:
@@ -170,7 +174,7 @@ def wait_running(office, job_id, unit, database, timeout):
         parsers = [saved for saved in processes if is_parser(saved) and alive(saved)]
         if row['status'] == 'running' and parsers:
             return {'job_id': job_id, 'database': database, 'unit': unit, 'control_group': group,
-                    'sha256': source_is_unchanged(imports, row), 'processes': processes,
+                    'sha256': source_hash, 'processes': processes,
                     'parser_count': len(parsers), 'status': 'running'}
         if row['status'] in ('failed', 'needs_review'):
             raise AssertionError('Second job completed before a live parser could be observed and stopped.')

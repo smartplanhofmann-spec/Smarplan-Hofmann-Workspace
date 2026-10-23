@@ -19,8 +19,9 @@ Der Worker startet standardmäßig in getrennten Linux-Namespaces mit
 schreibgeschützter Quelle, gesperrtem Hostnetz und begrenzten Ausgabedateien.
 Seine Startprüfung läuft vor dem ersten Datenbankzugriff. Die optionale
 [Dienstvorbereitung](deploy/hetzner/online/PLANIMPORT_DIENST.md) startet oder
-aktiviert keinen Importdienst; echte Namespace-Tests sind lokal bestanden,
-die zusätzliche CI-Prüfung unter der tatsächlichen systemd-Unit steht noch aus.
+aktiviert keinen Importdienst; echte Namespace-Tests sind lokal bestanden.
+Die CI prüft zusätzlich dieselbe systemd-Unit mit künstlichen PostgreSQL-Aufträgen,
+einschließlich Stopp und Wiederaufnahme.
 Auf dem bestehenden Hetzner-Server bleibt
 Version 0.7 mit Schema 2 aktiv; der neue Import ist dort noch nicht bereitgestellt.
 Bei einem alten Server bleiben neue Quellen auf dem Gerät; die App meldet das

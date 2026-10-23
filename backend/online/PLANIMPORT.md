@@ -181,8 +181,9 @@ Reale Namespace-, Datei-/Netzgrenzen-, Absturz- und PostgreSQL-Integrationstests
 sind lokal mit synthetischen Eingaben bestanden. Der spezielle
 [CI-Workflow](../../.github/workflows/plan-import.yml) verlangt echte Namespace-
 Prüfungen; bei fehlenden Fähigkeiten darf er weder überspringen noch ungeschützt
-weiterlaufen. Die zusätzliche Abnahme unter der tatsächlichen Ubuntu-24.04-
-systemd-Unit wird gerade ergänzt und ist noch nicht bestanden. Vor Server- und
+weiterlaufen. Die zusätzliche Ubuntu-24.04-Abnahme verwendet dieselbe systemd-
+Unit mit eigenen synthetischen PostgreSQL-Aufträgen und prüft auch Stopp,
+Versuchsrückgabe, Prozessbereinigung und Wiederaufnahme. Vor Server- und
 ARM64-Abnahme werden keine ungeprüften echten Planunterlagen verarbeitet.
 Reale Unterlagen folgen anschließend direkt auf dem eigenen Hetzner-System;
 es gibt keinen externen OCR-/KI-Dienst oder automatischen Ausweichdienst.

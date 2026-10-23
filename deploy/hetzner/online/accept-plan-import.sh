@@ -35,6 +35,7 @@ smartplan_dsn="postgresql:///$smartplan_database?host=/var/run/postgresql&user=s
 [[ ! -e "$smartplan_unit_path" && ! -L "$smartplan_unit_path" ]] || fail 'Abnahmeunit bereits vorhanden.'
 smartplan_state="$(mktemp -d /etc/smartplan-online/.import-accept-XXXXXXXX)"
 smartplan_created_database=0
+smartplan_verified=0
 smartplan_cleanup() {
   local smartplan_exit=$? smartplan_stopped=1
   trap - EXIT
@@ -61,6 +62,9 @@ smartplan_cleanup() {
     fi
   fi
   rm -rf -- "$smartplan_state"
+  if (( smartplan_exit == 0 && smartplan_verified )); then
+    echo 'Synthetische systemd-Abnahme erfolgreich: Ergebnisse geprüft, Prozessfamilie beendet, Auftrag wiederaufgenommen und eigene Testobjekte entfernt.'
+  fi
   exit "$smartplan_exit"
 }
 trap smartplan_cleanup EXIT
@@ -103,4 +107,4 @@ smartplan_fixture verify-stopped --job "$smartplan_second" < "$smartplan_state/r
 systemctl start "$smartplan_unit"
 smartplan_fixture wait-review --job "$smartplan_second"
 systemctl stop "$smartplan_unit"
-echo 'Synthetische systemd-Abnahme erfolgreich: Ergebnisse geprüft, Prozessfamilie beendet, Auftrag wiederaufgenommen.'
+smartplan_verified=1

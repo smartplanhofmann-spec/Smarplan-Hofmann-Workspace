@@ -1,4 +1,4 @@
-# Testupdate 0.7 – separate Datenbank und geschlossene Freigabegrenze
+# Geschütztes Testupdate – separate Datenbank und geschlossene Freigabegrenze
 
 Der neue Ablauf ist für die vorhandene Ubuntu-24.04-/PostgreSQL-16-Installation
 mit Dienstkonto `smartplan-online`, lokalem Peer-Zugang und dem eigenen
@@ -11,7 +11,8 @@ Nutzer-VM ausgeführt. Native Pakete und Geräteabnahme folgen dem
 
 - Exakten Quell-Commit des grünen Testbranch-Builds festhalten. Die späteren
   Gerätepakete müssen diesen Quellstand beziehungsweise den daraus freigegebenen
-  Release-Commit nennen. Das Backend erwartet Schema 2.
+  Release-Commit nennen. Der aktuelle Entwicklungsstand 0.8 erwartet Schema 3;
+  das bisherige Schema 2 wird ausschließlich in der neuen Datenbankkopie migriert.
 - Den Wartungszeitpunkt abstimmen. Geöffnete Geräte behalten lokale Pläne und
   ausstehende Aufträge. Berichte und andere Online-Funktionen sind während der
   Wartung nicht erreichbar; noch laufende Vorgänge vorher abschließen.
@@ -28,6 +29,11 @@ Nutzer-VM ausgeführt. Native Pakete und Geräteabnahme folgen dem
 - Unveränderte API-/Backup-Unit und die bekannte Caddy-Konfiguration verwenden.
   Unbekannte systemd-Drop-ins oder direkte Umgebungsüberschreibungen werden
   vor der Wartung abgewiesen, statt eine falsche DB-Umschaltung zu riskieren.
+- Ein bereits vorhandener Importdienst muss ebenfalls der geprüften Unit und
+  Umgebung entsprechen. Er wird vor der Datenbankkopie stets vollständig
+  gestoppt; nur ein zuvor aktiver Worker wird nach erfolgreicher Aktivierung
+  wieder gestartet. Das Update installiert oder aktiviert keinen neuen Worker;
+  dafür gilt der separate [Vorbereitungsablauf](PLANIMPORT_DIENST.md).
 - Keine andere Verwaltung, Migration oder Speichereinrichtung parallel starten.
   Die gelieferten Helper verwenden denselben Lock und respektieren das
   unvollständige Updatejournal. Unerwartete weitere DB-Verbindungen führen zum
@@ -58,8 +64,9 @@ Servereingriff; die GitHub-Builds und das Erstellen der Testpakete tun dies nich
 3. Caddy erhält die bekannte Wartungskonfiguration. Der dedizierte HTTPS-Dienst
    wird neu gestartet, damit alte Proxy-Handler keine Requests bis zum neuen
    Backend offenhalten. Eine verifizierte lokale HTTPS-Anfrage muss 503 liefern.
-4. Backup-Timer wird angehalten; ein laufender Dump darf fertig werden. Danach
-   wird der API-Dienst vollständig angehalten.
+4. Backup-Timer wird angehalten; ein laufender Dump darf fertig werden. Ein
+   vorhandener Importworker wird samt Nachfahren gestoppt und sein inaktiver
+   Zustand bestätigt. Danach wird der API-Dienst vollständig angehalten.
 5. Erst jetzt entstehen der maßgebliche Dump und seine SHA-256-Datei. Eine neue
    DB `smartplan_online_u_...` wird als PostgreSQL-Administrator angelegt; die
    Dienstrolle restauriert und migriert ausschließlich diesen Kandidaten.

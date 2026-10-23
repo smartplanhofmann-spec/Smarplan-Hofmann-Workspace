@@ -15,6 +15,7 @@ ExecStartPre=/usr/bin/env /opt/smartplan-online/venv/bin/python -m online.import
 ExecStart=/usr/bin/env /opt/smartplan-online/venv/bin/python -m online.import_worker --worker-python /opt/smartplan-plan-import/venv/bin/python --ocr-languages deu+eng --watch
 Restart=on-failure
 RestartSec=30
+SuccessExitStatus=143
 KillMode=control-group
 SendSIGKILL=yes
 TimeoutStopSec=20

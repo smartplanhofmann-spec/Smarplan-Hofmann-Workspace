@@ -113,7 +113,8 @@ import UIKit
     // The directory protects future children; explicitly cover existing files.
     // Complete protection intentionally requires an unlocked device for access.
     for var target in targets {
-      try manager.setAttributes([.protectionKey: FileProtectionType.complete], atPath: target.path)
+      try manager.setAttributes(
+        [.protectionKey: FileProtectionType.complete], ofItemAtPath: target.path)
       var values = URLResourceValues()
       values.isExcludedFromBackup = true
       try target.setResourceValues(values)

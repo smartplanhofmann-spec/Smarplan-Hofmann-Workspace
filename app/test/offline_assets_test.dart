@@ -12,6 +12,22 @@ import 'package:smartplan_office/offline_vault.dart';
 File nativeFile(String path) => Zone.root.run(() => File(path));
 Directory nativeDirectory(String path) => Zone.root.run(() => Directory(path));
 
+List<String> _pathParts(String path) => path.split(RegExp(r'[/\\]'));
+
+bool _isPendingAssetDirectory(String path) {
+  final parts = _pathParts(path);
+  return parts.length >= 2 &&
+      parts[parts.length - 2] == 'assets' &&
+      parts.last.startsWith('.pending-');
+}
+
+bool _isPendingAssetFile(String path) {
+  final parts = _pathParts(path);
+  return parts.length >= 3 &&
+      parts.last == 'original.enc' &&
+      _isPendingAssetDirectory(parts.take(parts.length - 1).join('/'));
+}
+
 class InterruptedFile implements File {
   InterruptedFile(this.file, {this.started, this.release});
   final File file;
@@ -116,6 +132,24 @@ void main() {
   });
   tearDown(() async {
     await folder.delete(recursive: true);
+  });
+
+  test('Filesystem probes recognize native and mixed path separators', () {
+    for (final path in [
+      '/tmp/account/assets/.pending-123',
+      r'C:\Users\test\account\assets\.pending-123',
+      r'C:\Users\test\account/assets\.pending-123',
+    ]) {
+      expect(_isPendingAssetDirectory(path), isTrue);
+      expect(_isPendingAssetFile('$path/original.enc'), isTrue);
+      expect(_isPendingAssetFile('$path\\original.enc'), isTrue);
+      expect(_isPendingAssetFile('$path/other.enc'), isFalse);
+    }
+    expect(_isPendingAssetDirectory('/tmp/account/assets/123'), isFalse);
+    expect(
+      _isPendingAssetFile('/tmp/account/assets/123/original.enc'),
+      isFalse,
+    );
   });
 
   test('Encrypted originals survive a fresh instance and contain no plaintext artifacts', () async {
@@ -367,9 +401,7 @@ void main() {
       },
       createFile: (path) {
         final file = nativeFile(path);
-        return path.contains('/.pending-') && path.endsWith('/original.enc')
-            ? InterruptedFile(file)
-            : file;
+        return _isPendingAssetFile(path) ? InterruptedFile(file) : file;
       },
     );
     expect(await assets.read(existing), original);
@@ -397,7 +429,7 @@ void main() {
       },
       createFile: (path) {
         final file = nativeFile(path);
-        return path.contains('/.pending-') && path.endsWith('/original.enc')
+        return _isPendingAssetFile(path)
             ? InterruptedFile(file, started: started, release: release)
             : file;
       },
@@ -415,7 +447,7 @@ void main() {
         },
         createDirectory: (path) {
           final directory = nativeDirectory(path);
-          return path.contains('/assets/.pending-')
+          return _isPendingAssetDirectory(path)
               ? CollidingDirectory(directory, collisions)
               : directory;
         },
@@ -451,7 +483,7 @@ void main() {
       final files = await allFiles();
       expect(files, hasLength(7));
       expect(
-        files.every((file) => file.path.endsWith('/original.enc')),
+        files.every((file) => file.uri.pathSegments.last == 'original.enc'),
         isTrue,
       );
     },

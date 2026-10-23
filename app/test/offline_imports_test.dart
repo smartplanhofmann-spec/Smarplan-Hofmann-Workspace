@@ -16,6 +16,9 @@ const chunkSize = 262144;
 const privateOriginal = 'SYNTHETIC_PRIVATE_ORIGINAL_5537';
 const privateRecognition = 'SYNTHETIC_PRIVATE_RECOGNITION_7751';
 
+bool _isAssetPath(String path) =>
+    path.split(RegExp(r'[/\\]')).contains('assets');
+
 Uint8List syntheticPdf([int size = 620000]) {
   final bytes = Uint8List(size);
   final header = utf8.encode('%PDF-1.7\n$privateOriginal\n');
@@ -615,7 +618,7 @@ void main() {
       expect(state['import_outbox'], [id]);
       expect(
         (await encryptedFiles()).map((file) => file.path).toSet(),
-        containsAll(filesBefore.where((path) => path.contains('/assets/'))),
+        containsAll(filesBefore.where(_isAssetPath)),
       );
       final vault = await device.open(repo.server, user['id']);
       expect(
@@ -717,7 +720,7 @@ void main() {
     expect(cached['recognition']['media_type'], 'application/json');
     expect(jsonEncode(state), isNot(contains(privateRecognition)));
     final assets = (await encryptedFiles())
-        .where((file) => file.path.contains('/assets/'))
+        .where((file) => _isAssetPath(file.path))
         .toList();
     expect(assets, hasLength(3));
     for (final file in assets) {
@@ -758,9 +761,7 @@ void main() {
           orderedEquals(syntheticPdf()),
         );
         expect(
-          (await encryptedFiles()).where(
-            (file) => file.path.contains('/assets/'),
-          ),
+          (await encryptedFiles()).where((file) => _isAssetPath(file.path)),
           hasLength(2),
         );
       },
@@ -817,7 +818,7 @@ void main() {
     expect(repo.pending, 0);
     expect(server.manifestCalls, isEmpty);
     expect(
-      (await encryptedFiles()).where((file) => file.path.contains('/assets/')),
+      (await encryptedFiles()).where((file) => _isAssetPath(file.path)),
       isEmpty,
     );
   });

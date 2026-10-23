@@ -311,7 +311,7 @@ class _Fixture {
   }
 
   Future<File> file(String name, Uint8List bytes) =>
-      File('${folder.path}/$name').writeAsBytes(bytes, flush: true);
+      File.fromUri(folder.uri.resolve(name)).writeAsBytes(bytes, flush: true);
 
   Future<void> dispose() async {
     final gate = vault.release;
@@ -359,6 +359,15 @@ Future<void> _mount(
 );
 
 Future<void> _close(WidgetTester tester, _Fixture fixture) async {
+  // Removing a page cancels publication, but its already-started file read must
+  // still close its handle before Windows can remove the fixture directory.
+  if (find.byType(PlanImportDetailPage).evaluate().isNotEmpty) {
+    await _pumpUntil(
+      tester,
+      () => find.byType(LinearProgressIndicator).evaluate().isEmpty,
+      reason: 'The detail page did not finish reading its encrypted fixture',
+    );
+  }
   await tester.pumpWidget(const SizedBox());
   await tester.runAsync(fixture.dispose);
 }

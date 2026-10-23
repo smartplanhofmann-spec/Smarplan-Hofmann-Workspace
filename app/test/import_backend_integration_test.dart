@@ -156,8 +156,11 @@ void main() {
           repo = OfflinePlans(api: full, transport: connection, device: device);
           await repo.login(user, projects);
           await idle(repo);
-        final granted = await (await device.open(repo.server, user['id'])).read();
-        expect(granted?['imports_supported'], isTrue);
+          final granted = await (await device.open(
+            repo.server,
+            user['id'],
+          )).read();
+          expect(granted?['imports_supported'], isTrue);
           connection.connected = false;
           // A vector PDF with a long synthetic comment exercises two real PUTs.
           final source = syntheticPdf();
@@ -219,7 +222,13 @@ void main() {
         }
       }, BackendHttp());
     },
-    skip: File(python).existsSync()
+    // This fixture starts the actual Hetzner API, whose document adapters
+    // require POSIX directory descriptors, locks and private file modes.
+    // Linux CI exercises it end to end. Windows still runs the real desktop
+    // backend fixture and every import repository/widget test.
+    skip: Platform.isWindows
+        ? 'Starts the Linux/Hetzner online server; exercised on Linux CI'
+        : File(python).existsSync()
         ? false
         : 'Backend virtualenv with online dependencies required',
   );

@@ -159,7 +159,8 @@ Abnahme: Reale autorisierte Nachrichten und Termine erreichen das richtige Proje
 
 ### 7 – Betrieb und vollständige Freigabe
 
-**Für das nächste Windows-Update vorgezogen (Nutzerwunsch vom 22. Oktober 2026):**
+**Für das nächste Windows-Update nach Teststand 0.7.0 fest eingeplant
+(Nutzerwunsch vom 22. Oktober, erneut bestätigt am 23. Oktober 2026):**
 Die SmartScreen-Warnung des heruntergeladenen Online-Testpakets bearbeiten.
 Vertrauenswürdige Authenticode-Signierung der EXE und eines Installationspakets
 mit festem Herausgeber und Zeitstempel vorbereiten; Signatur im Release prüfen
@@ -168,8 +169,28 @@ Zertifikats-/Signierdienst, Herausgebernachweis, Kosten und sichere Bereitstellu
 der Signierzugänge sind vor einer Buchung konkret zu klären. Eine gültige
 Signatur garantiert keine sofortige SmartScreen-Reputation. Die Warnung durch
 Abschalten von SmartScreen oder Entfernen der Downloadmarkierung zu umgehen
-gilt nicht als Lösung. Der Nutzer hat das aktuelle Paket manuell gestartet;
+gilt nicht als Lösung. Der Nutzer hat das damalige Paket am 22. Oktober manuell gestartet;
 die Behebung ist noch offen.
+
+Am 23. Oktober zeigt auch das Online-Paket 0.7.0 aus dem geprüften Build
+`39977162879` weiterhin „Unbekannter Herausgeber“. Der Nutzer verlangt erneut:
+„bitte beim nächsten Update berücksichtigen“. Die Signierung ist damit ein
+offener Abnahmepunkt für das nächste Windows-Update; das aktuelle Paket ist
+keine Behebung dieser Rückmeldung.
+
+Für den Abschluss dieser Aufgabe müssen folgende Nachweise vorliegen:
+
+- App-EXE und Installationspaket besitzen gültige, öffentlich vertrauenswürdige
+  Authenticode-Signaturen mit dem vereinbarten Herausgeber und Zeitstempel.
+- Die Releaseprüfung bestätigt Signaturstatus, Herausgeber und unveränderte
+  Paketdateien. Ein bloßer Firmenname in den EXE-Eigenschaften reicht nicht aus.
+- Das tatsächlich neu heruntergeladene Paket wird auf dem Windows-Rechner des
+  Nutzers geprüft. Ein trotz gültiger Signatur verbleibender SmartScreen-Hinweis
+  wird ausdrücklich dokumentiert; die Warnung gilt dann weiterhin nicht als behoben.
+
+Die Umsetzung beginnt mit einem konkreten Vorschlag für Signierdienst,
+Identitätsnachweis, sichere CI-Anbindung und Kosten. Eine kostenpflichtige
+Bestellung ist damit noch nicht beauftragt.
 
 Installer/Updates für Windows, iPhone-Verteilung zunächst über geeigneten Testweg und anschließend den gewählten regulären Weg; Dokumentation, Datenübernahme, Supportabläufe, Last-/Rechtetests, Backup/Restore und Pilot mit echten Anwendern. Business/NAS wird als spätere Erweiterung separat abgenommen.
 

@@ -171,6 +171,13 @@ erwarteten Herausgeber bestätigen. SmartScreen bewertet zusätzlich Reputation;
 Warnungsfreiheit wird deshalb nicht allein aus `Status=Valid` abgeleitet.
 Signierdienst/Zertifikat und Kosten sind noch nicht ausgewählt oder bestellt.
 
+Am 23. Oktober wurde dieselbe Warnung beim Online-Testpaket 0.7.0 erneut per
+Screenshot bestätigt. Der Nutzer beauftragt die Berücksichtigung beim nächsten
+Update. Für das nächste Windows-Update nach diesem Teststand bleiben Signierung,
+signierter Installer und Prüfung des tatsächlichen Downloads offene
+Abnahmepunkte; verbindliche Nachweise stehen in
+[UMSETZUNGSPLAN.md](UMSETZUNGSPLAN.md#7--betrieb-und-vollständige-freigabe).
+
 ## iOS
 
 Auf macOS aus `app` zunächst `flutter pub get --enforce-lockfile`, `flutter analyze` und `flutter test`; dann `flutter build ios --simulator --debug`. Für einen echten iPhone-Lauf das Gerät in `flutter devices` auswählen und ein geeignetes HTTPS-Testbackend übergeben:

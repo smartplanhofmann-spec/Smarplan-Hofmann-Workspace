@@ -130,6 +130,18 @@ Nutzer führte es manuell aus und verlangte die Bearbeitung im nächsten Update.
 Vertrauenswürdige Signierung/Installer samt Prüfung des tatsächlichen Downloads
 sind dafür im Umsetzungsplan vorgezogen; die Warnung ist noch nicht behoben.
 
+Am 23. Oktober zeigte der Nutzer dieselbe SmartScreen-Warnung erneut beim
+Windows-Onlinepaket 0.7.0 (Artefakt `12512291777`, CI-Lauf `39977162879`):
+`smartplan_office.exe`, „Unbekannter Herausgeber“. Die erfolgreiche
+Serveraktualisierung und die nativen Buildtests beheben diese fehlende
+Windows-Signierung nicht. Der Nutzer bestätigte anschließend den Start der
+Software; Anmeldung und Planfunktionen dieses neuen Pakets sind noch nicht
+bestätigt. Der Nutzer fordert ausdrücklich:
+„bitte beim nächsten Update berücksichtigen“. Signierung, Installer und
+Downloadprüfung bleiben dafür im
+[Umsetzungsplan](../../UMSETZUNGSPLAN.md#7--betrieb-und-vollständige-freigabe)
+festgehalten.
+
 ## Geräteabnahme und offener Betrieb
 
 ### Gemeinsamer Geräteablauf am 23. Oktober bestätigt

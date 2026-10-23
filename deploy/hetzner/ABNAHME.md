@@ -134,9 +134,12 @@ Am 23. Oktober zeigte der Nutzer dieselbe SmartScreen-Warnung erneut beim
 Windows-Onlinepaket 0.7.0 (Artefakt `12512291777`, CI-Lauf `39977162879`):
 `smartplan_office.exe`, „Unbekannter Herausgeber“. Die erfolgreiche
 Serveraktualisierung und die nativen Buildtests beheben diese fehlende
-Windows-Signierung nicht. Der Nutzer bestätigte anschließend den Start der
-Software; Anmeldung und Planfunktionen dieses neuen Pakets sind noch nicht
-bestätigt. Der Nutzer fordert ausdrücklich:
+Windows-Signierung nicht. Der Nutzer bestätigte anschließend den Start,
+die Anmeldung und dass er über die Projektpläne zeichnen kann. Den freien
+Wandeditor lehnt er als Hauptablauf ab; gewünscht sind stattdessen Quellenimport
+und automatische Digitalisierung. Wiederöffnen gespeicherter Zeichnungen und
+die mobile Offline-Geräteabnahme sind damit nicht bestätigt. Der Nutzer fordert
+zur Signierung ausdrücklich:
 „bitte beim nächsten Update berücksichtigen“. Signierung, Installer und
 Downloadprüfung bleiben dafür im
 [Umsetzungsplan](../../UMSETZUNGSPLAN.md#7--betrieb-und-vollständige-freigabe)
@@ -206,6 +209,25 @@ Der Nutzer bat am 23. Oktober, die erneute Rechteprüfung zu überspringen:
 beibehalten; ein neuer manueller Durchlauf wurde nicht durchgeführt.
 Öffentlicher Projektzugriff ohne Anmeldung ist mit 401 bestätigt. TCP 8765,
 8766 und 5432 bleiben gesperrt.
+
+### Serverupdate 0.7 am 23. Oktober bestätigt
+
+Der Nutzer führte den geprüften Quellstand
+`95fc88c716a96d61cb6f9e21e736dcaeb80819b2` per vorbereitetem Updateablauf auf
+der bestehenden VM aus. Die Ausgabe bestätigte Kandidatenrücksicherung,
+Datenvergleich, Migration und Aktivierung. Der einzelne Verbindungsfehler
+während des HTTPS-Neustarts wurde vom Wiederholungsablauf überwunden.
+Eine anschließende öffentliche `/ready`-Abfrage aus Windows wurde per Screenshot
+bestätigt: `status=ok`, `database=ok`, `schema_version=2`,
+`version=0.7.0-online-pilot`, Fähigkeiten `project_plans` und
+`offline_plan_access`. Ein gesonderter aktueller Timerstatus wurde nicht übermittelt.
+
+Die neue Priorität ist ein Importablauf für Foto/PDF und anschließend DXF/DWG.
+Die letzte Nutzerentscheidung verlangt Verarbeitung ausschließlich auf Hetzner,
+ohne externe Auswertungsdienste; eine vorher erwogene externe Verarbeitung wurde
+zurückgenommen. Quellenaufnahme und automatische Digitalisierung sind noch
+nicht implementiert. Vertrag und nächster Nachweis:
+[Planimport und Digitalisierung](../../PLANIMPORT_UND_DIGITALISIERUNG.md).
 
 ### Weiterhin offen
 

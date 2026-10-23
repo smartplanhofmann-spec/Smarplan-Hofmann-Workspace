@@ -1,9 +1,16 @@
-# Smartplan Office - Entwicklungsstand 0.5.0
+# Smartplan Office - Entwicklungsstand 0.7.0
 
-Neue Entwicklungsstufe: [Projektpläne](PROJEKTPLAENE.md) mit projektbezogener
+Aktuelle Priorität: [Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md).
+Vorhandene Pläne und Fotos von Papierplänen mit Handnotizen sollen auf Hetzner
+digitalisiert werden; keine externen Auswertungsdienste. Foto/PDF zuerst,
+DXF/DWG danach. Dieser Import ist noch nicht implementiert.
+
+Bereits vorhandene Entwicklungsstufe 0.7: [Projektpläne](PROJEKTPLAENE.md) mit projektbezogener
 Speicherung, Wandzeichnung, Versionskonfliktprüfung und verschlüsselter
 [Offline-Nutzung für sieben Tage](OFFLINE_UND_SYNCHRONISIERUNG.md). Flutter-Analyse
-und automatisierte Tests bestanden; Bereitstellung und Geräteprüfung stehen aus.
+und automatisierte Tests sowie native Builds bestanden. Serverupdate,
+Windows-Start und Anmeldung sind bestätigt; die mobile Offline-Geräteprüfung
+steht noch aus.
 
 Version 0.5.0 bereitet den getrennten [Online-Piloten](deploy/hetzner/online/README.md)
 vor: PostgreSQL, versionierte Flask/Gunicorn-API, Passwort plus Authenticator-Code,

@@ -43,10 +43,22 @@ und HTTPS-WebDAV-Ziele (Cloud/NAS). Der Betriebsort der Datenbank und die
 zusätzliche Dokumentablage sind getrennte Entscheidungen. Ein NAS als PDF-Ablage
 bedeutet nicht, dass die gesamten Smartplan-Daten beim Nutzer vor Ort liegen.
 
-**Aktuelle Reihenfolge:** Die optionalen Speicheranschlüsse für den Online-Piloten
-bereitstellen und anschließend das gewählte Konto tatsächlich verbinden.
+**Aktuelle Reihenfolge nach Nutzerkorrektur vom 23. Oktober:**
+Planimport und Digitalisierung haben Vorrang vor dem weiteren Ausbau des freien
+Wandeditors. Der Nutzer kann in 0.7 zeichnen, lehnt diesen Hauptablauf aber ab.
+Zuerst abfotografierte Papierpläne mit handschriftlichen Ergänzungen sowie PDF,
+danach DXF und lokal konvertierbares DWG. **Die Erkennung bleibt auf Hetzner;
+die vorher kurz erwogene Nutzung externer KI-Dienste wurde zurückgenommen.**
+Originale bleiben erhalten; ohne Empfang werden Aufnahmen zuerst verschlüsselt
+auf Handy/iPad gespeichert. Ablauf, Datenvertrag und erste Qualitätsabnahme:
+[Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md).
+
+Die bereits vorbereiteten optionalen Speicheranschlüsse bleiben bestehen;
+eine echte Kontoverbindung ist weiterhin ein gesonderter Schritt.
 Die Bestellübersicht des vorhandenen Servers lag bei 9,15 Euro brutto monatlich
-inklusive Hetzner-Backups und IPv4; ein weiterer Server ist nicht erforderlich.
+inklusive Hetzner-Backups und IPv4. Für den bisherigen Onlinebetrieb war kein
+weiterer Server erforderlich. Der Ressourcenbedarf lokaler Planerkennung wird
+vor Auswahl größerer Modelle gesondert geprüft; eine Aufrüstung ist nicht bestellt.
 Echte OneDrive-Zustimmung, getrennte Sicherungswiederherstellung, Betriebsbetreuung
 und die übrigen Fachmodule bleiben offen. Version 0.4.0 enthält die erste lokale
 Kundenstufe aus Etappe 3, noch keine vollständige CRM-/Angebotslösung.
@@ -55,7 +67,8 @@ Die übrigen Fachmodule bleiben offen.
 
 ## Zielbild und Rahmen
 
-**Erweiterung vom 23. Oktober:** Der Nutzer möchte größere gemeinsame Updates
+**Früherer Rahmen vom 23. Oktober, für Planimporte inzwischen konkretisiert:**
+Der Nutzer möchte größere gemeinsame Updates
 und mehrere KI-Assistenten, darunter eigene vorhandene Bots und Anbieter wie
 OpenAI, Anthropic und xAI. Konkret gewählt sind Sprache/Fotos/Videos für Aufmaß,
 bearbeitbare Pläne aus Skizzen und vorhandenen Unterlagen sowie das Positionieren
@@ -64,8 +77,12 @@ automatisch nach Regeln laufen, wichtige Aktionen mit Freigabe. Genannte
 Assistenten: Grok-Bot, „ChatGPT Work“ und Codex. iPhone: 17; die Grundfunktionen
 setzen LiDAR nicht voraus. Erste Ausgaben: DXF und PDF, DWG optional über einen
 geeigneten Anschluss. Konzepte: [KI_AGENTEN.md](KI_AGENTEN.md) und
-[AUFMASS_UND_PLAENE.md](AUFMASS_UND_PLAENE.md). Die geprüfte Speicherstufe kann in dieses größere
-Paket einfließen. Ihr Update auf der Nutzer-VM ist noch nicht bestätigt.
+[AUFMASS_UND_PLAENE.md](AUFMASS_UND_PLAENE.md). Diese früher genannten externen
+Anbieter sind keine Freigabe für Planfotos und -unterlagen: Für den jetzigen
+Import-/Digitalisierungsablauf gilt ausschließlich Hetzner-Verarbeitung.
+Das Serverupdate 0.7 wurde inzwischen vom Nutzer ausgeführt und öffentlich
+mit Schema 2, Plan- und Offline-Fähigkeiten bestätigt. Echte Kontoverbindungen
+zu optionalen Ablagen bleiben davon getrennt zu prüfen.
 
 Smartplan Office wird die gemeinsame Arbeitsoberfläche für Büro und Baustelle: Windows im Büro, iPhone unterwegs. Kunden, Projekte, Aufgaben, Zeiten, Materialien und Dokumente bilden eine zusammenhängende Datenbasis. Funktionen und Datenzugriff hängen von Rolle, Projektzuordnung und später Einzelrechten ab.
 

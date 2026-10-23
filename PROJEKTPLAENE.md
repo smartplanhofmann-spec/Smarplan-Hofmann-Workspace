@@ -1,5 +1,14 @@
 # Projektpläne – erste Entwicklungsstufe
 
+**Neue Priorität vom 23. Oktober 2026:** Der Nutzer kann den Wandeditor bedienen,
+möchte aber vorhandene Pläne importieren und Papierpläne mit Handnotizen
+fotografieren. Kamera/Foto und PDF stehen vor DXF/DWG und weiterem manuellen
+Zeichenausbau. Digitalisierung ausschließlich auf Hetzner; Originale und
+verschlüsselte Offline-Speicherung bleiben erhalten. Die neue Spezifikation
+steht in [Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md).
+Dieser Import ist noch nicht in der App implementiert. Der folgende Abschnitt
+beschreibt den bereits vorhandenen Stand 0.7.
+
 Die Projektansicht enthält den Einstieg **Projektpläne** (Grundriss-Symbol).
 Ein Plan steht für einen benannten Grundriss, beispielsweise ein Geschoss.
 Die erste Stufe kann leere Pläne anlegen, Wände durch Antippen von Start- und
@@ -55,7 +64,11 @@ PostgreSQL benötigt eine **explizite Migration von Schema 1 auf 2** über
 läuft transaktional und wiederholbar.
 Sie wird niemals durch einen API-Aufruf ausgelöst.
 
-**Noch nicht auf dem Hetzner-Server bereitgestellt.** Der neue
+**Auf Hetzner bereitgestellt und öffentlich bestätigt:** Der Nutzer führte
+das Update des geprüften Quellstands `95fc88c` am 23. Oktober aus. `/ready`
+meldet Version `0.7.0-online-pilot`, Schema 2 und Plan-/Offline-Fähigkeiten.
+Windows-Start, Anmeldung und Zeichnen wurden anschließend bestätigt; der Nutzer
+möchte nun den oben beschriebenen Importablauf. Der neue
 [Updateablauf](deploy/hetzner/online/UPDATE_0_7.md) bereitet eine separate,
 vollständig rückgesicherte und geprüfte Kandidaten-Datenbank vor. Öffentliche
 Schreibzugriffe bleiben bis nach der Prüfung gesperrt. Die bisherige Datenbank
@@ -79,7 +92,10 @@ Flutter-Analyse und sämtliche 52 App-Tests bestanden, einschließlich Zeichnen,
 Rückgängig, Wiederöffnen, Konflikterhalt, Offline-Speicherung und tatsächlicher
 Übertragung nach einem simulierten Client-Neustart. Die Cloud-Freigabe für
 `storage.googleapis.com` ist wirksam; Flutter/Dart konnten installiert werden.
-Native Windows-/iOS-Builds und echte Gerätetests dieser Erweiterung stehen aus.
+Native Windows-, iOS-Simulator- und unsignierte iOS-Gerätebuilds des Quellstands
+`95fc88c` bestanden in den CI-Läufen `39977162879` und `39977162745`.
+Echte iPhone-/iPad-Tests von Schlüsselablage, Geräteentsperrung und Offline-
+Synchronisierung dieser Erweiterung stehen weiterhin aus.
 
 Maße, Räume, Türen/Fenster, Gerätesymbole, PDF/DXF-Export, Quellenimport und KI
 sind weitere Schritte. Der separate HTML-Prototyp bleibt davon unabhängig;

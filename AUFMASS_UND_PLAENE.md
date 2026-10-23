@@ -3,9 +3,22 @@
 Stand: 23. Oktober 2026. Diese Spezifikation beschreibt den gewünschten Ausbau.
 Ein separater [lokaler Planeditor-Prototyp](prototypes/plan_editor/README.md)
 setzt erste Vektormodelle, Wandpositionen sowie PDF-/DXF-Exporte um.
-Aufnahme, KI-Auswertung und das Planmodul in der nativen App/Online-API sind noch
-nicht implementiert. Die vorhandenen Projekte, Berichte und Ablageanschlüsse
-bilden die Grundlage.
+Die native App/Online-API enthält inzwischen einfache Wandentwürfe (0.7).
+Aufnahme, Quellenimport und automatische Auswertung sind noch nicht implementiert.
+Die vorhandenen Projekte, Berichte und Ablageanschlüsse bilden die Grundlage.
+
+## Aktuelle Priorität: vorhandene Pläne digitalisieren
+
+Der Nutzer lehnt den freien Wandeditor als Hauptablauf ab. Vorrang haben Fotos
+von gedruckten Hausplänen einschließlich handschriftlicher Ergänzungen und
+Dateiimporte aus PDF, danach DXF und DWG mit lokal geprüftem Konverter.
+Ein Original wird unverändert gesichert und im Hintergrund zu einem prüfbaren
+Planentwurf verarbeitet. Manuelle Zeichenwerkzeuge dienen anschließend der
+Korrektur. Die gesamte Erkennung bleibt nach der letzten Nutzerentscheidung
+auf Hetzner; keine externen KI-/OCR-/Konvertierungsdienste und kein Fallback.
+Die zwischenzeitlich erwogene externe Verarbeitung wurde ausdrücklich korrigiert.
+Konkrete Reihenfolge und Verträge:
+[Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md).
 
 ## Auftrag und Arbeitsweise
 
@@ -139,13 +152,13 @@ Konverter oder eine bestimmte CAD-Kompatibilität wird vor Prüfung nicht zugesa
 - Beim derzeitigen Betriebsmodell liegen Projekt-/Planstände und Quellmedien auf
   dem Hetzner-System. Die Ablageadapter aus Version 0.6 bilden die Grundlage für
   optionale zusätzliche Plan-PDFs; dafür ist die Dokumentanbindung noch zu erweitern.
-- Medien und Plandaten gehen nur an den gewählten, freigegebenen KI-Anschluss und
-  innerhalb der Projektberechtigung. Importierte Inhalte erteilen keine Werkzeugrechte.
+- Medien und Plandaten dieses Planimports werden ausschließlich auf dem eigenen
+  Hetzner-System ausgewertet, innerhalb der Projektberechtigung. Importierte
+  Inhalte erteilen keine Werkzeugrechte.
 
-Vorgesehene KI-Anschlüsse sind unter anderem OpenAI, Claude, Grok, vorhandene
-Grok-Bots und eigene Assistenten. Welches Produkt mit „ChatGPT Work“ gemeint ist
-und welche API-Anbindung dafür verfügbar ist, ist noch offen; ebenso die genaue
-Rolle von Codex. Verfügbarkeit und Berechtigungen werden je Anschluss nachgewiesen.
+Die früher genannten externen KI-Anschlüsse sind keine Freigabe für Planfotos
+oder Dokumente dieses Ablaufs. Hier werden geeignete lokale Verfahren auf
+Hetzner ausgewählt und mit repräsentativen Vorlagen geprüft.
 
 ## Erste durchgehende Abnahme
 

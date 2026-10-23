@@ -4,9 +4,16 @@ Verbindlicher Nutzerwunsch vom 23. Oktober 2026: Die App auf iPhone und iPad
 muss bei fehlendem Empfang weiterarbeiten, Eingaben dauerhaft lokal speichern
 und bei wieder verfügbarer Verbindung synchronisieren. Bestätigte Dauer:
 **bis zu sieben Tage nach erfolgreicher Online-Anmeldung**.
-Die erste Umsetzung für Projektpläne liegt im Entwicklungs-Checkout und ist
-automatisiert geprüft. Sie ist noch nicht auf Geräten abgenommen oder auf dem
-Hetzner-Server bereitgestellt. Die übrigen Fachmodule bleiben zunächst online.
+Die erste Umsetzung für Projektpläne ist automatisiert geprüft und mit Version
+0.7 auf Hetzner bereitgestellt. Windows-Start und Anmeldung sind bestätigt;
+die Offline-Geräteabnahme auf iPhone/iPad bleibt offen. Die übrigen Fachmodule
+bleiben zunächst online.
+
+**Neue Priorität:** Auch fotografierte oder importierte Originalpläne müssen
+ohne Empfang zunächst dauerhaft und verschlüsselt erhalten bleiben. Dieser
+Medienpfad ist noch nicht implementiert. Erkennung und Konvertierung laufen
+nach Upload ausschließlich auf Hetzner, ohne externe Auswertungsdienste.
+Siehe [Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md).
 
 ## Verhalten für den Nutzer
 
@@ -132,9 +139,10 @@ geprüft; ein Offline-Öffnen verlängert die Freigabe nicht. Server und Gerät
 prüfen den Ablauf unabhängig. Ein verlorenes Gerät, eine Deinstallation oder
 verlorene Geräteschlüssel ersetzen keine erfolgreiche Synchronisierung.
 
-**Noch offen:** tatsächliche native Build- und Geräteabnahme dieser neuen
-Plugins, Face ID/Gerätecode und Schlüsselablage auf iPhone/iPad, das koordinierte
-Serverupdate, Offline-Berichte, Aufmaß und Medien. iOS garantiert keine sofortige
+**Noch offen:** Geräteabnahme der neuen Plugins, Face ID/Gerätecode und
+Schlüsselablage auf iPhone/iPad, Offline-Berichte, Aufmaß und Medien. Native
+Builds bestanden; das Serverupdate wurde vom Nutzer ausgeführt und öffentlich
+geprüft. iOS garantiert keine sofortige
 Synchronisierung einer beendeten App. Ein erneut geöffnetes, berechtigtes Gerät
 setzt die Warteschlange fort.
 

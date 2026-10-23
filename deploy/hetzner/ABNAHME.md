@@ -146,17 +146,30 @@ Techniker-/Mehrbenutzertest wurde dabei nicht behauptet.
 
 Dabei meldete der Nutzer einen Bedienfehler: Beim Zeichnen im eingebetteten
 Unterschriftenfeld scrollt die Berichtsseite mit und der Strich beginnt verspätet.
-Version 0.5.1 bereitet dafür einen separaten Vollbildeditor im Querformat vor:
+Version 0.5.1 ergänzt dafür einen separaten Vollbildeditor im Querformat:
 Feld antippen, zeichnen, mit „Fertig“ in die Vorschau übernehmen. Abbrechen
 verwirft nur die Bearbeitung; das abschließende Speichern mit Name und
-Dokumentbestätigung bleibt erforderlich. Dieser neue Gesten-/Drehablauf muss
-nach dem nächsten TestFlight-Update noch auf dem echten iPhone bestätigt werden.
+Dokumentbestätigung bleibt erforderlich.
+
+### Signatur-Update 0.5.1 am 23. Oktober bestätigt
+
+Für Commit `f335361` bestanden die Codeanalyse und alle 34 App-Tests.
+Die [Projektprüfungen 39908874800](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39908874800)
+einschließlich Windows-Release und iOS-Simulator sowie der
+[unsignierte iPhone-Geräte-Release 39908874721](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39908874721)
+sind erfolgreich.
+
+Nach der Übergabe für das TestFlight-Update meldete der Nutzer:
+„die tests waren alle erfolgreich“. Damit sind die zuvor beschriebenen manuellen
+Signaturprüfungen als erfolgreich zurückgemeldet und die Geräteabnahme dieses
+Updates festgehalten. Der beigefügte Screenshot enthält Abacus' Meldung über den
+funktionierenden TestFlight-Weg ohne eigenen Mac. Eine genaue Buildnummer dieses
+Updates wurde nicht genannt.
 
 ### Weiterhin offen
 
-- Mehrbenutzer-Rechteentzug am Nutzer-System und der neue Signaturdialog auf
-  dem echten iPhone. Öffentlicher Projektzugriff ohne Anmeldung ist mit
-  401 bestätigt. TCP 8765, 8766 und 5432 bleiben gesperrt.
+- Mehrbenutzer-Rechteentzug am Nutzer-System. Öffentlicher Projektzugriff ohne
+  Anmeldung ist mit 401 bestätigt. TCP 8765, 8766 und 5432 bleiben gesperrt.
 - SmartScreen-Rückmeldung beim nächsten Windows-Update bearbeiten: gültige
   Herausgebersignierung und signiertes Installationspaket vorbereiten und prüfen.
 - HTTPS-Erneuerung und Betrieb überwachen; Last-/Mehrbenutzerabnahme und

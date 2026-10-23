@@ -29,12 +29,26 @@ Berichtsseite zu scrollen. „Neu zeichnen“ leert die aktuelle Bearbeitung,
 Der Name und die Dokumentbestätigung werden beim endgültigen Speichern geprüft.
 Die Zeichenfläche behält das Seitenverhältnis des PDF-Felds bei.
 
-Nach erfolgreichen Prüfungen den bestehenden Workflow manuell mit
-`upload_to_testflight` starten. Die neue Buildnummer muss über 108 liegen; die
-automatische Nummerierung steigt mit jedem Lauf weiter. Nach Apples Verarbeitung
-den Build der internen Testgruppe zuordnen und über TestFlight aktualisieren.
-Erste Striche, Querformat, Abbrechen und Rückkehr zur Berichtsansicht am echten
-iPhone prüfen, auch mit aktivierter Rotationssperre.
+Die Codeanalyse und alle 34 App-Tests sowie die Windows-, Simulator- und
+unsignierten Geräte-Builds für `f335361` sind erfolgreich. Nach der Übergabe
+für das TestFlight-Update bestätigte der Nutzer am 23. Oktober:
+„die tests waren alle erfolgreich“. Die Geräteabnahme des Signatur-Updates ist
+in [ABNAHME.md](deploy/hetzner/ABNAHME.md) festgehalten.
+
+Für weitere Updates den bestehenden Workflow nach erfolgreichen Prüfungen
+manuell mit `upload_to_testflight` starten. Die automatische Buildnummerierung
+steigt mit jedem Lauf weiter; eine manuell gewählte Nummer muss über der letzten
+hochgeladenen liegen. Nach Apples Verarbeitung den Build der bestehenden Gruppe
+„Smartplan intern“ zuordnen, falls dies nicht automatisch erfolgt, und über
+TestFlight aktualisieren. Anschließend erste Striche, Querformat, Abbrechen und
+Rückkehr zur Berichtsansicht am echten iPhone prüfen, auch mit Rotationssperre.
+
+TestFlight-Builds sind jeweils 90 Tage nutzbar. Für die weitere Testverteilung
+rechtzeitig einen neuen Build bereitstellen, auch wenn der Code unverändert ist.
+Die aktuelle Abacus-GitHub-Integration kann den Workflow laut Abacus-Bericht
+nicht selbst starten; der Nutzer startet den Upload über „Run workflow“.
+Die im erfolgreichen Lauf gemeldete Warnung „Node.js 20 is deprecated“ blockiert
+das Update nicht. Verwendete GitHub Actions bei einer späteren Wartung aktualisieren.
 
 ### Technischer Nachweis vom 22. Oktober 2026
 

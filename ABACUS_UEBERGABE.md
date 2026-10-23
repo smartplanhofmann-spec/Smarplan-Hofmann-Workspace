@@ -83,14 +83,14 @@ Technische Nachweise des Online-Standes:
 Ein erfolgreicher Simulator-Build ist noch keine Geräteinstallation.
 Die genauen manuellen Nachweise stehen in `deploy/hetzner/ABNAHME.md`.
 
-## Konkrete nächste Arbeit: Signatur-Update 0.5.1
+## Abgenommenes Signatur-Update 0.5.1
 
 1. Die Bundle-ID `de.smartplanhofmann.office` ist im Flutter-iOS-Projekt gesetzt.
    Sie wurde bereits für den installierten TestFlight-Build 108 verwendet.
 2. Die Online-Konfiguration für Geräte- und Simulator-Builds ist in den Workflows
    gesetzt. Der unsignierte Release-Prüflauf kontrolliert API-URL/API-Version,
-   die erzeugte Bundle-ID und Build-Nummer. Für das neue Update die erfolgreichen
-   App-/Geräte-Prüfungen abwarten, bevor die Signierung angefordert wird.
+   die erzeugte Bundle-ID und Build-Nummer. Für `f335361` bestehen Codeanalyse,
+   alle 34 App-Tests und die Windows-/iOS-Builds; siehe `deploy/hetzner/ABNAHME.md`.
 3. Bestehende Apple-Zugänge und die GitHub-Secrets wiederverwenden. Der Nutzer
    hat keinen lokalen Mac. Der aktuelle Workflow archiviert unsigniert und
    signiert beim Export für TestFlight; kein neues Apple-Konto erforderlich.
@@ -98,12 +98,21 @@ Die genauen manuellen Nachweise stehen in `deploy/hetzner/ABNAHME.md`.
    `app/lib/signature_editor.dart`: Vorschaufeld antippen, im separaten Querformat-
    Editor unterschreiben, „Fertig“ übernimmt die Vorschau, Abbrechen verwirft Änderungen.
    Der endgültige Signieraufruf braucht weiterhin Name und Dokumentbestätigung.
-   Nach erfolgreichen Prüfungen ausdrücklich den TestFlight-Upload starten,
-   neue Buildnummer über 108 wählen und den Build der internen Testgruppe zuordnen.
+   Nach der Übergabe für das TestFlight-Update bestätigte der Nutzer am
+   23. Oktober: „die tests waren alle erfolgreich“. Der Signatur-Prüflauf gilt
+   damit als vom Nutzer abgenommen; die genaue neue Buildnummer wurde nicht genannt.
 5. Bereits bestätigt: Windows-Projekt erscheint auf dem iPhone; dort erstellter
    und unterschriebener Bericht ist als PDF mit Text/Unterschrift unter Windows
-   sichtbar. Noch offen: neuer Gesten-/Drehablauf auf dem echten iPhone,
-   separater Techniker-Rechteentzug, PDF-Teilen und weitere Geräteabnahme.
+   sichtbar. Noch offen: separater Techniker-Rechteentzug, PDF-Teilen und weitere
+   Mehrbenutzer-/Betriebsabnahme.
+
+Künftige Updates: erst Prüfungen abwarten, dann den Workflow „iPhone TestFlight“
+manuell mit `upload_to_testflight` starten, nach Apples Verarbeitung der bestehenden
+Gruppe „Smartplan intern“ zuordnen und auf dem iPhone aktualisieren. Die aktuelle
+Abacus-GitHub-Integration kann laut Abacus-Bericht den Upload-Lauf nicht selbst
+starten. TestFlight-Builds sind jeweils 90 Tage nutzbar; rechtzeitig einen neuen
+Build bereitstellen. Die Node.js-20-Warnung der Actions ist eine spätere
+Wartungsaufgabe und hat den erfolgreichen Lauf nicht blockiert.
 
 Eine neue kostenpflichtige Apple-Mitgliedschaft, ein Signierdienst oder andere
 Abos werden erst nach konkreter Preis-/Leistungsfreigabe gebucht. Vorhandene
@@ -119,8 +128,8 @@ praktische Ersteinrichtung über den manuellen Schlüssel bzw. ein zweites Gerä
   Prüfung des tatsächlichen Downloads sind vorgezogen. Zertifikat/Signierdienst
   und Kosten sind noch nicht ausgewählt. Eine Signatur allein garantiert keine
   sofortige SmartScreen-Reputation.
-- Native iPhone-App ist per TestFlight installiert; das Signatur-Update 0.5.1 und
-  die ergänzenden Rechte-/Geräteprüfungen sind noch abzunehmen.
+- Native iPhone-App und Signatur-Update 0.5.1 sind vom Nutzer bestätigt;
+  ergänzende Rechte-/Mehrbenutzerprüfungen sind noch abzunehmen.
 - OneDrive Personal/Family: vorbereitet, aber noch kein echtes Microsoft-Konto
   verbunden; Online-API meldet es derzeit bewusst als unkonfiguriert.
 - Übernahme echter Daten aus einer geprüften SQLite-Sicherung bleibt ein
@@ -153,5 +162,5 @@ Auch die vollständigen Projektprüfungen
 [39852877525](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/39852877525)
 sind grün. Dies war der unsignierte Nachweis vom 22. Oktober; die am 23. Oktober
 bestätigte TestFlight-Installation und der gemeinsame Geräteablauf sind in
-`deploy/hetzner/ABNAHME.md` ergänzt. Nächster Schritt ist der geprüfte neue
-TestFlight-Build für den separaten Signaturdialog.
+`deploy/hetzner/ABNAHME.md` ergänzt. Dort stehen auch die anschließenden grünen
+Prüfläufe und die Nutzerbestätigung für den separaten Signaturdialog 0.5.1.

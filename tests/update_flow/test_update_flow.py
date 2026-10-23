@@ -69,10 +69,11 @@ class UpdateFlowTests(unittest.TestCase):
         self.original_caddy = (HTTPS / 'Caddyfile').read_bytes()
         self.configure()
 
-    def configure(self, *, fault='none', physical=False, timer=True):
+    def configure(self, *, fault='none', physical=False, timer=True, import_worker=False):
         (STATE / 'scenario.json').write_text(json.dumps({'fault': fault}))
         (STATE / 'services.json').write_text(json.dumps({'smartplan-online.service': True, 'smartplan-https.service': True,
-                                                        'smartplan-online-backup.timer': timer, 'gate': False}))
+                                                        'smartplan-online-backup.timer': timer,
+                                                        'smartplan-plan-import.service': import_worker, 'gate': False}))
         for name in ('app', 'venv'):
             link = APP / name
             if link.is_symlink():
@@ -152,6 +153,97 @@ class UpdateFlowTests(unittest.TestCase):
         self.assert_old_release()
         self.assertFalse((CONFIG / 'UPDATE_IN_PROGRESS').exists())
         self.assertFalse(any(event['event'] == 'public_write' for event in self.events()))
+
+    def test_obsolete_schema_cannot_open_public_gate(self):
+        self.configure(fault='obsolete_schema')
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assert_old_release()
+        self.assertFalse(any(event['event'] == 'public_write' for event in self.events()))
+
+    def test_active_importworker_stops_before_clone_and_restarts_after_durable_activation(self):
+        self.configure(import_worker=True)
+        result = self.run_update()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertTrue(self.services()['smartplan-plan-import.service'])
+        metadata = json.loads(next((CONFIG / 'updates').glob('*/metadata.json')).read_text())
+        self.assertTrue(metadata['import_worker_was_active'])
+        events = self.events()
+        stop = next(i for i, event in enumerate(events) if event.get('unit') == 'smartplan-plan-import.service' and event.get('action') == 'stop')
+        prepare = next(i for i, event in enumerate(events) if event.get('action') == 'prepare')
+        activating = max(i for i, event in enumerate(events) if event.get('action') == 'phase' and event['flags'].get('--value') == 'activating')
+        start = next(i for i, event in enumerate(events) if event.get('unit') == 'smartplan-plan-import.service' and event.get('action') == 'start')
+        self.assertLess(stop, prepare)
+        self.assertLess(activating, start)
+        self.assertEqual(events[start]['generation'], 'new')
+        self.assertFalse((CONFIG / 'UPDATE_IN_PROGRESS').exists())
+
+    def test_preactivation_rollback_restarts_only_the_previously_active_importworker(self):
+        for active in (False, True):
+            with self.subTest(active=active):
+                self.setUp()
+                self.configure(fault='readiness', import_worker=active)
+                result = self.run_update()
+                self.assertNotEqual(result.returncode, 0)
+                self.assert_old_release()
+                self.assertEqual(self.services()['smartplan-plan-import.service'], active)
+                starts = [event for event in self.events() if event.get('unit') == 'smartplan-plan-import.service' and event.get('action') == 'start']
+                self.assertEqual(len(starts), int(active))
+                if starts:
+                    self.assertEqual(starts[0]['generation'], 'old')
+
+    def test_unconfirmed_importworker_stop_keeps_gate_and_original_without_database_switch(self):
+        self.configure(fault='import_worker_stop', import_worker=True)
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assert_original_data()
+        self.assertEqual((CONFIG / 'service.env').read_bytes(), self.original_config)
+        self.assertEqual((APP / 'SOURCE_COMMIT').read_text().strip(), OLD)
+        self.assertTrue(self.services()['gate'])
+        self.assertTrue((CONFIG / 'UPDATE_IN_PROGRESS').exists())
+        self.assertFalse(any(event['event'] == 'createdb' or event.get('action') == 'configure' for event in self.events()))
+
+    def test_failed_new_importworker_resume_preserves_activated_candidate(self):
+        self.configure(fault='import_worker_start_new', import_worker=True)
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual((APP / 'SOURCE_COMMIT').read_text().strip(), NEW)
+        self.assertEqual((APP / 'app/backend/generation').read_text().strip(), 'new')
+        self.assertNotEqual((CONFIG / 'service.env').read_bytes(), self.original_config)
+        self.assertEqual((CONFIG / 'UPDATE_IN_PROGRESS').read_text().strip(), 'activating')
+        self.assertTrue(any(event['event'] == 'public_write' for event in self.events()))
+        self.assertFalse(self.services()['smartplan-plan-import.service'])
+        self.assert_original_data()
+
+    def test_unconfirmed_activation_marker_does_not_resume_importworker_or_publish_http(self):
+        self.configure(fault='activating_marker', import_worker=True)
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual((APP / 'SOURCE_COMMIT').read_text().strip(), NEW)
+        self.assertNotEqual((CONFIG / 'service.env').read_bytes(), self.original_config)
+        self.assertTrue(self.services()['gate'])
+        self.assertTrue((CONFIG / 'UPDATE_IN_PROGRESS').exists())
+        self.assertFalse(self.services()['smartplan-plan-import.service'])
+        self.assertFalse(any(event.get('unit') == 'smartplan-plan-import.service' and event.get('action') == 'start' for event in self.events()))
+        self.assertFalse(any(event['event'] == 'public_write' for event in self.events()))
+        self.assert_original_data()
+
+    def test_failed_old_importworker_resume_keeps_maintenance_and_journal(self):
+        self.configure(fault='import_worker_start_old', import_worker=True)
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual((APP / 'SOURCE_COMMIT').read_text().strip(), OLD)
+        self.assertEqual((CONFIG / 'service.env').read_bytes(), self.original_config)
+        self.assertTrue(self.services()['gate'])
+        self.assertTrue((CONFIG / 'UPDATE_IN_PROGRESS').exists())
+        self.assertFalse(self.services()['smartplan-plan-import.service'])
+        self.assertFalse(any(event['event'] == 'public_write' for event in self.events()))
+
+    def test_inactive_importworker_is_never_automatically_started_on_success(self):
+        result = self.run_update()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertFalse(self.services()['smartplan-plan-import.service'])
+        self.assertFalse(any(event.get('unit') == 'smartplan-plan-import.service' and event.get('action') == 'start' for event in self.events()))
 
     def test_readiness_failure_restores_original_physical_directories(self):
         self.configure(fault='readiness', physical=True)

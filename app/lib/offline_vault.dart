@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -186,6 +187,11 @@ class OfflineDevice {
     final directory = Directory(
       '${(await root()).path}/smartplan-offline/$scope',
     );
+    if (Platform.isIOS && (create || await directory.exists())) {
+      await directory.create(recursive: true);
+      await const MethodChannel('smartplan/offline-storage')
+          .invokeMethod<void>('protectDirectory', directory.path);
+    }
     var encoded = await storage.read(key: keyName);
     if (encoded == null) {
       if (!create ||

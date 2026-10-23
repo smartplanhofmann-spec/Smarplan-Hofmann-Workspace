@@ -6,12 +6,19 @@ eine ausgewählte PDF-Seite ergeben ein unverändertes Original mit SHA-256,
 eine aufrechte Vorschau, lokale Linien-/Drucktextkandidaten und eine eigenständig
 offline öffnende HTML-Prüfansicht. Ergebnisse haben immer `needs_review`.
 
-Dieser Kern ist noch nicht mit Kamera, nativer App, Offline-Medienspeicher,
-Uploadrouten, Office-Datenbank oder einem produktiven Hetzner-Dienst verbunden.
-Er ändert weder die produktive Version 0.7 noch deren Datenbankschema. Wände,
-Türen, Räume, Handschrift und durchgestrichene Maße werden nicht semantisch
-erkannt. Perspektivkorrektur und Maßkalibrierung sind noch offen. HEIC, DXF,
-DWG, animierte Bilder und verschlüsselte PDFs werden ausdrücklich abgewiesen.
+Der [App-/Server-Durchstich in Entwicklung 0.8.0](../online/PLANIMPORT.md) verwendet diesen Renderer
+über einen separaten Worker: Dateiauswahl/iOS-Kamera, verschlüsselte lokale
+Quellen, fortsetzbare Uploads und PostgreSQL-Aufträge sind im Entwicklungscode
+für den Online-Modus (API v1) verbunden; das lokale Windows-Paket blendet den
+Foto-/PDF-Import aus. Der unten beschriebene `plan_import`-CLI-Store bleibt ein eigenständiger
+Testweg; die API speichert ihre kanonischen Quellen und Ergebnisse in PostgreSQL.
+Die Integrationsprüfungen laufen. Auf dem produktiven Hetzner-System bleibt
+Version 0.7 mit Schema 2 aktiv; der neue Durchstich ist dort nicht bereitgestellt.
+
+Wände, Türen, Räume, Handschrift und durchgestrichene Maße werden nicht semantisch
+erkannt oder automatisch als Planobjekte übernommen. Perspektivkorrektur und
+Maßkalibrierung sind offen. HEIC, DXF, DWG, animierte Bilder und verschlüsselte
+PDFs werden ausdrücklich abgewiesen.
 
 ## Lokal entwickeln und ausprobieren
 
@@ -92,11 +99,13 @@ und veränderte Quellen werden abgewiesen. Fehlende Store-Metadaten werden nicht
 still durch eine neue leere Datenbank ersetzt. Unterbrochene Veröffentlichungen
 können unreferenzierte Dateien hinterlassen; sie werden nicht automatisch gelöscht.
 
-Dieser Entwicklungsstore verschlüsselt die Dateien nicht selbst und hat keinen
-Sicherungs-/Wiederherstellungsvertrag mit Office. Vor einer Serverintegration
-sind Rechte, Speicherbegrenzung sowie gemeinsame Sicherung und Wiederherstellung
-von Metadaten und Dateien zu implementieren und zu prüfen. Die geplanten
-verschlüsselten Offline-Dateien auf Handy/iPad sind eine separate nächste Aufgabe.
+Dieser eigenständige Entwicklungsstore verschlüsselt die Dateien nicht selbst
+und gehört nicht zur Office-Datenbanksicherung. Er wird für synthetische lokale
+Tests verwendet. Der App-/API-Durchstich nutzt stattdessen PostgreSQL-Schema 3
+mit Quellchunks, Vorschau und Ergebnis in der gemeinsamen Sicherung. Die App
+speichert Originale in eigenen AES-GCM-Binärdateien im Konto-/Serverscope, vor
+der Referenz im vorhandenen Metadaten-Snapshot. Geräte-, Stromausfall- und
+Serverabnahme sind dadurch noch nicht ersetzt.
 
 ## Ergebnis und Grenzen
 
@@ -133,8 +142,11 @@ Worker-Prozessgruppe einschließlich OCR-Nachfahren. Ein SIGKILL des Controllers
 ist dadurch nicht abgesichert; die Lease erlaubt spätere Wiederaufnahme. Diese
 Prozesslimits sind kein vollständiger Sicherheitscontainer. Ein produktiver
 Worker benötigt eine eigene eingeschränkte Laufzeit ohne Netzwerk und Zugriff
-auf Office-Geheimnisse. Es gibt keinen externen OCR-/KI-Dienst oder automatischen
-externen Ersatzdienst.
+auf Office-Geheimnisse. Der neue `online.import_worker` startet den Parser mit
+einer erlaubten Minimalauswahl an Umgebungsvariablen ohne DSN-/Vault-/OAuth-
+Geheimnisse; Netzwerk- und Dateisystemzugriff sind damit nicht umfassend isoliert.
+Vor Sandbox- und Serverabnahme werden nur synthetische Unterlagen verarbeitet.
+Es gibt keinen externen OCR-/KI-Dienst oder automatischen externen Ersatzdienst.
 
 ## Prüfung und Abhängigkeiten
 
@@ -143,7 +155,7 @@ PYTHONPATH=backend /tmp/smartplan-import-venv/bin/python -m unittest discover -s
 bash backend/plan_import/test-docker.sh
 ```
 
-67 Tests prüfen echte JPEG-/PNG-/PDF-Verarbeitung, Drucktext-OCR,
+Die Kernprüfungen verwenden echte JPEG-/PNG-/PDF-Verarbeitung, Drucktext-OCR,
 Seiten-/Drehungskoordinaten, Limits, Hash-/Dateischutz, Idempotenz, Lease-Verlust,
 Prozessabbruch samt OCR-Kindprozess und HTML-Escaping. Der Container baut nur
 Werkzeuge aus den separaten Locks und verarbeitet anschließend ausschließlich
@@ -153,8 +165,10 @@ enthält nur Dockerfile und Locks. Paketbezug beim Build benötigt Internet;
 Planverarbeitung im Test benötigt es nicht.
 
 Der eigene [Workflow](../../.github/workflows/plan-import.yml) führt diesen
-Containerlauf aus. Die reguläre Backend-Venv und deren Lockdatei bleiben
-unverändert; die Worker-Tests werden dort nicht versehentlich mitentdeckt.
+Containerlauf aus. Die reguläre Backend-Lockdatei enthält keine schweren
+OCR-/Bildverarbeitungsabhängigkeiten; die Worker-Tests werden bei deren normaler
+Testsuche nicht versehentlich mitentdeckt. App-Integrationstests verwenden
+zusätzlich den separaten Online-Lock für Flask und PostgreSQL-Anbindung.
 
 Produktive Python-Werkzeuge sind separat versioniert: Pillow 12.3.0
 (HPND), NumPy 2.3.5 (BSD), OpenCV headless 4.13.0.92 (Apache/BSD einschließlich
@@ -165,8 +179,11 @@ Lizenzdateien und Drittanbieterhinweise der ausgelieferten Wheels/Systempakete
 müssen bei einer späteren Distribution mitgeführt und geprüft werden. PyMuPDF
 aus der früheren Machbarkeitsprobe ist keine Abhängigkeit dieses Kerns.
 
-Als Nächstes folgt der native Durchstich: Original auf dem Gerät verschlüsselt
-sichern, berechtigt und fortsetzbar auf Hetzner hochladen, Workerauftrag auslösen
-und die prüfbare Quelle samt Ergebnis in der App anzeigen. Erst danach lässt
-sich die Erkennungsqualität mit realen, direkt auf Hetzner bereitgestellten
-Planunterlagen bewerten.
+Der native Durchstich wird jetzt mit App-Neustart, Übertragungsunterbrechung,
+Kontowechsel und Quellen-/Ergebnisprüfung getestet. Kamera, iOS-Dateischutz und
+Backup-Ausschluss benötigen die reale iPhone-/iPad-Abnahme; native CI-Builds
+folgen nach dem Push. Dart stellt keinen Verzeichnis-fsync bereit, weshalb keine
+garantierte Stromausfallsicherheit behauptet wird. Reale Planunterlagen werden
+erst nach Worker-Sandbox und Serverabnahme direkt auf Hetzner bereitgestellt.
+Die SmartScreen-/Signierungsaufgabe bleibt vor einer Windows-Veröffentlichung
+offen.

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'offline_plans.dart';
+import 'plan_import_page.dart';
 
 class PlansPage extends StatefulWidget {
   final OfficeApi api;
@@ -24,9 +25,11 @@ class PlansPage extends StatefulWidget {
 
 class _PlansPageState extends State<PlansPage> {
   List<dynamic> plans = [];
+  List<Map<String, dynamic>> imports = [];
   bool busy = true;
   String? error;
   String get path => '/api/projects/${widget.project['id']}/plans';
+  bool get onlineImports => widget.api.version == 'v1';
   @override
   void initState() {
     super.initState();
@@ -37,12 +40,19 @@ class _PlansPageState extends State<PlansPage> {
   void localChanged() {
     if (!mounted) return;
     try {
-      setState(() => plans = widget.repository!.list(widget.project['id']));
+      setState(() {
+        plans = widget.repository!.list(widget.project['id']);
+        imports = onlineImports
+            ? widget.repository!.imports(widget.project['id'])
+            : [];
+      });
     } catch (e) {
       setState(() {
         error = e.toString();
-        if (widget.repository != null && !widget.repository!.permitted)
+        if (widget.repository != null && !widget.repository!.permitted) {
           plans = [];
+          imports = [];
+        }
       });
     }
   }
@@ -131,11 +141,19 @@ class _PlansPageState extends State<PlansPage> {
       if (repo != null) {
         await repo.sync();
         await repo.refresh(widget.project['id']);
+        if (onlineImports) await repo.refreshImports(widget.project['id']);
       }
       final result = repo == null
           ? await widget.api.call(path)
           : repo.list(widget.project['id']);
-      if (mounted) setState(() => plans = List<dynamic>.from(result));
+      if (mounted) {
+        setState(() {
+          plans = List<dynamic>.from(result);
+          imports = onlineImports
+              ? repo?.imports(widget.project['id']) ?? []
+              : [];
+        });
+      }
     } catch (e) {
       if (mounted) setState(() => error = e.toString());
     } finally {
@@ -183,6 +201,31 @@ class _PlansPageState extends State<PlansPage> {
     }
   }
 
+  Future<void> openImport([String? localId]) async {
+    final repo = widget.repository;
+    if (!onlineImports ||
+        repo == null ||
+        !repo.canAccessProject(widget.project['id']))
+      return;
+    await Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => localId == null
+            ? PlanImportPage(
+                repository: repo,
+                project: widget.project,
+                canWrite: widget.canWrite,
+              )
+            : PlanImportDetailPage(
+                repository: repo,
+                project: widget.project,
+                localId: localId,
+              ),
+      ),
+    );
+    if (mounted) await load();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -195,11 +238,21 @@ class _PlansPageState extends State<PlansPage> {
         ),
       ],
     ),
-    floatingActionButton: widget.canWrite
+    floatingActionButton: widget.canWrite && !onlineImports
         ? FloatingActionButton.extended(
             onPressed: busy ? null : () => open(),
             icon: const Icon(Icons.add),
             label: const Text('Neuer Grundriss'),
+          )
+        : widget.canWrite && widget.repository != null
+        ? FloatingActionButton.extended(
+            onPressed:
+                busy ||
+                    !widget.repository!.canAccessProject(widget.project['id'])
+                ? null
+                : () => openImport(),
+            icon: const Icon(Icons.add_photo_alternate_outlined),
+            label: const Text('Plan hinzufügen'),
           )
         : null,
     body: busy
@@ -212,7 +265,17 @@ class _PlansPageState extends State<PlansPage> {
                   error!,
                   style: TextStyle(color: Theme.of(context).colorScheme.error),
                 ),
-              const Text('Grundrisse je Geschoss · Entwürfe ohne Maßstab'),
+              if (onlineImports)
+                Text(
+                  'Importierte Pläne',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              if (onlineImports)
+                const Text(
+                  'Fotos und PDF-Quellen je Geschoss · Original und Ergebnis zur Prüfung',
+                ),
+              if (!onlineImports)
+                const Text('Grundrisse je Geschoss · Entwürfe ohne Maßstab'),
               if (widget.repository != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -228,10 +291,58 @@ class _PlansPageState extends State<PlansPage> {
                     'Für dieses Projekt sind noch keine Serverpläne auf dem Gerät geladen. Offline sind nur lokale Entwürfe verfügbar.',
                   ),
                 ),
+              if (onlineImports && imports.isEmpty && error == null)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Text('Noch keine Planquellen importiert.'),
+                ),
+              if (onlineImports &&
+                  (widget.repository?.canAccessProject(widget.project['id']) ??
+                      false))
+                for (final source in imports)
+                  Card(
+                    child: ListTile(
+                      leading: Icon(
+                        source['media_type'] == 'application/pdf'
+                            ? Icons.picture_as_pdf_outlined
+                            : Icons.photo_outlined,
+                      ),
+                      title: Text(source['title']),
+                      subtitle: Text(
+                        '${source['filename']}\n${planImportStatus(source)}',
+                      ),
+                      isThreeLine: true,
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => openImport(source['local_id']),
+                    ),
+                  ),
+              if (onlineImports) const SizedBox(height: 24),
+              if (onlineImports)
+                Text(
+                  'Manuell gezeichnete Entwürfe',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              if (onlineImports) const Text('Ohne bestätigten Maßstab'),
+              if (onlineImports && widget.canWrite)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed:
+                        busy ||
+                            !(widget.repository?.canAccessProject(
+                                  widget.project['id'],
+                                ) ??
+                                true)
+                        ? null
+                        : () => open(),
+                    icon: const Icon(Icons.draw_outlined),
+                    label: const Text('Neuer Grundriss'),
+                  ),
+                ),
               if (plans.isEmpty && error == null)
                 const Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Text('Noch keine Pläne vorhanden.'),
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Text('Noch keine manuellen Entwürfe vorhanden.'),
                 ),
               if (widget.repository?.canAccessProject(widget.project['id']) ??
                   true)

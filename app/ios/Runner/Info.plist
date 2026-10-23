@@ -30,6 +30,11 @@
 	<true/>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Smartplan entsperrt lokal gespeicherte Projektpläne mit Face ID oder Gerätecode.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Smartplan Office fotografiert Papierpläne für den Planimport.</string>
+	<!-- Required by image_picker; camera calls use requestFullMetadata:false. -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Zugriff auf Fotos dient ausschließlich dem Import ausgewählter Planbilder.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Smartplan Office speichert auf Wunsch exportierte Berichte oder Bilder in Ihrer Fotomediathek.</string>
 	<key>UIApplicationSceneManifest</key>

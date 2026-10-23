@@ -1,9 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:cryptography/cryptography.dart';
 
 import 'api.dart';
 import 'offline_vault.dart';
+import 'offline_assets.dart';
+
+part 'offline_imports.dart';
 
 /// Plan-only offline workspace. Its scoped seven-day token stays in OS secure storage.
 class OfflinePlans extends ChangeNotifier {
@@ -47,7 +52,9 @@ class OfflinePlans extends ChangeNotifier {
       (offlineCopy({'items': _state?['projects'] ?? []})['items'] as List);
   bool downloaded(String project) =>
       (_state?['downloaded_projects'] as List? ?? []).contains(project);
-  int get pending => (_state?['outbox'] as List? ?? []).length;
+  int get pending =>
+      (_state?['outbox'] as List? ?? []).length +
+      (_state?['import_outbox'] as List? ?? []).length;
   bool get syncing => _syncing;
   void changed() {
     if (!_disposed) notifyListeners();
@@ -106,6 +113,11 @@ class OfflinePlans extends ChangeNotifier {
     for (final record in (state['records'] as Map).values) {
       if (record['sync_status'] == 'Zugriff gesperrt')
         record['sync_status'] = 'Wartet auf Verbindung';
+    }
+    for (final record in (state['imports'] as Map? ?? {}).values) {
+      if (record['sync_status'] == 'Zugriff gesperrt') {
+        record['sync_status'] = 'Wartet auf Verbindung';
+      }
     }
     await vault.write(state);
     await device.select(server, user['id']);
@@ -252,6 +264,7 @@ class OfflinePlans extends ChangeNotifier {
       });
       notice = null;
     } on ApiException catch (e) {
+      if (epoch != _epoch) return;
       notice = e.status == 0
           ? 'Keine Verbindung – lokal verfügbare Pläne.'
           : e.message;
@@ -332,18 +345,17 @@ class OfflinePlans extends ChangeNotifier {
   }
 
   Future<void> sync() async {
-    if (_syncing ||
-        !permitted ||
-        transport.token == null ||
-        !['owner', 'manager', 'technician'].contains(user['role']))
-      return;
+    if (_syncing || !permitted || transport.token == null) return;
     _syncing = true;
     final epoch = _epoch;
     final token = transport.token;
     changed();
     try {
       final attempted = <String>{};
-      while (epoch == _epoch && permitted && transport.token == token) {
+      while (epoch == _epoch &&
+          permitted &&
+          transport.token == token &&
+          ['owner', 'manager', 'technician'].contains(user['role'])) {
         final eligible = (_state!['outbox'] as List).where(
           (op) =>
               !attempted.contains(op['local_id']) &&
@@ -426,6 +438,9 @@ class OfflinePlans extends ChangeNotifier {
               );
           });
         }
+      }
+      if (epoch == _epoch && transport.token == token && permitted) {
+        await _syncImports(epoch, token);
       }
     } catch (e) {
       notice = 'Synchronisierung nicht abgeschlossen. Lokale Eingaben bleiben gespeichert. Bitte Speicherplatz und Verbindung prüfen.';

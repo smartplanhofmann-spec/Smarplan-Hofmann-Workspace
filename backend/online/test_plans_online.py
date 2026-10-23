@@ -3,7 +3,7 @@ import os
 import unittest
 from concurrent.futures import ThreadPoolExecutor
 import test_online as fixtures
-from online.store import migrate, PostgresOffice
+from online.store import migrate, PostgresOffice, SCHEMA_VERSION
 from core import Problem
 
 
@@ -47,7 +47,7 @@ class OnlinePlanTests(unittest.TestCase):
             self.office.db.execute('UPDATE smartplan_schema SET version=1')
         migrate(fixtures.DSN)
         migrate(fixtures.DSN)
-        self.assertEqual(self.office.db.execute('SELECT version FROM smartplan_schema').fetchone()[0], 2)
+        self.assertEqual(self.office.db.execute('SELECT version FROM smartplan_schema').fetchone()[0], SCHEMA_VERSION)
         self.assertEqual(self.office.db.execute('SELECT id FROM users WHERE id=?', (self.owner_id,)).fetchone()[0], self.owner_id)
         self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM plan_versions').fetchone()[0], 0)
 

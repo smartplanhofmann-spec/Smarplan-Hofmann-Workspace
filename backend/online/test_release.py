@@ -8,8 +8,10 @@ import os
 from pathlib import Path
 import shlex
 import stat
+import struct
 import tempfile
 import unittest
+import zlib
 from types import SimpleNamespace
 from unittest.mock import patch
 
@@ -18,7 +20,9 @@ from psycopg.conninfo import conninfo_to_dict, make_conninfo
 
 import plan_access
 from online import release
-from online.store import migrate, PostgresOffice
+from online.store import migrate, PostgresOffice, SCHEMA_VERSION
+from online.plan_imports import PlanImports, CHUNK_SIZE
+from online.restore import restore
 
 DSN = os.environ.get('SMARTPLAN_TEST_DSN')
 CANDIDATE = make_conninfo(DSN, dbname='smartplan_release_check') if DSN else None
@@ -241,6 +245,7 @@ class CandidateRelease(unittest.TestCase):
             token = office.login('release@example.test', 'Release-test-password-123')
             self.user = office.user(token)
             project = office.add_project(self.user, 'Fiktives Releaseprojekt', 'Fiktiver Kunde')
+            self.project = project
             report = office.draft(self.user, project, 'Servicebericht', 'Ausschließlich synthetische Prüfung.')
             office.sign(self.user, report['id'], report['content_hash'], 'Fiktiver Unterzeichner', [[[0.1, 0.2], [0.8, 0.7]]])
             office.save_plan(self.user, project, {'title': 'Fiktives EG', 'walls': [], 'request_id': 'c' * 32})
@@ -253,18 +258,66 @@ class CandidateRelease(unittest.TestCase):
         self.temp.cleanup()
 
     def source_v1(self):
+        self.source_v2()
         with psycopg.connect(DSN) as connection:
             connection.execute('DROP TABLE plan_versions,plan_requests,plan_sessions')
             connection.execute('UPDATE smartplan_schema SET version=1')
 
+    def source_v2(self):
+        with psycopg.connect(DSN) as connection:
+            connection.execute('DROP TABLE IF EXISTS plan_import_chunks,plan_imports')
+            connection.execute('UPDATE smartplan_schema SET version=2')
+
     def prepare(self):
         return release.prepare(DSN, CANDIDATE, self.temp.name, test_mode=True)
+
+    def seed_imports(self):
+        # A real small PNG with a large uncompressed text chunk spans two upload
+        # chunks. The bytes, source metadata and results must travel together.
+        def png(padding=0):
+            def chunk(kind, payload):
+                return (struct.pack('>I', len(payload)) + kind + payload +
+                        struct.pack('>I', zlib.crc32(kind + payload)))
+            return (b'\x89PNG\r\n\x1a\n' +
+                    chunk(b'IHDR', struct.pack('>IIBBBBB', 1, 1, 8, 2, 0, 0, 0)) +
+                    chunk(b'tEXt', b'synthetic\x00' + b'x' * padding) +
+                    chunk(b'IDAT', zlib.compress(b'\x00\x12\x34\x56')) + chunk(b'IEND', b''))
+        source, preview = png(CHUNK_SIZE + 41), png()
+        checksum = hashlib.sha256(source).hexdigest()
+        result = {'schema_version': 1, 'status': 'needs_review',
+                  'source': {'sha256': checksum, 'selected_page': 0}, 'calibration': {'status': 'unknown'}}
+        office = PostgresOffice(DSN)
+        ids = {}
+        try:
+            imports = PlanImports(office)
+            with office.lock, office.db:
+                for index, status in enumerate(('needs_review', 'uploading', 'failed', 'running'), 1):
+                    job = imports.create(self.user, self.project,
+                        dict(request_id=str(index) * 32, filename='synthetischer-plan.png',
+                             media_type='image/png', size=len(source), sha256=checksum,
+                             page=0, title='Fiktiver ' + status))
+                    ids[status] = job['id']
+                    if status == 'uploading':
+                        imports.put_chunk(self.user, self.project, job['id'], 1, source[CHUNK_SIZE:])
+                        continue
+                    for number, start in enumerate(range(0, len(source), CHUNK_SIZE)):
+                        imports.put_chunk(self.user, self.project, job['id'], number, source[start:start + CHUNK_SIZE])
+                    imports.complete_upload(self.user, self.project, job['id'])
+                    claimed = imports.claim()
+                    self.assertEqual(claimed['id'], job['id'])
+                    if status == 'needs_review':
+                        imports.publish(job['id'], claimed['lease_token'], preview=preview, result=result)
+                    elif status == 'failed':
+                        imports.fail(job['id'], claimed['lease_token'], 'synthetic_failure')
+        finally:
+            office.db.close()
+        return ids, source, preview, result
 
     def test_restore_migrates_v1_without_changing_source_or_existing_rows(self):
         self.source_v1()
         before = release.snapshot_fingerprint(DSN)
         result = self.prepare()
-        self.assertEqual((result['source_schema'], result['target_schema']), (1, 2))
+        self.assertEqual((result['source_schema'], result['target_schema']), (1, SCHEMA_VERSION))
         self.assertEqual(result['tables'], before)
         self.assertEqual(release.snapshot_fingerprint(DSN), before)
         candidate = release.snapshot_fingerprint(CANDIDATE)
@@ -273,6 +326,8 @@ class CandidateRelease(unittest.TestCase):
         self.assertEqual(candidate['plan_versions']['rows'], 0)
         self.assertEqual(candidate['plan_requests']['rows'], 0)
         self.assertEqual(candidate['plan_sessions']['rows'], 0)
+        self.assertEqual(candidate['plan_imports']['rows'], 0)
+        self.assertEqual(candidate['plan_import_chunks']['rows'], 0)
         archive = Path(result['backup'])
         self.assertTrue(archive.is_file())
         self.assertEqual(stat.S_IMODE(archive.stat().st_mode), 0o600)
@@ -281,15 +336,109 @@ class CandidateRelease(unittest.TestCase):
         office.db.close()
 
     def test_v2_roundtrip_preserves_signed_pdf_plan_retry_records_and_device_grants(self):
+        self.source_v2()
         before = release.snapshot_fingerprint(DSN)
         result = self.prepare()
-        self.assertEqual((result['source_schema'], result['target_schema']), (2, 2))
+        self.assertEqual((result['source_schema'], result['target_schema']), (2, SCHEMA_VERSION))
         self.assertEqual(release.snapshot_fingerprint(DSN), before)
-        self.assertEqual(release.snapshot_fingerprint(CANDIDATE), before)
+        candidate = release.snapshot_fingerprint(CANDIDATE)
+        self.assertEqual({key: value for key, value in candidate.items() if key in before and key != 'smartplan_schema'},
+                         {key: value for key, value in before.items() if key != 'smartplan_schema'})
+        self.assertEqual(candidate['plan_imports']['rows'], 0)
+        self.assertEqual(candidate['plan_import_chunks']['rows'], 0)
         self.assertEqual(release.sequence_state(CANDIDATE), release.sequence_state(DSN))
         self.assertEqual(before['plan_versions']['rows'], 1)
         self.assertEqual(before['plan_requests']['rows'], 1)
         self.assertEqual(before['plan_sessions']['rows'], 1)
+
+    def test_v3_roundtrip_preserves_original_chunks_partial_uploads_leases_and_results(self):
+        ids, source, preview, _ = self.seed_imports()
+        before = release.snapshot_fingerprint(DSN)
+        prepared = self.prepare()
+        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (SCHEMA_VERSION, SCHEMA_VERSION))
+        self.assertEqual(release.snapshot_fingerprint(DSN), before)
+        self.assertEqual(release.snapshot_fingerprint(CANDIDATE), before)
+        self.assertEqual(before['plan_imports']['rows'], 4)
+        self.assertEqual(before['plan_import_chunks']['rows'], 7)
+        office = PostgresOffice(CANDIDATE)
+        try:
+            imports = PlanImports(office)
+            with office.lock, office.db:
+                self.assertEqual(imports.source(self.user, self.project, ids['needs_review'])[0], source)
+                self.assertEqual(imports.source(self.user, self.project, ids['failed'])[0], source)
+                self.assertEqual(imports.artifact(self.user, self.project, ids['needs_review'], 'preview')[0], preview)
+                self.assertEqual(imports.get(self.user, self.project, ids['uploading'])['uploaded_chunks'], [1])
+                self.assertEqual(imports.get(self.user, self.project, ids['running'])['status'], 'running')
+        finally:
+            office.db.close()
+
+    def test_corrupt_import_bytes_or_artifacts_reject_candidate_without_changing_source(self):
+        ids, _, _, _ = self.seed_imports()
+        for kind in ('chunk', 'preview', 'result'):
+            with self.subTest(kind=kind):
+                statement, import_id = {
+                    'chunk': ("UPDATE plan_import_chunks SET data=repeat('x',size)::bytea WHERE import_id=%s AND chunk_index=1", ids['uploading']),
+                    'preview': ("UPDATE plan_imports SET preview='\\x00'::bytea WHERE id=%s", ids['needs_review']),
+                    'result': ("UPDATE plan_imports SET result='{}' WHERE id=%s", ids['needs_review']),
+                }[kind]
+                with psycopg.connect(CANDIDATE, autocommit=True) as connection:
+                    connection.execute('DROP SCHEMA public CASCADE')
+                    connection.execute('CREATE SCHEMA public')
+                with psycopg.connect(DSN) as connection:
+                    connection.execute(statement, (import_id,))
+                before = release.snapshot_fingerprint(DSN)
+                with self.assertRaises((ValueError, RuntimeError)):
+                    self.prepare()
+                self.assertEqual(release.snapshot_fingerprint(DSN), before)
+                # Reset only the test import tables and retain all other data.
+                with psycopg.connect(DSN) as connection:
+                    connection.execute('DELETE FROM plan_import_chunks')
+                    connection.execute('DELETE FROM plan_imports')
+                ids, _, _, _ = self.seed_imports()
+
+    def test_explicit_restore_verifies_imports_and_revokes_sessions_without_losing_sources(self):
+        ids, source, preview, _ = self.seed_imports()
+        before = release.snapshot_fingerprint(DSN)
+        saved = release.backup(DSN, self.temp.name)
+        restore(saved, DSN, CANDIDATE)
+        candidate = release.snapshot_fingerprint(CANDIDATE)
+        self.assertEqual(release.snapshot_fingerprint(DSN), before)
+        for table in ('plan_imports', 'plan_import_chunks', 'plan_versions', 'plan_requests'):
+            self.assertEqual(candidate[table], before[table])
+        for table in ('sessions', 'plan_sessions', 'auth_challenges', 'login_limits'):
+            self.assertEqual(candidate[table]['rows'], 0)
+        office = PostgresOffice(CANDIDATE)
+        try:
+            imports = PlanImports(office)
+            with office.lock, office.db:
+                self.assertEqual(imports.source(self.user, self.project, ids['needs_review'])[0], source)
+                self.assertEqual(imports.artifact(self.user, self.project, ids['needs_review'], 'preview')[0], preview)
+        finally:
+            office.db.close()
+
+    def test_explicit_restore_upgrades_v1_and_v2_backups_without_changing_active_source(self):
+        for version in (2, 1):
+            with self.subTest(version=version):
+                if version == 2:
+                    self.source_v2()
+                else:
+                    self.source_v1()
+                with psycopg.connect(CANDIDATE, autocommit=True) as connection:
+                    connection.execute('DROP SCHEMA public CASCADE')
+                    connection.execute('CREATE SCHEMA public')
+                before = release.snapshot_fingerprint(DSN)
+                saved = release.backup(DSN, self.temp.name)
+                restore(saved, DSN, CANDIDATE)
+                self.assertEqual(release.snapshot_fingerprint(DSN), before)
+                office = PostgresOffice(CANDIDATE)
+                try:
+                    with office.lock, office.db:
+                        self.assertEqual(office.db.execute('SELECT version FROM smartplan_schema').fetchone()[0], SCHEMA_VERSION)
+                        self.assertEqual(office.db.execute('SELECT COUNT(*) FROM plan_imports').fetchone()[0], 0)
+                        self.assertEqual(office.db.execute('SELECT COUNT(*) FROM sessions').fetchone()[0], 0)
+                        self.assertEqual(office.db.execute('SELECT COUNT(*) FROM reports').fetchone()[0], 1)
+                finally:
+                    office.db.close()
 
     def test_fingerprint_covers_bytes_nulls_duplicates_and_ignores_physical_row_order(self):
         with psycopg.connect(DSN) as connection:

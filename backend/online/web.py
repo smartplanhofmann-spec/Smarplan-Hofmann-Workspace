@@ -12,6 +12,7 @@ from online.auth import Authentication
 from online.store import PostgresOffice, SCHEMA_VERSION
 from online.storage import Storage
 import plan_access
+from online.plan_imports import PlanImports, CHUNK_SIZE, ensure_sqlite_schema
 
 METHODS = {
     '/offline/access': 'POST', '/offline/logout': 'POST',
@@ -21,6 +22,11 @@ METHODS = {
     '/storage/provider': 'POST', '/storage/disconnect': 'POST',
 }
 PATTERNS = [
+    (r'/projects/[a-f0-9]{32}/plan-imports', 'GET, POST'),
+    (r'/projects/[a-f0-9]{32}/plan-imports/[a-f0-9]{32}', 'GET'),
+    (r'/projects/[a-f0-9]{32}/plan-imports/[a-f0-9]{32}/chunks/[0-9]{1,3}', 'PUT'),
+    (r'/projects/[a-f0-9]{32}/plan-imports/[a-f0-9]{32}/complete', 'POST'),
+    (r'/projects/[a-f0-9]{32}/plan-imports/[a-f0-9]{32}/(?:source|preview|result)', 'GET'),
     (r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', 'GET, POST'),
     (r'/users/[a-f0-9]{32}', 'POST'),
     (r'/customers/[a-f0-9]{32}', 'GET, POST'),
@@ -62,6 +68,24 @@ def dispatch(office, user, path, method, data, token):
     if parts[0] == 'customers':
         return (office.customer(user, parts[1]) if method == 'GET' else office.update_customer(user, parts[1], data)), 200
     if parts[0] == 'projects':
+        if parts[2] == 'plan-imports':
+            imports = PlanImports(office)
+            project = parts[1]
+            if len(parts) == 3:
+                return (imports.list(user, project), 200) if method == 'GET' else (imports.create(user, project, data), 201)
+            import_id = parts[3]
+            if len(parts) == 4:
+                return imports.get(user, project, import_id), 200
+            if parts[4] == 'chunks':
+                return imports.put_chunk(user, project, import_id, int(parts[5]), data), 200
+            if parts[4] == 'complete':
+                if data:
+                    raise Problem(400, 'Leerer Abschlussauftrag erwartet')
+                return imports.complete_upload(user, project, import_id), 200
+            content, mimetype = (imports.source(user, project, import_id) if parts[4] == 'source'
+                                 else imports.artifact(user, project, import_id, parts[4]))
+            return Response(content, mimetype=mimetype,
+                            headers={'Content-Disposition': 'attachment; filename="smartplan-import"'}), 200
         if parts[2] == 'plans':
             plan_id = parts[3] if len(parts) == 4 else None
             if method == 'GET':
@@ -90,6 +114,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     if key is None:
         key = Path(os.environ['SMARTPLAN_VAULT_KEY_FILE']).read_bytes().strip()
     office = office or PostgresOffice(os.environ['SMARTPLAN_DATABASE_DSN'])
+    ensure_sqlite_schema(office)
     authentication = Authentication(office, key)
     storage = storage or Storage(office, key, host, config=storage_config, onedrive=onedrive)
     app = Flask(__name__, static_folder=None)
@@ -145,8 +170,8 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         try:
             with office.lock, office.db:
                 office.db.execute('SELECT COUNT(*) FROM users').fetchone()
-            return jsonify(status='ok', version='0.7.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
-                           capabilities=['project_plans', 'offline_plan_access'])
+            return jsonify(status='ok', version='0.8.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
+                           capabilities=['project_plans', 'offline_plan_access', 'plan_imports'])
         except Exception:
             return jsonify(status='unavailable'), 503
 
@@ -184,7 +209,15 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             response.status_code = 405
             response.headers['Allow'] = methods
             return response
-        data = body() if request.method == 'POST' else {}
+        if request.method == 'PUT':
+            request.max_content_length = CHUNK_SIZE
+            if request.mimetype != 'application/octet-stream':
+                raise Problem(415, 'Binärer Uploadabschnitt erwartet')
+            if request.headers.get('Content-Encoding', 'identity') != 'identity':
+                raise Problem(400, 'Komprimierte Uploadabschnitte werden nicht unterstützt')
+            data = request.get_data(cache=False)
+        else:
+            data = body() if request.method == 'POST' else {}
         authorization = request.headers.get('Authorization', '')
         if not authorization.startswith('Bearer ') or len(authorization) > 200:
             raise Problem(401, 'Bitte anmelden')
@@ -192,8 +225,9 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         plan_token = token.startswith(plan_access.PREFIX)
         if plan_token and not (path == '/offline/logout' or
                 (path == '/projects' and request.method == 'GET') or
-                re.fullmatch(r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path)):
-            raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne')
+                re.fullmatch(r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path) or
+                re.fullmatch(r'/projects/[a-f0-9]{32}/plan-imports(?:/[a-f0-9]{32}(?:/(?:complete|source|preview|result|chunks/[0-9]{1,3}))?)?', path)):
+            raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne und Planquellen')
         if path.startswith('/storage/'):
             if path == '/storage/status':
                 return jsonify(storage.status(token))

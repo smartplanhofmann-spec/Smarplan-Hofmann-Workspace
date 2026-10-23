@@ -115,6 +115,10 @@ smartplan_gate=0
 smartplan_stopped=0
 smartplan_activating=0
 smartplan_timer_was_active=0
+smartplan_import_worker_was_active=0
+# A failed activation-journal write must not itself resume a database writer.
+smartplan_import_worker_may_resume=0
+if systemctl is-active --quiet smartplan-plan-import.service; then smartplan_import_worker_was_active=1; fi
 smartplan_app_legacy=""
 smartplan_venv_legacy=""
 smartplan_restore_link() {
@@ -137,6 +141,9 @@ smartplan_abort() {
   set +e
   if (( smartplan_result == 0 )); then return; fi
   if (( smartplan_activating )); then
+    if (( smartplan_import_worker_was_active && smartplan_import_worker_may_resume )); then
+      systemctl start smartplan-plan-import.service || echo 'Importworker für die neue Datenbank nicht gestartet; Journal beibehalten und vorwärts beheben.' >&2
+    fi
     if (( smartplan_timer_was_active )); then
       systemctl start smartplan-online-backup.timer || echo 'Sicherungstimer für die neue Datenbank nicht gestartet; umgehend prüfen.' >&2
     fi
@@ -146,6 +153,10 @@ smartplan_abort() {
   fi
   local smartplan_restored=1
   if (( smartplan_stopped )); then
+    if (( smartplan_import_worker_was_active )) && ! systemctl stop smartplan-plan-import.service; then
+      echo "Importworker-Stopp nicht bestätigt. Konfiguration unverändert lassen; Wartung und Journal beibehalten: $smartplan_control" >&2
+      exit "$smartplan_result"
+    fi
     if ! systemctl stop smartplan-online.service; then
       echo "Dienststopp nicht bestätigt. Konfiguration unverändert lassen; Wartung und Journal beibehalten: $smartplan_control" >&2
       exit "$smartplan_result"
@@ -173,6 +184,9 @@ smartplan_abort() {
       systemctl start smartplan-online.service || smartplan_restored=0
       for smartplan_attempt in {1..15}; do smartplan_ready >/dev/null 2>&1 && break; sleep 1; done
       smartplan_ready >/dev/null 2>&1 || smartplan_restored=0
+      if (( smartplan_restored && smartplan_import_worker_was_active )); then
+        systemctl start smartplan-plan-import.service || smartplan_restored=0
+      fi
     fi
   fi
   if (( smartplan_gate && smartplan_restored )); then
@@ -200,13 +214,13 @@ trap smartplan_abort EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
 # Persist enough non-secret information for recovery after SIGKILL or reboot.
-(cd "$smartplan_release/app/backend"; "$smartplan_release/venv/bin/python" - "$smartplan_control/metadata.json" "$smartplan_id" "$smartplan_candidate" "$smartplan_previous_app" "$smartplan_previous_venv" "$smartplan_release" "$smartplan_previous_commit" "$smartplan_commit" <<'PYMETA'
+(cd "$smartplan_release/app/backend"; "$smartplan_release/venv/bin/python" - "$smartplan_control/metadata.json" "$smartplan_id" "$smartplan_candidate" "$smartplan_previous_app" "$smartplan_previous_venv" "$smartplan_release" "$smartplan_previous_commit" "$smartplan_commit" "$smartplan_import_worker_was_active" <<'PYMETA'
 import json
 import os
 import sys
 from psycopg.conninfo import conninfo_to_dict
 from online.release import atomic_write
-path, update_id, candidate, previous_app, previous_venv, release, old_commit, new_commit = sys.argv[1:]
+path, update_id, candidate, previous_app, previous_venv, release, old_commit, new_commit, import_worker_active = sys.argv[1:]
 metadata = dict(update_id=update_id, candidate_database=candidate,
                 source_database=conninfo_to_dict(os.environ['SMARTPLAN_DATABASE_DSN'])['dbname'],
                 previous_app=previous_app, previous_venv=previous_venv,
@@ -214,7 +228,8 @@ metadata = dict(update_id=update_id, candidate_database=candidate,
                 previous_venv_was_link=os.path.islink('/opt/smartplan-online/venv'),
                 legacy_app='/opt/smartplan-online/app.before-' + update_id,
                 legacy_venv='/opt/smartplan-online/venv.before-' + update_id,
-                new_release=release, original_commit=old_commit, new_commit=new_commit)
+                new_release=release, original_commit=old_commit, new_commit=new_commit,
+                import_worker_was_active=import_worker_active == '1')
 atomic_write(path, (json.dumps(metadata, sort_keys=True) + '\n').encode())
 PYMETA
 )
@@ -245,6 +260,7 @@ done
 [[ "$smartplan_backup_state" == inactive || "$smartplan_backup_state" == failed ]] || fail 'Laufende Sicherung zuerst auslaufen lassen.'
 # Mark before stopping: even a partially failed stop must keep traffic gated.
 smartplan_stopped=1
+if (( smartplan_import_worker_was_active )); then systemctl stop smartplan-plan-import.service; fi
 systemctl stop smartplan-online.service
 smartplan_phase stopped
 smartplan_service_helper validate --candidate "$smartplan_candidate"
@@ -271,15 +287,17 @@ for smartplan_attempt in {1..15}; do smartplan_ready >/dev/null 2>&1 && break; s
 smartplan_ready >/dev/null 2>&1 || fail 'Kandidat nicht bereit; Rückkehr vor öffentlicher Freigabe.'
 curl --fail --silent --max-time 3 -H 'Host: office.smartplan-hofmann.de' -H 'X-Forwarded-Proto: https' \
   http://127.0.0.1:8766/ready | "$smartplan_release/venv/bin/python" -c \
-  'import json,sys; v=json.load(sys.stdin); assert v.get("schema_version")==2 and {"project_plans","offline_plan_access"} <= set(v.get("capabilities",[]))'
+  'import json,sys; v=json.load(sys.stdin); assert v.get("schema_version")==3 and {"project_plans","offline_plan_access","plan_imports"} <= set(v.get("capabilities",[]))'
 systemctl is-active --quiet smartplan-online.service || fail 'Neuer Dienst nicht aktiv.'
 # Durable boundary BEFORE any public request can reach the new database.
 smartplan_activating=1
 smartplan_phase activating
+smartplan_import_worker_may_resume=1
 smartplan_atomic_copy "$smartplan_control/Caddyfile.before" /etc/smartplan-https/Caddyfile 0644 root
 systemctl reload smartplan-https.service
 [[ "$(curl --silent --show-error --max-time 10 --noproxy '*' --resolve office.smartplan-hofmann.de:443:127.0.0.1 \
   --output /dev/null --write-out '%{http_code}' https://office.smartplan-hofmann.de/api/v1/projects)" == 401 ]] || fail 'Öffentliche Prüfung nicht bestätigt. Neue Datenbank beibehalten.'
+if (( smartplan_import_worker_was_active )); then systemctl start smartplan-plan-import.service; fi
 if (( smartplan_timer_was_active )); then systemctl start smartplan-online-backup.timer; fi
 smartplan_phase active
 rm -- "$smartplan_pending"

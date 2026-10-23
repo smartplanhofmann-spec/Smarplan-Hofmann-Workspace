@@ -39,6 +39,7 @@ jobs:
         run: |
           python -m unittest discover -s backend/online -p test_online.py -v
           python -m unittest discover -s backend/online -p test_plans_online.py -v
+          python -m unittest discover -s backend/online -p test_plan_imports.py -v
           python -m unittest discover -s backend/online -p test_release.py -v
           python -m unittest discover -s backend/online -p test_storage.py -v
           python -m unittest discover -s backend/online -p test_onedrive.py -v
@@ -89,7 +90,8 @@ jobs:
       - name: Install real backend for client integration test
         run: |
           python -m venv ../backend/.venv
-          ../backend/.venv/bin/python -m pip install -r ../backend/requirements.lock
+          ../backend/.venv/bin/python -m pip install -r ../backend/requirements.lock -r ../backend/online/requirements.lock
+          ../backend/.venv/bin/python -m pip check
       - name: Check private Linux pilot launcher and backup
         run: |
           bash -n ../deploy/hetzner/install-pilot.sh
@@ -140,7 +142,10 @@ jobs:
         run: |
           python -m venv ../backend/.venv
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          & ../backend/.venv/Scripts/python.exe -m pip install -r ../backend/requirements.lock
+          & ../backend/.venv/Scripts/python.exe -m pip install -r ../backend/requirements.lock -r ../backend/online/requirements.lock
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & ../backend/.venv/Scripts/python.exe -m pip check
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Test Windows backup, restore and launcher lifecycle
         if: runner.os == 'Windows'
         shell: pwsh
@@ -216,7 +221,7 @@ jobs:
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.7.0 - lokales Windows-Testpaket (x64)
+          Smartplan Office 0.8.0 - lokales Windows-Testpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -227,9 +232,10 @@ jobs:
           Flutter, Visual Studio und C++-Buildwerkzeuge werden zum Start dieses Pakets nicht benoetigt.
           Die benoetigten Visual-C++-Laufzeit-DLLs sind enthalten.
           Das Paket ist eine Entwicklungsstufe, kein signierter Installer und kein produktiver Mehrbenutzerbetrieb.
-          Projektplaene werden zuerst lokal geschuetzt gespeichert und spaeter synchronisiert.
-          Offline-Berechtigung: bis zu sieben Tage nach Online-Anmeldung; ohne Verbindung sind nur vorbereitete Plaene verfuegbar.
-          Berichte und Medien benoetigen weiterhin Verbindung. Geraeteentsperrung separat pruefen.
+          Gezeichnete Projektplaene werden zuerst lokal verschluesselt gespeichert und spaeter synchronisiert.
+          Offline-Berechtigung: bis zu sieben Tage nach Online-Anmeldung; vorhandene lokale Eingaben bleiben danach erhalten.
+          Foto-/PDF-Planimport ist ausschliesslich im getrennten Online-Paket vorgesehen und in diesem lokalen Paket nicht sichtbar.
+          Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung. Geraeteentsperrung separat pruefen.
           OneDrive ist erst nach einer gesonderten Einrichtung nutzbar.
           '@
           Set-Content -Path (Join-Path $smartplanBundle 'APP_VERSION.txt') -Value $smartplanReadme -Encoding utf8
@@ -286,7 +292,7 @@ jobs:
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
           $smartplanInstructions = @'
-          Smartplan Office 0.7.0 - Online-Pilot fuer Windows (x64)
+          Smartplan Office 0.8.0 - Online-Pilot fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
@@ -294,9 +300,12 @@ jobs:
           Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
           und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
           Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
-          Servervoraussetzung: freigegebenes Plan-/Offline-Update mit PostgreSQL-Schema 2.
-          Projektplaene vor der Fahrt oeffnen; neue Plaene und Wand-/Titelaenderungen werden zuerst lokal gespeichert.
-          Offline bis zu sieben Tage; Berichte, Kundenverwaltung und Medien benoetigen weiterhin Verbindung.
+          Servervoraussetzung fuer Planimporte: freigegebenes Backendupdate mit PostgreSQL-Schema 3 und der Import-API.
+          Die Erkennung benoetigt einen separat eingerichteten Importworker; dieses Paket aktiviert keinen Serverdienst automatisch.
+          Der bestehende produktive Server 0.7/Schema 2 ist durch dieses Pruefpaket nicht aktualisiert.
+          Projektplaene vor der Fahrt oeffnen; neue Plaene und Planquellen werden zuerst lokal verschluesselt gespeichert.
+          Ohne neue Import-API bleiben Quellen lokal erhalten; ein erforderliches Serverupdate wird gemeldet.
+          Offline bis zu sieben Tage; Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung.
           Ausstehende Plaene nicht durch Deinstallation oder Loeschen von App-Daten entfernen.
           Das Paket ist ein Online-Pilot, kein signierter Installer.
           Eine zusaetzliche PDF-Ablage ist nach Einrichtung und Auswahl in der App nutzbar.

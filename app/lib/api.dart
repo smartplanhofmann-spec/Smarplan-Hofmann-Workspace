@@ -30,6 +30,10 @@ class OfficeApi extends ChangeNotifier {
     String path,
     Map<String, dynamic>? body, {
     bool pdf = false,
+    Uint8List? binary,
+    String? method,
+    String? expectedMediaType,
+    int maxResponseBytes = 20 * 1024 * 1024,
   }) async {
     final versionedPath = version == 'v1' && path.startsWith('/api/')
         ? '/api/v1/${path.substring(5)}'
@@ -50,12 +54,16 @@ class OfficeApi extends ChangeNotifier {
     final sessionToken = token;
     try {
       final request = await client
-          .openUrl(body == null ? 'GET' : 'POST', uri)
+          .openUrl(method ?? (body == null ? 'GET' : 'POST'), uri)
           .timeout(const Duration(seconds: 15));
       request.followRedirects = false;
       if (sessionToken != null)
         request.headers.set('Authorization', 'Bearer $sessionToken');
-      if (body != null) {
+      if (binary != null) {
+        request.headers.contentType = ContentType.binary;
+        request.contentLength = binary.length;
+        request.add(binary);
+      } else if (body != null) {
         final encodedBody = utf8.encode(jsonEncode(body));
         request.headers.contentType = ContentType.json;
         request.contentLength = encodedBody.length;
@@ -67,7 +75,7 @@ class OfficeApi extends ChangeNotifier {
       final bytes = BytesBuilder(copy: false);
       await for (final chunk in response.timeout(const Duration(seconds: 40))) {
         bytes.add(chunk);
-        if (bytes.length > 20 * 1024 * 1024) {
+        if (bytes.length > maxResponseBytes) {
           throw const ApiException(0, 'Antwort ist zu groß.');
         }
       }
@@ -92,6 +100,10 @@ class OfficeApi extends ChangeNotifier {
       if (response.statusCode >= 300) {
         throw const ApiException(0, 'Unerwartete Weiterleitung des Servers.');
       }
+      if (expectedMediaType != null &&
+          response.headers.contentType?.mimeType != expectedMediaType) {
+        throw const ApiException(0, 'Unerwartetes Dateiformat vom Server.');
+      }
       if (pdf &&
           (response.headers.contentType?.mimeType != 'application/pdf' ||
               data.length < 4 ||
@@ -112,6 +124,11 @@ class OfficeApi extends ChangeNotifier {
         0,
         'Server nicht erreichbar. Verbindung prüfen.',
       );
+    } on HttpException {
+      throw const ApiException(
+        0,
+        'Übertragung unterbrochen. Bitte erneut versuchen.',
+      );
     } finally {
       client.close(force: true);
     }
@@ -128,6 +145,35 @@ class OfficeApi extends ChangeNotifier {
 
   Future<Uint8List> pdf(String reportId) =>
       _request('/api/reports/$reportId/pdf', null, pdf: true);
+
+  Future<dynamic> putChunk(String path, Uint8List bytes) async {
+    if (bytes.isEmpty || bytes.length > 262144) {
+      throw const ApiException(400, 'Ungültiger Dateiabschnitt.');
+    }
+    final response = await _request(
+      path,
+      null,
+      binary: bytes,
+      method: 'PUT',
+      maxResponseBytes: 1024 * 1024,
+    );
+    try {
+      return jsonDecode(utf8.decode(response));
+    } on FormatException {
+      throw const ApiException(0, 'Ungültige Antwort des Servers.');
+    }
+  }
+
+  Future<Uint8List> bytes(
+    String path, {
+    required String mediaType,
+    int maxBytes = 20 * 1024 * 1024,
+  }) => _request(
+    path,
+    null,
+    expectedMediaType: mediaType,
+    maxResponseBytes: maxBytes,
+  );
 }
 
 const roleLabels = {

@@ -62,6 +62,7 @@ class ReleaseMaintenanceTlsTest(unittest.TestCase):
 
             do_GET = handle_request
             do_POST = handle_request
+            do_PUT = handle_request
 
             def log_message(self, format, *args):
                 pass
@@ -115,8 +116,9 @@ class ReleaseMaintenanceTlsTest(unittest.TestCase):
                         def request(path, method='GET', context=trusted):
                             connection = http.client.HTTPSConnection('localhost', tls_port, context=context, timeout=3)
                             try:
-                                connection.request(method, path, body='{}' if method == 'POST' else None,
-                                                   headers={'Content-Type': 'application/json'})
+                                body = b'\x89PNG\r\n\x1a\n' if method == 'PUT' else '{}' if method == 'POST' else None
+                                connection.request(method, path, body=body,
+                                                   headers={'Content-Type': 'application/octet-stream' if method == 'PUT' else 'application/json'})
                                 response = connection.getresponse()
                                 return response.status, {k.lower(): v for k, v in response.getheaders()}, response.read()
                             finally:
@@ -151,8 +153,13 @@ class ReleaseMaintenanceTlsTest(unittest.TestCase):
                         process = start()
                         self.assertNotEqual(old_process.pid, process.pid)
                         wait_status(503)
-                        for path in ('/api/v1/projects', '/api/v1/offline/access', '/ready', '/health'):
-                            for method in ('GET', 'POST'):
+                        project = 'a' * 32
+                        source = 'b' * 32
+                        import_path = f'/api/v1/projects/{project}/plan-imports/{source}'
+                        for path in ('/api/v1/projects', '/api/v1/offline/access', '/ready', '/health',
+                                     import_path, import_path + '/source', import_path + '/preview',
+                                     import_path + '/result', import_path + '/chunks/0'):
+                            for method in ('GET', 'POST', 'PUT'):
                                 with self.subTest(phase='maintenance', path=path, method=method):
                                     status, headers, body = request(path, method)
                                     self.assertEqual(status, 503)

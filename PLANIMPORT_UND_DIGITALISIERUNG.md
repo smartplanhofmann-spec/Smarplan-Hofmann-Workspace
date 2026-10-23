@@ -6,8 +6,10 @@ abfotografierte Papierpläne, besonders Hausgrundrisse mit handschriftlichen
 Ergänzungen. Aus diesen Quellen soll im Hintergrund ein überprüfbarer,
 bearbeitbarer Plan entstehen. Das Original muss daneben erhalten bleiben.
 
-Diese Spezifikation beschreibt den nächsten Ausbau. Kamera, Quellenimport und
-automatische Digitalisierung sind in der nativen App noch nicht implementiert.
+Diese Spezifikation beschreibt das Ziel und den unten abgegrenzten aktuellen
+Durchstich. Dateiauswahl, iOS-Kamera, verschlüsselte Originale, Upload und
+Serveraufträge sind im Entwicklungscode verbunden. Die Integration wird noch
+geprüft und ist nicht auf dem bestehenden Hetzner-Server bereitgestellt.
 
 ## Verbindlicher Verarbeitungsort
 
@@ -28,7 +30,7 @@ Sie ersetzt die zuvor kurz erwogene Nutzung externer KI-Dienste.
   Ressourcenbedarf, Lizenz und unterstützter Eingaben geprüft. Ein größerer
   Server oder ein kostenpflichtiger Konverter ist nicht bestellt.
 
-## Nutzerablauf
+## Nutzerablauf als Zielbild
 
 1. Im Projekt **Plan hinzufügen** öffnen: **Plan fotografieren** auf iPhone/iPad
    oder **Datei importieren** auf Handy, Tablet und Windows.
@@ -79,23 +81,28 @@ Ein bloß abgelegtes Foto oder DWG ist noch kein automatisch digitalisierter Pla
 ## Technischer Durchstich
 
 **Originalquelle:** stabile ID, Projekt, Quellhash, MIME-Typ, Byteanzahl und
-gegebenenfalls PDF-Seite. Original und Vorschau getrennt speichern. Für den
-ersten begrenzten Serverausbau kommen DB-BLOBs/Chunks infrage, damit die Quelle
-mit der bestehenden Datenbanksicherung konsistent wiederherstellbar bleibt.
-Dateien außerhalb der Datenbank auf demselben Server brauchen einen eigenen
-geprüften Sicherungsvertrag.
+gegebenenfalls PDF-Seite. PostgreSQL-Schema 3 hält unveränderliche Originalchunks
+und getrennte Vorschau-/Erkennungsergebnisse in der Datenbank. Die bestehende
+gemeinsame Sicherung erfasst damit auch Planquellen; Release und Restore prüfen
+Hashes, partielle Uploads und veröffentlichte Ergebnisse im getrennten Kandidaten.
 
 **Offline-Speicherung:** große Quellen als unveränderliche, verschlüsselte
 Binärdateien im vorhandenen Konto-/Serverscope. Keine Base64-Bilder im gesamten
 JSON-Snapshot. Zuerst die Quelldatei dauerhaft veröffentlichen, danach ihre
 Referenz samt Uploadauftrag über den vorhandenen einzigen Metadaten-Schreiber
-committen. Abgebrochene Uploads und abgelaufene Freigaben löschen keine Originale.
+committen. Das ist im Entwicklungscode umgesetzt. Abgebrochene Uploads und
+abgelaufene Freigaben löschen keine Originale. Die Dateien werden vor dem
+Metadatencommit verschlüsselt geschrieben und geflusht; Dart bietet hier keinen
+Verzeichnis-fsync. Eine garantierte Stromausfallsicherheit ist deshalb nicht
+nachgewiesen. App-Neustart und Wiederaufnahme gehören zur Integrationsprüfung.
 
 **Übertragung und Rechte:** eigene begrenzte, fortsetzbare Binärrouten mit
-Chunk- und Gesamtprüfsumme. Die aktuelle JSON-Grenze von 1 MB reicht für Fotos
-nicht. Projektprüfung und der eng begrenzte Siebentage-Zugang gelten auch für
-Quellen, Vorschauen und Aufträge. Ältere Planclients dürfen Quellenreferenzen
-beim Speichern nicht entfernen.
+Chunk- und Gesamtprüfsumme. Neue Routen übertragen Abschnitte mit 256 KiB;
+die bisherige JSON-Grenze von 1 MB bleibt bestehen. Wiederholte Anfrage-ID und
+bereits bestätigte Abschnitte verhindern doppelte beziehungsweise ersetzte
+Originale. Projektprüfung und der eng begrenzte Siebentage-Zugang gelten auch für
+Quellen, Vorschauen und Aufträge. Importdaten stehen getrennt vom bisherigen
+`title/walls`-Vertrag, damit alte Planclients sie nicht entfernen.
 
 **Aufträge:** Uploadstatus von Erkennungsstatus trennen. Dauerhafte Auftrags-ID,
 Ausgangsversion, Versuchszähler, Lease und begrenzte Wiederholungen vorsehen.
@@ -114,7 +121,7 @@ Transformation, Kalibrierung und Erkennungslauf. Übernahme als neue Revision mi
 stabiler Anfrage-ID und Prüfung der Ausgangsversion. Der bestehende reine
 `title/walls`-Vertrag muss dafür ausdrücklich erweitert werden.
 
-## Belegter Stand: isolierter Importkern
+## Aktueller Entwicklungsstand 0.8.0
 
 Unter [`backend/plan_import`](backend/plan_import/README.md) ist jetzt ein
 isolierter Linux-CLI-Importkern implementiert: JPEG/PNG und PDF werden nach
@@ -123,13 +130,33 @@ PDF-Seite als Vorschau gerendert. PDFium liefert zusätzlich vorhandenen
 PDF-Text mit Positionsbezug; OpenCV erzeugt Linienkandidaten, Tesseract erkennt
 Drucktext. Erfolgreich verarbeitete Aufträge stehen zur fachlichen Prüfung in
 `needs_review`; PNG-Vorschau, JSON-Ergebnis und eine eigenständige
-HTML-Prüfansicht gehören dazu.
-**67 Tests bestanden im Docker-Lauf ohne Netzwerkzugang.**
+HTML-Prüfansicht gehören dazu. Für die App verbindet der neue
+[API-/Worker-Durchstich](backend/online/PLANIMPORT.md) diesen Kern mit den
+projektgebundenen Quellen und Ergebnissen in PostgreSQL.
 
-Kameraaufnahme, verschlüsselte Offline-Medien, Upload und die Anbindung an
-Office-API/-Datenbank sind damit noch nicht umgesetzt. Wandsemantik,
-Handschriftauswertung und DXF/DWG-Import stehen ebenfalls aus. Dieser Kern wurde
-nicht auf Hetzner bereitgestellt; der produktive Stand 0.7 bleibt unverändert.
+Die App im Online-Modus (API v1) enthält Dateiauswahl für JPEG/PNG/PDF und Kameraaufnahme auf iOS,
+verschlüsselte Binärdateien sowie eine fortsetzbare Uploadwarteschlange.
+Das lokale Windows-Paket blendet den neuen Import aus. Der Online-Modus erlaubt
+die vorbereitete Offline-Nutzung auch ohne aktuelle Internetverbindung.
+Quellkopien und heruntergeladene Ergebnisse bleiben im Konto-/Serverscope.
+Für iOS sind Kameraerlaubnis, `NSFileProtectionComplete` und Ausschluss des
+Offline-Ordners aus Systemsicherungen implementiert. Die Kamera-Tempdatei wird
+nach bestätigter verschlüsselter Übernahme bereinigt; keine Aufnahme wird durch
+die App in die Fotomediathek exportiert. Diese nativen Eigenschaften benötigen
+noch die reale iPhone-/iPad-Abnahme; CI-Kompilierung allein belegt sie nicht.
+
+Die Integrationsprüfungen laufen. Der produktive Hetzner-Stand bleibt Version
+0.7/Schema 2; neue Routen und Schema 3 sind dort nicht installiert. Bei einer
+404-Antwort des alten Servers bleibt das Original lokal und die App meldet den
+erforderlichen Serverausbau. Es wird kein Importworker automatisch eingerichtet.
+
+Der Operator-Worker ist ein Linux-CLI-Pilot. Parser/OCR erhalten keine DSN- oder
+Vault-/OAuth-Umgebung und haben Laufzeit-/Speicherlimits; das ersetzt keine
+Netzwerk-/Dateisystem-Sandbox. Vor deren Einrichtung und Serverabnahme werden
+keine ungeprüften echten Planunterlagen verarbeitet. Deutsche OCR ist nach
+lokaler Sprachinstallation optional, ihre Qualität ist nicht abgenommen.
+Wandsemantik, Handschriftauswertung, Perspektivkorrektur, Maßkalibrierung und
+DXF/DWG-Import stehen aus; Linien werden nicht automatisch als Wände übernommen.
 
 Die frühere Machbarkeitsprobe in der Cloud verwendete PyMuPDF für PDF und ezdxf
 für DXF sowie synthetischen Tesseract-Drucktext. Sie war eine getrennte Probe;
@@ -142,7 +169,8 @@ Der nächste konkrete Qualitätsnachweis verwendet einen repräsentativen
 abfotografierten Plan mit Handnotizen und möglichst die dazugehörige PDF-/DXF-
 Vorlage. Diese Testdateien werden direkt auf dem eigenen Hetzner-System
 bereitgestellt; reale Planunterlagen werden dafür nicht im Chat hochgeladen.
-Die Entwicklung verwendet zunächst synthetische Beispiele.
+Die Entwicklung verwendet synthetische Beispiele. Reale Testunterlagen folgen
+erst nach Sandbox- und Serverabnahme direkt auf Hetzner.
 Zuerst Original und digitale Kopie vergleichen; danach Geometrie,
 Handnotizen und Maße einzeln bewerten. Daraus werden die lokal geeigneten
 Verfahren und der nächste native Durchstich ausgewählt.

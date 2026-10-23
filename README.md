@@ -1,17 +1,27 @@
-# Smartplan Office - Entwicklungsstand 0.7.0
+# Smartplan Office - Entwicklungsstand 0.8.0
 
 Aktuelle Priorität: [Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md).
 Vorhandene Pläne und Fotos von Papierplänen mit Handnotizen sollen auf Hetzner
 digitalisiert werden; keine externen Auswertungsdienste. Foto/PDF zuerst,
 DXF/DWG danach.
 
-Neu ist ein isolierter [Linux-CLI-Importkern](backend/plan_import/README.md) für
-JPEG/PNG/PDF: Originalerhalt mit Prüfsumme, PDF-Seitenwahl, Vorschau, lokale
-Linienkandidaten und Tesseract-Drucktext sowie eine eigenständige HTML-Prüfansicht
-mit Status `needs_review`. 67 Tests bestanden im Docker-Lauf ohne Netzwerk.
-Kamera, Offline-Medien, Upload, Office-API/-Datenbank-Anbindung,
-Wand-/Handschriftsemantik und DXF/DWG sind noch offen. Auf Hetzner wurde dieser
-Kern nicht bereitgestellt; der produktive Stand 0.7 bleibt unverändert.
+Der neue [App-/Server-Durchstich](backend/online/PLANIMPORT.md) im Online-Modus
+(API v1) verbindet
+Dateiauswahl für JPEG/PNG/PDF und die iOS-Kamera mit verschlüsselten lokalen
+Originaldateien, fortsetzbaren Uploads in 256-KiB-Abschnitten und projektgebundenen
+Importaufträgen. PostgreSQL-Schema 3 speichert Quellbytes und Ergebnisse gemeinsam
+mit den übrigen Geschäftsdaten. Ein eigener Linux-CLI-Worker verwendet den
+[lokalen Importkern](backend/plan_import/README.md) für Vorschau, Linien- und
+Drucktextvorschläge; es gibt keinen externen Auswertungsdienst. Das lokale
+Windows-Paket zeigt den neuen Foto-/PDF-Import nicht an.
+
+Die Integrationsprüfungen laufen. Auf dem bestehenden Hetzner-Server bleibt
+Version 0.7 mit Schema 2 aktiv; der neue Import ist dort noch nicht bereitgestellt.
+Bei einem alten Server bleiben neue Quellen auf dem Gerät; die App meldet das
+nötige Backendupdate. Worker-Sandbox, Server- und reale iPhone-/iPad-Abnahme stehen aus.
+Wand-/Handschriftsemantik, Perspektivkorrektur, Maßkalibrierung und DXF/DWG folgen
+später. Vor einer neuen Windows-Veröffentlichung bleibt die Signierungsaufgabe
+offen; die neuen Importfunktionen beheben SmartScreen nicht.
 
 Bereits vorhandene Entwicklungsstufe 0.7: [Projektpläne](PROJEKTPLAENE.md) mit projektbezogener
 Speicherung, Wandzeichnung, Versionskonfliktprüfung und verschlüsselter

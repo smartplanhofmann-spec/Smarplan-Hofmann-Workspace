@@ -107,8 +107,8 @@ class NativePackageTests(unittest.TestCase):
         release.write_windows_manifest(bundle, release.manifest('online', 'a' * 40))
         saved = json.loads((bundle / 'RELEASE_MANIFEST.json').read_text())
         self.assertEqual(saved['source_commit'], 'a' * 40)
-        self.assertEqual(saved['required_backend_schema'], 2)
-        self.assertEqual(saved['offline_modules'], ['project_plans'])
+        self.assertEqual(saved['required_backend_schema'], 3)
+        self.assertEqual(saved['offline_modules'], ['project_plans', 'plan_import_sources'])
         self.assertIn('flutter_secure_storage_windows_plugin.dll', saved['files_sha256'])
         self.assertNotIn('RELEASE_MANIFEST.json', saved['files_sha256'])
 

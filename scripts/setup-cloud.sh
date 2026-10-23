@@ -16,7 +16,7 @@ python -c 'import sys; assert sys.version_info >= (3,11), "Python 3.11+ required
 if [ ! -x backend/.venv/bin/python ]; then
   python -m venv backend/.venv
 fi
-backend/.venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir -r backend/requirements.lock
+backend/.venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir -r backend/requirements.lock -r backend/online/requirements.lock
 backend/.venv/bin/python -m pip check
 backend/.venv/bin/python -m unittest discover -s backend -v
 

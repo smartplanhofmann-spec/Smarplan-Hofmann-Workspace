@@ -103,6 +103,14 @@ elif command == 'systemctl':
         if action == 'stop' and unit == 'smartplan-online.service' and scenario['fault'] == 'service_stop':
             event('failed_service_stop')
             sys.exit(1)
+        if unit == 'smartplan-plan-import.service':
+            if action == 'stop' and scenario['fault'] == 'import_worker_stop':
+                event('failed_import_worker_stop')
+                sys.exit(1)
+            if action == 'start' and ((generation() == 'new' and scenario['fault'] == 'import_worker_start_new') or
+                                      (generation() == 'old' and scenario['fault'] == 'import_worker_start_old')):
+                event('failed_import_worker_start', generation=generation())
+                sys.exit(1)
         services[unit] = action == 'start'
         save_state(services)
         sys.exit(0)
@@ -128,11 +136,12 @@ elif command == 'curl':
         sys.exit(0)
     if not services.get('smartplan-online.service'):
         sys.exit(7)
-    if generation() == 'new' and scenario['fault'] == 'readiness':
+    if generation() == 'new' and scenario['fault'] in ('readiness', 'import_worker_start_old'):
         sys.exit(22)
     event('ready_probe', generation=generation(), database=active_database())
-    print(json.dumps({'status': 'ok', 'database': 'ok', 'schema_version': 2 if generation() == 'new' else 1,
-                      'capabilities': ['project_plans', 'offline_plan_access'] if generation() == 'new' else []}))
+    schema = 2 if scenario['fault'] == 'obsolete_schema' else 3
+    print(json.dumps({'status': 'ok', 'database': 'ok', 'schema_version': schema if generation() == 'new' else 1,
+                      'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports'] if generation() == 'new' else []}))
     sys.exit(0)
 elif command == 'mv':
     failed = False
@@ -184,20 +193,25 @@ elif command in ('python', 'python3'):
             sys.exit(0)
         if action == 'phase':
             Path(flags['--path']).write_text(flags['--value'] + '\n')
+            if scenario['fault'] == 'activating_marker' and flags['--value'] == 'activating':
+                event('failed_activating_marker')
+                sys.exit(1)
             sys.exit(0)
         if action == 'validate':
             assert not read_state()['smartplan-online.service'], 'DB inspection before service stop'
+            assert not read_state().get('smartplan-plan-import.service'), 'DB inspection before importworker stop'
             assert read_state().get('gate'), 'DB inspection without public gate'
             sys.exit(0)
         if action == 'prepare':
             assert not read_state()['smartplan-online.service']
+            assert not read_state().get('smartplan-plan-import.service'), 'DB clone before importworker stop'
             candidate = flags['--candidate']
             original = json.loads((STATE / 'databases/smartplan_online.json').read_text())
             (STATE / 'databases' / (candidate + '.json')).write_text(json.dumps(original))
             backup = Path(flags['--backup-directory']) / 'fixture.dump'
             backup.write_text(json.dumps(original))
             (Path(str(backup) + '.sha256')).write_text('synthetic-backup\n')
-            Path(flags['--output']).write_text(json.dumps({'backup': str(backup), 'source_schema': 1, 'target_schema': 2}))
+            Path(flags['--output']).write_text(json.dumps({'backup': str(backup), 'source_schema': 1, 'target_schema': 3}))
             sys.exit(0)
         if action == 'configure':
             path = Path(flags['--path'])
@@ -216,13 +230,14 @@ elif command in ('python', 'python3'):
             os.chmod(target, int(mode, 8))
             event('atomic_copy', source=source, target=target)
             sys.exit(0)
-        if len(args) == 9:
-            path, update_id, candidate, previous_app, previous_venv, release, old_commit, new_commit = args[1:]
+        if len(args) == 10:
+            path, update_id, candidate, previous_app, previous_venv, release, old_commit, new_commit, import_worker_active = args[1:]
             Path(path).write_text(json.dumps({'update_id': update_id, 'candidate_database': candidate,
                 'source_database': active_database(), 'previous_app': previous_app, 'previous_venv': previous_venv,
                 'previous_app_was_link': Path('/opt/smartplan-online/app').is_symlink(),
                 'previous_venv_was_link': Path('/opt/smartplan-online/venv').is_symlink(),
-                'new_release': release, 'original_commit': old_commit, 'new_commit': new_commit}))
+                'new_release': release, 'original_commit': old_commit, 'new_commit': new_commit,
+                'import_worker_was_active': import_worker_active == '1'}))
             event('journal_metadata', path=path)
             sys.exit(0)
         event('inline_preflight')

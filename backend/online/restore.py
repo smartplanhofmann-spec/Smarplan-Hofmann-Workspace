@@ -8,7 +8,8 @@ import sys
 
 import psycopg
 from psycopg.conninfo import make_conninfo
-from online.store import PostgresOffice
+from online.store import PostgresOffice, migrate
+from online.plan_imports import validate_integrity
 
 
 def restore_dump(source, active_dsn, target_dsn):
@@ -37,12 +38,16 @@ def restore_dump(source, active_dsn, target_dsn):
 
 def restore(source, active_dsn, target_dsn):
     restore_dump(source, active_dsn, target_dsn)
+    # Older supported backups are upgraded only in the separate empty target.
+    # The active database is never migrated or restored by this command.
+    migrate(target_dsn)
     office = PostgresOffice(target_dsn)
     try:
         with office.lock, office.db:
             for row in office.db.execute('SELECT pdf,pdf_hash FROM reports WHERE pdf IS NOT NULL'):
                 if hashlib.sha256(row['pdf']).hexdigest() != row['pdf_hash']:
                     raise ValueError('PDF-Integritätsprüfung fehlgeschlagen.')
+            validate_integrity(office)
             for table in ('sessions', 'plan_sessions', 'auth_challenges', 'login_limits'):
                 office.db.execute(f'DELETE FROM {table}')
     finally:

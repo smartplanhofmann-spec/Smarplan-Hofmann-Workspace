@@ -35,6 +35,7 @@ def source_checks(root=ROOT):
     with (root / 'app/ios/Runner/Info.plist').open('rb') as stream:
         info = plistlib.load(stream)
     require(bool(info.get('NSFaceIDUsageDescription')), 'Face-ID-Beschreibung fehlt.')
+    require(bool(info.get('NSCameraUsageDescription')), 'Kamera-Beschreibung fehlt.')
     with (root / 'app/ios/Runner/Runner.entitlements').open('rb') as stream:
         entitlements = plistlib.load(stream)
     require(isinstance(entitlements.get('keychain-access-groups'), list), 'Keychain-Entitlement fehlt.')
@@ -130,8 +131,9 @@ def manifest(kind, commit, root=ROOT):
     require(re.fullmatch(r'[a-f0-9]{40}', commit), 'Vollständiger Quell-Commit fehlt.')
     return {'schema_version': 1, 'version': version(root)[0], 'build_number': version(root)[1],
             'source_commit': commit, 'api_url': API_URL if kind == 'online' else 'http://127.0.0.1:8765',
-            'api_version': 'v1' if kind == 'online' else '', 'required_backend_schema': 2 if kind == 'online' else None,
-            'offline_modules': ['project_plans'], 'offline_max_days': 7, 'test_package': True}
+            'api_version': 'v1' if kind == 'online' else '', 'required_backend_schema': 3 if kind == 'online' else None,
+            'offline_modules': ['project_plans', 'plan_import_sources'] if kind == 'online' else ['project_plans'],
+            'offline_max_days': 7, 'test_package': True}
 
 
 def write_windows_manifest(bundle, data):

@@ -21,6 +21,7 @@ from psycopg.conninfo import conninfo_to_dict, make_conninfo
 from online.backup import backup
 from online.restore import restore_dump
 from online.store import migrate, PostgresOffice, SCHEMA_VERSION
+from online.plan_imports import validate_integrity
 
 NAME = re.compile(r'[a-z][a-z0-9_]{1,62}')
 
@@ -92,7 +93,7 @@ def inspect_source(dsn):
     no_other_clients(dsn)
     with psycopg.connect(dsn, connect_timeout=5) as connection:
         rows = connection.execute('SELECT version FROM smartplan_schema').fetchall()
-        if len(rows) != 1 or rows[0][0] not in (1, SCHEMA_VERSION):
+        if len(rows) != 1 or rows[0][0] not in (1, 2, SCHEMA_VERSION):
             raise RuntimeError('Quellschema für dieses Update nicht unterstützt.')
         return rows[0][0]
 
@@ -124,6 +125,7 @@ def prepare(active_dsn, candidate_dsn, backup_directory, *, test_mode=False):
             for row in office.db.execute('SELECT pdf,pdf_hash FROM reports WHERE pdf IS NOT NULL'):
                 if hashlib.sha256(row['pdf']).hexdigest() != row['pdf_hash']:
                     raise ValueError('PDF-Integritätsprüfung im Kandidaten fehlgeschlagen.')
+            validate_integrity(office)
     finally:
         office.db.close()
     no_other_clients(active_dsn)

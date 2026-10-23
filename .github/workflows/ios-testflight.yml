@@ -48,7 +48,7 @@ jobs:
       - name: Echtes Backend fuer Client-Integrationstest installieren
         run: |
           python -m venv ../backend/.venv
-          ../backend/.venv/bin/python -m pip install -r ../backend/requirements.lock
+          ../backend/.venv/bin/python -m pip install -r ../backend/requirements.lock -r ../backend/online/requirements.lock
           ../backend/.venv/bin/python -m pip check
       - uses: subosito/flutter-action@v2
         with:

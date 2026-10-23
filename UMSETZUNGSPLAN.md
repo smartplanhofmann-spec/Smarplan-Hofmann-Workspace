@@ -53,14 +53,30 @@ Das Ziel umfasst Originalerhalt und verschlüsselte Aufnahmen auf Handy/iPad
 ohne Empfang. Ablauf, Datenvertrag und erste Qualitätsabnahme:
 [Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md).
 
-Neu implementiert ist der getrennte
-[Linux-CLI-Importkern](backend/plan_import/README.md) für JPEG/PNG/PDF:
-Original mit Prüfsumme, PDF-Seitenwahl, Vorschau, lokale Linienkandidaten und
-Tesseract-Drucktext sowie eine HTML-Prüfansicht mit Status `needs_review`.
-67 Tests bestanden im netzlosen Docker-Lauf. Kamera, Offline-Medien, Upload,
-Office-API/-Datenbank-Anbindung, Wand-/Handschriftsemantik und DXF/DWG bleiben
-offen. Der Kern ist nicht auf Hetzner bereitgestellt; der produktive Stand 0.7
-bleibt unverändert.
+Der neue Entwicklungsstand 0.8.0 mit
+[App-/Server-Durchstich](backend/online/PLANIMPORT.md) verbindet
+Dateiauswahl und iOS-Kamera mit unveränderlichen AES-GCM-Quelldateien im
+Konto-/Serverscope des Online-Modus (API v1). Das lokale Windows-Paket enthält
+diese Importoberfläche nicht. Erst die verschlüsselte Datei, dann Referenz und Uploadauftrag
+über den bestehenden Metadaten-Schreiber; große Quellen liegen nicht im
+JSON-Snapshot. Uploads werden mit derselben Anfrage-ID und vorhandenen
+256-KiB-Abschnitten fortgesetzt. Siebentage-Zugang und frische Projektprüfung
+gelten auch für Quellen, Vorschauen und Ergebnisse.
+
+PostgreSQL-Schema 3 enthält Originalchunks und Ergebnisse und wird durch die
+gemeinsame Datenbanksicherung erfasst. Der separate Linux-CLI-Worker erzeugt mit
+dem [lokalen Importkern](backend/plan_import/README.md) Vorschau sowie Linien-
+und Drucktextvorschläge. Es wird kein Worker automatisch auf Hetzner installiert.
+Der produktive Stand 0.7/Schema 2 bleibt unverändert; alte Server belassen neue
+Quellen lokal und benötigen ein Backendupdate.
+
+Die Integrationsprüfungen laufen noch. Vor dem Einsatz realer Planunterlagen
+sind Worker-Sandbox und Serverabnahme nötig. Kamera, iOS-Dateischutz und
+Backup-Ausschluss brauchen zusätzlich die reale Geräteabnahme; native CI-Builds
+folgen nach dem Push. Dart-Dateiflush und Umbenennung allein begründen keine
+garantierte Stromausfallsicherheit. Wand-/Handschriftsemantik, Perspektive,
+Kalibrierung und DXF/DWG bleiben offen; der Import übernimmt keine erkannten
+Linien automatisch als Wände.
 
 Die bereits vorbereiteten optionalen Speicheranschlüsse bleiben bestehen;
 eine echte Kontoverbindung ist weiterhin ein gesonderter Schritt.

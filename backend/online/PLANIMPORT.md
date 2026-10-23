@@ -4,8 +4,10 @@ Entwicklungsstand 0.8.0 im Online-Modus (API v1) verbindet JPEG-/PNG-/PDF-Dateia
 iOS-Kamera mit verschlüsselten lokalen Quellen, fortsetzbarem Upload und
 projektgebundenen PostgreSQL-Aufträgen. Parser und Drucktext-OCR laufen über
 den [lokalen Importkern](../plan_import/README.md), ohne externen Auswertungsdienst.
-Die Integrationsprüfungen laufen noch; dieser Stand ist nicht auf dem bestehenden
-Hetzner-Server bereitgestellt. Dort läuft weiterhin Version 0.7 mit Schema 2.
+Der Worker verwendet inzwischen standardmäßig eine geprüfte Linux-Namespace-
+Sandbox; die echte systemd-/ARM64-Serverabnahme steht noch aus. Dieser Stand ist
+nicht auf dem bestehenden Hetzner-Server bereitgestellt. Dort läuft weiterhin
+Version 0.7 mit Schema 2.
 Das lokale Windows-Paket enthält diese Importoberfläche nicht. Online-Modus
 bezeichnet die Serverkonfiguration; eine vorbereitete Offline-Nutzung bleibt
 auch ohne momentane Internetverbindung möglich.
@@ -104,40 +106,86 @@ erst passend zu Rollback beziehungsweise bestätigter Aktivierungsgrenze wieder
 gestartet. Ein vorher inaktiver Worker wird nicht automatisch aktiviert. Es wird
 keine neue Workerunit angelegt und kein Importdienst automatisch bereitgestellt.
 
-## Worker-CLI für synthetische Entwicklungstests
+## Geschützter Online-Worker
 
 Der Controller benötigt den Online-Lock; der beaufsichtigte Parser benötigt eine
 eigene Linux-/Python-3.12-Umgebung mit `backend/plan_import/requirements.lock`
-und lokalem Tesseract samt `eng`. Schwere Bildverarbeitung wird nicht in die
-HTTP-Worker geladen. Einrichtung und Kernel-Testbefehle stehen im
-[Kernel-README](../plan_import/README.md). Die folgenden Befehle setzen eine
-bereits vorbereitete lokale Einweg-Testdatenbank und beide Venvs voraus; sie
-sind keine Aufforderung zur Installation auf dem Nutzer-Server.
+und lokalem Tesseract samt den gewählten Sprachdaten. Schwere Bildverarbeitung
+wird nicht in die HTTP-Worker geladen. Der Standardrunner benötigt unprivilegiertes
+bubblewrap und funktionierende User-, Mount-, PID- und Netzwerk-Namespaces.
+Fehlen sie, endet der Worker ohne ungeschützten Ersatzlauf.
+
+`--doctor` prüft die tatsächliche Sandbox, die exakt versionierten Python-
+Abhängigkeiten und alle angeforderten OCR-Sprachen, bevor eine Datenbank geöffnet
+oder ein Auftrag beansprucht wird. Der Parser-Pythonpfad muss ausdrücklich absolut
+und ausführbar konfiguriert sein; alternativ gilt `SMARTPLAN_IMPORT_WORKER_PYTHON`.
+Die Online-Venv wird nicht still als Parser verwendet.
+
+Für bereits vorbereitete lokale Test-Venvs, ab Repository-Wurzel:
 
 ```bash
+umask 0077
+PYTHONPATH=backend /tmp/smartplan-online-test/bin/python -m online.import_worker \
+  --worker-python /tmp/smartplan-import-test/bin/python --ocr-languages eng --doctor
+
 PYTHONPATH=backend SMARTPLAN_DATABASE_DSN="${SMARTPLAN_TEST_DSN:?Lokale Einweg-Testdatenbank fehlt}" \
   /tmp/smartplan-online-test/bin/python -m online.import_worker \
   --worker-python /tmp/smartplan-import-test/bin/python --once
 ```
 
-`--watch` arbeitet die Warteschlange fortlaufend ab. Alternativ benennt
-`SMARTPLAN_IMPORT_WORKER_PYTHON` den Parser-Pythonpfad. Der CLI verlangt diesen
-ausdrücklich konfigurierten absoluten, ausführbaren Pfad vor dem ersten
-Datenbankzugriff; er verwendet nicht still die Online-Venv als Parser.
+Diese Befehle verwenden ausschließlich synthetische Daten und eine lokale
+Einweg-Testdatenbank; sie installieren nichts auf dem Nutzer-Server.
+`--watch` arbeitet die Warteschlange fortlaufend ab. Nur für synthetische
+Entwicklungstests kann `--unsandboxed-development` ausdrücklich den alten
+Prozessrunner auswählen. Dieser Schalter ist kein Produktionsmodus und wird
+von der vorbereiteten Dienstdatei nicht verwendet.
 Ein Einzellauf endet bei `failed` mit Exitcode 1, bei `idle` oder `needs_review`
-mit 0. `--ocr-languages deu+eng`
-verwendet lokal installierte Sprachdaten; fehlende Sprachen und gegebenenfalls
-englischer Ersatz werden im Ergebnis gemeldet. Eine Deutsch- oder
-Handschriftqualität ist nicht abgenommen.
+mit 0; Infrastrukturfehler enden mit 2. `--ocr-languages deu+eng` benötigt beide
+lokalen Sprachpakete für die geschützte Startprüfung. Eine Deutsch- oder
+Handschriftqualität ist dadurch nicht abgenommen.
 
-Der Parser erhält nur erlaubte Umgebungsvariablen, keine Datenbank-DSN,
-Vault-/OAuth-Geheimnisse oder geerbten Proxy-Zugänge. Er läuft außerhalb der
-Office-Transaktion mit Laufzeit-/Speicherlimits und bereinigter Prozessgruppe.
-Das ist **keine vollständige Netzwerk-/Dateisystem-Sandbox**: der CLI-Pilot
-besitzt noch keinen umfassend isolierten produktiven Ausführungsvertrag.
-Vor Sandbox- und Serverabnahme werden keine ungeprüften echten Planunterlagen
-verarbeitet. Die Entwicklung nutzt synthetische Beispiele; reale Unterlagen
-werden später direkt auf dem eigenen Hetzner-System bereitgestellt.
+Der Controller hält seine Datenbankverbindung außerhalb des Parsers. Dieser
+sieht nur schreibgeschützten Code, Laufzeitdateien und eine Kopie der Quelle,
+ein eigenes schreibgeschütztes `/proc` und minimale Geräte. Die Umgebung wird
+geleert und gezielt aufgebaut; DSN, Vault-/OAuth-Geheimnisse, Home-Verzeichnisse,
+PostgreSQL-Sockets und das Hostnetz sind nicht erreichbar. Weitere User-Namespaces
+sind im Parser deaktiviert. Temporäre Dateien liegen in privaten tmpfs-Mounts:
+128 MiB unter `/tmp`, 96 MiB unter `/output`. Auf dem Host sind ausschließlich
+zwei vorab angelegte Export-Inodes beschreibbar, jeweils mit 32-MiB-Dateigrenze;
+kein Host-Ausgabeverzeichnis wird beschreibbar eingebunden.
+
+Ein Startbeleg vor der Verarbeitung unterscheidet native Parserabstürze von
+fehlgeschlagenem Namespace-/Interpreterstart. Parserfehler lassen die Quelle
+erhalten und geben die Warteschlange frei. Bei Infrastrukturfehlern oder
+geordnetem Stopp wird ein noch gültiger Versuch zurückgegeben, ohne ihn zu
+verbrauchen. Leases verhindern die Veröffentlichung verspäteter Ergebnisse.
+PID-Namespace, Parent-Tod-Signal und Prozessgruppenbereinigung begrenzen auch
+abgetrennte Nachfahren.
+
+Die optionale `smartplan-plan-import.service` betreibt den Controller mit
+`NoNewPrivileges`, leerer Capability-Menge, privatem Temp-/Gerätebereich,
+schreibgeschütztem System und einer gemeinsamen Speichergrenze von 1536 MiB.
+Erlaubte Socketfamilien sind `AF_UNIX` für das lokale PostgreSQL und `AF_NETLINK`
+für den Namespace-Aufbau; IPv4/IPv6-Sockets bleiben gesperrt. Die Unit verwendet
+kein `ProtectKernelTunables`, weil dessen geerbte Proc-Submounts den unprivilegierten
+Namespace-Aufbau verhindern; der Parser erhält sein eigenes schreibgeschütztes Proc.
+`KillMode=control-group` beendet beim Dienststopp auch Parser und OCR-Nachfahren.
+
+Der separate [Vorbereitungs- und Abnahmeablauf](../../deploy/hetzner/online/PLANIMPORT_DIENST.md)
+beschreibt `install-plan-import.sh`. Er arbeitet unter derselben Updatesperre,
+prüft den bereits installierten Quellstand und bereitet Runtime und Unit vor.
+Er startet oder aktiviert keinen Dienst und ändert keine Datenbank. Der reguläre
+API-Updateablauf ersetzt diese Vorbereitung nicht.
+
+Reale Namespace-, Datei-/Netzgrenzen-, Absturz- und PostgreSQL-Integrationstests
+sind lokal mit synthetischen Eingaben bestanden. Der spezielle
+[CI-Workflow](../../.github/workflows/plan-import.yml) verlangt echte Namespace-
+Prüfungen; bei fehlenden Fähigkeiten darf er weder überspringen noch ungeschützt
+weiterlaufen. Die zusätzliche Abnahme unter der tatsächlichen Ubuntu-24.04-
+systemd-Unit wird gerade ergänzt und ist noch nicht bestanden. Vor Server- und
+ARM64-Abnahme werden keine ungeprüften echten Planunterlagen verarbeitet.
+Reale Unterlagen folgen anschließend direkt auf dem eigenen Hetzner-System;
+es gibt keinen externen OCR-/KI-Dienst oder automatischen Ausweichdienst.
 
 ## Fachliche und Freigabegrenzen
 
@@ -153,9 +201,9 @@ einzelne Fixture übersprungen; der echte Desktop-Backend-Test sowie die
 Import-Unit-/Widgettests bleiben aktiv. Die Online-Abhängigkeiten werden für
 diese Testumgebungen separat mit installiert.
 
-Die App-/HTTP-, Neustart-, Upload- und Rechteprüfungen sowie native CI-Builds
-sind noch nicht vollständig abgeschlossen; iPhone-/iPad- und Serverabnahme
-bleiben erforderlich.
+Automatisierte App-/HTTP-, Neustart-, Upload- und Rechteprüfungen sowie native
+CI-Builds ersetzen weder die iPhone-/iPad-Abnahme noch die Abnahme des geschützten
+Dienstes auf dem Server.
 Vor einer neuen Windows-Veröffentlichung ist außerdem die bestehende
 Authenticode-/SmartScreen-Signierungsaufgabe abzuschließen. Dieser Durchstich
 behauptet keine Behebung der Warnung des bisherigen unsignierten Testpakets.

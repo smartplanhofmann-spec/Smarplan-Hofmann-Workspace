@@ -10,15 +10,22 @@ Der neue [App-/Server-Durchstich](backend/online/PLANIMPORT.md) im Online-Modus
 Dateiauswahl für JPEG/PNG/PDF und die iOS-Kamera mit verschlüsselten lokalen
 Originaldateien, fortsetzbaren Uploads in 256-KiB-Abschnitten und projektgebundenen
 Importaufträgen. PostgreSQL-Schema 3 speichert Quellbytes und Ergebnisse gemeinsam
-mit den übrigen Geschäftsdaten. Ein eigener Linux-CLI-Worker verwendet den
+mit den übrigen Geschäftsdaten. Ein eigener geschützter Linux-Worker verwendet den
 [lokalen Importkern](backend/plan_import/README.md) für Vorschau, Linien- und
 Drucktextvorschläge; es gibt keinen externen Auswertungsdienst. Das lokale
 Windows-Paket zeigt den neuen Foto-/PDF-Import nicht an.
 
-Die Integrationsprüfungen laufen. Auf dem bestehenden Hetzner-Server bleibt
+Der Worker startet standardmäßig in getrennten Linux-Namespaces mit
+schreibgeschützter Quelle, gesperrtem Hostnetz und begrenzten Ausgabedateien.
+Seine Startprüfung läuft vor dem ersten Datenbankzugriff. Die optionale
+[Dienstvorbereitung](deploy/hetzner/online/PLANIMPORT_DIENST.md) startet oder
+aktiviert keinen Importdienst; echte Namespace-Tests sind lokal bestanden,
+die zusätzliche CI-Prüfung unter der tatsächlichen systemd-Unit steht noch aus.
+Auf dem bestehenden Hetzner-Server bleibt
 Version 0.7 mit Schema 2 aktiv; der neue Import ist dort noch nicht bereitgestellt.
 Bei einem alten Server bleiben neue Quellen auf dem Gerät; die App meldet das
-nötige Backendupdate. Worker-Sandbox, Server- und reale iPhone-/iPad-Abnahme stehen aus.
+nötige Backendupdate. Server-/ARM64- und reale iPhone-/iPad-Abnahme stehen aus;
+bis dahin werden ausschließlich synthetische Pläne verarbeitet.
 Wand-/Handschriftsemantik, Perspektivkorrektur, Maßkalibrierung und DXF/DWG folgen
 später. Vor einer neuen Windows-Veröffentlichung bleibt die Signierungsaufgabe
 offen; die neuen Importfunktionen beheben SmartScreen nicht.

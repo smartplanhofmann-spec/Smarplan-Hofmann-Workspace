@@ -22,17 +22,33 @@ systemctl is-active --quiet smartplan-online.service || fail 'Online-Dienst muss
 systemctl is-active --quiet smartplan-https.service || fail 'HTTPS-Dienst muss vor dem Update laufen.'
 cmp -s "$smartplan_source/Caddyfile" /etc/smartplan-https/Caddyfile || fail 'Unbekannte HTTPS-Konfiguration. Nicht automatisch ändern.'
 # Require the known service wiring; a hidden DSN override would defeat the switch.
-for smartplan_unit in smartplan-online.service smartplan-online-backup.service; do
+smartplan_units=(smartplan-online.service smartplan-online-backup.service)
+smartplan_import_worker_present=0
+if [[ -e /etc/systemd/system/smartplan-plan-import.service || -L /etc/systemd/system/smartplan-plan-import.service ]]; then
+  smartplan_import_worker_present=1
+  smartplan_units+=(smartplan-plan-import.service)
+fi
+for smartplan_unit in "${smartplan_units[@]}"; do
   [[ -f "/etc/systemd/system/$smartplan_unit" && ! -L "/etc/systemd/system/$smartplan_unit" ]] || fail 'Bekannte reguläre Dienstdateien erforderlich.'
   cmp -s "$smartplan_source/$smartplan_unit" "/etc/systemd/system/$smartplan_unit" || fail 'Dienstdatei weicht ab; Serverkonfiguration zuerst prüfen.'
 done
 systemctl daemon-reload
-for smartplan_unit in smartplan-online.service smartplan-online-backup.service; do
+if (( ! smartplan_import_worker_present )); then
+  [[ "$(systemctl show smartplan-plan-import.service --property=LoadState --value)" == not-found &&
+     "$(systemctl show smartplan-plan-import.service --property=ActiveState --value)" == inactive ]] || fail 'Unbekannte Importworker-Unit zuerst prüfen.'
+fi
+for smartplan_unit in "${smartplan_units[@]}"; do
   [[ "$(systemctl show "$smartplan_unit" --property=FragmentPath --value)" == "/etc/systemd/system/$smartplan_unit" ]] || fail 'Unerwarteter Dienstpfad.'
   [[ -z "$(systemctl show "$smartplan_unit" --property=DropInPaths --value)" ]] || fail 'Dienst-Drop-ins zuerst prüfen.'
   # Presence only: never print override values, which might contain credentials.
   [[ -z "$(systemctl show "$smartplan_unit" --property=Environment --value)" ]] || fail 'Direkte Dienst-Umgebungsüberschreibungen zuerst prüfen.'
+  [[ "$(systemctl show "$smartplan_unit" --property=EnvironmentFiles --value)" == '/etc/smartplan-online/service.env (ignore_errors=no)' ]] || fail 'Unerwartete Dienst-Umgebungsdatei.'
 done
+if (( smartplan_import_worker_present )); then
+  [[ "$(systemctl show smartplan-plan-import.service --property=KillMode --value)" == control-group &&
+     "$(systemctl show smartplan-plan-import.service --property=SendSIGKILL --value)" == yes &&
+     "$(systemctl show smartplan-plan-import.service --property=TimeoutStopUSec --value)" == 20s ]] || fail 'Vollständige, begrenzte Importworker-Beendigung zuerst sicherstellen.'
+fi
 
 smartplan_commit="$(git -C "$smartplan_repo" rev-parse HEAD)"
 [[ "$smartplan_commit" =~ ^[a-f0-9]{40}$ ]] || fail 'Ungültiger Quellstand.'
@@ -118,7 +134,15 @@ smartplan_timer_was_active=0
 smartplan_import_worker_was_active=0
 # A failed activation-journal write must not itself resume a database writer.
 smartplan_import_worker_may_resume=0
-if systemctl is-active --quiet smartplan-plan-import.service; then smartplan_import_worker_was_active=1; fi
+if (( smartplan_import_worker_present )) && systemctl is-active --quiet smartplan-plan-import.service; then smartplan_import_worker_was_active=1; fi
+smartplan_stop_import_worker() {
+  if (( smartplan_import_worker_present )); then
+    # Stop even inactive/activating/restarting units: the earlier active-state
+    # snapshot controls resume only, never whether a possible writer is stopped.
+    systemctl stop smartplan-plan-import.service || return 1
+    [[ "$(systemctl show smartplan-plan-import.service --property=ActiveState --value)" == inactive ]] || return 1
+  fi
+}
 smartplan_app_legacy=""
 smartplan_venv_legacy=""
 smartplan_restore_link() {
@@ -153,7 +177,7 @@ smartplan_abort() {
   fi
   local smartplan_restored=1
   if (( smartplan_stopped )); then
-    if (( smartplan_import_worker_was_active )) && ! systemctl stop smartplan-plan-import.service; then
+    if ! smartplan_stop_import_worker; then
       echo "Importworker-Stopp nicht bestätigt. Konfiguration unverändert lassen; Wartung und Journal beibehalten: $smartplan_control" >&2
       exit "$smartplan_result"
     fi
@@ -260,7 +284,7 @@ done
 [[ "$smartplan_backup_state" == inactive || "$smartplan_backup_state" == failed ]] || fail 'Laufende Sicherung zuerst auslaufen lassen.'
 # Mark before stopping: even a partially failed stop must keep traffic gated.
 smartplan_stopped=1
-if (( smartplan_import_worker_was_active )); then systemctl stop smartplan-plan-import.service; fi
+smartplan_stop_import_worker || fail 'Importworker-Stopp nicht bestätigt; keine Datenbankkopie erstellen.'
 systemctl stop smartplan-online.service
 smartplan_phase stopped
 smartplan_service_helper validate --candidate "$smartplan_candidate"

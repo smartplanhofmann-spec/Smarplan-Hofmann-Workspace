@@ -1,0 +1,41 @@
+[Unit]
+Description=Smartplan isolated local plan import controller
+After=postgresql.service smartplan-online.service
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=exec
+User=smartplan-online
+Group=smartplan-online
+WorkingDirectory=/opt/smartplan-online/app/backend
+EnvironmentFile=/etc/smartplan-online/service.env
+UMask=0077
+ExecStartPre=/usr/bin/env /opt/smartplan-online/venv/bin/python -m online.import_worker --worker-python /opt/smartplan-plan-import/venv/bin/python --ocr-languages deu+eng --doctor
+ExecStart=/usr/bin/env /opt/smartplan-online/venv/bin/python -m online.import_worker --worker-python /opt/smartplan-plan-import/venv/bin/python --ocr-languages deu+eng --watch
+Restart=on-failure
+RestartSec=30
+KillMode=control-group
+SendSIGKILL=yes
+TimeoutStopSec=20
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ProtectClock=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_NETLINK
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+MemoryMax=1536M
+MemorySwapMax=0
+CPUQuota=150%
+TasksMax=64
+LimitFSIZE=32M
+LimitCORE=0
+
+[Install]
+WantedBy=multi-user.target

@@ -262,6 +262,14 @@ class PlanImports:
                         'updated_at=? WHERE id=?', (code, self.clock(), import_id))
         return self._status(self._row(import_id))
 
+    def release(self, import_id, token):
+        """Refund a live attempt after infrastructure failure or graceful stop."""
+        self._lease(import_id, token)
+        self.db.execute("UPDATE plan_imports SET status='queued',attempts=CASE WHEN attempts>0 THEN attempts-1 ELSE 0 END,"
+                        'lease_token=NULL,lease_until=NULL,error_code=NULL,updated_at=? WHERE id=?',
+                        (self.clock(), import_id))
+        return self._status(self._row(import_id))
+
     def publish(self, import_id, token, *, preview, result):
         row = self._lease(import_id, token)
         self.source_bytes(row)

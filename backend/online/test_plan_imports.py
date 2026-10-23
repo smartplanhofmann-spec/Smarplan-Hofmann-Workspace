@@ -6,6 +6,7 @@ import io
 import json
 import os
 from pathlib import Path
+import signal
 import subprocess
 import sys
 import tempfile
@@ -21,6 +22,12 @@ from core import Office
 from online.web import create_app
 from online.plan_imports import CHUNK_SIZE, PlanImports, LeaseLost, validate_integrity
 from online.import_worker import work_one, main as worker_main
+from online.import_sandbox import DevelopmentRunner, SandboxUnavailable
+
+
+def synthetic_runner(executable):
+    """Explicit real development runner for a synthetic executable boundary."""
+    return DevelopmentRunner(executable)
 
 
 def sha(data):
@@ -169,6 +176,8 @@ class PlanImportApiTests(unittest.TestCase):
             second = imports.claim(lease_seconds=5)
             with self.assertRaises(LeaseLost):
                 imports.fail(job['id'], first['lease_token'])
+            with self.assertRaises(LeaseLost):
+                imports.release(job['id'], first['lease_token'])
             result = {'schema_version': 1, 'status': 'needs_review',
                       'source': {'sha256': job['sha256'], 'selected_page': job['page']}}
             with self.assertRaises(LeaseLost):
@@ -277,7 +286,7 @@ class PlanImportApiTests(unittest.TestCase):
                                      'SMARTPLAN_IMPORT_WORKER_PYTHON': str(worker)}):
             with patch('online.store.PostgresOffice', return_value=self.office) as database, \
                     patch('online.import_worker.signal.signal'), redirect_stdout(output):
-                exit_code = worker_main(['--once'])
+                exit_code = worker_main(['--once', '--unsandboxed-development'])
                 database.assert_called_once_with('synthetic-not-a-real-dsn')
         self.assertEqual(exit_code, 1)
         self.assertEqual(json.loads(output.getvalue())['status'], 'failed')
@@ -299,7 +308,7 @@ class PlanImportApiTests(unittest.TestCase):
                 "print(json.dumps({'status':'needs_review'}))\n")
         with patch.dict(os.environ, {'SMARTPLAN_DATABASE_DSN': 'synthetic-private', 'SMARTPLAN_VAULT_KEY_FILE': 'synthetic-private',
                                      'HTTP_PROXY': 'synthetic-private', 'PRIVATE_CANARY': 'must-not-be-inherited'}):
-            result = work_one(self.office, worker_python=self.fake_worker(body))
+            result = work_one(self.office, runner=synthetic_runner(self.fake_worker(body)))
         self.assertEqual(result['status'], 'needs_review')
         self.assertEqual(self.call('GET', path + '/preview').data, png())
         self.assertEqual(self.call('GET', path + '/source').data, png())
@@ -311,7 +320,7 @@ class PlanImportApiTests(unittest.TestCase):
         child = ('import time; from pathlib import Path; time.sleep(1.5); Path('
                  + repr(str(escaped)) + ').write_text("escaped")')
         worker = self.fake_worker('subprocess.Popen([sys.executable,"-c",' + repr(child) + '])\ntime.sleep(30)\n')
-        result = work_one(self.office, worker_python=worker, process_timeout=1)
+        result = work_one(self.office, runner=synthetic_runner(worker), process_timeout=1)
         self.assertEqual((result['status'], result['error_code']), ('failed', 'processing_timeout'))
         self.assertEqual(self.call('GET', path + '/source').data, png())
         time.sleep(1.8)
@@ -321,8 +330,10 @@ class PlanImportApiTests(unittest.TestCase):
     def test_fifo_worker_artifacts_fail_without_blocking_or_losing_the_original(self):
         controller = (
             'import json,sys; from core import Office; from online.import_worker import work_one; '
+            'from online.import_sandbox import DevelopmentRunner; '
             'office=Office(sys.argv[1]); '
-            'result=work_one(office,worker_python=sys.argv[2]); '
+            'runner=DevelopmentRunner(sys.argv[2]); '
+            'result=work_one(office,runner=runner); '
             'print(json.dumps({"status":result["status"],"error_code":result["error_code"]})); '
             'office.db.close()')
         for kind, request_id in (('preview.png', 'b' * 32), ('result.json', 'c' * 32)):
@@ -342,6 +353,156 @@ class PlanImportApiTests(unittest.TestCase):
                 self.assertEqual(json.loads(completed.stdout), {'status': 'failed', 'error_code': 'processing_failed'})
                 self.assertEqual(self.call('GET', path + '/source').data, png())
                 self.assertTrue(validate_integrity(self.office))
+
+    def test_sandbox_doctor_failure_precedes_database_access_and_any_claim(self):
+        path, _ = self.upload()
+        with patch('online.import_worker.SandboxRunner') as constructor, \
+                patch('online.store.PostgresOffice') as database, redirect_stdout(io.StringIO()):
+            constructor.return_value.doctor.side_effect = SandboxUnavailable('Synthetic sandbox unavailable')
+            self.assertEqual(worker_main(['--once', '--worker-python', sys.executable]), 2)
+            constructor.assert_called_once_with(sys.executable)
+            database.assert_not_called()
+        status = self.call('GET', path).json
+        self.assertEqual((status['status'], status['attempts']), ('queued', 0))
+        self.assertEqual(self.call('GET', path + '/source').data, png())
+
+    def test_doctor_mode_does_not_open_database_or_claim_a_source(self):
+        path, _ = self.upload()
+        with patch('online.import_worker.SandboxRunner') as constructor, \
+                patch('online.store.PostgresOffice') as database, redirect_stdout(io.StringIO()) as output:
+            constructor.return_value.doctor.return_value = {'ready': True, 'sandboxed': True}
+            self.assertEqual(worker_main(['--doctor', '--worker-python', sys.executable]), 0)
+            self.assertEqual(json.loads(output.getvalue()), {'ready': True, 'sandboxed': True})
+            database.assert_not_called()
+        self.assertEqual(self.call('GET', path).json['attempts'], 0)
+
+    def test_infrastructure_start_failure_refunds_attempt_and_retains_original(self):
+        path, _ = self.upload()
+        runner = synthetic_runner(sys.executable)
+        for failure in (SandboxUnavailable('Synthetic start failure'), OSError('Synthetic staging failure'),
+                        MemoryError('Synthetic controller memory failure')):
+            with self.subTest(failure=type(failure).__name__), patch.object(runner, 'start', side_effect=failure):
+                with self.assertRaises(SandboxUnavailable):
+                    work_one(self.office, runner=runner)
+            status = self.call('GET', path).json
+            self.assertEqual((status['status'], status['attempts']), ('queued', 0))
+            self.assertEqual(self.call('GET', path + '/source').data, png())
+
+    def test_invalid_launcher_outcome_refunds_attempt_instead_of_failing_document(self):
+        path, _ = self.upload()
+        runner = synthetic_runner(self.fake_worker("print('synthetic launcher failure')\nsys.exit(1)\n"))
+        with self.assertRaises(SandboxUnavailable):
+            work_one(self.office, runner=runner)
+        status = self.call('GET', path).json
+        self.assertEqual((status['status'], status['attempts']), ('queued', 0))
+        self.assertEqual(self.call('GET', path + '/source').data, png())
+
+    def test_started_parser_crash_fails_one_document_and_next_queued_source_progresses(self):
+        from plan_import.sandbox_protocol import PARSER_STARTED
+
+        class StartedDevelopmentRunner(DevelopmentRunner):
+            """Exercise the started-hook contract, without claiming isolation."""
+            def parser_started(self, stage):
+                path = stage / 'output' / 'result.json'
+                return path.is_file() and path.read_bytes() == PARSER_STARTED
+
+        bad_source = png() + b'\nSynthetic parser crash fixture'
+        bad_path, bad = self.upload(bad_source, request_id='b' * 32)
+        good_path, good = self.upload(request_id='c' * 32)
+        body = ("args=sys.argv\nsource=Path(args[args.index('--source')+1]).read_bytes()\n"
+                "stage=Path(args[args.index('--output')+1])\n"
+                "if hashlib.sha256(source).hexdigest()==" + repr(sha(bad_source)) + ":\n"
+                "    (stage/'result.json').write_bytes(base64.b64decode(" + repr(base64.b64encode(PARSER_STARTED).decode()) + "))\n"
+                "    os.kill(os.getpid(),9)\n"
+                "(stage/'preview.png').write_bytes(base64.b64decode(" + repr(base64.b64encode(png()).decode()) + "))\n"
+                "(stage/'result.json').write_text(json.dumps({'schema_version':1,'status':'needs_review','source':{'sha256':hashlib.sha256(source).hexdigest(),'selected_page':int(args[args.index('--page')+1])}}))\n"
+                "print(json.dumps({'status':'needs_review'}))\n")
+        runner = StartedDevelopmentRunner(self.fake_worker(body))
+        failed = work_one(self.office, runner=runner)
+        self.assertEqual((failed['id'], failed['status'], failed['error_code'], failed['attempts']),
+                         (bad['id'], 'failed', 'processing_failed', 1))
+        reviewed = work_one(self.office, runner=runner)
+        self.assertEqual((reviewed['id'], reviewed['status']), (good['id'], 'needs_review'))
+        self.assertIsNone(work_one(self.office, runner=runner))
+        self.assertEqual(self.call('GET', bad_path + '/source').data, bad_source)
+        self.assertEqual(self.call('GET', good_path + '/source').data, png())
+        self.assertTrue(validate_integrity(self.office))
+
+    def test_infrastructure_cleanup_database_error_is_not_hidden_or_terminal(self):
+        path, _ = self.upload()
+        runner = synthetic_runner(sys.executable)
+        with patch.object(runner, 'start', side_effect=SandboxUnavailable('Synthetic start failure')), \
+                patch.object(PlanImports, 'release', side_effect=RuntimeError('Synthetic DB cleanup failure')):
+            with self.assertRaisesRegex(RuntimeError, 'Synthetic DB cleanup failure'):
+                work_one(self.office, runner=runner)
+        status = self.call('GET', path).json
+        self.assertEqual((status['status'], status['attempts']), ('running', 1))
+        self.assertEqual(self.call('GET', path + '/source').data, png())
+
+    def _check_sigterm_cleanup(self, *, reassign=False):
+        path, job = self.upload()
+        marker = self.directory / 'parser-pids.json'
+        escaped = self.directory / 'parser-descendant-escaped'
+        child = 'from pathlib import Path; import time; time.sleep(2); Path(' + repr(str(escaped)) + ').write_text("escaped")'
+        worker = self.fake_worker('child=subprocess.Popen([sys.executable,"-c",' + repr(child) + '])\n'
+                                  'Path(' + repr(str(marker)) + ').write_text(json.dumps([os.getpid(),child.pid]))\n'
+                                  'time.sleep(30)\n')
+        controller = (
+            'import signal,sys; from core import Office; from online.import_worker import work_one; '
+            'from online.import_sandbox import DevelopmentRunner; '
+            'signal.signal(signal.SIGTERM,lambda signum,frame:sys.exit(143)); '
+            'office=Office(sys.argv[1]); runner=DevelopmentRunner(sys.argv[2]); '
+            'work_one(office,runner=runner)')
+        environment = {**os.environ, 'PYTHONPATH': str(Path(__file__).resolve().parents[1])}
+        process = subprocess.Popen([sys.executable, '-c', controller, str(self.database), str(worker)],
+                                   env=environment, stdout=subprocess.PIPE, stderr=subprocess.PIPE, start_new_session=True)
+        handles = []
+        try:
+            deadline = time.monotonic() + 5
+            while not marker.exists() and time.monotonic() < deadline and process.poll() is None:
+                time.sleep(.02)
+            self.assertTrue(marker.exists(), 'Synthetic parser did not start')
+            pids = json.loads(marker.read_text())
+            handles = [os.pidfd_open(pid) for pid in pids]
+            successor = None
+            if reassign:
+                imports = PlanImports(self.office, clock=lambda: time.time() + 91)
+                with self.office.lock, self.office.db:
+                    successor = imports.claim(lease_seconds=90)
+                self.assertEqual(successor['id'], job['id'])
+                self.assertEqual(successor['attempts'], 2)
+            process.send_signal(signal.SIGTERM)
+            process.communicate(timeout=6)
+            self.assertEqual(process.returncode, 143)
+            status = self.call('GET', path).json
+            if successor:
+                self.assertEqual((status['status'], status['attempts']), ('running', 2))
+                self.assertEqual(PlanImports(self.office)._row(job['id'])['lease_token'], successor['lease_token'])
+            else:
+                self.assertEqual((status['status'], status['attempts']), ('queued', 0))
+            self.assertEqual(self.call('GET', path + '/source').data, png())
+            for pid in pids:
+                information = Path('/proc') / str(pid) / 'stat'
+                if information.exists():
+                    self.assertEqual(information.read_text().split(') ', 1)[1].split()[0], 'Z')
+            time.sleep(2.1)
+            self.assertFalse(escaped.exists())
+        finally:
+            if process.poll() is None:
+                os.killpg(process.pid, signal.SIGKILL)
+            process.communicate(timeout=6)
+            for handle in handles:
+                try:
+                    signal.pidfd_send_signal(handle, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+                os.close(handle)
+
+    def test_sigterm_stops_parser_descendants_before_refunding_the_live_lease(self):
+        self._check_sigterm_cleanup()
+
+    def test_sigterm_cannot_refund_or_replace_a_successor_lease(self):
+        self._check_sigterm_cleanup(reassign=True)
 
 
 # PostgreSQL cases reuse the real MFA fixtures, on an explicitly disposable DB.
@@ -397,6 +558,51 @@ class PostgresImportTests(unittest.TestCase):
         with ThreadPoolExecutor(max_workers=2) as executor:
             claims = list(executor.map(claim, range(2)))
         self.assertEqual(sum(value is not None for value in claims), 1)
+
+    def test_live_release_refunds_but_old_connection_cannot_release_successor_attempt(self):
+        token = self.login()['token']
+        project = self.request('/projects', {'name': 'Lease release', 'customer': 'Synthetic'}, token, 201).json['id']
+        imports = PlanImports(self.office)
+        source = png()
+        with self.office.lock, self.office.db:
+            actor = self.office.user(token)
+            job = imports.create(actor, project, {'request_id': 'd' * 32, 'filename': 'source.png', 'media_type': 'image/png',
+                                 'size': len(source), 'sha256': sha(source), 'page': 0, 'title': 'Lease source'})
+            imports.put_chunk(actor, project, job['id'], 0, source)
+            imports.complete_upload(actor, project, job['id'])
+            first = imports.claim(lease_seconds=5)
+        second = PostgresOffice(postgres_fixtures.DSN)
+        clock = [time.time()]
+        successor_imports = PlanImports(second, clock=lambda: clock[0])
+        try:
+            with second.lock, second.db:
+                refunded = successor_imports.release(job['id'], first['lease_token'])
+            self.assertEqual((refunded['status'], refunded['attempts']), ('queued', 0))
+            with self.office.lock, self.office.db:
+                abandoned = imports.claim(lease_seconds=5)
+            self.assertEqual(abandoned['attempts'], 1)
+            clock[0] = abandoned['lease_until'] + 1
+            with second.lock, second.db:
+                successor = successor_imports.claim(lease_seconds=5)
+            self.assertEqual(successor['attempts'], 2)
+            with self.office.lock, self.office.db:
+                with self.assertRaises(LeaseLost):
+                    imports.release(job['id'], abandoned['lease_token'])
+                current = imports._row(job['id'])
+                self.assertEqual((current['status'], current['attempts'], current['lease_token']),
+                                 ('running', 2, successor['lease_token']))
+                self.assertEqual(imports.source(actor, project, job['id'])[0], source)
+            with second.lock, second.db:
+                reviewed = successor_imports.publish(job['id'], successor['lease_token'], preview=png(), result={
+                    'schema_version': 1, 'status': 'needs_review',
+                    'source': {'sha256': sha(source), 'selected_page': 0}})
+            self.assertEqual((reviewed['status'], reviewed['attempts']), ('needs_review', 2))
+            path = '/projects/' + project + '/plan-imports/' + job['id']
+            self.assertEqual(self.request(path + '/source', token=token).data, source)
+            self.assertEqual(self.request(path + '/preview', token=token).data, png())
+            self.assertTrue(validate_integrity(self.office))
+        finally:
+            second.db.close()
 
 
 if __name__ == '__main__':

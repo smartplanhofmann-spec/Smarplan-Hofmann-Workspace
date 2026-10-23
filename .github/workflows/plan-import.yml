@@ -4,10 +4,26 @@ on:
   push:
     paths:
       - 'backend/plan_import/**'
+      - 'backend/online/import_sandbox.py'
+      - 'backend/online/import_worker.py'
+      - 'backend/online/plan_imports.py'
+      - 'backend/online/test_import_sandbox.py'
+      - 'deploy/hetzner/online/smartplan-plan-import.service'
+      - 'deploy/hetzner/online/accept-plan-import.sh'
+      - 'deploy/hetzner/online/accept-plan-import-fixture.py'
+      - 'scripts/test-import-systemd.sh'
       - '.github/workflows/plan-import.yml'
   pull_request:
     paths:
       - 'backend/plan_import/**'
+      - 'backend/online/import_sandbox.py'
+      - 'backend/online/import_worker.py'
+      - 'backend/online/plan_imports.py'
+      - 'backend/online/test_import_sandbox.py'
+      - 'deploy/hetzner/online/smartplan-plan-import.service'
+      - 'deploy/hetzner/online/accept-plan-import.sh'
+      - 'deploy/hetzner/online/accept-plan-import-fixture.py'
+      - 'scripts/test-import-systemd.sh'
       - '.github/workflows/plan-import.yml'
   workflow_dispatch:
 
@@ -22,3 +38,36 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build local OCR/PDF tooling and run synthetic tests without network
         run: bash backend/plan_import/test-docker.sh
+
+  parser-isolation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: backend
+      SMARTPLAN_REQUIRE_IMPORT_SANDBOX: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install unprivileged Linux isolation and local OCR tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends bubblewrap python3-venv tesseract-ocr tesseract-ocr-eng tesseract-ocr-deu fonts-dejavu-core libseccomp2 postgresql-16
+          /usr/bin/bwrap --version
+      - name: Prepare dedicated parser runtime from locked dependencies
+        run: |
+          umask 0077
+          /usr/bin/python3 -m venv "$RUNNER_TEMP/plan-import-sandbox-venv"
+          smartplan_worker_python="$RUNNER_TEMP/plan-import-sandbox-venv/bin/python"
+          "$smartplan_worker_python" -m pip install --only-binary=:all: -r backend/plan_import/requirements-test.lock
+          "$smartplan_worker_python" -m pip check
+      - name: Require real namespace, filesystem, network and parser isolation
+        run: |
+          umask 0077
+          smartplan_worker_python="$RUNNER_TEMP/plan-import-sandbox-venv/bin/python"
+          SMARTPLAN_IMPORT_TEST_WORKER_PYTHON="$smartplan_worker_python" \
+            "$smartplan_worker_python" -m unittest online.test_import_sandbox -v
+      - name: Accept the exact production systemd unit with synthetic PostgreSQL jobs
+        env:
+          SMARTPLAN_SYSTEMD_IMPORT_CI: '1'
+        run: |
+          sudo --preserve-env=GITHUB_ACTIONS,RUNNER_ENVIRONMENT,GITHUB_WORKSPACE,GITHUB_SHA,SMARTPLAN_SYSTEMD_IMPORT_CI \
+            /usr/bin/bash scripts/test-import-systemd.sh

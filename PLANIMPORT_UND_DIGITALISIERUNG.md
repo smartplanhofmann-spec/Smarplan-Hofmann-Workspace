@@ -8,8 +8,9 @@ bearbeitbarer Plan entstehen. Das Original muss daneben erhalten bleiben.
 
 Diese Spezifikation beschreibt das Ziel und den unten abgegrenzten aktuellen
 Durchstich. Dateiauswahl, iOS-Kamera, verschlüsselte Originale, Upload und
-Serveraufträge sind im Entwicklungscode verbunden. Die Integration wird noch
-geprüft und ist nicht auf dem bestehenden Hetzner-Server bereitgestellt.
+Serveraufträge und ein standardmäßig geschützter Linux-Worker sind im
+Entwicklungscode verbunden. Die systemd-/ARM64-Serverabnahme steht noch aus;
+der neue Stand ist nicht auf dem bestehenden Hetzner-Server bereitgestellt.
 
 ## Verbindlicher Verarbeitungsort
 
@@ -124,7 +125,7 @@ stabiler Anfrage-ID und Prüfung der Ausgangsversion. Der bestehende reine
 ## Aktueller Entwicklungsstand 0.8.0
 
 Unter [`backend/plan_import`](backend/plan_import/README.md) ist jetzt ein
-isolierter Linux-CLI-Importkern implementiert: JPEG/PNG und PDF werden nach
+Linux-Importkern implementiert: JPEG/PNG und PDF werden nach
 Dateiinhalt erkannt, das Original samt Prüfsumme erhalten und die gewählte
 PDF-Seite als Vorschau gerendert. PDFium liefert zusätzlich vorhandenen
 PDF-Text mit Positionsbezug; OpenCV erzeugt Linienkandidaten, Tesseract erkennt
@@ -150,11 +151,28 @@ Die Integrationsprüfungen laufen. Der produktive Hetzner-Stand bleibt Version
 404-Antwort des alten Servers bleibt das Original lokal und die App meldet den
 erforderlichen Serverausbau. Es wird kein Importworker automatisch eingerichtet.
 
-Der Operator-Worker ist ein Linux-CLI-Pilot. Parser/OCR erhalten keine DSN- oder
-Vault-/OAuth-Umgebung und haben Laufzeit-/Speicherlimits; das ersetzt keine
-Netzwerk-/Dateisystem-Sandbox. Vor deren Einrichtung und Serverabnahme werden
-keine ungeprüften echten Planunterlagen verarbeitet. Deutsche OCR ist nach
-lokaler Sprachinstallation optional, ihre Qualität ist nicht abgenommen.
+Der Online-Worker startet standardmäßig in einer unprivilegierten bubblewrap-
+Sandbox. Eigene Mount-, PID- und Netzwerk-Namespaces trennen Parser/OCR von
+Datenbank, Hostnetz und privaten Serverdateien. Quelle, Code und Runtime sind
+schreibgeschützt. Nur zwei begrenzte Exportdateien sind auf dem Host beschreibbar;
+temporäre Dateien bleiben in privaten tmpfs-Bereichen mit 128 beziehungsweise
+96 MiB. Die bereinigte Umgebung enthält keine DSN-/Vault-/OAuth-Geheimnisse.
+`--doctor` prüft vor dem ersten Datenbankzugriff echte Isolation, exakt versionierte
+Abhängigkeiten und lokale OCR-Sprachen. Ein fehlgeschlagener Aufbau führt zu
+keinem ungeschützten Ersatzlauf. Der ausdrücklich ungeschützte Entwicklungsmodus
+bleibt synthetischen Tests vorbehalten.
+
+Die optionale [Dienstvorbereitung](deploy/hetzner/online/PLANIMPORT_DIENST.md)
+bereitet Runtime und systemd-Unit unter der gemeinsamen Updatesperre vor,
+ohne den Dienst zu starten, zu aktivieren oder Daten zu ändern. Der Dienst
+begrenzt Controller und Nachfahren gemeinsam und beendet die gesamte Kontrollgruppe
+beim Stopp. Native Parserabstürze werden von Infrastrukturfehlern unterschieden;
+Originale bleiben erhalten und geordnet unterbrochene gültige Versuche werden
+zurückgegeben. Lokale echte Namespace- und Datenbanktests sind bestanden.
+Die obligatorische Namespace-CI wird um eine echte Ubuntu-24.04-systemd-Prüfung
+ergänzt; deren Ergebnis und die Abnahme auf dem ARM64-Hetzner-Server stehen aus.
+Bis dahin werden nur synthetische Unterlagen verarbeitet. Deutsche OCR benötigt
+lokale Sprachdaten; ihre Qualität ist nicht abgenommen.
 Wandsemantik, Handschriftauswertung, Perspektivkorrektur, Maßkalibrierung und
 DXF/DWG-Import stehen aus; Linien werden nicht automatisch als Wände übernommen.
 
@@ -170,7 +188,7 @@ abfotografierten Plan mit Handnotizen und möglichst die dazugehörige PDF-/DXF-
 Vorlage. Diese Testdateien werden direkt auf dem eigenen Hetzner-System
 bereitgestellt; reale Planunterlagen werden dafür nicht im Chat hochgeladen.
 Die Entwicklung verwendet synthetische Beispiele. Reale Testunterlagen folgen
-erst nach Sandbox- und Serverabnahme direkt auf Hetzner.
+erst nach Abnahme des geschützten Dienstes auf dem Server direkt auf Hetzner.
 Zuerst Original und digitale Kopie vergleichen; danach Geometrie,
 Handnotizen und Maße einzeln bewerten. Daraus werden die lokal geeigneten
 Verfahren und der nächste native Durchstich ausgewählt.

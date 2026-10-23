@@ -6,9 +6,10 @@ eine ausgewählte PDF-Seite ergeben ein unverändertes Original mit SHA-256,
 eine aufrechte Vorschau, lokale Linien-/Drucktextkandidaten und eine eigenständig
 offline öffnende HTML-Prüfansicht. Ergebnisse haben immer `needs_review`.
 
-Der [App-/Server-Durchstich in Entwicklung 0.8.0](../online/PLANIMPORT.md) verwendet diesen Renderer
-über einen separaten Worker: Dateiauswahl/iOS-Kamera, verschlüsselte lokale
-Quellen, fortsetzbare Uploads und PostgreSQL-Aufträge sind im Entwicklungscode
+Der [App-/Server-Durchstich in Entwicklung 0.8.0](../online/PLANIMPORT.md) verwendet
+diesen Renderer über einen standardmäßig geschützten separaten Worker:
+Dateiauswahl/iOS-Kamera, verschlüsselte lokale Quellen, fortsetzbare Uploads
+und PostgreSQL-Aufträge sind im Entwicklungscode
 für den Online-Modus (API v1) verbunden; das lokale Windows-Paket blendet den
 Foto-/PDF-Import aus. Der unten beschriebene `plan_import`-CLI-Store bleibt ein eigenständiger
 Testweg; die API speichert ihre kanonischen Quellen und Ergebnisse in PostgreSQL.
@@ -26,8 +27,12 @@ Voraussetzung: Linux, Python 3.12, eine eigene Venv und lokal installiertes
 Tesseract mit `eng`. Die Entwicklungsumgebung wurde mit Tesseract 5.5 geprüft;
 der Testcontainer verwendet die Debian-Pakete. Die Befehle gelten ab Repository-
 Wurzel und sind keine Installationsanweisung für den produktiven Server.
+Die direkten `plan_import`-Befehle verwenden den eigenständigen Entwicklungsstore
+und keine Namespace-Sandbox. Sie sind ausschließlich für synthetische Beispiele
+gedacht; der geschützte App-/Server-Worker wird weiter unten beschrieben.
 
 ```bash
+umask 0077
 python3 -m venv /tmp/smartplan-import-venv
 /tmp/smartplan-import-venv/bin/python -m pip install --only-binary=:all: -r backend/plan_import/requirements-test.lock
 export PYTHONPATH=backend
@@ -137,16 +142,53 @@ PDF-Punkten. PDF-CropBox und Drehung bleiben nachvollziehbar. Kalibrierung ist
 | Parserprozess | 55 Sekunden Wandzeit, 40/45 Sekunden CPU, 1 GiB virtueller Adressraum, 32 MiB pro geschriebener Datei. |
 | OCR | Begrenzte Laufzeit und Ausgaben; standardmäßig 15 Sekunden pro Aufruf. |
 
-Der Controller beendet bei Timeout, normalem Ende, Strg+C und SIGTERM die eigene
-Worker-Prozessgruppe einschließlich OCR-Nachfahren. Ein SIGKILL des Controllers
-ist dadurch nicht abgesichert; die Lease erlaubt spätere Wiederaufnahme. Diese
-Prozesslimits sind kein vollständiger Sicherheitscontainer. Ein produktiver
-Worker benötigt eine eigene eingeschränkte Laufzeit ohne Netzwerk und Zugriff
-auf Office-Geheimnisse. Der neue `online.import_worker` startet den Parser mit
-einer erlaubten Minimalauswahl an Umgebungsvariablen ohne DSN-/Vault-/OAuth-
-Geheimnisse; Netzwerk- und Dateisystemzugriff sind damit nicht umfassend isoliert.
-Vor Sandbox- und Serverabnahme werden nur synthetische Unterlagen verarbeitet.
-Es gibt keinen externen OCR-/KI-Dienst oder automatischen externen Ersatzdienst.
+Die eigenständige Entwicklungs-CLI beendet bei Timeout, normalem Ende, Strg+C und
+SIGTERM die eigene Worker-Prozessgruppe einschließlich OCR-Nachfahren. Ein
+SIGKILL dieses Controllers ist dadurch nicht abgesichert; die Lease erlaubt
+spätere Wiederaufnahme. Diese direkten CLI-Befehle isolieren Netzwerk und
+Dateisystem nicht und bleiben auf synthetische Unterlagen beschränkt.
+
+## Geschützte Verarbeitung für die Online-API
+
+`online.import_worker` verwendet standardmäßig unprivilegiertes bubblewrap.
+Eigene Mount-, PID-, User- und Netzwerk-Namespaces halten Datenbank, Home,
+Office-Geheimnisse und Hostnetz vom Parser fern. Quelle, Code, Python-Runtime,
+Root und das neue `/proc` sind schreibgeschützt; weitere User-Namespaces sind
+gesperrt. Eine geleerte, gezielt aufgebaute Umgebung enthält keine DSN-, Vault-,
+OAuth- oder Proxy-Geheimnisse. Schreibbare temporäre Daten liegen nur auf
+privaten tmpfs-Mounts mit 128 MiB unter `/tmp` und 96 MiB unter `/output`.
+Auf dem Host sind lediglich zwei vorab angelegte Export-Inodes beschreibbar,
+jeweils auf 32 MiB begrenzt; ein Hostverzeichnis wird nicht schreibbar eingebunden.
+
+Vor dem ersten Datenbankzugriff prüft `--doctor` die reale Isolation, die exakten
+Paketversionen aus `requirements.lock` und die angeforderten lokalen OCR-Sprachen.
+Ein absoluter ausführbarer `--worker-python`-Pfad oder
+`SMARTPLAN_IMPORT_WORKER_PYTHON` ist erforderlich. Fehler verhindern den Start
+vor dem ersten Auftrag; es gibt keinen automatischen ungeschützten Ersatz.
+`--unsandboxed-development` wählt diesen Ersatzrunner nur ausdrücklich für
+synthetische lokale Tests. Der konfigurierte Serverdienst verwendet ihn nicht.
+Konkrete Testbefehle stehen im [Online-Vertrag](../online/PLANIMPORT.md#geschützter-online-worker).
+
+Ein Startbeleg vor dem Parserlauf trennt native Abstürze von fehlgeschlagenem
+Namespace-/Interpreterstart. Ein Parserfehler beendet den Auftrag und erhält
+die Originalquelle. Infrastrukturfehler oder geordneter Stopp geben einen noch
+gültigen Versuch ohne Verbrauch zurück. Der PID-Namespace und die Kopplung an
+den Elternprozess beenden auch abgetrennte Nachfahren bei einem Controllerabbruch.
+
+Die optionale `smartplan-plan-import.service` ergänzt `NoNewPrivileges`, eine
+leere Capability-Menge, private Geräte/Tempdateien und eine gemeinsame
+1536-MiB-Speichergrenze für Controller und Nachfahren. `AF_UNIX` bleibt für die
+lokale Datenbank erlaubt, `AF_NETLINK` für den Namespace-Aufbau; IPv4/IPv6 bleiben
+gesperrt. Die Unit vermeidet `ProtectKernelTunables`, dessen geerbte Proc-
+Submounts den unprivilegierten Aufbau blockieren. Das eigene Parser-Proc bleibt
+schreibgeschützt. Beim Dienststopp wird die gesamte Kontrollgruppe beendet.
+
+Der [Vorbereitungs- und Abnahmeablauf](../../deploy/hetzner/online/PLANIMPORT_DIENST.md)
+beschreibt den separaten Installer: gleiche Updatesperre, geprüfter installierter
+Quellstand, Vorbereitung der eigenen Runtime und Unit. Er startet oder aktiviert
+keinen Dienst und ändert keine Datenbank. Reale Pläne werden erst nach Abnahme
+des Dienstes auf dem eigenen Hetzner-Server verarbeitet. Es gibt keinen externen
+OCR-/KI-Dienst oder automatischen externen Ersatzdienst.
 
 ## Prüfung und Abhängigkeiten
 
@@ -165,7 +207,17 @@ enthält nur Dockerfile und Locks. Paketbezug beim Build benötigt Internet;
 Planverarbeitung im Test benötigt es nicht.
 
 Der eigene [Workflow](../../.github/workflows/plan-import.yml) führt diesen
-Containerlauf aus. Die reguläre Backend-Lockdatei enthält keine schweren
+Containerlauf und obligatorische echte Namespace-Prüfungen aus. Letztere prüfen
+unter anderem verborgene Hostdateien und Credentials, Host-Loopback, schreibgeschützte
+Mounts, tatsächlich begrenzten tmpfs-Speicher, abgetrennte Nachfahren und die echte
+PNG-/PDF-/OCR-Pipeline. Fehlende Namespace-Fähigkeiten sind im Pflichtlauf Fehler;
+ein Überspringen oder ungeschützter Ersatz ist nicht zulässig. Die lokale
+Namespace- und PostgreSQL-Integration ist mit synthetischen Quellen bestanden.
+Eine zusätzliche CI-Abnahme mit der tatsächlichen Ubuntu-24.04-systemd-Unit wird
+gerade ergänzt und ist noch nicht bestanden; die reale ARM64-Serverabnahme bleibt
+ebenfalls offen.
+
+Die reguläre Backend-Lockdatei enthält keine schweren
 OCR-/Bildverarbeitungsabhängigkeiten; die Worker-Tests werden bei deren normaler
 Testsuche nicht versehentlich mitentdeckt. App-Integrationstests verwenden
 zusätzlich den separaten Online-Lock für Flask und PostgreSQL-Anbindung.
@@ -179,11 +231,12 @@ Lizenzdateien und Drittanbieterhinweise der ausgelieferten Wheels/Systempakete
 müssen bei einer späteren Distribution mitgeführt und geprüft werden. PyMuPDF
 aus der früheren Machbarkeitsprobe ist keine Abhängigkeit dieses Kerns.
 
-Der native Durchstich wird jetzt mit App-Neustart, Übertragungsunterbrechung,
-Kontowechsel und Quellen-/Ergebnisprüfung getestet. Kamera, iOS-Dateischutz und
-Backup-Ausschluss benötigen die reale iPhone-/iPad-Abnahme; native CI-Builds
-folgen nach dem Push. Dart stellt keinen Verzeichnis-fsync bereit, weshalb keine
-garantierte Stromausfallsicherheit behauptet wird. Reale Planunterlagen werden
-erst nach Worker-Sandbox und Serverabnahme direkt auf Hetzner bereitgestellt.
+App-Neustart, Übertragungsunterbrechung, Kontowechsel und Quellen-/Ergebnisprüfung
+gehören zur automatisierten Integration. Kamera, iOS-Dateischutz und
+Backup-Ausschluss benötigen weiterhin die reale iPhone-/iPad-Abnahme;
+native CI-Builds ersetzen sie nicht. Dart stellt keinen Verzeichnis-fsync bereit,
+weshalb keine garantierte Stromausfallsicherheit behauptet wird. Reale
+Planunterlagen werden erst nach Abnahme des geschützten Dienstes auf dem Server
+direkt auf Hetzner bereitgestellt.
 Die SmartScreen-/Signierungsaufgabe bleibt vor einer Windows-Veröffentlichung
 offen.

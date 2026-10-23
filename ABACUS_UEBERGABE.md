@@ -170,6 +170,13 @@ praktische Ersteinrichtung über den manuellen Schlüssel bzw. ein zweites Gerä
   Grok-Bot, „ChatGPT Work“ und Codex sind die genannten Produkte; ihre offiziellen
   Zugänge und Speech-/Vision-Funktionen sind noch zu prüfen. Noch keine
   echten KI-Verbindungen, Agentenlaufzeit oder MCP-Zugänge implementiert.
+  Unter `prototypes/plan_editor/` gibt es jetzt einen getrennten lokalen
+  Vektorplan-Prototyp mit Wandwahl, geplanten Steckdosen, Notizen, Rückgängig,
+  JSON-Sicherung sowie PDF-/DXF-Ausgabe. Der Steckdosenbefehl ist eine lokale
+  Befehlsregel; Aufnahme und KI-Erkennung fehlen weiterhin. Die native App und
+  API sind dafür noch nicht erweitert. Tests und Beispielmodell im Repository
+  verwenden ausschließlich synthetische Daten; private Skizzen und Exporte
+  bleiben außerhalb des öffentlichen Repositories.
   Die geprüfte Speicherstufe 0.6 ist noch nicht auf der Nutzer-VM bestätigt.
   Der SSH-Zugang hing im mobilen Netz wegen mutmaßlich geänderter Quell-IP;
   die vorübergehende zusätzliche Freigabe für TCP 22 ist nach dem Update wieder

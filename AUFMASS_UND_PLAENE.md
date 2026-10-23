@@ -1,8 +1,11 @@
 # Smartplan Office – Aufmaß, Planerfassung und Geräteplatzierung
 
 Stand: 23. Oktober 2026. Diese Spezifikation beschreibt den gewünschten Ausbau.
-Aufnahme, KI-Auswertung, Planeditor und CAD-Export sind noch nicht implementiert.
-Die vorhandenen Projekte, Berichte und Ablageanschlüsse bilden die Grundlage.
+Ein separater [lokaler Planeditor-Prototyp](prototypes/plan_editor/README.md)
+setzt erste Vektormodelle, Wandpositionen sowie PDF-/DXF-Exporte um.
+Aufnahme, KI-Auswertung und das Planmodul in der nativen App/Online-API sind noch
+nicht implementiert. Die vorhandenen Projekte, Berichte und Ablageanschlüsse
+bilden die Grundlage.
 
 ## Auftrag und Arbeitsweise
 

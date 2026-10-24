@@ -185,6 +185,20 @@ class UpdateFlowTests(OperatorFlowFixture, unittest.TestCase):
         self.assert_old_release()
         self.assertFalse(any(event['event'] == 'public_write' for event in self.events()))
 
+    def test_missing_attachment_capability_cannot_open_public_gate(self):
+        self.configure(fault='missing_mail_attachments')
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assert_old_release()
+        self.assertFalse(any(event['event'] == 'public_write' for event in self.events()))
+
+    def test_old_release_version_cannot_open_public_gate_even_with_current_schema(self):
+        self.configure(fault='obsolete_version')
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assert_old_release()
+        self.assertFalse(any(event['event'] == 'public_write' for event in self.events()))
+
     def test_active_importworker_stops_before_clone_and_restarts_after_durable_activation(self):
         self.configure(import_worker=True)
         result = self.run_update()

@@ -65,7 +65,7 @@ class NativePackageTests(unittest.TestCase):
         # The visible Semver is independent of TestFlight's increasing build counter.
         app = self.directory / 'app'
         (app / 'lib').mkdir(parents=True)
-        (app / 'pubspec.yaml').write_text('version: 0.9.0+912\n')
+        (app / 'pubspec.yaml').write_text('version: 0.10.0+913\n')
         (app / 'lib/app_version.dart').write_text("const smartplanVersion = '0.8.0';\n")
         with self.assertRaisesRegex(ValueError, 'Sichtbare Appversion'):
             release.source_checks(self.directory)
@@ -74,7 +74,7 @@ class NativePackageTests(unittest.TestCase):
         bundle = self.bundle('local')
         release.check_windows(bundle, self.config, 'local')
         for name in ('plan_deletions.py', 'project_workspace.py', 'inquiries.py',
-                     'inbound_connectors.py', 'workspace_api.py'):
+                     'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py'):
             with self.subTest(omitted=name):
                 (bundle / 'backend' / name).unlink()
                 with self.assertRaisesRegex(ValueError, name):
@@ -84,7 +84,8 @@ class NativePackageTests(unittest.TestCase):
     def test_online_package_rejects_missing_native_storage_library_and_local_startup(self):
         bundle = self.bundle('online')
         release.check_windows(bundle, self.config, 'online')
-        for name in ('flutter_secure_storage_windows_plugin.dll', 'url_launcher_windows_plugin.dll'):
+        for name in ('flutter_secure_storage_windows_plugin.dll', 'url_launcher_windows_plugin.dll',
+                     'share_plus_plugin.dll'):
             with self.subTest(omitted=name):
                 (bundle / name).unlink()
                 with self.assertRaisesRegex(ValueError, name):
@@ -125,14 +126,16 @@ class NativePackageTests(unittest.TestCase):
         self.assertEqual(saved['version'], release.version()[0])
         self.assertEqual(saved['visible_app_version'], release.version()[0])
         self.assertEqual(saved['build_number'], release.version()[1])
-        self.assertEqual(saved['required_backend_schema'], 4)
+        self.assertEqual(saved['required_backend_schema'], 5)
         self.assertEqual(saved['required_backend_capabilities'],
-                         ['project_workspace', 'inquiry_intake', 'gmail_intake', 'offline_workspace', 'plan_deletion'])
+                         ['project_workspace', 'inquiry_intake', 'gmail_intake', 'offline_workspace', 'plan_deletion',
+                          'mail_attachments'])
         self.assertNotIn('draft_backend_capabilities', saved)
         self.assertEqual(saved['offline_modules'], ['project_plans', 'plan_import_sources', 'project_workspace'])
         self.assertIs(saved['test_package'], True)
         self.assertIn('flutter_secure_storage_windows_plugin.dll', saved['files_sha256'])
         self.assertIn('url_launcher_windows_plugin.dll', saved['files_sha256'])
+        self.assertIn('share_plus_plugin.dll', saved['files_sha256'])
         self.assertNotIn('RELEASE_MANIFEST.json', saved['files_sha256'])
 
     def test_local_manifest_keeps_packaged_backend_and_project_plan_scope(self):
@@ -157,9 +160,10 @@ class NativePackageTests(unittest.TestCase):
         self.assertEqual(saved['version'], release.version()[0])
         self.assertEqual(saved['visible_app_version'], release.version()[0])
         self.assertEqual(saved['build_number'], '109')
-        self.assertEqual(saved['required_backend_schema'], 4)
+        self.assertEqual(saved['required_backend_schema'], 5)
         self.assertEqual(saved['required_backend_capabilities'],
-                         ['project_workspace', 'inquiry_intake', 'gmail_intake', 'offline_workspace', 'plan_deletion'])
+                         ['project_workspace', 'inquiry_intake', 'gmail_intake', 'offline_workspace', 'plan_deletion',
+                          'mail_attachments'])
         self.assertNotIn('draft_backend_capabilities', saved)
         self.assertEqual(saved['supported_devices'], ['iPhone', 'iPad'])
         self.assertIs(saved['signed_entitlements_checked'], False)
@@ -175,8 +179,9 @@ class NativePackageTests(unittest.TestCase):
             stream.extractall(self.directory / 'unpacked')
         python = release.ROOT / 'backend/.venv' / ('Scripts/python.exe' if sys.platform == 'win32' else 'bin/python')
         self.assertTrue(python.exists(), 'Backend virtualenv is required for the real package import check')
-        subprocess.run([str(python), '-c', 'import server, plan_access, plans, plan_deletions\n'
+        subprocess.run([str(python), '-E', '-c', 'import server, plan_access, plans, plan_deletions\n'
                         'import project_workspace, inquiries, inbound_connectors, workspace_api\n'
+                        'import inquiry_attachments\n'
                         'from core import Office\n'
                         'office = Office("synthetic-package.db")\n'
                         'office.db.close()'],

@@ -11,7 +11,7 @@ import zipfile
 
 DIRECTORY = Path(__file__).resolve().parent
 ROOT = DIRECTORY.parents[1]
-FILES = ("README.md", "BOT_AUFTRAG.md", "openapi.json", "send_inquiry.py",
+FILES = ("README.md", "BOT_AUFTRAG.md", "openapi.json", "send_inquiry.py", "send_attachments.py",
          "examples/inquiry.json")
 PREFIX = "Smartplan-Mailbot/"
 
@@ -42,9 +42,11 @@ def build(output):
     manifest = {
         "format_version": 1, "kind": "Smartplan mail-bot connection kit",
         "source_commit": source_commit, "source_state": source_state,
-        "minimum_server_version": "0.9.0-online-pilot",
-        "minimum_schema_version": 4, "required_server_capability": "gmail_intake",
+        "minimum_server_version": "0.10.0-online-pilot",
+        "minimum_schema_version": 5, "required_server_capability": "mail_attachments",
+        "required_server_capabilities": ["gmail_intake", "mail_attachments"],
         "endpoint": "https://office.smartplan-hofmann.de/api/v1/intake/gmail",
+        "attachment_endpoint": "https://office.smartplan-hofmann.de/api/v1/intake/gmail/attachments",
         "files_sha256": {name: hashlib.sha256(raw).hexdigest() for name, raw in contents.items()},
         "external_bot_connected": False,
     }

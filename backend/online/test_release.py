@@ -26,6 +26,10 @@ from online.restore import restore
 
 DSN = os.environ.get('SMARTPLAN_TEST_DSN')
 CANDIDATE = make_conninfo(DSN, dbname='smartplan_release_check') if DSN else None
+V4_TABLES = ('plan_deletions', 'project_profiles', 'workspace_items', 'workspace_versions',
+             'workspace_requests', 'inquiries', 'inquiry_requests', 'inbound_import_tokens')
+V5_TABLES = ('inquiry_attachment_sets', 'inquiry_attachments',
+             'inquiry_attachment_chunks', 'inquiry_attachment_limits')
 TEST_SOURCE = 'host=127.0.0.1 port=55432 dbname=smartplan_check user=postgres'
 TEST_CANDIDATE = make_conninfo(TEST_SOURCE, dbname='smartplan_release_check')
 
@@ -264,9 +268,16 @@ class CandidateRelease(unittest.TestCase):
             connection.execute('UPDATE smartplan_schema SET version=1')
 
     def source_v2(self):
+        self.source_v3()
         with psycopg.connect(DSN) as connection:
             connection.execute('DROP TABLE IF EXISTS plan_import_chunks,plan_imports')
             connection.execute('UPDATE smartplan_schema SET version=2')
+
+    def source_v3(self):
+        with psycopg.connect(DSN) as connection:
+            connection.execute(psycopg.sql.SQL('DROP TABLE IF EXISTS {}').format(
+                psycopg.sql.SQL(',').join(map(psycopg.sql.Identifier, V5_TABLES + V4_TABLES))))
+            connection.execute('UPDATE smartplan_schema SET version=3')
 
     def prepare(self):
         return release.prepare(DSN, CANDIDATE, self.temp.name, test_mode=True)
@@ -353,11 +364,16 @@ class CandidateRelease(unittest.TestCase):
 
     def test_v3_roundtrip_preserves_original_chunks_partial_uploads_leases_and_results(self):
         ids, source, preview, _ = self.seed_imports()
+        self.source_v3()
         before = release.snapshot_fingerprint(DSN)
         prepared = self.prepare()
-        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (SCHEMA_VERSION, SCHEMA_VERSION))
+        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (3, SCHEMA_VERSION))
         self.assertEqual(release.snapshot_fingerprint(DSN), before)
-        self.assertEqual(release.snapshot_fingerprint(CANDIDATE), before)
+        candidate = release.snapshot_fingerprint(CANDIDATE)
+        self.assertEqual({key: value for key, value in candidate.items() if key in before and key != 'smartplan_schema'},
+                         {key: value for key, value in before.items() if key != 'smartplan_schema'})
+        for table in V4_TABLES + V5_TABLES:
+            self.assertEqual(candidate[table]['rows'], 0, table)
         self.assertEqual(before['plan_imports']['rows'], 4)
         self.assertEqual(before['plan_import_chunks']['rows'], 7)
         office = PostgresOffice(CANDIDATE)

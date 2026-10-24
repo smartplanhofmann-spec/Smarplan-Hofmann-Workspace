@@ -14,6 +14,7 @@ import 'offline_plans.dart';
 import 'offline_vault.dart' show offlineId;
 import 'plan_pages.dart';
 import 'project_workspace_forms.dart';
+import 'mail_attachment_widgets.dart';
 
 const projectSections = [
   'Übersicht',
@@ -85,7 +86,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   late final ValueNotifier<Map<String, dynamic>> projectChanges;
   final lists = <String, List<Map<String, dynamic>>>{};
   final visited = <int>{0};
-  final plansNavigator = GlobalKey<NavigatorState>();
+  var plansNavigator = GlobalKey<NavigatorState>();
   final reportsNavigator = GlobalKey<NavigatorState>();
   final working = <String>{};
   final actionRequests = <String, String>{};
@@ -337,6 +338,18 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     });
     final kind = activeKind;
     if (kind != null && !lists.containsKey(kind)) unawaited(loadList(kind));
+  }
+
+  void openImportedPlans() {
+    if (!mounted || denied || widget.offlineMode) return;
+    setState(() {
+      // The server created this source outside the local plan editor. Reopen
+      // the list so its normal load also discovers the new import, even when
+      // this tab previously displayed a different plan or an empty list.
+      plansNavigator = GlobalKey<NavigatorState>();
+      section = 4;
+      visited.add(4);
+    });
   }
 
   Future<void> edit(String kind, [Map<String, dynamic>? initial]) async {
@@ -1345,6 +1358,18 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
             : null,
       ),
       const SizedBox(height: 20),
+      if (kind == 'links' && visited.contains(5))
+        MailAttachmentsCard(
+          key: ValueKey('project-mail-attachments-${widget.project['id']}'),
+          api: widget.api,
+          projectId: widget.project['id'],
+          offlineMode: widget.offlineMode,
+          canDelete: widget.role == 'owner',
+          canImportPlan: canWrite && widget.api.version == 'v1',
+          accessAllowed: accessAllowed,
+          onAccessDenied: denyAccess,
+          onPlans: openImportedPlans,
+        ),
       if (!enabled)
         empty(
           'Dieser Bereich benötigt die erweiterte Projektmappe und eine Verbindung. Pläne und Berichte bleiben über die Register erreichbar.',

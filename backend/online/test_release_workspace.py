@@ -1,4 +1,4 @@
-"""Disposable PostgreSQL acceptance for the schema-4 project/inbox package.
+"""Disposable PostgreSQL acceptance for schema-5 and legacy project/inbox data.
 
 Reuse the release fixture by composition: importing this module must neither
 connect to PostgreSQL nor discover the older CandidateRelease tests again.
@@ -32,6 +32,10 @@ V4_TABLES = frozenset((
     'workspace_versions', 'workspace_requests', 'inquiries', 'inquiry_requests',
     'inbound_import_tokens',
 ))
+V5_TABLES = frozenset((
+    'inquiry_attachment_sets', 'inquiry_attachments',
+    'inquiry_attachment_chunks', 'inquiry_attachment_limits',
+))
 REVOKED_SESSION_TABLES = frozenset((
     'sessions', 'plan_sessions', 'auth_challenges', 'login_limits',
 ))
@@ -59,7 +63,7 @@ class WorkspaceRelease(unittest.TestCase):
         self.source = fixture_module.DSN
         self.candidate = fixture_module.CANDIDATE
         self.actor, self.project = self.fixture.user, self.fixture.project
-        self.assertEqual(SCHEMA_VERSION, 4)
+        self.assertEqual(SCHEMA_VERSION, 5)
 
     def seed_security(self):
         """Real TOTP enrollment, pending challenge, PDF and both grant kinds."""
@@ -223,22 +227,22 @@ class WorkspaceRelease(unittest.TestCase):
     def test_schema3_candidate_migrates_only_the_clone_and_preserves_legacy_credentials_and_pdf(self):
         security = self.seed_security()
         self.fixture.seed_imports()
-        # Actually remove every v4 table, rather than relabeling a v4 database.
+        # Remove every later table, rather than relabeling a current database.
         with psycopg.connect(self.source) as connection:
             connection.execute(sql.SQL('DROP TABLE {}').format(
-                sql.SQL(',').join(map(sql.Identifier, sorted(V4_TABLES)))))
+                sql.SQL(',').join(map(sql.Identifier, sorted(V4_TABLES | V5_TABLES)))))
             connection.execute('UPDATE smartplan_schema SET version=3')
         before = release.snapshot_fingerprint(self.source)
-        self.assertTrue(V4_TABLES.isdisjoint(before))
+        self.assertTrue((V4_TABLES | V5_TABLES).isdisjoint(before))
         prepared = self.fixture.prepare()
         after = release.snapshot_fingerprint(self.candidate)
-        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (3, 4))
+        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (3, SCHEMA_VERSION))
         self.assertEqual(prepared['tables'], before)
-        self.assertEqual(set(after) - set(before), V4_TABLES)
+        self.assertEqual(set(after) - set(before), V4_TABLES | V5_TABLES)
         for table, fingerprint in before.items():
             if table != 'smartplan_schema':
                 self.assertEqual(after[table], fingerprint, table)
-        for table in V4_TABLES:
+        for table in V4_TABLES | V5_TABLES:
             self.assertEqual(after[table]['rows'], 0, table)
         self.assert_security_preserved(self.candidate, security)
         self.assertEqual(release.snapshot_fingerprint(self.source), before)
@@ -247,14 +251,27 @@ class WorkspaceRelease(unittest.TestCase):
         security = self.seed_security()
         self.fixture.seed_imports()
         data = self.seed_workspace()
+        # Retain the full v4 business state while removing all schema-5 tables.
+        with psycopg.connect(self.source) as connection:
+            connection.execute(sql.SQL('DROP TABLE {}').format(
+                sql.SQL(',').join(map(sql.Identifier, sorted(V5_TABLES)))))
+            connection.execute('UPDATE smartplan_schema SET version=4')
         before = release.snapshot_fingerprint(self.source)
         self.assertTrue(all(before[table]['rows'] > 0 for table in V4_TABLES))
+        self.assertTrue(V5_TABLES.isdisjoint(before))
         prepared = self.fixture.prepare()
-        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (4, 4))
-        self.assertEqual(release.snapshot_fingerprint(self.candidate), before)
+        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (4, SCHEMA_VERSION))
+        self.assertEqual(prepared['tables'], before)
+        after = release.snapshot_fingerprint(self.candidate)
+        self.assertEqual(set(after) - set(before), V5_TABLES)
+        for table, fingerprint in before.items():
+            if table != 'smartplan_schema':
+                self.assertEqual(after[table], fingerprint, table)
+        for table in V5_TABLES:
+            self.assertEqual(after[table]['rows'], 0, table)
         self.assert_security_preserved(self.candidate, security)
         self.assert_workspace_preserved(self.candidate, data)
-        self.assertEqual(release.snapshot_fingerprint(self.candidate), before)
+        self.assertEqual(release.snapshot_fingerprint(self.candidate), after)
         self.assertEqual(release.snapshot_fingerprint(self.source), before)
 
     def test_explicit_restore_retains_business_history_but_revokes_sessions_and_gmail_delivery_keys(self):

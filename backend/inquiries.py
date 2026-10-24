@@ -353,6 +353,9 @@ class Inquiries:
             result['message'] = row['message']
             result['provenance'] = json.loads(row['provenance'])
             result['candidate_customers'] = self._candidates(result)
+            if row['source'] == 'gmail':
+                from inquiry_attachments import InquiryAttachments
+                result['attachments'] = InquiryAttachments(self.office).summary(row['id'])
         return result
 
     def list(self, actor, *, status=None, limit=200):

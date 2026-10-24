@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Smartplan Mailbot: Anfrage übernehmen",
-    "version": "0.9.0",
-    "description": "Begrenzter bestehender Gmail-Empfänger. Ein Mailbot kann eine Nachricht als neue Anfrage speichern. Er kann damit keine vorhandene Anfrage bearbeiten, Kunden oder Projekte anlegen, Finanzdaten ändern oder andere Smartplan-Daten lesen. Wiederholungen verwenden dieselbe unveränderte Nachricht und dieselbe stabile source_id."
+    "title": "Smartplan Mailbot: Anfragen und Originalanhänge",
+    "version": "0.10.0",
+    "description": "Begrenzter Gmail-Eingang mit getrennten Text- und Anhangsquittungen. Der Bot darf Originalmails einliefern und deren vollständige Originalanhänge fortsetzbar hochladen. Keine allgemeinen Fach-API-Rechte, automatischen Kunden-/Projektanlagen oder Finanzaktionen. Eine received-Quittung bestätigt nur den Mailtext; vollständig verarbeitet ist die Mail erst mit gültiger complete-Anhangsquittung, auch bei ausdrücklich leerem Anhangmanifest. Benötigt Smartplan0.10/Schema5 mit gmail_intake und mail_attachments; ein fremder Bot ist dadurch nicht bereits verbunden."
   },
   "servers": [
     {
@@ -20,7 +20,7 @@
       "post": {
         "operationId": "createSmartplanInquiry",
         "summary": "Eine Gmail-Nachricht als Anfrage speichern",
-        "description": "Benötigt einen aktiven SPIN-Importtoken für genau das angegebene Postfach. Die Nachricht wird mit Status new ohne automatische Kunden- oder Projektzuordnung gespeichert. Für dieselbe Kombination aus Gmail-Postfach und source_id wird bei unverändertem Inhalt dieselbe Anfrage-ID bestätigt, auch nach einem verlorenen HTTP-Ergebnis. Abweichender Inhalt unter derselben source_id führt zu 409. Keine wechselnden Zeitstempel in Wiederholungen erzeugen; received_at entweder immer weglassen oder unverändert senden. Nur die sieben beschriebenen Felder sind erlaubt, keine Anhänge, request_id, Status- oder Zuordnungsfelder. Der Empfänger verarbeitet keine Anhänge und ruft keine Links aus der Nachricht ab.",
+        "description": "Benötigt einen aktiven SPIN-Importtoken für genau das angegebene Postfach. Die Nachricht wird mit Status new ohne automatische Kunden- oder Projektzuordnung gespeichert. Für dieselbe Kombination aus Gmail-Postfach und source_id wird bei unverändertem Inhalt dieselbe Anfrage-ID bestätigt, auch nach einem verlorenen HTTP-Ergebnis. Abweichender Inhalt unter derselben source_id führt zu 409. Keine wechselnden Zeitstempel in Wiederholungen erzeugen; received_at entweder immer weglassen oder unverändert senden. Nur die sieben beschriebenen Felder sind erlaubt, keine Anhänge, request_id, Status- oder Zuordnungsfelder. Der Empfänger verarbeitet keine Anhänge und ruft keine Links aus der Nachricht ab. received bestätigt ausschließlich den Mailtext. Originaldateien werden über die getrennten attachments-Routen übertragen. Bereits bestätigte Alt-Mails benötigen für den Anhangnachtrag keinen erneuten Mailtext-POST; deren native Quellidentität genügt.",
         "requestBody": {
           "required": true,
           "description": "JSON-Objekt. Die serverseitige JSON-Serialisierung mit UTF-8 und nicht ASCII-maskierten Zeichen darf höchstens 200000 Bytes belegen; das rohe HTTP-Anfragelimit beträgt zusätzlich 1000000 Bytes. Feldlängen zählen Unicode-Zeichen.",
@@ -137,6 +137,453 @@
           }
         }
       }
+    },
+    "/api/v1/intake/gmail/attachments": {
+      "post": {
+        "operationId": "announceSmartplanMailAttachments",
+        "summary": "Originalanhänge ankündigen oder unveränderten Uploadstand abfragen",
+        "description": "Nach bestehender Mailtext-Quittung201; für Alt-Mails genügt die vorhandene source_account/source_id, kein erneuter Mailtext-POST. Vollständiges Originalmanifest inklusive [] für wirklich keine Anhänge. API reserviert begrenzt Speicher, führt keine KI-/Dokumentverarbeitung aus und lädt keine fremden URLs. Antwort immer201, auch beim Fortsetzen. Nach allen Dateiabschlüssen dasselbe Manifest erneut senden und vollständige complete-Quittung validieren.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttachmentManifest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Anhangmanifest unveränderlich gespeichert oder identischer Stand bestätigt; uploading ist noch kein Erfolg.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttachmentBatchReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ungültige Eingabe oder Abschnittgröße.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Zugang fehlt, ist falsch gebunden, ungültig, abgelaufen oder widerrufen; ohne Offenlegung die geschützte Bindung prüfen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Zugang gehört zu einem anderen Quellpostfach.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Anhangfunktion auf altem Server nicht vorhanden, ursprüngliche Mail noch nicht vorhanden oder Anhang nicht verfügbar. Originale und Eingabe bleiben pending; keine erfolgreiche Verarbeitung behaupten.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Unveränderliche Anhangidentität/Metadaten/Bytes widersprechen einem früheren Versuch oder Abschluss ist noch nicht möglich. Nicht mit neuer ID umgehen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Dieser Anhang wurde bewusst gelöscht. Keine Wiederbelebung; das vollständige Manifest erneut unverändert abfragen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Datei größer20MiB, mehr30Dateien, mehr60MiB pro Mail oder global reservierter Speicher über2GiB. Nichts still weglassen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Erforderlichen JSON- beziehungsweise Binärinhalt verwenden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Höchstens600Anhangsoperationen pro Minute und Token. Retry-After beachten; später mit identischen Quellidentitäten/Originalen fortsetzen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^[0-9]+$"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Vorübergehend unbestätigt. Kein schneller Retry; Originalmanifest und Dateien geschützt behalten.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/intake/gmail/attachments/{attachment_id}/chunks/{chunk_index}": {
+      "put": {
+        "operationId": "uploadSmartplanMailAttachmentChunk",
+        "summary": "Unveränderten Originalabschnitt fortsetzbar speichern",
+        "description": "Abschnitte262144Bytes, letzter Abschnitt exakt verbleibende Originalbytes. Identische Wiederholung erlaubt; andere Bytes unter gleicher Identität werden abgewiesen. Bereits bestätigte received_chunks überspringen. Keine Base64-/JSON-/Textkonvertierung.",
+        "parameters": [
+          {
+            "name": "attachment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{32}$"
+            }
+          },
+          {
+            "name": "chunk_index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 79
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "minLength": 1,
+                "maxLength": 262144
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Abschnitt gespeichert oder identische Wiederholung bestätigt. Die vollständige Datei ist dadurch noch nicht abgeschlossen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttachmentReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ungültige Eingabe oder Abschnittgröße.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Zugang fehlt, ist falsch gebunden, ungültig, abgelaufen oder widerrufen; ohne Offenlegung die geschützte Bindung prüfen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Zugang gehört zu einem anderen Quellpostfach.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Anhangfunktion auf altem Server nicht vorhanden, ursprüngliche Mail noch nicht vorhanden oder Anhang nicht verfügbar. Originale und Eingabe bleiben pending; keine erfolgreiche Verarbeitung behaupten.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Unveränderliche Anhangidentität/Metadaten/Bytes widersprechen einem früheren Versuch oder Abschluss ist noch nicht möglich. Nicht mit neuer ID umgehen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Dieser Anhang wurde bewusst gelöscht. Keine Wiederbelebung; das vollständige Manifest erneut unverändert abfragen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Datei größer20MiB, mehr30Dateien, mehr60MiB pro Mail oder global reservierter Speicher über2GiB. Nichts still weglassen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Erforderlichen JSON- beziehungsweise Binärinhalt verwenden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Höchstens600Anhangsoperationen pro Minute und Token. Retry-After beachten; später mit identischen Quellidentitäten/Originalen fortsetzen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^[0-9]+$"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Vorübergehend unbestätigt. Kein schneller Retry; Originalmanifest und Dateien geschützt behalten.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/intake/gmail/attachments/{attachment_id}/complete": {
+      "post": {
+        "operationId": "completeSmartplanMailAttachment",
+        "summary": "Vollständiges Original anhand Größe und SHA256 abschließen",
+        "description": "Leeres JSON-Objekt. Erst nach allen Originalabschnitten; API prüft Gesamtlänge und SHA256. Eine einzelne ready-Quittung ersetzt nicht die abschließende complete-Anhangmanifestquittung.",
+        "parameters": [
+          {
+            "name": "attachment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{32}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Vollständiges Original steht als ready bereit oder identischer Abschluss wurde bestätigt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttachmentReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ungültige Eingabe oder Abschnittgröße.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Zugang fehlt, ist falsch gebunden, ungültig, abgelaufen oder widerrufen; ohne Offenlegung die geschützte Bindung prüfen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Zugang gehört zu einem anderen Quellpostfach.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Anhangfunktion auf altem Server nicht vorhanden, ursprüngliche Mail noch nicht vorhanden oder Anhang nicht verfügbar. Originale und Eingabe bleiben pending; keine erfolgreiche Verarbeitung behaupten.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Unveränderliche Anhangidentität/Metadaten/Bytes widersprechen einem früheren Versuch oder Abschluss ist noch nicht möglich. Nicht mit neuer ID umgehen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Dieser Anhang wurde bewusst gelöscht. Keine Wiederbelebung; das vollständige Manifest erneut unverändert abfragen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Datei größer20MiB, mehr30Dateien, mehr60MiB pro Mail oder global reservierter Speicher über2GiB. Nichts still weglassen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Erforderlichen JSON- beziehungsweise Binärinhalt verwenden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Höchstens600Anhangsoperationen pro Minute und Token. Retry-After beachten; später mit identischen Quellidentitäten/Originalen fortsetzen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^[0-9]+$"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Vorübergehend unbestätigt. Kein schneller Retry; Originalmanifest und Dateien geschützt behalten.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -145,7 +592,7 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "SPIN_<43 URL-safe characters>",
-        "description": "An ein Gmail-Postfach gebundener Eingangsschlüssel im geschützten Zugangsspeicher. Bevorzugt setzt die native HTTPS-Aktion den Authorization-Bearer-Header über ihre Secret-Bindung für SMARTPLAN_INTAKE_TOKEN an office.smartplan-hofmann.de. Der Bot muss den Klartext nicht sehen. Sichtbare Masken, Platzhalter oder deren Länge sind kein Nachweis für den tatsächlichen Wert und dürfen nicht als Headerwert übertragen werden. Nur Secret-Metadaten und sichere Bindung prüfen; Format und Gültigkeit des tatsächlichen Schlüssels prüft der Server. Niemals in Chat, Protokollen, Beispielen oder URL-Parametern ausgeben. Erfolg erst nach HTTP 201 mit gültigem received-Receipt; 401 kann auch fehlende Bindung, falschen Wert, Ablauf oder Widerruf bedeuten und rechtfertigt keine blinde Neukopie."
+        "description": "An ein Gmail-Postfach gebundener Eingangsschlüssel im geschützten Zugangsspeicher. Bevorzugt setzt die native HTTPS-Aktion den Authorization-Bearer-Header über ihre Secret-Bindung für SMARTPLAN_INTAKE_TOKEN an office.smartplan-hofmann.de. Der Bot muss den Klartext nicht sehen. Sichtbare Masken, Platzhalter oder deren Länge sind kein Nachweis für den tatsächlichen Wert und dürfen nicht als Headerwert übertragen werden. Nur Secret-Metadaten und sichere Bindung prüfen; Format und Gültigkeit des tatsächlichen Schlüssels prüft der Server. Niemals in Chat, Protokollen, Beispielen oder URL-Parametern ausgeben. Erfolg erst nach HTTP 201 mit gültigem received-Receipt; 401 kann auch fehlende Bindung, falschen Wert, Ablauf oder Widerruf bedeuten und rechtfertigt keine blinde Neukopie. Für Anhänge gilt separat: erst ein vollständig validiertes complete-Manifest bestätigt den Anhangabschluss; received allein genügt dafür nicht. Derselbe geschützte Eingangsschlüssel gilt für alle vier fest beschriebenen Intake-Aktionen."
       }
     },
     "schemas": {
@@ -264,6 +711,212 @@
             "type": "string"
           }
         }
+      },
+      "AttachmentDescriptor": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_attachment_id",
+          "filename",
+          "media_type",
+          "size",
+          "sha256"
+        ],
+        "properties": {
+          "source_attachment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "description": "Unveränderte native Gmail-Anhang-ID; druckbare Zeichen. Nicht durch Dateiname, neue Lauf-ID oder KI-Kennung ersetzen."
+          },
+          "filename": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Druckbarer einfacher Dateiname ohne / oder Backslash; weder `.` noch `..`. Äußerer Leerraum wird entfernt. Kein lokaler Pfad."
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "pattern": "^[!#$%&'*+.^_`|~0-9A-Za-z-]+/[!#$%&'*+.^_`|~0-9A-Za-z-]+$",
+            "description": "MIME-Typ ohne Parameter, serverseitig kleingeschrieben. Keine Ausführung oder Dokumentkonvertierung."
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20971520,
+            "description": "Exakte Anzahl der unveränderten Originalbytes."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "minLength": 64,
+            "maxLength": 64,
+            "description": "SHA256 der vollständigen unveränderten Originaldatei, keine Prüfsumme eines Vorschau-/KI-Ergebnisses."
+          }
+        }
+      },
+      "AttachmentManifest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_account",
+          "source_id",
+          "attachments"
+        ],
+        "properties": {
+          "source_account": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 254,
+            "pattern": "^\\s*[^\\s<>@]+@[^\\s<>@]+\\.[^\\s<>@]+\\s*$",
+            "not": {
+              "pattern": "[\\u0000-\\u001f]"
+            },
+            "description": "Gmail-Postfach des Importtokens, keine frei gewählte Absenderadresse. Der Server entfernt äußeren Leerraum und wandelt die Adresse in Kleinbuchstaben um. ASCII-Steuerzeichen sind unzulässig."
+          },
+          "source_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9_-]{1,128}$",
+            "description": "Stabile Gmail-Nachrichten-ID, bei Wiederholungen unverändert. Keine Thread-ID, zufällige Lauf-ID oder Message-ID mit spitzen Klammern verwenden."
+          },
+          "attachments": {
+            "type": "array",
+            "maxItems": 30,
+            "items": {
+              "$ref": "#/components/schemas/AttachmentDescriptor"
+            },
+            "description": "Vollständige unveränderliche Anhangliste der Originalmail. [] ist nur bei tatsächlich anhangloser Mail richtig. Zusammen höchstens62914560Bytes. Eindeutige native Anhang-IDs; Metadaten und Liste dürfen nach Ankündigung nicht verändert werden."
+          }
+        }
+      },
+      "AttachmentReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_attachment_id",
+          "filename",
+          "media_type",
+          "size",
+          "sha256",
+          "id",
+          "status",
+          "received_chunks"
+        ],
+        "properties": {
+          "source_attachment_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "description": "Unveränderte native Gmail-Anhang-ID; druckbare Zeichen. Nicht durch Dateiname, neue Lauf-ID oder KI-Kennung ersetzen."
+          },
+          "filename": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Druckbarer einfacher Dateiname ohne / oder Backslash; weder `.` noch `..`. Äußerer Leerraum wird entfernt. Kein lokaler Pfad."
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "pattern": "^[!#$%&'*+.^_`|~0-9A-Za-z-]+/[!#$%&'*+.^_`|~0-9A-Za-z-]+$",
+            "description": "MIME-Typ ohne Parameter, serverseitig kleingeschrieben. Keine Ausführung oder Dokumentkonvertierung."
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20971520,
+            "description": "Exakte Anzahl der unveränderten Originalbytes."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "minLength": 64,
+            "maxLength": 64,
+            "description": "SHA256 der vollständigen unveränderten Originaldatei, keine Prüfsumme eines Vorschau-/KI-Ergebnisses."
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "uploading",
+              "ready",
+              "deleted"
+            ]
+          },
+          "received_chunks": {
+            "type": "array",
+            "uniqueItems": true,
+            "maxItems": 80,
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 79
+            },
+            "description": "Bereits bestätigte Abschnittindizes. ready/deleted nie durch erneuten Upload wieder anlegen."
+          }
+        }
+      },
+      "AttachmentBatchReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "expected_count",
+          "ready_count",
+          "deleted_count",
+          "total_bytes",
+          "chunk_size",
+          "files"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "uploading",
+              "complete"
+            ]
+          },
+          "expected_count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30
+          },
+          "ready_count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30
+          },
+          "deleted_count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30
+          },
+          "total_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 62914560
+          },
+          "chunk_size": {
+            "type": "integer",
+            "const": 262144
+          },
+          "files": {
+            "type": "array",
+            "maxItems": 30,
+            "items": {
+              "$ref": "#/components/schemas/AttachmentReceipt"
+            }
+          }
+        },
+        "description": "Vor jedem Fortschritt Quell-Anhang-IDs, eindeutige Server-IDs, alle Metadaten/Hashes/Größen, Abschnittindizes und Zähler gegen das eigene Originalmanifest prüfen. complete gilt nur wenn ready_count+deleted_count=expected_count und die Dateiliste vollständig ist. Absichtlich gelöschte IDs bleiben gelöscht; sie sind keine erneut hochzuladenden Originale."
       }
     },
     "responses": {

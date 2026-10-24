@@ -43,8 +43,10 @@ jobs:
           python -m unittest discover -s backend/online -p test_import_cancellation.py -v
           python -m unittest discover -s backend/online -p test_plan_deletions.py -v
           python -m unittest discover -s backend/online -p test_workspace_api.py -v
+          python -m unittest discover -s backend/online -p test_inquiry_attachments_api.py -v
           python -m unittest discover -s backend/online -p test_release.py -v
           python -m unittest discover -s backend/online -p test_release_workspace.py -v
+          python -m unittest discover -s backend/online -p test_release_attachments.py -v
           python -m unittest discover -s backend/online -p test_storage.py -v
           python -m unittest discover -s backend/online -p test_onedrive.py -v
       - name: Check online units, scripts and real HTTPS runtime
@@ -251,7 +253,7 @@ jobs:
           $smartplanBundle = (Resolve-Path 'build/windows/x64/runner/Release').Path
           $smartplanBundleFiles = (Get-ChildItem $smartplanBundle -Name) -join ', '
           Write-Host "::notice title=Windows bundle files::$smartplanBundleFiles"
-          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll', 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll', 'url_launcher_windows_plugin.dll')) {
+          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll', 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll', 'url_launcher_windows_plugin.dll', 'share_plus_plugin.dll')) {
             if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
               throw "Required application file is missing: $smartplanFile"
             }
@@ -272,14 +274,14 @@ jobs:
             }
           }
           New-Item -ItemType Directory -Force (Join-Path $smartplanBundle 'backend') | Out-Null
-          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'workspace_api.py', 'requirements.lock')) {
+          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'requirements.lock')) {
             Copy-Item (Join-Path '../backend' $smartplanFile) -Destination (Join-Path $smartplanBundle 'backend')
           }
           Copy-Item '../windows/*.cmd' -Destination $smartplanBundle
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.9.0 - lokales Windows-Pruefpaket (x64)
+          Smartplan Office 0.10.0 - lokales Windows-Pruefpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -296,6 +298,7 @@ jobs:
           Auch vorgemerkte Grundrissloeschungen werden nach der naechsten Verbindung synchronisiert.
           Offline-Berechtigung: bis zu sieben Tage nach Online-Anmeldung; vorhandene lokale Eingaben bleiben danach erhalten.
           Foto-/PDF-Planimport ist ausschliesslich im getrennten Online-Paket vorgesehen und in diesem lokalen Paket nicht sichtbar.
+          Anfrageanhaenge benoetigen Verbindung; die Weitergabe an die geschuetzte Planverarbeitung ist nur online verfuegbar.
           Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung. Geraeteentsperrung separat pruefen.
           OneDrive ist erst nach einer gesonderten Einrichtung nutzbar.
           '@
@@ -353,7 +356,7 @@ jobs:
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
           $smartplanInstructions = @'
-          Smartplan Office 0.9.0 - Online-Pruefpaket fuer Windows (x64)
+          Smartplan Office 0.10.0 - Online-Pruefpaket fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
@@ -361,10 +364,10 @@ jobs:
           Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
           und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
           Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
-          0.9.0-Entwicklungsumfang: Projektmappe mit Dashboard, Aufgaben und Bautagebuch sowie Anfrage zu Kunde/Projekt.
+          0.10.0-Entwicklungsumfang: Anfrageanhaenge geschuetzt uebernehmen und geeignete Unterlagen ausdruecklich an die Planverarbeitung weitergeben.
           Die vollstaendige Abnahme dieses zusammenhaengenden Arbeitsablaufs steht aus.
-          Servervoraussetzung: freigegebenes Backendupdate mit PostgreSQL-Schema 4, Import-API und den Faehigkeiten
-          project_workspace, inquiry_intake, gmail_intake, offline_workspace und plan_deletion.
+          Servervoraussetzung: freigegebenes Backendupdate mit PostgreSQL-Schema 5, Import-API und den Faehigkeiten
+          project_workspace, inquiry_intake, gmail_intake, offline_workspace, plan_deletion und mail_attachments.
           Die Erkennung benoetigt einen separat eingerichteten Importworker; dieses Paket aktiviert keinen Serverdienst automatisch.
           Dieses Pruefpaket aktualisiert den Hetzner-Server oder seine Datenbank nicht automatisch.
           Projektplaene vor der Fahrt oeffnen; neue Plaene und Planquellen werden zuerst lokal verschluesselt gespeichert.
@@ -372,7 +375,7 @@ jobs:
           Grundriss- und Quellenloeschungen bleiben bis zur erfolgreichen Synchronisierung vorgemerkt.
           Ohne Faehigkeit plan_deletion warten sie auf das freigegebene Serverupdate.
           Die zuvor geoeffnete Projektmappe mit Aufgaben, Bautagebuch und Terminen ist fuer Offline-Arbeit vorgesehen.
-          Anfragen, finanzielle Vorgaenge und Berichte benoetigen weiterhin Verbindung.
+          Anfragen mit ihren Anhaengen, finanzielle Vorgaenge und Berichte benoetigen weiterhin Verbindung.
           Offline bis zu sieben Tage; Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung.
           Ausstehende Plaene nicht durch Deinstallation oder Loeschen von App-Daten entfernen.
           EXE und Paket sind unsigniert; Windows-Signierung und SmartScreen-Abnahme bleiben offen.

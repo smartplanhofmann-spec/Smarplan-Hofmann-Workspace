@@ -20,7 +20,7 @@ from core import Office, digest
 from inquiries import MAX_EML_BYTES
 from online.auth import totp
 from online.plan_imports import validate_integrity as validate_imports
-from online.store import PostgresOffice
+from online.store import PostgresOffice, SCHEMA_VERSION
 from online.web import create_app
 import plan_access
 import workspace_api
@@ -79,7 +79,7 @@ class WorkspaceHttpFlow:
     def run_inquiry_to_project_workflow(self):
         ready = self.client.get('/ready', base_url='https://office.example.test')
         self.assertEqual(ready.status_code, 200)
-        self.assertEqual(ready.json['schema_version'], 4)
+        self.assertEqual(ready.json['schema_version'], SCHEMA_VERSION)
         self.assertTrue({'project_workspace', 'inquiry_intake', 'gmail_intake', 'offline_workspace', 'plan_deletion'}
                         <= set(ready.json['capabilities']))
         customer = self.call('POST', '/customers', {

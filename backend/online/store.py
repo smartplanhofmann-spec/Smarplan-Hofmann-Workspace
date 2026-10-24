@@ -6,7 +6,7 @@ from psycopg.rows import dict_row
 
 from core import Office
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 # Serialize mutations across processes as well as threads in this small pilot.
 LOCK_ID = 741290518
 
@@ -103,14 +103,14 @@ def migrate(dsn):
             token TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
             expiry DOUBLE PRECISION NOT NULL, credential TEXT NOT NULL);''')
                 connection.execute('UPDATE smartplan_schema SET version=2')
-            elif row['version'] not in (2, 3, SCHEMA_VERSION):
+            elif row['version'] not in (2, 3, 4, SCHEMA_VERSION):
                 raise RuntimeError('Nicht unterstützte PostgreSQL-Schemaversion.')
             if row['version'] in (1, 2):
                 from online.plan_imports import schema_statements
                 for statement in schema_statements():
                     connection.execute(statement)
                 connection.execute('UPDATE smartplan_schema SET version=3')
-            if row['version'] in (1, 2, 3, SCHEMA_VERSION):
+            if row['version'] in (1, 2, 3):
                 from plan_deletions import schema_statements as deletion_schema
                 for statement in deletion_schema():
                     connection.execute(statement)
@@ -118,6 +118,10 @@ def migrate(dsn):
                 for statement in workspace_schema():
                     connection.execute(statement)
                 connection.execute('UPDATE smartplan_schema SET version=4')
+            from inquiry_attachments import schema_statements as attachment_schema
+            for statement in attachment_schema():
+                connection.execute(statement)
+            connection.execute('UPDATE smartplan_schema SET version=5')
             return
         connection.execute('''
             CREATE TABLE users(id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, salt TEXT NOT NULL,
@@ -157,7 +161,7 @@ def migrate(dsn):
             CREATE TABLE IF NOT EXISTS plan_sessions(
             token TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
             expiry DOUBLE PRECISION NOT NULL, credential TEXT NOT NULL);
-            INSERT INTO smartplan_schema VALUES(4);
+            INSERT INTO smartplan_schema VALUES(5);
         ''')
         from online.plan_imports import schema_statements
         for statement in schema_statements():
@@ -167,4 +171,7 @@ def migrate(dsn):
             connection.execute(statement)
         from workspace_api import schema_statements as workspace_schema
         for statement in workspace_schema():
+            connection.execute(statement)
+        from inquiry_attachments import schema_statements as attachment_schema
+        for statement in attachment_schema():
             connection.execute(statement)

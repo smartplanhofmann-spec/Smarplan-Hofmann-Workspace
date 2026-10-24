@@ -3,7 +3,8 @@ on:
   push:
     paths:
       - 'integrations/mail_bot/**'
-      - 'scripts/test_mail_bot.py'
+      - 'scripts/test_mail_bot*.py'
+      - 'backend/inquiry_attachments.py'
       - 'backend/inbound_connectors.py'
       - 'backend/inquiries.py'
       - 'backend/workspace_api.py'
@@ -12,7 +13,8 @@ on:
   pull_request:
     paths:
       - 'integrations/mail_bot/**'
-      - 'scripts/test_mail_bot.py'
+      - 'scripts/test_mail_bot*.py'
+      - 'backend/inquiry_attachments.py'
       - 'backend/inbound_connectors.py'
       - 'backend/inquiries.py'
       - 'backend/workspace_api.py'
@@ -47,7 +49,7 @@ jobs:
           umask 0077
           smartplan_bot_log="$RUNNER_TEMP/smartplan-mail-bot-tests.log"
           set +e
-          python -X utf8 -m unittest discover -s scripts -p test_mail_bot.py -v > "$smartplan_bot_log" 2>&1
+          python -X utf8 -m unittest discover -s scripts -p 'test_mail_bot*.py' -v > "$smartplan_bot_log" 2>&1
           smartplan_bot_exit=$?
           set -e
           python -X utf8 - "$smartplan_bot_log" "$smartplan_bot_exit" <<'PY'

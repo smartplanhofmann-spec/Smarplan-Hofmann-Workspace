@@ -11,10 +11,15 @@ Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.
 - **Letzte Entscheidung zum Maileingang:** Der vorhandene Bot soll seine
   bestehende Mailanbindung verwenden und Anfragen selbstständig in Smartplan
   einliefern. Der manuelle Apps-Script-Aufbau wurde als zu kompliziert verworfen.
-  Das vorbereitete Paket unter integrations/mail_bot nutzt den installierten
-  0.9-Eingang und benötigt kein weiteres Serverupdate. Anbieter/Produkt ist
-  weiterhin nicht eindeutig identifiziert; seine HTTP-/Werkzeugfähigkeit und
-  erste echte Übernahme dürfen erst nach Beleg als funktionierend gelten.
+  Die Textübernahme in Smartplan wurde im echten Test bestätigt. Der Bot meldet
+  einen aktiven Fünfminutenjob; eine zweite Mail wurde übernommen, ihre Anhänge
+  fehlten jedoch im textbeschränkten 0.9-Eingang. Für Anhänge wird jetzt das
+  zusammenhängende Paket 0.10/Schema5 vorbereitet. Es enthält Blob-Upload,
+  verifizierten Download, Projektablage, Plankopie und gezielten Altmailnachtrag.
+  Server/App/Botauftrag gemeinsam aktualisieren; vorhandenen Job, gültigen
+  Schlüssel und bestätigte Mail-IDs erhalten. Produktidentität ist nicht
+  abschließend verifiziert, aber die vorhandene HTTP-Textanbindung ist belegt.
+  Tatsächlicher Binärabruf und mobile Geräteausgabe bleiben zu prüfen.
   Eine beiläufige Nennung von Salesforce ist keine beauftragte CRM-Umstellung.
 - **sevdesk bleibt** das bestehende System für Angebote und Rechnungen. Die App
   ordnet Vorgänge und Links dem Projekt zu; eine Ablösung ist nicht beauftragt.
@@ -63,6 +68,15 @@ bearbeitbare CAD-Zeichnung. Der verwendete gebündelte Serverablauf steht unter
 [UPDATE_0_9.md](deploy/hetzner/online/UPDATE_0_9.md). Bestehende App-Daten und
 ausstehende Offline-Eingaben dürfen dafür nicht durch Neuinstallation oder
 manuelles Löschen beseitigt werden.
+
+**0.10 / Schema 5 ist der neue Entwicklungsstand und noch nicht auf dem
+Nutzer-Server installiert.** Maßgeblich für das nächste Gesamtpaket sind
+[Produktpaket 0.10](PRODUKTPAKET_0_10.md) und
+[Update 0.10](deploy/hetzner/online/UPDATE_0_10.md).
+Mailanhänge werden als unveränderte Bytes auf Hetzner gespeichert; der externe
+Bot verwendet dafür seine bereits vorhandene Gmail-Anbindung und führt keine
+externe Plan-/Dokumentanalyse aus. Die Beschränkung der Planverarbeitung auf
+den eigenen Hetzner-Server bleibt verbindlich.
 
 Reale iPhone-/iPad-Abnahme und Windows-Herausgebersignierung bleiben offen.
 Eine erfolgreiche Serverabnahme belegt weder Handschrift-/Wandsemantik noch

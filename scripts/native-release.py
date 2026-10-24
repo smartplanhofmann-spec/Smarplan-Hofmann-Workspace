@@ -13,11 +13,12 @@ API_URL = 'https://office.smartplan-hofmann.de'
 BUNDLE_ID = 'de.smartplanhofmann.office'
 BACKEND_FILES = ('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py',
                  'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py',
-                 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'workspace_api.py',
+                 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py',
+                 'workspace_api.py',
                  'requirements.lock')
 WINDOWS_DLLS = ('flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll',
                 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll',
-                'url_launcher_windows_plugin.dll',
+                'url_launcher_windows_plugin.dll', 'share_plus_plugin.dll',
                 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')
 
 
@@ -140,9 +141,9 @@ def manifest(kind, commit, root=ROOT):
     return {'schema_version': 1, 'version': version(root)[0], 'visible_app_version': version(root)[0],
             'build_number': version(root)[1],
             'source_commit': commit, 'api_url': API_URL if kind == 'online' else 'http://127.0.0.1:8765',
-            'api_version': 'v1' if kind == 'online' else '', 'required_backend_schema': 4 if kind == 'online' else None,
+            'api_version': 'v1' if kind == 'online' else '', 'required_backend_schema': 5 if kind == 'online' else None,
             'required_backend_capabilities': ['project_workspace', 'inquiry_intake', 'gmail_intake',
-                                              'offline_workspace', 'plan_deletion'] if kind == 'online' else [],
+                                              'offline_workspace', 'plan_deletion', 'mail_attachments'] if kind == 'online' else [],
             'offline_modules': ['project_plans', 'plan_import_sources', 'project_workspace']
                                if kind == 'online' else ['project_plans'],
             'offline_max_days': 7, 'test_package': True}

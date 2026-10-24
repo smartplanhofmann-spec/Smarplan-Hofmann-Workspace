@@ -49,7 +49,9 @@ def restore(source, active_dsn, target_dsn):
                 if hashlib.sha256(row['pdf']).hexdigest() != row['pdf_hash']:
                     raise ValueError('PDF-Integritätsprüfung fehlgeschlagen.')
             validate_integrity(office)
-            for table in ('sessions', 'plan_sessions', 'auth_challenges', 'login_limits'):
+            # Upload limits are transient traffic counters. Active attachment
+            # byte quotas are derived from retained files, never reset here.
+            for table in ('sessions', 'plan_sessions', 'auth_challenges', 'login_limits', 'inquiry_attachment_limits'):
                 office.db.execute(f'DELETE FROM {table}')
             office.db.execute('UPDATE inbound_import_tokens SET revoked_at=? WHERE revoked_at IS NULL', (time.time(),))
     finally:

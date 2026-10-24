@@ -1,4 +1,4 @@
-# Smartplan Office – Entwicklungsstand 0.9.0
+# Smartplan Office – Entwicklungsstand 0.10.0
 
 Gemeinsamer Arbeitsbereich für Büro und Baustelle: Anfragen, Kunden,
 Projektmappen, Aufgaben, Termine, Bautagebuch, Pläne und unterschriebene Berichte.
@@ -6,7 +6,8 @@ Windows und iPhone/iPad verwenden denselben Hetzner-Server. Der aktuelle große
 Entwicklungsstand wird als zusammenhängendes Paket geprüft und verteilt.
 
 Die fachliche Grundlage und Abnahme stehen in
-[Produktpaket 0.9](PRODUKTPAKET_0_9.md). Arbeitsabläufe sind flexibel: Ein Projekt
+[Produktpaket 0.10](PRODUKTPAKET_0_10.md) und seiner
+[Projektgrundlage 0.9](PRODUKTPAKET_0_9.md). Arbeitsabläufe sind flexibel: Ein Projekt
 kann zur Klärung, zum Aufmaß oder als Serviceeinsatz beginnen. Angebot, Zusage,
 Anzahlung und Material sind keine erzwungene Pflichtreihenfolge.
 
@@ -52,10 +53,14 @@ weiterhin eigene Entwicklungsaufgaben.
 **Mailbot-Anschluss:** Nach der letzten Nutzerentscheidung verarbeitet der
 vorhandene Bot die Mails und liefert die Anfragen direkt an Smartplan.
 [Anschlusspaket und Bot-Auftrag](integrations/mail_bot/README.md) verwenden den
-bereits vorhandenen Eingang mit eng begrenztem, widerrufbarem Schlüssel. Eine
-Werkzeugbeschreibung und ein optionaler Python-Helfer sind enthalten; die
-tatsächliche HTTP-/Werkzeugfähigkeit des konkreten Bots und seine erste
-Liveübernahme bleiben zu bestätigen. Apps Script ist eine frühere Alternative,
+Eingang mit eng begrenztem, widerrufbarem Schlüssel. Die Textübernahme mit dem
+vorhandenen Bot wurde vom Nutzer bestätigt. 0.10 ergänzt Originalanhänge:
+fortsetzbare Abschnitte, SHA-Prüfung, vollständige Quittung und Nachträge zu
+bereits übernommenen Mails. Anfrage und Projektmappe zeigen die Dateien;
+PDF/JPEG/PNG lassen sich gezielt als Planquelle übernehmen. Windows verwendet
+den Speicherdialog, iPhone/iPad die native Teilen-/Speichern-Ausgabe. Das Paket
+enthält Werkzeugbeschreibung, Text- und Anhanghelfer; der tatsächliche Anhangabruf
+des externen Bots muss gesondert abgenommen werden. Apps Script ist eine frühere Alternative,
 deren manuelle Einrichtung der Nutzer als zu aufwendig verworfen hat.
 WhatsApp-API/Nummern-Coexistence sind nicht bereits eingerichtet.
 
@@ -68,8 +73,14 @@ meldete Datenbank und Status `ok` sowie alle drei API-/HTTPS-/Importdienste
 Die synthetische ARM64-Dienstabnahme und der Foto-/PDF-Import wurden bereits mit
 0.8 erfolgreich geprüft. Weitere reale Workflow- und Geräteprüfungen bleiben offen.
 Der [gebündelte Updateablauf](deploy/hetzner/online/UPDATE_0_9.md) verwendet den
-vorhandenen Datenbankkopie-/Wartungsablauf. Das Mailbot-Anschlusspaket benötigt
-keine weitere Server- oder Appinstallation.
+vorhandenen Datenbankkopie-/Wartungsablauf.
+
+**0.10 / Schema 5 ist vorbereitet und noch nicht auf dieser VM installiert.**
+Für Anhänge werden Server, Windows-App und der Auftrag des vorhandenen Bots
+gemeinsam aktualisiert; siehe [Update 0.10](deploy/hetzner/online/UPDATE_0_10.md).
+Gültige vorhandene Eingangsschlüssel und die bisherige Liste bestätigter Mails
+werden weiterverwendet. Die Originaldateien werden nachgereicht; Mailtexte
+müssen dafür nicht erneut gepostet werden.
 
 Windows-Pakete sind **unsignierte interne Prüfpakete**. Authenticode-/Installer-/
 SmartScreen-Abnahme bleiben offen. Neue Apple-/Provider-Abos oder kostenpflichtige

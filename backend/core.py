@@ -170,6 +170,9 @@ class Office:
                 from workspace_api import schema_statements as workspace_schema
                 for statement in workspace_schema():
                     self.db.execute(statement)
+                from inquiry_attachments import schema_statements as attachment_schema
+                for statement in attachment_schema('BLOB'):
+                    self.db.execute(statement)
         except Exception:
             self.db.close()
             raise

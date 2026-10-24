@@ -304,6 +304,8 @@ def validate_integrity(office):
     plan_deletions.validate_integrity(office)
     from workspace_api import validate_integrity as validate_workspace
     validate_workspace(office)
+    from inquiry_attachments import validate_integrity as validate_attachments
+    validate_attachments(office)
     imports = PlanImports(office)
     for row in office.db.execute('SELECT ' + FIELDS + ' FROM plan_imports').fetchall():
         if plan_deletions.by_object(office.db, 'import', row['id']):

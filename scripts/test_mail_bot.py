@@ -422,10 +422,12 @@ class MailBotArchive(unittest.TestCase):
                 self.assertEqual(set(archive.namelist()), {
                     "Smartplan-Mailbot/README.md", "Smartplan-Mailbot/BOT_AUFTRAG.md",
                     "Smartplan-Mailbot/openapi.json", "Smartplan-Mailbot/send_inquiry.py",
+                    "Smartplan-Mailbot/send_attachments.py",
                     "Smartplan-Mailbot/examples/inquiry.json", "Smartplan-Mailbot/MANIFEST.json",
                 })
                 self.assertFalse(manifest["external_bot_connected"])
-                self.assertEqual(manifest["minimum_schema_version"], 4)
+                self.assertEqual(manifest["minimum_schema_version"], 5)
+                self.assertEqual(manifest["required_server_capability"], "mail_attachments")
                 for name, expected_hash in manifest["files_sha256"].items():
                     raw = archive.read(package.PREFIX + name)
                     self.assertEqual(hashlib.sha256(raw).hexdigest(), expected_hash)

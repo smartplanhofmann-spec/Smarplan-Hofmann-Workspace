@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'api.dart';
 import 'offline_vault.dart' show offlineId;
+import 'mail_attachment_widgets.dart';
 
 const inquiryStatuses = <String, String>{
   'new': 'Neu',
@@ -41,7 +42,7 @@ const _channels = <String, String>{
   'other': 'Anderer Weg',
 };
 const _gmailGuide =
-    'https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/codex/testupdate-0.7-20261023/integrations/google_apps_script/SETUP.md';
+    'https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/codex/testupdate-0.7-20261023/integrations/mail_bot/README.md';
 
 String _label(Map<String, String> labels, dynamic value) =>
     labels[value?.toString()] ?? value?.toString() ?? '';
@@ -724,7 +725,10 @@ class _InquiryDetailPageState extends State<InquiryDetailPage> {
   String? error;
   String status = 'new', review = '', channel = '';
   String? customerId;
-  bool get allowed => widget.role == 'owner';
+  bool accessDenied = false;
+  String? initialSession;
+  final attachmentAccess = ValueNotifier<bool>(true);
+  bool get allowed => widget.role == 'owner' && !accessDenied;
   bool get editable =>
       allowed &&
       record != null &&
@@ -773,11 +777,31 @@ class _InquiryDetailPageState extends State<InquiryDetailPage> {
   @override
   void initState() {
     super.initState();
+    initialSession = widget.api.token;
+    widget.api.addListener(sessionChanged);
     if (allowed) load();
+  }
+
+  void sessionChanged() {
+    if (initialSession != null && widget.api.token != initialSession)
+      denyAccess();
+  }
+
+  void denyAccess() {
+    if (!mounted || accessDenied) return;
+    attachmentAccess.value = false;
+    setState(() {
+      accessDenied = true;
+      record = null;
+      error =
+          'Anmeldung oder Zugriff nicht mehr verfügbar. Bitte online anmelden.';
+    });
   }
 
   @override
   void dispose() {
+    widget.api.removeListener(sessionChanged);
+    attachmentAccess.dispose();
     next.dispose();
     due.dispose();
     sevdesk.dispose();
@@ -785,6 +809,14 @@ class _InquiryDetailPageState extends State<InquiryDetailPage> {
   }
 
   void accept(Map<String, dynamic> value) {
+    final currentAttachments = record?['attachments'];
+    final incomingAttachments = value['attachments'];
+    if (currentAttachments is Map &&
+        incomingAttachments is Map &&
+        (currentAttachments['deleted_count'] as int? ?? 0) >
+            (incomingAttachments['deleted_count'] as int? ?? 0)) {
+      value['attachments'] = currentAttachments;
+    }
     record = value;
     status = value['status'];
     review = value['review_method'] ?? '';
@@ -808,11 +840,15 @@ class _InquiryDetailPageState extends State<InquiryDetailPage> {
       final value = Map<String, dynamic>.from(
         await widget.api.call('/api/inquiries/${widget.inquiryId}'),
       );
-      if (mounted) setState(() => accept(value));
+      if (mounted && allowed) setState(() => accept(value));
     } catch (e) {
       if (mounted)
         setState(() {
-          if (_denied(e)) record = null;
+          if (_denied(e)) {
+            record = null;
+            accessDenied = true;
+            attachmentAccess.value = false;
+          }
           error = _errorMessage(e);
         });
     } finally {
@@ -847,13 +883,14 @@ class _InquiryDetailPageState extends State<InquiryDetailPage> {
       final value = Map<String, dynamic>.from(
         await widget.api.call('/api/inquiries/${widget.inquiryId}', pending),
       );
-      if (mounted) {
+      if (mounted && allowed) {
         setState(() => accept(value));
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(const SnackBar(content: Text('Anfrage aktualisiert.')));
       }
     } catch (e) {
+      if (_denied(e)) denyAccess();
       if (mounted)
         setState(() {
           error = _errorMessage(e);
@@ -910,7 +947,7 @@ class _InquiryDetailPageState extends State<InquiryDetailPage> {
           ],
         ),
       );
-      if (result != null && mounted)
+      if (result != null && mounted && allowed)
         Navigator.pop(context, Map<String, dynamic>.from(result['project']));
     } catch (e) {
       if (mounted) setState(() => error = _errorMessage(e));
@@ -921,7 +958,7 @@ class _InquiryDetailPageState extends State<InquiryDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final item = record;
+    final item = allowed ? record : null;
     final candidates = item?['candidate_customers'] as List? ?? [];
     return PopScope<Object?>(
       canPop: !busy && (!dirty || discardAllowed),
@@ -943,8 +980,12 @@ class _InquiryDetailPageState extends State<InquiryDetailPage> {
           ],
         ),
         body: !allowed
-            ? const Center(
-                child: Text('Keine Berechtigung für den Anfrageneingang.'),
+            ? Center(
+                child: Text(
+                  accessDenied
+                      ? 'Anmeldung oder Zugriff nicht mehr verfügbar. Bitte online anmelden.'
+                      : 'Keine Berechtigung für den Anfrageneingang.',
+                ),
               )
             : ListView(
                 padding: const EdgeInsets.all(24),
@@ -980,6 +1021,26 @@ class _InquiryDetailPageState extends State<InquiryDetailPage> {
                     if (item['sender_phone']?.toString().isNotEmpty == true)
                       SelectableText(item['sender_phone']),
                     const SizedBox(height: 18),
+                    if (item['source'] == 'gmail' ||
+                        item['attachments'] != null)
+                      MailAttachmentsCard(
+                        key: ValueKey(
+                          'inquiry-attachments-${widget.inquiryId}',
+                        ),
+                        api: widget.api,
+                        inquiryId: widget.inquiryId,
+                        attachments: item['attachments'] is Map
+                            ? item['attachments'] as Map<String, dynamic>
+                            : null,
+                        canDelete: allowed,
+                        accessAllowed: attachmentAccess,
+                        onAccessDenied: denyAccess,
+                        onManifestChanged: (manifest) {
+                          if (mounted && allowed && record != null) {
+                            setState(() => record!['attachments'] = manifest);
+                          }
+                        },
+                      ),
                     Card(
                       child: Padding(
                         padding: const EdgeInsets.all(18),
@@ -1590,7 +1651,7 @@ class _GmailInboxPageState extends State<GmailInboxPage> {
               ),
               const SizedBox(height: 10),
               const Text(
-                'Die Einrichtung verwendet ein eigenes Gmail-Label und ein kleines Google-Apps-Script in deinem Google-Konto. Der Zugangsschlüssel erlaubt nur die Übergabe von Nachrichten an Smartplan.',
+                'Der Mailbot übernimmt ausgewählte Gmail-Nachrichten als Anfragen und überträgt ihre Anhänge über einen geschützten Zugang an Smartplan. Den Bot richtest du mit der Anleitung ein; diese App verbindet sich nicht direkt mit deinem Google-Konto.',
               ),
               const SizedBox(height: 12),
               Align(
@@ -1691,7 +1752,7 @@ class _OneTimeTokenDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Trage diesen Schlüssel nur in den geschützten Script-Einstellungen deines Google-Kontos ein. Er wird später nicht erneut angezeigt.',
+              'Trage diesen Schlüssel nur in die geschützten Zugangsdaten-Einstellungen deines Bots ein. Er wird später nicht erneut angezeigt.',
             ),
             const SizedBox(height: 12),
             SelectableText(token),

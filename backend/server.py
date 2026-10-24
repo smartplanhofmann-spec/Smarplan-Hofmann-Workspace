@@ -29,6 +29,8 @@ def make_handler(office,drive,launch_id=""):
                 self.send_header("Allow", self.allowed_methods)
             if kind == "application/pdf":
                 self.send_header("Content-Disposition", 'inline; filename="smartplan-report.pdf"')
+            if isinstance(data, workspace_api.BinaryAttachment):
+                self.send_header("Content-Disposition", workspace_api.attachment_disposition(data.filename))
             self.end_headers()
             self.wfile.write(data)
 

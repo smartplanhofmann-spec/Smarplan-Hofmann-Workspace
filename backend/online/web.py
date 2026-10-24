@@ -47,7 +47,10 @@ def dispatch(office, user, path, method, data, token):
     if workspace_response is not None:
         result, status, mimetype = workspace_response
         return (Response(result, mimetype=mimetype,
-                         headers={'Content-Disposition': 'attachment; filename="smartplan-termin.ics"'})
+                         headers={'Content-Disposition':
+                                  workspace_api.attachment_disposition(result.filename)
+                                  if isinstance(result, workspace_api.BinaryAttachment)
+                                  else 'attachment; filename="smartplan-termin.ics"'})
                 if mimetype != 'application/json' else result), status
     if path == '/offline/access':
         if data:
@@ -187,7 +190,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         try:
             with office.lock, office.db:
                 office.db.execute('SELECT COUNT(*) FROM users').fetchone()
-            return jsonify(status='ok', version='0.9.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
+            return jsonify(status='ok', version='0.10.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
                            capabilities=['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
                                          'offline_workspace', *workspace_api.CAPABILITIES])
         except Exception:
@@ -223,6 +226,38 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         if not authorization.startswith('Bearer ') or len(authorization) > 200:
             raise Problem(401, 'Gmail-Importzugang erforderlich')
         return jsonify(InboundConnectors(office).receive_gmail(authorization[7:], body())), 201
+
+    def attachment_token():
+        authorization = request.headers.get('Authorization', '')
+        if not authorization.startswith('Bearer ') or len(authorization) > 200:
+            raise Problem(401, 'Gmail-Importzugang erforderlich')
+        return authorization[7:]
+
+    @app.post('/api/v1/intake/gmail/attachments')
+    def announce_attachments():
+        from inquiry_attachments import InquiryAttachments
+        token = attachment_token()
+        return jsonify(InquiryAttachments(office).announce(token, body())), 201
+
+    @app.put('/api/v1/intake/gmail/attachments/<attachment_id>/chunks/<int:index>')
+    def put_attachment_chunk(attachment_id, index):
+        from inquiry_attachments import InquiryAttachments, CHUNK_SIZE as ATTACHMENT_CHUNK_SIZE
+        token = attachment_token()
+        request.max_content_length = ATTACHMENT_CHUNK_SIZE
+        if request.mimetype != 'application/octet-stream':
+            raise Problem(415, 'Binärer Uploadabschnitt erwartet')
+        if request.headers.get('Content-Encoding', 'identity') != 'identity':
+            raise Problem(400, 'Komprimierte Uploadabschnitte werden nicht unterstützt')
+        data = request.get_data(cache=False)
+        return jsonify(InquiryAttachments(office).put_chunk(token, attachment_id, index, data))
+
+    @app.post('/api/v1/intake/gmail/attachments/<attachment_id>/complete')
+    def complete_attachment(attachment_id):
+        from inquiry_attachments import InquiryAttachments
+        token = attachment_token()
+        if body():
+            raise Problem(400, 'Leerer Abschlussauftrag erwartet')
+        return jsonify(InquiryAttachments(office).complete(token, attachment_id))
 
     @app.route('/api/v1/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     def api(path):

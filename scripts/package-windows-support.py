@@ -1,4 +1,4 @@
-"""Build a small, reproducible update for users with the existing Windows app."""
+"""Build reproducible Windows support sources for the 0.10 development package."""
 from pathlib import Path
 import hashlib
 import sys
@@ -7,7 +7,8 @@ import zipfile
 ROOT = Path(__file__).resolve().parent.parent
 BACKEND_FILES = ("backup.py", "restore.py", "core.py", "server.py", "onedrive.py",
                  "windows_office.py", "plans.py", "plan_access.py", "plan_deletions.py",
-                 "project_workspace.py", "inquiries.py", "inbound_connectors.py", "workspace_api.py",
+                 "project_workspace.py", "inquiries.py", "inbound_connectors.py", "inquiry_attachments.py",
+                 "workspace_api.py",
                  "requirements.lock")
 WINDOWS_FILES = ("Starten.cmd", "Sicherung_erstellen.cmd", "Sicherung_wiederherstellen.cmd",
                  "Run.cmd", "START_HIER.txt")

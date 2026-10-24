@@ -1,4 +1,4 @@
-"""Synthetic bot-to-real-Smartplan HTTP acceptance; no external connections."""
+"""Portable stdlib client contracts and POSIX server acceptance; synthetic only."""
 from contextlib import redirect_stderr, redirect_stdout
 from email.message import Message
 import http.client
@@ -19,10 +19,13 @@ import urllib.response
 import zipfile
 from urllib.parse import urlsplit
 
-from cryptography.fernet import Fernet
-from core import Office
-from online.auth import totp
-from online.web import create_app
+# The distributable client and archive use only Python's standard library.
+# The online server is a POSIX deployment target; never import it on Windows.
+if os.name == "posix":
+    from cryptography.fernet import Fernet
+    from core import Office
+    from online.auth import totp
+    from online.web import create_app
 
 
 BUILD_OPENER = urllib.request.build_opener
@@ -43,76 +46,42 @@ class Reply(io.BytesIO):
         self.headers = {"Content-Type": content_type}
 
 
-class MailBotAcceptance(unittest.TestCase):
+class ClientFixture:
+    """Synthetic files, credentials and mocked transport; no test methods or server."""
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix="smartplan-mail-bot-synthetic-")
         self.addCleanup(self.temp.cleanup)
-        self.office = Office(Path(self.temp.name) / "office.db")
-        self.addCleanup(self.office.db.close)
-        # SQLite's local prototype has no online MFA tables. Use the same
-        # test-only tables as WorkspaceApiTests, without modifying local Office.
-        self.office.db.executescript("""
-            CREATE TABLE mfa(user_id TEXT PRIMARY KEY REFERENCES users(id),secret TEXT NOT NULL,
-              last_step INTEGER NOT NULL DEFAULT -1,recovery TEXT NOT NULL);
-            CREATE TABLE auth_challenges(token TEXT PRIMARY KEY,user_id TEXT REFERENCES users(id),
-              credential TEXT NOT NULL,secret TEXT NOT NULL,expiry REAL NOT NULL,
-              failures INTEGER NOT NULL DEFAULT 0);
-            CREATE TABLE login_limits(key TEXT PRIMARY KEY,failures INTEGER NOT NULL,
-              reset_at REAL NOT NULL);
-        """)
-        self.office.add_user("owner@example.test", "Synthetic-password-123", "owner")
-        self.app = create_app(office=self.office, key=Fernet.generate_key(),
-                              host=urlsplit(bot.ENDPOINT).hostname)
-        self.client = self.app.test_client()
-        self.base = "https://" + urlsplit(bot.ENDPOINT).hostname
-        pending = self.call("/login", {"email": "owner@example.test",
-                                       "password": "Synthetic-password-123"}).json
-        self.assertTrue(pending["mfa_required"])
-        self.token = self.call("/login/verify", {
-            "challenge": pending["challenge"],
-            "code": totp(pending["enrollment"]["secret"], int(time.time() // 30)),
-        }).json["token"]
-        self.connector = self.call("/inbound/gmail/tokens", {
-            "name": "Synthetic mail bot", "source_account": "office@example.test",
-        }, self.token).json
-        self.payload = json.loads((DIRECTORY / "examples" / "inquiry.json").read_text())
+        self.connector = {"token": "SPIN_" + "Z" * 43}
+        self.payload = json.loads((DIRECTORY / "examples" / "inquiry.json").read_text(encoding="utf-8"))
         self.payload.update(source_account="office@example.test", source_id="synthetic-native-id-17")
         self.input = Path(self.temp.name) / "immutable-original.json"
         self.input.write_text(json.dumps(self.payload, ensure_ascii=False), encoding="utf-8")
         self.calls = []
-        self.lose_ack = False
         self.env = patch.dict(os.environ, {"SMARTPLAN_INTAKE_TOKEN": self.connector["token"]})
         self.env.start()
         self.addCleanup(self.env.stop)
+
+    def _start_transport(self):
         self.transport = patch.object(bot.urllib.request, "build_opener",
                                       side_effect=lambda *handlers: self._opener(handlers))
         self.transport.start()
         self.addCleanup(self.transport.stop)
-
-    def call(self, path, data=None, token=None, method="POST"):
-        headers = {"Authorization": "Bearer " + token} if token else {}
-        return self.client.open("/api/v1" + path, method=method, json=data,
-                                base_url=self.base, headers=headers)
 
     def _opener(self, handlers):
         self.assertEqual(len(handlers), 1)
         self.assertIsInstance(handlers[0], bot.NoRedirect)
         return self
 
-    def open(self, request, timeout):
+    def _check_request(self, request, timeout):
         self.assertEqual(request.full_url, bot.ENDPOINT)
         self.assertEqual(request.get_method(), "POST")
         self.assertEqual(timeout, 20)
         self.calls.append(request.full_url)
-        response = self.client.post(urlsplit(request.full_url).path, data=request.data,
-                                    headers=dict(request.header_items()), base_url=self.base)
-        if self.lose_ack:
-            self.lose_ack = False
-            raise urllib.error.URLError("Synthetic lost response; confidential provider details")
-        if response.status_code >= 400:
-            raise urllib.error.HTTPError(request.full_url, response.status_code,
-                                         "Sensitive provider detail", {}, io.BytesIO(response.data))
-        return Reply(response.status_code, response.data, response.content_type)
+
+    def open(self, request, timeout):
+        self._check_request(request, timeout)
+        raise AssertionError("Client contract must supply an explicit synthetic HTTP reply")
 
     def run_cli(self, *extra):
         out, err = io.StringIO(), io.StringIO()
@@ -122,52 +91,11 @@ class MailBotAcceptance(unittest.TestCase):
         self.assertNotIn(self.payload["message"], out.getvalue() + err.getvalue())
         return code, out.getvalue(), err.getvalue()
 
-    def test_real_mfa_issued_key_imports_once_and_customer_suggestion_stays_in_office(self):
-        customer = self.call("/customers", {"name": "Synthetischer Bestandskunde",
-                                           "email": self.payload["sender_email"]}, self.token).json
-        first = bot.send_envelope(self.payload, self.connector["token"])
-        second = bot.send_envelope(self.payload, self.connector["token"])
-        self.assertEqual(first["id"], second["id"])
-        self.assertEqual(set(first), {"id", "status", "ingested_at"})
-        self.assertEqual(first["status"], "received")
-        inbox = self.call("/inquiries", token=self.token, method="GET").json
-        self.assertEqual(len(inbox), 1)
-        entry = self.call("/inquiries/" + first["id"], token=self.token, method="GET").json
-        self.assertEqual(entry["message"], self.payload["message"])
-        self.assertEqual([c["id"] for c in entry["candidate_customers"]], [customer["id"]])
-        self.assertEqual(len(self.call("/customers", token=self.token, method="GET").json), 1)
-        self.assertEqual(self.call("/projects", token=self.token, method="GET").json, [])
-        # A bot delivery credential is neither an application session nor a
-        # customer/project reader. Source text cannot extend those privileges.
-        for path in ("/inquiries", "/customers", "/projects", "/users"):
-            self.assertEqual(self.call(path, token=self.connector["token"], method="GET").status_code, 401)
 
-    def test_lost_ack_is_unconfirmed_then_same_payload_retries_without_duplicate(self):
-        original = self.input.read_bytes()
-        self.lose_ack = True
-        code, output, error = self.run_cli("--send")
-        self.assertEqual(code, 3)
-        self.assertEqual(output, "")
-        self.assertEqual(json.loads(error), {"status": "unconfirmed", "error": "NETWORK_UNCONFIRMED"})
-        self.assertEqual(len(self.call("/inquiries", token=self.token, method="GET").json), 1)
-        code, output, error = self.run_cli("--send")
-        self.assertEqual((code, error), (0, ""))
-        self.assertEqual(json.loads(output)["status"], "received")
-        self.assertEqual(self.input.read_bytes(), original)
-        self.assertEqual(len(self.call("/inquiries", token=self.token, method="GET").json), 1)
-
-    def test_changed_original_conflicts_and_wrong_mailbox_or_revoked_key_does_not_write(self):
-        bot.send_envelope(self.payload, self.connector["token"])
-        for data, status in (({**self.payload, "message": "Changed immutable original"}, 409),
-                             ({**self.payload, "source_account": "other@example.test"}, 403)):
-            with self.assertRaises(bot.DeliveryError) as failure:
-                bot.send_envelope(data, self.connector["token"])
-            self.assertEqual(failure.exception.http_status, status)
-        self.call("/inbound/gmail/tokens/" + self.connector["id"] + "/revoke", {}, self.token)
-        with self.assertRaises(bot.DeliveryError) as failure:
-            bot.send_envelope({**self.payload, "source_id": "different-id"}, self.connector["token"])
-        self.assertEqual(failure.exception.http_status, 401)
-        self.assertEqual(len(self.call("/inquiries", token=self.token, method="GET").json), 1)
+class MailBotClient(ClientFixture, unittest.TestCase):
+    def setUp(self):
+        super().setUp()
+        self._start_transport()
 
     def test_check_is_explicitly_local_and_validates_real_example_without_credentials(self):
         with patch.dict(os.environ, {}, clear=True):
@@ -175,7 +103,6 @@ class MailBotAcceptance(unittest.TestCase):
         self.assertEqual((code, error), (0, ""))
         self.assertEqual(json.loads(output), {"status": "validated", "sent": False})
         self.assertEqual(self.calls, [])
-        self.assertEqual(self.call("/inquiries", token=self.token, method="GET").json, [])
 
     def test_invalid_or_extra_business_fields_never_reach_network(self):
         variants = (
@@ -285,6 +212,11 @@ class MailBotAcceptance(unittest.TestCase):
                 with self.assertRaises(bot.DeliveryError) as failure:
                     bot.load_token(link)
                 self.assertEqual(failure.exception.code, "UNSAFE_CREDENTIAL_FILE")
+                fifo = Path(self.temp.name) / "not-a-credential-file"
+                os.mkfifo(fifo, mode=0o600)
+                with self.assertRaises(bot.DeliveryError) as failure:
+                    bot.load_token(fifo)
+                self.assertEqual(failure.exception.code, "UNSAFE_CREDENTIAL_FILE")
 
     def test_real_stdlib_redirect_pipeline_never_forwards_the_bearer(self):
         seen = []
@@ -307,6 +239,114 @@ class MailBotAcceptance(unittest.TestCase):
                 bot.send_envelope(self.payload, self.connector["token"])
         self.assertEqual(failure.exception.http_status, 302)
         self.assertEqual(seen, [bot.ENDPOINT])
+
+
+@unittest.skipUnless(os.name == "posix", "Smartplan online server is POSIX-only; portable client tests run separately")
+class MailBotHttpAcceptance(ClientFixture, unittest.TestCase):
+    def setUp(self):
+        super().setUp()
+        self.office = Office(Path(self.temp.name) / "office.db")
+        self.addCleanup(self.office.db.close)
+        # SQLite's local prototype has no online MFA tables. Use the same
+        # test-only tables as WorkspaceApiTests, without modifying local Office.
+        self.office.db.executescript("""
+            CREATE TABLE mfa(user_id TEXT PRIMARY KEY REFERENCES users(id),secret TEXT NOT NULL,
+              last_step INTEGER NOT NULL DEFAULT -1,recovery TEXT NOT NULL);
+            CREATE TABLE auth_challenges(token TEXT PRIMARY KEY,user_id TEXT REFERENCES users(id),
+              credential TEXT NOT NULL,secret TEXT NOT NULL,expiry REAL NOT NULL,
+              failures INTEGER NOT NULL DEFAULT 0);
+            CREATE TABLE login_limits(key TEXT PRIMARY KEY,failures INTEGER NOT NULL,
+              reset_at REAL NOT NULL);
+        """)
+        self.office.add_user("owner@example.test", "Synthetic-password-123", "owner")
+        self.app = create_app(office=self.office, key=Fernet.generate_key(),
+                              host=urlsplit(bot.ENDPOINT).hostname)
+        self.client = self.app.test_client()
+        self.base = "https://" + urlsplit(bot.ENDPOINT).hostname
+        pending = self.call("/login", {"email": "owner@example.test",
+                                       "password": "Synthetic-password-123"}).json
+        self.assertTrue(pending["mfa_required"])
+        self.token = self.call("/login/verify", {
+            "challenge": pending["challenge"],
+            "code": totp(pending["enrollment"]["secret"], int(time.time() // 30)),
+        }).json["token"]
+        self.connector = self.call("/inbound/gmail/tokens", {
+            "name": "Synthetic mail bot", "source_account": "office@example.test",
+        }, self.token).json
+        os.environ["SMARTPLAN_INTAKE_TOKEN"] = self.connector["token"]
+        self.lose_ack = False
+        self._start_transport()
+
+    def call(self, path, data=None, token=None, method="POST"):
+        headers = {"Authorization": "Bearer " + token} if token else {}
+        return self.client.open("/api/v1" + path, method=method, json=data,
+                                base_url=self.base, headers=headers)
+
+    def open(self, request, timeout):
+        self._check_request(request, timeout)
+        response = self.client.post(urlsplit(request.full_url).path, data=request.data,
+                                    headers=dict(request.header_items()), base_url=self.base)
+        if self.lose_ack:
+            self.lose_ack = False
+            raise urllib.error.URLError("Synthetic lost response; confidential provider details")
+        if response.status_code >= 400:
+            raise urllib.error.HTTPError(request.full_url, response.status_code,
+                                         "Sensitive provider detail", {}, io.BytesIO(response.data))
+        return Reply(response.status_code, response.data, response.content_type)
+
+    def test_real_mfa_issued_key_imports_once_and_customer_suggestion_stays_in_office(self):
+        with patch.dict(os.environ, {}, clear=True):
+            code, output, error = self.run_cli("--check")
+        self.assertEqual((code, error), (0, ""))
+        self.assertEqual(json.loads(output), {"status": "validated", "sent": False})
+        self.assertEqual(self.calls, [])
+        self.assertEqual(self.call("/inquiries", token=self.token, method="GET").json, [])
+        customer = self.call("/customers", {"name": "Synthetischer Bestandskunde",
+                                           "email": self.payload["sender_email"]}, self.token).json
+        first = bot.send_envelope(self.payload, self.connector["token"])
+        second = bot.send_envelope(self.payload, self.connector["token"])
+        self.assertEqual(first["id"], second["id"])
+        self.assertEqual(set(first), {"id", "status", "ingested_at"})
+        self.assertEqual(first["status"], "received")
+        inbox = self.call("/inquiries", token=self.token, method="GET").json
+        self.assertEqual(len(inbox), 1)
+        entry = self.call("/inquiries/" + first["id"], token=self.token, method="GET").json
+        self.assertEqual(entry["message"], self.payload["message"])
+        self.assertIn("Aufmaß", entry["message"])
+        self.assertEqual([c["id"] for c in entry["candidate_customers"]], [customer["id"]])
+        self.assertEqual(len(self.call("/customers", token=self.token, method="GET").json), 1)
+        self.assertEqual(self.call("/projects", token=self.token, method="GET").json, [])
+        # A bot delivery credential is neither an application session nor a
+        # customer/project reader. Source text cannot extend those privileges.
+        for path in ("/inquiries", "/customers", "/projects", "/users"):
+            self.assertEqual(self.call(path, token=self.connector["token"], method="GET").status_code, 401)
+
+    def test_lost_ack_is_unconfirmed_then_same_payload_retries_without_duplicate(self):
+        original = self.input.read_bytes()
+        self.lose_ack = True
+        code, output, error = self.run_cli("--send")
+        self.assertEqual(code, 3)
+        self.assertEqual(output, "")
+        self.assertEqual(json.loads(error), {"status": "unconfirmed", "error": "NETWORK_UNCONFIRMED"})
+        self.assertEqual(len(self.call("/inquiries", token=self.token, method="GET").json), 1)
+        code, output, error = self.run_cli("--send")
+        self.assertEqual((code, error), (0, ""))
+        self.assertEqual(json.loads(output)["status"], "received")
+        self.assertEqual(self.input.read_bytes(), original)
+        self.assertEqual(len(self.call("/inquiries", token=self.token, method="GET").json), 1)
+
+    def test_changed_original_conflicts_and_wrong_mailbox_or_revoked_key_does_not_write(self):
+        bot.send_envelope(self.payload, self.connector["token"])
+        for data, status in (({**self.payload, "message": "Changed immutable original"}, 409),
+                             ({**self.payload, "source_account": "other@example.test"}, 403)):
+            with self.assertRaises(bot.DeliveryError) as failure:
+                bot.send_envelope(data, self.connector["token"])
+            self.assertEqual(failure.exception.http_status, status)
+        self.call("/inbound/gmail/tokens/" + self.connector["id"] + "/revoke", {}, self.token)
+        with self.assertRaises(bot.DeliveryError) as failure:
+            bot.send_envelope({**self.payload, "source_id": "different-id"}, self.connector["token"])
+        self.assertEqual(failure.exception.http_status, 401)
+        self.assertEqual(len(self.call("/inquiries", token=self.token, method="GET").json), 1)
 
 
 class MailBotArchive(unittest.TestCase):

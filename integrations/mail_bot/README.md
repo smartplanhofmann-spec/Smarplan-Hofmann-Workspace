@@ -7,17 +7,18 @@ kann, muss er selbst prüfen; dieses Paket bestätigt keine Anbieterfunktion.
 
 ## Für dich: drei Schritte
 
-1. Öffne in der Online-App als Geschäftsführung **Anfragen → Gmail einrichten**.
+1. Übergib dem Bot dieses Paket und den vollständigen Inhalt von
+   [BOT_AUFTRAG.md](BOT_AUFTRAG.md) als Auftrag. Die technische Schnittstelle steht
+   in [openapi.json](openapi.json). Der Bot prüft zuerst seine vorhandene
+   Mailanbindung und die nötige HTTP- oder Programmausführung. Er soll eine
+   fehlende Fähigkeit konkret melden, bevor ein Zugangsschlüssel benötigt wird.
+2. Öffne in der Online-App als Geschäftsführung **Anfragen → Gmail einrichten**.
    Trage beispielsweise **Mail-Bot** als Bezeichnung und die tatsächliche
    Gmail-Adresse des bereits verbundenen Postfachs ein. Wähle
    **Eingangsschlüssel erstellen → Schlüssel kopieren**. Hinterlege den Schlüssel
    ausschließlich im geschützten Zugangsdatenfeld des Bots; bei einer lokalen
    Ausführung heißt die Umgebungsvariable `SMARTPLAN_INTAKE_TOKEN`. Den Schlüssel
    niemals in den Chat oder in den Arbeitsauftrag einfügen.
-2. Übergib dem Bot dieses Paket und den vollständigen Inhalt von
-   [BOT_AUFTRAG.md](BOT_AUFTRAG.md) als Auftrag. Die technische Schnittstelle steht
-   in [openapi.json](openapi.json). Der Bot soll seine vorhandene Mailanbindung
-   verwenden und melden, falls ihm die nötige Ausführungsmöglichkeit fehlt.
 3. Lass eine fiktive Testmail aus diesem Postfach übernehmen. Prüfe in Smartplan
    unter **Anfragen** Absender, Betreff und Text. Ein erneuter Botlauf mit derselben
    Mail darf keinen zweiten Eintrag erzeugen. Erst die bestätigte Übernahme zählt

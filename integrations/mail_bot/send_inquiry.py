@@ -127,7 +127,7 @@ def load_token(filename=None):
     if filename:
         descriptor = None
         try:
-            flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+            flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0)
             if Path(filename).is_symlink():
                 raise DeliveryError("UNSAFE_CREDENTIAL_FILE")
             descriptor = os.open(filename, flags)

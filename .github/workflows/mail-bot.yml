@@ -36,10 +36,32 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install -r backend/requirements.lock -r backend/online/requirements.lock
+      - name: Install the POSIX backend only for real server acceptance
+        if: runner.os == 'Linux'
+        run: python -m pip install -r backend/requirements.lock -r backend/online/requirements.lock
       - run: python -m pip check
+        if: runner.os == 'Linux'
       - name: Require real inquiry intake, retry, key scope and transport contracts
-        run: python -m unittest discover -s scripts -p test_mail_bot.py -v
+        shell: bash
+        run: |
+          umask 0077
+          smartplan_bot_log="$RUNNER_TEMP/smartplan-mail-bot-tests.log"
+          set +e
+          python -X utf8 -m unittest discover -s scripts -p test_mail_bot.py -v > "$smartplan_bot_log" 2>&1
+          smartplan_bot_exit=$?
+          set -e
+          python -X utf8 - "$smartplan_bot_log" "$smartplan_bot_exit" <<'PY'
+          from pathlib import Path
+          import re, sys
+          content = Path(sys.argv[1]).read_text(encoding='utf-8', errors='replace')
+          content = re.sub(r'SPIN_[A-Za-z0-9_-]{43}', 'SPIN_[redacted]', content)
+          print(content)
+          if int(sys.argv[2]):
+              detail = '\n'.join(content.splitlines()[-100:])[-14000:]
+              detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+              print('::error title=Mailbot contracts::' + detail)
+          PY
+          exit "$smartplan_bot_exit"
       - name: Package only reviewed bot files and synthetic example
         if: runner.os == 'Linux'
         run: python integrations/mail_bot/package.py --output "${{ runner.temp }}/Smartplan-Mailbot-Anschluss.zip"

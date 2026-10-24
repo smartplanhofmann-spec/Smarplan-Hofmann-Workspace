@@ -146,10 +146,21 @@ def load_token(filename=None):
         finally:
             if descriptor is not None:
                 os.close(descriptor)
-    token = inherited.strip()
-    if not re.fullmatch(r"SPIN_[A-Za-z0-9_-]{43}", token):
+    return header_credential(inherited.strip())
+
+
+def header_credential(value):
+    """A vault may expose an opaque gateway handle instead of the real key.
+
+    Validate header safety here, not the hidden key's format. An authenticated
+    platform HTTP tool/proxy must supply the real credential on the wire;
+    urllib itself does not dereference handles. Smartplan still authorizes the
+    actual SPIN key, and only a valid received receipt confirms delivery.
+    """
+    if (not isinstance(value, str) or not 1 <= len(value) <= 193
+            or any(not 33 <= ord(character) <= 126 for character in value)):
         raise DeliveryError("INVALID_CREDENTIAL")
-    return token
+    return value
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -159,8 +170,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 def send_envelope(value, token):
     payload = validate_envelope(value)
-    if not isinstance(token, str) or not re.fullmatch(r"SPIN_[A-Za-z0-9_-]{43}", token):
-        raise DeliveryError("INVALID_CREDENTIAL")
+    token = header_credential(token)
     request = urllib.request.Request(
         ENDPOINT, data=payload, method="POST",
         headers={"Content-Type": "application/json", "Authorization": "Bearer " + token},

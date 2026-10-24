@@ -145,7 +145,7 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "SPIN_<43 URL-safe characters>",
-        "description": "Authorization: Bearer SPIN_… . Der Token folgt dem Muster ^SPIN_[A-Za-z0-9_-]{43}$ und ist an ein Gmail-Postfach gebunden. Im geschützten Zugangsspeicher des Mailbots hinterlegen; niemals in Nachrichten, Beispielen oder URL-Parametern mitsenden."
+        "description": "An ein Gmail-Postfach gebundener Eingangsschlüssel im geschützten Zugangsspeicher. Bevorzugt setzt die native HTTPS-Aktion den Authorization-Bearer-Header über ihre Secret-Bindung für SMARTPLAN_INTAKE_TOKEN an office.smartplan-hofmann.de. Der Bot muss den Klartext nicht sehen. Sichtbare Masken, Platzhalter oder deren Länge sind kein Nachweis für den tatsächlichen Wert und dürfen nicht als Headerwert übertragen werden. Nur Secret-Metadaten und sichere Bindung prüfen; Format und Gültigkeit des tatsächlichen Schlüssels prüft der Server. Niemals in Chat, Protokollen, Beispielen oder URL-Parametern ausgeben. Erfolg erst nach HTTP 201 mit gültigem received-Receipt; 401 kann auch fehlende Bindung, falschen Wert, Ablauf oder Widerruf bedeuten und rechtfertigt keine blinde Neukopie."
       }
     },
     "schemas": {

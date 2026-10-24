@@ -104,6 +104,33 @@ class MailBotClient(ClientFixture, unittest.TestCase):
         self.assertEqual(json.loads(output), {"status": "validated", "sent": False})
         self.assertEqual(self.calls, [])
 
+    def test_opaque_bound_credential_is_not_rejected_by_its_visible_format(self):
+        handle = "opaque"
+        receipt = {"id": "b" * 32, "status": "received",
+                   "ingested_at": "2026-10-24T09:00:00+00:00"}
+        seen = []
+
+        def gateway(request, timeout):
+            self._check_request(request, timeout)
+            seen.append(request.get_header("Authorization"))
+            return Reply(201, json.dumps(receipt).encode())
+
+        with patch.dict(os.environ, {"SMARTPLAN_INTAKE_TOKEN": handle}):
+            with patch.object(self, "open", side_effect=gateway):
+                code, output, error = self.run_cli("--send")
+        self.assertEqual((code, error), (0, ""))
+        self.assertEqual(json.loads(output), receipt)
+        self.assertEqual(seen, ["Bearer " + handle])
+        self.assertNotIn(handle, output + error)
+
+    def test_credential_header_injection_is_rejected_before_transport(self):
+        for credential in ("", "a b", "a\tb", "a\nb", "a\rb", "a\x7fb",
+                           "ä", "a" * 194, None, 123456):
+            with self.subTest(kind=type(credential).__name__):
+                with self.assertRaises(bot.DeliveryError):
+                    bot.send_envelope(self.payload, credential)
+        self.assertEqual(self.calls, [])
+
     def test_invalid_or_extra_business_fields_never_reach_network(self):
         variants = (
             {**self.payload, "customer_id": "a" * 32},
@@ -333,6 +360,33 @@ class MailBotHttpAcceptance(ClientFixture, unittest.TestCase):
         self.assertEqual((code, error), (0, ""))
         self.assertEqual(json.loads(output)["status"], "received")
         self.assertEqual(self.input.read_bytes(), original)
+        self.assertEqual(len(self.call("/inquiries", token=self.token, method="GET").json), 1)
+
+    def test_gateway_substitution_succeeds_but_a_six_digit_value_alone_is_rejected(self):
+        # This proves only compatibility with a documented, actually configured
+        # gateway. It does not assert that the user's unidentified bot has one.
+        handle = "opaque"
+        original_open = self.open
+
+        def bound_gateway(request, timeout):
+            self.assertEqual(request.get_header("Authorization"), "Bearer " + handle)
+            request.remove_header("Authorization")
+            request.add_header("Authorization", "Bearer " + self.connector["token"])
+            return original_open(request, timeout)
+
+        with patch.dict(os.environ, {"SMARTPLAN_INTAKE_TOKEN": handle}):
+            with patch.object(self, "open", side_effect=bound_gateway):
+                code, output, error = self.run_cli("--send")
+        self.assertEqual((code, error), (0, ""))
+        self.assertEqual(json.loads(output)["status"], "received")
+        self.assertEqual(len(self.call("/inquiries", token=self.token, method="GET").json), 1)
+        for rejected in ("123456", handle):
+            with patch.dict(os.environ, {"SMARTPLAN_INTAKE_TOKEN": rejected}):
+                code, output, error = self.run_cli("--send")
+            self.assertEqual(code, 3)
+            self.assertEqual(output, "")
+            self.assertEqual(json.loads(error)["http_status"], 401)
+            self.assertNotIn(rejected, error)
         self.assertEqual(len(self.call("/inquiries", token=self.token, method="GET").json), 1)
 
     def test_changed_original_conflicts_and_wrong_mailbox_or_revoked_key_does_not_write(self):

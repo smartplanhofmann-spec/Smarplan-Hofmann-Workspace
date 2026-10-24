@@ -21,6 +21,24 @@ geschützten Credential-Feld oder in `SMARTPLAN_INTAKE_TOKEN`. Fordere ihn nicht
 im Chat an. Zeige ihn weder in Antworten noch in Protokollen, Beispielen oder
 Screenshots. Lies keine anderen Smartplan-Zugangsdaten aus.
 
+Die Plattform kann dir den tatsächlichen Wert absichtlich verbergen. Behandle
+das Geheimnis als opaken Zugangswert. Prüfe keine Zeichenanzahl oder Präfixe
+einer sichtbaren Maske oder eines Platzhalters als Nachweis für dessen Richtigkeit.
+Fordere keinen Klartextzugriff an und versuche nicht, den Schutz zu umgehen.
+Ein sechsstelliger Authenticator-Code hat einen anderen Zweck, nämlich die
+App-Anmeldung; aus sechs sichtbaren Maskenzeichen folgt aber nicht, dass ein
+solcher Code hinterlegt wurde. Die Gültigkeit des tatsächlichen Eingangsschlüssels
+prüft ausschließlich der Smartplan-Server.
+
+Prüfe stattdessen, soweit die Plattform es unterstützt, die Secret-Metadaten:
+Ist die vorgesehene Referenz `SMARTPLAN_INTAKE_TOKEN` hinterlegt und für die
+HTTPS-Aktion an `office.smartplan-hofmann.de` gebunden? Verwende bevorzugt die
+native Authentifizierungsbindung der HTTPS-Aktion. Sie soll den Bearer-Header
+setzen, ohne dir den Wert anzuzeigen. Eine sichtbare Maske ist niemals der zu
+übertragende Schlüsselwert. Fehlt ein nachweisbarer geschützter Bindungsweg,
+melde genau diese fehlende Voraussetzung, ohne den Betreiber nach dem Klartext
+im Chat oder nach einer erneuten blinden Kopie zu fragen.
+
 Verwende ausschließlich:
 
 ```text
@@ -32,6 +50,11 @@ Authorization: Bearer <Wert aus dem geschützten Credential-Feld>
 Prüfe das TLS-Zertifikat. Folge keinen Weiterleitungen und sende den Schlüssel
 an keinen anderen Endpunkt. Der Schlüssel erlaubt nur die Einlieferung von
 Anfragen. Verwende ihn nicht für weitere API-Aufrufe.
+
+Nach nachweisbarer Bereitstellung der geschützten Bindung führe einen geplanten
+Test mit einer fiktiven Originalmail über genau diesen Endpunkt aus. Behandle
+ihn nach denselben Eingabe- und Bestätigungsregeln wie spätere Einlieferungen.
+Eine Maskenanzeige allein ist weder ein Testlauf noch eine erfolgreiche Verbindung.
 
 ## Eingabe aus der Originalmail
 
@@ -89,7 +112,12 @@ zählen ebenfalls mit.
 
 Bei `401` oder `403` halte die Einlieferung dieses Zugangs an und melde eine
 fehlende, abgelaufene oder unpassend gebundene Zugangsberechtigung, ohne den
-Schlüssel offenzulegen. Bei `400`, `409` oder `413` bewahre die Originalmail und
+Schlüssel offenzulegen. `401` kann auch durch eine fehlende Header-/Secret-Bindung,
+einen falschen tatsächlichen Wert oder einen widerrufenen Schlüssel entstehen.
+Leite daraus keine bestimmte Ursache oder sichtbare Schlüssellänge ab. Prüfe
+zuerst die Secret-Metadaten und die Authentifizierungsbindung; veranlasse keine
+blinde Neukopie und fordere den Schlüssel nicht als Beweis an.
+Bei `400`, `409` oder `413` bewahre die Originalmail und
 die vorbereitete Eingabe zur Prüfung auf; umgehe den Fehler nicht mit einer
 neuen Quell-ID. Insbesondere bedeutet `409`, dass diese Identität bereits mit
 abweichendem Inhalt verwendet wurde. Eine Weiterleitung ist kein Erfolg.
@@ -110,7 +138,8 @@ python3 send_inquiry.py --input anfrage.json --send
 ```
 
 `--check` arbeitet ohne Netz und ohne Schlüssel. Für `--send` muss der Schlüssel
-geschützt als `SMARTPLAN_INTAKE_TOKEN` bereitstehen; alternativ ist eine private
+geschützt zur Laufzeit als `SMARTPLAN_INTAKE_TOKEN` bereitstehen; eine im Chat
+sichtbare Maske oder ein Platzhalter ist kein Ersatz. Alternativ ist eine private
 Datei über `--token-file` erlaubt. Übergib niemals den Schlüsselwert selbst als
 Argument. Melde auch beim Helfer nur eine tatsächlich bestätigte Übernahme.
 

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'api.dart';
+import 'design.dart';
 import 'offline_vault.dart' show offlineId;
 import 'mail_attachment_widgets.dart';
 
@@ -304,31 +305,28 @@ class _InquiriesPageState extends State<InquiriesPage> {
               child: ListView(
                 padding: const EdgeInsets.all(24),
                 children: [
-                  Text(
-                    'Vom ersten Kontakt zum Projekt',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Jeder Auftrag ist anders. Sammle Nachrichten, halte den nächsten Schritt fest und verknüpfe bei Bedarf ein Projekt.',
+                  PageHeading(
+                    eyebrow: 'Kundenkontakt',
+                    title: 'Dein Eingang',
+                    subtitle: 'Nachrichten im Blick. Nächste Schritte klar.',
+                    action: FilledButton.icon(
+                      onPressed: busy ? null : capture,
+                      icon: const Icon(Icons.add),
+                      label: const Text('Anfrage erfassen'),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Wrap(
                     spacing: 10,
                     runSpacing: 10,
                     children: [
-                      FilledButton.icon(
-                        onPressed: busy ? null : capture,
-                        icon: const Icon(Icons.add),
-                        label: const Text('Anfrage erfassen'),
-                      ),
-                      OutlinedButton.icon(
+                      TextButton.icon(
                         onPressed: busy ? null : importEmail,
                         icon: const Icon(Icons.mail_outline),
                         label: const Text('E-Mail importieren'),
                       ),
                       if (widget.api.version == 'v1')
-                        OutlinedButton.icon(
+                        TextButton.icon(
                           onPressed: busy
                               ? null
                               : () => Navigator.push<void>(
@@ -346,21 +344,36 @@ class _InquiriesPageState extends State<InquiriesPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Wrap(
-                    spacing: 12,
-                    runSpacing: 8,
-                    children: [
-                      Chip(
-                        label: Text(
-                          '${records.where((r) => !['declined', 'converted'].contains(r['status'])).length} offen',
+                  OfficeSurface(
+                    padding: const EdgeInsets.all(18),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: _InquiryCount(
+                            count: records
+                                .where(
+                                  (r) => ![
+                                    'declined',
+                                    'converted',
+                                  ].contains(r['status']),
+                                )
+                                .length,
+                            label: 'Offene Anfragen',
+                            icon: Icons.inbox_outlined,
+                          ),
                         ),
-                      ),
-                      Chip(
-                        label: Text(
-                          '${records.where(_overdue).length} überfällige Wiedervorlagen',
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _InquiryCount(
+                            key: const ValueKey('inquiry-count-overdue'),
+                            count: records.where(_overdue).length,
+                            label: 'Überfällige Wiedervorlagen',
+                            icon: Icons.schedule_outlined,
+                            attention: records.any(_overdue),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
                   TextField(
@@ -436,19 +449,76 @@ class _InquiriesPageState extends State<InquiriesPage> {
                           horizontal: 18,
                           vertical: 10,
                         ),
-                        title: Text(item['subject'] ?? 'Anfrage'),
+                        leading: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: OfficeColors.blueTint,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            switch (item['source']) {
+                              'gmail' || 'import' => Icons.mail_outline,
+                              'whatsapp' => Icons.chat_bubble_outline,
+                              _ => Icons.person_outline,
+                            },
+                            color: OfficeColors.blue,
+                            size: 20,
+                          ),
+                        ),
+                        title: Text(
+                          item['subject'] ?? 'Anfrage',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
                         subtitle: Padding(
                           padding: const EdgeInsets.only(top: 6),
-                          child: Text(
-                            [
-                              '${_label(_sources, item['source'])} · ${_label(inquiryStatuses, item['status'])}',
-                              if ((item['sender_name'] ?? '').isNotEmpty)
-                                item['sender_name'],
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if ((item['sender_name'] ?? '').isNotEmpty ||
+                                  (item['sender_email'] ?? '').isNotEmpty)
+                                Text(
+                                  (item['sender_name'] ?? '').isNotEmpty
+                                      ? item['sender_name']
+                                      : item['sender_email'],
+                                  style: const TextStyle(
+                                    color: OfficeColors.muted,
+                                  ),
+                                ),
+                              const SizedBox(height: 6),
+                              Wrap(
+                                spacing: 6,
+                                runSpacing: 6,
+                                children: [
+                                  StatusPill(_label(_sources, item['source'])),
+                                  StatusPill(
+                                    _label(inquiryStatuses, item['status']),
+                                  ),
+                                ],
+                              ),
                               if ((item['next_action'] ?? '').isNotEmpty)
-                                'Nächster Schritt: ${item['next_action']}',
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Text(
+                                    'Nächster Schritt: ${item['next_action']}',
+                                  ),
+                                ),
                               if (item['due_date'] != null)
-                                'Wiedervorlage: ${_displayDate(item['due_date'])}${_overdue(item) ? ' · überfällig' : ''}',
-                            ].join('\n'),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 4),
+                                  child: Text(
+                                    'Wiedervorlage: ${_displayDate(item['due_date'])}${_overdue(item) ? ' · überfällig' : ''}',
+                                    style: TextStyle(
+                                      color: _overdue(item)
+                                          ? Theme.of(context).colorScheme.error
+                                          : OfficeColors.muted,
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
                         ),
                         trailing: const Icon(Icons.chevron_right),
@@ -460,6 +530,47 @@ class _InquiriesPageState extends State<InquiriesPage> {
             ),
     );
   }
+}
+
+class _InquiryCount extends StatelessWidget {
+  final int count;
+  final String label;
+  final IconData icon;
+  final bool attention;
+  const _InquiryCount({
+    super.key,
+    required this.count,
+    required this.label,
+    required this.icon,
+    this.attention = false,
+  });
+  @override
+  Widget build(BuildContext context) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(
+        icon,
+        size: 22,
+        color: attention
+            ? Theme.of(context).colorScheme.error
+            : OfficeColors.blue,
+      ),
+      const SizedBox(width: 12),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('$count', style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              label,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 }
 
 class _CaptureInquiryDialog extends StatefulWidget {

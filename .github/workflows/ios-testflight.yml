@@ -79,11 +79,29 @@ jobs:
           PY
       - run: flutter pub get --enforce-lockfile
       - run: flutter analyze
+      - name: Echtes natives PDF mit begrenztem Raster pruefen
+        shell: bash
+        run: |
+          umask 0077
+          clang --version
+          smartplan_pdf_log="$RUNNER_TEMP/smartplan-native-pdf.log"
+          set +e
+          flutter test --no-pub test/mail_attachment_preview_widget_test.dart --tags native_pdf --reporter expanded 2>&1 | tee "$smartplan_pdf_log"
+          smartplan_pdf_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_pdf_exit" -ne 0 ]; then
+            python - "$smartplan_pdf_log" <<'PY'
+          import pathlib, sys
+          detail = '\n'.join(pathlib.Path(sys.argv[1]).read_text(errors='replace').splitlines()[-100:])[-25000:]
+          print('::error title=macOS native PDF smoke::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+          PY
+          fi
+          exit "$smartplan_pdf_exit"
       - name: App-Tests mit Fehlerdetails ausfuehren
         run: |
           umask 0077
           set +e
-          flutter test --reporter expanded 2>&1 | tee "$RUNNER_TEMP/flutter-test.log"
+          flutter test --exclude-tags native_pdf --reporter expanded 2>&1 | tee "$RUNNER_TEMP/flutter-test.log"
           result=${PIPESTATUS[0]}
           set -e
           if [ "$result" -ne 0 ]; then

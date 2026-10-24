@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
 abstract final class OfficeColors {
-  static const canvas = Color(0xfff5f5f7);
-  static const sidebar = Color(0xffeeeef0);
-  static const ink = Color(0xff1d1d1f);
-  static const muted = Color(0xff6e6e73);
-  static const line = Color(0xffe5e5ea);
-  static const blue = Color(0xff0066cc);
-  static const blueTint = Color(0xffedf4ff);
-  static const green = Color(0xff26734d);
+  static const canvas = Color(0xfff6f6f4);
+  static const sidebar = Color(0xffeff1f3);
+  static const ink = Color(0xff20252d);
+  static const muted = Color(0xff69727f);
+  static const line = Color(0xffe5e8ec);
+  static const blue = Color(0xff1765dc);
+  static const blueTint = Color(0xffedf3ff);
+  static const green = Color(0xff287657);
+  static const greenTint = Color(0xffedf6f0);
+  static const amber = Color(0xff946116);
+  static const amberTint = Color(0xfffcf4e5);
+  static const red = Color(0xffae4038);
+  static const redTint = Color(0xfffcf0ee);
 }
 
 ThemeData officeTheme() {
@@ -29,7 +34,7 @@ ThemeData officeTheme() {
       onSurfaceVariant: OfficeColors.muted,
       outline: Color(0xffc7c7cc),
       outlineVariant: OfficeColors.line,
-      error: Color(0xffb42318),
+      error: OfficeColors.red,
     ),
     scaffoldBackgroundColor: OfficeColors.canvas,
   );
@@ -38,16 +43,16 @@ ThemeData officeTheme() {
     textTheme: base.textTheme
         .copyWith(
           headlineLarge: const TextStyle(
-            fontSize: 38,
-            fontWeight: FontWeight.w600,
-            letterSpacing: -1.5,
-            height: 1.15,
+            fontSize: 34,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -1.1,
+            height: 1.2,
             color: OfficeColors.ink,
           ),
           headlineMedium: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w600,
-            letterSpacing: -.8,
+            letterSpacing: -.7,
             color: OfficeColors.ink,
           ),
           titleLarge: const TextStyle(
@@ -57,19 +62,19 @@ ThemeData officeTheme() {
             color: OfficeColors.ink,
           ),
           titleMedium: const TextStyle(
-            fontSize: 15,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
             letterSpacing: -.2,
             color: OfficeColors.ink,
           ),
           bodyLarge: const TextStyle(
             fontSize: 15,
-            height: 1.6,
+            height: 1.5,
             color: OfficeColors.ink,
           ),
           bodyMedium: const TextStyle(
             fontSize: 14,
-            height: 1.55,
+            height: 1.5,
             color: OfficeColors.ink,
           ),
           bodySmall: const TextStyle(
@@ -85,12 +90,12 @@ ThemeData officeTheme() {
         )
         .apply(fontFamily: 'Inter'),
     appBarTheme: const AppBarTheme(
-      backgroundColor: OfficeColors.canvas,
+      backgroundColor: Colors.white,
       foregroundColor: OfficeColors.ink,
       surfaceTintColor: Colors.transparent,
       elevation: 0,
       scrolledUnderElevation: 0,
-      toolbarHeight: 76,
+      toolbarHeight: 64,
       titleTextStyle: TextStyle(
         fontFamily: 'Inter',
         fontSize: 17,
@@ -106,10 +111,10 @@ ThemeData officeTheme() {
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color(0xfffafafa),
+      fillColor: const Color(0xfff8f9fb),
       labelStyle: const TextStyle(fontSize: 14, color: OfficeColors.muted),
       hintStyle: const TextStyle(fontSize: 14, color: OfficeColors.muted),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(color: OfficeColors.line),
@@ -157,10 +162,45 @@ ThemeData officeTheme() {
         side: const BorderSide(color: OfficeColors.line),
       ),
     ),
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
+      indicatorColor: OfficeColors.blueTint,
+      labelTextStyle: WidgetStateProperty.resolveWith(
+        (states) => TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 12,
+          fontWeight: states.contains(WidgetState.selected)
+              ? FontWeight.w600
+              : FontWeight.w500,
+          color: states.contains(WidgetState.selected)
+              ? OfficeColors.blue
+              : OfficeColors.muted,
+        ),
+      ),
+      iconTheme: WidgetStateProperty.resolveWith(
+        (states) => IconThemeData(
+          size: 22,
+          color: states.contains(WidgetState.selected)
+              ? OfficeColors.blue
+              : OfficeColors.muted,
+        ),
+      ),
+    ),
+    listTileTheme: const ListTileThemeData(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      iconColor: OfficeColors.muted,
+      titleTextStyle: TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 15,
+        fontWeight: FontWeight.w600,
+        color: OfficeColors.ink,
+      ),
+    ),
     dialogTheme: DialogThemeData(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.transparent,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       titleTextStyle: const TextStyle(
         fontFamily: 'Inter',
         fontSize: 23,
@@ -237,20 +277,20 @@ class OfficeSurface extends StatelessWidget {
   const OfficeSurface({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(28),
+    this.padding = const EdgeInsets.all(24),
   });
   @override
   Widget build(BuildContext context) => Container(
     padding: padding,
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(22),
+      borderRadius: BorderRadius.circular(16),
       border: Border.all(color: OfficeColors.line.withValues(alpha: .8)),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x04000000),
-          blurRadius: 24,
-          offset: Offset(0, 8),
+          color: Color(0x030c1b35),
+          blurRadius: 16,
+          offset: Offset(0, 4),
         ),
       ],
     ),
@@ -263,11 +303,11 @@ class Eyebrow extends StatelessWidget {
   const Eyebrow(this.text, {super.key});
   @override
   Widget build(BuildContext context) => Text(
-    text.toUpperCase(),
+    text,
     style: const TextStyle(
-      fontSize: 10,
+      fontSize: 12,
       fontWeight: FontWeight.w600,
-      letterSpacing: 1.7,
+      letterSpacing: .1,
       color: OfficeColors.muted,
     ),
   );
@@ -292,15 +332,19 @@ class PageHeading extends StatelessWidget {
         children: [
           if (eyebrow != null) ...[
             Eyebrow(eyebrow!),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
           ],
-          Text(title, style: Theme.of(context).textTheme.headlineLarge),
-          const SizedBox(height: 10),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headlineLarge
+                ?.copyWith(fontSize: box.maxWidth < 620 ? 28 : 34),
+          ),
+          const SizedBox(height: 8),
           Text(
             subtitle,
             style: const TextStyle(
               fontSize: 14,
-              height: 1.6,
+              height: 1.5,
               color: OfficeColors.muted,
             ),
           ),
@@ -333,14 +377,14 @@ class StatusPill extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     decoration: BoxDecoration(
-      color: positive ? const Color(0xffedf7f0) : OfficeColors.canvas,
-      borderRadius: BorderRadius.circular(7),
+      color: positive ? OfficeColors.greenTint : const Color(0xfff0f2f5),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: Text(
       label,
       style: TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w500,
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
         color: positive ? OfficeColors.green : OfficeColors.muted,
       ),
     ),
@@ -356,7 +400,7 @@ class Notice extends StatelessWidget {
     margin: const EdgeInsets.only(bottom: 20),
     padding: const EdgeInsets.all(16),
     decoration: BoxDecoration(
-      color: error ? const Color(0xfffff1ef) : OfficeColors.blueTint,
+      color: error ? OfficeColors.redTint : OfficeColors.blueTint,
       borderRadius: BorderRadius.circular(12),
     ),
     child: Row(

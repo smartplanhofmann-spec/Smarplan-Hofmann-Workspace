@@ -13,14 +13,21 @@ Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.
   einliefern. Der manuelle Apps-Script-Aufbau wurde als zu kompliziert verworfen.
   Die Textübernahme in Smartplan wurde im echten Test bestätigt. Der Bot meldet
   einen aktiven Fünfminutenjob; eine zweite Mail wurde übernommen, ihre Anhänge
-  fehlten jedoch im textbeschränkten 0.9-Eingang. Für Anhänge wird jetzt das
-  zusammenhängende Paket 0.10/Schema5 vorbereitet. Es enthält Blob-Upload,
+  fehlten jedoch im textbeschränkten 0.9-Eingang. Das zusammenhängende Paket
+  0.10/Schema5 wurde ausgeliefert. Es enthält Blob-Upload,
   verifizierten Download, Projektablage, Plankopie und gezielten Altmailnachtrag.
   Server/App/Botauftrag gemeinsam aktualisieren; vorhandenen Job, gültigen
   Schlüssel und bestätigte Mail-IDs erhalten. Produktidentität ist nicht
   abschließend verifiziert, aber die vorhandene HTTP-Textanbindung ist belegt.
-  Tatsächlicher Binärabruf und mobile Geräteausgabe bleiben zu prüfen.
+  Der Nutzer hat anschließend ausdrücklich bestätigt: Der Anhang ist jetzt in
+  der Software vorhanden. Die mobile Geräteausgabe bleibt gesondert zu prüfen.
   Eine beiläufige Nennung von Salesforce ist keine beauftragte CRM-Umstellung.
+- **Aktueller App-Auftrag:** PDF- und Bildanhänge direkt in der Software ansehen
+  können. Zugleich das unübersichtliche, als nicht zeitgemäß empfundene Design
+  überarbeiten: stark an Apple angelehnt, intuitiver, etwas lebendig, aber mit
+  zurückhaltenden Farben. Vorschau und neue Navigation/Gestaltung gemeinsam als
+  App 0.10.1 liefern. Der bestehende Anhangserver und Bot genügen; dafür kein
+  erneutes Serverupdate verlangen.
 - **sevdesk bleibt** das bestehende System für Angebote und Rechnungen. Die App
   ordnet Vorgänge und Links dem Projekt zu; eine Ablösung ist nicht beauftragt.
 - Google Kalender ist der gewünschte Kalender. Kalenderdatei und ausdrücklich
@@ -69,14 +76,20 @@ bearbeitbare CAD-Zeichnung. Der verwendete gebündelte Serverablauf steht unter
 ausstehende Offline-Eingaben dürfen dafür nicht durch Neuinstallation oder
 manuelles Löschen beseitigt werden.
 
-**0.10 / Schema 5 ist der neue Entwicklungsstand und noch nicht auf dem
-Nutzer-Server installiert.** Maßgeblich für das nächste Gesamtpaket sind
+**Die tatsächliche Anhangübernahme aus Paket 0.10 ist vom Nutzer bestätigt.**
+Ein neuer HTTPS-Readiness-Auszug/Quellcommit wurde danach nicht separat gezeigt;
+den alten ausgelesenen 0.9-Stand deshalb als historische Evidenz erhalten.
+Maßgeblich für die Anhanggrundlage sind
 [Produktpaket 0.10](PRODUKTPAKET_0_10.md) und
 [Update 0.10](deploy/hetzner/online/UPDATE_0_10.md).
 Mailanhänge werden als unveränderte Bytes auf Hetzner gespeichert; der externe
 Bot verwendet dafür seine bereits vorhandene Gmail-Anbindung und führt keine
 externe Plan-/Dokumentanalyse aus. Die Beschränkung der Planverarbeitung auf
 den eigenen Hetzner-Server bleibt verbindlich.
+
+Die anschließende [App-Erweiterung 0.10.1](ANHANGVORSCHAU.md) verwendet dieselben
+geschützten Downloads für die Vorschau. Anfragen und ihre Originalanhänge
+bleiben online; vorhandene Offline-Projektmappen und Planquellen unverändert.
 
 Reale iPhone-/iPad-Abnahme und Windows-Herausgebersignierung bleiben offen.
 Eine erfolgreiche Serverabnahme belegt weder Handschrift-/Wandsemantik noch

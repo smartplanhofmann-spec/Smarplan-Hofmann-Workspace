@@ -65,7 +65,7 @@ class NativePackageTests(unittest.TestCase):
         # The visible Semver is independent of TestFlight's increasing build counter.
         app = self.directory / 'app'
         (app / 'lib').mkdir(parents=True)
-        (app / 'pubspec.yaml').write_text('version: 0.10.0+913\n')
+        (app / 'pubspec.yaml').write_text('version: 0.10.1+914\n')
         (app / 'lib/app_version.dart').write_text("const smartplanVersion = '0.8.0';\n")
         with self.assertRaisesRegex(ValueError, 'Sichtbare Appversion'):
             release.source_checks(self.directory)
@@ -85,7 +85,7 @@ class NativePackageTests(unittest.TestCase):
         bundle = self.bundle('online')
         release.check_windows(bundle, self.config, 'online')
         for name in ('flutter_secure_storage_windows_plugin.dll', 'url_launcher_windows_plugin.dll',
-                     'share_plus_plugin.dll'):
+                     'share_plus_plugin.dll', 'pdfium.dll', 'pdfrx_pdfium_gate.dll'):
             with self.subTest(omitted=name):
                 (bundle / name).unlink()
                 with self.assertRaisesRegex(ValueError, name):
@@ -136,6 +136,8 @@ class NativePackageTests(unittest.TestCase):
         self.assertIn('flutter_secure_storage_windows_plugin.dll', saved['files_sha256'])
         self.assertIn('url_launcher_windows_plugin.dll', saved['files_sha256'])
         self.assertIn('share_plus_plugin.dll', saved['files_sha256'])
+        self.assertIn('pdfium.dll', saved['files_sha256'])
+        self.assertIn('pdfrx_pdfium_gate.dll', saved['files_sha256'])
         self.assertNotIn('RELEASE_MANIFEST.json', saved['files_sha256'])
 
     def test_local_manifest_keeps_packaged_backend_and_project_plan_scope(self):

@@ -9,7 +9,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'api.dart';
+import 'mail_attachment_preview.dart';
 import 'offline_vault.dart' show offlineId;
+
+export 'mail_attachment_preview.dart'
+    show
+        VerifiedMailAttachment,
+        MailAttachmentExportResult,
+        MailAttachmentExporter;
 
 const maxMailAttachmentBytes = 20 * 1024 * 1024;
 const _planMedia = {'application/pdf', 'image/jpeg', 'image/png'};
@@ -34,27 +41,6 @@ String safeAttachmentFilename(String filename) {
   }
   return result;
 }
-
-class VerifiedMailAttachment {
-  final Uint8List bytes;
-  final String filename, mediaType, sha256;
-  const VerifiedMailAttachment({
-    required this.bytes,
-    required this.filename,
-    required this.mediaType,
-    required this.sha256,
-  });
-}
-
-enum MailAttachmentExportResult { saved, shared, cancelled }
-
-/// The guard must be checked after a native picker as well as before writing.
-/// Tests replace this handoff; production never opens an attachment itself.
-typedef MailAttachmentExporter = Future<MailAttachmentExportResult> Function(
-  BuildContext context,
-  VerifiedMailAttachment attachment,
-  bool Function() mayExport,
-);
 
 class _AccessLost implements Exception {}
 
@@ -147,6 +133,7 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
   int fetchEpoch = 0;
   final working = <String>{};
   final planRequests = <String, String>{};
+  final previewGuards = <MailAttachmentPreviewController, bool Function()>{};
   final actionAllowed = ValueNotifier<bool>(true);
   bool get project => widget.projectId != null;
   bool get allowed => !blocked && widget.accessAllowed?.value != false;
@@ -186,6 +173,7 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
       needsUpdate = manifest == null;
     }
     accessChanged();
+    revalidatePreviews();
   }
 
   @override
@@ -193,6 +181,10 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
     fetchEpoch++;
     widget.api.removeListener(accessChanged);
     widget.accessAllowed?.removeListener(accessChanged);
+    for (final preview in previewGuards.keys) {
+      preview.revoke();
+    }
+    previewGuards.clear();
     actionAllowed.dispose();
     super.dispose();
   }
@@ -208,6 +200,9 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
     if (!mounted || blocked) return;
     fetchEpoch++;
     actionAllowed.value = false;
+    for (final preview in previewGuards.keys) {
+      preview.revoke();
+    }
     setState(() {
       blocked = true;
       loading = false;
@@ -236,6 +231,12 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
             current['sha256'] == file['sha256'] &&
             current['size'] == file['size'],
       );
+
+  void revalidatePreviews() {
+    for (final entry in previewGuards.entries) {
+      if (!entry.value()) entry.key.revoke();
+    }
+  }
 
   bool bounded(Map<String, dynamic> file) =>
       file['id'] is String &&
@@ -288,6 +289,7 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
         manifest = value == null ? null : Map<String, dynamic>.from(value);
         needsUpdate = value == null;
       });
+      revalidatePreviews();
       if (!project) widget.onManifestChanged?.call(manifest);
     } on ApiException catch (e) {
       if (!mounted || epoch != fetchEpoch) return;
@@ -330,6 +332,7 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
           manifest = null;
           needsUpdate = true;
         });
+        revalidatePreviews();
       } else {
         message(
           'Anhänge konnten nicht geladen werden. Bitte Verbindung prüfen und erneut versuchen.',
@@ -343,6 +346,49 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
     } finally {
       if (mounted && epoch == fetchEpoch) setState(() => loading = false);
     }
+  }
+
+  Future<VerifiedMailAttachment?> verifiedFile(
+    Map<String, dynamic> file,
+    String? captured,
+  ) async {
+    final id = file['id'] as String;
+    final downloadPath = project
+        ? '$path/$id/content'
+        : '$path/attachments/$id/content';
+    final bytes = await widget.api.bytes(
+      downloadPath,
+      mediaType: 'application/octet-stream',
+      maxBytes: maxMailAttachmentBytes,
+    );
+    if (!fileValid(file, captured)) {
+      accessChanged();
+      return null;
+    }
+    if (bytes.length != file['size'] || bytes.length > maxMailAttachmentBytes) {
+      throw const ApiException(
+        0,
+        'Die Dateigröße stimmt nicht. Es wurde nichts gespeichert.',
+      );
+    }
+    final hash = (await Sha256().hash(bytes)).bytes
+        .map((value) => value.toRadixString(16).padLeft(2, '0'))
+        .join();
+    if (!fileValid(file, captured)) {
+      accessChanged();
+      return null;
+    }
+    if (hash != file['sha256'])
+      throw const ApiException(
+        0,
+        'Die Datei konnte nicht geprüft werden. Es wurde nichts gespeichert.',
+      );
+    return VerifiedMailAttachment(
+      bytes: bytes,
+      filename: file['filename'],
+      mediaType: file['media_type'],
+      sha256: hash,
+    );
   }
 
   Future<void> download(
@@ -363,46 +409,11 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
       notice = null;
     });
     try {
-      final downloadPath = project
-          ? '$path/$id/content'
-          : '$path/attachments/$id/content';
-      final bytes = await widget.api.bytes(
-        downloadPath,
-        mediaType: 'application/octet-stream',
-        maxBytes: maxMailAttachmentBytes,
-      );
-      if (!fileValid(file, captured)) {
-        accessChanged();
-        return;
-      }
-      if (bytes.length != file['size'] ||
-          bytes.length > maxMailAttachmentBytes) {
-        throw const ApiException(
-          0,
-          'Die Dateigröße stimmt nicht. Es wurde nichts gespeichert.',
-        );
-      }
-      final hash = (await Sha256().hash(bytes)).bytes
-          .map((value) => value.toRadixString(16).padLeft(2, '0'))
-          .join();
-      if (!fileValid(file, captured)) {
-        accessChanged();
-        return;
-      }
-      if (hash != file['sha256'])
-        throw const ApiException(
-          0,
-          'Die Datei konnte nicht geprüft werden. Es wurde nichts gespeichert.',
-        );
-      if (!buttonContext.mounted) return;
+      final verified = await verifiedFile(file, captured);
+      if (verified == null || !buttonContext.mounted) return;
       final exported = await (widget.exporter ?? exportMailAttachment)(
         buttonContext,
-        VerifiedMailAttachment(
-          bytes: bytes,
-          filename: file['filename'],
-          mediaType: file['media_type'],
-          sha256: hash,
-        ),
+        verified,
         () => fileValid(file, captured),
       );
       if (!fileValid(file, captured)) {
@@ -430,6 +441,59 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
           'Datei konnte nicht gespeichert oder geteilt werden. Bitte erneut versuchen.',
         );
     } finally {
+      if (mounted) setState(() => working.remove(id));
+    }
+  }
+
+  Future<void> preview(Map<String, dynamic> file) async {
+    final captured = widget.api.token;
+    if (loading ||
+        working.isNotEmpty ||
+        !bounded(file) ||
+        !fileValid(file, captured) ||
+        file['status'] != 'ready')
+      return;
+    final id = file['id'] as String;
+    MailAttachmentPreviewController? controller;
+    setState(() {
+      working.add(id);
+      error = null;
+      notice = null;
+    });
+    try {
+      var verified = await verifiedFile(file, captured);
+      if (verified == null || !mounted || !fileValid(file, captured)) return;
+      final session = MailAttachmentPreviewController(verified);
+      controller = session;
+      verified = null;
+      previewGuards[session] = () => fileValid(file, captured);
+      setState(() => working.remove(id));
+      await Navigator.of(context).push<void>(
+        MaterialPageRoute(
+          builder: (_) => MailAttachmentPreviewPage(
+            controller: session,
+            mayView: () => fileValid(file, captured),
+            exporter: widget.exporter ?? exportMailAttachment,
+          ),
+        ),
+      );
+    } on ApiException catch (e) {
+      if (e.status == 401 || e.status == 403) {
+        deny();
+      } else if (fileValid(file, captured)) {
+        message(e.message);
+      }
+    } catch (_) {
+      if (fileValid(file, captured)) {
+        message(
+          'Die Vorschau konnte nicht geladen werden. Bitte erneut versuchen.',
+        );
+      }
+    } finally {
+      if (controller != null) {
+        previewGuards.remove(controller);
+        controller.dispose();
+      }
       if (mounted) setState(() => working.remove(id));
     }
   }
@@ -495,6 +559,7 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
             'deleted_count': (manifest?['deleted_count'] as int? ?? 0) + 1,
         };
       });
+      revalidatePreviews();
       if (!project) widget.onManifestChanged?.call(manifest);
       message('Anhang entfernt.', failure: false);
       await refresh();
@@ -625,11 +690,26 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      file['filename']?.toString() ?? 'Anhang',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    InkWell(
+                      key: ValueKey('mail-attachment-name-${file['id']}'),
+                      borderRadius: BorderRadius.circular(6),
+                      onTap:
+                          file['status'] == 'ready' &&
+                              bounded(file) &&
+                              !loading &&
+                              working.isEmpty &&
+                              sessionValid(widget.api.token)
+                          ? () => preview(file)
+                          : null,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Text(
+                          file['filename']?.toString() ?? 'Anhang',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ),
                     ),
                     Text(
                       '${file['size'] is int ? attachmentSize(file['size']) : 'Größe noch offen'} · ${file['status'] == 'ready' ? 'Verfügbar' : 'Wird übertragen'}',
@@ -642,6 +722,21 @@ class _MailAttachmentsCardState extends State<MailAttachmentsCard> {
                       spacing: 8,
                       runSpacing: 4,
                       children: [
+                        TextButton.icon(
+                          key: ValueKey(
+                            'mail-attachment-preview-${file['id']}',
+                          ),
+                          onPressed:
+                              file['status'] == 'ready' &&
+                                  bounded(file) &&
+                                  !loading &&
+                                  working.isEmpty &&
+                                  sessionValid(widget.api.token)
+                              ? () => preview(file)
+                              : null,
+                          icon: const Icon(Icons.visibility_outlined),
+                          label: const Text('Vorschau'),
+                        ),
                         Builder(
                           builder: (buttonContext) => OutlinedButton.icon(
                             key: ValueKey(

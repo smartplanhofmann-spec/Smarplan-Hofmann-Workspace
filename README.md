@@ -1,4 +1,4 @@
-# Smartplan Office – Entwicklungsstand 0.10.0
+# Smartplan Office – Entwicklungsstand 0.10.1
 
 Gemeinsamer Arbeitsbereich für Büro und Baustelle: Anfragen, Kunden,
 Projektmappen, Aufgaben, Termine, Bautagebuch, Pläne und unterschriebene Berichte.
@@ -10,6 +10,11 @@ Die fachliche Grundlage und Abnahme stehen in
 [Projektgrundlage 0.9](PRODUKTPAKET_0_9.md). Arbeitsabläufe sind flexibel: Ein Projekt
 kann zur Klärung, zum Aufmaß oder als Serviceeinsatz beginnen. Angebot, Zusage,
 Anzahlung und Material sind keine erzwungene Pflichtreihenfolge.
+
+Das [App-Update 0.10.1](APP_UPDATE_0_10_1.md) verbindet eine direkte Vorschau
+für PDF- und Bildanhänge mit einer klareren, an Apple angelehnten Oberfläche.
+Dafür genügt die neue App; der vorhandene Anhangseingang auf dem Server wird
+weiterverwendet.
 
 ## Bestätigte Betriebsentscheidungen
 
@@ -59,8 +64,9 @@ fortsetzbare Abschnitte, SHA-Prüfung, vollständige Quittung und Nachträge zu
 bereits übernommenen Mails. Anfrage und Projektmappe zeigen die Dateien;
 PDF/JPEG/PNG lassen sich gezielt als Planquelle übernehmen. Windows verwendet
 den Speicherdialog, iPhone/iPad die native Teilen-/Speichern-Ausgabe. Das Paket
-enthält Werkzeugbeschreibung, Text- und Anhanghelfer; der tatsächliche Anhangabruf
-des externen Bots muss gesondert abgenommen werden. Apps Script ist eine frühere Alternative,
+enthält Werkzeugbeschreibung, Text- und Anhanghelfer. Der Nutzer hat inzwischen
+bestätigt, dass ein tatsächlicher Mailanhang in Smartplan angekommen ist.
+Apps Script ist eine frühere Alternative,
 deren manuelle Einrichtung der Nutzer als zu aufwendig verworfen hat.
 WhatsApp-API/Nummern-Coexistence sind nicht bereits eingerichtet.
 
@@ -75,12 +81,16 @@ Die synthetische ARM64-Dienstabnahme und der Foto-/PDF-Import wurden bereits mit
 Der [gebündelte Updateablauf](deploy/hetzner/online/UPDATE_0_9.md) verwendet den
 vorhandenen Datenbankkopie-/Wartungsablauf.
 
-**0.10 / Schema 5 ist vorbereitet und noch nicht auf dieser VM installiert.**
-Für Anhänge werden Server, Windows-App und der Auftrag des vorhandenen Bots
-gemeinsam aktualisiert; siehe [Update 0.10](deploy/hetzner/online/UPDATE_0_10.md).
+**Die tatsächliche Anhangübernahme nach dem Paket 0.10 ist vom Nutzer bestätigt.**
+Der letzte ausdrücklich ausgelesene Server-Quellcommit bleibt der oben genannte
+0.9-Stand; die funktionierende neue Anhangroute belegt die aktive Erweiterung.
+Der gebündelte Ablauf dafür steht unter
+[Update 0.10](deploy/hetzner/online/UPDATE_0_10.md).
 Gültige vorhandene Eingangsschlüssel und die bisherige Liste bestätigter Mails
 werden weiterverwendet. Die Originaldateien werden nachgereicht; Mailtexte
 müssen dafür nicht erneut gepostet werden.
+
+Für die anschließende App-Vorschau 0.10.1 ist kein erneutes Serverupdate nötig.
 
 Windows-Pakete sind **unsignierte interne Prüfpakete**. Authenticode-/Installer-/
 SmartScreen-Abnahme bleiben offen. Neue Apple-/Provider-Abos oder kostenpflichtige

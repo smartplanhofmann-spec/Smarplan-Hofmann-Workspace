@@ -356,24 +356,35 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         body: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            Text(
+            const PageHeading(
+              title: 'Auf diesem Gerät',
+              subtitle: 'Gespeicherte Projekte und lokale Änderungen.',
+            ),
+            const SizedBox(height: 24),
+            Notice(
               usable
                   ? 'Bis zu sieben Tage offline · ${offline!.pending} Änderungen ausstehend'
                   : 'Offline-Freigabe abgelaufen. Bitte online anmelden. Eingaben bleiben erhalten.',
+              error: !usable,
             ),
-            const SizedBox(height: 12),
             const Text(
               'Vorbereitete Projektmappen und Pläne bleiben lokal verfügbar. Anfragen, externe Ablagen und unterschriebene Berichte benötigen Verbindung.',
             ),
-            if (error != null) Text(error!),
+            const SizedBox(height: 20),
+            if (error != null) Notice(error!),
             if (usable)
               for (final project in offline!.projects)
-                ListTile(
-                  title: Text(project['name']),
-                  leading: const Icon(Icons.architecture),
-                  enabled: usable && !busy,
-                  onTap: () =>
-                      openOfflinePlans(Map<String, dynamic>.from(project)),
+                Card(
+                  clipBehavior: Clip.antiAlias,
+                  child: ListTile(
+                    title: Text(project['name']),
+                    subtitle: Text(project['customer']?.toString() ?? ''),
+                    leading: const IconTile(Icons.folder_open_rounded),
+                    trailing: const Icon(Icons.chevron_right_rounded),
+                    enabled: usable && !busy,
+                    onTap: () =>
+                        openOfflinePlans(Map<String, dynamic>.from(project)),
+                  ),
                 ),
           ],
         ),

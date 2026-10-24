@@ -243,7 +243,14 @@ void main() {
     expect(find.text('Synthetischer Umbau'), findsOneWidget);
     expect(find.text('Anderes Vorhaben'), findsNothing);
     expect(find.textContaining('Rückruf am Nachmittag'), findsOneWidget);
-    expect(find.text('1 überfällige Wiedervorlagen'), findsOneWidget);
+    expect(find.text('Überfällige Wiedervorlagen'), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const ValueKey('inquiry-count-overdue')),
+        matching: find.text('1'),
+      ),
+      findsOneWidget,
+    );
     await tester.enterText(field('Anfragen durchsuchen'), 'nicht vorhanden');
     await tester.pumpAndSettle();
     expect(find.text('Synthetischer Umbau'), findsNothing);

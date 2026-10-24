@@ -16,9 +16,9 @@ BACKEND_FILES = ('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py
                  'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py',
                  'workspace_api.py',
                  'requirements.lock')
-WINDOWS_DLLS = ('flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll',
+WINDOWS_DLLS = ('flutter_windows.dll', 'printing_plugin.dll', 'pdfium.dll', 'file_selector_windows_plugin.dll',
                 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll',
-                'url_launcher_windows_plugin.dll', 'share_plus_plugin.dll',
+                'url_launcher_windows_plugin.dll', 'share_plus_plugin.dll', 'pdfrx_pdfium_gate.dll',
                 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')
 
 

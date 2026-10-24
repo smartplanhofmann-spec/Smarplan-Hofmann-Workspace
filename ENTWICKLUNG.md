@@ -69,6 +69,7 @@ der neue geprüfte Kandidaten-Ablauf steht in
 
 - Backend: Python 3.11 oder neuer; in der Cloud getestet mit Python 3.12.14.
 - App: Flutter 3.47.7 / Dart 3.13.5. Abhängigkeiten sind in `app/pubspec.lock` festgehalten.
+- Linux-Tests mit nativer PDF-Vorschau: Clang im `PATH`. Der PDFium-FFI-Hook baut eine kleine C-Bibliothek; GCC allein wird für diesen Hostpfad nicht automatisch verwendet.
 - Windows: Flutter-Windows-Unterstützung und Visual Studio mit Desktopentwicklung für C++; diese Voraussetzung lässt sich nicht durch Linux-Tests ersetzen.
 - iPhone: macOS mit geeigneter Xcode-Version, iPhone oder Simulator; für Geräteinstallation passende Apple-Signierung. Die generierte Kennung `com.example.smartplanOffice` ist vor Verteilung durch eine eigene Bundle-ID zu ersetzen.
 - Echte iPhone-Nutzung benötigt ein gemeinsam erreichbares HTTPS-Backend. Die lokale Windows-Adresse auf dem iPhone verweist auf das iPhone selbst. Das lokale Entwicklungsbackend wird nicht öffentlich freigegeben.
@@ -83,6 +84,14 @@ bash scripts/setup-cloud.sh
 ```
 
 Das Skript installiert die festgehaltenen Python-Abhängigkeiten, verwendet die geprüfte Flutter-Revision und führt Backend-Tests, Flutter-Analyse und Flutter-Tests aus. Es setzt Flutter-Konfiguration, Paketcache und Analyzer-Cache auf beschreibbare Pfade in `/workspace/toolchains`, ohne `HOME` umzusetzen. Für Flutter-Artefakte ist `storage.googleapis.com` zusätzlich zu GitHub und den Paketregistries erforderlich.
+
+Fehlt Clang, endet das Skript nach der Analyse mit einem klaren Fehler, bevor
+Flutter-Tests beginnen. Es installiert keinen Compiler automatisch und verändert
+keine Paketquellen oder nativen Caches. Ein solcher Lauf bestätigt weder den
+nativen PDF-Test noch die gesamte Flutter-Suite. Die CI prüft den Tag `native_pdf`
+aus `mail_attachment_preview_widget_test.dart` ausdrücklich mit echtem PDFium auf
+Linux, Windows und macOS; anschließend laufen die übrigen Flutter-Tests ohne
+diesen bereits geprüften Tag. Native Windows-/iOS-Builds bleiben zusätzlich nötig.
 
 Für einzelne Flutter-Befehle in dieser Cloud zuerst `umask 0077` in der
 aufrufenden Shell setzen. Neue Offline-Dateien und Verzeichnisse müssen privat

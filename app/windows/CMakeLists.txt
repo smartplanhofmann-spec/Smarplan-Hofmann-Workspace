@@ -57,6 +57,10 @@ add_subdirectory("runner")
 # and must not acquire an optional JVM dependency from a runner's Java install.
 set(CMAKE_DISABLE_FIND_PACKAGE_JNI TRUE)
 
+# printing and pdfrx both load pdfium.dll. Keep their binary version aligned;
+# the Dart native-asset hook in pdfium_dart 0.4.0 bundles chromium/7811.
+set(PDFIUM_VERSION "7811" CACHE STRING "Shared printing/pdfrx PDFium version" FORCE)
+
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
 include(flutter/generated_plugins.cmake)

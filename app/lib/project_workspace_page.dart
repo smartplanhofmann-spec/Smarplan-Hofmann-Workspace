@@ -26,6 +26,16 @@ const projectSections = [
   'Berichte',
 ];
 
+const _sectionIcons = [
+  Icons.space_dashboard_outlined,
+  Icons.check_circle_outline,
+  Icons.calendar_today_outlined,
+  Icons.menu_book_outlined,
+  Icons.layers_outlined,
+  Icons.folder_outlined,
+  Icons.description_outlined,
+];
+
 String workspaceDate(Object? value, {bool time = false}) {
   if (value == null || value == '') return 'Ohne Datum';
   final parsed = DateTime.tryParse(value.toString());
@@ -953,49 +963,61 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
       ('tasks_overdue', 'Überfällige Aufgaben'),
       ('appointments_upcoming', 'Nächste Termine'),
     ];
-    Widget tile((String, String) metric) => OfficeSurface(
-      key: ValueKey('workspace-metric-${metric.$1}'),
-      padding: EdgeInsets.all(compact ? 12 : 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '${counters[metric.$1] ?? 0}',
-            style: compact
-                ? const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w600,
-                    height: 1.15,
-                  )
-                : Theme.of(context).textTheme.headlineMedium,
-          ),
-          if (compact) const SizedBox(height: 5),
-          Text(
-            compact ? metric.$2.replaceFirst(' ', '\n') : metric.$2,
-            maxLines: compact ? 2 : null,
-            overflow: compact ? TextOverflow.ellipsis : null,
-            style: compact
-                ? const TextStyle(fontSize: 11.5, height: 1.25)
-                : null,
-          ),
-        ],
-      ),
-    );
-    if (!compact)
-      return Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: [
-          for (final metric in metrics)
-            SizedBox(width: 210, child: tile(metric)),
-        ],
+    Widget tile((String, String) metric) {
+      final index = metrics.indexOf(metric);
+      final overdue = index == 1 && (counters[metric.$1] as int? ?? 0) > 0;
+      final color = overdue
+          ? Theme.of(context).colorScheme.error
+          : OfficeColors.blue;
+      return OfficeSurface(
+        key: ValueKey('workspace-metric-${metric.$1}'),
+        padding: EdgeInsets.all(compact ? 12 : 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (!compact) ...[
+              Icon(
+                [
+                  Icons.check_circle_outline,
+                  Icons.schedule_outlined,
+                  Icons.calendar_today_outlined,
+                ][index],
+                color: color,
+                size: 22,
+              ),
+              const SizedBox(height: 14),
+            ],
+            Text(
+              '${counters[metric.$1] ?? 0}',
+              style: compact
+                  ? TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w600,
+                      height: 1.15,
+                      color: overdue ? color : OfficeColors.ink,
+                    )
+                  : Theme.of(context).textTheme.headlineMedium,
+            ),
+            if (compact) const SizedBox(height: 5),
+            Text(
+              compact ? metric.$2.replaceFirst(' ', '\n') : metric.$2,
+              maxLines: compact ? 2 : null,
+              overflow: compact ? TextOverflow.ellipsis : null,
+              style: compact
+                  ? const TextStyle(fontSize: 11.5, height: 1.25)
+                  : null,
+            ),
+          ],
+        ),
       );
+    }
+
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           for (var i = 0; i < metrics.length; i++) ...[
-            if (i > 0) const SizedBox(width: 8),
+            if (i > 0) SizedBox(width: compact ? 8 : 16),
             Expanded(child: tile(metrics[i])),
           ],
         ],
@@ -1079,6 +1101,30 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     final tasks = rows(dashboard?['open_tasks']);
     final appointments = rows(dashboard?['upcoming_appointments']);
     final diary = rows(dashboard?['latest_diary']);
+    Widget taskPanel() => surface(
+      'Offene Aufgaben',
+      [
+        if (tasks.isEmpty)
+          empty('Aktuell sind keine offenen Aufgaben erfasst.'),
+        for (final task in tasks.take(5)) taskTile(task),
+      ],
+      action: TextButton(
+        onPressed: () => selectSection(1),
+        child: const Text('Alle Aufgaben'),
+      ),
+    );
+    Widget appointmentPanel() => surface(
+      'Nächste Termine',
+      [
+        if (appointments.isEmpty) empty('Keine anstehenden Termine erfasst.'),
+        for (final appointment in appointments.take(3))
+          appointmentTile(appointment, compact: true),
+      ],
+      action: TextButton(
+        onPressed: () => selectSection(2),
+        child: const Text('Alle Termine'),
+      ),
+    );
     return listBody([
       if (compact)
         Column(
@@ -1117,39 +1163,38 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
         ),
       SizedBox(height: compact ? 16 : 20),
       if (enabled) ...[
-        projectDetails(compact: compact),
-        SizedBox(height: compact ? 12 : 16),
+        if (compact) ...[
+          projectDetails(compact: true),
+          const SizedBox(height: 12),
+        ],
         overviewMetrics(counters, compact: compact),
         SizedBox(height: compact ? 14 : 20),
         if (canWrite) primaryActions(compact: compact),
         SizedBox(height: compact ? 16 : 20),
-        surface(
-          'Offene Aufgaben',
-          [
-            if (tasks.isEmpty)
-              empty('Aktuell sind keine offenen Aufgaben erfasst.'),
-            for (final task in tasks.take(5)) taskTile(task),
-          ],
-          action: TextButton(
-            onPressed: () => selectSection(1),
-            child: const Text('Alle Aufgaben'),
-          ),
+        LayoutBuilder(
+          builder: (context, constraints) => constraints.maxWidth < 900
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    taskPanel(),
+                    const SizedBox(height: 16),
+                    appointmentPanel(),
+                  ],
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(flex: 3, child: taskPanel()),
+                    const SizedBox(width: 20),
+                    Expanded(flex: 2, child: appointmentPanel()),
+                  ],
+                ),
         ),
         const SizedBox(height: 16),
-        surface(
-          'Nächste Termine',
-          [
-            if (appointments.isEmpty)
-              empty('Keine anstehenden Termine erfasst.'),
-            for (final appointment in appointments.take(3))
-              appointmentTile(appointment, compact: true),
-          ],
-          action: TextButton(
-            onPressed: () => selectSection(2),
-            child: const Text('Alle Termine'),
-          ),
-        ),
-        const SizedBox(height: 16),
+        if (!compact) ...[
+          projectDetails(compact: false),
+          const SizedBox(height: 16),
+        ],
         surface(
           'Zuletzt im Bautagebuch',
           [
@@ -1521,8 +1566,9 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                         child: DropdownButtonFormField<int>(
                           key: ValueKey('project-section-picker-$section'),
                           initialValue: section,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Projektbereich',
+                            prefixIcon: Icon(_sectionIcons[section], size: 20),
                           ),
                           items: [
                             for (
@@ -1542,8 +1588,13 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                       )
                     : SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Container(
+                          margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffeaeaec),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
                           child: Row(
                             children: [
                               for (
@@ -1553,14 +1604,22 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                               )
                                 Padding(
                                   padding: const EdgeInsets.only(right: 8),
-                                  child: TextButton(
+                                  child: TextButton.icon(
                                     style: TextButton.styleFrom(
                                       backgroundColor: section == index
-                                          ? OfficeColors.blueTint
+                                          ? Colors.white
                                           : null,
+                                      foregroundColor: section == index
+                                          ? OfficeColors.blue
+                                          : OfficeColors.muted,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 14,
+                                        vertical: 12,
+                                      ),
                                     ),
                                     onPressed: () => selectSection(index),
-                                    child: Text(projectSections[index]),
+                                    icon: Icon(_sectionIcons[index], size: 18),
+                                    label: Text(projectSections[index]),
                                   ),
                                 ),
                             ],

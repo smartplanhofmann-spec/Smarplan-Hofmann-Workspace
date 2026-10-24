@@ -1,7 +1,7 @@
 name: smartplan_office
 description: Smartplan Hofmann - Windows and iPhone development foundation
 publish_to: none
-version: 0.10.0+13
+version: 0.10.1+14
 environment:
   sdk: '>=3.13.0 <4.0.0'
   flutter: '>=3.47.7'
@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   printing: ^5.14.2
+  pdfrx: 2.10.1
   file_selector: ^1.0.4
   image_picker: 1.2.4
   qr_flutter: 4.1.0

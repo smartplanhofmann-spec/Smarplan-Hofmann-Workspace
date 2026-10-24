@@ -429,7 +429,10 @@ class WorkspaceView extends StatefulWidget {
 class _WorkspaceViewState extends State<WorkspaceView> {
   final search = TextEditingController();
   final searchFocus = FocusNode();
-  bool storagePage = false, listView = false, alphabetical = false;
+  bool storagePage = false,
+      listView = true,
+      alphabetical = false,
+      drawerOpen = false;
   bool get owner => widget.user['role'] == 'owner';
   @override
   void dispose() {
@@ -438,174 +441,179 @@ class _WorkspaceViewState extends State<WorkspaceView> {
     super.dispose();
   }
 
+  void focusSearch() {
+    setState(() => storagePage = false);
+    searchFocus.requestFocus();
+  }
+
   Widget navigation({bool drawer = false}) => Container(
-    width: 232,
+    width: drawer ? 276 : 244,
     decoration: const BoxDecoration(
       color: OfficeColors.sidebar,
       border: Border(right: BorderSide(color: OfficeColors.line)),
     ),
     child: SafeArea(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(18, 30, 18, 20),
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
-                  PlanMark(size: 33),
-                  SizedBox(width: 10),
-                  Flexible(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'smartplan',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: -.8,
-                        ),
+                  const PlanMark(size: 34),
+                  const SizedBox(width: 10),
+                  const Expanded(
+                    child: Text(
+                      'smartplan',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: -.7,
                       ),
                     ),
                   ),
+                  if (drawer)
+                    IconButton(
+                      tooltip: 'Navigation schließen',
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.close_rounded, size: 20),
+                    ),
                 ],
               ),
             ),
-            const SizedBox(height: 44),
-            const Padding(
-              padding: EdgeInsets.only(left: 12, bottom: 12),
-              child: Eyebrow('Arbeitsbereich'),
-            ),
-            _NavItem(
-              icon: Icons.grid_view_rounded,
-              label: 'Projekte',
-              selected: !storagePage,
-              onTap: () {
-                setState(() => storagePage = false);
-                if (drawer) Navigator.pop(context);
-              },
-            ),
-            if (owner) ...[
-              if (widget.onInquiries != null) ...[
-                const SizedBox(height: 5),
-                _NavItem(
-                  icon: Icons.inbox_outlined,
-                  label: 'Anfragen',
-                  onTap: () {
-                    if (drawer) Navigator.pop(context);
-                    widget.onInquiries!();
-                  },
-                ),
-              ],
-              const SizedBox(height: 5),
-              _NavItem(
-                icon: Icons.contacts_outlined,
-                label: 'Kunden',
-                onTap: () {
-                  if (drawer) Navigator.pop(context);
-                  widget.onCustomers();
-                },
-              ),
-              const SizedBox(height: 5),
-              _NavItem(
-                icon: Icons.people_outline_rounded,
-                label: 'Benutzerverwaltung',
-                onTap: () {
-                  if (drawer) Navigator.pop(context);
-                  widget.onUsers();
-                },
-              ),
-              const SizedBox(height: 5),
-              _NavItem(
-                icon: Icons.cloud_outlined,
-                label: 'Ablage',
-                selected: storagePage,
-                onTap: () {
-                  setState(() => storagePage = true);
-                  if (drawer) Navigator.pop(context);
-                },
-              ),
-            ],
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Gute Arbeit beginnt\nmit Überblick.',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -.5,
-                      height: 1.4,
+            const SizedBox(height: 30),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(12, 0, 12, 10),
+                      child: Eyebrow('Arbeitsbereich'),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Smartplan Office',
-                    style: TextStyle(fontSize: 11, color: OfficeColors.muted),
-                  ),
-                ],
-              ),
-            ),
-            const Divider(),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: .8),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    widget.user['email']
-                        .toString()
-                        .substring(0, 1)
-                        .toUpperCase(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: OfficeColors.muted,
+                    _NavItem(
+                      icon: Icons.folder_open_rounded,
+                      label: 'Projekte',
+                      selected: !storagePage,
+                      onTap: () {
+                        setState(() => storagePage = false);
+                        if (drawer) Navigator.pop(context);
+                      },
                     ),
-                  ),
-                ),
-                const SizedBox(width: 9),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        roleLabels[widget.user['role']] ?? widget.user['role'],
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
+                    if (owner) ...[
+                      if (widget.onInquiries != null) ...[
+                        const SizedBox(height: 4),
+                        _NavItem(
+                          icon: Icons.inbox_outlined,
+                          label: 'Anfragen',
+                          onTap: () {
+                            if (drawer) Navigator.pop(context);
+                            widget.onInquiries!();
+                          },
                         ),
+                      ],
+                      const SizedBox(height: 28),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(12, 0, 12, 10),
+                        child: Eyebrow('Organisation'),
                       ),
-                      Text(
-                        widget.user['email'],
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: OfficeColors.muted,
-                        ),
+                      _NavItem(
+                        icon: Icons.contacts_outlined,
+                        label: 'Kunden',
+                        onTap: () {
+                          if (drawer) Navigator.pop(context);
+                          widget.onCustomers();
+                        },
                       ),
-                      const Text(
-                        'Version $smartplanVersion',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: OfficeColors.muted,
-                        ),
+                      const SizedBox(height: 4),
+                      _NavItem(
+                        icon: Icons.people_outline_rounded,
+                        label: 'Benutzerverwaltung',
+                        onTap: () {
+                          if (drawer) Navigator.pop(context);
+                          widget.onUsers();
+                        },
+                      ),
+                      const SizedBox(height: 4),
+                      _NavItem(
+                        icon: Icons.cloud_outlined,
+                        label: 'Ablage',
+                        selected: storagePage,
+                        onTap: () {
+                          setState(() => storagePage = true);
+                          if (drawer) Navigator.pop(context);
+                        },
                       ),
                     ],
-                  ),
+                  ],
                 ),
-              ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 18),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: [
+                  Container(
+                    width: 38,
+                    height: 38,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      widget.user['email'].toString().isEmpty
+                          ? 'S'
+                          : widget.user['email']
+                                .toString()
+                                .substring(0, 1)
+                                .toUpperCase(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: OfficeColors.blue,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          roleLabels[widget.user['role']] ??
+                              widget.user['role'],
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          widget.user['email'],
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: OfficeColors.muted,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 8, top: 14),
+              child: Text(
+                'Version $smartplanVersion',
+                style: TextStyle(fontSize: 11, color: OfficeColors.muted),
+              ),
             ),
           ],
         ),
@@ -613,13 +621,62 @@ class _WorkspaceViewState extends State<WorkspaceView> {
     ),
   );
 
+  Widget mobileNavigation(BuildContext scaffoldContext) {
+    final destinations = <({String label, IconData icon, VoidCallback action})>[
+      (
+        label: 'Projekte',
+        icon: Icons.folder_open_rounded,
+        action: () => setState(() => storagePage = false),
+      ),
+      if (owner && widget.onInquiries != null)
+        (
+          label: 'Anfragen',
+          icon: Icons.inbox_outlined,
+          action: widget.onInquiries!,
+        ),
+      if (owner)
+        (
+          label: 'Kunden',
+          icon: Icons.contacts_outlined,
+          action: widget.onCustomers,
+        ),
+    ];
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: OfficeColors.line)),
+      ),
+      child: NavigationBar(
+        height: 72,
+        selectedIndex: storagePage ? destinations.length : 0,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        onDestinationSelected: (index) {
+          if (index == destinations.length) {
+            Scaffold.of(scaffoldContext).openDrawer();
+          } else {
+            destinations[index].action();
+          }
+        },
+        destinations: [
+          for (final destination in destinations)
+            NavigationDestination(
+              icon: Icon(destination.icon),
+              label: destination.label,
+            ),
+          const NavigationDestination(
+            icon: Icon(Icons.more_horiz_rounded),
+            label: 'Mehr',
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) => CallbackShortcuts(
     bindings: {
-      SingleActivator(LogicalKeyboardKey.keyF, control: true): () {
-        setState(() => storagePage = false);
-        searchFocus.requestFocus();
-      },
+      const SingleActivator(LogicalKeyboardKey.keyF, control: true):
+          focusSearch,
+      const SingleActivator(LogicalKeyboardKey.keyF, meta: true): focusSearch,
     },
     child: Focus(
       autofocus: true,
@@ -629,9 +686,10 @@ class _WorkspaceViewState extends State<WorkspaceView> {
           final content = Column(
             children: [
               Container(
-                height: 78,
-                padding: EdgeInsets.symmetric(horizontal: desktop ? 40 : 16),
+                height: 68,
+                padding: EdgeInsets.symmetric(horizontal: desktop ? 32 : 12),
                 decoration: const BoxDecoration(
+                  color: Colors.white,
                   border: Border(bottom: BorderSide(color: OfficeColors.line)),
                 ),
                 child: Row(
@@ -641,39 +699,29 @@ class _WorkspaceViewState extends State<WorkspaceView> {
                         builder: (context) => IconButton(
                           tooltip: 'Navigation öffnen',
                           onPressed: () => Scaffold.of(context).openDrawer(),
-                          icon: const Icon(Icons.menu_rounded),
+                          icon: const Icon(Icons.menu_rounded, size: 22),
                         ),
                       ),
-                    if (desktop) ...[
-                      const Text(
-                        'Arbeitsbereich',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: OfficeColors.muted,
+                    Expanded(
+                      child: Text(
+                        storagePage
+                            ? 'Ablage'
+                            : desktop
+                            ? 'Projektübersicht'
+                            : 'Smartplan',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
                         ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        child: Icon(
-                          Icons.chevron_right_rounded,
-                          size: 14,
-                          color: OfficeColors.muted,
-                        ),
-                      ),
-                    ],
-                    Text(
-                      storagePage ? 'Ablage' : 'Projekte',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const Spacer(),
                     if (desktop) ...[
                       Text(
                         _today(),
                         style: const TextStyle(
-                          fontSize: 11,
+                          fontSize: 12,
                           color: OfficeColors.muted,
                         ),
                       ),
@@ -682,29 +730,42 @@ class _WorkspaceViewState extends State<WorkspaceView> {
                     IconButton(
                       tooltip: 'Aktualisieren',
                       onPressed: widget.busy ? null : widget.onRefresh,
-                      icon: const Icon(Icons.refresh_rounded, size: 20),
+                      icon: const Icon(Icons.refresh_rounded, size: 21),
                     ),
                     IconButton(
                       tooltip: 'Abmelden',
                       onPressed: widget.busy ? null : widget.onLogout,
-                      icon: const Icon(Icons.logout_rounded, size: 19),
+                      icon: const Icon(Icons.logout_rounded, size: 20),
                     ),
                   ],
                 ),
               ),
               Expanded(
-                child: ListView(
-                  padding: EdgeInsets.all(desktop ? 40 : 20),
-                  children: [
-                    if (widget.busy)
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: LinearProgressIndicator(minHeight: 2),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1160),
+                    child: ListView(
+                      padding: EdgeInsets.fromLTRB(
+                        desktop ? 32 : 20,
+                        28,
+                        desktop ? 32 : 20,
+                        36,
                       ),
-                    if (widget.error != null) Notice(widget.error!),
-                    if (storagePage) storageContent() else projectsContent(),
-                    const SizedBox(height: 30),
-                  ],
+                      children: [
+                        if (widget.busy)
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: LinearProgressIndicator(minHeight: 2),
+                          ),
+                        if (widget.error != null) Notice(widget.error!),
+                        if (storagePage)
+                          storageContent()
+                        else
+                          projectsContent(),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -713,11 +774,16 @@ class _WorkspaceViewState extends State<WorkspaceView> {
             drawer: desktop
                 ? null
                 : Drawer(
-                    width: 260,
+                    width: 276,
                     shape: const RoundedRectangleBorder(),
                     child: navigation(drawer: true),
                   ),
+            onDrawerChanged: (open) => setState(() => drawerOpen = open),
+            bottomNavigationBar: desktop || drawerOpen
+                ? null
+                : Builder(builder: mobileNavigation),
             body: SafeArea(
+              bottom: false,
               child: Row(
                 children: [
                   if (desktop) navigation(),
@@ -731,6 +797,69 @@ class _WorkspaceViewState extends State<WorkspaceView> {
     ),
   );
 
+  Widget projectViewTools() => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Tooltip(
+        message: alphabetical
+            ? 'Ursprüngliche Reihenfolge'
+            : 'Nach Name sortieren',
+        child: TextButton.icon(
+          onPressed: () => setState(() => alphabetical = !alphabetical),
+          icon: const Icon(Icons.sort_by_alpha_rounded, size: 18),
+          label: Text(alphabetical ? 'Name A–Z' : 'Sortieren'),
+          style: TextButton.styleFrom(
+            foregroundColor: alphabetical
+                ? OfficeColors.blue
+                : OfficeColors.muted,
+          ),
+        ),
+      ),
+      const SizedBox(width: 8),
+      DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xffe9edf2),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              tooltip: 'Listenansicht',
+              isSelected: listView,
+              onPressed: () => setState(() => listView = true),
+              icon: const Icon(Icons.view_list_rounded, size: 20),
+              style: IconButton.styleFrom(
+                backgroundColor: listView ? Colors.white : Colors.transparent,
+                foregroundColor: listView
+                    ? OfficeColors.blue
+                    : OfficeColors.muted,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+            IconButton(
+              tooltip: 'Kachelansicht',
+              isSelected: !listView,
+              onPressed: () => setState(() => listView = false),
+              icon: const Icon(Icons.grid_view_rounded, size: 18),
+              style: IconButton.styleFrom(
+                backgroundColor: !listView ? Colors.white : Colors.transparent,
+                foregroundColor: !listView
+                    ? OfficeColors.blue
+                    : OfficeColors.muted,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+
   Widget projectsContent() {
     final query = search.text.toLowerCase().trim();
     final items = widget.projects
@@ -739,199 +868,86 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         )
         .map((p) => Map<String, dynamic>.from(p))
         .toList();
-    if (alphabetical)
+    if (alphabetical) {
       items.sort(
         (a, b) => (a['name'] as String).toLowerCase().compareTo(
           (b['name'] as String).toLowerCase(),
         ),
       );
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PageHeading(
-          eyebrow: 'Smartplan Office',
-          title: 'Alles im Plan.',
-          subtitle: 'Ihre Projekte, Dokumente und Freigaben an einem Ort.',
+          title: 'Projekte',
+          subtitle: owner
+              ? 'Pläne, Aufgaben und Unterlagen im Blick.'
+              : 'Ihre freigegebenen Projektmappen.',
           action: owner
               ? FilledButton.icon(
                   onPressed: widget.busy ? null : widget.onNewProject,
-                  icon: const Icon(Icons.add_rounded, size: 18),
+                  icon: const Icon(Icons.add_rounded, size: 19),
                   label: const Text('Projekt anlegen'),
                 )
               : null,
         ),
-        const SizedBox(height: 32),
-        OfficeSurface(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-          child: LayoutBuilder(
-            builder: (context, box) => Wrap(
-              spacing: 36,
-              runSpacing: 20,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      '${widget.projects.length}'.padLeft(2, '0'),
-                      style: const TextStyle(
-                        fontSize: 34,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: -1.5,
-                      ),
-                    ),
-                    const SizedBox(width: 14),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Projekte',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          owner
-                              ? 'In Ihrem Arbeitsbereich'
-                              : 'Für Sie freigegeben',
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: OfficeColors.muted,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                if (box.maxWidth > 500)
-                  Container(width: 1, height: 34, color: OfficeColors.line),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Eyebrow('Ihr Zugang'),
-                    const SizedBox(height: 5),
-                    Text(
-                      roleLabels[widget.user['role']] ?? widget.user['role'],
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 34),
+        const SizedBox(height: 26),
         LayoutBuilder(
           builder: (context, box) {
-            final tools = Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  tooltip: alphabetical
-                      ? 'Ursprüngliche Reihenfolge'
-                      : 'Nach Name sortieren',
-                  onPressed: () => setState(() => alphabetical = !alphabetical),
-                  icon: Icon(
-                    Icons.sort_by_alpha_rounded,
-                    size: 18,
-                    color: alphabetical
-                        ? OfficeColors.blue
-                        : OfficeColors.muted,
-                  ),
-                ),
-                const SizedBox(width: 6),
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: const Color(0xffe9e9ee),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        tooltip: 'Kachelansicht',
-                        isSelected: !listView,
-                        onPressed: () => setState(() => listView = false),
-                        icon: const Icon(Icons.grid_view_rounded, size: 17),
-                        style: IconButton.styleFrom(
-                          backgroundColor: !listView
-                              ? Colors.white
-                              : Colors.transparent,
-                          foregroundColor: !listView
-                              ? OfficeColors.ink
-                              : OfficeColors.muted,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        tooltip: 'Listenansicht',
-                        isSelected: listView,
-                        onPressed: () => setState(() => listView = true),
-                        icon: const Icon(Icons.view_list_rounded, size: 19),
-                        style: IconButton.styleFrom(
-                          backgroundColor: listView
-                              ? Colors.white
-                              : Colors.transparent,
-                          foregroundColor: listView
-                              ? OfficeColors.ink
-                              : OfficeColors.muted,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            );
+            final wide = box.maxWidth >= 720;
             final searchBox = TextField(
               controller: search,
               focusNode: searchFocus,
               onChanged: (_) => setState(() {}),
+              textInputAction: TextInputAction.search,
               decoration: InputDecoration(
-                hintText: 'Projekte suchen',
-                prefixIcon: const Icon(Icons.search_rounded, size: 20),
+                hintText: 'Projekt oder Kunde suchen',
+                fillColor: Colors.white,
+                prefixIcon: const Icon(Icons.search_rounded, size: 21),
                 suffixIcon: query.isEmpty
                     ? null
                     : IconButton(
                         tooltip: 'Suche zurücksetzen',
                         onPressed: () => setState(search.clear),
-                        icon: const Icon(Icons.close_rounded, size: 17),
+                        icon: const Icon(Icons.close_rounded, size: 18),
                       ),
               ),
+            );
+            final count = Text(
+              query.isNotEmpty
+                  ? '${items.length} Treffer'
+                  : '${items.length} ${items.length == 1 ? 'Projekt' : 'Projekte'}',
+              style: const TextStyle(fontSize: 13, color: OfficeColors.muted),
             );
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      'Projekte',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(width: 10),
-                    StatusPill('${items.length}'),
-                    const Spacer(),
-                    tools,
-                  ],
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: box.maxWidth > 620 ? 340 : double.infinity,
-                  child: searchBox,
-                ),
+                if (wide)
+                  Row(
+                    children: [
+                      Expanded(child: searchBox),
+                      const SizedBox(width: 16),
+                      projectViewTools(),
+                    ],
+                  )
+                else
+                  searchBox,
+                const SizedBox(height: 12),
+                if (wide)
+                  count
+                else
+                  Wrap(
+                    alignment: WrapAlignment.spaceBetween,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 16,
+                    runSpacing: 4,
+                    children: [count, projectViewTools()],
+                  ),
               ],
             );
           },
         ),
-        const SizedBox(height: 22),
+        const SizedBox(height: 18),
         if (items.isEmpty)
           OfficeSurface(
             child: EmptyState(
@@ -940,7 +956,7 @@ class _WorkspaceViewState extends State<WorkspaceView> {
                   : 'Kein passendes Projekt.',
               description: query.isEmpty
                   ? owner
-                        ? 'Legen Sie Ihr erstes Projekt an.\nBerichte und Dokumente finden hier ihren Platz.'
+                        ? 'Legen Sie ein Projekt an, um Unterlagen und Arbeitsschritte zu sammeln.'
                         : 'Zugewiesene Projekte erscheinen hier.'
                   : 'Versuchen Sie einen anderen Namen oder Kunden.',
             ),
@@ -950,6 +966,7 @@ class _WorkspaceViewState extends State<WorkspaceView> {
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: _ProjectCard(
+                key: ValueKey('project-card-${item['id']}'),
                 project: item,
                 compact: true,
                 enabled: !widget.busy,
@@ -959,20 +976,21 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         if (!listView && items.isNotEmpty)
           LayoutBuilder(
             builder: (context, box) {
-              final columns = box.maxWidth >= 1100
+              final columns = box.maxWidth >= 1050
                   ? 3
-                  : box.maxWidth >= 600
+                  : box.maxWidth >= 650
                   ? 2
                   : 1;
-              final width = (box.maxWidth - (columns - 1) * 18) / columns;
+              final width = (box.maxWidth - (columns - 1) * 16) / columns;
               return Wrap(
-                spacing: 18,
-                runSpacing: 18,
+                spacing: 16,
+                runSpacing: 16,
                 children: [
                   for (final item in items)
                     SizedBox(
                       width: width,
                       child: _ProjectCard(
+                        key: ValueKey('project-card-${item['id']}'),
                         project: item,
                         enabled: !widget.busy,
                         onTap: () => widget.onProject(item),
@@ -1209,33 +1227,37 @@ class _NavItem extends StatelessWidget {
     required this.onTap,
   });
   @override
-  Widget build(BuildContext context) => Material(
-    color: selected ? Colors.white.withValues(alpha: .9) : Colors.transparent,
-    borderRadius: BorderRadius.circular(10),
-    child: InkWell(
-      borderRadius: BorderRadius.circular(10),
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 13),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 18,
-              color: selected ? OfficeColors.blue : OfficeColors.muted,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                  color: selected ? OfficeColors.ink : OfficeColors.muted,
+  Widget build(BuildContext context) => Semantics(
+    button: true,
+    selected: selected,
+    child: Material(
+      color: selected ? OfficeColors.blueTint : Colors.transparent,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                size: 21,
+                color: selected ? OfficeColors.blue : OfficeColors.muted,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                    color: selected ? OfficeColors.blue : OfficeColors.ink,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ),
@@ -1247,105 +1269,134 @@ class _ProjectCard extends StatelessWidget {
   final bool compact, enabled;
   final VoidCallback onTap;
   const _ProjectCard({
+    super.key,
     required this.project,
     required this.onTap,
     this.compact = false,
     this.enabled = true,
   });
   @override
-  Widget build(BuildContext context) => Material(
-    color: Colors.white,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(18),
-      side: const BorderSide(color: OfficeColors.line),
-    ),
-    clipBehavior: Clip.antiAlias,
-    child: InkWell(
-      onTap: enabled ? onTap : null,
-      hoverColor: OfficeColors.blueTint.withValues(alpha: .45),
-      child: Padding(
-        padding: EdgeInsets.all(compact ? 20 : 24),
-        child: compact
-            ? Row(
-                children: [
-                  const IconTile(Icons.folder_outlined),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          project['name'],
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          project['customer'],
-                          style: const TextStyle(
-                            color: OfficeColors.muted,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(
-                    Icons.chevron_right_rounded,
-                    color: OfficeColors.muted,
-                    size: 20,
-                  ),
-                ],
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Row(
-                    children: [
-                      IconTile(Icons.folder_outlined),
-                      Spacer(),
-                      Icon(
-                        Icons.north_east_rounded,
-                        color: OfficeColors.muted,
-                        size: 18,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 28),
-                  Text(
-                    project['name'],
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: -.5,
-                      height: 1.35,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    project['customer'],
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: OfficeColors.muted,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  const Divider(),
-                  const SizedBox(height: 15),
-                  const Text(
-                    'Projekt öffnen',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      color: OfficeColors.muted,
-                    ),
-                  ),
-                ],
-              ),
+  Widget build(BuildContext context) {
+    final name = project['name']?.toString() ?? '';
+    final customer = project['customer']?.toString() ?? '';
+    final title = Text(
+      name,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: compact ? 16 : 19,
+        height: 1.35,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -.3,
       ),
-    ),
-  );
+    );
+    final subtitle = Text(
+      customer.isEmpty ? 'Kunde nicht hinterlegt' : customer,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: const TextStyle(
+        color: OfficeColors.muted,
+        fontSize: 13,
+        height: 1.45,
+      ),
+    );
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      child: Material(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: OfficeColors.line),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: enabled ? onTap : null,
+          hoverColor: OfficeColors.blueTint.withValues(alpha: .6),
+          child: LayoutBuilder(
+            builder: (context, box) => ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 104),
+              child: Padding(
+                padding: EdgeInsets.all(compact ? 20 : 24),
+                child: compact
+                    ? Row(
+                        children: [
+                          const IconTile(Icons.folder_open_rounded),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                title,
+                                const SizedBox(height: 5),
+                                subtitle,
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          if (box.maxWidth >= 520) ...[
+                            const Text(
+                              'Öffnen',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: OfficeColors.blue,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                          ],
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: OfficeColors.blueTint,
+                              borderRadius: BorderRadius.circular(9),
+                            ),
+                            child: const Icon(
+                              Icons.chevron_right_rounded,
+                              color: OfficeColors.blue,
+                              size: 21,
+                            ),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const IconTile(Icons.folder_open_rounded),
+                          const SizedBox(height: 22),
+                          title,
+                          const SizedBox(height: 6),
+                          subtitle,
+                          const SizedBox(height: 24),
+                          const Divider(),
+                          const SizedBox(height: 16),
+                          const Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'Projektmappe öffnen',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: OfficeColors.blue,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_rounded,
+                                color: OfficeColors.blue,
+                                size: 18,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

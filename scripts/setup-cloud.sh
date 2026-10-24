@@ -33,4 +33,9 @@ fi
 cd app
 "$smartplan_flutter/bin/flutter" pub get --enforce-lockfile
 "$smartplan_flutter/bin/flutter" analyze
+if ! command -v clang >/dev/null 2>&1; then
+  echo 'Clang fehlt: native PDF-FFI-Tests und die Flutter-Gesamtsuite wurden nicht ausgefuehrt. Compiler regulaer bereitstellen; Pflichtpruefung laeuft zusaetzlich in CI.' >&2
+  exit 2
+fi
+clang --version
 "$smartplan_flutter/bin/flutter" test --reporter expanded

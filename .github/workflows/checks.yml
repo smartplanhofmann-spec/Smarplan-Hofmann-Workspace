@@ -116,13 +116,34 @@ jobs:
           python ../scripts/native-release.py source
           python -m unittest discover -s ../scripts -p test_native_release.py -v
       - run: flutter analyze
+      - name: Require bounded rendering with the real native PDF engine
+        shell: bash
+        run: |
+          umask 0077
+          clang --version
+          smartplan_pdf_log="$RUNNER_TEMP/smartplan-native-pdf.log"
+          set +e
+          flutter test --no-pub test/mail_attachment_preview_widget_test.dart --tags native_pdf --reporter expanded 2>&1 | tee "$smartplan_pdf_log"
+          smartplan_pdf_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_pdf_exit" -ne 0 ]; then
+            python - "$smartplan_pdf_log" <<'PY'
+          import pathlib, sys
+          detail = '\n'.join(pathlib.Path(sys.argv[1]).read_text(errors='replace').splitlines()[-100:])[-25000:]
+          print('::error title=Native PDF smoke::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+          PY
+          fi
+          exit "$smartplan_pdf_exit"
       - name: Test app and retain bounded failure diagnostics
         shell: bash
+        env:
+          SMARTPLAN_CAPTURE_UI: '1'
+          SMARTPLAN_UI_OUTPUT: ${{ runner.temp }}/smartplan-ui-previews
         run: |
           umask 0077
           smartplan_test_log="$RUNNER_TEMP/smartplan-flutter-tests.log"
           set +e
-          flutter test --reporter expanded 2>&1 | tee "$smartplan_test_log"
+          flutter test --exclude-tags native_pdf --reporter expanded 2>&1 | tee "$smartplan_test_log"
           smartplan_test_exit=${PIPESTATUS[0]}
           set -e
           if [ "$smartplan_test_exit" -ne 0 ]; then
@@ -134,6 +155,14 @@ jobs:
           PY
           fi
           exit "$smartplan_test_exit"
+      - name: Upload real widget previews
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-UI-Previews
+          path: ${{ runner.temp }}/smartplan-ui-previews/
+          if-no-files-found: error
+          retention-days: 14
   native-build:
     strategy:
       fail-fast: false
@@ -182,13 +211,31 @@ jobs:
           flutter-version: '3.47.7'
           channel: stable
       - run: flutter pub get --enforce-lockfile
+      - name: Require bounded rendering with the real Windows PDF engine
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          umask 0077
+          smartplan_pdf_log="$RUNNER_TEMP/smartplan-native-pdf.log"
+          set +e
+          flutter test --no-pub test/mail_attachment_preview_widget_test.dart --tags native_pdf --reporter expanded 2>&1 | tee "$smartplan_pdf_log"
+          smartplan_pdf_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_pdf_exit" -ne 0 ]; then
+            python - "$smartplan_pdf_log" <<'PY'
+          import pathlib, sys
+          detail = '\n'.join(pathlib.Path(sys.argv[1]).read_text(errors='replace').splitlines()[-100:])[-25000:]
+          print('::error title=Windows native PDF smoke::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+          PY
+          fi
+          exit "$smartplan_pdf_exit"
       - name: Test Windows client against real backend
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           $smartplanTestLog = Join-Path $env:RUNNER_TEMP 'smartplan-windows-tests.log'
           $PSNativeCommandUseErrorActionPreference = $false
-          & flutter test --reporter expanded 2>&1 | Tee-Object -FilePath $smartplanTestLog
+          & flutter test --exclude-tags native_pdf --reporter expanded 2>&1 | Tee-Object -FilePath $smartplanTestLog
           $smartplanTestExit = $LASTEXITCODE
           if ($smartplanTestExit -ne 0) {
             $smartplanTestTail = (Get-Content -LiteralPath $smartplanTestLog -Tail 120) -join "`n"
@@ -253,7 +300,7 @@ jobs:
           $smartplanBundle = (Resolve-Path 'build/windows/x64/runner/Release').Path
           $smartplanBundleFiles = (Get-ChildItem $smartplanBundle -Name) -join ', '
           Write-Host "::notice title=Windows bundle files::$smartplanBundleFiles"
-          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll', 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll', 'url_launcher_windows_plugin.dll', 'share_plus_plugin.dll')) {
+          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'pdfium.dll', 'pdfrx_pdfium_gate.dll', 'file_selector_windows_plugin.dll', 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll', 'url_launcher_windows_plugin.dll', 'share_plus_plugin.dll')) {
             if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
               throw "Required application file is missing: $smartplanFile"
             }
@@ -281,7 +328,7 @@ jobs:
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.10.0 - lokales Windows-Pruefpaket (x64)
+          Smartplan Office 0.10.1 - lokales Windows-Pruefpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -356,7 +403,7 @@ jobs:
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
           $smartplanInstructions = @'
-          Smartplan Office 0.10.0 - Online-Pruefpaket fuer Windows (x64)
+          Smartplan Office 0.10.1 - Online-Pruefpaket fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
@@ -364,10 +411,11 @@ jobs:
           Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
           und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
           Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
-          0.10.0-Entwicklungsumfang: Anfrageanhaenge geschuetzt uebernehmen und geeignete Unterlagen ausdruecklich an die Planverarbeitung weitergeben.
+          0.10.1-Clientpatch: geeignete Anfrageanhaenge direkt in der App ansehen; Export und Planuebernahme bleiben getrennte Aktionen.
           Die vollstaendige Abnahme dieses zusammenhaengenden Arbeitsablaufs steht aus.
-          Servervoraussetzung: freigegebenes Backendupdate mit PostgreSQL-Schema 5, Import-API und den Faehigkeiten
+          Servervoraussetzung bleibt Backend 0.10 mit PostgreSQL-Schema 5, Import-API und den Faehigkeiten
           project_workspace, inquiry_intake, gmail_intake, offline_workspace, plan_deletion und mail_attachments.
+          Dieser Clientpatch benoetigt kein weiteres Update eines bereits eingerichteten 0.10-Servers.
           Die Erkennung benoetigt einen separat eingerichteten Importworker; dieses Paket aktiviert keinen Serverdienst automatisch.
           Dieses Pruefpaket aktualisiert den Hetzner-Server oder seine Datenbank nicht automatisch.
           Projektplaene vor der Fahrt oeffnen; neue Plaene und Planquellen werden zuerst lokal verschluesselt gespeichert.

@@ -1,0 +1,9 @@
+{
+  "source_account": "synthetic-office@example.test",
+  "source_id": "synthetic-gmail-message-20261024-001",
+  "subject": "Synthetische Anfrage: Aufmaß im Musterhaus",
+  "message": "Dies ist ausschließlich ein erfundenes Beispiel. Bitte Rückruf für ein Aufmaß im Musterhaus. Es wurde noch kein Auftrag erteilt.",
+  "sender_name": "Synthetische Familie Beispiel",
+  "sender_email": "synthetic-customer@example.test",
+  "received_at": "2026-10-24T10:30:00+02:00"
+}

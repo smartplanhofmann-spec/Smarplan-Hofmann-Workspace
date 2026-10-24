@@ -1,0 +1,52 @@
+name: Mail bot connection
+on:
+  push:
+    paths:
+      - 'integrations/mail_bot/**'
+      - 'scripts/test_mail_bot.py'
+      - 'backend/inbound_connectors.py'
+      - 'backend/inquiries.py'
+      - 'backend/workspace_api.py'
+      - 'backend/online/web.py'
+      - '.github/workflows/mail-bot.yml'
+  pull_request:
+    paths:
+      - 'integrations/mail_bot/**'
+      - 'scripts/test_mail_bot.py'
+      - 'backend/inbound_connectors.py'
+      - 'backend/inquiries.py'
+      - 'backend/workspace_api.py'
+      - 'backend/online/web.py'
+      - '.github/workflows/mail-bot.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contracts:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backend/requirements.lock -r backend/online/requirements.lock
+      - run: python -m pip check
+      - name: Require real inquiry intake, retry, key scope and transport contracts
+        run: python -m unittest discover -s scripts -p test_mail_bot.py -v
+      - name: Package only reviewed bot files and synthetic example
+        if: runner.os == 'Linux'
+        run: python integrations/mail_bot/package.py --output "${{ runner.temp }}/Smartplan-Mailbot-Anschluss.zip"
+      - uses: actions/upload-artifact@v4
+        if: runner.os == 'Linux'
+        with:
+          name: Smartplan-Mailbot-Anschluss
+          path: ${{ runner.temp }}/Smartplan-Mailbot-Anschluss.zip
+          if-no-files-found: error
+          retention-days: 14

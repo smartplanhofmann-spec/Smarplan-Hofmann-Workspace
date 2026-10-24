@@ -8,6 +8,14 @@ Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.
   Gmail-Eingang nutzt eine gesondert einzurichtende, begrenzte Übergabe; eine
   WhatsApp-Business-Platform-Verbindung und Zugriff auf bestehende Chats sind
   damit nicht bereits eingerichtet.
+- **Letzte Entscheidung zum Maileingang:** Der vorhandene Bot soll seine
+  bestehende Mailanbindung verwenden und Anfragen selbstständig in Smartplan
+  einliefern. Der manuelle Apps-Script-Aufbau wurde als zu kompliziert verworfen.
+  Das vorbereitete Paket unter integrations/mail_bot nutzt den installierten
+  0.9-Eingang und benötigt kein weiteres Serverupdate. Anbieter/Produkt ist
+  weiterhin nicht eindeutig identifiziert; seine HTTP-/Werkzeugfähigkeit und
+  erste echte Übernahme dürfen erst nach Beleg als funktionierend gelten.
+  Eine beiläufige Nennung von Salesforce ist keine beauftragte CRM-Umstellung.
 - **sevdesk bleibt** das bestehende System für Angebote und Rechnungen. Die App
   ordnet Vorgänge und Links dem Projekt zu; eine Ablösung ist nicht beauftragt.
 - Google Kalender ist der gewünschte Kalender. Kalenderdatei und ausdrücklich
@@ -38,17 +46,20 @@ Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.
 
 ## Bestätigter Betrieb und vorbereitetes Paket
 
-Auf Hetzner läuft bestätigt **0.8 / Commit `c58b609` / PostgreSQL-Schema 3**.
+Auf Hetzner läuft inzwischen bestätigt **0.9 / Commit `822fe58` / PostgreSQL-Schema 4**.
+Die abschließende HTTPS-Prüfung zeigte Version 0.9.0-online-pilot, Datenbank
+und Status ok; alle drei Dienste waren active. Die manuelle Anfrageerfassung
+in der aktualisierten Windows-App funktioniert laut Nutzer.
 Die synthetische Abnahme des geschützten Importdienstes unter der tatsächlichen
 systemd-Unit auf Ubuntu 24.04 ARM64 ist bestanden. API, HTTPS und Importdienst
 (`smartplan-online`, `smartplan-https`, `smartplan-plan-import`) wurden vom Nutzer
 gemeinsam als `active` bestätigt; der Importdienst ist aktiviert.
 
-**0.9 / Schema 4 ist vorbereitet und noch nicht auf dem Nutzer-Server bereitgestellt.**
+**0.9 / Schema 4 wurde auf dem Nutzer-Server aktiviert.**
 Das größere Paket verbindet Anfrageeingang, Projektmappe, Aufgaben, Termine,
 Bautagebuch, Dokumentverweise und vorbereitete Offline-Projektarbeit. Die
-Planansicht wird ruhiger, drehbar und löschbar; daraus wird noch keine vollständige
-bearbeitbare CAD-Zeichnung. Für das nächste gebündelte Serverupdate gilt
+Planansicht ist ruhiger, drehbar und löschbar; daraus wird noch keine vollständige
+bearbeitbare CAD-Zeichnung. Der verwendete gebündelte Serverablauf steht unter
 [UPDATE_0_9.md](deploy/hetzner/online/UPDATE_0_9.md). Bestehende App-Daten und
 ausstehende Offline-Eingaben dürfen dafür nicht durch Neuinstallation oder
 manuelles Löschen beseitigt werden.

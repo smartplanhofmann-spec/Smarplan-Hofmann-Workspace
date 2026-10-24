@@ -1,0 +1,282 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Smartplan Mailbot: Anfrage übernehmen",
+    "version": "0.9.0",
+    "description": "Begrenzter bestehender Gmail-Empfänger. Ein Mailbot kann eine Nachricht als neue Anfrage speichern. Er kann damit keine vorhandene Anfrage bearbeiten, Kunden oder Projekte anlegen, Finanzdaten ändern oder andere Smartplan-Daten lesen. Wiederholungen verwenden dieselbe unveränderte Nachricht und dieselbe stabile source_id."
+  },
+  "servers": [
+    {
+      "url": "https://office.smartplan-hofmann.de"
+    }
+  ],
+  "security": [
+    {
+      "SmartplanImportToken": []
+    }
+  ],
+  "paths": {
+    "/api/v1/intake/gmail": {
+      "post": {
+        "operationId": "createSmartplanInquiry",
+        "summary": "Eine Gmail-Nachricht als Anfrage speichern",
+        "description": "Benötigt einen aktiven SPIN-Importtoken für genau das angegebene Postfach. Die Nachricht wird mit Status new ohne automatische Kunden- oder Projektzuordnung gespeichert. Für dieselbe Kombination aus Gmail-Postfach und source_id wird bei unverändertem Inhalt dieselbe Anfrage-ID bestätigt, auch nach einem verlorenen HTTP-Ergebnis. Abweichender Inhalt unter derselben source_id führt zu 409. Keine wechselnden Zeitstempel in Wiederholungen erzeugen; received_at entweder immer weglassen oder unverändert senden. Nur die sieben beschriebenen Felder sind erlaubt, keine Anhänge, request_id, Status- oder Zuordnungsfelder. Der Empfänger verarbeitet keine Anhänge und ruft keine Links aus der Nachricht ab.",
+        "requestBody": {
+          "required": true,
+          "description": "JSON-Objekt. Die serverseitige JSON-Serialisierung mit UTF-8 und nicht ASCII-maskierten Zeichen darf höchstens 200000 Bytes belegen; das rohe HTTP-Anfragelimit beträgt zusätzlich 1000000 Bytes. Feldlängen zählen Unicode-Zeichen.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InquiryMessage"
+              },
+              "example": {
+                "source_account": "synthetic-office@example.test",
+                "source_id": "synthetic-gmail-message-20261024-001",
+                "subject": "Synthetische Anfrage: Aufmaß im Musterhaus",
+                "message": "Dies ist ausschließlich ein erfundenes Beispiel. Bitte Rückruf für ein Aufmaß im Musterhaus. Es wurde noch kein Auftrag erteilt.",
+                "sender_name": "Synthetische Familie Beispiel",
+                "sender_email": "synthetic-customer@example.test",
+                "received_at": "2026-10-24T10:30:00+02:00"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Nachricht gespeichert oder identische Wiederholung bestätigt. received bestätigt ausschließlich die Übernahme der Anfrage. ingested_at bezeichnet die Zeit dieser Bestätigung und kann sich bei Wiederholungen ändern.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InquiryReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidRequest"
+          },
+          "401": {
+            "description": "Bearer-Importtoken fehlt, ist ungültig, abgelaufen oder widerrufen; auch ein deaktivierter oder nicht mehr als owner berechtigter Tokenbesitzer wird abgewiesen. Normale Smartplan-Anmeldetokens ersetzen keinen SPIN-Importtoken.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Der Importtoken gehört zu einem anderen Gmail-Postfach.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Nachrichtenidentität wurde bereits mit anderem Inhalt verwendet. Nicht mit erfundener neuer source_id umgehen; den Konflikt zur Prüfung melden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Die Nachricht überschreitet das JSON-Envelope-Limit von 200000 Bytes oder das HTTP-Anfragelimit von 1000000 Bytes. Einzelne ungültige Feldlängen werden mit 400 abgewiesen.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "JSON als Anfrageinhalt erwartet; Content-Type application/json verwenden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Importlimit erreicht: höchstens 60 erfolgreiche Übernahmen pro Minute und Importtoken, einschließlich bestätigter Wiederholungen. Nach Retry-After mit derselben unveränderten Nachricht wiederholen.",
+            "headers": {
+              "Retry-After": {
+                "description": "Wartezeit in Sekunden; die aktuelle Anwendung sendet 300.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^[0-9]+$",
+                  "example": "300"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Interner Fehler oder Dienst vorübergehend nicht erreichbar. Mit begrenztem Backoff dieselbe unveränderte Nachricht wiederholen. Die Anwendung liefert ein JSON-Fehlerobjekt; ein vorgeschalteter Proxy kann bei Ausfällen einen anderen Inhalt liefern.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "SmartplanImportToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "SPIN_<43 URL-safe characters>",
+        "description": "Authorization: Bearer SPIN_… . Der Token folgt dem Muster ^SPIN_[A-Za-z0-9_-]{43}$ und ist an ein Gmail-Postfach gebunden. Im geschützten Zugangsspeicher des Mailbots hinterlegen; niemals in Nachrichten, Beispielen oder URL-Parametern mitsenden."
+      }
+    },
+    "schemas": {
+      "InquiryMessage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_account",
+          "source_id",
+          "subject",
+          "message"
+        ],
+        "properties": {
+          "source_account": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 254,
+            "pattern": "^\\s*[^\\s<>@]+@[^\\s<>@]+\\.[^\\s<>@]+\\s*$",
+            "not": {
+              "pattern": "[\\u0000-\\u001f]"
+            },
+            "description": "Gmail-Postfach des Importtokens, keine frei gewählte Absenderadresse. Der Server entfernt äußeren Leerraum und wandelt die Adresse in Kleinbuchstaben um. ASCII-Steuerzeichen sind unzulässig."
+          },
+          "source_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9_-]{1,128}$",
+            "description": "Stabile Gmail-Nachrichten-ID, bei Wiederholungen unverändert. Keine Thread-ID, zufällige Lauf-ID oder Message-ID mit spitzen Klammern verwenden."
+          },
+          "subject": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "pattern": "\\S",
+            "not": {
+              "pattern": "[\\u0000-\\u001f]"
+            },
+            "description": "Betreff mit mindestens einem Nicht-Leerraumzeichen; keine ASCII-Steuerzeichen. Äußerer Leerraum wird entfernt."
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40000,
+            "pattern": "\\S",
+            "not": {
+              "pattern": "[\\u0000-\\u0008\\u000b\\u000c\\u000e-\\u001f]"
+            },
+            "description": "Nachrichtentext mit mindestens einem Nicht-Leerraumzeichen. Zeilenumbrüche und Tabulatoren sind erlaubt; andere ASCII-Steuerzeichen nicht. CRLF und CR werden zu LF normalisiert, äußerer Leerraum wird entfernt. Keine Anhänge oder Zugangsdaten einbetten."
+          },
+          "sender_name": {
+            "type": "string",
+            "maxLength": 200,
+            "default": "",
+            "not": {
+              "pattern": "[\\u0000-\\u001f]"
+            },
+            "description": "Optionaler Absendername. Leerstring ist erlaubt; null und ASCII-Steuerzeichen sind unzulässig."
+          },
+          "sender_email": {
+            "type": "string",
+            "maxLength": 254,
+            "default": "",
+            "pattern": "^\\s*(?:[^\\s@]+@[^\\s@]+\\.[^\\s@]+)?\\s*$",
+            "not": {
+              "pattern": "[\\u0000-\\u001f]"
+            },
+            "description": "Optionale Absenderadresse oder Leerstring, keine Anzeigenamen-Syntax. Äußerer Leerraum wird entfernt; null und ASCII-Steuerzeichen sind unzulässig."
+          },
+          "received_at": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Optionaler ursprünglicher Eingangszeitpunkt mit expliziter Zeitzone. Empfohlen: RFC3339 mit Z oder ±HH:MM, zum Beispiel 2026-10-24T10:30:00+02:00. Der bestehende Server akzeptiert einen mit Python datetime.fromisoformat(value.replace('Z', '+00:00')) parsebaren Zeitpunkt mit tzinfo und normalisiert ihn auf UTC-Sekunden. Kalenderdatum und Zeitzone werden serverseitig geprüft; zeitzonenlose Werte, Leerstring und null sind ungültig. Ohne dieses Feld wird die Server-Eingangszeit verwendet. Bei Wiederholungen unverändert senden oder immer weglassen.",
+            "examples": [
+              "2026-10-24T10:30:00+02:00",
+              "2026-10-24T08:30:00Z"
+            ]
+          }
+        }
+      },
+      "InquiryReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "ingested_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 32,
+            "maxLength": 32,
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "status": {
+            "type": "string",
+            "const": "received"
+          },
+          "ingested_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC-Zeitpunkt der HTTP-Übernahmebestätigung mit Zeitzone."
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "InvalidRequest": {
+        "description": "Ungültiges JSON-Objekt, fehlendes oder zusätzliches Feld, ungültige Feldlänge, leere Pflichtangabe, unzulässiges Steuerzeichen oder Eingangszeitpunkt ohne gültiges Datum und Zeitzone.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}

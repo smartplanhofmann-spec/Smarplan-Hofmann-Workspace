@@ -49,23 +49,27 @@ Wiederbelebung. Linien und Drucktext sind Prüfvorschläge; automatisch bearbeit
 Wand-/Raumpläne, Handschriftsemantik, Perspektivkorrektur, Maßstab und DXF/DWG sind
 weiterhin eigene Entwicklungsaufgaben.
 
-**Gmail-Vorbereitung:** Labelbegrenzte lesende Apps-Script-Brücke mit widerrufbarem,
-engem Einlieferungsschlüssel. Einrichtung und belegter Empfang sind getrennt.
-[Google/Gmail einrichten](integrations/google_apps_script/SETUP.md): echte
-Google-Autorisierung, Trigger und erste Übernahme gesondert abnehmen. WhatsApp-
-API/Nummern-Coexistence sind nicht bereits eingerichtet.
+**Mailbot-Anschluss:** Nach der letzten Nutzerentscheidung verarbeitet der
+vorhandene Bot die Mails und liefert die Anfragen direkt an Smartplan.
+[Anschlusspaket und Bot-Auftrag](integrations/mail_bot/README.md) verwenden den
+bereits vorhandenen Eingang mit eng begrenztem, widerrufbarem Schlüssel. Eine
+Werkzeugbeschreibung und ein optionaler Python-Helfer sind enthalten; die
+tatsächliche HTTP-/Werkzeugfähigkeit des konkreten Bots und seine erste
+Liveübernahme bleiben zu bestätigen. Apps Script ist eine frühere Alternative,
+deren manuelle Einrichtung der Nutzer als zu aufwendig verworfen hat.
+WhatsApp-API/Nummern-Coexistence sind nicht bereits eingerichtet.
 
 ## Tatsächlicher Nutzer-Server
 
-Am **24. Oktober 2026** bestätigte Thomas **0.8.0 / Schema 3**, Commit
-`c58b6094f4278318bdec82322dd6e9a3fc389561`, auf Hetzner. Die synthetische ARM64-
-Abnahme für lokale deutsche/englische OCR, Isolation, Stopp/Wiederaufnahme und
-Bereinigung war erfolgreich. API, HTTPS und Importdienst meldeten `active`;
-Foto-/PDF-Import in der Windows-App ist bestätigt.
-
-**0.9.0 / Schema 4 ist der neue Entwicklungsstand, noch nicht auf dieser VM
-installiert.** Der [gebündelte Updateablauf](deploy/hetzner/online/UPDATE_0_9.md)
-verwendet den vorhandenen Datenbankkopie-/Wartungsablauf.
+Am **24. Oktober 2026** bestätigte Thomas das Update auf **0.9.0 / Schema 4**,
+Commit `822fe58be148f5df52ab14d6ff8a9267c696932e`, auf Hetzner. Die Abschlussprüfung
+meldete Datenbank und Status `ok` sowie alle drei API-/HTTPS-/Importdienste
+`active`. Manuelle Anfrageerfassung in der neuen Windows-App ist bestätigt.
+Die synthetische ARM64-Dienstabnahme und der Foto-/PDF-Import wurden bereits mit
+0.8 erfolgreich geprüft. Weitere reale Workflow- und Geräteprüfungen bleiben offen.
+Der [gebündelte Updateablauf](deploy/hetzner/online/UPDATE_0_9.md) verwendet den
+vorhandenen Datenbankkopie-/Wartungsablauf. Das Mailbot-Anschlusspaket benötigt
+keine weitere Server- oder Appinstallation.
 
 Windows-Pakete sind **unsignierte interne Prüfpakete**. Authenticode-/Installer-/
 SmartScreen-Abnahme bleiben offen. Neue Apple-/Provider-Abos oder kostenpflichtige

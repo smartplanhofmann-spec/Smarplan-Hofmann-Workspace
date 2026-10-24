@@ -8,7 +8,7 @@ Ob die konkrete Botplattform diese Lese- und HTTPS-Funktionen freigibt, muss der
 Bot tatsächlich prüfen. Das Paket behauptet keine bestehende Verbindung.
 
 1. In Smartplan unter **Integrationen → Vorhandenen Bot weiterverwenden →
-   Integrationszugang bereitstellen** den neuen Integrationsschlüssel erstellen.
+   Bot verbinden** den neuen Integrationsschlüssel erstellen.
    Smartplan benötigt mindestens Server 0.11, Schema 6 und die Fähigkeit
    `business_integrations`.
 2. Den Schlüssel ausschließlich im geschützten Credentialfeld des Bots als

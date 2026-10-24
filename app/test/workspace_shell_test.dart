@@ -71,6 +71,7 @@ void main() {
       RepaintBoundary(
         key: boundaryKey,
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: officeTheme(),
           home: WorkspaceView(
             user: {

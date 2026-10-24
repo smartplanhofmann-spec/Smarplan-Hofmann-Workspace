@@ -5,6 +5,10 @@ umask 0077
 # Use the existing isolated checkout. Do not create a Git worktree.
 smartplan_repo="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 smartplan_flutter="${SMARTPLAN_FLUTTER_ROOT:-/workspace/toolchains/flutter}"
+smartplan_clang="${SMARTPLAN_CLANG_ROOT:-/workspace/toolchains/clang-19}"
+if [ -x "$smartplan_clang/bin/clang" ]; then
+  export PATH="$smartplan_clang/bin:$PATH"
+fi
 export CI=true
 export FLUTTER_SUPPRESS_ANALYTICS=true
 export XDG_CONFIG_HOME=/workspace/toolchains/config

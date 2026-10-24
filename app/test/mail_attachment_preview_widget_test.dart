@@ -356,10 +356,13 @@ void main() {
             hasLength(1),
           );
           expect(
-            find.textContaining(
-              corrupt == 'size'
-                  ? 'Die Dateigröße stimmt nicht'
-                  : 'Die Datei konnte nicht geprüft werden',
+            find.descendant(
+              of: find.byType(MailAttachmentsCard),
+              matching: find.textContaining(
+                corrupt == 'size'
+                    ? 'Die Dateigröße stimmt nicht'
+                    : 'Die Datei konnte nicht geprüft werden',
+              ),
             ),
             findsOneWidget,
           );

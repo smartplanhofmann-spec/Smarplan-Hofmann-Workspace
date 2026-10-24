@@ -541,7 +541,26 @@ void main() {
           ),
         );
         await tester.pumpAndSettle();
+        final workspaceScroll = find
+            .byWidgetPredicate(
+              (widget) =>
+                  widget is Scrollable &&
+                  widget.axisDirection == AxisDirection.down,
+            )
+            .first;
+        // Project data follows the actionable dashboard on desktop. Read the
+        // cached profile and then return to the primary task action.
+        await tester.scrollUntilVisible(
+          find.text('Lokal gesicherte Baustelle'),
+          300,
+          scrollable: workspaceScroll,
+        );
         expect(find.text('Lokal gesicherte Baustelle'), findsOneWidget);
+        await tester.scrollUntilVisible(
+          find.text('Aufgabe anlegen'),
+          -300,
+          scrollable: workspaceScroll,
+        );
         expect(
           api.networkCalls,
           callsBeforeEntry,

@@ -85,6 +85,8 @@ bash scripts/setup-cloud.sh
 
 Das Skript installiert die festgehaltenen Python-Abhängigkeiten, verwendet die geprüfte Flutter-Revision und führt Backend-Tests, Flutter-Analyse und Flutter-Tests aus. Es setzt Flutter-Konfiguration, Paketcache und Analyzer-Cache auf beschreibbare Pfade in `/workspace/toolchains`, ohne `HOME` umzusetzen. Für Flutter-Artefakte ist `storage.googleapis.com` zusätzlich zu GitHub und den Paketregistries erforderlich.
 
+Das Skript verwendet einen vorhandenen Compiler unter `SMARTPLAN_CLANG_ROOT`
+(standardmäßig `/workspace/toolchains/clang-19`) oder Clang aus dem `PATH`.
 Fehlt Clang, endet das Skript nach der Analyse mit einem klaren Fehler, bevor
 Flutter-Tests beginnen. Es installiert keinen Compiler automatisch und verändert
 keine Paketquellen oder nativen Caches. Ein solcher Lauf bestätigt weder den

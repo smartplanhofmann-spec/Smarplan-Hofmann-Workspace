@@ -403,7 +403,7 @@ class WorkspaceView extends StatefulWidget {
       onUsers,
       onCustomers;
   final void Function(Map<String, dynamic>) onProject;
-  final VoidCallback? onInquiries;
+  final VoidCallback? onInquiries, onIntegrations;
   final ValueChanged<String> onSelectStorage;
   const WorkspaceView({
     super.key,
@@ -421,6 +421,7 @@ class WorkspaceView extends StatefulWidget {
     required this.onCustomers,
     required this.onProject,
     this.onInquiries,
+    this.onIntegrations,
   });
   @override
   State<WorkspaceView> createState() => _WorkspaceViewState();
@@ -547,6 +548,17 @@ class _WorkspaceViewState extends State<WorkspaceView> {
                           if (drawer) Navigator.pop(context);
                         },
                       ),
+                      if (widget.onIntegrations != null) ...[
+                        const SizedBox(height: 4),
+                        _NavItem(
+                          icon: Icons.hub_outlined,
+                          label: 'Integrationen',
+                          onTap: () {
+                            if (drawer) Navigator.pop(context);
+                            widget.onIntegrations!();
+                          },
+                        ),
+                      ],
                     ],
                   ],
                 ),

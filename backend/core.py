@@ -173,6 +173,12 @@ class Office:
                 from inquiry_attachments import schema_statements as attachment_schema
                 for statement in attachment_schema('BLOB'):
                     self.db.execute(statement)
+                from external_integrations import schema_statements as integration_schema
+                for statement in integration_schema():
+                    self.db.execute(statement)
+                from integration_bridge import schema_statements as bridge_schema
+                for statement in bridge_schema():
+                    self.db.execute(statement)
         except Exception:
             self.db.close()
             raise

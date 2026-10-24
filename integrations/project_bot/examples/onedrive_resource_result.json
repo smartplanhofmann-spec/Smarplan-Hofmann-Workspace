@@ -1,0 +1,10 @@
+{
+  "job_id": "55555555555555555555555555555555",
+  "source_id": "synthetic-onedrive-resource-1",
+  "complete": true,
+  "payload": {
+    "complete": true,
+    "folder": {"id": "synthetic-folder", "drive_id": "synthetic-drive", "name": "Beispielprojekt", "path": "/Beispielprojekt"},
+    "files": [{"id": "synthetic-file", "drive_id": "synthetic-drive", "parent_id": "synthetic-folder", "name": "Beispielplan.pdf", "path": "/Beispielprojekt/Beispielplan.pdf", "rev": "\"synthetic-etag-1\"", "size": 1234, "media_type": "application/pdf", "url": "https://example.sharepoint.com/sites/Synthetic/Beispielplan.pdf"}]
+  }
+}

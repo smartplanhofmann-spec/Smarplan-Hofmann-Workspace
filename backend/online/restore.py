@@ -49,6 +49,14 @@ def restore(source, active_dsn, target_dsn):
                 if hashlib.sha256(row['pdf']).hexdigest() != row['pdf_hash']:
                     raise ValueError('PDF-Integritätsprüfung fehlgeschlagen.')
             validate_integrity(office)
+            # A disaster restore must not reactivate saved provider accounts or
+            # OAuth callbacks. Candidate releases intentionally retain them.
+            from integration_bridge import sanitize_after_restore as sanitize_bridge, validate_integrity as validate_bridge
+            sanitize_bridge(office)
+            from external_integrations import sanitize_after_restore, validate_integrity as validate_integrations
+            sanitize_after_restore(office)
+            validate_integrations(office)
+            validate_bridge(office)
             # Upload limits are transient traffic counters. Active attachment
             # byte quotas are derived from retained files, never reset here.
             for table in ('sessions', 'plan_sessions', 'auth_challenges', 'login_limits', 'inquiry_attachment_limits'):

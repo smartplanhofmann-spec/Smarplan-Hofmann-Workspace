@@ -15,6 +15,7 @@ import 'offline_plans.dart';
 import 'plan_pages.dart';
 import 'inquiry_pages.dart';
 import 'app_version.dart';
+import 'integration_pages.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -445,6 +446,14 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
             }
           : null,
       onLogout: logout,
+      onIntegrations: user!['role'] == 'owner' && api.version == 'v1'
+          ? () => Navigator.push<void>(
+              context,
+              MaterialPageRoute(
+                builder: (_) => IntegrationsPage(api: api, role: user!['role']),
+              ),
+            )
+          : null,
       onNewProject: newProject,
       onCustomers: () async {
         await Navigator.push<void>(

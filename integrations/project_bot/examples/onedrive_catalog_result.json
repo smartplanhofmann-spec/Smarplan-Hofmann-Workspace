@@ -1,0 +1,10 @@
+{
+  "job_id": "44444444444444444444444444444444",
+  "source_id": "synthetic-onedrive-catalog-1",
+  "complete": true,
+  "payload": {
+    "complete": true,
+    "identity": {"id": "synthetic-onedrive-account", "label": "Synthetisches Beispielkonto"},
+    "folders": [{"id": "synthetic-folder", "drive_id": "synthetic-drive", "name": "Beispielprojekt", "path": "/Beispielprojekt"}]
+  }
+}

@@ -30,6 +30,8 @@ V4_TABLES = ('plan_deletions', 'project_profiles', 'workspace_items', 'workspace
              'workspace_requests', 'inquiries', 'inquiry_requests', 'inbound_import_tokens')
 V5_TABLES = ('inquiry_attachment_sets', 'inquiry_attachments',
              'inquiry_attachment_chunks', 'inquiry_attachment_limits')
+V6_TABLES = ('external_connections', 'external_project_links', 'external_snapshots',
+             'external_requests', 'external_oauth_states', 'external_bridge_jobs', 'external_bridge_limits')
 TEST_SOURCE = 'host=127.0.0.1 port=55432 dbname=smartplan_check user=postgres'
 TEST_CANDIDATE = make_conninfo(TEST_SOURCE, dbname='smartplan_release_check')
 
@@ -262,22 +264,27 @@ class CandidateRelease(unittest.TestCase):
         self.temp.cleanup()
 
     def source_v1(self):
-        self.source_v2()
-        with psycopg.connect(DSN) as connection:
-            connection.execute('DROP TABLE plan_versions,plan_requests,plan_sessions')
-            connection.execute('UPDATE smartplan_schema SET version=1')
+        self.source_version(1)
 
     def source_v2(self):
-        self.source_v3()
-        with psycopg.connect(DSN) as connection:
-            connection.execute('DROP TABLE IF EXISTS plan_import_chunks,plan_imports')
-            connection.execute('UPDATE smartplan_schema SET version=2')
+        self.source_version(2)
 
     def source_v3(self):
+        self.source_version(3)
+
+    def source_version(self, version):
+        """Construct a genuine historical fixture, never just relabel current DDL."""
+        if type(version) is not int or not 1 <= version <= SCHEMA_VERSION:
+            raise ValueError('Supported disposable fixture schema required')
+        layers = {2: ('plan_versions', 'plan_requests', 'plan_sessions'),
+                  3: ('plan_import_chunks', 'plan_imports'),
+                  4: V4_TABLES, 5: V5_TABLES, 6: V6_TABLES}
+        tables = [name for schema, names in layers.items() if schema > version for name in names]
         with psycopg.connect(DSN) as connection:
-            connection.execute(psycopg.sql.SQL('DROP TABLE IF EXISTS {}').format(
-                psycopg.sql.SQL(',').join(map(psycopg.sql.Identifier, V5_TABLES + V4_TABLES))))
-            connection.execute('UPDATE smartplan_schema SET version=3')
+            if tables:
+                connection.execute(psycopg.sql.SQL('DROP TABLE IF EXISTS {}').format(
+                    psycopg.sql.SQL(',').join(map(psycopg.sql.Identifier, tables))))
+            connection.execute('UPDATE smartplan_schema SET version=%s', (version,))
 
     def prepare(self):
         return release.prepare(DSN, CANDIDATE, self.temp.name, test_mode=True)
@@ -372,7 +379,7 @@ class CandidateRelease(unittest.TestCase):
         candidate = release.snapshot_fingerprint(CANDIDATE)
         self.assertEqual({key: value for key, value in candidate.items() if key in before and key != 'smartplan_schema'},
                          {key: value for key, value in before.items() if key != 'smartplan_schema'})
-        for table in V4_TABLES + V5_TABLES:
+        for table in V4_TABLES + V5_TABLES + V6_TABLES:
             self.assertEqual(candidate[table]['rows'], 0, table)
         self.assertEqual(before['plan_imports']['rows'], 4)
         self.assertEqual(before['plan_import_chunks']['rows'], 7)

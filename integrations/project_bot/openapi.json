@@ -1,0 +1,608 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Smartplan Projektbot – lesende Metadaten",
+    "version": "0.11.0",
+    "description": "Vorhandenen Fünf-Minuten-Mailjob ergänzen; SPIN-Mailcredential und Ledger erhalten. Kein neuer OAuth-Client. Server 0.11/Schema 6/business_integrations erforderlich. Keine behauptete externe Botverbindung. Höchstens 2 MiB/1000 Metadatensätze je Ergebnis; keine Providerwrites, Originaldateien, neuen Links oder KI-Auswertungen."
+  },
+  "servers": [
+    {
+      "url": "https://office.smartplan-hofmann.de"
+    }
+  ],
+  "security": [
+    {
+      "IntegrationCredential": []
+    }
+  ],
+  "paths": {
+    "/api/v1/intake/integrations/jobs": {
+      "get": {
+        "operationId": "listIntegrationJobs",
+        "summary": "Begrenzte aktuelle Botaufträge lesen",
+        "responses": {
+          "200": {
+            "description": "Nur aktuell autorisierte Provider und Aufträge.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "providers",
+                    "jobs"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "providers": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 2,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "google_calendar",
+                          "onedrive"
+                        ]
+                      }
+                    },
+                    "jobs": {
+                      "type": "array",
+                      "maxItems": 100,
+                      "items": {
+                        "$ref": "#/components/schemas/Job"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Geschützte Bindung fehlt, ist abgelaufen oder widerrufen; keinen Schlüssel offenlegen."
+          },
+          "429": {
+            "description": "Wartezeit beachten, keine schnellen Retries."
+          }
+        }
+      }
+    },
+    "/api/v1/intake/integrations/jobs/{id}/result": {
+      "post": {
+        "operationId": "deliverIntegrationJobResult",
+        "summary": "Vollständige gelesene Metadaten oder sicheren Fehler zustellen",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{32}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Result"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Nur diese exakt gebundene Quittung bestätigt die Zustellung. Eine Fehlerquittung ist keine erfolgreiche Synchronisation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Receipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unvollständiges/ungültiges Ergebnis; keine leeren Daten erfinden."
+          },
+          "401": {
+            "description": "Credentialbindung/Ablauf/Widerruf prüfen."
+          },
+          "404": {
+            "description": "Auftrag oder neue API nicht verfügbar; kein Erfolg."
+          },
+          "409": {
+            "description": "Geändertes Ergebnis, Konto oder Projektauswahl. Nicht mit neuen IDs umgehen."
+          },
+          "410": {
+            "description": "Auftrag abgelaufen; aktuellen Auftrag laden."
+          },
+          "413": {
+            "description": "Metadatengrenze überschritten; keine stille Kürzung."
+          },
+          "429": {
+            "description": "Später im bestehenden Job erneut versuchen, Retry-After beachten."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "IntegrationCredential": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Separates geschütztes SMARTPLAN_INTEGRATION_TOKEN (SPIX). Masken/Handles nicht als echten Credentialwert oder Formatnachweis behandeln. Native authentifizierte HTTPS-Bindung verwenden; nie in Chat/JSON/Logs. SPIN-Mailcredential unverändert. Nur Serverautorisierung plus HTTP201-received bestätigt Zustellung."
+      }
+    },
+    "schemas": {
+      "Identity": {
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        }
+      },
+      "Job": {
+        "type": "object",
+        "required": [
+          "id",
+          "provider",
+          "kind",
+          "generation",
+          "resource",
+          "selection",
+          "expires_at"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "google_calendar",
+              "onedrive"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "catalog",
+              "resource",
+              "snapshot"
+            ]
+          },
+          "generation": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "requested_generation": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "resource": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2048,
+            "description": "Google: Kalender-ID. OneDrive: kanonische JSON-Zeichenfolge mit drive_id und folder_id; Daten, keine auszuführende URL."
+          },
+          "selection": {
+            "type": "object",
+            "description": "Snapshot: calendar_id+event_ids oder drive_id+folder_id. Auswahl unverändert erhalten."
+          },
+          "project_id": {
+            "type": "string",
+            "nullable": true,
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "revision": {
+            "type": "integer",
+            "nullable": true,
+            "minimum": 1
+          },
+          "expires_at": {
+            "type": "number",
+            "description": "Unix-Sekunden; abgelaufene Aufträge nicht ausführen."
+          }
+        }
+      },
+      "Calendar": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "time_zone"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "time_zone": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          }
+        },
+        "description": "Normalisierte tatsächlich gelesene Kalenderdaten; keine raw summary/timeZone-Felder."
+      },
+      "Folder": {
+        "type": "object",
+        "required": [
+          "id",
+          "drive_id",
+          "name",
+          "path"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "drive_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Vorhandener privater First-Party-webUrl; kein Downloadlink, keine neue Freigabe."
+          }
+        }
+      },
+      "File": {
+        "type": "object",
+        "required": [
+          "id",
+          "drive_id",
+          "parent_id",
+          "name",
+          "path",
+          "rev",
+          "size",
+          "media_type",
+          "url"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "drive_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "parent_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "rev": {
+            "type": "string",
+            "minLength": 1
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "media_type": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "description": "Nur direkte Ordnerkinder und vorhandene native Revisionen. Keine Originalbytes/Graph-downloadUrl."
+      },
+      "Event": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "start",
+          "end",
+          "all_day"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2048
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 32768
+          },
+          "start": {
+            "type": "string",
+            "nullable": true
+          },
+          "end": {
+            "type": "string",
+            "nullable": true
+          },
+          "all_day": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "time_zone": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          },
+          "location": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2048
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "tentative",
+              "cancelled",
+              "not_found"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri"
+          }
+        },
+        "description": "Normalisiert: aktive Termine benötigen alle Textfelder und RFC3339+Offset oder YYYY-MM-DD mit exklusivem Ende bei all_day=true. Tombstones cancelled/not_found haben start/end/all_day=null. IDs/Zeitzonen/Offsets nicht erfinden."
+      },
+      "GoogleCatalog": {
+        "type": "object",
+        "required": [
+          "complete",
+          "identity",
+          "calendars"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "complete": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "identity": {
+            "$ref": "#/components/schemas/Identity"
+          },
+          "calendars": {
+            "type": "array",
+            "maxItems": 1000,
+            "items": {
+              "$ref": "#/components/schemas/Calendar"
+            }
+          }
+        }
+      },
+      "OneDriveCatalog": {
+        "type": "object",
+        "required": [
+          "complete",
+          "identity",
+          "folders"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "complete": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "identity": {
+            "$ref": "#/components/schemas/Identity"
+          },
+          "folders": {
+            "type": "array",
+            "maxItems": 1000,
+            "items": {
+              "$ref": "#/components/schemas/Folder"
+            }
+          }
+        }
+      },
+      "GoogleResource": {
+        "type": "object",
+        "required": [
+          "complete",
+          "calendar",
+          "events"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "complete": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "calendar": {
+            "$ref": "#/components/schemas/Calendar"
+          },
+          "events": {
+            "type": "array",
+            "maxItems": 500,
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          }
+        },
+        "description": "Resource: höchstens 500 echte Termine. Snapshot: höchstens 50 und exakt alle ausgewählten IDs; fehlende Termine nur als explizite Tombstones."
+      },
+      "OneDriveResource": {
+        "type": "object",
+        "required": [
+          "complete",
+          "folder",
+          "files"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "complete": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "folder": {
+            "$ref": "#/components/schemas/Folder"
+          },
+          "files": {
+            "type": "array",
+            "maxItems": 1000,
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
+        }
+      },
+      "Result": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "source_id",
+              "complete",
+              "payload"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "source_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "description": "Stabile Quellrevision oder SHA256 des kanonischen unveränderlichen Payloads; kein Retry-Zeitstempel."
+              },
+              "complete": {
+                "type": "boolean",
+                "enum": [
+                  true
+                ]
+              },
+              "payload": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/GoogleCatalog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/OneDriveCatalog"
+                  },
+                  {
+                    "$ref": "#/components/schemas/GoogleResource"
+                  },
+                  {
+                    "$ref": "#/components/schemas/OneDriveResource"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "source_id",
+              "error_code"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "source_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "error_code": {
+                "type": "string",
+                "enum": [
+                  "provider_unavailable",
+                  "reconnect_required",
+                  "rate_limited",
+                  "timeout",
+                  "invalid_response",
+                  "not_found",
+                  "permission_denied",
+                  "unsupported",
+                  "resource_too_large"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "Receipt": {
+        "type": "object",
+        "required": [
+          "status",
+          "job_id",
+          "idempotent"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "received"
+            ]
+          },
+          "job_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "idempotent": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

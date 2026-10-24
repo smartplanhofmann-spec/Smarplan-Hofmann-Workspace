@@ -6,7 +6,7 @@ from psycopg.rows import dict_row
 
 from core import Office
 
-SCHEMA_VERSION = 5
+SCHEMA_VERSION = 6
 # Serialize mutations across processes as well as threads in this small pilot.
 LOCK_ID = 741290518
 
@@ -103,7 +103,7 @@ def migrate(dsn):
             token TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
             expiry DOUBLE PRECISION NOT NULL, credential TEXT NOT NULL);''')
                 connection.execute('UPDATE smartplan_schema SET version=2')
-            elif row['version'] not in (2, 3, 4, SCHEMA_VERSION):
+            elif row['version'] not in (2, 3, 4, 5, SCHEMA_VERSION):
                 raise RuntimeError('Nicht unterstützte PostgreSQL-Schemaversion.')
             if row['version'] in (1, 2):
                 from online.plan_imports import schema_statements
@@ -118,10 +118,18 @@ def migrate(dsn):
                 for statement in workspace_schema():
                     connection.execute(statement)
                 connection.execute('UPDATE smartplan_schema SET version=4')
-            from inquiry_attachments import schema_statements as attachment_schema
-            for statement in attachment_schema():
+            if row['version'] in (1, 2, 3, 4):
+                from inquiry_attachments import schema_statements as attachment_schema
+                for statement in attachment_schema():
+                    connection.execute(statement)
+                connection.execute('UPDATE smartplan_schema SET version=5')
+            from external_integrations import schema_statements as integration_schema
+            for statement in integration_schema():
                 connection.execute(statement)
-            connection.execute('UPDATE smartplan_schema SET version=5')
+            from integration_bridge import schema_statements as bridge_schema
+            for statement in bridge_schema():
+                connection.execute(statement)
+            connection.execute('UPDATE smartplan_schema SET version=6')
             return
         connection.execute('''
             CREATE TABLE users(id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, salt TEXT NOT NULL,
@@ -161,7 +169,7 @@ def migrate(dsn):
             CREATE TABLE IF NOT EXISTS plan_sessions(
             token TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
             expiry DOUBLE PRECISION NOT NULL, credential TEXT NOT NULL);
-            INSERT INTO smartplan_schema VALUES(5);
+            INSERT INTO smartplan_schema VALUES(6);
         ''')
         from online.plan_imports import schema_statements
         for statement in schema_statements():
@@ -174,4 +182,10 @@ def migrate(dsn):
             connection.execute(statement)
         from inquiry_attachments import schema_statements as attachment_schema
         for statement in attachment_schema():
+            connection.execute(statement)
+        from external_integrations import schema_statements as integration_schema
+        for statement in integration_schema():
+            connection.execute(statement)
+        from integration_bridge import schema_statements as bridge_schema
+        for statement in bridge_schema():
             connection.execute(statement)

@@ -1,0 +1,65 @@
+name: Project bot connection
+on:
+  push:
+    paths:
+      - 'integrations/project_bot/**'
+      - 'scripts/test_project_bot.py'
+      - 'backend/online/integration_bot_service.py'
+      - 'backend/online/integration_google.py'
+      - 'backend/online/integration_onedrive.py'
+      - '.github/workflows/project-bot.yml'
+  pull_request:
+    paths:
+      - 'integrations/project_bot/**'
+      - 'scripts/test_project_bot.py'
+      - 'backend/online/integration_bot_service.py'
+      - 'backend/online/integration_google.py'
+      - 'backend/online/integration_onedrive.py'
+      - '.github/workflows/project-bot.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  portable-client:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify narrow bot transport, private files, receipts and package
+        shell: bash
+        run: |
+          umask 0077
+          smartplan_project_bot_log="$RUNNER_TEMP/smartplan-project-bot-tests.log"
+          set +e
+          python -X utf8 -m unittest discover -s scripts -p test_project_bot.py -v > "$smartplan_project_bot_log" 2>&1
+          smartplan_project_bot_exit=$?
+          set -e
+          python -X utf8 - "$smartplan_project_bot_log" "$smartplan_project_bot_exit" <<'PY'
+          from pathlib import Path
+          import re, sys
+          content = Path(sys.argv[1]).read_text(encoding='utf-8', errors='replace')
+          content = re.sub(r'SPIX_[A-Za-z0-9_-]{43}', 'SPIX_[redacted]', content)
+          print(content)
+          if int(sys.argv[2]):
+              detail = '\n'.join(content.splitlines()[-80:])[-10000:]
+              detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+              print('::error title=Project bot contracts::' + detail)
+          PY
+          exit "$smartplan_project_bot_exit"
+      - name: Package reviewed project bot files
+        if: runner.os == 'Linux'
+        run: python integrations/project_bot/package.py --output "${{ runner.temp }}/Smartplan-Projektbot-Anschluss.zip"
+      - uses: actions/upload-artifact@v4
+        if: runner.os == 'Linux'
+        with:
+          name: Smartplan-Projektbot-Anschluss
+          path: ${{ runner.temp }}/Smartplan-Projektbot-Anschluss.zip
+          if-no-files-found: error
+          retention-days: 14

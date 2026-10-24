@@ -15,6 +15,7 @@ import 'offline_vault.dart' show offlineId;
 import 'plan_pages.dart';
 import 'project_workspace_forms.dart';
 import 'mail_attachment_widgets.dart';
+import 'project_integration_widgets.dart';
 
 const projectSections = [
   'Übersicht',
@@ -101,6 +102,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   final working = <String>{};
   final actionRequests = <String, String>{};
   final accessAllowed = ValueNotifier<bool>(true);
+  late final ProjectIntegrationsController integrations;
   int section = 0;
   bool loading = true,
       refreshing = false,
@@ -112,6 +114,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   bool get canWrite => ['owner', 'manager', 'technician'].contains(widget.role);
   bool get canProfile => ['owner', 'manager'].contains(widget.role);
   bool get enabled => dashboard != null && !denied && !unavailable;
+  bool get integrationUi => widget.api.version == 'v1' || widget.offlineMode;
   bool get cachedWorkspace => widget.repository?.workspaceSupported ?? false;
   Map<String, dynamic> get profile =>
       Map<String, dynamic>.from(dashboard?['profile'] as Map? ?? {});
@@ -138,6 +141,15 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     initialToken = widget.api.token;
     widget.api.addListener(accessChanged);
     widget.repository?.addListener(accessChanged);
+    integrations = ProjectIntegrationsController(
+      api: widget.api,
+      projectId: widget.project['id'],
+      role: widget.role,
+      offlineMode: widget.offlineMode,
+      projectAccess: accessAllowed,
+      onDenied: denyAccess,
+    );
+    unawaited(integrations.refresh());
     if (cachedWorkspace) {
       try {
         final snapshot = widget.repository!.getWorkspace(widget.project['id']);
@@ -208,6 +220,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   void dispose() {
     widget.api.removeListener(accessChanged);
     widget.repository?.removeListener(accessChanged);
+    integrations.dispose();
     accessAllowed.dispose();
     projectChanges.dispose();
     super.dispose();
@@ -1218,6 +1231,12 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
           if (team.isEmpty)
             empty('Keine Teamkontakte für dieses Projekt verfügbar.'),
         ]),
+        if (integrationUi)
+          ProjectIntegrationPanel(
+            controller: integrations,
+            provider: 'sevdesk',
+            openExternal: widget.openExternal,
+          ),
       ] else if (!loading)
         Wrap(
           spacing: 12,
@@ -1415,6 +1434,12 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
           onAccessDenied: denyAccess,
           onPlans: openImportedPlans,
         ),
+      if (kind == 'links' && visited.contains(5) && integrationUi)
+        ProjectIntegrationPanel(
+          controller: integrations,
+          provider: 'onedrive',
+          openExternal: widget.openExternal,
+        ),
       if (!enabled)
         empty(
           'Dieser Bereich benötigt die erweiterte Projektmappe und eine Verbindung. Pläne und Berichte bleiben über die Register erreichbar.',
@@ -1477,18 +1502,24 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
               ),
             },
         ]),
+      if (kind == 'appointments' && visited.contains(2) && integrationUi)
+        ProjectIntegrationPanel(
+          controller: integrations,
+          provider: 'google_calendar',
+          openExternal: widget.openExternal,
+        ),
       if (kind == 'appointments')
         const Padding(
           padding: EdgeInsets.only(top: 16),
           child: Text(
-            'Google öffnet erst nach Ihrem Klick einen Terminentwurf. Speichern Sie ihn dort selbst; es gibt keinen automatischen Kalenderabgleich.',
+            'Lokale Termine und ausgewählte Google-Termine bleiben getrennt. Ein Google-Terminentwurf öffnet erst nach Ihrem Klick und wird dort von Ihnen gespeichert.',
           ),
         ),
       if (kind == 'links')
         const Padding(
           padding: EdgeInsets.only(top: 16),
           child: Text(
-            'Links öffnen die jeweilige Website. Dropbox, sevdesk und Vertragsablagen sind hier nicht automatisch verbunden.',
+            'Dokumentlinks öffnen die jeweilige Website. Zugeordnete OneDrive-Dateien erscheinen getrennt darüber; Verträge und Belege werden nicht automatisch einem Projekt zugeordnet.',
           ),
         ),
     ]);
@@ -1524,7 +1555,12 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
       actions: [
         IconButton(
           tooltip: 'Projekt aktualisieren',
-          onPressed: refreshing || denied ? null : reload,
+          onPressed: refreshing || denied
+              ? null
+              : () async {
+                  await reload();
+                  if (mounted && !denied) await integrations.refresh();
+                },
           icon: const Icon(Icons.refresh),
         ),
         if (widget.role == 'owner' && !denied && !widget.offlineMode) ...[

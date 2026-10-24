@@ -65,7 +65,7 @@ class NativePackageTests(unittest.TestCase):
         # The visible Semver is independent of TestFlight's increasing build counter.
         app = self.directory / 'app'
         (app / 'lib').mkdir(parents=True)
-        (app / 'pubspec.yaml').write_text('version: 0.10.1+914\n')
+        (app / 'pubspec.yaml').write_text('version: 0.11.0+915\n')
         (app / 'lib/app_version.dart').write_text("const smartplanVersion = '0.8.0';\n")
         with self.assertRaisesRegex(ValueError, 'Sichtbare Appversion'):
             release.source_checks(self.directory)
@@ -126,10 +126,10 @@ class NativePackageTests(unittest.TestCase):
         self.assertEqual(saved['version'], release.version()[0])
         self.assertEqual(saved['visible_app_version'], release.version()[0])
         self.assertEqual(saved['build_number'], release.version()[1])
-        self.assertEqual(saved['required_backend_schema'], 5)
+        self.assertEqual(saved['required_backend_schema'], 6)
         self.assertEqual(saved['required_backend_capabilities'],
                          ['project_workspace', 'inquiry_intake', 'gmail_intake', 'offline_workspace', 'plan_deletion',
-                          'mail_attachments'])
+                          'mail_attachments', 'business_integrations'])
         self.assertNotIn('draft_backend_capabilities', saved)
         self.assertEqual(saved['offline_modules'], ['project_plans', 'plan_import_sources', 'project_workspace'])
         self.assertIs(saved['test_package'], True)
@@ -162,10 +162,10 @@ class NativePackageTests(unittest.TestCase):
         self.assertEqual(saved['version'], release.version()[0])
         self.assertEqual(saved['visible_app_version'], release.version()[0])
         self.assertEqual(saved['build_number'], '109')
-        self.assertEqual(saved['required_backend_schema'], 5)
+        self.assertEqual(saved['required_backend_schema'], 6)
         self.assertEqual(saved['required_backend_capabilities'],
                          ['project_workspace', 'inquiry_intake', 'gmail_intake', 'offline_workspace', 'plan_deletion',
-                          'mail_attachments'])
+                          'mail_attachments', 'business_integrations'])
         self.assertNotIn('draft_backend_capabilities', saved)
         self.assertEqual(saved['supported_devices'], ['iPhone', 'iPad'])
         self.assertIs(saved['signed_entitlements_checked'], False)
@@ -183,7 +183,7 @@ class NativePackageTests(unittest.TestCase):
         self.assertTrue(python.exists(), 'Backend virtualenv is required for the real package import check')
         subprocess.run([str(python), '-E', '-c', 'import server, plan_access, plans, plan_deletions\n'
                         'import project_workspace, inquiries, inbound_connectors, workspace_api\n'
-                        'import inquiry_attachments\n'
+                        'import inquiry_attachments, external_integrations, integration_bridge\n'
                         'from core import Office\n'
                         'office = Office("synthetic-package.db")\n'
                         'office.db.close()'],

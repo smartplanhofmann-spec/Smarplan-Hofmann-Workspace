@@ -93,7 +93,7 @@ def inspect_source(dsn):
     no_other_clients(dsn)
     with psycopg.connect(dsn, connect_timeout=5) as connection:
         rows = connection.execute('SELECT version FROM smartplan_schema').fetchall()
-        if len(rows) != 1 or rows[0][0] not in (1, 2, 3, 4, SCHEMA_VERSION):
+        if len(rows) != 1 or rows[0][0] not in (1, 2, 3, 4, 5, SCHEMA_VERSION):
             raise RuntimeError('Quellschema für dieses Update nicht unterstützt.')
         return rows[0][0]
 

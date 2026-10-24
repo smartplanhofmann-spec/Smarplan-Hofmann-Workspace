@@ -1,11 +1,12 @@
-# Smartplan Office – Entwicklungsstand 0.10.1
+# Smartplan Office – Entwicklungsstand 0.11.0
 
 Gemeinsamer Arbeitsbereich für Büro und Baustelle: Anfragen, Kunden,
 Projektmappen, Aufgaben, Termine, Bautagebuch, Pläne und unterschriebene Berichte.
 Windows und iPhone/iPad verwenden denselben Hetzner-Server. Der aktuelle große
 Entwicklungsstand wird als zusammenhängendes Paket geprüft und verteilt.
 
-Die fachliche Grundlage und Abnahme stehen in
+Die fachliche Grundlage und Abnahme stehen im
+[Integrationspaket 0.11](INTEGRATIONSPAKET_0_11.md),
 [Produktpaket 0.10](PRODUKTPAKET_0_10.md) und seiner
 [Projektgrundlage 0.9](PRODUKTPAKET_0_9.md). Arbeitsabläufe sind flexibel: Ein Projekt
 kann zur Klärung, zum Aufmaß oder als Serviceeinsatz beginnen. Angebot, Zusage,
@@ -13,23 +14,32 @@ Anzahlung und Material sind keine erzwungene Pflichtreihenfolge.
 
 Das [App-Update 0.10.1](APP_UPDATE_0_10_1.md) verbindet eine direkte Vorschau
 für PDF- und Bildanhänge mit einer klareren, an Apple angelehnten Oberfläche.
-Dafür genügt die neue App; der vorhandene Anhangseingang auf dem Server wird
-weiterverwendet.
+Dieser Stand wurde vom Nutzer als funktionierend bestätigt. Das anschließende
+Paket 0.11 ergänzt nun die Bürointegrationen mit geschütztem Serverupdate.
 
 ## Bestätigte Betriebsentscheidungen
 
 - Eingang über **Gmail und die WhatsApp-Business-App**.
 - **Sevdesk bleibt führend für Angebote und Rechnungen**. Smartplan verknüpft
   passende Vorgänge; es erzeugt keine zweite Buchhaltung.
-- **Google Kalender** bleibt für Termine vorgesehen. Das Paket bietet eigene
-  Projekttermine und ausdrücklichen Kalenderexport, keine bereits laufende
-  bidirektionale Google-Synchronisierung.
-- Die vorhandene **Dropbox-Struktur** bleibt bestehen. Ordner und Dokumente sind
-  benannt verknüpfbar; das ist keine bereits verbundene Dropbox-API.
+- **Google Kalender und OneDrive** sind laut Nutzer bereits mit dem vorhandenen
+  Bot verbunden. **OneDrive ersetzt die zuvor irrtümliche Dropbox-Annahme.**
+  Paket 0.11 nutzt diese Verbindungen für ausdrücklich gewählte Projektmetadaten.
+  Ein neuer SPIX-Projektbotzugang ergänzt denselben Fünfminutenjob; der bestehende
+  SPIN-Maileingang bleibt erhalten. Es gibt keinen Kalender-Schreibabgleich.
 - Datenbank und Planverarbeitung bleiben auf dem eigenen **Hetzner-Server**.
   Kein externer KI-/OCR-Ausweichdienst. Cloudtests verwenden synthetische Daten.
 
 ## Inhalt des Pakets
+
+**Bürointegrationen 0.11:** Sevdesk-Kontakt und einzelne Angebote/Rechnungen
+ausdrücklich zuordnen, gewählte Google-Termine anzeigen und OneDrive-Ordner samt
+Originalverweisen im Projekt finden. Status, letzte bestätigte Aktualisierung
+und ausstehende Botaufträge bleiben erkennbar. OneDrive-Dateien öffnen bewusst
+im Microsoft-Browserkonto; die Mailanhangvorschau bleibt innerhalb der App.
+Einrichtung unter Integrationen, geschützte Schlüssel ausschließlich auf
+Hetzner beziehungsweise im Credential-Feld des vorhandenen Bots. Der
+[Projektbot-Vertrag](integrations/project_bot/README.md) enthält Ablauf und Grenzen.
 
 **Anfragen und Kunden:** Eingang mit Quelle, Suche, Fälligkeit und nächstem
 Schritt; manuelle/WhatsApp-Nachrichten und EML-Dateien; bestehende Kunden als
@@ -90,7 +100,11 @@ Gültige vorhandene Eingangsschlüssel und die bisherige Liste bestätigter Mail
 werden weiterverwendet. Die Originaldateien werden nachgereicht; Mailtexte
 müssen dafür nicht erneut gepostet werden.
 
-Für die anschließende App-Vorschau 0.10.1 ist kein erneutes Serverupdate nötig.
+**App 0.10.1 mit Vorschau und Design wurde im Praxistest bestätigt.**
+**Paket 0.11 / Schema 6 ist vorbereitet und noch nicht auf dem Nutzer-Server
+installiert.** Der [gebündelte Updateablauf](deploy/hetzner/online/UPDATE_0_11.md)
+verwendet weiterhin Sicherung, Datenbankkopie und Kandidatenprüfung. Für echte
+Sevdesk-/Botverbindungen folgt anschließend die Einrichtung in der aktualisierten App.
 
 Windows-Pakete sind **unsignierte interne Prüfpakete**. Authenticode-/Installer-/
 SmartScreen-Abnahme bleiben offen. Neue Apple-/Provider-Abos oder kostenpflichtige
@@ -105,7 +119,8 @@ bestehenden TestFlight-Verteilung; ein unsignierter Gerätebuild ist keine Insta
 - [Planimport und Digitalisierung](PLANIMPORT_UND_DIGITALISIERUNG.md)
 - [API-Vertrag Planquellen](backend/online/PLANIMPORT.md)
 - [Geschützter Importdienst](deploy/hetzner/online/PLANIMPORT_DIENST.md)
-- [Optionaler Dropbox-Prozessprompt](DROPBOX_PROZESSPROMPT.md)
+- [Integrationsvertrag und Rechte](backend/online/INTEGRATIONEN.md)
+- [Tatsächlich geprüfte Anbieterquellen](backend/online/INTEGRATIONEN_QUELLEN.md)
 
 `scripts/setup-cloud.sh` bereitet die vorhandene Cloudentwicklung mit festem
 Flutter-SDK und getrennten Backendabhängigkeiten vor. Tests benutzen eigene

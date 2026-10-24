@@ -192,6 +192,13 @@ class UpdateFlowTests(OperatorFlowFixture, unittest.TestCase):
         self.assert_old_release()
         self.assertFalse(any(event['event'] == 'public_write' for event in self.events()))
 
+    def test_missing_integration_capability_cannot_open_public_gate(self):
+        self.configure(fault='missing_business_integrations')
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assert_old_release()
+        self.assertFalse(any(event['event'] == 'public_write' for event in self.events()))
+
     def test_old_release_version_cannot_open_public_gate_even_with_current_schema(self):
         self.configure(fault='obsolete_version')
         result = self.run_update()

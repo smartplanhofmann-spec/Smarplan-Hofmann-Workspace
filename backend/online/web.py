@@ -127,7 +127,8 @@ def dispatch(office, user, path, method, data, token):
     return office.report(user, parts[1]), 200
 
 
-def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None, storage_config=None):
+def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None, storage_config=None,
+               integrations=None):
     host = host or os.environ['SMARTPLAN_PUBLIC_HOST']
     if not re.fullmatch(r'[a-z0-9]+(?:[.-][a-z0-9]+)+', host):
         raise RuntimeError('Gültiger öffentlicher Hostname erforderlich.')
@@ -137,9 +138,12 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     ensure_sqlite_schema(office)
     authentication = Authentication(office, key)
     storage = storage or Storage(office, key, host, config=storage_config, onedrive=onedrive)
+    from online.integrations_service import OnlineIntegrations, methods as integration_methods
+    integrations = integrations or OnlineIntegrations(office, key, host)
     app = Flask(__name__, static_folder=None)
     app.extensions['smartplan_storage'] = storage
     app.extensions['smartplan_onedrive'] = storage.onedrive
+    app.extensions['smartplan_integrations'] = integrations
     app.config.update(MAX_CONTENT_LENGTH=1_000_000, PROPAGATE_EXCEPTIONS=False)
     # Only reachable on loopback; Caddy replaces these two forwarding headers.
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=0, x_port=0, x_prefix=0)
@@ -190,9 +194,9 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         try:
             with office.lock, office.db:
                 office.db.execute('SELECT COUNT(*) FROM users').fetchone()
-            return jsonify(status='ok', version='0.10.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
+            return jsonify(status='ok', version='0.11.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
                            capabilities=['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
-                                         'offline_workspace', *workspace_api.CAPABILITIES])
+                                         'offline_workspace', *workspace_api.CAPABILITIES, 'business_integrations'])
         except Exception:
             return jsonify(status='unavailable'), 503
 
@@ -259,10 +263,45 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             raise Problem(400, 'Leerer Abschlussauftrag erwartet')
         return jsonify(InquiryAttachments(office).complete(token, attachment_id))
 
+    def project_bot_token():
+        authorization = request.headers.get('Authorization', '')
+        if not authorization.startswith('Bearer ') or len(authorization) > 200:
+            raise Problem(401, 'Geschützter Projektbotzugang erforderlich.')
+        return authorization[7:]
+
+    @app.get('/api/v1/intake/integrations/jobs')
+    def integration_jobs():
+        return jsonify(integrations.bot.pending(project_bot_token()))
+
+    @app.post('/api/v1/intake/integrations/jobs/<job_id>/result')
+    def integration_result(job_id):
+        token = project_bot_token()
+        # Count authorized malformed/unknown-job attempts in a committed phase.
+        integrations.bot.touch_token(token)
+        request.max_content_length = 2 * 1024 * 1024 + 4096
+        return jsonify(integrations.bot.deliver(token, job_id, body(), counted=True)), 201
+
+    @app.get('/api/v1/integrations/<provider>/callback')
+    def integration_callback(provider):
+        try:
+            integrations.callback(provider, request.args.get('state'), request.args.get('code'),
+                                  request.args.get('error'))
+            message = 'Verbindung abgeschlossen. Du kannst zu Smartplan zurückkehren und den Status aktualisieren.'
+            status = 200
+        except Problem as error:
+            # Never reflect provider query strings, codes, credentials or errors.
+            message = 'Die Verbindung wurde nicht abgeschlossen. Bitte in Smartplan erneut verbinden.'
+            status = error.status
+        return Response('<!doctype html><html lang="de"><meta charset="utf-8">'
+                        '<title>Smartplan-Verbindung</title><body><h1>Smartplan</h1><p>' +
+                        message + '</p></body></html>', status=status, mimetype='text/html')
+
     @app.route('/api/v1/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     def api(path):
         path = '/' + path
-        methods = METHODS.get(path) or next((allowed for pattern, allowed in PATTERNS if re.fullmatch(pattern, path)), None) or workspace_api.methods(path)
+        methods = (METHODS.get(path) or
+                   next((allowed for pattern, allowed in PATTERNS if re.fullmatch(pattern, path)), None) or
+                   workspace_api.methods(path) or integration_methods(path))
         if not methods:
             raise Problem(404, 'Funktion nicht gefunden')
         if request.method not in methods.split(', '):
@@ -291,6 +330,14 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path) or
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plan-imports(?:/[a-f0-9]{32}(?:/(?:complete|source|preview|result|chunks/[0-9]{1,3}))?)?', path)):
             raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne und Planquellen')
+        if integration_methods(path):
+            # Authenticate without holding Office's transaction over provider IO.
+            with office.lock, office.db:
+                office.user(token)
+            result, status, mimetype = integrations.dispatch(token, path, request.method, data)
+            return (jsonify(result), status) if mimetype == 'application/json' else (
+                Response(result, status=status, mimetype=mimetype,
+                         headers={'Content-Disposition': workspace_api.attachment_disposition(result.filename)}))
         if path.startswith('/storage/'):
             if path == '/storage/status':
                 return jsonify(storage.status(token))

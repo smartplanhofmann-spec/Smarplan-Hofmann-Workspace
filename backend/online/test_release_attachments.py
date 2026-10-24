@@ -1,4 +1,4 @@
-"""Real disposable PostgreSQL acceptance for schema-5 mail attachments.
+"""Real disposable PostgreSQL acceptance for schema-6 and legacy attachments.
 
 No production DSN is accepted. Fixture composition intentionally discovers only
 this class's tests, not the older release or workspace acceptance classes.
@@ -21,6 +21,7 @@ from online.store import PostgresOffice, SCHEMA_VERSION, migrate
 
 
 ATTACHMENT_TABLES = frozenset(base_fixture.V5_TABLES)
+INTEGRATION_TABLES = frozenset(base_fixture.V6_TABLES)
 RESTORE_RESET_TABLES = frozenset((
     'sessions', 'plan_sessions', 'auth_challenges', 'login_limits', 'inquiry_attachment_limits',
 ))
@@ -42,7 +43,7 @@ class AttachmentRelease(unittest.TestCase):
         self.addCleanup(self.fixture.doCleanups)
         self.source, self.candidate = self.fixture.source, self.fixture.candidate
         self.actor, self.project = self.fixture.actor, self.fixture.project
-        self.assertEqual(SCHEMA_VERSION, 5)
+        self.assertEqual(SCHEMA_VERSION, 6)
 
     def seed_attachments(self):
         security = self.fixture.seed_security()
@@ -153,25 +154,25 @@ class AttachmentRelease(unittest.TestCase):
         workspace = self.fixture.seed_workspace()
         with psycopg.connect(self.source) as connection:
             connection.execute(sql.SQL('DROP TABLE {}').format(
-                sql.SQL(',').join(map(sql.Identifier, sorted(ATTACHMENT_TABLES)))))
+                sql.SQL(',').join(map(sql.Identifier, sorted(ATTACHMENT_TABLES | INTEGRATION_TABLES)))))
             connection.execute('UPDATE smartplan_schema SET version=4')
         before = release.snapshot_fingerprint(self.source)
         sequences = release.sequence_state(self.source)
-        self.assertTrue(ATTACHMENT_TABLES.isdisjoint(before))
+        self.assertTrue((ATTACHMENT_TABLES | INTEGRATION_TABLES).isdisjoint(before))
         prepared = self.fixture.fixture.prepare()
         after = release.snapshot_fingerprint(self.candidate)
-        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (4, 5))
+        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (4, SCHEMA_VERSION))
         self.assertEqual(prepared['tables'], before)
-        self.assertEqual(set(after) - set(before), ATTACHMENT_TABLES)
+        self.assertEqual(set(after) - set(before), ATTACHMENT_TABLES | INTEGRATION_TABLES)
         for table, fingerprint in before.items():
             if table != 'smartplan_schema':
                 self.assertEqual(after[table], fingerprint, table)
-        for table in ATTACHMENT_TABLES:
+        for table in ATTACHMENT_TABLES | INTEGRATION_TABLES:
             self.assertEqual(after[table]['rows'], 0, table)
         self.fixture.assert_security_preserved(self.candidate, security)
         self.fixture.assert_workspace_preserved(self.candidate, workspace)
         with psycopg.connect(self.candidate) as connection:
-            self.assertEqual(connection.execute('SELECT version FROM smartplan_schema').fetchone()[0], 5)
+            self.assertEqual(connection.execute('SELECT version FROM smartplan_schema').fetchone()[0], SCHEMA_VERSION)
             byte_columns = connection.execute(
                 "SELECT COUNT(*) FROM information_schema.columns WHERE table_schema='public' "
                 "AND table_name='inquiry_attachment_chunks' AND data_type='bytea'").fetchone()[0]
@@ -187,7 +188,7 @@ class AttachmentRelease(unittest.TestCase):
         before = release.snapshot_fingerprint(self.source)
         self.assertTrue(all(before[table]['rows'] > 0 for table in ATTACHMENT_TABLES))
         prepared = self.fixture.fixture.prepare()
-        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (5, 5))
+        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (SCHEMA_VERSION, SCHEMA_VERSION))
         self.assertEqual(prepared['tables'], before)
         self.assertEqual(release.snapshot_fingerprint(self.candidate), before)
         self.fixture.assert_security_preserved(self.candidate, data['security'])

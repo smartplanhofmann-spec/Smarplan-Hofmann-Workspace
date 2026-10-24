@@ -95,7 +95,7 @@ def installer_dsn_preflight(script):
         module = types.ModuleType('online.' + name)
         for attribute in attributes:
             setattr(module, attribute, forbidden_database)
-        module.SCHEMA_VERSION = 5
+        module.SCHEMA_VERSION = 6
         sys.modules[module.__name__] = module
     spec = importlib.util.spec_from_file_location('online.release', '/source/backend/online/release.py')
     module = importlib.util.module_from_spec(spec)
@@ -237,14 +237,16 @@ elif command == 'curl':
     if generation() == 'new' and scenario['fault'] in ('readiness', 'import_worker_start_old'):
         sys.exit(22)
     event('ready_probe', generation=generation(), database=active_database())
-    schema = 4 if scenario['fault'] == 'obsolete_schema' else 5
+    schema = 5 if scenario['fault'] == 'obsolete_schema' else 6
     capabilities = ['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
-                    'project_workspace', 'inquiry_intake', 'gmail_intake', 'mail_attachments']
+                    'project_workspace', 'inquiry_intake', 'gmail_intake', 'mail_attachments', 'business_integrations']
     if scenario['fault'] == 'missing_mail_attachments':
         capabilities.remove('mail_attachments')
-    version = '0.9.0-online-pilot' if scenario['fault'] == 'obsolete_version' else '0.10.0-online-pilot'
-    print(json.dumps({'status': 'ok', 'database': 'ok', 'version': version if generation() == 'new' else '0.9.0-online-pilot',
-                      'schema_version': schema if generation() == 'new' else 4,
+    if scenario['fault'] == 'missing_business_integrations':
+        capabilities.remove('business_integrations')
+    version = '0.10.0-online-pilot' if scenario['fault'] == 'obsolete_version' else '0.11.0-online-pilot'
+    print(json.dumps({'status': 'ok', 'database': 'ok', 'version': version if generation() == 'new' else '0.10.0-online-pilot',
+                      'schema_version': schema if generation() == 'new' else 5,
                       'capabilities': capabilities if generation() == 'new' else []}))
     sys.exit(0)
 elif command == 'mv':
@@ -365,7 +367,7 @@ elif command in ('python', 'python3', 'python3.12'):
             backup = Path(flags['--backup-directory']) / 'fixture.dump'
             backup.write_text(json.dumps(original))
             (Path(str(backup) + '.sha256')).write_text('synthetic-backup\n')
-            Path(flags['--output']).write_text(json.dumps({'backup': str(backup), 'source_schema': 4, 'target_schema': 5}))
+            Path(flags['--output']).write_text(json.dumps({'backup': str(backup), 'source_schema': 5, 'target_schema': 6}))
             sys.exit(0)
         if action == 'configure':
             path = Path(flags['--path'])

@@ -1,0 +1,12 @@
+{
+  "job_id": "11111111111111111111111111111111",
+  "source_id": "synthetic-catalog-revision-1",
+  "complete": true,
+  "payload": {
+    "complete": true,
+    "identity": {"id": "synthetic-account", "label": "Synthetisches Beispielkonto"},
+    "calendars": [
+      {"id": "synthetic-calendar@example.test", "name": "Synthetischer Kalender", "time_zone": "Europe/Berlin"}
+    ]
+  }
+}

@@ -44,9 +44,11 @@ jobs:
           python -m unittest discover -s backend/online -p test_plan_deletions.py -v
           python -m unittest discover -s backend/online -p test_workspace_api.py -v
           python -m unittest discover -s backend/online -p test_inquiry_attachments_api.py -v
+          python -m unittest discover -s backend/online -p 'test_integration*.py' -v
           python -m unittest discover -s backend/online -p test_release.py -v
           python -m unittest discover -s backend/online -p test_release_workspace.py -v
           python -m unittest discover -s backend/online -p test_release_attachments.py -v
+          python -m unittest discover -s backend/online -p test_release_integrations.py -v
           python -m unittest discover -s backend/online -p test_storage.py -v
           python -m unittest discover -s backend/online -p test_onedrive.py -v
       - name: Check online units, scripts and real HTTPS runtime
@@ -321,14 +323,14 @@ jobs:
             }
           }
           New-Item -ItemType Directory -Force (Join-Path $smartplanBundle 'backend') | Out-Null
-          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'requirements.lock')) {
+          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'external_integrations.py', 'integration_bridge.py', 'requirements.lock')) {
             Copy-Item (Join-Path '../backend' $smartplanFile) -Destination (Join-Path $smartplanBundle 'backend')
           }
           Copy-Item '../windows/*.cmd' -Destination $smartplanBundle
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.10.1 - lokales Windows-Pruefpaket (x64)
+          Smartplan Office 0.11.0 - lokales Windows-Pruefpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -403,7 +405,7 @@ jobs:
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
           $smartplanInstructions = @'
-          Smartplan Office 0.10.1 - Online-Pruefpaket fuer Windows (x64)
+          Smartplan Office 0.11.0 - Online-Pruefpaket fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
@@ -411,11 +413,14 @@ jobs:
           Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
           und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
           Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
-          0.10.1-Clientpatch: geeignete Anfrageanhaenge direkt in der App ansehen; Export und Planuebernahme bleiben getrennte Aktionen.
+          0.11-Paket: ausdrueckliche lesende Projektverknuepfungen mit Sevdesk, Google Kalender und OneDrive.
+          OneDrive und Google Kalender verwenden die bereits vorhandene Anbindung des Mailbots.
+          Ein eingerichteter Botzugang wird erst nach bestaetigter Datenuebernahme als funktionierend gemeldet.
+          Es werden keine Rechnungen, Kalendereinladungen oder Dateien beim Anbieter geschrieben.
           Die vollstaendige Abnahme dieses zusammenhaengenden Arbeitsablaufs steht aus.
-          Servervoraussetzung bleibt Backend 0.10 mit PostgreSQL-Schema 5, Import-API und den Faehigkeiten
-          project_workspace, inquiry_intake, gmail_intake, offline_workspace, plan_deletion und mail_attachments.
-          Dieser Clientpatch benoetigt kein weiteres Update eines bereits eingerichteten 0.10-Servers.
+          Servervoraussetzung fuer die neuen Anbindungen ist Backend 0.11 mit PostgreSQL-Schema 6, Import-API und den Faehigkeiten
+          project_workspace, inquiry_intake, gmail_intake, offline_workspace, plan_deletion, mail_attachments und business_integrations.
+          Ein vorhandener 0.10-Server wird nur ueber den separat geprueften Updateablauf aktualisiert.
           Die Erkennung benoetigt einen separat eingerichteten Importworker; dieses Paket aktiviert keinen Serverdienst automatisch.
           Dieses Pruefpaket aktualisiert den Hetzner-Server oder seine Datenbank nicht automatisch.
           Projektplaene vor der Fahrt oeffnen; neue Plaene und Planquellen werden zuerst lokal verschluesselt gespeichert.

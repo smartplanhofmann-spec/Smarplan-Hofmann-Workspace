@@ -1,6 +1,6 @@
 # Arbeitsauftrag für die Fortsetzung in Codex
 
-## Verbindliche aktuelle Nutzerentscheidungen – 24. Oktober 2026
+## Verbindliche aktuelle Nutzerentscheidungen – 25. Oktober 2026
 
 Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.
 
@@ -22,20 +22,28 @@ Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.
   Der Nutzer hat anschließend ausdrücklich bestätigt: Der Anhang ist jetzt in
   der Software vorhanden. Die mobile Geräteausgabe bleibt gesondert zu prüfen.
   Eine beiläufige Nennung von Salesforce ist keine beauftragte CRM-Umstellung.
-- **Aktueller App-Auftrag:** PDF- und Bildanhänge direkt in der Software ansehen
+- **Abgenommener App-Auftrag 0.10.1:** PDF- und Bildanhänge direkt in der Software ansehen
   können. Zugleich das unübersichtliche, als nicht zeitgemäß empfundene Design
   überarbeiten: stark an Apple angelehnt, intuitiver, etwas lebendig, aber mit
   zurückhaltenden Farben. Vorschau und neue Navigation/Gestaltung gemeinsam als
-  App 0.10.1 liefern. Der bestehende Anhangserver und Bot genügen; dafür kein
-  erneutes Serverupdate verlangen.
+  App 0.10.1 wurden geliefert und vom Nutzer als passend und funktionierend
+  bestätigt. Der bestehende Anhangserver und Bot genügten dafür.
 - **sevdesk bleibt** das bestehende System für Angebote und Rechnungen. Die App
   ordnet Vorgänge und Links dem Projekt zu; eine Ablösung ist nicht beauftragt.
-- Google Kalender ist der gewünschte Kalender. Kalenderdatei und ausdrücklich
-  geöffneter Google-Terminentwurf sind vorbereitet, kein automatischer Liveabgleich.
-- Dropbox ist eine wichtige Projektablage. Vorhandene Ordner und Unterlagen
-  müssen projektbezogen auffindbar sein. Die vorbereiteten HTTPS-Verweise sind
-  keine bereits verbundene Dropbox-Dateisynchronisierung. Frühere Aussagen über
-  OneDrive als alleinige vorrangige Ablage sind historisch.
+- **Aktueller autorisierter Auftrag: Integrationspaket 0.11** für Sevdesk,
+  Google Kalender und die vorhandene Dokumentablage. Nutzerkorrektur ausdrücklich:
+  **kein Dropbox, sondern OneDrive**; Google Kalender und OneDrive sind bereits
+  im vorhandenen Mailbot verbunden. Die neue Metadatenbridge nutzt diese
+  Verbindungen im selben Fünfminutenjob. Keine zweite Automatik oder zusätzlichen
+  Google-/Microsoft-Appregistrierungen für den Standardweg verlangen.
+- Neuer enger SPIX-Projektbotzugang ist vom vorhandenen SPIN-Maileingang getrennt.
+  Geschäftsführung wählt Kalendertermine und OneDrive-Laufwerk/Ordner ausdrücklich;
+  echte Datenlieferung bestätigt erst die Verbindung, wartende Daten nicht als
+  erfolgreich leer darstellen. OneDrive öffnet Original-webUrl nach Nutzerklick;
+  kein zusätzlicher Originalbytecache/-download oder externer Plananalysedienst.
+- Sevdesk wird direkt lesend verbunden und bleibt führend. Einzelne Belege
+  ausdrücklich je Projekt wählen; keine automatische Zuordnung aller
+  Kundenvorgänge, kein Erstellen/Versenden/Bezahlen von Dokumenten.
 - **Abläufe sind unterschiedlich und bleiben frei.** Anfrage, Kunde, Projekt,
   Aufmaß, Angebot, Zusage, Anzahlung und Material haben keine erzwungene
   Reihenfolge. Ein Projekt kann früh zur Klärung oder für einen Serviceeinsatz
@@ -90,6 +98,14 @@ den eigenen Hetzner-Server bleibt verbindlich.
 Die anschließende [App-Erweiterung 0.10.1](ANHANGVORSCHAU.md) verwendet dieselben
 geschützten Downloads für die Vorschau. Anfragen und ihre Originalanhänge
 bleiben online; vorhandene Offline-Projektmappen und Planquellen unverändert.
+
+**0.10.1 wurde anschließend als passend und funktionierend bestätigt.**
+Das nun vorbereitete [Integrationspaket 0.11](INTEGRATIONSPAKET_0_11.md) benötigt
+Schema 6 und einen gebündelten geschützten Server-/Appwechsel. Noch kein
+Produktivupdate, keine echten Sevdesk-/Google-/Microsoftzugänge in der Cloud
+verwendet. [Updateanleitung](deploy/hetzner/online/UPDATE_0_11.md) und
+[Projektbotpaket](integrations/project_bot/README.md) gehören dazu. Die bestehende
+Legacy-OneDrive-AppFolder-Berichtsablage bleibt ein gesonderter erhaltener Bereich.
 
 Reale iPhone-/iPad-Abnahme und Windows-Herausgebersignierung bleiben offen.
 Eine erfolgreiche Serverabnahme belegt weder Handschrift-/Wandsemantik noch

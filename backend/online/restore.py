@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import time
 
 import psycopg
 from psycopg.conninfo import make_conninfo
@@ -50,6 +51,7 @@ def restore(source, active_dsn, target_dsn):
             validate_integrity(office)
             for table in ('sessions', 'plan_sessions', 'auth_challenges', 'login_limits'):
                 office.db.execute(f'DELETE FROM {table}')
+            office.db.execute('UPDATE inbound_import_tokens SET revoked_at=? WHERE revoked_at IS NULL', (time.time(),))
     finally:
         office.db.close()
 

@@ -135,7 +135,20 @@ def work_one(office, *, worker_python=None, runner=None,
             with tempfile.TemporaryFile(dir=stage) as output, tempfile.TemporaryFile(dir=stage) as errors:
                 process = runner.start(stage=stage, job=job, ocr_languages=ocr_languages, stdout=output, stderr=errors)
                 try:
-                    process.wait(timeout=process_timeout)
+                    deadline = time.monotonic() + process_timeout
+                    while True:
+                        remaining = deadline - time.monotonic()
+                        if remaining <= 0:
+                            raise subprocess.TimeoutExpired(process.args, process_timeout)
+                        try:
+                            process.wait(timeout=min(1.0, remaining))
+                            break
+                        except subprocess.TimeoutExpired:
+                            # A deletion revokes the lease. Stop the parser
+                            # family before removing staging; late results or
+                            # a refund must never revive the deleted source.
+                            with office.lock, office.db:
+                                imports._lease(job['id'], job['lease_token'])
                 except subprocess.TimeoutExpired:
                     _stop(process)
                     process = None

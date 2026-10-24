@@ -1,4 +1,5 @@
 import plan_access
+import workspace_api
 import argparse
 import getpass
 import json
@@ -44,6 +45,7 @@ def make_handler(office,drive,launch_id=""):
                     "/api/storage/status": "GET", "/api/storage/connect": "POST",
                 }
                 self.allowed_methods = methods.get(path, "")
+                self.allowed_methods = self.allowed_methods or workspace_api.methods(path.removeprefix('/api')) or ''
                 if re.fullmatch(r"/api/users/[a-f0-9]{32}", path):
                     self.allowed_methods = "POST"
                 if re.fullmatch(r"/api/customers/[a-f0-9]{32}", path):
@@ -54,6 +56,10 @@ def make_handler(office,drive,launch_id=""):
                     self.allowed_methods = "GET, POST"
                 if re.fullmatch(r"/api/projects/[a-f0-9]{32}/assignments", path):
                     self.allowed_methods = "GET"
+                if re.fullmatch(r'/api/projects/[a-f0-9]{32}/plans/delete', path):
+                    self.allowed_methods = 'POST'
+                if re.fullmatch(r'/api/projects/[a-f0-9]{32}/plan-deletions', path):
+                    self.allowed_methods = 'GET'
                 if re.fullmatch(r"/api/reports/[a-f0-9]{32}(?:/pdf)?", path):
                     self.allowed_methods = "GET"
                 if re.fullmatch(r"/api/reports/[a-f0-9]{32}/(?:sign|onedrive)", path):
@@ -89,15 +95,26 @@ def make_handler(office,drive,launch_id=""):
                 token = auth[7:]
                 plan_token = token.startswith(plan_access.PREFIX)
                 if plan_token and not (path == '/api/offline/logout' or
+                        (plan_access.allows_workspace(token) and workspace_api.project_path(path.removeprefix('/api'))) or
                         (path == '/api/projects' and self.command == 'GET') or
+                        re.fullmatch(r'/api/projects/[a-f0-9]{32}/(?:plans/delete|plan-deletions)', path) or
                         re.fullmatch(r'/api/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path)):
                     raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne')
                 user = plan_access.user(office, token) if plan_token else office.user(token)
+                if workspace_api.methods(path.removeprefix('/api')):
+                    with office.lock, office.db:
+                        current = plan_access.user(office, token) if plan_token else office.user(token)
+                        result, status, mimetype = workspace_api.dispatch(
+                            office, current, path.removeprefix('/api'), self.command, data)
+                        return self.send(status, result, mimetype)
                 if path == '/api/offline/access':
                     if data:
                         raise Problem(400, 'Keine Zugangsdaten im Anfrageinhalt erwartet')
                     with office.lock, office.db:
-                        return self.send(201, plan_access.issue(office, user))
+                        current = office.user(token)
+                        return self.send(201, {**plan_access.issue(office, current, workspace=True),
+                                              'capabilities': ['project_plans', 'offline_plan_access', 'plan_deletion',
+                                                               'project_workspace', 'offline_workspace']})
                 if path == '/api/offline/logout':
                     with office.lock, office.db:
                         return self.send(200, plan_access.revoke(office, token))
@@ -144,6 +161,16 @@ def make_handler(office,drive,launch_id=""):
                     if self.command == "GET":
                         return self.send(200, office.plan(user, project_id, plan_id) if plan_id else office.plans(user, project_id))
                     return self.send(200 if plan_id else 201, office.save_plan(user, project_id, data, plan_id))
+                match=re.fullmatch(r'/api/projects/([a-f0-9]{32})/plans/delete', path)
+                if match:
+                    with office.lock, office.db:
+                        current = plan_access.user(office, token) if plan_token else office.user(token)
+                        return self.send(200, office.delete_plan(current, match[1], data))
+                match=re.fullmatch(r'/api/projects/([a-f0-9]{32})/plan-deletions', path)
+                if match:
+                    with office.lock, office.db:
+                        current = plan_access.user(office, token) if plan_token else office.user(token)
+                        return self.send(200, office.plan_deletions(current, match[1]))
                 match=re.fullmatch(r"/api/projects/([a-f0-9]{32})/reports",path)
                 if match:
                     if self.command=="GET":

@@ -30,6 +30,15 @@ class _PlansPageState extends State<PlansPage> {
   String? error;
   String get path => '/api/projects/${widget.project['id']}/plans';
   bool get onlineImports => widget.api.version == 'v1';
+  bool get canDelete =>
+      widget.canWrite &&
+      widget.repository != null &&
+      widget.repository!.canAccessProject(widget.project['id']) &&
+      [
+        'owner',
+        'manager',
+        'technician',
+      ].contains(widget.repository!.user['role']);
   @override
   void initState() {
     super.initState();
@@ -220,11 +229,79 @@ class _PlansPageState extends State<PlansPage> {
                 repository: repo,
                 project: widget.project,
                 localId: localId,
+                canWrite: widget.canWrite,
               ),
       ),
     );
     if (mounted) await load();
   }
+
+  Future<void> delete(
+    Map<String, dynamic> item, {
+    required bool imported,
+  }) async {
+    if (busy || !canDelete) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Plan aus dem Projekt entfernen?'),
+        content: Text(
+          '„${item['title']}“ wird aus diesem Projekt entfernt. '
+          'Ihre Geräte übernehmen die Änderung bei der nächsten Verbindung.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Abbrechen'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Löschen'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted || !canDelete) return;
+    setState(() {
+      busy = true;
+      error = null;
+    });
+    try {
+      if (imported) {
+        await widget.repository!.deleteImport(item['local_id']);
+      } else {
+        await widget.repository!.deletePlan(item['local_id']);
+      }
+      if (!mounted) return;
+      setState(() {
+        plans = widget.repository!.list(widget.project['id']);
+        imports = onlineImports
+            ? widget.repository!.imports(widget.project['id'])
+            : [];
+      });
+    } catch (e) {
+      if (mounted) {
+        final reason = e is ApiException
+            ? e.message
+            : 'Bitte erneut versuchen.';
+        final message = 'Löschen nicht abgeschlossen. $reason';
+        setState(() => error = message);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(message)));
+      }
+    } finally {
+      if (mounted) setState(() => busy = false);
+    }
+  }
+
+  Widget deleteButton(Map<String, dynamic> item, {required bool imported}) =>
+      TextButton.icon(
+        onPressed: busy || !canDelete
+            ? null
+            : () => delete(item, imported: imported),
+        icon: const Icon(Icons.delete_outline),
+        label: const Text('Löschen'),
+      );
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -258,7 +335,7 @@ class _PlansPageState extends State<PlansPage> {
     body: busy
         ? const Center(child: CircularProgressIndicator())
         : ListView(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 112),
             children: [
               if (error != null)
                 Text(
@@ -301,19 +378,29 @@ class _PlansPageState extends State<PlansPage> {
                       false))
                 for (final source in imports)
                   Card(
-                    child: ListTile(
-                      leading: Icon(
-                        source['media_type'] == 'application/pdf'
-                            ? Icons.picture_as_pdf_outlined
-                            : Icons.photo_outlined,
-                      ),
-                      title: Text(source['title']),
-                      subtitle: Text(
-                        '${source['filename']}\n${planImportStatus(source)}',
-                      ),
-                      isThreeLine: true,
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () => openImport(source['local_id']),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            source['media_type'] == 'application/pdf'
+                                ? Icons.picture_as_pdf_outlined
+                                : Icons.photo_outlined,
+                          ),
+                          title: Text(source['title']),
+                          subtitle: Text(
+                            '${source['filename']}\n${planImportStatus(source)}',
+                          ),
+                          isThreeLine: true,
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () => openImport(source['local_id']),
+                        ),
+                        if (canDelete)
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: deleteButton(source, imported: true),
+                          ),
+                      ],
                     ),
                   ),
               if (onlineImports) const SizedBox(height: 24),
@@ -347,21 +434,44 @@ class _PlansPageState extends State<PlansPage> {
               if (widget.repository?.canAccessProject(widget.project['id']) ??
                   true)
                 for (final plan in plans)
-                  ListTile(
-                    leading: const Icon(Icons.architecture),
-                    title: Text(plan['title']),
-                    subtitle: Text(
-                      '${plan['revision'] == null ? 'Lokaler Entwurf' : 'Stand ${plan['revision']}'} · ${plan['walls'].length} Wände · ${plan['sync_status'] ?? 'Entwurf'}',
+                  Card(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ListTile(
+                          leading: const Icon(Icons.architecture),
+                          title: Text(plan['title']),
+                          subtitle: Text(
+                            '${plan['revision'] == null ? 'Lokaler Entwurf' : 'Stand ${plan['revision']}'} · ${plan['walls'].length} Wände · ${plan['sync_status'] ?? 'Entwurf'}',
+                          ),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () => open(plan['local_id'] ?? plan['id']),
+                        ),
+                        if ((plan['sync_status'] == 'Konflikt' &&
+                                widget.canWrite) ||
+                            canDelete)
+                          Wrap(
+                            alignment: WrapAlignment.end,
+                            children: [
+                              if (plan['sync_status'] == 'Konflikt' &&
+                                  widget.canWrite)
+                                TextButton(
+                                  onPressed: busy
+                                      ? null
+                                      : () => resolve(
+                                          Map<String, dynamic>.from(plan),
+                                        ),
+                                  child: const Text('Konflikt klären'),
+                                ),
+                              if (canDelete)
+                                deleteButton(
+                                  Map<String, dynamic>.from(plan),
+                                  imported: false,
+                                ),
+                            ],
+                          ),
+                      ],
                     ),
-                    trailing:
-                        plan['sync_status'] == 'Konflikt' && widget.canWrite
-                        ? TextButton(
-                            onPressed: () =>
-                                resolve(Map<String, dynamic>.from(plan)),
-                            child: const Text('Konflikt klären'),
-                          )
-                        : const Icon(Icons.chevron_right),
-                    onTap: () => open(plan['local_id'] ?? plan['id']),
                   ),
             ],
           ),
@@ -392,15 +502,23 @@ class _PlanPageState extends State<PlanPage> {
   late List<dynamic> walls;
   final List<List<dynamic>> history = [];
   Offset? start;
-  bool busy = false, dirty = false;
+  bool busy = false, dirty = false, deleting = false;
   String? message;
   int edits = 0, localWrites = 0;
   bool get writable =>
       widget.canWrite &&
       (widget.repository?.canAccessProject(widget.initial['project_id']) ??
           true);
+  bool get canDelete =>
+      writable &&
+      widget.repository != null &&
+      [
+        'owner',
+        'manager',
+        'technician',
+      ].contains(widget.repository!.user['role']);
   void localChanged() {
-    if (!mounted) return;
+    if (!mounted || deleting) return;
     try {
       final record = widget.repository!.get(plan['local_id']);
       setState(() {
@@ -571,6 +689,64 @@ class _PlanPageState extends State<PlanPage> {
     if (mounted) Navigator.pop(context);
   }
 
+  Future<void> delete() async {
+    final repo = widget.repository;
+    if (repo == null || !canDelete || busy || deleting || localWrites > 0)
+      return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Plan aus dem Projekt entfernen?'),
+        content: Text(
+          '„${title.text.trim().isEmpty ? 'Neuer Grundriss' : title.text.trim()}“ '
+          'wird aus diesem Projekt entfernt. Ihre Geräte übernehmen die Änderung '
+          'bei der nächsten Verbindung.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Abbrechen'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Löschen'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true ||
+        !mounted ||
+        !canDelete ||
+        deleting ||
+        localWrites > 0)
+      return;
+    setState(() {
+      busy = true;
+      deleting = true;
+      message = null;
+    });
+    try {
+      await repo.deletePlan(plan['local_id']);
+      if (!mounted) return;
+      setState(() {
+        dirty = false;
+        busy = false;
+      });
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) Navigator.pop(context);
+      });
+    } catch (e) {
+      if (!mounted) return;
+      final reason = e is ApiException ? e.message : 'Bitte erneut versuchen.';
+      setState(() {
+        busy = false;
+        deleting = false;
+        message =
+            'Löschen nicht abgeschlossen. Der Plan bleibt geöffnet. $reason';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) =>
       widget.repository != null &&
@@ -599,6 +775,14 @@ class _PlanPageState extends State<PlanPage> {
               ),
               title: const Text('Grundriss'),
               actions: [
+                if (canDelete)
+                  TextButton.icon(
+                    onPressed: busy || deleting || localWrites > 0
+                        ? null
+                        : delete,
+                    icon: const Icon(Icons.delete_outline),
+                    label: const Text('Löschen'),
+                  ),
                 if (widget.canWrite)
                   IconButton(
                     tooltip: 'Speichern',

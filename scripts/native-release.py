@@ -12,9 +12,12 @@ ROOT = Path(__file__).resolve().parent.parent
 API_URL = 'https://office.smartplan-hofmann.de'
 BUNDLE_ID = 'de.smartplanhofmann.office'
 BACKEND_FILES = ('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py',
-                 'windows_office.py', 'plans.py', 'plan_access.py', 'requirements.lock')
+                 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py',
+                 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'workspace_api.py',
+                 'requirements.lock')
 WINDOWS_DLLS = ('flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll',
                 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll',
+                'url_launcher_windows_plugin.dll',
                 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')
 
 
@@ -32,6 +35,10 @@ def version(root=ROOT):
 
 def source_checks(root=ROOT):
     release, build = version(root)
+    visible = re.search(r'''^\s*const(?:\s+String)?\s+smartplanVersion\s*=\s*['"](\d+\.\d+\.\d+)['"]\s*;''',
+                        (root / 'app/lib/app_version.dart').read_text(), re.MULTILINE)
+    require(visible and visible.group(1) == release,
+            'Sichtbare Appversion muss mit der Semver aus pubspec.yaml übereinstimmen.')
     with (root / 'app/ios/Runner/Info.plist').open('rb') as stream:
         info = plistlib.load(stream)
     require(bool(info.get('NSFaceIDUsageDescription')), 'Face-ID-Beschreibung fehlt.')
@@ -46,7 +53,8 @@ def source_checks(root=ROOT):
             'iPhone und iPad müssen in allen App-Konfigurationen enthalten sein.')
     for name in BACKEND_FILES:
         require((root / 'backend' / name).is_file(), f'Backend-Paketquelle fehlt: {name}')
-    return {'version': release, 'default_build_number': build, 'supported_devices': ['iPhone', 'iPad', 'Windows x64']}
+    return {'version': release, 'visible_app_version': visible.group(1), 'default_build_number': build,
+            'supported_devices': ['iPhone', 'iPad', 'Windows x64']}
 
 
 def definitions(config):
@@ -129,10 +137,14 @@ def check_ios(info_path, config, build, root=ROOT, signed_entitlements=None, tea
 
 def manifest(kind, commit, root=ROOT):
     require(re.fullmatch(r'[a-f0-9]{40}', commit), 'Vollständiger Quell-Commit fehlt.')
-    return {'schema_version': 1, 'version': version(root)[0], 'build_number': version(root)[1],
+    return {'schema_version': 1, 'version': version(root)[0], 'visible_app_version': version(root)[0],
+            'build_number': version(root)[1],
             'source_commit': commit, 'api_url': API_URL if kind == 'online' else 'http://127.0.0.1:8765',
-            'api_version': 'v1' if kind == 'online' else '', 'required_backend_schema': 3 if kind == 'online' else None,
-            'offline_modules': ['project_plans', 'plan_import_sources'] if kind == 'online' else ['project_plans'],
+            'api_version': 'v1' if kind == 'online' else '', 'required_backend_schema': 4 if kind == 'online' else None,
+            'required_backend_capabilities': ['project_workspace', 'inquiry_intake', 'gmail_intake',
+                                              'offline_workspace', 'plan_deletion'] if kind == 'online' else [],
+            'offline_modules': ['project_plans', 'plan_import_sources', 'project_workspace']
+                               if kind == 'online' else ['project_plans'],
             'offline_max_days': 7, 'test_package': True}
 
 

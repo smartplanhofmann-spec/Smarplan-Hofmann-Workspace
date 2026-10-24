@@ -1,18 +1,28 @@
 # Geschütztes Testupdate – separate Datenbank und geschlossene Freigabegrenze
 
+**Aktueller Hinweis:** Der Dateiname stammt aus der früheren 0.7-Planung. Der
+geschützte Ablauf wurde inzwischen beim bestätigten Nutzer-Update auf 0.8
+(`c58b609`, Schema 3) eingesetzt. Der aktuelle vorbereitete Quellstand 0.9
+verlangt **Schema 4**; dafür gilt zusätzlich
+[das gebündelte Update 0.9](UPDATE_0_9.md). 0.9 ist noch nicht auf dem Nutzer-Server
+bereitgestellt. Der folgende Text beschreibt den weiterhin verwendeten
+Update- und Wiederanlaufmechanismus, keine erneute Erstinstallation.
+
 Der neue Ablauf ist für die vorhandene Ubuntu-24.04-/PostgreSQL-16-Installation
 mit Dienstkonto `smartplan-online`, lokalem Peer-Zugang und dem eigenen
 Smartplan-Caddy-Dienst vorbereitet. Er wurde lokal mit echten Datenbankkopien
-und in isolierten Tests des Shellablaufs geprüft. Er ist noch nicht auf der
-Nutzer-VM ausgeführt. Native Pakete und Geräteabnahme folgen dem
-[Testupdateplan](../../../TESTUPDATE_0_7.md).
+und in isolierten Tests des Shellablaufs geprüft. Der frühere
+[Testupdateplan 0.7](../../../TESTUPDATE_0_7.md) dokumentiert die historische
+Planung; die aktuellen Paket- und Abnahmeschritte stehen unter
+[UPDATE_0_9.md](UPDATE_0_9.md).
 
 ## Vor dem Serverupdate
 
 - Exakten Quell-Commit des grünen Testbranch-Builds festhalten. Die späteren
   Gerätepakete müssen diesen Quellstand beziehungsweise den daraus freigegebenen
-  Release-Commit nennen. Der aktuelle Entwicklungsstand 0.8 erwartet Schema 3;
-  das bisherige Schema 2 wird ausschließlich in der neuen Datenbankkopie migriert.
+  Release-Commit nennen. Der aktuelle Entwicklungsstand 0.9 erwartet Schema 4;
+  das bestätigte laufende Schema 3 wird ausschließlich in der neuen
+  Datenbankkopie migriert. Die bisherige Originaldatenbank bleibt erhalten.
 - Den Wartungszeitpunkt abstimmen. Geöffnete Geräte behalten lokale Pläne und
   ausstehende Aufträge. Berichte und andere Online-Funktionen sind während der
   Wartung nicht erreichbar; noch laufende Vorgänge vorher abschließen.

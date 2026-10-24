@@ -91,6 +91,21 @@ class TestApi extends OfficeApi {
   }
 }
 
+Future<void> openProjectReports(WidgetTester tester) async {
+  final picker = find.byType(DropdownButtonFormField<int>);
+  if (picker.evaluate().isNotEmpty) {
+    await tester.tap(picker);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Berichte').last);
+  } else {
+    final button = find.text('Berichte').first;
+    await tester.ensureVisible(button);
+    await tester.pumpAndSettle();
+    await tester.tap(button);
+  }
+  await tester.pumpAndSettle();
+}
+
 void main() {
   Future<void> desktopSize(WidgetTester tester) async {
     tester.view.resetPhysicalSize();
@@ -197,6 +212,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    await openProjectReports(tester);
     await tester.tap(find.text('Servicebericht'));
     await tester.pumpAndSettle();
     expect(find.text('PDF ansehen / speichern'), findsOneWidget);
@@ -224,6 +240,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
+      await openProjectReports(tester);
       await tester.tap(find.text('Servicebericht').first);
       await tester.pumpAndSettle();
       final save = find.widgetWithText(FilledButton, 'Unterschrift speichern');
@@ -300,6 +317,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    await openProjectReports(tester);
     await tester.tap(find.text('Servicebericht').first);
     await tester.pumpAndSettle();
     final preview = find.byKey(const ValueKey('signature-preview'));

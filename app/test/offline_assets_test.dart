@@ -539,6 +539,93 @@ void main() {
     },
   );
 
+  test(
+    'Explicit removal is idempotent and preserves other encrypted assets',
+    () async {
+      final removed = await put();
+      final retained = await put();
+      await assets.remove(removed);
+      expect(await assetFile(removed).exists(), isFalse);
+      await assets.remove(removed);
+      expect(await assets.read(retained), original);
+      expect(await account.exists(), isTrue);
+      expect(await allFiles(), hasLength(1));
+    },
+  );
+
+  test(
+    'Removal authenticates the complete reference and account before unlinking',
+    () async {
+      final ref = await put();
+      final before = await assetFile(ref).readAsBytes();
+      await expectLater(
+        assets.remove({...ref, 'filename': 'different.pdf'}),
+        throwsA(anything),
+      );
+      final wrongKey = EncryptedAssets(
+        OfflineVault(account, SecretKey(List<int>.filled(32, 99))),
+      );
+      await expectLater(wrongKey.remove(ref), throwsA(anything));
+      expect(await assetFile(ref).readAsBytes(), before);
+      expect(await assets.read(ref), original);
+    },
+  );
+
+  test('Removal never recursively removes unknown neighboring files', () async {
+    final ref = await put();
+    final neighbor = File('${assetFile(ref).parent.path}/unrelated.enc');
+    await neighbor.writeAsString('Synthetic neighboring file', flush: true);
+    await expectLater(assets.remove(ref), throwsA(isA<FileSystemException>()));
+    expect(await neighbor.readAsString(), 'Synthetic neighboring file');
+    // Retry after the authorized ciphertext unlink still preserves the neighbor.
+    await expectLater(assets.remove(ref), throwsA(isA<FileSystemException>()));
+    expect(await neighbor.exists(), isTrue);
+  });
+
+  test(
+    'Removal of a missing account creates no replacement directories',
+    () async {
+      final ref = await put();
+      await account.delete(recursive: true);
+      await assets.remove(ref);
+      expect(await account.exists(), isFalse);
+    },
+  );
+
+  test(
+    'Removal rejects path traversal and preserves its authenticated original',
+    () async {
+      final ref = await put();
+      for (final id in ['..', '../other', '/tmp/other', r'..\other']) {
+        await expectLater(
+          assets.remove({...ref, 'id': id}),
+          throwsFormatException,
+        );
+      }
+      expect(await assets.read(ref), original);
+    },
+  );
+
+  test(
+    'Removal refuses linked ciphertext and leaves the external target intact',
+    () async {
+      if (Platform.isWindows)
+        return; // Symlink creation needs Windows privileges.
+      final ref = await put();
+      final file = assetFile(ref);
+      final external = File('${folder.path}/external.enc');
+      await file.rename(external.path);
+      final before = await external.readAsBytes();
+      await Link(file.path).create(external.path);
+      await expectLater(
+        assets.remove(ref),
+        throwsA(isA<FileSystemException>()),
+      );
+      expect(await external.readAsBytes(), before);
+      expect(await FileSystemEntity.isLink(file.path), isTrue);
+    },
+  );
+
   test('Recognition size limit is exactly one MiB', () async {
     final result = <String, dynamic>{
       'schema_version': 1,

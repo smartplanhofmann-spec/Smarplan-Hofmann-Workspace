@@ -8,9 +8,10 @@ bearbeitbarer Plan entstehen. Das Original muss daneben erhalten bleiben.
 
 Diese Spezifikation beschreibt das Ziel und den unten abgegrenzten aktuellen
 Durchstich. Dateiauswahl, iOS-Kamera, verschlüsselte Originale, Upload und
-Serveraufträge und ein standardmäßig geschützter Linux-Worker sind im
-Entwicklungscode verbunden. Die systemd-/ARM64-Serverabnahme steht noch aus;
-der neue Stand ist nicht auf dem bestehenden Hetzner-Server bereitgestellt.
+Serveraufträge und ein standardmäßig geschützter Linux-Worker sind verbunden.
+Version 0.8 mit Schema 3 ist auf Hetzner bereitgestellt; die synthetische
+systemd-/ARM64-Dienstabnahme ist bestanden. Das vorbereitete Paket 0.9 mit
+Schema 4 ist noch nicht auf dem Nutzer-Server bereitgestellt.
 
 ## Verbindlicher Verarbeitungsort
 
@@ -122,7 +123,7 @@ Transformation, Kalibrierung und Erkennungslauf. Übernahme als neue Revision mi
 stabiler Anfrage-ID und Prüfung der Ausgangsversion. Der bestehende reine
 `title/walls`-Vertrag muss dafür ausdrücklich erweitert werden.
 
-## Aktueller Entwicklungsstand 0.8.0
+## Bestätigter Stand 0.8 und vorbereitetes Paket 0.9
 
 Unter [`backend/plan_import`](backend/plan_import/README.md) ist jetzt ein
 Linux-Importkern implementiert: JPEG/PNG und PDF werden nach
@@ -146,10 +147,22 @@ nach bestätigter verschlüsselter Übernahme bereinigt; keine Aufnahme wird dur
 die App in die Fotomediathek exportiert. Diese nativen Eigenschaften benötigen
 noch die reale iPhone-/iPad-Abnahme; CI-Kompilierung allein belegt sie nicht.
 
-Die Integrationsprüfungen laufen. Der produktive Hetzner-Stand bleibt Version
-0.7/Schema 2; neue Routen und Schema 3 sind dort nicht installiert. Bei einer
-404-Antwort des alten Servers bleibt das Original lokal und die App meldet den
-erforderlichen Serverausbau. Es wird kein Importworker automatisch eingerichtet.
+Der Nutzer hat den Hetzner-Server auf **0.8 / Commit `c58b609` / Schema 3**
+aktualisiert. Die synthetische Abnahme unter der tatsächlichen systemd-Unit auf
+Ubuntu 24.04 ARM64 ist bestanden; API, HTTPS und Importdienst wurden gemeinsam
+als `active` bestätigt. Der geschützte Importdienst ist aktiviert. Einrichtung
+und Abnahme müssen bei diesem bestehenden Stand nicht erneut als Erstinstallation
+ausgeführt werden.
+
+**0.9 / Schema 4 ist vorbereitet, noch nicht bereitgestellt.** Die Planansicht
+öffnet ohne voreingeblendete Erkennungslinien. Drehen, Zoomen und Einpassen
+erleichtern die Prüfung; die gespeicherte Drehung betrifft nur die lokale Ansicht,
+das Original bleibt unverändert. Linien- und Textvorschläge sind optional unter
+Details erreichbar. Importquellen und gezeichnete Pläne können mit Berechtigungs-
+und Bestätigungsprüfung aus dem Projekt entfernt werden; Geräte gleichen dies
+bei Verbindung ab. Fehler dürfen keine unbestätigte Löschung vortäuschen.
+Diese Änderungen gehören zum [gebündelten Update 0.9](deploy/hetzner/online/UPDATE_0_9.md)
+und sind keine bereits auf dem Nutzer-Server aktivierten Funktionen.
 
 Der Online-Worker startet standardmäßig in einer unprivilegierten bubblewrap-
 Sandbox. Eigene Mount-, PID- und Netzwerk-Namespaces trennen Parser/OCR von
@@ -170,16 +183,18 @@ beim Stopp. Native Parserabstürze werden von Infrastrukturfehlern unterschieden
 Originale bleiben erhalten und geordnet unterbrochene gültige Versuche werden
 zurückgegeben. Lokale echte Namespace- und Datenbanktests sind bestanden.
 Die obligatorische Namespace-CI prüft auch dieselbe Unit unter Ubuntu-24.04-
-systemd mit eigenen synthetischen PostgreSQL-Aufträgen. Vor echten Unterlagen
-steht zusätzlich die Abnahme auf dem ARM64-Hetzner-Server aus. Deutsche OCR benötigt
-lokale Sprachdaten; ihre Qualität ist nicht abgenommen.
+systemd mit eigenen synthetischen PostgreSQL-Aufträgen. Die zusätzliche
+synthetische Abnahme auf dem tatsächlichen ARM64-Hetzner-Server ist ebenfalls
+bestanden. Deutsche OCR benötigt lokale Sprachdaten; ihre fachliche Qualität
+bei realen Plänen ist dadurch nicht abgenommen.
 Wandsemantik, Handschriftauswertung, Perspektivkorrektur, Maßkalibrierung und
 DXF/DWG-Import stehen aus; Linien werden nicht automatisch als Wände übernommen.
 
 Die frühere Machbarkeitsprobe in der Cloud verwendete PyMuPDF für PDF und ezdxf
 für DXF sowie synthetischen Tesseract-Drucktext. Sie war eine getrennte Probe;
-der neue Importkern verwendet PDFium, OpenCV und Tesseract. Daraus folgt weiterhin
-kein Nachweis auf dem Nutzer-Server oder Handy. Es wurde kein Plan an einen
+der neue Importkern verwendet PDFium, OpenCV und Tesseract. Diese historische
+Cloud-Probe war kein Server- oder Gerätenachweis; inzwischen ist der isolierte
+Dienst auf ARM64 abgenommen. Es wurde kein Plan an einen
 externen Auswertungsdienst gesendet. Ein Linienkandidat ist noch keine bestätigte
 Wand und interpretiert keine handschriftliche Änderung.
 
@@ -187,8 +202,9 @@ Der nächste konkrete Qualitätsnachweis verwendet einen repräsentativen
 abfotografierten Plan mit Handnotizen und möglichst die dazugehörige PDF-/DXF-
 Vorlage. Diese Testdateien werden direkt auf dem eigenen Hetzner-System
 bereitgestellt; reale Planunterlagen werden dafür nicht im Chat hochgeladen.
-Die Entwicklung verwendet synthetische Beispiele. Reale Testunterlagen folgen
-erst nach Abnahme des geschützten Dienstes auf dem Server direkt auf Hetzner.
+Die Entwicklung verwendet synthetische Beispiele. Nach der bestandenen
+Dienstabnahme können vom Nutzer gewählte reale Testunterlagen direkt auf dem
+eigenen Hetzner-System fachlich verglichen werden.
 Zuerst Original und digitale Kopie vergleichen; danach Geometrie,
 Handnotizen und Maße einzeln bewerten. Daraus werden die lokal geeigneten
 Verfahren und der nächste native Durchstich ausgewählt.
@@ -197,3 +213,7 @@ Die vollständige Abnahme verlangt zusätzlich: offline aufnehmen, App neu öffn
 später unterbrochenen Upload fortsetzen, Serverauftrag nach Worker-Neustart
 beenden und dieselbe Quelle samt prüfbarem Ergebnis auf dem zweiten Gerät öffnen.
 Die SmartScreen-/Signierungsaufgabe des nächsten Windows-Updates bleibt offen.
+Die bestandene synthetische Serverabnahme ersetzt weder die reale iPhone-/iPad-
+Prüfung noch einen Nachweis vollständiger bearbeitbarer CAD-Erkennung. Handschrift,
+Wandsemantik, Perspektivkorrektur, Maßkalibrierung sowie DXF/DWG bleiben weitere
+Ausbauschritte.

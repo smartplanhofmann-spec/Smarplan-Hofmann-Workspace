@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'api.dart';
+import 'app_version.dart';
 import 'design.dart';
 
 class LoginView extends StatefulWidget {
@@ -402,6 +403,7 @@ class WorkspaceView extends StatefulWidget {
       onUsers,
       onCustomers;
   final void Function(Map<String, dynamic>) onProject;
+  final VoidCallback? onInquiries;
   final ValueChanged<String> onSelectStorage;
   const WorkspaceView({
     super.key,
@@ -418,6 +420,7 @@ class WorkspaceView extends StatefulWidget {
     required this.onUsers,
     required this.onCustomers,
     required this.onProject,
+    this.onInquiries,
   });
   @override
   State<WorkspaceView> createState() => _WorkspaceViewState();
@@ -485,6 +488,17 @@ class _WorkspaceViewState extends State<WorkspaceView> {
               },
             ),
             if (owner) ...[
+              if (widget.onInquiries != null) ...[
+                const SizedBox(height: 5),
+                _NavItem(
+                  icon: Icons.inbox_outlined,
+                  label: 'Anfragen',
+                  onTap: () {
+                    if (drawer) Navigator.pop(context);
+                    widget.onInquiries!();
+                  },
+                ),
+              ],
               const SizedBox(height: 5),
               _NavItem(
                 icon: Icons.contacts_outlined,
@@ -577,6 +591,13 @@ class _WorkspaceViewState extends State<WorkspaceView> {
                         widget.user['email'],
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
+                          fontSize: 10,
+                          color: OfficeColors.muted,
+                        ),
+                      ),
+                      const Text(
+                        'Version $smartplanVersion',
+                        style: TextStyle(
                           fontSize: 10,
                           color: OfficeColors.muted,
                         ),

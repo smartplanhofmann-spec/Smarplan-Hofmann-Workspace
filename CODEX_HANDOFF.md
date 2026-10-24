@@ -1,6 +1,67 @@
 # Arbeitsauftrag für die Fortsetzung in Codex
 
-## Ziel und verbindliche Nutzerentscheidungen
+## Verbindliche aktuelle Nutzerentscheidungen – 24. Oktober 2026
+
+Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.
+
+- Gmail und WhatsApp Business sind die gewünschten Eingangskanäle. Der vorbereitete
+  Gmail-Eingang nutzt eine gesondert einzurichtende, begrenzte Übergabe; eine
+  WhatsApp-Business-Platform-Verbindung und Zugriff auf bestehende Chats sind
+  damit nicht bereits eingerichtet.
+- **sevdesk bleibt** das bestehende System für Angebote und Rechnungen. Die App
+  ordnet Vorgänge und Links dem Projekt zu; eine Ablösung ist nicht beauftragt.
+- Google Kalender ist der gewünschte Kalender. Kalenderdatei und ausdrücklich
+  geöffneter Google-Terminentwurf sind vorbereitet, kein automatischer Liveabgleich.
+- Dropbox ist eine wichtige Projektablage. Vorhandene Ordner und Unterlagen
+  müssen projektbezogen auffindbar sein. Die vorbereiteten HTTPS-Verweise sind
+  keine bereits verbundene Dropbox-Dateisynchronisierung. Frühere Aussagen über
+  OneDrive als alleinige vorrangige Ablage sind historisch.
+- **Abläufe sind unterschiedlich und bleiben frei.** Anfrage, Kunde, Projekt,
+  Aufmaß, Angebot, Zusage, Anzahlung und Material haben keine erzwungene
+  Reihenfolge. Ein Projekt kann früh zur Klärung oder für einen Serviceeinsatz
+  entstehen. Phase, Anzahlung und Materialstatus sind unabhängig pflegbar.
+- Größere zusammenhängende und überprüfbare Pakete liefern, statt den Nutzer
+  mit vielen kleinen manuellen Updates zu beschäftigen. Capmo, Bosch und HERO
+  dienen als Orientierung für eine verständliche Projektarbeit.
+- Bei **jeder Serveranleitung zuerst die SSH-Verbindung und das richtige Fenster
+  erklären**: Verbindung aus Windows PowerShell, Linux-Befehle danach im
+  verbundenen Serverfenster. Die bekannte Verbindung lautet:
+
+  ```powershell
+  ssh -i "$env:USERPROFILE\.ssh\smartplan_hetzner" root@office.smartplan-hofmann.de
+  ```
+
+- Planerkennung bleibt auf dem eigenen Hetzner-System, ohne externen KI-/OCR-
+  Ausweichdienst. Neue Planquellen werden auf Handy/iPad zunächst verschlüsselt
+  gespeichert und bei Verbindung synchronisiert. Sieben Tage Offline-Freigabe
+  sind keine Löschfrist für bereits gespeicherte Eingaben.
+
+## Bestätigter Betrieb und vorbereitetes Paket
+
+Auf Hetzner läuft bestätigt **0.8 / Commit `c58b609` / PostgreSQL-Schema 3**.
+Die synthetische Abnahme des geschützten Importdienstes unter der tatsächlichen
+systemd-Unit auf Ubuntu 24.04 ARM64 ist bestanden. API, HTTPS und Importdienst
+(`smartplan-online`, `smartplan-https`, `smartplan-plan-import`) wurden vom Nutzer
+gemeinsam als `active` bestätigt; der Importdienst ist aktiviert.
+
+**0.9 / Schema 4 ist vorbereitet und noch nicht auf dem Nutzer-Server bereitgestellt.**
+Das größere Paket verbindet Anfrageeingang, Projektmappe, Aufgaben, Termine,
+Bautagebuch, Dokumentverweise und vorbereitete Offline-Projektarbeit. Die
+Planansicht wird ruhiger, drehbar und löschbar; daraus wird noch keine vollständige
+bearbeitbare CAD-Zeichnung. Für das nächste gebündelte Serverupdate gilt
+[UPDATE_0_9.md](deploy/hetzner/online/UPDATE_0_9.md). Bestehende App-Daten und
+ausstehende Offline-Eingaben dürfen dafür nicht durch Neuinstallation oder
+manuelles Löschen beseitigt werden.
+
+Reale iPhone-/iPad-Abnahme und Windows-Herausgebersignierung bleiben offen.
+Eine erfolgreiche Serverabnahme belegt weder Handschrift-/Wandsemantik noch
+DXF-/DWG-Import oder einen bereits verbundenen externen Anbieter.
+
+## Historischer Ausgangsauftrag – durch den aktuellen Abschnitt ergänzt
+
+Die folgenden Abschnitte dokumentieren den frühen Ausgangsstand. Aussagen über
+fehlende Builds, noch einzurichtendes Hosting, die damalige Ablagepriorität und
+den „nächsten“ Arbeitsschritt sind **historisch**, keine aktuellen Anweisungen.
 
 Thomas Hofmann möchte eine individuelle Unternehmenssoftware für Smartplan Hofmann,
 ähnlich im Funktionsumfang wie HERO. Desktop zunächst ausschließlich Windows,
@@ -33,7 +94,7 @@ Gewünschte Gesamtfunktionen:
    Berechtigungen, Fotos und Sprachnotizen.
 10. Austauschbare Dateiablage, zunächst OneDrive Personal, später NAS/Business.
 
-## Erster vorhandener Stand
+## Historisch: erster vorhandener Stand
 
 Siehe README. Backend mit Anmeldung, festen Rollen und Projektzuweisung; erste
 Dokumentkette bis unterschriebenem PDF; Flutter-Oberfläche als unkompilierter
@@ -41,7 +102,7 @@ Quellcode; vorbereiteter OneDrive-OAuth-Adapter. Neun Backend-Tests bestanden.
 Keine echten Kunden-, Bank- oder Microsoft-Daten eingefügt. Keine nativen Builds.
 Kein Betriebssystemfenster oder lokaler Ordner auf Thomas' PC wurde hier eingerichtet.
 
-## Nächster konkreter Arbeitsauftrag
+## Historisch: damaliger nächster Arbeitsauftrag
 
 Öffne dieses Projekt in Codex lokal. Lies README und diesen Auftrag. Prüfe die
 Umgebung, richte Flutter-Platformgerüste ein und bringe `flutter analyze` sowie
@@ -62,7 +123,7 @@ MCP-Zugriffe müssen dieselben Backend-Rechte wie App-Benutzer respektieren.
 Erste MCP-Funktionen: zugewiesene Projekte lesen und Berichtentwürfe erstellen;
 für autonome Agenten keine Unterschriften im Namen eines Kunden erzeugen.
 
-## Noch offene Angaben - erst erfragen, wenn der jeweilige Schritt sie benötigt
+## Historisch: damals noch offene Angaben
 
 - Anzahl und Namen der ersten Benutzer, Aufgaben und gewünschte Einzelrechte.
 - Namen, Aufgaben und Zugangsmöglichkeiten der bestehenden Grok Bots.

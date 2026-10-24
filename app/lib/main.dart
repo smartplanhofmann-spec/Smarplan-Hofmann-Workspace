@@ -13,6 +13,8 @@ import 'customer_pages.dart';
 import 'mfa_dialog.dart';
 import 'offline_plans.dart';
 import 'plan_pages.dart';
+import 'inquiry_pages.dart';
+import 'app_version.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -99,12 +101,24 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
     await Navigator.push<void>(
       context,
       MaterialPageRoute(
-        builder: (_) => PlansPage(
-          api: api,
-          project: project,
-          canWrite: ['owner', 'manager', 'technician'].contains(user!['role']),
-          repository: offline,
-        ),
+        builder: (_) => offline!.workspaceSupported
+            ? ProjectPage(
+                api: api,
+                project: project,
+                role: user!['role'],
+                repository: offline,
+                offlineMode: true,
+              )
+            : PlansPage(
+                api: api,
+                project: project,
+                canWrite: [
+                  'owner',
+                  'manager',
+                  'technician',
+                ].contains(user!['role']),
+                repository: offline,
+              ),
       ),
     );
   }
@@ -137,11 +151,16 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
   }
 
   Future<void> loadProjects() async {
+    final session = api.token;
+    final account = user?['id'];
     final items = List<dynamic>.from(await api.call('/api/projects'));
+    if (api.token != session || user?['id'] != account) return;
     Map<String, dynamic>? state;
     if (user?['role'] == 'owner')
       state = Map<String, dynamic>.from(await api.call('/api/storage/status'));
+    if (api.token != session || user?['id'] != account) return;
     if (offline?.active == true) await offline!.refreshProjects(items);
+    if (api.token != session || user?['id'] != account) return;
     if (mounted)
       setState(() {
         projects = items;
@@ -314,15 +333,19 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         onLogin: login,
         onOffline: offline == null ? null : resumeOffline,
         connectionLabel: api.version == 'v1'
-            ? 'Online-Pilot · ${Uri.parse(api.base).host}'
-            : null,
+            ? 'Online-Pilot · ${Uri.parse(api.base).host} · Version $smartplanVersion'
+            : 'Version $smartplanVersion',
       );
     }
     if (offlineMode) {
       final usable = offline!.permitted;
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Offline-Projektpläne'),
+          title: Text(
+            offline!.workspaceSupported
+                ? 'Offline-Projektmappe'
+                : 'Offline-Projektpläne',
+          ),
           actions: [
             TextButton(
               onPressed: busy ? null : logout,
@@ -340,7 +363,7 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
             ),
             const SizedBox(height: 12),
             const Text(
-              'Offline sind hier die lokal gespeicherten Projektpläne verfügbar. Berichte, Kundenverwaltung und Medien benötigen weiterhin Verbindung.',
+              'Vorbereitete Projektmappen und Pläne bleiben lokal verfügbar. Anfragen, externe Ablagen und unterschriebene Berichte benötigen Verbindung.',
             ),
             if (error != null) Text(error!),
             if (usable)
@@ -363,6 +386,53 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
       busy: busy,
       error: error,
       onRefresh: () => run(loadProjects),
+      onInquiries: user!['role'] == 'owner'
+          ? () async {
+              await Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => InquiriesPage(
+                    api: api,
+                    role: user!['role'],
+                    onProject: (project) async {
+                      if (!mounted) return;
+                      final session = api.token;
+                      final account = user!['id'];
+                      final fresh = List<dynamic>.from(
+                        await api.call('/api/projects'),
+                      );
+                      if (!mounted ||
+                          user?['id'] != account ||
+                          api.token != session)
+                        return;
+                      if (offline?.active == true) {
+                        await offline!.refreshProjects(fresh);
+                      }
+                      if (!mounted ||
+                          user?['id'] != account ||
+                          api.token != session)
+                        return;
+                      setState(() => projects = fresh);
+                      await Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ProjectPage(
+                            api: api,
+                            project: project,
+                            role: user!['role'],
+                            repository: offline?.active == true
+                                ? offline
+                                : null,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              );
+              if (mounted && user != null) await run(loadProjects);
+            }
+          : null,
       onLogout: logout,
       onNewProject: newProject,
       onCustomers: () async {

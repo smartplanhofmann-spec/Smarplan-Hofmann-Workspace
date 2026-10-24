@@ -10,7 +10,8 @@ import 'offline_vault.dart';
 ///
 /// Only ciphertext is written. A successful put precedes the caller's metadata
 /// commit; an interrupted metadata commit may leave an unreferenced asset. No
-/// asset is removed here. dart:io flushes the file but exposes no directory fsync;
+/// asset is removed implicitly. Explicit removal requires a committed delete
+/// intent in the repository. dart:io flushes files but exposes no directory fsync;
 /// native device acceptance remains necessary for filesystem/OS protection.
 class EncryptedAssets {
   EncryptedAssets(this.vault)
@@ -354,5 +355,54 @@ class EncryptedAssets {
       );
     }
     return Uint8List.fromList(original);
+  }
+
+  /// Remove exactly one authenticated asset after its reference was durably
+  /// removed from live records. The caller retains a cleanup intent until this
+  /// completes. Missing assets are already removed; unknown files and links are
+  /// never recursively deleted, and no account directory or key is removed.
+  Future<void> remove(Map<String, dynamic> reference) async {
+    final ref = _reference(reference);
+    await _rejectLinks(_root);
+    if (await FileSystemEntity.type(_root.path, followLinks: false) ==
+        FileSystemEntityType.notFound) {
+      return;
+    }
+    await _rejectLinks(_assets);
+    if (await FileSystemEntity.type(_assets.path, followLinks: false) ==
+        FileSystemEntityType.notFound) {
+      return;
+    }
+    await _layout(create: false);
+    final directory = Directory('${_assets.path}/${ref['id']}');
+    await _rejectLinks(directory);
+    if (await FileSystemEntity.type(directory.path, followLinks: false) ==
+        FileSystemEntityType.notFound) {
+      return;
+    }
+    await _privateDirectory(directory);
+    final file = File('${directory.path}/original.enc');
+    final kind = await FileSystemEntity.type(file.path, followLinks: false);
+    if (kind == FileSystemEntityType.file) {
+      // Bind the request to the account key, asset ID and full immutable
+      // metadata before unlinking. A forged/cross-account ref cannot delete an
+      // unrelated ciphertext merely by guessing its path.
+      await read(ref);
+      await _rejectLinks(directory);
+      await _privateDirectory(directory);
+      if (await FileSystemEntity.type(file.path, followLinks: false) !=
+          FileSystemEntityType.file) {
+        throw const FileSystemException(
+          'Offline-Datei wurde während der Bereinigung verändert.',
+        );
+      }
+      await file.delete();
+    } else if (kind != FileSystemEntityType.notFound) {
+      throw const FileSystemException(
+        'Unbekannte Datei im Offline-Medienspeicher bleibt erhalten.',
+      );
+    }
+    // Non-recursive removal preserves every unrelated/late-created file.
+    await directory.delete();
   }
 }

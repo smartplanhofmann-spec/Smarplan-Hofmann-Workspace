@@ -13,6 +13,7 @@ import 'package:smartplan_office/api.dart';
 import 'package:smartplan_office/offline_plans.dart';
 import 'package:smartplan_office/offline_vault.dart';
 import 'package:smartplan_office/plan_import_page.dart';
+import 'package:smartplan_office/plan_pages.dart';
 
 import 'offline_plans_test.dart' show PlanServer, TestDevice, idle;
 
@@ -859,6 +860,273 @@ void main() {
   );
 
   testWidgets(
+    'Plan view rotates only after persistent commit and fits the rotated image without changing source bytes',
+    (tester) async {
+      final fixture = (await tester.runAsync(_Fixture.create))!;
+      try {
+        final record = (await tester.runAsync(
+          () => fixture.repository.captureImport(
+            'project',
+            _png,
+            filename: 'rotation.png',
+            mediaType: 'image/png',
+            title: 'Rotation fixture',
+            page: 0,
+          ),
+        ))!;
+        Widget page() => MaterialApp(
+          home: PlanImportDetailPage(
+            repository: fixture.repository,
+            project: _Fixture.project,
+            localId: record['local_id'],
+            canWrite: true,
+          ),
+        );
+        await tester.pumpWidget(page());
+        await _finishDetailLoad(tester);
+        final viewer = find.byKey(const ValueKey('import-plan-view'));
+        final rotated = find.byKey(const ValueKey('import-plan-rotation'));
+        expect(tester.widget<RotatedBox>(rotated).quarterTurns, 0);
+        final before = tester.getSize(rotated);
+        expect(before.width / before.height, closeTo(4 / 3, .001));
+        await tester.tap(find.byTooltip('Vergrößern'));
+        await tester.pump();
+        expect(
+          tester
+              .widget<InteractiveViewer>(viewer)
+              .transformationController!
+              .value
+              .getMaxScaleOnAxis(),
+          greaterThan(1),
+        );
+        await tester.tap(find.text('Einpassen'));
+        await tester.pump();
+        expect(
+          tester
+              .widget<InteractiveViewer>(viewer)
+              .transformationController!
+              .value
+              .getMaxScaleOnAxis(),
+          1,
+        );
+
+        fixture.vault.pauseNextCommit();
+        await tester.tap(find.text('Drehen'));
+        await _pumpUntil(tester, () => fixture.vault.started!.isCompleted);
+        expect(tester.widget<RotatedBox>(rotated).quarterTurns, 0);
+        fixture.vault.release!.complete();
+        await _pumpUntil(
+          tester,
+          () => tester.widget<RotatedBox>(rotated).quarterTurns == 1,
+        );
+        await _finishDetailLoad(tester);
+        final after = tester.getSize(rotated);
+        expect(after.width / after.height, closeTo(3 / 4, .001));
+        expect(find.text('Ansicht: 90°'), findsOneWidget);
+        fixture.vault.failNext = true;
+        await tester.tap(find.text('Drehen'));
+        await _pumpUntil(
+          tester,
+          () => find
+              .textContaining('Die Drehung konnte nicht gespeichert werden.')
+              .evaluate()
+              .isNotEmpty,
+        );
+        expect(tester.widget<RotatedBox>(rotated).quarterTurns, 1);
+        expect(
+          await tester.runAsync(
+            () => fixture.repository.importSource(record['local_id']),
+          ),
+          orderedEquals(_png),
+        );
+
+        await tester.pumpWidget(const SizedBox());
+        await tester.pumpWidget(page());
+        await _finishDetailLoad(tester);
+        expect(tester.widget<RotatedBox>(rotated).quarterTurns, 1);
+      } finally {
+        await _close(tester, fixture);
+      }
+    },
+  );
+
+  testWidgets(
+    'Import deletion requires confirmation and persistent commit; failed deletion keeps the open original',
+    (tester) async {
+      final fixture = (await tester.runAsync(_Fixture.create))!;
+      try {
+        final record = (await tester.runAsync(
+          () => fixture.repository.captureImport(
+            'project',
+            _png,
+            filename: 'delete.png',
+            mediaType: 'image/png',
+            title: 'Delete fixture',
+            page: 0,
+          ),
+        ))!;
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Builder(
+              builder: (context) => Scaffold(
+                body: TextButton(
+                  onPressed: () => Navigator.push<void>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => PlanImportDetailPage(
+                        repository: fixture.repository,
+                        project: _Fixture.project,
+                        localId: record['local_id'],
+                        canWrite: true,
+                      ),
+                    ),
+                  ),
+                  child: const Text('Plan öffnen'),
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.tap(find.text('Plan öffnen'));
+        await tester.pump();
+        await _finishDetailLoad(tester);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Löschen'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Abbrechen'));
+        await tester.pumpAndSettle();
+        expect(fixture.repository.imports('project'), hasLength(1));
+
+        fixture.vault.failNext = true;
+        await tester.tap(find.text('Löschen'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Plan entfernen'));
+        await _pumpUntil(
+          tester,
+          () => find
+              .textContaining('Der Plan konnte nicht entfernt werden.')
+              .evaluate()
+              .isNotEmpty,
+        );
+        expect(find.byType(PlanImportDetailPage), findsOneWidget);
+        expect(
+          await tester.runAsync(
+            () => fixture.repository.importSource(record['local_id']),
+          ),
+          orderedEquals(_png),
+        );
+
+        fixture.vault.pauseNextCommit();
+        await tester.tap(find.text('Löschen'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Plan entfernen'));
+        await _pumpUntil(tester, () => fixture.vault.started!.isCompleted);
+        expect(find.byType(PlanImportDetailPage), findsOneWidget);
+        expect(fixture.repository.imports('project'), hasLength(1));
+        fixture.vault.release!.complete();
+        await _pumpUntil(
+          tester,
+          () => find.byType(PlanImportDetailPage).evaluate().isEmpty,
+        );
+        await tester.pumpAndSettle();
+        expect(find.text('Plan öffnen'), findsOneWidget);
+        expect(fixture.repository.imports('project'), isEmpty);
+      } finally {
+        await _close(tester, fixture);
+      }
+    },
+  );
+
+  testWidgets(
+    'Plan lists expose confirmed deletion for imported and drawn plans, and hide it without write permission',
+    (tester) async {
+      final fixture = (await tester.runAsync(_Fixture.create))!;
+      try {
+        await tester.runAsync(
+          () => fixture.repository.captureImport(
+            'project',
+            _png,
+            filename: 'list.png',
+            mediaType: 'image/png',
+            title: 'Imported fixture',
+            page: 0,
+          ),
+        );
+        final plan = (await tester.runAsync(
+          () => fixture.repository.save('project', {
+            'title': 'Drawn fixture',
+            'walls': <dynamic>[],
+          }),
+        ))!;
+        Widget page(bool canWrite) => MaterialApp(
+          home: PlansPage(
+            api: fixture.server,
+            project: _Fixture.project,
+            canWrite: canWrite,
+            repository: fixture.repository,
+          ),
+        );
+        await tester.pumpWidget(page(false));
+        await _pumpUntil(
+          tester,
+          () => find.text('Imported fixture').evaluate().isNotEmpty,
+        );
+        expect(find.text('Löschen'), findsNothing);
+        await tester.pumpWidget(const SizedBox());
+        await tester.pumpWidget(page(true));
+        await _pumpUntil(
+          tester,
+          () => find.text('Löschen').evaluate().length == 2,
+        );
+        Finder deleteFor(String title) => find.descendant(
+          of: find.ancestor(of: find.text(title), matching: find.byType(Card)),
+          matching: find.widgetWithText(TextButton, 'Löschen'),
+        );
+        await tester.ensureVisible(deleteFor('Drawn fixture'));
+        await tester.pump();
+        await tester.tap(deleteFor('Drawn fixture'));
+        await tester.pumpAndSettle();
+        fixture.vault.failNext = true;
+        await tester.tap(find.widgetWithText(FilledButton, 'Löschen'));
+        await _pumpUntil(
+          tester,
+          () => find
+              .textContaining('Löschen nicht abgeschlossen.')
+              .evaluate()
+              .isNotEmpty,
+        );
+        expect(
+          fixture.repository.get(plan['local_id'])['title'],
+          'Drawn fixture',
+        );
+        for (final title in ['Imported fixture', 'Drawn fixture']) {
+          await tester.ensureVisible(deleteFor(title));
+          await tester.pump();
+          await tester.tap(deleteFor(title));
+          await tester.pumpAndSettle();
+          await tester.tap(find.widgetWithText(FilledButton, 'Löschen'));
+          await _pumpUntil(
+            tester,
+            () =>
+                !fixture.repository
+                    .imports('project')
+                    .any((item) => item['title'] == title) &&
+                !fixture.repository
+                    .list('project')
+                    .any((item) => item['title'] == title) &&
+                find.byType(CircularProgressIndicator).evaluate().isEmpty &&
+                find.text(title).evaluate().isEmpty,
+          );
+        }
+        expect(fixture.repository.imports('project'), isEmpty);
+        expect(fixture.repository.list('project'), isEmpty);
+      } finally {
+        await _close(tester, fixture);
+      }
+    },
+  );
+
+  testWidgets(
     'Late encrypted server PNG and recognition refresh an open PDF review, including landscape',
     (tester) async {
       final server = _ReviewServer();
@@ -900,7 +1168,7 @@ void main() {
               .isNotEmpty,
         );
         expect(find.byType(Image), findsNothing);
-        expect(find.text('Servervorschau'), findsNothing);
+        expect(find.byType(Image), findsNothing);
         expect(find.text('review-source.pdf · Seite 50'), findsOneWidget);
         // Each server-controlled arrival follows the preceding complete load.
         // The latest busy flag cannot drain older, superseded load futures;
@@ -941,7 +1209,7 @@ void main() {
           isNull,
         );
         expect(
-          find.text('Servervorschau'),
+          find.byType(Image),
           findsNothing,
           reason: 'A ready status alone must not label an uncached source as a server preview',
         );
@@ -956,7 +1224,7 @@ void main() {
         expect(refreshError, isNull);
         expect(server.resultStarted.isCompleted, isTrue);
         await _finishDetailLoad(tester);
-        expect(find.text('Servervorschau'), findsOneWidget);
+        expect(find.byType(Image), findsOneWidget);
         expect(
           fixture.repository.getImport(record['local_id'])['preview'],
           isA<Map>(),
@@ -965,6 +1233,9 @@ void main() {
           fixture.repository.getImport(record['local_id'])['recognition'],
           isNull,
         );
+        await tester.tap(find.text('Details und Erkennung'));
+        await tester.pumpAndSettle();
+        expect(find.text('Linienvorschläge anzeigen'), findsNothing);
         server.releaseResult.complete();
         await _pumpUntil(
           tester,
@@ -977,18 +1248,21 @@ void main() {
               widget is CustomPaint &&
               widget.foregroundPainter is PlanImportCandidatesPainter,
         );
-        try {
-          await _pumpUntil(tester, () => overlay.evaluate().isNotEmpty);
-        } catch (_) {
-          fail(
-            'Candidate overlay missing after cache arrival. '
-            'Cached fields: ${fixture.repository.getImport(record["local_id"]).keys.toList()}. '
-            'Visible text: ${tester.widgetList<Text>(find.byType(Text)).map((text) => text.data).join(" | ")}',
-          );
-        }
-        expect(find.text('Servervorschau'), findsOneWidget);
-        expect(find.text('Linienvorschläge'), findsOneWidget);
-        expect(find.text('Textstellen'), findsOneWidget);
+        await _finishDetailLoad(tester);
+        expect(
+          overlay,
+          findsNothing,
+          reason: 'Recognition must not cover the initial plan view with candidate lines.',
+        );
+        expect(
+          find.text('Linienvorschläge anzeigen'),
+          findsOneWidget,
+          reason: 'An already open details sheet must receive newly cached recognition.',
+        );
+        expect(
+          find.textContaining('noch keinen automatisch bearbeitbaren Wandplan'),
+          findsOneWidget,
+        );
         final cached = fixture.repository.getImport(record['local_id']);
         expect(cached['preview'], isA<Map>());
         expect(cached['recognition'], isA<Map>());
@@ -1006,9 +1280,22 @@ void main() {
           _ocrText,
         );
 
-        await tester.ensureVisible(find.text('2 erkannte Textstellen'));
-        await tester.tap(find.text('2 erkannte Textstellen'));
-        await tester.pumpAndSettle();
+        expect(
+          tester
+              .widget<FilterChip>(
+                find.widgetWithText(FilterChip, 'Linienvorschläge anzeigen'),
+              )
+              .selected,
+          isFalse,
+        );
+        expect(
+          tester
+              .widget<FilterChip>(
+                find.widgetWithText(FilterChip, 'Textstellen markieren'),
+              )
+              .selected,
+          isFalse,
+        );
         expect(find.text(_ocrText), findsOneWidget);
         expect(find.text('Drucktext-OCR'), findsOneWidget);
         expect(find.text('PDF-Text'), findsOneWidget);
@@ -1018,6 +1305,12 @@ void main() {
           _ocrText,
           reason: 'OCR contents must remain a plain Flutter Text value',
         );
+        await tester.tap(find.text('Linienvorschläge anzeigen'));
+        await tester.pump();
+        await tester.ensureVisible(find.text('Zurück zum Plan'));
+        await tester.tap(find.text('Zurück zum Plan'));
+        await tester.pumpAndSettle();
+        expect(overlay, findsOneWidget);
 
         tester.view.devicePixelRatio = 1;
         tester.view.physicalSize = const Size(800, 320);
@@ -1040,6 +1333,20 @@ void main() {
           hasLength(3),
           reason: 'Source PDF, server PNG and recognition JSON must all use real encrypted files',
         );
+        await tester.ensureVisible(find.text('Details und Erkennung'));
+        await tester.tap(find.text('Details und Erkennung'));
+        await tester.pumpAndSettle();
+        expect(find.text(_ocrText), findsOneWidget);
+        fixture.now = fixture.now.add(const Duration(days: 7));
+        fixture.repository.changed();
+        await tester.pump();
+        expect(
+          find.text(_ocrText),
+          findsNothing,
+          reason: 'An open details sheet must hide recognition text when access expires.',
+        );
+        expect(find.text('review-source.pdf'), findsNothing);
+        expect(find.byType(Image), findsNothing);
       } finally {
         if (refresh != null) await _finishDetailLoad(tester);
         if (!server.releasePreview.isCompleted)

@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:smartplan_office/main.dart';
 
-import 'workflow_test.dart' show TestApi;
+import 'workflow_test.dart' show TestApi, openProjectReports;
 
 class DesignApi extends TestApi {
   @override
@@ -165,6 +165,7 @@ void main() {
       await signIn(tester);
       await tester.tap(find.text('Wohnhaus am Park'));
       await tester.pumpAndSettle();
+      await openProjectReports(tester);
       await capture(tester, '03-neuer-bericht');
       await tester.tap(find.text('Servicebericht').first);
       await tester.pumpAndSettle();
@@ -237,6 +238,7 @@ void main() {
       await tester.ensureVisible(find.text('Wohnhaus am Park'));
       await tester.tap(find.text('Wohnhaus am Park'));
       await tester.pumpAndSettle();
+      await openProjectReports(tester);
       await tester.tap(find.text('Servicebericht').first);
       await tester.pumpAndSettle();
       await tester.ensureVisible(find.text('Unterschrift speichern'));

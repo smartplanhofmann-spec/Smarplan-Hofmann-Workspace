@@ -163,6 +163,13 @@ class Office:
         self.db.commit()
         try:
             self.migrate_customers()
+            from plan_deletions import schema_statements
+            with self.db:
+                for statement in schema_statements():
+                    self.db.execute(statement)
+                from workspace_api import schema_statements as workspace_schema
+                for statement in workspace_schema():
+                    self.db.execute(statement)
         except Exception:
             self.db.close()
             raise
@@ -423,11 +430,14 @@ class Office:
             self.project(user, project_id)
             return [json.loads(row[0]) for row in self.db.execute(
                 'SELECT p.payload FROM plan_versions p WHERE p.project_id=? AND p.revision='
-                '(SELECT MAX(v.revision) FROM plan_versions v WHERE v.id=p.id) ORDER BY p.id', (project_id,))]
+                '(SELECT MAX(v.revision) FROM plan_versions v WHERE v.id=p.id) AND NOT EXISTS '
+                "(SELECT 1 FROM plan_deletions d WHERE d.kind='plan' AND d.object_id=p.id) ORDER BY p.id", (project_id,))]
 
     def plan(self, user, project_id, plan_id):
         with self.lock:
             self.project(user, project_id)
+            from plan_deletions import assert_object_live
+            assert_object_live(self.db, 'plan', plan_id, project_id)
             row = self.db.execute('SELECT payload FROM plan_versions WHERE id=? AND project_id=? '
                                   'ORDER BY revision DESC LIMIT 1', (plan_id, project_id)).fetchone()
             if not row:
@@ -447,13 +457,21 @@ class Office:
         fingerprint = digest(canonical(dict(project_id=project_id, plan_id=plan_id, data=data)))
         with self.lock, self.db:
             self.project(user, project_id)
+            from plan_deletions import assert_create_live, assert_object_live
+            if plan_id:
+                assert_object_live(self.db, 'plan', plan_id, project_id)
+            else:
+                assert_create_live(self.db, 'plan', project_id, user['id'], request_id)
             if request_id:
                 previous = self.db.execute('SELECT request_hash,result FROM plan_requests WHERE user_id=? AND request_id=?',
                                            (user['id'], request_id)).fetchone()
                 if previous:
                     if previous['request_hash'] != fingerprint:
                         raise Problem(409, 'Synchronisierungs-ID wurde bereits für einen anderen Inhalt verwendet')
-                    return json.loads(previous['result'])
+                    saved = json.loads(previous['result'])
+                    if saved.get('deleted'):
+                        raise Problem(410, 'Dieser Plan wurde gelöscht')
+                    return saved
             revision = 1
             if plan_id:
                 current = self.plan(user, project_id, plan_id)
@@ -470,6 +488,16 @@ class Office:
                 self.db.execute('INSERT INTO plan_requests(user_id,request_id,project_id,request_hash,result) VALUES(?,?,?,?,?)',
                                 (user['id'], request_id, project_id, fingerprint, canonical(result)))
             return result
+
+    def delete_plan(self, user, project_id, data):
+        from plan_deletions import delete
+        with self.lock, self.db:
+            return delete(self, user, project_id, 'plan', data)
+
+    def plan_deletions(self, user, project_id):
+        from plan_deletions import feed
+        with self.lock:
+            return feed(self, user, project_id)
 
     def draft(self, user, project_id, kind, description):
         self.require(user,("owner","manager","technician"))

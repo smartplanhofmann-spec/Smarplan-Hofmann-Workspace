@@ -12,6 +12,7 @@ from online.auth import Authentication
 from online.store import PostgresOffice, SCHEMA_VERSION
 from online.storage import Storage
 import plan_access
+import workspace_api
 from online.plan_imports import PlanImports, CHUNK_SIZE, ensure_sqlite_schema
 
 METHODS = {
@@ -22,6 +23,8 @@ METHODS = {
     '/storage/provider': 'POST', '/storage/disconnect': 'POST',
 }
 PATTERNS = [
+    (r'/projects/[a-f0-9]{32}/(?:plans|plan-imports)/delete', 'POST'),
+    (r'/projects/[a-f0-9]{32}/plan-deletions', 'GET'),
     (r'/projects/[a-f0-9]{32}/plan-imports', 'GET, POST'),
     (r'/projects/[a-f0-9]{32}/plan-imports/[a-f0-9]{32}', 'GET'),
     (r'/projects/[a-f0-9]{32}/plan-imports/[a-f0-9]{32}/chunks/[0-9]{1,3}', 'PUT'),
@@ -40,11 +43,18 @@ PATTERNS = [
 
 
 def dispatch(office, user, path, method, data, token):
+    workspace_response = workspace_api.dispatch(office, user, path, method, data)
+    if workspace_response is not None:
+        result, status, mimetype = workspace_response
+        return (Response(result, mimetype=mimetype,
+                         headers={'Content-Disposition': 'attachment; filename="smartplan-termin.ics"'})
+                if mimetype != 'application/json' else result), status
     if path == '/offline/access':
         if data:
             raise Problem(400, 'Keine Zugangsdaten im Anfrageinhalt erwartet')
-        return {**plan_access.issue(office, user),
-                'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports']}, 201
+        return {**plan_access.issue(office, user, workspace=True),
+                'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
+                                 'project_workspace', 'offline_workspace']}, 201
     if path == '/offline/logout':
         return plan_access.revoke(office, token), 200
     if path == '/me':
@@ -69,9 +79,13 @@ def dispatch(office, user, path, method, data, token):
     if parts[0] == 'customers':
         return (office.customer(user, parts[1]) if method == 'GET' else office.update_customer(user, parts[1], data)), 200
     if parts[0] == 'projects':
+        if parts[2] == 'plan-deletions':
+            return office.plan_deletions(user, parts[1]), 200
         if parts[2] == 'plan-imports':
             imports = PlanImports(office)
             project = parts[1]
+            if len(parts) == 4 and parts[3] == 'delete':
+                return imports.delete(user, project, data), 200
             if len(parts) == 3:
                 return (imports.list(user, project), 200) if method == 'GET' else (imports.create(user, project, data), 201)
             import_id = parts[3]
@@ -88,6 +102,8 @@ def dispatch(office, user, path, method, data, token):
             return Response(content, mimetype=mimetype,
                             headers={'Content-Disposition': 'attachment; filename="smartplan-import"'}), 200
         if parts[2] == 'plans':
+            if len(parts) == 4 and parts[3] == 'delete':
+                return office.delete_plan(user, parts[1], data), 200
             plan_id = parts[3] if len(parts) == 4 else None
             if method == 'GET':
                 return (office.plan(user, parts[1], plan_id) if plan_id else office.plans(user, parts[1])), 200
@@ -171,8 +187,9 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         try:
             with office.lock, office.db:
                 office.db.execute('SELECT COUNT(*) FROM users').fetchone()
-            return jsonify(status='ok', version='0.8.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
-                           capabilities=['project_plans', 'offline_plan_access', 'plan_imports'])
+            return jsonify(status='ok', version='0.9.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
+                           capabilities=['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
+                                         'offline_workspace', *workspace_api.CAPABILITIES])
         except Exception:
             return jsonify(status='unavailable'), 503
 
@@ -199,10 +216,18 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         return Response('OneDrive verbunden. Sie können dieses Browserfenster schließen '
                         'und zu Smartplan zurückkehren.', mimetype='text/plain')
 
+    @app.post('/api/v1/intake/gmail')
+    def receive_gmail():
+        from inbound_connectors import InboundConnectors
+        authorization = request.headers.get('Authorization', '')
+        if not authorization.startswith('Bearer ') or len(authorization) > 200:
+            raise Problem(401, 'Gmail-Importzugang erforderlich')
+        return jsonify(InboundConnectors(office).receive_gmail(authorization[7:], body())), 201
+
     @app.route('/api/v1/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     def api(path):
         path = '/' + path
-        methods = METHODS.get(path) or next((allowed for pattern, allowed in PATTERNS if re.fullmatch(pattern, path)), None)
+        methods = METHODS.get(path) or next((allowed for pattern, allowed in PATTERNS if re.fullmatch(pattern, path)), None) or workspace_api.methods(path)
         if not methods:
             raise Problem(404, 'Funktion nicht gefunden')
         if request.method not in methods.split(', '):
@@ -225,7 +250,9 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         token = authorization[7:]
         plan_token = token.startswith(plan_access.PREFIX)
         if plan_token and not (path == '/offline/logout' or
+                (plan_access.allows_workspace(token) and workspace_api.project_path(path)) or
                 (path == '/projects' and request.method == 'GET') or
+                re.fullmatch(r'/projects/[a-f0-9]{32}/(?:(?:plans|plan-imports)/delete|plan-deletions)', path) or
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path) or
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plan-imports(?:/[a-f0-9]{32}(?:/(?:complete|source|preview|result|chunks/[0-9]{1,3}))?)?', path)):
             raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne und Planquellen')

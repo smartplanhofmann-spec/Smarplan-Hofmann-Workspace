@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'admin_pages.dart';
-import 'plan_pages.dart';
 import 'offline_plans.dart';
 import 'api.dart';
 import 'pdf_page.dart';
 import 'design.dart';
-import 'customer_pages.dart';
 import 'signature_editor.dart';
+import 'project_workspace_page.dart';
 
 export 'signature_editor.dart' show SignaturePainter;
 
@@ -18,23 +16,52 @@ String localDate(String value) {
   return '${two(date.day)}.${two(date.month)}.${date.year} ${two(date.hour)}:${two(date.minute)} (Ortszeit)';
 }
 
-class ProjectPage extends StatefulWidget {
+class ProjectPage extends StatelessWidget {
   final OfficeApi api;
   final Map<String, dynamic> project;
   final String role;
   final OfflinePlans? repository;
+  final bool offlineMode;
   const ProjectPage({
     super.key,
     required this.api,
     required this.project,
     required this.role,
     this.repository,
+    this.offlineMode = false,
   });
   @override
-  State<ProjectPage> createState() => _ProjectPageState();
+  Widget build(BuildContext context) => ProjectWorkspacePage(
+    api: api,
+    project: project,
+    role: role,
+    repository: repository,
+    offlineMode: offlineMode,
+    reportsBuilder: (current) => _ProjectReportsPage(
+      api: api,
+      project: current,
+      role: role,
+      repository: repository,
+    ),
+  );
 }
 
-class _ProjectPageState extends State<ProjectPage> {
+class _ProjectReportsPage extends StatefulWidget {
+  final OfficeApi api;
+  final Map<String, dynamic> project;
+  final String role;
+  final OfflinePlans? repository;
+  const _ProjectReportsPage({
+    required this.api,
+    required this.project,
+    required this.role,
+    this.repository,
+  });
+  @override
+  State<_ProjectReportsPage> createState() => _ProjectReportsPageState();
+}
+
+class _ProjectReportsPageState extends State<_ProjectReportsPage> {
   final description = TextEditingController(), signer = TextEditingController();
   String kind = 'Servicebericht';
   Map<String, dynamic>? report;
@@ -43,7 +70,6 @@ class _ProjectPageState extends State<ProjectPage> {
   bool checked = false, busy = false, editingSignature = false;
   String? message;
   late String customerName;
-  String? customerId;
   bool get canWrite => ['owner', 'manager', 'technician'].contains(widget.role);
   bool get canSign => canWrite && report?['status'] == 'draft';
   bool get hasSignature => strokes.any((s) => s.length > 1);
@@ -51,7 +77,6 @@ class _ProjectPageState extends State<ProjectPage> {
   void initState() {
     super.initState();
     customerName = widget.project['customer'];
-    customerId = widget.project['customer_id'];
     run(readReports);
   }
 
@@ -74,6 +99,14 @@ class _ProjectPageState extends State<ProjectPage> {
       if (mounted) setState(() => message = e.toString());
     } finally {
       if (mounted) setState(() => busy = false);
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant _ProjectReportsPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.project['customer'] != widget.project['customer']) {
+      customerName = widget.project['customer'] ?? '';
     }
   }
 
@@ -174,86 +207,8 @@ class _ProjectPageState extends State<ProjectPage> {
     }
   }
 
-  Future<void> changeCustomer() async {
-    if (busy) return;
-    List<Map<String, dynamic>> choices = [];
-    await run(() async {
-      final result = await widget.api.call('/api/customers');
-      choices = [
-        for (final c in result)
-          if (c['active'] == 1) Map<String, dynamic>.from(c),
-      ];
-    });
-    if (!mounted || message != null) return;
-    final selected = await showDialog<String>(
-      context: context,
-      builder: (_) =>
-          CustomerAssignmentDialog(customers: choices, customerId: customerId),
-    );
-    if (!mounted || selected == null) return;
-    await run(() async {
-      final updated = await widget.api.call(
-        '/api/projects/${widget.project['id']}/customer',
-        {'customer_id': selected},
-      );
-      if (mounted)
-        setState(() {
-          customerName = updated['customer'];
-          customerId = updated['customer_id'];
-        });
-    });
-  }
-
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: const Text('Projektübersicht'),
-      actions: [
-        IconButton(
-          tooltip: 'Berichte aktualisieren',
-          onPressed: busy ? null : () => run(readReports),
-          icon: const Icon(Icons.refresh_rounded, size: 21),
-        ),
-        if (widget.role == 'owner')
-          IconButton(
-            tooltip: 'Kunden zuordnen',
-            onPressed: busy ? null : changeCustomer,
-            icon: const Icon(Icons.contacts_outlined, size: 21),
-          ),
-        if (widget.role == 'owner')
-          IconButton(
-            tooltip: 'Projektzugriff verwalten',
-            onPressed: busy
-                ? null
-                : () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => AssignmentsPage(
-                        api: widget.api,
-                        project: widget.project,
-                      ),
-                    ),
-                  ),
-            icon: const Icon(Icons.group_outlined, size: 21),
-          ),
-        IconButton(
-          tooltip: 'Projektpläne',
-          icon: const Icon(Icons.architecture),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => PlansPage(
-                api: widget.api,
-                project: widget.project,
-                canWrite: canWrite,
-                repository: widget.repository,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-      ],
-    ),
     body: LayoutBuilder(
       builder: (context, box) {
         final wide = box.maxWidth >= 1100;
@@ -272,13 +227,22 @@ class _ProjectPageState extends State<ProjectPage> {
                   eyebrow: 'Projekt',
                   title: widget.project['name'],
                   subtitle: customerName,
-                  action: canWrite
-                      ? OutlinedButton.icon(
+                  action: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        tooltip: 'Berichte aktualisieren',
+                        onPressed: busy ? null : () => run(readReports),
+                        icon: const Icon(Icons.refresh_rounded),
+                      ),
+                      if (canWrite)
+                        OutlinedButton.icon(
                           onPressed: busy ? null : newDraft,
                           icon: const Icon(Icons.add_rounded, size: 18),
                           label: const Text('Neues Dokument'),
-                        )
-                      : null,
+                        ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 28),
                 if (busy)

@@ -12,6 +12,7 @@ import uuid
 from datetime import datetime, timezone
 
 from core import Problem, canonical, text_field
+import plan_deletions
 
 CHUNK_SIZE = 262144
 MAX_SOURCE_BYTES = 20 * 1024 * 1024
@@ -119,6 +120,9 @@ class PlanImports:
         return row
 
     def _status(self, row):
+        deleted = plan_deletions.by_object(self.db, 'import', row['id'])
+        if deleted:
+            return plan_deletions.receipt(deleted)
         result = {key: row[key] for key in ('id', 'project_id', 'filename', 'media_type', 'size',
                                              'sha256', 'page', 'title', 'status', 'attempts',
                                              'preview_sha256', 'preview_size', 'result_sha256')}
@@ -138,6 +142,7 @@ class PlanImports:
     def create(self, user, project_id, data):
         self.authorize(user, project_id, write=True)
         manifest = _manifest(data, project_id)
+        plan_deletions.assert_create_live(self.db, 'import', project_id, user['id'], manifest['request_id'])
         fingerprint = _hash(canonical(manifest).encode('utf-8'))
         previous = self.db.execute('SELECT ' + FIELDS + ' FROM plan_imports WHERE user_id=? AND request_id=?',
                                    (user['id'], manifest['request_id'])).fetchone()
@@ -157,15 +162,22 @@ class PlanImports:
     def list(self, user, project_id):
         self.authorize(user, project_id)
         return [self._status(row) for row in self.db.execute('SELECT ' + FIELDS + ' FROM plan_imports '
-                'WHERE project_id=? ORDER BY created_at DESC,id DESC', (project_id,)).fetchall()]
+                "WHERE project_id=? AND NOT EXISTS (SELECT 1 FROM plan_deletions d WHERE d.kind='import' "
+                'AND d.object_id=plan_imports.id) ORDER BY created_at DESC,id DESC', (project_id,)).fetchall()]
 
     def get(self, user, project_id, import_id):
         self.authorize(user, project_id)
-        return self._status(self._row(import_id, project_id))
+        row = self._row(import_id, project_id)
+        plan_deletions.assert_object_live(self.db, 'import', import_id)
+        return self._status(row)
+
+    def delete(self, user, project_id, data):
+        return plan_deletions.delete(self.office, user, project_id, 'import', data)
 
     def put_chunk(self, user, project_id, import_id, index, data):
         self.authorize(user, project_id, write=True)
         row = self._row(import_id, project_id)
+        plan_deletions.assert_object_live(self.db, 'import', import_id)
         count = (row['size'] + CHUNK_SIZE - 1) // CHUNK_SIZE
         if type(index) is not int or not 0 <= index < count:
             raise Problem(400, 'Ungültiger Uploadabschnitt')
@@ -206,6 +218,7 @@ class PlanImports:
     def complete_upload(self, user, project_id, import_id):
         self.authorize(user, project_id, write=True)
         row = self._row(import_id, project_id)
+        plan_deletions.assert_object_live(self.db, 'import', import_id)
         self.source_bytes(row)
         if row['status'] == 'uploading':
             self.db.execute("UPDATE plan_imports SET status='queued',updated_at=? WHERE id=?", (self.clock(), import_id))
@@ -215,6 +228,7 @@ class PlanImports:
     def source(self, user, project_id, import_id):
         self.authorize(user, project_id)
         row = self._row(import_id, project_id)
+        plan_deletions.assert_object_live(self.db, 'import', import_id)
         if row['status'] == 'uploading':
             raise Problem(409, 'Upload ist noch nicht bestätigt')
         return self.source_bytes(row), row['media_type']
@@ -222,6 +236,7 @@ class PlanImports:
     def artifact(self, user, project_id, import_id, kind):
         self.authorize(user, project_id)
         row = self._row(import_id, project_id)
+        plan_deletions.assert_object_live(self.db, 'import', import_id)
         if row['status'] != 'needs_review':
             raise Problem(409, 'Erkennungsergebnis ist noch nicht verfügbar')
         column = 'preview' if kind == 'preview' else 'result'
@@ -235,8 +250,10 @@ class PlanImports:
         if not isinstance(lease_seconds, (int, float)) or not 1 <= lease_seconds <= 300:
             raise ValueError('Bounded lease required')
         now = self.clock()
-        rows = self.db.execute('SELECT ' + FIELDS + " FROM plan_imports WHERE status='queued' OR "
-                               "(status='running' AND lease_until<=?) ORDER BY created_at,id", (now,)).fetchall()
+        rows = self.db.execute('SELECT ' + FIELDS + " FROM plan_imports WHERE (status='queued' OR "
+                               "(status='running' AND lease_until<=?)) AND NOT EXISTS "
+                               "(SELECT 1 FROM plan_deletions d WHERE d.kind='import' AND d.object_id=plan_imports.id) "
+                               'ORDER BY created_at,id', (now,)).fetchall()
         for row in rows:
             if row['attempts'] >= MAX_ATTEMPTS:
                 self.db.execute("UPDATE plan_imports SET status='failed',error_code='attempts_exhausted',"
@@ -250,6 +267,8 @@ class PlanImports:
 
     def _lease(self, import_id, token):
         row = self._row(import_id)
+        if plan_deletions.by_object(self.db, 'import', import_id):
+            raise LeaseLost('Import was deleted')
         if row['status'] != 'running' or row['lease_token'] != token or row['lease_until'] <= self.clock():
             raise LeaseLost('Import lease expired or replaced')
         return row
@@ -282,8 +301,20 @@ class PlanImports:
 
 def validate_integrity(office):
     """Backup/release verification, including partial uploads and all artifacts."""
+    plan_deletions.validate_integrity(office)
+    from workspace_api import validate_integrity as validate_workspace
+    validate_workspace(office)
     imports = PlanImports(office)
     for row in office.db.execute('SELECT ' + FIELDS + ' FROM plan_imports').fetchall():
+        if plan_deletions.by_object(office.db, 'import', row['id']):
+            saved = office.db.execute('SELECT preview,result FROM plan_imports WHERE id=?', (row['id'],)).fetchone()
+            if (office.db.execute('SELECT 1 FROM plan_import_chunks WHERE import_id=?', (row['id'],)).fetchone()
+                    or saved['preview'] is not None or saved['result'] is not None
+                    or row['preview_sha256'] is not None or row['result_sha256'] is not None
+                    or row['lease_token'] is not None or row['lease_until'] is not None
+                    or row['filename'] or row['title']):
+                raise ValueError('Deleted import still contains active source, result or lease data')
+            continue
         imports.source_bytes(row, require_complete=row['status'] != 'uploading')
         saved = office.db.execute('SELECT preview,result FROM plan_imports WHERE id=?', (row['id'],)).fetchone()
         for column in ('preview', 'result'):

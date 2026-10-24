@@ -40,7 +40,11 @@ jobs:
           python -m unittest discover -s backend/online -p test_online.py -v
           python -m unittest discover -s backend/online -p test_plans_online.py -v
           python -m unittest discover -s backend/online -p test_plan_imports.py -v
+          python -m unittest discover -s backend/online -p test_import_cancellation.py -v
+          python -m unittest discover -s backend/online -p test_plan_deletions.py -v
+          python -m unittest discover -s backend/online -p test_workspace_api.py -v
           python -m unittest discover -s backend/online -p test_release.py -v
+          python -m unittest discover -s backend/online -p test_release_workspace.py -v
           python -m unittest discover -s backend/online -p test_storage.py -v
           python -m unittest discover -s backend/online -p test_onedrive.py -v
       - name: Check online units, scripts and real HTTPS runtime
@@ -77,6 +81,8 @@ jobs:
       - run: python -m pip install -r backend/requirements.lock
       - run: python -m pip check
       - run: python -m unittest discover -s backend -v
+      - name: Require synthetic Gmail bridge retry and scope contracts
+        run: node integrations/google_apps_script/test_gmail.js
   flutter:
     runs-on: ubuntu-latest
     defaults:
@@ -245,7 +251,7 @@ jobs:
           $smartplanBundle = (Resolve-Path 'build/windows/x64/runner/Release').Path
           $smartplanBundleFiles = (Get-ChildItem $smartplanBundle -Name) -join ', '
           Write-Host "::notice title=Windows bundle files::$smartplanBundleFiles"
-          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll', 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll')) {
+          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'file_selector_windows_plugin.dll', 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll', 'url_launcher_windows_plugin.dll')) {
             if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
               throw "Required application file is missing: $smartplanFile"
             }
@@ -266,14 +272,14 @@ jobs:
             }
           }
           New-Item -ItemType Directory -Force (Join-Path $smartplanBundle 'backend') | Out-Null
-          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'requirements.lock')) {
+          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'workspace_api.py', 'requirements.lock')) {
             Copy-Item (Join-Path '../backend' $smartplanFile) -Destination (Join-Path $smartplanBundle 'backend')
           }
           Copy-Item '../windows/*.cmd' -Destination $smartplanBundle
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.8.0 - lokales Windows-Testpaket (x64)
+          Smartplan Office 0.9.0 - lokales Windows-Pruefpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -283,8 +289,11 @@ jobs:
           Die App verwendet den lokalen Server unter http://127.0.0.1:8765.
           Flutter, Visual Studio und C++-Buildwerkzeuge werden zum Start dieses Pakets nicht benoetigt.
           Die benoetigten Visual-C++-Laufzeit-DLLs sind enthalten.
-          Das Paket ist eine Entwicklungsstufe, kein signierter Installer und kein produktiver Mehrbenutzerbetrieb.
+          EXE und Paket sind unsigniert; Windows-Signierung und SmartScreen-Abnahme bleiben offen.
+          Diese unveroeffentlichte Entwicklungsfassung benoetigt die zusammenhaengende Funktionsabnahme vor einer Freigabe.
+          Das Paket ist eine Entwicklungsstufe, kein Installer und kein produktiver Mehrbenutzerbetrieb.
           Gezeichnete Projektplaene werden zuerst lokal verschluesselt gespeichert und spaeter synchronisiert.
+          Auch vorgemerkte Grundrissloeschungen werden nach der naechsten Verbindung synchronisiert.
           Offline-Berechtigung: bis zu sieben Tage nach Online-Anmeldung; vorhandene lokale Eingaben bleiben danach erhalten.
           Foto-/PDF-Planimport ist ausschliesslich im getrennten Online-Paket vorgesehen und in diesem lokalen Paket nicht sichtbar.
           Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung. Geraeteentsperrung separat pruefen.
@@ -344,7 +353,7 @@ jobs:
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
           $smartplanInstructions = @'
-          Smartplan Office 0.8.0 - Online-Pilot fuer Windows (x64)
+          Smartplan Office 0.9.0 - Online-Pruefpaket fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
@@ -352,14 +361,22 @@ jobs:
           Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
           und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
           Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
-          Servervoraussetzung fuer Planimporte: freigegebenes Backendupdate mit PostgreSQL-Schema 3 und der Import-API.
+          0.9.0-Entwicklungsumfang: Projektmappe mit Dashboard, Aufgaben und Bautagebuch sowie Anfrage zu Kunde/Projekt.
+          Die vollstaendige Abnahme dieses zusammenhaengenden Arbeitsablaufs steht aus.
+          Servervoraussetzung: freigegebenes Backendupdate mit PostgreSQL-Schema 4, Import-API und den Faehigkeiten
+          project_workspace, inquiry_intake, gmail_intake, offline_workspace und plan_deletion.
           Die Erkennung benoetigt einen separat eingerichteten Importworker; dieses Paket aktiviert keinen Serverdienst automatisch.
-          Der bestehende produktive Server 0.7/Schema 2 ist durch dieses Pruefpaket nicht aktualisiert.
+          Dieses Pruefpaket aktualisiert den Hetzner-Server oder seine Datenbank nicht automatisch.
           Projektplaene vor der Fahrt oeffnen; neue Plaene und Planquellen werden zuerst lokal verschluesselt gespeichert.
           Ohne neue Import-API bleiben Quellen lokal erhalten; ein erforderliches Serverupdate wird gemeldet.
+          Grundriss- und Quellenloeschungen bleiben bis zur erfolgreichen Synchronisierung vorgemerkt.
+          Ohne Faehigkeit plan_deletion warten sie auf das freigegebene Serverupdate.
+          Die zuvor geoeffnete Projektmappe mit Aufgaben, Bautagebuch und Terminen ist fuer Offline-Arbeit vorgesehen.
+          Anfragen, finanzielle Vorgaenge und Berichte benoetigen weiterhin Verbindung.
           Offline bis zu sieben Tage; Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung.
           Ausstehende Plaene nicht durch Deinstallation oder Loeschen von App-Daten entfernen.
-          Das Paket ist ein Online-Pilot, kein signierter Installer.
+          EXE und Paket sind unsigniert; Windows-Signierung und SmartScreen-Abnahme bleiben offen.
+          Das Paket ist ein Online-Pruefpaket, kein Installer.
           Eine zusaetzliche PDF-Ablage ist nach Einrichtung und Auswahl in der App nutzbar.
           Echte Kontoverbindung, Datenuebernahme und getrennte verschluesselte Backups separat pruefen.
           '@

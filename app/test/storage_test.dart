@@ -5,7 +5,7 @@ import 'package:smartplan_office/api.dart';
 import 'package:smartplan_office/main.dart';
 import 'package:smartplan_office/project_page.dart';
 
-import 'workflow_test.dart' show TestApi;
+import 'workflow_test.dart' show TestApi, openProjectReports;
 
 class StorageApi extends OfficeApi {
   StorageApi() : super(apiVersion: 'v1');
@@ -208,6 +208,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    await openProjectReports(tester);
     await tester.tap(find.text('Servicebericht').first);
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('PDF in Ablage speichern'));

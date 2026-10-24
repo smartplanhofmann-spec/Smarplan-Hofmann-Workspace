@@ -77,6 +77,10 @@ Future<PlanImportPayload> readPlanImportFile(XFile file) async {
 /// Inspect the compressed header before asking a widget to decode pixels.
 /// This also covers originals and previews downloaded by another device.
 Future<void> validatePlanImportImage(Uint8List bytes) async {
+  await _planImportImageSize(bytes);
+}
+
+Future<Size> _planImportImageSize(Uint8List bytes) async {
   if (bytes.isEmpty || bytes.length > maxPlanImportBytes) {
     throw const ApiException(413, 'Das Bild darf höchstens 20 MiB groß sein.');
   }
@@ -92,6 +96,7 @@ Future<void> validatePlanImportImage(Uint8List bytes) async {
         'Das Bild darf höchstens 40 Millionen Bildpunkte haben.',
       );
     }
+    return Size(descriptor.width.toDouble(), descriptor.height.toDouble());
   } on ApiException {
     rethrow;
   } catch (_) {
@@ -320,6 +325,7 @@ class _PlanImportPageState extends State<PlanImportPage> {
               repository: widget.repository,
               project: widget.project,
               localId: record['local_id'],
+              canWrite: widget.canWrite,
             ),
           ),
         ),
@@ -533,11 +539,13 @@ class PlanImportDetailPage extends StatefulWidget {
   final OfflinePlans repository;
   final Map<String, dynamic> project;
   final String localId;
+  final bool canWrite;
   const PlanImportDetailPage({
     super.key,
     required this.repository,
     required this.project,
     required this.localId,
+    this.canWrite = false,
   });
   @override
   State<PlanImportDetailPage> createState() => _PlanImportDetailPageState();
@@ -547,14 +555,34 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
   Map<String, dynamic>? record;
   Map<String, dynamic>? recognition;
   ImageProvider? sourceImage, previewImage;
+  Size? sourceSize, previewSize;
+  final transformation = TransformationController();
+  final detailRevision = ValueNotifier<int>(0);
+  Size viewportSize = Size.zero;
   bool busy = false, showPreview = false;
-  bool showLines = true, showTextBoxes = false;
+  bool showLines = false, showTextBoxes = false;
+  bool savingView = false, deleting = false;
   String? error, previewNotice;
   int generation = 0;
 
   bool get allowed =>
       widget.repository.api.version == 'v1' &&
       widget.repository.canAccessProject(widget.project['id']);
+
+  bool get mayDelete =>
+      allowed &&
+      record != null &&
+      widget.canWrite &&
+      [
+        'owner',
+        'manager',
+        'technician',
+      ].contains(widget.repository.user['role']);
+
+  int rotation(Map<String, dynamic>? value) {
+    final turns = value?['view_rotation_quarter_turns'];
+    return turns is int && turns >= 0 && turns <= 3 ? turns : 0;
+  }
 
   @override
   void initState() {
@@ -568,11 +596,13 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
     if (previewImage != null) unawaited(previewImage!.evict());
     sourceImage = null;
     previewImage = null;
+    sourceSize = null;
+    previewSize = null;
     recognition = null;
   }
 
   void changed() {
-    if (!mounted) return;
+    if (!mounted || deleting) return;
     try {
       final next = widget.repository.getImport(widget.localId);
       if (!allowed || next['project_id'] != widget.project['id'])
@@ -583,6 +613,7 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
           (record?['source'] == null && next['source'] != null) ||
           (record?['preview'] == null && next['preview'] != null) ||
           (record?['recognition'] == null && next['recognition'] != null);
+      if (rotation(record) != rotation(next)) fit();
       setState(() => record = next);
       if (ready) unawaited(load());
     } catch (_) {
@@ -616,7 +647,7 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
         final source = await widget.repository.importSource(widget.localId);
         if (!mounted || request != generation || !allowed) return;
         if (current['media_type'] != 'application/pdf') {
-          await validatePlanImportImage(source);
+          final dimensions = await _planImportImageSize(source);
           if (!mounted || request != generation || !allowed) return;
           sourceImage = ResizeImage(
             MemoryImage(source),
@@ -624,6 +655,7 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
             height: 1800,
             policy: ResizeImagePolicy.fit,
           );
+          sourceSize = dimensions;
         }
       } on ApiException catch (e) {
         if (e.status == 401 || e.status == 403) rethrow;
@@ -635,7 +667,7 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
         try {
           final preview = await widget.repository.importPreview(widget.localId);
           if (!mounted || request != generation || !allowed) return;
-          await validatePlanImportImage(preview);
+          final dimensions = await _planImportImageSize(preview);
           if (!mounted || request != generation || !allowed) return;
           previewImage = ResizeImage(
             MemoryImage(preview),
@@ -643,6 +675,7 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
             height: 1800,
             policy: ResizeImagePolicy.fit,
           );
+          previewSize = dimensions;
           if (!hadPreview) showPreview = true;
         } on ApiException catch (e) {
           if (e.status == 401 || e.status == 403) rethrow;
@@ -672,7 +705,10 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
         );
       }
     } finally {
-      if (mounted && request == generation) setState(() => busy = false);
+      if (mounted && request == generation) {
+        setState(() => busy = false);
+        detailRevision.value++;
+      }
     }
   }
 
@@ -681,46 +717,284 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
     generation++;
     widget.repository.removeListener(changed);
     clearImages();
+    transformation.dispose();
+    detailRevision.dispose();
     super.dispose();
   }
 
-  Widget picture(ImageProvider image) {
-    final dimensions = recognition?['preview'];
-    final width = dimensions is Map ? dimensions['width'] : null;
-    final height = dimensions is Map ? dimensions['height'] : null;
-    final overlay =
-        showPreview &&
-        recognition != null &&
-        width is num &&
-        height is num &&
-        width.isFinite &&
-        height.isFinite &&
-        width > 0 &&
-        height > 0 &&
-        width * height <= 40000000;
-    final view = Image(
-      image: image,
-      fit: overlay ? BoxFit.fill : BoxFit.contain,
-      frameBuilder: overlay
-          ? (context, child, frame, synchronous) =>
-                frame == null && !synchronous
-                ? child
-                : CustomPaint(
-                    foregroundPainter: PlanImportCandidatesPainter(
-                      recognition!,
-                      lines: showLines,
-                      textBoxes: showTextBoxes,
-                    ),
-                    child: child,
-                  )
-          : null,
-      errorBuilder: (_, _, _) => const Text(
-        'Bildvorschau nicht lesbar. Das gespeicherte Original bleibt erhalten.',
+  void fit() => transformation.value = Matrix4.identity();
+
+  void zoom(double factor) {
+    if (viewportSize.isEmpty) return;
+    final center = viewportSize.center(Offset.zero);
+    final point = transformation.toScene(center);
+    final scale = (transformation.value.getMaxScaleOnAxis() * factor).clamp(
+      1.0,
+      8.0,
+    );
+    transformation.value = Matrix4.identity()
+      ..setEntry(0, 0, scale)
+      ..setEntry(1, 1, scale)
+      ..setEntry(0, 3, center.dx - point.dx * scale)
+      ..setEntry(1, 3, center.dy - point.dy * scale);
+  }
+
+  Future<void> rotate() async {
+    if (!allowed || busy || savingView || deleting) return;
+    setState(() {
+      savingView = true;
+      error = null;
+    });
+    try {
+      await widget.repository.setImportRotation(
+        widget.localId,
+        (rotation(record) + 1) % 4,
+      );
+      if (!mounted || !allowed) return;
+      setState(() => record = widget.repository.getImport(widget.localId));
+      fit();
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          error = 'Die Drehung konnte nicht gespeichert werden. Die bisherige Ansicht und das Original bleiben erhalten.';
+        });
+      }
+    } finally {
+      if (mounted) setState(() => savingView = false);
+    }
+  }
+
+  Future<void> remove() async {
+    if (!mayDelete || busy || savingView || deleting) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Plan aus dem Projekt entfernen?'),
+        content: Text(
+          '„${record?['title'] ?? 'Importierter Plan'}“ und die zugehörige Importansicht werden aus dem Projekt entfernt. Andere Geräte synchronisieren die Änderung bei Verbindung.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Abbrechen'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Plan entfernen'),
+          ),
+        ],
       ),
     );
-    return overlay
-        ? AspectRatio(aspectRatio: width / height, child: view)
-        : view;
+    if (confirmed != true || !mounted || !mayDelete) return;
+    setState(() {
+      deleting = true;
+      error = null;
+    });
+    try {
+      await widget.repository.deleteImport(widget.localId);
+      if (!mounted) return;
+      generation++;
+      clearImages();
+      setState(() {
+        deleting = false;
+        record = null;
+      });
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) Navigator.pop(context);
+      });
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          deleting = false;
+          error = 'Der Plan konnte nicht entfernt werden. Das gespeicherte Original bleibt erhalten. Bitte erneut versuchen.';
+        });
+      }
+    }
+  }
+
+  Widget picture(ImageProvider image) => Image(
+    image: image,
+    fit: BoxFit.fill,
+    frameBuilder:
+        showPreview &&
+            previewImage != null &&
+            recognition != null &&
+            (showLines || showTextBoxes)
+        ? (context, child, frame, synchronous) => frame == null && !synchronous
+              ? child
+              : CustomPaint(
+                  foregroundPainter: PlanImportCandidatesPainter(
+                    recognition!,
+                    lines: showLines,
+                    textBoxes: showTextBoxes,
+                  ),
+                  child: child,
+                )
+        : null,
+    errorBuilder: (_, _, _) => const Text(
+      'Bildvorschau nicht lesbar. Das gespeicherte Original bleibt erhalten.',
+    ),
+  );
+
+  Widget planView(ImageProvider image, Size dimensions) => LayoutBuilder(
+    builder: (context, constraints) {
+      viewportSize = constraints.biggest;
+      final turns = rotation(record);
+      final rotated = turns.isOdd
+          ? Size(dimensions.height, dimensions.width)
+          : dimensions;
+      final fitted = applyBoxFit(
+        BoxFit.contain,
+        rotated,
+        viewportSize,
+      ).destination;
+      return InteractiveViewer(
+        key: const ValueKey('import-plan-view'),
+        transformationController: transformation,
+        minScale: 1,
+        maxScale: 8,
+        child: SizedBox(
+          width: viewportSize.width,
+          height: viewportSize.height,
+          child: Center(
+            child: SizedBox(
+              width: fitted.width,
+              height: fitted.height,
+              child: RotatedBox(
+                key: const ValueKey('import-plan-rotation'),
+                quarterTurns: turns,
+                child: picture(image),
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
+
+  Future<void> details() {
+    return showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (context) => ListenableBuilder(
+        listenable: Listenable.merge([widget.repository, detailRevision]),
+        builder: (context, _) => !allowed || record == null
+            ? const Padding(
+                padding: EdgeInsets.all(24),
+                child: Text(
+                  'Projektzugriff gesperrt oder Plan nicht mehr verfügbar. Bitte schließen und online anmelden.',
+                ),
+              )
+            : StatefulBuilder(
+                builder: (context, updateSheet) {
+                  final texts = recognition == null
+                      ? <Map<String, dynamic>>[]
+                      : planImportTexts(recognition!);
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Details und Erkennung',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        const SizedBox(height: 12),
+                        Text(record?['filename'] ?? ''),
+                        if (record?['media_type'] == 'application/pdf')
+                          Text(
+                            'PDF-Seite ${(record?['page'] as int? ?? 0) + 1}',
+                          ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          'Das Original bleibt unverändert. Drehen und Zoomen ändern nur die Ansicht auf diesem Gerät.',
+                        ),
+                        const SizedBox(height: 12),
+                        if (previewImage != null && sourceImage != null)
+                          SegmentedButton<bool>(
+                            segments: const [
+                              ButtonSegment(
+                                value: false,
+                                label: Text('Originalbild'),
+                              ),
+                              ButtonSegment(
+                                value: true,
+                                label: Text('Aufbereitete Vorschau'),
+                              ),
+                            ],
+                            selected: {showPreview},
+                            onSelectionChanged: (selection) {
+                              setState(() => showPreview = selection.first);
+                              fit();
+                              updateSheet(() {});
+                            },
+                          ),
+                        if (previewImage != null && recognition != null) ...[
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Automatische Vorschläge sind keine bestätigten Wände, Maße oder verstandenen Handnotizen.',
+                          ),
+                          Wrap(
+                            spacing: 8,
+                            children: [
+                              FilterChip(
+                                label: const Text('Linienvorschläge anzeigen'),
+                                selected: showLines,
+                                onSelected: (value) {
+                                  setState(() {
+                                    showPreview = true;
+                                    showLines = value;
+                                  });
+                                  updateSheet(() {});
+                                },
+                              ),
+                              FilterChip(
+                                label: const Text('Textstellen markieren'),
+                                selected: showTextBoxes,
+                                onSelected: (value) {
+                                  setState(() {
+                                    showPreview = true;
+                                    showTextBoxes = value;
+                                  });
+                                  updateSheet(() {});
+                                },
+                              ),
+                            ],
+                          ),
+                          if (texts.isNotEmpty)
+                            SizedBox(
+                              height: 180,
+                              child: ListView.builder(
+                                itemCount: texts.length,
+                                itemBuilder: (context, index) {
+                                  final item = texts[index];
+                                  return ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text(item['text']),
+                                    subtitle: Text(item['origin']),
+                                  );
+                                },
+                              ),
+                            ),
+                        ],
+                        const SizedBox(height: 12),
+                        const Text(
+                          'Vergrößern mit +, Mausrad oder zwei Fingern. Zum Verschieben das Planbild ziehen; „Einpassen“ zeigt den ganzen Plan.',
+                        ),
+                        const SizedBox(height: 16),
+                        FilledButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Zurück zum Plan'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+      ),
+    );
   }
 
   Widget detailLayout(Widget child) => LayoutBuilder(
@@ -732,148 +1006,155 @@ class _PlanImportDetailPageState extends State<PlanImportDetailPage> {
   @override
   Widget build(BuildContext context) {
     final visible = allowed ? record : null;
-    final image = showPreview ? previewImage : sourceImage;
-    final texts = recognition == null
-        ? <Map<String, dynamic>>[]
-        : planImportTexts(recognition!);
+    final showingPreview = showPreview && previewImage != null;
+    final image = showingPreview ? previewImage : sourceImage;
+    final dimensions = showingPreview ? previewSize : sourceSize;
     final pdfNotice = visible?['source'] != null
         ? 'PDF-Original lokal gespeichert. Die gewählte Seite wird nach der Verarbeitung auf Hetzner als Vorschau angezeigt.'
         : 'Das PDF-Original ist auf diesem Gerät noch nicht gespeichert. Bitte mit Verbindung neu laden.';
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(visible?['title'] ?? 'Importierter Plan'),
-        actions: [
-          IconButton(
-            tooltip: 'Status aktualisieren',
-            onPressed: busy || !allowed ? null : () => load(synchronize: true),
-            icon: const Icon(Icons.refresh),
+    return PopScope(
+      canPop: !deleting && !savingView,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            visible?['title'] ?? 'Importierter Plan',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-        ],
-      ),
-      body: !allowed
-          ? const Center(
-              child: Padding(
-                padding: EdgeInsets.all(24),
-                child: Text(
-                  'Offline-Freigabe abgelaufen oder Projektzugriff gesperrt. Bitte online anmelden. Lokale Quellen bleiben erhalten.',
-                ),
+          actions: [
+            if (mayDelete)
+              TextButton.icon(
+                onPressed: busy || savingView || deleting ? null : remove,
+                icon: const Icon(Icons.delete_outline),
+                label: const Text('Löschen'),
               ),
-            )
-          : detailLayout(
-              Column(
-                children: [
-                  if (visible != null)
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          Text(planImportStatus(visible)),
-                          Text(
-                            '${visible['filename']} · ${visible['media_type'] == 'application/pdf' ? 'Seite ${(visible['page'] as int? ?? 0) + 1}' : 'Originalfoto / Bild'}',
-                          ),
-                          if (visible['error_message'] != null)
+            IconButton(
+              tooltip: 'Status aktualisieren',
+              onPressed: busy || savingView || deleting || !allowed
+                  ? null
+                  : () => load(synchronize: true),
+              icon: const Icon(Icons.refresh),
+            ),
+          ],
+        ),
+        body: !allowed
+            ? const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Text(
+                    'Offline-Freigabe abgelaufen oder Projektzugriff gesperrt. Bitte online anmelden. Lokale Quellen bleiben erhalten.',
+                  ),
+                ),
+              )
+            : detailLayout(
+                Column(
+                  children: [
+                    if (visible != null)
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+                        child: Column(
+                          children: [
+                            Text(planImportStatus(visible)),
                             Text(
-                              visible['error_message'],
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.error,
+                              '${visible['filename']} · ${visible['media_type'] == 'application/pdf'
+                                  ? 'Seite ${(visible['page'] as int? ?? 0) + 1}'
+                                  : showingPreview
+                                  ? 'Aufbereitete Vorschau'
+                                  : 'Originalbild'}',
+                            ),
+                            const SizedBox(height: 4),
+                            Text(switch (visible['status']) {
+                              'needs_review' => 'Planbild gespeichert. Die Erkennung liefert Vorschläge – noch keinen automatisch bearbeitbaren Wandplan.',
+                              'failed' => 'Das Original ist gespeichert. Die Erkennung ist fehlgeschlagen; es wurde kein bearbeitbarer Wandplan erstellt.',
+                              _ => 'Das Original ist gespeichert. Vorschau und Erkennung entstehen nach der Übertragung auf Hetzner.',
+                            }),
+                            if (visible['error_message'] != null)
+                              Text(
+                                visible['error_message'],
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    if (busy || savingView || deleting)
+                      const LinearProgressIndicator(),
+                    if (error != null)
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(error!),
+                      ),
+                    if (previewNotice != null)
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(previewNotice!),
+                      ),
+                    if (image != null)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Wrap(
+                          spacing: 8,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            TextButton.icon(
+                              onPressed: busy || savingView || deleting
+                                  ? null
+                                  : rotate,
+                              icon: const Icon(Icons.rotate_right),
+                              label: const Text('Drehen'),
+                            ),
+                            IconButton(
+                              tooltip: 'Verkleinern',
+                              onPressed: () => zoom(1 / 1.5),
+                              icon: const Icon(Icons.remove),
+                            ),
+                            IconButton(
+                              tooltip: 'Vergrößern',
+                              onPressed: () => zoom(1.5),
+                              icon: const Icon(Icons.add),
+                            ),
+                            TextButton.icon(
+                              onPressed: fit,
+                              icon: const Icon(Icons.fit_screen),
+                              label: const Text('Einpassen'),
+                            ),
+                            if (rotation(record) != 0)
+                              Text('Ansicht: ${rotation(record) * 90}°'),
+                          ],
+                        ),
+                      ),
+                    Expanded(
+                      child: image != null && dimensions != null
+                          ? planView(image, dimensions)
+                          : Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(24),
+                                child: Text(
+                                  visible?['media_type'] == 'application/pdf'
+                                      ? pdfNotice
+                                      : busy
+                                      ? 'Quelle wird geöffnet …'
+                                      : 'Auf diesem Gerät ist noch keine Bildvorschau verfügbar.',
+                                ),
                               ),
                             ),
-                          if (previewImage != null)
-                            SegmentedButton<bool>(
-                              segments: const [
-                                ButtonSegment(
-                                  value: false,
-                                  label: Text('Quelle'),
-                                ),
-                                ButtonSegment(
-                                  value: true,
-                                  label: Text('Servervorschau'),
-                                ),
-                              ],
-                              selected: {showPreview},
-                              onSelectionChanged: (selection) =>
-                                  setState(() => showPreview = selection.first),
-                            ),
-                          if (showPreview && recognition != null)
-                            Wrap(
-                              spacing: 8,
-                              children: [
-                                FilterChip(
-                                  label: const Text('Linienvorschläge'),
-                                  selected: showLines,
-                                  onSelected: (value) =>
-                                      setState(() => showLines = value),
-                                ),
-                                FilterChip(
-                                  label: const Text('Textstellen'),
-                                  selected: showTextBoxes,
-                                  onSelected: (value) =>
-                                      setState(() => showTextBoxes = value),
-                                ),
-                              ],
-                            ),
-                        ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: OutlinedButton.icon(
+                        onPressed:
+                            visible == null || busy || savingView || deleting
+                            ? null
+                            : details,
+                        icon: const Icon(Icons.info_outline),
+                        label: const Text('Details und Erkennung'),
                       ),
                     ),
-                  if (busy) const LinearProgressIndicator(),
-                  if (error != null)
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text(error!),
-                    ),
-                  if (previewNotice != null)
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text(previewNotice!),
-                    ),
-                  Expanded(
-                    child: image != null
-                        ? InteractiveViewer(
-                            minScale: .5,
-                            maxScale: 6,
-                            child: Center(child: picture(image)),
-                          )
-                        : Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(24),
-                              child: Text(
-                                visible?['media_type'] == 'application/pdf'
-                                    ? pdfNotice
-                                    : busy
-                                    ? 'Quelle wird geöffnet …'
-                                    : 'Auf diesem Gerät ist noch keine Bildvorschau verfügbar.',
-                              ),
-                            ),
-                          ),
-                  ),
-                  if (showPreview && texts.isNotEmpty)
-                    ExpansionTile(
-                      title: Text('${texts.length} erkannte Textstellen'),
-                      children: [
-                        SizedBox(
-                          height: 140,
-                          child: ListView(
-                            children: [
-                              for (final item in texts)
-                                ListTile(
-                                  dense: true,
-                                  title: Text(item['text']),
-                                  subtitle: Text(item['origin']),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      'Quelle und Vorschau dienen der Prüfung. Maßstab, Wände und Handschrift sind noch nicht fachlich bestätigt.',
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+      ),
     );
   }
 }

@@ -95,7 +95,7 @@ def installer_dsn_preflight(script):
         module = types.ModuleType('online.' + name)
         for attribute in attributes:
             setattr(module, attribute, forbidden_database)
-        module.SCHEMA_VERSION = 3
+        module.SCHEMA_VERSION = 4
         sys.modules[module.__name__] = module
     spec = importlib.util.spec_from_file_location('online.release', '/source/backend/online/release.py')
     module = importlib.util.module_from_spec(spec)
@@ -237,9 +237,10 @@ elif command == 'curl':
     if generation() == 'new' and scenario['fault'] in ('readiness', 'import_worker_start_old'):
         sys.exit(22)
     event('ready_probe', generation=generation(), database=active_database())
-    schema = 2 if scenario['fault'] == 'obsolete_schema' else 3
+    schema = 3 if scenario['fault'] == 'obsolete_schema' else 4
     print(json.dumps({'status': 'ok', 'database': 'ok', 'schema_version': schema if generation() == 'new' else 1,
-                      'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports'] if generation() == 'new' else []}))
+                      'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
+                                       'project_workspace', 'inquiry_intake', 'gmail_intake'] if generation() == 'new' else []}))
     sys.exit(0)
 elif command == 'mv':
     failed = False
@@ -359,7 +360,7 @@ elif command in ('python', 'python3', 'python3.12'):
             backup = Path(flags['--backup-directory']) / 'fixture.dump'
             backup.write_text(json.dumps(original))
             (Path(str(backup) + '.sha256')).write_text('synthetic-backup\n')
-            Path(flags['--output']).write_text(json.dumps({'backup': str(backup), 'source_schema': 1, 'target_schema': 3}))
+            Path(flags['--output']).write_text(json.dumps({'backup': str(backup), 'source_schema': 3, 'target_schema': 4}))
             sys.exit(0)
         if action == 'configure':
             path = Path(flags['--path'])

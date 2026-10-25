@@ -415,12 +415,13 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         ),
       );
     }
-    final legacy = WorkspaceView(
+    WorkspaceView legacyView([VoidCallback? onBack]) => WorkspaceView(
       user: user!,
       projects: projects,
       storage: storage,
       busy: busy,
       error: error,
+      onBackToWorkspace: onBack,
       onRefresh: () => run(loadProjects),
       onInquiries: user!['role'] == 'owner'
           ? () async {
@@ -515,6 +516,7 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         if (mounted && user != null) await run(loadProjects);
       },
     );
+    final legacy = legacyView();
     if (business?.supported == true && business!.allowed) {
       return BusinessHome(
         session: business!,
@@ -523,10 +525,16 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         onInquiries: legacy.onInquiries,
         onIntegrations: legacy.onIntegrations,
         onLogout: logout,
-        onLegacy: () => Navigator.push<void>(
-          context,
-          MaterialPageRoute(builder: (_) => legacy),
-        ),
+        onLegacy: () {
+          if (!mounted || user == null || business?.allowed != true) return;
+          final administration = legacyView(
+            () => Navigator.of(context).maybePop(),
+          );
+          Navigator.push<void>(
+            context,
+            MaterialPageRoute(builder: (_) => administration),
+          );
+        },
       );
     }
     return legacy;

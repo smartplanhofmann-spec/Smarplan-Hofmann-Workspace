@@ -1,0 +1,12 @@
+[Unit]
+Description=Check approved Smartplan website inquiry replies every two minutes (optional)
+
+[Timer]
+OnCalendar=*-*-* *:0/2:00
+AccuracySec=10s
+RandomizedDelaySec=10s
+Persistent=true
+Unit=smartplan-lead-replies.service
+
+[Install]
+WantedBy=timers.target

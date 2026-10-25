@@ -32,6 +32,7 @@ from business_planning import Planning
 from inquiries import Inquiries
 from business_adapters import Adapters
 from business_schema import set_feature_flag
+from project_workspace import ProjectWorkspace
 
 PASSWORD = 'Synthetic-browser-password-123'
 
@@ -56,6 +57,10 @@ def seed(office, directory):
     status = foundation.save_status(owner, request(name='Ausführung', color='#2864da', position=0, terminal=False, active=True))
     initial=foundation.project(owner,project)
     foundation.save_project(owner, project, request(revision=initial['revision'],workspace_revision=initial['workspace_revision'],status_id=status['id'],site_address='Synthetic workshop, technical room',description='Synthetic browser acceptance project.'))
+    workspace = ProjectWorkspace(office)
+    profile = workspace.profile(owner, project)
+    workspace.save_profile(owner, project, request(revision=profile['revision'],
+        start_date='2030-12-15', end_date='2031-02-20'))
     planning = Planning(office)
     for actor in (owner, technician):
         planning.save_employee(owner, request(user_id=actor['id'], name='Synthetic ' + actor['role'], weekly_minutes=2400, hourly_cost_minor=3500))

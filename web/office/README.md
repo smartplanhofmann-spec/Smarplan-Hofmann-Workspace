@@ -6,12 +6,14 @@ Passwort und MFA werden über die echte Onlineanmeldung geprüft. Bearer und unb
 
 Fotooriginale werden in begrenzten, SHA-geprüften Blöcken hochgeladen. Galerievorschauen werden im Browser verkleinert, Originale getrennt heruntergeladen und Markierungen separat gespeichert. Die Galerie zeigt höchstens zwölf Dateien pro Seite. PDF-, Finanz- und Personaldateien unterliegen auch bei Metadaten und Wiederholungen der serverseitigen Klassifikation. Aufmaß nutzt manuell bestätigte metrische Werte; aus Fotos werden keine Maße erfunden. Eine gezeichnete Unterschrift ist keine qualifizierte elektronische Signatur.
 
+In der **Einsatzplanung** wechseln Sie zwischen Woche, frei gewähltem Monat, Jahr und zwei oder drei Jahren. Die Projektzeitleiste zeigt gespeicherten Beginn und Ende; offene Grenzen bleiben als ungeplant oder teilweise geplant erkennbar. **Zeitraum ändern** speichert nach Serverbestätigung dieselben Projekttermine für alle Geräte. Einzelne Kalendereinsätze werden weiterhin über ihr Formular oder per Ziehen in der Wochen-/Monatsansicht geändert. Diese Ansichten erscheinen erst mit dem Serverfeature `project_timeline`; ältere Server behalten die Wochenplanung.
+
 ## Lokale Prüfungen
 
 ```bash
 npm ci --prefix web/office
 npx --prefix web/office playwright install --with-deps chromium
-node --test web/office/tests/client.test.mjs
+npm test --prefix web/office
 SMARTPLAN_BROWSER_TEST_PYTHON=/pfad/zum/online-venv/bin/python SMARTPLAN_CHROMIUM_BINARY='' \
   node web/office/tests/e2e.cjs
 ```

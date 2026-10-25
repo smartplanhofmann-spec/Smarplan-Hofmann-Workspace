@@ -44,6 +44,7 @@ jobs:
           python -m unittest discover -s backend/online -p test_plan_deletions.py -v
           python -m unittest discover -s backend/online -p test_workspace_api.py -v
           python -m unittest discover -s backend/online -p test_inquiry_attachments_api.py -v
+          python -m unittest discover -s backend/online -p test_business_intake_contract.py -v
           python -m unittest discover -s backend/online -p 'test_integration*.py' -v
           python -m unittest discover -s backend/online -p test_release.py -v
           python -m unittest discover -s backend/online -p test_release_workspace.py -v

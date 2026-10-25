@@ -254,5 +254,12 @@ class OperationsTests(unittest.TestCase):
         self.error(403,self.api.media_source,accountant,self.project,media['id'])
         self.assertEqual(self.api.list_media(accountant,self.project),[])
 
+    def test_invalid_json_numbers_and_unpaired_unicode_never_create_receipts_or_rows(self):
+        for title in ('\ud800',float('nan')):
+            body=self.request(title=title,work='Synthetic')
+            self.error(400,self.api.save_entry,self.tech,self.project,'diary',body)
+            self.assertIsNone(self.office.db.execute('SELECT 1 FROM business_operations_requests WHERE request_id=?',(body['request_id'],)).fetchone())
+        self.assertEqual(self.api.list_entries(self.owner,self.project,'diary'),[])
+
 if __name__ == '__main__':
     unittest.main()

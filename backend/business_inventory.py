@@ -57,6 +57,20 @@ def schema_statements(binary_type='BYTEA'):
     ]
 
 
+def runtime_privileges():
+    return {
+        'business_inventory_requests':('SELECT','INSERT'),
+        'business_stock_movements':('SELECT','INSERT'),
+        'business_budget_versions':('SELECT','INSERT'),
+        'business_stock_locations':('SELECT','INSERT','UPDATE'),
+        'business_stock_reservations':('SELECT','INSERT','UPDATE'),
+        'business_stock_reorder_rules':('SELECT','INSERT','DELETE'),
+        'business_project_budgets':('SELECT','INSERT','UPDATE'),
+        'business_change_orders':('SELECT','INSERT','UPDATE'),
+        'business_purchase_orders':('SELECT','INSERT','UPDATE'),
+    }
+
+
 class BusinessInventory(Domain):
     receipt_table='business_inventory_requests'
 

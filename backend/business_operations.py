@@ -68,6 +68,18 @@ def request_schema(table):
         PRIMARY KEY(user_id,request_id))''']
 
 
+def runtime_privileges():
+    return {
+        'business_operations_requests':('SELECT','INSERT'),
+        'business_operation_versions':('SELECT','INSERT'),
+        'business_media':('SELECT','INSERT','UPDATE'),
+        'business_media_chunks':('SELECT','INSERT','DELETE'),
+        'business_operation_entries':('SELECT','INSERT','UPDATE'),
+        'business_checklists':('SELECT','INSERT','UPDATE'),
+        'business_checklist_runs':('SELECT','INSERT','UPDATE'),
+    }
+
+
 @contextmanager
 def transaction(office):
     with office.lock:
@@ -173,7 +185,12 @@ class Domain:
         if not isinstance(data, dict):
             raise Problem(400, 'JSON-Objekt erwartet')
         request_id = identifier(data.get('request_id'), 'request_id')
-        fingerprint = hashlib.sha256(canonical([action, project_id, target, data]).encode()).hexdigest()
+        try:
+            encoded=json.dumps([action,project_id,target,data],sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False).encode('utf-8')
+        except (TypeError,ValueError,UnicodeError):
+            raise Problem(400,'Gültige begrenzte JSON-Daten erwartet') from None
+        if len(encoded)>1_000_000: raise Problem(413,'Vorgang ist zu groß')
+        fingerprint = hashlib.sha256(encoded).hexdigest()
         with transaction(self.office):
             fresh = self.access(actor, permission, project_id)
             row = self.office.db.execute(f'SELECT request_hash,result_json FROM {self.receipt_table} WHERE user_id=? AND request_id=?',
@@ -279,6 +296,7 @@ def _annotations(value):
         points = [mark.get('point')] if kind == 'text' else mark.get('points')
         if not isinstance(points, list) or not (len(points) == 1 if kind == 'text' else 2 <= len(points) <= 100):
             raise Problem(400, 'Ungültige Markierungspunkte')
+        if kind=='rectangle' and len(points)!=2: raise Problem(400,'Rechteck benötigt genau zwei Eckpunkte')
         for point in points:
             if (not isinstance(point, list) or len(point) != 2 or any(type(n) not in (int, float) or not math.isfinite(n) or not 0 <= n <= 1 for n in point)):
                 raise Problem(400, 'Markierungen benötigen normalisierte Koordinaten')

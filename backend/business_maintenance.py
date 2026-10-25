@@ -50,6 +50,16 @@ def anniversary(anchor,unit,count,index):
         raise Problem(400,'Wartungsfälligkeit außerhalb des unterstützten Datumsbereichs')
 
 
+def runtime_privileges():
+    return {
+        'business_maintenance_requests':('SELECT','INSERT'),
+        'business_maintenance_versions':('SELECT','INSERT'),
+        'business_assets':('SELECT','INSERT','UPDATE'),
+        'business_maintenance_contracts':('SELECT','INSERT','UPDATE'),
+        'business_maintenance_visits':('SELECT','INSERT','UPDATE'),
+    }
+
+
 class BusinessMaintenance(Domain):
     receipt_table='business_maintenance_requests'
 

@@ -119,11 +119,26 @@ jobs:
           SMARTPLAN_BROWSER_TEST_PYTHON: python
           SMARTPLAN_BROWSER_SCREENSHOT_DIR: ${{ runner.temp }}/smartplan-browser-previews
         run: |
-          node --test web/office/tests/*.test.mjs
-          npm ci --prefix web/office --ignore-scripts --no-audit --no-fund
-          cd web/office
-          npx playwright install --with-deps chromium
-          node tests/e2e.cjs
+          smartplan_browser_log="$RUNNER_TEMP/smartplan-browser-check.log"
+          set +e
+          {
+            node --test web/office/tests/*.test.mjs &&
+            npm ci --prefix web/office --ignore-scripts --no-audit --no-fund &&
+            cd web/office &&
+            npx playwright install --with-deps chromium &&
+            node tests/e2e.cjs
+          } 2>&1 | tee "$smartplan_browser_log"
+          smartplan_browser_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_browser_exit" -ne 0 ]; then
+            python - "$smartplan_browser_log" <<'PY'
+          from pathlib import Path
+          import sys
+          detail = '\n'.join(Path(sys.argv[1]).read_text(errors='replace').splitlines()[-100:])[-25000:]
+          print('::error title=Browser acceptance::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+          PY
+          fi
+          exit "$smartplan_browser_exit"
       - name: Upload synthetic browser acceptance screenshots
         if: success()
         uses: actions/upload-artifact@v4

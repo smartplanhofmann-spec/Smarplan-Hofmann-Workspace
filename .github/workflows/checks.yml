@@ -221,17 +221,13 @@ jobs:
         run: |
           umask 0077
           smartplan_test_log="$RUNNER_TEMP/smartplan-flutter-tests.log"
+          smartplan_test_report="$RUNNER_TEMP/smartplan-flutter-tests.jsonl"
           set +e
-          flutter test --exclude-tags native_pdf --reporter expanded 2>&1 | tee "$smartplan_test_log"
+          flutter test --exclude-tags native_pdf --reporter expanded --file-reporter "json:$smartplan_test_report" 2>&1 | tee "$smartplan_test_log"
           smartplan_test_exit=${PIPESTATUS[0]}
           set -e
           if [ "$smartplan_test_exit" -ne 0 ]; then
-            python - "$smartplan_test_log" <<'PY'
-          import pathlib, sys
-          tail = '\n'.join(pathlib.Path(sys.argv[1]).read_text(errors='replace').splitlines()[-180:])[-40000:]
-          escaped = tail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
-          print('::error title=Flutter app tests::' + escaped)
-          PY
+            python ../scripts/report-flutter-test-failures.py --report "$smartplan_test_report" --log "$smartplan_test_log" --summary "$GITHUB_STEP_SUMMARY"
           fi
           exit "$smartplan_test_exit"
       - name: Upload real widget previews
@@ -261,7 +257,10 @@ jobs:
         with:
           python-version: '3.12'
       - name: Check native release configuration
-        run: python ../scripts/native-release.py source
+        shell: bash
+        run: |
+          python ../scripts/native-release.py source
+          python -m unittest discover -s ../scripts -p test_flutter_failure_reporter.py -v
       - name: Check Visual C++ ATL for protected device storage
         if: runner.os == 'Windows'
         shell: pwsh
@@ -304,12 +303,6 @@ jobs:
             ${{ runner.temp }}/Smartplan_Windows_Start_und_Sicherung.zip.sha256
           if-no-files-found: error
           retention-days: 14
-      - name: Test Windows backup, restore and launcher lifecycle
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          & ../backend/.venv/Scripts/python.exe ../scripts/test-backend-ci.py
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.47.7'
@@ -338,17 +331,20 @@ jobs:
         shell: pwsh
         run: |
           $smartplanTestLog = Join-Path $env:RUNNER_TEMP 'smartplan-windows-tests.log'
+          $smartplanTestReport = Join-Path $env:RUNNER_TEMP 'smartplan-windows-tests.jsonl'
           $PSNativeCommandUseErrorActionPreference = $false
-          & flutter test --exclude-tags native_pdf --reporter expanded 2>&1 | Tee-Object -FilePath $smartplanTestLog
+          & flutter test --exclude-tags native_pdf --reporter expanded --file-reporter "json:$smartplanTestReport" 2>&1 | Tee-Object -FilePath $smartplanTestLog
           $smartplanTestExit = $LASTEXITCODE
           if ($smartplanTestExit -ne 0) {
-            $smartplanTestTail = (Get-Content -LiteralPath $smartplanTestLog -Tail 120) -join "`n"
-            @('### Windows app tests failed', '', '```text', $smartplanTestTail, '```') | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
-            if ($smartplanTestTail.Length -gt 25000) { $smartplanTestTail = $smartplanTestTail.Substring($smartplanTestTail.Length - 25000) }
-            $smartplanTestAnnotation = $smartplanTestTail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
-            Write-Host "::error title=Windows App-Test::$smartplanTestAnnotation"
+            python ../scripts/report-flutter-test-failures.py --report $smartplanTestReport --log $smartplanTestLog --summary $env:GITHUB_STEP_SUMMARY
             exit $smartplanTestExit
           }
+      - name: Test Windows backup, restore and launcher lifecycle
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          & ../backend/.venv/Scripts/python.exe ../scripts/test-backend-ci.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Build Windows release with compiler diagnostics
         if: runner.os == 'Windows'
         shell: pwsh

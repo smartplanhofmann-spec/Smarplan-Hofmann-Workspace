@@ -16,6 +16,8 @@ import 'plan_pages.dart';
 import 'inquiry_pages.dart';
 import 'app_version.dart';
 import 'integration_pages.dart';
+import 'business_session.dart';
+import 'business_shell.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,6 +51,7 @@ class OfficeHome extends StatefulWidget {
 class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
   late final OfficeApi api;
   OfflinePlans? offline;
+  BusinessSession? business;
   bool offlineMode = false;
   final email = TextEditingController(), password = TextEditingController();
   final loginForm = GlobalKey<FormState>();
@@ -72,6 +75,7 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     offline?.removeListener(offlineChanged);
     offline?.dispose();
+    business?.dispose();
     api.removeListener(sessionChanged);
     if (widget.api == null) api.dispose();
     email.dispose();
@@ -162,6 +166,15 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
     if (api.token != session || user?['id'] != account) return;
     if (offline?.active == true) await offline!.refreshProjects(items);
     if (api.token != session || user?['id'] != account) return;
+    if (api.version == 'v1' && user != null) {
+      if (business == null || !business!.allowed) {
+        business?.dispose();
+        business = BusinessSession(api: api);
+      }
+      business!.projects = items.map(businessMap).toList();
+      await business!.load();
+      if (api.token != session || user?['id'] != account) return;
+    }
     if (mounted)
       setState(() {
         projects = items;
@@ -210,7 +223,18 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         offlineMode = false;
         if (offline != null) {
           try {
-            await offline!.login(me, projects);
+            await offline!.login(
+              me,
+              projects,
+              businessTime:
+                  business?.readonly == false &&
+                  business?.hasModule('time') == true &&
+                  business!.can('time.own'),
+              fieldMedia:
+                  business?.readonly == false &&
+                  business?.hasModule('operations') == true &&
+                  business!.can('documents.write'),
+            );
           } catch (e) {
             if (mounted)
               setState(
@@ -391,7 +415,7 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         ),
       );
     }
-    return WorkspaceView(
+    final legacy = WorkspaceView(
       user: user!,
       projects: projects,
       storage: storage,
@@ -491,6 +515,21 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         if (mounted && user != null) await run(loadProjects);
       },
     );
+    if (business?.supported == true && business!.allowed) {
+      return BusinessHome(
+        session: business!,
+        repository: offline,
+        onProject: legacy.onProject,
+        onInquiries: legacy.onInquiries,
+        onIntegrations: legacy.onIntegrations,
+        onLogout: logout,
+        onLegacy: () => Navigator.push<void>(
+          context,
+          MaterialPageRoute(builder: (_) => legacy),
+        ),
+      );
+    }
+    return legacy;
   }
 }
 

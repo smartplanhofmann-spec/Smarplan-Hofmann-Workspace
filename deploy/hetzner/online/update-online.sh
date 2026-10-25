@@ -96,7 +96,7 @@ done
 install -d -m 0755 /opt/smartplan-online/releases "$smartplan_release" "$smartplan_release/app"
 (
   umask 0022
-  git -C "$smartplan_repo" archive HEAD backend web | tar -x -C "$smartplan_release/app"
+  git -c tar.umask=0022 -C "$smartplan_repo" archive "$smartplan_commit" backend web | tar -x -C "$smartplan_release/app"
   python3 -m venv "$smartplan_release/venv"
   "$smartplan_release/venv/bin/python" -m pip install --requirement "$smartplan_release/app/backend/online/requirements.lock"
   "$smartplan_release/venv/bin/python" -m pip check

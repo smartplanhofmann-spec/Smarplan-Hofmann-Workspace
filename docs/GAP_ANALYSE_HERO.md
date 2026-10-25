@@ -1,5 +1,7 @@
 # Gap-Analyse: Smartplan Office und projektzentrierter Zielumfang
 
+Diese Phase-0-Analyse dokumentiert den Zustand **vor** der Umsetzung. Den aktuellen Implementierungs- und Prüfstand enthält [BERICHT_HERO_UMSETZUNG.md](BERICHT_HERO_UMSETZUNG.md).
+
 Stand: **25.10.2026**. Analysierter Quellcommit: **`f2e729486edc2652f466e21c30d25b6e710b199f`**; App **0.11.0+15**, PostgreSQL-Schema **6**. Dies ist die Pflichtanalyse der **Phase 0**. Produktivcode, Tests, API und Deploymentkonfiguration werden in diesem PR nicht geändert. Die vorgeschlagene Umsetzung steht in [ZIELARCHITEKTUR.md](ZIELARCHITEKTUR.md).
 
 ## 1. Umfang, Methode und Recherchegrenze

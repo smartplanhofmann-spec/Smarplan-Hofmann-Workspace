@@ -1,5 +1,7 @@
 # Zielarchitektur: projektzentriertes Smartplan Office
 
+Die Zielarchitektur bleibt die ursprüngliche Planungsgrundlage. Tatsächliche Umsetzung, Einschränkungen und Abnahmen stehen in [BERICHT_HERO_UMSETZUNG.md](BERICHT_HERO_UMSETZUNG.md).
+
 Stand: **25.10.2026**. Analysebasis: Commit `f2e729486edc2652f466e21c30d25b6e710b199f`, App 0.11.0+15, Online-Schema 6. Dieses Dokument ist ein **Entwurf zur Freigabe in Phase 0**, keine bereits implementierte Architektur. Der Phase-0-PR verändert ausschließlich dieses Dokument und [GAP_ANALYSE_HERO.md](GAP_ANALYSE_HERO.md).
 
 ## 1. Ziel und verbindliche Grenzen

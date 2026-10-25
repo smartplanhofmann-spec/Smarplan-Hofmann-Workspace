@@ -1,4 +1,16 @@
-# Smartplan Office – Entwicklungsstand 0.11.0
+# Smartplan Office – Entwicklungsstand 0.12.0
+
+Das Projektpaket 0.12 ergänzt CRM und Projektstatus, eigene Belege und Finanzen,
+Einsatzplanung, Zeiten, Baustellendokumentation, Material und Wartung. Die
+responsive Browseroberfläche liegt unter `/office/`; die native App ergänzt
+verschlüsselte Warteschlangen für eigene Zeiten und Baustellenfotos.
+Funktionsumfang, offene Punkte und Abnahmen stehen im
+[Umsetzungsbericht](docs/BERICHT_HERO_UMSETZUNG.md), die technischen
+Voraussetzungen und der sichere Umstieg im
+[Betriebsleitfaden](docs/BETRIEB_BUSINESS_UPDATE.md).
+
+Die folgenden Abschnitte beschreiben auch den weiterhin bestehenden 0.11-Kern.
+Das neue Paket ist kein Nachweis einer bereits ausgeführten Serverinstallation.
 
 Gemeinsamer Arbeitsbereich für Büro und Baustelle: Anfragen, Kunden,
 Projektmappen, Aufgaben, Termine, Bautagebuch, Pläne und unterschriebene Berichte.
@@ -20,8 +32,9 @@ Paket 0.11 ergänzt nun die Bürointegrationen mit geschütztem Serverupdate.
 ## Bestätigte Betriebsentscheidungen
 
 - Eingang über **Gmail und die WhatsApp-Business-App**.
-- **Sevdesk bleibt führend für Angebote und Rechnungen**. Smartplan verknüpft
-  passende Vorgänge; es erzeugt keine zweite Buchhaltung.
+- **Sevdesk bleibt bis zum dokumentierten Ausstellerwechsel führend**.
+  Eigene Rechnungsstellung und externer Versand sind zunächst gesperrt.
+  Derselbe Auftrag wird nicht parallel in beiden Systemen abgerechnet.
 - **Google Kalender und OneDrive** sind laut Nutzer bereits mit dem vorhandenen
   Bot verbunden. **OneDrive ersetzt die zuvor irrtümliche Dropbox-Annahme.**
   Paket 0.11 nutzt diese Verbindungen für ausdrücklich gewählte Projektmetadaten.
@@ -29,6 +42,9 @@ Paket 0.11 ergänzt nun die Bürointegrationen mit geschütztem Serverupdate.
   SPIN-Maileingang bleibt erhalten. Es gibt keinen Kalender-Schreibabgleich.
 - Datenbank und Planverarbeitung bleiben auf dem eigenen **Hetzner-Server**.
   Kein externer KI-/OCR-Ausweichdienst. Cloudtests verwenden synthetische Daten.
+- Großhändler: **Granzow und Alexander Bürkle**. Lieferantenprofile sind
+  vorbereitet; echte Preise und Bestellungen benötigen verifizierte
+  Partnerprotokolle und eine ausdrückliche technische Freischaltung.
 
 ## Inhalt des Pakets
 

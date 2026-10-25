@@ -5,9 +5,20 @@ const fs=require('node:fs/promises');
 const os=require('node:os');
 const path=require('node:path');
 const {spawn}=require('node:child_process');
-const {chromium}=require('playwright');
 const PASSWORD='Synthetic-browser-password-123';
 const delay=milliseconds=>new Promise(resolve=>setTimeout(resolve,milliseconds));
+function compactFailure(error){
+  const lines=String(error?.stack||error).replace(/\r\n?/g,'\n').split('\n');
+  const selected=lines.length<=50?lines:[...lines.slice(0,35),`[${lines.length-50} middle diagnostic lines omitted]`,...lines.slice(-15)];
+  return selected.map(line=>line.length>400?line.slice(0,400)+' [line truncated]':line).join('\n');
+}
+async function launchDiagnostics(executable){
+  const values={browser:executable||'Playwright managed Chromium',uid:process.getuid?.()};
+  for(const [name,filename]of Object.entries({apparmor_enabled:'/sys/module/apparmor/parameters/enabled',apparmor_profile:'/proc/self/attr/current',apparmor_restrict_unprivileged_userns:'/proc/sys/kernel/apparmor_restrict_unprivileged_userns',unprivileged_userns_clone:'/proc/sys/kernel/unprivileged_userns_clone',max_user_namespaces:'/proc/sys/user/max_user_namespaces'})){
+    try{values[name]=(await fs.readFile(filename,'utf8')).trim().slice(0,160);}catch{values[name]='unavailable';}
+  }
+  return values;
+}
 function totp(secret){
   const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';let bits='';for(const character of secret.replace(/=/g,''))bits+=alphabet.indexOf(character).toString(2).padStart(5,'0');
   const bytes=[];for(let offset=0;offset+8<=bits.length;offset+=8)bytes.push(parseInt(bits.slice(offset,offset+8),2));
@@ -26,9 +37,10 @@ async function login(page,email,recovery){
 async function ready(page){await page.locator('main .loading').waitFor({state:'detached'});const errors=await page.locator('main [role=alert]').allTextContents();assert.deepEqual(errors,[]);}
 async function navigate(page,name){if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);}
 async function main(){
+  const {chromium}=require('playwright');
   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'smartplan-browser-e2e-')),readyFile=path.join(directory,'ready.json');
   const screenshots=process.env.SMARTPLAN_BROWSER_SCREENSHOT_DIR||directory;
-  let browser,server,page;let output='';const pageErrors=[],consoleErrors=[];
+  let browser,server,page,launchInfo;let output='';const pageErrors=[],consoleErrors=[];
   try{
     await fs.mkdir(screenshots,{recursive:true,mode:0o700});
     const python=process.env.SMARTPLAN_BROWSER_TEST_PYTHON||'python3';
@@ -40,6 +52,7 @@ async function main(){
     let executable=process.env.SMARTPLAN_CHROMIUM_BINARY;
     if(executable===undefined){try{await fs.access('/usr/bin/chromium');executable='/usr/bin/chromium';}catch{executable='';}}
     // Explicit empty override selects Playwright's pinned bundled browser in CI.
+    launchInfo=await launchDiagnostics(executable);
     browser=await chromium.launch({...executable?{executablePath:executable}:{},headless:true,chromiumSandbox:true,args:['--enable-automation']});
     const debug=await browser.newBrowserCDPSession();
     const command=await debug.send('Browser.getBrowserCommandLine');
@@ -114,7 +127,16 @@ async function main(){
     assert.deepEqual(pageErrors,[]);await context.close();
     console.log('browser: public form had no bearer, lost acknowledgement retried one inquiry and reply remained pending');
     console.log('6 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
-  }catch(error){console.error(error.stack||error);if(page){console.error('Visible alerts:',await page.locator('[role=alert]').allTextContents());console.error('Page errors:',pageErrors);console.error('Browser console errors:',consoleErrors);}if(output)console.error('Fixture log tail:\n'+output.slice(-3500));process.exitCode=1;}
+  }catch(error){
+    console.error('SMARTPLAN_BROWSER_FAILURE_BEGIN');
+    console.error(compactFailure(error));
+    if(launchInfo)console.error('Browser launch context:',JSON.stringify(launchInfo));
+    if(page){try{console.error('Visible alerts:',await page.locator('[role=alert]').allTextContents());}catch{console.error('Visible alerts: unavailable after browser failure');}console.error('Page errors:',pageErrors);console.error('Browser console errors:',consoleErrors);}
+    if(output)console.error('Fixture log tail:\n'+output.slice(-1500));
+    console.error('SMARTPLAN_BROWSER_FAILURE_END');
+    process.exitCode=1;
+  }
   finally{if(browser)await browser.close();if(server&&server.exitCode===null){server.kill('SIGTERM');await Promise.race([new Promise(resolve=>server.once('exit',resolve)),delay(5000)]);if(server.exitCode===null)server.kill('SIGKILL');}await fs.rm(directory,{recursive:true,force:true});}
 }
-main();
+module.exports={compactFailure};
+if(require.main===module)main();

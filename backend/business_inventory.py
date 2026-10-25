@@ -5,10 +5,14 @@ Proposals never contact suppliers or imply a purchase has been sent.
 from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
 import json
 import re
+import sqlite3
 import uuid
 
 from core import Problem, canonical
 from business_operations import Domain, decimal, identifier, money, quantity, request_schema, text
+
+
+FEATURES = ('inventory_article_refs',)
 
 
 def schema_statements(binary_type='BYTEA'):
@@ -73,6 +77,36 @@ def runtime_privileges():
 
 class BusinessInventory(Domain):
     receipt_table='business_inventory_requests'
+
+    def article_references(self,actor,*,project_id=None,after=None,limit=100):
+        """Bounded operational identities; never return a pricing/BOM payload."""
+        if project_id is not None:
+            project_id=identifier(project_id,'Projekt-ID')
+        if after is not None:
+            after=identifier(after,'Artikelcursor')
+        if isinstance(limit,str) and re.fullmatch(r'[1-9][0-9]{0,2}',limit):
+            limit=int(limit)
+        if type(limit) is not int or not 1<=limit<=200:
+            raise Problem(400,'Artikelseite muss zwischen 1 und 200 Einträge enthalten')
+        with self.office.lock:
+            fresh=self.access(actor,'inventory.read',project_id)
+            if isinstance(self.office.db,sqlite3.Connection):
+                def field(name): return "json_extract(payload_json,'$."+name+"')"
+                active="json_type(payload_json,'$.active')='true'"
+            else:
+                def field(name): return "jsonb_extract_path_text(CAST(payload_json AS JSONB),'"+name+"')"
+                active="jsonb_extract_path(CAST(payload_json AS JSONB),'active')=CAST('true' AS JSONB)"
+            # JSON keys are fixed source constants. Filter before LIMIT and
+            # select safe fields in SQL: no raw payload, prices, supplier data
+            # or hidden service/inactive IDs enter this result/cursor.
+            rows=self.office.db.execute('SELECT id,revision,'+field('code')+' AS code,'+field('name')+' AS name,'+
+                field('unit')+' AS unit FROM business_articles WHERE '+field('kind')+" IN ('material','machine') AND "+
+                active+' AND id>? ORDER BY id LIMIT ?',(after or '',limit+1)).fetchall()
+            items=[{'id':row['id'],'revision':row['revision'],'code':row['code'] or '',
+                    'name':row['name'],'unit':row['unit'],'active':True} for row in rows[:limit]]
+            self.access(fresh,'inventory.read',project_id)
+            more=len(rows)>limit
+            return {'items':items,'has_more':more,'next_after':items[-1]['id'] if more else None}
 
     def _article(self,article_id,*,allow_inactive=False):
         identifier(article_id,'Artikel-ID')
@@ -450,7 +484,7 @@ def validate_integrity(office):
 
 def methods(path):
     if re.fullmatch(r'/projects/[a-f0-9]{32}/changes/[a-f0-9]{32}/approve',path): return 'POST'
-    if path in ('/inventory/stock','/inventory/scan','/inventory/reorder-suggestions') or re.fullmatch(r'/projects/[a-f0-9]{32}/costs',path): return 'GET'
+    if path in ('/inventory/articles','/inventory/stock','/inventory/scan','/inventory/reorder-suggestions') or re.fullmatch(r'/projects/[a-f0-9]{32}/costs',path): return 'GET'
     if path=='/inventory/pick' or re.fullmatch(r'/inventory/reservations/[a-f0-9]{32}/release',path): return 'POST'
     if path in ('/budgets','/inventory/reorder-rules') or re.fullmatch(r'/projects/[a-f0-9]{32}/changes',path): return 'GET, POST'
     match=re.fullmatch(r'/inventory/(locations|movements|reservations|orders)(?:/([a-f0-9]{32}))?',path)
@@ -468,6 +502,10 @@ def dispatch(office,actor,path,method,data):
         value=query.get(key)
         return value[0] if isinstance(value,list) and len(value)==1 else value
     project_id=parameter('project_id') if method=='GET' else body.get('project_id')
+    if path=='/inventory/articles' and method=='GET':
+        if not isinstance(query,dict) or set(query)-{'project_id','after','limit'}:
+            raise Problem(400,'Nur Projekt, Artikelcursor und Seitengröße erlaubt')
+        return api.article_references(actor,project_id=project_id,after=parameter('after'),limit=parameter('limit') if 'limit' in query else 100),200,'application/json'
     if path=='/inventory/scan' and method=='GET': return api.lookup(actor,parameter('code')),200,'application/json'
     if path=='/inventory/stock' and method=='GET':
         if parameter('location_id') and parameter('article_id'): return api.balance(actor,parameter('location_id'),parameter('article_id')),200,'application/json'

@@ -24,6 +24,7 @@ from online.store import PostgresOffice, SCHEMA_VERSION
 
 
 INTEGRATION_TABLES = frozenset(base_fixture.V6_TABLES)
+BUSINESS_TABLES = frozenset(base_fixture.V7_TABLES)
 RESTORE_RESET_TABLES = attachment_fixture.RESTORE_RESET_TABLES | frozenset(('external_bridge_jobs', 'external_bridge_limits'))
 
 
@@ -39,7 +40,7 @@ class IntegrationRelease(unittest.TestCase):
 
     def setUp(self):
         self.new_fixture()
-        self.assertEqual(SCHEMA_VERSION, 6)
+        self.assertEqual(SCHEMA_VERSION, 7)
 
     def new_fixture(self):
         self.legacy = attachment_fixture.AttachmentRelease('runTest')
@@ -198,13 +199,13 @@ class IntegrationRelease(unittest.TestCase):
         self.assertTrue(INTEGRATION_TABLES.isdisjoint(before))
         prepared = self.base.prepare()
         after = release.snapshot_fingerprint(self.candidate)
-        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (5, 6))
+        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (5, SCHEMA_VERSION))
         self.assertEqual(prepared['tables'], before)
-        self.assertEqual(set(after) - set(before), INTEGRATION_TABLES)
+        self.assertEqual(set(after) - set(before), INTEGRATION_TABLES | BUSINESS_TABLES)
         for table, fingerprint in before.items():
             if table != 'smartplan_schema':
                 self.assertEqual(after[table], fingerprint, table)
-        for table in INTEGRATION_TABLES:
+        for table in (INTEGRATION_TABLES | BUSINESS_TABLES) - base_fixture.CONTROL_TABLES:
             self.assertEqual(after[table]['rows'], 0, table)
         self.assert_legacy_preserved(self.candidate, data)
         self.assertEqual(release.sequence_state(self.candidate), sequences)
@@ -233,10 +234,10 @@ class IntegrationRelease(unittest.TestCase):
                         self.assertEqual(after[table]['rows'], 0, table)
                     elif table not in ('smartplan_schema', 'inbound_import_tokens'):
                         self.assertEqual(after[table], fingerprint, table)
-                for table in set(after) - set(before):
+                for table in set(after) - set(before) - base_fixture.CONTROL_TABLES:
                     self.assertEqual(after[table]['rows'], 0, table)
                 with psycopg.connect(self.candidate) as connection:
-                    self.assertEqual(connection.execute('SELECT version FROM smartplan_schema').fetchone()[0], 6)
+                    self.assertEqual(connection.execute('SELECT version FROM smartplan_schema').fetchone()[0], SCHEMA_VERSION)
                 self.legacy.fixture.assert_security_preserved(self.candidate, security, sessions=False)
                 if workspace is not None:
                     self.legacy.fixture.assert_workspace_preserved(self.candidate, workspace, revoked=True)
@@ -246,15 +247,19 @@ class IntegrationRelease(unittest.TestCase):
 
     def test_schema6_candidate_preserves_all_connections_selected_snapshots_oauth_states_and_retry_receipts(self):
         data = self.seed_integrations()
+        self.base.source_version(6)
         before = release.snapshot_fingerprint(self.source)
         self.assertTrue(all(before[table]['rows'] > 0 for table in INTEGRATION_TABLES))
         prepared = self.base.prepare()
-        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (6, 6))
+        self.assertEqual((prepared['source_schema'], prepared['target_schema']), (6, SCHEMA_VERSION))
         self.assertEqual(prepared['tables'], before)
-        self.assertEqual(release.snapshot_fingerprint(self.candidate), before)
+        candidate = release.snapshot_fingerprint(self.candidate)
+        self.assertEqual(set(candidate) - set(before), BUSINESS_TABLES)
+        self.assertEqual({key: value for key, value in candidate.items() if key in before and key != 'smartplan_schema'},
+                         {key: value for key, value in before.items() if key != 'smartplan_schema'})
         self.assert_legacy_preserved(self.candidate, data['legacy'])
         self.assert_integrations_preserved(self.candidate, data)
-        self.assertEqual(release.snapshot_fingerprint(self.candidate), before)
+        self.assertEqual(release.snapshot_fingerprint(self.candidate), candidate)
         self.assertEqual(release.snapshot_fingerprint(self.source), before)
 
     def test_explicit_restore_disconnects_external_accounts_without_losing_business_data_or_reviving_old_requests(self):
@@ -266,7 +271,7 @@ class IntegrationRelease(unittest.TestCase):
         for table, fingerprint in before.items():
             if table in RESTORE_RESET_TABLES or table in ('external_snapshots', 'external_oauth_states'):
                 self.assertEqual(after[table]['rows'], 0, table)
-            elif table not in ('external_connections', 'external_project_links', 'inbound_import_tokens'):
+            elif table not in ('external_connections', 'external_project_links', 'inbound_import_tokens', 'business_restore_state'):
                 self.assertEqual(after[table], fingerprint, table)
         office = PostgresOffice(self.candidate)
         try:

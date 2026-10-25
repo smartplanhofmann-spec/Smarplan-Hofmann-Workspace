@@ -56,6 +56,7 @@ class ReleaseMaintenanceTlsTest(unittest.TestCase):
                 body = b'{"error":"Synthetic upstream requires authentication"}'
                 self.send_response(401)
                 self.send_header('Content-Type', 'application/json')
+                self.send_header('Content-Security-Policy', "default-src 'none'")
                 self.send_header('Content-Length', str(len(body)))
                 self.end_headers()
                 self.wfile.write(body)
@@ -140,6 +141,15 @@ class ReleaseMaintenanceTlsTest(unittest.TestCase):
                         wait_status(401)
                         self.assertEqual(request('/api/v1/projects', 'POST')[0], 401)
                         self.assertEqual(request('/ready')[0], 401)
+                        self.assertEqual(request('/api/v1/business/meta')[0], 401)
+                        self.assertNotIn("script-src 'self'", request('/api/v1/projects')[1]['content-security-policy'])
+                        for path in ('/', '/office', '/office/', '/office/office.js', '/office/contact.html', '/office/contact.js'):
+                            with self.subTest(phase='browser', path=path):
+                                status, headers, _ = request(path)
+                                self.assertEqual(status, 401)
+                                self.assertIn("script-src 'self'", headers['content-security-policy'])
+                                self.assertIn("connect-src 'self'", headers['content-security-policy'])
+                                self.assertNotIn("'unsafe-inline'", headers['content-security-policy'])
                         # Prove the test is using an explicitly trusted CA rather than
                         # accidentally accepting this certificate through global trust.
                         with self.assertRaises(ssl.SSLCertVerificationError):
@@ -156,7 +166,9 @@ class ReleaseMaintenanceTlsTest(unittest.TestCase):
                         project = 'a' * 32
                         source = 'b' * 32
                         import_path = f'/api/v1/projects/{project}/plan-imports/{source}'
-                        for path in ('/api/v1/projects', '/api/v1/offline/access', '/ready', '/health',
+                        for path in ('/', '/office', '/office/office.js', '/office/contact.html', '/office/contact.js',
+                                     '/api/v1/intake/contact', '/api/v1/business/meta', '/api/v1/business/documents/finalize',
+                                     '/api/v1/projects', '/api/v1/offline/access', '/ready', '/health',
                                      import_path, import_path + '/source', import_path + '/preview',
                                      import_path + '/result', import_path + '/chunks/0'):
                             for method in ('GET', 'POST', 'PUT'):

@@ -2,11 +2,11 @@
 import threading
 
 import psycopg
-from psycopg.rows import dict_row
 
 from core import Office
 
-SCHEMA_VERSION = 6
+SCHEMA_VERSION = 7
+COMPATIBLE_SCHEMA_VERSIONS = (6, 7)
 # Serialize mutations across processes as well as threads in this small pilot.
 LOCK_ID = 741290518
 
@@ -71,25 +71,42 @@ class Database:
 class PostgresOffice(Office):
     integrity_error = psycopg.IntegrityError
 
-    def __init__(self, dsn):
+    def __init__(self, dsn, *, allow_restore_pending=False):
+        if type(allow_restore_pending) is not bool:
+            raise ValueError('Explizite Restore-Prüferfreigabe erwartet.')
+        self._allow_restore_pending = allow_restore_pending
         self.lock = threading.RLock()
         self.db = Database(dsn)
         try:
-            row = self.db.execute('SELECT version FROM smartplan_schema').fetchone()
-            if not row or row['version'] != SCHEMA_VERSION:
+            rows = self.db.execute('SELECT version FROM smartplan_schema').fetchall()
+            if len(rows) != 1 or rows[0]['version'] not in COMPATIBLE_SCHEMA_VERSIONS:
                 raise RuntimeError('PostgreSQL-Schema zuerst migrieren; Version nicht unterstützt.')
+            from business_schema import state
+            if state(self)['storage_version'] != rows[0]['version']:
+                raise RuntimeError('PostgreSQL-/Business-Schemastand widersprüchlich.')
         except BaseException:
             self.db.close()
             raise
         self.failed_logins = {}
 
 
-def migrate(dsn):
+def migrate(dsn, *, owner_role=None, compatibility_mode=None, require_business_modules=False):
     """Explicit, transactional schema creation; never performed by an HTTP request."""
-    with psycopg.connect(dsn, row_factory=dict_row, connect_timeout=5) as connection:
+    if compatibility_mode not in (None, 'legacy', 'business'):
+        raise ValueError('Unbekannter Kompatibilitätsmodus.')
+    if owner_role not in (None, 'smartplan-migrator'):
+        raise ValueError('Unbekannte Migrationsrolle.')
+    with psycopg.connect(dsn, row_factory=row_factory, connect_timeout=5) as connection:
+        if owner_role:
+            if connection.execute('SELECT current_user').fetchone()[0] != 'postgres':
+                raise ValueError('Lokaler PostgreSQL-Operator erforderlich.')
+            connection.execute('SET LOCAL ROLE "smartplan-migrator"')
         connection.execute('SELECT pg_advisory_xact_lock(%s)', (LOCK_ID,))
         connection.execute('CREATE TABLE IF NOT EXISTS smartplan_schema(version INTEGER NOT NULL)')
-        row = connection.execute('SELECT version FROM smartplan_schema').fetchone()
+        rows = connection.execute('SELECT version FROM smartplan_schema').fetchall()
+        if len(rows) > 1:
+            raise RuntimeError('Mehrdeutiger PostgreSQL-Schemastand.')
+        row = rows[0] if rows else None
         if row:
             if row['version'] == 1:
                 connection.execute('''CREATE TABLE IF NOT EXISTS plan_versions(
@@ -103,7 +120,7 @@ def migrate(dsn):
             token TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
             expiry DOUBLE PRECISION NOT NULL, credential TEXT NOT NULL);''')
                 connection.execute('UPDATE smartplan_schema SET version=2')
-            elif row['version'] not in (2, 3, 4, 5, SCHEMA_VERSION):
+            elif row['version'] not in (2, 3, 4, 5, 6, SCHEMA_VERSION):
                 raise RuntimeError('Nicht unterstützte PostgreSQL-Schemaversion.')
             if row['version'] in (1, 2):
                 from online.plan_imports import schema_statements
@@ -129,7 +146,9 @@ def migrate(dsn):
             from integration_bridge import schema_statements as bridge_schema
             for statement in bridge_schema():
                 connection.execute(statement)
-            connection.execute('UPDATE smartplan_schema SET version=6')
+            if row['version'] != SCHEMA_VERSION:
+                connection.execute('UPDATE smartplan_schema SET version=6')
+            _migrate_business(connection, dsn, compatibility_mode, require_business_modules)
             return
         connection.execute('''
             CREATE TABLE users(id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, salt TEXT NOT NULL,
@@ -189,3 +208,22 @@ def migrate(dsn):
         from integration_bridge import schema_statements as bridge_schema
         for statement in bridge_schema():
             connection.execute(statement)
+        _migrate_business(connection, dsn, compatibility_mode, require_business_modules)
+
+
+def _migrate_business(connection, dsn, mode, require_modules):
+    from business_schema import ensure_schema, state, set_mode, require_complete_registry
+    if require_modules:
+        require_complete_registry()
+    office = PostgresOffice.__new__(PostgresOffice)
+    office.lock = threading.RLock()
+    office.db = Database.__new__(Database)
+    office.db.dsn, office.db.contexts, office.db.connection = dsn, [], connection
+    tables = connection.execute("SELECT 1 FROM pg_tables WHERE schemaname='public' AND tablename='business_schema_state'").fetchone()
+    previous = (connection.execute('SELECT compatibility_mode FROM business_schema_state').fetchone()['compatibility_mode']
+                if tables else 'business')
+    desired = mode or previous
+    ensure_schema(office, activate=desired == 'business')
+    if desired == 'legacy':
+        set_mode(office, 'legacy')
+    connection.execute('UPDATE smartplan_schema SET version=7')

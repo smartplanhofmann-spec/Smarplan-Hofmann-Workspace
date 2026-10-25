@@ -7,4 +7,4 @@ env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKE
   --mount "type=bind,src=$smartplan_repo,dst=/source,readonly" \
   -e SMARTPLAN_UPDATE_FLOW_CONTAINER=1 \
   python:3.12-slim \
-  /bin/bash -c 'touch /SMARTPLAN_UPDATE_FLOW_FIXTURE; exec /usr/local/bin/python3 /source/tests/update_flow/test_update_flow.py'
+  /bin/bash -c 'touch /SMARTPLAN_UPDATE_FLOW_FIXTURE; exec /usr/local/bin/python3 -m unittest discover -s /source/tests/update_flow -p "test_*.py" -v'

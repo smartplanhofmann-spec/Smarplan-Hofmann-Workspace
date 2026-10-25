@@ -75,6 +75,19 @@ class PrivacyCheckpointContract(unittest.TestCase):
         self.assertFalse(self.file.exists())
         self.assertEqual(self.anchor(), [])
 
+    def test_fifo_instead_of_key_or_journal_fails_without_waiting_for_an_external_writer(self):
+        self.key.unlink()
+        os.mkfifo(self.key, 0o600)
+        with self.assertRaises(Problem):
+            self.initialize()
+        self.key.unlink()
+        self.key.write_bytes(b's' * 32)
+        self.key.chmod(0o600)
+        os.mkfifo(self.file, 0o600)
+        with self.assertRaises(Problem):
+            self.initialize()
+        self.assertEqual(self.anchor(), [])
+
     def test_initialization_and_record_are_private_signed_idempotent_and_contain_no_personal_payload(self):
         self.initialize()
         first = self.event()

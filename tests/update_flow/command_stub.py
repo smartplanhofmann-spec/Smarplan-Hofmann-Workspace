@@ -95,7 +95,7 @@ def installer_dsn_preflight(script):
         module = types.ModuleType('online.' + name)
         for attribute in attributes:
             setattr(module, attribute, forbidden_database)
-        module.SCHEMA_VERSION = 6
+        module.SCHEMA_VERSION = 7
         sys.modules[module.__name__] = module
     spec = importlib.util.spec_from_file_location('online.release', '/source/backend/online/release.py')
     module = importlib.util.module_from_spec(spec)
@@ -114,14 +114,19 @@ if command == 'git':
         print('a' * 40)
         sys.exit(0)
     if 'archive' in args:
+        event('archive', paths=args[args.index('archive') + 2:])
         with tarfile.open(fileobj=sys.stdout.buffer, mode='w|') as archive:
-            for name, data in {'backend/generation': b'new\n', 'backend/online/requirements.lock': b''}.items():
+            for name, data in {'backend/generation': b'new\n', 'backend/online/requirements.lock': b'',
+                               'backend/online/release.py': b'# Synthetic boundary\n',
+                               'backend/business_schema.py': b'# Synthetic boundary\n',
+                               'web/office/index.html': b'<title>Synthetic office fixture</title>'}.items():
                 info = tarfile.TarInfo(name)
                 info.size, info.mode = len(data), 0o644
                 archive.addfile(info, io.BytesIO(data))
         sys.exit(0)
 elif command == 'runuser':
     event('runuser', role=args[args.index('-u') + 1])
+    os.environ['SMARTPLAN_FIXTURE_RUNUSER_ROLE'] = args[args.index('-u') + 1]
     if '/usr/bin/env' in args and '-i' in args:
         # The installer doctor really runs as the service UID; setpriv is real.
         os.execv('/usr/sbin/runuser', ['/usr/sbin/runuser', *args])
@@ -144,12 +149,17 @@ elif command == 'systemctl':
         fault = scenario['fault']
         if fault.startswith('worker_unit_'):
             fault = fault.removeprefix('worker_') if unit == 'smartplan-plan-import.service' else 'none'
+        if fault.startswith('lead_unit_'):
+            fault = fault.removeprefix('lead_') if unit.startswith('smartplan-lead-replies.') else 'none'
         if property_name == 'ActiveState':
             if unit == 'smartplan-plan-import.service':
                 print('activating' if services.get('import_worker_restart_pending') else
                       'active' if services.get(unit, False) else 'inactive')
+            elif unit == 'smartplan-lead-replies.service':
+                print('activating' if services.get('lead_replies_restart_pending') else
+                      'active' if services.get(unit, False) else 'inactive')
             else:
-                print('inactive')
+                print('active' if services.get(unit, False) else 'inactive')
         elif property_name == 'LoadState':
             print('loaded' if Path('/etc/systemd/system', unit).exists() or fault == 'unit_vendor'
                   else 'not-found')
@@ -168,7 +178,8 @@ elif command == 'systemctl':
         elif property_name == 'SendSIGKILL':
             print('no' if fault == 'unit_no_sigkill' else 'yes')
         elif property_name == 'TimeoutStopUSec':
-            print('infinity' if fault == 'unit_stop_timeout' else '20s')
+            print('infinity' if fault == 'unit_stop_timeout' else
+                  '10s' if unit == 'smartplan-lead-replies.service' else '20s')
         else:
             raise SystemExit('Unexpected systemd property: ' + property_name)
         sys.exit(0)
@@ -176,6 +187,16 @@ elif command == 'systemctl':
     if action in ('reset-failed', 'daemon-reload'):
         sys.exit(0)
     if action in ('start', 'stop'):
+        if unit.startswith('smartplan-lead-replies.'):
+            if action == 'stop' and scenario['fault'] == 'lead_stop' and unit.endswith('.service'):
+                sys.exit(1)
+            if action == 'stop' and ((scenario['fault'] == 'lead_false_stop' and unit.endswith('.service')) or
+                                      (scenario['fault'] == 'lead_timer_false_stop' and unit.endswith('.timer'))):
+                sys.exit(0)
+            if action == 'start' and generation() == 'new' and scenario['fault'] == 'lead_timer_start_new':
+                sys.exit(1)
+            if action == 'stop' and unit.endswith('.service'):
+                services['lead_replies_restart_pending'] = False
         if action == 'stop' and unit == 'smartplan-online.service' and scenario['fault'] == 'service_stop':
             event('failed_service_stop')
             sys.exit(1)
@@ -237,16 +258,22 @@ elif command == 'curl':
     if generation() == 'new' and scenario['fault'] in ('readiness', 'import_worker_start_old'):
         sys.exit(22)
     event('ready_probe', generation=generation(), database=active_database())
-    schema = 5 if scenario['fault'] == 'obsolete_schema' else 6
+    schema = 6 if scenario['fault'] == 'obsolete_schema' else 7
     capabilities = ['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
-                    'project_workspace', 'inquiry_intake', 'gmail_intake', 'mail_attachments', 'business_integrations']
+                    'project_workspace', 'inquiry_intake', 'gmail_intake', 'mail_attachments', 'business_integrations', 'business_suite']
     if scenario['fault'] == 'missing_mail_attachments':
         capabilities.remove('mail_attachments')
     if scenario['fault'] == 'missing_business_integrations':
         capabilities.remove('business_integrations')
-    version = '0.10.0-online-pilot' if scenario['fault'] == 'obsolete_version' else '0.11.0-online-pilot'
+    if scenario['fault'] == 'missing_business_suite':
+        capabilities.remove('business_suite')
+    mode = 'legacy' if scenario['fault'] == 'preserve_legacy_mode' else 'business'
+    if mode == 'legacy':
+        capabilities.remove('business_suite')
+    version = '0.11.0-online-pilot' if scenario['fault'] == 'obsolete_version' else '0.12.0-online-pilot'
     print(json.dumps({'status': 'ok', 'database': 'ok', 'version': version if generation() == 'new' else '0.10.0-online-pilot',
                       'schema_version': schema if generation() == 'new' else 5,
+                      'compatibility_mode': mode,
                       'capabilities': capabilities if generation() == 'new' else []}))
     sys.exit(0)
 elif command == 'mv':
@@ -269,7 +296,8 @@ elif command == 'psql':
     sys.exit(0)
 elif command == 'createdb':
     database = args[-1]
-    event('createdb', database=database)
+    assert '--owner=smartplan-migrator' in args
+    event('createdb', database=database, owner='smartplan-migrator')
     (STATE / 'databases' / (database + '.json')).write_text('[]')
     sys.exit(0)
 elif command == 'caddy':
@@ -335,8 +363,11 @@ elif command in ('python', 'python3', 'python3.12'):
         sys.exit(1 if scenario['fault'] == 'install_doctor' else 0)
     if args[:2] == ['-m', 'online.release']:
         action = args[2]
-        flags = dict(zip(args[3::2], args[4::2]))
-        event('helper', action=action, flags=flags)
+        values = [arg for arg in args[3:] if arg != '--privileged-operator']
+        flags = dict(zip(values[::2], values[1::2]))
+        if '--privileged-operator' in args:
+            flags['--privileged-operator'] = True
+        event('helper', action=action, flags=flags, role=os.environ.get('SMARTPLAN_FIXTURE_RUNUSER_ROLE'))
         if action == 'size':
             print('1024')
             sys.exit(0)
@@ -357,17 +388,48 @@ elif command in ('python', 'python3', 'python3.12'):
             assert not read_state().get('import_worker_restart_pending'), 'DB inspection with pending importworker restart'
             assert read_state().get('gate'), 'DB inspection without public gate'
             sys.exit(0)
+        if action == 'security':
+            assert os.environ['SMARTPLAN_FIXTURE_RUNUSER_ROLE'] == 'postgres'
+            assert read_state()['gate'] and not read_state()['smartplan-online.service']
+            assert not read_state().get('smartplan-plan-import.service')
+            assert not read_state().get('smartplan-online-backup.timer')
+            assert not read_state().get('smartplan-lead-replies.timer')
+            assert not read_state().get('smartplan-lead-replies.service')
+            assert not read_state().get('lead_replies_restart_pending')
+            sys.exit(1 if scenario['fault'] == 'business_security' else 0)
+        if action == 'privacy-configure':
+            assert not read_state()['smartplan-online.service'] and read_state()['gate']
+            installer_dsn_preflight('from online.release import configure_privacy_environment\n'
+                                    'configure_privacy_environment("/etc/smartplan-online/service.env")\n')
+            print(json.dumps({'configured': True}))
+            sys.exit(0)
+        if action == 'privacy-init':
+            assert os.environ['SMARTPLAN_FIXTURE_RUNUSER_ROLE'] == 'smartplan-online'
+            assert all(os.environ.get(name) for name in ('SMARTPLAN_PRIVACY_CHECKPOINT_FILE',
+                       'SMARTPLAN_PRIVACY_CHECKPOINT_KEY_FILE', 'SMARTPLAN_PRIVACY_INSTALLATION_ID'))
+            assert not read_state()['smartplan-online.service'] and read_state()['gate']
+            if scenario['fault'] == 'privacy_checkpoint':
+                raise SystemExit('Synthetic missing/current checkpoint failure')
+            print(json.dumps({'generation': 0, 'digest': 'a' * 64}))
+            sys.exit(0)
         if action == 'prepare':
+            assert flags.get('--privileged-operator') is True
+            assert os.environ['SMARTPLAN_FIXTURE_RUNUSER_ROLE'] == 'postgres'
+            assert flags['--backup-directory'].startswith('/var/lib/smartplan-online-operator/updates/')
             assert not read_state()['smartplan-online.service']
             assert not read_state().get('smartplan-plan-import.service'), 'DB clone before importworker stop'
             assert not read_state().get('import_worker_restart_pending'), 'DB clone with pending importworker restart'
+            assert not read_state().get('smartplan-lead-replies.timer'), 'DB clone before lead timer stop'
+            assert not read_state().get('smartplan-lead-replies.service'), 'DB clone before lead worker stop'
+            assert not read_state().get('lead_replies_restart_pending'), 'DB clone with pending lead worker restart'
             candidate = flags['--candidate']
             original = json.loads((STATE / 'databases/smartplan_online.json').read_text())
             (STATE / 'databases' / (candidate + '.json')).write_text(json.dumps(original))
             backup = Path(flags['--backup-directory']) / 'fixture.dump'
             backup.write_text(json.dumps(original))
             (Path(str(backup) + '.sha256')).write_text('synthetic-backup\n')
-            Path(flags['--output']).write_text(json.dumps({'backup': str(backup), 'source_schema': 5, 'target_schema': 6}))
+            Path(flags['--output']).write_text(json.dumps({'backup': str(backup), 'source_schema': 6, 'target_schema': 7,
+                'business': {'compatibility_mode': 'legacy' if scenario['fault'] == 'preserve_legacy_mode' else 'business'}}))
             sys.exit(0)
         if action == 'configure':
             path = Path(flags['--path'])
@@ -383,20 +445,24 @@ elif command in ('python', 'python3', 'python3.12'):
         if 'smartplan_import_install_check' in script:
             installer_dsn_preflight(script)
             sys.exit(0)
+        if 'read_environment, validate_dsns' in script:
+            installer_dsn_preflight(script)
+            sys.exit(0)
         if len(args) == 5:
             source, target, mode, group = args[1:]
             shutil.copyfile(source, target)
             os.chmod(target, int(mode, 8))
             event('atomic_copy', source=source, target=target)
             sys.exit(0)
-        if len(args) == 10:
-            path, update_id, candidate, previous_app, previous_venv, release, old_commit, new_commit, import_worker_active = args[1:]
+        if len(args) == 12:
+            path, update_id, candidate, previous_app, previous_venv, release, old_commit, new_commit, import_worker_active, lead_present, lead_timer_active = args[1:]
             Path(path).write_text(json.dumps({'update_id': update_id, 'candidate_database': candidate,
                 'source_database': active_database(), 'previous_app': previous_app, 'previous_venv': previous_venv,
                 'previous_app_was_link': Path('/opt/smartplan-online/app').is_symlink(),
                 'previous_venv_was_link': Path('/opt/smartplan-online/venv').is_symlink(),
                 'new_release': release, 'original_commit': old_commit, 'new_commit': new_commit,
-                'import_worker_was_active': import_worker_active == '1'}))
+                'import_worker_was_active': import_worker_active == '1',
+                'lead_replies_present': lead_present == '1', 'lead_timer_was_active': lead_timer_active == '1'}))
             event('journal_metadata', path=path)
             sys.exit(0)
         event('inline_preflight')

@@ -23,6 +23,7 @@ from online import release
 from online.store import migrate, PostgresOffice, SCHEMA_VERSION
 from online.plan_imports import PlanImports, CHUNK_SIZE
 from online.restore import restore
+from business_schema import registered_table_names, CONTROL_TABLES
 
 DSN = os.environ.get('SMARTPLAN_TEST_DSN')
 CANDIDATE = make_conninfo(DSN, dbname='smartplan_release_check') if DSN else None
@@ -32,6 +33,7 @@ V5_TABLES = ('inquiry_attachment_sets', 'inquiry_attachments',
              'inquiry_attachment_chunks', 'inquiry_attachment_limits')
 V6_TABLES = ('external_connections', 'external_project_links', 'external_snapshots',
              'external_requests', 'external_oauth_states', 'external_bridge_jobs', 'external_bridge_limits')
+V7_TABLES = tuple(sorted(registered_table_names()))
 TEST_SOURCE = 'host=127.0.0.1 port=55432 dbname=smartplan_check user=postgres'
 TEST_CANDIDATE = make_conninfo(TEST_SOURCE, dbname='smartplan_release_check')
 
@@ -278,12 +280,16 @@ class CandidateRelease(unittest.TestCase):
             raise ValueError('Supported disposable fixture schema required')
         layers = {2: ('plan_versions', 'plan_requests', 'plan_sessions'),
                   3: ('plan_import_chunks', 'plan_imports'),
-                  4: V4_TABLES, 5: V5_TABLES, 6: V6_TABLES}
+                  4: V4_TABLES, 5: V5_TABLES, 6: V6_TABLES, 7: V7_TABLES}
         tables = [name for schema, names in layers.items() if schema > version for name in names]
         with psycopg.connect(DSN) as connection:
             if tables:
                 connection.execute(psycopg.sql.SQL('DROP TABLE IF EXISTS {}').format(
                     psycopg.sql.SQL(',').join(map(psycopg.sql.Identifier, tables))))
+            if version < 7:
+                for name, arguments in connection.execute("SELECT p.proname,pg_get_function_identity_arguments(p.oid) FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND p.proname LIKE 'business_%'").fetchall():
+                    connection.execute(psycopg.sql.SQL('DROP FUNCTION public.{}({})').format(
+                        psycopg.sql.Identifier(name), psycopg.sql.SQL(arguments)))
             connection.execute('UPDATE smartplan_schema SET version=%s', (version,))
 
     def prepare(self):
@@ -379,8 +385,9 @@ class CandidateRelease(unittest.TestCase):
         candidate = release.snapshot_fingerprint(CANDIDATE)
         self.assertEqual({key: value for key, value in candidate.items() if key in before and key != 'smartplan_schema'},
                          {key: value for key, value in before.items() if key != 'smartplan_schema'})
-        for table in V4_TABLES + V5_TABLES + V6_TABLES:
-            self.assertEqual(candidate[table]['rows'], 0, table)
+        for table in V4_TABLES + V5_TABLES + V6_TABLES + V7_TABLES:
+            if table not in CONTROL_TABLES:
+                self.assertEqual(candidate[table]['rows'], 0, table)
         self.assertEqual(before['plan_imports']['rows'], 4)
         self.assertEqual(before['plan_import_chunks']['rows'], 7)
         office = PostgresOffice(CANDIDATE)

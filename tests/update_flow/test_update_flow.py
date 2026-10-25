@@ -41,9 +41,11 @@ class OperatorFlowFixture:
             for link in directory.glob('*.wants/smartplan-plan-import.service'):
                 link.unlink()
         for path in (CHECKOUT, APP, CONFIG, HTTPS, STATE, Path('/test-bin'),
-                     Path('/var/lib/smartplan-online'), Path('/opt/smartplan-https'),
+                     Path('/var/lib/smartplan-online'), Path('/var/lib/smartplan-online-operator'), Path('/opt/smartplan-https'),
                      Path('/opt/smartplan-plan-import'),
                      Path('/etc/systemd/system/smartplan-plan-import.service'),
+                     Path('/etc/systemd/system/smartplan-lead-replies.service'),
+                     Path('/etc/systemd/system/smartplan-lead-replies.timer'),
                      Path('/etc/systemd/system/smartplan-plan-import.service.d')):
             if path.is_symlink() or path.is_file():
                 path.unlink()
@@ -62,6 +64,10 @@ class OperatorFlowFixture:
                            if database == 'passwd' else 'smartplan-online:x:2001:\nsmartplan-https:x:2002:\n')
                 with path.open('a') as stream:
                     stream.write(entries)
+            if 'postgres:' not in path.read_text():
+                with path.open('a') as stream:
+                    stream.write('postgres:x:2003:2003::/nonexistent:/bin/false\n' if database == 'passwd'
+                                 else 'postgres:x:2003:\n')
         shutil.copyfile(SOURCE / 'tests/update_flow/command_stub.py', '/test-bin/command_stub.py')
         Path('/test-bin/command_stub.py').chmod(0o755)
         for name in ('git', 'runuser', 'systemctl', 'curl', 'createdb', 'sleep', 'python3', 'python3.12',
@@ -70,11 +76,15 @@ class OperatorFlowFixture:
         Path('/opt/smartplan-https/bin/caddy').symlink_to('/test-bin/command_stub.py')
         script_dir = CHECKOUT / 'deploy/hetzner/online'
         shutil.copyfile(SOURCE / 'deploy/hetzner/online/update-online.sh', script_dir / 'update-online.sh')
+        shutil.copyfile(SOURCE / 'deploy/hetzner/online/prepare-business-security.sh', script_dir / 'prepare-business-security.sh')
+        shutil.copyfile(SOURCE / 'deploy/hetzner/online/Caddyfile.v0.11', script_dir / 'Caddyfile.v0.11')
         shutil.copyfile(SOURCE / 'deploy/hetzner/online/Caddyfile', script_dir / 'Caddyfile')
         shutil.copyfile(script_dir / 'Caddyfile', HTTPS / 'Caddyfile')
         for unit in ('smartplan-online.service', 'smartplan-online-backup.service', 'smartplan-plan-import.service'):
             shutil.copyfile(SOURCE / 'deploy/hetzner/online' / unit, script_dir / unit)
             shutil.copyfile(script_dir / unit, Path('/etc/systemd/system') / unit)
+        for unit in ('smartplan-lead-replies.service', 'smartplan-lead-replies.timer'):
+            shutil.copyfile(SOURCE / 'deploy/hetzner/online' / unit, script_dir / unit)
         (CONFIG / 'service.env').write_text("SMARTPLAN_DATABASE_DSN='dbname=smartplan_online user=smartplan-online host=/var/run/postgresql'\nSMARTPLAN_PUBLIC_HOST=office.smartplan-hofmann.de\nOTHER_SETTING=preserved\n")
         (CONFIG / 'service.env').chmod(0o640)
         (APP / 'SOURCE_COMMIT').write_text(OLD + '\n')
@@ -85,17 +95,27 @@ class OperatorFlowFixture:
         self.configure()
 
     def configure(self, *, fault='none', physical=False, timer=True, import_worker=False,
-                  worker_installed=True, worker_restarting=False):
+                  worker_installed=True, worker_restarting=False, lead_installed=False,
+                  lead_timer=False, lead_worker=False, lead_restarting=False):
         (STATE / 'scenario.json').write_text(json.dumps({'fault': fault}))
         (STATE / 'services.json').write_text(json.dumps({'smartplan-online.service': True, 'smartplan-https.service': True,
                                                         'smartplan-online-backup.timer': timer,
                                                         'smartplan-plan-import.service': import_worker,
+                                                        'smartplan-lead-replies.timer': lead_timer,
+                                                        'smartplan-lead-replies.service': lead_worker,
+                                                        'lead_replies_restart_pending': lead_restarting,
                                                         'import_worker_restart_pending': worker_restarting, 'gate': False}))
         worker_unit = Path('/etc/systemd/system/smartplan-plan-import.service')
         if worker_installed:
             shutil.copyfile(CHECKOUT / 'deploy/hetzner/online/smartplan-plan-import.service', worker_unit)
         elif worker_unit.exists():
             worker_unit.unlink()
+        for name in ('smartplan-lead-replies.service', 'smartplan-lead-replies.timer'):
+            unit = Path('/etc/systemd/system') / name
+            if lead_installed:
+                shutil.copyfile(CHECKOUT / 'deploy/hetzner/online' / name, unit)
+            elif unit.exists():
+                unit.unlink()
         for name in ('app', 'venv'):
             link = APP / name
             if link.is_symlink():
@@ -169,6 +189,88 @@ class UpdateFlowTests(OperatorFlowFixture, unittest.TestCase):
         ready = [i for i, event in enumerate(events) if event['event'] == 'ready_probe' and event['generation'] == 'new']
         self.assertTrue(ready)
         self.assertLess(max(ready), public_write)
+        security = next(i for i, event in enumerate(events) if event.get('action') == 'security')
+        created = next(i for i, event in enumerate(events) if event.get('event') == 'createdb')
+        self.assertLess(stopped, security)
+        self.assertLess(security, created)
+        self.assertLess(created, prepare)
+        prepared = events[prepare]
+        self.assertEqual(prepared['role'], 'postgres')
+        self.assertTrue(prepared['flags']['--privileged-operator'])
+        self.assertTrue((APP / 'app/web/office/index.html').is_file())
+        self.assertEqual(next(e for e in events if e['event'] == 'archive')['paths'], ['backend', 'web'])
+
+    def test_exact_legacy_caddy_is_migrated_only_after_candidate_verification(self):
+        old = CHECKOUT / 'deploy/hetzner/online/Caddyfile.v0.11'
+        shutil.copyfile(old, HTTPS / 'Caddyfile')
+        self.original_caddy = old.read_bytes()
+        result = self.run_update()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual((HTTPS / 'Caddyfile').read_bytes(), (SOURCE / 'deploy/hetzner/online/Caddyfile').read_bytes())
+        self.assertEqual(next((CONFIG / 'updates').glob('*/Caddyfile.before')).read_bytes(), self.original_caddy)
+        self.assert_original_data()
+
+    def test_legacy_caddy_is_restored_on_prepublication_failure_and_unknown_config_is_refused(self):
+        old = CHECKOUT / 'deploy/hetzner/online/Caddyfile.v0.11'
+        shutil.copyfile(old, HTTPS / 'Caddyfile')
+        self.original_caddy = old.read_bytes()
+        self.configure(fault='readiness')
+        self.assertNotEqual(self.run_update().returncode, 0)
+        self.assert_old_release()
+        (HTTPS / 'Caddyfile').write_bytes(self.original_caddy + b'\n# Unknown local override\n')
+        before = (HTTPS / 'Caddyfile').read_bytes()
+        events_before = len(self.events())
+        self.assertNotEqual(self.run_update().returncode, 0)
+        self.assertEqual((HTTPS / 'Caddyfile').read_bytes(), before)
+        self.assertFalse(any(e['event'] == 'createdb' for e in self.events()[events_before:]))
+
+    def test_failed_role_preparation_cannot_create_candidate_or_publish(self):
+        self.configure(fault='business_security', import_worker=True)
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assert_old_release()
+        self.assertTrue(self.services()['smartplan-plan-import.service'])
+        self.assertFalse(any(e['event'] in ('createdb', 'public_write') for e in self.events()))
+
+    def test_operator_path_symlink_is_refused_without_widening_runtime_private_directory(self):
+        runtime = Path('/var/lib/smartplan-online')
+        runtime.chmod(0o700)
+        Path('/var/lib/smartplan-online-operator').symlink_to(runtime, target_is_directory=True)
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assert_old_release()
+        self.assertEqual(runtime.stat().st_mode & 0o777, 0o700)
+        self.assertFalse(any(e.get('action') in ('security', 'prepare') for e in self.events()))
+
+    def test_missing_business_suite_capability_cannot_open_public_gate(self):
+        self.configure(fault='missing_business_suite')
+        self.assertNotEqual(self.run_update().returncode, 0)
+        self.assert_old_release()
+        self.assertFalse(any(e['event'] == 'public_write' for e in self.events()))
+
+    def test_update_preserves_explicit_legacy_mode_instead_of_reenabling_business_writes(self):
+        self.configure(fault='preserve_legacy_mode')
+        result = self.run_update()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        report = json.loads(next((CONFIG / 'updates').glob('*/report.json')).read_text())
+        self.assertEqual(report['business']['compatibility_mode'], 'legacy')
+        self.assert_original_data()
+
+    def test_checkpoint_failure_restores_original_env_without_replacing_or_exposing_private_key(self):
+        self.configure(fault='privacy_checkpoint', import_worker=True)
+        result = self.run_update()
+        self.assertNotEqual(result.returncode, 0)
+        self.assert_old_release()
+        key = Path('/var/lib/smartplan-online/privacy/key')
+        self.assertEqual(key.stat().st_uid, 2001)
+        self.assertEqual(key.stat().st_mode & 0o777, 0o600)
+        self.assertEqual(key.parent.stat().st_mode & 0o777, 0o700)
+        before = key.read_bytes()
+        self.assertNotIn(before, (result.stdout + result.stderr).encode())
+        self.assertFalse(any(e['event'] == 'public_write' for e in self.events()))
+        self.configure(fault='none')
+        self.assertEqual(self.run_update().returncode, 0)
+        self.assertEqual(key.read_bytes(), before)
 
     def test_readiness_failure_rolls_back_symlink_installation_before_publication(self):
         self.configure(fault='readiness')

@@ -404,6 +404,25 @@ def require_runtime_security(office):
         if office.db.execute("SELECT 1 FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace "
                              "WHERE n.nspname='public' AND pg_get_userbyid(p.proowner)<>'smartplan-migrator' LIMIT 1").fetchone():
             raise ValueError('Application function has unexpected ownership')
+        policy = runtime_privileges()
+        for permissions in office.db.execute("""SELECT tablename,
+          has_any_column_privilege(current_user,'public.'||quote_ident(tablename),'INSERT') AS may_insert,
+          has_any_column_privilege(current_user,'public.'||quote_ident(tablename),'UPDATE') AS may_update,
+          has_table_privilege(current_user,'public.'||quote_ident(tablename),'DELETE') AS may_delete,
+          has_table_privilege(current_user,'public.'||quote_ident(tablename),'TRUNCATE') AS may_truncate
+          FROM pg_tables WHERE schemaname='public'""").fetchall():
+            name = permissions['tablename']
+            allowed = policy.get(name, ('SELECT', 'INSERT', 'UPDATE', 'DELETE'))
+            if permissions['may_truncate']:
+                raise ValueError('Runtime can truncate application data')
+            for privilege in ('INSERT', 'UPDATE', 'DELETE'):
+                if name == 'business_restore_state' and privilege == 'UPDATE':
+                    continue  # Only pending may be updated; prove columns below.
+                if privilege not in allowed and permissions['may_' + privilege.lower()]:
+                    raise ValueError('Unexpected destructive runtime grant')
+        for column in ('singleton', 'financial_reconciliation_required', 'restore_id'):
+            if office.db.execute("SELECT has_column_privilege(current_user,'business_restore_state',?,'UPDATE')", (column,)).fetchone()[0]:
+                raise ValueError('Runtime can approve its own restore')
     except Exception as error:
         raise Problem(409, 'Sichere PostgreSQL-Rollentrennung ist vor der Belegausstellung erforderlich.') from None
     return True
@@ -452,6 +471,14 @@ def apply_runtime_privileges(office):
         if not _NAME.fullmatch(table):
             raise ValueError('Unexpected application table name')
         connection.execute(sql.SQL('REVOKE ALL ON TABLE public.{} FROM PUBLIC,"smartplan-online"').format(sql.Identifier(table)))
+        columns = [row[0] for row in connection.execute(
+            "SELECT a.attname FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid "
+            "JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' "
+            "AND c.relname=%s AND a.attnum>0 AND NOT a.attisdropped ORDER BY a.attnum", (table,)).fetchall()]
+        if columns:
+            # Table REVOKE does not remove earlier column-specific grants.
+            connection.execute(sql.SQL('REVOKE ALL ({}) ON TABLE public.{} FROM PUBLIC,"smartplan-online"').format(
+                sql.SQL(',').join(map(sql.Identifier, columns)), sql.Identifier(table)))
         privileges = policy.get(table, ('SELECT', 'INSERT', 'UPDATE', 'DELETE'))
         if privileges:
             connection.execute(sql.SQL('GRANT {} ON TABLE public.{} TO "smartplan-online"').format(
@@ -550,7 +577,7 @@ def _privacy_config():
     info = target.parent.lstat()
     if not stat.S_ISDIR(info.st_mode) or info.st_uid != os.geteuid() or stat.S_IMODE(info.st_mode) & 0o077:
         raise Problem(409, 'Datenschutz-Checkpoint-Verzeichnis ist nicht privat.')
-    descriptor = os.open(key_path, os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC)
+    descriptor = os.open(key_path, os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC | os.O_NONBLOCK)
     try:
         info = os.fstat(descriptor)
         if not stat.S_ISREG(info.st_mode) or info.st_uid != os.geteuid() or info.st_mode & 0o077 or info.st_size != 32:
@@ -583,7 +610,7 @@ def _privacy_digest(value, key):
 
 def _privacy_read(path, key, installation, *, allow_new=False):
     try:
-        descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC)
+        descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC | os.O_NONBLOCK)
     except FileNotFoundError:
         if allow_new:
             return _privacy_empty(installation)

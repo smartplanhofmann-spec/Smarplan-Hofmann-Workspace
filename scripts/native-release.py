@@ -3,6 +3,7 @@ import argparse
 import ast
 import base64
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import plistlib
@@ -15,11 +16,16 @@ BACKEND_FILES = ('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py
                  'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py',
                  'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py',
                  'workspace_api.py', 'external_integrations.py', 'integration_bridge.py',
+                 'business_api.py', 'business_schema.py', 'business_foundation.py',
+                 'business_documents.py', 'business_finance.py', 'business_einvoice.py', 'business_delivery.py',
+                 'business_planning.py', 'business_time.py', 'business_operations.py',
+                 'business_inventory.py', 'business_maintenance.py', 'business_adapters.py',
                  'requirements.lock')
 WINDOWS_DLLS = ('flutter_windows.dll', 'printing_plugin.dll', 'pdfium.dll', 'file_selector_windows_plugin.dll',
                 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll',
                 'url_launcher_windows_plugin.dll', 'share_plus_plugin.dll', 'pdfrx_pdfium_gate.dll',
                 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')
+OFFLINE_INSTALLER_FILES = ('Python_Umgebung_aktualisieren.cmd', 'Python_Umgebung_aktualisieren.py')
 
 
 def require(condition, message):
@@ -76,6 +82,20 @@ def check_api(config, flavor):
                 'Lokales Paket darf keine entfernte API-Konfiguration enthalten.')
 
 
+def offline_installer(root=ROOT):
+    spec = importlib.util.spec_from_file_location('smartplan_offline_installer', root / 'windows' / OFFLINE_INSTALLER_FILES[1])
+    installer = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(installer)
+    return installer
+
+
+def write_wheel_manifest(directory, root=ROOT):
+    installer = offline_installer(root)
+    manifest = installer.wheel_manifest(directory, root / 'backend/requirements.lock')
+    (Path(directory) / installer.MANIFEST).write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8')
+    return manifest
+
+
 def local_backend(bundle, root=ROOT):
     directory = Path(bundle) / 'backend'
     for name in BACKEND_FILES:
@@ -107,8 +127,14 @@ def check_windows(bundle, config, flavor, root=ROOT):
         local_backend(bundle, root)
         for name in ('Starten.cmd', 'Sicherung_erstellen.cmd', 'Sicherung_wiederherstellen.cmd', 'Run.cmd', 'START_HIER.txt'):
             require((bundle / name).is_file(), f'Lokaler Starter fehlt: {name}')
+        for name in OFFLINE_INSTALLER_FILES:
+            require((bundle / name).is_file() and (bundle / name).read_bytes() == (root / 'windows' / name).read_bytes(),
+                    f'Offline-Updater fehlt oder stimmt nicht mit der Quelle ueberein: {name}')
+        offline_installer(root).verify_wheel_manifest(bundle / 'python-wheels', bundle / 'backend/requirements.lock')
     else:
-        require(not (bundle / 'backend').exists() and not list(bundle.glob('*.cmd')),
+        require(not (bundle / 'backend').exists() and not list(bundle.glob('*.cmd'))
+                and not (bundle / 'python-wheels').exists()
+                and not any((bundle / name).exists() for name in OFFLINE_INSTALLER_FILES),
                 'Online-Paket enthält einen lokalen Backend-Starter.')
     return {'platform': 'windows-x64', 'flavor': flavor}
 
@@ -141,11 +167,12 @@ def manifest(kind, commit, root=ROOT):
     return {'schema_version': 1, 'version': version(root)[0], 'visible_app_version': version(root)[0],
             'build_number': version(root)[1],
             'source_commit': commit, 'api_url': API_URL if kind == 'online' else 'http://127.0.0.1:8765',
-            'api_version': 'v1' if kind == 'online' else '', 'required_backend_schema': 6 if kind == 'online' else None,
+            'api_version': 'v1' if kind == 'online' else '', 'required_backend_schema': 7 if kind == 'online' else None,
             'required_backend_capabilities': ['project_workspace', 'inquiry_intake', 'gmail_intake',
                                               'offline_workspace', 'plan_deletion', 'mail_attachments',
-                                              'business_integrations'] if kind == 'online' else [],
-            'offline_modules': ['project_plans', 'plan_import_sources', 'project_workspace']
+                                              'business_integrations', 'business_suite'] if kind == 'online' else [],
+            'offline_modules': ['project_plans', 'plan_import_sources', 'project_workspace',
+                                'time_events', 'field_media']
                                if kind == 'online' else ['project_plans'],
             'offline_max_days': 7, 'test_package': True}
 
@@ -166,6 +193,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='action', required=True)
     sub.add_parser('source')
+    wheels = sub.add_parser('wheels', help='Validate complete CPython3.12/Windows-x64 locked wheels and record checksums')
+    wheels.add_argument('--directory', required=True, type=Path)
     windows = sub.add_parser('windows')
     windows.add_argument('--bundle', type=Path, required=True)
     windows.add_argument('--config', type=Path, required=True)
@@ -183,6 +212,9 @@ def main():
     source_checks()
     if args.action == 'source':
         print(json.dumps(source_checks(), ensure_ascii=False))
+    elif args.action == 'wheels':
+        checked = write_wheel_manifest(args.directory)
+        print('Windows-x64/Python-3.12 Offline-Wheels geprueft: ' + str(len(checked['versions'])))
     elif args.action == 'windows':
         checked = check_windows(args.bundle, args.config, args.flavor)
         write_windows_manifest(args.bundle, {**manifest(args.flavor, args.commit), **checked})

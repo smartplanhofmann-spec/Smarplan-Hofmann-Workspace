@@ -9,11 +9,13 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
+import hashlib
 
 
 def load(name, filename):
-    spec = importlib.util.spec_from_file_location(name, Path(__file__).with_name(filename))
+    spec = importlib.util.spec_from_file_location(name, Path(__file__).parent / filename)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -46,8 +48,26 @@ class NativePackageTests(unittest.TestCase):
                 shutil.copyfile(release.ROOT / 'backend' / name, backend / name)
             for name in ('Starten.cmd', 'Sicherung_erstellen.cmd', 'Sicherung_wiederherstellen.cmd', 'Run.cmd', 'START_HIER.txt'):
                 (bundle / name).write_text('Synthetic launcher')
+            for name in ('Python_Umgebung_aktualisieren.cmd', 'Python_Umgebung_aktualisieren.py'):
+                shutil.copyfile(release.ROOT / 'windows' / name, bundle / name)
+            wheels = self.wheelhouse(bundle / 'python-wheels')
+            installer = load('windows_offline_installer', '../windows/Python_Umgebung_aktualisieren.py')
+            manifest = installer.wheel_manifest(wheels, bundle / 'backend/requirements.lock')
+            (wheels / 'WHEELS_SHA256.json').write_text(json.dumps(manifest), encoding='utf-8')
             self.config.write_text('# local default, no remote definitions\n')
         return bundle
+
+    def wheelhouse(self, destination=None):
+        directory = destination or self.directory / 'python-wheels'
+        directory.mkdir(parents=True)
+        for line in (release.ROOT / 'backend/requirements.lock').read_text().splitlines():
+            name, version = line.split('==')
+            normalized = name.replace('-', '_')
+            dist = normalized + '-' + version + '.dist-info/'
+            with zipfile.ZipFile(directory / (normalized + '-' + version + '-py3-none-any.whl'), 'w') as stream:
+                stream.writestr(dist + 'METADATA', 'Metadata-Version: 2.1\nName: ' + name + '\nVersion: ' + version + '\n')
+                stream.writestr(dist + 'WHEEL', 'Wheel-Version: 1.0\nRoot-Is-Purelib: true\nTag: py3-none-any\n')
+        return directory
 
     def ios_info(self):
         path = self.directory / 'Info.plist'
@@ -74,7 +94,8 @@ class NativePackageTests(unittest.TestCase):
         bundle = self.bundle('local')
         release.check_windows(bundle, self.config, 'local')
         for name in ('plan_deletions.py', 'project_workspace.py', 'inquiries.py',
-                     'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py'):
+                     'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py',
+                     'business_schema.py', 'business_api.py', 'business_delivery.py', 'business_time.py'):
             with self.subTest(omitted=name):
                 (bundle / 'backend' / name).unlink()
                 with self.assertRaisesRegex(ValueError, name):
@@ -94,6 +115,87 @@ class NativePackageTests(unittest.TestCase):
         (bundle / 'Starten.cmd').write_text('Must not ship')
         with self.assertRaisesRegex(ValueError, 'Backend-Starter'):
             release.check_windows(bundle, self.config, 'online')
+
+    def test_offline_bundle_requires_every_locked_wheel_and_rejects_source_archives_or_other_platforms(self):
+        installer = load('windows_offline_installer', '../windows/Python_Umgebung_aktualisieren.py')
+        wheels = self.wheelhouse()
+        lock = release.ROOT / 'backend/requirements.lock'
+        manifest = installer.wheel_manifest(wheels, lock)
+        self.assertEqual(manifest['target'], 'cpython-3.12-win_amd64')
+        self.assertEqual(manifest['requirements_sha256'], hashlib.sha256(lock.read_bytes()).hexdigest())
+        selected = next(wheels.glob('tzdata-*.whl'))
+        contents = selected.read_bytes()
+        selected.unlink()
+        with self.assertRaisesRegex(ValueError, 'tzdata'):
+            installer.wheel_manifest(wheels, lock)
+        selected.write_bytes(contents)
+        extra = wheels / 'unexpected.tar.gz'
+        extra.write_bytes(b'No source build allowed')
+        with self.assertRaises(ValueError):
+            installer.wheel_manifest(wheels, lock)
+        extra.unlink()
+        wrong = selected.with_name(selected.name.replace('py3-none-any', 'cp312-cp312-manylinux_2_28_x86_64'))
+        selected.rename(wrong)
+        with self.assertRaisesRegex(ValueError, 'Windows|win_amd64'):
+            installer.wheel_manifest(wheels, lock)
+
+    def test_local_package_checks_offline_hash_manifest_before_claiming_complete_dependencies(self):
+        bundle = self.bundle('local')
+        release.check_windows(bundle, self.config, 'local')
+        wheel = next((bundle / 'python-wheels').glob('*.whl'))
+        wheel.write_bytes(wheel.read_bytes() + b'Synthetic corruption')
+        with self.assertRaisesRegex(ValueError, 'Prüfsumme|Pruefsumme'):
+            release.check_windows(bundle, self.config, 'local')
+
+    def test_source_support_archive_is_honestly_source_only_without_offline_wheels(self):
+        archive = self.directory / 'source-only.zip'
+        support.build(archive)
+        with zipfile.ZipFile(archive) as stream:
+            names = stream.namelist()
+            self.assertTrue(any(name.endswith('QUELLPAKET_HINWEIS.txt') for name in names))
+            self.assertFalse(any('python-wheels/' in name or 'Python_Umgebung_aktualisieren' in name for name in names))
+
+    def test_full_support_archive_contains_validated_wheels_installer_and_reproducible_manifest(self):
+        wheels = self.wheelhouse()
+        archive = self.directory / 'offline-support.zip'
+        support.build(archive, wheels_dir=wheels)
+        first = archive.read_bytes()
+        support.build(archive, wheels_dir=wheels)
+        self.assertEqual(archive.read_bytes(), first)
+        with zipfile.ZipFile(archive) as stream:
+            names = stream.namelist()
+            prefix = 'Smartplan_Windows_Start_und_Sicherung/'
+            self.assertIn(prefix + 'Python_Umgebung_aktualisieren.cmd', names)
+            self.assertIn(prefix + 'Python_Umgebung_aktualisieren.py', names)
+            self.assertIn(prefix + 'python-wheels/WHEELS_SHA256.json', names)
+            self.assertFalse(any(name.endswith('QUELLPAKET_HINWEIS.txt') for name in names))
+
+    def test_dependency_update_is_explicit_offline_locked_and_never_opens_business_data(self):
+        installer = load('windows_offline_installer', '../windows/Python_Umgebung_aktualisieren.py')
+        package = self.bundle('local')
+        home = self.directory / 'private-existing-home'
+        home.mkdir()
+        database = home / 'office.sqlite3'
+        database.write_bytes(b'Synthetic sentinel, not a real database')
+        calls = []
+        def run(arguments, **options):
+            calls.append((arguments, options))
+            with self.assertRaises(ValueError):
+                with installer._installation_lock(home):
+                    self.fail('Updater released its installation lock during pip')
+        with patch.object(installer, '_verify_private_interpreter', return_value=home / '.venv'):
+            installer.update_existing_environment(package, run=run)
+        self.assertEqual(len(calls), 3)
+        self.assertTrue({'--isolated', '--require-virtualenv', '--no-index', '--no-deps', '--only-binary=:all:'} <= set(calls[0][0]))
+        self.assertIn('--requirement', calls[0][0])
+        self.assertEqual(calls[1][0][-1], 'check')
+        self.assertIn('ZoneInfo', calls[2][0][-2])
+        self.assertEqual(database.read_bytes(), b'Synthetic sentinel, not a real database')
+        with installer._installation_lock(home):
+            with patch.object(installer, '_verify_private_interpreter', return_value=home / '.venv'):
+                with self.assertRaises(ValueError):
+                    installer.update_existing_environment(package, run=run)
+        self.assertEqual(len(calls), 3)
 
     def test_release_checks_reject_a_build_targeting_the_other_backend(self):
         with self.assertRaisesRegex(ValueError, 'entfernte API'):
@@ -126,12 +228,12 @@ class NativePackageTests(unittest.TestCase):
         self.assertEqual(saved['version'], release.version()[0])
         self.assertEqual(saved['visible_app_version'], release.version()[0])
         self.assertEqual(saved['build_number'], release.version()[1])
-        self.assertEqual(saved['required_backend_schema'], 6)
+        self.assertEqual(saved['required_backend_schema'], 7)
         self.assertEqual(saved['required_backend_capabilities'],
                          ['project_workspace', 'inquiry_intake', 'gmail_intake', 'offline_workspace', 'plan_deletion',
-                          'mail_attachments', 'business_integrations'])
+                          'mail_attachments', 'business_integrations', 'business_suite'])
         self.assertNotIn('draft_backend_capabilities', saved)
-        self.assertEqual(saved['offline_modules'], ['project_plans', 'plan_import_sources', 'project_workspace'])
+        self.assertEqual(saved['offline_modules'], ['project_plans', 'plan_import_sources', 'project_workspace', 'time_events', 'field_media'])
         self.assertIs(saved['test_package'], True)
         self.assertIn('flutter_secure_storage_windows_plugin.dll', saved['files_sha256'])
         self.assertIn('url_launcher_windows_plugin.dll', saved['files_sha256'])
@@ -162,10 +264,10 @@ class NativePackageTests(unittest.TestCase):
         self.assertEqual(saved['version'], release.version()[0])
         self.assertEqual(saved['visible_app_version'], release.version()[0])
         self.assertEqual(saved['build_number'], '109')
-        self.assertEqual(saved['required_backend_schema'], 6)
+        self.assertEqual(saved['required_backend_schema'], 7)
         self.assertEqual(saved['required_backend_capabilities'],
                          ['project_workspace', 'inquiry_intake', 'gmail_intake', 'offline_workspace', 'plan_deletion',
-                          'mail_attachments', 'business_integrations'])
+                          'mail_attachments', 'business_integrations', 'business_suite'])
         self.assertNotIn('draft_backend_capabilities', saved)
         self.assertEqual(saved['supported_devices'], ['iPhone', 'iPad'])
         self.assertIs(saved['signed_entitlements_checked'], False)
@@ -177,6 +279,7 @@ class NativePackageTests(unittest.TestCase):
         with zipfile.ZipFile(archive) as stream:
             expected = {'Smartplan_Windows_Start_und_Sicherung/backend/' + name for name in support.BACKEND_FILES}
             expected.update('Smartplan_Windows_Start_und_Sicherung/' + name for name in support.WINDOWS_FILES)
+            expected.add('Smartplan_Windows_Start_und_Sicherung/QUELLPAKET_HINWEIS.txt')
             self.assertEqual(set(stream.namelist()), expected, 'Package must contain only the explicit source/launcher whitelist')
             stream.extractall(self.directory / 'unpacked')
         python = release.ROOT / 'backend/.venv' / ('Scripts/python.exe' if sys.platform == 'win32' else 'bin/python')
@@ -184,6 +287,10 @@ class NativePackageTests(unittest.TestCase):
         subprocess.run([str(python), '-E', '-c', 'import server, plan_access, plans, plan_deletions\n'
                         'import project_workspace, inquiries, inbound_connectors, workspace_api\n'
                         'import inquiry_attachments, external_integrations, integration_bridge\n'
+                        'import business_api, business_schema, business_foundation, business_delivery\n'
+                        'import business_documents, business_finance, business_einvoice\n'
+                        'import business_planning, business_time, business_operations\n'
+                        'import business_inventory, business_maintenance, business_adapters\n'
                         'from core import Office\n'
                         'office = Office("synthetic-package.db")\n'
                         'office.db.close()'],

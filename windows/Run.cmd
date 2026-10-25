@@ -16,6 +16,14 @@ if not exist "%smartplanBackend%\windows_office.py" (
   pause
   exit /b 1
 )
+"%smartplanPython%" -X utf8 -c "import tzdata; from zoneinfo import ZoneInfo; ZoneInfo('Europe/Berlin')"
+if errorlevel 1 (
+  echo Die Python-Umgebung braucht das Offline-Abhaengigkeitsupdate aus dem vollstaendigen lokalen Paket.
+  echo Bitte App und Server schliessen, dann Python_Umgebung_aktualisieren.cmd aus dem 0.12-Paket starten.
+  echo Es wurden keine Datenbankaenderungen durch diesen Starter ausgefuehrt.
+  pause
+  exit /b 1
+)
 "%smartplanPython%" -X utf8 "%smartplanBackend%\windows_office.py" "%~1"
 if errorlevel 1 (
   echo Smartplan konnte den Vorgang nicht abschliessen. Bitte die Meldung oben beachten.

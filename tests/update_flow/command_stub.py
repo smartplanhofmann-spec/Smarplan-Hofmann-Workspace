@@ -270,7 +270,7 @@ elif command == 'curl':
     mode = 'legacy' if scenario['fault'] == 'preserve_legacy_mode' else 'business'
     if mode == 'legacy':
         capabilities.remove('business_suite')
-    version = '0.11.0-online-pilot' if scenario['fault'] == 'obsolete_version' else '0.12.0-online-pilot'
+    version = '0.11.0-online-pilot' if scenario['fault'] == 'obsolete_version' else '0.12.2-online-pilot'
     print(json.dumps({'status': 'ok', 'database': 'ok', 'version': version if generation() == 'new' else '0.10.0-online-pilot',
                       'schema_version': schema if generation() == 'new' else 5,
                       'compatibility_mode': mode,

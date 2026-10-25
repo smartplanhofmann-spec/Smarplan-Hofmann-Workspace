@@ -14,7 +14,7 @@ Der Arbeitsablauf bleibt flexibel. Anfrage, Rückruf, Unterlagen/Aufmaß, Angebo
 
 Sevdesk bleibt zunächst führender Aussteller. Eigene Rechnungen benötigen einen ausdrücklich bestätigten Ausstellerwechsel mit Stichtag, vollständige Unternehmensdaten und die geschützte PostgreSQL-Betriebsumgebung. **SQLite darf eigene Finanzbelege nicht aktivieren oder ausstellen**, auch nicht durch importierte aktivierte Einstellungen. Entwürfe, operative Funktionen und ausdrücklich synthetische Tests sind davon zu unterscheiden. Eine Rechnung darf nicht parallel unkoordiniert in Sevdesk und Smartplan ausgestellt werden.
 
-Die native App heißt nach dem Navigationspatch 0.12.1+121; der Server bleibt bei 0.12.0-online-pilot mit Schema 7. Sie erweitert die bestehende Projektmappe um Fachregister und einen gemeinsamen Business-Einstieg. Die responsive Browseroberfläche unter `/office/` ist ein separates Produktartefakt; sie ist kein Flutter-Webbuild und keine freigegebene Offline-PWA. Ein Android-Ziel und dessen SDK-/Geräteabnahme fehlen.
+Die native App heißt nach dem [Funktions-/Rückwegpatch](FUNKTIONSPRUEFUNG_0_12_2.md) 0.12.2+122; der Server heißt 0.12.2-online-pilot mit unverändertem Schema 7. Sie erweitert die bestehende Projektmappe um Fachregister und einen gemeinsamen Business-Einstieg. Die responsive Browseroberfläche unter `/office/` ist ein separates Produktartefakt; sie ist kein Flutter-Webbuild und keine freigegebene Offline-PWA. Ein Android-Ziel und dessen SDK-/Geräteabnahme fehlen.
 
 ## Prüfstand und getrennte Betriebsabnahmen
 
@@ -46,6 +46,14 @@ Die zusätzliche [Kameraprüfung](../app/test/business_media_widget_test.dart) h
 Der Navigationspatch [0.12.1](APP_UPDATE_0_12_1.md) prüft den tatsächlichen App-Einstieg, wiederholten Verwaltungs-/Ablagewechsel, Filter-/Zustandserhalt, reine Legacy-Roots und Sitzungsende. Sechs neue und acht bestehende gezielte Fälle sowie der abschließende vollständige App-Lauf mit 313 Fällen sind grün. Schnelle Mehrfachbetätigung entfernt die ursprüngliche Hauptansicht nicht; die neue Regression reproduzierte diesen Fehler vor der Korrektur.
 
 Zusätzliche Completion-Abnahme: zwei echte PostgreSQL-/Flask-Fälle ohne Skips prüfen Rechnungsadress-SQL, Preis-/BOMkalkulation, Aufmaß, kanonische Projekttermine und aktuelle Scopegrenzen. Verbotene globale Katalogzugriffe werden auch bei gültigen Artikel-/Vorlagen-IDs verweigert; eingefrorene Projektbelege bleiben lesbar. Neue menschlich gelesene PDFs formatieren Datumswerte deutsch, kanonische ISOwerte und ältere Archive bleiben erhalten.
+
+## Nachtrag: Funktions- und Rückwegkorrekturen 0.12.2
+
+Die [bereichsübergreifende Prüfung](FUNKTIONSPRUEFUNG_0_12_2.md) ergänzt 73 neue native Fälle zu den 313 bisherigen App-Tests. Der gemeinsame Lauf mit **386 Fällen**, drei zusätzliche echte native PDF-Rendererfälle und der vollständige Analyzer sind grün. Geprüft sind alle 17 Projektregister auf Desktop/Mobil, neun Hauptbereiche und ihre Neben-/Einstellungswege, Rückkehr nach Fehlern, ungesicherte Pläne, Lagerbuchungen und Finanzdialoge einschließlich Rechteentzug. Stornogutschriften verwenden einen an die Originalrechnung gebundenen Metadateneditor; projektbezogene Finanzrechte benötigen keinen globalen Outboxzugriff.
+
+Zusätzlich grün: 363 Backendfälle (eine vorgesehene Plattformauslassung), 95 Fach-/SMTP-/offizielle E-Rechnungsprüfungen, fünf echte PostgreSQL-/HTTP-Journey-/Completion-/Artikelreferenzfälle, 14 Paketprüfungen sowie 60 isolierte Operatorfälle und zwei reale Git-Archivprüfungen. Die unveränderte 116-Fälle-Gmail-Gruppe war vor der ersten Änderung und nach dem gemeinsamen Patch grün. Gruppen überlappen und werden nicht als eindeutige Gesamtsumme ausgewiesen.
+
+Die ergänzte preisfreie Lager-Artikelliste ist durch elf neue SQLite-/HTTP-/PostgreSQL-Fälle abgesichert. Es gibt keine neue Schemaänderung oder Migration. Der Bewertungsstand der folgenden 98 Anforderungen bleibt unverändert; der Patch ist keine zusätzliche Anbieter- oder Gerätefreigabe. Updateweg und Paketwahl: [0.12.2](APP_UPDATE_0_12_2.md).
 
 ## Alle 98 Prüfpunkte
 
@@ -288,6 +296,7 @@ Die folgende Liste nennt noch zu bestätigende Betriebspflichten. Sie behauptet 
 | Native App/Offline | [PR #5](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/pull/5), auf Basis des Backend-Meilensteins. Die nativen UI-/Offlinequellen sind von Server-/Browsernachweisen getrennt. |
 | Server-Hotfix für Archivdateirechte | [PR #6](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/pull/6). Explizite Git-Archivumask und unveränderlicher Export-Commit für Update/Erstinstallation; [Fehlerbild, Rückkehr und reale Archivtests](HOTFIX_RELEASE_ARCHIVRECHTE.md). Keine Datenbankmigration oder Änderung an Gmail und App-Laufzeit. |
 | Native Rücknavigation | [PR #7](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/pull/7). Sichtbarer Rückweg aus der zusätzlich geöffneten Verwaltung, Erhalt der bestehenden Hauptansicht, reine Legacy- und Sitzungsgrenzen; [App-Update 0.12.1](APP_UPDATE_0_12_1.md). Keine neue Servermigration. |
+| Funktions- und Rückwegkorrekturen 0.12.2 | [PR #8](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/pull/8). Projektregister, Dialoge, sichere Plan-Rückwege, Lagerbuchungen und Beleg-/Finanzkorrekturen; [Prüfmatrix](FUNKTIONSPRUEFUNG_0_12_2.md). Additive Artikelreferenz-API, physisches Schema weiterhin 7. |
 | Betriebsleitfaden | [Betrieb und Update](BETRIEB_BUSINESS_UPDATE.md), einschließlich SSH-Verbindung, Rollentrennung, Wiederherstellung und Werkzeug-/Versandvoraussetzungen. Dieser Bericht ersetzt keine Server-/Anbietereinrichtung. |
 
 Vor dem produktiven Einsatz stehen der finale gemeinsame CI-Lauf am tatsächlichen Commit, die aufgeführten Plattform-/Betriebsabnahmen und die offene fachliche/rechtliche Prüfung. Für die erste Testeinführung können synthetische Anfrage→Projekt→Planung→Zeit→Dokumentationsabläufe genutzt werden; eigene echte Finanzbelege und Kundenmails werden erst im bewusst eingerichteten Betrieb freigegeben.

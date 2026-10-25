@@ -245,7 +245,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 business_caps = list(storage['capabilities'])
                 if set(business_schema.MODULE_NAMES).issubset(business_caps):
                     business_caps.append('business_suite')
-            return jsonify(status='ok', version='0.12.0-online-pilot', database='ok',
+            return jsonify(status='ok', version='0.12.2-online-pilot', database='ok',
                            schema_version=storage['storage_version'],
                            compatibility_mode=storage['compatibility_mode'],
                            capabilities=['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',

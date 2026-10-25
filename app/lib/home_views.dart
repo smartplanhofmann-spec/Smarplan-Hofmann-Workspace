@@ -403,7 +403,7 @@ class WorkspaceView extends StatefulWidget {
       onUsers,
       onCustomers;
   final void Function(Map<String, dynamic>) onProject;
-  final VoidCallback? onInquiries, onIntegrations;
+  final VoidCallback? onInquiries, onIntegrations, onBackToWorkspace;
   final ValueChanged<String> onSelectStorage;
   const WorkspaceView({
     super.key,
@@ -422,6 +422,7 @@ class WorkspaceView extends StatefulWidget {
     required this.onProject,
     this.onInquiries,
     this.onIntegrations,
+    this.onBackToWorkspace,
   });
   @override
   State<WorkspaceView> createState() => _WorkspaceViewState();
@@ -697,6 +698,21 @@ class _WorkspaceViewState extends State<WorkspaceView> {
           final desktop = box.maxWidth >= 1000;
           final content = Column(
             children: [
+              if (widget.onBackToWorkspace != null)
+                Container(
+                  color: Colors.white,
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: desktop ? 24 : 8,
+                    vertical: 4,
+                  ),
+                  child: TextButton.icon(
+                    key: const ValueKey('workspace-return-overview'),
+                    onPressed: widget.onBackToWorkspace,
+                    icon: const Icon(Icons.arrow_back_rounded, size: 20),
+                    label: const Text('Zur Übersicht'),
+                  ),
+                ),
               Container(
                 height: 68,
                 padding: EdgeInsets.symmetric(horizontal: desktop ? 32 : 12),

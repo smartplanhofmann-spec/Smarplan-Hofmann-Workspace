@@ -1,4 +1,6 @@
-# Smartplan Office – Entwicklungsstand 0.12.0
+# Smartplan Office – Entwicklungsstand 0.12.1
+
+Der native Client **0.12.1+121** ergänzt einen sichtbaren Rückweg aus „Weitere Verwaltung“ zum Hauptbereich. Der vorherige Bereich und seine Filter bleiben erhalten; reine Legacy-Starts erhalten keinen Rückweg ins Leere. [App-Update und Abnahme](docs/APP_UPDATE_0_12_1.md). Der passende Serverstand bleibt `0.12.0-online-pilot` mit Schema 7; die Korrektur wird als App-Update verteilt.
 
 Das Projektpaket 0.12 ergänzt CRM und Projektstatus, eigene Belege und Finanzen,
 Einsatzplanung, Zeiten, Baustellendokumentation, Material und Wartung. Die

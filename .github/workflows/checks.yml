@@ -431,7 +431,7 @@ jobs:
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.12.0 - lokales Windows-Pruefpaket (x64)
+          Smartplan Office 0.12.1 - lokales Windows-Pruefpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -509,7 +509,7 @@ jobs:
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
           $smartplanInstructions = @'
-          Smartplan Office 0.12.0 - Online-Pruefpaket fuer Windows (x64)
+          Smartplan Office 0.12.1 - Online-Pruefpaket fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.

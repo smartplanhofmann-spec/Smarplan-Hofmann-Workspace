@@ -141,5 +141,17 @@ class DocumentOutboxTests(DocumentsFixture,unittest.TestCase):
         self.assertEqual(409,caught.exception.status)
         self.assertEqual('accepted',office.db.execute('SELECT status FROM business_document_mail_receipts WHERE ordinal=2').fetchone()['status'])
 
+    def test_independent_accepted_proof_remains_authoritative_after_late_unknown(self):
+        from datetime import timedelta
+        peer=self;before=self.api.clock()
+        class Uncertain:
+            def send(self,job):
+                peer.api.clock=lambda:before+timedelta(minutes=5)
+                outbox=peer.office.db.execute('SELECT id FROM business_document_outbox WHERE operation_id=?',(job['operation_id'],)).fetchone()['id']
+                peer.api.reconcile_mail(peer.owner,peer.document['id'],dict(request_id=uuid.uuid4().hex,outbox_id=outbox,operation_id=job['operation_id'],outcome='accepted',confirmation=True,proof='Synthetic independent definitive server acceptance'))
+                return DeliveryReceipt('unknown',job['operation_id'],error_code='delivery_unconfirmed')
+        result=self.api.send_mail(self.owner,self.document['id'],self.data(),transport=Uncertain())
+        self.assertEqual('accepted',result['status']);self.assertTrue(result['accepted_by_server']);self.assertFalse(result['recipient_delivery_confirmed'])
+
 
 if __name__=='__main__':unittest.main()

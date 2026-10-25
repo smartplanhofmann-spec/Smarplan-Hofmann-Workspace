@@ -173,6 +173,9 @@ class Finance:
 
     def _operation_state(self,outbox_id,operation_id):
         rows=self.db.execute('SELECT * FROM business_outbox_receipts WHERE outbox_id=? AND operation_id=? ORDER BY ordinal DESC',(outbox_id,operation_id)).fetchall()
+        # A later missing/negative acknowledgement cannot retract an already
+        # established acceptance of this exact immutable message operation.
+        if any(row['outcome']=='sent' for row in rows):return 'sent'
         return rows[0]['outcome'] if rows else 'pending'
 
     def _outcome(self,outbox_id):

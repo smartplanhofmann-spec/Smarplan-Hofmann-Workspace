@@ -252,5 +252,18 @@ class FinanceTests(DocumentsFixture,unittest.TestCase):
         self.fc('record_delivery',old['id'],dict(request_id=uuid.uuid4().hex,operation_id=old['operation_id'],outcome='sent',confirmation=True,provider_receipt='Synthetic duplicated notices reviewed against external logs',acknowledge_conflict=True))
         self.assertFalse(self.fc('open_items')['items'][0]['supersession_conflict']);finance.validate_integrity(self.office)
 
+    def test_known_accepted_proof_is_not_undone_by_later_transport_uncertainty(self):
+        from business_delivery import DeliveryReceipt
+        self.invoice();self.enable_rules();proposal=self.fc('propose',dict(request_id=uuid.uuid4().hex))['items'][0]
+        approved=self.fc('approve',proposal['id'],dict(request_id=uuid.uuid4().hex,confirmation=True));outbox=self.fc('outbox')['items'][0];peer=self
+        class UncertainTransport:
+            def send(self,job):
+                peer.moment+=timedelta(minutes=5)
+                peer.fc('record_delivery',outbox['id'],dict(request_id=uuid.uuid4().hex,operation_id=job['operation_id'],outcome='sent',confirmation=True,provider_receipt='Synthetic real acceptance independently confirmed in SMTP logs'))
+                return DeliveryReceipt('unknown',job['operation_id'],error_code='delivery_unconfirmed')
+        self.fc('deliver',outbox['id'],dict(request_id=uuid.uuid4().hex,confirmation=True,payload_sha256=outbox['payload_sha256']),transport=UncertainTransport())
+        self.assertEqual('sent',self.fc('outbox')['items'][0]['status'])
+        self.assertEqual(1,self.office.db.execute("SELECT count(*) FROM business_outbox_receipts WHERE outcome='sent'").fetchone()[0])
+
 
 if __name__=='__main__':unittest.main()

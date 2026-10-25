@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 import re
 
-from flask import Flask, jsonify, request, Response
+from flask import Flask, jsonify, request, Response, send_file, redirect
 from werkzeug.exceptions import HTTPException
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -13,6 +13,7 @@ from online.store import PostgresOffice, SCHEMA_VERSION
 from online.storage import Storage
 import plan_access
 import workspace_api
+import business_api
 from online.plan_imports import PlanImports, CHUNK_SIZE, ensure_sqlite_schema
 
 METHODS = {
@@ -158,8 +159,53 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         response.headers['Cache-Control'] = 'no-store'
         response.headers['X-Content-Type-Options'] = 'nosniff'
         response.headers['Referrer-Policy'] = 'no-referrer'
-        response.headers['Content-Security-Policy'] = "default-src 'none'; frame-ancestors 'none'"
+        response.headers['Content-Security-Policy'] = (
+            "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob:; "
+            "connect-src 'self'; font-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+            if request.path.startswith('/office/') else "default-src 'none'; frame-ancestors 'none'")
         return response
+
+    @app.get('/')
+    @app.get('/office')
+    def office_redirect():
+        return redirect('/office/', code=302)
+
+    @app.get('/office/')
+    @app.get('/office/<asset>')
+    def office_browser(asset='index.html'):
+        types = {'index.html': 'text/html', 'office.js': 'text/javascript', 'office.css': 'text/css',
+                 'contact.html': 'text/html', 'contact.js': 'text/javascript'}
+        if asset not in types:
+            raise Problem(404, 'Datei nicht gefunden.')
+        source = Path(__file__).resolve().parents[2] / 'web' / 'office' / asset
+        if not source.is_file() or source.is_symlink():
+            raise Problem(404, 'Browseroberfläche nicht installiert.')
+        return send_file(source, mimetype=types[asset])
+
+    @app.post('/api/v1/intake/contact')
+    def receive_contact_form():
+        # Server-side fixed adapter and secret. A public page never receives
+        # an SPIN/SPLD key, chooses an adapter, or reuses Office authentication.
+        import business_schema
+        from business_adapters import Adapters
+        request.max_content_length = 32 * 1024
+        business_schema.require_capability(office, 'business_adapters')
+        result = Adapters(office).receive_form(request.headers.get('Origin', ''),
+                                              request.remote_addr or 'unknown', body())
+        return jsonify(result), 201
+
+    @app.post('/api/v1/intake/leads/<adapter_id>')
+    def receive_website_lead(adapter_id):
+        if not re.fullmatch(r'[a-f0-9]{32}', adapter_id):
+            raise Problem(404, 'Eingang nicht gefunden.')
+        import business_schema
+        from business_adapters import Adapters
+        authorization = request.headers.get('Authorization', '')
+        if not authorization.startswith('Bearer ') or len(authorization) > 200:
+            raise Problem(401, 'Eingangszugang fehlt.')
+        business_schema.require_capability(office, 'business_adapters')
+        value = Adapters(office).receive_lead(adapter_id, authorization[7:], body())
+        return jsonify(value), 201
 
     @app.errorhandler(Problem)
     def problem(error):
@@ -194,9 +240,17 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         try:
             with office.lock, office.db:
                 office.db.execute('SELECT COUNT(*) FROM users').fetchone()
-            return jsonify(status='ok', version='0.11.0-online-pilot', database='ok', schema_version=SCHEMA_VERSION,
+                import business_schema
+                storage = business_schema.state(office)
+                business_caps = list(storage['capabilities'])
+                if set(business_schema.MODULE_NAMES).issubset(business_caps):
+                    business_caps.append('business_suite')
+            return jsonify(status='ok', version='0.12.0-online-pilot', database='ok',
+                           schema_version=storage['storage_version'],
+                           compatibility_mode=storage['compatibility_mode'],
                            capabilities=['project_plans', 'offline_plan_access', 'plan_imports', 'plan_deletion',
-                                         'offline_workspace', *workspace_api.CAPABILITIES, 'business_integrations'])
+                                         'offline_workspace', *workspace_api.CAPABILITIES, 'business_integrations',
+                                         *business_caps])
         except Exception:
             return jsonify(status='unavailable'), 503
 
@@ -301,7 +355,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         path = '/' + path
         methods = (METHODS.get(path) or
                    next((allowed for pattern, allowed in PATTERNS if re.fullmatch(pattern, path)), None) or
-                   workspace_api.methods(path) or integration_methods(path))
+                   workspace_api.methods(path) or integration_methods(path) or business_api.methods(path))
         if not methods:
             raise Problem(404, 'Funktion nicht gefunden')
         if request.method not in methods.split(', '):
@@ -317,19 +371,31 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 raise Problem(400, 'Komprimierte Uploadabschnitte werden nicht unterstützt')
             data = request.get_data(cache=False)
         else:
-            data = body() if request.method == 'POST' else {}
+            data = body() if request.method == 'POST' else (
+                business_api.query_data(request.args.items(multi=True)) if path.startswith('/business/') else {})
         authorization = request.headers.get('Authorization', '')
         if not authorization.startswith('Bearer ') or len(authorization) > 200:
             raise Problem(401, 'Bitte anmelden')
         token = authorization[7:]
         plan_token = token.startswith(plan_access.PREFIX)
         if plan_token and not (path == '/offline/logout' or
+                (plan_access.allows_business(token) and business_api.offline_path(path, request.method)) or
                 (plan_access.allows_workspace(token) and workspace_api.project_path(path)) or
                 (path == '/projects' and request.method == 'GET') or
                 re.fullmatch(r'/projects/[a-f0-9]{32}/(?:(?:plans|plan-imports)/delete|plan-deletions)', path) or
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path) or
                 re.fullmatch(r'/projects/[a-f0-9]{32}/plan-imports(?:/[a-f0-9]{32}(?:/(?:complete|source|preview|result|chunks/[0-9]{1,3}))?)?', path)):
             raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne und Planquellen')
+        if business_api.methods(path):
+            with office.lock, office.db:
+                user = plan_access.user(office, token) if plan_token else office.user(token)
+            result, status, mimetype = business_api.dispatch(
+                office, user, path, request.method, data, offline=plan_token,
+                offline_capabilities=plan_access.business_capabilities(office, token) if plan_token else ())
+            return (jsonify(result), status) if mimetype == 'application/json' else Response(
+                result, status=status, mimetype=mimetype,
+                headers={'Content-Disposition': workspace_api.attachment_disposition(
+                    getattr(result, 'filename', 'smartplan-dokument'))})
         if integration_methods(path):
             # Authenticate without holding Office's transaction over provider IO.
             with office.lock, office.db:

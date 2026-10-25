@@ -70,6 +70,12 @@ class WorkspaceHttpFlow:
                 'sender_name': 'Synthetischer Interessent', 'sender_email': 'CONTACT@example.test',
                 'received_at': '2026-10-24T10:00:00+02:00', **changes}
 
+    def release_project_link(self, identifier, classification):
+        path = '/business/documents/link/' + identifier + '/classification'
+        current = self.call('GET', path).json
+        return self.call('POST', path, {'request_id': request_id(), 'revision': current['revision'],
+            'expected_source_fingerprint': current['source_fingerprint'], 'classification': classification}).json
+
     def reopen(self):
         self.office.db.close()
         self.office = PostgresOffice(pg_fixture.DSN) if self.postgres else Office(self.database)
@@ -156,6 +162,12 @@ class WorkspaceHttpFlow:
             links.append(self.call('POST', base + '/links', {
                 'request_id': request_id(), 'title': title, 'category': category, 'url': url,
             }, status=201).json)
+        self.assertEqual(self.call('GET', base + '/links', token=technician).json, [])
+        for link in links:
+            self.release_project_link(link['id'], 'operational' if link['category'] == 'dropbox' else 'financial')
+        _, accountant = self.add_actor('accountant')
+        self.assertEqual({row['id'] for row in self.call('GET', base + '/links', token=accountant).json},
+                         {row['id'] for row in links})
         calendar = self.call('GET', base + '/appointments/' + appointment['id'] + '/calendar')
         self.assertEqual(calendar.mimetype, 'text/calendar')
         self.assertIn('attachment;', calendar.headers['Content-Disposition'])
@@ -172,7 +184,9 @@ class WorkspaceHttpFlow:
         self.assertEqual(dashboard['counters']['appointments_upcoming'], 1)
         self.assertEqual(dashboard['open_tasks'][0]['id'], task['id'])
         self.assertEqual(dashboard['latest_diary'][0]['id'], diary['id'])
-        self.assertEqual({row['id'] for row in dashboard['links']}, {row['id'] for row in links})
+        self.assertEqual({row['id'] for row in dashboard['links']}, {links[0]['id']})
+        for link in links[1:]:
+            self.call('GET', base + '/links/' + link['id'], token=technician, status=404)
         self.assertIn(technician_id, {row['id'] for row in dashboard['team']})
         self.assertTrue(all(set(row) == {'id', 'email', 'role'} for row in dashboard['team']))
 

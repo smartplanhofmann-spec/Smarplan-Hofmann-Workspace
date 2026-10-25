@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_document_pricing.dart';
 import 'business_widgets.dart';
 import 'business_documentation.dart';
 import 'design.dart';
@@ -89,9 +90,12 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   final form = GlobalKey<FormState>();
   late final TextEditingController title, notes, issue, due, buyerReference;
   final templateName = TextEditingController(), intro = TextEditingController();
-  bool get canEdit => widget.templateMode
-      ? widget.session.canWrite('settings.manage')
-      : widget.session.canWrite('finance.write');
+  bool get mayView => !financialDenied && widget.session.can('finance.read');
+  bool get canEdit =>
+      mayView &&
+      (widget.templateMode
+          ? widget.session.canWrite('settings.manage')
+          : widget.session.canWrite('finance.write'));
   final buyerFields = <String, TextEditingController>{};
   final hourlyRate = TextEditingController(),
       timeTax = TextEditingController(text: '19');
@@ -108,6 +112,60 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   String? error;
   final key = 'document-editor-${DateTime.now().microsecondsSinceEpoch}';
   Map<String, dynamic>? frozen;
+  final measurementTransfers = <Map<String, dynamic>>[];
+  Map<String, dynamic>? calculation, billingContact;
+  String? calculationError, billingError;
+  bool calculating = false,
+      loadingBilling = false,
+      settingBuyer = false,
+      financialDenied = false;
+  int billingVersion = 0, calculationVersion = 0;
+  final touchedBuyer = <String>{};
+  final autoBuyer = <String, String>{};
+  bool get supportsPricing => widget.session.hasFeature('quote_pricing');
+  bool get supportsMeasurement =>
+      widget.session.hasFeature('measurement_transfer') &&
+      widget.session.can('documents.read');
+  bool get supportsBilling => widget.session.hasFeature('billing_contact');
+
+  void denyFinancialView() {
+    if (!mounted) return;
+    setState(() {
+      financialDenied = true;
+      billingVersion++;
+      calculationVersion++;
+      billingContact = null;
+      calculation = null;
+      positions.clear();
+      measurementTransfers.clear();
+      timeSources = [];
+      priorDocuments = [];
+      templates = [];
+      frozen = null;
+      for (final controller in [
+        title,
+        notes,
+        issue,
+        due,
+        buyerReference,
+        intro,
+        hourlyRate,
+        timeTax,
+        ...buyerFields.values,
+      ])
+        controller.clear();
+    });
+  }
+
+  bool deniedResponse(Object error) =>
+      error is ApiException && [401, 403, 404].contains(error.status);
+
+  void positionsChanged() {
+    calculationVersion++;
+    calculation = null;
+    calculationError = null;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -132,10 +190,17 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
       'email',
       'endpoint_id',
       'endpoint_scheme',
+      'vat_id',
+      'contact_name',
     ])
       buyerFields[name] = TextEditingController(
         text: buyer[name] ?? (name == 'country' ? 'DE' : ''),
       );
+    for (final entry in buyerFields.entries) {
+      entry.value.addListener(() {
+        if (!settingBuyer) touchedBuyer.add(entry.key);
+      });
+    }
     kind = d['kind'] ?? 'offer';
     project = d['project_id'] ?? widget.session.projectId;
     positions = (d['positions'] as List? ?? []).map(businessMap).toList();
@@ -143,23 +208,47 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
       List<String>.from(d['previous_document_ids'] as List? ?? []),
     );
     widget.session.addListener(changed);
-    if (!widget.templateMode) loadInputs();
+    if (!widget.templateMode) {
+      loadInputs();
+      if (widget.document == null) loadBillingContact(automatically: true);
+    }
   }
 
   Future<void> loadInputs() async {
     final current = project;
-    if (current == null || !widget.session.can('finance.read')) return;
+    if (current == null || !mayView) return;
+    String? templateWarning;
+    Future<dynamic> optionalTemplates() async {
+      try {
+        return await widget.session.read('/templates');
+      } on ApiException catch (e) {
+        if (e.status == 401) rethrow;
+        templateWarning = 'Globale Vorlagen sind nicht verfügbar. Manuelle Positionen bleiben möglich.';
+        return {'items': []};
+      }
+    }
+
+    Future<dynamic> projectDocuments() async {
+      try {
+        return await widget.session.read(
+          '/documents?${Uri(queryParameters: {'project_id': current}).query}',
+        );
+      } on ApiException catch (e) {
+        if (mounted && current == project && deniedResponse(e))
+          denyFinancialView();
+        rethrow;
+      }
+    }
+
     try {
       final results = await Future.wait([
         widget.session.read(
           '/documents/time-sources?${Uri(queryParameters: {'project_id': current}).query}',
         ),
-        widget.session.read(
-          '/documents?${Uri(queryParameters: {'project_id': current}).query}',
-        ),
-        widget.session.read('/templates'),
+        projectDocuments(),
+        optionalTemplates(),
       ]);
-      if (!mounted || !widget.session.allowed || project != current) return;
+      if (!mounted || !mayView || project != current) return;
       setState(() {
         timeSources = businessItems(results[0]);
         priorDocuments = businessItems(results[1])
@@ -171,8 +260,16 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
             )
             .toList();
         templates = businessItems(results[2]);
+        inputError = templateWarning;
       });
-    } catch (_) {
+    } catch (e) {
+      if (mounted &&
+          project == current &&
+          e is ApiException &&
+          [401, 403].contains(e.status)) {
+        denyFinancialView();
+        return;
+      }
       if (mounted && project == current)
         setState(
           () => inputError = 'Vorlagen, Vorbelege oder freigegebene Zeiten konnten nicht geladen werden. Manuelle Positionen bleiben möglich.',
@@ -181,7 +278,419 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   }
 
   void changed() {
-    if (mounted) setState(() {});
+    if (!mounted) return;
+    if (!widget.session.can('finance.read')) {
+      denyFinancialView();
+      return;
+    }
+    setState(() {
+      if (!supportsMeasurement && measurementTransfers.isNotEmpty) {
+        measurementTransfers.clear();
+        positionsChanged();
+      }
+    });
+  }
+
+  Future<void> loadBillingContact({
+    bool automatically = false,
+    String? addressId,
+    String? personId,
+  }) async {
+    final current = project;
+    if (widget.templateMode || !supportsBilling || current == null || !mayView)
+      return;
+    final version = ++billingVersion;
+    setState(() {
+      loadingBilling = true;
+      billingError = null;
+    });
+    try {
+      final query = Uri(
+        queryParameters: {
+          if (addressId != null) 'address_id': addressId,
+          if (personId != null) 'person_id': personId,
+        },
+      ).query;
+      final result = businessMap(
+        await widget.session.read(
+          '/projects/$current/billing-contact${query.isEmpty ? '' : '?$query'}',
+        ),
+      );
+      if (!mounted ||
+          !mayView ||
+          current != project ||
+          version != billingVersion)
+        return;
+      setState(() {
+        billingContact = result;
+        if (automatically && widget.document == null)
+          applyBillingContact(result, untouchedOnly: true);
+      });
+    } on ApiException catch (e) {
+      if (mounted &&
+          current == project &&
+          version == billingVersion &&
+          deniedResponse(e)) {
+        denyFinancialView();
+        return;
+      }
+      if (mounted && mayView && current == project && version == billingVersion)
+        setState(() => billingError = e.message);
+    } finally {
+      if (mounted && version == billingVersion)
+        setState(() => loadingBilling = false);
+    }
+  }
+
+  void applyBillingContact(
+    Map<String, dynamic> source, {
+    bool untouchedOnly = false,
+  }) {
+    final buyer = businessMap(source['buyer']);
+    settingBuyer = true;
+    try {
+      for (final entry in buyerFields.entries) {
+        if (untouchedOnly && touchedBuyer.contains(entry.key)) continue;
+        final text = '${buyer[entry.key] ?? ''}';
+        entry.value.text = text;
+        autoBuyer[entry.key] = text;
+      }
+    } finally {
+      settingBuyer = false;
+    }
+  }
+
+  Future<void> copyBillingContact() async {
+    final current = project;
+    final source = billingContact;
+    if (source == null || !canEdit) return;
+    if (!await businessConfirm(
+      context,
+      title: 'Kontaktdaten übernehmen?',
+      message: 'Die Empfängerfelder dieses Entwurfs werden durch die angezeigten Kontaktdaten ersetzt. Bereits gespeicherte Belegfassungen bleiben erhalten.',
+      action: 'Kontaktdaten übernehmen',
+    ))
+      return;
+    if (!mounted ||
+        !canEdit ||
+        current != project ||
+        !identical(source, billingContact))
+      return;
+    setState(() => applyBillingContact(source));
+  }
+
+  Future<void> calculatePosition([int? index]) async {
+    final current = project;
+    final result = await showDialog<Map<String, dynamic>>(
+      context: context,
+      builder: (_) => BusinessPricingEditor(
+        session: widget.session,
+        projectId: current,
+        onFinanceDenied: verifyFinancialAccessAfterPricingDenial,
+        initial: index == null ? null : positions[index],
+      ),
+    );
+    if (!mounted || result == null || !canEdit || current != project) return;
+    setState(() {
+      if (index == null)
+        positions.add(result);
+      else
+        positions[index] = result;
+      positionsChanged();
+    });
+  }
+
+  Future<void> verifyFinancialAccessAfterPricingDenial() async {
+    final current = project;
+    try {
+      // A BOM lookup may be denied by the global catalog while this project's
+      // historical financial snapshot remains readable. Verify that scope with
+      // a separate, project-only read instead of treating any catalog denial as
+      // revocation of all project finance access.
+      businessItems(
+        await widget.session.read(
+          '/documents${current == null ? '' : '?${Uri(queryParameters: {'project_id': current}).query}'}',
+        ),
+      );
+    } catch (_) {
+      if (mounted && current == project) denyFinancialView();
+    }
+  }
+
+  Future<void> transferMeasurement() async {
+    final current = project;
+    if (current == null || !canEdit || !supportsMeasurement) return;
+    final result = await showDialog<Map<String, dynamic>>(
+      context: context,
+      builder: (_) => BusinessMeasurementTransferEditor(
+        session: widget.session,
+        projectId: current,
+      ),
+    );
+    if (!mounted || result == null || !canEdit || current != project) return;
+    setState(() {
+      measurementTransfers.add(result);
+      positionsChanged();
+    });
+  }
+
+  Future<void> calculateDocument() async {
+    if (calculating || !canEdit || project == null) return;
+    final current = project, version = calculationVersion;
+    setState(() {
+      calculating = true;
+      calculationError = null;
+      calculation = null;
+    });
+    try {
+      final result = businessMap(
+        await widget.session.command(
+          'document-calculation-$key-$version',
+          '/commercial/document-calculation',
+          {
+            'project_id': current,
+            'positions': [
+              ...positions,
+              for (final item in measurementTransfers)
+                ...((item['positions'] as List).map(businessMap)),
+            ],
+          },
+        ),
+      );
+      if (mounted &&
+          canEdit &&
+          current == project &&
+          version == calculationVersion)
+        setState(() => calculation = result);
+    } on ApiException catch (e) {
+      if (mounted &&
+          current == project &&
+          version == calculationVersion &&
+          deniedResponse(e)) {
+        denyFinancialView();
+        return;
+      }
+      if (mounted &&
+          canEdit &&
+          current == project &&
+          version == calculationVersion)
+        setState(() => calculationError = e.message);
+    } finally {
+      if (mounted) setState(() => calculating = false);
+    }
+  }
+
+  Widget billingPanel(bool enabled) {
+    final source = billingContact;
+    final buyer = businessMap(source?['buyer']);
+    final completeness = businessMap(source?['completeness']);
+    final addresses = (source?['address_options'] as List? ?? [])
+        .map(businessMap)
+        .toList();
+    final persons = (source?['person_options'] as List? ?? [])
+        .map(businessMap)
+        .toList();
+    const labels = {
+      'name': 'Name / Firma',
+      'address_line': 'Straße',
+      'postal_code': 'Postleitzahl',
+      'city': 'Ort',
+      'country': 'Land',
+      'email': 'E-Mail',
+    };
+    final missing = (completeness['missing_fields'] as List? ?? [])
+        .map((v) => labels[v] ?? '$v')
+        .join(', ');
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Rechnungskontakt des Projekts',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            if (loadingBilling) const LinearProgressIndicator(),
+            if (billingError != null) Notice(billingError!, error: true),
+            if (source != null) ...[
+              const SizedBox(height: 8),
+              Text('${buyer['name'] ?? ''}'),
+              if ('${buyer['address_line'] ?? ''}'.isNotEmpty)
+                Text('${buyer['address_line']}'),
+              if ('${buyer['postal_code'] ?? ''}${buyer['city'] ?? ''}'
+                  .isNotEmpty)
+                Text('${buyer['postal_code'] ?? ''} ${buyer['city'] ?? ''}'),
+              if (completeness['ready_for_invoice'] == true)
+                const Text('Rechnungsanschrift vollständig.')
+              else
+                Text(
+                  missing.isEmpty
+                      ? 'Bitte die Rechnungsanschrift prüfen und ergänzen.'
+                      : 'Noch zu ergänzen: $missing.',
+                ),
+              if (completeness['address_status'] == 'legacy_unstructured')
+                const Notice(
+                  'Die vorhandene Anschrift ist Freitext. Postleitzahl und Ort bitte selbst prüfen und ergänzen.',
+                ),
+              if (addresses.length > 1)
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: DropdownButtonFormField<String>(
+                    key: ValueKey(
+                      'billing-address-${source['selected_address_id']}',
+                    ),
+                    initialValue: source['selected_address_id'] as String?,
+                    isExpanded: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Rechnungsanschrift auswählen',
+                    ),
+                    items: [
+                      for (final address in addresses)
+                        DropdownMenuItem(
+                          value: '${address['id']}',
+                          child: Text(
+                            '${address['label'] ?? address['address_line']} · ${address['postal_code'] ?? ''} ${address['city'] ?? ''}',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                    ],
+                    onChanged: enabled && !loadingBilling
+                        ? (id) => loadBillingContact(
+                            addressId: id,
+                            personId: source['selected_person_id'] as String?,
+                          )
+                        : null,
+                  ),
+                ),
+              if (persons.length > 1)
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: DropdownButtonFormField<String>(
+                    key: ValueKey(
+                      'billing-person-${source['selected_person_id']}',
+                    ),
+                    initialValue: source['selected_person_id'] as String?,
+                    isExpanded: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Rechnungskontakt auswählen',
+                    ),
+                    items: [
+                      for (final person in persons)
+                        DropdownMenuItem(
+                          value: '${person['id']}',
+                          child: Text(
+                            '${person['name']}',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                    ],
+                    onChanged: enabled && !loadingBilling
+                        ? (id) => loadBillingContact(
+                            addressId: source['selected_address_id'] as String?,
+                            personId: id,
+                          )
+                        : null,
+                  ),
+                ),
+              const SizedBox(height: 12),
+              const Text(
+                'Manuelle Ergänzungen werden beim Laden nicht überschrieben. Übernehmen Sie eine bewusst gewählte Anschrift anschließend mit der Schaltfläche.',
+              ),
+            ],
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
+              children: [
+                TextButton.icon(
+                  onPressed: enabled && !loadingBilling
+                      ? () => loadBillingContact()
+                      : null,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Kontakt laden'),
+                ),
+                if (source != null)
+                  OutlinedButton(
+                    onPressed: enabled && !loadingBilling
+                        ? copyBillingContact
+                        : null,
+                    child: const Text('Kontaktdaten übernehmen'),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget calculationPanel(bool enabled) {
+    final summary = businessMap(calculation?['cost_summary']);
+    final totals = businessMap(calculation?['totals']);
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          OutlinedButton.icon(
+            onPressed:
+                enabled &&
+                    !calculating &&
+                    project != null &&
+                    (positions.isNotEmpty || measurementTransfers.isNotEmpty)
+                ? calculateDocument
+                : null,
+            icon: Icon(
+              calculating ? Icons.hourglass_top : Icons.analytics_outlined,
+            ),
+            label: const Text('Gesamtkalkulation prüfen'),
+          ),
+          if (selectedTimeIds.isNotEmpty)
+            const Text(
+              'Neu ausgewählte Arbeitszeiten werden erst nach dem Speichern Teil der Gesamtkalkulation.',
+            ),
+          if (calculationError != null) Notice(calculationError!, error: true),
+          if (calculation != null)
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Gesamtkalkulation des Entwurfs',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      'Netto: ${businessMoney(totals['net'])} · Brutto: ${businessMoney(totals['gross'])}',
+                    ),
+                    Text(
+                      'Bekannte Kosten netto: ${businessMoney(summary['known_cost_net'])}',
+                    ),
+                    if (summary['complete'] != true)
+                      const Notice(
+                        'Kosten sind unvollständig. Für mindestens eine Position fehlt der Einkaufspreis oder interne Kostensatz; Gewinn und Marge werden deshalb nicht ausgewiesen.',
+                      )
+                    else ...[
+                      Text(
+                        'Gewinn netto: ${businessMoney(calculation!['profit_net'])}',
+                      ),
+                      Text(
+                        calculation!['margin_percent'] == null
+                            ? 'Marge nicht berechenbar.'
+                            : 'Marge: ${'${calculation!['margin_percent']}'.replaceAll('.', ',')} %',
+                      ),
+                    ],
+                    const Text(
+                      'Prüfvorschau ohne Festschreibung oder Änderung der Einzelpreise.',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -207,7 +716,22 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   }
 
   Future<void> position([int? index]) async {
-    if (index != null && positions[index]['source_type'] == 'time') return;
+    if (index != null && positions[index]['source_type'] != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Diese Menge stammt aus einer bestätigten Quelle. Für eine neue Übernahme entfernen Sie die Position und wählen Sie die Quelle erneut.',
+          ),
+        ),
+      );
+      return;
+    }
+    if (index != null &&
+        (positions[index]['pricing'] is Map ||
+            positions[index]['pricing_snapshot'] is Map)) {
+      await calculatePosition(index);
+      return;
+    }
     final initial = index == null
         ? <String, dynamic>{
             'quantity': '1',
@@ -269,6 +793,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
               positions.add(values);
             else
               positions[index] = values;
+            positionsChanged();
           });
         },
       ),
@@ -278,7 +803,9 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   Future<void> save() async {
     if (busy || !canEdit || !(form.currentState?.validate() ?? false)) return;
     if ((!widget.templateMode && project == null) ||
-        (positions.isEmpty && selectedTimeIds.isEmpty)) {
+        (positions.isEmpty &&
+            selectedTimeIds.isEmpty &&
+            measurementTransfers.isEmpty)) {
       setState(
         () => error = 'Bitte wählen Sie ein Projekt und erfassen Sie mindestens eine Position.',
       );
@@ -326,6 +853,10 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
             )
             .toList(),
         'previous_document_ids': previousIds.toList(),
+        if (measurementTransfers.isNotEmpty)
+          'measurement_imports': [
+            for (final item in measurementTransfers) item['import'],
+          ],
         if (selectedTemplateId != null) 'template_id': selectedTemplateId,
         if (selectedTemplateId != null)
           'template_revision': selectedTemplateRevision,
@@ -357,6 +888,10 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
           ),
         );
     } on ApiException catch (e) {
+      if (mounted && deniedResponse(e)) {
+        denyFinancialView();
+        return;
+      }
       if (mounted)
         setState(() {
           error = e.message;
@@ -394,7 +929,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
               : 'Entwurf bearbeiten',
         ),
       ),
-      body: !widget.session.can('finance.read')
+      body: !mayView
           ? const Center(child: Text('Der Zugang ist nicht mehr verfügbar.'))
           : ListView(
               padding: const EdgeInsets.all(24),
@@ -430,10 +965,29 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                                 ? (v) {
                                     setState(() {
                                       project = v;
+                                      billingVersion++;
+                                      billingContact = null;
+                                      billingError = null;
+                                      loadingBilling = false;
+                                      settingBuyer = true;
+                                      for (final entry in autoBuyer.entries) {
+                                        if (!touchedBuyer.contains(entry.key))
+                                          buyerFields[entry.key]!.text =
+                                              entry.key == 'country'
+                                              ? 'DE'
+                                              : '';
+                                      }
+                                      settingBuyer = false;
+                                      autoBuyer.clear();
+                                      measurementTransfers.clear();
+                                      positionsChanged();
                                       selectedTimeIds.clear();
                                       previousIds.clear();
+                                      timeSources = [];
+                                      priorDocuments = [];
                                     });
                                     loadInputs();
+                                    loadBillingContact(automatically: true);
                                   }
                                 : null,
                             validator: (v) =>
@@ -526,8 +1080,10 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                             ),
                             tilePadding: EdgeInsets.zero,
                             children: [
+                              if (supportsBilling) billingPanel(enabled),
                               for (final field in const {
                                 'name': 'Name / Firma',
+                                'contact_name': 'Ansprechperson / z. Hd.',
                                 'address_line': 'Straße und Hausnummer',
                                 'postal_code': 'Postleitzahl',
                                 'city': 'Ort',
@@ -537,10 +1093,14 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                                     'E-Rechnungsempfänger-ID (optional)',
                                 'endpoint_scheme':
                                     'Empfänger-ID-Schema (optional)',
+                                'vat_id': 'Umsatzsteuer-ID (optional)',
                               }.entries)
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 12),
                                   child: TextFormField(
+                                    key: ValueKey(
+                                      'business-buyer-${field.key}',
+                                    ),
                                     controller: buyerFields[field.key],
                                     enabled: enabled,
                                     decoration: InputDecoration(
@@ -605,6 +1165,8 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                                                         [])
                                                     .map(businessMap)
                                                     .toList();
+                                            measurementTransfers.clear();
+                                            positionsChanged();
                                           });
                                         },
                                 ),
@@ -713,6 +1275,22 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                               'Positionen',
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
+                            if (supportsPricing)
+                              OutlinedButton.icon(
+                                onPressed: enabled
+                                    ? () => calculatePosition()
+                                    : null,
+                                icon: const Icon(Icons.calculate_outlined),
+                                label: const Text('Position kalkulieren'),
+                              ),
+                            if (!widget.templateMode && supportsMeasurement)
+                              OutlinedButton.icon(
+                                onPressed: enabled && project != null
+                                    ? transferMeasurement
+                                    : null,
+                                icon: const Icon(Icons.square_foot),
+                                label: const Text('Mengen aus Aufmaß'),
+                              ),
                             OutlinedButton.icon(
                               onPressed: enabled ? () => position() : null,
                               icon: const Icon(Icons.add),
@@ -737,6 +1315,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                                 newIndex,
                                 positions.removeAt(oldIndex),
                               );
+                              positionsChanged();
                             });
                           },
                           itemBuilder: (context, index) {
@@ -754,9 +1333,10 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                                   child: IconButton(
                                     tooltip: 'Position entfernen',
                                     onPressed: enabled
-                                        ? () => setState(
-                                            () => positions.removeAt(index),
-                                          )
+                                        ? () => setState(() {
+                                            positions.removeAt(index);
+                                            positionsChanged();
+                                          })
                                         : null,
                                     icon: const Icon(Icons.delete_outline),
                                   ),
@@ -765,6 +1345,57 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                             );
                           },
                         ),
+                        for (final transfer in measurementTransfers)
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'Aus Aufmaß: ${transfer['title']}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        tooltip: 'Aufmaßübernahme entfernen',
+                                        onPressed: enabled
+                                            ? () => setState(() {
+                                                measurementTransfers.remove(
+                                                  transfer,
+                                                );
+                                                positionsChanged();
+                                              })
+                                            : null,
+                                        icon: const Icon(Icons.delete_outline),
+                                      ),
+                                    ],
+                                  ),
+                                  const Text(
+                                    'Zur Übernahme vorgemerkt. Mengen und Quellstand werden beim Speichern erneut geprüft.',
+                                  ),
+                                  for (final position
+                                      in (transfer['positions'] as List).map(
+                                        businessMap,
+                                      ))
+                                    ListTile(
+                                      contentPadding: EdgeInsets.zero,
+                                      title: Text('${position['description']}'),
+                                      subtitle: Text(
+                                        '${position['quantity']} ${position['unit']} · ${businessMoney(position['unit_price_net'])} netto · ${position['tax_rate']} %',
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        if (!widget.templateMode && supportsPricing)
+                          calculationPanel(enabled),
                         const SizedBox(height: 20),
                         FilledButton.icon(
                           onPressed:
@@ -812,11 +1443,26 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
   Map<String, dynamic>? document;
   List<Map<String, dynamic>> signatures = [];
   String? error, notice;
-  bool busy = false;
+  bool busy = false, accessDenied = false;
   int epoch = 0;
   final previews = <MailAttachmentPreviewController>[];
   bool get allowed =>
-      widget.session.allowed && widget.session.can('finance.read');
+      !accessDenied &&
+      widget.session.allowed &&
+      widget.session.can('finance.read');
+
+  bool hideOnDenied(Object error) {
+    if (error is! ApiException || ![401, 403, 404].contains(error.status))
+      return false;
+    accessDenied = true;
+    epoch++;
+    document = null;
+    signatures = [];
+    for (final preview in previews) preview.revoke();
+    if (mounted) setState(() {});
+    return true;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -863,6 +1509,7 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
           setState(() => signatures = values);
       }
     } catch (e) {
+      if (mounted && hideOnDenied(e)) return;
       if (mounted && current == epoch) setState(() => error = '$e');
     }
   }
@@ -897,6 +1544,7 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
         }
       }
     } catch (e) {
+      if (mounted && hideOnDenied(e)) return;
       if (mounted && allowed) setState(() => error = '$e');
     } finally {
       if (mounted) setState(() => busy = false);
@@ -949,6 +1597,7 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
       previews.remove(controller);
       controller.dispose();
     } catch (e) {
+      if (mounted && hideOnDenied(e)) return;
       if (mounted && allowed)
         setState(
           () => error = 'Die PDF-Vorschau konnte nicht geöffnet werden. $e',
@@ -1012,6 +1661,7 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
               : 'Versandfreigabe gespeichert. Der Versand ist noch nicht bestätigt.',
         );
     } catch (e) {
+      if (mounted && hideOnDenied(e)) return;
       if (mounted && allowed) setState(() => error = '$e');
     } finally {
       if (mounted) setState(() => busy = false);

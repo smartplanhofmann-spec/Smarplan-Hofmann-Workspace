@@ -1,6 +1,7 @@
 """Bounded operational article references never grant access to price catalogs."""
 import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -134,10 +135,12 @@ class InventoryArticleTests(InventoryArticleFixture, unittest.TestCase):
             '/business/inventory/articles', 'GET', {}, offline=True, offline_capabilities=['field_media']))
 
 
-ONLINE_AVAILABLE = bool(importlib.util.find_spec('flask') and importlib.util.find_spec('psycopg'))
+# The real online adapter imports POSIX fcntl storage protection. Its HTTP
+# contracts run in Linux/online CI; all seven domain tests remain cross-platform.
+ONLINE_AVAILABLE = bool(os.name == 'posix' and importlib.util.find_spec('flask') and importlib.util.find_spec('psycopg'))
 
 
-@unittest.skipUnless(ONLINE_AVAILABLE, 'Real HTTP checks require separately locked online dependencies')
+@unittest.skipUnless(ONLINE_AVAILABLE, 'Real online Flask adapter requires POSIX and the separately locked online dependencies')
 class InventoryArticleHttpTests(InventoryArticleFixture, unittest.TestCase):
     def setUp(self):
         super().setUp()

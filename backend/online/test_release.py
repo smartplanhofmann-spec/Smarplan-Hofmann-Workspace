@@ -23,6 +23,7 @@ from online import release
 from online.store import migrate, PostgresOffice, SCHEMA_VERSION
 from online.plan_imports import PlanImports, CHUNK_SIZE
 from online.restore import restore
+from business_schema import registered_table_names, CONTROL_TABLES
 
 DSN = os.environ.get('SMARTPLAN_TEST_DSN')
 CANDIDATE = make_conninfo(DSN, dbname='smartplan_release_check') if DSN else None
@@ -32,6 +33,7 @@ V5_TABLES = ('inquiry_attachment_sets', 'inquiry_attachments',
              'inquiry_attachment_chunks', 'inquiry_attachment_limits')
 V6_TABLES = ('external_connections', 'external_project_links', 'external_snapshots',
              'external_requests', 'external_oauth_states', 'external_bridge_jobs', 'external_bridge_limits')
+V7_TABLES = tuple(sorted(registered_table_names()))
 TEST_SOURCE = 'host=127.0.0.1 port=55432 dbname=smartplan_check user=postgres'
 TEST_CANDIDATE = make_conninfo(TEST_SOURCE, dbname='smartplan_release_check')
 
@@ -278,12 +280,16 @@ class CandidateRelease(unittest.TestCase):
             raise ValueError('Supported disposable fixture schema required')
         layers = {2: ('plan_versions', 'plan_requests', 'plan_sessions'),
                   3: ('plan_import_chunks', 'plan_imports'),
-                  4: V4_TABLES, 5: V5_TABLES, 6: V6_TABLES}
+                  4: V4_TABLES, 5: V5_TABLES, 6: V6_TABLES, 7: V7_TABLES}
         tables = [name for schema, names in layers.items() if schema > version for name in names]
         with psycopg.connect(DSN) as connection:
             if tables:
                 connection.execute(psycopg.sql.SQL('DROP TABLE IF EXISTS {}').format(
                     psycopg.sql.SQL(',').join(map(psycopg.sql.Identifier, tables))))
+            if version < 7:
+                for name, arguments in connection.execute("SELECT p.proname,pg_get_function_identity_arguments(p.oid) FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND p.proname LIKE 'business_%'").fetchall():
+                    connection.execute(psycopg.sql.SQL('DROP FUNCTION public.{}({})').format(
+                        psycopg.sql.Identifier(name), psycopg.sql.SQL(arguments)))
             connection.execute('UPDATE smartplan_schema SET version=%s', (version,))
 
     def prepare(self):
@@ -379,8 +385,9 @@ class CandidateRelease(unittest.TestCase):
         candidate = release.snapshot_fingerprint(CANDIDATE)
         self.assertEqual({key: value for key, value in candidate.items() if key in before and key != 'smartplan_schema'},
                          {key: value for key, value in before.items() if key != 'smartplan_schema'})
-        for table in V4_TABLES + V5_TABLES + V6_TABLES:
-            self.assertEqual(candidate[table]['rows'], 0, table)
+        for table in V4_TABLES + V5_TABLES + V6_TABLES + V7_TABLES:
+            if table not in CONTROL_TABLES:
+                self.assertEqual(candidate[table]['rows'], 0, table)
         self.assertEqual(before['plan_imports']['rows'], 4)
         self.assertEqual(before['plan_import_chunks']['rows'], 7)
         office = PostgresOffice(CANDIDATE)
@@ -480,6 +487,45 @@ class CandidateRelease(unittest.TestCase):
         changed = release.snapshot_fingerprint(DSN)['release_probe']
         self.assertEqual(changed['rows'], first['rows'])
         self.assertNotEqual(changed['digest'], first['digest'])
+
+    def test_blob_fingerprint_keeps_identical_hash_with_at_most_one_buffered_row(self):
+        blob_size = 1024 * 1024
+        with psycopg.connect(DSN) as connection:
+            connection.execute('CREATE TABLE release_blob_probe(label TEXT, payload BYTEA)')
+            connection.execute("INSERT INTO release_blob_probe VALUES ('Büro Ω',decode(repeat('ab',%s),'hex')),"
+                               "(NULL,NULL),('Büro Ω',decode(repeat('ab',%s),'hex'))", (blob_size, blob_size))
+            # A small real PG baseline with a different fetch size proves the
+            # canonical hash is independent of batches. No huge fixture needed.
+            expected = hashlib.sha256()
+            with connection.cursor(name='blob_baseline') as cursor:
+                cursor.itersize = 2
+                cursor.execute('SELECT row_to_json(t)::text FROM release_blob_probe t ORDER BY row_to_json(t)::text')
+                for row in cursor:
+                    expected.update(row[0].encode('utf-8'))
+                    expected.update(b'\n')
+        batches = []
+
+        class TrackingCursor(psycopg.ServerCursor):
+            def __next__(self):
+                row = super().__next__()
+                batches.append((self.itersize, self.pgresult.ntuples, len(row[0].encode('utf-8'))))
+                return row
+
+        connect = psycopg.connect
+
+        def tracked_connect(*args, **kwargs):
+            connection = connect(*args, **kwargs)
+            connection.server_cursor_factory = TrackingCursor
+            return connection
+
+        with patch('online.release.psycopg.connect', side_effect=tracked_connect):
+            actual = release.snapshot_fingerprint(DSN)['release_blob_probe']
+        self.assertEqual(actual, {'rows': 3, 'digest': expected.hexdigest()})
+        self.assertTrue(batches)
+        self.assertTrue(all(size == 1 and buffered <= 1 for size, buffered, _ in batches))
+        # This fixture's largest row is one hex-encoded MiB plus small metadata,
+        # rather than the aggregate of its two originals or a 100-row page.
+        self.assertLessEqual(max(length for _, _, length in batches), 2 * blob_size + 128)
 
     def test_existing_candidate_and_foreign_source_client_are_rejected(self):
         before = release.snapshot_fingerprint(DSN)

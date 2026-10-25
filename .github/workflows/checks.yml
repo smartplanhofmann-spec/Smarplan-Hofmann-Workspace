@@ -5,6 +5,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
 jobs:
   update-flow:
     runs-on: ubuntu-24.04
@@ -52,6 +55,8 @@ jobs:
           python -m unittest discover -s backend/online -p test_release_integrations.py -v
           python -m unittest discover -s backend/online -p test_storage.py -v
           python -m unittest discover -s backend/online -p test_onedrive.py -v
+          python -m unittest discover -s backend/online -p 'test_business*.py' -v
+          python -m unittest discover -s backend/online -p test_release_business.py -v
       - name: Check online units, scripts and real HTTPS runtime
         run: |
           bash -n deploy/hetzner/online/*.sh
@@ -88,6 +93,77 @@ jobs:
       - run: python -m unittest discover -s backend -v
       - name: Require synthetic Gmail bridge retry and scope contracts
         run: node integrations/google_apps_script/test_gmail.js
+  business-services:
+    runs-on: ubuntu-24.04
+    env:
+      PYTHONPATH: backend:backend/business_tests:backend/online:scripts
+      PYTHONDONTWRITEBYTECODE: '1'
+      SMARTPLAN_SRGB_ICC: /usr/share/color/icc/ghostscript/srgb.icc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install backend and actual local invoice validators
+        run: |
+          python -m pip install -r backend/online/requirements.lock
+          python -m pip check
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends openjdk-21-jre-headless ghostscript icc-profiles-free
+          python scripts/fetch-einvoice-tools.py "$RUNNER_TEMP/smartplan-invoice-tools" --github-env "$GITHUB_ENV"
+          python -m unittest discover -s scripts -p test_einvoice_tools.py -v
+      - name: Require all commercial, SMTP and official e-invoice tests
+        run: |
+          python -m unittest discover -s backend/business_tests -v
+          python -m unittest discover -s backend -p test_business_contact_snapshot.py -v
+      - name: Test responsive browser client with actual auth and API
+        env:
+          SMARTPLAN_BROWSER_TEST_PYTHON: python
+          SMARTPLAN_BROWSER_SCREENSHOT_DIR: ${{ runner.temp }}/smartplan-browser-previews
+          # The runner's packaged Chrome has the vendor AppArmor userns
+          # profile. An unprofiled /usr/bin/chromium cannot start its sandbox
+          # on Ubuntu 24.04; keep both sandboxing and the host policy enabled.
+          SMARTPLAN_CHROMIUM_BINARY: /opt/google/chrome/chrome
+        run: |
+          smartplan_browser_log="$RUNNER_TEMP/smartplan-browser-check.log"
+          set +e
+          {
+            node --test web/office/tests/*.test.mjs &&
+            npm ci --prefix web/office --ignore-scripts --no-audit --no-fund &&
+            cd web/office &&
+            test -x "$SMARTPLAN_CHROMIUM_BINARY" &&
+            "$SMARTPLAN_CHROMIUM_BINARY" --version &&
+            node tests/e2e.cjs
+          } 2>&1 | tee "$smartplan_browser_log"
+          smartplan_browser_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_browser_exit" -ne 0 ]; then
+            python - "$smartplan_browser_log" <<'PY'
+          from pathlib import Path
+          import sys
+          lines = Path(sys.argv[1]).read_text(errors='replace').splitlines()
+          if 'SMARTPLAN_BROWSER_FAILURE_BEGIN' in lines:
+              start = lines.index('SMARTPLAN_BROWSER_FAILURE_BEGIN') + 1
+              end = lines.index('SMARTPLAN_BROWSER_FAILURE_END', start) if 'SMARTPLAN_BROWSER_FAILURE_END' in lines[start:] else len(lines)
+              selected = lines[start:end]
+          else:
+              selected = lines if len(lines) <= 50 else lines[:35] + ['[middle diagnostic lines omitted]'] + lines[-15:]
+          detail = '\n'.join(line[:500] for line in selected)[:25000]
+          print('::error title=Browser acceptance::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+          PY
+          fi
+          exit "$smartplan_browser_exit"
+      - name: Upload synthetic browser acceptance screenshots
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Browser-Previews
+          path: ${{ runner.temp }}/smartplan-browser-previews/
+          if-no-files-found: error
+          retention-days: 14
   flutter:
     runs-on: ubuntu-latest
     defaults:
@@ -203,6 +279,31 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           & ../backend/.venv/Scripts/python.exe -m pip check
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build and test complete offline Windows Python dependencies
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanWheels = Join-Path $env:RUNNER_TEMP 'smartplan-windows-python-wheels'
+          New-Item -ItemType Directory -Force $smartplanWheels | Out-Null
+          python -m pip download --only-binary=:all: --dest $smartplanWheels --requirement ../backend/requirements.lock
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python ../scripts/native-release.py wheels --directory $smartplanWheels
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python ../scripts/test-windows-offline-update.py --wheels-dir $smartplanWheels
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python ../scripts/package-windows-support.py (Join-Path $env:RUNNER_TEMP 'Smartplan_Windows_Start_und_Sicherung.zip') --wheels-dir $smartplanWheels
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          "SMARTPLAN_WINDOWS_WHEELS=$smartplanWheels" | Out-File $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Upload complete offline Windows support package
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Windows-Start-und-Sicherung
+          path: |
+            ${{ runner.temp }}/Smartplan_Windows_Start_und_Sicherung.zip
+            ${{ runner.temp }}/Smartplan_Windows_Start_und_Sicherung.zip.sha256
+          if-no-files-found: error
+          retention-days: 14
       - name: Test Windows backup, restore and launcher lifecycle
         if: runner.os == 'Windows'
         shell: pwsh
@@ -324,23 +425,28 @@ jobs:
             }
           }
           New-Item -ItemType Directory -Force (Join-Path $smartplanBundle 'backend') | Out-Null
-          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'external_integrations.py', 'integration_bridge.py', 'requirements.lock')) {
+          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'external_integrations.py', 'integration_bridge.py', 'business_api.py', 'business_schema.py', 'business_foundation.py', 'business_documents.py', 'business_pricing.py', 'business_finance.py', 'business_einvoice.py', 'business_delivery.py', 'business_planning.py', 'business_time.py', 'business_operations.py', 'business_inventory.py', 'business_maintenance.py', 'business_adapters.py', 'requirements.lock')) {
             Copy-Item (Join-Path '../backend' $smartplanFile) -Destination (Join-Path $smartplanBundle 'backend')
           }
           Copy-Item '../windows/*.cmd' -Destination $smartplanBundle
+          Copy-Item '../windows/Python_Umgebung_aktualisieren.py' -Destination $smartplanBundle
+          if (-not $env:SMARTPLAN_WINDOWS_WHEELS -or -not (Test-Path $env:SMARTPLAN_WINDOWS_WHEELS)) { throw 'Validated offline Python wheels are missing' }
+          Copy-Item -LiteralPath $env:SMARTPLAN_WINDOWS_WHEELS -Destination (Join-Path $smartplanBundle 'python-wheels') -Recurse
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
           $smartplanReadme = @'
-          Smartplan Office 0.11.0 - lokales Windows-Pruefpaket (x64)
+          Smartplan Office 0.12.0 - lokales Windows-Pruefpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
-          3. Starten.cmd doppelt anklicken. Es startet Server und App und erstellt Sicherungen.
-          4. Mit der selbst eingerichteten E-Mail-Adresse und dem eigenen Passwort anmelden.
+          3. Einmal Python_Umgebung_aktualisieren.cmd starten. Es aktualisiert die vorhandene private Python-3.12-Umgebung aus den enthaltenen Offline-Wheels, ohne Internet und ohne Datenbankzugriff.
+          4. Starten.cmd doppelt anklicken. Es startet Server und App und erstellt Sicherungen.
+          5. Mit der selbst eingerichteten E-Mail-Adresse und dem eigenen Passwort anmelden.
 
           Die App verwendet den lokalen Server unter http://127.0.0.1:8765.
           Flutter, Visual Studio und C++-Buildwerkzeuge werden zum Start dieses Pakets nicht benoetigt.
           Die benoetigten Visual-C++-Laufzeit-DLLs sind enthalten.
+          Python selbst wird nicht neu installiert. Die bisher eingerichtete private Python-3.12-x64-Umgebung muss vorhanden sein; es gibt kein automatisches Abhaengigkeitsupdate beim Appstart.
           EXE und Paket sind unsigniert; Windows-Signierung und SmartScreen-Abnahme bleiben offen.
           Diese unveroeffentlichte Entwicklungsfassung benoetigt die zusammenhaengende Funktionsabnahme vor einer Freigabe.
           Das Paket ist eine Entwicklungsstufe, kein Installer und kein produktiver Mehrbenutzerbetrieb.
@@ -401,12 +507,13 @@ jobs:
           }
           Copy-Item 'build/windows/x64/runner/Release/*' -Destination $smartplanOnline -Recurse -Force
           if (Test-Path (Join-Path $smartplanOnline 'backend')) { Remove-Item (Join-Path $smartplanOnline 'backend') -Recurse -Force }
+          if (Test-Path (Join-Path $smartplanOnline 'python-wheels')) { Remove-Item (Join-Path $smartplanOnline 'python-wheels') -Recurse -Force }
           Get-ChildItem $smartplanOnline -Filter '*.cmd' | Remove-Item -Force
-          foreach ($smartplanFile in @('START_HIER.txt', 'APP_VERSION.txt')) {
+          foreach ($smartplanFile in @('START_HIER.txt', 'APP_VERSION.txt', 'Python_Umgebung_aktualisieren.py')) {
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
           $smartplanInstructions = @'
-          Smartplan Office 0.11.0 - Online-Pruefpaket fuer Windows (x64)
+          Smartplan Office 0.12.0 - Online-Pruefpaket fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
@@ -414,14 +521,12 @@ jobs:
           Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
           und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
           Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
-          0.11-Paket: ausdrueckliche lesende Projektverknuepfungen mit Sevdesk, Google Kalender und OneDrive.
-          OneDrive und Google Kalender verwenden die bereits vorhandene Anbindung des Mailbots.
-          Ein eingerichteter Botzugang wird erst nach bestaetigter Datenuebernahme als funktionierend gemeldet.
-          Es werden keine Rechnungen, Kalendereinladungen oder Dateien beim Anbieter geschrieben.
-          Die vollstaendige Abnahme dieses zusammenhaengenden Arbeitsablaufs steht aus.
-          Servervoraussetzung fuer die neuen Anbindungen ist Backend 0.11 mit PostgreSQL-Schema 6, Import-API und den Faehigkeiten
-          project_workspace, inquiry_intake, gmail_intake, offline_workspace, plan_deletion, mail_attachments und business_integrations.
-          Ein vorhandener 0.10-Server wird nur ueber den separat geprueften Updateablauf aktualisiert.
+          0.12-Paket: Projektmappe, CRM, Belege, Finanzen, Einsatzplanung, Zeiten, Material und Wartung.
+          Browserzugang alternativ unter https://office.smartplan-hofmann.de/office/.
+          Sevdesk bleibt bis zur dokumentierten Umstellung fuehrend. Eigene Rechnungsstellung und SMTP-Versand sind zunaechst gesperrt.
+          Der vorhandene SPIN-Maileingang samt Anhaengen bleibt erhalten; Kalender und OneDrive verwenden weiterhin die bestaetigte Botanbindung.
+          Servervoraussetzung: Backend 0.12, PostgreSQL-Schema 7, business_suite sowie die bestehenden Mail-/Plan-/Workspace-Faehigkeiten.
+          Den geschuetzten Updateablauf und BETRIEB_BUSINESS_UPDATE.md beachten; kein automatisches Serverupdate durch die App.
           Die Erkennung benoetigt einen separat eingerichteten Importworker; dieses Paket aktiviert keinen Serverdienst automatisch.
           Dieses Pruefpaket aktualisiert den Hetzner-Server oder seine Datenbank nicht automatisch.
           Projektplaene vor der Fahrt oeffnen; neue Plaene und Planquellen werden zuerst lokal verschluesselt gespeichert.
@@ -429,7 +534,8 @@ jobs:
           Grundriss- und Quellenloeschungen bleiben bis zur erfolgreichen Synchronisierung vorgemerkt.
           Ohne Faehigkeit plan_deletion warten sie auf das freigegebene Serverupdate.
           Die zuvor geoeffnete Projektmappe mit Aufgaben, Bautagebuch und Terminen ist fuer Offline-Arbeit vorgesehen.
-          Anfragen mit ihren Anhaengen, finanzielle Vorgaenge und Berichte benoetigen weiterhin Verbindung.
+          Eigene Zeitereignisse und Baustellenfotos erhalten eine eigene verschluesselte Warteschlange; neue ausdrueckliche Geraetefreigabe erforderlich.
+          Anfragen mit ihren Anhaengen, Finanzvorgaenge und Berichte benoetigen weiterhin Verbindung.
           Offline bis zu sieben Tage; Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung.
           Ausstehende Plaene nicht durch Deinstallation oder Loeschen von App-Daten entfernen.
           EXE und Paket sind unsigniert; Windows-Signierung und SmartScreen-Abnahme bleiben offen.

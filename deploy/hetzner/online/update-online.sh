@@ -9,7 +9,7 @@ smartplan_source="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 smartplan_repo="$(cd -- "$smartplan_source/../../.." && pwd)"
 [[ "$smartplan_repo" == /opt/smartplan-test && -d /run/systemd/system ]] || fail 'Erwartet: vorhandener systemd-Testserver /opt/smartplan-test.'
 [[ "$(stat -c %u "$smartplan_repo")" == 0 ]] || fail 'Der Checkout muss root gehören.'
-[[ -z "$(git -C "$smartplan_repo" status --porcelain -- backend deploy/hetzner)" ]] || fail 'Lokale Quelländerungen zuerst prüfen.'
+[[ -z "$(git -C "$smartplan_repo" status --porcelain -- backend web deploy/hetzner)" ]] || fail 'Lokale Quelländerungen zuerst prüfen.'
 exec 9>/run/lock/smartplan-online-update.lock
 flock -n 9 || fail 'Ein Update oder eine Verwaltung läuft bereits.'
 smartplan_pending=/etc/smartplan-online/UPDATE_IN_PROGRESS
@@ -20,15 +20,27 @@ done
 [[ -d /opt/smartplan-online/app/backend && -x /opt/smartplan-online/venv/bin/python ]] || fail 'Vorhandene Online-Installation fehlt.'
 systemctl is-active --quiet smartplan-online.service || fail 'Online-Dienst muss vor dem Update laufen.'
 systemctl is-active --quiet smartplan-https.service || fail 'HTTPS-Dienst muss vor dem Update laufen.'
-cmp -s "$smartplan_source/Caddyfile" /etc/smartplan-https/Caddyfile || fail 'Unbekannte HTTPS-Konfiguration. Nicht automatisch ändern.'
+if ! cmp -s "$smartplan_source/Caddyfile" /etc/smartplan-https/Caddyfile &&
+   ! cmp -s "$smartplan_source/Caddyfile.v0.11" /etc/smartplan-https/Caddyfile; then
+  fail 'Unbekannte HTTPS-Konfiguration. Nicht automatisch ändern.'
+fi
 # Require the known service wiring; a hidden DSN override would defeat the switch.
 smartplan_units=(smartplan-online.service smartplan-online-backup.service)
+smartplan_timer_units=()
 smartplan_import_worker_present=0
 if [[ -e /etc/systemd/system/smartplan-plan-import.service || -L /etc/systemd/system/smartplan-plan-import.service ]]; then
   smartplan_import_worker_present=1
   smartplan_units+=(smartplan-plan-import.service)
 fi
-for smartplan_unit in "${smartplan_units[@]}"; do
+smartplan_lead_replies_present=0
+for smartplan_unit in smartplan-lead-replies.service smartplan-lead-replies.timer; do
+  if [[ -e "/etc/systemd/system/$smartplan_unit" || -L "/etc/systemd/system/$smartplan_unit" ]]; then smartplan_lead_replies_present=1; fi
+done
+if (( smartplan_lead_replies_present )); then
+  smartplan_units+=(smartplan-lead-replies.service)
+  smartplan_timer_units+=(smartplan-lead-replies.timer)
+fi
+for smartplan_unit in "${smartplan_units[@]}" "${smartplan_timer_units[@]}"; do
   [[ -f "/etc/systemd/system/$smartplan_unit" && ! -L "/etc/systemd/system/$smartplan_unit" ]] || fail 'Bekannte reguläre Dienstdateien erforderlich.'
   cmp -s "$smartplan_source/$smartplan_unit" "/etc/systemd/system/$smartplan_unit" || fail 'Dienstdatei weicht ab; Serverkonfiguration zuerst prüfen.'
 done
@@ -37,9 +49,17 @@ if (( ! smartplan_import_worker_present )); then
   [[ "$(systemctl show smartplan-plan-import.service --property=LoadState --value)" == not-found &&
      "$(systemctl show smartplan-plan-import.service --property=ActiveState --value)" == inactive ]] || fail 'Unbekannte Importworker-Unit zuerst prüfen.'
 fi
-for smartplan_unit in "${smartplan_units[@]}"; do
+if (( ! smartplan_lead_replies_present )); then
+  for smartplan_unit in smartplan-lead-replies.service smartplan-lead-replies.timer; do
+    [[ "$(systemctl show "$smartplan_unit" --property=LoadState --value)" == not-found &&
+       "$(systemctl show "$smartplan_unit" --property=ActiveState --value)" == inactive ]] || fail 'Unbekannte Lead-Antwort-Unit zuerst prüfen.'
+  done
+fi
+for smartplan_unit in "${smartplan_units[@]}" "${smartplan_timer_units[@]}"; do
   [[ "$(systemctl show "$smartplan_unit" --property=FragmentPath --value)" == "/etc/systemd/system/$smartplan_unit" ]] || fail 'Unerwarteter Dienstpfad.'
   [[ -z "$(systemctl show "$smartplan_unit" --property=DropInPaths --value)" ]] || fail 'Dienst-Drop-ins zuerst prüfen.'
+done
+for smartplan_unit in "${smartplan_units[@]}"; do
   # Presence only: never print override values, which might contain credentials.
   [[ -z "$(systemctl show "$smartplan_unit" --property=Environment --value)" ]] || fail 'Direkte Dienst-Umgebungsüberschreibungen zuerst prüfen.'
   [[ "$(systemctl show "$smartplan_unit" --property=EnvironmentFiles --value)" == '/etc/smartplan-online/service.env (ignore_errors=no)' ]] || fail 'Unerwartete Dienst-Umgebungsdatei.'
@@ -49,6 +69,11 @@ if (( smartplan_import_worker_present )); then
      "$(systemctl show smartplan-plan-import.service --property=SendSIGKILL --value)" == yes &&
      "$(systemctl show smartplan-plan-import.service --property=TimeoutStopUSec --value)" == 20s ]] || fail 'Vollständige, begrenzte Importworker-Beendigung zuerst sicherstellen.'
 fi
+if (( smartplan_lead_replies_present )); then
+  [[ "$(systemctl show smartplan-lead-replies.service --property=KillMode --value)" == control-group &&
+     "$(systemctl show smartplan-lead-replies.service --property=SendSIGKILL --value)" == yes &&
+     "$(systemctl show smartplan-lead-replies.service --property=TimeoutStopUSec --value)" == 10s ]] || fail 'Vollständige, begrenzte Lead-Worker-Beendigung zuerst sicherstellen.'
+fi
 
 smartplan_commit="$(git -C "$smartplan_repo" rev-parse HEAD)"
 [[ "$smartplan_commit" =~ ^[a-f0-9]{40}$ ]] || fail 'Ungültiger Quellstand.'
@@ -57,7 +82,8 @@ smartplan_candidate="smartplan_online_u_$(date -u +%Y%m%d%H%M%S)_${smartplan_com
 (( ${#smartplan_candidate} <= 63 )) || fail 'Kandidatenname zu lang.'
 smartplan_release="/opt/smartplan-online/releases/$smartplan_id"
 smartplan_control="/etc/smartplan-online/updates/$smartplan_id"
-smartplan_work="/var/lib/smartplan-online/updates/$smartplan_id"
+# The runtime's private directory must never be traversable by postgres.
+smartplan_work="/var/lib/smartplan-online-operator/updates/$smartplan_id"
 smartplan_previous_app="$(readlink -f /opt/smartplan-online/app)"
 smartplan_previous_venv="$(readlink -f /opt/smartplan-online/venv)"
 smartplan_previous_commit="$(cat /opt/smartplan-online/SOURCE_COMMIT)"
@@ -70,7 +96,7 @@ done
 install -d -m 0755 /opt/smartplan-online/releases "$smartplan_release" "$smartplan_release/app"
 (
   umask 0022
-  git -C "$smartplan_repo" archive HEAD backend | tar -x -C "$smartplan_release/app"
+  git -C "$smartplan_repo" archive HEAD backend web | tar -x -C "$smartplan_release/app"
   python3 -m venv "$smartplan_release/venv"
   "$smartplan_release/venv/bin/python" -m pip install --requirement "$smartplan_release/app/backend/online/requirements.lock"
   "$smartplan_release/venv/bin/python" -m pip check
@@ -78,6 +104,13 @@ install -d -m 0755 /opt/smartplan-online/releases "$smartplan_release" "$smartpl
 )
 smartplan_helper() { (cd "$smartplan_release/app/backend"; "$smartplan_release/venv/bin/python" -m online.release "$@"); }
 smartplan_service_helper() { (cd "$smartplan_release/app/backend"; runuser -u smartplan-online -- "$smartplan_release/venv/bin/python" -m online.release "$@"); }
+smartplan_operator_helper() {
+  (cd "$smartplan_release/app/backend"; runuser -u postgres -- env \
+    -u PGHOSTADDR -u PGSERVICE -u PGSERVICEFILE -u PGOPTIONS -u PGPORT \
+    -u PYTHONHOME -u PYTHONSTARTUP -u PYTHONUSERBASE \
+    PYTHONNOUSERSITE=1 PYTHONPATH="$smartplan_release/app/backend" \
+    "$smartplan_release/venv/bin/python" -m online.release "$@")
+}
 smartplan_atomic_copy() {
   (cd "$smartplan_release/app/backend"; "$smartplan_release/venv/bin/python" - "$@" <<'PY'
 import grp
@@ -110,7 +143,15 @@ validate_dsns(active, make_conninfo(active, dbname=sys.argv[1]))
 PY
 )
 install -d -m 0700 /etc/smartplan-online/updates "$smartplan_control"
-install -d -m 0700 -o smartplan-online -g smartplan-online /var/lib/smartplan-online/updates "$smartplan_work"
+for smartplan_operator_path in /var/lib/smartplan-online-operator /var/lib/smartplan-online-operator/updates "$smartplan_work"; do
+  if [[ -e "$smartplan_operator_path" || -L "$smartplan_operator_path" ]]; then
+    [[ -d "$smartplan_operator_path" && ! -L "$smartplan_operator_path" &&
+       "$(stat -c %u "$smartplan_operator_path")" == "$(id -u postgres)" &&
+       "$(stat -c %a "$smartplan_operator_path")" == 700 ]] || fail 'Unbekannten Operator-Sicherungspfad zuerst prüfen.'
+  else
+    install -d -m 0700 -o postgres -g postgres "$smartplan_operator_path"
+  fi
+done
 # Reserve clone + dump + WAL headroom on the actual PostgreSQL/backup filesystems.
 smartplan_database_bytes="$(smartplan_service_helper size)"
 smartplan_pgdata="$(runuser -u postgres -- env -u PGHOSTADDR -u PGSERVICE -u PGSERVICEFILE -u PGOPTIONS psql \
@@ -118,6 +159,7 @@ smartplan_pgdata="$(runuser -u postgres -- env -u PGHOSTADDR -u PGSERVICE -u PGS
 smartplan_helper capacity --path "$smartplan_pgdata" --backup-directory "$smartplan_work" --value "$smartplan_database_bytes"
 install -m 0600 /etc/smartplan-online/service.env "$smartplan_control/service.env.before"
 install -m 0600 /etc/smartplan-https/Caddyfile "$smartplan_control/Caddyfile.before"
+install -m 0600 "$smartplan_source/Caddyfile" "$smartplan_control/Caddyfile.after"
 install -m 0600 /opt/smartplan-online/SOURCE_COMMIT "$smartplan_control/SOURCE_COMMIT.before"
 smartplan_helper maintenance --path "$smartplan_source/Caddyfile" --output "$smartplan_control/Caddyfile.maintenance"
 install -m 0644 "$smartplan_control/Caddyfile.maintenance" "/etc/smartplan-https/Caddyfile.$smartplan_id"
@@ -132,9 +174,23 @@ smartplan_stopped=0
 smartplan_activating=0
 smartplan_timer_was_active=0
 smartplan_import_worker_was_active=0
+smartplan_lead_timer_was_active=0
+smartplan_lead_timer_stopped=0
 # A failed activation-journal write must not itself resume a database writer.
 smartplan_import_worker_may_resume=0
 if (( smartplan_import_worker_present )) && systemctl is-active --quiet smartplan-plan-import.service; then smartplan_import_worker_was_active=1; fi
+if (( smartplan_lead_replies_present )) && systemctl is-active --quiet smartplan-lead-replies.timer; then smartplan_lead_timer_was_active=1; fi
+smartplan_stop_lead_replies() {
+  if (( smartplan_lead_replies_present )); then
+    smartplan_lead_timer_stopped=1
+    systemctl stop smartplan-lead-replies.timer || return 1
+    [[ "$(systemctl show smartplan-lead-replies.timer --property=ActiveState --value)" == inactive ]] || return 1
+    systemctl stop smartplan-lead-replies.service || return 1
+    local smartplan_lead_state
+    smartplan_lead_state="$(systemctl show smartplan-lead-replies.service --property=ActiveState --value)"
+    [[ "$smartplan_lead_state" == inactive || "$smartplan_lead_state" == failed ]] || return 1
+  fi
+}
 smartplan_stop_import_worker() {
   if (( smartplan_import_worker_present )); then
     # Stop even inactive/activating/restarting units: the earlier active-state
@@ -168,6 +224,9 @@ smartplan_abort() {
     if (( smartplan_import_worker_was_active && smartplan_import_worker_may_resume )); then
       systemctl start smartplan-plan-import.service || echo 'Importworker für die neue Datenbank nicht gestartet; Journal beibehalten und vorwärts beheben.' >&2
     fi
+    if (( smartplan_lead_timer_was_active && smartplan_import_worker_may_resume )); then
+      systemctl start smartplan-lead-replies.timer || echo 'Lead-Antwort-Timer nicht gestartet; Journal beibehalten und vorwärts beheben.' >&2
+    fi
     if (( smartplan_timer_was_active )); then
       systemctl start smartplan-online-backup.timer || echo 'Sicherungstimer für die neue Datenbank nicht gestartet; umgehend prüfen.' >&2
     fi
@@ -177,6 +236,10 @@ smartplan_abort() {
   fi
   local smartplan_restored=1
   if (( smartplan_stopped )); then
+    if ! smartplan_stop_lead_replies; then
+      echo "Lead-Worker-Stopp nicht bestätigt. Wartung und Journal beibehalten: $smartplan_control" >&2
+      exit "$smartplan_result"
+    fi
     if ! smartplan_stop_import_worker; then
       echo "Importworker-Stopp nicht bestätigt. Konfiguration unverändert lassen; Wartung und Journal beibehalten: $smartplan_control" >&2
       exit "$smartplan_result"
@@ -218,6 +281,7 @@ smartplan_abort() {
     if (( smartplan_restored )); then systemctl reload smartplan-https.service || smartplan_restored=0; fi
   fi
   if (( smartplan_restored )); then
+    if (( smartplan_lead_timer_was_active && smartplan_lead_timer_stopped )); then systemctl start smartplan-lead-replies.timer || smartplan_restored=0; fi
     if (( smartplan_timer_was_active )); then systemctl start smartplan-online-backup.timer || smartplan_restored=0; fi
     if (( smartplan_restored )); then
       if ! smartplan_phase rolled_back || ! rm -- "$smartplan_pending"; then
@@ -238,13 +302,13 @@ trap smartplan_abort EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
 # Persist enough non-secret information for recovery after SIGKILL or reboot.
-(cd "$smartplan_release/app/backend"; "$smartplan_release/venv/bin/python" - "$smartplan_control/metadata.json" "$smartplan_id" "$smartplan_candidate" "$smartplan_previous_app" "$smartplan_previous_venv" "$smartplan_release" "$smartplan_previous_commit" "$smartplan_commit" "$smartplan_import_worker_was_active" <<'PYMETA'
+(cd "$smartplan_release/app/backend"; "$smartplan_release/venv/bin/python" - "$smartplan_control/metadata.json" "$smartplan_id" "$smartplan_candidate" "$smartplan_previous_app" "$smartplan_previous_venv" "$smartplan_release" "$smartplan_previous_commit" "$smartplan_commit" "$smartplan_import_worker_was_active" "$smartplan_lead_replies_present" "$smartplan_lead_timer_was_active" <<'PYMETA'
 import json
 import os
 import sys
 from psycopg.conninfo import conninfo_to_dict
 from online.release import atomic_write
-path, update_id, candidate, previous_app, previous_venv, release, old_commit, new_commit, import_worker_active = sys.argv[1:]
+path, update_id, candidate, previous_app, previous_venv, release, old_commit, new_commit, import_worker_active, lead_present, lead_timer_active = sys.argv[1:]
 metadata = dict(update_id=update_id, candidate_database=candidate,
                 source_database=conninfo_to_dict(os.environ['SMARTPLAN_DATABASE_DSN'])['dbname'],
                 previous_app=previous_app, previous_venv=previous_venv,
@@ -253,7 +317,8 @@ metadata = dict(update_id=update_id, candidate_database=candidate,
                 legacy_app='/opt/smartplan-online/app.before-' + update_id,
                 legacy_venv='/opt/smartplan-online/venv.before-' + update_id,
                 new_release=release, original_commit=old_commit, new_commit=new_commit,
-                import_worker_was_active=import_worker_active == '1')
+                import_worker_was_active=import_worker_active == '1',
+                lead_replies_present=lead_present == '1', lead_timer_was_active=lead_timer_active == '1')
 atomic_write(path, (json.dumps(metadata, sort_keys=True) + '\n').encode())
 PYMETA
 )
@@ -284,13 +349,22 @@ done
 [[ "$smartplan_backup_state" == inactive || "$smartplan_backup_state" == failed ]] || fail 'Laufende Sicherung zuerst auslaufen lassen.'
 # Mark before stopping: even a partially failed stop must keep traffic gated.
 smartplan_stopped=1
+smartplan_stop_lead_replies || fail 'Lead-Worker-Stopp nicht bestätigt; keine Datenbankkopie erstellen.'
 smartplan_stop_import_worker || fail 'Importworker-Stopp nicht bestätigt; keine Datenbankkopie erstellen.'
 systemctl stop smartplan-online.service
 smartplan_phase stopped
 smartplan_service_helper validate --candidate "$smartplan_candidate"
-runuser -u postgres -- env -u PGHOSTADDR -u PGSERVICE -u PGSERVICEFILE -u PGOPTIONS createdb --host=/var/run/postgresql --port=5432 --username=postgres --owner=smartplan-online -- "$smartplan_candidate"
-smartplan_service_helper prepare --candidate "$smartplan_candidate" --backup-directory "$smartplan_work" --output "$smartplan_work/report.json"
+bash "$smartplan_source/prepare-business-security.sh" --under-update-lock "$smartplan_release/venv/bin/python" "$smartplan_release/app/backend"
+runuser -u postgres -- env -u PGHOSTADDR -u PGSERVICE -u PGSERVICEFILE -u PGOPTIONS -u PGPORT createdb --host=/var/run/postgresql --port=5432 --username=postgres --owner=smartplan-migrator -- "$smartplan_candidate"
+smartplan_operator_helper prepare --privileged-operator --candidate "$smartplan_candidate" --backup-directory "$smartplan_work" --output "$smartplan_work/report.json"
 install -m 0600 "$smartplan_work/report.json" "$smartplan_control/report.json"
+smartplan_helper privacy-configure --path /etc/smartplan-online/service.env > "$smartplan_control/privacy-configuration.json"
+set -a
+source /etc/smartplan-online/service.env
+set +a
+# Only the runtime UID reads the independent key/journal. Any missing or stale
+# binding aborts before switching code/environment or opening public writers.
+smartplan_service_helper privacy-init --candidate "$smartplan_candidate" > "$smartplan_control/privacy-checkpoint.json"
 smartplan_phase verified
 # Keep the previous physical directories on first update; never delete releases.
 if [[ ! -L /opt/smartplan-online/app ]]; then
@@ -311,17 +385,19 @@ for smartplan_attempt in {1..15}; do smartplan_ready >/dev/null 2>&1 && break; s
 smartplan_ready >/dev/null 2>&1 || fail 'Kandidat nicht bereit; Rückkehr vor öffentlicher Freigabe.'
 curl --fail --silent --max-time 3 -H 'Host: office.smartplan-hofmann.de' -H 'X-Forwarded-Proto: https' \
   http://127.0.0.1:8766/ready | "$smartplan_release/venv/bin/python" -c \
-  'import json,sys; v=json.load(sys.stdin); assert v.get("version")=="0.11.0-online-pilot" and v.get("schema_version")==6 and {"project_plans","offline_plan_access","plan_imports","plan_deletion","project_workspace","inquiry_intake","gmail_intake","mail_attachments","business_integrations"} <= set(v.get("capabilities",[]))'
+  'import json,sys; v=json.load(sys.stdin); mode=json.load(open(sys.argv[1]))["business"]["compatibility_mode"]; caps=set(v.get("capabilities",[])); assert mode in ("business","legacy") and v.get("version")=="0.12.0-online-pilot" and v.get("schema_version")==7 and v.get("compatibility_mode")==mode and {"project_plans","offline_plan_access","plan_imports","plan_deletion","project_workspace","inquiry_intake","gmail_intake","mail_attachments","business_integrations"} <= caps and (("business_suite" in caps)==(mode=="business"))' \
+  "$smartplan_control/report.json"
 systemctl is-active --quiet smartplan-online.service || fail 'Neuer Dienst nicht aktiv.'
 # Durable boundary BEFORE any public request can reach the new database.
 smartplan_activating=1
 smartplan_phase activating
 smartplan_import_worker_may_resume=1
-smartplan_atomic_copy "$smartplan_control/Caddyfile.before" /etc/smartplan-https/Caddyfile 0644 root
+smartplan_atomic_copy "$smartplan_control/Caddyfile.after" /etc/smartplan-https/Caddyfile 0644 root
 systemctl reload smartplan-https.service
 [[ "$(curl --silent --show-error --max-time 10 --noproxy '*' --resolve office.smartplan-hofmann.de:443:127.0.0.1 \
   --output /dev/null --write-out '%{http_code}' https://office.smartplan-hofmann.de/api/v1/projects)" == 401 ]] || fail 'Öffentliche Prüfung nicht bestätigt. Neue Datenbank beibehalten.'
 if (( smartplan_import_worker_was_active )); then systemctl start smartplan-plan-import.service; fi
+if (( smartplan_lead_timer_was_active )); then systemctl start smartplan-lead-replies.timer; fi
 if (( smartplan_timer_was_active )); then systemctl start smartplan-online-backup.timer; fi
 smartplan_phase active
 rm -- "$smartplan_pending"

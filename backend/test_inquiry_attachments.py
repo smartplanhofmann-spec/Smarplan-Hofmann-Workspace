@@ -87,6 +87,14 @@ class InquiryAttachmentTests(unittest.TestCase):
         self.assertEqual(caught.exception.status, status, caught.exception.message)
         return caught.exception
 
+    def release_operational(self, project, identifier):
+        from business_foundation import BusinessFoundation
+        service = BusinessFoundation(self.office)
+        current = service.classification(self.owner, project, 'mail', identifier)
+        return service.classify(self.owner, project, 'mail', identifier, {
+            'request_id': uuid.uuid4().hex, 'revision': current['revision'],
+            'expected_source_fingerprint': current['source_fingerprint'], 'classification': 'operational'})
+
     def test_explicit_empty_manifest_differs_from_not_announced_and_never_becomes_editable(self):
         before = self.api.for_inquiry(self.owner, self.inquiry)
         self.assertEqual((before['status'], before['expected_count'], before['files']), ('not_announced', None, []))
@@ -334,10 +342,14 @@ class InquiryAttachmentTests(unittest.TestCase):
         ready = self.upload()
         project = self.convert()
         unrelated = self.office.add_project(self.owner, 'Anderes Projekt', 'Anderer synthetischer Kunde')
-        for role in ('manager', 'technician', 'accountant'):
-            actor = self.actor(role, project=project)
+        actors = [self.actor(role, project=project) for role in ('manager', 'technician', 'accountant')]
+        for actor in actors:
             self.problem(403, lambda: self.api.for_inquiry(actor, self.inquiry))
             self.problem(403, lambda: self.api.remove_inquiry(actor, self.inquiry, ready['id']))
+            self.problem(404, lambda: self.api.content_project(actor, project, ready['id']))
+            self.assertEqual(self.api.for_project(actor, project)['files'], [])
+        self.release_operational(project, ready['id'])
+        for actor in actors:
             self.assertEqual(self.api.content_project(actor, project, ready['id'])[0], PNG)
             self.assertEqual(self.api.for_project(actor, project)['ready_count'], 1)
             self.problem(404, lambda: self.api.content_project(actor, unrelated, ready['id']))
@@ -415,6 +427,8 @@ class InquiryAttachmentTests(unittest.TestCase):
         project = self.convert()
         actor = self.actor('technician', project=project)
         request = dict(request_id=uuid.uuid4().hex, page=0, title='Plan aus Originalanhang')
+        self.problem(404, lambda: self.api.copy_to_plan(actor, project, ready['id'], request))
+        self.release_operational(project, ready['id'])
         first = self.api.copy_to_plan(actor, project, ready['id'], request)
         self.assertEqual(first['status'], 'queued')
         self.assertEqual(self.api.copy_to_plan(actor, project, ready['id'], request), first)
@@ -425,7 +439,9 @@ class InquiryAttachmentTests(unittest.TestCase):
         self.problem(403, lambda: self.api.copy_to_plan(accountant, project, ready['id'], request))
         self.api.remove_inquiry(self.owner, self.inquiry, ready['id'])
         self.assertEqual(PlanImports(self.office).source(actor, project, first['id'])[0], PNG)
-        self.problem(410, lambda: self.api.copy_to_plan(actor, project, ready['id'], request))
+        # Project readers receive no existence/tombstone detail for an original
+        # that is no longer released. Owner inbox and bot tombstones stay410.
+        self.problem(404, lambda: self.api.copy_to_plan(actor, project, ready['id'], request))
         self.assertTrue(validate_integrity(self.office))
 
     def test_copy_request_is_bound_to_attachment_even_when_two_originals_are_identical(self):

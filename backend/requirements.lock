@@ -4,3 +4,4 @@ cryptography==46.0.7
 pillow==12.3.0
 pycparser==3.11
 reportlab==4.5.1
+tzdata==2026.5

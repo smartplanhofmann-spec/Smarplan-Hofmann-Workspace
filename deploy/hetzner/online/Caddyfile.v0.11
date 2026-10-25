@@ -1,0 +1,45 @@
+{
+	admin unix//run/smartplan-https/admin.sock
+	servers {
+		protocols h1 h2
+	}
+}
+
+office.smartplan-hofmann.de {
+	header {
+		-Server
+		Content-Security-Policy "default-src 'none'; style-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		X-Robots-Tag "noindex, nofollow"
+		Cache-Control no-store
+		Strict-Transport-Security "max-age=31536000"
+	}
+
+	@online path /api/v1/* /health /ready
+	handle @online {
+		reverse_proxy 127.0.0.1:8766 {
+			lb_try_duration 3s
+			transport http {
+				dial_timeout 3s
+				response_header_timeout 25s
+			}
+		}
+	}
+
+	@application path /api /api/* /auth /auth/* /oauth /oauth/*
+	handle @application {
+		header Content-Type application/json
+		respond `{"status":"setup"}` 503
+	}
+
+	@page path / /index.html /style.css
+	handle @page {
+		root * /usr/share/smartplan-setup
+		file_server
+	}
+
+	handle {
+		respond "Nicht gefunden" 404
+	}
+}

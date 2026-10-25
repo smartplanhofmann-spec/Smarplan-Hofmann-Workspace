@@ -8,21 +8,36 @@
 office.smartplan-hofmann.de {
 	header {
 		-Server
-		Content-Security-Policy "default-src 'none'; style-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
 		X-Content-Type-Options nosniff
 		Referrer-Policy no-referrer
 		X-Robots-Tag "noindex, nofollow"
 		Cache-Control no-store
 		Strict-Transport-Security "max-age=31536000"
 	}
+	@restricted not path / /office /office/*
+	header @restricted >Content-Security-Policy "default-src 'none'; style-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+	@browser path / /office /office/*
+	header @browser >Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob:; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"
 
-	@online path /api/v1/* /health /ready
+	@online path /api/v1/* /health /ready / /office /office/*
 	handle @online {
-		reverse_proxy 127.0.0.1:8766 {
-			lb_try_duration 3s
-			transport http {
-				dial_timeout 3s
-				response_header_timeout 25s
+		@business path /api/v1/business /api/v1/business/*
+		handle @business {
+			reverse_proxy 127.0.0.1:8766 {
+				lb_try_duration 3s
+				transport http {
+					dial_timeout 3s
+					response_header_timeout 240s
+				}
+			}
+		}
+		handle {
+			reverse_proxy 127.0.0.1:8766 {
+				lb_try_duration 3s
+				transport http {
+					dial_timeout 3s
+					response_header_timeout 25s
+				}
 			}
 		}
 	}

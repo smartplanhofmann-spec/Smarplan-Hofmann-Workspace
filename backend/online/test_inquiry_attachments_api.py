@@ -98,6 +98,12 @@ class AttachmentHttpFlow(workspace_fixture.WorkspaceHttpFlow):
         self.project = converted['project']['id']
         return '/projects/' + self.project
 
+    def release_original(self, attachment_id):
+        path = '/business/documents/mail/' + attachment_id + '/classification'
+        current = self.call('GET', path).json
+        return self.call('POST', path, {'request_id': request_id(), 'revision': current['revision'],
+            'expected_source_fingerprint': current['source_fingerprint'], 'classification': 'operational'}).json
+
     def assert_download(self, response, content, filename):
         self.assertEqual(response.mimetype, 'application/octet-stream')
         self.assertEqual(response.data, content)
@@ -154,6 +160,10 @@ class AttachmentHttpFlow(workspace_fixture.WorkspaceHttpFlow):
         self.assertTrue(all('received_chunks' not in row for row in summary['files']))
         base = self.convert_message()
         technician_id, technician = self.add_actor('technician')
+        self.assertEqual(self.call('GET', base + '/mail-attachments', token=technician).json['files'], [])
+        self.call('GET', base + '/mail-attachments/' + first['id'] + '/content', token=technician, status=404)
+        for row in (first, second):
+            self.release_original(row['id'])
         documents = self.call('GET', base + '/mail-attachments', token=technician).json
         self.assertEqual((documents['ready_count'], documents['pending_count'], documents['unannounced_count']), (2, 0, 0))
         self.assertEqual({row['inquiry_id'] for row in documents['files']}, {self.inquiry})
@@ -188,7 +198,8 @@ class AttachmentHttpFlow(workspace_fixture.WorkspaceHttpFlow):
         self.assertEqual(tombstone['files'][1]['received_chunks'], [])
         documents = self.call('GET', base + '/mail-attachments', token=technician).json
         self.assertEqual([row['id'] for row in documents['files']], [first['id']])
-        self.assertEqual(documents['deleted_count'], 1)
+        self.assertEqual(documents['deleted_count'], 0)  # Team counts cover released, visible files only.
+        self.assertEqual(self.call('GET', base + '/mail-attachments').json['deleted_count'], 1)
         self.assertEqual(self.call('GET', project_file + '/content', token=technician).data, png)
         self.call('POST', '/assignments', {'project_id': self.project, 'user_id': technician_id, 'remove': True})
         self.call('GET', project_file + '/content', token=technician, status=404)
@@ -284,6 +295,8 @@ class InquiryAttachmentApiTests(AttachmentHttpFlow, unittest.TestCase):
         accountant_id, accountant = self.add_actor('accountant')
         technician_id, technician = self.add_actor('technician')
         _, outsider = self.add_actor('technician', assign=False)
+        self.call('GET', project_file + '/content', token=accountant, status=404)
+        self.release_original(row['id'])
         self.call('GET', project_file + '/content', token=accountant)
         self.call('POST', project_file + '/plan-import', {'request_id': request_id(), 'page': 0, 'title': 'Forbidden'},
                   token=accountant, status=403)

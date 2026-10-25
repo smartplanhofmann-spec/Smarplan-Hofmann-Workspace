@@ -179,6 +179,8 @@ class Office:
                 from integration_bridge import schema_statements as bridge_schema
                 for statement in bridge_schema():
                     self.db.execute(statement)
+            from business_schema import ensure_sqlite_schema
+            ensure_sqlite_schema(self)
         except Exception:
             self.db.close()
             raise
@@ -249,6 +251,11 @@ class Office:
     def update_customer(self, actor, customer_id, changes):
         self.require(actor, ("owner",))
         with self.lock, self.db:
+            from business_schema import _tables
+            if 'business_contact_extras' in _tables(self):
+                erased = self.db.execute('SELECT erased_at FROM business_contact_extras WHERE customer_id=?', (customer_id,)).fetchone()
+                if erased and erased['erased_at']:
+                    raise Problem(409, 'Dieser Kontakt wurde anonymisiert und kann nicht wiederhergestellt werden.')
             value = customer_values(changes, self.customer(actor, customer_id))
             try:
                 self.db.execute("UPDATE customers SET name=?,contact=?,email=?,phone=?,address=?,notes=?,active=?,"
@@ -259,6 +266,8 @@ class Office:
                 raise Problem(409, "Kunde mit diesem Namen und dieser Adresse existiert bereits")
             # Reports contain independent, immutable snapshots of their original customer name.
             self.db.execute("UPDATE projects SET customer=? WHERE customer_id=?", (value["name"], customer_id))
+            from business_foundation import legacy_customer_changed
+            legacy_customer_changed(self, actor, customer_id)
             self.audit(actor, "customer.updated", customer_id)
             return self.customer(actor, customer_id)
 

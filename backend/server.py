@@ -1,5 +1,6 @@
 import plan_access
 import workspace_api
+import business_api
 import argparse
 import getpass
 import json
@@ -47,7 +48,7 @@ def make_handler(office,drive,launch_id=""):
                     "/api/storage/status": "GET", "/api/storage/connect": "POST",
                 }
                 self.allowed_methods = methods.get(path, "")
-                self.allowed_methods = self.allowed_methods or workspace_api.methods(path.removeprefix('/api')) or ''
+                self.allowed_methods = self.allowed_methods or workspace_api.methods(path.removeprefix('/api')) or business_api.methods(path.removeprefix('/api')) or ''
                 if re.fullmatch(r"/api/users/[a-f0-9]{32}", path):
                     self.allowed_methods = "POST"
                 if re.fullmatch(r"/api/customers/[a-f0-9]{32}", path):
@@ -80,6 +81,8 @@ def make_handler(office,drive,launch_id=""):
                     data=json.loads(self.rfile.read(size))
                     if not isinstance(data,dict):
                         raise Problem(400,"JSON-Objekt erwartet")
+                if self.command == 'GET' and path.startswith('/api/business/'):
+                    data = business_api.query_data(urllib.parse.parse_qsl(parsed.query, keep_blank_values=True))
                 if path=="/health" and self.command=="GET":
                     health={"status":"ok","version":"0.2.0-development"}
                     if launch_id:
@@ -97,12 +100,18 @@ def make_handler(office,drive,launch_id=""):
                 token = auth[7:]
                 plan_token = token.startswith(plan_access.PREFIX)
                 if plan_token and not (path == '/api/offline/logout' or
+                        (plan_access.allows_business(token) and business_api.offline_path(path.removeprefix('/api'), self.command)) or
                         (plan_access.allows_workspace(token) and workspace_api.project_path(path.removeprefix('/api'))) or
                         (path == '/api/projects' and self.command == 'GET') or
                         re.fullmatch(r'/api/projects/[a-f0-9]{32}/(?:plans/delete|plan-deletions)', path) or
                         re.fullmatch(r'/api/projects/[a-f0-9]{32}/plans(?:/[a-f0-9]{32})?', path)):
                     raise Problem(403, 'Offline-Zugang erlaubt ausschließlich Projektpläne')
                 user = plan_access.user(office, token) if plan_token else office.user(token)
+                if business_api.methods(path.removeprefix('/api')):
+                    result, status, mimetype = business_api.dispatch(
+                        office, user, path.removeprefix('/api'), self.command, data, offline=plan_token,
+                offline_capabilities=plan_access.business_capabilities(office, token) if plan_token else ())
+                    return self.send(status, result, mimetype)
                 if workspace_api.methods(path.removeprefix('/api')):
                     with office.lock, office.db:
                         current = plan_access.user(office, token) if plan_token else office.user(token)

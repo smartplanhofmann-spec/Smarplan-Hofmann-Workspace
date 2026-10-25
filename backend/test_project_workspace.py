@@ -52,6 +52,14 @@ class ProjectWorkspaceTests(unittest.TestCase):
     def create(self, kind, **data):
         return self.perform(self.workspace.save_item, self.technician, self.project, kind, self.request(**data))
 
+    def classify_link(self, identifier, classification):
+        from business_foundation import BusinessFoundation
+        service = BusinessFoundation(self.office)
+        current = service.classification(self.owner, self.project, 'link', identifier)
+        return service.classify(self.owner, self.project, 'link', identifier,
+            self.request(revision=current['revision'], expected_source_fingerprint=current['source_fingerprint'],
+                         classification=classification))
+
     def test_empty_dashboard_contains_only_real_existing_project_data(self):
         result = self.perform(self.workspace.dashboard, self.owner, self.project)
         self.assertEqual(result['project']['name'], 'Synthetic retrofit')
@@ -110,6 +118,9 @@ class ProjectWorkspaceTests(unittest.TestCase):
             self.error(404, self.workspace.get_item, self.owner, self.other_project, kind, item['id'])
             self.error(404, self.workspace.save_item, self.owner, self.other_project, kind,
                        self.request(revision=1, **body), item['id'])
+            if kind == 'links':
+                self.error(404, self.workspace.get_item, self.accountant, self.project, kind, item['id'])
+                self.classify_link(item['id'], 'operational')
             # An accountant sees assigned project data but cannot mutate it.
             self.assertEqual(self.perform(self.workspace.get_item, self.accountant, self.project, kind, item['id']), item)
             self.error(403, self.workspace.save_item, self.accountant, self.project, kind, self.request(**body))
@@ -244,7 +255,12 @@ class ProjectWorkspaceTests(unittest.TestCase):
         for url in ('http://example.test', 'javascript:alert(1)', 'https://user:password@example.test/doc',
                     'https://example.test/\nprivate', 'https://not a host/path', 'https://example.test:0/doc'):
             self.error(400, self.workspace.save_item, self.owner, self.project, 'links', self.request(title='Link', url=url))
-        link = self.create('links', title='Sevdesk offer', category='offer', url='https://my.sevdesk.de/synthetic-offer')
+        body = self.request(title='Sevdesk offer', category='offer', url='https://my.sevdesk.de/synthetic-offer')
+        self.error(403, self.workspace.save_item, self.technician, self.project, 'links', body)
+        link = self.perform(self.workspace.save_item, self.owner, self.project, 'links', body)
+        self.classify_link(link['id'], 'financial')
+        self.error(404, self.workspace.get_item, self.technician, self.project, 'links', link['id'])
+        self.assertEqual(self.perform(self.workspace.get_item, self.accountant, self.project, 'links', link['id']), link)
         self.assertEqual(self.perform(self.workspace.dashboard, self.owner, self.project)['links'], [link])
         self.perform(self.workspace.save_item, self.owner, self.project, 'links',
                      self.request(revision=1, active=False), link['id'])

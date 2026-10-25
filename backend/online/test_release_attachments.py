@@ -22,6 +22,7 @@ from online.store import PostgresOffice, SCHEMA_VERSION, migrate
 
 ATTACHMENT_TABLES = frozenset(base_fixture.V5_TABLES)
 INTEGRATION_TABLES = frozenset(base_fixture.V6_TABLES)
+BUSINESS_TABLES = frozenset(base_fixture.V7_TABLES)
 RESTORE_RESET_TABLES = frozenset((
     'sessions', 'plan_sessions', 'auth_challenges', 'login_limits', 'inquiry_attachment_limits',
 ))
@@ -43,7 +44,7 @@ class AttachmentRelease(unittest.TestCase):
         self.addCleanup(self.fixture.doCleanups)
         self.source, self.candidate = self.fixture.source, self.fixture.candidate
         self.actor, self.project = self.fixture.actor, self.fixture.project
-        self.assertEqual(SCHEMA_VERSION, 6)
+        self.assertEqual(SCHEMA_VERSION, 7)
 
     def seed_attachments(self):
         security = self.fixture.seed_security()
@@ -152,22 +153,19 @@ class AttachmentRelease(unittest.TestCase):
         security = self.fixture.seed_security()
         self.fixture.fixture.seed_imports()
         workspace = self.fixture.seed_workspace()
-        with psycopg.connect(self.source) as connection:
-            connection.execute(sql.SQL('DROP TABLE {}').format(
-                sql.SQL(',').join(map(sql.Identifier, sorted(ATTACHMENT_TABLES | INTEGRATION_TABLES)))))
-            connection.execute('UPDATE smartplan_schema SET version=4')
+        self.fixture.fixture.source_version(4)
         before = release.snapshot_fingerprint(self.source)
         sequences = release.sequence_state(self.source)
-        self.assertTrue((ATTACHMENT_TABLES | INTEGRATION_TABLES).isdisjoint(before))
+        self.assertTrue((ATTACHMENT_TABLES | INTEGRATION_TABLES | BUSINESS_TABLES).isdisjoint(before))
         prepared = self.fixture.fixture.prepare()
         after = release.snapshot_fingerprint(self.candidate)
         self.assertEqual((prepared['source_schema'], prepared['target_schema']), (4, SCHEMA_VERSION))
         self.assertEqual(prepared['tables'], before)
-        self.assertEqual(set(after) - set(before), ATTACHMENT_TABLES | INTEGRATION_TABLES)
+        self.assertEqual(set(after) - set(before), ATTACHMENT_TABLES | INTEGRATION_TABLES | BUSINESS_TABLES)
         for table, fingerprint in before.items():
             if table != 'smartplan_schema':
                 self.assertEqual(after[table], fingerprint, table)
-        for table in ATTACHMENT_TABLES | INTEGRATION_TABLES:
+        for table in (ATTACHMENT_TABLES | INTEGRATION_TABLES | BUSINESS_TABLES) - base_fixture.CONTROL_TABLES:
             self.assertEqual(after[table]['rows'], 0, table)
         self.fixture.assert_security_preserved(self.candidate, security)
         self.fixture.assert_workspace_preserved(self.candidate, workspace)
@@ -208,7 +206,7 @@ class AttachmentRelease(unittest.TestCase):
         for table, fingerprint in before.items():
             if table in RESTORE_RESET_TABLES:
                 self.assertEqual(after[table]['rows'], 0, table)
-            elif table != 'inbound_import_tokens':
+            elif table not in ('inbound_import_tokens', 'business_restore_state'):
                 self.assertEqual(after[table], fingerprint, table)
         self.fixture.assert_security_preserved(self.candidate, data['security'], sessions=False)
         self.fixture.assert_workspace_preserved(self.candidate, data['workspace'], revoked=True)

@@ -25,10 +25,13 @@ if DSN and conninfo_to_dict(DSN).get('dbname') != 'smartplan_check':
 
 
 def reset():
-    migrate(DSN)
+    # This database is explicitly disposable (guard above). Recreate the entire
+    # fixture, including ledgers without a user FK; partial CASCADE resets leave
+    # counters/receipts that correctly fail the next startup integrity check.
     with psycopg.connect(DSN) as connection:
-        connection.execute('TRUNCATE users,customers,projects,assignments,reports,audit,secrets,'
-                           'sessions,mfa,auth_challenges,login_limits RESTART IDENTITY CASCADE')
+        connection.execute('DROP SCHEMA public CASCADE')
+        connection.execute('CREATE SCHEMA public')
+    migrate(DSN)
 
 
 @unittest.skipUnless(DSN, 'SMARTPLAN_TEST_DSN points to a disposable PostgreSQL database')

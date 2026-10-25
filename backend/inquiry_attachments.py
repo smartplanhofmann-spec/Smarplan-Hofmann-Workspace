@@ -376,6 +376,17 @@ class InquiryAttachments:
                 result['status'] = 'not_announced'
             if result['pending_count']:
                 result['status'] = 'uploading'
+            from business_api import document_policy_installed, can_read_document
+            if actor['role'] != 'owner' and document_policy_installed(self.office):
+                visible = [row for row in result['files'] if can_read_document(
+                    self.office, actor, project_id, 'mail', row['id'])]
+                # Counts and subjects describe only released files, never hidden
+                # finance/personnel originals or the number of private emails.
+                result = dict(status='uploading' if any(row['status'] == 'uploading' for row in visible) else 'complete',
+                              expected_count=len(visible), ready_count=sum(row['status'] == 'ready' for row in visible),
+                              deleted_count=0, total_bytes=sum(row['size'] for row in visible), files=visible,
+                              pending_count=sum(row['status'] == 'uploading' for row in visible), unannounced_count=0,
+                              scope='released_project_files')
             return result
 
     def _content(self, row):
@@ -393,6 +404,8 @@ class InquiryAttachments:
     def content_project(self, actor, project_id, attachment_id):
         with _transaction(self.office):
             self._project(actor, project_id)
+            from business_api import require_document
+            require_document(self.office, actor, project_id, 'mail', attachment_id)
             return self._content(self._file(attachment_id, project_id=project_id))
 
     def remove_inquiry(self, actor, inquiry_id, attachment_id):
@@ -410,6 +423,13 @@ class InquiryAttachments:
     def copy_to_plan(self, actor, project_id, attachment_id, data):
         with _transaction(self.office):
             actor = self._project(actor, project_id, write=True)
+            from business_api import require_document, document_policy_installed
+            require_document(self.office, actor, project_id, 'mail', attachment_id)
+            if document_policy_installed(self.office):
+                from business_foundation import BusinessFoundation
+                level = BusinessFoundation(self.office).classification(actor, project_id, 'mail', attachment_id)['effective_classification']
+                if level not in ('unclassified', 'operational'):
+                    raise Problem(403, 'Geschützte Belege können nicht als allgemeine Planquelle freigegeben werden.')
             row = self._file(attachment_id, project_id=project_id)
             content, _ = self._content(row)
             if not isinstance(data, dict) or set(data) != {'request_id', 'page', 'title'}:

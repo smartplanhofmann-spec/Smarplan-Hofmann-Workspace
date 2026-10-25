@@ -183,7 +183,15 @@ class ProjectWorkspace:
 
     def _authorize(self, user, project, *, write=False, profile=False):
         if write:
-            self.office.require(user, ('owner', 'manager') if profile else WRITERS)
+            if profile:
+                import business_api
+                if business_api.document_policy_installed(self.office):
+                    from business_foundation import require_permission
+                    require_permission(self.office, user, 'projects.manage', project)
+                else:
+                    self.office.require(user, ('owner', 'manager'))
+            else:
+                self.office.require(user, WRITERS)
         return self.office.project(user, project)
 
     def team(self, user, project):
@@ -281,6 +289,10 @@ class ProjectWorkspace:
         self._authorize(user, project)
         result = [self._item(row) for row in self.db.execute('SELECT * FROM workspace_items '
                    'WHERE project_id=? AND kind=? ORDER BY created_at,id', (project, kind)).fetchall()]
+        if kind == 'links':
+            from business_api import can_read_document
+            result = [item for item in result if can_read_document(
+                self.office, user, project, 'link', item['id'], item.get('category'))]
         if kind == 'tasks':
             result.sort(key=lambda item: (item['status'] in ('done', 'cancelled'), item['due_date'] or '9999',
                                          item['priority'] != 'high', item['id']))
@@ -297,7 +309,11 @@ class ProjectWorkspace:
                               (identifier, project, kind)).fetchone()
         if not row:
             raise Problem(404, 'Eintrag nicht verfügbar')
-        return self._item(row)
+        value = self._item(row)
+        if kind == 'links':
+            from business_api import require_document
+            require_document(self.office, user, project, 'link', identifier, value.get('category'))
+        return value
 
     def _values(self, user, project, kind, data, current=None):
         defaults = {
@@ -362,9 +378,15 @@ class ProjectWorkspace:
         self._authorize(user, project, write=True)
         if identifier is not None and not _id(identifier):
             raise Problem(404, 'Eintrag nicht verfügbar')
+        if kind == 'links':
+            from business_api import require_link_write
+            require_link_write(self.office, user, project, identifier,
+                               data.get('category') if isinstance(data, dict) else None)
         fingerprint, previous = self._request(user, project, kind, identifier, data, ITEM_FIELDS[kind], update=identifier is not None)
         if previous is not None:
-            return previous
+            # A historical link receipt must not replay a formerly public URL
+            # after classification, URL revision or role/assignment changes.
+            return self.get_item(user, project, kind, previous['id']) if kind == 'links' else previous
         current = self.get_item(user, project, kind, identifier) if identifier else None
         if current is not None and data['revision'] != current['revision']:
             raise Problem(409, 'Eintrag wurde inzwischen geändert. Neu laden; Eingabe bleibt erhalten.')

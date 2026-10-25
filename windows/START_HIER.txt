@@ -1,4 +1,4 @@
-Smartplan Office - Start und Sicherung, Version 1.1
+Smartplan Office - Start und Sicherung, Version 1.2
 
 Einmal vorbereiten
 1. Das gesamte ZIP entpacken. Alle Dateien und den backend-Ordner zusammen lassen.
@@ -16,8 +16,14 @@ Beim Schliessen der App wird der von diesem Starter gestartete Server beendet.
 Wird das Startfenster zwangsweise geschlossen, beendet Windows auch den Server;
 dabei entfaellt die Sicherung nach dem Schliessen.
 Eine Desktop-Verknuepfung zu Starten.cmd kann im Explorer angelegt werden.
-Die vorher eingerichtete Python-3.12-Umgebung wird weiterverwendet; es gibt
-keine neue Installation und keinen Download von Abhaengigkeiten.
+Die Python-3.12-Umgebung wird weiterverwendet. Fuer das Update 0.12 muss zuvor
+das vollstaendige lokale Paket entpackt werden. App und Server schliessen, dann
+Python_Umgebung_aktualisieren.cmd ausdruecklich starten (neu: tzdata fuer
+Europe/Berlin). Die enthaltenen python-wheels liefern die gesperrten Pakete
+ohne Internet. Ein reiner Source-Support-ZIP ohne Wheels reicht dafuer nicht. Der Starter prueft dies vor dem Datenbankstart und bricht bei
+fehlenden Zeitzonendaten ab. Er laedt keine Abhaengigkeiten aus dem Internet.
+Eigene Rechnungsstellung ist im lokalen Windowspaket gesperrt; dafuer den
+geschuetzten Online-Server und das getrennte Onlinepaket verwenden.
 
 Deine vorhandenen Daten
 Standardmaessig: %LOCALAPPDATA%\SmartplanOffice\data\office.sqlite3

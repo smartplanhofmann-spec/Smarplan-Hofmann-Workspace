@@ -118,6 +118,10 @@ jobs:
         env:
           SMARTPLAN_BROWSER_TEST_PYTHON: python
           SMARTPLAN_BROWSER_SCREENSHOT_DIR: ${{ runner.temp }}/smartplan-browser-previews
+          # The runner's packaged Chrome has the vendor AppArmor userns
+          # profile. An unprofiled /usr/bin/chromium cannot start its sandbox
+          # on Ubuntu 24.04; keep both sandboxing and the host policy enabled.
+          SMARTPLAN_CHROMIUM_BINARY: /opt/google/chrome/chrome
         run: |
           smartplan_browser_log="$RUNNER_TEMP/smartplan-browser-check.log"
           set +e
@@ -125,7 +129,8 @@ jobs:
             node --test web/office/tests/*.test.mjs &&
             npm ci --prefix web/office --ignore-scripts --no-audit --no-fund &&
             cd web/office &&
-            npx playwright install --with-deps chromium &&
+            test -x "$SMARTPLAN_CHROMIUM_BINARY" &&
+            "$SMARTPLAN_CHROMIUM_BINARY" --version &&
             node tests/e2e.cjs
           } 2>&1 | tee "$smartplan_browser_log"
           smartplan_browser_exit=${PIPESTATUS[0]}

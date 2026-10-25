@@ -10,6 +10,7 @@ import 'offline_assets.dart';
 
 part 'offline_imports.dart';
 part 'offline_workspace.dart';
+part 'business_offline.dart';
 
 /// Plan-only offline workspace. Its scoped seven-day token stays in OS secure storage.
 class OfflinePlans extends ChangeNotifier {
@@ -58,7 +59,9 @@ class OfflinePlans extends ChangeNotifier {
       (_state?['import_outbox'] as List? ?? []).length +
       (_state?['plan_delete_outbox'] as List? ?? []).length +
       (_state?['import_delete_outbox'] as List? ?? []).length +
-      (_state?['workspace_outbox'] as List? ?? []).length;
+      (_state?['workspace_outbox'] as List? ?? []).length +
+      (_state?['business_time_outbox'] as List? ?? []).length +
+      (_state?['business_media_outbox'] as List? ?? []).length;
   bool get syncing => _syncing;
   void changed() {
     if (!_disposed) notifyListeners();
@@ -94,14 +97,24 @@ class OfflinePlans extends ChangeNotifier {
     return next;
   }
 
-  Future<void> login(Map<String, dynamic> user, List<dynamic> projects) async {
+  Future<void> login(
+    Map<String, dynamic> user,
+    List<dynamic> projects, {
+    bool businessTime = false,
+    bool fieldMedia = false,
+  }) async {
     _epoch++;
     await _tail;
     _state = null;
     _vault = null;
     final vault = await device.open(server, user['id'], create: true);
     final grant = Map<String, dynamic>.from(
-      await api.call('/api/offline/access', {}),
+      await api.call(
+        (businessTime || fieldMedia)
+            ? '/api/business/offline/access'
+            : '/api/offline/access',
+        {},
+      ),
     );
     transport.token = grant['token'];
     await device.saveSession(server, user['id'], transport.token);
@@ -109,6 +122,12 @@ class OfflinePlans extends ChangeNotifier {
     final state =
         await vault.read() ?? <String, dynamic>{'records': {}, 'outbox': []};
     state.addAll({
+      'time_events_supported':
+          businessTime &&
+          (grant['capabilities'] as List? ?? []).contains('time_events'),
+      'field_media_supported':
+          fieldMedia &&
+          (grant['capabilities'] as List? ?? []).contains('field_media'),
       'cache_schema': 1,
       'user': user,
       'projects': projects,
@@ -876,6 +895,18 @@ class OfflinePlans extends ChangeNotifier {
       if (epoch == _epoch && permitted) await _syncDeletions(epoch, token);
       if (epoch == _epoch && transport.token == token && permitted)
         await _syncWorkspace(epoch, token);
+      final businessPending =
+          (_state?['business_time_outbox'] as List? ?? []).isNotEmpty ||
+          (_state?['business_media_outbox'] as List? ?? []).isNotEmpty;
+      if (epoch == _epoch &&
+          transport.token == token &&
+          permitted &&
+          businessPending &&
+          await _businessWritesAvailable(epoch, token)) {
+        await _syncBusinessTime(epoch, token);
+        if (epoch == _epoch && transport.token == token && permitted)
+          await _syncBusinessMedia(epoch, token);
+      }
     } catch (e) {
       if (epoch == _epoch && active) {
         notice = 'Synchronisierung nicht abgeschlossen. Lokale Eingaben bleiben gespeichert. Bitte Speicherplatz und Verbindung prüfen.';

@@ -16,6 +16,8 @@ import 'plan_pages.dart';
 import 'project_workspace_forms.dart';
 import 'mail_attachment_widgets.dart';
 import 'project_integration_widgets.dart';
+import 'business_session.dart';
+import 'business_shell.dart';
 
 const projectSections = [
   'Übersicht',
@@ -103,6 +105,42 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   final actionRequests = <String, String>{};
   final accessAllowed = ValueNotifier<bool>(true);
   late final ProjectIntegrationsController integrations;
+  late final BusinessSession business;
+  List<String> get businessSections => [
+    if (business.hasModule('foundation') && business.can('documents.classify'))
+      'Unterlagenfreigabe',
+    if (business.hasModule('documents') && business.can('finance.read'))
+      'Belege',
+    if ((business.hasModule('time') && business.can('time.own')) ||
+        widget.repository?.timeEventsSupported == true)
+      'Arbeitszeit',
+    if (business.hasModule('planning') && business.can('planning.read'))
+      'Einsatzplanung',
+    if (business.hasModule('inventory') && business.can('inventory.read'))
+      'Material',
+    if (business.hasModule('inventory') && business.can('finance.read'))
+      'Kalkulation',
+    if (business.hasModule('finance') && business.can('finance.read'))
+      'Finanzen',
+    if (business.hasModule('operations') && business.can('documents.read'))
+      'Dokumentation',
+    if ((business.hasModule('operations') && business.can('documents.read')) ||
+        widget.repository?.fieldMediaSupported == true)
+      'Fotos',
+    if (business.hasModule('maintenance') && business.can('documents.read'))
+      'Wartung',
+  ];
+  List<String> get visibleSections => [...projectSections, ...businessSections];
+  IconData sectionIcon(int index) => index < _sectionIcons.length
+      ? _sectionIcons[index]
+      : switch (visibleSections[index]) {
+          'Belege' => Icons.receipt_long_outlined,
+          'Arbeitszeit' => Icons.timer_outlined,
+          'Einsatzplanung' => Icons.calendar_view_week_outlined,
+          'Material' => Icons.inventory_2_outlined,
+          'Dokumentation' => Icons.photo_library_outlined,
+          _ => Icons.handyman_outlined,
+        };
   int section = 0;
   bool loading = true,
       refreshing = false,
@@ -139,6 +177,15 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     project = Map<String, dynamic>.from(widget.project);
     projectChanges = ValueNotifier(project);
     initialToken = widget.api.token;
+    business = BusinessSession(
+      api: widget.api,
+      projectId: widget.project['id'],
+      projects: [widget.project],
+      offlineMode: widget.offlineMode,
+      onDenied: denyAccess,
+    );
+    business.addListener(businessChanged);
+    unawaited(business.load());
     widget.api.addListener(accessChanged);
     widget.repository?.addListener(accessChanged);
     integrations = ProjectIntegrationsController(
@@ -159,6 +206,13 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
       }
     }
     unawaited(reload());
+  }
+
+  void businessChanged() {
+    if (!mounted) return;
+    setState(() {
+      if (section >= visibleSections.length) section = 0;
+    });
   }
 
   void applySnapshot(Map<String, dynamic> snapshot) {
@@ -190,6 +244,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   void denyAccess() {
     if (!mounted) return;
     accessAllowed.value = false;
+    if (!business.denied) business.revoke();
     setState(() {
       denied = true;
       dashboard = null;
@@ -221,6 +276,8 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     widget.api.removeListener(accessChanged);
     widget.repository?.removeListener(accessChanged);
     integrations.dispose();
+    business.removeListener(businessChanged);
+    business.dispose();
     accessAllowed.dispose();
     projectChanges.dispose();
     super.dispose();
@@ -1411,7 +1468,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
           'appointments' =>
             'Termine im Projekt und bei Bedarf im eigenen Kalender.',
           'diary' => 'Arbeiten, Hinweise und nächste Schritte je Tag.',
-          _ => 'Projektunterlagen und Verweise an einem Ort.',
+          _ => 'Freigegebene Unterlagen und Verweise für Ihren Projektzugriff.',
         },
         action: enabled && canWrite
             ? FilledButton.icon(
@@ -1559,7 +1616,10 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
               ? null
               : () async {
                   await reload();
-                  if (mounted && !denied) await integrations.refresh();
+                  if (mounted && !denied) {
+                    await integrations.refresh();
+                    await business.load();
+                  }
                 },
           icon: const Icon(Icons.refresh),
         ),
@@ -1604,17 +1664,17 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                           initialValue: section,
                           decoration: InputDecoration(
                             labelText: 'Projektbereich',
-                            prefixIcon: Icon(_sectionIcons[section], size: 20),
+                            prefixIcon: Icon(sectionIcon(section), size: 20),
                           ),
                           items: [
                             for (
                               var index = 0;
-                              index < projectSections.length;
+                              index < visibleSections.length;
                               index++
                             )
                               DropdownMenuItem(
                                 value: index,
-                                child: Text(projectSections[index]),
+                                child: Text(visibleSections[index]),
                               ),
                           ],
                           onChanged: (value) {
@@ -1635,7 +1695,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                             children: [
                               for (
                                 var index = 0;
-                                index < projectSections.length;
+                                index < visibleSections.length;
                                 index++
                               )
                                 Padding(
@@ -1654,8 +1714,8 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                                       ),
                                     ),
                                     onPressed: () => selectSection(index),
-                                    icon: Icon(_sectionIcons[index], size: 18),
-                                    label: Text(projectSections[index]),
+                                    icon: Icon(sectionIcon(index), size: 18),
+                                    label: Text(visibleSections[index]),
                                   ),
                                 ),
                             ],
@@ -1703,6 +1763,19 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                                     widget.reportsBuilder,
                                   )
                                 : const SizedBox(),
+                            for (
+                              var index = 0;
+                              index < businessSections.length;
+                              index++
+                            )
+                              visited.contains(projectSections.length + index)
+                                  ? BusinessProjectFeature(
+                                      key: ValueKey(businessSections[index]),
+                                      session: business,
+                                      feature: businessSections[index],
+                                      repository: widget.repository,
+                                    )
+                                  : const SizedBox(),
                           ]
                           .asMap()
                           .entries

@@ -277,7 +277,7 @@ Die folgende Liste nennt noch zu bestätigende Betriebspflichten. Sie behauptet 
 | Phase0 Gap-Analyse/Zielarchitektur | [PR #2](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/pull/2), gemergt; Reviewbasis `99cee2`. |
 | Gmail-/Intake-Vertragstests zuerst | [PR #3](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/pull/3), gemergt nach vollständig grünen GitHub-Prüfungen; Testcommit `6564104`, Merge `c0f7a4177b8f101147d656845fbbf48f62b1c81e`. |
 | Backend/Migration/Businessdienste/Browser | [PR #4](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/pull/4). Bezieht die beschriebenen Kompatibilitäts-/Rechteänderungen ausdrücklich ein. |
-| Native App/Offline | Separater PR auf Basis des Backend-Meilensteins; Link wird unmittelbar nach Anlage ergänzt. Die nativen UI-/Offlinequellen sind von Server-/Browsernachweisen getrennt. |
+| Native App/Offline | [PR #5](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/pull/5), auf Basis des Backend-Meilensteins. Die nativen UI-/Offlinequellen sind von Server-/Browsernachweisen getrennt. |
 | Betriebsleitfaden | [Betrieb und Update](BETRIEB_BUSINESS_UPDATE.md), einschließlich SSH-Verbindung, Rollentrennung, Wiederherstellung und Werkzeug-/Versandvoraussetzungen. Dieser Bericht ersetzt keine Server-/Anbietereinrichtung. |
 
 Vor dem produktiven Einsatz stehen der finale gemeinsame CI-Lauf am tatsächlichen Commit, die aufgeführten Plattform-/Betriebsabnahmen und die offene fachliche/rechtliche Prüfung. Für die erste Testeinführung können synthetische Anfrage→Projekt→Planung→Zeit→Dokumentationsabläufe genutzt werden; eigene echte Finanzbelege und Kundenmails werden erst im bewusst eingerichteten Betrieb freigegeben.

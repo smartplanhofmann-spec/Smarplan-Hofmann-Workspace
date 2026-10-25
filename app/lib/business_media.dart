@@ -226,13 +226,22 @@ class _BusinessMediaPageState extends State<BusinessMediaPage> {
         );
       final digest = hex((await Sha256().hash(bytes)).bytes);
       if (!mounted || current != epoch || !allowed) return;
+      // cross_file's name getter only splits on Platform.pathSeparator. A
+      // valid mixed-separator Windows picker path can therefore retain a
+      // directory component. Parse the selected path using the actual host.
+      final sourceSegments = File(file.path).uri.pathSegments;
+      if (sourceSegments.isEmpty || sourceSegments.last.isEmpty)
+        throw const ApiException(
+          400,
+          'Die ausgewählte Datei hat keinen gültigen Dateinamen. Bitte erneut auswählen.',
+        );
       captureId = offlineId();
       cursor = 0;
       remote = null;
       source = bytes;
       manifest = {
         'project_id': widget.session.projectId,
-        'filename': file.name,
+        'filename': sourceSegments.last,
         'media_type': type,
         'size': bytes.length,
         'sha256': digest,

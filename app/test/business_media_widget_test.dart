@@ -15,6 +15,15 @@ import 'package:smartplan_office/offline_vault.dart';
 import 'business_offline_media_test.dart' show FieldServer, fieldPng;
 import 'offline_plans_test.dart' show TestDevice, idle;
 
+/// Reproduces picker metadata from cross_file's separator-only name getter
+/// while continuing to read the real synthetic file through its actual path.
+class PickerNamedFile extends XFile {
+  PickerNamedFile(super.path, this.pickerName);
+  final String pickerName;
+  @override
+  String get name => pickerName;
+}
+
 class HeldMediaVault extends OfflineVault {
   HeldMediaVault(super.directory, super.key);
   bool holdMediaCommit = false;
@@ -93,11 +102,30 @@ Future<void> waitForCapture(
 }
 
 void main() {
-  for (final slowCommit in [false, true]) {
+  for (final scenario in [
+    (
+      slowCommit: false,
+      pickerName: null,
+      label: 'Camera capture acknowledges an encrypted photo and note before deleting its temporary original',
+    ),
+    (
+      slowCommit: true,
+      pickerName: null,
+      label: 'A delayed encrypted photo commit keeps the original until durable acknowledgement and cleanup',
+    ),
+    (
+      slowCommit: false,
+      pickerName: 'temp-folder/camera.png',
+      label: 'A mixed Windows picker filename stores only the actual selected file basename',
+    ),
+    (
+      slowCommit: false,
+      pickerName: r'C:\Users\Example\Pictures\camera.png',
+      label: 'Windows picker name metadata cannot turn the saved original name into a path',
+    ),
+  ]) {
     testWidgets(
-      slowCommit
-          ? 'A delayed encrypted photo commit keeps the original until durable acknowledgement and cleanup'
-          : 'Camera capture acknowledges an encrypted photo and note before deleting its temporary original',
+      scenario.label, // Every picker variant uses the real encrypted commit.
       (tester) async {
         final folder = (await tester.runAsync(
           () => Directory.systemTemp.createTemp('smartplan-camera-ui-'),
@@ -125,7 +153,7 @@ void main() {
           await idle(repo);
         });
         server.online = false;
-        device.vault!.holdMediaCommit = slowCommit;
+        device.vault!.holdMediaCommit = scenario.slowCommit;
         final session = BusinessSession(
           api: server,
           projectId: 'p',
@@ -139,7 +167,9 @@ void main() {
                 body: BusinessMediaPage(
                   session: session,
                   repository: repo,
-                  takePhoto: () async => XFile(camera.path),
+                  takePhoto: () async => scenario.pickerName == null
+                      ? XFile(camera.path)
+                      : PickerNamedFile(camera.path, scenario.pickerName!),
                 ),
               ),
             ),
@@ -150,7 +180,22 @@ void main() {
             'Synthetischer Leitungsdurchbruch',
           );
           await tester.tap(find.text('Foto aufnehmen'));
-          if (slowCommit) {
+          if (scenario.pickerName != null) {
+            await waitForCapture(
+              tester,
+              repo,
+              camera,
+              reached: () =>
+                  captureAcknowledged() ||
+                  find
+                      .textContaining('Ungültiger Dateiname')
+                      .evaluate()
+                      .isNotEmpty,
+              phase: 'the selected file basename regression',
+            );
+            expect(find.textContaining('Ungültiger Dateiname'), findsNothing);
+          }
+          if (scenario.slowCommit) {
             await waitForCapture(
               tester,
               repo,
@@ -187,6 +232,7 @@ void main() {
               repo.fieldPhotos('p').single['caption'],
               'Synthetischer Leitungsdurchbruch',
             );
+            expect(repo.fieldPhotos('p').single['filename'], 'camera.png');
             final stored = await OfflineVault(
               device.vault!.directory,
               device.vault!.key,

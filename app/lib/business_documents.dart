@@ -21,7 +21,17 @@ const businessDocumentKinds = {
   'advance_invoice': 'Abschlagsrechnung',
   'cumulative_invoice': 'Kumulierte Rechnung',
   'final_invoice': 'Schlussrechnung',
-  'cancellation': 'Storno',
+};
+String? _documentKindName(Object? kind) => kind == 'credit_note'
+    ? 'Stornogutschrift'
+    : kind == 'cancellation'
+    ? 'Storno'
+    : businessDocumentKinds[kind];
+const _cancellableDocumentKinds = {
+  'invoice',
+  'advance_invoice',
+  'cumulative_invoice',
+  'final_invoice',
 };
 const businessPositionKinds = {
   'labor': 'Lohn',
@@ -49,10 +59,9 @@ class BusinessDocumentsPage extends StatelessWidget {
     writePermission: 'finance.write',
     fields: const [],
     createLabel: 'Beleg erstellen',
-    titleOf: (r) =>
-        '${r['title'] ?? businessDocumentKinds[r['kind']] ?? 'Beleg'}',
+    titleOf: (r) => '${r['title'] ?? _documentKindName(r['kind']) ?? 'Beleg'}',
     subtitleOf: (r) =>
-        '${businessDocumentKinds[r['kind']] ?? 'Beleg'} · ${r['number'] ?? 'Ohne Ausgabenummer'} · ${businessDocumentStates[r['status']] ?? r['status']}',
+        '${_documentKindName(r['kind']) ?? 'Beleg'} · ${r['number'] ?? 'Ohne Ausgabenummer'} · ${businessDocumentStates[r['status']] ?? r['status']}',
     onCreate: () async {
       await Navigator.push<void>(
         context,
@@ -88,7 +97,12 @@ class BusinessDocumentEditor extends StatefulWidget {
 
 class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   final form = GlobalKey<FormState>();
-  late final TextEditingController title, notes, issue, due, buyerReference;
+  late final TextEditingController title,
+      notes,
+      issue,
+      due,
+      buyerReference,
+      cancelReason;
   final templateName = TextEditingController(), intro = TextEditingController();
   bool get mayView => !financialDenied && widget.session.can('finance.read');
   bool get canEdit =>
@@ -127,6 +141,8 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
       widget.session.hasFeature('measurement_transfer') &&
       widget.session.can('documents.read');
   bool get supportsBilling => widget.session.hasFeature('billing_contact');
+  bool get metadataOnly =>
+      !widget.templateMode && widget.document?['kind'] == 'credit_note';
 
   void denyFinancialView() {
     if (!mounted) return;
@@ -148,6 +164,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
         issue,
         due,
         buyerReference,
+        cancelReason,
         intro,
         hourlyRate,
         timeTax,
@@ -174,12 +191,18 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
     intro.text = d['intro'] ?? '';
     title = TextEditingController(text: d['title'] ?? '');
     notes = TextEditingController(text: d['notes'] ?? '');
+    final initialIssue =
+        d['issue_date'] ?? DateTime.now().toIso8601String().substring(0, 10);
     issue = TextEditingController(
-      text:
-          d['issue_date'] ?? DateTime.now().toIso8601String().substring(0, 10),
+      text: metadataOnly ? businessDate(initialIssue) : initialIssue,
     );
-    due = TextEditingController(text: d['due_date'] ?? '');
+    due = TextEditingController(
+      text: metadataOnly && d['due_date'] != null
+          ? businessDate(d['due_date'])
+          : d['due_date'] ?? '',
+    );
     buyerReference = TextEditingController(text: d['buyer_reference'] ?? '');
+    cancelReason = TextEditingController(text: d['cancel_reason'] ?? '');
     final buyer = businessMap(d['buyer']);
     for (final name in [
       'name',
@@ -208,7 +231,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
       List<String>.from(d['previous_document_ids'] as List? ?? []),
     );
     widget.session.addListener(changed);
-    if (!widget.templateMode) {
+    if (!widget.templateMode && !metadataOnly) {
       loadInputs();
       if (widget.document == null) loadBillingContact(automatically: true);
     }
@@ -696,7 +719,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   @override
   void dispose() {
     widget.session.removeListener(changed);
-    for (final c in [title, notes, issue, due, buyerReference]) {
+    for (final c in [title, notes, issue, due, buyerReference, cancelReason]) {
       c.clear();
       c.dispose();
     }
@@ -745,6 +768,10 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
       context: context,
       builder: (_) => BusinessEditor(
         session: widget.session,
+        readPermission: 'finance.read',
+        writePermission: widget.templateMode
+            ? 'settings.manage'
+            : 'finance.write',
         title: index == null ? 'Position hinzufügen' : 'Position bearbeiten',
         initial: initial,
         fields: const [
@@ -787,7 +814,11 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
           ),
         ],
         onSave: (values) async {
-          if (!mounted) return;
+          if (!mounted || !canEdit)
+            throw const ApiException(
+              403,
+              'Die Position ist nicht mehr freigegeben.',
+            );
           setState(() {
             if (index == null)
               positions.add(values);
@@ -802,10 +833,11 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
 
   Future<void> save() async {
     if (busy || !canEdit || !(form.currentState?.validate() ?? false)) return;
-    if ((!widget.templateMode && project == null) ||
-        (positions.isEmpty &&
-            selectedTimeIds.isEmpty &&
-            measurementTransfers.isEmpty)) {
+    if (!metadataOnly &&
+        ((!widget.templateMode && project == null) ||
+            (positions.isEmpty &&
+                selectedTimeIds.isEmpty &&
+                measurementTransfers.isEmpty))) {
       setState(
         () => error = 'Bitte wählen Sie ein Projekt und erfassen Sie mindestens eine Position.',
       );
@@ -820,7 +852,22 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
       error = null;
     });
     try {
-      if (widget.templateMode) {
+      if (metadataOnly) {
+        frozen ??= {
+          'revision': widget.document!['revision'],
+          'title': title.text.trim(),
+          'issue_date': businessParseDate(issue.text.trim())
+              .toIso8601String()
+              .substring(0, 10),
+          if (due.text.trim().isNotEmpty)
+            'due_date': businessParseDate(due.text.trim())
+                .toIso8601String()
+                .substring(0, 10),
+          'notes': notes.text.trim(),
+          'intro': intro.text,
+          'cancel_reason': cancelReason.text.trim(),
+        };
+      } else if (widget.templateMode) {
         frozen ??= {
           'name': templateName.text.trim(),
           'kind': kind,
@@ -909,9 +956,157 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
     }
   }
 
+  String? creditNoteDateError(String? value, {bool optional = false}) {
+    final text = (value ?? '').trim();
+    if (optional && text.isEmpty) return null;
+    try {
+      businessParseDate(text);
+      return null;
+    } catch (_) {
+      return 'Bitte gültiges Datum eingeben.';
+    }
+  }
+
+  Widget creditNoteEditor(bool enabled) {
+    final source = widget.document!,
+        buyer = businessMap(widget.document!['buyer']);
+    final totals = businessMap(source['totals']);
+    String decimalComma(Object? value) => '$value'.replaceAll('.', ',');
+    return Scaffold(
+      appBar: AppBar(title: const Text('Stornogutschrift bearbeiten')),
+      body: !mayView
+          ? const Center(child: Text('Der Zugang ist nicht mehr verfügbar.'))
+          : ListView(
+              padding: const EdgeInsets.all(24),
+              children: [
+                const Notice(
+                  'Empfänger, Positionen und Beträge stammen aus der Originalrechnung und bleiben unverändert. Sie können Titel, Datum und Begleittexte anpassen.',
+                ),
+                if (error != null) Notice(error!, error: true),
+                Form(
+                  key: form,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      TextFormField(
+                        key: const ValueKey('business-document-title'),
+                        controller: title,
+                        enabled: enabled,
+                        decoration: const InputDecoration(labelText: 'Titel'),
+                        validator: (value) => (value ?? '').trim().isEmpty
+                            ? 'Bitte Titel eingeben.'
+                            : null,
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: issue,
+                        enabled: enabled,
+                        decoration: const InputDecoration(
+                          labelText: 'Belegdatum (TT.MM.JJJJ)',
+                        ),
+                        validator: creditNoteDateError,
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: due,
+                        enabled: enabled,
+                        decoration: const InputDecoration(
+                          labelText: 'Zahlungsziel (TT.MM.JJJJ, optional)',
+                        ),
+                        validator: (value) =>
+                            creditNoteDateError(value, optional: true),
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        key: const ValueKey('business-document-cancel-reason'),
+                        controller: cancelReason,
+                        enabled: enabled,
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          labelText: 'Stornogrund',
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: intro,
+                        enabled: enabled,
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          labelText: 'Einleitung / Textbaustein',
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: notes,
+                        enabled: enabled,
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          labelText: 'Hinweise / Fußtext',
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      FilledButton.icon(
+                        onPressed: busy || !canEdit ? null : save,
+                        icon: Icon(
+                          busy ? Icons.hourglass_top : Icons.save_outlined,
+                        ),
+                        label: Text(
+                          uncertain
+                              ? 'Dieselben Eingaben erneut senden'
+                              : 'Entwurf speichern',
+                        ),
+                      ),
+                      if (uncertain)
+                        const Notice(
+                          'Die letzte Speicherung ist unbestätigt. Ihre Eingaben bleiben unverändert; erneutes Senden verwendet denselben Vorgang.',
+                        ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Originalrechnung: ${source['cancelled_number'] ?? 'Zugeordnete Rechnung'}',
+                        ),
+                        const SizedBox(height: 8),
+                        Text('${buyer['name'] ?? ''}'),
+                        if (buyer['address_line'] != null)
+                          Text('${buyer['address_line']}'),
+                        Text(
+                          '${buyer['postal_code'] ?? ''} ${buyer['city'] ?? ''}'
+                              .trim(),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Netto: ${businessMoney(totals['net'])} · Brutto: ${businessMoney(totals['gross'])}',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                for (final position in positions)
+                  Card(
+                    child: ListTile(
+                      title: Text('${position['description']}'),
+                      subtitle: Text(
+                        '${decimalComma(position['quantity'])} ${position['unit']} · ${businessMoney(position['unit_price_net'])} netto · ${decimalComma(position['tax_rate'])} % Umsatzsteuer',
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final enabled = !busy && !uncertain && canEdit;
+    if (metadataOnly) return creditNoteEditor(enabled);
     final choices = {
       for (final e in businessDocumentKinds.entries)
         if (widget.templateMode ||
@@ -919,6 +1114,9 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
             widget.session.canWrite('finance.write'))
           e.key: e.value,
     };
+    // Existing kinds stay readable when editing rights change. Credit notes
+    // come from cancellation, rather than the new-document kind selector.
+    choices.putIfAbsent(kind, () => _documentKindName(kind) ?? kind);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -1450,6 +1648,11 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
       !accessDenied &&
       widget.session.allowed &&
       widget.session.can('finance.read');
+  bool get canCancel =>
+      allowed &&
+      widget.session.canWrite('finance.issue') &&
+      document?['status'] == 'final' &&
+      _cancellableDocumentKinds.contains(document?['kind']);
 
   bool hideOnDenied(Object error) {
     if (error is! ApiException || ![401, 403, 404].contains(error.status))
@@ -1491,6 +1694,7 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
 
   Future<void> load() async {
     final current = ++epoch;
+    setState(() => error = null);
     try {
       final d = businessMap(
         await widget.session.read('/documents/${widget.id}'),
@@ -1515,7 +1719,12 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
   }
 
   Future<void> action(String action, Map<String, dynamic> values) async {
-    if (busy || document == null || !allowed) return;
+    final permission = action == 'finalize' ? 'finance.issue' : 'finance.write';
+    if (busy ||
+        document == null ||
+        !allowed ||
+        !widget.session.canWrite(permission))
+      return;
     setState(() {
       busy = true;
       error = null;
@@ -1633,14 +1842,39 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
         await widget.session.read('/documents/${widget.id}/email-preview'),
       );
       if (!mounted || !allowed) return;
-      final confirmed = await businessConfirm(
-        context,
-        title: 'E-Mail vor Versand prüfen',
-        message:
-            'An: ${preview['recipient']}\nBetreff: ${preview['subject']}\n\n${preview['text']}\n\nAnhänge: ${(preview['attachments'] as List? ?? []).map((a) => a['filename']).join(', ')}\n\nDer Empfang durch den Kunden wird nicht automatisch bestätigt.',
-        action: 'Geprüfte E-Mail freigeben',
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AnimatedBuilder(
+          animation: widget.session,
+          builder: (_, _) => AlertDialog(
+            title: const Text('E-Mail vor Versand prüfen'),
+            content: SingleChildScrollView(
+              child: Text(
+                allowed
+                    ? 'An: ${preview['recipient']}\nBetreff: ${preview['subject']}\n\n${preview['text']}\n\nAnhänge: ${(preview['attachments'] as List? ?? []).map((a) => a['filename']).join(', ')}\n\nDer Empfang durch den Kunden wird nicht automatisch bestätigt.'
+                    : 'Der Zugang ist nicht mehr verfügbar.',
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, false),
+                child: const Text('Abbrechen'),
+              ),
+              FilledButton(
+                onPressed: allowed && widget.session.canWrite('finance.approve')
+                    ? () => Navigator.pop(dialogContext, true)
+                    : null,
+                child: const Text('Geprüfte E-Mail freigeben'),
+              ),
+            ],
+          ),
+        ),
       );
-      if (!confirmed || !mounted || !allowed) return;
+      if (confirmed != true ||
+          !mounted ||
+          !allowed ||
+          !widget.session.canWrite('finance.approve'))
+        return;
       final result = businessMap(
         await widget.session.command(
           'document-mail-${widget.id}',
@@ -1670,12 +1904,14 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
 
   Future<void> cancel() async {
     final d = document;
-    if (d == null || !widget.session.canWrite('finance.issue')) return;
+    if (d == null || !canCancel) return;
     String? created;
     await showDialog<bool>(
       context: context,
       builder: (_) => BusinessEditor(
         session: widget.session,
+        readPermission: 'finance.read',
+        writePermission: 'finance.issue',
         title: 'Stornoentwurf erstellen',
         fields: const [
           BusinessField(
@@ -1686,6 +1922,11 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
           ),
         ],
         onSave: (values) async {
+          if (!mounted || !canCancel)
+            throw const ApiException(
+              403,
+              'Das Storno ist nicht mehr freigegeben.',
+            );
           final result = businessMap(
             await widget.session.command(
               'cancel-${widget.id}',
@@ -1717,7 +1958,7 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
       appBar: AppBar(
         title: Text(
           allowed
-              ? '${d?['number'] ?? businessDocumentKinds[d?['kind']] ?? 'Beleg'}'
+              ? '${d?['number'] ?? _documentKindName(d?['kind']) ?? 'Beleg'}'
               : 'Beleg',
         ),
       ),
@@ -1738,7 +1979,7 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '${businessDocumentKinds[d['kind']] ?? d['kind']} · ${businessDocumentStates[d['status']] ?? d['status']} · ${businessDate(d['issue_date'])}',
+                  '${_documentKindName(d['kind']) ?? d['kind']} · ${businessDocumentStates[d['status']] ?? d['status']} · ${businessDate(d['issue_date'])}',
                 ),
                 const SizedBox(height: 16),
                 if (!draft)
@@ -1813,9 +2054,7 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
                         icon: const Icon(Icons.mail_outline),
                         label: const Text('E-Mail prüfen'),
                       ),
-                    if (!draft &&
-                        d['kind'] != 'cancellation' &&
-                        widget.session.canWrite('finance.issue'))
+                    if (canCancel)
                       TextButton(
                         onPressed: busy ? null : cancel,
                         child: const Text('Stornoentwurf erstellen'),

@@ -60,7 +60,10 @@ class _BusinessDocumentAccessPageState
       setState(() => loading = false);
       return;
     }
-    setState(() => loading = true);
+    setState(() {
+      loading = true;
+      error = null;
+    });
     try {
       final project = widget.session.projectId;
       final replies = await Future.wait([
@@ -142,6 +145,11 @@ class _BusinessDocumentAccessPageState
           ),
         ],
         onSave: (values) async {
+          if (!mounted || !widget.session.canWrite('documents.classify'))
+            throw const ApiException(
+              403,
+              'Die Freigabe ist nicht mehr verfügbar.',
+            );
           if (stale)
             throw const ApiException(
               409,

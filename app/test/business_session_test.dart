@@ -12,6 +12,7 @@ class BusinessTestApi extends OfficeApi {
   final calls = <({String path, Map<String, dynamic>? body})>[];
   Completer<dynamic>? delayed;
   bool missing = false, loseAck = false, readMode = false;
+  List<String>? availableFeatures;
   @override
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
     calls.add((
@@ -29,6 +30,7 @@ class BusinessTestApi extends OfficeApi {
         'generation': 1,
         'capabilities': ['business_foundation', 'business_documents'],
         'permissions': ['contacts.read', 'documents.read'],
+        if (availableFeatures != null) 'features': availableFeatures,
       };
     }
     if (delayed != null) return delayed!.future;
@@ -47,6 +49,26 @@ class BusinessTestApi extends OfficeApi {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  test('Additive feature support neither grants rights nor survives logout or removal', () async {
+    final api = BusinessTestApi();
+    final session = BusinessSession(api: api);
+    addTearDown(session.dispose);
+    addTearDown(api.dispose);
+    await session.load();
+    expect(session.hasFeature('quote_pricing'), isFalse);
+    api.availableFeatures = ['quote_pricing'];
+    await session.load();
+    expect(session.hasFeature('quote_pricing'), isTrue);
+    expect(session.can('finance.read'), isFalse);
+    api.availableFeatures = null;
+    await session.load();
+    expect(session.features, isEmpty);
+    api.availableFeatures = ['quote_pricing'];
+    await session.load();
+    api.logout();
+    expect(session.features, isEmpty);
+    expect(session.hasFeature('quote_pricing'), isFalse);
+  });
   test(
     'Permissions come from server and unsupported modules remain absent',
     () async {

@@ -51,7 +51,7 @@ class BusinessSession extends ChangeNotifier {
   int _epoch = 0;
   Object? generation;
   String? error;
-  Set<String> permissions = {}, capabilities = {};
+  Set<String> permissions = {}, capabilities = {}, features = {};
   final _pending =
       <
         String,
@@ -79,6 +79,8 @@ class BusinessSession extends ChangeNotifier {
       supported &&
       (capabilities.contains(module) ||
           capabilities.contains('business_$module'));
+  bool hasFeature(String feature) =>
+      allowed && supported && features.contains(feature);
   bool pending(String key) => _pending.containsKey(key);
 
   void _changed() {
@@ -104,6 +106,7 @@ class BusinessSession extends ChangeNotifier {
     loading = false;
     permissions = {};
     capabilities = {};
+    features = {};
     _pending.clear();
     _metaTimer?.cancel();
     error =
@@ -144,6 +147,9 @@ class BusinessSession extends ChangeNotifier {
       final nextGeneration = meta['generation'];
       generation = nextGeneration;
       capabilities = (meta['capabilities'] as List).whereType<String>().toSet();
+      features = meta['features'] is List
+          ? (meta['features'] as List).whereType<String>().toSet()
+          : {};
       permissions = (meta['permissions'] as List).whereType<String>().toSet();
       readonly = meta['readonly'] == true;
       supported =
@@ -163,6 +169,7 @@ class BusinessSession extends ChangeNotifier {
         supported = false;
         permissions = {};
         capabilities = {};
+        features = {};
       } else {
         error = e.message;
       }

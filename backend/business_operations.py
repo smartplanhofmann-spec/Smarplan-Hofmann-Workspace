@@ -21,6 +21,10 @@ from core import Problem, Signature, canonical
 CHUNK_SIZE = 262144
 MAX_MEDIA_SIZE = 20 * 1024 * 1024
 MEDIA_TYPES = {'image/png': 'PNG', 'image/jpeg': 'JPEG', 'image/webp': 'WEBP', 'application/pdf': 'PDF'}
+# Gallery/detail responses do not consume the original. Keeping this projection
+# explicit prevents a list read from materializing every photo BLOB in memory.
+MEDIA_METADATA_COLUMNS = ('id,project_id,filename,media_type,size,sha256,status,metadata_json,'
+                          'revision,created_by,created_at,updated_by,updated_at')
 ID = re.compile(r'[a-f0-9]{32}')
 
 
@@ -411,14 +415,17 @@ class BusinessOperations(Domain):
 
     def get_media(self, actor, project_id, media_id):
         with self.office.lock:
-            row=self.row('business_media',project_id,media_id); self._media_access(actor,row)
+            row=self.office.db.execute('SELECT '+MEDIA_METADATA_COLUMNS+' FROM business_media WHERE id=? AND project_id=?',
+                                       (media_id,project_id)).fetchone()
+            if row is None: raise Problem(404,'Eintrag nicht verfügbar')
+            self._media_access(actor,row)
             return self._media(row)
 
     def list_media(self, actor, project_id):
         with self.office.lock:
             self.access(actor, 'documents.read', project_id)
             result=[]
-            for row in self.office.db.execute('SELECT * FROM business_media WHERE project_id=? ORDER BY created_at,id',(project_id,)).fetchall():
+            for row in self.office.db.execute('SELECT '+MEDIA_METADATA_COLUMNS+' FROM business_media WHERE project_id=? ORDER BY created_at,id',(project_id,)).fetchall():
                 try: self._media_access(actor,row)
                 except Problem as error:
                     if error.status==403: continue
@@ -774,7 +781,13 @@ def _render_pdf(value):
 
 def _validate_integrity(office):
     api=BusinessOperations(office)
-    for row in office.db.execute('SELECT * FROM business_media').fetchall():
+    last_media_id=None
+    while True:
+        # A client-buffered PostgreSQL cursor would still retain every BLOB if
+        # only fetchone() changed. Bound the SQL result itself to one original.
+        row=office.db.execute('SELECT * FROM business_media'+(' WHERE id>?' if last_media_id is not None else '')+
+                              ' ORDER BY id LIMIT 1',(last_media_id,) if last_media_id is not None else ()).fetchone()
+        if row is None: break
         metadata=json.loads(row['metadata_json']); _annotations(metadata['annotations'])
         if metadata.get('classification') not in ('operational','financial','personnel','restricted') or metadata.get('purpose') not in ('site_photo','document','receipt') or (metadata['purpose']=='receipt' and metadata['classification']=='operational'):
             raise ValueError('Invalid media classification')
@@ -786,10 +799,14 @@ def _validate_integrity(office):
             content=bytes(row['original'] or b'')
             if len(content)!=row['size'] or hashlib.sha256(content).hexdigest()!=row['sha256'] or chunks: raise ValueError('Invalid original media')
             _image_check(content,row['media_type'])
+            del content
         elif row['original'] is not None: raise ValueError('Incomplete media has an original')
+        last_media_id=identifier(row['id'])
+        del row,chunks
     expected={}
     for table,kind,reader in [('business_media','media',api._media),('business_operation_entries','entry',api._entry),('business_checklists','checklist',api._record),('business_checklist_runs','checklist_run',api._record)]:
-        for row in office.db.execute(f'SELECT * FROM {table}').fetchall(): expected[(kind,row['id'])]=reader(row)
+        columns=MEDIA_METADATA_COLUMNS if kind=='media' else '*'
+        for row in office.db.execute(f'SELECT {columns} FROM {table}').fetchall(): expected[(kind,row['id'])]=reader(row)
     histories={}
     for row in office.db.execute('SELECT * FROM business_operation_versions ORDER BY kind,object_id,revision').fetchall():
         key=(row['kind'],row['object_id']); value=json.loads(row['payload_json']); history=histories.setdefault(key,[])

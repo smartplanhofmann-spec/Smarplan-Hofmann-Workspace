@@ -75,6 +75,9 @@ def snapshot_fingerprint(dsn):
             digest, count = hashlib.sha256(), 0
             query = sql.SQL('SELECT row_to_json(t)::text FROM public.{} t ORDER BY row_to_json(t)::text').format(sql.Identifier(table))
             with connection.cursor(name='release_fingerprint') as cursor:
+                # BYTEA becomes hex in JSON: batching 100 large originals can
+                # retain gigabytes. Bound client buffering to one complete row.
+                cursor.itersize = 1
                 cursor.execute(query)
                 for row in cursor:
                     digest.update(row[0].encode('utf-8'))

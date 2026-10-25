@@ -2,6 +2,8 @@
 # Runs the actual operator shell against synthetic services in a disposable FS.
 set -euo pipefail
 smartplan_repo="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+# Real Git/tar modes must be checked before the container's synthetic boundary.
+python3 "$smartplan_repo/scripts/test_release_archive.py"
 env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH \
   docker --host=unix:///var/run/docker.sock run --rm --network none \
   --mount "type=bind,src=$smartplan_repo,dst=/source,readonly" \

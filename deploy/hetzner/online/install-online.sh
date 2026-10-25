@@ -12,6 +12,8 @@ source /etc/os-release
 case "$(uname -m)" in aarch64|x86_64) ;; *) fail 'Nur ARM64 und x86-64 unterstützt.' ;; esac
 [[ "$(stat -c %u "$smartplan_repo")" == 0 ]] || fail 'Der Checkout muss root gehören.'
 [[ -z "$(git -C "$smartplan_repo" status --porcelain -- backend deploy/hetzner)" ]] || fail 'Lokale Quelländerungen zuerst prüfen.'
+smartplan_commit="$(git -C "$smartplan_repo" rev-parse HEAD)"
+[[ "$smartplan_commit" =~ ^[a-f0-9]{40}$ ]] || fail 'Ungültiger Quellstand.'
 for smartplan_path in /opt/smartplan-online /etc/smartplan-online /var/lib/smartplan-online /etc/systemd/system/smartplan-online.service /etc/systemd/system/smartplan-online-backup.service /etc/systemd/system/smartplan-online-backup.timer; do
   [[ ! -e "$smartplan_path" && ! -L "$smartplan_path" ]] || fail "Bereits vorhanden, zuerst prüfen: $smartplan_path"
 done
@@ -37,12 +39,12 @@ smartplan_listen="$(runuser -u postgres -- psql --no-psqlrc -Atqc 'SHOW listen_a
 install -d -m 0755 /opt/smartplan-online /opt/smartplan-online/app
 (
   umask 0022
-  git -C "$smartplan_repo" archive HEAD backend | tar -x -C /opt/smartplan-online/app
+  git -c tar.umask=0022 -C "$smartplan_repo" archive "$smartplan_commit" backend | tar -x -C /opt/smartplan-online/app
   python3 -m venv /opt/smartplan-online/venv
   /opt/smartplan-online/venv/bin/python -m pip install --requirement /opt/smartplan-online/app/backend/online/requirements.lock
   /opt/smartplan-online/venv/bin/python -m pip check
 )
-git -C "$smartplan_repo" rev-parse HEAD > /opt/smartplan-online/SOURCE_COMMIT
+printf '%s\n' "$smartplan_commit" > /opt/smartplan-online/SOURCE_COMMIT
 chmod 0644 /opt/smartplan-online/SOURCE_COMMIT
 useradd --system --user-group --no-create-home --home-dir /var/lib/smartplan-online --shell /usr/sbin/nologin smartplan-online
 install -d -m 0700 -o smartplan-online -g smartplan-online /var/lib/smartplan-online

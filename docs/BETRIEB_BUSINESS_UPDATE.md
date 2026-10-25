@@ -62,6 +62,10 @@ Im Businessmodus meldet `/ready` Version `0.12.0-online-pilot`, physisches Schem
 Schema 7, aber `compatibility_mode: legacy` ohne aktive Business-Schreibfreigabe.
 Bei unvollständiger Wiederherstellung ist die Bereitschaft gesperrt.
 
+## Abbruch wegen Archivdateirechten
+
+Die Meldung „Release darf nicht durch Gruppe oder andere Benutzer verändert werden“ wurde beim ersten 0.12-Update durch standardmäßig gruppenschreibbare Git-TAR-Dateirechte ausgelöst. Der [separate Server-Hotfix](HOTFIX_RELEASE_ARCHIVRECHTE.md) setzt die Git-Archivumask ausdrücklich und bindet den Export an den erfassten Commit. Für einen erneuten Versuch den geprüften Hotfix-Commit verwenden; die bestehende Rechteprüfung und erhaltene Sicherungen bleiben unverändert. Das Windows-Paket muss dafür nicht ersetzt werden.
+
 ## Abwärtskompatibilität und geänderte Rechte
 
 Die Gmail-Routen, SPIN-Authentifizierung, Nachrichtendaten, Duplikatquittungen und

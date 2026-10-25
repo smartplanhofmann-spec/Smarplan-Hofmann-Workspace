@@ -339,6 +339,8 @@ Kleine Conventional-Commit-PRs liefern prüfbare Teilfunktionen; mehrere freigeg
 | 9 Wartung | Anlagen, Verträge/Anhänge, Intervalle/Serien/Erinnerungen und Wartungshistorie/Servicebericht | Fälligkeit erzeugt genau einen geplanten Wartungsvorgang; Vertrag, Anlage und frühere Besuche bleiben nachvollziehbar |
 | 10 Optional | Eigene Telefon-/KI-/Zahlungs-/Koordinationsautomationen, erst nach stabilen Phasen 1–9 | Deaktivierbar, gesonderte Daten-/Versandfreigabe, beobachtbar; keine Automation erzeugt ungeprüft Rechnung, Zusage oder Kundennachricht |
 
+Phase 2 enthält bereits den minimalen Zahlungs- und Allokationskern für ausdrücklich bestätigte Anzahlungen/Teilzahlungen sowie Abschlags-, Schluss- und kumulierte Rechnungen. Phase 6 erweitert denselben Kern um OP, Zahlungsabgleich und Mahnwesen; unbekannte Zahlungseingänge werden nicht als bezahlt angenommen.
+
 Die erste Dokumentbearbeitung benötigt Artikel-/Leistungsgrundlagen bereits in Phase 2. Phase 7 erweitert diese um Einkauf, Kalkulation und Lager; sie wird nicht als Vorbedingung für den kompletten Belegfluss abgewartet. Ebenso entstehen Finanzadapterverträge und Flags in Phase 6, während zusätzliche produktive Format-/Anbieteranbindungen in Phase 8 folgen.
 
 ## 14. Tests und Releasekriterien

@@ -32,6 +32,50 @@ export function localDateTime(value) {
   return `${dateInput(d)}T${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 }
 export function collection(value) { return Array.isArray(value) ? value : value?.items || []; }
+const DAY_MS=86400000;
+function calendarDay(value) {
+  if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))throw new Error('Gültiges Kalenderdatum erwartet.');
+  const [year,month,day]=value.split('-').map(Number),date=new Date(Date.UTC(year,month-1,day));
+  if(year<1900||year>2200||date.toISOString().slice(0,10)!==value)throw new Error('Gültiges Kalenderdatum zwischen 1900 und 2200 erwartet.');
+  return date;
+}
+const utcDate=date=>date.toISOString().slice(0,10);
+export function planningRange(mode,anchor,years=3) {
+  const day=calendarDay(anchor),year=day.getUTCFullYear(),month=day.getUTCMonth();let from,to;
+  if(mode==='week'){from=new Date(day.getTime()-((day.getUTCDay()+6)%7)*DAY_MS);to=new Date(from.getTime()+6*DAY_MS);}
+  else if(mode==='month'){from=new Date(Date.UTC(year,month,1));to=new Date(Date.UTC(year,month+1,0));}
+  else if(mode==='year'){from=new Date(Date.UTC(year,0,1));to=new Date(Date.UTC(year,11,31));}
+  else if(mode==='multi'&&[2,3].includes(years)&&year+years-1<=2200){from=new Date(Date.UTC(year,0,1));to=new Date(Date.UTC(year+years-1,11,31));}
+  else throw new Error('Woche, Monat, Jahr oder zwei bis drei Jahre auswählen.');
+  if(from.getUTCFullYear()<1900||to.getUTCFullYear()>2200)throw new Error('Dieser Zeitraum liegt außerhalb der Datumsauswahl 1900 bis 2200.');
+  return {from:utcDate(from),to:utcDate(to),days:Math.round((to-from)/DAY_MS)+1};
+}
+export function shiftPlanningAnchor(mode,anchor,direction,years=3) {
+  if(![-1,1].includes(direction))throw new Error('Ungültige Zeitraumnavigation.');
+  const day=calendarDay(anchor),year=day.getUTCFullYear(),month=day.getUTCMonth();
+  const moved=mode==='week'?new Date(day.getTime()+direction*7*DAY_MS):mode==='month'?new Date(Date.UTC(year,month+direction,1)):
+    ['year','multi'].includes(mode)?new Date(Date.UTC(year+direction*(mode==='multi'?years:1),0,1)):null;
+  if(!moved)throw new Error('Ungültige Planungsansicht.');
+  const value=utcDate(moved);planningRange(mode,value,years);return value;
+}
+export function timelinePlacement(item,range) {
+  try {
+    const start=calendarDay(item.start_date),end=calendarDay(item.end_date),first=calendarDay(range.from),last=calendarDay(range.to);
+    if(end<start||last<first||end<first||start>last)return null;
+    const visibleStart=Math.max(start,first),visibleEnd=Math.min(end,last),days=Math.round((last-first)/DAY_MS)+1;
+    return {left:(visibleStart-first)/DAY_MS/days*100,width:((visibleEnd-visibleStart)/DAY_MS+1)/days*100,
+      clippedStart:start<first,clippedEnd:end>last};
+  } catch{return null;}
+}
+export function planningTicks(mode,range) {
+  const first=calendarDay(range.from),last=calendarDay(range.to),daily=['week','month'].includes(mode),ticks=[];
+  for(let day=new Date(first);day<=last;day=daily?new Date(day.getTime()+DAY_MS):new Date(Date.UTC(day.getUTCFullYear(),day.getUTCMonth()+1,1))) {
+    const end=daily?new Date(day.getTime()+DAY_MS):new Date(Date.UTC(day.getUTCFullYear(),day.getUTCMonth()+1,1));
+    ticks.push({date:utcDate(day),left:(day-first)/DAY_MS/range.days*100,width:Math.min((end-day)/DAY_MS,range.days-(day-first)/DAY_MS)/range.days*100,
+      label:new Intl.DateTimeFormat('de-DE',{timeZone:'UTC',...(mode==='week'?{weekday:'short',day:'2-digit'}:mode==='month'?{day:'2-digit'}:{month:'short',year:'numeric'})}).format(day)});
+  }
+  return ticks;
+}
 
 export class OfficeApi {
   #token = ''; #generation = 0; #controllers = new Set(); #pending = new Map();
@@ -133,7 +177,7 @@ const LABELS = {draft:'Entwurf',final:'Festgeschrieben',signed:'Unterzeichnet',n
   receipt:'Zahlungseingang',refund:'Erstattung',material:'Material',labor:'Lohn',service:'Leistung',machine:'Maschine',
   operational:'Operativ',financial:'Finanziell',personnel:'Personal',restricted:'Geschützt'};
 const api = new OfficeApi();
-const state = {section:'overview', projectId:'', tab:'overview', user:null, projects:[], permissions:new Set(), globalPermissions:new Set(), capabilities:new Set(), render:0, urls:new Set(), deviceId:'browser-'+requestId()};
+const state = {section:'overview', projectId:'', tab:'overview', user:null, projects:[], permissions:new Set(), globalPermissions:new Set(), capabilities:new Set(), features:new Set(), readonly:true, planning:{mode:'week',anchor:dateInput(),years:3}, render:0, urls:new Set(), deviceId:'browser-'+requestId()};
 let root, main, shell, banner, modal;
 const has = permission => state.permissions.has(permission);
 const biz = path => '/business' + path;
@@ -160,7 +204,7 @@ function panel(title, ...children) { return el('section',{class:'panel'},title?e
 function row(title, subtitle, actions = [], detail = null) { return el('div',{class:'list-row'},el('div',{class:'body'},el('h3',{},title),subtitle?el('p',{},subtitle):null,detail?el('p',{class:'detail'},detail):null),el('div',{class:'actions'},actions)); }
 function rows(values, render, message = 'Noch keine Einträge vorhanden.') { return values.length ? el('div',{class:'list'},values.map(render)) : empty(message); }
 function options(values, label = item => item.name || item.title || item.id) { return values.map(item => [item.id,label(item)]); }
-function select(label, values, value, onChange) { return el('label',{class:'field'},label,el('select',{value,onChange:event=>onChange(event.target.value)},values.map(([id,name])=>el('option',{value:id,selected:id===value},name)))); }
+function select(label, values, value, onChange) { return el('label',{class:'field'},label,el('select',{'aria-label':label,value,onChange:event=>onChange(event.target.value)},values.map(([id,name])=>el('option',{value:id,selected:id===value},name)))); }
 function revokeUrls() { state.urls.forEach(url=>URL.revokeObjectURL(url)); state.urls.clear(); }
 function objectUrl(blob) { const url=URL.createObjectURL(blob); state.urls.add(url); return url; }
 function showError(error, target = main) {
@@ -183,7 +227,9 @@ function form(title, fields, save, {description, submit='Speichern', after=()=>r
     if(spec.type==='select'||spec.type==='multi') input=el('select',{id,name:spec.name,multiple:spec.type==='multi',required:!!spec.required},(spec.options||[]).map(([id_,name])=>el('option',{value:id_,selected:Array.isArray(value)?value.includes(id_):id_===value},name)));
     else if(spec.type==='textarea') input=el('textarea',{id,name:spec.name,value:value??'',required:!!spec.required,maxLength:spec.maxLength||10000,rows:spec.rows||3});
     else input=el('input',{id,name:spec.name,type:spec.type==='decimal'?'text':spec.type==='integer'?'number':spec.type,inputMode:spec.type==='decimal'?'decimal':undefined,value:spec.type==='checkbox'?undefined:value??'',checked:spec.type==='checkbox'?!!value:undefined,required:!!spec.required,maxLength:spec.maxLength||2000,step:spec.type==='integer'?1:undefined,min:spec.min,max:spec.max,autoComplete:spec.autoComplete||'off'});
-    const label=el('label',{class:'field '+(spec.wide||spec.type==='textarea'?'wide ':'')+(spec.type==='checkbox'?'check':''),htmlFor:id},spec.label,input,spec.help?el('small',{},spec.help):null);
+    input.setAttribute('aria-label',spec.label);
+    if(spec.help)input.setAttribute('aria-describedby',id+'-help');
+    const label=el('label',{class:'field '+(spec.wide||spec.type==='textarea'?'wide ':'')+(spec.type==='checkbox'?'check':''),htmlFor:id},spec.label,input,spec.help?el('small',{id:id+'-help'},spec.help):null);
     grid.append(label); controls.set(spec.name,{input,spec});
   });
   form.append(grid); if(extra) form.append(extra);
@@ -264,11 +310,11 @@ async function startSession() {
   const generation=api.generation;
   const [user,caps,projects,metadata]=await Promise.all([api.get('/me'),api.get(biz('/capabilities')),api.get('/projects'),api.get(biz('/overview'))]);
   if(generation!==api.generation) throw new StaleSession();
-  state.user=user;state.metadata=metadata;state.permissions=new Set(caps.permissions||[]);state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.projects=collection(projects);
+  state.user=user;state.metadata=metadata;state.permissions=new Set(caps.permissions||[]);state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.readonly=caps.readonly!==false;state.projects=collection(projects);
   if(!state.projects.some(project=>project.id===state.projectId))state.projectId='';
   state.section='overview'; buildShell(); await refresh();
 }
-function endSession() { api.clear();photoUploads.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();loginScreen(); }
+function endSession() { api.clear();photoUploads.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
 function buildShell() {
   root.replaceChildren(); shell=el('div',{class:'shell'});
   const nav=el('nav',{class:'navigation','aria-label':'Hauptnavigation'},NAV.filter(([id])=>sectionAllowed(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id)},el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label)));
@@ -309,7 +355,7 @@ async function refresh() {
     const [caps,projects,metadata]=await Promise.all([api.get(biz('/capabilities')),api.get('/projects'),api.get(biz('/overview'))]);
     if(version!==state.render||generation!==api.generation)return;
     const navigationChanged=state.metadata?.can_read_inquiries!==metadata.can_read_inquiries||JSON.stringify(state.projects)!==JSON.stringify(collection(projects));
-    state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.projects=collection(projects);state.metadata=metadata;
+    state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.readonly=caps.readonly!==false;state.projects=collection(projects);state.metadata=metadata;
     if(state.projectId&&!state.projects.some(project=>project.id===state.projectId)){state.projectId='';state.tab='overview';closeModal();}
     let effective=state.globalPermissions;
     if(state.projectId) {
@@ -429,12 +475,68 @@ function contactDialog(contact=null) {
 }
 
 async function planningView() { return el('div',{class:'stack'},heading('Einsatzplanung','Ein gemeinsamer Kalender für Projekte, Team und Ressourcen.'),await planningContent(state.projectId)); }
+function planningControls(range) {
+  const update=async values=>{
+    const proposed={...state.planning,...values};
+    try{planningRange(proposed.mode,proposed.anchor,proposed.years);}catch(error){await refresh();showError(error);return;}
+    state.planning=proposed;await refresh();
+  };
+  const {mode,anchor,years}=state.planning;
+  const picker=mode==='week'?el('label',{class:'field'},'Woche auswählen',el('input',{type:'date',value:anchor,min:'1900-01-01',max:'2200-12-31',onChange:event=>{try{planningRange(mode,event.target.value,years);update({anchor:event.target.value});}catch(error){showError(error);}}})):
+    mode==='month'?el('label',{class:'field'},'Monat auswählen',el('input',{type:'month',value:anchor.slice(0,7),min:'1900-01',max:'2200-12',onChange:event=>{try{const value=event.target.value+'-01';planningRange(mode,value,years);update({anchor:value});}catch(error){showError(error);}}})):
+      el('label',{class:'field'},mode==='multi'?'Startjahr':'Planungsjahr',el('input',{type:'number',value:Number(anchor.slice(0,4)),min:1900,max:mode==='multi'?2201-years:2200,step:1,onChange:event=>{
+        try{if(!/^\d{4}$/.test(event.target.value))throw new Error('Ein gültiges vierstelliges Jahr eingeben.');const value=event.target.value+'-01-01';planningRange(mode,value,years);update({anchor:value});}catch(error){showError(error);}
+      }}));
+  return el('div',{class:'planning-toolbar'},select('Planungsansicht',[['week','Woche'],['month','Monat'],['year','Jahr'],['multi','Mehrere Jahre']],mode,value=>update({mode:value})),picker,
+    mode==='multi'?select('Zeitraum',[['2','2 Jahre'],['3','3 Jahre']],String(years),value=>update({years:Number(value)})):null,
+    el('div',{class:'actions period-navigation'},button('Zurück',()=>action(async()=>update({anchor:shiftPlanningAnchor(mode,anchor,-1,years)})),'small'),button('Heute',()=>update({anchor:dateInput()}),'small'),button('Weiter',()=>action(async()=>update({anchor:shiftPlanningAnchor(mode,anchor,1,years)})),'small')),
+    el('p',{class:'planning-range',role:'status'},formatDate(range.from)+' – '+formatDate(range.to)));
+}
+function projectDatesDialog(item) {
+  if(item.can_edit!==true||state.readonly)return;
+  dialog('Projektzeitraum: '+item.name,form('',[
+    field('start_date','Projektbeginn','date',item.start_date||'',{min:'1900-01-01',max:'2200-12-31',help:'Leer lassen, solange der Beginn nicht feststeht.'}),
+    field('end_date','Projektende','date',item.end_date||'',{min:'1900-01-01',max:'2200-12-31',help:'Leer lassen, solange das Ende nicht feststeht.'})],(data,key)=>{
+      if(data.start_date&&data.end_date&&data.end_date<data.start_date)throw new Error('Das Projektende muss am oder nach dem Beginn liegen.');
+      return mutation(key,`/planning/projects/${item.id}/dates`,{revision:item.revision,start_date:data.start_date||null,end_date:data.end_date||null});
+    },{key:'project-dates-'+item.id,submit:'Zeitraum speichern'}),'Es werden nur diese Projekttermine geändert. Einzelne Kalendereinsätze behalten ihre eigenen Zeiten.');
+}
+function projectTimeline(data,range,mode) {
+  const items=[...(data.items||[]),...(data.unplanned||[])],ticks=planningTicks(mode,range);
+  if(!items.length)return panel('Projektzeiträume',empty('In diesem Zeitraum sind keine freigegebenen Projekte geplant oder ungeplant.'));
+  const sheet=el('div',{class:'timeline-sheet'}),grid=el('div',{class:'timeline-gridlines','aria-hidden':'true'});
+  sheet.style.minWidth=(220+Math.max(650,ticks.length*(mode==='month'?27:mode==='week'?90:85)))+'px';
+  const axis=el('div',{class:'timeline-axis-track'});
+  for(const tick of ticks){
+    const label=el('span',{class:'timeline-tick'},tick.label);label.style.left=tick.left+'%';label.style.width=tick.width+'%';axis.append(label);
+    const line=el('span',{});line.style.left=tick.left+'%';grid.append(line);
+  }
+  sheet.append(grid,el('div',{class:'timeline-axis'},el('div',{class:'timeline-project-label'},'Projekt'),axis));
+  for(const item of items){
+    const position=timelinePlacement(item,range),dates=item.start_date&&item.end_date?formatDate(item.start_date)+' – '+formatDate(item.end_date):
+      item.start_date?'Beginn '+formatDate(item.start_date)+' · Ende offen':item.end_date?'Beginn offen · Ende '+formatDate(item.end_date):'Beginn und Ende offen';
+    const label=el('div',{class:'timeline-project-label'},el('strong',{},item.name),el('small',{},dates),item.status?el('small',{class:'timeline-status'},item.status.name):null,
+      item.can_edit===true&&!state.readonly?el('button',{type:'button',class:'button small timeline-edit','aria-label':'Projektzeitraum ändern: '+item.name,onClick:()=>projectDatesDialog(item)},'Zeitraum ändern'):null);
+    const track=el('div',{class:'timeline-track'});
+    if(position){
+      const bar=el('span',{class:'timeline-project-bar'+(position.clippedStart?' clipped-start':'')+(position.clippedEnd?' clipped-end':''),role:'img',
+        'aria-label':item.name+': '+dates,'data-start':item.start_date,'data-end':item.end_date,title:item.name+' · '+dates},el('span',{},dates));
+      bar.style.left=position.left+'%';bar.style.width=position.width+'%';track.append(bar);
+    }else track.append(el('span',{class:'timeline-unplanned'},item.planning_state==='partial'?'Teilweise geplant · '+dates:'Ungeplant · '+dates));
+    sheet.append(el('div',{class:'timeline-row','data-project-id':item.id},label,track));
+  }
+  return panel('Projektzeiträume',el('p',{class:'caption'},'Balken zeigen gespeicherten Projektbeginn und Projektende einschließlich beider Tage. Offene Zeiträume bleiben ungeplant. Die Ansicht lässt sich seitlich scrollen.'),
+    el('div',{class:'timeline-scroll',role:'region','aria-label':'Projektzeitleiste '+formatDate(range.from)+' bis '+formatDate(range.to),tabIndex:0},sheet));
+}
 async function planningContent(projectId='') {
-  const start=new Date();start.setDate(start.getDate()-((start.getDay()+6)%7));const end=new Date(start);end.setDate(end.getDate()+6);
-  const [calendar,employees,resources]=await Promise.all([api.get(query(biz('/planning/calendar'),{from:dateInput(start),to:dateInput(end),project_id:projectId})),api.get(query(biz('/employees'),{project_id:projectId})),api.get(biz('/resources'))]);
+  const enhanced=state.features.has('project_timeline'),mode=enhanced?state.planning.mode:'week',range=planningRange(mode,enhanced?state.planning.anchor:dateInput(),state.planning.years);
+  const timeline=enhanced?await api.get(query(biz('/planning/timeline'),{from:range.from,to:range.to,project_id:projectId})):null;
+  const controls=enhanced?planningControls(range):null;
+  if(!['week','month'].includes(mode))return el('div',{class:'stack'},controls,projectTimeline(timeline,range,mode));
+  const [calendar,employees,resources]=await Promise.all([api.get(query(biz('/planning/calendar'),{from:range.from,to:range.to,project_id:projectId})),api.get(query(biz('/employees'),{project_id:projectId})),api.get(biz('/resources'))]);
   const appointments=calendar.appointments||[],days=[];
-  for(let index=0;index<7;index++) {
-    const day=new Date(start);day.setDate(day.getDate()+index);const dayId=dateInput(day);
+  for(let index=0;index<range.days;index++) {
+    const dayId=utcDate(new Date(calendarDay(range.from).getTime()+index*DAY_MS)),day=new Date(dayId+'T12:00:00');
     const column=el('section',{class:'day','aria-label':formatDate(dayId)},el('h3',{},new Intl.DateTimeFormat('de-DE',{weekday:'short',day:'2-digit',month:'2-digit'}).format(day)));
     appointments.filter(item=>dateInput(new Date(item.start_at))===dayId).forEach(item=> {
       const node=el('button',{type:'button',class:'appointment',draggable:has('planning.write'),onClick:()=>appointmentDialog(item,collection(employees),collection(resources))},
@@ -449,9 +551,11 @@ async function planningContent(projectId='') {
     }
     days.push(column);
   }
-  const board=panel('Diese Woche',el('div',{class:'actions'},has('planning.write')?button('Termin planen',()=>appointmentDialog(null,collection(employees),collection(resources)),'primary'):null),
-    el('p',{class:'caption'},'Kalenderzeiten werden in Ihrer Gerätezeitzone angezeigt. Termine lassen sich auch ohne Ziehen per Formular ändern.'),el('div',{class:'table-scroll'},el('div',{class:'calendar'},days)));
-  return el('div',{class:'stack'},board,panel('Abwesenheiten & Belegungen',rows(calendar.absences||[],item=>row(item.employee_name||'Abwesenheit',`${formatDate(item.start_date)} – ${formatDate(item.end_date)}`,[badge(item.status||'Geplant')]),'Keine Abwesenheiten für diesen Zeitraum gemeldet.')));
+  const calendarGrid=el('div',{class:'calendar'+(mode==='month'?' calendar-month':'')},days);
+  if(mode==='month')days[0].style.gridColumnStart=String((calendarDay(range.from).getUTCDay()+6)%7+1);
+  const board=panel(mode==='month'?'Monatskalender':'Wochenkalender',el('div',{class:'actions'},has('planning.write')?button('Termin planen',()=>appointmentDialog(null,collection(employees),collection(resources)),'primary'):null),
+    el('p',{class:'caption'},'Kalenderzeiten werden in Ihrer Gerätezeitzone angezeigt. Termine lassen sich auch ohne Ziehen per Formular ändern.'),el('div',{class:'table-scroll'},calendarGrid));
+  return el('div',{class:'stack'},controls,board,enhanced?projectTimeline(timeline,range,mode):null,panel('Abwesenheiten & Belegungen',rows(calendar.absences||[],item=>row(item.employee_name||'Abwesenheit',`${formatDate(item.start_date)} – ${formatDate(item.end_date)}`,[badge(item.status||'Geplant')]),'Keine Abwesenheiten für diesen Zeitraum gemeldet.')));
 }
 function appointmentDialog(item,employees,resources) {
   const begin=new Date();begin.setMinutes(0,0,0);const end=new Date(begin);end.setHours(end.getHours()+1);

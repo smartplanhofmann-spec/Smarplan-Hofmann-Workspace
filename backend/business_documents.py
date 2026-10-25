@@ -220,7 +220,7 @@ def calculate_positions(values,*,credit=False):
             price_base_quantity=format(base_quantity,'f'),
             tax_rate=format(rate,'f'),tax_category=category,tax_exemption_reason=reason,kind=kind,
             discount_percent=format(discount,'f'),net=money(net))
-        for field in ('article_id','article_revision','cost_price_net','code','source_type','source_id','source_revision','source_hash','source_seconds','components'):
+        for field in ('article_id','article_revision','cost_price_net','cost_price_base_quantity','code','source_type','source_id','source_revision','source_hash','source_seconds','components','pricing_snapshot','measurement_snapshot'):
             if field in value:position[field]=value[field]
         if 'article_id' in position:_id(position['article_id'])
         if 'cost_price_net' in position:decimal_value(position['cost_price_net'])
@@ -244,11 +244,11 @@ def calculate_positions(values,*,credit=False):
 
 
 def _buyer(value):
-    fields=('name','address_line','postal_code','city','country','email','endpoint_id','endpoint_scheme','vat_id')
+    fields=('name','address_line','postal_code','city','country','email','endpoint_id','endpoint_scheme','vat_id','contact_name')
     if not isinstance(value,dict) or set(value)-set(fields):raise Problem(400,'Empfängerdaten erwartet')
-    result={key:_text(value.get(key,''),key,2000,empty=key!='name') for key in fields}
-    result['country']=result['country'] or 'DE'
-    if not re.fullmatch(r'[A-Z]{2}',result['country']):raise Problem(400,'ISO-Ländercode erwartet')
+    result={key:_text(value.get(key,''),key,2000,empty=key!='name') for key in fields if key!='contact_name' or key in value}
+    if 'country' not in value:result['country']='DE'
+    if result['country'] and not re.fullmatch(r'[A-Z]{2}',result['country']):raise Problem(400,'ISO-Ländercode erwartet')
     return result
 
 
@@ -364,11 +364,132 @@ class Documents:
         if services and value.get('kind') not in ('labor','service'):raise Problem(404,'Leistung nicht verfügbar')
         return dict(id=row['id'],revision=row['revision'],updated_at=row['updated_at'],**value)
 
+    def pricing_preview(self,actor,data):
+        from business_pricing import preview
+        if not isinstance(data,dict):raise Problem(400,'Preiskalkulation erwartet')
+        return preview(self.office,actor,{k:v for k,v in data.items() if k!='request_id'})
+
+    def _price_values(self,actor,value,*,confirmation=True,project_id=None):
+        value=dict(value)
+        if 'pricing' not in value:return value
+        if not isinstance(value['pricing'],dict):raise Problem(400,'Preiskalkulation erwartet')
+        preview=self.pricing_preview(actor,value['pricing']);inputs=preview['inputs']
+        if project_id is not None and inputs.get('project_id') not in (None,project_id):raise Problem(400,'Preiskalkulation gehört zu einem anderen Projekt')
+        if value.get('pricing_hash')!=preview['preview_hash']:raise Problem(409,'Preiskalkulation oder Artikelquelle wurde geändert; erneut prüfen')
+        if confirmation and value.get('price_confirmation') is not True:raise Problem(400,'Kalkulierten Preis ausdrücklich übernehmen')
+        for key in ('unit_price_net','tax_rate','quantity'):
+            expected=preview['unit_price_net'] if key=='unit_price_net' else inputs[key]
+            if key in value and decimal_value(value[key])!=Decimal(expected):raise Problem(409,'Position stimmt nicht mit der bestätigten Preiskalkulation überein')
+        for key in ('unit','kind'):
+            if key in value and value[key]!=inputs[key]:raise Problem(409,'Preiskalkulation hat eine andere Einheit oder Positionsart')
+        if decimal_value(value.get('price_base_quantity','1'))!=1:raise Problem(400,'Kalkulierten Preis je einer ausgewiesenen Einheit übernehmen')
+        if (decimal_value(value.get('discount_percent','0'))!=0 or value.get('tax_category','S' if Decimal(inputs['tax_rate']) else 'Z')!=('S' if Decimal(inputs['tax_rate']) else 'Z')
+                or value.get('tax_exemption_reason')):raise Problem(400,'Abweichende Steuer- oder Rabattregel gesondert kalkulieren')
+        value.update(unit_price_net=preview['unit_price_net'],cost_price_net=preview['unit_cost_net'],cost_price_base_quantity='1',
+            unit=inputs['unit'],kind=inputs['kind'],tax_rate=inputs['tax_rate'],pricing_snapshot=preview)
+        for key in ('pricing','pricing_hash','price_confirmation'):value.pop(key,None)
+        return value
+
+    def measurement_preview(self,actor,data):
+        from business_operations import BusinessOperations,evaluate_measurement
+        allowed={'request_id','project_id','measurement_id','measurement_revision','measurement_hash','lines'}
+        if not isinstance(data,dict) or set(data)-allowed:raise Problem(400,'Aufmaßquelle und Preispositionen erwartet')
+        project_id=_id(data.get('project_id'));require(self.office,actor,'finance.read',project_id)
+        source=BusinessOperations(self.office).get_entry(actor,project_id,_id(data.get('measurement_id')))
+        if source['kind']!='measurement':raise Problem(404,'Projektaufmaß nicht verfügbar')
+        if type(data.get('measurement_revision')) is not int or data['measurement_revision']!=source['revision'] or data.get('measurement_hash')!=source['content_hash']:
+            raise Problem(409,'Aufmaßfassung wurde geändert; Quelle erneut laden')
+        selections=data.get('lines')
+        if not isinstance(selections,list) or not 1<=len(selections)<=200:raise Problem(400,'1 bis200 Aufmaßpositionen auswählen')
+        units={'m':'MTR','m2':'MTK','m3':'MTQ','h':'HUR','piece':'C62'};positions=[];seen=set()
+        for selection in selections:
+            fields={'line_index','unit_price_net','tax_rate','tax_category','tax_exemption_reason','kind','description','cost_price_net','pricing','pricing_hash'}
+            if not isinstance(selection,dict) or set(selection)-fields:raise Problem(400,'Aufmaßzeile mit ausdrücklich gewähltem Preis erwartet')
+            index=selection.get('line_index')
+            if type(index) is not int or not 0<=index<len(source['lines']) or index in seen:raise Problem(400,'Eindeutiger Aufmaßzeilenindex erwartet')
+            seen.add(index);line=source['lines'][index]
+            if line['unit'] not in units:raise Problem(415,'Aufmaßfaktor ist keine übernehmbare metrische Einheit')
+            checked=evaluate_measurement({k:v for k,v in line.items() if k!='quantity'})
+            if checked!=line or Decimal(line['quantity'])<=0:raise Problem(400,'Nachvollziehbare positive Aufmaßmenge erwartet')
+            value={k:v for k,v in selection.items() if k!='line_index'}
+            value.update(description=selection.get('description',line['description']),quantity=line['quantity'],unit=units[line['unit']],kind=selection.get('kind','service'))
+            if 'pricing' in value:value=self._price_values(actor,value,confirmation=False,project_id=project_id)
+            value.setdefault('tax_rate','19')
+            snapshot={'project_id':project_id,'measurement_id':source['id'],'revision':source['revision'],'content_hash':source['content_hash'],
+                'title':source['title'],'status':source['status'],'line_index':index,'line':line,'confirmed':False,'confirmed_by':None,'confirmed_at':None}
+            snapshot['sha256']=_hash(canonical(snapshot))
+            value.update(source_type='measurement',source_id=source['id'],source_revision=source['revision'],source_hash=source['content_hash'],measurement_snapshot=snapshot)
+            positions.append(value)
+        positions=calculate_positions(positions)['positions']
+        for position in positions:position.pop('id',None)
+        result={'source':{'id':source['id'],'title':source['title'],'revision':source['revision'],'content_hash':source['content_hash'],'status':source['status']},
+            'project_id':project_id,'positions':positions,'requires_confirmation':True}
+        result['preview_hash']=_hash(canonical(result))
+        return result
+
+    def _measurement_values(self,actor,project_id,data,old=None):
+        if 'measurement_imports' not in data:return data,{}
+        imports=data['measurement_imports']
+        if not isinstance(imports,list) or not 1<=len(imports)<=20:raise Problem(400,'1 bis20 bestätigte Aufmaßübernahmen erwartet')
+        positions=data.get('positions',old.get('positions',[]) if old else [])
+        if not isinstance(positions,list):raise Problem(400,'Positionen erwartet')
+        positions=list(positions);verified={}
+        for transfer in imports:
+            if not isinstance(transfer,dict):raise Problem(400,'Bestätigte Aufmaßübernahme erwartet')
+            if transfer.get('quantity_confirmation') is not True or transfer.get('price_confirmation') is not True:raise Problem(400,'Aufmaßmengen und Preise ausdrücklich bestätigen')
+            if transfer.get('project_id',project_id)!=project_id:raise Problem(400,'Aufmaß gehört zu einem anderen Projekt')
+            body={k:v for k,v in transfer.items() if k not in ('preview_hash','quantity_confirmation','price_confirmation')};body['project_id']=project_id
+            preview=self.measurement_preview(actor,body)
+            if transfer.get('preview_hash')!=preview['preview_hash']:raise Problem(409,'Aufmaß- oder Preisvorschau wurde geändert; erneut prüfen')
+            for position in preview['positions']:
+                position=json.loads(canonical(position));position['id']=uuid.uuid4().hex
+                snapshot=position['measurement_snapshot'];snapshot.pop('sha256')
+                snapshot.update(confirmed=True,confirmed_by=actor['id'],confirmed_at=self._now());snapshot['sha256']=_hash(canonical(snapshot))
+                verified[position['id']]=snapshot;positions.append(position)
+                if len(positions)>500:raise Problem(400,'Höchstens500 Belegpositionen erlaubt')
+        result={k:v for k,v in data.items() if k!='measurement_imports'};result['positions']=positions
+        return result,verified
+
+    def _validate_measurement_snapshot(self,position,project_id=None,*,confirmed=True):
+        from business_operations import evaluate_measurement
+        snapshot=position.get('measurement_snapshot')
+        fields={'project_id','measurement_id','revision','content_hash','title','status','line_index','line','confirmed','confirmed_by','confirmed_at','sha256'}
+        if not isinstance(snapshot,dict) or set(snapshot)!=fields or _hash(canonical({k:v for k,v in snapshot.items() if k!='sha256'}))!=snapshot['sha256']:
+            raise Problem(400,'Aufmaß-Snapshot ist ungültig')
+        _id(snapshot['project_id']);_id(snapshot['measurement_id'])
+        if project_id is not None and snapshot['project_id']!=project_id:raise Problem(400,'Aufmaß-Snapshot gehört zu einem anderen Projekt')
+        if type(snapshot['revision']) is not int or snapshot['revision']<1 or type(snapshot['line_index']) is not int or not 0<=snapshot['line_index']<200:raise Problem(400,'Aufmaßfassung ist ungültig')
+        if snapshot['status'] not in ('draft','signed') or type(snapshot['confirmed']) is not bool or not isinstance(snapshot['content_hash'],str) or not re.fullmatch('[a-f0-9]{64}',snapshot['content_hash']):raise Problem(400,'Aufmaßstatus oder Quellhash ist ungültig')
+        if confirmed and (snapshot['confirmed'] is not True or not snapshot['confirmed_by'] or not snapshot['confirmed_at']):raise Problem(400,'Aufmaß wurde nicht ausdrücklich bestätigt')
+        if snapshot['confirmed_by'] is not None:_id(snapshot['confirmed_by'])
+        line=snapshot['line']
+        if not isinstance(line,dict):raise Problem(400,'Aufmaßzeile erwartet')
+        checked=evaluate_measurement({k:v for k,v in line.items() if k!='quantity'})
+        units={'m':'MTR','m2':'MTK','m3':'MTQ','h':'HUR','piece':'C62'}
+        if (checked!=line or line['unit'] not in units or Decimal(position['quantity'])!=Decimal(line['quantity']) or position['unit']!=units[line['unit']]
+            or position.get('source_type')!='measurement' or position.get('source_id')!=snapshot['measurement_id']
+            or position.get('source_revision')!=snapshot['revision'] or position.get('source_hash')!=snapshot['content_hash']):
+            raise Problem(400,'Belegmenge stimmt nicht mit dem bestätigten Aufmaß überein')
+
+    def document_calculation(self,actor,data,identifier=None):
+        from business_pricing import offer
+        if not isinstance(data,dict):raise Problem(400,'Belegkalkulation erwartet')
+        if identifier:
+            row=self._row(actor,identifier)
+            if type(data.get('revision')) is not int or data['revision']!=row['revision']:raise Problem(409,'Beleg wurde geändert; Kalkulation erneut laden')
+            result=offer(json.loads(row['payload_json'])['positions']);result.update(document_id=identifier,revision=row['revision'])
+        else:
+            if set(data)-{'request_id','project_id','positions'}:raise Problem(400,'Projekt und Positionen erwartet')
+            project_id=_id(data.get('project_id'));require(self.office,actor,'finance.read',project_id)
+            result=offer(self._positions(data.get('positions'),actor=actor,project_id=project_id,persist=False)['positions'])
+        result['preview_only']=True
+        return result
+
     def save_article(self,actor,data,article_id=None):
         actor=require(self.office,actor,'finance.write')
         if not isinstance(data,dict):raise Problem(400,'Artikel erwartet')
-        request=data.get('request_id');payload={k:v for k,v in data.items() if k not in ('request_id','revision')}
-        allowed={'code','name','kind','unit','unit_price_net','cost_price_net','tax_rate','tax_category','tax_exemption_reason','currency','active','components'}
+        request=data.get('request_id');payload={k:v for k,v in data.items() if k not in ('request_id','revision','pricing','pricing_hash','price_confirmation')}
+        allowed={'code','name','kind','unit','unit_price_net','cost_price_net','cost_known','tax_rate','tax_category','tax_exemption_reason','currency','active','components'}
         if set(payload)-allowed:raise Problem(400,'Ungültige Artikelfelder')
         old=None
         if article_id:
@@ -378,7 +499,19 @@ class Documents:
         replay,fingerprint=self._replay(actor,request,operation,data)
         if replay:return replay
         if old and data.get('revision')!=old['revision']:raise Problem(409,'Artikel wurde geändert')
-        value={**(json.loads(old['payload_json']) if old else {'code':'','currency':'EUR','active':True,'cost_price_net':'0','tax_rate':'19'}),**payload}
+        if 'pricing' in data:
+            priced=self._price_values(actor,{**payload,'pricing':data['pricing'],'pricing_hash':data.get('pricing_hash'),'price_confirmation':data.get('price_confirmation')})
+            payload.update({key:priced[key] for key in ('unit_price_net','cost_price_net','unit','kind','tax_rate','pricing_snapshot')})
+            payload['cost_known']=True
+            payload['components']=priced['pricing_snapshot']['inputs']['components']
+            if 'tax_category' not in payload:payload.update(tax_category='S' if Decimal(priced['tax_rate']) else 'Z',tax_exemption_reason='')
+        elif 'cost_price_net' in payload:
+            payload.setdefault('cost_known',payload['cost_price_net'] not in (None,''))
+            if payload['cost_price_net'] in (None,''):payload['cost_price_net']='0'
+        value={**(json.loads(old['payload_json']) if old else {'code':'','currency':'EUR','active':True,'cost_price_net':'0','cost_known':False,'tax_rate':'19'}),**payload}
+        from business_pricing import cost_known
+        value['cost_known']=cost_known(value)
+        if 'pricing' not in data and any(key in payload for key in ('unit_price_net','cost_price_net','cost_known','components','unit','kind','tax_rate','tax_category','tax_exemption_reason')):value.pop('pricing_snapshot',None)
         if value.get('currency')!='EUR' or type(value.get('active')) is not bool:raise Problem(400,'EUR und ausdrücklicher Aktivstatus erwartet')
         for field in ('name','unit'):value[field]=_text(value.get(field),field,500)
         value['code']=_text(value.get('code',''),'Artikelnummer',100,empty=True)
@@ -446,6 +579,12 @@ class Documents:
         if values.get('kind') not in KINDS:raise Problem(400,'Belegart erwartet')
         for field in ('name','title','intro','notes'):values[field]=_text(values.get(field,''),field,10000,empty=field in ('intro','notes'))
         values['positions']=calculate_positions(values.get('positions'))['positions']
+        # Templates carry deliberate numeric defaults, not an automatic release
+        # of another project's physical measurement or calculation provenance.
+        for position in values['positions']:
+            position.pop('pricing_snapshot',None)
+            if position.get('source_type')=='measurement':
+                for key in ('measurement_snapshot','source_type','source_id','source_revision','source_hash'):position.pop(key,None)
         identifier=template_id or uuid.uuid4().hex;revision=old['revision']+1 if old else 1;now=self._now()
         self.db.execute('INSERT INTO business_templates(id,revision,payload_json,created_by,updated_by,created_at,updated_at) VALUES(?,?,?,?,?,?,?) '
             'ON CONFLICT(id) DO UPDATE SET revision=excluded.revision,payload_json=excluded.payload_json,updated_by=excluded.updated_by,updated_at=excluded.updated_at',
@@ -482,17 +621,41 @@ class Documents:
             result.append(item)
         return {'items':result}
 
-    def _positions(self,values):
+    def _positions(self,values,*,actor=None,project_id=None,old_positions=None,verified_measurements=None,persist=True):
         if not isinstance(values,list):raise Problem(400,'Positionen erwartet')
-        result=[]
+        result=[];old_by_id={p['id']:p for p in old_positions or []};verified_measurements=verified_measurements or {};seen=set()
         for value in values:
             if not isinstance(value,dict):raise Problem(400,'Position erwartet')
+            value=dict(value);original=old_by_id.get(value.get('id'));article_snapshot=False
             if value.get('article_id') and not value.get('id'):
+                require(self.office,actor,'finance.read')
+                explicit_cost='cost_price_net' in value
                 row=self.db.execute('SELECT * FROM business_articles WHERE id=?',(_id(value['article_id']),)).fetchone()
                 if not row:raise Problem(404,'Artikel nicht verfügbar')
                 article=json.loads(row['payload_json'])
                 if not article['active'] or value.get('article_revision')!=row['revision']:raise Problem(409,'Artikel wurde geändert oder deaktiviert')
                 value={**article,'description':article['name'],**value,'article_revision':row['revision']}
+                from business_pricing import cost_known
+                if not cost_known(article) and not explicit_cost:value.pop('cost_price_net',None)
+                article_snapshot=True
+            if value.get('cost_price_net') in (None,''):value.pop('cost_price_net',None)
+            if 'pricing' in value:
+                if actor is None:raise Problem(400,'Preisübernahme benötigt einen berechtigten Benutzer')
+                value=self._price_values(actor,value,confirmation=persist,project_id=project_id)
+            elif 'pricing_snapshot' in value:
+                snapshot=value['pricing_snapshot']
+                if persist and not article_snapshot and (not original or original.get('pricing_snapshot')!=snapshot) and value.get('id') not in verified_measurements:
+                    raise Problem(400,'Preiskalkulation über die geprüfte Übernahme bestätigen')
+                from business_pricing import snapshot_matches
+                if not snapshot_matches(value,snapshot):value.pop('pricing_snapshot',None)
+            if value.get('measurement_snapshot') or value.get('source_type')=='measurement':
+                snapshot=value.get('measurement_snapshot');reference=verified_measurements.get(value.get('id')) or (original.get('measurement_snapshot') if original else None)
+                if persist and (not reference or snapshot!=reference):raise Problem(400,'Aufmaß nur über die bestätigte Projektübernahme verwenden')
+                if snapshot:
+                    self._validate_measurement_snapshot(value,project_id,confirmed=persist)
+            if value.get('id'):
+                if value['id'] in seen:raise Problem(400,'Positionskennungen müssen eindeutig sein')
+                seen.add(value['id'])
             result.append(value)
         return calculate_positions(result)
 
@@ -564,12 +727,13 @@ class Documents:
                 new.append({'entry_id':item['entry_id'],'source_hash':item['source_hash'],'source_revision':item['revision'],'seconds':item['net_seconds']})
         return new
 
-    def _payload(self,data,old=None):
+    def _payload(self,data,old=None,*,actor=None,verified_measurements=None):
         allowed={'project_id','kind','title','issue_date','due_date','buyer_reference','notes','intro','buyer','positions',
                  'previous_document_ids','template_id','template_revision','currency','converted_from','cancels','cancel_reason'}
         values={k:v for k,v in data.items() if k not in ('request_id','revision')}
         if set(values)-allowed:raise Problem(400,'Ungültige Belegfelder')
         if values.get('template_id') and (not old or (values['template_id'],values.get('template_revision'))!=(old.get('template_id'),old.get('template_revision'))):
+            require(self.office,actor,'finance.read')
             template=self.db.execute('SELECT revision,payload_json FROM business_templates WHERE id=?',(_id(values['template_id']),)).fetchone()
             if not template:raise Problem(404,'Vorlage nicht verfügbar')
             if type(values.get('template_revision')) is not int or values['template_revision']!=template['revision']:raise Problem(409,'Vorlage wurde geändert; aktuelle Fassung erneut auswählen')
@@ -588,7 +752,7 @@ class Documents:
         if not isinstance(prior,list) or len(prior)>100 or len(set(prior))!=len(prior):raise Problem(400,'Eindeutige Vorbelege erwartet')
         value['previous_document_ids']=[_id(identifier) for identifier in prior]
         if prior and value['kind'] not in ('cumulative_invoice','final_invoice'):raise Problem(400,'Vorbelege nur für kumulierte oder Schlussrechnungen')
-        value.update(self._positions(value.get('positions')))
+        value.update(self._positions(value.get('positions'),actor=actor,project_id=value.get('project_id'),old_positions=old.get('positions') if old else None,verified_measurements=verified_measurements))
         if old and old.get('kind')=='credit_note':value['totals']=old['totals']
         return value
 
@@ -611,9 +775,10 @@ class Documents:
         project=self.db.execute('SELECT * FROM projects WHERE id=?',(project_id,)).fetchone()
         customer=self.db.execute('SELECT * FROM customers WHERE id=?',(project['customer_id'],)).fetchone() if project['customer_id'] else None
         if not data.get('buyer'):
-            data={**data,'buyer':{'name':customer['name'] if customer else project['customer'],'address_line':customer['address'] if customer else '',
-                'email':customer['email'] if customer else '', 'country':'DE'}}
-        value=self._payload(self._time_values(actor,project_id,data))
+            from business_foundation import BusinessFoundation
+            data={**data,'buyer':BusinessFoundation(self.office).billing_contact(actor,project_id)['buyer']}
+        prepared,verified=self._measurement_values(actor,project_id,self._time_values(actor,project_id,data))
+        value=self._payload(prepared,actor=actor,verified_measurements=verified)
         if value['kind']=='credit_note' or value.get('cancels') or value.get('converted_from'):raise Problem(400,'Stornogutschrift ausschließlich aus einer finalen Rechnung erstellen')
         result=self._save(actor,uuid.uuid4().hex,project_id,project['customer_id'],value['kind'],value)
         return self._remember(actor,data['request_id'],'document.create',fingerprint,result,project_id)
@@ -628,7 +793,8 @@ class Documents:
         old=json.loads(row['payload_json'])
         for field in ('project_id','kind','cancels','converted_from'):
             if field in data and data[field]!=old.get(field,row[field] if field in ('project_id','kind') else None):raise Problem(400,'Belegbezug ist unveränderlich')
-        value=self._payload(self._time_values(actor,row['project_id'],data,old),old)
+        prepared,verified=self._measurement_values(actor,row['project_id'],self._time_values(actor,row['project_id'],data,old),old)
+        value=self._payload(prepared,old,actor=actor,verified_measurements=verified)
         result=self._save(actor,identifier,row['project_id'],row['customer_id'],row['kind'],value,row)
         return self._remember(actor,data['request_id'],'document.update:'+identifier,fingerprint,result,row['project_id'])
 
@@ -990,7 +1156,7 @@ def render_pdf(snapshot):
         raw=base64.b64decode(seller['logo_base64'],validate=True)
         image=Image(io.BytesIO(raw));image._restrictSize(55*mm,22*mm);story.extend([image,Spacer(1,5*mm)])
     story.extend([Paragraph(escape(seller['company_name']),styles['Heading1']),paragraph('\n'.join(filter(None,[seller['address_line'],seller['postal_code']+' '+seller['city'],seller['email'],seller['phone']]))) ,Spacer(1,8*mm),
-        paragraph('\n'.join(filter(None,[buyer['name'],buyer.get('address_line'),buyer.get('postal_code','')+' '+buyer.get('city',''),buyer.get('country')]))),Spacer(1,7*mm),
+        paragraph('\n'.join(filter(None,[buyer['name'],('z. Hd. '+buyer['contact_name']) if buyer.get('contact_name') else '',buyer.get('address_line'),buyer.get('postal_code','')+' '+buyer.get('city',''),buyer.get('country')]))),Spacer(1,7*mm),
         Paragraph(escape(LABELS[snapshot['kind']]+' '+snapshot.get('number','ENTWURF')),styles['Heading2']),paragraph(snapshot['title']),
         paragraph('Datum: '+snapshot['issue_date']+' · Fällig: '+snapshot['due_date']),paragraph('Käuferreferenz: '+snapshot.get('buyer_reference','')),Spacer(1,5*mm)])
     if snapshot.get('intro'):story.extend([paragraph(snapshot['intro']),Spacer(1,4*mm)])
@@ -1024,8 +1190,9 @@ def render_pdf(snapshot):
     signature=snapshot.get('signature')
     if signature:
         from reportlab.graphics.shapes import Drawing,PolyLine
+        signed_at=datetime.fromisoformat(signature['at'].replace('Z','+00:00')).astimezone(timezone.utc).strftime('%d.%m.%Y, %H:%M:%S UTC')
         story.extend([Spacer(1,8*mm),Paragraph('Unterschriebene Fassung',styles['Heading2']),paragraph('Unterzeichner: '+signature['signer']),
-            paragraph('Zeitpunkt: '+signature['at']),paragraph('Einfache elektronische Unterschrift; keine fortgeschrittene oder qualifizierte Signatur.')])
+            paragraph('Zeitpunkt: '+signed_at),paragraph('Einfache elektronische Unterschrift; keine fortgeschrittene oder qualifizierte Signatur.')])
         drawing=Drawing(160*mm,35*mm)
         for stroke in signature['strokes']:
             points=[coordinate for p in stroke for coordinate in (p[0]*160*mm,(1-p[1])*35*mm)]
@@ -1076,7 +1243,7 @@ def _atomic(method):
     return wrapped
 
 
-for _name in ('settings','save_settings','articles','catalog_item','save_article','text_blocks','save_text_block','templates','save_template','get','list','time_sources','create','update','convert','cancel',
+for _name in ('settings','save_settings','articles','catalog_item','pricing_preview','document_calculation','measurement_preview','save_article','text_blocks','save_text_block','templates','save_template','get','list','time_sources','create','update','convert','cancel',
               'prepare_finalization','finalize','archive','sign','signatures','signed_pdf','email_preview','prepare_mail','reconcile_mail'):
     setattr(Documents,_name,_atomic(getattr(Documents,_name)))
 BusinessDocuments=Documents
@@ -1113,6 +1280,11 @@ def validate_integrity(office):
             template=value['template_source']
             if _hash(canonical(template['snapshot']))!=template['sha256']:raise ValueError('Invalid template source snapshot')
         calculated=calculate_positions(value['positions'])
+        for position in value['positions']:
+            if position.get('measurement_snapshot'):Documents(office)._validate_measurement_snapshot(position,row['project_id'])
+            if 'pricing_snapshot' in position:
+                from business_pricing import snapshot_matches
+                if not snapshot_matches(position,position['pricing_snapshot']):raise ValueError('Commercial pricing proof does not match its position')
         if canonical(calculated['positions'])!=canonical(value['positions']) or canonical(calculated['totals'])!=canonical(value.get('contract_totals',value['totals'])):raise ValueError('Commercial monetary snapshot is inconsistent')
         versions=db.execute('SELECT revision,payload_sha256 FROM business_document_versions WHERE document_id=? ORDER BY revision',(row['id'],)).fetchall()
         if [v['revision'] for v in versions]!=list(range(1,row['revision']+1)) or versions[-1]['payload_sha256']!=row['payload_sha256']:raise ValueError('Incomplete commercial revision journal')
@@ -1193,11 +1365,16 @@ def _validate_pg_guards(db,statements):
             raise ValueError('Missing or modified PostgreSQL commercial/finance integrity guard: '+name)
 
 
+FEATURES=('quote_pricing','measurement_transfer')
+
+
 def methods(path):
+    if path in ('/commercial/pricing/preview','/commercial/document-calculation','/commercial/measurement-preview'):return 'POST'
     if path=='/documents/time-sources':return 'GET'
     if path in ('/documents','/articles','/services','/templates','/text-blocks','/commercial/settings','/settings/branding'):return 'GET, POST'
     if re.fullmatch(r'/(?:documents|articles|services|templates|text-blocks)/[a-f0-9]{32}',path):return 'GET, POST'
     if re.fullmatch(r'/documents/[a-f0-9]{32}/(?:convert|finalize|cancel|sign)',path):return 'POST'
+    if re.fullmatch(r'/documents/[a-f0-9]{32}/calculation',path):return 'POST'
     if re.fullmatch(r'/documents/[a-f0-9]{32}/(?:email|email-reconcile)',path):return 'POST'
     if re.fullmatch(r'/documents/[a-f0-9]{32}/(?:pdf|xml|preview|email-preview)',path):return 'GET'
     if re.fullmatch(r'/documents/[a-f0-9]{32}/signatures(?:/[a-f0-9]{32}/pdf)?',path):return 'GET'
@@ -1210,7 +1387,10 @@ def dispatch(office,actor,path,method,data):
     if method=='GET':data=data.get('_query',{})
     if method not in methods(path).split(', '):raise Problem(405,'Methode nicht erlaubt')
     parts=path.strip('/').split('/');kind=parts[0];identifier=parts[1] if len(parts)>1 else None;action=parts[2] if len(parts)>2 else None
-    if path=='/documents/time-sources':result=api.time_sources(actor,data.get('project_id'))
+    if path=='/commercial/pricing/preview':result=api.pricing_preview(actor,data)
+    elif path=='/commercial/document-calculation':result=api.document_calculation(actor,data)
+    elif path=='/commercial/measurement-preview':result=api.measurement_preview(actor,data)
+    elif path=='/documents/time-sources':result=api.time_sources(actor,data.get('project_id'))
     elif path in ('/commercial/settings','/settings/branding'):result=api.settings(actor) if method=='GET' else api.save_settings(actor,data)
     elif kind in ('articles','services'):
         result=(api.catalog_item(actor,'business_articles',identifier,services=kind=='services') if identifier else api.articles(actor,data.get('query',''),services=kind=='services')) if method=='GET' else api.save_article(actor,data,identifier)
@@ -1231,6 +1411,7 @@ def dispatch(office,actor,path,method,data):
     elif action=='email-preview':result=api.email_preview(actor,identifier)
     elif action=='email':result=api.send_mail(actor,identifier,data)
     elif action=='email-reconcile':result=api.reconcile_mail(actor,identifier,data)
+    elif action=='calculation':result=api.document_calculation(actor,data,identifier)
     elif action=='signatures':
         if len(parts)==5:return Download(api.signed_pdf(actor,identifier,parts[3]),'Unterschrieben-'+identifier+'.pdf'),200,'application/pdf'
         result=api.signatures(actor,identifier)

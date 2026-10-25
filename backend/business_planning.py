@@ -15,6 +15,16 @@ import uuid
 
 from core import Problem, canonical, digest
 
+FEATURES = ('project_timeline',)
+TIMELINE_MAX_DAYS = 1096
+TIMELINE_MAX_PROJECTS = 500
+_TIMELINE_SELECT = '''SELECT p.id,p.name,pp.payload AS profile_payload,
+    COALESCE(pp.revision,0) AS profile_revision,bp.status_id,
+    s.name AS status_name,s.color AS status_color,s.terminal AS status_terminal
+    FROM projects p LEFT JOIN project_profiles pp ON pp.project_id=p.id
+    LEFT JOIN business_project_profiles bp ON bp.project_id=p.id
+    LEFT JOIN business_project_statuses s ON s.id=bp.status_id'''
+
 
 @contextmanager
 def _transaction(office):
@@ -478,6 +488,87 @@ class Planning:
     def save_shift(self, actor, data):
         return self.save_appointment(actor, data.get('project_id'), data, kind='shift')
 
+    def _timeline_item(self, actor, row):
+        profile = json.loads(row['profile_payload']) if row['profile_payload'] is not None else {}
+        first, last = profile.get('start_date'), profile.get('end_date')
+        if first is not None:
+            first = _date(first).isoformat()
+        if last is not None:
+            last = _date(last).isoformat()
+        if first is not None and last is not None and last < first:
+            raise Problem(500, 'Gespeicherter Projektzeitraum ist ungültig.')
+        status = None
+        if row['status_id'] is not None:
+            if row['status_name'] is None:
+                raise Problem(500, 'Gespeicherter Projektstatus ist ungültig.')
+            status = dict(id=row['status_id'], name=row['status_name'], color=row['status_color'],
+                          terminal=bool(row['status_terminal']))
+        return dict(id=row['id'], name=row['name'], start_date=first, end_date=last,
+                    revision=row['profile_revision'], phase=profile.get('phase', 'planning'), status=status,
+                    can_edit=_has(self.office, actor, 'projects.manage', row['id']),
+                    planning_state='scheduled' if first is not None and last is not None else
+                                   'partial' if first is not None or last is not None else 'unscheduled')
+
+    @_atomic
+    def timeline(self, actor, query=None):
+        """Civil project dates, independent of appointment instants and HR/finance."""
+        query = query or {}
+        if not isinstance(query, dict) or set(query) - {'from', 'to', 'project_id'}:
+            raise Problem(400, 'Datumsbereich und optional ein Projekt erwartet.')
+        actor = _fresh(self.office, actor)
+        project = _id(query['project_id']) if query.get('project_id') is not None else None
+        actor = _require(self.office, actor, 'planning.read', project)
+        year = self.clock().astimezone(timezone.utc).year
+        first = _date(query.get('from', f'{year:04d}-01-01'))
+        last = _date(query.get('to', f'{year:04d}-12-31'))
+        if last < first or (last - first).days + 1 > TIMELINE_MAX_DAYS:
+            raise Problem(400, 'Projektplanung benötigt einen Bereich von höchstens 1096 Tagen.')
+        conditions, parameters = [], []
+        if project is not None:
+            conditions.append('p.id=?')
+            parameters.append(project)
+        elif actor['role'] != 'owner':
+            # Do not fetch profiles from unrelated projects. The fresh domain
+            # permission check below remains authoritative for every DTO.
+            conditions.append('EXISTS(SELECT 1 FROM assignments a WHERE a.project_id=p.id AND a.user_id=?)')
+            parameters.append(actor['id'])
+            conditions.append("NOT EXISTS(SELECT 1 FROM business_permission_grants g WHERE g.user_id=? "
+                              "AND g.permission='planning.read' AND g.scope=p.id AND g.effect='deny')")
+            parameters.append(actor['id'])
+        rows = self.db.execute(_TIMELINE_SELECT + (' WHERE ' + ' AND '.join(conditions) if conditions else '') +
+                               ' ORDER BY p.id LIMIT 501', tuple(parameters)).fetchall()
+        if len(rows) > TIMELINE_MAX_PROJECTS:
+            raise Problem(413, 'Zu viele Projekte für eine gemeinsame Ansicht; bitte ein Projekt auswählen.')
+        scheduled, unplanned = [], []
+        for row in rows:
+            if not _has(self.office, actor, 'planning.read', row['id']):
+                continue
+            item = self._timeline_item(actor, row)
+            if item['planning_state'] != 'scheduled':
+                unplanned.append(item)
+            elif item['start_date'] <= last.isoformat() and item['end_date'] >= first.isoformat():
+                scheduled.append(item)
+        scheduled.sort(key=lambda item: (item['start_date'], item['name'].casefold(), item['id']))
+        unplanned.sort(key=lambda item: (item['name'].casefold(), item['id']))
+        return {'from': first.isoformat(), 'to': last.isoformat(), 'items': scheduled, 'unplanned': unplanned}
+
+    @_atomic
+    def save_project_dates(self, actor, project_id, data):
+        """Use the canonical workspace profile, its revision and retry receipt."""
+        if not isinstance(data, dict) or set(data) != {'request_id', 'revision', 'start_date', 'end_date'}:
+            raise Problem(400, 'Vorgangs-ID, Projektversion, Beginn und Ende erwartet.')
+        project_id = _id(project_id)
+        actor = _require(self.office, actor, 'planning.read', project_id)
+        actor = _require(self.office, actor, 'projects.manage', project_id)
+        from project_workspace import ProjectWorkspace
+        ProjectWorkspace(self.office, clock=self.clock).save_profile(actor, project_id, data)
+        row = self.db.execute(_TIMELINE_SELECT + ' WHERE p.id=?', (project_id,)).fetchone()
+        if row is None:
+            raise Problem(404, 'Projekt nicht verfügbar.')
+        # A lost-response retry acknowledges today's canonical state, even if
+        # another profile edit has happened since the original committed write.
+        return self._timeline_item(actor, row)
+
     @_atomic
     def calendar(self, actor, query=None):
         actor, query = _fresh(self.office, actor), query or {}
@@ -681,6 +772,11 @@ def dispatch(office, actor, path, method, data):
         return service.approve_absence(actor, match[1], data), 200, 'application/json'
     if path == '/planning/calendar' and method == 'GET':
         return service.calendar(actor, query), 200, 'application/json'
+    if path == '/planning/timeline' and method == 'GET':
+        return service.timeline(actor, query), 200, 'application/json'
+    match = re.fullmatch(r'/planning/projects/([a-f0-9]{32})/dates', path)
+    if match and method == 'POST':
+        return service.save_project_dates(actor, match[1], data), 200, 'application/json'
     if path == '/planning/conflicts' and method in ('GET', 'POST'):
         body = query if method == 'GET' else data
         return service.conflicts(actor, body.get('project_id'), body), 200, 'application/json'
@@ -692,4 +788,6 @@ def methods(path):
         return 'GET, POST'
     if re.fullmatch(r'/absences/[a-f0-9]{32}/approve', path):
         return 'POST'
-    return {'/planning/calendar': 'GET', '/planning/conflicts': 'GET, POST'}.get(path)
+    if re.fullmatch(r'/planning/projects/[a-f0-9]{32}/dates', path):
+        return 'POST'
+    return {'/planning/calendar': 'GET', '/planning/timeline': 'GET', '/planning/conflicts': 'GET, POST'}.get(path)

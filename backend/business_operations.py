@@ -768,13 +768,15 @@ def _render_pdf(value):
     for line in value.get('article_lines',[]):
         story.append(Paragraph(escape(line['name']+': '+line['quantity']+' '+line['unit']+' (Artikelrevision '+str(line['article_revision'])+')'),styles['Normal']))
     for source in value.get('time_references',[]):
-        story.append(Paragraph(escape('Genehmigte Zeit '+source['work_date']+': '+str(source['net_seconds'])+' Sekunden; Quelle '+source['entry_id']),styles['Normal']))
+        work_date=date.fromisoformat(source['work_date']).strftime('%d.%m.%Y')
+        story.append(Paragraph(escape('Genehmigte Zeit '+work_date+': '+str(source['net_seconds'])+' Sekunden; Quelle '+source['entry_id']),styles['Normal']))
     checklist=value.get('checklist',{})
     for item in checklist.get('items',[]):
         answer=checklist['answers'].get(item['key'],'')
         story.append(Paragraph(escape(item['label']+': '+('Ja' if answer is True else 'Nein' if answer is False else str(answer))),styles['Normal']))
+    signed_at=datetime.fromisoformat(instant(value['signed_at'])).strftime('%d.%m.%Y, %H:%M:%S UTC')
     story.extend([Spacer(1,20),Paragraph('Unterzeichner: '+escape(value['signer']),styles['Normal']),
-                  Paragraph('Unterzeichnet (UTC): '+escape(value['signed_at']),styles['Normal']),Signature(value['strokes'])])
+                  Paragraph('Unterzeichnet: '+escape(signed_at),styles['Normal']),Signature(value['strokes'])])
     document.build(story)
     return stream.getvalue()
 

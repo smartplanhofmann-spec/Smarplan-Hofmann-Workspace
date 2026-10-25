@@ -1,6 +1,6 @@
 """Synthetic persisted documentation workflows; no providers or real customer files."""
 import base64
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import hashlib
 import io
 import json
@@ -192,7 +192,9 @@ class OperationsTests(unittest.TestCase):
         pdf = self.api.entry_pdf(self.tech, self.project, row['id'])
         self.assertTrue(pdf.startswith(b'%PDF-'))
         self.assertIn(b'Synthetic Signer', pdf)
-        self.assertIn(b'2026-10-25T10:00:00+00:00', pdf)
+        self.assertIn(b'25.10.2026, 10:00:00 UTC', pdf)
+        self.assertNotIn(b'2026-10-25T10:00:00+00:00', pdf)
+        self.assertEqual(signed['signed_at'], '2026-10-25T10:00:00+00:00')
         self.assertEqual(hashlib.sha256(pdf).hexdigest(), signed['pdf_sha256'])
         self.error(409, self.api.save_entry, self.tech, self.project, 'measurement', self.request(revision=2,title='Overwrite', lines=[]), row['id'])
         second = Office(self.office.path if hasattr(self.office, 'path') else Path(self.temp.name) / 'office.db')
@@ -200,6 +202,70 @@ class OperationsTests(unittest.TestCase):
             self.assertEqual(BusinessOperations(second).entry_pdf(self.owner, self.project, row['id']), pdf)
         finally:
             second.db.close()
+        self.assertTrue(validate_integrity(self.office))
+
+    def test_new_pdf_uses_german_utc_timestamp_across_year_boundary_without_changing_source(self):
+        self.api.clock = lambda: datetime(2027, 1, 1, 1, 30, 45, tzinfo=timezone(timedelta(hours=2)))
+        row = self.measurement()
+        source_hash = row['content_hash']
+        signed = self.api.sign_entry(self.tech, self.project, row['id'], self.request(
+            revision=row['revision'], expected_hash=source_hash, signer='Synthetic year-boundary signer',
+            strokes=[[[0.1, 0.2], [0.8, 0.6]]]))
+        pdf = self.api.entry_pdf(self.tech, self.project, row['id'])
+        self.assertIn(b'31.12.2026, 23:30:45 UTC', pdf)
+        self.assertNotIn(b'2026-12-31T23:30:45+00:00', pdf)
+        self.assertEqual(signed['signed_at'], '2026-12-31T23:30:45+00:00')
+        self.assertEqual(signed['signed_content_hash'], source_hash)
+        self.assertEqual(hashlib.sha256(pdf).hexdigest(), signed['pdf_sha256'])
+        self.assertTrue(validate_integrity(self.office))
+
+    def test_signed_diary_formats_imported_work_day_but_preserves_approved_iso_snapshot(self):
+        from business_planning import Planning
+        from business_time import TimeTracking
+        planning = Planning(self.office, clock=self.api.clock)
+        employee = planning.save_employee(self.owner, self.request(user_id=self.tech['id'],
+            name='Synthetic diary technician', weekly_minutes=2400, hourly_cost_minor=3500))
+        tracking = TimeTracking(self.office, clock=self.api.clock)
+        entry_id = uuid.uuid4().hex
+        for sequence, (action, at) in enumerate((('start', '2026-10-24T08:00:00+02:00'),
+                                                ('stop', '2026-10-24T09:00:00+02:00')), 1):
+            tracking.event(self.tech, self.request(entry_id=entry_id, device_id='synthetic-diary-date',
+                project_id=self.project, action=action, occurred_at=at, sequence=sequence, revision=sequence-1))
+        summary = tracking.summary(self.owner, {'employee_id': employee['id'], 'from': '2026-10-24', 'to': '2026-10-24'})
+        tracking.approve_day(self.owner, '2026-10-24', self.request(employee_id=employee['id'], revision=summary['days'][0]['revision']))
+        snapshot = tracking.approved_work(self.tech, self.project)
+        diary = self.api.save_entry(self.tech, self.project, 'diary', self.request(title='Synthetic approved day',
+            entry_date='2026-10-25', work='Synthetic installation',
+            time_references=[{'entry_id': entry_id, 'work_date': '2026-10-24'}]))
+        signed = self.api.sign_entry(self.tech, self.project, diary['id'], self.request(
+            revision=diary['revision'], expected_hash=diary['content_hash'], signer='Synthetic diary signer',
+            strokes=[[[0.1, 0.2], [0.8, 0.6]]]))
+        pdf = self.api.entry_pdf(self.tech, self.project, diary['id'])
+        self.assertIn(b'Genehmigte Zeit 24.10.2026: 3600 Sekunden', pdf)
+        self.assertNotIn(b'2026-10-24', pdf)
+        self.assertEqual(signed['time_references'], snapshot['items'])
+        self.assertEqual(signed['time_references'][0]['work_date'], '2026-10-24')
+        self.assertEqual(tracking.approved_work(self.tech, self.project), snapshot)
+        self.assertEqual(signed['signed_content_hash'], diary['content_hash'])
+        self.assertEqual(hashlib.sha256(pdf).hexdigest(), signed['pdf_sha256'])
+        self.assertTrue(validate_integrity(self.office))
+
+    def test_legacy_iso_pdf_archive_is_retained_byte_identically_after_formatter_changes(self):
+        from reportlab.pdfgen.canvas import Canvas
+        stream = io.BytesIO()
+        canvas = Canvas(stream, pageCompression=0)
+        canvas.drawString(40, 700, 'Synthetic legacy signature: 2026-10-25T10:00:00+00:00')
+        canvas.save()
+        legacy = stream.getvalue()
+        row = self.measurement()
+        with patch.object(domain, '_render_pdf', return_value=legacy):
+            signed = self.api.sign_entry(self.tech, self.project, row['id'], self.request(
+                revision=row['revision'], expected_hash=row['content_hash'], signer='Synthetic legacy signer',
+                strokes=[[[0.1, 0.2], [0.8, 0.6]]]))
+        with patch.object(domain, '_render_pdf', side_effect=AssertionError('Archived PDFs must never be rendered again')):
+            self.assertEqual(self.api.entry_pdf(self.tech, self.project, row['id']), legacy)
+        self.assertEqual(hashlib.sha256(legacy).hexdigest(), signed['pdf_sha256'])
+        self.assertEqual(signed['signed_at'], '2026-10-25T10:00:00+00:00')
         self.assertTrue(validate_integrity(self.office))
 
     def test_diary_defect_revisions_and_media_binding(self):

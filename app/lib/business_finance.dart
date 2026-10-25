@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'api.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -44,33 +45,49 @@ class _BusinessFinancePageState extends State<BusinessFinancePage> {
 
   Future<void> load() async {
     final current = ++epoch;
-    setState(() => loading = true);
+    setState(() {
+      loading = true;
+      error = null;
+    });
     try {
       final list = businessItems(
         await widget.session.read(widget.session.query('/finance/open-items')),
       );
-      final deliveries = businessItems(
-        await widget.session.read('/finance/outbox'),
-      );
+      final deliveries = widget.session.projectId == null
+          ? businessItems(await widget.session.read('/finance/outbox'))
+          : <Map<String, dynamic>>[];
       if (mounted && current == epoch && widget.session.can('finance.read'))
         setState(() {
           items = list;
           outbox = deliveries;
         });
     } catch (e) {
-      if (mounted && current == epoch) setState(() => error = '$e');
+      if (mounted && current == epoch)
+        setState(() {
+          if (e is ApiException && [401, 403, 404].contains(e.status)) {
+            items = [];
+            outbox = [];
+            proposals = [];
+          }
+          error = '$e';
+        });
     } finally {
       if (mounted && current == epoch) setState(() => loading = false);
     }
   }
 
   Future<void> payment(Map<String, dynamic> item) async {
+    if (!widget.session.can('finance.read') ||
+        !widget.session.canWrite('finance.write'))
+      return;
     final source = 'manual-${offlineId()}';
     final key = 'payment-$source';
     await showDialog<bool>(
       context: context,
       builder: (_) => BusinessEditor(
         session: widget.session,
+        readPermission: 'finance.read',
+        writePermission: 'finance.write',
         title: 'Zahlung zu ${item['number']} erfassen',
         fields: const [
           BusinessField(
@@ -96,6 +113,13 @@ class _BusinessFinancePageState extends State<BusinessFinancePage> {
           'booking_date': DateTime.now().toIso8601String().substring(0, 10),
         },
         onSave: (values) async {
+          if (!mounted ||
+              !widget.session.can('finance.read') ||
+              !widget.session.canWrite('finance.write'))
+            throw const ApiException(
+              403,
+              'Die Zahlung ist nicht mehr freigegeben.',
+            );
           await widget.session.command(key, '/finance/payments', {
             'source_id': source,
             'kind': 'receipt',
@@ -111,7 +135,7 @@ class _BusinessFinancePageState extends State<BusinessFinancePage> {
         },
       ),
     );
-    if (mounted) await load();
+    if (mounted && widget.session.can('finance.read')) await load();
   }
 
   Future<void> prepare() async {
@@ -149,7 +173,9 @@ class _BusinessFinancePageState extends State<BusinessFinancePage> {
           message: 'Bitte prüfen Sie Empfänger, Betrag und Text. Die Freigabe gilt für genau diese Fassung. Ein nicht eingerichteter Versand wird nicht als zugestellt gemeldet.',
           action: 'Geprüfte Fassung freigeben',
         ) ||
-        !mounted)
+        !mounted ||
+        !widget.session.can('finance.read') ||
+        !widget.session.canWrite('finance.approve'))
       return;
     setState(() => busy = true);
     try {
@@ -285,7 +311,7 @@ class _BusinessFinancePageState extends State<BusinessFinancePage> {
                 ),
               ),
           ],
-          if (outbox.isNotEmpty) ...[
+          if (widget.session.projectId == null && outbox.isNotEmpty) ...[
             const SizedBox(height: 24),
             Text('Versandstand', style: Theme.of(context).textTheme.titleLarge),
             for (final item in outbox)

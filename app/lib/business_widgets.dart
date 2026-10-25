@@ -123,10 +123,13 @@ class BusinessEditor extends StatefulWidget {
     this.saveLabel = 'Speichern',
     this.readPermission,
     this.writePermission,
+    this.additionalReadPermissions = const <String>{},
+    this.additionalWritePermissions = const <String>{},
   });
   final BusinessSession session;
   final String title, saveLabel;
   final String? readPermission, writePermission;
+  final Set<String> additionalReadPermissions, additionalWritePermissions;
   final List<BusinessField> fields;
   final Map<String, dynamic> initial;
   final Future<void> Function(Map<String, dynamic>) onSave;
@@ -138,12 +141,14 @@ class _BusinessEditorState extends State<BusinessEditor> {
   bool get mayView =>
       widget.session.allowed &&
       (widget.readPermission == null ||
-          widget.session.can(widget.readPermission!));
+          widget.session.can(widget.readPermission!)) &&
+      widget.additionalReadPermissions.every(widget.session.can);
   bool get mayWrite =>
       mayView &&
       !widget.session.readonly &&
       (widget.writePermission == null ||
-          widget.session.canWrite(widget.writePermission!));
+          widget.session.canWrite(widget.writePermission!)) &&
+      widget.additionalWritePermissions.every(widget.session.canWrite);
   final form = GlobalKey<FormState>();
   final controllers = <String, TextEditingController>{};
   final choices = <String, dynamic>{};
@@ -407,7 +412,7 @@ class _BusinessEditorState extends State<BusinessEditor> {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-    title: Text(widget.title),
+    title: Text(mayView ? widget.title : 'Kein Zugriff'),
     content: SizedBox(
       width: 600,
       child: SingleChildScrollView(
@@ -515,6 +520,8 @@ class _BusinessCollectionState extends State<BusinessCollection> {
   bool loading = true;
   String? error;
   String search = '';
+  bool actionBusy = false;
+  Future<void> Function()? retryAction;
   int epoch = 0;
   @override
   void initState() {
@@ -530,6 +537,7 @@ class _BusinessCollectionState extends State<BusinessCollection> {
       setState(() {
         records = [];
         loading = false;
+        retryAction = null;
       });
     }
   }
@@ -573,7 +581,39 @@ class _BusinessCollectionState extends State<BusinessCollection> {
     }
   }
 
-  Future<void> edit([Map<String, dynamic>? record]) async {
+  Future<void> runAction(Future<void> Function() operation) async {
+    if (actionBusy || !widget.session.can(widget.readPermission)) return;
+    setState(() {
+      actionBusy = true;
+      error = null;
+      retryAction = null;
+    });
+    try {
+      await operation();
+    } on ApiException catch (failure) {
+      if (mounted && widget.session.can(widget.readPermission)) {
+        setState(() {
+          error = failure.message;
+          if (![401, 403, 404].contains(failure.status))
+            retryAction = operation;
+        });
+      }
+    } catch (_) {
+      if (mounted && widget.session.can(widget.readPermission)) {
+        setState(() {
+          error = 'Der Vorgang konnte nicht geöffnet werden. Bitte erneut versuchen.';
+          retryAction = operation;
+        });
+      }
+    } finally {
+      if (mounted) setState(() => actionBusy = false);
+    }
+  }
+
+  Future<void> edit([Map<String, dynamic>? record]) =>
+      runAction(() => editRecord(record));
+
+  Future<void> editRecord(Map<String, dynamic>? record) async {
     if (!widget.session.canWrite(widget.writePermission)) return;
     if (record == null && widget.onCreate != null) {
       await widget.onCreate!();
@@ -612,49 +652,66 @@ class _BusinessCollectionState extends State<BusinessCollection> {
     if (mounted) await load();
   }
 
-  Future<void> open(Map<String, dynamic> record) async {
+  Future<void> open(Map<String, dynamic> record) =>
+      runAction(() => openRecord(record));
+
+  Future<void> openRecord(Map<String, dynamic> record) async {
     if (widget.onOpen != null) {
       await widget.onOpen!(record);
       if (mounted) await load();
       return;
     }
     if (widget.editable && widget.session.canWrite(widget.writePermission)) {
-      await edit(record);
+      await editRecord(record);
       return;
     }
     if (!mounted) return;
+    final session = widget.session;
+    final permission = widget.readPermission;
+    final fields = widget.fields;
+    final title =
+        widget.titleOf?.call(record) ??
+        '${record['name'] ?? record['title'] ?? widget.title}';
     await showDialog<void>(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(
-          widget.titleOf?.call(record) ??
-              '${record['name'] ?? record['title'] ?? widget.title}',
-        ),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              for (final field in widget.fields) ...[
-                Text(
-                  field.label,
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-                Text(
-                  field.choices['${record[field.name]}'] ??
-                      '${record[field.name] ?? 'Nicht angegeben'}',
-                ),
-                const SizedBox(height: 12),
-              ],
+      builder: (dialogContext) => AnimatedBuilder(
+        animation: session,
+        builder: (context, _) {
+          final mayRead = session.can(permission);
+          return AlertDialog(
+            title: Text(mayRead ? title : 'Kein Zugriff'),
+            content: !mayRead
+                ? const Notice(
+                    'Der Zugang ist nicht mehr verfügbar.',
+                    error: true,
+                  )
+                : SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        for (final field in fields) ...[
+                          Text(
+                            field.label,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          Text(
+                            field.choices['${record[field.name]}'] ??
+                                '${record[field.name] ?? 'Nicht angegeben'}',
+                          ),
+                          const SizedBox(height: 12),
+                        ],
+                      ],
+                    ),
+                  ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: const Text('Schließen'),
+              ),
             ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Schließen'),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
@@ -689,7 +746,7 @@ class _BusinessCollectionState extends State<BusinessCollection> {
                   if (widget.actions != null) widget.actions!,
                   if (widget.session.canWrite(widget.writePermission))
                     FilledButton.icon(
-                      onPressed: () => edit(),
+                      onPressed: actionBusy || loading ? null : () => edit(),
                       icon: const Icon(Icons.add),
                       label: Text(widget.createLabel),
                     ),
@@ -712,6 +769,20 @@ class _BusinessCollectionState extends State<BusinessCollection> {
           ),
           const SizedBox(height: 12),
           if (error != null) Notice(error!, error: true),
+          if (retryAction != null)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed: actionBusy
+                    ? null
+                    : () {
+                        final retry = retryAction;
+                        if (retry != null) runAction(retry);
+                      },
+                icon: const Icon(Icons.refresh),
+                label: const Text('Erneut versuchen'),
+              ),
+            ),
           if (loading) const LinearProgressIndicator(),
           if (!loading && records.isEmpty && error == null)
             BusinessEmpty(
@@ -745,7 +816,7 @@ class _BusinessCollectionState extends State<BusinessCollection> {
                     ? null
                     : Text(widget.subtitleOf!(record)),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () => open(record),
+                onTap: actionBusy ? null : () => open(record),
               ),
             ),
         ],

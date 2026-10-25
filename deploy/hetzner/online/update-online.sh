@@ -385,7 +385,7 @@ for smartplan_attempt in {1..15}; do smartplan_ready >/dev/null 2>&1 && break; s
 smartplan_ready >/dev/null 2>&1 || fail 'Kandidat nicht bereit; Rückkehr vor öffentlicher Freigabe.'
 curl --fail --silent --max-time 3 -H 'Host: office.smartplan-hofmann.de' -H 'X-Forwarded-Proto: https' \
   http://127.0.0.1:8766/ready | "$smartplan_release/venv/bin/python" -c \
-  'import json,sys; v=json.load(sys.stdin); mode=json.load(open(sys.argv[1]))["business"]["compatibility_mode"]; caps=set(v.get("capabilities",[])); assert mode in ("business","legacy") and v.get("version")=="0.12.0-online-pilot" and v.get("schema_version")==7 and v.get("compatibility_mode")==mode and {"project_plans","offline_plan_access","plan_imports","plan_deletion","project_workspace","inquiry_intake","gmail_intake","mail_attachments","business_integrations"} <= caps and (("business_suite" in caps)==(mode=="business"))' \
+  'import json,sys; v=json.load(sys.stdin); mode=json.load(open(sys.argv[1]))["business"]["compatibility_mode"]; caps=set(v.get("capabilities",[])); assert mode in ("business","legacy") and v.get("version")=="0.12.2-online-pilot" and v.get("schema_version")==7 and v.get("compatibility_mode")==mode and {"project_plans","offline_plan_access","plan_imports","plan_deletion","project_workspace","inquiry_intake","gmail_intake","mail_attachments","business_integrations"} <= caps and (("business_suite" in caps)==(mode=="business"))' \
   "$smartplan_control/report.json"
 systemctl is-active --quiet smartplan-online.service || fail 'Neuer Dienst nicht aktiv.'
 # Durable boundary BEFORE any public request can reach the new database.

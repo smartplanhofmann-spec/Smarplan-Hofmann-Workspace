@@ -57,7 +57,7 @@ systemctl is-active smartplan-online.service smartplan-https.service
 curl --fail --silent --show-error --max-time 15 https://office.smartplan-hofmann.de/ready
 ```
 
-Im Businessmodus meldet `/ready` Version `0.12.0-online-pilot`, physisches Schema
+Im Businessmodus meldet `/ready` nach dem [Korrekturpaket 0.12.2](APP_UPDATE_0_12_2.md) Version `0.12.2-online-pilot`, physisches Schema
 `7` und `business_suite`. Ein bewusst beibehaltener Rückkehrmodus meldet weiterhin
 Schema 7, aber `compatibility_mode: legacy` ohne aktive Business-Schreibfreigabe.
 Bei unvollständiger Wiederherstellung ist die Bereitschaft gesperrt.

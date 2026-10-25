@@ -1,6 +1,7 @@
 """Project-scoped billing snapshots; synthetic contacts only, no provider IO."""
 import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -180,10 +181,10 @@ class BillingContactTests(BillingFixture, unittest.TestCase):
         self.assertEqual(replay['buyer'], document['buyer'])
 
 
-ONLINE_AVAILABLE = bool(importlib.util.find_spec('flask') and importlib.util.find_spec('psycopg'))
+ONLINE_AVAILABLE = bool(os.name == 'posix' and importlib.util.find_spec('flask') and importlib.util.find_spec('psycopg'))
 
 
-@unittest.skipUnless(ONLINE_AVAILABLE, 'Real Flask route checks require the separately locked online dependencies')
+@unittest.skipUnless(ONLINE_AVAILABLE, 'Real online Flask adapter requires POSIX and the separately locked online dependencies')
 class BillingContactHttpTests(BillingFixture, unittest.TestCase):
     def setUp(self):
         super().setUp()

@@ -1,7 +1,7 @@
 name: smartplan_office
 description: Smartplan Hofmann - Windows and iPhone development foundation
 publish_to: none
-version: 0.11.0+15
+version: 0.12.0+120
 environment:
   sdk: '>=3.13.0 <4.0.0'
   flutter: '>=3.47.7'

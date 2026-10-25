@@ -215,5 +215,42 @@ class FinanceTests(DocumentsFixture,unittest.TestCase):
         self.assertEqual({'dunning_mail_unknown':2},finance.sanitize_after_restore(self.office));self.assertEqual({'dunning_mail_unknown':0},finance.sanitize_after_restore(self.office))
         active=self.fc('outbox')['items'][0];self.assertTrue(active['supersession_conflict']);self.assertEqual(['unknown','unknown'],[v['status'] for v in active['editions']]);finance.validate_integrity(self.office)
 
+    def test_accepted_notice_is_not_replaced_by_partial_payment_and_next_interval_starts_at_receipt(self):
+        from business_delivery import DeliveryReceipt
+        invoice=self.invoice();self.enable_rules();proposal=self.fc('propose',dict(request_id=uuid.uuid4().hex))['items'][0]
+        first=self.fc('approve',proposal['id'],dict(request_id=uuid.uuid4().hex,confirmation=True));outbox=self.fc('outbox')['items'][0]
+        self.assertIsNone(self.fc('open_items')['items'][0]['last_reminder'])
+        self.moment+=timedelta(days=3)
+        class Sink:
+            def send(self,job):return DeliveryReceipt('accepted',job['operation_id'],'c'*64,accepted_by_server=True)
+        self.fc('deliver',outbox['id'],dict(request_id=uuid.uuid4().hex,confirmation=True,payload_sha256=outbox['payload_sha256']),transport=Sink())
+        item=self.fc('open_items')['items'][0];self.assertEqual((self.moment.date()+timedelta(days=7)).isoformat(),item['next_due_date'])
+        self.fc('record_payment',self.payment(invoice,'10.00'));self.assertEqual([],self.fc('propose',dict(request_id=uuid.uuid4().hex))['items'])
+        self.moment+=timedelta(days=8);next_notice=self.fc('propose',dict(request_id=uuid.uuid4().hex))['items'][0]
+        self.assertEqual(2,next_notice['level']);self.assertNotIn('supersedes',next_notice)
+
+    def test_late_previous_stage_conflict_blocks_later_stage_until_explicit_receipt_review(self):
+        from business_delivery import DeliveryReceipt
+        invoice=self.invoice();self.enable_rules();proposal=self.fc('propose',dict(request_id=uuid.uuid4().hex))['items'][0]
+        first=self.fc('approve',proposal['id'],dict(request_id=uuid.uuid4().hex,confirmation=True));original=self.fc('outbox')['items'][0];peer=self
+        class Accepted:
+            def send(self,job):return DeliveryReceipt('accepted',job['operation_id'],'d'*64,accepted_by_server=True)
+        class Late:
+            def send(self,job):
+                peer.moment+=timedelta(minutes=5)
+                peer.fc('record_delivery',first['outbox_id'],dict(request_id=uuid.uuid4().hex,operation_id=job['operation_id'],outcome='not_sent',confirmation=True,provider_receipt='Synthetic stale investigation'))
+                peer.fc('record_payment',peer.payment(invoice,'10.00'));proposal=peer.fc('propose',dict(request_id=uuid.uuid4().hex))['items'][0]
+                peer.fc('approve',proposal['id'],dict(request_id=uuid.uuid4().hex,confirmation=True));current=peer.fc('outbox')['items'][0]
+                peer.fc('deliver',current['id'],dict(request_id=uuid.uuid4().hex,confirmation=True,payload_sha256=current['payload_sha256']),transport=Accepted())
+                peer.moment+=timedelta(days=8);second=peer.fc('propose',dict(request_id=uuid.uuid4().hex))['items'][0]
+                peer.fc('approve',second['id'],dict(request_id=uuid.uuid4().hex,confirmation=True))
+                return DeliveryReceipt('accepted',job['operation_id'],'e'*64,accepted_by_server=True)
+        self.fc('deliver',original['id'],dict(request_id=uuid.uuid4().hex,confirmation=True,payload_sha256=original['payload_sha256']),transport=Late())
+        rows=self.fc('outbox')['items'];later=next(r for r in rows if r['level']==2);old=next(r for r in rows if r['level']==1)
+        self.assertTrue(later['blocked_by_previous_conflict'])
+        with self.assertRaises(Problem):self.fc('deliver',later['id'],dict(request_id=uuid.uuid4().hex,confirmation=True,payload_sha256=later['payload_sha256']),transport=Accepted())
+        self.fc('record_delivery',old['id'],dict(request_id=uuid.uuid4().hex,operation_id=old['operation_id'],outcome='sent',confirmation=True,provider_receipt='Synthetic duplicated notices reviewed against external logs',acknowledge_conflict=True))
+        self.assertFalse(self.fc('open_items')['items'][0]['supersession_conflict']);finance.validate_integrity(self.office)
+
 
 if __name__=='__main__':unittest.main()

@@ -249,7 +249,7 @@ def build_zugferd(snapshot,pdf,*,evidence_dir=None):
     xml=build_zugferd_cii(snapshot)
     jar=_pinned_tool('SMARTPLAN_MUSTANG_JAR','/workspace/toolchains/Mustang-CLI-2.26.0.jar',MUSTANG_SHA256)
     java=os.environ.get('SMARTPLAN_KOSIT_JAVA','/usr/bin/java');gs=os.environ.get('SMARTPLAN_GHOSTSCRIPT','/usr/bin/gs')
-    icc=Path(os.environ.get('SMARTPLAN_SRGB_ICC','/usr/share/color/icc/sRGB.icc'))
+    icc=Path(os.environ.get('SMARTPLAN_SRGB_ICC','/usr/share/color/icc/ghostscript/srgb.icc'))
     if not Path(gs).is_absolute() or not Path(gs).is_file() or not icc.is_absolute() or not icc.is_file():raise Problem(409,'PDF/A-3-Erzeugung ist nicht eingerichtet')
     with tempfile.TemporaryDirectory(prefix='smartplan-zugferd-') as tmp:
         path=Path(tmp);(path/'source.pdf').write_bytes(pdf);(path/'invoice.xml').write_bytes(xml);(path/'profile.icc').write_bytes(icc.read_bytes())

@@ -355,6 +355,15 @@ class Documents:
             if (not services or item['kind'] in ('labor','service')) and (not query or query.casefold() in (item['name']+' '+item['code']).casefold()):result.append(item)
         return {'items':result}
 
+    def catalog_item(self,actor,table,identifier,*,services=False):
+        require(self.office,actor,'finance.read')
+        if table not in ('business_articles','business_templates','business_text_blocks'):raise Problem(400,'Katalog nicht unterstützt')
+        row=self.db.execute('SELECT * FROM '+table+' WHERE id=?',(_id(identifier),)).fetchone()
+        if not row:raise Problem(404,'Katalogeintrag nicht verfügbar')
+        value=json.loads(row['payload_json'])
+        if services and value.get('kind') not in ('labor','service'):raise Problem(404,'Leistung nicht verfügbar')
+        return dict(id=row['id'],revision=row['revision'],updated_at=row['updated_at'],**value)
+
     def save_article(self,actor,data,article_id=None):
         actor=require(self.office,actor,'finance.write')
         if not isinstance(data,dict):raise Problem(400,'Artikel erwartet')
@@ -1066,7 +1075,7 @@ def _atomic(method):
     return wrapped
 
 
-for _name in ('settings','save_settings','articles','save_article','text_blocks','save_text_block','templates','save_template','get','list','time_sources','create','update','convert','cancel',
+for _name in ('settings','save_settings','articles','catalog_item','save_article','text_blocks','save_text_block','templates','save_template','get','list','time_sources','create','update','convert','cancel',
               'prepare_finalization','finalize','archive','sign','signatures','signed_pdf','email_preview','prepare_mail','reconcile_mail'):
     setattr(Documents,_name,_atomic(getattr(Documents,_name)))
 BusinessDocuments=Documents
@@ -1203,9 +1212,9 @@ def dispatch(office,actor,path,method,data):
     if path=='/documents/time-sources':result=api.time_sources(actor,data.get('project_id'))
     elif path in ('/commercial/settings','/settings/branding'):result=api.settings(actor) if method=='GET' else api.save_settings(actor,data)
     elif kind in ('articles','services'):
-        result=api.articles(actor,data.get('query',''),services=kind=='services') if method=='GET' else api.save_article(actor,data,identifier)
-    elif kind=='templates':result=api.templates(actor) if method=='GET' else api.save_template(actor,data,identifier)
-    elif kind=='text-blocks':result=api.text_blocks(actor) if method=='GET' else api.save_text_block(actor,data,identifier)
+        result=(api.catalog_item(actor,'business_articles',identifier,services=kind=='services') if identifier else api.articles(actor,data.get('query',''),services=kind=='services')) if method=='GET' else api.save_article(actor,data,identifier)
+    elif kind=='templates':result=(api.catalog_item(actor,'business_templates',identifier) if identifier else api.templates(actor)) if method=='GET' else api.save_template(actor,data,identifier)
+    elif kind=='text-blocks':result=(api.catalog_item(actor,'business_text_blocks',identifier) if identifier else api.text_blocks(actor)) if method=='GET' else api.save_text_block(actor,data,identifier)
     elif not identifier:result=api.list(actor,data.get('project_id'),data.get('kind'),data.get('query','')) if method=='GET' else api.create(actor,data)
     elif action in ('pdf','xml'):
         document=api.get(actor,identifier)

@@ -208,7 +208,7 @@ class Finance:
             base=date.fromisoformat(current['approved_at'][:10]) if current else due
             next_date=base+timedelta(days=rules['levels'][level]['days'])
         blocked=False;delivery=None;mail=None;can_revise=False;last_reminder=None
-        sent_times=self.db.execute("SELECT r.created_at FROM business_outbox_receipts r JOIN business_finance_outbox o ON o.id=r.outbox_id JOIN business_dunning_approvals a ON a.id=o.approval_id WHERE a.document_id=? AND r.outcome='sent' ORDER BY r.created_at DESC",(document['id'],)).fetchall()
+        sent_times=[r for r in self.db.execute("SELECT r.created_at,r.provider_receipt FROM business_outbox_receipts r JOIN business_finance_outbox o ON o.id=r.outbox_id JOIN business_dunning_approvals a ON a.id=o.approval_id WHERE a.document_id=? AND r.outcome='sent' ORDER BY r.created_at DESC",(document['id'],)).fetchall() if not (r['provider_receipt'] or '').startswith('reconciled_supersession:')]
         if sent_times:last_reminder=sent_times[0]['created_at']
         if current:
             outbox=self.db.execute('SELECT id FROM business_finance_outbox WHERE approval_id=?',(current['id'],)).fetchone()

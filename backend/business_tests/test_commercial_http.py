@@ -78,5 +78,15 @@ class CommercialHttpTests(unittest.TestCase):
         self.assertEqual(0,self.office.db.execute('SELECT count(*) FROM business_document_numbers').fetchone()[0])
         self.assertEqual(1,len(self.call('GET','/business/finance/receipts?project_id='+self.project).json['items']))
 
+    def test_catalog_detail_routes_return_one_bound_item_and_reject_wrong_service_type(self):
+        article=self.call('POST','/business/articles',self.req(name='Synthetic material',code='SYN-M',kind='material',unit='C62',unit_price_net='12.50',cost_price_net='8.00',tax_rate='19',active=True)).json
+        detail=self.call('GET','/business/articles/'+article['id']).json
+        self.assertEqual(article['id'],detail['id']);self.assertEqual('12.50',detail['unit_price_net']);self.assertNotIn('items',detail)
+        self.call('GET','/business/services/'+article['id'],status=404)
+        template=self.call('POST','/business/templates',self.req(name='Synthetic template',kind='offer',title='Synthetic offer',positions=[dict(description='Synthetic',quantity='1',unit='C62',unit_price_net='12.50',tax_rate='19')])).json
+        self.assertEqual(template['id'],self.call('GET','/business/templates/'+template['id']).json['id'])
+        text=self.call('POST','/business/text-blocks',self.req(name='Synthetic greeting',text='Synthetic text')).json
+        self.assertEqual(text['id'],self.call('GET','/business/text-blocks/'+text['id']).json['id'])
+
 
 if __name__=='__main__':unittest.main()

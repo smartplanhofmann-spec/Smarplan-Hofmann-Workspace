@@ -135,6 +135,37 @@ Die Initialisierung ist ein expliziter Operatorvorgang; kein Browser legt Schlü
 
 ## Eigene Belege und Sevdesk
 
+Die zusätzlichen Funktionen werden nach Anmeldung über die Metadatenliste
+`features` angeboten: `billing_contact`, `quote_pricing`, `measurement_transfer`
+und `project_timeline`. Das sind Funktionsnachweise, keine Benutzerrechte.
+Bei einem älteren Server ohne diese Angaben bleiben die bisherigen Arbeitsabläufe
+nutzbar; die zusätzlichen Kontrollen werden nicht als bereits vorhanden ausgegeben.
+
+Im Belegeditor übernimmt ein neuer Entwurf die passende strukturierte
+Rechnungsanschrift des Projekts. Bei mehreren Rechnungsadressen ist eine Auswahl
+erforderlich. Ein Ansprechpartner wird nur aus eindeutigem Rechnungsbezug oder
+bewusster Auswahl übernommen. Freitext wird nicht in eine erfundene PLZ/einen
+Ort zerlegt. Bestehende oder manuell bearbeitete Beleganschriften werden nicht
+durch spätere CRM-Antworten überschrieben.
+
+**Position kalkulieren** berechnet Material-/Leistungsstückliste, Lohn,
+Gemeinkosten und Aufschläge mit Decimalwerten. Der Preis wird erst durch eine
+bewusste Übernahme zur Position. Bei unbekannten Kosten wird keine belastbare
+Gewinn-/Margenaussage erzeugt. Ein projektbezogenes Finanzrecht erlaubt manuelle
+Kalkulation; Livezugriffe auf den globalen Artikel-/Vorlagenkatalog benötigen
+zusätzlich dessen globales Finanzleserecht.
+
+Manuell bestätigte Aufmaßmengen können in den Entwurf übernommen werden. Projekt,
+Version und Quellhash werden dabei geprüft. Eine veraltete Vorschau muss neu
+geladen werden; bereits angenommene Angebotsstände werden nicht nachträglich
+aus geändertem Aufmaß oder CRM neu berechnet.
+
+Die Browserplanung bietet Woche, Monat, Jahr und zwei/drei Jahre. Die Balken
+verwenden dieselben gespeicherten Projekttermine wie die Projektmappe. Fehlende
+Datumswerte bleiben sichtbar ungeplant. Änderungen benötigen das aktuelle
+Projektrecht und eine bestätigte Serverantwort. Die Jahresgrafik ist keine
+automatische Abhängigkeits-/Kritischer-Pfad-Berechnung.
+
 Sevdesk bleibt zunächst führend. Eigene Rechnungsstellung wird erst nach einem
 dokumentierten Ausstellerwechsel aktiviert: Firmendaten, Steuerkennung,
 Nummernkreise, Stichtag und Zuständigkeit ausdrücklich festlegen. Keine parallele

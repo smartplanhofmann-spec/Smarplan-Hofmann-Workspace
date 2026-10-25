@@ -4,6 +4,8 @@ Das Projektpaket 0.12 ergänzt CRM und Projektstatus, eigene Belege und Finanzen
 Einsatzplanung, Zeiten, Baustellendokumentation, Material und Wartung. Die
 responsive Browseroberfläche liegt unter `/office/`; die native App ergänzt
 verschlüsselte Warteschlangen für eigene Zeiten und Baustellenfotos.
+Strukturierte Rechnungskontakte, Decimal-Preiskalkulation, quellengebundene
+Aufmaßübernahme und die Jahresplanung ergänzen den durchgängigen Ablauf.
 Funktionsumfang, offene Punkte und Abnahmen stehen im
 [Umsetzungsbericht](docs/BERICHT_HERO_UMSETZUNG.md), die technischen
 Voraussetzungen und der sichere Umstieg im

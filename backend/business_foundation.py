@@ -15,6 +15,8 @@ from core import Problem, canonical, customer_key, customer_values, now_iso
 from inquiries import _transaction
 
 
+FEATURES = ('billing_contact',)
+BILLING_ROLES = frozenset(('billing', 'invoice', 'accounts payable', 'rechnung', 'rechnungen', 'buchhaltung', 'rechnungswesen'))
 PERMISSIONS = frozenset(('contacts.read', 'contacts.write', 'projects.manage',
     'documents.read', 'documents.write', 'documents.classify', 'finance.read',
     'finance.write', 'finance.issue', 'finance.approve', 'personnel.read',
@@ -315,6 +317,95 @@ class BusinessFoundation:
                          status=self._status(extra['status_id']) if extra['status_id'] else None,
                          permissions=sorted(project_permissions(self.office, actor, project_id)))
             return extra
+
+    def billing_contact(self, actor, project_id, *, address_id=None, person_id=None):
+        """Read the selected project's current minimal billing source only.
+
+        One joined SELECT gives base contact, revision and relational children
+        from the same database statement snapshot, including across workers.
+        Notes, phones, site/delivery addresses and unrelated contacts are never
+        selected. Legacy free text remains free text; no postal/city guessing.
+        """
+        project_id = _id(project_id)
+        address_id = _id(address_id) if address_id is not None else None
+        person_id = _id(person_id) if person_id is not None else None
+        with self.office.lock:
+            actor = self.authorize(actor, 'finance.read', project_id)
+            roles = sorted(BILLING_ROLES)
+            rows = self.db.execute('''SELECT p.customer_id AS linked_customer_id,p.customer AS legacy_name,
+                c.id AS contact_id,c.name AS company_name,c.contact AS primary_contact,c.email AS primary_email,
+                c.address AS legacy_address,c.active AS contact_active,e.revision AS contact_revision,e.erased_at,
+                a.id AS address_id,a.label AS address_label,a.street,a.postal_code,a.city,a.country,
+                bp.id AS person_id,bp.name AS person_name,bp.role_label,bp.email AS person_email
+                FROM projects p LEFT JOIN customers c ON c.id=p.customer_id
+                LEFT JOIN business_contact_extras e ON e.customer_id=c.id
+                LEFT JOIN business_contact_addresses a ON a.customer_id=c.id AND a.purpose='billing'
+                LEFT JOIN business_contact_people bp ON bp.customer_id=c.id
+                    AND (LOWER(TRIM(bp.role_label)) IN (''' + ','.join('?' for _ in roles) + ''') OR bp.id=?)
+                WHERE p.id=? ORDER BY a.position,bp.position''', (*roles, person_id or '', project_id)).fetchall()
+            if not rows or rows[0]['erased_at'] or rows[0]['linked_customer_id'] and not rows[0]['contact_id']:
+                raise Problem(404, 'Abrechnungskontakt nicht verfügbar')
+            source = rows[0]
+            addresses, people = {}, {}
+            for row in rows:
+                if row['address_id']:
+                    addresses[row['address_id']] = {key: row[column] for key, column in
+                        (('id', 'address_id'), ('label', 'address_label'), ('address_line', 'street'),
+                         ('postal_code', 'postal_code'), ('city', 'city'), ('country', 'country'))}
+                if row['person_id']:
+                    people[row['person_id']] = {key: row[column] for key, column in
+                        (('id', 'person_id'), ('name', 'person_name'), ('email', 'person_email'), ('role_label', 'role_label'))}
+            if address_id is not None and address_id not in addresses or person_id is not None and person_id not in people:
+                raise Problem(404, 'Ausgewählte Abrechnungsquelle gehört nicht zu diesem Projektkontakt')
+            address = addresses.get(address_id) if address_id else next(iter(addresses.values())) if len(addresses) == 1 else None
+            candidates = [person for person in people.values() if person['role_label'].strip().casefold() in BILLING_ROLES]
+            person = people.get(person_id) if person_id else candidates[0] if len(candidates) == 1 else None
+            buyer = {'name': source['company_name'] or source['legacy_name'] or '', 'contact_name': '',
+                'address_line': '', 'postal_code': '', 'city': '', 'country': '',
+                'email': source['primary_email'] or '', 'vat_id': '', 'endpoint_id': '', 'endpoint_scheme': ''}
+            warnings = []
+            if address:
+                buyer.update({key: address[key] for key in ('address_line', 'postal_code', 'city', 'country')})
+                address_status = 'structured'
+            elif len(addresses) > 1:
+                address_status = 'selection_required'
+                warnings.append('billing_address_ambiguous')
+            else:
+                buyer['address_line'] = source['legacy_address'] or ''
+                address_status = 'legacy_unstructured' if buyer['address_line'] else 'missing'
+                warnings.append('legacy_address_unstructured' if buyer['address_line'] else 'billing_address_missing')
+            if person:
+                buyer['contact_name'] = person['name']
+                buyer['email'] = person['email'] or buyer['email']
+                person_status = 'selected'
+            elif len(candidates) > 1:
+                person_status = 'selection_required'
+                warnings.append('billing_person_ambiguous')
+            else:
+                buyer['contact_name'] = source['primary_contact'] or ''
+                person_status = 'legacy_primary' if buyer['contact_name'] else 'none'
+            if not source['contact_id']:
+                warnings.append('contact_not_linked')
+            elif source['contact_active'] != 1:
+                warnings.append('contact_archived')
+            missing = [field for field in ('name', 'address_line', 'postal_code', 'city', 'country') if not buyer[field]]
+            ready = not missing and bool(source['contact_id']) and source['contact_active'] == 1
+            status = ('selection_required' if address_status == 'selection_required' else
+                      'incomplete' if missing else 'complete' if ready else 'review_required')
+            value = {'project_id': project_id, 'contact_id': source['contact_id'],
+                'contact_revision': (source['contact_revision'] or 0) if source['contact_id'] else None,
+                'buyer': buyer, 'selected_address_id': address['id'] if address else None,
+                'selected_person_id': person['id'] if person else None,
+                'address_options': list(addresses.values()),
+                'person_options': [{'id': item['id'], 'name': item['name']} for item in candidates],
+                'completeness': {'status': status, 'ready_for_invoice': bool(ready), 'missing_fields': missing,
+                    'warnings': warnings, 'address_status': address_status, 'person_status': person_status,
+                    'optional_unavailable': ['vat_id', 'endpoint_id', 'endpoint_scheme']}}
+            value['source_fingerprint'] = hashlib.sha256(canonical(value).encode('utf-8')).hexdigest()
+            # A role/project revocation committed during the read must still
+            # take effect before publishing the billing contact.
+            self.authorize(actor, 'finance.read', project_id)
+            return value
 
     def save_project(self, actor, project_id, data):
         allowed = {'request_id', 'revision', 'workspace_revision', 'project_number', 'status_id', 'manager_id', 'site_address', 'description'}
@@ -938,6 +1029,11 @@ def dispatch(office, actor, path, method, data):
     match = re.fullmatch(r'/projects/([a-f0-9]{32})/profile', path)
     if match:
         return (service.project(actor, match[1]), 200, 'application/json') if method == 'GET' else (service.save_project(actor, match[1], data), 200, 'application/json')
+    match = re.fullmatch(r'/projects/([a-f0-9]{32})/billing-contact', path)
+    if match and method == 'GET':
+        if not isinstance(query, dict) or set(query) - {'address_id', 'person_id'}:
+            raise Problem(400, 'Nur gezielte Auswahl der Rechnungsanschrift und des Ansprechpartners erlaubt')
+        return service.billing_contact(actor, match[1], address_id=query.get('address_id'), person_id=query.get('person_id')), 200, 'application/json'
     if path == '/feed':
         return (service.feed(actor, query.get('project_id')), 200, 'application/json') if method == 'GET' else (service.post_message(actor, data), 201, 'application/json')
     match = re.fullmatch(r'/documents/(link|mail)/([a-f0-9]{32})/classification', path)
@@ -967,6 +1063,7 @@ def methods(path):
         (r'/project-statuses', 'GET, POST'),
         (r'/project-statuses/[a-f0-9]{32}', 'POST'),
         (r'/projects/[a-f0-9]{32}/profile', 'GET, POST'),
+        (r'/projects/[a-f0-9]{32}/billing-contact', 'GET'),
         (r'/feed', 'GET, POST'),
         (r'/documents/(?:link|mail)/[a-f0-9]{32}/classification', 'GET, POST'),
         (r'/settings/permissions', 'GET, POST'),

@@ -13,6 +13,16 @@ class ApiException implements Exception {
   String toString() => message;
 }
 
+/// Local validation/rendering and explicitly approved mail delivery can take
+/// longer than an ordinary read. This does not relax connection or byte limits.
+Duration officeRequestHeaderTimeout(String path, {required String method}) =>
+    method == 'POST' &&
+        RegExp(
+          r'^/api/(?:v1/)?business/(?:documents/[a-f0-9]{32}/(?:finalize|email)|finance/outbox/[a-f0-9]{32}/deliver)$',
+        ).hasMatch(path)
+    ? const Duration(seconds: 240)
+    : const Duration(seconds: 40);
+
 class OfficeApi extends ChangeNotifier {
   OfficeApi({String? baseUrl, String? apiVersion})
     : base =
@@ -52,9 +62,10 @@ class OfficeApi extends ChangeNotifier {
     final client = HttpClient()
       ..connectionTimeout = const Duration(seconds: 15);
     final sessionToken = token;
+    final requestMethod = method ?? (body == null ? 'GET' : 'POST');
     try {
       final request = await client
-          .openUrl(method ?? (body == null ? 'GET' : 'POST'), uri)
+          .openUrl(requestMethod, uri)
           .timeout(const Duration(seconds: 15));
       request.followRedirects = false;
       if (sessionToken != null)
@@ -70,7 +81,7 @@ class OfficeApi extends ChangeNotifier {
         request.add(encodedBody);
       }
       final response = await request.close().timeout(
-        const Duration(seconds: 40),
+        officeRequestHeaderTimeout(path, method: requestMethod),
       );
       final bytes = BytesBuilder(copy: false);
       await for (final chunk in response.timeout(const Duration(seconds: 40))) {

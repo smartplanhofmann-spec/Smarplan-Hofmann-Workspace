@@ -12,7 +12,7 @@ BACKEND_FILES = ("backup.py", "restore.py", "core.py", "server.py", "onedrive.py
                  "project_workspace.py", "inquiries.py", "inbound_connectors.py", "inquiry_attachments.py",
                  "workspace_api.py", "external_integrations.py", "integration_bridge.py",
                  "business_api.py", "business_schema.py", "business_foundation.py",
-                 "business_documents.py", "business_finance.py", "business_einvoice.py", "business_delivery.py",
+                 "business_documents.py", "business_pricing.py", "business_finance.py", "business_einvoice.py", "business_delivery.py",
                  "business_planning.py", "business_time.py", "business_operations.py",
                  "business_inventory.py", "business_maintenance.py", "business_adapters.py",
                  "requirements.lock")

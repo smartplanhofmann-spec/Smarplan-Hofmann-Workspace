@@ -89,17 +89,29 @@ def capabilities(office, actor, project_id=None):
     with office.lock, office.db:
         state = business_schema.state(office)
         active = state.get('compatibility_mode') == 'business'
-        available = {module.__name__ for module in _modules()
-                     if callable(getattr(module, 'dispatch', None))}
+        modules = [module for module in _modules()
+                   if callable(getattr(module, 'dispatch', None))]
+        available = {module.__name__ for module in modules}
         configured = state.get('capabilities', []) if active else state.get('read_capabilities', [])
         values = [value if value.startswith('business_') else 'business_' + value for value in configured]
+        supported_modules = set(values) & available
+        features = set()
+        for module in modules:
+            if module.__name__ not in supported_modules:
+                continue
+            declared = getattr(module, 'FEATURES', ())
+            if not isinstance(declared, (tuple, list)) or any(
+                    not isinstance(name, str) or not re.fullmatch(r'[a-z][a-z0-9_]{2,40}', name)
+                    for name in declared):
+                raise RuntimeError('Invalid packaged business feature declaration')
+            features.update(declared)
         global_permissions = sorted(permissions(office, actor)) if state.get('storage_version') == 7 else []
         effective = global_permissions
         if project_id is not None:
             from business_foundation import project_permissions
             effective = sorted(project_permissions(office, actor, project_id))
         return {**state,
-                'capabilities': sorted(set(values) & available),
+                'capabilities': sorted(supported_modules), 'features': sorted(features),
                 'active_capabilities': state.get('capabilities', []),
                 'permissions': effective, 'global_permissions': global_permissions,
                 'project_id': project_id}
@@ -116,6 +128,7 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
             raise Problem(405, 'HTTP-Methode nicht erlaubt.')
         result = capabilities(office, actor, data.get('_query', {}).get('project_id'))
         if offline:
+            result['features'] = []
             result['permissions'] = [p for p in result['permissions'] if p in ('time.own', 'documents.read', 'documents.write')]
             result['global_permissions'] = result['permissions']
             result['capabilities'] = [p for p in result['capabilities'] if

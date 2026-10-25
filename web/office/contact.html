@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light">
+  <title>Ihre Anfrage · Smartplan</title>
+  <link rel="stylesheet" href="./office.css">
+  <script type="module" src="./contact.js"></script>
+</head>
+<body>
+  <main class="login-shell" id="contact-main">
+    <section class="login-card contact-card" aria-labelledby="contact-title">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">S</span><div><strong>smartplan</strong><small>IHRE ANFRAGE</small></div></div>
+      <h1 id="contact-title">Wie können wir helfen?</h1>
+      <p class="muted">Beschreiben Sie kurz Ihr Anliegen und wie wir Sie erreichen können. Eine Anfrage bestätigt noch keinen Auftrag oder Termin.</p>
+      <form id="contact-form" method="post" action="/api/v1/intake/contact">
+        <div class="form-grid">
+          <label class="field" for="sender-name">Ihr Name<input id="sender-name" name="sender_name" type="text" autocomplete="name" maxlength="200" required></label>
+          <label class="field" for="sender-email">Ihre E-Mail<input id="sender-email" name="sender_email" type="email" autocomplete="email" maxlength="254" required></label>
+          <label class="field" for="sender-phone">Telefon für Rückfragen (optional)<input id="sender-phone" name="sender_phone" type="tel" autocomplete="tel" maxlength="100"></label>
+          <label class="field" for="subject">Worum geht es?<input id="subject" name="subject" type="text" maxlength="300" required></label>
+          <div class="field wide"><label for="message">Ihre Nachricht</label><textarea id="message" name="message" maxlength="6000" rows="6" required aria-describedby="message-help"></textarea><small id="message-help">Bis zu 6.000 Zeichen.</small></div>
+          <div class="honeypot" aria-hidden="true"><label for="website">Website<input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <div class="field wide"><p class="caption" id="privacy-notice">Ihre Angaben werden zur Bearbeitung dieser Anfrage im Office-System des Betriebs gespeichert. Es erfolgt keine automatische Auftrags-, Termin- oder Preisbestätigung.</p></div>
+          <label class="field check wide" for="privacy"><input id="privacy" type="checkbox" required aria-describedby="privacy-notice">Ich habe den Hinweis zur Verarbeitung meiner Anfrage gelesen.</label>
+        </div>
+        <div class="form-actions"><button type="submit" class="button primary" id="contact-submit" disabled>Anfrage übermitteln</button></div>
+      </form>
+      <div id="contact-result" class="form-error" aria-live="polite"></div>
+      <p class="login-foot">Bei einer unklaren Antwort dieses Fenster geöffnet lassen und dieselbe Anfrage erneut senden. Für dieses Formular ist keine Office-Anmeldung erforderlich.</p>
+      <noscript>Zum sicheren Übermitteln der Anfrage muss JavaScript aktiviert sein.</noscript>
+    </section>
+  </main>
+</body>
+</html>

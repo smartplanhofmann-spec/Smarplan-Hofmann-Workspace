@@ -39,8 +39,16 @@ def annotation(message):
     return prefix + ''.join(parts)
 
 
+def compact(value, limit):
+    if len(value) <= limit:
+        return value
+    marker = '\n[context shortened]\n'
+    head = (limit - len(marker)) * 3 // 4
+    return value[:head] + marker + value[-(limit - len(marker) - head):]
+
+
 def parse_report(path):
-    names, failures = {}, {}
+    names, failures, recent = {}, {}, {}
     result = dict(failures=failures, recognized=0, malformed=0, omitted=False,
                   truncated=False, missing=False, success=None)
 
@@ -49,7 +57,8 @@ def parse_report(path):
             if len(failures) >= MAX_ANNOTATIONS:
                 result['omitted'] = True
                 return
-            failures[test_id] = {'name': names.get(test_id, 'Test #' + str(test_id)), 'message': ''}
+            failures[test_id] = {'name': names.get(test_id, 'Test #' + str(test_id)),
+                                 'message': '', 'context': recent.get(test_id, '')}
         saved = failures[test_id]
         if message and len(saved['message']) < 6000:
             saved['message'] = (saved['message'] + ('\n' if saved['message'] else '') + message)[:6000]
@@ -87,11 +96,22 @@ def parse_report(path):
                         continue
                     test_id, name = test['id'], clean(test['name'])[:400]
                     if len(names) >= 4096:
-                        names.pop(next(iter(names)))
+                        expired = next(iter(names))
+                        names.pop(expired)
+                        recent.pop(expired, None)
                     names[test_id] = name
                     if test_id in failures:
                         failures[test_id]['name'] = name
                     result['recognized'] += 1
+                elif kind == 'print':
+                    test_id, message = event.get('testID'), clean(event.get('message'))
+                    # Flutter widget exceptions are print events before the
+                    # generic error. Never borrow output from another test or
+                    # retain unscoped runner/progress messages as its context.
+                    if type(test_id) is int and test_id in names and message:
+                        recent[test_id] = (recent.get(test_id, '') + '\n' + compact(message, 1800))[-2400:].lstrip('\n')
+                        if test_id in failures:
+                            failures[test_id]['context'] = recent[test_id]
                 elif kind in ('error', 'testDone'):
                     test_id = event.get('testID')
                     if type(test_id) is not int:
@@ -106,6 +126,7 @@ def parse_report(path):
                         if event.get('result') in ('failure', 'error') and test_id not in failures:
                             record(test_id, 'Test ended with result ' + event['result'] + '; no error event was recorded.')
                         names.pop(test_id, None)
+                        recent.pop(test_id, None)
                 elif kind == 'done':
                     result['recognized'] += 1
                     result['success'] = event.get('success')
@@ -138,7 +159,13 @@ def report(report_path, *, log_path=None, summary_path=None, output=None):
         summaries.append(message)
     elif failures:
         for failure in failures:
-            print(annotation('Test: ' + failure['name'] + '\n' + failure['message']), file=output)
+            message = failure['message']
+            if failure['context']:
+                generic = re.search(r'Test failed\.\s*See exception logs above', message, re.IGNORECASE)
+                context = 'Recent output for this test:\n' + compact(failure['context'], 1700 if generic else 1200)
+                error = compact(message, 650 if generic else 1300)
+                message = context + '\n' + error if generic else error + '\n' + context
+            print(annotation('Test: ' + failure['name'] + '\n' + message), file=output)
             name = clean(failure['name']).replace('\n', ' ').replace('`', "'")[:220]
             summaries.append('- `' + name.replace('<', '&lt;').replace('>', '&gt;') + '`')
         summaries.append(str(len(failures)) + ' failing test(s) reported.' +

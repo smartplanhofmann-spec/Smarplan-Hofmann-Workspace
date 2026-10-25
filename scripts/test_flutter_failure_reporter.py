@@ -112,6 +112,43 @@ class FlutterFailureReporterTests(unittest.TestCase):
         self.assertNotIn('::error', output)
         self.assertIn('0 failing test(s) mapped', output)
 
+    def test_flutter_widget_print_exception_precedes_generic_error_for_the_same_test(self):
+        name = 'Camera capture acknowledges an encrypted photo and note before deleting its temporary original'
+        self.events(self.start(1, name), self.start(2, 'Unrelated passing widget'),
+                    {'type': 'print', 'testID': 2, 'messageType': 'print', 'message': 'UNRELATED WIDGET OUTPUT'},
+                    {'type': 'print', 'testID': 1, 'messageType': 'print',
+                     'message': '══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞══\n'
+                                'Expected: exactly one matching candidate\nActual: zero widgets with text "Encrypted photo saved"\n'
+                                'The expectation failed at synthetic_camera_test.dart:71'},
+                    self.error(1, 'Test failed. See exception logs above.'),
+                    {'type': 'testDone', 'testID': 1, 'result': 'failure'},
+                    {'type': 'testDone', 'testID': 2, 'result': 'success'})
+        output = self.run_report()
+        annotation = next(line for line in output.splitlines() if line.startswith('::error '))
+        self.assertLessEqual(len(annotation), 3000)
+        self.assertIn(name, annotation)
+        self.assertIn('Actual: zero widgets with text "Encrypted photo saved"', annotation)
+        self.assertIn('synthetic_camera_test.dart:71', annotation)
+        self.assertLess(annotation.index('Expected:'), annotation.index('Test failed. See exception logs above.'))
+        self.assertNotIn('UNRELATED WIDGET OUTPUT', output)
+
+    def test_print_context_remains_bounded_and_follows_a_specific_error(self):
+        events = [self.start(3, 'Synthetic print bounds')]
+        events.extend({'type': 'print', 'testID': 3, 'messageType': 'print', 'message': 'OLD CONTEXT ' + 'x' * 3000}
+                      for _ in range(100))
+        events.extend([self.error(3, 'SPECIFIC ROOT ERROR'),
+                       {'type': 'print', 'testID': 3, 'messageType': 'print',
+                        'message': 'LATEST PRINT DETAIL\n::error::not a workflow command\n' + '%' * 5000},
+                       {'type': 'testDone', 'testID': 3, 'result': 'error'}])
+        self.events(*events)
+        result = reporter.parse_report(self.source)
+        self.assertLessEqual(len(result['failures'][3]['context']), 2400)
+        output = self.run_report()
+        annotation = next(line for line in output.splitlines() if line.startswith('::error '))
+        self.assertLessEqual(len(annotation), 3000)
+        self.assertLess(annotation.index('SPECIFIC ROOT ERROR'), annotation.index('LATEST PRINT DETAIL'))
+        self.assertNotIn('\n::error::not a workflow command', output)
+
 
 if __name__ == '__main__':
     unittest.main()

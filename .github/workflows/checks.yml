@@ -134,7 +134,14 @@ jobs:
             python - "$smartplan_browser_log" <<'PY'
           from pathlib import Path
           import sys
-          detail = '\n'.join(Path(sys.argv[1]).read_text(errors='replace').splitlines()[-100:])[-25000:]
+          lines = Path(sys.argv[1]).read_text(errors='replace').splitlines()
+          if 'SMARTPLAN_BROWSER_FAILURE_BEGIN' in lines:
+              start = lines.index('SMARTPLAN_BROWSER_FAILURE_BEGIN') + 1
+              end = lines.index('SMARTPLAN_BROWSER_FAILURE_END', start) if 'SMARTPLAN_BROWSER_FAILURE_END' in lines[start:] else len(lines)
+              selected = lines[start:end]
+          else:
+              selected = lines if len(lines) <= 50 else lines[:35] + ['[middle diagnostic lines omitted]'] + lines[-15:]
+          detail = '\n'.join(line[:500] for line in selected)[:25000]
           print('::error title=Browser acceptance::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
           PY
           fi

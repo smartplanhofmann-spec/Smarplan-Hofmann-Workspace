@@ -488,6 +488,45 @@ class CandidateRelease(unittest.TestCase):
         self.assertEqual(changed['rows'], first['rows'])
         self.assertNotEqual(changed['digest'], first['digest'])
 
+    def test_blob_fingerprint_keeps_identical_hash_with_at_most_one_buffered_row(self):
+        blob_size = 1024 * 1024
+        with psycopg.connect(DSN) as connection:
+            connection.execute('CREATE TABLE release_blob_probe(label TEXT, payload BYTEA)')
+            connection.execute("INSERT INTO release_blob_probe VALUES ('Büro Ω',decode(repeat('ab',%s),'hex')),"
+                               "(NULL,NULL),('Büro Ω',decode(repeat('ab',%s),'hex'))", (blob_size, blob_size))
+            # A small real PG baseline with a different fetch size proves the
+            # canonical hash is independent of batches. No huge fixture needed.
+            expected = hashlib.sha256()
+            with connection.cursor(name='blob_baseline') as cursor:
+                cursor.itersize = 2
+                cursor.execute('SELECT row_to_json(t)::text FROM release_blob_probe t ORDER BY row_to_json(t)::text')
+                for row in cursor:
+                    expected.update(row[0].encode('utf-8'))
+                    expected.update(b'\n')
+        batches = []
+
+        class TrackingCursor(psycopg.ServerCursor):
+            def __next__(self):
+                row = super().__next__()
+                batches.append((self.itersize, self.pgresult.ntuples, len(row[0].encode('utf-8'))))
+                return row
+
+        connect = psycopg.connect
+
+        def tracked_connect(*args, **kwargs):
+            connection = connect(*args, **kwargs)
+            connection.server_cursor_factory = TrackingCursor
+            return connection
+
+        with patch('online.release.psycopg.connect', side_effect=tracked_connect):
+            actual = release.snapshot_fingerprint(DSN)['release_blob_probe']
+        self.assertEqual(actual, {'rows': 3, 'digest': expected.hexdigest()})
+        self.assertTrue(batches)
+        self.assertTrue(all(size == 1 and buffered <= 1 for size, buffered, _ in batches))
+        # This fixture's largest row is one hex-encoded MiB plus small metadata,
+        # rather than the aggregate of its two originals or a 100-row page.
+        self.assertLessEqual(max(length for _, _, length in batches), 2 * blob_size + 128)
+
     def test_existing_candidate_and_foreign_source_client_are_rejected(self):
         before = release.snapshot_fingerprint(DSN)
         with psycopg.connect(CANDIDATE) as connection:

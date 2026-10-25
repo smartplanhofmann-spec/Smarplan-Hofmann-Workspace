@@ -5,10 +5,12 @@ import hashlib
 import io
 import json
 from pathlib import Path
+import sqlite3
 import tempfile
 import unittest
 from unittest.mock import patch
 import uuid
+import weakref
 
 from core import Office, Problem
 from business_operations import BusinessOperations, CHUNK_SIZE, schema_statements, validate_integrity
@@ -68,6 +70,78 @@ class OperationsTests(unittest.TestCase):
         self.assertEqual(changed['sha256'], hashlib.sha256(PNG).hexdigest())
         self.assertEqual(self.api.list_media(self.tech, self.project)[0], changed)
         self.assertTrue(validate_integrity(self.office))
+
+    def test_gallery_and_detail_metadata_never_read_original_blobs_or_release_private_files(self):
+        ready = self.upload()
+        private = self.upload()
+        self.api.annotate_media(self.owner, self.project, private['id'], self.request(
+            revision=private['revision'], classification='financial'))
+        partial = self.api.new_media(self.tech, self.project, self.request(filename='unfinished.png',
+            media_type='image/png', size=len(PNG), sha256=hashlib.sha256(PNG).hexdigest()))
+        self.api.put_media_chunk(self.tech, self.project, partial['id'], 0, PNG)
+        expected = self.api.list_media(self.tech, self.project)
+        denied = []
+
+        def deny_original_reads(action, table, column, database, trigger):
+            if action == sqlite3.SQLITE_READ and table == 'business_media' and column == 'original':
+                denied.append((table, column))
+                return sqlite3.SQLITE_DENY
+            return sqlite3.SQLITE_OK
+
+        self.office.db.set_authorizer(deny_original_reads)
+        try:
+            self.assertEqual(self.api.list_media(self.tech, self.project), expected)
+            self.assertEqual(self.api.get_media(self.tech, self.project, ready['id']), ready)
+            self.assertEqual(self.api.get_media(self.tech, self.project, partial['id'])['uploaded_chunks'], [0])
+            self.error(403, self.api.get_media, self.tech, self.project, private['id'])
+            self.assertEqual(denied, [], 'Metadata or authorization attempted to read an original BLOB')
+            # The explicit binary source operation must still read its original;
+            # the metadata optimization must not synthesize or truncate bytes.
+            with self.assertRaises(sqlite3.DatabaseError):
+                self.api.media_source(self.tech, self.project, ready['id'])
+            self.assertEqual(denied, [('business_media', 'original')])
+        finally:
+            self.office.db.set_authorizer(None)
+        content = self.api.media_source(self.tech, self.project, ready['id'])
+        self.assertEqual(content, PNG)
+        self.assertEqual(hashlib.sha256(content).hexdigest(), ready['sha256'])
+        self.error(403, self.api.media_source, self.tech, self.project, private['id'])
+
+    def test_integrity_materializes_one_original_at_a_time_and_checks_the_last_file(self):
+        photos = [self.upload() for _ in range(3)]
+        original_factory = self.office.db.row_factory
+        retained = weakref.WeakValueDictionary()
+        peak = [0]
+
+        class ObservedOriginalRow(dict):
+            pass
+
+        def observe_originals(cursor, values):
+            row = original_factory(cursor, values)
+            if 'original' in row.keys() and row['original'] is not None:
+                row = ObservedOriginalRow((key, row[key]) for key in row.keys())
+                retained[id(row)] = row
+                peak[0] = max(peak[0], len(retained))
+            return row
+
+        self.office.db.row_factory = observe_originals
+        try:
+            self.assertTrue(validate_integrity(self.office))
+            self.assertEqual(peak[0], 1, 'Integrity checking retained multiple original BLOB rows')
+        finally:
+            self.office.db.row_factory = original_factory
+        last = max(photos, key=lambda item: item['id'])
+        with self.office.db:
+            self.office.db.execute('UPDATE business_media SET original=? WHERE id=?',
+                                   (PNG[:-1] + bytes([PNG[-1] ^ 1]), last['id']))
+        with self.assertRaises(ValueError):
+            validate_integrity(self.office)
+        # SQLite permits NULL in a TEXT primary key. Corruption must fail
+        # closed instead of making a keyset scan repeat its first row forever.
+        with self.office.db:
+            self.office.db.execute('UPDATE business_media SET original=?,id=NULL WHERE id=?', (PNG, last['id']))
+        with self.assertRaises(ValueError):
+            validate_integrity(self.office)
 
     def test_incomplete_wrong_hash_header_and_idempotent_chunks(self):
         media = self.api.new_media(self.tech, self.project, self.request(filename='broken.png', media_type='image/png',

@@ -84,7 +84,7 @@ async function main(){
     await page.getByRole('heading',{name:'Synthetic browser diary',exact:true}).waitFor();assert.equal(await page.locator('img[src=x]').count(),0);assert.equal(await page.evaluate(()=>window.__unsafe),undefined);
     await page.getByRole('button',{name:'Foto aufnehmen / hochladen',exact:true}).click();modal=page.getByRole('dialog',{name:'Baustellenfoto',exact:true});
     await modal.getByLabel('Bildnotiz',{exact:true}).fill('Synthetic browser photo');await modal.getByLabel('Baustellenfoto auswählen',{exact:true}).setInputFiles(fixture.photo_path);await modal.getByRole('button',{name:'Original sicher hochladen',exact:true}).click();await modal.waitFor({state:'detached'});await ready(page);
-    const card=page.locator('.photo-card').filter({has:page.getByRole('heading',{name:'Synthetic browser photo',exact:true})});await card.waitFor();assert.equal(await card.locator('img').evaluate(image=>image.naturalWidth),64);
+    const card=page.locator('.photo-card').filter({has:page.getByRole('heading',{name:'Synthetic browser photo',exact:true})});await card.waitFor();await card.scrollIntoViewIfNeeded();await card.locator('img').evaluate(image=>image.decode());assert.equal(await card.locator('img').evaluate(image=>image.naturalWidth),64);
     const downloadPromise=page.waitForEvent('download');await card.getByRole('button',{name:'Original',exact:true}).click();const download=await downloadPromise;
     assert.deepEqual(await fs.readFile(await download.path()),await fs.readFile(fixture.photo_path));
     console.log('browser: documentation created safely, original photo uploaded and downloaded byte-identically');

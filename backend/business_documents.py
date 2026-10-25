@@ -845,9 +845,10 @@ class Documents:
 
     def _mail_state(self,outbox_id):
         rows=self.db.execute('SELECT * FROM business_document_mail_receipts WHERE outbox_id=? ORDER BY ordinal DESC',(outbox_id,)).fetchall()
-        state=rows[0]['status'] if rows else 'pending'
+        accepted=next((row for row in rows if row['status']=='accepted'),None)
+        state='accepted' if accepted else rows[0]['status'] if rows else 'pending'
         return {'outbox_id':outbox_id,'status':state,'accepted_by_server':state=='accepted','recipient_delivery_confirmed':False,
-            'receipt_id':rows[0]['receipt_id'] if rows else None,'retry_requires_review':state in ('sending','unknown')}
+            'receipt_id':accepted['receipt_id'] if accepted else rows[0]['receipt_id'] if rows else None,'retry_requires_review':state in ('sending','unknown')}
 
     def prepare_mail(self,actor,identifier,data):
         row=self._row(actor,identifier,'finance.approve');actor=require(self.office,actor,'finance.approve',row['project_id'])

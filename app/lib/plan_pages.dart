@@ -6,18 +6,21 @@ import 'package:flutter/material.dart';
 import 'api.dart';
 import 'offline_plans.dart';
 import 'plan_import_page.dart';
+import 'project_exit_guard.dart';
 
 class PlansPage extends StatefulWidget {
   final OfficeApi api;
   final Map<String, dynamic> project;
   final bool canWrite;
   final OfflinePlans? repository;
+  final ProjectExitGuard? exitGuard;
   const PlansPage({
     super.key,
     required this.api,
     required this.project,
     required this.canWrite,
     this.repository,
+    this.exitGuard,
   });
   @override
   State<PlansPage> createState() => _PlansPageState();
@@ -199,6 +202,7 @@ class _PlansPageState extends State<PlansPage> {
             initial: plan,
             canWrite: widget.canWrite,
             repository: widget.repository,
+            exitGuard: widget.exitGuard,
           ),
         ),
       );
@@ -484,6 +488,7 @@ class PlanPage extends StatefulWidget {
   final Map<String, dynamic> initial;
   final bool canWrite;
   final OfflinePlans? repository;
+  final ProjectExitGuard? exitGuard;
   const PlanPage({
     super.key,
     required this.api,
@@ -491,6 +496,7 @@ class PlanPage extends StatefulWidget {
     required this.initial,
     required this.canWrite,
     this.repository,
+    this.exitGuard,
   });
   @override
   State<PlanPage> createState() => _PlanPageState();
@@ -505,6 +511,21 @@ class _PlanPageState extends State<PlanPage> {
   bool busy = false, dirty = false, deleting = false;
   String? message;
   int edits = 0, localWrites = 0;
+  bool confirmingExit = false, leaving = false;
+  String? get pendingExitReason => localWrites > 0
+      ? 'Ihre Planänderungen werden gerade lokal gespeichert. Bitte warten.'
+      : busy
+      ? 'Der Plan wird gerade gespeichert. Bitte warten Sie auf die Bestätigung.'
+      : null;
+
+  void registerExitGuard() => widget.exitGuard?.register(
+    this,
+    isBlocked: () => mounted && (dirty || busy || localWrites > 0),
+    pendingReason: () => mounted ? pendingExitReason : null,
+    confirmExit: confirmExit,
+  );
+
+  void exitStateChanged() => widget.exitGuard?.changed();
   bool get writable =>
       widget.canWrite &&
       (widget.repository?.canAccessProject(widget.initial['project_id']) ??
@@ -545,6 +566,7 @@ class _PlanPageState extends State<PlanPage> {
       ),
     );
     setState(() => localWrites++);
+    exitStateChanged();
     try {
       final result = await repo.save(
         widget.initial['project_id'],
@@ -566,7 +588,10 @@ class _PlanPageState extends State<PlanPage> {
           () => message = e is ApiException ? e.message : 'Nicht lokal gespeichert. Bitte freien Gerätespeicher prüfen. Änderungen sind noch nicht dauerhaft gesichert.',
         );
     } finally {
-      if (mounted) setState(() => localWrites--);
+      if (mounted) {
+        setState(() => localWrites--);
+        exitStateChanged();
+      }
     }
   }
 
@@ -575,6 +600,7 @@ class _PlanPageState extends State<PlanPage> {
       dirty = true;
       edits++;
     });
+    exitStateChanged();
     if (widget.repository != null) unawaited(persistLocal());
   }
 
@@ -588,10 +614,21 @@ class _PlanPageState extends State<PlanPage> {
       if (mounted) edited();
     });
     widget.repository?.addListener(localChanged);
+    registerExitGuard();
+  }
+
+  @override
+  void didUpdateWidget(covariant PlanPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.exitGuard != widget.exitGuard) {
+      oldWidget.exitGuard?.unregister(this);
+      registerExitGuard();
+    }
   }
 
   @override
   void dispose() {
+    widget.exitGuard?.unregister(this);
     widget.repository?.removeListener(localChanged);
     title.dispose();
     super.dispose();
@@ -642,6 +679,7 @@ class _PlanPageState extends State<PlanPage> {
       busy = true;
       message = null;
     });
+    exitStateChanged();
     try {
       final result = await widget.api.call(
         '${widget.path}${plan['id'] == null ? '' : '/${plan['id']}'}',
@@ -660,13 +698,23 @@ class _PlanPageState extends State<PlanPage> {
     } catch (e) {
       if (mounted) setState(() => message = e.toString());
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (mounted) {
+        setState(() => busy = false);
+        exitStateChanged();
+      }
     }
   }
 
-  Future<void> leave() async {
-    if (busy || localWrites > 0) return;
-    if (dirty) {
+  Future<bool> confirmExit() async {
+    if (!mounted || confirmingExit) return false;
+    if (busy || localWrites > 0) {
+      setState(() => message = pendingExitReason);
+      return false;
+    }
+    if (!dirty) return true;
+    final version = edits, route = ModalRoute.of(context);
+    confirmingExit = true;
+    try {
       final discard = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
@@ -684,9 +732,30 @@ class _PlanPageState extends State<PlanPage> {
           ],
         ),
       );
-      if (discard != true || !mounted) return;
+      return discard == true &&
+          mounted &&
+          route?.isCurrent == true &&
+          !busy &&
+          localWrites == 0 &&
+          edits == version;
+    } finally {
+      confirmingExit = false;
     }
-    if (mounted) Navigator.pop(context);
+  }
+
+  Future<void> leave() async {
+    if (!mounted || leaving) return;
+    leaving = true;
+    final route = ModalRoute.of(context);
+    try {
+      if (await confirmExit() && mounted && route?.isCurrent == true) {
+        Navigator.pop(context);
+      }
+    } finally {
+      // Keep queued callbacks inert while this route is reversing out. A
+      // cancelled or blocked attempt remains usable for a later real back.
+      if (mounted && route?.isCurrent == true) leaving = false;
+    }
   }
 
   Future<void> delete() async {
@@ -725,6 +794,7 @@ class _PlanPageState extends State<PlanPage> {
       deleting = true;
       message = null;
     });
+    exitStateChanged();
     try {
       await repo.deletePlan(plan['local_id']);
       if (!mounted) return;
@@ -732,6 +802,7 @@ class _PlanPageState extends State<PlanPage> {
         dirty = false;
         busy = false;
       });
+      exitStateChanged();
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) Navigator.pop(context);
       });
@@ -744,6 +815,7 @@ class _PlanPageState extends State<PlanPage> {
         message =
             'Löschen nicht abgeschlossen. Der Plan bleibt geöffnet. $reason';
       });
+      exitStateChanged();
     }
   }
 

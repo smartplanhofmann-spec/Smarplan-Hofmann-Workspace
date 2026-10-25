@@ -18,6 +18,7 @@ import 'mail_attachment_widgets.dart';
 import 'project_integration_widgets.dart';
 import 'business_session.dart';
 import 'business_shell.dart';
+import 'project_exit_guard.dart';
 
 const projectSections = [
   'Übersicht',
@@ -27,6 +28,19 @@ const projectSections = [
   'Pläne',
   'Dokumente',
   'Berichte',
+];
+
+const _businessSectionSlots = [
+  'Unterlagenfreigabe',
+  'Belege',
+  'Arbeitszeit',
+  'Einsatzplanung',
+  'Material',
+  'Kalkulation',
+  'Finanzen',
+  'Dokumentation',
+  'Fotos',
+  'Wartung',
 ];
 
 const _sectionIcons = [
@@ -99,8 +113,12 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   late final ValueNotifier<Map<String, dynamic>> projectChanges;
   final lists = <String, List<Map<String, dynamic>>>{};
   final visited = <int>{0};
+  final visitedBusiness = <String>{};
+  String? selectedBusinessFeature;
   var plansNavigator = GlobalKey<NavigatorState>();
   final reportsNavigator = GlobalKey<NavigatorState>();
+  final planExitGuard = ProjectExitGuard();
+  bool preparingProjectExit = false;
   final working = <String>{};
   final actionRequests = <String, String>{};
   final accessAllowed = ValueNotifier<bool>(true);
@@ -131,6 +149,10 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
       'Wartung',
   ];
   List<String> get visibleSections => [...projectSections, ...businessSections];
+  int get stackSection => selectedBusinessFeature == null
+      ? section
+      : projectSections.length +
+            _businessSectionSlots.indexOf(selectedBusinessFeature!);
   IconData sectionIcon(int index) => index < _sectionIcons.length
       ? _sectionIcons[index]
       : switch (visibleSections[index]) {
@@ -177,6 +199,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     project = Map<String, dynamic>.from(widget.project);
     projectChanges = ValueNotifier(project);
     initialToken = widget.api.token;
+    planExitGuard.addListener(planExitChanged);
     business = BusinessSession(
       api: widget.api,
       projectId: widget.project['id'],
@@ -211,8 +234,24 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   void businessChanged() {
     if (!mounted) return;
     setState(() {
-      if (section >= visibleSections.length) section = 0;
+      final available = businessSections;
+      visitedBusiness.retainAll(available);
+      if (selectedBusinessFeature != null) {
+        final index = available.indexOf(selectedBusinessFeature!);
+        if (index < 0) {
+          selectedBusinessFeature = null;
+          section = 0;
+        } else {
+          section = projectSections.length + index;
+        }
+      } else if (section >= visibleSections.length) {
+        section = 0;
+      }
     });
+  }
+
+  void planExitChanged() {
+    if (mounted) setState(() {});
   }
 
   void applySnapshot(Map<String, dynamic> snapshot) {
@@ -273,6 +312,8 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
 
   @override
   void dispose() {
+    planExitGuard.removeListener(planExitChanged);
+    planExitGuard.dispose();
     widget.api.removeListener(accessChanged);
     widget.repository?.removeListener(accessChanged);
     integrations.dispose();
@@ -411,25 +452,90 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     }
   }
 
-  void selectSection(int value) {
+  void selectSection(int value, {String? expectedName}) {
+    final available = visibleSections;
+    final index = expectedName == null
+        ? value
+        : available.indexOf(expectedName);
+    if (denied || index < 0 || index >= available.length) return;
     setState(() {
-      section = value;
-      visited.add(value);
+      section = index;
+      if (index < projectSections.length) {
+        selectedBusinessFeature = null;
+        visited.add(index);
+      } else {
+        selectedBusinessFeature = available[index];
+        visitedBusiness.add(available[index]);
+      }
     });
     final kind = activeKind;
     if (kind != null && !lists.containsKey(kind)) unawaited(loadList(kind));
   }
 
-  void openImportedPlans() {
-    if (!mounted || denied || widget.offlineMode) return;
-    setState(() {
-      // The server created this source outside the local plan editor. Reopen
-      // the list so its normal load also discovers the new import, even when
-      // this tab previously displayed a different plan or an empty list.
-      plansNavigator = GlobalKey<NavigatorState>();
-      section = 4;
-      visited.add(4);
-    });
+  Future<bool> preparePlanExit() async {
+    if (!planExitGuard.blocked) return true;
+    // Make an offstage draft and any pending-save explanation visible before
+    // asking to discard it. Its editor remains the owner of that decision.
+    selectSection(4);
+    final approved = await planExitGuard.confirmExit();
+    if (!approved && mounted && planExitGuard.pendingReason != null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(planExitGuard.pendingReason!)));
+    }
+    return approved;
+  }
+
+  Future<void> leaveProjectRoute(Object? result) async {
+    if (preparingProjectExit || !mounted) return;
+    // Active nested routes handle their own back (including dirty forms).
+    // Their PopHandler and this route must never both pop for one gesture.
+    if ((section == 4 && plansNavigator.currentState?.canPop() == true) ||
+        (section == 6 && reportsNavigator.currentState?.canPop() == true)) {
+      return;
+    }
+    if (!planExitGuard.blocked) return;
+    final route = ModalRoute.of(context), token = widget.api.token;
+    preparingProjectExit = true;
+    try {
+      final approved = await preparePlanExit();
+      if (!approved ||
+          !mounted ||
+          route?.isCurrent != true ||
+          widget.api.token != token) {
+        return;
+      }
+      // This imperative pop is only reached after the child freshly confirmed
+      // discard; ordinary maybePop remains protected by the route PopScope.
+      Navigator.of(context).pop(result);
+    } finally {
+      preparingProjectExit = false;
+    }
+  }
+
+  Future<void> openImportedPlans() async {
+    if (!mounted || denied || widget.offlineMode || preparingProjectExit)
+      return;
+    final route = ModalRoute.of(context), token = widget.api.token;
+    preparingProjectExit = true;
+    try {
+      if (!await preparePlanExit() ||
+          !mounted ||
+          denied ||
+          route?.isCurrent != true ||
+          widget.api.token != token) {
+        return;
+      }
+      setState(() {
+        // Reopening discovers the independently imported source. A pending
+        // drawing is discarded only after the same explicit confirmation.
+        plansNavigator = GlobalKey<NavigatorState>();
+        section = 4;
+        selectedBusinessFeature = null;
+        visited.add(4);
+      });
+    } finally {
+      preparingProjectExit = false;
+    }
   }
 
   Future<void> edit(String kind, [Map<String, dynamic>? initial]) async {
@@ -1453,6 +1559,12 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
 
   Widget itemSection(String kind) {
     final entries = lists[kind];
+    final title = switch (kind) {
+      'tasks' => 'Aufgaben',
+      'appointments' => 'Termine',
+      'diary' => 'Bautagebuch',
+      _ => 'Dokumente',
+    };
     final label = switch (kind) {
       'tasks' => 'Aufgabe anlegen',
       'appointments' => 'Termin planen',
@@ -1462,7 +1574,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     return listBody([
       PageHeading(
         eyebrow: project['name'] ?? 'Projekt',
-        title: projectSections[section],
+        title: title,
         subtitle: switch (kind) {
           'tasks' => 'Verantwortung, Fälligkeiten und Arbeitsstand.',
           'appointments' =>
@@ -1511,7 +1623,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
           _ => 'Noch keine Dokumentlinks hinterlegt.',
         })
       else
-        surface(projectSections[section], [
+        surface(title, [
           for (final entry in entries)
             switch (kind) {
               'tasks' => taskTile(entry),
@@ -1582,6 +1694,37 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     ]);
   }
 
+  Future<void> popNested(GlobalKey<NavigatorState> key, Object? result) async {
+    if (preparingProjectExit ||
+        !((section == 4 && key == plansNavigator) ||
+            (section == 6 && key == reportsNavigator))) {
+      return;
+    }
+    final navigator = key.currentState;
+    if (navigator == null) return;
+    if (key != plansNavigator || !planExitGuard.blocked) {
+      await navigator.maybePop(result);
+      return;
+    }
+    final route = ModalRoute.of(context), token = widget.api.token;
+    preparingProjectExit = true;
+    try {
+      // The editor's dirty flag changes before its next PopScope rebuild.
+      // Consult that fresh state even for a back gesture in the same frame.
+      final approved = await preparePlanExit();
+      if (approved &&
+          mounted &&
+          route?.isCurrent == true &&
+          widget.api.token == token &&
+          key.currentState == navigator &&
+          navigator.canPop()) {
+        navigator.pop(result);
+      }
+    } finally {
+      preparingProjectExit = false;
+    }
+  }
+
   Widget nested(
     GlobalKey<NavigatorState> key,
     Widget Function(Map<String, dynamic>) builder,
@@ -1589,7 +1732,9 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
     enabled:
         (section == 4 && key == plansNavigator) ||
         (section == 6 && key == reportsNavigator),
-    onPopWithResult: (result) => key.currentState?.pop(result),
+    onPopWithResult: (result) {
+      unawaited(popNested(key, result));
+    },
     child: Navigator(
       key: key,
       onGenerateRoute: (_) => MaterialPageRoute<void>(
@@ -1602,7 +1747,15 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   );
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => PopScope<Object?>(
+    canPop: !planExitGuard.blocked,
+    onPopInvokedWithResult: (didPop, result) {
+      if (!didPop) unawaited(leaveProjectRoute(result));
+    },
+    child: projectScaffold(context),
+  );
+
+  Widget projectScaffold(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text(
         denied ? 'Projektmappe' : project['name'] ?? 'Projektmappe',
@@ -1656,77 +1809,90 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
         : Column(
             children: [
               LayoutBuilder(
-                builder: (context, constraints) => constraints.maxWidth < 1000
-                    ? Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-                        child: DropdownButtonFormField<int>(
-                          key: ValueKey('project-section-picker-$section'),
-                          initialValue: section,
-                          decoration: InputDecoration(
-                            labelText: 'Projektbereich',
-                            prefixIcon: Icon(sectionIcon(section), size: 20),
-                          ),
-                          items: [
-                            for (
-                              var index = 0;
-                              index < visibleSections.length;
-                              index++
-                            )
-                              DropdownMenuItem(
-                                value: index,
-                                child: Text(visibleSections[index]),
-                              ),
-                          ],
-                          onChanged: (value) {
-                            if (value != null) selectSection(value);
-                          },
-                        ),
-                      )
-                    : SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Container(
-                          margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: const Color(0xffeaeaec),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          child: Row(
-                            children: [
+                builder: (context, constraints) {
+                  final sections = visibleSections;
+                  return constraints.maxWidth < 1000
+                      ? Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+                          child: DropdownButtonFormField<int>(
+                            key: ValueKey('project-section-picker-$section'),
+                            initialValue: section,
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                              labelText: 'Projektbereich',
+                              prefixIcon: Icon(sectionIcon(section), size: 20),
+                            ),
+                            items: [
                               for (
                                 var index = 0;
-                                index < visibleSections.length;
+                                index < sections.length;
                                 index++
                               )
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: TextButton.icon(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: section == index
-                                          ? Colors.white
-                                          : null,
-                                      foregroundColor: section == index
-                                          ? OfficeColors.blue
-                                          : OfficeColors.muted,
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 14,
-                                        vertical: 12,
-                                      ),
-                                    ),
-                                    onPressed: () => selectSection(index),
-                                    icon: Icon(sectionIcon(index), size: 18),
-                                    label: Text(visibleSections[index]),
-                                  ),
+                                DropdownMenuItem(
+                                  value: index,
+                                  child: Text(sections[index]),
                                 ),
                             ],
+                            onChanged: (value) {
+                              if (value != null &&
+                                  value >= 0 &&
+                                  value < sections.length)
+                                selectSection(
+                                  value,
+                                  expectedName: sections[value],
+                                );
+                            },
                           ),
-                        ),
-                      ),
+                        )
+                      : SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color: const Color(0xffeaeaec),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: Row(
+                              children: [
+                                for (
+                                  var index = 0;
+                                  index < sections.length;
+                                  index++
+                                )
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: TextButton.icon(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: section == index
+                                            ? Colors.white
+                                            : null,
+                                        foregroundColor: section == index
+                                            ? OfficeColors.blue
+                                            : OfficeColors.muted,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 14,
+                                          vertical: 12,
+                                        ),
+                                      ),
+                                      onPressed: () => selectSection(
+                                        index,
+                                        expectedName: sections[index],
+                                      ),
+                                      icon: Icon(sectionIcon(index), size: 18),
+                                      label: Text(sections[index]),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        );
+                },
               ),
               const Divider(height: 1),
               Expanded(
                 child: IndexedStack(
-                  index: section,
+                  index: stackSection,
                   children:
                       <Widget>[
                             overview(),
@@ -1744,6 +1910,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                                       project: current,
                                       canWrite: canWrite,
                                       repository: widget.repository,
+                                      exitGuard: planExitGuard,
                                     ),
                                   )
                                 : const SizedBox(),
@@ -1763,16 +1930,15 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                                     widget.reportsBuilder,
                                   )
                                 : const SizedBox(),
-                            for (
-                              var index = 0;
-                              index < businessSections.length;
-                              index++
-                            )
-                              visited.contains(projectSections.length + index)
+                            // Keep each permitted feature in its original stack
+                            // slot when another permission removes an earlier tab.
+                            for (final feature in _businessSectionSlots)
+                              businessSections.contains(feature) &&
+                                      visitedBusiness.contains(feature)
                                   ? BusinessProjectFeature(
-                                      key: ValueKey(businessSections[index]),
+                                      key: ValueKey(feature),
                                       session: business,
-                                      feature: businessSections[index],
+                                      feature: feature,
                                       repository: widget.repository,
                                     )
                                   : const SizedBox(),
@@ -1781,7 +1947,7 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
                           .entries
                           .map(
                             (entry) => TickerMode(
-                              enabled: entry.key == section,
+                              enabled: entry.key == stackSection,
                               child: entry.value,
                             ),
                           )

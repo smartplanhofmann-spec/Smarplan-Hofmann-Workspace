@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'api.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'business_documents.dart' show businessPositionKinds;
@@ -215,6 +216,7 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
   bool loading = false;
   int epoch = 0, refreshSerial = 0;
   final references = <String, Map<String, String>>{};
+  List<Map<String, dynamic>> movements = [];
   List<_Section> get sections => (_sections[widget.area] ?? [])
       .where(
         (s) => widget.session.hasModule(s.module) && widget.session.can(s.read),
@@ -246,16 +248,35 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
     setState(() {
       loading = true;
       error = null;
+      references.clear();
+      movements = [];
     });
+    final section = sections
+        .where((section) => section.id == selected)
+        .firstOrNull;
+    if (section?.scoped == true && widget.session.projectId == null) {
+      setState(() => loading = false);
+      return;
+    }
     final paths = switch (selected) {
       'inventory/movements' ||
-      'inventory/reservations' => ['articles', 'inventory/locations'],
+      'inventory/reservations' => ['inventory/locations'],
       'maintenance/contracts' => ['assets'],
       'absences' => ['employees'],
       'employees' => ['users'],
       _ => <String>[],
     };
     try {
+      if ([
+        'inventory/movements',
+        'inventory/reservations',
+      ].contains(selected)) {
+        final articles = await inventoryArticles();
+        if (!mounted || current != epoch || !widget.session.allowed) return;
+        references['articles'] = {
+          for (final item in articles) '${item['id']}': '${item['name']}',
+        };
+      }
       for (final path in paths) {
         final response = path == 'users'
             ? await widget.session.api.call('/api/users')
@@ -269,11 +290,72 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
             '${r['id']}': '${r['name'] ?? r['email'] ?? r['title'] ?? r['id']}',
         };
       }
+      if (selected == 'inventory/movements') {
+        final rows = businessItems(
+          await widget.session.read(
+            widget.session.query('/inventory/movements'),
+          ),
+        );
+        if (!mounted || current != epoch || !widget.session.allowed) return;
+        movements = rows;
+      }
     } catch (e) {
       if (mounted && current == epoch) setState(() => error = '$e');
     } finally {
       if (mounted && current == epoch) setState(() => loading = false);
     }
+  }
+
+  Future<List<Map<String, dynamic>>> inventoryArticles() async {
+    if (!widget.session.hasFeature('inventory_article_refs')) {
+      // This request has no project query: a project-only financial grant is
+      // insufficient to read the legacy global catalog with its prices.
+      final meta = businessMap(await widget.session.read('/capabilities'));
+      final global = meta['global_permissions'] ?? meta['permissions'];
+      if (global is! List || !global.contains('finance.read')) {
+        throw const ApiException(
+          409,
+          'Für die sichere Artikelauswahl ist ein Serverupdate erforderlich. Finanzrechte werden dafür nicht erweitert.',
+        );
+      }
+      return businessItems(await widget.session.read('/articles'))
+          .where(
+            (row) =>
+                row['active'] != false &&
+                ['material', 'machine'].contains(row['kind']),
+          )
+          .toList();
+    }
+    final items = <Map<String, dynamic>>[];
+    String? after;
+    final seen = <String>{};
+    for (var page = 0; page < 50; page++) {
+      final result = businessMap(
+        await widget.session.read(
+          widget.session.query('/inventory/articles', {
+            'limit': '200',
+            if (after != null) 'after': after,
+          }),
+        ),
+      );
+      items.addAll(businessItems(result));
+      if (result['has_more'] == false) return items;
+      final next = result['next_after'];
+      if (result['has_more'] != true ||
+          next is! String ||
+          !RegExp(r'^[a-f0-9]{32}$').hasMatch(next) ||
+          !seen.add(next)) {
+        throw const ApiException(
+          502,
+          'Die Artikelauswahl wurde unvollständig geliefert. Bitte erneut laden.',
+        );
+      }
+      after = next;
+    }
+    throw const ApiException(
+      413,
+      'Mehr als 10.000 Artikel passen nicht in diese Auswahl. Bitte den aktiven Artikelbestand begrenzen.',
+    );
   }
 
   List<BusinessField> fields(String id) => switch (id) {
@@ -386,8 +468,24 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
         'article_id',
         'Artikel',
         type: BusinessInput.choice,
-        required: true,
         choices: references['articles'] ?? {},
+      ),
+      BusinessField(
+        'reversal_of',
+        'Ursprüngliche Projektentnahme',
+        type: BusinessInput.choice,
+        hint: 'Für Rückgaben auswählen. Artikel und Projekt werden aus dieser Entnahme übernommen.',
+        choices: {
+          for (final row in movements.where(
+            (row) =>
+                row['kind'] == 'issue' &&
+                row['project_id'] != null &&
+                (widget.session.projectId == null ||
+                    row['project_id'] == widget.session.projectId),
+          ))
+            '${row['id']}':
+                '${row['article_snapshot']?['name'] ?? references['articles']?['${row['article_id']}'] ?? 'Material'} · ${row['quantity']} ${row['article_snapshot']?['unit'] ?? ''} · ${businessDate(row['created_at'], time: true)}',
+        },
       ),
       BusinessField(
         'from_location_id',
@@ -731,11 +829,106 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
     ],
     _ => const [],
   };
+
+  Map<String, dynamic> movementValues(Map<String, dynamic> values) {
+    final kind = values['kind'];
+    if (!['receive', 'issue', 'return', 'transfer'].contains(kind)) {
+      throw const FormatException('Bitte eine Lagerbewegung auswählen.');
+    }
+    final result = <String, dynamic>{
+      'kind': kind,
+      'quantity': values['quantity'],
+      'note': values['note'] ?? '',
+    };
+    final projectId = widget.session.projectId ?? values['project_id'];
+    if (kind == 'return') {
+      final source = movements
+          .where(
+            (row) =>
+                row['id'] == values['reversal_of'] && row['kind'] == 'issue',
+          )
+          .firstOrNull;
+      if (source == null ||
+          source['project_id'] == null ||
+          (projectId != null && projectId != source['project_id'])) {
+        throw const FormatException(
+          'Bitte die ursprüngliche Entnahme dieses Projekts auswählen.',
+        );
+      }
+      result.addAll({
+        'reversal_of': source['id'],
+        'article_id': source['article_id'],
+        'project_id': source['project_id'],
+      });
+    } else {
+      final id = values['article_id'];
+      if (id is! String || !references['articles']!.containsKey(id)) {
+        throw const FormatException('Bitte einen Artikel auswählen.');
+      }
+      result['article_id'] = id;
+      if (kind != 'transfer' && projectId != null)
+        result['project_id'] = projectId;
+      if (kind == 'receive' && values['unit_cost_net'] != null)
+        result['unit_cost_net'] = values['unit_cost_net'];
+    }
+    if (kind == 'issue' || kind == 'transfer') {
+      final location = values['from_location_id'];
+      if (location is! String ||
+          !references['inventory/locations']!.containsKey(location)) {
+        throw const FormatException('Bitte den Quelllagerort auswählen.');
+      }
+      result['from_location_id'] = location;
+    }
+    if (kind != 'issue') {
+      final location = values['to_location_id'];
+      if (location is! String ||
+          !references['inventory/locations']!.containsKey(location)) {
+        throw const FormatException('Bitte den Ziellagerort auswählen.');
+      }
+      result['to_location_id'] = location;
+    }
+    if (kind == 'issue' && projectId == null)
+      throw const FormatException(
+        'Bitte ein Projekt für die Entnahme auswählen.',
+      );
+    if (kind == 'transfer' &&
+        result['from_location_id'] == result['to_location_id']) {
+      throw const FormatException(
+        'Quell- und Ziellagerort müssen verschieden sein.',
+      );
+    }
+    return result;
+  }
+
+  Future<void> movement() async {
+    if (!widget.session.canWrite('inventory.write') || error != null) return;
+    final key = 'movement-${DateTime.now().microsecondsSinceEpoch}';
+    await showDialog<bool>(
+      context: context,
+      builder: (_) => BusinessEditor(
+        session: widget.session,
+        title: 'Materialbewegung',
+        readPermission: 'inventory.read',
+        writePermission: 'inventory.write',
+        fields: fields('inventory/movements'),
+        onSave: (values) async {
+          await widget.session.command(
+            key,
+            '/inventory/movements',
+            movementValues(values),
+          );
+        },
+      ),
+    );
+  }
+
   Future<void> schedule() async {
     await showDialog<bool>(
       context: context,
       builder: (_) => BusinessEditor(
         session: widget.session,
+        readPermission: 'documents.read',
+        writePermission: 'projects.manage',
         title: 'Fällige Wartungen planen',
         fields: const [
           BusinessField(
@@ -764,6 +957,8 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
         context: context,
         builder: (_) => BusinessEditor(
           session: widget.session,
+          readPermission: 'inventory.read',
+          writePermission: 'inventory.write',
           title: 'Reserviertes Material entnehmen',
           fields: const [
             BusinessField(
@@ -814,6 +1009,8 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
         context: context,
         builder: (_) => BusinessEditor(
           session: widget.session,
+          readPermission: 'documents.read',
+          writePermission: 'documents.write',
           title: 'Wartung abschließen',
           fields: [
             BusinessField(
@@ -842,6 +1039,8 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
         context: context,
         builder: (_) => BusinessEditor(
           session: widget.session,
+          readPermission: 'time.own',
+          writePermission: 'time.approve',
           title: 'Abwesenheit entscheiden',
           fields: const [
             BusinessField(
@@ -880,11 +1079,6 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
       );
     final section =
         available.where((s) => s.id == selected).firstOrNull ?? available.first;
-    if (section.scoped && widget.session.projectId == null)
-      return const BusinessEmpty(
-        'Projekt auswählen',
-        'Öffnen Sie diesen Bereich in der passenden Projektmappe. So bleibt die Zuordnung eindeutig.',
-      );
     return Column(
       children: [
         Padding(
@@ -906,12 +1100,27 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
         if (error != null)
           Padding(
             padding: const EdgeInsets.all(24),
-            child: Notice(error!, error: true),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Notice(error!, error: true),
+                TextButton.icon(
+                  onPressed: loading ? null : loadReferences,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Auswahl erneut laden'),
+                ),
+              ],
+            ),
           ),
         if (loading) const LinearProgressIndicator(),
         if (!loading)
           Expanded(
-            child: section.id == 'time/accounts'
+            child: section.scoped && widget.session.projectId == null
+                ? const BusinessEmpty(
+                    'Projekt auswählen',
+                    'Öffnen Sie diesen Bereich in der passenden Projektmappe. So bleibt die Zuordnung eindeutig.',
+                  )
+                : section.id == 'time/accounts'
                 ? BusinessTimeAccountsPage(session: widget.session)
                 : section.id == 'checklists'
                 ? BusinessChecklistsPage(session: widget.session)
@@ -923,9 +1132,11 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
                     path: '/${section.id}',
                     title: section.label,
                     readPermission: section.read,
-                    writePermission: section.write,
+                    writePermission: error == null ? section.write : '',
                     fields: fields(section.id),
-                    onCreate: section.id == 'measurements'
+                    onCreate: section.id == 'inventory/movements'
+                        ? movement
+                        : section.id == 'measurements'
                         ? () async {
                             await Navigator.push<void>(
                               context,

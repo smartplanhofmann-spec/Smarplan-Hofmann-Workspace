@@ -58,7 +58,19 @@ Fortschrittsbericht. Zugangsdaten bleiben von Office-/Offline-Tokens getrennt;
 eine echte Wiederherstellung widerruft Portalzugänge und erhält die Historie.
 Allgemeine Kundenkonten, Dateiaustausch, freigegebene Projektinformationen und
 Angebote vor der Projektanlage bleiben offen. EÜR und Lohn sind noch keine
-implementierten oder fachlich abgenommenen Module.
+implementierten oder fachlich abgenommenen Module. Der Portalstand ist lokal
+als `cb60561` gesichert; 442 Backendtests bestanden (ein Windows-Skip),
+362 Fluttertests, 72 Browser-Unitprüfungen und zehn echte Browserabläufe sind
+im Fortschritt mit zusätzlichen HTTP-/TLS-/PostgreSQL-Prüfungen belegt.
+
+Als nächster unabhängiger Fachabschnitt folgt der
+[EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md). E1a ergänzt ein belegtes EUR-Vorjournal,
+Geldkonten und eindeutige Quellenbeziehungen zu vorhandenen Kundenzahlungen
+sowie manuell bestätigten Auszahlungen. Keine automatische steuerliche
+Historienbuchung und keine Umdeutung des bisherigen DATEV-Prüfexports.
+Der Umsatzsteuerstatus wurde separat optional erfragt; bislang liegt keine
+Antwort vor. Ein unkonfiguriertes Profil darf die unabhängige Journalentwicklung
+nicht blockieren, erzeugt aber keine scheinbar vollständige Steuerabrechnung.
 
 ## Verbindliche aktuelle Nutzerentscheidungen – 25. Oktober 2026
 

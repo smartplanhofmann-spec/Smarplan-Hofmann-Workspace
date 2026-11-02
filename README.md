@@ -27,6 +27,8 @@ Die preisfreie Einkaufsartikelsuche und das erste
 Kundenzugänge, unveränderte Angebots-PDFs, ausdrückliche Annahme/Ablehnung und
 eine gesonderte interne Übernahme in einen Auftragsentwurf. Allgemeine
 Kundenkonten, Dateiaustausch und Projektfreigaben bleiben weitere Arbeit.
+Der [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md) konkretisiert als nächsten
+Finanzabschnitt ein belegtes Zahlungsjournal mit Zuordnung und Korrektur.
 
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital
 unterschreibbares Protokoll geprüft. Weitergehende Test-/Betriebsbestätigungen

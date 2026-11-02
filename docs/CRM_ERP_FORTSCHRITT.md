@@ -493,3 +493,11 @@ Die unabhängige EÜR-Vorbereitung prüft nun vorhandene Zahlungen und
 Eingangsbelege. EÜR legt die umsatzsteuerliche Ist-/Sollversteuerung nicht fest;
 der tatsächliche Umsatzsteuerstatus wurde separat erfragt und ist bis zur
 Antwort als offen zu behandeln. Das blockiert die übrige Entwicklung nicht.
+
+Der geprüfte Portalumfang ist im lokalen Commit `cb60561` gesichert. Der
+[EÜR-Plan](CRM_ERP_EUER_PLAN.md) hält anschließend den tatsächlichen Bestand,
+offizielle Quellen mit Abrufgrenzen und die nächsten Schritte E1a–E1d fest.
+Er trennt vorhandene Kundenzahlungen, Eingangsoriginale und Prüfexporte von
+einem noch zu entwickelnden Journal. Als erstes folgt Quellen-/Geldfluss-
+erfassung; Zuordnung, Korrekturen, Perioden und Beraterpaket bauen darauf auf.
+Der Plan ist Dokumentation und kein neuer Funktions- oder Testnachweis.

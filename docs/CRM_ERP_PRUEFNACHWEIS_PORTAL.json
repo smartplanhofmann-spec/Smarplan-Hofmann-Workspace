@@ -159,5 +159,6 @@
     "web/office/tests/portal.test.mjs": "b7d64c08c944edf035e8331c80b17d7b4dd30e688f1b6d1ac85af7ebf9fef9bc",
     "web/office/tests/serve_fixture.py": "e2491c5651005faa66f8a4baecb969ca973a2e0fdb25ede635169042087cf729"
   },
-  "note": "Test groups overlap and must not be added as unique acceptance counts. Logs reside in ignored work/verification; test sources, reports and hashes are stored in the repository."
+  "note": "Test groups overlap and must not be added as unique acceptance counts. Logs reside in ignored work/verification; test sources, reports and hashes are stored in the repository.",
+  "implementation_commit": "cb60561b3bdbb72cd735c48d858afb2cfe87163d"
 }

@@ -28,7 +28,8 @@ STORAGE_VERSION = 7
 LEGACY_VERSION = 6
 MODULE_NAMES = tuple('business_' + name for name in (
     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
-    'inventory', 'maintenance', 'adapters', 'organization', 'instance', 'purchasing', 'portal', 'accounting'))
+    'inventory', 'maintenance', 'adapters', 'organization', 'instance', 'purchasing', 'portal', 'accounting',
+    'accounting_allocations'))
 CONTROL_TABLES = frozenset((
     'business_schema_state', 'business_schema_migrations', 'business_schema_events',
     'business_feature_flags', 'business_privacy_anchors', 'business_device_grants', 'business_restore_state',
@@ -490,6 +491,62 @@ def apply_runtime_privileges(office):
     connection.execute('GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO "smartplan-online"')
 
 
+def financial_accounting_horizon(office):
+    """Read the installed financial scope without rewriting E1a's version-1 proof.
+
+    The caller owns a consistent snapshot/transaction. No actor, migration,
+    commit, dynamically computed open-item amount or approval is created here.
+    """
+    with office.lock:
+        installed = state(office).get('read_capabilities', [])
+        accounting = 'business_accounting' in installed
+        allocations = 'business_accounting_allocations' in installed
+        if allocations and not accounting:
+            raise ValueError('Payment allocations require the installed accounting prejournal')
+        if not accounting:
+            return None
+        from business_accounting import restore_horizon
+        prejournal = restore_horizon(office)
+        if prejournal is None:
+            raise ValueError('Installed accounting horizon is missing')
+        if not allocations:
+            return prejournal
+        from business_accounting_allocations import restore_horizon as allocation_horizon
+        extra = allocation_horizon(office)
+        if extra is None:
+            raise ValueError('Installed allocation horizon is missing')
+        return dict(schema_version=2, prejournal=prejournal, allocations=extra)
+
+
+def _validate_prejournal_horizon(horizon):
+    counts = {'accounts_count', 'account_versions_count', 'cash_events_count', 'source_links_count', 'max_sequence'}
+    if (not isinstance(horizon, dict) or set(horizon) != counts | {'schema_version', 'sha256'}
+            or type(horizon['schema_version']) is not int or horizon['schema_version'] != 1
+            or any(type(horizon[key]) is not int or horizon[key] < 0 for key in counts)
+            or not isinstance(horizon['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', horizon['sha256'])):
+        raise ValueError('Exact version-1 accounting prejournal horizon required')
+
+
+def _validate_financial_accounting_horizon(horizon, report_schema):
+    if report_schema == 2:
+        _validate_prejournal_horizon(horizon)
+        return
+    if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations'}
+            or type(horizon['schema_version']) is not int or horizon['schema_version'] != 2):
+        raise ValueError('Exact version-2 combined accounting horizon required')
+    _validate_prejournal_horizon(horizon['prejournal'])
+    # Freeze the declared schema-3 contract independently of future module
+    # inventory changes. Parsing an old receipt never loads/migrates a module.
+    allocation_tables = {'business_accounting_allocation_entries', 'business_accounting_allocation_requests'}
+    extra = horizon['allocations']
+    if (not isinstance(extra, dict) or set(extra) != {'schema_version', 'table_counts', 'sha256'}
+            or type(extra['schema_version']) is not int or extra['schema_version'] != 1
+            or not isinstance(extra['table_counts'], dict) or set(extra['table_counts']) != allocation_tables
+            or any(type(value) is not int or value < 0 for value in extra['table_counts'].values())
+            or not isinstance(extra['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', extra['sha256'])):
+        raise ValueError('Exact version-1 additional allocation horizon required')
+
+
 def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name):
     """Common validation inside an already authorized exclusive transaction.
 
@@ -503,11 +560,17 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
     if value['restore_pending']:
         raise Problem(409, 'Datenschutzprüfung vor Finanzfreigabe abschließen.')
     accounting_installed = 'business_accounting' in value.get('read_capabilities', [])
+    allocations_installed = 'business_accounting_allocations' in value.get('read_capabilities', [])
+    if allocations_installed and not accounting_installed:
+        raise ValueError('Payment allocations require the installed accounting prejournal')
+    required_schema = 3 if allocations_installed else 2 if accounting_installed else 1
+    declared_schema = evidence.get('schema') if isinstance(evidence, dict) else None
+    if type(declared_schema) is not int or declared_schema not in (1, 2, 3):
+        raise ValueError('Known explicit financial report schema required')
     fields = {'schema', 'restore_id', 'reviewed_by', 'reviewed_at', 'number_horizons', 'outbound_reconciled'}
-    if accounting_installed:
+    if declared_schema >= 2:
         fields |= {'accounting_horizon', 'accounting_reconciled', 'accounting_external_review'}
     if (not isinstance(evidence, dict) or set(evidence) != fields
-            or type(evidence.get('schema')) is not int or evidence['schema'] != (2 if accounting_installed else 1)
             or evidence['restore_id'] != value['restore_id'] or evidence['outbound_reconciled'] is not True
             or not isinstance(evidence['reviewed_by'], str) or not 1 <= len(evidence['reviewed_by'].strip()) <= 200):
         raise ValueError('Review report must bind this restore, reviewer and all required financial scopes')
@@ -530,15 +593,10 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
         if key in supplied:
             raise ValueError('Duplicate reviewed number horizon')
         supplied[key] = item['last_value']
-    if accounting_installed:
-        horizon = evidence['accounting_horizon']
-        counts = {'accounts_count', 'account_versions_count', 'cash_events_count', 'source_links_count', 'max_sequence'}
+    if declared_schema >= 2:
+        _validate_financial_accounting_horizon(evidence['accounting_horizon'], declared_schema)
         external = evidence['accounting_external_review']
-        if (evidence['accounting_reconciled'] is not True or not isinstance(horizon, dict)
-                or set(horizon) != counts | {'schema_version', 'sha256'}
-                or type(horizon['schema_version']) is not int or horizon['schema_version'] != 1
-                or any(type(horizon[key]) is not int or horizon[key] < 0 for key in counts)
-                or not isinstance(horizon['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', horizon['sha256'])
+        if (evidence['accounting_reconciled'] is not True
                 or not isinstance(external, dict) or set(external) != {'reviewed_since_backup', 'evidence_sha256', 'note'}
                 or external['reviewed_since_backup'] is not True
                 or not isinstance(external['evidence_sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', external['evidence_sha256'])
@@ -553,13 +611,14 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
         raise Problem(409, 'Keine offene Finanzfreigabe oder abweichender bereits bestätigter Nachweis.')
     if previous:
         raise Problem(409, 'Restore-Identität wurde bereits finanziell freigegeben.')
+    if declared_schema != required_schema:
+        raise ValueError('New financial reconciliation requires the complete installed report scope')
     expected = {(row['company_id'], row['series'], row['year']): row['next_value'] - 1
                 for row in office.db.execute('SELECT * FROM business_document_counters').fetchall()}
     if supplied != expected:
         raise Problem(409, 'Ausgestellte Nummern fehlen oder sind nicht vollständig abgeglichen; Originalbelege zuerst wiederherstellen.')
     if accounting_installed:
-        from business_accounting import restore_horizon
-        if evidence['accounting_horizon'] != restore_horizon(office):
+        if evidence['accounting_horizon'] != financial_accounting_horizon(office):
             raise Problem(409, 'Wiederhergestellte Geldfluss- und Quellenstände sind nicht vollständig abgeglichen.')
     validate_integrity(office)
     generation = office.db.execute('SELECT COALESCE(MAX(generation),0)+1 FROM business_financial_reconciliations').fetchone()[0]

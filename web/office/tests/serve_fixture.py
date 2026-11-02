@@ -55,6 +55,9 @@ def seed(office, directory):
     bookkeeper_email = 'bookkeeper@browser.example.test'
     actors['bookkeeper'] = dict(id=office.add_user(bookkeeper_email, PASSWORD, 'accountant'),
                                 email=bookkeeper_email, role='accountant')
+    allocator_email = 'allocator@browser.example.test'
+    actors['allocator'] = dict(id=office.add_user(allocator_email, PASSWORD, 'accountant'),
+                               email=allocator_email, role='accountant')
     owner, technician = actors['owner'], actors['technician']
     organization = Organization(office)
     settings = organization.get(owner)
@@ -68,6 +71,9 @@ def seed(office, directory):
     second_customer = office.create_customer(owner, {'name': 'Separate synthetic customer', 'email': 'second@example.test',
         'address': 'Synthetic street 2, 00000 Testcity'})
     private = office.add_project(owner, 'Private synthetic project', customer_id=second_customer['id'])
+    allocation_target = office.add_project(owner, 'Synthetic allocation target', customer_id=second_customer['id'])
+    for allocation_project in (project, private, allocation_target):
+        office.assign(owner, allocation_project, actors['allocator']['id'])
     office.assign(owner, project, technician['id'])
     office.assign(owner, project, actors['accountant']['id'])
     office.assign(owner, project, actors['warehouse']['id'])
@@ -77,6 +83,9 @@ def seed(office, directory):
                                         scope='*', effect='allow', revision=0))
     for permission in ('accounting.read', 'accounting.prepare', 'accounting.admin'):
         foundation.save_grant(owner, request(user_id=actors['bookkeeper']['id'], permission=permission,
+                                            scope='*', effect='allow', revision=0))
+    for permission in ('accounting.read', 'accounting.prepare', 'finance.read', 'finance.write'):
+        foundation.save_grant(owner, request(user_id=actors['allocator']['id'], permission=permission,
                                             scope='*', effect='allow', revision=0))
     foundation.save_grant(owner, request(user_id=actors['bookkeeper']['id'], permission='documents.read',
                                         scope=project, effect='deny', revision=0))
@@ -141,6 +150,33 @@ def seed(office, directory):
         final = documents.finalize(owner, draft['id'], render_prepared(prepared), uuid.uuid4().hex)
         original = directory / (final['id'] + '.pdf'); original.write_bytes(documents.archive(owner, final['id'], 'pdf'))
         portal_offers.append({'id': final['id'], 'title': title, 'number': final['number'], 'pdf_path': str(original)})
+    # Stored synthetic legacy invoice archives for browser allocation tests.
+    # Only this pre-server seed uses the existing explicit test subclass. The
+    # runtime Documents class and its SQLite issuer policy are never patched;
+    # real production issuance is accepted separately on PostgreSQL.
+    from business_tests.test_documents import SyntheticDocuments, seed_synthetic_issuer
+    synthetic = SyntheticDocuments(office)
+    issuer = dict(company_name='Synthetic portal seller', address_line='Synthetic seller street 1',
+        postal_code='10115', city='Berlin', country='DE', vat_id='DE123456789', email='seller@example.test',
+        issuing_enabled=False, issuer_mode='own', einvoice_format='none', cutover_ack=True, cutover_date='2026-01-01')
+    synthetic.save_settings(owner, request(revision=synthetic.settings(owner)['revision'], **issuer))
+    seed_synthetic_issuer(synthetic, owner)
+    allocation_invoices = {}
+    for key, target, buyer in (('primary', project, customer['name']),
+                                ('original', private, second_customer['name']),
+                                ('target', allocation_target, second_customer['name'])):
+        draft = synthetic.create(owner, request(project_id=target, kind='invoice',
+            title='Synthetic stored allocation invoice ' + key, issue_date='2026-11-02', due_date='2026-11-16',
+            buyer={'name': buyer, 'address_line': 'Synthetic buyer street 2', 'postal_code': '10117',
+                   'city': 'Berlin', 'country': 'DE', 'email': 'buyer@example.test'},
+            positions=[{'description': 'Synthetic archived service', 'quantity': '1', 'unit': 'HUR',
+                        'unit_price_net': '100.00', 'tax_rate': '19', 'kind': 'labor'}]))
+        prepared = synthetic.prepare_finalization(owner, draft['id'], draft['revision'])
+        final = synthetic.finalize(owner, draft['id'], render_prepared(prepared), uuid.uuid4().hex)
+        archive = directory / (final['id'] + '.pdf'); archive.write_bytes(documents.archive(owner, final['id'], 'pdf'))
+        allocation_invoices[key] = {'id': final['id'], 'number': final['number'], 'project_id': target,
+                                    'customer_id': final['customer_id'], 'buyer_name': buyer, 'pdf_path': str(archive)}
+    documents.save_settings(owner, request(revision=documents.settings(owner)['revision'], **issuer))
     finance = Finance(office)
     accounting_payments = []
     for kind, amount in (('receipt', '119.00'), ('refund', '5.00')):
@@ -148,6 +184,9 @@ def seed(office, directory):
             kind=kind, amount=amount, currency='EUR', booking_date='2026-11-01',
             reference='Synthetic accounting ' + kind, allocations=[]))
         accounting_payments.append({'id': payment['id'], 'kind': kind})
+    allocation_shared = finance.record_payment(owner, request(source_id='SYN-ALLOCATION-SHARED',
+        kind='receipt', amount='50.00', currency='EUR', booking_date='2026-11-01',
+        reference='Synthetic allocation shared', allocations=[{'document_id': allocation_invoices['original']['id'], 'amount': '10.00'}]))
     accounting_receipts = []
     for target, vendor, invoice in ((project, 'Synthetic accounting supplier', 'SYN-ACCT-001'),
                                     (private, 'Private accounting supplier', 'SYN-PRIVATE-001')):
@@ -172,7 +211,8 @@ def seed(office, directory):
     adapters.approve_reply_template(owner,adapter['id'],request(revision=0,approved=True,enabled=True,subject='Ihre Anfrage',text='Guten Tag {sender_name}, die Anfrage ist eingegangen. Dies ist keine Auftragsbestätigung.'))
     office.db.commit()
     return dict(project_id=project, private_project_id=private, photo_path=str(photo), portal_offers=portal_offers, accounting_payments=accounting_payments,
-                accounting_receipts=accounting_receipts)
+                accounting_receipts=accounting_receipts, allocation_invoices=allocation_invoices,
+                allocation_shared_payment=allocation_shared['id'], allocation_target_project=allocation_target)
 
 
 class LoopbackProxyContract:

@@ -409,8 +409,8 @@ class BusinessCandidateRelease(DocumentsFixture, unittest.TestCase):
                                                   year=row['year'], last_value=row['next_value'] - 1)
                                              for row in office.db.execute('SELECT * FROM business_document_counters')])
             if 'business_accounting' in business_schema.state(office)['read_capabilities']:
-                from business_accounting import restore_horizon
-                evidence.update(schema=2, accounting_horizon=restore_horizon(office), accounting_reconciled=True,
+                horizon = business_schema.financial_accounting_horizon(office)
+                evidence.update(schema=horizon['schema_version'] + 1, accounting_horizon=horizon, accounting_reconciled=True,
                     accounting_external_review=dict(reviewed_since_backup=True,
                         evidence_sha256=hashlib.sha256(b'Synthetic independent payment/source review').hexdigest(),
                         note='Synthetic external sources since backup reviewed; no live financial activity.'))

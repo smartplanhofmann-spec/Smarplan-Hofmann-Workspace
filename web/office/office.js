@@ -182,6 +182,47 @@ export function accountingPage(value,offset=0,events=false) {
   return value;
 }
 
+export function accountingAllocationAccess(capabilities,organization,value=null,online=true) {
+  const permissions=new Set(capabilities?.permissions||[]),accounting=accountingAccess(capabilities,organization);
+  const available=accounting.available&&capabilities.features?.includes('accounting_payment_allocation')===true&&capabilities.capabilities?.includes('business_accounting_allocations')===true;
+  const read=available&&accounting.read;
+  const prepare=read&&online===true&&capabilities.readonly===false&&organizationModuleEnabled('finance',organization)&&permissions.has('accounting.prepare')&&permissions.has('finance.write');
+  return {available,read,prepare:prepare&&(value===null||value.writes_allowed===true&&value.eligible===true)};
+}
+export function accountingAllocationState(value) {
+  if(value?.scope!=='authorized_sources'||value.tax_result_available!==false||value.currency!=='EUR'||typeof value.eligible!=='boolean'||typeof value.writes_allowed!=='boolean'||!Array.isArray(value.allocations))throw new ApiError('Der wirksame Zuordnungsstand konnte nicht sicher geladen werden.',502);
+  accountingId(value.payment_id);accountingId(value.event_id);accountingId(value.source_hash,true);accountingId(value.state_hash,true);accountingRevision(value.revision,true);
+  if(value.customer_id!==null)accountingId(value.customer_id);
+  accountingAmount(value.amount);
+  for(const field of ['allocated_amount','unallocated_amount'])if(typeof value[field]!=='string'||! /^-?(?:0|[1-9]\d*)\.\d{2}$/.test(value[field]))throw new ApiError('Der wirksame Betrag konnte nicht gelesen werden.',502);
+  return value;
+}
+export function accountingAllocationPreviewData(source,document,values) {
+  accountingAllocationState(source);
+  if(!source.eligible||!source.writes_allowed)throw new Error('Diese Zahlung ist für eine neue Zuordnung gesperrt. Bitte den Stand neu laden.');
+  if(values.customer_confirmation!==true)throw new Error('Bitte den Kunden der gewählten Rechnung ausdrücklich bestätigen.');
+  const customer_id=accountingId(document?.customer_id);
+  if(source.customer_id!==null&&source.customer_id!==customer_id)throw new Error('Die Rechnung gehört nicht zur bestätigten Kundenbindung.');
+  const amount=accountingAmount(values.amount),cents=BigInt(amount.replace('.',''));
+  if(cents>BigInt(accountingAmount(source.unallocated_amount,{zero:true}).replace('.',''))||cents>BigInt(accountingAmount(document.open,{zero:true}).replace('.','')))throw new Error('Der Betrag überschreitet den freien Zahlungsbetrag oder den offenen Rechnungsbetrag.');
+  return {source_hash:source.source_hash,expected_revision:source.revision,state_hash:source.state_hash,customer_id,
+    document_id:accountingId(document.document_id),document_state_hash:accountingId(document.document_state_hash,true),amount,reason:accountingText(values.reason,'Begründung',1000)};
+}
+export function accountingAllocationPreview(value,body,paymentId,eventId) {
+  if(value?.scope!=='authorized_sources'||value.tax_result_available!==false||value.payment_id!==paymentId||value.event_id!==eventId||
+      value.document?.document_id!==body.document_id||value.document.document_state_hash!==body.document_state_hash||value.document.customer_id!==body.customer_id||
+      ['customer_id','source_hash','expected_revision','state_hash','amount','reason'].some(field=>value[field]!==body[field]))throw new ApiError('Die Vorschau stimmt nicht mit der bestätigten Quelle und Rechnung überein. Bitte neu prüfen.',502);
+  accountingId(value.preview_hash,true);accountingId(value.document.payload_sha256,true);accountingId(value.document.pdf_sha256,true);
+  const cents=field=>BigInt(accountingAmount(value[field],{zero:true}).replace('.','')),amount=BigInt(body.amount.replace('.',''));
+  if(cents('unallocated_before')-amount!==cents('unallocated_after')||cents('open_before')-amount!==cents('open_after'))throw new ApiError('Die Betragsstände der Vorschau stimmen nicht überein.',502);
+  return value;
+}
+export function accountingAllocationAssignData(body,preview,confirmation) {
+  if(confirmation!==true)throw new Error('Bitte die geprüfte Vorschau gesondert verbindlich bestätigen.');
+  accountingAllocationPreview(preview,body,preview.payment_id,preview.event_id);
+  return {...body,preview_hash:preview.preview_hash,confirmation:true};
+}
+
 function purchaseDecimal(value) {
   const text=decimalText(value),negative=text.startsWith('-'),[whole,fraction='']=text.replace(/^-/,'').split('.');
   return {text,scaled:BigInt(whole+fraction.padEnd(4,'0'))*(negative?-1n:1n)};
@@ -641,6 +682,7 @@ function updateDrawer() {
 function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
 function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
 function operationLabel(path) {
+  if(path.startsWith('/business/accounting/allocations/'))return 'Bestehende Zahlung einer Rechnung zuordnen';
   if(path.startsWith('/business/accounting/accounts'))return 'Geldkonto bestätigen';
   if(path.startsWith('/business/accounting/events/import-payment'))return 'Bestehende Zahlung verknüpfen';
   if(path.startsWith('/business/accounting/events/payout'))return 'Tatsächliche Auszahlung bestätigen';
@@ -661,9 +703,11 @@ function operationLabel(path) {
 function pendingDialog() {
   dialog('Unbestätigte Antworten',el('div',{class:'stack'},notice('Der Server kann die Eingabe bereits gespeichert haben. Eine Wiederholung verwendet exakt dieselbe Vorgangskennung und denselben Inhalt. Dieses Fenster bis zur Klärung geöffnet lassen.','warn'),
     rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{
+      if(item.path.startsWith(biz('/accounting/allocations/'))&&!navigator.onLine)throw new ApiError('Die Zahlungszuordnung benötigt eine Internetverbindung. Die unveränderte Anfrage bleibt offen.',0);
       const generation=api.generation,previous=modal,result=await api.retry(item.key);if(generation!==api.generation||previous!==modal)return;updatePending();
       if(item.path===biz('/portal/grants')){portalGrantResultDialog({id:result.grant.offer_id,project_id:result.grant.project_id,number:result.grant.number,kind:'offer',status:'final'},result);return;}
-      closeModal();await refresh();}),'primary')]))));
+      closeModal();const render=state.render+1,section=state.section;await refresh();
+      if(item.path.startsWith(biz('/accounting/allocations/'))&&item.path.endsWith('/assign')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingAllocationDialog(result.payment_id,{document:result.document});}),'primary')]))));
 }
 function navigate(section,{includeHidden=false}={}) {
   state.openedHiddenSection=includeHidden&&sectionAuthorized(section)?section:null;
@@ -1074,8 +1118,9 @@ async function accountingContent() {
     `${formatDate(event.cash_date)} · ${event.account.code} / ${event.account.name} (Version ${event.account.revision}) · ${event.evidence_reference}`,
     [badge('Steuerlich ungeklärt'),button('Nachweis ansehen',()=>accountingAction(()=>accountingEventDialog(event.id)),'small')]),'Noch keine Geldflüsse verknüpft oder bestätigt.'),accountingPaging(tab,page)));
   if(tab==='payments')content.append(panel('Vorhandene Kundenzahlungen',el('p',{class:'muted'},'Bestehende bestätigte Zahlungseingänge und Erstattungen übernehmen. Betrag und Richtung stammen unverändert aus der Quelle; es wird keine neue Kundenzahlung angelegt.'),
-    rows(page.items,source=>row(`${accountingDirection(source)} · ${formatMoney(source.amount)}`,`${formatDate(source.booking_date)} · ${source.reference||source.source_id} · Nicht zugeordnet ${formatMoney(source.unallocated)}`,
-      [source.linked_event_id?button('Verknüpften Geldfluss ansehen',()=>accountingAction(()=>accountingEventDialog(source.linked_event_id)),'small'):rights.prepare?button('Bestehende Zahlung verknüpfen',()=>accountingCashDialog('payment',source,accounts),'primary'):badge('Noch nicht verknüpft')],`${source.allocations.length} Rechnungszuordnung${source.allocations.length===1?'':'en'}`),'Keine freigegebenen bestätigten Kundenzahlungen vorhanden.'),accountingPaging(tab,page)));
+    !accountingAllocationRights().available?notice('Dieser Server bietet die nachträgliche Rechnungszuordnung noch nicht an. Vorhandene Zahlungsnachweise bleiben lesbar.'):null,
+    rows(page.items,source=>row(`${accountingDirection(source)} · ${formatMoney(source.amount)}`,`${formatDate(source.booking_date)} · ${source.reference||source.source_id} · Ursprünglich nicht zugeordnet ${formatMoney(source.unallocated)}`,
+      [source.linked_event_id?button('Verknüpften Geldfluss ansehen',()=>accountingAction(()=>accountingEventDialog(source.linked_event_id)),'small'):rights.prepare?button('Bestehende Zahlung verknüpfen',()=>accountingCashDialog('payment',source,accounts),'primary'):badge('Noch nicht verknüpft'),source.linked_event_id&&source.kind==='receipt'&&accountingAllocationRights().read?button(accountingAllocationRights().prepare?'Rechnung zuordnen':'Zuordnungen ansehen',()=>accountingAction(()=>accountingAllocationDialog(source.payment_id)),'small'):null],`${source.allocations.length} ursprüngliche Rechnungszuordnung${source.allocations.length===1?'':'en'}. Der ursprüngliche Zahlungsnachweis bleibt unverändert; zusätzliche Zuordnungen werden getrennt angezeigt.`),'Keine freigegebenen bestätigten Kundenzahlungen vorhanden.'),accountingPaging(tab,page)));
   if(tab==='receipts')content.append(panel('Auszahlungen auf geprüfte Eingangsbelege',el('p',{class:'muted'},'Bereits tatsächlich geleistete Teil- oder Restzahlungen mit Beleg und Konto bestätigen. Diese Aktion löst keine Überweisung aus.'),
     rows(page.items,source=>row(`${source.vendor} · ${source.invoice_number}`,`${formatDate(source.issue_date)} · Brutto ${formatMoney(source.gross)} · Ausgezahlt ${formatMoney(source.paid_amount)} · Verbleibend ${formatMoney(source.remaining_amount)}`,
       [button('Original ansehen',()=>accountingAction(()=>download(biz(`/finance/receipts/${source.receipt_id}/original`),source.filename)),'small'),rights.prepare&&source.payable?button('Auszahlung bestätigen',()=>accountingCashDialog('receipt',source,accounts),'primary'):null,badge(ACCOUNTING_BLOCKS[source.blocked_reason]||(source.payable?'Zur Bestätigung verfügbar':'Gesperrt'))],`Prüfversion ${source.review_revision} · Auszahlungsstand ${source.cash_revision}`),'Keine freigegebenen geprüften EUR-Eingangsbelege vorhanden.'),accountingPaging(tab,page)));
@@ -1096,7 +1141,7 @@ function accountingSourceDetails(kind,source) {
   const content=el('div',{class:'stack break-word'},el('p',{},kind==='payment'?`${accountingDirection(source)} · ${formatMoney(source.amount)} · Ursprüngliches Buchungsdatum ${formatDate(source.booking_date)} · ${source.reference||source.source_id}`:
     `${source.vendor} · ${source.invoice_number} · Brutto ${formatMoney(source.gross)} · Prüfversion ${source.review_revision}`));
   if(kind==='receipt')content.append(button('Original ansehen',()=>accountingAction(()=>download(biz(`/finance/receipts/${source.receipt_id}/original`),source.filename)),'small'),el('p',{class:'caption'},`Original SHA-256: ${source.original_sha256} · Prüfung SHA-256: ${source.review_sha256}`));
-  else content.append(rows(source.allocations,allocation=>row(allocation.number,`Zugeordnet ${formatMoney(allocation.amount)}`,[button('Rechnungs-PDF ansehen',()=>accountingAction(()=>download(biz(`/documents/${allocation.document_id}/pdf`),`${allocation.number}.pdf`)),'small')]),'Keine Rechnungszuordnung vorhanden.'),el('p',{},`Nicht zugeordnet: ${formatMoney(source.unallocated)}`));
+  else content.append(rows(source.allocations,allocation=>row(allocation.number,`Zugeordnet ${formatMoney(allocation.amount)}`,[button('Rechnungs-PDF ansehen',()=>accountingAction(()=>download(biz(`/documents/${allocation.document_id}/pdf`),`${allocation.number}.pdf`)),'small')]),'Keine Rechnungszuordnung vorhanden.'),el('p',{},`Ursprünglich nicht zugeordnet: ${formatMoney(source.unallocated)}`));
   return content;
 }
 function accountingCashDialog(kind,source,accounts) {
@@ -1123,8 +1168,90 @@ async function accountingEventDialog(id) {
     el('p',{},`${accountingDirection(event)} · ${formatMoney(event.amount)} · ${formatDate(event.cash_date)}`),el('p',{},`Konto: ${event.account.code} / ${event.account.name} · Version ${event.account.revision}`),
     el('p',{},`Nachweisreferenz: ${event.evidence_reference}`),event.reference?el('p',{},`Verwendungszweck: ${event.reference}`):null,
     el('p',{},event.unresolved_reasons.map(reason=>ACCOUNTING_REASONS[reason]||reason).join(' · ')),
+    event.source.kind==='payment'?notice('Ursprünglicher Zahlungsnachweis: Die damalige Zahlung und ihre Rechnungszuordnungen bleiben unverändert. Spätere Zuordnungen sind getrennt dokumentiert.'):null,
+    event.source.kind==='payment'&&accountingAllocationRights().read?button('Wirksame Zuordnungen ansehen',()=>accountingAction(()=>accountingAllocationDialog(event.source.id)),'small'):null,
     panel('Bestätigte Quellfassung',accountingSourceDetails(event.source.kind,event.source.snapshot),el('p',{class:'caption'},`Quelle SHA-256: ${event.source.source_hash}`)),
     el('p',{class:'caption'},`Erfasst ${formatDate(event.created_at,true)}. Spätere Konto- oder Prüfänderungen ändern diesen Nachweis nicht.`)));
+}
+
+const ALLOCATION_BLOCKS={unsupported_payment:'Nur übernommene Zahlungseingänge können zugeordnet werden.',unsupported_source_documents:'Die ursprünglichen Rechnungsarten unterstützen keine zusätzliche Zuordnung.',missing_customer:'Der ursprünglichen Rechnung fehlt eine eindeutige Kundenbindung.',mixed_customers:'Die Quelle enthält unterschiedliche Kunden und benötigt Klärung.',fully_allocated:'Die Zahlung ist vollständig zugeordnet.',overallocated:'Die historischen Zuordnungen überschreiten die Zahlung und benötigen Klärung.'};
+function accountingAllocationRights(source=null) {
+  return accountingAllocationAccess({permissions:[...state.globalPermissions],features:[...state.features],capabilities:[...state.capabilities],readonly:state.readonly},state.organization,source,navigator.onLine);
+}
+function accountingAllocationWritable(source) {
+  if(!accountingAllocationRights(source).prepare)throw new ApiError('Eine neue Zuordnung benötigt Internet, aktuelle globale Accounting-/Finanzschreibrechte und einen freigegebenen Finanzbetrieb.',423);
+}
+function allocationPath(id,suffix='') { return `/accounting/allocations/payments/${accountingId(id)}${suffix}`; }
+function allocationPagination(page,offset,load) {
+  return el('div',{class:'actions'},el('span',{class:'caption'},`${page.items.length?offset+1:0}–${page.items.length?offset+page.items.length:0} von ${page.total} freigegebenen Einträgen`),
+    offset>0?button('Vorherige Seite',()=>accountingAction(()=>load(Math.max(0,offset-25))),'small'):null,
+    page.next_offset!==null?button('Weitere Einträge',()=>accountingAction(()=>load(page.next_offset)),'small'):null);
+}
+async function accountingAllocationDialog(id,{offset=0,document=null}={}) {
+  const generation=api.generation,render=state.render,previous=modal;
+  if(!accountingAllocationRights().read)throw new ApiError('Dieser Server oder Ihre aktuellen globalen Rechte erlauben keine Zahlungszuordnung.',403);
+  const [rawState,rawHistory,open]=await Promise.all([api.get(biz(allocationPath(id))),api.get(query(biz(allocationPath(id,'/history')),{limit:25,offset})),document?api.get(query(biz('/finance/open-items'),{project_id:document.project_id})):Promise.resolve(null)]);
+  if(generation!==api.generation||render!==state.render||previous!==modal)return;
+  const source=accountingAllocationState(rawState),history=accountingPage(rawHistory,offset),rights=accountingAllocationRights(source),pending=api.pendingOperations().some(item=>item.path===biz(allocationPath(id,'/assign')));
+  const content=el('div',{class:'stack accounting break-word','data-accounting-detail':'true'},notice('Aktueller Zuordnungsstand. Der ursprüngliche Zahlungsnachweis bleibt unverändert. Zusätzliche Zuordnungen erzeugen keine neue Zahlung und kein Steuerergebnis.'),
+    panel('Wirksamer Stand',el('p',{},`Zahlung ${formatMoney(source.amount)} · Zugeordnet ${formatMoney(source.allocated_amount)} · Frei ${formatMoney(source.unallocated_amount)}`),
+      el('p',{},`Zusatzzuordnungen: ${source.revision} · ${source.customer_id?'Kundenbindung bestätigt':'Noch keine Kundenbindung. Den Kunden der Zielrechnung ausdrücklich bestätigen.'}`),
+      source.eligible?null:notice(ALLOCATION_BLOCKS[source.blocked_reason]||'Neue Zuordnungen sind für diese Quelle gesperrt.','warn'),
+      !source.writes_allowed?notice('Neue Zuordnungen sind durch aktuelle Rechte oder den Betriebszustand gesperrt. Die freigegebene Historie bleibt lesbar.','warn'):null,
+      pending?notice('Für diese Zahlung ist eine Zuordnungsantwort offen. Unter „Antworten offen“ exakt die ursprüngliche Anfrage wiederholen, bevor ein neuer Vorgang beginnt.','warn'):null,
+      rights.prepare&&!pending?button('Rechnung auswählen',()=>accountingAction(()=>accountingAllocationCandidates(source)),'primary'):null,
+      button('Ursprünglichen Zahlungsnachweis ansehen',()=>accountingAction(()=>accountingEventDialog(source.event_id)),'small')),
+    panel('Bestätigte Zusatzzuordnungen',rows(history.items,entry=>row(`${entry.document.number} · ${formatMoney(entry.amount)}`,`${entry.document.buyer_name} · ${formatDate(entry.created_at,true)} · ${entry.reason}`,
+      [button('Rechnungs-PDF ansehen',()=>accountingAction(()=>download(biz(`/documents/${entry.document.document_id}/pdf`),`${entry.document.number}.pdf`)),'small')],`Bestätigter damaliger Stand: frei ${formatMoney(entry.unallocated_after)} · Rechnung offen ${formatMoney(entry.open_after)} · Version ${entry.revision}`),'Noch keine Zusatzzuordnung bestätigt.'),allocationPagination(history,offset,next=>accountingAllocationDialog(id,{offset:next,document}))));
+  if(document) {
+    if(!Array.isArray(open?.items))throw new ApiError('Der aktuelle Rechnungsstand konnte nicht geladen werden.',502);
+    const current=open.items.find(item=>item.id===document.document_id||item.document_id===document.document_id);
+    content.insertBefore(panel('Aktueller Rechnungsstand',current?el('p',{},`${current.number} · Bezahlt ${formatMoney(current.paid)} · Offen ${formatMoney(current.open)}`):notice('Die Rechnung ist im aktuellen offenen-Posten-Stand nicht mehr enthalten. Bitte den Beleg prüfen.')),content.children[2]);
+  }
+  dialog('Zahlung zuordnen',content);
+}
+async function accountingAllocationCandidates(source,offset=0) {
+  accountingAllocationWritable(source);
+  const generation=api.generation,render=state.render,previous=modal,page=accountingPage(await api.get(query(biz(allocationPath(source.payment_id,'/candidates')),{limit:25,offset})),offset);
+  if(generation!==api.generation||render!==state.render||previous!==modal)return;
+  dialog('Zielrechnung auswählen',el('div',{class:'stack accounting break-word','data-accounting-detail':'true'},notice(`Freier Zahlungsbetrag ${formatMoney(source.unallocated_amount)}. Nur passende finale Rechnungen mit aktuellen Schreibrechten werden angeboten. Den Rechnungskunden im nächsten Schritt ausdrücklich prüfen.`),
+    rows(page.items,document=>row(document.number,`${document.buyer_name} · Offen ${formatMoney(document.open)} · Brutto ${formatMoney(document.gross)}`,
+      [button('Diese Rechnung wählen',()=>accountingAllocationInput(source,document),'primary'),button('Rechnungs-PDF ansehen',()=>accountingAction(()=>download(biz(`/documents/${document.document_id}/pdf`),`${document.number}.pdf`)),'small')],'Kundenbindung aus der gewählten Rechnung'),'Keine berechtigte passende Rechnung mit positivem offenem Betrag vorhanden.'),
+    allocationPagination(page,offset,next=>accountingAllocationCandidates(source,next)),button('Zurück zum wirksamen Stand',()=>accountingAction(()=>accountingAllocationDialog(source.payment_id)),'small')));
+}
+function accountingAllocationInput(source,document) {
+  const generation=api.generation;
+  const editor=form('',[field('amount','Zuordnungsbetrag EUR','decimal','',{required:true,help:`Zahlung frei ${formatMoney(source.unallocated_amount)} · Rechnung offen ${formatMoney(document.open)}. Keine Rundung.`}),
+    field('reason','Begründung der Zuordnung','text','',{required:true,maxLength:1000}),
+    field('customer_confirmation',`Ich bestätige ${document.buyer_name} als Kunden dieser Rechnung und dieser Zahlung.`,'checkbox',false,{required:true})],async values=>{
+      accountingAllocationWritable(source);
+      const body=accountingAllocationPreviewData(source,document,values);
+      try {
+        // Preview is a side-effect-free POST: no request ID and no pending command.
+        const result=await api.post(biz(allocationPath(source.payment_id,'/preview')),body);
+        if(generation!==api.generation||!editor.isConnected)return undefined;
+        const preview=accountingAllocationPreview(result,body,source.payment_id,source.event_id);
+        accountingAllocationConfirm(source,body,preview);return undefined;
+      } catch(error) {
+        if(generation!==api.generation||!editor.isConnected)return undefined;
+        if([403,404].includes(error.status)){closeModal();await refresh();if(generation===api.generation)showError(error);return undefined;}
+        throw error;
+      }
+    },{key:'accounting-allocation-preview-'+source.payment_id,submit:'Unverbindliche Vorschau prüfen',description:`Rechnung ${document.number} · ${document.buyer_name}. Die Vorschau speichert keine Zuordnung. Der Kunde stammt aus der gewählten Rechnung; ein Verwendungszweck ersetzt keine Kundenbindung.`,
+      extra:button('Aktuellen Stand neu laden',()=>accountingAction(()=>accountingAllocationDialog(source.payment_id)),'small')});
+  editor.dataset.accountingDetail='true';dialog('Zuordnung vorbereiten',editor);
+}
+function accountingAllocationConfirm(source,body,preview) {
+  const generation=api.generation;
+  const editor=form('',[field('confirmation','Ich bestätige diese Zuordnung zur angezeigten Rechnung und zum bestätigten Kunden.','checkbox',false,{required:true})],async(values,key)=>{
+      accountingAllocationWritable(source);
+      return accountingSave(editor,generation,key,allocationPath(source.payment_id,'/assign'),accountingAllocationAssignData(body,preview,values.confirmation));
+    },{key:'accounting-allocation-'+source.payment_id,submit:'Zuordnung verbindlich bestätigen',description:'Diese Bestätigung ordnet eine bereits vorhandene Zahlung zu. Bei verloren gegangener Antwort exakt dieselbe Vorschau wiederholen. Veränderte offene Posten erfordern für einen neuen Vorgang eine neue Vorschau.',
+      extra:el('div',{class:'stack break-word'},panel('Geprüfte Vorschau',el('p',{},`${preview.document.number} · ${preview.document.buyer_name}`),el('p',{},`Bestätigter Kunde: ${preview.document.buyer_name}`),el('p',{},`Zuordnung ${formatMoney(preview.amount)} · ${preview.reason}`),
+        el('p',{},`Zahlung frei: ${formatMoney(preview.unallocated_before)} → ${formatMoney(preview.unallocated_after)}`),el('p',{},`Rechnung offen: ${formatMoney(preview.open_before)} → ${formatMoney(preview.open_after)}`)),
+        button('Aktuellen Stand neu laden',()=>accountingAction(()=>accountingAllocationDialog(source.payment_id)),'small')),
+      after:async result=>{const render=state.render+1,section=state.section;await refresh();if(generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingAllocationDialog(source.payment_id,{document:result.document});}});
+  editor.dataset.accountingDetail='true';dialog('Zuordnung prüfen',editor);
 }
 
 async function materialView() { return el('div',{class:'stack'},heading('Material','Bestellungen, Lieferungen, Bestände und nachvollziehbare Entnahmen.'),await materialContent(state.projectId)); }

@@ -168,7 +168,8 @@ def command_module(path, module_name):
     if module_name == 'business_adapters' and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/(apply|offer)', path):
         return 'documents'
     return {'business_inventory': 'material', 'business_purchasing': 'material', 'business_documents': 'documents', 'business_portal': 'documents',
-            'business_finance': 'finance', 'business_accounting': 'finance'}.get(module_name)
+            'business_finance': 'finance', 'business_accounting': 'finance',
+            'business_accounting_allocations': 'finance'}.get(module_name)
 
 
 def require_active(office, actor, path, module_name, data=None):

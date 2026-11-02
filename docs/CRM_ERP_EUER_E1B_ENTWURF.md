@@ -1,9 +1,15 @@
 # E1b-Entwurf: Quellenzuordnung und belegte Betragsaufteilung
 
-Stand: 02.11.2026. **Plan, noch keine Umsetzung.** Rein lesende Prüfung des
-aktuellen E1a-Quellcodes; keine neuen Produktfunktionen oder Datenbankänderungen
-für diesen Entwurf. Grundlage sind der [EÜR-Plan](CRM_ERP_EUER_PLAN.md) und der
+Stand: 02.11.2026. **Gesamtplan, teilweise umgesetzt.** Der ursprüngliche Entwurf
+entstand aus einer lesenden Prüfung des E1a-Quellcodes. Grundlage sind der
+[EÜR-Plan](CRM_ERP_EUER_PLAN.md) und der
 [E1a-Vertrag](CRM_ERP_EUER_E1A_API.md).
+
+Der getrennte [Abschnitt E1b-1](CRM_ERP_EUER_E1B1_API.md) ist implementiert:
+zusätzliche Zuordnung freier bestätigter Kundenzahlungen zu normalen Rechnungen
+und gemeinsame effektive OP-Projektion. Dokumentarische Centaufteilung,
+Erstattungsursprünge und steuerliche Einordnung dieses Gesamtentwurfs folgen
+danach. Dieser Entwurf allein ist weiterhin kein Funktionsnachweis.
 
 ## 1. Offene Angaben und klarer Umfang
 

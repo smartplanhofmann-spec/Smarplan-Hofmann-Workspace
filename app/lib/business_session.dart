@@ -405,6 +405,50 @@ class BusinessSession extends ChangeNotifier {
     }
   }
 
+  /// This exact POST computes a proposal without creating a command receipt.
+  /// It still needs the normal write-mode and finance authorization gates.
+  Future<dynamic> previewPaymentAllocation(
+    String paymentId,
+    Map<String, dynamic> values,
+  ) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(paymentId) ||
+        projectId != null ||
+        !hasFeature('accounting_payment_allocation') ||
+        !hasModule('accounting_allocations') ||
+        !can('accounting.read') ||
+        !can('finance.read') ||
+        !canWrite('accounting.prepare') ||
+        !canWrite('finance.write')) {
+      throw const ApiException(
+        403,
+        'Die Zahlungszuordnung ist nicht freigegeben.',
+      );
+    }
+    if (!sectionEnabled('finance')) {
+      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+    }
+    final capturedGeneration = generation;
+    try {
+      final result = await api.call(
+        path('/accounting/allocations/payments/$paymentId/preview'),
+        Map<String, dynamic>.from(jsonDecode(jsonEncode(values))),
+      );
+      _guard(epoch);
+      if (generation != capturedGeneration) {
+        throw const ApiException(
+          409,
+          'Der Funktionsstand wurde geändert. Bitte neu prüfen.',
+        );
+      }
+      return result;
+    } on ApiException catch (e) {
+      if (e.status == 401) revoke();
+      rethrow;
+    }
+  }
+
   @override
   void dispose() {
     _disposed = true;

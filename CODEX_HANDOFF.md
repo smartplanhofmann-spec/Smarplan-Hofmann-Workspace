@@ -79,7 +79,27 @@ E1a ist im lokalen Commit `47707c9` gesichert. Die Prüfungen bestehen mit
 und elf echten Browserabläufen, zusätzlich 10 neuen PG-Fällen und 12 bestehenden
 PG-Release-/Restore-Regressionen. [Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1A.json)
 und [E1b-Entwurf](docs/CRM_ERP_EUER_E1B_ENTWURF.md) halten Stand und nächsten
-Umfang fest; E1b ist noch nicht implementiert.
+Umfang fest. Der folgende Stand ergänzt den ersten Teil von E1b.
+
+**Aktuell: E1b-1 ist implementiert und geprüft.** Freie Teile bereits in E1a
+übernommener Kundenzahlungen lassen sich nach Vorschau einer normalen finalen
+EUR-Rechnung ausdrücklich zuordnen. Gemeinsame Zahlungs-/OP-Projektion gilt für
+Finanzen, Mahnen und neue Prüfexporte; alte Zeilen, E1a-Quellenhashes und
+Exportbytes bleiben unverändert. Vollständige frische Quell-/Projektrechte
+gelten auch für alte Export- und Befehlswiederholungen. Zwei neue unveränderliche
+Tabellen haben einen eigenen Restorehorizont; aktueller Betreiberabgleich
+verlangt Schema 3. Bereits bestätigte historische Schema-2-Quittungen behalten
+ihre eng begrenzte Wiederholbarkeit. Browser und Flutter unterstützen denselben
+Ablauf einschließlich verlorener Antworten und Rechteentzug.
+
+Prüfstand: 490 Backendtests bestanden und ein Windows-Test unter Linux
+übersprungen; 405 Fluttertests, 89 Browser-Unitfälle, zwölf echte Browserabläufe,
+sechs reale HTTPS-/MFA-Fälle sowie PostgreSQL-Konkurrenz-/Restore-/Releaseprüfungen
+bestanden. Genaue Gruppen, Überschneidungen und Grenzen stehen im
+[E1b-1-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B1.json).
+Nächster Umfang: belegte Betragsaufteilung und Erstattungsursprünge aus dem
+E1b-Entwurf, danach Korrekturen, Perioden und Beraterpaket. Steuerberechnung,
+vollständige EÜR, Lohn und die Abnahmen A–G sind weiterhin offen.
 Der Umsatzsteuerstatus wurde separat optional erfragt; bislang liegt keine
 Antwort vor. Ein unkonfiguriertes Profil darf die unabhängige Journalentwicklung
 nicht blockieren, erzeugt aber keine scheinbar vollständige Steuerabrechnung.

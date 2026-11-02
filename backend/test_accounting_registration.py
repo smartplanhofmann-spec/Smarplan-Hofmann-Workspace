@@ -90,6 +90,35 @@ class AccountingRegistrationTests(unittest.TestCase):
             self.call(self.owner, '/accounting/status', offline=True)
         self.assertEqual(caught.exception.status, 403)
 
+    def test_allocation_routes_are_separate_and_preserve_finance_and_offline_gates(self):
+        from business_organization import command_module
+        module = 'business_accounting_allocations'
+        feature = 'accounting_payment_allocation'
+        path = '/business/accounting/allocations/payments/' + 'a' * 32
+        self.assertIn(module, self.call(self.owner, '/capabilities')['capabilities'])
+        self.assertIn(feature, self.call(self.owner, '/capabilities')['features'])
+        for suffix in ('', '/history', '/candidates'):
+            self.assertEqual(business_api.methods(path + suffix), 'GET')
+        for suffix in ('/preview', '/assign'):
+            self.assertEqual(business_api.methods(path + suffix), 'POST')
+            self.assertEqual(command_module((path + suffix)[len('/business'):], module), 'finance')
+            with self.assertRaises(Problem) as caught:
+                business_api.dispatch(self.office, self.owner, path + suffix, 'GET', {})
+            self.assertEqual(caught.exception.status, 405)
+        before = self.office.db.total_changes
+        with self.assertRaises(Problem) as caught:
+            business_api.dispatch(self.office, self.owner, path, 'GET', {}, offline=True)
+        self.assertEqual(caught.exception.status, 403)
+        offline = self.call(self.owner, '/capabilities', offline=True)
+        self.assertNotIn(module, offline['capabilities'])
+        self.assertNotIn(feature, offline['features'])
+        self.assertEqual(self.office.db.total_changes, before)
+        business_schema.set_mode(self.office, 'legacy')
+        self.assertIn(feature, self.call(self.owner, '/capabilities')['features'])
+        with self.assertRaises(Problem) as caught:
+            business_api.dispatch(self.office, self.owner, path + '/assign', 'POST', {})
+        self.assertEqual(caught.exception.status, 409)
+
 
 if __name__ == '__main__':
     unittest.main()

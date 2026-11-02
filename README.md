@@ -30,8 +30,12 @@ Kundenkonten, Dateiaustausch und Projektfreigaben bleiben weitere Arbeit.
 Der erste EÜR-Baustein ergänzt [belegte EUR-Geldflüsse](docs/CRM_ERP_EUER_BETRIEB.md):
 versionierte Geldkonten, einmalige Übernahme bestehender Kundenzahlungen und
 begrenzte Teil-/Restauszahlungen auf geprüfte Eingangsbelege. Browser und Flutter
-zeigen Quellen und Klärungsfälle. Steuerliche Zuordnung, Korrekturen, Perioden
-und Beraterpaket folgen gemäß [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md).
+zeigen Quellen und Klärungsfälle. Freie Teile bereits übernommener Kundenzahlungen
+können nach Vorschau und ausdrücklicher Bestätigung normalen Rechnungen
+[zugeordnet werden](docs/CRM_ERP_EUER_E1B1_API.md). Offene Posten, Mahnvorschläge
+und neue Prüfexporte berücksichtigen diese Zuordnung; ursprüngliche Nachweise
+bleiben erhalten. Steuerliche Aufteilung, Erstattungsursprünge, Korrekturen,
+Perioden und Beraterpaket folgen gemäß [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md).
 
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital
 unterschreibbares Protokoll geprüft. Weitergehende Test-/Betriebsbestätigungen

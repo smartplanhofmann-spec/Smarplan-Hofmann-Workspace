@@ -41,11 +41,12 @@ class AccountingHTTPTests(unittest.TestCase):
     legacy_sources = journey.AccountingJourneyTests.legacy_sources
 
     def report(self, office):
-        return dict(schema=2, restore_id=business_schema.state(office)['restore_id'],
+        horizon = business_schema.financial_accounting_horizon(office)
+        return dict(schema=horizon['schema_version'] + 1, restore_id=business_schema.state(office)['restore_id'],
             reviewed_by='Synthetic independent reviewer', reviewed_at=datetime.now(timezone.utc).isoformat(),
             number_horizons=[dict(company_id=row['company_id'], series=row['series'], year=row['year'],
                 last_value=row['next_value'] - 1) for row in office.db.execute('SELECT * FROM business_document_counters')],
-            outbound_reconciled=True, accounting_horizon=restore_horizon(office), accounting_reconciled=True,
+            outbound_reconciled=True, accounting_horizon=horizon, accounting_reconciled=True,
             accounting_external_review=dict(reviewed_since_backup=True,
                 evidence_sha256=hashlib.sha256(b'Synthetic independently reviewed bank/source records').hexdigest(),
                 note='Synthetic independent source/payment review since backup; no live records.'))
@@ -105,17 +106,21 @@ class AccountingHTTPTests(unittest.TestCase):
         self.assertEqual(self.call(company, '/business/accounting/events').json['total'], 0)
         self.assertEqual(self.legacy_sources(company), before)
 
-    def test_schema2_requires_exact_cash_horizon_and_independent_external_review_atomically(self):
+    def test_current_report_requires_exact_cash_horizon_and_independent_external_review_atomically(self):
         office = self.company['office']
         self.require_reconciliation(office)
         report = self.report(office)
         before = '\n'.join(office.db.iterdump())
+        def changed_cash_horizon(**changes):
+            horizon = report['accounting_horizon']
+            return ({**horizon, 'prejournal': {**horizon['prejournal'], **changes}}
+                    if horizon['schema_version'] == 2 else {**horizon, **changes})
         invalid = [{key: value for key, value in report.items() if not key.startswith('accounting_')},
             {**report, 'accounting_reconciled': False},
             {**report, 'accounting_external_review': {**report['accounting_external_review'], 'reviewed_since_backup': False}},
             {**report, 'accounting_external_review': {**report['accounting_external_review'], 'note': ''}},
-            {**report, 'accounting_horizon': {**report['accounting_horizon'], 'cash_events_count': 1}},
-            {**report, 'accounting_horizon': {**report['accounting_horizon'], 'sha256': '0' * 64}},
+            {**report, 'accounting_horizon': changed_cash_horizon(cash_events_count=1)},
+            {**report, 'accounting_horizon': changed_cash_horizon(sha256='0' * 64)},
             {**report, 'accounting_horizon': {**report['accounting_horizon'], 'schema_version': True}},
             {**report, 'restore_id': uuid.uuid4().hex}, {**report, 'reviewed_at': '2026-11-02T12:00:00'}]
         invalid[0]['schema'] = 1
@@ -209,7 +214,8 @@ class AccountingHTTPTests(unittest.TestCase):
         self.assertTrue(stored[0]['operator_name'].startswith('sqlite-local-'))
 
     def test_schema1_compatibility_and_legacy_restore_without_adding_accounting_tables(self):
-        previous = tuple(spec for spec in business_schema.registry() if spec.name != 'business_accounting')
+        previous = tuple(spec for spec in business_schema.registry()
+                         if spec.name not in ('business_accounting', 'business_accounting_allocations'))
         with patch.object(business_schema, 'registry', return_value=previous):
             office = Office(self.directory / 'pre-accounting.sqlite3')
             self.addCleanup(office.db.close)
@@ -272,7 +278,7 @@ class AccountingHTTPTests(unittest.TestCase):
     def test_cli_inspection_is_read_only_even_while_restore_is_pending_and_is_not_an_approval_report(self):
         office = self.company['office']
         self.require_reconciliation(office)
-        expected_horizon = restore_horizon(office)
+        expected_horizon = business_schema.financial_accounting_horizon(office)
         with office.db:
             office.db.execute('UPDATE business_restore_state SET pending=1')
         expected_restore = office.db.execute('SELECT restore_id FROM business_restore_state').fetchone()[0]
@@ -287,7 +293,7 @@ class AccountingHTTPTests(unittest.TestCase):
         snapshot = json.loads(response.stdout)
         self.assertTrue(snapshot['inspection_only'])
         self.assertTrue(snapshot['external_review_required'])
-        self.assertEqual(snapshot['evidence_schema'], 2)
+        self.assertEqual(snapshot['evidence_schema'], expected_horizon['schema_version'] + 1)
         self.assertEqual(snapshot['restore_id'], expected_restore)
         self.assertTrue(snapshot['restore_pending'])
         self.assertTrue(snapshot['financial_reconciliation_required'])

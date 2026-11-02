@@ -48,6 +48,8 @@ async function login(page,email,recovery){
 async function ready(page){await page.locator('main .loading').waitFor({state:'detached'});const errors=await page.locator('main [role=alert]').allTextContents();assert.deepEqual(errors,[]);}
 async function navigate(page,name){if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);}
 async function main(){
+  const workflow=process.env.SMARTPLAN_BROWSER_WORKFLOW;
+  assert.ok(workflow===undefined||workflow==='accounting-allocation','Unsupported targeted browser workflow');
   const {chromium}=require('playwright');
   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'smartplan-browser-e2e-')),readyFile=path.join(directory,'ready.json');
   const screenshots=process.env.SMARTPLAN_BROWSER_SCREENSHOT_DIR||directory;
@@ -84,6 +86,12 @@ async function main(){
     page=await context.newPage();page.on('pageerror',error=>pageErrors.push(error.message));page.on('console',message=>{if(message.type()==='error')consoleErrors.push(message.text());});page.setDefaultTimeout(15000);
     await page.goto(fixture.base_url+'/office/');
     const recovery=await login(page,'owner@browser.example.test');
+    if(workflow==='accounting-allocation'){
+      await require('./accounting-allocation-flow.cjs').accountingAllocationFlow({page,context,navigate,ready,login,fixture,screenshots,bootstrap:true});
+      assert.deepEqual(pageErrors,[]);await context.close();
+      console.log('1 targeted allocation browser workflow passed (real UI bootstrap; synthetic legacy invoice archives; production issuance accepted separately)');return;
+    }
+
     assert.equal(await page.locator('.navigation button').count(),10);
     assert.equal(await page.evaluate(()=>Object.keys(localStorage).length+Object.keys(sessionStorage).length),0);
     for(const section of ['Anfragen','Kontakte','Einsatzplanung','Dokumente','Finanzen','Material','Personal','Einstellungen','Übersicht'])await navigate(page,section);
@@ -119,6 +127,7 @@ async function main(){
     console.log('browser: manual module visibility retained, hidden personnel opened by administrator, inactive history stayed readable and reactivation restored writes');
     await require('./portal-flow.cjs').portalFlow({page,context,navigate,ready,fixture,screenshots});
     await require('./accounting-flow.cjs').accountingFlow({page,context,navigate,ready,login,fixture,screenshots});
+    await require('./accounting-allocation-flow.cjs').accountingAllocationFlow({page,context,navigate,ready,login,fixture,screenshots});
     const {purchasingFlow,purchasingReadOnly,purchasingCatalogFlow}=require('./purchasing-flow.cjs');
     const purchaseOrderId=await purchasingFlow({page,context,navigate,ready,fixture,screenshots});
     await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Einsatzplanung');
@@ -240,7 +249,7 @@ async function main(){
     await page.goto(fixture.base_url+'/office/');await login(page,'owner@browser.example.test',recovery[0]);await navigate(page,'Anfragen');assert.equal(await page.getByRole('heading',{name:'Synthetic public website inquiry',exact:true}).count(),1);
     assert.deepEqual(pageErrors,[]);await context.close();
     console.log('browser: public form had no bearer, lost acknowledgement retried one inquiry and reply remained pending');
-    console.log('11 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
+    console.log('12 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
   }catch(error){
     console.error('SMARTPLAN_BROWSER_FAILURE_BEGIN');
     console.error(compactFailure(error));

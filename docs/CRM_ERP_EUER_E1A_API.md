@@ -183,8 +183,10 @@ Tests dokumentiert; es gibt dafür keine gewöhnliche HTTP-Benutzeraktion.
 
 ## Betreiberabgleich
 
-Bei installiertem `business_accounting` verlangt der Betreiberpfad einen
-JSON-Prüfbericht mit **genau** folgenden Feldern:
+Bei installiertem `business_accounting` ohne zusätzliches Zuordnungsmodul
+verlangt der Betreiberpfad einen JSON-Prüfbericht mit **genau** folgenden
+Feldern. Mit E1b-1 gilt für neue Freigaben stattdessen
+[Schema 3 mit kombiniertem Horizont](CRM_ERP_EUER_E1B1_API.md#restore-und-clients).
 
 ```json
 {
@@ -219,8 +221,10 @@ entsprechen. `reviewed_by` benötigt 1–200 Zeichen, `note` 1–2000 Zeichen.
 `business_accounting.restore_horizon(office)`; der Hash umfasst deterministisch
 sortierte eigene Konten-/Versions-, Geldfluss-, Herkunfts- und Requestzeilen.
 Der Hook erzeugt keine Tabellen und liefert bei fehlendem Modul `None`.
-Ein installiertes, auch leeres Accountingmodul verlangt Schema 2; ohne dieses
-Modul bleibt der bisherige Schema-1-Bericht gültig.
+Ein installiertes, auch leeres Accountingmodul ohne zusätzliches
+Zuordnungsmodul verlangt Schema 2; ohne Accounting bleibt der bisherige
+Schema-1-Bericht gültig. Der unveränderte E1a-Horizont ist bei installiertem
+E1b-1 ein Teil des erweiterten Schema-3-Berichts.
 
 `accounting_reconciled` bestätigt den gespeicherten Vorjournal-/Quellenstand.
 `accounting_external_review` bestätigt zusätzlich die unabhängige Prüfung der

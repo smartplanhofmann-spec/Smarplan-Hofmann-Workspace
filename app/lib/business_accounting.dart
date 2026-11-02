@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'api.dart';
+import 'business_accounting_allocations.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -538,6 +539,31 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
     }
   }
 
+  Future<void> openAllocations(String paymentId) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => BusinessPaymentAllocationsPage(
+          session: widget.session,
+          paymentId: paymentId,
+        ),
+      ),
+    );
+    if (!mounted) return;
+    setState(() => event = null);
+    await load();
+  }
+
+  Widget allocationEntry(String paymentId) => TextButton(
+    onPressed: () => openAllocations(paymentId),
+    child: Text(
+      widget.session.canWrite('accounting.prepare') &&
+              widget.session.canWrite('finance.write') &&
+              widget.session.sectionEnabled('finance')
+          ? 'Rechnung zuordnen'
+          : 'Zuordnungen ansehen',
+    ),
+  );
+
   Widget card(List<Widget> children) => Card(
     child: Padding(
       padding: const EdgeInsets.all(20),
@@ -581,7 +607,7 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
         Text('Erfasst: ${businessDate(value['created_at'], time: true)}'),
         ExpansionTile(
           tilePadding: EdgeInsets.zero,
-          title: const Text('Gebundener Quellennachweis'),
+          title: const Text('Historischer Quellennachweis bei Übernahme'),
           children: [
             SelectableText(
               'Quelle: ${source['kind'] == 'payment' ? 'Bestätigte Kundenzahlung' : 'Geprüfter Eingangsbeleg'}\nID: ${source['id']}\nSHA-256: ${source['source_hash']}',
@@ -612,6 +638,10 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
             ],
           ],
         ),
+        if (source['kind'] == 'payment' &&
+            snapshot['kind'] == 'receipt' &&
+            businessAllocationsReadable(widget.session))
+          allocationEntry('${source['id']}'),
       ] else
         TextButton(
           onPressed: () => openEvent('${value['id']}'),
@@ -635,12 +665,18 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
         Text(
           '${allocation['number']} · ${businessMoney(allocation['amount'])}',
         ),
-      Text('Nicht zugeordnet: ${businessMoney(source['unallocated'])}'),
+      Text(
+        '${source['linked_event_id'] != null && businessAllocationsReadable(widget.session) ? 'Im ursprünglichen Zahlungsnachweis nicht zugeordnet' : 'Nicht zugeordnet'}: ${businessMoney(source['unallocated'])}',
+      ),
       if (source['linked_event_id'] != null)
         TextButton(
           onPressed: () => openEvent('${source['linked_event_id']}'),
           child: const Text('Bereits im Vorjournal · ansehen'),
         ),
+      if (source['linked_event_id'] != null &&
+          source['kind'] == 'receipt' &&
+          businessAllocationsReadable(widget.session))
+        allocationEntry('${source['payment_id']}'),
       if (mayWrite('accounting.prepare') &&
           (source['linked_event_id'] == null || pending))
         OutlinedButton(

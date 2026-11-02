@@ -686,3 +686,142 @@ Fixtures verweigern fremde bzw. vorhandene Restoreziele. Für Chromium gelten
 die oben dokumentierte Namespace-Sandbox, synthetische lokale Dienste und der
 Fixture-Pythonpfad. Flutteranalyse/-tests laufen im Verzeichnis `app` mit dem
 eingerichteten Flutter-/Pub-Cache und den vorhandenen PDF-Testbibliotheken.
+
+## 02.11.2026 – E1b-1: zusätzliche Rechnungszuordnung, implementiert und geprüft
+
+Nach dem Umgebungsneustart wurde der saubere Stand `acb46b4` geprüft; die
+Originaldatei stimmt weiterhin mit ihrem gespeicherten SHA-256 überein.
+Der [E1b-1-Vertrag](CRM_ERP_EUER_E1B1_API.md) konkretisiert den nächsten
+Abschnitt: freie Teile bereits übernommener Kundenzahlungen ausdrücklich einer
+normalen Rechnung zuordnen, Vorschau und Bestätigung trennen und eine gemeinsame
+effektive Zahlungsprojektion für OP/Mahnen/Exports verwenden. Alte E1a-Quellen-
+beweise und Zuordnungszeilen werden nicht geändert. Neue Rechnungszuordnungen
+verengen bei Bedarf die vollständige Quellsicht; ursprünglich private Zahlungen
+werden nicht durch eine Projektzuordnung freigegeben.
+
+Die Umsetzung umfasst Browser, Flutter, globale/Projekt-/Quellrechte,
+Konkurrenz mit dem bisherigen Zahlungseingangspfad und einen versionierten
+Restorehorizont. Steuerliche Aufteilung, Refund-Ursprünge und Korrekturen sind
+gesonderte nächste Schritte.
+
+### Ergebnis und Erhalt bestehender Daten
+
+Eine berechtigte Person kann den freien Teil einer bereits übernommenen
+EUR-Kundenzahlung mit ausdrücklicher Kundenbindung einer normalen finalen
+Rechnung zuordnen. Die Vorschau erzeugt keine Buchung oder Audit-/Requestzeile.
+Die Bestätigung bindet Quellstand, Rechnung, Archive, Betrag und Begründung;
+veraltete Vorschauen werden abgewiesen. Jeder bestätigte Vorgang ist
+unveränderlich und mit derselben Anforderungskennung wiederholbar.
+
+Die beiden neuen Tabellen enthalten ausschließlich zusätzliche Einträge und
+Quittungen. Ursprüngliche Zahlungen, Zuordnungen, Rechnungsarchive, E1a-Ereignisse
+und Quellenhashes bleiben erhalten. Historische Migrationsdefinitionen und der
+alte E1a-Restorehorizont wurden nicht umgeschrieben. Gemeinsame Projektionen
+berechnen Zahlungen, offene Posten, Mahnvorschläge, Erstattungsbudget und neue
+vorhandene Prüfexporte aus den alten und zusätzlichen Zuordnungen. Erstattungen
+öffnen nicht erneut das Budget der ursprünglichen Zahlung. Auch der bisherige
+Zahlungseingangspfad prüft für neue normale Rechnungszuordnungen den aktuellen
+Rechnungsrest, damit konkurrierende Vorgänge ihn nicht doppelt verbrauchen.
+
+Für jede ganze Zahlung werden alle ursprünglichen und zusätzlich betroffenen
+Projektrechte frisch geprüft, auch bei früher erzeugten Exporten und beim
+Wiederholen bestätigter Vorgänge. Ursprünglich private unzugeordnete Zahlungen
+bleiben auf Eigentümer/Ersteller beschränkt. Berechtigte Rechnungs-OP werden
+trotz eingeschränkter Sicht auf die gesamte Zahlung vollständig berechnet.
+Die Clients prüfen nach Rechteentzug auch noch unbestätigte Zielrechnungen,
+entfernen veraltete Details und erhalten den unveränderten Wiederholungsauftrag.
+
+Ein eigener Zuordnungshorizont ergänzt den unveränderten E1a-Horizont. Frische
+Wiederherstellungen verlangen bei installiertem Modul einen vollständigen
+Schema-3-Abgleich einschließlich unabhängiger externer Bestätigung. Bereits
+freigegebene identische Schema-2-Quittungen können nach einem normalen Update
+unter den bestehenden Betreiber-/Datenschutz-/Stillstandsbedingungen erneut
+abgerufen werden; sie entsperren keinen neuen Restore. Der paketierte lokale
+Operator prüft denselben Umfang.
+
+### Tatsächlich ausgeführte Prüfungen
+
+Die Gruppen überschneiden sich; ihre Zahlen werden nicht zu einer Zahl
+eindeutiger Abnahmen addiert. Alle Daten und Dienstzugänge waren synthetisch.
+
+| Prüfgruppe | Ergebnis | Rohprotokoll unter `work/verification/` |
+| --- | --- | --- |
+| Domäne, E1a und bestehende Finanz-/Mahnpfade | 68/68, davon 19 neue Zuordnungsfälle; 33,665 s | `accounting-allocations-domain.log` |
+| Registration und echter lokaler HTTP-Transport | 6/6; 1,603 s | `accounting-allocation-registration-transport.log` |
+| Unabhängige reale HTTPS-Verbindung mit normaler Anmeldung und MFA | 6/6; 8,371 s; eigene vertrauenswürdige Test-CA und Hostnamenprüfung | `accounting-allocations-http-journey.log` |
+| HTTP, lokaler Betreiber, Restore und bestehende Regressionen | 47/47; 10,488 s | `accounting-allocations-http-restore.log` |
+| Gespeicherte Exportrechte und bestehende Commercial-Fälle | 12/12; 0,625 s | `accounting-allocation-export-scope.log` |
+| PostgreSQL-Zuordnung und im Lauf mitentdeckte E1a-Fälle | 17/17: acht neue Fälle und neun bestehende E1a-Fälle; 33,738 s | `pg-accounting-allocations.log` |
+| Bestehende PostgreSQL-Release-/Restore-Prüfungen | 12/12; 36,788 s | `pg-accounting-allocations-release-regression.log` |
+| Vollständiger Backend-Discoverylauf | 491 ausgeführt: 490 bestanden, ein bestehender Windows-Job-Object-Test unter Linux übersprungen; 83,295 s | `accounting-allocation-backend-full.log` |
+| Paketierung und extrahierter lokaler Operator | 15/15; 3,076 s vor abschließender Dokumenttextpflege | `accounting-allocation-native-release.log` |
+| Flutter gezielt | 47/47, einschließlich realer HTTP-Clientfälle; 9 s | `e1b1-flutter-targeted.log` |
+| Flutter vollständig | 405/405; 134 s; keine Skips | `e1b1-flutter-full.log` |
+| Flutteranalyse | keine Befunde; 5,4 s | `e1b1-flutter-analyze.log` |
+| Browser-Unitgruppe | 89/89; keine Skips | `accounting-allocations-node-agent.log` |
+| Echter Chromium-Gesamtlauf | zwölf Arbeitsabläufe bestanden; Namespace-, PID-, Netzwerk- und Seccomp-Sandbox vor Zugriff bestätigt | `accounting-allocation-browser-e2e.log` |
+| Flutter nach abschließender Textpflege | 39/39 gezielte Fälle; 7 s; erneute Analyse ohne Befunde, 4,9 s | `e1b1-flutter-ui-copy-test.log`, `e1b1-flutter-ui-copy-analyze.log` |
+| Echter Zuordnungsablauf nach Textpflege | bestanden; tatsächliche Anmeldung und Konto-/Zahlungsübernahme per Oberfläche, erneute Desktop-/390-px-Sichtprüfung | `accounting-allocation-browser-final.log` |
+| Paketierung nach abschließender Betreiber-Dokumentpflege | 15/15; 2,103 s | `accounting-allocation-native-final.log` |
+
+PostgreSQL prüft die tatsächliche produktive Rechnungsausstellung unter
+getrennter Laufzeit-/Migrationsrolle, konkurrierende Verbindungen um Zahlungs-
+und Rechnungsrest, Erstattungen, Zeilenschutz, atomaren Rollback, zweifache
+Migration vom E1a-Bestand und einen echten Dump/Restore mit Schema 3.
+Ein direkt importierter TestCase ließ zunächst zusätzlich neun bestehende
+E1a-Fälle mitlaufen. Der Import wurde auf einen Modulalias umgestellt; eine
+anschließende lesende Loaderprüfung findet exakt die acht neuen Fälle.
+Produktverhalten und Fallinhalt wurden dadurch nicht geändert. Das getrennte
+Restore-Testziel wurde entfernt; keine Nicht-Testdatenbank wurde geändert.
+
+Der reale HTTPS-Lauf verwendet echte verschlüsselte Loopback-Verbindungen
+und die normale Passwort-/TOTP-Anmeldung. Für diese SQLite-Transportfixture
+sind bestehende synthetische Rechnungsarchive vorbereitet; sie beansprucht
+keine eigene produktive Rechnungsausstellung. Unbekannte GET-Bodies und
+POST-Queryparameter werden nun schon an beiden HTTP-Einstiegen der neuen
+Zuordnungsrouten abgewiesen. Der Browser verwendet weiterhin den synthetischen
+HTTP-Fixtureadapter für den vorhandenen Origin-/Proxyvertrag; der HTTPS-Nachweis
+stammt aus der getrennten Transportprüfung.
+
+Die Clients prüfen alte Server, fehlende Rechte, inaktive Geldkonten,
+verlorene Antworten, spätere Rechnungsänderungen, paginierte Kandidaten,
+unveränderte alte Nachweise, Original-PDF und 390-px-Darstellung. Bei der
+visuellen Schlussprüfung wurden technische Begriffe in den neuen Dialogen
+durch verständliche Angaben zum ursprünglichen Zahlungsnachweis ersetzt.
+Betroffene Clientprüfungen und Screenshots sind nach dieser Textpflege
+gesondert im maschinenlesbaren Nachweis festgehalten. Die 89 Browser-Unitfälle
+wurden ebenfalls auf dem endgültigen Textstand ausgeführt. Der vollständige
+Flutterlauf vor der Textpflege und der abschließende Stand sind mit getrennten
+Dateihashlisten dokumentiert; die Fachlogik blieb bei dieser Pflege unverändert.
+
+Der unabhängige Abschlussreview fand nach den gezielten Korrekturen keine
+offenen konkreten Befunde in Quellrechten, DTO-Datengrenzen, historischem
+Replay und Schema-3-Abgleich. Dies ist ein Entwicklungsreview und keine
+externe Sicherheits- oder steuerliche Abnahme.
+
+### Nachweis und nächste Arbeit
+
+Der [E1b-1-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B1.json) bindet die Ergebnisse
+an Ausgangscommit, geprüfte Code-/Testdateien, paketierte Verträge und
+Protokoll-/Screenshot-Hashes. Rohprotokolle und Bilder liegen im ignorierten
+`work/verification/`; Testquellen und Zusammenfassung sind versioniert.
+Der [Betreiberablauf](CRM_ERP_EUER_BETRIEB.md) beschreibt Bedienung und
+Wiederherstellung. Die Original-Zieldatei bleibt unverändert.
+
+Gezielte Reproduktion aus dem Hauptverzeichnis:
+
+```sh
+PYTHONPATH=backend:backend/business_tests backend/.venv/bin/python -m unittest test_business_accounting_allocations test_business_accounting test_accounting_registration test_accounting_allocation_transport test_adapter_payment_scope -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_accounting_allocations_journey online.test_accounting_allocations_http -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_postgres_accounting_allocations_integration -v
+env -u SMARTPLAN_TEST_DSN PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest discover -s backend -v
+backend/.venv/bin/python -m unittest discover -s scripts -p test_native_release.py -v
+node --test web/office/tests/*.test.mjs
+node web/office/tests/e2e.cjs
+```
+
+PostgreSQL- und Browservoraussetzungen entsprechen dem vorherigen Abschnitt;
+reale TLS-Prüfungen benötigen lokale Socketfreigabe. Die nächsten E1b-Fälle sind
+belegte Betragsaufteilung und Erstattungsursprünge, danach folgen Korrekturen,
+Perioden und Beraterpaket. Umsatzsteuerstatus bleibt offen. R08.05, vollständige
+EÜR, Lohnabrechnung und die Abnahmen A–G bleiben insgesamt offen.

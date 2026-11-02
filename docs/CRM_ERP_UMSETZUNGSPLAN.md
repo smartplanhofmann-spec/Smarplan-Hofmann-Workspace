@@ -29,7 +29,7 @@ Abnahmen A–G werden in [Anforderungen](CRM_ERP_ANFORDERUNGEN.md) nachverfolgt.
 | 1. Unternehmensgrundlage und Dokumenterhalt | Bedarf erfassen; manuell korrigierbare Modulvorschläge; Sichtbarkeit, Aktivierung und Rechte trennen; feste Unternehmensinstanz an Datenbank/Ablage binden; signierte Protokolle gegen beschädigte Inhalte und verlorene Antworten absichern | implementiert und mit den im Fortschrittsbericht genannten Prüfungen getestet; vollständige Infrastrukturtrennung bleibt offen |
 | 2. Anfrage bis Zahlung vervollständigen | Vorhandene Angebote/Kalkulation/Zeiten/Kosten/Rechnungen verbinden; Kundenportal mit enger Freigabe und nachvollziehbarer Annahme; durchgängige Abnahme B mit Wiederholung/Neustart/Rechteentzug | erster [Angebotsportalabschnitt](CRM_ERP_PORTAL.md) implementiert; vollständige Abnahme B weiter offen |
 | 3. Einkauf bis Service | Bestellungen mit Teil-/Restwareneingängen, Lagerbewegungen und Projektkosten verbinden; Katalogimporte mit Vorschau/Einheiten/Fehlerbericht; Service- und Betriebsmittelhistorie, Abnahme C | lokaler Bestell-/Liefer-/Kostenablauf implementiert; [Umfang und Grenzen](CRM_ERP_EINKAUF.md); tatsächliche Bestellauslösung, Originalbeleg- und strukturierte Gerätebindung weiter offen |
-| 4. Buchführung | Erste vollständige Version für Einzelunternehmen mit EÜR: reproduzierbares Journal, Zahlungs-/Steuerzuordnung, Perioden/Korrekturen und Steuerberaterexport; weitere Buchführungsfälle separat | begonnen: E1a mit Geldkonten, Quellen und bestätigten Geldflüssen in Browser/Flutter; [EÜR-Journalplan E1b–E1d](CRM_ERP_EUER_PLAN.md) und Gesamtanforderung weiter offen |
+| 4. Buchführung | Erste vollständige Version für Einzelunternehmen mit EÜR: reproduzierbares Journal, Zahlungs-/Steuerzuordnung, Perioden/Korrekturen und Steuerberaterexport; weitere Buchführungsfälle separat | begonnen: E1a mit Geldkonten, Quellen und bestätigten Geldflüssen; E1b-1 mit zusätzlicher Rechnungszuordnung und gemeinsamer OP-Projektion in Browser/Flutter geprüft. Weitere [EÜR-Journalschritte](CRM_ERP_EUER_PLAN.md) und Gesamtanforderung offen |
 | 5. Personal und Lohn | Erste deutsche Lohnabrechnung für reguläre Mitarbeiter und Minijobs: vorhandene Mitarbeiter/Zeiten/Abwesenheiten ergänzen, Reisekosten, geprüfte Abrechnungsfälle/Korrekturen und Meldungen nach tatsächlichen Zugangs-/Prüfvorgaben, Abnahme D | offen; Beschäftigungsumfang vom Nutzer am 02.11.2026 festgelegt |
 | 6. KI und Regeln | Berechtigungsgebundene Datenwerkzeuge, belegbare Antworten, Freigaben, Wiederholschutz, Unternehmensisolation und Schutz gegen Dokumentanweisungen; Chat/Sprachbedienung, Abnahme E | offen |
 | 7. Betrieb und Clients | Browser-/Windows-/iPhone-Abläufe zusammenführen, Offline-Berichte und Konfliktfälle, Installation/Updates/Backup/Restore, Kundenexport/-ausstieg, Abnahmen F/G | offen |
@@ -43,9 +43,11 @@ gesonderte interne Übernahme. Er verwendet das vorhandene Projekt-/Belegmodell
 und ersetzt noch nicht die gesamte Abnahme B. Allgemeiner Dateiaustausch,
 Projektfreigaben und Projektanlage nach Annahme bleiben weitere Arbeit.
 E1a des [EÜR-Plans](CRM_ERP_EUER_PLAN.md) ergänzt Quellen und tatsächlich
-bestätigte EUR-Geldflüsse mit sichtbaren Klärungsfällen. Als Nächstes folgen
-quellengebundene Zuordnung und konsistente offene Posten
-([E1b-Entwurf mit Akzeptanzfällen](CRM_ERP_EUER_E1B_ENTWURF.md)), dann Korrekturen,
+bestätigte EUR-Geldflüsse mit sichtbaren Klärungsfällen. Die zusätzliche
+quellengebundene Rechnungszuordnung und konsistente offene Posten sind als
+[E1b-1 implementiert und geprüft](CRM_ERP_EUER_E1B1_API.md). Als Nächstes folgen
+belegte Betragsaufteilung und Erstattungsursprünge aus den weiteren
+[E1b-Akzeptanzfällen](CRM_ERP_EUER_E1B_ENTWURF.md), dann Korrekturen,
 Perioden und Beraterpaket. Der noch offene Umsatzsteuerstatus wird nicht aus
 der EÜR-Auswahl abgeleitet.
 

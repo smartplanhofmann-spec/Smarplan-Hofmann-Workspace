@@ -707,14 +707,50 @@ class Adapters:
         self._owner(actor)
         return state
 
-    def _run(self, identifier):
+    def _require_export_access(self, actor, run):
+        """Authorize historical export sources without rewriting frozen bytes."""
+        actor = require_permission(self.office, actor, 'finance.read')
+        identifiers = []
+        # Older exported runs already carry payment IDs inside the immutable
+        # artifact. Read those IDs, never today's caller selection or a freshly
+        # regenerated artifact, so later project assignments cannot evade ACLs.
+        if run['profile'] == 'lexware_review_json_v1':
+            try:
+                raw = _decode64(run['result']['artifact_base64'])
+                if _hash(raw) != run['source_sha256'] or run['result']['sha256'] != run['source_sha256']:
+                    raise ValueError('Changed historical export')
+                payload = json.loads(raw)
+                if not isinstance(payload, dict) or payload.get('profile') != run['profile']:
+                    raise ValueError('Unexpected export profile')
+                payments = payload['payments_snapshot']
+                if not isinstance(payments, list) or any(not isinstance(item, dict) for item in payments):
+                    raise ValueError('Invalid historical payment sources')
+                identifiers = [_id(item['id']) for item in payments]
+            except (Problem, ValueError, TypeError, KeyError, UnicodeError):
+                raise Problem(409, 'Gespeicherter Zahlungsexport besteht die Quellenprüfung nicht') from None
+        if identifiers:
+            from business_accounting_allocations import require_effective_payment_access
+            for payment_id in identifiers:
+                require_effective_payment_access(self.office, actor, payment_id)
+        from business_documents import Documents
+        documents = Documents(self.office)
+        for item in run['result'].get('sources', []):
+            if item.get('document_id'):
+                documents.get(actor, item['document_id'])
+
+    def _run(self, identifier, actor=None):
         row = self.db.execute('SELECT * FROM business_adapter_runs WHERE id=?', (_id(identifier),)).fetchone()
         if not row:
             raise Problem(404, 'Adaptervorgang nicht verfügbar')
         if _hash(json.loads(row['rows_json'])) != row['rows_sha256']:
             raise Problem(409, 'Importpositionen haben ihre Integritätsprüfung nicht bestanden')
-        return dict(id=row['id'], adapter_id=row['adapter_id'], profile=row['profile'], status=row['status'],
-                    source_sha256=row['source_sha256'], rows=json.loads(row['rows_json']), result=json.loads(row['result_json']), created_at=row['created_at'])
+        value = dict(id=row['id'], adapter_id=row['adapter_id'], profile=row['profile'], status=row['status'],
+                     source_sha256=row['source_sha256'], rows=json.loads(row['rows_json']), result=json.loads(row['result_json']), created_at=row['created_at'])
+        if value['status'] == 'exported':
+            if actor is None:
+                raise Problem(403, 'Exportzugriff benötigt aktuelle Quellenrechte')
+            self._require_export_access(actor, value)
+        return value
 
     def import_data(self, actor, identifier, data):
         if not isinstance(data, dict) or set(data) != {'request_id', 'content_base64'}:
@@ -726,7 +762,7 @@ class Adapters:
                 raise Problem(409, 'Kein aktiviertes lokales Dateiimportprofil')
             request, fingerprint, previous = self._request(actor, 'import:' + identifier, data)
             if previous:
-                return self._run(previous['id'])
+                return self._run(previous['id'], actor)
             raw = _decode64(data['content_base64'])
             if adapter['profile'] == 'gaeb_x83_inspect_v1':
                 result = inspect_gaeb(raw)
@@ -748,20 +784,20 @@ class Adapters:
                 (run, identifier, adapter['profile'], 'staged', _hash(raw), canonical(rows), _hash(rows), canonical(result), actor['id'], self._now()))
             self.office.audit(actor, 'business.adapter.import_staged', run)
             self._remember(actor, request, fingerprint, {'id': run})
-            return self._run(run)
+            return self._run(run, actor)
 
     def apply_catalog(self, actor, run_id, data):
         if not isinstance(data, dict) or set(data) - {'request_id', 'confirmed', 'price_scale', 'target_price', 'tax_rate'} or data.get('confirmed') is not True:
             raise Problem(400, 'Artikelübernahme muss ausdrücklich bestätigt werden')
         with _transaction(self.office):
             actor = require_permission(self.office, actor, 'finance.write')
-            run = self._run(run_id)
+            run = self._run(run_id, actor)
             adapter = self._row(run['adapter_id'])
             if not adapter['enabled'] or run['profile'] not in ('catalog_csv_v1', 'datanorm_a14_cp850_v1') or run['status'] not in ('staged', 'applied'):
                 raise Problem(409, 'Kein freigegebener Artikelimport')
             request, fingerprint, previous = self._request(actor, 'apply:' + run_id, data)
             if previous or run['status'] == 'applied':
-                return self._run(run_id)
+                return self._run(run_id, actor)
             from business_documents import Documents
             articles = Documents(self.office)
             applied = []
@@ -812,7 +848,7 @@ class Adapters:
             self.db.execute('UPDATE business_adapter_runs SET status=?,result_json=? WHERE id=?', ('applied', canonical({'article_ids': applied}), run_id))
             self.office.audit(actor, 'business.adapter.catalog_applied', run_id)
             self._remember(actor, request, fingerprint, {'id': run_id})
-            return self._run(run_id)
+            return self._run(run_id, actor)
 
     def create_offer_from_inspection(self, actor, run_id, data):
         allowed = {'request_id', 'confirmed', 'project_id', 'buyer', 'issue_date', 'due_date', 'position_prices', 'tax_rate'}
@@ -820,7 +856,7 @@ class Adapters:
             raise Problem(400, 'Projekt, Kundensnapshot, Daten, Preise und Steuer ausdrücklich bestätigen')
         with _transaction(self.office):
             actor = require_permission(self.office, actor, 'finance.write', _id(data['project_id']))
-            run = self._run(run_id)
+            run = self._run(run_id, actor)
             if run['profile'] != 'gaeb_x83_inspect_v1' or run['status'] != 'staged' or not self._row(run['adapter_id'])['enabled']:
                 raise Problem(409, 'Aktiviertes GAEB-Positionsprüfprofil erforderlich')
             _require_simple_gaeb(run)
@@ -858,7 +894,7 @@ class Adapters:
             if not adapter['enabled'] or not PROFILES[profile]['export']:
                 raise Problem(409, 'Kein aktiviertes Exportprofil')
             if profile == 'gaeb_x83_inspect_v1':
-                import_run = self._run(_id(data.get('import_id')))
+                import_run = self._run(_id(data.get('import_id')), actor)
                 if import_run['adapter_id'] != identifier or import_run['profile'] != profile or import_run['status'] != 'staged':
                     raise Problem(409, 'Prüfexport gehört zu einem anderen Importprofil')
                 _require_simple_gaeb(import_run)
@@ -866,11 +902,7 @@ class Adapters:
             from business_documents import Documents
             documents = Documents(self.office)
             if previous:
-                saved = self._run(previous['id'])
-                for item in saved['result'].get('sources', []):
-                    if item.get('document_id'):
-                        documents.get(actor, item['document_id'])
-                return saved
+                return self._run(previous['id'], actor)
             sources = []
             if profile == 'catalog_csv_v1':
                 output = io.StringIO(newline='')
@@ -883,7 +915,7 @@ class Adapters:
                 raw, media, filename = output.getvalue().encode('utf-8-sig'), 'text/csv', 'smartplan-artikel-v1.csv'
                 note = 'Smartplan Artikel-CSV v1; Formelzeichen in Textzellen werden für sichere Tabellenansicht maskiert.'
             elif profile == 'gaeb_x83_inspect_v1':
-                run = self._run(_id(data.get('import_id')))
+                run = self._run(_id(data.get('import_id')), actor)
                 if run['adapter_id'] != identifier or run['profile'] != profile or run['status'] != 'staged':
                     raise Problem(409, 'Prüfexport gehört zu einem anderen Importprofil')
                 rows = run['rows']
@@ -994,7 +1026,7 @@ class Adapters:
                 (run_id, identifier, profile, 'exported', _hash(raw), canonical(rows), _hash(rows), canonical(result), actor['id'], self._now()))
             self.office.audit(actor, 'business.adapter.exported', run_id)
             self._remember(actor, request, fingerprint, {'id': run_id})
-            return self._run(run_id)
+            return self._run(run_id, actor)
 
     def test(self, actor, identifier):
         with self.office.lock:

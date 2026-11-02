@@ -18,7 +18,7 @@ import threading
 from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'backend'))
-from business_schema import reconcile_local_financial_restore, state
+from business_schema import financial_accounting_horizon, reconcile_local_financial_restore, state
 from core import Problem
 
 
@@ -96,14 +96,11 @@ def inspect(database):
             current = state(office)
             if current['storage_version'] != 7:
                 raise ValueError('Legacy-Datenbank besitzt keinen Business-Finanzfreigabestand.')
-            accounting = None
-            if 'business_accounting' in current.get('read_capabilities', []):
-                from business_accounting import restore_horizon
-                accounting = restore_horizon(office)
+            accounting = financial_accounting_horizon(office)
             numbers = [dict(company_id=row['company_id'], series=row['series'], year=row['year'],
                             last_value=row['next_value'] - 1) for row in connection.execute(
                 'SELECT * FROM business_document_counters ORDER BY company_id,series,year')]
-            return dict(inspection_only=True, evidence_schema=2 if accounting is not None else 1,
+            return dict(inspection_only=True, evidence_schema=accounting['schema_version'] + 1 if accounting is not None else 1,
                 restore_id=current['restore_id'], restore_pending=current['restore_pending'],
                 financial_reconciliation_required=current['financial_reconciliation_required'],
                 number_horizons=numbers, accounting_horizon=accounting, external_review_required=True,

@@ -330,6 +330,10 @@ class Accounting(Domain):
             fresh = self.access(actor, 'finance.read')
             if not allocations and fresh['role'] != 'owner' and fresh['id'] != row['created_by']:
                 raise Problem(403, 'Diese unzugeordnete Zahlungsquelle ist nicht freigegeben')
+            # Additional assignments extend current authorization only. Never
+            # add them to this immutable E1a proof or its historical DTO.
+            from business_accounting_allocations import require_effective_payment_access
+            require_effective_payment_access(self.office, fresh, payment_id)
         # Resolve every project right before verifying or revealing any member
         # of a multi-document payment, including malformed hidden sources.
         documents = []

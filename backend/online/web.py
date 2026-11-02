@@ -374,6 +374,12 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             response.status_code = 405
             response.headers['Allow'] = methods
             return response
+        if (request.method == 'GET' and path.startswith('/business/accounting/allocations/')
+                and request.get_data(cache=False)):
+            raise Problem(400, 'GET erwartet keinen Anfragekörper')
+        if (request.method == 'POST' and path.startswith('/business/accounting/allocations/')
+                and request.query_string):
+            raise Problem(400, 'Keine zusätzlichen Filter erlaubt')
         if request.method == 'PUT':
             request.max_content_length = CHUNK_SIZE
             if request.mimetype != 'application/octet-stream':

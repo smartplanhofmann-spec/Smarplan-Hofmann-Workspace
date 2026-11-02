@@ -1,0 +1,244 @@
+{
+  "date": "2026-11-02",
+  "base_commit": "acb46b41ce7146d490ed2b592db60fcc8b66e958",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "scope": "E1b-1: explicit allocation of free amounts of an E1a-imported EUR customer receipt to one ordinary final invoice per confirmed command. Shared effective payment/open-item/refund-budget/export projection, fresh complete source rights, immutable historical proofs and replay, Browser/Flutter clients, schema-3 restore reconciliation and packaged local operator.",
+  "user_decisions": {
+    "accounting": "Einzelunternehmen mit EÜR",
+    "payroll": [
+      "Reguläre Mitarbeiter",
+      "Minijobs"
+    ],
+    "vat_profile": "unconfigured; user answer outstanding"
+  },
+  "results": {
+    "domain_and_finance_regressions": {
+      "passed": 68,
+      "log": "accounting-allocations-domain.log",
+      "new_allocation_cases": 19,
+      "seconds": 33.665
+    },
+    "registration_and_real_local_http": {
+      "passed": 6,
+      "log": "accounting-allocation-registration-transport.log",
+      "seconds": 1.603
+    },
+    "independent_real_https_mfa": {
+      "passed": 6,
+      "log": "accounting-allocations-http-journey.log",
+      "seconds": 8.371,
+      "skipped": 0,
+      "transport": "Real loopback TLS sockets, trusted synthetic CA, hostname validation, password and TOTP authentication; no certificate bypass"
+    },
+    "http_restore_operator_regressions": {
+      "passed": 47,
+      "log": "accounting-allocations-http-restore.log",
+      "new_boundary_cases": 6,
+      "seconds": 10.488,
+      "skipped": 0
+    },
+    "export_scope_and_existing_commercial": {
+      "passed": 12,
+      "new_focused_cases": 4,
+      "existing_commercial_cases": 8,
+      "errors": 0,
+      "skipped": 0,
+      "elapsed_seconds": 0.625,
+      "log": "accounting-allocation-export-scope.log"
+    },
+    "postgres_allocations_and_e1a": {
+      "passed": 17,
+      "new_allocation_cases": 8,
+      "existing_e1a_cases": 9,
+      "errors": 0,
+      "skipped": 0,
+      "elapsed_seconds": 33.738,
+      "log": "pg-accounting-allocations.log",
+      "selection_note": "A directly imported fixture TestCase caused 9 E1a cases to be discovered once. Import changed to module alias; read-only loader check now discovers exactly 8 new cases. No product/test-behavior changes or full rerun needed."
+    },
+    "postgres_existing_release_restore": {
+      "passed": 12,
+      "errors": 0,
+      "skipped": 0,
+      "elapsed_seconds": 36.788,
+      "log": "pg-accounting-allocations-release-regression.log",
+      "selection": [
+        "online.test_release_business.BusinessCandidateRelease (10 cases)",
+        "online.test_release.CandidateRelease.test_restore_migrates_v1_without_changing_source_or_existing_rows",
+        "online.test_release.CandidateRelease.test_migration_failure_or_invalid_pdf_retains_original_database"
+      ],
+      "reason": "Updated schema3 operator fixture and new allocations registry; no rerun of new 8 allocation cases."
+    },
+    "backend_full": {
+      "passed": 490,
+      "log": "accounting-allocation-backend-full.log",
+      "run": 491,
+      "skipped": 1,
+      "skip_reason": "Existing Windows job-object cleanup test on Linux",
+      "seconds": 83.295
+    },
+    "native_package_initial": {
+      "passed": 15,
+      "log": "accounting-allocation-native-release.log",
+      "seconds": 3.076
+    },
+    "native_package_final": {
+      "passed": 15,
+      "log": "accounting-allocation-native-final.log",
+      "timing": "After final operator-document text update; actual extracted archive imports packaged backend and invokes CLI. No native-device acceptance.",
+      "seconds": 2.103
+    },
+    "flutter_targeted": {
+      "passed": 47,
+      "log": "e1b1-flutter-targeted.log",
+      "seconds_approximate": 9
+    },
+    "flutter_full": {
+      "passed": 405,
+      "log": "e1b1-flutter-full.log",
+      "skipped": 0,
+      "seconds_approximate": 134,
+      "timing": "Before final display-text simplification; source manifest retained separately."
+    },
+    "flutter_analyze": {
+      "issues": 0,
+      "seconds": 5.4,
+      "log": "e1b1-flutter-analyze.log"
+    },
+    "flutter_final_text_targeted": {
+      "passed": 39,
+      "log": "e1b1-flutter-ui-copy-test.log",
+      "seconds_approximate": 7,
+      "timing": "After final display-text simplification; request/session/domain behavior unchanged."
+    },
+    "flutter_final_text_analyze": {
+      "issues": 0,
+      "seconds": 4.9,
+      "log": "e1b1-flutter-ui-copy-analyze.log"
+    },
+    "browser_unit_final": {
+      "passed": 89,
+      "log": "accounting-allocations-node-agent.log",
+      "skipped": 0,
+      "timing": "After final display-text simplification and targeted test-harness selection."
+    },
+    "browser_full": {
+      "passed": 12,
+      "log": "accounting-allocation-browser-e2e.log",
+      "timing": "Before final display-text simplification."
+    },
+    "browser_final_allocation_flow": {
+      "passed": 1,
+      "log": "accounting-allocation-browser-final.log",
+      "timing": "After final display-text simplification; actual UI account/import bootstrap, same MFA, HTTP paths and sandbox assertions."
+    }
+  },
+  "postgres_coverage": [
+    "actual restricted-runtime PostgreSQL invoice issuance and MFA",
+    "no-write preview, exact assignment replay, effective OP/payment/export projection and unchanged E1a proof",
+    "new project narrows whole-payment/event/export access while authorized invoice aggregates remain correct; originally private payments stay private",
+    "separate connections competing for source rest across different invoices",
+    "new allocation versus Finance.record_payment receipt competing for invoice rest",
+    "allocation/refund race plus competing refunds consume current effective paid once; refunds do not release source allocation capacity",
+    "immutable runtime ACL and migration-role guards; trigger failure after entry atomically rolls back request and audit",
+    "prior-E1a registry migration twice preserves invoice/PDF/payment/E1a event and H1 horizon",
+    "real privileged dump/restore preserves allocation and E1a history; new schema2/mismatched schema3 denied; exact schema3 operator reconciliation permits original replies"
+  ],
+  "postgres_environment": {
+    "non_test_databases_changed": false,
+    "disposable_source_database_reset": true,
+    "temporary_restore_target_removed": true,
+    "database_available": true
+  },
+  "review": {
+    "domain_scope_replay_restore": "Independent focused final review found no remaining concrete findings after fixes.",
+    "clients": "Independent review led to fresh target-access checks for a pending command not yet accepted, and removal of stale late browser answers; targeted tests cover both.",
+    "operator_documents": "Compared API, operator guide and CLI with product behavior; old E1a guide now explicitly limits schema 2 to installations without allocation module.",
+    "visual": "Desktop and 390px mobile reviewed; technical E1a/hash labels and raw customer IDs removed from new normal user flow."
+  },
+  "limitations": [
+    "No tax components, refund-origin assignment, corrections, periods, full EÜR, payroll, banking provider, real payment or deployment.",
+    "New assignments support only ordinary positive final EUR invoices, one explicit same-customer target per command; unsupported chains and cancellations are blocked for new commands.",
+    "SQLite HTTP and browser fixtures use explicitly synthetic existing invoice archives. Productive invoice issuance and restricted runtime/migration roles are verified separately in PostgreSQL.",
+    "Browser uses existing loopback HTTP fixture/proxy-origin contract. Independent HTTPS suite supplies the actual TLS transport evidence.",
+    "Browser live probe verifies namespace, PID, network and seccomp isolation; no no-sandbox or certificate-bypass switches.",
+    "Test groups overlap and must not be summed as unique acceptance counts. Initial PG loader ran nine E1a cases in addition to eight new cases; module-alias-only correction subsequently verified by loader.",
+    "Full client runs preceded final text-only changes; affected targeted client tests, full browser unit group and one real browser flow reran afterward.",
+    "Development verification does not constitute external security/fiscal approval, native Windows/iPhone device acceptance or completion of requirements A–G."
+  ],
+  "changed_code_and_packaged_contract_sha256": {
+    ".github/workflows/checks.yml": "0bf87cd547fe2f75ee810e4f0f9304f8cfb7ec4ed64b1afb24456a18775379a6",
+    "app/lib/business_accounting.dart": "f0fae1c91d02e3cd56888ca926394147e4b55067d2185cd5ad8a4c4914616002",
+    "app/lib/business_accounting_allocations.dart": "6f54ee90ae6fb57777c742c2b0abb1b16ceb0bd750e9d29d329ab0021f00000b",
+    "app/lib/business_finance.dart": "a96a34fb5b310e3b2c69d2d1e3a2cf6b45f695368ee7615eeb552b44366a5272",
+    "app/lib/business_session.dart": "6040aa19a6b9c2de6f36f2f2416e4f0f8792d58c5b0a4cb778c35bc0661c47e1",
+    "app/test/business_accounting_allocations_http_test.dart": "93be261778bae2696061c6e5dbb9e104eaf1b1442fecfed77650b69fab3190d8",
+    "app/test/business_accounting_allocations_test.dart": "9685fc7c5244ddeae1d8d3a344081c21962ba416ad6f1de6bac23e7a4ace49dd",
+    "backend/business_accounting.py": "b1fc76ed8aaab37a740d201918f17ebaccb20d84ec6795e74ca9a57489237e3a",
+    "backend/business_accounting_allocations.py": "7ef08cb0c1df6ad62d8c7c0dd106c03852df121401bf5d28f1bef276f443c81f",
+    "backend/business_adapters.py": "ee8a4c433e4b2153f9c093f821845e30ad3212584a40fbc891510d17397f8cfd",
+    "backend/business_api.py": "53b94386ee6d58dadf6a4791ef5d043147e19b15443c575427e9b587d5058495",
+    "backend/business_finance.py": "c58ec54b0f2a3d2fe5b66cb1e6d5bed5960953205b6e9fe4a5c8539daf734a82",
+    "backend/business_organization.py": "30586c8b1b80217b9bbe0fefd5391ca1db2a82c95f910e7f20b30e851bc0a8d2",
+    "backend/business_schema.py": "a5227b29b993b33daa68f549e1ed4a8d983001594056f4f4985b5de4277c28b2",
+    "backend/online/test_accounting_allocations_http.py": "380cb7fcec411d8f5b40f48fefe1efebe64730d0373f47e7cf5ebc0e4f6a02a9",
+    "backend/online/test_accounting_allocations_journey.py": "3e0f67ae186f37d74cfaeac8e87acbdcada10e7e552fd0128b2ab59ebd77020d",
+    "backend/online/test_accounting_http.py": "62fadda77c90f750640f039367a3c04d3cc0251ca92e88bb1d00fb7677f532fd",
+    "backend/online/test_postgres_accounting_allocations_integration.py": "84610b56578f7ab2b588d4a434c535741b65ab06ea9c01f043927eca4d680bb1",
+    "backend/online/test_postgres_accounting_integration.py": "93ea704256a9b973277734f856777ef0dd7073ac24967bc39778061e73c61b23",
+    "backend/online/test_release_business.py": "c1030a060734cb5c87932c4deb8e07fb11bc6669e18eab1644a442f449010a8f",
+    "backend/online/web.py": "8b21184ecee0ba986b7a386a150ccb9561831bf97bd9284b1285ce2deaa23e12",
+    "backend/server.py": "3fbe419e40698c821e5246c8779d920952f12851afcb805b85fa35bbf4198855",
+    "backend/test_accounting_allocation_transport.py": "bcf2f957c3ed65315a18fcbed259b33f7dd8aa168238322ad350ffff7041b9dd",
+    "backend/test_accounting_registration.py": "4f82a24293c5372fc9cc54849b8e7033c36d63cd2fe344af51e86b582ea55cb0",
+    "backend/test_adapter_payment_scope.py": "2e8006dc61f60c71d7c906802cfa69c9e37c442f4da7aad0b08628e37f54d1d6",
+    "backend/test_business_accounting.py": "4745021af36e3929c886d9c65bede4779d07dff576e49014647536e23288d882",
+    "backend/test_business_accounting_allocations.py": "4f517e9c4d43ee83ba011b2f85995b42772243ae378021de6375d67dc4c8fe46",
+    "docs/CRM_ERP_EUER_BETRIEB.md": "a3da705e9e0a1ad2f03047f569a061e3fda8a2b9dc86d3b27af87d4b804ae63c",
+    "docs/CRM_ERP_EUER_E1A_API.md": "f43e026d74b146e8e4aa16f2abb3b1ae893bca3151d3b0df4b3052dac07c9fea",
+    "docs/CRM_ERP_EUER_E1B1_API.md": "aa8e54d881a07f08880c8e96dd3cd9974b802d0540ee07ed078831f52294c3c3",
+    "scripts/native-release.py": "8f20db196e1d009b725a8951bfb720a5cfe7c94cddfc9ce1ab6f305abc25da82",
+    "scripts/package-windows-support.py": "cffc26d8669c7d4b7987f21a7a96bcbfd0dea4655977402b0ca6a4bcceb18d02",
+    "scripts/reconcile-accounting-restore.py": "065291753e3d8f953b3d1ca9229d735554d9926dd35379ca606209ebb1d3b765",
+    "web/office/office.js": "859d2a31f7250265c3b3864ccc36dc6a7addcc69d73da116ca91aa110643504f",
+    "web/office/tests/accounting-allocation-flow.cjs": "ea33d2b7e6ce8acae7b5a82e602285553ecd857629a6b3d6a6cceedcf551112b",
+    "web/office/tests/accounting-allocation.test.mjs": "0b6659b0beb4390b58da2eed6fbbaea3fc7a563b93840e9dc5ce41e3345812f6",
+    "web/office/tests/e2e.cjs": "2b9dca7464b0fe051a2892fc4ac21b2bb6aa4f3e1a33e7e576a9a0228cb99443",
+    "web/office/tests/serve_fixture.py": "3296c10c7b2b440b6e91439395f89787d84dab5c32b4fdb09570c6ee08ea052c"
+  },
+  "log_sha256": {
+    "accounting-allocations-domain.log": "3dc0518f292a50c8e65c0c87263a4df7518ed93b4fe2ba080fe3393551f1e139",
+    "accounting-allocation-registration-transport.log": "6ec68bde6f1c45e21aa3f8d667b6b6abd650713147cd4383321b0cb808f640cc",
+    "accounting-allocations-http-journey.log": "79ef3580add89af0b4f530268a0d8d3de55fae33287f561a65409c3332b67f3c",
+    "accounting-allocations-http-restore.log": "71a38bc617c8a1fee8892dd4ae39a946da944d69c03da982d4a7cf93ae0eafb8",
+    "accounting-allocation-export-scope.log": "551b512cb8b1a1fe4a0d08e0d1c69d6c3a0ec245bfcc98d6528b0172c5f543c0",
+    "pg-accounting-allocations.log": "83486db8afffd0355191609b8e8a3cf210f7d66acbdd55b616de29083332bd74",
+    "pg-accounting-allocations-release-regression.log": "8c23dcd9fb2e09703d00d4d9c79fbf4466a20809de7148c9378a4529dca7465b",
+    "accounting-allocation-backend-full.log": "38c34c3675aba83439428607ae8f2f6c2b9abc32f3af1e3f9da7f1490c4eb8cb",
+    "accounting-allocation-native-release.log": "691c01a6e91e8cd3bb15df0f5751a6e4839011561df21f13e62c6589deb66f59",
+    "accounting-allocation-native-final.log": "3cfc144131702afdfa19d152d7d10e01b8c058fdee890105bb35723f0868e375",
+    "e1b1-flutter-targeted.log": "0285fbcea966d14e2a453dc678609f649d214fbc14507c7edb108dd106b2f954",
+    "e1b1-flutter-full.log": "98d7fbea748398a4cde9ea6f267a1ae2ddc83356abff1b97b2f621de557182c4",
+    "e1b1-flutter-analyze.log": "e4e05279689dc818ab53adc4834084f86b9a815118e373d28f3bbc1a2f677232",
+    "e1b1-flutter-ui-copy-test.log": "e354dfb10287c072675e4ea26a13f0d4fa68a4655198aca393ee3ba3c84db188",
+    "e1b1-flutter-ui-copy-analyze.log": "aa683d5b8d3cf99228abda8da9873f8376cd0822519e1b91e09c7973143b535a",
+    "accounting-allocations-node-agent.log": "113346cc2f590328d7e98806aa4c2a3fd68acbb509b2a64ba918c9ef62220daf",
+    "accounting-allocation-browser-e2e.log": "c2e34f2993b3227e16f0a676b1f0f4171e596588685e74ca43cc04ba85c282d5",
+    "accounting-allocation-browser-final.log": "e0e23f4b393c11df6eaa4e6b59b5f48d98717445e21057f49e2224bcdc6630ba"
+  },
+  "visual_sha256": {
+    "accounting-allocation-desktop.png": "1515655113ce1c7be9d028757c417ee543dbc7f1848bcf3688b487a0a6df9a44",
+    "accounting-allocation-mobile.png": "72233f868b4daaf38a2fa2f557bcc57b133d0da5461af883aff9c41787176c98"
+  },
+  "flutter_source_manifests": {
+    "e1b1-flutter-code.sha256": {
+      "sha256": "0cfc6bf1e07e4436752f24436d9c592ad5a6e0e64bfa3fe5be0366c5caf5203d",
+      "contents": "36b4aceddcaf897cf8989bff9f0f351d8dc54f728fda9791193ec2a66c4a50ff  app/lib/business_accounting.dart\nba0287427809109893e03fbb1d596c169826eeb27a2df8cf0bb22822c1becdd0  app/lib/business_accounting_allocations.dart\na96a34fb5b310e3b2c69d2d1e3a2cf6b45f695368ee7615eeb552b44366a5272  app/lib/business_finance.dart\n6040aa19a6b9c2de6f36f2f2416e4f0f8792d58c5b0a4cb778c35bc0661c47e1  app/lib/business_session.dart\necb85803171e69a79b179d93d4ec896dc49da8ca6fe1a08a281e7cf729e562c6  app/test/business_accounting_allocations_test.dart\n93be261778bae2696061c6e5dbb9e104eaf1b1442fecfed77650b69fab3190d8  app/test/business_accounting_allocations_http_test.dart\n"
+    },
+    "e1b1-flutter-final-code.sha256": {
+      "sha256": "8164fbebc87c591c759b8158dfb30b1dcba1f290fc16efc3767505c5ae1e9966",
+      "contents": "f0fae1c91d02e3cd56888ca926394147e4b55067d2185cd5ad8a4c4914616002  app/lib/business_accounting.dart\n6f54ee90ae6fb57777c742c2b0abb1b16ceb0bd750e9d29d329ab0021f00000b  app/lib/business_accounting_allocations.dart\na96a34fb5b310e3b2c69d2d1e3a2cf6b45f695368ee7615eeb552b44366a5272  app/lib/business_finance.dart\n6040aa19a6b9c2de6f36f2f2416e4f0f8792d58c5b0a4cb778c35bc0661c47e1  app/lib/business_session.dart\n9685fc7c5244ddeae1d8d3a344081c21962ba416ad6f1de6bac23e7a4ace49dd  app/test/business_accounting_allocations_test.dart\n93be261778bae2696061c6e5dbb9e104eaf1b1442fecfed77650b69fab3190d8  app/test/business_accounting_allocations_http_test.dart\n"
+    }
+  },
+  "note": "All tests use synthetic data and disposable local services. Raw logs/screenshots remain in ignored work/verification; test sources, result summary and hashes are versioned. Historical proofs remain pinned to their original commits."
+}

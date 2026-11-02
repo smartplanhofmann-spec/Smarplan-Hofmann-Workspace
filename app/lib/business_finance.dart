@@ -217,12 +217,15 @@ class _BusinessFinancePageState extends State<BusinessFinancePage> {
                   'Belegte Geldflüsse · Nur freigegebene Quellen',
                 ),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) =>
-                        BusinessAccountingPage(session: widget.session),
-                  ),
-                ),
+                onTap: () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) =>
+                          BusinessAccountingPage(session: widget.session),
+                    ),
+                  );
+                  if (mounted) await load();
+                },
               ),
             ),
           const Notice(

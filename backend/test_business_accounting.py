@@ -30,6 +30,15 @@ class AccountingTests(unittest.TestCase):
         temporary = tempfile.TemporaryDirectory(prefix='synthetic-accounting-')
         self.addCleanup(temporary.cleanup)
         self.path = Path(temporary.name) / 'office.db'
+        # Historical overpayment is seeded under the actual pre-E1b registry;
+        # fresh payments after the additive migration obey the new OP bound.
+        import business_schema
+        historical = self._testMethodName == 'test_invoice_payment_snapshot_is_stable_overpayment_is_preserved_and_all_projects_required'
+        previous = tuple(spec for spec in business_schema.registry() if spec.name != 'business_accounting_allocations')
+        if historical:
+            self._historical_registry = patch.object(business_schema, 'registry', return_value=previous)
+            self._historical_registry.start()
+            self.addCleanup(self._historical_registry.stop)
         self.office = Office(self.path)
         self.addCleanup(self.office.db.close)
         ensure_schema(self.office, activate=True)
@@ -398,6 +407,11 @@ class AccountingTests(unittest.TestCase):
         self.assertEqual(source['unallocated'], '0.00')
         self.assertEqual([value['document_id'] for value in source['allocations']], sorted(value['id'] for value in invoices))
         event = self.api.import_payment(self.owner, self.import_body(payment))
+        preserved = self.snapshot(('business_payments', 'business_payment_allocations', 'business_accounting_cash_events', 'business_accounting_source_links'))
+        self._historical_registry.stop()
+        ensure_schema(self.office, activate=True)
+        self.assertEqual(self.snapshot(tuple(preserved)), preserved)
+        self.assertEqual(self.api.event(self.owner, event['id']), event)
         self.payment(amount='1.00', kind='refund', allocations=[dict(document_id=invoices[0]['id'], amount='1.00')])
         self.assertEqual(self.payment_source(payment)['source_hash'], source['source_hash'])
         actor = self.reader(prepare=True)
@@ -410,7 +424,7 @@ class AccountingMigrationTests(unittest.TestCase):
     def test_schema7_migration_preserves_signed_history_payments_and_receipt_originals(self):
         import business_schema
         with tempfile.TemporaryDirectory() as temporary:
-            previous = tuple(spec for spec in business_schema.registry() if spec.name != 'business_accounting')
+            previous = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting', 'business_accounting_allocations'))
             with patch.object(business_schema, 'registry', return_value=previous):
                 office = Office(Path(temporary) / 'previous.db')
                 try:

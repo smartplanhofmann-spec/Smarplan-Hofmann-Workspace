@@ -149,8 +149,8 @@ class Finance:
         return self._remember(actor,data,'dunning.settings',digest,dict(id='main',revision=revision,**value))
 
     def _payment_sum(self,identifier):
-        rows=self.db.execute('SELECT a.amount,p.kind FROM business_payment_allocations a JOIN business_payments p ON p.id=a.payment_id WHERE a.document_id=?',(identifier,)).fetchall()
-        return sum((Decimal(r['amount'])*(1 if r['kind']=='receipt' else -1) for r in rows),Decimal(0))
+        from business_accounting_allocations import effective_paid
+        return effective_paid(self.office,identifier)
 
     def _mail(self,outbox_id):
         row=self.db.execute('SELECT o.*,a.document_id,a.level,a.payload_json,a.pdf,a.pdf_sha256,a.approved_at,a.proposal_id,a.approved_by FROM business_finance_outbox o JOIN business_dunning_approvals a ON a.id=o.approval_id WHERE o.id=?',(outbox_id,)).fetchone()
@@ -265,16 +265,15 @@ class Finance:
         return self._remember(actor,data,'open_item.note:'+identifier,digest,value)
 
     def payments(self,actor):
+        from business_accounting_allocations import effective_allocations, require_effective_payment_access
         require(self.office,actor,'finance.read');result=[]
         for row in self.db.execute('SELECT * FROM business_payments ORDER BY created_at DESC,id').fetchall():
-            allocations=[dict(r) for r in self.db.execute('SELECT document_id,amount FROM business_payment_allocations WHERE payment_id=?',(row['id'],)).fetchall()]
-            current=require(self.office,actor,'finance.read')
-            if not allocations and current['role']!='owner' and row['created_by']!=current['id']:continue
             try:
-                for allocation in allocations:Documents(self.office)._row(actor,allocation['document_id'])
+                require_effective_payment_access(self.office,actor,row['id'])
             except Problem as error:
                 if error.status in (403,404):continue
                 raise
+            allocations=effective_allocations(self.office,row['id'])
             result.append({**dict(row),'allocations':allocations,'unallocated':money(Decimal(row['amount'])-sum((Decimal(r['amount']) for r in allocations),Decimal(0)))})
         return {'items':result}
 
@@ -292,12 +291,23 @@ class Finance:
             if amount<=0 or money(amount)!=allocation['amount']:raise Problem(400,'Positive Centbeträge erwartet')
             assigned+=amount
         replay,digest=self._receipt(actor,data,'payment.record')
-        if replay:return replay
+        if replay:
+            from business_accounting_allocations import require_effective_payment_access
+            require_effective_payment_access(self.office,actor,replay['id'],'finance.write')
+            return replay
         amount=decimal_value(data.get('amount'));kind=data.get('kind','receipt')
         if amount<=0 or assigned>amount or money(amount)!=data['amount'] or kind not in ('receipt','refund') or data.get('currency','EUR')!='EUR':raise Problem(400,'Positive EUR-Zahlung mit gültiger Zuordnung erwartet')
         source=_text(data.get('source_id'),'Stabile Zahlungsquellen-ID',200);booking=_date(data.get('booking_date'));reference=_text(data.get('reference',''),'Verwendungszweck',1000,empty=True)
         old=self.db.execute('SELECT * FROM business_payments WHERE source_id=?',(source,)).fetchone()
         if old:raise Problem(409,'Zahlungsquelle wurde bereits gebucht; bestehenden Beleg prüfen')
+        if kind=='receipt':
+            from business_accounting_allocations import installed, _document_state
+            if installed(self.office):
+                for allocation in allocations:
+                    document=Documents(self.office)._row(actor,allocation['document_id'],'finance.write')
+                    if document['kind']=='invoice':
+                        candidate,_=_document_state(self.office,document)
+                        if Decimal(allocation['amount'])>Decimal(candidate['open']):raise Problem(409,'Zahlung übersteigt den aktuell offenen Rechnungsbetrag')
         if kind=='refund':
             for allocation in allocations:
                 if Decimal(allocation['amount'])>self._payment_sum(allocation['document_id']):raise Problem(409,'Erstattung übersteigt die bestätigte Zahlung')

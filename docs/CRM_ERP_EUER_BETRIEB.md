@@ -1,6 +1,7 @@
 # EÜR-Vorbereitung: Geldflüsse und Wiederherstellung
 
-Stand: 02.11.2026. Dieser Abschnitt beschreibt E1a, das belegte EUR-Vorjournal.
+Stand: 02.11.2026. Dieser Abschnitt beschreibt E1a, das belegte EUR-Vorjournal,
+und die zusätzliche Rechnungszuordnung E1b-1.
 Es erfasst bestätigte Geldflüsse mit Herkunft und ersetzt noch keine vollständige
 EÜR, Steuerberechnung, Kassenführung oder Bankabstimmung. Es löst keine Zahlung
 aus. Die erste vollständige Buchhaltung ist für ein Einzelunternehmen mit EÜR
@@ -55,6 +56,48 @@ nach einer Auszahlung, bleiben die alten Nachweise erhalten und weitere
 Auszahlungen sind bis zur späteren fachlichen Klärung gesperrt. E1a enthält
 noch keine Korrektur-/Stornooberfläche.
 
+## Freie Kundenzahlungen einer Rechnung zuordnen
+
+Bei einer bereits übernommenen Kundenzahlung öffnet „Rechnung zuordnen“ den
+aktuellen Zuordnungsstand. Die im alten E1a-Nachweis gespeicherte Zuordnung
+bleibt die damalige Fassung; die neue Ansicht zeigt zusätzlich bestätigte
+Zuordnungen und den tatsächlich noch freien Zahlungsbetrag.
+
+1. Eine angebotene normale finale EUR-Rechnung auswählen. Alle bisherigen
+   und neuen Rechnungszuordnungen müssen zu derselben gespeicherten
+   Kundennummer gehören. Bei zuvor völlig unzugeordneter Zahlung wird der Kunde
+   erstmals ausdrücklich bestätigt; die Software errät ihn nicht aus dem
+   Verwendungszweck.
+2. Kundenbindung, centgenauen Teilbetrag und einzeilige Begründung prüfen.
+   Der Betrag darf weder den freien Zahlungsrest noch den offenen Rechnungsrest
+   überschreiten. Ein nicht zugeordneter Überschuss bleibt als solcher erhalten.
+3. Die Vorschau aufrufen. Sie zeigt Rechnung, Betrag sowie Zahlungs- und
+   Rechnungsrest vorher/nachher. Dieser Schritt speichert keine Zuordnung.
+4. Nach Prüfung ausdrücklich bestätigen. Haben andere Vorgänge den Zahlungs-
+   oder Rechnungsstand verändert, wird die Bestätigung abgewiesen: Stand neu
+   laden und eine neue Vorschau prüfen. Bei verlorener Antwort stattdessen
+   denselben unveränderten vorgemerkten Auftrag erneut senden.
+
+Jeder weitere Teilbetrag ist ein eigener bestätigter Vorgang. Der Eintrag
+erzeugt keine neue Zahlung oder Steuerbuchung. Er wirkt gemeinsam mit den
+ursprünglichen Zuordnungen auf Zahlungslisten, offene Posten, Mahnvorschläge
+und neu erzeugte vorhandene Prüfexporte. Schon gespeicherte Exporte behalten
+ihre Originalbytes. Eine bestehende Erstattung verändert den Rechnungsrest,
+öffnet aber nicht erneut das Budget derselben ursprünglichen Zahlung.
+
+Zusätzlich zu den E1a-Leserechten werden für Vorschau und Bestätigung global
+`accounting.prepare`, global `finance.write` und entsprechende Rechte für alle
+bisherigen und neu betroffenen Projekte benötigt. Nach einer Zuordnung zu
+einem weiteren Projekt können deshalb bisher sichtbare Gesamtzahlungen für
+eingeschränkte Benutzer verborgen werden. Die offenen Posten einer weiterhin
+berechtigten Rechnung bleiben trotzdem vollständig berechnet. Ursprünglich
+private unzugeordnete Zahlungen bleiben auf Eigentümer/Ersteller begrenzt.
+
+Dieser Abschnitt unterstützt normale Rechnungen ohne Abschlags-/Schluss- oder
+Stornobezug. Erstattungsursprünge und steuerliche Komponenten werden noch nicht
+zugeordnet. Bestätigte Zuordnungen lassen sich hier noch nicht aufheben oder
+ersetzen; vor der Bestätigung müssen Rechnung, Kunde und Betrag stimmen.
+
 ## Wiederherstellung einer lokalen SQLite-Sicherung
 
 Eine Wiederherstellung erhält Geldflüsse, Originale und Historie. Bei einem
@@ -82,8 +125,11 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    Restore-ID, Nummernhorizonte und der Accountinghorizont dienen dem Vergleich.
    Unter Windows dieselben Argumente mit dem eingerichteten privaten Python und
    entsprechendem Windows-Dateipfad verwenden.
-3. Einen UTF-8-JSON-Prüfbericht gemäß [Schema 2](CRM_ERP_EUER_E1A_API.md#betreiberabgleich)
-   erstellen. Er enthält genau `schema:2`, `restore_id`, `reviewed_by`,
+3. Einen UTF-8-JSON-Prüfbericht im von `--inspect` ausgegebenen
+   `evidence_schema` erstellen: [Schema 2](CRM_ERP_EUER_E1A_API.md#betreiberabgleich)
+   für einen reinen E1a-Bestand oder [Schema 3](CRM_ERP_EUER_E1B1_API.md#restore-und-clients)
+   bei installiertem Zuordnungsmodul, auch wenn es noch leer ist.
+   Er enthält genau `schema`, `restore_id`, `reviewed_by`,
    `reviewed_at` mit Zeitzone, `number_horizons`, `outbound_reconciled:true`,
    `accounting_horizon`, `accounting_reconciled:true` und
    `accounting_external_review`. Letzteres enthält `reviewed_since_backup:true`,
@@ -92,6 +138,10 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    Bestätigungen erst nach der tatsächlichen Prüfung setzen. Den unabhängigen
    Nachweis separat geschützt aufbewahren. Ungeklärte Differenzen nicht durch
    Änderung des Hashes oder manuelle Datenbankkorrektur verdecken.
+   Schema 3 verwendet als `accounting_horizon` den vollständig ausgegebenen
+   zusammengesetzten Horizont mit `schema_version:2`, `prejournal` und
+   `allocations`. Die ursprüngliche E1a-Prüfsumme bleibt darin unverändert;
+   der zusätzliche Teil umfasst alle Zuordnungseinträge und Quittungen.
 4. Bericht privat speichern: unter POSIX höchstens Eigentümerrechte, etwa
    `chmod 600 abgleich.json`; unter Windows Zugriff über die Dateirechte auf die
    zuständigen Betreiber begrenzen. Keine Symlinks, keine öffentlichen Ablagen.
@@ -117,8 +167,9 @@ Finanzsperre erhalten. Die Ursache vor einer erneuten Freigabe klären.
 
 PostgreSQL verwendet weiterhin den vorhandenen Release-/Operatorpfad mit
 getrennter Datenbankrolle, gestoppten Datenbanknutzern und Datenschutzabgleich.
-Auch dort ist bei installiertem Accountingmodul Schema 2 erforderlich, selbst
-bei leerem Vorjournal. Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
+Auch dort ist der Bericht für den gesamten installierten Umfang erforderlich:
+Schema 2 mit E1a oder Schema 3 mit zusätzlicher Rechnungszuordnung, selbst bei
+leeren Tabellen. Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
 
 ## Grenzen und nächste Schritte
 

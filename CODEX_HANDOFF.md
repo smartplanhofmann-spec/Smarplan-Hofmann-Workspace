@@ -81,7 +81,7 @@ PG-Release-/Restore-Regressionen. [Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1A
 und [E1b-Entwurf](docs/CRM_ERP_EUER_E1B_ENTWURF.md) halten Stand und nächsten
 Umfang fest. Der folgende Stand ergänzt den ersten Teil von E1b.
 
-**Aktuell: E1b-1 ist implementiert und geprüft.** Freie Teile bereits in E1a
+**Aktuell: E1b-1 ist implementiert und geprüft**, lokaler Codecommit `6e35f9e`. Freie Teile bereits in E1a
 übernommener Kundenzahlungen lassen sich nach Vorschau einer normalen finalen
 EUR-Rechnung ausdrücklich zuordnen. Gemeinsame Zahlungs-/OP-Projektion gilt für
 Finanzen, Mahnen und neue Prüfexporte; alte Zeilen, E1a-Quellenhashes und

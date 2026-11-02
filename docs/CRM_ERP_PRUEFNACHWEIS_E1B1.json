@@ -240,5 +240,6 @@
       "contents": "f0fae1c91d02e3cd56888ca926394147e4b55067d2185cd5ad8a4c4914616002  app/lib/business_accounting.dart\n6f54ee90ae6fb57777c742c2b0abb1b16ceb0bd750e9d29d329ab0021f00000b  app/lib/business_accounting_allocations.dart\na96a34fb5b310e3b2c69d2d1e3a2cf6b45f695368ee7615eeb552b44366a5272  app/lib/business_finance.dart\n6040aa19a6b9c2de6f36f2f2416e4f0f8792d58c5b0a4cb778c35bc0661c47e1  app/lib/business_session.dart\n9685fc7c5244ddeae1d8d3a344081c21962ba416ad6f1de6bac23e7a4ace49dd  app/test/business_accounting_allocations_test.dart\n93be261778bae2696061c6e5dbb9e104eaf1b1442fecfed77650b69fab3190d8  app/test/business_accounting_allocations_http_test.dart\n"
     }
   },
-  "note": "All tests use synthetic data and disposable local services. Raw logs/screenshots remain in ignored work/verification; test sources, result summary and hashes are versioned. Historical proofs remain pinned to their original commits."
+  "note": "All tests use synthetic data and disposable local services. Raw logs/screenshots remain in ignored work/verification; test sources, result summary and hashes are versioned. Historical proofs remain pinned to their original commits.",
+  "implementation_commit": "6e35f9edf3078372ead64b7960971c7483c098d9"
 }

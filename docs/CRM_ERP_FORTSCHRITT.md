@@ -825,3 +825,7 @@ reale TLS-Prüfungen benötigen lokale Socketfreigabe. Die nächsten E1b-Fälle 
 belegte Betragsaufteilung und Erstattungsursprünge, danach folgen Korrekturen,
 Perioden und Beraterpaket. Umsatzsteuerstatus bleibt offen. R08.05, vollständige
 EÜR, Lohnabrechnung und die Abnahmen A–G bleiben insgesamt offen.
+
+Der geprüfte E1b-1-Code ist im lokalen Commit `6e35f9e` gesichert.
+Der zugehörige Prüfnachweis ist an diesen vollständigen Commit gebunden.
+Es erfolgten kein Remote-Push und keine Produktivbereitstellung.

@@ -74,6 +74,12 @@ ebenfalls eine Finanzsperre; [Betreiberablauf](docs/CRM_ERP_EUER_BETRIEB.md)
 und Schema-2-Nachweis verlangen unabhängigen Quellen-/Zahlungsabgleich.
 E1b ergänzt danach die Quellenzuordnung, ohne alte E1a-Quellensnapshots oder
 Zahlungszuordnungen umzuschreiben; Korrekturen, Perioden und Export folgen.
+E1a ist im lokalen Commit `47707c9` gesichert. Die Prüfungen bestehen mit
+465 Backendtests (ein Windows-Skip), 385 Fluttertests, 81 Browser-Unitfällen
+und elf echten Browserabläufen, zusätzlich 10 neuen PG-Fällen und 12 bestehenden
+PG-Release-/Restore-Regressionen. [Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1A.json)
+und [E1b-Entwurf](docs/CRM_ERP_EUER_E1B_ENTWURF.md) halten Stand und nächsten
+Umfang fest; E1b ist noch nicht implementiert.
 Der Umsatzsteuerstatus wurde separat optional erfragt; bislang liegt keine
 Antwort vor. Ein unkonfiguriertes Profil darf die unabhängige Journalentwicklung
 nicht blockieren, erzeugt aber keine scheinbar vollständige Steuerabrechnung.

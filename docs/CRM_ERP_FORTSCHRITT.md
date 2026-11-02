@@ -665,6 +665,7 @@ Windows-/iPhone-Abnahme oder Produktivinstallation. Das Originalziel bleibt
 bytegleich zum Upload mit SHA-256
 `a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5`.
 
+Der implementierte E1a-Stand ist im lokalen Commit `47707c9` gesichert.
 Der [E1a-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1A.json) speichert Ausgangscommit,
 Ergebnisse und Hashes der geprüften Code-/Testdateien. Die Rohprotokolle liegen
 unter dem ignorierten Verzeichnis `work/verification/`; Testquellen und

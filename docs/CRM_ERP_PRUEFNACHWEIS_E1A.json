@@ -211,5 +211,6 @@
     "accounting-desktop.png": "849537d98df091915101bdb190dae3a5173f3b9b124e1b2e8d7bb236bb384802",
     "accounting-mobile.png": "7f8c0b49ae759d33e2a152060d99adf9145c141e0fb283723405f3a324373e62"
   },
-  "note": "Test groups overlap; do not add them as unique acceptance counts. Initial PG fixture errors were corrected and affected cases rerun; see embedded run history. Initial green browser flow still required visual fixes, then all 11 flows passed again. Unit invocation without required local-process environment permission failed at file level; identical test command with intended permission passed all 81. Logs/screenshots remain in ignored work/verification; versioned test sources, result summary and hashes are retained. All source data and service credentials used by tests are synthetic."
+  "note": "Test groups overlap; do not add them as unique acceptance counts. Initial PG fixture errors were corrected and affected cases rerun; see embedded run history. Initial green browser flow still required visual fixes, then all 11 flows passed again. Unit invocation without required local-process environment permission failed at file level; identical test command with intended permission passed all 81. Logs/screenshots remain in ignored work/verification; versioned test sources, result summary and hashes are retained. All source data and service credentials used by tests are synthetic.",
+  "implementation_commit": "47707c9c13b547c394f6dbbfb0fbb7532bb33340"
 }

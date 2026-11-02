@@ -1,7 +1,11 @@
-# Nächster Abschnitt: Angebotsannahme und Kundenportal
+# Angebotsannahme und Kundenportal: Plan und Abgrenzung
 
-Stand: 02.11.2026. Quellprüfung auf Basis `64bdc26`. Dies ist ein
-Umsetzungsplan, kein Implementierungs- oder Abnahmenachweis. Er konkretisiert
+Stand: 02.11.2026. Ursprüngliche Quellprüfung auf Basis `64bdc26`.
+Die folgenden Planungsabschnitte erhalten diese damalige Bestandsaufnahme;
+sie sind für sich kein Implementierungs- oder Abnahmenachweis. Der inzwischen
+entwickelte Umfang steht in [CRM_ERP_PORTAL.md](CRM_ERP_PORTAL.md),
+ausgeführte Prüfungen im [Fortschrittsbericht](CRM_ERP_FORTSCHRITT.md) und im
+ergänzten Nachweisabschnitt unten. Der Plan konkretisiert
 R05.04/R05.05 und einen Teil von Abnahme B aus
 [CRM_ERP_Gesamtziel.txt](../CRM_ERP_Gesamtziel.txt). Die Nutzerentscheidungen
 **Einzelunternehmen mit EÜR** sowie **reguläre Mitarbeiter und Minijobs** bleiben
@@ -273,3 +277,42 @@ vollständige Kosten-/Finanzabstimmung und tatsächliche Zielgeräte fehlen
 weiterhin für die gesamte Abnahme B/G. Es ist kein Anbieterzugang für diesen
 ersten Entwicklungsabschnitt erforderlich; externe Identitäts-, Rechts- und
 Betriebsnachweise betreffen die spätere Produktivfreigabe.
+
+## Nachgewiesene HTTP- und Restoregrenzen am 02.11.2026
+
+Der separate Adapter `backend/online/portal.py` ist vor dem internen Dispatcher
+eingebunden. Öffentliche POST-Anfragen verlangen den exakten konfigurierten
+HTTPS-Origin und ein UTF-8-JSON-Objekt mit genau den vorgesehenen Feldern.
+Doppelte JSON-Felder, nicht endliche Zahlen, komprimierte Inhalte, zusätzliche
+Queryparameter und GET-Inhalte werden abgewiesen. Die maximale Eingabe ist
+16 KiB. Portal- und Office-Zugangsdaten sind gegenseitig unbrauchbar; die
+bestehenden HTTPS-, Host-, CSP-, No-store- und Asset-Whitelist-Grenzen gelten
+auch für das Portal.
+
+Je vertrauenswürdigem Proxy-Client und festem 60-Sekunden-Fenster gelten
+120 öffentliche Anfragen insgesamt, höchstens 10 Sitzungsöffnungen und
+30 Entscheidungsversuche. Die Zählertransaktion wird vor JSON-, Origin- und
+Zugangsprüfung abgeschlossen. Gespeichert werden ausschließlich HMAC-SHA256-
+Zählerschlüssel, deren Schlüssel aus dem vorhandenen Vault-Schlüssel abgeleitet
+wird; die Zählertabelle enthält keine IP-Adresse und kein Portalgeheimnis.
+Die Peeradresse stammt aus der vorhandenen Konfiguration für genau einen
+vertrauenswürdigen Proxy. Ein veraltetes, noch nicht migriertes Modulregister
+liefert 503, eine reine Legacyinstallation 404; Anfragen führen keine DDL aus.
+
+Beide Disaster-Restorewege rufen den transaktionalen Portal-Sanitizer auf.
+Der echte SQLite-Restoretest verwendet ein Backup vor einem späteren Widerruf:
+alte Einladung und Kundensitzung funktionieren nach Wiederherstellung nicht,
+Angebot, Nummern, archiviertes Original-PDF, erklärte Annahme und intern
+erzeugter Auftragsentwurf bleiben erhalten. Ein absichtlich scheiternder
+Sanitizer entfernt nur das neue Restoreziel; Quelle und Sicherung bleiben
+unverändert. Das ist ein Restore-Nachweis, keine Identitätsprüfung oder QES.
+
+Die zusätzlichen Fälle stehen in `backend/online/test_portal_http.py`.
+Der gemeinsame Lauf mit unabhängigen Portalreisen, realer synthetischer TLS-
+Verbindung, Instanzisolation, Intake, Backup, Kunden, Offlinezugängen und
+Schema-Regressionen bestand **59 Tests**. Das Protokoll liegt unter
+`work/verification/portal-http.log`. Die bestehenden Browser-Unitprüfungen
+einschließlich der neuen Portaloberfläche bestanden **72 Tests**
+(`work/verification/portal-browser-unit-regression.log`). PostgreSQL-
+Rollenprüfung, tatsächlicher Browserablauf und vollständige Abnahmen B/G
+sind gesonderte Nachweise.

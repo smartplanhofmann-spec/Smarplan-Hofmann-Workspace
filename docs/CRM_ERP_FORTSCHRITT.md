@@ -334,3 +334,162 @@ gesonderte interne Übernahme in einen Auftragsbestätigungsentwurf. Er bewahrt
 das bisherige Projekt-/Belegmodell und trennt Kunden- von internen Sitzungen.
 Der Plan ist noch kein implementiertes Kundenportal; die Gesamtabnahme B bleibt
 offen. Die Entscheidungen EÜR sowie reguläre Mitarbeiter/Minijobs gelten weiter.
+
+## 02.11.2026 – Angebotsportal mit getrennter Kundenerklärung
+
+Ausgangsbasis ist `54b08c2`. Der [entwickelte Umfang](CRM_ERP_PORTAL.md)
+ergänzt finale Angebote im bestehenden Kundenprojekt um eine gezielte Freigabe,
+eine getrennte Kundensitzung, die Original-PDF-Ansicht, ausdrückliche Annahme
+oder Ablehnung und eine gesonderte interne Übernahme in einen
+Auftragsbestätigungsentwurf. Der [API-Vertrag](CRM_ERP_PORTAL_API.md) hält
+Felder, Rechte, Wiederholungen und Restoreverhalten fest.
+
+### Umsetzung und überprüfte Grenzen
+
+- Das additive Modul `business_portal` erhält eigene Kundenprincipals,
+  Freigaben, Sitzungen und unveränderliche Erklärungs-/Übernahmebelege.
+  Mitarbeiter, Offlinegeräte und Kunden verwenden getrennte Zugangsdaten.
+  `portal.manage` ergänzt die bestehenden projektspezifischen Fachrechte;
+  Mitarbeiterrollen erhalten es nicht automatisch.
+- Der Online-Dienst meldet `offer_portal` nur im geprüften HTTPS-Kontext.
+  Lokale Server bieten keinen scheinbar erreichbaren Kundenlink an. Die neue
+  Kundenoberfläche importiert weder das interne Officeprogramm noch dessen
+  Sitzung. Eine feste Feldliste entfernt interne Kosten, Margen und Quellen.
+- Ein Kundenlink wird genau einmal ausgegeben; gespeichert wird nur sein
+  Geheimnishash. Eine identische Erstellungswiederholung liefert dieselbe
+  Freigabe ohne Geheimnis. Ein Ersatz verlangt einen ausdrücklichen Widerruf
+  und eine neue Freigabe. Auch nach einer Entscheidung ist ein neuer reiner
+  Lesezugang zur historischen Fassung möglich; eine zweite Erklärung nicht.
+- Annahme/Ablehnung bindet Fassung, Inhalts-/PDF-Hash, erklärten Namen,
+  Zeitpunkt und Wortlaut. Es gibt höchstens eine abschließende Erklärung je
+  Angebot. Die interne Übernahme benötigt zusätzliche Rechte und schreibt
+  ihren Nachweis atomar mit genau einem echten Auftragsbestätigungsentwurf.
+  Bereits vorhandene manuelle Zielbelege verhindern eine doppelte Übernahme.
+- Widerruf bleibt bei fachlich deaktivierten Belegen und im lesenden
+  Kompatibilitätsmodus möglich. Aktuelle Rechte werden auch vor Antworten auf
+  Wiederholungen geprüft. Neue geschäftliche Portalaktionen beachten Modul-,
+  Betriebs- und Restore-/Finanzabgleichssperren.
+- Öffentliche Anfragen prüfen HTTPS-Origin, Host, Tokenart, Methode, genaue
+  JSON-Felder und 16-KiB-Grenze. HMAC-Ratenzähler werden vor anschließenden
+  Eingabe-/Authentifizierungsfehlern festgeschrieben. Die Grenzen je
+  Proxy-Client/60 Sekunden sind 120 Anfragen, 10 Sitzungsöffnungen und
+  30 Entscheidungsversuche; rohe IPs/Geheimnisse werden nicht gespeichert.
+- Normale Migrationen erhalten Freigaben. Ein tatsächlicher SQLite- oder
+  PostgreSQL-Restore widerruft alte Einladungen, deaktiviert Principals und
+  entfernt Kundensitzungen. Historische Erklärungen, Übernahmen und Archive
+  bleiben erhalten. Es wird kein Mitarbeiter für Kunden-/Restoreaktionen
+  erfunden.
+
+### Prüfstand Backend und Betrieb
+
+| Prüfung | Ergebnis | Nachweis |
+| --- | --- | --- |
+| Portal-Domäne und Registrierung | 26 bestanden | 22 Domänen-/Migrationsfälle und 4 Registrierungsfälle; `work/verification/portal-domain.log` |
+| Registrierung und Router | 10 bestanden | Echte lokale/Online-/Offline-/Legacy-Fähigkeiten, alte Modulinstallation und bestehende Routinggrenzen; `portal-registration.log` |
+| Schema, Foundation und Organisation | 58 bestanden | Bestehende Rechte, Module, Migrationen und Datenintegrität; `portal-registry-foundation-regressions.log` |
+| Unabhängige Portalreisen | 9 bestanden | 8 Flask-HTTPS-/MFA-Fälle plus ein echter TLS-Socketfall; `portal-http-tls-journey.log` |
+| HTTP-/Restore- und bestehende Regressionen | 59 bestanden | 7 neue Transport-/Restorefälle, unabhängige Reisen sowie Instanz-, Intake-, Backup-, Kunden-, Offline- und Schemaprüfungen; `portal-http.log` |
+| PostgreSQL mit getrennten Rollen | 8 bestanden, keine Skips | Echte Migration, Laufzeit-ACLs/Trigger, parallele Verbindungen, Rollback, Neustart und pg_dump/pg_restore; `pg-test_postgres_portal_integration.log` |
+| Echter Caddy-TLS-/Wartungstest | 1 bestanden | Neue Portaldateien und öffentliche Portalrouten im vorhandenen Proxy-/Wartungsvertrag; eigene vertrauenswürdige Test-CA, synthetischer Upstream; `portal-caddy-tls.log` |
+| Vollständiges Backend | 443 ausgeführt, 442 bestanden, 1 übersprungen | 69,135 s; bestehender Windows-Job-Object-Test auf Linux übersprungen; `portal-backend-full.log` |
+| Paketquellen | 14 bestanden | Native-/Windows-Supportmanifeste enthalten das neue Modul; kein nativer Gerätebuild behauptet; `portal-native-release.log` |
+
+Die Gruppen überschneiden sich und werden nicht als einzigartige Abnahmen
+addiert. Alle genannten Protokolle liegen unter `work/verification/`.
+Der TLS-Fall verwendet einen realen lokalen Server, eine ausdrücklich
+vertraute synthetische CA und aktive Hostnamenprüfung. Unbekannte CA und
+falscher Hostname werden abgewiesen. PostgreSQL-HTTP-Fälle verwenden dagegen
+den Flask-Testclient mit echter Datenbank. Ein zusätzlicher echter Caddy-Lauf
+prüft TLS, CSP und Wartungssperre für die neuen Portalpfade gegen einen
+synthetischen Upstream. Keiner dieser Nachweise ist ein produktives
+Caddy-/Hostingdeployment.
+
+Die erste Integration reproduzierte und korrigierte eine fehlende statische
+Featuredeklaration sowie die falsche Feldprüfung in SQLite-Rows. Die
+Registrierungs-/Domänen-/HTTP-Regressionen prüfen diese realen Datenwege.
+Historische Migrationen erhalten vorbestehende finale Angebote/PDFs und
+signierte Protokolle. Echte Restorefälle erhalten Erklärungen, Entwürfe,
+Nummern und Audit; ein absichtlich fehlgeschlagener SQLite-Restore entfernt
+nur den neu erzeugten Kandidaten und erhält Quelle und Sicherung.
+
+### Bedienoberflächen und unabhängiger Review
+
+Browser und Flutter ergänzen die Portalverwaltung am finalen Angebot. Der
+Flutter-Einstellungsbereich bietet außerdem einen generischen Fachrechteeditor
+für die vorhandenen Rechte und Geltungsbereiche. Er verwendet die bestehenden
+Benutzer-/Grant-Routen und erweitert keine serverseitige Berechtigung.
+Kundenseite, Token und unbestätigte Erklärung bleiben getrennt vom internen
+Officeprogramm und nur im Arbeitsspeicher des Browserfensters.
+
+Der unabhängige Flutter-Review reproduzierte einen verspäteten
+Erstellungsabschluss: Nach zwischenzeitlich bekanntem Rechteentzug oder
+Widerruf konnte die Oberfläche erneut einen Kundenlink anzeigen. Der korrigierte
+Vorgangsvergleich verwirft diese späte Antwort. Zwei verzögerte-Antwort-Fälle
+sichern die Änderung; andere geschäftliche Wiederholungen umgehen weiterhin
+keinen Betriebsmoduswechsel. Nur der genau definierte Portalwiderruf bleibt als
+Sicherheitsaktion bei identischem Inhalt, Anfrage-ID und Sitzung nutzbar.
+
+Der vollständige Flutterlauf besteht **362 Tests ohne Skips** in rund
+104 Sekunden; `flutter analyze` meldet keine Befunde. Das gezielte Set enthält
+**26 bestandene Prüfungen**: zehn Portalwidgets, einen echten HTTP-Ablauf,
+neun Fachrechtefälle und sechs Sessionfälle. Die Protokolle liegen unter
+`work/verification/portal-flutter-full.log`, `portal-flutter-analyze.log` und
+`portal-flutter-targeted.log`. Das belegt keine physische
+Windows-/iPhone-Installation.
+
+Die Browser-Unitprüfungen bestehen **72 Tests**. Die echte Chromiumprüfung
+verwendet synthetische Daten und den lokalen HTTP-Fixtureadapter für den
+bestehenden HTTPS-Proxyvertrag; ihr tatsächlicher TLS-Nachweis ist der oben
+separat genannte Sockettest. Namespace-, PID-, Netzwerk- und Seccomp-Sandbox
+werden vor Anwendungszugriff live geprüft. Desktop und 390-px-Kundenseite
+wurden zusätzlich anhand der Screenshots unter
+`work/verification/portal-browser-previews/` visuell geprüft.
+
+Der abschließende Browser-Gesamtlauf besteht **zehn echte Abläufe**
+(`work/verification/portal-browser-e2e.log`). Der neue Portalablauf prüft
+verlorene Erstellungs-, Sitzungs- und Entscheidungsantworten, bewusste
+Neufreigabe, zwei getrennte Kunden, bytegleiches Original-PDF, Annahme und
+Ablehnung, ausdrückliche Auftragsübernahme, Widerruf bei deaktivierten Belegen
+und die schmale Kundenseite. Die vorhandenen Einkaufs-, Planungs-,
+Dokumentations-, Signatur-, Rollen- und Formularabläufe bleiben enthalten.
+
+Zwei erste Browserläufe deckten Fehler im Testablauf auf: eine falsche
+Feldbezeichnung für die Belegaktivierung und eine fehlende Wartebedingung beim
+Wechsel auf die ältere Kalenderansicht. Der korrigierte Test wartet auf den
+tatsächlich sichtbaren Kalender und prüft weiter exakt sieben Tage sowie
+fehlende Timeline/Ansichtsauswahl. Keine Produktberechtigung oder
+Sandboxbedingung wurde abgeschwächt. Die ersten Logs bleiben als
+`portal-browser-initial.log` und `portal-browser-calendar-wait.log` erhalten.
+
+### Reproduktion und nächster Umfang
+
+Der [Portal-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_PORTAL.json) enthält
+Ausgangscommit, Ergebnisse und SHA-256-Werte der geänderten Code-/Testdateien.
+Gezielte Befehle vom Hauptverzeichnis:
+
+```sh
+PYTHONPATH=backend backend/.venv/bin/python -m unittest test_business_portal test_business_portal_registration -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_portal_http online.test_portal_journey -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_postgres_portal_integration -v
+node --test web/office/tests/*.test.mjs
+node web/office/tests/e2e.cjs
+```
+
+Für PostgreSQL gilt weiterhin die ausschließlich synthetische Loopback-DSN
+`smartplan_check` mit getrennten Migrations-/Laufzeitrollen. Der PG-Test
+verweigert ein vorhandenes Restoreziel und entfernt nur seine eigens erzeugte
+Testdatenbank. Chromium benötigt die dokumentierte aktive Sandbox;
+`test_release_tls` zusätzlich `SMARTPLAN_CADDY_BINARY`. Die neuen Onlinefälle
+sind ausdrücklich in CI registriert. Alle Ergebnisse beziehen sich auf
+synthetische Daten und lokale Dienste; es wurde kein Kundenlink versendet und
+keine produktive Installation durchgeführt.
+
+Das Originalziel ist weiterhin bytegleich zum Upload, SHA-256
+`a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5`.
+R05.04/R05.05 und Abnahme B/G bleiben als Gesamtanforderungen offen: allgemeine
+Kundenkonten, Dateiaustausch, Projektfreigaben, Angebote vor Projektanlage,
+Offline-Protokollkette und vollständige Kosten-/Finanzabstimmung fehlen noch.
+Die unabhängige EÜR-Vorbereitung prüft nun vorhandene Zahlungen und
+Eingangsbelege. EÜR legt die umsatzsteuerliche Ist-/Sollversteuerung nicht fest;
+der tatsächliche Umsatzsteuerstatus wurde separat erfragt und ist bis zur
+Antwort als offen zu behandeln. Das blockiert die übrige Entwicklung nicht.

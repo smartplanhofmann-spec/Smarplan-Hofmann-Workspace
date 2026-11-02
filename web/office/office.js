@@ -78,6 +78,8 @@ export function organizationModuleEnabled(section, organization) {
 export function organizationCommandArea(path) {
   if(typeof path!=='string')return null;
   if(path.startsWith('/organization')||path.startsWith('/settings/')||path==='/commercial/settings')return null;
+  if(/^\/portal\/grants\/[^/]+\/revoke$/.test(path))return null;
+  if(path.startsWith('/portal/'))return 'documents';
   if(/^\/(employees|absences|shifts|time)(?:\/|$)/.test(path))return 'personnel';
   if(/^\/(resources|appointments|planning)(?:\/|$)/.test(path))return 'planning';
   if(/^\/(inventory|purchasing)(?:\/|$)/.test(path)||path==='/budgets'||/^\/projects\/[^/]+\/changes(?:\/|$)/.test(path))return 'material';
@@ -119,6 +121,41 @@ export function purchaseActions(order,capabilities,organization) {
     confirm:writable&&order.status==='approved'&&permissions.has('finance.approve'),
     receive:writable&&['ordered','partially_received'].includes(order.status)&&permissions.has('finance.write'),
     costs:permissions.has('finance.read')};
+}
+export function portalAccess(item,capabilities,organization){
+  const permissions=new Set(capabilities.permissions||[]),read=item.kind==='offer'&&item.status==='final'&&
+    (capabilities.features||[]).includes('offer_portal')&&permissions.has('portal.manage')&&permissions.has('finance.read'),
+    write=read&&capabilities.readonly===false&&organizationModuleEnabled('documents',organization);
+  return {read,revoke:read,create:write,adopt:write&&permissions.has('finance.write')&&permissions.has('projects.manage')};
+}
+function portalSource(source){
+  if(!source||!/^[a-f0-9]{32}$/.test(source.offer_id||'')||!Number.isSafeInteger(source.source_revision)||source.source_revision<1||
+      !/^[a-f0-9]{64}$/.test(source.content_hash||'')||!/^[a-f0-9]{64}$/.test(source.pdf_hash||''))throw new ApiError('Die geprüfte Angebotsfassung zuerst neu laden.',502);
+  return {offer_id:source.offer_id,source_revision:source.source_revision,content_hash:source.content_hash,pdf_hash:source.pdf_hash};
+}
+export function portalGrantData(source,values){
+  const recipient_name=String(values.recipient_name||'').trim(),recipient_email=String(values.recipient_email||'').trim();
+  if(!recipient_name||recipient_name.length>200||!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(recipient_email)||recipient_email.length>254||
+      !Number.isInteger(values.expires_in_days)||values.expires_in_days<1||values.expires_in_days>30||values.confirmation!==true)
+    throw new Error('Empfänger, E-Mail, Zugangsdauer (1–30 Tage) und ausdrückliche Freigabe prüfen.');
+  return {...portalSource(source),recipient_name,recipient_email,expires_in_days:values.expires_in_days,confirmation:true};
+}
+export function portalAdoptionData(source,decision,confirmation){
+  const bound=portalSource(source);
+  if(!decision||decision.decision!=='accepted'||decision.offer_id!==bound.offer_id||!/^[a-f0-9]{32}$/.test(decision.id||'')||
+      decision.content_hash!==bound.content_hash||decision.pdf_hash!==bound.pdf_hash||confirmation!==true)throw new Error('Zuerst die Annahme der unveränderten Angebotsfassung prüfen und ausdrücklich bestätigen.');
+  const {offer_id,...fields}=bound;return {...fields,decision_id:decision.id,confirmation:true};
+}
+export function portalIssuedLink(result,hostname){
+  if(!/^[a-f0-9]{32}$/.test(result?.grant?.id||''))throw new ApiError('Die Freigabe konnte nicht sicher gelesen werden. Angebotsportal erneut öffnen.',502);
+  if(result?.link_available===false)return null;
+  let url;try{url=new URL(result?.portal_url);}catch{throw new ApiError('Der Zugang wurde angelegt, der Link aber nicht sicher bestätigt. Freigabe prüfen und bei Bedarf widerrufen.',502);}
+  const fragment=new URLSearchParams(url.hash.slice(1));
+  if(result.link_available!==true||url.origin!=='https://'+hostname||url.username||url.password||url.pathname!=='/office/portal.html'||url.search||
+      fragment.size!==2||fragment.getAll('grant').length!==1||fragment.getAll('key').length!==1||fragment.get('grant')!==result.grant?.id||
+      !/^[a-f0-9]{32}$/.test(fragment.get('grant')||'')||!/^SPPI_[A-Za-z0-9_-]{43,195}$/.test(fragment.get('key')||''))
+    throw new ApiError('Der Zugang wurde angelegt, der Link aber nicht sicher bestätigt. Freigabe prüfen und bei Bedarf widerrufen.',502);
+  return url.href;
 }
 function purchaseArticle(item) {
   if(!item||typeof item.id!=='string'||typeof item.name!=='string'||typeof item.unit!=='string')
@@ -523,6 +560,9 @@ function updateDrawer() {
 function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
 function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
 function operationLabel(path) {
+  if(path.startsWith('/business/portal/')&&path.endsWith('/revoke'))return 'Portalzugang widerrufen';
+  if(path.startsWith('/business/portal/')&&path.endsWith('/adopt'))return 'Annahme in Auftragsentwurf übernehmen';
+  if(path.startsWith('/business/portal/'))return 'Kundenportalzugang freigeben';
   if(path.endsWith('/finalize'))return 'Beleg festschreiben';
   if(path.endsWith('/sign'))return 'Fassung unterzeichnen';
   if(path.includes('/media'))return 'Foto / Unterlage speichern';
@@ -536,7 +576,10 @@ function operationLabel(path) {
 }
 function pendingDialog() {
   dialog('Unbestätigte Antworten',el('div',{class:'stack'},notice('Der Server kann die Eingabe bereits gespeichert haben. Eine Wiederholung verwendet exakt dieselbe Vorgangskennung und denselben Inhalt. Dieses Fenster bis zur Klärung geöffnet lassen.','warn'),
-    rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{await api.retry(item.key);updatePending();closeModal();await refresh();}),'primary')]))));
+    rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{
+      const generation=api.generation,previous=modal,result=await api.retry(item.key);if(generation!==api.generation||previous!==modal)return;updatePending();
+      if(item.path===biz('/portal/grants')){portalGrantResultDialog({id:result.grant.offer_id,project_id:result.grant.project_id,number:result.grant.number,kind:'offer',status:'final'},result);return;}
+      closeModal();await refresh();}),'primary')]))));
 }
 function navigate(section,{includeHidden=false}={}) {
   state.openedHiddenSection=includeHidden&&sectionAuthorized(section)?section:null;
@@ -797,8 +840,71 @@ async function documentDetail(id) {
   if(item.status==='draft'&&canWrite('finance.issue','documents'))controls.push(button('Festschreiben',()=>confirmDialog('Beleg festschreiben','Die geprüfte Fassung wird unveränderlich archiviert und erhält eine Nummer. Es erfolgt kein automatischer Versand.',async()=>{await mutation('finalize-'+id,`/documents/${id}/finalize`,{revision:item.revision});refresh();}),'primary'));
   const targets=({estimate:['offer','order_confirmation'],offer:['order_confirmation','invoice','advance_invoice','delivery_note'],order_confirmation:['delivery_note','invoice','advance_invoice','final_invoice'],delivery_note:['invoice'],advance_invoice:['final_invoice']})[item.kind]||[];
   if(canWrite('finance.write','documents'))targets.forEach(kind=>controls.push(button('→ '+LABELS[kind],()=>action(async()=>{const result=await mutation('convert-'+id+'-'+kind,`/documents/${id}/convert`,{revision:item.revision,target_kind:kind});closeModal();await documentDetail(result.id);}), 'small')));
-  dialog(item.number||item.title,el('div',{class:'stack'},el('div',{class:'actions'},badge(item.status),...controls),panel('Empfänger',el('h3',{},item.buyer?.name),el('p',{class:'muted'},item.buyer?.address_line||'')),
+  let portal=null;
+  if(item.kind==='offer'&&item.status==='final'){
+    if(state.features.has('offer_portal')){const capabilities=await api.get(query(biz('/capabilities'),{project_id:item.project_id}));
+      if(portalAccess(item,capabilities,state.organization).read)portal=panel('Kundenportal',button('Kundenportal verwalten',()=>action(()=>portalOfferDialog(item)),'primary'),el('p',{class:'muted'},'Die geprüfte Angebotsfassung gezielt freigeben, Kundenerklärungen einsehen oder Zugänge widerrufen.'));}
+    else portal=notice('Dieser Server bietet derzeit keinen erreichbaren Angebotsportalzugang.');
+  }
+  dialog(item.number||item.title,el('div',{class:'stack'},el('div',{class:'actions'},badge(item.status),...controls),portal,panel('Empfänger',el('h3',{},item.buyer?.name),el('p',{class:'muted'},item.buyer?.address_line||'')),
     panel('Positionen',table(['Beschreibung','Menge','Einheit','Netto'],(item.positions||[]).map(line=>[line.description,formatQuantity(line.quantity),line.unit,formatMoney(line.net)]))),panel('Belegsumme',el('p',{},'Netto: '+formatMoney(item.totals?.net)),el('p',{},'Steuer: '+formatMoney(item.totals?.tax)),el('h2',{},'Brutto: '+formatMoney(item.totals?.gross)))));
+}
+async function portalOfferDialog(item){
+  const generation=api.generation,previous=modal,render=state.render;
+  const [overview,capabilities]=await Promise.all([api.get(query(biz('/portal/grants'),{offer_id:item.id})),api.get(query(biz('/capabilities'),{project_id:item.project_id}))]);
+  if(generation!==api.generation||modal!==previous||render!==state.render)return;
+  const access=portalAccess(item,capabilities,state.organization);if(!access.read)throw new ApiError('Keine Freigabe für dieses Angebotsportal.',403);
+  const source=overview.source;portalSource(source);
+  const decision=overview.decision,adoption=overview.adoption;
+  dialog('Kundenportal · '+(item.number||item.title),el('div',{class:'stack'},
+    notice('Freigegeben wird ausschließlich dieses finale Angebot. Ein Kundenlink wird manuell weitergegeben; die Anwendung versendet keine Nachricht.'),
+    panel('Geprüfte Quelle',el('p',{},`${source.number} · Fassung ${source.source_revision} · ${formatMoney(item.totals?.gross)}`),
+      button('Original-PDF prüfen',()=>action(()=>download(biz('/documents/'+item.id+'/pdf'),(source.number||'Angebot')+'.pdf')),'small')),
+    access.create&&!collection(overview).some(grant=>grant.status==='active')?button('Kundenzugang freigeben',()=>portalGrantDialog(item,source),'primary'):
+      !access.create?notice('Neue Freigaben und Übernahmen sind derzeit gesperrt. Vorhandene Zugänge können bei entsprechender Berechtigung widerrufen werden.'):
+        notice('Ein aktiver Zugang besteht bereits. Für einen neuen Link zuerst diesen Zugang ausdrücklich widerrufen.'),
+    panel('Kundenzugänge',rows(collection(overview),grant=>row(grant.principal?.name||'Empfänger',`${grant.principal?.email||''} · Erstellt ${formatDate(grant.created_at,true)} · Ablauf ${formatDate(grant.expires_at,true)}`,
+      [badge({active:'Aktiv',expired:'Abgelaufen',revoked:'Widerrufen'}[grant.status]||grant.status),access.revoke&&grant.status!=='revoked'?button('Zugang widerrufen',()=>portalRevokeDialog(item,grant),'small'):null]),'Noch kein Kundenportalzugang freigegeben.')),
+    decision?panel('Gespeicherte Kundenerklärung',el('h3',{},decision.decision==='accepted'?'Angebot angenommen':'Angebot abgelehnt'),el('p',{},decision.declared_name+' · '+formatDate(decision.created_at,true)),
+      el('p',{class:'preserve'},decision.statement_text),adoption?notice('Übernommen in einen Auftragsbestätigungsentwurf am '+formatDate(adoption.created_at,true)+'.'):null,
+      adoption?button('Auftragsentwurf öffnen',()=>action(()=>documentDetail(adoption.document_id)),'small'):access.adopt&&decision.decision==='accepted'?
+        button('Annahme in Auftragsentwurf übernehmen',()=>portalAdoptDialog(item,source,decision),'primary'):null):panel('Kundenerklärung',empty('Bisher wurde keine Annahme oder Ablehnung dokumentiert.'))));
+}
+function portalGrantDialog(item,source){
+  const generation=api.generation;let editor;
+  editor=form('',[field('recipient_name','Vorgesehener Empfänger','text',item.buyer?.contact_name||item.buyer?.name||'',{required:true,maxLength:200}),
+    field('recipient_email','E-Mail des vorgesehenen Empfängers','email',item.buyer?.email||'',{required:true,maxLength:254}),
+    field('expires_in_days','Zugang gültig für Tage','integer',7,{required:true,min:1,max:30}),
+    field('confirmation','Ich habe Angebotsfassung, Kundenbindung, Empfänger und Original-PDF geprüft und gebe diesen Zugang ausdrücklich frei.','checkbox',false,{required:true,wide:true})],
+    async(data,key)=>{const result=await mutation(key,'/portal/grants',portalGrantData(source,data));if(generation!==api.generation||!editor.isConnected)return undefined;
+      portalIssuedLink(result,location.hostname);return result;},
+    {key:'portal-grant-'+item.id,submit:'Kundenzugang verbindlich freigeben',after:result=>portalGrantResultDialog(item,result)});
+  dialog('Kundenzugang freigeben',editor,'Die Zugangsdauer ändert nicht die Bedingungen des finalen Angebots. Es erfolgt kein E-Mail-Versand.');
+}
+function portalGrantResultDialog(item,result){
+  const url=portalIssuedLink(result,location.hostname);
+  dialog(url?'Kundenlink einmalig sichern':'Freigabe vorhanden – Link nicht erneut verfügbar',el('div',{class:'stack'},
+        el('p',{},result.grant.principal?.name+' · '+result.grant.principal?.email),
+        url?el('label',{class:'field'},'Kundenlink',el('textarea',{readOnly:true,rows:5,'aria-label':'Kundenlink',value:url})):notice('Die Freigabe ist vorhanden. Ihr Geheimnis wird bei einer Wiederholung nicht erneut ausgegeben. Für einen neuen Link diese Freigabe ausdrücklich widerrufen und anschließend neu freigeben.','warn'),
+        el('p',{class:'muted'},'Der Link ermöglicht Zugang zum Angebot bis Ablauf oder Widerruf. Geschützt aufbewahren und ausschließlich dem vorgesehenen Empfänger manuell weitergeben.'),
+        el('div',{class:'actions'},button('Freigaben prüfen',()=>action(()=>portalOfferDialog(item)),'primary'),button('Diese Freigabe widerrufen',()=>portalRevokeDialog(item,result.grant),'small'))));
+}
+function portalRevokeDialog(item,grant){
+  const generation=api.generation;let editor;
+  editor=form('',[field('reason','Grund für den Widerruf','text','',{required:true,maxLength:500}),field('confirmation','Diesen Zugang und seine bestehenden Kundensitzungen ausdrücklich widerrufen.','checkbox',false,{required:true,wide:true})],
+    async(data,key)=>{if(data.confirmation!==true)throw new Error('Widerruf ausdrücklich bestätigen.');
+      // Safety operation remains available when the business module is paused.
+      const result=await api.mutate(key,biz('/portal/grants/'+grant.id+'/revoke'),data);
+      return generation===api.generation&&editor.isConnected?result:undefined;},
+    {key:'portal-revoke-'+grant.id,submit:'Kundenzugang widerrufen',after:()=>portalOfferDialog(item)});
+  dialog('Kundenzugang widerrufen',editor,grant.principal?.name+' · '+grant.principal?.email);
+}
+function portalAdoptDialog(item,source,decision){
+  const generation=api.generation;let editor;
+  editor=form('',[field('confirmation','Ich habe die angenommene Angebotsfassung geprüft und übernehme sie ausdrücklich in einen Auftragsbestätigungsentwurf im bestehenden Projekt.','checkbox',false,{required:true,wide:true})],
+    async(data,key)=>{const result=await mutation(key,'/portal/offers/'+item.id+'/adopt',portalAdoptionData(source,decision,data.confirmation));return generation===api.generation&&editor.isConnected?result:undefined;},
+    {key:'portal-adopt-'+item.id,submit:'Auftragsentwurf erstellen',after:result=>documentDetail(result.document_id)});
+  dialog('Annahme in Auftragsentwurf übernehmen',editor,'Der Zielbeleg bleibt Entwurf. Es entstehen keine Rechnung, Zahlung, Termin- oder Materialbuchung und kein Versand.');
 }
 function confirmDialog(title,message,confirm) {
   const error=el('div',{}),submit=button('Verbindlich bestätigen',()=>action(async()=>{submit.disabled=true;try{await confirm();closeModal();}finally{submit.disabled=false;}},error),'primary');
@@ -1186,7 +1292,7 @@ async function settingsView() {
 }
 async function permissionsDialog() {
   const [grants,users]=await Promise.all([api.get(biz('/settings/permissions')),api.get('/users')]);
-  const permissions=['contacts.read','contacts.write','projects.manage','documents.read','documents.write','documents.classify','finance.read','finance.write','finance.issue','finance.approve','personnel.read','personnel.manage','time.own','time.approve','inventory.read','inventory.write','settings.manage','privacy.manage'];
+  const permissions=['contacts.read','contacts.write','projects.manage','documents.read','documents.write','documents.classify','finance.read','finance.write','finance.issue','finance.approve','personnel.read','personnel.manage','time.own','time.approve','inventory.read','inventory.write','settings.manage','privacy.manage',...(state.capabilities.has('business_portal')?['portal.manage']:[])];
   dialog('Fachrechte',el('div',{class:'stack'},form('Freigabe / Sperre',[field('user_id','Benutzer','select','',{options:options(collection(users),user=>user.email),required:true}),field('permission','Fachrecht','select','documents.read',{options:permissions.map(name=>[name,name])}),field('scope','Geltungsbereich','select','*',{options:[['*','Alle freigegebenen Projekte'],...options(state.projects)]}),field('effect','Entscheidung','select','allow',{options:[['allow','Erlauben'],['deny','Sperren']]})],
     (data,key)=>mutation(key,'/settings/permissions',{...data,revision:collection(grants).find(grant=>grant.user_id===data.user_id&&grant.permission===data.permission&&grant.scope===data.scope)?.revision||0}),{key:'grant-new',description:'Eine Projektfreigabe wird dadurch nicht ersetzt. Sperren gelten serverseitig auch bei wiederholten Anfragen.'}),
     panel('Vorhandene Entscheidungen',rows(collection(grants),grant=>row(collection(users).find(user=>user.id===grant.user_id)?.email||grant.user_id,`${grant.permission} · ${grant.scope==='*'?'Global':state.projects.find(project=>project.id===grant.scope)?.name||grant.scope}`,[badge(grant.effect==='allow'?'Freigegeben':'Gesperrt')])))));

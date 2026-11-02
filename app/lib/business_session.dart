@@ -43,6 +43,7 @@ String? organizationCommandSection(String path) {
       RegExp(r'^/projects/[a-f0-9]{32}/changes(?:/|$)').hasMatch(route)) {
     return 'material';
   }
+  if (first == 'portal') return 'documents';
   if (const {
     'documents',
     'articles',
@@ -322,7 +323,10 @@ class BusinessSession extends ChangeNotifier {
   ) async {
     final epoch = _epoch;
     _guard(epoch);
-    if (readonly)
+    final portalRevocation =
+        hasFeature('offer_portal') &&
+        RegExp(r'^/portal/grants/[a-f0-9]{32}/revoke$').hasMatch(path);
+    if (readonly && !portalRevocation)
       throw const ApiException(
         403,
         'Der Rückkehrmodus erlaubt das Lesen und Exportieren. Änderungen bleiben bis zur erneuten Freigabe gesperrt.',
@@ -330,6 +334,7 @@ class BusinessSession extends ChangeNotifier {
     final section = organizationCommandSection(path);
     if (section != null &&
         !sectionEnabled(section) &&
+        !portalRevocation &&
         !_pending.containsKey(key)) {
       throw const ApiException(
         423,
@@ -342,7 +347,7 @@ class BusinessSession extends ChangeNotifier {
     if (previous != null &&
         (previous.path != path ||
             previous.values != canonical ||
-            previous.generation != generation)) {
+            (!portalRevocation && previous.generation != generation))) {
       throw const ApiException(
         409,
         'Die letzte Übertragung ist noch unbestätigt. Bitte zuerst denselben Vorgang erneut senden.',
@@ -364,7 +369,7 @@ class BusinessSession extends ChangeNotifier {
         Map<String, dynamic>.from(operation.body),
       );
       _guard(epoch);
-      if (generation != operation.generation)
+      if (!portalRevocation && generation != operation.generation)
         throw const ApiException(
           409,
           'Der Funktionsstand wurde geändert. Bitte den gespeicherten Stand prüfen, bevor Sie fortfahren.',

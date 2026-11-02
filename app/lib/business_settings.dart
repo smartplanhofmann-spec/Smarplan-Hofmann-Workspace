@@ -7,6 +7,7 @@ import 'business_workflows.dart';
 import 'business_adapters.dart';
 import 'business_templates.dart';
 import 'business_organization.dart';
+import 'business_permissions.dart';
 import 'design.dart';
 
 class BusinessSettingsPage extends StatefulWidget {
@@ -222,6 +223,24 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
             ),
           ),
         const SizedBox(height: 16),
+        if (widget.session.hasModule('foundation'))
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.admin_panel_settings_outlined),
+              title: const Text('Fachrechte verwalten'),
+              subtitle: const Text(
+                'Benutzerrechte global oder für einzelne Projekte prüfen.',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      BusinessPermissionsPage(session: widget.session),
+                ),
+              ),
+            ),
+          ),
         if (widget.session.hasModule('documents') &&
             widget.session.can('finance.read'))
           Card(

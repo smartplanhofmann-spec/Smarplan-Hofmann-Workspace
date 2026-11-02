@@ -11,9 +11,12 @@ def restore(source, destination):
     target = backup(source, destination)
     try:
         with closing(sqlite3.connect(target)) as database, database:
+            database.row_factory = sqlite3.Row
             database.execute("DELETE FROM sessions")
             if database.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='plan_sessions'").fetchone():
                 database.execute("DELETE FROM plan_sessions")
+            from business_portal import sanitize_after_restore
+            sanitize_after_restore(database)
     except Exception:
         target.unlink(missing_ok=True)
         raise

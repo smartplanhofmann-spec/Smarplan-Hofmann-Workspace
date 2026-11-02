@@ -86,6 +86,18 @@ def _view(office, value):
                     enabled=value['modules'][key]['enabled']) for key, label in MODULES.items()})
 
 
+def module_enabled(office, key):
+    """Read only a module state; this grants no identity or object permission.
+
+    Separate authentication domains such as the customer portal use this after
+    their own authorization instead of impersonating an internal Office user.
+    """
+    if key not in MODULES:
+        raise ValueError('Unknown organization module')
+    with office.lock:
+        return _stored(office)['modules'][key]['enabled']
+
+
 def navigation(office, actor):
     """Minimum nonsensitive hints; caller still checks module and object rights."""
     with office.lock:
@@ -147,13 +159,15 @@ def command_module(path, module_name):
     """Explicit business areas. Settings remain reachable to re-enable a module."""
     if path.startswith('/organization') or path.startswith('/settings/') or path == '/commercial/settings':
         return None
+    if module_name == 'business_portal' and re.fullmatch(r'/portal/grants/[a-f0-9]{32}/revoke', path):
+        return None
     if module_name == 'business_time' or re.match(r'^/(employees|absences|shifts)(?:/|$)', path):
         return 'personnel'
     if module_name == 'business_planning':
         return 'planning'
     if module_name == 'business_adapters' and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/(apply|offer)', path):
         return 'documents'
-    return {'business_inventory': 'material', 'business_purchasing': 'material', 'business_documents': 'documents',
+    return {'business_inventory': 'material', 'business_purchasing': 'material', 'business_documents': 'documents', 'business_portal': 'documents',
             'business_finance': 'finance'}.get(module_name)
 
 

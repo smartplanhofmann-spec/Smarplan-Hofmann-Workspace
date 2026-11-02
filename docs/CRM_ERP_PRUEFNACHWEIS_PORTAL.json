@@ -1,0 +1,163 @@
+{
+  "date": "2026-11-02",
+  "base_commit": "54b08c2062eb03fb34ae425d4e2aaeb8310b2ca1",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "scope": "Isolated customer access to an explicitly released final offer, original PDF, immutable acceptance/decline, separate authorized staff adoption into one draft order confirmation in the existing project. Internal Browser/Flutter management and generic Flutter permission editor. No full acceptance A-G or production deployment.",
+  "results": {
+    "portal_domain_and_registration": {
+      "run": 26,
+      "passed": 26,
+      "domain_migration": 22,
+      "registration": 4,
+      "seconds": 3.959,
+      "log": "portal-domain.log"
+    },
+    "registration_and_router": {
+      "passed": 10,
+      "log": "portal-registration.log"
+    },
+    "schema_foundation_organization": {
+      "passed": 58,
+      "log": "portal-registry-foundation-regressions.log"
+    },
+    "independent_http_mfa_tls": {
+      "passed": 9,
+      "flask_https_testclient": 8,
+      "real_loopback_tls": 1,
+      "verified_tls": [
+        "explicit synthetic CA",
+        "hostname verification",
+        "untrusted CA rejected",
+        "wrong hostname rejected"
+      ],
+      "log": "portal-http-tls-journey.log"
+    },
+    "http_restore_and_existing_regressions": {
+      "passed": 59,
+      "new_transport_restore_cases": 7,
+      "seconds": 15.022,
+      "log": "portal-http.log"
+    },
+    "postgres_portal": {
+      "passed": 8,
+      "skipped": 0,
+      "seconds": 15.016,
+      "database": "Disposable loopback smartplan_check on PostgreSQL16.15",
+      "coverage": [
+        "separate runtime/migration roles",
+        "append-only ACL and triggers",
+        "separate-connection declaration and adoption races",
+        "atomic conversion rollback",
+        "prior-schema additive migration",
+        "actual pg_dump/pg_restore and runtime complete_restore"
+      ],
+      "log": "pg-test_postgres_portal_integration.log"
+    },
+    "caddy_tls_maintenance": {
+      "passed": 1,
+      "seconds": 1.526,
+      "coverage": "Actual isolated Caddy with explicit test CA; browser portal CSP and all public portal paths under maintenance gate. Synthetic upstream; no deployment claim.",
+      "log": "portal-caddy-tls.log"
+    },
+    "backend_full": {
+      "run": 443,
+      "passed": 442,
+      "skipped": 1,
+      "skip_reason": "Windows job-object cleanup on Linux",
+      "seconds": 69.135,
+      "log": "portal-backend-full.log"
+    },
+    "native_package_sources": {
+      "passed": 14,
+      "log": "portal-native-release.log"
+    },
+    "flutter_targeted": {
+      "passed": 26,
+      "portal_widgets": 10,
+      "real_http": 1,
+      "permissions": 9,
+      "session": 6,
+      "log": "portal-flutter-targeted.log"
+    },
+    "flutter_full": {
+      "passed": 362,
+      "skipped": 0,
+      "seconds": 104,
+      "analysis_findings": 0,
+      "log": "portal-flutter-full.log",
+      "analysis_log": "portal-flutter-analyze.log"
+    },
+    "browser_unit": {
+      "passed": 72,
+      "skipped": 0,
+      "log": "portal-browser-unit-regression.log"
+    },
+    "browser_e2e": {
+      "workflows_passed": 10,
+      "sandbox_verified": [
+        "Namespace",
+        "PID namespaces",
+        "Network namespaces",
+        "Seccomp-BPF"
+      ],
+      "visual_review": [
+        "Desktop customer offer",
+        "390px customer offer"
+      ],
+      "log": "portal-browser-e2e.log",
+      "transport": "Actual Chromium and loopback HTTP fixture mapping only the expected Origin to the configured HTTPS proxy contract; real TLS is tested separately."
+    },
+    "original_file": "Byte comparison against the original uploaded attachment and SHA-256 passed."
+  },
+  "review_fixes": [
+    "Runtime feature was missing its static declaration; real capability tests reproduced the registration failure.",
+    "SQLite Row membership checked values instead of field names; real domain and HTTP tests reproduced incomplete grant/decision/adoption DTOs.",
+    "Late Flutter grant response could redisplay a one-time link after a known permission denial or revocation; epoch/denial guard and two delayed-response regressions now cover this.",
+    "Browser harness corrected a wrong organization field label and awaits actual legacy-calendar rendering before unchanged seven-day/no-timeline assertions; final complete run passed."
+  ],
+  "limitations": [
+    "Offer creation requires a pre-existing customer project; this does not create a new project after acceptance.",
+    "No general customer account, file exchange or released project-information portal yet.",
+    "Link possession and declared name are not independently verified authority or a qualified electronic signature.",
+    "No external message, production deployment, real device installation or customer data migration performed.",
+    "Full acceptance A-G, EÜR bookkeeping and regular-employee/minijob payroll remain open."
+  ],
+  "changed_code_sha256": {
+    ".github/workflows/checks.yml": "fa402960d4560cd54345f99cd6a9fcd7717c23e1345074fd01db742bd0357fc3",
+    "app/lib/business_documents.dart": "4d839b267aaf412aaebb45eaf57ab34aa43eb625c35737536ad1720cfed82141",
+    "app/lib/business_permissions.dart": "22d2da79df380d424ab1c056743bf874d2a724f8699cdab0aa44ed8c7adc388c",
+    "app/lib/business_portal.dart": "0c0bf4570208fa2f87c63962efd01cdd3976251676993a75e9969f1a9e9a52d1",
+    "app/lib/business_session.dart": "008b7dc4df3c525b1db0fbcea740dccf64fe8530c1f146348e51b18111b2576d",
+    "app/lib/business_settings.dart": "f3dd2df6a170717384701e542d694eef04f94459bb409d35e6af0f139e72a006",
+    "app/test/business_permissions_test.dart": "4fbef78ee1042751fe718670849bb396afb28a571a20349ee5a7c4dfb5165145",
+    "app/test/business_portal_http_test.dart": "19fc073460583145edb9129a3a6148a32434e0efd6c49c7a8ea3afe34e3bba4c",
+    "app/test/business_portal_test.dart": "10831d9ac7ec9577631a2c6bc2b7e05f662b0a86d3b092949a27f243de5f807c",
+    "backend/business_api.py": "ccf82618d3ebbb73e53e675705e9b9092209611682060eb472327f63a7ad56d3",
+    "backend/business_foundation.py": "ac808f5b9b068065530916eb2b6db0981dc6fe9511b00bf7e98209c1b02a749e",
+    "backend/business_organization.py": "5e28c9d3020ff1d86819af6da15396049f6d0f593c0fc6bf70c7d52abd0ffd84",
+    "backend/business_portal.py": "63d1d7c0841f48821d726c9f253ab79dfde2d205eaa3d17305fe6b5639e50bd2",
+    "backend/business_schema.py": "2c857b90a5c2a70311f644910e75847cfaab3a756696e62caabe34a0ab1f7a14",
+    "backend/online/portal.py": "808a9a58a074c2ede58b235417b44ce4bc8cf7f1c4d8126bf1b1d52da4f61455",
+    "backend/online/restore.py": "7994b13e4560cb3615cc7711e56a5649de3851da2b34c75167e40d654c7396f2",
+    "backend/online/test_portal_http.py": "d82ca49fd0b539f3fb911199335b80e2f5d3e8eb717ad1b64c8210240aee480e",
+    "backend/online/test_portal_journey.py": "bcd9b90048b69f9ac32de480909f46b43503fad151b609996715c23c695d3a2f",
+    "backend/online/test_postgres_portal_integration.py": "841c2bcfdd92c796c053c759d5f98b86a4057cdb92d1be3f4c8d74c092240ef2",
+    "backend/online/test_release_tls.py": "db57cb25d861b40d878277f168476608137585e8f5518d4fb5ea0d3d7e4fd6b0",
+    "backend/online/web.py": "ca23a8aabd45d285d4d9b6f9793b4a7f28bc2a46d48a59d05947e866d080f3db",
+    "backend/restore.py": "a9ac33b25fc0ec6ce63c1991d6cfc201a2d574c6f935ac6e74a7abb7c172583b",
+    "backend/test_business_portal.py": "e9e595cebfb2011462d9786be6e76bbb51a95229497bbe446232143c8327c3a1",
+    "backend/test_business_portal_registration.py": "5ddefdd101bfb8ec9bd57b7818d980d8bdee53a62d72cd908c6a046842f91c05",
+    "scripts/native-release.py": "791e48967e4602d3b804cabdb74e0ae5e7c9ba8a0599ef7e7c2fac9d9b4aeebb",
+    "scripts/package-windows-support.py": "082bbf00dc4048ecf8311996f8bae9ffa6d77bbbd8f26f74129ebd0f0369ecda",
+    "web/office/office.js": "3af38895b819f935a9464e94db46401dad3dccd2ca95e99a8210e2b9c49fb9cb",
+    "web/office/portal.css": "c2887fa779f6889dd0e9acaeb7a2cda31fd0d937a7e887f6425acb605ebbe968",
+    "web/office/portal.html": "bc366836695680d8555397433917af49c874f7a9f37648326cc17c30b809ff09",
+    "web/office/portal.js": "feb121fa2c48b50b89c2f26278cfe197a9756f08985e2b687b0277871bf7911a",
+    "web/office/tests/e2e.cjs": "3bbc18c0d81f710741ad3188ed56453f706d8fbe2819cf211e4e606c8e131514",
+    "web/office/tests/portal-flow.cjs": "6613550f5f799dc7108c1d1cfc0696c748d3498cb999106f42990af4e1458ef0",
+    "web/office/tests/portal-staff.test.mjs": "d871c22703b5d64d3fc386efa87b7d3cf61d20f2d2d830081ae8aa7e92b5e6e0",
+    "web/office/tests/portal.test.mjs": "b7d64c08c944edf035e8331c80b17d7b4dd30e688f1b6d1ac85af7ebf9fef9bc",
+    "web/office/tests/serve_fixture.py": "e2491c5651005faa66f8a4baecb969ca973a2e0fdb25ede635169042087cf729"
+  },
+  "note": "Test groups overlap and must not be added as unique acceptance counts. Logs reside in ignored work/verification; test sources, reports and hashes are stored in the repository."
+}

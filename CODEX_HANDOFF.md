@@ -50,9 +50,15 @@ Der lokale Stand `64bdc26` ergänzt Bestellungen, Teil-/Restlieferungen und
 Lagerkosten. Die folgende Erweiterung schließt die preisfreie Einkaufsartikelwahl
 für Lagerrollen und schützt vollständige Artikelsnapshots vor unbeabsichtigten
 Kalkulationsangaben. Aktuelle Prüfnachweise stehen im Fortschrittsbericht.
-Nächster Fachabschnitt ist der [Portalplan](docs/CRM_ERP_PORTAL_PLAN.md):
-Angebotsansicht/PDF, gesonderte Kundenentscheidung und interne Übernahme im
-bestehenden Projekt. Er ist ein Plan und noch keine implementierte Portalroute.
+Der nächste entwickelte Abschnitt ist das [Angebotsportal](docs/CRM_ERP_PORTAL.md):
+Angebotsansicht/PDF, getrennte Kundenidentität, gesonderte Kundenentscheidung
+und interne Übernahme im bestehenden Projekt. Schnittstellen und Grenzen stehen
+im [API-Vertrag](docs/CRM_ERP_PORTAL_API.md), ausgeführte Prüfungen im
+Fortschrittsbericht. Zugangsdaten bleiben von Office-/Offline-Tokens getrennt;
+eine echte Wiederherstellung widerruft Portalzugänge und erhält die Historie.
+Allgemeine Kundenkonten, Dateiaustausch, freigegebene Projektinformationen und
+Angebote vor der Projektanlage bleiben offen. EÜR und Lohn sind noch keine
+implementierten oder fachlich abgenommenen Module.
 
 ## Verbindliche aktuelle Nutzerentscheidungen – 25. Oktober 2026
 

@@ -67,9 +67,11 @@ def restore(source, active_dsn, target_dsn, *, privileged_operator=False, test_m
             from business_documents import sanitize_after_restore as sanitize_documents
             from business_finance import sanitize_after_restore as sanitize_finance
             from business_adapters import sanitize_after_restore as sanitize_adapters
+            from business_portal import sanitize_after_restore as sanitize_portal
             sanitize_documents(office)
             sanitize_finance(office)
             sanitize_adapters(office)
+            sanitize_portal(office.db)
             restore_id = uuid.uuid4().hex
             office.db.execute('UPDATE business_restore_state SET pending=1,financial_reconciliation_required=1,restore_id=? WHERE singleton=1',
                               (restore_id,))

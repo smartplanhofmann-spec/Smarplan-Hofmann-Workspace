@@ -143,7 +143,8 @@ class ReleaseMaintenanceTlsTest(unittest.TestCase):
                         self.assertEqual(request('/ready')[0], 401)
                         self.assertEqual(request('/api/v1/business/meta')[0], 401)
                         self.assertNotIn("script-src 'self'", request('/api/v1/projects')[1]['content-security-policy'])
-                        for path in ('/', '/office', '/office/', '/office/office.js', '/office/contact.html', '/office/contact.js'):
+                        for path in ('/', '/office', '/office/', '/office/office.js', '/office/contact.html', '/office/contact.js',
+                                     '/office/portal.html', '/office/portal.js', '/office/portal.css'):
                             with self.subTest(phase='browser', path=path):
                                 status, headers, _ = request(path)
                                 self.assertEqual(status, 401)
@@ -167,6 +168,9 @@ class ReleaseMaintenanceTlsTest(unittest.TestCase):
                         source = 'b' * 32
                         import_path = f'/api/v1/projects/{project}/plan-imports/{source}'
                         for path in ('/', '/office', '/office/office.js', '/office/contact.html', '/office/contact.js',
+                                     '/office/portal.html', '/office/portal.js', '/office/portal.css',
+                                     '/api/v1/portal/sessions', '/api/v1/portal/offer', '/api/v1/portal/offer/pdf',
+                                     '/api/v1/portal/offer/decision', '/api/v1/portal/logout',
                                      '/api/v1/intake/contact', '/api/v1/business/meta', '/api/v1/business/documents/finalize',
                                      '/api/v1/projects', '/api/v1/offline/access', '/ready', '/health',
                                      import_path, import_path + '/source', import_path + '/preview',

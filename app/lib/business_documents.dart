@@ -8,6 +8,7 @@ import 'business_session.dart';
 import 'business_document_pricing.dart';
 import 'business_widgets.dart';
 import 'business_documentation.dart';
+import 'business_portal.dart';
 import 'design.dart';
 import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
@@ -1838,6 +1839,23 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
                   ],
                 ),
                 const SizedBox(height: 24),
+                if (!draft &&
+                    d['kind'] == 'offer' &&
+                    widget.session.hasFeature('offer_portal'))
+                  BusinessOfferPortalPanel(
+                    session: widget.session,
+                    offerId: widget.id,
+                    projectId: '${d['project_id']}',
+                    onOpenDocument: (id) => Navigator.push<void>(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BusinessDocumentPage(
+                          session: widget.session,
+                          id: id,
+                        ),
+                      ),
+                    ),
+                  ),
                 for (final signature in signatures)
                   Card(
                     child: ListTile(

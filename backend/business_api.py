@@ -11,7 +11,7 @@ from core import Problem
 MODULES = (
     'business_foundation', 'business_documents', 'business_finance',
     'business_planning', 'business_time', 'business_operations',
-    'business_inventory', 'business_maintenance', 'business_adapters', 'business_organization', 'business_purchasing',
+    'business_inventory', 'business_maintenance', 'business_adapters', 'business_organization', 'business_purchasing', 'business_portal',
 )
 
 
@@ -104,7 +104,12 @@ def capabilities(office, actor, project_id=None):
                     not isinstance(name, str) or not re.fullmatch(r'[a-z][a-z0-9_]{2,40}', name)
                     for name in declared):
                 raise RuntimeError('Invalid packaged business feature declaration')
-            features.update(declared)
+            select_features = getattr(module, 'runtime_features', None)
+            offered = select_features(office) if select_features is not None else declared
+            if (not isinstance(offered, (tuple, list, set, frozenset))
+                    or any(name not in declared for name in offered)):
+                raise RuntimeError('Invalid runtime business feature declaration')
+            features.update(offered)
         global_permissions = sorted(permissions(office, actor)) if state.get('storage_version') == 7 else []
         effective = global_permissions
         if project_id is not None:
@@ -177,7 +182,9 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
         current = business_schema.state(office)
         active = current.get('capabilities', [])
         readable = current.get('read_capabilities', [])
-        if module.__name__ not in active and not (method == 'GET' and module.__name__ in readable):
+        security_revoke = (module.__name__ == 'business_portal' and method == 'POST'
+            and re.fullmatch(r'/portal/grants/[a-f0-9]{32}/revoke', relative) is not None)
+        if module.__name__ not in active and not ((method == 'GET' or security_revoke) and module.__name__ in readable):
             raise Problem(409, 'Dieses Modul ist im aktuellen Betriebsmodus nicht schreibend freigegeben.')
         if method != 'GET' and 'business_organization' in readable:
             from business_organization import require_active

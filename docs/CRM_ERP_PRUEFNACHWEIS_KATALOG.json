@@ -88,5 +88,6 @@
     "web/office/tests/purchasing-flow.cjs": "ba35f82f211c109f844f3c4166458186bb639eb5df98eb9e3739acffaed20021",
     "web/office/tests/serve_fixture.py": "952c3b8023d18970c89788e545ed05f1543a972a7c83639d373a98515a49821a"
   },
-  "note": "Test groups overlap and must not be added as unique acceptance counts. Raw logs reside in ignored work/verification; tests, reports and hashes are committed."
+  "note": "Test groups overlap and must not be added as unique acceptance counts. Raw logs reside in ignored work/verification; tests, reports and hashes are committed.",
+  "implementation_commit": "54b08c2062eb03fb34ae425d4e2aaeb8310b2ca1"
 }

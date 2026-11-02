@@ -20,7 +20,7 @@ BACKEND_FILES = ('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py
                  'business_documents.py', 'business_pricing.py', 'business_finance.py', 'business_einvoice.py', 'business_delivery.py',
                  'business_planning.py', 'business_time.py', 'business_operations.py',
                  'business_inventory.py', 'business_maintenance.py', 'business_adapters.py',
-                 'business_organization.py', 'business_instance.py', 'business_purchasing.py',
+                 'business_organization.py', 'business_instance.py', 'business_purchasing.py', 'business_portal.py',
                  'requirements.lock')
 WINDOWS_DLLS = ('flutter_windows.dll', 'printing_plugin.dll', 'pdfium.dll', 'file_selector_windows_plugin.dll',
                 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll',

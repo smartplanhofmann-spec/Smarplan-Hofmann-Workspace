@@ -48,6 +48,9 @@ jobs:
           python -m unittest discover -s backend/online -p test_purchasing_journey.py -v
           python -m unittest discover -s backend/online -p test_purchasing_catalog_http.py -v
           python -m unittest discover -s backend/online -p test_postgres_purchasing_integration.py -v
+          python -m unittest discover -s backend/online -p test_portal_http.py -v
+          python -m unittest discover -s backend/online -p test_portal_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_portal_integration.py -v
           python -m unittest discover -s backend/online -p test_plans_online.py -v
           python -m unittest discover -s backend/online -p test_plan_imports.py -v
           python -m unittest discover -s backend/online -p test_import_cancellation.py -v
@@ -428,7 +431,7 @@ jobs:
             }
           }
           New-Item -ItemType Directory -Force (Join-Path $smartplanBundle 'backend') | Out-Null
-          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'external_integrations.py', 'integration_bridge.py', 'business_api.py', 'business_schema.py', 'business_foundation.py', 'business_documents.py', 'business_pricing.py', 'business_finance.py', 'business_einvoice.py', 'business_delivery.py', 'business_planning.py', 'business_time.py', 'business_operations.py', 'business_inventory.py', 'business_maintenance.py', 'business_adapters.py', 'business_organization.py', 'business_instance.py', 'business_purchasing.py', 'requirements.lock')) {
+          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'external_integrations.py', 'integration_bridge.py', 'business_api.py', 'business_schema.py', 'business_foundation.py', 'business_documents.py', 'business_pricing.py', 'business_finance.py', 'business_einvoice.py', 'business_delivery.py', 'business_planning.py', 'business_time.py', 'business_operations.py', 'business_inventory.py', 'business_maintenance.py', 'business_adapters.py', 'business_organization.py', 'business_instance.py', 'business_purchasing.py', 'business_portal.py', 'requirements.lock')) {
             Copy-Item (Join-Path '../backend' $smartplanFile) -Destination (Join-Path $smartplanBundle 'backend')
           }
           Copy-Item '../windows/*.cmd' -Destination $smartplanBundle

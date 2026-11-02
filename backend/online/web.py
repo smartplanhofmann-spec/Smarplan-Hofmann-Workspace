@@ -144,6 +144,9 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                                os.environ.get('SMARTPLAN_INSTANCE_ID'), host, key, storage)
     from online.integrations_service import OnlineIntegrations, methods as integration_methods
     integrations = integrations or OnlineIntegrations(office, key, host)
+    # Only this verified online context advertises reachable portal links.
+    # Local Office constructors intentionally do not set a public origin.
+    office.portal_origin = 'https://' + host
     app = Flask(__name__, static_folder=None)
     app.extensions['smartplan_storage'] = storage
     app.extensions['smartplan_onedrive'] = storage.onedrive
@@ -178,13 +181,17 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     @app.get('/office/<asset>')
     def office_browser(asset='index.html'):
         types = {'index.html': 'text/html', 'office.js': 'text/javascript', 'office.css': 'text/css',
-                 'contact.html': 'text/html', 'contact.js': 'text/javascript'}
+                 'contact.html': 'text/html', 'contact.js': 'text/javascript',
+                 'portal.html': 'text/html', 'portal.js': 'text/javascript', 'portal.css': 'text/css'}
         if asset not in types:
             raise Problem(404, 'Datei nicht gefunden.')
         source = Path(__file__).resolve().parents[2] / 'web' / 'office' / asset
         if not source.is_file() or source.is_symlink():
             raise Problem(404, 'Browseroberfläche nicht installiert.')
         return send_file(source, mimetype=types[asset])
+
+    from online.portal import register_portal_routes
+    register_portal_routes(app, office, key, office.portal_origin)
 
     @app.post('/api/v1/intake/contact')
     def receive_contact_form():

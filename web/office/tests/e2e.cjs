@@ -117,6 +117,7 @@ async function main(){
     await page.getByLabel('Personal fachlich aktiv',{exact:true}).check();await saveOrganization();
     assert.equal(await page.locator('.navigation').getByRole('button',{name:'Personal',exact:true}).count(),1);
     console.log('browser: manual module visibility retained, hidden personnel opened by administrator, inactive history stayed readable and reactivation restored writes');
+    await require('./portal-flow.cjs').portalFlow({page,context,navigate,ready,fixture,screenshots});
     const {purchasingFlow,purchasingReadOnly,purchasingCatalogFlow}=require('./purchasing-flow.cjs');
     const purchaseOrderId=await purchasingFlow({page,context,navigate,ready,fixture,screenshots});
     await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Einsatzplanung');
@@ -171,7 +172,11 @@ async function main(){
     let compatibility='readonly';const capRoute='**/api/v1/business/capabilities';
     await context.route(capRoute,async route=>{const response=await route.fetch();const value=await response.json();await route.fulfill({response,json:compatibility==='readonly'?{...value,readonly:true}:{...value,features:[]}});});
     await navigate(page,'Einsatzplanung');assert.equal(await page.locator('.timeline-edit').count(),0);assert.ok(await page.locator('.timeline-project-bar').count());
-    compatibility='legacy';await navigate(page,'Einsatzplanung');assert.equal(await page.getByLabel('Planungsansicht',{exact:true}).count(),0);assert.equal(await page.locator('.timeline-row').count(),0);assert.equal(await page.locator('.calendar .day').count(),7);
+    compatibility='legacy';await navigate(page,'Einsatzplanung');
+    // Removing organization feature metadata rebuilds the shell before the
+    // asynchronous legacy calendar is inserted. Wait for that actual view.
+    await page.locator('.calendar .day').nth(6).waitFor({state:'visible'});await ready(page);
+    assert.equal(await page.getByLabel('Planungsansicht',{exact:true}).count(),0);assert.equal(await page.locator('.timeline-row').count(),0);assert.equal(await page.locator('.calendar .day').count(),7);
     await context.unroute(capRoute);await navigate(page,'Einsatzplanung');
     await page.getByLabel('Planungsansicht',{exact:true}).selectOption('week');await ready(page);await page.getByRole('button',{name:'Heute',exact:true}).click();await ready(page);
     await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);
@@ -234,7 +239,7 @@ async function main(){
     await page.goto(fixture.base_url+'/office/');await login(page,'owner@browser.example.test',recovery[0]);await navigate(page,'Anfragen');assert.equal(await page.getByRole('heading',{name:'Synthetic public website inquiry',exact:true}).count(),1);
     assert.deepEqual(pageErrors,[]);await context.close();
     console.log('browser: public form had no bearer, lost acknowledgement retried one inquiry and reply remained pending');
-    console.log('9 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
+    console.log('10 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
   }catch(error){
     console.error('SMARTPLAN_BROWSER_FAILURE_BEGIN');
     console.error(compactFailure(error));

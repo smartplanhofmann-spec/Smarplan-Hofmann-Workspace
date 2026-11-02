@@ -27,7 +27,7 @@ Abnahmen A–G werden in [Anforderungen](CRM_ERP_ANFORDERUNGEN.md) nachverfolgt.
 | --- | --- | --- |
 | 0. Bestand konsolidieren | Vorhandene Business-Suite integrieren; Backend-, Browser- und App-Prüfungen erneut ausführen; historische Aussagen kennzeichnen | umgesetzt und geprüft; ursprüngliche Browserblockade im zweiten Abschnitt behoben, 8 echte Browserabläufe bestanden |
 | 1. Unternehmensgrundlage und Dokumenterhalt | Bedarf erfassen; manuell korrigierbare Modulvorschläge; Sichtbarkeit, Aktivierung und Rechte trennen; feste Unternehmensinstanz an Datenbank/Ablage binden; signierte Protokolle gegen beschädigte Inhalte und verlorene Antworten absichern | implementiert und mit den im Fortschrittsbericht genannten Prüfungen getestet; vollständige Infrastrukturtrennung bleibt offen |
-| 2. Anfrage bis Zahlung vervollständigen | Vorhandene Angebote/Kalkulation/Zeiten/Kosten/Rechnungen verbinden; Kundenportal mit enger Freigabe und nachvollziehbarer Annahme; durchgängige Abnahme B mit Wiederholung/Neustart/Rechteentzug | offen; konkreter nächster [Portalabschnitt](CRM_ERP_PORTAL_PLAN.md) vorbereitet |
+| 2. Anfrage bis Zahlung vervollständigen | Vorhandene Angebote/Kalkulation/Zeiten/Kosten/Rechnungen verbinden; Kundenportal mit enger Freigabe und nachvollziehbarer Annahme; durchgängige Abnahme B mit Wiederholung/Neustart/Rechteentzug | erster [Angebotsportalabschnitt](CRM_ERP_PORTAL.md) implementiert; vollständige Abnahme B weiter offen |
 | 3. Einkauf bis Service | Bestellungen mit Teil-/Restwareneingängen, Lagerbewegungen und Projektkosten verbinden; Katalogimporte mit Vorschau/Einheiten/Fehlerbericht; Service- und Betriebsmittelhistorie, Abnahme C | lokaler Bestell-/Liefer-/Kostenablauf implementiert; [Umfang und Grenzen](CRM_ERP_EINKAUF.md); tatsächliche Bestellauslösung, Originalbeleg- und strukturierte Gerätebindung weiter offen |
 | 4. Buchführung | Erste vollständige Version für Einzelunternehmen mit EÜR: reproduzierbares Journal, Zahlungs-/Steuerzuordnung, Perioden/Korrekturen und Steuerberaterexport; weitere Buchführungsfälle separat | offen; Umfang vom Nutzer am 02.11.2026 festgelegt |
 | 5. Personal und Lohn | Erste deutsche Lohnabrechnung für reguläre Mitarbeiter und Minijobs: vorhandene Mitarbeiter/Zeiten/Abwesenheiten ergänzen, Reisekosten, geprüfte Abrechnungsfälle/Korrekturen und Meldungen nach tatsächlichen Zugangs-/Prüfvorgaben, Abnahme D | offen; Beschäftigungsumfang vom Nutzer am 02.11.2026 festgelegt |
@@ -37,10 +37,11 @@ Abnahmen A–G werden in [Anforderungen](CRM_ERP_ANFORDERUNGEN.md) nachverfolgt.
 
 Nach Abschnitt 1 wurde die lokale Lieferkettenlücke aus Abschnitt 3 bearbeitet.
 Die ergänzende preisfreie Artikelwahl schließt den Einstieg für reine Lagerrollen.
-Danach folgen Angebotsannahme und Kundenportal aus Abschnitt 2 nach dem
-[konkreten Portalplan](CRM_ERP_PORTAL_PLAN.md). Dieser erste Portalabschnitt
-verwendet das vorhandene Projekt-/Belegmodell und ersetzt noch nicht die
-gesamte Abnahme B.
+Danach wurde der erste [Angebotsportalabschnitt](CRM_ERP_PORTAL.md) aus
+Abschnitt 2 entwickelt: eigene Kundensitzung, ausdrückliche Erklärung und
+gesonderte interne Übernahme. Er verwendet das vorhandene Projekt-/Belegmodell
+und ersetzt noch nicht die gesamte Abnahme B. Allgemeiner Dateiaustausch,
+Projektfreigaben und Projektanlage nach Annahme bleiben weitere Arbeit.
 
 Abschnitt 1 verwendet zunächst einen eigenen Prozess, Datenbankzugang,
 Dateibestand, Geheimnissatz, Datenschutz-Checkpoint und Worker je Unternehmen.

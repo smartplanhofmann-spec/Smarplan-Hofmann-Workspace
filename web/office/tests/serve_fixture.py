@@ -27,7 +27,7 @@ from online.web import create_app
 from business_foundation import BusinessFoundation
 from business_operations import BusinessOperations
 from business_inventory import BusinessInventory
-from business_documents import Documents
+from business_documents import Documents, render_prepared
 from business_planning import Planning
 from business_organization import Organization
 from inquiries import Inquiries
@@ -60,7 +60,9 @@ def seed(office, directory):
     customer = office.create_customer(owner, {'name': 'Synthetic Workshop Customer', 'email': 'customer@example.test',
         'address': 'Synthetic street 1, 00000 Testcity'})
     project = office.add_project(owner, 'Synthetic Workshop', customer_id=customer['id'])
-    private = office.add_project(owner, 'Private synthetic project', 'Separate synthetic customer')
+    second_customer = office.create_customer(owner, {'name': 'Separate synthetic customer', 'email': 'second@example.test',
+        'address': 'Synthetic street 2, 00000 Testcity'})
+    private = office.add_project(owner, 'Private synthetic project', customer_id=second_customer['id'])
     office.assign(owner, project, technician['id'])
     office.assign(owner, project, actors['accountant']['id'])
     office.assign(owner, project, actors['warehouse']['id'])
@@ -97,7 +99,7 @@ def seed(office, directory):
             pricing = documents.pricing_preview(owner, dict(base_cost_net='12.34', labor_hours='2',
                 hourly_cost_net='20', overhead_percent='10', markup_percent='25', quantity='1',
                 kind='material', unit='m', source_article_id=article['id'], source_article_revision=article['revision']))
-            documents.save_article(owner, request(code=f'SYN-UNSTOCKED-{index:03d}',
+            calculated = documents.save_article(owner, request(code=f'SYN-UNSTOCKED-{index:03d}',
                 name=f'Synthetic unstocked {index:03d}', pricing=pricing['inputs'],
                 pricing_hash=pricing['preview_hash'], price_confirmation=True))
         else:
@@ -111,6 +113,23 @@ def seed(office, directory):
     inventory = BusinessInventory(office)
     location = inventory.save_location(owner, request(name='Synthetic main store'))
     inventory.move(owner, request(kind='receive', article_id=article['id'], to_location_id=location['id'], quantity='10', unit_cost_net='1.25'))
+    documents.save_settings(owner, request(revision=0, company_name='Synthetic portal seller',
+        address_line='Synthetic seller street 1', postal_code='10115', city='Berlin', country='DE',
+        vat_id='DE123456789', email='seller@example.test', issuing_enabled=False, issuer_mode='own', einvoice_format='none'))
+    portal_offers = []
+    for offer_project, name, email, title in (
+            (project, 'Synthetic Workshop Customer', 'customer@example.test', 'Synthetic portal acceptance offer'),
+            (private, 'Separate synthetic customer', 'second@example.test', 'Synthetic portal decline offer')):
+        draft = documents.create(owner, request(project_id=offer_project, kind='offer', title=title,
+            issue_date='2026-11-02', due_date='2026-11-16',
+            buyer={'name': name, 'address_line': 'Synthetic buyer street 2', 'postal_code': '10117',
+                   'city': 'Berlin', 'country': 'DE', 'email': email},
+            intro='Synthetic public introduction <img src=x onerror="window.__unsafe=true">', notes='Synthetic public terms',
+            positions=[{'article_id': calculated['id'], 'article_revision': calculated['revision'], 'quantity': '1'}]))
+        prepared = documents.prepare_finalization(owner, draft['id'], draft['revision'])
+        final = documents.finalize(owner, draft['id'], render_prepared(prepared), uuid.uuid4().hex)
+        original = directory / (final['id'] + '.pdf'); original.write_bytes(documents.archive(owner, final['id'], 'pdf'))
+        portal_offers.append({'id': final['id'], 'title': title, 'number': final['number'], 'pdf_path': str(original)})
     # Explicit synthetic-only website source. No SMTP transport is configured;
     # form acceptance may queue one approved reply, never send one.
     os.environ['SMARTPLAN_WEBSITE_LEAD_SECRET']='SPLD_'+secrets.token_urlsafe(32)
@@ -123,7 +142,7 @@ def seed(office, directory):
     os.environ['SMARTPLAN_CONTACT_ADAPTER_ID']=adapter['id']
     adapters.approve_reply_template(owner,adapter['id'],request(revision=0,approved=True,enabled=True,subject='Ihre Anfrage',text='Guten Tag {sender_name}, die Anfrage ist eingegangen. Dies ist keine Auftragsbestätigung.'))
     office.db.commit()
-    return dict(project_id=project, private_project_id=private, photo_path=str(photo))
+    return dict(project_id=project, private_project_id=private, photo_path=str(photo), portal_offers=portal_offers)
 
 
 class LoopbackProxyContract:
@@ -135,7 +154,7 @@ class LoopbackProxyContract:
         # exact local Origin is mapped to this fixture's test HTTPS origin;
         # this is not an Origin/TLS acceptance test and changes no product code.
         local_origin=environ.get('wsgi.url_scheme','http')+'://'+environ.get('HTTP_HOST','')
-        if environ.get('PATH_INFO')=='/api/v1/intake/contact' and environ.get('HTTP_ORIGIN')==local_origin:
+        if (environ.get('PATH_INFO')=='/api/v1/intake/contact' or environ.get('PATH_INFO','').startswith('/api/v1/portal/')) and environ.get('HTTP_ORIGIN')==local_origin:
             environ['HTTP_ORIGIN']='https://127.0.0.1'
         environ['HTTP_HOST'] = '127.0.0.1'
         environ['HTTP_X_FORWARDED_PROTO'] = 'https'

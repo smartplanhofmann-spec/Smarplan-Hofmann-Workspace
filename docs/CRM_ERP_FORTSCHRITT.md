@@ -926,3 +926,7 @@ ausgeführt. Als nächster laufender Fachschritt verknüpft E1b-3a vorhandene
 Erstattungen ausdrücklich mit ihren ursprünglichen dokumentierten
 Zahlungsanteilen. Erst E1b-3b verwendet die exakt zurückgeführten Netto-/
 Steuercents für neue Einnahmen; alte Komponentenbeweise bleiben unverändert.
+
+Der geprüfte E1b-2-Code ist im lokalen Commit `81a42b38` gesichert.
+Der Prüfnachweis bindet die oben genannten Ergebnisse an diesen vollständigen
+Commit; die Entwicklung wird anschließend mit E1b-3a fortgesetzt.

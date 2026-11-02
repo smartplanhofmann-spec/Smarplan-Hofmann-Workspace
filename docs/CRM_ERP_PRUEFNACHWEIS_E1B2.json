@@ -206,5 +206,6 @@
     "sha256": "c2cea0a9400ac9a557249951d7d2040f8952c346546f4d8a9e11d66e45765840",
     "contents": "133893c8a4771366476bfdb07874592207c7b04a809704041dcfdfe4489f8a26  app/lib/business_accounting.dart\n6180e3f704b96dbd2b2dcfd876334359f359029690a6f9fd08e66da2f44d37d1  app/lib/business_accounting_components.dart\n20047cc1b79e8b68ccaa6165fd7df525a44526588ac5eb7031279e38e33474bc  app/lib/business_session.dart\ncc387527f3c31bae1284ed9a9713616fa65319df968d01fe2d6e9aa941f831b3  app/test/business_accounting_components_test.dart\nabdab3a3881103e325aae0b68a504b7313b2d1efba67af5c4e0e793f2b85d6eb  app/test/business_accounting_components_http_test.dart\n"
   },
-  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, summary and hashes are versioned. Completing this increment does not complete or stop the overall goal; refund-origin work continues next."
+  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, summary and hashes are versioned. Completing this increment does not complete or stop the overall goal; refund-origin work continues next.",
+  "implementation_commit": "81a42b381a78017186607509a5e8c18299e09cde"
 }

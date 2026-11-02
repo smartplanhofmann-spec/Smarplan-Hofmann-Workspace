@@ -110,6 +110,7 @@ Gesamtziel und Abnahmen A–G dürfen nicht wegen eines grünen Teilabschnitts a
 erledigt markiert werden.
 
 **Aktuell: [E1b-2](docs/CRM_ERP_EUER_E1B2_API.md) ist implementiert und geprüft.**
+Lokaler Codecommit `81a42b38`; der Prüfnachweis ist daran gebunden.
 Ganze ursprüngliche und zusätzliche Zahlungsanteile sowie Lieferantenzahlungen
 lassen sich ausdrücklich in dokumentierte Netto-/Steuercents aufteilen. Drei
 additive unveränderliche Tabellen, gemeinsame Beleggruppenreste und kumulative

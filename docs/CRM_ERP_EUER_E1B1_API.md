@@ -150,10 +150,13 @@ E1a-`restore_horizon` bleibt unverändert Version 1. Das neue Modul liefert
 `restore_horizon(office)` als `{schema_version:1,table_counts:{alle_eigenen_Tabellen:Anzahl},sha256}`
 über alle deterministisch sortierten eigenen Zeilen, einschließlich Requests.
 `business_schema.financial_accounting_horizon(office)` liefert bei installiertem
-Zusatzmodul `{schema_version:2,prejournal:<E1aH1>,allocations:<ZusatzH1>}`.
+Zusatzmodul ohne Komponentenmodul
+`{schema_version:2,prejournal:<E1aH1>,allocations:<ZusatzH1>}`.
 Ohne Zusatzmodul bleibt H1 bzw. None erhalten. Kein dynamischer OP im Restorehash.
+Mit [E1b-2](CRM_ERP_EUER_E1B2_API.md#wiederherstellung-und-clients) ergänzt H3
+den eigenen Komponentenstand; der hier beschriebene Teilhorizont bleibt erhalten.
 
-Neue Betreiberfreigaben benötigen Schema 3 bei installiertem Zusatzmodul,
+Neue Betreiberfreigaben benötigen Schema 3 bei installiertem Zusatzmodul ohne Komponenten,
 Schema 2 nur mit E1a, Schema 1 ohne Accounting. Schema 3 behält alle weiteren
 Schema-2-Felder und externe Abgleichsbestätigungen. Ein exakt historisch bereits
 bestätigter Schema-2-Bericht bleibt auch nach Migration wirkungsfrei quittierbar:
@@ -199,7 +202,8 @@ oder als alter E1a-Horizont ausgegeben.
 Der vollständige Betreiberbericht verwendet `schema:3` und dieses Objekt als
 `accounting_horizon`. Alle weiteren Felder und die private, unabhängige
 Quellenprüfung entsprechen dem Schema-2-Vertrag. Auch ein installiertes leeres
-Zuordnungsmodul verlangt für eine **neue** Freigabe Schema 3.
+Zuordnungsmodul ohne Komponenten verlangt für eine **neue** Freigabe Schema 3;
+mit Komponenten ist Schema 4 erforderlich.
 `--inspect` zeigt dafür `evidence_schema:3`; es erzeugt weiterhin keinen fertigen
 Prüfbericht, keine Tabellen und keine Freigabe.
 

@@ -45,8 +45,11 @@ Projektfreigaben und Projektanlage nach Annahme bleiben weitere Arbeit.
 E1a des [EÜR-Plans](CRM_ERP_EUER_PLAN.md) ergänzt Quellen und tatsächlich
 bestätigte EUR-Geldflüsse mit sichtbaren Klärungsfällen. Die zusätzliche
 quellengebundene Rechnungszuordnung und konsistente offene Posten sind als
-[E1b-1 implementiert und geprüft](CRM_ERP_EUER_E1B1_API.md). Als Nächstes folgen
-belegte Betragsaufteilung und Erstattungsursprünge aus den weiteren
+[E1b-1 implementiert und geprüft](CRM_ERP_EUER_E1B1_API.md). Die
+[belegte Betragsaufteilung E1b-2](CRM_ERP_EUER_E1B2_API.md) ist ebenfalls
+implementiert und geprüft. Als Nächstes folgen ausdrückliche
+Erstattungsursprünge (E1b-3a) und danach genaue
+Restkapazitätsabschnitte für erneute Einnahmen (E1b-3b) aus den weiteren
 [E1b-Akzeptanzfällen](CRM_ERP_EUER_E1B_ENTWURF.md), dann Korrekturen,
 Perioden und Beraterpaket. Der noch offene Umsatzsteuerstatus wird nicht aus
 der EÜR-Auswahl abgeleitet.

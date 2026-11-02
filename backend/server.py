@@ -74,7 +74,7 @@ def make_handler(office,drive,launch_id=""):
                     if self.command not in ("GET", "POST"):
                         raise Problem(405, "HTTP-Methode nicht erlaubt")
                 data={}
-                if (self.command == 'POST' and path.startswith('/api/business/accounting/allocations/')
+                if (self.command == 'POST' and path.startswith(('/api/business/accounting/allocations/', '/api/business/accounting/components/'))
                         and parsed.query):
                     raise Problem(400, 'Keine zusätzlichen Filter erlaubt')
                 if self.command=="POST":
@@ -85,7 +85,7 @@ def make_handler(office,drive,launch_id=""):
                     if not isinstance(data,dict):
                         raise Problem(400,"JSON-Objekt erwartet")
                 if self.command == 'GET' and path.startswith('/api/business/'):
-                    if (path.startswith('/api/business/accounting/allocations/') and
+                    if (path.startswith(('/api/business/accounting/allocations/', '/api/business/accounting/components/')) and
                             (int(self.headers.get('Content-Length', '0')) != 0 or self.headers.get('Transfer-Encoding'))):
                         raise Problem(400, 'GET erwartet keinen Anfragekörper')
                     data = business_api.query_data(urllib.parse.parse_qsl(parsed.query, keep_blank_values=True))

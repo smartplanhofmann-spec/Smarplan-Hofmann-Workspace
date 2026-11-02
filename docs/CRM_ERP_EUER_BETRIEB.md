@@ -1,7 +1,8 @@
 # EÜR-Vorbereitung: Geldflüsse und Wiederherstellung
 
 Stand: 02.11.2026. Dieser Abschnitt beschreibt E1a, das belegte EUR-Vorjournal,
-und die zusätzliche Rechnungszuordnung E1b-1.
+die zusätzliche Rechnungszuordnung E1b-1 und die dokumentarische
+Belegaufteilung E1b-2.
 Es erfasst bestätigte Geldflüsse mit Herkunft und ersetzt noch keine vollständige
 EÜR, Steuerberechnung, Kassenführung oder Bankabstimmung. Es löst keine Zahlung
 aus. Die erste vollständige Buchhaltung ist für ein Einzelunternehmen mit EÜR
@@ -98,6 +99,43 @@ Stornobezug. Erstattungsursprünge und steuerliche Komponenten werden noch nicht
 zugeordnet. Bestätigte Zuordnungen lassen sich hier noch nicht aufheben oder
 ersetzen; vor der Bestätigung müssen Rechnung, Kunde und Betrag stimmen.
 
+## Netto- und ausgewiesene Steueranteile dokumentieren
+
+Im Zahlungsnachweis öffnet „Beleganteile aufteilen“ die zugehörigen ganzen
+Quellenanteile: ursprüngliche Rechnungszuordnungen, zusätzliche bestätigte
+Zuordnungen oder die einzelne bestätigte Auszahlung auf einen geprüften
+Eingangsbeleg. Ein unzugeordneter Zahlungsrest muss zuvor gesondert geklärt
+werden. Die Aufteilung verändert weder die Zahlung noch offene Posten.
+
+1. Einen noch nicht dokumentierten Quellenanteil auswählen. Sein Gesamtbetrag
+   ist fest. Rechnungsnummer, Kunde/Lieferant und Belegquelle prüfen.
+2. Bei mehreren ausgewiesenen Steuergruppen die Bruttobeträge ausdrücklich
+   verteilen. Ihre Summe muss genau dem gewählten Anteil entsprechen; jede
+   Gruppe darf höchstens ihren angezeigten verfügbaren Rest verbrauchen.
+   Bei einer Gruppe kann der gesamte Anteil vorbelegt sein.
+3. „Vorschau prüfen“ zeigt die daraus berechneten Netto-/ausgewiesenen
+   Steueranteile und die Gruppenreste. Rundungscents werden über alle bereits
+   bestätigten Anteile desselben Belegs hinweg erhalten. Bei Eingangsbelegen
+   werden nur die bestätigten Gesamtsummen der festen Prüfversion verwendet;
+   es wird kein Steuersatz und kein Vorsteueranspruch daraus abgeleitet.
+4. Die Vorschau prüfen und die Aufteilung gesondert bestätigen. Eine veraltete
+   Vorschau wird abgewiesen. Bei verlorener Antwort den exakt vorgemerkten
+   Vorgang wiederholen; keine zweite neue Bestätigung anlegen.
+
+Die Historie hält die damaligen Werte fest. Jede ganze Quellenportion ist nur
+einmal verwendbar. Eine spätere oder rückdatierte Zahlung verändert keine
+bereits bestätigten Rundungscents. Eine vollständig bezahlte Rechnung oder ein
+inaktives Geldkonto verhindert die Dokumentation vorhandener Anteile nicht.
+Hat sich die Eingangsprüfung seit der Auszahlung geändert, bleibt eine neue
+Aufteilung bis zur Klärung gesperrt; frühere Nachweise bleiben lesbar.
+
+Erstattungen werden in diesem Abschnitt noch nicht ihren ursprünglichen
+Komponenten zugeordnet. Sie geben deshalb keine Gruppenkapazität automatisch
+wieder frei. Ein erneuter tatsächlicher Zahlungseingang bleibt als Geldfluss
+erfasst, auch wenn seine Aufteilung bei erschöpfter Gruppe noch ungeklärt ist.
+Aufteilungen lassen sich noch nicht aufheben oder ersetzen. Die steuerliche
+Einordnung bleibt ausdrücklich offen; dies ist keine fertige EÜR.
+
 ## Wiederherstellung einer lokalen SQLite-Sicherung
 
 Eine Wiederherstellung erhält Geldflüsse, Originale und Historie. Bei einem
@@ -127,8 +165,10 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    entsprechendem Windows-Dateipfad verwenden.
 3. Einen UTF-8-JSON-Prüfbericht im von `--inspect` ausgegebenen
    `evidence_schema` erstellen: [Schema 2](CRM_ERP_EUER_E1A_API.md#betreiberabgleich)
-   für einen reinen E1a-Bestand oder [Schema 3](CRM_ERP_EUER_E1B1_API.md#restore-und-clients)
-   bei installiertem Zuordnungsmodul, auch wenn es noch leer ist.
+   für einen reinen E1a-Bestand, [Schema 3](CRM_ERP_EUER_E1B1_API.md#restore-und-clients)
+   mit zusätzlichem Zuordnungsmodul ohne Komponenten oder
+   [Schema 4](CRM_ERP_EUER_E1B2_API.md#wiederherstellung-und-clients)
+   mit Komponentenmodul, auch wenn dessen Tabellen noch leer sind.
    Er enthält genau `schema`, `restore_id`, `reviewed_by`,
    `reviewed_at` mit Zeitzone, `number_horizons`, `outbound_reconciled:true`,
    `accounting_horizon`, `accounting_reconciled:true` und
@@ -142,6 +182,9 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    zusammengesetzten Horizont mit `schema_version:2`, `prejournal` und
    `allocations`. Die ursprüngliche E1a-Prüfsumme bleibt darin unverändert;
    der zusätzliche Teil umfasst alle Zuordnungseinträge und Quittungen.
+   Schema 4 verwendet `schema_version:3` und zusätzlich `components`.
+   Dieser dritte Teil bindet alle bestätigten Aufteilungen, Gruppenzeilen und
+   Quittungen. Beide bisherigen Teilhorizonte bleiben unverändert enthalten.
 4. Bericht privat speichern: unter POSIX höchstens Eigentümerrechte, etwa
    `chmod 600 abgleich.json`; unter Windows Zugriff über die Dateirechte auf die
    zuständigen Betreiber begrenzen. Keine Symlinks, keine öffentlichen Ablagen.
@@ -168,12 +211,14 @@ Finanzsperre erhalten. Die Ursache vor einer erneuten Freigabe klären.
 PostgreSQL verwendet weiterhin den vorhandenen Release-/Operatorpfad mit
 getrennter Datenbankrolle, gestoppten Datenbanknutzern und Datenschutzabgleich.
 Auch dort ist der Bericht für den gesamten installierten Umfang erforderlich:
-Schema 2 mit E1a oder Schema 3 mit zusätzlicher Rechnungszuordnung, selbst bei
-leeren Tabellen. Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
+Schema 2 nur mit E1a, Schema 3 mit zusätzlicher Rechnungszuordnung ohne
+Komponenten oder Schema 4 mit Komponentenmodul, selbst bei leeren Tabellen.
+Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
 
 ## Grenzen und nächste Schritte
 
-Zuordnung zu Buchhaltungs-/Steuerkomponenten, Quellenkorrekturen, Perioden,
+Steuerliche Freigabe der dokumentarischen Komponenten, Erstattungsbezüge,
+Quellenkorrekturen, Perioden,
 Anlagen, Privatanteile, Lohnbuchungen und Beraterpaket folgen gesondert. Ein
 Bankkonto in dieser Oberfläche ist kein Bankfeed; Bargeldkonto ist kein
 abgenommenes Kassenbuch. Keine vollständige Jahres-EÜR oder amtliche Meldung

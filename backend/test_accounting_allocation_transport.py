@@ -1,4 +1,4 @@
-"""Real local HTTP framing checks for the E1b-1 API; no invoice fixture needed."""
+"""Real local HTTP framing checks for strict accounting APIs; no invoice fixture."""
 from http.server import ThreadingHTTPServer
 import json
 from pathlib import Path
@@ -17,6 +17,10 @@ from server import make_handler
 
 
 class AllocationLocalTransportTests(unittest.TestCase):
+    actions = ('/preview', '/assign')
+    entries_table = 'business_accounting_allocation_entries'
+    components = False
+
     def setUp(self):
         temporary = tempfile.TemporaryDirectory(prefix='synthetic-allocation-local-http-')
         self.addCleanup(temporary.cleanup)
@@ -31,10 +35,12 @@ class AllocationLocalTransportTests(unittest.TestCase):
             source_id=uuid.uuid4().hex, kind='receipt', amount='10.00', currency='EUR',
             booking_date='2026-11-02', reference='Synthetic receipt', allocations=[]))
         source = Accounting(self.office).payment_sources(actor)['items'][0]
-        Accounting(self.office).import_payment(actor, dict(request_id=uuid.uuid4().hex,
+        event = Accounting(self.office).import_payment(actor, dict(request_id=uuid.uuid4().hex,
             payment_id=payment['id'], source_hash=source['source_hash'], account_id=account['id'],
             account_revision=account['revision'], cash_date='2026-11-02', evidence_reference='LOCAL-01', confirmation=True))
         self.path = '/api/business/accounting/allocations/payments/' + payment['id']
+        if self.components:
+            self.path = '/api/business/accounting/components/events/' + event['id']
         self.server = ThreadingHTTPServer(('127.0.0.1', 0), make_handler(self.office, OneDrive(self.office)))
         worker = threading.Thread(target=self.server.serve_forever, daemon=True)
         worker.start()
@@ -63,11 +69,17 @@ class AllocationLocalTransportTests(unittest.TestCase):
             self.assertIn('Anfragekörper', self.call('GET', body=body, status=400)['error'])
         self.assertIn('Anfragekörper', self.call('GET', status=400,
             extra_headers={'Transfer-Encoding': 'chunked'})['error'])
-        for route in ('/preview', '/assign'):
+        for route in self.actions:
             for query in ('?unexpected=1', '?limit=1&limit=2'):
                 self.assertIn('Filter', self.call('POST', route + query, {}, 400)['error'])
         self.assertEqual(self.office.db.total_changes, before)
-        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_accounting_allocation_entries').fetchone()[0], 0)
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM ' + self.entries_table).fetchone()[0], 0)
+
+
+class ComponentsLocalTransportTests(AllocationLocalTransportTests):
+    actions = ('/preview', '/confirm')
+    entries_table = 'business_accounting_component_entries'
+    components = True
 
 
 if __name__ == '__main__':

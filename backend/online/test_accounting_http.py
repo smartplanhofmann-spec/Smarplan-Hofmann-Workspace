@@ -114,7 +114,7 @@ class AccountingHTTPTests(unittest.TestCase):
         def changed_cash_horizon(**changes):
             horizon = report['accounting_horizon']
             return ({**horizon, 'prejournal': {**horizon['prejournal'], **changes}}
-                    if horizon['schema_version'] == 2 else {**horizon, **changes})
+                    if horizon['schema_version'] >= 2 else {**horizon, **changes})
         invalid = [{key: value for key, value in report.items() if not key.startswith('accounting_')},
             {**report, 'accounting_reconciled': False},
             {**report, 'accounting_external_review': {**report['accounting_external_review'], 'reviewed_since_backup': False}},
@@ -215,7 +215,7 @@ class AccountingHTTPTests(unittest.TestCase):
 
     def test_schema1_compatibility_and_legacy_restore_without_adding_accounting_tables(self):
         previous = tuple(spec for spec in business_schema.registry()
-                         if spec.name not in ('business_accounting', 'business_accounting_allocations'))
+                         if spec.name not in ('business_accounting', 'business_accounting_allocations', 'business_accounting_components'))
         with patch.object(business_schema, 'registry', return_value=previous):
             office = Office(self.directory / 'pre-accounting.sqlite3')
             self.addCleanup(office.db.close)

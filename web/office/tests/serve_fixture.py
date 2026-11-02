@@ -58,6 +58,9 @@ def seed(office, directory):
     allocator_email = 'allocator@browser.example.test'
     actors['allocator'] = dict(id=office.add_user(allocator_email, PASSWORD, 'accountant'),
                                email=allocator_email, role='accountant')
+    component_email = 'components@browser.example.test'
+    actors['components'] = dict(id=office.add_user(component_email, PASSWORD, 'accountant'),
+                                email=component_email, role='accountant')
     owner, technician = actors['owner'], actors['technician']
     organization = Organization(office)
     settings = organization.get(owner)
@@ -71,6 +74,7 @@ def seed(office, directory):
     second_customer = office.create_customer(owner, {'name': 'Separate synthetic customer', 'email': 'second@example.test',
         'address': 'Synthetic street 2, 00000 Testcity'})
     private = office.add_project(owner, 'Private synthetic project', customer_id=second_customer['id'])
+    office.assign(owner, private, actors['components']['id'])
     allocation_target = office.add_project(owner, 'Synthetic allocation target', customer_id=second_customer['id'])
     for allocation_project in (project, private, allocation_target):
         office.assign(owner, allocation_project, actors['allocator']['id'])
@@ -86,6 +90,9 @@ def seed(office, directory):
                                             scope='*', effect='allow', revision=0))
     for permission in ('accounting.read', 'accounting.prepare', 'finance.read', 'finance.write'):
         foundation.save_grant(owner, request(user_id=actors['allocator']['id'], permission=permission,
+                                            scope='*', effect='allow', revision=0))
+    for permission in ('accounting.read', 'accounting.prepare'):
+        foundation.save_grant(owner, request(user_id=actors['components']['id'], permission=permission,
                                             scope='*', effect='allow', revision=0))
     foundation.save_grant(owner, request(user_id=actors['bookkeeper']['id'], permission='documents.read',
                                         scope=project, effect='deny', revision=0))
@@ -164,13 +171,17 @@ def seed(office, directory):
     allocation_invoices = {}
     for key, target, buyer in (('primary', project, customer['name']),
                                 ('original', private, second_customer['name']),
-                                ('target', allocation_target, second_customer['name'])):
+                                ('target', allocation_target, second_customer['name']),
+                                ('component_single', private, second_customer['name']),
+                                ('component_multi', private, second_customer['name'])):
         draft = synthetic.create(owner, request(project_id=target, kind='invoice',
             title='Synthetic stored allocation invoice ' + key, issue_date='2026-11-02', due_date='2026-11-16',
             buyer={'name': buyer, 'address_line': 'Synthetic buyer street 2', 'postal_code': '10117',
                    'city': 'Berlin', 'country': 'DE', 'email': 'buyer@example.test'},
             positions=[{'description': 'Synthetic archived service', 'quantity': '1', 'unit': 'HUR',
-                        'unit_price_net': '100.00', 'tax_rate': '19', 'kind': 'labor'}]))
+                        'unit_price_net': '100.00', 'tax_rate': '19', 'kind': 'labor'}] +
+                      ([{'description': 'Synthetic second archive group', 'quantity': '1', 'unit': 'C62',
+                         'unit_price_net': '50.00', 'tax_rate': '7', 'kind': 'material'}] if key == 'component_multi' else [])))
         prepared = synthetic.prepare_finalization(owner, draft['id'], draft['revision'])
         final = synthetic.finalize(owner, draft['id'], render_prepared(prepared), uuid.uuid4().hex)
         archive = directory / (final['id'] + '.pdf'); archive.write_bytes(documents.archive(owner, final['id'], 'pdf'))
@@ -187,9 +198,20 @@ def seed(office, directory):
     allocation_shared = finance.record_payment(owner, request(source_id='SYN-ALLOCATION-SHARED',
         kind='receipt', amount='50.00', currency='EUR', booking_date='2026-11-01',
         reference='Synthetic allocation shared', allocations=[{'document_id': allocation_invoices['original']['id'], 'amount': '10.00'}]))
+    component_payments = []
+    for label, invoice_key, amount in (('single-1', 'component_single', '39.67'),
+            ('single-2', 'component_single', '39.67'), ('single-3', 'component_single', '39.66'),
+            ('multi', 'component_multi', '172.50')):
+        payment = finance.record_payment(owner, request(source_id='SYN-COMPONENT-' + label,
+            kind='receipt', amount=amount, currency='EUR', booking_date='2026-11-01',
+            reference='Synthetic component ' + label,
+            allocations=[{'document_id': allocation_invoices[invoice_key]['id'], 'amount': amount}]))
+        component_payments.append({'id': payment['id'], 'label': label, 'amount': amount,
+                                   'invoice_id': allocation_invoices[invoice_key]['id']})
     accounting_receipts = []
     for target, vendor, invoice in ((project, 'Synthetic accounting supplier', 'SYN-ACCT-001'),
-                                    (private, 'Private accounting supplier', 'SYN-PRIVATE-001')):
+                                    (private, 'Private accounting supplier', 'SYN-PRIVATE-001'),
+                                    (private, 'Synthetic component supplier', 'SYN-COMP-SUPPLIER')):
         original = b'%PDF-1.4\nSynthetic accounting evidence ' + invoice.encode() + b'\n%%EOF'
         receipt = finance.capture_receipt(owner, request(project_id=target, filename=invoice + '.pdf',
             media_type='application/pdf', original_base64=base64.b64encode(original).decode(), note='Synthetic original'))
@@ -212,7 +234,8 @@ def seed(office, directory):
     office.db.commit()
     return dict(project_id=project, private_project_id=private, photo_path=str(photo), portal_offers=portal_offers, accounting_payments=accounting_payments,
                 accounting_receipts=accounting_receipts, allocation_invoices=allocation_invoices,
-                allocation_shared_payment=allocation_shared['id'], allocation_target_project=allocation_target)
+                allocation_shared_payment=allocation_shared['id'], allocation_target_project=allocation_target,
+                component_payments=component_payments)
 
 
 class LoopbackProxyContract:

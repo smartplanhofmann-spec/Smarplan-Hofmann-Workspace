@@ -829,3 +829,100 @@ EÜR, Lohnabrechnung und die Abnahmen A–G bleiben insgesamt offen.
 Der geprüfte E1b-1-Code ist im lokalen Commit `6e35f9e` gesichert.
 Der zugehörige Prüfnachweis ist an diesen vollständigen Commit gebunden.
 Es erfolgten kein Remote-Push und keine Produktivbereitstellung.
+
+## Fortsetzung – E1b-2 implementiert und geprüft
+
+Der Nutzer hat klargestellt, dass die Entwicklung bis zum Gesamtziel
+weiterzuführen ist. Der Abschluss eines Teilabschnitts ist kein Grund, das
+Gesamtziel als erledigt zu markieren. Nach Prüfung des sauberen Stands
+`a8fa548` wird die unabhängige Entwicklung fortgesetzt.
+
+Der [E1b-2-Vertrag](CRM_ERP_EUER_E1B2_API.md) beschreibt die Umsetzung:
+ganze unveränderliche Quellenanteile bestehender Ein-/Auszahlungen ausdrücklich
+in belegte Netto-/ausgewiesene Steueranteile aufteilen. Jeder Anteil wird nur
+einmal verwendet; mehrere Beleggruppen verlangen eine bestätigte Bruttoverteilung.
+Gemeinsame Gruppenreste und kumulative Integer-Centrechnung verhindern
+verlorene oder doppelte Rundungscents über mehrere Zahlungen hinweg.
+
+Die additive Entwicklung umfasst Domäne, Browser, Flutter, frische Quellrechte,
+reale HTTP-/PostgreSQL-Prüfungen und Schema-4-Restoreabgleich. E1a-/E1b-1-Daten,
+OP-Wirkung und gespeicherte Exporte bleiben bestehen. Erstattungsbezüge sind
+der anschließende Fachschritt; Erstattungen geben bis dahin keine Komponenten
+automatisch frei. Steuerstatus bleibt ausdrücklich unkonfiguriert. Der folgende
+Prüfstand belegt diesen Teilabschnitt und nicht die Gesamtabnahme. Die
+Entwicklung wird mit den Erstattungsursprüngen fortgesetzt.
+
+### Ausgeführte E1b-2-Prüfungen
+
+Drei neue unveränderliche Tabellen speichern bestätigte Anteile, Gruppenzeilen
+und Anforderungsquittungen. Ursprüngliche und zusätzliche Rechnungszuordnungen
+bleiben getrennte stabile Quellenanteile. Lieferantenzahlungen verwenden die
+konkrete bestätigte Belegprüfung. Mehrere Zahlungen teilen die Gruppenreste
+desselben unveränderten Belegs. Die Integer-Centrechnung ergibt für
+39,67/39,67/39,66 auf 100,00+19,00 exakt
+33,34/6,33; 33,33/6,34; 33,33/6,33.
+
+| Gruppe | Tatsächliches Ergebnis | Rohprotokoll unter `work/verification/` |
+| --- | --- | --- |
+| Neue Domänenfälle | 16/16, 3,969 s | `accounting-components-domain.log` |
+| Neue Domäne mit E1a-/E1b-1-Regressionen | 54/54, keine Skips, 12,962 s | `accounting-components-domain-regression.log` |
+| Registrierung und tatsächlicher lokaler HTTP-Einstieg | 8/8, 2,192 s | `accounting-components-registration-transport.log` |
+| Unabhängige tatsächliche HTTPS-/MFA-Abläufe nach Domainfreeze | 9/9, keine Skips, 11,152 s | `accounting-components-http-journey.log` |
+| HTTP, Betreiberabgleich, Backup/Restore und bestehende Regressionen | 53/53, keine Skips, 12,783 s; sechs neue Fälle | `accounting-components-http-restore.log` |
+| PostgreSQL final | 16/16, keine Skips, 57,245 s; zwölf neue Fälle und vier betroffene ältere Migration-/Restorefälle | `pg-accounting-components-final.log` |
+| Vollständiger Backendlauf | 509 ausgeführt: 508 bestanden, ein bestehender Windows-Job-Object-Test unter Linux übersprungen; 94,190 s | `accounting-components-backend-full.log` |
+| Flutter gezielt | 69/69, rund 11 s, einschließlich echter Client-HTTP-Strecke | `e1b2-flutter-targeted.log` |
+| Flutter vollständig | 429/429, keine Skips, 127 s | `e1b2-flutter-full.log` |
+| Flutteranalyse | keine Befunde, 4,5 s | `e1b2-flutter-analyze.log` |
+| Browser-Unitgruppe | 98/98 | `accounting-components-node-agent.log` |
+| Korrigierter Browser-Testhelfer | 9/9 | `accounting-components-node-helper-check.log` |
+| Vollständiger echter Browserlauf | 13/13; Desktop und 390-Pixel-Ansicht zusätzlich visuell geprüft | `accounting-components-browser-e2e.log` |
+| Abschließende native Paketprüfung | 15/15, 2,237 s; keine native Geräteabnahme | `accounting-components-native-final.log` |
+
+Die Gruppen überschneiden sich und werden nicht als eindeutige Abnahmen addiert.
+Der erste Browserlauf wurde wegen einer unbegrenzten Wartebedingung im neuen
+Testhelfer beendet. Begrenzte Wartezeiten und garantierte Freigabe der gehaltenen
+Antwort beheben den Testablauf; Produktcode blieb dabei unverändert. Der danach
+vollständig wiederholte Browserlauf endete erfolgreich. Die Screenshots zeigen
+lesbare Vorschauen und explizite Bestätigung auch bei 390 Pixeln; der Dialog
+scrollt innerhalb der Ansicht. Der Paketlauf verwendet den endgültigen
+paketierten Code und die endgültigen Betreiber-/API-Dokumente.
+
+Der Review führte zu gezielten Korrekturen: Historische Zeilen binden ihren
+vorherigen Gruppenbetrag an den rekonstruierten Stand; fremde Gruppenbeiträge
+binden den ganzen echten Quellenanteil. Zwei Regressionen schreiben Entry-/
+Request-Prüfsummen konsistent neu und belegen, dass ein falscher letzter
+Vorstand beziehungsweise ein verkürzter fremder Beitrag trotzdem abgewiesen
+wird. Die Beweisreferenzen bleiben flach, ohne rekursive Historieneinbettung.
+
+Die Clients verwenden für größere gültige archivierte Gruppensummen exakte
+String-/BigInt-Werte; neue Eingaben bleiben begrenzt. Kategorie und Befreiungsgrund
+unterscheiden auch gleiche oder mehrere Nullsteuersätze. Flutter lädt nach einer
+während des Wiederöffnens eintreffenden Quittung den bestätigten Stand neu.
+Verlorene Antworten vor und nach Serverannahme, frischer Quellenrechteentzug
+und späte Antworten sind gezielt berücksichtigt.
+
+Die echte HTTPS-Strecke prüft CA-Vertrauen, Zertifikatshost, HTTP-Host und normale
+Passwort-/TOTP-Anmeldung. Sie verwendet ausdrücklich synthetische SQLite-
+Rechnungsarchive für Transport-/Fachmechanik. PostgreSQL prüft die tatsächliche
+produktive Rechnungsausstellung unter getrennter Laufzeit-/Migrationsrolle,
+konkurrierende Verbindungen, atomaren SQL-Rollback, Tabellenrechte, doppelte
+Migration vom E1b-1-Bestand und echten Dump/Restore mit Schema 4. Zwei anfängliche
+PG-Fixturefehler betrafen die historische Paketmodulliste und erwartete 404 statt
+der korrekten 403 bei privaten Quellen; beide wurden berichtigt. Der finale
+16er-Lauf bestand auf unveränderten Produkt-/Testquellen.
+
+Historische Testregistries schließen nun auch Komponenten aus, wenn sie einen
+älteren E1a- oder Vor-Accounting-Stand darstellen. Produktmigrationen wurden
+dafür nicht abgeschwächt. Der Betreiberpfad erhält H1-/H2-Teilhorizonte und
+verlangt mit Komponenten H3/Schema 4. Alte erfolgreich freigegebene identische
+Schema-3-Quittungen bleiben wiederholbar und entsperren keinen neuen Restore.
+
+Der [E1b-2-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B2.json) bindet geprüfte
+Quellen, paketierte Verträge, Protokolle und Screenshots an ihre Prüfsummen.
+Die unveränderte Original-Zieldatei wurde erneut byteweise verglichen.
+Kein Remote-Push, keine Produktivbereitstellung und keine echte Zahlung wurden
+ausgeführt. Als nächster laufender Fachschritt verknüpft E1b-3a vorhandene
+Erstattungen ausdrücklich mit ihren ursprünglichen dokumentierten
+Zahlungsanteilen. Erst E1b-3b verwendet die exakt zurückgeführten Netto-/
+Steuercents für neue Einnahmen; alte Komponentenbeweise bleiben unverändert.

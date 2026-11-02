@@ -223,6 +223,78 @@ export function accountingAllocationAssignData(body,preview,confirmation) {
   return {...body,preview_hash:preview.preview_hash,confirmation:true};
 }
 
+export function componentAccess(capabilities,organization,value=null,online=true) {
+  const allocations=accountingAllocationAccess(capabilities,organization,null,online);
+  const available=allocations.available&&capabilities.features?.includes('accounting_document_components')===true&&capabilities.capabilities?.includes('business_accounting_components')===true;
+  const read=available&&allocations.read;
+  return {available,read,prepare:read&&allocations.prepare&&(value===null||value.writes_allowed===true&&value.eligible===true)};
+}
+function componentCents(value) {
+  if(typeof value!=='string'||! /^(?:0|[1-9]\d*)\.\d{2}$/.test(value))throw new ApiError('Die bestätigten Centbeträge konnten nicht sicher gelesen werden.',502);
+  return BigInt(value.replace('.',''));
+}
+function componentEnvelope(value) {
+  if(value?.scope!=='authorized_sources'||value.tax_status!=='unconfigured'||value.tax_result_available!==false)throw new ApiError('Der belegte Aufteilungsstand konnte nicht sicher geladen werden.',502);
+}
+export function componentState(value) {
+  componentEnvelope(value);accountingId(value.event_id);accountingId(value.source_hash,true);accountingId(value.state_hash,true);accountingRevision(value.revision,true);
+  if(value.currency!=='EUR'||!['customer_receipt','supplier_payout','customer_refund'].includes(value.source_kind)||typeof value.eligible!=='boolean'||typeof value.writes_allowed!=='boolean'||componentCents(value.amount)<=0n||
+      componentCents(value.documented_amount)+componentCents(value.undocumented_amount)!==componentCents(value.amount)||componentCents(value.unallocated_amount)>componentCents(value.undocumented_amount))throw new ApiError('Die Betragsstände des Zahlungsnachweises stimmen nicht überein.',502);
+  return value;
+}
+export function componentPortion(value,eventId) {
+  accountingId(value?.portion_id,true);accountingId(value.portion_state_hash,true);
+  if(value.event_id!==eventId||value.currency!=='EUR'||!['original_allocation','additional_allocation','supplier_payout'].includes(value.kind)||typeof value.eligible!=='boolean'||componentCents(value.amount)<=0n||!Array.isArray(value.groups)||value.groups.length>500)throw new ApiError('Der Beleganteil konnte nicht sicher geladen werden.',502);
+  if(value.kind==='supplier_payout') {accountingId(value.receipt_id);accountingId(value.original_sha256,true);accountingId(value.review_sha256,true);accountingRevision(value.review_revision);}
+  else {accountingId(value.document_id);accountingId(value.payload_sha256,true);accountingId(value.pdf_sha256,true);}
+  const seen=new Set();
+  for(const group of value.groups) {
+    accountingId(group.group_id,true);if(seen.has(group.group_id))throw new ApiError('Eine Beleggruppe ist doppelt enthalten.',502);seen.add(group.group_id);
+    for(const prefix of ['', 'documented_', 'remaining_'])if(componentCents(group[prefix+'net'])+componentCents(group[prefix+'tax'])!==componentCents(group[prefix+'gross']))throw new ApiError('Die Beleggruppensummen stimmen nicht überein.',502);
+    for(const field of ['net','tax','gross'])if(componentCents(group['documented_'+field])+componentCents(group['remaining_'+field])!==componentCents(group[field]))throw new ApiError('Die verbleibenden Beleggruppenbeträge stimmen nicht überein.',502);
+  }
+  return value;
+}
+export function componentPreviewData(source,portion,groups,reason) {
+  componentState(source);componentPortion(portion,source.event_id);
+  if(!source.eligible||!source.writes_allowed||!portion.eligible)throw new Error('Dieser Beleganteil ist für eine neue Aufteilung gesperrt. Bitte den Stand neu laden.');
+  if(!Array.isArray(groups)||groups.length<1||groups.length>500)throw new Error('Bitte mindestens eine positive Bruttoaufteilung eingeben.');
+  let total=0n;const seen=new Set(),selected=groups.map(item=>{
+    const group=portion.groups.find(group=>group.group_id===item.group_id);
+    if(!group||seen.has(item.group_id))throw new Error('Nur jede angebotene Beleggruppe genau einmal verwenden.');seen.add(item.group_id);
+    const amount=accountingAmount(item.amount),cents=componentCents(amount);if(cents>componentCents(group.remaining_gross))throw new Error('Eine Gruppe überschreitet ihren verfügbaren Bruttorest.');total+=cents;
+    return {group_id:item.group_id,amount};
+  });
+  if(total!==componentCents(portion.amount))throw new Error(`Die Gruppensumme muss genau dem festen Beleganteil von ${formatMoney(portion.amount)} entsprechen.`);
+  return {source_hash:source.source_hash,expected_revision:source.revision,state_hash:source.state_hash,portion_id:portion.portion_id,portion_state_hash:portion.portion_state_hash,groups:selected,reason:accountingText(reason,'Begründung',1000)};
+}
+function componentLines(value) {
+  componentEnvelope(value);componentPortion(value.portion,value.event_id);
+  if(value.amount!==value.portion.amount||!Array.isArray(value.lines)||!value.lines.length||value.lines.length>500)throw new ApiError('Die Belegaufteilung konnte nicht sicher gelesen werden.',502);
+  const seen=new Set();let net=0n,tax=0n,gross=0n;
+  for(const line of value.lines) {
+    const group=value.portion.groups.find(group=>group.group_id===line.group_id);
+    if(!group||seen.has(line.group_id))throw new ApiError('Die Vorschau enthält eine unbekannte oder doppelte Gruppe.',502);seen.add(line.group_id);
+    const amount=componentCents(line.amount),lineNet=componentCents(line.net),lineTax=componentCents(line.tax);
+    if(amount<=0n||lineNet+lineTax!==amount)throw new ApiError('Die Netto-/Steueranteile stimmen nicht mit dem Bruttoanteil überein.',502);
+    for(const [field,delta]of [['gross',amount],['net',lineNet],['tax',lineTax]])if(componentCents(line[field+'_before'])!==componentCents(group['documented_'+field])||componentCents(line[field+'_after'])-componentCents(line[field+'_before'])!==delta)throw new ApiError('Die bestätigten Gruppenstände stimmen nicht überein.',502);
+    if(componentCents(line.remaining_gross)!==componentCents(group.gross)-componentCents(line.gross_after))throw new ApiError('Der verbleibende Bruttorest stimmt nicht überein.',502);
+    net+=lineNet;tax+=lineTax;gross+=amount;
+  }
+  if(net!==componentCents(value.net)||tax!==componentCents(value.tax)||gross!==componentCents(value.amount)||net+tax!==gross)throw new ApiError('Die Vorschau summiert sich nicht zum festen Beleganteil.',502);
+  return value;
+}
+export function componentPreview(value,body,eventId) {
+  componentLines(value);accountingId(value.preview_hash,true);
+  if(value.event_id!==eventId||value.source_hash!==body.source_hash||value.expected_revision!==body.expected_revision||value.state_hash!==body.state_hash||value.reason!==body.reason||value.portion.portion_id!==body.portion_id||value.portion.portion_state_hash!==body.portion_state_hash||
+      value.lines.length!==body.groups.length||value.lines.some(line=>!body.groups.some(group=>group.group_id===line.group_id&&group.amount===line.amount)))throw new ApiError('Die Vorschau stimmt nicht mit dem gewählten Beleganteil und den eingegebenen Gruppen überein.',502);
+  return value;
+}
+export function componentConfirmData(body,preview,confirmation) {
+  if(confirmation!==true)throw new Error('Bitte die geprüfte Belegaufteilung gesondert bestätigen.');
+  componentPreview(preview,body,preview.event_id);return {...body,groups:body.groups.map(group=>({...group})),preview_hash:preview.preview_hash,confirmation:true};
+}
+
 function purchaseDecimal(value) {
   const text=decimalText(value),negative=text.startsWith('-'),[whole,fraction='']=text.replace(/^-/,'').split('.');
   return {text,scaled:BigInt(whole+fraction.padEnd(4,'0'))*(negative?-1n:1n)};
@@ -682,6 +754,7 @@ function updateDrawer() {
 function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
 function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
 function operationLabel(path) {
+  if(path.startsWith('/business/accounting/components/'))return 'Beleganteile dokumentarisch aufteilen';
   if(path.startsWith('/business/accounting/allocations/'))return 'Bestehende Zahlung einer Rechnung zuordnen';
   if(path.startsWith('/business/accounting/accounts'))return 'Geldkonto bestätigen';
   if(path.startsWith('/business/accounting/events/import-payment'))return 'Bestehende Zahlung verknüpfen';
@@ -703,11 +776,12 @@ function operationLabel(path) {
 function pendingDialog() {
   dialog('Unbestätigte Antworten',el('div',{class:'stack'},notice('Der Server kann die Eingabe bereits gespeichert haben. Eine Wiederholung verwendet exakt dieselbe Vorgangskennung und denselben Inhalt. Dieses Fenster bis zur Klärung geöffnet lassen.','warn'),
     rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{
-      if(item.path.startsWith(biz('/accounting/allocations/'))&&!navigator.onLine)throw new ApiError('Die Zahlungszuordnung benötigt eine Internetverbindung. Die unveränderte Anfrage bleibt offen.',0);
+      if((item.path.startsWith(biz('/accounting/allocations/'))||item.path.startsWith(biz('/accounting/components/')))&&!navigator.onLine)throw new ApiError('Die Zahlungszuordnung benötigt eine Internetverbindung. Die unveränderte Anfrage bleibt offen.',0);
       const generation=api.generation,previous=modal,result=await api.retry(item.key);if(generation!==api.generation||previous!==modal)return;updatePending();
       if(item.path===biz('/portal/grants')){portalGrantResultDialog({id:result.grant.offer_id,project_id:result.grant.project_id,number:result.grant.number,kind:'offer',status:'final'},result);return;}
       closeModal();const render=state.render+1,section=state.section;await refresh();
-      if(item.path.startsWith(biz('/accounting/allocations/'))&&item.path.endsWith('/assign')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingAllocationDialog(result.payment_id,{document:result.document});}),'primary')]))));
+      if(item.path.startsWith(biz('/accounting/allocations/'))&&item.path.endsWith('/assign')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingAllocationDialog(result.payment_id,{document:result.document});
+      if(item.path.startsWith(biz('/accounting/components/'))&&item.path.endsWith('/confirm')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await componentDialog(result.event_id);}),'primary')]))));
 }
 function navigate(section,{includeHidden=false}={}) {
   state.openedHiddenSection=includeHidden&&sectionAuthorized(section)?section:null;
@@ -1170,6 +1244,7 @@ async function accountingEventDialog(id) {
     el('p',{},event.unresolved_reasons.map(reason=>ACCOUNTING_REASONS[reason]||reason).join(' · ')),
     event.source.kind==='payment'?notice('Ursprünglicher Zahlungsnachweis: Die damalige Zahlung und ihre Rechnungszuordnungen bleiben unverändert. Spätere Zuordnungen sind getrennt dokumentiert.'):null,
     event.source.kind==='payment'&&accountingAllocationRights().read?button('Wirksame Zuordnungen ansehen',()=>accountingAction(()=>accountingAllocationDialog(event.source.id)),'small'):null,
+    componentRights().read?button(componentRights().prepare&&event.source.snapshot.kind!=='refund'?'Beleganteile aufteilen':'Aufteilungen ansehen',()=>accountingAction(()=>componentDialog(event.id)),'small'):null,
     panel('Bestätigte Quellfassung',accountingSourceDetails(event.source.kind,event.source.snapshot),el('p',{class:'caption'},`Quelle SHA-256: ${event.source.source_hash}`)),
     el('p',{class:'caption'},`Erfasst ${formatDate(event.created_at,true)}. Spätere Konto- oder Prüfänderungen ändern diesen Nachweis nicht.`)));
 }
@@ -1252,6 +1327,96 @@ function accountingAllocationConfirm(source,body,preview) {
         button('Aktuellen Stand neu laden',()=>accountingAction(()=>accountingAllocationDialog(source.payment_id)),'small')),
       after:async result=>{const render=state.render+1,section=state.section;await refresh();if(generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingAllocationDialog(source.payment_id,{document:result.document});}});
   editor.dataset.accountingDetail='true';dialog('Zuordnung prüfen',editor);
+}
+
+const COMPONENT_BLOCKS={refund_origin_unresolved:'Der Ursprung dieser Erstattung ist noch ungeklärt. Ihre Aufteilung folgt in einem eigenen Schritt.',source_customer_unresolved:'Die Kundenbindung der Zahlungsquelle muss zuerst geklärt werden.',unsupported_document:'Dieser Beleg unterstützt derzeit keine dokumentarische Aufteilung.',review_changed:'Die Belegprüfung wurde nach der Auszahlung geändert. Neue Aufteilungen benötigen eine Klärung.',group_capacity_exceeded:'Der ganze Beleganteil passt nicht mehr in die verfügbaren Gruppenreste.',unallocated:'Der Zahlungsrest ist noch keiner Rechnung zugeordnet.',fully_documented:'Alle verfügbaren Beleganteile sind dokumentiert.'};
+function componentRights(source=null) { return componentAccess({permissions:[...state.globalPermissions],features:[...state.features],capabilities:[...state.capabilities],readonly:state.readonly},state.organization,source,navigator.onLine); }
+function componentWritable(source) { if(!componentRights(source).prepare)throw new ApiError('Eine neue Aufteilung benötigt Internet, aktuelle globale Accounting-/Finanzschreibrechte und einen freigegebenen Finanzbetrieb.',423); }
+function componentPath(id,suffix='') { return `/accounting/components/events/${accountingId(id)}${suffix}`; }
+export function componentGroupLabel(group) {
+  if(group.rate===null)return 'Geprüfte Gesamtsummen';
+  const category={S:'Standardbesteuerung laut Beleg',Z:'Nullsatz laut Beleg',E:'Steuerbefreiung laut Beleg',AE:'Steuerschuldnerschaft laut Beleg'}[group.category]||('Belegkategorie '+group.category);
+  return `${String(group.rate).replace('.',',')} % · ${category}${group.reason?' · '+group.reason:''}`;
+}
+function componentTaxLabel(portion) { return portion.kind==='supplier_payout'?'Ausgewiesener Steueranteil laut Prüfung':'Ausgewiesener Steueranteil laut Rechnung'; }
+function componentOriginal(event,portion) {
+  return button(portion.kind==='supplier_payout'?'Belegoriginal ansehen':'Rechnungs-PDF ansehen',()=>accountingAction(()=>download(portion.kind==='supplier_payout'?biz(`/finance/receipts/${portion.receipt_id}/original`):biz(`/documents/${portion.document_id}/pdf`),portion.kind==='supplier_payout'?event.source.snapshot.filename||'Belegoriginal':`${portion.number}.pdf`)),'small');
+}
+function componentRecord(value,event) {
+  componentLines(value);
+  return el('div',{class:'stack accounting break-word'},panel(value.portion.number||'Geprüfter Beleg',el('p',{},value.portion.party_name),el('p',{},`Fester Beleganteil: ${formatMoney(value.amount)} · ${value.reason}`),componentOriginal(event,value.portion)),
+    panel('Dokumentarische Beträge',el('p',{},`Belegter Nettoanteil: ${formatMoney(value.net)}`),el('p',{},`${componentTaxLabel(value.portion)}: ${formatMoney(value.tax)}`),el('p',{},`Bruttoanteil: ${formatMoney(value.amount)}`)),
+    panel('Aufteilung nach Beleggruppen',rows(value.lines,line=>{
+      const group=value.portion.groups.find(item=>item.group_id===line.group_id);
+      return row(componentGroupLabel(group),`Netto ${formatMoney(line.net)} · Ausgewiesener Steueranteil ${formatMoney(line.tax)} · Brutto ${formatMoney(line.amount)}`,[],`Dokumentierter Gruppenbetrag: ${formatMoney(line.gross_before)} → ${formatMoney(line.gross_after)} · Verbleibend ${formatMoney(line.remaining_gross)}`);
+    })),notice('Steuerliche Einordnung offen. Diese Beleganteile sind kein Steuerergebnis. Bereits bestätigte Teilbeträge bleiben unverändert; Rundungscent werden so berücksichtigt, dass die Summe zum Beleg passt.'));
+}
+async function componentDialog(eventId,{offset=0,entryId=null}={}) {
+  const generation=api.generation,render=state.render,previous=modal;
+  if(!componentRights().read)throw new ApiError('Dieser Server oder Ihre aktuellen globalen Rechte erlauben keine Belegaufteilung.',403);
+  const [rawState,rawHistory,event]=await Promise.all([api.get(biz(componentPath(eventId))),api.get(query(biz(componentPath(eventId,'/history')),{limit:25,offset})),api.get(biz(`/accounting/events/${eventId}`))]);
+  if(generation!==api.generation||render!==state.render||previous!==modal)return;
+  const source=componentState(rawState),history=accountingPage(rawHistory,offset),rights=componentRights(source);
+  if(source.event_id!==eventId||event.id!==eventId||history.items.some(item=>item.event_id!==eventId))throw new ApiError('Der Zahlungsnachweis passt nicht zum Aufteilungsstand.',502);
+  const content=el('div',{class:'stack accounting break-word','data-accounting-detail':'true'},notice('Dokumentarische Beleganteile. Der ursprüngliche Zahlungsnachweis bleibt unverändert; es entsteht keine neue Zahlung, Rechnungszuordnung oder Steuerbuchung.'));
+  if(entryId) {
+    const entry=history.items.find(item=>item.id===entryId);
+    if(!entry)throw new ApiError('Die Historie wurde erweitert. Bitte den Eintrag in der aktuellen Liste erneut öffnen.',409);
+    content.append(componentRecord(entry,event),el('p',{class:'caption'},`Bestätigt ${formatDate(entry.created_at,true)}. Diese damalige Aufteilung bleibt unverändert.`),button('Zurück zu den Aufteilungen',()=>accountingAction(()=>componentDialog(eventId,{offset})),'small'));
+  } else {
+    const pending=api.pendingOperations().some(item=>item.path===biz(componentPath(eventId,'/confirm')));
+    content.append(panel('Dokumentierter Stand',el('p',{},`Zahlungsbetrag ${formatMoney(source.amount)} · Dokumentiert ${formatMoney(source.documented_amount)} · Noch ungeklärt ${formatMoney(source.undocumented_amount)}`),el('p',{},`Davon ohne Rechnungszuordnung: ${formatMoney(source.unallocated_amount)}`),
+      !source.eligible?notice(COMPONENT_BLOCKS[source.blocked_reason]||'Neue Aufteilungen sind für diesen Zahlungsnachweis gesperrt.'):null,
+      !source.writes_allowed?notice('Neue Aufteilungen sind durch aktuelle Rechte oder den Betriebszustand gesperrt. Vorhandene Nachweise bleiben lesbar.','warn'):null,
+      pending?notice('Eine Bestätigungsantwort ist offen. Unter „Antworten offen“ unverändert wiederholen, bevor ein neuer Vorgang beginnt.','warn'):null,
+      rights.prepare&&!pending?button('Beleganteil auswählen',()=>accountingAction(()=>componentPortions(source,event)),'primary'):null,
+      button('Ursprünglichen Zahlungsnachweis ansehen',()=>accountingAction(()=>accountingEventDialog(eventId)),'small')),
+      panel('Bestätigte Aufteilungen',rows(history.items,entry=>row(`${entry.portion.number||'Geprüfter Beleg'} · ${formatMoney(entry.amount)}`,`${entry.portion.party_name} · ${formatDate(entry.created_at,true)} · ${entry.reason}`,
+        [button('Aufteilung ansehen',()=>accountingAction(()=>componentDialog(eventId,{offset,entryId:entry.id})),'small')],`Netto ${formatMoney(entry.net)} · ${componentTaxLabel(entry.portion)} ${formatMoney(entry.tax)}`),'Noch keine Belegaufteilung bestätigt.'),allocationPagination(history,offset,next=>componentDialog(eventId,{offset:next}))));
+  }
+  dialog(entryId?'Bestätigte Belegaufteilung':'Beleganteile',content);
+}
+async function componentPortions(source,event,offset=0) {
+  componentWritable(source);const generation=api.generation,render=state.render,previous=modal;
+  const page=accountingPage(await api.get(query(biz(componentPath(source.event_id,'/portions')),{limit:25,offset})),offset);
+  if(generation!==api.generation||render!==state.render||previous!==modal)return;
+  for(const portion of page.items)componentPortion(portion,source.event_id);
+  dialog('Beleganteil auswählen',el('div',{class:'stack accounting break-word','data-accounting-detail':'true'},notice('Eine Aufteilung umfasst immer den ganzen ausgewählten Beleganteil. Nicht zugeordnete oder ungeklärte Reste werden nicht automatisch verteilt.'),
+    rows(page.items,portion=>row(`${portion.number||'Geprüfter Beleg'} · ${formatMoney(portion.amount)}`,portion.party_name,
+      [componentOriginal(event,portion),portion.eligible?button('Diesen Beleganteil aufteilen',()=>componentInput(source,event,portion),'primary'):null],portion.eligible?`${portion.groups.length} belegte Gruppe${portion.groups.length===1?'':'n'}`:COMPONENT_BLOCKS[portion.blocked_reason]||'Dieser Beleganteil benötigt eine Klärung.'),'Keine noch offenen Beleganteile vorhanden.'),
+    allocationPagination(page,offset,next=>componentPortions(source,event,next)),button('Zurück zu den Aufteilungen',()=>accountingAction(()=>componentDialog(source.event_id)),'small')));
+}
+function componentInput(source,event,portion) {
+  const generation=api.generation,render=state.render;
+  const fields=portion.groups.map((group,index)=>field('group_'+index,componentGroupLabel(group)+' – Bruttoanteil EUR','decimal',portion.groups.length===1?portion.amount:'',{
+    wide:true,help:`Laut Beleg: netto ${formatMoney(group.net)} + ausgewiesene Steuer ${formatMoney(group.tax)} = brutto ${formatMoney(group.gross)}. Verfügbarer Bruttorest ${formatMoney(group.remaining_gross)}. Nicht verwendete Gruppen leer lassen.`}));
+  fields.push(field('reason','Begründung der Aufteilung','text','',{required:true,maxLength:1000,wide:true}));
+  const editor=form('',fields,async values=>{
+    componentWritable(source);
+    const groups=portion.groups.flatMap((group,index)=>values['group_'+index]===undefined||String(values['group_'+index]).trim()===''?[]:[{group_id:group.group_id,amount:values['group_'+index]}]);
+    const body=componentPreviewData(source,portion,groups,values.reason);
+    try {
+      const result=await api.post(biz(componentPath(source.event_id,'/preview')),body);
+      if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;
+      componentConfirm(source,event,body,componentPreview(result,body,source.event_id));return undefined;
+    } catch(error) {
+      if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;
+      if([403,404].includes(error.status)){closeModal();await refresh();if(generation===api.generation)showError(error);return undefined;}
+      throw error;
+    }
+  },{key:'component-preview-'+source.event_id,submit:'Unverbindliche Vorschau prüfen',description:`${portion.number||'Geprüfter Beleg'} · ${portion.party_name}. Fester ganzer Beleganteil: ${formatMoney(portion.amount)}. Die Gruppensumme muss genau diesem Betrag entsprechen. Bei mehreren Gruppen wird nichts automatisch verteilt.`,
+    extra:el('div',{class:'actions'},componentOriginal(event,portion),button('Aktuellen Stand neu laden',()=>accountingAction(()=>componentDialog(source.event_id)),'small'))});
+  editor.dataset.accountingDetail='true';dialog('Beleganteil aufteilen',editor);
+}
+function componentConfirm(source,event,body,preview) {
+  const generation=api.generation,render=state.render;
+  const editor=form('',[field('confirmation','Ich bestätige diese dokumentarische Netto-/Steueraufteilung des ganzen Beleganteils.','checkbox',false,{required:true})],async(values,key)=>{
+    componentWritable(source);const result=await accountingSave(editor,generation,key,componentPath(source.event_id,'/confirm'),componentConfirmData(body,preview,values.confirmation));
+    return render===state.render?result:undefined;
+  },{key:'component-confirm-'+source.event_id,submit:'Belegaufteilung verbindlich bestätigen',description:'Die Vorschau speichert noch keine Aufteilung. Bei einer verlorenen Bestätigungsantwort dieselbe Anfrage unverändert wiederholen. Für einen neuen Vorgang müssen die verfügbaren Gruppenreste frisch geprüft werden.',
+    extra:el('div',{class:'stack'},componentRecord(preview,event),button('Aktuellen Stand neu laden',()=>accountingAction(()=>componentDialog(source.event_id)),'small')),
+    after:async()=>{const render=state.render+1,section=state.section;await refresh();if(generation===api.generation&&state.render===render&&state.section===section&&!modal)await componentDialog(source.event_id);}});
+  editor.dataset.accountingDetail='true';dialog('Belegaufteilung prüfen',editor);
 }
 
 async function materialView() { return el('div',{class:'stack'},heading('Material','Bestellungen, Lieferungen, Bestände und nachvollziehbare Entnahmen.'),await materialContent(state.projectId)); }

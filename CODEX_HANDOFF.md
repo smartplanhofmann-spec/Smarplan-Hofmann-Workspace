@@ -81,7 +81,7 @@ PG-Release-/Restore-Regressionen. [Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1A
 und [E1b-Entwurf](docs/CRM_ERP_EUER_E1B_ENTWURF.md) halten Stand und nächsten
 Umfang fest. Der folgende Stand ergänzt den ersten Teil von E1b.
 
-**Aktuell: E1b-1 ist implementiert und geprüft**, lokaler Codecommit `6e35f9e`. Freie Teile bereits in E1a
+**Vorheriger Abschnitt: E1b-1 ist implementiert und geprüft**, lokaler Codecommit `6e35f9e`. Freie Teile bereits in E1a
 übernommener Kundenzahlungen lassen sich nach Vorschau einer normalen finalen
 EUR-Rechnung ausdrücklich zuordnen. Gemeinsame Zahlungs-/OP-Projektion gilt für
 Finanzen, Mahnen und neue Prüfexporte; alte Zeilen, E1a-Quellenhashes und
@@ -103,6 +103,30 @@ vollständige EÜR, Lohn und die Abnahmen A–G sind weiterhin offen.
 Der Umsatzsteuerstatus wurde separat optional erfragt; bislang liegt keine
 Antwort vor. Ein unkonfiguriertes Profil darf die unabhängige Journalentwicklung
 nicht blockieren, erzeugt aber keine scheinbar vollständige Steuerabrechnung.
+
+**Fortsetzungsregel aus der ausdrücklichen Nutzerkorrektur:** Nach einem
+abgeschlossenen Inkrement unabhängig mögliche Entwicklung fortsetzen.
+Gesamtziel und Abnahmen A–G dürfen nicht wegen eines grünen Teilabschnitts als
+erledigt markiert werden.
+
+**Aktuell: [E1b-2](docs/CRM_ERP_EUER_E1B2_API.md) ist implementiert und geprüft.**
+Ganze ursprüngliche und zusätzliche Zahlungsanteile sowie Lieferantenzahlungen
+lassen sich ausdrücklich in dokumentierte Netto-/Steuercents aufteilen. Drei
+additive unveränderliche Tabellen, gemeinsame Beleggruppenreste und kumulative
+Integer-Centrechnung erhalten alte E1a-/E1b-1-Beweise und Finanz-/OP-Wirkung.
+Der aktuelle Restore verlangt H3 mit allen drei Teilhorizonten und Schema 4.
+508 Backendfälle bestanden, ein Windows-Fall wurde unter Linux übersprungen;
+429 Flutterfälle, 98 Browser-Unitfälle, 13 echte Browserabläufe, neun echte
+HTTPS-/MFA-Fälle, 16 PostgreSQL-Fälle und 15 Paketfälle bestanden. Gruppen
+überschneiden sich; genaue Grenzen und Hashes stehen im
+[E1b-2-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B2.json).
+
+Die Entwicklung läuft mit E1b-3a weiter: ganze bestehende Erstattungszuordnungen
+ausdrücklich auf ursprüngliche Komponentenlose derselben Rechnung beziehen;
+exakte zurückgeführte Netto-/Steuercents und frische vollständige Quellrechte
+prüfen. Dieser Schritt gibt noch keine Gruppenreste frei. E1b-3b ergänzt danach
+neue Kapazitätsabschnitte für erneute Einnahmen, ohne historische C1-Beweise
+umzuschreiben. Vollständige EÜR, Lohn und Gesamtziel A–G bleiben offen.
 
 ## Verbindliche aktuelle Nutzerentscheidungen – 25. Oktober 2026
 

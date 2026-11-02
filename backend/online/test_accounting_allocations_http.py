@@ -88,13 +88,14 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
         before_sources = self.legacy_sources(self.company)
         before_cash = prejournal_horizon(office)
         before = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(set(before), {'schema_version', 'prejournal', 'allocations'})
-        self.assertEqual(before['schema_version'], 2)
+        self.assertEqual(set(before), {'schema_version', 'prejournal', 'allocations', 'components'})
+        self.assertEqual(before['schema_version'], 3)
         self.assertEqual(before['prejournal'], before_cash)
         self.assertEqual(before_cash['schema_version'], 1)
         _, _, entry = self.assignment(payment, invoice)
         after = business_schema.financial_accounting_horizon(office)
         self.assertEqual(after['prejournal'], before_cash)
+        self.assertEqual(after['components'], before['components'])
         self.assertNotEqual(after['allocations']['sha256'], before['allocations']['sha256'])
         self.assertEqual(after['allocations']['table_counts'], {
             'business_accounting_allocation_entries': 1, 'business_accounting_allocation_requests': 1})
@@ -109,7 +110,7 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
         office = self.company['office']
         self.require_reconciliation(office)
         report = self.report(office)
-        self.assertEqual(report['schema'], 3)
+        self.assertEqual(report['schema'], 4)
         self.assertTrue(all(count == 0 for count in report['accounting_horizon']['allocations']['table_counts'].values()))
         before = '\n'.join(office.db.iterdump())
         obsolete = {**report, 'schema': 2, 'accounting_horizon': report['accounting_horizon']['prejournal']}
@@ -132,7 +133,8 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
             self.report_hash(report), application_stopped=True))
 
     def test_already_approved_schema2_report_replays_after_real_additive_migration_but_cannot_unlock_new_restore(self):
-        old_registry = tuple(spec for spec in business_schema.registry() if spec.name != 'business_accounting_allocations')
+        old_registry = tuple(spec for spec in business_schema.registry()
+                             if spec.name not in ('business_accounting_allocations', 'business_accounting_components'))
         with patch.object(business_schema, 'registry', return_value=old_registry):
             company = self.new_company('historical')
             account = self.account_record(company)
@@ -150,7 +152,7 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
         business_schema.ensure_schema(office)
         self.assertEqual(prejournal_horizon(office), frozen_cash)
         self.assertEqual(self.legacy_sources(company), frozen_sources)
-        self.assertEqual(business_schema.financial_accounting_horizon(office)['schema_version'], 2)
+        self.assertEqual(business_schema.financial_accounting_horizon(office)['schema_version'], 3)
         before_replay = '\n'.join(office.db.iterdump())
         self.assertEqual(business_schema.reconcile_local_financial_restore(office, report, digest,
             application_stopped=True), prior)
@@ -197,7 +199,7 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
         inspected = subprocess.run(args + ['--inspect'], capture_output=True, text=True, timeout=15)
         self.assertEqual(inspected.returncode, 0, inspected.stderr)
         inspection = json.loads(inspected.stdout)
-        self.assertEqual(inspection['evidence_schema'], 3)
+        self.assertEqual(inspection['evidence_schema'], horizon['schema_version'] + 1)
         self.assertEqual(inspection['accounting_horizon'], horizon)
         self.assertNotIn('accounting_reconciled', inspection)
         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), database_hash)

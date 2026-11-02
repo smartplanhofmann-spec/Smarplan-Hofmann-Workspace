@@ -264,11 +264,11 @@ class AllocationPostgres(unittest.TestCase):
         self.assertEqual(release.snapshot_fingerprint(journey.DSN), before)
         self.assertTrue(self.module.validate_integrity(self.office))
 
-    def test_real_restore_preserves_assignments_and_requires_schema3_horizon(self):
+    def test_real_restore_preserves_assignments_and_requires_current_horizon(self):
         command = self.proposal()[2]
         entry = self.api.assign(self.owner, self.payment['id'], command)
         horizon = business_schema.financial_accounting_horizon(self.office)
-        self.assertEqual(horizon['schema_version'], 2)
+        self.assertGreaterEqual(horizon['schema_version'], 2)
         before = release.snapshot_fingerprint(journey.DSN)
         self.office.db.close()
         migrate(journey.DSN, owner_role='smartplan-migrator', compatibility_mode='business', require_business_modules=True)
@@ -306,7 +306,7 @@ class AllocationPostgres(unittest.TestCase):
                     self.assertEqual(frozen[table], fingerprint, table)
             operator = PostgresOffice(target)
             try:
-                evidence = dict(schema=3, restore_id=report['restore_id'], reviewed_by='Synthetic operator',
+                evidence = dict(schema=horizon['schema_version'] + 1, restore_id=report['restore_id'], reviewed_by='Synthetic operator',
                     reviewed_at=datetime.now(timezone.utc).isoformat(), outbound_reconciled=True,
                     number_horizons=[dict(company_id=row['company_id'], series=row['series'], year=row['year'],
                         last_value=row['next_value'] - 1) for row in operator.db.execute('SELECT * FROM business_document_counters')],
@@ -347,7 +347,8 @@ class AllocationMigrationPostgres(unittest.TestCase):
     def test_additive_migration_retains_existing_e1a_proofs_invoice_and_payment_bytes(self):
         accounting = importlib.import_module('business_accounting')
         allocations = importlib.import_module('business_accounting_allocations')
-        prior = tuple(spec for spec in business_schema.registry() if spec.name != 'business_accounting_allocations')
+        prior = tuple(spec for spec in business_schema.registry() if spec.name not in
+                      ('business_accounting_allocations', 'business_accounting_components'))
         with patch.object(business_schema, 'registry', return_value=prior):
             base.reset()
             bootstrap = PostgresOffice(journey.DSN)

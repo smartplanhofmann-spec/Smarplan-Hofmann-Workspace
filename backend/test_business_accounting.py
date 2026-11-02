@@ -34,7 +34,7 @@ class AccountingTests(unittest.TestCase):
         # fresh payments after the additive migration obey the new OP bound.
         import business_schema
         historical = self._testMethodName == 'test_invoice_payment_snapshot_is_stable_overpayment_is_preserved_and_all_projects_required'
-        previous = tuple(spec for spec in business_schema.registry() if spec.name != 'business_accounting_allocations')
+        previous = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_allocations', 'business_accounting_components'))
         if historical:
             self._historical_registry = patch.object(business_schema, 'registry', return_value=previous)
             self._historical_registry.start()
@@ -424,7 +424,7 @@ class AccountingMigrationTests(unittest.TestCase):
     def test_schema7_migration_preserves_signed_history_payments_and_receipt_originals(self):
         import business_schema
         with tempfile.TemporaryDirectory() as temporary:
-            previous = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting', 'business_accounting_allocations'))
+            previous = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting', 'business_accounting_allocations', 'business_accounting_components'))
             with patch.object(business_schema, 'registry', return_value=previous):
                 office = Office(Path(temporary) / 'previous.db')
                 try:

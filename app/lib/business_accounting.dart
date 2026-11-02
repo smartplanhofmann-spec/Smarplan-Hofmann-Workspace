@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_accounting_allocations.dart';
+import 'business_accounting_components.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -553,6 +554,20 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
     await load();
   }
 
+  Future<void> openComponents(String eventId) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => BusinessDocumentComponentsPage(
+          session: widget.session,
+          eventId: eventId,
+        ),
+      ),
+    );
+    if (!mounted) return;
+    setState(() => event = null);
+    await load();
+  }
+
   Widget allocationEntry(String paymentId) => TextButton(
     onPressed: () => openAllocations(paymentId),
     child: Text(
@@ -642,6 +657,18 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
             snapshot['kind'] == 'receipt' &&
             businessAllocationsReadable(widget.session))
           allocationEntry('${source['id']}'),
+        if (businessComponentsReadable(widget.session))
+          TextButton(
+            onPressed: () => openComponents('${value['id']}'),
+            child: Text(
+              widget.session.canWrite('accounting.prepare') &&
+                      widget.session.canWrite('finance.write') &&
+                      widget.session.sectionEnabled('finance') &&
+                      snapshot['kind'] != 'refund'
+                  ? 'Beleganteile aufteilen'
+                  : 'Aufteilungen ansehen',
+            ),
+          ),
       ] else
         TextButton(
           onPressed: () => openEvent('${value['id']}'),

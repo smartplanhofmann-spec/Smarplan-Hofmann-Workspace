@@ -7,9 +7,11 @@ entstand aus einer lesenden Prüfung des E1a-Quellcodes. Grundlage sind der
 
 Der getrennte [Abschnitt E1b-1](CRM_ERP_EUER_E1B1_API.md) ist implementiert:
 zusätzliche Zuordnung freier bestätigter Kundenzahlungen zu normalen Rechnungen
-und gemeinsame effektive OP-Projektion. Dokumentarische Centaufteilung,
-Erstattungsursprünge und steuerliche Einordnung dieses Gesamtentwurfs folgen
-danach. Dieser Entwurf allein ist weiterhin kein Funktionsnachweis.
+und gemeinsame effektive OP-Projektion. [E1b-2](CRM_ERP_EUER_E1B2_API.md)
+ergänzt die dokumentarische Centaufteilung ganzer bestehender Quellenanteile.
+Erstattungsursprünge, genaue Restkapazitätsabschnitte nach Rücknahme und
+steuerliche Einordnung folgen danach. Dieser Gesamtentwurf allein bleibt
+ein Plan; ausgeführte Nachweise stehen bei den jeweiligen Teilabschnitten.
 
 ## 1. Offene Angaben und klarer Umfang
 

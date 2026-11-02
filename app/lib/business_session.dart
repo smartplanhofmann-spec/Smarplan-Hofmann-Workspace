@@ -449,6 +449,49 @@ class BusinessSession extends ChangeNotifier {
     }
   }
 
+  /// Computes documentary amounts only, without a request receipt or queue.
+  Future<dynamic> previewDocumentComponents(
+    String eventId,
+    Map<String, dynamic> values,
+  ) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(eventId) ||
+        projectId != null ||
+        !hasFeature('accounting_document_components') ||
+        !hasModule('accounting_components') ||
+        !can('accounting.read') ||
+        !can('finance.read') ||
+        !canWrite('accounting.prepare') ||
+        !canWrite('finance.write')) {
+      throw const ApiException(
+        403,
+        'Die dokumentarische Belegaufteilung ist nicht freigegeben.',
+      );
+    }
+    if (!sectionEnabled('finance')) {
+      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+    }
+    final capturedGeneration = generation;
+    try {
+      final result = await api.call(
+        path('/accounting/components/events/$eventId/preview'),
+        Map<String, dynamic>.from(jsonDecode(jsonEncode(values))),
+      );
+      _guard(epoch);
+      if (generation != capturedGeneration) {
+        throw const ApiException(
+          409,
+          'Der Funktionsstand wurde geändert. Bitte neu prüfen.',
+        );
+      }
+      return result;
+    } on ApiException catch (e) {
+      if (e.status == 401) revoke();
+      rethrow;
+    }
+  }
+
   @override
   void dispose() {
     _disposed = true;

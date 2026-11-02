@@ -21,7 +21,7 @@ BACKEND_FILES = ('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py
                  'business_planning.py', 'business_time.py', 'business_operations.py',
                  'business_inventory.py', 'business_maintenance.py', 'business_adapters.py',
                  'business_organization.py', 'business_instance.py', 'business_purchasing.py', 'business_portal.py', 'business_accounting.py',
-                 'business_accounting_allocations.py',
+                 'business_accounting_allocations.py', 'business_accounting_components.py',
                  'requirements.lock')
 WINDOWS_DLLS = ('flutter_windows.dll', 'printing_plugin.dll', 'pdfium.dll', 'file_selector_windows_plugin.dll',
                 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll',
@@ -29,7 +29,7 @@ WINDOWS_DLLS = ('flutter_windows.dll', 'printing_plugin.dll', 'pdfium.dll', 'fil
                 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')
 OFFLINE_INSTALLER_FILES = ('Python_Umgebung_aktualisieren.cmd', 'Python_Umgebung_aktualisieren.py')
 OPERATOR_FILES = ('scripts/reconcile-accounting-restore.py', 'docs/CRM_ERP_EUER_BETRIEB.md',
-                  'docs/CRM_ERP_EUER_E1A_API.md', 'docs/CRM_ERP_EUER_E1B1_API.md')
+                  'docs/CRM_ERP_EUER_E1A_API.md', 'docs/CRM_ERP_EUER_E1B1_API.md', 'docs/CRM_ERP_EUER_E1B2_API.md')
 
 
 def require(condition, message):

@@ -427,7 +427,7 @@ class AccountingPostgres(unittest.TestCase):
                         note='Synthetic operator compared the separately retained test payment inputs since backup.'))
                 altered_cash = {**horizon, 'cash_events_count': horizon['cash_events_count'] + 1}
                 wrong_horizon = {**evidence, 'accounting_horizon':
-                    {**operator_horizon, 'prejournal': altered_cash} if operator_horizon['schema_version'] == 2 else altered_cash}
+                    {**operator_horizon, 'prejournal': altered_cash} if operator_horizon['schema_version'] >= 2 else altered_cash}
                 wrong_external = {**evidence, 'accounting_external_review': {**evidence['accounting_external_review'],
                                                                            'reviewed_since_backup': False}}
                 obsolete = {key: value for key, value in evidence.items() if not key.startswith('accounting_')}
@@ -476,7 +476,7 @@ class AccountingMigrationPostgres(unittest.TestCase):
     def test_additive_migration_preserves_prior_final_invoice_payment_original_and_signed_report(self):
         module = importlib.import_module('business_accounting')
         prior = tuple(spec for spec in business_schema.registry()
-                      if spec.name not in ('business_accounting', 'business_accounting_allocations'))
+                      if spec.name not in ('business_accounting', 'business_accounting_allocations', 'business_accounting_components'))
         with patch.object(business_schema, 'registry', return_value=prior):
             base.reset()
             bootstrap = PostgresOffice(journey.DSN)

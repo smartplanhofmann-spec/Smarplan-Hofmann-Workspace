@@ -34,7 +34,11 @@ zeigen Quellen und Klärungsfälle. Freie Teile bereits übernommener Kundenzahl
 können nach Vorschau und ausdrücklicher Bestätigung normalen Rechnungen
 [zugeordnet werden](docs/CRM_ERP_EUER_E1B1_API.md). Offene Posten, Mahnvorschläge
 und neue Prüfexporte berücksichtigen diese Zuordnung; ursprüngliche Nachweise
-bleiben erhalten. Steuerliche Aufteilung, Erstattungsursprünge, Korrekturen,
+bleiben erhalten. Ganze bestätigte Quellenanteile können außerdem in
+[belegte Netto-/ausgewiesene Steueranteile](docs/CRM_ERP_EUER_E1B2_API.md)
+aufgeteilt werden. Teilzahlungen teilen die exakten Gruppenreste des
+Originalbelegs; mehrere Gruppen verlangen eine ausdrückliche Bruttoverteilung.
+Steuerliche Freigabe, Erstattungsursprünge, Korrekturen,
 Perioden und Beraterpaket folgen gemäß [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md).
 
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital

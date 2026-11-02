@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 
 // Importing diagnostics neither launches a browser nor requires Playwright.
-const {compactFailure}=createRequire(import.meta.url)('./e2e.cjs');
+const {compactFailure,namespaceSandboxArguments,assertNamespaceSandbox}=createRequire(import.meta.url)('./e2e.cjs');
 
 test('browser crash diagnostics retain the initial error and final stack, with a bounded middle',()=>{
   const lines=['browserType.launch: browser closed','FATAL: No usable sandbox!'];
@@ -25,4 +25,20 @@ test('one enormous Chromium command cannot hide the following fatal message',()=
 
 test('short ordinary browser errors remain complete',()=>{
   assert.equal(compactFailure({stack:'Synthetic assertion\r\nat main'}),'Synthetic assertion\nat main');
+});
+
+test('namespace fallback requires explicit selection and preserves default browser arguments',()=>{
+  assert.deepEqual(namespaceSandboxArguments(undefined),[]);
+  assert.deepEqual(namespaceSandboxArguments('0'),[]);
+  assert.deepEqual(namespaceSandboxArguments('1'),['--disable-setuid-sandbox']);
+  for(const value of ['true','yes','--no-sandbox',''])assert.throws(()=>namespaceSandboxArguments(value));
+});
+
+test('namespace fallback refuses missing or disabled namespace and seccomp layers',()=>{
+  const status='Layer 1 Sandbox\tNamespace\nPID namespaces\tYes\nNetwork namespaces\tYes\nSeccomp-BPF sandbox\tYes';
+  assertNamespaceSandbox(status);
+  for(const line of status.split('\n')){
+    assert.throws(()=>assertNamespaceSandbox(status.replace(line,'')));
+    assert.throws(()=>assertNamespaceSandbox(status.replace(line,line.replace(/Yes|Namespace$/,'No'))));
+  }
 });

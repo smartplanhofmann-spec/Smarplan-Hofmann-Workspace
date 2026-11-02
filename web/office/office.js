@@ -80,7 +80,7 @@ export function organizationCommandArea(path) {
   if(path.startsWith('/organization')||path.startsWith('/settings/')||path==='/commercial/settings')return null;
   if(/^\/(employees|absences|shifts|time)(?:\/|$)/.test(path))return 'personnel';
   if(/^\/(resources|appointments|planning)(?:\/|$)/.test(path))return 'planning';
-  if(/^\/inventory(?:\/|$)/.test(path)||path==='/budgets'||/^\/projects\/[^/]+\/changes(?:\/|$)/.test(path))return 'material';
+  if(/^\/(inventory|purchasing)(?:\/|$)/.test(path)||path==='/budgets'||/^\/projects\/[^/]+\/changes(?:\/|$)/.test(path))return 'material';
   if(/^\/(documents|articles|services|templates|text-blocks|commercial)(?:\/|$)/.test(path))return 'documents';
   if(/^\/adapters\/imports\/[^/]+\/(apply|offer)$/.test(path))return 'documents';
   if(/^\/finance(?:\/|$)/.test(path))return 'finance';
@@ -101,6 +101,61 @@ export function organizationChange(current, values) {
     modules[name]={visible:choice==='auto'?null:choice==='show',enabled};
   }
   return {revision:current.revision,needs,modules};
+}
+function purchaseDecimal(value) {
+  const text=decimalText(value),negative=text.startsWith('-'),[whole,fraction='']=text.replace(/^-/,'').split('.');
+  return {text,scaled:BigInt(whole+fraction.padEnd(4,'0'))*(negative?-1n:1n)};
+}
+function purchaseRevision(order) {
+  if(!Number.isSafeInteger(order?.source_revision)||order.source_revision<1||
+      !Number.isSafeInteger(order?.receipt_revision)||order.receipt_revision<0)
+    throw new ApiError('Die Bestellung zuerst neu laden.',502);
+  return {source_revision:order.source_revision,expected_receipt_revision:order.receipt_revision};
+}
+export function purchaseActions(order,capabilities,organization) {
+  const permissions=new Set(capabilities.permissions||[]),
+    writable=capabilities.readonly===false&&organizationModuleEnabled('material',organization)&&permissions.has('inventory.write');
+  return {edit:writable&&order.status==='proposal',approve:writable&&order.status==='proposal'&&permissions.has('finance.approve'),
+    confirm:writable&&order.status==='approved'&&permissions.has('finance.approve'),
+    receive:writable&&['ordered','partially_received'].includes(order.status)&&permissions.has('finance.write'),
+    costs:permissions.has('finance.read')};
+}
+export function purchaseConfirmationData(order,values) {
+  if(order.status!=='approved'||order.confirmation)throw new Error('Zuerst den Bestellvorschlag freigeben und die Bestellung neu laden.');
+  if(values.confirmation!==true)throw new Error('Bitte die bereits extern erteilte Bestellung ausdrücklich bestätigen.');
+  const order_reference=String(values.order_reference||'').trim();
+  if(!order_reference)throw new Error('Bitte eine Bestellreferenz angeben.');
+  calendarDay(values.ordered_on);
+  return {...purchaseRevision(order),order_reference,ordered_on:values.ordered_on,confirmation:true};
+}
+export function purchaseReceiptData(order,values) {
+  if(!['ordered','partially_received'].includes(order.status)||!order.confirmation)
+    throw new Error('Zuerst die extern erteilte Bestellung dokumentieren.');
+  const receipt_reference=String(values.receipt_reference||'').trim();
+  if(!receipt_reference||!values.location_id)throw new Error('Bitte Lieferscheinreferenz und Ziellager angeben.');
+  calendarDay(values.received_on);
+  if(values.received_on<order.confirmation.ordered_on)throw new Error('Das Lieferdatum darf nicht vor dem dokumentierten Bestelldatum liegen.');
+  const indices=new Set(),lines=[];
+  if(!Array.isArray(order.items)||!order.items.length)throw new ApiError('Die Bestellpositionen zuerst neu laden.',502);
+  for(const item of order.items) {
+    if(!Number.isSafeInteger(item.line_index)||item.line_index<0||indices.has(item.line_index))
+      throw new ApiError('Die Bestellpositionen zuerst neu laden.',502);
+    indices.add(item.line_index);
+    const raw=values['quantity_'+item.line_index],cost=values['cost_'+item.line_index];
+    if(raw===undefined||String(raw).trim()==='') {
+      if(cost!==undefined&&String(cost).trim()!=='')throw new Error('Bitte zur eingetragenen Kostenangabe auch eine Liefermenge angeben.');
+      continue;
+    }
+    const quantity=purchaseDecimal(raw),remaining=purchaseDecimal(item.remaining_quantity);
+    if(quantity.scaled<0n||quantity.scaled>remaining.scaled)throw new Error('Die Liefermenge muss zwischen null und der noch offenen Menge liegen.');
+    if(quantity.scaled===0n)continue;
+    if(cost===undefined||cost===null||String(cost).trim()==='')throw new Error('Bitte den bestätigten Einstandspreis jeder gelieferten Position eingeben; einen Nullpreis ausdrücklich als 0.');
+    const price=purchaseDecimal(cost);
+    if(price.scaled<0n)throw new Error('Einstandspreise dürfen nicht negativ sein.');
+    lines.push({line_index:item.line_index,quantity:quantity.text,unit_cost_net:price.text});
+  }
+  if(!lines.length)throw new Error('Bitte mindestens eine tatsächlich gelieferte Menge eingeben.');
+  return {...purchaseRevision(order),receipt_reference,received_on:values.received_on,location_id:values.location_id,lines};
 }
 const DAY_MS=86400000;
 function calendarDay(value) {
@@ -242,6 +297,7 @@ const LABELS = {draft:'Entwurf',final:'Festgeschrieben',signed:'Unterzeichnet',n
   resolved:'Behoben',accepted:'Abgenommen',needs_review:'Prüfen',queued:'In Warteschlange',running:'Wird verarbeitet',failed:'Fehlgeschlagen',
   ready:'Bereit',uploading:'Upload läuft',planned:'Geplant',completed:'Abgeschlossen',paused:'Pausiert',working:'Läuft',stopped:'Beendet',
   reserved:'Reserviert',partial:'Teilweise entnommen',picked:'Entnommen',pending:'Ausstehend',not_sent:'Nicht versendet',unknown:'Unklar',
+  proposal:'Bestellvorschlag',approved:'Freigegeben',ordered:'Bestellung dokumentiert',partially_received:'Teillieferung',received:'Vollständig geliefert',
   offer:'Angebot',estimate:'Kostenvoranschlag',order_confirmation:'Auftragsbestätigung',invoice:'Rechnung',advance_invoice:'Abschlagsrechnung',
   cumulative_invoice:'Kumulierte Rechnung',final_invoice:'Schlussrechnung',delivery_note:'Lieferschein',credit_note:'Gutschrift',
   receipt:'Zahlungseingang',refund:'Erstattung',material:'Material',labor:'Lohn',service:'Leistung',machine:'Maschine',
@@ -432,6 +488,8 @@ function operationLabel(path) {
   if(path.includes('/media'))return 'Foto / Unterlage speichern';
   if(path.includes('/inquiries'))return 'Anfrage bearbeiten';
   if(path.includes('/contacts'))return 'Kontakt speichern';
+  if(path.includes('/purchasing')&&path.endsWith('/receipts'))return 'Wareneingang buchen';
+  if(path.includes('/purchasing'))return 'Bestellung dokumentieren';
   if(path.includes('/inventory'))return 'Lagerbuchung bestätigen';
   if(path.includes('/time'))return 'Zeitnachweis speichern';
   return 'Begonnenen Vorgang bestätigen';
@@ -723,7 +781,7 @@ function dunningDialog(items) {
   dialog('Mahnvorschläge',rows(items,item=>row(item.number||item.document_id,`${item.buyer?.name||''} · Offen ${formatMoney(item.open)} · Stufe ${item.level}`,[button('Freigeben',()=>confirmDialog('Mahnung freigeben','Empfänger, Betrag und Text prüfen. Ein Auftrag wird zur Zustellung vorbereitet; diese Ansicht behauptet keine versendete Nachricht.',async()=>{await mutation('dunning-approve-'+item.id,`/finance/dunning/proposals/${item.id}/approve`,{confirmation:true});refresh();}),'small')]),'Aktuell gibt es keine geeigneten Mahnvorschläge.'));
 }
 
-async function materialView() { return el('div',{class:'stack'},heading('Material','Artikel, Bestände und nachvollziehbare Entnahmen.'),await materialContent(state.projectId)); }
+async function materialView() { return el('div',{class:'stack'},heading('Material','Bestellungen, Lieferungen, Bestände und nachvollziehbare Entnahmen.'),await materialContent(state.projectId)); }
 async function materialContent(projectId='') {
   const [locations,stock]=await Promise.all([api.get(biz('/inventory/locations')),api.get(biz('/inventory/stock'))]);
   const articles=has('finance.read')?collection(await api.get(biz('/articles'))):[];
@@ -737,8 +795,105 @@ async function materialContent(projectId='') {
     form('Artikel per Code finden',[field('code','Artikelnummer / Barcode','text','',{required:true})],async data=>{const found=await api.get(query(biz('/inventory/scan'),{code:data.code}));dialog('Artikel gefunden',panel(found.name,el('p',{},`${found.code} · ${found.unit}`),found.cost_price_net?el('p',{},'EK netto: '+formatMoney(found.cost_price_net)):null));return undefined;},{submit:'Suchen',key:'scan',description:'Die Suche liest nur Stammdaten. Sie löst keine Entnahme aus.'}));
   if(projectId)content.append(panel('Kommissionierung',canWrite('inventory.write','material')?button('Material reservieren',()=>reservationDialog(projectId,collection(locations),articles),'small'):null,
     rows(reserved,item=>row(item.article_snapshot?.name||item.article_id,`Reserviert ${formatQuantity(item.quantity)} · Entnommen ${formatQuantity(item.picked_quantity)} · Rest ${formatQuantity(item.remaining_quantity)}`,[badge(item.status),canWrite('inventory.write','material')&&['reserved','partial'].includes(item.status)?button('Entnehmen',()=>dialog('Material entnehmen',form('',[field('quantity','Entnahmemenge','decimal',item.remaining_quantity,{required:true})],(data,key)=>mutation(key,'/inventory/pick',{project_id:projectId,items:[{reservation_id:item.id,quantity:data.quantity}]}),{key:'pick-'+item.id,submit:'Entnahme verbindlich buchen'})),'small'):null]))));
+  if(state.features.has('purchasing_receipts')&&state.capabilities.has('business_purchasing')&&has('inventory.read')) {
+    const availableArticles=articles.length?articles:Array.from(new Map(collection(stock).map(item=>[item.article_id,
+      {id:item.article_id,name:item.article_name||item.article_code,code:item.article_code,unit:item.unit}])).values());
+    content.prepend(await purchasingContent(projectId,collection(locations),availableArticles));
+  }
   if(has('finance.read'))content.append(panel('Artikel & Leistungen',rows(articles,item=>row(item.name,`${item.code||'Ohne Artikelnummer'} · ${item.unit} · VK ${formatMoney(item.unit_price_net)} · EK ${formatMoney(item.cost_price_net)}`,[badge(item.kind),canWrite('finance.write','documents')?button('Bearbeiten',()=>articleDialog(item),'small'):null]))));
   return content;
+}
+async function purchasingContent(projectId,locations,articles) {
+  const orders=collection(await api.get(query(biz('/purchasing/orders'),{project_id:projectId})));
+  return panel('Bestellungen',el('p',{class:'muted'},'Bestellvorschläge freigeben, extern erteilte Bestellungen dokumentieren und tatsächliche Lieferungen ins Lager buchen.'),
+    canWrite('inventory.write','material')?button('Bestellvorschlag anlegen',()=>purchaseProposalDialog(projectId,articles),'primary'):null,
+    rows(orders,order=>row(order.supplier_name,
+      `${state.projects.find(project=>project.id===order.project_id)?.name||(order.project_id?'Projekt':'Ohne Projekt')} · ${order.items.length} Position${order.items.length===1?'':'en'}${order.confirmation?' · '+order.confirmation.order_reference:''}`,
+      [badge(order.status),button('Bestellung ansehen',()=>action(()=>purchaseOrderDialog(order.id,locations)),'small')]),'Noch keine Bestellvorschläge vorhanden.'));
+}
+function purchaseProposalDialog(projectId,articles,order=null) {
+  const selectable=Array.from(new Map([...articles.filter(item=>item.active!==false&&item.active!==0&&(!item.kind||['material','machine'].includes(item.kind))),
+    ...(order?.items||[]).map(item=>({id:item.article_id,name:item.article_name,code:item.article_code,unit:item.unit}))].map(item=>[item.id,item])).values()),
+    lines=[],lineArea=el('div',{class:'stack'}),title=order?'Bestellvorschlag bearbeiten':'Bestellvorschlag anlegen';
+  if(!selectable.length) {
+    dialog(title,empty('Zuerst einen verfügbaren Artikel anlegen. Artikel mit vorhandenem Lagerbestand können ebenfalls ausgewählt werden.'));
+    return;
+  }
+  function addLine(existing=null) {
+    const identifier=requestId(),article=el('select',{'aria-label':'Bestellartikel',required:true},
+      el('option',{value:''},'Artikel auswählen'),selectable.map(item=>el('option',{value:item.id,selected:item.id===existing?.article_id},`${item.code?item.code+' · ':''}${item.name} (${item.unit})`))),
+      amount=el('input',{type:'text',inputMode:'decimal','aria-label':'Bestellmenge',required:true,value:existing?.ordered_quantity||'',maxLength:24}),
+      node=el('div',{class:'panel soft'},el('div',{class:'form-grid'},
+        el('label',{class:'field'},'Artikel',article),el('label',{class:'field'},'Bestellmenge',amount)),
+        button('Position entfernen',()=>{node.remove();const index=lines.findIndex(item=>item.id===identifier);if(index>=0)lines.splice(index,1);},'small'));
+    lines.push({id:identifier,article,amount});lineArea.append(node);
+  }
+  if(order)order.items.forEach(addLine);else addLine();
+  const editor=el('div',{class:'stack'},lineArea,button('Position hinzufügen',()=>addLine(),'small'));
+  dialog(title,form('',[...(order?[]:[field('project_id','Projekt (optional)','select',projectId,{options:[['','Ohne Projekt'],...options(state.projects)]})]),field('supplier_name','Lieferant','text',order?.supplier_name||'',{required:true,maxLength:300})],(data,key)=>{
+    if(!lines.length)throw new Error('Bitte mindestens eine Bestellposition angeben.');
+    const items=lines.map(line=>{const quantity=purchaseDecimal(line.amount.value);if(!line.article.value||quantity.scaled<=0n)throw new Error('Bitte Artikel und positive Bestellmenge für jede Position angeben.');return {article_id:line.article.value,quantity:quantity.text};});
+    return mutation(key,'/inventory/orders'+(order?'/'+order.id:''),{...data,project_id:data.project_id||null,items,status:'draft',...(order?{project_id:order.project_id,revision:order.source_revision}:{})});
+  },{key:'purchase-proposal-'+(order?.id||'new'),extra:editor,submit:'Vorschlag speichern',after:async saved=>{await refresh();await purchaseOrderDialog(saved.id);}}),
+  'Der Vorschlag wird intern gespeichert. Er löst keine Bestellung beim Lieferanten aus.');
+}
+async function purchaseOrderDialog(id,knownLocations=null) {
+  const [order,history,locationResponse]=await Promise.all([api.get(biz('/purchasing/orders/'+id)),api.get(biz('/purchasing/orders/'+id+'/receipts')),
+    knownLocations?Promise.resolve({items:knownLocations}):api.get(biz('/inventory/locations'))]);
+  const capabilities=await api.get(query(biz('/capabilities'),{project_id:order.project_id})),access=purchaseActions(order,capabilities,state.organization),
+    locations=collection(locationResponse),costs=access.costs,controls=[];
+  if(access.edit)
+    controls.push(button('Bestellvorschlag bearbeiten',()=>action(async()=>{
+      const articles=state.globalPermissions.has('finance.read')?collection(await api.get(biz('/articles'))):collection(await api.get(biz('/inventory/stock'))).map(item=>
+        ({id:item.article_id,name:item.article_name||item.article_code,code:item.article_code,unit:item.unit}));
+      purchaseProposalDialog(order.project_id,articles,order);
+    }),'small'));
+  if(access.approve)
+    controls.push(button('Vorschlag freigeben',()=>dialog('Bestellvorschlag freigeben',form('',[],(_,key)=>
+      mutation(key,'/inventory/orders/'+id,{project_id:order.project_id,supplier_name:order.supplier_name,revision:order.source_revision,
+        status:'approved',items:order.items.map(item=>({article_id:item.article_id,quantity:item.ordered_quantity}))}),
+      {key:'purchase-approve-'+id,submit:'Vorschlag verbindlich freigeben',after:async()=>{await refresh();await purchaseOrderDialog(id);}}),
+      'Die Positionen werden intern freigegeben und anschließend nicht mehr verändert. Eine Bestellung beim Lieferanten erfolgt dadurch nicht.'),'primary'));
+  if(access.confirm)
+    controls.push(button('Extern erteilte Bestellung dokumentieren',()=>purchaseConfirmDialog(order),'primary'));
+  if(access.receive)
+    controls.push(button('Lieferung erfassen',()=>purchaseReceiptDialog(order,locations),'primary'));
+  const body=el('div',{class:'stack'},el('div',{class:'actions'},badge(order.status),controls),
+    order.confirmation?notice(`Extern bestellt am ${formatDate(order.confirmation.ordered_on)} · Referenz ${order.confirmation.order_reference}.`):
+      el('p',{class:'muted'},'Die Bestellung ist noch nicht als extern erteilt dokumentiert.'),
+    panel('Positionen',table(['Pos.','Artikel','Bestellt','Geliefert','Offen'],order.items.map(item=>[
+      String(item.line_index+1),`${item.article_code?item.article_code+' · ':''}${item.article_name}`,formatQuantity(item.ordered_quantity,item.unit),
+      formatQuantity(item.received_quantity,item.unit),formatQuantity(item.remaining_quantity,item.unit)]))),
+    panel('Lieferhistorie',rows(collection(history),receipt=>el('section',{class:'panel soft'},el('h3',{},receipt.receipt_reference),
+      el('p',{class:'muted'},`${formatDate(receipt.received_on)} · ${locations.find(location=>location.id===receipt.location_id)?.name||'Lagerort'} · erfasst ${formatDate(receipt.created_at,true)}`),
+      table(['Pos.','Artikel','Geliefert',...(costs?['Einstand je Einheit','Kosten netto']:[])],receipt.lines.map(line=>[
+        String(line.line_index+1),line.article_name,formatQuantity(line.quantity,line.unit),...(costs?[formatMoney(line.unit_cost_net),formatMoney(line.cost_net)]:[])]))),
+      'Noch keine Lieferung gebucht.')),
+    el('p',{class:'caption'},'Diese Ansicht dokumentiert den tatsächlichen Ablauf. Die Anwendung versendet keine Bestellung an den Lieferanten.'));
+  dialog('Bestellung · '+order.supplier_name,body,state.projects.find(project=>project.id===order.project_id)?.name||'');
+}
+function purchaseConfirmDialog(order) {
+  dialog('Extern erteilte Bestellung dokumentieren',form('',[
+    field('order_reference','Bestellreferenz','text','',{required:true,maxLength:300}),field('ordered_on','Tatsächliches Bestelldatum','date',dateInput(),{required:true}),
+    field('confirmation','Ich bestätige, dass diese Bestellung bereits extern erteilt wurde.','checkbox',false,{required:true,wide:true})],
+    (data,key)=>mutation(key,'/purchasing/orders/'+order.id+'/confirm',purchaseConfirmationData(order,data)),
+    {key:'purchase-confirm-'+order.id,submit:'Bestellung dokumentieren',after:async()=>{await refresh();await purchaseOrderDialog(order.id);}}),
+    'Referenz und Datum werden nachvollziehbar festgehalten. Es erfolgt kein Versand.');
+}
+function purchaseReceiptDialog(order,locations) {
+  const remaining=order.items.filter(item=>purchaseDecimal(item.remaining_quantity).scaled>0n),fields=[
+    field('receipt_reference','Lieferschein / Belegreferenz','text','',{required:true,maxLength:300}),
+    field('received_on','Tatsächliches Lieferdatum','date',dateInput(),{required:true}),
+    field('location_id','Ziellager','select','',{required:true,options:[['','Bitte auswählen'],...options(locations.filter(item=>item.active!==false&&item.active!==0))]})];
+  for(const item of remaining)fields.push(
+    field('quantity_'+item.line_index,`Pos. ${item.line_index+1} · ${item.article_name} – Liefermenge (${item.unit})`,'decimal','',
+      {maxLength:24,help:`Bestellt ${formatQuantity(item.ordered_quantity,item.unit)} · bereits geliefert ${formatQuantity(item.received_quantity,item.unit)} · offen ${formatQuantity(item.remaining_quantity,item.unit)}.`}),
+    field('cost_'+item.line_index,`Pos. ${item.line_index+1} · Einstand netto EUR / ${item.unit}`,'decimal','',
+      {maxLength:24,help:'Tatsächlichen Einstandspreis je Einheit bestätigen; 0 nur bei einem tatsächlichen Nullpreis.'}));
+  const editor=form('',fields,(data,key)=>mutation(key,'/purchasing/orders/'+order.id+'/receipts',purchaseReceiptData(order,data)),
+    {key:'purchase-receipt-'+order.id,submit:'Wareneingang verbindlich buchen',after:async()=>{await refresh();await purchaseOrderDialog(order.id);}});
+  editor.prepend(button('Restmengen übernehmen',()=>remaining.forEach(item=>{editor.controls.get('quantity_'+item.line_index).input.value=item.remaining_quantity;}),'small'));
+  dialog('Lieferung erfassen',editor,'Nur tatsächlich erhaltene Mengen eintragen. Nicht gelieferte Positionen leer lassen. Die Buchung erhöht den Lagerbestand; Teilmengen bleiben offen.');
 }
 function articleDialog(item=null) {
   dialog(item?'Artikel bearbeiten':'Artikel / Leistung',form('',[field('code','Artikelnummer','text',item?.code||''),field('name','Bezeichnung','text',item?.name||'',{required:true}),field('kind','Art','select',item?.kind||'material',{options:['material','labor','service','machine'].map(kind=>[kind,LABELS[kind]])}),field('unit','Einheit','text',item?.unit||'Stk.',{required:true}),field('unit_price_net','Verkauf netto EUR','decimal',item?.unit_price_net||'0.00',{required:true}),field('cost_price_net','Einstand netto EUR','decimal',item?.cost_price_net||'0.00',{required:true}),field('tax_rate','MwSt. %','select',item?.tax_rate||'19',{options:[['19','19 %'],['7','7 %'],['0','0 %']]}),field('active','Aktiv','checkbox',item?.active??true)],

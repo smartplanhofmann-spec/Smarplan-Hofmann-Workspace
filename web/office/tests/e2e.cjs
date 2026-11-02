@@ -12,6 +12,17 @@ function compactFailure(error){
   const selected=lines.length<=50?lines:[...lines.slice(0,35),`[${lines.length-50} middle diagnostic lines omitted]`,...lines.slice(-15)];
   return selected.map(line=>line.length>400?line.slice(0,400)+' [line truncated]':line).join('\n');
 }
+function namespaceSandboxArguments(value){
+  if(value===undefined||value==='0')return [];
+  assert.equal(value,'1','SMARTPLAN_BROWSER_NAMESPACE_SANDBOX accepts only 1, 0 or unset');
+  // Explicit test-environment alternative to an unavailable root-owned SUID
+  // helper. Namespace and seccomp isolation must still pass the live probe.
+  return ['--disable-setuid-sandbox'];
+}
+function assertNamespaceSandbox(status){
+  for(const expression of [/Layer 1 Sandbox\s+Namespace/,/PID namespaces\s+Yes/,
+    /Network namespaces\s+Yes/,/Seccomp-BPF sandbox\s+Yes/])assert.match(status,expression);
+}
 async function launchDiagnostics(executable){
   const values={browser:executable||'Playwright managed Chromium',uid:process.getuid?.()};
   for(const [name,filename]of Object.entries({apparmor_enabled:'/sys/module/apparmor/parameters/enabled',apparmor_profile:'/proc/self/attr/current',apparmor_restrict_unprivileged_userns:'/proc/sys/kernel/apparmor_restrict_unprivileged_userns',unprivileged_userns_clone:'/proc/sys/kernel/unprivileged_userns_clone',max_user_namespaces:'/proc/sys/user/max_user_namespaces'})){
@@ -53,11 +64,21 @@ async function main(){
     if(executable===undefined){try{await fs.access('/usr/bin/chromium');executable='/usr/bin/chromium';}catch{executable='';}}
     // Explicit empty override selects Playwright's pinned bundled browser in CI.
     launchInfo=await launchDiagnostics(executable);
-    browser=await chromium.launch({...executable?{executablePath:executable}:{},headless:true,chromiumSandbox:true,args:['--enable-automation']});
+    const namespaceArguments=namespaceSandboxArguments(process.env.SMARTPLAN_BROWSER_NAMESPACE_SANDBOX);
+    browser=await chromium.launch({...executable?{executablePath:executable}:{},headless:true,chromiumSandbox:true,args:['--enable-automation',...namespaceArguments]});
     const debug=await browser.newBrowserCDPSession();
     const command=await debug.send('Browser.getBrowserCommandLine');
-    assert.ok(!command.arguments.some(argument=>['--no-sandbox','--disable-web-security','--ignore-certificate-errors'].includes(argument)),'browser security must remain enabled');
+    assert.ok(!command.arguments.some(argument=>['--no-sandbox','--disable-web-security','--ignore-certificate-errors','--disable-seccomp-filter-sandbox','--disable-namespace-sandbox'].includes(argument)),'browser security must remain enabled');
     await debug.detach();
+    if(namespaceArguments.length){
+      const probe=await browser.newPage();
+      try{
+        await probe.goto('chrome://sandbox');
+        const status=await probe.locator('body').innerText();
+        assertNamespaceSandbox(status);
+        console.log('browser: namespace, PID, network and seccomp sandboxes verified before application access');
+      }finally{await probe.close();}
+    }
     const context=await browser.newContext({viewport:{width:1440,height:1000},locale:'de-DE',timezoneId:'Europe/Berlin',acceptDownloads:true});
     await context.route('**/*',route=>new URL(route.request().url()).origin===fixture.base_url?route.continue():route.abort());
     page=await context.newPage();page.on('pageerror',error=>pageErrors.push(error.message));page.on('console',message=>{if(message.type()==='error')consoleErrors.push(message.text());});page.setDefaultTimeout(15000);
@@ -96,6 +117,8 @@ async function main(){
     await page.getByLabel('Personal fachlich aktiv',{exact:true}).check();await saveOrganization();
     assert.equal(await page.locator('.navigation').getByRole('button',{name:'Personal',exact:true}).count(),1);
     console.log('browser: manual module visibility retained, hidden personnel opened by administrator, inactive history stayed readable and reactivation restored writes');
+    const {purchasingFlow,purchasingReadOnly}=require('./purchasing-flow.cjs');
+    const purchaseOrderId=await purchasingFlow({page,context,navigate,ready,fixture,screenshots});
     await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Einsatzplanung');
     await page.getByRole('button',{name:'Termin planen',exact:true}).click();let modal=page.getByRole('dialog',{name:'Termin planen',exact:true});
     const monday=await page.evaluate(()=>{const day=new Date();day.setDate(day.getDate()-((day.getDay()+6)%7));return `${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;});
@@ -177,6 +200,7 @@ async function main(){
     await page.screenshot({path:path.join(screenshots,'desktop.png'),fullPage:true});
     await page.getByRole('button',{name:'Abmelden',exact:true}).click();await page.getByRole('heading',{name:'Willkommen im Büro.',exact:true}).waitFor();assert.equal(await page.getByText('Synthetic browser diary',{exact:true}).count(),0);
     await login(page,'technician@browser.example.test');assert.equal(await page.locator('.navigation').getByRole('button',{name:'Finanzen',exact:true}).count(),0);
+    await purchasingReadOnly({page,navigate,ready,orderId:purchaseOrderId});
     assert.equal(await page.getByLabel('Aktuelles Projekt').locator('option').filter({hasText:'Private synthetic project'}).count(),0);
     await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Projekte');await page.getByRole('tab',{name:'Fotos & Doku',exact:true}).click();await ready(page);assert.equal(await page.getByText('PRIVATE FINANCIAL RECEIPT',{exact:true}).count(),0);
     await navigate(page,'Einsatzplanung');await page.getByLabel('Planungsansicht',{exact:true}).selectOption('year');await ready(page);await page.getByLabel('Planungsjahr',{exact:true}).fill('2031');await page.getByLabel('Planungsjahr',{exact:true}).press('Tab');await ready(page);
@@ -207,7 +231,7 @@ async function main(){
     await page.goto(fixture.base_url+'/office/');await login(page,'owner@browser.example.test',recovery[0]);await navigate(page,'Anfragen');assert.equal(await page.getByRole('heading',{name:'Synthetic public website inquiry',exact:true}).count(),1);
     assert.deepEqual(pageErrors,[]);await context.close();
     console.log('browser: public form had no bearer, lost acknowledgement retried one inquiry and reply remained pending');
-    console.log('7 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
+    console.log('8 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
   }catch(error){
     console.error('SMARTPLAN_BROWSER_FAILURE_BEGIN');
     console.error(compactFailure(error));
@@ -219,5 +243,5 @@ async function main(){
   }
   finally{if(browser)await browser.close();if(server&&server.exitCode===null){server.kill('SIGTERM');await Promise.race([new Promise(resolve=>server.once('exit',resolve)),delay(5000)]);if(server.exitCode===null)server.kill('SIGKILL');}await fs.rm(directory,{recursive:true,force:true});}
 }
-module.exports={compactFailure};
+module.exports={compactFailure,namespaceSandboxArguments,assertNamespaceSandbox};
 if(require.main===module)main();

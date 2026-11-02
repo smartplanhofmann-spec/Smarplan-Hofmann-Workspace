@@ -1,5 +1,9 @@
 # CRM/ERP – Fortschritt und Testergebnisse
 
+Die Abschnitte sind chronologisch. Der aktuelle Entwicklungsschritt steht unter
+**Einkauf und positionsgebundene Wareneingänge** weiter unten. Die Ergebnisse
+des ersten Abschnitts gehören zum lokalen Commit `14fe4c9`.
+
 ## 02.11.2026 – Bestand, Integration und erste Entwicklung
 
 - `CRM_ERP_Gesamtziel.txt` vollständig gelesen und unverändert im Hauptverzeichnis
@@ -108,10 +112,137 @@ Lokale Testserver benötigen erlaubte Loopback-Sockets.
   als nächste überschaubare Fachlücke innerhalb Abnahme C bearbeiten.
 - Angebot/Annahme/Kundenportal und Offline-Protokollkette nach Abnahme B ergänzen.
 - Die noch offenen Buchführungs-/Lohnfälle vor der betreffenden Fachumsetzung
-  konkretisieren; Fragen dazu wurden gestellt, Antworten stehen noch aus.
+  konkretisieren; die damals noch ausstehenden Grundentscheidungen wurden
+  später beantwortet (siehe unten).
 - Vollständige Instanz-Provisionierung, Schlüssel-/Hostrotation, Restore der
   Bindung und Prozess-/Connector-Isolation ergänzen.
 
 Die Kriterien A–G sind noch nicht vollständig abgenommen. In dieser Sitzung
 wurde kein produktiver Server aktualisiert, keine externe Nachricht versendet
 und keine produktive Migration oder finanzielle Aktion ausgeführt.
+
+## 02.11.2026 – Einkauf und positionsgebundene Wareneingänge
+
+Ausgangsbasis ist der lokale Grundlagen-Commit `14fe4c9`. Dieser Abschnitt
+bearbeitet die Lieferkettenlücke aus R07.02 und den lokalen Teil von Abnahme C.
+[Nutzung, Datenvertrag und Grenzen](CRM_ERP_EINKAUF.md) sowie der
+[unabhängige interne Review](CRM_ERP_EINKAUF_REVIEW.md) ergänzen diesen Nachweis.
+
+### Implementierter Umfang
+
+- Browser und Flutter führen durch Bestellvorschlag, Korrektur des Entwurfs,
+  interne Freigabe, ausdrückliche Dokumentation einer extern erteilten Bestellung
+  sowie Teil-/Restlieferungen mit dauerhaftem Verlauf. Lagerbedarf kann auch
+  ohne Projekt erfasst werden. Die Anwendung versendet keine Bestellung.
+- Jede Lieferung bindet Mengen und tatsächliche Nettoeinstandspreise an die
+  ursprünglichen Bestellpositionen und erzeugt echte Lagerbewegungen. Zugänge
+  bewerten Lagerbestand; eine Projektentnahme übernimmt den gewichteten
+  Einstandspreis und erzeugt Projektkosten.
+- Serverseitige Rechte, Quellen-/Lieferrevisionen, wiederholsichere Anfrage-IDs,
+  normalisierte Belegreferenzen und atomare Transaktionen verhindern doppelte
+  oder zu große Lieferungen und Teilbuchungen bei einem Fehler. Finanzwerte
+  werden auch bei Wiederholungen nach aktuellen Leserechten ausgeblendet.
+- Browser und App erhalten ausstehende Anfrage-IDs bei verlorenen Antworten
+  oder vorübergehender Modulsperre 423. Deaktivierung des Materialmoduls erhält
+  die berechtigt lesbare Historie.
+- Einheit und Artikelart bleiben nach Freigabe, Reservierung oder Lagerbewegung
+  gebunden. Der Wareneingang weist inkonsistente Altquellen zusätzlich ab.
+- Vier additive Einkaufs-/Historientabellen sind in Schema, API, Laufzeitrechten,
+  Modulsteuerung, CI und Windows-Quellpaketen registriert. Bestehende
+  Schema-7-Moduldefinitionen wurden nicht geändert. UPDATE/DELETE und SQLite
+  `INSERT OR REPLACE` können die neue Historie nicht ersetzen.
+
+### Prüfungen dieses Abschnitts
+
+| Prüfung | Ergebnis | Umfang / Log |
+| --- | --- | --- |
+| Einkaufskern und Migration | 24 bestanden | Teil-/Restmengen, Duplikate, Rechte, Konkurrenz, Rollback, alle SQLite-REPLACE-Schlüssel und Migration mit unverändertem signierten Legacy-PDF/Rechnungsentwurf; `backend/test_business_purchasing.py` |
+| Artikelidentität und vorhandenes Lager | 19 bestanden | Vier neue Einheiten-/Artikelartfälle plus 15 bestehende Inventarfälle; `work/stock-identity-tests.log` |
+| Unabhängiger HTTP-/MFA-Ablauf | 4 bestanden | Einkauf→Teil/Rest→Bestand114,75 EUR→Projektentnahme45,90 EUR→Gerätewartung→signierter Bericht→Neustart; Rechte, 423, Rollback und alte Einheit; `backend/online/test_purchasing_journey.py` |
+| Unabhängige Nachprüfung der Datenhaltung | 2 bestanden | Bestandserhalt/Migration und SQLite-REPLACE-Schutz separat erneut ausgeführt; [Review](CRM_ERP_EINKAUF_REVIEW.md) |
+| Vollständiges Backend | 407 ausgeführt, 406 bestanden, 1 übersprungen | 59,985 s; nur Windows-Job-Object-Bereinigung auf Linux übersprungen; `work/verification/purchasing-backend-full.log` |
+| Kaufmännische Fachsuite | 95 bestanden, keine Skips | 130,129 s; echte lokale KoSIT-/Mustang-/veraPDF-Prüfer und synthetischer SMTP-TLS-Dienst; `work/verification/purchasing-business-services.log` |
+| PostgreSQL-Einkauf | 5 bestanden, keine Skips | 7,450 s; Runtime-HTTP, konkurrierende Restlieferung, Rollback, Rechteentzug und additive Migration mit erhaltener tatsächlich finalisierter Rechnung/PDF, Nummern und Audit; `work/verification/pg-test_postgres_purchasing_integration.log` |
+| Flutter-Einkauf und Sitzung nach Review | 20 bestanden | 13 Widgetfälle einschließlich 390/1200 px, Projektrollen, Rechteentzug, Präzision, Dialogschließen und Wiederaufnahme; 1 echter HTTP-Ablauf mit 15 m / 52,50 EUR; 6 Sitzungstests; `work/verification/purchasing-flutter-review-targeted.log` |
+| Vollständiges Flutter / Analyze nach Review | 337 bestanden, keine Skips; Analyze ohne Befund | Abschließender unveränderter Codestand, 1:40 Laufzeit; `work/verification/purchasing-flutter-review-full.log` und `purchasing-flutter-review-analyze.log` |
+| Browser-Komponententests | 52 bestanden | Formular-/Mengenvalidierung, Wiederholung/423, projektbezogene Aktionsrechte sowie Sandbox-Diagnose |
+| Echter Browserablauf | 8 Workflows bestanden | Bestehende MFA-/Kalender-/Signatur-/PDF-/Formularabläufe plus neue Einkaufskette, verlorene Antwort, Technikerredaktion und 390-px-Ansicht; `work/verification/browser-e2e-purchasing.log` |
+| Paket-/Quellprüfung | 14 bestanden; Source-Check erfolgreich | `work/purchasing-package-tests.log`, `work/purchasing-source-check.log`; kein Windows-/iPhone-Installationsnachweis |
+
+Die Zahlen einzelner Gruppen überschneiden sich und werden nicht addiert.
+Alle Prüfdaten sind synthetisch. Die aufgeführten Abschlussprüfungen sind
+beendet. Der maschinenlesbare
+[Einkaufs-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_EINKAUF.json) bindet diese Ergebnisse
+an die Ausgangsbasis und SHA-256-Werte der geänderten Code-/Testdateien.
+
+Der erste Aufruf der kaufmännischen Suite hatte einen unvollständigen lokalen
+`PYTHONPATH`; zwei Testmodule konnten deshalb nicht importiert werden. Nach
+Korrektur des Befehls wurde die gesamte Suite mit 95 Fällen erfolgreich
+ausgeführt. Das erste Log bleibt unter
+`work/verification/purchasing-business-services-initial.log` erhalten.
+
+Die bisherige Browserblockade wurde mit einem ausdrücklich gewählten
+Usernamespace-Start behoben. Namespace-, PID-, Netzwerk- und Seccomp-Schutz
+werden vor Appzugriff tatsächlich überprüft; die Sandbox bleibt eingeschaltet.
+Desktop- und mobile Lieferhistorie wurden zusätzlich anhand der Screenshots
+unter `work/verification/browser-purchasing-previews/` visuell geprüft. Der
+Loopback-Browserlauf ersetzt keinen neuen HTTPS- oder echten iPhone-Nachweis.
+Die PostgreSQL-Migration beweist den Erhalt einer finalisierten Rechnung mit
+PDF; dieser besondere Migrationsfall umfasst keine XML-Konformitätsprüfung.
+
+Der abschließende UI-Review führte zu gezielten Korrekturen: Der Browser erlaubt
+projektlosen Lagerbedarf und verwendet beim geöffneten Auftrag dessen
+Projektberechtigungen. Flutter lädt ebenfalls die Rechte des Detailprojekts,
+leert die Anzeige bei einer bekannten Zugriffsverweigerung und begrenzt
+Mengen/Einstandspreise passend zum Backend auf vier Nachkommastellen. Seine
+Einkaufseditoren bewahren unbestätigte Originaleingaben beim Schließen in der
+laufenden Sitzung auf und verwenden beim Wiederöffnen denselben Anfragebeleg.
+Dieser Puffer wird bei Abmeldung/definitiver Antwort entfernt; er übersteht
+keinen vollständigen Prozessneustart. Der Review und die gezielten neuen
+Fehlerfalltests prüfen diese begrenzte Zusage.
+
+Reproduzierbare neue Backendbefehle vom Hauptverzeichnis:
+
+```sh
+PYTHONPATH=backend backend/.venv/bin/python -m unittest test_business_purchasing test_stock_article_identity -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_purchasing_journey -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_postgres_purchasing_integration -v
+node --test web/office/tests/*.test.mjs
+node web/office/tests/e2e.cjs
+```
+
+Die PostgreSQL-Prüfung benötigt wie zuvor `SMARTPLAN_TEST_DSN` zur bewachten
+entbehrlichen Loopback-Datenbank `smartplan_check`. Der Browserlauf benötigt
+Playwright/Chromium und die Python-Testumgebung; die bewusste Alternative
+`SMARTPLAN_BROWSER_NAMESPACE_SANDBOX=1` funktioniert nur mit tatsächlich
+verfügbarer und anschließend geprüfter Namespace-Sandbox. CI registriert
+beide neuen Online-Testdateien ausdrücklich.
+
+### Abnahmestand und nächste Schritte
+
+Der lokale Liefer-/Lager-/Kostenablauf ergänzt den bestehenden Servicekern.
+Eine tatsächlich ausgelöste Lieferantenbestellung, verknüpfte Original-
+Lieferscheine und die strukturierte Gerätebindung an die Bestell-/Entnahmeposition
+sind noch offen. Der HTTP-Test nutzt für die Gerätezuordnung Projekt und
+dokumentierte Referenzen in der Notiz. Retouren, Storno und Bestelländerungen
+sind noch nicht implementiert. C ist deshalb weiterhin insgesamt offen.
+
+Als nächster größerer Abschnitt folgen Angebotsannahme und Kundenportal aus B.
+Zuvor wird die eingeschränkte Artikelwahl für reine Lagerrollen gezielt ergänzt:
+Flutter benötigt im Vorschlagseditor derzeit Finanzleserecht; der Browser
+findet ohne globales Finanzleserecht nur Artikel mit Lagerhistorie bzw.
+vorhandenen Vorschlagspositionen. Eine preisfreie sichere Katalogsuche fehlt.
+Die übrigen offenen Punkte des Gesamtplans sowie echte Geräte-, Betriebs- und
+Fachabnahmen bleiben bestehen. In diesem Schritt wurden keine produktiven
+Daten verändert und keine externe Bestellung oder Nachricht ausgelöst.
+
+### Konkretisierung durch den Nutzer
+
+Am 02.11.2026 hat der Nutzer die zwei offenen Grundentscheidungen beantwortet:
+
+- Erste vollständige Buchhaltung: **Einzelunternehmen mit EÜR**.
+- Erste deutsche Lohnabrechnung: **reguläre Mitarbeiter und Minijobs**.
+
+Anforderungsmatrix, Umsetzungsplan und Übergabe halten diese Entscheidungen
+fest. Sie bestimmen den nächsten Fachumfang und sind noch kein Nachweis einer
+implementierten oder fachlich abgenommenen Buchhaltung beziehungsweise Payroll.

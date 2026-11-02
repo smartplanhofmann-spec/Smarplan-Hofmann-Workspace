@@ -85,5 +85,7 @@
     "web/office/tests/organization.test.mjs": "7618734930735ac474a82a3ee3b482dd1159eceb6389be834b18d2fda84f9a03",
     "web/office/tests/serve_fixture.py": "85f79e0e05d13ebcf153ca2360af071dce140cf9156affa8c84b6c6bbcfb1d45"
   },
-  "note": "Group counts are test executions and overlap; do not add as unique acceptance coverage. Raw logs are in ignored work/."
+  "note": "Group counts are test executions and overlap; do not add as unique acceptance coverage. Raw logs are in ignored work/.",
+  "implementation_commit": "14fe4c962818c3e1f6e11884ec50f9bec689174e",
+  "historical_note": "Immutable results for the first foundation increment; later changes and resolved browser verification are recorded separately in CRM_ERP_PRUEFNACHWEIS_EINKAUF.json."
 }

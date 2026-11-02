@@ -485,6 +485,28 @@ class Documents:
         result['preview_only']=True
         return result
 
+    def _require_stock_identity(self, article_id, previous, proposed):
+        """Never reinterpret historical quantities by editing their unit/kind.
+
+        Prices and labels can evolve through article versions. A different
+        stock unit needs a different article until an explicit unit-conversion
+        process exists; changing a label is not such a conversion.
+        """
+        if all(previous.get(key) == proposed.get(key) for key in ('unit', 'kind')):
+            return
+        from business_schema import _tables
+        tables = _tables(self.office)
+        for table in ('business_stock_movements', 'business_stock_reservations'):
+            if table in tables and self.db.execute('SELECT 1 FROM ' + table + ' WHERE article_id=? LIMIT 1',
+                                                    (article_id,)).fetchone():
+                raise Problem(409, 'Einheit und Artikelart sind durch Lagerhistorie gebunden. '
+                              'Für eine andere Mengeneinheit einen neuen Artikel anlegen.')
+        if 'business_purchase_orders' in tables:
+            for order in self.db.execute("SELECT payload_json FROM business_purchase_orders WHERE status='approved'").fetchall():
+                if any(item['article_id'] == article_id for item in json.loads(order['payload_json'])):
+                    raise Problem(409, 'Einheit und Artikelart sind durch eine freigegebene Bestellung gebunden. '
+                                  'Für eine andere Mengeneinheit einen neuen Artikel anlegen.')
+
     def save_article(self,actor,data,article_id=None):
         actor=require(self.office,actor,'finance.write')
         if not isinstance(data,dict):raise Problem(400,'Artikel erwartet')
@@ -516,6 +538,8 @@ class Documents:
         for field in ('name','unit'):value[field]=_text(value.get(field),field,500)
         value['code']=_text(value.get('code',''),'Artikelnummer',100,empty=True)
         if value.get('kind') not in ('material','labor','service','machine'):raise Problem(400,'Artikelart erwartet')
+        if old:
+            self._require_stock_identity(article_id, json.loads(old['payload_json']), value)
         for field in ('unit_price_net','cost_price_net','tax_rate'):decimal_value(value.get(field))
         value.setdefault('tax_category','S' if Decimal(value['tax_rate']) else 'Z')
         value.setdefault('tax_exemption_reason','')

@@ -153,7 +153,7 @@ def command_module(path, module_name):
         return 'planning'
     if module_name == 'business_adapters' and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/(apply|offer)', path):
         return 'documents'
-    return {'business_inventory': 'material', 'business_documents': 'documents',
+    return {'business_inventory': 'material', 'business_purchasing': 'material', 'business_documents': 'documents',
             'business_finance': 'finance'}.get(module_name)
 
 

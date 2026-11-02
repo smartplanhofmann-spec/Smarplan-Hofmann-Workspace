@@ -39,6 +39,13 @@ Testausführung. Jede Fertigmeldung benennt den tatsächlichen geprüften Umfang
 und verbleibende Lücken. Externe Nachweise blockieren nur abhängige Freigaben;
 unabhängige Entwicklung wird fortgesetzt.
 
+**Nutzerentscheidung vom 02.11.2026:** Die erste vollständige Buchhaltung ist
+für ein Einzelunternehmen mit EÜR vorgesehen. Die erste deutsche Lohnabrechnung
+soll reguläre Mitarbeiter und Minijobs abdecken. Diese Antworten konkretisieren
+die zuvor offenen Entscheidungen im Gesamtplan; keine erneute Nachfrage nach
+diesen beiden Grundentscheidungen. Fachliche Referenzen und zulässige Sonderfälle
+innerhalb des Umfangs müssen bei der Umsetzung geprüft werden.
+
 ## Verbindliche aktuelle Nutzerentscheidungen – 25. Oktober 2026
 
 Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.

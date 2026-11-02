@@ -1,0 +1,126 @@
+{
+  "date": "2026-11-02",
+  "base_commit": "14fe4c962818c3e1f6e11884ec50f9bec689174e",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "scope": "Purchasing, position-bound partial/final goods receipts, inventory valuation, scoped client rights and session-bound exact retries. Partial acceptance C; not complete A-G or production approval.",
+  "user_decisions": {
+    "first_bookkeeping_scope": "Einzelunternehmen mit EÜR",
+    "first_payroll_scope": "Reguläre Mitarbeiter und Minijobs",
+    "source": "Explicit user answers on 2026-11-02"
+  },
+  "results": {
+    "backend": {
+      "run": 407,
+      "passed": 406,
+      "skipped": 1,
+      "skip_reason": "Windows job-object cleanup on Linux"
+    },
+    "purchasing_domain_migration": {
+      "passed": 24
+    },
+    "article_identity_inventory": {
+      "passed": 19
+    },
+    "independent_http_mfa_journey": {
+      "passed": 4
+    },
+    "independent_migration_replace_recheck": {
+      "passed": 2
+    },
+    "business_services": {
+      "passed": 95,
+      "skipped": 0,
+      "validators": [
+        "KoSIT",
+        "Mustang",
+        "veraPDF"
+      ],
+      "initial_runner_error": "Missing backend/online in PYTHONPATH; corrected full suite rerun passed"
+    },
+    "postgres_purchasing": {
+      "passed": 5,
+      "skipped": 0,
+      "version": "16.15",
+      "database": "Disposable loopback smartplan_check",
+      "coverage": [
+        "Separated runtime role and fresh privileges",
+        "Concurrent final receipt",
+        "Atomic rollback after first stock write",
+        "Read/replay/restart/integrity",
+        "Migration preserves real issued invoice PDF, rows, numbering and audit"
+      ],
+      "migration_archive_limit": "No XML conformance claim for this particular migration case"
+    },
+    "flutter_final_after_review": {
+      "passed": 337,
+      "skipped": 0,
+      "analysis_findings": 0
+    },
+    "flutter_targeted_after_review": {
+      "passed": 20,
+      "composition": {
+        "purchasing_widgets": 13,
+        "real_http_client_journey": 1,
+        "session_regressions": 6
+      }
+    },
+    "browser_unit": {
+      "passed": 52,
+      "skipped": 0
+    },
+    "browser_e2e": {
+      "workflows_passed": 8,
+      "live_sandbox_verification": [
+        "Namespace",
+        "PID namespaces",
+        "Network namespaces",
+        "Seccomp-BPF"
+      ],
+      "visual_review": [
+        "Desktop history",
+        "390px mobile history"
+      ],
+      "transport": "Synthetic loopback fixture; not a new HTTPS deployment acceptance"
+    },
+    "package_contracts": {
+      "passed": 14,
+      "source_check": "passed"
+    },
+    "goal_preservation": "Upload and repository file have identical SHA-256"
+  },
+  "limitations": [
+    "Orders are placed externally and explicitly documented; no supplier send.",
+    "Full supplier returns, order cancellation/amendment and unit conversion remain open.",
+    "Safe full article selection without finance.read remains incomplete in clients.",
+    "Device linkage uses project and note references; structured order/movement linkage remains open.",
+    "Original delivery document linkage remains open.",
+    "Pending editor recovery is in session memory, not durable across process restart.",
+    "Actual Windows/iPhone installations and full acceptance A-G remain open."
+  ],
+  "changed_code_sha256": {
+    ".github/workflows/checks.yml": "c7c120528c52053a55514604a7cba444c3bedd9f4924ee9d2f1a7f9d9a939ca1",
+    "app/lib/business_operations.dart": "076550bf2b85c6288e11ecdf7870fece69b6d1b3df0ef26acb0bd57cbab429ff",
+    "app/lib/business_purchasing.dart": "372ee6ac6a64bdbb95bed9dfeea37ed2da88c5f647bd14bd0c9ca9877e28e84c",
+    "app/lib/business_session.dart": "c33566f03e54599cecfd8f3fde01ebf7bd77c560e59393a7c6f031f507603304",
+    "app/lib/business_widgets.dart": "7ff336ba76d7743c2504d337abfada644d041eae0da215be02a27dc3f910e6ec",
+    "app/test/business_purchasing_http_test.dart": "bfd2babedd50733c94dd527d9a863f0765dcff449a6c505019d9dfcd2ed8d359",
+    "app/test/business_purchasing_test.dart": "e5a49acf6e1aaf7d7ea9f53e1be55899f0bcf53fcc24a97b95c3b882e8453d81",
+    "backend/business_api.py": "beda2232f9e1355b373ac8ef79dfb1e14b924305e4f265d5210da73f1efd284f",
+    "backend/business_documents.py": "8084189eabd566a61cd378795df1730326a92d3335829a8c310b8c3d8354504f",
+    "backend/business_organization.py": "9952438556b52611b4de56b1839eed6e397c62c26cb53cbea949e92c6b926641",
+    "backend/business_purchasing.py": "e1cbad57930ec8aa8518bb7316df514bc9d2999b3fe7e98495d73856a562d94a",
+    "backend/business_schema.py": "76ce03ab8329252dba50747004a1bbb007aa4bc2d19c60cbe1330b11d2fefdbb",
+    "backend/online/test_postgres_purchasing_integration.py": "7b1885323f6c5fe03fb03cfdf41914ec29d74136d06f605c03fdc3edaec872b6",
+    "backend/online/test_purchasing_journey.py": "e6317cb5663f0d30143dfe8beb43feb02dabcb6fc901bedb4e830eb234b599b0",
+    "backend/test_business_purchasing.py": "78d1cdc833a37d7df0aa93808fe99821f2e22f2b964fc86182caec8865634316",
+    "backend/test_stock_article_identity.py": "abb6f72e35a1debc26097ba8a0aa84beef02eca96c09d926c22243118c5dff14",
+    "scripts/native-release.py": "ae4246493655fa9cb5fe227fdc958db6e0bd78659cc06418de67ea8155d36734",
+    "scripts/package-windows-support.py": "e4f1d3104774c37ac8779f918f131434469f90281960b97b9373f566f2c1c684",
+    "web/office/office.js": "9f2adfc65b97ac463fc33cbe5fa12c6da78c23be4bfa2347163fa0d4dfe01185",
+    "web/office/tests/e2e-diagnostics.test.mjs": "816ce154077eacb43a35fd8ae56cf0fa15c09e0abac497d77996578bd3be116c",
+    "web/office/tests/e2e.cjs": "a4d4ca927f40880167fb5599d2cbd26de53302586476c3fc93a9518bc0c934f9",
+    "web/office/tests/purchasing-flow.cjs": "80be0bd29fae5e5a5532f9a4fc0939452d3d3deadf61ad9f06dbc8c21b6f9bb7",
+    "web/office/tests/purchasing.test.mjs": "d9dc42c799f2970d7ef938c403f61126bf5cf580495ff30fa7342a169792658a"
+  },
+  "note": "Group counts are overlapping executions and must not be added as unique acceptance coverage. Raw logs are in ignored work/verification; reproducible tests and reports are in the repository."
+}

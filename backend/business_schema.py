@@ -28,7 +28,7 @@ STORAGE_VERSION = 7
 LEGACY_VERSION = 6
 MODULE_NAMES = tuple('business_' + name for name in (
     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
-    'inventory', 'maintenance', 'adapters', 'organization', 'instance'))
+    'inventory', 'maintenance', 'adapters', 'organization', 'instance', 'purchasing'))
 CONTROL_TABLES = frozenset((
     'business_schema_state', 'business_schema_migrations', 'business_schema_events',
     'business_feature_flags', 'business_privacy_anchors', 'business_device_grants', 'business_restore_state',

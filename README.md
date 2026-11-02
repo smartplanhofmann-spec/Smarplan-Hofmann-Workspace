@@ -17,6 +17,12 @@ Der vorhandene Businessstand `420c4c7` wird weiterentwickelt. Einstieg:
 [Umsetzungsplan](docs/CRM_ERP_UMSETZUNGSPLAN.md) und
 [aktueller Fortschritt mit Testergebnissen](docs/CRM_ERP_FORTSCHRITT.md).
 
+Die ersten Entwicklungsabschnitte ergänzen Unternehmensmodule, Instanzbindung,
+Protokollintegrität und [Bestellungen mit Teil-/Restwareneingängen](docs/CRM_ERP_EINKAUF.md).
+Die erste vollständige Buchhaltung ist gemäß Nutzerentscheidung für
+Einzelunternehmen mit EÜR vorgesehen; die erste deutsche Lohnabrechnung für
+reguläre Mitarbeiter und Minijobs. Diese beiden Fachmodule sind noch umzusetzen.
+
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital
 unterschreibbares Protokoll geprüft. Weitergehende Test-/Betriebsbestätigungen
 in den nachfolgenden älteren Abschnitten bleiben historische Aufzeichnungen;

@@ -123,10 +123,14 @@ class BusinessEditor extends StatefulWidget {
     this.saveLabel = 'Speichern',
     this.readPermission,
     this.writePermission,
+    this.pendingKey,
+    this.pendingSession,
   });
   final BusinessSession session;
   final String title, saveLabel;
   final String? readPermission, writePermission;
+  final String? pendingKey;
+  final BusinessSession? pendingSession;
   final List<BusinessField> fields;
   final Map<String, dynamic> initial;
   final Future<void> Function(Map<String, dynamic>) onSave;
@@ -135,6 +139,10 @@ class BusinessEditor extends StatefulWidget {
 }
 
 class _BusinessEditorState extends State<BusinessEditor> {
+  BusinessSession get pendingSession => widget.pendingSession ?? widget.session;
+  Map<String, dynamic>? get savedPending => widget.pendingKey == null
+      ? null
+      : pendingSession.pendingEditorValues(widget.pendingKey!);
   bool get mayView =>
       widget.session.allowed &&
       (widget.readPermission == null ||
@@ -154,8 +162,13 @@ class _BusinessEditorState extends State<BusinessEditor> {
   void initState() {
     super.initState();
     widget.session.addListener(changed);
+    final restored = mayView ? savedPending : null;
+    frozen = restored;
+    uncertain = restored != null;
     for (final field in widget.fields) {
-      final value = widget.initial.containsKey(field.name)
+      final value = restored?.containsKey(field.name) == true
+          ? restored![field.name]
+          : widget.initial.containsKey(field.name)
           ? widget.initial[field.name]
           : field.initial;
       if ([
@@ -186,6 +199,21 @@ class _BusinessEditorState extends State<BusinessEditor> {
         for (final c in controllers.values) c.clear();
         choices.clear();
         frozen = null;
+      } else if (frozen == null && savedPending != null) {
+        frozen = savedPending;
+        uncertain = true;
+        for (final field in widget.fields) {
+          final value = frozen![field.name];
+          if (controllers.containsKey(field.name)) {
+            controllers[field.name]!.text = value == null
+                ? ''
+                : field.type == BusinessInput.date
+                ? businessDate(value)
+                : '$value';
+          } else {
+            choices[field.name] = value;
+          }
+        }
       }
       setState(() {});
     }
@@ -234,19 +262,33 @@ class _BusinessEditorState extends State<BusinessEditor> {
 
   Future<void> save() async {
     if (busy || !mayWrite || !(form.currentState?.validate() ?? false)) return;
+    Map<String, dynamic>? attempted;
     setState(() {
       busy = true;
       error = null;
     });
     try {
       frozen ??= values();
-      await widget.onSave(Map<String, dynamic>.from(frozen!));
+      attempted = Map<String, dynamic>.from(frozen!);
+      await widget.onSave(Map<String, dynamic>.from(attempted));
       if (mounted && widget.session.allowed) Navigator.pop(context, true);
     } on ApiException catch (e) {
+      final unconfirmed =
+          e.status == 0 ||
+          e.status >= 500 ||
+          e.status == 429 ||
+          e.status == 423 ||
+          (widget.pendingKey != null &&
+              pendingSession.pending(widget.pendingKey!));
+      if (unconfirmed && attempted != null && widget.pendingKey != null) {
+        // A barrier/back action may already have disposed the dialog while
+        // this request was in flight. The authenticated session still owns it.
+        pendingSession.preservePendingEditor(widget.pendingKey!, attempted);
+      }
       if (mounted)
         setState(() {
           error = e.message;
-          uncertain = e.status == 0 || e.status >= 500 || e.status == 429;
+          uncertain = unconfirmed;
           if (!uncertain) frozen = null;
         });
     } catch (e) {
@@ -427,6 +469,10 @@ class _BusinessEditorState extends State<BusinessEditor> {
                     if (uncertain)
                       const Notice(
                         'Die Übertragung ist noch unbestätigt. Erneutes Senden verwendet denselben Vorgang und dieselben Eingaben.',
+                      ),
+                    if (uncertain && widget.pendingKey != null)
+                      const Text(
+                        'Sie können schließen und diesen Vorgang in dieser Sitzung mit denselben Eingaben wieder öffnen.',
                       ),
                   ],
                 ),

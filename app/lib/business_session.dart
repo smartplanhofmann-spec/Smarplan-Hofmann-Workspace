@@ -38,6 +38,7 @@ String? organizationCommandSection(String path) {
     return 'planning';
   }
   if (first == 'inventory' ||
+      first == 'purchasing' ||
       first == 'budgets' ||
       RegExp(r'^/projects/[a-f0-9]{32}/changes(?:/|$)').hasMatch(route)) {
     return 'material';
@@ -137,6 +138,21 @@ class BusinessSession extends ChangeNotifier {
       organizationModules[section]?['enabled'] == true;
   bool pending(String key) => _pending.containsKey(key);
 
+  final _pendingEditorValues = <String, Map<String, dynamic>>{};
+  Map<String, dynamic>? pendingEditorValues(String key) {
+    final values = _pendingEditorValues[key];
+    if (!allowed || !pending(key) || values == null) return null;
+    return Map<String, dynamic>.from(jsonDecode(jsonEncode(values)));
+  }
+
+  void preservePendingEditor(String key, Map<String, dynamic> values) {
+    if (allowed && pending(key)) {
+      _pendingEditorValues[key] = Map<String, dynamic>.from(
+        jsonDecode(jsonEncode(values)),
+      );
+    }
+  }
+
   void _changed() {
     if (_disposed) return;
     if (SchedulerBinding.instance.schedulerPhase ==
@@ -163,6 +179,7 @@ class BusinessSession extends ChangeNotifier {
     features = {};
     organizationModules = {};
     _pending.clear();
+    _pendingEditorValues.clear();
     _metaTimer?.cancel();
     error =
         'Der Zugang ist nicht mehr verfügbar. Bitte melden Sie sich erneut an.';
@@ -353,14 +370,20 @@ class BusinessSession extends ChangeNotifier {
           'Der Funktionsstand wurde geändert. Bitte den gespeicherten Stand prüfen, bevor Sie fortfahren.',
         );
       _pending.remove(key);
+      _pendingEditorValues.remove(key);
       if (hasFeature('organization_modules') &&
           RegExp(r'^/employees(?:/[a-f0-9]{32})?$').hasMatch(path)) {
         await load();
       }
       return result;
     } on ApiException catch (e) {
-      if (e.status != 0 && e.status < 500 && e.status != 429 && e.status != 423)
+      if (e.status != 0 &&
+          e.status < 500 &&
+          e.status != 429 &&
+          e.status != 423) {
         _pending.remove(key);
+        _pendingEditorValues.remove(key);
+      }
       if (e.status == 401) revoke();
       rethrow;
     }
@@ -373,6 +396,7 @@ class BusinessSession extends ChangeNotifier {
     _epoch++;
     api.removeListener(_accessChanged);
     _pending.clear();
+    _pendingEditorValues.clear();
     super.dispose();
   }
 }

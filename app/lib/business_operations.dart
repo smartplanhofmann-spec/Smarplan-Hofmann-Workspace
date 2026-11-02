@@ -5,6 +5,7 @@ import 'business_widgets.dart';
 import 'business_documents.dart' show businessPositionKinds;
 import 'business_documentation.dart';
 import 'business_workflows.dart';
+import 'business_purchasing.dart';
 import 'design.dart';
 
 typedef _Section = ({
@@ -27,6 +28,14 @@ const _sections = <String, List<_Section>>{
     ),
   ],
   'material': [
+    (
+      id: 'purchasing/orders',
+      label: 'Bestellungen und Wareneingänge',
+      module: 'purchasing',
+      read: 'inventory.read',
+      write: '',
+      scoped: false,
+    ),
     (
       id: 'articles',
       label: 'Artikel und Leistungen',
@@ -217,7 +226,11 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
   final references = <String, Map<String, String>>{};
   List<_Section> get sections => (_sections[widget.area] ?? [])
       .where(
-        (s) => widget.session.hasModule(s.module) && widget.session.can(s.read),
+        (s) =>
+            widget.session.hasModule(s.module) &&
+            widget.session.can(s.read) &&
+            (s.id != 'purchasing/orders' ||
+                widget.session.hasFeature('purchasing_receipts')),
       )
       .toList();
   @override
@@ -913,6 +926,8 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
           Expanded(
             child: section.id == 'time/accounts'
                 ? BusinessTimeAccountsPage(session: widget.session)
+                : section.id == 'purchasing/orders'
+                ? BusinessPurchasingPage(session: widget.session)
                 : section.id == 'checklists'
                 ? BusinessChecklistsPage(session: widget.session)
                 : BusinessCollection(

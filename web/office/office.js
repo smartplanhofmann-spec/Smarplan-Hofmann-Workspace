@@ -32,6 +32,76 @@ export function localDateTime(value) {
   return `${dateInput(d)}T${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 }
 export function collection(value) { return Array.isArray(value) ? value : value?.items || []; }
+const ORGANIZATION_AREAS = [
+  ['personnel','Personal'], ['material','Material'], ['planning','Einsatzplanung'],
+  ['documents','Belege'], ['finance','Finanzen'],
+];
+const ORGANIZATION_NEEDS = [
+  ['has_employees','Unser Unternehmen beschäftigt Mitarbeiter'],
+  ['uses_inventory','Wir verwalten Material und Lagerbestände'],
+  ['project_work','Wir arbeiten mit Projekten und Einsatzplanung'],
+  ['uses_finance','Wir verwenden die eigenen Finanzfunktionen'],
+  ['works_with_tax_advisor','Wir arbeiten mit einem Steuerberater zusammen'],
+];
+export function organizationMetadata(capabilities) {
+  if (!Array.isArray(capabilities?.features) || !capabilities.features.includes('organization_modules')) return null;
+  const value=capabilities.organization;
+  if (!value || !Number.isSafeInteger(value.revision) || value.revision<0 || typeof value.configured!=='boolean')
+    throw new ApiError('Die Unternehmenskonfiguration konnte nicht sicher geladen werden.',502);
+  const modules={};
+  for (const [name] of ORGANIZATION_AREAS) {
+    const item=value.modules?.[name];
+    if (!item || typeof item.visible!=='boolean' || typeof item.enabled!=='boolean')
+      throw new ApiError('Die Unternehmenskonfiguration konnte nicht sicher geladen werden.',502);
+    modules[name]={visible:item.visible,enabled:item.enabled};
+  }
+  return {revision:value.revision,configured:value.configured,modules};
+}
+export function organizationSectionAllowed(section, authorized, organization, includeHidden=false) {
+  return authorized===true && (includeHidden || organization?.modules?.[section]?.visible!==false);
+}
+function organizationAreaAuthorized(section,permissions,capabilities) {
+  const required={personnel:['time.own','personnel.read'],material:['inventory.read','finance.read'],
+    planning:['planning.read'],documents:['documents.read','finance.read'],finance:['finance.read']}[section];
+  const module={personnel:'planning',material:'inventory',planning:'planning',documents:'documents',finance:'finance'}[section];
+  const allowed=new Set(permissions),supported=new Set(capabilities);
+  return !!required&&required.some(permission=>allowed.has(permission))&&
+    (supported.has(module)||supported.has('business_'+module));
+}
+export function organizationHiddenAreas(organization,permissions,capabilities) {
+  return ORGANIZATION_AREAS.map(([name])=>name).filter(name=>organization?.modules?.[name]?.visible===false&&
+    organizationAreaAuthorized(name,permissions,capabilities));
+}
+export function organizationModuleEnabled(section, organization) {
+  return organization?.modules?.[section]?.enabled!==false;
+}
+export function organizationCommandArea(path) {
+  if(typeof path!=='string')return null;
+  if(path.startsWith('/organization')||path.startsWith('/settings/')||path==='/commercial/settings')return null;
+  if(/^\/(employees|absences|shifts|time)(?:\/|$)/.test(path))return 'personnel';
+  if(/^\/(resources|appointments|planning)(?:\/|$)/.test(path))return 'planning';
+  if(/^\/inventory(?:\/|$)/.test(path)||path==='/budgets'||/^\/projects\/[^/]+\/changes(?:\/|$)/.test(path))return 'material';
+  if(/^\/(documents|articles|services|templates|text-blocks|commercial)(?:\/|$)/.test(path))return 'documents';
+  if(/^\/adapters\/imports\/[^/]+\/(apply|offer)$/.test(path))return 'documents';
+  if(/^\/finance(?:\/|$)/.test(path))return 'finance';
+  return null;
+}
+export function organizationChange(current, values) {
+  if (!Number.isSafeInteger(current?.revision) || current.revision<0)
+    throw new Error('Die Unternehmenskonfiguration zuerst neu laden.');
+  const needs={},modules={};
+  for (const [name] of ORGANIZATION_NEEDS) {
+    if (typeof values['needs_'+name]!=='boolean') throw new Error('Bitte den Unternehmensbedarf vollständig angeben.');
+    needs[name]=values['needs_'+name];
+  }
+  for (const [name] of ORGANIZATION_AREAS) {
+    const choice=values['visibility_'+name],enabled=values['enabled_'+name];
+    if (!['auto','show','hide'].includes(choice) || typeof enabled!=='boolean')
+      throw new Error('Bitte die Sichtbarkeit und Aktivierung aller Module angeben.');
+    modules[name]={visible:choice==='auto'?null:choice==='show',enabled};
+  }
+  return {revision:current.revision,needs,modules};
+}
 const DAY_MS=86400000;
 function calendarDay(value) {
   if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))throw new Error('Gültiges Kalenderdatum erwartet.');
@@ -157,7 +227,7 @@ export class OfficeApi {
       const result = await this.post(path, operation.body);
       this.#pending.delete(key); return result;
     } catch (error) {
-      if (error instanceof ApiError && error.status >= 400 && error.status < 500) this.#pending.delete(key);
+      if (error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423) this.#pending.delete(key);
       throw error;
     }
   }
@@ -177,9 +247,10 @@ const LABELS = {draft:'Entwurf',final:'Festgeschrieben',signed:'Unterzeichnet',n
   receipt:'Zahlungseingang',refund:'Erstattung',material:'Material',labor:'Lohn',service:'Leistung',machine:'Maschine',
   operational:'Operativ',financial:'Finanziell',personnel:'Personal',restricted:'Geschützt'};
 const api = new OfficeApi();
-const state = {section:'overview', projectId:'', tab:'overview', user:null, projects:[], permissions:new Set(), globalPermissions:new Set(), capabilities:new Set(), features:new Set(), readonly:true, planning:{mode:'week',anchor:dateInput(),years:3}, render:0, urls:new Set(), deviceId:'browser-'+requestId()};
+const state = {section:'overview', projectId:'', tab:'overview', user:null, projects:[], permissions:new Set(), globalPermissions:new Set(), capabilities:new Set(), features:new Set(), organization:null, openedHiddenSection:null, readonly:true, planning:{mode:'week',anchor:dateInput(),years:3}, render:0, urls:new Set(), deviceId:'browser-'+requestId()};
 let root, main, shell, banner, modal;
 const has = permission => state.permissions.has(permission);
+const canWrite = (permission,section=state.section) => has(permission) && !state.readonly && organizationModuleEnabled(section,state.organization);
 const biz = path => '/business' + path;
 const query = (path, values = {}) => path + '?' + new URLSearchParams(Object.entries(values).filter(([,v]) => v !== undefined && v !== null && v !== '')).toString();
 
@@ -217,7 +288,7 @@ function heading(title, description, actions = []) { return el('header',{class:'
 function field(name,label,type='text',value='',extra={}) { return {name,label,type,value,...extra}; }
 function projectField(value=state.projectId) { return field('project_id','Projekt','select',value,{options:[['','Bitte auswählen'],...options(state.projects)],required:true}); }
 
-function form(title, fields, save, {description, submit='Speichern', after=()=>refresh(), key=title, extra, initial={}} = {}) {
+function form(title, fields, save, {description, submit='Speichern', after=()=>refresh(), key=title, extra, initial={}, readonly=false} = {}) {
   const controls = new Map(), form = el('form',{'data-form':key});
   const error = el('div',{class:'form-error'}), submitButton=el('button',{type:'submit',class:'button primary'},submit);
   const grid=el('div',{class:'form-grid'});
@@ -228,11 +299,13 @@ function form(title, fields, save, {description, submit='Speichern', after=()=>r
     else if(spec.type==='textarea') input=el('textarea',{id,name:spec.name,value:value??'',required:!!spec.required,maxLength:spec.maxLength||10000,rows:spec.rows||3});
     else input=el('input',{id,name:spec.name,type:spec.type==='decimal'?'text':spec.type==='integer'?'number':spec.type,inputMode:spec.type==='decimal'?'decimal':undefined,value:spec.type==='checkbox'?undefined:value??'',checked:spec.type==='checkbox'?!!value:undefined,required:!!spec.required,maxLength:spec.maxLength||2000,step:spec.type==='integer'?1:undefined,min:spec.min,max:spec.max,autoComplete:spec.autoComplete||'off'});
     input.setAttribute('aria-label',spec.label);
+    input.disabled=readonly;
     if(spec.help)input.setAttribute('aria-describedby',id+'-help');
     const label=el('label',{class:'field '+(spec.wide||spec.type==='textarea'?'wide ':'')+(spec.type==='checkbox'?'check':''),htmlFor:id},spec.label,input,spec.help?el('small',{id:id+'-help'},spec.help):null);
     grid.append(label); controls.set(spec.name,{input,spec});
   });
   form.append(grid); if(extra) form.append(extra);
+  submitButton.disabled=readonly;
   form.append(el('div',{class:'form-actions'},submitButton),error);
   form.addEventListener('submit',async event=> {
     event.preventDefault(); if(submitButton.disabled) return;
@@ -274,10 +347,24 @@ function dialog(title, content, description = '') {
 function closeModal() { if(modal) { const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
 async function download(path,filename) { const blob=await api.binary(path),url=objectUrl(blob),link=el('a',{href:url,download:filename,rel:'noopener'}); document.body.append(link); link.click(); link.remove(); }
 function jsonDownload(value,filename) { const link=el('a',{href:objectUrl(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),download:filename}); document.body.append(link); link.click(); link.remove(); }
-function mutation(key,path,data) { return api.mutate(key,biz(path),data); }
-function sectionAllowed(section) {
+function mutation(key,path,data) {
+  if(state.readonly)throw new ApiError('Der aktuelle Betriebsmodus erlaubt nur das Lesen vorhandener Daten.',409);
+  if(!organizationModuleEnabled(organizationCommandArea(path),state.organization))
+    throw new ApiError('Dieser Bereich ist fachlich deaktiviert. Neue Vorgänge benötigen die Aktivierung in den Unternehmenseinstellungen.',423);
+  return api.mutate(key,biz(path),data);
+}
+function sectionAuthorized(section) {
+  if(ORGANIZATION_AREAS.some(([name])=>name===section))return organizationAreaAuthorized(section,state.permissions,state.capabilities);
   return ({contacts:has('contacts.read'),planning:has('planning.read'),finance:has('finance.read'),material:has('inventory.read')||has('finance.read'),
     personnel:has('time.own')||has('personnel.read'),settings:has('settings.manage'),inquiries:state.metadata?.can_read_inquiries===true,documents:has('documents.read')||has('finance.read')})[section]??true;
+}
+function sectionAllowed(section) {
+  return organizationSectionAllowed(section,sectionAuthorized(section),state.organization);
+}
+function mayOpenSection(section) {
+  if(sectionAllowed(section))return true;
+  if(state.openedHiddenSection!==section)return false;
+  return organizationSectionAllowed(section,sectionAuthorized(section),state.organization,true);
 }
 
 function loginScreen(challenge = null, enrollment = null) {
@@ -310,14 +397,20 @@ async function startSession() {
   const generation=api.generation;
   const [user,caps,projects,metadata]=await Promise.all([api.get('/me'),api.get(biz('/capabilities')),api.get('/projects'),api.get(biz('/overview'))]);
   if(generation!==api.generation) throw new StaleSession();
-  state.user=user;state.metadata=metadata;state.permissions=new Set(caps.permissions||[]);state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.readonly=caps.readonly!==false;state.projects=collection(projects);
+  const organization=organizationMetadata(caps);
+  state.user=user;state.metadata=metadata;state.permissions=new Set(caps.permissions||[]);state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.organization=organization;state.openedHiddenSection=null;state.readonly=caps.readonly!==false;state.projects=collection(projects);
   if(!state.projects.some(project=>project.id===state.projectId))state.projectId='';
   state.section='overview'; buildShell(); await refresh();
 }
-function endSession() { api.clear();photoUploads.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
+function endSession() { api.clear();photoUploads.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
 function buildShell() {
   root.replaceChildren(); shell=el('div',{class:'shell'});
   const nav=el('nav',{class:'navigation','aria-label':'Hauptnavigation'},NAV.filter(([id])=>sectionAllowed(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id)},el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label)));
+  const hidden=organizationHiddenAreas(state.organization,state.permissions,state.capabilities);
+  if(hidden.length)nav.append(el('details',{},el('summary',{class:'nav-button'},'Weitere Bereiche'),
+    NAV.filter(([id])=>hidden.includes(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,
+      'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id,{includeHidden:true})},
+      el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label+' öffnen'))));
   const sidebar=el('aside',{class:'sidebar'},el('div',{class:'brand'},el('span',{class:'brand-mark'},'S'),el('div',{},el('strong',{},'smartplan'),el('small',{},'OFFICE'))),nav,el('div',{class:'sidebar-foot'},'Ihr Betrieb. Ein gemeinsamer Stand.',el('p',{class:'caption'},'Online · Daten vom eigenen Office-Server')));
   const projectSelect=el('select',{class:'project-select','aria-label':'Aktuelles Projekt',onChange:event=>{state.projectId=event.target.value;state.tab='overview';refresh();}},el('option',{value:''},'Alle Projekte'),state.projects.map(project=>el('option',{value:project.id,selected:project.id===state.projectId},project.name)));
   const menu=button('☰',()=>{shell.classList.toggle('menu-open');updateDrawer();},'icon mobile-menu');menu.setAttribute('aria-label','Navigation öffnen');menu.setAttribute('aria-expanded','false');
@@ -347,15 +440,21 @@ function pendingDialog() {
   dialog('Unbestätigte Antworten',el('div',{class:'stack'},notice('Der Server kann die Eingabe bereits gespeichert haben. Eine Wiederholung verwendet exakt dieselbe Vorgangskennung und denselben Inhalt. Dieses Fenster bis zur Klärung geöffnet lassen.','warn'),
     rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{await api.retry(item.key);updatePending();closeModal();await refresh();}),'primary')]))));
 }
-function navigate(section) { closeModal();state.section=section;shell?.classList.remove('menu-open');updateDrawer();root.querySelectorAll('[data-section]').forEach(node=>{if(node.dataset.section===section)node.setAttribute('aria-current','page');else node.removeAttribute('aria-current');});refresh(); }
+function navigate(section,{includeHidden=false}={}) {
+  state.openedHiddenSection=includeHidden&&sectionAuthorized(section)?section:null;
+  if(!mayOpenSection(section))return;
+  closeModal();state.section=section;shell?.classList.remove('menu-open');updateDrawer();root.querySelectorAll('[data-section]').forEach(node=>{if(node.dataset.section===section)node.setAttribute('aria-current','page');else node.removeAttribute('aria-current');});refresh();
+}
 async function refresh() {
   if(!state.user)return;
   const version=++state.render,generation=api.generation;revokeUrls();main.replaceChildren(el('div',{class:'loading',role:'status'},'Daten werden geladen …'));
   try {
     const [caps,projects,metadata]=await Promise.all([api.get(biz('/capabilities')),api.get('/projects'),api.get(biz('/overview'))]);
     if(version!==state.render||generation!==api.generation)return;
-    const navigationChanged=state.metadata?.can_read_inquiries!==metadata.can_read_inquiries||JSON.stringify(state.projects)!==JSON.stringify(collection(projects));
-    state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.readonly=caps.readonly!==false;state.projects=collection(projects);state.metadata=metadata;
+    const organization=organizationMetadata(caps),organizationChanged=JSON.stringify(state.organization)!==JSON.stringify(organization);
+    const navigationChanged=organizationChanged||state.metadata?.can_read_inquiries!==metadata.can_read_inquiries||JSON.stringify(state.projects)!==JSON.stringify(collection(projects));
+    state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.organization=organization;state.readonly=caps.readonly!==false;state.projects=collection(projects);state.metadata=metadata;
+    if(organizationChanged)closeModal();
     if(state.projectId&&!state.projects.some(project=>project.id===state.projectId)){state.projectId='';state.tab='overview';closeModal();}
     let effective=state.globalPermissions;
     if(state.projectId) {
@@ -365,12 +464,15 @@ async function refresh() {
     }
     if(navigationChanged||[...effective].sort().join('|')!==[...state.permissions].sort().join('|')) {
       state.permissions=new Set(effective);
-      if(!sectionAllowed(state.section))state.section='overview';
+      if(!mayOpenSection(state.section)){state.section='overview';state.openedHiddenSection=null;}
       buildShell();
     }
     const view=await ({overview:overviewView,inquiries:inquiriesView,projects:projectsView,contacts:contactsView,planning:planningView,documents:documentsView,finance:financeView,material:materialView,personnel:personnelView,settings:settingsView}[state.section]||overviewView)();
     if(version!==state.render||generation!==api.generation)return;
-    main.replaceChildren(view);updatePending();main.focus({preventScroll:true});
+    main.replaceChildren(view);
+    if(!organizationModuleEnabled(state.section,state.organization))main.prepend(notice('Dieser Bereich ist fachlich deaktiviert. Vorhandene Daten und Nachweise bleiben entsprechend Ihren Rechten lesbar. Neue Vorgänge sind gesperrt.','warn'));
+    if(state.openedHiddenSection===state.section)main.prepend(notice('Dieser Bereich ist in der Hauptnavigation ausgeblendet. Die Einstellung und alle vorhandenen Daten bleiben erhalten.'));
+    updatePending();main.focus({preventScroll:true});
   } catch(error) { if(version===state.render&&generation===api.generation) {main.replaceChildren();showError(error);main.append(button('Erneut laden',()=>refresh()));} }
 }
 
@@ -493,7 +595,7 @@ function planningControls(range) {
     el('p',{class:'planning-range',role:'status'},formatDate(range.from)+' – '+formatDate(range.to)));
 }
 function projectDatesDialog(item) {
-  if(item.can_edit!==true||state.readonly)return;
+  if(item.can_edit!==true||state.readonly||!organizationModuleEnabled('planning',state.organization))return;
   dialog('Projektzeitraum: '+item.name,form('',[
     field('start_date','Projektbeginn','date',item.start_date||'',{min:'1900-01-01',max:'2200-12-31',help:'Leer lassen, solange der Beginn nicht feststeht.'}),
     field('end_date','Projektende','date',item.end_date||'',{min:'1900-01-01',max:'2200-12-31',help:'Leer lassen, solange das Ende nicht feststeht.'})],(data,key)=>{
@@ -516,7 +618,7 @@ function projectTimeline(data,range,mode) {
     const position=timelinePlacement(item,range),dates=item.start_date&&item.end_date?formatDate(item.start_date)+' – '+formatDate(item.end_date):
       item.start_date?'Beginn '+formatDate(item.start_date)+' · Ende offen':item.end_date?'Beginn offen · Ende '+formatDate(item.end_date):'Beginn und Ende offen';
     const label=el('div',{class:'timeline-project-label'},el('strong',{},item.name),el('small',{},dates),item.status?el('small',{class:'timeline-status'},item.status.name):null,
-      item.can_edit===true&&!state.readonly?el('button',{type:'button',class:'button small timeline-edit','aria-label':'Projektzeitraum ändern: '+item.name,onClick:()=>projectDatesDialog(item)},'Zeitraum ändern'):null);
+      item.can_edit===true&&!state.readonly&&organizationModuleEnabled('planning',state.organization)?el('button',{type:'button',class:'button small timeline-edit','aria-label':'Projektzeitraum ändern: '+item.name,onClick:()=>projectDatesDialog(item)},'Zeitraum ändern'):null);
     const track=el('div',{class:'timeline-track'});
     if(position){
       const bar=el('span',{class:'timeline-project-bar'+(position.clippedStart?' clipped-start':'')+(position.clippedEnd?' clipped-end':''),role:'img',
@@ -539,11 +641,11 @@ async function planningContent(projectId='') {
     const dayId=utcDate(new Date(calendarDay(range.from).getTime()+index*DAY_MS)),day=new Date(dayId+'T12:00:00');
     const column=el('section',{class:'day','aria-label':formatDate(dayId)},el('h3',{},new Intl.DateTimeFormat('de-DE',{weekday:'short',day:'2-digit',month:'2-digit'}).format(day)));
     appointments.filter(item=>dateInput(new Date(item.start_at))===dayId).forEach(item=> {
-      const node=el('button',{type:'button',class:'appointment',draggable:has('planning.write'),onClick:()=>appointmentDialog(item,collection(employees),collection(resources))},
+      const node=el('button',{type:'button',class:'appointment',draggable:canWrite('planning.write','planning'),onClick:()=>appointmentDialog(item,collection(employees),collection(resources))},
         new Intl.DateTimeFormat('de-DE',{hour:'2-digit',minute:'2-digit'}).format(new Date(item.start_at)),el('strong',{},item.title),el('small',{},item.project_name||state.projects.find(p=>p.id===item.project_id)?.name||'Interner Einsatz'));
       node.addEventListener('dragstart',event=>event.dataTransfer.setData('text/plain',item.id));column.append(node);
     });
-    if(has('planning.write')) {
+    if(canWrite('planning.write','planning')) {
       column.addEventListener('dragover',event=>{event.preventDefault();column.classList.add('drag-over');});column.addEventListener('dragleave',()=>column.classList.remove('drag-over'));
       column.addEventListener('drop',event=> {event.preventDefault();column.classList.remove('drag-over');const item=appointments.find(a=>a.id===event.dataTransfer.getData('text/plain'));if(!item)return;
         action(async()=> {const oldStart=new Date(item.start_at),oldEnd=new Date(item.end_at),moved=new Date(day);moved.setHours(oldStart.getHours(),oldStart.getMinutes(),0,0);
@@ -553,7 +655,7 @@ async function planningContent(projectId='') {
   }
   const calendarGrid=el('div',{class:'calendar'+(mode==='month'?' calendar-month':'')},days);
   if(mode==='month')days[0].style.gridColumnStart=String((calendarDay(range.from).getUTCDay()+6)%7+1);
-  const board=panel(mode==='month'?'Monatskalender':'Wochenkalender',el('div',{class:'actions'},has('planning.write')?button('Termin planen',()=>appointmentDialog(null,collection(employees),collection(resources)),'primary'):null),
+  const board=panel(mode==='month'?'Monatskalender':'Wochenkalender',el('div',{class:'actions'},canWrite('planning.write','planning')?button('Termin planen',()=>appointmentDialog(null,collection(employees),collection(resources)),'primary'):null),
     el('p',{class:'caption'},'Kalenderzeiten werden in Ihrer Gerätezeitzone angezeigt. Termine lassen sich auch ohne Ziehen per Formular ändern.'),el('div',{class:'table-scroll'},calendarGrid));
   return el('div',{class:'stack'},controls,board,enhanced?projectTimeline(timeline,range,mode):null,panel('Abwesenheiten & Belegungen',rows(calendar.absences||[],item=>row(item.employee_name||'Abwesenheit',`${formatDate(item.start_date)} – ${formatDate(item.end_date)}`,[badge(item.status||'Geplant')]),'Keine Abwesenheiten für diesen Zeitraum gemeldet.')));
 }
@@ -561,14 +663,14 @@ function appointmentDialog(item,employees,resources) {
   const begin=new Date();begin.setMinutes(0,0,0);const end=new Date(begin);end.setHours(end.getHours()+1);
   const fields=[projectField(item?.project_id||state.projectId),field('title','Termin','text',item?.title||'',{required:true}),field('start_at','Beginn (Gerätezeit)','datetime-local',localDateTime(item?.start_at||begin),{required:true}),field('end_at','Ende (Gerätezeit)','datetime-local',localDateTime(item?.end_at||end),{required:true}),field('employee_ids','Mitarbeitende','multi',item?.employee_ids||[],{options:options(employees)}),field('resource_ids','Fahrzeuge / Werkzeuge','multi',item?.resource_ids||[],{options:options(resources)}),field('details','Details','textarea',item?.details||'')];
   if(!item)fields.push(field('frequency','Wiederholung','select','',{options:[['','Einmalig'],['daily','Täglich'],['weekly','Wöchentlich'],['monthly','Monatlich']]}),field('count','Anzahl Termine','integer',4,{min:1,max:104}));
-  dialog(item?'Termin ändern':'Termin planen',form('',fields,(data,key)=> {const {frequency,count,...values}=data;return mutation(key,'/appointments'+(item?'/'+item.id:''),{...values,timezone:'Europe/Berlin',...(item?{revision:item.revision}:frequency?{recurrence:{frequency,interval:1,count}}:{})});},{key:'appointment-'+(item?.id||'new')}),'Ressourcenüberschneidungen werden serverseitig geprüft. Eine Konfliktmeldung wird nicht automatisch übergangen.');
+  dialog(item?'Termin ansehen / ändern':'Termin planen',form('',fields,(data,key)=> {const {frequency,count,...values}=data;return mutation(key,'/appointments'+(item?'/'+item.id:''),{...values,timezone:'Europe/Berlin',...(item?{revision:item.revision}:frequency?{recurrence:{frequency,interval:1,count}}:{})});},{key:'appointment-'+(item?.id||'new'),readonly:!canWrite('planning.write','planning')}),'Ressourcenüberschneidungen werden serverseitig geprüft. Eine Konfliktmeldung wird nicht automatisch übergangen.');
 }
 
 async function documentsView() { return el('div',{class:'stack'},heading('Dokumente','Belege und Berichte bleiben mit ihrem Projekt verknüpft.'),await documentsContent(state.projectId)); }
 async function documentsContent(projectId='') {
   const commercial=has('finance.read')?collection(await api.get(query(biz('/documents'),{project_id:projectId}))):[];
   const signed=projectId?collection(await api.get(query(biz('/service-reports'),{project_id:projectId}))):[];
-  return el('div',{class:'stack'},has('finance.read')?panel('Angebote & Belege',has('finance.write')?button('Belegentwurf erstellen',()=>documentDialog(null,projectId),'primary'):null,
+  return el('div',{class:'stack'},has('finance.read')?panel('Angebote & Belege',canWrite('finance.write','documents')?button('Belegentwurf erstellen',()=>documentDialog(null,projectId),'primary'):null,
     rows(commercial,item=>row(item.title||LABELS[item.kind],`${item.number||'Noch ohne Nummer'} · ${formatDate(item.issue_date)} · ${formatMoney(item.totals?.gross)}`,[badge(item.status),button('Öffnen',()=>action(()=>documentDetail(item.id)),'small')]),'Noch keine eigenen kaufmännischen Belege vorhanden.')):notice('Kaufmännische Belege benötigen eine gesonderte Freigabe. Operative Berichte finden Sie im Projekt.'),
     projectId?panel('Serviceberichte',rows(signed,item=>row(item.title,formatDate(item.created_at,true),[badge(item.status),item.status==='signed'?button('PDF',()=>action(()=>download(biz('/service-reports/'+item.id+'/pdf'),'Servicebericht.pdf')),'small'):has('documents.write')?button('Unterzeichnen',()=>signatureDialog(item,'service-reports'),'small'):null]))):empty('Ein Projekt auswählen, um operative Serviceberichte anzuzeigen.'));
 }
@@ -593,10 +695,10 @@ function documentDialog(item=null,projectId='') {
 async function documentDetail(id) {
   const item=await api.get(biz('/documents/'+id));
   const controls=[button(item.status==='final'?'Original-PDF':'PDF-Vorschau',()=>action(()=>download(biz(`/documents/${id}/${item.status==='final'?'pdf':'preview'}`),(item.number||item.title)+'.pdf')),'small')];
-  if(item.status==='draft'&&has('finance.write'))controls.push(button('Bearbeiten',()=>documentDialog(item),'small'));
-  if(item.status==='draft'&&has('finance.issue'))controls.push(button('Festschreiben',()=>confirmDialog('Beleg festschreiben','Die geprüfte Fassung wird unveränderlich archiviert und erhält eine Nummer. Es erfolgt kein automatischer Versand.',async()=>{await mutation('finalize-'+id,`/documents/${id}/finalize`,{revision:item.revision});refresh();}),'primary'));
+  if(item.status==='draft'&&canWrite('finance.write','documents'))controls.push(button('Bearbeiten',()=>documentDialog(item),'small'));
+  if(item.status==='draft'&&canWrite('finance.issue','documents'))controls.push(button('Festschreiben',()=>confirmDialog('Beleg festschreiben','Die geprüfte Fassung wird unveränderlich archiviert und erhält eine Nummer. Es erfolgt kein automatischer Versand.',async()=>{await mutation('finalize-'+id,`/documents/${id}/finalize`,{revision:item.revision});refresh();}),'primary'));
   const targets=({estimate:['offer','order_confirmation'],offer:['order_confirmation','invoice','advance_invoice','delivery_note'],order_confirmation:['delivery_note','invoice','advance_invoice','final_invoice'],delivery_note:['invoice'],advance_invoice:['final_invoice']})[item.kind]||[];
-  if(has('finance.write'))targets.forEach(kind=>controls.push(button('→ '+LABELS[kind],()=>action(async()=>{const result=await mutation('convert-'+id+'-'+kind,`/documents/${id}/convert`,{revision:item.revision,target_kind:kind});closeModal();await documentDetail(result.id);}), 'small')));
+  if(canWrite('finance.write','documents'))targets.forEach(kind=>controls.push(button('→ '+LABELS[kind],()=>action(async()=>{const result=await mutation('convert-'+id+'-'+kind,`/documents/${id}/convert`,{revision:item.revision,target_kind:kind});closeModal();await documentDetail(result.id);}), 'small')));
   dialog(item.number||item.title,el('div',{class:'stack'},el('div',{class:'actions'},badge(item.status),...controls),panel('Empfänger',el('h3',{},item.buyer?.name),el('p',{class:'muted'},item.buyer?.address_line||'')),
     panel('Positionen',table(['Beschreibung','Menge','Einheit','Netto'],(item.positions||[]).map(line=>[line.description,formatQuantity(line.quantity),line.unit,formatMoney(line.net)]))),panel('Belegsumme',el('p',{},'Netto: '+formatMoney(item.totals?.net)),el('p',{},'Steuer: '+formatMoney(item.totals?.tax)),el('h2',{},'Brutto: '+formatMoney(item.totals?.gross)))));
 }
@@ -608,7 +710,7 @@ function table(headers,body) { return el('div',{class:'table-scroll'},el('table'
 async function financeView() {
   const [open,payments,outbox]=await Promise.all([api.get(query(biz('/finance/open-items'),{project_id:state.projectId})),api.get(biz('/finance/payments')),api.get(biz('/finance/outbox'))]);
   const invoices=collection(open);
-  return el('div',{class:'stack'},heading('Finanzen','Bestätigte Zahlungen und offene Posten. Ein Freigabeschritt ersetzt keinen Versandnachweis.',has('finance.write')?[button('Zahlung erfassen',()=>paymentDialog(invoices),'primary')]:[]),
+  return el('div',{class:'stack'},heading('Finanzen','Bestätigte Zahlungen und offene Posten. Ein Freigabeschritt ersetzt keinen Versandnachweis.',canWrite('finance.write','finance')?[button('Zahlung erfassen',()=>paymentDialog(invoices),'primary')]:[]),
     panel('Offene Posten',rows(invoices,item=>row(`${item.number||item.id} · ${item.buyer?.name||''}`,`Fällig ${formatDate(item.due_date)} · Offen ${formatMoney(item.open)} · Bezahlt ${formatMoney(item.paid)}`,[badge(item.dunning_status||item.status||'open')]),'Keine offenen Posten vorhanden.')),
     panel('Zahlungseingänge',rows(collection(payments),item=>row(formatMoney(item.amount),`${formatDate(item.booking_date)} · ${item.reference||item.source_id}`,[badge(item.kind)]))),
     panel('Versandaufträge',rows(collection(outbox),item=>row(item.recipient||'Empfänger offen',`Mahnlevel ${item.level} · ${formatDate(item.created_at,true)}`,[badge(item.status)]),'Keine freigegebenen Versandaufträge vorhanden.')),
@@ -627,15 +729,15 @@ async function materialContent(projectId='') {
   const articles=has('finance.read')?collection(await api.get(biz('/articles'))):[];
   const reserved=projectId?collection(await api.get(query(biz('/inventory/reservations'),{project_id:projectId}))):[];
   const controls=[];
-  if(has('inventory.write'))controls.push(button('Lagerort anlegen',()=>dialog('Lagerort',form('',[field('name','Name','text','',{required:true})],(data,key)=>mutation(key,'/inventory/locations',data),{key:'location-new'})),'small'),
+  if(canWrite('inventory.write','material'))controls.push(button('Lagerort anlegen',()=>dialog('Lagerort',form('',[field('name','Name','text','',{required:true})],(data,key)=>mutation(key,'/inventory/locations',data),{key:'location-new'})),'small'),
     button('Bewegung buchen',()=>stockMovementDialog(collection(locations),articles,projectId),'primary'));
-  if(has('finance.write'))controls.push(button('Artikel / Leistung anlegen',()=>articleDialog(),'small'));
+  if(canWrite('finance.write','documents'))controls.push(button('Artikel / Leistung anlegen',()=>articleDialog(),'small'));
   const content=el('div',{class:'stack'},panel('Lagerbestand',el('div',{class:'actions'},controls),table(['Lagerort','Artikel','Bestand','Reserviert','Verfügbar',...(has('finance.read')?['Wert netto']:[])],collection(stock).map(item=>[
     collection(locations).find(location=>location.id===item.location_id)?.name||'Lagerort',item.article_name||articles.find(article=>article.id===item.article_id)?.name||item.article_code||'Artikel',formatQuantity(item.on_hand,item.unit),formatQuantity(item.reserved),formatQuantity(item.available),...(has('finance.read')?[formatMoney(item.stock_value_net)]:[])]))),
     form('Artikel per Code finden',[field('code','Artikelnummer / Barcode','text','',{required:true})],async data=>{const found=await api.get(query(biz('/inventory/scan'),{code:data.code}));dialog('Artikel gefunden',panel(found.name,el('p',{},`${found.code} · ${found.unit}`),found.cost_price_net?el('p',{},'EK netto: '+formatMoney(found.cost_price_net)):null));return undefined;},{submit:'Suchen',key:'scan',description:'Die Suche liest nur Stammdaten. Sie löst keine Entnahme aus.'}));
-  if(projectId)content.append(panel('Kommissionierung',has('inventory.write')?button('Material reservieren',()=>reservationDialog(projectId,collection(locations),articles),'small'):null,
-    rows(reserved,item=>row(item.article_snapshot?.name||item.article_id,`Reserviert ${formatQuantity(item.quantity)} · Entnommen ${formatQuantity(item.picked_quantity)} · Rest ${formatQuantity(item.remaining_quantity)}`,[badge(item.status),has('inventory.write')&&['reserved','partial'].includes(item.status)?button('Entnehmen',()=>dialog('Material entnehmen',form('',[field('quantity','Entnahmemenge','decimal',item.remaining_quantity,{required:true})],(data,key)=>mutation(key,'/inventory/pick',{project_id:projectId,items:[{reservation_id:item.id,quantity:data.quantity}]}),{key:'pick-'+item.id,submit:'Entnahme verbindlich buchen'})),'small'):null]))));
-  if(has('finance.read'))content.append(panel('Artikel & Leistungen',rows(articles,item=>row(item.name,`${item.code||'Ohne Artikelnummer'} · ${item.unit} · VK ${formatMoney(item.unit_price_net)} · EK ${formatMoney(item.cost_price_net)}`,[badge(item.kind),has('finance.write')?button('Bearbeiten',()=>articleDialog(item),'small'):null]))));
+  if(projectId)content.append(panel('Kommissionierung',canWrite('inventory.write','material')?button('Material reservieren',()=>reservationDialog(projectId,collection(locations),articles),'small'):null,
+    rows(reserved,item=>row(item.article_snapshot?.name||item.article_id,`Reserviert ${formatQuantity(item.quantity)} · Entnommen ${formatQuantity(item.picked_quantity)} · Rest ${formatQuantity(item.remaining_quantity)}`,[badge(item.status),canWrite('inventory.write','material')&&['reserved','partial'].includes(item.status)?button('Entnehmen',()=>dialog('Material entnehmen',form('',[field('quantity','Entnahmemenge','decimal',item.remaining_quantity,{required:true})],(data,key)=>mutation(key,'/inventory/pick',{project_id:projectId,items:[{reservation_id:item.id,quantity:data.quantity}]}),{key:'pick-'+item.id,submit:'Entnahme verbindlich buchen'})),'small'):null]))));
+  if(has('finance.read'))content.append(panel('Artikel & Leistungen',rows(articles,item=>row(item.name,`${item.code||'Ohne Artikelnummer'} · ${item.unit} · VK ${formatMoney(item.unit_price_net)} · EK ${formatMoney(item.cost_price_net)}`,[badge(item.kind),canWrite('finance.write','documents')?button('Bearbeiten',()=>articleDialog(item),'small'):null]))));
   return content;
 }
 function articleDialog(item=null) {
@@ -643,7 +745,7 @@ function articleDialog(item=null) {
     (data,key)=>mutation(key,'/articles'+(item?'/'+item.id:''),{...data,currency:'EUR',tax_category:data.tax_rate==='0'?'Z':'S',...(item?{revision:item.revision}:{})}),{key:'article-'+(item?.id||'new')}));
 }
 function stockMovementDialog(locations,articles,projectId) {
-  const fields=[field('kind','Bewegung','select','receive',{options:[['receive','Zugang'],['issue','Entnahme'],['transfer','Umbuchung']]}),field('article_id','Artikel','select','',{options:options(articles),required:true}),field('quantity','Menge','decimal','1',{required:true}),...(has('finance.write')?[field('unit_cost_net','Bestätigter Einstand netto EUR / Einheit','decimal','',{help:'Optional für Zugang. Ein tatsächlicher Nullpreis muss ausdrücklich als 0 eingegeben werden.'})]:[]),field('from_location_id','Quelllager','select','',{options:[['','Kein Quelllager'],...options(locations)]}),field('to_location_id','Ziellager','select','',{options:[['','Kein Ziellager'],...options(locations)]}),field('project_id','Projekt für Entnahme','select',projectId,{options:[['','Kein Projekt'],...options(state.projects)]}),field('note','Buchungsnotiz','textarea')];
+  const fields=[field('kind','Bewegung','select','receive',{options:[['receive','Zugang'],['issue','Entnahme'],['transfer','Umbuchung']]}),field('article_id','Artikel','select','',{options:options(articles),required:true}),field('quantity','Menge','decimal','1',{required:true}),...(canWrite('finance.write','material')?[field('unit_cost_net','Bestätigter Einstand netto EUR / Einheit','decimal','',{help:'Optional für Zugang. Ein tatsächlicher Nullpreis muss ausdrücklich als 0 eingegeben werden.'})]:[]),field('from_location_id','Quelllager','select','',{options:[['','Kein Quelllager'],...options(locations)]}),field('to_location_id','Ziellager','select','',{options:[['','Kein Ziellager'],...options(locations)]}),field('project_id','Projekt für Entnahme','select',projectId,{options:[['','Kein Projekt'],...options(state.projects)]}),field('note','Buchungsnotiz','textarea')];
   dialog('Lagerbewegung',form('',fields,(data,key)=>{if(data.kind!=='receive')delete data.unit_cost_net;return mutation(key,'/inventory/movements',data);},{key:'stock-move',submit:'Bewegung buchen'}),'Zugang: nur Ziellager. Entnahme: nur Quelllager und Projekt. Umbuchung: Quell- und Ziellager. Historische Einstandskosten entstehen aus dem Journal.');
 }
 function reservationDialog(projectId,locations,articles) {
@@ -657,9 +759,9 @@ async function costsPanel(projectId) {
     panel(costs.costs_complete===false?'Bekannte Istkosten':'Gebuchte Istkosten',el('div',{class:'metric'},formatMoney(costs.actual_net)),el('p',{class:'metric-sub'},'Materialbewegungen + genehmigte Zeiten')),panel('Verfügbares Budget',el('div',{class:'metric'},formatMoney(costs.remaining_net)),el('p',{class:'metric-sub'},'Inklusive freigegebener Nachträge'))),
     panel('Nachweis',el('p',{},'Material netto: '+formatMoney(costs.material_actual_net)),el('p',{},'Genehmigte Zeitkosten: '+formatMoney(costs.labor_actual_net)),el('p',{class:'caption'},'Zeitkosten verwenden den historischen Satz des Zeiteintrags. Unbestätigte Zeiten und manuelle Terminlängen zählen nicht als Istkosten.'),
       table(['Arbeitstag','Genehmigte Dauer','Kosten netto'],costs.approved_times.map(item=>[formatDate(item.work_date),duration(item.net_seconds),formatMoney((item.cost_minor/100).toFixed(2))]))),
-    panel('Nachträge',rows(collection(changes),item=>row(item.title,formatMoney(item.amount_net),[badge(item.approved?'Freigegeben':'Vorschlag'),!item.approved&&has('finance.approve')?button('Nachtrag freigeben',()=>confirmDialog('Nachtrag freigeben','Dieser Vorschlag erhöht das Projektbudget um '+formatMoney(item.amount_net)+'. Die ursprüngliche Fassung bleibt nachvollziehbar. Es wird keine Nachricht versendet.',async()=>{await mutation('approve-change-'+item.id,`/projects/${projectId}/changes/${item.id}/approve`,{revision:item.revision});refresh();}),'small'):null]))),
-    has('finance.write')?form('Budget festlegen',[field('material_net','Material netto EUR','decimal','0.00',{required:true}),field('labor_net','Lohn netto EUR','decimal','0.00',{required:true}),field('machine_net','Maschinen netto EUR','decimal','0.00',{required:true}),field('other_net','Sonstige Kosten netto EUR','decimal','0.00',{required:true})],(data,key)=>mutation(key,'/budgets',{...data,project_id:projectId,...(costs.budget_revision?{revision:costs.budget_revision}:{})}),{key:'budget-'+projectId,submit:'Neue Budgetfassung speichern'}):null,
-    has('finance.write')?form('Nachtrag erfassen',[field('title','Nachtrag','text','',{required:true}),field('amount_net','Zusätzlicher Budgetbetrag netto EUR','decimal','',{required:true}),...(has('finance.approve')?[field('approved','Nachtrag ausdrücklich freigeben','checkbox',false)]:[])],(data,key)=>mutation(key,`/projects/${projectId}/changes`,data),{key:'change-'+projectId}):null);
+    panel('Nachträge',rows(collection(changes),item=>row(item.title,formatMoney(item.amount_net),[badge(item.approved?'Freigegeben':'Vorschlag'),!item.approved&&canWrite('finance.approve','material')?button('Nachtrag freigeben',()=>confirmDialog('Nachtrag freigeben','Dieser Vorschlag erhöht das Projektbudget um '+formatMoney(item.amount_net)+'. Die ursprüngliche Fassung bleibt nachvollziehbar. Es wird keine Nachricht versendet.',async()=>{await mutation('approve-change-'+item.id,`/projects/${projectId}/changes/${item.id}/approve`,{revision:item.revision});refresh();}),'small'):null]))),
+    canWrite('finance.write','material')?form('Budget festlegen',[field('material_net','Material netto EUR','decimal','0.00',{required:true}),field('labor_net','Lohn netto EUR','decimal','0.00',{required:true}),field('machine_net','Maschinen netto EUR','decimal','0.00',{required:true}),field('other_net','Sonstige Kosten netto EUR','decimal','0.00',{required:true})],(data,key)=>mutation(key,'/budgets',{...data,project_id:projectId,...(costs.budget_revision?{revision:costs.budget_revision}:{})}),{key:'budget-'+projectId,submit:'Neue Budgetfassung speichern'}):null,
+    canWrite('finance.write','material')?form('Nachtrag erfassen',[field('title','Nachtrag','text','',{required:true}),field('amount_net','Zusätzlicher Budgetbetrag netto EUR','decimal','',{required:true}),...(canWrite('finance.approve','material')?[field('approved','Nachtrag ausdrücklich freigeben','checkbox',false)]:[])],(data,key)=>mutation(key,`/projects/${projectId}/changes`,data),{key:'change-'+projectId}):null);
 }
 
 async function documentationPanel(projectId) {
@@ -795,14 +897,14 @@ async function personnelView() {
     [entries,summary]=await Promise.all([api.get(query(biz('/time/entries'),filters)).then(collection),api.get(query(biz('/time/summary'),filters))]);
   }
   const current=entries.find(item=>['working','paused'].includes(item.status)&&item.employee_id===own?.id);
-  const buttons=[];if(own&&has('time.own'))buttons.push(button(current?'Laufende Zeit öffnen':'Zeit starten',()=>timeDialog(current),'primary'));
-  if(has('personnel.manage'))buttons.push(button('Mitarbeiterprofil anlegen',()=>action(()=>employeeDialog()),'small'));
+  const buttons=[];if(own&&canWrite('time.own','personnel'))buttons.push(button(current?'Laufende Zeit öffnen':'Zeit starten',()=>timeDialog(current),'primary'));
+  if(canWrite('personnel.manage','personnel'))buttons.push(button('Mitarbeiterprofil anlegen',()=>action(()=>employeeDialog()),'small'));
   const content=el('div',{class:'stack'},heading('Personal & Zeiten','Eigene Zeiten und bestätigte Tagesnachweise. Keine Hintergrundortung.',buttons),
     selected?select('Mitarbeiter',options(has('personnel.read')?employees:employees.filter(employee=>employee.user_id===state.user.id)),selected.id,value=>{state.employeeId=value;refresh();}):notice('Für diesen Zugang ist noch kein Mitarbeiterprofil eingerichtet. Die Geschäftsführung kann es mit dem vorhandenen Benutzer verknüpfen.','warn'));
   if(summary)content.append(el('div',{class:'grid'},panel('Arbeitszeit im Monat',el('div',{class:'metric'},duration(summary.worked_seconds)),el('p',{class:'metric-sub'},formatDate(dateInput(from))+' bis '+formatDate(dateInput(to))))),
-    panel('Arbeitszeiteinträge',rows(entries,item=>row(state.projects.find(project=>project.id===item.project_id)?.name||'Projekt',`${formatDate(item.started_at,true)}${item.ended_at?' – '+formatDate(item.ended_at,true):''}`,[badge(item.status),el('span',{class:'caption'},duration(item.worked_seconds)),item.employee_id===own?.id&&['working','paused'].includes(item.status)?button('Fortsetzen / beenden',()=>timeDialog(item),'small'):null]))),
-    panel('Tagesfreigaben',rows(summary.days||[],day=>row(formatDate(day.date),`Netto ${duration(day.net_seconds)} · Pause ${duration(day.break_seconds||0)}`,[badge(day.status),has('time.approve')&&day.status!=='approved'?button('Tag freigeben',()=>confirmDialog('Arbeitstag freigeben','Die geprüfte Zeit wird eingefroren. Optionale Ortsdaten werden aus den aktiven Daten und Wiederholungsquittungen entfernt.',async()=>{await mutation('approve-day-'+selected.id+'-'+day.date,`/time/days/${day.date}/approve`,{employee_id:selected.id,revision:day.revision});refresh();}),'small'):null]))));
-  if(has('personnel.read'))content.append(panel('Mitarbeiterprofile',rows(employees,employee=>row(employee.name,`${employee.weekly_minutes??'—'} Sollminuten / Woche`,[badge(employee.active?'Aktiv':'Inaktiv'),has('personnel.manage')?button('Bearbeiten',()=>action(()=>employeeDialog(employee)),'small'):null]))));
+    panel('Arbeitszeiteinträge',rows(entries,item=>row(state.projects.find(project=>project.id===item.project_id)?.name||'Projekt',`${formatDate(item.started_at,true)}${item.ended_at?' – '+formatDate(item.ended_at,true):''}`,[badge(item.status),el('span',{class:'caption'},duration(item.worked_seconds)),canWrite('time.own','personnel')&&item.employee_id===own?.id&&['working','paused'].includes(item.status)?button('Fortsetzen / beenden',()=>timeDialog(item),'small'):null]))),
+    panel('Tagesfreigaben',rows(summary.days||[],day=>row(formatDate(day.date),`Netto ${duration(day.net_seconds)} · Pause ${duration(day.break_seconds||0)}`,[badge(day.status),canWrite('time.approve','personnel')&&day.status!=='approved'?button('Tag freigeben',()=>confirmDialog('Arbeitstag freigeben','Die geprüfte Zeit wird eingefroren. Optionale Ortsdaten werden aus den aktiven Daten und Wiederholungsquittungen entfernt.',async()=>{await mutation('approve-day-'+selected.id+'-'+day.date,`/time/days/${day.date}/approve`,{employee_id:selected.id,revision:day.revision});refresh();}),'small'):null]))));
+  if(has('personnel.read'))content.append(panel('Mitarbeiterprofile',rows(employees,employee=>row(employee.name,`${employee.weekly_minutes??'—'} Sollminuten / Woche`,[badge(employee.active?'Aktiv':'Inaktiv'),canWrite('personnel.manage','personnel')?button('Bearbeiten',()=>action(()=>employeeDialog(employee)),'small'):null]))));
   return content;
 }
 function timeDialog(entry=null) {
@@ -838,9 +940,29 @@ function completeVisitDialog(projectId,visit,reports) {
   dialog('Wartung abschließen',form('',[field('report_id','Unterzeichneter Servicebericht','select','',{options:options(signed),required:true})],(data,key)=>mutation(key,`/maintenance/visits/${visit.id}/complete`,{...data,project_id:projectId,revision:visit.revision}),{key:'complete-visit-'+visit.id,submit:'Abschluss verbindlich speichern'}),'Der PDF-Hash des gewählten Berichts wird dauerhaft mit diesem Wartungsbesuch verknüpft.');
 }
 
+function organizationPanel(organization) {
+  const fields=ORGANIZATION_NEEDS.map(([name,label])=>field('needs_'+name,label,'checkbox',organization.needs?.[name]===true));
+  for(const [name,label] of ORGANIZATION_AREAS) {
+    const item=organization.modules?.[name];
+    if(!item||typeof item.enabled!=='boolean'||![null,true,false].includes(item.visibility_override))
+      throw new ApiError('Die Moduleinstellungen konnten nicht vollständig geladen werden.',502);
+    fields.push(field('visibility_'+name,label+' in der Navigation','select',item.visibility_override===null?'auto':item.visibility_override?'show':'hide',
+      {options:[['auto','Automatisch vorschlagen'],['show','Immer anzeigen'],['hide','Ausblenden']],help:'Aktueller Vorschlag: '+(item.suggested?'anzeigen':'ausblenden')+'. Eine manuelle Auswahl bleibt bei späteren Änderungen erhalten.'}),
+      field('enabled_'+name,label+' fachlich aktiv','checkbox',item.enabled,{help:'Deaktiviert werden neue Vorgänge gesperrt. Vorhandene Daten bleiben lesbar.'}));
+  }
+  const count=organization.active_employee_count;
+  const description='Der Unternehmensbedarf bestimmt die Vorschläge. Sichtbarkeit und fachliche Aktivierung können Sie getrennt korrigieren. Benutzerrechte bleiben eigenständig.'+
+    (Number.isSafeInteger(count)?` Aktive Mitarbeiterprofile: ${count}.`:'');
+  const links=el('div',{class:'stack'},el('p',{class:'muted'},'Bereiche hier auch bei ausgeblendeter Navigation öffnen. Die vorhandenen Zugriffsrechte gelten weiterhin.'),
+    el('div',{class:'actions'},ORGANIZATION_AREAS.filter(([name])=>sectionAuthorized(name)).map(([name,label])=>button(label+' öffnen',()=>navigate(name,{includeHidden:true}),'small'))));
+  return form('Unternehmensbedarf und Module',fields,(values,key)=>mutation(key,'/organization',organizationChange(organization,values)),
+    {key:'organization-'+organization.revision,description,extra:links,readonly:state.readonly,submit:'Bedarf und Module speichern'});
+}
 async function settingsView() {
-  const [branding,statuses]=await Promise.all([api.get(biz('/settings/branding')),api.get(biz('/project-statuses'))]);
+  const [branding,statuses,organization]=await Promise.all([api.get(biz('/settings/branding')),api.get(biz('/project-statuses')),
+    state.features.has('organization_modules')?api.get(biz('/organization')):Promise.resolve(null)]);
   const content=el('div',{class:'stack'},heading('Einstellungen','Betriebsdaten und Freigaben. Externe Integrationen bleiben ausdrücklich getrennt.'),
+    organization?organizationPanel(organization):null,
     form('Aussteller & Briefpapier',[field('company_name','Firmenname','text',branding.company_name||'',{required:true}),field('address_line','Straße / Hausnummer','text',branding.address_line||''),field('postal_code','Postleitzahl','text',branding.postal_code||''),field('city','Ort','text',branding.city||''),field('vat_id','USt-IdNr.','text',branding.vat_id||''),field('tax_number','Steuernummer','text',branding.tax_number||''),field('email','Betriebliche E-Mail','email',branding.email||''),field('phone','Telefon','tel',branding.phone||''),field('iban','IBAN','text',branding.iban||''),field('bic','BIC','text',branding.bic||''),field('footer','Fußzeile','textarea',branding.footer||'')],
       (data,key)=>mutation(key,'/settings/branding',{...data,revision:branding.revision}),{key:'branding',description:'Die vorhandene Ausstellerfreigabe wird hier nicht still aktiviert. Historisch finale Dokumente behalten ihre eigene Fassung.'}),
     panel('Projektstatus',button('Status hinzufügen',()=>dialog('Projektstatus',form('',[field('name','Bezeichnung','text','',{required:true}),field('color','Farbe','color','#2864da'),field('position','Reihenfolge','integer',collection(statuses).length,{min:0}),field('terminal','Abschlussstatus','checkbox',false)],(data,key)=>mutation(key,'/project-statuses',{...data,active:true}),{key:'status-new'})),'small'),rows(collection(statuses),status=>row(status.name,`Position ${status.position}`,[badge(status.terminal?'Abschluss':'Laufend')]))),

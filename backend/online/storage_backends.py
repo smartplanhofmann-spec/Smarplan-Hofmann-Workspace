@@ -57,6 +57,7 @@ class ServerStorage:
 
     def __init__(self, base_path):
         self.base_path = os.fspath(base_path) if base_path is not None else ''
+        self.instance_identity = None
 
     def configured(self):
         return bool(isinstance(self.base_path, str)
@@ -69,7 +70,7 @@ class ServerStorage:
         return {'provider': 'server', 'account_type': 'server',
                 'configured': self.configured()}
 
-    def _open_root(self):
+    def _open_root(self, *, create=True, binding_operation=False):
         if not self.configured():
             raise Problem(409, 'Serverablage noch nicht eingerichtet')
         components = PurePosixPath(self.base_path).parts[1:]
@@ -82,7 +83,7 @@ class ServerStorage:
                 except FileNotFoundError:
                     # The trusted administrator prepares the parent/mount. The
                     # adapter may create its own final directory, not ancestors.
-                    if index != len(components) - 1:
+                    if not create or index != len(components) - 1:
                         raise
                     try:
                         os.mkdir(component, 0o700, dir_fd=descriptor)
@@ -92,6 +93,22 @@ class ServerStorage:
                 os.close(descriptor)
                 descriptor = child
             _private_directory(descriptor)
+            # Keep a shared root lock through the actual write. An explicit
+            # bind needs the exclusive lock, so an unbound writer cannot race
+            # past the marker check while this root is being reserved.
+            if not binding_operation:
+                fcntl.flock(descriptor, fcntl.LOCK_SH | fcntl.LOCK_NB)
+            if self.instance_identity is not None:
+                from online.instance import verify_storage_marker
+                verify_storage_marker(descriptor, self.instance_identity)
+            elif not binding_operation:
+                from online.instance import MARKER, InstanceConfigurationError, ERROR
+                try:
+                    os.stat(MARKER, dir_fd=descriptor, follow_symlinks=False)
+                except FileNotFoundError:
+                    pass
+                else:
+                    raise InstanceConfigurationError(ERROR)
             return descriptor
         except BaseException:
             os.close(descriptor)

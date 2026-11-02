@@ -67,6 +67,35 @@ async function main(){
     assert.equal(await page.evaluate(()=>Object.keys(localStorage).length+Object.keys(sessionStorage).length),0);
     for(const section of ['Anfragen','Kontakte','Einsatzplanung','Dokumente','Finanzen','Material','Personal','Einstellungen','Übersicht'])await navigate(page,section);
     console.log('browser: actual MFA login and all ten areas loaded without API errors');
+    await navigate(page,'Einstellungen');
+    async function saveOrganization(){
+      const current=page.locator('form[data-form^="organization-"]');
+      const next=Number((await current.getAttribute('data-form')).split('-').at(-1))+1;
+      await current.getByRole('button',{name:'Bedarf und Module speichern',exact:true}).click();
+      await page.locator(`form[data-form="organization-${next}"]`).waitFor();await ready(page);
+    }
+    await page.getByLabel('Unser Unternehmen beschäftigt Mitarbeiter',{exact:true}).check();
+    await page.getByLabel('Personal in der Navigation',{exact:true}).selectOption('hide');
+    await saveOrganization();
+    assert.equal(await page.locator('.navigation').getByRole('button',{name:'Personal',exact:true}).count(),0);
+    assert.equal(await page.getByLabel('Personal in der Navigation',{exact:true}).inputValue(),'hide');
+    await page.getByRole('button',{name:'Personal öffnen',exact:true}).click();await ready(page);
+    await page.getByRole('heading',{name:'Personal & Zeiten',exact:true}).waitFor();
+    assert.equal(await page.getByRole('button',{name:'Mitarbeiterprofil anlegen',exact:true}).count(),1);
+    await navigate(page,'Einstellungen');
+    await page.getByLabel('Personal in der Navigation',{exact:true}).selectOption('show');
+    await page.getByLabel('Personal fachlich aktiv',{exact:true}).uncheck();await saveOrganization();
+    await navigate(page,'Personal');
+    assert.equal(await page.getByRole('button',{name:'Mitarbeiterprofil anlegen',exact:true}).count(),0);
+    assert.equal(await page.getByRole('button',{name:'Zeit starten',exact:true}).count(),0);
+    assert.ok(await page.locator('main').getByText('Dieser Bereich ist fachlich deaktiviert.',{exact:false}).count());
+    assert.ok(await page.getByRole('heading',{name:'Synthetic owner',exact:true}).count());
+    await navigate(page,'Einstellungen');
+    await page.getByLabel('Unser Unternehmen beschäftigt Mitarbeiter',{exact:true}).uncheck();
+    await page.getByLabel('Personal in der Navigation',{exact:true}).selectOption('auto');
+    await page.getByLabel('Personal fachlich aktiv',{exact:true}).check();await saveOrganization();
+    assert.equal(await page.locator('.navigation').getByRole('button',{name:'Personal',exact:true}).count(),1);
+    console.log('browser: manual module visibility retained, hidden personnel opened by administrator, inactive history stayed readable and reactivation restored writes');
     await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Einsatzplanung');
     await page.getByRole('button',{name:'Termin planen',exact:true}).click();let modal=page.getByRole('dialog',{name:'Termin planen',exact:true});
     const monday=await page.evaluate(()=>{const day=new Date();day.setDate(day.getDate()-((day.getDay()+6)%7));return `${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;});

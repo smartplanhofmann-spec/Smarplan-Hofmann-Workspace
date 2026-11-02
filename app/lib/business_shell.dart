@@ -135,12 +135,18 @@ class _BusinessHomeState extends State<BusinessHome>
     super.dispose();
   }
 
-  List<_Destination> get destinations => _destinations
+  List<_Destination> get availableDestinations => _destinations
       .where(
         (d) =>
             widget.session.hasModule(d.module!) &&
             (d.permission == null || widget.session.can(d.permission!)),
       )
+      .toList();
+  List<_Destination> get destinations => availableDestinations
+      .where((d) => widget.session.sectionVisible(d.id))
+      .toList();
+  List<_Destination> get hiddenDestinations => availableDestinations
+      .where((d) => !widget.session.sectionVisible(d.id))
       .toList();
   Widget navigation(bool drawer) => SafeArea(
     child: Padding(
@@ -154,9 +160,12 @@ class _BusinessHomeState extends State<BusinessHome>
               children: [
                 PlanMark(size: 32),
                 SizedBox(width: 12),
-                Text(
-                  'smartplan',
-                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
+                Flexible(
+                  child: Text(
+                    'smartplan',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             ),
@@ -180,6 +189,24 @@ class _BusinessHomeState extends State<BusinessHome>
                         if (drawer) Navigator.pop(context);
                       },
                     ),
+                  ),
+                if (hiddenDestinations.isNotEmpty)
+                  ExpansionTile(
+                    key: const ValueKey('organization-hidden-sections'),
+                    leading: const Icon(Icons.unfold_more_outlined),
+                    title: const Text('Weitere Bereiche'),
+                    children: [
+                      for (final d in hiddenDestinations)
+                        ListTile(
+                          selected: selected == d.id,
+                          leading: Icon(d.icon),
+                          title: Text(d.label),
+                          onTap: () {
+                            setState(() => selected = d.id);
+                            if (drawer) Navigator.pop(context);
+                          },
+                        ),
+                    ],
                   ),
                 if (widget.onInquiries != null)
                   ListTile(
@@ -240,7 +267,20 @@ class _BusinessHomeState extends State<BusinessHome>
       'planning' => BusinessPlanningPage(session: session),
       'documents' => BusinessDocumentsPage(session: session),
       'finance' => BusinessFinancePage(session: session),
-      'settings' => BusinessSettingsPage(session: session),
+      'settings' => BusinessSettingsPage(
+        session: session,
+        onOpenSection: (section) {
+          final destination = _destinations
+              .where((d) => d.id == section)
+              .firstOrNull;
+          if (destination != null &&
+              session.hasModule(destination.module!) &&
+              (destination.permission == null ||
+                  session.can(destination.permission!))) {
+            setState(() => selected = section);
+          }
+        },
+      ),
       _ => BusinessOverview(session: session, onProject: widget.onProject),
     };
   }
@@ -263,7 +303,7 @@ class _BusinessHomeState extends State<BusinessHome>
               ? null
               : AppBar(
                   title: Text(
-                    destinations
+                    availableDestinations
                             .where((d) => d.id == selected)
                             .firstOrNull
                             ?.label ??
@@ -294,6 +334,14 @@ class _BusinessHomeState extends State<BusinessHome>
                           padding: EdgeInsets.all(16),
                           child: Notice(
                             'Lesemodus: Gespeicherte Daten und Archive bleiben verfügbar. Änderungen und Versand sind pausiert.',
+                          ),
+                        ),
+                      if (!widget.session.readonly &&
+                          !widget.session.sectionEnabled(selected))
+                        const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Notice(
+                            'Dieser Bereich ist fachlich deaktiviert. Gespeicherte Vorgänge und Exporte bleiben entsprechend Ihren Rechten erreichbar. Neue Änderungen sind gesperrt.',
                           ),
                         ),
                       Expanded(child: content()),

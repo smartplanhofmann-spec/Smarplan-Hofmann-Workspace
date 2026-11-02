@@ -29,6 +29,7 @@ from business_operations import BusinessOperations
 from business_inventory import BusinessInventory
 from business_documents import Documents
 from business_planning import Planning
+from business_organization import Organization
 from inquiries import Inquiries
 from business_adapters import Adapters
 from business_schema import set_feature_flag
@@ -47,6 +48,12 @@ def seed(office, directory):
         email = role + '@browser.example.test'
         actors[role] = dict(id=office.add_user(email, PASSWORD, role), email=email, role=role)
     owner, technician = actors['owner'], actors['technician']
+    organization = Organization(office)
+    settings = organization.get(owner)
+    organization.save(owner, request(revision=settings['revision'],
+        needs={**settings['needs'], 'uses_inventory': True},
+        modules={name: {'visible': item['visibility_override'], 'enabled': item['enabled']}
+                 for name, item in settings['modules'].items()}))
     customer = office.create_customer(owner, {'name': 'Synthetic Workshop Customer', 'email': 'customer@example.test',
         'address': 'Synthetic street 1, 00000 Testcity'})
     project = office.add_project(owner, 'Synthetic Workshop', customer_id=customer['id'])

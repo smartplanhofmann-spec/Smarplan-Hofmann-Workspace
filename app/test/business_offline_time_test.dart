@@ -8,7 +8,7 @@ import 'package:smartplan_office/offline_plans.dart';
 import 'offline_plans_test.dart' show PlanServer, TestDevice, idle;
 
 class TimeServer extends PlanServer {
-  bool timeGrant = true, conflict = false;
+  bool timeGrant = true, conflict = false, timeEnabled = true;
   final timeReceipts = <String, Map<String, dynamic>>{};
   final timeBodies = <Map<String, dynamic>>[];
   @override
@@ -32,6 +32,9 @@ class TimeServer extends PlanServer {
         throw const ApiException(409, 'Zweites Gerät hat die Zeit geändert');
       timeBodies.add(Map<String, dynamic>.from(jsonDecode(jsonEncode(body))));
       final request = body!['request_id'];
+      if (!timeEnabled && !timeReceipts.containsKey(request)) {
+        throw const ApiException(423, 'Personal ist fachlich deaktiviert.');
+      }
       final result = timeReceipts.putIfAbsent(
         request,
         () => {
@@ -142,6 +145,89 @@ void main() {
       expect(repo.pending, 1);
     },
   );
+  test('A committed event is acknowledged while disabled and pending events resume once reactivated', () async {
+    server.online = false;
+    final entry = await repo.saveTimeEvent('p', 'start');
+    now = now.add(const Duration(hours: 1));
+    await repo.saveTimeEvent('p', 'stop', entryId: entry['id']);
+    await idle(repo);
+    server.online = true;
+    server.loseAck = true;
+    await repo.sync();
+    expect(server.timeReceipts, hasLength(1));
+    expect(repo.pending, 2);
+
+    server.timeEnabled = false;
+    await repo.sync();
+    expect(server.timeReceipts, hasLength(1));
+    expect(repo.pending, 1);
+    expect(
+      repo.timeEntries('p').single['sync_status'],
+      'Wartet auf Modulaktivierung',
+    );
+    final blockedBody = server.timeBodies.last;
+    await repo.leave();
+    repo.dispose();
+    repo = OfflinePlans(
+      api: server,
+      transport: server,
+      device: device,
+      clock: () => now,
+    );
+    await repo.resume();
+    await idle(repo);
+    expect(repo.pending, 1);
+    expect(repo.timeEntries('p').single['status'], 'stopped');
+    expect(
+      repo.timeEntries('p').single['sync_status'],
+      'Wartet auf Modulaktivierung',
+    );
+
+    server.timeEnabled = true;
+    await repo.sync();
+    expect(server.timeBodies.last, blockedBody);
+    expect(repo.pending, 0);
+    expect(server.timeReceipts, hasLength(2));
+    expect(repo.timeEntries('p').single['sync_status'], 'Synchronisiert');
+    expect(repo.timeEntries('p').single.containsKey('sync_error'), isFalse);
+    expect(repo.notice, isNull);
+    await repo.sync();
+    expect(server.timeReceipts, hasLength(2));
+  });
+  test('New offline events wait during deactivation and remain editable until upload resumes', () async {
+    server.online = false;
+    final entry = await repo.saveTimeEvent('p', 'start');
+    await idle(repo);
+    server.timeEnabled = false;
+    server.online = true;
+    await repo.sync();
+    expect(server.timeReceipts, isEmpty);
+    expect(repo.pending, 1);
+    expect(
+      repo.timeEntries('p').single['sync_status'],
+      'Wartet auf Modulaktivierung',
+    );
+    final original = server.timeBodies.single;
+
+    now = now.add(const Duration(hours: 1));
+    await repo.saveTimeEvent('p', 'stop', entryId: entry['id']);
+    await idle(repo);
+    expect(repo.pending, 2);
+    expect(repo.timeEntries('p').single['status'], 'stopped');
+    expect(
+      repo.timeEntries('p').single['sync_status'],
+      'Wartet auf Modulaktivierung',
+    );
+    server.timeEnabled = true;
+    await repo.sync();
+    expect(repo.pending, 0);
+    expect(server.timeReceipts, hasLength(2));
+    expect(
+      server.timeBodies.where((item) => item['action'] == 'start'),
+      everyElement(original),
+    );
+    expect(repo.timeEntries('p').single['sync_status'], 'Synchronisiert');
+  });
   test('An old grant is never silently expanded to time recording', () async {
     server.timeGrant = false;
     await repo.login(

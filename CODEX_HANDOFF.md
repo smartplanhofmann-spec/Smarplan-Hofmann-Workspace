@@ -1,5 +1,44 @@
 # Arbeitsauftrag für die Fortsetzung in Codex
 
+## Vorrangiger Entwicklungsauftrag – 02.11.2026
+
+Maßgeblich ist das vollständig gelesene und unverändert im Hauptverzeichnis
+gespeicherte [CRM_ERP_Gesamtziel.txt](CRM_ERP_Gesamtziel.txt). Die bestehende
+Software wird bis zu dessen Abnahmekriterien A–G weiterentwickelt. Das Ziel
+umfasst den langfristigen Ersatz von HERO und sevDesk, eigene Buchhaltung,
+optionale deutsche Lohnabrechnung, unternehmensbezogene Rechte und Module,
+Kundenportal, KI-/Sprachfunktionen sowie Browser, Windows und iPhone.
+
+Dieser Abschnitt hat Vorrang vor widersprechenden Angaben aus älteren
+Arbeitsaufträgen unten. Insbesondere ist „sevdesk bleibt, eine Ablösung ist
+nicht beauftragt“ eine historische Umfangsgrenze. Sie hebt den neuen Auftrag
+nicht auf. Vorhandene Aussteller-/Versand-/Restore-Sperren bleiben bis zur
+gesondert autorisierten Betriebsumstellung erhalten. Echte Nachrichten,
+Zahlungen, Bestellungen, Meldungen, produktive Datenmigrationen und öffentliche
+Veröffentlichungen sind keine implizite Freigabe aus dem Entwicklungsziel.
+
+Laut aktueller Zielvorgabe hat der Nutzer bisher nur ein digital
+unterschreibbares Protokoll getestet. Ältere weitergehende Nutzer-/Betriebs-
+bestätigungen werden als historische Aufzeichnungen erhalten, nicht als
+aktuelle Abnahme übernommen. Den vollständigen Protokollablauf einschließlich
+Wiederöffnen, Projektbindung, Export und Schutz des unterschriebenen Stands
+erneut prüfen; keine qualifizierte elektronische Signatur behaupten.
+
+Arbeitsgrundlage ist das Hauptrepository
+`/workspace/Smarplan-Hofmann-Workspace` mit dem bereits vorhandenen
+Businessstand `420c4c7` (native App 0.12.0, Business-Speicherversion 7).
+Die neuen Arbeitsnachweise stehen in:
+
+- [Bestandsaufnahme](docs/CRM_ERP_BESTANDSAUFNAHME.md)
+- [Vollständige Anforderungen und Abnahmefälle](docs/CRM_ERP_ANFORDERUNGEN.md)
+- [Priorisierter Umsetzungsplan](docs/CRM_ERP_UMSETZUNGSPLAN.md)
+- [Fortschritt, Entscheidungen und aktuelle Testergebnisse](docs/CRM_ERP_FORTSCHRITT.md)
+
+Vorhandene Testdateien und historische grüne Läufe sind keine neue
+Testausführung. Jede Fertigmeldung benennt den tatsächlichen geprüften Umfang
+und verbleibende Lücken. Externe Nachweise blockieren nur abhängige Freigaben;
+unabhängige Entwicklung wird fortgesetzt.
+
 ## Verbindliche aktuelle Nutzerentscheidungen – 25. Oktober 2026
 
 Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.

@@ -129,7 +129,7 @@ def dispatch(office, user, path, method, data, token):
 
 
 def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None, storage_config=None,
-               integrations=None):
+               integrations=None, instance_id=None):
     host = host or os.environ['SMARTPLAN_PUBLIC_HOST']
     if not re.fullmatch(r'[a-z0-9]+(?:[.-][a-z0-9]+)+', host):
         raise RuntimeError('Gültiger öffentlicher Hostname erforderlich.')
@@ -139,12 +139,16 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     ensure_sqlite_schema(office)
     authentication = Authentication(office, key)
     storage = storage or Storage(office, key, host, config=storage_config, onedrive=onedrive)
+    from online.instance import verify as verify_instance
+    instance = verify_instance(office, instance_id if instance_id is not None else
+                               os.environ.get('SMARTPLAN_INSTANCE_ID'), host, key, storage)
     from online.integrations_service import OnlineIntegrations, methods as integration_methods
     integrations = integrations or OnlineIntegrations(office, key, host)
     app = Flask(__name__, static_folder=None)
     app.extensions['smartplan_storage'] = storage
     app.extensions['smartplan_onedrive'] = storage.onedrive
     app.extensions['smartplan_integrations'] = integrations
+    app.extensions['smartplan_instance'] = instance
     app.config.update(MAX_CONTENT_LENGTH=1_000_000, PROPAGATE_EXCEPTIONS=False)
     # Only reachable on loopback; Caddy replaces these two forwarding headers.
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=0, x_port=0, x_prefix=0)

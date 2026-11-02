@@ -6,11 +6,17 @@ import 'business_operations.dart';
 import 'business_workflows.dart';
 import 'business_adapters.dart';
 import 'business_templates.dart';
+import 'business_organization.dart';
 import 'design.dart';
 
 class BusinessSettingsPage extends StatefulWidget {
-  const BusinessSettingsPage({super.key, required this.session});
+  const BusinessSettingsPage({
+    super.key,
+    required this.session,
+    this.onOpenSection,
+  });
   final BusinessSession session;
+  final ValueChanged<String>? onOpenSection;
   @override
   State<BusinessSettingsPage> createState() => _BusinessSettingsPageState();
 }
@@ -27,7 +33,7 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
 
   void changed() {
     if (mounted) {
-      if (!widget.session.canWrite('settings.manage')) settings = null;
+      if (!widget.session.can('settings.manage')) settings = null;
       setState(() {});
     }
   }
@@ -43,7 +49,7 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
       final result = businessMap(
         await widget.session.read('/commercial/settings'),
       );
-      if (mounted && widget.session.canWrite('settings.manage'))
+      if (mounted && widget.session.can('settings.manage'))
         setState(() => settings = result);
     } catch (e) {
       if (mounted) setState(() => error = '$e');
@@ -160,7 +166,7 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.session.canWrite('settings.manage'))
+    if (!widget.session.can('settings.manage'))
       return const BusinessEmpty(
         'Kein Zugriff',
         'Diese Einstellungen benötigen Administrationsrechte.',
@@ -173,6 +179,13 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         const SizedBox(height: 20),
+        if (widget.session.hasFeature('organization_modules')) ...[
+          BusinessOrganizationPanel(
+            session: widget.session,
+            onOpenSection: widget.onOpenSection,
+          ),
+          const SizedBox(height: 20),
+        ],
         if (error != null) Notice(error!, error: true),
         if (settings != null)
           Card(
@@ -198,7 +211,9 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
                   ),
                   const SizedBox(height: 16),
                   FilledButton.icon(
-                    onPressed: edit,
+                    onPressed: widget.session.canWrite('settings.manage')
+                        ? edit
+                        : null,
                     icon: const Icon(Icons.edit_outlined),
                     label: const Text('Firma und Ausgabe bearbeiten'),
                   ),

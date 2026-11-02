@@ -11,7 +11,7 @@ from core import Problem
 MODULES = (
     'business_foundation', 'business_documents', 'business_finance',
     'business_planning', 'business_time', 'business_operations',
-    'business_inventory', 'business_maintenance', 'business_adapters',
+    'business_inventory', 'business_maintenance', 'business_adapters', 'business_organization',
 )
 
 
@@ -110,7 +110,11 @@ def capabilities(office, actor, project_id=None):
         if project_id is not None:
             from business_foundation import project_permissions
             effective = sorted(project_permissions(office, actor, project_id))
-        return {**state,
+        organization = {}
+        if 'business_organization' in supported_modules:
+            from business_organization import navigation
+            organization = {'organization': navigation(office, actor)}
+        return {**state, **organization,
                 'capabilities': sorted(supported_modules), 'features': sorted(features),
                 'active_capabilities': state.get('capabilities', []),
                 'permissions': effective, 'global_permissions': global_permissions,
@@ -128,6 +132,7 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
             raise Problem(405, 'HTTP-Methode nicht erlaubt.')
         result = capabilities(office, actor, data.get('_query', {}).get('project_id'))
         if offline:
+            result.pop('organization', None)
             result['features'] = []
             result['permissions'] = [p for p in result['permissions'] if p in ('time.own', 'documents.read', 'documents.write')]
             result['global_permissions'] = result['permissions']
@@ -174,6 +179,9 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
         readable = current.get('read_capabilities', [])
         if module.__name__ not in active and not (method == 'GET' and module.__name__ in readable):
             raise Problem(409, 'Dieses Modul ist im aktuellen Betriebsmodus nicht schreibend freigegeben.')
+        if method != 'GET' and 'business_organization' in readable:
+            from business_organization import require_active
+            require_active(office, actor, relative, module.__name__, data)
         result = handler(office, actor, relative, method, data)
         if result is not None:
             return result

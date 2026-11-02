@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-02",
+  "base_commit": "420c4c7700d7543a725d787d48eef8bdb2319152",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "scope": "First CRM/ERP foundation increment; not completion of acceptance criteria A-G or production approval.",
+  "results": {
+    "backend": {
+      "run": 379,
+      "passed": 378,
+      "skipped": 1,
+      "skip_reason": "Windows job-object cleanup on Linux"
+    },
+    "business_services": {
+      "passed": 95,
+      "skipped": 0
+    },
+    "organization_domain_http": {
+      "passed": 16
+    },
+    "instance_http_regressions": {
+      "passed": 53
+    },
+    "postgres_ci": {
+      "executions": 315,
+      "initial_errors": 1,
+      "resolution": "Legacy storage test-double compatibility fixed; full affected 21-test group rerun passed; other groups passed; no skips"
+    },
+    "postgres_report_integrity": {
+      "passed": 12
+    },
+    "postgres_organization_instance": {
+      "passed": 4
+    },
+    "local_tls_runtime_and_maintenance": {
+      "passed": 2
+    },
+    "flutter": {
+      "passed": 323,
+      "skipped": 0,
+      "analysis_findings": 0
+    },
+    "browser_unit": {
+      "passed": 39,
+      "skipped": 0
+    },
+    "browser_e2e": {
+      "status": "blocked_by_environment",
+      "reason": "Chromium sandbox helper ownership and read-only user namespace mapping; sandbox remained enabled"
+    },
+    "package_contracts": {
+      "passed": 14
+    }
+  },
+  "changed_code_sha256": {
+    ".github/workflows/checks.yml": "7dd3d8c4b5c73eeff78e063b632a011491c9fea0b386b5d7975124e297b9af29",
+    "app/lib/business_offline.dart": "7bbd0ce4fb14978ce3c20b7da72fbf7b343703e33622616b0e8bb2dbab868a67",
+    "app/lib/business_organization.dart": "71f5410015dc059430bfa489f80f3025ade95d3fbae969ea1fca9d612a44d243",
+    "app/lib/business_session.dart": "c89d4541dd5aa8ca73af089ca04b9e2f42d876355c9dd7aeed7be2037def01fc",
+    "app/lib/business_settings.dart": "60082af8945c0d13ab8bce86431eadbd4e9b76d2935408148569eb75a61b99b2",
+    "app/lib/business_shell.dart": "8f1c3ae2e5bb6f1ddb1a806259b8fe6474814577d520799b82dde2458a189946",
+    "app/test/business_module_pause_integration_test.dart": "7de092171a473316d1c5cc26b5b9dbb48b7c1f25f57edf9a58adc373bb73a765",
+    "app/test/business_offline_time_test.dart": "d02d7114b08d9ee425ae9e69e1645e8c00d69ff8b53a7c2b7c24ab3e81577fee",
+    "app/test/business_organization_test.dart": "d5b9c628fd8d1298568f693e845a0aa8f23c5c19c2b53bbdd53528e08675a455",
+    "app/test/report_retry_widget_test.dart": "b585402bd56b84df2c8c7b41232edf8823a47459395f8cd988812a0ec883fc19",
+    "backend/business_api.py": "318572157f29be66f53b438172a0b529a411b3d81645069c4203055c06598b23",
+    "backend/business_instance.py": "f7f6297ae36622692fd168b9105c9adfd31b4da20a17447c15badd26da2a97a5",
+    "backend/business_organization.py": "946f3436b93210cfa917b9016ae5f57ba79d539a09dd1f14d02598aa3727e9df",
+    "backend/business_schema.py": "e8b5602d6a501249e5d060023f74f956f5b3fa3516e3c3c9cbb2a2423b223228",
+    "backend/core.py": "c1fcd4e386b9f30f9395dab499718abeaa18bfcaf58e9e62ba8418466e7b8dc6",
+    "backend/online/import_worker.py": "c22526edbccd11eac255c5ff926df331e7e2ceef22ecf515b0c034668601b1b2",
+    "backend/online/instance.py": "d15889a42dbe3fb190d3577a4fb6c7b9d64efc7ed6c8fc79f4fcd00a2c719b1a",
+    "backend/online/storage.py": "be2f19bd58f7f37e56a9556339cc5480ff44b2f83d374b70176a561763672fdf",
+    "backend/online/storage_backends.py": "cd01e514d2320c37389f9e46b6786a1366d8f5b908ef953c37b0446208862e48",
+    "backend/online/test_instance_isolation.py": "6d5e44b606c6205d287ef61765151efc3d8269b3c05158dff04ce9dd73a5a59e",
+    "backend/online/test_organization_http.py": "a3d8ad45eb4434a718e078cd5594d2224e30323f105bd3aea836f85a55d2de87",
+    "backend/online/test_organization_pg.py": "1d0f4c6d37be3cd117ab856212864324c68cd4b0c63762adf1640ed3ae29589c",
+    "backend/online/test_report_integrity_pg.py": "d68942a9c125477ccf657e654be580c0f926d66f93faae60fb9ab6721b07cc50",
+    "backend/online/web.py": "bfdc66c8ddad8e47840f0bc76697cf8681d3c523ea230cfb172d566bcf018bf8",
+    "backend/test_business_organization.py": "97d3f5c161a381c645e281c685f378f4fcb9e5915144c01eadd57f19a6bb3046",
+    "backend/test_report_integrity.py": "9c39d15898de1ff4e66ad29dcbec5f89f4eb11fb401e7968c3aa2dd434d38f68",
+    "scripts/native-release.py": "88664554ffbb5bc5d9609ce283115331b82dba5bb07b74f552b855a6bfc7e325",
+    "scripts/package-windows-support.py": "3d5e96d6367b79f8b126bee88a4ccd45db1e71b670b469bb31b6fbc82cea7c73",
+    "web/office/office.js": "5f3bdd47cd4f403c86944b326f708e807e69fd9aad2b2d0484fdb50c97c51a41",
+    "web/office/tests/e2e.cjs": "d9973f37765764d8dd5fe0103108eacc8b30d355d25030306997dd189d609efa",
+    "web/office/tests/organization.test.mjs": "7618734930735ac474a82a3ee3b482dd1159eceb6389be834b18d2fda84f9a03",
+    "web/office/tests/serve_fixture.py": "85f79e0e05d13ebcf153ca2360af071dce140cf9156affa8c84b6c6bbcfb1d45"
+  },
+  "note": "Group counts are test executions and overlap; do not add as unique acceptance coverage. Raw logs are in ignored work/."
+}

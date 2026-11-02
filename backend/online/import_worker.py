@@ -231,6 +231,8 @@ def main(argv=None):
     office = PostgresOffice(os.environ['SMARTPLAN_DATABASE_DSN'])
     signal.signal(signal.SIGTERM, lambda signum, frame: sys.exit(128 + signum))
     try:
+        from online.instance import verify_worker
+        verify_worker(office)
         while True:
             result = work_one(office, runner=runner, ocr_languages=args.ocr_languages)
             # No source names, extracted text, raw parser diagnostics or secrets.

@@ -1,0 +1,168 @@
+GESAMTZIEL: BRANCHENÜBERGREIFENDE CRM- UND ERP-SOFTWARE
+Abgestimmter Zielumfang für Codex – Stand 02.11.2026
+
+1. AUFTRAG UND GEWÜNSCHTES ERGEBNIS
+
+Entwickle die bestehende Software zu einer vollständigen, zusammenhängenden Unternehmenssoftware weiter. Sie soll zunächst Smartplan Hofmann im Alltag dienen, HERO und sevDesk langfristig vollständig ersetzen und anschließend als eigenständiges Produkt an Unternehmen verschiedener Branchen verkauft werden können.
+
+Das Ergebnis soll Verwaltung reduzieren, doppelte Eingaben vermeiden und jederzeit einen nachvollziehbaren Überblick über Kunden, Projekte, Mitarbeiter, Aufgaben, Liquidität, Kosten, Erlöse und Unternehmensergebnis ermöglichen. Daten werden einmal erfasst, mit den zugehörigen Vorgängen verknüpft und in allen berechtigten Ansichten konsistent verwendet.
+
+Zum vollständigen Endziel gehören die unten beschriebenen Module, installierbare Anwendungen, Offline-Nutzung, ein integrierter KI-Assistent sowie Betrieb auf eigenen Servern und als Onlinedienst. Arbeite in überprüfbaren Umsetzungsetappen, ohne diese Etappen mit einer Reduzierung des Endziels zu verwechseln. Eine ansprechende Oberfläche allein erfüllt das Ziel nicht.
+
+2. VORHANDENER PROJEKTSTAND
+
+Untersuche zuerst den tatsächlich bereitgestellten Projektordner, vorhandene Projektanweisungen, Architektur, Datenhaltung, Anwendungen und Tests. Erstelle eine kurze Bestandsaufnahme und gleiche den Stand mit diesem Ziel ab. Erhalte funktionierende Bestandteile und bestehende Daten. Führe erforderliche Änderungen kontrolliert mit nachvollziehbaren Migrationen durch. Ein vollständiger Neubau ist nicht vorgegeben und muss, falls erforderlich, technisch begründet werden.
+
+Der Nutzer hat bisher lediglich ein Protokoll getestet, das er digital unterschreiben konnte. Andere Funktionen wurden von ihm noch nicht geprüft. Behaupte deshalb weder deren Vollständigkeit noch deren Funktionsfähigkeit. Prüfe den vollständigen Protokollablauf einschließlich Speichern, Wiederöffnen, Zuordnung zum Projekt, Export und Schutz des unterschriebenen Dokumentstands. Die vorhandene Unterschrift ist ohne entsprechenden Nachweis keine qualifizierte elektronische Signatur.
+
+3. MARKT, UNTERNEHMEN UND OPTIONALE MODULE
+
+Die erste vollständige Version richtet sich an Unternehmen in Deutschland. Österreich und die Schweiz sind mögliche spätere Erweiterungen. Bereite Länderregeln, Währungen, Steuerlogik, Lohnabrechnung und Meldeverfahren so vor, dass weitere Länder ergänzt werden können. Ihre fachliche Umsetzung gehört noch nicht zur ersten vollständigen Version.
+
+Baue einen branchenneutralen Kern mit anpassbaren Leistungen, Artikeln, Feldern, Dokumentvorlagen und Arbeitsabläufen. Vermeide die feste Bindung des Produkts an Elektroplanung oder Handwerk. Branchenübergreifend bedeutet einen vielseitig verwendbaren kaufmännischen und organisatorischen Kern; beliebige unbesprochene Speziallösungen wie medizinische Fachsysteme oder Maschinensteuerung gehören nicht automatisch zum Umfang.
+
+Die Einrichtung erfasst den Unternehmensbedarf, beispielsweise Mitarbeiter, Lager, Projektarbeit und Zusammenarbeit mit einem Steuerberater. Daraus werden passende Module und Ansichten vorgeschlagen beziehungsweise eingeblendet. Ein Betrieb ohne Mitarbeiter sieht keine unnötige laufende Personalverwaltung. Bei späteren Änderungen passt sich die Auswahl an.
+
+Als Umsetzungsvorgabe bleiben diese Vorschläge manuell korrigierbar. Das Ausblenden eines Moduls löscht keine Daten. Historische Abrechnungen und erforderliche Nachweise bleiben gemäß Berechtigung und Aufbewahrungsregeln erreichbar. Sichtbarkeit, fachliche Aktivierung und Zugriffsrechte sind getrennte Konzepte.
+
+Unterstütze mehrere Benutzer mit rollenbezogenen Rechten. Für den späteren Kundenbetrieb sind getrennte Unternehmensbereiche mit strikt isolierten Daten, Einstellungen, Dateien, Suchindizes, KI-Kontexten und Hintergrundaufträgen erforderlich. Auch beim Betrieb mehrerer Unternehmen auf derselben Plattform darf kein unberechtigter Zugriff zwischen Unternehmen möglich sein.
+
+4. BEDIENUNG UND DESIGN
+
+Verbindliche Gestaltungsrichtung: ruhig und großzügig. Die Oberfläche soll hochwertig, aufgeräumt und im täglichen Einsatz verständlich wirken.
+
+- Klare seitliche Hauptnavigation am Desktop, gut lesbare Schrift, ausreichend Freiraum und konsistente Abstände.
+- Eine zentrale Unternehmensübersicht mit den relevanten Kennzahlen, anstehenden Aufgaben, Terminen und belegbaren Hinweisen. Detailinformationen sind gezielt erreichbar, ohne die Startseite zu überladen.
+- Listen, Formulare, Detailansichten und Aktionen verhalten sich über alle Module hinweg einheitlich. Häufige Aufgaben benötigen wenige verständliche Schritte.
+- Kunden-, Projekt- und Dokumentansichten zeigen zusammengehörige Informationen und deren Verlauf. Aus Kennzahlen kann in die zugrunde liegenden Vorgänge gewechselt werden.
+- Navigation und Umfang richten sich nach aktivierten Modulen und Benutzerrechten. Auf dem iPhone wird die Anordnung für die mobile Nutzung angepasst.
+- Gute Tastatur- und Touch-Bedienung, sichtbarer Fokus, verständliche Beschriftungen, ausreichende Kontraste sowie sinnvolle Lade-, Leer-, Fehler- und Offline-Zustände.
+- Vorläufige Farbannahme: neutrale helle Flächen, Grau und Schwarz mit zurückhaltenden Statusfarben. Produktname, Logo, Akzentfarbe und konkrete Einzelansichten sind noch nicht abschließend festgelegt. Smartplan Hofmann ist zunächst der Anwender, nicht zwingend der spätere Produktname.
+
+5. KUNDEN, VERTRIEB, ANGEBOTE UND AUFTRÄGE
+
+Integriere Kunden und Ansprechpartner, Interessenten, Lieferanten, Anfragen, Verkaufschancen, Notizen, Aktivitäten, Wiedervorlagen, Aufgaben und den zugehörigen Kommunikationsverlauf.
+
+Angebote werden aus Leistungen, Artikeln, Zeiten und Preisen kalkuliert. Unterstütze Versionen, Rabatte, erforderliche Steuerangaben, Annahme, Ablehnung und die Übernahme angenommener Angebote in Aufträge und Projekte. Dokumente sollen über unternehmensspezifische Vorlagen ausgegeben werden können.
+
+Das Kundenportal ermöglicht berechtigten Kunden, ihre Angebote anzusehen und anzunehmen, Dokumente auszutauschen und freigegebene Projektinformationen einzusehen. Interne Kalkulationen, andere Kunden und nicht freigegebene Personaldaten bleiben unzugänglich. Änderungen und relevante Entscheidungen werden nachvollziehbar dokumentiert.
+
+6. PROJEKTE UND TÄGLICHE ABWICKLUNG
+
+Unterstütze Projekte und Aufträge mit Verantwortlichen, Aufgaben, Terminen, Meilensteinen, Einsatz- und Ressourcenplanung, Budgets, Fortschritt, Dokumenten, Fotos, Berichten und digital unterschreibbaren Protokollen.
+
+Erfasse Arbeitszeiten, eingesetztes Material, Fremdleistungen und weitere Kosten direkt zum Vorgang. Ermögliche einen nachvollziehbaren Vergleich von Planung und tatsächlichen Kosten sowie eine Auswertung von Erlösen und Rentabilität. Kennzahlen müssen ihre Berechnungsgrundlage und ihren Datenstand erkennen lassen; Umsatz, Zahlungseingang und Gewinn dürfen nicht verwechselt werden.
+
+Der durchgehende Ablauf lautet: Anfrage, Kalkulation, Angebot, Auftrag, Planung, Ausführung, Dokumentation, Abrechnung, Zahlung und Nachbetreuung. Verknüpfte Informationen werden weiterverwendet, statt erneut eingegeben werden zu müssen.
+
+7. EINKAUF, LAGER, SERVICE UND BETRIEBSMITTEL
+
+- Einkauf und Lieferanten: Bedarf, Bestellung, Lieferstatus, Teil- und Wareneingänge, zugehörige Dokumente und Bezug zum Projekt.
+- Artikel und Lager: Stammdaten, Einheiten, Einkaufspreise, Verkaufspreise, Bestände, Bewegungen, Inventur und Materialentnahme. Lagerbewegungen und Projektkosten bleiben konsistent.
+- Lieferantenkataloge: Artikel, Beschreibungen und Preise übernehmen sowie vorhandene Einträge nachvollziehbar aktualisieren. Importfehler, Dubletten, Preisgültigkeit und abweichende Einheiten müssen erkennbar sein. Konkrete Lieferanten, Formate und direkte Schnittstellen sind noch offen.
+- Service: Kundenanliegen, Reklamationen, Wartungsverträge, wiederkehrende Einsätze und zugehörige Geräte- und Servicehistorie.
+- Betriebsmittel: Fahrzeuge, Werkzeuge und Geräte verwalten, Mitarbeitern oder Projekten zuordnen und relevante Termine verfolgen.
+
+8. FINANZEN, BUCHHALTUNG UND AUSWERTUNGEN
+
+Die eigene Buchhaltung ist Bestandteil des Endziels und soll ohne verpflichtende Nutzung von sevDesk oder DATEV funktionieren. Finanzmodule sind bedarfsgerecht aktivierbar.
+
+Unterstütze Ausgangsrechnungen, Abschlags- und Schlussabrechnung soweit für den gewählten Geschäftsfall erforderlich, Korrekturen und Gutschriften, Eingangsbelege, Zahlungsziele, offene Posten, Mahnungen, Bankabgleich und Zuordnung von Zahlungseingängen und Ausgaben. Berücksichtige Teilzahlungen, Überzahlungen und Rückabwicklungen nachvollziehbar.
+
+Integriere Belegerfassung und beleggestützte Buchungen, geeignete Konten- und Steuerlogik, Perioden und Abschlüsse sowie Auswertungen zu Liquidität, Erträgen, Aufwendungen, Forderungen, Verbindlichkeiten und Projektergebnissen. Der fachliche Umfang muss die unterstützten Unternehmens- und Buchführungsformen ausdrücklich benennen. Implementiere die erforderlichen Verfahren für EÜR beziehungsweise doppelte Buchführung entsprechend diesem dokumentierten Umfang.
+
+Optional gehören Jahresabschlussfunktionen und direkte behördliche Meldungen zum Endziel. Stelle geeignete Datenübergaben für einen Steuerberater bereit. Eine DATEV-Anbindung ist optional; ihr genauer Umfang und das Übertragungsverfahren werden anhand aktueller offizieller Schnittstellenvorgaben festgelegt.
+
+Berücksichtige die für den konkreten Einsatz geltenden Anforderungen an elektronische Rechnungen, steuerliche Aufzeichnungen, Aufbewahrung, Nachvollziehbarkeit und Datenexport. Bereits festgeschriebene Geschäftsvorgänge dürfen nicht unbemerkt überschrieben werden; Korrekturen müssen fachlich korrekt und nachvollziehbar erfolgen. Geldbeträge, Rundungen und Steuern werden reproduzierbar berechnet, nicht durch ein Sprachmodell geschätzt.
+
+9. PERSONAL UND LOHNABRECHNUNG
+
+Integriere Mitarbeiterstammdaten, Personalunterlagen, Arbeitszeitmodelle, Zeiterfassung, Urlaub, Krankmeldungen, Abwesenheiten, Überstunden, Reisekosten und Einsatzplanung. Rechte für Personal- und Gehaltsdaten sind besonders eng zu begrenzen.
+
+Die optionale deutsche Lohnabrechnung verarbeitet die fachlich relevanten Stammdaten und Bewegungsdaten. Unterstütze reproduzierbare Abrechnungen, Abrechnungsdokumente, Korrekturen und nachvollziehbare Historien. Welche Beschäftigungs- und Abrechnungsfälle unterstützt werden, ist ausdrücklich zu dokumentieren und fachlich zu testen. Nicht unterstützte Fälle müssen erkannt werden und dürfen keine scheinbar vollständige Abrechnung erzeugen.
+
+Direkte Meldungen und Übermittlungen sind ebenfalls Zielbestandteil. Für jeden Übermittlungsweg sind die aktuellen fachlichen Anforderungen, notwendigen Zugänge, Systemprüfungen, Freigaben und gegebenenfalls qualifizierten Dienstleister zu bestimmen. Simulierte Meldungen oder bestandene Entwicklungstests dürfen nicht als produktive Zulassung dargestellt werden.
+
+Geprüfte Komponenten oder externe Dienste dürfen nach transparenter Abwägung integriert werden. Dokumentiere dabei Kosten, Datenflüsse und verbleibende Abhängigkeiten. Die Unterstützung in der Anwendung, die fachliche Abrechnungsprüfung und die Freigabe einer Übermittlung sind getrennt nachzuweisen.
+
+10. KI UND REGELBASIERTE AUTOMATISIERUNG
+
+Integriere einen Assistenten als zentralen Chat, per Sprachbedienung und innerhalb der einzelnen Funktionen. Er soll Informationen finden, Zusammenhänge erklären, Entwürfe vorbereiten und Aufgaben im erlaubten Umfang ausführen. Eigenes Modelltraining oder ein ausschließlich lokal laufendes Modell ist bisher nicht festgelegt; wähle die Einbindung anhand von Nutzen, Kosten, Sicherheit und Datenverarbeitung.
+
+Beispiele: Kommunikation zuordnen, Belege erfassen, Angebote vorbereiten, Aufgaben aus Vorgängen ableiten, Termine vorschlagen und auf offene Zahlungen, fehlende Unterlagen, Fristen oder auffällige Projektkosten hinweisen. Antworten zu Unternehmenszahlen verwenden nachvollziehbare Datenabfragen und nennen ihre Grundlage.
+
+Jedes Unternehmen kann Regeln festlegen: Auslöser, Bedingungen, betroffene Vorgänge, zuständige Personen und zulässige Aktion. Eine Aktion kann automatisch erlaubt, freigabepflichtig oder ausgeschlossen sein. Regeln müssen insbesondere auch für den Versand von Angeboten und Rechnungen, Bestellungen und Zahlungsaktionen gelten. Ohne konfigurierte Erlaubnis entsteht keine automatische Außenwirkung.
+
+Regeln und Berechtigungen werden im Anwendungssystem durchgesetzt. Die KI darf sie weder selbst erweitern noch durch Anweisungen aus E-Mails, Dateien oder Katalogdaten umgehen. Protokolliere Anlass, Datenbasis, geplante Aktion, erforderliche Freigabe und Ergebnis. Verhindere doppelte Aktionen bei Wiederholung oder Verbindungsfehlern.
+
+KI-Anbieter und Datenzugriffe müssen konfigurierbar und nachvollziehbar sein. Kein unkontrollierter Zugriff auf Gehaltsdaten oder andere Unternehmen. Für Sprachfunktionen dürfen keine dauerhafte Hintergrundaufnahme oder nicht vereinbarte Speicherung vorausgesetzt werden.
+
+11. ANWENDUNGEN, OFFLINE-NUTZUNG UND BETRIEB
+
+Das Endziel umfasst eine Browseranwendung und installierbare Anwendungen für Windows und iPhone. Die technische Umsetzung als native, hybride oder geeignete andere installierbare Anwendung ist anhand der vorhandenen Architektur zu begründen. Installation, Aktualisierung und benötigte Gerätefunktionen müssen praktisch überprüfbar sein.
+
+Zeiten, Fotos, Berichte und zugehörige Projektdokumentation sollen unterwegs auch ohne Internet erfasst werden können. Speichere offline benötigte Daten geschützt. Synchronisiere nach Wiederverbindung ohne Datenverlust oder doppelte Vorgänge. Konflikte, ausstehende Übertragung, abgelaufene Berechtigungen und Fehler müssen nachvollziehbar behandelt werden. Eine erfolgreich gespeicherte lokale Eingabe darf nicht fälschlich als bereits serverseitig synchronisiert angezeigt werden.
+
+Unterstütze sowohl einen zentral betriebenen Onlinedienst als auch eine Installation auf dem eigenen Server beziehungsweise beim Kunden. Beide Varianten verwenden einen gepflegten gemeinsamen Produktkern. Dokumentiere Voraussetzungen, Einrichtung, Datensicherung, Wiederherstellung, Monitoring, Aktualisierung und Zuständigkeiten.
+
+Bereite eine sichere Einrichtung neuer Kundenunternehmen, deren Modulkonfiguration, Datenexport und einen geordneten Ausstieg vor. Preisgestaltung, Lizenzmodell und konkrete Hostinganbieter sind noch nicht beschlossen.
+
+12. SCHNITTSTELLEN UND ÜBERNAHME BESTEHENDER DATEN
+
+Priorisiere eine erweiterbare Schnittstellenstruktur für Lieferantenkataloge und die optionale DATEV-Anbindung. Benötigte Bank-, E-Mail-, Kalender- und Dateiablageverbindungen werden nach tatsächlichem Bedarf ausgewählt. Gmail, Google Kalender, Qonto und OneDrive wurden als bestehendes Umfeld genannt, aber noch nicht als verbindliche Erstintegrationen festgelegt.
+
+Für den späteren Ersatz von HERO und sevDesk ist eine kontrollierte Übernahme der benötigten Stammdaten, Vorgänge und Dokumente vorzusehen. Prüfe verfügbare offizielle Export- und Schnittstellenwege. Erfinde keine API-Funktionen oder Zugänge. Importvorschau, Zuordnungen, Dublettenerkennung, Fehlerbericht und Abgleich der übernommenen Daten müssen eine überprüfbare Migration ermöglichen. Bestehende Systeme und Originaldaten bleiben bis zum erfolgreichen Abgleich erhalten.
+
+13. SICHERHEIT, DATENSCHUTZ UND FACHLICHE KONFORMITÄT
+
+Sicherheit und die Einhaltung des anwendbaren deutschen und europäischen Rechts sind verbindliche Qualitätsziele. Leite aus dem tatsächlichen Produkt und Betrieb konkrete Anforderungen und Prüfungen ab. Eine allgemeine Aussage wie „sicher“ oder „DSGVO-konform“ ersetzt keinen Nachweis.
+
+Technische Umsetzungsvorgaben:
+- Serverseitige Prüfung von Identität, Unternehmenszugehörigkeit und Berechtigung bei jeder geschützten Operation, auch bei Suche, Export, Dateizugriff, Hintergrundaufträgen und KI-Werkzeugen.
+- Mehrfaktor-Anmeldung insbesondere für privilegierte Zugänge; sichere Sitzungen, Wiederherstellungswege, Geheimnisverwaltung und Schutz vor Missbrauch.
+- Verschlüsselte Übertragung und risikogerecht verschlüsselte Speicherung, insbesondere für sensible Daten, Offline-Speicher und Backups. Sichere Schlüsselverwaltung; keine produktiven Geheimnisse im Quellcode oder in Protokollen.
+- Validierung externer Eingaben, Schutz von Datei-Uploads und Schnittstellen sowie Vermeidung typischer Angriffswege. Behandle importierte Dokumente und KI-Eingaben als nicht vertrauenswürdig.
+- Dokumentierte Sicherheitsanalyse, Komponenten- und Abhängigkeitsübersicht, regelmäßige Schwachstellenprüfungen und nachvollziehbare Sicherheitsprotokolle ohne unnötige sensible Inhalte.
+- Sichere Updates, gesicherte Backups mit praktisch getesteter Wiederherstellung und ein Verfahren für Sicherheitsvorfälle.
+
+Für Datenschutz sind Zwecke, verarbeitete Daten, Zugriffe, Aufbewahrung und Empfänger nachvollziehbar zu dokumentieren. Baue sparsame Voreinstellungen, Auskunft, Export, Berichtigung und Löschung unter Berücksichtigung bestehender Aufbewahrungspflichten ein. Prüfe Auftragsverarbeitung, Drittlandübermittlungen und gegebenenfalls die Erforderlichkeit einer Datenschutz-Folgenabschätzung. Eine EU-Hostingadresse allein belegt keine vollständige Konformität.
+
+Führe eine aktuelle Anforderungs- und Nachweisliste für die tatsächlich einschlägigen Vorschriften und Verfahren. Prüfe insbesondere Datenschutz, steuerliche Aufzeichnungen und elektronische Rechnungen, Lohn- und Meldeverfahren, die erforderliche elektronische Signaturart sowie die Anwendbarkeit von EU-KI-Verordnung und Cyber Resilience Act. Leite die Anforderungen aus aktuellen offiziellen Quellen ab; erfinde keine Zertifizierungen oder Behördenfreigaben.
+
+Als vorgeschlagenes Freigabekriterium für den Kundenbetrieb gelten: keine unbehobenen bestätigten kritischen oder hohen Sicherheitslücken, erfolgreiche Trennungs- und Berechtigungstests, getestete Wiederherstellung sowie ein unabhängiger Sicherheitstest mit Nachprüfung behobener Befunde. Fachliche und rechtliche Prüfungen durch die dafür zuständigen Personen oder Stellen bleiben gesonderte Nachweise. Versprich keine absolute Unangreifbarkeit.
+
+14. DURCHGÄNGIGE ABNAHMEFÄLLE
+
+Erstelle nachvollziehbare Testdaten und prüfe mindestens diese Abläufe mit reproduzierbaren Ergebnissen:
+
+A. Einrichtung und Rechte: Ein Einzelunternehmen startet ohne Personalbereich. Nach Anlegen eines Mitarbeiters werden die passenden Funktionen angeboten. Ein berechtigter Benutzer kann die Auswahl korrigieren. Eine zweite Firma und eine eingeschränkte Benutzerrolle können weder über die Oberfläche noch über direkte Schnittstellen fremde beziehungsweise gesperrte Daten abrufen.
+
+B. Anfrage bis Zahlung: Kunde anlegen, Katalogartikel übernehmen, Angebot kalkulieren, im Portal annehmen, Auftrag und Projekt erzeugen, Einsatz planen, Zeiten und Fotos offline erfassen, Protokoll unterschreiben, synchronisieren, Rechnung erstellen und Zahlung zuordnen. Projektkosten und Finanzzahlen stimmen mit den zugrunde liegenden Vorgängen überein. Wiederholte Synchronisation erzeugt keine Duplikate.
+
+C. Einkauf bis Service: Projektbedarf bestellen, Teillieferung und Restlieferung verbuchen, Materialbestand prüfen, Material zum Projekt entnehmen und Kosten zuordnen. Für das zugehörige Gerät wird ein Wartungsvorgang mit nachvollziehbarer Historie angelegt.
+
+D. Personal und Abrechnung: Mitarbeiter, Arbeitszeiten, Abwesenheiten und Reisekosten verarbeiten. Fachlich geprüfte Referenzfälle liefern erwartete Abrechnungsergebnisse. Korrekturen bleiben nachvollziehbar. Export und Meldeverfahren zeigen ihren tatsächlichen Prüf- und Freigabestatus.
+
+E. KI und Regeln: Die KI erkennt einen belegbaren Sachverhalt, nennt die Datenbasis und bereitet eine Aktion vor. Regeln erzwingen automatische Ausführung, Freigabe oder Ablehnung wie eingerichtet. Manipulative Dokumentinhalte, fehlende Rechte und fremde Unternehmensdaten umgehen diese Regeln nicht. Fehler und Wiederholungen erzeugen keine doppelten Geschäftsvorgänge.
+
+F. Betrieb und Wiederherstellung: Installation und Aktualisierung der unterstützten Betriebsvarianten nach Anleitung durchführen, ein Backup wiederherstellen und wichtige Daten sowie Beziehungen abgleichen. Offline-Konflikte, abgebrochene Verbindungen und fehlende Drittanbieterzugänge werden verständlich behandelt.
+
+G. Bedienbarkeit: Die wichtigsten täglichen Abläufe funktionieren im Browser, unter Windows und auf dem iPhone mit klarer Navigation, gut lesbarer Darstellung und sichtbaren Speicher- und Synchronisationszuständen. Fehler, leere Datenbestände und eingeschränkte Rechte führen zu verständlichen Ansichten.
+
+Ergänze für jedes Modul notwendige Fach-, Integrations- und Fehlerfalltests. Vollständigkeit wird anhand tatsächlichen Verhaltens und fachlicher Ergebnisse beurteilt, nicht anhand der Zahl vorhandener Seiten oder bestandener oberflächlicher Tests.
+
+15. ARBEITSWEISE, FERTIGSTELLUNG UND OFFENE PUNKTE
+
+Übersetze dieses Ziel nach der Bestandsaufnahme in einen priorisierten Umsetzungsplan. Beginne anschließend mit der konkreten Entwicklung. Erzeuge früh einen durchgängig benutzbaren Ablauf und erweitere ihn bis zum vollständigen vereinbarten Ziel. Halte Projektstand, Entscheidungen, Tests und nächste Schritte im Repository aktuell, damit die Arbeit in späteren Sitzungen fortgesetzt werden kann.
+
+Wähle den technischen Aufbau passend zum vorhandenen Projekt und zur Wartbarkeit. Framework, Datenbank, Modellanbieter und Infrastruktur sind nicht vorgegeben. Löse normale technische Entscheidungen selbstständig und dokumentiere wesentliche Abwägungen. Frage gezielt nach, wenn eine Entscheidung den Geschäftsumfang, laufende Kosten, produktive Datenübertragung oder externe Verpflichtungen wesentlich verändert.
+
+Verwende in Entwicklung und Tests kontrollierte Testdaten und Testumgebungen. Echte Zahlungen, Meldungen, Nachrichten, produktive Migrationen oder öffentliche Veröffentlichung sind keine implizite Erlaubnis aus diesem Entwicklungsziel; bereite sie technisch vor und führe sie erst im ausdrücklich autorisierten Betriebsablauf aus.
+
+Führe für Anforderungen nachvollziehbare Zustände: offen, implementiert, getestet, extern blockiert und produktiv freigegeben. Fehlende Zugänge, notwendige Prüfungen oder andere echte Abhängigkeiten werden konkret benannt. Arbeite an unabhängigen Teilen weiter. Ein extern blockiertes Modul bleibt offen; eine Simulation darf nicht als vollständige Integration ausgegeben werden.
+
+Das Gesamtziel ist erst erreicht, wenn der vereinbarte Umfang durchgängig benutzbar ist, Daten dauerhaft und konsistent gespeichert werden, die erforderlichen Tests bestehen und die für den jeweiligen Produktivumfang notwendigen externen Nachweise vorliegen. Liefere dazu Quellcode, Installations- und Betriebsanleitungen, Migrationswege, Nutzeranleitung, Prüfergebnisse und eine ehrliche Liste verbleibender Einschränkungen.
+
+Noch offene Einzelheiten: endgültiger Produktname und Farbgestaltung, konkrete Lieferanten und Katalogformate, zuerst unterstützte Bank-/Kommunikationsanbieter, genaue unterstützte steuerliche und lohnbezogene Fallgruppen, KI-Anbieter, App-Technik, Hostinganbieter und Verkaufs-/Preismodell. Diese Punkte sind gezielt zu konkretisieren; die bereits festgelegten Ziele bleiben bestehen.
+
+Beginne mit der Bestandsaufnahme des vorhandenen Projekts und setze danach den ersten zusammenhängenden, überprüfbaren Entwicklungsabschnitt um.

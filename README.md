@@ -1,5 +1,31 @@
 # Smartplan Office – Entwicklungsstand 0.12.0
 
+## Aktuelles Gesamtziel – 02.11.2026
+
+Für die weitere Entwicklung gilt
+[CRM_ERP_Gesamtziel.txt](CRM_ERP_Gesamtziel.txt). Es erweitert den bisherigen
+Projektumfang zur branchenübergreifenden CRM-/ERP-Software einschließlich eigener
+Buchhaltung, optionaler deutscher Lohnabrechnung, Kundenportal, KI-Assistent,
+Browser, Windows und iPhone. HERO und sevDesk sollen langfristig ersetzt werden.
+Frühere Aussagen, dass eine Ablösung nicht beauftragt sei, begrenzen diesen
+aktuellen Entwicklungsauftrag nicht. Ein produktiver Ausstellerwechsel oder
+eine Übernahme echter Daten wird dadurch nicht automatisch freigegeben.
+
+Der vorhandene Businessstand `420c4c7` wird weiterentwickelt. Einstieg:
+[Bestandsaufnahme](docs/CRM_ERP_BESTANDSAUFNAHME.md),
+[Anforderungen und Abnahme A–G](docs/CRM_ERP_ANFORDERUNGEN.md),
+[Umsetzungsplan](docs/CRM_ERP_UMSETZUNGSPLAN.md) und
+[aktueller Fortschritt mit Testergebnissen](docs/CRM_ERP_FORTSCHRITT.md).
+
+**Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital
+unterschreibbares Protokoll geprüft. Weitergehende Test-/Betriebsbestätigungen
+in den nachfolgenden älteren Abschnitten bleiben historische Aufzeichnungen;
+sie ersetzen weder die erneute Prüfung noch die Abnahme des neuen Gesamtziels.
+Die gezeichnete Unterschrift ist ohne gesonderten Nachweis keine qualifizierte
+elektronische Signatur.
+
+## Vorhandenes Paket und historische Betriebsangaben
+
 Das Projektpaket 0.12 ergänzt CRM und Projektstatus, eigene Belege und Finanzen,
 Einsatzplanung, Zeiten, Baustellendokumentation, Material und Wartung. Die
 responsive Browseroberfläche liegt unter `/office/`; die native App ergänzt

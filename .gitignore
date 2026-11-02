@@ -15,3 +15,4 @@ app/ios/Runner/GeneratedPluginRegistrant.*
 app/windows/flutter/ephemeral/
 *.log
 backups/
+/work/

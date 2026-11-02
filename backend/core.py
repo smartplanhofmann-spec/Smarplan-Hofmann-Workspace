@@ -102,6 +102,57 @@ def now_iso():
     return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
 
 
+def _report_payload(row):
+    """Validate an archived report before exposing it; never repair it on read.
+
+    The content and PDF checksums detect inconsistent stored snapshots. They are
+    not a qualified signature or protection against an administrator replacing
+    both the data and its checksums. Existing archive bytes remain untouched.
+    """
+    try:
+        report = json.loads(row["payload"])
+        content = report["content"]
+        if (not isinstance(report, dict) or not isinstance(content, dict) or
+                report["id"] != row["id"] or
+                content["project_id"] != row["project_id"] or
+                report["status"] not in ("draft", "signed") or
+                not isinstance(report["content_hash"], str) or
+                not hmac.compare_digest(report["content_hash"], digest(canonical(content))) or
+                content["kind"] not in ("Servicebericht", "Lieferschein") or
+                any(not isinstance(content[field], str) or not content[field]
+                    for field in ("project_name", "customer", "description", "created_at", "creator"))):
+            raise ValueError("Inconsistent report snapshot")
+        if report["status"] == "signed":
+            if (any(not isinstance(report[field], str) or not report[field]
+                    for field in ("signer", "signed_at", "signed_by")) or
+                    not _valid_report_strokes(report["strokes"]) or
+                    not isinstance(row["pdf"], (bytes, bytearray, memoryview)) or
+                    not row["pdf"] or not isinstance(row["pdf_hash"], str) or
+                    not hmac.compare_digest(row["pdf_hash"], hashlib.sha256(row["pdf"]).hexdigest())):
+                raise ValueError("Inconsistent signed report")
+        elif (row["pdf"] is not None or row["pdf_hash"] is not None or
+              any(field in report for field in ("signer", "signed_at", "signed_by", "strokes"))):
+            raise ValueError("Draft contains a signed archive")
+        return report
+    except (ValueError, TypeError, KeyError) as error:
+        raise Problem(500, "Integritätsprüfung des Dokuments fehlgeschlagen") from error
+
+
+def _valid_report_strokes(strokes):
+    if not isinstance(strokes, list) or not 1 <= len(strokes) <= 100:
+        return False
+    count = 0
+    for stroke in strokes:
+        if not isinstance(stroke, list) or not 2 <= len(stroke) <= 2000:
+            return False
+        count += len(stroke)
+        for point in stroke:
+            if (not isinstance(point, list) or len(point) != 2 or
+                    any(type(value) not in (int, float) or not 0 <= value <= 1 for value in point)):
+                return False
+    return count <= 10000
+
+
 CUSTOMER_FIELDS = ("name", "contact", "email", "phone", "address", "notes", "active")
 
 
@@ -536,35 +587,30 @@ class Office:
             if not row:
                 raise Problem(404,"Dokument nicht verfügbar")
             self.project(user,row["project_id"])
-            return json.loads(row["payload"])
+            return _report_payload(row)
 
     def reports(self,user,project_id):
-        self.project(user,project_id)
         with self.lock:
-            return [json.loads(r[0]) for r in self.db.execute("SELECT payload FROM reports WHERE project_id=? ORDER BY rowid DESC",(project_id,))]
+            self.project(user,project_id)
+            return [_report_payload(row) for row in self.db.execute(
+                "SELECT * FROM reports WHERE project_id=? ORDER BY rowid DESC", (project_id,))]
 
     def sign(self,user,report_id,expected_hash,signer,strokes):
         self.require(user,("owner","manager","technician"))
         signer = text_field(signer,"Name des Unterzeichners",200)
-        if not isinstance(strokes,list) or not 1 <= len(strokes) <= 100:
-            raise Problem(400,"Unterschrift fehlt")
-        count=0
-        for stroke in strokes:
-            if not isinstance(stroke,list) or not 2 <= len(stroke) <= 2000:
-                raise Problem(400,"Ungültige Unterschrift")
-            count+=len(stroke)
-            for point in stroke:
-                if (not isinstance(point,list) or len(point)!=2 or
-                    any(type(v) not in (int,float) or not 0<=v<=1 for v in point)):
-                    raise Problem(400,"Ungültige Unterschrift")
-        if count > 10000:
-            raise Problem(400,"Unterschrift zu groß")
+        if not _valid_report_strokes(strokes):
+            raise Problem(400,"Ungültige oder fehlende Unterschrift")
         with self.lock, self.db:
             r=self.report(user,report_id)
-            if r["status"] != "draft":
-                raise Problem(409,"Dokument bereits unterzeichnet")
             if expected_hash != r["content_hash"]:
                 raise Problem(409,"Dokumentversion stimmt nicht überein")
+            if r["status"] != "draft":
+                # A lost success response may be retried by its original actor.
+                # Return the exact archive; never replace its ink, time, or PDF.
+                if (r["signed_by"] == user["id"] and r["signer"] == signer and
+                        r["strokes"] == strokes):
+                    return r
+                raise Problem(409,"Dokument bereits unterzeichnet")
             r.update(status="signed",signer=signer,strokes=strokes,signed_at=now_iso(),signed_by=user["id"])
             pdf=make_pdf(r)
             self.db.execute("UPDATE reports SET payload=?,pdf=?,pdf_hash=? WHERE id=?",
@@ -573,11 +619,12 @@ class Office:
             return r
 
     def pdf(self,user,report_id):
-        r=self.report(user,report_id)
         with self.lock:
-            row=self.db.execute("SELECT pdf,pdf_hash FROM reports WHERE id=?",(report_id,)).fetchone()
-            if row["pdf"]:
-                if hashlib.sha256(row["pdf"]).hexdigest()!=row["pdf_hash"]:
-                    raise Problem(500,"Integritätsprüfung fehlgeschlagen")
+            row=self.db.execute("SELECT * FROM reports WHERE id=?",(report_id,)).fetchone()
+            if not row:
+                raise Problem(404,"Dokument nicht verfügbar")
+            self.project(user,row["project_id"])
+            r = _report_payload(row)
+            if r["status"] == "signed":
                 return bytes(row["pdf"])
         return make_pdf(r)

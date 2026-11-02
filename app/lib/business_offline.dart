@@ -1,5 +1,8 @@
 part of 'offline_plans.dart';
 
+const _timeModulePauseNotice =
+    'Zeiten bleiben auf diesem Gerät gesichert. Die Übertragung wartet auf die erneute Aktivierung der Zeiterfassung.';
+
 /// Time events use the same encrypted atomic writer and account grant as plans.
 /// Each event is frozen durably before the UI acknowledges a tap or sync runs.
 extension OfflineBusinessTime on OfflinePlans {
@@ -216,7 +219,10 @@ extension OfflineBusinessTime on OfflinePlans {
               'Eingabe prüfen',
             ].contains(records[op['entry_id']]?['sync_status']),
       );
-      if (eligible.isEmpty) return;
+      if (eligible.isEmpty) {
+        if (queue.isEmpty && notice == _timeModulePauseNotice) notice = null;
+        return;
+      }
       final op = offlineCopy(Map<String, dynamic>.from(eligible.first));
       final body = Map<String, dynamic>.from(op['body']);
       try {
@@ -256,6 +262,20 @@ extension OfflineBusinessTime on OfflinePlans {
         if (epoch != _epoch || !active) return;
         if (e.status == 401) {
           await lock();
+          return;
+        }
+        if (e.status == 423) {
+          // A disabled company module is a temporary write pause. Keep the
+          // original event and retry identity eligible after reactivation.
+          await _change((state) {
+            _entryAccess(epoch, op['project_id']);
+            final record = state['business_time_records']?[op['entry_id']];
+            if (record != null) {
+              record['sync_status'] = 'Wartet auf Modulaktivierung';
+              record['sync_error'] = e.message;
+            }
+          });
+          notice = _timeModulePauseNotice;
           return;
         }
         if (e.status == 0 || e.status >= 500 || e.status == 429) {

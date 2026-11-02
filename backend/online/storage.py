@@ -47,6 +47,7 @@ class Storage:
     def __init__(self, office, key, host, *, config=None, onedrive=None):
         self.office = office
         self.vault = Fernet(key)
+        self.allowed_providers = frozenset(PROVIDERS)
         config = load_config() if config is None else config
         self.onedrive = onedrive or OnlineOneDrive(
             office, key, host,
@@ -88,6 +89,8 @@ class Storage:
         provider = value.get('provider') if value else 'none'
         if provider not in PROVIDERS:
             raise Problem(409, 'Gespeicherte Ablage bitte erneut auswählen.')
+        if provider not in self.allowed_providers:
+            raise Problem(409, 'Diese Unternehmensinstanz erlaubt ausschließlich ihre eigene Serverablage.')
         return provider
 
     @contextmanager
@@ -131,6 +134,8 @@ class Storage:
     def select(self, token, provider):
         if not isinstance(provider, str) or provider not in PROVIDERS:
             raise Problem(400, 'Gültige Dokumentablage auswählen.')
+        if provider not in self.allowed_providers:
+            raise Problem(409, 'Diese Unternehmensinstanz erlaubt ausschließlich ihre eigene Serverablage.')
         with self._operation(), self.office.lock, self.office.db:
             actor = self._authorize(token)
             self._save(SETTINGS, {'provider': provider})
@@ -145,11 +150,15 @@ class Storage:
                 raise Problem(409, 'Für die Microsoft-Anmeldung zunächst OneDrive als Ablage auswählen.')
 
     def begin(self, token):
+        if 'onedrive' not in self.allowed_providers:
+            raise Problem(409, 'Diese Unternehmensinstanz erlaubt ausschließlich ihre eigene Serverablage.')
         with self._operation():
             self._require_drive(token)
             return self.onedrive.begin(token)
 
     def callback(self, state, code, error=None):
+        if 'onedrive' not in self.allowed_providers:
+            raise Problem(409, 'Diese Unternehmensinstanz erlaubt ausschließlich ihre eigene Serverablage.')
         with self._operation():
             with self.office.lock, self.office.db:
                 if self._selected() != 'onedrive':
@@ -157,11 +166,15 @@ class Storage:
             self.onedrive.callback(state, code, error=error)
 
     def disconnect(self, token):
+        if 'onedrive' not in self.allowed_providers:
+            raise Problem(409, 'Diese Unternehmensinstanz erlaubt ausschließlich ihre eigene Serverablage.')
         with self._operation():
             self._require_drive(token)
             return self.onedrive.disconnect(token)
 
     def upload(self, token, report_id, *, expected_provider=None):
+        if expected_provider is not None and expected_provider not in self.allowed_providers:
+            raise Problem(409, 'Diese Unternehmensinstanz erlaubt ausschließlich ihre eigene Serverablage.')
         with self._operation():
             with self.office.lock, self.office.db:
                 actor = self._authorize(token, ('owner', 'manager'))

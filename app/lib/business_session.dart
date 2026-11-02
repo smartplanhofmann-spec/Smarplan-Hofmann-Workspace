@@ -23,6 +23,42 @@ List<Map<String, dynamic>> businessItems(dynamic value) {
   }).toList();
 }
 
+/// An early client hint only; the server checks the same module on every write.
+String? organizationCommandSection(String path) {
+  final route = path.split('?').first;
+  final first = route.split('/').where((part) => part.isNotEmpty).firstOrNull;
+  if (first == 'organization' ||
+      first == 'settings' ||
+      route == '/commercial/settings')
+    return null;
+  if (const {'employees', 'absences', 'shifts', 'time'}.contains(first)) {
+    return 'personnel';
+  }
+  if (const {'resources', 'appointments', 'planning'}.contains(first)) {
+    return 'planning';
+  }
+  if (first == 'inventory' ||
+      first == 'budgets' ||
+      RegExp(r'^/projects/[a-f0-9]{32}/changes(?:/|$)').hasMatch(route)) {
+    return 'material';
+  }
+  if (const {
+    'documents',
+    'articles',
+    'services',
+    'templates',
+    'text-blocks',
+    'commercial',
+  }.contains(first))
+    return 'documents';
+  if (first == 'finance') return 'finance';
+  if (RegExp(r'^/adapters/imports/[a-f0-9]{32}/(?:apply|offer)$')
+      .hasMatch(route)) {
+    return 'documents';
+  }
+  return null;
+}
+
 /// One authenticated view. No business records or financial credentials enter
 /// this controller's disk cache. Offline time uses the existing encrypted vault.
 class BusinessSession extends ChangeNotifier {
@@ -52,6 +88,14 @@ class BusinessSession extends ChangeNotifier {
   Object? generation;
   String? error;
   Set<String> permissions = {}, capabilities = {}, features = {};
+  Map<String, Map<String, bool>> organizationModules = {};
+  static const organizationSections = {
+    'personnel',
+    'material',
+    'planning',
+    'documents',
+    'finance',
+  };
   final _pending =
       <
         String,
@@ -81,6 +125,16 @@ class BusinessSession extends ChangeNotifier {
           capabilities.contains('business_$module'));
   bool hasFeature(String feature) =>
       allowed && supported && features.contains(feature);
+
+  /// Company preferences change navigation and writing, never user authority.
+  bool sectionVisible(String section) =>
+      !hasFeature('organization_modules') ||
+      !organizationSections.contains(section) ||
+      organizationModules[section]?['visible'] == true;
+  bool sectionEnabled(String section) =>
+      !hasFeature('organization_modules') ||
+      !organizationSections.contains(section) ||
+      organizationModules[section]?['enabled'] == true;
   bool pending(String key) => _pending.containsKey(key);
 
   void _changed() {
@@ -107,6 +161,7 @@ class BusinessSession extends ChangeNotifier {
     permissions = {};
     capabilities = {};
     features = {};
+    organizationModules = {};
     _pending.clear();
     _metaTimer?.cancel();
     error =
@@ -144,12 +199,40 @@ class BusinessSession extends ChangeNotifier {
           'Die Fachbereiche konnten nicht sicher geladen werden.',
         );
       }
+      final nextFeatures = meta['features'] is List
+          ? (meta['features'] as List).whereType<String>().toSet()
+          : <String>{};
+      final nextOrganization = <String, Map<String, bool>>{};
+      if (nextFeatures.contains('organization_modules')) {
+        final organization = businessMap(meta['organization']);
+        if (organization['revision'] is! int ||
+            (organization['revision'] as int) < 0 ||
+            organization['configured'] is! bool) {
+          throw const ApiException(
+            0,
+            'Die Unternehmenseinstellungen konnten nicht sicher geladen werden. Bitte neu laden.',
+          );
+        }
+        final modules = businessMap(organization['modules']);
+        for (final section in organizationSections) {
+          final value = businessMap(modules[section]);
+          if (value['visible'] is! bool || value['enabled'] is! bool) {
+            throw const ApiException(
+              0,
+              'Die Unternehmenseinstellungen konnten nicht sicher geladen werden. Bitte neu laden.',
+            );
+          }
+          nextOrganization[section] = {
+            'visible': value['visible'] as bool,
+            'enabled': value['enabled'] as bool,
+          };
+        }
+      }
       final nextGeneration = meta['generation'];
       generation = nextGeneration;
       capabilities = (meta['capabilities'] as List).whereType<String>().toSet();
-      features = meta['features'] is List
-          ? (meta['features'] as List).whereType<String>().toSet()
-          : {};
+      features = nextFeatures;
+      organizationModules = nextOrganization;
       permissions = (meta['permissions'] as List).whereType<String>().toSet();
       readonly = meta['readonly'] == true;
       supported =
@@ -170,6 +253,7 @@ class BusinessSession extends ChangeNotifier {
         permissions = {};
         capabilities = {};
         features = {};
+        organizationModules = {};
       } else {
         error = e.message;
       }
@@ -226,6 +310,16 @@ class BusinessSession extends ChangeNotifier {
         403,
         'Der Rückkehrmodus erlaubt das Lesen und Exportieren. Änderungen bleiben bis zur erneuten Freigabe gesperrt.',
       );
+    final section = organizationCommandSection(path);
+    if (section != null &&
+        !sectionEnabled(section) &&
+        !_pending.containsKey(key)) {
+      throw const ApiException(
+        423,
+        'Dieser Bereich ist fachlich deaktiviert. Vorhandene Daten bleiben '
+        'lesbar; Änderungen benötigen die Aktivierung in den Unternehmenseinstellungen.',
+      );
+    }
     final canonical = jsonEncode(values);
     final previous = _pending[key];
     if (previous != null &&
@@ -259,9 +353,13 @@ class BusinessSession extends ChangeNotifier {
           'Der Funktionsstand wurde geändert. Bitte den gespeicherten Stand prüfen, bevor Sie fortfahren.',
         );
       _pending.remove(key);
+      if (hasFeature('organization_modules') &&
+          RegExp(r'^/employees(?:/[a-f0-9]{32})?$').hasMatch(path)) {
+        await load();
+      }
       return result;
     } on ApiException catch (e) {
-      if (e.status != 0 && e.status < 500 && e.status != 429)
+      if (e.status != 0 && e.status < 500 && e.status != 429 && e.status != 423)
         _pending.remove(key);
       if (e.status == 401) revoke();
       rethrow;

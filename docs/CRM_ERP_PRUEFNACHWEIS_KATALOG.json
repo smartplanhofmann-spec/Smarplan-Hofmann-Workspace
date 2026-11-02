@@ -1,0 +1,92 @@
+{
+  "date": "2026-11-02",
+  "base_commit": "64bdc264ff111aad75961252403f05da8ab8c76c",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "scope": "Price-free purchasing article search for inventory roles, client selection/pagination and complete calculated-article redaction in existing inventory replies. Portal design only; no portal implementation or full acceptance A-G.",
+  "results": {
+    "inventory_purchasing_domain": {
+      "passed": 49,
+      "new_catalog_cases": 7,
+      "new_calculated_article_cases": 3
+    },
+    "independent_http_mfa": {
+      "passed": 4
+    },
+    "postgres_purchasing_catalog": {
+      "passed_before_redaction_fix": 6,
+      "skipped": 0,
+      "affected_catalog_case_rerun_after_redaction_fix": {
+        "passed": 1,
+        "calculated_article": true
+      },
+      "database": "Disposable loopback smartplan_check on PostgreSQL16.15"
+    },
+    "backend_full_after_redaction_fix": {
+      "run": 417,
+      "passed": 416,
+      "skipped": 1,
+      "skip_reason": "Windows job-object cleanup on Linux",
+      "elapsed_seconds": 66.091
+    },
+    "flutter_full": {
+      "passed": 342,
+      "skipped": 0,
+      "analysis_findings": 0,
+      "elapsed_seconds": 104
+    },
+    "flutter_targeted_after_backend_redaction_fix": {
+      "passed": 19,
+      "composition": {
+        "widgets": 18,
+        "real_http": 1
+      }
+    },
+    "browser_unit": {
+      "passed": 58,
+      "skipped": 0
+    },
+    "browser_e2e": {
+      "workflows_passed": 9,
+      "sandbox_verified": [
+        "Namespace",
+        "PID namespaces",
+        "Network namespaces",
+        "Seccomp-BPF"
+      ],
+      "visual_review": [
+        "Desktop catalogue",
+        "390px mobile catalogue"
+      ],
+      "initial_harness_errors": "Two CDP response-body lifetime failures; genuine HTTP responses are now captured via route.fetch before forwarding. Final run passed, including unchanged lost-ACK receipt test.",
+      "legacy_feature_test": "Older-server behavior simulated by removing the new feature from a real capabilities response."
+    },
+    "schema_preservation": "No changes to existing DDL/guards; domain/HTTP/PostgreSQL reads and catalogue capability preserve stored schema checksums and rows.",
+    "original_file": "Original upload SHA-256 remains unchanged."
+  },
+  "regression_fixed": "Calculated article pricing_snapshot and service components leaked through the old five-field inventory price denylist. Actual pricing_preview/save_article cases failed before the fix and pass after explicit seven-field projections on article snapshots and inventory lookup, including replay after financial access withdrawal.",
+  "limitations": [
+    "Each catalogue page scans the article catalogue under the existing transaction lock; index-backed large-catalogue search remains future work.",
+    "Older servers without purchasing_catalog retain their documented limited fallback.",
+    "Supplier transmission, structured device/purchase linkage, original delivery documents and durable offline goods receipts remain open.",
+    "Portal plan is documented but portal routes and customer acceptance are not yet implemented.",
+    "Full acceptance A-G and actual Windows/iPhone installations remain open."
+  ],
+  "changed_code_sha256": {
+    ".github/workflows/checks.yml": "b2aa43b4a3a2c6c935d87489adefe5b36f3b20879b421bc756a6cb8b8c752a88",
+    "app/lib/business_purchasing.dart": "1a8e15442280d91641f24a4bb79e8f055ec2cd45958e28a3007174fe306f63a3",
+    "app/test/business_purchasing_http_test.dart": "ff3263086031f91ad52a0c40285114313830c7e5cfeadd8ab291320fbc20d002",
+    "app/test/business_purchasing_test.dart": "af75ce433e79ace9fb7e487f2a9b7a59afb8a8ef10ddb696715c94871a49a7e4",
+    "backend/business_inventory.py": "0d305b38880988e5aedf6138e181d4b4413ea5e8b14fbc67a81a74e903b0c7b0",
+    "backend/business_purchasing.py": "05764fcd19b0c9eac99dac4752ed4a7c7554f5ed4f11d6be5865c0952955eb77",
+    "backend/online/test_postgres_purchasing_integration.py": "c0a51fd25de07a52752eb2121109f2ff1d6400c2079712121e7e716f6d7043b5",
+    "backend/online/test_purchasing_catalog_http.py": "441df0cadfe246b500d28caffa64d9f51183c52f8cb0270f27a6836363974183",
+    "backend/test_business_inventory.py": "340fca3401e55c15ad5261a7df73cc6704047867f90a52697e078945528a29ef",
+    "backend/test_business_purchasing.py": "9dd50168f5d027328cb40a9d8996c62deeec307afc158d468c5c036cdfccc99a",
+    "web/office/office.js": "f3e97732c632b9faeeaa1c984331177b459044b9a2b2a2373b93869b54b0b77a",
+    "web/office/tests/e2e.cjs": "80caa669a305073514835a50222754b0429057abbb1fe7ce1548914b228fbd19",
+    "web/office/tests/purchasing-catalog.test.mjs": "955d63b798a083a4a67950d0f93e861422d25288c1d6d4e4b6cf37e56a959ea8",
+    "web/office/tests/purchasing-flow.cjs": "ba35f82f211c109f844f3c4166458186bb639eb5df98eb9e3739acffaed20021",
+    "web/office/tests/serve_fixture.py": "952c3b8023d18970c89788e545ed05f1543a972a7c83639d373a98515a49821a"
+  },
+  "note": "Test groups overlap and must not be added as unique acceptance counts. Raw logs reside in ignored work/verification; tests, reports and hashes are committed."
+}

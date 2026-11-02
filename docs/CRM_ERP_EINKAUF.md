@@ -53,18 +53,29 @@ Wareneingang abgewiesen, statt ihre Menge automatisch umzudeuten.
 | Aktion | Erforderliche Rechte im Projekt |
 | --- | --- |
 | Bestellungen und Lieferhistorie lesen | `inventory.read` |
+| Aktive Einkaufsartikel suchen | `inventory.read`, bei Projektwahl zusätzlich dessen Zugriff |
 | Vorschlag anlegen oder bearbeiten | `inventory.write` |
 | Vorschlag freigeben / externe Bestellung dokumentieren | `inventory.write` und `finance.approve` |
 | Wareneingang buchen | `inventory.write` und `finance.write` |
 | Finanzwerte lesen | zusätzlich `finance.read` |
 
-Die Tabelle beschreibt die serverseitigen Fachrechte. Die aktuelle Flutter-
-Artikelauswahl im Vorschlagseditor benötigt zusätzlich `finance.read`. Der
-Browser bietet ohne globales Finanzleserecht nur Artikel mit Lagerhistorie
-und bereits vorhandene Vorschlagspositionen an. Ein neuer Artikel ohne Bestand
-kann dadurch noch nicht vollständig durch reine Lagerrollen bestellt werden.
-Eine sichere Katalogsuche ohne Preisoffenlegung ist der nächste gezielte
-Einkaufsschritt; sie ist in diesem Umfang noch nicht implementiert.
+Mit der Serverfähigkeit `purchasing_catalog` können Browser und Flutter auch
+Lagerrollen ohne Finanzleserecht aktive Material- und Maschinenartikel suchen,
+weitere Treffer laden und Artikel ohne bisherigen Bestand auswählen. Bereits
+gewählte Positionen und ihre Mengen bleiben bei einer anderen Suche erhalten.
+Auch unbestätigte Formulare behalten ihre ursprüngliche Wiederholungsbindung.
+
+Der Suchkatalog enthält für alle Rollen nur ID, Revision, Artikelnummer, Name,
+Artikelart, Einheit und Aktivstatus. Lagerantworten ohne Finanzleserecht geben
+auch bei Scan, Bestellvorschlag und verschachtelten Artikelsnapshots nur diese
+operativen Artikelangaben zurück. Die gespeicherten Kalkulationen und die
+vollständige Ansicht für Finanzberechtigte bleiben erhalten.
+
+Bei einem älteren Server ohne diese Fähigkeit verwendet der Browser weiterhin
+vorhandene Lagerartikel; Flutter benötigt dort für den bisherigen Katalogweg
+Finanzleserecht. Beide Clients zeigen die Grenze und rufen die fehlende neue
+Route nicht auf. Für den vollständigen preisfreien Suchablauf ist das aktuelle
+Serverpaket erforderlich.
 
 Jede Änderung enthält eine eindeutige Anfrage-ID. Die identische Wiederholung
 liefert das gespeicherte Ergebnis und erzeugt keine zweite Buchung. Geänderte
@@ -98,6 +109,7 @@ Der bestehende API-Stamm `/api/v1/business` erhält:
 
 | Methode und Pfad | Zweck |
 | --- | --- |
+| `GET /purchasing/articles?project_id=…&query=…&limit=25&offset=0` | Preisfreier Einkaufsartikelkatalog mit Suche und weiteren Treffern |
 | `GET /purchasing/orders?project_id=…` | Sichtbare Bestellungen und Restmengen |
 | `GET /purchasing/orders/{id}` | Eine Bestellung mit Lieferstatus |
 | `POST /purchasing/orders/{id}/confirm` | Extern erteilte Bestellung dokumentieren |
@@ -111,6 +123,19 @@ bestehende Module und ihre Checksummen bleiben unverändert. Online wird vor
 dem Anwendungsstart die vorhandene explizite Migration mit Betreiberrechten
 benötigt. Laufzeitrollen anschließend über den vorhandenen Grant-Schritt
 aktualisieren. Ein HTTP-Start führt diese Migration nicht selbst aus.
+
+Die zusätzliche Katalogroute verändert weder Tabellen noch bestehende
+Migrationsprüfsummen. Sie meldet `items`, `total` und `next_offset` und erlaubt
+höchstens 100 Treffer je Seite, einen Suchtext bis 200 Zeichen sowie Offsets bis
+100000. Gesucht wird unabhängig von Groß-/Kleinschreibung nach Artikelnummer
+oder Name. Doppelte oder unbekannte Parameter werden abgewiesen. Jeder Abruf
+prüft die aktuellen Rechte; die Reihenfolge bleibt für unveränderte Stammdaten
+stabil. Bei sehr großen Treffermengen die Suche eingrenzen.
+
+Die aktuelle Suche liest den Artikelbestand unter der bestehenden
+Transaktionssperre. Datenbankabrufe und Ergebnisspeicher sind begrenzt; jede
+Suchseite durchsucht dennoch den Katalog. Eine indexgestützte Suche für große
+Lieferantenkataloge ist eine spätere, separat zu migrierende Optimierung.
 
 ## Nachweise und verbleibende Abnahme
 

@@ -46,6 +46,14 @@ die zuvor offenen Entscheidungen im Gesamtplan; keine erneute Nachfrage nach
 diesen beiden Grundentscheidungen. Fachliche Referenzen und zulässige Sonderfälle
 innerhalb des Umfangs müssen bei der Umsetzung geprüft werden.
 
+Der lokale Stand `64bdc26` ergänzt Bestellungen, Teil-/Restlieferungen und
+Lagerkosten. Die folgende Erweiterung schließt die preisfreie Einkaufsartikelwahl
+für Lagerrollen und schützt vollständige Artikelsnapshots vor unbeabsichtigten
+Kalkulationsangaben. Aktuelle Prüfnachweise stehen im Fortschrittsbericht.
+Nächster Fachabschnitt ist der [Portalplan](docs/CRM_ERP_PORTAL_PLAN.md):
+Angebotsansicht/PDF, gesonderte Kundenentscheidung und interne Übernahme im
+bestehenden Projekt. Er ist ein Plan und noch keine implementierte Portalroute.
+
 ## Verbindliche aktuelle Nutzerentscheidungen – 25. Oktober 2026
 
 Dieser Abschnitt hat Vorrang vor dem unten erhaltenen historischen Auftrag.

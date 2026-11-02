@@ -7,6 +7,7 @@ remain the source; all purchasing records are additive and append-only.
 """
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 import hashlib
+import heapq
 import json
 import re
 import unicodedata
@@ -18,7 +19,7 @@ from business_operations import (Domain, decimal, identifier, iso_date, quantity
                                  request_schema, text, transaction)
 
 
-FEATURES = ('purchasing_receipts',)
+FEATURES = ('purchasing_receipts', 'purchasing_catalog')
 _TABLES = ('business_purchasing_requests', 'business_purchase_confirmations',
            'business_purchase_receipts', 'business_purchase_receipt_lines')
 _ID = r'[a-f0-9]{32}'
@@ -189,6 +190,59 @@ class Purchasing(Domain):
             row = self._row(order_id)
             self.access(actor, 'inventory.read', row['project_id'])
             return self._order(row)
+
+    def articles(self, actor, *, project_id=None, query='', limit=100, offset=0):
+        """Operational catalogue metadata only, including articles without stock.
+
+        Search uses Unicode casefold consistently on both database adapters.
+        Bounded keyset reads avoid loading the entire financial catalogue; the
+        selection heap retains at most offset + limit explicitly public DTOs.
+        Pagination is bounded at offset 100000; larger sets need a narrower
+        search. Neither this read nor the feature flag changes persisted schema.
+        """
+        if project_id is not None:
+            identifier(project_id, 'Projekt-ID')
+        query = text(query, 'Artikelsuche', 200)
+        if any(ord(char) < 32 or ord(char) == 127 or 0xD800 <= ord(char) <= 0xDFFF for char in query):
+            raise Problem(400, 'Einzeilige Artikelsuche erwartet')
+        if type(limit) is not int or not 1 <= limit <= 100 or type(offset) is not int or not 0 <= offset <= 100000:
+            raise Problem(400, 'Limit zwischen 1 und 100 und Offset zwischen 0 und 100000 erwartet')
+        query = query.casefold()
+        with transaction(self.office):
+            self.access(actor, 'inventory.read', project_id)
+            total = 0
+
+            def candidates():
+                nonlocal total
+                after = ''
+                while True:
+                    rows = self.office.db.execute('SELECT id,revision,payload_json FROM business_articles '
+                        'WHERE id>? ORDER BY id LIMIT ?', (after, 256)).fetchall()
+                    for row in rows:
+                        value = json.loads(row['payload_json'])
+                        if not isinstance(value, dict):
+                            raise Problem(500, 'Artikelstamm ist nicht konsistent')
+                        if value.get('active') is not True or value.get('kind') not in ('material', 'machine'):
+                            continue
+                        if any(not isinstance(value.get(field), str) for field in ('name', 'code', 'unit')):
+                            raise Problem(500, 'Artikelstamm ist nicht konsistent')
+                        if query and query not in (value['code'] + ' ' + value['name']).casefold():
+                            continue
+                        total += 1
+                        # Never reuse the commercial snapshot or a price-key
+                        # denylist: future financial fields stay private too.
+                        yield dict(id=row['id'], revision=row['revision'], code=value['code'], name=value['name'],
+                            kind=value['kind'], unit=value['unit'], active=True)
+                    if len(rows) < 256:
+                        return
+                    after = rows[-1]['id']
+
+            selected = heapq.nsmallest(offset + limit, candidates(),
+                key=lambda item: (item['name'].casefold(), item['code'].casefold(), item['id']))
+            items = selected[offset:]
+            following = offset + len(items)
+            return dict(items=items, total=total,
+                        next_offset=following if following < total and following <= 100000 else None)
 
     def orders(self, actor, project_id=None):
         with transaction(self.office):
@@ -400,7 +454,7 @@ def validate_integrity(office):
 
 
 def methods(path):
-    if path == '/purchasing/orders':
+    if path in ('/purchasing/orders', '/purchasing/articles'):
         return 'GET'
     match = re.fullmatch(r'/purchasing/orders/(' + _ID + r')(?:/(confirm|receipts))?', path)
     if match:
@@ -417,6 +471,19 @@ def dispatch(office, actor, path, method, data):
     api = Purchasing(office)
     query = data.get('_query', {})
     body = {key: value for key, value in data.items() if key != '_query'}
+    if path == '/purchasing/articles':
+        if (body or not isinstance(query, dict) or set(query) - {'project_id', 'query', 'limit', 'offset'}
+                or any(not isinstance(value, str) for value in query.values())):
+            raise Problem(400, 'Nur eindeutige Artikelfilter project_id, query, limit und offset erwartet')
+        def page_value(name, default):
+            value = query.get(name)
+            if value is None:
+                return default
+            if not re.fullmatch(r'[0-9]{1,6}', value):
+                raise Problem(400, 'Ganzzahliger Artikelfilter erwartet: ' + name)
+            return int(value)
+        return api.articles(actor, project_id=query.get('project_id'), query=query.get('query', ''),
+            limit=page_value('limit', 100), offset=page_value('offset', 0)), 200, 'application/json'
     if path == '/purchasing/orders':
         if set(query) - {'project_id'}:
             raise Problem(400, 'Unbekannter Bestellfilter')

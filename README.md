@@ -22,6 +22,9 @@ Protokollintegrität und [Bestellungen mit Teil-/Restwareneingängen](docs/CRM_E
 Die erste vollständige Buchhaltung ist gemäß Nutzerentscheidung für
 Einzelunternehmen mit EÜR vorgesehen; die erste deutsche Lohnabrechnung für
 reguläre Mitarbeiter und Minijobs. Diese beiden Fachmodule sind noch umzusetzen.
+Die preisfreie Einkaufsartikelsuche ist ergänzt; als nächster Abschnitt folgt
+das [geplante Angebotsportal](docs/CRM_ERP_PORTAL_PLAN.md) mit eigenständigen
+Kundenzugängen und nachvollziehbarer Annahme.
 
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital
 unterschreibbares Protokoll geprüft. Weitergehende Test-/Betriebsbestätigungen

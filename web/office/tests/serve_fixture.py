@@ -47,6 +47,9 @@ def seed(office, directory):
     for role in ('owner', 'technician', 'accountant'):
         email = role + '@browser.example.test'
         actors[role] = dict(id=office.add_user(email, PASSWORD, role), email=email, role=role)
+    warehouse_email = 'warehouse@browser.example.test'
+    actors['warehouse'] = dict(id=office.add_user(warehouse_email, PASSWORD, 'technician'),
+                               email=warehouse_email, role='technician')
     owner, technician = actors['owner'], actors['technician']
     organization = Organization(office)
     settings = organization.get(owner)
@@ -60,7 +63,10 @@ def seed(office, directory):
     private = office.add_project(owner, 'Private synthetic project', 'Separate synthetic customer')
     office.assign(owner, project, technician['id'])
     office.assign(owner, project, actors['accountant']['id'])
+    office.assign(owner, project, actors['warehouse']['id'])
     foundation = BusinessFoundation(office)
+    foundation.save_grant(owner, request(user_id=actors['warehouse']['id'], permission='inventory.write',
+                                        scope='*', effect='allow', revision=0))
     status = foundation.save_status(owner, request(name='Ausführung', color='#2864da', position=0, terminal=False, active=True))
     initial=foundation.project(owner,project)
     foundation.save_project(owner, project, request(revision=initial['revision'],workspace_revision=initial['workspace_revision'],status_id=status['id'],site_address='Synthetic workshop, technical room',description='Synthetic browser acceptance project.'))
@@ -83,6 +89,25 @@ def seed(office, directory):
         operations.complete_media(actor, project, media['id'], request())
     operations.save_entry(technician, project, 'defect', request(title='Synthetic cover inspection', details='Inspect the synthetic cover.', location='Technical room'))
     article = Documents(office).save_article(owner, request(code='SYN-CABLE', name='Synthetic cable', kind='material', unit='m', unit_price_net='3.00', cost_price_net='1.25', tax_rate='19', tax_category='S', currency='EUR', active=True))
+    # Catalogue acceptance data has no stock movements. The warehouse actor
+    # has inventory access only; neither prices nor finance grants are needed.
+    documents = Documents(office)
+    for index in range(105):
+        if index == 0:
+            pricing = documents.pricing_preview(owner, dict(base_cost_net='12.34', labor_hours='2',
+                hourly_cost_net='20', overhead_percent='10', markup_percent='25', quantity='1',
+                kind='material', unit='m', source_article_id=article['id'], source_article_revision=article['revision']))
+            documents.save_article(owner, request(code=f'SYN-UNSTOCKED-{index:03d}',
+                name=f'Synthetic unstocked {index:03d}', pricing=pricing['inputs'],
+                pricing_hash=pricing['preview_hash'], price_confirmation=True))
+        else:
+            documents.save_article(owner, request(code=f'SYN-UNSTOCKED-{index:03d}',
+                name=f'Synthetic unstocked {index:03d}', kind='material', unit='m',
+                unit_price_net='7.00', cost_price_net='4.25', tax_rate='19', tax_category='S', currency='EUR', active=True))
+    for suffix, kind, active in (('INACTIVE', 'material', False), ('SERVICE', 'service', True)):
+        documents.save_article(owner, request(code='SYN-UNSTOCKED-'+suffix, name='Synthetic unstocked '+suffix,
+            kind=kind, unit='m', unit_price_net='7.00', cost_price_net='4.25',
+            tax_rate='19', tax_category='S', currency='EUR', active=active))
     inventory = BusinessInventory(office)
     location = inventory.save_location(owner, request(name='Synthetic main store'))
     inventory.move(owner, request(kind='receive', article_id=article['id'], to_location_id=location['id'], quantity='10', unit_cost_net='1.25'))

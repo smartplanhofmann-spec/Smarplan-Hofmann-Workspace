@@ -178,6 +178,67 @@ class PurchasingPostgres(unittest.TestCase):
         self.call('POST', '/assignments', {'project_id': self.project, 'user_id': user, 'remove': True})
         self.call('GET', self.path, token=token, status=404)
 
+    def test_price_free_catalogue_under_runtime_role_is_scoped_and_does_not_change_storage(self):
+        self.assertTrue(business_schema.require_runtime_security(self.office))
+        preview = self.call('POST', '/business/commercial/pricing/preview', journey.request(
+            base_cost_net='12.34', labor_hours='2', hourly_cost_net='20', overhead_percent='10',
+            markup_percent='25', quantity='1', kind='material', unit='C62',
+            source_article_id=self.article['id'], source_article_revision=self.article['revision'])).json
+        article = self.call('POST', '/business/articles', journey.request(code='PG-CALCULATED',
+            name='Synthetic calculated warehouse material', pricing=preview['inputs'],
+            pricing_hash=preview['preview_hash'], price_confirmation=True)).json
+        self.assertTrue(article['pricing_snapshot']['source_articles'])
+        self.assertIn('profit_net', article['pricing_snapshot']['totals'])
+        user = self.call('POST', '/users', {'email': 'catalogue-reader@example.test',
+            'password': 'Synthetic-catalogue-password-123', 'role': 'technician'}, status=201).json['id']
+        self.call('POST', '/assignments', {'project_id': self.project, 'user_id': user})
+        self.call('POST', '/business/settings/permissions', journey.request(
+            user_id=user, permission='inventory.write', scope=self.project, effect='allow', revision=0))
+        token = self.login('catalogue-reader@example.test', 'Synthetic-catalogue-password-123')
+        caps = self.call('GET', '/business/capabilities?project_id=' + self.project, token=token).json
+        self.assertIn('purchasing_catalog', caps['features'])
+        self.assertFalse(any(name.startswith('finance.') for name in caps['permissions']))
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_stock_movements').fetchone()[0], 0)
+        migration_before = [dict(row) for row in self.office.db.execute(
+            'SELECT module,version,checksum FROM business_schema_migrations ORDER BY module,version').fetchall()]
+        before = release.snapshot_fingerprint(journey.DSN)
+        catalog_path = '/business/purchasing/articles?project_id=' + self.project + '&query=pg-calculated&limit=1&offset=0'
+        result = self.call('GET', catalog_path, token=token).json
+        self.call('GET', '/business/articles', token=token, status=403)
+        self.assertEqual(result, {'items': [{key: article[key] for key in
+            ('id', 'revision', 'code', 'name', 'kind', 'unit', 'active')}],
+            'total': 1, 'next_offset': None})
+        self.assertEqual(set(result['items'][0]),
+            {'id', 'revision', 'code', 'name', 'kind', 'unit', 'active'})
+        self.assertEqual(release.snapshot_fingerprint(journey.DSN), before)
+        self.assertEqual([dict(row) for row in self.office.db.execute(
+            'SELECT module,version,checksum FROM business_schema_migrations ORDER BY module,version').fetchall()],
+            migration_before)
+
+        draft_body = journey.request(
+            project_id=self.project, supplier_name='Synthetic inventory-only supplier', status='draft',
+            items=[{'article_id': result['items'][0]['id'], 'quantity': '1.1250'}])
+        draft = self.call('POST', '/business/inventory/orders', draft_body,
+            token=token, status=201).json
+        self.assertEqual(draft['items'][0]['article_id'], article['id'])
+        self.assertEqual(set(draft['items'][0]['article_snapshot']),
+            {'id', 'revision', 'code', 'name', 'kind', 'unit', 'active'})
+        self.assertEqual(self.call('POST', '/business/inventory/orders', draft_body,
+                                  token=token, status=201).json, draft)
+        operational_scan = self.call('GET', '/business/inventory/scan?code=PG-CALCULATED', token=token).json
+        self.assertEqual(operational_scan, result['items'][0])
+        original = self.call('GET', '/business/inventory/orders/' + draft['id']).json
+        self.assertEqual(original['items'][0]['article_snapshot']['pricing_snapshot'], article['pricing_snapshot'])
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_stock_movements').fetchone()[0], 0)
+        self.call('POST', '/business/settings/permissions', journey.request(
+            user_id=user, permission='inventory.read', scope=self.project, effect='deny', revision=0))
+        denied_before = release.snapshot_fingerprint(journey.DSN)
+        self.call('GET', catalog_path, token=token, status=403)
+        self.call('GET', '/business/purchasing/articles?query=pg-material', token=token)
+        self.assertEqual(release.snapshot_fingerprint(journey.DSN), denied_before)
+        self.call('POST', '/assignments', {'project_id': self.project, 'user_id': user, 'remove': True})
+        self.call('GET', catalog_path, token=token, status=404)
+
 
 @unittest.skipUnless(journey.DSN, 'Disposable loopback SMARTPLAN_TEST_DSN required')
 class PurchasingMigrationPostgres(unittest.TestCase):

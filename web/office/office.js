@@ -120,6 +120,46 @@ export function purchaseActions(order,capabilities,organization) {
     receive:writable&&['ordered','partially_received'].includes(order.status)&&permissions.has('finance.write'),
     costs:permissions.has('finance.read')};
 }
+function purchaseArticle(item) {
+  if(!item||typeof item.id!=='string'||typeof item.name!=='string'||typeof item.unit!=='string')
+    throw new ApiError('Die Einkaufsartikel konnten nicht gelesen werden.',502);
+  return {id:item.id,revision:item.revision,code:item.code||'',name:item.name,kind:item.kind,unit:item.unit,active:item.active};
+}
+export class PurchaseCatalog {
+  constructor({fetcher,enabled=false,projectId=null,items=[],selected=[]}) {
+    this.fetcher=fetcher;this.enabled=enabled;this.projectId=projectId||null;this.generation=0;
+    this.known=new Map();this.items=[];this.total=0;this.nextOffset=null;this.query='';
+    this.fallback=items.filter(item=>item.active!==false&&item.active!==0&&(!item.kind||['material','machine'].includes(item.kind))).map(purchaseArticle);
+    for(const item of [...this.fallback,...selected.map(purchaseArticle)])this.known.set(item.id,item);
+  }
+  setProject(value) { if((value||null)===this.projectId)return;this.projectId=value||null;this.generation++;this.items=[];this.nextOffset=null; }
+  choices(selectedId) {
+    const result=[...this.items],selected=this.known.get(selectedId);
+    if(selected&&!result.some(item=>item.id===selectedId))result.push(selected);
+    return result;
+  }
+  async load(search='',append=false) {
+    const text=String(search).trim();append=append&&text===this.query;const offset=append?this.nextOffset:0;
+    if(offset===null)return false;
+    const generation=++this.generation,limit=25;
+    let page;
+    if(this.enabled) {
+      page=await this.fetcher(query('/business/purchasing/articles',{project_id:this.projectId,query:text,limit,offset}));
+      if(generation!==this.generation)return false;
+      if(!page||!Array.isArray(page.items)||page.items.length>limit||!Number.isSafeInteger(page.total)||page.total<page.items.length||
+          !(page.next_offset===null||(Number.isSafeInteger(page.next_offset)&&page.next_offset>offset&&page.next_offset<page.total)))
+        throw new ApiError('Die Einkaufssuche zuerst erneut laden.',502);
+    }else{
+      const needle=text.toLocaleLowerCase('de-DE'),items=this.fallback.filter(item=>(item.code+' '+item.name).toLocaleLowerCase('de-DE').includes(needle));
+      page={items:items.slice(offset,offset+limit),total:items.length,next_offset:offset+limit<items.length?offset+limit:null};
+    }
+    const items=page.items.map(purchaseArticle);
+    if(generation!==this.generation)return false;
+    this.items=Array.from(new Map([...(append?this.items:[]),...items].map(item=>[item.id,item])).values());
+    for(const item of items)this.known.set(item.id,item);
+    this.total=page.total;this.nextOffset=page.next_offset;this.query=text;return true;
+  }
+}
 export function purchaseConfirmationData(order,values) {
   if(order.status!=='approved'||order.confirmation)throw new Error('Zuerst den Bestellvorschlag freigeben und die Bestellung neu laden.');
   if(values.confirmation!==true)throw new Error('Bitte die bereits extern erteilte Bestellung ausdrücklich bestätigen.');
@@ -812,16 +852,31 @@ async function purchasingContent(projectId,locations,articles) {
       [badge(order.status),button('Bestellung ansehen',()=>action(()=>purchaseOrderDialog(order.id,locations)),'small')]),'Noch keine Bestellvorschläge vorhanden.'));
 }
 function purchaseProposalDialog(projectId,articles,order=null) {
-  const selectable=Array.from(new Map([...articles.filter(item=>item.active!==false&&item.active!==0&&(!item.kind||['material','machine'].includes(item.kind))),
-    ...(order?.items||[]).map(item=>({id:item.article_id,name:item.article_name,code:item.article_code,unit:item.unit}))].map(item=>[item.id,item])).values()),
+  const catalog=new PurchaseCatalog({fetcher:path=>api.get(path),enabled:state.features.has('purchasing_catalog'),projectId,
+      items:state.features.has('purchasing_catalog')?[]:articles,
+      selected:(order?.items||[]).map(item=>({id:item.article_id,name:item.article_name,code:item.article_code,unit:item.unit}))}),
     lines=[],lineArea=el('div',{class:'stack'}),title=order?'Bestellvorschlag bearbeiten':'Bestellvorschlag anlegen';
-  if(!selectable.length) {
-    dialog(title,empty('Zuerst einen verfügbaren Artikel anlegen. Artikel mit vorhandenem Lagerbestand können ebenfalls ausgewählt werden.'));
-    return;
+  const search=el('input',{type:'search','aria-label':'Artikelnummer oder Artikelname',maxLength:200}),
+    status=el('p',{class:'muted',role:'status','aria-live':'polite'}),errors=el('div',{}),
+    searchButton=button('Einkaufsartikel suchen',()=>loadCatalog(),'small'),
+    more=button('Weitere Artikeltreffer',()=>loadCatalog(true),'small');
+  let loadVersion=0;
+  function refreshChoices() {
+    for(const line of lines){const selected=line.article.value;line.article.replaceChildren(el('option',{value:''},'Artikel auswählen'),
+      ...catalog.choices(selected).map(item=>el('option',{value:item.id,selected:item.id===selected},`${item.code?item.code+' · ':''}${item.name} (${item.unit})`)));}
   }
+  async function loadCatalog(append=false) {
+    const version=++loadVersion;errors.replaceChildren();searchButton.disabled=true;more.disabled=true;status.textContent='Einkaufsartikel werden geladen …';
+    try{
+      if(!await catalog.load(search.value,append)||version!==loadVersion||!lineArea.isConnected)return;
+      refreshChoices();status.textContent=`${catalog.items.length} von ${catalog.total} Artikeln geladen. Bereits gewählte Positionen bleiben erhalten.`;
+    }catch(error){if(version===loadVersion&&lineArea.isConnected){status.textContent='Artikelsuche nicht aktualisiert. Gewählte Positionen bleiben erhalten.';showError(error,errors);}}
+    finally{if(version===loadVersion){searchButton.disabled=false;more.disabled=false;more.hidden=catalog.nextOffset===null;}}
+  }
+  search.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();loadCatalog();}});
   function addLine(existing=null) {
     const identifier=requestId(),article=el('select',{'aria-label':'Bestellartikel',required:true},
-      el('option',{value:''},'Artikel auswählen'),selectable.map(item=>el('option',{value:item.id,selected:item.id===existing?.article_id},`${item.code?item.code+' · ':''}${item.name} (${item.unit})`))),
+      el('option',{value:''},'Artikel auswählen'),catalog.choices(existing?.article_id).map(item=>el('option',{value:item.id,selected:item.id===existing?.article_id},`${item.code?item.code+' · ':''}${item.name} (${item.unit})`))),
       amount=el('input',{type:'text',inputMode:'decimal','aria-label':'Bestellmenge',required:true,value:existing?.ordered_quantity||'',maxLength:24}),
       node=el('div',{class:'panel soft'},el('div',{class:'form-grid'},
         el('label',{class:'field'},'Artikel',article),el('label',{class:'field'},'Bestellmenge',amount)),
@@ -829,13 +884,17 @@ function purchaseProposalDialog(projectId,articles,order=null) {
     lines.push({id:identifier,article,amount});lineArea.append(node);
   }
   if(order)order.items.forEach(addLine);else addLine();
-  const editor=el('div',{class:'stack'},lineArea,button('Position hinzufügen',()=>addLine(),'small'));
-  dialog(title,form('',[...(order?[]:[field('project_id','Projekt (optional)','select',projectId,{options:[['','Ohne Projekt'],...options(state.projects)]})]),field('supplier_name','Lieferant','text',order?.supplier_name||'',{required:true,maxLength:300})],(data,key)=>{
+  const editor=el('div',{class:'stack'},panel('Einkaufsartikel',el('label',{class:'field'},'Artikelnummer oder Artikelname',search),
+    el('div',{class:'actions'},searchButton,more),status,errors,
+    !catalog.enabled?notice('Dieser Server bietet noch keine vollständige Einkaufssuche. Die Auswahl verwendet den vorhandenen Artikelkatalog bzw. Lagerbestand.'):null),
+    lineArea,button('Position hinzufügen',()=>addLine(),'small'));
+  const draft=form('',[...(order?[]:[field('project_id','Projekt (optional)','select',projectId,{options:[['','Ohne Projekt'],...options(state.projects)]})]),field('supplier_name','Lieferant','text',order?.supplier_name||'',{required:true,maxLength:300})],(data,key)=>{
     if(!lines.length)throw new Error('Bitte mindestens eine Bestellposition angeben.');
     const items=lines.map(line=>{const quantity=purchaseDecimal(line.amount.value);if(!line.article.value||quantity.scaled<=0n)throw new Error('Bitte Artikel und positive Bestellmenge für jede Position angeben.');return {article_id:line.article.value,quantity:quantity.text};});
     return mutation(key,'/inventory/orders'+(order?'/'+order.id:''),{...data,project_id:data.project_id||null,items,status:'draft',...(order?{project_id:order.project_id,revision:order.source_revision}:{})});
-  },{key:'purchase-proposal-'+(order?.id||'new'),extra:editor,submit:'Vorschlag speichern',after:async saved=>{await refresh();await purchaseOrderDialog(saved.id);}}),
-  'Der Vorschlag wird intern gespeichert. Er löst keine Bestellung beim Lieferanten aus.');
+  },{key:'purchase-proposal-'+(order?.id||'new'),extra:editor,submit:'Vorschlag speichern',after:async saved=>{await refresh();await purchaseOrderDialog(saved.id);}});
+  draft.controls.get('project_id')?.input.addEventListener('change',event=>{catalog.setProject(event.target.value);loadCatalog();});
+  dialog(title,draft,'Der Vorschlag wird intern gespeichert. Er löst keine Bestellung beim Lieferanten aus.');loadCatalog();
 }
 async function purchaseOrderDialog(id,knownLocations=null) {
   const [order,history,locationResponse]=await Promise.all([api.get(biz('/purchasing/orders/'+id)),api.get(biz('/purchasing/orders/'+id+'/receipts')),
@@ -844,7 +903,7 @@ async function purchaseOrderDialog(id,knownLocations=null) {
     locations=collection(locationResponse),costs=access.costs,controls=[];
   if(access.edit)
     controls.push(button('Bestellvorschlag bearbeiten',()=>action(async()=>{
-      const articles=state.globalPermissions.has('finance.read')?collection(await api.get(biz('/articles'))):collection(await api.get(biz('/inventory/stock'))).map(item=>
+      const articles=state.features.has('purchasing_catalog')?[]:state.globalPermissions.has('finance.read')?collection(await api.get(biz('/articles'))):collection(await api.get(biz('/inventory/stock'))).map(item=>
         ({id:item.article_id,name:item.article_name||item.article_code,code:item.article_code,unit:item.unit}));
       purchaseProposalDialog(order.project_id,articles,order);
     }),'small'));

@@ -117,7 +117,7 @@ async function main(){
     await page.getByLabel('Personal fachlich aktiv',{exact:true}).check();await saveOrganization();
     assert.equal(await page.locator('.navigation').getByRole('button',{name:'Personal',exact:true}).count(),1);
     console.log('browser: manual module visibility retained, hidden personnel opened by administrator, inactive history stayed readable and reactivation restored writes');
-    const {purchasingFlow,purchasingReadOnly}=require('./purchasing-flow.cjs');
+    const {purchasingFlow,purchasingReadOnly,purchasingCatalogFlow}=require('./purchasing-flow.cjs');
     const purchaseOrderId=await purchasingFlow({page,context,navigate,ready,fixture,screenshots});
     await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Einsatzplanung');
     await page.getByRole('button',{name:'Termin planen',exact:true}).click();let modal=page.getByRole('dialog',{name:'Termin planen',exact:true});
@@ -214,6 +214,9 @@ async function main(){
     await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();await page.locator('.navigation').getByRole('button',{name:'Personal',exact:true}).click();await ready(page);
     assert.deepEqual(pageErrors,[]);
     console.log('browser: technician financial/project scope, logout clearing and 390px responsive view passed');
+    await page.setViewportSize({width:1440,height:1000});await page.waitForFunction(()=>!document.querySelector('.sidebar').inert);
+    await page.getByRole('button',{name:'Abmelden',exact:true}).click();await page.getByRole('heading',{name:'Willkommen im Büro.',exact:true}).waitFor();
+    await login(page,'warehouse@browser.example.test');await purchasingCatalogFlow({page,context,navigate,ready,fixture,screenshots});
     await page.goto(fixture.base_url+'/office/contact.html');await page.getByRole('heading',{name:'Wie können wir helfen?',exact:true}).waitFor();
     let lost=true;const contactCalls=[];
     await context.route('**/api/v1/intake/contact',async route=>{
@@ -231,7 +234,7 @@ async function main(){
     await page.goto(fixture.base_url+'/office/');await login(page,'owner@browser.example.test',recovery[0]);await navigate(page,'Anfragen');assert.equal(await page.getByRole('heading',{name:'Synthetic public website inquiry',exact:true}).count(),1);
     assert.deepEqual(pageErrors,[]);await context.close();
     console.log('browser: public form had no bearer, lost acknowledgement retried one inquiry and reply remained pending');
-    console.log('8 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
+    console.log('9 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
   }catch(error){
     console.error('SMARTPLAN_BROWSER_FAILURE_BEGIN');
     console.error(compactFailure(error));

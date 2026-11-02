@@ -134,14 +134,20 @@ class BusinessInventory(Domain):
             if 'finance.read' in permissions(self.office,fresh): result['stock_value_net']=money(value)
             return result
 
+    @staticmethod
+    def _operational_article(value):
+        # Commercial articles may contain arbitrarily nested calculation/BOM
+        # proofs. Only these metadata fields belong in an operational response.
+        return {key:value[key] for key in ('id','revision','code','name','kind','unit','active') if key in value}
+
     def _movement(self,row,*,financial=True):
         value=dict(row); value['article_snapshot']=json.loads(value.pop('article_snapshot_json'))
         if not financial:
             for key in ('unit_cost_net','cost_net'): value.pop(key,None)
-            for key in ('cost_price_net','unit_price_net'): value['article_snapshot'].pop(key,None)
+            value['article_snapshot']=self._operational_article(value['article_snapshot'])
         return value
 
-    def _public(self,actor,value,project_id=None):
+    def _public(self,actor,value,project_id=None,*,article=False):
         """Re-filter replay receipts after a financial permission was withdrawn."""
         from business_foundation import require_permission
         try:
@@ -149,9 +155,13 @@ class BusinessInventory(Domain):
             return value
         except Problem as error:
             if error.status!=403: raise
+        if article:
+            return self._operational_article(value)
         hidden={'unit_cost_net','cost_net','cost_price_net','unit_price_net','stock_value_net'}
         def redact(item):
-            if isinstance(item,dict): return {key:redact(child) for key,child in item.items() if key not in hidden}
+            if isinstance(item,dict):
+                return {key:self._operational_article(child) if key=='article_snapshot' else redact(child)
+                    for key,child in item.items() if key not in hidden}
             if isinstance(item,list): return [redact(child) for child in item]
             return item
         return redact(value)
@@ -266,7 +276,7 @@ class BusinessInventory(Domain):
                     matches.append(dict(value,id=row['id'],revision=row['revision']))
             if not matches: raise Problem(404,'Code nicht gefunden')
             if len(matches)!=1: raise Problem(409,'Code ist mehreren Artikeln zugeordnet')
-            return self._public(fresh,matches[0])
+            return self._public(fresh,matches[0],article=True)
 
     def set_reorder_rule(self,actor,data):
         def save(fresh,body):

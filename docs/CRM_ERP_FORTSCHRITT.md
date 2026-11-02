@@ -1,8 +1,8 @@
 # CRM/ERP – Fortschritt und Testergebnisse
 
 Die Abschnitte sind chronologisch. Der aktuelle Entwicklungsschritt steht unter
-**Einkauf und positionsgebundene Wareneingänge** weiter unten. Die Ergebnisse
-des ersten Abschnitts gehören zum lokalen Commit `14fe4c9`.
+**Preisfreier Einkaufskatalog und vollständige Artikelredaktion** weiter unten.
+Der erste Abschnitt gehört zum lokalen Commit `14fe4c9`, der zweite zu `64bdc26`.
 
 ## 02.11.2026 – Bestand, Integration und erste Entwicklung
 
@@ -246,3 +246,91 @@ Am 02.11.2026 hat der Nutzer die zwei offenen Grundentscheidungen beantwortet:
 Anforderungsmatrix, Umsetzungsplan und Übergabe halten diese Entscheidungen
 fest. Sie bestimmen den nächsten Fachumfang und sind noch kein Nachweis einer
 implementierten oder fachlich abgenommenen Buchhaltung beziehungsweise Payroll.
+
+## 02.11.2026 – Preisfreier Einkaufskatalog und vollständige Artikelredaktion
+
+Ausgangsbasis ist `64bdc26`. Die im vorherigen Abschnitt dokumentierte
+Artikelauswahlgrenze für reine Lagerrollen wurde geschlossen. Browser und
+Flutter verwenden bei passender Serverfähigkeit die neue preisfreie Suche;
+ältere Server behalten einen ausdrücklich erkennbaren Fallback. Der vorhandene
+Bestell-/Lieferablauf und die Bindung unbestätigter Anfragen bleiben erhalten.
+
+### Änderung und Review
+
+- `GET /business/purchasing/articles` liefert genau sieben operative
+  Artikelfelder, auch an Finanzberechtigte. Aktive Material-/Maschinenartikel
+  ohne Lagerhistorie sind auswählbar. Suche, begrenzte Seiten und aktuelle
+  Projektrechte werden serverseitig geprüft. Der Abruf schreibt keine Daten.
+- Browser und App ergänzen Suche und weitere Treffer. Vorhandene Auswahl und
+  Mengen bleiben beim Suchen erhalten. Die neue Serverfähigkeit
+  `purchasing_catalog` verhindert Anfragen an nicht vorhandene alte Endpunkte.
+- Die erweiterte Prüfung fand einen tatsächlichen Fehler im bisherigen
+  Lagerdatenvertrag: Eine reine Feldsperrliste ließ verschachtelte Margen- und
+  Kalkulationswerte aus echten `pricing_preview`-/`save_article`-Vorgängen
+  passieren. Drei neue Regressionen reproduzierten den Fehler vor der Korrektur.
+- Scan, Bestellantworten, Bewegungen und deren Wiederholungen verwenden für
+  unberechtigte Leser jetzt eine ausdrückliche Artikelfeldliste. Gespeicherte
+  Preisnachweise, Stücklisten, Lagerjournale und die vollständige Ansicht für
+  Finanzberechtigte werden nicht umgeschrieben. Schema-/Guarddefinitionen
+  bleiben unverändert. Der unabhängige HTTP-/PostgreSQL-Review bestätigt den Fix.
+
+### Prüfungen dieses Abschnitts
+
+| Prüfung | Ergebnis | Nachweis |
+| --- | --- | --- |
+| Einkauf und Lager nach Redaktionsfix | 49 bestanden | 31 Purchasing-Fälle einschließlich sieben neuer Katalogfälle; 18 Inventarfälle einschließlich drei echter Kalkulations-/Stücklistenregressionen; `work/verification/inventory-calculated-redaction-domain.log` |
+| Unabhängige HTTP-/MFA-Fälle | 4 bestanden | Preisfreie Auswahl ohne Bestand, Vorschlag ohne Finanzrecht, Suche/Seiten, frische Rollen/Projektgrenzen, unveränderte Datenbank und echte Kalkulationsdaten in Scan-/Bestellantworten; `work/verification/catalog-http.log` |
+| PostgreSQL | 6 bestanden; betroffener Katalogfall nach Preisfix erneut bestanden | Getrennte Laufzeitrolle, Lagerbenutzer ohne Finanzrecht, unveränderte Daten-/Schemasummen; erneuter Fall mit tatsächlich kalkuliertem Artikel; `work/verification/catalog-postgres.log`, `catalog-postgres-calculated.log` |
+| Vollständiges Backend | 417 ausgeführt, 416 bestanden, 1 übersprungen | 66,091 s; nur vorhandener Windows-Job-Object-Test auf Linux übersprungen; `work/verification/catalog-backend-full.log` |
+| Flutter | 342 bestanden, keine Skips; Analyse ohne Befund | Unveränderter Appstand; `work/verification/purchasing-catalog-flutter-full.log` und `purchasing-catalog-flutter-analyze.log` |
+| Flutter gezielt nach Backend-Preisfix | 19 bestanden | 18 Widgetfälle plus echter HTTP-Ablauf der Lagerrolle; `work/verification/purchasing-catalog-flutter-after-redaction.log` |
+| Browser-Komponenten | 58 bestanden | Katalogzustand, Suchwechsel/Seiten, Projektrechte, preisfreie Antwortfelder, ältere Server und Wiederholung |
+| Echter Browserablauf | 9 Workflows bestanden | Einschließlich Lagerrolle, Artikeln ohne Bestand, Suche/Seiten, projektlosem Vorschlag/Bearbeitung, kalkuliertem Artikel, Preisredaktion und 390-px-Ansicht; `work/verification/catalog-browser-e2e.log` |
+
+Gruppenzahlen überschneiden sich und werden nicht zu einzigartigen Abnahmen
+addiert. Originaldaten und Betriebszugänge werden von den synthetischen Tests
+nicht verwendet. Vorher-/Nachherbelege des Preisfehlers bleiben unter
+`work/verification/inventory-calculated-redaction-before.log` und dem
+angegebenen erfolgreichen Domänenlog erhalten.
+
+Zwei Browseranläufe scheiterten beim nachträglichen Lesen eines bereits
+verfallenen DevTools-Antwortkörpers. Der Testhelper erfasst nun die echten
+Serverantworten vor ihrer Weitergabe an den Browser. Die kontrolliert verlorene
+Wareneingangsantwort bleibt ein eigener Fehlerfall mit realer Buchung und
+identischer Wiederholung. Der abschließende Gesamtlauf ist grün. Namespace-,
+PID-, Netzwerk- und Seccomp-Sandbox wurden vor Appzugriff erneut live geprüft.
+Desktop- und Mobilansicht der Suche wurden anhand der Screenshots unter
+`work/verification/catalog-browser-previews/` zusätzlich visuell geprüft.
+
+Der [Katalog-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_KATALOG.json) enthält
+Ausgangscommit, Ergebnisse und SHA-256-Werte der geänderten Code-/Testdateien.
+Reproduktion der gezielten Backendfälle vom Hauptverzeichnis:
+
+```sh
+PYTHONPATH=backend backend/.venv/bin/python -m unittest test_business_inventory test_business_purchasing -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_purchasing_catalog_http -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_postgres_purchasing_integration -v
+node --test web/office/tests/*.test.mjs
+node web/office/tests/e2e.cjs
+```
+
+Für PostgreSQL und Chromium gelten die beschriebenen Loopback-/Sandbox-
+Voraussetzungen des vorherigen Abschnitts. Die neue HTTP-Datei ist ausdrücklich
+in CI registriert. Diese Prüfungen stellen keine Produktivinstallation dar.
+
+### Grenzen und nächster Abschnitt
+
+Die preisfreie Suche verwendet derzeit einen Katalogscan unter der bestehenden
+Transaktionssperre. Begrenzte Antwortseiten sind kein Nachweis hoher
+Suchleistung bei sehr großen Lieferantenkatalogen; eine indexgestützte Suche
+bleibt eine spätere Optimierung. Lieferantenversand, strukturierte Gerätebindung,
+Original-Lieferscheinverknüpfung und dauerhafte Offline-Wareneingänge bleiben
+wie im vorherigen Abschnitt offen. C ist weiterhin nicht insgesamt abgenommen.
+
+Der [Portalplan](CRM_ERP_PORTAL_PLAN.md) beschreibt den nächsten eigenständig
+umsetzbaren Abschnitt: getrennte Kundenzugänge, Ansicht/PDF eines ausdrücklich
+freigegebenen finalen Angebots, nachvollziehbare Annahme/Ablehnung und eine
+gesonderte interne Übernahme in einen Auftragsbestätigungsentwurf. Er bewahrt
+das bisherige Projekt-/Belegmodell und trennt Kunden- von internen Sitzungen.
+Der Plan ist noch kein implementiertes Kundenportal; die Gesamtabnahme B bleibt
+offen. Die Entscheidungen EÜR sowie reguläre Mitarbeiter/Minijobs gelten weiter.

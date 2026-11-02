@@ -42,6 +42,215 @@ class BusinessPurchasingPage extends StatefulWidget {
   State<BusinessPurchasingPage> createState() => _BusinessPurchasingPageState();
 }
 
+class _PurchaseCatalogPicker extends StatefulWidget {
+  const _PurchaseCatalogPicker({
+    required this.session,
+    required this.allowExisting,
+  });
+  final BusinessSession session;
+  final bool allowExisting;
+  @override
+  State<_PurchaseCatalogPicker> createState() => _PurchaseCatalogPickerState();
+}
+
+class _PurchaseCatalogPickerState extends State<_PurchaseCatalogPicker> {
+  final search = TextEditingController();
+  List<Map<String, dynamic>> rows = [];
+  Map<String, dynamic>? selected;
+  int total = 0, epoch = 0;
+  int? nextOffset;
+  bool busy = false;
+  String query = '';
+  String? error;
+  bool get mayRead =>
+      widget.session.error == null &&
+      widget.session.can('inventory.read') &&
+      widget.session.hasFeature('purchasing_catalog');
+
+  @override
+  void initState() {
+    super.initState();
+    widget.session.addListener(changed);
+    load();
+  }
+
+  @override
+  void dispose() {
+    epoch++;
+    widget.session.removeListener(changed);
+    search.dispose();
+    super.dispose();
+  }
+
+  void changed() {
+    if (!mounted) return;
+    setState(() {
+      if (!mayRead) {
+        epoch++;
+        rows = [];
+        selected = null;
+        nextOffset = null;
+        busy = false;
+      }
+    });
+  }
+
+  Future<void> load({bool more = false}) async {
+    if (!mayRead || (more && nextOffset == null)) return;
+    final current = ++epoch;
+    final offset = more ? nextOffset! : 0;
+    if (!more) query = search.text.trim();
+    setState(() {
+      busy = true;
+      error = null;
+      if (!more) rows = [];
+    });
+    try {
+      final result = businessMap(
+        await widget.session.read(
+          widget.session.query('/purchasing/articles', {
+            'query': query,
+            'limit': '30',
+            'offset': '$offset',
+          }),
+        ),
+      );
+      final items = businessItems(result)
+          .map(
+            (row) => <String, dynamic>{
+              for (final key in const [
+                'id',
+                'revision',
+                'code',
+                'name',
+                'kind',
+                'unit',
+                'active',
+              ])
+                key: row[key],
+            },
+          )
+          .toList();
+      if (!mounted || current != epoch || !mayRead) return;
+      setState(() {
+        rows = more ? [...rows, ...items] : items;
+        total = result['total'] as int;
+        final next = result['next_offset'];
+        nextOffset = next is int && next > offset ? next : null;
+      });
+    } catch (e) {
+      if (mounted && current == epoch)
+        setState(() {
+          error = '$e';
+          nextOffset = null;
+          if (e is ApiException && const [401, 403, 404].contains(e.status)) {
+            rows = [];
+            selected = null;
+          }
+        });
+    } finally {
+      if (mounted && current == epoch) setState(() => busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+    title: const Text('Einkaufsartikel auswählen'),
+    content: SizedBox(
+      width: 600,
+      height: (MediaQuery.sizeOf(context).height * 0.60).clamp(180, 520),
+      child: !mayRead
+          ? const Notice(
+              'Die Artikelauswahl ist für dieses Projekt nicht freigegeben.',
+              error: true,
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  key: const ValueKey('purchase-catalog-search'),
+                  controller: search,
+                  maxLength: 200,
+                  decoration: InputDecoration(
+                    labelText: 'Artikelname oder Artikelnummer',
+                    counterText: '',
+                    suffixIcon: IconButton(
+                      tooltip: 'Artikel suchen',
+                      onPressed: busy ? null : () => load(),
+                      icon: const Icon(Icons.search),
+                    ),
+                  ),
+                  onSubmitted: (_) => load(),
+                ),
+                const SizedBox(height: 12),
+                if (selected != null)
+                  Text(
+                    'Ausgewählt: ${selected!['code']} ${selected!['name']} · ${selected!['unit']}',
+                    key: const ValueKey('purchase-catalog-selection'),
+                  ),
+                if (error != null) Notice(error!, error: true),
+                if (busy) const LinearProgressIndicator(),
+                if (!busy) Text('$total Artikel gefunden'),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      for (final item in rows)
+                        ListTile(
+                          key: ValueKey('purchase-catalog-item-${item['id']}'),
+                          leading: Icon(
+                            selected?['id'] == item['id']
+                                ? Icons.radio_button_checked
+                                : Icons.radio_button_unchecked,
+                          ),
+                          selected: selected?['id'] == item['id'],
+                          title: Text('${item['code']} ${item['name']}'.trim()),
+                          subtitle: Text(
+                            '${item['unit']} · ${item['kind'] == 'machine' ? 'Gerät' : 'Material'}',
+                          ),
+                          onTap: busy
+                              ? null
+                              : () => setState(() => selected = item),
+                        ),
+                      if (!busy && rows.isEmpty && error == null)
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: Text(
+                            'Keine passenden aktiven Artikel gefunden.',
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                if (nextOffset != null)
+                  OutlinedButton(
+                    onPressed: busy ? null : () => load(more: true),
+                    child: const Text('Weitere Ergebnisse'),
+                  ),
+              ],
+            ),
+    ),
+    actions: [
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: const Text('Abbrechen'),
+      ),
+      if (widget.allowExisting)
+        TextButton(
+          onPressed: busy || !mayRead
+              ? null
+              : () => Navigator.pop(context, <String, dynamic>{}),
+          child: const Text('Vorhandene Positionen verwenden'),
+        ),
+      FilledButton(
+        onPressed: busy || !mayRead || selected == null
+            ? null
+            : () => Navigator.pop(context, selected),
+        child: const Text('Artikel übernehmen'),
+      ),
+    ],
+  );
+}
+
 class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
   List<Map<String, dynamic>> orders = [], receipts = [];
   Map<String, dynamic>? order;
@@ -57,6 +266,11 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
       widget.session.hasModule('purchasing') &&
       widget.session.hasFeature('purchasing_receipts') &&
       widget.session.can('inventory.read');
+  bool get catalogAvailable => access.hasFeature('purchasing_catalog');
+  bool get mayChooseArticles =>
+      catalogAvailable || widget.session.can('finance.read');
+  final articleLabels = <String, String>{};
+
   bool write(String additional) =>
       mayRead &&
       !busy &&
@@ -195,22 +409,66 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
   }
 
   Future<void> editProposal({bool addLine = false}) async {
-    if (!write('') || !widget.session.can('finance.read')) return;
+    if (!write('') || !mayChooseArticles) return;
     try {
       final source = order;
       final requestSession = widget.session;
       final projectAtOpen = requestSession.projectId;
-      final articleRows = businessItems(await widget.session.read('/articles'));
-      if (!mounted || !write('') || !widget.session.can('finance.read')) return;
-      final choices = {
-        for (final item in articleRows.where(
+      final lines = source == null
+          ? <Map<String, dynamic>>[{}]
+          : (source['items'] as List).map(businessMap).toList();
+      if (addLine) lines.add({});
+      final pendingKey =
+          'purchase-proposal-${projectAtOpen ?? 'all'}-${source?['id'] ?? 'new'}-${source?['source_revision'] ?? 0}-${lines.length}';
+      final pending = requestSession.pendingEditorValues(pendingKey);
+      final choices = <String, String>{
+        for (final line in lines.where((line) => line['article_id'] != null))
+          '${line['article_id']}':
+              '${line['article_code'] ?? ''} ${line['article_name']} · ${line['unit']}'
+                  .trim(),
+      };
+      if (pending != null) {
+        // Reopen the exact pending operation without a new catalog selection.
+        for (var i = 0; i < lines.length; i++) {
+          final id = '${pending['article_$i']}';
+          choices.putIfAbsent(
+            id,
+            () =>
+                articleLabels[id] ??
+                'Gespeicherte Artikelauswahl · Position ${i + 1}',
+          );
+        }
+      } else if (catalogAvailable) {
+        final selected = await showDialog<Map<String, dynamic>>(
+          context: context,
+          builder: (_) => _PurchaseCatalogPicker(
+            session: access,
+            allowExisting: source != null && !addLine,
+          ),
+        );
+        if (!mounted || selected == null || !write('')) return;
+        if (selected.isNotEmpty) {
+          final id = '${selected['id']}';
+          final label =
+              '${selected['code']} ${selected['name']} · ${selected['unit']}'
+                  .trim();
+          choices[id] = label;
+          articleLabels[id] = label;
+          if (source == null || addLine) lines.last['article_id'] = id;
+        }
+      } else {
+        final rows = businessItems(await requestSession.read('/articles'));
+        if (!mounted || !write('') || !requestSession.can('finance.read'))
+          return;
+        for (final item in rows.where(
           (item) =>
               (item['active'] == true || item['active'] == 1) &&
               const ['material', 'machine'].contains(item['kind']),
-        ))
-          '${item['id']}':
-              '${item['code'] ?? ''} ${item['name']} · ${item['unit']}'.trim(),
-      };
+        )) {
+          choices['${item['id']}'] =
+              '${item['code'] ?? ''} ${item['name']} · ${item['unit']}'.trim();
+        }
+      }
       if (choices.isEmpty) {
         setState(
           () => error =
@@ -218,10 +476,6 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
         );
         return;
       }
-      final lines = source == null
-          ? <Map<String, dynamic>>[{}]
-          : (source['items'] as List).map(businessMap).toList();
-      if (addLine) lines.add({});
       final initial = <String, dynamic>{
         'supplier_name': source?['supplier_name'] ?? '',
         'project_id': source?['project_id'] ?? projectAtOpen,
@@ -258,8 +512,7 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
           ),
         ],
       ];
-      final pendingKey =
-          'purchase-proposal-${projectAtOpen ?? 'all'}-${source?['id'] ?? 'new'}-${source?['source_revision'] ?? 0}-${lines.length}';
+
       final saved = await showDialog<bool>(
         context: context,
         builder: (_) => BusinessEditor(
@@ -271,12 +524,13 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
               : 'Bestellvorschlag bearbeiten',
           initial: initial,
           fields: fields,
-          readPermission: 'finance.read',
+          readPermission: catalogAvailable ? 'inventory.read' : 'finance.read',
           writePermission: 'inventory.write',
           saveLabel: 'Vorschlag speichern',
           onSave: (values) async {
             await requireWrite('');
-            if (!widget.session.can('finance.read'))
+            if (!access.hasFeature('purchasing_catalog') &&
+                !requestSession.can('finance.read'))
               throw const ApiException(
                 403,
                 'Artikeldaten sind nicht freigegeben.',
@@ -577,9 +831,7 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
         spacing: 12,
         runSpacing: 12,
         children: [
-          if (status == 'proposal' &&
-              write('') &&
-              widget.session.can('finance.read')) ...[
+          if (status == 'proposal' && write('') && mayChooseArticles) ...[
             OutlinedButton(
               onPressed: () => editProposal(),
               child: const Text('Vorschlag bearbeiten'),
@@ -723,10 +975,14 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
             const Notice(
               'Material ist fachlich deaktiviert. Die Bestell- und Lieferhistorie bleibt entsprechend Ihren Rechten lesbar.',
             ),
+          if (write('') && !mayChooseArticles)
+            const Notice(
+              'Dieser Server bietet noch keine preisfreie Einkaufsartikelauswahl. Vorhandene Bestellungen bleiben lesbar.',
+            ),
           if (error != null) Notice(error!, error: true),
           if (busy) const LinearProgressIndicator(),
           if (selectedId == null) ...[
-            if (write('') && widget.session.can('finance.read'))
+            if (write('') && mayChooseArticles)
               Align(
                 alignment: Alignment.centerLeft,
                 child: FilledButton.icon(

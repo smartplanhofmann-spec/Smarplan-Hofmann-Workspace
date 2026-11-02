@@ -122,5 +122,7 @@
     "web/office/tests/purchasing-flow.cjs": "80be0bd29fae5e5a5532f9a4fc0939452d3d3deadf61ad9f06dbc8c21b6f9bb7",
     "web/office/tests/purchasing.test.mjs": "d9dc42c799f2970d7ef938c403f61126bf5cf580495ff30fa7342a169792658a"
   },
-  "note": "Group counts are overlapping executions and must not be added as unique acceptance coverage. Raw logs are in ignored work/verification; reproducible tests and reports are in the repository."
+  "note": "Group counts are overlapping executions and must not be added as unique acceptance coverage. Raw logs are in ignored work/verification; reproducible tests and reports are in the repository.",
+  "implementation_commit": "64bdc264ff111aad75961252403f05da8ab8c76c",
+  "historical_note": "Results and limitations for the purchasing increment at64bdc26; later catalogue and calculated-article redaction changes have a separate evidence record."
 }

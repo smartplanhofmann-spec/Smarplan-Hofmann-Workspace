@@ -45,6 +45,110 @@ class InventoryTests(unittest.TestCase):
     def receive(self,quantity='10',cost='1.2500'):
         return self.api.move(self.owner,self.req(kind='receive',article_id=self.article['id'],to_location_id=self.location['id'],quantity=quantity,unit_cost_net=cost))
 
+    def calculated_article(self, *, kind='material'):
+        documents=Documents(self.office)
+        inputs=dict(base_cost_net='12.34',labor_hours='2',hourly_cost_net='20',overhead_percent='10',
+            markup_percent='25',quantity='1',kind=kind,unit='m',source_article_id=self.article['id'],
+            source_article_revision=self.article['revision'])
+        if kind=='service':
+            inputs['components']=[dict(article_id=self.article['id'],article_revision=self.article['revision'],quantity='2')]
+        preview=documents.pricing_preview(self.owner,inputs)
+        article=documents.save_article(self.owner,self.req(name='Calculated '+kind,code='CALC-'+kind,
+            pricing=preview['inputs'],pricing_hash=preview['preview_hash'],price_confirmation=True))
+        self.assertEqual(article['pricing_snapshot'],preview)
+        self.assertGreater(float(preview['totals']['profit_net']),0)
+        return article
+
+    def assert_operational_article(self, value, article):
+        fields=('id','revision','code','name','kind','unit','active')
+        self.assertEqual(value,{key:article[key] for key in fields})
+
+    def inventory_grant(self, permission, *, effect='allow', revision=0):
+        from business_foundation import BusinessFoundation
+        return BusinessFoundation(self.office).save_grant(self.owner,self.req(user_id=self.tech['id'],
+            permission=permission,scope='*',effect=effect,revision=revision))
+
+    def test_real_calculated_article_scan_hides_prices_and_bom_without_changing_finance_view(self):
+        import business_inventory as domain
+        for kind in ('material','service'):
+            article=self.calculated_article(kind=kind)
+            if kind=='service':
+                self.assertTrue(article['components'])
+                self.assertTrue(article['pricing_snapshot']['components'])
+            query={'_query':{'code':article['code']}}
+            public=domain.dispatch(self.office,self.tech,'/inventory/scan','GET',query)[0]
+            self.assert_operational_article(public,article)
+            private=domain.dispatch(self.office,self.owner,'/inventory/scan','GET',query)[0]
+            self.assertEqual(private,self.api._article(article['id']) if kind=='material' else {
+                key:value for key,value in article.items() if key!='updated_at'})
+            self.assertEqual(private['pricing_snapshot'],article['pricing_snapshot'])
+
+    def test_real_calculated_article_draft_post_and_replay_hide_complete_commercial_snapshot(self):
+        import business_inventory as domain
+        from business_purchasing import Purchasing
+        article=self.calculated_article()
+        self.inventory_grant('inventory.write')
+        body=self.req(project_id=self.project,supplier_name='Synthetic supplier',status='draft',
+            items=[dict(article_id=article['id'],quantity='3.5')])
+        first=domain.dispatch(self.office,self.tech,'/inventory/orders','POST',body)[0]
+        self.assert_operational_article(first['items'][0]['article_snapshot'],article)
+        self.assertEqual((first['items'][0]['quantity'],first['status'],first['delivery_status']),('3.5000','draft','not_sent'))
+        self.assertEqual(domain.dispatch(self.office,self.tech,'/inventory/orders','POST',body)[0],first)
+        self.inventory_grant('finance.read')
+        rich_body={**body,'request_id':uuid.uuid4().hex}
+        rich=domain.dispatch(self.office,self.tech,'/inventory/orders','POST',rich_body)[0]
+        self.assertEqual(rich['items'][0]['article_snapshot']['pricing_snapshot'],article['pricing_snapshot'])
+        self.inventory_grant('finance.read',effect='deny',revision=1)
+        replay=domain.dispatch(self.office,self.tech,'/inventory/orders','POST',rich_body)[0]
+        self.assertEqual(replay['id'],rich['id'])
+        self.assert_operational_article(replay['items'][0]['article_snapshot'],article)
+        read=Purchasing(self.office).get(self.tech,rich['id'])
+        self.assertEqual((read['items'][0]['unit'],read['items'][0]['ordered_quantity']),('m','3.5000'))
+        self.assertNotIn('pricing_snapshot',json.dumps(read))
+        stored=json.loads(self.office.db.execute('SELECT payload_json FROM business_purchase_orders WHERE id=?',(rich['id'],)).fetchone()[0])
+        self.assertEqual(stored[0]['article_snapshot']['pricing_snapshot'],article['pricing_snapshot'])
+
+    def test_calculated_stock_get_post_and_replays_recheck_finance_for_every_snapshot(self):
+        import business_inventory as domain
+        self.article=self.calculated_article()
+        self.receive()
+        self.inventory_grant('inventory.write')
+        self.inventory_grant('finance.read')
+        reserve_body=self.req(article_id=self.article['id'],location_id=self.location['id'],quantity='3')
+        reservation=self.api.reserve(self.tech,self.project,reserve_body)
+        transfer_body=self.req(kind='transfer',article_id=self.article['id'],from_location_id=self.location['id'],
+            to_location_id=self.van['id'],quantity='1')
+        transfer=self.api.move(self.tech,transfer_body)
+        pick_body=self.req(items=[dict(reservation_id=reservation['id'],quantity='1')])
+        picked=self.api.pick(self.tech,self.project,pick_body)
+        for value in (reservation,transfer,picked['items'][0]):
+            self.assertEqual(value['article_snapshot']['pricing_snapshot'],self.article['pricing_snapshot'])
+        self.inventory_grant('finance.read',effect='deny',revision=1)
+        before=[tuple(row) for row in self.office.db.execute('SELECT * FROM business_stock_movements ORDER BY sequence_number')]
+        for action,original in ((lambda:self.api.reserve(self.tech,self.project,reserve_body),reservation),
+                (lambda:self.api.move(self.tech,transfer_body),transfer),
+                (lambda:self.api.pick(self.tech,self.project,pick_body)['items'][0],picked['items'][0])):
+            result=action()
+            self.assertEqual(result['id'],original['id'])
+            self.assert_operational_article(result['article_snapshot'],self.article)
+            self.assertNotIn('unit_cost_net',result)
+            self.assertNotIn('cost_net',result)
+        fresh=self.api.reserve(self.tech,self.project,self.req(article_id=self.article['id'],location_id=self.location['id'],quantity='1'))
+        self.assert_operational_article(fresh['article_snapshot'],self.article)
+        for path,query in (('/inventory/movements',{}),('/inventory/movements/'+transfer['id'],{}),
+                ('/inventory/reservations',{'project_id':self.project}),
+                ('/inventory/reservations/'+reservation['id'],{'project_id':self.project})):
+            result=domain.dispatch(self.office,self.tech,path,'GET',{'_query':query})[0]
+            for value in result.get('items',[result]):
+                self.assert_operational_article(value['article_snapshot'],self.article)
+                self.assertNotIn('unit_cost_net',value)
+                self.assertNotIn('cost_net',value)
+        row=self.office.db.execute('SELECT * FROM business_stock_movements WHERE id=?',(transfer['id'],)).fetchone()
+        self.assert_operational_article(self.api._movement(row,financial=False)['article_snapshot'],self.article)
+        self.assertEqual(self.api._movement(row)['article_snapshot']['pricing_snapshot'],self.article['pricing_snapshot'])
+        self.assertEqual([tuple(row) for row in self.office.db.execute('SELECT * FROM business_stock_movements ORDER BY sequence_number')],before)
+        self.assertTrue(validate_integrity(self.office))
+
     def test_journal_receive_transfer_issue_return_preserves_historical_cost(self):
         self.receive()
         body=self.req(kind='transfer',article_id=self.article['id'],from_location_id=self.location['id'],to_location_id=self.van['id'],quantity='4')

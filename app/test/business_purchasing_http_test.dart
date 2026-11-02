@@ -47,14 +47,28 @@ void main() {
       StreamSubscription<String>? errors;
       PurchasingConnection? api;
       BusinessSession? session;
+      OfficeApi? warehouseApi;
+      BusinessSession? warehouseSession;
       final diagnostics = StringBuffer();
       try {
-        final seed = fixture.replaceFirst(
-          'app = create_app(',
-          '''from business_schema import ensure_schema
+        final seed = fixture
+            .replaceFirst(
+              'app = create_app(',
+              '''from business_schema import ensure_schema
 ensure_schema(office, activate=True)
+from business_foundation import BusinessFoundation
+import uuid
+warehouse = office.add_user('warehouse@example.test', 'Synthetic-warehouse-password-123', 'technician')
+office.assign(user, project, warehouse)
+BusinessFoundation(office).save_grant(user, dict(request_id=uuid.uuid4().hex,
+    user_id=warehouse, permission='inventory.write', scope=project, effect='allow', revision=0))
+warehouse_token = office.login('warehouse@example.test', 'Synthetic-warehouse-password-123')
 app = create_app(''',
-        );
+            )
+            .replaceFirst(
+              'project_id=project))',
+              'project_id=project, warehouse_token=warehouse_token))',
+            );
         server = await Process.start(python, [
           '-u',
           '-c',
@@ -98,6 +112,71 @@ app = create_app(''',
               'active': true,
             }),
           );
+          warehouseApi = OfficeApi(
+            baseUrl: 'http://127.0.0.1:${setup['port']}',
+            apiVersion: 'v1',
+          )..token = setup['warehouse_token'];
+          warehouseSession = BusinessSession(
+            api: warehouseApi!,
+            projectId: project,
+          );
+          await warehouseSession!.load();
+          expect(warehouseSession!.hasFeature('purchasing_catalog'), true);
+          expect(warehouseSession!.can('finance.read'), false);
+          expect(warehouseSession!.can('inventory.write'), true);
+          await expectLater(
+            warehouseSession!.read('/articles'),
+            throwsA(
+              isA<ApiException>().having(
+                (error) => error.status,
+                'status',
+                403,
+              ),
+            ),
+          );
+          final catalog = businessMap(
+            await warehouseSession!.read(
+              warehouseSession!.query('/purchasing/articles', {
+                'query': 'SYN-CABLE',
+                'limit': '1',
+                'offset': '0',
+              }),
+            ),
+          );
+          expect(catalog['total'], 1);
+          expect(catalog['next_offset'], isNull);
+          final available = businessItems(catalog).single;
+          expect(available.keys.toSet(), {
+            'id',
+            'revision',
+            'code',
+            'name',
+            'kind',
+            'unit',
+            'active',
+          });
+          expect(available['id'], article['id']);
+          final warehouseDraft = businessMap(
+            await warehouseSession!.command(
+              'warehouse-draft',
+              '/inventory/orders',
+              {
+                'project_id': project,
+                'supplier_name': 'Synthetischer Lagerlieferant',
+                'status': 'draft',
+                'items': [
+                  {'article_id': available['id'], 'quantity': '1.1254'},
+                ],
+              },
+            ),
+          );
+          final warehouseOrder = businessMap(
+            await warehouseSession!.read(
+              '/purchasing/orders/${warehouseDraft['id']}',
+            ),
+          );
+          expect(warehouseOrder['status'], 'proposal');
+          expect(warehouseOrder['items'][0]['ordered_quantity'], '1.1254');
           final location = businessMap(
             await session!.command('location', '/inventory/locations', {
               'name': 'Synthetisches Lager',
@@ -220,6 +299,8 @@ app = create_app(''',
           expect(costs['material_actual_net'], '0.00');
         }, BackendHttp());
       } finally {
+        warehouseSession?.dispose();
+        warehouseApi?.dispose();
         session?.dispose();
         api?.dispose();
         await output?.cancel();

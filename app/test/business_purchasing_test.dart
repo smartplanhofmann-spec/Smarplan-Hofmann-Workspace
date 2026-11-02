@@ -63,6 +63,19 @@ class PurchasingApi extends OfficeApi {
   }
   Map<String, dynamic>? order;
   Set<String>? scopedPermissions;
+  bool catalog = false, deniedCatalog = false;
+  List<Map<String, dynamic>> catalogRows = [
+    {
+      'id': articleId,
+      'revision': 1,
+      'code': 'TEST-CABLE',
+      'name': 'Synthetisches Kabel',
+      'kind': 'material',
+      'unit': 'm',
+      'active': true,
+      'cost_price_net': '99.8765',
+    },
+  ];
   bool lostProposalAck = false;
   bool deniedDetail = false;
   Completer<void>? proposalReply;
@@ -104,6 +117,7 @@ class PurchasingApi extends OfficeApi {
         'features': [
           'organization_modules',
           if (feature) 'purchasing_receipts',
+          if (catalog) 'purchasing_catalog',
         ],
         'permissions':
             effectivePermissions?.toList() ??
@@ -126,6 +140,37 @@ class PurchasingApi extends OfficeApi {
           },
         },
       };
+    if (route == '/api/business/purchasing/articles') {
+      if (!catalog) throw const ApiException(404, 'Katalog nicht unterstützt');
+      if (deniedCatalog ||
+          (scoped &&
+              scopedPermissions != null &&
+              !scopedPermissions!.contains('inventory.read'))) {
+        throw const ApiException(
+          403,
+          'Projektbezogene Artikelauswahl gesperrt',
+        );
+      }
+      final query = Uri.parse(path).queryParameters;
+      final search = (query['query'] ?? '').toLowerCase();
+      final offset = int.parse(query['offset'] ?? '0');
+      final limit = int.parse(query['limit'] ?? '100');
+      final filtered = catalogRows
+          .where(
+            (item) => '${item['code']} ${item['name']}'.toLowerCase().contains(
+              search,
+            ),
+          )
+          .toList();
+      final items = filtered.skip(offset).take(limit).map(clone).toList();
+      return {
+        'items': items,
+        'total': filtered.length,
+        'next_offset': offset + items.length < filtered.length
+            ? offset + items.length
+            : null,
+      };
+    }
     if (route == '/api/business/articles')
       return {
         'items': [
@@ -835,6 +880,263 @@ void main() {
         expect(find.textContaining('777,77'), findsNothing);
         expect(find.text('SYN-DENIED-HISTORY'), findsNothing);
         expect(find.textContaining('Projektzugriff entzogen'), findsOneWidget);
+      } finally {
+        await close(tester, session, api);
+      }
+    },
+  );
+
+  testWidgets(
+    'Inventory role searches and pages price-free articles while retaining the selected position',
+    (tester) async {
+      final api = PurchasingApi(status: null)
+        ..catalog = true
+        ..financeRead = false
+        ..financeWrite = false
+        ..approve = false
+        ..catalogRows = [
+          for (var i = 0; i < 65; i++)
+            {
+              'id': i.toRadixString(16).padLeft(32, '0'),
+              'revision': 1,
+              'code': 'CAT-${i.toString().padLeft(3, '0')}',
+              'name': 'Synthetischer Katalogartikel $i',
+              'kind': 'material',
+              'unit': 'm',
+              'active': true,
+              'cost_price_net': '99.8765',
+            },
+        ];
+      final session = await show(tester, api, width: 390);
+      try {
+        await tap(tester, find.text('Bestellvorschlag anlegen'));
+        expect(find.textContaining('99,8765'), findsNothing);
+        expect(find.textContaining('99.8765'), findsNothing);
+        await tap(
+          tester,
+          find.byKey(ValueKey('purchase-catalog-item-${'0'.padLeft(32, '0')}')),
+        );
+        await tester.enterText(
+          find.byKey(const ValueKey('purchase-catalog-search')),
+          'CAT-064',
+        );
+        await tap(tester, find.byTooltip('Artikel suchen'));
+        expect(find.textContaining('Ausgewählt: CAT-000'), findsOneWidget);
+        expect(
+          find.text('CAT-064 Synthetischer Katalogartikel 64'),
+          findsOneWidget,
+        );
+        await tester.enterText(
+          find.byKey(const ValueKey('purchase-catalog-search')),
+          '',
+        );
+        await tap(tester, find.byTooltip('Artikel suchen'));
+        await tap(tester, find.text('Weitere Ergebnisse'));
+        expect(
+          api.calls.any(
+            (call) =>
+                call.path.contains('/purchasing/articles') &&
+                Uri.parse(call.path).queryParameters['offset'] == '30',
+          ),
+          true,
+        );
+        expect(find.textContaining('Ausgewählt: CAT-000'), findsOneWidget);
+        await tap(tester, find.text('Artikel übernehmen'));
+        await type(tester, 'supplier_name', 'Synthetischer Lagerlieferant');
+        await type(tester, 'quantity_0', '2,1250');
+        await tap(tester, find.text('Vorschlag speichern'));
+        expect(api.order!['status'], 'proposal');
+        expect(api.order!['items'][0]['article_id'], '0'.padLeft(32, '0'));
+        expect(
+          api.calls.where(
+            (call) => call.path.split('?').first == '/api/business/articles',
+          ),
+          isEmpty,
+        );
+        expect(
+          api.calls
+              .where((call) => call.path.contains('/purchasing/articles'))
+              .every(
+                (call) =>
+                    Uri.parse(call.path).queryParameters['project_id'] ==
+                    projectId,
+              ),
+          true,
+        );
+        expect(tester.takeException(), isNull);
+      } finally {
+        await close(tester, session, api);
+      }
+    },
+  );
+
+  testWidgets(
+    'Catalog pending proposal reopens directly without reselecting unavailable articles',
+    (tester) async {
+      final api = PurchasingApi(status: null)
+        ..catalog = true
+        ..financeRead = false
+        ..lostProposalAck = true;
+      final session = await show(tester, api);
+      try {
+        await tap(tester, find.text('Bestellvorschlag anlegen'));
+        await tap(
+          tester,
+          find.byKey(const ValueKey('purchase-catalog-item-$articleId')),
+        );
+        await tap(tester, find.text('Artikel übernehmen'));
+        await type(tester, 'supplier_name', 'Synthetischer Katalogretry');
+        await type(tester, 'quantity_0', '3,1250');
+        await tap(tester, find.text('Vorschlag speichern'));
+        final first = api.calls.lastWhere((call) => call.body != null).body!;
+        final reads = api.calls
+            .where((call) => call.path.contains('/purchasing/articles'))
+            .length;
+        await tap(tester, find.text('Schließen'));
+        api.catalogRows = [];
+        await tap(tester, find.text('Bestellvorschlag anlegen'));
+        expect(find.text('Einkaufsartikel auswählen'), findsNothing);
+        expect(
+          api.calls
+              .where((call) => call.path.contains('/purchasing/articles'))
+              .length,
+          reads,
+        );
+        expect(
+          tester
+              .widget<TextFormField>(textField('quantity_0'))
+              .controller!
+              .text,
+          '3,1250',
+        );
+        expect(
+          tester.widget<TextFormField>(textField('quantity_0')).enabled,
+          false,
+        );
+        await tap(tester, find.text('Erneut senden'));
+        expect(api.calls.lastWhere((call) => call.body != null).body!, first);
+        expect(api.order!['status'], 'proposal');
+      } finally {
+        await close(tester, session, api);
+      }
+    },
+  );
+
+  testWidgets(
+    'Project-specific catalog denial clears the selection without leaking financial data',
+    (tester) async {
+      final api = PurchasingApi(status: 'proposal')
+        ..catalog = true
+        ..financeRead = false;
+      final session = await show(tester, api, global: true);
+      try {
+        await tap(tester, find.text('Synthetischer Lieferant'));
+        await tap(tester, find.text('Position hinzufügen'));
+        await tap(
+          tester,
+          find.byKey(const ValueKey('purchase-catalog-item-$articleId')),
+        );
+        expect(
+          find.byKey(const ValueKey('purchase-catalog-selection')),
+          findsOneWidget,
+        );
+        api.deniedCatalog = true;
+        await tap(tester, find.byTooltip('Artikel suchen'));
+        expect(
+          find.byKey(const ValueKey('purchase-catalog-selection')),
+          findsNothing,
+        );
+        expect(
+          find.textContaining('Projektbezogene Artikelauswahl gesperrt'),
+          findsOneWidget,
+        );
+        expect(
+          tester
+              .widget<FilledButton>(
+                find.widgetWithText(FilledButton, 'Artikel übernehmen'),
+              )
+              .onPressed,
+          isNull,
+        );
+        expect(
+          api.calls
+              .where((call) => call.path.contains('/purchasing/articles'))
+              .every(
+                (call) =>
+                    Uri.parse(call.path).queryParameters['project_id'] ==
+                    projectId,
+              ),
+          true,
+        );
+        expect(api.calls.where((call) => call.body != null), isEmpty);
+        expect(find.textContaining('99.8765'), findsNothing);
+      } finally {
+        await close(tester, session, api);
+      }
+    },
+  );
+
+  testWidgets(
+    'Catalog adds a position without replacing existing source positions',
+    (tester) async {
+      const extraId = 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
+      final api = PurchasingApi(status: 'proposal')
+        ..catalog = true
+        ..financeRead = false;
+      api.catalogRows.add({
+        'id': extraId,
+        'revision': 1,
+        'code': 'TEST-NEW',
+        'name': 'Neuer Lagerartikel',
+        'kind': 'machine',
+        'unit': 'Stk',
+        'active': true,
+      });
+      final session = await show(tester, api);
+      try {
+        await tap(tester, find.text('Synthetischer Lieferant'));
+        await tap(tester, find.text('Position hinzufügen'));
+        await tester.enterText(
+          find.byKey(const ValueKey('purchase-catalog-search')),
+          'TEST-NEW',
+        );
+        await tap(tester, find.byTooltip('Artikel suchen'));
+        await tap(
+          tester,
+          find.byKey(const ValueKey('purchase-catalog-item-$extraId')),
+        );
+        await tap(tester, find.text('Artikel übernehmen'));
+        await type(tester, 'quantity_2', '2');
+        await tap(tester, find.text('Vorschlag speichern'));
+        final body = api.calls.lastWhere((call) => call.body != null).body!;
+        expect(body['items'], [
+          {'article_id': articleId, 'quantity': '5.0000'},
+          {'article_id': articleId, 'quantity': '10.0000'},
+          {'article_id': extraId, 'quantity': '2'},
+        ]);
+      } finally {
+        await close(tester, session, api);
+      }
+    },
+  );
+
+  testWidgets(
+    'Older receipt server without price-free catalog explains restricted creation and never calls missing route',
+    (tester) async {
+      final api = PurchasingApi(status: null)..financeRead = false;
+      final session = await show(tester, api);
+      try {
+        expect(find.text('Bestellvorschlag anlegen'), findsNothing);
+        expect(
+          find.textContaining('noch keine preisfreie Einkaufsartikelauswahl'),
+          findsOneWidget,
+        );
+        await tap(tester, find.byTooltip('Bestellungen aktualisieren'));
+        expect(
+          api.calls.where((call) => call.path.contains('/articles')),
+          isEmpty,
+        );
+        expect(api.calls.where((call) => call.body != null), isEmpty);
       } finally {
         await close(tester, session, api);
       }

@@ -421,6 +421,141 @@ class PurchasingTests(unittest.TestCase):
         self.error(400, dispatch, self.office, self.owner, '/purchasing/orders', 'GET', {'_query': {'tenant_id': 'other'}})
         self.error(400, dispatch, self.office, self.owner, base, 'GET', {'_query': {'project_id': self.other}})
 
+    def catalogue_article(self, **changes):
+        values = dict(code=uuid.uuid4().hex[:8], name='Additional synthetic article', kind='material', unit='C62',
+                      unit_price_net='7.50', cost_price_net='4.00', tax_rate='19', tax_category='S', currency='EUR', active=True)
+        return Documents(self.office).save_article(self.owner, self.req(**{**values, **changes}))
+
+    def test_catalogue_without_stock_is_available_without_any_financial_read_permission(self):
+        from business_foundation import permissions
+        self.assertNotIn('finance.read', permissions(self.office, self.tech))
+        self.assertEqual(self.counts()['business_stock_movements'], 0)
+        expected = {'id': self.article['id'], 'revision': self.article['revision'], 'code': 'SYN-M',
+                    'name': 'Synthetic cable', 'kind': 'material', 'unit': 'm', 'active': True}
+        for actor in (self.tech, self.owner):
+            result = self.api.articles(actor, project_id=self.project)
+            self.assertEqual(result, {'items': [expected], 'total': 1, 'next_offset': None})
+            self.assertEqual(set(result['items'][0]), {'id', 'revision', 'code', 'name', 'kind', 'unit', 'active'})
+        self.error(403, Documents(self.office).articles, self.tech)
+
+    def test_catalogue_active_physical_filter_and_unknown_future_financial_fields_stay_private(self):
+        machine = self.catalogue_article(name='Machine', kind='machine')
+        self.catalogue_article(name='Inactive', active=False)
+        self.catalogue_article(name='Labour', kind='labor', unit='HUR')
+        self.catalogue_article(name='Service', kind='service', unit='HUR',
+            components=[{'article_id': self.article['id'], 'article_revision': self.article['revision'], 'quantity': '2'}])
+        # A future commercial field must not escape an explicit DTO allowlist.
+        row = self.office.db.execute('SELECT payload_json FROM business_articles WHERE id=?', (machine['id'],)).fetchone()
+        value = json.loads(row['payload_json'])
+        value['future_financial_terms'] = {'confidential': 'synthetic-secret-margin'}
+        with self.office.db:
+            self.office.db.execute('UPDATE business_articles SET payload_json=? WHERE id=?', (canonical(value), machine['id']))
+        for actor in (self.owner, self.tech):
+            result = self.api.articles(actor, project_id=self.project)
+            self.assertEqual({item['id'] for item in result['items']}, {self.article['id'], machine['id']})
+            for item in result['items']:
+                self.assertEqual(set(item), {'id', 'revision', 'code', 'name', 'kind', 'unit', 'active'})
+            encoded = json.dumps(result)
+            for private in ('unit_price_net', 'cost_price_net', 'tax_rate', 'currency', 'components', 'pricing',
+                            'future_financial_terms', 'synthetic-secret-margin'):
+                self.assertNotIn(private, encoded)
+
+    def test_catalogue_unicode_search_and_stable_sorting_are_literal(self):
+        first = self.catalogue_article(name='Straße', code='A-17')
+        second = self.catalogue_article(name='STRASSE', code='a-17')
+        percent = self.catalogue_article(name='Pipe 100%', code='B_20')
+        result = self.api.articles(self.tech, project_id=self.project, query='  STRASSE  ')
+        self.assertEqual([item['id'] for item in result['items']], sorted([first['id'], second['id']]))
+        self.assertEqual(result['total'], 2)
+        self.assertEqual(self.api.articles(self.tech, query='a-17')['total'], 2)
+        self.assertEqual(self.api.articles(self.tech, query='%')['items'][0]['id'], percent['id'])
+        self.assertEqual(self.api.articles(self.tech, query='B_20')['total'], 1)
+        self.assertEqual(self.api.articles(self.tech, query="' OR 1=1 --"), {'items': [], 'total': 0, 'next_offset': None})
+
+    def test_catalogue_pages_are_bounded_and_complete_across_sql_batches(self):
+        for index in range(260):
+            self.catalogue_article(name=f'Batch article {259 - index:03}', code=f'B-{index:03}')
+        statements = []
+        self.office.db.set_trace_callback(statements.append)
+        try:
+            first = self.api.articles(self.tech, query='Batch article')
+        finally:
+            self.office.db.set_trace_callback(None)
+        self.assertEqual((len(first['items']), first['total'], first['next_offset']), (100, 260, 100))
+        second = self.api.articles(self.tech, query='Batch article', offset=100)
+        third = self.api.articles(self.tech, query='Batch article', offset=200)
+        all_items = first['items'] + second['items'] + third['items']
+        self.assertEqual([item['name'] for item in all_items], [f'Batch article {index:03}' for index in range(260)])
+        self.assertEqual(len({item['id'] for item in all_items}), 260)
+        self.assertEqual(second['next_offset'], 200)
+        self.assertIsNone(third['next_offset'])
+        self.assertEqual(self.api.articles(self.tech, query='Batch article', offset=100000),
+                         {'items': [], 'total': 260, 'next_offset': None})
+        reads = [value for value in statements if 'FROM business_articles' in value]
+        self.assertEqual(len(reads), 2)
+        self.assertTrue(all('ORDER BY id LIMIT 256' in value for value in reads))
+
+    def test_catalogue_project_scopes_denies_and_revocation_are_fresh(self):
+        from business_foundation import BusinessFoundation
+        # Accountant lacks inventory.read by default, then receives a grant
+        # for exactly one project without gaining a global catalogue grant.
+        accountant = self.actor('accountant')
+        self.office.assign(self.owner, self.project, accountant['id'])
+        self.grant(accountant, 'inventory.read', scope=self.project)
+        self.assertEqual(self.api.articles(accountant, project_id=self.project)['total'], 1)
+        self.error(403, self.api.articles, accountant)
+        self.error(404, lambda: self.api.articles(self.tech, project_id=self.other))
+        self.error(404, lambda: self.api.articles(self.outsider, project_id=self.project))
+        self.office.assign(self.owner, self.project, accountant['id'], remove=True)
+        self.error(404, lambda: self.api.articles(accountant, project_id=self.project))
+        grants = BusinessFoundation(self.office)
+        grants.save_grant(self.owner, self.req(user_id=self.tech['id'], permission='inventory.read',
+            scope=self.project, effect='deny', revision=0))
+        self.error(403, lambda: self.api.articles(self.tech, project_id=self.project))
+        self.assertEqual(self.api.articles(self.tech)['total'], 1)
+        grants.save_grant(self.owner, self.req(user_id=self.tech['id'], permission='inventory.read', scope='*', effect='deny', revision=0))
+        self.error(403, self.api.articles, self.tech)
+        with self.office.db:
+            self.office.db.execute('UPDATE users SET active=0 WHERE id=?', (self.tech['id'],))
+        self.error(401, lambda: self.api.articles(self.tech, project_id=self.project))
+
+    def test_catalogue_rejects_unknown_duplicate_nonscalar_and_out_of_bounds_queries(self):
+        from business_api import query_data
+        path = '/purchasing/articles'
+        invalid = ({'limit': '0'}, {'limit': '101'}, {'limit': '-1'}, {'limit': '1.0'}, {'limit': 'True'},
+                   {'offset': '-1'}, {'offset': '100001'}, {'offset': '1e2'}, {'offset': '0;DROP TABLE users'},
+                   {'project_id': ''}, {'project_id': 'not-an-id'}, {'tenant_id': self.project},
+                   {'query': 'x' * 201}, {'query': 'embedded\nnewline'}, {'query': ['first', 'second']},
+                   {'limit': ['1', '2']}, {'limit': 2}, {'unknown': ''})
+        for query in invalid:
+            with self.subTest(query=query):
+                self.error(400, dispatch, self.office, self.owner, path, 'GET', {'_query': query})
+        for key in ('project_id', 'query', 'limit', 'offset'):
+            self.error(400, query_data, [(key, 'first'), (key, 'second')])
+        self.error(400, dispatch, self.office, self.owner, path, 'GET', {'_query': [], 'extra': True})
+        self.error(400, dispatch, self.office, self.owner, path, 'GET', {'query': 'must-be-query-string'})
+        self.error(405, dispatch, self.office, self.owner, path, 'POST', {})
+        self.error(400, lambda: self.api.articles(self.owner, limit=True))
+        self.error(400, lambda: self.api.articles(self.owner, offset=0.0))
+        self.assertEqual(dispatch(self.office, self.tech, path, 'GET', query_data([
+            ('project_id', self.project), ('limit', '1'), ('offset', '0'), ('query', 'SYN-M')]))[0]['total'], 1)
+
+    def test_catalogue_read_changes_neither_schema_history_nor_any_existing_data(self):
+        import business_schema
+        # Pinned to the purchasing v1 DDL/guards shipped at commit 64bdc26.
+        expected_checksum = 'c1b29fc07eab7d04ee25bcadc33639206e96ae3b13ec3d9daf400ba1a2ad124d'
+        stored = self.office.db.execute("SELECT checksum FROM business_schema_migrations WHERE module='business_purchasing'").fetchone()
+        self.assertEqual(stored['checksum'], expected_checksum)
+        before_schema = [tuple(row) for row in self.office.db.execute('SELECT type,name,tbl_name,sql FROM sqlite_master ORDER BY type,name').fetchall()]
+        tables = [row[0] for row in self.office.db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").fetchall()]
+        snapshot = lambda: {table: sorted((tuple(row) for row in self.office.db.execute('SELECT * FROM ' + table).fetchall()), key=repr) for table in tables}
+        before_data = snapshot()
+        for actor in (self.owner, self.tech):
+            self.api.articles(actor, project_id=self.project, query='SYN')
+        business_schema.ensure_schema(self.office)
+        self.assertEqual(snapshot(), before_data)
+        self.assertEqual([tuple(row) for row in self.office.db.execute('SELECT type,name,tbl_name,sql FROM sqlite_master ORDER BY type,name').fetchall()], before_schema)
+
 
 class PurchasingMigrationTests(unittest.TestCase):
     def test_existing_schema7_orders_signed_reports_and_invoice_drafts_are_unchanged(self):

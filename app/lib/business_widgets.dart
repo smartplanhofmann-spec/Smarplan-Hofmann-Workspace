@@ -125,12 +125,14 @@ class BusinessEditor extends StatefulWidget {
     this.writePermission,
     this.pendingKey,
     this.pendingSession,
+    this.readAllowed,
   });
   final BusinessSession session;
   final String title, saveLabel;
   final String? readPermission, writePermission;
   final String? pendingKey;
   final BusinessSession? pendingSession;
+  final bool Function()? readAllowed;
   final List<BusinessField> fields;
   final Map<String, dynamic> initial;
   final Future<void> Function(Map<String, dynamic>) onSave;
@@ -145,6 +147,7 @@ class _BusinessEditorState extends State<BusinessEditor> {
       : pendingSession.pendingEditorValues(widget.pendingKey!);
   bool get mayView =>
       widget.session.allowed &&
+      (widget.readAllowed?.call() ?? true) &&
       (widget.readPermission == null ||
           widget.session.can(widget.readPermission!));
   bool get mayWrite =>

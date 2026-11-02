@@ -53,7 +53,7 @@ String? organizationCommandSection(String path) {
     'commercial',
   }.contains(first))
     return 'documents';
-  if (first == 'finance') return 'finance';
+  if (first == 'finance' || first == 'accounting') return 'finance';
   if (RegExp(r'^/adapters/imports/[a-f0-9]{32}/(?:apply|offer)$')
       .hasMatch(route)) {
     return 'documents';
@@ -138,6 +138,17 @@ class BusinessSession extends ChangeNotifier {
       !organizationSections.contains(section) ||
       organizationModules[section]?['enabled'] == true;
   bool pending(String key) => _pending.containsKey(key);
+
+  /// A detached copy of the exact unacknowledged input, held only in this
+  /// authenticated session. Source/account versions must survive editor reopen.
+  Map<String, dynamic>? pendingCommandValues(
+    String key, {
+    required String path,
+  }) {
+    final operation = _pending[key];
+    if (!allowed || operation == null || operation.path != path) return null;
+    return Map<String, dynamic>.from(jsonDecode(operation.values));
+  }
 
   final _pendingEditorValues = <String, Map<String, dynamic>>{};
   Map<String, dynamic>? pendingEditorValues(String key) {

@@ -1,6 +1,6 @@
 # EÜR: Bestand und nächster umsetzbarer Abschnitt
 
-Stand: 02.11.2026. Vorbereitung, noch keine Umsetzung. Quellprüfung im Hauptprojekt `/workspace/Smarplan-Hofmann-Workspace`, zunächst auf `54b08c2`, abschließend gegen den Portalstand `cb60561` geprüft; die hier untersuchten Finanzmodule wurden dazwischen nicht verändert. Dieser Plan verändert weder Produktcode noch gespeicherte Geschäftsvorgänge.
+Stand: 02.11.2026. Die ursprüngliche Bestandsprüfung im Hauptprojekt `/workspace/Smarplan-Hofmann-Workspace` bezieht sich auf `54b08c2`, abschließend gegen den Portalstand `cb60561` geprüft; die damaligen Finanzmodule wurden dazwischen nicht verändert. Anschließend wurde E1a als additives Vorjournal entwickelt. [Bedienung und Betreiberablauf](CRM_ERP_EUER_BETRIEB.md), [API-Vertrag](CRM_ERP_EUER_E1A_API.md) und [Fortschritt mit ausgeführten Prüfungen](CRM_ERP_FORTSCHRITT.md) beschreiben diesen neuen Stand. E1b–E1d und die vollständige EÜR bleiben offen.
 
 ## 1. Festgelegter Umfang und offene Angaben
 
@@ -21,7 +21,7 @@ Diese offenen Angaben blockieren Schema, Quellenverknüpfung, Berechtigungen, Wi
 
 ## 2. Tatsächlicher Bestand
 
-Die folgenden Aussagen beruhen auf Quell- und Testprüfung, nicht auf einem neuen Testlauf dieser Planungsaufgabe.
+Die folgenden Aussagen dokumentieren den Ausgangsbestand vor E1a und beruhen auf damaliger Quell- und Testprüfung. Das neue `business_accounting` ergänzt nun Geldkonten, Herkunfts-/Geldflussjournal und Restorehorizonte; es ändert keine alten Kundenzahlungen oder Belegoriginale. Ausgeführte Tests dieses Inkrements sind separat im Fortschrittsbericht verzeichnet.
 
 | Bereich / Beleg im Repository | Vorhanden | Für EÜR noch erforderlich |
 | --- | --- | --- |

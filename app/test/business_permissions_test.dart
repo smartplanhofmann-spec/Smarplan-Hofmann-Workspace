@@ -21,6 +21,7 @@ class PermissionApi extends OfficeApi {
   bool manage = true,
       readOnly = false,
       portal = true,
+      accounting = true,
       userAccess = true,
       loseAck = false;
   bool metadataUnavailable = false;
@@ -39,7 +40,10 @@ class PermissionApi extends OfficeApi {
         'readonly': readOnly,
         'generation': 1,
         'capabilities': ['business_foundation'],
-        'features': [if (portal) 'offer_portal'],
+        'features': [
+          if (portal) 'offer_portal',
+          if (accounting) 'accounting_prejournal',
+        ],
         'permissions': [if (manage) 'settings.manage'],
       };
     }
@@ -416,6 +420,72 @@ void main() {
               )
               .onPressed,
           isNull,
+        );
+      } finally {
+        await close(tester, api, session);
+      }
+    },
+  );
+  testWidgets(
+    'Accounting grants are available only globally and retain their explicit scope',
+    (tester) async {
+      final api = PermissionApi();
+      final session = await show(tester, api);
+      try {
+        await pick(tester, field('Benutzer'), 'worker@example.test · Technik');
+        await pick(tester, field('Fachrecht'), 'EÜR-Vorbereitung lesen');
+        await tap(tester, find.text('Regel prüfen'));
+        await tap(tester, find.text('Fachrecht speichern'));
+        expect(api.grants.single['permission'], 'accounting.read');
+        expect(api.grants.single['scope'], '*');
+        await pick(tester, field('Umfang'), 'Synthetisches Projekt');
+        final options = tester.widget<DropdownButton<String>>(
+          find.descendant(
+            of: field('Fachrecht'),
+            matching: find.byType(DropdownButton<String>),
+          ),
+        );
+        expect(
+          options.items!.any(
+            (item) => '${item.value}'.startsWith('accounting.'),
+          ),
+          false,
+        );
+        expect(
+          tester
+              .widget<FilledButton>(
+                find.widgetWithText(FilledButton, 'Regel prüfen'),
+              )
+              .onPressed,
+          isNull,
+        );
+      } finally {
+        await close(tester, api, session);
+      }
+    },
+  );
+
+  testWidgets(
+    'Older accounting servers do not offer new administrative rights',
+    (tester) async {
+      final api = PermissionApi()..accounting = false;
+      final session = await show(tester, api);
+      try {
+        final options = tester.widget<DropdownButton<String>>(
+          find.descendant(
+            of: field('Fachrecht'),
+            matching: find.byType(DropdownButton<String>),
+          ),
+        );
+        expect(
+          options.items!.any(
+            (item) => '${item.value}'.startsWith('accounting.'),
+          ),
+          false,
+        );
+        expect(
+          options.items!.map((item) => item.value),
+          contains('finance.read'),
         );
       } finally {
         await close(tester, api, session);

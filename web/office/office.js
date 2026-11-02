@@ -85,7 +85,7 @@ export function organizationCommandArea(path) {
   if(/^\/(inventory|purchasing)(?:\/|$)/.test(path)||path==='/budgets'||/^\/projects\/[^/]+\/changes(?:\/|$)/.test(path))return 'material';
   if(/^\/(documents|articles|services|templates|text-blocks|commercial)(?:\/|$)/.test(path))return 'documents';
   if(/^\/adapters\/imports\/[^/]+\/(apply|offer)$/.test(path))return 'documents';
-  if(/^\/finance(?:\/|$)/.test(path))return 'finance';
+  if(/^\/(finance|accounting)(?:\/|$)/.test(path))return 'finance';
   return null;
 }
 export function organizationChange(current, values) {
@@ -104,6 +104,84 @@ export function organizationChange(current, values) {
   }
   return {revision:current.revision,needs,modules};
 }
+// E1a prepares evidenced EUR cash flows; tax classification remains unconfigured.
+export function accountingAccess(globalCapabilities,organization,status=null) {
+  const permissions=new Set(globalCapabilities?.permissions||[]),supported=new Set(globalCapabilities?.capabilities||[]);
+  const available=globalCapabilities?.features?.includes('accounting_prejournal')===true&&supported.has('business_accounting');
+  const read=available&&permissions.has('finance.read')&&permissions.has('accounting.read');
+  const writable=read&&globalCapabilities.readonly===false&&status?.writes_allowed===true&&organizationModuleEnabled('finance',organization);
+  return {available,read,prepare:writable&&permissions.has('accounting.prepare'),admin:writable&&permissions.has('accounting.admin')};
+}
+export function accountingAmount(value,{zero=false}={}) {
+  const text=String(value??'').trim().replace(',','.');
+  if(!/^\d+(?:\.\d{1,2})?$/.test(text))throw new Error('Bitte einen EUR-Betrag mit höchstens zwei Nachkommastellen eingeben. Es wird nicht gerundet.');
+  const [whole,fraction='']=text.split('.'),cents=BigInt(whole)*100n+BigInt(fraction.padEnd(2,'0'));
+  if(cents<(zero?0n:1n)||cents>99999999999n)throw new Error('Der EUR-Betrag muss positiv und höchstens 999999999,99 sein.');
+  return `${cents/100n}.${String(cents%100n).padStart(2,'0')}`;
+}
+function accountingId(value,hash=false) {
+  if(typeof value!=='string'||!(hash?/^[0-9a-f]{64}$/:/^[0-9a-f]{32}$/).test(value))throw new ApiError('Quellennachweis unvollständig. Bitte den Stand neu laden.',502);
+  return value;
+}
+function accountingRevision(value,zero=false) {
+  if(!Number.isSafeInteger(value)||value<(zero?0:1))throw new ApiError('Die bestätigte Version zuerst neu laden.',502);
+  return value;
+}
+function accountingText(value,label,max,optional=false) {
+  const text=String(value??'').trim();
+  if((!optional&&!text)||text.length>max)throw new Error(`${label}: ${optional?'höchstens': '1 bis'} ${max} Zeichen eingeben.`);
+  if(/[\u0000-\u001f\u007f\ud800-\udfff]/u.test(text))throw new Error(`${label}: einzeiligen Text ohne Steuerzeichen eingeben.`);
+  return text;
+}
+function accountingDay(value) {
+  if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value)||value.startsWith('0000-'))throw new Error('Bitte den tatsächlichen Geldflusstag angeben.');
+  const date=new Date(value+'T00:00:00Z');
+  if(!Number.isFinite(date.getTime())||date.toISOString().slice(0,10)!==value)throw new Error('Bitte einen gültigen Geldflusstag angeben.');
+  return value;
+}
+function accountingConfirmation(values) { if(values.confirmation!==true)throw new Error('Bitte die geprüften Angaben ausdrücklich bestätigen.'); }
+export function accountingAccountData(account,values) {
+  accountingConfirmation(values);
+  const name=accountingText(values.name,'Kontoname',200);
+  if(account) {
+    accountingId(account.id);if(typeof values.active!=='boolean')throw new Error('Aktivität des Kontos bestätigen.');
+    return {revision:accountingRevision(account.revision),name,active:values.active,confirmation:true};
+  }
+  const code=accountingText(values.code,'Kontocode',40);
+  if(!/^[A-Za-z0-9_-]+$/.test(code)||!['bank','cash','payment_service'].includes(values.kind))throw new Error('Kontocode und Kontoart prüfen.');
+  return {code,name,kind:values.kind,confirmation:true};
+}
+function accountingCashData(account,values) {
+  accountingConfirmation(values);
+  if(account?.active!==true||account.currency!=='EUR')throw new Error('Bitte ein aktives EUR-Geldkonto auswählen.');
+  return {account_id:accountingId(account.id),account_revision:accountingRevision(account.revision),cash_date:accountingDay(values.cash_date),
+    evidence_reference:accountingText(values.evidence_reference,'Geldfluss-Nachweisreferenz',200),confirmation:true};
+}
+export function accountingPaymentData(source,account,values) {
+  if(source?.linked_event_id)throw new Error('Diese Zahlung ist bereits verknüpft. Bitte den vorhandenen Geldfluss prüfen.');
+  if(source?.currency!=='EUR'||!['receipt','refund'].includes(source.kind)||source.direction!==(source.kind==='refund'?'out':'in'))throw new ApiError('Zahlungsquelle zuerst neu laden.',502);
+  accountingAmount(source.amount);
+  return {payment_id:accountingId(source.payment_id),source_hash:accountingId(source.source_hash,true),...accountingCashData(account,values)};
+}
+export function accountingPayoutData(source,account,values) {
+  if(source?.payable!==true||source.blocked_reason||source.currency!=='EUR')throw new Error('Dieser Beleg ist für eine neue Auszahlung gesperrt. Bitte den Stand prüfen.');
+  const amount=accountingAmount(values.amount),remaining=accountingAmount(source.remaining_amount,{zero:true});
+  if(BigInt(amount.replace('.',''))>BigInt(remaining.replace('.','')))throw new Error('Die Auszahlung überschreitet den verbleibenden Betrag.');
+  return {receipt_id:accountingId(source.receipt_id),source_hash:accountingId(source.source_hash,true),review_revision:accountingRevision(source.review_revision),
+    review_sha256:accountingId(source.review_sha256,true),original_sha256:accountingId(source.original_sha256,true),...accountingCashData(account,values),
+    expected_cash_revision:accountingRevision(source.cash_revision,true),amount,reference:accountingText(values.reference,'Verwendungszweck',1000,true)};
+}
+export function accountingStatus(value) {
+  if(value?.profile_status!=='unconfigured'||value.tax_status!=='unconfigured'||value.tax_result_available!==false||value.scope!=='authorized_sources'||typeof value.writes_allowed!=='boolean')throw new ApiError('Der Vorjournalstatus konnte nicht sicher geladen werden.',502);
+  return value;
+}
+export function accountingPage(value,offset=0,events=false) {
+  if(!Array.isArray(value?.items)||value.scope!=='authorized_sources'||!Number.isSafeInteger(value.total)||value.total<value.items.length||value.items.length>25||
+      !(value.next_offset===null||(Number.isSafeInteger(value.next_offset)&&value.next_offset>offset&&value.next_offset<=100000&&value.next_offset<value.total))||
+      (events&&value.tax_result_available!==false))throw new ApiError('Diese Vorjournalliste konnte nicht vollständig geprüft werden. Bitte erneut laden.',502);
+  return value;
+}
+
 function purchaseDecimal(value) {
   const text=decimalText(value),negative=text.startsWith('-'),[whole,fraction='']=text.replace(/^-/,'').split('.');
   return {text,scaled:BigInt(whole+fraction.padEnd(4,'0'))*(negative?-1n:1n)};
@@ -380,7 +458,7 @@ const LABELS = {draft:'Entwurf',final:'Festgeschrieben',signed:'Unterzeichnet',n
   receipt:'Zahlungseingang',refund:'Erstattung',material:'Material',labor:'Lohn',service:'Leistung',machine:'Maschine',
   operational:'Operativ',financial:'Finanziell',personnel:'Personal',restricted:'Geschützt'};
 const api = new OfficeApi();
-const state = {section:'overview', projectId:'', tab:'overview', user:null, projects:[], permissions:new Set(), globalPermissions:new Set(), capabilities:new Set(), features:new Set(), organization:null, openedHiddenSection:null, readonly:true, planning:{mode:'week',anchor:dateInput(),years:3}, render:0, urls:new Set(), deviceId:'browser-'+requestId()};
+const state = {financeTab:'payments',accounting:{tab:'events',payments:0,receipts:0,events:0,accounts:0},section:'overview', projectId:'', tab:'overview', user:null, projects:[], permissions:new Set(), globalPermissions:new Set(), capabilities:new Set(), features:new Set(), organization:null, openedHiddenSection:null, readonly:true, planning:{mode:'week',anchor:dateInput(),years:3}, render:0, urls:new Set(), deviceId:'browser-'+requestId()};
 let root, main, shell, banner, modal;
 const has = permission => state.permissions.has(permission);
 const canWrite = (permission,section=state.section) => has(permission) && !state.readonly && organizationModuleEnabled(section,state.organization);
@@ -486,7 +564,9 @@ function mutation(key,path,data) {
     throw new ApiError('Dieser Bereich ist fachlich deaktiviert. Neue Vorgänge benötigen die Aktivierung in den Unternehmenseinstellungen.',423);
   return api.mutate(key,biz(path),data);
 }
+function accountingRights(status=null) { return accountingAccess({permissions:[...state.globalPermissions],capabilities:[...state.capabilities],features:[...state.features],readonly:state.readonly},state.organization,status); }
 function sectionAuthorized(section) {
+  if(section==='finance'&&accountingRights().read)return true;
   if(ORGANIZATION_AREAS.some(([name])=>name===section))return organizationAreaAuthorized(section,state.permissions,state.capabilities);
   return ({contacts:has('contacts.read'),planning:has('planning.read'),finance:has('finance.read'),material:has('inventory.read')||has('finance.read'),
     personnel:has('time.own')||has('personnel.read'),settings:has('settings.manage'),inquiries:state.metadata?.can_read_inquiries===true,documents:has('documents.read')||has('finance.read')})[section]??true;
@@ -535,11 +615,12 @@ async function startSession() {
   if(!state.projects.some(project=>project.id===state.projectId))state.projectId='';
   state.section='overview'; buildShell(); await refresh();
 }
-function endSession() { api.clear();photoUploads.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
+function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();photoUploads.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
 function buildShell() {
   root.replaceChildren(); shell=el('div',{class:'shell'});
   const nav=el('nav',{class:'navigation','aria-label':'Hauptnavigation'},NAV.filter(([id])=>sectionAllowed(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id)},el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label)));
   const hidden=organizationHiddenAreas(state.organization,state.permissions,state.capabilities);
+  if(state.organization?.modules?.finance?.visible===false&&accountingRights().read&&!hidden.includes('finance'))hidden.push('finance');
   if(hidden.length)nav.append(el('details',{},el('summary',{class:'nav-button'},'Weitere Bereiche'),
     NAV.filter(([id])=>hidden.includes(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,
       'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id,{includeHidden:true})},
@@ -560,6 +641,9 @@ function updateDrawer() {
 function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
 function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
 function operationLabel(path) {
+  if(path.startsWith('/business/accounting/accounts'))return 'Geldkonto bestätigen';
+  if(path.startsWith('/business/accounting/events/import-payment'))return 'Bestehende Zahlung verknüpfen';
+  if(path.startsWith('/business/accounting/events/payout'))return 'Tatsächliche Auszahlung bestätigen';
   if(path.startsWith('/business/portal/')&&path.endsWith('/revoke'))return 'Portalzugang widerrufen';
   if(path.startsWith('/business/portal/')&&path.endsWith('/adopt'))return 'Annahme in Auftragsentwurf übernehmen';
   if(path.startsWith('/business/portal/'))return 'Kundenportalzugang freigeben';
@@ -593,13 +677,13 @@ async function refresh() {
     const [caps,projects,metadata]=await Promise.all([api.get(biz('/capabilities')),api.get('/projects'),api.get(biz('/overview'))]);
     if(version!==state.render||generation!==api.generation)return;
     const organization=organizationMetadata(caps),organizationChanged=JSON.stringify(state.organization)!==JSON.stringify(organization);
-    const navigationChanged=organizationChanged||state.metadata?.can_read_inquiries!==metadata.can_read_inquiries||JSON.stringify(state.projects)!==JSON.stringify(collection(projects));
+    const navigationChanged=organizationChanged||[...state.globalPermissions].sort().join('|')!==[...(caps.permissions||[])].sort().join('|')||state.metadata?.can_read_inquiries!==metadata.can_read_inquiries||JSON.stringify(state.projects)!==JSON.stringify(collection(projects));
     state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.organization=organization;state.readonly=caps.readonly!==false;state.projects=collection(projects);state.metadata=metadata;
-    if(organizationChanged)closeModal();
+    if(organizationChanged||(!accountingRights().read&&modal?.querySelector('[data-accounting-detail]')))closeModal();
     if(state.projectId&&!state.projects.some(project=>project.id===state.projectId)){state.projectId='';state.tab='overview';closeModal();}
     let effective=state.globalPermissions;
     if(state.projectId) {
-      const profile=await api.get(biz(`/projects/${state.projectId}/profile`));
+      const profile=await api.get(state.section==='finance'?query(biz('/capabilities'),{project_id:state.projectId}):biz(`/projects/${state.projectId}/profile`));
       if(version!==state.render||generation!==api.generation)return;
       effective=new Set(profile.permissions||state.globalPermissions);
     }
@@ -911,7 +995,13 @@ function confirmDialog(title,message,confirm) {
   dialog(title,el('div',{},el('p',{},message),el('div',{class:'actions'},button('Abbrechen',()=>closeModal()),submit),error));
 }
 function table(headers,body) { return el('div',{class:'table-scroll'},el('table',{},el('thead',{},el('tr',{},headers.map(header=>el('th',{},header)))),el('tbody',{},body.map(values=>el('tr',{},values.map(value=>el('td',{},value))))))); }
+function accountingTab(label,active,onClick) { return el('button',{type:'button',class:'tab','aria-pressed':active,onClick},label); }
 async function financeView() {
+  if(!has('finance.read')&&accountingRights().read)state.financeTab='accounting';
+  const tabs=el('div',{class:'tabs','aria-label':'Finanzbereiche'},has('finance.read')?accountingTab('Zahlungen & offene Posten',state.financeTab==='payments',()=>{state.financeTab='payments';refresh();}):null,accountingTab('EÜR-Vorbereitung',state.financeTab==='accounting',()=>{state.financeTab='accounting';refresh();}));
+  return el('div',{class:'stack'},tabs,state.financeTab==='accounting'?await accountingContent():await financePaymentsView());
+}
+async function financePaymentsView() {
   const [open,payments,outbox]=await Promise.all([api.get(query(biz('/finance/open-items'),{project_id:state.projectId})),api.get(biz('/finance/payments')),api.get(biz('/finance/outbox'))]);
   const invoices=collection(open);
   return el('div',{class:'stack'},heading('Finanzen','Bestätigte Zahlungen und offene Posten. Ein Freigabeschritt ersetzt keinen Versandnachweis.',canWrite('finance.write','finance')?[button('Zahlung erfassen',()=>paymentDialog(invoices),'primary')]:[]),
@@ -925,6 +1015,116 @@ function paymentDialog(invoices) {
 }
 function dunningDialog(items) {
   dialog('Mahnvorschläge',rows(items,item=>row(item.number||item.document_id,`${item.buyer?.name||''} · Offen ${formatMoney(item.open)} · Stufe ${item.level}`,[button('Freigeben',()=>confirmDialog('Mahnung freigeben','Empfänger, Betrag und Text prüfen. Ein Auftrag wird zur Zustellung vorbereitet; diese Ansicht behauptet keine versendete Nachricht.',async()=>{await mutation('dunning-approve-'+item.id,`/finance/dunning/proposals/${item.id}/approve`,{confirmation:true});refresh();}),'small')]),'Aktuell gibt es keine geeigneten Mahnvorschläge.'));
+}
+
+async function accountingAction(callback) {
+  const generation=api.generation,previous=modal,render=state.render;
+  try { return await callback(); }
+  catch(error) {
+    if(generation!==api.generation||previous!==modal||render!==state.render)return;
+    if([403,404].includes(error.status)){closeModal();await refresh();}
+    if(generation===api.generation)showError(error);
+  }
+}
+async function accountingSave(editor,generation,key,path,data) {
+  try {
+    const result=await mutation(key,path,data);
+    if(generation!==api.generation||!editor.isConnected)return undefined;
+    return result;
+  } catch(error) {
+    if(generation!==api.generation||!editor.isConnected)return undefined;
+    if([403,404].includes(error.status)) {
+      closeModal();await refresh();if(generation===api.generation)showError(error);return undefined;
+    }
+    throw error;
+  }
+}
+const ACCOUNT_KINDS={bank:'Bankkonto',cash:'Barkasse',payment_service:'Zahlungsdienst'};
+const ACCOUNTING_BLOCKS={paid:'Vollständig ausgezahlt',review_changed:'Prüfung nach Auszahlung geändert – Klärung erforderlich',duplicate_original:'Original bereits anderweitig gebunden – Klärung erforderlich'};
+const ACCOUNTING_REASONS={tax_profile_unconfigured:'Steuerprofil nicht eingerichtet',refund_origin_unresolved:'Ursprünglicher Erstattungsbezug ungeklärt'};
+function accountingPaging(key,page) {
+  const offset=state.accounting[key],controls=[];
+  if(offset>0)controls.push(button('Vorherige Seite',()=>{state.accounting[key]=Math.max(0,offset-25);refresh();},'small'));
+  if(page.next_offset!==null)controls.push(button('Weitere Einträge',()=>{state.accounting[key]=page.next_offset;refresh();},'small'));
+  return el('div',{class:'actions'},el('span',{class:'caption'},`${page.items.length?offset+1:0}–${page.items.length?offset+page.items.length:0} von ${page.total} freigegebenen Einträgen`),controls);
+}
+function accountingDirection(item) { return item.direction==='out'?(item.kind==='refund'?'Erstattung / Abfluss':'Abfluss'):'Zufluss'; }
+async function accountingContent() {
+  const content=el('div',{class:'stack accounting'},heading('EÜR-Vorbereitung','Belegte Geldflüsse vorbereiten. Keine vollständige EÜR und keine Steuerberechnung.'),
+    notice('Nur freigegebene Quellen. Der Projektfilter wird hier nicht angewendet. Diese Ansicht belegt keine vollständige Unternehmenssicht.'));
+  const initial=accountingRights();
+  if(!initial.available){content.append(notice('Dieser Server bietet das EÜR-Vorjournal noch nicht an. Vorhandene Zahlungen bleiben im Bereich „Zahlungen & offene Posten“ verfügbar.'));return content;}
+  if(!initial.read){content.append(notice('Für die EÜR-Vorbereitung sind die globalen Rechte accounting.read und finance.read erforderlich. Projektbezogene Freigaben reichen nicht aus.'));return content;}
+  const [rawStatus,accountResponse]=await Promise.all([api.get(biz('/accounting/status')),api.get(biz('/accounting/accounts'))]);
+  const status=accountingStatus(rawStatus),rights=accountingRights(status);
+  if(!Array.isArray(accountResponse?.items))throw new ApiError('Geldkonten konnten nicht sicher geladen werden.',502);
+  const accounts=accountResponse.items;
+  content.append(notice('Profil und Steuerstatus: nicht eingerichtet. Alle Geldflüsse bleiben steuerlich ungeklärt. Es werden keine steuerlichen Summen oder Gewinne berechnet.'));
+  if(!status.writes_allowed)content.append(notice('Neue Vorgänge sind im aktuellen Betriebszustand gesperrt. Bestehende Nachweise bleiben lesbar; Betriebsmodus, Finanzmodul und gegebenenfalls Wiederherstellungsabgleich prüfen.','warn'));
+  content.append(el('div',{class:'tabs','aria-label':'Vorjournalbereiche'},[['events','Vorjournal'],['payments','Kundenzahlungen'],['receipts','Auszahlungen'],['accounts','Geldkonten']].map(([key,label])=>accountingTab(label,state.accounting.tab===key,()=>{state.accounting.tab=key;refresh();}))));
+  const tab=state.accounting.tab,offset=state.accounting[tab];
+  if(tab==='accounts') {
+    const items=accounts.slice(offset,offset+25),page={items,total:accounts.length,next_offset:offset+25<accounts.length?offset+25:null};
+    content.append(panel('Geldkonten',el('p',{class:'muted'},'EUR-Konten dienen der Zuordnung belegter Geldflüsse. Hier wird keine Bankverbindung eingerichtet.'),rights.admin?button('Geldkonto anlegen',()=>accountingAccountDialog(null),'primary'):null,
+      rows(items,account=>row(`${account.code} · ${account.name}`,`${ACCOUNT_KINDS[account.kind]||account.kind} · EUR · Version ${account.revision}`,[badge(account.active?'Aktiv':'Inaktiv'),rights.admin?button('Konto bearbeiten',()=>accountingAccountDialog(account),'small'):null])),accountingPaging(tab,page)));return content;
+  }
+  const path=tab==='events'?'/accounting/events':`/accounting/sources/${tab}`;
+  const page=accountingPage(await api.get(query(biz(path),{limit:25,offset})),offset,tab==='events');
+  if(tab==='events')content.append(panel('Vorjournal',rows(page.items,event=>row(`Nr. ${event.sequence} · ${accountingDirection(event)} · ${formatMoney(event.amount)}`,
+    `${formatDate(event.cash_date)} · ${event.account.code} / ${event.account.name} (Version ${event.account.revision}) · ${event.evidence_reference}`,
+    [badge('Steuerlich ungeklärt'),button('Nachweis ansehen',()=>accountingAction(()=>accountingEventDialog(event.id)),'small')]),'Noch keine Geldflüsse verknüpft oder bestätigt.'),accountingPaging(tab,page)));
+  if(tab==='payments')content.append(panel('Vorhandene Kundenzahlungen',el('p',{class:'muted'},'Bestehende bestätigte Zahlungseingänge und Erstattungen übernehmen. Betrag und Richtung stammen unverändert aus der Quelle; es wird keine neue Kundenzahlung angelegt.'),
+    rows(page.items,source=>row(`${accountingDirection(source)} · ${formatMoney(source.amount)}`,`${formatDate(source.booking_date)} · ${source.reference||source.source_id} · Nicht zugeordnet ${formatMoney(source.unallocated)}`,
+      [source.linked_event_id?button('Verknüpften Geldfluss ansehen',()=>accountingAction(()=>accountingEventDialog(source.linked_event_id)),'small'):rights.prepare?button('Bestehende Zahlung verknüpfen',()=>accountingCashDialog('payment',source,accounts),'primary'):badge('Noch nicht verknüpft')],`${source.allocations.length} Rechnungszuordnung${source.allocations.length===1?'':'en'}`),'Keine freigegebenen bestätigten Kundenzahlungen vorhanden.'),accountingPaging(tab,page)));
+  if(tab==='receipts')content.append(panel('Auszahlungen auf geprüfte Eingangsbelege',el('p',{class:'muted'},'Bereits tatsächlich geleistete Teil- oder Restzahlungen mit Beleg und Konto bestätigen. Diese Aktion löst keine Überweisung aus.'),
+    rows(page.items,source=>row(`${source.vendor} · ${source.invoice_number}`,`${formatDate(source.issue_date)} · Brutto ${formatMoney(source.gross)} · Ausgezahlt ${formatMoney(source.paid_amount)} · Verbleibend ${formatMoney(source.remaining_amount)}`,
+      [button('Original ansehen',()=>accountingAction(()=>download(biz(`/finance/receipts/${source.receipt_id}/original`),source.filename)),'small'),rights.prepare&&source.payable?button('Auszahlung bestätigen',()=>accountingCashDialog('receipt',source,accounts),'primary'):null,badge(ACCOUNTING_BLOCKS[source.blocked_reason]||(source.payable?'Zur Bestätigung verfügbar':'Gesperrt'))],`Prüfversion ${source.review_revision} · Auszahlungsstand ${source.cash_revision}`),'Keine freigegebenen geprüften EUR-Eingangsbelege vorhanden.'),accountingPaging(tab,page)));
+  return content;
+}
+function accountingAccountDialog(account) {
+  const generation=api.generation;
+  const fields=account?[field('name','Kontoname','text',account.name,{required:true,maxLength:200}),field('active','Konto für neue Geldflüsse aktiv','checkbox',account.active)]:[
+    field('code','Stabiler Kontocode','text','',{required:true,maxLength:40,help:'Buchstaben, Ziffern, Bindestrich oder Unterstrich. Später unveränderlich.'}),field('name','Kontoname','text','',{required:true,maxLength:200}),field('kind','Kontoart','select','bank',{options:Object.entries(ACCOUNT_KINDS),required:true})];
+  fields.push(field('confirmation','Ich bestätige diese Kontofassung.','checkbox',false,{required:true}));
+  const editor=form('',fields,async(values,key)=>{
+    return accountingSave(editor,generation,key,account?`/accounting/accounts/${account.id}`:'/accounting/accounts',accountingAccountData(account,values));
+  },{key:account?'accounting-account-'+account.id:'accounting-account-new',submit:account?'Kontofassung speichern':'Geldkonto anlegen',description:account?`${account.code} · ${ACCOUNT_KINDS[account.kind]} · EUR · Version ${account.revision}. Änderungen gelten für neue Vorgänge. Historische Geldflüsse behalten ihre bestätigte Kontofassung.`:'Keine Bankanbindung. Das Konto wird aktiv mit Währung EUR angelegt.'});
+  editor.dataset.accountingDetail='true';
+  dialog(account?'Geldkonto bearbeiten':'Geldkonto anlegen',editor);
+}
+function accountingSourceDetails(kind,source) {
+  const content=el('div',{class:'stack break-word'},el('p',{},kind==='payment'?`${accountingDirection(source)} · ${formatMoney(source.amount)} · Ursprüngliches Buchungsdatum ${formatDate(source.booking_date)} · ${source.reference||source.source_id}`:
+    `${source.vendor} · ${source.invoice_number} · Brutto ${formatMoney(source.gross)} · Prüfversion ${source.review_revision}`));
+  if(kind==='receipt')content.append(button('Original ansehen',()=>accountingAction(()=>download(biz(`/finance/receipts/${source.receipt_id}/original`),source.filename)),'small'),el('p',{class:'caption'},`Original SHA-256: ${source.original_sha256} · Prüfung SHA-256: ${source.review_sha256}`));
+  else content.append(rows(source.allocations,allocation=>row(allocation.number,`Zugeordnet ${formatMoney(allocation.amount)}`,[button('Rechnungs-PDF ansehen',()=>accountingAction(()=>download(biz(`/documents/${allocation.document_id}/pdf`),`${allocation.number}.pdf`)),'small')]),'Keine Rechnungszuordnung vorhanden.'),el('p',{},`Nicht zugeordnet: ${formatMoney(source.unallocated)}`));
+  return content;
+}
+function accountingCashDialog(kind,source,accounts) {
+  const active=accounts.filter(account=>account.active&&account.currency==='EUR'),generation=api.generation;
+  if(!active.length){dialog('Aktives Geldkonto erforderlich',notice('Zuerst unter „Geldkonten“ ein aktives EUR-Konto durch eine Person mit accounting.admin einrichten lassen.'));return;}
+  const fields=[field('account_id','Geldkonto','select','',{options:[['','Bitte ausdrücklich auswählen'],...active.map(account=>[account.id,`${account.code} · ${account.name} · Version ${account.revision}`])],required:true}),
+    field('cash_date','Tatsächlicher Geldflusstag','date','',{required:true}),field('evidence_reference','Geldfluss-Nachweisreferenz','text','',{required:true,maxLength:200,help:'Stabile Referenz dieses tatsächlichen Geldflusses auf dem gewählten Konto. Je Konto nur einmal verwendbar.'})];
+  if(kind==='receipt')fields.push(field('amount','Tatsächlich ausgezahlter Betrag EUR','decimal','',{required:true,help:`Verbleibend ${formatMoney(source.remaining_amount)}. Höchstens zwei Nachkommastellen; keine Rundung.`}),field('reference','Verwendungszweck','text','',{maxLength:1000}));
+  fields.push(field('confirmation',kind==='payment'?'Ich habe Quelle, Konto, Geldflusstag und Nachweis geprüft.':'Ich bestätige den tatsächlich geleisteten Geldabfluss mit diesem Beleg und Konto.','checkbox',false,{required:true}));
+  const editor=form('',fields,async(values,key)=>{
+    const account=active.find(item=>item.id===values.account_id),data=kind==='payment'?accountingPaymentData(source,account,values):accountingPayoutData(source,account,values);
+    return accountingSave(editor,generation,key,kind==='payment'?'/accounting/events/import-payment':'/accounting/events/payout',data);
+  },{key:`accounting-${kind}-${kind==='payment'?source.payment_id:source.receipt_id}`,submit:kind==='payment'?'Geprüfte Zahlung verknüpfen':'Tatsächliche Auszahlung bestätigen',
+    description:'Nur bestätigte Geldflüsse erfassen. Eine verlorene Antwort unter „Antworten offen“ unverändert wiederholen. Diese Wiederholung bewahrt die ursprüngliche Kontofassung und Prüfversion. Ein neuer Vorgang benötigt die aktuellen Fassungen.',
+    extra:accountingSourceDetails(kind,source)});
+  editor.dataset.accountingDetail='true';
+  dialog(kind==='payment'?'Bestehende Zahlung verknüpfen':'Auszahlung bestätigen',editor);
+}
+async function accountingEventDialog(id) {
+  const generation=api.generation,render=state.render,previous=modal,event=await api.get(biz(`/accounting/events/${id}`));
+  if(generation!==api.generation||render!==state.render||previous!==modal)return;
+  if(event.classification_status!=='unclassified'||!Array.isArray(event.unresolved_reasons))throw new ApiError('Geldflussnachweis konnte nicht sicher geladen werden.',502);
+  dialog(`Geldfluss Nr. ${event.sequence}`,el('div',{class:'stack','data-accounting-detail':'true'},notice('Steuerlich ungeklärt. Dieser Nachweis ist kein Steuerergebnis.'),
+    el('p',{},`${accountingDirection(event)} · ${formatMoney(event.amount)} · ${formatDate(event.cash_date)}`),el('p',{},`Konto: ${event.account.code} / ${event.account.name} · Version ${event.account.revision}`),
+    el('p',{},`Nachweisreferenz: ${event.evidence_reference}`),event.reference?el('p',{},`Verwendungszweck: ${event.reference}`):null,
+    el('p',{},event.unresolved_reasons.map(reason=>ACCOUNTING_REASONS[reason]||reason).join(' · ')),
+    panel('Bestätigte Quellfassung',accountingSourceDetails(event.source.kind,event.source.snapshot),el('p',{class:'caption'},`Quelle SHA-256: ${event.source.source_hash}`)),
+    el('p',{class:'caption'},`Erfasst ${formatDate(event.created_at,true)}. Spätere Konto- oder Prüfänderungen ändern diesen Nachweis nicht.`)));
 }
 
 async function materialView() { return el('div',{class:'stack'},heading('Material','Bestellungen, Lieferungen, Bestände und nachvollziehbare Entnahmen.'),await materialContent(state.projectId)); }
@@ -1292,10 +1492,13 @@ async function settingsView() {
 }
 async function permissionsDialog() {
   const [grants,users]=await Promise.all([api.get(biz('/settings/permissions')),api.get('/users')]);
-  const permissions=['contacts.read','contacts.write','projects.manage','documents.read','documents.write','documents.classify','finance.read','finance.write','finance.issue','finance.approve','personnel.read','personnel.manage','time.own','time.approve','inventory.read','inventory.write','settings.manage','privacy.manage',...(state.capabilities.has('business_portal')?['portal.manage']:[])];
-  dialog('Fachrechte',el('div',{class:'stack'},form('Freigabe / Sperre',[field('user_id','Benutzer','select','',{options:options(collection(users),user=>user.email),required:true}),field('permission','Fachrecht','select','documents.read',{options:permissions.map(name=>[name,name])}),field('scope','Geltungsbereich','select','*',{options:[['*','Alle freigegebenen Projekte'],...options(state.projects)]}),field('effect','Entscheidung','select','allow',{options:[['allow','Erlauben'],['deny','Sperren']]})],
-    (data,key)=>mutation(key,'/settings/permissions',{...data,revision:collection(grants).find(grant=>grant.user_id===data.user_id&&grant.permission===data.permission&&grant.scope===data.scope)?.revision||0}),{key:'grant-new',description:'Eine Projektfreigabe wird dadurch nicht ersetzt. Sperren gelten serverseitig auch bei wiederholten Anfragen.'}),
-    panel('Vorhandene Entscheidungen',rows(collection(grants),grant=>row(collection(users).find(user=>user.id===grant.user_id)?.email||grant.user_id,`${grant.permission} · ${grant.scope==='*'?'Global':state.projects.find(project=>project.id===grant.scope)?.name||grant.scope}`,[badge(grant.effect==='allow'?'Freigegeben':'Gesperrt')])))));
+  const permissions=['contacts.read','contacts.write','projects.manage','documents.read','documents.write','documents.classify','finance.read','finance.write','finance.issue','finance.approve','personnel.read','personnel.manage','time.own','time.approve','inventory.read','inventory.write','settings.manage','privacy.manage',...(state.capabilities.has('business_portal')?['portal.manage']:[]),...(state.capabilities.has('business_accounting')?['accounting.read','accounting.prepare','accounting.admin']:[])];
+  const editor=form('Freigabe / Sperre',[field('user_id','Benutzer','select','',{options:options(collection(users),user=>user.email),required:true}),field('permission','Fachrecht','select','documents.read',{options:permissions.map(name=>[name,name])}),field('scope','Geltungsbereich','select','*',{options:[['*','Global / alle freigegebenen Projekte'],...options(state.projects)]}),field('effect','Entscheidung','select','allow',{options:[['allow','Erlauben'],['deny','Sperren']]})],
+    (data,key)=>{const scope=data.permission.startsWith('accounting.')?'*':data.scope;return mutation(key,'/settings/permissions',{...data,scope,revision:collection(grants).find(grant=>grant.user_id===data.user_id&&grant.permission===data.permission&&grant.scope===scope)?.revision||0});},
+    {key:'grant-new',description:'Accounting-Rechte gelten ausschließlich global und benötigen zusätzlich global finance.read. Quellrechte und Projektzuweisungen bleiben erforderlich. Sperren gelten auch bei Wiederholungen.'});
+  const permission=editor.controls.get('permission').input,scope=editor.controls.get('scope').input;
+  permission.addEventListener('change',()=>{scope.disabled=permission.value.startsWith('accounting.');if(scope.disabled)scope.value='*';});
+  dialog('Fachrechte',el('div',{class:'stack'},editor,panel('Vorhandene Entscheidungen',rows(collection(grants),grant=>row(collection(users).find(user=>user.id===grant.user_id)?.email||grant.user_id,`${grant.permission} · ${grant.scope==='*'?'Global':state.projects.find(project=>project.id===grant.scope)?.name||grant.scope}`,[badge(grant.effect==='allow'?'Freigegeben':'Gesperrt')])))));
 }
 async function adapterDialog() {
   const response=await api.get(biz('/adapters'));

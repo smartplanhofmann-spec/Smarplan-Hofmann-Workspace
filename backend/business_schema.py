@@ -28,7 +28,7 @@ STORAGE_VERSION = 7
 LEGACY_VERSION = 6
 MODULE_NAMES = tuple('business_' + name for name in (
     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
-    'inventory', 'maintenance', 'adapters', 'organization', 'instance', 'purchasing', 'portal'))
+    'inventory', 'maintenance', 'adapters', 'organization', 'instance', 'purchasing', 'portal', 'accounting'))
 CONTROL_TABLES = frozenset((
     'business_schema_state', 'business_schema_migrations', 'business_schema_events',
     'business_feature_flags', 'business_privacy_anchors', 'business_device_grants', 'business_restore_state',
@@ -490,17 +490,89 @@ def apply_runtime_privileges(office):
     connection.execute('GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO "smartplan-online"')
 
 
-def reconcile_financial_restore(office, evidence, evidence_sha256):
-    """Explicit operator-only reconciliation; never changes archives or counters.
+def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name):
+    """Common validation inside an already authorized exclusive transaction.
 
-    The report binds this exact restore and declares the externally reviewed
-    issuance horizon. Missing issued documents must first be recovered, not
-    papered over by resetting/inventing a counter.
+    The caller hashes the actual report bytes. External payment/source review
+    remains an explicit operator attestation, not an inference from DB hashes.
+    This helper grants no actor identity and is not an HTTP operation.
     """
-    if _sqlite(office):
-        raise Problem(409, 'Finanzabgleich benötigt den geschützten PostgreSQL-Operatorpfad.')
     if not isinstance(evidence_sha256, str) or not re.fullmatch(r'[a-f0-9]{64}', evidence_sha256):
         raise ValueError('Valid evidence hash required')
+    value = state(office)
+    if value['restore_pending']:
+        raise Problem(409, 'Datenschutzprüfung vor Finanzfreigabe abschließen.')
+    accounting_installed = 'business_accounting' in value.get('read_capabilities', [])
+    fields = {'schema', 'restore_id', 'reviewed_by', 'reviewed_at', 'number_horizons', 'outbound_reconciled'}
+    if accounting_installed:
+        fields |= {'accounting_horizon', 'accounting_reconciled', 'accounting_external_review'}
+    if (not isinstance(evidence, dict) or set(evidence) != fields
+            or type(evidence.get('schema')) is not int or evidence['schema'] != (2 if accounting_installed else 1)
+            or evidence['restore_id'] != value['restore_id'] or evidence['outbound_reconciled'] is not True
+            or not isinstance(evidence['reviewed_by'], str) or not 1 <= len(evidence['reviewed_by'].strip()) <= 200):
+        raise ValueError('Review report must bind this restore, reviewer and all required financial scopes')
+    try:
+        reviewed = datetime.fromisoformat(evidence['reviewed_at'])
+    except (TypeError, ValueError):
+        raise ValueError('Valid review timestamp required') from None
+    if reviewed.tzinfo is None or reviewed.timestamp() > datetime.now(timezone.utc).timestamp() + 300:
+        raise ValueError('Valid review timestamp required')
+    horizons = evidence['number_horizons']
+    if not isinstance(horizons, list) or len(horizons) > 10000:
+        raise ValueError('Bounded reviewed number horizons required')
+    supplied = {}
+    for item in horizons:
+        if (not isinstance(item, dict) or set(item) != {'company_id', 'series', 'year', 'last_value'}
+                or not isinstance(item['company_id'], str) or not isinstance(item['series'], str)
+                or type(item['year']) is not int or type(item['last_value']) is not int or item['last_value'] < 0):
+            raise ValueError('Invalid reviewed number horizon')
+        key = item['company_id'], item['series'], item['year']
+        if key in supplied:
+            raise ValueError('Duplicate reviewed number horizon')
+        supplied[key] = item['last_value']
+    if accounting_installed:
+        horizon = evidence['accounting_horizon']
+        counts = {'accounts_count', 'account_versions_count', 'cash_events_count', 'source_links_count', 'max_sequence'}
+        external = evidence['accounting_external_review']
+        if (evidence['accounting_reconciled'] is not True or not isinstance(horizon, dict)
+                or set(horizon) != counts | {'schema_version', 'sha256'}
+                or type(horizon['schema_version']) is not int or horizon['schema_version'] != 1
+                or any(type(horizon[key]) is not int or horizon[key] < 0 for key in counts)
+                or not isinstance(horizon['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', horizon['sha256'])
+                or not isinstance(external, dict) or set(external) != {'reviewed_since_backup', 'evidence_sha256', 'note'}
+                or external['reviewed_since_backup'] is not True
+                or not isinstance(external['evidence_sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', external['evidence_sha256'])
+                or not isinstance(external['note'], str) or not 1 <= len(external['note'].strip()) <= 2000):
+            raise ValueError('Reviewed accounting horizon and independent source/payment evidence required')
+    previous = office.db.execute('SELECT * FROM business_financial_reconciliations WHERE restore_id=?', (value['restore_id'],)).fetchone()
+    if not value['financial_reconciliation_required']:
+        if previous and previous['evidence_sha256'] == evidence_sha256:
+            # A previously committed report remains the same receipt even if
+            # legitimate new financial events followed its successful release.
+            return {'reconciled': True, 'generation': previous['generation']}
+        raise Problem(409, 'Keine offene Finanzfreigabe oder abweichender bereits bestätigter Nachweis.')
+    if previous:
+        raise Problem(409, 'Restore-Identität wurde bereits finanziell freigegeben.')
+    expected = {(row['company_id'], row['series'], row['year']): row['next_value'] - 1
+                for row in office.db.execute('SELECT * FROM business_document_counters').fetchall()}
+    if supplied != expected:
+        raise Problem(409, 'Ausgestellte Nummern fehlen oder sind nicht vollständig abgeglichen; Originalbelege zuerst wiederherstellen.')
+    if accounting_installed:
+        from business_accounting import restore_horizon
+        if evidence['accounting_horizon'] != restore_horizon(office):
+            raise Problem(409, 'Wiederhergestellte Geldfluss- und Quellenstände sind nicht vollständig abgeglichen.')
+    validate_integrity(office)
+    generation = office.db.execute('SELECT COALESCE(MAX(generation),0)+1 FROM business_financial_reconciliations').fetchone()[0]
+    office.db.execute('INSERT INTO business_financial_reconciliations(generation,restore_id,evidence_sha256,operator_name,reviewed_by,at) VALUES(?,?,?,?,?,?)',
+                     (generation, value['restore_id'], evidence_sha256, operator_name, evidence['reviewed_by'].strip(), reviewed.isoformat()))
+    office.db.execute('UPDATE business_restore_state SET financial_reconciliation_required=0 WHERE singleton=1')
+    return {'reconciled': True, 'generation': generation}
+
+
+def reconcile_financial_restore(office, evidence, evidence_sha256):
+    """PostgreSQL operator only; never changes archives, counters or cash events."""
+    if _sqlite(office):
+        raise Problem(409, 'Finanzabgleich benötigt den geschützten PostgreSQL-Operatorpfad.')
     with _transaction(office):
         who = office.db.execute('SELECT current_user AS current_name,session_user AS session_name').fetchone()
         if who['session_name'] != 'postgres' or who['current_name'] not in ('postgres', 'smartplan-migrator'):
@@ -508,47 +580,30 @@ def reconcile_financial_restore(office, evidence, evidence_sha256):
         clients = office.db.execute("SELECT COUNT(*) FROM pg_stat_activity WHERE datname=current_database() AND backend_type='client backend' AND pid<>pg_backend_pid()").fetchone()[0]
         if clients:
             raise Problem(409, 'Finanzabgleich benötigt vollständig gestoppte Datenbanknutzer.')
-        value = state(office)
-        if value['restore_pending']:
-            raise Problem(409, 'Datenschutzprüfung vor Finanzfreigabe abschließen.')
-        fields = {'schema', 'restore_id', 'reviewed_by', 'reviewed_at', 'number_horizons', 'outbound_reconciled'}
-        if (not isinstance(evidence, dict) or set(evidence) != fields or evidence.get('schema') != 1
-                or evidence['restore_id'] != value['restore_id'] or evidence['outbound_reconciled'] is not True
-                or not isinstance(evidence['reviewed_by'], str) or not 1 <= len(evidence['reviewed_by'].strip()) <= 200):
-            raise ValueError('Review report must bind this restore, reviewer and outbound reconciliation')
-        reviewed = datetime.fromisoformat(evidence['reviewed_at'])
-        if reviewed.tzinfo is None or reviewed.timestamp() > datetime.now(timezone.utc).timestamp() + 300:
-            raise ValueError('Valid review timestamp required')
-        horizons = evidence['number_horizons']
-        if not isinstance(horizons, list) or len(horizons) > 10000:
-            raise ValueError('Bounded reviewed number horizons required')
-        expected = {(row['company_id'], row['series'], row['year']): row['next_value'] - 1
-                    for row in office.db.execute('SELECT * FROM business_document_counters').fetchall()}
-        supplied = {}
-        for item in horizons:
-            if (not isinstance(item, dict) or set(item) != {'company_id', 'series', 'year', 'last_value'}
-                    or not isinstance(item['company_id'], str) or not isinstance(item['series'], str)
-                    or type(item['year']) is not int or type(item['last_value']) is not int or item['last_value'] < 0):
-                raise ValueError('Invalid reviewed number horizon')
-            key = item['company_id'], item['series'], item['year']
-            if key in supplied:
-                raise ValueError('Duplicate reviewed number horizon')
-            supplied[key] = item['last_value']
-        if supplied != expected:
-            raise Problem(409, 'Ausgestellte Nummern fehlen oder sind nicht vollständig abgeglichen; Originalbelege zuerst wiederherstellen.')
-        validate_integrity(office)
-        previous = office.db.execute('SELECT * FROM business_financial_reconciliations WHERE restore_id=?', (value['restore_id'],)).fetchone()
-        if not value['financial_reconciliation_required']:
-            if previous and previous['evidence_sha256'] == evidence_sha256:
-                return {'reconciled': True, 'generation': previous['generation']}
-            raise Problem(409, 'Keine offene Finanzfreigabe oder abweichender bereits bestätigter Nachweis.')
-        if previous:
-            raise Problem(409, 'Restore-Identität wurde bereits finanziell freigegeben.')
-        generation = office.db.execute('SELECT COALESCE(MAX(generation),0)+1 FROM business_financial_reconciliations').fetchone()[0]
-        office.db.execute('INSERT INTO business_financial_reconciliations(generation,restore_id,evidence_sha256,operator_name,reviewed_by,at) VALUES(?,?,?,?,?,?)',
-                         (generation, value['restore_id'], evidence_sha256, who['session_name'], evidence['reviewed_by'].strip(), reviewed.isoformat()))
-        office.db.execute('UPDATE business_restore_state SET financial_reconciliation_required=0 WHERE singleton=1')
-        return {'reconciled': True, 'generation': generation}
+        return _reconcile_financial_report(office, evidence, evidence_sha256, who['session_name'])
+
+
+def reconcile_local_financial_restore(office, evidence, evidence_sha256, *, application_stopped=False):
+    """Explicit local OS-operator path, separate from ordinary application APIs.
+
+    BEGIN EXCLUSIVE serializes writers. In WAL mode readers may remain; the
+    required stopped-application attestation is not a process-discovery claim.
+    The caller opens an existing SQLite file directly, without Office/migration.
+    """
+    if not _sqlite(office) or application_stopped is not True:
+        raise Problem(409, 'Lokale SQLite-Datei und ausdrücklich bestätigter vollständiger App-/Serverstopp erforderlich.')
+    with office.lock:
+        if office.db.in_transaction:
+            raise Problem(409, 'Lokaler Finanzabgleich benötigt eine eigene exklusive Transaktion.')
+        operator_name = 'sqlite-local-uid:' + str(os.geteuid()) if hasattr(os, 'geteuid') else 'sqlite-local-os-operator'
+        try:
+            office.db.execute('BEGIN EXCLUSIVE')
+            result = _reconcile_financial_report(office, evidence, evidence_sha256, operator_name)
+            office.db.commit()
+            return result
+        except BaseException:
+            office.db.rollback()
+            raise
 
 
 _PRIVACY_VARIABLES = ('SMARTPLAN_PRIVACY_CHECKPOINT_FILE', 'SMARTPLAN_PRIVACY_CHECKPOINT_KEY_FILE',

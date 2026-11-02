@@ -22,7 +22,8 @@ PERMISSIONS = frozenset(('contacts.read', 'contacts.write', 'projects.manage',
     'finance.write', 'finance.issue', 'finance.approve', 'personnel.read',
     'personnel.manage', 'personnel.write', 'personnel.approve', 'personnel.export',
     'planning.read', 'planning.write', 'planning.override', 'time.own', 'time.approve',
-    'inventory.read', 'inventory.write', 'privacy.manage', 'settings.manage', 'portal.manage'))
+    'inventory.read', 'inventory.write', 'privacy.manage', 'settings.manage', 'portal.manage',
+    'accounting.read', 'accounting.prepare', 'accounting.admin'))
 _DEFAULTS = {
     'manager': {'contacts.read', 'contacts.write', 'projects.manage', 'documents.read',
                 'documents.write', 'planning.read', 'planning.write', 'inventory.read', 'time.own'},
@@ -233,6 +234,8 @@ class BusinessFoundation:
             raise Problem(400, 'Ungültige Fachberechtigung')
         if scope != '*':
             _id(scope)
+            if permission.startswith('accounting.'):
+                raise Problem(400, 'Buchhaltungsrechte werden ausschließlich global vergeben')
         revision = _integer(data['revision'], 'Version')
         with _transaction(self.office):
             actor = self.authorize(actor, 'settings.manage')

@@ -46,6 +46,9 @@ class NativePackageTests(unittest.TestCase):
             backend.mkdir()
             for name in release.BACKEND_FILES:
                 shutil.copyfile(release.ROOT / 'backend' / name, backend / name)
+            for name in release.OPERATOR_FILES:
+                (bundle / name).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(release.ROOT / name, bundle / name)
             for name in ('Starten.cmd', 'Sicherung_erstellen.cmd', 'Sicherung_wiederherstellen.cmd', 'Run.cmd', 'START_HIER.txt'):
                 (bundle / name).write_text('Synthetic launcher')
             for name in ('Python_Umgebung_aktualisieren.cmd', 'Python_Umgebung_aktualisieren.py'):
@@ -101,6 +104,19 @@ class NativePackageTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, name):
                     release.check_windows(bundle, self.config, 'local')
                 shutil.copyfile(release.ROOT / 'backend' / name, bundle / 'backend' / name)
+
+    def test_local_package_requires_unchanged_restore_operator_and_instructions(self):
+        bundle = self.bundle('local')
+        for name in release.OPERATOR_FILES:
+            with self.subTest(omitted=name):
+                (bundle / name).unlink()
+                with self.assertRaisesRegex(ValueError, 'Betreiberdatei'):
+                    release.check_windows(bundle, self.config, 'local')
+                (bundle / name).write_bytes(b'Synthetic altered operator file')
+                with self.assertRaisesRegex(ValueError, 'Betreiberdatei'):
+                    release.check_windows(bundle, self.config, 'local')
+                shutil.copyfile(release.ROOT / name, bundle / name)
+        release.check_windows(bundle, self.config, 'local')
 
     def test_online_package_rejects_missing_native_storage_library_and_local_startup(self):
         bundle = self.bundle('online')
@@ -279,6 +295,7 @@ class NativePackageTests(unittest.TestCase):
         with zipfile.ZipFile(archive) as stream:
             expected = {'Smartplan_Windows_Start_und_Sicherung/backend/' + name for name in support.BACKEND_FILES}
             expected.update('Smartplan_Windows_Start_und_Sicherung/' + name for name in support.WINDOWS_FILES)
+            expected.update('Smartplan_Windows_Start_und_Sicherung/' + name for name in support.OPERATOR_FILES)
             expected.add('Smartplan_Windows_Start_und_Sicherung/QUELLPAKET_HINWEIS.txt')
             self.assertEqual(set(stream.namelist()), expected, 'Package must contain only the explicit source/launcher whitelist')
             stream.extractall(self.directory / 'unpacked')
@@ -295,6 +312,9 @@ class NativePackageTests(unittest.TestCase):
                         'office = Office("synthetic-package.db")\n'
                         'office.db.close()'],
                        cwd=self.directory / 'unpacked/Smartplan_Windows_Start_und_Sicherung/backend',
+                       check=True, timeout=15, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.run([str(python), '-E', 'scripts/reconcile-accounting-restore.py', '--help'],
+                       cwd=self.directory / 'unpacked/Smartplan_Windows_Start_und_Sicherung',
                        check=True, timeout=15, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 

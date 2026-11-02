@@ -501,3 +501,187 @@ Er trennt vorhandene Kundenzahlungen, Eingangsoriginale und Prüfexporte von
 einem noch zu entwickelnden Journal. Als erstes folgt Quellen-/Geldfluss-
 erfassung; Zuordnung, Korrekturen, Perioden und Beraterpaket bauen darauf auf.
 Der Plan ist Dokumentation und kein neuer Funktions- oder Testnachweis.
+
+## 02.11.2026 – E1a: belegte EUR-Geldflüsse
+
+Auf Basis `060246b` ergänzt das additive Modul `business_accounting` sechs
+eigene Tabellen für Geldkonten/Versionen, Geldflüsse, Quellenbeziehungen,
+Originalbindungen und Anfragequittungen. Alte Kundenzahlungen, Zuordnungen,
+Belegoriginale, finale Archive und historische Schemachecksummen bleiben
+unverändert. [Bedienung und Betreiberablauf](CRM_ERP_EUER_BETRIEB.md) sowie
+[API-Vertrag](CRM_ERP_EUER_E1A_API.md) halten den tatsächlichen Umfang fest.
+
+Die bestätigte Nutzervorgabe bleibt **Einzelunternehmen mit EÜR**; reguläre
+Mitarbeiter und Minijobs gehören zum späteren Lohnmodul. Umsatzsteuerstatus und
+Übernahmegrenze sind weiterhin offen. E1a berechnet weder Steuern noch Gewinn
+oder eine Jahres-EÜR. Alle Geldflüsse bleiben steuerlich ungeklärt; bestehende
+Refunds ohne ursprüngliche Erstattungsreferenz erhalten einen eigenen offenen
+Klärungsgrund. R08.05 ist teilweise umgesetzt, seine vollständige Abnahme offen.
+
+### Verhalten und Schutz der Historie
+
+Versionierte EUR-Geldkonten können ausdrücklich angelegt, umbenannt und
+deaktiviert werden. Eine bestehende Kundenzahlung lässt sich genau einmal
+lesend übernehmen. Manuelle Auszahlungen verweisen auf ein geprüftes
+Eingangsoriginal und eine konkrete Prüfversion. Teil-/Restauszahlungen werden
+über alle Konten und Benutzer gemeinsam gegen den geprüften Bruttobetrag
+begrenzt. Ein identisches Original unter anderer Beleg-ID eröffnet keine
+zweite Zahlungskapazität. Geldflüsse lösen keine Überweisung aus und verändern
+keinen bisherigen offenen Posten.
+
+Anfragen binden bestätigte Quellenhashes, Originale, Kontoversionen und
+Auszahlungsstände. Nach unklarer Übertragungsantwort liefert dieselbe Anfrage
+den bestätigten historischen Geldfluss zurück, auch nach späterer legitimer
+Kontenumbenennung/Deaktivierung oder erneuter Belegprüfung. Frische Rechte,
+Quellenintegrität und Betriebssperren gelten weiterhin. Neue Vorgänge prüfen
+aktuelle Versionen; eine geänderte Belegprüfung nach erster Auszahlung bleibt
+bis zur späteren fachlichen Klärung gesperrt. Originalbytes und archivierte
+Dokumente werden tatsächlich gegen ihre Nachweise geprüft.
+
+Globale Accountingrechte und globales `finance.read` sind zusätzlich zu den
+bisherigen Quell-/Projektrechten erforderlich. Neue Mitarbeiterdefaults oder
+projektbezogene Accountingfreigaben gibt es nicht. Bei mehrprojektigen
+Zahlungen muss die gesamte Quelle berechtigt sein. Verborgene Einträge werden
+weder teilweise angezeigt noch in Trefferzahlen verraten. Die Ansicht
+kennzeichnet „Nur freigegebene Quellen“, ohne Projektfilter oder Behauptung
+einer vollständigen Unternehmenssicht.
+
+SQLite erhält additive Konfliktguards auch für die alten Finanzquellen, sodass
+`INSERT OR REPLACE` deren Unveränderlichkeit nicht umgehen kann. PostgreSQL
+verwendet getrennte Runtime-/Migrationsrollen und die vorhandene gemeinsame
+Transaktionssperre. Ein Fehler nach Einfügen eines Geldflusses rollt auch
+Quellenbindung, Anfragequittung und Audit zurück.
+
+### Wiederherstellung und Paketierung
+
+Ein tatsächlicher lokaler SQLite-Restore setzt nun ebenfalls eine frische
+Restore-ID und Finanzsperre. PostgreSQL erhält den bestehenden Datenschutz-/
+Operatorablauf. Bei installiertem Accountingmodul verlangt der Finanzabgleich
+Schema 2 mit exakt passendem Accountinghorizont und einer gesonderten
+Bestätigung des unabhängig geprüften Zeitraums seit der Sicherung. Ein aus
+derselben Sicherung berechneter Hash ersetzt keinen externen Zahlungsabgleich.
+
+Die lokale CLI öffnet nur vorhandene Dateien, erzeugt keine Tabellen und
+migriert keine Altstände. `--inspect` liest einen konsistenten Snapshot und
+erteilt keine Freigabe. Die getrennte Freigabe verlangt einen privaten,
+eindeutigen JSON-Bericht sowie den ausdrücklich bestätigten App-/Serverstopp;
+sie speichert den Hash der tatsächlich gelesenen Berichtsbytes. Die
+Schreibtransaktion schützt gegen parallele Writer, beweist aber nicht die
+Abwesenheit von WAL-Leseprozessen. Fehlgeschlagene Prüfungen lassen die Sperre
+und Historie unverändert. Betreiberwerkzeug, Bedienungsanleitung und
+Schema-2-Vertrag sind im lokalen Windows-/Supportmanifest enthalten.
+
+### Ausgeführte Backend-/Betriebsprüfungen
+
+| Gruppe | Ergebnis | Nachweis unter `work/verification/` |
+| --- | --- | --- |
+| E1a-Domäne/Migration | 19 bestanden, 3,633 s | `accounting-domain.log` |
+| Registrierung/Rechte/Capabilities | 4 bestanden | `accounting-registration.log` |
+| Unabhängige HTTP-/MFA-Journeys | 8 bestanden, 2,079 s | `accounting-http-journey.log` |
+| HTTP-/Restore-/Operator- und Bestandsregressionen | 41 bestanden, 8,043 s, davon 8 neue Operator-/Grenzfälle | `accounting-http-restore.log` |
+| Neue PostgreSQL-Abnahmefälle | 10 unterschiedliche Fälle bestanden, keine Skips | `pg-accounting-domain.log`, `pg-accounting-migration-rollback-restore.log` |
+| Bestehende PG-Release-/Restore-/Migrationsregressionen | 12 bestanden, 27,869 s | `pg-accounting-release-regression.log` |
+| Vollständiges Backend | 466 ausgeführt, 465 bestanden, 1 übersprungen, 78,854 s | `accounting-backend-full.log`; vorhandener Windows-Job-Object-Test auf Linux übersprungen |
+| Native-/Supportpaketquellen | 15 bestanden, 2,795 s | `accounting-native-release.log`; echte Paketentpackung, Backendimport und Betreiber-CLI-Aufruf, kein nativer Gerätebuild |
+
+Die Gruppen überschneiden sich und werden nicht als einzigartige Abnahmen
+addiert. HTTP verwendet Flask-HTTPS-Testclients mit echtem MFA und SQLite bzw.
+PostgreSQL, keinen neuen tatsächlichen TLS-/Hostingnachweis. PostgreSQL benutzt
+ausschließlich den synthetischen Loopbackbestand `smartplan_check`; tatsächliche
+Rechnungsausstellung unter Runtime-Policy, unabhängige Verbindungen/Races,
+SQL-Fehlerrollback, additive Migration und `pg_dump`/Restore sind enthalten.
+Das eigens erzeugte Restoreziel wurde anschließend entfernt.
+
+Zwei anfängliche PostgreSQL-Fehler betrafen ausschließlich neue Testfixtures:
+falsche Protokollart und falscher Eigentümer einer zur Fehlerauslösung angelegten
+Triggerfunktion. Die betroffenen Fälle bestanden nach Korrektur; produktive
+Rechte/Guards wurden nicht gelockert. Ein enger Domainfix übersetzt beschädigte
+gespeicherte Quellen in einen Integritätskonflikt 409; ungültige neue Eingaben
+bleiben 400, fehlende Quellenrechte 403/404. Eine eigene Regression prüft dies.
+
+### Browser, Flutter und unabhängiger Review
+
+Browser und Flutter ergänzen den globalen Einstieg „EÜR-Vorbereitung“ im
+Finanzbereich mit Geldkonten, Zahlungsquellen, Auszahlungen und Vorjournal.
+Alte Server ohne Feature werden nicht mit neuen Accountingrouten angesprochen;
+Offline-/Restore-/Modulsperren bleiben wirksam. Die Fachrechteeditoren bieten
+Accountingrechte nur global an. Kein neuer allgemeiner Hauptbereich oder
+Projektfilter behauptet eine vollständige Unternehmensbuchhaltung.
+
+Der unabhängige Review führte zu eng begrenzten Korrekturen: Ein bestätigter
+Quellenrechteentzug entfernt veraltete Browserdetails; ein verspäteter Fehler
+schließt keinen inzwischen neu geöffneten Dialog. Flutter bindet erneut
+geöffnete Formulare an den ursprünglichen vorgemerkten Vorgang und verwirft
+späte Abschlüsse nach Wechsel des Kontexts. Die tief kopierten Pendingwerte
+können den gespeicherten Befehl nicht verändern. Zwei Regressionen prüfen den
+erneut geöffneten Vorgang während einer laufenden Übertragung und die später
+eintreffende erste Quittung; es entsteht keine zweite Auszahlung. Einzeilige
+Verwendungszwecke und strikte Kalenderdaten entsprechen dem Serververtrag.
+
+Die gezielte Fluttergruppe besteht **38 Prüfungen**: 20 Accountingwidgets,
+einen echten HTTP-Ablauf, elf Fachrechte- und sechs Sessionfälle. Der vollständige
+Flutterlauf besteht **385 Tests ohne Skips** in rund 130 Sekunden
+(`e1a-flutter-full.log`).
+`flutter analyze` meldet keine Befunde (5,0 s). Nachweise:
+`e1a-flutter-targeted.log` und `e1a-flutter-analyze.log`. Der HTTP-Fall verwendet
+einen berechtigten Nicht-Owner, frische globale/Projekt-/Quellrechte, verlorene
+Antworten, spätere Konten-/Belegänderungen und unveränderte Altzahlungen.
+
+Die Browser-Unitgruppe besteht **81 Prüfungen**; der abschließende echte
+Chromiumlauf besteht **elf Arbeitsabläufe**, einschließlich des neuen E1a-Wegs
+und sämtlicher vorhandener Portal-/Einkaufs-/Kalender-/Dokumentationsabläufe.
+E1a prüft globale Rechte, alte Server, receipt/refund-Übernahme, bytegleiches
+Eingangsoriginal, Teil-/Restzahlung, verlorene Antwort, gesperrtes Modul,
+deaktivierte/historische Kontoversion, Rechteentzug und 390-px-Darstellung.
+Nachweise: `accounting-browser-unit.log`, `accounting-browser-e2e.log`.
+Namespace-, PID-, Netzwerk- und Seccomp-Sandbox wurden vor Zugriff live
+bestätigt. Der Browserlauf verwendet einen lokalen HTTP-Fixtureadapter für
+den bestehenden HTTPS-/Originvertrag; ein neuer realer TLS-Nachweis wird
+daraus nicht abgeleitet.
+
+Der erste funktional grüne Browserlauf zeigte bei visueller Prüfung einen
+versehentlich angehängten `null`-Text und zu schmale mobile Textspalten.
+Accountingzeilen stehen mobil nun untereinander; Screenshots warten auf eine
+vollständig geschlossene Sidebar. Der abschließende Gesamtlauf prüft beides
+zusätzlich, und Desktop-/Handyansicht unter `accounting-browser-previews/`
+wurden erneut visuell geprüft. Der erste Lauf bleibt als
+`accounting-browser-initial.log` erhalten. Ein Node-Aufruf ohne die erforderliche
+Umgebungsberechtigung für lokale Prozesse meldete nur einen fehlgeschlagenen
+Dateilauf; derselbe Aufruf mit der vorgesehenen Testberechtigung besteht alle
+81 Fälle. Keine Produktprüfung wurde dafür abgeschwächt.
+
+### Nächster Abschnitt und verbleibende Abnahmen
+
+Der [E1b-Entwurf](CRM_ERP_EUER_E1B_ENTWURF.md) ist ausdrücklich Planung. Er
+beschreibt elf konkrete Akzeptanzfälle für nachträgliche Quellenzuordnung,
+gemeinsame OP-Projektion, dokumentarische Centaufteilung und Erstattungsbezug.
+Neue Zuordnungen dürfen die vollständigen ursprünglichen Zahlungszuordnungen
+im E1a-Quellenhash nicht verändern. Die steuerliche Einordnung, E1c-Korrekturen/
+Perioden und E1d-Beraterpaket bleiben weitere Implementierung.
+
+R08.05 und die Abnahmen A–G bleiben insgesamt offen. Die Tests ersetzen keine
+fachliche Jahresabstimmung, steuerliche Freigabe, Bankanbindung, physische
+Windows-/iPhone-Abnahme oder Produktivinstallation. Das Originalziel bleibt
+bytegleich zum Upload mit SHA-256
+`a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5`.
+
+Der [E1a-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1A.json) speichert Ausgangscommit,
+Ergebnisse und Hashes der geprüften Code-/Testdateien. Die Rohprotokolle liegen
+unter dem ignorierten Verzeichnis `work/verification/`; Testquellen und
+zusammengefasste Ergebnisse sind versioniert. Reproduktion im Hauptverzeichnis:
+
+```sh
+PYTHONPATH=backend backend/.venv/bin/python -m unittest test_business_accounting test_accounting_registration -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_accounting_journey online.test_accounting_http -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_postgres_accounting_integration -v
+env -u SMARTPLAN_TEST_DSN PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest discover -s backend -v
+backend/.venv/bin/python -m unittest discover -s scripts -p test_native_release.py -v
+node --test web/office/tests/*.test.mjs
+node web/office/tests/e2e.cjs
+```
+
+Für PostgreSQL ausschließlich die synthetische lokale Test-DSN verwenden;
+Fixtures verweigern fremde bzw. vorhandene Restoreziele. Für Chromium gelten
+die oben dokumentierte Namespace-Sandbox, synthetische lokale Dienste und der
+Fixture-Pythonpfad. Flutteranalyse/-tests laufen im Verzeichnis `app` mit dem
+eingerichteten Flutter-/Pub-Cache und den vorhandenen PDF-Testbibliotheken.

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'business_accounting.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -207,6 +208,23 @@ class _BusinessFinancePageState extends State<BusinessFinancePage> {
             ],
           ),
           const SizedBox(height: 12),
+          if (businessAccountingReadable(widget.session))
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.account_balance_outlined),
+                title: const Text('EÜR-Vorbereitung'),
+                subtitle: const Text(
+                  'Belegte Geldflüsse · Nur freigegebene Quellen',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) =>
+                        BusinessAccountingPage(session: widget.session),
+                  ),
+                ),
+              ),
+            ),
           const Notice(
             'Mahnungen werden zuerst vorgeschlagen. Ohne ausdrückliche Freigabe wird nichts versendet. Zahlungen sind bestätigte Buchungen und keine bloßen Statusänderungen.',
           ),

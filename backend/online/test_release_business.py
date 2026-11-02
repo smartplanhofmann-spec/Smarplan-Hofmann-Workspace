@@ -408,6 +408,12 @@ class BusinessCandidateRelease(DocumentsFixture, unittest.TestCase):
                             number_horizons=[dict(company_id=row['company_id'], series=row['series'],
                                                   year=row['year'], last_value=row['next_value'] - 1)
                                              for row in office.db.execute('SELECT * FROM business_document_counters')])
+            if 'business_accounting' in business_schema.state(office)['read_capabilities']:
+                from business_accounting import restore_horizon
+                evidence.update(schema=2, accounting_horizon=restore_horizon(office), accounting_reconciled=True,
+                    accounting_external_review=dict(reviewed_since_backup=True,
+                        evidence_sha256=hashlib.sha256(b'Synthetic independent payment/source review').hexdigest(),
+                        note='Synthetic external sources since backup reviewed; no live financial activity.'))
             before = release.snapshot_fingerprint(base.CANDIDATE)
             wrong = {**evidence, 'number_horizons': [{**row, 'last_value': row['last_value'] + 1}
                                                     for row in evidence['number_horizons']]}

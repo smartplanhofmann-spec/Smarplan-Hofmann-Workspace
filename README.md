@@ -27,8 +27,11 @@ Die preisfreie Einkaufsartikelsuche und das erste
 Kundenzugänge, unveränderte Angebots-PDFs, ausdrückliche Annahme/Ablehnung und
 eine gesonderte interne Übernahme in einen Auftragsentwurf. Allgemeine
 Kundenkonten, Dateiaustausch und Projektfreigaben bleiben weitere Arbeit.
-Der [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md) konkretisiert als nächsten
-Finanzabschnitt ein belegtes Zahlungsjournal mit Zuordnung und Korrektur.
+Der erste EÜR-Baustein ergänzt [belegte EUR-Geldflüsse](docs/CRM_ERP_EUER_BETRIEB.md):
+versionierte Geldkonten, einmalige Übernahme bestehender Kundenzahlungen und
+begrenzte Teil-/Restauszahlungen auf geprüfte Eingangsbelege. Browser und Flutter
+zeigen Quellen und Klärungsfälle. Steuerliche Zuordnung, Korrekturen, Perioden
+und Beraterpaket folgen gemäß [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md).
 
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital
 unterschreibbares Protokoll geprüft. Weitergehende Test-/Betriebsbestätigungen

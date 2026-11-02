@@ -1,0 +1,215 @@
+{
+  "date": "2026-11-02",
+  "base_commit": "060246b7f1b19aa3d6c85dadfafe204130080fa1",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "scope": "E1a EUR cash provenance: versioned accounts, one-time read-only import of existing customer payments, confirmed partial supplier payouts bound to reviewed originals, explicit global and source rights, immutable replay, Browser/Flutter clients, local/PG restore reconciliation and packaged local operator. No tax computation, complete EÜR, payroll, external payment or production deployment.",
+  "results": {
+    "domain": {
+      "passed": 19,
+      "seconds": 3.633,
+      "log": "accounting-domain.log"
+    },
+    "registration": {
+      "passed": 4,
+      "log": "accounting-registration.log"
+    },
+    "independent_http_mfa": {
+      "passed": 8,
+      "skipped": 0,
+      "seconds": 2.079,
+      "transport": "Flask HTTPS test client, not a real TLS socket",
+      "log": "accounting-http-journey.log"
+    },
+    "http_restore_operator_regressions": {
+      "passed": 41,
+      "skipped": 0,
+      "new_boundary_operator_cases": 8,
+      "seconds": 8.043,
+      "log": "accounting-http-restore.log"
+    },
+    "postgres_accounting_and_existing_release": {
+      "status": "all_10_cases_passed",
+      "source": "backend/online/test_postgres_accounting_integration.py",
+      "fixture": "existing disposable synthetic PostgreSQL container, loopback port 55433, smartplan_check",
+      "unique_cases_passed": 10,
+      "remaining_failures": 0,
+      "skipped": 0,
+      "runs": [
+        {
+          "log": "pg-accounting-domain.log",
+          "executions": 9,
+          "passed": 7,
+          "fixture_errors": 2,
+          "elapsed_seconds": 12.582,
+          "resolved_errors": [
+            "Legacy report fixture requires kind Servicebericht.",
+            "Injected rollback trigger function must also be owned by smartplan-migrator; runtime proof correctly rejected the first fixture."
+          ]
+        },
+        {
+          "log": "pg-accounting-migration-rollback-restore.log",
+          "executions": 3,
+          "passed": 3,
+          "errors": 0,
+          "elapsed_seconds": 7.734,
+          "cases": [
+            "corrected prior-schema migration",
+            "corrected real SQL rollback",
+            "new real schema-2 disaster restore and reconciliation"
+          ]
+        }
+      ],
+      "coverage": [
+        "real productive invoice issuance policy under restricted PostgreSQL runtime, receipt/refund with all immutable allocation archive hashes",
+        "existing document/payment/incoming-original bytes and open items unchanged by prejournal imports",
+        "global accounting/finance access plus complete mixed-project source rights checked before reads and replays",
+        "frozen review/account revision replay, changed latest review blocks new payout, duplicate original does not create second payment capacity",
+        "separate connections: same payment across accounts, last remaining payout across accounts, same account revision",
+        "all six accounting tables: no runtime UPDATE/DELETE/TRUNCATE, no runtime DDL or migration role, migration-role immutable row triggers",
+        "database failure during source-link insertion atomically rolls back cash event, sequence, receipt and audit; unchanged retry succeeds",
+        "historical schema before accounting: real final invoice/PDF, payment/allocation, reviewed incoming original and signed legacy report survive additive migration twice",
+        "normal migration retains events and live write permission; true privileged dump/restore keeps history but requires new financial reconciliation",
+        "schema-2 accounting horizon and independently confirmed external-evidence fields enforced; operator-only approval and exact replay do not mutate accounting history; remaining sources imported once afterward"
+      ],
+      "non_test_databases_changed": false,
+      "disposable_source_database_reset": true,
+      "temporary_restore_target_removed": true,
+      "pg_test_database_available": true,
+      "limitations": [
+        "HTTP routing uses Flask test client with real PostgreSQL; transport/TLS tests are separate.",
+        "Synthetic EUR cash provenance remains unclassified; no tax computation, bank connection, XML validation or production fiscal approval is claimed."
+      ],
+      "existing_release_regression": {
+        "passed": 12,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "elapsed_seconds": 27.869,
+        "log": "pg-accounting-release-regression.log",
+        "selection": [
+          "online.test_release_business.BusinessCandidateRelease (10 cases)",
+          "online.test_release.CandidateRelease.test_restore_migrates_v1_without_changing_source_or_existing_rows",
+          "online.test_release.CandidateRelease.test_migration_failure_or_invalid_pdf_retains_original_database"
+        ],
+        "coverage": [
+          "updated schema-2 financial reconciliation evidence",
+          "privileged restore and independent privacy replay",
+          "actual runtime ownership/ACL/role separation",
+          "schema6 compatibility and candidate migration",
+          "repeated up/down keeps canonical rows and document numbers",
+          "old v1 migration and restore failure preservation"
+        ]
+      },
+      "total_unique_passed_with_regression": 22
+    },
+    "backend_full": {
+      "run": 466,
+      "passed": 465,
+      "skipped": 1,
+      "skip_reason": "Existing Windows job-object cleanup test on Linux",
+      "seconds": 78.854,
+      "log": "accounting-backend-full.log"
+    },
+    "native_package_sources": {
+      "passed": 15,
+      "seconds": 2.795,
+      "coverage": "Actual extracted support archive imports its own backend and runs packaged operator CLI; missing or altered operator files rejected. No native device/build acceptance.",
+      "log": "accounting-native-release.log"
+    },
+    "flutter_targeted": {
+      "passed": 38,
+      "widget": 20,
+      "real_http": 1,
+      "permissions": 11,
+      "session": 6,
+      "log": "e1a-flutter-targeted.log"
+    },
+    "flutter_full": {
+      "passed": 385,
+      "skipped": 0,
+      "seconds_approximate": 130,
+      "log": "e1a-flutter-full.log"
+    },
+    "flutter_analyze": {
+      "issues": 0,
+      "seconds": 5.0,
+      "log": "e1a-flutter-analyze.log"
+    },
+    "browser_unit": {
+      "passed": 81,
+      "skipped": 0,
+      "log": "accounting-browser-unit.log"
+    },
+    "browser_real_workflows": {
+      "passed": 11,
+      "transport": "Loopback HTTP fixture for existing HTTPS/Origin proxy contract; no new TLS acceptance claim",
+      "sandbox": [
+        "namespace",
+        "PID",
+        "network",
+        "seccomp"
+      ],
+      "visual_review": [
+        "desktop",
+        "390px mobile"
+      ],
+      "log": "accounting-browser-e2e.log"
+    }
+  },
+  "changed_code_and_packaged_contract_sha256": {
+    ".github/workflows/checks.yml": "f3133ba393c00ffb0a75c20e064f853b0bb3a953a37f1c5200a87ff50a1aeec8",
+    "app/lib/business_accounting.dart": "417e460ce2639322aca0c67f1e035a4808456741ae2cb482e0a8eebb1df60433",
+    "app/lib/business_finance.dart": "d7582f37518e811372d8b41397640b2748db5ce79865bbb12125b21b48db1696",
+    "app/lib/business_permissions.dart": "c9149ea78cdda33b4741d81088ad64e83c0060f000201f22cb9ea062cf076f27",
+    "app/lib/business_session.dart": "2854b5c695ec7eb2b83ea4816641c8da0d88bb3657fc38f3ddbef2b38142509b",
+    "app/lib/business_widgets.dart": "b106e5010eb41345e57596a6d11df17cb75f57db44209b1b176d86d90159c203",
+    "app/test/business_accounting_http_test.dart": "38d1c2a952915b5777f14dea6c86cd4a6aedbd3e1624fabf8fd1cc8612ed7c0a",
+    "app/test/business_accounting_test.dart": "179a896a5974f1bb87f2bac23c460bac833b8a8ffa49c6e2353b1eb92076c59b",
+    "app/test/business_permissions_test.dart": "50c403b51d4d6df000dfe64727c297e3671516ff9a923dc2ae30fcb894e7e037",
+    "backend/business_accounting.py": "d65aacd92df4a2eaa932b033f86841f3be90f6c23aa1c04e45c7bd9b616b84a2",
+    "backend/business_api.py": "2ee7ba1256f6d06cb8ef9ec7f966af289fe01599cf769087d0a1c7c9c9948a71",
+    "backend/business_foundation.py": "1242cc3eba4434edb540109b18fb765e6b69549b63a2ba3bb451141c628888c0",
+    "backend/business_organization.py": "c70a670335c6cfbb4882af4385e1f525fb24ea5ba21875b9365bf3023720f14c",
+    "backend/business_schema.py": "655a736c2b5ed7f55a7263bd8576c0e92fcfdcbb48d0e98d3cff1debae791dc2",
+    "backend/online/test_accounting_http.py": "cabcdadb23f69d186c56d829cf140ab8b25a312441d35ea9afc8db53a42e0cb9",
+    "backend/online/test_accounting_journey.py": "07dad148424576af5874b22ea653720db5f07c8312a75e270aca617ddded03eb",
+    "backend/online/test_postgres_accounting_integration.py": "21bc1b696c2985b458ee4329b9d525bb8bb8e5ee752370124b297551449c4e3a",
+    "backend/online/test_release_business.py": "c60bfefe85c998db01048efdb999f9a30b167cf4483a20685664841717d259e5",
+    "backend/restore.py": "225366c37aba7d7b339713726f2c08194d487d4ff15a4677e6177acfa8c0bacc",
+    "backend/test_accounting_registration.py": "d04e8af8093805c9428c69fc28d93253d5fde2b2078c0fb97290d527db866787",
+    "backend/test_business_accounting.py": "e4a30c6e47478dc502a3328058eee1add198f610d89bf3ccd7ea23877a6764cd",
+    "docs/CRM_ERP_EUER_BETRIEB.md": "aa11d8c5972dcd3cfed2bb4443d57637d77cbc5c97d2463d6c9941518504f174",
+    "docs/CRM_ERP_EUER_E1A_API.md": "71376e51d0e3288342c4f2953304f6b6d5e16dbec530b5a07cc687b9da2f01a3",
+    "scripts/native-release.py": "818cba60d4cee6d739436a7502c5b835e1a22f9c65d581cda45a7717caf5be34",
+    "scripts/package-windows-support.py": "da9ab846dad6b49cd00000ef69ad574770d7118ee577e567e5ffd8aa979518d3",
+    "scripts/reconcile-accounting-restore.py": "833d9b0f7e724ba7822bcc745ee5d4c4d98787cdcc974cfebc05b56a8db74252",
+    "scripts/test_native_release.py": "cb30eff9a46408b9ce1eb9d8aa7c3cf826c1cad733bdc3debc350633cabb61d9",
+    "web/office/office.css": "6c8057d8969ae54a11ef24ac62a9de3010970bb860c1fe29ec418d10425f9457",
+    "web/office/office.js": "eb7cd47d1014018367aa38b42c6ca89876a50a4f3cb0bfdf024dc5ed2b87da5d",
+    "web/office/tests/accounting-flow.cjs": "7ba08eadeeda4222b871113a9239560f951463d626f78ad1118088b478f683ea",
+    "web/office/tests/accounting.test.mjs": "1dc4ff7a746a0d7a1d09bb3b560f63e28ea23e90983de2378e73f0071f47f68c",
+    "web/office/tests/e2e.cjs": "5b716950ed1f047734d88517f774d9709feecdc217ae72d3caa6647712de6c7b",
+    "web/office/tests/serve_fixture.py": "4c4ae4a672854cca040f938d46fe38b93a5e339049f844a4605a7eaee96f0e41"
+  },
+  "log_sha256": {
+    "accounting-domain.log": "422687e37546030cbf1d45b80ee3a43b4c1a0ef3668d3389befa0cb381fc3e1b",
+    "accounting-registration.log": "3ec1e5e49a993fdea63661b9584269ad52a04fb2ddb31eddc3c57845a0002242",
+    "accounting-http-journey.log": "b4b01e6df2800bb1a6f974871fc8eb9385b25adf7b4cc5e11093286f2921ad96",
+    "accounting-http-restore.log": "e75401c3abe7e88bcee12254266a279e898f6827d6e5ca2c0bd6d15680e695e1",
+    "pg-accounting-domain.log": "4949047e3be71574bd002858f491e79e46e2e777bd1b9668408f6325519cf57c",
+    "pg-accounting-migration-rollback-restore.log": "0bcdcd75574e742be37c39b04750ecf99791816c589b67ba8090106df703a096",
+    "pg-accounting-release-regression.log": "d558775101da3819fb530a4070b690896a9292f998e98bc718113fc5b493c890",
+    "accounting-backend-full.log": "488cc87b63a46b29845ed9d2c3abb17816b48c4f3f7b80c035421f49bdbde193",
+    "accounting-native-release.log": "584793daa24fc3befc3e4f1a85cd80df12e79a97fd5388a64734d78846b70a1a",
+    "e1a-flutter-targeted.log": "ff38d93af00aa20698cb1c005baff405e26d29e2491ee174e867c57cdd6687fb",
+    "e1a-flutter-full.log": "28005583b140b25b829476e51c570cde383262e4d4d10646e0f4e6c99263ced7",
+    "e1a-flutter-analyze.log": "1140446f9744550bfb5f0764093421759df58fec6271d5efc0da82fba588868b",
+    "accounting-browser-unit.log": "f60894774002b2647f7b639f2c8991c45c8b54a117ba22733338943fc1c5215d",
+    "accounting-browser-e2e.log": "ac1f85f5d40e06c7dde694e488f2b856516858ddb7beefc8de703c4d88a2ddea"
+  },
+  "visual_sha256": {
+    "accounting-desktop.png": "849537d98df091915101bdb190dae3a5173f3b9b124e1b2e8d7bb236bb384802",
+    "accounting-mobile.png": "7f8c0b49ae759d33e2a152060d99adf9145c141e0fb283723405f3a324373e62"
+  },
+  "note": "Test groups overlap; do not add them as unique acceptance counts. Initial PG fixture errors were corrected and affected cases rerun; see embedded run history. Initial green browser flow still required visual fixes, then all 11 flows passed again. Unit invocation without required local-process environment permission failed at file level; identical test command with intended permission passed all 81. Logs/screenshots remain in ignored work/verification; versioned test sources, result summary and hashes are retained. All source data and service credentials used by tests are synthetic."
+}

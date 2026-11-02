@@ -20,13 +20,14 @@ BACKEND_FILES = ('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py
                  'business_documents.py', 'business_pricing.py', 'business_finance.py', 'business_einvoice.py', 'business_delivery.py',
                  'business_planning.py', 'business_time.py', 'business_operations.py',
                  'business_inventory.py', 'business_maintenance.py', 'business_adapters.py',
-                 'business_organization.py', 'business_instance.py', 'business_purchasing.py', 'business_portal.py',
+                 'business_organization.py', 'business_instance.py', 'business_purchasing.py', 'business_portal.py', 'business_accounting.py',
                  'requirements.lock')
 WINDOWS_DLLS = ('flutter_windows.dll', 'printing_plugin.dll', 'pdfium.dll', 'file_selector_windows_plugin.dll',
                 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll',
                 'url_launcher_windows_plugin.dll', 'share_plus_plugin.dll', 'pdfrx_pdfium_gate.dll',
                 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')
 OFFLINE_INSTALLER_FILES = ('Python_Umgebung_aktualisieren.cmd', 'Python_Umgebung_aktualisieren.py')
+OPERATOR_FILES = ('scripts/reconcile-accounting-restore.py', 'docs/CRM_ERP_EUER_BETRIEB.md', 'docs/CRM_ERP_EUER_E1A_API.md')
 
 
 def require(condition, message):
@@ -61,6 +62,8 @@ def source_checks(root=ROOT):
             'iPhone und iPad müssen in allen App-Konfigurationen enthalten sein.')
     for name in BACKEND_FILES:
         require((root / 'backend' / name).is_file(), f'Backend-Paketquelle fehlt: {name}')
+    for name in OPERATOR_FILES:
+        require((root / name).is_file(), f'Betreiber-Paketquelle fehlt: {name}')
     return {'version': release, 'visible_app_version': visible.group(1), 'default_build_number': build,
             'supported_devices': ['iPhone', 'iPad', 'Windows x64']}
 
@@ -99,6 +102,10 @@ def write_wheel_manifest(directory, root=ROOT):
 
 def local_backend(bundle, root=ROOT):
     directory = Path(bundle) / 'backend'
+    for name in OPERATOR_FILES:
+        packaged = Path(bundle) / name
+        require(packaged.is_file() and packaged.read_bytes() == (root / name).read_bytes(),
+                f'Betreiberdatei fehlt oder stimmt nicht mit der Quelle überein: {name}')
     for name in BACKEND_FILES:
         source, packaged = root / 'backend' / name, directory / name
         require(packaged.is_file() and packaged.read_bytes() == source.read_bytes(),

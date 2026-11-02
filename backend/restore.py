@@ -2,6 +2,7 @@
 import argparse
 from contextlib import closing
 import sqlite3
+import uuid
 from pathlib import Path
 
 from backup import backup
@@ -17,6 +18,14 @@ def restore(source, destination):
                 database.execute("DELETE FROM plan_sessions")
             from business_portal import sanitize_after_restore
             sanitize_after_restore(database)
+            if database.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='business_schema_state'").fetchone():
+                # A backup cannot establish which financial events occurred
+                # after it. Only the separate local operator command releases
+                # this fresh restore identity; a normal app login never does.
+                updated = database.execute('UPDATE business_restore_state SET '
+                    'financial_reconciliation_required=1,restore_id=? WHERE singleton=1', (uuid.uuid4().hex,))
+                if updated.rowcount != 1:
+                    raise ValueError('Vollständiger Business-Restorestand erforderlich.')
     except Exception:
         target.unlink(missing_ok=True)
         raise

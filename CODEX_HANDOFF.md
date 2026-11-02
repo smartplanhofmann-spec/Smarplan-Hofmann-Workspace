@@ -57,17 +57,23 @@ im [API-Vertrag](docs/CRM_ERP_PORTAL_API.md), ausgeführte Prüfungen im
 Fortschrittsbericht. Zugangsdaten bleiben von Office-/Offline-Tokens getrennt;
 eine echte Wiederherstellung widerruft Portalzugänge und erhält die Historie.
 Allgemeine Kundenkonten, Dateiaustausch, freigegebene Projektinformationen und
-Angebote vor der Projektanlage bleiben offen. EÜR und Lohn sind noch keine
-implementierten oder fachlich abgenommenen Module. Der Portalstand ist lokal
+Angebote vor der Projektanlage bleiben offen. Vollständige EÜR und Lohn sind
+noch nicht fachlich abgenommen. Der Portalstand ist lokal
 als `cb60561` gesichert; 442 Backendtests bestanden (ein Windows-Skip),
 362 Fluttertests, 72 Browser-Unitprüfungen und zehn echte Browserabläufe sind
 im Fortschritt mit zusätzlichen HTTP-/TLS-/PostgreSQL-Prüfungen belegt.
 
-Als nächster unabhängiger Fachabschnitt folgt der
-[EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md). E1a ergänzt ein belegtes EUR-Vorjournal,
+Der erste Fachabschnitt des [EÜR-Plans](docs/CRM_ERP_EUER_PLAN.md) ist entwickelt.
+E1a ergänzt ein belegtes EUR-Vorjournal,
 Geldkonten und eindeutige Quellenbeziehungen zu vorhandenen Kundenzahlungen
 sowie manuell bestätigten Auszahlungen. Keine automatische steuerliche
 Historienbuchung und keine Umdeutung des bisherigen DATEV-Prüfexports.
+Browser und Flutter bieten Geldkonten, Quellen und Vorjournal mit globalen
+Accountingrechten plus unveränderten Quellrechten. Lokaler Restore setzt
+ebenfalls eine Finanzsperre; [Betreiberablauf](docs/CRM_ERP_EUER_BETRIEB.md)
+und Schema-2-Nachweis verlangen unabhängigen Quellen-/Zahlungsabgleich.
+E1b ergänzt danach die Quellenzuordnung, ohne alte E1a-Quellensnapshots oder
+Zahlungszuordnungen umzuschreiben; Korrekturen, Perioden und Export folgen.
 Der Umsatzsteuerstatus wurde separat optional erfragt; bislang liegt keine
 Antwort vor. Ein unkonfiguriertes Profil darf die unabhängige Journalentwicklung
 nicht blockieren, erzeugt aber keine scheinbar vollständige Steuerabrechnung.

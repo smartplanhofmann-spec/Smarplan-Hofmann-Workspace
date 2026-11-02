@@ -5,6 +5,7 @@ contract. It is NOT a TLS acceptance test and is never used for deployment.
 Authentication, MFA, authorization, files and persistence remain the real code.
 """
 import argparse
+import base64
 from datetime import datetime, timezone
 import hashlib
 import io
@@ -28,6 +29,7 @@ from business_foundation import BusinessFoundation
 from business_operations import BusinessOperations
 from business_inventory import BusinessInventory
 from business_documents import Documents, render_prepared
+from business_finance import Finance
 from business_planning import Planning
 from business_organization import Organization
 from inquiries import Inquiries
@@ -50,6 +52,9 @@ def seed(office, directory):
     warehouse_email = 'warehouse@browser.example.test'
     actors['warehouse'] = dict(id=office.add_user(warehouse_email, PASSWORD, 'technician'),
                                email=warehouse_email, role='technician')
+    bookkeeper_email = 'bookkeeper@browser.example.test'
+    actors['bookkeeper'] = dict(id=office.add_user(bookkeeper_email, PASSWORD, 'accountant'),
+                                email=bookkeeper_email, role='accountant')
     owner, technician = actors['owner'], actors['technician']
     organization = Organization(office)
     settings = organization.get(owner)
@@ -66,9 +71,15 @@ def seed(office, directory):
     office.assign(owner, project, technician['id'])
     office.assign(owner, project, actors['accountant']['id'])
     office.assign(owner, project, actors['warehouse']['id'])
+    office.assign(owner, project, actors['bookkeeper']['id'])
     foundation = BusinessFoundation(office)
     foundation.save_grant(owner, request(user_id=actors['warehouse']['id'], permission='inventory.write',
                                         scope='*', effect='allow', revision=0))
+    for permission in ('accounting.read', 'accounting.prepare', 'accounting.admin'):
+        foundation.save_grant(owner, request(user_id=actors['bookkeeper']['id'], permission=permission,
+                                            scope='*', effect='allow', revision=0))
+    foundation.save_grant(owner, request(user_id=actors['bookkeeper']['id'], permission='documents.read',
+                                        scope=project, effect='deny', revision=0))
     status = foundation.save_status(owner, request(name='Ausführung', color='#2864da', position=0, terminal=False, active=True))
     initial=foundation.project(owner,project)
     foundation.save_project(owner, project, request(revision=initial['revision'],workspace_revision=initial['workspace_revision'],status_id=status['id'],site_address='Synthetic workshop, technical room',description='Synthetic browser acceptance project.'))
@@ -130,6 +141,24 @@ def seed(office, directory):
         final = documents.finalize(owner, draft['id'], render_prepared(prepared), uuid.uuid4().hex)
         original = directory / (final['id'] + '.pdf'); original.write_bytes(documents.archive(owner, final['id'], 'pdf'))
         portal_offers.append({'id': final['id'], 'title': title, 'number': final['number'], 'pdf_path': str(original)})
+    finance = Finance(office)
+    accounting_payments = []
+    for kind, amount in (('receipt', '119.00'), ('refund', '5.00')):
+        payment = finance.record_payment(owner, request(source_id='SYN-ACCOUNTING-' + kind,
+            kind=kind, amount=amount, currency='EUR', booking_date='2026-11-01',
+            reference='Synthetic accounting ' + kind, allocations=[]))
+        accounting_payments.append({'id': payment['id'], 'kind': kind})
+    accounting_receipts = []
+    for target, vendor, invoice in ((project, 'Synthetic accounting supplier', 'SYN-ACCT-001'),
+                                    (private, 'Private accounting supplier', 'SYN-PRIVATE-001')):
+        original = b'%PDF-1.4\nSynthetic accounting evidence ' + invoice.encode() + b'\n%%EOF'
+        receipt = finance.capture_receipt(owner, request(project_id=target, filename=invoice + '.pdf',
+            media_type='application/pdf', original_base64=base64.b64encode(original).decode(), note='Synthetic original'))
+        finance.review_receipt(owner, receipt['id'], request(revision=0, vendor=vendor, invoice_number=invoice,
+            issue_date='2026-11-01', net='100.00', tax='19.00', gross='119.00', currency='EUR',
+            status='reviewed', note='Synthetic confirmed supplier evidence'))
+        original_path = directory / (invoice + '.pdf'); original_path.write_bytes(original)
+        accounting_receipts.append({'id': receipt['id'], 'vendor': vendor, 'invoice': invoice, 'original_path': str(original_path)})
     # Explicit synthetic-only website source. No SMTP transport is configured;
     # form acceptance may queue one approved reply, never send one.
     os.environ['SMARTPLAN_WEBSITE_LEAD_SECRET']='SPLD_'+secrets.token_urlsafe(32)
@@ -142,7 +171,8 @@ def seed(office, directory):
     os.environ['SMARTPLAN_CONTACT_ADAPTER_ID']=adapter['id']
     adapters.approve_reply_template(owner,adapter['id'],request(revision=0,approved=True,enabled=True,subject='Ihre Anfrage',text='Guten Tag {sender_name}, die Anfrage ist eingegangen. Dies ist keine Auftragsbestätigung.'))
     office.db.commit()
-    return dict(project_id=project, private_project_id=private, photo_path=str(photo), portal_offers=portal_offers)
+    return dict(project_id=project, private_project_id=private, photo_path=str(photo), portal_offers=portal_offers, accounting_payments=accounting_payments,
+                accounting_receipts=accounting_receipts)
 
 
 class LoopbackProxyContract:

@@ -31,6 +31,9 @@ const businessPermissionLabels = <String, String>{
   'privacy.manage': 'Datenschutzvorgänge verwalten',
   'settings.manage': 'Facheinstellungen verwalten',
   'portal.manage': 'Angebotsportal verwalten',
+  'accounting.read': 'EÜR-Vorbereitung lesen',
+  'accounting.prepare': 'Geldflüsse im Vorjournal bestätigen',
+  'accounting.admin': 'Geldkonten verwalten',
 };
 
 const _roleLabels = {
@@ -58,8 +61,11 @@ class _BusinessPermissionsPageState extends State<BusinessPermissionsPage> {
       ready && !loading && widget.session.canWrite('settings.manage');
   Map<String, String> get permissions => {
     for (final entry in businessPermissionLabels.entries)
-      if (entry.key != 'portal.manage' ||
-          widget.session.hasFeature('offer_portal'))
+      if ((entry.key != 'portal.manage' ||
+              widget.session.hasFeature('offer_portal')) &&
+          (!entry.key.startsWith('accounting.') ||
+              (scope == '*' &&
+                  widget.session.hasFeature('accounting_prejournal'))))
         entry.key: entry.value,
   };
   Map<String, String> get userChoices => {
@@ -148,6 +154,8 @@ class _BusinessPermissionsPageState extends State<BusinessPermissionsPage> {
         !scopes.containsKey(targetScope) ||
         !permissions.containsKey(targetPermission))
       return;
+    if (targetPermission.startsWith('accounting.') && targetScope != '*')
+      return;
     final current = grants
         .where(
           (grant) =>
@@ -207,6 +215,14 @@ class _BusinessPermissionsPageState extends State<BusinessPermissionsPage> {
             throw const ApiException(
               403,
               'Das Angebotsportal ist auf diesem Server nicht freigegeben.',
+            );
+          }
+          if (targetPermission.startsWith('accounting.') &&
+              (targetScope != '*' ||
+                  !session.hasFeature('accounting_prejournal'))) {
+            throw const ApiException(
+              403,
+              'EÜR-Fachrechte benötigen die globale Freigabe dieses Funktionsstands.',
             );
           }
           final freshUsers = businessItems(
@@ -309,7 +325,10 @@ class _BusinessPermissionsPageState extends State<BusinessPermissionsPage> {
                   'Umfang',
                   scope,
                   scopes,
-                  (value) => setState(() => scope = value ?? '*'),
+                  (value) => setState(() {
+                    scope = value ?? '*';
+                    if (!permissions.containsKey(permission)) permission = null;
+                  }),
                 ),
                 const SizedBox(height: 16),
                 choice(
@@ -355,6 +374,10 @@ class _BusinessPermissionsPageState extends State<BusinessPermissionsPage> {
                           mayWrite &&
                               userChoices.containsKey(grant['user_id']) &&
                               scopes.containsKey(grant['scope']) &&
+                              (!'${grant['permission']}'.startsWith(
+                                    'accounting.',
+                                  ) ||
+                                  grant['scope'] == '*') &&
                               permissions.containsKey(grant['permission'])
                           ? () => edit(selected: grant)
                           : null,

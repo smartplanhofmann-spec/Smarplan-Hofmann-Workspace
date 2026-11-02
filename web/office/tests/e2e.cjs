@@ -118,6 +118,7 @@ async function main(){
     assert.equal(await page.locator('.navigation').getByRole('button',{name:'Personal',exact:true}).count(),1);
     console.log('browser: manual module visibility retained, hidden personnel opened by administrator, inactive history stayed readable and reactivation restored writes');
     await require('./portal-flow.cjs').portalFlow({page,context,navigate,ready,fixture,screenshots});
+    await require('./accounting-flow.cjs').accountingFlow({page,context,navigate,ready,login,fixture,screenshots});
     const {purchasingFlow,purchasingReadOnly,purchasingCatalogFlow}=require('./purchasing-flow.cjs');
     const purchaseOrderId=await purchasingFlow({page,context,navigate,ready,fixture,screenshots});
     await page.getByLabel('Aktuelles Projekt').selectOption(fixture.project_id);await ready(page);await navigate(page,'Einsatzplanung');
@@ -239,7 +240,7 @@ async function main(){
     await page.goto(fixture.base_url+'/office/');await login(page,'owner@browser.example.test',recovery[0]);await navigate(page,'Anfragen');assert.equal(await page.getByRole('heading',{name:'Synthetic public website inquiry',exact:true}).count(),1);
     assert.deepEqual(pageErrors,[]);await context.close();
     console.log('browser: public form had no bearer, lost acknowledgement retried one inquiry and reply remained pending');
-    console.log('10 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
+    console.log('11 real browser workflows passed (loopback transport fixture; TLS/Origin acceptance is separate)');
   }catch(error){
     console.error('SMARTPLAN_BROWSER_FAILURE_BEGIN');
     console.error(compactFailure(error));

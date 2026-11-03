@@ -1,6 +1,9 @@
 # E1b-3b: genaue Restkapazitäten nach Erstattungen – Entwurf
 
-Stand: 03.11.2026. **Entwurf, nicht implementiert und nicht getestet.**
+Stand: 03.11.2026. **Historischer Entwurf vor der Implementierung.**
+Die anschließend umgesetzte Fassung beschreibt der
+[API-Vertrag](CRM_ERP_EUER_E1B3B_API.md); tatsächlich ausgeführte Prüfungen und
+ihre Grenzen stehen im [Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json).
 Lesende Vorbereitung anhand von E1b-2 (`2261712`) und dem noch nicht separat
 committeten E1b-3a-Arbeitsstand. Dieser Text ist kein Implementierungsvertrag
 und kein Fertignachweis. Vor Entwicklung legt der Hauptagent den endgültigen

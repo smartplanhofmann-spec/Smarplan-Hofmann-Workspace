@@ -857,4 +857,3 @@ def dispatch(office, actor, path, method, data):
     if '_query' in data:
         raise Problem(400, 'Keine zusätzlichen Filter erlaubt')
     return getattr(api, action)(actor, event_id, data), (201 if action == 'confirm' else 200), 'application/json'
-

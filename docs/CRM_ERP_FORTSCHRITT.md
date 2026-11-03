@@ -1,8 +1,7 @@
 # CRM/ERP – Fortschritt und Testergebnisse
 
 Die Abschnitte sind chronologisch. Der letzte abgeschlossene Prüfstand steht
-unter **03.11.2026 – E1b-3a umgesetzt und geprüft**. Die anschließende
-Entwicklung von E1b-3b ist am Ende dieser Datei gesondert dokumentiert.
+unter **03.11.2026 – E1b-3b umgesetzt und geprüft** am Ende dieser Datei.
 Der erste Abschnitt gehört zum lokalen Commit `14fe4c9`, der zweite zu `64bdc26`.
 
 ## 02.11.2026 – Bestand, Integration und erste Entwicklung
@@ -1127,3 +1126,50 @@ nicht innerhalb der Frist. Der Test beobachtet nun den tatsächlichen
 unveränderten Client-Promise samt Ereignis-ID/Vorschauhash; Zeitgrenze und
 Prüfung gegen das Wiederöffnen eines veralteten Dialogs bleiben erhalten.
 Dieser erneute Lauf ist noch nicht als bestanden dokumentiert.
+
+
+## 03.11.2026 – E1b-3b umgesetzt und geprüft
+
+Der abschließende vollständige Browserlauf hat **alle 15 Abläufe bestanden**
+(Exit 0). Er umfasst die neue Wiederverwendung und die vorhandenen Bereiche
+von Anmeldung und Kundenportal bis Einkauf, Planung, Fotos, Unterschrift und
+Kontaktformular. Der Browser prüfte vor Anwendungszugriff Namespace-, PID-,
+Netzwerk- und Seccomp-Sandboxing. Die zwölf Dateien seines Quellmanifests
+blieben während des Laufs unverändert. Die gesonderte echte HTTPS-/MFA-Prüfung
+bleibt der oben angegebene 9/9-Nachweis.
+
+Auch die abschließende **Paketprüfung bestand 15/15 in 2,376 Sekunden**. Sie
+importiert das tatsächlich extrahierte Supportarchiv und prüft die aktuellen
+API-/Betreiberdateien. Das ersetzt keine Prüfung signierter Windows-/iPhone-
+Gerätepakete. Rohprotokolle: `accounting-capacity-browser-full.log` und
+`accounting-capacity-native-final.log` unter `work/verification/`.
+
+Zuvor bestand der gezielte Kapazitätsablauf nach den beschriebenen reinen
+Testkorrekturen. Ein nachfolgender vollständiger Lauf wurde durch einen
+weiteren Cloud-Ausfall unterbrochen; sein unvollständiges Protokoll bleibt als
+`accounting-capacity-browser-cloud-interrupted.log` erhalten und zählt nicht
+als Erfolg. Nach Wiederverbindung waren der Zwischencommit `79bfc35`, alle
+Änderungen und die 32 zuvor gebundenen Prüfprotokolle unverändert vorhanden.
+Der nun erfolgreiche vollständige Lauf wurde danach neu gestartet.
+
+Nach den Backend-/HTTP-/PostgreSQL-Prüfungen wurde im Kapazitätsmodul nur eine
+zusätzliche Leerzeile am Dateiende entfernt. Der genaue Bytevergleich und der
+identische Python-Syntaxbaum sind in
+`accounting-capacity-whitespace-boundary.json` festgehalten. Die früheren
+Quellhashes bleiben im Nachweis erhalten; Browser- und Paketabschluss verwenden
+den bereinigten Stand. Die bereits dokumentierten Grenzen des Flutter-
+Vollaufs und der zusammengesetzten PostgreSQL-Prüfung bleiben unverändert.
+
+Die abschließenden Desktop- und 390-Pixel-Aufnahmen wurden visuell geprüft.
+Der Dialog bleibt innerhalb der Ansicht und scrollt im Inhalt; Centbeträge
+und ausdrückliche Bestätigung sind erkennbar. Der echte Browserablauf prüft
+zusätzlich Hinweistext, Bedienung und erfolgreiche Bestätigung. Die
+Aufnahmen sind unter `accounting-capacity-browser-previews/` gespeichert.
+
+Der [Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json) bindet Code, tatsächlich
+bestandene Prüfungen, historische Versionsgrenzen und Protokollhashes. Die
+Zieldatei wurde erneut bytegleich mit dem Upload verglichen (23.863 Bytes,
+unveränderter SHA-256). E1b-3b ist damit im beschriebenen Umfang umgesetzt und
+geprüft. Neue C2-Lose sind weiterhin keine auswählbaren Erstattungsursprünge;
+das ist die nächste Entwicklung E1b-3c. Vollständige EÜR, Lohn, KI und alle
+Gesamtabnahmen A–G bleiben offen. Die Quote bleibt 28/62 ungewichtete Bausteine.

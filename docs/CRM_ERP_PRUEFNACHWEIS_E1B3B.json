@@ -1,6 +1,6 @@
 {
   "date": "2026-11-03",
-  "status": "awaiting_final_browser_and_package_checks",
+  "status": "increment_verified_with_recorded_version_boundaries",
   "base_commit": "2a8d6b9181575217a75d8bebab9500484e997cc3",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
   "scope": "E1b-3b: explicit atomic whole-invoice ownership and new whole receipt components using exact unused segment cents plus verified original R1 returns. Independent append-only C2 capacity evidence, full source authorization, exact original request replay across writers, Browser/Flutter, H5/schema6 restore. No new Finance/OP/cash effect, tax result or complete EÜR. New C2 lots remain unsupported refund origins until the next version.",
@@ -116,6 +116,28 @@
     "browser_after_copy_and_helper": {
       "passed": 21,
       "log": "accounting-capacity-node-copy-helper.log"
+    },
+    "actual_browser_targeted": {
+      "passed": 1,
+      "exit_code": 0,
+      "log": "accounting-capacity-browser-targeted.log",
+      "note": "Real complete capacity UI workflow with namespace/PID/network/seccomp sandboxing, exact cents, mixed writers, original pending paths, full source rights and 390px layout."
+    },
+    "native_package": {
+      "run": 15,
+      "passed": 15,
+      "seconds": 2.376,
+      "exit_code": 0,
+      "log": "accounting-capacity-native-final.log",
+      "note": "Includes import of the actually extracted support archive, source-only/offline distinctions and packaged current operator/API instructions. No signed Windows/iPhone device acceptance."
+    },
+    "actual_browser_full": {
+      "passed": 15,
+      "exit_code": 0,
+      "log": "accounting-capacity-browser-full.log",
+      "source_manifest": "accounting-capacity-browser-final-code.sha256",
+      "source_check": "accounting-capacity-browser-final-code-check.log",
+      "note": "Complete existing application regression plus capacity workflow; actual loopback HTTP and sandboxed Chromium. Independent TLS/Origin/MFA evidence is listed separately."
     }
   },
   "flutter_copy_boundary": {
@@ -171,7 +193,8 @@
     "historical_authorization": "Fixed an initial gap for unconsumed groups included in a later entry. Canonical access_segments_json includes every bound historical prior/new segment and is reconstructed exactly; full source permissions checked before history or replay.",
     "request_resolution": "Fixed deletion of accepted-but-unacknowledged commands after later transient409 gates. C1/C2 only mark request_resolution:not_accepted after a verified missing receipt and before writes; unmarked409 and permission/gate/transport failures retain the same pending command.",
     "time_and_capacity": "Unimported Finance refunds gate new release. Existing confirmed capacity remains usable. Exact dated carry is conservative, and an empty predecessor contributes no date bound.",
-    "remaining_confirmed_findings": 0
+    "remaining_confirmed_findings": 0,
+    "visual": "Final capacity desktop and390px screenshots inspected: readable desktop amount breakdown, dialog contained within each viewport and scrolling within its body. The full-page mobile capture is tall; successful actual controls/notice/confirmation are independently asserted by the browser flow."
   },
   "run_history": [
     "Initial HTTP66 and HTTPS8 runs preceded the two review fixes. The final67/9 security-relevant suites passed on unchanged final product sources.",
@@ -179,11 +202,15 @@
     "Initial14-case run passed12. Both failures occurred during construction of new multi-group invoice fixtures before capacity code: position title was supplied instead of required description.",
     "Only those two fixture position definitions were corrected (description and canonical HUR unit); both targeted cases passed. No product source was changed for those failures.",
     "Eight affected historical PostgreSQL migration/restore regressions then passed. No broader rerun was needed for the fixture-only change.",
-    "Initial full browser attempt failed because an old helper counted inputs before the new asynchronous legacy-editor loading had opened the editor. The helper now waits for that actual visible dialog; assertions unchanged. Final browser run is pending.",
+    "Initial full browser attempt failed because an old helper counted inputs before the new asynchronous legacy-editor loading had opened the editor. The helper now waits for that actual visible dialog; assertions unchanged. The corrected helper was exercised by the subsequent full browser attempts.",
     "Final Flutter preview copy documents the unsupported later refund origin for newly split amounts.31 affected widget tests and analysis passed after the text and one test-layout settlement change; the514-case full run is pinned to the earlier snapshot.",
     "The repeated full browser run reached the new capacity workflow, then exposed two missing accounting grants for its synthetic worker. Only the fixture grants were corrected; actual product authorization had correctly hidden the account view.",
-    "The targeted run then timed out on Playwright Response.finished for a held late preview. The test now observes the real OfficeApi.post promise, unchanged result/error, exact event ID and preview hash, while retaining bounded waits and the no-reopened-dialog assertion. The new targeted run is pending.",
-    "The managed environment temporarily became offline; after reconnection the existing working tree and evidence were present. This checkpoint is explicitly not the final browser/package acceptance."
+    "The targeted run then timed out on Playwright Response.finished for a held late preview. The test now observes the real OfficeApi.post promise, unchanged result/error, exact event ID and preview hash, while retaining bounded waits and the no-reopened-dialog assertion. The corrected targeted capacity workflow passed with a real client/server response.",
+    "The managed environment temporarily became offline; after reconnection the existing working tree and evidence were present. This checkpoint is explicitly not the final browser/package acceptance.",
+    "The targeted capacity browser workflow passed before the next full regression. All15 native package tests then passed in2.376s.",
+    "The following full browser regression was interrupted by a second cloud disconnect; its incomplete log is retained separately and is not counted as a pass. The existing working tree and all32 previously recorded evidence hashes survived unchanged. A new full run uses the unchanged12-file browser source manifest.",
+    "The only product-source change after the domain/backend/HTTP/PostgreSQL runs removed one extra blank line at EOF from business_accounting_capacity.py. Byte trimming and parsed AST equality were checked against checkpoint79bfc35. Current full browser and native-package checks use the cleaned file; earlier source hashes remain explicit.",
+    "The resumed full browser regression completed all15 workflows with exit0. All12 manifest source files remained byte-identical. The two final capacity screenshots were visually inspected. Native15 and this full browser result close the previously outstanding increment checks."
   ],
   "limitations": [
     "New C2 lots cannot yet be chosen as refund origins, including mixed C1/C2 refund portions. The preview explicitly states this limitation; complete repeated refund/reuse cycles are next work.",
@@ -206,7 +233,7 @@
     "app/test/business_accounting_capacity_test.dart": "2f7f68840857940b4309eaa3af2928da8522e4c139652008fba5885b40c9921d",
     "app/test/business_accounting_components_test.dart": "d0e5d1a6d13b956883681af85711bb04f8d6a2311cfb6d90f503877beea99909",
     "backend/accounting_component_segments.py": "24de42a70a9405fa9a3eda98fc8e536f9ba19be30cb5a67fd861247f41cfa30e",
-    "backend/business_accounting_capacity.py": "5e61f4a0c184bd89de3e46c7bc8ff4e4955fea159fa0ba8fdefcd2af0d1af672",
+    "backend/business_accounting_capacity.py": "75e9ce51668e13a64b9c81ea07ab7911652bef0fb49db50a51be9b21d6a7f0a6",
     "backend/business_accounting_components.py": "7c502d44521fc5e999eb260fddf3cd1b1a39e234550368ce50566dc6dd095e21",
     "backend/business_api.py": "020dfd6e56bbdd5080ff2f6d5443893e839a9d89dc674f00122445e04c0fa5f4",
     "backend/business_organization.py": "0f3ed5db017d46249ba71270533055087470637805a35a072a0e3f9151706ed6",
@@ -231,12 +258,12 @@
     "backend/test_business_accounting.py": "624c5af6790a9299a5c89c1bbfd5bc1f6109eac8c535804bd8fb925f0b579e85",
     "backend/test_business_accounting_allocations.py": "a3fccbf48ba04d156fa0c4d4651613ff819e260c048fe965fef0e05f865ee8bf",
     "backend/test_business_accounting_capacity.py": "9781f2821c9e086d0ca4543e44304657a1d962be655a4d0a4310e21fc0dff196",
-    "docs/CRM_ERP_EUER_BETRIEB.md": "cd614fd98e57216146449a8ed80e81439cb9b210738bb6e5ba7ba5d09c6cf555",
+    "docs/CRM_ERP_EUER_BETRIEB.md": "4005ca0f73e1304849d2ad30640d81fc705bebc0e461cbcc6fed738701862013",
     "docs/CRM_ERP_EUER_E1A_API.md": "757d949d15c3339f3024c6e4f8cae8f664ae0c6763edc71174cdd840b884507f",
     "docs/CRM_ERP_EUER_E1B1_API.md": "f083cb6ec2176597524154c36c301294f8a9c256dc85654625c3ae9c183d9706",
     "docs/CRM_ERP_EUER_E1B2_API.md": "5e1cb1405d74c1f308f09762221baae4685f64b549259c607df4750c04b737c1",
     "docs/CRM_ERP_EUER_E1B3A_API.md": "eabe0a105e3b308d0e28a7d1c587300b5a48055a01b628275b5b793753643f7b",
-    "docs/CRM_ERP_EUER_E1B3B_API.md": "0a1492e8d0434f0859084f2675ac9d30fff17d7d26c0bf412dfb493021edcbbc",
+    "docs/CRM_ERP_EUER_E1B3B_API.md": "498103e6dc063871ceb525016e8ae62337677e766e1dbde43a008648a77a5910",
     "scripts/native-release.py": "9d227bd7e02aaf142e70b2651a5897e36f145173af3cd64ecd107e707e5d2474",
     "scripts/package-windows-support.py": "8bf030b9a30e237e24b9c58a1985d2898030a828f5c501933698b074cd79c6cd",
     "web/office/office.js": "82d107d0781c2a4eb73a4d4453e0ccfbb432aaacf248dba063a8be88de094a20",
@@ -316,7 +343,31 @@
     "pg-accounting-capacity-regression.log": "1601e00766f7cfb272563946caeaf71ad9b556c0a845bea98425ac2916586e8b",
     "accounting-capacity-browser-fixture-rights-failure.log": "2079e4dd6a161c3a7992bbd82dc109c449109aacfe17210cee67eda52fe8cdc4",
     "accounting-capacity-browser-response-finished-failure.log": "4d7da5b4b02a3edf090aedad240ba066b46631705ee8a5fe8c2ef60956379ab1",
-    "accounting-capacity-fixture-rights-selfcheck.log": "d5c56aaa7de4b7f1aefb56ea1f7394215a334409a30b61f7cbdccec1017e7628"
+    "accounting-capacity-fixture-rights-selfcheck.log": "d5c56aaa7de4b7f1aefb56ea1f7394215a334409a30b61f7cbdccec1017e7628",
+    "accounting-capacity-browser-targeted.log": "b2f3bd1605cab0274fd675b2412ca9bf2140d57949f2858578b444e95360ddcb",
+    "accounting-capacity-browser-cloud-interrupted.log": "6a7d871b357a5e98614271ad1fd9715acd543255e8778726dffda089211736ef",
+    "accounting-capacity-browser-final-code.sha256": "528853aa263a3d3e4c0e6efa9eac74cb1e8d21a4d37375efc053e8475a815096",
+    "accounting-capacity-native-final.log": "5f3cdb844bd66d96d7d1066ccf95364db89bfe19c855741b6c26929f492bfcb1",
+    "accounting-capacity-whitespace-boundary.json": "4525a1725e343873c4ba75964b2baacb2af954de6fffda3c913da6b797488ef9",
+    "accounting-capacity-browser-full.log": "4ff9a434fc4bfb3642501c9b9443ce58a6c4c0ab92a8ddc453e678f7d0bafe9c",
+    "accounting-capacity-browser-final-code-check.log": "d3b986717cf0ae4c7067c5f1aae45552ee27695926565e9eaca29cb19c9d52cd"
   },
-  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, summary and hashes are versioned. This working proof is not final while its status says awaiting checks."
+  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, summary and hashes are versioned. This verifies the bounded E1b-3b increment with explicitly recorded version boundaries, not the complete CRM/ERP or EÜR goal. Separate untracked E1b-3c foundations are excluded.",
+  "checkpoint_commit": "79bfc35eb1ff6727a8f0b7f1b3db962b8d29b1f5",
+  "product_whitespace_boundary": {
+    "path": "backend/business_accounting_capacity.py",
+    "change": "Only removal of the extra blank line at EOF detected when the new file was first staged",
+    "before_sha256": "5e61f4a0c184bd89de3e46c7bc8ff4e4955fea159fa0ba8fdefcd2af0d1af672",
+    "after_sha256": "75e9ce51668e13a64b9c81ea07ab7911652bef0fb49db50a51be9b21d6a7f0a6",
+    "ast_equal": true
+  },
+  "native_verification_sources_sha256": {
+    "scripts/test_native_release.py": "cb30eff9a46408b9ce1eb9d8aa7c3cf826c1cad733bdc3debc350633cabb61d9",
+    "scripts/native-release.py": "9d227bd7e02aaf142e70b2651a5897e36f145173af3cd64ecd107e707e5d2474",
+    "scripts/package-windows-support.py": "8bf030b9a30e237e24b9c58a1985d2898030a828f5c501933698b074cd79c6cd"
+  },
+  "screenshots_sha256": {
+    "accounting-capacity-browser-previews/capacity-desktop.png": "4c09c91656d877fa5b2f1134daa896d4d944f5799b9dd6c8e693dc974adf8e66",
+    "accounting-capacity-browser-previews/capacity-mobile.png": "300fafb70927b3f80dddeaf23d681c061e621460ea59b8ec67e6e863fc5c4ca7"
+  }
 }

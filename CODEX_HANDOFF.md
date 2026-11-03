@@ -144,8 +144,8 @@ aktuellen Fachtests und den Backend-Gesamtlauf geprüft. Die Prüfgruppen
 überschneiden sich und dürfen nicht zu einer Zahl unabhängiger Fälle addiert
 werden.
 
-**Aktuell: [E1b-3b](docs/CRM_ERP_EUER_E1B3B_API.md) ist implementiert;
-die abschließende Browser- und Paketprüfung läuft.** Neue Kapazitätsabschnitte
+**Aktuell: [E1b-3b](docs/CRM_ERP_EUER_E1B3B_API.md) ist implementiert und im
+beschriebenen Umfang geprüft.** Neue Kapazitätsabschnitte
 für erneute Einnahmen erhalten genaue Netto-/Steuerreste und historische
 C1-/R1-Beweise. Eine ganze Rechnung wechselt atomar auf den neuen Schreiber C2;
 alte erfolgreiche Befehle bleiben nach frischen Rechten unverändert
@@ -161,7 +161,7 @@ Geldflüsse noch eine zusätzliche OP-Wirkung. Neue C2-Komponentenlose können
 noch nicht als Erstattungsursprung gewählt werden; die Clients benennen diese
 Grenze ausdrücklich.
 
-Bisherige Prüfungen: 560 Backendfälle ausgeführt, davon 559 bestanden und ein
+Prüfungen dieses Abschnitts: 560 Backendfälle ausgeführt, davon 559 bestanden und ein
 bestehender Windows-Fall unter Linux übersprungen; 514 Flutterfälle bestanden.
 Nach einer reinen Hinweistextänderung und einer Warteanpassung im Testhelper
 bestanden die 31 betroffenen Widgettests erneut, Analyze blieb ohne Befund.
@@ -169,11 +169,12 @@ bestanden die 31 betroffenen Widgettests erneut, Analyze blieb ohne Befund.
 betroffenen Fälle. 14 neue PostgreSQL-Fälle sind über den ersten Lauf mit
 zwölf Erfolgen und die Wiederholung zweier korrigierter Testfixtures belegt;
 anschließend bestanden acht Regressionen. Dies ist kein abschließender
-gemeinsamer 14-Fälle-Lauf. Ein erster vollständiger Browserlauf scheiterte im
-Testhelper beim Zählen vor dem asynchron geladenen C1-Editor; der Helper wartet
-jetzt auf dessen Bereitschaft. Der erneute vollständige Browserlauf und die
-abschließende Paketprüfung sind noch nicht als bestanden vermerkt. Genauere
-Fach-/HTTP-/HTTPS-Ergebnisse, Versionsgrenzen und Prüfnachweise stehen im
+gemeinsamer 14-Fälle-Lauf. Der vollständige Browserlauf bestand anschließend
+mit 15 echten Abläufen; die zwölf beteiligten Dateien waren nach dem Lauf
+unverändert. Die abschließenden 15 Paketfälle bestanden ebenfalls. Ein früherer
+Browserfehler beim Warten auf den asynchron geladenen C1-Editor ist als
+Testhelper-Korrektur im Nachweis dokumentiert. Genauere Fach-/HTTP-/HTTPS-
+Ergebnisse, Versionsgrenzen und Prüfnachweise stehen im
 [E1b-3b-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3B.json).
 
 Danach läuft die Entwicklung mit E1b-3c weiter: Erstattungsursprünge auch für

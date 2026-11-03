@@ -14,7 +14,7 @@ ergänzt die dokumentarische Centaufteilung ganzer bestehender Quellenanteile.
 Erstattungszuordnungen erhalten ausdrücklich gewählte Ursprünge und deren
 exakte Netto-/Steuercents. Dabei wird keine Gruppenrestkapazität freigegeben.
 Die [genauen Restkapazitätsabschnitte E1b-3b](CRM_ERP_EUER_E1B3B_API.md)
-sind implementiert; die abschließende Browser- und Paketprüfung läuft.
+sind implementiert und im beschriebenen Umfang geprüft.
 Der Wechsel einer ganzen Rechnung auf den neuen Komponentenschreiber erhält
 historische Beweise und genaue Netto-/Steuerreste. Ungeklärte
 Finance-Erstattungen, Datumsgrenzen und vollständige historische Quellenrechte

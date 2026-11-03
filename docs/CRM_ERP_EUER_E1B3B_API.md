@@ -1,8 +1,11 @@
 # E1b-3b: genaue Restkapazitäten – Implementierungsvertrag
 
 Stand: 03.11.2026. Basis: E1b-3a-Commit `ec69d13`.
-**Vertrag für die beginnende Implementierung; noch nicht implementiert,
-getestet oder abgenommen.** Der [Entwurf](CRM_ERP_EUER_E1B3B_ENTWURF.md)
+Dieser Abschnitt ist im beschriebenen Umfang implementiert. Tatsächlich
+ausgeführte Prüfungen und ausstehende Nachweise stehen im
+[Fortschritt](CRM_ERP_FORTSCHRITT.md) und im
+[Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json); eine Gesamtabnahme wird daraus
+nicht abgeleitet. Der [Entwurf](CRM_ERP_EUER_E1B3B_ENTWURF.md)
 erklärt die Entscheidungen. Bei Abweichungen gelten die genauen Festlegungen
 dieser Datei. E1b-2/C1 und E1b-3a/R1 bleiben historische eigene Protokolle.
 

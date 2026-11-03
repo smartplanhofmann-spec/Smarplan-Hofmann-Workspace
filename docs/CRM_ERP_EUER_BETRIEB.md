@@ -3,9 +3,9 @@
 Stand: 03.11.2026. Dieser Abschnitt beschreibt E1a, das belegte EUR-Vorjournal,
 die zusätzliche Rechnungszuordnung E1b-1 und die dokumentarische
 Belegaufteilung E1b-2 sowie die ausdrücklichen Erstattungsursprünge E1b-3a.
-Die genaue Wiederverwendung zurückgegebener Beleganteile E1b-3b wird unten
-als **in Entwicklung und noch nicht freigegeben** beschrieben. Deren
-Implementierungsvertrag ist keine Betriebs- oder Gesamtabnahme.
+Die genaue Wiederverwendung zurückgegebener Beleganteile E1b-3b ist im unten
+beschriebenen Umfang implementiert. Der Implementierungsvertrag ist keine
+Gesamtabnahme.
 Ausgeführte Prüfungen und ihre Grenzen stehen im
 [Fortschrittsbericht](CRM_ERP_FORTSCHRITT.md).
 Es erfasst bestätigte Geldflüsse mit Herkunft und ersetzt noch keine vollständige
@@ -182,15 +182,14 @@ ist keine steuerliche Gegenbuchung. Der ungeklärte Betrag bezieht sich auf
 den geöffneten Erstattungsgeldfluss; er beweist keine vollständige Klärung
 aller Erstattungen einer Rechnung oder des Unternehmens.
 
-## Zurückgegebene Beleganteile erneut verwenden – in Entwicklung
+## Zurückgegebene Beleganteile erneut verwenden
 
-**Noch nicht für den Betrieb freigegeben.** Dieser Ablauf beschreibt den
+Dieser Ablauf beschreibt den
 [Implementierungsvertrag zur Wiederverwendung](CRM_ERP_EUER_E1B3B_API.md).
-Er wird erst nach den tatsächlich ausgeführten Prüfungen und der gesonderten
-Freigabe als verfügbar bestätigt. Die bisherigen Abläufe und ihre Grenzen
-gelten bis dahin weiter.
+Ausgeführte Prüfungen und noch ausstehende Nachweise sind im
+[Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json) getrennt festgehalten.
 
-Bei einem erneuten bestätigten Kundenzahlungseingang sollen die genau
+Bei einem erneuten bestätigten Kundenzahlungseingang können die genau
 zurückgegebenen Netto-/Steuercents derselben normalen EUR-Rechnung wieder
 verwendbar werden. Voraussetzung sind bereits bestätigte Erstattungsursprünge.
 Eine Rechnung wird mit allen ihren Beleggruppen gemeinsam übernommen; ihre
@@ -301,8 +300,8 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    [Schema 6](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze),
    sobald `business_accounting_capacity` installiert ist. Der gesamte
    installierte Umfang gilt auch bei leeren Tabellen. Die Schema-6-Regeln
-   gehören zum noch in Entwicklung befindlichen Wiederverwendungsmodul und
-   sind kein Nachweis seiner Betriebsfreigabe.
+   erweitern den technischen Restoreabgleich und ersetzen keine fachliche
+   Prüfung der tatsächlich vorhandenen Zahlungs- und Belegnachweise.
    Er enthält genau `schema`, `restore_id`, `reviewed_by`,
    `reviewed_at` mit Zeitzone, `number_horizons`, `outbound_reconciled:true`,
    `accounting_horizon`, `accounting_reconciled:true` und
@@ -376,14 +375,12 @@ Auch dort ist der Bericht für den gesamten installierten Umfang erforderlich:
 Schema 2 nur mit E1a, Schema 3 mit zusätzlicher Rechnungszuordnung ohne
 Komponenten, Schema 4 mit Komponenten ohne Erstattungsmodul, Schema 5
 mit Erstattungsmodul ohne Wiederverwendungsmodul und Schema 6 bei installiertem
-`business_accounting_capacity`, selbst bei leeren Tabellen. Die beschriebenen
-neuen Schema-6-Regeln ersetzen keine gesonderte Freigabe des Entwicklungsstands.
+`business_accounting_capacity`, selbst bei leeren Tabellen.
 Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
 
 ## Grenzen und nächste Schritte
 
-Die genaue Wiederverwendung zurückgeführter Komponenten befindet sich im oben
-gekennzeichneten Entwicklungsstand; ihre Prüfung und Freigabe stehen noch aus.
+Die Wiederverwendung ist auf die oben beschriebenen Quellen und Fälle begrenzt.
 Steuerliche Freigabe der dokumentarischen Komponenten, Erstattungen auf neue
 Aufteilungen nach der Übernahme, Quellenkorrekturen, Perioden,
 Anlagen, Privatanteile, Lohnbuchungen und Beraterpaket folgen gesondert. Ein

@@ -45,7 +45,7 @@ Rücknahme erhält deren genaue Netto-/Steuercents und erzeugt keine zweite
 Zahlungswirkung. Der [Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3A.json)
 benennt die ausgeführten Tests und ihre Grenzen.
 Die [Wiederverwendung zurückgeführter Komponenten E1b-3b](docs/CRM_ERP_EUER_E1B3B_API.md)
-ist implementiert; die abschließende Browser- und Paketprüfung läuft.
+ist implementiert und im beschriebenen Umfang geprüft.
 Sie erhält genaue Netto-/Steuerreste in neuen Abschnitten und prüft
 Erstattungsursprünge, Zahlungsdaten und vollständige Quellenrechte. Neue
 Zahlungen oder zusätzliche OP-Wirkungen entstehen dadurch nicht.

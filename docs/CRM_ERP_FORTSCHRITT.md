@@ -1304,3 +1304,8 @@ Quellstände, Protokolle und Versionsgrenzen fest. Das Gesamtziel bleibt offen:
 28/62 ungewichtete Bausteine sind umgesetzt/getestet; R08.05 bleibt teilweise,
 alle sieben Gesamtabnahmen A–G offen. Aus diesem Abschnitt folgt keine
 vollständige EÜR, Lohnabrechnung oder Produktionsreife.
+
+Der geprüfte 3c-Implementierungsstand ist lokal in Commit `bef8ec23adbddcde0b619f41b5df88db7d481d59`
+gesichert. Die 59 Änderungsquellen und alle 145 Quellen des vollständigen
+Prüfmanifests stimmen mit diesem Commit überein. Die Zieldatei ist weiterhin
+bytegleich mit dem Upload. Es wurde nichts gepusht oder produktiv bereitgestellt.

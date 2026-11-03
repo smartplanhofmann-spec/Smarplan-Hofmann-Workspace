@@ -4,7 +4,7 @@
   "base_commit": "5a6e22ca278d647b4889243688b04e52b308a5b9",
   "previous_implementation_commit": "36f72a29e6074b8a06d470a59f0c03230037de1d",
   "foundation_commit": "0d9d2808b28aa817884dc3448851d84ce3fc25af",
-  "implementation_commit": null,
+  "implementation_commit": "bef8ec23adbddcde0b619f41b5df88db7d481d59",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
   "scope": "E1b-3c: explicit whole-refund origin decisions using original C1, reused C2 or mixed versioned lots; atomic invoice-wide R1-to-R2 writer handoff; immutable R2 evidence and exact repeated R2-to-C2 reuse with joint chronological validation, complete current source authorization, original request replay, Browser/Flutter and H6/schema7 restore. No new Finance/OP/cash effect, fiscal posting, tax result or complete EÜR.",
   "completion": {
@@ -837,7 +837,7 @@
     "accounting-refunds-v2-browser-previews/refunds-v2-desktop.png": "1af9522f0a66a6d792af78fb9e8db2eeb3932643a1cbcbe69ce8aa35773d0273",
     "accounting-refunds-v2-browser-previews/refunds-v2-mobile.png": "b423dcd1b9cc6480f77b9231c4fd15274e0ccb589fe33a509a8c782165409451"
   },
-  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, this summary and hashes are versioned. No new tests were run while compiling this evidence. Implementation commit is intentionally null until the parent pins the resulting commit.",
+  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, this summary and hashes are versioned. No new tests were run while compiling this evidence. All changed source and packaged contract hashes, plus the full verification source inventory, match the pinned implementation commit.",
   "initial_packaging_preparation": {
     "stage": "initial static preparation; superseded for package acceptance by the final15-case native result",
     "record": "Native validation, support archive and Windows CI copy lists now agree on46 backend/dependency files and8 operator files. This also fixes previously omitted3a/3b operator contracts in the Windows CI copy list. Static list check only; no native executable/build acceptance."

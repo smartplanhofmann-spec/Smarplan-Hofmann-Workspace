@@ -5,7 +5,10 @@ die zusätzliche Rechnungszuordnung E1b-1 und die dokumentarische
 Belegaufteilung E1b-2 sowie die ausdrücklichen Erstattungsursprünge E1b-3a.
 Die genaue Wiederverwendung zurückgegebener Beleganteile E1b-3b ist im unten
 beschriebenen Umfang implementiert. Der Implementierungsvertrag ist keine
-Gesamtabnahme.
+Gesamtabnahme. Die Erweiterung für Erstattungen auf wiederverwendete Anteile
+E1b-3c ist im beschriebenen Umfang implementiert; ihr
+[Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json) grenzt tatsächlich ausgeführte
+Prüfungen und verbleibende Nachweise ab.
 Ausgeführte Prüfungen und ihre Grenzen stehen im
 [Fortschrittsbericht](CRM_ERP_FORTSCHRITT.md).
 Es erfasst bestätigte Geldflüsse mit Herkunft und ersetzt noch keine vollständige
@@ -251,16 +254,54 @@ andere Vorgangsarten werden dadurch nicht verändert. Eine alte Serverfassung
 kann einen unklaren Auftrag nicht allein durch eine gewöhnliche
 Konfliktmeldung auflösen.
 
-Weitere Erstattungen können weiterhin vorhandene ursprüngliche Aufteilungen
-zurücknehmen. **Neu nach der Übernahme erzeugte Aufteilungen sind in diesem
-Schritt noch nicht als Erstattungsursprung unterstützt.** Benötigt eine ganze
-Erstattung solche neuen Anteile, bleibt sie ungeklärt; auch eine Mischung
-alter und neuer Ursprünge wird nicht teilweise bestätigt.
+Ohne die nachfolgend beschriebene Erweiterung können weitere Erstattungen nur
+vorhandene ursprüngliche Aufteilungen zurücknehmen. Neu nach der Übernahme
+erzeugte Aufteilungen sind dann keine auswählbaren Erstattungsursprünge.
+Benötigt eine ganze Erstattung solche Anteile, bleibt sie ungeklärt; eine
+Mischung alter und neuer Ursprünge wird nicht teilweise bestätigt.
 
 Der Ablauf erzeugt keine Zahlung, zusätzliche Rechnungszuordnung, OP-Wirkung
 oder Steuerbuchung. Offene Posten, Mahnung, Bank-/Zahlungsdaten und frühere
 Nachweise behalten ihre jeweilige Wirkung. Lieferantenauszahlungen bleiben im
 bisherigen Aufteilungsablauf. Steuerstatus und vollständige EÜR bleiben offen.
+
+## Weitere Erstattungen nach Wiederverwendung
+
+Bei vollständig verfügbarem erweitertem Erstattungsmodul können bereits
+übernommene Rechnungen auch Erstattungen auf ihre neu aufgeteilten Beträge
+zuordnen. Die folgenden Schritte beschreiben den
+[3c-Vertrag](CRM_ERP_EUER_E1B3C_API.md); der Entwicklungs-/Prüfstand steht oben.
+
+1. Einen ganzen noch ungeklärten Erstattungsanteil auswählen. Die Oberfläche
+   zeigt passend zur Rechnung den vorhandenen oder erweiterten Ablauf.
+   Bereits übernommene Rechnungen verwenden bei ihrer ersten erweiterten
+   Zuordnung gemeinsam für alle Gruppen das neue Erstattungsverfahren.
+2. Die konkreten Ursprünge ausdrücklich auswählen: ursprüngliche Aufteilungen,
+   Aufteilungen mit wiederverwendeten Beträgen oder eine Mischung. Rechnung,
+   Datum und Zahlungsnachweis prüfen. Die Summe muss den ganzen Anteil ergeben;
+   eine Mischung wird vollständig oder gar nicht bestätigt.
+3. Vorschau, Begründung und genaue Netto-/Steuercents prüfen und gesondert
+   bestätigen. Frühere Rücknahmen bleiben in der kumulativen Rechnung
+   enthalten. Das neue Verfahren setzt Rundungszähler nicht zurück.
+4. Für einen späteren echten Zahlungseingang die zusätzlich zurückgenommenen
+   Cents über den bestehenden Wiederverwendungsablauf ausdrücklich übernehmen.
+   Die Erstattungsbestätigung allein gibt weiterhin keine Kapazität frei.
+   Weitere solche Rücknahme-/Wiederverwendungszyklen bleiben an dieselben
+   Quellen-, Datums- und centgenauen Restgrenzen gebunden.
+
+Eine noch offene Erstattung muss nicht vor ihrer eigenen Ursprungszuordnung
+bereits geklärt sein. Zusätzliche Kapazitätsfreigaben prüfen dagegen weiterhin
+alle ausdrücklich zugeordneten Finance-Erstattungen der Rechnung. Neue
+Erstattungen werden über die vorhandenen Finanzquellen erfasst; dieser Schritt
+ist keine neue Erfassungsoberfläche und führt keine Zahlung aus.
+
+Alte und neue Erstattungsnachweise werden getrennt angezeigt. Ein verlorener
+Bestätigungsauftrag behält seinen ursprünglichen Pfad, Inhalt und seine Kennung,
+auch nach dem Wechsel des Rechnungsverfahrens. Unklare Konflikte sowie Rechte-,
+Betriebs- und Wiederherstellungssperren behalten ihn bei. Nur Erfolg oder die
+bestätigte Nichtannahme genau dieses Auftrags lösen ihn auf. Vor erneuter
+Anzeige gespeicherter Ursprungsdetails werden sämtliche aktuellen Quellrechte
+geprüft. Ein offener Auftrag bleibt bis dahin neutral sichtbar.
 
 ## Wiederherstellung einer lokalen SQLite-Sicherung
 
@@ -296,10 +337,12 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    [Schema 4](CRM_ERP_EUER_E1B2_API.md#wiederherstellung-und-clients)
    mit Komponentenmodul ohne Erstattungsursprünge,
    [Schema 5](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiberquittungen)
-   mit Erstattungsmodul ohne Wiederverwendungsmodul oder
+   mit Erstattungsmodul ohne Wiederverwendungsmodul,
    [Schema 6](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze),
-   sobald `business_accounting_capacity` installiert ist. Der gesamte
-   installierte Umfang gilt auch bei leeren Tabellen. Die Schema-6-Regeln
+   bei installiertem `business_accounting_capacity` ohne erweitertes
+   Erstattungsmodul oder [Schema 7](CRM_ERP_EUER_E1B3C_API.md#h6-berichtschema-7-und-unveränderte-finanzprojektionen)
+   bei zusätzlich installiertem `business_accounting_refunds_v2`. Der gesamte
+   installierte Umfang gilt auch bei leeren Tabellen. Diese Regeln
    erweitern den technischen Restoreabgleich und ersetzen keine fachliche
    Prüfung der tatsächlich vorhandenen Zahlungs- und Belegnachweise.
    Er enthält genau `schema`, `restore_id`, `reviewed_by`,
@@ -338,6 +381,18 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    Die bisherigen H1/A1/C1/R1-Teile bleiben unverändert. Die oben genannten
    äußeren Betreiberfelder und die drei Felder von `accounting_external_review`
    sind auch für Schema 6 exakt dieselben; keine zusätzlichen äußeren Felder.
+   Schema 7 ergänzt ausschließlich den sechsten Teil `refunds_v2`:
+
+   ```text
+   {schema_version:6,prejournal:<H1>,allocations:<A1>,components:<C1>,
+    refunds:<R1>,capacity:<K1>,refunds_v2:<R2>}
+   ```
+
+   Der R2-Teil enthält `schema_version:1`, `table_counts` und `sha256` für
+   `business_accounting_refunds_v2_handoffs`, `_entries`, `_lines`, `_requests`
+   und `_releases` (jeweils derselbe vollständige Präfix). Er bindet auch die
+   übernommenen R2-Rücknahmen. Die fünf bisherigen Tabellenmengen und die
+   äußeren Berichts-/Abgleichsfelder bleiben unverändert.
 4. Bericht privat speichern: unter POSIX höchstens Eigentümerrechte, etwa
    `chmod 600 abgleich.json`; unter Windows Zugriff über die Dateirechte auf die
    zuständigen Betreiber begrenzen. Keine Symlinks, keine öffentlichen Ablagen.
@@ -354,7 +409,8 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    Erst danach App/Server starten und vorhandene Geldflüsse prüfen.
 
 Historische Berichtsschemata behalten ihre festen Felder und Tabellenmengen;
-ein alter H4-Bericht erhält kein nachträgliches `capacity`-Feld. Eine bereits
+ein alter H4-Bericht erhält kein nachträgliches `capacity`-Feld und ein alter
+H5-Bericht kein `refunds_v2`-Feld. Eine bereits
 erfolgreiche alte Betreiberquittung darf nur bei unveränderter Restore-ID,
 identischen Berichtsbytes, erfüllten Betreiber-/Stillstandsprüfungen und bereits
 aufgehobener Sperre wirkungslos wiederholt werden. Ein alter Bericht entsperrt
@@ -374,15 +430,18 @@ getrennter Datenbankrolle, gestoppten Datenbanknutzern und Datenschutzabgleich.
 Auch dort ist der Bericht für den gesamten installierten Umfang erforderlich:
 Schema 2 nur mit E1a, Schema 3 mit zusätzlicher Rechnungszuordnung ohne
 Komponenten, Schema 4 mit Komponenten ohne Erstattungsmodul, Schema 5
-mit Erstattungsmodul ohne Wiederverwendungsmodul und Schema 6 bei installiertem
-`business_accounting_capacity`, selbst bei leeren Tabellen.
+mit Erstattungsmodul ohne Wiederverwendungsmodul, Schema 6 bei installiertem
+`business_accounting_capacity` ohne erweitertes Erstattungsmodul und Schema 7
+bei zusätzlich installiertem `business_accounting_refunds_v2`, selbst bei leeren
+Tabellen.
 Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
 
 ## Grenzen und nächste Schritte
 
 Die Wiederverwendung ist auf die oben beschriebenen Quellen und Fälle begrenzt.
-Steuerliche Freigabe der dokumentarischen Komponenten, Erstattungen auf neue
-Aufteilungen nach der Übernahme, Quellenkorrekturen, Perioden,
+Die Nachweise für weitere Erstattungen auf wiederverwendete Anteile sind im
+3c-Prüfnachweis gesondert abgegrenzt. Steuerliche Freigabe der dokumentarischen
+Komponenten, Quellenkorrekturen, Perioden,
 Anlagen, Privatanteile, Lohnbuchungen und Beraterpaket folgen gesondert. Ein
 Bankkonto in dieser Oberfläche ist kein Bankfeed; Bargeldkonto ist kein
 abgenommenes Kassenbuch. Keine vollständige Jahres-EÜR oder amtliche Meldung

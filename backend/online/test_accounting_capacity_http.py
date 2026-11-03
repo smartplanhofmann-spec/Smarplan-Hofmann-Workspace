@@ -106,9 +106,10 @@ class AccountingCapacityHTTPTests(unittest.TestCase):
         self.assertFalse(entry['tax_result_available'])
         self.assertEqual(entry['tax_status'], 'unconfigured')
         after = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(after['schema_version'], 5)
-        self.assertEqual(set(after), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity'})
+        self.assertEqual(after['schema_version'], 6)
+        self.assertEqual(set(after), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2'})
         self.assertEqual(self.historical_h4(before), self.historical_h4(after))
+        self.assertEqual(after['refunds_v2'], before['refunds_v2'])
         self.assertNotEqual(before['capacity']['sha256'], after['capacity']['sha256'])
         self.assertEqual(after['capacity']['table_counts'], {table: 1 for table in TABLES})
         self.assertEqual(self.legacy_sources(self.company), sources)
@@ -128,15 +129,15 @@ class AccountingCapacityHTTPTests(unittest.TestCase):
         self.assertNotIn('request_resolution', changed.json)
         self.assertEqual('\n'.join(office.db.iterdump()), current)
 
-    def test_schema6_is_required_even_for_empty_scope_and_malformed_subhorizons_never_write(self):
+    def test_current_schema_is_required_even_for_empty_scope_and_malformed_subhorizons_never_write(self):
         office = self.company['office']
         self.require_reconciliation(office)
         report = self.report(office)
-        self.assertEqual(report['schema'], 6)
+        self.assertEqual(report['schema'], 7)
         self.assertEqual(report['accounting_horizon']['capacity']['table_counts'], {table: 0 for table in TABLES})
         before = '\n'.join(office.db.iterdump())
         invalid = [{**report, 'schema': 5, 'accounting_horizon': self.historical_h4(report['accounting_horizon'])},
-                   {**report, 'schema': 7}, {**report, 'schema': True}]
+                   {**report, 'schema': 8}, {**report, 'schema': True}]
         for changes in ({'schema_version': True}, {'schema_version': 2}, {'sha256': '0' * 64},
                         {'table_counts': {}}, {'table_counts': {table: True for table in TABLES}},
                         {'table_counts': {table: -1 for table in TABLES}},
@@ -159,7 +160,7 @@ class AccountingCapacityHTTPTests(unittest.TestCase):
         self.assertEqual('\n'.join(office.db.iterdump()), current)
 
     def test_successful_schema5_receipt_replays_after_migration_but_never_unlocks_new_restore(self):
-        old_registry = tuple(spec for spec in business_schema.registry() if spec.name != 'business_accounting_capacity')
+        old_registry = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_capacity', 'business_accounting_refunds_v2'))
         with patch.object(business_schema, 'registry', return_value=old_registry):
             company = self.new_company('historical-capacity')
             account = self.account_record(company)
@@ -175,7 +176,7 @@ class AccountingCapacityHTTPTests(unittest.TestCase):
         business_schema.ensure_schema(office)
         business_schema.ensure_schema(office)
         h5 = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(h5['schema_version'], 5)
+        self.assertEqual(h5['schema_version'], 6)
         self.assertEqual(self.historical_h4(h5), h4)
         self.assertEqual(h5['capacity']['table_counts'], {table: 0 for table in TABLES})
         self.assertEqual(self.call(company, refund['path'] + '/confirm', refund['command'], status=201).json, refund['entry'])
@@ -195,7 +196,7 @@ class AccountingCapacityHTTPTests(unittest.TestCase):
         self.assertEqual(business_schema.financial_accounting_horizon(restored), h5)
         self.assertTrue(business_schema.state(restored)['financial_reconciliation_required'])
 
-    def test_actual_restore_blocks_new_and_replayed_capacity_until_schema6_operator_release(self):
+    def test_actual_restore_blocks_new_and_replayed_capacity_until_current_schema_operator_release(self):
         origin, refund = self.released_origin()
         unused, first = self.receipt(origin['invoice'])
         path, command = self.capacity_command(first)
@@ -229,7 +230,7 @@ class AccountingCapacityHTTPTests(unittest.TestCase):
         inspected = subprocess.run(args + ['--inspect'], capture_output=True, text=True, timeout=15)
         self.assertEqual(inspected.returncode, 0, inspected.stderr)
         inspection = json.loads(inspected.stdout)
-        self.assertEqual(inspection['evidence_schema'], 6)
+        self.assertEqual(inspection['evidence_schema'], 7)
         self.assertEqual(inspection['accounting_horizon'], horizon)
         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), before)
         stale = {**report, 'schema': 5, 'accounting_horizon': self.historical_h4(horizon)}

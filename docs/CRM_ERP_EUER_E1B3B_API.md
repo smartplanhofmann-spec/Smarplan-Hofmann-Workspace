@@ -496,3 +496,22 @@ C1/C2/Finance/R1-Schreiber, alte Pendingquittungen, fehlende Rechte,
 nicht importierte Refunds, spätere Refunds, Datumssperren, manipulierte
 Vorstände trotz konsistenter Hashes, SQLite-/PG-Guards, Restore und beide Clients.
 Ergebnisse werden erst nach tatsächlicher Ausführung eingetragen.
+
+
+## Additive Erweiterung durch versionierte Erstattungsursprünge
+
+Bei zusätzlich installiertem `business_accounting_refunds_v2` gilt für neue
+Betreiberfreigaben [E1b-3c-Vertrag](CRM_ERP_EUER_E1B3C_API.md#h6-berichtschema-7-und-unveränderte-finanzprojektionen) mit H6 und
+Berichtschema 7, auch bei leeren neuen Tabellen. H6 ergänzt ausschließlich
+den eigenen fünf Tabellen umfassenden `refunds_v2`-Teilhorizont. Historische
+Berichte bis H5/Schema 6 behalten ihre feste Struktur und entsperren keinen
+neuen Restore. Der hier beschriebene ältere Teilvertrag bleibt erhalten;
+ausgeführte Prüfungen und offene Integrationsarbeit der Erweiterung stehen im
+[3c-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json).
+
+Die Erweiterung kann C2-Lots und gemischte C1/C2-Ursprünge zurücknehmen und
+diese exakten Rücknahmen über denselben positiven C2-Pfad erneut verwenden.
+Öffentliche C2-Datenformen bleiben gleich; neue interne Proofs verwenden
+Schema 2, historische Schema-1-Proofs bleiben unverändert. Die gemeinsame
+chronologische Prüfung und die getrennte endliche Quellenhülle sind im
+[3c-Vertrag](CRM_ERP_EUER_E1B3C_API.md) festgelegt.

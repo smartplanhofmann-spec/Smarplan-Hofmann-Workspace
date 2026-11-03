@@ -1,10 +1,23 @@
 {
   "date": "2026-11-03",
-  "status": "development_started_only_isolated_foundations_verified",
+  "status": "increment_verified_with_recorded_version_boundaries",
   "base_commit": "5a6e22ca278d647b4889243688b04e52b308a5b9",
   "previous_implementation_commit": "36f72a29e6074b8a06d470a59f0c03230037de1d",
-  "scope": "E1b-3c implementation contract and isolated immutable order/return arithmetic. Full R2 persistence, joint C2/R2 validation, API, clients and restore integration are under development and not accepted by these tests.",
-  "contract_sha256": "8f20d7eb639466188057cb161f975bd3265994f40c5eb9059b6f5507539f5122",
+  "foundation_commit": "0d9d2808b28aa817884dc3448851d84ce3fc25af",
+  "implementation_commit": null,
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "scope": "E1b-3c: explicit whole-refund origin decisions using original C1, reused C2 or mixed versioned lots; atomic invoice-wide R1-to-R2 writer handoff; immutable R2 evidence and exact repeated R2-to-C2 reuse with joint chronological validation, complete current source authorization, original request replay, Browser/Flutter and H6/schema7 restore. No new Finance/OP/cash effect, fiscal posting, tax result or complete EÜR.",
+  "completion": {
+    "increment_verified": true,
+    "overall_goal_completed": false,
+    "production_acceptance_completed": false,
+    "requirement": "R08.05",
+    "requirement_status": "teilweise",
+    "test_groups_overlap": true,
+    "unique_acceptance_total": null
+  },
+  "contract_sha256": "67059090ac7535947d2ed4c5f2cbfad20204996c5595246d01379c2a63db3b47",
+  "original_frozen_contract_sha256": "8f20d7eb639466188057cb161f975bd3265994f40c5eb9059b6f5507539f5122",
   "results": {
     "joint_order": {
       "passed": 13,
@@ -18,26 +31,815 @@
       "seconds": 0.075,
       "exact_fraction_comparisons": 3731,
       "log": "e1b3c-return-lots.log"
+    },
+    "domain_final": {
+      "run": 108,
+      "passed": 108,
+      "skipped": 0,
+      "seconds": 38.545,
+      "exit_code": 0,
+      "log": "e1b3c-accounting-domain-final.log"
+    },
+    "http_restore_operator_regressions": {
+      "run": 75,
+      "passed": 75,
+      "skipped": 0,
+      "seconds": 31.328,
+      "exit_code": 0,
+      "log": "accounting-refunds-v2-http-restore-final.log",
+      "new_cases": 8,
+      "existing_cases": 67
+    },
+    "independent_real_https_mfa": {
+      "run": 8,
+      "passed": 8,
+      "skipped": 0,
+      "seconds": 20.504,
+      "exit_code": 0,
+      "log": "accounting-refunds-v2-https-final.log",
+      "transport": "Real loopback TLS sockets, trusted synthetic CA, certificate hostname and HTTP Host validation, ordinary password/TOTP MFA."
+    },
+    "postgres": {
+      "new": {
+        "base_commit": "0d9d2808b28aa817884dc3448851d84ce3fc25af",
+        "selection": [
+          "online.test_postgres_accounting_refunds_v2_integration"
+        ],
+        "expected_cases": 14,
+        "tests_run": 14,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "duration_seconds": 204.819,
+        "source_unchanged_during_run": true,
+        "passed": 14,
+        "log": "pg-refunds-v2-initial.log",
+        "summary": "refunds-v2-pg-initial-summary.json"
+      },
+      "historical_regression": {
+        "base_commit": "0d9d2808b28aa817884dc3448851d84ce3fc25af",
+        "selection": [
+          "online.test_postgres_accounting_capacity_integration.CapacityMigrationPostgres",
+          "online.test_postgres_accounting_capacity_integration.ComponentCapacityPostgres.test_real_dump_restore_requires_current_horizon_and_preserves_exact_old_and_new_proofs",
+          "online.test_postgres_accounting_refunds_integration.RefundMigrationPostgres",
+          "online.test_postgres_accounting_refunds_integration.RefundOriginsPostgres.test_real_restore_keeps_origins_and_requires_current_horizon_before_replay",
+          "online.test_postgres_accounting_components_integration.ComponentMigrationPostgres",
+          "online.test_postgres_accounting_components_integration.ComponentsPostgres.test_actual_restore_preserves_components_and_requires_current_horizon",
+          "online.test_postgres_accounting_allocations_integration.AllocationMigrationPostgres",
+          "online.test_postgres_accounting_allocations_integration.AllocationPostgres.test_real_restore_preserves_assignments_and_requires_current_horizon",
+          "online.test_postgres_accounting_integration.AccountingMigrationPostgres",
+          "online.test_postgres_accounting_integration.AccountingPostgres.test_normal_migration_retains_events_restore_requires_exact_independent_accounting_reconciliation"
+        ],
+        "expected_cases": 10,
+        "tests_run": 10,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "duration_seconds": 77.788,
+        "source_unchanged_during_run": true,
+        "passed": 10,
+        "log": "pg-refunds-v2-regression.log",
+        "summary": "refunds-v2-pg-regression-summary.json"
+      },
+      "source_unchanged_across_both_runs_and_final_check": true,
+      "summary": "accounting-refunds-v2-postgres-verification-summary.json",
+      "note": "The new-suite log is named initial because this was its first complete PostgreSQL execution; all14 passed on the frozen runtime, without a corrective rerun."
+    },
+    "backend_full": {
+      "run": 609,
+      "passed": 608,
+      "skipped": 1,
+      "seconds": 144.231,
+      "exit_code": 0,
+      "log": "accounting-refunds-v2-backend-full.log",
+      "skip_reason": "Existing Windows job-object cleanup test on Linux; Windows CI/device execution is not claimed by this run."
+    },
+    "flutter_targeted_after_fix": {
+      "passed": 166,
+      "failed": 0,
+      "displayed_elapsed_seconds": 47,
+      "exit_code": 0,
+      "log": "e1b3c-flutter-targeted-after-fix.log",
+      "note": "Includes actual Flutter widgets, real loopback HTTP, two complete refund/reuse cycles, exact cents, writer routing, current source rights and original lost-acknowledgement replay."
+    },
+    "flutter_full": {
+      "passed": 579,
+      "failed": 0,
+      "displayed_elapsed_seconds": 157,
+      "exit_code": 0,
+      "log": "e1b3c-flutter-full.log",
+      "source_check": "e1b3c-flutter-final-source-check.json"
+    },
+    "flutter_analyze": {
+      "issues": 0,
+      "seconds": 6.6,
+      "exit_code": 0,
+      "log": "e1b3c-flutter-analyze-final.log"
+    },
+    "browser_unit": {
+      "run": 135,
+      "passed": 135,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 423.312301,
+      "exit_code": 0,
+      "log": "accounting-refunds-v2-node.log"
+    },
+    "native_package": {
+      "run": 15,
+      "passed": 15,
+      "skipped": 0,
+      "seconds": 3.453,
+      "exit_code": 0,
+      "log": "accounting-refunds-v2-native-final.log",
+      "note": "Actually extracted support archive import, packaged operator/API documents and source/offline distinctions verified. No signed native release or Windows/iPhone device acceptance."
+    },
+    "actual_browser_full": {
+      "passed": 16,
+      "exit_code": 0,
+      "log": "accounting-refunds-v2-browser-full.log",
+      "source_manifest": "accounting-refunds-v2-root-final-code.sha256",
+      "source_check": "accounting-refunds-v2-browser-source-check.log",
+      "note": "Complete existing application regression plus new versioned refund workflow, after the final neutral R1 dialog error catch. Real loopback HTTP with sandboxed Chromium; TLS/Origin/MFA acceptance is independently listed."
     }
   },
+  "initial_integration": {
+    "registration_and_real_local_http": {
+      "passed": 16,
+      "seconds": 6.03,
+      "log": "e1b3c-registration-transport-initial.log"
+    },
+    "http_restore_https_and_historical_fixtures": {
+      "stage": "initial integration; runtime review still in progress; not final source-bound evidence",
+      "runs": [
+        {
+          "suite": "http",
+          "tests": 8,
+          "seconds": 7.338,
+          "result": "OK",
+          "log": "work/verification/accounting-refunds-v2-http-initial.log",
+          "sha256": "10938cdd5acb8753b249c557cd1b3d1416fe61c9871d381da7335464da4812fa"
+        },
+        {
+          "suite": "https",
+          "tests": 8,
+          "seconds": 18.744,
+          "result": "OK",
+          "log": "work/verification/accounting-refunds-v2-https-initial.log",
+          "sha256": "4cfec0bf8796661faac89640a5d07a9f2442f2c6b66e6f5360b420c823f79dc3"
+        },
+        {
+          "suite": "regression",
+          "tests": 67,
+          "seconds": 26.387,
+          "result": "OK",
+          "log": "work/verification/accounting-refunds-v2-regression-initial.log",
+          "sha256": "f925a8be9621f91ad58f4db7b455fd6eeb21747ee04f034b929177ca8a2ea0be"
+        },
+        {
+          "suite": "historical domain fixtures",
+          "tests": 38,
+          "seconds": 9.823,
+          "result": "OK",
+          "log": "work/verification/accounting-refunds-v2-historical-fixtures-initial.log",
+          "sha256": "4883c6b34ef202743013543c43a08597d2cb37771e88b458cfaf4b244dda4d36"
+        }
+      ]
+    },
+    "browser_targeted": {
+      "passed": 1,
+      "exit_code": 0,
+      "log": "accounting-refunds-v2-browser-targeted.log",
+      "version_boundary": "Before the final neutral R1 dialog error catch; final16-workflow run covers the later code."
+    },
+    "browser_focused_unit": {
+      "passed": 13,
+      "log": "accounting-refunds-v2-node-focused.log"
+    },
+    "flutter_targeted_before_fix": {
+      "passed": 155,
+      "displayed_elapsed_seconds": 17,
+      "log": "e1b3c-flutter-targeted.log"
+    },
+    "flutter_full_before_fix": {
+      "passed": 568,
+      "failed": 1,
+      "displayed_elapsed_seconds": 180,
+      "result": "failed",
+      "log": "e1b3c-flutter-full-before-fix.log",
+      "failure": "Real HTTP widget flow did not settle; this attempt is retained and is not counted as final acceptance."
+    },
+    "flutter_widget_development_attempts": {
+      "failed_logs": [
+        "e1b3c-flutter-http-widget-initial.log",
+        "e1b3c-flutter-http-widget-second.log",
+        "e1b3c-flutter-http-widget-third.log",
+        "e1b3c-flutter-http-widget-diagnostic.log"
+      ],
+      "first_corrected_standalone_log": "e1b3c-flutter-http-widget-pump.log",
+      "note": "Initial fixture identifier and asynchronous widget/HTTP scheduling failures remain recorded separately; the final targeted166 and full579 runs exercise the corrected fixture and client behavior."
+    },
+    "boundary": "Initial runs on the evolving tree are retained as development history. Final independently bound results are listed under results; counts from overlapping groups are not summed."
+  },
+  "version_boundaries": {
+    "documentation_status_only": {
+      "scope": "Documentation status wording only after runtime/transport source freeze; no DTO, schema, proof, operator command or product code changed. Final native package check uses these updated documents.",
+      "files": {
+        "docs/CRM_ERP_EUER_E1B3C_API.md": {
+          "before_sha256": "8f20d7eb639466188057cb161f975bd3265994f40c5eb9059b6f5507539f5122",
+          "after_sha256": "67059090ac7535947d2ed4c5f2cbfad20204996c5595246d01379c2a63db3b47"
+        },
+        "docs/CRM_ERP_EUER_BETRIEB.md": {
+          "before_sha256": "a0ff4e2f1c9c8ea95b0c8cea278fd6538fc934cf06bbb09057c2e9892142c369",
+          "after_sha256": "24b6cde9195d2c1d0949fb377d10b955647b61e88a5bdb69b2fe3090d6d24e80"
+        }
+      },
+      "diff": "e1b3c-documentation-status-only.diff"
+    },
+    "flutter_pending_correction": {
+      "evidence": "e1b3c-flutter-pending-fix-boundary.txt",
+      "before_manifest": "e1b3c-flutter-before-fix.sha256",
+      "final_manifest": "e1b3c-flutter-final-before.sha256",
+      "change": "Retain the same documentary pending command on first-attempt403/404 as well as retries; add eight first-attempt and two ordinary-operation boundary cases. Synchronize actual widget clicks after animation-triggered metadata reads. Final166 targeted and579 full tests plus analysis follow this correction."
+    },
+    "browser_last_change": {
+      "change": "Final neutral error catch for an asynchronously closed R1 dialog.",
+      "targeted_run_before_change": true,
+      "complete16_workflow_run_after_change": true
+    },
+    "transport_document_boundary": "All35 recorded sources were identical during final HTTP/HTTPS execution. Afterwards only the documented API status wording changed; its original and current hashes are retained. The34 runtime/test/operator-script files still match.",
+    "no_unrecorded_product_source_change_after_final_verification": true
+  },
+  "source_verification": {
+    "root_backend_and_browser": {
+      "source_count": 145,
+      "all_current_hashes_match": true,
+      "manifest": "accounting-refunds-v2-root-final-code.sha256",
+      "checks": [
+        "accounting-refunds-v2-backend-source-check.log",
+        "accounting-refunds-v2-browser-source-check.log"
+      ]
+    },
+    "transport": {
+      "source_count": 35,
+      "unchanged_during_runs": true,
+      "summary": "accounting-refunds-v2-transport-final-results.json",
+      "current_exception": "Only documented API status wording; no product/proof/DTO change."
+    },
+    "postgres": {
+      "source_count": 29,
+      "all_current_hashes_match": true,
+      "summary": "accounting-refunds-v2-postgres-verification-summary.json"
+    },
+    "flutter": {
+      "flutter_sources_unchanged": true,
+      "backend_product_sources_unchanged": true,
+      "flutter": [
+        {
+          "path": "app/lib/api.dart",
+          "before": "50f3967639b1c9b8c8de8fe162348be541c1134ac832e1839a0ea0873050781c",
+          "after": "50f3967639b1c9b8c8de8fe162348be541c1134ac832e1839a0ea0873050781c",
+          "unchanged": true
+        },
+        {
+          "path": "app/lib/business_session.dart",
+          "before": "bbb9d714abe8691e6bc16be0fe447887d2bf2433742761daf8462ddbf652723b",
+          "after": "bbb9d714abe8691e6bc16be0fe447887d2bf2433742761daf8462ddbf652723b",
+          "unchanged": true
+        },
+        {
+          "path": "app/lib/business_accounting.dart",
+          "before": "3db2537d81aeed4265028f0814cd1ab08bfa374ec1f5b6c12aa6e827663eed0b",
+          "after": "3db2537d81aeed4265028f0814cd1ab08bfa374ec1f5b6c12aa6e827663eed0b",
+          "unchanged": true
+        },
+        {
+          "path": "app/lib/business_accounting_capacity.dart",
+          "before": "919b91e877ebbd8af7f4da8ed36ff7f9895b97c92393510d2db0528b1851e701",
+          "after": "919b91e877ebbd8af7f4da8ed36ff7f9895b97c92393510d2db0528b1851e701",
+          "unchanged": true
+        },
+        {
+          "path": "app/lib/business_accounting_refunds.dart",
+          "before": "1b4f3dc428226a64704f02236df2f83489071c602f63efd533ecebd45f31404f",
+          "after": "1b4f3dc428226a64704f02236df2f83489071c602f63efd533ecebd45f31404f",
+          "unchanged": true
+        },
+        {
+          "path": "app/lib/business_accounting_refunds_v2.dart",
+          "before": "5ccbe03194c2a4cdab06ec4ff2e72ad4a3921cfb53a6024d75eb43918d478bb9",
+          "after": "5ccbe03194c2a4cdab06ec4ff2e72ad4a3921cfb53a6024d75eb43918d478bb9",
+          "unchanged": true
+        },
+        {
+          "path": "app/test/business_accounting_capacity_test.dart",
+          "before": "ec8e89ab794916d5d278cc4da063bda69ef3eb4ab6ae64ea5909be8225363af1",
+          "after": "ec8e89ab794916d5d278cc4da063bda69ef3eb4ab6ae64ea5909be8225363af1",
+          "unchanged": true
+        },
+        {
+          "path": "app/test/business_accounting_capacity_session_test.dart",
+          "before": "645d7a161c899538f494e4cce3d009e7d748f6f68f2637f9c85852b230ea060c",
+          "after": "645d7a161c899538f494e4cce3d009e7d748f6f68f2637f9c85852b230ea060c",
+          "unchanged": true
+        },
+        {
+          "path": "app/test/business_accounting_refunds_test.dart",
+          "before": "684bd8b41d5a34f49925a310962379a4f1532e09ebb773365eb32bc550186a51",
+          "after": "684bd8b41d5a34f49925a310962379a4f1532e09ebb773365eb32bc550186a51",
+          "unchanged": true
+        },
+        {
+          "path": "app/test/business_accounting_refunds_v2_test.dart",
+          "before": "85353a6eae4bf9fa6aa96f9eec84784e1044e3961cfe2235e7ab09e3478e8ba4",
+          "after": "85353a6eae4bf9fa6aa96f9eec84784e1044e3961cfe2235e7ab09e3478e8ba4",
+          "unchanged": true
+        },
+        {
+          "path": "app/test/business_accounting_refunds_v2_session_test.dart",
+          "before": "46a98e345b43fb7976c16094d443a8443159c67d3e257923b34b650bd70a44af",
+          "after": "46a98e345b43fb7976c16094d443a8443159c67d3e257923b34b650bd70a44af",
+          "unchanged": true
+        },
+        {
+          "path": "app/test/business_accounting_refunds_v2_http_widget_test.dart",
+          "before": "df493a36dc19fc3fd7aaa88272bf621063d4f4a523cdf236e60cb327e122523f",
+          "after": "df493a36dc19fc3fd7aaa88272bf621063d4f4a523cdf236e60cb327e122523f",
+          "unchanged": true
+        }
+      ],
+      "backend_and_contract": [
+        {
+          "path": "backend/business_accounting_refunds_v2.py",
+          "before": "9277f7605c03a05567a3badd8074a947dd10f66356b63e852f998d63accb0f70",
+          "after": "9277f7605c03a05567a3badd8074a947dd10f66356b63e852f998d63accb0f70",
+          "unchanged": true
+        },
+        {
+          "path": "backend/accounting_joint_ledger.py",
+          "before": "677c7dda0bd6182be714e22651b9b5ec454d462d1a8248b2def570fe01509dd2",
+          "after": "677c7dda0bd6182be714e22651b9b5ec454d462d1a8248b2def570fe01509dd2",
+          "unchanged": true
+        },
+        {
+          "path": "backend/business_accounting_refunds.py",
+          "before": "e5f1c70f9123497043f3c26d1f748d641eefe3c6c504065385d4908c822d8922",
+          "after": "e5f1c70f9123497043f3c26d1f748d641eefe3c6c504065385d4908c822d8922",
+          "unchanged": true
+        },
+        {
+          "path": "backend/business_accounting_capacity.py",
+          "before": "103cd9c36fb676b92e4243195deac549bab17282c292d48c227859f7071a27d9",
+          "after": "103cd9c36fb676b92e4243195deac549bab17282c292d48c227859f7071a27d9",
+          "unchanged": true
+        },
+        {
+          "path": "backend/business_api.py",
+          "before": "07e0a823d75c565c4711b9a0b128af9ed43e920756f26eecf8c0df88c932f959",
+          "after": "07e0a823d75c565c4711b9a0b128af9ed43e920756f26eecf8c0df88c932f959",
+          "unchanged": true
+        },
+        {
+          "path": "docs/CRM_ERP_EUER_E1B3C_API.md",
+          "before": "8f20d7eb639466188057cb161f975bd3265994f40c5eb9059b6f5507539f5122",
+          "after": "67059090ac7535947d2ed4c5f2cbfad20204996c5595246d01379c2a63db3b47",
+          "unchanged": false,
+          "status_wording_only_boundary": "e1b3c-documentation-status-boundary.json + e1b3c-documentation-status-only.diff"
+        }
+      ]
+    },
+    "selection": "Changed implementation, tests, CI/package code and operator/API contracts relative to base5a6e22ca, including all four foundation sources introduced by0d9d280. Separate next-step and E1b-4 files are excluded.",
+    "excluded": [
+      "docs/CRM_ERP_EUER_NAECHSTER_SCHRITT.md",
+      "later E1b-4 files",
+      "progress-only documents and this self-referential evidence file"
+    ]
+  },
+  "review": {
+    "integrity": "Exactly five new immutable R2 tables; explicit versioned origin identities and FK branches, immutable original C1 budgets including R1+R2 claims, cumulative C2 budgets, exact release-once reuse and global chronological C1/R1/C2/R2 observations. Joint validation and source authorization are separate finite algorithms.",
+    "authorization": "Closed the initial R1 origin-list gap in transitive source authorization. Valid whole-event access cycles terminate without weakening current read/write permissions. Stored historical root bindings are visited before caller selection so a missing historical lot remains an integrity409 during exact replay.",
+    "historical_proofs": "Historical C2 gates now check referenced R1 entries against the saved observed R1 sequence. Historical proof1 and H5/schema6 receipts remain unchanged; new financial release always requires H6/schema7, even for empty R2 tables.",
+    "request_resolution": "Only proven-absent receipts rejected before writes receive request_resolution:not_accepted. Accepted request replay remains exact; gate, rights and ambiguous transport errors retain the original pending command across Browser/Flutter.",
+    "remaining_confirmed_findings": 0,
+    "foundation_review": {
+      "joint_order": "No confirmed findings; independent actual-interleaving oracle.",
+      "return_lots": "No confirmed findings; independent exact Fraction oracle, immutable original basis and versioned identities verified.",
+      "tests_rerun_by_reviewer": false
+    }
+  },
+  "run_history": [
+    "The13 order and12 immutable-cent foundation tests belong to the separately recorded0d9d280 commit; their original sources and logs remain unchanged and are included in this increment.",
+    "Initial registration16, HTTP8, HTTPS8, historical HTTP67 and historical domain38 runs passed before final runtime review. They are retained separately rather than relabeled as final acceptance.",
+    "Independent review corrected R1 candidate access closure, historical R1 gate heads and historical root-binding traversal. After runtime freeze, domain108, final HTTP75 and HTTPS8 passed; sources stayed unchanged.",
+    "New PostgreSQL14 and historical PostgreSQL10 passed on the same frozen sources with separated migration/runtime roles, real issue/archive paths, database constraints and real dump/restore. No product correction or targeted-only substitution was needed for these runs.",
+    "Flutter widget development logs retain initial fixture and asynchronous scheduling failures. The first full attempt ended with568 passing and1 failing widget flow. The documented pending-command correction and widget synchronization were followed by166 targeted tests,579 full tests and zero analysis issues.",
+    "The targeted real browser workflow passed before a final neutral R1 dialog catch. The subsequent complete16-workflow browser run passed on the final code;145 source hashes matched before/after both full backend and browser verification.",
+    "API and operator documentation received only the separately recorded status-wording update after transport freeze. Final native15 package verification uses those updated documents. There was no proof, DTO, schema or command change."
+  ],
+  "limitations": [
+    "R08.05 remains partial. This completes the bounded documentary E1b-3c increment, not the full CRM/ERP goal, complete EÜR, payroll or production acceptance.",
+    "Documentary net/tax/gross cents do not establish fiscal recognition, a configured tax profile, period assignment, tax filing or an EÜR result. Source corrections, periods, fixed assets, private shares, payroll accounting and adviser export remain separate work.",
+    "Unallocated refunds stay unresolved. Clearance concerns explicit original invoice allocations and does not establish company-wide completeness.",
+    "Global observed heads can conservatively invalidate an unconfirmed preview after unrelated activity. Accepted exact original requests stay stable under fresh gates and full source permissions.",
+    "SQLite, browser and Flutter journeys use explicitly synthetic legacy invoice archives. Actual production-style invoice issuance, database roles and dump/restore are verified separately on disposable PostgreSQL.",
+    "Large-ledger performance and signed Windows/iPhone device acceptance remain open. The Linux backend run skips the existing Windows job-object cleanup case.",
+    "Verification groups overlap and are not a count of unique product acceptances. No external provider, real payment, customer message or production deployment was changed."
+  ],
   "foundation_source_sha256": {
     "backend/accounting_joint_order.py": "c01040475245bfb073ab320e1347f0da64be1df77458650b3070338fe0bd718f",
     "backend/test_accounting_joint_order.py": "6e29926bd05434709e9ade2684be1084b490ff67d94c33c727c622b79d878c3d",
     "backend/accounting_return_lots.py": "6f7ebe7f45239c9b04f2045720a08fd907ee01ffd8b40c3592656d258f72cc9c",
     "backend/test_accounting_return_lots.py": "740e2a843bbe6a13efe52e03414089941282fefd100a03a311550c263a790f6a"
   },
-  "log_sha256": {
-    "e1b3c-joint-order.log": "c83c4a18115916dc48ba1a3fce66e74aa0d693cd8c86630df88d5bcea77e2473",
-    "e1b3c-return-lots.log": "859805b068f32bcec5488ca559321436850cc2e408ec79604524063868ed66f3"
+  "changed_code_and_packaged_contract_sha256": {
+    ".github/workflows/checks.yml": "eab65fc9c9190ea3b24d24288bd4fef4096b5d01bc35fedfaeeaa386acf57a08",
+    "app/lib/business_accounting.dart": "3db2537d81aeed4265028f0814cd1ab08bfa374ec1f5b6c12aa6e827663eed0b",
+    "app/lib/business_accounting_capacity.dart": "919b91e877ebbd8af7f4da8ed36ff7f9895b97c92393510d2db0528b1851e701",
+    "app/lib/business_accounting_refunds.dart": "1b4f3dc428226a64704f02236df2f83489071c602f63efd533ecebd45f31404f",
+    "app/lib/business_accounting_refunds_v2.dart": "5ccbe03194c2a4cdab06ec4ff2e72ad4a3921cfb53a6024d75eb43918d478bb9",
+    "app/lib/business_session.dart": "bbb9d714abe8691e6bc16be0fe447887d2bf2433742761daf8462ddbf652723b",
+    "app/test/business_accounting_capacity_session_test.dart": "645d7a161c899538f494e4cce3d009e7d748f6f68f2637f9c85852b230ea060c",
+    "app/test/business_accounting_capacity_test.dart": "ec8e89ab794916d5d278cc4da063bda69ef3eb4ab6ae64ea5909be8225363af1",
+    "app/test/business_accounting_refunds_test.dart": "684bd8b41d5a34f49925a310962379a4f1532e09ebb773365eb32bc550186a51",
+    "app/test/business_accounting_refunds_v2_http_widget_test.dart": "df493a36dc19fc3fd7aaa88272bf621063d4f4a523cdf236e60cb327e122523f",
+    "app/test/business_accounting_refunds_v2_session_test.dart": "46a98e345b43fb7976c16094d443a8443159c67d3e257923b34b650bd70a44af",
+    "app/test/business_accounting_refunds_v2_test.dart": "85353a6eae4bf9fa6aa96f9eec84784e1044e3961cfe2235e7ab09e3478e8ba4",
+    "backend/accounting_joint_access.py": "82baa593e9d3a3c717dab7bdc1e198b11331f0d06e5b9f09aa83914341cf7aaf",
+    "backend/accounting_joint_ledger.py": "677c7dda0bd6182be714e22651b9b5ec454d462d1a8248b2def570fe01509dd2",
+    "backend/accounting_joint_order.py": "c01040475245bfb073ab320e1347f0da64be1df77458650b3070338fe0bd718f",
+    "backend/accounting_return_lots.py": "6f7ebe7f45239c9b04f2045720a08fd907ee01ffd8b40c3592656d258f72cc9c",
+    "backend/business_accounting_capacity.py": "103cd9c36fb676b92e4243195deac549bab17282c292d48c227859f7071a27d9",
+    "backend/business_accounting_refunds.py": "e5f1c70f9123497043f3c26d1f748d641eefe3c6c504065385d4908c822d8922",
+    "backend/business_accounting_refunds_v2.py": "9277f7605c03a05567a3badd8074a947dd10f66356b63e852f998d63accb0f70",
+    "backend/business_api.py": "07e0a823d75c565c4711b9a0b128af9ed43e920756f26eecf8c0df88c932f959",
+    "backend/business_organization.py": "e6abd82aa6965bba82d6466342019680803497adee68bd1b53aae59ba6162dc0",
+    "backend/business_schema.py": "72cb9f7cbbeced8ffaa35ce6e0a85265d42216ae87bfa33555eecaf7aeea16c9",
+    "backend/online/test_accounting_allocations_http.py": "4ac84c48c5ac286460abfa962e161259b9f0db1d246c832a705c014ed74ddca5",
+    "backend/online/test_accounting_capacity_http.py": "4f496ad1596e225535cdcdc82ba4e2ff7173aaadf4adfa0521e9b42164dfdd91",
+    "backend/online/test_accounting_components_http.py": "4fd4ff54dd1f3d0012c32c79633c30da78cce5d7cab2617a24a3397662aa769a",
+    "backend/online/test_accounting_http.py": "28aabce45d5ae37da165ffca648e8df55f14bff1e47737edd948992e3dd5b4f1",
+    "backend/online/test_accounting_refunds_http.py": "0173369853c7ed32d9cb788e5cf4e01a2ad1081fc345f0dad6c613da3ca28d97",
+    "backend/online/test_accounting_refunds_v2_http.py": "1154eea8efd3863328d87d1ef70408f28fe04252c3f18e969c57fee2501e8913",
+    "backend/online/test_accounting_refunds_v2_journey.py": "b6a23cdab78c774e7541e20b72b3bd1f91ce34491269a2c50cfcae5d95e934ef",
+    "backend/online/test_postgres_accounting_allocations_integration.py": "10e28ec72bfbbe66c6f8abcac1c59b0b5c395228a780651762ee9fb1839275f3",
+    "backend/online/test_postgres_accounting_capacity_integration.py": "2393e409cf75714d9649c1d9dc2beb14c3650f7914a8d0cb565ce6bc2eb6c728",
+    "backend/online/test_postgres_accounting_components_integration.py": "fc68f20f3f5a868afeac77a7110b2edceed433c5cb7e0fda364c2aece6374f8e",
+    "backend/online/test_postgres_accounting_integration.py": "5db26964db0c9aadce2ad18e71d9e0c06b409d396e99ad6ae704142863ecd36e",
+    "backend/online/test_postgres_accounting_refunds_integration.py": "66712baf7bf868540cfe5de39febf7ea1a1fb5e41c7525f87295b364ddb2da56",
+    "backend/online/test_postgres_accounting_refunds_v2_integration.py": "686a9b85ab3d36612473f0cacc8eacedcfd07cae3e5507a22846d88c98ee1a53",
+    "backend/test_accounting_allocation_transport.py": "28e5dac35916d973fdb6558e8dcf7145b8d266ff16c19a8408c1c4c53c21d47c",
+    "backend/test_accounting_joint_order.py": "6e29926bd05434709e9ade2684be1084b490ff67d94c33c727c622b79d878c3d",
+    "backend/test_accounting_registration.py": "78d270b31231c6f3191117b012c5c83721b8929dcfc4a559b0274277d6172c0a",
+    "backend/test_accounting_return_lots.py": "740e2a843bbe6a13efe52e03414089941282fefd100a03a311550c263a790f6a",
+    "backend/test_business_accounting.py": "b909d35967dbd3ece2ac9dce93321842976205fb5faaefb8f0564e6247dc5aa0",
+    "backend/test_business_accounting_allocations.py": "09a0d475e1c6869757f4461ebdb385d62d11fd970fa2392b4d10d12b184fb463",
+    "backend/test_business_accounting_refunds_v2.py": "681f86cc86486824b48c87bbd5fc7a1c986931be52be1bd6f80c98929c3cd39e",
+    "docs/CRM_ERP_EUER_BETRIEB.md": "24b6cde9195d2c1d0949fb377d10b955647b61e88a5bdb69b2fe3090d6d24e80",
+    "docs/CRM_ERP_EUER_E1A_API.md": "7be4e85e4e382b122d8a57f35111e40c49a171bfad843262aebf2d743d0bb46d",
+    "docs/CRM_ERP_EUER_E1B1_API.md": "acf9a29669a659dd74e24d8f5638585168ab37bb9637baccf954339f8d6f8079",
+    "docs/CRM_ERP_EUER_E1B2_API.md": "7edfd81f375f2956dbae7f4c832bba8554d9f7cc51b73f314c660a51aa7c0f9d",
+    "docs/CRM_ERP_EUER_E1B3A_API.md": "8dd9859cea8afb059ec9a2549fd4d519298e0a4416b97e785de532e4a069cfbd",
+    "docs/CRM_ERP_EUER_E1B3B_API.md": "8a5978273cf38107ab68182dec89027c2bce7dcd4d18c2303da0fa80fdd3d4df",
+    "docs/CRM_ERP_EUER_E1B3C_API.md": "67059090ac7535947d2ed4c5f2cbfad20204996c5595246d01379c2a63db3b47",
+    "docs/CRM_ERP_EUER_E1B3C_ENTWURF.md": "afaa859135633cdea99d8430517ca2008b7a6ec061e1db550f546cf9ec090a90",
+    "scripts/native-release.py": "b1050edd630ea464a1b6f275dc9dfa9c4a0b76315595b2461c36490a5be18270",
+    "scripts/package-windows-support.py": "0db9d827bafcb20eb9ec02639228a104ec898c59f155ea1fab762e83459d79de",
+    "web/office/office.js": "f27715151944d60471c93ac99f56fa7adf60205b59b02fb8468e77e8f36c72d2",
+    "web/office/tests/capacity-flow.cjs": "ec27fff0add85200af7896f023683c7dfa26f139f774f1bbabac6c16c297d53b",
+    "web/office/tests/e2e.cjs": "1ef2397eeb55736a37424ec4fcf317c55770b762e2e476ff147b1d475e0efa8e",
+    "web/office/tests/refund-flow.cjs": "c12ded345355b30e5b13ebded1e4593823928cc2ac50d975248c63761c2bba9b",
+    "web/office/tests/refund-v2-flow.cjs": "4fda9c06ec02d570632724ddf82a1d6dcda5bdded7a071445bb23dd37f913107",
+    "web/office/tests/refund-v2.test.mjs": "f72c6615f27337a9ec2cd1242497b5c23e2b89d40e8700b131eddf4a4d277d62",
+    "web/office/tests/serve_fixture.py": "74b88ae0d5e7ecd869b5cbe6ec22d9f20d76210692f60e9de0c8fc31b0bded72"
   },
-  "limitations": [
-    "Pure arithmetic assumes independently authenticated original lot cents and complete previous claims; it cannot establish their completeness.",
-    "Joint order validates exact global opposite-head chronology only; it does not validate stored domain rows or current source permissions.",
-    "No claim of working integrated R2 lifecycle, runtime migration, H6/schema7 restore, browser, Flutter or PostgreSQL acceptance yet."
-  ],
-  "independent_read_only_review": {
-    "joint_order": "No confirmed findings; independent actual-interleaving oracle.",
-    "return_lots": "No confirmed findings; independent exact Fraction oracle, immutable original basis and versioned identities verified.",
-    "tests_rerun_by_reviewer": false
+  "root_final_verification_source_sha256": {
+    "backend/accounting_component_segments.py": "24de42a70a9405fa9a3eda98fc8e536f9ba19be30cb5a67fd861247f41cfa30e",
+    "backend/accounting_joint_access.py": "82baa593e9d3a3c717dab7bdc1e198b11331f0d06e5b9f09aa83914341cf7aaf",
+    "backend/accounting_joint_ledger.py": "677c7dda0bd6182be714e22651b9b5ec454d462d1a8248b2def570fe01509dd2",
+    "backend/accounting_joint_order.py": "c01040475245bfb073ab320e1347f0da64be1df77458650b3070338fe0bd718f",
+    "backend/accounting_return_lots.py": "6f7ebe7f45239c9b04f2045720a08fd907ee01ffd8b40c3592656d258f72cc9c",
+    "backend/backup.py": "628453fd45121e9dd4af03da618187b3de0b5a1c93865ed98a8fcc4fb4a58e91",
+    "backend/business_accounting.py": "b1fc76ed8aaab37a740d201918f17ebaccb20d84ec6795e74ca9a57489237e3a",
+    "backend/business_accounting_allocations.py": "7ef08cb0c1df6ad62d8c7c0dd106c03852df121401bf5d28f1bef276f443c81f",
+    "backend/business_accounting_capacity.py": "103cd9c36fb676b92e4243195deac549bab17282c292d48c227859f7071a27d9",
+    "backend/business_accounting_components.py": "7c502d44521fc5e999eb260fddf3cd1b1a39e234550368ce50566dc6dd095e21",
+    "backend/business_accounting_refunds.py": "e5f1c70f9123497043f3c26d1f748d641eefe3c6c504065385d4908c822d8922",
+    "backend/business_accounting_refunds_v2.py": "9277f7605c03a05567a3badd8074a947dd10f66356b63e852f998d63accb0f70",
+    "backend/business_adapters.py": "ee8a4c433e4b2153f9c093f821845e30ad3212584a40fbc891510d17397f8cfd",
+    "backend/business_api.py": "07e0a823d75c565c4711b9a0b128af9ed43e920756f26eecf8c0df88c932f959",
+    "backend/business_delivery.py": "cc2a3546bdddb15d2650fbf55a83caa814b54d52e956bec8a3b37f1813fa6694",
+    "backend/business_documents.py": "8084189eabd566a61cd378795df1730326a92d3335829a8c310b8c3d8354504f",
+    "backend/business_einvoice.py": "a90c605b8d841c742feace9695a42c3960f1f3433cd4e7251da752f354860a81",
+    "backend/business_finance.py": "c58ec54b0f2a3d2fe5b66cb1e6d5bed5960953205b6e9fe4a5c8539daf734a82",
+    "backend/business_foundation.py": "1242cc3eba4434edb540109b18fb765e6b69549b63a2ba3bb451141c628888c0",
+    "backend/business_instance.py": "f7f6297ae36622692fd168b9105c9adfd31b4da20a17447c15badd26da2a97a5",
+    "backend/business_inventory.py": "0d305b38880988e5aedf6138e181d4b4413ea5e8b14fbc67a81a74e903b0c7b0",
+    "backend/business_maintenance.py": "73f92ab5386eb988147e8ac6b751b62d57c6e82dc772b357689498f96611c5a8",
+    "backend/business_operations.py": "b1b9cb8fed6d58f0d536f8820745aec9b98c99af3f05bf5d6cfbe06e1b24d8c8",
+    "backend/business_organization.py": "e6abd82aa6965bba82d6466342019680803497adee68bd1b53aae59ba6162dc0",
+    "backend/business_planning.py": "00ae4084d88414bf709a344389961acdf33209b52667db1de3e31390f97453c2",
+    "backend/business_portal.py": "63d1d7c0841f48821d726c9f253ab79dfde2d205eaa3d17305fe6b5639e50bd2",
+    "backend/business_pricing.py": "d0e109c32ec052a6863d1ebcd82e678fa6e5763bbc9f4767a283a4e47aafc0a6",
+    "backend/business_purchasing.py": "05764fcd19b0c9eac99dac4752ed4a7c7554f5ed4f11d6be5865c0952955eb77",
+    "backend/business_schema.py": "72cb9f7cbbeced8ffaa35ce6e0a85265d42216ae87bfa33555eecaf7aeea16c9",
+    "backend/business_time.py": "05a0026b60fe20f9e40324943c16dfc83e90ec0f2719b165e084df2eeb9330fe",
+    "backend/core.py": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7",
+    "backend/external_integrations.py": "ccec531afcb5cf82c1fa3d63123126b215e8f99af1b06993cbddc3729f26c871",
+    "backend/inbound_connectors.py": "7c2179ff0514b0a28ed23fb615989b27c7bc81dce41e657fa7b357fb5c974fb2",
+    "backend/inquiries.py": "9bb849103a4b1084c6fcc7720b194f70d65edeb0cb65e57ba99689abbc8211a7",
+    "backend/inquiry_attachments.py": "0874a743d4a31e7b863c5585bf9dc8b00abfd8b311c991b3aa3390a1711c6bd9",
+    "backend/integration_bridge.py": "841bf3cd3dec687faf50337e81ec7bb7dd74ec4ac3e6d3b61e68d4c295fb5f60",
+    "backend/onedrive.py": "b4e6254984bedf109038383f227f806ceb36461335894c2d0309397517bcb95f",
+    "backend/online/auth.py": "175c1e5c0587f60788381d0bc759bab3c683e5f7c5777d3f25ed730fd27f3793",
+    "backend/online/backup.py": "3123a1510099e30800dc49c641ce1046dad8dc26321a77e481152cb5bbb71125",
+    "backend/online/import_sandbox.py": "2fcf3600ac022ac2332ff87b9f762844757419a1a254fdd22493d489400e4f71",
+    "backend/online/import_worker.py": "c22526edbccd11eac255c5ff926df331e7e2ceef22ecf515b0c034668601b1b2",
+    "backend/online/instance.py": "d15889a42dbe3fb190d3577a4fb6c7b9d64efc7ed6c8fc79f4fcd00a2c719b1a",
+    "backend/online/integration_bot_service.py": "f2da964a46c4a6a5651d244ff781ee3b91715453d589297768f6e2d446b85120",
+    "backend/online/integration_google.py": "6e79389d9fe5a69285152b40c1c14a287fe667bb6d54dbef9cc21f60a159e7ff",
+    "backend/online/integration_http.py": "6de848deed7a66385a266e2fd1fc2ceb1a31ba074e77a0cf79402ed434010eb3",
+    "backend/online/integration_onedrive.py": "dd67edac5eb1710dde1fad48839656042cdea2cd3419dc4c6d723761b80854fb",
+    "backend/online/integration_sevdesk.py": "7941472a6d461e24f81ee4d1d571e08c33cff66f98fa3a7b5c576a92e1139763",
+    "backend/online/integrations_service.py": "6c21edb51a6a0e826c892057b9bbfd20d77338ecf9a690d55458c9b32e6e1338",
+    "backend/online/manage.py": "ea11d4bdcf3724ba64273190cd1df87568d4093ac8773140bdf02f13ea3a2d02",
+    "backend/online/onedrive_connector.py": "e0d40dbd4348bcb78a8c997275a8b499baf2fc2d16fd4c5998b0583ad6042af6",
+    "backend/online/plan_imports.py": "db7ed8611123c0d23fab6c0fae9c788f6dcf24cf62a6006706d91374ff83d514",
+    "backend/online/portal.py": "808a9a58a074c2ede58b235417b44ce4bc8cf7f1c4d8126bf1b1d52da4f61455",
+    "backend/online/release.py": "bca5b7941a318ad8d4a0bef34359beffdb5a7d5d9255812f3bba15b9a858119f",
+    "backend/online/restore.py": "7994b13e4560cb3615cc7711e56a5649de3851da2b34c75167e40d654c7396f2",
+    "backend/online/storage.py": "be2f19bd58f7f37e56a9556339cc5480ff44b2f83d374b70176a561763672fdf",
+    "backend/online/storage_backends.py": "cd01e514d2320c37389f9e46b6786a1366d8f5b908ef953c37b0446208862e48",
+    "backend/online/store.py": "d7b0d6609ddc061920cabd9563edc1b42a1ee06a2bc1eaa9a59168972ebc70b4",
+    "backend/online/web.py": "7c5708ca67f8ff6f40960bd7b9b5f998a7a414434c2f462fbb6175fca602c25b",
+    "backend/plan_access.py": "d1dc463c8aa5b0116a200ecc3c4a92900e2722775236c69bb8efbf29e44f7630",
+    "backend/plan_deletions.py": "48cea7e0ac826f495a66b64db67148b603aba61a52e2ed4f21b03e79c9712c82",
+    "backend/plans.py": "ceabfb9edf16ae4ea7b1443d91f22b47e079d481dd86c52178e283514ae4041e",
+    "backend/project_workspace.py": "721f59cd4830e0bafdf8cfa636dfcd955c54ae4d65a545f435da3d85027265fe",
+    "backend/restore.py": "225366c37aba7d7b339713726f2c08194d487d4ff15a4677e6177acfa8c0bacc",
+    "backend/server.py": "7c28c18a07f3219d2031d767e21b03f6f04596925f664faa9a04cf8a6c8b4187",
+    "backend/test_accounting_allocation_transport.py": "28e5dac35916d973fdb6558e8dcf7145b8d266ff16c19a8408c1c4c53c21d47c",
+    "backend/test_accounting_component_segments.py": "6758648d2ce25e54ca2dbf22a65e600718fce0b643e1b5ba926fc2818cea8512",
+    "backend/test_accounting_joint_order.py": "6e29926bd05434709e9ade2684be1084b490ff67d94c33c727c622b79d878c3d",
+    "backend/test_accounting_registration.py": "78d270b31231c6f3191117b012c5c83721b8929dcfc4a559b0274277d6172c0a",
+    "backend/test_accounting_return_lots.py": "740e2a843bbe6a13efe52e03414089941282fefd100a03a311550c263a790f6a",
+    "backend/test_adapter_payment_scope.py": "2e8006dc61f60c71d7c906802cfa69c9e37c442f4da7aad0b08628e37f54d1d6",
+    "backend/test_admin_api.py": "6210bdef0524c15b64e51e1a470d4075cd4a358e58af67bde2b7dafdaef7715b",
+    "backend/test_backup.py": "927d219de5b4cd3337a4bc232dcfc919eea1ddb146f2bec3af571ab1017fd299",
+    "backend/test_business_accounting.py": "b909d35967dbd3ece2ac9dce93321842976205fb5faaefb8f0564e6247dc5aa0",
+    "backend/test_business_accounting_allocations.py": "09a0d475e1c6869757f4461ebdb385d62d11fd970fa2392b4d10d12b184fb463",
+    "backend/test_business_accounting_capacity.py": "9781f2821c9e086d0ca4543e44304657a1d962be655a4d0a4310e21fc0dff196",
+    "backend/test_business_accounting_components.py": "e997b6e4ab77839c199e3be697d550beda22c40f7e9d16a29a37972aa703a066",
+    "backend/test_business_accounting_refunds.py": "8bed89a46155b9b69f5240ba04934ad4320fc9739346a999d11dac50f1abe9b9",
+    "backend/test_business_accounting_refunds_v2.py": "681f86cc86486824b48c87bbd5fc7a1c986931be52be1bd6f80c98929c3cd39e",
+    "backend/test_business_adapters.py": "0a98a22fe1484bde8a7157319a95e8128c20504d1402a4ce6fde709b20951b26",
+    "backend/test_business_api.py": "ce73d2b31f9ff2c022f1af34604f58590f32df958788b07d257f24140e1dda62",
+    "backend/test_business_contact_snapshot.py": "6f37a661c92e1691aa1bacad14536f1cbfad62c9707dc3bcb1033f3ed1268e91",
+    "backend/test_business_features.py": "7d6c80a9113f536e1eecb73bcedc82ff4f51a550ed948acad36729466579f08d",
+    "backend/test_business_foundation.py": "b597481cba0cf54665d85a66e241f3f4b84cb2485e87eb496a25699e3df7e5fc",
+    "backend/test_business_inventory.py": "340fca3401e55c15ad5261a7df73cc6704047867f90a52697e078945528a29ef",
+    "backend/test_business_maintenance.py": "f9334223693b405849a27199747931677d44d2339820f1cdb8b22ad8f94174bc",
+    "backend/test_business_offline.py": "7fb9c1e122f9119dfc59fb3c0c911ac9872ca542094dad87fdb16d2d73cd942a",
+    "backend/test_business_operations.py": "5c63ca0ef1a35f3b093f10d089b6b425c1fe934326f8854ed2512d77baded1d1",
+    "backend/test_business_organization.py": "97d3f5c161a381c645e281c685f378f4fcb9e5915144c01eadd57f19a6bb3046",
+    "backend/test_business_planning.py": "aa993f2a7e97553bc7e5c12ec61f3fe0ec75a26ba06d4a993058a0bb5db3b2ea",
+    "backend/test_business_portal.py": "e9e595cebfb2011462d9786be6e76bbb51a95229497bbe446232143c8327c3a1",
+    "backend/test_business_portal_registration.py": "5ddefdd101bfb8ec9bd57b7818d980d8bdee53a62d72cd908c6a046842f91c05",
+    "backend/test_business_privacy_checkpoint.py": "21e039366741d5896d4d310e24ef9e7c2f81dd21daf6a7ce1274e3372935522a",
+    "backend/test_business_purchasing.py": "9dd50168f5d027328cb40a9d8996c62deeec307afc158d468c5c036cdfccc99a",
+    "backend/test_business_schema.py": "d4b7d6ea33bb60d817da0ecd469161cfcf7d1b3ac4b0ca32222c7612d874bc5d",
+    "backend/test_business_time.py": "146841c6d6ffabb33b37745c4bdf7db49cba79d18c79fbfb14e4fd6e9519df3c",
+    "backend/test_business_timeline.py": "ce1a6cb3f9bf8ce4ad79976ec3c37dee8be596fe7b6d6f7678b4b37fb35fa799",
+    "backend/test_customers.py": "559333ac9ab7ab3794100168ffa4ba685c01aa1623c371bfe4703f204ff86a39",
+    "backend/test_external_integrations.py": "77979fdc8e52937865414c83f805b16dfa009a808f3c9be767e578328025f162",
+    "backend/test_inbound_connectors.py": "269d0c80863acf05371b5eb860c7028b379fc8a1c14730ff6be6c882a2fb8ab3",
+    "backend/test_inquiries.py": "537c305cc87c96b22a4fa307735ba743ac68047bb6cfb022a60309a44ca1c526",
+    "backend/test_inquiry_attachments.py": "0a3d736bdf6ac64ec3fe580aed3b79e55ffad5ec174bede0ce199ce097579033",
+    "backend/test_integration_bridge.py": "e93ffca8e4e6866002cb125b6c129fce36359e8e86598b853761444dd0ff5d51",
+    "backend/test_office.py": "fd74ea5ed18197760add881572163c67cf283ebb53a4cc1ccc0d468d5b90abdf",
+    "backend/test_plan_access.py": "fcec0128c823bffa61761472543a485b6b05d4140c6cd8b18492e549ea27befa",
+    "backend/test_plans.py": "d4d022933b59cae782889e379bfbb44f89ec0db2aee81c67752241f684871784",
+    "backend/test_project_workspace.py": "a0b80296c27c116f24e7743c5a037d4578fa3a8ca71971b63a8da9ec1a6a1b0a",
+    "backend/test_report_integrity.py": "9c39d15898de1ff4e66ad29dcbec5f89f4eb11fb401e7968c3aa2dd434d38f68",
+    "backend/test_stock_article_identity.py": "abb6f72e35a1debc26097ba8a0aa84beef02eca96c09d926c22243118c5dff14",
+    "backend/test_windows_office.py": "a30aac63ac5084bcf859c3816316fa5beb10dec4368d2fe06c57069dcb0bc140",
+    "backend/test_workspace_access.py": "6caa1ca3a2c8464644bb5478018ddc447715d6399a67a22b667725737f97796c",
+    "backend/windows_office.py": "b93d6e3376dbd6b1881ee965fb88ec67e3fabaf7fd5df15c2ca27dc94578946d",
+    "backend/workspace_api.py": "5b8ff726403b36e59a408a9c509ee5dacadc642362e10ba119ba32cc073d5c65",
+    "web/office/contact.html": "1e39759df8b901f0c90a215fdad8e49770c63bdc88acf4e929b664c11700f143",
+    "web/office/contact.js": "ddbf79c55c287f35886d21d7d7897d4fbb9584eab21547879d4dece5ae35bf52",
+    "web/office/index.html": "9e45c5e81f1b2f3cf8a9028d782f2b71e11b3c41b3a199cbf97118eeab228021",
+    "web/office/office.css": "6c8057d8969ae54a11ef24ac62a9de3010970bb860c1fe29ec418d10425f9457",
+    "web/office/office.js": "f27715151944d60471c93ac99f56fa7adf60205b59b02fb8468e77e8f36c72d2",
+    "web/office/portal.css": "c2887fa779f6889dd0e9acaeb7a2cda31fd0d937a7e887f6425acb605ebbe968",
+    "web/office/portal.html": "bc366836695680d8555397433917af49c874f7a9f37648326cc17c30b809ff09",
+    "web/office/portal.js": "feb121fa2c48b50b89c2f26278cfe197a9756f08985e2b687b0277871bf7911a",
+    "web/office/tests/accounting-allocation-flow.cjs": "ea33d2b7e6ce8acae7b5a82e602285553ecd857629a6b3d6a6cceedcf551112b",
+    "web/office/tests/accounting-allocation.test.mjs": "0b6659b0beb4390b58da2eed6fbbaea3fc7a563b93840e9dc5ce41e3345812f6",
+    "web/office/tests/accounting-flow.cjs": "7ba08eadeeda4222b871113a9239560f951463d626f78ad1118088b478f683ea",
+    "web/office/tests/accounting.test.mjs": "1dc4ff7a746a0d7a1d09bb3b560f63e28ea23e90983de2378e73f0071f47f68c",
+    "web/office/tests/capacity-flow.cjs": "ec27fff0add85200af7896f023683c7dfa26f139f774f1bbabac6c16c297d53b",
+    "web/office/tests/capacity.test.mjs": "7c31cc3f44cce433a9046d55396937c8666e13d37465cd475813880f00fbe4d3",
+    "web/office/tests/client.test.mjs": "d72bfae67f51600b489c1e55a0e7531d89844306dfe668321bcd0638d6cc2e4a",
+    "web/office/tests/component-flow.cjs": "43ebbbe071b3397873bda43aa11c31638408a3e0be179fab9a9860d08afca0de",
+    "web/office/tests/component.test.mjs": "6e5f023f411ae1f05903885fd09d146e4b2a16f73e88456270f93005518bd442",
+    "web/office/tests/contact.test.mjs": "61e317931ff03708f6f16249377f5eadb5210b9d3dce54f92c9b0f4df9ce1df1",
+    "web/office/tests/e2e-diagnostics.test.mjs": "816ce154077eacb43a35fd8ae56cf0fa15c09e0abac497d77996578bd3be116c",
+    "web/office/tests/e2e.cjs": "1ef2397eeb55736a37424ec4fcf317c55770b762e2e476ff147b1d475e0efa8e",
+    "web/office/tests/organization.test.mjs": "7618734930735ac474a82a3ee3b482dd1159eceb6389be834b18d2fda84f9a03",
+    "web/office/tests/planning.test.mjs": "5658f20c40e4ed6819edd8383b6d7ed27b9a6549ee60f1ea14969f934c2f1d0e",
+    "web/office/tests/portal-flow.cjs": "6613550f5f799dc7108c1d1cfc0696c748d3498cb999106f42990af4e1458ef0",
+    "web/office/tests/portal-staff.test.mjs": "d871c22703b5d64d3fc386efa87b7d3cf61d20f2d2d830081ae8aa7e92b5e6e0",
+    "web/office/tests/portal.test.mjs": "b7d64c08c944edf035e8331c80b17d7b4dd30e688f1b6d1ac85af7ebf9fef9bc",
+    "web/office/tests/purchasing-catalog.test.mjs": "955d63b798a083a4a67950d0f93e861422d25288c1d6d4e4b6cf37e56a959ea8",
+    "web/office/tests/purchasing-flow.cjs": "ba35f82f211c109f844f3c4166458186bb639eb5df98eb9e3739acffaed20021",
+    "web/office/tests/purchasing.test.mjs": "d9dc42c799f2970d7ef938c403f61126bf5cf580495ff30fa7342a169792658a",
+    "web/office/tests/refund-flow.cjs": "c12ded345355b30e5b13ebded1e4593823928cc2ac50d975248c63761c2bba9b",
+    "web/office/tests/refund-v2-flow.cjs": "4fda9c06ec02d570632724ddf82a1d6dcda5bdded7a071445bb23dd37f913107",
+    "web/office/tests/refund-v2.test.mjs": "f72c6615f27337a9ec2cd1242497b5c23e2b89d40e8700b131eddf4a4d277d62",
+    "web/office/tests/refund.test.mjs": "ab38cc9ec81d6e52142d453e955912eb2492dc161669d8597a2adad4af412cdf",
+    "web/office/tests/serve_fixture.py": "74b88ae0d5e7ecd869b5cbe6ec22d9f20d76210692f60e9de0c8fc31b0bded72"
+  },
+  "postgres_source_sha256": {
+    "backend/business_accounting_refunds_v2.py": "9277f7605c03a05567a3badd8074a947dd10f66356b63e852f998d63accb0f70",
+    "backend/accounting_joint_ledger.py": "677c7dda0bd6182be714e22651b9b5ec454d462d1a8248b2def570fe01509dd2",
+    "backend/accounting_joint_access.py": "82baa593e9d3a3c717dab7bdc1e198b11331f0d06e5b9f09aa83914341cf7aaf",
+    "backend/accounting_joint_order.py": "c01040475245bfb073ab320e1347f0da64be1df77458650b3070338fe0bd718f",
+    "backend/accounting_return_lots.py": "6f7ebe7f45239c9b04f2045720a08fd907ee01ffd8b40c3592656d258f72cc9c",
+    "backend/accounting_component_segments.py": "24de42a70a9405fa9a3eda98fc8e536f9ba19be30cb5a67fd861247f41cfa30e",
+    "backend/business_accounting_capacity.py": "103cd9c36fb676b92e4243195deac549bab17282c292d48c227859f7071a27d9",
+    "backend/business_accounting_refunds.py": "e5f1c70f9123497043f3c26d1f748d641eefe3c6c504065385d4908c822d8922",
+    "backend/business_accounting_components.py": "7c502d44521fc5e999eb260fddf3cd1b1a39e234550368ce50566dc6dd095e21",
+    "backend/business_accounting_allocations.py": "7ef08cb0c1df6ad62d8c7c0dd106c03852df121401bf5d28f1bef276f443c81f",
+    "backend/business_accounting.py": "b1fc76ed8aaab37a740d201918f17ebaccb20d84ec6795e74ca9a57489237e3a",
+    "backend/core.py": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7",
+    "backend/business_schema.py": "72cb9f7cbbeced8ffaa35ce6e0a85265d42216ae87bfa33555eecaf7aeea16c9",
+    "backend/business_api.py": "07e0a823d75c565c4711b9a0b128af9ed43e920756f26eecf8c0df88c932f959",
+    "backend/business_organization.py": "e6abd82aa6965bba82d6466342019680803497adee68bd1b53aae59ba6162dc0",
+    "backend/business_finance.py": "c58ec54b0f2a3d2fe5b66cb1e6d5bed5960953205b6e9fe4a5c8539daf734a82",
+    "backend/business_documents.py": "8084189eabd566a61cd378795df1730326a92d3335829a8c310b8c3d8354504f",
+    "backend/business_operations.py": "b1b9cb8fed6d58f0d536f8820745aec9b98c99af3f05bf5d6cfbe06e1b24d8c8",
+    "backend/online/store.py": "d7b0d6609ddc061920cabd9563edc1b42a1ee06a2bc1eaa9a59168972ebc70b4",
+    "backend/online/web.py": "7c5708ca67f8ff6f40960bd7b9b5f998a7a414434c2f462fbb6175fca602c25b",
+    "backend/online/restore.py": "7994b13e4560cb3615cc7711e56a5649de3851da2b34c75167e40d654c7396f2",
+    "backend/online/release.py": "bca5b7941a318ad8d4a0bef34359beffdb5a7d5d9255812f3bba15b9a858119f",
+    "backend/online/test_business_journey_pg.py": "8725cbb9ea50aeabb30c356bdedd7353c7d5a47206bcdf1f5d530175ae176c04",
+    "backend/online/test_postgres_accounting_refunds_v2_integration.py": "686a9b85ab3d36612473f0cacc8eacedcfd07cae3e5507a22846d88c98ee1a53",
+    "backend/online/test_postgres_accounting_capacity_integration.py": "2393e409cf75714d9649c1d9dc2beb14c3650f7914a8d0cb565ce6bc2eb6c728",
+    "backend/online/test_postgres_accounting_refunds_integration.py": "66712baf7bf868540cfe5de39febf7ea1a1fb5e41c7525f87295b364ddb2da56",
+    "backend/online/test_postgres_accounting_components_integration.py": "fc68f20f3f5a868afeac77a7110b2edceed433c5cb7e0fda364c2aece6374f8e",
+    "backend/online/test_postgres_accounting_allocations_integration.py": "10e28ec72bfbbe66c6f8abcac1c59b0b5c395228a780651762ee9fb1839275f3",
+    "backend/online/test_postgres_accounting_integration.py": "5db26964db0c9aadce2ad18e71d9e0c06b409d396e99ad6ae704142863ecd36e"
+  },
+  "http_source_sha256": {
+    "backend/business_accounting.py": "b1fc76ed8aaab37a740d201918f17ebaccb20d84ec6795e74ca9a57489237e3a",
+    "backend/business_accounting_allocations.py": "7ef08cb0c1df6ad62d8c7c0dd106c03852df121401bf5d28f1bef276f443c81f",
+    "backend/business_accounting_components.py": "7c502d44521fc5e999eb260fddf3cd1b1a39e234550368ce50566dc6dd095e21",
+    "backend/business_accounting_refunds.py": "e5f1c70f9123497043f3c26d1f748d641eefe3c6c504065385d4908c822d8922",
+    "backend/business_accounting_capacity.py": "103cd9c36fb676b92e4243195deac549bab17282c292d48c227859f7071a27d9",
+    "backend/business_accounting_refunds_v2.py": "9277f7605c03a05567a3badd8074a947dd10f66356b63e852f998d63accb0f70",
+    "backend/accounting_joint_order.py": "c01040475245bfb073ab320e1347f0da64be1df77458650b3070338fe0bd718f",
+    "backend/accounting_joint_ledger.py": "677c7dda0bd6182be714e22651b9b5ec454d462d1a8248b2def570fe01509dd2",
+    "backend/accounting_joint_access.py": "82baa593e9d3a3c717dab7bdc1e198b11331f0d06e5b9f09aa83914341cf7aaf",
+    "backend/accounting_return_lots.py": "6f7ebe7f45239c9b04f2045720a08fd907ee01ffd8b40c3592656d258f72cc9c",
+    "backend/business_schema.py": "72cb9f7cbbeced8ffaa35ce6e0a85265d42216ae87bfa33555eecaf7aeea16c9",
+    "backend/business_api.py": "07e0a823d75c565c4711b9a0b128af9ed43e920756f26eecf8c0df88c932f959",
+    "backend/business_organization.py": "e6abd82aa6965bba82d6466342019680803497adee68bd1b53aae59ba6162dc0",
+    "backend/core.py": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7",
+    "backend/server.py": "7c28c18a07f3219d2031d767e21b03f6f04596925f664faa9a04cf8a6c8b4187",
+    "backend/backup.py": "628453fd45121e9dd4af03da618187b3de0b5a1c93865ed98a8fcc4fb4a58e91",
+    "backend/restore.py": "225366c37aba7d7b339713726f2c08194d487d4ff15a4677e6177acfa8c0bacc",
+    "backend/online/web.py": "7c5708ca67f8ff6f40960bd7b9b5f998a7a414434c2f462fbb6175fca602c25b",
+    "backend/online/test_accounting_refunds_v2_http.py": "1154eea8efd3863328d87d1ef70408f28fe04252c3f18e969c57fee2501e8913",
+    "backend/online/test_accounting_refunds_v2_journey.py": "b6a23cdab78c774e7541e20b72b3bd1f91ce34491269a2c50cfcae5d95e934ef",
+    "backend/online/test_accounting_capacity_http.py": "4f496ad1596e225535cdcdc82ba4e2ff7173aaadf4adfa0521e9b42164dfdd91",
+    "backend/online/test_accounting_capacity_journey.py": "2099c500cd07aca02d5145c863f445528fb751a043d9e96eed233502b5525d21",
+    "backend/online/test_accounting_refunds_http.py": "0173369853c7ed32d9cb788e5cf4e01a2ad1081fc345f0dad6c613da3ca28d97",
+    "backend/online/test_accounting_refunds_journey.py": "62479e85dbb211237882376989446c525a2c4aaff8d81d571a30e7a24d71a353",
+    "backend/online/test_accounting_components_http.py": "4fd4ff54dd1f3d0012c32c79633c30da78cce5d7cab2617a24a3397662aa769a",
+    "backend/online/test_accounting_components_journey.py": "adbb05e58b53462e11add0b6d1f35758e1a4c3822bd076ddb7870716d5a35429",
+    "backend/online/test_accounting_allocations_http.py": "4ac84c48c5ac286460abfa962e161259b9f0db1d246c832a705c014ed74ddca5",
+    "backend/online/test_accounting_allocations_journey.py": "3e0f67ae186f37d74cfaeac8e87acbdcada10e7e552fd0128b2ab59ebd77020d",
+    "backend/online/test_accounting_http.py": "28aabce45d5ae37da165ffca648e8df55f14bff1e47737edd948992e3dd5b4f1",
+    "backend/online/test_accounting_journey.py": "07dad148424576af5874b22ea653720db5f07c8312a75e270aca617ddded03eb",
+    "backend/test_backup.py": "927d219de5b4cd3337a4bc232dcfc919eea1ddb146f2bec3af571ab1017fd299",
+    "backend/test_business_schema.py": "d4b7d6ea33bb60d817da0ecd469161cfcf7d1b3ac4b0ca32222c7612d874bc5d",
+    "backend/online/test_portal_http.py": "d82ca49fd0b539f3fb911199335b80e2f5d3e8eb717ad1b64c8210240aee480e",
+    "scripts/reconcile-accounting-restore.py": "065291753e3d8f953b3d1ca9229d735554d9926dd35379ca606209ebb1d3b765",
+    "docs/CRM_ERP_EUER_E1B3C_API.md": "8f20d7eb639466188057cb161f975bd3265994f40c5eb9059b6f5507539f5122"
+  },
+  "postgres_environment": {
+    "host": "127.0.0.1",
+    "port": 55433,
+    "database": "smartplan_check",
+    "restore_database": "smartplan_release_check",
+    "container": "smartplan-crm-erp-check-20261102",
+    "image": "postgres:16",
+    "image_digest": "sha256:5db6dac2ef5dcff512f4f00a009c3c332b9f2f28f24277175bf3e4a3d02ef83a",
+    "disposable_tmpfs_bytes": 536870912,
+    "synthetic_data_only": true
+  },
+  "postgres_cleanup": {
+    "restore_targets": [],
+    "other_test_connections": [],
+    "server_version": "16.15 (Debian 16.15-1.pgdg13+2)",
+    "cleanup_required": false
+  },
+  "log_sha256": {
+    "accounting-refunds-v2-backend-full.log": "25a3d046edf6162ff265b8cc5b586dc8ed59fc4b9bfbd5ee6d6917d4c0265df4",
+    "accounting-refunds-v2-backend-source-check.log": "38761dcd736d330a12dbe7b5acf5172609efd0958e060518ee0b2aa5a492c405",
+    "accounting-refunds-v2-browser-full.log": "b68ef1e423319503bf6ed52c06cb0dab85e35f1fa82a247cb5cab0ca025e93a8",
+    "accounting-refunds-v2-browser-source-check.log": "38761dcd736d330a12dbe7b5acf5172609efd0958e060518ee0b2aa5a492c405",
+    "accounting-refunds-v2-browser-targeted.log": "b1fb6212b40271e0c10caa42abb0d2b66f3b0e6f81b99f363c58f7fcd1f721a3",
+    "accounting-refunds-v2-historical-fixtures-initial.log": "4883c6b34ef202743013543c43a08597d2cb37771e88b458cfaf4b244dda4d36",
+    "accounting-refunds-v2-http-initial.log": "10938cdd5acb8753b249c557cd1b3d1416fe61c9871d381da7335464da4812fa",
+    "accounting-refunds-v2-http-restore-final.log": "26353ac2d036f55a42dce43bc581a75b482d7534aba721a2c29dce6abe58bf93",
+    "accounting-refunds-v2-https-final.log": "5df7ff9f1d3d1abce0a96d8bdde519f3148c031ba0eb44f58dd6018076c7e4d8",
+    "accounting-refunds-v2-https-initial.log": "4cfec0bf8796661faac89640a5d07a9f2442f2c6b66e6f5360b420c823f79dc3",
+    "accounting-refunds-v2-initial-results.json": "115b88d8b1645edf6072cdf2ad24915f285e27c1600d839f44aafd0c430cc4b0",
+    "accounting-refunds-v2-native-final.log": "7b27c346c88a134678988925f4e8d84d4499ea0333ac66220b89bc3fac2eaf10",
+    "accounting-refunds-v2-node-focused.log": "836ed2cb2f997c500e3541e0245904dbadae60d5d368859e32b857ff8a99102d",
+    "accounting-refunds-v2-node.log": "521cea30fcdc7d6690e8ddb8f73e298c9c864078a3b89f1dd746da2d5aeee860",
+    "accounting-refunds-v2-postgres-verification-summary.json": "1bb8dbc0a366a8b9831b89444981a0e5e7e337b27d54bc202ab5e357bd283623",
+    "accounting-refunds-v2-regression-initial.log": "f925a8be9621f91ad58f4db7b455fd6eeb21747ee04f034b929177ca8a2ea0be",
+    "accounting-refunds-v2-root-final-code.sha256": "2ce5b22b406ed44f0be6169cc6c5c9c884aae656e0cea6379b8c5596ce1d9509",
+    "accounting-refunds-v2-transport-final-before.json": "ad39e928a4da4714046272f8a1b38999c47f10701db7828bfc1088421027a430",
+    "accounting-refunds-v2-transport-final-results.json": "41071e9dab7862d997a3a340d1480222c6cd6199f9a340c52742bed2002f4577",
+    "e1b3c-access-binding-regression.log": "c7f70a9e76db74b9db110d884390789d12aa5d312cd259923c77ad4204de99aa",
+    "e1b3c-accounting-domain-final.log": "0a093c38ff354f91af4e01cd1f319f039c074487e560d84df50543e3135ee199",
+    "e1b3c-accounting-domain-regression.log": "1d2b6c8d94e74e94140e75489967e6f6807a7212640e77a9cebd4b68757372de",
+    "e1b3c-documentation-status-boundary.json": "d0985dd355400a4618b194d297ec1d3de1595f5f4f30a6b494d379069cc873ea",
+    "e1b3c-documentation-status-only.diff": "e5030c3a0de11b8458992cb63777d979721f8031941fa062dbc7a04f6367e6dd",
+    "e1b3c-flutter-analyze-final.log": "df5a7b194034dc08303fa3540e59f2f6de8add49b313526040aee664cf6837d5",
+    "e1b3c-flutter-analyze-initial.log": "1298c78d68c298353bd964adb31d4975ecf259105c14159c4ebecbf113e80e9b",
+    "e1b3c-flutter-analyze.log": "8ff6825c23864f2c88149e1cd6258a22a1a272ab5e236e2ee60dcc110ccb7ab0",
+    "e1b3c-flutter-backend-before-final.sha256": "e285df50280b7d4cb0d710c2d690a37887682835d2f7ac7aeceb8b3ae7f15de4",
+    "e1b3c-flutter-backend-before-fix-unchanged.log": "59e0d5b8397fd3565ac71951bf5db6d19e491ccfed5c39c4eaed67762744e124",
+    "e1b3c-flutter-backend-final-after.sha256": "6f345f7b7e759aab0156b6607a0c940b5f153efe9ed0e27f30411ff478fe3caa",
+    "e1b3c-flutter-backend-final-before-check.log": "59e0d5b8397fd3565ac71951bf5db6d19e491ccfed5c39c4eaed67762744e124",
+    "e1b3c-flutter-before-final-check.log": "fd0d2fd67ec3d40c61d6088e233d253c20fc8756eb44f907654cdba2ac6e420e",
+    "e1b3c-flutter-before-final.sha256": "d54ccfccfa97e943b91b78cf0eea7d539afe77555ab76c8128efd80fab55126d",
+    "e1b3c-flutter-before-fix-unchanged.log": "fd0d2fd67ec3d40c61d6088e233d253c20fc8756eb44f907654cdba2ac6e420e",
+    "e1b3c-flutter-before-fix.sha256": "d54ccfccfa97e943b91b78cf0eea7d539afe77555ab76c8128efd80fab55126d",
+    "e1b3c-flutter-evidence.sha256": "d8f1857dc0c2742a45d53a98b7423935a6de1486f9123322ee868f7124e1531d",
+    "e1b3c-flutter-final-after.sha256": "7678db1b15cd3077ddd24803b613c10768c59734b54ca8fa3b7d688c562fb764",
+    "e1b3c-flutter-final-before.sha256": "7678db1b15cd3077ddd24803b613c10768c59734b54ca8fa3b7d688c562fb764",
+    "e1b3c-flutter-final-source-check.json": "99e111d5171c0f59c224f3fdd5c51b18edce4cfb859634206b6cdad9c09bc1e7",
+    "e1b3c-flutter-full-before-fix.log": "291aca648331ebab95e9f61dc3d1bbdeeb2fbff565a42862f680de9ac8d83332",
+    "e1b3c-flutter-full.log": "249014c29bf48e0b4e9233560f1ff6608f3cf677334c0598ee7191652f1db265",
+    "e1b3c-flutter-http-widget-diagnostic.log": "f6fdbfb977c0a356df8da1e7bb2f8a14e59cee73d696167f51622236e3a79dcd",
+    "e1b3c-flutter-http-widget-initial.log": "c9fe0f6a4ef41c9e7a945cbc109f4951d7ee58489d022d572d119b532f34ee5a",
+    "e1b3c-flutter-http-widget-pump.log": "56c67898b7810ec99cf7d5d01217dff402c6ed4535e0f5ee84a3b8a4b28553a3",
+    "e1b3c-flutter-http-widget-second.log": "3b52c06310dac9b0445b015b4461d91c49a7e59a0546be55b415ccbd377b368b",
+    "e1b3c-flutter-http-widget-third.log": "7fb082d936e35b30d52329e038a229d916e11ea779c51cb6f931ee093a826131",
+    "e1b3c-flutter-pending-fix-boundary.txt": "0166edcf234c8c15d341d358367a0c9bd2595311b8ce34c7b6a816ecd7cfcae6",
+    "e1b3c-flutter-session-initial.log": "01e153149f15a452c85def13388eb1c04b87a5ae8e124019b67364697a94999c",
+    "e1b3c-flutter-targeted-after-fix.log": "56f29be4a525a802222bcc41b62e85848a93f0bae2f084b2352ab3d7c42db1a7",
+    "e1b3c-flutter-targeted-initial.log": "3aeb1fd979a7d5bf1ed79cb6c7747a5511124f10d4a9f88416036eb8190fbbc0",
+    "e1b3c-flutter-targeted.log": "c094683c5bded3c0de48bbbc3d73be491467f8f21ed931942b0b6404cb297e34",
+    "e1b3c-joint-order.log": "c83c4a18115916dc48ba1a3fce66e74aa0d693cd8c86630df88d5bcea77e2473",
+    "e1b3c-package-list-parity.log": "5db0e2fe40d9bcf660aef3d02d156128c3c101957b70aa6e1eb3a4d65df26544",
+    "e1b3c-refund-inputs.log": "aee80c5f621f459e24d29235b9443af3f2f09bd4a05ca540221b5cbd32854039",
+    "e1b3c-refunds-v2-domain.log": "b4f3bea148080f2d4bb1cf0848648721f279b16f801dfe2cf663e16bab9a55a7",
+    "e1b3c-registration-transport-initial.log": "84793db72a158aac9de3d4fe0b6bfb4fb12427f62be4bc07618e206a2f617d7f",
+    "e1b3c-return-lots.log": "859805b068f32bcec5488ca559321436850cc2e408ec79604524063868ed66f3",
+    "pg-refunds-v2-cleanup.json": "7e2dad5a1129f26da71932c2a968f5f5ed628f71377ebee72fb3bb10be1cb4c6",
+    "pg-refunds-v2-environment.json": "ed5c1e06c097e8f018115eaf855a1f663516ce1d6942f8ff48a0d1d3b64c46b3",
+    "pg-refunds-v2-image-pull.log": "b1c2f902dee747a39fc8ab5a23bd938972e7993f55d9e9d910a645c4573672d5",
+    "pg-refunds-v2-initial.log": "8a0891380f3aa5430847b5c20fcbc1b6056b27c97313a0447ce5494f8e6eeaa5",
+    "pg-refunds-v2-regression.log": "4cf69374b30a2b172a17bef78c8092ce3bc0af2bfbd374019a5371fcaf6cc2a7",
+    "refunds-v2-pg-initial-summary.json": "d3080f0baf6e61229145d6184583609a9cf93b4015c0e348b7e7cf565e0dab3f",
+    "refunds-v2-pg-regression-summary.json": "dedd0a361525056906aa4107b0f0fd0e704bc8b82d7d0c0ff9f3172d719bc0c3"
+  },
+  "screenshots_sha256": {
+    "accounting-refunds-v2-browser-full-previews/accounting-allocation-desktop.png": "a991cc650c8fbf39bd600954e7a164f47b4af094e7ce7fa266144e4363bb827b",
+    "accounting-refunds-v2-browser-full-previews/accounting-allocation-mobile.png": "7b4045be83ba5ea4028eccc3e91e4fdf8b6ac4d40a188d23729cdd0527412794",
+    "accounting-refunds-v2-browser-full-previews/accounting-desktop.png": "849537d98df091915101bdb190dae3a5173f3b9b124e1b2e8d7bb236bb384802",
+    "accounting-refunds-v2-browser-full-previews/accounting-mobile.png": "7f8c0b49ae759d33e2a152060d99adf9145c141e0fb283723405f3a324373e62",
+    "accounting-refunds-v2-browser-full-previews/capacity-desktop.png": "4c09c91656d877fa5b2f1134daa896d4d944f5799b9dd6c8e693dc974adf8e66",
+    "accounting-refunds-v2-browser-full-previews/capacity-mobile.png": "300fafb70927b3f80dddeaf23d681c061e621460ea59b8ec67e6e863fc5c4ca7",
+    "accounting-refunds-v2-browser-full-previews/components-desktop.png": "58ff0c4caa33c6ce4ae0a7210d87a856fdc7cb8eb007bcb31c6edee84a404ecd",
+    "accounting-refunds-v2-browser-full-previews/components-mobile.png": "d286f15b9323fca54964335489203edbdae514655385e9c5cdadd15d13b61111",
+    "accounting-refunds-v2-browser-full-previews/desktop.png": "de1121d95b9bf608b8b12d26d3183c3bb6a6c47180c374d893b28dcf2f2c11bd",
+    "accounting-refunds-v2-browser-full-previews/mobile.png": "614b78625a0489d1a9a5804f64be32a282fe89b516f51203d828bba01e925248",
+    "accounting-refunds-v2-browser-full-previews/portal-customer-desktop.png": "9c80d7e75023b68b1dfaefc84606461b4f2eaad664242b9a0cb1f6959e4bc310",
+    "accounting-refunds-v2-browser-full-previews/portal-customer-mobile.png": "d2c5935118b65fa3d2b044ef128cc04d908a8adccea86a4b02c86d73e97c84f2",
+    "accounting-refunds-v2-browser-full-previews/purchasing-catalog-desktop.png": "139e0f740d8896874802f1e81fe830e5d844d6a24fc7b416b8036dc06379eecf",
+    "accounting-refunds-v2-browser-full-previews/purchasing-catalog-mobile.png": "fc973fdabdbea9e80e5ecd299900fcf1b56a2baedbb266c306ac75016c1322f0",
+    "accounting-refunds-v2-browser-full-previews/purchasing-desktop-history.png": "31bc4f57783aa3ef2f74f2c2a9b672ee9c63a5b7febfa0114ca028eb3bac8293",
+    "accounting-refunds-v2-browser-full-previews/purchasing-mobile-history.png": "c34fc49170db98c0d1d70adfcbb6b239019747534251893e2f82220cc6029fa7",
+    "accounting-refunds-v2-browser-full-previews/purchasing-mobile.png": "e9d705b96145842d9be9f08dc6239a0d4dd688b50f29e0ccc59adac0b8be3687",
+    "accounting-refunds-v2-browser-full-previews/refunds-desktop.png": "8eef91d9d76abf4af4297164f5c38178a84a5cf98989a88f30a550cc5180f78b",
+    "accounting-refunds-v2-browser-full-previews/refunds-mobile.png": "d750b0a53ac5a92f2cf0e5dbf5c9205e2c37d6744312f8aa723c5f09c8e2d76f",
+    "accounting-refunds-v2-browser-full-previews/refunds-v2-desktop.png": "13ced42642e11df8e7f80b36a415a96056a7dba6931821e45a9ca147a99a39c4",
+    "accounting-refunds-v2-browser-full-previews/refunds-v2-mobile.png": "9230196da980babbcd5ea6449208d32080f98e1a3bbf191e07eb362f9ec141fe",
+    "accounting-refunds-v2-browser-full-previews/timeline-mobile.png": "80eac8cd474df27bf06269a02bd5a2f7e2bb757eef2c9b8e1c4606ee49292c1d",
+    "accounting-refunds-v2-browser-full-previews/timeline-year.png": "d6056e16a0aa7b932c2cc8fa73884b6944e2ec0ccbb345936af67df68544a511",
+    "accounting-refunds-v2-browser-previews/refunds-v2-desktop.png": "1af9522f0a66a6d792af78fb9e8db2eeb3932643a1cbcbe69ce8aa35773d0273",
+    "accounting-refunds-v2-browser-previews/refunds-v2-mobile.png": "b423dcd1b9cc6480f77b9231c4fd15274e0ccb589fe33a509a8c782165409451"
+  },
+  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, this summary and hashes are versioned. No new tests were run while compiling this evidence. Implementation commit is intentionally null until the parent pins the resulting commit.",
+  "initial_packaging_preparation": {
+    "stage": "initial static preparation; superseded for package acceptance by the final15-case native result",
+    "record": "Native validation, support archive and Windows CI copy lists now agree on46 backend/dependency files and8 operator files. This also fixes previously omitted3a/3b operator contracts in the Windows CI copy list. Static list check only; no native executable/build acceptance."
   }
 }

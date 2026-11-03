@@ -452,8 +452,7 @@ aufgehobener Sperre wirkungslos wiederholbar. Ein alter Bericht entsperrt keine
 neue Wiederherstellung; neue Freigaben benötigen den vollständigen aktuellen
 H4-Horizont. `--inspect` bleibt rein lesend.
 
-Ist zusätzlich `business_accounting_capacity` installiert, verlangt der noch
-in Entwicklung befindliche, nicht freigegebene
+Ist zusätzlich `business_accounting_capacity` installiert, verlangt der
 [E1b-3b-Vertrag](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze)
 H5 mit eigenem K1 über genau sechs neue Tabellen und neue Betreiberfreigaben
 nach Schema 6, auch bei leerem Modul. H1/A1/C1/R1, historisches H4 und dessen
@@ -521,3 +520,21 @@ vollständiger Unternehmensabgleich wird aus dieser Einzelansicht abgeleitet.
 8. Ein ungeklärter oder noch nicht nach E1a übernommener alter Refund wird
    weder automatisch gebunden noch als Gruppenkapazität freigegeben. R1 zeigt
    keine scheinbar vollständige steuerliche oder unternehmensweite Klärung.
+
+
+## Additive Erweiterung durch versionierte Erstattungsursprünge
+
+Bei zusätzlich installiertem `business_accounting_refunds_v2` gilt für neue
+Betreiberfreigaben [E1b-3c-Vertrag](CRM_ERP_EUER_E1B3C_API.md#h6-berichtschema-7-und-unveränderte-finanzprojektionen) mit H6 und
+Berichtschema 7, auch bei leeren neuen Tabellen. H6 ergänzt ausschließlich
+den eigenen fünf Tabellen umfassenden `refunds_v2`-Teilhorizont. Historische
+Berichte bis H5/Schema 6 behalten ihre feste Struktur und entsperren keinen
+neuen Restore. Der hier beschriebene ältere Teilvertrag bleibt erhalten;
+ausgeführte Prüfungen und offene Integrationsarbeit der Erweiterung stehen im
+[3c-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json).
+
+Nach der ersten R2-Bindung einer ganzen Rechnung sind neue R1-Bindungen dieser
+Rechnung gesperrt. Alte erfolgreiche R1-Quittungen bleiben nach frischer
+vollständiger Quellenprüfung exakt wiederholbar. Die zusätzliche konservative
+Pending-/409-Markerregel für beide Refundpfade steht im
+[3c-Clientvertrag](CRM_ERP_EUER_E1B3C_API.md#idempotenz-marker-und-clientverhalten).

@@ -194,8 +194,8 @@ Mit Erstattungsmodul ohne Wiederverwendungsmodul gilt
 Ist zusätzlich `business_accounting_capacity` installiert, verlangt der
 [E1b-3b-Vertrag](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze)
 Schema 6 mit H5 und eigenem sechs Tabellen umfassenden K1-Teilhorizont,
-auch bei leeren Tabellen. Dieser neue Abschnitt ist noch in Entwicklung und
-nicht freigegeben. Äußere Betreiberfelder bleiben gleich; historische
+auch bei leeren Tabellen. Der [3b-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json)
+belegt dessen abgegrenzten Stand. Äußere Betreiberfelder bleiben gleich; historische
 H1-/Schema-2-Strukturen und deren feste Tabellenmengen bleiben unverändert.
 
 ```json
@@ -286,3 +286,15 @@ Accountingreisen sowie bestehenden Backup-, Schema- und Portalrestorefällen
 und seine Runtime-Rollengrenze werden zusätzlich in der gesonderten echten
 PostgreSQL-Integrationssuite geprüft. Diese technischen Nachweise ersetzen
 keine externe Bestandsprüfung eines realen Betriebs.
+
+
+## Additive Erweiterung durch versionierte Erstattungsursprünge
+
+Bei zusätzlich installiertem `business_accounting_refunds_v2` gilt für neue
+Betreiberfreigaben [E1b-3c-Vertrag](CRM_ERP_EUER_E1B3C_API.md#h6-berichtschema-7-und-unveränderte-finanzprojektionen) mit H6 und
+Berichtschema 7, auch bei leeren neuen Tabellen. H6 ergänzt ausschließlich
+den eigenen fünf Tabellen umfassenden `refunds_v2`-Teilhorizont. Historische
+Berichte bis H5/Schema 6 behalten ihre feste Struktur und entsperren keinen
+neuen Restore. Der hier beschriebene ältere Teilvertrag bleibt erhalten;
+ausgeführte Prüfungen und offene Integrationsarbeit der Erweiterung stehen im
+[3c-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json).

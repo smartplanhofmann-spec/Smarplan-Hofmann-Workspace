@@ -452,11 +452,11 @@ class ComponentCapacityPostgres(unittest.TestCase):
         self.assertEqual(self.api.confirm(self.owner, event['id'], command), entry)
         self.assertTrue(business_schema.require_runtime_security(self.office))
 
-    def test_real_dump_restore_requires_schema6_and_preserves_exact_old_and_new_proofs(self):
+    def test_real_dump_restore_requires_current_horizon_and_preserves_exact_old_and_new_proofs(self):
         _, _, _, _, event, import_command = self.ready_middle_lot()
         entry, command = self.confirm(event)
         horizon = business_schema.financial_accounting_horizon(self.office)
-        self.assertEqual(horizon['schema_version'], 5)
+        self.assertGreaterEqual(horizon['schema_version'], 5)
         self.assertEqual(horizon['capacity']['table_counts'], self.counts())
         before = release.snapshot_fingerprint(journey.DSN)
         self.office.db.close()
@@ -483,7 +483,7 @@ class ComponentCapacityPostgres(unittest.TestCase):
             operator = PostgresOffice(target)
             try:
                 evidence = components_fixture.evidence_for(operator, report)
-                self.assertEqual(evidence['schema'], 6)
+                self.assertEqual(evidence['schema'], horizon['schema_version'] + 1)
                 old = {**evidence, 'schema': 5, 'accounting_horizon': dict(schema_version=4,
                     **{key: horizon[key] for key in ('prejournal', 'allocations', 'components', 'refunds')})}
                 wrong = {**evidence, 'accounting_horizon': {**horizon,
@@ -511,7 +511,7 @@ class ComponentCapacityPostgres(unittest.TestCase):
 class CapacityMigrationPostgres(unittest.TestCase):
     def test_r1_migration_preserves_old_rows_and_schema5_replay_cannot_unlock_a_new_restore(self):
         full = business_schema.registry()
-        prior = tuple(spec for spec in full if spec.name != 'business_accounting_capacity')
+        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_capacity', 'business_accounting_refunds_v2'))
         fixture = refunds_fixture.RefundOriginsPostgres(methodName='runTest')
         self.addCleanup(fixture.doCleanups)
         with patch.object(business_schema, 'registry', return_value=prior), \
@@ -545,7 +545,7 @@ class CapacityMigrationPostgres(unittest.TestCase):
                             self.assertEqual(upgraded[table], value, table)
                     operator = PostgresOffice(target)
                     try:
-                        self.assertEqual(business_schema.financial_accounting_horizon(operator)['schema_version'], 5)
+                        self.assertGreaterEqual(business_schema.financial_accounting_horizon(operator)['schema_version'], 5)
                         self.assertEqual(components_fixture.approve(operator, evidence), approved)
                     finally:
                         operator.db.close()
@@ -579,7 +579,7 @@ class CapacityMigrationPostgres(unittest.TestCase):
                         components_fixture.approve(operator, invalid)
                     self.assertEqual(release.snapshot_fingerprint(target), frozen)
                 latest = components_fixture.evidence_for(operator, report)
-                self.assertEqual(latest['schema'], 6)
+                self.assertEqual(latest['schema'], business_schema.financial_accounting_horizon(operator)['schema_version'] + 1)
                 components_fixture.approve(operator, latest)
             finally:
                 operator.db.close()

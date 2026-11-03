@@ -150,23 +150,35 @@ class BusinessSession extends ChangeNotifier {
     return Map<String, dynamic>.from(jsonDecode(operation.values));
   }
 
-  /// Both component writers share one logical pending operation per CashEvent.
-  /// A newer client must retain its original transport path until the server
-  /// has acknowledged it or rejected it definitively.
-  String? pendingDocumentComponentPath(String eventId) {
+  /// Each documentary operation keeps one logical key across its two writers.
+  /// Its original path remains fixed until the server resolves the request.
+  String? pendingDocumentComponentPath(String eventId) =>
+      _pendingAccountingPath(eventId, 'components');
+  String? pendingRefundOriginPath(String eventId) =>
+      _pendingAccountingPath(eventId, 'refunds');
+
+  String? _pendingAccountingPath(String eventId, String domain) {
     if (!allowed || !RegExp(r'^[a-f0-9]{32}$').hasMatch(eventId)) return null;
-    final stored = _pending['accounting-components-$eventId']?.path;
-    return stored == '/accounting/components/events/$eventId/confirm' ||
-            stored == '/accounting/components/v2/events/$eventId/confirm'
+    final stored = _pending['accounting-$domain-$eventId']?.path;
+    return stored == '/accounting/$domain/events/$eventId/confirm' ||
+            stored == '/accounting/$domain/v2/events/$eventId/confirm'
         ? stored
         : null;
   }
 
-  Future<dynamic> repeatDocumentComponentCommand(String eventId) async {
+  Future<dynamic> repeatDocumentComponentCommand(String eventId) =>
+      _repeatAccountingCommand(eventId, 'components');
+  Future<dynamic> repeatRefundOriginCommand(String eventId) =>
+      _repeatAccountingCommand(eventId, 'refunds');
+
+  Future<dynamic> _repeatAccountingCommand(
+    String eventId,
+    String domain,
+  ) async {
     final epoch = _epoch;
     _guard(epoch);
-    final key = 'accounting-components-$eventId';
-    final storedPath = pendingDocumentComponentPath(eventId);
+    final key = 'accounting-$domain-$eventId';
+    final storedPath = _pendingAccountingPath(eventId, domain);
     final operation = _pending[key];
     if (storedPath == null || operation == null) {
       throw const ApiException(
@@ -182,17 +194,28 @@ class BusinessSession extends ChangeNotifier {
         'Die aktuellen Berechtigungen konnten noch nicht bestätigt werden.',
       );
     }
-    final currentWriter = storedPath.contains('/components/v2/');
+    final currentWriter = storedPath.contains('/$domain/v2/');
+    final refund = domain == 'refunds';
     void requireRights() {
       _guard(epoch);
       if (projectId != null ||
           !hasModule(
-            currentWriter ? 'accounting_capacity' : 'accounting_components',
+            refund
+                ? (currentWriter
+                      ? 'accounting_refunds_v2'
+                      : 'accounting_refunds')
+                : (currentWriter
+                      ? 'accounting_capacity'
+                      : 'accounting_components'),
           ) ||
           !hasFeature(
-            currentWriter
-                ? 'accounting_document_component_reuse'
-                : 'accounting_document_components',
+            refund
+                ? (currentWriter
+                      ? 'accounting_refund_origins_v2'
+                      : 'accounting_refund_origins')
+                : (currentWriter
+                      ? 'accounting_document_component_reuse'
+                      : 'accounting_document_components'),
           ) ||
           !can('accounting.read') ||
           !can('finance.read') ||
@@ -200,7 +223,7 @@ class BusinessSession extends ChangeNotifier {
           !canWrite('finance.write')) {
         throw const ApiException(
           403,
-          'Die aktuelle Berechtigung zur Belegaufteilung fehlt.',
+          'Die aktuelle Berechtigung zur Belegdokumentation fehlt.',
         );
       }
       if (!sectionEnabled('finance')) {
@@ -215,7 +238,10 @@ class BusinessSession extends ChangeNotifier {
     );
     requireRights();
     if (fresh['writes_allowed'] != true) {
-      throw const ApiException(423, 'Neue Aufteilungen sind derzeit gesperrt.');
+      throw const ApiException(
+        423,
+        'Neue Belegdokumentationen sind derzeit gesperrt.',
+      );
     }
     if (_pending[key]?.body['request_id'] != operation.body['request_id']) {
       throw const ApiException(
@@ -227,7 +253,7 @@ class BusinessSession extends ChangeNotifier {
       key,
       storedPath,
       Map<String, dynamic>.from(jsonDecode(operation.values)),
-      componentRetry: true,
+      documentaryRetry: true,
     );
   }
 
@@ -418,19 +444,20 @@ class BusinessSession extends ChangeNotifier {
     String key,
     String path,
     Map<String, dynamic> values, {
-    bool componentRetry = false,
+    bool documentaryRetry = false,
   }) async {
     final epoch = _epoch;
     _guard(epoch);
     final portalRevocation =
         hasFeature('offer_portal') &&
         RegExp(r'^/portal/grants/[a-f0-9]{32}/revoke$').hasMatch(path);
-    final componentMatch = RegExp(
-      r'^/accounting/components/(?:v2/)?events/([a-f0-9]{32})/confirm$',
+    final documentaryMatch = RegExp(
+      r'^/accounting/(components|refunds)/(?:v2/)?events/([a-f0-9]{32})/confirm$',
     ).firstMatch(path);
-    final componentCommand =
-        componentMatch != null &&
-        key == 'accounting-components-${componentMatch.group(1)}';
+    final documentaryCommand =
+        documentaryMatch != null &&
+        key ==
+            'accounting-${documentaryMatch.group(1)}-${documentaryMatch.group(2)}';
     if (readonly && !portalRevocation)
       throw const ApiException(
         403,
@@ -453,7 +480,7 @@ class BusinessSession extends ChangeNotifier {
         (previous.path != path ||
             previous.values != canonical ||
             (!portalRevocation &&
-                !(componentRetry && componentCommand) &&
+                !(documentaryRetry && documentaryCommand) &&
                 previous.generation != generation))) {
       throw const ApiException(
         409,
@@ -477,14 +504,14 @@ class BusinessSession extends ChangeNotifier {
         Map<String, dynamic>.from(operation.body),
       );
       _guard(epoch);
-      if (componentCommand && generation != requestGeneration) {
+      if (documentaryCommand && generation != requestGeneration) {
         throw const ApiException(
           0,
           'Der Funktionsstand hat sich während der Übertragung geändert. Der Vorgang bleibt unbestätigt und kann unverändert erneut gesendet werden.',
         );
       }
       if (!portalRevocation &&
-          !componentCommand &&
+          !documentaryCommand &&
           generation != operation.generation)
         throw const ApiException(
           409,
@@ -502,12 +529,10 @@ class BusinessSession extends ChangeNotifier {
           e.status < 500 &&
           e.status != 429 &&
           e.status != 423 &&
-          !(componentCommand &&
+          !(documentaryCommand &&
               e.status == 409 &&
               e.requestResolution != 'not_accepted') &&
-          !(componentCommand &&
-              previous != null &&
-              (e.status == 403 || e.status == 404))) {
+          !(documentaryCommand && (e.status == 403 || e.status == 404))) {
         _pending.remove(key);
         _pendingEditorValues.remove(key);
       }
@@ -672,6 +697,48 @@ class BusinessSession extends ChangeNotifier {
     try {
       final result = await api.call(
         path('/accounting/refunds/events/$eventId/preview'),
+        Map<String, dynamic>.from(jsonDecode(jsonEncode(values))),
+      );
+      _guard(epoch);
+      if (generation != capturedGeneration) {
+        throw const ApiException(
+          409,
+          'Der Funktionsstand wurde geändert. Bitte neu prüfen.',
+        );
+      }
+      return result;
+    } on ApiException catch (e) {
+      if (e.status == 401) revoke();
+      rethrow;
+    }
+  }
+
+  Future<dynamic> previewVersionedRefundOrigins(
+    String eventId,
+    Map<String, dynamic> values,
+  ) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(eventId) ||
+        projectId != null ||
+        !hasFeature('accounting_refund_origins_v2') ||
+        !hasModule('accounting_refunds_v2') ||
+        !can('accounting.read') ||
+        !can('finance.read') ||
+        !canWrite('accounting.prepare') ||
+        !canWrite('finance.write')) {
+      throw const ApiException(
+        403,
+        'Die Erstattungsursprungsbindung ist nicht freigegeben.',
+      );
+    }
+    if (!sectionEnabled('finance')) {
+      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+    }
+    final capturedGeneration = generation;
+    try {
+      final result = await api.call(
+        path('/accounting/refunds/v2/events/$eventId/preview'),
         Map<String, dynamic>.from(jsonDecode(jsonEncode(values))),
       );
       _guard(epoch);

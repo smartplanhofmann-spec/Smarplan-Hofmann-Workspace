@@ -146,11 +146,8 @@ class AccountingRegistrationTests(unittest.TestCase):
             business_api.dispatch(self.office, self.owner, path + '/confirm', 'POST', {})
         self.assertEqual(caught.exception.status, 409)
 
-    def test_refund_routes_keep_finance_scope_and_require_live_online_writers(self):
+    def _assert_refund_writer_boundaries(self, module, feature, path):
         from business_organization import command_module
-        module = 'business_accounting_refunds'
-        feature = 'accounting_refund_origins'
-        path = '/business/accounting/refunds/events/' + 'a' * 32
         capabilities = self.call(self.owner, '/capabilities')
         self.assertIn(module, capabilities['capabilities'])
         self.assertIn(feature, capabilities['features'])
@@ -175,6 +172,14 @@ class AccountingRegistrationTests(unittest.TestCase):
         with self.assertRaises(Problem) as caught:
             business_api.dispatch(self.office, self.owner, path + '/confirm', 'POST', {})
         self.assertEqual(caught.exception.status, 409)
+
+    def test_refund_routes_keep_finance_scope_and_require_live_online_writers(self):
+        self._assert_refund_writer_boundaries('business_accounting_refunds',
+            'accounting_refund_origins', '/business/accounting/refunds/events/' + 'a' * 32)
+
+    def test_versioned_refund_routes_keep_finance_scope_and_require_live_online_writers(self):
+        self._assert_refund_writer_boundaries('business_accounting_refunds_v2',
+            'accounting_refund_origins_v2', '/business/accounting/refunds/v2/events/' + 'a' * 32)
 
     def test_component_reuse_routes_keep_legacy_and_offline_boundaries(self):
         from business_organization import command_module

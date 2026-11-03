@@ -131,8 +131,8 @@ Receipt und vor neuen Schreibwirkungen. Vorherige Rechte-/Betriebs-/
 Integritätsgates bleiben an ihrer Stelle und liefern keine solche Auflösung.
 Unmarkierte 409 sowie 403/404/423, 5xx und Netzfehler erhalten einen unklaren
 Komponentenauftrag; andere Operationen bleiben unverändert. Historische
-C1-Antworten, Quittungen und Proofs ändern sich nicht. Die neue Erweiterung
-ist bis zum gesonderten E1b-3b-Nachweis in Entwicklung, nicht freigegeben.
+C1-Antworten, Quittungen und Proofs ändern sich nicht. Der abgegrenzte Stand ist im
+[E1b-3b-Nachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json) geprüft.
 
 ## HTTP-Vertrag
 
@@ -227,7 +227,7 @@ Mit [E1b-3a](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiber
 ergänzt H4 den unveränderten C1-Teilhorizont um Erstattungsursprünge. Neue
 Freigaben benötigen ohne Wiederverwendungsmodul dann Schema 5, auch bei leeren
 Erstattungstabellen. Ist zusätzlich `business_accounting_capacity` installiert,
-ergänzt der noch in Entwicklung befindliche, nicht freigegebene
+ergänzt der
 [E1b-3b-Vertrag](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze)
 H5 mit eigenem K1 über sechs neue Tabellen; neue Freigaben benötigen Schema 6,
 auch bei leerem Modul. C1 und sämtliche historischen Horizonte/Parser behalten
@@ -247,3 +247,15 @@ geprüft; neutrale Wiederholungsdialoge geben keine gespeicherten Details preis.
 Späte Antworten nach Rechte-/Sitzungs-/Kontextwechsel dürfen keine Ansicht
 erneut füllen. Alte Server, Offline-/Lesemodus und gesperrtes Finanzmodul
 bieten keine neue Schreibaktion an.
+
+
+## Additive Erweiterung durch versionierte Erstattungsursprünge
+
+Bei zusätzlich installiertem `business_accounting_refunds_v2` gilt für neue
+Betreiberfreigaben [E1b-3c-Vertrag](CRM_ERP_EUER_E1B3C_API.md#h6-berichtschema-7-und-unveränderte-finanzprojektionen) mit H6 und
+Berichtschema 7, auch bei leeren neuen Tabellen. H6 ergänzt ausschließlich
+den eigenen fünf Tabellen umfassenden `refunds_v2`-Teilhorizont. Historische
+Berichte bis H5/Schema 6 behalten ihre feste Struktur und entsperren keinen
+neuen Restore. Der hier beschriebene ältere Teilvertrag bleibt erhalten;
+ausgeführte Prüfungen und offene Integrationsarbeit der Erweiterung stehen im
+[3c-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json).

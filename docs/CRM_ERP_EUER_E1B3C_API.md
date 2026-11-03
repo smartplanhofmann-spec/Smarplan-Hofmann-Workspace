@@ -1,6 +1,8 @@
 # E1b-3c: versionierte Erstattungsursprünge – Implementierungsvertrag
 
-Stand: 03.11.2026. **Vertrag, nicht implementiert oder abgenommen.**
+Stand: 03.11.2026. **Implementierter Umfang; keine Gesamtabnahme.**
+Tatsächlich ausgeführte Prüfungen, Quellstände und noch ausstehende Nachweise
+stehen im [Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json).
 Quellbasis `5a6e22ca278d647b4889243688b04e52b308a5b9` (abgeschlossener
 3b-Nachweispin; Implementierung `36f72a29e6074b8a06d470a59f0c03230037de1d`).
 Dieser neue Vertrag gehört nicht zum 3b-Abschluss.
@@ -584,7 +586,9 @@ keine steuerliche Einordnung oder vollständige Unternehmens-/Jahresabnahme.
 
 ## Erforderliche gezielte Nachweise
 
-Noch auszuführen und separat an den tatsächlichen Quellstand zu binden:
+Die folgenden Nachweise sind separat an den tatsächlichen Quellstand zu
+binden; ausgeführte Ergebnisse und ihre Grenzen stehen im verlinkten
+Prüfnachweis:
 
 1. Genannter gemischter 26,44-Fall exakt 22,21/4,23; voller C1-Lot über
    R1+R2 ohne Reset. Weitere C2-Wiederbelegung und mindestens zwei neue R2/C2-

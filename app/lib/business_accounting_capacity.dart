@@ -575,7 +575,10 @@ class _BusinessReusableComponentsPageState
       portionTitle(portion),
       Text('Dokumentierter Anteil: ${money(value, gross: 'amount')}'),
       Text('Begründung: ${value['reason']}'),
-      if (!historical && value['action'] != null)
+      if (!historical &&
+          value['action'] != null &&
+          !(widget.session.hasFeature('accounting_refund_origins_v2') &&
+              widget.session.hasModule('accounting_refunds_v2')))
         const Text(
           'Für die hier neu aufgeteilten Zahlungsanteile ist die Zuordnung späterer Erstattungen noch nicht verfügbar.',
         ),

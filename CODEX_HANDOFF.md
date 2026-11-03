@@ -144,22 +144,22 @@ aktuellen Fachtests und den Backend-Gesamtlauf geprüft. Die Prüfgruppen
 überschneiden sich und dürfen nicht zu einer Zahl unabhängiger Fälle addiert
 werden.
 
-**Aktuell: [E1b-3b](docs/CRM_ERP_EUER_E1B3B_API.md) ist implementiert und im
+**Vorheriger Abschnitt: [E1b-3b](docs/CRM_ERP_EUER_E1B3B_API.md) ist implementiert und im
 beschriebenen Umfang geprüft.** Neue Kapazitätsabschnitte
 für erneute Einnahmen erhalten genaue Netto-/Steuerreste und historische
 C1-/R1-Beweise. Eine ganze Rechnung wechselt atomar auf den neuen Schreiber C2;
 alte erfolgreiche Befehle bleiben nach frischen Rechten unverändert
 wiederholbar. Offene Befehle behalten ihren ursprünglichen Pfad und Inhalt.
 Sechs additive unveränderliche Tabellen erhalten einen eigenen K1-Teilhorizont;
-der aktuelle Restore verlangt H5 und Berichtschema 6.
+der damalige Restore verlangt H5 und Berichtschema 6.
 
 Die Freigabe zusätzlicher Rücknahmecents berücksichtigt auch noch nicht
 importierte Finance-Erstattungen, tatsächliche Zahlungsdaten und sämtliche
 historisch gebundenen Quellenrechte. Bereits bestätigte nutzbare Reste bleiben
 bei späteren ungeklärten Erstattungen erhalten. Der Ablauf erzeugt weder neue
-Geldflüsse noch eine zusätzliche OP-Wirkung. Neue C2-Komponentenlose können
-noch nicht als Erstattungsursprung gewählt werden; die Clients benennen diese
-Grenze ausdrücklich.
+Geldflüsse noch eine zusätzliche OP-Wirkung. Im damaligen E1b-3b-Umfang allein
+konnten neue C2-Komponentenlose noch nicht als Erstattungsursprung gewählt
+werden; diese Grenze wird durch den folgenden Abschnitt erweitert.
 
 Prüfungen dieses Abschnitts: 560 Backendfälle ausgeführt, davon 559 bestanden und ein
 bestehender Windows-Fall unter Linux übersprungen; 514 Flutterfälle bestanden.
@@ -177,10 +177,35 @@ Testhelper-Korrektur im Nachweis dokumentiert. Genauere Fach-/HTTP-/HTTPS-
 Ergebnisse, Versionsgrenzen und Prüfnachweise stehen im
 [E1b-3b-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3B.json).
 
-Danach läuft die Entwicklung mit E1b-3c weiter: Erstattungsursprünge auch für
-neue C2-Lose und gemischte C1-/C2-Anteile ergänzen, ohne historische Protokolle
-umzuschreiben. Bis dahin bleiben solche Erstattungen ungeklärt. Der
-Umsatzsteuerstatus bleibt unkonfiguriert. Vollständige EÜR, Lohn und Gesamtziel
+**Aktuell: [E1b-3c](docs/CRM_ERP_EUER_E1B3C_API.md) ist implementiert und im
+beschriebenen Umfang geprüft.** Der neue
+R2-Schreiber bindet ganze bestehende Erstattungszuordnungen an ausdrücklich
+gewählte C1-Lose, C2-Lose oder gemischte Ursprünge. Er übernimmt dazu eine
+bereits in C2 übernommene Rechnung atomar; andere Rechnungen bleiben im alten
+R1-Pfad. Weitere Rücknahme-/Wiederverwendungszyklen erhalten die exakten
+Netto-/Steuercents der tatsächlichen Ursprungslinien. Alte Antworten,
+Quittungen und historische Beweise bleiben unverändert. Zugriff und Replay
+prüfen die vollständige historische Quellenhülle über beide Versionen.
+Fünf additive unveränderliche Tabellen ergänzen die Rücknahmen; der aktuelle
+Restore verlangt H6 und Berichtschema 7. R2 erzeugt keine neue Zahlung oder
+OP-Wirkung und gibt selbst keine Kapazität frei; die spätere Wiederverwendung
+erfolgt über den bestehenden positiven C2-Pfad.
+
+Prüfungen dieses Abschnitts: 108 gezielte Domänenfälle bestanden; im
+Backend-Gesamtlauf 609 Fälle ausgeführt, davon 608 bestanden und ein bestehender Windows-Fall unter Linux
+übersprungen; 75 HTTP-/Restore- und acht echte HTTPS-Fälle; 14 neue und zehn
+historische PostgreSQL-Fälle ohne Skips; 135 Browser-Unitfälle; 579 Flutterfälle
+in der vollständigen Suite und Analyze ohne Befund. Der vollständige
+Browserlauf bestand mit 16 echten Abläufen einschließlich des zusätzlichen
+Rechtefalls im historischen R1-Dialog. Alle 15 abschließenden Paketfälle
+bestanden ebenfalls.
+Gruppen überschneiden sich; Details und Versionsgrenzen stehen im
+[E1b-3c-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3C.json).
+
+Unzugeordnete Erstattungsreste und weitere bislang nicht unterstützte
+Rechnungs-/Kundenfälle bleiben ungeklärt. Der Umsatzsteuerstatus bleibt
+unkonfiguriert. Weitere Journalfälle, Korrekturen, Perioden und Beraterpaket
+werden anschließend weiterentwickelt. Vollständige EÜR, Lohn und Gesamtziel
 A–G bleiben offen.
 
 Von 62 erfassten Anforderungen sind am 03.11.2026 28 Bausteine implementiert

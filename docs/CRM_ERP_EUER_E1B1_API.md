@@ -158,7 +158,7 @@ den eigenen Komponentenstand; der hier beschriebene Teilhorizont bleibt erhalten
 Mit [E1b-3a](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiberquittungen)
 ergänzt H4 die Erstattungsursprünge; ohne Wiederverwendungsmodul verlangen neue
 Freigaben dann Schema 5. Bei zusätzlich installiertem `business_accounting_capacity`
-gilt der noch in Entwicklung befindliche, nicht freigegebene
+gilt der
 [E1b-3b-Vertrag](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze):
 H5/Schema 6 mit eigenem K1 über sechs neue Tabellen, auch bei leerem Modul.
 Die äußeren Betreiberfelder und historischen Teilhorizonte bleiben unverändert.
@@ -240,3 +240,15 @@ Prüfstand 02.11.2026: **6 neue HTTP-/Operatorgrenztests**; zusammen mit den
 bisherigen E1a-HTTP-/Restore-/Journey-, Backup-, Schema- und Portalrestorefällen
 **47 Tests bestanden, keine übersprungenen Fälle**. Protokoll:
 `work/verification/accounting-allocations-http-restore.log`.
+
+
+## Additive Erweiterung durch versionierte Erstattungsursprünge
+
+Bei zusätzlich installiertem `business_accounting_refunds_v2` gilt für neue
+Betreiberfreigaben [E1b-3c-Vertrag](CRM_ERP_EUER_E1B3C_API.md#h6-berichtschema-7-und-unveränderte-finanzprojektionen) mit H6 und
+Berichtschema 7, auch bei leeren neuen Tabellen. H6 ergänzt ausschließlich
+den eigenen fünf Tabellen umfassenden `refunds_v2`-Teilhorizont. Historische
+Berichte bis H5/Schema 6 behalten ihre feste Struktur und entsperren keinen
+neuen Restore. Der hier beschriebene ältere Teilvertrag bleibt erhalten;
+ausgeführte Prüfungen und offene Integrationsarbeit der Erweiterung stehen im
+[3c-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json).

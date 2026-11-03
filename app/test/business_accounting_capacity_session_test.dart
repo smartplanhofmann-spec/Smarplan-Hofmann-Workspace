@@ -130,6 +130,34 @@ void main() {
       },
     );
   }
+  for (final path in [oldPath, newPath]) {
+    for (final status in [403, 404]) {
+      test(
+        'first component confirm $path status $status keeps exact request for authorized retry',
+        () async {
+          final (api, session) = await start();
+          api.confirmationFailure = status;
+          await expectLater(
+            session.command(key, path, {
+              'reason': 'Erster unveränderter Auftrag',
+              'confirmation': true,
+            }),
+            throwsA(
+              isA<ApiException>().having((e) => e.status, 'status', status),
+            ),
+          );
+          final original = api.calls.last;
+          expect(session.pendingDocumentComponentPath(eventId), path);
+          api.confirmationFailure = null;
+          api.generation = 2;
+          await session.repeatDocumentComponentCommand(eventId);
+          expect(api.calls.last.path, original.path);
+          expect(api.calls.last.body, original.body);
+          expect(session.pending(key), false);
+        },
+      );
+    }
+  }
   test('server terminal conflict clears old pending, local generation check does not', () async {
     final (api, session) = await start();
     await uncertain(api, session, oldPath);

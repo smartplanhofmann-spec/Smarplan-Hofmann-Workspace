@@ -21,6 +21,7 @@ class AllocationLocalTransportTests(unittest.TestCase):
     entries_table = 'business_accounting_allocation_entries'
     components = False
     refunds = False
+    refunds_v2 = False
     capacity = False
     payment_kind = 'receipt'
 
@@ -48,6 +49,8 @@ class AllocationLocalTransportTests(unittest.TestCase):
             self.path = '/api/business/accounting/refunds/events/' + event['id']
         if self.capacity:
             self.path = '/api/business/accounting/components/v2/events/' + event['id']
+        if self.refunds_v2:
+            self.path = '/api/business/accounting/refunds/v2/events/' + event['id']
         self.server = ThreadingHTTPServer(('127.0.0.1', 0), make_handler(self.office, OneDrive(self.office)))
         worker = threading.Thread(target=self.server.serve_forever, daemon=True)
         worker.start()
@@ -112,6 +115,11 @@ class RefundsLocalTransportTests(AllocationLocalTransportTests):
     entries_table = 'business_accounting_refund_entries'
     refunds = True
     payment_kind = 'refund'
+
+
+class VersionedRefundsLocalTransportTests(RefundsLocalTransportTests):
+    entries_table = 'business_accounting_refunds_v2_entries'
+    refunds_v2 = True
 
 
 class CapacityLocalTransportTests(ComponentsLocalTransportTests):

@@ -30,6 +30,7 @@ class CapacityApi extends old.ComponentsApi {
       hideSources = false,
       loseCapacity = false,
       pendingUnresolved = false;
+  bool refundV2Feature = false, refundV2Module = false;
   int capacityRevision = 0, generation = 1;
   int? capacityFailure;
   int? confirmGateFailure;
@@ -215,6 +216,10 @@ class CapacityApi extends old.ComponentsApi {
       );
       result['generation'] = generation;
       (result['capabilities'] as List).add('business_accounting_capacity');
+      if (refundV2Module)
+        (result['capabilities'] as List).add('business_accounting_refunds_v2');
+      if (refundV2Feature)
+        (result['features'] as List).add('accounting_refund_origins_v2');
       if (reuse)
         (result['features'] as List).add('accounting_document_component_reuse');
       return result;
@@ -847,6 +852,24 @@ void main() {
             hasLength(2),
           );
         }
+      },
+    );
+  }
+  for (final support in [(true, true), (true, false), (false, true)]) {
+    base.accountingWidgetTest(
+      'later-refund limitation disappears only with complete module and feature $support',
+      (tester) async {
+        final api = CapacityApi()
+          ..refundV2Feature = support.$1
+          ..refundV2Module = support.$2;
+        await show(tester, api);
+        await preview(tester);
+        expect(
+          find.text(
+            'Für die hier neu aufgeteilten Zahlungsanteile ist die Zuordnung späterer Erstattungen noch nicht verfügbar.',
+          ),
+          support.$1 && support.$2 ? findsNothing : findsOneWidget,
+        );
       },
     );
   }

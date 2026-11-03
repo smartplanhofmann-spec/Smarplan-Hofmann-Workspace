@@ -1,8 +1,8 @@
 # CRM/ERP – Fortschritt und Testergebnisse
 
 Die Abschnitte sind chronologisch. Der letzte abgeschlossene Prüfstand steht
-unter **03.11.2026 – E1b-3b umgesetzt und geprüft**. Die anschließende
-Entwicklung von E1b-3c ist gesondert dokumentiert.
+unter **03.11.2026 – E1b-3c umgesetzt und geprüft**. Frühere Zwischenstände
+und fehlgeschlagene bzw. unterbrochene Läufe bleiben als Verlauf erhalten.
 Der erste Abschnitt gehört zum lokalen Commit `14fe4c9`, der zweite zu `64bdc26`.
 
 ## 02.11.2026 – Bestand, Integration und erste Entwicklung
@@ -1207,3 +1207,100 @@ begrenzten Ergebnisse und ihre Quellstände. Sie sind keine Abnahme der noch
 laufenden Datenbank-, API-, Client- oder Restoreintegration. Deren gemeinsame
 Chronologie und vollständige aktuelle Quellenrechte werden getrennt umgesetzt.
 Die Gesamtquote und die offenen Gesamtabnahmen ändern sich dadurch nicht.
+
+
+### Erste 3c-Integration, noch kein abschließender Quellnachweis
+
+Die neue Registrierung und der tatsächliche lokale HTTP-Zugang bestehen
+16/16 Fälle in 6,030 Sekunden. Die unabhängigen neuen HTTP-/Restorefälle
+bestehen 8/8 in 7,338 Sekunden, die echten HTTPS-/MFA-Abläufe 8/8 in
+18,744 Sekunden; die bisherige HTTP-/Restore-Auswahl besteht 67/67 in
+26,387 Sekunden. Diese ersten Integrationsläufe liefen während der weiteren
+Entwicklung. Sie werden nicht als endgültige Prüfung des späteren Quellstands
+geführt; separate Initialprotokolle und ihre Grenzen stehen im 3c-Nachweis.
+
+Der unabhängige Review hat zwei zusätzliche Backendprüfungen angestoßen:
+Die alte R1-Kandidatenliste muss die erweiterte vollständige Quellenhülle
+berücksichtigen; historische Kapazitätsgates müssen R1-Bezüge auf ihren
+beobachteten Sequenzpräfix begrenzen. Der alte Browser-Auswahlweg muss beim
+Wiederanzeigen gespeicherter Ursprünge dieselbe Quellenhülle frisch prüfen.
+Die entsprechenden Korrekturen und Regressionen gehören in den abschließenden
+3c-Nachweis; ein unveränderter alter Antwortinhalt ersetzt diese aktuellen
+Rechte- und historischen Integritätsprüfungen nicht.
+
+Die Paketlisten für native Prüfung, Supportarchiv und Windows-Build wurden auf
+die neuen Module erweitert und gegeneinander abgeglichen: 46 Backend-/
+Abhängigkeitsdateien und acht Betreiberdateien stimmen überein. Dabei wurden
+zwei bisher fehlende 3a-/3b-API-Dokumente in der Windows-Build-Kopierliste
+nachgetragen. Das zuvor geprüfte Supportarchiv enthielt sie bereits. Dieser
+statische Listenabgleich ist keine Prüfung einer gebauten Windows-Anwendung.
+
+
+## 03.11.2026 – E1b-3c umgesetzt und geprüft
+
+Erstattungen können jetzt ausdrücklich ganze Portionen aus ursprünglichen
+C1- und wiederverwendeten C2-Anteilen gemeinsam zurücknehmen. Die neue
+R2-Historie erhält die unveränderten ursprünglichen Centgrundlagen, die alte
+R1-Historie und erfolgreiche alte Anfragequittungen. Ein chronologischer
+Prüfer verbindet beide Journalströme; die aktuelle vollständige Quellenhülle
+wird zusätzlich auf Rechte geprüft. Neue Tabellen, H6/Restoreberichtschema 7,
+beide Clients und die Paketlisten sind integriert. Zahlungen und offene Posten
+werden dadurch nicht ein zweites Mal verändert. Steuerliche Klassifikation
+ist weiterhin nicht implementiert.
+
+Der reale Browser- und Flutter-HTTP-Ablauf prüft zwei weitere vollständige
+Rücknahme-/Wiederverwendungszyklen: 26,44 Euro ergeben 22,21 Euro netto und
+4,23 Euro ausgewiesenen Steueranteil; der nächste Zyklus erhält 39,67 Euro
+mit 33,33/6,34 Euro. Diese Beträge sind dokumentarisch und kein Steuerergebnis.
+
+| Abschließende Prüfung | Ergebnis | Protokoll unter `work/verification/` |
+| --- | --- | --- |
+| Backend vollständig | 609 ausgeführt, 608 bestanden, ein bestehender Windowsfall unter Linux übersprungen; 144,231 s | `accounting-refunds-v2-backend-full.log` |
+| Accounting-Domainauswahl | 108/108; 38,545 s | `e1b3c-accounting-domain-final.log` |
+| HTTP und Restore | 75/75; 31,328 s | `accounting-refunds-v2-http-restore-final.log` |
+| Tatsächliches HTTPS und MFA | 8/8; 20,504 s | `accounting-refunds-v2-https-final.log` |
+| PostgreSQL, neue Fälle und historische Regression | 14/14 plus 10/10, ohne Skips; 204,560 s und 77,522 s | `pg-refunds-v2-initial.log`, `pg-refunds-v2-regression.log` |
+| Flutter vollständig | 579/579; Analyse ohne Befund | `e1b3c-flutter-full.log`, `e1b3c-flutter-analyze-final.log` |
+| Browserlogik mit Node | 135/135 | `accounting-refunds-v2-node.log` |
+| Browser vollständig | 16/16 tatsächliche Abläufe, Exit 0 | `accounting-refunds-v2-browser-full.log` |
+| Native Paketprüfung | 15/15; 3,453 s | `accounting-refunds-v2-native-final.log` |
+
+Die Auswahlen überschneiden sich; ihre Fallzahlen werden nicht zu einer
+Gesamtzahl addiert. Der PostgreSQL-Dateiname „initial“ gehört tatsächlich zum
+abschließenden erfolgreichen 14-Fälle-Lauf auf unverändertem Quellstand.
+Die 145 Dateien des abschließenden Backend-/Browsermanifests blieben bei beiden
+Vollprüfungen unverändert. Weitere Quellmanifeste binden HTTP/PostgreSQL und
+Flutter. Eine reine Statusformulierungsänderung im API-/Betreiberdokument
+ist getrennt nachgewiesen; die abschließende Paketprüfung verwendet sie bereits.
+
+Der erste Fluttervollauf hatte einen Fehler im neuen HTTP-Testhelfer: Eine
+Animation löste während des Klicks die tatsächliche periodische Rechteabfrage
+aus; die Anwendung sperrte den Klick korrekt. Der Helfer wartet nun begrenzt
+auf das Ende dieser tatsächlichen Abfrage. Der fehlgeschlagene Lauf bleibt
+getrennt erhalten. Zusätzlich erhält der Client dokumentarische ausstehende
+Befehle auch bei einem ersten 403/404; acht neue Fälle und zwei Kontrollen für
+gewöhnliche Operationen prüfen diese Änderung. Der danach vollständig
+bestandene Lauf enthält alle 579 Fälle. Der unabhängige Abschlussreview
+meldete für diese Änderung keinen offenen Befund.
+
+Der gezielte Browserlauf bestand vor einer abschließenden Absicherung des
+alten R1-Dialogs. Bei fehlgeschlagener frischer Autorisierung schließt dieser
+jetzt neutral. Der vollständige 16-Abläufe-Lauf prüft zusätzlich den echten
+Rechteentzug während einer zweiten Ergebnisseite: keine Wiederanzeige des
+Editors und kein finanzieller POST. Weitere Reviewkorrekturen begrenzen
+historische Gatebezüge auf den beobachteten Präfix, prüfen kanonische
+Zeitstempel neuer Nachweise und erhalten die bisherige Unterscheidung zwischen
+fehlender neuer Quelle und beschädigtem gespeichertem Nachweis.
+
+Die Desktop- und 390-Pixel-Aufnahmen des vollständigen Laufs wurden visuell
+auf die Dialoganordnung geprüft. Der Browser prüft Bedienbarkeit, exakte
+Beträge und Bestätigung zusätzlich automatisiert. Alle Daten sind synthetisch.
+Eine signierte Windows-/iPhone-Geräteabnahme oder Produktivbereitstellung ist
+damit nicht behauptet. TLS/MFA wird durch den gesonderten echten HTTPS-Lauf
+belegt, nicht durch die lokale Browserfixture.
+
+Der [3c-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json) hält endgültige
+Quellstände, Protokolle und Versionsgrenzen fest. Das Gesamtziel bleibt offen:
+28/62 ungewichtete Bausteine sind umgesetzt/getestet; R08.05 bleibt teilweise,
+alle sieben Gesamtabnahmen A–G offen. Aus diesem Abschnitt folgt keine
+vollständige EÜR, Lohnabrechnung oder Produktionsreife.

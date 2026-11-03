@@ -67,6 +67,9 @@ def seed(office, directory):
     capacity_email = 'capacity@browser.example.test'
     actors['capacity'] = dict(id=office.add_user(capacity_email, PASSWORD, 'accountant'),
                               email=capacity_email, role='accountant')
+    refunds_v2_email = 'refunds-v2@browser.example.test'
+    actors['refunds_v2'] = dict(id=office.add_user(refunds_v2_email, PASSWORD, 'accountant'),
+                                email=refunds_v2_email, role='accountant')
     owner, technician = actors['owner'], actors['technician']
     organization = Organization(office)
     settings = organization.get(owner)
@@ -84,6 +87,7 @@ def seed(office, directory):
     allocation_target = office.add_project(owner, 'Synthetic allocation target', customer_id=second_customer['id'])
     for capacity_project in (private, allocation_target):
         office.assign(owner, capacity_project, actors['capacity']['id'])
+        office.assign(owner, capacity_project, actors['refunds_v2']['id'])
     refund_customer = office.create_customer(owner, {'name': 'Separate refund fixture customer', 'email': 'refund-other@example.test',
         'address': 'Synthetic third street 3, 00000 Testcity'})
     refund_other_project = office.add_project(owner, 'Synthetic refund other customer', customer_id=refund_customer['id'])
@@ -110,6 +114,8 @@ def seed(office, directory):
         foundation.save_grant(owner, request(user_id=actors['refunds']['id'], permission=permission,
                                             scope='*', effect='allow', revision=0))
         foundation.save_grant(owner, request(user_id=actors['capacity']['id'], permission=permission,
+                                            scope='*', effect='allow', revision=0))
+        foundation.save_grant(owner, request(user_id=actors['refunds_v2']['id'], permission=permission,
                                             scope='*', effect='allow', revision=0))
     foundation.save_grant(owner, request(user_id=actors['bookkeeper']['id'], permission='documents.read',
                                         scope=project, effect='deny', revision=0))
@@ -195,7 +201,9 @@ def seed(office, directory):
                                 ('refund_other_invoice', private, second_customer['name']),
                                 ('refund_other_customer', refund_other_project, refund_customer['name']),
                                 ('capacity_main', private, second_customer['name']),
-                                ('capacity_legacy', private, second_customer['name'])):
+                                ('capacity_legacy', private, second_customer['name']),
+                                ('refunds_v2_main', private, second_customer['name']),
+                                ('refunds_v2_legacy', private, second_customer['name'])):
         draft = synthetic.create(owner, request(project_id=target, kind='invoice',
             title='Synthetic stored allocation invoice ' + key, issue_date='2026-11-02', due_date='2026-11-16',
             buyer={'name': buyer, 'address_line': 'Synthetic buyer street 2', 'postal_code': '10117',

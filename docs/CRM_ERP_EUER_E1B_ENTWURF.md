@@ -18,8 +18,15 @@ sind implementiert und im beschriebenen Umfang geprüft.
 Der Wechsel einer ganzen Rechnung auf den neuen Komponentenschreiber erhält
 historische Beweise und genaue Netto-/Steuerreste. Ungeklärte
 Finance-Erstattungen, Datumsgrenzen und vollständige historische Quellenrechte
-begrenzen die Übernahme weiterer Rücknahmecents. Neue Komponentenlose sind
-noch keine auswählbaren Erstattungsursprünge; dies folgt als E1b-3c.
+begrenzen die Übernahme weiterer Rücknahmecents. Im damaligen E1b-3b-Umfang
+allein waren neue Komponentenlose noch keine auswählbaren Erstattungsursprünge.
+Die [versionierten Erstattungsursprünge E1b-3c](CRM_ERP_EUER_E1B3C_API.md)
+sind implementiert und im beschriebenen Umfang geprüft: ganze
+Erstattungszuordnungen können ausdrücklich ursprüngliche und erneut verwendete Komponenten gemeinsam
+zurücknehmen. Weitere Rücknahme-/Wiederverwendungszyklen erhalten genaue
+Cents, alte Antworten und vollständige historische Quellenrechte.
+Die abschließenden Browser-, Flutter- und Paketprüfungen sind bestanden; der
+[E1b-3c-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json) hält den Prüfstand fest.
 Die steuerliche Einordnung bleibt offen. Der
 [E1b-3b-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json) grenzt die ausgeführten
 Prüfungen ab. Dieser Gesamtentwurf allein bleibt

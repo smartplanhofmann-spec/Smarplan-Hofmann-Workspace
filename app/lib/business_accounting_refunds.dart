@@ -131,6 +131,9 @@ class _BusinessRefundOriginsPageState extends State<BusinessRefundOriginsPage> {
   }
 
   Future<Map<String, dynamic>?> authorizedPendingPreview() async {
+    if (widget.session.hasFeature('accounting_refund_origins_v2') &&
+        widget.session.hasModule('accounting_refunds_v2'))
+      return null;
     final body = widget.session.pendingCommandValues(
       key,
       path: '$path/confirm',
@@ -450,8 +453,11 @@ class _BusinessRefundOriginsPageState extends State<BusinessRefundOriginsPage> {
         if (!mounted || current != epoch || !writeRights) return;
       }
       requireContinuation();
+      final wasContinuation = continuing;
       continuing = true;
-      final response = widget.session.command(key, '$path/confirm', body);
+      final response = wasContinuation
+          ? widget.session.repeatRefundOriginCommand(widget.eventId)
+          : widget.session.command(key, '$path/confirm', body);
       if (shownPreview != null)
         widget.session.preservePendingEditor(key, {'preview': shownPreview});
       await response;

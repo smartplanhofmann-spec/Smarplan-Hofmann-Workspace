@@ -4,6 +4,7 @@ import 'api.dart';
 import 'business_accounting_allocations.dart';
 import 'business_accounting_components.dart';
 import 'business_accounting_refunds.dart';
+import 'business_accounting_refunds_v2.dart';
 import 'business_accounting_capacity.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
@@ -578,10 +579,15 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
   Future<void> openRefundOrigins(String eventId) async {
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => BusinessRefundOriginsPage(
-          session: widget.session,
-          eventId: eventId,
-        ),
+        builder: (_) => businessVersionedRefundOriginsReadable(widget.session)
+            ? BusinessVersionedRefundOriginsPage(
+                session: widget.session,
+                eventId: eventId,
+              )
+            : BusinessRefundOriginsPage(
+                session: widget.session,
+                eventId: eventId,
+              ),
       ),
     );
     if (!mounted) return;

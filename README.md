@@ -49,7 +49,16 @@ ist implementiert und im beschriebenen Umfang geprüft.
 Sie erhält genaue Netto-/Steuerreste in neuen Abschnitten und prüft
 Erstattungsursprünge, Zahlungsdaten und vollständige Quellenrechte. Neue
 Zahlungen oder zusätzliche OP-Wirkungen entstehen dadurch nicht.
-Erstattungen aus diesen neuen Komponenten bleiben bis E1b-3c ungeklärt.
+Die [versionierten Erstattungsursprünge E1b-3c](docs/CRM_ERP_EUER_E1B3C_API.md)
+sind implementiert und im beschriebenen Umfang geprüft: ursprüngliche und
+erneut verwendete Komponenten lassen sich auch gemeinsam als Ursprung einer
+ganzen Erstattungszuordnung auswählen.
+Wiederholte Rücknahmen und erneute Verwendungen erhalten die genauen Cents,
+alte Antworten und vollständige historische Quellenrechte. Im früheren
+E1b-3b-Umfang allein blieben die neuen Komponenten als Ursprung ungeklärt.
+Die ausgeführten Prüfungen einschließlich der abgeschlossenen Browser-,
+Flutter- und Paketläufe stehen im
+[E1b-3c-Nachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3C.json).
 Steuerliche Freigabe, Korrekturen, Perioden und Beraterpaket folgen gemäß
 [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md); die Prüfnachweise stehen im
 [E1b-3b-Nachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3B.json).

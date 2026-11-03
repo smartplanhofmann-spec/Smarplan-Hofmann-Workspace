@@ -144,7 +144,7 @@ def _difference(left, right):
 
 
 def _release_key(value):
-    return value['refund_entry_id'], value['origin_entry_id'], value['group_id']
+    return value.get('refund_version', 'r1'), value['refund_entry_id'], value.get('origin_version', 'c1'), value['origin_entry_id'], value['group_id']
 
 
 def _header(row):
@@ -165,6 +165,11 @@ class ReusableDocumentComponents(Domain):
         Accounting(self.office)._write_gate()
 
     def _authorize_segments(self, actor, segment_ids, write=False):
+        from business_accounting_refunds_v2 import installed as versioned_installed
+        if versioned_installed(self.office):
+            from accounting_joint_access import authorize_sources
+            authorize_sources(self.office, actor, write=write, segments=segment_ids)
+            return
         pending = set(segment_ids); seen = set(); events = set()
         while pending:
             segment_id = pending.pop()
@@ -187,6 +192,10 @@ class ReusableDocumentComponents(Domain):
         fresh = DocumentComponents(self.office)._access(actor, event_id, write)
         if not installed(self.office):
             raise Problem(409, 'Wiederverwendbare Belegkapazität ist nicht installiert')
+        from business_accounting_refunds_v2 import installed as versioned_installed
+        if versioned_installed(self.office):
+            from accounting_joint_access import authorize_sources
+            return authorize_sources(self.office, fresh, event_id, write=write)
         rows = self.office.db.execute('SELECT access_segments_json FROM business_accounting_capacity_entries WHERE event_id=?', (event_id,)).fetchall()
         segments = set()
         for row in rows:
@@ -271,16 +280,23 @@ class ReusableDocumentComponents(Domain):
         for row in rows:
             source, unused = Accounting(self.office)._payment_source(None, row['payment_id'])
             link = self.office.db.execute("SELECT event_id FROM business_accounting_source_links WHERE kind='payment' AND source_id=?", (row['payment_id'],)).fetchone()
-            entry = next((value for value in sources['refund_entries'].values() if value['refund_allocation_id'] == row['id']), None)
+            matches = [('r1', value) for value in sources['refund_entries'].values() if value['refund_allocation_id'] == row['id']]
+            matches += [('r2', value) for value in sources.get('refunds_v2_entries', {}).values() if value['refund_allocation_id'] == row['id']]
+            if len(matches) > 1:
+                raise ValueError('Refund allocation was bound in two versions')
+            version, entry = matches[0] if matches else (None, None)
             if link:
                 Accounting(self.office)._event(None, link['event_id'])
-            observations.append(dict(allocation=dict(row), source_hash=source['source_hash'],
+            observed = dict(allocation=dict(row), source_hash=source['source_hash'],
                 event_id=link['event_id'] if link else None, refund_entry_id=entry['id'] if entry else None,
-                refund_entry_sha256=entry['entry_sha256'] if entry else None))
+                refund_entry_sha256=entry['entry_sha256'] if entry else None)
+            if 'r2_sequence' in sources:
+                observed['refund_version'] = version
+            observations.append(observed)
         return dict(refunds=observations, complete=all(value['event_id'] and value['refund_entry_id'] for value in observations))
 
     @_stored
-    def _validate_gate_snapshot(self, document_id, gate, sources):
+    def _validate_gate_snapshot(self, document_id, gate, sources, *, r1_sequence=None):
         """Validate each observed immutable fact; do not infer eternal absence."""
         from business_accounting import Accounting
         if (not isinstance(gate, dict) or set(gate) != {'refunds', 'complete'} or type(gate['complete']) is not bool
@@ -288,7 +304,7 @@ class ReusableDocumentComponents(Domain):
             raise ValueError('Invalid refund gate observation')
         identities = []
         for value in gate['refunds']:
-            if set(value) != {'allocation', 'source_hash', 'event_id', 'refund_entry_id', 'refund_entry_sha256'}:
+            if set(value) != {'allocation', 'source_hash', 'event_id', 'refund_entry_id', 'refund_entry_sha256'} | ({'refund_version'} if 'r2_sequence' in sources else set()):
                 raise ValueError('Invalid refund gate member')
             allocation = value['allocation']; identities.append(allocation['id'])
             actual = self.office.db.execute('SELECT * FROM business_payment_allocations WHERE id=?', (allocation['id'],)).fetchone()
@@ -302,21 +318,27 @@ class ReusableDocumentComponents(Domain):
                 if event['source']['id'] != allocation['payment_id'] or event['source']['source_hash'] != value['source_hash']:
                     raise ValueError('Changed observed refund import')
             if value['refund_entry_id']:
-                entry = sources['refund_entries'][value['refund_entry_id']]
+                version = value.get('refund_version', 'r1')
+                if version not in ('r1', 'r2'):
+                    raise ValueError('Unknown observed refund version')
+                entry = sources['refund_entries' if version == 'r1' else 'refunds_v2_entries'][value['refund_entry_id']]
+                observed_head = (sources['r1_sequence'] if r1_sequence is None else r1_sequence) if version == 'r1' else sources['r2_sequence']
+                if entry['sequence'] > observed_head:
+                    raise ValueError('Observed refund binding lies beyond the recorded prefix')
                 if (not value['event_id'] or entry['event_id'] != value['event_id'] or entry['refund_allocation_id'] != allocation['id']
                         or entry['entry_sha256'] != value['refund_entry_sha256']):
                     raise ValueError('Changed observed refund binding')
-            elif value['refund_entry_sha256'] is not None:
+            elif value['refund_entry_sha256'] is not None or value.get('refund_version') is not None:
                 raise ValueError('Unexpected refund binding checksum')
         if identities != sorted(set(identities)) or gate['complete'] != all(value['event_id'] and value['refund_entry_id'] for value in gate['refunds']):
             raise ValueError('Invalid observed gate completeness')
 
     @staticmethod
     def _empty_ledger():
-        return dict(by_event={}, headers={}, handoffs={}, active={}, segments={}, consumed={}, claims=set(), portions=set(), lines={})
+        return dict(by_event={}, headers={}, handoffs={}, active={}, segments={}, consumed={}, claims=set(), portions=set(), lines={}, entries_by_id={}, rows={})
 
     @staticmethod
-    def _segment(document_id, basis, carry, returns, previous=None):
+    def _segment(document_id, basis, carry, returns, previous=None, *, version=1):
         state = ComponentSegment(carry)
         for returned in returns:
             state = state.reopen_with_return(canonical(_release_key(returned)), _amounts(returned, 'amount'))
@@ -324,6 +346,8 @@ class ReusableDocumentComponents(Domain):
         value = dict(document_id=document_id, group_id=basis['group_id'], revision=previous['revision']+1 if previous else 1,
             previous_id=previous['id'] if previous else None, basis=_dto(state.basis), carry=_dto(carry),
             returns=returns, not_before_date=max(dates) if dates else None)
+        if version == 2:
+            value['schema_version'] = 2
         return dict(value, id=_sha(canonical(value)))
 
     @staticmethod
@@ -365,21 +389,28 @@ class ReusableDocumentComponents(Domain):
             raise Problem(409, 'Rechnungsquelle fehlt')
         handoff = ledger['handoffs'].get(document_id)
         legacy = sources['legacy'].get(document_id, [])
+        version = historical['schema_version'] if historical is not None else 2 if 'r2_sequence' in sources else 1
+        if type(version) is not int or version not in (1, 2) or (version == 2) != ('r2_sequence' in sources):
+            raise ValueError('Invalid capacity proof version or source space')
+        r2_sequence = sources.get('r2_sequence', 0)
         if historical is None:
             reason, eligibility = components._eligibility(context, raw)
             r1_sequence = sources['r1_sequence']; c1_sequence = sources['c1_sequence']
             gate = self._finance_gate(document_id, sources)
             authorized = set()
             # Only relational identifiers precede fresh full source authorization.
-            for row in self.office.db.execute('SELECT e.event_id FROM business_accounting_refund_entries e '
-                    'JOIN business_payment_allocations a ON a.id=e.refund_allocation_id WHERE a.document_id=?', (document_id,)).fetchall():
+            events = set()
+            for table in ('business_accounting_refund_entries',)+(('business_accounting_refunds_v2_entries',) if version == 2 else ()):
+                events.update(row['event_id'] for row in self.office.db.execute('SELECT e.event_id FROM '+table+' e '
+                    'JOIN business_payment_allocations a ON a.id=e.refund_allocation_id WHERE a.document_id=?', (document_id,)).fetchall())
+            for event_id in sorted(events):
                 try:
-                    RefundOrigins(self.office)._access(actor, row['event_id'], write)
+                    RefundOrigins(self.office)._access(actor, event_id, write)
                 except Problem as error:
                     if error.status not in (403, 404):
                         raise
                 else:
-                    authorized.add(row['event_id'])
+                    authorized.add(event_id)
             active = [value['id'] for key, value in ledger['active'].items() if key[0] == document_id]
             self._authorize_segments(actor, active, write)
         else:
@@ -387,9 +418,10 @@ class ReusableDocumentComponents(Domain):
             gate, eligibility = historical['gate'], historical['eligibility']
             if (type(r1_sequence) is not int or not 0 <= r1_sequence <= sources['r1_sequence']
                     or type(c1_sequence) is not int or not 0 <= c1_sequence <= sources['c1_sequence']
+                    or version == 2 and (type(historical.get('r2_sequence')) is not int or historical['r2_sequence'] != r2_sequence)
                     or eligibility != {'relations': []}):
                 raise ValueError('Invalid historical capacity observation')
-            self._validate_gate_snapshot(document_id, gate, sources)
+            self._validate_gate_snapshot(document_id, gate, sources, r1_sequence=r1_sequence)
             authorized = set(historical['authorized_returns'])
             if (not isinstance(historical['authorized_returns'], list)
                     or historical['authorized_returns'] != sorted(authorized)):
@@ -402,7 +434,7 @@ class ReusableDocumentComponents(Domain):
         if not handoff and historical is not None and legacy_before != legacy:
             raise ValueError('Legacy invoice changed after its handoff')
         pending = [value for value in sources['returns'].get(document_id, [])
-                   if value['sequence'] <= r1_sequence and _release_key(value) not in ledger['claims']]
+                   if value['sequence'] <= (r2_sequence if value.get('refund_version') == 'r2' else r1_sequence) and _release_key(value) not in ledger['claims']]
         if any(value['refund_event_id'] not in {item['event_id'] for item in gate['refunds'] if item['refund_entry_id']}
                for value in pending if gate['complete']):
             raise ValueError('Observed complete gate omits a contributing return')
@@ -428,9 +460,9 @@ class ReusableDocumentComponents(Domain):
             transition = 'none'; segment = old
             release_allowed = gate['complete'] and all(value['refund_event_id'] in authorized for value in returns)
             if takeover:
-                transition = 'takeover'; segment = self._segment(document_id, basis, carry, returns)
+                transition = 'takeover'; segment = self._segment(document_id, basis, carry, returns, version=version)
             elif handoff and returns and release_allowed:
-                candidate = self._segment(document_id, basis, carry, returns, old)
+                candidate = self._segment(document_id, basis, carry, returns, old, version=version)
                 if not candidate['not_before_date'] or candidate['not_before_date'] <= date:
                     transition = 'successor'; segment = candidate
                 elif pending_reason is None:
@@ -459,11 +491,13 @@ class ReusableDocumentComponents(Domain):
             blocked = pending_reason or ('receipt_before_capacity' if too_early else 'group_capacity_exceeded')
         if blocked:
             action = None
-        proof = dict(schema_version=1, source=dict(event_sha256=_sha(canonical(context['event'])), portion=raw),
+        proof = dict(schema_version=version, source=dict(event_sha256=_sha(canonical(context['event'])), portion=raw),
             portions_before=context['portions'] if historical is None else historical['portions_before'],
             basis=bases, archive=archive, eligibility=eligibility, c1_sequence=c1_sequence, r1_sequence=r1_sequence,
             legacy=legacy_before, prior_segments=active_refs, gate=gate,
             authorized_returns=sorted(authorized), new_segments=segments)
+        if version == 2:
+            proof['r2_sequence'] = r2_sequence
         portion = dict(portion_id=raw['portion_id'], kind=raw['kind'], event_id=context['event']['id'],
             document_id=document_id, customer_id=document['customer_id'], project_id=metadata['project_id'], number=metadata['number'],
             party_name=metadata['party_name'], amount=raw['amount'], currency='EUR', payload_sha256=metadata['payload_sha256'], pdf_sha256=metadata['pdf_sha256'],
@@ -605,7 +639,10 @@ class ReusableDocumentComponents(Domain):
                 if (any(actual[field] != segment[field] for field in ('id', 'document_id', 'group_id', 'revision', 'previous_id'))
                         or actual['segment_json'] != canonical(segment) or actual['segment_sha256'] != _sha(canonical(segment))):
                     raise ValueError('Changed capacity segment')
-                releases = self.office.db.execute('SELECT * FROM business_accounting_capacity_releases WHERE segment_id=?', (segment['id'],)).fetchall()
+                releases = [dict(actual) for actual in self.office.db.execute('SELECT * FROM business_accounting_capacity_releases WHERE segment_id=?', (segment['id'],)).fetchall()]
+                if proof['schema_version'] == 2:
+                    releases += [dict(actual, refund_version='r2') for actual in self.office.db.execute(
+                        'SELECT * FROM business_accounting_refunds_v2_releases WHERE segment_id=?', (segment['id'],)).fetchall()]
                 by_key = {_release_key(actual): actual for actual in releases}
                 if len(by_key) != len(segment['returns']):
                     raise ValueError('Missing or orphan capacity release')
@@ -628,9 +665,18 @@ class ReusableDocumentComponents(Domain):
         ledger['portions'].add(value['portion']['portion_id'])
         ledger['by_event'].setdefault(value['event_id'], []).append(value)
         ledger['headers'].setdefault(value['event_id'], []).append(_header(row))
+        ledger['entries_by_id'][value['id']] = value
+        ledger['rows'][value['id']] = dict(row)
+
+    def _ledger(self, cache):
+        from business_accounting_refunds_v2 import installed as versioned_installed
+        if versioned_installed(self.office):
+            from accounting_joint_ledger import read_joint_ledger
+            return read_joint_ledger(self.office, cache)['capacity']
+        return self._legacy_ledger(cache)
 
     @_stored
-    def _ledger(self, cache):
+    def _legacy_ledger(self, cache):
         if 'capacity_ledger' in cache:
             return cache['capacity_ledger']
         sources = self._sources(cache); ledger = self._empty_ledger(); line_count = 0
@@ -672,7 +718,7 @@ class ReusableDocumentComponents(Domain):
 
     def _view(self, actor, event_id, cache, *, write=False):
         context = DocumentComponents(self.office)._source(None, event_id)
-        ledger = self._ledger(cache); sources = self._sources(cache)
+        ledger = self._ledger(cache); sources = cache.get('capacity_joint_sources') or self._sources(cache)
         own = ledger['by_event'].get(event_id, [])
         legacy = [value for value in sources['legacy_entries'].values() if value['event_id'] == event_id]
         documented = sum(_cents(value['amount']) for value in own+legacy)
@@ -787,8 +833,13 @@ class ReusableDocumentComponents(Domain):
                 self._insert('segments', {**{key: segment[key] for key in ('id', 'document_id', 'group_id', 'revision', 'previous_id')},
                     'entry_id': value['id'], 'segment_json': canonical(segment), 'segment_sha256': _sha(canonical(segment))})
                 for reference in segment['returns']:
-                    self._insert('releases', dict(refund_entry_id=reference['refund_entry_id'], origin_entry_id=reference['origin_entry_id'],
-                        group_id=reference['group_id'], segment_id=segment['id'], reference_json=canonical(reference), reference_sha256=_sha(canonical(reference))))
+                    released = dict(refund_entry_id=reference['refund_entry_id'], origin_entry_id=reference['origin_entry_id'],
+                        group_id=reference['group_id'], segment_id=segment['id'], reference_json=canonical(reference), reference_sha256=_sha(canonical(reference)))
+                    if reference.get('refund_version') == 'r2':
+                        from business_accounting_refunds_v2 import VersionedRefundOrigins
+                        VersionedRefundOrigins(self.office)._insert('releases', dict(released, origin_version=reference['origin_version']))
+                    else:
+                        self._insert('releases', released)
             for line in value['lines']:
                 self._insert('lines', dict(entry_id=value['id'], **line))
             self._insert('requests', dict(user_id=fresh['id'], request_id=data['request_id'], event_id=event_id,
@@ -797,11 +848,11 @@ class ReusableDocumentComponents(Domain):
             return value
 
 
-def validate_integrity(office):
+def validate_integrity(office, *, cache=None):
     try:
         if not installed(office):
             return True
-        ReusableDocumentComponents(office)._ledger({})
+        ReusableDocumentComponents(office)._ledger({} if cache is None else cache)
         if isinstance(office.db, sqlite3.Connection):
             normalize = lambda value: re.sub(r'\s+', ' ', value.replace('IF NOT EXISTS ', '')).strip().lower()
             for sql in guard_statements('sqlite'):
@@ -817,11 +868,11 @@ def validate_integrity(office):
     return True
 
 
-def restore_horizon(office):
+def restore_horizon(office, *, cache=None):
     with office.lock:
         if not installed(office):
             return None
-        validate_integrity(office)
+        validate_integrity(office, cache=cache)
         tables = {table: sorted((dict(row) for row in office.db.execute('SELECT * FROM '+table).fetchall()), key=canonical) for table in _TABLES}
         return dict(schema_version=1, table_counts={table: len(rows) for table, rows in tables.items()},
                     sha256=_sha(canonical(dict(schema_version=1, tables=tables))))

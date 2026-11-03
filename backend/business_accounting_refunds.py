@@ -155,6 +155,11 @@ class RefundOrigins(Domain):
         fresh = components._access(actor, event_id, write)
         if not installed(self.office):
             raise Problem(409, 'Erstattungsursprünge sind nicht installiert')
+        from business_accounting_refunds_v2 import installed as versioned_installed
+        if versioned_installed(self.office):
+            from accounting_joint_access import authorize_sources
+            return authorize_sources(self.office, fresh, event_id, write=write,
+                                     origins=[dict(value, origin_version='c1') for value in selected])
         linked = {row[0] for row in self.office.db.execute('SELECT DISTINCT l.origin_entry_id FROM business_accounting_refund_lines l '
             'JOIN business_accounting_refund_entries e ON e.id=l.entry_id WHERE e.event_id=?', (event_id,)).fetchall()}
         new = {value['entry_id'] for value in selected}
@@ -413,6 +418,7 @@ class RefundOrigins(Domain):
 
     def _view(self, fresh, event_id, cache):
         context = self._source(event_id, cache); ledger = self._ledger(cache)
+        self._joint_check(cache)
         entries = ledger['by_event'].get(event_id, [])
         portions = [self._portion(context, raw) for raw in context['portions'] if raw['portion_id'] not in ledger['bound']]
         documented = sum(_cents(entry['amount']) for entry in entries)
@@ -446,7 +452,14 @@ class RefundOrigins(Domain):
         with transaction(self.office):
             self._access(actor, event_id)
             cache = {}; self._source(event_id, cache)
+            self._joint_check(cache)
             return _paged(list(reversed(self._ledger(cache)['by_event'].get(event_id, []))), limit, offset)
+
+    def _joint_check(self, cache):
+        from business_accounting_refunds_v2 import installed as versioned_installed
+        if versioned_installed(self.office):
+            from accounting_joint_ledger import read_joint_ledger
+            read_joint_ledger(self.office, cache)
 
     def origins(self, actor, event_id, portion_id, limit=50, offset=0):
         from business_accounting import _page, _paged
@@ -463,7 +476,12 @@ class RefundOrigins(Domain):
             # Authorize an entire origin cash source before decoding its C1 DTO.
             for row in self.office.db.execute('SELECT id,event_id FROM business_accounting_component_entries ORDER BY id').fetchall():
                 try:
-                    components._access(fresh, row['event_id'], True)
+                    from business_accounting_refunds_v2 import installed as versioned_installed
+                    if versioned_installed(self.office):
+                        from accounting_joint_access import authorize_sources
+                        authorize_sources(self.office, fresh, row['event_id'], write=True)
+                    else:
+                        components._access(fresh, row['event_id'], True)
                 except Problem as error:
                     if error.status in (403, 404):
                         continue
@@ -488,6 +506,8 @@ class RefundOrigins(Domain):
         raw = next((value for value in context['portions'] if value['portion_id'] == data['portion_id']), None)
         if raw is None or raw['portion_id'] in ledger['bound']:
             raise Problem(409, 'Noch ungebundene ganze Refundportion erforderlich')
+        from business_accounting_refunds_v2 import require_legacy_writer
+        require_legacy_writer(self.office, raw['document']['document_id'])
         portion = self._portion(context, raw)
         if not portion['eligible'] or portion['portion_state_hash'] != data['portion_state_hash']:
             raise Problem(409, 'Refundportion passt nicht zum aktuellen zulässigen Quellenstand')
@@ -529,9 +549,14 @@ class RefundOrigins(Domain):
                 if request['event_id'] != event_id or request['request_hash'] != digest:
                     raise Problem(409, 'Vorgangs-ID wurde mit anderem Inhalt verwendet')
                 return next(value for value in ledger['by_event'].get(event_id, []) if value['id'] == request['entry_id'])
-            preview, proof = self._prepare(state, context, ledger, data, cache)
-            if preview['preview_hash'] != data['preview_hash']:
-                raise Problem(409, 'Passende aktuelle Vorschau erforderlich')
+            try:
+                preview, proof = self._prepare(state, context, ledger, data, cache)
+                if preview['preview_hash'] != data['preview_hash']:
+                    raise Problem(409, 'Passende aktuelle Vorschau erforderlich')
+            except Problem as error:
+                if error.status != 409:
+                    raise
+                raise Problem(409, error.message, request_resolution='not_accepted') from None
             sequence = self.office.db.execute('SELECT COALESCE(MAX(sequence),0)+1 FROM business_accounting_refund_entries').fetchone()[0]
             entry = {key: value for key, value in preview.items() if key not in ('expected_revision', 'state_hash')}
             entry.update(id=uuid.uuid4().hex, sequence=sequence, revision=state['revision']+1, previous_state_hash=state['state_hash'],

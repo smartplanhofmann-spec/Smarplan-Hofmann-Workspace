@@ -143,6 +143,12 @@ class RefundApi extends base.AccountingApi {
         throw const ApiException(403, 'Ursprungszugriff entzogen');
       return {'id': route.split('/').last};
     }
+    if (route == '/api/business/accounting/events/$eventId' && events.isEmpty) {
+      calls.add((path: routePath, body: body));
+      if (sourceDenied)
+        throw const ApiException(403, 'Erstattungszugriff entzogen');
+      return {'id': eventId};
+    }
     if (!route.contains('/accounting/refunds/'))
       return super.call(routePath, body);
     calls.add((path: routePath, body: body == null ? null : base.copy(body)));

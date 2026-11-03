@@ -29,7 +29,7 @@ LEGACY_VERSION = 6
 MODULE_NAMES = tuple('business_' + name for name in (
     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
     'inventory', 'maintenance', 'adapters', 'organization', 'instance', 'purchasing', 'portal', 'accounting',
-    'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity'))
+    'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity', 'accounting_refunds_v2'))
 CONTROL_TABLES = frozenset((
     'business_schema_state', 'business_schema_migrations', 'business_schema_events',
     'business_feature_flags', 'business_privacy_anchors', 'business_device_grants', 'business_restore_state',
@@ -504,6 +504,9 @@ def financial_accounting_horizon(office):
         components = 'business_accounting_components' in installed
         refunds = 'business_accounting_refunds' in installed
         capacity = 'business_accounting_capacity' in installed
+        refunds_v2 = 'business_accounting_refunds_v2' in installed
+        if refunds_v2 and not (accounting and allocations and components and refunds and capacity):
+            raise ValueError('Versioned refund origins require the complete prejournal, allocations, components, refund origins and capacity')
         if capacity and not (accounting and allocations and components and refunds):
             raise ValueError('Component reuse requires the installed prejournal, allocations, components and refund origins')
         if refunds and not (accounting and allocations and components):
@@ -542,10 +545,19 @@ def financial_accounting_horizon(office):
         if not capacity:
             return horizon
         from business_accounting_capacity import restore_horizon as capacity_horizon
-        reused = capacity_horizon(office)
+        # The coupled C2/R2 streams share only this read's verified snapshot.
+        joint_cache = {} if refunds_v2 else None
+        reused = capacity_horizon(office, cache=joint_cache) if refunds_v2 else capacity_horizon(office)
         if reused is None:
             raise ValueError('Installed component reuse horizon is missing')
-        return dict(horizon, schema_version=5, capacity=reused)
+        horizon = dict(horizon, schema_version=5, capacity=reused)
+        if not refunds_v2:
+            return horizon
+        from business_accounting_refunds_v2 import restore_horizon as versioned_refund_horizon
+        versioned_returns = versioned_refund_horizon(office, cache=joint_cache)
+        if versioned_returns is None:
+            raise ValueError('Installed versioned refund origin horizon is missing')
+        return dict(horizon, schema_version=6, refunds_v2=versioned_returns)
 
 
 def _validate_prejournal_horizon(horizon):
@@ -560,6 +572,25 @@ def _validate_prejournal_horizon(horizon):
 def _validate_financial_accounting_horizon(horizon, report_schema):
     if report_schema == 2:
         _validate_prejournal_horizon(horizon)
+        return
+    if report_schema == 7:
+        if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2'}
+                or type(horizon['schema_version']) is not int or horizon['schema_version'] != 6):
+            raise ValueError('Exact version-6 combined accounting horizon required')
+        _validate_financial_accounting_horizon(dict(schema_version=5, prejournal=horizon['prejournal'],
+            allocations=horizon['allocations'], components=horizon['components'], refunds=horizon['refunds'],
+            capacity=horizon['capacity']), 6)
+        # This schema-7 inventory is fixed independently of future module versions.
+        refund_tables_v2 = {'business_accounting_refunds_v2_handoffs', 'business_accounting_refunds_v2_entries',
+                            'business_accounting_refunds_v2_lines', 'business_accounting_refunds_v2_requests',
+                            'business_accounting_refunds_v2_releases'}
+        returned = horizon['refunds_v2']
+        if (not isinstance(returned, dict) or set(returned) != {'schema_version', 'table_counts', 'sha256'}
+                or type(returned['schema_version']) is not int or returned['schema_version'] != 1
+                or not isinstance(returned['table_counts'], dict) or set(returned['table_counts']) != refund_tables_v2
+                or any(type(value) is not int or value < 0 for value in returned['table_counts'].values())
+                or not isinstance(returned['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', returned['sha256'])):
+            raise ValueError('Exact version-1 versioned refund origin horizon required')
         return
     if report_schema == 6:
         if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity'}
@@ -646,6 +677,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
     components_installed = 'business_accounting_components' in value.get('read_capabilities', [])
     refunds_installed = 'business_accounting_refunds' in value.get('read_capabilities', [])
     capacity_installed = 'business_accounting_capacity' in value.get('read_capabilities', [])
+    refunds_v2_installed = 'business_accounting_refunds_v2' in value.get('read_capabilities', [])
+    if refunds_v2_installed and not (accounting_installed and allocations_installed and components_installed and refunds_installed and capacity_installed):
+        raise ValueError('Versioned refund origins require the complete prejournal, allocations, components, refund origins and capacity')
     if capacity_installed and not (accounting_installed and allocations_installed and components_installed and refunds_installed):
         raise ValueError('Component reuse requires the installed prejournal, allocations, components and refund origins')
     if refunds_installed and not (accounting_installed and allocations_installed and components_installed):
@@ -654,9 +688,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
         raise ValueError('Document components require the installed prejournal and payment allocations')
     if allocations_installed and not accounting_installed:
         raise ValueError('Payment allocations require the installed accounting prejournal')
-    required_schema = 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
+    required_schema = 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
     declared_schema = evidence.get('schema') if isinstance(evidence, dict) else None
-    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6):
+    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7):
         raise ValueError('Known explicit financial report schema required')
     fields = {'schema', 'restore_id', 'reviewed_by', 'reviewed_at', 'number_horizons', 'outbound_reconciled'}
     if declared_schema >= 2:

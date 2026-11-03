@@ -177,8 +177,10 @@ Testhelper-Korrektur im Nachweis dokumentiert. Genauere Fach-/HTTP-/HTTPS-
 Ergebnisse, Versionsgrenzen und Prüfnachweise stehen im
 [E1b-3b-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3B.json).
 
-**Aktuell: [E1b-3c](docs/CRM_ERP_EUER_E1B3C_API.md) ist implementiert und im
-beschriebenen Umfang geprüft.** Der neue
+**Abgeschlossener Abschnitt: [E1b-3c](docs/CRM_ERP_EUER_E1B3C_API.md) ist implementiert und im
+beschriebenen Umfang geprüft.** Implementierung
+`bef8ec23adbddcde0b619f41b5df88db7d481d59`, Nachweispin
+`91304fc9eb5cf8c42caa1c75c6b1d5c16ea2a612`. Der neue
 R2-Schreiber bindet ganze bestehende Erstattungszuordnungen an ausdrücklich
 gewählte C1-Lose, C2-Lose oder gemischte Ursprünge. Er übernimmt dazu eine
 bereits in C2 übernommene Rechnung atomar; andere Rechnungen bleiben im alten
@@ -201,6 +203,18 @@ Rechtefalls im historischen R1-Dialog. Alle 15 abschließenden Paketfälle
 bestanden ebenfalls.
 Gruppen überschneiden sich; Details und Versionsgrenzen stehen im
 [E1b-3c-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3C.json).
+
+**Aktuell in Entwicklung: [Vorbereitungsprofil E1b-4a1](docs/CRM_ERP_EUER_E1B4A1_API.md).**
+Dieser gesonderte Abschnitt baut auf dem abgeschlossenen 3c-Nachweispin auf;
+seine Prüfungen laufen und sind noch keine vollständige Teilabnahme.
+Ausdrücklich bestätigte Unternehmens-/Buchführungsangaben werden mit Grund,
+Belegreferenz und unveränderlicher Version gespeichert. Vorschau, GET oder
+Öffnen des Editors speichern keinen Profilstand. Einzelunternehmen/EÜR bleibt
+die bestätigte fachliche Richtung; unbekannte Umsatzsteuerangaben und Daten
+bleiben `null`. Auch gespeicherte Angaben erzeugen kein steuerliches Ergebnis,
+keine steuerliche Freigabe und keine Änderung bestehender Geldflüsse oder
+Antworten. Die sachliche Einordnung einzelner CashEvents ist ausdrücklich
+E1b-4a2 und gehört nicht zu E1b-4a1.
 
 Unzugeordnete Erstattungsreste und weitere bislang nicht unterstützte
 Rechnungs-/Kundenfälle bleiben ungeklärt. Der Umsatzsteuerstatus bleibt

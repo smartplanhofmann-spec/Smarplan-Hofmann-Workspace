@@ -29,7 +29,7 @@ LEGACY_VERSION = 6
 MODULE_NAMES = tuple('business_' + name for name in (
     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
     'inventory', 'maintenance', 'adapters', 'organization', 'instance', 'purchasing', 'portal', 'accounting',
-    'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity', 'accounting_refunds_v2'))
+    'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity', 'accounting_refunds_v2', 'accounting_profile'))
 CONTROL_TABLES = frozenset((
     'business_schema_state', 'business_schema_migrations', 'business_schema_events',
     'business_feature_flags', 'business_privacy_anchors', 'business_device_grants', 'business_restore_state',
@@ -505,6 +505,9 @@ def financial_accounting_horizon(office):
         refunds = 'business_accounting_refunds' in installed
         capacity = 'business_accounting_capacity' in installed
         refunds_v2 = 'business_accounting_refunds_v2' in installed
+        profile = 'business_accounting_profile' in installed
+        if profile and not (accounting and allocations and components and refunds and capacity and refunds_v2):
+            raise ValueError('Accounting preparation profile requires the complete installed financial scope')
         if refunds_v2 and not (accounting and allocations and components and refunds and capacity):
             raise ValueError('Versioned refund origins require the complete prejournal, allocations, components, refund origins and capacity')
         if capacity and not (accounting and allocations and components and refunds):
@@ -557,7 +560,14 @@ def financial_accounting_horizon(office):
         versioned_returns = versioned_refund_horizon(office, cache=joint_cache)
         if versioned_returns is None:
             raise ValueError('Installed versioned refund origin horizon is missing')
-        return dict(horizon, schema_version=6, refunds_v2=versioned_returns)
+        horizon = dict(horizon, schema_version=6, refunds_v2=versioned_returns)
+        if not profile:
+            return horizon
+        from business_accounting_profile import restore_horizon as profile_horizon
+        preparation = profile_horizon(office)
+        if preparation is None:
+            raise ValueError('Installed accounting preparation profile horizon is missing')
+        return dict(horizon, schema_version=7, profile=preparation)
 
 
 def _validate_prejournal_horizon(horizon):
@@ -572,6 +582,23 @@ def _validate_prejournal_horizon(horizon):
 def _validate_financial_accounting_horizon(horizon, report_schema):
     if report_schema == 2:
         _validate_prejournal_horizon(horizon)
+        return
+    if report_schema == 8:
+        if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile'}
+                or type(horizon['schema_version']) is not int or horizon['schema_version'] != 7):
+            raise ValueError('Exact version-7 combined accounting horizon required')
+        _validate_financial_accounting_horizon(dict(schema_version=6, prejournal=horizon['prejournal'],
+            allocations=horizon['allocations'], components=horizon['components'], refunds=horizon['refunds'],
+            capacity=horizon['capacity'], refunds_v2=horizon['refunds_v2']), 7)
+        # This schema-8 inventory is fixed independently of future modules.
+        profile_tables = {'business_accounting_profile_versions', 'business_accounting_profile_requests'}
+        preparation = horizon['profile']
+        if (not isinstance(preparation, dict) or set(preparation) != {'schema_version', 'table_counts', 'sha256'}
+                or type(preparation['schema_version']) is not int or preparation['schema_version'] != 1
+                or not isinstance(preparation['table_counts'], dict) or set(preparation['table_counts']) != profile_tables
+                or any(type(value) is not int or value < 0 for value in preparation['table_counts'].values())
+                or not isinstance(preparation['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', preparation['sha256'])):
+            raise ValueError('Exact version-1 accounting preparation profile horizon required')
         return
     if report_schema == 7:
         if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2'}
@@ -678,6 +705,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
     refunds_installed = 'business_accounting_refunds' in value.get('read_capabilities', [])
     capacity_installed = 'business_accounting_capacity' in value.get('read_capabilities', [])
     refunds_v2_installed = 'business_accounting_refunds_v2' in value.get('read_capabilities', [])
+    profile_installed = 'business_accounting_profile' in value.get('read_capabilities', [])
+    if profile_installed and not (accounting_installed and allocations_installed and components_installed and refunds_installed and capacity_installed and refunds_v2_installed):
+        raise ValueError('Accounting preparation profile requires the complete installed financial scope')
     if refunds_v2_installed and not (accounting_installed and allocations_installed and components_installed and refunds_installed and capacity_installed):
         raise ValueError('Versioned refund origins require the complete prejournal, allocations, components, refund origins and capacity')
     if capacity_installed and not (accounting_installed and allocations_installed and components_installed and refunds_installed):
@@ -688,9 +718,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
         raise ValueError('Document components require the installed prejournal and payment allocations')
     if allocations_installed and not accounting_installed:
         raise ValueError('Payment allocations require the installed accounting prejournal')
-    required_schema = 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
+    required_schema = 8 if profile_installed else 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
     declared_schema = evidence.get('schema') if isinstance(evidence, dict) else None
-    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7):
+    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7, 8):
         raise ValueError('Known explicit financial report schema required')
     fields = {'schema', 'restore_id', 'reviewed_by', 'reviewed_at', 'number_horizons', 'outbound_reconciled'}
     if declared_schema >= 2:

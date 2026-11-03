@@ -70,6 +70,9 @@ def seed(office, directory):
     refunds_v2_email = 'refunds-v2@browser.example.test'
     actors['refunds_v2'] = dict(id=office.add_user(refunds_v2_email, PASSWORD, 'accountant'),
                                 email=refunds_v2_email, role='accountant')
+    profile_email = 'profile-admin@browser.example.test'
+    actors['profile_admin'] = dict(id=office.add_user(profile_email, PASSWORD, 'technician'),
+                                   email=profile_email, role='technician')
     owner, technician = actors['owner'], actors['technician']
     organization = Organization(office)
     settings = organization.get(owner)
@@ -100,6 +103,14 @@ def seed(office, directory):
     office.assign(owner, project, actors['warehouse']['id'])
     office.assign(owner, project, actors['bookkeeper']['id'])
     foundation = BusinessFoundation(office)
+    # Company preparation facts require global read/admin rights, no assigned
+    # cash source, accounting.prepare or finance.write. No profile is seeded.
+    for permission in ('accounting.read', 'finance.read', 'accounting.admin'):
+        foundation.save_grant(owner, request(user_id=actors['profile_admin']['id'], permission=permission,
+                                            scope='*', effect='allow', revision=0))
+    for permission in ('accounting.prepare', 'finance.write'):
+        foundation.save_grant(owner, request(user_id=actors['profile_admin']['id'], permission=permission,
+                                            scope='*', effect='deny', revision=0))
     foundation.save_grant(owner, request(user_id=actors['warehouse']['id'], permission='inventory.write',
                                         scope='*', effect='allow', revision=0))
     for permission in ('accounting.read', 'accounting.prepare', 'accounting.admin'):

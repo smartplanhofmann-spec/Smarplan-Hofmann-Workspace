@@ -74,7 +74,27 @@ async function refundFlow({page,context,navigate,ready,login,fixture,screenshots
     await context.route(caps,async route=>{assert.equal(new URL(route.request().url()).origin,fixture.base_url);const response=await route.fetch({maxRedirects:0}),value=await response.json();await route.fulfill({response,json:{...value,features:value.features.filter(item=>item!=='accounting_refund_origins')}});});await openEvent(page,'return-1');assert.equal(await page.getByRole('dialog').getByRole('button',{name:'Erstattungsursprung zuordnen',exact:true}).count(),0);assert.equal(records.filter(item=>item.path.includes('/refunds/')).length,before);await close();await context.unroute(caps);
     worker=await context.newPage();worker.on('pageerror',error=>errors.push(error.message));worker.setDefaultTimeout(15000);await worker.goto(fixture.base_url+'/office/');await login(worker,'refunds@browser.example.test');
     // A genuine server preview delayed until the editor is closed cannot reopen it.
-    let modal=await select(worker,'return-1','13.22');holdPreview=new Promise(resolve=>{releasePreview=resolve;});let response=wait('POST','/preview',worker);await modal.getByRole('button',{name:'Ursprungsbindung unverbindlich prüfen',exact:true}).click();assert.equal((await response).status,200);await close(worker);await navigate(worker,'Übersicht');const delivered=worker.waitForResponse(value=>value.url().includes('/refunds/')&&value.url().endsWith('/preview'),{timeout:15000});releasePreview();releasePreview=null;await bounded((await delivered).finished(),'late refund response finished');await bounded(worker.evaluate(()=>new Promise(resolve=>setTimeout(resolve,0))),'late refund UI turn',5000);assert.equal(await worker.getByRole('dialog').count(),0);
+    // Playwright response.finished() can remain pending on a routed background
+    // page after HTTP headers arrive. Observe the actual client promise after it
+    // parses the genuine response instead. This changes no request, bytes, DTO
+    // or result/error returned to the application.
+    const previewPath='/business/accounting/refunds/events/'+events.get('return-1').id+'/preview';
+    await worker.evaluate(async expectedPath=>{
+      const {OfficeApi}=await import('/office/office.js'),original=OfficeApi.prototype.post;
+      window.__refundPreviewObserved={state:'waiting'};
+      OfficeApi.prototype.post=async function(path,body){
+        if(path!==expectedPath)return original.call(this,path,body);
+        try{const result=await original.call(this,path,body);window.__refundPreviewObserved={state:'fulfilled',event_id:result.event_id,preview_hash:result.preview_hash};return result;}
+        catch(error){window.__refundPreviewObserved={state:'rejected',name:error.name,status:error.status};throw error;}
+      };
+      window.__restoreRefundPreviewObserver=()=>{OfficeApi.prototype.post=original;delete window.__refundPreviewObserved;delete window.__restoreRefundPreviewObserver;};
+    },previewPath);
+    let modal=await select(worker,'return-1','13.22');holdPreview=new Promise(resolve=>{releasePreview=resolve;});let response=wait('POST','/preview',worker);await modal.getByRole('button',{name:'Ursprungsbindung unverbindlich prüfen',exact:true}).click();const late=await response;assert.equal(late.status,200);assert.equal(late.value.event_id,events.get('return-1').id);assert.match(late.value.preview_hash,/^[0-9a-f]{64}$/);
+    await close(worker);await navigate(worker,'Übersicht');const delivered=worker.waitForResponse(value=>value.request().method()==='POST'&&value.url()===fixture.base_url+'/api/v1'+previewPath,{timeout:15000});releasePreview();releasePreview=null;assert.equal((await delivered).status(),200);
+    await worker.waitForFunction(()=>window.__refundPreviewObserved.state!=='waiting',null,{timeout:15000,polling:50});
+    const observed=await bounded(worker.evaluate(()=>{const result=window.__refundPreviewObserved;window.__restoreRefundPreviewObserver();return result;}),'read actual late refund preview completion',5000);
+    assert.deepEqual(observed,{state:'fulfilled',event_id:events.get('return-1').id,preview_hash:late.value.preview_hash});await bounded(worker.evaluate(()=>new Promise(resolve=>setTimeout(resolve,0))),'late refund UI turn',5000);assert.equal(await worker.getByRole('dialog').count(),0);
+    console.log('refunds: genuine late preview parsed by the client after editor closure; exact event/hash and no dialog reopening verified');
     await extendOrigin();await select(worker,'return-1','13.22',{pagination:true,revokeRetained:true});
     console.log('refunds: genuine second origin page plus newly denied retained origin closed the R1 editor before redisplay or any financial POST');
     const first=await preview(worker,'return-1','13.22',{pagination:true});assert.equal(first.value.net,'22.22');assert.equal(first.value.tax,'4.22');assert.equal(first.body.origins.length,2);

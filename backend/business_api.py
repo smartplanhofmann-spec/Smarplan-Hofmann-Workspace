@@ -14,6 +14,7 @@ MODULES = (
     'business_inventory', 'business_maintenance', 'business_adapters', 'business_organization', 'business_purchasing', 'business_portal',
     'business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity',
     'business_accounting_refunds_v2',
+    'business_accounting_profile',
 )
 
 

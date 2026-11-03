@@ -181,6 +181,47 @@ class AccountingRegistrationTests(unittest.TestCase):
         self._assert_refund_writer_boundaries('business_accounting_refunds_v2',
             'accounting_refund_origins_v2', '/business/accounting/refunds/v2/events/' + 'a' * 32)
 
+    def test_preparation_profile_requires_global_admin_and_preserves_old_tax_status(self):
+        from business_organization import command_module
+        module, feature = 'business_accounting_profile', 'accounting_preparation_profile'
+        path = '/business/accounting/profile'
+        capabilities = self.call(self.owner, '/capabilities')
+        self.assertIn(module, capabilities['capabilities'])
+        self.assertIn(feature, capabilities['features'])
+        for suffix in ('', '/history'):
+            self.assertEqual(business_api.methods(path + suffix), 'GET')
+        for suffix in ('/preview', '/confirm'):
+            self.assertEqual(business_api.methods(path + suffix), 'POST')
+            self.assertEqual(command_module((path + suffix)[len('/business'):], module), 'finance')
+        self.grant('accounting.read')
+        with self.assertRaises(Problem) as caught:
+            self.call(self.tech, '/accounting/profile')
+        self.assertEqual(caught.exception.status, 403)
+        self.grant('finance.read')
+        self.grant('accounting.prepare')
+        before = self.office.db.total_changes
+        value = self.call(self.tech, '/accounting/profile')
+        self.assertEqual(value['preparation_status'], 'unrecorded')
+        self.assertIsNone(value['current'])
+        self.assertFalse(value['writes_allowed'])
+        self.assertFalse(value['tax_result_available'])
+        self.assertEqual(self.office.db.total_changes, before)
+        self.grant('accounting.admin')
+        self.assertTrue(self.call(self.tech, '/accounting/profile')['writes_allowed'])
+        self.assertEqual(self.call(self.tech, '/accounting/status')['profile_status'], 'unconfigured')
+        offline = self.call(self.owner, '/capabilities', offline=True)
+        self.assertNotIn(feature, offline['features'])
+        self.assertNotIn(module, offline['capabilities'])
+        with self.assertRaises(Problem) as caught:
+            self.call(self.owner, '/accounting/profile', offline=True)
+        self.assertEqual(caught.exception.status, 403)
+        business_schema.set_mode(self.office, 'legacy')
+        self.assertIn(feature, self.call(self.owner, '/capabilities')['features'])
+        self.assertFalse(self.call(self.owner, '/accounting/profile')['writes_allowed'])
+        with self.assertRaises(Problem) as caught:
+            business_api.dispatch(self.office, self.owner, path + '/confirm', 'POST', {})
+        self.assertEqual(caught.exception.status, 409)
+
     def test_component_reuse_routes_keep_legacy_and_offline_boundaries(self):
         from business_organization import command_module
         module = 'business_accounting_capacity'

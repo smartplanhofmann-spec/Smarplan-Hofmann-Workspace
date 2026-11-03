@@ -434,13 +434,13 @@ class VersionedRefundsPostgres(unittest.TestCase):
             self.assertTrue(self.module.validate_integrity(self.office))
             business_schema.validate_integrity(self.office)
 
-    def test_real_dump_restore_requires_schema7_and_binds_r2_releaseclaims(self):
+    def test_real_dump_restore_requires_current_horizon_and_binds_r2_releaseclaims(self):
         seed, refund, selected = self.mixed()
         entry, command = self.confirm(refund, selected)
         _, receipt, _ = self.components.cash('26.44')
         positive, positive_command = self.capacity.confirm(receipt)
         horizon = business_schema.financial_accounting_horizon(self.office)
-        self.assertEqual(horizon['schema_version'], 6)
+        self.assertGreaterEqual(horizon['schema_version'], 6)
         self.assertEqual(horizon['refunds_v2']['table_counts'], self.counts())
         self.assertEqual(horizon['refunds_v2']['table_counts']['business_accounting_refunds_v2_releases'], 2)
         before = release.snapshot_fingerprint(journey.DSN); self.office.db.close()
@@ -464,7 +464,7 @@ class VersionedRefundsPostgres(unittest.TestCase):
             operator = PostgresOffice(target)
             try:
                 evidence = components_fixture.evidence_for(operator, report)
-                self.assertEqual(evidence['schema'], 7)
+                self.assertEqual(evidence['schema'], horizon['schema_version'] + 1)
                 old = {**evidence, 'schema': 6, 'accounting_horizon': dict(schema_version=5,
                     **{key: horizon[key] for key in ('prejournal', 'allocations', 'components', 'refunds', 'capacity')})}
                 wrong = {**evidence, 'accounting_horizon': {**horizon,
@@ -488,7 +488,7 @@ class VersionedRefundsPostgres(unittest.TestCase):
 class RefundsV2MigrationPostgres(unittest.TestCase):
     def test_c2_v1_migration_preserves_bytes_and_schema6_receipt_cannot_release_new_restore(self):
         full = business_schema.registry()
-        prior = tuple(spec for spec in full if spec.name != 'business_accounting_refunds_v2')
+        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_refunds_v2', 'business_accounting_profile'))
         fixture = capacity_fixture.ComponentCapacityPostgres(methodName='runTest'); self.addCleanup(fixture.doCleanups)
         with patch.object(business_schema, 'registry', return_value=prior), \
                 patch.object(business_schema, 'MODULE_NAMES', tuple(spec.name for spec in prior)):
@@ -519,7 +519,7 @@ class RefundsV2MigrationPostgres(unittest.TestCase):
                         if table != 'business_schema_migrations': self.assertEqual(upgraded[table], value, table)
                     operator = PostgresOffice(target)
                     try:
-                        self.assertEqual(business_schema.financial_accounting_horizon(operator)['schema_version'], 6)
+                        self.assertGreaterEqual(business_schema.financial_accounting_horizon(operator)['schema_version'], 6)
                         self.assertEqual(components_fixture.approve(operator, evidence), approved)
                     finally: operator.db.close()
                     self.assertEqual(release.snapshot_fingerprint(target), upgraded)
@@ -553,7 +553,7 @@ class RefundsV2MigrationPostgres(unittest.TestCase):
                     with self.assertRaises((Problem, ValueError)): components_fixture.approve(operator, invalid)
                     self.assertEqual(release.snapshot_fingerprint(target), frozen)
                 latest = components_fixture.evidence_for(operator, report)
-                self.assertEqual(latest['schema'], 7)
+                self.assertEqual(latest['schema'], business_schema.financial_accounting_horizon(operator)['schema_version'] + 1)
                 components_fixture.approve(operator, latest)
             finally: operator.db.close()
         self.assertEqual(release.snapshot_fingerprint(journey.DSN), after)

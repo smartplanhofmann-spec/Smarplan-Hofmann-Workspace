@@ -32,6 +32,15 @@ Die steuerliche Einordnung bleibt offen. Der
 Prüfungen ab. Dieser Gesamtentwurf allein bleibt
 ein Plan; ausgeführte Nachweise stehen bei den jeweiligen Teilabschnitten.
 
+Gesondert nach dem abgeschlossenen E1b-3c wird das
+[Vorbereitungsprofil E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md) entwickelt;
+die Prüfungen laufen. Es speichert ausdrücklich bestätigte Angaben mit Grund,
+Belegreferenz und unveränderlichen Versionen. Unbekannte Steuerangaben bleiben
+`null`; weder ein steuerliches Ergebnis noch eine fachliche Freigabe wird
+daraus abgeleitet. Sachliche Einordnung einzelner CashEvents folgt erst in
+E1b-4a2. Dieser Profilabschnitt ist daher keine Umsetzung der vollständigen
+Journal- oder Steuerklassifikation aus dem Gesamtentwurf.
+
 ## 1. Offene Angaben und klarer Umfang
 
 Bestätigt ist ausschließlich **Einzelunternehmen mit EÜR**. Kleinunternehmer-

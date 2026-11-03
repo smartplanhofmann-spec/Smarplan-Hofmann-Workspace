@@ -1309,3 +1309,92 @@ Der geprüfte 3c-Implementierungsstand ist lokal in Commit `bef8ec23adbddcde0b61
 gesichert. Die 59 Änderungsquellen und alle 145 Quellen des vollständigen
 Prüfmanifests stimmen mit diesem Commit überein. Die Zieldatei ist weiterhin
 bytegleich mit dem Upload. Es wurde nichts gepusht oder produktiv bereitgestellt.
+
+
+## 03.11.2026 – E1b-4a1 begonnen
+
+Auf der abgeschlossenen 3c-Basis `91304fc9eb5cf8c42caa1c75c6b1d5c16ea2a612`
+folgt ein ausdrücklich gespeichertes versioniertes Vorbereitungsprofil.
+Der [Vertrag](CRM_ERP_EUER_E1B4A1_API.md) begrenzt den Umfang auf erklärte
+Stammdaten mit Grund, Nachweisreferenz und unveränderlicher Historie.
+Umsatzsteuer, Soll-/Istbesteuerung und Beginn bleiben ohne ausdrückliche Angabe
+unbekannt; EÜR begründet keine Istbesteuerung. Sachliche Einordnung einzelner
+Geldflüsse folgt separat. Die Gesamtanforderung R08.05 bleibt teilweise.
+
+Die erste lokale HTTP-Prüfung fand eine fehlende strikte Behandlung der neuen
+Profilroute: Ein GET-Body wurde wie bei allgemeinen alten Routen verworfen.
+Der neue Namespace wird jetzt lokal und online ausdrücklich geprüft. Der
+fehlgeschlagene erste 13-Fälle-Lauf bleibt unter
+`e1b4a1-registration-local-initial.log` erhalten. Danach bestehen die neue
+Registrierung, Profil-HTTP-Fälle und vorhandenen lokalen Accountinggrenzen
+zusammen 20/20 in 8,191 Sekunden (`e1b4a1-registration-local-framing.log`).
+Dies ist ein erster Integrationsstand, noch keine vollständige Profilabnahme.
+
+
+### E1b-4a1 umgesetzt, abschließender Browservollauf noch offen
+
+Das eigene Vorbereitungsprofil ist in Backend, Browser und Flutter umgesetzt.
+Eine bestätigte Version hält erklärte Angaben, Grund, Nachweisreferenz, Akteur
+und Erfassungszeit unveränderlich fest. Vier Steuer-/Beginnangaben dürfen
+unbekannt bleiben. Lesen und Vorschau erzeugen keine Version; ein erfolgreich
+bestätigter Originalauftrag bleibt auch nach späteren Versionen unverändert
+wiederholbar. Das alte Accounting.status, Geldflüsse und sämtliche bisherigen
+Zuordnungs-/Komponenten-/Erstattungsnachweise bleiben unverändert. Es entsteht
+keine Steuerregel, CashEvent-Einordnung oder fertige EÜR.
+
+| Abgeschlossene Prüfung | Ergebnis | Protokoll unter `work/verification/` |
+| --- | --- | --- |
+| Backend vollständig | 630 ausgeführt, 629 bestanden, ein bestehender Windowsfall unter Linux übersprungen; 140,025 s | `e1b4a1-backend-full.log` |
+| Accounting-Domain | 125 verschiedene Fälle in einer 123-Fälle-Auswahl und zwei ergänzenden Fällen, davon 17 neue Profilfälle | `e1b4a1-accounting-domain-initial.log`, `e1b4a1-profile-old-evidence.log` |
+| Registrierung und lokales HTTP | 20/20; 8,191 s | `e1b4a1-registration-local-framing.log` |
+| HTTP und Restore | 82/82; 43,233 s | `accounting-profile-http-restore-final.log` |
+| Tatsächliches HTTPS und MFA | 6/6; 8,057 s | `accounting-profile-https-final.log` |
+| PostgreSQL | 9 neue plus 12 historische Migrations-/Restorefälle, ohne Skips; 54,380 s und 106,718 s | `pg-profile-initial.log`, `pg-profile-regression.log` |
+| Flutter vollständig | 649/649; angezeigte Dauer 3:08, Analyse ohne Befund in 6,8 s | `e1b4a1-flutter-full.log`, `e1b4a1-flutter-analyze-final.log` |
+| Browserlogik mit Node | 147/147 | `accounting-profile-node.log` |
+| Gezielter tatsächlicher Profil-Browserablauf | bestanden, Exit 0 | `accounting-profile-browser-targeted.log` |
+| Gezielter tatsächlicher R1-Browserablauf nach Waitkorrektur | bestanden, Exit 0 | `accounting-profile-r1-wait-targeted.log` |
+| Native Paketprüfung | 15/15; 3,179 s | `accounting-profile-native-final.log` |
+
+Die Gruppen überschneiden sich und werden nicht zu einer Gesamttestzahl
+addiert. Der vollständige Browserlauf ist in diesem Zwischenstand ausdrücklich
+noch offen. Vorläufiger [Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B4A1.json).
+Die 115 Backendquellen blieben im Vollauf unverändert. Flutter bestätigt zehn
+Flutter-/Fixturedateien, dieselben 115 Backendquellen und den aktuellen
+API-Vertrag. HTTP/PostgreSQL haben eigene Manifeste. Die ursprüngliche
+API-Einleitung wurde ausschließlich auf einen neutralen Vertrags-/Nachweisverweis
+aktualisiert; dieser genaue Wortlautunterschied ist separat dokumentiert.
+Die Paketprüfung verwendet bereits die aktualisierte Dokumentation.
+
+Anfängliche Flutterläufe scheiterten an der fehlenden Freigabe für lokale
+Testsockets und an zwei Testannahmen: Ein einzeiliges Textfeld filtert einen Zeilenumbruch;
+ein weiter unten liegender Historienknopf wird erst beim Scrollen gebaut.
+Die Tests prüfen nun DEL als tatsächlich eingegebenes Steuerzeichen und
+scrollen begrenzt zum echten Knopf. Dafür war keine Produktkorrektur nötig.
+Die abschließende vollständige Suite enthält den echten HTTP-Profilablauf mit
+Antwortverlust, späterer Version, tatsächlichem Rechteentzug und unveränderten
+alten Cash-/OP-Daten. Der unabhängige abschließende Lesereview des Backends
+und beider Clients meldet keinen offenen Befund.
+
+Der erste Profil-Browser-Targetlauf versuchte im Testhelfer den Geltungsbereich
+der globalen Adminberechtigung auszuwählen. Die vorhandene Rechteoberfläche
+sperrt dieses Feld korrekt auf Global. Der Helfer prüft nun den gesperrten
+Globalwert; der folgende vollständige Profil-Targetlauf bestand.
+
+Der erste vollständige 17-Abläufe-Versuch scheiterte später an einem vorhandenen
+R1-Testwait auf Playwright response.finished(). Der gesicherte Fehlerlauf
+`accounting-profile-browser-full-refund-wait-failure.log` zählt nicht als Erfolg.
+Die reine Testkorrektur beobachtet stattdessen die echte unveränderte
+Client-Promise-Erfüllung nach Verarbeitung der tatsächlichen HTTP-200-Antwort.
+Ereignis-ID, Vorschauhash, begrenzte Wartezeit und das Ausbleiben eines erneut
+geöffneten Dialogs bleiben geprüft. Gegen das ursprüngliche 150-Dateien-Manifest
+unterscheidet sich ausschließlich `web/office/tests/refund-flow.cjs`.
+Der anschließende vollständige R1-Targetlauf bestand; danach wurde der gesamte
+Browserlauf erneut gestartet. Dessen Ausgang bleibt bis zum tatsächlichen
+Abschluss offen.
+
+Die Desktop-/390-Pixel-Aufnahmen des gezielten Profilablaufs wurden visuell
+geprüft: unbekannte Angaben sind lesbar, die schmale Ansicht scrollt vertikal
+und bleibt innerhalb der Breite. Eine signierte Windows-/iPhone-Geräteabnahme
+oder Produktivbereitstellung ist weiterhin nicht nachgewiesen. Gesamtquote
+28/62, R08.05 teilweise und alle Gesamtabnahmen A–G bleiben unverändert.

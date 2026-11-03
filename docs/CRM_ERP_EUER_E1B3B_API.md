@@ -515,3 +515,12 @@ diese exakten Rücknahmen über denselben positiven C2-Pfad erneut verwenden.
 Schema 2, historische Schema-1-Proofs bleiben unverändert. Die gemeinsame
 chronologische Prüfung und die getrennte endliche Quellenhülle sind im
 [3c-Vertrag](CRM_ERP_EUER_E1B3C_API.md) festgelegt.
+
+
+### Weiterer installierter Umfang: Vorbereitungsprofil
+
+Bei zusätzlich installiertem `business_accounting_profile` verlangt eine neue
+Finanzfreigabe H7/Berichtschema 8 gemäß
+[E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md#restore-und-abnahmegrenze), auch bei leerem
+Profiljournal. Die hier beschriebenen historischen Antwort-/Nachweisformen
+bleiben unverändert. Der zusätzliche Profilstand aktiviert keine Steuerregel.

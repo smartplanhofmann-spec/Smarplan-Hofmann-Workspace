@@ -182,6 +182,78 @@ export function accountingPage(value,offset=0,events=false) {
   return value;
 }
 
+const PROFILE_FIELDS=['legal_form','accounting_method','vat_regime','vat_timing','vat_effective_from','bookkeeping_start'];
+const PROFILE_FLAGS=['scope','tax_status','tax_result_available'];
+function profileKeys(value,keys) {
+  if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length!==keys.length||keys.some(key=>!Object.hasOwn(value,key)))throw new ApiError('Die Profilangaben konnten nicht sicher gelesen werden.',502);
+}
+function profileFlags(value) {
+  if(value.scope!=='organization_profile'||value.tax_status!=='unconfigured'||value.tax_result_available!==false)throw new ApiError('Das Vorbereitungsprofil darf keine Steuerfreigabe behaupten.',502);
+}
+function profileText(value,label,max) {
+  if(typeof value!=='string'||!value.trim()||Array.from(value).length>max||/[\u0000-\u001f\u007f\ud800-\udfff]/u.test(value))throw new Error(`${label}: einzeiligen Text mit 1 bis ${max} Zeichen ohne Steuerzeichen eingeben.`);
+  return value;
+}
+function profileDay(value) {
+  if(value===null)return null;
+  accountingDay(value);if(value<'1900-01-01'||value>'2200-12-31')throw new Error('Bitte einen gültigen Profilbeginn zwischen 1900 und 2200 angeben.');return value;
+}
+export function accountingPreparationProfile(value) {
+  profileKeys(value,PROFILE_FIELDS);
+  if(value.legal_form!=='sole_proprietorship'||value.accounting_method!=='euer'||![null,'small_business','regular'].includes(value.vat_regime)||![null,'accrual','cash'].includes(value.vat_timing)||value.vat_regime!=='regular'&&value.vat_timing!==null||value.vat_regime===null&&value.vat_effective_from!==null)throw new Error('Bitte die unterstützten Profilangaben und ihre Abhängigkeiten prüfen.');
+  profileDay(value.vat_effective_from);profileDay(value.bookkeeping_start);return value;
+}
+export function accountingProfileAccess(capabilities,organization,value=null,online=true) {
+  const base=accountingAccess(capabilities,organization,{writes_allowed:true}),permissions=new Set(capabilities?.permissions||[]);
+  const available=base.available&&capabilities.features?.includes('accounting_preparation_profile')===true&&capabilities.capabilities?.includes('business_accounting_profile')===true;
+  const read=available&&base.read,admin=read&&online&&permissions.has('accounting.admin')&&capabilities.readonly===false&&organizationModuleEnabled('finance',organization)&&(value===null||value.writes_allowed===true);
+  return {available,read,admin};
+}
+export function accountingProfileEntry(value) {
+  profileKeys(value,['id','revision','previous_state_hash','profile','reason','evidence_reference','preview_hash','created_by','created_at',...PROFILE_FLAGS]);profileFlags(value);
+  accountingId(value.id);accountingRevision(value.revision);accountingId(value.previous_state_hash,true);accountingId(value.preview_hash,true);accountingId(value.created_by);accountingPreparationProfile(value.profile);
+  profileText(value.reason,'Begründung',1000);profileText(value.evidence_reference,'Nachweisreferenz',200);
+  if(typeof value.created_at!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+00:00$/.test(value.created_at)||!Number.isFinite(Date.parse(value.created_at))||new Date(value.created_at).toISOString().replace('.000Z','+00:00')!==value.created_at)throw new ApiError('Der Erfassungszeitpunkt des Profils ist ungültig.',502);
+  profileDay(value.created_at.slice(0,10));return value;
+}
+export function accountingProfileState(value) {
+  profileKeys(value,['revision','state_hash','preparation_status','current','writes_allowed',...PROFILE_FLAGS]);profileFlags(value);accountingRevision(value.revision,true);accountingId(value.state_hash,true);
+  if(typeof value.writes_allowed!=='boolean'||(value.revision===0?(value.current!==null||value.preparation_status!=='unrecorded'):(value.preparation_status!=='recorded'||accountingProfileEntry(value.current).revision!==value.revision)))throw new ApiError('Der gespeicherte Profilstand ist widersprüchlich.',502);
+  return value;
+}
+export function accountingProfilePage(value,offset=0) {
+  profileKeys(value,['items','total','next_offset','scope']);
+  if(value.scope!=='organization_profile'||!Array.isArray(value.items)||value.items.length>25||!Number.isSafeInteger(value.total)||value.total<value.items.length||!(value.next_offset===null||Number.isSafeInteger(value.next_offset)&&value.next_offset===offset+value.items.length&&value.next_offset>offset&&value.next_offset<value.total&&value.next_offset<=100000))throw new ApiError('Der Profilverlauf konnte nicht sicher geladen werden.',502);
+  const seen=new Set();let previous=Infinity;
+  for(const entry of value.items){accountingProfileEntry(entry);if(seen.has(entry.id)||entry.revision>=previous||entry.revision>value.total)throw new ApiError('Die Profilversionen sind nicht eindeutig geordnet.',502);seen.add(entry.id);previous=entry.revision;}
+  return value;
+}
+export function accountingProfilePreviewData(source,values) {
+  accountingProfileState(source);
+  if(!source.writes_allowed)throw new Error('Neue Profilversionen sind derzeit gesperrt. Bitte den aktuellen Stand laden.');
+  const profile=accountingPreparationProfile(Object.fromEntries(PROFILE_FIELDS.map(key=>[key,['vat_regime','vat_timing','vat_effective_from','bookkeeping_start'].includes(key)&&values[key]===''?null:values[key]])));
+  return {expected_revision:source.revision,state_hash:source.state_hash,profile:{...profile},reason:profileText(values.reason,'Begründung',1000),evidence_reference:profileText(values.evidence_reference,'Nachweisreferenz',200)};
+}
+export function accountingProfilePreview(value,body) {
+  profileKeys(value,['expected_revision','state_hash','profile','reason','evidence_reference','preview_hash',...PROFILE_FLAGS]);profileFlags(value);accountingRevision(value.expected_revision,true);accountingId(value.state_hash,true);accountingId(value.preview_hash,true);accountingPreparationProfile(value.profile);
+  profileText(value.reason,'Begründung',1000);profileText(value.evidence_reference,'Nachweisreferenz',200);
+  if(['expected_revision','state_hash','reason','evidence_reference'].some(key=>value[key]!==body[key])||PROFILE_FIELDS.some(key=>value.profile[key]!==body.profile[key]))throw new ApiError('Die Vorschau gehört nicht zu den ausdrücklich eingegebenen Profilangaben.',502);
+  return value;
+}
+export function accountingProfileConfirmData(body,preview,confirmation) {
+  if(confirmation!==true)throw new Error('Bitte diese Profilversion ausdrücklich bestätigen.');accountingProfilePreview(preview,body);
+  return {...body,profile:{...body.profile},preview_hash:preview.preview_hash,confirmation:true};
+}
+export async function accountingProfileAuthorize(api,{write=false,online=true}={}) {
+  const capabilities=await api.get('/business/capabilities'),organization=organizationMetadata(capabilities);
+  if(!accountingProfileAccess(capabilities,organization).read)throw new ApiError('Das Vorbereitungsprofil benötigt aktuelle globale Buchführungs- und Finanzleserechte.',403);
+  const source=accountingProfileState(await api.get('/business/accounting/profile'));
+  if(write&&!capabilities.permissions.includes('accounting.admin'))throw new ApiError('Eine neue Profilversion benötigt das globale Recht accounting.admin.',403);
+  if(write&&!online)throw new ApiError('Die unveränderte Profilanfrage benötigt eine Internetverbindung.',0);
+  if(write&&!accountingProfileAccess(capabilities,organization,source,online).admin)throw new ApiError('Neue Profilversionen sind durch den aktuellen Betriebszustand gesperrt.',423);
+  return source;
+}
+
 export function accountingAllocationAccess(capabilities,organization,value=null,online=true) {
   const permissions=new Set(capabilities?.permissions||[]),accounting=accountingAccess(capabilities,organization);
   const available=accounting.available&&capabilities.features?.includes('accounting_payment_allocation')===true&&capabilities.capabilities?.includes('business_accounting_allocations')===true;
@@ -830,7 +902,7 @@ export class OfficeApi {
       const result = await this.post(path, operation.body);
       this.#pending.delete(key); return result;
     } catch (error) {
-      const protectedAccounting=/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
+      const protectedAccounting=path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
       const uncertainAccounting=protectedAccounting&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted');
       if (error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && !uncertainAccounting) this.#pending.delete(key);
       throw error;
@@ -1039,6 +1111,7 @@ function updateDrawer() {
 function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
 function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
 function operationLabel(path) {
+  if(path==='/business/accounting/profile/confirm')return 'Vorbereitungsprofil ausdrücklich speichern';
   if(path.startsWith('/business/accounting/refunds/'))return 'Erstattungsursprung dokumentieren';
   if(path.startsWith('/business/accounting/components/'))return 'Beleganteile dokumentarisch aufteilen';
   if(path.startsWith('/business/accounting/allocations/'))return 'Bestehende Zahlung einer Rechnung zuordnen';
@@ -1064,11 +1137,13 @@ function pendingDialog() {
     rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{
       if((item.path.startsWith(biz('/accounting/allocations/'))||item.path.startsWith(biz('/accounting/components/'))||item.path.startsWith(biz('/accounting/refunds/')))&&!navigator.onLine)throw new ApiError('Die Zahlungszuordnung benötigt eine Internetverbindung. Die unveränderte Anfrage bleibt offen.',0);
       const generation=api.generation,previous=modal,initialRender=state.render;
+      if(item.path===biz('/accounting/profile/confirm')){await accountingProfileAuthorize(api,{write:true,online:navigator.onLine});if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
       if(item.path.startsWith(biz('/accounting/components/'))){componentWritable();await componentPendingAuthorize(api,item);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;componentWritable();}
       if(item.path.startsWith(biz('/accounting/refunds/'))){refundWritable();await refundPendingAuthorize(api,item);if(!item.path.startsWith(biz('/accounting/refunds/v2/'))){const sources=refundPendingSources.get(item.key);if(!sources||sources.generation!==generation)throw new ApiError('Die Ursprungsrechte können für diese offene Anfrage nicht sicher geprüft werden.',409);await refundAuthorizeCurrent(sources.eventId,sources.origins);}if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundWritable();}
       const result=await api.retry(item.key);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundPendingSources.delete(item.key);updatePending();
       if(item.path===biz('/portal/grants')){portalGrantResultDialog({id:result.grant.offer_id,project_id:result.grant.project_id,number:result.grant.number,kind:'offer',status:'final'},result);return;}
       closeModal();const render=state.render+1,section=state.section;await refresh();
+      if(item.path===biz('/accounting/profile/confirm')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingProfileDialog();
       if(item.path.startsWith(biz('/accounting/allocations/'))&&item.path.endsWith('/assign')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingAllocationDialog(result.payment_id,{document:result.document});
       if(item.path.startsWith(biz('/accounting/components/'))&&item.path.endsWith('/confirm')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await componentDialog(result.event_id);
       if(item.path.startsWith(biz('/accounting/refunds/'))&&item.path.endsWith('/confirm')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await refundDialog(result.event_id);}),'primary')]))));
@@ -1087,7 +1162,7 @@ async function refresh() {
     const organization=organizationMetadata(caps),organizationChanged=JSON.stringify(state.organization)!==JSON.stringify(organization);
     const navigationChanged=organizationChanged||[...state.globalPermissions].sort().join('|')!==[...(caps.permissions||[])].sort().join('|')||state.metadata?.can_read_inquiries!==metadata.can_read_inquiries||JSON.stringify(state.projects)!==JSON.stringify(collection(projects));
     state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.organization=organization;state.readonly=caps.readonly!==false;state.projects=collection(projects);state.metadata=metadata;
-    if(organizationChanged||(!accountingRights().read&&modal?.querySelector('[data-accounting-detail]'))||(!refundRights().read&&modal?.querySelector('[data-refund-detail]'))||(!capacityRights().read&&modal?.querySelector('[data-capacity-detail]'))||(!refundV2Rights().read&&modal?.querySelector('[data-refund-v2-detail]')))closeModal();
+    if(organizationChanged||(!accountingRights().read&&modal?.querySelector('[data-accounting-detail]'))||(!accountingProfileRights().read&&modal?.querySelector('[data-profile-detail]'))||(!refundRights().read&&modal?.querySelector('[data-refund-detail]'))||(!capacityRights().read&&modal?.querySelector('[data-capacity-detail]'))||(!refundV2Rights().read&&modal?.querySelector('[data-refund-v2-detail]')))closeModal();
     if(state.projectId&&!state.projects.some(project=>project.id===state.projectId)){state.projectId='';state.tab='overview';closeModal();}
     let effective=state.globalPermissions;
     if(state.projectId) {
@@ -1467,7 +1542,8 @@ async function accountingContent() {
   const status=accountingStatus(rawStatus),rights=accountingRights(status);
   if(!Array.isArray(accountResponse?.items))throw new ApiError('Geldkonten konnten nicht sicher geladen werden.',502);
   const accounts=accountResponse.items;
-  content.append(notice('Profil und Steuerstatus: nicht eingerichtet. Alle Geldflüsse bleiben steuerlich ungeklärt. Es werden keine steuerlichen Summen oder Gewinne berechnet.'));
+  content.append(notice(accountingProfileRights().available?'Steuerprofil: nicht eingerichtet. Ein separat gespeichertes Vorbereitungsprofil dokumentiert nur Angaben. Alle Geldflüsse bleiben steuerlich ungeklärt; es werden keine steuerlichen Summen oder Gewinne berechnet.':'Profil und Steuerstatus: nicht eingerichtet. Alle Geldflüsse bleiben steuerlich ungeklärt. Es werden keine steuerlichen Summen oder Gewinne berechnet.'));
+  if(accountingProfileRights().read)content.append(el('div',{class:'actions'},button('Vorbereitungsprofil',()=>accountingAction(()=>accountingProfileDialog()),'small')));
   if(!status.writes_allowed)content.append(notice('Neue Vorgänge sind im aktuellen Betriebszustand gesperrt. Bestehende Nachweise bleiben lesbar; Betriebsmodus, Finanzmodul und gegebenenfalls Wiederherstellungsabgleich prüfen.','warn'));
   content.append(el('div',{class:'tabs','aria-label':'Vorjournalbereiche'},[['events','Vorjournal'],['payments','Kundenzahlungen'],['receipts','Auszahlungen'],['accounts','Geldkonten']].map(([key,label])=>accountingTab(label,state.accounting.tab===key,()=>{state.accounting.tab=key;refresh();}))));
   const tab=state.accounting.tab,offset=state.accounting[tab];
@@ -1489,6 +1565,71 @@ async function accountingContent() {
     rows(page.items,source=>row(`${source.vendor} · ${source.invoice_number}`,`${formatDate(source.issue_date)} · Brutto ${formatMoney(source.gross)} · Ausgezahlt ${formatMoney(source.paid_amount)} · Verbleibend ${formatMoney(source.remaining_amount)}`,
       [button('Original ansehen',()=>accountingAction(()=>download(biz(`/finance/receipts/${source.receipt_id}/original`),source.filename)),'small'),rights.prepare&&source.payable?button('Auszahlung bestätigen',()=>accountingCashDialog('receipt',source,accounts),'primary'):null,badge(ACCOUNTING_BLOCKS[source.blocked_reason]||(source.payable?'Zur Bestätigung verfügbar':'Gesperrt'))],`Prüfversion ${source.review_revision} · Auszahlungsstand ${source.cash_revision}`),'Keine freigegebenen geprüften EUR-Eingangsbelege vorhanden.'),accountingPaging(tab,page)));
   return content;
+}
+const PROFILE_NOTICE='Dieses Vorbereitungsprofil dokumentiert Ihre ausdrücklich bestätigten Angaben. Es richtet keine Steuerregeln ein, ordnet keine Geldflüsse ein und berechnet keine EÜR oder Steuern. Unbekannte Angaben dürfen offen bleiben.';
+const PROFILE_PENDING_KEY='accounting-profile-confirm';
+function accountingProfileRights(source=null) { return accountingProfileAccess({permissions:[...state.globalPermissions],features:[...state.features],capabilities:[...state.capabilities],readonly:state.readonly},state.organization,source,navigator.onLine); }
+function accountingProfileContext() { const generation=api.generation,render=state.render,previous=modal;return ()=>generation===api.generation&&render===state.render&&previous===modal; }
+function accountingProfileFacts(profile) {
+  accountingPreparationProfile(profile);
+  return el('div',{class:'stack break-word'},el('p',{},'Unternehmensform: Einzelunternehmen'),el('p',{},'Buchführungsform: Einnahmenüberschussrechnung (EÜR)'),
+    el('p',{},`Umsatzsteuerregelung: ${{small_business:'Kleinunternehmerregelung laut Angabe',regular:'Regelbesteuerung laut Angabe'}[profile.vat_regime]||'Noch ungeklärt'}`),
+    el('p',{},`Besteuerungszeitpunkt: ${{accrual:'Sollbesteuerung laut Angabe',cash:'Istbesteuerung laut Angabe'}[profile.vat_timing]||'Noch ungeklärt'}`),
+    el('p',{},`Umsatzsteuer gilt laut Angabe ab: ${profile.vat_effective_from?formatDate(profile.vat_effective_from):'Noch ungeklärt'}`),
+    el('p',{},`Buchführung beginnt laut Angabe am: ${profile.bookkeeping_start?formatDate(profile.bookkeeping_start):'Noch ungeklärt'}`));
+}
+function accountingProfileRecord(entry) {
+  accountingProfileEntry(entry);
+  return panel('Gespeicherte Profilversion '+entry.revision,accountingProfileFacts(entry.profile),el('p',{class:'break-word'},`Begründung: ${entry.reason}`),el('p',{class:'break-word'},`Nachweisreferenz: ${entry.evidence_reference}`),el('p',{class:'caption'},`Ausdrücklich gespeichert am ${formatDate(entry.created_at,true)}. Diese Version bleibt unverändert.`));
+}
+async function accountingProfileDialog({offset=0,entryId=null}={}) {
+  const current=accountingProfileContext(),source=await accountingProfileAuthorize(api),history=accountingProfilePage(await api.get(query(biz('/accounting/profile/history'),{limit:25,offset})),offset);
+  if(!current())return;if(history.total!==source.revision)throw new ApiError('Der Profilstand wurde zwischenzeitlich erweitert. Bitte erneut laden.',409);
+  const content=el('div',{class:'stack accounting break-word','data-accounting-detail':'true','data-profile-detail':'true'},notice(PROFILE_NOTICE));
+  if(entryId) {
+    const entry=history.items.find(item=>item.id===entryId);if(!entry)throw new ApiError('Die gesuchte Profilversion ist auf dieser Seite nicht mehr enthalten. Bitte den Verlauf neu laden.',409);
+    content.append(accountingProfileRecord(entry),button('Zurück zum Profilverlauf',()=>accountingAction(()=>accountingProfileDialog({offset})),'small'));
+  } else {
+    const pending=api.pendingOperations().some(item=>item.path===biz('/accounting/profile/confirm'));
+    content.append(source.current?accountingProfileRecord(source.current):notice('Noch keine Profilversion gespeichert. Das Öffnen dieser Ansicht legt keine Angaben an.'),
+      !source.writes_allowed?notice('Neue Profilversionen sind derzeit gesperrt. Bereits gespeicherte Angaben bleiben entsprechend Ihren Leserechten verfügbar.','warn'):null,
+      pending?notice('Eine Antwort zur Profilbestätigung ist offen. Unter „Antworten offen“ zuerst die unveränderte Anfrage wiederholen.','warn'):null,
+      accountingProfileRights(source).admin&&!pending?button('Neue Profilversion vorbereiten',()=>accountingAction(()=>accountingProfileInput()),'primary'):null,
+      panel('Profilverlauf',rows(history.items,entry=>row('Version '+entry.revision,`${formatDate(entry.created_at,true)} · ${entry.reason}`,[button('Profilversion ansehen',()=>accountingAction(()=>accountingProfileDialog({offset,entryId:entry.id})),'small')],entry.evidence_reference),'Noch keine ausdrücklich bestätigte Profilversion.'),allocationPagination(history,offset,next=>accountingProfileDialog({offset:next}))));
+  }
+  dialog(entryId?'Gespeicherte Profilversion':'Vorbereitungsprofil',content);
+}
+async function accountingProfileInput() {
+  const current=accountingProfileContext(),source=await accountingProfileAuthorize(api,{write:true,online:navigator.onLine});if(!current())return;
+  if(api.pendingOperations().some(item=>item.path===biz('/accounting/profile/confirm')))throw new ApiError('Zuerst die offene Profilantwort unverändert wiederholen.',409);
+  const generation=api.generation,render=state.render,profile=source.current?.profile||{legal_form:'sole_proprietorship',accounting_method:'euer',vat_regime:null,vat_timing:null,vat_effective_from:null,bookkeeping_start:null};
+  const fields=[field('legal_form','Unternehmensform','select',profile.legal_form,{required:true,options:[['sole_proprietorship','Einzelunternehmen']]}),field('accounting_method','Buchführungsform','select',profile.accounting_method,{required:true,options:[['euer','Einnahmenüberschussrechnung (EÜR)']]}),
+    field('vat_regime','Umsatzsteuerregelung','select',profile.vat_regime||'',{keepEmpty:true,options:[['','Noch ungeklärt'],['small_business','Kleinunternehmerregelung laut Angabe'],['regular','Regelbesteuerung laut Angabe']]}),
+    field('vat_timing','Besteuerungszeitpunkt','select',profile.vat_timing||'',{keepEmpty:true,options:[['','Noch ungeklärt'],['accrual','Sollbesteuerung laut Angabe'],['cash','Istbesteuerung laut Angabe']],help:'Soll oder Ist nur bei erklärter Regelbesteuerung wählen. Eine Auswahl aktiviert keine Steuerberechnung.'}),
+    field('vat_effective_from','Umsatzsteuer gilt laut Angabe ab','date',profile.vat_effective_from||'',{min:'1900-01-01',max:'2200-12-31',help:'Leer lassen, solange der Beginn unbekannt ist. Ein Datum benötigt eine angegebene Umsatzsteuerregelung.'}),
+    field('bookkeeping_start','Buchführung beginnt laut Angabe am','date',profile.bookkeeping_start||'',{min:'1900-01-01',max:'2200-12-31',help:'Leer lassen, solange der Beginn unbekannt ist. Es wird kein Beginn aus vorhandenen Zahlungen abgeleitet.'}),
+    field('reason','Begründung','text','',{required:true,maxLength:1000,wide:true}),field('evidence_reference','Nachweisreferenz','text','',{required:true,maxLength:200,wide:true,help:'Zum Beispiel eine ausdrücklich bestätigte Inhaberangabe oder ein eigener Nachweis. Die Referenz behauptet keinen geprüften Behördenbeleg.'})];
+  const editor=form('',fields,async values=>{
+    const body=accountingProfilePreviewData(source,values);
+    try {
+      await accountingProfileAuthorize(api,{write:true,online:navigator.onLine});if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;
+      const preview=accountingProfilePreview(await api.post(biz('/accounting/profile/preview'),body),body);if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;
+      await accountingProfileAuthorize(api,{write:true,online:navigator.onLine});if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;
+      accountingProfileConfirm(source,body,preview);return undefined;
+    }catch(error){if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;if([403,404,423].includes(error.status)){closeModal();await refresh();if(generation===api.generation)showError(error);return undefined;}throw error;}
+  },{key:'accounting-profile-preview',submit:'Profilangaben unverbindlich prüfen',description:source.current?`Neue Version auf Grundlage der gespeicherten Version ${source.revision}. Grund und Nachweis für diese neue Bestätigung ausdrücklich angeben.`:'Einzelunternehmen und EÜR sind ungespeicherte Vorschläge. Umsatzsteuer und beide Beginnangaben sind unbekannt. Erst die gesonderte Bestätigung speichert Ihre Angaben.',extra:notice(PROFILE_NOTICE)});
+  editor.dataset.accountingDetail='true';editor.dataset.profileDetail='true';dialog('Profilangaben vorbereiten',editor);
+}
+function accountingProfileConfirm(source,body,preview) {
+  const generation=api.generation,render=state.render,editor=form('',[field('confirmation','Ich bestätige diese Profilangaben einschließlich der ausdrücklich offenen Angaben.','checkbox',false,{required:true})],async values=>{
+    const data=accountingProfileConfirmData(body,preview,values.confirmation);
+    try{await accountingProfileAuthorize(api,{write:true,online:navigator.onLine});}catch(error){if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;if([403,404,423].includes(error.status)){closeModal();await refresh();if(generation===api.generation)showError(error);return undefined;}throw error;}
+    if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;
+    const result=await accountingSave(editor,generation,PROFILE_PENDING_KEY,'/accounting/profile/confirm',data);return render===state.render?result:undefined;
+  },{key:PROFILE_PENDING_KEY,submit:'Profilversion verbindlich speichern',description:`Geplante Profilversion ${source.revision+1}. Erst diese Bestätigung speichert die gezeigten Angaben. Eine Vorschau allein erzeugt keine Version.`,
+    extra:el('div',{class:'stack break-word'},accountingProfileFacts(preview.profile),el('p',{},`Begründung: ${preview.reason}`),el('p',{},`Nachweisreferenz: ${preview.evidence_reference}`),notice(PROFILE_NOTICE)),
+    after:async()=>{const render=state.render+1,section=state.section;await refresh();if(generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingProfileDialog();}});
+  editor.dataset.accountingDetail='true';editor.dataset.profileDetail='true';dialog('Profilangaben prüfen',editor);
 }
 function accountingAccountDialog(account) {
   const generation=api.generation;

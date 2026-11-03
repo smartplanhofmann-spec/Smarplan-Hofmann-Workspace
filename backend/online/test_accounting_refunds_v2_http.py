@@ -111,8 +111,8 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         self.assertFalse(entry['capacity_released'])
         self.assertFalse(entry['tax_result_available'])
         after = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(after['schema_version'], 6)
-        self.assertEqual(set(after), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2'})
+        self.assertEqual(after['schema_version'], 7)
+        self.assertEqual(set(after), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile'})
         self.assertEqual(self.historical_h5(before), self.historical_h5(after))
         self.assertNotEqual(before['refunds_v2']['sha256'], after['refunds_v2']['sha256'])
         self.assertEqual(after['refunds_v2']['table_counts'], {table: (0 if table.endswith('_releases') else 1) for table in TABLES})
@@ -157,15 +157,15 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         self.assertEqual(self.call(self.company, legacy_path + '/history').json['items'], [entry])
         self.assertEqual(self.call(self.company, legacy_path + '/confirm', command, status=201).json, entry)
 
-    def test_schema7_requires_complete_exact_scope_even_when_all_new_tables_are_empty(self):
+    def test_current_schema_requires_complete_exact_scope_even_when_all_new_tables_are_empty(self):
         office = self.company['office']
         self.require_reconciliation(office)
         report = self.report(office)
-        self.assertEqual(report['schema'], 7)
+        self.assertEqual(report['schema'], 8)
         self.assertEqual(report['accounting_horizon']['refunds_v2']['table_counts'], {table: 0 for table in TABLES})
         before = '\n'.join(office.db.iterdump())
         invalid = [{**report, 'schema': 6, 'accounting_horizon': self.historical_h5(report['accounting_horizon'])},
-                   {**report, 'schema': 8}, {**report, 'schema': True}]
+                   {**report, 'schema': 9}, {**report, 'schema': True}]
         for changes in ({'schema_version': True}, {'schema_version': 2}, {'sha256': '0' * 64},
                         {'table_counts': {}}, {'table_counts': {table: True for table in TABLES}},
                         {'table_counts': {table: -1 for table in TABLES}},
@@ -188,7 +188,7 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         self.assertEqual('\n'.join(office.db.iterdump()), current)
 
     def test_successful_schema6_report_and_old_c2_proofs_survive_migration_but_not_a_new_restore(self):
-        old_registry = tuple(spec for spec in business_schema.registry() if spec.name != 'business_accounting_refunds_v2')
+        old_registry = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_refunds_v2', 'business_accounting_profile'))
         with patch.object(business_schema, 'registry', return_value=old_registry):
             company = self.new_company('historical-refunds-v2')
             account = self.account_record(company)
@@ -208,7 +208,7 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         business_schema.ensure_schema(office)
         business_schema.ensure_schema(office)
         h6 = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(h6['schema_version'], 6)
+        self.assertEqual(h6['schema_version'], 7)
         self.assertEqual(self.historical_h5(h6), h5)
         self.assertEqual(h6['refunds_v2']['table_counts'], {table: 0 for table in TABLES})
         self.assertEqual({table: sorted(tuple(row) for row in office.db.execute('SELECT * FROM ' + table)) for table in capacity.TABLES}, old_rows)
@@ -228,7 +228,7 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         self.assertEqual(business_schema.financial_accounting_horizon(restored), h6)
         self.assertTrue(business_schema.state(restored)['financial_reconciliation_required'])
 
-    def test_real_restore_preserves_r2_release_claims_and_requires_schema7_operator_evidence(self):
+    def test_real_restore_preserves_r2_release_claims_and_requires_current_operator_evidence(self):
         origin, returned, reused, bound = self.rebound()
         unused, receipt = self.receipt(origin['invoice'], '10.00')
         cpath, ccommand = self.capacity_command(receipt)
@@ -262,7 +262,7 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         inspected = subprocess.run(args + ['--inspect'], capture_output=True, text=True, timeout=20)
         self.assertEqual(inspected.returncode, 0, inspected.stderr)
         inspection = json.loads(inspected.stdout)
-        self.assertEqual(inspection['evidence_schema'], 7)
+        self.assertEqual(inspection['evidence_schema'], 8)
         self.assertEqual(inspection['accounting_horizon'], horizon)
         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), before)
         stale = {**report, 'schema': 6, 'accounting_horizon': self.historical_h5(horizon)}

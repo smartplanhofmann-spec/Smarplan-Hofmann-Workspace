@@ -374,10 +374,13 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             response.status_code = 405
             response.headers['Allow'] = methods
             return response
-        if (request.method == 'GET' and path.startswith(('/business/accounting/allocations/', '/business/accounting/components/', '/business/accounting/refunds/'))
+        strict_accounting_body = (path == '/business/accounting/profile' or
+            path.startswith(('/business/accounting/allocations/', '/business/accounting/components/',
+                             '/business/accounting/refunds/', '/business/accounting/profile/')))
+        if (request.method == 'GET' and strict_accounting_body
                 and request.get_data(cache=False)):
             raise Problem(400, 'GET erwartet keinen Anfragekörper')
-        if (request.method == 'POST' and path.startswith(('/business/accounting/allocations/', '/business/accounting/components/', '/business/accounting/refunds/'))
+        if (request.method == 'POST' and strict_accounting_body
                 and request.query_string):
             raise Problem(400, 'Keine zusätzlichen Filter erlaubt')
         if request.method == 'PUT':

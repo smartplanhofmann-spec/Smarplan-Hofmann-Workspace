@@ -69,6 +69,9 @@ jobs:
           python -m unittest discover -s backend/online -p test_accounting_refunds_v2_http.py -v
           python -m unittest discover -s backend/online -p test_accounting_refunds_v2_journey.py -v
           python -m unittest discover -s backend/online -p test_postgres_accounting_refunds_v2_integration.py -v
+          python -m unittest discover -s backend/online -p test_accounting_profile_http.py -v
+          python -m unittest discover -s backend/online -p test_accounting_profile_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_accounting_profile_integration.py -v
           python -m unittest discover -s backend/online -p test_plans_online.py -v
           python -m unittest discover -s backend/online -p test_plan_imports.py -v
           python -m unittest discover -s backend/online -p test_import_cancellation.py -v
@@ -449,7 +452,7 @@ jobs:
             }
           }
           New-Item -ItemType Directory -Force (Join-Path $smartplanBundle 'backend') | Out-Null
-          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'external_integrations.py', 'integration_bridge.py', 'business_api.py', 'business_schema.py', 'business_foundation.py', 'business_documents.py', 'business_pricing.py', 'business_finance.py', 'business_einvoice.py', 'business_delivery.py', 'business_planning.py', 'business_time.py', 'business_operations.py', 'business_inventory.py', 'business_maintenance.py', 'business_adapters.py', 'business_organization.py', 'business_instance.py', 'business_purchasing.py', 'business_portal.py', 'business_accounting.py', 'business_accounting_allocations.py', 'business_accounting_components.py', 'business_accounting_refunds.py', 'business_accounting_capacity.py', 'accounting_component_segments.py', 'business_accounting_refunds_v2.py', 'accounting_joint_ledger.py', 'accounting_joint_access.py', 'accounting_joint_order.py', 'accounting_return_lots.py', 'requirements.lock')) {
+          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'external_integrations.py', 'integration_bridge.py', 'business_api.py', 'business_schema.py', 'business_foundation.py', 'business_documents.py', 'business_pricing.py', 'business_finance.py', 'business_einvoice.py', 'business_delivery.py', 'business_planning.py', 'business_time.py', 'business_operations.py', 'business_inventory.py', 'business_maintenance.py', 'business_adapters.py', 'business_organization.py', 'business_instance.py', 'business_purchasing.py', 'business_portal.py', 'business_accounting.py', 'business_accounting_allocations.py', 'business_accounting_components.py', 'business_accounting_refunds.py', 'business_accounting_capacity.py', 'accounting_component_segments.py', 'business_accounting_refunds_v2.py', 'accounting_joint_ledger.py', 'accounting_joint_access.py', 'accounting_joint_order.py', 'accounting_return_lots.py', 'business_accounting_profile.py', 'requirements.lock')) {
             Copy-Item (Join-Path '../backend' $smartplanFile) -Destination (Join-Path $smartplanBundle 'backend')
           }
           Copy-Item '../windows/*.cmd' -Destination $smartplanBundle
@@ -457,7 +460,7 @@ jobs:
           if (-not $env:SMARTPLAN_WINDOWS_WHEELS -or -not (Test-Path $env:SMARTPLAN_WINDOWS_WHEELS)) { throw 'Validated offline Python wheels are missing' }
           Copy-Item -LiteralPath $env:SMARTPLAN_WINDOWS_WHEELS -Destination (Join-Path $smartplanBundle 'python-wheels') -Recurse
           Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
-          foreach ($smartplanOperatorFile in @('scripts/reconcile-accounting-restore.py', 'docs/CRM_ERP_EUER_BETRIEB.md', 'docs/CRM_ERP_EUER_E1A_API.md', 'docs/CRM_ERP_EUER_E1B1_API.md', 'docs/CRM_ERP_EUER_E1B2_API.md', 'docs/CRM_ERP_EUER_E1B3A_API.md', 'docs/CRM_ERP_EUER_E1B3B_API.md', 'docs/CRM_ERP_EUER_E1B3C_API.md')) {
+          foreach ($smartplanOperatorFile in @('scripts/reconcile-accounting-restore.py', 'docs/CRM_ERP_EUER_BETRIEB.md', 'docs/CRM_ERP_EUER_E1A_API.md', 'docs/CRM_ERP_EUER_E1B1_API.md', 'docs/CRM_ERP_EUER_E1B2_API.md', 'docs/CRM_ERP_EUER_E1B3A_API.md', 'docs/CRM_ERP_EUER_E1B3B_API.md', 'docs/CRM_ERP_EUER_E1B3C_API.md', 'docs/CRM_ERP_EUER_E1B4A1_API.md')) {
             $smartplanOperatorTarget = Join-Path $smartplanBundle $smartplanOperatorFile
             New-Item -ItemType Directory -Force (Split-Path $smartplanOperatorTarget) | Out-Null
             Copy-Item (Join-Path '..' $smartplanOperatorFile) -Destination $smartplanOperatorTarget

@@ -298,3 +298,12 @@ Berichte bis H5/Schema 6 behalten ihre feste Struktur und entsperren keinen
 neuen Restore. Der hier beschriebene ältere Teilvertrag bleibt erhalten;
 ausgeführte Prüfungen und offene Integrationsarbeit der Erweiterung stehen im
 [3c-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json).
+
+
+### Weiterer installierter Umfang: Vorbereitungsprofil
+
+Bei zusätzlich installiertem `business_accounting_profile` verlangt eine neue
+Finanzfreigabe H7/Berichtschema 8 gemäß
+[E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md#restore-und-abnahmegrenze), auch bei leerem
+Profiljournal. Die hier beschriebenen historischen Antwort-/Nachweisformen
+bleiben unverändert. Der zusätzliche Profilstand aktiviert keine Steuerregel.

@@ -171,6 +171,92 @@ class BusinessSession extends ChangeNotifier {
   Future<dynamic> repeatRefundOriginCommand(String eventId) =>
       _repeatAccountingCommand(eventId, 'refunds');
 
+  String? pendingPreparationProfilePath() =>
+      allowed &&
+          _pending['accounting-profile']?.path == '/accounting/profile/confirm'
+      ? '/accounting/profile/confirm'
+      : null;
+
+  void _requirePreparationProfileRights(int epoch) {
+    _guard(epoch);
+    if (projectId != null ||
+        !hasFeature('accounting_preparation_profile') ||
+        !hasModule('accounting_profile') ||
+        !can('accounting.read') ||
+        !can('finance.read') ||
+        !canWrite('accounting.admin')) {
+      throw const ApiException(
+        403,
+        'Das Vorbereitungsprofil ist nicht zur Änderung freigegeben.',
+      );
+    }
+    if (!sectionEnabled('finance')) {
+      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+    }
+  }
+
+  Future<dynamic> repeatPreparationProfileCommand() async {
+    final epoch = _epoch;
+    _guard(epoch);
+    final operation = _pending['accounting-profile'];
+    if (operation == null || pendingPreparationProfilePath() == null) {
+      throw const ApiException(
+        409,
+        'Die frühere Übertragung wurde inzwischen beantwortet. Bitte den Stand neu laden.',
+      );
+    }
+    await load();
+    _guard(epoch);
+    if (error != null || loading) {
+      throw const ApiException(
+        0,
+        'Die aktuellen Berechtigungen konnten noch nicht bestätigt werden.',
+      );
+    }
+    _requirePreparationProfileRights(epoch);
+    final fresh = businessMap(await read('/accounting/profile'));
+    _requirePreparationProfileRights(epoch);
+    if (fresh['writes_allowed'] != true) {
+      throw const ApiException(423, 'Neue Profilstände sind derzeit gesperrt.');
+    }
+    if (_pending['accounting-profile']?.body['request_id'] !=
+        operation.body['request_id']) {
+      throw const ApiException(
+        409,
+        'Die frühere Übertragung wurde inzwischen beantwortet. Bitte den Stand neu laden.',
+      );
+    }
+    return _command(
+      'accounting-profile',
+      operation.path,
+      Map<String, dynamic>.from(jsonDecode(operation.values)),
+      documentaryRetry: true,
+    );
+  }
+
+  Future<dynamic> previewPreparationProfile(Map<String, dynamic> values) async {
+    final epoch = _epoch;
+    _requirePreparationProfileRights(epoch);
+    final capturedGeneration = generation;
+    try {
+      final result = await api.call(
+        path('/accounting/profile/preview'),
+        Map<String, dynamic>.from(jsonDecode(jsonEncode(values))),
+      );
+      _guard(epoch);
+      if (generation != capturedGeneration) {
+        throw const ApiException(
+          409,
+          'Der Funktionsstand wurde geändert. Bitte neu prüfen.',
+        );
+      }
+      return result;
+    } on ApiException catch (error) {
+      if (error.status == 401) revoke();
+      rethrow;
+    }
+  }
+
   Future<dynamic> _repeatAccountingCommand(
     String eventId,
     String domain,
@@ -455,9 +541,11 @@ class BusinessSession extends ChangeNotifier {
       r'^/accounting/(components|refunds)/(?:v2/)?events/([a-f0-9]{32})/confirm$',
     ).firstMatch(path);
     final documentaryCommand =
-        documentaryMatch != null &&
-        key ==
-            'accounting-${documentaryMatch.group(1)}-${documentaryMatch.group(2)}';
+        (path == '/accounting/profile/confirm' &&
+            key == 'accounting-profile') ||
+        (documentaryMatch != null &&
+            key ==
+                'accounting-${documentaryMatch.group(1)}-${documentaryMatch.group(2)}');
     if (readonly && !portalRevocation)
       throw const ApiException(
         403,

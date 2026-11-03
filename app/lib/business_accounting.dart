@@ -5,6 +5,7 @@ import 'business_accounting_allocations.dart';
 import 'business_accounting_components.dart';
 import 'business_accounting_refunds.dart';
 import 'business_accounting_refunds_v2.dart';
+import 'business_accounting_profile.dart';
 import 'business_accounting_capacity.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
@@ -809,9 +810,26 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
         : ListView(
             padding: const EdgeInsets.all(24),
             children: [
-              const Notice(
-                'Steuerprofil nicht eingerichtet. Dieses Vorjournal enthält belegte Geldflüsse ohne steuerliche Einordnung. Ein EÜR-Ergebnis ist noch nicht verfügbar.',
+              Notice(
+                businessPreparationProfileReadable(widget.session)
+                    ? 'Dieses Vorjournal enthält belegte Geldflüsse ohne steuerliche Einordnung. Ein gespeichertes Vorbereitungsprofil aktiviert keine Steuerregel. Ein EÜR-Ergebnis ist weiterhin nicht verfügbar.'
+                    : 'Steuerprofil nicht eingerichtet. Dieses Vorjournal enthält belegte Geldflüsse ohne steuerliche Einordnung. Ein EÜR-Ergebnis ist noch nicht verfügbar.',
               ),
+              if (businessPreparationProfileReadable(widget.session))
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => BusinessPreparationProfilePage(
+                          session: widget.session,
+                        ),
+                      ),
+                    ),
+                    icon: const Icon(Icons.fact_check_outlined),
+                    label: const Text('Vorbereitungsprofil ansehen'),
+                  ),
+                ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 12),
                 child: Text('Nur freigegebene Quellen · ohne Projektfilter'),

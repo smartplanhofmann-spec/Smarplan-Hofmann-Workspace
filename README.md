@@ -63,6 +63,14 @@ Steuerliche Freigabe, Korrekturen, Perioden und Beraterpaket folgen gemäß
 [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md); die Prüfnachweise stehen im
 [E1b-3b-Nachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3B.json).
 
+Als gesonderter nächster Abschnitt wird das
+[Vorbereitungsprofil E1b-4a1](docs/CRM_ERP_EUER_E1B4A1_API.md) entwickelt;
+die Prüfungen laufen. Es speichert ausdrücklich bestätigte Angaben mit Grund,
+Belegreferenz und unveränderlichen Versionen. Unbekannte Steuerangaben bleiben
+`null`; ein gespeichertes Profil erzeugt weder ein steuerliches Ergebnis noch
+eine fachliche Freigabe. Die sachliche Einordnung einzelner Geldflüsse folgt
+erst in E1b-4a2 und gehört nicht zu diesem Profilabschnitt.
+
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital
 unterschreibbares Protokoll geprüft. Weitergehende Test-/Betriebsbestätigungen
 in den nachfolgenden älteren Abschnitten bleiben historische Aufzeichnungen;

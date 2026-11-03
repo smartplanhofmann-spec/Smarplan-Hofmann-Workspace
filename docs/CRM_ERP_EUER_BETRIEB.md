@@ -67,6 +67,38 @@ nach einer Auszahlung, bleiben die alten Nachweise erhalten und weitere
 Auszahlungen sind bis zur späteren fachlichen Klärung gesperrt. E1a enthält
 noch keine Korrektur-/Stornooberfläche.
 
+## Vorbereitungsprofil ausdrücklich festhalten
+
+Bei verfügbarer Funktion „Vorbereitungsprofil“ lässt sich ein eigener
+Vorbereitungsstand speichern. Die Ansicht zeigt, ob noch keine Version
+vorliegt oder welche ausdrücklich bestätigte Version aktuell ist. Sie ist
+vom Steuerstatus getrennt: Auch ein gespeichertes Profil bedeutet weiterhin
+„Steuerbehandlung offen“ und erzeugt kein Steuerergebnis.
+
+1. Das Profil öffnen. Im leeren Editor sind Einzelunternehmen und EÜR nur
+   Vorschläge; durch Öffnen oder Vorschau wird nichts gespeichert.
+2. Bekannte Angaben prüfen. Umsatzsteuerregelung, Soll-/Istbesteuerung,
+   deren angegebener Beginn und Buchhaltungsbeginn dürfen unbekannt bleiben.
+   EÜR bestimmt die Umsatzsteuer-Versteuerungsart nicht. Leere Felder werden
+   ausdrücklich als unbekannt gespeichert. Datumsangaben aktivieren keine
+   steuerliche Regel oder Periode.
+3. Eine Begründung und Nachweisreferenz eintragen, beispielsweise eine
+   ausdrücklich bestätigte Inhaberangabe. Die Referenz ist kein automatischer
+   Behördennachweis und lädt kein Dokument hoch.
+4. Vorschau prüfen und den vollständigen Stand ausdrücklich bestätigen.
+   Eine neue Version erhält Erfassungszeit und Akteur. Der Verlauf bewahrt
+   ältere Versionen mit ihrem damaligen Grund und Nachweisbezug unverändert.
+
+Lesen verlangt global `accounting.read` und `finance.read`; Vorschau und
+Bestätigung zusätzlich `accounting.admin`. `accounting.prepare` allein erlaubt
+keine Profiländerung. Die vorhandenen Betriebs-/Restoregrenzen gelten ebenso.
+Bei verlorener Bestätigungsantwort denselben vorgemerkten Auftrag erneut
+senden. Eine zwischenzeitliche neue Profilversion ersetzt dessen ursprüngliche
+Anfrage nicht. Quellen, Zahlungen und bisherige Finanzantworten bleiben durch
+Profilversionen unverändert. Die sachliche Einordnung einzelner Geldflüsse
+folgt als eigener Abschnitt. Vertrag und Grenzen:
+[E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md).
+
 ## Freie Kundenzahlungen einer Rechnung zuordnen
 
 Bei einer bereits übernommenen Kundenzahlung öffnet „Rechnung zuordnen“ den
@@ -341,7 +373,9 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    [Schema 6](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze),
    bei installiertem `business_accounting_capacity` ohne erweitertes
    Erstattungsmodul oder [Schema 7](CRM_ERP_EUER_E1B3C_API.md#h6-berichtschema-7-und-unveränderte-finanzprojektionen)
-   bei zusätzlich installiertem `business_accounting_refunds_v2`. Der gesamte
+   bei zusätzlich installiertem `business_accounting_refunds_v2` ohne
+   Vorbereitungsprofil oder [Schema 8](CRM_ERP_EUER_E1B4A1_API.md#restore-und-abnahmegrenze)
+   bei zusätzlich installiertem `business_accounting_profile`. Der gesamte
    installierte Umfang gilt auch bei leeren Tabellen. Diese Regeln
    erweitern den technischen Restoreabgleich und ersetzen keine fachliche
    Prüfung der tatsächlich vorhandenen Zahlungs- und Belegnachweise.
@@ -393,6 +427,19 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    und `_releases` (jeweils derselbe vollständige Präfix). Er bindet auch die
    übernommenen R2-Rücknahmen. Die fünf bisherigen Tabellenmengen und die
    äußeren Berichts-/Abgleichsfelder bleiben unverändert.
+   Schema 8 ergänzt den eigenen Profilteil P1:
+
+   ```text
+   {schema_version:7,prejournal:<H1>,allocations:<A1>,components:<C1>,
+    refunds:<R1>,capacity:<K1>,refunds_v2:<R2>,profile:<P1>}
+   ```
+
+   P1 enthält `schema_version:1`, `table_counts` und `sha256`; seine beiden
+   Tabellen heißen `business_accounting_profile_versions` und
+   `business_accounting_profile_requests`. Auch ein installiertes leeres
+   Profilmodul benötigt diesen vollständigen Umfang mit beiden Counts 0.
+   Die sechs bisherigen Teilhorizonte und alle äußeren Berichtsangaben bleiben
+   unverändert. Ein Profil ersetzt keinen unabhängigen Zahlungs-/Belegabgleich.
 4. Bericht privat speichern: unter POSIX höchstens Eigentümerrechte, etwa
    `chmod 600 abgleich.json`; unter Windows Zugriff über die Dateirechte auf die
    zuständigen Betreiber begrenzen. Keine Symlinks, keine öffentlichen Ablagen.
@@ -410,7 +457,8 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
 
 Historische Berichtsschemata behalten ihre festen Felder und Tabellenmengen;
 ein alter H4-Bericht erhält kein nachträgliches `capacity`-Feld und ein alter
-H5-Bericht kein `refunds_v2`-Feld. Eine bereits
+H5-Bericht kein `refunds_v2`-Feld; ein alter H6-Bericht erhält kein
+`profile`-Feld. Eine bereits
 erfolgreiche alte Betreiberquittung darf nur bei unveränderter Restore-ID,
 identischen Berichtsbytes, erfüllten Betreiber-/Stillstandsprüfungen und bereits
 aufgehobener Sperre wirkungslos wiederholt werden. Ein alter Bericht entsperrt
@@ -432,8 +480,9 @@ Schema 2 nur mit E1a, Schema 3 mit zusätzlicher Rechnungszuordnung ohne
 Komponenten, Schema 4 mit Komponenten ohne Erstattungsmodul, Schema 5
 mit Erstattungsmodul ohne Wiederverwendungsmodul, Schema 6 bei installiertem
 `business_accounting_capacity` ohne erweitertes Erstattungsmodul und Schema 7
-bei zusätzlich installiertem `business_accounting_refunds_v2`, selbst bei leeren
-Tabellen.
+bei zusätzlich installiertem `business_accounting_refunds_v2` ohne Profilmodul.
+Schema 8 gilt bei zusätzlich installiertem `business_accounting_profile`,
+selbst bei leeren Tabellen.
 Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
 
 ## Grenzen und nächste Schritte

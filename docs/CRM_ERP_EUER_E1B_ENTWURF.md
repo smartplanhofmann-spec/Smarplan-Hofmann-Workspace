@@ -13,8 +13,16 @@ ergänzt die dokumentarische Centaufteilung ganzer bestehender Quellenanteile.
 [geprüft](CRM_ERP_PRUEFNACHWEIS_E1B3A.json): ganze bestehende
 Erstattungszuordnungen erhalten ausdrücklich gewählte Ursprünge und deren
 exakte Netto-/Steuercents. Dabei wird keine Gruppenrestkapazität freigegeben.
-Genaue Restkapazitätsabschnitte nach Rücknahme folgen als E1b-3b; die
-steuerliche Einordnung bleibt offen. Dieser Gesamtentwurf allein bleibt
+Die [genauen Restkapazitätsabschnitte E1b-3b](CRM_ERP_EUER_E1B3B_API.md)
+sind implementiert; die abschließende Browser- und Paketprüfung läuft.
+Der Wechsel einer ganzen Rechnung auf den neuen Komponentenschreiber erhält
+historische Beweise und genaue Netto-/Steuerreste. Ungeklärte
+Finance-Erstattungen, Datumsgrenzen und vollständige historische Quellenrechte
+begrenzen die Übernahme weiterer Rücknahmecents. Neue Komponentenlose sind
+noch keine auswählbaren Erstattungsursprünge; dies folgt als E1b-3c.
+Die steuerliche Einordnung bleibt offen. Der
+[E1b-3b-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json) grenzt die ausgeführten
+Prüfungen ab. Dieser Gesamtentwurf allein bleibt
 ein Plan; ausgeführte Nachweise stehen bei den jeweiligen Teilabschnitten.
 
 ## 1. Offene Angaben und klarer Umfang

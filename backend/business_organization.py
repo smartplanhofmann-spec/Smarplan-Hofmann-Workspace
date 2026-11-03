@@ -170,7 +170,7 @@ def command_module(path, module_name):
     return {'business_inventory': 'material', 'business_purchasing': 'material', 'business_documents': 'documents', 'business_portal': 'documents',
             'business_finance': 'finance', 'business_accounting': 'finance',
             'business_accounting_allocations': 'finance', 'business_accounting_components': 'finance',
-            'business_accounting_refunds': 'finance'}.get(module_name)
+            'business_accounting_refunds': 'finance', 'business_accounting_capacity': 'finance'}.get(module_name)
 
 
 def require_active(office, actor, path, module_name, data=None):

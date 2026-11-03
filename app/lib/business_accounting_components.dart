@@ -387,8 +387,11 @@ class _BusinessDocumentComponentsPageState
       await freshWrite();
       if (!mounted || current != epoch || !writeRights) return;
       requireContinuation();
+      final wasContinuation = continuing;
       continuing = true;
-      final response = widget.session.command(key, '$path/confirm', body);
+      final response = wasContinuation
+          ? widget.session.repeatDocumentComponentCommand(widget.eventId)
+          : widget.session.command(key, '$path/confirm', body);
       if (shownPreview != null)
         widget.session.preservePendingEditor(key, {'preview': shownPreview});
       await response;

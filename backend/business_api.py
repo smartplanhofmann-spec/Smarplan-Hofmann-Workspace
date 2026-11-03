@@ -12,7 +12,7 @@ MODULES = (
     'business_foundation', 'business_documents', 'business_finance',
     'business_planning', 'business_time', 'business_operations',
     'business_inventory', 'business_maintenance', 'business_adapters', 'business_organization', 'business_purchasing', 'business_portal',
-    'business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds',
+    'business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity',
 )
 
 

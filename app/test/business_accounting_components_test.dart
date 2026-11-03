@@ -125,6 +125,12 @@ class ComponentsApi extends base.AccountingApi {
       if (targetDenied) throw const ApiException(403, 'Belegzugriff entzogen');
       return {'id': receiptId};
     }
+    if (route == '/api/business/accounting/events/$eventId' && events.isEmpty) {
+      calls.add((path: path, body: body));
+      if (sourceDenied)
+        throw const ApiException(403, 'Geldflusszugriff entzogen');
+      return {'id': eventId};
+    }
     if (!route.contains('/accounting/components/'))
       return super.call(path, body);
     calls.add((path: path, body: body == null ? null : base.copy(body)));

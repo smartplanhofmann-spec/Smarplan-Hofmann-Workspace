@@ -521,6 +521,8 @@ class DocumentComponents(Domain):
         raw = next((value for value in context['portions'] if value['portion_id'] == data['portion_id']), None)
         if not raw:
             raise Problem(409, 'Quellenanteil gehört nicht zum Geldfluss')
+        from business_accounting_capacity import require_legacy_writer
+        require_legacy_writer(self.office, raw['document_id'])
         if self.office.db.execute('SELECT 1 FROM business_accounting_component_entries WHERE portion_id=?', (data['portion_id'],)).fetchone():
             raise Problem(409, 'Quellenanteil wurde bereits dokumentiert')
         portion, proof = self._portion(context, raw)
@@ -561,10 +563,15 @@ class DocumentComponents(Domain):
                 if request['event_id'] != event_id or request['request_hash'] != digest:
                     raise Problem(409, 'Vorgangs-ID wurde mit anderem Inhalt verwendet')
                 return next(entry for entry in entries if entry['id'] == request['entry_id'])
-            state, context, unused_entries, unused_portions = self._view(fresh, event_id)
-            preview, proof = self._prepare(state, context, data)
-            if preview['preview_hash'] != data['preview_hash']:
-                raise Problem(409, 'Passende aktuelle Vorschau erforderlich')
+            try:
+                state, context, unused_entries, unused_portions = self._view(fresh, event_id)
+                preview, proof = self._prepare(state, context, data)
+                if preview['preview_hash'] != data['preview_hash']:
+                    raise Problem(409, 'Passende aktuelle Vorschau erforderlich')
+            except Problem as error:
+                if error.status != 409:
+                    raise
+                raise Problem(409, error.message, request_resolution='not_accepted') from None
             sequence = self.office.db.execute('SELECT COALESCE(MAX(sequence),0)+1 FROM business_accounting_component_entries').fetchone()[0]
             entry = {key: value for key, value in preview.items() if key not in ('expected_revision', 'state_hash')}
             entry.update(id=uuid.uuid4().hex, sequence=sequence, revision=state['revision']+1, previous_state_hash=state['state_hash'],

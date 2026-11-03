@@ -150,4 +150,43 @@ void main() {
       }
     }),
   );
+  for (final sample in [
+    (409, 'not_accepted', 'not_accepted'),
+    (409, null, null),
+    (409, 'unknown', null),
+    (403, 'not_accepted', null),
+    (500, 'not_accepted', null),
+  ]) {
+    test(
+      'request resolution is retained only for explicit not-accepted conflict $sample',
+      () => withServer((server, api) async {
+        server.listen((request) async {
+          request.response.statusCode = sample.$1;
+          request.response.headers.contentType = ContentType.json;
+          request.response.write(
+            jsonEncode({
+              'error': 'Synthetischer Konflikt',
+              if (sample.$2 != null) 'request_resolution': sample.$2,
+            }),
+          );
+          await request.response.close();
+        });
+        await expectLater(
+          api.call(
+            '/api/business/accounting/components/events/${'a' * 32}/confirm',
+            {'request_id': 'b' * 32},
+          ),
+          throwsA(
+            isA<ApiException>()
+                .having((e) => e.status, 'status', sample.$1)
+                .having(
+                  (e) => e.requestResolution,
+                  'request resolution',
+                  sample.$3,
+                ),
+          ),
+        );
+      }),
+    );
+  }
 }

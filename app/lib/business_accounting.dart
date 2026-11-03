@@ -4,6 +4,7 @@ import 'api.dart';
 import 'business_accounting_allocations.dart';
 import 'business_accounting_components.dart';
 import 'business_accounting_refunds.dart';
+import 'business_accounting_capacity.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -555,13 +556,18 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
     await load();
   }
 
-  Future<void> openComponents(String eventId) async {
+  Future<void> openComponents(String eventId, {bool reusable = false}) async {
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => BusinessDocumentComponentsPage(
-          session: widget.session,
-          eventId: eventId,
-        ),
+        builder: (_) => reusable && businessCapacityReadable(widget.session)
+            ? BusinessReusableComponentsPage(
+                session: widget.session,
+                eventId: eventId,
+              )
+            : BusinessDocumentComponentsPage(
+                session: widget.session,
+                eventId: eventId,
+              ),
       ),
     );
     if (!mounted) return;
@@ -685,7 +691,11 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
           )
         else if (businessComponentsReadable(widget.session))
           TextButton(
-            onPressed: () => openComponents('${value['id']}'),
+            onPressed: () => openComponents(
+              '${value['id']}',
+              reusable:
+                  source['kind'] == 'payment' && snapshot['kind'] == 'receipt',
+            ),
             child: Text(
               widget.session.canWrite('accounting.prepare') &&
                       widget.session.canWrite('finance.write') &&

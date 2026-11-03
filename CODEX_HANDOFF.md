@@ -122,17 +122,17 @@ HTTPS-/MFA-Fälle, 16 PostgreSQL-Fälle und 15 Paketfälle bestanden. Gruppen
 überschneiden sich; genaue Grenzen und Hashes stehen im
 [E1b-2-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B2.json).
 
-**Aktuell: [E1b-3a](docs/CRM_ERP_EUER_E1B3A_API.md) ist implementiert und geprüft.**
+**Vorheriger Abschnitt: [E1b-3a](docs/CRM_ERP_EUER_E1B3A_API.md) ist implementiert und geprüft.**
 Ganze bestehende Erstattungszuordnungen lassen sich ausdrücklich auf
 ursprüngliche Komponentenlose derselben Rechnung beziehen. Exakte
 zurückgeführte Netto-/Steuercents, frische vollständige Quellrechte und
 unveränderte Wiederholung nach Antwortverlust werden geprüft. Drei additive
 unveränderliche Tabellen und der neue R1-Teilhorizont ergänzen den bisherigen
-Stand; der aktuelle Restore verlangt H4 mit allen vier Teilhorizonten und
+Stand; der damalige Restore verlangt H4 mit allen vier Teilhorizonten und
 Schema 5. E1b-3a gibt keine Gruppenreste frei und erzeugt keine neue Zahlung
 oder zusätzliche OP-Wirkung.
 
-Aktuelle Prüfungen: 528 Backendfälle ausgeführt, davon 527 bestanden und ein
+Prüfungen dieses Abschnitts: 528 Backendfälle ausgeführt, davon 527 bestanden und ein
 bestehender Windows-Fall unter Linux übersprungen; 459 Flutterfälle bestanden,
 Analyze ohne Befund; 109 Browser-Unitfälle, ein gezielter echter Browserablauf
 auf Desktop und bei 390 Pixeln sowie 15 Paketfälle bestanden. Weitere
@@ -144,11 +144,43 @@ aktuellen Fachtests und den Backend-Gesamtlauf geprüft. Die Prüfgruppen
 überschneiden sich und dürfen nicht zu einer Zahl unabhängiger Fälle addiert
 werden.
 
-Die Entwicklung läuft mit E1b-3b weiter: neue Kapazitätsabschnitte für erneute
-Einnahmen ergänzen, ohne historische C1-/R1-Beweise umzuschreiben. Alte
-erfolgreiche Befehlswiederholungen und offene Befehle müssen beim Übergang
-gezielt erhalten beziehungsweise abgegrenzt werden. Der Umsatzsteuerstatus
-bleibt unkonfiguriert. Vollständige EÜR, Lohn und Gesamtziel A–G bleiben offen.
+**Aktuell: [E1b-3b](docs/CRM_ERP_EUER_E1B3B_API.md) ist implementiert;
+die abschließende Browser- und Paketprüfung läuft.** Neue Kapazitätsabschnitte
+für erneute Einnahmen erhalten genaue Netto-/Steuerreste und historische
+C1-/R1-Beweise. Eine ganze Rechnung wechselt atomar auf den neuen Schreiber C2;
+alte erfolgreiche Befehle bleiben nach frischen Rechten unverändert
+wiederholbar. Offene Befehle behalten ihren ursprünglichen Pfad und Inhalt.
+Sechs additive unveränderliche Tabellen erhalten einen eigenen K1-Teilhorizont;
+der aktuelle Restore verlangt H5 und Berichtschema 6.
+
+Die Freigabe zusätzlicher Rücknahmecents berücksichtigt auch noch nicht
+importierte Finance-Erstattungen, tatsächliche Zahlungsdaten und sämtliche
+historisch gebundenen Quellenrechte. Bereits bestätigte nutzbare Reste bleiben
+bei späteren ungeklärten Erstattungen erhalten. Der Ablauf erzeugt weder neue
+Geldflüsse noch eine zusätzliche OP-Wirkung. Neue C2-Komponentenlose können
+noch nicht als Erstattungsursprung gewählt werden; die Clients benennen diese
+Grenze ausdrücklich.
+
+Bisherige Prüfungen: 560 Backendfälle ausgeführt, davon 559 bestanden und ein
+bestehender Windows-Fall unter Linux übersprungen; 514 Flutterfälle bestanden.
+Nach einer reinen Hinweistextänderung und einer Warteanpassung im Testhelper
+bestanden die 31 betroffenen Widgettests erneut, Analyze blieb ohne Befund.
+121 Browser-Unitfälle bestanden vor der Hinweistextänderung, danach die 21
+betroffenen Fälle. 14 neue PostgreSQL-Fälle sind über den ersten Lauf mit
+zwölf Erfolgen und die Wiederholung zweier korrigierter Testfixtures belegt;
+anschließend bestanden acht Regressionen. Dies ist kein abschließender
+gemeinsamer 14-Fälle-Lauf. Ein erster vollständiger Browserlauf scheiterte im
+Testhelper beim Zählen vor dem asynchron geladenen C1-Editor; der Helper wartet
+jetzt auf dessen Bereitschaft. Der erneute vollständige Browserlauf und die
+abschließende Paketprüfung sind noch nicht als bestanden vermerkt. Genauere
+Fach-/HTTP-/HTTPS-Ergebnisse, Versionsgrenzen und Prüfnachweise stehen im
+[E1b-3b-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3B.json).
+
+Danach läuft die Entwicklung mit E1b-3c weiter: Erstattungsursprünge auch für
+neue C2-Lose und gemischte C1-/C2-Anteile ergänzen, ohne historische Protokolle
+umzuschreiben. Bis dahin bleiben solche Erstattungen ungeklärt. Der
+Umsatzsteuerstatus bleibt unkonfiguriert. Vollständige EÜR, Lohn und Gesamtziel
+A–G bleiben offen.
 
 Von 62 erfassten Anforderungen sind am 03.11.2026 28 Bausteine implementiert
 oder getestet, also 45,2 % einschließlich vorhandenen Bestandsquellcodes.

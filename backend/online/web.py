@@ -220,7 +220,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
 
     @app.errorhandler(Problem)
     def problem(error):
-        response = jsonify(error=error.message)
+        response = jsonify(error.response())
         response.status_code = error.status
         if error.status == 429:
             response.headers['Retry-After'] = '300'

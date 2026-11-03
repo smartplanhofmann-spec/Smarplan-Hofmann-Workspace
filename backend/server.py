@@ -211,7 +211,7 @@ def make_handler(office,drive,launch_id=""):
                     return self.send(200,{"url":drive.begin(user)})
                 raise Problem(404,"Funktion nicht gefunden")
             except Problem as e:
-                self.send(e.status,{"error":e.message})
+                self.send(e.status,e.response())
             except (ValueError,TypeError,KeyError):
                 self.send(400,{"error":"Ungültige Anfrage"})
             except Exception:

@@ -189,8 +189,14 @@ Feldern. Mit E1b-1 gilt für neue Freigaben stattdessen
 [Schema 3 mit kombiniertem Horizont](CRM_ERP_EUER_E1B1_API.md#restore-und-clients).
 Mit zusätzlichem Komponentenmodul ohne Erstattungsmodul gilt
 [Schema 4](CRM_ERP_EUER_E1B2_API.md#wiederherstellung-und-clients).
-Mit Erstattungsmodul gilt
+Mit Erstattungsmodul ohne Wiederverwendungsmodul gilt
 [Schema 5](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiberquittungen).
+Ist zusätzlich `business_accounting_capacity` installiert, verlangt der
+[E1b-3b-Vertrag](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze)
+Schema 6 mit H5 und eigenem sechs Tabellen umfassenden K1-Teilhorizont,
+auch bei leeren Tabellen. Dieser neue Abschnitt ist noch in Entwicklung und
+nicht freigegeben. Äußere Betreiberfelder bleiben gleich; historische
+H1-/Schema-2-Strukturen und deren feste Tabellenmengen bleiben unverändert.
 
 ```json
 {

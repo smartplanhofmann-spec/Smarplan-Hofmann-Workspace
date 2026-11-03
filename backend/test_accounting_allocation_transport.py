@@ -21,6 +21,7 @@ class AllocationLocalTransportTests(unittest.TestCase):
     entries_table = 'business_accounting_allocation_entries'
     components = False
     refunds = False
+    capacity = False
     payment_kind = 'receipt'
 
     def setUp(self):
@@ -45,6 +46,8 @@ class AllocationLocalTransportTests(unittest.TestCase):
             self.path = '/api/business/accounting/components/events/' + event['id']
         if self.refunds:
             self.path = '/api/business/accounting/refunds/events/' + event['id']
+        if self.capacity:
+            self.path = '/api/business/accounting/components/v2/events/' + event['id']
         self.server = ThreadingHTTPServer(('127.0.0.1', 0), make_handler(self.office, OneDrive(self.office)))
         worker = threading.Thread(target=self.server.serve_forever, daemon=True)
         worker.start()
@@ -85,12 +88,36 @@ class ComponentsLocalTransportTests(AllocationLocalTransportTests):
     entries_table = 'business_accounting_component_entries'
     components = True
 
+    def test_only_proven_unaccepted_conflict_has_resolution_on_local_wire(self):
+        from business_schema import set_mode
+        state = self.call('GET')
+        body = dict(source_hash=state['source_hash'], expected_revision=state['revision'],
+            state_hash=state['state_hash'], portion_id='a' * 64, portion_state_hash='b' * 64,
+            groups=[dict(group_id='c' * 64, amount='10.00')], reason='Synthetic local rejection',
+            request_id=uuid.uuid4().hex, preview_hash='d' * 64, confirmation=True)
+        if self.capacity:
+            body['action'] = 'document_current'
+        before = self.office.db.total_changes
+        rejected = self.call('POST', '/confirm', body, 409)
+        self.assertEqual(rejected['request_resolution'], 'not_accepted')
+        self.assertEqual(self.office.db.total_changes, before)
+        set_mode(self.office, 'legacy')
+        blocked = self.call('POST', '/confirm', body, 409)
+        self.assertNotIn('request_resolution', blocked)
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM ' + self.entries_table).fetchone()[0], 0)
+
 
 class RefundsLocalTransportTests(AllocationLocalTransportTests):
     actions = ('/preview', '/confirm')
     entries_table = 'business_accounting_refund_entries'
     refunds = True
     payment_kind = 'refund'
+
+
+class CapacityLocalTransportTests(ComponentsLocalTransportTests):
+    actions = ('/preview', '/confirm')
+    entries_table = 'business_accounting_capacity_entries'
+    capacity = True
 
 
 if __name__ == '__main__':

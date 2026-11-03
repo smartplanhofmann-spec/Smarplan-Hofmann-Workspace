@@ -1,6 +1,6 @@
 /* Smartplan Office online browser client. No providers, persistent credentials or service worker. */
 export class ApiError extends Error {
-  constructor(message, status = 0) { super(message); this.name = 'ApiError'; this.status = status; }
+  constructor(message, status = 0, requestResolution = null) { super(message); this.name = 'ApiError'; this.status = status; this.requestResolution=status===409&&requestResolution==='not_accepted'?'not_accepted':null; }
 }
 export class StaleSession extends Error { constructor() { super('Sitzung gewechselt'); this.name = 'StaleSession'; } }
 export function requestId() { return crypto.randomUUID().replaceAll('-', ''); }
@@ -293,6 +293,106 @@ export function componentPreview(value,body,eventId) {
 export function componentConfirmData(body,preview,confirmation) {
   if(confirmation!==true)throw new Error('Bitte die geprüfte Belegaufteilung gesondert bestätigen.');
   componentPreview(preview,body,preview.event_id);return {...body,groups:body.groups.map(group=>({...group})),preview_hash:preview.preview_hash,confirmation:true};
+}
+// One logical confirmation per cash event, even when its invoice changes writer.
+// The saved path remains part of OfficeApi's immutable pending operation.
+export function componentPendingKey(eventId) { return 'component-confirm-'+accountingId(eventId); }
+export function componentPendingOperation(operations,eventId) {
+  accountingId(eventId);
+  return operations.find(item=>item.path===`/business/accounting/components/events/${eventId}/confirm`||item.path===`/business/accounting/components/v2/events/${eventId}/confirm`)||null;
+}
+export function capacityAccess(capabilities,organization,value=null,online=true) {
+  const refunds=refundAccess(capabilities,organization,null,online),available=refunds.available&&capabilities.features?.includes('accounting_document_component_reuse')===true&&capabilities.capabilities?.includes('business_accounting_capacity')===true;
+  const read=available&&refunds.read;
+  return {available,read,prepare:read&&refunds.prepare&&(value===null||value.writes_allowed===true&&value.eligible===true)};
+}
+function capacityMoney(value) {
+  if(!value||componentCents(value.net)+componentCents(value.tax)!==componentCents(value.gross))throw new ApiError('Die verfügbaren Netto-/Steuercents stimmen nicht überein.',502);
+  return value;
+}
+function capacityDate(value) { if(value!==null)refundDate(value); }
+function capacityAmount(value,segment=true) { capacityMoney(value);capacityDate(value.not_before_date);if(segment&&value.segment_id!==null)accountingId(value.segment_id,true);return value; }
+export function capacityState(value) { componentState(value);refundDate(value.cash_date);return value; }
+export function capacityPortion(value,eventId) {
+  for(const name of ['portion_id','portion_state_hash','payload_sha256','pdf_sha256'])accountingId(value?.[name],true);
+  accountingId(value.document_id);if(value.customer_id!==null)accountingId(value.customer_id);if(value.ownership_id!==null)accountingId(value.ownership_id);
+  if(value.event_id!==eventId||!['original_allocation','additional_allocation'].includes(value.kind)||value.currency!=='EUR'||componentCents(value.amount)<=0n||typeof value.eligible!=='boolean'||!['c1','c2'].includes(value.writer)||![null,'document_legacy','takeover_and_document','document_current'].includes(value.action)||![null,'clear','unresolved'].includes(value.refund_status)||!Array.isArray(value.groups)||value.groups.length>500)throw new ApiError('Der Beleganteil und seine verfügbaren Beträge konnten nicht sicher gelesen werden.',502);
+  if(value.eligible!==(value.action!==null)||(value.action==='document_legacy'&&value.writer!=='c1')||(['takeover_and_document','document_current'].includes(value.action)&&value.writer!=='c2')||(value.ownership_id!==null&&(value.writer!=='c2'||value.ownership_id!==value.document_id))||(value.action==='takeover_and_document'&&value.ownership_id!==null)||(value.action==='document_current'&&value.ownership_id===null))throw new ApiError('Der aktuelle Aufteilungsweg stimmt nicht mit dem Belegstand überein.',502);
+  const seen=new Set();
+  for(const group of value.groups) {
+    accountingId(group.group_id,true);accountingId(group.group_state_hash,true);
+    if(seen.has(group.group_id)||!['none','takeover','successor'].includes(group.transition)||typeof group.rate!=='string'||typeof group.category!=='string'||typeof group.reason!=='string')throw new ApiError('Die verfügbaren Beleggruppen konnten nicht sicher gelesen werden.',502);seen.add(group.group_id);
+    capacityMoney(group.archive);capacityAmount(group.current_capacity);capacityAmount(group.pending_returns,false);capacityAmount(group.offered_capacity);
+    for(const field of ['net','tax','gross']) {
+      const current=componentCents(group.current_capacity[field]),pending=componentCents(group.pending_returns[field]),offered=componentCents(group.offered_capacity[field]);
+      if(offered!==current+(group.transition==='none'?0n:pending))throw new ApiError('Neue Rücknahmecents und vorhandener Rest wurden nicht getrennt ausgewiesen.',502);
+    }
+    if(group.transition==='none'&&(group.offered_capacity.segment_id!==group.current_capacity.segment_id||group.offered_capacity.not_before_date!==group.current_capacity.not_before_date))throw new ApiError('Der unveränderte Restabschnitt stimmt nicht überein.',502);
+    if(group.transition!=='none'&&group.offered_capacity.segment_id===null)throw new ApiError('Der neue Restabschnitt konnte nicht sicher gelesen werden.',502);
+  }
+  return value;
+}
+export function capacityPreviewData(source,portion,groups,reason) {
+  capacityState(source);capacityPortion(portion,source.event_id);
+  if(source.source_kind!=='customer_receipt'||!source.eligible||!source.writes_allowed||!portion.eligible||!['takeover_and_document','document_current'].includes(portion.action))throw new Error('Diesen Beleganteil zuerst mit seinem aktuellen Aufteilungsweg neu laden.');
+  if(portion.action==='takeover_and_document'&&portion.groups.some(group=>group.offered_capacity.not_before_date!==null&&source.cash_date<group.offered_capacity.not_before_date))throw new Error('Der Einnahmentag muss für die erstmalige Übernahme zu allen Rechnungsgruppen passen.');
+  if(!Array.isArray(groups)||!groups.length||groups.length>500)throw new Error('Bitte mindestens eine positive Bruttoaufteilung ausdrücklich eingeben.');
+  const seen=new Set();let total=0n;
+  const selected=groups.map(item=>{
+    const group=portion.groups.find(value=>value.group_id===item.group_id);
+    if(!group||seen.has(item.group_id))throw new Error('Jede angebotene Beleggruppe nur einmal verwenden.');seen.add(item.group_id);
+    const amount=accountingAmount(item.amount),cents=componentCents(amount),capacity=group.offered_capacity;
+    if(cents>componentCents(capacity.gross)||capacity.not_before_date!==null&&source.cash_date<capacity.not_before_date)throw new Error('Der Betrag oder Einnahmentag passt nicht zum verfügbaren Rest dieser Gruppe.');total+=cents;
+    return {group_id:item.group_id,amount};
+  });
+  if(total!==componentCents(portion.amount))throw new Error(`Die Gruppensumme muss genau dem ganzen Beleganteil von ${formatMoney(portion.amount)} entsprechen.`);
+  return {source_hash:source.source_hash,expected_revision:source.revision,state_hash:source.state_hash,portion_id:portion.portion_id,portion_state_hash:portion.portion_state_hash,action:portion.action,groups:selected,reason:accountingText(reason,'Begründung',1000)};
+}
+function capacityLines(value) {
+  componentEnvelope(value);capacityPortion(value.portion,value.event_id);
+  if(!['takeover_and_document','document_current'].includes(value.action)||value.action!==value.portion.action||value.amount!==value.portion.amount||!Array.isArray(value.lines)||!value.lines.length||!Array.isArray(value.capacity_changes))throw new ApiError('Die Wiederbelegung konnte nicht sicher gelesen werden.',502);
+  const seen=new Set();let gross=0n,net=0n,tax=0n;
+  for(const line of value.lines) {
+    const group=value.portion.groups.find(item=>item.group_id===line.group_id);
+    if(!group||seen.has(line.group_id)||line.segment_id!==group.offered_capacity.segment_id)throw new ApiError('Eine Wiederbelegung verwendet keinen eindeutigen geprüften Restabschnitt.',502);seen.add(line.group_id);accountingId(line.segment_id,true);
+    const amount=componentCents(line.amount),lineNet=componentCents(line.net),lineTax=componentCents(line.tax);
+    if(amount<=0n||lineNet+lineTax!==amount)throw new ApiError('Die wiederbelegten Netto-/Steueranteile stimmen nicht überein.',502);
+    for(const [field,delta]of [['gross',amount],['net',lineNet],['tax',lineTax]]) {
+      if(componentCents(line[field+'_after'])-componentCents(line[field+'_before'])!==delta||componentCents(line['remaining_'+field])+delta!==componentCents(group.offered_capacity[field]))throw new ApiError('Die Restabschnittscents stimmen nicht mit der Aufteilung überein.',502);
+      if(group.transition!=='none'&&componentCents(line[field+'_before'])!==0n)throw new ApiError('Ein neuer Restabschnitt muss bei null beginnen.',502);
+    }
+    for(const suffix of ['before','after'])if(componentCents(line['net_'+suffix])+componentCents(line['tax_'+suffix])!==componentCents(line['gross_'+suffix]))throw new ApiError('Die kumulierten Abschnittscents stimmen nicht überein.',502);
+    const basisGross=componentCents(line.gross_before)+componentCents(group.offered_capacity.gross),basisTax=componentCents(line.tax_before)+componentCents(group.offered_capacity.tax),round=consumed=>(2n*consumed*basisTax+basisGross)/(2n*basisGross);
+    if(round(componentCents(line.gross_before))!==componentCents(line.tax_before)||round(componentCents(line.gross_after))-componentCents(line.tax_before)!==lineTax)throw new ApiError('Die ausgewiesenen Steueranteile wurden nicht aus den tatsächlichen Abschnittscents berechnet.',502);
+    gross+=amount;net+=lineNet;tax+=lineTax;
+  }
+  if(gross!==componentCents(value.amount)||net!==componentCents(value.net)||tax!==componentCents(value.tax))throw new ApiError('Die Wiederbelegung summiert sich nicht zum ganzen Beleganteil.',502);
+  const changed=value.portion.groups.filter(item=>item.transition!=='none'),changes=new Set();
+  if(value.capacity_changes.length!==changed.length)throw new ApiError('Die Vorschau zeigt nicht alle übernommenen Beleggruppen.',502);
+  for(const change of value.capacity_changes) {
+    const group=changed.find(item=>item.group_id===change.group_id);
+    if(!group||changes.has(change.group_id)||change.previous_segment_id!==group.current_capacity.segment_id||change.segment_id!==group.offered_capacity.segment_id||change.not_before_date!==group.offered_capacity.not_before_date)throw new ApiError('Der gezeigte Kapazitätswechsel gehört nicht zum geprüften Belegstand.',502);changes.add(change.group_id);
+    capacityMoney(change.carry);capacityMoney(change.returned);capacityMoney(change.basis);
+    for(const field of ['net','tax','gross'])if(change.carry[field]!==group.current_capacity[field]||change.returned[field]!==group.pending_returns[field]||change.basis[field]!==group.offered_capacity[field]||componentCents(change.carry[field])+componentCents(change.returned[field])!==componentCents(change.basis[field]))throw new ApiError('Übertrag und neu übernommene Rücknahmecents stimmen nicht überein.',502);
+  }
+  return value;
+}
+export function capacityPreview(value,body,source) {
+  capacityLines(value);accountingId(value.preview_hash,true);
+  if(value.event_id!==source.event_id||value.source_hash!==body.source_hash||value.expected_revision!==body.expected_revision||value.state_hash!==body.state_hash||value.action!==body.action||value.reason!==body.reason||value.portion.portion_id!==body.portion_id||value.portion.portion_state_hash!==body.portion_state_hash||value.lines.length!==body.groups.length||value.lines.some(line=>!body.groups.some(group=>group.group_id===line.group_id&&group.amount===line.amount)))throw new ApiError('Die Vorschau gehört nicht zur geprüften Wiederbelegung.',502);
+  return value;
+}
+export function capacityConfirmData(body,preview,source,confirmation) {
+  if(confirmation!==true)throw new Error('Bitte die Wiederbelegung und die gezeigten Kapazitätsänderungen gesondert bestätigen.');
+  capacityPreview(preview,body,source);return {...body,groups:body.groups.map(item=>({...item})),preview_hash:preview.preview_hash,confirmation:true};
+}
+export async function componentPendingAuthorize(api,operation) {
+  const match=/^\/business\/accounting\/components\/(v2\/)?events\/([0-9a-f]{32})\/confirm$/.exec(operation?.path||'');
+  if(!match)throw new ApiError('Der ursprüngliche Aufteilungsweg konnte nicht sicher geprüft werden.',409);
+  const source=(match[1]?capacityState:componentState)(await api.get(operation.path.slice(0,-'/confirm'.length)));
+  if(source.event_id!==match[2])throw new ApiError('Der aktuelle Zahlungsnachweis gehört nicht zur offenen Bestätigung.',502);
+  if(!source.writes_allowed)throw new ApiError('Bestätigungen sind derzeit gesperrt. Die unveränderte Anfrage bleibt offen.',423);
+  return source;
 }
 
 export function refundAccess(capabilities,organization,value=null,online=true) {
@@ -610,9 +710,9 @@ export class OfficeApi {
       }
       if (generation !== this.#generation) throw new StaleSession();
       if (!response.ok) {
-        let message = 'Anfrage fehlgeschlagen.';
-        try { message = JSON.parse(new TextDecoder().decode(data)).error || message; } catch { /* Do not expose HTML/proxy bodies. */ }
-        throw new ApiError(message, response.status);
+        let message = 'Anfrage fehlgeschlagen.',requestResolution=null;
+        try { const error=JSON.parse(new TextDecoder().decode(data));message=error.error||message;if(response.status===409&&error.request_resolution==='not_accepted')requestResolution='not_accepted'; } catch { /* Do not expose HTML/proxy bodies. */ }
+        throw new ApiError(message, response.status,requestResolution);
       }
       if (binary) return new Blob([data], {type: response.headers.get('Content-Type') || 'application/octet-stream'});
       try { return JSON.parse(new TextDecoder().decode(data)); } catch { throw new ApiError('Serverantwort ist nicht lesbar.', 502); }
@@ -634,7 +734,9 @@ export class OfficeApi {
       const result = await this.post(path, operation.body);
       this.#pending.delete(key); return result;
     } catch (error) {
-      if (error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423) this.#pending.delete(key);
+      const protectedComponent=/^\/business\/accounting\/components\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
+      const uncertainComponent=protectedComponent&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted');
+      if (error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && !uncertainComponent) this.#pending.delete(key);
       throw error;
     }
   }
@@ -866,6 +968,7 @@ function pendingDialog() {
     rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{
       if((item.path.startsWith(biz('/accounting/allocations/'))||item.path.startsWith(biz('/accounting/components/'))||item.path.startsWith(biz('/accounting/refunds/')))&&!navigator.onLine)throw new ApiError('Die Zahlungszuordnung benötigt eine Internetverbindung. Die unveränderte Anfrage bleibt offen.',0);
       const generation=api.generation,previous=modal,initialRender=state.render;
+      if(item.path.startsWith(biz('/accounting/components/'))){componentWritable();await componentPendingAuthorize(api,item);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;componentWritable();}
       if(item.path.startsWith(biz('/accounting/refunds/'))){refundWritable();const sources=refundPendingSources.get(item.key);if(!sources||sources.generation!==generation)throw new ApiError('Die Ursprungsrechte können für diese offene Anfrage nicht sicher geprüft werden.',409);await refundAuthorize(api,sources.eventId,sources.origins);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundWritable();}
       const result=await api.retry(item.key);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundPendingSources.delete(item.key);updatePending();
       if(item.path===biz('/portal/grants')){portalGrantResultDialog({id:result.grant.offer_id,project_id:result.grant.project_id,number:result.grant.number,kind:'offer',status:'final'},result);return;}
@@ -888,7 +991,7 @@ async function refresh() {
     const organization=organizationMetadata(caps),organizationChanged=JSON.stringify(state.organization)!==JSON.stringify(organization);
     const navigationChanged=organizationChanged||[...state.globalPermissions].sort().join('|')!==[...(caps.permissions||[])].sort().join('|')||state.metadata?.can_read_inquiries!==metadata.can_read_inquiries||JSON.stringify(state.projects)!==JSON.stringify(collection(projects));
     state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.organization=organization;state.readonly=caps.readonly!==false;state.projects=collection(projects);state.metadata=metadata;
-    if(organizationChanged||(!accountingRights().read&&modal?.querySelector('[data-accounting-detail]'))||(!refundRights().read&&modal?.querySelector('[data-refund-detail]')))closeModal();
+    if(organizationChanged||(!accountingRights().read&&modal?.querySelector('[data-accounting-detail]'))||(!refundRights().read&&modal?.querySelector('[data-refund-detail]'))||(!capacityRights().read&&modal?.querySelector('[data-capacity-detail]')))closeModal();
     if(state.projectId&&!state.projects.some(project=>project.id===state.projectId)){state.projectId='';state.tab='overview';closeModal();}
     let effective=state.globalPermissions;
     if(state.projectId) {
@@ -1443,20 +1546,21 @@ function componentRecord(value,event) {
       return row(componentGroupLabel(group),`Netto ${formatMoney(line.net)} · Ausgewiesener Steueranteil ${formatMoney(line.tax)} · Brutto ${formatMoney(line.amount)}`,[],`Dokumentierter Gruppenbetrag: ${formatMoney(line.gross_before)} → ${formatMoney(line.gross_after)} · Verbleibend ${formatMoney(line.remaining_gross)}`);
     })),notice('Steuerliche Einordnung offen. Diese Beleganteile sind kein Steuerergebnis. Bereits bestätigte Teilbeträge bleiben unverändert; Rundungscent werden so berücksichtigt, dass die Summe zum Beleg passt.'));
 }
-async function componentDialog(eventId,{offset=0,entryId=null}={}) {
+async function componentDialog(eventId,{offset=0,entryId=null,legacy=false}={}) {
   const generation=api.generation,render=state.render,previous=modal;
   if(!componentRights().read)throw new ApiError('Dieser Server oder Ihre aktuellen globalen Rechte erlauben keine Belegaufteilung.',403);
   const [rawState,rawHistory,event]=await Promise.all([api.get(biz(componentPath(eventId))),api.get(query(biz(componentPath(eventId,'/history')),{limit:25,offset})),api.get(biz(`/accounting/events/${eventId}`))]);
   if(generation!==api.generation||render!==state.render||previous!==modal)return;
   const source=componentState(rawState),history=accountingPage(rawHistory,offset),rights=componentRights(source);
   if(source.event_id!==eventId||event.id!==eventId||history.items.some(item=>item.event_id!==eventId))throw new ApiError('Der Zahlungsnachweis passt nicht zum Aufteilungsstand.',502);
+  if(!legacy&&source.source_kind==='customer_receipt'&&capacityRights().read)return capacityDialog(eventId,{legacyOffset:offset,legacyHistory:history,event});
   const content=el('div',{class:'stack accounting break-word','data-accounting-detail':'true'},notice('Dokumentarische Beleganteile. Der ursprüngliche Zahlungsnachweis bleibt unverändert; es entsteht keine neue Zahlung, Rechnungszuordnung oder Steuerbuchung.'));
   if(entryId) {
     const entry=history.items.find(item=>item.id===entryId);
     if(!entry)throw new ApiError('Die Historie wurde erweitert. Bitte den Eintrag in der aktuellen Liste erneut öffnen.',409);
     content.append(componentRecord(entry,event),el('p',{class:'caption'},`Bestätigt ${formatDate(entry.created_at,true)}. Diese damalige Aufteilung bleibt unverändert.`),button('Zurück zu den Aufteilungen',()=>accountingAction(()=>componentDialog(eventId,{offset})),'small'));
   } else {
-    const pending=api.pendingOperations().some(item=>item.path===biz(componentPath(eventId,'/confirm')));
+    const pending=componentPendingOperation(api.pendingOperations(),eventId);
     content.append(panel('Dokumentierter Stand',el('p',{},`Zahlungsbetrag ${formatMoney(source.amount)} · Dokumentiert ${formatMoney(source.documented_amount)} · Noch ungeklärt ${formatMoney(source.undocumented_amount)}`),el('p',{},`Davon ohne Rechnungszuordnung: ${formatMoney(source.unallocated_amount)}`),
       !source.eligible?notice(COMPONENT_BLOCKS[source.blocked_reason]||'Neue Aufteilungen sind für diesen Zahlungsnachweis gesperrt.'):null,
       !source.writes_allowed?notice('Neue Aufteilungen sind durch aktuelle Rechte oder den Betriebszustand gesperrt. Vorhandene Nachweise bleiben lesbar.','warn'):null,
@@ -1505,7 +1609,7 @@ function componentConfirm(source,event,body,preview) {
   const editor=form('',[field('confirmation','Ich bestätige diese dokumentarische Netto-/Steueraufteilung des ganzen Beleganteils.','checkbox',false,{required:true})],async(values,key)=>{
     componentWritable(source);const result=await accountingSave(editor,generation,key,componentPath(source.event_id,'/confirm'),componentConfirmData(body,preview,values.confirmation));
     return render===state.render?result:undefined;
-  },{key:'component-confirm-'+source.event_id,submit:'Belegaufteilung verbindlich bestätigen',description:'Die Vorschau speichert noch keine Aufteilung. Bei einer verlorenen Bestätigungsantwort dieselbe Anfrage unverändert wiederholen. Für einen neuen Vorgang müssen die verfügbaren Gruppenreste frisch geprüft werden.',
+  },{key:componentPendingKey(source.event_id),submit:'Belegaufteilung verbindlich bestätigen',description:'Die Vorschau speichert noch keine Aufteilung. Bei einer verlorenen Bestätigungsantwort dieselbe Anfrage unverändert wiederholen. Für einen neuen Vorgang müssen die verfügbaren Gruppenreste frisch geprüft werden.',
     extra:el('div',{class:'stack'},componentRecord(preview,event),button('Aktuellen Stand neu laden',()=>accountingAction(()=>componentDialog(source.event_id)),'small')),
     after:async()=>{const render=state.render+1,section=state.section;await refresh();if(generation===api.generation&&state.render===render&&state.section===section&&!modal)await componentDialog(source.event_id);}});
   editor.dataset.accountingDetail='true';dialog('Belegaufteilung prüfen',editor);
@@ -1513,6 +1617,85 @@ function componentConfirm(source,event,body,preview) {
 
 const REFUND_BLOCKS={not_customer_refund:'Dieser Zahlungsnachweis ist keine Kundenerstattung.',source_customer_unresolved:'Die ursprüngliche Kundenbindung der Erstattung ist noch ungeklärt.',unsupported_document:'Diese ursprüngliche Rechnung unterstützt derzeit keine Ursprungsbindung.',unallocated:'Dieser Erstattungsrest ist noch keiner Rechnung zugeordnet.',fully_documented:'Alle ursprünglichen Erstattungsanteile sind gebunden.'};
 const REFUND_NOTICE='Dokumentarische Ursprungsbindung. Keine neue Zahlung, Rechnungszuordnung oder Steuerbuchung. Gruppenkapazität wird noch nicht wieder freigegeben. Steuerliche Einordnung offen; kein Steuerergebnis.';
+const CAPACITY_BLOCKS={...COMPONENT_BLOCKS,not_customer_receipt:'Dieser Zahlungsnachweis ist keine Kundeneinnahme.',source_access_required:'Für zusätzliche freigegebene Beträge fehlen vollständige Quellenrechte.',receipt_before_capacity:'Der Einnahmentag liegt vor dem zulässigen Datum dieser Restbeträge.',legacy_writer_required:'Diese Rechnung verwendet weiterhin ihre ursprüngliche Belegaufteilung.',refund_origin_unresolved:'Mindestens eine zugeordnete Erstattung ist noch nicht vollständig geklärt. Zusätzliche Rücknahmecents bleiben gesperrt.'};
+const CAPACITY_NOTICE='Dokumentarische Belegaufteilung mit ausdrücklich wiederverwendeten Beträgen. Keine neue Zahlung oder Rechnungszuordnung. Steuerliche Einordnung offen; kein Steuerergebnis. Für die hier neu aufgeteilten Zahlungsanteile ist die Zuordnung späterer Erstattungen noch nicht verfügbar.';
+function capacityRights(source=null) { return capacityAccess({permissions:[...state.globalPermissions],features:[...state.features],capabilities:[...state.capabilities],readonly:state.readonly},state.organization,source,navigator.onLine); }
+function capacityWritable(source=null) { if(!capacityRights(source).prepare)throw new ApiError('Eine Wiederbelegung benötigt Internet, aktuelle globale Accounting-/Finanzschreibrechte und einen freigegebenen Finanzbetrieb.',423); }
+function capacityPath(id,suffix='') { return `/accounting/components/v2/events/${accountingId(id)}${suffix}`; }
+function capacityContext() { const generation=api.generation,render=state.render,previous=modal;return ()=>generation===api.generation&&render===state.render&&previous===modal&&capacityRights().read; }
+function capacitySummary(value) { return `netto ${formatMoney(value.net)} · ausgewiesene Steuer ${formatMoney(value.tax)} · brutto ${formatMoney(value.gross)}`; }
+async function capacityAuthorize(eventId) { const source=capacityState(await api.get(biz(capacityPath(eventId))));if(source.event_id!==eventId)throw new ApiError('Der aktuelle Zahlungsnachweis stimmt nicht überein.',502);return source; }
+function capacityOriginal(eventId,portion) { return button('Rechnungs-PDF ansehen',()=>accountingAction(async()=>{const current=capacityContext();await capacityAuthorize(eventId);if(current())await download(biz(`/documents/${portion.document_id}/pdf`),`${portion.number}.pdf`); }),'small'); }
+function capacityRecord(value) {
+  capacityLines(value);
+  return el('div',{class:'stack accounting break-word'},panel(value.portion.number,el('p',{},value.portion.party_name),el('p',{},`Ganzer Beleganteil: ${formatMoney(value.amount)} · ${value.reason}`),capacityOriginal(value.event_id,value.portion)),
+    panel('Dokumentierte Wiederbelegung',el('p',{},`Nettoanteil ${formatMoney(value.net)}`),el('p',{},`Ausgewiesener Steueranteil ${formatMoney(value.tax)}`),el('p',{},`Bruttoanteil ${formatMoney(value.amount)}`)),
+    panel('Aufteilung aus tatsächlichen Restbeträgen',rows(value.lines,line=>row(componentGroupLabel(value.portion.groups.find(item=>item.group_id===line.group_id)),`Netto ${formatMoney(line.net)} · Ausgewiesene Steuer ${formatMoney(line.tax)} · Brutto ${formatMoney(line.amount)}`,[],`Verbleibend netto ${formatMoney(line.remaining_net)} · Steuer ${formatMoney(line.remaining_tax)} · brutto ${formatMoney(line.remaining_gross)}`))),
+    panel('Mit dieser Bestätigung übernommene Beträge',rows(value.capacity_changes,change=>row(componentGroupLabel(value.portion.groups.find(item=>item.group_id===change.group_id)),`Vorhandener Rest: ${capacitySummary(change.carry)}`,[],`Neu aus bestätigten Erstattungen: ${capacitySummary(change.returned)}. Zusammen ${capacitySummary(change.basis)}.${change.not_before_date?' Verwendbar ab '+formatDate(change.not_before_date)+'.':''}`),'Keine zusätzlichen Erstattungsbeträge übernommen; der vorhandene Rest wird weiter verwendet.')),
+    value.action==='takeover_and_document'?notice('Diese Bestätigung übernimmt alle Gruppen der Rechnung gemeinsam in die Aufteilung mit wiederverwendbaren Restbeträgen. Frühere Aufteilungen bleiben unverändert.'):null,notice(CAPACITY_NOTICE));
+}
+async function capacityDialog(eventId,{offset=0,legacyOffset=0,entryId=null,legacyHistory=null,event=null}={}) {
+  if(!capacityRights().read)throw new ApiError('Dieser Server oder Ihre aktuellen globalen Rechte erlauben keine Wiederbelegung.',403);
+  const current=capacityContext(),[rawState,rawHistory,oldHistory,cash]=await Promise.all([api.get(biz(capacityPath(eventId))),api.get(query(biz(capacityPath(eventId,'/history')),{limit:25,offset})),legacyHistory||api.get(query(biz(componentPath(eventId,'/history')),{limit:25,offset:legacyOffset})),event||api.get(biz(`/accounting/events/${eventId}`))]);
+  if(!current())return;const source=capacityState(rawState),history=accountingPage(rawHistory,offset),old=accountingPage(oldHistory,legacyOffset);
+  if(source.event_id!==eventId||cash.id!==eventId||[...history.items,...old.items].some(item=>item.event_id!==eventId))throw new ApiError('Die Aufteilungsnachweise gehören nicht zur ausgewählten Einnahme.',502);
+  for(const entry of history.items)capacityLines(entry);for(const entry of old.items)componentLines(entry);
+  await capacityAuthorize(eventId);if(!current())return;
+  const content=el('div',{class:'stack accounting break-word','data-accounting-detail':'true','data-capacity-detail':'true'},notice(CAPACITY_NOTICE));
+  if(entryId) {
+    const entry=history.items.find(item=>item.id===entryId);if(!entry)throw new ApiError('Die Historie wurde erweitert. Bitte den Eintrag erneut auswählen.',409);
+    content.append(capacityRecord(entry),el('p',{class:'caption'},`Bestätigt ${formatDate(entry.created_at,true)}. Diese damaligen Abschnittscents bleiben unverändert.`),button('Zurück zu den Aufteilungen',()=>accountingAction(()=>capacityDialog(eventId,{offset,legacyOffset})),'small'));
+  } else {
+    const pending=componentPendingOperation(api.pendingOperations(),eventId),rights=capacityRights(source);
+    content.append(panel('Dokumentierter Stand',el('p',{},`Zahlungsbetrag ${formatMoney(source.amount)} · Dokumentiert ${formatMoney(source.documented_amount)} · Noch ungeklärt ${formatMoney(source.undocumented_amount)}`),el('p',{},`Davon ohne Rechnungszuordnung: ${formatMoney(source.unallocated_amount)}`),
+      !source.eligible?notice(CAPACITY_BLOCKS[source.blocked_reason]||'Neue Aufteilungen sind derzeit gesperrt.'):null,!source.writes_allowed?notice('Neue Bestätigungen sind derzeit gesperrt. Freigegebene Historie bleibt lesbar.','warn'):null,
+      pending?notice('Eine Bestätigungsantwort ist offen. Unter „Antworten offen“ zuerst dieselbe unveränderte Anfrage an ihrem ursprünglichen Aufteilungsweg wiederholen.','warn'):null,
+      rights.prepare&&!pending?button('Beleganteil auswählen',()=>accountingAction(()=>capacityPortions(source,cash)),'primary'):null,
+      button('Ursprünglichen Zahlungsnachweis ansehen',()=>accountingAction(()=>accountingEventDialog(eventId)),'small')),
+      panel('Aufteilungen mit wiederverwendbaren Beträgen',rows(history.items,entry=>row(`${entry.portion.number} · ${formatMoney(entry.amount)}`,`${entry.portion.party_name} · ${formatDate(entry.created_at,true)} · ${entry.reason}`,[button('Wiederbelegung ansehen',()=>accountingAction(()=>capacityDialog(eventId,{offset,legacyOffset,entryId:entry.id})),'small')],`Netto ${formatMoney(entry.net)} · Ausgewiesene Steuer ${formatMoney(entry.tax)}`),'Noch keine Wiederbelegung bestätigt.'),allocationPagination(history,offset,next=>capacityDialog(eventId,{offset:next,legacyOffset}))),
+      panel('Frühere Belegaufteilungen',rows(old.items,entry=>row(`${entry.portion.number} · ${formatMoney(entry.amount)}`,`${entry.portion.party_name} · ${formatDate(entry.created_at,true)} · ${entry.reason}`,[button('Aufteilung ansehen',()=>accountingAction(()=>componentDialog(eventId,{offset:legacyOffset,entryId:entry.id,legacy:true})),'small')],`Netto ${formatMoney(entry.net)} · Ausgewiesene Steuer ${formatMoney(entry.tax)}`),'Noch keine Belegaufteilung bestätigt.'),allocationPagination(old,legacyOffset,next=>capacityDialog(eventId,{offset,legacyOffset:next}))));
+  }
+  dialog(entryId?'Bestätigte Wiederbelegung':'Beleganteile',content);
+}
+async function capacityPortions(source,event,offset=0) {
+  capacityWritable(source);const current=capacityContext(),page=accountingPage(await api.get(query(biz(capacityPath(source.event_id,'/portions')),{limit:25,offset})),offset);
+  await capacityAuthorize(source.event_id);if(!current())return;capacityWritable(source);
+  for(const portion of page.items)capacityPortion(portion,source.event_id);
+  dialog('Beleganteil auswählen',el('div',{class:'stack accounting break-word','data-accounting-detail':'true','data-capacity-detail':'true'},notice('Jeder ganze Beleganteil verwendet den aktuell angebotenen Aufteilungsweg seiner Rechnung. Eine offene Bestätigungsantwort muss zuerst unverändert geklärt werden.'),
+    rows(page.items,portion=>row(`${portion.number} · ${formatMoney(portion.amount)}`,portion.party_name,[capacityOriginal(source.event_id,portion),portion.eligible?button(portion.action==='document_legacy'?'Diesen Beleganteil aufteilen':portion.action==='takeover_and_document'?'Restbeträge übernehmen und aufteilen':'Verfügbare Restbeträge aufteilen',()=>accountingAction(()=>portion.action==='document_legacy'?capacityLegacyInput(source,event,portion):capacityInput(source,event,portion)),'primary'):null],
+      [portion.action==='document_legacy'?'Ursprüngliche Belegaufteilung':portion.action==='takeover_and_document'?'Erstmalige gemeinsame Übernahme aller Rechnungsgruppen':portion.action==='document_current'?'Bereits übernommene Rechnung':CAPACITY_BLOCKS[portion.blocked_reason]||'Klärung erforderlich',portion.pending_blocked_reason?CAPACITY_BLOCKS[portion.pending_blocked_reason]:null].filter(Boolean).join(' · ')),'Keine noch offenen Beleganteile vorhanden.'),
+    allocationPagination(page,offset,next=>capacityPortions(source,event,next)),button('Zurück zu den Aufteilungen',()=>accountingAction(()=>componentDialog(source.event_id)),'small')));
+}
+async function capacityLegacyInput(source,event,portion) {
+  capacityWritable(source);const current=capacityContext(),legacy=componentState(await api.get(biz(componentPath(source.event_id))));let selected=null,offset=0;
+  for(;;){const page=accountingPage(await api.get(query(biz(componentPath(source.event_id,'/portions')),{limit:100,offset})),offset);selected=page.items.find(item=>item.portion_id===portion.portion_id);if(selected||page.next_offset===null)break;offset=page.next_offset;if(!current())return;}
+  await capacityAuthorize(source.event_id);if(!current())return;
+  if(!selected)throw new ApiError('Dieser Beleganteil wurde inzwischen dokumentiert oder verändert. Bitte neu laden.',409);
+  componentPortion(selected,source.event_id);componentWritable(legacy);componentInput(legacy,event,selected);
+}
+function capacityInput(source,event,portion) {
+  capacityWritable(source);const generation=api.generation,render=state.render,available=portion.groups.filter(group=>componentCents(group.offered_capacity.gross)>0n&&(group.offered_capacity.not_before_date===null||source.cash_date>=group.offered_capacity.not_before_date));
+  const fields=available.map((group,index)=>field('group_'+index,componentGroupLabel(group)+' – Bruttoanteil EUR','decimal','',{wide:true,help:`Originalrechnung: ${capacitySummary(group.archive)}. Bereits verfügbar: ${capacitySummary(group.current_capacity)}. Noch nicht übernommen aus Erstattungen: ${capacitySummary(group.pending_returns)}. Für diese Bestätigung angeboten: ${capacitySummary(group.offered_capacity)}.${group.offered_capacity.not_before_date?' Verwendbar ab '+formatDate(group.offered_capacity.not_before_date)+'.':''}`}));
+  fields.push(field('reason','Begründung der Wiederbelegung','text','',{required:true,maxLength:1000,wide:true}));
+  const editor=form('',fields,async values=>{
+    capacityWritable(source);const groups=available.flatMap((group,index)=>values['group_'+index]===undefined||String(values['group_'+index]).trim()===''?[]:[{group_id:group.group_id,amount:values['group_'+index]}]),body=capacityPreviewData(source,portion,groups,values.reason);
+    try {
+      await capacityAuthorize(source.event_id);if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;capacityWritable(source);
+      const result=await api.post(biz(capacityPath(source.event_id,'/preview')),body);if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;
+      await capacityAuthorize(source.event_id);if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;capacityWritable(source);capacityConfirm(source,body,capacityPreview(result,body,source));return undefined;
+    }catch(error){if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;if([403,404].includes(error.status)){closeModal();await refresh();if(generation===api.generation)showError(error);return undefined;}throw error;}
+  },{key:'capacity-preview-'+source.event_id,submit:'Wiederbelegung unverbindlich prüfen',description:`${portion.number} · ${portion.party_name}. Ganzer Beleganteil ${formatMoney(portion.amount)}. Beträge ausdrücklich eingeben; es wird nichts automatisch verteilt.`,extra:el('div',{class:'stack'},portion.pending_blocked_reason?notice(CAPACITY_BLOCKS[portion.pending_blocked_reason]||'Zusätzliche Erstattungsbeträge bleiben gesperrt.','warn'):null,capacityOriginal(source.event_id,portion),notice(CAPACITY_NOTICE),button('Aktuellen Stand neu laden',()=>accountingAction(()=>componentDialog(source.event_id)),'small'))});
+  editor.dataset.accountingDetail='true';editor.dataset.capacityDetail='true';dialog('Restbeträge aufteilen',editor);
+}
+function capacityConfirm(source,body,preview) {
+  const generation=api.generation,render=state.render,editor=form('',[field('confirmation','Ich bestätige die ganze Wiederbelegung und alle gezeigten Kapazitätsänderungen.','checkbox',false,{required:true})],async(values,key)=>{
+    capacityWritable(source);const data=capacityConfirmData(body,preview,source,values.confirmation);
+    try{await capacityAuthorize(source.event_id);}catch(error){if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;if([403,404].includes(error.status)){closeModal();await refresh();if(generation===api.generation)showError(error);return undefined;}throw error;}
+    if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;capacityWritable(source);const result=await accountingSave(editor,generation,key,capacityPath(source.event_id,'/confirm'),data);return render===state.render?result:undefined;
+  },{key:componentPendingKey(source.event_id),submit:'Wiederbelegung verbindlich bestätigen',description:'Erst diese Bestätigung speichert die ganze Aufteilung und die gezeigten Übernahmen gemeinsam. Bei unklarer Antwort zuerst dieselbe Anfrage unverändert wiederholen.',extra:el('div',{class:'stack'},capacityRecord(preview),button('Aktuellen Stand neu laden',()=>accountingAction(()=>componentDialog(source.event_id)),'small')),
+    after:async()=>{const render=state.render+1,section=state.section;await refresh();if(generation===api.generation&&state.render===render&&state.section===section&&!modal&&capacityRights().read)await componentDialog(source.event_id);}});
+  editor.dataset.accountingDetail='true';editor.dataset.capacityDetail='true';dialog('Wiederbelegung prüfen',editor);
+}
 function refundRights(source=null) { return refundAccess({permissions:[...state.globalPermissions],features:[...state.features],capabilities:[...state.capabilities],readonly:state.readonly},state.organization,source,navigator.onLine); }
 function refundWritable(source=null) { if(!refundRights(source).prepare)throw new ApiError('Eine neue Ursprungsbindung benötigt Internet, aktuelle globale Accounting-/Finanzschreibrechte und einen freigegebenen Finanzbetrieb.',423); }
 function refundPath(id,suffix='') { return `/accounting/refunds/events/${accountingId(id)}${suffix}`; }

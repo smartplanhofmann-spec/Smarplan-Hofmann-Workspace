@@ -20,8 +20,17 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Flowable
 
 
 class Problem(Exception):
-    def __init__(self, status, message):
+    def __init__(self, status, message, *, request_resolution=None):
+        if request_resolution is not None and (status != 409 or request_resolution != 'not_accepted'):
+            raise ValueError('Unsupported request resolution')
         self.status, self.message = status, message
+        self.request_resolution = request_resolution
+
+    def response(self):
+        result = {'error': self.message}
+        if self.status == 409 and self.request_resolution == 'not_accepted':
+            result['request_resolution'] = 'not_accepted'
+        return result
 
 
 def digest(value):

@@ -1,7 +1,8 @@
 # CRM/ERP – Fortschritt und Testergebnisse
 
-Die Abschnitte sind chronologisch. Der aktuelle Prüfstand steht unter
-**03.11.2026 – E1b-3a umgesetzt und geprüft** am Ende dieser Datei.
+Die Abschnitte sind chronologisch. Der letzte abgeschlossene Prüfstand steht
+unter **03.11.2026 – E1b-3a umgesetzt und geprüft**. Die anschließende
+Entwicklung von E1b-3b ist am Ende dieser Datei gesondert dokumentiert.
 Der erste Abschnitt gehört zum lokalen Commit `14fe4c9`, der zweite zu `64bdc26`.
 
 ## 02.11.2026 – Bestand, Integration und erste Entwicklung
@@ -1027,3 +1028,102 @@ Prüfnachweis bindet seine Quellen an den vollständigen Commit. Auch die
 abschließende vollständige Browserregression über alle 14 Abläufe ist grün.
 Die Weiterentwicklung von E1b-3b hat mit dem isolierten Rechenkern und dem
 Vertrag begonnen; sie ist kein Teil dieser E1b-3a-Abnahme.
+
+## 03.11.2026 – E1b-3b begonnen
+
+Ausgehend vom gesicherten E1b-3a-Stand `2a8d6b9` entwickelt der nächste
+Abschnitt die Wiederverwendung ausdrücklich zurückgeführter Belegcents.
+Der [Entwurf](CRM_ERP_EUER_E1B3B_ENTWURF.md) beschreibt die atomare Übernahme
+einer ganzen Rechnung, getrennte unveränderliche Restabschnitte, den Abgleich
+aller zugeordneten Finance-Erstattungen und unveränderte alte Quittungen.
+Neue Erstattungen gegen die erst hier entstehenden Komponenten benötigen
+anschließend eine eigene Ursprungsfassung; das bleibt ausdrücklich offen.
+
+Der isolierte Rechenkern `backend/accounting_component_segments.py` verwendet
+unveränderliche ganze Centbeträge. Ein Nachfolgeabschnitt setzt sich aus den
+exakten ungenutzten Netto-/Steuer-/Bruttocents seines Vorgängers und den exakten
+Rücknahmecents zusammen. Er berechnet die Rücknahme nicht erneut aus dem
+ursprünglichen Steuersatz. Die 13 gezielten Tests bestanden in 0,004 Sekunden
+(`work/verification/e1b3b-segment-domain.log`); ein unabhängiger Rechenreview
+ergab keine Befunde. Das ist noch keine Prüfung der neuen Datenbank-/API- oder
+Clientintegration und gibt allein keine gespeicherte Kapazität frei.
+
+Domäne, Additivmigration, Betreiberhorizont, Browser und Flutter sind inzwischen
+implementiert. Die abschließende Browser-/Paketprüfung läuft noch; der gesamte
+Abschnitt ist daher noch nicht abschließend geprüft. Die Anforderungsquote
+bleibt 28/62. Der [API-Vertrag](CRM_ERP_EUER_E1B3B_API.md) und der
+[vorläufige Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json) unterscheiden
+Implementierung, tatsächlich ausgeführte Prüfungen und ausstehende Nachweise.
+
+### Bisherige Integrationsprüfungen für E1b-3b
+
+| Gruppe | Tatsächliches Ergebnis | Rohprotokoll unter `work/verification/` |
+| --- | --- | --- |
+| Isolierter Cent-Rechenkern | 13/13, 0,004 s | `e1b3b-segment-domain.log` |
+| Neue Domänenfälle | 15/15; außerdem im aktuellen Backendlauf enthalten | `accounting-capacity-backend-full.log` |
+| Registrierung und tatsächlicher lokaler HTTP-Einstieg | 14/14, 5,478 s | `accounting-capacity-registration-transport-final.log` |
+| HTTP, Betreiberabgleich und Restore | 67/67, 24,722 s; sieben neue Fälle und 60 Regressionen | `accounting-capacity-http-restore.log` |
+| Unabhängige tatsächliche HTTPS-/MFA-Abläufe | 9/9, 16,720 s | `accounting-capacity-http-journey.log` |
+| Neue PostgreSQL-Fälle | 14 unterschiedliche Fälle erfolgreich abgedeckt: zunächst 12/14, anschließend die zwei korrigierten Fixtures 2/2 | `pg-accounting-capacity-initial.log`, `pg-accounting-capacity-corrected.log` |
+| Ältere PostgreSQL-Migrationen und Restorefälle | 8/8, 47,453 s | `pg-accounting-capacity-regression.log` |
+| Vollständiger Backendlauf | 560 ausgeführt: 559 bestanden, ein bestehender Windows-Job-Object-Test unter Linux übersprungen; 112,801 s | `accounting-capacity-backend-full.log` |
+| Flutter vollständig vor abschließendem Texthinweis | 514/514, 154 s | `e1b3b-flutter-full.log` |
+| Flutter: abschließende betroffene Widgets | 31/31, 6 s | `e1b3b-flutter-copy-targeted.log` |
+| Abschließende Flutteranalyse | keine Befunde, 6,7 s | `e1b3b-flutter-final-analyze.log` |
+| Echter Flutter-/HTTP-Ablauf | 1/1 | `e1b3b-flutter-http.log` |
+| Browser-Unitgruppe vor Texthinweis/Testhelferkorrektur | 121/121 | `accounting-capacity-node.log` |
+| Betroffene Browser-Unitgruppe danach | 21/21 | `accounting-capacity-node-copy-helper.log` |
+
+Die Gruppen überschneiden sich und sind keine zusätzlichen eindeutigen
+Gesamtabnahmen. Die zwei anfänglichen PostgreSQL-Fehler betrafen ausschließlich
+neue Rechnungsfixtures vor Ausführung der Kapazitätsdomäne: falscher
+Positionsfeldname und zu korrigierende kanonische Einheit. Nur die zwei
+betroffenen Fälle wurden nach Korrektur wiederholt; der Produktcode blieb
+unverändert. Ein einzelner abschließender 14/14-Gesamtlauf wird nicht behauptet.
+
+Der Review fand zwei konkrete Probleme, die vor den endgültigen HTTP-/HTTPS-
+und PostgreSQL-Prüfungen behoben wurden. Historische Einträge autorisieren nun
+auch sämtliche lediglich im damaligen Gruppenstand gebundenen Quellen ohne
+neue Einnahmenlinie. Eine kanonische `access_segments_json`-Bindung wird vor
+Details ausgewertet und anschließend gegen den rekonstruierten Beweis geprüft.
+Ein Zweigruppenfall belegt den vollständigen Rechteentzug für Stand, Historie
+und Wiederholung auch auf PostgreSQL und über echtes HTTPS.
+
+Außerdem unterscheiden Komponentenbestätigungen nun einen unbekannten
+Ausgang von einer sicher unangenommenen Anfrage. Nur nach geprüft fehlender
+Quittung und vor neuen Schreibvorgängen trägt ein 409-Konflikt
+`request_resolution:'not_accepted'`. Frühere Sicherheits-/Restore-/Modusgates
+bleiben vor der Quittungsprüfung und erhalten diesen Hinweis nicht. Beide
+Clients behalten solche unklaren Befehle mit identischem Pfad, Inhalt und
+Request-ID; sie erzeugen keine neue Anfrage als vermeintlichen Ersatz.
+
+Nach der grünen Flutter-Vollsuite wurde nur der ausdrückliche Vorschauhinweis
+ergänzt, dass neue Aufteilungsanteile noch nicht als Ursprung einer späteren
+Erstattung verfügbar sind. Drei Textprüfungen und ein Layout-Abwarten im
+Checkbox-Testhelfer begleiten diese Änderung. Die danach betroffenen 31
+Widgettests und die Analyse sind grün. Getrennte Quellmanifeste und der genaue
+Zwei-Dateien-Diff halten diese Grenze fest; die Vollsuite wurde für diese
+Textänderung nicht wiederholt.
+
+Der erste vollständige Browserlauf scheiterte an einem vorhandenen Testhelfer,
+der Eingabefelder zählte, bevor der nun asynchron geladene alte Aufteilungseditor
+geöffnet war. Der Helfer wartet jetzt auf den tatsächlichen sichtbaren Dialog;
+die Assertions bleiben unverändert. Der vollständige Lauf wird wiederholt und
+ist noch kein erfolgreicher Abschlussnachweis.
+
+### Zwischenstand nach Wiederverbindung der Cloud-Umgebung
+
+Die Cloud-Umgebung war vorübergehend nicht erreichbar. Nach der Wiederverbindung
+wurden das Repository, die Änderungen und die vorhandenen Prüfprotokolle erneut
+vorgefunden. Ein lokaler Zwischencommit hält E1b-3b mit ausdrücklich noch offener
+Browser-/Paketabnahme fest. Der neue E1b-3c-Entwurf und sein isolierter
+Reihenfolgehelfer gehören nicht in diesen Zwischenstand.
+
+Der wiederholte Browserlauf erreichte den neuen Kapazitätsablauf. Dessen
+Testbenutzer hatte noch keine globalen Accountingrechte; ausschließlich diese
+beiden Fixture-Freigaben wurden ergänzt. Der Produktzugriff hatte korrekt
+verweigert. Im nächsten gezielten Lauf endete ein Playwright-Transportabschluss
+nicht innerhalb der Frist. Der Test beobachtet nun den tatsächlichen
+unveränderten Client-Promise samt Ereignis-ID/Vorschauhash; Zeitgrenze und
+Prüfung gegen das Wiederöffnen eines veralteten Dialogs bleiben erhalten.
+Dieser erneute Lauf ist noch nicht als bestanden dokumentiert.

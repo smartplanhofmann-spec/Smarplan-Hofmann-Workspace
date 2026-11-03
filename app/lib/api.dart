@@ -8,7 +8,8 @@ import 'package:flutter/foundation.dart';
 class ApiException implements Exception {
   final int status;
   final String message;
-  const ApiException(this.status, this.message);
+  final String? requestResolution;
+  const ApiException(this.status, this.message, {this.requestResolution});
   @override
   String toString() => message;
 }
@@ -99,14 +100,24 @@ class OfficeApi extends ChangeNotifier {
           notifyListeners();
         }
         String message = 'Anfrage fehlgeschlagen (${response.statusCode}).';
+        String? requestResolution;
         try {
           final error = jsonDecode(utf8.decode(data));
           if (error is Map && error['error'] is String)
             message = error['error'];
+          if (response.statusCode == 409 &&
+              error is Map &&
+              error['request_resolution'] == 'not_accepted') {
+            requestResolution = 'not_accepted';
+          }
         } on FormatException {
           // A proxy or an unavailable server may return a non-JSON error.
         }
-        throw ApiException(response.statusCode, message);
+        throw ApiException(
+          response.statusCode,
+          message,
+          requestResolution: requestResolution,
+        );
       }
       if (response.statusCode >= 300) {
         throw const ApiException(0, 'Unerwartete Weiterleitung des Servers.');

@@ -156,7 +156,12 @@ Ohne Zusatzmodul bleibt H1 bzw. None erhalten. Kein dynamischer OP im Restorehas
 Mit [E1b-2](CRM_ERP_EUER_E1B2_API.md#wiederherstellung-und-clients) ergänzt H3
 den eigenen Komponentenstand; der hier beschriebene Teilhorizont bleibt erhalten.
 Mit [E1b-3a](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiberquittungen)
-ergänzt H4 die Erstattungsursprünge; neue Freigaben verlangen dann Schema 5.
+ergänzt H4 die Erstattungsursprünge; ohne Wiederverwendungsmodul verlangen neue
+Freigaben dann Schema 5. Bei zusätzlich installiertem `business_accounting_capacity`
+gilt der noch in Entwicklung befindliche, nicht freigegebene
+[E1b-3b-Vertrag](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze):
+H5/Schema 6 mit eigenem K1 über sechs neue Tabellen, auch bei leerem Modul.
+Die äußeren Betreiberfelder und historischen Teilhorizonte bleiben unverändert.
 
 Neue Betreiberfreigaben benötigen Schema 3 bei installiertem Zusatzmodul ohne Komponenten,
 Schema 2 nur mit E1a, Schema 1 ohne Accounting. Schema 3 behält alle weiteren
@@ -177,7 +182,8 @@ Keine Änderung von Pending-Payloads und keine persistente neue Warteschlange.
 ## Betreibervertrag für Schema 3
 
 Die gemeinsame reine Lesefunktion `financial_accounting_horizon(office)`
-liefert bei installiertem Zusatzmodul genau diese Struktur:
+liefert bei installiertem Zusatzmodul ohne nachfolgende Komponentenmodule
+genau diese Struktur:
 
 ```json
 {
@@ -206,7 +212,8 @@ Der vollständige Betreiberbericht verwendet `schema:3` und dieses Objekt als
 Quellenprüfung entsprechen dem Schema-2-Vertrag. Auch ein installiertes leeres
 Zuordnungsmodul ohne Komponenten verlangt für eine **neue** Freigabe Schema 3;
 mit Komponenten ohne Erstattungsmodul ist Schema 4 erforderlich, mit
-Erstattungsmodul Schema 5.
+Erstattungsmodul ohne Wiederverwendungsmodul Schema 5; bei installiertem
+Wiederverwendungsmodul Schema 6 nach dessen oben verlinktem Vertrag.
 `--inspect` zeigt dafür `evidence_schema:3`; es erzeugt weiterhin keinen fertigen
 Prüfbericht, keine Tabellen und keine Freigabe.
 

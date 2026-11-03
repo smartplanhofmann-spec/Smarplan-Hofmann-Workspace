@@ -454,7 +454,7 @@ class ComponentsPostgres(unittest.TestCase):
 class ComponentMigrationPostgres(unittest.TestCase):
     def test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore(self):
         prior = tuple(spec for spec in business_schema.registry() if spec.name not in
-                      ('business_accounting_components', 'business_accounting_refunds'))
+                      ('business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity'))
         fixture = allocation_fixture.AllocationPostgres(methodName='runTest')
         self.addCleanup(fixture.doCleanups)
         with patch.object(business_schema, 'registry', return_value=prior), \

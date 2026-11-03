@@ -436,8 +436,8 @@ fehlendes Modul ohne Tabellen und Migrationsmarker ergibt null; jede
 Teilinstallation, fehlende Abhängigkeit oder beschädigte Historie einen
 Fehler. Kein DDL, keine Migration, kein Commit im Hook.
 
-H1, A1 und C1 bleiben unverändert. Mit installiertem Refundmodul lautet der
-gemeinsame H4-Horizont exakt:
+H1, A1 und C1 bleiben unverändert. Mit installiertem Refundmodul ohne
+Wiederverwendungsmodul lautet der gemeinsame H4-Horizont exakt:
 
 ```text
 {schema_version:4,prejournal:<H1>,allocations:<A1>,components:<C1>,refunds:<R1>}
@@ -451,6 +451,14 @@ denselben Betreiber-/Stillstands-/Restore-ID-Prüfungen und bei bereits
 aufgehobener Sperre wirkungslos wiederholbar. Ein alter Bericht entsperrt keine
 neue Wiederherstellung; neue Freigaben benötigen den vollständigen aktuellen
 H4-Horizont. `--inspect` bleibt rein lesend.
+
+Ist zusätzlich `business_accounting_capacity` installiert, verlangt der noch
+in Entwicklung befindliche, nicht freigegebene
+[E1b-3b-Vertrag](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze)
+H5 mit eigenem K1 über genau sechs neue Tabellen und neue Betreiberfreigaben
+nach Schema 6, auch bei leerem Modul. H1/A1/C1/R1, historisches H4 und dessen
+Schema-5-Parser bleiben unverändert; die äußeren Betreiberfelder bleiben gleich.
+Eine historische Schema-5-Quittung entsperrt keinen neuen Restore.
 
 ## Clients und noch offene Erstattungen
 

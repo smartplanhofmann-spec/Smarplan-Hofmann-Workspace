@@ -88,8 +88,8 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
         before_sources = self.legacy_sources(self.company)
         before_cash = prejournal_horizon(office)
         before = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(set(before), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds'})
-        self.assertEqual(before['schema_version'], 4)
+        self.assertEqual(set(before), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity'})
+        self.assertEqual(before['schema_version'], 5)
         self.assertEqual(before['prejournal'], before_cash)
         self.assertEqual(before_cash['schema_version'], 1)
         _, _, entry = self.assignment(payment, invoice)
@@ -97,6 +97,7 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
         self.assertEqual(after['prejournal'], before_cash)
         self.assertEqual(after['components'], before['components'])
         self.assertEqual(after['refunds'], before['refunds'])
+        self.assertEqual(after['capacity'], before['capacity'])
         self.assertNotEqual(after['allocations']['sha256'], before['allocations']['sha256'])
         self.assertEqual(after['allocations']['table_counts'], {
             'business_accounting_allocation_entries': 1, 'business_accounting_allocation_requests': 1})
@@ -111,7 +112,7 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
         office = self.company['office']
         self.require_reconciliation(office)
         report = self.report(office)
-        self.assertEqual(report['schema'], 5)
+        self.assertEqual(report['schema'], 6)
         self.assertTrue(all(count == 0 for count in report['accounting_horizon']['allocations']['table_counts'].values()))
         before = '\n'.join(office.db.iterdump())
         obsolete = {**report, 'schema': 2, 'accounting_horizon': report['accounting_horizon']['prejournal']}
@@ -135,7 +136,7 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
 
     def test_already_approved_schema2_report_replays_after_real_additive_migration_but_cannot_unlock_new_restore(self):
         old_registry = tuple(spec for spec in business_schema.registry()
-                             if spec.name not in ('business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds'))
+                             if spec.name not in ('business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity'))
         with patch.object(business_schema, 'registry', return_value=old_registry):
             company = self.new_company('historical')
             account = self.account_record(company)
@@ -153,7 +154,7 @@ class AccountingAllocationHTTPTests(unittest.TestCase):
         business_schema.ensure_schema(office)
         self.assertEqual(prejournal_horizon(office), frozen_cash)
         self.assertEqual(self.legacy_sources(company), frozen_sources)
-        self.assertEqual(business_schema.financial_accounting_horizon(office)['schema_version'], 4)
+        self.assertEqual(business_schema.financial_accounting_horizon(office)['schema_version'], 5)
         before_replay = '\n'.join(office.db.iterdump())
         self.assertEqual(business_schema.reconcile_local_financial_restore(office, report, digest,
             application_stopped=True), prior)

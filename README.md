@@ -44,8 +44,15 @@ sich auf ausdrücklich gewählte ursprüngliche Zahlungsanteile beziehen. Die
 Rücknahme erhält deren genaue Netto-/Steuercents und erzeugt keine zweite
 Zahlungswirkung. Der [Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3A.json)
 benennt die ausgeführten Tests und ihre Grenzen.
-Steuerliche Freigabe, Wiederverwendung zurückgeführter Komponenten, Korrekturen,
-Perioden und Beraterpaket folgen gemäß [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md).
+Die [Wiederverwendung zurückgeführter Komponenten E1b-3b](docs/CRM_ERP_EUER_E1B3B_API.md)
+ist implementiert; die abschließende Browser- und Paketprüfung läuft.
+Sie erhält genaue Netto-/Steuerreste in neuen Abschnitten und prüft
+Erstattungsursprünge, Zahlungsdaten und vollständige Quellenrechte. Neue
+Zahlungen oder zusätzliche OP-Wirkungen entstehen dadurch nicht.
+Erstattungen aus diesen neuen Komponenten bleiben bis E1b-3c ungeklärt.
+Steuerliche Freigabe, Korrekturen, Perioden und Beraterpaket folgen gemäß
+[EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md); die Prüfnachweise stehen im
+[E1b-3b-Nachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3B.json).
 
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital
 unterschreibbares Protokoll geprüft. Weitergehende Test-/Betriebsbestätigungen

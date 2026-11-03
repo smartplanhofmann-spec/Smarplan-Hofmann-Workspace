@@ -123,6 +123,16 @@ Identischer Replay prüft aktuelle Rechte, Modus/Restore-/Modulsperren und
 historische Integrität vor Rückgabe der gespeicherten Antwort. Danach prüft er
 nicht erneut aktuelle Gruppenreste, neuesten Review oder heutige Kandidaten.
 Eine veränderte Nutzlast unter derselben Kennung liefert 409.
+Die additive C1/C2-Wiederholungsregel im
+[E1b-3b-Vertrag](CRM_ERP_EUER_E1B3B_API.md#replay-clients-und-fehler)
+ergänzt ausschließlich Komponenten-Confirms um
+`request_resolution:'not_accepted'` bei HTTP 409 nach geprüftem fehlendem
+Receipt und vor neuen Schreibwirkungen. Vorherige Rechte-/Betriebs-/
+Integritätsgates bleiben an ihrer Stelle und liefern keine solche Auflösung.
+Unmarkierte 409 sowie 403/404/423, 5xx und Netzfehler erhalten einen unklaren
+Komponentenauftrag; andere Operationen bleiben unverändert. Historische
+C1-Antworten, Quittungen und Proofs ändern sich nicht. Die neue Erweiterung
+ist bis zum gesonderten E1b-3b-Nachweis in Entwicklung, nicht freigegeben.
 
 ## HTTP-Vertrag
 
@@ -215,7 +225,13 @@ Quittungen sind nur bei bereits aufgehobener Sperre replaybar. Sie entsperren
 keine neue Wiederherstellung. `--inspect` bleibt strikt lesend.
 Mit [E1b-3a](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiberquittungen)
 ergänzt H4 den unveränderten C1-Teilhorizont um Erstattungsursprünge. Neue
-Freigaben benötigen dann Schema 5, auch bei leeren Erstattungstabellen.
+Freigaben benötigen ohne Wiederverwendungsmodul dann Schema 5, auch bei leeren
+Erstattungstabellen. Ist zusätzlich `business_accounting_capacity` installiert,
+ergänzt der noch in Entwicklung befindliche, nicht freigegebene
+[E1b-3b-Vertrag](CRM_ERP_EUER_E1B3B_API.md#horizonte-projektionen-und-nachweisgrenze)
+H5 mit eigenem K1 über sechs neue Tabellen; neue Freigaben benötigen Schema 6,
+auch bei leerem Modul. C1 und sämtliche historischen Horizonte/Parser behalten
+ihre festen alten Tabellenmengen; die äußeren Betreiberfelder bleiben gleich.
 
 Einstieg im vorhandenen Zahlungsnachweis „Beleganteile aufteilen“ bzw.
 „Aufteilungen ansehen“. Quellenbetrag ist fest; mehrere Gruppen verlangen

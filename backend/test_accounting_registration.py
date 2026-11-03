@@ -176,6 +176,36 @@ class AccountingRegistrationTests(unittest.TestCase):
             business_api.dispatch(self.office, self.owner, path + '/confirm', 'POST', {})
         self.assertEqual(caught.exception.status, 409)
 
+    def test_component_reuse_routes_keep_legacy_and_offline_boundaries(self):
+        from business_organization import command_module
+        module = 'business_accounting_capacity'
+        feature = 'accounting_document_component_reuse'
+        path = '/business/accounting/components/v2/events/' + 'a' * 32
+        capabilities = self.call(self.owner, '/capabilities')
+        self.assertIn(module, capabilities['capabilities'])
+        self.assertIn(feature, capabilities['features'])
+        for suffix in ('', '/history', '/portions'):
+            self.assertEqual(business_api.methods(path + suffix), 'GET')
+        for suffix in ('/preview', '/confirm'):
+            self.assertEqual(business_api.methods(path + suffix), 'POST')
+            self.assertEqual(command_module((path + suffix)[len('/business'):], module), 'finance')
+            with self.assertRaises(Problem) as caught:
+                business_api.dispatch(self.office, self.owner, path + suffix, 'GET', {})
+            self.assertEqual(caught.exception.status, 405)
+        before = self.office.db.total_changes
+        with self.assertRaises(Problem) as caught:
+            business_api.dispatch(self.office, self.owner, path, 'GET', {}, offline=True)
+        self.assertEqual(caught.exception.status, 403)
+        offline = self.call(self.owner, '/capabilities', offline=True)
+        self.assertNotIn(module, offline['capabilities'])
+        self.assertNotIn(feature, offline['features'])
+        self.assertEqual(self.office.db.total_changes, before)
+        business_schema.set_mode(self.office, 'legacy')
+        self.assertIn(feature, self.call(self.owner, '/capabilities')['features'])
+        with self.assertRaises(Problem) as caught:
+            business_api.dispatch(self.office, self.owner, path + '/confirm', 'POST', {})
+        self.assertEqual(caught.exception.status, 409)
+
 
 if __name__ == '__main__':
     unittest.main()

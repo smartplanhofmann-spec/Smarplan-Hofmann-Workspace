@@ -369,5 +369,6 @@
   "screenshots_sha256": {
     "accounting-capacity-browser-previews/capacity-desktop.png": "4c09c91656d877fa5b2f1134daa896d4d944f5799b9dd6c8e693dc974adf8e66",
     "accounting-capacity-browser-previews/capacity-mobile.png": "300fafb70927b3f80dddeaf23d681c061e621460ea59b8ec67e6e863fc5c4ca7"
-  }
+  },
+  "implementation_commit": "36f72a29e6074b8a06d470a59f0c03230037de1d"
 }

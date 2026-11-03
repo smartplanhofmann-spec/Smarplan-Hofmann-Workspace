@@ -1173,3 +1173,7 @@ unveränderter SHA-256). E1b-3b ist damit im beschriebenen Umfang umgesetzt und
 geprüft. Neue C2-Lose sind weiterhin keine auswählbaren Erstattungsursprünge;
 das ist die nächste Entwicklung E1b-3c. Vollständige EÜR, Lohn, KI und alle
 Gesamtabnahmen A–G bleiben offen. Die Quote bleibt 28/62 ungewichtete Bausteine.
+
+Der abschließende E1b-3b-Stand ist lokal in Commit `36f72a29e6074b8a06d470a59f0c03230037de1d`
+gesichert; der Prüfnachweis bindet alle 51 Code-/Vertragsdateien an diesen
+Commit. Es wurde nichts gepusht oder produktiv bereitgestellt.

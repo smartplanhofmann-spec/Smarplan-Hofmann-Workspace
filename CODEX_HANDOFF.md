@@ -1,6 +1,6 @@
 # Arbeitsauftrag für die Fortsetzung in Codex
 
-## Vorrangiger Entwicklungsauftrag – 02.11.2026
+## Vorrangiger Entwicklungsauftrag – 03.11.2026
 
 Maßgeblich ist das vollständig gelesene und unverändert im Hauptverzeichnis
 gespeicherte [CRM_ERP_Gesamtziel.txt](CRM_ERP_Gesamtziel.txt). Die bestehende
@@ -109,25 +109,51 @@ abgeschlossenen Inkrement unabhängig mögliche Entwicklung fortsetzen.
 Gesamtziel und Abnahmen A–G dürfen nicht wegen eines grünen Teilabschnitts als
 erledigt markiert werden.
 
-**Aktuell: [E1b-2](docs/CRM_ERP_EUER_E1B2_API.md) ist implementiert und geprüft.**
+**Vorheriger Abschnitt: [E1b-2](docs/CRM_ERP_EUER_E1B2_API.md) ist implementiert und geprüft.**
 Lokaler Codecommit `81a42b38`; der Prüfnachweis ist daran gebunden.
 Ganze ursprüngliche und zusätzliche Zahlungsanteile sowie Lieferantenzahlungen
 lassen sich ausdrücklich in dokumentierte Netto-/Steuercents aufteilen. Drei
 additive unveränderliche Tabellen, gemeinsame Beleggruppenreste und kumulative
 Integer-Centrechnung erhalten alte E1a-/E1b-1-Beweise und Finanz-/OP-Wirkung.
-Der aktuelle Restore verlangt H3 mit allen drei Teilhorizonten und Schema 4.
+Der damalige Restore verlangt H3 mit allen drei Teilhorizonten und Schema 4.
 508 Backendfälle bestanden, ein Windows-Fall wurde unter Linux übersprungen;
 429 Flutterfälle, 98 Browser-Unitfälle, 13 echte Browserabläufe, neun echte
 HTTPS-/MFA-Fälle, 16 PostgreSQL-Fälle und 15 Paketfälle bestanden. Gruppen
 überschneiden sich; genaue Grenzen und Hashes stehen im
 [E1b-2-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B2.json).
 
-Die Entwicklung läuft mit E1b-3a weiter: ganze bestehende Erstattungszuordnungen
-ausdrücklich auf ursprüngliche Komponentenlose derselben Rechnung beziehen;
-exakte zurückgeführte Netto-/Steuercents und frische vollständige Quellrechte
-prüfen. Dieser Schritt gibt noch keine Gruppenreste frei. E1b-3b ergänzt danach
-neue Kapazitätsabschnitte für erneute Einnahmen, ohne historische C1-Beweise
-umzuschreiben. Vollständige EÜR, Lohn und Gesamtziel A–G bleiben offen.
+**Aktuell: [E1b-3a](docs/CRM_ERP_EUER_E1B3A_API.md) ist implementiert und geprüft.**
+Ganze bestehende Erstattungszuordnungen lassen sich ausdrücklich auf
+ursprüngliche Komponentenlose derselben Rechnung beziehen. Exakte
+zurückgeführte Netto-/Steuercents, frische vollständige Quellrechte und
+unveränderte Wiederholung nach Antwortverlust werden geprüft. Drei additive
+unveränderliche Tabellen und der neue R1-Teilhorizont ergänzen den bisherigen
+Stand; der aktuelle Restore verlangt H4 mit allen vier Teilhorizonten und
+Schema 5. E1b-3a gibt keine Gruppenreste frei und erzeugt keine neue Zahlung
+oder zusätzliche OP-Wirkung.
+
+Aktuelle Prüfungen: 528 Backendfälle ausgeführt, davon 527 bestanden und ein
+bestehender Windows-Fall unter Linux übersprungen; 459 Flutterfälle bestanden,
+Analyze ohne Befund; 109 Browser-Unitfälle, ein gezielter echter Browserablauf
+auf Desktop und bei 390 Pixeln sowie 15 Paketfälle bestanden. Weitere
+Fach-/HTTP-/HTTPS- und PostgreSQL-Nachweise sind im
+[E1b-3a-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3A.json) abgegrenzt.
+Die zwölf neuen PostgreSQL-Fälle und sechs Regressionen liefen vor zwei
+zusätzlichen Integritätsprüfungen; diese späteren Änderungen sind durch die
+aktuellen Fachtests und den Backend-Gesamtlauf geprüft. Die Prüfgruppen
+überschneiden sich und dürfen nicht zu einer Zahl unabhängiger Fälle addiert
+werden.
+
+Die Entwicklung läuft mit E1b-3b weiter: neue Kapazitätsabschnitte für erneute
+Einnahmen ergänzen, ohne historische C1-/R1-Beweise umzuschreiben. Alte
+erfolgreiche Befehlswiederholungen und offene Befehle müssen beim Übergang
+gezielt erhalten beziehungsweise abgegrenzt werden. Der Umsatzsteuerstatus
+bleibt unkonfiguriert. Vollständige EÜR, Lohn und Gesamtziel A–G bleiben offen.
+
+Von 62 erfassten Anforderungen sind am 03.11.2026 28 Bausteine implementiert
+oder getestet, also 45,2 % einschließlich vorhandenen Bestandsquellcodes.
+Das ist keine Gewichtung nach Entwicklungsaufwand oder Produktivreife; die
+vollständigen Abnahmen A–G sind weiterhin offen.
 
 ## Verbindliche aktuelle Nutzerentscheidungen – 25. Oktober 2026
 

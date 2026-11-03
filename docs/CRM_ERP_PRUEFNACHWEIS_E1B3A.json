@@ -1,0 +1,216 @@
+{
+  "date": "2026-11-03",
+  "base_commit": "2261712907b5b241b229dcea40e1df3d3992b2e7",
+  "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "scope": "E1b-3a: explicit origins for one whole immutable original customer-refund allocation, referencing frozen original customer receipt lots. Exact cumulative return cents per lot, complete fresh source authorization, immutable proofs and replay, Browser/Flutter, additive R1/H4/schema-5 restore. No released component capacity, new financial effect, tax result or complete EÜR.",
+  "results": {
+    "new_domain": {
+      "passed": 17,
+      "seconds": 4.968,
+      "log": "accounting-refunds-domain.log"
+    },
+    "registration_real_local_transport": {
+      "passed": 10,
+      "seconds": 2.887,
+      "log": "accounting-refunds-registration-transport.log"
+    },
+    "independent_real_https_mfa": {
+      "passed": 9,
+      "seconds": 16.213,
+      "log": "accounting-refunds-http-journey.log",
+      "source_manifest": "accounting-refunds-http-first-code.sha256",
+      "version_boundary": "Before two later malformed-proof guards; see verification_version_boundary",
+      "transport": "Real loopback TLS sockets, trusted synthetic CA and hostname validation; normal password/TOTP and negative trust/host checks"
+    },
+    "http_restore_operator_regressions": {
+      "passed": 60,
+      "seconds": 17.168,
+      "new_cases": 7,
+      "log": "accounting-refunds-http-restore.log"
+    },
+    "postgres_new": {
+      "passed": 12,
+      "seconds": 49.037,
+      "skipped": 0,
+      "log": "pg-accounting-refunds-initial.log",
+      "source_unchanged_during_run": true,
+      "version_boundary": "Before two later malformed-proof guards; see verification_version_boundary"
+    },
+    "postgres_historical_regression": {
+      "passed": 6,
+      "seconds": 23.463,
+      "skipped": 0,
+      "log": "pg-accounting-refunds-regression.log",
+      "selection": [
+        "online.test_postgres_accounting_components_integration.ComponentMigrationPostgres",
+        "online.test_postgres_accounting_components_integration.ComponentsPostgres.test_actual_restore_preserves_components_and_requires_current_horizon",
+        "online.test_postgres_accounting_allocations_integration.AllocationMigrationPostgres",
+        "online.test_postgres_accounting_allocations_integration.AllocationPostgres.test_real_restore_preserves_assignments_and_requires_current_horizon",
+        "online.test_postgres_accounting_integration.AccountingMigrationPostgres",
+        "online.test_postgres_accounting_integration.AccountingPostgres.test_normal_migration_retains_events_restore_requires_exact_independent_accounting_reconciliation"
+      ],
+      "version_boundary": "Before two later malformed-proof guards; see verification_version_boundary"
+    },
+    "backend_full": {
+      "run": 528,
+      "passed": 527,
+      "skipped": 1,
+      "seconds": 98.789,
+      "log": "accounting-refunds-backend-full.log",
+      "skip_reason": "Existing Windows job-object cleanup test on Linux"
+    },
+    "flutter_targeted": {
+      "passed": 99,
+      "seconds_approximate": 17,
+      "log": "e1b3a-flutter-targeted.log"
+    },
+    "flutter_full": {
+      "passed": 459,
+      "skipped": 0,
+      "seconds_approximate": 139,
+      "log": "e1b3a-flutter-full.log"
+    },
+    "flutter_analyze": {
+      "issues": 0,
+      "seconds": 9.1,
+      "log": "e1b3a-flutter-analyze.log"
+    },
+    "browser_unit": {
+      "passed": 109,
+      "seconds": 0.540302543,
+      "skipped": 0,
+      "log": "accounting-refunds-node-agent.log"
+    },
+    "browser_real_targeted_refund": {
+      "passed": 1,
+      "log": "accounting-refunds-browser-final.log",
+      "sandbox": [
+        "namespace",
+        "PID",
+        "network",
+        "seccomp"
+      ],
+      "visual_review": [
+        "desktop",
+        "390px mobile"
+      ],
+      "transport": "Loopback HTTP fixture/proxy-Origin contract; actual TLS verified in independent HTTPS suite"
+    },
+    "native_package_final": {
+      "passed": 15,
+      "seconds": 2.891,
+      "log": "accounting-refunds-native-final.log",
+      "coverage": "Actual extracted support archive imports packaged backend and invokes operator CLI; no native-device acceptance"
+    }
+  },
+  "verification_version_boundary": {
+    "earlier_refund_module_sha256": "23b8c7002e950c302a6210d2bcfeb5080d273b5fb72946b96f0eb7b0629e62b1",
+    "current_refund_module_sha256": "98ebbdd3ff5414ab8da398947ea103d01af4ba70571a4543881402fc9792e29d",
+    "later_changes": [
+      "Reject boolean proof schema version",
+      "Reject missing stored C1 component line despite consistently rewritten hashes"
+    ],
+    "current_verification": [
+      "17 domain cases",
+      "528-case backend suite",
+      "final Browser/Flutter and package checks"
+    ],
+    "note": "The PostgreSQL and first HTTPS suites were run on the earlier pinned module. Their results are preserved with that boundary; they are not claimed as reruns on the final two guards. Other PG-pinned product and integration sources remain unchanged."
+  },
+  "review": {
+    "integrity": "Immutable lot identity is (component entry,group). Return totals reconstruct prior stored lines in global sequence; exact original lot cents, one whole refund portion, no recursive proof embedding.",
+    "authorization": "Fresh whole refund and all bound/selected origin scopes before state/history/replay; later additional invoice allocations extend source scope. Global returned totals are independent of viewer and reveal no foreign refund identifiers.",
+    "clients": "Explicit lot selection, exact pending payload and path, full-origin preflight, lost-before/lost-after replies, late answers and 390px dialog verified.",
+    "restore": "Independent H1/A1/C1/R1; schema5 requires H4. Successful identical historical reports retain replay only and cannot release a fresh restore.",
+    "remaining_confirmed_findings": 0
+  },
+  "run_history": [
+    "An initial Flutter full-suite start stopped before tests because clang was absent from process PATH. The installed clang wrapper fixed process configuration; final459-case run passed with no product changes.",
+    "An earlier browser start did not provide a completed result. The final targeted refund workflow passed; only completed runs are counted."
+  ],
+  "limitations": [
+    "Tax profile remains unconfigured; documentary returned tax cents are not tax posting, deduction, tax period or EÜR output.",
+    "Refund origin binding does not release component capacity; E1b-3b remains separate. Unallocated refunds remain unresolved. Existing cash, OP and reverses stay unchanged.",
+    "SQLite/browser fixtures use explicit synthetic invoice archives. Actual production invoice issuance and runtime/migration role separation are tested separately on disposable PostgreSQL.",
+    "Test groups overlap and must not be summed as unique acceptance cases. No non-test database, external provider, production deployment or real payment changed.",
+    "Large-ledger performance, Windows/iPhone native-device acceptance and overall A–G remain open."
+  ],
+  "changed_code_and_packaged_contract_sha256": {
+    ".github/workflows/checks.yml": "a17e5f3cc715d5317691b6e11169691b0cd1431b9115c45b01993520be5bfe9b",
+    "app/lib/business_accounting.dart": "fee250ada98e15374a5924380329b5514222d241ff9f47b536c385e138e33cf2",
+    "app/lib/business_accounting_refunds.dart": "4e14a004aca7236e52aa7e19f926db6d26e89fe58a997628bc468652fcac58f5",
+    "app/lib/business_session.dart": "03fe76c5feaa12a4b8315dd342d11f90d0c81cff8548ed500da38b019e555de4",
+    "app/test/business_accounting_refunds_http_test.dart": "d6a4c4e9e63bb26aaad395df683256cdd51e0826b515662c8acd1879d75c5040",
+    "app/test/business_accounting_refunds_test.dart": "8045c97bd0163e7d430ba7fbee1b20f43dfd3652ab41d7a6fc813902b5023aeb",
+    "backend/business_accounting_refunds.py": "98ebbdd3ff5414ab8da398947ea103d01af4ba70571a4543881402fc9792e29d",
+    "backend/business_api.py": "1e91a8b946d62bd065e2f6c640b5533651ff28bff918c1cfd739e0af50c45abf",
+    "backend/business_organization.py": "26173c1cd3dca8620763f3a2ff2dc44d9355df7770279a6ddb569a9e43ef4a70",
+    "backend/business_schema.py": "bd7e7652f0832384fd4183d52f4ee02af17d5f57370f4323e025924314bf10ed",
+    "backend/online/test_accounting_allocations_http.py": "c3aca0674d9a7b46f06c90478365ca263b83bc55b1a7f279f3dab1b24a13bffb",
+    "backend/online/test_accounting_components_http.py": "901ff4565eb92a2aec23e66da991b39856ec9a064d3c0fb1019c90b0b04ddb6c",
+    "backend/online/test_accounting_http.py": "bf5fc51eea03aec1dec2eba003d02592d96f3252d65d61363b19dce0c8bd49cc",
+    "backend/online/test_accounting_refunds_http.py": "078ee7d0470803aa52b7cf4cf7d6fb67eed464e96c720ed97dac664aa140f314",
+    "backend/online/test_accounting_refunds_journey.py": "62479e85dbb211237882376989446c525a2c4aaff8d81d571a30e7a24d71a353",
+    "backend/online/test_postgres_accounting_allocations_integration.py": "4c4e2e00a6a962019cd4300189462360da36d914a7e42de4143942d69f816cf5",
+    "backend/online/test_postgres_accounting_components_integration.py": "81f81dfd04fa0f703970170ca63cde20f1e85bb53678d26a5dfb5ca2a1cffcb5",
+    "backend/online/test_postgres_accounting_integration.py": "4426368adde90e9eabc401a1b449ca11f0b1785d9ae328bbbc2acb3152fee534",
+    "backend/online/test_postgres_accounting_refunds_integration.py": "467d16b042554f64b596fa7f4545c35bd3dd5f3d4a93f3571af784f2143b03e9",
+    "backend/online/web.py": "e228c36e21510e2735d68b05eec1224d865c0ebc8a192a77325430f4e0b728e8",
+    "backend/server.py": "8f642fa9b290751d0f8d1a9bca0b3c92785fa9e05f9a1a5556f9720bc4209c4a",
+    "backend/test_accounting_allocation_transport.py": "2d8a20334118f1a35ad67adf70fdc1cbae29318b4a0034913c4b889daae34719",
+    "backend/test_accounting_registration.py": "71f62d5da83bcc38832f5ca5e79634b22745e05b822bcf84f7f551d98c849260",
+    "backend/test_business_accounting.py": "5ff17e79edca14a2b2e0ec1cedc22aec49882282e52fd81b0ee3157328dd60c9",
+    "backend/test_business_accounting_allocations.py": "55a89d8a2b70ccc71af39c5b26a0f0fe1a5e4d97c065b02a4a883da9cd8d1b78",
+    "backend/test_business_accounting_refunds.py": "8bed89a46155b9b69f5240ba04934ad4320fc9739346a999d11dac50f1abe9b9",
+    "docs/CRM_ERP_EUER_BETRIEB.md": "c8f91bc73ffc3cdb29a32d7b209b65de13bf695d7d3c407b4f0771b1842925f4",
+    "docs/CRM_ERP_EUER_E1A_API.md": "26c1a70245e491475d4f23c26b2a5992b504005fd45a4f2796e9fa299f93a6a2",
+    "docs/CRM_ERP_EUER_E1B1_API.md": "5114b114b3711c5f67a8e17d02a125eb9c1f83af7d99b34d81a8b2aee8a731ba",
+    "docs/CRM_ERP_EUER_E1B2_API.md": "471bb5889fd16a29b8fc0f958708fa6c9d639304ac6b4af270cd0f9284d7d1ea",
+    "docs/CRM_ERP_EUER_E1B3A_API.md": "2f4f20c103c3542d66b9b21dc0aa7cfb28e1b824015622d514eb6acd9ba17aa2",
+    "scripts/native-release.py": "5506fb8ff7d28b2c69c50df2ef178377db1265cd4a8504a2b119af9595922705",
+    "scripts/package-windows-support.py": "a14dfd27571ba19fee2678f3b483d2787e5a8a9c76df686772a104949dddec9e",
+    "web/office/office.js": "86b1ea2ddb629058e182e7c6b95ae4acec13305f55b1ab55bd56c0b885c8c379",
+    "web/office/tests/e2e.cjs": "28fb633830740283c80c0ea8dd3fb87b8f0a2c643ab9f2caaa063df191343624",
+    "web/office/tests/refund-flow.cjs": "87a599a7eee0ddeb30b304bfc02bd4600b70503300d33525b9d884dfe8828f9f",
+    "web/office/tests/refund.test.mjs": "ab38cc9ec81d6e52142d453e955912eb2492dc161669d8597a2adad4af412cdf",
+    "web/office/tests/serve_fixture.py": "83ce37e872ed39d681b70e6d33d548a3dcd534e237dc0edb7c69c5179d37f7d7"
+  },
+  "postgres_source_sha256": {
+    "backend/business_accounting_refunds.py": "23b8c7002e950c302a6210d2bcfeb5080d273b5fb72946b96f0eb7b0629e62b1",
+    "backend/business_accounting_components.py": "6977e3f22c5c56873533d2dbbae0d12daf2676d01f7f01761daca3715fbebac2",
+    "backend/business_schema.py": "bd7e7652f0832384fd4183d52f4ee02af17d5f57370f4323e025924314bf10ed",
+    "backend/business_api.py": "1e91a8b946d62bd065e2f6c640b5533651ff28bff918c1cfd739e0af50c45abf",
+    "backend/online/test_postgres_accounting_refunds_integration.py": "467d16b042554f64b596fa7f4545c35bd3dd5f3d4a93f3571af784f2143b03e9"
+  },
+  "log_sha256": {
+    "accounting-refunds-domain.log": "ada79501ff211309d9e653692939cee246b30f82db418539a76cd7c178168d4b",
+    "accounting-refunds-registration-transport.log": "4166f03ccc08b06f53d1ac79707b8c31a05bd3cfac6c87e522187ed5b154c9dc",
+    "accounting-refunds-http-journey.log": "7c2d6d210555ebf11982adfe9e999831ddb711abf70a28769ac01395f78f585c",
+    "accounting-refunds-http-restore.log": "bf6e80e7fab53217f751accb656622d1db1268731e6d078761de349c90cc54de",
+    "pg-accounting-refunds-initial.log": "ec8d2be4ceb5005ff85feb3c3c6da9c69611c8a393c3f38e3939009f89febe78",
+    "pg-accounting-refunds-regression.log": "89d3884a1310250a346c3fa68791375d9b446bd5dd520686d164be240fdcbf06",
+    "accounting-refunds-backend-full.log": "313257dd724c408a79e82dffd82cab5919dd8122f9b0f0c6548e2f85b3de78b8",
+    "e1b3a-flutter-targeted.log": "8fedb78d6e19ccf78c2ac4bbfdc5854f71e7249c1152164da05df73474d4ac09",
+    "e1b3a-flutter-full.log": "4cea2c732fdfbfc7bf57e9554722ac7cc346065e2d39e3e9fca1f3d114c22ae1",
+    "e1b3a-flutter-analyze.log": "2092148e856fafe86e8dcc2d343655df700af0bb759801e7830f958ae435cb35",
+    "accounting-refunds-node-agent.log": "6bf1c3c7aef004a2effb3fe72c02df29c638b8e349576b1a910f3236a96de3db",
+    "accounting-refunds-browser-final.log": "3f957f1c39a9c34f5d6f423410d8b121dbc52492bde3b571639fd210343ebd24",
+    "accounting-refunds-native-final.log": "8ba5a8a36379244085cbbfd65e2a2a95177f78f7f98147401dd65e87298a764b",
+    "accounting-refunds-initial-summary.json": "cdc36211dc6cf02f15b6c2bf9d8657452de0fb5836210908b67dcde810654f4e",
+    "accounting-refunds-regression-summary.json": "c7d0d91ab926564a047805ca13950609a9a9e3cd714f6cfd1d05390295072224",
+    "accounting-refunds-verification-summary.json": "f48969190e5c4e02aa20397f969615b99ec4b9ec478f00f98325731a2ca24ca3",
+    "accounting-refunds-http-first-code.sha256": "5304ee03cafe69345d3fae2f389ffabf1e7973b31c61664dd63a8f3e7db8f96e",
+    "e1b3a-flutter-code-check.log": "8a19a8acde305fd7bdec2a40a57d1320db954a008b07c68769d878791cc8ce0d",
+    "e1b3a-flutter-review.md": "0633afce8dc27b87434bba7169d53920f39e0cd1bf7ecbca91e198b5349e6fcf",
+    "e1b3a-flutter-full-toolchain-start.log": "5a0b1c80cfee13c18350eaffe146235e23f02d0e89d986308e35aa07dbd15be0"
+  },
+  "visual_sha256": {
+    "refunds-desktop.png": "86cfaaa01b79b5bf2be5e34176e0914b6fb89a7a1fe323196379f68c375cd552",
+    "refunds-mobile.png": "4f11ca01e80d830cc5635e4fd85424e1e017bb3295f78b45e66d970acb57065e"
+  },
+  "flutter_source_manifest": {
+    "sha256": "eaa6270e790d2aaaad70368b145b6fa81d9e42b193b1b615a3e64d4259b1a4bb",
+    "contents": "fee250ada98e15374a5924380329b5514222d241ff9f47b536c385e138e33cf2  app/lib/business_accounting.dart\n4e14a004aca7236e52aa7e19f926db6d26e89fe58a997628bc468652fcac58f5  app/lib/business_accounting_refunds.dart\n03fe76c5feaa12a4b8315dd342d11f90d0c81cff8548ed500da38b019e555de4  app/lib/business_session.dart\n8045c97bd0163e7d430ba7fbee1b20f43dfd3652ab41d7a6fc813902b5023aeb  app/test/business_accounting_refunds_test.dart\nd6a4c4e9e63bb26aaad395df683256cdd51e0826b515662c8acd1879d75c5040  app/test/business_accounting_refunds_http_test.dart\n"
+  },
+  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, summary and hashes are versioned. Completing this increment does not complete or stop the overall goal; exact returned-capacity work follows."
+}

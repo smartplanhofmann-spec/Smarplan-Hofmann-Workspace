@@ -394,11 +394,11 @@ class ComponentsPostgres(unittest.TestCase):
         self.assertEqual(Finance(self.office)._payment_sum(self.invoice['id']), Decimal('119.00'))
         self.assertTrue(self.module.validate_integrity(self.office))
 
-    def test_actual_restore_preserves_components_and_requires_exact_schema4(self):
+    def test_actual_restore_preserves_components_and_requires_current_horizon(self):
         _, event, cash_body = self.cash('119.00')
         entry, body = self.confirm(event)
         horizon = business_schema.financial_accounting_horizon(self.office)
-        self.assertEqual(horizon['schema_version'], 3)
+        self.assertGreaterEqual(horizon['schema_version'], 3)
         self.assertEqual(horizon['components']['table_counts'], {
             'business_accounting_component_entries': 1, 'business_accounting_component_lines': 1,
             'business_accounting_component_requests': 1})
@@ -426,9 +426,9 @@ class ComponentsPostgres(unittest.TestCase):
             operator = PostgresOffice(target)
             try:
                 evidence = evidence_for(operator, report)
-                self.assertEqual(evidence['schema'], 4)
+                self.assertEqual(evidence['schema'], horizon['schema_version'] + 1)
                 old = {**evidence, 'schema': 3, 'accounting_horizon':
-                    {key: value for key, value in {**horizon, 'schema_version': 2}.items() if key != 'components'}}
+                    dict(schema_version=2, prejournal=horizon['prejournal'], allocations=horizon['allocations'])}
                 wrong = {**evidence, 'accounting_horizon': {**horizon,
                     'components': {**horizon['components'], 'sha256': '0' * 64}}}
                 for invalid in (old, wrong):
@@ -453,7 +453,8 @@ class ComponentsPostgres(unittest.TestCase):
 @unittest.skipUnless(journey.DSN, 'Disposable loopback SMARTPLAN_TEST_DSN required')
 class ComponentMigrationPostgres(unittest.TestCase):
     def test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore(self):
-        prior = tuple(spec for spec in business_schema.registry() if spec.name != 'business_accounting_components')
+        prior = tuple(spec for spec in business_schema.registry() if spec.name not in
+                      ('business_accounting_components', 'business_accounting_refunds'))
         fixture = allocation_fixture.AllocationPostgres(methodName='runTest')
         self.addCleanup(fixture.doCleanups)
         with patch.object(business_schema, 'registry', return_value=prior), \
@@ -475,7 +476,7 @@ class ComponentMigrationPostgres(unittest.TestCase):
                 old_target = release.snapshot_fingerprint(target)
                 # This inner patch temporarily restores the full registry, while
                 # the surrounding context retains the real pre-component schema.
-                full = prior + (self.component_spec,)
+                full = self.current_registry
                 with patch.object(business_schema, 'registry', return_value=full), \
                         patch.object(business_schema, 'MODULE_NAMES', tuple(spec.name for spec in full)):
                     migrated_target = None
@@ -491,7 +492,7 @@ class ComponentMigrationPostgres(unittest.TestCase):
                             self.assertEqual(after_target[table], fingerprint, table)
                     operator = PostgresOffice(target)
                     try:
-                        self.assertEqual(business_schema.financial_accounting_horizon(operator)['schema_version'], 3)
+                        self.assertGreaterEqual(business_schema.financial_accounting_horizon(operator)['schema_version'], 3)
                         self.assertEqual(approve(operator, evidence), approved)
                     finally:
                         operator.db.close()
@@ -511,7 +512,7 @@ class ComponentMigrationPostgres(unittest.TestCase):
         office = PostgresOffice(fixture.runtime)
         try:
             current = business_schema.financial_accounting_horizon(office)
-            self.assertEqual({key: value for key, value in {**current, 'schema_version': 2}.items() if key != 'components'}, horizon)
+            self.assertEqual(dict(schema_version=2, prejournal=current['prejournal'], allocations=current['allocations']), horizon)
             self.assertEqual(fixture.module.PaymentAllocations(office).history(fixture.owner, fixture.payment['id'])['items'], [entry])
             self.assertEqual(fixture.accounting.Accounting(office).import_payment(fixture.owner, fixture.cash_body), fixture.cash)
             self.assertTrue(importlib.import_module('business_accounting_components').validate_integrity(office))
@@ -526,11 +527,11 @@ class ComponentMigrationPostgres(unittest.TestCase):
                     with self.assertRaises((Problem, ValueError)):
                         approve(operator, invalid)
                     self.assertEqual(release.snapshot_fingerprint(target), frozen)
-                self.assertEqual(evidence_for(operator, new_report)['schema'], 4)
+                self.assertEqual(evidence_for(operator, new_report)['schema'], current['schema_version'] + 1)
                 approve(operator, evidence_for(operator, new_report))
             finally:
                 operator.db.close()
         self.assertEqual(release.snapshot_fingerprint(journey.DSN), after)
 
     def setUp(self):
-        self.component_spec = next(spec for spec in business_schema.registry() if spec.name == 'business_accounting_components')
+        self.current_registry = business_schema.registry()

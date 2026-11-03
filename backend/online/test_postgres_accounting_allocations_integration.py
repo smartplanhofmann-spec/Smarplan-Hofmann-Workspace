@@ -348,7 +348,7 @@ class AllocationMigrationPostgres(unittest.TestCase):
         accounting = importlib.import_module('business_accounting')
         allocations = importlib.import_module('business_accounting_allocations')
         prior = tuple(spec for spec in business_schema.registry() if spec.name not in
-                      ('business_accounting_allocations', 'business_accounting_components'))
+                      ('business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds'))
         with patch.object(business_schema, 'registry', return_value=prior):
             base.reset()
             bootstrap = PostgresOffice(journey.DSN)

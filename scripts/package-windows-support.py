@@ -16,13 +16,13 @@ BACKEND_FILES = ("backup.py", "restore.py", "core.py", "server.py", "onedrive.py
                  "business_planning.py", "business_time.py", "business_operations.py",
                  "business_inventory.py", "business_maintenance.py", "business_adapters.py",
                  "business_organization.py", "business_instance.py", "business_purchasing.py", "business_portal.py", "business_accounting.py",
-                 "business_accounting_allocations.py", "business_accounting_components.py",
+                 "business_accounting_allocations.py", "business_accounting_components.py", "business_accounting_refunds.py",
                  "requirements.lock")
 WINDOWS_FILES = ("Starten.cmd", "Sicherung_erstellen.cmd", "Sicherung_wiederherstellen.cmd",
                  "Run.cmd", "START_HIER.txt")
 OFFLINE_INSTALLER_FILES = ('Python_Umgebung_aktualisieren.cmd', 'Python_Umgebung_aktualisieren.py')
 OPERATOR_FILES = ('scripts/reconcile-accounting-restore.py', 'docs/CRM_ERP_EUER_BETRIEB.md',
-                  'docs/CRM_ERP_EUER_E1A_API.md', 'docs/CRM_ERP_EUER_E1B1_API.md', 'docs/CRM_ERP_EUER_E1B2_API.md')
+                  'docs/CRM_ERP_EUER_E1A_API.md', 'docs/CRM_ERP_EUER_E1B1_API.md', 'docs/CRM_ERP_EUER_E1B2_API.md', 'docs/CRM_ERP_EUER_E1B3A_API.md')
 SOURCE_ONLY_NOTICE = '''Smartplan Windows - reines Quell-/Supportpaket
 
 Dieses ZIP enthaelt KEINE Python-Abhaengigkeiten und keinen Offline-Updater.

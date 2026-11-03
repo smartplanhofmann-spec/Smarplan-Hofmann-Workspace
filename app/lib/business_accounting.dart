@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'api.dart';
 import 'business_accounting_allocations.dart';
 import 'business_accounting_components.dart';
+import 'business_accounting_refunds.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -568,6 +569,20 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
     await load();
   }
 
+  Future<void> openRefundOrigins(String eventId) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => BusinessRefundOriginsPage(
+          session: widget.session,
+          eventId: eventId,
+        ),
+      ),
+    );
+    if (!mounted) return;
+    setState(() => event = null);
+    await load();
+  }
+
   Widget allocationEntry(String paymentId) => TextButton(
     onPressed: () => openAllocations(paymentId),
     child: Text(
@@ -617,7 +632,11 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
       if ((value['unresolved_reasons'] as List? ?? []).contains(
         'refund_origin_unresolved',
       ))
-        const Text('Der ursprüngliche Erstattungsbezug ist noch ungeklärt.'),
+        Text(
+          businessRefundOriginsReadable(widget.session)
+              ? 'Bei der Übernahme war der Erstattungsursprung ungeklärt. Spätere Ursprungsbindungen stehen in der eigenen Historie.'
+              : 'Der ursprüngliche Erstattungsbezug ist noch ungeklärt.',
+        ),
       if (detail) ...[
         Text('Erfasst: ${businessDate(value['created_at'], time: true)}'),
         ExpansionTile(
@@ -657,7 +676,14 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
             snapshot['kind'] == 'receipt' &&
             businessAllocationsReadable(widget.session))
           allocationEntry('${source['id']}'),
-        if (businessComponentsReadable(widget.session))
+        if (source['kind'] == 'payment' &&
+            snapshot['kind'] == 'refund' &&
+            businessRefundOriginsReadable(widget.session))
+          TextButton(
+            onPressed: () => openRefundOrigins('${value['id']}'),
+            child: const Text('Erstattungsursprünge ansehen'),
+          )
+        else if (businessComponentsReadable(widget.session))
           TextButton(
             onPressed: () => openComponents('${value['id']}'),
             child: Text(

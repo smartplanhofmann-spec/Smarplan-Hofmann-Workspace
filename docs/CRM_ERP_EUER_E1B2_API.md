@@ -206,13 +206,16 @@ Hilfsfunktionen `installed`, `validate_integrity`, `restore_horizon`.
 
 Eigenes C1: `{schema_version:1,table_counts:{drei feste Tabellennamen:Anzahl},sha256}`
 über alle eigenen Zeilen einschließlich Requests. Alte E1a-H1 und E1b-1-H2
-bleiben unverändert. Mit Komponenten liefert der gemeinsame Operatorhorizont
+bleiben unverändert. Mit Komponenten ohne Erstattungsmodul liefert der gemeinsame Operatorhorizont
 `{schema_version:3,prejournal:<H1>,allocations:<A1>,components:<C1>}`.
 Neue Freigaben verlangen Berichtschema 4, auch bei leerem Komponentenmodul.
 Andere Berichts-/externen Abgleichsfelder bleiben gleich. Historische Parser
 verwenden die festen Tabellenmengen ihrer eigenen Version; frühere identische
 Quittungen sind nur bei bereits aufgehobener Sperre replaybar. Sie entsperren
 keine neue Wiederherstellung. `--inspect` bleibt strikt lesend.
+Mit [E1b-3a](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiberquittungen)
+ergänzt H4 den unveränderten C1-Teilhorizont um Erstattungsursprünge. Neue
+Freigaben benötigen dann Schema 5, auch bei leeren Erstattungstabellen.
 
 Einstieg im vorhandenen Zahlungsnachweis „Beleganteile aufteilen“ bzw.
 „Aufteilungen ansehen“. Quellenbetrag ist fest; mehrere Gruppen verlangen

@@ -1,9 +1,9 @@
 # CRM/ERP: Anforderungen und Abnahmestand
 
-Stand: 02.11.2026. Quelle ist ausschließlich das aktuelle
+Stand: 03.11.2026. Quelle ist ausschließlich das aktuelle
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt); technische Bestandsbelege beziehen sich
 auf der integrierten Basis `420c4c7700d7543a725d787d48eef8bdb2319152` und den im
-[Fortschritt](CRM_ERP_FORTSCHRITT.md) dokumentierten Änderungen vom 02.11.2026. Diese Matrix erweitert den
+[Fortschritt](CRM_ERP_FORTSCHRITT.md) dokumentierten Änderungen vom 02.–03.11.2026. Diese Matrix erweitert den
 bisherigen Produktumfang. Alte Prüfpunkte A1–O4 aus dem HERO-Bericht sind keine
 Ersatzabnahme für die nachstehenden Fälle A–G.
 
@@ -30,6 +30,14 @@ Zielvorgabe betrifft ein digital unterschriebenes Protokoll und erfüllt auch
 dessen vollständige Ablaufabnahme noch nicht.
 
 ## Zielabschnitte 1–15
+
+Zählstand 03.11.2026: 62 abgegrenzte Anforderungen, davon 24 `implementiert`,
+4 `getestet`, 27 `offen`, 1 ausdrücklich teilweise und 6 `extern_blockiert`.
+28/62 entsprechen **45,2 % ungewichteter Bausteinabdeckung**, einschließlich
+vorhandenem Bestandsquellcode. Das ist kein gemessener Anteil am Gesamtaufwand
+oder an der Produktivreife: Anforderungen unterscheiden sich stark im Umfang
+und enthalten teils ausdrücklich genannte Restarbeiten. Alle sieben
+durchgängigen Abnahmen A–G sind weiterhin offen.
 
 | ID | Zielabschnitt und abgegrenzte Anforderung | Status | Beleg und fehlender Nachweis bzw. nächster Umfang |
 |---|---|---|---|
@@ -66,7 +74,7 @@ dessen vollständige Ablaufabnahme noch nicht.
 | R08.02 | 8: Manuelle Zahlungszuordnung einschließlich Teilbeträgen und Erstattungen | implementiert | `Finance.record_payment`, appendierte Zuordnungen und stabile Quellenreferenz; [Finanztests](../backend/business_tests/test_finance.py). Überzahlung/Rückabwicklung anhand konkreter Fälle erneut prüfen. |
 | R08.03 | 8: Bankabgleich und benötigte Bankverbindung | offen | Kein vollständiger Bankfeed/Abgleich. Provider noch auszuwählen; Zugang/Produktivabnahme später separat. |
 | R08.04 | 8: Eingangsbelege, Originale und nachvollziehbarer Review | implementiert | `Finance.capture_receipt/review_receipt`, [E-Rechnungsmodul](../backend/business_einvoice.py). Keine universelle OCR und noch kein Buchungssatz. |
-| R08.05 | 8: Eigene EÜR/Doppik mit Konten, Steuern, Perioden, Abschluss und Ergebnisrechnung | teilweise; Gesamtanforderung offen | Nutzerentscheidung 02.11.2026: erste vollständige Version für Einzelunternehmen mit EÜR. E1a ergänzt [Geldkonten und belegtes EUR-Vorjournal](CRM_ERP_EUER_BETRIEB.md), Quellenbindung, Wiederholungsschutz und Restoreabgleich. E1b-1 ergänzt geprüfte zusätzliche Rechnungszuordnungen mit gemeinsamer OP-/Zahlungsprojektion und erweitertem Restoreabgleich. E1b-2 ergänzt dokumentarische Netto-/ausgewiesene Steueranteile mit gemeinsamen Gruppenresten und exakter Centrechnung. Noch keine Steuerberechnung oder vollständige EÜR; Umsatzsteuerstatus separat offen. Erstattungsursprünge, Restkapazitätsabschnitte, Perioden/Korrekturen und Beraterpaket folgen im [Journalplan](CRM_ERP_EUER_PLAN.md). Doppik/weitere Rechtsformen separat planen. |
+| R08.05 | 8: Eigene EÜR/Doppik mit Konten, Steuern, Perioden, Abschluss und Ergebnisrechnung | teilweise; Gesamtanforderung offen | Nutzerentscheidung 02.11.2026: erste vollständige Version für Einzelunternehmen mit EÜR. E1a ergänzt [Geldkonten und belegtes EUR-Vorjournal](CRM_ERP_EUER_BETRIEB.md), Quellenbindung, Wiederholungsschutz und Restoreabgleich. E1b-1 ergänzt geprüfte zusätzliche Rechnungszuordnungen mit gemeinsamer OP-/Zahlungsprojektion und erweitertem Restoreabgleich. E1b-2 ergänzt dokumentarische Netto-/ausgewiesene Steueranteile mit gemeinsamen Gruppenresten und exakter Centrechnung. Noch keine Steuerberechnung oder vollständige EÜR; Umsatzsteuerstatus separat offen. [Erstattungsursprünge E1b-3a](CRM_ERP_EUER_E1B3A_API.md) sind implementiert und [geprüft](CRM_ERP_PRUEFNACHWEIS_E1B3A.json); ganze bestehende Erstattungszuordnungen erhalten ausdrückliche Ursprünge und deren genaue Netto-/Steuercents, ohne Gruppenreste freizugeben oder OP doppelt zu verändern. Restkapazitätsabschnitte E1b-3b, Perioden/Korrekturen und Beraterpaket folgen im [Journalplan](CRM_ERP_EUER_PLAN.md). Doppik/weitere Rechtsformen separat planen. |
 | R08.06 | 8: E-Rechnungserzeugung, genaue Geld-/Steuerrechnung und unveränderliche Archive | implementiert | Decimal-/Snapshot-/Archivlogik, KoSIT-/Mustang-/veraPDF-Anbindung und [E-Rechnungstests](../backend/business_tests/test_einvoice.py). Aktuelle gesetzliche Profile und konkrete Geschäftsfälle separat validieren. |
 | R08.07 | 8: Steuerberaterübergabe, optionaler DATEV-/Behördenweg und Jahresabschluss | offen | Prüf-CSV und Artefaktexport vorhanden; kein nativ abgenommener DATEV-Import, keine Behördenübermittlung und kein vollständiger Jahresabschluss. |
 | R08.08 | 8: Fachliche Abnahme, Aufbewahrung/Verfahrensdokumentation und produktiver Ausstellerwechsel | extern_blockiert | Zuständige Fachprüfung und betriebliche Freigabe für benannte Fälle fehlen; Entwicklung und synthetische Tests bleiben möglich. |

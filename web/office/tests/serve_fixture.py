@@ -61,6 +61,9 @@ def seed(office, directory):
     component_email = 'components@browser.example.test'
     actors['components'] = dict(id=office.add_user(component_email, PASSWORD, 'accountant'),
                                 email=component_email, role='accountant')
+    refund_email = 'refunds@browser.example.test'
+    actors['refunds'] = dict(id=office.add_user(refund_email, PASSWORD, 'accountant'),
+                             email=refund_email, role='accountant')
     owner, technician = actors['owner'], actors['technician']
     organization = Organization(office)
     settings = organization.get(owner)
@@ -76,6 +79,11 @@ def seed(office, directory):
     private = office.add_project(owner, 'Private synthetic project', customer_id=second_customer['id'])
     office.assign(owner, private, actors['components']['id'])
     allocation_target = office.add_project(owner, 'Synthetic allocation target', customer_id=second_customer['id'])
+    refund_customer = office.create_customer(owner, {'name': 'Separate refund fixture customer', 'email': 'refund-other@example.test',
+        'address': 'Synthetic third street 3, 00000 Testcity'})
+    refund_other_project = office.add_project(owner, 'Synthetic refund other customer', customer_id=refund_customer['id'])
+    for refund_project in (private, allocation_target, refund_other_project):
+        office.assign(owner, refund_project, actors['refunds']['id'])
     for allocation_project in (project, private, allocation_target):
         office.assign(owner, allocation_project, actors['allocator']['id'])
     office.assign(owner, project, technician['id'])
@@ -93,6 +101,8 @@ def seed(office, directory):
                                             scope='*', effect='allow', revision=0))
     for permission in ('accounting.read', 'accounting.prepare'):
         foundation.save_grant(owner, request(user_id=actors['components']['id'], permission=permission,
+                                            scope='*', effect='allow', revision=0))
+        foundation.save_grant(owner, request(user_id=actors['refunds']['id'], permission=permission,
                                             scope='*', effect='allow', revision=0))
     foundation.save_grant(owner, request(user_id=actors['bookkeeper']['id'], permission='documents.read',
                                         scope=project, effect='deny', revision=0))
@@ -173,7 +183,10 @@ def seed(office, directory):
                                 ('original', private, second_customer['name']),
                                 ('target', allocation_target, second_customer['name']),
                                 ('component_single', private, second_customer['name']),
-                                ('component_multi', private, second_customer['name'])):
+                                ('component_multi', private, second_customer['name']),
+                                ('refund_main', private, second_customer['name']),
+                                ('refund_other_invoice', private, second_customer['name']),
+                                ('refund_other_customer', refund_other_project, refund_customer['name'])):
         draft = synthetic.create(owner, request(project_id=target, kind='invoice',
             title='Synthetic stored allocation invoice ' + key, issue_date='2026-11-02', due_date='2026-11-16',
             buyer={'name': buyer, 'address_line': 'Synthetic buyer street 2', 'postal_code': '10117',
@@ -208,6 +221,24 @@ def seed(office, directory):
             allocations=[{'document_id': allocation_invoices[invoice_key]['id'], 'amount': amount}]))
         component_payments.append({'id': payment['id'], 'label': label, 'amount': amount,
                                    'invoice_id': allocation_invoices[invoice_key]['id']})
+    # No imported cash events or component records are seeded here. The refund
+    # browser flow creates those using real authenticated forms after E1a tests.
+    refund_payments = []
+    for label, kind, invoice_key, amount, allocated, cash_date in (
+            ('origin-a', 'receipt', 'refund_main', '49.67', '39.67', '2026-11-01'),
+            ('origin-b', 'receipt', 'refund_main', '39.67', '39.67', '2026-11-02'),
+            ('future', 'receipt', 'refund_main', '1.00', '1.00', '2026-11-03'),
+            ('other-invoice', 'receipt', 'refund_other_invoice', '1.00', '1.00', '2026-11-01'),
+            ('other-customer', 'receipt', 'refund_other_customer', '1.00', '1.00', '2026-11-01'),
+            ('return-1', 'refund', 'refund_main', '26.44', '26.44', '2026-11-02'),
+            ('return-2', 'refund', 'refund_main', '26.44', '26.44', '2026-11-02'),
+            ('return-3', 'refund', 'refund_main', '26.46', '26.46', '2026-11-02')):
+        payment = finance.record_payment(owner, request(source_id='SYN-REFUND-' + label,
+            kind=kind, amount=amount, currency='EUR', booking_date='2026-11-01',
+            reference='Synthetic refund ' + label,
+            allocations=[{'document_id': allocation_invoices[invoice_key]['id'], 'amount': allocated}]))
+        refund_payments.append({'id': payment['id'], 'label': label, 'kind': kind, 'amount': amount,
+            'allocated': allocated, 'cash_date': cash_date, 'invoice_id': allocation_invoices[invoice_key]['id']})
     accounting_receipts = []
     for target, vendor, invoice in ((project, 'Synthetic accounting supplier', 'SYN-ACCT-001'),
                                     (private, 'Private accounting supplier', 'SYN-PRIVATE-001'),
@@ -235,7 +266,7 @@ def seed(office, directory):
     return dict(project_id=project, private_project_id=private, photo_path=str(photo), portal_offers=portal_offers, accounting_payments=accounting_payments,
                 accounting_receipts=accounting_receipts, allocation_invoices=allocation_invoices,
                 allocation_shared_payment=allocation_shared['id'], allocation_target_project=allocation_target,
-                component_payments=component_payments)
+                component_payments=component_payments, refund_payments=refund_payments)
 
 
 class LoopbackProxyContract:

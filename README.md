@@ -1,6 +1,6 @@
 # Smartplan Office – Entwicklungsstand 0.12.0
 
-## Aktuelles Gesamtziel – 02.11.2026
+## Aktuelles Gesamtziel – 03.11.2026
 
 Für die weitere Entwicklung gilt
 [CRM_ERP_Gesamtziel.txt](CRM_ERP_Gesamtziel.txt). Es erweitert den bisherigen
@@ -38,7 +38,13 @@ bleiben erhalten. Ganze bestätigte Quellenanteile können außerdem in
 [belegte Netto-/ausgewiesene Steueranteile](docs/CRM_ERP_EUER_E1B2_API.md)
 aufgeteilt werden. Teilzahlungen teilen die exakten Gruppenreste des
 Originalbelegs; mehrere Gruppen verlangen eine ausdrückliche Bruttoverteilung.
-Steuerliche Freigabe, Erstattungsursprünge, Korrekturen,
+Die ausdrücklichen [Erstattungsursprünge](docs/CRM_ERP_EUER_E1B3A_API.md)
+sind implementiert und geprüft: ganze bestehende Erstattungszuordnungen lassen
+sich auf ausdrücklich gewählte ursprüngliche Zahlungsanteile beziehen. Die
+Rücknahme erhält deren genaue Netto-/Steuercents und erzeugt keine zweite
+Zahlungswirkung. Der [Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3A.json)
+benennt die ausgeführten Tests und ihre Grenzen.
+Steuerliche Freigabe, Wiederverwendung zurückgeführter Komponenten, Korrekturen,
 Perioden und Beraterpaket folgen gemäß [EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md).
 
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital

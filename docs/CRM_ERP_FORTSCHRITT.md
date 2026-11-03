@@ -1,7 +1,7 @@
 # CRM/ERP – Fortschritt und Testergebnisse
 
-Die Abschnitte sind chronologisch. Der aktuelle Entwicklungsschritt steht unter
-**Preisfreier Einkaufskatalog und vollständige Artikelredaktion** weiter unten.
+Die Abschnitte sind chronologisch. Der aktuelle Prüfstand steht unter
+**03.11.2026 – E1b-3a umgesetzt und geprüft** am Ende dieser Datei.
 Der erste Abschnitt gehört zum lokalen Commit `14fe4c9`, der zweite zu `64bdc26`.
 
 ## 02.11.2026 – Bestand, Integration und erste Entwicklung
@@ -930,3 +930,93 @@ Steuercents für neue Einnahmen; alte Komponentenbeweise bleiben unverändert.
 Der geprüfte E1b-2-Code ist im lokalen Commit `81a42b38` gesichert.
 Der Prüfnachweis bindet die oben genannten Ergebnisse an diesen vollständigen
 Commit; die Entwicklung wird anschließend mit E1b-3a fortgesetzt.
+
+## 03.11.2026 – E1b-3a umgesetzt und geprüft
+
+Ausgehend vom gesicherten E1b-2-Stand `2261712` ist die ausdrückliche
+Dokumentation von Erstattungsursprüngen umgesetzt. Ein ganzer ursprünglicher
+Rechnungsanteil einer bereits übernommenen Erstattung wird auf ausgewählte
+Komponentenzeilen ihrer ursprünglichen Einnahmen derselben Rechnung bezogen.
+Der Geldfluss, seine alten Rechnungszuordnungen, offene Posten und sämtliche
+E1a-/E1b-1-/E1b-2-Nachweise bleiben bestehen.
+
+Jedes ursprüngliche Komponentenlos trägt seine tatsächlich dokumentierten
+Netto-/Steuercents. Die neue kumulative Rückführung verwendet genau diese
+Basis. Damit wird zum Beispiel ein Los 39,67 = 33,33 + 6,34 auch nach mehreren
+Teilerstattungen exakt auf diese ursprünglichen Cents zurückgeführt.
+Ausdrückliche Ursprungswahl, Rechnung, Kunde, Geldflussdatum, globale
+Restbeträge und frische vollständige Rechte sind Teil der Bestätigung.
+E1b-3a gibt noch keine Kapazität für neue Belegaufteilungen frei.
+
+Registrierung, strikte HTTP-Grenzen, native Paketlisten und CI-Einstiege für das
+neue Modul sind umgesetzt. Drei unveränderliche Tabellen ergänzen die bisherigen
+Nachweise; der eigenständige R1-Horizont erweitert den Betreiberabgleich zu
+H4/Schema 5. Historische H1-/A1-/C1-Nachweise und erfolgreiche alte
+Restorequittungen bleiben erhalten. Ein alter Nachweis entsperrt keinen neuen
+Restore. Browser und Flutter erlauben ausdrückliche, centgenaue Ursprungswahl,
+Vorschau und gesonderte Bestätigung. Verlorene Antworten werden mit demselben
+Befehl wiederholt; frische Rechte auf die ganze Erstattung und alle betroffenen
+Ursprünge bleiben Voraussetzung.
+
+### Tatsächlich ausgeführte Prüfungen
+
+| Gruppe | Ergebnis | Rohprotokoll unter `work/verification/` |
+| --- | --- | --- |
+| Neue Domänenfälle | 17/17, 4,968 s | `accounting-refunds-domain.log` |
+| Registrierung und tatsächlicher lokaler HTTP-Einstieg | 10/10, 2,887 s | `accounting-refunds-registration-transport.log` |
+| Unabhängige echte HTTPS-/MFA-Strecke | 9/9, 16,213 s | `accounting-refunds-http-journey.log` |
+| HTTP, Betreiberabgleich, Backup/Restore und Regressionen | 60/60, 17,168 s | `accounting-refunds-http-restore.log` |
+| Neue PostgreSQL-Fälle | 12/12, 49,037 s | `pg-accounting-refunds-initial.log` |
+| Betroffene ältere PostgreSQL-Migrationen und Restorefälle | 6/6, 23,463 s | `pg-accounting-refunds-regression.log` |
+| Vollständiger Backendlauf auf aktuellem Code | 528 ausgeführt: 527 bestanden, ein bestehender Windows-Job-Object-Test unter Linux übersprungen; 98,789 s | `accounting-refunds-backend-full.log` |
+| Flutter gezielt | 99/99, rund 17 s | `e1b3a-flutter-targeted.log` |
+| Flutter vollständig | 459/459, rund 139 s | `e1b3a-flutter-full.log` |
+| Flutteranalyse | keine Befunde, 9,1 s | `e1b3a-flutter-analyze.log` |
+| Browser-Unitgruppe | 109/109, rund 0,54 s | `accounting-refunds-node-agent.log` |
+| Tatsächlicher gezielter Erstattungsablauf im Browser | 1/1; Desktop und 390-Pixel-Ansicht visuell geprüft | `accounting-refunds-browser-final.log` |
+| Abschließende native Paketprüfung | 15/15, 2,891 s | `accounting-refunds-native-final.log` |
+
+Die Gruppen überschneiden sich und werden nicht als eindeutige Abnahmen addiert.
+Der PostgreSQL- und erste HTTPS-Nachweis bindet den Refundmodulstand
+`23b8c700…`. Anschließend wurden zwei enge Prüfungen ergänzt: Ein boolescher
+Wert ist keine gültige Proof-Schemaversion, und eine fehlende gespeicherte
+C1-Zeile wird auch bei konsistent neu geschriebenen Hashes abgewiesen.
+Der aktuelle Modulstand `98ebbdd3…` ist durch die 17 Domänenfälle, den aktuellen
+vollständigen Backendlauf und die abschließenden Clientprüfungen belegt.
+Der ältere PostgreSQL-Lauf wird ausdrücklich nicht als Wiederholung auf diesem
+späteren Modulstand dargestellt. Die PostgreSQL-Prüfung umfasste tatsächliche
+Rechnungsausstellung, getrennte Rollen, konkurrierende Verbindungen, atomaren
+Rollback, unveränderliche Tabellen sowie echten Dump/Restore mit Schema 5.
+
+Ein erster Flutter-Vollsuitenstart scheiterte vor den Tests am fehlenden
+clang-Pfad. Mit dem bereits installierten Wrapper lief die gesamte Suite
+erfolgreich; dafür wurde kein Produktcode geändert. Der gezielte Browserlauf
+verwendete nachweislich Namespace-, PID-, Netzwerk- und Seccomp-Sandboxing.
+Die lokal erzeugten Rechnungsarchive der SQLite-/Browserfixtures sind
+synthetisch; produktive Rechnungsausstellung wird getrennt in PostgreSQL geprüft.
+
+Die visuelle Prüfung zeigt lesbare Erstattungsnachweise und eine gesonderte
+Bestätigung in Desktop- und schmaler Ansicht; der Dialog scrollt innerhalb der
+Ansicht. Die fünf geprüften Flutter-Dateien blieben während der abschließenden
+Suite unverändert. Unabhängige Fach- und Clientreviews ergaben keine weiteren
+bestätigten Befunde. Die Paketprüfung importiert das tatsächlich extrahierte
+Supportarchiv und enthält die aktuellen API-/Betreiberdokumente.
+
+Der [E1b-3a-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3A.json) hält Ergebnisse,
+Versionengrenzen und Prüfsummen fest. Die ursprüngliche Zieldatei bleibt
+unverändert. Der nächste Fachschritt E1b-3b behandelt neue Verteilungsabschnitte
+aus alten Resten und exakt zurückgeführten Beträgen; er ist durch diese
+Erstattungsursprünge noch nicht erledigt. EÜR-Ergebnis, Lohnabrechnung und
+Gesamtziel A–G bleiben offen.
+
+### Zwischenstand auf Nutzerfrage – 03.11.2026
+
+Die aktuelle Anforderungsmatrix umfasst 62 abgegrenzte Bausteine: 24 sind
+`implementiert`, vier `getestet`, 27 `offen`, einer ausdrücklich teilweise und
+sechs `extern_blockiert`. Damit sind 28/62, also 45,2 %, als implementiert oder
+getestet geführt. Diese ungewichtete Zählung enthält auch den vorhandenen
+Bestandsquellcode und ist keine belastbare Aufwandsschätzung. Große offene
+Bereiche wie vollständige EÜR, Lohn und KI sowie die innerhalb einzelner
+Bausteine genannten Restarbeiten werden dadurch nicht als erledigt bewertet.
+Keine der sieben Gesamtabnahmen A–G ist abgeschlossen. Die unabhängige
+Entwicklung wird fortgesetzt.

@@ -1,8 +1,10 @@
 # EÜR-Vorbereitung: Geldflüsse und Wiederherstellung
 
-Stand: 02.11.2026. Dieser Abschnitt beschreibt E1a, das belegte EUR-Vorjournal,
+Stand: 03.11.2026. Dieser Abschnitt beschreibt E1a, das belegte EUR-Vorjournal,
 die zusätzliche Rechnungszuordnung E1b-1 und die dokumentarische
-Belegaufteilung E1b-2.
+Belegaufteilung E1b-2 sowie die ausdrücklichen Erstattungsursprünge E1b-3a.
+Ausgeführte Prüfungen und ihre Grenzen stehen im
+[Fortschrittsbericht](CRM_ERP_FORTSCHRITT.md).
 Es erfasst bestätigte Geldflüsse mit Herkunft und ersetzt noch keine vollständige
 EÜR, Steuerberechnung, Kassenführung oder Bankabstimmung. Es löst keine Zahlung
 aus. Die erste vollständige Buchhaltung ist für ein Einzelunternehmen mit EÜR
@@ -40,7 +42,9 @@ projektbezogene Accountingfreigaben werden abgewiesen.
    unter einer anderen Beleg-ID eröffnet keinen zweiten Auszahlungsbetrag.
 4. Das Vorjournal zeigt bestätigte Herkunft und Kontoversion. Steuerliche
    Einordnung bleibt `unclassified`; fehlendes Steuerprofil und fehlender
-   ursprünglicher Bezug alter Rückerstattungen bleiben als Klärungsfälle sichtbar.
+   ursprünglicher Bezug alter Rückerstattungen bleiben im damaligen E1a-Nachweis
+   sichtbar. Neue Ursprungsbindungen werden in einer eigenen aktuellen Ansicht
+   dokumentiert; sie schreiben diesen historischen Nachweis nicht um.
 
 Beträge werden centgenau ohne Rundung angenommen. Die Nachweisreferenz muss den
 Geldfluss auf dem Konto eindeutig identifizieren. Für den Dublettenvergleich
@@ -136,6 +140,42 @@ erfasst, auch wenn seine Aufteilung bei erschöpfter Gruppe noch ungeklärt ist.
 Aufteilungen lassen sich noch nicht aufheben oder ersetzen. Die steuerliche
 Einordnung bleibt ausdrücklich offen; dies ist keine fertige EÜR.
 
+## Ursprüngliche Zahlungsanteile einer Erstattung dokumentieren
+
+Beim übernommenen Kundenerstattungs-Geldfluss öffnet „Erstattungsursprung zuordnen“
+die noch ungeklärten ursprünglichen Rechnungsanteile. Ein Anteil wird immer
+als Ganzes dokumentiert. Erzeugt werden ausschließlich Nachweise zu bereits
+erfassten Geldflüssen; es wird keine weitere Zahlung ausgeführt oder gebucht.
+
+1. Den festen Rechnungsanteil der Erstattung auswählen. Rechnung, Kunde,
+   Betrag, Zahlungsdatum und Nachweisreferenz prüfen. Noch gar keiner Rechnung
+   zugeordnete Erstattungsbeträge müssen gesondert geklärt werden.
+2. Die passenden ursprünglichen dokumentierten Zahlungsanteile ausdrücklich
+   wählen. Datum, Zahlungsnachweis, Verwendungszweck, Nummer der dokumentierten
+   Aufteilung und Beleggruppe unterscheiden die angebotenen Ursprünge. Nur
+   Ursprünge derselben Rechnung mit einem Zahlungsdatum spätestens am
+   Erstattungsdatum kommen infrage. Die Software errät keine Zuordnung.
+3. Die positiven Bruttobeträge auf die gewählten Ursprünge verteilen. Ihre
+   Summe muss genau dem festen Erstattungsanteil entsprechen; jeder Ursprung
+   darf höchstens seinen angezeigten verbleibenden Betrag tragen.
+4. Die Vorschau prüfen und gesondert bestätigen. Netto- und ausgewiesene
+   Steuercents stammen aus den ursprünglichen Aufteilungen; auch mehrere
+   Teilerstattungen führen zusammen exakt auf diese Cents zurück. Bei einem
+   konkurrierend geänderten Ursprung neu laden und eine neue Vorschau prüfen.
+   Bei verlorener Antwort denselben unveränderten vorgemerkten Auftrag senden.
+
+Die Historie zeigt die damalige Bestätigung. Spätere Stornierung der Rechnung
+oder Stilllegung eines Geldkontos verhindert eine dokumentierte echte
+Erstattung auf einen gültigen alten Zahlungsanteil nicht. Vollständige aktuelle
+Quellrechte auf Erstattung und sämtliche verwendeten ursprünglichen Zahlungen
+gelten auch für Historie und Wiederholung. Fehlt ein benötigter Zugriff, wird
+der gesamte zugehörige Erstattungsstand verborgen.
+
+Dieser Schritt gibt keine Beleggruppenkapazität für neue Einnahmen frei und
+ist keine steuerliche Gegenbuchung. Der ungeklärte Betrag bezieht sich auf
+den geöffneten Erstattungsgeldfluss; er beweist keine vollständige Klärung
+aller Erstattungen einer Rechnung oder des Unternehmens.
+
 ## Wiederherstellung einer lokalen SQLite-Sicherung
 
 Eine Wiederherstellung erhält Geldflüsse, Originale und Historie. Bei einem
@@ -166,9 +206,11 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
 3. Einen UTF-8-JSON-Prüfbericht im von `--inspect` ausgegebenen
    `evidence_schema` erstellen: [Schema 2](CRM_ERP_EUER_E1A_API.md#betreiberabgleich)
    für einen reinen E1a-Bestand, [Schema 3](CRM_ERP_EUER_E1B1_API.md#restore-und-clients)
-   mit zusätzlichem Zuordnungsmodul ohne Komponenten oder
+   mit zusätzlichem Zuordnungsmodul ohne Komponenten,
    [Schema 4](CRM_ERP_EUER_E1B2_API.md#wiederherstellung-und-clients)
-   mit Komponentenmodul, auch wenn dessen Tabellen noch leer sind.
+   mit Komponentenmodul ohne Erstattungsursprünge oder
+   [Schema 5](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiberquittungen)
+   mit Erstattungsmodul, auch wenn dessen Tabellen noch leer sind.
    Er enthält genau `schema`, `restore_id`, `reviewed_by`,
    `reviewed_at` mit Zeitzone, `number_horizons`, `outbound_reconciled:true`,
    `accounting_horizon`, `accounting_reconciled:true` und
@@ -185,6 +227,9 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    Schema 4 verwendet `schema_version:3` und zusätzlich `components`.
    Dieser dritte Teil bindet alle bestätigten Aufteilungen, Gruppenzeilen und
    Quittungen. Beide bisherigen Teilhorizonte bleiben unverändert enthalten.
+   Schema 5 verwendet `schema_version:4` mit zusätzlich `refunds`. Dieser
+   vierte Teil bindet Erstattungsursprünge, Rücknahmezeilen und Quittungen;
+   die drei bisherigen Teilhorizonte bleiben unverändert enthalten.
 4. Bericht privat speichern: unter POSIX höchstens Eigentümerrechte, etwa
    `chmod 600 abgleich.json`; unter Windows Zugriff über die Dateirechte auf die
    zuständigen Betreiber begrenzen. Keine Symlinks, keine öffentlichen Ablagen.
@@ -212,13 +257,14 @@ PostgreSQL verwendet weiterhin den vorhandenen Release-/Operatorpfad mit
 getrennter Datenbankrolle, gestoppten Datenbanknutzern und Datenschutzabgleich.
 Auch dort ist der Bericht für den gesamten installierten Umfang erforderlich:
 Schema 2 nur mit E1a, Schema 3 mit zusätzlicher Rechnungszuordnung ohne
-Komponenten oder Schema 4 mit Komponentenmodul, selbst bei leeren Tabellen.
+Komponenten, Schema 4 mit Komponenten ohne Erstattungsmodul und Schema 5
+mit Erstattungsmodul, selbst bei leeren Tabellen.
 Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
 
 ## Grenzen und nächste Schritte
 
-Steuerliche Freigabe der dokumentarischen Komponenten, Erstattungsbezüge,
-Quellenkorrekturen, Perioden,
+Steuerliche Freigabe der dokumentarischen Komponenten, genaue Wiederverwendung
+zurückgeführter Komponenten, Quellenkorrekturen, Perioden,
 Anlagen, Privatanteile, Lohnbuchungen und Beraterpaket folgen gesondert. Ein
 Bankkonto in dieser Oberfläche ist kein Bankfeed; Bargeldkonto ist kein
 abgenommenes Kassenbuch. Keine vollständige Jahres-EÜR oder amtliche Meldung

@@ -155,6 +155,8 @@ Zusatzmodul ohne Komponentenmodul
 Ohne Zusatzmodul bleibt H1 bzw. None erhalten. Kein dynamischer OP im Restorehash.
 Mit [E1b-2](CRM_ERP_EUER_E1B2_API.md#wiederherstellung-und-clients) ergänzt H3
 den eigenen Komponentenstand; der hier beschriebene Teilhorizont bleibt erhalten.
+Mit [E1b-3a](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiberquittungen)
+ergänzt H4 die Erstattungsursprünge; neue Freigaben verlangen dann Schema 5.
 
 Neue Betreiberfreigaben benötigen Schema 3 bei installiertem Zusatzmodul ohne Komponenten,
 Schema 2 nur mit E1a, Schema 1 ohne Accounting. Schema 3 behält alle weiteren
@@ -203,7 +205,8 @@ Der vollständige Betreiberbericht verwendet `schema:3` und dieses Objekt als
 `accounting_horizon`. Alle weiteren Felder und die private, unabhängige
 Quellenprüfung entsprechen dem Schema-2-Vertrag. Auch ein installiertes leeres
 Zuordnungsmodul ohne Komponenten verlangt für eine **neue** Freigabe Schema 3;
-mit Komponenten ist Schema 4 erforderlich.
+mit Komponenten ohne Erstattungsmodul ist Schema 4 erforderlich, mit
+Erstattungsmodul Schema 5.
 `--inspect` zeigt dafür `evidence_schema:3`; es erzeugt weiterhin keinen fertigen
 Prüfbericht, keine Tabellen und keine Freigabe.
 

@@ -1,6 +1,6 @@
 # E1b-Entwurf: Quellenzuordnung und belegte Betragsaufteilung
 
-Stand: 02.11.2026. **Gesamtplan, teilweise umgesetzt.** Der ursprüngliche Entwurf
+Stand: 03.11.2026. **Gesamtplan, teilweise umgesetzt.** Der ursprüngliche Entwurf
 entstand aus einer lesenden Prüfung des E1a-Quellcodes. Grundlage sind der
 [EÜR-Plan](CRM_ERP_EUER_PLAN.md) und der
 [E1a-Vertrag](CRM_ERP_EUER_E1A_API.md).
@@ -9,8 +9,12 @@ Der getrennte [Abschnitt E1b-1](CRM_ERP_EUER_E1B1_API.md) ist implementiert:
 zusätzliche Zuordnung freier bestätigter Kundenzahlungen zu normalen Rechnungen
 und gemeinsame effektive OP-Projektion. [E1b-2](CRM_ERP_EUER_E1B2_API.md)
 ergänzt die dokumentarische Centaufteilung ganzer bestehender Quellenanteile.
-Erstattungsursprünge, genaue Restkapazitätsabschnitte nach Rücknahme und
-steuerliche Einordnung folgen danach. Dieser Gesamtentwurf allein bleibt
+[Erstattungsursprünge E1b-3a](CRM_ERP_EUER_E1B3A_API.md) sind implementiert und
+[geprüft](CRM_ERP_PRUEFNACHWEIS_E1B3A.json): ganze bestehende
+Erstattungszuordnungen erhalten ausdrücklich gewählte Ursprünge und deren
+exakte Netto-/Steuercents. Dabei wird keine Gruppenrestkapazität freigegeben.
+Genaue Restkapazitätsabschnitte nach Rücknahme folgen als E1b-3b; die
+steuerliche Einordnung bleibt offen. Dieser Gesamtentwurf allein bleibt
 ein Plan; ausgeführte Nachweise stehen bei den jeweiligen Teilabschnitten.
 
 ## 1. Offene Angaben und klarer Umfang

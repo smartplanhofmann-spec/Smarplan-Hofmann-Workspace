@@ -20,6 +20,8 @@ class AllocationLocalTransportTests(unittest.TestCase):
     actions = ('/preview', '/assign')
     entries_table = 'business_accounting_allocation_entries'
     components = False
+    refunds = False
+    payment_kind = 'receipt'
 
     def setUp(self):
         temporary = tempfile.TemporaryDirectory(prefix='synthetic-allocation-local-http-')
@@ -32,7 +34,7 @@ class AllocationLocalTransportTests(unittest.TestCase):
         account = Accounting(self.office).create_account(actor, dict(request_id=uuid.uuid4().hex,
             code='LOCAL', name='Synthetic local cash', kind='cash', confirmation=True))
         payment = Finance(self.office).record_payment(actor, dict(request_id=uuid.uuid4().hex,
-            source_id=uuid.uuid4().hex, kind='receipt', amount='10.00', currency='EUR',
+            source_id=uuid.uuid4().hex, kind=self.payment_kind, amount='10.00', currency='EUR',
             booking_date='2026-11-02', reference='Synthetic receipt', allocations=[]))
         source = Accounting(self.office).payment_sources(actor)['items'][0]
         event = Accounting(self.office).import_payment(actor, dict(request_id=uuid.uuid4().hex,
@@ -41,6 +43,8 @@ class AllocationLocalTransportTests(unittest.TestCase):
         self.path = '/api/business/accounting/allocations/payments/' + payment['id']
         if self.components:
             self.path = '/api/business/accounting/components/events/' + event['id']
+        if self.refunds:
+            self.path = '/api/business/accounting/refunds/events/' + event['id']
         self.server = ThreadingHTTPServer(('127.0.0.1', 0), make_handler(self.office, OneDrive(self.office)))
         worker = threading.Thread(target=self.server.serve_forever, daemon=True)
         worker.start()
@@ -80,6 +84,13 @@ class ComponentsLocalTransportTests(AllocationLocalTransportTests):
     actions = ('/preview', '/confirm')
     entries_table = 'business_accounting_component_entries'
     components = True
+
+
+class RefundsLocalTransportTests(AllocationLocalTransportTests):
+    actions = ('/preview', '/confirm')
+    entries_table = 'business_accounting_refund_entries'
+    refunds = True
+    payment_kind = 'refund'
 
 
 if __name__ == '__main__':

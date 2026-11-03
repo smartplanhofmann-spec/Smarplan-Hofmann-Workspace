@@ -187,8 +187,10 @@ Bei installiertem `business_accounting` ohne zusätzliches Zuordnungsmodul
 verlangt der Betreiberpfad einen JSON-Prüfbericht mit **genau** folgenden
 Feldern. Mit E1b-1 gilt für neue Freigaben stattdessen
 [Schema 3 mit kombiniertem Horizont](CRM_ERP_EUER_E1B1_API.md#restore-und-clients).
-Mit zusätzlichem Komponentenmodul gilt
+Mit zusätzlichem Komponentenmodul ohne Erstattungsmodul gilt
 [Schema 4](CRM_ERP_EUER_E1B2_API.md#wiederherstellung-und-clients).
+Mit Erstattungsmodul gilt
+[Schema 5](CRM_ERP_EUER_E1B3A_API.md#restorehorizont-und-historische-betreiberquittungen).
 
 ```json
 {

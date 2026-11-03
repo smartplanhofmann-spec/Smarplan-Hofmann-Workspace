@@ -295,6 +295,90 @@ export function componentConfirmData(body,preview,confirmation) {
   componentPreview(preview,body,preview.event_id);return {...body,groups:body.groups.map(group=>({...group})),preview_hash:preview.preview_hash,confirmation:true};
 }
 
+export function refundAccess(capabilities,organization,value=null,online=true) {
+  const components=componentAccess(capabilities,organization,null,online),available=components.available&&capabilities.features?.includes('accounting_refund_origins')===true&&capabilities.capabilities?.includes('business_accounting_refunds')===true;
+  const read=available&&components.read;
+  return {available,read,prepare:read&&components.prepare&&(value===null||value.writes_allowed===true&&value.eligible===true)};
+}
+function refundEnvelope(value) { componentEnvelope(value);if(value.capacity_released!==false)throw new ApiError('Der dokumentarische Erstattungsstand konnte nicht sicher gelesen werden.',502); }
+function refundDate(value) { if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value)||!Number.isFinite(Date.parse(value+'T12:00:00Z'))||new Date(value+'T12:00:00Z').toISOString().slice(0,10)!==value)throw new ApiError('Der bestätigte Zahlungstag konnte nicht sicher gelesen werden.',502);return value; }
+export function refundState(value) {
+  refundEnvelope(value);accountingId(value.event_id);accountingId(value.source_hash,true);accountingId(value.state_hash,true);accountingRevision(value.revision,true);refundDate(value.cash_date);
+  if(value.currency!=='EUR'||!['customer_refund','customer_receipt','supplier_payout'].includes(value.source_kind)||typeof value.eligible!=='boolean'||typeof value.writes_allowed!=='boolean'||componentCents(value.amount)<=0n||componentCents(value.origin_documented_amount)+componentCents(value.origin_unresolved_amount)!==componentCents(value.amount)||componentCents(value.unallocated_amount)>componentCents(value.origin_unresolved_amount))throw new ApiError('Die dokumentierten Erstattungsbeträge stimmen nicht überein.',502);
+  return value;
+}
+export function refundPortion(value,eventId) {
+  for(const name of ['portion_id','portion_state_hash','payload_sha256','pdf_sha256'])accountingId(value?.[name],true);
+  accountingId(value.document_id);if(value.customer_id!==null)accountingId(value.customer_id);
+  if(value.event_id!==eventId||value.kind!=='original_refund_allocation'||value.currency!=='EUR'||typeof value.eligible!=='boolean'||componentCents(value.amount)<=0n)throw new ApiError('Der ganze Erstattungsanteil konnte nicht sicher gelesen werden.',502);
+  return value;
+}
+function refundLotKey(value) { return accountingId(value.entry_id)+':'+accountingId(value.group_id,true); }
+function refundGroup(value) {
+  accountingRevision(value.component_sequence);accountingId(value.origin_event_id);
+  if(typeof value.rate!=='string'||!/^\d+(?:\.\d+)?$/.test(value.rate)||typeof value.category!=='string'||typeof value.tax_reason!=='string')throw new ApiError('Die ursprüngliche Beleggruppe konnte nicht sicher gelesen werden.',502);
+}
+export function refundOrigin(value,portion,cashDate) {
+  refundLotKey(value);refundGroup(value);accountingId(value.lot_state_hash,true);refundDate(value.cash_date);
+  if(value.currency!=='EUR'||value.document_id!==portion.document_id||value.customer_id!==portion.customer_id||value.cash_date>cashDate||componentCents(value.amount)<=0n)throw new ApiError('Der angebotene Ursprung passt nicht zu Rechnung, Kunde und Erstattungstag.',502);
+  for(const prefix of ['', 'returned_', 'remaining_'])if(componentCents(value[prefix+'net'])+componentCents(value[prefix+'tax'])!==componentCents(value[prefix+'amount']))throw new ApiError('Die ursprünglichen Netto-/Steueranteile stimmen nicht überein.',502);
+  for(const name of ['amount','net','tax'])if(componentCents(value['returned_'+name])+componentCents(value['remaining_'+name])!==componentCents(value[name]))throw new ApiError('Der verfügbare Ursprungsrest stimmt nicht überein.',502);
+  return value;
+}
+export function refundPreviewData(source,portion,choices,reason) {
+  refundState(source);refundPortion(portion,source.event_id);
+  if(source.source_kind!=='customer_refund'||!source.eligible||!source.writes_allowed||!portion.eligible)throw new Error('Dieser Erstattungsanteil benötigt eine erneute Prüfung.');
+  if(!Array.isArray(choices)||!choices.length||choices.length>500)throw new Error('Bitte mindestens einen Ursprung ausdrücklich mit positivem Betrag wählen.');
+  const seen=new Set();let total=0n;
+  const origins=choices.map(({origin,amount:input})=>{
+    refundOrigin(origin,portion,source.cash_date);const key=refundLotKey(origin);if(seen.has(key))throw new Error('Jede ursprüngliche Aufteilung und Beleggruppe nur einmal wählen.');seen.add(key);
+    const amount=accountingAmount(input),cents=componentCents(amount);if(cents>componentCents(origin.remaining_amount))throw new Error('Ein Betrag überschreitet den verfügbaren Rest dieses Ursprungs.');total+=cents;
+    return {entry_id:origin.entry_id,group_id:origin.group_id,lot_state_hash:origin.lot_state_hash,amount};
+  });
+  if(total!==componentCents(portion.amount))throw new Error(`Die Ursprungssumme muss genau dem ganzen Erstattungsanteil von ${formatMoney(portion.amount)} entsprechen.`);
+  return {source_hash:source.source_hash,expected_revision:source.revision,state_hash:source.state_hash,portion_id:portion.portion_id,portion_state_hash:portion.portion_state_hash,origins,reason:accountingText(reason,'Begründung',1000)};
+}
+function refundLines(value) {
+  refundEnvelope(value);refundPortion(value.portion,value.event_id);refundDate(value.cash_date);
+  if(value.amount!==value.portion.amount||!Array.isArray(value.lines)||!value.lines.length||value.lines.length>500)throw new ApiError('Die Ursprungsbindung konnte nicht sicher gelesen werden.',502);
+  let gross=0n,net=0n,tax=0n;const seen=new Set();
+  for(const line of value.lines) {
+    const key=refundLotKey(line);refundGroup(line);accountingId(line.lot_state_hash,true);refundDate(line.origin_cash_date);
+    if(seen.has(key)||line.origin_cash_date>value.cash_date)throw new ApiError('Die Ursprungslinien sind nicht eindeutig oder zeitlich unzulässig.',502);seen.add(key);
+    const amount=componentCents(line.amount),lineNet=componentCents(line.net),lineTax=componentCents(line.tax);
+    if(amount<=0n||lineNet+lineTax!==amount)throw new ApiError('Die dokumentierten Rücknahmecents stimmen nicht überein.',502);
+    for(const [field,delta]of [['gross',amount],['net',lineNet],['tax',lineTax]])if(componentCents(line[field+'_after'])-componentCents(line[field+'_before'])!==delta)throw new ApiError('Die Rücknahmestände stimmen nicht überein.',502);
+    for(const suffix of ['before','after'])if(componentCents(line['net_'+suffix])+componentCents(line['tax_'+suffix])!==componentCents(line['gross_'+suffix]))throw new ApiError('Die kumulierten Rücknahmecents stimmen nicht überein.',502);
+    if(componentCents(line.remaining_net)+componentCents(line.remaining_tax)!==componentCents(line.remaining_gross))throw new ApiError('Die verbleibenden Ursprungscents stimmen nicht überein.',502);
+    gross+=amount;net+=lineNet;tax+=lineTax;
+  }
+  if(gross!==componentCents(value.amount)||net!==componentCents(value.net)||tax!==componentCents(value.tax))throw new ApiError('Die Ursprungsbindung summiert sich nicht zum ganzen Erstattungsanteil.',502);
+  return value;
+}
+export function refundPreview(value,body,source,choices) {
+  refundLines(value);accountingId(value.preview_hash,true);
+  if(value.event_id!==source.event_id||value.source_hash!==body.source_hash||value.expected_revision!==body.expected_revision||value.state_hash!==body.state_hash||value.cash_date!==source.cash_date||value.evidence_reference!==source.evidence_reference||value.reference!==source.reference||value.reason!==body.reason||value.portion.portion_id!==body.portion_id||value.portion.portion_state_hash!==body.portion_state_hash||value.lines.length!==body.origins.length)throw new ApiError('Die Vorschau gehört nicht zur geprüften Erstattungsanfrage.',502);
+  for(const line of value.lines) {
+    const selected=body.origins.find(item=>refundLotKey(item)===refundLotKey(line)),origin=choices.find(item=>refundLotKey(item.origin)===refundLotKey(line))?.origin;
+    if(!selected||!origin||line.amount!==selected.amount||line.lot_state_hash!==selected.lot_state_hash||line.origin_event_id!==origin.origin_event_id||line.origin_cash_date!==origin.cash_date||line.origin_evidence_reference!==origin.evidence_reference||line.origin_reference!==origin.reference||['component_sequence','rate','category','tax_reason'].some(name=>line[name]!==origin[name]))throw new ApiError('Die Vorschau hat einen gewählten Ursprung verändert.',502);
+    for(const [field,name]of [['gross','amount'],['net','net'],['tax','tax']])if(componentCents(line[field+'_before'])!==componentCents(origin['returned_'+name])||componentCents(line[field+'_after'])+componentCents(line['remaining_'+field])!==componentCents(origin[name]))throw new ApiError('Die Vorschau hat die geprüften Ursprungscents verändert.',502);
+  }
+  return value;
+}
+export function refundConfirmData(body,preview,source,choices,confirmation) {
+  if(confirmation!==true)throw new Error('Bitte die geprüfte Ursprungsbindung gesondert bestätigen.');
+  refundPreview(preview,body,source,choices);return {...body,origins:body.origins.map(item=>({...item})),preview_hash:preview.preview_hash,confirmation:true};
+}
+export async function refundAuthorize(api,eventId,origins) {
+  // The refund state also authorizes every already bound origin, including
+  // later project extensions which are absent from the original cash event.
+  const bound=refundState(await api.get('/business/accounting/refunds/events/'+accountingId(eventId)));
+  if(bound.event_id!==eventId)throw new ApiError('Der aktuelle Ursprungsstand gehört nicht zur Erstattung.',502);
+  const ids=[...new Set([accountingId(eventId),...origins.map(item=>accountingId(item.origin_event_id))])];
+  for(const id of ids){const event=await api.get('/business/accounting/events/'+id);if(event.id!==id)throw new ApiError('Der aktuelle Zahlungsnachweis stimmt nicht mit dem Ursprung überein.',502);}
+}
+export function refundOriginLabel(value) { return `Dokumentierte Aufteilung ${value.component_sequence} · ${componentGroupLabel({rate:value.rate,category:value.category,reason:value.tax_reason})}`; }
+
 function purchaseDecimal(value) {
   const text=decimalText(value),negative=text.startsWith('-'),[whole,fraction='']=text.replace(/^-/,'').split('.');
   return {text,scaled:BigInt(whole+fraction.padEnd(4,'0'))*(negative?-1n:1n)};
@@ -571,6 +655,8 @@ const LABELS = {draft:'Entwurf',final:'Festgeschrieben',signed:'Unterzeichnet',n
   receipt:'Zahlungseingang',refund:'Erstattung',material:'Material',labor:'Lohn',service:'Leistung',machine:'Maschine',
   operational:'Operativ',financial:'Finanziell',personnel:'Personal',restricted:'Geschützt'};
 const api = new OfficeApi();
+// Only current-session source IDs; command contents remain inside OfficeApi.
+const refundPendingSources=new Map();
 const state = {financeTab:'payments',accounting:{tab:'events',payments:0,receipts:0,events:0,accounts:0},section:'overview', projectId:'', tab:'overview', user:null, projects:[], permissions:new Set(), globalPermissions:new Set(), capabilities:new Set(), features:new Set(), organization:null, openedHiddenSection:null, readonly:true, planning:{mode:'week',anchor:dateInput(),years:3}, render:0, urls:new Set(), deviceId:'browser-'+requestId()};
 let root, main, shell, banner, modal;
 const has = permission => state.permissions.has(permission);
@@ -694,6 +780,7 @@ function mayOpenSection(section) {
 }
 
 function loginScreen(challenge = null, enrollment = null) {
+  refundPendingSources.clear();
   closeModal(); revokeUrls(); state.user=null; root.replaceChildren();
   const card=el('section',{class:'login-card'},el('div',{class:'brand'},el('span',{class:'brand-mark'},'S'),el('div',{},el('strong',{},'smartplan'),el('small',{},'OFFICE'))),el('h1',{},challenge?'Anmeldung bestätigen':'Willkommen im Büro.'),el('p',{class:'muted'},challenge?'Authentifizierungscode oder Wiederherstellungscode eingeben.':'Projekte, Team und Unterlagen an einem Ort.'));
   if(enrollment) card.append(notice('Diesen Schlüssel einmalig in der eigenen Authenticator-App einrichten. Keine Drittanbieter-QR-Webseite verwenden.'),el('p',{class:'secret'},enrollment.secret));
@@ -754,6 +841,7 @@ function updateDrawer() {
 function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
 function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
 function operationLabel(path) {
+  if(path.startsWith('/business/accounting/refunds/'))return 'Erstattungsursprung dokumentieren';
   if(path.startsWith('/business/accounting/components/'))return 'Beleganteile dokumentarisch aufteilen';
   if(path.startsWith('/business/accounting/allocations/'))return 'Bestehende Zahlung einer Rechnung zuordnen';
   if(path.startsWith('/business/accounting/accounts'))return 'Geldkonto bestätigen';
@@ -776,12 +864,15 @@ function operationLabel(path) {
 function pendingDialog() {
   dialog('Unbestätigte Antworten',el('div',{class:'stack'},notice('Der Server kann die Eingabe bereits gespeichert haben. Eine Wiederholung verwendet exakt dieselbe Vorgangskennung und denselben Inhalt. Dieses Fenster bis zur Klärung geöffnet lassen.','warn'),
     rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{
-      if((item.path.startsWith(biz('/accounting/allocations/'))||item.path.startsWith(biz('/accounting/components/')))&&!navigator.onLine)throw new ApiError('Die Zahlungszuordnung benötigt eine Internetverbindung. Die unveränderte Anfrage bleibt offen.',0);
-      const generation=api.generation,previous=modal,result=await api.retry(item.key);if(generation!==api.generation||previous!==modal)return;updatePending();
+      if((item.path.startsWith(biz('/accounting/allocations/'))||item.path.startsWith(biz('/accounting/components/'))||item.path.startsWith(biz('/accounting/refunds/')))&&!navigator.onLine)throw new ApiError('Die Zahlungszuordnung benötigt eine Internetverbindung. Die unveränderte Anfrage bleibt offen.',0);
+      const generation=api.generation,previous=modal,initialRender=state.render;
+      if(item.path.startsWith(biz('/accounting/refunds/'))){refundWritable();const sources=refundPendingSources.get(item.key);if(!sources||sources.generation!==generation)throw new ApiError('Die Ursprungsrechte können für diese offene Anfrage nicht sicher geprüft werden.',409);await refundAuthorize(api,sources.eventId,sources.origins);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundWritable();}
+      const result=await api.retry(item.key);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundPendingSources.delete(item.key);updatePending();
       if(item.path===biz('/portal/grants')){portalGrantResultDialog({id:result.grant.offer_id,project_id:result.grant.project_id,number:result.grant.number,kind:'offer',status:'final'},result);return;}
       closeModal();const render=state.render+1,section=state.section;await refresh();
       if(item.path.startsWith(biz('/accounting/allocations/'))&&item.path.endsWith('/assign')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await accountingAllocationDialog(result.payment_id,{document:result.document});
-      if(item.path.startsWith(biz('/accounting/components/'))&&item.path.endsWith('/confirm')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await componentDialog(result.event_id);}),'primary')]))));
+      if(item.path.startsWith(biz('/accounting/components/'))&&item.path.endsWith('/confirm')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await componentDialog(result.event_id);
+      if(item.path.startsWith(biz('/accounting/refunds/'))&&item.path.endsWith('/confirm')&&generation===api.generation&&state.render===render&&state.section===section&&!modal)await refundDialog(result.event_id);}),'primary')]))));
 }
 function navigate(section,{includeHidden=false}={}) {
   state.openedHiddenSection=includeHidden&&sectionAuthorized(section)?section:null;
@@ -797,7 +888,7 @@ async function refresh() {
     const organization=organizationMetadata(caps),organizationChanged=JSON.stringify(state.organization)!==JSON.stringify(organization);
     const navigationChanged=organizationChanged||[...state.globalPermissions].sort().join('|')!==[...(caps.permissions||[])].sort().join('|')||state.metadata?.can_read_inquiries!==metadata.can_read_inquiries||JSON.stringify(state.projects)!==JSON.stringify(collection(projects));
     state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.organization=organization;state.readonly=caps.readonly!==false;state.projects=collection(projects);state.metadata=metadata;
-    if(organizationChanged||(!accountingRights().read&&modal?.querySelector('[data-accounting-detail]')))closeModal();
+    if(organizationChanged||(!accountingRights().read&&modal?.querySelector('[data-accounting-detail]'))||(!refundRights().read&&modal?.querySelector('[data-refund-detail]')))closeModal();
     if(state.projectId&&!state.projects.some(project=>project.id===state.projectId)){state.projectId='';state.tab='overview';closeModal();}
     let effective=state.globalPermissions;
     if(state.projectId) {
@@ -1245,6 +1336,7 @@ async function accountingEventDialog(id) {
     event.source.kind==='payment'?notice('Ursprünglicher Zahlungsnachweis: Die damalige Zahlung und ihre Rechnungszuordnungen bleiben unverändert. Spätere Zuordnungen sind getrennt dokumentiert.'):null,
     event.source.kind==='payment'&&accountingAllocationRights().read?button('Wirksame Zuordnungen ansehen',()=>accountingAction(()=>accountingAllocationDialog(event.source.id)),'small'):null,
     componentRights().read?button(componentRights().prepare&&event.source.snapshot.kind!=='refund'?'Beleganteile aufteilen':'Aufteilungen ansehen',()=>accountingAction(()=>componentDialog(event.id)),'small'):null,
+    event.source.snapshot.kind==='refund'&&refundRights().read?button(refundRights().prepare?'Erstattungsursprung zuordnen':'Ursprungsbindungen ansehen',()=>accountingAction(()=>refundDialog(event.id)),'small'):null,
     panel('Bestätigte Quellfassung',accountingSourceDetails(event.source.kind,event.source.snapshot),el('p',{class:'caption'},`Quelle SHA-256: ${event.source.source_hash}`)),
     el('p',{class:'caption'},`Erfasst ${formatDate(event.created_at,true)}. Spätere Konto- oder Prüfänderungen ändern diesen Nachweis nicht.`)));
 }
@@ -1417,6 +1509,90 @@ function componentConfirm(source,event,body,preview) {
     extra:el('div',{class:'stack'},componentRecord(preview,event),button('Aktuellen Stand neu laden',()=>accountingAction(()=>componentDialog(source.event_id)),'small')),
     after:async()=>{const render=state.render+1,section=state.section;await refresh();if(generation===api.generation&&state.render===render&&state.section===section&&!modal)await componentDialog(source.event_id);}});
   editor.dataset.accountingDetail='true';dialog('Belegaufteilung prüfen',editor);
+}
+
+const REFUND_BLOCKS={not_customer_refund:'Dieser Zahlungsnachweis ist keine Kundenerstattung.',source_customer_unresolved:'Die ursprüngliche Kundenbindung der Erstattung ist noch ungeklärt.',unsupported_document:'Diese ursprüngliche Rechnung unterstützt derzeit keine Ursprungsbindung.',unallocated:'Dieser Erstattungsrest ist noch keiner Rechnung zugeordnet.',fully_documented:'Alle ursprünglichen Erstattungsanteile sind gebunden.'};
+const REFUND_NOTICE='Dokumentarische Ursprungsbindung. Keine neue Zahlung, Rechnungszuordnung oder Steuerbuchung. Gruppenkapazität wird noch nicht wieder freigegeben. Steuerliche Einordnung offen; kein Steuerergebnis.';
+function refundRights(source=null) { return refundAccess({permissions:[...state.globalPermissions],features:[...state.features],capabilities:[...state.capabilities],readonly:state.readonly},state.organization,source,navigator.onLine); }
+function refundWritable(source=null) { if(!refundRights(source).prepare)throw new ApiError('Eine neue Ursprungsbindung benötigt Internet, aktuelle globale Accounting-/Finanzschreibrechte und einen freigegebenen Finanzbetrieb.',423); }
+function refundPath(id,suffix='') { return `/accounting/refunds/events/${accountingId(id)}${suffix}`; }
+function refundContext() { const generation=api.generation,render=state.render,previous=modal;return ()=>generation===api.generation&&render===state.render&&previous===modal&&refundRights().read; }
+function refundReferences(value,line=false) { return `${formatDate(value[line?'origin_cash_date':'cash_date'])} · Zahlungsnachweis: ${value[line?'origin_evidence_reference':'evidence_reference']} · Verwendungszweck: ${value[line?'origin_reference':'reference']||'ohne Angabe'}`; }
+async function refundOriginal(eventId,portion,origins) { const current=refundContext();await refundAuthorize(api,eventId,origins);if(current())await download(biz(`/documents/${portion.document_id}/pdf`),`${portion.number}.pdf`); }
+function refundRecord(value) {
+  refundLines(value);
+  return el('div',{class:'stack accounting break-word'},panel(value.portion.number,el('p',{},value.portion.party_name),el('p',{},refundReferences(value)),el('p',{},`Ganzer Erstattungsanteil: ${formatMoney(value.amount)} · ${value.reason}`)),
+    panel('Dokumentierte Rücknahme',el('p',{},`Nettoanteil: ${formatMoney(value.net)}`),el('p',{},`Ausgewiesener Steueranteil: ${formatMoney(value.tax)}`),el('p',{},`Bruttoanteil: ${formatMoney(value.amount)}`)),
+    panel('Ausdrücklich gewählte Ursprünge',rows(value.lines,line=>row(refundOriginLabel(line),refundReferences(line,true),[],
+      `Rücknahme: netto ${formatMoney(line.net)} · ausgewiesene Steuer ${formatMoney(line.tax)} · brutto ${formatMoney(line.amount)}. Bisher zurückgenommen ${formatMoney(line.gross_before)} → ${formatMoney(line.gross_after)}. Verbleibend netto ${formatMoney(line.remaining_net)} · Steuer ${formatMoney(line.remaining_tax)} · brutto ${formatMoney(line.remaining_gross)}.`))),notice(REFUND_NOTICE),
+    button('Rechnungs-PDF ansehen',()=>accountingAction(()=>refundOriginal(value.event_id,value.portion,value.lines)),'small'));
+}
+async function refundDialog(eventId,{offset=0,entryId=null}={}) {
+  if(!refundRights().read)throw new ApiError('Dieser Server oder Ihre aktuellen globalen Rechte erlauben keine Erstattungsursprünge.',403);
+  const current=refundContext(),[rawState,rawHistory]=await Promise.all([api.get(biz(refundPath(eventId))),api.get(query(biz(refundPath(eventId,'/history')),{limit:25,offset}))]);
+  if(!current())return;const source=refundState(rawState),history=accountingPage(rawHistory,offset);
+  if(source.event_id!==eventId||history.items.some(item=>item.event_id!==eventId))throw new ApiError('Der Erstattungsstand gehört nicht zum gewählten Zahlungsnachweis.',502);
+  for(const entry of history.items)refundLines(entry);
+  await refundAuthorize(api,eventId,history.items.flatMap(item=>item.lines));if(!current())return;
+  const content=el('div',{class:'stack accounting break-word','data-accounting-detail':'true','data-refund-detail':'true'},notice(REFUND_NOTICE));
+  if(entryId) {
+    const entry=history.items.find(item=>item.id===entryId);if(!entry)throw new ApiError('Die Historie wurde erweitert. Bitte den Eintrag in der aktuellen Liste erneut öffnen.',409);
+    content.append(refundRecord(entry),el('p',{class:'caption'},`Bestätigt ${formatDate(entry.created_at,true)}. Die damaligen Beträge bleiben unverändert.`),button('Zurück zu den Ursprungsbindungen',()=>accountingAction(()=>refundDialog(eventId,{offset})),'small'));
+  } else {
+    const pending=api.pendingOperations().some(item=>item.path===biz(refundPath(eventId,'/confirm'))),rights=refundRights(source);
+    content.append(panel('Dokumentierter Ursprungsstand',el('p',{},refundReferences(source)),el('p',{},`Erstattung ${formatMoney(source.amount)} · Ursprung dokumentiert ${formatMoney(source.origin_documented_amount)} · Noch ungeklärt ${formatMoney(source.origin_unresolved_amount)}`),el('p',{},`Davon ohne ursprüngliche Rechnungszuordnung: ${formatMoney(source.unallocated_amount)}`),
+      !source.eligible?notice(REFUND_BLOCKS[source.blocked_reason]||'Die Erstattung benötigt eine Klärung.'):null,!source.writes_allowed?notice('Neue Bindungen sind durch aktuelle Rechte oder den Betriebszustand gesperrt. Freigegebene Historie bleibt lesbar.','warn'):null,
+      pending?notice('Eine Bestätigungsantwort ist offen. Unter „Antworten offen“ dieselbe unveränderte Anfrage wiederholen. Gespeicherte Ursprungseinzelheiten werden hier nicht erneut angezeigt.','warn'):null,
+      rights.prepare&&!pending?button('Erstattungsanteil auswählen',()=>accountingAction(()=>refundPortions(source)),'primary'):null,
+      button('Ursprünglichen Zahlungsnachweis ansehen',()=>accountingAction(()=>accountingEventDialog(eventId)),'small')),
+      panel('Bestätigte Ursprungsbindungen',rows(history.items,entry=>row(`${entry.portion.number} · ${formatMoney(entry.amount)}`,`${entry.portion.party_name} · ${formatDate(entry.created_at,true)} · ${entry.reason}`,[button('Ursprungsbindung ansehen',()=>accountingAction(()=>refundDialog(eventId,{offset,entryId:entry.id})),'small')],`Netto ${formatMoney(entry.net)} · Ausgewiesener Steueranteil ${formatMoney(entry.tax)}`),'Noch keine Ursprungsbindung bestätigt.'),allocationPagination(history,offset,next=>refundDialog(eventId,{offset:next}))),
+      notice('Nur dieser freigegebene Zahlungsnachweis und seine berechtigten Ursprünge. Andere oder noch nicht übernommene Erstattungen können ungeklärt bleiben.'));
+  }
+  dialog(entryId?'Bestätigte Ursprungsbindung':'Erstattungsursprünge',content);
+}
+async function refundPortions(source,offset=0) {
+  refundWritable(source);const current=refundContext(),page=accountingPage(await api.get(query(biz(refundPath(source.event_id,'/portions')),{limit:25,offset})),offset);
+  await refundAuthorize(api,source.event_id,[]);if(!current())return;refundWritable(source);
+  for(const portion of page.items)refundPortion(portion,source.event_id);
+  dialog('Erstattungsanteil auswählen',el('div',{class:'stack accounting break-word','data-accounting-detail':'true','data-refund-detail':'true'},notice('Rechnung und ganzer ursprünglicher Erstattungsanteil sind fest. Die Ursprünge werden im nächsten Schritt ausdrücklich gewählt.'),rows(page.items,portion=>row(`${portion.number} · ${formatMoney(portion.amount)}`,portion.party_name,
+    [portion.eligible?button('Ursprünge auswählen',()=>accountingAction(()=>refundOrigins(source,portion)),'primary'):null],portion.eligible?'Ganzer ursprünglicher Erstattungsanteil':REFUND_BLOCKS[portion.blocked_reason]||'Klärung erforderlich'),'Keine offenen ursprünglichen Erstattungsanteile vorhanden.'),allocationPagination(page,offset,next=>refundPortions(source,next))));
+}
+async function refundOrigins(source,portion,offset=0,draft={choices:new Map(),reason:''}) {
+  refundWritable(source);const current=refundContext(),page=accountingPage(await api.get(query(biz(refundPath(source.event_id,'/origins')),{portion_id:portion.portion_id,limit:25,offset})),offset);
+  for(const origin of page.items)refundOrigin(origin,portion,source.cash_date);
+  const shown=[...page.items,...[...draft.choices.values()].map(item=>item.origin).filter(origin=>!page.items.some(item=>refundLotKey(item)===refundLotKey(origin)))];
+  await refundAuthorize(api,source.event_id,shown);if(!current())return;refundWritable(source);
+  const generation=api.generation,render=state.render,fields=shown.map((origin,index)=>field('origin_'+index,refundOriginLabel(origin)+' – Rücknahmebetrag EUR','decimal',draft.choices.get(refundLotKey(origin))?.amount||'',{
+    wide:true,help:`${refundReferences(origin)}. Ursprünglich netto ${formatMoney(origin.net)} + Steuer ${formatMoney(origin.tax)} = brutto ${formatMoney(origin.amount)}. Verfügbar netto ${formatMoney(origin.remaining_net)} · Steuer ${formatMoney(origin.remaining_tax)} · brutto ${formatMoney(origin.remaining_amount)}. Nicht gewählte Ursprünge leer lassen.`}));
+  fields.push(field('reason','Begründung der Ursprungsbindung','text',draft.reason,{required:true,maxLength:1000,wide:true}));
+  const remember=()=>{shown.forEach((origin,index)=>{const amount=editor.controls.get('origin_'+index).input.value.trim(),key=refundLotKey(origin);if(amount)draft.choices.set(key,{origin,amount});else draft.choices.delete(key);});draft.reason=editor.controls.get('reason').input.value;};
+  const editor=form('',fields,async()=>{
+    refundWritable(source);remember();const choices=[...draft.choices.values()].map(item=>({origin:{...item.origin},amount:item.amount})),body=refundPreviewData(source,portion,choices,draft.reason);
+    try {
+      await refundAuthorize(api,source.event_id,choices.map(item=>item.origin));if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;refundWritable(source);
+      const result=await api.post(biz(refundPath(source.event_id,'/preview')),body);
+      if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;
+      await refundAuthorize(api,source.event_id,choices.map(item=>item.origin));if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;refundWritable(source);
+      refundConfirm(source,body,refundPreview(result,body,source,choices),choices);return undefined;
+    } catch(error) {if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;if([403,404].includes(error.status)){closeModal();await refresh();if(generation===api.generation)showError(error);return undefined;}throw error;}
+  },{key:'refund-preview-'+source.event_id,submit:'Ursprungsbindung unverbindlich prüfen',description:`${portion.number} · ${portion.party_name}. Fester ganzer Erstattungsanteil ${formatMoney(portion.amount)}. Positive Beträge ausdrücklich eingeben; ihre Summe muss genau passen. Keine automatische Auswahl.`,extra:el('div',{class:'stack'},
+    page.items.length?null:notice('Keine berechtigten passenden Ursprünge mit verfügbarem Rest vorhanden. Fehlende Ursprünge werden nicht geschätzt.'),
+    allocationPagination(page,offset,next=>{remember();return refundOrigins(source,portion,next,draft);}),notice(REFUND_NOTICE),button('Aktuellen Stand neu laden',()=>accountingAction(()=>refundDialog(source.event_id)),'small'))});
+  editor.dataset.accountingDetail='true';editor.dataset.refundDetail='true';dialog('Erstattungsursprünge auswählen',editor);
+}
+function refundConfirm(source,body,preview,choices) {
+  const generation=api.generation,render=state.render;
+  const editor=form('',[field('confirmation','Ich bestätige die gewählten Ursprünge und dokumentierten Rücknahmebeträge des ganzen Erstattungsanteils.','checkbox',false,{required:true})],async(values,key)=>{
+    refundWritable(source);const data=refundConfirmData(body,preview,source,choices,values.confirmation),origins=choices.map(item=>({origin_event_id:item.origin.origin_event_id}));
+    try {await refundAuthorize(api,source.event_id,origins);}catch(error){if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;if([403,404].includes(error.status)){closeModal();await refresh();if(generation===api.generation)showError(error);return undefined;}throw error;}
+    if(generation!==api.generation||render!==state.render||!editor.isConnected)return undefined;refundWritable(source);
+    refundPendingSources.set(key,{generation,eventId:source.event_id,origins});
+    try {const result=await accountingSave(editor,generation,key,refundPath(source.event_id,'/confirm'),data);return render===state.render?result:undefined;}
+    finally {if(!api.pendingOperations().some(item=>item.key===key))refundPendingSources.delete(key);}
+  },{key:'refund-confirm-'+source.event_id,submit:'Ursprungsbindung verbindlich bestätigen',description:'Erst diese gesonderte Bestätigung speichert die Ursprungsbindung. Eine verlorene Antwort mit derselben unveränderten Anfrage wiederholen; neue Vorgänge benötigen frisch geprüfte Ursprungsreste.',
+    extra:el('div',{class:'stack'},refundRecord(preview),button('Aktuellen Stand neu laden',()=>accountingAction(()=>refundDialog(source.event_id)),'small')),
+    after:async()=>{const render=state.render+1,section=state.section;await refresh();if(generation===api.generation&&state.render===render&&state.section===section&&!modal&&refundRights().read)await refundDialog(source.event_id);}});
+  editor.dataset.accountingDetail='true';editor.dataset.refundDetail='true';dialog('Erstattungsursprung prüfen',editor);
 }
 
 async function materialView() { return el('div',{class:'stack'},heading('Material','Bestellungen, Lieferungen, Bestände und nachvollziehbare Entnahmen.'),await materialContent(state.projectId)); }

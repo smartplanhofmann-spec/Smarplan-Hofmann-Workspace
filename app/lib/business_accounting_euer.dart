@@ -6,6 +6,7 @@ import 'package:cryptography/cryptography.dart';
 
 import 'api.dart';
 import 'business_payroll_cash.dart';
+import 'business_travel_cash.dart';
 import 'business_accounting.dart'
     show businessAccountingReadable, BusinessAccountingPage;
 import 'business_project_receipts.dart';
@@ -18,6 +19,7 @@ import 'mail_attachment_widgets.dart' show exportMailAttachment;
 
 const euerPath = '/accounting/euer', euerPendingKey = 'accounting-euer';
 const euerOperations = {
+  'travel_cash': 'Belegte Reiseerstattung einordnen',
   'payroll_cash': 'Belegte Lohnzahlungen einordnen',
   'cash': 'Geldfluss fachlich buchen',
   'input_vat': 'Vorsteuerrecht prüfen',
@@ -31,6 +33,7 @@ const euerOperations = {
 };
 const euerCategories = {
   ...payrollCashCategories,
+  ...travelCashCategories,
   'sales': 'Inländischer Erlös',
   'materials': 'Material',
   'external_services': 'Fremdleistungen',
@@ -319,6 +322,26 @@ EuerForm euerForm(
   };
   late Map<String, dynamic> Function(Map<String, dynamic>) build;
   switch (operation) {
+    case 'travel_cash':
+      final categories = travelCashCategoryKeys(source);
+      for (final category in categories) {
+        account(
+          'travel_$category',
+          '${travelCashCategories[category]} · geprüftes SKR04-Konto',
+        );
+        if (initial['accounts']?[category] != null)
+          values['travel_$category'] = initial['accounts'][category];
+      }
+      build = (v) => {
+        'payment_id': source['id'],
+        'revision': source['revision'],
+        'source_hash': source['source_hash'],
+        'accounts': {
+          for (final category in categories)
+            category: _account(v['travel_$category']),
+        },
+      };
+      break;
     case 'payroll_cash':
       final categories = payrollCashCategoryKeys(source);
       for (final category in categories) {
@@ -595,6 +618,10 @@ EuerForm euerForm(
 }
 
 const _issues = {
+  'travel_cash_classification_missing':
+      'Belegte Reiseerstattung noch nicht eingeordnet',
+  'travel_cash_source_changed':
+      'Reisezahlungsnachweis geändert; Einordnung ausdrücklich berichtigen',
   'payroll_cash_classification_missing':
       'Belegte Lohnzahlung noch nicht eingeordnet',
   'payroll_cash_source_changed':
@@ -759,6 +786,14 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
           'Der EÜR-Stand konnte nicht eindeutig gelesen werden.',
         );
       for (final row in businessItems(sourcePage)) {
+        if (row['kind'] == 'travel_cash') {
+          final source = travelCashPublic(row['source']);
+          if (source['id'] != row['id'])
+            throw const ApiException(
+              0,
+              'Die Reisezahlungsquelle gehört nicht zum Nachweis.',
+            );
+        }
         if (row['kind'] == 'payroll_cash') {
           final source = payrollCashPublic(row['source']);
           if (source['id'] != row['id'])
@@ -838,10 +873,12 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
       await fresh();
       if (!mounted) return;
       final source = businessMap(row?['source']), kind = row?['kind'];
-      if (kind == 'payroll_cash') {
-        final proof = payrollCashPublic(
+      if (kind == 'payroll_cash' || kind == 'travel_cash') {
+        final proof = (kind == 'travel_cash' ? travelCashPublic : payrollCashPublic)(
           await widget.session.read(
-            '/payroll/cash/financial/${row!['id']}?revision=${source['revision']}',
+            kind == 'travel_cash'
+                ? '/personnel/travel/financial/${row!['id']}?revision=${source['revision']}'
+                : '/payroll/cash/financial/${row!['id']}?revision=${source['revision']}',
           ),
         );
         if (!euerSame(source, proof))
@@ -865,7 +902,11 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                     ),
                   )
                 : AlertDialog(
-                    title: const Text('Öffentlicher Lohnzahlungsnachweis'),
+                    title: Text(
+                      kind == 'travel_cash'
+                          ? 'Öffentlicher Reisezahlungsnachweis'
+                          : 'Öffentlicher Lohnzahlungsnachweis',
+                    ),
                     content: SizedBox(
                       width: 600,
                       child: SingleChildScrollView(child: payrollFacts(proof)),
@@ -1145,7 +1186,9 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
     ],
   );
   Widget payrollFacts(Map<String, dynamic> source) {
-    payrollCashPublic(source);
+    (source['kind'] == 'travel_cash' ? travelCashPublic : payrollCashPublic)(
+      source,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -1161,7 +1204,7 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
               '${businessDate(m['date'])} · ${m['direction'] == 'in' ? 'Zufluss / Arbeitnehmerzahlung' : 'Abfluss'} ${businessMoney(m['amount'])}',
             ),
             subtitle: Text(
-              '${m['account']['code']} · ${m['account']['name']}\n${businessMap(m['categories']).entries.map((e) => '${payrollCashCategories[e.key]}: ${businessMoney(e.value)}').join('\n')}',
+              '${m['account']['code']} · ${m['account']['name']}\n${businessMap(m['categories']).entries.map((e) => '${({...payrollCashCategories, ...travelCashCategories})[e.key]}: ${businessMoney(e.value)}').join('\n')}',
             ),
           ),
       ],
@@ -1180,7 +1223,9 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              row['kind'] == 'payroll_cash'
+              row['kind'] == 'travel_cash'
+                  ? 'Belegte Reiseerstattung · Fassung ${source['revision']}'
+                  : row['kind'] == 'payroll_cash'
                   ? 'Belegte Lohnzahlungen · Fassung ${source['revision']}'
                   : row['kind'] == 'cash'
                   ? '${event['direction'] == 'in' ? 'Zufluss' : 'Abfluss'} · ${businessMoney(event['amount'])}'
@@ -1190,7 +1235,8 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
             Text(
               '${businessDate(row['date'])} · ${event['evidence_reference'] ?? receipt['filename'] ?? row['id']}',
             ),
-            if (row['kind'] == 'payroll_cash') payrollFacts(source),
+            if (row['kind'] == 'payroll_cash' || row['kind'] == 'travel_cash')
+              payrollFacts(source),
             if (row['kind'] == 'receipt')
               Text(
                 'Belegt: ${businessMoney(receipt['net'])} netto · ${businessMoney(receipt['tax'])} Steuer · ${businessMoney(receipt['gross'])} brutto',
@@ -1211,7 +1257,8 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                 TextButton(
                   onPressed: () => upstream(row),
                   child: Text(
-                    row['kind'] == 'payroll_cash'
+                    row['kind'] == 'payroll_cash' ||
+                            row['kind'] == 'travel_cash'
                         ? 'Öffentlichen Zahlungsnachweis ansehen'
                         : row['kind'] == 'receipt' ||
                               row['kind'] == 'receipt_review'
@@ -1219,6 +1266,22 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                         : 'Geldfluss / Beleganteile',
                   ),
                 ),
+                if (row['kind'] == 'travel_cash' &&
+                    (source['status'] == 'active' || current.isNotEmpty))
+                  FilledButton(
+                    onPressed: writable
+                        ? () => edit(
+                            'travel_cash',
+                            source,
+                            correction: current.isEmpty ? null : current,
+                          )
+                        : null,
+                    child: Text(
+                      current.isEmpty
+                          ? 'Belegte Reiseerstattung einordnen'
+                          : 'Reisezahlungseinordnung berichtigen',
+                    ),
+                  ),
                 if (row['kind'] == 'payroll_cash' &&
                     (source['status'] == 'active' || current.isNotEmpty))
                   FilledButton(

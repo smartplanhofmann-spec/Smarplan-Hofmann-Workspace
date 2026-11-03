@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-03",
+  "scope": "Employer-wide private travel flat-tax policy clients, active real API, synthetic local company data only",
+  "results": {
+    "node": {
+      "passed": 8,
+      "failed": 0
+    },
+    "flutter": {
+      "passed": 8,
+      "failed": 0
+    },
+    "analyze": {
+      "files": 3,
+      "issues": 0
+    },
+    "browser": {
+      "passed": 1,
+      "failed": 0,
+      "sandbox": "namespace, PID, network and seccomp verified",
+      "workflow": "actual MFA/HTTP and production entry, empty filing/state/method/region/cost choices, exact originals, separate preview and confirmation, accepted lost-response replay with identical nonce/body, correction, void, immutable history, mobile390"
+    }
+  },
+  "logs": {
+    "node": "payroll-travel-policy-node-2026-11-03.txt",
+    "flutter": "payroll-travel-policy-flutter-2026-11-03.txt",
+    "analyze": "payroll-travel-policy-analyze-2026-11-03.txt",
+    "browser": "payroll-travel-policy-browser-2026-11-03.txt"
+  },
+  "prior_runs": {
+    "flutter-first": "Native build lacked existing clang PATH; no test run",
+    "flutter-second": "Test assertion incorrectly used void validator return; corrected test signature",
+    "flutter-third/fourth": "Test-only scroll frame and timer cleanup failed; fourth rerun did not yet apply intended test edit due incorrect path",
+    "flutter-fifth": "Mobile test queried lazily built offscreen evidence before scrolling; full real scrolling added",
+    "retention": "All original logs retained under work/verification; no red result overwritten"
+  },
+  "source_hashes": {
+    "web/office/payroll-travel-tax-policies.js": "14eec698b787084216bba61d070fbb66b1102c82322b941b4e459ee717973b45",
+    "app/lib/business_payroll_travel_tax_policies.dart": "7a3ea8a46b268e86aa38d2952c2e486d30c8a15227ffa4dc59e836e116b6a590",
+    "web/office/tests/payroll-travel-tax-policies.test.mjs": "b14b70d0d297c60b3b4acc64e30a320fed94ff5b9e5be189201664bce0206354",
+    "web/office/tests/payroll-travel-tax-policies-flow.cjs": "b457c28be529e80243a17c8198188f7c88e2dd299165c787c1d409740e2ac326",
+    "web/office/tests/payroll_travel_tax_policy_fixture.py": "cdd4877a972ff07b3622859a116edc7662f96d0d614930bcc0519830706afa0f",
+    "app/test/business_payroll_travel_tax_policies_test.dart": "a7b7b8b3cd0129c7d990eb4f81230bdd42cdceb6d602720c0933d26e864e0eff",
+    "app/test/fixtures/payroll_travel_tax_policies.json": "92a647c563952d07fe70bcfacbed826497566ff28f571ae74b46d5dc04b39216"
+  },
+  "limits": [
+    "Client and actual local HTTP acceptance; no production data or live filing transmission",
+    "Company decision does not itself calculate taxes, create payment or transmit returns",
+    "Independent tax booking remains an explicitly confirmed payroll close"
+  ]
+}

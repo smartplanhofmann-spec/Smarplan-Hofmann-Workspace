@@ -1,0 +1,10 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: actual employer evidence fixes filing window original and null person
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: private sources reject substituted originals duplicate references and person scope
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: preview correction and void bind the exact original predecessor
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policy_session_test.dart: exact travel_tax_policy retry survives module pause and later source revisions
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: mobile employer view clears private evidence after fresh global role withdrawal
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: mobile employer view clears private evidence after fresh global role withdrawal
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+00:01 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_travel_tax_policies_test.dart: rendered correction previews then freezes and repeats accepted command after lost response
+00:02 +8: All tests passed!

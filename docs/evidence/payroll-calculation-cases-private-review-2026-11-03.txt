@@ -1,0 +1,11 @@
+test_existing_active_unpaid_claim_cannot_be_omitted_to_restore_full_wages (test_business_payroll_calculation_cases_review.IndependentCalculationCaseSourceReview.test_existing_active_unpaid_claim_cannot_be_omitted_to_restore_full_wages) ... ok
+test_fresh_approval_is_required_for_accepted_case_and_global_policy_replay (test_business_payroll_calculation_cases_review.IndependentCalculationCaseSourceReview.test_fresh_approval_is_required_for_accepted_case_and_global_policy_replay) ... ok
+test_known_status_cannot_be_substituted_for_documented_unknown_membership (test_business_payroll_calculation_cases_review.IndependentCalculationCaseSourceReview.test_known_status_cannot_be_substituted_for_documented_unknown_membership) ... ok
+test_new_claim_stales_fresh_use_but_does_not_rewrite_already_accepted_case (test_business_payroll_calculation_cases_review.IndependentCalculationCaseSourceReview.test_new_claim_stales_fresh_use_but_does_not_rewrite_already_accepted_case) ... ok
+test_policy_source_verification_checks_actual_acceptance_receipt (test_business_payroll_calculation_cases_review.IndependentCalculationCaseSourceReview.test_policy_source_verification_checks_actual_acceptance_receipt) ... ok
+test_unrelated_future_month_fact_does_not_block_current_month (test_business_payroll_calculation_cases_review.IndependentCalculationCaseSourceReview.test_unrelated_future_month_fact_does_not_block_current_month) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.647s
+
+OK

@@ -1,0 +1,21 @@
+test_actual_mfa_http_private_boundary_runtime_guards_and_restart (backend.online.test_business_travel_pg.TravelPostgres.test_actual_mfa_http_private_boundary_runtime_guards_and_restart) ... ok
+test_actual_old_reimbursement_adoption_is_one_finance_source_without_second_payment (backend.online.test_business_travel_pg.TravelPostgres.test_actual_old_reimbursement_adoption_is_one_finance_source_without_second_payment) ... ok
+test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon (backend.online.test_business_travel_pg.TravelPostgres.test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon) ... ok
+test_two_actual_connections_one_daily_claim_and_exact_payment_receipt (backend.online.test_business_travel_pg.TravelPostgres.test_two_actual_connections_one_daily_claim_and_exact_payment_receipt) ... ok
+test_v3_original_programme_http_actual_payment_and_dump_restore_under_v2_default (backend.online.test_business_travel_pg.TravelPostgres.test_v3_original_programme_http_actual_payment_and_dump_restore_under_v2_default) ... FAIL
+
+======================================================================
+FAIL: test_v3_original_programme_http_actual_payment_and_dump_restore_under_v2_default (backend.online.test_business_travel_pg.TravelPostgres.test_v3_original_programme_http_actual_payment_and_dump_restore_under_v2_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_travel_pg.py", line 165, in test_v3_original_programme_http_actual_payment_and_dump_restore_under_v2_default
+    document=self.call('GET','/business/personnel/travel/settlements/'+accepted['target_id']+'/export?format=json&revision=1').data
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_execution_journey_pg.py", line 89, in call
+    self.assertEqual(response.status_code, status, (method, path, response.status_code))
+AssertionError: 500 != 200 : ('GET', '/business/personnel/travel/settlements/3819366500ae47c5a40192218ea94429/export?format=json&revision=1', 500)
+
+----------------------------------------------------------------------
+Ran 5 tests in 20.244s
+
+FAILED (failures=1)

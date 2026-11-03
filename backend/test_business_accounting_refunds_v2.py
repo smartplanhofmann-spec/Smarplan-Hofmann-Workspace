@@ -263,7 +263,7 @@ class VersionedRefundDomainTests(unittest.TestCase):
 
     def test_real_pre_r2_migration_preserves_v1_rows_and_exact_old_replays(self):
         import business_schema
-        full = business_schema.registry(); previous = tuple(value for value in full if value.name not in ('business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation'))
+        full = business_schema.registry(); previous = tuple(value for value in full if value.name not in ('business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances'))
         old = VersionedRefundDomainTests('runTest'); self.addCleanup(old.doCleanups)
         with patch.object(business_schema, 'registry', return_value=previous):
             old.setUp()

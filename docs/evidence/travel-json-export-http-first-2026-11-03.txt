@@ -1,0 +1,18 @@
+test_archived_json_download_preserves_original_bytes_hash_and_filename (test_business_travel_http.TravelHttpTests.test_archived_json_download_preserves_original_bytes_hash_and_filename) ... FAIL
+
+======================================================================
+FAIL: test_archived_json_download_preserves_original_bytes_hash_and_filename (test_business_travel_http.TravelHttpTests.test_archived_json_download_preserves_original_bytes_hash_and_filename)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_travel_http.py", line 75, in test_archived_json_download_preserves_original_bytes_hash_and_filename
+    response=self.call('GET','/business/personnel/travel/settlements/'+settlement['id']+'/export?format=json&revision=1')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_travel_http.py", line 26, in call
+    self.assertEqual(response.status_code,status,response.data[:350]);return response
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 500 != 200 : b'{"error":"Interner Fehler"}\n'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.410s
+
+FAILED (failures=1)

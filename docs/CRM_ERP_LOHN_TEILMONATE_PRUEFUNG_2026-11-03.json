@@ -1,0 +1,94 @@
+{
+  "reviewed_on": "2026-11-03",
+  "status": "p3a_backend_implemented_verified_and_frozen",
+  "rule_version": "de_2026_periods_pap_v4",
+  "source_schema_version": 2,
+  "scope": "ONE_DOMESTIC_EMPLOYMENT_EPISODE_ONE_AGREEMENT_ONE_SOCIAL_PROFILE",
+  "synthetic_data_only": true,
+  "independent_daily_references": 18,
+  "independent_multiple_day_references": 4,
+  "own_kernel_test_methods": 15,
+  "independent_kernel_test_methods": 12,
+  "own_integrated_workflow_test_methods": 5,
+  "new_postgres_test_methods": 3,
+  "historical_postgres_unique_methods_finally_passing": 9,
+  "regression_unique_test_methods": 120,
+  "official_annual_pap_references_preserved": 258,
+  "postgresql_current_horizon_note": "Initial historical run passed Payroll4 and Accounts2 and one Cash case. Two current Cash horizon assertions lagged the concurrently registered Travel horizon11/report12. Root corrected those assertions while retaining historical horizon9/report10. All three Cash cases passed the targeted follow-up. No v4 product change was needed.",
+  "command": "PYTHONPATH=backend:backend/online /tmp/smartplan-backend-verified/bin/python -m unittest test_payroll_de_2026 test_payroll_pap_2026 test_payroll_transition_2026 test_payroll_periods_2026 test_payroll_periods_review test_business_payroll test_business_payroll_accounts test_business_payroll_cash test_business_payroll_transition test_business_payroll_facts test_business_payroll_facts_review test_business_payroll_periods -v",
+  "postgres_guard": "Disposable loopback PostgreSQL on exclusive coordinated port55433; separate migrated runtime role; no production data or provider actions.",
+  "guarantees": [
+    "current P2 source resolution before new computation",
+    "exact historical fact+source+plan replay",
+    "actual employment coverage for selected identity",
+    "private raw source access requires personnel.read",
+    "effective revision counted once in year ledger",
+    "actual independent net and remittance sources reach EÜR once",
+    "neutral bank originals explicitly matched",
+    "real PostgreSQL MFA/HTTP rights revocation restart",
+    "two actual PostgreSQL writers one accepted revision",
+    "dump/restore original payroll PDF and financial export preserved",
+    "financial writes remain guarded until operator restore reconciliation"
+  ],
+  "open_implementation": [
+    "P3b multiple earnings profiles insurance splits and employment resumptions",
+    "P4 absences paid leave holiday sickness prior history and SV continuation",
+    "P5 oneoffs prior-year arrears and partial external carryovers",
+    "restricted employee payslip without private case originals",
+    "real statutory transmissions and system approval"
+  ],
+  "browser_and_flutter_claim": "Owned and evidenced separately by payroll_period_clients; this report covers backend only.",
+  "statutory_transmitted": false,
+  "official_system_approval": false,
+  "logs": {
+    "regression": {
+      "path": "docs/evidence/payroll-periods-regression-2026-11-03.txt",
+      "sha256": "168a2ad8908d02ac020ee230c655eeff1a2f865c7f761684c352cc25fe16b4aa",
+      "tests_run": 120,
+      "seconds": "20.244",
+      "result": "passed"
+    },
+    "new_postgres": {
+      "path": "docs/evidence/payroll-periods-new-postgres-2026-11-03.txt",
+      "sha256": "bb8be8079b99909792563c4964ac96fee99719798b043e0f99240f2aa6980664",
+      "tests_run": 3,
+      "seconds": "15.852",
+      "result": "passed"
+    },
+    "historical_postgres_first": {
+      "path": "docs/evidence/payroll-periods-historical-postgres-first-2026-11-03.txt",
+      "sha256": "ddc2cffee41444eab60cfd63a94d369136087834586e41e70845e6df7d8d6493",
+      "tests_run": 9,
+      "seconds": "39.800",
+      "result": "historical_current_horizon_assertions_corrected_in_followup"
+    },
+    "historical_cash_postgres_final": {
+      "path": "docs/evidence/payroll-periods-historical-cash-postgres-final-2026-11-03.txt",
+      "sha256": "d2870bb3abdcf704c2a6b7c18aa027b4eea8cff029c1318876687d18985bea5b",
+      "tests_run": 3,
+      "seconds": "21.411",
+      "result": "passed"
+    }
+  },
+  "old_rules_unchanged_since_commit": "31c5184",
+  "old_rule_sha256": {
+    "backend/payroll_de_2026.py": "bbf583b6bae2e5f05c32655a296a74661e480fc0099f39a6a378021324260941",
+    "backend/payroll_pap_2026.py": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071",
+    "backend/payroll_transition_2026.py": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897"
+  },
+  "files": {
+    "backend/payroll_pap_periods_2026.py": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444",
+    "backend/payroll_periods_2026.py": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890",
+    "backend/business_payroll.py": "de3cc2598cb2306245b590dac3ccf294ff5772f5a64770347eb1f45bd4cae51c",
+    "backend/business_payroll_accounts.py": "1aafd86dfb7b25d1f9197fd8c53eeca6636fbc29b64f46618ab2d5c25dcc90c9",
+    "backend/payroll_ledger.py": "facd2e8eef9774be354984166bcc1ceaeecf7b1a0d259947b52c1ff5cf3ef786",
+    "backend/test_payroll_periods_2026.py": "90eaf91619f0bbf7933da8e64a85aeda0fe74e9e83793603571348d7a7dffe9f",
+    "backend/test_payroll_periods_review.py": "44e225b5fba3ada9e1ccc174a50a0751d73d9b661a6826c8e901cc50926f4dc5",
+    "backend/test_business_payroll_periods.py": "8404c2c347ca24f615a5a466f4f836674769493af4410b3af9aeda7bbf9b1df2",
+    "backend/online/test_business_payroll_periods_pg.py": "87803435a531a33e933a843c44cbc89bd98d2fb93dff61e492dba6cccb641a1f",
+    "docs/CRM_ERP_LOHN_TEILMONATE_2026.md": "2b749efa6f689a787f811954f97f01bcdaed872d6b7979568a47d9ab8d591b6f",
+    "docs/CRM_ERP_LOHN_TEILMONATE_REFERENZEN_2026-11-03.json": "579676e30ad489c31cefe95611184475b47a34cc32baa38c6b2f081c3b69beb6",
+    "docs/CRM_ERP_LOHN_TEILMONATE_GEGENPRUEFUNG_2026.md": "ca5f19572624b605408991f7fbcaa55f3e33ad8a82fa83ab682980c800a67405",
+    "docs/CRM_ERP_LOHN_ZEITACHSEN_API.md": "8853598bbdcd77ba10f505d62ff9ed9054ee174fcd21994daa9f14432aa187a4"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "recorded_at_utc": "2026-11-03T23:09:40.042830+00:00",
+  "scope": "Focused final logs; source hashes are a later recording snapshot, not a claim that all unchanged files were frozen across other agent work. Counts overlap other reports.",
+  "runs": [
+    {
+      "name": "sickness-review",
+      "passed": 5,
+      "log": "docs/evidence/payroll-sickness-review-2026-11-03.txt",
+      "sha256": "0a5d1b830f675eb6abb8c49d39caa2d7b391d957f99d17fcf2ab159135f66f8c",
+      "source_snapshot": {
+        "backend/test_payroll_sickness_review.py": "5cfe02806eb3ed7c3d7dc6fd8943b44bb199b4d32cab4f3001e59585482aae81",
+        "backend/payroll_sickness_2026.py": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33"
+      }
+    },
+    {
+      "name": "travel-policy-session-node",
+      "passed": 5,
+      "log": "docs/evidence/payroll-travel-policy-session-node-2026-11-03.txt",
+      "sha256": "3569000fcb8cbae3c70cad2c14eaa94afb36448a7194c4167d3446f4bc5376d1",
+      "source_snapshot": {
+        "web/office/office.js": "8f7f662be557f2b087fa6b432641e587fe2c3bc5d66dd1a40d1fad0e82481295",
+        "web/office/tests/payroll-travel-tax-policy-session-retry.test.mjs": "3a6ae88965f737691550bfa96a890d70d2bf336927fbdd1359ef15ae92a55cf2"
+      }
+    },
+    {
+      "name": "travel-policy-session-flutter",
+      "passed": 8,
+      "log": "docs/evidence/payroll-travel-policy-session-flutter-2026-11-03.txt",
+      "sha256": "a274e2380f087054e6dd271f4362760f226f585cd6316cde8567f3984334cfce",
+      "source_snapshot": {
+        "app/lib/business_session.dart": "0fbfaf0cfdd2f416b3ef346e8bbe3a568d6ad20ccca51bd16d33a9615998bce3",
+        "app/test/business_payroll_travel_tax_policy_session_test.dart": "4392700ad5a525cd86369fe2e103157e9d0343e7e4c4e41dabec2d731c4f505a"
+      }
+    }
+  ]
+}

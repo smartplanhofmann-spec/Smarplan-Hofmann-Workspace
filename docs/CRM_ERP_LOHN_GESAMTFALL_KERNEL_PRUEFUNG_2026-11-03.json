@@ -1,0 +1,38 @@
+{
+  "checked_on": "2026-11-03",
+  "status": "kernel_verified_clients_and_final_rule_freeze_pending",
+  "results": {
+    "source3_domain_and_legacy_73": {
+      "log": "docs/evidence/payroll-v5-completed-kernel-2026-11-03.txt",
+      "sha256": "fdcf950b89d82d04f1c96bfb63e9d561df6a8f21d7db6089c1c9f31b6bbd79de",
+      "passed": true
+    },
+    "source3_pg_2": {
+      "log": "docs/evidence/payroll-v5-pg-public-dto-final-2026-11-03.txt",
+      "sha256": "1cee053507c3f4e610fe23f51bd0a72101184083e8dac4777c25d3d81f47ba9f",
+      "passed": true
+    },
+    "u_pure_9": {
+      "log": "docs/evidence/payroll-u-pure-final-2026-11-03.txt",
+      "sha256": "5af30f4fb5077fb845a83223ba472b3db5048d787f5747873399f7e2f0a0d48b",
+      "passed": true
+    }
+  },
+  "facts": [
+    "Actual Source3 run with atomic flat-tax recording, exact command receipt and rollback",
+    "Actual departure/reentry with every identity interval",
+    "Actual travel flat, individual, noncash, M-only, separate TravelCash/EUR money ownership",
+    "Explicit sickness-v3 phases and sickness-before-employment-v4 composition",
+    "Actual MFA/HTTP, two PostgreSQL connections, runtime and migrator write guards, restart and dump/restore",
+    "Public DTOs omit private accepted_command while archive validation binds original request and receipt"
+  ],
+  "remaining": [
+    "Final independent client and integrated acceptance",
+    "Unpaid statutory U marker has pure helper only; private annual evidence and ledger binding are not yet complete",
+    "Explicit blockers remain for unsupported insurance transitions, minijob travel and further special cases"
+  ],
+  "fixture_generator": "scripts/generate-payroll-calculation-fixture.py",
+  "rule": "de_2026_segments_entitlements_v5",
+  "source_schema_version": 3,
+  "source_contract_version": 1
+}

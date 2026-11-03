@@ -1,0 +1,13 @@
+test_arbitrary_stored_flat_tax_amount_cannot_enter_total_net (test_payroll_calculations_review.CompositeIndependentReview.test_arbitrary_stored_flat_tax_amount_cannot_enter_total_net) ... ok
+test_boolean_or_float_source_versions_do_not_alias_integer_version_one (test_payroll_calculations_review.CompositeIndependentReview.test_boolean_or_float_source_versions_do_not_alias_integer_version_one) ... ok
+test_cash_benefit_and_transferred_flat_tax_conserve_every_cent (test_payroll_calculations_review.CompositeIndependentReview.test_cash_benefit_and_transferred_flat_tax_conserve_every_cent) ... ok
+test_foreign_travel_with_recomputed_adapter_hash_is_rejected (test_payroll_calculations_review.CompositeIndependentReview.test_foreign_travel_with_recomputed_adapter_hash_is_rejected) ... ok
+test_no_insured_days_does_not_create_minimum_days_or_shorten_tax_lzz (test_payroll_calculations_review.CompositeIndependentReview.test_no_insured_days_does_not_create_minimum_days_or_shorten_tax_lzz) ... ok
+test_partial_month_actual_day_caps_apply_to_each_branch_separately (test_payroll_calculations_review.CompositeIndependentReview.test_partial_month_actual_day_caps_apply_to_each_branch_separately) ... ok
+test_tax_free_external_reimbursement_never_reappears_in_payroll_cash_or_cost (test_payroll_calculations_review.CompositeIndependentReview.test_tax_free_external_reimbursement_never_reappears_in_payroll_cash_or_cost) ... ok
+test_two_different_settlements_cannot_reuse_one_allocation_key (test_payroll_calculations_review.CompositeIndependentReview.test_two_different_settlements_cannot_reuse_one_allocation_key) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.009s
+
+OK

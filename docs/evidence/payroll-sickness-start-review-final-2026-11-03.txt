@@ -1,0 +1,9 @@
+test_illness_ends_inside_waiting_period_no_wage_claim (test_payroll_sickness_start_review.CommencementIndependentReview.test_illness_ends_inside_waiting_period_no_wage_claim) ... ok
+test_month_end_waiting_and_full_42_calendar_days (test_payroll_sickness_start_review.CommencementIndependentReview.test_month_end_waiting_and_full_42_calendar_days) ... ok
+test_original_contract_proof_is_required_and_independently_bound (test_payroll_sickness_start_review.CommencementIndependentReview.test_original_contract_proof_is_required_and_independently_bound) ... ok
+test_original_ikk_three_days_reduce_later_same_illness_to_39 (test_payroll_sickness_start_review.CommencementIndependentReview.test_original_ikk_three_days_reduce_later_same_illness_to_39) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.002s
+
+OK

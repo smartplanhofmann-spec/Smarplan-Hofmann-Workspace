@@ -1,0 +1,31 @@
+test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts (backend.online.test_business_payroll_pg.PayrollPostgres.test_actual_backup_restore_recalculates_result_and_retains_pdf_sources_receipts) ... ok
+test_real_http_correction_history_fresh_rights_restart_and_append_only_acl (backend.online.test_business_payroll_pg.PayrollPostgres.test_real_http_correction_history_fresh_rights_restart_and_append_only_acl) ... ok
+test_actual_backup_restore_recalculates_regular_pap_and_retains_sources (backend.online.test_business_payroll_pg.RegularPayrollPostgres.test_actual_backup_restore_recalculates_regular_pap_and_retains_sources) ... ok
+test_regular_pap_correction_exports_and_restart (backend.online.test_business_payroll_pg.RegularPayrollPostgres.test_regular_pap_correction_exports_and_restart) ... ok
+test_actual_private_http_yearly_export_fresh_roles_and_sql_immutability (backend.online.test_business_payroll_accounts_pg.PayrollAccountsPostgres.test_actual_private_http_yearly_export_fresh_roles_and_sql_immutability) ... ok
+test_real_backup_restore_preserves_ledger_identity_payment_and_prior_months (backend.online.test_business_payroll_accounts_pg.PayrollAccountsPostgres.test_real_backup_restore_preserves_ledger_identity_payment_and_prior_months) ... ok
+test_actual_http_net_and_remittances_runtime_acl_restart_and_real_restore (backend.online.test_business_payroll_cash_pg.PayrollCashPostgres.test_actual_http_net_and_remittances_runtime_acl_restart_and_real_restore) ... FAIL
+test_additive_migration_keeps_confirmed_schema9_receipt_and_requires11_for_new_restore (backend.online.test_business_payroll_cash_pg.PayrollCashPostgres.test_additive_migration_keeps_confirmed_schema9_receipt_and_requires11_for_new_restore) ... FAIL
+test_separate_connections_same_nonce_create_one_actual_cash_batch (backend.online.test_business_payroll_cash_pg.PayrollCashPostgres.test_separate_connections_same_nonce_create_one_actual_cash_batch) ... ok
+
+======================================================================
+FAIL: test_actual_http_net_and_remittances_runtime_acl_restart_and_real_restore (backend.online.test_business_payroll_cash_pg.PayrollCashPostgres.test_actual_http_net_and_remittances_runtime_acl_restart_and_real_restore)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_payroll_cash_pg.py", line 77, in test_actual_http_net_and_remittances_runtime_acl_restart_and_real_restore
+    evidence=evidence_for(operator,restored_report);self.assertEqual(evidence['schema'],11)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 12 != 11
+
+======================================================================
+FAIL: test_additive_migration_keeps_confirmed_schema9_receipt_and_requires11_for_new_restore (backend.online.test_business_payroll_cash_pg.PayrollCashPostgres.test_additive_migration_keeps_confirmed_schema9_receipt_and_requires11_for_new_restore)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_payroll_cash_pg.py", line 119, in test_additive_migration_keeps_confirmed_schema9_receipt_and_requires11_for_new_restore
+    self.assertEqual(business_schema.financial_accounting_horizon(operator)['schema_version'],10)
+AssertionError: 11 != 10
+
+----------------------------------------------------------------------
+Ran 9 tests in 39.800s
+
+FAILED (failures=2)

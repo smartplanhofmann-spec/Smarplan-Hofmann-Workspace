@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-11-03T22:13:27.845319+00:00",
+  "phase": "independent_base_review_frozen_before_own_transport_implementation",
+  "tests_run": 20,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "success": true,
+  "original_pdf_downloaded": false,
+  "foreign_rates": 214,
+  "numeric_cells": 642,
+  "postgresql_run": false,
+  "files": {
+    "backend/test_payroll_travel_review.py": "9fba6cd2eb3ed858597c0893a87c7db9bdab588674dcd4d643bad5376717f5fa",
+    "backend/test_business_travel_review.py": "9c95cd4c88753580ff6cdd968a274b43ad683322c7e3c00735024c1a59ffd366",
+    "docs/evidence/travel-rates-2026-independent-source.json": "81852b91cfe7ffceebbe2b42d194b7855121a7ae3214a2232bf237982e6c90d2",
+    "backend/payroll_travel_2026.py": "7478ffb88a8e1c4625e39f021127de5ce88d424665d9e1c06ba9b521c1dbaed6",
+    "backend/business_travel_allowances.py": "86fb0de16a75f14e303682d953271b1da6164c375751516f498617e4a6b7c5f5",
+    "backend/travel_allowance_cash.py": "aeb24f7381ddf4b8c71a9b7b9c1da09c4330c77884fe59f5a23d9cec540a5b11",
+    "backend/payroll_travel_rates_2026.py": "9924ad76a445423539d0f85786009865011ff218ab2b1aefa788853af7092306"
+  }
+}

@@ -1,0 +1,28 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+0 !== 2
+
+    at Object.travelV3Flow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/travel-v3-flow.cjs:40:318)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:111:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+/personnel/travel/requests/79d9c31243e8417bad850abba978afd1 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:04] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:04] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:04] "GET /api/v1/business/personnel/travel/sources?employee_id=5d5f32814bab4a539098f389bc6de425 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:04] "GET /api/v1/business/personnel/travel/catalog HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:04] "GET /api/v1/business/personnel/travel/trips?employee_id=5d5f32814bab4a539098f389bc6de425 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:04] "GET /api/v1/business/personnel/travel/settlements?employee_id=5d5f32814bab4a539098f389bc6de425 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:04] "GET /api/v1/business/personnel/travel/payments?employee_id=5d5f32814bab4a539098f389bc6de425 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:06] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:06] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:06] "GET /api/v1/business/personnel/travel/sources?employee_id=5d5f32814bab4a539098f389bc6de425 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:06] "GET /api/v1/business/personnel/travel/settlements/6af3e6e7511042f48608e5d3f1bc50b6 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:24:08] "GET /api/v1/business/personnel/travel/settlements/6af3e6e7511042f48608e5d3f1bc50b6/history HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

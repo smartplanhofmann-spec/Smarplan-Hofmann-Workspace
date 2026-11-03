@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-11-03T23:26:44.555166+00:00",
+  "scope": "Independent native Source3 page review plus own-page privacy repair; shared contract untouched",
+  "tests": {
+    "independent": 8,
+    "existing": 4,
+    "total": 12,
+    "result": "PASS"
+  },
+  "analyze": {
+    "log": "work/verification/payroll-cases-native-review-analyze.log",
+    "result": "No issues found"
+  },
+  "confirmed_finding": "An open correction editor retained its private verification text across background/resume",
+  "fix": [
+    "Track and dismiss only dialogs owned by this page on hidden/paused or revoked access",
+    "Epoch-check source inspection and draft preview before publishing private results",
+    "Preserve pending command receipts while discarding obsolete views",
+    "Refresh sources on resume and reset scroll to start after successful inspection/preview"
+  ],
+  "evidence": "docs/evidence/payroll-cases-native-independent-review-2026-11-03.txt",
+  "sha256": "1530dcaed13970ceb45632650240d7b447226f5a50062ce4cc777cacdb131bef",
+  "sources": {
+    "app/lib/business_payroll_calculation_cases.dart": "4e7e0ade1eb201483b6cd0bd5ac433b3a70a09a5c3c96ea6018e91d97aeecae6",
+    "app/test/business_payroll_calculation_cases_review_test.dart": "5dd5bb5097032481a6071db424cadd79b66b08c6bd16bfc925a01aa5b1095501",
+    "app/test/business_payroll_calculation_cases_test.dart": "4988bdff38d01ad243a74c24f48732ebb6c45d9b61d927635c6a3cfbe0967250"
+  },
+  "earlier_logs": [
+    "work/verification/payroll-cases-native-review-third.log",
+    "work/verification/payroll-cases-native-review-fourth.log",
+    "work/verification/payroll-cases-native-review-final.log"
+  ],
+  "test_harness_notes": [
+    "First runner invocation lacked Clang PATH; retried using existing toolchain",
+    "Test timer disposal and valid lifecycle transitions corrected before final review",
+    "An intentionally pending response requires bounded pump before release; pumpAndSettle would wait forever"
+  ]
+}

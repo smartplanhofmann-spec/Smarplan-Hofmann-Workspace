@@ -1,0 +1,56 @@
+{
+  "checked_at": "2026-11-03T22:45:49.919109+00:00",
+  "scope": "Additive P4 entitlement primitives, immutable private facts and HTTP/PostgreSQL transport; not integrated v5 payroll completion",
+  "runs": [
+    {
+      "kind": "domain",
+      "log": "work/verification/payroll-entitlements-domain-final.log",
+      "sha256": "a0003b584b441b16570090beefaef84ae0424cb767ba44d5f5b2d4a189e6d431",
+      "tests": 55,
+      "seconds": 6.391,
+      "result": "OK",
+      "skipped": 0
+    },
+    {
+      "kind": "http",
+      "log": "work/verification/payroll-entitlements-http-final.log",
+      "sha256": "778f36a1711ae4921d2dc1e841074f479c932bce55baa49d4825072ee0267e62",
+      "tests": 2,
+      "seconds": 1.747,
+      "result": "OK",
+      "skipped": 0
+    },
+    {
+      "kind": "postgresql",
+      "log": "work/verification/payroll-entitlements-pg-final.log",
+      "sha256": "1e702191b4cb7ef674da8ca8e2ec4badd166dc67087fa92b55f2dbc7d31b21c2",
+      "tests": 3,
+      "seconds": 9.072,
+      "result": "OK",
+      "skipped": 0
+    }
+  ],
+  "combined_log": "docs/evidence/payroll-entitlements-final-2026-11-03.txt",
+  "combined_log_sha256": "56efe4230d2f7e17930f9b15d962d6fe8a23bc4bc7d4303e29e8238ba08c5920",
+  "sources": {
+    "backend/business_payroll_entitlements.py": "a61717150cfc319e14da2dd11fa121caa209d64869ec28c51e1bd6d9a41535ec",
+    "backend/payroll_entitlements_2026.py": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7",
+    "backend/payroll_holidays_2026.py": "d8ed5b71ce2f334d5670e707e421212e71abfad953121271efb81ea0eac99280",
+    "backend/test_business_payroll_entitlements.py": "636f89aa98984bb1beacb9a816bddd904b8f32b76f85d2e4c9b21c067dec6c68",
+    "backend/test_business_payroll_entitlements_review.py": "55c681ea7b610783fc9b99b43f2f68d65b7760e1a36368e7f2b1a39e76c780ba",
+    "backend/test_payroll_entitlements_2026.py": "9ad04dc4e1f4272d6014b77ecf303fad8dbd0d8d94587f7ed5639ebf87910b5d",
+    "backend/test_payroll_entitlements_review.py": "3785cf85ae89eebe98ae5c8cc87c45a24a74b17c4e12b28a556b9366df01d145",
+    "backend/test_business_payroll_entitlements_transport.py": "11c4ed42e74418ea9a741545e68b17a5a9cdd5a70814fd88c43a13a33e7cee72",
+    "backend/online/test_business_payroll_entitlements_pg.py": "191876b68a5e47e6b0d147265c4a06d460ca9cfc27077bbe3ef8413fc2c00a03"
+  },
+  "closed_findings": [
+    "Accepted employee revision must bind original command during restore, not only replay",
+    "Actual HR day DTO uses date",
+    "All relevant actual wage agreements must be explicit sources"
+  ],
+  "remaining": [
+    "Combined v5 payroll/net pay/ledger integration",
+    "Browser and Flutter claim input workflows",
+    "On-call and collective-agreement rules, overlapping illness, municipality-specific holidays"
+  ]
+}

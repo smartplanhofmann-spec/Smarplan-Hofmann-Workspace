@@ -1,0 +1,48 @@
+{
+  "recorded_at_utc": "2026-11-03T23:43:55.572091+00:00",
+  "source_snapshot": "docs/evidence/payroll-travel-core-source-snapshot-2026-11-03.json",
+  "source_snapshot_sha256": "f7429073a5ef1d66e57400a69257ad4bdee2fded5a1d8ecd90ba9f5ee2edec3d",
+  "runs": [
+    {
+      "name": "backend",
+      "tests": 1485,
+      "passed": 1484,
+      "skipped": 1,
+      "duration_seconds": 406.618,
+      "log": "docs/evidence/payroll-travel-core-backend-2026-11-03.txt",
+      "log_sha256": "25fd4e47a4553c274b77f0f4f5cf7bef1bee74a089f83d5ac94e24ebf03974f1"
+    },
+    {
+      "name": "node",
+      "tests": 398,
+      "passed": 398,
+      "skipped": 0,
+      "duration_seconds": 2.364701323,
+      "log": "docs/evidence/payroll-travel-core-node-2026-11-03.txt",
+      "log_sha256": "42e5f9163d90f13d4cbbb8102667bc2569e20dadb157d96e06dfc9ef62f224cf"
+    },
+    {
+      "name": "flutter",
+      "tests": 932,
+      "passed": 932,
+      "skipped": 0,
+      "duration_seconds": null,
+      "log": "docs/evidence/payroll-travel-core-flutter-2026-11-03.txt",
+      "log_sha256": "b8f487cbc4fd124d4e1677a3201cc17709a4d80bda8be43ba47a0084f0dca04d"
+    },
+    {
+      "name": "flutter_analyze",
+      "tests": null,
+      "passed": null,
+      "skipped": null,
+      "duration_seconds": 7.5,
+      "log": "docs/evidence/payroll-travel-core-flutter_analyze-2026-11-03.txt",
+      "log_sha256": "a78c88f6a5f3012f80ab423187fcdbdad91acdc8f9dd9b7bd5bbe5a82fe78782"
+    }
+  ],
+  "first_flutter_attempt": {
+    "log": "work/verification/current-frozen-flutter-first.log",
+    "result": "Interrupted after missing SMARTPLAN_TEST_PYTHON caused fixture launch errors. Not a passed regression. Shutdown diagnostics retained. Repeated in full with the existing verified interpreter."
+  },
+  "scope": "Exact isolated working-tree source copy over base commit31c5184. All1283 captured files verified unchanged after all runs. Later annual/U registrations, P4v3/v4 client completion and v6 development are outside this frozen source snapshot and retain separate evidence."
+}

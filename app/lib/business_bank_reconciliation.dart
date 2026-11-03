@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_travel_cash.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 import 'mail_attachment_widgets.dart';
@@ -62,6 +63,7 @@ Map<String, dynamic> bankEvent(dynamic raw) {
       !_id.hasMatch('${value['created_by']}') ||
       value['created_at'] is! String)
     _fail('Der gespeicherte Banknachweis ist unvollständig.');
+  _checkTravelSources(businessMap(value['payload']));
   return value;
 }
 
@@ -118,8 +120,28 @@ String _bankIssue(String code) =>
           'Ein vorhandener Geldfluss ist noch nicht vollständig abgeglichen',
     }[code] ??
     code;
-String _sourceKey(Map<String, dynamic> s) =>
-    '${s['source_kind']}:${s['source_id']}';
+String bankSourceLabel(dynamic kind) =>
+    const {
+      'cash_event': 'Belegter Geldfluss',
+      'reviewed_external_cash': 'Geprüfte Sondergeldbewegung',
+      'payroll_cash': 'Belegte Lohnzahlung',
+      'travel_cash': 'Belegte Reiseerstattung',
+    }[kind] ??
+    'Geldquelle';
+void _checkTravelSources(Map<String, dynamic> value) {
+  for (final list in [value['items'], value['links'], value['cash_rows']]) {
+    for (final raw in list as List? ?? []) {
+      final source = businessMap(businessMap(raw)['source']);
+      if (source['source_kind'] == 'travel_cash') travelBankSource(source);
+    }
+  }
+}
+
+String _sourceKey(Map<String, dynamic> s) {
+  if (s['source_kind'] == 'travel_cash') travelBankSource(s);
+  return '${s['source_kind']}:${s['source_id']}';
+}
+
 Map<String, dynamic> bankMatchInput(
   Map<String, dynamic> page,
   Map<String, dynamic> values,
@@ -181,6 +203,7 @@ Map<String, dynamic> bankMatchPreview(
         link['date_difference_reason'] != b['date_difference_reason'])
       _fail('Quellen oder Teilbeträge der Zuordnung wurden verändert.');
   }
+  _checkTravelSources(value);
   return value;
 }
 
@@ -206,6 +229,7 @@ Map<String, dynamic> bankReportPreview(dynamic raw, Map<String, dynamic> body) {
     _fail(
       'Der Abgleichbericht ist nicht eindeutig an den geprüften Umfang gebunden.',
     );
+  _checkTravelSources(value);
   return value;
 }
 
@@ -926,7 +950,7 @@ class _BusinessBankReconciliationPageState
             for (final v in candidates)
               _sourceKey(
                 businessMap(v['source']),
-              ): '${v['source']['source_kind']} · ${v['source']['date']} · verfügbar ${businessMoney(v['remaining'])} · ${v['source']['source_id']}',
+              ): '${bankSourceLabel(v['source']['source_kind'])} · ${v['source']['date']} · verfügbar ${businessMoney(v['remaining'])} · ${v['source']['source_id']}',
           },
         ),
       ],
@@ -955,7 +979,7 @@ class _BusinessBankReconciliationPageState
         for (var i = 0; i < selected.length; i++) ...[
           BusinessField(
             'amount_$i',
-            '${selected[i]['source']['source_kind']} ${selected[i]['source']['source_id']}: tatsächlicher Teilbetrag (€)',
+            '${bankSourceLabel(selected[i]['source']['source_kind'])} ${selected[i]['source']['source_id']}: tatsächlicher Teilbetrag (€)',
             type: BusinessInput.decimal,
             required: true,
             hint: 'Verfügbar ${businessMoney(selected[i]['remaining'])}',
@@ -1163,7 +1187,7 @@ class _BusinessBankReconciliationPageState
         for (final row in businessItems(v['cash_rows']).take(100))
           ListTile(
             title: Text(
-              '${row['source']['source_kind']} · ${row['source']['source_id']} · ${row['source']['date']} · ${businessMoney(row['source']['amount'])}',
+              '${bankSourceLabel(row['source']['source_kind'])} · ${row['source']['source_id']} · ${row['source']['date']} · ${businessMoney(row['source']['amount'])}',
             ),
             subtitle: Text(
               'Zugeordnet ${businessMoney(row['matched_amount'])} · offen ${businessMoney(row['remaining'])}',
@@ -1327,7 +1351,7 @@ class _BusinessBankReconciliationPageState
           ),
           for (final l in businessItems(v['current']['payload']['links']))
             Text(
-              '${l['source']['source_kind']} · ${l['source']['date']} · ${businessMoney(l['amount'])}',
+              '${bankSourceLabel(l['source']['source_kind'])} · ${l['source']['date']} · ${businessMoney(l['amount'])}',
             ),
           action(
             'Unveränderlichen Zuordnungsverlauf öffnen',
@@ -1353,7 +1377,7 @@ class _BusinessBankReconciliationPageState
                 Text('${item['payload']['reason']}'),
                 for (final link in businessItems(item['payload']['links']))
                   Text(
-                    '${link['source']['source_kind']} · ${link['source']['source_id']} · ${businessMoney(link['amount'])}',
+                    '${bankSourceLabel(link['source']['source_kind'])} · ${link['source']['source_id']} · ${businessMoney(link['amount'])}',
                   ),
               ],
             ),
@@ -1420,7 +1444,7 @@ class _BusinessBankReconciliationPageState
           ),
           for (final link in businessItems(p['links']))
             Text(
-              '${link['source']['source_kind']} · ${link['source']['source_id']} · ${link['source']['date']} · ${businessMoney(link['amount'])} · ${link['date_difference_reason']}',
+              '${bankSourceLabel(link['source']['source_kind'])} · ${link['source']['source_id']} · ${link['source']['date']} · ${businessMoney(link['amount'])} · ${link['date_difference_reason']}',
             ),
         ],
         if (kind == 'report') ...reportSummary(p!),

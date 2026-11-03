@@ -1,0 +1,10 @@
+Reiseabrechnung – geprüfte Fassung
+Abrechnung f954936ebe2f4f3c8c40e70195d62538 / 1
+Mitarbeiter: Synthetic technician
+Regel: de_travel_2026_v3
+2026-10-26 · Deutschland · Verpflegung 933 Cent · Übernachtung 0 Cent
+Beruflicher Programmanteil: 2/3 · Pauschale vor Aufteilung 1400 Cent · berufliche Pauschale 933
+Cent · Mahlzeitenkürzung 0 Cent
+Steuerfreier Betrag: 933 Cent
+Die Abrechnung ist keine Zahlungsbestätigung. Tatsächliche Zahlungen werden separat belegt.
+

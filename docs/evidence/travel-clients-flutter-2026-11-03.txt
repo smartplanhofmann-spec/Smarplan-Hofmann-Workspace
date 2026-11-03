@@ -1,0 +1,46 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_cash_test.dart: actual backend public cash and bank source with historical void
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_cash_test.dart: private additions at every public level are rejected
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_cash_test.dart: revision, monetary values and documentary void must be explicit
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_cash_test.dart: impossible calendar dates cannot become travel cash dates
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_cash_test.dart: bank source retains complete original revision and public shape
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: exact EUR values keep missing input separate from explicit zero and preserve civil time
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: DST clock ambiguity keeps both actual time choices; nonexistent clock is not normalized
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: accepted lost reply resolves with status only after module pause without exposing private pending body
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: missing status retains original body and nonce for explicit identical retry
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: fresh rights or actor change discards private command before another write
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: changed result, operation, employee or request cannot resolve the accepted original
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: closing private scope rejects late accepted response without undoing server effect
+00:00 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: real v2 flight and expense snapshot has source-bound receipts and versioned totals
+00:00 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:01 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:01 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+00:02 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:02 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:03 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:03 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:03 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_test.dart: 390px annual view keeps incomplete values unknown and clears private data on read revocation (variant: TargetPlatform.windows)
+00:04 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_test.dart: Receipt source opens scoped original review and preserves child pending command across return; parent revoke clears it (variant: TargetPlatform.windows)
+00:04 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_test.dart: An EÜR tax or capital original is shown as payment evidence without invented supplier liability (variant: TargetPlatform.windows)
+00:04 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:05 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:05 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:05 +26: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:05 +27: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:05 +28: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:05 +29: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:05 +30: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:05 +31: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:05 +32: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:06 +33: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:06 +34: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:07 +35: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:07 +36: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:07 +37: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:07 +38: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:07 +39: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:07 +40: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:08 +41: /workspace/Smarplan-Hofmann-Workspace/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:08 +42: /workspace/Smarplan-Hofmann-Workspace/app/test/business_personnel_workflow_test.dart: 600 kB upload bound prevents sending oversized original (variant: TargetPlatform.windows)
+00:08 +43: /workspace/Smarplan-Hofmann-Workspace/app/test/business_personnel_workflow_test.dart: known personnel read revocation removes other employee and private filenames (variant: TargetPlatform.windows)
+00:08 +44: All tests passed!

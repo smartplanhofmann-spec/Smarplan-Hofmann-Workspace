@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'api.dart';
 import 'business_session.dart';
 import 'business_payroll.dart';
+import 'business_travel_allowances.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 import 'mail_attachment_preview.dart';
@@ -1177,6 +1178,29 @@ class _BusinessPersonnelWorkflowPageState
                     'Zuerst das Mitarbeiterprofil mit einem vorhandenen Benutzer verbinden.',
                   ),
                 if (person != null && canRead(person)) ...[
+                  if (travelAvailable(session))
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: FilledButton.icon(
+                        onPressed: busy
+                            ? null
+                            : () async {
+                                await Navigator.push<void>(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        BusinessTravelAllowancesPage(
+                                          session: session,
+                                          employee: person,
+                                        ),
+                                  ),
+                                );
+                                if (mounted) await load(selected: person['id']);
+                              },
+                        icon: const Icon(Icons.luggage_outlined),
+                        label: const Text('Reisen und Pauschalen'),
+                      ),
+                    ),
                   if (payrollAvailable(session))
                     Align(
                       alignment: Alignment.centerLeft,

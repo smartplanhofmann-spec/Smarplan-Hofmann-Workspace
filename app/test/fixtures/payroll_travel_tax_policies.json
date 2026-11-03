@@ -1,0 +1,858 @@
+{
+  "sources_before": {
+    "employee_id": null,
+    "files": [
+      {
+        "id": "c92f2733a9cd4dab9200c268671bcc14",
+        "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+        "purpose": "personnel",
+        "owner_visible": 0,
+        "filename": "verified-payroll-profile.pdf",
+        "media_type": "application/pdf",
+        "size": 50,
+        "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+        "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+        "supersedes": null,
+        "created_by": "e55cf0134766484d99d8a37c074b554e",
+        "created_at": "2026-11-03T12:00:00+00:00"
+      }
+    ],
+    "file_references": [
+      {
+        "id": "c92f2733a9cd4dab9200c268671bcc14",
+        "revision": 1,
+        "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255"
+      }
+    ],
+    "policies": [],
+    "can_write": true,
+    "can_approve": true,
+    "writes_enabled": true
+  },
+  "sources": {
+    "employee_id": null,
+    "files": [
+      {
+        "id": "c92f2733a9cd4dab9200c268671bcc14",
+        "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+        "purpose": "personnel",
+        "owner_visible": 0,
+        "filename": "verified-payroll-profile.pdf",
+        "media_type": "application/pdf",
+        "size": 50,
+        "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+        "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+        "supersedes": null,
+        "created_by": "e55cf0134766484d99d8a37c074b554e",
+        "created_at": "2026-11-03T12:00:00+00:00"
+      }
+    ],
+    "file_references": [
+      {
+        "id": "c92f2733a9cd4dab9200c268671bcc14",
+        "revision": 1,
+        "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255"
+      }
+    ],
+    "policies": [
+      {
+        "id": "435b1e2e74f546c1b5bf287821d4028f",
+        "revision": 1,
+        "employee_id": null,
+        "kind": "travel_tax_policy",
+        "effective_from": "2026-10-01",
+        "effective_to": "2026-12-31",
+        "status": "active",
+        "source_hash": "35df9cae869a3fb5a51d9d63abacf7113f9ca403c235214b78ce62c3f98f120e",
+        "previous_hash": null,
+        "content_hash": "386ca693a991025284dc6fd2742eab446f9e43ee263853a8dd40558c7c141703",
+        "created_by": "e55cf0134766484d99d8a37c074b554e",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "accepted_command": {
+          "confirmed": true,
+          "details": {
+            "church_method": "simplified",
+            "church_method_applies_to_all": true,
+            "church_rate_region": "standard",
+            "employer_bears_tax": true,
+            "federal_state": "BW",
+            "filing_period_from": "2026-10-01",
+            "filing_period_to": "2026-12-31",
+            "verification_note": "Actual synthetic employer policy"
+          },
+          "employee_id": null,
+          "employee_revision": null,
+          "kind": "travel_tax_policy",
+          "preview_hash": "47401c820eab2681ef470d3c313faed39c27ef11b355b56611cd8a1b29703f15",
+          "request_id": "a6a3bfdd074e48c6a0826a2b70ecd88f",
+          "revision": 0,
+          "rule_version": "de_2026_travel_tax_policy_v1",
+          "source_contract_version": 1,
+          "source_file_ids": [
+            "c92f2733a9cd4dab9200c268671bcc14"
+          ],
+          "status": "active"
+        },
+        "correction_reason": "",
+        "details": {
+          "church_method": "simplified",
+          "church_method_applies_to_all": true,
+          "church_rate_region": "standard",
+          "employer_bears_tax": true,
+          "federal_state": "BW",
+          "filing_period_from": "2026-10-01",
+          "filing_period_to": "2026-12-31",
+          "verification_note": "Actual synthetic employer policy"
+        },
+        "plan": null,
+        "preview_hash": "47401c820eab2681ef470d3c313faed39c27ef11b355b56611cd8a1b29703f15",
+        "rule_version": "de_2026_travel_tax_policy_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "c92f2733a9cd4dab9200c268671bcc14"
+        ],
+        "sources": {
+          "policy": {
+            "church_method": "simplified",
+            "church_method_applies_to_all": true,
+            "church_rate_region": "standard",
+            "employer_bears_tax": true,
+            "federal_state": "BW",
+            "filing_period_from": "2026-10-01",
+            "filing_period_to": "2026-12-31",
+            "verification_note": "Actual synthetic employer policy"
+          },
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "e55cf0134766484d99d8a37c074b554e",
+              "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "c92f2733a9cd4dab9200c268671bcc14",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        }
+      }
+    ],
+    "can_write": true,
+    "can_approve": true,
+    "writes_enabled": true
+  },
+  "body": {
+    "employee_id": null,
+    "employee_revision": null,
+    "kind": "travel_tax_policy",
+    "rule_version": "de_2026_travel_tax_policy_v1",
+    "source_contract_version": 1,
+    "source_file_ids": [
+      "c92f2733a9cd4dab9200c268671bcc14"
+    ],
+    "details": {
+      "filing_period_from": "2026-10-01",
+      "filing_period_to": "2026-12-31",
+      "federal_state": "BW",
+      "church_method": "simplified",
+      "church_rate_region": "standard",
+      "church_method_applies_to_all": true,
+      "employer_bears_tax": true,
+      "verification_note": "Actual synthetic employer policy"
+    },
+    "request_id": "a6a3bfdd074e48c6a0826a2b70ecd88f",
+    "revision": 0,
+    "status": "active",
+    "confirmed": true,
+    "preview_hash": "47401c820eab2681ef470d3c313faed39c27ef11b355b56611cd8a1b29703f15"
+  },
+  "preview": {
+    "employee_id": null,
+    "kind": "travel_tax_policy",
+    "source_snapshot": {
+      "schema_version": 1,
+      "policy": {
+        "filing_period_from": "2026-10-01",
+        "filing_period_to": "2026-12-31",
+        "federal_state": "BW",
+        "church_method": "simplified",
+        "church_rate_region": "standard",
+        "church_method_applies_to_all": true,
+        "employer_bears_tax": true,
+        "verification_note": "Actual synthetic employer policy"
+      },
+      "source_files": [
+        {
+          "id": "c92f2733a9cd4dab9200c268671bcc14",
+          "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+          "purpose": "personnel",
+          "owner_visible": 0,
+          "filename": "verified-payroll-profile.pdf",
+          "media_type": "application/pdf",
+          "size": 50,
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+          "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+          "supersedes": null,
+          "created_by": "e55cf0134766484d99d8a37c074b554e",
+          "created_at": "2026-11-03T12:00:00+00:00"
+        }
+      ]
+    },
+    "source_hash": "35df9cae869a3fb5a51d9d63abacf7113f9ca403c235214b78ce62c3f98f120e",
+    "plan": null,
+    "preview_hash": "47401c820eab2681ef470d3c313faed39c27ef11b355b56611cd8a1b29703f15",
+    "can_confirm": true,
+    "can_calculate": false,
+    "can_write": true,
+    "can_approve": true,
+    "writes_enabled": true
+  },
+  "saved": {
+    "id": "435b1e2e74f546c1b5bf287821d4028f",
+    "revision": 1,
+    "employee_id": null,
+    "kind": "travel_tax_policy",
+    "effective_from": "2026-10-01",
+    "effective_to": "2026-12-31",
+    "status": "active",
+    "source_hash": "35df9cae869a3fb5a51d9d63abacf7113f9ca403c235214b78ce62c3f98f120e",
+    "previous_hash": null,
+    "content_hash": "386ca693a991025284dc6fd2742eab446f9e43ee263853a8dd40558c7c141703",
+    "created_by": "e55cf0134766484d99d8a37c074b554e",
+    "created_at": "2026-11-03T12:00:00+00:00",
+    "accepted_command": {
+      "confirmed": true,
+      "details": {
+        "church_method": "simplified",
+        "church_method_applies_to_all": true,
+        "church_rate_region": "standard",
+        "employer_bears_tax": true,
+        "federal_state": "BW",
+        "filing_period_from": "2026-10-01",
+        "filing_period_to": "2026-12-31",
+        "verification_note": "Actual synthetic employer policy"
+      },
+      "employee_id": null,
+      "employee_revision": null,
+      "kind": "travel_tax_policy",
+      "preview_hash": "47401c820eab2681ef470d3c313faed39c27ef11b355b56611cd8a1b29703f15",
+      "request_id": "a6a3bfdd074e48c6a0826a2b70ecd88f",
+      "revision": 0,
+      "rule_version": "de_2026_travel_tax_policy_v1",
+      "source_contract_version": 1,
+      "source_file_ids": [
+        "c92f2733a9cd4dab9200c268671bcc14"
+      ],
+      "status": "active"
+    },
+    "correction_reason": "",
+    "details": {
+      "church_method": "simplified",
+      "church_method_applies_to_all": true,
+      "church_rate_region": "standard",
+      "employer_bears_tax": true,
+      "federal_state": "BW",
+      "filing_period_from": "2026-10-01",
+      "filing_period_to": "2026-12-31",
+      "verification_note": "Actual synthetic employer policy"
+    },
+    "plan": null,
+    "preview_hash": "47401c820eab2681ef470d3c313faed39c27ef11b355b56611cd8a1b29703f15",
+    "rule_version": "de_2026_travel_tax_policy_v1",
+    "source_contract_version": 1,
+    "source_file_ids": [
+      "c92f2733a9cd4dab9200c268671bcc14"
+    ],
+    "sources": {
+      "policy": {
+        "church_method": "simplified",
+        "church_method_applies_to_all": true,
+        "church_rate_region": "standard",
+        "employer_bears_tax": true,
+        "federal_state": "BW",
+        "filing_period_from": "2026-10-01",
+        "filing_period_to": "2026-12-31",
+        "verification_note": "Actual synthetic employer policy"
+      },
+      "schema_version": 1,
+      "source_files": [
+        {
+          "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "e55cf0134766484d99d8a37c074b554e",
+          "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+          "filename": "verified-payroll-profile.pdf",
+          "id": "c92f2733a9cd4dab9200c268671bcc14",
+          "media_type": "application/pdf",
+          "owner_visible": 0,
+          "purpose": "personnel",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+          "size": 50,
+          "supersedes": null
+        }
+      ]
+    }
+  },
+  "correction_body": {
+    "employee_id": null,
+    "employee_revision": null,
+    "kind": "travel_tax_policy",
+    "rule_version": "de_2026_travel_tax_policy_v1",
+    "source_contract_version": 1,
+    "source_file_ids": [
+      "c92f2733a9cd4dab9200c268671bcc14"
+    ],
+    "details": {
+      "filing_period_from": "2026-10-01",
+      "filing_period_to": "2026-12-31",
+      "federal_state": "BW",
+      "church_method": "simplified",
+      "church_rate_region": "standard",
+      "church_method_applies_to_all": true,
+      "employer_bears_tax": true,
+      "verification_note": "Synthetic corrected and reviewed employer decision"
+    },
+    "request_id": "250ad19ba9454af3ba13a3e3e45c6da2",
+    "revision": 1,
+    "status": "active",
+    "confirmed": true,
+    "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+    "id": "435b1e2e74f546c1b5bf287821d4028f",
+    "correction_reason": "Synthetic employer policy evidence clarified"
+  },
+  "correction_preview": {
+    "employee_id": null,
+    "kind": "travel_tax_policy",
+    "source_snapshot": {
+      "schema_version": 1,
+      "policy": {
+        "filing_period_from": "2026-10-01",
+        "filing_period_to": "2026-12-31",
+        "federal_state": "BW",
+        "church_method": "simplified",
+        "church_rate_region": "standard",
+        "church_method_applies_to_all": true,
+        "employer_bears_tax": true,
+        "verification_note": "Synthetic corrected and reviewed employer decision"
+      },
+      "source_files": [
+        {
+          "id": "c92f2733a9cd4dab9200c268671bcc14",
+          "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+          "purpose": "personnel",
+          "owner_visible": 0,
+          "filename": "verified-payroll-profile.pdf",
+          "media_type": "application/pdf",
+          "size": 50,
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+          "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+          "supersedes": null,
+          "created_by": "e55cf0134766484d99d8a37c074b554e",
+          "created_at": "2026-11-03T12:00:00+00:00"
+        }
+      ]
+    },
+    "source_hash": "a223fe14123bb29dbb2c2abf65fb7fad0fe31ed60a5bf2b2290e3fc17ecaa8d9",
+    "plan": null,
+    "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+    "can_confirm": true,
+    "can_calculate": false,
+    "can_write": true,
+    "can_approve": true,
+    "writes_enabled": true
+  },
+  "corrected": {
+    "id": "435b1e2e74f546c1b5bf287821d4028f",
+    "revision": 2,
+    "employee_id": null,
+    "kind": "travel_tax_policy",
+    "effective_from": "2026-10-01",
+    "effective_to": "2026-12-31",
+    "status": "active",
+    "source_hash": "a223fe14123bb29dbb2c2abf65fb7fad0fe31ed60a5bf2b2290e3fc17ecaa8d9",
+    "previous_hash": "386ca693a991025284dc6fd2742eab446f9e43ee263853a8dd40558c7c141703",
+    "content_hash": "cc69f21d39ac0875fdfafde8055441c1b2facf23dff4948d5358f9a1015a1f5d",
+    "created_by": "e55cf0134766484d99d8a37c074b554e",
+    "created_at": "2026-11-03T12:00:00+00:00",
+    "accepted_command": {
+      "confirmed": true,
+      "correction_reason": "Synthetic employer policy evidence clarified",
+      "details": {
+        "church_method": "simplified",
+        "church_method_applies_to_all": true,
+        "church_rate_region": "standard",
+        "employer_bears_tax": true,
+        "federal_state": "BW",
+        "filing_period_from": "2026-10-01",
+        "filing_period_to": "2026-12-31",
+        "verification_note": "Synthetic corrected and reviewed employer decision"
+      },
+      "employee_id": null,
+      "employee_revision": null,
+      "id": "435b1e2e74f546c1b5bf287821d4028f",
+      "kind": "travel_tax_policy",
+      "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+      "request_id": "250ad19ba9454af3ba13a3e3e45c6da2",
+      "revision": 1,
+      "rule_version": "de_2026_travel_tax_policy_v1",
+      "source_contract_version": 1,
+      "source_file_ids": [
+        "c92f2733a9cd4dab9200c268671bcc14"
+      ],
+      "status": "active"
+    },
+    "correction_reason": "Synthetic employer policy evidence clarified",
+    "details": {
+      "church_method": "simplified",
+      "church_method_applies_to_all": true,
+      "church_rate_region": "standard",
+      "employer_bears_tax": true,
+      "federal_state": "BW",
+      "filing_period_from": "2026-10-01",
+      "filing_period_to": "2026-12-31",
+      "verification_note": "Synthetic corrected and reviewed employer decision"
+    },
+    "plan": null,
+    "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+    "rule_version": "de_2026_travel_tax_policy_v1",
+    "source_contract_version": 1,
+    "source_file_ids": [
+      "c92f2733a9cd4dab9200c268671bcc14"
+    ],
+    "sources": {
+      "policy": {
+        "church_method": "simplified",
+        "church_method_applies_to_all": true,
+        "church_rate_region": "standard",
+        "employer_bears_tax": true,
+        "federal_state": "BW",
+        "filing_period_from": "2026-10-01",
+        "filing_period_to": "2026-12-31",
+        "verification_note": "Synthetic corrected and reviewed employer decision"
+      },
+      "schema_version": 1,
+      "source_files": [
+        {
+          "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "e55cf0134766484d99d8a37c074b554e",
+          "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+          "filename": "verified-payroll-profile.pdf",
+          "id": "c92f2733a9cd4dab9200c268671bcc14",
+          "media_type": "application/pdf",
+          "owner_visible": 0,
+          "purpose": "personnel",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+          "size": 50,
+          "supersedes": null
+        }
+      ]
+    }
+  },
+  "void_body": {
+    "employee_id": null,
+    "employee_revision": null,
+    "kind": "travel_tax_policy",
+    "rule_version": "de_2026_travel_tax_policy_v1",
+    "source_contract_version": 1,
+    "source_file_ids": [
+      "c92f2733a9cd4dab9200c268671bcc14"
+    ],
+    "details": {
+      "filing_period_from": "2026-10-01",
+      "filing_period_to": "2026-12-31",
+      "federal_state": "BW",
+      "church_method": "simplified",
+      "church_rate_region": "standard",
+      "church_method_applies_to_all": true,
+      "employer_bears_tax": true,
+      "verification_note": "Synthetic corrected and reviewed employer decision"
+    },
+    "request_id": "0a2de68292b44a2b800d6ce52123f656",
+    "revision": 2,
+    "status": "void",
+    "confirmed": true,
+    "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+    "id": "435b1e2e74f546c1b5bf287821d4028f",
+    "correction_reason": "Synthetic mistaken employer decision withdrawn"
+  },
+  "void": {
+    "id": "435b1e2e74f546c1b5bf287821d4028f",
+    "revision": 3,
+    "employee_id": null,
+    "kind": "travel_tax_policy",
+    "effective_from": "2026-10-01",
+    "effective_to": "2026-12-31",
+    "status": "void",
+    "source_hash": "a223fe14123bb29dbb2c2abf65fb7fad0fe31ed60a5bf2b2290e3fc17ecaa8d9",
+    "previous_hash": "cc69f21d39ac0875fdfafde8055441c1b2facf23dff4948d5358f9a1015a1f5d",
+    "content_hash": "d7e4eec9c8d60d4a663f196f502a745b5fc2c9c1eeba53f752ad37049c8907af",
+    "created_by": "e55cf0134766484d99d8a37c074b554e",
+    "created_at": "2026-11-03T12:00:00+00:00",
+    "accepted_command": {
+      "confirmed": true,
+      "correction_reason": "Synthetic mistaken employer decision withdrawn",
+      "details": {
+        "church_method": "simplified",
+        "church_method_applies_to_all": true,
+        "church_rate_region": "standard",
+        "employer_bears_tax": true,
+        "federal_state": "BW",
+        "filing_period_from": "2026-10-01",
+        "filing_period_to": "2026-12-31",
+        "verification_note": "Synthetic corrected and reviewed employer decision"
+      },
+      "employee_id": null,
+      "employee_revision": null,
+      "id": "435b1e2e74f546c1b5bf287821d4028f",
+      "kind": "travel_tax_policy",
+      "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+      "request_id": "0a2de68292b44a2b800d6ce52123f656",
+      "revision": 2,
+      "rule_version": "de_2026_travel_tax_policy_v1",
+      "source_contract_version": 1,
+      "source_file_ids": [
+        "c92f2733a9cd4dab9200c268671bcc14"
+      ],
+      "status": "void"
+    },
+    "correction_reason": "Synthetic mistaken employer decision withdrawn",
+    "details": {
+      "church_method": "simplified",
+      "church_method_applies_to_all": true,
+      "church_rate_region": "standard",
+      "employer_bears_tax": true,
+      "federal_state": "BW",
+      "filing_period_from": "2026-10-01",
+      "filing_period_to": "2026-12-31",
+      "verification_note": "Synthetic corrected and reviewed employer decision"
+    },
+    "plan": null,
+    "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+    "rule_version": "de_2026_travel_tax_policy_v1",
+    "source_contract_version": 1,
+    "source_file_ids": [
+      "c92f2733a9cd4dab9200c268671bcc14"
+    ],
+    "sources": {
+      "policy": {
+        "church_method": "simplified",
+        "church_method_applies_to_all": true,
+        "church_rate_region": "standard",
+        "employer_bears_tax": true,
+        "federal_state": "BW",
+        "filing_period_from": "2026-10-01",
+        "filing_period_to": "2026-12-31",
+        "verification_note": "Synthetic corrected and reviewed employer decision"
+      },
+      "schema_version": 1,
+      "source_files": [
+        {
+          "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "e55cf0134766484d99d8a37c074b554e",
+          "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+          "filename": "verified-payroll-profile.pdf",
+          "id": "c92f2733a9cd4dab9200c268671bcc14",
+          "media_type": "application/pdf",
+          "owner_visible": 0,
+          "purpose": "personnel",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+          "size": 50,
+          "supersedes": null
+        }
+      ]
+    }
+  },
+  "history": {
+    "items": [
+      {
+        "id": "435b1e2e74f546c1b5bf287821d4028f",
+        "revision": 1,
+        "employee_id": null,
+        "kind": "travel_tax_policy",
+        "effective_from": "2026-10-01",
+        "effective_to": "2026-12-31",
+        "status": "active",
+        "source_hash": "35df9cae869a3fb5a51d9d63abacf7113f9ca403c235214b78ce62c3f98f120e",
+        "previous_hash": null,
+        "content_hash": "386ca693a991025284dc6fd2742eab446f9e43ee263853a8dd40558c7c141703",
+        "created_by": "e55cf0134766484d99d8a37c074b554e",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "accepted_command": {
+          "confirmed": true,
+          "details": {
+            "church_method": "simplified",
+            "church_method_applies_to_all": true,
+            "church_rate_region": "standard",
+            "employer_bears_tax": true,
+            "federal_state": "BW",
+            "filing_period_from": "2026-10-01",
+            "filing_period_to": "2026-12-31",
+            "verification_note": "Actual synthetic employer policy"
+          },
+          "employee_id": null,
+          "employee_revision": null,
+          "kind": "travel_tax_policy",
+          "preview_hash": "47401c820eab2681ef470d3c313faed39c27ef11b355b56611cd8a1b29703f15",
+          "request_id": "a6a3bfdd074e48c6a0826a2b70ecd88f",
+          "revision": 0,
+          "rule_version": "de_2026_travel_tax_policy_v1",
+          "source_contract_version": 1,
+          "source_file_ids": [
+            "c92f2733a9cd4dab9200c268671bcc14"
+          ],
+          "status": "active"
+        },
+        "correction_reason": "",
+        "details": {
+          "church_method": "simplified",
+          "church_method_applies_to_all": true,
+          "church_rate_region": "standard",
+          "employer_bears_tax": true,
+          "federal_state": "BW",
+          "filing_period_from": "2026-10-01",
+          "filing_period_to": "2026-12-31",
+          "verification_note": "Actual synthetic employer policy"
+        },
+        "plan": null,
+        "preview_hash": "47401c820eab2681ef470d3c313faed39c27ef11b355b56611cd8a1b29703f15",
+        "rule_version": "de_2026_travel_tax_policy_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "c92f2733a9cd4dab9200c268671bcc14"
+        ],
+        "sources": {
+          "policy": {
+            "church_method": "simplified",
+            "church_method_applies_to_all": true,
+            "church_rate_region": "standard",
+            "employer_bears_tax": true,
+            "federal_state": "BW",
+            "filing_period_from": "2026-10-01",
+            "filing_period_to": "2026-12-31",
+            "verification_note": "Actual synthetic employer policy"
+          },
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "e55cf0134766484d99d8a37c074b554e",
+              "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "c92f2733a9cd4dab9200c268671bcc14",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        }
+      },
+      {
+        "id": "435b1e2e74f546c1b5bf287821d4028f",
+        "revision": 2,
+        "employee_id": null,
+        "kind": "travel_tax_policy",
+        "effective_from": "2026-10-01",
+        "effective_to": "2026-12-31",
+        "status": "active",
+        "source_hash": "a223fe14123bb29dbb2c2abf65fb7fad0fe31ed60a5bf2b2290e3fc17ecaa8d9",
+        "previous_hash": "386ca693a991025284dc6fd2742eab446f9e43ee263853a8dd40558c7c141703",
+        "content_hash": "cc69f21d39ac0875fdfafde8055441c1b2facf23dff4948d5358f9a1015a1f5d",
+        "created_by": "e55cf0134766484d99d8a37c074b554e",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "accepted_command": {
+          "confirmed": true,
+          "correction_reason": "Synthetic employer policy evidence clarified",
+          "details": {
+            "church_method": "simplified",
+            "church_method_applies_to_all": true,
+            "church_rate_region": "standard",
+            "employer_bears_tax": true,
+            "federal_state": "BW",
+            "filing_period_from": "2026-10-01",
+            "filing_period_to": "2026-12-31",
+            "verification_note": "Synthetic corrected and reviewed employer decision"
+          },
+          "employee_id": null,
+          "employee_revision": null,
+          "id": "435b1e2e74f546c1b5bf287821d4028f",
+          "kind": "travel_tax_policy",
+          "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+          "request_id": "250ad19ba9454af3ba13a3e3e45c6da2",
+          "revision": 1,
+          "rule_version": "de_2026_travel_tax_policy_v1",
+          "source_contract_version": 1,
+          "source_file_ids": [
+            "c92f2733a9cd4dab9200c268671bcc14"
+          ],
+          "status": "active"
+        },
+        "correction_reason": "Synthetic employer policy evidence clarified",
+        "details": {
+          "church_method": "simplified",
+          "church_method_applies_to_all": true,
+          "church_rate_region": "standard",
+          "employer_bears_tax": true,
+          "federal_state": "BW",
+          "filing_period_from": "2026-10-01",
+          "filing_period_to": "2026-12-31",
+          "verification_note": "Synthetic corrected and reviewed employer decision"
+        },
+        "plan": null,
+        "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+        "rule_version": "de_2026_travel_tax_policy_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "c92f2733a9cd4dab9200c268671bcc14"
+        ],
+        "sources": {
+          "policy": {
+            "church_method": "simplified",
+            "church_method_applies_to_all": true,
+            "church_rate_region": "standard",
+            "employer_bears_tax": true,
+            "federal_state": "BW",
+            "filing_period_from": "2026-10-01",
+            "filing_period_to": "2026-12-31",
+            "verification_note": "Synthetic corrected and reviewed employer decision"
+          },
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "e55cf0134766484d99d8a37c074b554e",
+              "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "c92f2733a9cd4dab9200c268671bcc14",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        }
+      },
+      {
+        "id": "435b1e2e74f546c1b5bf287821d4028f",
+        "revision": 3,
+        "employee_id": null,
+        "kind": "travel_tax_policy",
+        "effective_from": "2026-10-01",
+        "effective_to": "2026-12-31",
+        "status": "void",
+        "source_hash": "a223fe14123bb29dbb2c2abf65fb7fad0fe31ed60a5bf2b2290e3fc17ecaa8d9",
+        "previous_hash": "cc69f21d39ac0875fdfafde8055441c1b2facf23dff4948d5358f9a1015a1f5d",
+        "content_hash": "d7e4eec9c8d60d4a663f196f502a745b5fc2c9c1eeba53f752ad37049c8907af",
+        "created_by": "e55cf0134766484d99d8a37c074b554e",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "accepted_command": {
+          "confirmed": true,
+          "correction_reason": "Synthetic mistaken employer decision withdrawn",
+          "details": {
+            "church_method": "simplified",
+            "church_method_applies_to_all": true,
+            "church_rate_region": "standard",
+            "employer_bears_tax": true,
+            "federal_state": "BW",
+            "filing_period_from": "2026-10-01",
+            "filing_period_to": "2026-12-31",
+            "verification_note": "Synthetic corrected and reviewed employer decision"
+          },
+          "employee_id": null,
+          "employee_revision": null,
+          "id": "435b1e2e74f546c1b5bf287821d4028f",
+          "kind": "travel_tax_policy",
+          "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+          "request_id": "0a2de68292b44a2b800d6ce52123f656",
+          "revision": 2,
+          "rule_version": "de_2026_travel_tax_policy_v1",
+          "source_contract_version": 1,
+          "source_file_ids": [
+            "c92f2733a9cd4dab9200c268671bcc14"
+          ],
+          "status": "void"
+        },
+        "correction_reason": "Synthetic mistaken employer decision withdrawn",
+        "details": {
+          "church_method": "simplified",
+          "church_method_applies_to_all": true,
+          "church_rate_region": "standard",
+          "employer_bears_tax": true,
+          "federal_state": "BW",
+          "filing_period_from": "2026-10-01",
+          "filing_period_to": "2026-12-31",
+          "verification_note": "Synthetic corrected and reviewed employer decision"
+        },
+        "plan": null,
+        "preview_hash": "20eae434c1324c62447fee46a31ea428f7f50c2892eac9241b741b2a67cdddca",
+        "rule_version": "de_2026_travel_tax_policy_v1",
+        "source_contract_version": 1,
+        "source_file_ids": [
+          "c92f2733a9cd4dab9200c268671bcc14"
+        ],
+        "sources": {
+          "policy": {
+            "church_method": "simplified",
+            "church_method_applies_to_all": true,
+            "church_rate_region": "standard",
+            "employer_bears_tax": true,
+            "federal_state": "BW",
+            "filing_period_from": "2026-10-01",
+            "filing_period_to": "2026-12-31",
+            "verification_note": "Synthetic corrected and reviewed employer decision"
+          },
+          "schema_version": 1,
+          "source_files": [
+            {
+              "content_hash": "78b72e322f24a5216603dfacc55e456d89976da44a3031a6b40c187071e07255",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "e55cf0134766484d99d8a37c074b554e",
+              "employee_id": "5012fd08996c495c957fdc3b7d9a70a9",
+              "filename": "verified-payroll-profile.pdf",
+              "id": "c92f2733a9cd4dab9200c268671bcc14",
+              "media_type": "application/pdf",
+              "owner_visible": 0,
+              "purpose": "personnel",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "size": 50,
+              "supersedes": null
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "capabilities": {
+    "readonly": false,
+    "features": [
+      "payroll_calculation_cases"
+    ],
+    "capabilities": [
+      "business_payroll_calculation_cases"
+    ],
+    "permissions": [
+      "personnel.read",
+      "personnel.approve"
+    ],
+    "organization": {
+      "modules": {
+        "personnel": {
+          "enabled": true
+        }
+      }
+    }
+  }
+}

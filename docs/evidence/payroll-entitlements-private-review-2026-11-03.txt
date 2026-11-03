@@ -1,0 +1,13 @@
+test_actual_approved_vacation_cannot_be_paid_as_sickness (test_business_payroll_entitlements_review.IndependentEntitlementSourceReview.test_actual_approved_vacation_cannot_be_paid_as_sickness) ... ok
+test_claim_window_is_reconstructed_even_when_envelope_is_valid (test_business_payroll_entitlements_review.IndependentEntitlementSourceReview.test_claim_window_is_reconstructed_even_when_envelope_is_valid) ... ok
+test_corrected_history_preserves_accepted_claim_but_blocks_fresh_use (test_business_payroll_entitlements_review.IndependentEntitlementSourceReview.test_corrected_history_preserves_accepted_claim_but_blocks_fresh_use) ... ok
+test_reading_another_existing_employee_revision_cannot_launder_acceptance (test_business_payroll_entitlements_review.IndependentEntitlementSourceReview.test_reading_another_existing_employee_revision_cannot_launder_acceptance) ... ok
+test_recomputed_claim_cannot_replace_canonical_hourly_contract (test_business_payroll_entitlements_review.IndependentEntitlementSourceReview.test_recomputed_claim_cannot_replace_canonical_hourly_contract) ... ok
+test_recomputed_plan_and_schedule_cannot_invent_four_more_absence_hours (test_business_payroll_entitlements_review.IndependentEntitlementSourceReview.test_recomputed_plan_and_schedule_cannot_invent_four_more_absence_hours) ... ok
+test_rehashed_original_file_cannot_change_person_or_content (test_business_payroll_entitlements_review.IndependentEntitlementSourceReview.test_rehashed_original_file_cannot_change_person_or_content) ... ok
+test_revoked_approval_blocks_exact_lost_ack_even_while_read_is_allowed (test_business_payroll_entitlements_review.IndependentEntitlementSourceReview.test_revoked_approval_blocks_exact_lost_ack_even_while_read_is_allowed) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.057s
+
+OK

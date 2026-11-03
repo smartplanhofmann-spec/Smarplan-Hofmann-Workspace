@@ -148,7 +148,7 @@ class EuerPostgres(unittest.TestCase):
         self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_euer_requests').fetchone()[0],1)
 
     def test_pre_euer_migration_preserves_originals_and_real_restore_requires_schema10_horizon(self):
-        full=business_schema.registry(); prior=tuple(spec for spec in full if spec.name not in ('business_accounting_euer','business_payroll_cash', 'business_bank_reconciliation'))
+        full=business_schema.registry(); prior=tuple(spec for spec in full if spec.name not in ('business_accounting_euer','business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances'))
         self.office.db.close()
         with patch.object(business_schema,'registry',return_value=prior),patch.object(business_schema,'MODULE_NAMES',tuple(spec.name for spec in prior)):
             self.setUp(); self.profile(); project=self.project(); self.issuer()
@@ -170,7 +170,7 @@ class EuerPostgres(unittest.TestCase):
         entry,command=self.post('cash',self.cash(cash)); exported,unused=self.post('export',dict(year=int(self.today[:4])))
         owner=dict(self.office.db.execute("SELECT * FROM users WHERE email='order-owner@example.test'").fetchone())
         horizon=business_schema.financial_accounting_horizon(self.office)
-        self.assertEqual(horizon['schema_version'],10)
+        self.assertEqual(horizon['schema_version'],11)
         self.assertEqual(set(horizon['euer']['table_counts'].values()),{2})
         original=EuerAccounting(self.office).exported(owner,exported['id'])
         self.office.db.close()
@@ -187,7 +187,7 @@ class EuerPostgres(unittest.TestCase):
             finally:office.db.close()
             operator=PostgresOffice(target)
             try:
-                evidence=evidence_for(operator,report); self.assertEqual(evidence['schema'],11)
+                evidence=evidence_for(operator,report); self.assertEqual(evidence['schema'],12)
                 altered=dict(evidence,accounting_horizon=dict(horizon,euer=dict(horizon['euer'],sha256='0'*64)))
                 with self.assertRaises((Problem,ValueError)):approve(operator,altered)
                 approve(operator,evidence)

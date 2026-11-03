@@ -1,0 +1,87 @@
+{
+  "recorded_at_utc": "2026-11-03T23:02:28.069782+00:00",
+  "scope": "Travel v1/v2 clients including explicit adoption of actual legacy payments, documentary corrections and void. No v3 or payroll policy UI acceptance.",
+  "node": {
+    "tests": 44,
+    "passed": 44,
+    "failed": 0
+  },
+  "flutter": {
+    "tests": 44,
+    "passed": 44,
+    "failed": 0
+  },
+  "analyze": {
+    "items": 7,
+    "issues": 0
+  },
+  "browser": {
+    "passed": true,
+    "workflow": "travel-allowances",
+    "sandbox": [
+      "namespace",
+      "PID",
+      "network",
+      "seccomp"
+    ],
+    "command": "SMARTPLAN_BROWSER_WORKFLOW=travel-allowances SMARTPLAN_BROWSER_TEST_PYTHON=/tmp/smartplan-backend-verified/bin/python SMARTPLAN_CHROMIUM_BINARY=/usr/lib/chromium/chromium SMARTPLAN_BROWSER_NAMESPACE_SANDBOX=1 node tests/e2e.cjs",
+    "cwd": "web/office"
+  },
+  "logs": {
+    "node": {
+      "path": "docs/evidence/travel-clients-node-2026-11-03.txt",
+      "sha256": "f31c8738f5291edf2e355cdcf21c0b5f5c65d64d250d1683d2cf3d0c1c91c56b"
+    },
+    "flutter": {
+      "path": "docs/evidence/travel-clients-flutter-2026-11-03.txt",
+      "sha256": "31f48ead29966e47425cbb7fdf6c452bf67307216a6efd31a73f44940fe0fc55"
+    },
+    "analyze": {
+      "path": "docs/evidence/travel-clients-analyze-2026-11-03.txt",
+      "sha256": "a21203f3cf4162be0989c3cc3f215502a60eabf68d8dcbf40b1120bfdbb2b1c4"
+    },
+    "browser": {
+      "path": "docs/evidence/travel-clients-browser-2026-11-03.txt",
+      "sha256": "cb75db6eb342f66f7c935e0928be6fdd4e31649c36f7b87ede38662de07e36d5"
+    },
+    "browser_prior_unresolved_failure": {
+      "path": "docs/evidence/travel-clients-browser-prior-unresolved-failure-2026-11-03.txt",
+      "sha256": "5fcd3971f5844c16329e135fd4b731810f66d168a58039b2dadcc1e80b52cf4e"
+    }
+  },
+  "screenshots": {
+    "travel-overview-desktop.png": {
+      "path": "docs/evidence/travel-clients-overview-desktop-2026-11-03.png",
+      "sha256": "34adf412061323673b1ba5742cb9a570e70f53011d6e86c3706918b6e123978d"
+    },
+    "travel-overview-mobile.png": {
+      "path": "docs/evidence/travel-clients-overview-mobile-2026-11-03.png",
+      "sha256": "2a7491cc85b66438b52cac9a4eba889e331767407cd7540fdafeb35a1be8eae1"
+    }
+  },
+  "source_snapshot": {
+    "web/office/travel-allowances.js": "fb2ce8dd6001045f92a72937bdbfeef65ad6b92f3daf7a3b567af7489a37e02d",
+    "web/office/travel-cash.js": "f686270f3263b46a0293609fb89b1244a97a8a3e1fe0392831d7d8fb0732774e",
+    "app/lib/business_travel_allowances.dart": "316d08dca4cf90e1b84d16ac74ee13e176031a4241c8f4daebbaf354289b9053",
+    "app/lib/business_travel_cash.dart": "93762a182ca56c130aabb175a3247364c95fad91d675ad9e583973fb685f8864",
+    "web/office/tests/travel-allowances-flow.cjs": "6eed30c52ece89261971a1c03161ff9b4bc2cf7a29cb20e80125a45d1dc6e180",
+    "web/office/tests/travel-legacy-flow.cjs": "70caaba04dfca20577049b132415ee17eebd5a7b011bc500167760b67cc3b423",
+    "web/office/tests/travel_fixture.py": "4b8561e283f81468652b4d8767da51a7379c55ea4c006f2456cf5d15fc1b6417",
+    "app/test/fixtures/travel_allowances.json": "c93731564b1787a355200f24395ae00398a1239cbb6cbc4a0d7b32abee718c00",
+    "web/office/tests/travel-allowances.test.mjs": "9f047730c627113f9e70ebd7a92fb8cc67b458ca3b7a5eb369bd1803e50bb8fd",
+    "web/office/tests/travel-cash.test.mjs": "956f047f29d884ad5a2c5e82e31b6ba5fb4595d29cb25d5fb5b98466fe795b67",
+    "app/test/business_travel_allowances_test.dart": "3450608d6bb3913a3a0e744ce836cd35840b0669a2a67c6be3e76217bd81c451",
+    "app/test/business_travel_cash_test.dart": "49ae9315695162c2fa8c8048935a2a66426cc0fc4e7702683d132cad6d394c1e"
+  },
+  "prior_failure": {
+    "reproduced": false,
+    "cause_established": false,
+    "description": "The earlier final legacy browser run returned HTTP500 on travel/catalog. After cloud restart, redacted synthetic-server diagnostics and a complete repeat, the same complete flow passed. No product cause/fix is claimed. Original failure preserved."
+  },
+  "limitations": [
+    "No real production data",
+    "No production TLS approval",
+    "No real Windows/iOS/Android device approval",
+    "The shared parent test runs overlap existing tests and are not an additive whole-product count"
+  ]
+}

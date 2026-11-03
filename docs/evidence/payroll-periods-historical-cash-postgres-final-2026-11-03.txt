@@ -1,0 +1,8 @@
+test_actual_http_net_and_remittances_runtime_acl_restart_and_real_restore (backend.online.test_business_payroll_cash_pg.PayrollCashPostgres.test_actual_http_net_and_remittances_runtime_acl_restart_and_real_restore) ... ok
+test_additive_migration_keeps_confirmed_schema9_receipt_and_requires11_for_new_restore (backend.online.test_business_payroll_cash_pg.PayrollCashPostgres.test_additive_migration_keeps_confirmed_schema9_receipt_and_requires11_for_new_restore) ... ok
+test_separate_connections_same_nonce_create_one_actual_cash_batch (backend.online.test_business_payroll_cash_pg.PayrollCashPostgres.test_separate_connections_same_nonce_create_one_actual_cash_batch) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 21.411s
+
+OK

@@ -1,0 +1,1946 @@
+{
+  "schema_version": 1,
+  "kind": "web_text_transcription_not_original_pdf",
+  "checked_on": "2026-11-03",
+  "effective_from": "2026-01-01",
+  "effective_to": "2026-12-31",
+  "source": "https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Lohnsteuer/2025-12-05-steuerliche-behandlung-reisekosten-2026.pdf?__blob=publicationFile&v=5",
+  "cross_check_source": "https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Lohnsteuer/2025-12-05-steuerliche-behandlung-reisekosten-2026.pdf?__blob=publicationFile&v=2",
+  "original_pdf_downloaded": false,
+  "source_table_rows": 232,
+  "numeric_rows": 214,
+  "notes": [
+    "Alle 214 Betragszeilen aus getrennten Webtextextraktionen v2/v5 in Reihenfolge verglichen.",
+    "Vier v5-Textzellen enthalten die angehängte Tabellenblattnummer: Honduras 198+2, Kolumbien 123+3, Saudi-Arabien im Übrigen 181+5, Ankara 110+6. Die getrennte v2-HTML-Tabelle liefert jeweils den Betrag ohne Seitenzahl.",
+    "Keine nicht veröffentlichte Afghanistan-Zeile aus dem Vorjahr übernommen. Nicht aufgeführte Länder folgen nur ausdrücklich belegter Ersatzlandzuordnung.",
+    "Hash dieses Artefakts belegt die gekennzeichnete Transkription, nicht PDF-Originalbytes."
+  ],
+  "rates": [
+    {
+      "id": "tr2026_001",
+      "country": "Ägypten",
+      "region": null,
+      "full_minor": 5000,
+      "short_minor": 3300,
+      "lodging_minor": 11200,
+      "source_line": 77
+    },
+    {
+      "id": "tr2026_002",
+      "country": "Äthiopien",
+      "region": null,
+      "full_minor": 4400,
+      "short_minor": 2900,
+      "lodging_minor": 15900,
+      "source_line": 78
+    },
+    {
+      "id": "tr2026_003",
+      "country": "Äquatorialguinea",
+      "region": null,
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 16600,
+      "source_line": 79
+    },
+    {
+      "id": "tr2026_004",
+      "country": "Albanien",
+      "region": null,
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 11600,
+      "source_line": 80
+    },
+    {
+      "id": "tr2026_005",
+      "country": "Algerien",
+      "region": null,
+      "full_minor": 4700,
+      "short_minor": 3200,
+      "lodging_minor": 12000,
+      "source_line": 81
+    },
+    {
+      "id": "tr2026_006",
+      "country": "Andorra",
+      "region": null,
+      "full_minor": 4500,
+      "short_minor": 3000,
+      "lodging_minor": 13500,
+      "source_line": 82
+    },
+    {
+      "id": "tr2026_007",
+      "country": "Angola",
+      "region": null,
+      "full_minor": 4000,
+      "short_minor": 2700,
+      "lodging_minor": 36800,
+      "source_line": 83
+    },
+    {
+      "id": "tr2026_008",
+      "country": "Argentinien",
+      "region": null,
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 11900,
+      "source_line": 84
+    },
+    {
+      "id": "tr2026_009",
+      "country": "Armenien",
+      "region": null,
+      "full_minor": 2900,
+      "short_minor": 2000,
+      "lodging_minor": 10700,
+      "source_line": 85
+    },
+    {
+      "id": "tr2026_010",
+      "country": "Aserbaidschan",
+      "region": null,
+      "full_minor": 4400,
+      "short_minor": 2900,
+      "lodging_minor": 8800,
+      "source_line": 86
+    },
+    {
+      "id": "tr2026_011",
+      "country": "Australien",
+      "region": "Canberra",
+      "full_minor": 7400,
+      "short_minor": 4900,
+      "lodging_minor": 18600,
+      "source_line": 88
+    },
+    {
+      "id": "tr2026_012",
+      "country": "Australien",
+      "region": "Sydney",
+      "full_minor": 5700,
+      "short_minor": 3800,
+      "lodging_minor": 17300,
+      "source_line": 89
+    },
+    {
+      "id": "tr2026_013",
+      "country": "Australien",
+      "region": "im Übrigen",
+      "full_minor": 5700,
+      "short_minor": 3800,
+      "lodging_minor": 17300,
+      "source_line": 90
+    },
+    {
+      "id": "tr2026_014",
+      "country": "Bahrain",
+      "region": null,
+      "full_minor": 4800,
+      "short_minor": 3200,
+      "lodging_minor": 15300,
+      "source_line": 91
+    },
+    {
+      "id": "tr2026_015",
+      "country": "Bangladesch",
+      "region": null,
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 18900,
+      "source_line": 92
+    },
+    {
+      "id": "tr2026_016",
+      "country": "Barbados",
+      "region": null,
+      "full_minor": 5400,
+      "short_minor": 3600,
+      "lodging_minor": 20600,
+      "source_line": 93
+    },
+    {
+      "id": "tr2026_017",
+      "country": "Belgien",
+      "region": null,
+      "full_minor": 5900,
+      "short_minor": 4000,
+      "lodging_minor": 14100,
+      "source_line": 94
+    },
+    {
+      "id": "tr2026_018",
+      "country": "Benin",
+      "region": null,
+      "full_minor": 4000,
+      "short_minor": 2700,
+      "lodging_minor": 16800,
+      "source_line": 95
+    },
+    {
+      "id": "tr2026_019",
+      "country": "Bhutan",
+      "region": null,
+      "full_minor": 2700,
+      "short_minor": 1800,
+      "lodging_minor": 17600,
+      "source_line": 96
+    },
+    {
+      "id": "tr2026_020",
+      "country": "Bolivien",
+      "region": null,
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 10800,
+      "source_line": 97
+    },
+    {
+      "id": "tr2026_021",
+      "country": "Bosnien und Herzegowina",
+      "region": null,
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 10900,
+      "source_line": 98
+    },
+    {
+      "id": "tr2026_022",
+      "country": "Botsuana",
+      "region": null,
+      "full_minor": 4000,
+      "short_minor": 2700,
+      "lodging_minor": 10500,
+      "source_line": 99
+    },
+    {
+      "id": "tr2026_023",
+      "country": "Brasilien",
+      "region": "Brasilia",
+      "full_minor": 5100,
+      "short_minor": 3400,
+      "lodging_minor": 8800,
+      "source_line": 101
+    },
+    {
+      "id": "tr2026_024",
+      "country": "Brasilien",
+      "region": "Rio de Janeiro",
+      "full_minor": 6900,
+      "short_minor": 4600,
+      "lodging_minor": 14000,
+      "source_line": 102
+    },
+    {
+      "id": "tr2026_025",
+      "country": "Brasilien",
+      "region": "Sao Paulo",
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 15100,
+      "source_line": 103
+    },
+    {
+      "id": "tr2026_026",
+      "country": "Brasilien",
+      "region": "im Übrigen",
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 8800,
+      "source_line": 104
+    },
+    {
+      "id": "tr2026_027",
+      "country": "Brunei",
+      "region": null,
+      "full_minor": 4500,
+      "short_minor": 3000,
+      "lodging_minor": 11000,
+      "source_line": 105
+    },
+    {
+      "id": "tr2026_028",
+      "country": "Bulgarien",
+      "region": null,
+      "full_minor": 3800,
+      "short_minor": 2500,
+      "lodging_minor": 10900,
+      "source_line": 106
+    },
+    {
+      "id": "tr2026_029",
+      "country": "Burkina Faso",
+      "region": null,
+      "full_minor": 3900,
+      "short_minor": 2600,
+      "lodging_minor": 23000,
+      "source_line": 107
+    },
+    {
+      "id": "tr2026_030",
+      "country": "Burundi",
+      "region": null,
+      "full_minor": 5800,
+      "short_minor": 3900,
+      "lodging_minor": 10200,
+      "source_line": 108
+    },
+    {
+      "id": "tr2026_031",
+      "country": "Chile",
+      "region": null,
+      "full_minor": 4400,
+      "short_minor": 2900,
+      "lodging_minor": 15400,
+      "source_line": 109
+    },
+    {
+      "id": "tr2026_032",
+      "country": "China",
+      "region": "Hongkong",
+      "full_minor": 8300,
+      "short_minor": 5600,
+      "lodging_minor": 20900,
+      "source_line": 129
+    },
+    {
+      "id": "tr2026_033",
+      "country": "China",
+      "region": "Peking",
+      "full_minor": 5700,
+      "short_minor": 3800,
+      "lodging_minor": 18400,
+      "source_line": 130
+    },
+    {
+      "id": "tr2026_034",
+      "country": "China",
+      "region": "Shanghai",
+      "full_minor": 4800,
+      "short_minor": 3200,
+      "lodging_minor": 14200,
+      "source_line": 131
+    },
+    {
+      "id": "tr2026_035",
+      "country": "China",
+      "region": "im Übrigen",
+      "full_minor": 4800,
+      "short_minor": 3200,
+      "lodging_minor": 14200,
+      "source_line": 132
+    },
+    {
+      "id": "tr2026_036",
+      "country": "Costa Rica",
+      "region": null,
+      "full_minor": 6000,
+      "short_minor": 4000,
+      "lodging_minor": 12700,
+      "source_line": 133
+    },
+    {
+      "id": "tr2026_037",
+      "country": "Côte d’Ivoire",
+      "region": null,
+      "full_minor": 6000,
+      "short_minor": 4000,
+      "lodging_minor": 17100,
+      "source_line": 134
+    },
+    {
+      "id": "tr2026_038",
+      "country": "Dänemark",
+      "region": null,
+      "full_minor": 7500,
+      "short_minor": 5000,
+      "lodging_minor": 18300,
+      "source_line": 135
+    },
+    {
+      "id": "tr2026_039",
+      "country": "Dominikanische Republik",
+      "region": null,
+      "full_minor": 5000,
+      "short_minor": 3300,
+      "lodging_minor": 16700,
+      "source_line": 136
+    },
+    {
+      "id": "tr2026_040",
+      "country": "Dschibuti",
+      "region": null,
+      "full_minor": 7700,
+      "short_minor": 5200,
+      "lodging_minor": 25500,
+      "source_line": 137
+    },
+    {
+      "id": "tr2026_041",
+      "country": "Ecuador",
+      "region": null,
+      "full_minor": 2700,
+      "short_minor": 1800,
+      "lodging_minor": 10300,
+      "source_line": 138
+    },
+    {
+      "id": "tr2026_042",
+      "country": "El Salvador",
+      "region": null,
+      "full_minor": 6500,
+      "short_minor": 4400,
+      "lodging_minor": 16100,
+      "source_line": 139
+    },
+    {
+      "id": "tr2026_043",
+      "country": "Eritrea",
+      "region": null,
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 7800,
+      "source_line": 140
+    },
+    {
+      "id": "tr2026_044",
+      "country": "Estland",
+      "region": null,
+      "full_minor": 3900,
+      "short_minor": 2600,
+      "lodging_minor": 12500,
+      "source_line": 141
+    },
+    {
+      "id": "tr2026_045",
+      "country": "Fidschi",
+      "region": null,
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 18300,
+      "source_line": 142
+    },
+    {
+      "id": "tr2026_046",
+      "country": "Finnland",
+      "region": null,
+      "full_minor": 5400,
+      "short_minor": 3600,
+      "lodging_minor": 17100,
+      "source_line": 143
+    },
+    {
+      "id": "tr2026_047",
+      "country": "Frankreich",
+      "region": "Paris sowie die Departments 77, 78, 91 bis 95",
+      "full_minor": 5800,
+      "short_minor": 3900,
+      "lodging_minor": 15900,
+      "source_line": 145
+    },
+    {
+      "id": "tr2026_048",
+      "country": "Frankreich",
+      "region": "im Übrigen",
+      "full_minor": 5300,
+      "short_minor": 3600,
+      "lodging_minor": 10500,
+      "source_line": 146
+    },
+    {
+      "id": "tr2026_049",
+      "country": "Gabun",
+      "region": null,
+      "full_minor": 6400,
+      "short_minor": 4300,
+      "lodging_minor": 26300,
+      "source_line": 147
+    },
+    {
+      "id": "tr2026_050",
+      "country": "Gambia",
+      "region": null,
+      "full_minor": 4000,
+      "short_minor": 2700,
+      "lodging_minor": 16100,
+      "source_line": 148
+    },
+    {
+      "id": "tr2026_051",
+      "country": "Georgien",
+      "region": null,
+      "full_minor": 4500,
+      "short_minor": 3000,
+      "lodging_minor": 8700,
+      "source_line": 149
+    },
+    {
+      "id": "tr2026_052",
+      "country": "Ghana",
+      "region": null,
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 20300,
+      "source_line": 150
+    },
+    {
+      "id": "tr2026_053",
+      "country": "Griechenland",
+      "region": "Athen",
+      "full_minor": 4000,
+      "short_minor": 2700,
+      "lodging_minor": 13900,
+      "source_line": 152
+    },
+    {
+      "id": "tr2026_054",
+      "country": "Griechenland",
+      "region": "im Übrigen",
+      "full_minor": 3600,
+      "short_minor": 2400,
+      "lodging_minor": 15000,
+      "source_line": 153
+    },
+    {
+      "id": "tr2026_055",
+      "country": "Guatemala",
+      "region": null,
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 12400,
+      "source_line": 154
+    },
+    {
+      "id": "tr2026_056",
+      "country": "Guinea",
+      "region": null,
+      "full_minor": 5900,
+      "short_minor": 4000,
+      "lodging_minor": 14000,
+      "source_line": 155
+    },
+    {
+      "id": "tr2026_057",
+      "country": "Guinea-Bissau",
+      "region": null,
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 11300,
+      "source_line": 156
+    },
+    {
+      "id": "tr2026_058",
+      "country": "Honduras",
+      "region": null,
+      "full_minor": 5700,
+      "short_minor": 3800,
+      "lodging_minor": 19800,
+      "source_line": 157
+    },
+    {
+      "id": "tr2026_059",
+      "country": "Indien",
+      "region": "Bangalore",
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 15500,
+      "source_line": 177
+    },
+    {
+      "id": "tr2026_060",
+      "country": "Indien",
+      "region": "Chennai",
+      "full_minor": 2200,
+      "short_minor": 1500,
+      "lodging_minor": 8000,
+      "source_line": 178
+    },
+    {
+      "id": "tr2026_061",
+      "country": "Indien",
+      "region": "Kalkutta",
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 16700,
+      "source_line": 179
+    },
+    {
+      "id": "tr2026_062",
+      "country": "Indien",
+      "region": "Mumbai",
+      "full_minor": 5300,
+      "short_minor": 3600,
+      "lodging_minor": 21800,
+      "source_line": 180
+    },
+    {
+      "id": "tr2026_063",
+      "country": "Indien",
+      "region": "Neu Delhi",
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 21100,
+      "source_line": 181
+    },
+    {
+      "id": "tr2026_064",
+      "country": "Indien",
+      "region": "im Übrigen",
+      "full_minor": 2200,
+      "short_minor": 1500,
+      "lodging_minor": 8000,
+      "source_line": 182
+    },
+    {
+      "id": "tr2026_065",
+      "country": "Indonesien",
+      "region": null,
+      "full_minor": 4500,
+      "short_minor": 3000,
+      "lodging_minor": 17900,
+      "source_line": 183
+    },
+    {
+      "id": "tr2026_066",
+      "country": "Iran",
+      "region": null,
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 19600,
+      "source_line": 184
+    },
+    {
+      "id": "tr2026_067",
+      "country": "Irland",
+      "region": null,
+      "full_minor": 6400,
+      "short_minor": 4300,
+      "lodging_minor": 16400,
+      "source_line": 185
+    },
+    {
+      "id": "tr2026_068",
+      "country": "Island",
+      "region": null,
+      "full_minor": 6200,
+      "short_minor": 4100,
+      "lodging_minor": 18700,
+      "source_line": 186
+    },
+    {
+      "id": "tr2026_069",
+      "country": "Israel",
+      "region": null,
+      "full_minor": 5900,
+      "short_minor": 4000,
+      "lodging_minor": 26800,
+      "source_line": 187
+    },
+    {
+      "id": "tr2026_070",
+      "country": "Italien",
+      "region": "Mailand",
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 19100,
+      "source_line": 189
+    },
+    {
+      "id": "tr2026_071",
+      "country": "Italien",
+      "region": "Rom",
+      "full_minor": 4800,
+      "short_minor": 3200,
+      "lodging_minor": 15000,
+      "source_line": 190
+    },
+    {
+      "id": "tr2026_072",
+      "country": "Italien",
+      "region": "im Übrigen",
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 15000,
+      "source_line": 191
+    },
+    {
+      "id": "tr2026_073",
+      "country": "Jamaika",
+      "region": null,
+      "full_minor": 3900,
+      "short_minor": 2600,
+      "lodging_minor": 17100,
+      "source_line": 192
+    },
+    {
+      "id": "tr2026_074",
+      "country": "Japan",
+      "region": "Tokio",
+      "full_minor": 5000,
+      "short_minor": 3300,
+      "lodging_minor": 28500,
+      "source_line": 194
+    },
+    {
+      "id": "tr2026_075",
+      "country": "Japan",
+      "region": "Osaka",
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 14100,
+      "source_line": 195
+    },
+    {
+      "id": "tr2026_076",
+      "country": "Japan",
+      "region": "im Übrigen",
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 14100,
+      "source_line": 196
+    },
+    {
+      "id": "tr2026_077",
+      "country": "Jordanien",
+      "region": null,
+      "full_minor": 5700,
+      "short_minor": 3800,
+      "lodging_minor": 13400,
+      "source_line": 197
+    },
+    {
+      "id": "tr2026_078",
+      "country": "Kambodscha",
+      "region": null,
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 10800,
+      "source_line": 198
+    },
+    {
+      "id": "tr2026_079",
+      "country": "Kamerun",
+      "region": null,
+      "full_minor": 5600,
+      "short_minor": 3700,
+      "lodging_minor": 27500,
+      "source_line": 199
+    },
+    {
+      "id": "tr2026_080",
+      "country": "Kanada",
+      "region": "Ottawa",
+      "full_minor": 6200,
+      "short_minor": 4100,
+      "lodging_minor": 21400,
+      "source_line": 201
+    },
+    {
+      "id": "tr2026_081",
+      "country": "Kanada",
+      "region": "Toronto",
+      "full_minor": 5400,
+      "short_minor": 3600,
+      "lodging_minor": 39200,
+      "source_line": 202
+    },
+    {
+      "id": "tr2026_082",
+      "country": "Kanada",
+      "region": "Vancouver",
+      "full_minor": 6300,
+      "short_minor": 4200,
+      "lodging_minor": 30400,
+      "source_line": 203
+    },
+    {
+      "id": "tr2026_083",
+      "country": "Kanada",
+      "region": "im Übrigen",
+      "full_minor": 5400,
+      "short_minor": 3600,
+      "lodging_minor": 21400,
+      "source_line": 204
+    },
+    {
+      "id": "tr2026_084",
+      "country": "Kap Verde",
+      "region": null,
+      "full_minor": 3800,
+      "short_minor": 2500,
+      "lodging_minor": 9000,
+      "source_line": 205
+    },
+    {
+      "id": "tr2026_085",
+      "country": "Kasachstan",
+      "region": null,
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 10800,
+      "source_line": 206
+    },
+    {
+      "id": "tr2026_086",
+      "country": "Katar",
+      "region": null,
+      "full_minor": 8100,
+      "short_minor": 5400,
+      "lodging_minor": 12800,
+      "source_line": 207
+    },
+    {
+      "id": "tr2026_087",
+      "country": "Kenia",
+      "region": null,
+      "full_minor": 4800,
+      "short_minor": 3200,
+      "lodging_minor": 21700,
+      "source_line": 208
+    },
+    {
+      "id": "tr2026_088",
+      "country": "Kirgisistan",
+      "region": null,
+      "full_minor": 3500,
+      "short_minor": 2400,
+      "lodging_minor": 8000,
+      "source_line": 209
+    },
+    {
+      "id": "tr2026_089",
+      "country": "Kolumbien",
+      "region": null,
+      "full_minor": 3400,
+      "short_minor": 2300,
+      "lodging_minor": 12300,
+      "source_line": 210
+    },
+    {
+      "id": "tr2026_090",
+      "country": "Kongo, Republik",
+      "region": null,
+      "full_minor": 5300,
+      "short_minor": 3600,
+      "lodging_minor": 21500,
+      "source_line": 229
+    },
+    {
+      "id": "tr2026_091",
+      "country": "Kongo, Demokratische Republik",
+      "region": null,
+      "full_minor": 6500,
+      "short_minor": 4400,
+      "lodging_minor": 33700,
+      "source_line": 230
+    },
+    {
+      "id": "tr2026_092",
+      "country": "Korea, Republik",
+      "region": null,
+      "full_minor": 3900,
+      "short_minor": 2600,
+      "lodging_minor": 13000,
+      "source_line": 231
+    },
+    {
+      "id": "tr2026_093",
+      "country": "Kosovo",
+      "region": null,
+      "full_minor": 2400,
+      "short_minor": 1600,
+      "lodging_minor": 7100,
+      "source_line": 232
+    },
+    {
+      "id": "tr2026_094",
+      "country": "Kroatien",
+      "region": null,
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 19100,
+      "source_line": 233
+    },
+    {
+      "id": "tr2026_095",
+      "country": "Kuba",
+      "region": null,
+      "full_minor": 5100,
+      "short_minor": 3400,
+      "lodging_minor": 17000,
+      "source_line": 234
+    },
+    {
+      "id": "tr2026_096",
+      "country": "Kuwait",
+      "region": null,
+      "full_minor": 6300,
+      "short_minor": 4200,
+      "lodging_minor": 22400,
+      "source_line": 235
+    },
+    {
+      "id": "tr2026_097",
+      "country": "Laos",
+      "region": null,
+      "full_minor": 3500,
+      "short_minor": 2400,
+      "lodging_minor": 7100,
+      "source_line": 236
+    },
+    {
+      "id": "tr2026_098",
+      "country": "Lesotho",
+      "region": null,
+      "full_minor": 2800,
+      "short_minor": 1900,
+      "lodging_minor": 10400,
+      "source_line": 237
+    },
+    {
+      "id": "tr2026_099",
+      "country": "Lettland",
+      "region": null,
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 11900,
+      "source_line": 238
+    },
+    {
+      "id": "tr2026_100",
+      "country": "Libanon",
+      "region": null,
+      "full_minor": 6900,
+      "short_minor": 4600,
+      "lodging_minor": 14600,
+      "source_line": 239
+    },
+    {
+      "id": "tr2026_101",
+      "country": "Liberia",
+      "region": null,
+      "full_minor": 6500,
+      "short_minor": 4400,
+      "lodging_minor": 17300,
+      "source_line": 240
+    },
+    {
+      "id": "tr2026_102",
+      "country": "Liechtenstein",
+      "region": null,
+      "full_minor": 5700,
+      "short_minor": 3800,
+      "lodging_minor": 23400,
+      "source_line": 241
+    },
+    {
+      "id": "tr2026_103",
+      "country": "Litauen",
+      "region": null,
+      "full_minor": 4800,
+      "short_minor": 3200,
+      "lodging_minor": 12400,
+      "source_line": 242
+    },
+    {
+      "id": "tr2026_104",
+      "country": "Luxemburg",
+      "region": null,
+      "full_minor": 6300,
+      "short_minor": 4200,
+      "lodging_minor": 13900,
+      "source_line": 243
+    },
+    {
+      "id": "tr2026_105",
+      "country": "Madagaskar",
+      "region": null,
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 11600,
+      "source_line": 244
+    },
+    {
+      "id": "tr2026_106",
+      "country": "Malawi",
+      "region": null,
+      "full_minor": 4100,
+      "short_minor": 2800,
+      "lodging_minor": 10900,
+      "source_line": 245
+    },
+    {
+      "id": "tr2026_107",
+      "country": "Malaysia",
+      "region": null,
+      "full_minor": 3600,
+      "short_minor": 2400,
+      "lodging_minor": 8600,
+      "source_line": 246
+    },
+    {
+      "id": "tr2026_108",
+      "country": "Malediven",
+      "region": null,
+      "full_minor": 7000,
+      "short_minor": 4700,
+      "lodging_minor": 20000,
+      "source_line": 247
+    },
+    {
+      "id": "tr2026_109",
+      "country": "Mali",
+      "region": null,
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 14100,
+      "source_line": 248
+    },
+    {
+      "id": "tr2026_110",
+      "country": "Malta",
+      "region": null,
+      "full_minor": 5900,
+      "short_minor": 4000,
+      "lodging_minor": 19100,
+      "source_line": 249
+    },
+    {
+      "id": "tr2026_111",
+      "country": "Marokko",
+      "region": null,
+      "full_minor": 4100,
+      "short_minor": 2800,
+      "lodging_minor": 8700,
+      "source_line": 250
+    },
+    {
+      "id": "tr2026_112",
+      "country": "Marshall Inseln",
+      "region": null,
+      "full_minor": 4500,
+      "short_minor": 3000,
+      "lodging_minor": 11200,
+      "source_line": 251
+    },
+    {
+      "id": "tr2026_113",
+      "country": "Mauretanien",
+      "region": null,
+      "full_minor": 3500,
+      "short_minor": 2400,
+      "lodging_minor": 8600,
+      "source_line": 252
+    },
+    {
+      "id": "tr2026_114",
+      "country": "Mauritius",
+      "region": null,
+      "full_minor": 4400,
+      "short_minor": 2900,
+      "lodging_minor": 17200,
+      "source_line": 253
+    },
+    {
+      "id": "tr2026_115",
+      "country": "Mexiko",
+      "region": null,
+      "full_minor": 4000,
+      "short_minor": 2700,
+      "lodging_minor": 33700,
+      "source_line": 254
+    },
+    {
+      "id": "tr2026_116",
+      "country": "Moldau, Republik",
+      "region": null,
+      "full_minor": 2600,
+      "short_minor": 1700,
+      "lodging_minor": 7300,
+      "source_line": 255
+    },
+    {
+      "id": "tr2026_117",
+      "country": "Monaco",
+      "region": null,
+      "full_minor": 5200,
+      "short_minor": 3500,
+      "lodging_minor": 18700,
+      "source_line": 256
+    },
+    {
+      "id": "tr2026_118",
+      "country": "Mongolei",
+      "region": null,
+      "full_minor": 2300,
+      "short_minor": 1600,
+      "lodging_minor": 9200,
+      "source_line": 257
+    },
+    {
+      "id": "tr2026_119",
+      "country": "Montenegro",
+      "region": null,
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 8500,
+      "source_line": 258
+    },
+    {
+      "id": "tr2026_120",
+      "country": "Mosambik",
+      "region": null,
+      "full_minor": 5100,
+      "short_minor": 3400,
+      "lodging_minor": 20800,
+      "source_line": 259
+    },
+    {
+      "id": "tr2026_121",
+      "country": "Myanmar",
+      "region": null,
+      "full_minor": 2300,
+      "short_minor": 1600,
+      "lodging_minor": 10300,
+      "source_line": 260
+    },
+    {
+      "id": "tr2026_122",
+      "country": "Namibia",
+      "region": null,
+      "full_minor": 2800,
+      "short_minor": 1900,
+      "lodging_minor": 14600,
+      "source_line": 261
+    },
+    {
+      "id": "tr2026_123",
+      "country": "Nepal",
+      "region": null,
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 12500,
+      "source_line": 262
+    },
+    {
+      "id": "tr2026_124",
+      "country": "Neuseeland",
+      "region": null,
+      "full_minor": 5800,
+      "short_minor": 3900,
+      "lodging_minor": 14800,
+      "source_line": 281
+    },
+    {
+      "id": "tr2026_125",
+      "country": "Nicaragua",
+      "region": null,
+      "full_minor": 4600,
+      "short_minor": 3100,
+      "lodging_minor": 10500,
+      "source_line": 282
+    },
+    {
+      "id": "tr2026_126",
+      "country": "Niederlande",
+      "region": null,
+      "full_minor": 5800,
+      "short_minor": 3900,
+      "lodging_minor": 16700,
+      "source_line": 283
+    },
+    {
+      "id": "tr2026_127",
+      "country": "Niger",
+      "region": null,
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 13100,
+      "source_line": 284
+    },
+    {
+      "id": "tr2026_128",
+      "country": "Nigeria",
+      "region": null,
+      "full_minor": 5200,
+      "short_minor": 3500,
+      "lodging_minor": 20200,
+      "source_line": 285
+    },
+    {
+      "id": "tr2026_129",
+      "country": "Nordmazedonien",
+      "region": null,
+      "full_minor": 2700,
+      "short_minor": 1800,
+      "lodging_minor": 8900,
+      "source_line": 286
+    },
+    {
+      "id": "tr2026_130",
+      "country": "Norwegen",
+      "region": null,
+      "full_minor": 7500,
+      "short_minor": 5000,
+      "lodging_minor": 13900,
+      "source_line": 287
+    },
+    {
+      "id": "tr2026_131",
+      "country": "Österreich",
+      "region": null,
+      "full_minor": 5000,
+      "short_minor": 3300,
+      "lodging_minor": 11700,
+      "source_line": 288
+    },
+    {
+      "id": "tr2026_132",
+      "country": "Oman",
+      "region": null,
+      "full_minor": 6400,
+      "short_minor": 4300,
+      "lodging_minor": 14100,
+      "source_line": 289
+    },
+    {
+      "id": "tr2026_133",
+      "country": "Pakistan",
+      "region": null,
+      "full_minor": 4100,
+      "short_minor": 2800,
+      "lodging_minor": 19900,
+      "source_line": 290
+    },
+    {
+      "id": "tr2026_134",
+      "country": "Palau",
+      "region": null,
+      "full_minor": 5100,
+      "short_minor": 3400,
+      "lodging_minor": 19300,
+      "source_line": 291
+    },
+    {
+      "id": "tr2026_135",
+      "country": "Panama",
+      "region": null,
+      "full_minor": 4100,
+      "short_minor": 2800,
+      "lodging_minor": 8200,
+      "source_line": 292
+    },
+    {
+      "id": "tr2026_136",
+      "country": "Papua-Neuguinea",
+      "region": null,
+      "full_minor": 5900,
+      "short_minor": 4000,
+      "lodging_minor": 15900,
+      "source_line": 293
+    },
+    {
+      "id": "tr2026_137",
+      "country": "Paraguay",
+      "region": null,
+      "full_minor": 3900,
+      "short_minor": 2600,
+      "lodging_minor": 12400,
+      "source_line": 294
+    },
+    {
+      "id": "tr2026_138",
+      "country": "Peru",
+      "region": null,
+      "full_minor": 5200,
+      "short_minor": 3500,
+      "lodging_minor": 12800,
+      "source_line": 295
+    },
+    {
+      "id": "tr2026_139",
+      "country": "Philippinen",
+      "region": null,
+      "full_minor": 4100,
+      "short_minor": 2800,
+      "lodging_minor": 14000,
+      "source_line": 296
+    },
+    {
+      "id": "tr2026_140",
+      "country": "Polen",
+      "region": "Breslau",
+      "full_minor": 3400,
+      "short_minor": 2300,
+      "lodging_minor": 12400,
+      "source_line": 298
+    },
+    {
+      "id": "tr2026_141",
+      "country": "Polen",
+      "region": "Warschau",
+      "full_minor": 4000,
+      "short_minor": 2700,
+      "lodging_minor": 14300,
+      "source_line": 299
+    },
+    {
+      "id": "tr2026_142",
+      "country": "Polen",
+      "region": "im Übrigen",
+      "full_minor": 3400,
+      "short_minor": 2300,
+      "lodging_minor": 12400,
+      "source_line": 300
+    },
+    {
+      "id": "tr2026_143",
+      "country": "Portugal",
+      "region": null,
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 11100,
+      "source_line": 301
+    },
+    {
+      "id": "tr2026_144",
+      "country": "Ruanda",
+      "region": null,
+      "full_minor": 4400,
+      "short_minor": 2900,
+      "lodging_minor": 11700,
+      "source_line": 302
+    },
+    {
+      "id": "tr2026_145",
+      "country": "Rumänien",
+      "region": null,
+      "full_minor": 3800,
+      "short_minor": 2500,
+      "lodging_minor": 10300,
+      "source_line": 303
+    },
+    {
+      "id": "tr2026_146",
+      "country": "Russische Föderation",
+      "region": "Moskau",
+      "full_minor": 3000,
+      "short_minor": 2000,
+      "lodging_minor": 23500,
+      "source_line": 305
+    },
+    {
+      "id": "tr2026_147",
+      "country": "Russische Föderation",
+      "region": "St. Petersburg",
+      "full_minor": 2800,
+      "short_minor": 1900,
+      "lodging_minor": 13300,
+      "source_line": 306
+    },
+    {
+      "id": "tr2026_148",
+      "country": "Russische Föderation",
+      "region": "im Übrigen",
+      "full_minor": 2800,
+      "short_minor": 1900,
+      "lodging_minor": 13300,
+      "source_line": 307
+    },
+    {
+      "id": "tr2026_149",
+      "country": "Sambia",
+      "region": null,
+      "full_minor": 3800,
+      "short_minor": 2500,
+      "lodging_minor": 10500,
+      "source_line": 308
+    },
+    {
+      "id": "tr2026_150",
+      "country": "Samoa",
+      "region": null,
+      "full_minor": 3900,
+      "short_minor": 2600,
+      "lodging_minor": 10500,
+      "source_line": 309
+    },
+    {
+      "id": "tr2026_151",
+      "country": "San Marino",
+      "region": null,
+      "full_minor": 3400,
+      "short_minor": 2300,
+      "lodging_minor": 7900,
+      "source_line": 310
+    },
+    {
+      "id": "tr2026_152",
+      "country": "São Tomé – Príncipe",
+      "region": null,
+      "full_minor": 3600,
+      "short_minor": 2400,
+      "lodging_minor": 14700,
+      "source_line": 311
+    },
+    {
+      "id": "tr2026_153",
+      "country": "Saudi-Arabien",
+      "region": "Djidda",
+      "full_minor": 5700,
+      "short_minor": 3800,
+      "lodging_minor": 18100,
+      "source_line": 313
+    },
+    {
+      "id": "tr2026_154",
+      "country": "Saudi-Arabien",
+      "region": "Riad",
+      "full_minor": 5600,
+      "short_minor": 3700,
+      "lodging_minor": 18600,
+      "source_line": 314
+    },
+    {
+      "id": "tr2026_155",
+      "country": "Saudi-Arabien",
+      "region": "im Übrigen",
+      "full_minor": 5600,
+      "short_minor": 3700,
+      "lodging_minor": 18100,
+      "source_line": 315
+    },
+    {
+      "id": "tr2026_156",
+      "country": "Schweden",
+      "region": null,
+      "full_minor": 6600,
+      "short_minor": 4400,
+      "lodging_minor": 14000,
+      "source_line": 334
+    },
+    {
+      "id": "tr2026_157",
+      "country": "Schweiz",
+      "region": "Bern",
+      "full_minor": 8200,
+      "short_minor": 5500,
+      "lodging_minor": 19500,
+      "source_line": 336
+    },
+    {
+      "id": "tr2026_158",
+      "country": "Schweiz",
+      "region": "Genf",
+      "full_minor": 7000,
+      "short_minor": 4700,
+      "lodging_minor": 19700,
+      "source_line": 337
+    },
+    {
+      "id": "tr2026_159",
+      "country": "Schweiz",
+      "region": "im Übrigen",
+      "full_minor": 7000,
+      "short_minor": 4700,
+      "lodging_minor": 19500,
+      "source_line": 338
+    },
+    {
+      "id": "tr2026_160",
+      "country": "Senegal",
+      "region": null,
+      "full_minor": 4800,
+      "short_minor": 3200,
+      "lodging_minor": 16000,
+      "source_line": 339
+    },
+    {
+      "id": "tr2026_161",
+      "country": "Serbien",
+      "region": null,
+      "full_minor": 2700,
+      "short_minor": 1800,
+      "lodging_minor": 9700,
+      "source_line": 340
+    },
+    {
+      "id": "tr2026_162",
+      "country": "Sierra Leone",
+      "region": null,
+      "full_minor": 5700,
+      "short_minor": 3800,
+      "lodging_minor": 14500,
+      "source_line": 341
+    },
+    {
+      "id": "tr2026_163",
+      "country": "Simbabwe",
+      "region": null,
+      "full_minor": 6300,
+      "short_minor": 4200,
+      "lodging_minor": 19800,
+      "source_line": 342
+    },
+    {
+      "id": "tr2026_164",
+      "country": "Singapur",
+      "region": null,
+      "full_minor": 7100,
+      "short_minor": 4800,
+      "lodging_minor": 27700,
+      "source_line": 343
+    },
+    {
+      "id": "tr2026_165",
+      "country": "Slowakische Republik",
+      "region": null,
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 12100,
+      "source_line": 344
+    },
+    {
+      "id": "tr2026_166",
+      "country": "Slowenien",
+      "region": null,
+      "full_minor": 3800,
+      "short_minor": 2500,
+      "lodging_minor": 12600,
+      "source_line": 345
+    },
+    {
+      "id": "tr2026_167",
+      "country": "Spanien",
+      "region": "Barcelona",
+      "full_minor": 3400,
+      "short_minor": 2300,
+      "lodging_minor": 14400,
+      "source_line": 347
+    },
+    {
+      "id": "tr2026_168",
+      "country": "Spanien",
+      "region": "Kanarische Inseln",
+      "full_minor": 3600,
+      "short_minor": 2400,
+      "lodging_minor": 10300,
+      "source_line": 348
+    },
+    {
+      "id": "tr2026_169",
+      "country": "Spanien",
+      "region": "Madrid",
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 13100,
+      "source_line": 349
+    },
+    {
+      "id": "tr2026_170",
+      "country": "Spanien",
+      "region": "Palma de Mallorca",
+      "full_minor": 4400,
+      "short_minor": 2900,
+      "lodging_minor": 14200,
+      "source_line": 350
+    },
+    {
+      "id": "tr2026_171",
+      "country": "Spanien",
+      "region": "im Übrigen",
+      "full_minor": 3400,
+      "short_minor": 2300,
+      "lodging_minor": 10300,
+      "source_line": 351
+    },
+    {
+      "id": "tr2026_172",
+      "country": "Sri Lanka",
+      "region": null,
+      "full_minor": 3600,
+      "short_minor": 2400,
+      "lodging_minor": 11200,
+      "source_line": 352
+    },
+    {
+      "id": "tr2026_173",
+      "country": "Südafrika",
+      "region": "Kapstadt",
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 13000,
+      "source_line": 354
+    },
+    {
+      "id": "tr2026_174",
+      "country": "Südafrika",
+      "region": "Johannesburg",
+      "full_minor": 3600,
+      "short_minor": 2400,
+      "lodging_minor": 12900,
+      "source_line": 355
+    },
+    {
+      "id": "tr2026_175",
+      "country": "Südafrika",
+      "region": "im Übrigen",
+      "full_minor": 2900,
+      "short_minor": 2000,
+      "lodging_minor": 10900,
+      "source_line": 356
+    },
+    {
+      "id": "tr2026_176",
+      "country": "Südsudan",
+      "region": null,
+      "full_minor": 5100,
+      "short_minor": 3400,
+      "lodging_minor": 15900,
+      "source_line": 357
+    },
+    {
+      "id": "tr2026_177",
+      "country": "Tadschikistan",
+      "region": null,
+      "full_minor": 2700,
+      "short_minor": 1800,
+      "lodging_minor": 8500,
+      "source_line": 358
+    },
+    {
+      "id": "tr2026_178",
+      "country": "Taiwan",
+      "region": null,
+      "full_minor": 5100,
+      "short_minor": 3400,
+      "lodging_minor": 17400,
+      "source_line": 359
+    },
+    {
+      "id": "tr2026_179",
+      "country": "Tansania",
+      "region": null,
+      "full_minor": 4400,
+      "short_minor": 2900,
+      "lodging_minor": 9700,
+      "source_line": 360
+    },
+    {
+      "id": "tr2026_180",
+      "country": "Thailand",
+      "region": null,
+      "full_minor": 3600,
+      "short_minor": 2400,
+      "lodging_minor": 11400,
+      "source_line": 361
+    },
+    {
+      "id": "tr2026_181",
+      "country": "Togo",
+      "region": null,
+      "full_minor": 3600,
+      "short_minor": 2400,
+      "lodging_minor": 14400,
+      "source_line": 362
+    },
+    {
+      "id": "tr2026_182",
+      "country": "Tonga",
+      "region": null,
+      "full_minor": 2900,
+      "short_minor": 2000,
+      "lodging_minor": 10200,
+      "source_line": 363
+    },
+    {
+      "id": "tr2026_183",
+      "country": "Trinidad und Tobago",
+      "region": null,
+      "full_minor": 6600,
+      "short_minor": 4400,
+      "lodging_minor": 20300,
+      "source_line": 364
+    },
+    {
+      "id": "tr2026_184",
+      "country": "Tschad",
+      "region": null,
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 15500,
+      "source_line": 365
+    },
+    {
+      "id": "tr2026_185",
+      "country": "Tschechische Republik",
+      "region": null,
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 7700,
+      "source_line": 366
+    },
+    {
+      "id": "tr2026_186",
+      "country": "Türkei",
+      "region": "Ankara",
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 11000,
+      "source_line": 368
+    },
+    {
+      "id": "tr2026_187",
+      "country": "Türkei",
+      "region": "Izmir",
+      "full_minor": 4400,
+      "short_minor": 2900,
+      "lodging_minor": 12000,
+      "source_line": 387
+    },
+    {
+      "id": "tr2026_188",
+      "country": "Türkei",
+      "region": "im Übrigen",
+      "full_minor": 2400,
+      "short_minor": 1600,
+      "lodging_minor": 10700,
+      "source_line": 388
+    },
+    {
+      "id": "tr2026_189",
+      "country": "Tunesien",
+      "region": null,
+      "full_minor": 4000,
+      "short_minor": 2700,
+      "lodging_minor": 14400,
+      "source_line": 389
+    },
+    {
+      "id": "tr2026_190",
+      "country": "Turkmenistan",
+      "region": null,
+      "full_minor": 2800,
+      "short_minor": 1900,
+      "lodging_minor": 13500,
+      "source_line": 390
+    },
+    {
+      "id": "tr2026_191",
+      "country": "Uganda",
+      "region": null,
+      "full_minor": 4500,
+      "short_minor": 3000,
+      "lodging_minor": 20700,
+      "source_line": 391
+    },
+    {
+      "id": "tr2026_192",
+      "country": "Ukraine",
+      "region": null,
+      "full_minor": 3300,
+      "short_minor": 2200,
+      "lodging_minor": 18000,
+      "source_line": 392
+    },
+    {
+      "id": "tr2026_193",
+      "country": "Ungarn",
+      "region": null,
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 8500,
+      "source_line": 393
+    },
+    {
+      "id": "tr2026_194",
+      "country": "Uruguay",
+      "region": null,
+      "full_minor": 4000,
+      "short_minor": 2700,
+      "lodging_minor": 11300,
+      "source_line": 394
+    },
+    {
+      "id": "tr2026_195",
+      "country": "Usbekistan",
+      "region": null,
+      "full_minor": 3200,
+      "short_minor": 2100,
+      "lodging_minor": 13300,
+      "source_line": 395
+    },
+    {
+      "id": "tr2026_196",
+      "country": "Vatikanstaat",
+      "region": null,
+      "full_minor": 4800,
+      "short_minor": 3200,
+      "lodging_minor": 15000,
+      "source_line": 396
+    },
+    {
+      "id": "tr2026_197",
+      "country": "Venezuela",
+      "region": null,
+      "full_minor": 5100,
+      "short_minor": 3400,
+      "lodging_minor": 17800,
+      "source_line": 397
+    },
+    {
+      "id": "tr2026_198",
+      "country": "Vereinigte Arabische Emirate",
+      "region": null,
+      "full_minor": 8100,
+      "short_minor": 5400,
+      "lodging_minor": 16900,
+      "source_line": 398
+    },
+    {
+      "id": "tr2026_199",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "Atlanta",
+      "full_minor": 7700,
+      "short_minor": 5200,
+      "lodging_minor": 18200,
+      "source_line": 400
+    },
+    {
+      "id": "tr2026_200",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "Boston",
+      "full_minor": 6300,
+      "short_minor": 4200,
+      "lodging_minor": 33300,
+      "source_line": 401
+    },
+    {
+      "id": "tr2026_201",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "Chicago",
+      "full_minor": 6500,
+      "short_minor": 4400,
+      "lodging_minor": 23300,
+      "source_line": 402
+    },
+    {
+      "id": "tr2026_202",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "Houston",
+      "full_minor": 6200,
+      "short_minor": 4100,
+      "lodging_minor": 20400,
+      "source_line": 403
+    },
+    {
+      "id": "tr2026_203",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "Los Angeles",
+      "full_minor": 6400,
+      "short_minor": 4300,
+      "lodging_minor": 26200,
+      "source_line": 404
+    },
+    {
+      "id": "tr2026_204",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "Miami",
+      "full_minor": 6500,
+      "short_minor": 4400,
+      "lodging_minor": 25600,
+      "source_line": 405
+    },
+    {
+      "id": "tr2026_205",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "New York City",
+      "full_minor": 6600,
+      "short_minor": 4400,
+      "lodging_minor": 30800,
+      "source_line": 406
+    },
+    {
+      "id": "tr2026_206",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "San Francisco",
+      "full_minor": 5900,
+      "short_minor": 4000,
+      "lodging_minor": 32700,
+      "source_line": 407
+    },
+    {
+      "id": "tr2026_207",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "Washington, D. C.",
+      "full_minor": 6600,
+      "short_minor": 4400,
+      "lodging_minor": 20300,
+      "source_line": 408
+    },
+    {
+      "id": "tr2026_208",
+      "country": "Vereinigte Staaten von Amerika (USA)",
+      "region": "im Übrigen",
+      "full_minor": 5900,
+      "short_minor": 4000,
+      "lodging_minor": 18200,
+      "source_line": 409
+    },
+    {
+      "id": "tr2026_209",
+      "country": "Vereinigtes Königreich von Großbritannien und Nordirland",
+      "region": "London",
+      "full_minor": 6600,
+      "short_minor": 4400,
+      "lodging_minor": 16300,
+      "source_line": 411
+    },
+    {
+      "id": "tr2026_210",
+      "country": "Vereinigtes Königreich von Großbritannien und Nordirland",
+      "region": "im Übrigen",
+      "full_minor": 5200,
+      "short_minor": 3500,
+      "lodging_minor": 9900,
+      "source_line": 412
+    },
+    {
+      "id": "tr2026_211",
+      "country": "Vietnam",
+      "region": null,
+      "full_minor": 3600,
+      "short_minor": 2400,
+      "lodging_minor": 11100,
+      "source_line": 413
+    },
+    {
+      "id": "tr2026_212",
+      "country": "Weißrussland",
+      "region": null,
+      "full_minor": 2100,
+      "short_minor": 1400,
+      "lodging_minor": 14800,
+      "source_line": 414
+    },
+    {
+      "id": "tr2026_213",
+      "country": "Zentralafrikanische Republik",
+      "region": null,
+      "full_minor": 5300,
+      "short_minor": 3600,
+      "lodging_minor": 21000,
+      "source_line": 415
+    },
+    {
+      "id": "tr2026_214",
+      "country": "Zypern",
+      "region": null,
+      "full_minor": 4200,
+      "short_minor": 2800,
+      "lodging_minor": 12500,
+      "source_line": 416
+    }
+  ]
+}

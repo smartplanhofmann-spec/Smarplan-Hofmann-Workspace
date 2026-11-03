@@ -4,6 +4,10 @@ import {bankPendingAuthorize,bankReconciliationUi} from './bank-reconciliation.j
 import {resourceCustodyPendingAuthorize} from './resource-custody.js';
 import {resourceCustodyUi} from './resource-custody.js';
 import {payrollCashPendingAuthorize} from './payroll-cash.js';
+import {payrollFactsPendingAuthorize} from './payroll-facts.js';
+import {payrollEntitlementsPendingAuthorize} from './payroll-entitlements.js';
+import {payrollTravelTaxPoliciesPendingAuthorize} from './payroll-travel-tax-policies.js';
+import {payrollCalculationCasesPendingAuthorize} from './payroll-calculation-cases.js';
 import {servicePendingAuthorize,serviceUi} from './service.js';
 import {companyHandoverUi} from './company-handover.js';
 import {privacyCasesUi} from './privacy-cases.js';
@@ -14,6 +18,7 @@ import {renderCustomerWorkspace,customerWorkspaceRights} from './customer-worksp
 /* Smartplan Office online browser client. No providers, persistent credentials or service worker. */
 import {assetProvenanceUi} from './asset-provenance.js';
 import {personnelWorkflowUi} from './personnel-workflow.js';
+import {travelAllowancesUi} from './travel-allowances.js';
 import {assistantUi} from './assistant.js';
 import {payrollPendingAuthorize,payrollUi} from './payroll.js';
 import {renderCompanyOverview} from './company-overview.js';
@@ -939,7 +944,11 @@ export class OfficeApi {
       if(old&&path.startsWith('/business/bank/'))await bankPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/resource-custody/'))await resourceCustodyPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/service/cases'))await servicePendingAuthorize(this,{key,path});
-      if(old&&path.startsWith('/business/payroll/')&&!path.startsWith('/business/payroll/cash/'))await payrollPendingAuthorize(this,{key,path});
+      if(old&&path==='/business/payroll/facts')await payrollFactsPendingAuthorize(this,{key,path});
+      if(old&&path==='/business/payroll/entitlements')await payrollEntitlementsPendingAuthorize(this,{key,path});
+      if(old&&path==='/business/payroll/travel-tax-policies')await payrollTravelTaxPoliciesPendingAuthorize(this,{key,path});
+      if(old&&path==='/business/payroll/calculation-cases')await payrollCalculationCasesPendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/payroll/')&&!path.startsWith('/business/payroll/cash/')&&!['/business/payroll/facts','/business/payroll/entitlements','/business/payroll/travel-tax-policies','/business/payroll/calculation-cases'].includes(path))await payrollPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/sales/'))await salesPendingAuthorize(this,{key,path});
       if(old&&(path==='/business/migrations'||path.startsWith('/business/migrations/')))await migrationPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/custom-fields/'))await customFieldsPendingAuthorize(this,{key,path});
@@ -1023,9 +1032,15 @@ const payrollWorkspace=payrollUi({el,button,field,form,dialog,panel,rows,row,not
   organization:()=>state.organization,userId:()=>state.user?.id,stamp:()=>`${api.generation}/${state.render}`,
   saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
 
+const travelWorkspace=travelAllowancesUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,formatDate,formatMoney,
+  allowed:()=>state.section==='personnel'&&state.features.has('travel_allowances')&&state.capabilities.has('business_travel_allowances')&&(state.globalPermissions.has('personnel.read')||state.globalPermissions.has('time.own')),
+  stamp:()=>`${api.generation}/${state.render}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
 const personnelWorkflow=personnelWorkflowUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,biz,query,mutation,action,refresh,formatDate,formatMoney,duration,
   available:()=>state.features.has('personnel_preparation')&&state.section==='personnel',
   payrollAvailable:()=>state.features.has('german_payroll_2026'),openPayroll:employee=>payrollWorkspace.open(employee),
+  travelAvailable:()=>state.features.has('travel_allowances')&&state.capabilities.has('business_travel_allowances'),openTravel:employee=>travelWorkspace.open(employee),
   permission:value=>state.globalPermissions.has(value),userId:()=>state.user?.id,
   enabled:()=>!state.readonly&&organizationModuleEnabled('personnel',state.organization),
   stamp:()=>`${api.generation}/${state.render}`,projects:()=>state.projects,
@@ -1189,7 +1204,7 @@ function mayOpenSection(section) {
 }
 
 function loginScreen(challenge = null, enrollment = null) {
-  privacyCases.clear();
+  privacyCases.clear();travelWorkspace.clear();
   refundPendingSources.clear();
   closeModal(); revokeUrls(); state.user=null; root.replaceChildren();
   const card=el('section',{class:'login-card'},el('div',{class:'brand'},el('span',{class:'brand-mark'},'S'),el('div',{},el('strong',{},'smartplan'),el('small',{},'OFFICE'))),el('h1',{},challenge?'Anmeldung bestätigen':'Willkommen im Büro.'),el('p',{class:'muted'},challenge?'Authentifizierungscode oder Wiederherstellungscode eingeben.':'Projekte, Team und Unterlagen an einem Ort.'));
@@ -1257,6 +1272,7 @@ function operationLabel(path) {
   if(path==='/business/bank/reconciliations')return 'Bankprüfstand dokumentieren';
   if(path.startsWith('/business/resource-custody/'))return 'Betriebsmittelnachweis speichern';
   if(path.startsWith('/business/payroll/cash/'))return 'Belegte Lohnzahlungen übernehmen';
+  if(path==='/business/payroll/facts')return 'Belegten Lohnfall speichern';
   if(path.startsWith('/business/payroll/'))return 'Lohnvorgang bestätigen';
   if(path.startsWith('/business/service/cases'))return 'Kundenservicevorgang speichern';
   if(/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/supplier-returns$/.test(path))return 'Lieferantenretoure dokumentieren';
@@ -1336,8 +1352,10 @@ async function refresh() {
       buildShell();
     }
     if(modal?.querySelector('[data-personnel-workflow]'))closeModal();
+    if(modal?.querySelector('[data-payroll-facts]'))closeModal();
     if(modal?.querySelector('[data-inventory-count]'))closeModal();
     if(modal?.querySelector('[data-privacy-cases]')){privacyCases.clear();closeModal();}
+    if(modal?.querySelector('[data-travel-allowances]')){travelWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-file-migration]'))closeModal();
     if(modal?.querySelector('[data-service-case],[data-resource-custody],[data-purchase-change]'))closeModal();
     if(modal?.querySelector('[data-custom-fields]'))closeModal();

@@ -1,0 +1,74 @@
+{
+  "checked_at": "2026-11-03T23:03:32.715270+00:00",
+  "scope": "Explicit sickness v2 plus historical v1 preservation; no overlapping-illness or production-payroll completion claim",
+  "runs": [
+    {
+      "kind": "v2_pure",
+      "log": "work/verification/payroll-sickness-v2-pure-first.log",
+      "tests": 8,
+      "seconds": 0.001,
+      "result": "OK",
+      "sha256": "8ddf2fd69c751c1c2cc9872eb4ce0fe5967533165dfa5a84f2660a95c3a8d6f7"
+    },
+    {
+      "kind": "regression",
+      "log": "work/verification/payroll-sickness-v2-service-first.log",
+      "tests": 63,
+      "seconds": 6.017,
+      "result": "OK",
+      "sha256": "40138be0901b153c4e5757ea996ebf6dc2b9cdc46b93995e1e53ee04f99b1d53"
+    },
+    {
+      "kind": "history",
+      "log": "work/verification/payroll-sickness-v2-history-first.log",
+      "tests": 5,
+      "seconds": 1.215,
+      "result": "OK",
+      "sha256": "76c14911ec4c378c289ece18d0cae94fe2670d4c7055c2c04c9abde1224b6057"
+    },
+    {
+      "kind": "http",
+      "log": "work/verification/payroll-sickness-v2-http.log",
+      "tests": 3,
+      "seconds": 2.542,
+      "result": "OK",
+      "sha256": "5732251f27020a6cc38f1385c6b3b7a455e80564d524c76572d2f4f2894fada5"
+    },
+    {
+      "kind": "postgresql",
+      "log": "work/verification/payroll-sickness-v2-pg-test_business_payroll_entitlements_pg.log",
+      "tests": 3,
+      "seconds": 9.455,
+      "result": "OK",
+      "sha256": "9d8233a4bf79446e4cbe4235aa8f2db994823830ce0cf8c16558049903fc90d8"
+    },
+    {
+      "kind": "independent_review",
+      "log": "work/verification/payroll-sickness-review-final.log",
+      "tests": 5,
+      "seconds": 0.001,
+      "result": "OK",
+      "sha256": "0a5d1b830f675eb6abb8c49d39caa2d7b391d957f99d17fcf2ab159135f66f8c"
+    }
+  ],
+  "unique_new_pure_and_private_tests": 13,
+  "independent_review_tests": 5,
+  "regression_tests": 55,
+  "http_tests": 3,
+  "postgresql_tests": 3,
+  "immutable_v1_sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7",
+  "v1_unchanged": true,
+  "sources": {
+    "backend/payroll_entitlements_2026.py": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7",
+    "backend/payroll_sickness_2026.py": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33",
+    "backend/payroll_entitlement_dispatch.py": "9fc5d172a830aa0846fa6a0c4dd857980fc56e9de1be1cfc6b3504f4eb2aad05",
+    "backend/business_payroll_entitlements.py": "e8679069a9b6eb99eac7c9cedf6870ca0ce92f1f920eb55d57c90869610448d6",
+    "backend/test_payroll_sickness_2026.py": "66c93d35f666090c354bb46e151d146622ef0926ef56a5d14afe92fad395e052",
+    "backend/test_business_payroll_sickness_v2.py": "0c9ef8f30321c7e6e02c2038b8df3cb89a4921d745e9525b7c3a603721b725c8",
+    "backend/test_payroll_sickness_review.py": "5cfe02806eb3ed7c3d7dc6fd8943b44bb199b4d32cab4f3001e59585482aae81",
+    "backend/test_business_payroll_entitlements_transport.py": "a283d958933d7ef6bf416e3131f3be1f46cba97972772fb4de2ecf4db33314e6",
+    "backend/online/test_business_payroll_entitlements_pg.py": "6abc816d8319a8db961fb8a238d53fa98c955848410e9340e52593b854cbe69b"
+  },
+  "combined_log": "docs/evidence/payroll-sickness-v2-2026-11-03.txt",
+  "combined_log_sha256": "9be89f25c24997f9158731e830dc1f73ac990ad561e7d6d48ff74e9a4a1346af"
+}

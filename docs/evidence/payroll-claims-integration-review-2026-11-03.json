@@ -1,0 +1,77 @@
+{
+  "recorded_at_utc": "2026-11-03T22:45:03.620609+00:00",
+  "scope": "Four focused reviews; overlapping existing/session cases are not a total-suite count.",
+  "runs": [
+    {
+      "name": "payroll-entitlements-private-review",
+      "passed": 8,
+      "tests": 8,
+      "log": "docs/evidence/payroll-entitlements-private-review-2026-11-03.txt",
+      "log_sha256": "a4d103be2b3463af5965dae7932cdf0a2a4be7bd07fd920d57bf06dc1616ff0f",
+      "sources": {
+        "backend/business_payroll_entitlements.py": "a61717150cfc319e14da2dd11fa121caa209d64869ec28c51e1bd6d9a41535ec",
+        "backend/test_business_payroll_entitlements_review.py": "55c681ea7b610783fc9b99b43f2f68d65b7760e1a36368e7f2b1a39e76c780ba"
+      }
+    },
+    {
+      "name": "payroll-calculations-review",
+      "passed": 8,
+      "tests": 8,
+      "log": "docs/evidence/payroll-calculations-review-2026-11-03.txt",
+      "log_sha256": "e1279290c1ac820601b2a9478532373e0a806a87626cd7293a420de71970afdc",
+      "sources": {
+        "backend/payroll_calculations_2026.py": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553",
+        "backend/test_payroll_calculations_review.py": "2cb3e911786fc35031820d790100b9e2f48ea5ca4b1052162fd98277529dae2b"
+      }
+    },
+    {
+      "name": "payroll-entitlements-session-node",
+      "passed": 6,
+      "tests": 6,
+      "log": "docs/evidence/payroll-entitlements-session-node-2026-11-03.txt",
+      "log_sha256": "504e2eed018bed5aea50c9f9a451bc690d92814b9241345ffc2a5c8824519a52",
+      "sources": {
+        "web/office/office.js": "518a8fc69ac73aaf3e3ee6b6ba666db8925d241da82906af42b1b39fa851597f",
+        "web/office/tests/payroll-entitlements-session-retry.test.mjs": "66520d29e9fc5335f813f4686ee20629e1e0c29c1244908003a4ab69d21ec580"
+      }
+    },
+    {
+      "name": "payroll-entitlements-session-flutter",
+      "passed": 11,
+      "tests": 11,
+      "log": "docs/evidence/payroll-entitlements-session-flutter-2026-11-03.txt",
+      "log_sha256": "7c67321a976ae1cffca879f8c697ec677c4e66f9c916d91fe93a90962c406b03",
+      "sources": {
+        "app/lib/business_session.dart": "708e9ebd893bf381dc79f3b4e69758efe903af2e5905c8e93826fc97acb929ad",
+        "app/test/business_payroll_entitlements_session_test.dart": "43d6b7518e4c5621e28e2043b790f459b44bc4234049137aca72924a39090c1d"
+      }
+    }
+  ],
+  "limitations": [
+    "No full v5 domain/finalization acceptance",
+    "P4 user interfaces still in development",
+    "No whole product completion claim"
+  ],
+  "prior_findings": [
+    {
+      "run": "payroll-entitlements-private-review-first.log",
+      "finding": "A later existing employee revision could replace the historical accepted projection after full rehash; fixed by private exact accepted_command binding."
+    },
+    {
+      "run": "payroll-calculations-review-boundary.log",
+      "finding": "Boolean/float aliases in snapshot version fields accepted; strict integer checks added."
+    },
+    {
+      "run": "payroll-calculations-review-first.log",
+      "finding": "Review fixture initially used the same person id and an out-of-scope annual insurance forecast, and a wrong rounding expectation; corrected before the isolated version finding."
+    },
+    {
+      "run": "payroll-entitlements-session-node-first.log",
+      "finding": "Synthetic response omitted new entitlement/file-reference arrays; fixed test fixture."
+    },
+    {
+      "run": "payroll-entitlements-session-flutter-first.log",
+      "finding": "An extra test path did not exist; the five new tests already passed, then the real existing session suite was run."
+    }
+  ]
+}

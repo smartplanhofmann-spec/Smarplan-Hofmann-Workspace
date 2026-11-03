@@ -2,9 +2,29 @@
 
 Bestandsaufnahme und Quellenprüfung: 03.11.2026. Maßstab bleibt die gewünschte erste Version für **reguläre Mitarbeiter und gewerbliche Minijobs**, nicht nur der bisher berechenbare Vollmonat. Diese Analyse ändert keine Rechenlogik und erklärt keine fachliche oder amtliche Zulassung.
 
-## Fortschreibung nach P1
+## Fortschreibung nach P1, P2 und P3a
 
-Midijob-Vollmonate sind inzwischen als explizite neue Regelversion implementiert und geprüft: [Kernel-/PG-Abnahme](CRM_ERP_LOHN_MIDIJOB_2026.md), [beide Clients und echte Browserstrecken](CRM_ERP_LOHN_MIDIJOB_CLIENTS.md). Die folgende Bestandsaufnahme dokumentiert den Ausgangspunkt vor dieser Umsetzung. P2/P3 sind im [konkreten Zeitachsen-/Teilmonatsentwurf](CRM_ERP_LOHN_ZEITACHSEN_TEILMONATE_ENTWURF.md) ausgearbeitet; R39b.5 wurde vollständig beschafft und 18 Tages- sowie vier Mehrtages-/Datumsreferenzen wurden unabhängig hergeleitet. Das ist eine Quellen-/Entwurfsprüfung, noch keine implementierte Tagesabrechnung. Ein Rechenwiderspruch in Minijob-Beispiel 30 ist dort ausdrücklich dokumentiert.
+Midijob-Vollmonate sind als eigene neue Regelversion geprüft:
+[Kernel-/PG-Abnahme](CRM_ERP_LOHN_MIDIJOB_2026.md) und
+[Clients](CRM_ERP_LOHN_MIDIJOB_CLIENTS.md). P2-Lohnfakten sind inzwischen
+[implementiert und geprüft](CRM_ERP_LOHN_FAKTEN_2026.md). P3a ergänzt belegte
+Teilmonate für eine Beschäftigungsepisode, eine Entgeltvereinbarung und ein
+SV-Profil: [Backend-/PG-Nachweis](CRM_ERP_LOHN_TEILMONATE_2026.md),
+[unabhängige Gegenprüfung](CRM_ERP_LOHN_TEILMONATE_GEGENPRUEFUNG_2026.md) und
+[beide Clients](CRM_ERP_LOHN_ZEITACHSEN_CLIENTS.md). R39b.5 wurde vollständig
+beschafft; die frühere Beschaffungslücke im historischen Abschnitt unten ist
+für P3a geschlossen. Die alten Vollmonatsregeln und v4 einschließlich ihrer
+historischen Sperrgründe bleiben unter ihren gespeicherten Versionen erhalten.
+
+Der begrenzte eigene Mitarbeiterbeleg für v1–v4 ist inzwischen geprüft.
+P4 besitzt geprüfte private Anspruchsfakten; die neue Stundenlohn-Regel v2
+behandelt zusätzlich den fachlich nachgewiesenen AU-Beginn am freien Tag.
+Aktiv entwickelt werden P3b (mehrere belegte Beschäftigungs-/Entgelt-/SV-
+Abschnitte), deren v5-Zusammenrechnung mit P4 und Reisen sowie Einmalbezüge P5.
+Der P5-Steuerhelfer besitzt amtlich abgeleitete und unabhängig handgerechnete
+Referenzfälle; tatsächliche Jahresquellen und SV-Zuordnung sind noch in Arbeit.
+Die weiteren benannten Fälle bleiben offen. Die folgende Bestandsaufnahme bewahrt den Ausgangspunkt vor P1
+und darf nicht als aktueller Vollständigkeitsnachweis gelesen werden.
 
 ## Codebefund vor P1
 
@@ -27,8 +47,8 @@ Die Reihenfolge ist eine technische Umsetzungsempfehlung. Jeder Eintrag bleibt b
 | Priorität | Konkretes Paket | Ergebnis und Abhängigkeiten |
 |---|---|---|
 | 1, abgeschlossen | Midijob für belegte reguläre Vollmonate | Eigenständiger neuer Regelzweig mit vollständigem AN-/AG-/Steuer-/Nettoergebnis; alte Versionen unverändert. [Abnahme: 67 Fachtests, 3 neue + 9 historische PG-Fälle](CRM_ERP_LOHN_MIDIJOB_2026.md), [beide Clients und Browser](CRM_ERP_LOHN_MIDIJOB_CLIENTS.md). |
-| 2 | Belegte Lohnfälle und getrennte Zeitachsen | Versionierte Entscheidungen für Entgeltart, Beschäftigungs-/SV-Zeiträume, Lohnzahlungszeitraum, Anspruch und Vorträge. Grundlage der folgenden Pakete. |
-| 3 | Eintritt/Austritt, Tarif-/Profilwechsel und Teilmonate | Tages-PAP, Teil-BBG, Vertragsaufteilung, Minijob-Mindestbeitrag, Midijob-Teilmonat. Historische Vollmonatsläufe bleiben unter ihrer alten Regelversion reproduzierbar. |
+| 2, abgeschlossen | Belegte Lohnfälle und getrennte Zeitachsen | Versionierte Entscheidungen für Entgeltart, Beschäftigungs-/SV-Zeiträume, Lohnzahlungszeitraum, Anspruch und Vorträge. Grundlage der folgenden Pakete. |
+| 3a abgeschlossen; 3b aktiv | Eintritt/Austritt, Tarif-/Profilwechsel und Teilmonate | Tages-PAP, Teil-BBG, Vertragsaufteilung, Minijob-Mindestbeitrag, Midijob-Teilmonat. Historische Vollmonatsläufe bleiben unter ihrer alten Regelversion reproduzierbar. |
 | 4 | Bezahlte/unbezahlte Abwesenheit | Krankheit/Entgeltfortzahlung, Feiertage, Urlaub bei Stundenlohn und Unterbrechungen mit monatsübergreifender Anspruchshistorie. Kein automatisches Hochsetzen tatsächlich gearbeiteter Projektstunden. |
 | 5 | Einmalbezug einschließlich Märzklausel | Steuer-/SV-Jahresvorträge, getrennte laufende und einmalige Anteile, Vorjahreszuordnung sowie Folgekorrekturen. Baut auf Zeitachsen und Jahresvorträgen auf. |
 | 6, parallel unabhängig möglich | Reisepauschalen Inland und Ausland 2026 | Separater Reiseberechner mit belegter Steuerentscheidung, eigener unveränderlicher Abrechnung und einmaliger Übergabe zur bestehenden Erstattung/Geldflusskette. |
@@ -102,6 +122,19 @@ Inland: 28 EUR für 24 Stunden, 14 EUR für An-/Abreisetage bei zugehöriger Aus
 Ausland: vollständige versionierte Länder-/Städtetabelle und die Orts-/Anreise-/Abreiseregeln aus [BMF-Schreiben 05.12.2025, gültig 01.01.2026](https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Lohnsteuer/2025-12-05-steuerliche-behandlung-reisekosten-2026.pdf?__blob=publicationFile&v=5). Gelesene Kontrollwerte: Belgien 59/40/141 EUR, Schweiz Bern 82/55/195 EUR (voller Tag/An-Abreisetag/Übernachtungspauschale). Die gesamte Tabelle muss vor Freigabe separat vollständig übertragen und geprüft werden. Übernachtungspauschalen sind nicht ohne Weiteres als EÜR-Eigenbeleg des Unternehmers verwendbar; Arbeitnehmererstattung und Betriebsausgabenprüfung bleiben verschiedene Entscheidungen.
 
 Tests: 8:00 gegenüber 8:01 Stunden; 24-Stunden-Tag; Reise über Mitternacht ohne Übernachtung; Anreise mit Frühstück (14−5,60=8,40 EUR); Volltag mit drei gestellten Mahlzeiten (0 EUR); Eigenanteil; Dreimonatsgrenze und 27/28-Tage-Unterbrechung; Länderwechsel/Ortszeit; Stadt- gegenüber Landesresttabelle; keine doppelte Beleg-/Pauschal-/Gehaltsnettoerstattung. Steuerfreie und gegebenenfalls steuerpflichtige Erstattung werden getrennt ausgewiesen; die bestehende Auszahlungskette erzeugt den tatsächlichen Geldfluss genau einmal.
+
+### Weitere Reisesteueroption: gestellte Mahlzeiten nach §40 Abs.2 Nr.1a
+
+Der aktuelle Reise-Pauschalsteuerbaustein behandelt §40 Abs.2 Satz1 Nr.4 EStG
+(zusätzliche Verpflegungszuschüsse). Die davon verschiedene Arbeitgeberwahl
+nach Nr.1a für übliche gestellte Mahlzeiten, etwa ohne Anspruch auf
+Verpflegungspauschalen oder nach Ablauf der Dreimonatsfrist, ist noch kein
+eigener implementierter Policyfall. Solche Mahlzeiten werden aktuell als
+Sachbezug im individuellen Lohnweg erfasst. Die zusätzliche Wahlmöglichkeit
+darf deshalb nicht als bereits vollständig verfügbar ausgewiesen werden.
+Erforderlich bleiben ein eigener Tatbestand mit belegten Voraussetzungen,
+Arbeitgeberwahl und Kostenübernahme sowie unabhängige Steuer-/SV-Grenzfälle.
+Quelle: [BMF 25.11.2020, Rz.94–99](https://www.ihk.de/blueprint/servlet/resource/blob/5260010/6167648501baf85de6053f701b93e9b5/bmf-schreiben-25-11-2020-data.pdf).
 
 ## Zusätzliche 2026-Minijoblücken
 

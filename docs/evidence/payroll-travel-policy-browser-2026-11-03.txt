@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll travel policy: actual MFA/HTTP and production entry, explicit empty choices, private original download, separate preview/confirmation, exact accepted lost-ACK repeat, correction/void immutable history and mobile390 passed
+1 targeted payroll travel tax policies workflow passed

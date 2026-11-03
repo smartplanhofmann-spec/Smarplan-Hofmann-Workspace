@@ -1,0 +1,197 @@
+{
+  "actor": {
+    "email": "technician@example.test",
+    "id": "49cff16ed0934754b80391fd1a5f1ff0",
+    "role": "technician"
+  },
+  "employee": {
+    "active": true,
+    "employment_from": "2026-10-15",
+    "employment_to": null,
+    "hourly_cost_minor": 3500,
+    "id": "cb270d007d824c7bba1cdfd571901d64",
+    "name": "Synthetic technician",
+    "revision": 2,
+    "updated_at": "2026-11-03T12:00:00+00:00",
+    "user_id": "49cff16ed0934754b80391fd1a5f1ff0",
+    "weekly_minutes": 2400
+  },
+  "page": {
+    "can_export": true,
+    "employee_id": "cb270d007d824c7bba1cdfd571901d64",
+    "items": [
+      {
+        "calculation": {
+          "church_tax_minor": null,
+          "currency": "EUR",
+          "employee_additional_payment_minor": 0,
+          "employee_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 0,
+            "pension": 1190,
+            "unemployment": 0
+          },
+          "employee_social_total_minor": 1190,
+          "employee_tax_minor": 0,
+          "employer_flat_tax_minor": 661,
+          "gross_minor": 33068,
+          "individual_wage_tax_minor": null,
+          "net_minor": 31878,
+          "payout_minor": 31878,
+          "payroll_calculation_complete": true,
+          "rule_version": "de_2026_periods_pap_v4",
+          "scope": "commercial_minijob_period_flat_tax",
+          "solidarity_minor": null
+        },
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "employee_id": "cb270d007d824c7bba1cdfd571901d64",
+        "employee_name": "Synthetic technician",
+        "month": "2026-10",
+        "payment_status": "not_evidenced_by_calculation",
+        "pdf_sha256": "90a52ac9da32d6d6b528b3fbcc09cd92477146a929046facbb04927e8ebb63f7",
+        "pdf_size": 4112,
+        "period_summary": {
+          "employment_intervals": [
+            {
+              "calendar_days": 17,
+              "end": "2026-10-31",
+              "start": "2026-10-15"
+            }
+          ],
+          "social_periods": [
+            {
+              "days": 17,
+              "end": "2026-10-31",
+              "full_month": false,
+              "start": "2026-10-15"
+            }
+          ],
+          "tax_periods": [
+            {
+              "end": "2026-10-31",
+              "lzz": 4,
+              "start": "2026-10-15",
+              "tax_days": 17
+            }
+          ]
+        },
+        "run_ref": {
+          "content_hash": "0a2ba253e935724389ea44ec51087da4519d717700237a3adc359b87275517d1",
+          "id": "1878c617db8246f19f6b69403e50db02",
+          "revision": 1
+        },
+        "schema_version": 1,
+        "statement_hash": "31992b18ff62012459a95dfbb33e12408a41623e85fc8d2617db5206be0c535e",
+        "transmission_status": "not_transmitted"
+      }
+    ]
+  },
+  "partial": {
+    "calculation": {
+      "church_tax_minor": null,
+      "currency": "EUR",
+      "employee_additional_payment_minor": null,
+      "employee_contributions": {
+        "care": 8400,
+        "health_additional": 4708,
+        "health_general": 25550,
+        "pension": 32550,
+        "unemployment": 4550
+      },
+      "employee_social_total_minor": 75758,
+      "employee_tax_minor": null,
+      "employer_flat_tax_minor": 0,
+      "gross_minor": 350000,
+      "individual_wage_tax_minor": null,
+      "net_minor": null,
+      "payout_minor": null,
+      "payroll_calculation_complete": false,
+      "rule_version": "de_2026_standard_monthly_pap_v2",
+      "scope": "social_contributions_only",
+      "solidarity_minor": null
+    },
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "employee_id": "a81129d5b17f4240a46801738c38dc33",
+    "employee_name": "Synthetic technician",
+    "month": "2026-10",
+    "payment_status": "not_evidenced_by_calculation",
+    "pdf_sha256": "1d0edc85f58c7d4a9d974a15180f77d05170928b63b052c42c464e86c748277d",
+    "pdf_size": 3873,
+    "period_summary": null,
+    "run_ref": {
+      "content_hash": "82df254fcec6b0536b34aedab9d54cf5941d93ab46d8a8f208ad7bdf6aaa451f",
+      "id": "15469742fad04ea98268293b2f4f5fb6",
+      "revision": 1
+    },
+    "schema_version": 1,
+    "statement_hash": "df4cdb1084fb9d433e11576c319e15b188919acb8110aa62df62de27b17cc028",
+    "transmission_status": "not_transmitted"
+  },
+  "pdf_base64": "JVBERi0xLjMKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yOCA4NDEuODkgXSAvUGFyZW50IDcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyA3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKNiAwIG9iago8PAovQXV0aG9yIChTbWFydHBsYW4pIC9DcmVhdGlvbkRhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvQ3JlYXRvciAoYW5vbnltb3VzKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAwMDAxMDEwMDAwMDArMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAodW5zcGVjaWZpZWQpIC9UaXRsZSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDQgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9MZW5ndGggMjc1MAo+PgpzdHJlYW0KMSAwIDAgMSAwIDAgY20gIEJUIC9GMSAxMiBUZiAxNC40IFRMIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDc5MCBUbSAoTG9obm5hY2h3ZWlzIDIwMjYtMTApIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc2OSBUbSAoU3ludGhldGljIHRlY2huaWNpYW4pIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDc1MCBUbSAoQmVyZWNobnVuZ3NmYXNzdW5nIDEpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDczMSBUbSAoRXJmYXNzdGVyIFJlY2hlbnN0YW5kOiAyMDI2LTExLTAzVDEyOjAwOjAwKzAwOjAwKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA3MTIgVG0gKEJydXR0bzogMzMwLDY4IEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjkzIFRtIChBcmJlaXRuZWhtZXJiZWl0clwzNDRnZSBnZXNhbXQ6IDExLDkwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjc0IFRtIChMb2huc3RldWVyOiBOaWNodCBlcm1pdHRlbHQpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDY1NSBUbSAoU29saWRhcml0XDM0NHRzenVzY2hsYWc6IE5pY2h0IGVybWl0dGVsdCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNjM2IFRtIChLaXJjaGVubG9obnN0ZXVlcjogTmljaHQgZXJtaXR0ZWx0KSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA2MTcgVG0gKEFyYmVpdG5laG1lcnN0ZXVlcm4gZ2VzYW10OiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTk4IFRtIChOZXR0bzogMzE4LDc4IEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTc5IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZzogMzE4LDc4IEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTYwIFRtIChadXNcMzQ0dHpsaWNoZXIgQXJiZWl0bmVobWVyYmVpdHJhZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDU0MSBUbSAoQXJiZWl0Z2ViZXItUGF1c2Noc3RldWVyOiA2LDYxIEVVUikgVGogVCogRVQKQlQgL0YyIDE1IFRmIDE4IFRMIEVUCkJUIDEgMCAwIDEgNTAgNTIyIFRtIChBcmJlaXRuZWhtZXJiZWl0clwzNDRnZSkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNTAxIFRtIChLcmFua2VudmVyc2ljaGVydW5nOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDgyIFRtIChLVi1adXNhdHpiZWl0cmFnOiAwLDAwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDYzIFRtIChSZW50ZW52ZXJzaWNoZXJ1bmc6IDExLDkwIEVVUikgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgNDQ0IFRtIChBcmJlaXRzbG9zZW52ZXJzaWNoZXJ1bmc6IDAsMDAgRVVSKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCA0MjUgVG0gKFBmbGVnZXZlcnNpY2hlcnVuZzogMCwwMCBFVVIpIFRqIFQqIEVUCkJUIC9GMiAxNSBUZiAxOCBUTCBFVApCVCAxIDAgMCAxIDUwIDQwNiBUbSAoQmVsZWd0ZSBaZWl0clwzNDR1bWUpIFRqIFQqIEVUCkJUIC9GMSAxMCBUZiAxMiBUTCBFVApCVCAxIDAgMCAxIDUwIDM4NSBUbSAoQmVzY2hcMzQ0ZnRpZ3VuZyAvIEthbGVuZGVydGFnZTogMjAyNi0xMC0xNSBiaXMgMjAyNi0xMC0zMSAvIDE3KSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzNjYgVG0gKFN0ZXVlcnplaXRyYXVtIC8gU3RldWVydGFnZTogMjAyNi0xMC0xNSBiaXMgMjAyNi0xMC0zMSAvIDE3KSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAzNDcgVG0gKFNvemlhbHZlcnNpY2hlcnVuZyAvIFNWLVRhZ2U6IDIwMjYtMTAtMTUgYmlzIDIwMjYtMTAtMzEgLyAxNykgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzI4IFRtIChCZXJlY2huZXRlciBBdXN6YWhsdW5nc2JldHJhZyBpc3Qga2VpbiBaYWhsdW5nc25hY2h3ZWlzLiBBdXNsYWdlbiB1bmQgUmVpc2Vrb3N0ZW4gd2VyZGVuIGdlc29uZGVydCkgVGogVCogRVQKQlQgL0YxIDEwIFRmIDEyIFRMIEVUCkJUIDEgMCAwIDEgNTAgMzE0IFRtIChiZWxlZ3QuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyOTUgVG0gKEtlaW5lIGFtdGxpY2hlIE1lbGR1bmcgb2RlciB2b2xsc3RcMzQ0bmRpZ2UgZ2VzZXR6bGljaGUgRW50Z2VsdGJlc2NoZWluaWd1bmcuIE5hY2h3ZWlzIGRlcyBhdXNnZXdpZXNlbmVuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyODEgVG0gKFJlY2hlbnVtZmFuZ3MuKSBUaiBUKiBFVApCVCAvRjEgMTAgVGYgMTIgVEwgRVQKQlQgMSAwIDAgMSA1MCAyNjIgVG0gKEJlbGVnLVNIQTI1NjogMzE5OTJiMThmZjYyMDEyNDU5YTk1ZGZiYjMzZTEyNDA4YTQxNjIzZTg1ZmM4ZDI2MTdkYjUyMDZiZTBjNTM1ZSkgVGogVCogRVQKIAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA5CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTAyIDAwMDAwIG4gCjAwMDAwMDAyMDkgMDAwMDAgbiAKMDAwMDAwMDMyMSAwMDAwMCBuIAowMDAwMDAwNTIwIDAwMDAwIG4gCjAwMDAwMDA1ODggMDAwMDAgbiAKMDAwMDAwMDg2MSAwMDAwMCBuIAowMDAwMDAwOTIwIDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPGNhYzI3MjFlOTU4Y2ZhYTU3Y2NiMDg1OGU1OGI3OWE3PjxjYWMyNzIxZTk1OGNmYWE1N2NjYjA4NThlNThiNzlhNz5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gNiAwIFIKL1Jvb3QgNSAwIFIKL1NpemUgOQo+PgpzdGFydHhyZWYKMzcyMQolJUVPRgo=",
+  "statement": {
+    "calculation": {
+      "church_tax_minor": null,
+      "currency": "EUR",
+      "employee_additional_payment_minor": 0,
+      "employee_contributions": {
+        "care": 0,
+        "health_additional": 0,
+        "health_general": 0,
+        "pension": 1190,
+        "unemployment": 0
+      },
+      "employee_social_total_minor": 1190,
+      "employee_tax_minor": 0,
+      "employer_flat_tax_minor": 661,
+      "gross_minor": 33068,
+      "individual_wage_tax_minor": null,
+      "net_minor": 31878,
+      "payout_minor": 31878,
+      "payroll_calculation_complete": true,
+      "rule_version": "de_2026_periods_pap_v4",
+      "scope": "commercial_minijob_period_flat_tax",
+      "solidarity_minor": null
+    },
+    "created_at": "2026-11-03T12:00:00+00:00",
+    "employee_id": "cb270d007d824c7bba1cdfd571901d64",
+    "employee_name": "Synthetic technician",
+    "month": "2026-10",
+    "payment_status": "not_evidenced_by_calculation",
+    "pdf_sha256": "90a52ac9da32d6d6b528b3fbcc09cd92477146a929046facbb04927e8ebb63f7",
+    "pdf_size": 4112,
+    "period_summary": {
+      "employment_intervals": [
+        {
+          "calendar_days": 17,
+          "end": "2026-10-31",
+          "start": "2026-10-15"
+        }
+      ],
+      "social_periods": [
+        {
+          "days": 17,
+          "end": "2026-10-31",
+          "full_month": false,
+          "start": "2026-10-15"
+        }
+      ],
+      "tax_periods": [
+        {
+          "end": "2026-10-31",
+          "lzz": 4,
+          "start": "2026-10-15",
+          "tax_days": 17
+        }
+      ]
+    },
+    "run_ref": {
+      "content_hash": "0a2ba253e935724389ea44ec51087da4519d717700237a3adc359b87275517d1",
+      "id": "1878c617db8246f19f6b69403e50db02",
+      "revision": 1
+    },
+    "schema_version": 1,
+    "statement_hash": "31992b18ff62012459a95dfbb33e12408a41623e85fc8d2617db5206be0c535e",
+    "transmission_status": "not_transmitted"
+  }
+}

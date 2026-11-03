@@ -1,0 +1,36 @@
+{
+  "review": "Independent bounded travel-v3 rules review",
+  "date": "2026-11-03",
+  "tests": 8,
+  "passed": 8,
+  "product_changes": false,
+  "source_sha256": {
+    "backend/payroll_travel_2026_v1.py": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb",
+    "backend/payroll_travel_2026_v2.py": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5",
+    "backend/payroll_travel_2026_v3.py": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e",
+    "backend/payroll_travel_ground_2026.py": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc",
+    "backend/payroll_travel_mixed_2026.py": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced",
+    "backend/test_payroll_travel_v3_review.py": "b7b853c53a424212b68bcd626d68dd168604638cab9bd899dc7eee2b5ece4321"
+  },
+  "historical_files": {
+    "backend/payroll_travel_2026_v1.py": {
+      "comparison_source": "docs/CRM_ERP_REISEPAUSCHALEN_PRUEFUNG_2026-11-03.json",
+      "baseline_sha256": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb",
+      "unchanged": true
+    },
+    "backend/payroll_travel_2026_v2.py": {
+      "comparison_source": "docs/CRM_ERP_REISEPAUSCHALEN_PRUEFUNG_2026-11-03.json",
+      "baseline_sha256": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5",
+      "unchanged": true
+    }
+  },
+  "log_sha256": "6b13178a5f4b60c19b73f1c8ab82fdb0db2490a5ba4be084110eed42a39bf69f",
+  "sources": [
+    "https://www.ihk.de/blueprint/servlet/resource/blob/5260010/6167648501baf85de6053f701b93e9b5/bmf-schreiben-25-11-2020-data.pdf#page=48",
+    "https://lsth.bundesfinanzministerium.de/lsth/2026/A-Einkommensteuergesetz/VI-Steuererhebung-36-47/2-Steuerabzug-vom-Arbeitslohn-Lohnsteuer-38-42g/Paragraf-40/paragraf-40.html?nn=458348"
+  ],
+  "limitations": [
+    "Pure calculation review only; not API, PostgreSQL or client acceptance.",
+    "Separate private extensions and conflicting same-day ratios remain explicit blockers."
+  ]
+}

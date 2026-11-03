@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll periods: actual MFA/HTTP, explicit employment and 31-day schedule, source-bound period preview, documented unsupported claim, original download, two exact lost-ACK retries, full v4 partial payroll, latest annual view, unchanged historical PDF and mobile390 passed
+1 targeted payroll periods workflow passed (MFA/HTTP, private facts, separate periods and unchanged original payroll)

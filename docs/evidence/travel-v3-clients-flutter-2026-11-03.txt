@@ -1,0 +1,26 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: actual programme binds all originals with explicit incomplete flags allowed in draft
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: actual preview preserves programme split and independent original expense amount
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: missing programme remains visible blocked without fabricated facts hash
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: actual correction leaves immutable historical programme and ground calendar intact
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:00 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:03 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:03 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+00:03 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: native old-payment adoption locks existing facts and recovers accepted reply by status only
+00:03 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: native old-payment adoption locks existing facts and recovers accepted reply by status only
+00:03 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: native old-payment adoption locks existing facts and recovers accepted reply by status only
+00:03 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: native old-payment adoption locks existing facts and recovers accepted reply by status only
+00:03 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: native old-payment adoption locks existing facts and recovers accepted reply by status only
+00:03 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: native old-payment adoption locks existing facts and recovers accepted reply by status only
+00:04 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_allowances_test.dart: travel editor starts without invented dates and backgrounding discards private draft
+00:04 +22: All tests passed!

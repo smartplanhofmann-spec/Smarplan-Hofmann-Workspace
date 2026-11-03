@@ -9,6 +9,11 @@ import 'business_personnel_workflow.dart' show personnelMinor;
 import 'business_payroll_accounts.dart';
 import 'business_payroll_cash.dart';
 import 'business_payroll_cash_page.dart';
+import 'business_payroll_facts.dart';
+import 'business_payroll_entitlements.dart';
+import 'business_payroll_calculation_case_contract.dart';
+import 'business_payroll_calculation_cases.dart';
+import 'business_payroll_statements.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -16,6 +21,15 @@ import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
 
 const payrollScopes = {
+  'regular_standard_segments': 'Regulärer belegter Gesamtfall · PAP 2026',
+  'regular_transition_segments': 'Belegter Übergangsbereich · Gesamtfall',
+  'commercial_minijob_segments_flat_tax':
+      'Gewerblicher Minijob · belegter Gesamtfall',
+  'regular_standard_period': 'Reguläre belegte Teilmonatsberechnung · PAP 2026',
+  'regular_transition_period':
+      'Belegter Übergangsbereich · Teilmonat und PAP 2026',
+  'commercial_minijob_period_flat_tax':
+      'Gewerblicher Minijob · belegter Teilmonat',
   'regular_transition_monthly':
       'Belegter Übergangsbereich · Vollmonat und PAP 2026',
   'regular_standard_monthly': 'Reguläre Standard-Monatsberechnung · PAP 2026',
@@ -182,10 +196,19 @@ int _sum(dynamic v) {
 
 Map<String, dynamic> payrollCalculation(dynamic value) {
   final v = businessMap(value), scope = v['scope'];
+  if (v['rule_version'] == payrollCalculationCaseRule)
+    return payrollCompositeCalculation(v);
   if (!payrollScopes.containsKey(scope) ||
       v['currency'] != 'EUR' ||
-      v['gross_minor'] is! int ||
-      v['gross_minor'] <= 0 ||
+      (!(v['rule_version'] == 'de_2026_periods_pap_v4' &&
+              scope == 'unsupported' &&
+              v['gross_minor'] == null) &&
+          (v['gross_minor'] is! int ||
+              v['gross_minor'] <
+                  (v['rule_version'] == 'de_2026_periods_pap_v4' &&
+                          scope == 'unsupported'
+                      ? 0
+                      : 1))) ||
       v['blockers'] is! List ||
       !RegExp(r'^[a-f0-9]{64}$').hasMatch('${v['rules_sha256']}') ||
       v['statutory_report_status'] != 'not_transmitted' ||
@@ -196,6 +219,8 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
       0,
       'Der verfügbare Lohnberechnungsumfang konnte nicht sicher gelesen werden.',
     );
+  if (v['rule_version'] == 'de_2026_periods_pap_v4')
+    payrollPeriodCalculation(v);
   if (scope == 'unsupported') {
     if (v['transition'] != null)
       throw const ApiException(
@@ -241,7 +266,10 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
           'Ohne verifizierte individuelle Lohnsteuer bleiben reguläres Netto und Auszahlung unbekannt.',
         );
     } else {
-      if (scope == 'commercial_minijob_flat_tax' &&
+      if ([
+            'commercial_minijob_flat_tax',
+            'commercial_minijob_period_flat_tax',
+          ].contains(scope) &&
           v['employee_tax_minor'] != 0) {
         throw const ApiException(
           0,
@@ -251,6 +279,8 @@ Map<String, dynamic> payrollCalculation(dynamic value) {
       if ([
             'regular_standard_monthly',
             'regular_transition_monthly',
+            'regular_standard_period',
+            'regular_transition_period',
           ].contains(scope) &&
           (!RegExp(r'^[a-f0-9]{64}$')
                   .hasMatch('${v['pap_provenance_sha256']}') ||
@@ -346,6 +376,19 @@ Map<String, dynamic> payrollTransition(Map<String, dynamic> value) {
 }
 
 Map<String, dynamic> payrollPreview(dynamic raw, Map<String, dynamic> input) {
+  if (input['source_schema_version'] == 3) {
+    final value = payrollCompositeSource(raw, input);
+    if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
+      throw const ApiException(0, 'Die Vorschauprüfsumme fehlt.');
+    return value;
+  }
+  if (input['source_schema_version'] == 2) {
+    final value = payrollPeriodSource(raw, input);
+    payrollCalculation(value['calculation']);
+    if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
+      throw const ApiException(0, 'Die Vorschauprüfsumme fehlt.');
+    return value;
+  }
   final value = businessMap(raw),
       source = businessMap(value['source']),
       calculation = payrollCalculation(value['calculation']);
@@ -425,6 +468,10 @@ void Function(dynamic) payrollReceiptValidator(
                   (scope) => [
                     'regular_standard_monthly',
                     'regular_transition_monthly',
+                    'regular_standard_period',
+                    'regular_transition_period',
+                    'regular_standard_segments',
+                    'regular_transition_segments',
                   ].contains(scope),
                 )) ...[
                   'individual_wage_tax_minor',
@@ -440,6 +487,12 @@ void Function(dynamic) payrollReceiptValidator(
                     ? proof['calculation'][key] - prior['calculation'][key]
                     : null,
             };
+      if (expectedDelta != null &&
+          (proof['calculation'].containsKey('net_deductions_minor') ||
+              prior!['calculation'].containsKey('net_deductions_minor')))
+        expectedDelta['net_deductions_minor'] =
+            (proof['calculation']['net_deductions_minor'] ?? 0) -
+            (prior!['calculation']['net_deductions_minor'] ?? 0);
       bad = bad || !payrollSame(v['delta'], expectedDelta);
       if (!bad) payrollCalculation(v['calculation']);
     }
@@ -799,6 +852,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
       clear();
       generation = session.generation;
     } else if (!session.can('personnel.read')) {
+      if (payrollStatementsAvailable(session)) clear();
       preview = inputs = runDraft = null;
       accepted = false;
       for (final p in previews) p.revoke();
@@ -828,6 +882,10 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
       denied = false;
     }
     if (!payrollAvailable(session)) return;
+    if (payrollStatementsAvailable(session) && !session.can('personnel.read')) {
+      if (mounted) setState(() => loading = false);
+      return;
+    }
     final captured = ++epoch;
     setState(() {
       loading = true;
@@ -1051,6 +1109,10 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
   }
 
   Future<void> calculate([Map<String, dynamic>? previous]) async {
+    if (previous?['source']?['source_schema_version'] == 3)
+      return chooseCompositeCorrection(previous!);
+    if (previous?['source']?['source_schema_version'] == 2)
+      return choosePeriodCorrection(previous!);
     if (!canPreview) return;
     final sameDraft = correction?['id'] == previous?['id'];
     final old = businessMap(previous?['source']?['input']);
@@ -1166,6 +1228,153 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
     );
   }
 
+  Future<void> calculatePeriod(
+    Map<String, dynamic> fact, {
+    Map<String, dynamic>? previous,
+    String reason = '',
+  }) async {
+    await fresh();
+    if (!session.can('personnel.read') || !canPreview)
+      throw const ApiException(
+        403,
+        'Aktuelle Personal-Leserechte und geklärte Berechnung erforderlich.',
+      );
+    final opening = session.generation,
+        input = fact['kind'] == 'calculation_case'
+            ? payrollCalculationCaseRunInput(fact)
+            : payrollFactRunInput(fact);
+    final value = payrollPreview(
+      await session.api.call(session.path('/payroll/preview'), input),
+      input,
+    );
+    if (!mounted || !readable || opening != session.generation) return;
+    setState(() {
+      preview = value;
+      inputs = input;
+      correction = previous;
+      runDraft = {'correction_reason': reason};
+      accepted = false;
+      error = message = null;
+    });
+  }
+
+  Future<void> chooseCompositeCorrection(Map<String, dynamic> previous) async {
+    if (!canPreview) return;
+    Map<String, dynamic>? chosen;
+    await Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BusinessPayrollCalculationCasesPage(
+          onPolicyOriginal: originalForEmployee,
+          session: session,
+          employee: employee,
+          onOriginal: original,
+          initialMonth: previous['source']['month'],
+          onCalculate: (fact) async {
+            chosen = fact;
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+    if (!mounted || !readable || chosen == null) return;
+    await showDialog<void>(
+      context: context,
+      builder: (_) => BusinessEditor(
+        session: session,
+        title: 'Belegten Gesamtlohn korrigieren',
+        fields: const [
+          BusinessField(
+            'reason',
+            'Nachvollziehbarer Korrekturgrund',
+            required: true,
+          ),
+        ],
+        readPermission: 'personnel.read',
+        writePermission: 'personnel.read',
+        onSave: (values) async {
+          await calculatePeriod(
+            chosen!,
+            previous: previous,
+            reason: values['reason'],
+          );
+        },
+      ),
+    );
+  }
+
+  Future<void> choosePeriodCorrection(Map<String, dynamic> previous) async {
+    if (!canPreview) return;
+    try {
+      await fresh();
+      final response = businessMap(
+        await session.read(
+          '/payroll/facts?employee_id=$employeeId&kind=period_case',
+        ),
+      );
+      if (response['employee_id'] != employeeId)
+        throw const ApiException(0, 'Aktuelle Monatsfallquellen fehlen.');
+      final items = businessItems(response['items'])
+          .where(
+            (item) =>
+                payrollFactRecord(
+                      item,
+                      employeeId,
+                      kind: 'period_case',
+                    )['status'] ==
+                    'active' &&
+                item['details']['month'] == previous['source']['month'],
+          )
+          .toList();
+      if (!mounted) return;
+      await showDialog<bool>(
+        context: context,
+        builder: (_) => BusinessEditor(
+          session: session,
+          title: 'Belegte Teilmonatsberechnung korrigieren',
+          fields: [
+            BusinessField(
+              'fact_id',
+              'Aktueller bestätigter Monatsfall',
+              type: BusinessInput.choice,
+              required: true,
+              choices: {
+                '': 'Monatsfall ausdrücklich wählen',
+                for (final item in items)
+                  '${item['id']}':
+                      '${item['details']['month']} · Fassung ${item['revision']}',
+              },
+            ),
+            const BusinessField(
+              'correction_reason',
+              'Nachvollziehbarer Korrekturgrund',
+              required: true,
+            ),
+          ],
+          readPermission: 'personnel.read',
+          readAllowed: () => readable,
+          onSave: (values) async {
+            final fact = items
+                .where((item) => item['id'] == values['fact_id'])
+                .firstOrNull;
+            if (fact == null)
+              throw const FormatException(
+                'Einen bestätigten Monatsfall auswählen.',
+              );
+            await calculatePeriod(
+              fact,
+              previous: previous,
+              reason: '${values['correction_reason']}',
+            );
+          },
+          saveLabel: 'Korrigierten Umfang unverbindlich prüfen',
+        ),
+      );
+    } catch (e) {
+      failure(e);
+    }
+  }
+
   Future<void> finalize() async {
     if (busy ||
         !write('personnel.approve') ||
@@ -1247,6 +1456,104 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
         });
     } catch (e) {
       failure(e);
+    }
+  }
+
+  Future<void> originalForEmployee(
+    Map<String, dynamic> owner,
+    Map<String, dynamic> reference,
+  ) async {
+    final otherId = owner['id'];
+    bool permitted() =>
+        mounted &&
+        session.allowed &&
+        session.projectId == null &&
+        session.can('personnel.read') &&
+        session.hasFeature('payroll_calculation_cases') &&
+        session.hasModule('payroll_calculation_cases');
+    if (otherId is! String ||
+        !RegExp(r'^[a-f0-9]{32}$').hasMatch(otherId) ||
+        reference['employee_id'] != otherId)
+      throw const ApiException(
+        403,
+        'Das betriebliche Original besitzt keine eindeutige Personalzuordnung.',
+      );
+    await session.load();
+    if (!permitted() || session.error != null)
+      throw const ApiException(
+        403,
+        'Aktuelle globale Personal-Leserechte fehlen.',
+      );
+    final opening = session.generation;
+    Future<Map<String, dynamic>> selected() async {
+      final page = await session.read('/personnel/files?employee_id=$otherId');
+      final file = businessItems(page)
+          .where(
+            (v) => v['id'] == reference['id'] && v['employee_id'] == otherId,
+          )
+          .firstOrNull;
+      if (file == null ||
+          [
+            'id',
+            'employee_id',
+            'sha256',
+            'content_hash',
+            'size',
+          ].any((key) => file[key] != reference[key]))
+        throw const ApiException(
+          403,
+          'Die betriebliche Originalfassung ist nicht unverändert freigegeben.',
+        );
+      return file;
+    }
+
+    final file = await selected();
+    final bytes = await session.api.bytes(
+      session.path('/personnel/files/${file['id']}/content'),
+      mediaType: file['media_type'],
+      maxBytes: 600000,
+    );
+    if (bytes.length != file['size'] ||
+        _hex((await Sha256().hash(bytes)).bytes) != file['sha256'])
+      throw const ApiException(
+        0,
+        'Das betriebliche Original stimmt nicht mit seiner Prüfsumme überein.',
+      );
+    await session.load();
+    if (!permitted() || session.error != null || opening != session.generation)
+      throw const ApiException(
+        403,
+        'Die globale Originalfreigabe wurde während des Downloads geändert.',
+      );
+    await selected();
+    if (!permitted() || opening != session.generation)
+      throw const ApiException(
+        403,
+        'Die globale Originalfreigabe wurde geändert.',
+      );
+    final controller = MailAttachmentPreviewController(
+      VerifiedMailAttachment(
+        bytes: bytes,
+        filename: file['filename'],
+        mediaType: file['media_type'],
+        sha256: file['sha256'],
+      ),
+    );
+    previews.add(controller);
+    try {
+      await Navigator.push<void>(
+        context,
+        MaterialPageRoute(
+          builder: (_) => MailAttachmentPreviewPage(
+            controller: controller,
+            mayView: () => permitted() && opening == session.generation,
+            exporter: exportMailAttachment,
+          ),
+        ),
+      );
+    } finally {
+      previews.remove(controller);
+      controller.dispose();
     }
   }
 
@@ -1619,6 +1926,25 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
             'Der Mindest-RV-Beitrag übersteigt das Brutto. Zusätzlicher Arbeitnehmeranteil: ${payrollMoney(calc['employee_additional_payment_minor'])}. Der berechnete Auszahlungsbetrag beträgt 0,00 €.',
           ),
       ],
+      if (calc['rule_version'] == payrollCalculationCaseRule) ...[
+        ListTile(
+          title: const Text(
+            'Belegte Nettoabzüge für Sachbezug und Steuerkosten',
+          ),
+          subtitle: Text(payrollMoney(calc['net_deductions_minor'])),
+        ),
+        PayrollCalculationCasePlanView(
+          plan: {
+            ...businessMap(calc['period_details']),
+            'month': calc['month'],
+            'gross_minor': calc['gross_minor'],
+            'blockers': calc['blockers'],
+          },
+        ),
+      ] else if (calc['period_details'] != null)
+        PayrollPeriodPlanView(
+          plan: {...businessMap(calc['period_details']), 'blockers': []},
+        ),
       if (calc['scope'] == 'regular_transition_monthly')
         ExpansionTile(
           title: const Text('Prognose und Beitragsbemessung'),
@@ -1674,6 +2000,14 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
   Widget sourceView(Map<String, dynamic> source) => ExpansionTile(
     title: Text('Eingefrorene Quellen · ${source['month']}'),
     children: [
+      if (source['source_schema_version'] == 3)
+        Text(
+          'Bestätigter Gesamtfall · Fassung ${source['calculation_case']?['revision']} · ursprüngliche Anspruchs- und Reisequellen',
+        ),
+      if (source['source_schema_version'] == 2)
+        Text(
+          'Belegter Monatsfall · Fassung ${source['period_case']?['revision']} · getrennte Steuer- und SV-Zeiträume',
+        ),
       ListTile(
         title: Text('Lohnprofil Fassung ${source['profile']?['revision']}'),
         subtitle: Text(
@@ -1832,235 +2166,358 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
     ),
   );
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text('Lohnberechnung 2026 · ${employee['name']}'),
-      actions: [
-        IconButton(
-          tooltip: 'Rechte und Quellen aktualisieren',
-          onPressed: loading || busy ? null : () => load(refresh: true),
-          icon: const Icon(Icons.refresh),
-        ),
-      ],
-    ),
-    body: !readable
-        ? Padding(
-            padding: const EdgeInsets.all(24),
-            child: BusinessEmpty(
-              'Lohnberechnung nicht freigegeben',
-              error ?? 'Die aktuelle Personal- beziehungsweise eigene Mitarbeiterfreigabe ist erforderlich.',
-            ),
-          )
-        : ListView(
-            padding: const EdgeInsets.all(20),
-            children: [
-              const Notice(
-                'Gewerbliche Minijobs und reguläre Standard-Monatsabrechnung 2026. Persönliche Merkmale und bestätigte Monatsquellen bestimmen den verfügbaren Umfang; Sonderfälle bleiben gesondert zu prüfen.',
+  Widget build(BuildContext context) =>
+      payrollStatementsAvailable(session) && !session.can('personnel.read')
+      ? BusinessPayrollStatementsPage(session: session, employee: employee)
+      : Scaffold(
+          appBar: AppBar(
+            title: Text('Lohnberechnung 2026 · ${employee['name']}'),
+            actions: [
+              IconButton(
+                tooltip: 'Rechte und Quellen aktualisieren',
+                onPressed: loading || busy ? null : () => load(refresh: true),
+                icon: const Icon(Icons.refresh),
               ),
-              if (error != null) Notice(error!, error: true),
-              if (message != null) Notice(message!),
-              if (loading || busy) const LinearProgressIndicator(),
-              if (Navigator.canPop(context))
-                OutlinedButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Zur Personalakte und Monatsvorbereitung'),
-                ),
-              for (final isProfile in [true, false])
-                if (session.pending(key(isProfile)))
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            isProfile
-                                ? 'Profilbestätigung offen'
-                                : 'Berechnungsbestätigung offen',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const Text(
-                            'Der Vorgang kann bereits gespeichert sein. Die Wiederholung verwendet dieselben Eingaben und dieselbe Vorgangskennung.',
-                          ),
-                          _PayrollFacts(
-                            value: session.pendingCommandValues(
-                              key(isProfile),
-                              path: isProfile
-                                  ? '/payroll/profiles'
-                                  : '/payroll/runs',
-                            ),
-                          ),
-                          FilledButton(
-                            onPressed:
-                                write(
-                                      isProfile
-                                          ? 'personnel.write'
-                                          : 'personnel.approve',
-                                    ) &&
-                                    !busy
-                                ? () => repeat(isProfile)
-                                : null,
-                            child: const Text(
-                              'Ursprünglichen Auftrag erneut senden',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (payrollCashReadable(session))
-                OutlinedButton(
-                  onPressed: () => Navigator.push<void>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => BusinessPayrollCashPage(
-                        session: session,
-                        employee: widget.employee,
-                      ),
-                    ),
-                  ),
-                  child: const Text('Belegte Lohnzahlungen für EÜR öffnen'),
-                ),
-              if (session.hasFeature('payroll_wage_account') &&
-                  session.hasModule('payroll_accounts'))
-                OutlinedButton(
-                  onPressed: loading || busy
-                      ? null
-                      : () => Navigator.push<void>(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => BusinessPayrollAccountsPage(
-                              session: session,
-                              employee: employee,
-                              onOriginal: original,
-                            ),
-                          ),
-                        ),
-                  child: const Text('Lohnkonto-Nachweise öffnen'),
-                ),
-              OutlinedButton(
-                onPressed: loading || busy ? null : openYear,
-                child: const Text('Jahresübersicht öffnen'),
-              ),
-              if (yearView != null) yearCard(yearView!),
-              if (rules != null)
-                ExpansionTile(
-                  title: const Text('Verifizierter Regelstand und Grenzen'),
-                  children: [
-                    Text('Regelstand: ${rules!['rules']?['version']}'),
-                    if (rules!['regular_transition_rules'] != null)
-                      Text(
-                        'Belegter Übergangsbereich: ${rules!['regular_transition_rules']['version']}',
-                      ),
-                    Text(
-                      'Minijobgrenze: ${payrollMoney(rules!['rules']?['minijob_monthly_limit_minor'])} pro Monat; ${payrollMoney(rules!['rules']?['minijob_annual_limit_minor'])} jährlich.',
-                    ),
-                    const Text(
-                      'Vollmonatsfälle zwischen 18 und 64 Jahren. Übergangsbereich nur mit ausdrücklich belegter Zwölfmonatsprognose und vollständigen Steuermerkmalen. Sonderfälle und nicht unterstützte Versicherungskonstellationen bleiben gesperrt. Tatsächliche Kassen- und Umlagesätze anhand ihrer Nachweise erfassen.',
-                    ),
-                  ],
-                ),
-              const SizedBox(height: 12),
-              Text(
-                'Belegte Lohnprofile',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              OutlinedButton(
-                onPressed: write('personnel.write') && !pendingProfile && !busy
-                    ? () => profile()
-                    : null,
-                child: const Text('Neues Lohnprofil erfassen'),
-              ),
-              if (profiles.isEmpty && !loading)
-                const BusinessEmpty(
-                  'Noch kein Lohnprofil',
-                  'Zuerst den gültigen Personalnachweis in die Personalakte aufnehmen und die persönlichen Merkmale ausdrücklich erfassen.',
-                ),
-              for (final p in profiles) profileCard(p),
-              Text(
-                'Abgeschlossene HR-Monatsquellen',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              for (final p in preparations)
-                ListTile(
-                  title: Text('${p['month']} · Fassung ${p['revision']}'),
-                  subtitle: Text(
-                    'Bestätigte Quellenvollständigkeit · ${businessDate(p['created_at'], time: true)}',
-                  ),
-                ),
-              if (preparations.isEmpty && !loading)
-                const BusinessEmpty(
-                  'Monatsquelle fehlt',
-                  'In der Personalakte Vereinbarungen, Zeiten und Abwesenheiten prüfen und die Lohnvorbereitung abschließen.',
-                ),
-              FilledButton(
-                onPressed:
-                    canPreview && profiles.isNotEmpty && preparations.isNotEmpty
-                    ? () => calculate()
-                    : null,
-                child: const Text('Belegte Monatsberechnung prüfen'),
-              ),
-              if (preview != null && !pendingRun)
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Unverbindliche Berechnungsvorschau',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        calculationView(businessMap(preview!['calculation'])),
-                        sourceView(businessMap(preview!['source'])),
-                        if (preview!['can_finalize'] == true) ...[
-                          CheckboxListTile(
-                            value: accepted,
-                            onChanged: write('personnel.approve') && !busy
-                                ? (v) => setState(() => accepted = v == true)
-                                : null,
-                            title: Text(
-                              'Ich bestätige ausschließlich diesen geprüften Umfang: ${payrollScopes[preview!['calculation']['scope']]}',
-                            ),
-                          ),
-                          FilledButton(
-                            onPressed:
-                                accepted && write('personnel.approve') && !busy
-                                ? finalize
-                                : null,
-                            child: const Text(
-                              'Geprüften Berechnungsumfang festhalten',
-                            ),
-                          ),
-                        ],
-                        TextButton(
-                          onPressed: canPreview
-                              ? () => calculate(correction)
-                              : null,
-                          child: const Text('Eingaben erneut prüfen'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              Text(
-                'Gespeicherte Berechnungen',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              for (final run in runs) runCard(run),
-              if (history.isNotEmpty) ...[
-                Text(
-                  'Unveränderliche Historie',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                for (final record in history)
-                  historyKind == 'profile'
-                      ? profileCard(record, historical: true)
-                      : runCard(record, historical: true),
-              ],
             ],
           ),
-  );
+          body: !readable
+              ? Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: BusinessEmpty(
+                    'Lohnberechnung nicht freigegeben',
+                    error ?? 'Die aktuelle Personal- beziehungsweise eigene Mitarbeiterfreigabe ist erforderlich.',
+                  ),
+                )
+              : ListView(
+                  padding: const EdgeInsets.all(20),
+                  children: [
+                    const Notice(
+                      'Gewerbliche Minijobs und reguläre Standard-Monatsabrechnung 2026. Persönliche Merkmale und bestätigte Monatsquellen bestimmen den verfügbaren Umfang; Sonderfälle bleiben gesondert zu prüfen.',
+                    ),
+                    if (error != null) Notice(error!, error: true),
+                    if (message != null) Notice(message!),
+                    if (loading || busy) const LinearProgressIndicator(),
+                    if (payrollStatementsAvailable(session))
+                      OutlinedButton(
+                        onPressed: busy
+                            ? null
+                            : () => Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => BusinessPayrollStatementsPage(
+                                    session: session,
+                                    employee: employee,
+                                  ),
+                                ),
+                              ),
+                        child: const Text('Mitarbeiter-Lohnnachweise ansehen'),
+                      ),
+                    if (Navigator.canPop(context))
+                      OutlinedButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text(
+                          'Zur Personalakte und Monatsvorbereitung',
+                        ),
+                      ),
+                    for (final isProfile in [true, false])
+                      if (session.pending(key(isProfile)))
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  isProfile
+                                      ? 'Profilbestätigung offen'
+                                      : 'Berechnungsbestätigung offen',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium,
+                                ),
+                                const Text(
+                                  'Der Vorgang kann bereits gespeichert sein. Die Wiederholung verwendet dieselben Eingaben und dieselbe Vorgangskennung.',
+                                ),
+                                _PayrollFacts(
+                                  value: session.pendingCommandValues(
+                                    key(isProfile),
+                                    path: isProfile
+                                        ? '/payroll/profiles'
+                                        : '/payroll/runs',
+                                  ),
+                                ),
+                                FilledButton(
+                                  onPressed:
+                                      write(
+                                            isProfile
+                                                ? 'personnel.write'
+                                                : 'personnel.approve',
+                                          ) &&
+                                          !busy
+                                      ? () => repeat(isProfile)
+                                      : null,
+                                  child: const Text(
+                                    'Ursprünglichen Auftrag erneut senden',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                    if (payrollCashReadable(session))
+                      OutlinedButton(
+                        onPressed: () => Navigator.push<void>(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BusinessPayrollCashPage(
+                              session: session,
+                              employee: widget.employee,
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          'Belegte Lohnzahlungen für EÜR öffnen',
+                        ),
+                      ),
+                    if (payrollCalculationCasesReadable(session))
+                      OutlinedButton(
+                        onPressed: loading || busy
+                            ? null
+                            : () async {
+                                Map<String, dynamic>? chosen;
+                                await Navigator.push<void>(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        BusinessPayrollCalculationCasesPage(
+                                          onPolicyOriginal: originalForEmployee,
+                                          session: session,
+                                          employee: employee,
+                                          onOriginal: original,
+                                          onCalculate: (fact) async {
+                                            chosen = fact;
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                  ),
+                                );
+                                if (mounted && readable) {
+                                  await load();
+                                  if (chosen != null) {
+                                    try {
+                                      await calculatePeriod(chosen!);
+                                    } catch (e) {
+                                      failure(e);
+                                    }
+                                  }
+                                }
+                              },
+                        child: const Text(
+                          'Abrechnungsfälle mit Ansprüchen und Reisen',
+                        ),
+                      ),
+                    if (payrollEntitlementsReadable(session))
+                      OutlinedButton(
+                        onPressed: loading || busy
+                            ? null
+                            : () => Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      BusinessPayrollEntitlementsPage(
+                                        session: session,
+                                        employee: employee,
+                                        onOriginal: original,
+                                      ),
+                                ),
+                              ),
+                        child: const Text('Private Anspruchsnachweise öffnen'),
+                      ),
+                    if (session.hasFeature('payroll_period_facts') &&
+                        session.hasModule('payroll_facts') &&
+                        session.can('personnel.read'))
+                      OutlinedButton(
+                        onPressed: loading || busy
+                            ? null
+                            : () async {
+                                Map<String, dynamic>? chosen;
+                                await Navigator.push<void>(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => BusinessPayrollFactsPage(
+                                      session: session,
+                                      employee: employee,
+                                      onOriginal: original,
+                                      onCalculate: (fact) async {
+                                        chosen = fact;
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
+                                );
+                                if (mounted && readable) {
+                                  await load();
+                                  if (chosen != null) {
+                                    try {
+                                      await calculatePeriod(chosen!);
+                                    } catch (e) {
+                                      failure(e);
+                                    }
+                                  }
+                                }
+                              },
+                        child: const Text('Lohnzeitachsen und Teilmonate'),
+                      ),
+                    if (session.hasFeature('payroll_wage_account') &&
+                        session.hasModule('payroll_accounts'))
+                      OutlinedButton(
+                        onPressed: loading || busy
+                            ? null
+                            : () => Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => BusinessPayrollAccountsPage(
+                                    session: session,
+                                    employee: employee,
+                                    onOriginal: original,
+                                  ),
+                                ),
+                              ),
+                        child: const Text('Lohnkonto-Nachweise öffnen'),
+                      ),
+                    OutlinedButton(
+                      onPressed: loading || busy ? null : openYear,
+                      child: const Text('Jahresübersicht öffnen'),
+                    ),
+                    if (yearView != null) yearCard(yearView!),
+                    if (rules != null)
+                      ExpansionTile(
+                        title: const Text(
+                          'Verifizierter Regelstand und Grenzen',
+                        ),
+                        children: [
+                          Text('Regelstand: ${rules!['rules']?['version']}'),
+                          if (rules!['regular_transition_rules'] != null)
+                            Text(
+                              'Belegter Übergangsbereich: ${rules!['regular_transition_rules']['version']}',
+                            ),
+                          Text(
+                            'Minijobgrenze: ${payrollMoney(rules!['rules']?['minijob_monthly_limit_minor'])} pro Monat; ${payrollMoney(rules!['rules']?['minijob_annual_limit_minor'])} jährlich.',
+                          ),
+                          const Text(
+                            'Vollmonate sowie belegte Ein-/Austrittszeiträume zwischen 18 und 64 Jahren. Teilmonate benötigen bestätigte Lohnzeitachsen. Übergangsbereich nur mit ausdrücklich belegter Zwölfmonatsprognose und vollständigen Steuermerkmalen. Sonderfälle und nicht unterstützte Versicherungskonstellationen bleiben gesperrt. Tatsächliche Kassen- und Umlagesätze anhand ihrer Nachweise erfassen.',
+                          ),
+                        ],
+                      ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Belegte Lohnprofile',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    OutlinedButton(
+                      onPressed:
+                          write('personnel.write') && !pendingProfile && !busy
+                          ? () => profile()
+                          : null,
+                      child: const Text('Neues Lohnprofil erfassen'),
+                    ),
+                    if (profiles.isEmpty && !loading)
+                      const BusinessEmpty(
+                        'Noch kein Lohnprofil',
+                        'Zuerst den gültigen Personalnachweis in die Personalakte aufnehmen und die persönlichen Merkmale ausdrücklich erfassen.',
+                      ),
+                    for (final p in profiles) profileCard(p),
+                    Text(
+                      'Abgeschlossene HR-Monatsquellen',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    for (final p in preparations)
+                      ListTile(
+                        title: Text('${p['month']} · Fassung ${p['revision']}'),
+                        subtitle: Text(
+                          'Bestätigte Quellenvollständigkeit · ${businessDate(p['created_at'], time: true)}',
+                        ),
+                      ),
+                    if (preparations.isEmpty && !loading)
+                      const BusinessEmpty(
+                        'Monatsquelle fehlt',
+                        'In der Personalakte Vereinbarungen, Zeiten und Abwesenheiten prüfen und die Lohnvorbereitung abschließen.',
+                      ),
+                    FilledButton(
+                      onPressed:
+                          canPreview &&
+                              profiles.isNotEmpty &&
+                              preparations.isNotEmpty
+                          ? () => calculate()
+                          : null,
+                      child: const Text('Belegte Monatsberechnung prüfen'),
+                    ),
+                    if (preview != null && !pendingRun)
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Unverbindliche Berechnungsvorschau',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              calculationView(
+                                businessMap(preview!['calculation']),
+                              ),
+                              sourceView(businessMap(preview!['source'])),
+                              if (preview!['can_finalize'] == true) ...[
+                                CheckboxListTile(
+                                  value: accepted,
+                                  onChanged: write('personnel.approve') && !busy
+                                      ? (v) =>
+                                            setState(() => accepted = v == true)
+                                      : null,
+                                  title: Text(
+                                    'Ich bestätige ausschließlich diesen geprüften Umfang: ${payrollScopes[preview!['calculation']['scope']]}',
+                                  ),
+                                ),
+                                FilledButton(
+                                  onPressed:
+                                      accepted &&
+                                          write('personnel.approve') &&
+                                          !busy
+                                      ? finalize
+                                      : null,
+                                  child: const Text(
+                                    'Geprüften Berechnungsumfang festhalten',
+                                  ),
+                                ),
+                              ],
+                              TextButton(
+                                onPressed: canPreview
+                                    ? () => calculate(correction)
+                                    : null,
+                                child: const Text('Eingaben erneut prüfen'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    Text(
+                      'Gespeicherte Berechnungen',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    for (final run in runs) runCard(run),
+                    if (history.isNotEmpty) ...[
+                      Text(
+                        'Unveränderliche Historie',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      for (final record in history)
+                        historyKind == 'profile'
+                            ? profileCard(record, historical: true)
+                            : runCard(record, historical: true),
+                    ],
+                  ],
+                ),
+        );
 }
 
 Future<VerifiedMailAttachment> payrollExportAttachment(
@@ -2287,7 +2744,10 @@ Future<Map<String, dynamic>> payrollLedgerSnapshot(
     final amounts = recorded
         .map(
           (m) =>
-              m['calculation']['scope'] == 'commercial_minijob_flat_tax' &&
+              [
+                    'commercial_minijob_flat_tax',
+                    'commercial_minijob_period_flat_tax',
+                  ].contains(m['calculation']['scope']) &&
                   [
                     'individual_wage_tax_minor',
                     'solidarity_minor',

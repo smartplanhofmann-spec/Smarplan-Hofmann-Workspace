@@ -1,0 +1,8 @@
+test_archived_json_download_preserves_original_bytes_hash_and_filename (test_business_travel_http.TravelHttpTests.test_archived_json_download_preserves_original_bytes_hash_and_filename) ... ok
+test_http_strict_methods_query_body_and_dst_options (test_business_travel_http.TravelHttpTests.test_http_strict_methods_query_body_and_dst_options) ... ok
+test_http_trip_fremdpruefung_originals_payment_and_public_finance (test_business_travel_http.TravelHttpTests.test_http_trip_fremdpruefung_originals_payment_and_public_finance) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.230s
+
+OK

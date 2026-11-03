@@ -361,6 +361,9 @@ class PersonnelWorkflow:
                 raise Problem(409, 'Reisekostenantrag wurde geändert. Bitte neu laden.')
             if previous and previous['status'] not in ('draft','rejected','approved','reversed'):
                 raise Problem(409, 'Eingereichte Anträge zuerst zurückweisen; erstattete Anträge benötigen eine bestätigte Rückzahlung.')
+            if previous:
+                from payroll_travel_expenses_2026 import ensure_expense_unreserved
+                ensure_expense_unreserved(self.office,previous)
             reason = text(data.get('correction_reason',''), 'Korrekturgrund', 1000, required=bool(previous))
             payload = self._expense_payload(data, employee['id'])
             for item in payload['items']:
@@ -404,6 +407,9 @@ class PersonnelWorkflow:
                 reason = text(data.get('reason',''), 'Prüfvermerk', 1000, required=True)
                 payload.update(status='approved' if action == 'approve' else 'rejected', decision=dict(by=fresh['id'], at=self.now(), reason=reason))
             elif action in ('reimburse','reverse-reimbursement'):
+                if action=='reimburse':
+                    from payroll_travel_expenses_2026 import ensure_expense_unreserved
+                    ensure_expense_unreserved(self.office,previous)
                 expected = 'approved' if action == 'reimburse' else 'reimbursed'
                 if previous['status'] != expected:
                     raise Problem(409, 'Für diese Zahlungsbestätigung ist der Antragsstatus ungeeignet.')

@@ -1,0 +1,24 @@
+{
+  "recorded_at_utc": "2026-11-03T23:22:04.834369+00:00",
+  "sources": {
+    "backend/test_payroll_sickness_start_review.py": "85825c22d81c593151d47a3c766b94c54d66434e8669a9a23b7d289a00c9e24d",
+    "backend/payroll_sickness_start_2026.py": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7",
+    "backend/payroll_sickness_phases_2026.py": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b"
+  },
+  "runs": [
+    {
+      "log": "docs/evidence/payroll-sickness-start-review-first-2026-11-03.txt",
+      "sha256": "31d0519d6c88d8ed4a2d3048f6d099d6ec538561af28d4da10fd5cd154716868",
+      "passed": 3,
+      "failed": 1
+    },
+    {
+      "log": "docs/evidence/payroll-sickness-start-review-final-2026-11-03.txt",
+      "sha256": "ce1ef0c4e05aec4f5ebb1b5988d92734da19a1203d88f59108aa276db97edc04",
+      "passed": 4,
+      "failed": 0
+    }
+  ],
+  "finding": "No product finding. Initial test changed a shared proof object in several source branches; corrected test isolates the contract reference.",
+  "scope": "Independent 28-day/42-calendar-day and recurrence review; no full payroll acceptance. IKK 2026 printed page7 example previously read in full."
+}

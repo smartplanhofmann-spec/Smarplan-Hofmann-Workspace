@@ -1118,6 +1118,209 @@ class BusinessSession extends ChangeNotifier {
     );
   }
 
+  Future<dynamic> repeatPayrollFactsCommand(String employeeId) {
+    final key = 'payroll-facts-$employeeId';
+    final operation = _pending[key];
+    final kind = operation?.body['kind'];
+    final approving = kind == 'period_case';
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/facts',
+      readPath: '/payroll/facts/sources?employee_id=$employeeId',
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            projectId != null ||
+            !hasFeature('payroll_period_facts') ||
+            !hasModule('payroll_facts') ||
+            ![
+              'employment_terms',
+              'work_schedule',
+              'period_case',
+            ].contains(kind) ||
+            !can('personnel.read') ||
+            !canWrite(approving ? 'personnel.approve' : 'personnel.write') ||
+            operation?.body['employee_id'] != employeeId) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für diesen belegten Lohnfall fehlen.',
+          );
+        }
+        // An accepted original remains repeatable after module deactivation.
+        // The server still blocks a new effect and checks current authority.
+      },
+      verifyState: (state) {
+        if (state['employee_id'] != employeeId ||
+            state['employee'] is! Map ||
+            (state['employee'] as Map)['id'] != employeeId) {
+          throw const ApiException(
+            502,
+            'Die Lohnfallquellen gehören nicht eindeutig zum Mitarbeiter.',
+          );
+        }
+        if (state[approving ? 'can_approve' : 'can_write'] != true) {
+          throw const ApiException(
+            403,
+            'Die aktuellen Rechte am Lohnfall konnten nicht bestätigt werden.',
+          );
+        }
+        // Current source revisions can have advanced after a lost response.
+        // Preserve the old body and nonce so the server can resolve its receipt.
+      },
+    );
+  }
+
+  Future<dynamic> repeatPayrollEntitlementsCommand(String employeeId) {
+    final key = 'payroll-entitlements-$employeeId';
+    final operation = _pending[key];
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/entitlements',
+      readPath: '/payroll/entitlements/sources?employee_id=$employeeId',
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            projectId != null ||
+            !hasFeature('payroll_entitlements') ||
+            !hasModule('payroll_entitlements') ||
+            ![
+              'sickness_history',
+              'regular_absence',
+              'vacation_reference',
+              'unpaid_continuation',
+            ].contains(operation?.body['kind']) ||
+            !can('personnel.read') ||
+            !canWrite('personnel.approve') ||
+            operation?.body['employee_id'] != employeeId) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für diesen belegten Lohnanspruch fehlen.',
+          );
+        }
+        // Accepted originals remain repeatable after module deactivation;
+        // the server checks its original receipt before allowing a new effect.
+      },
+      verifyState: (state) {
+        if (state['employee_id'] != employeeId ||
+            state['employee'] is! Map ||
+            (state['employee'] as Map)['id'] != employeeId) {
+          throw const ApiException(
+            502,
+            'Die Anspruchsquellen gehören nicht eindeutig zum Mitarbeiter.',
+          );
+        }
+        if (state['can_approve'] != true) {
+          throw const ApiException(
+            403,
+            'Die aktuellen Freigaberechte am Anspruch fehlen.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatPayrollCalculationCaseCommand(String employeeId) {
+    final key = 'payroll-calculation-cases-$employeeId';
+    final operation = _pending[key];
+    final details = operation?.body['details'];
+    final month = details is Map ? details['month'] : null;
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/calculation-cases',
+      readPath:
+          '/payroll/calculation-cases/sources?employee_id=$employeeId&month=$month',
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            month is! String ||
+            !RegExp(r'^2026-(0[1-9]|1[0-2])$').hasMatch(month) ||
+            projectId != null ||
+            !hasFeature('payroll_calculation_cases') ||
+            !hasModule('payroll_calculation_cases') ||
+            !can('personnel.read') ||
+            !canWrite('personnel.approve') ||
+            operation?.body['kind'] != 'calculation_case' ||
+            operation?.body['rule_version'] !=
+                'de_2026_segments_entitlements_v5' ||
+            operation?.body['source_contract_version'] is! int ||
+            operation?.body['source_contract_version'] != 1 ||
+            operation?.body['employee_id'] != employeeId) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte und der ursprüngliche belegte Abrechnungsfall fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['employee_id'] != employeeId ||
+            state['employee'] is! Map ||
+            state['employee']['id'] != employeeId ||
+            state['month'] != month ||
+            state['calculation_cases'] is! List) {
+          throw const ApiException(
+            502,
+            'Die Quellen gehören nicht eindeutig zum Mitarbeiter und Abrechnungsmonat.',
+          );
+        }
+        if (state['can_approve'] != true) {
+          throw const ApiException(
+            403,
+            'Die aktuellen Freigaberechte am Abrechnungsfall fehlen.',
+          );
+        }
+        // The original accepted body stays unchanged despite newer sources
+        // or a paused personnel module. Only the server receipt proves success.
+      },
+    );
+  }
+
+  Future<dynamic> repeatPayrollTravelTaxPolicyCommand() {
+    const key = 'payroll-travel-tax-policies';
+    final operation = _pending[key];
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/travel-tax-policies',
+      readPath: '/payroll/travel-tax-policies/sources',
+      requireRights: () {
+        if (projectId != null ||
+            !hasFeature('payroll_calculation_cases') ||
+            !hasModule('payroll_calculation_cases') ||
+            !can('personnel.read') ||
+            !canWrite('personnel.approve') ||
+            operation?.body['kind'] != 'travel_tax_policy' ||
+            operation?.body['rule_version'] != 'de_2026_travel_tax_policy_v1' ||
+            operation?.body['source_contract_version'] is! int ||
+            operation?.body['source_contract_version'] != 1 ||
+            operation?.body.containsKey('employee_id') != true ||
+            operation?.body['employee_id'] != null ||
+            operation?.body.containsKey('employee_revision') != true ||
+            operation?.body['employee_revision'] != null) {
+          throw const ApiException(
+            403,
+            'Aktuelle globale Rechte für die betriebliche Steuerentscheidung fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (!state.containsKey('employee_id') ||
+            state['employee_id'] != null ||
+            state['files'] is! List ||
+            state['file_references'] is! List ||
+            state['policies'] is! List) {
+          throw const ApiException(
+            502,
+            'Die betrieblichen Steuerquellen sind nicht eindeutig.',
+          );
+        }
+        if (state['can_approve'] != true) {
+          throw const ApiException(
+            403,
+            'Die aktuellen Freigaberechte für die Steuerentscheidung fehlen.',
+          );
+        }
+        // Fresh sources may advance after a lost response. Replay retains the
+        // original body/nonce and works for accepted receipts after a pause.
+      },
+    );
+  }
+
   Future<dynamic> repeatPayrollCommand(
     String employeeId, {
     bool profile = false,

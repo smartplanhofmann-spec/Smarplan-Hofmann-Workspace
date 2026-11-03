@@ -117,3 +117,26 @@ Inventar-/Finanzberechtigung und tatsächliche Projektzuordnung über Bestellung
 Wareneingang beziehungsweise Retoure. Unklassifizierte vollständige
 Betriebsmittelhistorien bleiben der Geschäftsführung vorbehalten. Daraus wird
 keine automatische vollständige Personenauskunft abgeleitet.
+
+
+## Erneuter PostgreSQL-Nachweis nach Rohlogverlust
+
+Der ursprünglich oben dokumentierte erfolgreiche Lauf mit drei Fällen in
+13,732 s wurde damals tatsächlich ausgeführt und vor dem späteren Verlust
+inhaltlich gelesen. Sein damaliger SHA-256 bleibt als historische Angabe
+stehen. Der ignorierte Rohlog `work/verification/purchase-changes-pg.log` wurde
+anschließend beim Kopieren eines Testwrappers versehentlich durch einen
+fehlgeschlagenen Lohnfakten-Anlauf überschrieben. Er ist nicht mehr als
+ursprünglicher Rohbeleg verfügbar; es wurde kein rekonstruierter Log als
+Original ausgegeben. Produktquellen und betriebliche Daten waren davon nicht
+betroffen.
+
+Die drei Retouren-PostgreSQL-Fälle wurden danach auf der ausdrücklich
+entbehrlichen Testdatenbank vollständig erneut ausgeführt: **3/3 bestanden,
+13,413 s, kein Skip**. MFA/HTTP, parallele identische Retoure, frische Rechte,
+Runtime-/Owner-Guards, alte additive Migration und tatsächliches Dump/Restore
+mit unveränderlicher Rechnung/PDF bestehen im neuen Lauf. Der eigenständige
+Rohbeleg liegt unter
+`work/verification/purchase-changes-pg-recheck-after-log-loss.log`, SHA-256:
+`f44c6e38d44e1551f088b6c015e4da0503a8bd774daf645774cb70d48f97e0a8`.
+Dieser spätere Nachweis ersetzt die historische Laufzeit/Prüfsumme nicht still.

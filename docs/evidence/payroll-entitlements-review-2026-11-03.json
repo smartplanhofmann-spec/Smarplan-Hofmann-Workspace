@@ -1,0 +1,11 @@
+{
+  "scope": "Nine independent pure entitlement cases only; no P4 workflow acceptance",
+  "tests": 9,
+  "passed": 9,
+  "log": "docs/evidence/payroll-entitlements-review-2026-11-03.txt",
+  "log_sha256": "2c8149e420f0ca623931b580ea15e68dc3771931f7629bbe467a2c3f0fa676e8",
+  "sources": {
+    "backend/payroll_entitlements_2026.py": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7",
+    "backend/test_payroll_entitlements_review.py": "3785cf85ae89eebe98ae5c8cc87c45a24a74b17c4e12b28a556b9366df01d145"
+  }
+}

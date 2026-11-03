@@ -25,8 +25,16 @@ Sprachentwürfe, Dateiimport, Unternehmensarchiv, freie Zusatzfelder,
 Datenschutzfälle, belegte Lohnzahlungen zur EÜR, Bankabgleich, Kundenservice und
 Betriebsmittel. Midijob-Vollmonate sind in beiden Oberflächen geprüft;
 Lieferantenretouren und die zusätzliche Unternehmensprovisionierung haben ihre
-Fach-/Gegenprüfungen bestanden. Die gemeinsame Integration wird abschließend
-geprüft. Danach folgen Teilmonate in der Lohnabrechnung und Reisekostenpauschalen. Das Gesamtziel ist noch nicht erreicht.
+Fach-/Gegenprüfungen bestanden. Der gemeinsame Integrationsstand ist lokal
+als `31c5184` gesichert. Belegte Lohnzeitachsen und einfache Teilmonate sind
+inzwischen im Backend, PostgreSQL und beiden Clients geprüft
+([Teilmonate](docs/CRM_ERP_LOHN_TEILMONATE_2026.md),
+[Oberflächen](docs/CRM_ERP_LOHN_ZEITACHSEN_CLIENTS.md)). Die
+[eigene Mitarbeiter-Belegansicht](docs/CRM_ERP_LOHN_MITARBEITERBELEG.md) ist
+für bestehende Lohnregeln geprüft. Reisepauschalen besitzen eine tatsächliche
+Zahlungs-/EÜR-/Bankkette; die erweiterte gemeinsame Abnahme läuft.
+Aktuell entstehen mehrteilige Lohnfälle, bezahlte Abwesenheiten, die vollständige
+Reise-Lohnübergabe und Einmalbezüge. Das Gesamtziel ist noch nicht erreicht.
 
 Verbindlicher Unternehmensrahmen: Einzelunternehmen mit EÜR, Regelbesteuerung,
 Ist-Versteuerung, 19 % Standard-Umsatzsteuer, SKR04 und Nettopreise. Der

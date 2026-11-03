@@ -1,0 +1,14 @@
+test_added_cause_on_final_available_day_has_one_day_and_new_anchor (test_payroll_sickness_phases_review.SicknessPhasesIndependentReview.test_added_cause_on_final_available_day_has_one_day_and_new_anchor) ... ok
+test_added_cause_one_day_later_has_no_anchor_or_prior_usage (test_payroll_sickness_phases_review.SicknessPhasesIndependentReview.test_added_cause_one_day_later_has_no_anchor_or_prior_usage) ... ok
+test_adjacent_new_certificate_needs_explicit_recovery_evidence_and_no_mutation (test_payroll_sickness_phases_review.SicknessPhasesIndependentReview.test_adjacent_new_certificate_needs_explicit_recovery_evidence_and_no_mutation) ... ok
+test_during_work_start_with_three_day_remainder_keeps_ordinary_first_day_separate (test_payroll_sickness_phases_review.SicknessPhasesIndependentReview.test_during_work_start_with_three_day_remainder_keeps_ordinary_first_day_separate) ... ok
+test_gkv_a_and_b_one_day_changes_six_month_reset (test_payroll_sickness_phases_review.SicknessPhasesIndependentReview.test_gkv_a_and_b_one_day_changes_six_month_reset) ... ok
+test_gkv_c_added_cause_retains_only_paid_responsible_days (test_payroll_sickness_phases_review.SicknessPhasesIndependentReview.test_gkv_c_added_cause_retains_only_paid_responsible_days) ... ok
+test_gkv_d_six_month_clock_uses_end_of_au_not_end_of_payment (test_payroll_sickness_phases_review.SicknessPhasesIndependentReview.test_gkv_d_six_month_clock_uses_end_of_au_not_end_of_payment) ... ok
+test_three_actual_causes_keep_one_case_cap_and_separate_later_recurrence (test_payroll_sickness_phases_review.SicknessPhasesIndependentReview.test_three_actual_causes_keep_one_case_cap_and_separate_later_recurrence) ... ok
+test_tk_19_published_thirteen_days_then_one_unused_day (test_payroll_sickness_phases_review.SicknessPhasesIndependentReview.test_tk_19_published_thirteen_days_then_one_unused_day) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.004s
+
+OK

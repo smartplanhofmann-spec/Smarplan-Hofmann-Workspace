@@ -1,0 +1,2073 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "sickness": {
+    "sources": {
+      "employee": {
+        "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+        "user_id": "dc301fb87dfb42608a99767d66f05fc8",
+        "name": "Synthetic technician",
+        "employment_from": "2026-10-15",
+        "employment_to": null,
+        "revision": 2
+      },
+      "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+      "files": [
+        {
+          "id": "baed97bbe6c74d4783dfc35ce35682e9",
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "purpose": "personnel",
+          "owner_visible": 0,
+          "filename": "verified-payroll-profile.pdf",
+          "media_type": "application/pdf",
+          "size": 50,
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+          "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+          "supersedes": null,
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "created_at": "2026-11-03T12:00:00+00:00"
+        }
+      ],
+      "agreements": [
+        {
+          "amount_minor": 1800,
+          "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+          "currency": "EUR",
+          "effective_from": "2026-01-01",
+          "employment_kind": "minijob",
+          "notes": "",
+          "pay_basis": "hourly",
+          "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+          "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+          "id": "13db2ad693594da9ae6281abadd65e23",
+          "kind": "agreement",
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "revision": 2,
+          "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+          "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "pdf_sha256": null
+        }
+      ],
+      "preparations": [
+        {
+          "completeness_confirmed": true,
+          "correction_reason": "",
+          "month": "2026-10",
+          "payroll_calculated": false,
+          "snapshot": {
+            "agreements": [
+              {
+                "amount_minor": 60300,
+                "content_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+                "correction_reason": "",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "currency": "EUR",
+                "effective_from": "2026-01-01",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "employment_kind": "minijob",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "kind": "agreement",
+                "notes": "",
+                "pay_basis": "monthly",
+                "pdf_sha256": null,
+                "previous_hash": null,
+                "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "revision": 1
+              }
+            ],
+            "allowance_calculation": false,
+            "approved_absences": [],
+            "approved_days": [],
+            "corrections": [],
+            "currency": "EUR",
+            "employee": {
+              "employment_from": "2026-10-15",
+              "employment_to": null,
+              "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+              "name": "Synthetic technician",
+              "revision": 2,
+              "user_id": "dc301fb87dfb42608a99767d66f05fc8"
+            },
+            "expenses": [],
+            "month": "2026-10",
+            "net_work_seconds": 0,
+            "payroll_calculated": false,
+            "recorded_expenses_minor": 0,
+            "schema_version": 1,
+            "scope": "recorded_and_approved_sources",
+            "tax_treatment": "not_determined"
+          },
+          "source_hash": "a368332f8e6e1e7226ac023632e8d3df59b114eef7080ff67baffe8b7c3529ce",
+          "status": "preparation_closed",
+          "transmission_status": "not_transmitted",
+          "id": "fc4eb397f1144e82b5e2646d41b94cb1",
+          "kind": "preparation",
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "revision": 1,
+          "content_hash": "8cc6e7c26347f643d72e0adfebfa4f1949e521bea73a7b99686d6675644c8e38",
+          "previous_hash": null,
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "pdf_sha256": "761a4bf580b765dc45c9aa87e188280dd4b67fe7fe49b1f799687d9a556690c7"
+        }
+      ],
+      "profiles": [
+        {
+          "confirmed": true,
+          "correction_reason": "",
+          "profile": {
+            "church_tax": "none",
+            "date_of_birth": "1990-02-01",
+            "effective_from": "2026-01-01",
+            "employment_kind": "minijob",
+            "federal_state": "HE",
+            "has_children": false,
+            "health_additional_percent": "2.690",
+            "health_fund": "Synthetic documented fund",
+            "health_insurance": "statutory_mandatory",
+            "minijob_rv_exempt": false,
+            "minijob_tax": "flat_2_employer",
+            "pension_other_compulsory": false,
+            "pv_children_under_25": 0,
+            "regular_annual_gross_minor": 723600,
+            "special_cases": [],
+            "tax_children_half_units": 0,
+            "tax_class": 1,
+            "u1_percent": "0.800",
+            "u1_required": true,
+            "u2_percent": "0.220",
+            "verification_note": "Synthetic verified source values for reference tests"
+          },
+          "source_file": {
+            "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+            "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+            "id": "baed97bbe6c74d4783dfc35ce35682e9",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+          },
+          "id": "5a1dba40c2cf458d8e8be9c3465d3a60",
+          "kind": "profile",
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "revision": 1,
+          "content_hash": "d6371b6f80d33cb9927db0cde350a7b6b28414594735a0337ba85e00a287f4c0",
+          "previous_hash": null,
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "pdf_sha256": null
+        }
+      ],
+      "identities": [
+        {
+          "id": "63dc630e98704c0fb5e36c0b3f102e4c",
+          "revision": 1,
+          "kind": "identity",
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "previous_hash": null,
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "confirmed": true,
+          "correction_reason": "",
+          "details": {
+            "address_line": "Testweg 1",
+            "city": "Teststadt",
+            "country_code": "DE",
+            "date_of_birth": "1990-02-01",
+            "employer_address": "Teststraße 2, 12345 Teststadt",
+            "employer_name": "Synthetic Employer",
+            "employer_tax_number": "123/456/78901",
+            "employment_from": "2026-10-15",
+            "employment_to": null,
+            "family_name": "Employee",
+            "given_name": "Synthetic",
+            "postal_code": "12345",
+            "profile_id": "5a1dba40c2cf458d8e8be9c3465d3a60",
+            "profile_revision": 1,
+            "religion_code": "none",
+            "standard_case_confirmed": true,
+            "tax_addition_yearly_minor": 0,
+            "tax_allowance_yearly_minor": 0,
+            "tax_id": "12345678903",
+            "tax_source": "flat_minijob_evidence",
+            "tax_source_date": "2026-01-01",
+            "valid_from": "2026-01-01",
+            "valid_to": "2026-12-31"
+          },
+          "source_file": {
+            "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+            "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+            "id": "baed97bbe6c74d4783dfc35ce35682e9",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+          },
+          "sources": {
+            "profile": {
+              "confirmed": true,
+              "content_hash": "d6371b6f80d33cb9927db0cde350a7b6b28414594735a0337ba85e00a287f4c0",
+              "correction_reason": "",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+              "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+              "id": "5a1dba40c2cf458d8e8be9c3465d3a60",
+              "kind": "profile",
+              "pdf_sha256": null,
+              "previous_hash": null,
+              "profile": {
+                "church_tax": "none",
+                "date_of_birth": "1990-02-01",
+                "effective_from": "2026-01-01",
+                "employment_kind": "minijob",
+                "federal_state": "HE",
+                "has_children": false,
+                "health_additional_percent": "2.690",
+                "health_fund": "Synthetic documented fund",
+                "health_insurance": "statutory_mandatory",
+                "minijob_rv_exempt": false,
+                "minijob_tax": "flat_2_employer",
+                "pension_other_compulsory": false,
+                "pv_children_under_25": 0,
+                "regular_annual_gross_minor": 723600,
+                "special_cases": [],
+                "tax_children_half_units": 0,
+                "tax_class": 1,
+                "u1_percent": "0.800",
+                "u1_required": true,
+                "u2_percent": "0.220",
+                "verification_note": "Synthetic verified source values for reference tests"
+              },
+              "revision": 1,
+              "source_file": {
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+              }
+            }
+          },
+          "content_hash": "5f247202b8082e6278e4346527ff1365b516dc582b4f1536726d0142aa7318ea"
+        }
+      ],
+      "facts": [
+        {
+          "id": "c3e5ad8360eb498185ab5876cee58224",
+          "revision": 2,
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "kind": "employment_terms",
+          "effective_from": "2026-10-15",
+          "effective_to": null,
+          "status": "active",
+          "source_hash": "54ee66aee22cd3ec6734cab233b09a3404bcc4e01841b62a1190200c07c5937a",
+          "previous_hash": "837d813bc40dcd0c8d7391bc7116a8491982e33e3eb54fde39154de646800531",
+          "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "correction_reason": "Stundenlohnvereinbarung konkret gebunden",
+          "details": {
+            "agreement_refs": [
+              {
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "revision": 2
+              }
+            ],
+            "employment_from": "2026-10-15",
+            "employment_to": null,
+            "proration_method": "calendar_days_actual",
+            "reason": "Belegter individueller Teilentgeltvertrag"
+          },
+          "plan": null,
+          "preview_hash": null,
+          "source_file_ids": [
+            "baed97bbe6c74d4783dfc35ce35682e9"
+          ],
+          "sources": {
+            "agreements": [
+              {
+                "amount_minor": 1800,
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "currency": "EUR",
+                "effective_from": "2026-01-01",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "employment_kind": "minijob",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "kind": "agreement",
+                "notes": "",
+                "pay_basis": "hourly",
+                "pdf_sha256": null,
+                "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+                "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "revision": 2
+              }
+            ],
+            "employee": {
+              "employment_from": "2026-10-15",
+              "employment_to": null,
+              "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+              "name": "Synthetic technician",
+              "revision": 2,
+              "user_id": "dc301fb87dfb42608a99767d66f05fc8"
+            },
+            "schema_version": 1,
+            "source_files": [
+              {
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "filename": "verified-payroll-profile.pdf",
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "media_type": "application/pdf",
+                "owner_visible": 0,
+                "purpose": "personnel",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "size": 50,
+                "supersedes": null
+              }
+            ]
+          }
+        }
+      ],
+      "absences": [],
+      "can_write": true,
+      "can_approve": true,
+      "writes_enabled": true,
+      "entitlements": [
+        {
+          "id": "80f19482670049ce8b4b9886c5c3370a",
+          "revision": 1,
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "kind": "sickness_history",
+          "effective_from": "2026-10-15",
+          "effective_to": "2026-12-31",
+          "status": "active",
+          "source_hash": "b0e91e14b8f006bb96ae611e79a342ef54fba89dbf21df2b7ce289ae6af3f2fe",
+          "previous_hash": null,
+          "content_hash": "903588debf839b4b6f32475a4be52dd5e540648d8eced667518d63815675b158",
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "correction_reason": "",
+          "details": {
+            "agreement_refs": [
+              {
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "revision": 2
+              }
+            ],
+            "case_key": "40b62ae9dccf433abc739cf3109b7a0e",
+            "employment_terms_ref": {
+              "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+              "id": "c3e5ad8360eb498185ab5876cee58224",
+              "revision": 2
+            },
+            "input": {
+              "complete_from": "2026-10-15",
+              "complete_through": "2026-12-31",
+              "employment_commencement": {
+                "contract_concluded_on": "2026-10-01",
+                "evidence_refs": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1
+                  }
+                ]
+              },
+              "employment_from": "2026-10-15",
+              "employment_to": null,
+              "episodes": [
+                {
+                  "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+                  "evidence_refs": [
+                    {
+                      "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                      "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                      "revision": 1
+                    }
+                  ],
+                  "first_scheduled_day": null,
+                  "from": "2026-10-10",
+                  "id": "8844d0b53353436bb9fd409fa8e6aa19",
+                  "onset": "before_employment",
+                  "recovery_before": true,
+                  "to": "2026-12-31",
+                  "unculpable": true
+                }
+              ],
+              "history_evidence_refs": [
+                {
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1
+                }
+              ],
+              "pay_basis": "hourly",
+              "prevention_cases": [
+                {
+                  "episode_ids": [
+                    "8844d0b53353436bb9fd409fa8e6aa19"
+                  ],
+                  "evidence_refs": [
+                    {
+                      "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                      "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                      "revision": 1
+                    }
+                  ],
+                  "id": "f569a9bece9f40b083bcde4c1db9e497"
+                }
+              ]
+            },
+            "preparation_refs": [],
+            "sickness_history_ref": null,
+            "verification_note": "Synthetische vollständige private Originalentscheidung ohne Diagnose",
+            "work_schedule_refs": []
+          },
+          "plan": {
+            "entitlement_kind": "sickness",
+            "episodes": [
+              {
+                "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+                "count_from": "2026-10-15",
+                "entitlement_calendar_days": 42,
+                "entitlement_from": "2026-11-12",
+                "entitlement_to": "2026-12-23",
+                "episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "evidence_refs": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1
+                  }
+                ],
+                "first_day_remaining_regular_wage": null,
+                "from_date": "2026-10-10",
+                "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+                "prior_used_days": 0,
+                "remaining_days": 0,
+                "reset_reason": "first_evidenced_case",
+                "responsibility_from": "2026-10-15",
+                "responsibility_to": "2026-12-31",
+                "to_date": "2026-12-31",
+                "twelve_month_anchor": "2026-10-15",
+                "waiting_period_end": "2026-11-11"
+              }
+            ],
+            "input_hash": "2ebfca68e7b55d3712cd173c268bdfe44ef52fc353d9e18e75a0c0aba1a9b3d7",
+            "kind": "sickness_history",
+            "legal_projection_hash": "6894a241b045c58464399fcd5a186665f00fdfbfc6753f19c5e9ac45fc83052d",
+            "phases": [
+              {
+                "active_episode_ids": [
+                  "8844d0b53353436bb9fd409fa8e6aa19"
+                ],
+                "entitled": false,
+                "first_day_remaining_regular_wage": false,
+                "from_date": "2026-10-15",
+                "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+                "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "to_date": "2026-11-11",
+                "waiting_period": true
+              },
+              {
+                "active_episode_ids": [
+                  "8844d0b53353436bb9fd409fa8e6aa19"
+                ],
+                "entitled": true,
+                "first_day_remaining_regular_wage": false,
+                "from_date": "2026-11-12",
+                "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+                "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "to_date": "2026-12-23",
+                "waiting_period": false
+              },
+              {
+                "active_episode_ids": [
+                  "8844d0b53353436bb9fd409fa8e6aa19"
+                ],
+                "entitled": false,
+                "first_day_remaining_regular_wage": false,
+                "from_date": "2026-12-24",
+                "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+                "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "to_date": "2026-12-31",
+                "waiting_period": false
+              }
+            ],
+            "plan_hash": "07d673c3b6b446c7cea5e04039e97ef3d6d6f52bca7a12f97d9cbc46aa16d097",
+            "preemployment_periods": [
+              {
+                "employment_wage_entitlement": false,
+                "episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "from_date": "2026-10-10",
+                "to_date": "2026-10-14"
+              }
+            ],
+            "prevention_cases": [
+              {
+                "count_from": "2026-10-15",
+                "entitlement_calendar_days": 42,
+                "from_date": "2026-10-15",
+                "id": "f569a9bece9f40b083bcde4c1db9e497",
+                "initial_remaining_days": 42,
+                "original_au_from": "2026-10-10",
+                "statutory_deadline": "2026-12-23",
+                "to_date": "2026-12-31"
+              }
+            ],
+            "rule_version": "de_2026_sickness_start_v4",
+            "rules_hash": "5da6bdd44e809ca5a48fd116bcf8b150ecd4b46234716899e164f437649dc388",
+            "schema_version": 1,
+            "source_hash": "b0e91e14b8f006bb96ae611e79a342ef54fba89dbf21df2b7ce289ae6af3f2fe",
+            "waiting_period_end": "2026-11-11"
+          },
+          "preview_hash": "e02e43918cda48dde292ffc33c795674123a2ccdc66ada4108ab9c4e17eb4cdb",
+          "source_file_ids": [
+            "baed97bbe6c74d4783dfc35ce35682e9"
+          ],
+          "sources": {
+            "agreements": [
+              {
+                "amount_minor": 1800,
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "currency": "EUR",
+                "effective_from": "2026-01-01",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "employment_kind": "minijob",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "kind": "agreement",
+                "notes": "",
+                "pay_basis": "hourly",
+                "pdf_sha256": null,
+                "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+                "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "revision": 2
+              }
+            ],
+            "details": {
+              "agreement_refs": [
+                {
+                  "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                  "id": "13db2ad693594da9ae6281abadd65e23",
+                  "revision": 2
+                }
+              ],
+              "case_key": "40b62ae9dccf433abc739cf3109b7a0e",
+              "employment_terms_ref": {
+                "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+                "id": "c3e5ad8360eb498185ab5876cee58224",
+                "revision": 2
+              },
+              "input": {
+                "complete_from": "2026-10-15",
+                "complete_through": "2026-12-31",
+                "employment_commencement": {
+                  "contract_concluded_on": "2026-10-01",
+                  "evidence_refs": [
+                    {
+                      "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                      "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                      "revision": 1
+                    }
+                  ]
+                },
+                "employment_from": "2026-10-15",
+                "employment_to": null,
+                "episodes": [
+                  {
+                    "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+                    "evidence_refs": [
+                      {
+                        "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                        "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                        "revision": 1
+                      }
+                    ],
+                    "first_scheduled_day": null,
+                    "from": "2026-10-10",
+                    "id": "8844d0b53353436bb9fd409fa8e6aa19",
+                    "onset": "before_employment",
+                    "recovery_before": true,
+                    "to": "2026-12-31",
+                    "unculpable": true
+                  }
+                ],
+                "history_evidence_refs": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1
+                  }
+                ],
+                "pay_basis": "hourly",
+                "prevention_cases": [
+                  {
+                    "episode_ids": [
+                      "8844d0b53353436bb9fd409fa8e6aa19"
+                    ],
+                    "evidence_refs": [
+                      {
+                        "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                        "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                        "revision": 1
+                      }
+                    ],
+                    "id": "f569a9bece9f40b083bcde4c1db9e497"
+                  }
+                ]
+              },
+              "preparation_refs": [],
+              "sickness_history_ref": null,
+              "verification_note": "Synthetische vollständige private Originalentscheidung ohne Diagnose",
+              "work_schedule_refs": []
+            },
+            "employee": {
+              "employment_from": "2026-10-15",
+              "employment_to": null,
+              "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+              "name": "Synthetic technician",
+              "revision": 2,
+              "user_id": "dc301fb87dfb42608a99767d66f05fc8"
+            },
+            "employment_terms": {
+              "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+              "correction_reason": "Stundenlohnvereinbarung konkret gebunden",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+              "details": {
+                "agreement_refs": [
+                  {
+                    "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                    "id": "13db2ad693594da9ae6281abadd65e23",
+                    "revision": 2
+                  }
+                ],
+                "employment_from": "2026-10-15",
+                "employment_to": null,
+                "proration_method": "calendar_days_actual",
+                "reason": "Belegter individueller Teilentgeltvertrag"
+              },
+              "effective_from": "2026-10-15",
+              "effective_to": null,
+              "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+              "id": "c3e5ad8360eb498185ab5876cee58224",
+              "kind": "employment_terms",
+              "plan": null,
+              "preview_hash": null,
+              "previous_hash": "837d813bc40dcd0c8d7391bc7116a8491982e33e3eb54fde39154de646800531",
+              "revision": 2,
+              "source_file_ids": [
+                "baed97bbe6c74d4783dfc35ce35682e9"
+              ],
+              "source_hash": "54ee66aee22cd3ec6734cab233b09a3404bcc4e01841b62a1190200c07c5937a",
+              "sources": {
+                "agreements": [
+                  {
+                    "amount_minor": 1800,
+                    "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                    "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+                    "created_at": "2026-11-03T12:00:00+00:00",
+                    "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                    "currency": "EUR",
+                    "effective_from": "2026-01-01",
+                    "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                    "employment_kind": "minijob",
+                    "id": "13db2ad693594da9ae6281abadd65e23",
+                    "kind": "agreement",
+                    "notes": "",
+                    "pay_basis": "hourly",
+                    "pdf_sha256": null,
+                    "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+                    "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                    "revision": 2
+                  }
+                ],
+                "employee": {
+                  "employment_from": "2026-10-15",
+                  "employment_to": null,
+                  "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                  "name": "Synthetic technician",
+                  "revision": 2,
+                  "user_id": "dc301fb87dfb42608a99767d66f05fc8"
+                },
+                "schema_version": 1,
+                "source_files": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "created_at": "2026-11-03T12:00:00+00:00",
+                    "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                    "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                    "filename": "verified-payroll-profile.pdf",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "media_type": "application/pdf",
+                    "owner_visible": 0,
+                    "purpose": "personnel",
+                    "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                    "size": 50,
+                    "supersedes": null
+                  }
+                ]
+              },
+              "status": "active"
+            },
+            "holiday_calendar_hash": null,
+            "kind": "sickness_history",
+            "preparations": [],
+            "schema_version": 1,
+            "sickness_history": null,
+            "source_files": [
+              {
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "filename": "verified-payroll-profile.pdf",
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "media_type": "application/pdf",
+                "owner_visible": 0,
+                "purpose": "personnel",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "size": 50,
+                "supersedes": null
+              }
+            ],
+            "work_schedules": []
+          }
+        }
+      ],
+      "file_references": [
+        {
+          "id": "baed97bbe6c74d4783dfc35ce35682e9",
+          "revision": 1,
+          "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+        }
+      ]
+    },
+    "preview_request": {
+      "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+      "employee_revision": 2,
+      "kind": "sickness_history",
+      "details": {
+        "case_key": "40b62ae9dccf433abc739cf3109b7a0e",
+        "employment_terms_ref": {
+          "id": "c3e5ad8360eb498185ab5876cee58224",
+          "revision": 2,
+          "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26"
+        },
+        "work_schedule_refs": [],
+        "preparation_refs": [],
+        "agreement_refs": [
+          {
+            "id": "13db2ad693594da9ae6281abadd65e23",
+            "revision": 2,
+            "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f"
+          }
+        ],
+        "sickness_history_ref": null,
+        "input": {
+          "employment_from": "2026-10-15",
+          "employment_to": null,
+          "pay_basis": "hourly",
+          "complete_from": "2026-10-15",
+          "complete_through": "2026-12-31",
+          "history_evidence_refs": [
+            {
+              "id": "baed97bbe6c74d4783dfc35ce35682e9",
+              "revision": 1,
+              "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+            }
+          ],
+          "episodes": [
+            {
+              "id": "8844d0b53353436bb9fd409fa8e6aa19",
+              "from": "2026-10-10",
+              "to": "2026-12-31",
+              "onset": "before_employment",
+              "first_scheduled_day": null,
+              "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+              "recovery_before": true,
+              "unculpable": true,
+              "evidence_refs": [
+                {
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1,
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+                }
+              ]
+            }
+          ],
+          "prevention_cases": [
+            {
+              "id": "f569a9bece9f40b083bcde4c1db9e497",
+              "episode_ids": [
+                "8844d0b53353436bb9fd409fa8e6aa19"
+              ],
+              "evidence_refs": [
+                {
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1,
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+                }
+              ]
+            }
+          ],
+          "employment_commencement": {
+            "contract_concluded_on": "2026-10-01",
+            "evidence_refs": [
+              {
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "revision": 1,
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+              }
+            ]
+          }
+        },
+        "verification_note": "Synthetische vollständige private Originalentscheidung ohne Diagnose"
+      },
+      "source_file_ids": [
+        "baed97bbe6c74d4783dfc35ce35682e9"
+      ]
+    },
+    "preview": {
+      "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+      "kind": "sickness_history",
+      "source_snapshot": {
+        "schema_version": 1,
+        "kind": "sickness_history",
+        "employee": {
+          "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "user_id": "dc301fb87dfb42608a99767d66f05fc8",
+          "name": "Synthetic technician",
+          "employment_from": "2026-10-15",
+          "employment_to": null,
+          "revision": 2
+        },
+        "details": {
+          "case_key": "40b62ae9dccf433abc739cf3109b7a0e",
+          "employment_terms_ref": {
+            "id": "c3e5ad8360eb498185ab5876cee58224",
+            "revision": 2,
+            "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26"
+          },
+          "work_schedule_refs": [],
+          "preparation_refs": [],
+          "agreement_refs": [
+            {
+              "id": "13db2ad693594da9ae6281abadd65e23",
+              "revision": 2,
+              "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f"
+            }
+          ],
+          "sickness_history_ref": null,
+          "input": {
+            "employment_from": "2026-10-15",
+            "employment_to": null,
+            "pay_basis": "hourly",
+            "complete_from": "2026-10-15",
+            "complete_through": "2026-12-31",
+            "history_evidence_refs": [
+              {
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "revision": 1,
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+              }
+            ],
+            "episodes": [
+              {
+                "id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "from": "2026-10-10",
+                "to": "2026-12-31",
+                "onset": "before_employment",
+                "first_scheduled_day": null,
+                "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+                "recovery_before": true,
+                "unculpable": true,
+                "evidence_refs": [
+                  {
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1,
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+                  }
+                ]
+              }
+            ],
+            "prevention_cases": [
+              {
+                "id": "f569a9bece9f40b083bcde4c1db9e497",
+                "episode_ids": [
+                  "8844d0b53353436bb9fd409fa8e6aa19"
+                ],
+                "evidence_refs": [
+                  {
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1,
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+                  }
+                ]
+              }
+            ],
+            "employment_commencement": {
+              "contract_concluded_on": "2026-10-01",
+              "evidence_refs": [
+                {
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1,
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+                }
+              ]
+            }
+          },
+          "verification_note": "Synthetische vollständige private Originalentscheidung ohne Diagnose"
+        },
+        "employment_terms": {
+          "id": "c3e5ad8360eb498185ab5876cee58224",
+          "revision": 2,
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "kind": "employment_terms",
+          "effective_from": "2026-10-15",
+          "effective_to": null,
+          "status": "active",
+          "source_hash": "54ee66aee22cd3ec6734cab233b09a3404bcc4e01841b62a1190200c07c5937a",
+          "previous_hash": "837d813bc40dcd0c8d7391bc7116a8491982e33e3eb54fde39154de646800531",
+          "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "correction_reason": "Stundenlohnvereinbarung konkret gebunden",
+          "details": {
+            "agreement_refs": [
+              {
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "revision": 2
+              }
+            ],
+            "employment_from": "2026-10-15",
+            "employment_to": null,
+            "proration_method": "calendar_days_actual",
+            "reason": "Belegter individueller Teilentgeltvertrag"
+          },
+          "plan": null,
+          "preview_hash": null,
+          "source_file_ids": [
+            "baed97bbe6c74d4783dfc35ce35682e9"
+          ],
+          "sources": {
+            "agreements": [
+              {
+                "amount_minor": 1800,
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "currency": "EUR",
+                "effective_from": "2026-01-01",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "employment_kind": "minijob",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "kind": "agreement",
+                "notes": "",
+                "pay_basis": "hourly",
+                "pdf_sha256": null,
+                "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+                "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "revision": 2
+              }
+            ],
+            "employee": {
+              "employment_from": "2026-10-15",
+              "employment_to": null,
+              "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+              "name": "Synthetic technician",
+              "revision": 2,
+              "user_id": "dc301fb87dfb42608a99767d66f05fc8"
+            },
+            "schema_version": 1,
+            "source_files": [
+              {
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "filename": "verified-payroll-profile.pdf",
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "media_type": "application/pdf",
+                "owner_visible": 0,
+                "purpose": "personnel",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "size": 50,
+                "supersedes": null
+              }
+            ]
+          }
+        },
+        "agreements": [
+          {
+            "amount_minor": 1800,
+            "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+            "currency": "EUR",
+            "effective_from": "2026-01-01",
+            "employment_kind": "minijob",
+            "notes": "",
+            "pay_basis": "hourly",
+            "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+            "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "id": "13db2ad693594da9ae6281abadd65e23",
+            "kind": "agreement",
+            "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+            "revision": 2,
+            "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+            "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+            "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "pdf_sha256": null
+          }
+        ],
+        "work_schedules": [],
+        "preparations": [],
+        "sickness_history": null,
+        "source_files": [
+          {
+            "id": "baed97bbe6c74d4783dfc35ce35682e9",
+            "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+            "purpose": "personnel",
+            "owner_visible": 0,
+            "filename": "verified-payroll-profile.pdf",
+            "media_type": "application/pdf",
+            "size": 50,
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+            "supersedes": null,
+            "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+            "created_at": "2026-11-03T12:00:00+00:00"
+          }
+        ],
+        "holiday_calendar_hash": null
+      },
+      "source_hash": "b0e91e14b8f006bb96ae611e79a342ef54fba89dbf21df2b7ce289ae6af3f2fe",
+      "plan": {
+        "schema_version": 1,
+        "rule_version": "de_2026_sickness_start_v4",
+        "rules_hash": "5da6bdd44e809ca5a48fd116bcf8b150ecd4b46234716899e164f437649dc388",
+        "waiting_period_end": "2026-11-11",
+        "episodes": [
+          {
+            "episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+            "from_date": "2026-10-10",
+            "to_date": "2026-12-31",
+            "count_from": "2026-10-15",
+            "waiting_period_end": "2026-11-11",
+            "entitlement_from": "2026-11-12",
+            "entitlement_to": "2026-12-23",
+            "entitlement_calendar_days": 42,
+            "first_day_remaining_regular_wage": null,
+            "reset_reason": "first_evidenced_case",
+            "twelve_month_anchor": "2026-10-15",
+            "prior_used_days": 0,
+            "remaining_days": 0,
+            "evidence_refs": [
+              {
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "revision": 1,
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+              }
+            ],
+            "responsibility_from": "2026-10-15",
+            "responsibility_to": "2026-12-31",
+            "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497"
+          }
+        ],
+        "prevention_cases": [
+          {
+            "id": "f569a9bece9f40b083bcde4c1db9e497",
+            "from_date": "2026-10-15",
+            "to_date": "2026-12-31",
+            "count_from": "2026-10-15",
+            "initial_remaining_days": 42,
+            "statutory_deadline": "2026-12-23",
+            "entitlement_calendar_days": 42,
+            "original_au_from": "2026-10-10"
+          }
+        ],
+        "phases": [
+          {
+            "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+            "from_date": "2026-10-15",
+            "to_date": "2026-11-11",
+            "active_episode_ids": [
+              "8844d0b53353436bb9fd409fa8e6aa19"
+            ],
+            "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "entitled": false,
+            "first_day_remaining_regular_wage": false,
+            "waiting_period": true
+          },
+          {
+            "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+            "from_date": "2026-11-12",
+            "to_date": "2026-12-23",
+            "active_episode_ids": [
+              "8844d0b53353436bb9fd409fa8e6aa19"
+            ],
+            "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "entitled": true,
+            "first_day_remaining_regular_wage": false,
+            "waiting_period": false
+          },
+          {
+            "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+            "from_date": "2026-12-24",
+            "to_date": "2026-12-31",
+            "active_episode_ids": [
+              "8844d0b53353436bb9fd409fa8e6aa19"
+            ],
+            "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "entitled": false,
+            "first_day_remaining_regular_wage": false,
+            "waiting_period": false
+          }
+        ],
+        "legal_projection_hash": "6894a241b045c58464399fcd5a186665f00fdfbfc6753f19c5e9ac45fc83052d",
+        "preemployment_periods": [
+          {
+            "episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "from_date": "2026-10-10",
+            "to_date": "2026-10-14",
+            "employment_wage_entitlement": false
+          }
+        ],
+        "kind": "sickness_history",
+        "entitlement_kind": "sickness",
+        "input_hash": "2ebfca68e7b55d3712cd173c268bdfe44ef52fc353d9e18e75a0c0aba1a9b3d7",
+        "source_hash": "b0e91e14b8f006bb96ae611e79a342ef54fba89dbf21df2b7ce289ae6af3f2fe",
+        "plan_hash": "07d673c3b6b446c7cea5e04039e97ef3d6d6f52bca7a12f97d9cbc46aa16d097"
+      },
+      "preview_hash": "e02e43918cda48dde292ffc33c795674123a2ccdc66ada4108ab9c4e17eb4cdb",
+      "can_confirm": true,
+      "can_calculate": true,
+      "can_write": true,
+      "can_approve": true,
+      "writes_enabled": true
+    },
+    "command": {
+      "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+      "employee_revision": 2,
+      "kind": "sickness_history",
+      "details": {
+        "case_key": "40b62ae9dccf433abc739cf3109b7a0e",
+        "employment_terms_ref": {
+          "id": "c3e5ad8360eb498185ab5876cee58224",
+          "revision": 2,
+          "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26"
+        },
+        "work_schedule_refs": [],
+        "preparation_refs": [],
+        "agreement_refs": [
+          {
+            "id": "13db2ad693594da9ae6281abadd65e23",
+            "revision": 2,
+            "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f"
+          }
+        ],
+        "sickness_history_ref": null,
+        "input": {
+          "employment_from": "2026-10-15",
+          "employment_to": null,
+          "pay_basis": "hourly",
+          "complete_from": "2026-10-15",
+          "complete_through": "2026-12-31",
+          "history_evidence_refs": [
+            {
+              "id": "baed97bbe6c74d4783dfc35ce35682e9",
+              "revision": 1,
+              "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+            }
+          ],
+          "episodes": [
+            {
+              "id": "8844d0b53353436bb9fd409fa8e6aa19",
+              "from": "2026-10-10",
+              "to": "2026-12-31",
+              "onset": "before_employment",
+              "first_scheduled_day": null,
+              "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+              "recovery_before": true,
+              "unculpable": true,
+              "evidence_refs": [
+                {
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1,
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+                }
+              ]
+            }
+          ],
+          "prevention_cases": [
+            {
+              "id": "f569a9bece9f40b083bcde4c1db9e497",
+              "episode_ids": [
+                "8844d0b53353436bb9fd409fa8e6aa19"
+              ],
+              "evidence_refs": [
+                {
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1,
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+                }
+              ]
+            }
+          ],
+          "employment_commencement": {
+            "contract_concluded_on": "2026-10-01",
+            "evidence_refs": [
+              {
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "revision": 1,
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82"
+              }
+            ]
+          }
+        },
+        "verification_note": "Synthetische vollständige private Originalentscheidung ohne Diagnose"
+      },
+      "source_file_ids": [
+        "baed97bbe6c74d4783dfc35ce35682e9"
+      ],
+      "request_id": "0daa55d56a8d402eb6c31a2ac356a7cf",
+      "revision": 0,
+      "status": "active",
+      "confirmed": true,
+      "preview_hash": "e02e43918cda48dde292ffc33c795674123a2ccdc66ada4108ab9c4e17eb4cdb"
+    },
+    "saved": {
+      "id": "80f19482670049ce8b4b9886c5c3370a",
+      "revision": 1,
+      "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+      "kind": "sickness_history",
+      "effective_from": "2026-10-15",
+      "effective_to": "2026-12-31",
+      "status": "active",
+      "source_hash": "b0e91e14b8f006bb96ae611e79a342ef54fba89dbf21df2b7ce289ae6af3f2fe",
+      "previous_hash": null,
+      "content_hash": "903588debf839b4b6f32475a4be52dd5e540648d8eced667518d63815675b158",
+      "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+      "created_at": "2026-11-03T12:00:00+00:00",
+      "correction_reason": "",
+      "details": {
+        "agreement_refs": [
+          {
+            "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+            "id": "13db2ad693594da9ae6281abadd65e23",
+            "revision": 2
+          }
+        ],
+        "case_key": "40b62ae9dccf433abc739cf3109b7a0e",
+        "employment_terms_ref": {
+          "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+          "id": "c3e5ad8360eb498185ab5876cee58224",
+          "revision": 2
+        },
+        "input": {
+          "complete_from": "2026-10-15",
+          "complete_through": "2026-12-31",
+          "employment_commencement": {
+            "contract_concluded_on": "2026-10-01",
+            "evidence_refs": [
+              {
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "revision": 1
+              }
+            ]
+          },
+          "employment_from": "2026-10-15",
+          "employment_to": null,
+          "episodes": [
+            {
+              "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+              "evidence_refs": [
+                {
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1
+                }
+              ],
+              "first_scheduled_day": null,
+              "from": "2026-10-10",
+              "id": "8844d0b53353436bb9fd409fa8e6aa19",
+              "onset": "before_employment",
+              "recovery_before": true,
+              "to": "2026-12-31",
+              "unculpable": true
+            }
+          ],
+          "history_evidence_refs": [
+            {
+              "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+              "id": "baed97bbe6c74d4783dfc35ce35682e9",
+              "revision": 1
+            }
+          ],
+          "pay_basis": "hourly",
+          "prevention_cases": [
+            {
+              "episode_ids": [
+                "8844d0b53353436bb9fd409fa8e6aa19"
+              ],
+              "evidence_refs": [
+                {
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1
+                }
+              ],
+              "id": "f569a9bece9f40b083bcde4c1db9e497"
+            }
+          ]
+        },
+        "preparation_refs": [],
+        "sickness_history_ref": null,
+        "verification_note": "Synthetische vollständige private Originalentscheidung ohne Diagnose",
+        "work_schedule_refs": []
+      },
+      "plan": {
+        "entitlement_kind": "sickness",
+        "episodes": [
+          {
+            "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+            "count_from": "2026-10-15",
+            "entitlement_calendar_days": 42,
+            "entitlement_from": "2026-11-12",
+            "entitlement_to": "2026-12-23",
+            "episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "evidence_refs": [
+              {
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "revision": 1
+              }
+            ],
+            "first_day_remaining_regular_wage": null,
+            "from_date": "2026-10-10",
+            "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+            "prior_used_days": 0,
+            "remaining_days": 0,
+            "reset_reason": "first_evidenced_case",
+            "responsibility_from": "2026-10-15",
+            "responsibility_to": "2026-12-31",
+            "to_date": "2026-12-31",
+            "twelve_month_anchor": "2026-10-15",
+            "waiting_period_end": "2026-11-11"
+          }
+        ],
+        "input_hash": "2ebfca68e7b55d3712cd173c268bdfe44ef52fc353d9e18e75a0c0aba1a9b3d7",
+        "kind": "sickness_history",
+        "legal_projection_hash": "6894a241b045c58464399fcd5a186665f00fdfbfc6753f19c5e9ac45fc83052d",
+        "phases": [
+          {
+            "active_episode_ids": [
+              "8844d0b53353436bb9fd409fa8e6aa19"
+            ],
+            "entitled": false,
+            "first_day_remaining_regular_wage": false,
+            "from_date": "2026-10-15",
+            "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+            "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "to_date": "2026-11-11",
+            "waiting_period": true
+          },
+          {
+            "active_episode_ids": [
+              "8844d0b53353436bb9fd409fa8e6aa19"
+            ],
+            "entitled": true,
+            "first_day_remaining_regular_wage": false,
+            "from_date": "2026-11-12",
+            "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+            "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "to_date": "2026-12-23",
+            "waiting_period": false
+          },
+          {
+            "active_episode_ids": [
+              "8844d0b53353436bb9fd409fa8e6aa19"
+            ],
+            "entitled": false,
+            "first_day_remaining_regular_wage": false,
+            "from_date": "2026-12-24",
+            "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+            "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "to_date": "2026-12-31",
+            "waiting_period": false
+          }
+        ],
+        "plan_hash": "07d673c3b6b446c7cea5e04039e97ef3d6d6f52bca7a12f97d9cbc46aa16d097",
+        "preemployment_periods": [
+          {
+            "employment_wage_entitlement": false,
+            "episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+            "from_date": "2026-10-10",
+            "to_date": "2026-10-14"
+          }
+        ],
+        "prevention_cases": [
+          {
+            "count_from": "2026-10-15",
+            "entitlement_calendar_days": 42,
+            "from_date": "2026-10-15",
+            "id": "f569a9bece9f40b083bcde4c1db9e497",
+            "initial_remaining_days": 42,
+            "original_au_from": "2026-10-10",
+            "statutory_deadline": "2026-12-23",
+            "to_date": "2026-12-31"
+          }
+        ],
+        "rule_version": "de_2026_sickness_start_v4",
+        "rules_hash": "5da6bdd44e809ca5a48fd116bcf8b150ecd4b46234716899e164f437649dc388",
+        "schema_version": 1,
+        "source_hash": "b0e91e14b8f006bb96ae611e79a342ef54fba89dbf21df2b7ce289ae6af3f2fe",
+        "waiting_period_end": "2026-11-11"
+      },
+      "preview_hash": "e02e43918cda48dde292ffc33c795674123a2ccdc66ada4108ab9c4e17eb4cdb",
+      "source_file_ids": [
+        "baed97bbe6c74d4783dfc35ce35682e9"
+      ],
+      "sources": {
+        "agreements": [
+          {
+            "amount_minor": 1800,
+            "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+            "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+            "currency": "EUR",
+            "effective_from": "2026-01-01",
+            "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+            "employment_kind": "minijob",
+            "id": "13db2ad693594da9ae6281abadd65e23",
+            "kind": "agreement",
+            "notes": "",
+            "pay_basis": "hourly",
+            "pdf_sha256": null,
+            "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+            "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+            "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "revision": 2
+          }
+        ],
+        "details": {
+          "agreement_refs": [
+            {
+              "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+              "id": "13db2ad693594da9ae6281abadd65e23",
+              "revision": 2
+            }
+          ],
+          "case_key": "40b62ae9dccf433abc739cf3109b7a0e",
+          "employment_terms_ref": {
+            "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+            "id": "c3e5ad8360eb498185ab5876cee58224",
+            "revision": 2
+          },
+          "input": {
+            "complete_from": "2026-10-15",
+            "complete_through": "2026-12-31",
+            "employment_commencement": {
+              "contract_concluded_on": "2026-10-01",
+              "evidence_refs": [
+                {
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1
+                }
+              ]
+            },
+            "employment_from": "2026-10-15",
+            "employment_to": null,
+            "episodes": [
+              {
+                "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+                "evidence_refs": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1
+                  }
+                ],
+                "first_scheduled_day": null,
+                "from": "2026-10-10",
+                "id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "onset": "before_employment",
+                "recovery_before": true,
+                "to": "2026-12-31",
+                "unculpable": true
+              }
+            ],
+            "history_evidence_refs": [
+              {
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "revision": 1
+              }
+            ],
+            "pay_basis": "hourly",
+            "prevention_cases": [
+              {
+                "episode_ids": [
+                  "8844d0b53353436bb9fd409fa8e6aa19"
+                ],
+                "evidence_refs": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1
+                  }
+                ],
+                "id": "f569a9bece9f40b083bcde4c1db9e497"
+              }
+            ]
+          },
+          "preparation_refs": [],
+          "sickness_history_ref": null,
+          "verification_note": "Synthetische vollständige private Originalentscheidung ohne Diagnose",
+          "work_schedule_refs": []
+        },
+        "employee": {
+          "employment_from": "2026-10-15",
+          "employment_to": null,
+          "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "name": "Synthetic technician",
+          "revision": 2,
+          "user_id": "dc301fb87dfb42608a99767d66f05fc8"
+        },
+        "employment_terms": {
+          "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+          "correction_reason": "Stundenlohnvereinbarung konkret gebunden",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "details": {
+            "agreement_refs": [
+              {
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "revision": 2
+              }
+            ],
+            "employment_from": "2026-10-15",
+            "employment_to": null,
+            "proration_method": "calendar_days_actual",
+            "reason": "Belegter individueller Teilentgeltvertrag"
+          },
+          "effective_from": "2026-10-15",
+          "effective_to": null,
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "id": "c3e5ad8360eb498185ab5876cee58224",
+          "kind": "employment_terms",
+          "plan": null,
+          "preview_hash": null,
+          "previous_hash": "837d813bc40dcd0c8d7391bc7116a8491982e33e3eb54fde39154de646800531",
+          "revision": 2,
+          "source_file_ids": [
+            "baed97bbe6c74d4783dfc35ce35682e9"
+          ],
+          "source_hash": "54ee66aee22cd3ec6734cab233b09a3404bcc4e01841b62a1190200c07c5937a",
+          "sources": {
+            "agreements": [
+              {
+                "amount_minor": 1800,
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "currency": "EUR",
+                "effective_from": "2026-01-01",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "employment_kind": "minijob",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "kind": "agreement",
+                "notes": "",
+                "pay_basis": "hourly",
+                "pdf_sha256": null,
+                "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+                "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "revision": 2
+              }
+            ],
+            "employee": {
+              "employment_from": "2026-10-15",
+              "employment_to": null,
+              "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+              "name": "Synthetic technician",
+              "revision": 2,
+              "user_id": "dc301fb87dfb42608a99767d66f05fc8"
+            },
+            "schema_version": 1,
+            "source_files": [
+              {
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "filename": "verified-payroll-profile.pdf",
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "media_type": "application/pdf",
+                "owner_visible": 0,
+                "purpose": "personnel",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "size": 50,
+                "supersedes": null
+              }
+            ]
+          },
+          "status": "active"
+        },
+        "holiday_calendar_hash": null,
+        "kind": "sickness_history",
+        "preparations": [],
+        "schema_version": 1,
+        "sickness_history": null,
+        "source_files": [
+          {
+            "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+            "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+            "filename": "verified-payroll-profile.pdf",
+            "id": "baed97bbe6c74d4783dfc35ce35682e9",
+            "media_type": "application/pdf",
+            "owner_visible": 0,
+            "purpose": "personnel",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "size": 50,
+            "supersedes": null
+          }
+        ],
+        "work_schedules": []
+      }
+    },
+    "history": {
+      "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+      "items": [
+        {
+          "id": "80f19482670049ce8b4b9886c5c3370a",
+          "revision": 1,
+          "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+          "kind": "sickness_history",
+          "effective_from": "2026-10-15",
+          "effective_to": "2026-12-31",
+          "status": "active",
+          "source_hash": "b0e91e14b8f006bb96ae611e79a342ef54fba89dbf21df2b7ce289ae6af3f2fe",
+          "previous_hash": null,
+          "content_hash": "903588debf839b4b6f32475a4be52dd5e540648d8eced667518d63815675b158",
+          "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "correction_reason": "",
+          "details": {
+            "agreement_refs": [
+              {
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "revision": 2
+              }
+            ],
+            "case_key": "40b62ae9dccf433abc739cf3109b7a0e",
+            "employment_terms_ref": {
+              "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+              "id": "c3e5ad8360eb498185ab5876cee58224",
+              "revision": 2
+            },
+            "input": {
+              "complete_from": "2026-10-15",
+              "complete_through": "2026-12-31",
+              "employment_commencement": {
+                "contract_concluded_on": "2026-10-01",
+                "evidence_refs": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1
+                  }
+                ]
+              },
+              "employment_from": "2026-10-15",
+              "employment_to": null,
+              "episodes": [
+                {
+                  "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+                  "evidence_refs": [
+                    {
+                      "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                      "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                      "revision": 1
+                    }
+                  ],
+                  "first_scheduled_day": null,
+                  "from": "2026-10-10",
+                  "id": "8844d0b53353436bb9fd409fa8e6aa19",
+                  "onset": "before_employment",
+                  "recovery_before": true,
+                  "to": "2026-12-31",
+                  "unculpable": true
+                }
+              ],
+              "history_evidence_refs": [
+                {
+                  "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                  "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                  "revision": 1
+                }
+              ],
+              "pay_basis": "hourly",
+              "prevention_cases": [
+                {
+                  "episode_ids": [
+                    "8844d0b53353436bb9fd409fa8e6aa19"
+                  ],
+                  "evidence_refs": [
+                    {
+                      "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                      "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                      "revision": 1
+                    }
+                  ],
+                  "id": "f569a9bece9f40b083bcde4c1db9e497"
+                }
+              ]
+            },
+            "preparation_refs": [],
+            "sickness_history_ref": null,
+            "verification_note": "Synthetische vollständige private Originalentscheidung ohne Diagnose",
+            "work_schedule_refs": []
+          },
+          "plan": {
+            "entitlement_kind": "sickness",
+            "episodes": [
+              {
+                "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+                "count_from": "2026-10-15",
+                "entitlement_calendar_days": 42,
+                "entitlement_from": "2026-11-12",
+                "entitlement_to": "2026-12-23",
+                "episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "evidence_refs": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1
+                  }
+                ],
+                "first_day_remaining_regular_wage": null,
+                "from_date": "2026-10-10",
+                "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+                "prior_used_days": 0,
+                "remaining_days": 0,
+                "reset_reason": "first_evidenced_case",
+                "responsibility_from": "2026-10-15",
+                "responsibility_to": "2026-12-31",
+                "to_date": "2026-12-31",
+                "twelve_month_anchor": "2026-10-15",
+                "waiting_period_end": "2026-11-11"
+              }
+            ],
+            "input_hash": "2ebfca68e7b55d3712cd173c268bdfe44ef52fc353d9e18e75a0c0aba1a9b3d7",
+            "kind": "sickness_history",
+            "legal_projection_hash": "6894a241b045c58464399fcd5a186665f00fdfbfc6753f19c5e9ac45fc83052d",
+            "phases": [
+              {
+                "active_episode_ids": [
+                  "8844d0b53353436bb9fd409fa8e6aa19"
+                ],
+                "entitled": false,
+                "first_day_remaining_regular_wage": false,
+                "from_date": "2026-10-15",
+                "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+                "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "to_date": "2026-11-11",
+                "waiting_period": true
+              },
+              {
+                "active_episode_ids": [
+                  "8844d0b53353436bb9fd409fa8e6aa19"
+                ],
+                "entitled": true,
+                "first_day_remaining_regular_wage": false,
+                "from_date": "2026-11-12",
+                "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+                "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "to_date": "2026-12-23",
+                "waiting_period": false
+              },
+              {
+                "active_episode_ids": [
+                  "8844d0b53353436bb9fd409fa8e6aa19"
+                ],
+                "entitled": false,
+                "first_day_remaining_regular_wage": false,
+                "from_date": "2026-12-24",
+                "prevention_case_id": "f569a9bece9f40b083bcde4c1db9e497",
+                "responsible_episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "to_date": "2026-12-31",
+                "waiting_period": false
+              }
+            ],
+            "plan_hash": "07d673c3b6b446c7cea5e04039e97ef3d6d6f52bca7a12f97d9cbc46aa16d097",
+            "preemployment_periods": [
+              {
+                "employment_wage_entitlement": false,
+                "episode_id": "8844d0b53353436bb9fd409fa8e6aa19",
+                "from_date": "2026-10-10",
+                "to_date": "2026-10-14"
+              }
+            ],
+            "prevention_cases": [
+              {
+                "count_from": "2026-10-15",
+                "entitlement_calendar_days": 42,
+                "from_date": "2026-10-15",
+                "id": "f569a9bece9f40b083bcde4c1db9e497",
+                "initial_remaining_days": 42,
+                "original_au_from": "2026-10-10",
+                "statutory_deadline": "2026-12-23",
+                "to_date": "2026-12-31"
+              }
+            ],
+            "rule_version": "de_2026_sickness_start_v4",
+            "rules_hash": "5da6bdd44e809ca5a48fd116bcf8b150ecd4b46234716899e164f437649dc388",
+            "schema_version": 1,
+            "source_hash": "b0e91e14b8f006bb96ae611e79a342ef54fba89dbf21df2b7ce289ae6af3f2fe",
+            "waiting_period_end": "2026-11-11"
+          },
+          "preview_hash": "e02e43918cda48dde292ffc33c795674123a2ccdc66ada4108ab9c4e17eb4cdb",
+          "source_file_ids": [
+            "baed97bbe6c74d4783dfc35ce35682e9"
+          ],
+          "sources": {
+            "agreements": [
+              {
+                "amount_minor": 1800,
+                "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "currency": "EUR",
+                "effective_from": "2026-01-01",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "employment_kind": "minijob",
+                "id": "13db2ad693594da9ae6281abadd65e23",
+                "kind": "agreement",
+                "notes": "",
+                "pay_basis": "hourly",
+                "pdf_sha256": null,
+                "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+                "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "revision": 2
+              }
+            ],
+            "details": {
+              "agreement_refs": [
+                {
+                  "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                  "id": "13db2ad693594da9ae6281abadd65e23",
+                  "revision": 2
+                }
+              ],
+              "case_key": "40b62ae9dccf433abc739cf3109b7a0e",
+              "employment_terms_ref": {
+                "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+                "id": "c3e5ad8360eb498185ab5876cee58224",
+                "revision": 2
+              },
+              "input": {
+                "complete_from": "2026-10-15",
+                "complete_through": "2026-12-31",
+                "employment_commencement": {
+                  "contract_concluded_on": "2026-10-01",
+                  "evidence_refs": [
+                    {
+                      "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                      "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                      "revision": 1
+                    }
+                  ]
+                },
+                "employment_from": "2026-10-15",
+                "employment_to": null,
+                "episodes": [
+                  {
+                    "continuation_group": "6c655fadeae14b4aad249da0bd44fa29",
+                    "evidence_refs": [
+                      {
+                        "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                        "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                        "revision": 1
+                      }
+                    ],
+                    "first_scheduled_day": null,
+                    "from": "2026-10-10",
+                    "id": "8844d0b53353436bb9fd409fa8e6aa19",
+                    "onset": "before_employment",
+                    "recovery_before": true,
+                    "to": "2026-12-31",
+                    "unculpable": true
+                  }
+                ],
+                "history_evidence_refs": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "revision": 1
+                  }
+                ],
+                "pay_basis": "hourly",
+                "prevention_cases": [
+                  {
+                    "episode_ids": [
+                      "8844d0b53353436bb9fd409fa8e6aa19"
+                    ],
+                    "evidence_refs": [
+                      {
+                        "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                        "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                        "revision": 1
+                      }
+                    ],
+                    "id": "f569a9bece9f40b083bcde4c1db9e497"
+                  }
+                ]
+              },
+              "preparation_refs": [],
+              "sickness_history_ref": null,
+              "verification_note": "Synthetische vollständige private Originalentscheidung ohne Diagnose",
+              "work_schedule_refs": []
+            },
+            "employee": {
+              "employment_from": "2026-10-15",
+              "employment_to": null,
+              "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+              "name": "Synthetic technician",
+              "revision": 2,
+              "user_id": "dc301fb87dfb42608a99767d66f05fc8"
+            },
+            "employment_terms": {
+              "content_hash": "7961c1ff5441107306be113783dfdce5edcebdd15c15ccf38be7fc24d1675e26",
+              "correction_reason": "Stundenlohnvereinbarung konkret gebunden",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+              "details": {
+                "agreement_refs": [
+                  {
+                    "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                    "id": "13db2ad693594da9ae6281abadd65e23",
+                    "revision": 2
+                  }
+                ],
+                "employment_from": "2026-10-15",
+                "employment_to": null,
+                "proration_method": "calendar_days_actual",
+                "reason": "Belegter individueller Teilentgeltvertrag"
+              },
+              "effective_from": "2026-10-15",
+              "effective_to": null,
+              "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+              "id": "c3e5ad8360eb498185ab5876cee58224",
+              "kind": "employment_terms",
+              "plan": null,
+              "preview_hash": null,
+              "previous_hash": "837d813bc40dcd0c8d7391bc7116a8491982e33e3eb54fde39154de646800531",
+              "revision": 2,
+              "source_file_ids": [
+                "baed97bbe6c74d4783dfc35ce35682e9"
+              ],
+              "source_hash": "54ee66aee22cd3ec6734cab233b09a3404bcc4e01841b62a1190200c07c5937a",
+              "sources": {
+                "agreements": [
+                  {
+                    "amount_minor": 1800,
+                    "content_hash": "e707a9d5086b45f8378c38b213dfad490dcefc74e632d937029626c28794c22f",
+                    "correction_reason": "Tatsächlich vereinbarten Stundenlohn belegt",
+                    "created_at": "2026-11-03T12:00:00+00:00",
+                    "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                    "currency": "EUR",
+                    "effective_from": "2026-01-01",
+                    "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                    "employment_kind": "minijob",
+                    "id": "13db2ad693594da9ae6281abadd65e23",
+                    "kind": "agreement",
+                    "notes": "",
+                    "pay_basis": "hourly",
+                    "pdf_sha256": null,
+                    "previous_hash": "2febeeea956a15027d549002ad9513d40e4070707bb4443d80dca2431c5d9e75",
+                    "reference_file_id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                    "revision": 2
+                  }
+                ],
+                "employee": {
+                  "employment_from": "2026-10-15",
+                  "employment_to": null,
+                  "id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                  "name": "Synthetic technician",
+                  "revision": 2,
+                  "user_id": "dc301fb87dfb42608a99767d66f05fc8"
+                },
+                "schema_version": 1,
+                "source_files": [
+                  {
+                    "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                    "created_at": "2026-11-03T12:00:00+00:00",
+                    "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                    "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                    "filename": "verified-payroll-profile.pdf",
+                    "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                    "media_type": "application/pdf",
+                    "owner_visible": 0,
+                    "purpose": "personnel",
+                    "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                    "size": 50,
+                    "supersedes": null
+                  }
+                ]
+              },
+              "status": "active"
+            },
+            "holiday_calendar_hash": null,
+            "kind": "sickness_history",
+            "preparations": [],
+            "schema_version": 1,
+            "sickness_history": null,
+            "source_files": [
+              {
+                "content_hash": "be07b76ed3b344ccbaeb4e70934ed3920db8b67a59c547be691c1c27ff501c82",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "27188a6ebe9c4ab29676ce0a7ef9606d",
+                "employee_id": "d451c4a5ce2f4fce9f1c5a66720b526b",
+                "filename": "verified-payroll-profile.pdf",
+                "id": "baed97bbe6c74d4783dfc35ce35682e9",
+                "media_type": "application/pdf",
+                "owner_visible": 0,
+                "purpose": "personnel",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                "size": 50,
+                "supersedes": null
+              }
+            ],
+            "work_schedules": []
+          }
+        }
+      ]
+    }
+  }
+}

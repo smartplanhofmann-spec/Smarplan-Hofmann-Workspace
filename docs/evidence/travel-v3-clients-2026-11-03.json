@@ -1,0 +1,92 @@
+{
+  "recorded_at_utc": "2026-11-03T23:28:11.560202+00:00",
+  "scope": "Active de_travel_2026_v3 browser/native clients and historical v1/v2 compatibility. Isolated synthetic local company data only.",
+  "tests": {
+    "node": {
+      "passed": 19,
+      "failed": 0,
+      "command": "node --test web/office/tests/travel-v3.test.mjs web/office/tests/travel-allowances.test.mjs web/office/tests/travel-cash.test.mjs"
+    },
+    "flutter": {
+      "passed": 22,
+      "failed": 0,
+      "command": "PATH=/workspace/toolchains/clang-19/bin:/workspace/toolchains/flutter/bin:$PATH PUB_CACHE=/workspace/toolchains/pub-cache flutter test test/business_travel_v3_test.dart test/business_travel_allowances_test.dart test/business_travel_cash_test.dart",
+      "cwd": "app"
+    },
+    "analyze": {
+      "items": 2,
+      "issues": 0
+    },
+    "browser": {
+      "passed": 2,
+      "failed": 0,
+      "workflows": [
+        "travel-v3",
+        "travel-allowances"
+      ],
+      "sandbox": [
+        "namespace",
+        "PID",
+        "network",
+        "seccomp"
+      ]
+    }
+  },
+  "verified": [
+    "Actual MFA/HTTP productive travel entry and explicit typed programme original inputs",
+    "Adding/editing/removing programme entries resets both explicit review confirmations",
+    "2/3 programme share gives 933-cent meal basis; independently evidenced expense remains600 cents; total1533 cents",
+    "Foreign approval, actual documented1000-cent payment, correction and unchanged original JSON bytes/hash/size before and after correction",
+    "Native rendered programme correction preserves exact expense and private-interval facts",
+    "Explicit domain blocker for private time without full mixed assessment; no fabricated ratio/hash",
+    "Complete existing foreign/flight/expense/partial-payment/lost-ACK/EÜR/legacy-adoption/correction/void/browser-mobile regression under active v3",
+    "Mobile390 inspected, accidental null text placeholder removed and rendering checked"
+  ],
+  "logs": {
+    "node": {
+      "path": "docs/evidence/travel-v3-clients-node-2026-11-03.txt",
+      "sha256": "8451390a3ec259a0f07a46b8c9a46dbc6d8f29e6565fe3e844c3e1a7bb460e45"
+    },
+    "flutter": {
+      "path": "docs/evidence/travel-v3-clients-flutter-2026-11-03.txt",
+      "sha256": "73719ca45b8eaca99aa4a4311d8471cef0260b6d0c469e0b77440d7771278f00"
+    },
+    "analyze": {
+      "path": "docs/evidence/travel-v3-clients-analyze-2026-11-03.txt",
+      "sha256": "0bbc92c211fd1ef8ec6d06c21e26fe44456a6da87b79c3bbe278418cda1a1bc9"
+    },
+    "browser": {
+      "path": "docs/evidence/travel-v3-clients-browser-2026-11-03.txt",
+      "sha256": "b12e0f2001356aa6916e43c6174bce338fce4825ded516ccbc7116610ad1521e"
+    },
+    "browser_regression": {
+      "path": "docs/evidence/travel-v3-clients-browser_regression-2026-11-03.txt",
+      "sha256": "cb75db6eb342f66f7c935e0928be6fdd4e31649c36f7b87ede38662de07e36d5"
+    },
+    "browser_prior_test_timing_failure": {
+      "path": "docs/evidence/travel-v3-clients-browser_prior_test_timing_failure-2026-11-03.txt",
+      "sha256": "b91934732422c163e6bbb47831a1829d96dce7e2c16fc5a5a07e338c4b65c72a"
+    }
+  },
+  "source_snapshot": {
+    "web/office/travel-allowances.js": "c66e021bf9e46c90d07bcbcac89d4123ea9dddf1a8d4959ca4b0c230050b723d",
+    "app/lib/business_travel_allowances.dart": "626a640f0e4b9cea66ce513f74d381b83d2317936437c70c821e66bfbfa04832",
+    "web/office/tests/travel-v3.test.mjs": "44150972b15ab88b901501dba933d5dd90369230226531018a5919fbf5c67016",
+    "app/test/business_travel_v3_test.dart": "32ce23f21df41a4bf583f21175c2d1e2f04e60fa7817372f855deb8d386ab77f",
+    "web/office/tests/travel-v3-flow.cjs": "a34d16063faca2509753bcdb557c168831666ecf34cf464e8f036f796195ac36",
+    "web/office/tests/travel-allowances-flow.cjs": "c05ab2a6e20cb359f262945f055b6ee5cf8517fe089829cf043d0e74540d243c",
+    "web/office/tests/travel_v3_fixture.py": "9f1960960b20f66c474863f4099e6074fb8e42c8610655d489320da5e12c9d4a",
+    "app/test/fixtures/travel_allowances_v3.json": "4165a887b2e707164018de85d67601f6ee3c1062b676b89bff618f39292c3bfc"
+  },
+  "prior_runs": {
+    "first_new_browser": "Failed test-only button count before asynchronous history dialog render; HTTP200 and no runtime errors. Missing waitFor added; original failure retained.",
+    "second_new_browser": "Full workflow passed. Visual inspection then found preexisting literal null placeholder for unavailable legacy-payment action; product removed it, final browser verified rendered absence.",
+    "separate_old_failure": "The earlier pre-restart catalog500 remains a distinct not-reproduced incident; no cause/fix claimed by these runs."
+  },
+  "limitations": [
+    "No real company data or tax submission",
+    "No production TLS or real Windows/iOS/Android device acceptance",
+    "Documented programme method excludes separately attached holidays without complete programme and same-day trips with different ratios",
+    "Counts cover these focused suites and overlap earlier shared regressions; do not add them as unique whole-product counts"
+  ]
+}

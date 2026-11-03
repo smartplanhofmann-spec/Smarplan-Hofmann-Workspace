@@ -1,0 +1,16 @@
+✔ real employer policy fixture binds exact original files and null person without inventing dates (2.755788ms)
+✔ filing windows require actual complete month quarter or year and real calendar dates (0.516668ms)
+✔ method region and actual economic cost choice remain explicit and coherent (0.324729ms)
+✔ source and accepted policy cannot substitute employee scope original reference or version (1.6277ms)
+✔ preview and accepted response bind original policy body and immutable source snapshot (0.569628ms)
+✔ correction and void retain exact predecessor and original policy source (1.047156ms)
+✔ fresh global authority and explicit paused replay remain separate from new writes (1.259515ms)
+✔ actual OfficeApi retains travel_tax_policy nonce through rights drift and module pause (21.800781ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 110.034038

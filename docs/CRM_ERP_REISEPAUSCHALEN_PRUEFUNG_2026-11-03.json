@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-03",
+  "scope": "Implemented employee travel v2 and explicit actual legacy reimbursement finance adoption; no live provider action",
+  "default_rule_version": "de_travel_2026_v2",
+  "frozen_rule_versions": [
+    "de_travel_2026_v1",
+    "de_travel_2026_v2"
+  ],
+  "published_foreign_rates": 214,
+  "independently_compared_numeric_cells": 642,
+  "original_bmf_pdf_downloaded": false,
+  "source_kind": "explicitly_labelled_web_text_transcription",
+  "runs": [
+    {
+      "path": "docs/evidence/travel-v2-backend-focused-2026-11-03.txt",
+      "sha256": "eea9a2b2c6d09be0fc0925771426944f9bd2348577267f5141d05919cdfaced6",
+      "tests": 74,
+      "seconds": 9.821,
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "path": "docs/evidence/travel-v2-postgres-2026-11-03.txt",
+      "sha256": "8e22bc6c44c80079af8e31b4af779197f8d59edc76455faaebe01dbdbb7b70ec",
+      "tests": 4,
+      "seconds": 15.752,
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "path": "docs/evidence/travel-v2-expense-chain-2026-11-03.txt",
+      "sha256": "a55c1c2c182325ff52f885da21eddb3b58149e5c6b9e00971400ac5fe44f1a32",
+      "tests": 19,
+      "seconds": 7.71,
+      "passed": true,
+      "skipped": false
+    }
+  ],
+  "file_sha256": {
+    "backend/business_travel_allowances.py": "6be6dd72bfcd26874b6a2341eedbc8c6a1be2c995f90de53ca0c99ff0c6bb353",
+    "backend/payroll_travel_2026.py": "1765fee378595ae3df822cae932435619ffae1be48324dba460b40ed14f68021",
+    "backend/payroll_travel_2026_v1.py": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb",
+    "backend/payroll_travel_2026_v2.py": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5",
+    "backend/payroll_travel_rates_2026.py": "386693cb45eaceb28772d6361fc0f7507db56c0febb42f6588d009036a1a0a9d",
+    "backend/payroll_travel_transport_2026.py": "60cc47920cd49bd6daf6ca8a8bba94b49c46b5963d940b655ad100461d2be7d5",
+    "backend/payroll_travel_expenses_2026.py": "2d96af39ded426f9868f3011ad3b47cdfc74c25c29f49ade56b6b178f67587d1",
+    "backend/travel_allowance_cash.py": "d42ab82c0a72a84630db2c9708e297fdc9e68f3cf02930fa066e4f9f6a5cf84d",
+    "backend/travel_payroll_sources.py": "099a6bd54e370265a10f9960bc8a1e4b91144e143e516a02838aff98850b2f07",
+    "docs/evidence/travel-rates-2026-transcription.json": "a7fa2851f007a4375f7cc695d69d282f7519042f6ca7cc6b3657c8054886d2fd",
+    "docs/evidence/travel-rates-2026-independent-source.json": "81852b91cfe7ffceebbe2b42d194b7855121a7ae3214a2232bf237982e6c90d2"
+  },
+  "pending": [
+    "Full v5 payroll-source processing and payment-link integration is under concurrent development; no stub approval",
+    "v3 mixed-purpose and ground-local-date rules remain isolated; v2 rejects cases lacking the corresponding facts",
+    "Final browser/native evidence is maintained separately by travel_clients"
+  ],
+  "postgres": {
+    "host": "127.0.0.1",
+    "port": 55433,
+    "database": "smartplan_check",
+    "disposable_only": true,
+    "scope": [
+      "actual MFA/HTTP",
+      "runtime and migrator immutable guards",
+      "separate connections: exclusive employee day and exact accepted payment nonce",
+      "old personnel data migration unchanged",
+      "actual dump/restore; financial horizon11 and report12",
+      "actual prior expense payment adoption without duplicate payout"
+    ]
+  }
+}

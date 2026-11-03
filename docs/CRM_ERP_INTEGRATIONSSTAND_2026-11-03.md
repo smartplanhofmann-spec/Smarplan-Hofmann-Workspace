@@ -155,3 +155,107 @@ wurde während dieses Laufs nicht geändert. Der vorherige fehlgeschlagene
 835-Test-Lauf bleibt im [Gesamtprüfbericht](CRM_ERP_FLUTTER_GESAMTPRUEFUNG_2026-11-03.md)
 erhalten. Diese Ergebnisse schließen die breite Backend- und tatsächliche
 Browserregression nicht automatisch mit ein.
+
+
+### Gesicherter Entwicklungs-Checkpoint `31c5184`
+
+Der gesamte bisherige Entwicklungsstand ist lokal committed; kein Remote-Push
+oder produktiver Rollout wurde ausgeführt. Die vollständige Backendregression
+am eingefrorenen Stand besteht mit 989 Fällen: 988 bestanden, allein der
+Windows-Jobobjektfall unter Linux ausgelassen (279,212 s). Die vollständige
+Paketprüfung einschließlich finaler Retourenanleitung besteht mit 16/16 Fällen
+(5,180 s). Das reproduzierte Quellinventar bleibt bytegleich bei 153 Komponenten.
+Zusammen mit den bereits dokumentierten 336 Node- und 848 Flutterfällen bildet
+dies einen konkreten Entwicklungsnachweis. Der lange gemeinsame Browserlauf
+läuft noch; er wird erst nach vollständigem Runnerabschluss als bestanden
+gezählt. Die nächste Entwicklung beginnt in eigenen neuen Moduldateien, während
+die bereits laufende Browserprüfung ihre eingefrorenen Oberflächen behält.
+
+
+Der abschließende gemeinsame Browserlauf des Checkpoints hat alle 17 Abläufe
+bestanden: tatsächliche MFA-/HTTP-Anmeldung, Rechte-/Modulwechsel, Portal,
+Buchführungsketten, Einkauf, Planung, Originaldateien, Signatur, Lagerrolle,
+mobile Ansichten und Anfrageformular. Namespace-, PID-, Netzwerk- und
+Seccomp-Sandbox wurden vor dem Anwendungszugriff tatsächlich geprüft. Die
+Browserdateien blieben bis zum vollständigen Runnerabschluss unverändert;
+der Testdienst hatte den Checkpoint bereits vor der folgenden Backendintegration
+geladen. Keine Aussage über produktives TLS oder reale Windows-/iPhone-Geräte.
+
+
+## Ergänzung: Lohnteilmonate und Reisekosten-Finanzintegration
+
+P2-Lohnfakten und P3a-Teilmonate sind im beschriebenen Umfang abgeschlossen:
+27 Fakten-/Transport-/Gegenprüfungen und drei echte PostgreSQL-Fälle;
+120 Lohnregressionsfälle, drei neue PostgreSQL-Teilmonatsfälle sowie neun
+historische PostgreSQL-Fälle nach gezielter Anpassung der aktuellen
+Restoreumfang-Erwartungen. Die alten Regelmodule bleiben bytegleich.
+Die Client-Abnahme umfasst 51 Node-, 52 Flutterprüfungen, Analyze und einen
+echten MFA-/HTTP-Browserablauf einschließlich 390-Pixel-Darstellung.
+Diese Zahlen überlappen und sind keine addierbare Gesamtzahl. Nachweise:
+[Teilmonate](CRM_ERP_LOHN_TEILMONATE_2026.md),
+[Fakten](CRM_ERP_LOHN_FAKTEN_2026.md),
+[Clients](CRM_ERP_LOHN_ZEITACHSEN_CLIENTS.md).
+
+Die neue tatsächliche Reisekostenzahlung ist mit EÜR und Bank verbunden:
+sechs eigene Kettenfälle und bestehende Lohnzahlung-/Bankregression bestehen
+gemeinsam mit **32/32** Prüfungen. Hinzu kommen **49/49** Finanz-HTTP-Prüfungen
+und je **5/5** unabhängige öffentliche Quellenprüfungen in Node und Flutter.
+Belegt sind Teilzahlungen ohne Vorsteuer, Finanzzugriff ohne Personalquellen,
+Periodensperren, dokumentarische Aufhebung ohne erfundene Rückzahlung,
+unveränderte alte Exporte und kompletter Restoreumfang11/Bericht12.
+Der Gegenversuch fand eine doppelt verwendbare alte Zahlungsreferenz;
+der neue Writer sperrt diese nun. Beide Clients wiesen zuvor unmögliche
+Kalendertage nicht ab; dieser Fehler ist ebenfalls behoben.
+[Testprotokolle und Quellhashes](evidence/travel-finance-integration-2026-11-03.json)
+bewahren Umfang und frühere fehlgeschlagene Prüfungen nachvollziehbar.
+
+Weitere Reise-/Auslagen-/Lohnfälle und ihre gesamte Browser-/PostgreSQL-Abnahme
+sind weiterhin in Arbeit. Der reduzierte eigene Mitarbeiterbeleg für v1–v4
+ist inzwischen geprüft; die Verbindung mit der neuen v5-Abrechnung folgt.
+Dieser Zwischenstand ist keine Gesamtfertigstellung.
+
+## Ergänzung: Anspruchsnachweise, eigene Belege und neue Gesamtfälle
+
+Die eigene Mitarbeiteransicht für v1–v4 enthält eine begrenzte Abrechnung,
+unveränderliches PDF und Historie. Ihre Abnahme umfasst acht Domänen-/HTTPfälle,
+55 Node- und 56 Flutterprüfungen sowie einen tatsächlichen Browserablauf mit
+zwei MFA-Sitzungen, Rechteentzug und 390-Pixel-Ansicht.
+[Nachweis und Grenzen](CRM_ERP_LOHN_MITARBEITERBELEG.md).
+
+Die Reisekostenclients bestehen ihren abschließenden v2-Browserablauf
+einschließlich belegter Auslagen, alter Erstattungen, Berichtigung, Aufhebung
+und EÜR. Zusätzlich sind 44 Node- und 44 gezielte Flutterfälle, zwölf private
+Flutterfälle sowie Analyze dokumentiert. Ein früherer Katalogfehler nach dem
+Umgebungsneustart war nicht reproduzierbar; der fehlgeschlagene Lauf bleibt
+erhalten, eine nachgewiesene Ursache wird nicht erfunden.
+[Clientprotokolle](evidence/travel-clients-2026-11-03.json).
+
+Die unabhängige Prüfung der Anspruchsquellen fand eine Möglichkeit, eine
+spätere Personalrevision einem früher angenommenen Auftrag zuzuordnen.
+Der private Originalauftrag wird jetzt zusätzlich an seine tatsächliche
+Quittung gebunden; alle acht Gegenprüfungen bestehen. Die neue Krankheitsregel
+v2 zählt bei Stundenlohn und AU-Beginn am freien Tag ab dem Folgetag, während
+historische v1-Nachweise unverändert bleiben. Fünf zusätzliche unabhängige
+Rechenfälle prüfen Kalendergrenzen, Wiedererkrankung und Wartezeit.
+[Anspruchsprüfung](CRM_ERP_LOHN_ANSPRUECHE_GEGENPRUEFUNG_2026.md).
+
+Die neue v5 verbindet kanonische Beschäftigungssegmente, bestätigte Ansprüche
+und Reise-Lohnwerte. Sechs unabhängige private Gegenprüfungen bestehen:
+Ansprüche können nicht durch Weglassen umgangen werden; Originalquittungen
+bleiben nach späteren Quellenänderungen wiederholbar; entzogenes Freigaberecht
+verhindert auch Wiederholungen. Eine aktuelle PostgreSQL-Prüfung fand einen
+untypisierten NULL-Parameter in der globalen Steuerentscheidungsabfrage.
+Die Abfrage wurde in getrennte statische Prädikate aufgeteilt; die abschließende
+Transport-/Restoreprüfung läuft. Die neue Registrierung und Paketzuordnung
+sind vorhanden; die vollständige Clientabnahme steht noch aus.
+[Private Gegenprüfung](evidence/payroll-calculation-cases-private-review-2026-11-03.json).
+
+Der eigenständige 25-%-Reisepauschalsteuerhelfer besteht 21 eigene und
+unabhängige Fälle, einschließlich Nebensteuern, belegter unbekannter
+Kirchenzugehörigkeit, Fristen und genehmigtem Arbeitnehmerabzug.
+Die tatsächliche Steuererfassung wird erst beim Lohnabschluss gespeichert;
+eine Vorschau behauptet keine erfolgte Zahlung oder Übermittlung.
+[Steuerprüfung](CRM_ERP_REISE_PAUSCHALSTEUER_GEGENPRUEFUNG_2026.md).
+Der neue PAP-Helfer für Einmalbezüge besteht zusätzlich vier unabhängig von
+seiner Implementierung hergeleitete Rechenfälle; ein fertiger Einmalbezugsablauf
+ist damit noch nicht nachgewiesen.

@@ -109,14 +109,19 @@ class PayrollAccounts:
         _shape(query,('employee_id',),('employee_id',))
         with transaction(self.office):
             _,employee=self.hr._employee(actor,query['employee_id'],own=True)
-            return dict(employee_id=employee['id'],items=self._all(employee['id']))
+            items=self._all(employee['id'])
+            self.payroll._period_read_access(actor,employee['id'],[value.get('sources',{}).get('run',{}) for value in items])
+            return dict(employee_id=employee['id'],items=items)
 
     def get(self,actor,object_id,history=False):
         with transaction(self.office):
             record=self._get(object_id)
             self.hr._employee(actor,record['employee_id'],own=True)
             if history:
-                return dict(items=[self._event(row) for row in self.db.execute('SELECT * FROM business_payroll_account_events WHERE id=? ORDER BY revision',(object_id,)).fetchall()])
+                items=[self._event(row) for row in self.db.execute('SELECT * FROM business_payroll_account_events WHERE id=? ORDER BY revision',(object_id,)).fetchall()]
+                self.payroll._period_read_access(actor,record['employee_id'],[value.get('sources',{}).get('run',{}) for value in items])
+                return dict(items=items)
+            self.payroll._period_read_access(actor,record['employee_id'],[record.get('sources',{}).get('run',{})])
             return record
 
     def _profile(self,employee_id,details):
@@ -125,16 +130,28 @@ class PayrollAccounts:
             raise Problem(404,'Steuerprofil gehört nicht zu diesem Mitarbeiter.')
         return profile
 
-    def _identity(self,employee_id,details,profile,month):
+    def _identity(self,employee_id,details,profile,month,*,period_plan=None):
         identity=self._get(details['identity_id'],details['identity_revision'])
         if identity['kind']!='identity' or identity['employee_id']!=employee_id:
             raise Problem(404,'Identitätsnachweis gehört nicht zu diesem Mitarbeiter.')
         values=identity['details'];first,last=month_range(month)
+        if period_plan is not None:
+            if 'identity_intervals' in period_plan:
+                matched=[value for value in period_plan['identity_intervals']
+                    if value['profile_ref']=={key:profile[key] for key in ('id','revision','content_hash')}
+                    and value['identity_ref']=={key:identity[key] for key in ('id','revision','content_hash')}]
+                if not matched:raise Problem(409,'Der Zahlungsnachweis benötigt die im Gesamtfall belegte aktuelle Identitätsfassung.')
+                first,last=day(matched[-1]['start']),day(matched[-1]['end'])
+            else:
+                periods=period_plan['employment_intervals']
+                if len(periods)!=1 or period_plan['selected_identity_ref']!={key:identity[key] for key in ('id','revision','content_hash')}:
+                    raise Problem(409,'Der Zahlungsnachweis benötigt die im Periodenplan belegte Identitätsfassung.')
+                first,last=day(periods[0]['start']),day(periods[0]['end'])
         if (values['profile_id']!=profile['id'] or values['profile_revision']!=profile['revision']
                 or values['valid_from']>first.isoformat() or values['valid_to']<last.isoformat()
                 or values['employment_from']>first.isoformat()
                 or values['employment_to'] and values['employment_to']<last.isoformat()):
-            raise Problem(409,'Identitäts-/Steuernachweis deckt diese Profilrevision und den vollständigen Monat nicht ab.')
+            raise Problem(409,'Identitäts-/Steuernachweis deckt diese Profilrevision und den erforderlichen Beschäftigungszeitraum nicht ab.')
         return identity
 
     def _payment_fields(self,details,calculation,month):
@@ -155,12 +172,15 @@ class PayrollAccounts:
             if reference!=payment['payment_reference'] or _payment_key(payment) in seen:
                 raise Problem(400,'Zahlungsreferenzen müssen eindeutig und ohne Rand-Leerzeichen sein.')
             seen.add(_payment_key(payment));total+=amount
-        if total!=calculation['net_minor']:
-            raise Problem(400,'Die belegten Zahlungen abzüglich Arbeitnehmer-Nachzahlungen müssen dem wirksamen Netto entsprechen.')
+        actual_due=calculation['net_minor']-calculation.get('net_deductions_minor',0)
+        if total!=actual_due:
+            raise Problem(400,'Die belegten Zahlungen abzüglich Arbeitnehmer-Nachzahlungen müssen dem tatsächlichen Auszahlungsnetto nach belegten Nettoabzügen entsprechen.')
+        if calculation.get('travel_expenses_included_in_net') and any(payment['paid_on'][:7]!=month for payment in payments):
+            raise Problem(409,'Reise-Mehrerstattungen müssen im tatsächlich gebundenen Zuflussmonat ausgezahlt werden; den Gesamtfall bei abweichender Zahlung korrigieren.')
         _integer(details['tax_free_payments_minor'])
         text(details['tax_free_basis'],'Nachweis steuerfreier Bezüge',2000,required=details['tax_free_payments_minor']>0)
         if details['standard_case_confirmed'] is not True:
-            raise Problem(400,'Ausschließlich laufenden Barlohn ohne weitere Sach-/Sonderbezüge oder U/S-Fälle ausdrücklich bestätigen.')
+            raise Problem(400,'Ausschließlich die im geprüften Lauf belegten Entgelte und Nettoabzüge ohne weitere unberücksichtigte Sachverhalte bestätigen.')
 
     def _normalize(self,employee_id,kind,details,*,rule_version=None):
         fields=IDENTITY_FIELDS if kind=='identity' else PAYMENT_FIELDS if kind=='payment' else CARRY_FIELDS
@@ -209,9 +229,21 @@ class PayrollAccounts:
                 raise Problem(404,'Abrechnung gehört nicht zu diesem Mitarbeiter.')
             if not record['calculation']['payroll_calculation_complete']:
                 raise Problem(409,'Ein unvollständiger SV-Lauf kann kein vollständiger Lohnkontoeintrag werden.')
-            identity=self._identity(employee_id,details,record['source']['profile'],record['source']['month'])
+            source_version=record['source'].get('source_schema_version')
+            if source_version==3:self.payroll._verify_calculation_record(record)
+            period_plan=(record['source']['calculation_case']['plan'] if source_version==3 else
+                record['source']['period_case']['plan'] if source_version==2 else None)
+            identity=self._identity(employee_id,details,record['source']['profile'],record['source']['month'],period_plan=period_plan)
             self._payment_fields(details,record['calculation'],record['source']['month'])
-            return details,dict(run=record,identity=identity),kind+':'+record['id']+':'+str(record['revision'])
+            sources=dict(run=record,identity=identity)
+            if source_version==3:
+                sources['identity_intervals']=[]
+                for period in period_plan['identity_intervals']:
+                    ref=period['identity_ref'];original=self._get(ref['id'],ref['revision'])
+                    if original['employee_id']!=employee_id or {key:original[key] for key in ('id','revision','content_hash')}!=ref:
+                        raise Problem(409,'Eine tatsächliche Identitätsfassung der Beschäftigungsabschnitte wurde verändert.')
+                    sources['identity_intervals'].append(dict(start=period['start'],end=period['end'],profile_ref=period['profile_ref'],identity=original))
+            return details,sources,kind+':'+record['id']+':'+str(record['revision'])
         month_range(details['month'])
         if details['month'][:4]!='2026' or details['status'] not in ('active','void'):
             raise Problem(400,'Belegter Monatsvortrag muss zum unterstützten Jahr 2026 gehören.')

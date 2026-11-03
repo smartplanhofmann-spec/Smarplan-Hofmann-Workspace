@@ -45,6 +45,7 @@ class Sources:
             raise Problem(409,'Unveränderten unterstützten Barlohn ohne zusätzliche steuerfreie Bezüge auswählen.')
         if record['kind']=='payment':
             run=record['sources']['run'];month=run['source']['month']
+            if run['source'].get('source_schema_version')==3:self.payroll._verify_calculation_record(run)
             if _calculate_source(run['source'],rule_version=calculation['rule_version'])!=calculation:
                 raise Problem(409,'Lohnrechnung besteht die Quellenprüfung nicht.')
             if current and self.payroll._row(run['id'],'run')['revision']!=run['revision']:
@@ -57,6 +58,9 @@ class Sources:
         if current and (self.accounts._get(record['id'])['revision']!=record['revision']
                 or self.accounts._get(details['identity_id'])['revision']!=details['identity_revision']):
             raise Problem(409,'Lohnkonto-/Identitätsnachweis wurde ergänzt; aktuelle Fassung prüfen.')
+        if current and any(self.accounts._get(value['identity']['id'])['revision']!=value['identity']['revision']
+                for value in record['sources'].get('identity_intervals',[])):
+            raise Problem(409,'Ein Identitätsnachweis der tatsächlichen Teilzeiträume wurde korrigiert; Zahlung neu belegen.')
         return dict(record=record,month=month,calculation=calculation,scope_key=record['employee_id']+':'+month,source_file=origin)
 
     def remittance(self,actor,ref,*,current=True):
@@ -68,6 +72,7 @@ class Sources:
         if record['content_hash']!=ref['content_hash'] or current and self.payroll._row(record['id'],'run')['revision']!=record['revision']:
             raise Problem(409,'Genau passende wirksame Lohnrevision auswählen.')
         calculation=record['calculation'];calculated(calculation)
+        if record['source'].get('source_schema_version')==3:self.payroll._verify_calculation_record(record)
         if _calculate_source(record['source'],rule_version=calculation['rule_version'])!=calculation:
             raise Problem(409,'Lohnrechnung besteht die Quellenprüfung nicht.')
         profile=record['source']['profile'];origin=self.file(actor,profile['source_file']['id'],record['employee_id'])

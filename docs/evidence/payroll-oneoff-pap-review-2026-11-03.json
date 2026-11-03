@@ -1,0 +1,24 @@
+{
+  "recorded_at_utc": "2026-11-03T22:55:19.179518+00:00",
+  "tests": 4,
+  "passed": 4,
+  "log": "docs/evidence/payroll-oneoff-pap-review-2026-11-03.txt",
+  "log_sha256": "f2471df979e985dd46b1519b91e40f73c067f4881947f545e1555af41758f052",
+  "sources": {
+    "backend/payroll_pap_oneoff_2026.py": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456",
+    "backend/test_payroll_pap_oneoff_review.py": "158125502f2ee9fb016db7f3790d2bd10f0c203060bf6528c915b821849305f5"
+  },
+  "scope": "Focused independent review; no complete payroll workflow acceptance",
+  "independently_read_source": {
+    "url": "https://www.ihk-muenchen.de/ihk/documents/Recht-Steuern/Steuerrecht/Einkommensteuer/2025-11-12-PAP-2026-anlage-1.pdf",
+    "pages": [
+      33,
+      34,
+      35,
+      36,
+      37
+    ],
+    "access": "Actual complete extracted PDF text read via web tool; no original PDF bytes downloaded",
+    "reference_derivation": "Hand-derived linear tariff and separate precaution deductions; tested annual primitive not used as expected-value generator"
+  }
+}

@@ -1,0 +1,14 @@
+test_actual_departure_and_reentry_do_not_share_five_day_threshold (test_payroll_wage_interruptions_2026.WageInterruptionRules.test_actual_departure_and_reentry_do_not_share_five_day_threshold) ... ok
+test_actual_paid_workday_splits_two_independent_periods (test_payroll_wage_interruptions_2026.WageInterruptionRules.test_actual_paid_workday_splits_two_independent_periods) ... ok
+test_five_calendar_days_with_weekend_are_only_three_workdays (test_payroll_wage_interruptions_2026.WageInterruptionRules.test_five_calendar_days_with_weekend_are_only_three_workdays) ... ok
+test_four_workdays_do_not_create_u_and_fifth_does (test_payroll_wage_interruptions_2026.WageInterruptionRules.test_four_workdays_do_not_create_u_and_fifth_does) ... ok
+test_individual_contractual_parttime_schedule_counts_actual_workdays (test_payroll_wage_interruptions_2026.WageInterruptionRules.test_individual_contractual_parttime_schedule_counts_actual_workdays) ... ok
+test_missing_calendar_day_foreign_day_and_unknown_version_are_rejected (test_payroll_wage_interruptions_2026.WageInterruptionRules.test_missing_calendar_day_foreign_day_and_unknown_version_are_rejected) ... ok
+test_section41_sentence4_payment_excludes_qualifying_period (test_payroll_wage_interruptions_2026.WageInterruptionRules.test_section41_sentence4_payment_excludes_qualifying_period) ... ok
+test_unknown_exception_partial_claim_carryin_and_minijob_do_not_invent_zero (test_payroll_wage_interruptions_2026.WageInterruptionRules.test_unknown_exception_partial_claim_carryin_and_minijob_do_not_invent_zero) ... ok
+test_weekend_and_month_boundary_do_not_duplicate_one_period (test_payroll_wage_interruptions_2026.WageInterruptionRules.test_weekend_and_month_boundary_do_not_duplicate_one_period) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.007s
+
+OK

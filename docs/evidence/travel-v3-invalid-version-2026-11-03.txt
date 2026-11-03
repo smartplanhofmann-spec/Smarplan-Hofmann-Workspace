@@ -1,0 +1,6 @@
+test_explicit_invalid_historical_version_never_chooses_the_active_default (test_business_travel_v3.TravelV3WorkflowTests.test_explicit_invalid_historical_version_never_chooses_the_active_default) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.257s
+
+OK

@@ -1,0 +1,18 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlement_contract_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlement_contract_test.dart: explicit sickness v2 preserves historical v1 and rejects unknown or mismatched rules
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlement_contract_test.dart: actual P4 typed corrections bind canonical sources and original preview
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlement_contract_test.dart: foreign private source, mutable original revision and changed accepted plan are rejected
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: accepted claim keeps exact sources, original nonce and validator after pause
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: accepted claim keeps exact sources, original nonce and validator after pause
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: accepted claim keeps exact sources, original nonce and validator after pause
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual sickness plan displays private result on mobile and clears on rights withdrawal
+00:01 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual vacation plan displays private result on mobile and clears on rights withdrawal
+00:01 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual unpaid plan displays private result on mobile and clears on rights withdrawal
+00:01 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: regular absence form has typed source and cause choices without a free entitlement amount
+00:01 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: unpaid source form requires renewed explicit legal facts even for correction
+00:02 +16: All tests passed!

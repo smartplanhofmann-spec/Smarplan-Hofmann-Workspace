@@ -1,0 +1,134 @@
+{
+  "kind": "official_numeric_facts_and_separately_derived_social_oneoff_cases",
+  "retrieved_on": "2026-11-03",
+  "original_pdf_downloaded": false,
+  "kernel_tests_run": false,
+  "sources": {
+    "sv_2025": {
+      "url": "https://www.gesetze-im-internet.de/svbezgrv_2025/BJNR16D0A0024.html",
+      "sections": ["2(2)", "4(1)1", "5"],
+      "publication": "BGBl. 2024 I Nr. 365",
+      "access": "full_html"
+    },
+    "pv_2025": {
+      "url": "https://www.gesetze-im-internet.de/pbav_2025/BJNR1BE0A0024.html",
+      "sections": ["1(1)", "2"],
+      "publication": "BGBl. 2024 I Nr. 446",
+      "access": "full_html"
+    },
+    "drv_2025_table": {
+      "url": "https://www.deutsche-rentenversicherung.de/SharedDocs/Newsletter/DE/Rheinland/Fachinfos/25-03-nl-fachinfo-pdf.pdf?__blob=publicationFile&v=2",
+      "pages": [2, 3, 5],
+      "access": "web_pdf_text"
+    },
+    "drv_2026_contributions": {
+      "url": "https://www.deutsche-rentenversicherung.de/SharedDocs/Downloads/DE/Fachliteratur_Kommentare_Gesetzestexte/summa_summarum/e_paper_und_broschueren/broschueren/beitraege.pdf?__blob=publicationFile&v=10",
+      "pages": [19, 20, 36],
+      "access": "web_pdf_text"
+    },
+    "drv_23a": {
+      "url": "https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/04_SGB_IV/pp_0001_25/gra_sgb004_p_0023a.html",
+      "sections": ["3.2", "3.2.1", "3.3", "4.1", "4.2", "4.3"],
+      "access": "html"
+    },
+    "minijob_2026": {
+      "url": "https://magazin.minijob-zentrale.de/einmalzahlungen-minijob/",
+      "section": "Anrechnung auf die Verdienstgrenze im Minijob, first example",
+      "access": "html"
+    }
+  },
+  "official_2025_parameters": {
+    "effective_from": "2025-01-01",
+    "effective_to": "2025-12-31",
+    "health_care_annual_cap_minor": 6615000,
+    "pension_unemployment_annual_cap_minor": 9660000,
+    "health_care_monthly_cap_minor": 551250,
+    "pension_unemployment_monthly_cap_minor": 805000,
+    "pension_total_percent": "18.6",
+    "unemployment_total_percent": "2.6",
+    "health_general_percent": "14.6",
+    "care_general_percent": "3.6",
+    "care_childless_additional_percent": "0.6",
+    "care_discount_per_additional_child_percent": "0.25",
+    "minijob_monthly_limit_minor": 55600,
+    "insolvency_percent": "0.15",
+    "fund_additional_percent": null,
+    "fund_rate_requires_actual_historical_source": true
+  },
+  "published_examples": [
+    {
+      "id": "drv_2026_page_19_february_entry_june_holiday_bonus",
+      "source": "drv_2026_contributions",
+      "employment_from": "2026-02-01",
+      "assignment_month": "2026-06",
+      "running_pay_per_month_minor": 560000,
+      "running_pay_through_assignment_minor": 2800000,
+      "one_off_minor": 150000,
+      "sv_days": 150,
+      "expected": {
+        "health_care_partial_cap_minor": 2906250,
+        "pension_unemployment_partial_cap_minor": 4225000,
+        "health_care_room_minor": 106250,
+        "pension_unemployment_room_minor": 1425000,
+        "health_care_one_off_base_minor": 106250,
+        "pension_unemployment_one_off_base_minor": 150000
+      }
+    },
+    {
+      "id": "minijob_regular_600_plus_300_holiday_bonus",
+      "source": "minijob_2026",
+      "forecast_months": 12,
+      "running_pay_monthly_minor": 60000,
+      "foreseeable_annual_bonus_minor": 30000,
+      "expected_annual_forecast_minor": 750000,
+      "expected_monthly_average_minor": 62500,
+      "expected_minijob": false
+    }
+  ],
+  "derived_cases_not_officially_published": [
+    {
+      "id": "mandatory_health_exact_march_room_does_not_trigger_previous_year",
+      "legal_source": "drv_23a",
+      "actual_receipt_date": "2026-03-31",
+      "mandatory_statutory_health": true,
+      "same_legal_employer_previous_year": true,
+      "current_year_sv_days": 90,
+      "current_year_contributed_running_minor": {"health": 1500000, "pension": 1500000},
+      "one_off_minor": 243750,
+      "expected_social_year": 2026,
+      "expected_tax_year": 2026,
+      "expected_base_minor": {"health": 243750, "pension": 243750}
+    },
+    {
+      "id": "mandatory_health_one_cent_over_march_room_assigns_whole_payment_to_2025",
+      "legal_source": "drv_23a",
+      "actual_receipt_date": "2026-03-31",
+      "mandatory_statutory_health": true,
+      "same_legal_employer_previous_year": true,
+      "current_year_sv_days": 90,
+      "current_year_contributed_running_minor": {"health": 1500000, "pension": 1500000},
+      "previous_year_sv_days": 360,
+      "previous_year_contributed_running_minor": {"health": 6600000, "pension": 6600000},
+      "one_off_minor": 243751,
+      "expected_social_year": 2025,
+      "expected_tax_year": 2026,
+      "expected_base_minor": {"health": 15000, "pension": 243751},
+      "notes": "2025 room must use 66150/96600 EUR, not the 2026 caps. Entire assignment changes; capped branch bases may differ."
+    },
+    {
+      "id": "april_receipt_after_march_exit_does_not_trigger_march_clause",
+      "legal_source": "drv_23a",
+      "actual_receipt_date": "2026-04-01",
+      "employment_to": "2026-03-31",
+      "mandatory_statutory_health": true,
+      "same_legal_employer_previous_year": true,
+      "current_year_sv_days": 90,
+      "current_year_contributed_running_minor": {"health": 1500000, "pension": 1500000},
+      "one_off_minor": 243751,
+      "expected_assignment_month": "2026-03",
+      "expected_social_year": 2026,
+      "expected_tax_year": 2026,
+      "expected_base_minor": {"health": 243750, "pension": 243751}
+    }
+  ]
+}

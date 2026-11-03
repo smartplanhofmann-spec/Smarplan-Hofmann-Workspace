@@ -49,24 +49,36 @@ ist allein eine Produktivfreigabe oder eine abgeschlossene Gesamtabnahme A–G.
 
 ## Aktive Arbeitspakete
 
-1. **Einkaufsänderungen abschließen.** Lieferantenretouren und belegte Änderungen
-   offener Bestellmengen verbinden tatsächliche Lieferpositionen, Reservierungen,
-   Inventur und Gerätekapazitäten. Beide Clients sind fertig; historische
-   Quittungen werden zusätzlich gegen die ursprünglichen Journalstände geprüft.
-2. **Gemeinsame Abnahme durchführen.** Bankabgleich, Betriebsmittel,
-   Midijob-Vollmonate und die lokale Zweifirmen-Provisionierung sind implementiert
-   und abgegrenzt geprüft. Vollständige Node-/Flutterläufe bestehen; breite
-   Backend-/Browserregression, alte PostgreSQL-Betreiberwege und Paketprüfung
-   schließen den stabilisierten Integrationsstand ab.
-3. **Lohnzeitachsen und Teilmonate umsetzen.** Entgeltanspruch,
-   Beschäftigungszeit, Sozialversicherungstage, steuerlichen Lohnzahlungszeitraum
-   und tatsächliche Zahlung getrennt belegen. Neue versionierte Rechenfälle
-   anhand unabhängiger amtlicher Referenzen prüfen, alte Abrechnungen erhalten.
-   Weitere Lohnfälle stehen konkret im `CRM_ERP_LOHN_LUECKENPLAN_2026.md`.
-4. **Reisekostenpauschalen ergänzen.** Belegte Dienstreisen, Inland-/Auslandssätze
-   2026, Mahlzeitenkürzung, Dreimonatsfrist und tatsächliche Erstattung an den
-   bestehenden Personalworkflow anbinden; keine pauschale Steuerfreiheit aus
-   einem bloßen Betrag ableiten.
+1. **Reisekosten vollständig verbinden.** Die Inland-/Auslandstabelle 2026 ist
+   mit 214 Positionen und 642 Beträgen unabhängig verglichen. Die tatsächliche
+   Zahlungskette zur EÜR und zum Bankabgleich wird mit Berichtigungen,
+   Periodensperren, Originalschutz und Finanzrechten ohne Personalzugriff geprüft.
+   Flug-/Schiffsreisen, belegte Auslagen und die Übernahme bereits tatsächlich
+   erstatteter Altauslagen bestehen die v2-Backend-/PostgreSQL-Prüfungen.
+   Der abschließende Browserlauf besteht einschließlich Altauslagenübernahme,
+   Berichtigung und EÜR. Ein früherer Katalogfehler ließ sich nach dem Neustart
+   nicht reproduzieren; seine Ursache ist nicht als behoben behauptet.
+   Die neue v3 behandelt belegte Mischreisen und Boden-Zeitzonen.
+   Die vollständige steuerpflichtige Lohnübergabe wird mit v5 verbunden.
+2. **Mehrteilige Lohnfälle und Ansprüche fertigstellen.** P2-Lohnfakten und P3a
+   (eine Beschäftigungsepisode/eine Vereinbarung/ein SV-Profil) sind geprüft.
+   P3b ergänzt nachgewiesene Wechsel, P4 Urlaub/Feiertag/Krankheit und
+   Unterbrechungen. Neue Gesamtfälle bekommen eine eigene gespeicherte
+   Regelversion; alte v4-Ergebnisse und damalige Sperrgründe bleiben unverändert.
+3. **Eigene Mitarbeiterabrechnung fortführen.** Die begrenzte persönliche
+   Belegansicht für v1–v4 ist mit PDF, Historie, zwei echten MFA-Sitzungen,
+   mobilen Ansichten und Rechteentzug geprüft. Ihre Erweiterung auf v5 bindet
+   zusätzlich den tatsächlichen Erfassungsnachweis und bleibt eine schmale
+   Projektion ohne private Entscheidungs- und Originalquellen.
+4. **Neue Integration abnehmen.** Die breite vorherige Prüfung ist abgeschlossen
+   (989 Backendprüfungen mit einer Plattformauslassung, 336 Node-, 848 Flutter-,
+   16 Paketprüfungen und 17 Browserabläufe). Neue Lohn-/Reisemodule benötigen
+   eigene aktuelle Paket-/Transport-/Client-/Restore-Nachweise; frühere Zahlen
+   gelten nicht automatisch für den erweiterten Stand.
+5. **Einmalbezüge und weitere belegte Lohn-/Steuerfälle schließen.** P5 und die
+   weiteren ausdrücklich benannten Fälle im
+   [Lückenplan](CRM_ERP_LOHN_LUECKENPLAN_2026.md) bleiben Entwicklungsarbeit.
+   Keine Herabstufung zu externen Hindernissen allein wegen fehlenden Codes.
 
 ## Noch offener Zielumfang
 

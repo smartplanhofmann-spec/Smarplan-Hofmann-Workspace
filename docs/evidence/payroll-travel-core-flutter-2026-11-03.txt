@@ -1,0 +1,944 @@
+00:00 +0: loading /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart
+00:00 +0: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: (setUpAll)
+00:00 +0: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Legacy servers keep the manual editor without new feature requests
+00:01 +1: /workspace/smartplan-regression-20261103/app/test/business_backend_integration_test.dart: Real business HTTP preserves draft values and durable own time through the scoped grant
+00:01 +2: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Calculated prices are only added after explicit adoption and keep their proof
+00:02 +3: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Calculated prices are only added after explicit adoption and keep their proof
+00:02 +4: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Calculated prices are only added after explicit adoption and keep their proof
+00:02 +5: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Calculated prices are only added after explicit adoption and keep their proof
+00:02 +6: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Calculated prices are only added after explicit adoption and keep their proof
+00:02 +7: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Calculated prices are only added after explicit adoption and keep their proof
+00:02 +8: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Calculated prices are only added after explicit adoption and keep their proof
+00:02 +9: /workspace/smartplan-regression-20261103/app/test/business_company_handover_test.dart: native owner form starts every confirmation unchecked and displays no actual shutdown
+00:03 +10: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Changing a cost invalidates a previous price proposal
+00:03 +11: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Changing a cost invalidates a previous price proposal
+00:03 +12: /workspace/smartplan-regression-20261103/app/test/business_company_handover_test.dart: open sensitive inventory is cleared after the access generation changes
+00:04 +13: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: A late calculation after logout cannot reveal prices or adopt a position
+00:04 +14: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: BOM article quantities preserve selected article revisions in the server calculation
+00:06 +15: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_http_test.dart: Real HTTP allocates imported payment without rewriting cash proof, retries after OP changes, and keeps private/source boundaries
+00:06 +16: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Measured quantities require price selection, preview and explicit commit confirmation
+00:06 +17: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: A stale measurement keeps selections and explains why import was refused
+00:07 +18: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +19: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +20: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +21: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +22: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +23: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +24: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +25: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +26: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +27: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:07 +28: /workspace/smartplan-regression-20261103/app/test/business_payroll_facts_test.dart: private mobile fact page opens details and clears them on fresh role withdrawal
+00:07 +29: /workspace/smartplan-regression-20261103/app/test/business_payroll_facts_test.dart: private mobile fact page opens details and clears them on fresh role withdrawal
+00:07 +30: /workspace/smartplan-regression-20261103/app/test/business_payroll_facts_test.dart: private mobile fact page opens details and clears them on fresh role withdrawal
+00:08 +31: /workspace/smartplan-regression-20261103/app/test/business_payroll_facts_test.dart: private mobile fact page opens details and clears them on fresh role withdrawal
+00:08 +32: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: A late response for the previous project cannot populate a different project
+00:08 +33: /workspace/smartplan-regression-20261103/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:08 +34: /workspace/smartplan-regression-20261103/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:08 +35: /workspace/smartplan-regression-20261103/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:08 +36: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: Fresh pricing denial clears its proposal and the underlying financial editor
+00:09 +37: /workspace/smartplan-regression-20261103/app/test/business_document_completion_test.dart: A denied measurement read drops only the measurement sources and selections
+00:09 +38: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:09 +39: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:09 +40: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:10 +41: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:10 +42: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:11 +43: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:11 +44: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:12 +45: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:13 +46: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:13 +47: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:13 +48: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:13 +49: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:13 +50: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:13 +51: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:13 +52: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:13 +53: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:13 +54: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:14 +55: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:14 +56: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:15 +57: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:15 +58: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:15 +59: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:15 +60: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:16 +61: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:17 +62: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:17 +63: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:17 +64: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:17 +65: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:19 +66: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:19 +67: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:21 +68: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:22 +69: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:22 +70: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:23 +71: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:24 +72: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:25 +73: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:25 +74: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:25 +75: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:26 +76: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:27 +77: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:27 +78: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:27 +79: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:30 +80: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:31 +81: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:32 +82: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:32 +83: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:33 +84: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:34 +85: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:34 +86: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:34 +87: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:36 +88: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:37 +89: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:38 +90: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:41 +91: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:41 +92: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +93: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +94: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +95: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +96: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +97: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +98: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +99: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +100: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +101: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +102: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +103: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +104: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +105: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +106: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +107: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +108: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +109: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +110: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +111: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +112: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +113: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +114: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +115: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:42 +116: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +117: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +118: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +119: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +120: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +121: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +122: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +123: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +124: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +125: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +126: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +127: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +128: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +129: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +130: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:43 +131: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:44 +132: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:44 +133: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:44 +134: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:45 +135: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:45 +136: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:45 +137: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:45 +138: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:47 +139: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:47 +140: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_http_widget_test.dart: real widgets and HTTP bind whole mixed refunds through two reuse cycles and replay the old writer
+00:48 +141: /workspace/smartplan-regression-20261103/app/test/business_organization_test.dart: (setUpAll)
+00:48 +141: /workspace/smartplan-regression-20261103/app/test/business_organization_test.dart: Company choices preserve permission and legacy server boundaries
+00:48 +142: /workspace/smartplan-regression-20261103/app/test/business_organization_test.dart: Inactive modules block new commands, retain reads and remain configurable
+00:48 +143: /workspace/smartplan-regression-20261103/app/test/business_organization_test.dart: Adding an employee refreshes the automatic navigation immediately
+00:48 +144: /workspace/smartplan-regression-20261103/app/test/business_organization_test.dart: Unconfirmed commands retain their exact identity through a module pause
+00:48 +145: /workspace/smartplan-regression-20261103/app/test/business_organization_test.dart: Navigation follows company suggestions without granting finance access
+00:49 +146: /workspace/smartplan-regression-20261103/app/test/mail_attachment_integration_widget_test.dart: Gmail attachments precede the mail body; only Gmail without a manifest shows the old-server hint
+00:49 +147: /workspace/smartplan-regression-20261103/app/test/mail_attachment_integration_widget_test.dart: Gmail attachments precede the mail body; only Gmail without a manifest shows the old-server hint
+00:50 +148: /workspace/smartplan-regression-20261103/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+00:50 +149: /workspace/smartplan-regression-20261103/app/test/mail_attachment_integration_widget_test.dart: Attachment refresh and confirmed owner deletion preserve an unsaved inquiry note without reviving the file
+00:51 +150: /workspace/smartplan-regression-20261103/app/test/mail_attachment_integration_widget_test.dart: Attachment refresh and confirmed owner deletion preserve an unsaved inquiry note without reviving the file
+00:51 +151: /workspace/smartplan-regression-20261103/app/test/business_organization_test.dart: Read-only configuration exposes authorized hidden history without saving
+00:51 +152: /workspace/smartplan-regression-20261103/app/test/mail_attachment_integration_widget_test.dart: Project Documents loads linked enquiry files only after selection and keeps existing document links
+00:51 +153: /workspace/smartplan-regression-20261103/app/test/mail_attachment_integration_widget_test.dart: Copying an attachment reopens and reloads an already visited Plans register
+00:52 +154: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: whole mixed refund distinguishes colliding versioned lots and exact cumulative cents at 390.0
+00:52 +155: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: whole mixed refund distinguishes colliding versioned lots and exact cumulative cents at 390.0
+00:53 +156: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: whole mixed refund distinguishes colliding versioned lots and exact cumulative cents at 390.0
+00:53 +157: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: whole mixed refund distinguishes colliding versioned lots and exact cumulative cents at 390.0
+00:53 +158: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: whole mixed refund distinguishes colliding versioned lots and exact cumulative cents at 390.0
+00:53 +159: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: whole mixed refund distinguishes colliding versioned lots and exact cumulative cents at 390.0
+00:53 +160: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: whole mixed refund distinguishes colliding versioned lots and exact cumulative cents at 390.0
+00:53 +161: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: whole mixed refund distinguishes colliding versioned lots and exact cumulative cents at 390.0
+00:53 +162: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +163: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +164: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +165: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +166: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +167: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +168: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +169: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +170: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +171: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +172: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +173: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:54 +174: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:55 +175: /workspace/smartplan-regression-20261103/app/test/business_personnel_workflow_test.dart: private upload lost ACK survives close, fresh denied rights and changed generation with exact retry (variant: TargetPlatform.windows)
+00:55 +176: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: paging retains distinct versions and rechecks previously displayed sources without current eligibility
+00:55 +177: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: paging retains distinct versions and rechecks previously displayed sources without current eligibility
+00:55 +178: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: paging retains distinct versions and rechecks previously displayed sources without current eligibility
+00:55 +179: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: revoked carried source of an earlier page is hidden before loading more origins
+00:55 +180: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: editing preview reauthorizes cached origin closure before redisplay
+00:56 +181: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: invalid origin amount  cannot preview a partial mixed portion
+00:56 +182: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: invalid origin amount -1 cannot preview a partial mixed portion
+00:56 +183: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: invalid origin amount -1 cannot preview a partial mixed portion
+00:56 +184: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: invalid origin amount -1 cannot preview a partial mixed portion
+00:56 +185: /workspace/smartplan-regression-20261103/app/test/business_payroll_accounts_test.dart: actual payment parts preserve each date reference and exact amount
+00:56 +186: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: invalid origin amount 13.221 cannot preview a partial mixed portion
+00:56 +187: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: invalid origin amount 13.221 cannot preview a partial mixed portion
+00:56 +188: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: invalid origin amount 13.221 cannot preview a partial mixed portion
+00:56 +189: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: invalid origin amount 13.221 cannot preview a partial mixed portion
+00:56 +190: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: invalid origin amount 13.221 cannot preview a partial mixed portion
+00:56 +191: /workspace/smartplan-regression-20261103/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:57 +192: /workspace/smartplan-regression-20261103/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:57 +193: /workspace/smartplan-regression-20261103/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:57 +194: /workspace/smartplan-regression-20261103/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:57 +195: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: mixed event binds each whole invoice portion with its offered writer
+00:57 +196: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: mixed event binds each whole invoice portion with its offered writer
+00:58 +197: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: current binding needs separate confirmation without repeating invoice handoff
+00:58 +198: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: lost acknowledgement stays neutral and resumes unchanged after generation and lot exhaustion
+00:58 +199: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: lost acknowledgement stays neutral and resumes unchanged after generation and lot exhaustion
+00:58 +200: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: lost acknowledgement stays neutral and resumes unchanged after generation and lot exhaustion
+00:58 +201: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: lost acknowledgement stays neutral and resumes unchanged after generation and lot exhaustion
+00:58 +202: /workspace/smartplan-regression-20261103/app/test/business_resource_custody_test.dart: profile editor uses latest return state rather than earlier profile state and saves a new version
+00:58 +203: /workspace/smartplan-regression-20261103/app/test/business_resource_custody_test.dart: profile editor uses latest return state rather than earlier profile state and saves a new version
+00:59 +204: /workspace/smartplan-regression-20261103/app/test/business_resource_custody_test.dart: profile editor uses latest return state rather than earlier profile state and saves a new version
+00:59 +205: /workspace/smartplan-regression-20261103/app/test/business_resource_custody_test.dart: profile editor uses latest return state rather than earlier profile state and saves a new version
+00:59 +206: /workspace/smartplan-regression-20261103/app/test/business_resource_custody_test.dart: profile editor uses latest return state rather than earlier profile state and saves a new version
+00:59 +207: /workspace/smartplan-regression-20261103/app/test/business_resource_custody_test.dart: profile editor uses latest return state rather than earlier profile state and saves a new version
+00:59 +208: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: current origin write denial removes the reviewed proposal before confirmation
+00:59 +209: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_v2_test.dart: current origin write denial removes the reviewed proposal before confirmation
+01:00 +210: /workspace/smartplan-regression-20261103/app/test/business_resource_custody_test.dart: global rights withdrawal clears loaded resource and original evidence view
+01:00 +211: /workspace/smartplan-regression-20261103/app/test/business_resource_custody_test.dart: global rights withdrawal clears loaded resource and original evidence view
+01:00 +212: /workspace/smartplan-regression-20261103/app/test/offline_imports_test.dart: Offline originals are encrypted references and survive restart before upload
+01:01 +213: /workspace/smartplan-regression-20261103/app/test/business_shell_widget_test.dart: Real business dashboard renders at 1200.0
+01:01 +214: /workspace/smartplan-regression-20261103/app/test/business_shell_widget_test.dart: Real business dashboard renders at 1200.0
+01:02 +215: /workspace/smartplan-regression-20261103/app/test/offline_imports_test.dart: A lost manifest response and client restart reuse the accepted import
+01:02 +216: /workspace/smartplan-regression-20261103/app/test/business_shell_widget_test.dart: Real business dashboard renders at 390.0
+01:02 +217: /workspace/smartplan-regression-20261103/app/test/offline_imports_test.dart: Seven-day expiry retains source and queue until online authentication
+01:02 +218: /workspace/smartplan-regression-20261103/app/test/offline_imports_test.dart: Seven-day expiry retains source and queue until online authentication
+01:02 +219: /workspace/smartplan-regression-20261103/app/test/offline_imports_test.dart: An older server preserves import queue and project access until upgrade
+01:03 +220: /workspace/smartplan-regression-20261103/app/test/offline_imports_test.dart: A known import server 404 revokes access after accepted_manifest and preserves resumable uploads
+01:03 +221: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_http_test.dart: real HTTP preserves the middle lot cents and historical pending path across capacity handoff
+01:03 +222: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_http_test.dart: real HTTP preserves the middle lot cents and historical pending path across capacity handoff
+01:04 +223: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_http_test.dart: real HTTP preserves the middle lot cents and historical pending path across capacity handoff
+01:04 +224: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_http_test.dart: real HTTP preserves the middle lot cents and historical pending path across capacity handoff
+01:04 +225: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_http_test.dart: real HTTP preserves the middle lot cents and historical pending path across capacity handoff
+01:04 +226: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_http_test.dart: real HTTP preserves the middle lot cents and historical pending path across capacity handoff
+01:04 +227: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_http_test.dart: real HTTP preserves the middle lot cents and historical pending path across capacity handoff
+01:05 +228: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_http_test.dart: real HTTP preserves the middle lot cents and historical pending path across capacity handoff
+01:05 +229: /workspace/smartplan-regression-20261103/app/test/offline_imports_test.dart: Recognition with the wrong selected_page is never published to the local result cache
+01:05 +230: /workspace/smartplan-regression-20261103/app/test/offline_imports_test.dart: A changed server manifest cannot replace the locally preserved source
+01:05 +231: /workspace/smartplan-regression-20261103/app/test/offline_imports_test.dart: Capture requires project permission and a writing role before publishing media
+01:06 +232: /workspace/smartplan-regression-20261103/app/test/business_payroll_cash_test.dart: net uses exact actual source parts and excludes invented gross and tax payments
+01:06 +233: /workspace/smartplan-regression-20261103/app/test/business_payroll_cash_test.dart: all remittance values including zeros and exact original settlement are explicit
+01:06 +234: /workspace/smartplan-regression-20261103/app/test/business_payroll_cash_test.dart: known void keeps historical money account even when current bank inactive or revised
+01:06 +235: /workspace/smartplan-regression-20261103/app/test/business_payroll_cash_test.dart: public finance projection rejects personal payload fields and changed money totals
+01:06 +236: /workspace/smartplan-regression-20261103/app/test/business_payroll_cash_test.dart: financial form requires only explicit SKR04 accounts and preserves source facts
+01:06 +237: /workspace/smartplan-regression-20261103/app/test/business_payroll_cash_test.dart: private preview and frozen receipt bind exact public proof, revision and selected source count
+01:06 +238: /workspace/smartplan-regression-20261103/app/test/business_payroll_cash_test.dart: lost reply survives HR loss, restore gate and instance mismatch with identical nonce and body
+01:06 +239: /workspace/smartplan-regression-20261103/app/test/business_payroll_cash_test.dart: financial classification requires no personnel grant while private adoption remains denied
+01:06 +240: /workspace/smartplan-regression-20261103/app/test/business_payroll_cash_test.dart: actual remittance form leaves all five amounts, payment day and total empty
+01:07 +241: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_http_test.dart: Real HTTP refund origins preserve cash, OP and C1 capacity, exact lot cents and replay after exhaustion
+01:08 +242: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_http_test.dart: Real HTTP refund origins preserve cash, OP and C1 capacity, exact lot cents and replay after exhaustion
+01:08 +243: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_http_test.dart: Real HTTP refund origins preserve cash, OP and C1 capacity, exact lot cents and replay after exhaustion
+01:08 +244: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_http_test.dart: Real HTTP refund origins preserve cash, OP and C1 capacity, exact lot cents and replay after exhaustion
+01:08 +245: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_http_test.dart: Real HTTP refund origins preserve cash, OP and C1 capacity, exact lot cents and replay after exhaustion
+01:09 +246: /workspace/smartplan-regression-20261103/app/test/business_payroll_entitlement_contract_test.dart: explicit sickness v2 preserves historical v1 and rejects unknown or mismatched rules
+01:09 +247: /workspace/smartplan-regression-20261103/app/test/business_payroll_entitlement_contract_test.dart: actual P4 typed corrections bind canonical sources and original preview
+01:09 +248: /workspace/smartplan-regression-20261103/app/test/business_payroll_entitlement_contract_test.dart: foreign private source, mutable original revision and changed accepted plan are rejected
+01:09 +249: /workspace/smartplan-regression-20261103/app/test/business_payroll_entitlement_contract_test.dart: fresh own-only and write-only rights do not authorize private entitlement approval
+01:09 +250: /workspace/smartplan-regression-20261103/app/test/business_payroll_entitlement_contract_test.dart: money and date inputs distinguish unknown from expressly evidenced zero
+01:10 +251: /workspace/smartplan-regression-20261103/app/test/api_test.dart: JSON requests preserve UTF-8, bearer token and POST body
+01:10 +252: /workspace/smartplan-regression-20261103/app/test/api_test.dart: large bank DTO crosses ordinary limit without changing unrelated JSON bounds
+01:10 +253: /workspace/smartplan-regression-20261103/app/test/api_test.dart: large bank DTO crosses ordinary limit without changing unrelated JSON bounds
+01:10 +254: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [] never gains workspace scope
+01:10 +255: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [] never gains workspace scope
+01:10 +256: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [] never gains workspace scope
+01:10 +257: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [] never gains workspace scope
+01:10 +258: /workspace/smartplan-regression-20261103/app/test/api_test.dart: Redirects are refused rather than forwarding authentication
+01:10 +259: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [project_workspace] never gains workspace scope
+01:10 +260: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [project_workspace] never gains workspace scope
+01:10 +261: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [project_workspace] never gains workspace scope
+01:10 +262: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [project_workspace] never gains workspace scope
+01:10 +263: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [project_workspace] never gains workspace scope
+01:10 +264: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [project_workspace] never gains workspace scope
+01:10 +265: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [offline_workspace] never gains workspace scope
+01:10 +266: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [offline_workspace] never gains workspace scope
+01:10 +267: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Incomplete grant [offline_workspace] never gains workspace scope
+01:10 +268: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Initial full cache is required before creating offline items
+01:10 +269: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: A failed full-list fetch never publishes a partial workspace
+01:11 +270: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Losing workspace grant retains queued work without using old scope
+01:11 +271: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: All four offline kinds persist and synchronize with stable local IDs
+01:11 +272: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Lost create acknowledgment retries an identical command after restart
+01:11 +273: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Editing during accepted upload queues a new revision without losing either intent
+01:11 +274: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Stale tasks editor preserves its draft without rebasing onto a refreshed revision
+01:11 +275: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Stale profile editor preserves its draft without rebasing onto a refreshed revision
+01:11 +276: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Quarter-turn view changes persist offline without changing source bytes or ciphertext
+01:11 +277: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Quarter-turn view changes persist offline without changing source bytes or ciphertext
+01:11 +278: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Quarter-turn view changes persist offline without changing source bytes or ciphertext
+01:11 +279: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Quarter-turn view changes persist offline without changing source bytes or ciphertext
+01:11 +280: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Profile revision zero and conflict use project identity, keepLocal=true
+01:12 +281: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Concurrent local rotations serialize and the last requested view survives restart
+01:12 +282: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: A failed local snapshot retains the prior workspace and outbox after restart
+01:12 +283: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: A failed rotation commit preserves the preceding visible and durable view
+01:12 +284: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Seven-day expiry hides workspace but retains pending drafts until reauthentication
+01:12 +285: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Out-of-range rotations reject without changing metadata or source
+01:12 +286: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Project revocation hides cached workspace while retaining its local outbox
+01:12 +287: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Project revocation hides cached workspace while retaining its local outbox
+01:12 +288: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: A revoked project cannot change source rotation
+01:12 +289: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Read-only roles can read downloaded workspace but cannot queue writes
+01:12 +290: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: A read-only project member may rotate the local view without rewriting or uploading its source
+01:12 +291: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: A read-only project member may rotate the local view without rewriting or uploading its source
+01:12 +292: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Unknown project and foreign item identity cannot mutate the local cache
+01:12 +293: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: An import stays visible and its bytes stay present until its deletion marker commits
+01:12 +294: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: An import stays visible and its bytes stay present until its deletion marker commits
+01:12 +295: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: An import stays visible and its bytes stay present until its deletion marker commits
+01:12 +296: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: An import stays visible and its bytes stay present until its deletion marker commits
+01:12 +297: /workspace/smartplan-regression-20261103/app/test/offline_workspace_test.dart: Late workspace refresh 404 cannot publish or lock another account
+01:12 +298: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Failed deletion metadata never hides or removes the preceding original
+01:12 +299: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Failed deletion metadata never hides or removes the preceding original
+01:12 +300: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Offline deletion cancels unseen plan and import creates without later ghost objects
+01:12 +301: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Deletion after a lost plan create acknowledgment cancels the already accepted object after restart
+01:12 +302: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Deletion after a lost import create acknowledgment cancels the already accepted object after restart
+01:12 +303: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: A lost deletion response retries the identical request after offline restart
+01:12 +304: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Deleting an in-flight upload prevents completion and survives its late accepted chunk response
+01:13 +305: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Deleting during a source download prevents late bytes from repopulating the cache
+01:13 +306: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: An item 410 hides the deleted import without revoking the project even before its feed arrives
+01:13 +307: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: A late accepted plan creation reply cannot revive a locally deleted entry
+01:13 +308: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: EUR cents reject rounding and canonicalize positive amounts
+01:13 +309: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: A late accepted import creation reply cannot revive a locally deleted entry
+01:13 +310: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+01:13 +311: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+01:13 +312: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+01:13 +313: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+01:13 +314: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+01:14 +315: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+01:14 +316: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+01:14 +317: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Rejected source hashes do not accumulate unreferenced encrypted originals
+01:15 +318: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Rejected source hashes do not accumulate unreferenced encrypted originals
+01:15 +319: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Rejected source hashes do not accumulate unreferenced encrypted originals
+01:15 +320: /workspace/smartplan-regression-20261103/app/test/offline_deletions_test.dart: Rejected source hashes do not accumulate unreferenced encrypted originals
+01:15 +321: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: partial payout carries exact source and account version on phone
+01:15 +322: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: partial payout carries exact source and account version on phone
+01:15 +323: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: partial payout carries exact source and account version on phone
+01:15 +324: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: partial payout carries exact source and account version on phone
+01:15 +325: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: partial payout carries exact source and account version on phone
+01:15 +326: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: partial payout carries exact source and account version on phone
+01:15 +327: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: partial payout carries exact source and account version on phone
+01:16 +328: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: third decimal is explained before transmission
+01:16 +329: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: lost payout resumes exact id after review and inactive renamed account
+01:17 +330: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: refund entry and exact separate confirmation at 390.0
+01:18 +331: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: refund entry and exact separate confirmation at 390.0
+01:18 +332: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: refund entry and exact separate confirmation at 390.0
+01:18 +333: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: refund entry and exact separate confirmation at 390.0
+01:19 +334: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: source pages append without project filter
+01:19 +335: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: refund entry and exact separate confirmation at 1200.0
+01:19 +336: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: refund entry and exact separate confirmation at 1200.0
+01:19 +337: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: refund entry and exact separate confirmation at 1200.0
+01:19 +338: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: refund entry and exact separate confirmation at 1200.0
+01:19 +339: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: server source denial during save hides the open financial form
+01:19 +340: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: same group across paginated entries keeps explicit selections and original request order
+01:19 +341: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: reopen during an in-flight payout restores frozen original fields before any error
+01:20 +342: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: no automatic origin selection, exact sum, positive cents and capacity checked before preview
+01:20 +343: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: late successful acknowledgement cannot turn an open retry into a second payout
+01:21 +344: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: late successful acknowledgement cannot turn an open retry into a second payout
+01:21 +345: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: late successful acknowledgement cannot turn an open retry into a second payout
+01:21 +346: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: blocked source_customer_unresolved remains readable without invented origins
+01:21 +347: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: blocked source_customer_unresolved remains readable without invented origins
+01:21 +348: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +349: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +350: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +351: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +352: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +353: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +354: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +355: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +356: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +357: /workspace/smartplan-regression-20261103/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+01:21 +358: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: module allows history but no origin selection or preview
+01:21 +359: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: accounting.prepare allows history but no origin selection or preview
+01:21 +360: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: finance.write allows history but no origin selection or preview
+01:21 +361: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: lost response reopens frozen preview and exact ID after candidate consumed
+01:22 +362: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: unsent pending hides origin expanded from project A to denied A+B while refund stays readable
+01:22 +363: /workspace/smartplan-regression-20261103/app/test/import_transport_test.dart: Binary transport sends exact bounded chunks with bearer and API version
+01:22 +364: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: previously bound origin denial blocks pending restore at source-state preflight
+01:22 +365: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: previously bound origin denial blocks pending restore at source-state preflight
+01:22 +366: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: logout erases uncertain refund command and preview from RAM
+01:23 +367: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: known source denial clears existing private view
+01:23 +368: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: confirm rechecks each origin before sending
+01:23 +369: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: confirm rechecks each origin before sending
+01:23 +370: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: confirm rechecks each origin before sending
+01:23 +371: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: confirm rechecks each origin before sending
+01:23 +372: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: source state conflict does not send confirmation
+01:23 +373: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: late preview after logout cannot expose origins and drops RAM pending
+01:23 +374: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: in-flight reopen preserves original data and late ACK refreshes history
+01:24 +375: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: in-flight reopen preserves original data and late ACK refreshes history
+01:24 +376: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: in-flight reopen preserves original data and late ACK refreshes history
+01:24 +377: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: in-flight reopen preserves original data and late ACK refreshes history
+01:24 +378: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: in-flight reopen preserves original data and late ACK refreshes history
+01:24 +379: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: in-flight reopen preserves original data and late ACK refreshes history
+01:24 +380: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: in-flight reopen preserves original data and late ACK refreshes history
+01:24 +381: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: in-flight reopen preserves original data and late ACK refreshes history
+01:24 +382: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: in-flight reopen preserves original data and late ACK refreshes history
+01:24 +383: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_session_test.dart: retry status 403 preserves original path, body and request ID
+01:24 +384: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +385: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +386: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +387: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +388: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +389: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +390: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +391: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +392: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +393: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +394: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +395: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +396: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:24 +397: /workspace/smartplan-regression-20261103/app/test/business_accounting_refunds_test.dart: old confirmation ACK during retry metadata cannot create a new command
+01:25 +398: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_http_test.dart: Real HTTP documentary cents share one group across payouts and preserve reviews, payment and OP proofs
+01:25 +399: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_http_test.dart: Real HTTP documentary cents share one group across payouts and preserve reviews, payment and OP proofs
+01:25 +400: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_http_test.dart: Real HTTP documentary cents share one group across payouts and preserve reviews, payment and OP proofs
+01:25 +401: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_http_test.dart: Real HTTP documentary cents share one group across payouts and preserve reviews, payment and OP proofs
+01:25 +402: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_http_test.dart: Real HTTP documentary cents share one group across payouts and preserve reviews, payment and OP proofs
+01:25 +403: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_http_test.dart: Real HTTP documentary cents share one group across payouts and preserve reviews, payment and OP proofs
+01:25 +404: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_http_test.dart: Real HTTP documentary cents share one group across payouts and preserve reviews, payment and OP proofs
+01:25 +405: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_http_test.dart: Real HTTP documentary cents share one group across payouts and preserve reviews, payment and OP proofs
+01:27 +406: /workspace/smartplan-regression-20261103/app/test/business_privacy_cases_test.dart: actual identity editor closes on success and private source rights revoke visible case
+01:27 +407: /workspace/smartplan-regression-20261103/app/test/business_privacy_cases_test.dart: backgrounding discards private visible case and pending response
+01:27 +408: /workspace/smartplan-regression-20261103/app/test/business_service_test.dart: origin and customer remain explicit and status uses current allowed transitions
+01:27 +409: /workspace/smartplan-regression-20261103/app/test/business_service_test.dart: activity acknowledgement binds immutable event and same case revision
+01:27 +410: /workspace/smartplan-regression-20261103/app/test/business_service_test.dart: lost transition retries exact nonce with fresh central session rights
+01:27 +411: /workspace/smartplan-regression-20261103/app/test/business_service_test.dart: lost transition retries exact nonce with fresh project session rights
+01:27 +412: /workspace/smartplan-regression-20261103/app/test/business_service_test.dart: accepted native dispatch replays its original receipt after planning is disabled
+01:27 +413: /workspace/smartplan-regression-20261103/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+01:28 +414: /workspace/smartplan-regression-20261103/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+01:28 +415: /workspace/smartplan-regression-20261103/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+01:30 +416: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+01:30 +417: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+01:31 +418: /workspace/smartplan-regression-20261103/app/test/workflow_test.dart: Owner can log in, open administration and create a validated user
+01:32 +419: /workspace/smartplan-regression-20261103/app/test/workflow_test.dart: Owner can log in, open administration and create a validated user
+01:32 +420: /workspace/smartplan-regression-20261103/app/test/workflow_test.dart: Owner can log in, open administration and create a validated user
+01:32 +421: /workspace/smartplan-regression-20261103/app/test/workflow_test.dart: Owner can log in, open administration and create a validated user
+01:33 +422: /workspace/smartplan-regression-20261103/app/test/business_finance_widget_test.dart: Dunning is a review proposal, never an automatic send
+01:33 +423: /workspace/smartplan-regression-20261103/app/test/business_finance_widget_test.dart: Dunning is a review proposal, never an automatic send
+01:34 +424: /workspace/smartplan-regression-20261103/app/test/business_finance_widget_test.dart: Dunning is a review proposal, never an automatic send
+01:34 +425: /workspace/smartplan-regression-20261103/app/test/workflow_test.dart: A report needs name, drawn signature and confirmation before signing (variant: TargetPlatform.windows)
+01:35 +426: /workspace/smartplan-regression-20261103/app/test/workflow_test.dart: Repeated taps while rotating open only one signature editor (variant: TargetPlatform.iOS)
+01:36 +427: /workspace/smartplan-regression-20261103/app/test/business_legacy_contract_test.dart: Existing assigned project remains the entry to its real records
+01:36 +428: /workspace/smartplan-regression-20261103/app/test/business_legacy_contract_test.dart: Existing assigned project remains the entry to its real records
+01:36 +429: /workspace/smartplan-regression-20261103/app/test/business_legacy_contract_test.dart: Existing assigned project remains the entry to its real records
+01:37 +430: /workspace/smartplan-regression-20261103/app/test/business_legacy_contract_test.dart: Flexible project work does not require a quote or a payment
+01:37 +431: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Candidate painter maps normalized lines and OCR/PDF boxes onto real canvas pixels
+01:37 +432: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Candidate painter ignores malformed, non-finite and out-of-range geometry
+01:37 +433: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Candidate text mapping preserves literal OCR and distinguishes embedded PDF text
+01:37 +434: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Reader sniffs actual PNG/PDF bytes despite suffix and provider MIME
+01:37 +435: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Reader rejects oversized declared length before opening provider stream
+01:37 +436: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Reader bounds actual stream and cancels even when provider length lies
+01:37 +437: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Reader accepts exactly 20 MiB and rejects mismatched actual length
+01:38 +438: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Reader rejects unsupported and corrupted picture contents
+01:38 +439: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Reader rejects a real compressed 45 MP PNG before allocating an RGBA bitmap
+01:38 +440: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: File import shows saved state only after encrypted source and metadata commit
+01:40 +441: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: File import shows saved state only after encrypted source and metadata commit
+01:40 +442: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: File import shows saved state only after encrypted source and metadata commit
+01:40 +443: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: File import shows saved state only after encrypted source and metadata commit
+01:40 +444: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: File import shows saved state only after encrypted source and metadata commit
+01:41 +445: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: File import shows saved state only after encrypted source and metadata commit
+01:41 +446: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: File import shows saved state only after encrypted source and metadata commit
+01:41 +447: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_test.dart: legacy action uses original writer state and hashes, then separate unchanged history
+01:41 +448: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:42 +449: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:42 +450: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:42 +451: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:42 +452: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:42 +453: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +454: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +455: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +456: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +457: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +458: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +459: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +460: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +461: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +462: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +463: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +464: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +465: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:43 +466: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:44 +467: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:44 +468: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:44 +469: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:44 +470: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:45 +471: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:45 +472: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Camera temp remains through a failed commit and is removed after successful retry
+01:45 +473: /workspace/smartplan-regression-20261103/app/test/business_accounting_capacity_test.dart: later-refund limitation disappears only with complete module and feature (true, true)
+01:45 +474: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: PDF page 1 is validated and committed as zero-based 0
+01:45 +475: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: PDF page 1 is validated and committed as zero-based 0
+01:46 +476: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: PDF page 1 is validated and committed as zero-based 0
+01:46 +477: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: PDF page 1 is validated and committed as zero-based 0
+01:46 +478: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: PDF page 1 is validated and committed as zero-based 0
+01:46 +479: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: PDF page 1 is validated and committed as zero-based 0
+01:48 +480: /workspace/smartplan-regression-20261103/app/test/business_inventory_counts_test.dart: physical count UI records quantities then displays the approved valuation
+01:49 +481: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: PDF page 50 is validated and committed as zero-based 49
+01:50 +482: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: Camera capture acknowledges an encrypted photo and note before deleting its temporary original
+01:51 +483: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: Camera capture acknowledges an encrypted photo and note before deleting its temporary original
+01:51 +484: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: Camera capture acknowledges an encrypted photo and note before deleting its temporary original
+01:52 +485: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: Camera capture acknowledges an encrypted photo and note before deleting its temporary original
+01:53 +486: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Import deletion requires confirmation and persistent commit; failed deletion keeps the open original
+01:55 +487: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A delayed encrypted photo commit keeps the original until durable acknowledgement and cleanup
+01:56 +488: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A delayed encrypted photo commit keeps the original until durable acknowledgement and cleanup
+01:57 +489: /workspace/smartplan-regression-20261103/app/test/plan_import_widget_test.dart: Late encrypted server PNG and recognition refresh an open PDF review, including landscape
+01:58 +490: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +491: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +492: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +493: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +494: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +495: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +496: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +497: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +498: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +499: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +500: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +501: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +502: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +503: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: A mixed Windows picker filename stores only the actual selected file basename
+01:59 +504: /workspace/smartplan-regression-20261103/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+02:00 +505: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: Windows picker name metadata cannot turn the saved original name into a path
+02:01 +506: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: Windows picker name metadata cannot turn the saved original name into a path
+02:01 +507: /workspace/smartplan-regression-20261103/app/test/business_media_widget_test.dart: Windows picker name metadata cannot turn the saved original name into a path
+02:02 +508: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:03 +509: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:03 +510: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:03 +511: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:03 +512: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:04 +513: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:05 +514: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:05 +515: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:05 +516: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:06 +516: loading /workspace/smartplan-regression-20261103/app/test/mail_attachment_preview_widget_test.dart
+Warning: A tag was used that wasn't specified in dart_test.yaml.
+  native_pdf was used in:
+    the test "A real two-page PDF renders bounded pages in memory, switches pages and releases its images"
+    the test "An enormous valid PDF MediaBox still renders only a bounded native bitmap"
+    the test "A damaged PDF with correct SHA offers an explicit fallback and verified save"
+
+02:07 +517: /workspace/smartplan-regression-20261103/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+02:07 +518: /workspace/smartplan-regression-20261103/app/test/mail_attachment_preview_widget_test.dart: A real 5000 by 1000 PNG is decoded to a bounded 2048 by 410 image
+02:07 +519: /workspace/smartplan-regression-20261103/app/test/mail_attachment_preview_widget_test.dart: Preview remains closed until download completes and rejects changed size or SHA
+02:08 +520: /workspace/smartplan-regression-20261103/app/test/mail_attachment_preview_widget_test.dart: Unauthorized download and a late successful response after logout never expose a preview
+02:08 +521: /workspace/smartplan-regression-20261103/app/test/mail_attachment_preview_widget_test.dart: Logout or explicit access revocation hides an open preview and releases the decoded image
+02:08 +522: /workspace/smartplan-regression-20261103/app/test/mail_attachment_preview_widget_test.dart: Removing the file from refreshed metadata revokes its already open preview
+02:08 +523: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:09 +524: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:10 +525: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:10 +526: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:10 +527: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:11 +528: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:11 +529: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:11 +530: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:11 +531: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:12 +532: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:12 +533: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:12 +534: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:12 +535: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:15 +536: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:15 +537: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:15 +538: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:15 +539: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_http_widget_test.dart: real profile widgets store explicit unknown facts and replay the original across new version and admin withdrawal
+02:16 +540: /workspace/smartplan-regression-20261103/app/test/business_document_completion_http_test.dart: Actual HTTP preserves adopted Decimal prices and revision-bound measurement quantities in drafts
+02:17 +541: /workspace/smartplan-regression-20261103/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+02:18 +542: /workspace/smartplan-regression-20261103/app/test/business_purchasing_http_test.dart: Actual HTTP purchase source, confirmation and receipt retry preserve exact stock and source indices
+02:18 +543: /workspace/smartplan-regression-20261103/app/test/business_purchasing_http_test.dart: Actual HTTP purchase source, confirmation and receipt retry preserve exact stock and source indices
+02:18 +544: /workspace/smartplan-regression-20261103/app/test/business_purchasing_http_test.dart: Actual HTTP purchase source, confirmation and receipt retry preserve exact stock and source indices
+02:18 +545: /workspace/smartplan-regression-20261103/app/test/business_purchasing_http_test.dart: Actual HTTP purchase source, confirmation and receipt retry preserve exact stock and source indices
+02:18 +546: /workspace/smartplan-regression-20261103/app/test/business_purchasing_http_test.dart: Actual HTTP purchase source, confirmation and receipt retry preserve exact stock and source indices
+02:18 +547: /workspace/smartplan-regression-20261103/app/test/business_purchasing_http_test.dart: Actual HTTP purchase source, confirmation and receipt retry preserve exact stock and source indices
+02:19 +548: /workspace/smartplan-regression-20261103/app/test/business_travel_cash_test.dart: actual backend public cash and bank source with historical void
+02:19 +549: /workspace/smartplan-regression-20261103/app/test/business_travel_cash_test.dart: private additions at every public level are rejected
+02:19 +550: /workspace/smartplan-regression-20261103/app/test/business_travel_cash_test.dart: revision, monetary values and documentary void must be explicit
+02:19 +551: /workspace/smartplan-regression-20261103/app/test/business_travel_cash_test.dart: impossible calendar dates cannot become travel cash dates
+02:19 +552: /workspace/smartplan-regression-20261103/app/test/business_travel_cash_test.dart: bank source retains complete original revision and public shape
+02:19 +553: /workspace/smartplan-regression-20261103/app/test/storage_test.dart: (setUpAll)
+02:19 +553: /workspace/smartplan-regression-20261103/app/test/storage_test.dart: Owner chooses server, OneDrive or NAS without moving documents
+02:21 +554: /workspace/smartplan-regression-20261103/app/test/design_test.dart: Desktop navigation, search, sorting and list view work with real layout
+02:21 +555: /workspace/smartplan-regression-20261103/app/test/design_test.dart: Desktop navigation, search, sorting and list view work with real layout
+02:22 +556: /workspace/smartplan-regression-20261103/app/test/storage_test.dart: Unknown target does not claim a working connection
+02:22 +557: /workspace/smartplan-regression-20261103/app/test/design_test.dart: Document, access, team and storage screens render with navigation
+02:22 +558: /workspace/smartplan-regression-20261103/app/test/design_test.dart: Document, access, team and storage screens render with navigation
+02:23 +559: /workspace/smartplan-regression-20261103/app/test/design_test.dart: Document, access, team and storage screens render with navigation
+02:23 +560: /workspace/smartplan-regression-20261103/app/test/design_test.dart: Narrow phone layout keeps login and navigation usable
+02:23 +561: /workspace/smartplan-regression-20261103/app/test/design_test.dart: Large text remains usable in a narrow window
+02:24 +562: /workspace/smartplan-regression-20261103/app/test/design_test.dart: Narrow document workflow and short desktop windows stay usable
+02:24 +563: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: single reviewed group previews exact documentary cents and confirms separately at 390.0
+02:25 +564: /workspace/smartplan-regression-20261103/app/test/workspace_shell_test.dart: Phone exposes named work areas and returns from storage to search
+02:26 +565: /workspace/smartplan-regression-20261103/app/test/workspace_shell_test.dart: Phone exposes named work areas and returns from storage to search
+02:26 +566: /workspace/smartplan-regression-20261103/app/test/workspace_shell_test.dart: Phone exposes named work areas and returns from storage to search
+02:26 +567: /workspace/smartplan-regression-20261103/app/test/workspace_shell_test.dart: Phone exposes named work areas and returns from storage to search
+02:26 +568: /workspace/smartplan-regression-20261103/app/test/workspace_shell_test.dart: Phone exposes named work areas and returns from storage to search
+02:27 +569: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: lost reply restores original groups and reviewed preview despite changed review
+02:27 +570: /workspace/smartplan-regression-20261103/app/test/workspace_shell_test.dart: Whole project row opens its actual project and customer search stays local
+02:27 +571: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: inflight reopen restores preview and late ACK never becomes a new component command
+02:27 +572: /workspace/smartplan-regression-20261103/app/test/workspace_shell_test.dart: Large text and short desktop preserve navigation without owner-only actions
+02:27 +573: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: pending receipt details stay hidden after target403 and retain exact retry
+02:27 +574: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: stale global group pool invalidates a new confirmation
+02:28 +575: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: read keeps documentary history readable without portion requests
+02:28 +576: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: readonly keeps documentary history readable without portion requests
+02:28 +577: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: paused keeps documentary history readable without portion requests
+02:28 +578: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: restore keeps documentary history readable without portion requests
+02:28 +579: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: refund keeps documentary history readable without portion requests
+02:28 +580: /workspace/smartplan-regression-20261103/app/test/business_accounting_components_test.dart: feature does not probe components routes
+02:28 +581: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+02:28 +582: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+02:28 +583: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+02:28 +584: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+02:29 +585: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+02:29 +586: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+02:29 +587: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+02:29 +588: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+02:29 +589: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+02:29 +590: /workspace/smartplan-regression-20261103/app/test/business_documents_widget_test.dart: A real document form creates typed positions and omits an empty optional due date
+02:31 +591: /workspace/smartplan-regression-20261103/app/test/business_invoice_chain_test.dart: Issued advance converts to cumulative with the exact original request after a lost reply
+02:32 +592: /workspace/smartplan-regression-20261103/app/test/business_invoice_chain_test.dart: Issued advance converts to cumulative with the exact original request after a lost reply
+02:32 +593: /workspace/smartplan-regression-20261103/app/test/business_invoice_chain_test.dart: Issued advance converts to cumulative with the exact original request after a lost reply
+02:32 +594: /workspace/smartplan-regression-20261103/app/test/business_invoice_chain_test.dart: Issued advance converts to cumulative with the exact original request after a lost reply
+02:32 +595: /workspace/smartplan-regression-20261103/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+02:32 +596: /workspace/smartplan-regression-20261103/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+02:33 +597: /workspace/smartplan-regression-20261103/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+02:34 +598: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_session_test.dart: profile replay reads only its own fresh state and returns old result after new revision and generation
+02:34 +599: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_session_test.dart: first profile status 0 retains exact original body and ID
+02:34 +600: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_session_test.dart: accepted original profile remains retryable after gate status 0
+02:34 +601: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_session_test.dart: first profile status 403 retains exact original body and ID
+02:34 +602: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +603: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +604: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +605: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +606: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +607: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +608: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +609: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +610: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +611: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +612: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +613: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +614: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +615: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +616: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +617: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +618: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +619: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +620: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +621: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +622: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +623: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +624: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +625: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +626: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +627: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:34 +628: /workspace/smartplan-regression-20261103/app/test/backend_integration_test.dart: Real Python backend accepts login, Unicode reports, signature, PDF and logout
+02:35 +629: /workspace/smartplan-regression-20261103/app/test/customer_workspace_session_test.dart: lost accepted grant replays the same nonce after capability generation changes
+02:35 +630: /workspace/smartplan-regression-20261103/app/test/customer_workspace_session_test.dart: unknown denials retain the nonce and known nonacceptance releases it
+02:35 +631: /workspace/smartplan-regression-20261103/app/test/business_custom_fields_test.dart: exact values preserve decimals and explicit false without coercion
+02:36 +632: /workspace/smartplan-regression-20261103/app/test/business_custom_fields_test.dart: archived choices stay readable but cannot be newly selected
+02:36 +633: /workspace/smartplan-regression-20261103/app/test/business_custom_fields_test.dart: entity, frozen meaning and original values bind acknowledgments
+02:36 +634: /workspace/smartplan-regression-20261103/app/test/business_custom_fields_test.dart: definition acknowledgment binds explicit required and active flags
+02:36 +635: /workspace/smartplan-regression-20261103/app/test/business_custom_fields_test.dart: malformed receipt keeps exact pending command
+02:36 +636: /workspace/smartplan-regression-20261103/app/test/business_custom_fields_test.dart: lost acknowledgment keeps nonce through fresh entity denial and restoration
+02:36 +637: /workspace/smartplan-regression-20261103/app/test/business_custom_fields_test.dart: native editor uses typed field and private history disappears on revocation
+02:37 +638: /workspace/smartplan-regression-20261103/app/test/report_retry_widget_test.dart: A lost signature response preserves the input and can finish with an identical retry (variant: TargetPlatform.windows)
+02:38 +639: /workspace/smartplan-regression-20261103/app/test/report_retry_widget_test.dart: A lost signature response preserves the input and can finish with an identical retry (variant: TargetPlatform.windows)
+02:39 +640: /workspace/smartplan-regression-20261103/app/test/mail_attachment_widget_test.dart: Export filename cannot contain path traversal or reserved Windows names
+02:39 +641: /workspace/smartplan-regression-20261103/app/test/mail_attachment_widget_test.dart: Announced upload, unavailable list and intentional deletion have distinct states
+02:40 +642: /workspace/smartplan-regression-20261103/app/test/import_backend_integration_test.dart: Real Flask API receives an encrypted offline source after restart and serves it to a second device
+02:40 +643: /workspace/smartplan-regression-20261103/app/test/import_backend_integration_test.dart: Real Flask API receives an encrypted offline source after restart and serves it to a second device
+02:40 +644: /workspace/smartplan-regression-20261103/app/test/import_backend_integration_test.dart: Real Flask API receives an encrypted offline source after restart and serves it to a second device
+02:40 +645: /workspace/smartplan-regression-20261103/app/test/import_backend_integration_test.dart: Real Flask API receives an encrypted offline source after restart and serves it to a second device
+02:40 +646: /workspace/smartplan-regression-20261103/app/test/import_backend_integration_test.dart: Real Flask API receives an encrypted offline source after restart and serves it to a second device
+02:40 +647: /workspace/smartplan-regression-20261103/app/test/import_backend_integration_test.dart: Real Flask API receives an encrypted offline source after restart and serves it to a second device
+02:40 +648: /workspace/smartplan-regression-20261103/app/test/import_backend_integration_test.dart: Real Flask API receives an encrypted offline source after restart and serves it to a second device
+02:41 +649: /workspace/smartplan-regression-20261103/app/test/import_backend_integration_test.dart: Real Flask API receives an encrypted offline source after restart and serves it to a second device
+02:41 +650: /workspace/smartplan-regression-20261103/app/test/mail_attachment_widget_test.dart: Owner removal waits for explicit confirmation and server acknowledgement
+02:41 +651: /workspace/smartplan-regression-20261103/app/test/mail_attachment_widget_test.dart: A metadata response started before deletion cannot restore the removed attachment
+02:41 +652: /workspace/smartplan-regression-20261103/app/test/mail_attachment_widget_test.dart: Plan copy keeps one UUID, selected page and title across a lost response
+02:42 +653: /workspace/smartplan-regression-20261103/app/test/mail_attachment_widget_test.dart: A deliberate new copy gets a fresh UUID after the previous plan was removed
+02:42 +654: /workspace/smartplan-regression-20261103/app/test/business_planning_widget_test.dart: Dragging a confirmed appointment updates the same employee-calendar record
+02:42 +655: /workspace/smartplan-regression-20261103/app/test/business_planning_widget_test.dart: Dragging a confirmed appointment updates the same employee-calendar record
+02:42 +656: /workspace/smartplan-regression-20261103/app/test/business_planning_widget_test.dart: Dragging a confirmed appointment updates the same employee-calendar record
+02:42 +657: /workspace/smartplan-regression-20261103/app/test/business_planning_widget_test.dart: Dragging a confirmed appointment updates the same employee-calendar record
+02:42 +658: /workspace/smartplan-regression-20261103/app/test/business_planning_widget_test.dart: Dragging a confirmed appointment updates the same employee-calendar record
+02:43 +659: /workspace/smartplan-regression-20261103/app/test/business_planning_widget_test.dart: A collision keeps the original calendar and shows a clear failure
+02:43 +660: /workspace/smartplan-regression-20261103/app/test/business_time_widget_test.dart: Online clock actions use the canonical revision and sequence without conflicting event IDs
+02:44 +661: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Final offer explicitly creates a one-time portal URL at width 390.0
+02:45 +662: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Final offer explicitly creates a one-time portal URL at width 390.0
+02:46 +663: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Final offer explicitly creates a one-time portal URL at width 390.0
+02:46 +664: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Final offer explicitly creates a one-time portal URL at width 390.0
+02:46 +665: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Final offer explicitly creates a one-time portal URL at width 390.0
+02:46 +666: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Final offer explicitly creates a one-time portal URL at width 390.0
+02:47 +667: /workspace/smartplan-regression-20261103/app/test/business_portal_http_test.dart: Actual HTTP preserves one-time grant semantics and allows exact revocation with documents disabled
+02:47 +668: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Final offer explicitly creates a one-time portal URL at width 1200.0
+02:47 +669: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Lost creation response reopens the same request and never fabricates a second link
+02:48 +670: /workspace/smartplan-regression-20261103/app/test/offline_plans_test.dart: Encrypted drafts survive restart and then synchronize
+02:48 +671: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Scoped portal grants enable management and scoped denial clears the one-time URL
+02:48 +672: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Scoped portal grants enable management and scoped denial clears the one-time URL
+02:48 +673: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Scoped portal grants enable management and scoped denial clears the one-time URL
+02:48 +674: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Scoped portal grants enable management and scoped denial clears the one-time URL
+02:48 +675: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Scoped portal grants enable management and scoped denial clears the one-time URL
+02:48 +676: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Scoped portal grants enable management and scoped denial clears the one-time URL
+02:48 +677: /workspace/smartplan-regression-20261103/app/test/offline_plans_test.dart: Clock rollback is rejected and corrupt newest commit is never silently reset
+02:48 +678: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Security revocation retries unchanged across readonly generation while ordinary pending writes stay blocked
+02:48 +679: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Security revocation retries unchanged across readonly generation while ordinary pending writes stay blocked
+02:49 +680: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: Security revocation retries unchanged across readonly generation while ordinary pending writes stay blocked
+02:49 +681: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: An accepted decision adopts only after explicit confirmation and keeps the existing project
+02:49 +682: /workspace/smartplan-regression-20261103/app/test/business_portal_test.dart: A recorded decision permits a new explicit historical access after revocation
+02:50 +683: /workspace/smartplan-regression-20261103/app/test/business_permissions_test.dart: Project-scoped portal permission uses real users and correct revisions at 390.0
+02:50 +684: /workspace/smartplan-regression-20261103/app/test/business_permissions_test.dart: Project-scoped portal permission uses real users and correct revisions at 390.0
+02:50 +685: /workspace/smartplan-regression-20261103/app/test/business_permissions_test.dart: Project-scoped portal permission uses real users and correct revisions at 390.0
+02:50 +686: /workspace/smartplan-regression-20261103/app/test/business_permissions_test.dart: Project-scoped portal permission uses real users and correct revisions at 390.0
+02:51 +687: /workspace/smartplan-regression-20261103/app/test/business_permissions_test.dart: Project-scoped portal permission uses real users and correct revisions at 1200.0
+02:52 +688: /workspace/smartplan-regression-20261103/app/test/offline_service_report_backend_integration_test.dart: Real HTTP joins offline time, photo and signed report after restart without duplicate capture
+02:52 +689: /workspace/smartplan-regression-20261103/app/test/offline_service_report_backend_integration_test.dart: Real HTTP joins offline time, photo and signed report after restart without duplicate capture
+02:53 +690: /workspace/smartplan-regression-20261103/app/test/business_permissions_test.dart: Fresh settings permission loss prevents writes and clears an open editor
+02:53 +691: /workspace/smartplan-regression-20261103/app/test/business_permissions_test.dart: A newer grant is not overwritten by an older reviewed version
+02:54 +692: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+02:54 +693: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+02:54 +694: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+02:54 +695: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+02:55 +696: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+02:55 +697: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+02:55 +698: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+02:58 +699: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+02:59 +700: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+02:59 +701: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: A conflict keeps edits, requires comparison and uses the newly confirmed revision
+02:59 +702: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 1200.0
+03:00 +703: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 1200.0
+03:00 +704: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: Narrow read-only projects expose all named registers without creating data
+03:00 +705: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Draft creation and extra source position precede approval without confirming external order
+03:00 +706: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Draft creation and extra source position precede approval without confirming external order
+03:01 +707: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: Cached offline workspace queues a task through encrypted storage and keeps reports online only
+03:01 +708: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: Cached offline workspace queues a task through encrypted storage and keeps reports online only
+03:02 +709: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: Cached offline workspace queues a task through encrypted storage and keeps reports online only
+03:02 +710: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: Cached offline workspace queues a task through encrypted storage and keeps reports online only
+03:03 +711: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: Cached offline workspace queues a task through encrypted storage and keeps reports online only
+03:03 +712: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Purchase decimal precision is rejected before sending without rounding
+03:03 +713: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Purchase decimal precision is rejected before sending without rounding
+03:03 +714: /workspace/smartplan-regression-20261103/app/test/project_workspace_widget_test.dart: Calendar and external-link handoffs only run after explicit clicks
+03:03 +715: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Unconfirmed new proposal restores frozen values and the same request after closing
+03:04 +716: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Paused receipt can close for activation, reopen unchanged, and clears on user switch
+03:04 +717: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Paused receipt can close for activation, reopen unchanged, and clears on user switch
+03:04 +718: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Paused receipt can close for activation, reopen unchanged, and clears on user switch
+03:04 +719: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Paused receipt can close for activation, reopen unchanged, and clears on user switch
+03:04 +720: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Paused receipt can close for activation, reopen unchanged, and clears on user switch
+03:04 +721: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Paused receipt can close for activation, reopen unchanged, and clears on user switch
+03:04 +722: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Paused receipt can close for activation, reopen unchanged, and clears on user switch
+03:04 +723: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Dismiss during in-flight proposal preserves original retry after lost reply
+03:05 +724: /workspace/smartplan-regression-20261103/app/test/business_purchasing_test.dart: Known project read denial clears previously loaded receipt history immediately
+03:05 +725: /workspace/smartplan-regression-20261103/app/test/plan_test.dart: Draw, undo, save and reopen a project plan
+03:06 +726: /workspace/smartplan-regression-20261103/app/test/plan_test.dart: Draw, undo, save and reopen a project plan
+03:06 +727: /workspace/smartplan-regression-20261103/app/test/plan_test.dart: Draw, undo, save and reopen a project plan
+03:06 +728: /workspace/smartplan-regression-20261103/app/test/plan_test.dart: Draw, undo, save and reopen a project plan
+03:07 +729: /workspace/smartplan-regression-20261103/app/test/plan_test.dart: Draw, undo, save and reopen a project plan
+03:07 +730: /workspace/smartplan-regression-20261103/app/test/plan_test.dart: Draw, undo, save and reopen a project plan
+03:07 +731: /workspace/smartplan-regression-20261103/app/test/plan_test.dart: Draw, undo, save and reopen a project plan
+03:07 +732: /workspace/smartplan-regression-20261103/app/test/plan_test.dart: Conflict retains draft; reader cannot draw or save
+03:08 +733: /workspace/smartplan-regression-20261103/app/test/business_workflows_widget_test.dart: Contact work persists multiple address and person records through their real revisions
+03:09 +734: /workspace/smartplan-regression-20261103/app/test/business_workflows_widget_test.dart: Contact work persists multiple address and person records through their real revisions
+03:10 +735: /workspace/smartplan-regression-20261103/app/test/business_workflows_widget_test.dart: A document template is editable without a project or invoice issue date
+03:10 +736: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Inbox and Gmail management expose no data or requests to assigned nonowners
+03:10 +737: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Inbox and Gmail management expose no data or requests to assigned nonowners
+03:11 +738: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Inbox shows real next steps and filters the actual records
+03:11 +739: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Inbox shows real next steps and filters the actual records
+03:11 +740: /workspace/smartplan-regression-20261103/app/test/business_company_overview_test.dart: Umsatz, Zahlung und EÜR getrennt, Quellen und fehlender Anfangsbestand sichtbar
+03:11 +741: /workspace/smartplan-regression-20261103/app/test/business_company_overview_test.dart: Umsatz, Zahlung und EÜR getrennt, Quellen und fehlender Anfangsbestand sichtbar
+03:12 +742: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Manual WhatsApp capture preserves input and request identity after a lost response
+03:12 +743: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Manual WhatsApp capture preserves input and request identity after a lost response
+03:12 +744: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: A bounded EML file is sent once and attachment limitations are visible
+03:13 +745: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Oversized EML never reaches the server
+03:13 +746: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Project handover works directly from a new enquiry without a fabricated acceptance
+03:13 +747: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+03:14 +748: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+03:14 +749: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Project handover first saves an edited next step
+03:14 +750: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: background clears an open editor containing private original details
+03:15 +751: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Leaving or reloading a changed enquiry asks before discarding draft fields
+03:15 +752: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+03:15 +753: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+03:15 +754: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: Gmail revocation requires the explicit confirmation and keeps existing enquiries
+03:15 +755: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: original callback receives the exact selected historical file
+03:15 +756: /workspace/smartplan-regression-20261103/app/test/inquiry_widget_test.dart: A rejected refresh hides cached owner-only enquiries and token metadata
+03:15 +757: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+03:15 +758: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+03:16 +759: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+03:16 +760: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: late preview after background cannot restore editor or submit a command
+03:16 +761: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_review_test.dart: pending original blocks month change and new calculation-case actions
+03:17 +762: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: lost grant receipt repeats the exact project command without redisclosing an invitation
+03:17 +763: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: lost grant receipt repeats the exact project command without redisclosing an invitation
+03:17 +764: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: lost grant receipt repeats the exact project command without redisclosing an invitation
+03:17 +765: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: lost grant receipt repeats the exact project command without redisclosing an invitation
+03:17 +766: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: lost grant receipt repeats the exact project command without redisclosing an invitation
+03:18 +767: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: lost grant receipt repeats the exact project command without redisclosing an invitation
+03:18 +768: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: lost grant receipt repeats the exact project command without redisclosing an invitation
+03:18 +769: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: current document permission loss clears invitation and published project content
+03:18 +770: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: current document permission loss clears invitation and published project content
+03:18 +771: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: current document permission loss clears invitation and published project content
+03:18 +772: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: current document permission loss clears invitation and published project content
+03:18 +773: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: current document permission loss clears invitation and published project content
+03:18 +774: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: current document permission loss clears invitation and published project content
+03:18 +775: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: current document permission loss clears invitation and published project content
+03:18 +776: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: current document permission loss clears invitation and published project content
+03:18 +777: /workspace/smartplan-regression-20261103/app/test/business_customer_workspace_test.dart: current document permission loss clears invitation and published project content
+03:19 +778: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+03:19 +779: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+03:19 +780: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+03:19 +781: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+03:19 +782: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+03:19 +783: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+03:20 +784: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native actual flight and expense forms preserve originals while requiring a complete cent split
+03:21 +785: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+03:21 +786: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: actual old-payment financial adoption binds original payment hash and receipt
+03:21 +787: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_test.dart: actual source3 receipt survives pause with original body and validator
+03:21 +788: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native old-payment adoption locks existing facts and recovers accepted reply by status only
+03:21 +789: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native old-payment adoption locks existing facts and recovers accepted reply by status only
+03:22 +790: /workspace/smartplan-regression-20261103/app/test/business_travel_allowances_test.dart: native old-payment adoption locks existing facts and recovers accepted reply by status only
+03:22 +791: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+03:22 +792: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+03:23 +793: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+03:23 +794: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+03:23 +795: /workspace/smartplan-regression-20261103/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+03:23 +796: /workspace/smartplan-regression-20261103/app/test/business_project_economics_test.dart: Project view separates unsupported cash completeness from actual costs and hides data on read denial (variant: TargetPlatform.windows)
+03:24 +797: /workspace/smartplan-regression-20261103/app/test/business_module_pause_integration_test.dart: Real HTTP retains time events across lost response, module deactivation, restart and reactivation
+03:25 +798: /workspace/smartplan-regression-20261103/app/test/business_module_pause_integration_test.dart: Real HTTP retains time events across lost response, module deactivation, restart and reactivation
+03:25 +799: /workspace/smartplan-regression-20261103/app/test/business_project_economics_test.dart: Receipt upload survives a closed page and review uses the actual existing endpoint (variant: TargetPlatform.windows)
+03:26 +800: /workspace/smartplan-regression-20261103/app/test/business_project_economics_test.dart: Receipt upload survives a closed page and review uses the actual existing endpoint (variant: TargetPlatform.windows)
+03:26 +801: /workspace/smartplan-regression-20261103/app/test/business_project_economics_test.dart: Receipt upload survives a closed page and review uses the actual existing endpoint (variant: TargetPlatform.windows)
+03:26 +802: /workspace/smartplan-regression-20261103/app/test/business_project_economics_test.dart: Receipt upload survives a closed page and review uses the actual existing endpoint (variant: TargetPlatform.windows)
+03:26 +803: /workspace/smartplan-regression-20261103/app/test/business_payroll_travel_tax_policies_test.dart: mobile employer view clears private evidence after fresh global role withdrawal
+03:27 +804: /workspace/smartplan-regression-20261103/app/test/business_payroll_travel_tax_policies_test.dart: mobile employer view clears private evidence after fresh global role withdrawal
+03:27 +805: /workspace/smartplan-regression-20261103/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+03:27 +806: /workspace/smartplan-regression-20261103/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+03:27 +807: /workspace/smartplan-regression-20261103/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+03:27 +808: /workspace/smartplan-regression-20261103/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+03:27 +809: /workspace/smartplan-regression-20261103/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+03:27 +810: /workspace/smartplan-regression-20261103/app/test/business_payroll_travel_tax_policies_test.dart: new policy does not invent dates method region or economic cost choice
+03:28 +811: /workspace/smartplan-regression-20261103/app/test/business_purchase_changes_test.dart: real return form leads to source-bound preview and explicit confirmation without duplicate effect after lost ACK
+03:28 +812: /workspace/smartplan-regression-20261103/app/test/business_purchase_changes_test.dart: real return form leads to source-bound preview and explicit confirmation without duplicate effect after lost ACK
+03:29 +813: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: actual programme binds all originals with explicit incomplete flags allowed in draft
+03:29 +814: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: actual preview preserves programme split and independent original expense amount
+03:29 +815: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: missing programme remains visible blocked without fabricated facts hash
+03:29 +816: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: actual correction leaves immutable historical programme and ground calendar intact
+03:29 +817: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+03:30 +818: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+03:30 +819: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+03:30 +820: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+03:30 +821: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+03:30 +822: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+03:30 +823: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+03:30 +824: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+03:30 +825: /workspace/smartplan-regression-20261103/app/test/business_travel_v3_test.dart: rendered programme edit clears both confirmations until fresh explicit review and preserves original expenses
+03:32 +826: /workspace/smartplan-regression-20261103/app/test/offline_assets_test.dart: Size limits reject empty and oversized originals and accept exactly 20 MiB
+03:33 +827: /workspace/smartplan-regression-20261103/app/test/offline_assets_test.dart: Size limits reject empty and oversized originals and accept exactly 20 MiB
+03:33 +828: /workspace/smartplan-regression-20261103/app/test/offline_assets_test.dart: Size limits reject empty and oversized originals and accept exactly 20 MiB
+03:33 +829: /workspace/smartplan-regression-20261103/app/test/offline_assets_test.dart: Size limits reject empty and oversized originals and accept exactly 20 MiB
+03:33 +830: /workspace/smartplan-regression-20261103/app/test/offline_assets_test.dart: Size limits reject empty and oversized originals and accept exactly 20 MiB
+03:33 +831: /workspace/smartplan-regression-20261103/app/test/offline_assets_test.dart: Size limits reject empty and oversized originals and accept exactly 20 MiB
+03:35 +832: /workspace/smartplan-regression-20261103/app/test/offline_assets_test.dart: Size limits reject empty and oversized originals and accept exactly 20 MiB
+03:37 +833: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +834: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +835: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +836: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +837: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +838: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +839: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +840: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +841: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +842: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +843: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +844: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +845: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +846: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +847: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +848: /workspace/smartplan-regression-20261103/app/test/offline_plan_widget_test.dart: Offline editor automatically commits title and wall before closing
+03:37 +849: /workspace/smartplan-regression-20261103/app/test/offline_assets_test.dart: Recognition size limit is exactly one MiB
+03:38 +850: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Google all-day exclusive end and cancellation are displayed without invented dates
+03:38 +851: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Nonowners, offline mode and offline grants never request integration setup
+03:39 +852: /workspace/smartplan-regression-20261103/app/test/signature_editor_test.dart: The first one-pixel movement is captured and returned in normalized coordinates (variant: TargetPlatform.iOS)
+03:39 +853: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Protected credentials are submitted once and OAuth does not invent a connected account
+03:39 +854: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Protected credentials are submitted once and OAuth does not invent a connected account
+03:39 +855: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Protected credentials are submitted once and OAuth does not invent a connected account
+03:39 +856: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Protected credentials are submitted once and OAuth does not invent a connected account
+03:40 +857: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Protected credentials are submitted once and OAuth does not invent a connected account
+03:40 +858: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Protected credentials are submitted once and OAuth does not invent a connected account
+03:40 +859: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Old server is distinct from withdrawn project access
+03:40 +860: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Finance data stays hidden for project members and readonly for accountants
+03:40 +861: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: Sevdesk links only checked documents and keeps the same request across a lost acknowledgement
+03:41 +862: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 390.0
+03:41 +863: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 390.0
+03:41 +864: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 390.0
+03:41 +865: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 390.0
+03:41 +866: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 390.0
+03:41 +867: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 390.0
+03:42 +868: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 390.0
+03:42 +869: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 390.0
+03:42 +870: /workspace/smartplan-regression-20261103/app/test/integration_widget_test.dart: OneDrive explicitly sends both drive and folder IDs even when folder IDs coincide
+03:42 +871: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 1200.0
+03:43 +872: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 1200.0
+03:43 +873: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: separate side-effect-free preview and explicit assignment at 1200.0
+03:43 +874: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: customer confirmation and precise cents precede preview
+03:43 +875: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: changing inputs discards a previous preview and customer confirmation
+03:43 +876: /workspace/smartplan-regression-20261103/app/test/business_accounting_allocations_test.dart: lost assignment resumes exact original preview and request after newer state
+03:44 +877: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +878: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +879: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +880: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +881: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +882: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +883: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +884: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +885: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +886: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:44 +887: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:45 +888: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:45 +889: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:45 +890: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:45 +891: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 390.0
+03:45 +892: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit incomplete profile preserves four nulls and requires confirmation at 1200.0
+03:46 +893: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: feature prevents profile endpoint probes
+03:46 +894: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: module prevents profile endpoint probes
+03:46 +895: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: offline prevents profile endpoint probes
+03:46 +896: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: project prevents profile endpoint probes
+03:46 +897: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: finance.read prevents profile endpoint probes
+03:46 +898: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: accounting.read prevents profile endpoint probes
+03:46 +899: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: admin keeps profile history readable without editing
+03:46 +900: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: readonly keeps profile history readable without editing
+03:46 +901: /workspace/smartplan-regression-20261103/app/test/business_offline_media_test.dart: Original and note are encrypted before acknowledgement and survive restart and lost upload ACK
+03:46 +902: /workspace/smartplan-regression-20261103/app/test/business_offline_media_test.dart: Original and note are encrypted before acknowledgement and survive restart and lost upload ACK
+03:46 +903: /workspace/smartplan-regression-20261103/app/test/business_offline_media_test.dart: Original and note are encrypted before acknowledgement and survive restart and lost upload ACK
+03:46 +904: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: admin can record a profile without cash preparation or finance write
+03:46 +905: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: admin can record a profile without cash preparation or finance write
+03:46 +906: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: cash preparation rights cannot replace profile admin
+03:47 +907: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: accounting entry preserves old status with profile support true
+03:47 +908: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: accounting entry preserves old status with profile support false
+03:47 +909: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: explicit VAT facts and independent dates remain documentary
+03:48 +910: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: unknown controls clear prior declared VAT timing and dates explicitly
+03:48 +911: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: small business clears timing but permits an unknown effective date
+03:49 +912: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: known invalid date  cannot preview
+03:49 +913: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: known invalid date 31.02.2026 cannot preview
+03:49 +914: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: known invalid date 1899-12-31 cannot preview
+03:50 +915: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: known invalid date 2201-01-01 cannot preview
+03:50 +916: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: invalid reason 0 blocks preview
+03:50 +917: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: invalid reason 3 blocks preview
+03:50 +918: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: invalid reason 9 blocks preview
+03:51 +919: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: invalid reason 1001 blocks preview
+03:51 +920: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: new version history appends without overwriting prior entry and pages separately
+03:51 +921: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: concurrent revision after preview requires a fresh proposal without new partial version
+03:51 +922: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: lost acknowledgement reopens neutrally and repeats original after later version
+03:51 +923: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: first unresolved confirm 403 retains exact pending and hides editor
+03:52 +924: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: first unresolved confirm 404 retains exact pending and hides editor
+03:52 +925: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: first unresolved confirm 409 retains exact pending and hides editor
+03:52 +926: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: fresh admin loss before confirmation hides loaded profile and prevents POST
+03:52 +927: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: invalid evidence reference 0 blocks preview
+03:52 +928: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: invalid evidence reference 201 blocks preview
+03:53 +929: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: read revocation clears current history and unsaved private editor
+03:53 +930: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: original ACK during reopened history read discards stale pending view
+03:53 +931: /workspace/smartplan-regression-20261103/app/test/business_accounting_profile_test.dart: logout during preview drops late profile details
+03:53 +932: All tests passed!

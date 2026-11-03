@@ -250,6 +250,44 @@
       "errors": 0,
       "log_path": "work/verification/provisioning-legacy-pg.log",
       "log_sha256": "53fc09038271c09759adbf0d947900e66187448691e7016f469284a58ce82f10"
+    },
+    {
+      "name": "backend_checkpoint_31c5184",
+      "base_commit": "31c5184",
+      "command": "PYTHONPATH=backend:backend/online python -m unittest discover -s backend -v",
+      "tests": 989,
+      "passed": 988,
+      "skipped": 1,
+      "errors": 0,
+      "duration_seconds": 279.212,
+      "note": "Complete frozen checkpoint run; Windows job-object cleanup requires actual Windows CI. Previous environment-interrupted run retained separately.",
+      "log_path": "work/verification/final-backend-checkpoint.log",
+      "log_sha256": "c8bd1e422172fad2be7a6f3a3cce0b874ca7d539637c24ab2be20b1abb7a08db",
+      "source_snapshot_sha256": "4d44004692e6148ec1b5cfed2c75838276df6a5567f4c46d3dece44979153edb"
+    },
+    {
+      "name": "native_package_checkpoint_complete_docs",
+      "base_commit": "31c5184",
+      "command": "PYTHONPATH=backend:backend/online:scripts python -m unittest discover -s scripts -p test_native_release.py -v",
+      "tests": 16,
+      "passed": 16,
+      "skipped": 0,
+      "errors": 0,
+      "duration_seconds": 5.18,
+      "log_path": "work/verification/final-native-package.log",
+      "log_sha256": "acc2b12322f3f46bc9ceb006ca101f7c2d50b5d1df1e928f93214ffe0eb3c6ac"
+    },
+    {
+      "name": "browser_baseline_checkpoint_31c5184",
+      "base_commit": "31c5184",
+      "command": "node web/office/tests/e2e.cjs",
+      "tests": 17,
+      "passed": 17,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Actual MFA/HTTP, namespace/PID/network/seccomp sandbox. Checkpoint service loaded before following backend integration; browser assets held unchanged until runner exit. No TLS/production approval.",
+      "log_path": "work/verification/final-browser-baseline.log",
+      "log_sha256": "fb4ad0ff9b6848cfc709d87cd3a2edb7426901f2fd21cb87da20a2750fab152f"
     }
   ]
 }

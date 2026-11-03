@@ -1,0 +1,58 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: actual v4 employee statement and own PDF bind exact frozen bytes
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: private nested fields and foreign or altered historical statement are rejected
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: incomplete scope retains unknown values
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:00 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:01 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: private mobile fact page opens details and clears them on fresh role withdrawal
+00:01 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:02 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: money and known zero ELStAM never round fractional cents or invent missing inputs
+00:02 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: profile normalizer separates explicitly selected standard tax and legacy contribution scope
+00:02 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: backend minijob calculation accepts exact 581.29 and rejects fabricated net and totals
+00:02 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: preview rejects another employee even when profile and preparation ids match
+00:02 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: receipts bind frozen source, exact correction delta and original evidence
+00:02 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: historical JSON validates exact envelope hash rather than only current record equality
+00:02 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: lost ACK remains pending through fresh rights revocation and retries original nonce and body
+00:02 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: mismatched acknowledgment retains request and employee-bound state prevents replay
+00:02 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: regular PAP receipt requires provenance, exact taxes and net
+00:02 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: regular correction retains extended tax delta fields and unknown prior tax
+00:02 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual snapshot sums only effective correction and exposes missing months
+00:02 +26: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: empty and partial annual snapshots preserve unknown money and verify hashes
+00:02 +27: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual export validates manifest size and exact bytes
+00:02 +28: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:02 +29: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:02 +30: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:02 +31: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:02 +32: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:03 +33: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_transition_test.dart: transition profile and contribution bases render at390px and disappear on read revocation
+00:04 +34: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: pending run survives closing page and renders a recoverable exact retry
+00:04 +35: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: own payroll hides staff writes and loses all displayed data after access withdrawal
+00:05 +36: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: employee top-ups remain signed exact cents; missing amounts are never inferred
+00:05 +37: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: identity detail builder binds profile revision and preserves unknown employment end
+00:05 +38: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: actual payment parts preserve each date reference and exact amount
+00:05 +39: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account receipts bind evidence, source revisions and immutable correction ancestry
+00:05 +40: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: complete supported wage account and carryover remain separate from complete calendar and digital audit approval
+00:05 +41: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending command preserves exact source values across rights loss and generation change
+00:05 +42: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: payment pending requires approval and matching employee collection
+00:05 +43: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:05 +44: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:06 +45: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:06 +46: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:06 +47: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:06 +48: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:06 +49: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:06 +50: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:06 +51: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:06 +52: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: actual remittance form leaves all five amounts, payment day and total empty
+00:06 +53: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: actual remittance form leaves all five amounts, payment day and total empty
+00:07 +54: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: open private payroll receipt clears when finance access is revoked
+00:07 +55: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_cash_test.dart: documented negative employee payment retains original inbound part without fabricated gross cash
+00:07 +56: All tests passed!

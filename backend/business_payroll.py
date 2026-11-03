@@ -18,13 +18,17 @@ from business_personnel_workflow import PersonnelWorkflow, _sha, _shape, _intege
 from payroll_de_2026 import (calculate, normalize_profile, month_range, RULE_VERSION, RULES, RULES_SHA256,
     FULL_RULES,FULL_RULES_SHA256,PAP_PROVENANCE)
 from payroll_transition_2026 import TRANSITION_RULES,TRANSITION_RULES_SHA256
+from payroll_periods_2026 import PERIOD_RULES,PERIOD_RULES_SHA256,SCOPES as PERIOD_SCOPES
+from payroll_calculations_2026 import RULES as CALCULATION_RULES,RULES_SHA256 as CALCULATION_RULES_SHA256,SCOPES as CALCULATION_SCOPES
 from workspace_api import BinaryAttachment
 
-FEATURES = ('german_payroll_2026',)
+FEATURES = ('german_payroll_2026', 'payroll_employee_statements')
 TABLES = ('business_payroll_events','business_payroll_requests')
 COLUMNS = 'id,kind,employee_id,revision,payload_json,content_hash,previous_hash,identity_key,created_by,created_at,pdf_sha256'
 ID = r'[a-f0-9]{32}'
 INPUT_FIELDS = ('employee_id','profile_id','profile_revision','preparation_id','preparation_revision','gross_minor','full_month_confirmed')
+PERIOD_INPUT_FIELDS = ('source_schema_version','employee_id','period_case_ref')
+CALCULATION_INPUT_FIELDS = ('source_schema_version','employee_id','calculation_case_ref')
 
 
 def schema_statements(binary_type='BYTEA'):
@@ -94,17 +98,54 @@ class Payroll:
         if row:
             if row['request_hash'] != fingerprint:
                 raise Problem(409,'Diese Vorgangs-ID wurde bereits mit anderem Inhalt verwendet.')
-            return fingerprint,json.loads(row['result_json'])
+            result=json.loads(row['result_json'])
+            if result.get('source',{}).get('source_schema_version')==2:
+                self._verify_period_record(result)
+            if result.get('source',{}).get('source_schema_version')==3:
+                self._verify_calculation_record(result)
+            return fingerprint,result
         return fingerprint,None
+
+    def _verify_period_record(self,record):
+        from business_payroll_facts import PayrollFacts,validate_fact_sources
+        if self._event(self._row(record['id'],'run',record['revision']))!=record:
+            raise Problem(500,'Die historische Periodenquittung stimmt nicht mit der angenommenen Lohnfassung überein.')
+        fact=record['source']['period_case']
+        if PayrollFacts(self.office)._get(fact['id'],fact['revision'])!=fact:
+            raise Problem(500,'Die historische Lohnfaktenquelle wurde verändert.')
+        try:validate_fact_sources(self.office,fact)
+        except ValueError as error:raise Problem(500,'Die historische Lohnfaktenquelle ist nicht reproduzierbar.') from error
+        if _calculate_source(record['source'],rule_version=record['calculation']['rule_version'])!=record['calculation']:
+            raise Problem(500,'Die historische Periodenberechnung wurde verändert.')
+
+    def _period_read_access(self,actor,employee_id,records):
+        if any(record.get('source',{}).get('source_schema_version') in (2,3) for record in records):
+            self._access(actor,employee_id)
+
+    def _verify_calculation_record(self,record):
+        from business_payroll_calculation_cases import PayrollCalculationCases,validate_case_sources
+        from payroll_travel_recording import validate_tax_recording
+        if self._event(self._row(record['id'],'run',record['revision']))!=record:
+            raise Problem(500,'Die historische Gesamtfallquittung widerspricht dem tatsächlichen Lohnarchiv.')
+        fact=record['source']['calculation_case']
+        if PayrollCalculationCases(self.office)._get(fact['id'],fact['revision'])!=fact:
+            raise Problem(500,'Die tatsächliche historische Gesamtfallquelle wurde verändert.')
+        try:
+            validate_case_sources(self.office,fact);validate_tax_recording(self.office,record)
+        except ValueError as error:raise Problem(500,'Historische Quellen oder tatsächliche Steuererfassung sind nicht reproduzierbar.') from error
+        if _calculate_source(record['source'],rule_version=record['calculation']['rule_version'])!=record['calculation']:
+            raise Problem(500,'Die historische Gesamtberechnung wurde verändert.')
 
     def _write(self, actor, employee_id, permission, operation, data, callback):
         with transaction(self.office):
             fresh,employee = self._access(actor,employee_id,permission)
             self._access(fresh,employee_id,'personnel.read')
-            self._gate(fresh)
+            period=data.get('source_schema_version') in (2,3)
+            if not period:self._gate(fresh)
             fingerprint,previous = self._receipt(fresh,operation,data)
             if previous is not None:
                 return previous
+            if period:self._gate(fresh)
             try:
                 result = callback(fresh,employee)
             except Problem as error:
@@ -163,14 +204,24 @@ class Payroll:
         _shape(query,('employee_id',))
         with transaction(self.office):
             _,employee = self._access(actor,query.get('employee_id'),own=True)
-            return dict(employee_id=employee['id'],items=self._all(kind,employee['id']))
+            items=self._all(kind,employee['id'])
+            self._period_read_access(actor,employee['id'],items)
+            for value in items:
+                if value.get('source',{}).get('source_schema_version')==3:self._verify_calculation_record(value)
+            return dict(employee_id=employee['id'],items=items)
 
     def get(self,actor,kind,object_id,history=False):
         with transaction(self.office):
             value = self._latest(object_id,kind)
             self._access(actor,value['employee_id'],own=True)
             if history:
-                return dict(items=[self._event(row) for row in self.db.execute('SELECT '+COLUMNS+' FROM business_payroll_events WHERE id=? ORDER BY revision',(object_id,)).fetchall()])
+                items=[self._event(row) for row in self.db.execute('SELECT '+COLUMNS+' FROM business_payroll_events WHERE id=? ORDER BY revision',(object_id,)).fetchall()]
+                self._period_read_access(actor,value['employee_id'],items)
+                for item in items:
+                    if item.get('source',{}).get('source_schema_version')==3:self._verify_calculation_record(item)
+                return dict(items=items)
+            self._period_read_access(actor,value['employee_id'],[value])
+            if value.get('source',{}).get('source_schema_version')==3:self._verify_calculation_record(value)
             return value
 
     def save_profile(self,actor,data):
@@ -203,6 +254,10 @@ class Payroll:
         return self._write(actor,data['employee_id'],'personnel.write','profile.saved',data,save)
 
     def _prepare(self,actor,data):
+        if data.get('source_schema_version')==3:
+            return self._prepare_calculation(actor,data)
+        if data.get('source_schema_version')==2:
+            return self._prepare_period(actor,data)
         _shape(data,INPUT_FIELDS,INPUT_FIELDS)
         _,employee = self._access(actor,data['employee_id'])
         profile = self._latest(data['profile_id'],'profile')
@@ -225,9 +280,25 @@ class Payroll:
         return dict(source=source,calculation=calculation,preview_hash=_sha(dict(source=source,calculation=calculation)),
                     can_finalize=calculation['social_contributions_available'])
 
+    def _prepare_period(self,actor,data):
+        from business_payroll_facts import PayrollFacts
+        _shape(data,PERIOD_INPUT_FIELDS,PERIOD_INPUT_FIELDS)
+        if type(data['source_schema_version']) is not int or data['source_schema_version']!=2:
+            raise Problem(400,'Die neue Quellenfassung muss ausdrücklich Version 2 verwenden.')
+        _,employee=self._access(actor,data['employee_id'])
+        fact=PayrollFacts(self.office,clock=self.hr.clock).resolve_period_case(actor,employee['id'],data['period_case_ref'],fresh=True)
+        profile=next(value for value in fact['sources']['profiles']
+            if {key:value[key] for key in ('id','revision','content_hash')}==fact['plan']['selected_profile_ref'])
+        source=dict(source_schema_version=2,employee_id=employee['id'],month=fact['details']['month'],
+            input=json.loads(canonical(data)),profile=profile,preparation=fact['sources']['preparation'],period_case=fact)
+        calculation=_calculate_source(source)
+        return dict(source=source,calculation=calculation,preview_hash=_sha(dict(source=source,calculation=calculation)),
+            can_finalize=calculation['payroll_calculation_complete'])
+
     def preview(self,actor,data):
         with transaction(self.office):
             result = self._prepare(actor,data)
+            if data.get('source_schema_version') in (2,3):return result
             # Later effective records must also be represented in the immutable input.
             result['source']['profiles_in_month'] = [item for item in self._all('profile',data['employee_id'])
                 if result['source']['month']+'-01' < item['profile']['effective_from'] <= month_range(result['source']['month'])[1].isoformat()]
@@ -236,23 +307,38 @@ class Payroll:
             result['can_finalize'] = result['calculation']['social_contributions_available']
             return result
 
+    def _prepare_calculation(self,actor,data):
+        from business_payroll_calculation_cases import PayrollCalculationCases
+        _shape(data,CALCULATION_INPUT_FIELDS,CALCULATION_INPUT_FIELDS)
+        if type(data['source_schema_version']) is not int or data['source_schema_version']!=3:
+            raise Problem(400,'Gesamtfallquellen benötigen ausdrücklich Quellenfassung 3.')
+        _,employee=self._access(actor,data['employee_id'])
+        fact=PayrollCalculationCases(self.office,clock=self.hr.clock).resolve_calculation_case(actor,employee['id'],data['calculation_case_ref'],fresh=True)
+        profile=next(value for value in fact['sources']['profiles'] if {key:value[key] for key in ('id','revision','content_hash')}==fact['plan']['selected_profile_ref'])
+        source=dict(source_schema_version=3,employee_id=employee['id'],month=fact['details']['month'],input=json.loads(canonical(data)),
+            profile=profile,preparation=fact['sources']['period_case']['sources']['preparation'],calculation_case=fact)
+        calculation=_calculate_source(source)
+        return dict(source=source,calculation=calculation,preview_hash=_sha(dict(source=source,calculation=calculation)),can_finalize=calculation['payroll_calculation_complete'])
+
     def finalize(self,actor,data):
-        fields = INPUT_FIELDS+('request_id','preview_hash','accepted_scope','confirmed','id','revision','correction_reason')
-        _shape(data,fields,INPUT_FIELDS+('request_id','preview_hash','accepted_scope','confirmed','revision'))
+        input_fields=CALCULATION_INPUT_FIELDS if data.get('source_schema_version')==3 else PERIOD_INPUT_FIELDS if data.get('source_schema_version')==2 else INPUT_FIELDS
+        fields = input_fields+('request_id','preview_hash','accepted_scope','confirmed','id','revision','correction_reason')
+        _shape(data,fields,input_fields+('request_id','preview_hash','accepted_scope','confirmed','revision'))
         if data['confirmed'] is not True or not isinstance(data['preview_hash'],str) or not re.fullmatch(r'[a-f0-9]{64}',data['preview_hash']):
             raise Problem(400,'Geprüfte Berechnungsvorschau und ausdrückliche Bestätigung erforderlich.')
-        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly','regular_transition_monthly'):
+        if data['accepted_scope'] not in ('commercial_minijob_flat_tax','social_contributions_only','regular_standard_monthly','regular_transition_monthly')+PERIOD_SCOPES+CALCULATION_SCOPES:
             raise Problem(400,'Den tatsächlich verfügbaren Berechnungsumfang ausdrücklich bestätigen.')
         if 'id' in data:
             identifier(data['id'])
         with transaction(self.office):
             fresh,_ = self._access(actor,data['employee_id'],'personnel.approve')
             self._access(fresh,data['employee_id'])
-            self._gate(fresh)
+            if data.get('source_schema_version') not in (2,3):self._gate(fresh)
             _,prior = self._receipt(fresh,'run.finalized',data)
             if prior is not None:
                 return prior
-        inputs = {key:data[key] for key in INPUT_FIELDS}
+            if data.get('source_schema_version') in (2,3):self._gate(fresh)
+        inputs = {key:data[key] for key in input_fields}
         try:
             prepared = self.preview(actor,inputs)
         except Problem as error:
@@ -280,9 +366,13 @@ class Payroll:
             reason = text(data.get('correction_reason',''),'Korrekturgrund',1000,required=bool(previous))
             result = current['calculation']
             delta = None if previous is None else _delta(result,previous['calculation'])
-            return self._append(fresh,'run',employee['id'],dict(source=current['source'],calculation=result,
+            recorded=self._append(fresh,'run',employee['id'],dict(source=current['source'],calculation=result,
                 preview_hash=current['preview_hash'],accepted_scope=data['accepted_scope'],confirmed=True,
                 correction_reason=reason,delta=delta,status='calculation_recorded',transmission_status='not_transmitted'),previous,pdf)
+            if current['source'].get('source_schema_version')==3:
+                from payroll_travel_recording import record_tax_treatment
+                record_tax_treatment(self.office,fresh,recorded)
+            return recorded
         return self._write(actor,data['employee_id'],'personnel.approve','run.finalized',data,commit)
 
     def export(self,actor,object_id,format_,revision=None):
@@ -294,6 +384,7 @@ class Payroll:
                 if not isinstance(revision,str) or not re.fullmatch(r'[1-9]\d{0,7}',revision):
                     raise Problem(400,'Gültige historische Revision erwartet.')
                 latest = self._event(self._row(object_id,'run',int(revision)))
+            if latest['source'].get('source_schema_version')==3:self._verify_calculation_record(latest)
             name = 'lohn-berechnung-'+latest['source']['month']+'-v'+str(latest['revision'])
             if format_=='json':
                 content,mime = canonical(latest).encode(),'application/json; charset=utf-8'
@@ -311,16 +402,19 @@ class Payroll:
         if not isinstance(year,str) or not re.fullmatch(r'20\d{2}',year):
             raise Problem(400,'Kalenderjahr als vierstellige Jahreszahl angeben.')
         records=[record for record in self._all('run',employee_id) if record['source']['month'].startswith(year+'-')]
+        self._period_read_access(actor,employee_id,records)
         if len({record['source']['month'] for record in records})!=len(records):
             raise Problem(500,'Mehrere wirksame Abrechnungsläufe für denselben Monat.')
         histories={}
         for record in records:
+            if record['source'].get('source_schema_version')==3:self._verify_calculation_record(record)
             if _calculate_source(record['source'],rule_version=record['calculation']['rule_version'])!=record['calculation']:
                 raise Problem(500,'Die archivierte Monatsberechnung lässt sich nicht reproduzieren.')
             chain=[self._event(row) for row in self.db.execute('SELECT '+COLUMNS+
                 ' FROM business_payroll_events WHERE id=? ORDER BY revision',(record['id'],)).fetchall()]
             previous=None
             for event in chain:
+                if event['source'].get('source_schema_version')==3:self._verify_calculation_record(event)
                 if (event['employee_id']!=employee_id or event['source']['month']!=record['source']['month']
                         or event['revision']!=(previous['revision']+1 if previous else 1)
                         or event['previous_hash']!=(previous['content_hash'] if previous else None)
@@ -376,6 +470,37 @@ class Payroll:
 
 
 def _calculate_source(source,*,rule_version=None):
+    if source.get('source_schema_version')==3:
+        from payroll_calculations_2026 import build_calculation_plan,calculate_calculation_source
+        fields=('source_schema_version','employee_id','month','input','profile','preparation','calculation_case')
+        _shape(source,fields,fields);_shape(source['input'],CALCULATION_INPUT_FIELDS,CALCULATION_INPUT_FIELDS)
+        fact=source['calculation_case'];snapshot=fact['sources']
+        plan=build_calculation_plan(snapshot,rule_version=fact['rule_version'],source_contract_version=fact['source_contract_version'])
+        selected=next(value for value in snapshot['profiles'] if {key:value[key] for key in ('id','revision','content_hash')}==plan['selected_profile_ref'])
+        if (type(source['source_schema_version']) is not int or type(source['input']['source_schema_version']) is not int
+                or source['input']['source_schema_version']!=3 or source['input']['employee_id']!=source['employee_id']
+                or source['input']['calculation_case_ref']!={key:fact[key] for key in ('id','revision','content_hash')}
+                or fact['employee_id']!=source['employee_id'] or fact['kind']!='calculation_case' or fact['status']!='active'
+                or fact['details']['month']!=source['month'] or snapshot['month']!=source['month']
+                or source['profile']!=selected or source['preparation']!=snapshot['period_case']['sources']['preparation'] or fact['plan']!=plan
+                or rule_version is not None and rule_version!=fact['rule_version']):
+            raise Problem(400,'Unveränderlicher Gesamtfall, Regel und tatsächliche Abrechnungsquelle widersprechen sich.')
+        return calculate_calculation_source(snapshot,rule_version=fact['rule_version'],source_contract_version=fact['source_contract_version'])
+    if source.get('source_schema_version')==2:
+        from payroll_periods_2026 import build_period_plan,calculate_period_source
+        _shape(source,('source_schema_version','employee_id','month','input','profile','preparation','period_case'),
+            ('source_schema_version','employee_id','month','input','profile','preparation','period_case'))
+        _shape(source['input'],PERIOD_INPUT_FIELDS,PERIOD_INPUT_FIELDS)
+        fact=source['period_case'];snapshot=fact['sources'];plan=build_period_plan(snapshot)
+        selected=next(value for value in snapshot['profiles']
+            if {key:value[key] for key in ('id','revision','content_hash')}==plan['selected_profile_ref'])
+        if (source['input']['source_schema_version']!=2 or source['input']['employee_id']!=source['employee_id']
+                or source['input']['period_case_ref']!={key:fact[key] for key in ('id','revision','content_hash')}
+                or fact['employee_id']!=source['employee_id'] or fact['kind']!='period_case' or fact['status']!='active'
+                or fact['details']['month']!=source['month'] or snapshot['month']!=source['month']
+                or source['profile']!=selected or source['preparation']!=snapshot['preparation'] or fact['plan']!=plan):
+            raise Problem(400,'Die unveränderlichen Periodenquellen und ihre Berechnung stimmen nicht überein.')
+        return calculate_period_source(snapshot,rule_version=rule_version)
     profile = source['profile']['profile']
     preparation = source['preparation']
     snapshot = preparation['snapshot']
@@ -418,8 +543,11 @@ def _render(prepared):
     source,result = prepared['source'],prepared['calculation']
     stream=io.BytesIO(); styles=getSampleStyleSheet()
     title = {'commercial_minijob_flat_tax':'Minijob-Berechnungsbeleg',
+        'commercial_minijob_period_flat_tax':'Minijob-Berechnungsbeleg mit Zeitnachweis',
         'regular_standard_monthly':'Lohnberechnungsbeleg',
         'regular_transition_monthly':'Midijob-Lohnberechnungsbeleg',
+        'regular_standard_period':'Lohnberechnungsbeleg mit Zeitnachweis',
+        'regular_transition_period':'Midijob-Lohnberechnungsbeleg mit Zeitnachweis',
         'social_contributions_only':'Sozialversicherungsberechnung – Lohnsteuer offen'}.get(result['scope'],'Payroll-Prüfbeleg')
     story=[Paragraph(title+' '+source['month'],styles['Title'])]
     def line(value):
@@ -432,6 +560,38 @@ def _render(prepared):
         line('PAP-Quellenmetadaten-SHA256: '+result['pap_provenance_sha256'])
     line('Quellen-/Ergebnis-SHA256: '+prepared['preview_hash'])
     line('Brutto: '+str(result['gross_minor'])+' Cent EUR')
+    if result.get('period_details'):
+        periods=result['period_details']
+        line('Bestätigter Periodenplan: '+periods['plan_hash'])
+        for period in periods['employment_intervals']:
+            line('Beschäftigung: '+period['start']+' bis '+period['end']+' / '+str(period['calendar_days'])+' Kalendertage')
+        for earning in periods['earnings']:
+            if 'proration_method' in earning:
+                line('Entgeltmethode: '+earning['proration_method']+' / Quote '+str(earning['numerator'])+'/'+str(earning['denominator']))
+            else:line('Belegte Ausfallvergütung: '+earning['kind']+' / '+str(earning['gross_minor'])+' Cent EUR')
+        for period in periods['social_periods']:
+            line('SV-Tage: '+str(period['days'])+' / KV-PV-Grenze '+str(period['caps']['health_minor'])+
+                ' / RV-AV-Grenze '+str(period['caps']['pension_minor'])+' Cent EUR')
+        for period in periods['tax_periods']:
+            line('Steuer-LZZ: '+('Monat' if period['lzz']==2 else 'Tag')+' / Steuertage '+str(period['tax_days']))
+            if period.get('inputs'):
+                inputs=period['inputs']
+                line('PAP-Rechenbrutto: '+str(inputs['pap_gross_minor'])+' Cent / Rest '+
+                    str(inputs['gross_remainder_minor'])+'/'+str(inputs['gross_divisor'])+' Cent; tatsächliches Brutto unverändert')
+        if periods.get('transition'):
+            line('Übergangsbereich / Teil-Gesamtbasis: '+str(periods['transition']['total_assessment_minor'])+
+                ' / Teil-AN-Basis: '+str(periods['transition']['employee_assessment_minor'])+' Cent EUR')
+        if periods.get('travel'):
+            travel=periods['travel']
+            line('Reiseverpflegung / Kennzeichen M: '+('ja' if travel['letter_m'] else 'nein'))
+            line('Steuerfreie Reiseerstattung außerhalb der Lohnzahlung: '+str(travel['tax_free_external_minor'])+' Cent EUR')
+            line('Individuell steuerpflichtige Reiseerstattung: '+str(travel['individual_taxable_payroll_minor'])+' Cent EUR')
+            line('Sachbezug ohne zusätzliche Barauszahlung: '+str(travel['benefit_in_kind_non_cash_minor'])+' Cent EUR')
+        if periods.get('flat_travel_tax'):
+            flat=periods['flat_travel_tax']
+            line('Reise-Pauschalsteuer / Lohnsteuer '+str(flat['wage_tax_minor'])+' / Solidaritätszuschlag '+
+                str(flat['solidarity_minor'])+' / Kirchensteuer '+str(flat['church_tax_minor'])+' Cent EUR')
+            line('Belegter Arbeitnehmerabzug für Pauschalsteuer: '+str(flat['employee_tax_minor'])+' Cent EUR')
     if result.get('transition'):
         transition=result['transition']
         line('Belegter Übergangsbereich / tatsächlicher Monatsfall: '+transition['regime'])
@@ -447,18 +607,23 @@ def _render(prepared):
             for category,amount in result[key].items():
                 line(heading+' / '+category+': '+str(amount)+' Cent EUR')
     if result['net_minor'] is not None:
-        if result['scope']=='commercial_minijob_flat_tax':
+        if result['scope'] in ('commercial_minijob_flat_tax','commercial_minijob_period_flat_tax','commercial_minijob_segments_flat_tax'):
             line('Arbeitgeber-Pauschsteuer (einschließlich Kirchensteuer/Soli): '+str(result['employer_flat_tax_minor'])+' Cent EUR')
         else:
             for label,key in (('Lohnsteuer','individual_wage_tax_minor'),('Solidaritätszuschlag','solidarity_minor'),('Kirchenlohnsteuer','church_tax_minor')):
                 line(label+': '+str(result[key])+' Cent EUR')
         line('Netto: '+str(result['net_minor'])+' Cent EUR')
+        if result.get('net_deductions_minor'):
+            line('Belegte Nettoabzüge: '+str(result['net_deductions_minor'])+' Cent EUR')
+        if 'net_deductions_minor' in result:line('Belegte Sachbezugs-/Steuerabwälzungsabzüge: '+str(result['net_deductions_minor'])+' Cent EUR')
         line('Auszahlungsbetrag: '+str(result['payout_minor'])+' Cent EUR')
         line('Zusätzlicher Arbeitnehmerbeitrag, falls erforderlich: '+str(result['employee_additional_payment_minor'])+' Cent EUR')
     for issue in result['blockers']:
         line(issue['message'])
     line('Arbeitgeberbetrag ohne Unfallversicherung: '+str(result['employer_total_excluding_accident_insurance_minor'])+' Cent EUR')
-    line('Auslagen sind separat zu prüfen und nicht im Netto enthalten. Keine Zahlung oder amtliche Meldung ausgeführt.')
+    if prepared['source'].get('source_schema_version')==3:
+        line('Steuerpflichtige Reiseerstattungen sind ausdrücklich enthalten; steuerfreie Reisezahlung bleibt separat. Keine Zahlung oder amtliche Meldung ausgeführt.')
+    else:line('Auslagen sind separat zu prüfen und nicht im Netto enthalten. Keine Zahlung oder amtliche Meldung ausgeführt.')
     line('Berechnungsbeleg für den ausgewiesenen Fallumfang; keine Bestätigung amtlicher Systemzulassung oder vollständiger gesetzlicher Entgeltunterlagen.')
     SimpleDocTemplate(stream,pageCompression=0).build(story)
     return stream.getvalue()
@@ -466,9 +631,13 @@ def _render(prepared):
 
 def _delta(current,previous):
     keys=('gross_minor','employee_social_total_minor','employer_social_total_minor','employer_flat_tax_minor','net_minor')
-    if current['scope'] in ('regular_standard_monthly','regular_transition_monthly') or previous['scope'] in ('regular_standard_monthly','regular_transition_monthly'):
+    regular=('regular_standard_monthly','regular_transition_monthly','regular_standard_period','regular_transition_period','regular_standard_segments','regular_transition_segments')
+    if current['scope'] in regular or previous['scope'] in regular:
         keys+=('individual_wage_tax_minor','solidarity_minor','church_tax_minor','employee_tax_minor','payout_minor')
-    return {key:current[key]-previous[key] if current[key] is not None and previous[key] is not None else None for key in keys}
+    result={key:current[key]-previous[key] if current[key] is not None and previous[key] is not None else None for key in keys}
+    if 'net_deductions_minor' in current or 'net_deductions_minor' in previous:
+        result['net_deductions_minor']=current.get('net_deductions_minor',0)-previous.get('net_deductions_minor',0)
+    return result
 
 
 def validate_integrity(office):
@@ -514,11 +683,20 @@ def validate_integrity(office):
                 for changed in source.get('profiles_in_month',[]):
                     if changed['employee_id']!=value['employee_id'] or api._event(api._row(changed['id'],'profile',changed['revision']))!=changed:
                         raise ValueError('Foreign in-month payroll profile')
-                _shape(source['input'],INPUT_FIELDS,INPUT_FIELDS)
-                if (source['input']['employee_id']!=value['employee_id'] or source['input']['profile_id']!=profile['id']
-                        or source['input']['profile_revision']!=profile['revision'] or source['input']['preparation_id']!=preparation['id']
-                        or source['input']['preparation_revision']!=preparation['revision']):
-                    raise ValueError('Changed payroll input references')
+                if source.get('source_schema_version')==3:
+                    api._verify_calculation_record(value)
+                elif source.get('source_schema_version')==2:
+                    from business_payroll_facts import PayrollFacts,validate_fact_sources
+                    fact=source['period_case']
+                    if PayrollFacts(office)._get(fact['id'],fact['revision'])!=fact:
+                        raise ValueError('Changed payroll period fact reference')
+                    validate_fact_sources(office,fact)
+                else:
+                    _shape(source['input'],INPUT_FIELDS,INPUT_FIELDS)
+                    if (source['input']['employee_id']!=value['employee_id'] or source['input']['profile_id']!=profile['id']
+                            or source['input']['profile_revision']!=profile['revision'] or source['input']['preparation_id']!=preparation['id']
+                            or source['input']['preparation_revision']!=preparation['revision']):
+                        raise ValueError('Changed payroll input references')
                 if (_calculate_source(source,rule_version=calculated.get('rule_version'))!=calculated or not calculated['social_contributions_available']
                         or _sha(dict(source=source,calculation=calculated))!=value['preview_hash']
                         or value['accepted_scope']!=calculated['scope'] or value['confirmed'] is not True
@@ -548,6 +726,10 @@ def validate_integrity(office):
 
 
 def methods(path):
+    from business_payroll_statements import methods as statement_methods
+    statement_route = statement_methods(path)
+    if statement_route is not None:
+        return statement_route
     if path in ('/payroll/profiles','/payroll/runs'):
         return 'GET, POST'
     if path=='/payroll/preview':
@@ -560,6 +742,9 @@ def methods(path):
 
 
 def dispatch(office,actor,path,method,data):
+    from business_payroll_statements import methods as statement_methods, dispatch as statement_dispatch
+    if statement_methods(path) is not None:
+        return statement_dispatch(office,actor,path,method,data)
     allowed=methods(path)
     if allowed is None:
         return None
@@ -582,6 +767,8 @@ def dispatch(office,actor,path,method,data):
             result=dict(rules=RULES,rules_sha256=RULES_SHA256,regular_standard_rules=FULL_RULES,
                 regular_standard_rules_sha256=FULL_RULES_SHA256,pap_provenance=PAP_PROVENANCE,
                 regular_transition_rules=TRANSITION_RULES,regular_transition_rules_sha256=TRANSITION_RULES_SHA256,
+                period_rules=PERIOD_RULES,period_rules_sha256=PERIOD_RULES_SHA256,
+                calculation_rules=CALCULATION_RULES,calculation_rules_sha256=CALCULATION_RULES_SHA256,
                 individual_wage_tax_available=True,official_system_approval=False)
     else:
         parts=path.split('/')[2:]

@@ -1,0 +1,9 @@
+test_actual_mfa_http_private_boundary_runtime_guards_and_restart (backend.online.test_business_travel_pg.TravelPostgres.test_actual_mfa_http_private_boundary_runtime_guards_and_restart) ... ok
+test_actual_old_reimbursement_adoption_is_one_finance_source_without_second_payment (backend.online.test_business_travel_pg.TravelPostgres.test_actual_old_reimbursement_adoption_is_one_finance_source_without_second_payment) ... ok
+test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon (backend.online.test_business_travel_pg.TravelPostgres.test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon) ... ok
+test_two_actual_connections_one_daily_claim_and_exact_payment_receipt (backend.online.test_business_travel_pg.TravelPostgres.test_two_actual_connections_one_daily_claim_and_exact_payment_receipt) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 15.752s
+
+OK

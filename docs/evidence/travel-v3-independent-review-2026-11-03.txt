@@ -1,0 +1,13 @@
+test_25_percent_ceiling_uses_unreduced_business_share_exact_cent (test_payroll_travel_v3_review.TravelV3IndependentReview.test_25_percent_ceiling_uses_unreduced_business_share_exact_cent) ... ok
+test_dst_short_and_long_calendar_days_preserve_actual_seconds (test_payroll_travel_v3_review.TravelV3IndependentReview.test_dst_short_and_long_calendar_days_preserve_actual_seconds) ... ok
+test_full_breakfast_reduction_does_not_expand_pauschal_ceiling (test_payroll_travel_v3_review.TravelV3IndependentReview.test_full_breakfast_reduction_does_not_expand_pauschal_ceiling) ... ok
+test_historical_delegation_exact_equality_and_inputs_immutable (test_payroll_travel_v3_review.TravelV3IndependentReview.test_historical_delegation_exact_equality_and_inputs_immutable) ... ok
+test_lodging_excess_cannot_be_relabelled_flat_meal_payment (test_payroll_travel_v3_review.TravelV3IndependentReview.test_lodging_excess_cannot_be_relabelled_flat_meal_payment) ... ok
+test_published_example_59_literal_seven_day_vector (test_payroll_travel_v3_review.TravelV3IndependentReview.test_published_example_59_literal_seven_day_vector) ... ok
+test_same_ratio_multiple_short_trips_aggregate_absence_and_round_once (test_payroll_travel_v3_review.TravelV3IndependentReview.test_same_ratio_multiple_short_trips_aggregate_absence_and_round_once) ... ok
+test_westbound_midnight_repeated_date_is_not_double_counted (test_payroll_travel_v3_review.TravelV3IndependentReview.test_westbound_midnight_repeated_date_is_not_double_counted) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.018s
+
+OK

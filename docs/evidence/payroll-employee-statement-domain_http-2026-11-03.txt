@@ -1,0 +1,13 @@
+test_actual_http_own_pdf_history_private_denial_and_revocation (backend.test_business_payroll_statements.PayrollStatementHTTP.test_actual_http_own_pdf_history_private_denial_and_revocation) ... ok
+test_actual_own_statement_has_full_values_but_no_private_sources_or_original (backend.test_business_payroll_statements.PayrollStatementTests.test_actual_own_statement_has_full_values_but_no_private_sources_or_original) ... ok
+test_actual_role_revocation_during_pdf_render_prevents_return (backend.test_business_payroll_statements.PayrollStatementTests.test_actual_role_revocation_during_pdf_render_prevents_return) ... ok
+test_canonical_employee_account_mapping_rejects_reassignment_and_foreign_access (backend.test_business_payroll_statements.PayrollStatementTests.test_canonical_employee_account_mapping_rejects_reassignment_and_foreign_access) ... ok
+test_exact_historical_statement_pdf_survives_correction_current_name_and_pause (backend.test_business_payroll_statements.PayrollStatementTests.test_exact_historical_statement_pdf_survives_correction_current_name_and_pause) ... ok
+test_fresh_own_person_mapping_foreign_person_and_role_revocation (backend.test_business_payroll_statements.PayrollStatementTests.test_fresh_own_person_mapping_foreign_person_and_role_revocation) ... ok
+test_strict_revision_hash_export_permission_and_positive_nested_allowlist (backend.test_business_payroll_statements.PayrollStatementTests.test_strict_revision_hash_export_permission_and_positive_nested_allowlist) ... ok
+test_v1_partial_scope_keeps_unknown_net_and_private_sources_hidden (backend.test_business_payroll_statements.PayrollStatementTests.test_v1_partial_scope_keeps_unknown_net_and_private_sources_hidden) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.148s
+
+OK

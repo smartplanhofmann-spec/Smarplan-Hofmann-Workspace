@@ -1,0 +1,99 @@
+{
+  "schema_version": 2,
+  "employee_id": "9f9e6ca4e6224d05b9e3cbf5412c7181",
+  "employee_name": "Synthetic technician",
+  "run_ref": {
+    "id": "6f45e2d9fbb04ed980ca49d31387208d",
+    "revision": 1,
+    "content_hash": "9c1b0cdda08914903cd6b3d3dbf345e49d6070b55dc6f38a8d7496c79f4881ea"
+  },
+  "month": "2026-10",
+  "created_at": "2026-11-03T12:00:00+00:00",
+  "calculation": {
+    "gross_minor": 274594,
+    "employee_social_total_minor": 59637,
+    "individual_wage_tax_minor": 41871,
+    "solidarity_minor": 0,
+    "church_tax_minor": 0,
+    "employee_tax_minor": 41871,
+    "net_minor": 173086,
+    "payout_minor": 172977,
+    "employee_additional_payment_minor": 0,
+    "employer_flat_tax_minor": 109,
+    "rule_version": "de_2026_segments_entitlements_v5",
+    "scope": "regular_standard_segments",
+    "currency": "EUR",
+    "payroll_calculation_complete": true,
+    "employee_contributions": {
+      "health_general": 20016,
+      "health_additional": 3976,
+      "pension": 25500,
+      "unemployment": 3565,
+      "care": 6580
+    },
+    "net_deductions_minor": 109
+  },
+  "period_summary": {
+    "employment_intervals": [
+      {
+        "start": "2026-10-15",
+        "end": "2026-10-31",
+        "calendar_days": 17
+      }
+    ],
+    "tax_periods": [
+      {
+        "start": "2026-10-15",
+        "end": "2026-10-31",
+        "lzz": 4,
+        "tax_days": 17
+      }
+    ],
+    "social_periods": [
+      {
+        "start": "2026-10-15",
+        "end": "2026-10-31",
+        "days": 17,
+        "full_month": false
+      }
+    ]
+  },
+  "transmission_status": "not_transmitted",
+  "payment_status": "not_evidenced_by_calculation",
+  "earnings_summary": [
+    {
+      "kind": "ordinary_work",
+      "dates": [
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ],
+      "gross_minor": 274194
+    }
+  ],
+  "travel_summary": {
+    "tax_free_external_minor": 1400,
+    "flat_taxable_payroll_minor": 400,
+    "individual_taxable_payroll_minor": 0,
+    "benefit_in_kind_non_cash_minor": 0,
+    "letter_m": false,
+    "employee_flat_tax_deduction_minor": 109
+  },
+  "statement_hash": "bf57a64fb1d48de2b1a04241518af81d17601b2057de68d2c1aa412a8596ede5",
+  "pdf_sha256": "6265bc201eff325f09ab5067410d1e712015a69b7e987125e5a4435dff79a982",
+  "pdf_size": 5308
+}

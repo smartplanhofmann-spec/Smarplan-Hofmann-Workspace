@@ -1,0 +1,37 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+Synthetic employee dialog: [
+  'Reisen und Pauschalen · Synthetic technician×Belegte Reisen, nachvollziehbare Tagesbeträge und tatsächliche Erstattungen. Eine Berechnung ist noch keine Zahlung.ReisenNeue Reise erfassenSynthetic private customer tripFassung 2 · EingereichtReise und HistorieOrte und NachweiseStätte belegt erfassenSynthetic homeFassung 1 · GültigStättennachweis öffnenSynthetic customer siteFassung 1 · GültigStättennachweis öffnenSynthetic departure airportFassung 1 · GültigStättennachweis öffnenAbrechnungenNoch keine Einträge vorhanden.Tatsächliche ErstattungenNoch keine Einträge vorhanden.Ansicht neu laden'
+]
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('dialog', { name: 'Reisen und Pauschalen · Synthetic technician', exact: true }) to be visible[22m
+
+    at Object.travelLegacyFlow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/travel-legacy-flow.cjs:29:476)
+    at async Object.travelAllowancesFlow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/travel-allowances-flow.cjs:43:3)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:103:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: [ 'Interner Fehler' ]
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: the server responded with a status of 500 (Internal Server Error)',
+  'Failed to load resource: the server responded with a status of 401 (Unauthorized)'
+]
+Fixture log tail:
+/business/personnel/travel/sources?employee_id=0e85a658ba87405bba8305d4702e89b6 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "POST /api/v1/business/personnel/travel/payments HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "GET /api/v1/business/personnel/travel/sources?employee_id=0e85a658ba87405bba8305d4702e89b6 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "GET /api/v1/business/personnel/travel/requests/b5bab5482e3a4034b70b5110e3f2a257 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "GET /api/v1/business/personnel/travel/sources?employee_id=0e85a658ba87405bba8305d4702e89b6 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "[35m[1mGET /api/v1/business/personnel/travel/catalog HTTP/1.1[0m" 500 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "[31m[1mGET /api/v1/business/personnel/travel/trips?employee_id=0e85a658ba87405bba8305d4702e89b6 HTTP/1.1[0m" 401 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "GET /api/v1/business/personnel/travel/settlements?employee_id=0e85a658ba87405bba8305d4702e89b6 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Nov/2026 23:49:28] "GET /api/v1/business/personnel/travel/payments?employee_id=0e85a658ba87405bba8305d4702e89b6 HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

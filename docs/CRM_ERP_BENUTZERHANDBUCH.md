@@ -115,6 +115,40 @@ gesonderte Abführungen werden mit Originalen erfasst. Ihre Übernahme erzeugt
 eine aggregierte Finanzquelle, die anschließend in der EÜR eingeordnet wird.
 Finanzleser erhalten dadurch keinen Zugriff auf private Mitarbeiterakten.
 
+Für Ein- und Austritte werden zuerst die tatsächlichen Beschäftigungszeiten,
+Entgeltvereinbarungen, Steuer-/Versicherungsprofile und Arbeitspläne belegt.
+Der bestätigte Monatsfall zeigt Anspruchstage, Steuertage und SV-Tage getrennt.
+Ein blockierter Plan bleibt als nachvollziehbarer Nachweis erhalten; seine
+Sperrgründe müssen vor dem Lohnabschluss geklärt werden.
+
+Unter „Private Anspruchsnachweise“ werden Krankheitsvorzeiten, regelmäßige
+Ausfallvergütung, Urlaubsreferenz und unbezahlte Unterbrechungen mit ihren
+Originalen erfasst. Die Vorschau zeigt die hergeleiteten Fristen und Beträge.
+Eine Bestätigung verändert keine tatsächlichen Projektstunden. Berichtigungen
+erzeugen eine weitere Fassung, eine Aufhebung erhält den ursprünglichen Nachweis.
+Die verfügbaren Krankheitsregeln und ihre Grenzen stehen in der
+[Versionsbeschreibung](CRM_ERP_LOHN_KRANKHEIT_VERSIONEN_2026.md).
+
+Eine Reisekostenabrechnung trennt Pauschalen, belegte Auslagen, steuerpflichtige
+Lohnanteile und tatsächliche Erstattungen. Alte bereits erstattete Auslagen
+werden nur mit ihrem ursprünglichen Zahlungsnachweis übernommen. Der Betrag
+wird dabei nicht erneut ausgezahlt. Aufhebung einer dokumentierten Zahlung
+erfindet keine Rückzahlung; ein tatsächlicher Geldrückfluss braucht einen eigenen
+Nachweis. [Reisebedienung](CRM_ERP_REISEPAUSCHALEN_CLIENTS.md).
+
+Bei zusätzlichen pauschal zu versteuernden Verpflegungszuschüssen wird zuerst
+die betriebliche Steuerentscheidung für den Anmeldezeitraum belegt. Das
+Kirchensteuerverfahren und die Betriebsstätte werden ausdrücklich gewählt.
+Die anschließende Lohnberechnung verlangt eine eigene Prüfung und Bestätigung.
+Der [Steuerdialog](CRM_ERP_REISE_PAUSCHALSTEUER_CLIENTS.md) selbst löst weder
+eine Steuerübermittlung noch eine Überweisung aus.
+
+Die eigene Mitarbeiteransicht zeigt freigegebene Abrechnungen, das zugehörige
+PDF und ihre Historie. Private Steuerentscheidungen und Personaloriginale
+werden darüber nicht zugänglich. Die Zugriffsgrenzen und derzeit geprüften
+Abrechnungsversionen stehen unter
+[Eigene Mitarbeiterabrechnung](CRM_ERP_LOHN_MITARBEITERBELEG.md).
+
 Details: [Personalworkflow](CRM_ERP_PERSONAL_WORKFLOW.md),
 [Lohnbedienung](CRM_ERP_LOHN_CLIENTS.md),
 [belegte Zahlungen zur EÜR](CRM_ERP_LOHNZAHLUNGEN_EUER_CLIENTS.md).

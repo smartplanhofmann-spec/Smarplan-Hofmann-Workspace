@@ -1,0 +1,76 @@
+{
+  "checked_at": "2026-11-03T23:17:18.192193+00:00",
+  "scope": "Private sickness versions v1-v4, HTTP and actual PostgreSQL migration/restore; not full production payroll completion",
+  "runs": [
+    {
+      "kind": "domain",
+      "log": "work/verification/payroll-sickness-versions-domain-final.log",
+      "tests": 109,
+      "seconds": 8.845,
+      "result": "OK",
+      "skipped": 0,
+      "sha256": "27322f53806eb89b9c6f933235d3d26f777bd3bb158a8b4b163e0d30b9b5b8fa"
+    },
+    {
+      "kind": "http",
+      "log": "work/verification/payroll-sickness-versions-http-first.log",
+      "tests": 4,
+      "seconds": 3.456,
+      "result": "OK",
+      "skipped": 0,
+      "sha256": "776e7b59f7506ec333031ecd1e64e5795840cdf5ab849b5455d8fe6739d4082b"
+    },
+    {
+      "kind": "postgresql",
+      "log": "work/verification/payroll-sickness-versions-pg-test_business_payroll_entitlements_pg.log",
+      "tests": 3,
+      "seconds": 9.635,
+      "result": "OK",
+      "skipped": 0,
+      "sha256": "617cab79e4a059196981d09e00751d259ba624e9ccfc9cbda9f0cfd340d07904"
+    }
+  ],
+  "combined_log": "docs/evidence/payroll-sickness-versions-2026-11-03.txt",
+  "combined_log_sha256": "81b15324b8568207c9f16b6677ebe2214163974f6f1cac8a41831151e6d814d0",
+  "sources": {
+    "backend/payroll_entitlements_2026.py": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7",
+    "backend/payroll_sickness_2026.py": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33",
+    "backend/payroll_sickness_phases_2026.py": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b",
+    "backend/payroll_sickness_start_2026.py": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7",
+    "backend/payroll_entitlement_dispatch.py": "12143f36ddb38ec227861db2563e20e5d20ac4b39e7b61e91e216283dc0b72ea",
+    "backend/business_payroll_entitlements.py": "e8679069a9b6eb99eac7c9cedf6870ca0ce92f1f920eb55d57c90869610448d6",
+    "backend/test_payroll_sickness_2026.py": "66c93d35f666090c354bb46e151d146622ef0926ef56a5d14afe92fad395e052",
+    "backend/test_payroll_sickness_phases_2026.py": "58d3b9e4e09be23a8290c3ff59519cc7df1999705aa970614cb464f21cbb01de",
+    "backend/test_payroll_sickness_start_2026.py": "c571d94e792522666c02fab9201502b7ddce0ca0e533e881c1b1f84451a11f04",
+    "backend/test_business_payroll_sickness_v2.py": "0c9ef8f30321c7e6e02c2038b8df3cb89a4921d745e9525b7c3a603721b725c8",
+    "backend/test_business_payroll_sickness_phases.py": "58ac6ea53801fe2f03a36ba77376b7c7f902e61393a491a97f748152c439b5e3",
+    "backend/test_business_payroll_sickness_start.py": "d2747e18c0da2e6c33f1794ed6b5a50681b7d122f45306fb2da439ea6593c12d",
+    "backend/test_payroll_sickness_review.py": "5cfe02806eb3ed7c3d7dc6fd8943b44bb199b4d32cab4f3001e59585482aae81",
+    "backend/test_payroll_sickness_phases_review.py": "b71c44935cb2b7d0c662fae54af0cd509fb7e5e5eb09587d43f3d53a59a1fbc2",
+    "backend/test_business_payroll_entitlements_transport.py": "1723e665bc9556484c805f3e23a7033fc06190dbcb4877fff13fa4e268a6cea4",
+    "backend/online/test_business_payroll_entitlements_pg.py": "8bf9d19b5c70a6cfc2b7253f0ef164a0878c8e76288dd374945d45759f907cf8",
+    "app/test/fixtures/payroll_sickness_phases_v3.json": "9e15ecf3821c8a5c3233ba1d4229b6a41c76e72a69113608d9287bbd229e59bf",
+    "app/test/fixtures/payroll_sickness_start_v4.json": "8fa28aa17c3e666634dc3acca4566bae0f40a908646b32cb6f1aeb3277fd26a1"
+  },
+  "immutable_v1_v2_unchanged": true,
+  "independent_tests_in_domain_run": {
+    "v2": 5,
+    "v3": 9,
+    "v4": 0
+  },
+  "pending": [
+    "Client versions v3/v4 and integrated Source3 payroll checks are separate evidence"
+  ],
+  "explicit_blockers": [
+    "Hourly AU solely on free days without any actual missed shift: no invented shift or unverified consumption",
+    "Joined cause first solely responsible during employment waiting period and continuing into entitlement: separate twelve-month-anchor evidence required",
+    "Unclear simultaneous cause start or multiple pre-employment causes require distinct evidenced decision",
+    "Collective agreement and on-call special rules remain separate"
+  ],
+  "independent_v4_review": {
+    "evidence": "docs/evidence/payroll-sickness-start-independent-review-2026-11-03.json",
+    "tests": 4,
+    "result": "PASS",
+    "part_of_original_109_domain_run": false
+  }
+}

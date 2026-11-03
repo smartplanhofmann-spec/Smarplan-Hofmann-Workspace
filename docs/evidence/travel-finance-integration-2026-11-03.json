@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-11-03T22:20:21+00:00",
+  "scope": "Travel cash integration with real synthetic journals; not full transport/payroll travel completion or production acceptance",
+  "runs": [
+    {
+      "name": "travel-finance-regression",
+      "tests": 32,
+      "passed": 32,
+      "seconds": 14.278,
+      "log": "docs/evidence/travel-finance-regression-2026-11-03.txt",
+      "sha256": "64c83647c42e726c68afc0fc7ebf6fde5ee152f4d3d47ef95b9be214b3c037d3"
+    },
+    {
+      "name": "travel-horizon-http",
+      "tests": 49,
+      "passed": 49,
+      "seconds": 42.239,
+      "log": "docs/evidence/travel-horizon-http-2026-11-03.txt",
+      "sha256": "259974520127cfacba5ace53c6db04657245895d7bd4dccbdec0f1103944f1e0"
+    },
+    {
+      "name": "travel-cash-node",
+      "tests": 5,
+      "passed": 5,
+      "seconds": null,
+      "log": "docs/evidence/travel-cash-node-2026-11-03.txt",
+      "sha256": "21b103e70e6a51ee99b7b92a1520365bcbbc3319ba8d5f08895edb09e2a770c1"
+    },
+    {
+      "name": "travel-cash-flutter",
+      "tests": 5,
+      "passed": 5,
+      "seconds": null,
+      "log": "docs/evidence/travel-cash-flutter-2026-11-03.txt",
+      "sha256": "bd2fede4f3c7ba5f89b738753d03dc692f33557c60894443f442009ae853dc45"
+    }
+  ],
+  "counts_overlap": true,
+  "files": {
+    "backend/accounting_travel_sources.py": "151e239ecb199df42d8a980fc4856249f3931eda0a99c2aec4da66ccbd3711fd",
+    "backend/business_accounting_euer.py": "8b7de3d9ea21083160af66cad5e9dcd42ce42d1776b9473b3e20b0207b9b4322",
+    "backend/business_bank_reconciliation.py": "0e2bf972973aa5641efb793debbec390ec791e977f91f14b164b5ac79c997930",
+    "backend/business_schema.py": "4ec99f2c53ae8d7299f65c926ec75a68e9a56b70747193e3f73dda1f001d0696",
+    "backend/test_business_travel_finance.py": "42e7bcd7ea3eac04ebfe9f2bfffc064d861de83b4ebfefa136b1e87d877023d8",
+    "web/office/travel-cash.js": "f686270f3263b46a0293609fb89b1244a97a8a3e1fe0392831d7d8fb0732774e",
+    "web/office/tests/travel-cash.test.mjs": "956f047f29d884ad5a2c5e82e31b6ba5fb4595d29cb25d5fb5b98466fe795b67",
+    "app/lib/business_travel_cash.dart": "93762a182ca56c130aabb175a3247364c95fad91d675ad9e583973fb685f8864",
+    "app/test/business_travel_cash_test.dart": "c3aa1e25295ec3cbce190ed1e48cbfa071df5a9aa4d3cbf5cd038e91c7cd89f1",
+    "app/test/fixtures/travel_cash.json": "d962157f3110dd77c67c5cfbb893fb4f9489c4411efcc041f0bf60af494d8b70"
+  },
+  "resolved_findings": [
+    "Legacy cash reference could be reused by travel writer; explicit legacy cash and original guards added",
+    "Both public clients accepted impossible calendar dates; civil-date component validation added"
+  ],
+  "test_fixture_note": "Public JSON generated from actual synthetic TravelFinanceTests journal and bank candidate; no private employee/travel fields",
+  "earlier_runs": [
+    "work/verification/travel-horizon-finance-http-initial-failed.log: previous current-horizon assertions and historical registry exclusions were updated, production restore validation retained",
+    "work/verification/travel-finance-first.log: one fixture used unsupported legacy payment kind; corrected to real receipt kind",
+    "work/verification/travel-finance-second.log: legacy-to-travel duplicate reference product bug reproduced",
+    "work/verification/travel-cash-client-node-review.log and travel-cash-client-flutter-review.log: impossible date rejection failed before fix"
+  ],
+  "remaining": [
+    "Complete transport/expense/payroll-adapter features",
+    "Final complete travel PostgreSQL/restore and both-client workflow acceptance",
+    "Common broad current-source regression and final packaging"
+  ]
+}

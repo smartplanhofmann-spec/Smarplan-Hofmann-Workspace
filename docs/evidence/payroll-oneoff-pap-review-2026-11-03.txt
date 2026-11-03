@@ -1,0 +1,9 @@
+test_annual_allowance_and_addition_apply_to_both_comparisons_before_tariff (test_payroll_pap_oneoff_review.IndependentOneOffPapReview.test_annual_allowance_and_addition_apply_to_both_comparisons_before_tariff) ... ok
+test_class_three_splits_before_euro_rounding_and_doubles_threshold (test_payroll_pap_oneoff_review.IndependentOneOffPapReview.test_class_three_splits_before_euro_rounding_and_doubles_threshold) ... ok
+test_crossing_annual_pension_cap_recomputes_precaution_before_tax_difference (test_payroll_pap_oneoff_review.IndependentOneOffPapReview.test_crossing_annual_pension_cap_recomputes_precaution_before_tax_difference) ... ok
+test_one_cent_at_tariff_floor_boundary_does_not_silently_cap_tax_to_bonus (test_payroll_pap_oneoff_review.IndependentOneOffPapReview.test_one_cent_at_tariff_floor_boundary_does_not_silently_cap_tax_to_bonus) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK

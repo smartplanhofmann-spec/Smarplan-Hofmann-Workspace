@@ -56,4 +56,3 @@ L2822@P41: aber noch innerhalb der Dreiwochenfrist vorgenommen, handelt es sich 
 L2823@P41: abrechnungszeitraums; der Arbeitslohn und die Lohnsteuer sind deshalb im Lohnkonto und in den Lohnsteuerbelegen des abgelau‐
 L2824@P41: fenen Kj. zu erfassen. Die einbehaltene Lohnsteuer ist aber für die Anmeldung und Abführung als Lohnsteuer des Kalendermonats
 L2825@P41: bzw. Kalendervierteljahres zu erfassen, in dem die Abrechnung tatsächlich vorgenommen wird.
-

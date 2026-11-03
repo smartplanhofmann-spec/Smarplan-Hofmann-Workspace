@@ -1,0 +1,13 @@
+✔ actual backend public cash and bank sources preserve exact values without private sources (2.16661ms)
+✔ private additions at every public level fail closed (2.440832ms)
+✔ revision identity, amount, explicit void and dated movement cannot drift (0.859424ms)
+✔ impossible calendar dates cannot become travel cash dates (0.322305ms)
+✔ bank source must retain a complete original revision and matching public shape (0.328024ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 97.917433

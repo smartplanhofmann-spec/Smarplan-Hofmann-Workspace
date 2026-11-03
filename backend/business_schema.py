@@ -30,7 +30,7 @@ MODULE_NAMES = tuple('business_' + name for name in (
     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
     'inventory', 'maintenance', 'adapters', 'organization', 'instance', 'purchasing', 'portal', 'accounting',
     'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity', 'accounting_refunds_v2', 'accounting_profile',
-    'project_economics', 'asset_provenance', 'customer_workspace', 'personnel_workflow', 'accounting_euer', 'assistant', 'payroll', 'inventory_counts', 'sales', 'payroll_accounts', 'assistant_speech', 'company_handover', 'migrations', 'custom_fields', 'privacy_cases', 'payroll_cash', 'service', 'bank_reconciliation', 'resource_custody', 'purchase_changes'))
+    'project_economics', 'asset_provenance', 'customer_workspace', 'personnel_workflow', 'accounting_euer', 'assistant', 'payroll', 'inventory_counts', 'sales', 'payroll_accounts', 'assistant_speech', 'company_handover', 'migrations', 'custom_fields', 'privacy_cases', 'payroll_cash', 'service', 'bank_reconciliation', 'resource_custody', 'purchase_changes', 'payroll_facts', 'travel_allowances', 'payroll_entitlements', 'payroll_calculation_cases')) + ('payroll_travel_recording',)
 CONTROL_TABLES = frozenset((
     'business_schema_state', 'business_schema_migrations', 'business_schema_events',
     'business_feature_flags', 'business_privacy_anchors', 'business_device_grants', 'business_restore_state',
@@ -524,6 +524,9 @@ def financial_accounting_horizon(office):
         euer = 'business_accounting_euer' in installed
         payroll_cash = 'business_payroll_cash' in installed
         bank_reconciliation = 'business_bank_reconciliation' in installed
+        travel_cash = 'business_travel_allowances' in installed
+        if travel_cash and not bank_reconciliation:
+            raise ValueError('Travel cash sources require the complete installed financial schema')
         if bank_reconciliation and not payroll_cash:
             raise ValueError('Bank reconciliation requires the complete installed financial schema')
         if payroll_cash and not euer:
@@ -612,7 +615,14 @@ def financial_accounting_horizon(office):
         bank = bank_horizon(office)
         if bank is None:
             raise ValueError('Installed bank reconciliation horizon is missing')
-        return dict(horizon, schema_version=10, bank_reconciliation=bank)
+        horizon = dict(horizon, schema_version=10, bank_reconciliation=bank)
+        if not travel_cash:
+            return horizon
+        from travel_allowance_cash import restore_horizon as travel_horizon
+        travel = travel_horizon(office)
+        if travel is None:
+            raise ValueError('Installed travel cash horizon is missing')
+        return dict(horizon, schema_version=11, travel_cash=travel)
 
 
 def _validate_prejournal_horizon(horizon):
@@ -627,6 +637,25 @@ def _validate_prejournal_horizon(horizon):
 def _validate_financial_accounting_horizon(horizon, report_schema):
     if report_schema == 2:
         _validate_prejournal_horizon(horizon)
+        return
+    if report_schema == 12:
+        if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile', 'euer', 'payroll_cash', 'bank_reconciliation', 'travel_cash'}
+                or type(horizon['schema_version']) is not int or horizon['schema_version'] != 11):
+            raise ValueError('Exact version-11 combined accounting horizon required')
+        previous = {key: value for key, value in horizon.items() if key != 'travel_cash'}
+        previous['schema_version'] = 10
+        _validate_financial_accounting_horizon(previous, 11)
+        # This report version always refers to this exact original travel scope.
+        travel_tables = {'business_travel_sites', 'business_travel_trips', 'business_travel_settlements',
+                         'business_travel_payments', 'business_travel_claims', 'business_travel_cash_events',
+                         'business_travel_evidence', 'business_travel_requests'}
+        travel = horizon['travel_cash']
+        if (not isinstance(travel, dict) or set(travel) != {'schema_version', 'table_counts', 'sha256'}
+                or type(travel['schema_version']) is not int or travel['schema_version'] != 1
+                or not isinstance(travel['table_counts'], dict) or set(travel['table_counts']) != travel_tables
+                or any(type(value) is not int or value < 0 for value in travel['table_counts'].values())
+                or not isinstance(travel['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', travel['sha256'])):
+            raise ValueError('Exact version-1 travel cash horizon required')
         return
     if report_schema == 11:
         if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile', 'euer', 'payroll_cash', 'bank_reconciliation'}
@@ -805,6 +834,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
     euer_installed = 'business_accounting_euer' in value.get('read_capabilities', [])
     payroll_cash_installed = 'business_payroll_cash' in value.get('read_capabilities', [])
     bank_installed = 'business_bank_reconciliation' in value.get('read_capabilities', [])
+    travel_installed = 'business_travel_allowances' in value.get('read_capabilities', [])
+    if travel_installed and not bank_installed:
+        raise ValueError('Travel cash sources require the complete installed financial schema')
     if bank_installed and not payroll_cash_installed:
         raise ValueError('Bank reconciliation requires the complete installed financial schema')
     if payroll_cash_installed and not euer_installed:
@@ -823,9 +855,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
         raise ValueError('Document components require the installed prejournal and payment allocations')
     if allocations_installed and not accounting_installed:
         raise ValueError('Payment allocations require the installed accounting prejournal')
-    required_schema = 11 if bank_installed else 10 if payroll_cash_installed else 9 if euer_installed else 8 if profile_installed else 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
+    required_schema = 12 if travel_installed else 11 if bank_installed else 10 if payroll_cash_installed else 9 if euer_installed else 8 if profile_installed else 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
     declared_schema = evidence.get('schema') if isinstance(evidence, dict) else None
-    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11):
+    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12):
         raise ValueError('Known explicit financial report schema required')
     fields = {'schema', 'restore_id', 'reviewed_by', 'reviewed_at', 'number_horizons', 'outbound_reconciled'}
     if declared_schema >= 2:

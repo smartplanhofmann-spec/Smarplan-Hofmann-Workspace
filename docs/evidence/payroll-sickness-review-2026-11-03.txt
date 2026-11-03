@@ -1,0 +1,10 @@
+test_calendar_days_before_first_shift_reduce_actual_same_illness_remainder (test_payroll_sickness_review.IndependentSicknessReview.test_calendar_days_before_first_shift_reduce_actual_same_illness_remainder) ... ok
+test_existing_six_month_reset_keeps_new_anchor_for_later_recurrence (test_payroll_sickness_review.IndependentSicknessReview.test_existing_six_month_reset_keeps_new_anchor_for_later_recurrence) ... ok
+test_free_saturday_before_short_february_does_not_wait_for_next_shift (test_payroll_sickness_review.IndependentSicknessReview.test_free_saturday_before_short_february_does_not_wait_for_next_shift) ... ok
+test_same_facts_keep_explicit_historical_rule_and_new_rule_separate (test_payroll_sickness_review.IndependentSicknessReview.test_same_facts_keep_explicit_historical_rule_and_new_rule_separate) ... ok
+test_waiting_period_does_not_consume_the_42_calendar_days (test_payroll_sickness_review.IndependentSicknessReview.test_waiting_period_does_not_consume_the_42_calendar_days) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK

@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-11-03T22:38:10.913083+00:00",
+  "base_commit": "31c5184056af0d88554af468b09bc79c40ab4242",
+  "scope": "Reduced employee-self v1-v4 payroll statements and independent deterministic PDF; no private raw source access",
+  "counts_overlap": true,
+  "synthetic_data_only": true,
+  "sources": [
+    {
+      "path": "backend/business_payroll_statements.py",
+      "sha256": "e3ffe1ca4e81b32ebaab8e4e059fd35d367c4e261f493e731e3e25ac9fd7cac4"
+    },
+    {
+      "path": "backend/test_business_payroll_statements.py",
+      "sha256": "ab64ed268141d436f98a2799fd784849cae6dbfbd0857ca0a47aa23c24dfd116"
+    },
+    {
+      "path": "backend/business_payroll.py",
+      "sha256": "a37169cc6d1b5e8d1cb4a7fbc66e30094da3c226dc8f3bf75ab675d43176a8ac"
+    },
+    {
+      "path": "web/office/payroll-statements.js",
+      "sha256": "dbc590c7ae170b3b6e39f723b00992e273ce2932407933dffc817ef0faf8aeb9"
+    },
+    {
+      "path": "web/office/payroll.js",
+      "sha256": "a0aa09ca63045a5462de403715ad7b7dbb91c2248aab8408d9ec6a62fb9b2d88"
+    },
+    {
+      "path": "app/lib/business_payroll_statements.dart",
+      "sha256": "1f46f65ba96ed78a6dbe537b12b5ba57d2d363a40e73e71e71eeb2fe17ad225f"
+    },
+    {
+      "path": "app/lib/business_payroll.dart",
+      "sha256": "2cb0a7317178f62086cc8af381086c84fd807daff6384e95702c400038d8699c"
+    },
+    {
+      "path": "web/office/tests/payroll-statements-flow.cjs",
+      "sha256": "11756aef42fb3c323665a441de3ffeb967dd8ed4bfe5820066886cdb331fc6d3"
+    },
+    {
+      "path": "web/office/tests/payroll-statements.test.mjs",
+      "sha256": "b55ba4e494fce144de0c55773cffe2c62ac147781d5d1ed6767969fcf409de57"
+    },
+    {
+      "path": "web/office/tests/payroll_statement_fixture.py",
+      "sha256": "5d0eff4254b9474bf59dfc82d2064f030d4ef904fa8fa39e96271065dd6cc375"
+    },
+    {
+      "path": "app/test/business_payroll_statements_test.dart",
+      "sha256": "2b3c5ead346282afd75fe5e7bfc0aa2aeb5b4b9cabb8d70e6cafebb4a40eded1"
+    },
+    {
+      "path": "app/test/fixtures/payroll_statements.json",
+      "sha256": "9d5ddc84034849c07ba6a0ba43354c0e25b5338d392526f2166b644c9d0d88f3"
+    },
+    {
+      "path": "docs/CRM_ERP_LOHN_MITARBEITERBELEG_API.md",
+      "sha256": "ac9dc8d129983425b4ae51a6ea38df7452a9a8475bd3d9c99ae2d7d6e307bdc0"
+    },
+    {
+      "path": "docs/CRM_ERP_LOHN_MITARBEITERBELEG.md",
+      "sha256": "4524d678039defecef57122b65ff3b247271f31a98ef753fa4ab1c73a942b947"
+    }
+  ],
+  "runs": [
+    {
+      "name": "domain_http",
+      "status": "passed",
+      "log_path": "docs/evidence/payroll-employee-statement-domain_http-2026-11-03.txt",
+      "log_sha256": "36111b5480211eebf69bc537249b4aacdba23b13cc842bb0228856643aa7b0fc",
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "node",
+      "status": "passed",
+      "log_path": "docs/evidence/payroll-employee-statement-node-2026-11-03.txt",
+      "log_sha256": "9597715b6ab4465e2281751eac0a0f018faa0966b5b944186de15dca6f59719b",
+      "tests": 55,
+      "passed": 55,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "flutter",
+      "status": "passed",
+      "log_path": "docs/evidence/payroll-employee-statement-flutter-2026-11-03.txt",
+      "log_sha256": "332df980381f4bda09e951050809b2780df99252a87cf841aa277219896a78f6",
+      "tests": 56,
+      "passed": 56,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "analyze",
+      "status": "passed",
+      "log_path": "docs/evidence/payroll-employee-statement-analyze-2026-11-03.txt",
+      "log_sha256": "0c26f3a3d9fe213d747fbbdfb6aed3e5032c4bb7ce1edb6ac96a80786338ef9c"
+    },
+    {
+      "name": "browser",
+      "status": "passed",
+      "log_path": "docs/evidence/payroll-employee-statement-browser-2026-11-03.txt",
+      "log_sha256": "967e54839f5b43e4395a205e2c2928bcdc2db1d60bfacd7343212c36e942aeb8",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "screenshot": {
+    "path": "docs/evidence/payroll-employee-statement-mobile-2026-11-03.png",
+    "sha256": "cc3c398d01f618fe0b430dd998cdad6f4fffad2483f92d726a3707619c7445fc"
+  },
+  "browser": {
+    "workflow": "payroll-statements",
+    "binary": "/usr/lib/chromium/chromium",
+    "namespace_sandbox": true,
+    "pid_sandbox": true,
+    "network_sandbox": true,
+    "seccomp_sandbox": true,
+    "separate_real_mfa_sessions": 2,
+    "mobile_width": 390,
+    "raw_source_requests_from_own_view": false
+  },
+  "closed_findings": [
+    "Current employee account assignment is immutable: reassignment test oracle corrected",
+    "Own dialog error target repaired so revoked values clear and error remains visible",
+    "Browser admin session must be independently authenticated after original logout"
+  ],
+  "preserved_failed_runs": [
+    "work/verification/payroll-statements-domain-final.log",
+    "work/verification/payroll-statements-browser-first.log",
+    "work/verification/payroll-statements-browser-second.log",
+    "work/verification/payroll-statements-browser-third.log"
+  ],
+  "not_claimed": [
+    "Standalone PostgreSQL acceptance of this new projection",
+    "v5 support before final DTO and fixtures",
+    "Official full statutory payslip or transmitted filings",
+    "Actual payment implied by calculated payout"
+  ]
+}

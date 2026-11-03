@@ -1,0 +1,4 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+travel legacy: explicit original payment adoption, immutable date/amount/reference, protected bank original, lost-ACK status only, unchanged original HR payment/settlement and single EÜR cash source, account-proof correction and documentary adoption void with unchanged original payment passed
+travel: actual MFA/HTTP, own dated sites, explicit flight connection and exact original expense split, foreign approval, immutable PDF, separate actual partial payments, lost ACK status-only recovery, public EÜR without input VAT/personnel details, unchanged historical source after documentary void and explicit EÜR correction, mobile390 passed
+1 targeted travel allowances workflow passed (actual private journeys, foreign approval and public cash)

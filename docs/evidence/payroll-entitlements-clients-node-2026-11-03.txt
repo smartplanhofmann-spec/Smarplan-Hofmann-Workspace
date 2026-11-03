@@ -1,0 +1,17 @@
+✔ actual OfficeApi retains sickness_history nonce through rights drift and module pause (22.910745ms)
+✔ actual OfficeApi retains regular_absence nonce through rights drift and module pause (4.778941ms)
+✔ actual OfficeApi retains vacation_reference nonce through rights drift and module pause (2.087131ms)
+✔ actual OfficeApi retains unpaid_continuation nonce through rights drift and module pause (1.526267ms)
+✔ actual P4 kinds retain canonical originals and exact typed correction command (32.657241ms)
+✔ private source pages reject foreign originals, wrong immutable file revisions and own-only permission (1.583703ms)
+✔ claim preview and accepted receipt cannot replace person, selected sources, prior case or plan (2.860245ms)
+✔ uncertain accepted claim retries only unchanged command with fresh global approval despite module pause (0.966595ms)
+✔ explicit sickness v2 is additive, historical v1 persists and unknown versions fail closed (0.425651ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 156.697373

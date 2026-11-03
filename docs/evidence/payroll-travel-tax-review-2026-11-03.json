@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-11-03T22:46:23.787125+00:00",
+  "scope": "Pure travel flat tax only; private resolver and v5 runtime not covered",
+  "runs": [
+    {
+      "phase": "initial",
+      "log": "docs/evidence/payroll-travel-tax-review-initial-2026-11-03.txt",
+      "sha256": "6b51e90bc388b5952c3c2d7dc10269e11b01723e5f67cee32774d981a32221ee",
+      "result": "8/10 methods green; 2 failed methods, 3 failed subcases"
+    },
+    {
+      "phase": "final",
+      "log": "docs/evidence/payroll-travel-tax-review-final-2026-11-03.txt",
+      "sha256": "6b0d34f5f6add24da4bf756f7b43b6440af935c5ede85bcc4b2b46e28ea21527",
+      "result": "21/21 OK; 11 independent review plus 10 author tests; 0.006s; no skips"
+    }
+  ],
+  "final_sources": {
+    "backend/payroll_travel_tax_2026.py": "8b28d2a38923fe64e7e640a1e3487834dea38ab701f07e010bb62dda81495f21",
+    "backend/test_payroll_travel_tax_2026.py": "26b8ab1ae0d70de066a3f9411e49a605525541883f9c624e1e691a5f08b78043",
+    "backend/test_payroll_travel_tax_review.py": "c9454ce772fa7a6e8fd5c3baa9e04d0eb83916d2c41f7f830bc96475f5113af4"
+  },
+  "findings_closed": [
+    "Official-model employee declaration must be accepted with documented known membership",
+    "Documented unresolved membership must calculate general church tax rate"
+  ],
+  "remaining": [
+    "Private source/policy/filing and timing acceptance",
+    "Actual v5 preview/finalize/replay/restore",
+    "Not every 2026 regional church-tax norm independently reread"
+  ]
+}

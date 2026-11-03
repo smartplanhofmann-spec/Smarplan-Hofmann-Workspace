@@ -12,8 +12,10 @@
   "command": "backend/.venv/bin/python work/verification/check-payroll-partial-references.py",
   "files": {
     "docs/CRM_ERP_LOHN_TEILMONATE_REFERENZEN_2026-11-03.json": "579676e30ad489c31cefe95611184475b47a34cc32baa38c6b2f081c3b69beb6",
-    "docs/CRM_ERP_LOHN_R39B5_QUELLENAUSZUG_2026-11-03.txt": "3ed2d2ff3ed27cdb95530b419ed702abb99f3b15b0c13aeb55d3b2de02cb7a7a",
-    "docs/CRM_ERP_LOHN_ZEITACHSEN_TEILMONATE_ENTWURF.md": "781afc49a43ca03e70cf21e3931bd7e3c2fbbb2a5f050d3ffad55902c78e4bbe",
+    "docs/CRM_ERP_LOHN_R39B5_QUELLENAUSZUG_2026-11-03.txt": "84527d41f7d4a64737ff65675bd97b0fca5a56d84c62f9e298d0ec63d73f5ca3",
+    "docs/CRM_ERP_LOHN_ZEITACHSEN_TEILMONATE_ENTWURF.md": "95c913bcda8960cd0d8431984c837c4d1e65e16ef0bcdb2b4f07958adcdc2b0b",
     "work/verification/check-payroll-partial-references.py": "1064cfd6f00d990238b6ae00c8f22b08404395ff40b0cd79e2dba1d12faa3913"
-  }
+  },
+  "normalization_note": "Trailing empty line removed from locally extracted text and design only; source content unchanged. File hashes updated.",
+  "subsequent_design_review": "Freibetragsrundung und ereignisbezogene SV-Aufteilung nach unabhängiger Quellengegenprüfung präzisiert; historische numerische Referenzen unverändert. Historischen Entwurfsstatus ausdrücklich gekennzeichnet und auf tatsächliche P2-/P3a-Abnahme verwiesen."
 }

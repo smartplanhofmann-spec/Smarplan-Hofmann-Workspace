@@ -1,0 +1,11 @@
+{
+  "recorded_on": "2026-11-03",
+  "scope": "first_p4_postgresql_run_before_final_independent_private_source_review",
+  "tests": 3,
+  "failures": 0,
+  "skipped": 0,
+  "seconds": 10.26,
+  "log": "work/verification/payroll-entitlements-pg.log",
+  "log_sha256": "23bc5370eef89f6aaf8ddadb6d44fe891f8b42dcc4485a35fe34393f8422dbe6",
+  "not_final_product_release": true
+}

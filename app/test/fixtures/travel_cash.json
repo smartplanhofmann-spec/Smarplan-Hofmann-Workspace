@@ -1,0 +1,69 @@
+{
+  "provenance": "Synthetic production-domain TravelFinanceTests fixture; no private travel sources",
+  "active": {
+    "cash_movements": [
+      {
+        "account": {
+          "active": true,
+          "code": "1200",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "c5ddc9f993284bfda8bf3a56ecd0e386",
+          "currency": "EUR",
+          "id": "3463375dc7be434d95eea5755794f1e0",
+          "kind": "bank",
+          "name": "Actual bank",
+          "revision": 1
+        },
+        "amount": "14.00",
+        "categories": {
+          "travel_allowance": "14.00"
+        },
+        "date": "2026-10-27",
+        "direction": "out",
+        "id": "acf49580297f749424b658a111ba7002"
+      }
+    ],
+    "date": "2026-10-27",
+    "id": "4804c95073af40aea9b169156d85f3e6",
+    "instance_id": "8e0382189ea746f2a08f11799f8e5108",
+    "kind": "travel_cash",
+    "proof_hash": "7ffb43770111ff4f1e17e4365df0d6a1b622167a1a34a2e0cfee2fa76c510248",
+    "revision": 1,
+    "source_hash": "b195761a46b21e4fa2adcd01ee6bcfbbf0f4ea8395c5d09fe3ea3f4338436467",
+    "source_path": "/personnel/travel/financial/4804c95073af40aea9b169156d85f3e6?revision=1",
+    "status": "active"
+  },
+  "void": {
+    "cash_movements": [],
+    "date": "2026-10-27",
+    "id": "4804c95073af40aea9b169156d85f3e6",
+    "instance_id": "8e0382189ea746f2a08f11799f8e5108",
+    "kind": "travel_cash",
+    "proof_hash": "a16a8ededa4f4454db8eab80ac7171572014cf87cf3ad2b1190a89391eff42f6",
+    "revision": 2,
+    "source_hash": "f356fa6a3e9fcb78aca8fea899215fee121830b469bdd995cdfbd683dc9a03f3",
+    "source_path": "/personnel/travel/financial/4804c95073af40aea9b169156d85f3e6?revision=2",
+    "status": "void"
+  },
+  "bank": {
+    "source_kind": "travel_cash",
+    "source_id": "acf49580297f749424b658a111ba7002",
+    "account": {
+      "active": true,
+      "code": "1200",
+      "created_at": "2026-11-03T12:00:00+00:00",
+      "created_by": "c5ddc9f993284bfda8bf3a56ecd0e386",
+      "currency": "EUR",
+      "id": "3463375dc7be434d95eea5755794f1e0",
+      "kind": "bank",
+      "name": "Actual bank",
+      "revision": 1
+    },
+    "date": "2026-10-27",
+    "direction": "out",
+    "amount": "14.00",
+    "source_path": "/personnel/travel/financial/4804c95073af40aea9b169156d85f3e6?revision=1",
+    "origin_hash": "b195761a46b21e4fa2adcd01ee6bcfbbf0f4ea8395c5d09fe3ea3f4338436467",
+    "source_hash": "ad03b8aa785a79521734c6a2e1f86585f2689efa063373d08247138dd86b337a"
+  }
+}

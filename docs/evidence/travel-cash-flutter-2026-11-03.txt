@@ -1,0 +1,7 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_travel_cash_test.dart
+00:00 +0: actual backend public cash and bank source with historical void
+00:00 +1: private additions at every public level are rejected
+00:00 +2: revision, monetary values and documentary void must be explicit
+00:00 +3: impossible calendar dates cannot become travel cash dates
+00:00 +4: bank source retains complete original revision and public shape
+00:00 +5: All tests passed!

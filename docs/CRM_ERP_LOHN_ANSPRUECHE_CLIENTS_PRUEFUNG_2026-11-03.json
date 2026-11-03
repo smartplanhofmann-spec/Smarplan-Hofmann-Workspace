@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-03",
+  "scope": "P4 private browser/native structured claims; not full payroll completion",
+  "results": {
+    "node": 9,
+    "flutter": 16,
+    "analyze": "no issues",
+    "real_browser": "pass MFA HTTP typed unpaid source deadline original lost_ack void history mobile390"
+  },
+  "known_scope": "sickness v1/v2; phases v3 not yet supported",
+  "sources": {
+    "web/office/payroll-entitlements.js": "b45a7284a89f7e7df3af6a46ae8e84e6e558d72695a2c26cffed638d5640e430",
+    "app/lib/business_payroll_entitlement_contract.dart": "e4386d1b899c339089f183364c6caaa822697e3674acd28f191b9247e8e54e34",
+    "app/lib/business_payroll_entitlements.dart": "c069026d35f21c40ad0b30abffc50744403f06b4eb0d9254ebc539df45947714",
+    "web/office/tests/payroll-entitlements-flow.cjs": "5fc788d95b40f4f51b8b4970742339985936bd7401f177820884af0886fde981"
+  }
+}

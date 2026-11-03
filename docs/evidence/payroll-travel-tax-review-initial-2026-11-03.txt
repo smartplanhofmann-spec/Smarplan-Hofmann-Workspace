@@ -1,0 +1,59 @@
+test_capacity_and_source_revision_are_material_even_when_tax_equal (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_capacity_and_source_revision_are_material_even_when_tax_equal) ... ok
+test_documented_unknown_membership_uses_general_rate_not_zero_or_simplified_rate (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_documented_unknown_membership_uses_general_rate_not_zero_or_simplified_rate) ... ERROR
+test_earlier_certificate_controls_social_exemption_even_before_february (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_earlier_certificate_controls_social_exemption_even_before_february) ... ok
+test_economic_transfer_preserves_all_employer_tax_debt_components (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_economic_transfer_preserves_all_employer_tax_debt_components) ... ok
+test_fractional_cent_components_never_use_commercial_or_combined_rounding (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_fractional_cent_components_never_use_commercial_or_combined_rounding) ... ok
+test_late_certificate_never_extends_february_social_deadline (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_late_certificate_never_extends_february_social_deadline) ... ok
+test_official_employee_declaration_is_valid_evidence_when_official_data_missing (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_official_employee_declaration_is_valid_evidence_when_official_data_missing) ... 
+  test_official_employee_declaration_is_valid_evidence_when_official_data_missing (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_official_employee_declaration_is_valid_evidence_when_official_data_missing) (member=False) ... ERROR
+  test_official_employee_declaration_is_valid_evidence_when_official_data_missing (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_official_employee_declaration_is_valid_evidence_when_official_data_missing) (member=True) ... ERROR
+test_quarter_policy_is_same_across_months_and_membership (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_quarter_policy_is_same_across_months_and_membership) ... ok
+test_unproven_unknown_still_blocks_instead_of_becoming_no_church_tax (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_unproven_unknown_still_blocks_instead_of_becoming_no_church_tax) ... ok
+test_wrong_jurisdiction_and_boolean_reference_revision_are_rejected (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_wrong_jurisdiction_and_boolean_reference_revision_are_rejected) ... ok
+
+======================================================================
+ERROR: test_documented_unknown_membership_uses_general_rate_not_zero_or_simplified_rate (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_documented_unknown_membership_uses_general_rate_not_zero_or_simplified_rate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_travel_tax_review.py", line 46, in test_documented_unknown_membership_uses_general_rate_not_zero_or_simplified_rate
+    result=compute(federal_state='BE',church_method='evidence',church_tax=None,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_travel_tax_review.py", line 28, in compute
+    return calculate_flat_travel_tax(12347,**(dict(federal_state='BW',church_tax=False,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/payroll_travel_tax_2026.py", line 100, in calculate_flat_travel_tax
+    raise Problem(400, 'ELStAM oder Ersatzbescheinigung als konkreten Zugehörigkeitsnachweis angeben.')
+core.Problem: (400, 'ELStAM oder Ersatzbescheinigung als konkreten Zugehörigkeitsnachweis angeben.')
+
+======================================================================
+ERROR: test_official_employee_declaration_is_valid_evidence_when_official_data_missing (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_official_employee_declaration_is_valid_evidence_when_official_data_missing) (member=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_travel_tax_review.py", line 38, in test_official_employee_declaration_is_valid_evidence_when_official_data_missing
+    result=compute(church_method='evidence',church_tax=member,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_travel_tax_review.py", line 28, in compute
+    return calculate_flat_travel_tax(12347,**(dict(federal_state='BW',church_tax=False,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/payroll_travel_tax_2026.py", line 100, in calculate_flat_travel_tax
+    raise Problem(400, 'ELStAM oder Ersatzbescheinigung als konkreten Zugehörigkeitsnachweis angeben.')
+core.Problem: (400, 'ELStAM oder Ersatzbescheinigung als konkreten Zugehörigkeitsnachweis angeben.')
+
+======================================================================
+ERROR: test_official_employee_declaration_is_valid_evidence_when_official_data_missing (test_payroll_travel_tax_review.IndependentTravelTaxReview.test_official_employee_declaration_is_valid_evidence_when_official_data_missing) (member=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_travel_tax_review.py", line 38, in test_official_employee_declaration_is_valid_evidence_when_official_data_missing
+    result=compute(church_method='evidence',church_tax=member,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_travel_tax_review.py", line 28, in compute
+    return calculate_flat_travel_tax(12347,**(dict(federal_state='BW',church_tax=False,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/payroll_travel_tax_2026.py", line 100, in calculate_flat_travel_tax
+    raise Problem(400, 'ELStAM oder Ersatzbescheinigung als konkreten Zugehörigkeitsnachweis angeben.')
+core.Problem: (400, 'ELStAM oder Ersatzbescheinigung als konkreten Zugehörigkeitsnachweis angeben.')
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.003s
+
+FAILED (errors=3)

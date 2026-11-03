@@ -1,0 +1,27 @@
+✔ travel money is exact; missing values differ from explicit zero; local time keeps its civil zone (1.993159ms)
+✔ ambiguous local clock needs the actual offset, impossible clock does not silently normalize (2.060781ms)
+✔ lost accepted acknowledgement resolves by status only, including module pause (13.959244ms)
+✔ missing status retains original nonce and body for an explicit identical retry (3.28959ms)
+✔ current employee rights or identity change discard private retry before another POST (3.623012ms)
+✔ foreign target, employee, operation or altered result cannot resolve a pending command (4.901355ms)
+✔ discarding the view while a write is in flight rejects the late response (1.086175ms)
+✔ original download verifies bytes and previews reject missing amounts instead of claiming zero (5.716652ms)
+✔ actual v2 flight and original expense snapshot preserves distinct approved, private and already-paid cents (5.012722ms)
+✔ actual legacy adoption binds the original paid item without counting it a second time (3.275904ms)
+✔ actual backend public cash and bank sources preserve exact values without private sources (2.559722ms)
+✔ private additions at every public level fail closed (1.74755ms)
+✔ revision identity, amount, explicit void and dated movement cannot drift (0.932814ms)
+✔ impossible calendar dates cannot become travel cash dates (0.31893ms)
+✔ bank source must retain a complete original revision and matching public shape (0.314002ms)
+✔ actual v3 mixed programme retains every original and explicit false review flags (3.145242ms)
+✔ actual v3 preview binds rational programme and ground calendar without changing exact expenses (2.459431ms)
+✔ missing programme remains an explicit domain blocker and cannot become approved (0.534404ms)
+✔ actual v3 archived source arrays and original receipts survive correction unchanged (13.434256ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 114.577961

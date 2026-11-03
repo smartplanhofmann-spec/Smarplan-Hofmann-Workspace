@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-11-03T22:17:07.726110+00:00",
+  "base_commit": "31c5184056af0d88554af468b09bc79c40ab4242",
+  "scope": "P2/P3a payroll facts and v4 partial-month browser/native clients; development evidence, no official approval",
+  "counts_overlap": true,
+  "synthetic_data_only": true,
+  "sources": [
+    {
+      "path": "web/office/payroll-facts.js",
+      "sha256": "23239eddac88a0961de358ec719752179ce1d3bb99550311ea31fc8f58946bf5"
+    },
+    {
+      "path": "web/office/payroll.js",
+      "sha256": "e4d41da2395ba992ce59ed742e6a9e49791d23887c832b937dfdc9648e4d125e"
+    },
+    {
+      "path": "web/office/office.css",
+      "sha256": "14218f6305e1f243bc397a8f4635b8f21666ff9e7d9f4a095877e06e32a70840"
+    },
+    {
+      "path": "app/lib/business_payroll_facts.dart",
+      "sha256": "e213b4240c26154b9388ece5c0c050c19dd0ecc33b66e489d5badc3547749782"
+    },
+    {
+      "path": "app/lib/business_payroll.dart",
+      "sha256": "712bf19e5c31ab5bbc54fdd1e9c267cc0571c05b422303b6cf89cdcff6311e65"
+    },
+    {
+      "path": "web/office/tests/payroll-facts.test.mjs",
+      "sha256": "a76a2220d401aa1912e87c8bcb8bf3c52a8e6bb8c50b3ef252d30f944acb6eb1"
+    },
+    {
+      "path": "web/office/tests/payroll-periods-flow.cjs",
+      "sha256": "0415f859bba6900028adef0aed863f4b410693fa737714f4560670f75ce50818"
+    },
+    {
+      "path": "web/office/tests/payroll_period_fixture.py",
+      "sha256": "6b53bf76ea04ec3d7d77c41642e32e095188726a207318b6ac8a820cc776bf46"
+    },
+    {
+      "path": "app/test/business_payroll_facts_test.dart",
+      "sha256": "7ec517d74442f513ea527b728b9e5114c51658b6f756bcc13aa96e32ffb36038"
+    },
+    {
+      "path": "app/test/fixtures/payroll_facts.json",
+      "sha256": "e53fbfcb8594dd0331520094b9fa8d9a389dee5b6401c66bf565184ea0056bdc"
+    },
+    {
+      "path": "docs/CRM_ERP_LOHN_ZEITACHSEN_CLIENTS.md",
+      "sha256": "50ea61cd0509cbe646e25d38586032a562771613c47ea49a9a78bd841f1eb866"
+    }
+  ],
+  "runs": [
+    {
+      "name": "node",
+      "status": "passed",
+      "log_path": "docs/evidence/payroll-period-clients-node-2026-11-03.txt",
+      "log_sha256": "c7b1d2f7eca75000a7c1720a90f04e8d176f934392d94b0d022018a9db634be5",
+      "tests": 51,
+      "passed": 51,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 589.374508
+    },
+    {
+      "name": "flutter",
+      "status": "passed",
+      "log_path": "docs/evidence/payroll-period-clients-flutter-2026-11-03.txt",
+      "log_sha256": "e4e58b3ce308d3ace18433141ab1fb9ccd11e7c30774368d56771f59af1ecacb",
+      "tests": 52,
+      "passed": 52,
+      "failed": 0,
+      "skipped": 0,
+      "elapsed_display": "00:07"
+    },
+    {
+      "name": "analyze",
+      "status": "passed",
+      "log_path": "docs/evidence/payroll-period-clients-analyze-2026-11-03.txt",
+      "log_sha256": "0c26f3a3d9fe213d747fbbdfb6aed3e5032c4bb7ce1edb6ac96a80786338ef9c"
+    },
+    {
+      "name": "browser",
+      "status": "passed",
+      "log_path": "docs/evidence/payroll-period-clients-browser-2026-11-03.txt",
+      "log_sha256": "a3bc319dff24df913674c07e983ff78c00d5df445a4e2b77c06cbaa7cede1725",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/payroll-period-clients-desktop-2026-11-03.png",
+      "sha256": "5e2a29721c69f908d472e3d267a7b1d30ccce2cb106b72dce58f909768d9f2a7"
+    },
+    {
+      "path": "docs/evidence/payroll-period-clients-mobile-2026-11-03.png",
+      "sha256": "87d7942eb0d4e06d5ede7afc83ad22142e044187fe21b74c018d68081112072e"
+    }
+  ],
+  "browser": {
+    "workflow": "payroll-periods",
+    "binary": "/usr/lib/chromium/chromium",
+    "namespace_sandbox": true,
+    "pid_sandbox": true,
+    "network_sandbox": true,
+    "seccomp_sandbox": true,
+    "mobile_width": 390,
+    "mobile_table_width_assertion": true,
+    "flow": [
+      "password and MFA",
+      "private original upload and hash-verified download",
+      "actual employment from 2026-10-15",
+      "explicit 31-day schedule",
+      "bound period preview and confirmation",
+      "exact employment-fact lost-ACK retry",
+      "separate v4 payroll preview and confirmation",
+      "exact payroll-run lost-ACK retry",
+      "one effective annual month",
+      "blocked claim revision",
+      "unchanged historical payroll and PDF"
+    ]
+  },
+  "closed_findings": [
+    "Native optional unloaded source/reference lists",
+    "Native optional empty dropdown choices",
+    "Empty method picker test oracle",
+    "New flat-tax minijob period annual normalization",
+    "Same-person approved absence metadata and claimed dates",
+    "Explicit plan can_calculate guard independent of blocker list",
+    "Narrow nested payroll tables"
+  ],
+  "preserved_failed_runs": [
+    {
+      "path": "work/verification/payroll-periods-flutter.log",
+      "reason": "Two native UI cases exposed optional null lists and empty-value test assumption; repaired and final 52/52 passed"
+    },
+    {
+      "path": "work/verification/payroll-periods-browser-final.log",
+      "reason": "Concurrent travel-cash.js import returned 404; root completed static allowlist; fresh final browser passed"
+    }
+  ],
+  "open_product_scope": [
+    "P3b multiple agreements and mid-period insurance/profile changes",
+    "P4 absence entitlement calculation",
+    "P5 further one-off/backpay/carryover cases",
+    "Reduced employee-self statement without private facts: next task",
+    "Official filings and system approval"
+  ]
+}

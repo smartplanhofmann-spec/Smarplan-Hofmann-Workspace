@@ -1,0 +1,14 @@
+✔ actual OfficeApi retains sickness_history nonce through rights drift and module pause (35.315752ms)
+✔ actual OfficeApi retains regular_absence nonce through rights drift and module pause (2.566108ms)
+✔ actual OfficeApi retains vacation_reference nonce through rights drift and module pause (2.011462ms)
+✔ actual OfficeApi retains unpaid_continuation nonce through rights drift and module pause (1.628805ms)
+✔ actual OfficeApi retains employment_terms nonce through rights drift and module pause (34.228444ms)
+✔ actual OfficeApi retains period_case nonce through rights drift and module pause (4.444368ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 164.070105

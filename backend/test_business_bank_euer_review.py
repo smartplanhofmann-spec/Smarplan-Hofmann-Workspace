@@ -52,8 +52,10 @@ class BankEuerIntegrationReview(unittest.TestCase):
     def test_horizon11_exact_scope_rejects_bad_counts_hashes_and_retains_historical10(self):
         self.b.binding=self.b.bank.save_account(self.owner,self.b.account_body())
         statement,_=self.b.save_statement([]);self.b.report([statement])
-        value=business_schema.financial_accounting_horizon(self.office)
-        self.assertEqual(value['schema_version'],10)
+        complete=business_schema.financial_accounting_horizon(self.office)
+        self.assertEqual(complete['schema_version'],11)
+        business_schema._validate_financial_accounting_horizon(complete,12)
+        value={key:item for key,item in complete.items() if key!='travel_cash'};value['schema_version']=10
         original=canonical(value);business_schema._validate_financial_accounting_horizon(value,11)
         self.assertEqual(canonical(value),original)
         previous={key:item for key,item in value.items() if key!='bank_reconciliation'};previous['schema_version']=9

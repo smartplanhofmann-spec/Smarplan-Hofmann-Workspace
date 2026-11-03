@@ -1,0 +1,4 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll periods: actual MFA/HTTP, explicit employment and 31-day schedule, source-bound period preview, documented unsupported claim, original download, two exact lost-ACK retries, full v4 partial payroll, latest annual view, unchanged historical PDF and mobile390 passed
+payroll statements: actual own password/MFA, reduced v4 page, no raw payroll requests, private source denial, independent PDF bytes, history, mobile390 and fresh revocation clearing passed
+1 targeted employee payroll statement workflow passed

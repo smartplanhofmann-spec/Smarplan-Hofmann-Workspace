@@ -1,0 +1,36 @@
+{
+  "review": "Independent bounded sickness-phases-v3 review",
+  "date": "2026-11-03",
+  "tests": 9,
+  "passed": 9,
+  "product_changes": false,
+  "source_sha256": {
+    "backend/payroll_sickness_phases_2026.py": "8c38767d05019c8eeee012a31fa88cb3d5d74969b331bceb2ba315ed88490a0d",
+    "backend/payroll_sickness_2026.py": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33",
+    "backend/payroll_entitlements_2026.py": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7",
+    "backend/test_payroll_sickness_phases_review.py": "b71c44935cb2b7d0c662fae54af0cd509fb7e5e5eb09587d43f3d53a59a1fbc2"
+  },
+  "log_sha256": "65cb45e113826df53d00bd1f62af20a27da63240a87ac7e37b66ff962bccf3c4",
+  "sources": [
+    "https://www.tk.de/resource/blob/2033356/251a73f03ded71105f354f276142289c/beratungsblatt-entgeltfortzahlung-bei-krankheit-data.pdf#page=15",
+    "https://www.gkv-datenaustausch.de/media/dokumente/arbeitgeber/eel/gem_rs_kg/1998_06_25_GR_SpiKK_EFZG.pdf#page=43",
+    "https://www.bundesarbeitsgericht.de/entscheidung/5-azr-505-18/"
+  ],
+  "limitations": [
+    "Pure calculation review, not independent API, PostgreSQL or browser acceptance.",
+    "GKV old document used only for recurrence and case-limit rules; superseded wage-percentage provisions not used.",
+    "New added-cause anchor while still in the initial employment waiting period not covered by these examples."
+  ],
+  "historical_files": {
+    "backend/payroll_sickness_2026.py": {
+      "comparison_source": "docs/evidence/payroll-sickness-v2-2026-11-03.json",
+      "baseline_sha256": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33",
+      "unchanged": true
+    },
+    "backend/payroll_entitlements_2026.py": {
+      "comparison_source": "docs/evidence/payroll-sickness-v2-2026-11-03.json",
+      "baseline_sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7",
+      "unchanged": true
+    }
+  }
+}

@@ -1,0 +1,13 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart: exact sickness_history retry survives module pause and later source revisions
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_session_test.dart: Additive feature support neither grants rights nor survives logout or removal
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_session_test.dart: Additive feature support neither grants rights nor survives logout or removal
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart: exact vacation_reference retry survives module pause and later source revisions
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_session_test.dart: Permissions come from server and unsupported modules remain absent
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_session_test.dart: Permissions come from server and unsupported modules remain absent
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart: fresh authority and exact employee identity gate every retry
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_session_test.dart: fresh authority and exact employee identity gate every retry
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_session_test.dart: Logout during a real asynchronous read drops its late result
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_session_test.dart: Uncertain retries keep exact body and request ID, changed edits are refused
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_session_test.dart: Read-only return mode keeps archives visible and refuses every command
+00:00 +11: All tests passed!

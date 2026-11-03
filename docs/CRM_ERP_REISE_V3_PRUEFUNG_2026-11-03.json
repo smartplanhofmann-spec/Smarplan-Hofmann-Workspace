@@ -1,0 +1,121 @@
+{
+  "date": "2026-11-03",
+  "scope": "Active independently reviewed employee travel v3 with backend, real PostgreSQL, browser and native evidence",
+  "default_rule_version": "de_travel_2026_v3",
+  "new_rule_version": "de_travel_2026_v3",
+  "historical_rule_files_unchanged": true,
+  "runs": [
+    {
+      "path": "docs/evidence/travel-v3-backend-combined-2026-11-03.txt",
+      "sha256": "c4a186558ede707bf72f227164cc7653675c23f943458351268f4a2496cb97a6",
+      "tests": 104,
+      "seconds": 12.034,
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "path": "docs/evidence/travel-v3-postgres-final-2026-11-03.txt",
+      "sha256": "2fa03028ba04ff2564bde63692ff3778567aa67ce23f9d2eac22d7cd1fdfde7f",
+      "tests": 5,
+      "seconds": 21.59,
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "path": "docs/evidence/travel-json-export-http-final-2026-11-03.txt",
+      "sha256": "9d91e4ae555b83082398c11dec1eb71676986376ce194d39f41b0b118efd61ea",
+      "tests": 3,
+      "seconds": 1.23,
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "path": "docs/evidence/travel-v3-default-preview-2026-11-03.txt",
+      "sha256": "49e8bbae3558494030bf5e08ab0bb685ebc219ceda05856c44f14e8624c01fd5",
+      "tests": 106,
+      "seconds": 12.137,
+      "passed": true,
+      "skipped": false,
+      "scope": "Same combined suite plus travel-payroll sources with v3 selected only in the test process; active product default still v2"
+    },
+    {
+      "path": "docs/evidence/travel-v3-invalid-version-2026-11-03.txt",
+      "sha256": "c6d63fec185e2d0b7880250b3630967d9e308f90dfd1ce34f261ed2beb1fe355",
+      "tests": 1,
+      "passed": true,
+      "skipped": false,
+      "scope": "Explicit empty/false/zero/list/object/unknown rule versions reject instead of using the active default"
+    },
+    {
+      "path": "docs/evidence/travel-v3-active-final-2026-11-03.txt",
+      "sha256": "20175676c41ce4979da17eafae6beb471325fe57d299a4eaa5521e7aae9dbbf1",
+      "tests": 107,
+      "seconds": 14.768,
+      "passed": true,
+      "skipped": false,
+      "scope": "Actual active v3 product default, including original exports and payroll travel sources"
+    }
+  ],
+  "independent_review": "docs/evidence/travel-v3-independent-review-2026-11-03.json",
+  "overlapping_runs_not_additive": true,
+  "file_sha256": {
+    "backend/payroll_travel_2026.py": "7c4be0176679fd9d6dcfe1b1049c223e33a1a8b75804f2864df7b0ccd65935fb",
+    "backend/payroll_travel_2026_v1.py": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb",
+    "backend/payroll_travel_2026_v2.py": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5",
+    "backend/payroll_travel_2026_v3.py": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e",
+    "backend/payroll_travel_ground_2026.py": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc",
+    "backend/payroll_travel_mixed_2026.py": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced",
+    "backend/business_travel_allowances.py": "bf842976b973e652307d566c0e2f853ce75dff2530ba6236728d949ab6e3b887",
+    "backend/payroll_travel_rates_2026.py": "b327e00ea0624b6e41b45843077984af077917eb83400b341a3f88842192b7c0",
+    "backend/online/web.py": "3037595a67df7730d7e032f1a6d6f70af43402b3b7661a69b19b1c53f9688ce1",
+    "backend/online/test_business_travel_http.py": "6990edbfe84eddebf94cfc7eeb0638e94007dbe3d66e3955777ef4c20700165c",
+    "backend/online/test_business_travel_pg.py": "614a0391977ef200b6186847a227aa5f96eca371005680b55d63fce548c667f7",
+    "backend/test_business_travel_v3.py": "d6df1c4f4612098e089d5968e04db1b63729d67896b5afd740092420047422ec",
+    "web/office/tests/travel_v3_fixture.py": "9f1960960b20f66c474863f4099e6074fb8e42c8610655d489320da5e12c9d4a",
+    "app/test/fixtures/travel_allowances_v3.json": "4165a887b2e707164018de85d67601f6ee3c1062b676b89bff618f39292c3bfc"
+  },
+  "closed_findings": [
+    {
+      "code": "archived_json_binary_attachment_http_500",
+      "cause": "application/json byte attachment was passed to jsonify in the common Business HTTP branch",
+      "fix": "Use existing bytes Response and attachment filename for BinaryAttachment, including JSON originals",
+      "first_postgres": "docs/evidence/travel-v3-postgres-json-export-first-2026-11-03.txt",
+      "first_http": "docs/evidence/travel-json-export-http-first-2026-11-03.txt",
+      "regression_assertions": [
+        "actual MFA/HTTP",
+        "original export bytes",
+        "published original size and SHA256",
+        "JSON MIME",
+        "attachment filename",
+        "actual PostgreSQL backup/restore"
+      ]
+    }
+  ],
+  "distinct_earlier_finding": {
+    "code": "catalog_500_after_legacy_flow",
+    "reproduced": false,
+    "cause_confirmed": false,
+    "product_fix_claimed": false,
+    "passing_rerun": "work/verification/travel-browser-resumed-final.log"
+  },
+  "pending": [
+    "Separate private holiday extensions and conflicting same-day programme shares remain explicit business-rule blockers; not claimed as supported"
+  ],
+  "postgres": {
+    "host": "127.0.0.1",
+    "port": 55433,
+    "disposable_only": true,
+    "actual_tests": 5,
+    "skip_count": 0,
+    "slot_released": true
+  },
+  "production_actions": false,
+  "pdf_review": {
+    "path": "docs/evidence/travel-v3-program-share-pdf-2026-11-03.txt",
+    "sha256": "1ea24dbd07a7c5cfa5e73bb5ccb7797a3f7f28e1a2ecc531e1ee951d9934089e",
+    "method": "Actual accepted v3 domain record exported to PDF and read using pdftotext",
+    "expected": "2/3 of 1400 cents = 933 cents, before full meal reduction",
+    "historical_v1_v2_pdf_lines_unchanged": true
+  },
+  "clients": "docs/evidence/travel-v3-clients-2026-11-03.json"
+}

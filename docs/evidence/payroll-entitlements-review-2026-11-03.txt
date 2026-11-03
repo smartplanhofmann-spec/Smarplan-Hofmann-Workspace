@@ -1,0 +1,14 @@
+test_completed_six_month_gap_restarts_twelve_month_anchor (test_payroll_entitlements_review.EntitlementIndependentReview.test_completed_six_month_gap_restarts_twelve_month_anchor) ... ok
+test_different_proven_cause_gets_own_entitlement_without_resetting_old_cause (test_payroll_entitlements_review.EntitlementIndependentReview.test_different_proven_cause_gets_own_entitlement_without_resetting_old_cause) ... ok
+test_holiday_requires_independent_entitlement_and_causation (test_payroll_entitlements_review.EntitlementIndependentReview.test_holiday_requires_independent_entitlement_and_causation) ... ok
+test_six_month_backward_boundary_at_short_february (test_payroll_entitlements_review.EntitlementIndependentReview.test_six_month_backward_boundary_at_short_february) ... ok
+test_three_day_workweek_vacation_uses_full_reference_and_rounds_once (test_payroll_entitlements_review.EntitlementIndependentReview.test_three_day_workweek_vacation_uses_full_reference_and_rounds_once) ... ok
+test_unknown_historical_rule_never_falls_back_to_current (test_payroll_entitlements_review.EntitlementIndependentReview.test_unknown_historical_rule_never_falls_back_to_current) ... ok
+test_unpaid_month_at_january_end_has_twenty_nine_actual_days (test_payroll_entitlements_review.EntitlementIndependentReview.test_unpaid_month_at_january_end_has_twenty_nine_actual_days) ... ok
+test_unresolved_recovery_or_fault_never_becomes_a_new_entitlement (test_payroll_entitlements_review.EntitlementIndependentReview.test_unresolved_recovery_or_fault_never_becomes_a_new_entitlement) ... ok
+test_waiting_period_consumes_no_six_week_entitlement (test_payroll_entitlements_review.EntitlementIndependentReview.test_waiting_period_consumes_no_six_week_entitlement) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.004s
+
+OK

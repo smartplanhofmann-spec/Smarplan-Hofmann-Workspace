@@ -1,5 +1,10 @@
 # Lohnzeitachsen und Teilmonate – Bedien- und Clientvertrag
 
+**Historischer Entwurf:** Die Umsetzung und tatsächlich ausgeführten Prüfungen
+stehen inzwischen in [Clientabnahme P2/P3a](CRM_ERP_LOHN_ZEITACHSEN_CLIENTS.md).
+Der endgültige Vertrag ist [Lohnzeitachsen-API](CRM_ERP_LOHN_ZEITACHSEN_API.md).
+Die nachfolgenden Planformulierungen bleiben als damaliger Entwurfsstand erhalten.
+
 Stand 03.11.2026. Dieser Entwurf beschreibt die nächste Erweiterung; er ist kein
 Nachweis einer bereits vorhandenen Funktion. Der derzeitige Bank-/Midijobstand
 bleibt während der gemeinsamen Abschlussprüfung unverändert. Grundlage ist der

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-11-03T22:01:51+00:00",
+  "base_commit": "31c5184056af0d88554af468b09bc79c40ab4242",
+  "scope": "P2 private immutable payroll facts; development evidence, no production or official payroll approval",
+  "counts_overlap": true,
+  "python": "/tmp/smartplan-backend-verified/bin/python",
+  "sources": [
+    {
+      "path": "backend/business_payroll_facts.py",
+      "sha256": "30464819ade4fdd5da4f3c21c37a2ef8bb15a7d922d6d4bd93f60e24f992ea82"
+    },
+    {
+      "path": "backend/test_business_payroll_facts.py",
+      "sha256": "e042d278763303cf97d2f0eb7fd5627a6d2f548b11ef539c7b65abe304b8f503"
+    },
+    {
+      "path": "backend/test_business_payroll_facts_transport.py",
+      "sha256": "b370d19795c46d2776a9dff8a6e9de4c17832fe74cb2283c86a3ae3f266cf188"
+    },
+    {
+      "path": "backend/test_business_payroll_facts_review.py",
+      "sha256": "d8e296b63695e233c681479a9d509f2f4dbcb8eaae34636b87785463c4a2fe4e"
+    },
+    {
+      "path": "backend/online/test_business_payroll_facts_pg.py",
+      "sha256": "3236960f52be7245859616cfc82b57265edb0a38955b619eddfebd0b55315a0d"
+    },
+    {
+      "path": "docs/CRM_ERP_LOHN_ZEITACHSEN_API.md",
+      "sha256": "8853598bbdcd77ba10f505d62ff9ed9054ee174fcd21994daa9f14432aa187a4"
+    }
+  ],
+  "runs": [
+    {
+      "name": "payroll_facts_domain_http_review",
+      "tests": 27,
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 7.53,
+      "log_path": "work/verification/payroll-facts-final.log",
+      "log_sha256": "b6ef3b1578c99667fdeaac9e71d7367a2472bbdf652d389e358ea7692279df22"
+    },
+    {
+      "name": "payroll_facts_postgresql",
+      "tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 9.421,
+      "log_path": "work/verification/payroll-facts-pg.log",
+      "log_sha256": "900d32b7a5af0de332c7f570229d9763e9643fa22ec898a62fc017f21c43b60b"
+    }
+  ],
+  "closed_findings": [
+    "Actual HTTP query envelope and response tuple corrected",
+    "Accepted active facts bind original employee_revision; void preserves prior source revision",
+    "Immutable employee user and canonical accepted employee revision checked independently of fact self-hashes",
+    "Applicable payroll profiles end at actual employment end, not blindly at month end"
+  ],
+  "remaining_scope": [
+    "P3 clients and complete integrated payroll acceptance documented separately",
+    "Paid-absence entitlement calculation and segmented contribution/profile changes remain separate code work",
+    "No official tax/social filing, actual bank payment or production data migration executed"
+  ]
+}

@@ -1642,3 +1642,96 @@ Umsetzungsarbeit; externe Fachfreigabe ersetzt diese Arbeit nicht.
   Zeitachsen und Teilmonatsrechner sowie Reisepauschalen mit eigener
   Erstattungsquelle. Quellen-/API-Entwürfe liegen vor; fehlender Code wird nicht
   als externe Abhängigkeit behandelt.
+
+
+### Gesicherter Entwicklungs-Checkpoint `31c5184`
+
+Der gesamte bisherige Entwicklungsstand ist lokal committed; kein Remote-Push
+oder produktiver Rollout wurde ausgeführt. Die vollständige Backendregression
+am eingefrorenen Stand besteht mit 989 Fällen: 988 bestanden, allein der
+Windows-Jobobjektfall unter Linux ausgelassen (279,212 s). Die vollständige
+Paketprüfung einschließlich finaler Retourenanleitung besteht mit 16/16 Fällen
+(5,180 s). Das reproduzierte Quellinventar bleibt bytegleich bei 153 Komponenten.
+Zusammen mit den bereits dokumentierten 336 Node- und 848 Flutterfällen bildet
+dies einen konkreten Entwicklungsnachweis. Der lange gemeinsame Browserlauf
+läuft noch; er wird erst nach vollständigem Runnerabschluss als bestanden
+gezählt. Die nächste Entwicklung beginnt in eigenen neuen Moduldateien, während
+die bereits laufende Browserprüfung ihre eingefrorenen Oberflächen behält.
+
+
+Der abschließende gemeinsame Browserlauf des Checkpoints hat alle 17 Abläufe
+bestanden: tatsächliche MFA-/HTTP-Anmeldung, Rechte-/Modulwechsel, Portal,
+Buchführungsketten, Einkauf, Planung, Originaldateien, Signatur, Lagerrolle,
+mobile Ansichten und Anfrageformular. Namespace-, PID-, Netzwerk- und
+Seccomp-Sandbox wurden vor dem Anwendungszugriff tatsächlich geprüft. Die
+Browserdateien blieben bis zum vollständigen Runnerabschluss unverändert;
+der Testdienst hatte den Checkpoint bereits vor der folgenden Backendintegration
+geladen. Keine Aussage über produktives TLS oder reale Windows-/iPhone-Geräte.
+
+
+## Ergänzung: Lohnteilmonate und Reisekosten-Finanzintegration
+
+P2-Lohnfakten und P3a-Teilmonate sind im beschriebenen Umfang abgeschlossen:
+27 Fakten-/Transport-/Gegenprüfungen und drei echte PostgreSQL-Fälle;
+120 Lohnregressionsfälle, drei neue PostgreSQL-Teilmonatsfälle sowie neun
+historische PostgreSQL-Fälle nach gezielter Anpassung der aktuellen
+Restoreumfang-Erwartungen. Die alten Regelmodule bleiben bytegleich.
+Die Client-Abnahme umfasst 51 Node-, 52 Flutterprüfungen, Analyze und einen
+echten MFA-/HTTP-Browserablauf einschließlich 390-Pixel-Darstellung.
+Diese Zahlen überlappen und sind keine addierbare Gesamtzahl. Nachweise:
+[Teilmonate](CRM_ERP_LOHN_TEILMONATE_2026.md),
+[Fakten](CRM_ERP_LOHN_FAKTEN_2026.md),
+[Clients](CRM_ERP_LOHN_ZEITACHSEN_CLIENTS.md).
+
+Die neue tatsächliche Reisekostenzahlung ist mit EÜR und Bank verbunden:
+sechs eigene Kettenfälle und bestehende Lohnzahlung-/Bankregression bestehen
+gemeinsam mit **32/32** Prüfungen. Hinzu kommen **49/49** Finanz-HTTP-Prüfungen
+und je **5/5** unabhängige öffentliche Quellenprüfungen in Node und Flutter.
+Belegt sind Teilzahlungen ohne Vorsteuer, Finanzzugriff ohne Personalquellen,
+Periodensperren, dokumentarische Aufhebung ohne erfundene Rückzahlung,
+unveränderte alte Exporte und kompletter Restoreumfang11/Bericht12.
+Der Gegenversuch fand eine doppelt verwendbare alte Zahlungsreferenz;
+der neue Writer sperrt diese nun. Beide Clients wiesen zuvor unmögliche
+Kalendertage nicht ab; dieser Fehler ist ebenfalls behoben.
+[Testprotokolle und Quellhashes](evidence/travel-finance-integration-2026-11-03.json)
+bewahren Umfang und frühere fehlgeschlagene Prüfungen nachvollziehbar.
+
+Weitere Reise-/Auslagen-/Lohnfälle und ihre gesamte Browser-/PostgreSQL-Abnahme
+sind weiterhin in Arbeit. P3b/P4 und der reduzierte eigene Mitarbeiterbeleg
+werden additiv entwickelt; dieser Zwischenstand ist keine Gesamtfertigstellung.
+
+
+## 03.11.2026 – Anspruchsregeln, Reiseausgabe und neue Gesamtfälle
+
+- P4-Krankheitsregeln erhalten explizite Versionen für Stundenlohn-Fristbeginn,
+  hinzugetretene Ursachen und AU vor Beschäftigungsaufnahme. 109 Fach-, vier
+  HTTP- und drei PostgreSQL-Prüfungen einschließlich gemeinsamem Restore der
+  gespeicherten Versionen bestehen. Die zusätzliche unabhängige v4-Prüfung
+  besteht vier Kalender-/Originalfälle; ihr erster Fehler betraf ausschließlich
+  eine geteilte Referenz im Testaufbau.
+  [Versionsnachweise](evidence/payroll-sickness-versions-2026-11-03.json),
+  [unabhängige Beginnprüfung](evidence/payroll-sickness-start-independent-review-2026-11-03.json).
+- Der tatsächliche v5-Lohnabschluss besteht zwei PostgreSQL-Fälle mit MFA/HTTP,
+  zwei konkurrierenden Verbindungen, genau einem Abschluss/Steuerrecord,
+  Laufzeitrechten, Neustart und Dump/Restore ohne vorausgesetzte Zahlung.
+  Ein NULL-Typfehler in der globalen Policyabfrage ist behoben. Der private
+  ursprüngliche Auftrag wurde zusätzlich aus den öffentlichen Falldatensätzen
+  entfernt; die Integritätsprüfung bindet ihn weiterhin intern an seine Quittung.
+  Native und Browser-Gesamtfallintegration werden noch geprüft.
+- Die betriebliche Reise-Steuerentscheidung besteht acht Node- und acht
+  Flutterfälle sowie den echten Browserablauf über den produktiven Einstieg.
+  Vorschau, verlorene Speicherantwort, Originalwiederholung, Korrektur,
+  Aufhebung, Historie und 390-Pixel-Ansicht sind enthalten.
+- Reiseregel v3 besteht acht unabhängige Gegenfälle und 104 zusammenhängende
+  Backend-/HTTP-/Finanzfälle. Die fünf echten PostgreSQL-Fälle sind nach einem
+  gefundenen JSON-Downloadfehler grün: archivierte JSON-Anhänge werden jetzt als
+  unveränderte Bytes ausgeliefert. Vorheriger 500 und Nachprüfung sind bewahrt.
+  [Backendnachweis](CRM_ERP_REISE_V3_PRUEFUNG_2026-11-03.json).
+- Der neue native Gesamtfalldialog enthält strukturierte Quellenwahl,
+  Profilwechsel, Ansprüche, Reisen und ausdrücklich belegte Steuerentscheidung.
+  Die erste gerenderte Prüfung fand doppelte leere Dropdownoptionen; diese sind
+  korrigiert. Die abschließende Bedienungs- und Lebenszyklusprüfung läuft.
+
+Diese Prüfgruppen überlappen. Sie werden weder zu einer Gesamtzahl addiert
+noch als vollständige Fertigstellung der Software ausgegeben. Noch laufende
+Quelländerungen benötigen den anschließenden gemeinsamen Regressionsstand.

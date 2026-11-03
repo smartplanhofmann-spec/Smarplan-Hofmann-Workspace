@@ -22,7 +22,7 @@ FEATURES = ('accounting_euer',)
 RULE_VERSION = 'de_euer_regular_cash_2026_v1'
 _TABLES = ('business_euer_entries', 'business_euer_requests')
 _INPUT = {'operation', 'expected_revision', 'state_hash', 'payload', 'reason', 'evidence_reference'}
-_ECONOMIC = {'cash', 'input_vat', 'external_cash', 'asset', 'depreciation', 'payroll_cash'}
+_ECONOMIC = {'cash', 'input_vat', 'external_cash', 'asset', 'depreciation', 'payroll_cash', 'travel_cash'}
 _OPERATIONS = _ECONOMIC | {'reverse', 'correct', 'period', 'export'}
 _EXPENSE = ('materials', 'external_services', 'rent', 'insurance', 'software', 'travel', 'other_expense', 'asset_acquisition')
 _EXTERNAL = {'vat_payment':'out', 'vat_refund':'in', 'owner_contribution':'in', 'owner_withdrawal':'out',
@@ -32,7 +32,7 @@ _LIMITATIONS = ['Domestic regular taxation with explicitly recorded cash VAT pro
     'Invoice chains require verified incremental documentary components; historical invoice proofs remain unchanged',
     'No automatic reverse charge, cross-border VAT, VAT-free sales, private deemed supplies or partial advance input VAT',
     'Linear depreciation for evidenced new assets only; no opening assets, disposal, special/degressive depreciation or GWG automation',
-    'No automatic loan-interest limitation, travel allowance, home-office allowance or payroll tax determination',
+    'No automatic loan-interest limitation, home-office allowance or payroll tax determination; travel cash requires separately reviewed travel claims',
     'Own adviser review format; no official tax return, ELSTER transmission or DATEV certification']
 
 
@@ -195,7 +195,10 @@ class EuerAccounting(Domain):
             return
         from accounting_joint_access import authorize_sources
         from business_finance import Finance
-        if source['kind'] == 'payroll_cash':
+        if source['kind'] == 'travel_cash':
+            from travel_allowance_cash import financial_access
+            financial_access(self.office,actor,write)
+        elif source['kind'] == 'payroll_cash':
             from business_payroll_cash import financial_access
             financial_access(self.office,actor,write)
         elif source['kind'] == 'cash':
@@ -251,7 +254,10 @@ class EuerAccounting(Domain):
         return dict(source, source_hash=_sha(canonical(source)))
 
     def _validate_source(self, source):
-        if source['kind'] == 'payroll_cash':
+        if source['kind'] == 'travel_cash':
+            from travel_allowance_cash import public_source
+            current=public_source(self.office,source['id'],source['revision'])
+        elif source['kind'] == 'payroll_cash':
             from business_payroll_cash import public_source
             current=public_source(self.office,source['id'],source['revision'])
         elif source['kind'] == 'cash':
@@ -585,6 +591,8 @@ class EuerAccounting(Domain):
         if not historical:
             from business_payroll_cash import ensure_cash_available
             ensure_cash_available(self.office,payload['account_id'],normalized,receipt['original_sha256'])
+            from travel_allowance_cash import ensure_cash_available as travel_available
+            travel_available(self.office,payload['account_id'],normalized,receipt['original_sha256'])
         if self.office.db.execute('SELECT 1 FROM business_accounting_cash_events WHERE account_id=? AND evidence_key=?',
                                   (payload['account_id'],normalized)).fetchone():
             raise Problem(409, 'Zahlungsnachweis ist bereits im bestehenden Geldflussjournal vorhanden')
@@ -619,6 +627,13 @@ class EuerAccounting(Domain):
             for category,amount in movement['categories'].items():
                 postings.append(_posting('euer',category,sign*_amount(amount,True),movement['date'],payload['accounts'][category],target))
         return source,target,postings,dict(date=source['date'],cash_dates=sorted({item['date'] for item in source['cash_movements']}),status=source['status'])
+
+    def _prepare_travel_cash(self, actor, payload, ledger, historical):
+        from travel_allowance_cash import installed
+        from accounting_travel_sources import prepare
+        if not installed(self.office):
+            raise Problem(409, 'Reisekosten-Geldquellen sind noch nicht vollständig installiert.')
+        return prepare(self,actor,payload,ledger,historical)
 
     def _prepare_asset(self, actor, payload, ledger, historical):
         _shape(payload,'receipt_id source_hash description business_basis use_start life_months account')
@@ -778,6 +793,9 @@ class EuerAccounting(Domain):
                     dates={item['date'] for item in source['cash_movements']} or {source['date']}
                     if current:dates.update(self._effect_dates(current['effect']))
                     issues.extend(dict(code=code,source_id=source['id'],date=day,source_path=source['source_path']) for day in sorted(dates))
+        from accounting_travel_sources import catalog as travel_catalog
+        travel_items,travel_issues,travel_movements=travel_catalog(self,actor,ledger)
+        items.extend(travel_items);issues.extend(travel_issues);movements.extend(travel_movements)
         totals={}
         for value in movements:
             key=value['account']['id']; total=totals.setdefault(key,dict(account=value['account'],inflows=0,outflows=0))
@@ -786,7 +804,7 @@ class EuerAccounting(Domain):
                        movement_net=_money(value['inflows']-value['outflows']),opening_balance=None,balance=None) for value in totals.values()]
         movements.sort(key=lambda value:(value['date'],value['source_kind'],value['source_id']))
         return dict(items=items,issues=issues,cash_movements=movements,account_movements=accounts,
-                    cash_scope='existing_cash_events_reviewed_external_and_payroll_cash' if payroll_present else 'existing_cash_events_and_reviewed_external_cash',opening_balances_available=False)
+                    cash_scope='existing_cash_events_reviewed_external_payroll_and_travel_cash' if travel_items else 'existing_cash_events_reviewed_external_and_payroll_cash' if payroll_present else 'existing_cash_events_and_reviewed_external_cash',opening_balances_available=False)
 
     def _report(self, actor, year, ledger, *, month=None):
         _year(year); catalog=self._catalog(actor,ledger)
@@ -919,7 +937,8 @@ class EuerAccounting(Domain):
             return dict(revision=len(ledger['entries']),state_hash=_state_hash(ledger['entries']),profile=profile,
                         profile_ready=self._configured(profile),writes_allowed=writes,rule_version=RULE_VERSION,account_frame='SKR04',
                         categories=dict(income=['sales'],expense=list(_EXPENSE),external_cash=dict(_EXTERNAL),
-                            payroll_cash=['payroll_net','payroll_employee_tax','payroll_employee_social','payroll_employer_social','payroll_employer_levies','payroll_employer_flat_tax']),
+                            payroll_cash=['payroll_net','payroll_employee_tax','payroll_employee_social','payroll_employer_social','payroll_employer_levies','payroll_employer_flat_tax'],
+                            travel_cash=['travel_allowance']),
                         periods=list(ledger['periods'].values()),limitations=list(_LIMITATIONS),official_tax_return=False)
 
     def sources(self,actor):
@@ -986,7 +1005,7 @@ def installed(office):
     return True
 
 
-def ensure_cash_identity_available(office,account_id,evidence_key,original_sha256=None,*,payroll_batch_id=None):
+def ensure_cash_identity_available(office,account_id,evidence_key,original_sha256=None,*,payroll_batch_id=None,travel_payment_id=None):
     """Existing cash writer calls this under its own serialized transaction.
 
     These immutable original identities remain reserved after a counter-posting;
@@ -994,6 +1013,8 @@ def ensure_cash_identity_available(office,account_id,evidence_key,original_sha25
     """
     from business_payroll_cash import ensure_cash_available
     ensure_cash_available(office,account_id,evidence_key,original_sha256 if payroll_batch_id is None else None,own_batch=payroll_batch_id)
+    from travel_allowance_cash import ensure_cash_available as travel_available
+    travel_available(office,account_id,evidence_key,original_sha256,own_payment=travel_payment_id)
     if not installed(office):return
     for row in office.db.execute("SELECT entry_json,entry_sha256 FROM business_euer_entries WHERE operation IN ('external_cash','correct')").fetchall():
         if _sha(row['entry_json'])!=row['entry_sha256']:raise Problem(409,'EÜR-Zahlungsnachweis beschädigt')

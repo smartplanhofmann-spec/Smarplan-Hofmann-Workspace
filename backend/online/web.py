@@ -193,6 +193,13 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                  'personnel-workflow.js': 'text/javascript', 'accounting-euer.js': 'text/javascript',
                  'assistant.js': 'text/javascript',
                  'payroll.js': 'text/javascript',
+                 'payroll-facts.js': 'text/javascript',
+                 'payroll-statements.js': 'text/javascript',
+                 'payroll-entitlements.js': 'text/javascript',
+                 'payroll-travel-tax-policies.js': 'text/javascript',
+                 'travel-allowances.js': 'text/javascript',
+                 'payroll-calculation-cases.js': 'text/javascript',
+                 'travel-cash.js': 'text/javascript',
                  'company-overview.js': 'text/javascript',
                  'inventory-counts.js': 'text/javascript',
                  'sales.js': 'text/javascript',
@@ -452,7 +459,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             result, status, mimetype = business_api.dispatch(
                 office, user, path, request.method, data, offline=plan_token,
                 offline_capabilities=plan_access.business_capabilities(office, token) if plan_token else ())
-            return (jsonify(result), status) if mimetype == 'application/json' else Response(
+            return (jsonify(result), status) if mimetype == 'application/json' and not isinstance(result, workspace_api.BinaryAttachment) else Response(
                 _wsgi_body(result), status=status, mimetype=mimetype,
                 headers={'Content-Disposition': workspace_api.attachment_disposition(
                     getattr(result, 'filename', 'smartplan-dokument'))})

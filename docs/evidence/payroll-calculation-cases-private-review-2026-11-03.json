@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-11-03T22:55:19.179739+00:00",
+  "tests": 6,
+  "passed": 6,
+  "log": "docs/evidence/payroll-calculation-cases-private-review-2026-11-03.txt",
+  "log_sha256": "c3701e5f9bd634ae6e5f1090c94132ce945782436bd4183224929cac58d467dc",
+  "sources": {
+    "backend/business_payroll_calculation_cases.py": "1ec2b8eb1e0d94a7cabd2b122101288d711b480ba0d25af7c34bc89649c2349e",
+    "backend/test_business_payroll_calculation_cases_review.py": "42c8b502ae314e6bf4ca85290e39cb5de6cd3fc044ab8e39a9d10adfbfb33734"
+  },
+  "scope": "Focused independent review; no complete payroll workflow acceptance"
+}

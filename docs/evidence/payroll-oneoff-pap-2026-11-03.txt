@@ -1,0 +1,16 @@
+test_252_cases_derived_from_independently_read_official_annual_table (test_payroll_pap_oneoff_2026.OneOffPapTests.test_252_cases_derived_from_independently_read_official_annual_table) ... ok
+test_child_allowance_affects_solidarity_threshold_not_special_church_base (test_payroll_pap_oneoff_2026.OneOffPapTests.test_child_allowance_affects_solidarity_threshold_not_special_church_base) ... ok
+test_exact_annual_freigrenze_is_exempt_but_next_euro_is_not (test_payroll_pap_oneoff_2026.OneOffPapTests.test_exact_annual_freigrenze_is_exempt_but_next_euro_is_not) ... ok
+test_input_amounts_and_standard_profile_preconditions_are_checked (test_payroll_pap_oneoff_2026.OneOffPapTests.test_input_amounts_and_standard_profile_preconditions_are_checked) ... ok
+test_membership_does_not_change_solidarity_threshold (test_payroll_pap_oneoff_2026.OneOffPapTests.test_membership_does_not_change_solidarity_threshold) ... ok
+test_solidarity_half_cent_is_discarded (test_payroll_pap_oneoff_2026.OneOffPapTests.test_solidarity_half_cent_is_discarded) ... ok
+test_solidarity_is_not_the_difference_of_annual_solidarity (test_payroll_pap_oneoff_2026.OneOffPapTests.test_solidarity_is_not_the_difference_of_annual_solidarity) ... ok
+test_zero_other_payment_does_not_repeat_the_running_tax (test_payroll_pap_oneoff_2026.OneOffPapTests.test_zero_other_payment_does_not_repeat_the_running_tax) ... ok
+test_all_258_official_general_machine_annual_reference_values (test_payroll_pap_2026.PAP2026References.test_all_258_official_general_machine_annual_reference_values) ... ok
+test_explicit_typed_and_consistent_parameters (test_payroll_pap_2026.PAP2026References.test_explicit_typed_and_consistent_parameters) ... ok
+test_official_monthly_distribution_and_solidarity_mitigation (test_payroll_pap_2026.PAP2026References.test_official_monthly_distribution_and_solidarity_mitigation) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.020s
+
+OK

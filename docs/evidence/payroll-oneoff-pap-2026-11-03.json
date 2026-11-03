@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-03",
+  "kind": "own_isolated_pap_oneoff_tests_not_full_p5_acceptance",
+  "tests_run": 11,
+  "failures": 0,
+  "errors": 0,
+  "success": true,
+  "own_test_methods": 8,
+  "derived_oneoff_reference_cases": 252,
+  "existing_official_annual_reference_values": 258,
+  "pap_version": "bmf_2026_2025_11_12_standard_oneoff_v1",
+  "pap_hash": "8d475ba850fcfc17351ce9dcd3cb49b0a5b1ce5be03906012d38c68ff07ddf62",
+  "independent_review_pending": true,
+  "api_registered": false,
+  "postgres_tested": false,
+  "original_pdf_downloaded": false,
+  "official_xml_downloaded": false,
+  "files": {
+    "backend/payroll_pap_oneoff_2026.py": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456",
+    "backend/test_payroll_pap_oneoff_2026.py": "629b34d5013d25070010399c9b1e8da69f1765c783c00911959497c166303d5d",
+    "backend/payroll_pap_2026.py": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071",
+    "docs/evidence/payroll-oneoff-2026-derived-pap-references.json": "03a2b6bac705cb4f4ef447d8df4fd12910b5bfb6f22aba83782992d038e704d3"
+  }
+}

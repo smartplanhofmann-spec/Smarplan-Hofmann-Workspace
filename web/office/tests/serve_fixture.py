@@ -16,6 +16,7 @@ import signal
 import secrets
 import sys
 import tempfile
+import traceback
 import uuid
 
 BACKEND = Path(__file__).resolve().parents[3] / 'backend'
@@ -389,6 +390,20 @@ def main():
                 metadata['handover_instance_id'] = fixture_instance
             app = create_app(office=office, key=fixture_key, host='127.0.0.1',
                 **({'storage':storage,'instance_id':fixture_instance} if args.synthetic_handover else {}))
+            original_unexpected = app.error_handler_spec[None][None][Exception]
+            def synthetic_exception_diagnostic(error):
+                response = original_unexpected(error)
+                # Only this disposable test fixture emits stack coordinates.
+                # Never include exception text, request values or frame locals.
+                status = response[1] if isinstance(response, tuple) else response.status_code
+                if status == 500:
+                    frames = [dict(file=Path(frame.filename).name,
+                                   line=frame.lineno, function=frame.name)
+                              for frame in traceback.extract_tb(error.__traceback__)]
+                    print('SYNTHETIC_SERVER_EXCEPTION '+json.dumps(dict(
+                        type=type(error).__name__, frames=frames)), file=sys.stderr, flush=True)
+                return response
+            app.register_error_handler(Exception, synthetic_exception_diagnostic)
             if args.synthetic_speech:
                 from unittest.mock import patch
                 from business_assistant_speech import wav_bytes

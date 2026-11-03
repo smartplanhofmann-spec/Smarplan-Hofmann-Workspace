@@ -57,6 +57,21 @@ COLUMNS = {
     'business_custom_field_requests': 'user_id,request_id,request_hash,result_json',
     'business_assistant_speech_outcomes': 'request_id,status,error_code,provider_attempted,created_at',
     'business_assistant_speech_requests': 'id,user_id,project_id,context_id,instance_id,context_sha256,audio_sha256,audio_bytes,sample_count,provider_json,provider_sha256,request_sha256,created_at',
+    'business_payroll_entitlement_events': 'id,revision,employee_id,kind,effective_from,effective_to,status,payload_json,sources_json,source_hash,previous_hash,content_hash,created_by,created_at,identity_key,command_hash',
+    'business_payroll_entitlement_requests': 'user_id,request_id,operation,request_hash,fact_id,fact_revision,fact_content_hash,created_at',
+    'business_payroll_calculation_case_events': 'id,revision,employee_id,kind,effective_from,effective_to,status,payload_json,sources_json,source_hash,previous_hash,content_hash,created_by,created_at,identity_key,command_hash',
+    'business_payroll_calculation_case_requests': 'user_id,request_id,operation,request_hash,fact_id,fact_revision,fact_content_hash,created_at',
+    'business_payroll_travel_tax_recordings': 'run_id,run_revision,payload_json,content_hash,created_by,created_at',
+    'business_travel_sites': 'id,revision,sequence,employee_id,payload_json,content_hash,previous_hash,created_by,created_at,pdf,pdf_sha256',
+    'business_travel_trips': 'id,revision,sequence,employee_id,payload_json,content_hash,previous_hash,created_by,created_at,pdf,pdf_sha256',
+    'business_travel_settlements': 'id,revision,sequence,employee_id,payload_json,content_hash,previous_hash,created_by,created_at,pdf,pdf_sha256',
+    'business_travel_payments': 'id,revision,sequence,employee_id,payload_json,content_hash,previous_hash,created_by,created_at,pdf,pdf_sha256',
+    'business_travel_claims': 'settlement_id,revision,employee_id,claim_key,source_kind,source_id,source_revision,amount_minor,content_hash',
+    'business_travel_cash_events': 'id,revision,instance_id,public_json,public_sha256,private_sha256',
+    'business_travel_evidence': 'account_id,evidence_key,payment_id,first_revision,original_sha256',
+    'business_travel_requests': 'actor_id,request_id,employee_id,operation,target_kind,target_id,revision,request_hash,result_hash,created_at',
+    'business_payroll_fact_events': 'id,revision,employee_id,kind,effective_from,effective_to,status,payload_json,sources_json,source_hash,previous_hash,content_hash,created_by,created_at,identity_key,command_hash',
+    'business_payroll_fact_requests': 'user_id,request_id,operation,request_hash,fact_id,fact_revision,fact_content_hash,created_at',
     'business_payroll_account_events': 'id,revision,kind,employee_id,identity_key,payload_json,content_hash,previous_hash,created_by,created_at',
     'business_payroll_account_requests': 'user_id,request_id,request_hash,result_json',
     'assignments': 'user_id,project_id',
@@ -312,8 +327,8 @@ OPTIONAL_COLUMNS = {'reports': {'rowid'}}
 def policy(table):
     if table not in COLUMNS:
         raise ValueError('Unclassified export table: '+table)
-    financial=any(value in table for value in ('accounting','euer','document','finance','payment','receipt','payroll','business_bank_'))
-    personnel=any(value in table for value in ('personnel','payroll','employee','absence','time_'))
+    financial=any(value in table for value in ('accounting','euer','document','finance','payment','receipt','payroll','business_bank_')) or table=='business_travel_cash_events'
+    personnel=any(value in table for value in ('personnel','payroll','employee','absence','time_')) or (table.startswith('business_travel_') and table!='business_travel_cash_events')
     authentication=table in EXCLUDED or table in ('users','external_connections','business_permission_grants')
     if personnel:
         category,purpose='personnel','Employment, working time, payroll and evidence of expenses'

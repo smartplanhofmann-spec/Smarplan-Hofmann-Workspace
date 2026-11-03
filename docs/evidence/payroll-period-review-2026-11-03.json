@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-11-03T21:58:48.127489+00:00",
+  "base_commit": "31c5184056af0d88554af468b09bc79c40ab4242",
+  "command": "PYTHONPATH=backend:backend/online /tmp/smartplan-backend-verified/bin/python -m unittest -v test_business_payroll_facts_review test_payroll_periods_review",
+  "tests_run": 22,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "log_path": "docs/evidence/payroll-period-review-2026-11-03.txt",
+  "log_sha256": "be4b912ae5f76141d441ef3912d2356f675fe8988ff8ec78ae47a9645619c985",
+  "checked_file_sha256": {
+    "backend/test_payroll_periods_review.py": "44e225b5fba3ada9e1ccc174a50a0751d73d9b661a6826c8e901cc50926f4dc5",
+    "backend/test_business_payroll_facts_review.py": "d8e296b63695e233c681479a9d509f2f4dbcb8eaae34636b87785463c4a2fe4e",
+    "backend/payroll_periods_2026.py": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890",
+    "backend/payroll_pap_periods_2026.py": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444",
+    "backend/business_payroll_facts.py": "30464819ade4fdd5da4f3c21c37a2ef8bb15a7d922d6d4bd93f60e24f992ea82",
+    "backend/business_payroll.py": "de3cc2598cb2306245b590dac3ccf294ff5772f5a64770347eb1f45bd4cae51c",
+    "backend/payroll_pap_2026.py": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071"
+  },
+  "scope": "Independent source, rounding, historical replay, rights and v4 immutable-export counterexamples. SQLite only. No P3b or statutory transmission approval.",
+  "resolved_findings": [
+    "Accepted employee revision compared with frozen source on active-fact replay",
+    "Employee mapping and original revision checked against independent personnel records",
+    "Applicable profile selection ends at actual employment exit"
+  ]
+}

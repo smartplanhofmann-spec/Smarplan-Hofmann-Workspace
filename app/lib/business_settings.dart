@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'business_session.dart';
+import 'business_custom_fields.dart';
+import 'business_company_handover.dart';
+import 'business_privacy_cases.dart';
+import 'business_migrations.dart';
 import 'business_widgets.dart';
 import 'business_operations.dart';
 import 'business_workflows.dart';
@@ -15,9 +19,11 @@ class BusinessSettingsPage extends StatefulWidget {
     super.key,
     required this.session,
     this.onOpenSection,
+    this.onProject,
   });
   final BusinessSession session;
   final ValueChanged<String>? onOpenSection;
+  final void Function(Map<String, dynamic>)? onProject;
   @override
   State<BusinessSettingsPage> createState() => _BusinessSettingsPageState();
 }
@@ -188,6 +194,23 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
           const SizedBox(height: 20),
         ],
         if (error != null) Notice(error!, error: true),
+        if (widget.session.hasFeature('custom_fields'))
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.playlist_add),
+              title: const Text('Zusatzfelder verwalten'),
+              subtitle: const Text(
+                'Eigene Angaben für Kontakte, Projekte und Geräte.',
+              ),
+              onTap: () => Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      BusinessCustomFieldsPage(session: widget.session),
+                ),
+              ),
+            ),
+          ),
         if (settings != null)
           Card(
             child: Padding(
@@ -223,6 +246,44 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
             ),
           ),
         const SizedBox(height: 16),
+        if (widget.session.can('privacy.manage') &&
+            widget.session.hasFeature('privacy_cases'))
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.privacy_tip_outlined),
+              title: const Text('Datenschutzfälle'),
+              subtitle: const Text(
+                'Betroffenenanfragen, Fristen, Quellenprüfung und geschützte Auskunft.',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      BusinessPrivacyCasesPage(session: widget.session),
+                ),
+              ),
+            ),
+          ),
+        if (widget.session.hasFeature('company_handover') &&
+            widget.session.hasModule('company_handover'))
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.inventory_2_outlined),
+              title: const Text('Unternehmensübergabe'),
+              subtitle: const Text(
+                'Nur Geschäftsführung: Unternehmensarchiv, Zugänge und dokumentierte Ausstiegsprüfung.',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      BusinessCompanyHandoverPage(session: widget.session),
+                ),
+              ),
+            ),
+          ),
         if (widget.session.hasModule('foundation'))
           Card(
             child: ListTile(
@@ -256,6 +317,33 @@ class _BusinessSettingsPageState extends State<BusinessSettingsPage> {
                 MaterialPageRoute(
                   builder: (_) =>
                       BusinessTemplatesPage(session: widget.session),
+                ),
+              ),
+            ),
+          ),
+        if (widget.session.hasFeature('file_migrations') &&
+            widget.session.hasModule('migrations') &&
+            [
+              'settings.manage',
+              'contacts.read',
+              'finance.read',
+              'documents.read',
+            ].every(widget.session.can))
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.drive_folder_upload_outlined),
+              title: const Text('Kontrollierter Dateiimport'),
+              subtitle: const Text(
+                'Originale, Feldzuordnung, Dubletten, Vorschau und Abgleich.',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => BusinessMigrationsPage(
+                    session: widget.session,
+                    onProject: widget.onProject,
+                  ),
                 ),
               ),
             ),

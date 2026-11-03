@@ -217,7 +217,8 @@ class Accounting(Domain):
                     raise
                 allowed = False
             return dict(profile_status='unconfigured', tax_status='unconfigured', tax_result_available=False,
-                        scope='authorized_sources', writes_allowed=allowed)
+                        scope='authorized_sources', writes_allowed=allowed,
+                        cash_scope='legacy_cash_events_only', complete_cash_projection_path='/accounting/euer/sources')
 
     def _account(self, account_id, revision=None):
         identifier(account_id, 'Geldkonto-ID')
@@ -397,7 +398,12 @@ class Accounting(Domain):
             source_hash=_sha(canonical(proof)), **{key: value[key] for key in ('vendor', 'invoice_number', 'issue_date', 'net', 'tax', 'gross', 'currency')})
         return public, proof
 
-    def _receipt_state(self, source):
+    def _receipt_state(self, source, actor=None):
+        from business_accounting_euer import external_receipt_binding
+        external = external_receipt_binding(self.office, actor, source['original_sha256'])
+        if external:
+            return dict(source, cash_revision=0, paid_amount=None, remaining_amount=None, payable=False,
+                        blocked_reason='external_cash_evidence', source_role='payment_evidence', external_cash_binding=external)
         rows = self.office.db.execute("SELECT s.review_revision,s.cash_revision,e.amount FROM business_accounting_source_links s "
             'JOIN business_accounting_cash_events e ON e.id=s.event_id WHERE s.receipt_id=? ORDER BY s.cash_revision', (source['receipt_id'],)).fetchall()
         paid = sum((_money(row['amount']) for row in rows), Decimal(0))
@@ -434,14 +440,14 @@ class Accounting(Domain):
             for row in self.office.db.execute('SELECT id FROM business_incoming_receipts ORDER BY created_at DESC,id').fetchall():
                 try:
                     public, _ = self._receipt_source(fresh, row['id'])
+                    if public:
+                        for link in self.office.db.execute('SELECT event_id FROM business_accounting_source_links WHERE receipt_id=?', (row['id'],)).fetchall():
+                            self._event(fresh, link['event_id'])
+                        items.append(self._receipt_state(public, fresh))
                 except Problem as error:
                     if error.status in (403, 404):
                         continue
                     raise
-                if public:
-                    for link in self.office.db.execute('SELECT event_id FROM business_accounting_source_links WHERE receipt_id=?', (row['id'],)).fetchall():
-                        self._event(fresh, link['event_id'])
-                    items.append(self._receipt_state(public))
             return _paged(items, limit, offset)
 
     def _event(self, actor, event_id):
@@ -485,7 +491,8 @@ class Accounting(Domain):
                     if error.status in (403, 404):
                         continue
                     raise
-            return dict(_paged(items, limit, offset), tax_result_available=False)
+            return dict(_paged(items, limit, offset), tax_result_available=False,
+                        cash_scope='legacy_cash_events_only', complete_cash_projection_path='/accounting/euer/sources')
 
     def _cash_inputs(self, data):
         identifier(data['account_id'], 'Geldkonto-ID'); _hash(data['source_hash'])
@@ -502,6 +509,8 @@ class Accounting(Domain):
 
     def _post_cash(self, actor, data, account, source, proof, kind, amount, direction, reference, cash_revision=None):
         evidence, key = _evidence(data['evidence_reference'])
+        from business_accounting_euer import ensure_cash_identity_available
+        ensure_cash_identity_available(self.office, account['id'], key, source.get('original_sha256'))
         if self.office.db.execute('SELECT 1 FROM business_accounting_cash_events WHERE account_id=? AND evidence_key=?', (account['id'], key)).fetchone():
             raise Problem(409, 'Dieser Zahlungsnachweis ist auf dem Geldkonto bereits erfasst')
         event_id, stamp = uuid.uuid4().hex, self.now()
@@ -558,7 +567,7 @@ class Accounting(Domain):
             source, proof = self._receipt_source(fresh, data['receipt_id'])
             if not source or any(source[key] != data[key] for key in ('source_hash', 'review_revision', 'review_sha256', 'original_sha256')):
                 raise Problem(409, 'Aktuell geprüfte unveränderte Eingangsbelegquelle erforderlich')
-            state = self._receipt_state(source)
+            state = self._receipt_state(source, fresh)
             if not state['payable']:
                 raise Problem(409, 'Auszahlung gesperrt; Belegstand und Zahlungsnachweise klären: ' + state['blocked_reason'])
             if state['cash_revision'] != data['expected_cash_revision'] or amount > _money(state['remaining_amount'], positive=False):

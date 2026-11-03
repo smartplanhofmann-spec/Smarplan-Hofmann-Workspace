@@ -29,7 +29,8 @@ LEGACY_VERSION = 6
 MODULE_NAMES = tuple('business_' + name for name in (
     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
     'inventory', 'maintenance', 'adapters', 'organization', 'instance', 'purchasing', 'portal', 'accounting',
-    'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity', 'accounting_refunds_v2', 'accounting_profile'))
+    'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity', 'accounting_refunds_v2', 'accounting_profile',
+    'project_economics', 'asset_provenance', 'customer_workspace', 'personnel_workflow', 'accounting_euer', 'assistant', 'payroll', 'inventory_counts', 'sales', 'payroll_accounts', 'assistant_speech', 'company_handover', 'migrations', 'custom_fields', 'privacy_cases', 'payroll_cash', 'service', 'bank_reconciliation', 'resource_custody', 'purchase_changes'))
 CONTROL_TABLES = frozenset((
     'business_schema_state', 'business_schema_migrations', 'business_schema_events',
     'business_feature_flags', 'business_privacy_anchors', 'business_device_grants', 'business_restore_state',
@@ -386,24 +387,36 @@ def require_runtime_security(office):
     if _sqlite(office):
         return False
     try:
+        from online.instance_roles import for_office
+        roles = for_office(office)
         row = office.db.execute('''SELECT current_user AS name,session_user AS session_name,r.rolsuper,r.rolcreatedb,r.rolcreaterole,
           r.rolreplication,r.rolbypassrls,d.datdba=r.oid AS owns_database,pg_get_userbyid(d.datdba) AS database_owner,
           has_database_privilege(current_user,current_database(),'CREATE') AS creates_database_objects,
           has_database_privilege(current_user,current_database(),'TEMP') AS creates_temporary_objects,
           has_schema_privilege(current_user,'public','CREATE') AS creates_schema_objects
           FROM pg_roles r JOIN pg_database d ON d.datname=current_database() WHERE r.rolname=current_user''').fetchone()
-        if (not row or row['name'] != 'smartplan-online' or row['session_name'] != 'smartplan-online'
-                or row['database_owner'] != 'smartplan-migrator' or any(row[name] for name in (
+        if (not row or row['name'] != roles.runtime or row['session_name'] != roles.runtime
+                or row['database_owner'] != roles.owner or any(row[name] for name in (
                 'rolsuper', 'rolcreatedb', 'rolcreaterole', 'rolreplication', 'rolbypassrls',
                 'owns_database', 'creates_database_objects', 'creates_temporary_objects', 'creates_schema_objects'))):
             raise ValueError('Unsafe runtime role')
-        if office.db.execute("SELECT pg_has_role(current_user,'smartplan-migrator','MEMBER')").fetchone()[0]:
+        if office.db.execute("SELECT pg_has_role(current_user,?,'MEMBER')",(roles.owner,)).fetchone()[0]:
             raise ValueError('Runtime can assume migration ownership')
+        if roles.slug is not None:
+            from online.instance_roles import verify_database
+            verify_database(office)
+            if office.db.execute("SELECT 1 FROM pg_roles WHERE rolname<>current_user AND pg_has_role(current_user,oid,'MEMBER') LIMIT 1").fetchone():
+                raise ValueError('Company runtime has an unexpected role membership')
+            if office.db.execute("SELECT 1 FROM pg_roles WHERE rolname<>current_user AND NOT rolsuper AND rolcanlogin AND has_database_privilege(oid,current_database(),'CONNECT') LIMIT 1").fetchone():
+                raise ValueError('A different runtime can connect to this company database')
+            for other in office.db.execute("SELECT datname FROM pg_database WHERE datname NOT IN ('postgres','template0','template1') AND (left(datname,3)='sp_' OR pg_get_userbyid(datdba) IN ('smartplan-online','smartplan-migrator')) AND has_database_privilege(current_user,oid,'CONNECT')").fetchall():
+                if not roles.owns_database_name(other['datname']):
+                    raise ValueError('Company runtime can connect to a different company database')
         if office.db.execute("SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace "
-                             "WHERE n.nspname='public' AND c.relkind IN ('r','p','v','m','S','f') AND pg_get_userbyid(c.relowner)<>'smartplan-migrator' LIMIT 1").fetchone():
+                             "WHERE n.nspname='public' AND c.relkind IN ('r','p','v','m','S','f') AND pg_get_userbyid(c.relowner)<>? LIMIT 1",(roles.owner,)).fetchone():
             raise ValueError('Application relation has unexpected ownership')
         if office.db.execute("SELECT 1 FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace "
-                             "WHERE n.nspname='public' AND pg_get_userbyid(p.proowner)<>'smartplan-migrator' LIMIT 1").fetchone():
+                             "WHERE n.nspname='public' AND pg_get_userbyid(p.proowner)<>? LIMIT 1",(roles.owner,)).fetchone():
             raise ValueError('Application function has unexpected ownership')
         policy = runtime_privileges()
         for permissions in office.db.execute("""SELECT tablename,
@@ -460,35 +473,37 @@ def apply_runtime_privileges(office):
     if _sqlite(office):
         raise ValueError('PostgreSQL operator required')
     from psycopg import sql
+    from online.instance_roles import for_office
+    runtime = sql.Identifier(for_office(office).runtime)
     connection = getattr(office.db, 'connection', office.db)
     actual = _tables(office)
     policy = runtime_privileges()
     database = connection.execute('SELECT current_database()').fetchone()[0]
-    connection.execute(sql.SQL('REVOKE ALL ON DATABASE {} FROM PUBLIC,"smartplan-online"').format(sql.Identifier(database)))
-    connection.execute(sql.SQL('GRANT CONNECT ON DATABASE {} TO "smartplan-online"').format(sql.Identifier(database)))
-    connection.execute('REVOKE ALL ON SCHEMA public FROM PUBLIC,"smartplan-online"')
-    connection.execute('GRANT USAGE ON SCHEMA public TO "smartplan-online"')
+    connection.execute(sql.SQL('REVOKE ALL ON DATABASE {} FROM PUBLIC,{}').format(sql.Identifier(database),runtime))
+    connection.execute(sql.SQL('GRANT CONNECT ON DATABASE {} TO {}').format(sql.Identifier(database),runtime))
+    connection.execute(sql.SQL('REVOKE ALL ON SCHEMA public FROM PUBLIC,{}').format(runtime))
+    connection.execute(sql.SQL('GRANT USAGE ON SCHEMA public TO {}').format(runtime))
     for table in sorted(actual):
         if not _NAME.fullmatch(table):
             raise ValueError('Unexpected application table name')
-        connection.execute(sql.SQL('REVOKE ALL ON TABLE public.{} FROM PUBLIC,"smartplan-online"').format(sql.Identifier(table)))
+        connection.execute(sql.SQL('REVOKE ALL ON TABLE public.{} FROM PUBLIC,{}').format(sql.Identifier(table),runtime))
         columns = [row[0] for row in connection.execute(
             "SELECT a.attname FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid "
             "JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' "
             "AND c.relname=%s AND a.attnum>0 AND NOT a.attisdropped ORDER BY a.attnum", (table,)).fetchall()]
         if columns:
             # Table REVOKE does not remove earlier column-specific grants.
-            connection.execute(sql.SQL('REVOKE ALL ({}) ON TABLE public.{} FROM PUBLIC,"smartplan-online"').format(
-                sql.SQL(',').join(map(sql.Identifier, columns)), sql.Identifier(table)))
+            connection.execute(sql.SQL('REVOKE ALL ({}) ON TABLE public.{} FROM PUBLIC,{}').format(
+                sql.SQL(',').join(map(sql.Identifier, columns)), sql.Identifier(table),runtime))
         privileges = policy.get(table, ('SELECT', 'INSERT', 'UPDATE', 'DELETE'))
         if privileges:
-            connection.execute(sql.SQL('GRANT {} ON TABLE public.{} TO "smartplan-online"').format(
-                sql.SQL(','.join(privileges)), sql.Identifier(table)))
+            connection.execute(sql.SQL('GRANT {} ON TABLE public.{} TO {}').format(
+                sql.SQL(','.join(privileges)), sql.Identifier(table),runtime))
     if 'business_restore_state' in actual:
         # The runtime verifier can clear privacy pending only, never approve
         # financial reconciliation or rewrite the restore identity.
-        connection.execute('GRANT UPDATE(pending) ON business_restore_state TO "smartplan-online"')
-    connection.execute('GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO "smartplan-online"')
+        connection.execute(sql.SQL('GRANT UPDATE(pending) ON business_restore_state TO {}').format(runtime))
+    connection.execute(sql.SQL('GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO {}').format(runtime))
 
 
 def financial_accounting_horizon(office):
@@ -506,6 +521,15 @@ def financial_accounting_horizon(office):
         capacity = 'business_accounting_capacity' in installed
         refunds_v2 = 'business_accounting_refunds_v2' in installed
         profile = 'business_accounting_profile' in installed
+        euer = 'business_accounting_euer' in installed
+        payroll_cash = 'business_payroll_cash' in installed
+        bank_reconciliation = 'business_bank_reconciliation' in installed
+        if bank_reconciliation and not payroll_cash:
+            raise ValueError('Bank reconciliation requires the complete installed financial schema')
+        if payroll_cash and not euer:
+            raise ValueError('Payroll cash sources require the installed EÜR journal')
+        if euer and not profile:
+            raise ValueError('EÜR journal requires the installed accounting profile')
         if profile and not (accounting and allocations and components and refunds and capacity and refunds_v2):
             raise ValueError('Accounting preparation profile requires the complete installed financial scope')
         if refunds_v2 and not (accounting and allocations and components and refunds and capacity):
@@ -567,7 +591,28 @@ def financial_accounting_horizon(office):
         preparation = profile_horizon(office)
         if preparation is None:
             raise ValueError('Installed accounting preparation profile horizon is missing')
-        return dict(horizon, schema_version=7, profile=preparation)
+        horizon = dict(horizon, schema_version=7, profile=preparation)
+        if not euer:
+            return horizon
+        from business_accounting_euer import restore_horizon as euer_horizon
+        journal = euer_horizon(office)
+        if journal is None:
+            raise ValueError('Installed EÜR journal horizon is missing')
+        horizon = dict(horizon, schema_version=8, euer=journal)
+        if not payroll_cash:
+            return horizon
+        from business_payroll_cash import restore_horizon as payroll_cash_horizon
+        wage_payments = payroll_cash_horizon(office)
+        if wage_payments is None:
+            raise ValueError('Installed payroll cash horizon is missing')
+        horizon = dict(horizon, schema_version=9, payroll_cash=wage_payments)
+        if not bank_reconciliation:
+            return horizon
+        from business_bank_reconciliation import restore_horizon as bank_horizon
+        bank = bank_horizon(office)
+        if bank is None:
+            raise ValueError('Installed bank reconciliation horizon is missing')
+        return dict(horizon, schema_version=10, bank_reconciliation=bank)
 
 
 def _validate_prejournal_horizon(horizon):
@@ -582,6 +627,57 @@ def _validate_prejournal_horizon(horizon):
 def _validate_financial_accounting_horizon(horizon, report_schema):
     if report_schema == 2:
         _validate_prejournal_horizon(horizon)
+        return
+    if report_schema == 11:
+        if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile', 'euer', 'payroll_cash', 'bank_reconciliation'}
+                or type(horizon['schema_version']) is not int or horizon['schema_version'] != 10):
+            raise ValueError('Exact version-10 combined accounting horizon required')
+        previous = {key: value for key, value in horizon.items() if key != 'bank_reconciliation'}
+        previous['schema_version'] = 9
+        _validate_financial_accounting_horizon(previous, 10)
+        bank_tables = {'business_bank_account_versions', 'business_bank_statements', 'business_bank_transactions',
+                       'business_bank_statement_lines', 'business_bank_match_events', 'business_bank_reconciliations', 'business_bank_requests'}
+        bank = horizon['bank_reconciliation']
+        if (not isinstance(bank, dict) or set(bank) != {'schema_version', 'table_counts', 'sha256'}
+                or type(bank['schema_version']) is not int or bank['schema_version'] != 1
+                or not isinstance(bank['table_counts'], dict) or set(bank['table_counts']) != bank_tables
+                or any(type(value) is not int or value < 0 for value in bank['table_counts'].values())
+                or not isinstance(bank['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', bank['sha256'])):
+            raise ValueError('Exact version-1 bank reconciliation horizon required')
+        return
+    if report_schema == 10:
+        if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile', 'euer', 'payroll_cash'}
+                or type(horizon['schema_version']) is not int or horizon['schema_version'] != 9):
+            raise ValueError('Exact version-9 combined accounting horizon required')
+        previous = {key: value for key, value in horizon.items() if key != 'payroll_cash'}
+        previous['schema_version'] = 8
+        _validate_financial_accounting_horizon(previous, 9)
+        # Keep this exact scope when future payroll or accounting modules grow.
+        payroll_cash_tables = {'business_payroll_cash_batches', 'business_payroll_cash_evidence',
+                               'business_payroll_cash_parts', 'business_payroll_cash_requests'}
+        cash = horizon['payroll_cash']
+        if (not isinstance(cash, dict) or set(cash) != {'schema_version', 'table_counts', 'sha256'}
+                or type(cash['schema_version']) is not int or cash['schema_version'] != 1
+                or not isinstance(cash['table_counts'], dict) or set(cash['table_counts']) != payroll_cash_tables
+                or any(type(value) is not int or value < 0 for value in cash['table_counts'].values())
+                or not isinstance(cash['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', cash['sha256'])):
+            raise ValueError('Exact version-1 payroll cash horizon required')
+        return
+    if report_schema == 9:
+        if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile', 'euer'}
+                or type(horizon['schema_version']) is not int or horizon['schema_version'] != 8):
+            raise ValueError('Exact version-8 combined accounting horizon required')
+        previous = {key: value for key, value in horizon.items() if key != 'euer'}
+        previous['schema_version'] = 7
+        _validate_financial_accounting_horizon(previous, 8)
+        journal = horizon['euer']
+        if (not isinstance(journal, dict) or set(journal) != {'schema_version', 'table_counts', 'sha256'}
+                or type(journal['schema_version']) is not int or journal['schema_version'] != 1
+                or not isinstance(journal['table_counts'], dict)
+                or set(journal['table_counts']) != {'business_euer_entries', 'business_euer_requests'}
+                or any(type(value) is not int or value < 0 for value in journal['table_counts'].values())
+                or not isinstance(journal['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', journal['sha256'])):
+            raise ValueError('Exact version-1 EÜR journal horizon required')
         return
     if report_schema == 8:
         if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile'}
@@ -706,6 +802,15 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
     capacity_installed = 'business_accounting_capacity' in value.get('read_capabilities', [])
     refunds_v2_installed = 'business_accounting_refunds_v2' in value.get('read_capabilities', [])
     profile_installed = 'business_accounting_profile' in value.get('read_capabilities', [])
+    euer_installed = 'business_accounting_euer' in value.get('read_capabilities', [])
+    payroll_cash_installed = 'business_payroll_cash' in value.get('read_capabilities', [])
+    bank_installed = 'business_bank_reconciliation' in value.get('read_capabilities', [])
+    if bank_installed and not payroll_cash_installed:
+        raise ValueError('Bank reconciliation requires the complete installed financial schema')
+    if payroll_cash_installed and not euer_installed:
+        raise ValueError('Payroll cash sources require the installed EÜR journal')
+    if euer_installed and not profile_installed:
+        raise ValueError('EÜR journal requires the installed accounting profile')
     if profile_installed and not (accounting_installed and allocations_installed and components_installed and refunds_installed and capacity_installed and refunds_v2_installed):
         raise ValueError('Accounting preparation profile requires the complete installed financial scope')
     if refunds_v2_installed and not (accounting_installed and allocations_installed and components_installed and refunds_installed and capacity_installed):
@@ -718,9 +823,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
         raise ValueError('Document components require the installed prejournal and payment allocations')
     if allocations_installed and not accounting_installed:
         raise ValueError('Payment allocations require the installed accounting prejournal')
-    required_schema = 8 if profile_installed else 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
+    required_schema = 11 if bank_installed else 10 if payroll_cash_installed else 9 if euer_installed else 8 if profile_installed else 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
     declared_schema = evidence.get('schema') if isinstance(evidence, dict) else None
-    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7, 8):
+    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11):
         raise ValueError('Known explicit financial report schema required')
     fields = {'schema', 'restore_id', 'reviewed_by', 'reviewed_at', 'number_horizons', 'outbound_reconciled'}
     if declared_schema >= 2:
@@ -788,8 +893,10 @@ def reconcile_financial_restore(office, evidence, evidence_sha256):
     if _sqlite(office):
         raise Problem(409, 'Finanzabgleich benötigt den geschützten PostgreSQL-Operatorpfad.')
     with _transaction(office):
+        from online.instance_roles import for_office
+        roles = for_office(office)
         who = office.db.execute('SELECT current_user AS current_name,session_user AS session_name').fetchone()
-        if who['session_name'] != 'postgres' or who['current_name'] not in ('postgres', 'smartplan-migrator'):
+        if who['session_name'] != 'postgres' or who['current_name'] not in ('postgres', roles.owner):
             raise Problem(403, 'Finanzabgleich ausschließlich durch den Datenbankbetreiber.')
         clients = office.db.execute("SELECT COUNT(*) FROM pg_stat_activity WHERE datname=current_database() AND backend_type='client backend' AND pid<>pg_backend_pid()").fetchone()[0]
         if clients:
@@ -822,7 +929,8 @@ def reconcile_local_financial_restore(office, evidence, evidence_sha256, *, appl
 
 _PRIVACY_VARIABLES = ('SMARTPLAN_PRIVACY_CHECKPOINT_FILE', 'SMARTPLAN_PRIVACY_CHECKPOINT_KEY_FILE',
                       'SMARTPLAN_PRIVACY_INSTALLATION_ID')
-_PRIVACY_OPERATIONS = {'anonymize_customer': 'customer', 'purge_time_locations': 'time_day'}
+_PRIVACY_OPERATIONS = {'anonymize_customer': 'customer', 'purge_time_locations': 'time_day',
+    'purge_privacy_case': 'privacy_case', 'purge_privacy_export': 'privacy_export'}
 _PRIVACY_MAX_BYTES = 8 * 1024 * 1024
 
 
@@ -1012,7 +1120,8 @@ def initialize_privacy_checkpoint(office):
                 raise Problem(409, 'Vorhandene Datenschutzentscheidungen erfordern kontrollierten Abgleich.')
             tables = _tables(office)
             if (('business_time_privacy' in tables and office.db.execute('SELECT 1 FROM business_time_privacy LIMIT 1').fetchone())
-                    or ('business_privacy_requests' in tables and office.db.execute("SELECT 1 FROM business_privacy_requests WHERE status='erased' LIMIT 1").fetchone())):
+                    or ('business_privacy_requests' in tables and office.db.execute("SELECT 1 FROM business_privacy_requests WHERE status='erased' LIMIT 1").fetchone())
+                    or ('business_privacy_case_purges' in tables and office.db.execute('SELECT 1 FROM business_privacy_case_purges LIMIT 1').fetchone())):
                 raise Problem(409, 'Bereits gelöschte Fachdaten benötigen den bestehenden unabhängigen Datenschutznachweis.')
             _privacy_write(path, value, key)
             office.db.execute('INSERT INTO business_privacy_anchors(installation_id,generation,digest) VALUES(?,0,?)',
@@ -1032,6 +1141,18 @@ def checkpoint_before_location_purge(office, employee_id, day_iso, request_id):
         raise Problem(400, 'Ungültiger Datenschutz-Zeitraum.')
     datetime.fromisoformat(day_iso)
     return _privacy_record(office, 'time_day', employee_id + ':' + day_iso, request_id, 'purge_time_locations')
+
+
+def checkpoint_before_privacy_case_purge(office, case_id, request_id):
+    if not isinstance(case_id, str) or not re.fullmatch(r'[a-f0-9]{32}', case_id):
+        raise Problem(400, 'Ungültiger Datenschutzfall.')
+    return _privacy_record(office, 'privacy_case', case_id, request_id, 'purge_privacy_case')
+
+
+def checkpoint_before_privacy_export_purge(office, export_id, request_id):
+    if not isinstance(export_id, str) or not re.fullmatch(r'[a-f0-9]{32}', export_id):
+        raise Problem(400, 'Ungültiger Datenschutzexport.')
+    return _privacy_record(office, 'privacy_export', export_id, request_id, 'purge_privacy_export')
 
 
 def privacy_restore_guard(office):
@@ -1054,7 +1175,9 @@ def privacy_restore_guard(office):
                 or (anchors[0]['generation'] == value['generation'] and anchors[0]['digest'] != digest)):
             raise Problem(409, 'Wiederherstellung ohne passenden aktuellen Datenschutznachweis gesperrt.')
         for event in value['events']:
-            module = importlib.import_module('business_foundation' if event['subject_kind'] == 'customer' else 'business_time')
+            module = importlib.import_module(
+                'business_foundation' if event['subject_kind'] == 'customer' else
+                'business_time' if event['subject_kind'] == 'time_day' else 'business_privacy_cases')
             handler = getattr(module, 'reapply_privacy_checkpoint', None)
             if handler is None:
                 raise Problem(409, 'Datenschutzentscheidung kann in diesem Rückkehr-Build nicht sicher angewendet werden.')

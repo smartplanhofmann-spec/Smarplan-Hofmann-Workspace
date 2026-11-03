@@ -1,0 +1,105 @@
+{
+  "schema_version": 2,
+  "recorded_at": "2026-11-03T19:44:37.303492+00:00",
+  "base_commit": "49369da1eb0c36cfa2ef7c0eefa6337aebe636c8",
+  "working_tree_changes_included": true,
+  "source_sha256": {
+    "backend/payroll_pap_2026.py": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071",
+    "backend/payroll_de_2026.py": "68ea19c91c757dec8bda2cf63debdab51ef0fe613384eb796216c9abc8b05936",
+    "backend/business_payroll.py": "a80fa78088ba5ebdd4fdcec452722dff20f7444f322bf2b25a2022cfcec25b77",
+    "backend/payroll_ledger.py": "a41320cd8e3a15ef882b5b5650d51ce61e0bd084cf0592fdbb93db2234030e37",
+    "backend/business_payroll_accounts.py": "068032cf41b7f47dc8b31bba5664d572f7cd1d12edc477dcb4dd317aeaee0006",
+    "backend/test_payroll_pap_2026.py": "99fd682bf7054b75f74b23cc96e355ff1ce4ef2d70f8a09d655ec06fcffc4981",
+    "backend/test_payroll_de_2026.py": "98f5eaf5192452079019c01352318e63ea58e01919e956ea4a6172a31284c15d",
+    "backend/test_business_payroll.py": "888ca0ae37888b5eae8ed4485b97e97fe91f5b853c8488748840b135869a1a14",
+    "backend/test_business_payroll_ledger.py": "20ec3ee7731d7c468ce9f1814868ebe59abc78f0259c782476a4893bb2672209",
+    "backend/test_business_payroll_accounts.py": "ba7d45acd56823a1e6c8180d93e91a8227bf68d98ebc4940da5da556e9c3c7a6",
+    "backend/online/test_business_payroll_pg.py": "33ebfbe7d2e0f5613d6798a90d2d9a2f8037d14c6dd5e1526affdf1bd2dd4746",
+    "backend/online/test_business_payroll_accounts_pg.py": "a17526c42923a3898342981e313e641bcc9da469005beeb7b86ea55e524ec356"
+  },
+  "log_sha256": {
+    "work/verification/payroll-complete-domain.log": "26cc15fde89b06fc1ca241c539c331a5f107fd19b2631dc9f58e4e5e5fb083aa",
+    "work/verification/payroll-final-postgres.log": "e8466bb3d32216fde2ca8b435c951b541aa844f5b85ccc96d9f772788ecc42fe"
+  },
+  "test_results": [
+    {
+      "suite": "test_payroll_de_2026 + test_payroll_pap_2026 + test_business_payroll + test_business_payroll_ledger + test_business_payroll_accounts",
+      "tests": 43,
+      "passed": 43,
+      "skipped": 0,
+      "official_table_subcases": 258,
+      "seconds": 5.104
+    },
+    {
+      "suite": "online.test_business_payroll_pg + online.test_business_payroll_accounts_pg",
+      "tests": 6,
+      "passed": 6,
+      "skipped": 0,
+      "seconds": 21.864,
+      "actual_postgres": true,
+      "actual_mfa_http": true,
+      "actual_dump_restore": true
+    }
+  ],
+  "pap": {
+    "version": "bmf_2026_2025_11_12_standard_v1",
+    "official_publication": "2025-11-12",
+    "official_document": "PAP 2026 Anlage 1: maschinelle Berechnung",
+    "publication_url": "https://www.bundesfinanzministerium.de/Content/DE/Downloads/Steuern/Steuerarten/Lohnsteuer/Programmablaufplan/2025-11-12-PAP-2026.html",
+    "reviewed_document_url": "https://www.ihk-muenchen.de/ihk/documents/Recht-Steuern/Steuerrecht/Einkommensteuer/2025-11-12-PAP-2026-anlage-1.pdf",
+    "reviewed_pages": "14-15,20-32,38-39",
+    "reference": "general_machine_annual_table_page_39_258_values",
+    "official_xml_downloaded": false,
+    "runtime_network": false,
+    "official_software_approval": false
+  },
+  "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+  "versions": {
+    "de_2026_standard_contributions_v1": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+    "de_2026_standard_monthly_pap_v2": "ed93ba702e43d0afdeade7f222c4aa7720008e49b47032166e489e4c5064e608"
+  },
+  "completed": [
+    "commercial_minijob_flat_tax",
+    "regular_standard_monthly_explicit_inputs",
+    "versioned_legacy_sv_reproduction",
+    "immutable_monthly_corrections",
+    "historical_pdf_json",
+    "fresh_personnel_permissions",
+    "replay_idempotency",
+    "actual_postgres_restore",
+    "effective_revision_yearly_sums",
+    "deterministic_snapshot_bound_pdf_csv_json",
+    "explicit_statutory_standard_case_identity_and_tax_fields",
+    "actual_signed_payment_evidence",
+    "recomputed_documented_external_month_carryover",
+    "no_overlap_between_carryover_and_local_run",
+    "employment_period_field_completeness",
+    "normalized_payment_reference_duplicate_protection"
+  ],
+  "statutory_sources": [
+    "https://www.gesetze-im-internet.de/lstdv/__4.html",
+    "https://www.gesetze-im-internet.de/estg/__41.html",
+    "https://esth.bundesfinanzministerium.de/lsth/2026/B-Anhaenge/Anhang-22/anhang-22.html"
+  ],
+  "boundaries": {
+    "official_xml_downloaded": false,
+    "official_system_approval": false,
+    "digital_audit_export_compliant": false,
+    "external_filing": false,
+    "actual_payment": false,
+    "independent_professional_acceptance": false,
+    "excluded": [
+      "partial_months",
+      "transition_zone",
+      "multiple_employments",
+      "one_off_pay",
+      "age_allowance",
+      "private_or_voluntary_regular_health_insurance",
+      "unsupported_special_wage_account_components",
+      "payments_across_year_boundary",
+      "official_dls_format",
+      "payroll_to_accounting_posting",
+      "reporting_system_approval"
+    ]
+  }
+}

@@ -67,9 +67,30 @@ test('a definite validation failure allows a corrected fresh operation',async()=
 });
 test('streaming and advertised response bounds protect memory',async()=>{
   const api=new OfficeApi({fetcher:async()=>new Response(new Uint8Array(50),{headers:{'Content-Length':'50'}})});api.setToken(token);
-  await assert.rejects(api.request('/large',{maxBytes:20}),error=>error.status===413);
+  await assert.rejects(api.request('/large',{maxBytes:20}),error=>error.status===0);
   const stream=new OfficeApi({fetcher:async()=>new Response(new Uint8Array(50))});stream.setToken(token);
-  await assert.rejects(stream.request('/large',{maxBytes:20}),error=>error.status===413);
+  await assert.rejects(stream.request('/large',{maxBytes:20}),error=>error.status===0);
+});
+test('an oversized accepted response retains the original nonce instead of claiming request rejection',async()=>{
+  const calls=[];
+  const api=new OfficeApi({fetcher:async(_,options)=>{
+    calls.push(JSON.parse(options.body));
+    return calls.length===1?new Response('{}',{headers:{'Content-Length':String(5*1024*1024)}}):json({id:'accepted'});
+  }});api.setToken(token);
+  await assert.rejects(api.mutate('original','/business/contacts',{name:'Synthetic'}),error=>error.status===0);
+  assert.equal(api.pendingCount,1);
+  assert.deepEqual(await api.retry('original'),{id:'accepted'});
+  assert.deepEqual(calls[0],calls[1]);
+});
+test('bounded large bank DTOs leave ordinary JSON and original downloads at their own limits',async()=>{
+  const big={value:'x'.repeat(5*1024*1024)};
+  const api=new OfficeApi({fetcher:async()=>json(big)});api.setToken(token);
+  assert.equal((await api.get('/business/bank/statements/'+'a'.repeat(32))).value.length,big.value.length);
+  await assert.rejects(api.get('/business/contacts'),error=>error.status===0);
+  const over=new OfficeApi({fetcher:async()=>new Response('{}',{headers:{'Content-Length':String(128*1024*1024+1)}})});over.setToken(token);
+  await assert.rejects(over.get('/business/bank/reconciliations/'+'a'.repeat(32)),error=>error.status===0);
+  const binary=new OfficeApi({fetcher:async()=>new Response('file',{headers:{'Content-Length':String(22*1024*1024)}})});binary.setToken(token);
+  await assert.rejects(binary.binary('/business/bank/statements/'+'a'.repeat(32)+'/original'),error=>error.status===0);
 });
 test('HTML proxy errors never enter the user-facing error message',async()=>{
   const api=new OfficeApi({fetcher:async()=>new Response('<script>secret proxy page</script>',{status:502})});api.setToken(token);
@@ -79,10 +100,12 @@ test('binary downloads retain bytes and do not put bearer into a URL',async()=>{
   let path;const api=new OfficeApi({fetcher:async value=>{path=value;return new Response(new Uint8Array([1,2,3]),{headers:{'Content-Type':'image/png'}});}});api.setToken(token);
   const result=await api.binary('/business/media/synthetic/content');assert.deepEqual([...new Uint8Array(await result.arrayBuffer())],[1,2,3]);assert.equal(result.type,'image/png');assert.ok(!path.includes(token));
 });
-test('browser source has ten real navigation sections and no persistent credential or unsafe HTML writer',async()=>{
+test('browser source has eleven real navigation sections including the assistant and no persistent credential or unsafe HTML writer',async()=>{
   const source=await readFile(new URL('../office.js',import.meta.url),'utf8');
   const nav=source.slice(source.indexOf('const NAV ='),source.indexOf('const LABELS'));
-  assert.equal((nav.match(/\['[a-z]+','/g)||[]).length,10);
+  assert.equal((nav.match(/\['[a-z]+','/g)||[]).length,12);
+  assert.match(nav,/\['assistant','Assistent'/);
+  assert.match(nav,/\['service','Kundenservice'/);
   assert.ok(!/localStorage|sessionStorage|indexedDB|innerHTML|insertAdjacentHTML|serviceWorker|document\.cookie/.test(source));
   const html=await readFile(new URL('../index.html',import.meta.url),'utf8');assert.ok(!/https?:\/\//.test(html));assert.match(html,/type="module" src="\.\/office\.js"/);
 });

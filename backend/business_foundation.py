@@ -15,7 +15,7 @@ from core import Problem, canonical, customer_key, customer_values, now_iso
 from inquiries import _transaction
 
 
-FEATURES = ('billing_contact',)
+FEATURES = ('billing_contact', 'company_overview')
 BILLING_ROLES = frozenset(('billing', 'invoice', 'accounts payable', 'rechnung', 'rechnungen', 'buchhaltung', 'rechnungswesen'))
 PERMISSIONS = frozenset(('contacts.read', 'contacts.write', 'projects.manage',
     'documents.read', 'documents.write', 'documents.classify', 'finance.read',
@@ -23,12 +23,12 @@ PERMISSIONS = frozenset(('contacts.read', 'contacts.write', 'projects.manage',
     'personnel.manage', 'personnel.write', 'personnel.approve', 'personnel.export',
     'planning.read', 'planning.write', 'planning.override', 'time.own', 'time.approve',
     'inventory.read', 'inventory.write', 'privacy.manage', 'settings.manage', 'portal.manage',
-    'accounting.read', 'accounting.prepare', 'accounting.admin'))
+    'accounting.read', 'accounting.prepare', 'accounting.admin', 'bank.read', 'bank.prepare', 'bank.admin', 'assistant.use', 'assistant.approve'))
 _DEFAULTS = {
     'manager': {'contacts.read', 'contacts.write', 'projects.manage', 'documents.read',
-                'documents.write', 'planning.read', 'planning.write', 'inventory.read', 'time.own'},
-    'technician': {'documents.read', 'documents.write', 'planning.read', 'inventory.read', 'time.own'},
-    'accountant': {'contacts.read', 'documents.read', 'finance.read', 'finance.write', 'time.own'},
+                'documents.write', 'planning.read', 'planning.write', 'inventory.read', 'time.own', 'assistant.use'},
+    'technician': {'documents.read', 'documents.write', 'planning.read', 'inventory.read', 'time.own', 'assistant.use'},
+    'accountant': {'contacts.read', 'documents.read', 'finance.read', 'finance.write', 'time.own', 'assistant.use'},
 }
 CLASSES = frozenset(('operational', 'financial', 'personnel', 'restricted'))
 CONTACT_KINDS = frozenset(('customer', 'supplier', 'partner'))
@@ -854,6 +854,22 @@ def _privacy_blockers(office, customer_id):
     else:
         tables = [r[0] for r in office.db.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'")]
         columns = lambda table: [r[0] for r in office.db.execute("SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name=? AND data_type IN ('text','character varying','json','jsonb')", (table,))]
+    if 'business_custom_field_values' in tables:
+        for historical in office.db.execute("SELECT payload_json FROM business_custom_field_values WHERE entity_type='contact' AND entity_id=?", (customer_id,)):
+            if any(item.get('value') is not None for item in json.loads(historical['payload_json']).get('values', {}).values()):
+                blockers.append('Historische Zusatzfelder und ihre Vorgangsquittungen benötigen einen geprüften Datenschutz-Bereinigungsplan.')
+                break
+    if 'business_sales_opportunities' in tables and office.db.execute(
+            'SELECT 1 FROM business_sales_opportunities WHERE customer_id=?', (customer_id,)).fetchone():
+        blockers.append('Verkaufschancen enthalten historische Kunden-/Ansprechpartnerstände, Aktivitäten und Übernahmequittungen; diese benötigen auch ohne Projekt einen geprüften Bereinigungsplan.')
+    if 'business_service_cases' in tables and office.db.execute(
+            'SELECT 1 FROM business_service_cases WHERE customer_id=?', (customer_id,)).fetchone():
+        blockers.append('Service- und Reklamationsfälle enthalten historische Personenstände, Beschreibungen und verknüpfte Nachweise; diese benötigen einen gesonderten geprüften Bereinigungsplan.')
+    if 'business_migration_bindings' in tables and office.db.execute(
+            'SELECT 1 FROM business_migration_bindings WHERE customer_id=?', (customer_id,)).fetchone():
+        blockers.append('Importierte Originalpakete, historische Dokumente und Herkunftszuordnungen enthalten Kundendaten; vor einer Löschung ist ein geprüfter Bereinigungsplan erforderlich.')
+    if 'business_migration_files' in tables and office.db.execute('SELECT 1 FROM business_migration_files LIMIT 1').fetchone():
+        blockers.append('Unzerlegte Importoriginale können weitere personenbezogene Daten enthalten; ihre Vollständigkeit und Bereinigung müssen gesondert geprüft werden.')
     needles = [customer_id] + [str(customer[field]).casefold() for field in ('name', 'email', 'phone') if len(str(customer[field])) >= 4]
     for table in tables:
         if table in skipped or any(token in table for token in ('credential', 'secret', 'token', 'oauth', 'session')):
@@ -1007,6 +1023,9 @@ def dispatch(office, actor, path, method, data):
         raise Problem(405, 'HTTP-Methode nicht erlaubt')
     service = BusinessFoundation(office)
     query = data.get('_query', {}) if method == 'GET' else {}
+    if path == '/overview/metrics':
+        from business_overview import overview_metrics
+        return overview_metrics(office, actor, query), 200, 'application/json'
     if path == '/overview' and method == 'GET':
         with office.lock:
             actor = _fresh(office, actor)
@@ -1059,7 +1078,7 @@ def dispatch(office, actor, path, method, data):
 
 def methods(path):
     routes = (
-        (r'/overview', 'GET'), (r'/contacts', 'GET, POST'),
+        (r'/overview(?:/metrics)?', 'GET'), (r'/contacts', 'GET, POST'),
         (r'/contacts/[a-f0-9]{32}', 'GET, POST'),
         (r'/contacts/[a-f0-9]{32}/export', 'GET'),
         (r'/contacts/[a-f0-9]{32}/erase', 'POST'),

@@ -488,7 +488,7 @@ class VersionedRefundsPostgres(unittest.TestCase):
 class RefundsV2MigrationPostgres(unittest.TestCase):
     def test_c2_v1_migration_preserves_bytes_and_schema6_receipt_cannot_release_new_restore(self):
         full = business_schema.registry()
-        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_refunds_v2', 'business_accounting_profile'))
+        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation'))
         fixture = capacity_fixture.ComponentCapacityPostgres(methodName='runTest'); self.addCleanup(fixture.doCleanups)
         with patch.object(business_schema, 'registry', return_value=prior), \
                 patch.object(business_schema, 'MODULE_NAMES', tuple(spec.name for spec in prior)):

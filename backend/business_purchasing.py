@@ -158,6 +158,8 @@ class Purchasing(Domain):
     def _order(self, row, *, receipt_limit=None):
         source = self._source(row)
         confirmation = self._confirmation(row)
+        from business_purchase_changes import current_limits
+        limits, amendment = current_limits(self.office, row['id'], source) if receipt_limit is None else ([Decimal(item['quantity']) for item in source['items']], None)
         totals = {}
         received = self.office.db.execute(
             'SELECT l.line_index,l.quantity,r.receipt_revision FROM business_purchase_receipt_lines l '
@@ -169,7 +171,7 @@ class Purchasing(Domain):
         items = []
         for index, item in enumerate(source['items']):
             snapshot = item['article_snapshot']
-            amount, arrived = Decimal(item['quantity']), totals.get(index, Decimal(0))
+            amount, arrived = limits[index], totals.get(index, Decimal(0))
             if arrived < 0 or arrived > amount:
                 raise Problem(500, 'Wareneingangsmenge ist nicht konsistent')
             items.append(dict(line_index=index, article_id=item['article_id'], article_name=snapshot['name'],
@@ -180,6 +182,8 @@ class Purchasing(Domain):
         if confirmation is not None:
             status = 'received' if all(item['remaining_quantity'] == '0.0000' for item in items) else (
                 'partially_received' if revision else 'ordered')
+            if amendment is not None and amendment['kind'] == 'cancel_remaining':
+                status = 'remainder_cancelled'
         return dict(id=row['id'], project_id=row['project_id'], supplier_name=row['supplier_name'],
             source_revision=row['revision'], receipt_revision=revision, status=status, delivery_status='not_sent',
             confirmation=None if confirmation is None else {key: confirmation[key] for key in
@@ -189,7 +193,10 @@ class Purchasing(Domain):
         with transaction(self.office):
             row = self._row(order_id)
             self.access(actor, 'inventory.read', row['project_id'])
-            return self._order(row)
+            result = self._order(row)
+            from business_purchase_changes import amendments
+            result['amendment_revision'] = len(amendments(self.office, order_id))
+            return result
 
     def articles(self, actor, *, project_id=None, query='', limit=100, offset=0):
         """Operational catalogue metadata only, including articles without stock.
@@ -278,8 +285,11 @@ class Purchasing(Domain):
             row = self._row(order_id)
             self.access(actor, 'inventory.write', row['project_id'])
             self.access(actor, 'finance.approve', row['project_id'])
+            self._confirmation(row)
 
             def save(fresh, body):
+                from business_organization import require_active
+                require_active(self.office, fresh, '/inventory/orders', 'business_inventory')
                 if set(body) != {'source_revision', 'expected_receipt_revision', 'order_reference', 'ordered_on', 'confirmation'}:
                     raise Problem(400, 'Bestellreferenz, Datum, Versionen und ausdrückliche Bestätigung erwartet')
                 self._expected(row, body)
@@ -328,11 +338,16 @@ class Purchasing(Domain):
             self.access(actor, 'inventory.write', row['project_id'])
             # Secondary authorization precedes the idempotency replay, too.
             self.access(actor, 'finance.write', row['project_id'])
+            self._confirmation(row)
 
             def save(fresh, body):
-                if set(body) != {'source_revision', 'expected_receipt_revision', 'receipt_reference', 'received_on', 'location_id', 'lines'}:
+                from business_organization import require_active
+                require_active(self.office, fresh, '/inventory/orders', 'business_inventory')
+                if set(body) - {'expected_amendment_revision'} != {'source_revision', 'expected_receipt_revision', 'receipt_reference', 'received_on', 'location_id', 'lines'}:
                     raise Problem(400, 'Belegreferenz, Datum, Lager, Positionen und Versionen erwartet')
                 revision = self._expected(row, body)
+                from business_purchase_changes import authorize_receipt, bind_receipt
+                amendment = authorize_receipt(self.office, order_id, body)
                 confirmation = self._confirmation(row)
                 if confirmation is None:
                     raise Problem(409, 'Bereits extern erteilte Bestellung zuerst dokumentieren')
@@ -385,9 +400,13 @@ class Purchasing(Domain):
                         (receipt_id, index, ordered['article_id'], ordered['article_snapshot']['unit'], amount,
                          movement['unit_cost_net'], movement['cost_net'], movement['id']))
                 stored = self.office.db.execute('SELECT * FROM business_purchase_receipts WHERE id=?', (receipt_id,)).fetchone()
+                bind_receipt(self.office, receipt_id, amendment)
                 return self._receipt(stored, source)
 
             result = self.write(actor, 'inventory.write', 'business.purchase.received', row['project_id'], data, order_id, save)
+            stored = self.office.db.execute('SELECT * FROM business_purchase_receipts WHERE id=? AND order_id=?', (result['id'], order_id)).fetchone()
+            if stored is None or self._receipt(stored, self._source(row)) != result:
+                raise Problem(500, 'Ursprünglicher Wareneingang und Quittung stimmen nicht überein')
             return self.inventory._public(actor, result, row['project_id'])
 
 
@@ -405,6 +424,8 @@ def _validate_integrity(office):
         receipts = office.db.execute('SELECT * FROM business_purchase_receipts WHERE order_id=? '
                                     'ORDER BY receipt_revision', (row['id'],)).fetchall()
         for revision, receipt in enumerate(receipts, 1):
+            from business_purchase_changes import receipt_limits
+            limits = receipt_limits(office, receipt, source)
             if receipt['receipt_revision'] != revision or receipt['source_revision'] != source['source_revision']:
                 raise ValueError('Invalid purchasing receipt revision')
             if _reference(receipt['receipt_reference'], 'Wareneingangsbeleg')[1] != receipt['reference_key']:
@@ -427,7 +448,7 @@ def _validate_integrity(office):
                         or price < 0 or value != (price * amount).quantize(Decimal('.0001'), rounding=ROUND_HALF_UP)):
                     raise ValueError('Invalid purchasing quantity, unit or value')
                 received[index] += amount
-                if received[index] > Decimal(ordered['quantity']):
+                if received[index] > limits[index]:
                     raise ValueError('Purchasing overdelivery')
                 movement = office.db.execute('SELECT * FROM business_stock_movements WHERE id=?', (line['movement_id'],)).fetchone()
                 if (movement is None or movement['kind'] != 'receive' or movement['from_location_id'] is not None

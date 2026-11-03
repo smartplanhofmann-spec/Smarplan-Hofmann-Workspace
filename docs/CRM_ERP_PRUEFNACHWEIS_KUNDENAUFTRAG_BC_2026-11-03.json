@@ -1,0 +1,101 @@
+{
+  "date": "2026-11-03",
+  "status": "bounded_technical_acceptance_B_C_verified",
+  "overall_goal_complete": false,
+  "production_released": false,
+  "scope": {
+    "company": "Einzelunternehmen mit EÜR",
+    "vat": "Regelbesteuerung, Ist-Versteuerung, SKR04",
+    "synthetic_data_only": true,
+    "external_provider_calls": false,
+    "actual_bank_transfers": false,
+    "real_device_acceptance": false
+  },
+  "tests": {
+    "command": "PYTHONPATH=backend:backend/online python -m unittest online.test_customer_execution_journey_pg online.test_customer_finance_service_journey_pg -v",
+    "run": 2,
+    "passed": 2,
+    "skipped": 0,
+    "seconds": 33.139,
+    "database": "guarded disposable loopback PostgreSQL with separate runtime/operator roles",
+    "restore": "actual pg_dump and separately guarded disposable restore target",
+    "dependencies": "verified environment cryptography 50 / Pillow 13",
+    "log": "work/verification/customer-finance-service-pg.log"
+  },
+  "chain": [
+    "synthetic inquiry intake and replay",
+    "catalog original and confirmed import",
+    "offer calculation and immutable PDF",
+    "real portal session and acceptance",
+    "canonical order adoption",
+    "scheduled employee visit",
+    "partial and remaining delivery",
+    "approved time and material issue",
+    "frozen offline command, photo and signed original; device persistence proven separately",
+    "invoice from order",
+    "partial payment and remaining payment",
+    "explicit project cost classification of three originals",
+    "same actual payments in documentary cash journal and EÜR",
+    "zero difference physical inventory",
+    "delivered serial-numbered asset bound to receipt and issue",
+    "maintenance contract, native visit, service case, signed maintenance report",
+    "restart and exact retries",
+    "real backup/restore with old session rejection and separate stopped-runtime operator approval"
+  ],
+  "expected_eur": {
+    "budget_net": "100.00",
+    "material_net": "25.00",
+    "approved_time_cost_net": "17.50",
+    "external_service_net": "20.00",
+    "other_cost_net": "10.00",
+    "total_project_cost_net": "72.50",
+    "revenue_net": "100.00",
+    "project_contribution_net": "27.50",
+    "customer_receipts_gross": "119.00",
+    "supplier_payments_gross": "65.45",
+    "cash_balance": "53.55",
+    "euer_surplus": "53.55",
+    "vat_balance": "8.55",
+    "project_vs_euer_difference": "26.05"
+  },
+  "difference_explanation": [
+    "17.50 approved operational time cost has no evidenced employer payment in this case",
+    "8.55 collected less deductible VAT has no evidenced remittance in this case"
+  ],
+  "deduplication_counts": {
+    "canonical_projects": 1,
+    "delivered_assets": 1,
+    "cash_events": 5
+  },
+  "restore_checks": [
+    "runtime approval denied 403",
+    "operator approval while runtime active denied 409",
+    "prior session rejected 401",
+    "financial completeness withheld until operator approval",
+    "stored EÜR export unchanged",
+    "live report compared at exact post-export revision",
+    "project economics unchanged",
+    "asset origin and maintenance/service history unchanged",
+    "seven exact original downloads unchanged"
+  ],
+  "initial_test_contract_corrections": [
+    "creation response is HTTP201",
+    "service requires triage before resolution",
+    "restore approval requires operator role",
+    "restore approval requires stopped runtime connections",
+    "export adds one journal revision without changing cash or totals"
+  ],
+  "production_corrections_required": false,
+  "remaining_scope": [
+    "actual Windows/iPhone installation and user acceptance",
+    "actual offline client/device execution is separate evidence",
+    "full contiguous browser user journey is not asserted by this HTTP test",
+    "other tax/payroll cases and external approvals remain in the overall plan"
+  ],
+  "file_sha256": {
+    "CRM_ERP_Gesamtziel.txt": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+    "backend/online/test_customer_execution_journey_pg.py": "ca177a7000625a0b2c9b0a8815e31e90cc4d29216114f3ea6470b16a11682565",
+    "backend/online/test_customer_finance_service_journey_pg.py": "d7a365315963b9dcf2ed2aa6659b79380b34a7fc788de0c9d062fb19ee33f88e",
+    "work/verification/customer-finance-service-pg.log": "4272312892c94de5b8958f0458f25652c49ed7c4332b8bd8343e7bb28f04de57"
+  }
+}

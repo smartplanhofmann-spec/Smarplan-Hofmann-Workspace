@@ -21,7 +21,7 @@ Die vollständig gelesene [Originalanforderung](../CRM_ERP_Gesamtziel.txt), insb
 
 | Noch zu klären | Bedeutung für die Umsetzung |
 | --- | --- |
-| Umsatzsteuerstatus: Kleinunternehmer oder Regelbesteuerung; bei Regelbesteuerung Soll/Ist und deren Gültigkeit | Offen. Der Nutzer wurde hierzu optional gefragt; es liegt noch keine Antwort vor. EÜR begründet keine automatische Istversteuerung. |
+| Umsatzsteuerstatus und Gültigkeit | Regelbesteuerung und Ist-Versteuerung ausdrücklich bestätigt; außerdem Standard19%, SKR04 und Nettopreise. Nur die tatsächliche steuerliche Gültigkeit ist noch pro Installation zu erfassen. Siehe [Entscheidungen](CRM_ERP_ENTSCHEIDUNGEN.md). |
 | Beginn der eigenen Buchhaltung, erstes auszuwertendes Jahr, bisherige Aufzeichnungen | Übernahmegrenze und Vollständigkeit müssen nachvollziehbar sein; vorhandene Zahlungen dürfen nicht ein zweites Mal ergebniswirksam werden. |
 | Tatsächlich verwendete Bank-/Zahlungskonten, Barkasse, Zahlungsdienstleister | Konten, Herkunft und Abgleich; keine Qonto- oder andere Bankanbindung aus dem bisherigen Umfeld ableiten. |
 | Vorhandene Anlagen, Restwerte, Darlehen, Einlagen/Entnahmen und private Nutzung | Eröffnungsnachweise und weitere Fallgruppen; keine Werte oder Abschreibungsmethoden schätzen. |

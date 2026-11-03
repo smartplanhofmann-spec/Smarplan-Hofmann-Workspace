@@ -226,6 +226,10 @@ def _archive(office, row):
 
 @_stored
 def _normal(office, row):
+    from accounting_invoice_sources import is_incremental, eligibility
+    if is_incremental(row) and row['status'] == 'final':
+        value = json.loads(row['payload_json'])
+        return _ledger_money(value['totals']['gross'], False) > 0 and eligibility(office, row)[0] is None
     if row['kind'] != 'invoice' or row['status'] != 'final':
         return False
     value = json.loads(row['payload_json'])
@@ -247,6 +251,9 @@ def _document_state(office, row):
         "WHERE r.source_id=? AND r.kind='cancels' AND d.status='final' ORDER BY r.target_id", (row['id'],)).fetchall()]
     credits = [_archive(office, office.db.execute('SELECT * FROM business_documents WHERE id=?', (value['target_id'],)).fetchone()) for value in relations]
     proof = dict(schema_version=1, archive=archive, allocations=old, payments=payments, additional=added, relations=relations, credits=credits)
+    from accounting_invoice_sources import is_incremental, archive_chain
+    if is_incremental(row):
+        proof.update(schema_version=2, invoice_chain=archive_chain(office, row))
     return _candidate_from_proof(proof), proof
 
 
@@ -276,12 +283,20 @@ def _candidate_from_proof(proof):
 @_stored
 def _verify_document_proof(office, proof):
     """Frozen source members must survive unchanged; later additions are legal."""
-    if set(proof) != {'schema_version', 'archive', 'allocations', 'payments', 'additional', 'relations', 'credits'} or proof['schema_version'] != 1:
+    from accounting_invoice_sources import is_incremental, archive_chain
+    incremental = is_incremental(proof.get('archive', {}).get('document'))
+    fields = {'schema_version', 'archive', 'allocations', 'payments', 'additional', 'relations', 'credits'}
+    if (set(proof) != fields | ({'invoice_chain'} if incremental else set())
+            or type(proof['schema_version']) is not int or proof['schema_version'] != (2 if incremental else 1)):
         raise ValueError('Invalid historical invoice proof')
     for archived in [proof['archive']] + proof['credits']:
         row = office.db.execute('SELECT * FROM business_documents WHERE id=?', (archived['document']['id'],)).fetchone()
         if _archive(office, row) != archived:
             raise ValueError('Changed historical archive')
+    if incremental:
+        root = office.db.execute('SELECT * FROM business_documents WHERE id=?', (proof['archive']['document']['id'],)).fetchone()
+        if archive_chain(office, root) != proof['invoice_chain']:
+            raise ValueError('Changed historical incremental invoice chain')
     for field, table in (('allocations', 'business_payment_allocations'), ('payments', 'business_payments'), ('additional', _TABLES[0])):
         seen = set()
         for value in proof[field]:
@@ -378,7 +393,7 @@ class PaymentAllocations(Domain):
         reason = None
         if source['kind'] != 'receipt' or source['direction'] != 'in':
             reason = 'unsupported_payment'
-        elif any(value['kind'] != 'invoice' or not _normal(self.office, self.office.db.execute(
+        elif any(not _normal(self.office, self.office.db.execute(
                 'SELECT * FROM business_documents WHERE id=?', (value['document_id'],)).fetchone()) for value in original):
             reason = 'unsupported_source_documents'
         elif len(customers) > 1:
@@ -425,7 +440,7 @@ class PaymentAllocations(Domain):
             state, _ = self._load(fresh, payment_id); items = []
             if not state['eligible']:
                 return _paged(items, limit, offset)
-            for row in self.office.db.execute("SELECT * FROM business_documents WHERE status='final' AND kind='invoice' ORDER BY number,id").fetchall():
+            for row in self.office.db.execute("SELECT * FROM business_documents WHERE status='final' AND kind IN ('invoice','advance_invoice','cumulative_invoice','final_invoice') ORDER BY number,id").fetchall():
                 try:
                     Documents(self.office)._row(fresh, row['id'], 'finance.write')
                 except Problem as error:
@@ -434,8 +449,10 @@ class PaymentAllocations(Domain):
                     raise
                 if not row['customer_id'] or state['customer_id'] is not None and row['customer_id'] != state['customer_id']:
                     continue
+                if not _normal(self.office, row):
+                    continue
                 candidate, _ = _document_state(self.office, row)
-                if _normal(self.office, row) and Decimal(candidate['open']) > 0:
+                if Decimal(candidate['open']) > 0:
                     items.append(candidate)
             return _paged(items, limit, offset)
 

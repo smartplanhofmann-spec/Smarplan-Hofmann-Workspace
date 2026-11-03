@@ -43,11 +43,17 @@ PATTERNS = [
 ]
 
 
+def _wsgi_body(value):
+    # Domain downloads carry filenames on bytes subclasses. PEP-3333 servers
+    # require plain byte chunks; preserve metadata separately in the headers.
+    return bytes(value) if isinstance(value, (bytes, bytearray, memoryview)) else value
+
+
 def dispatch(office, user, path, method, data, token):
     workspace_response = workspace_api.dispatch(office, user, path, method, data)
     if workspace_response is not None:
         result, status, mimetype = workspace_response
-        return (Response(result, mimetype=mimetype,
+        return (Response(_wsgi_body(result), mimetype=mimetype,
                          headers={'Content-Disposition':
                                   workspace_api.attachment_disposition(result.filename)
                                   if isinstance(result, workspace_api.BinaryAttachment)
@@ -103,7 +109,7 @@ def dispatch(office, user, path, method, data, token):
                 return imports.complete_upload(user, project, import_id), 200
             content, mimetype = (imports.source(user, project, import_id) if parts[4] == 'source'
                                  else imports.artifact(user, project, import_id, parts[4]))
-            return Response(content, mimetype=mimetype,
+            return Response(_wsgi_body(content), mimetype=mimetype,
                             headers={'Content-Disposition': 'attachment; filename="smartplan-import"'}), 200
         if parts[2] == 'plans':
             if len(parts) == 4 and parts[3] == 'delete':
@@ -181,6 +187,26 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     @app.get('/office/<asset>')
     def office_browser(asset='index.html'):
         types = {'index.html': 'text/html', 'office.js': 'text/javascript', 'office.css': 'text/css',
+                 'project-economics.js': 'text/javascript', 'asset-provenance.js': 'text/javascript',
+                 'customer-workspace.html': 'text/html', 'customer-workspace.js': 'text/javascript',
+                 'customer-workspace-staff.js': 'text/javascript',
+                 'personnel-workflow.js': 'text/javascript', 'accounting-euer.js': 'text/javascript',
+                 'assistant.js': 'text/javascript',
+                 'payroll.js': 'text/javascript',
+                 'company-overview.js': 'text/javascript',
+                 'inventory-counts.js': 'text/javascript',
+                 'sales.js': 'text/javascript',
+                 'speech.js': 'text/javascript',
+                 'payroll-accounts.js': 'text/javascript',
+                 'migrations.js': 'text/javascript',
+                 'custom-fields.js': 'text/javascript',
+                 'privacy-cases.js': 'text/javascript',
+                 'payroll-cash.js': 'text/javascript',
+                 'service.js': 'text/javascript',
+                 'bank-reconciliation.js': 'text/javascript',
+                 'resource-custody.js': 'text/javascript',
+                 'purchase-changes.js': 'text/javascript',
+                 'company-handover.js': 'text/javascript',
                  'contact.html': 'text/html', 'contact.js': 'text/javascript',
                  'portal.html': 'text/html', 'portal.js': 'text/javascript', 'portal.css': 'text/css'}
         if asset not in types:
@@ -364,6 +390,12 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     @app.route('/api/v1/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     def api(path):
         path = '/' + path
+        if path == '/business/assistant/speech/transcribe' and request.method == 'POST':
+            request.max_content_length = 2_600_000
+        if request.method == 'POST' and re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files)', path):
+            request.max_content_length = 2_850_000
+        if request.method == 'POST' and path in ('/business/bank/import/preview', '/business/bank/statements'):
+            request.max_content_length = 7_100_000
         methods = (METHODS.get(path) or
                    next((allowed for pattern, allowed in PATTERNS if re.fullmatch(pattern, path)), None) or
                    workspace_api.methods(path) or integration_methods(path) or business_api.methods(path))
@@ -377,7 +409,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         strict_accounting_body = (path == '/business/accounting/profile' or
             path.startswith(('/business/accounting/allocations/', '/business/accounting/components/',
                              '/business/accounting/refunds/', '/business/accounting/profile/')) or
-            business_api.strict_report_path(path))
+            business_api.strict_report_path(path) or business_api.strict_workflow_path(path))
         if (request.method == 'GET' and strict_accounting_body
                 and request.get_data(cache=False)):
             raise Problem(400, 'GET erwartet keinen Anfragekörper')
@@ -391,10 +423,13 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             if request.headers.get('Content-Encoding', 'identity') != 'identity':
                 raise Problem(400, 'Komprimierte Uploadabschnitte werden nicht unterstützt')
             data = request.get_data(cache=False)
-        elif path == '/business/service-reports/offline' and request.method == 'POST':
+        elif request.method == 'POST' and (path == '/business/service-reports/offline' or business_api.strict_workflow_path(path)):
             if not request.is_json:
                 raise Problem(415, 'JSON-Erfassung erwartet.')
-            data = business_api.decode_offline_report(request.get_data(cache=False))
+            data = business_api.decode_offline_report(request.get_data(cache=False),
+                max_bytes=(2_600_000 if path == '/business/assistant/speech/transcribe' else
+                    2_850_000 if re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files)', path) else
+                    7_100_000 if path in ('/business/bank/import/preview', '/business/bank/statements') else 1_000_000))
         else:
             data = body() if request.method == 'POST' else (
                 business_api.query_data(request.args.items(multi=True)) if path.startswith('/business/') else {})
@@ -418,7 +453,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 office, user, path, request.method, data, offline=plan_token,
                 offline_capabilities=plan_access.business_capabilities(office, token) if plan_token else ())
             return (jsonify(result), status) if mimetype == 'application/json' else Response(
-                result, status=status, mimetype=mimetype,
+                _wsgi_body(result), status=status, mimetype=mimetype,
                 headers={'Content-Disposition': workspace_api.attachment_disposition(
                     getattr(result, 'filename', 'smartplan-dokument'))})
         if integration_methods(path):
@@ -427,7 +462,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 office.user(token)
             result, status, mimetype = integrations.dispatch(token, path, request.method, data)
             return (jsonify(result), status) if mimetype == 'application/json' else (
-                Response(result, status=status, mimetype=mimetype,
+                Response(_wsgi_body(result), status=status, mimetype=mimetype,
                          headers={'Content-Disposition': workspace_api.attachment_disposition(result.filename)}))
         if path.startswith('/storage/'):
             if path == '/storage/status':

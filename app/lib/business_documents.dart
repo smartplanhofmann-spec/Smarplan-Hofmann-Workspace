@@ -38,6 +38,31 @@ const businessDocumentStates = {
   'cancelled': 'Storniert',
 };
 
+List<String> businessDocumentConversionTargets(Map<String, dynamic> document) {
+  const targets = {
+    'estimate': ['offer', 'order_confirmation'],
+    'offer': [
+      'order_confirmation',
+      'invoice',
+      'advance_invoice',
+      'delivery_note',
+    ],
+    'order_confirmation': [
+      'delivery_note',
+      'invoice',
+      'advance_invoice',
+      'final_invoice',
+    ],
+    'delivery_note': ['invoice'],
+    'advance_invoice': ['cumulative_invoice', 'final_invoice'],
+    'cumulative_invoice': ['cumulative_invoice', 'final_invoice'],
+  };
+  if (['advance_invoice', 'cumulative_invoice'].contains(document['kind']) &&
+      document['status'] != 'final')
+    return const [];
+  return targets[document['kind']] ?? const [];
+}
+
 class BusinessDocumentsPage extends StatelessWidget {
   const BusinessDocumentsPage({super.key, required this.session});
   final BusinessSession session;
@@ -257,7 +282,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
               (d) =>
                   d['status'] == 'final' &&
                   d['id'] != widget.document?['id'] &&
-                  '${d['kind']}'.contains('invoice'),
+                  ['advance_invoice', 'cumulative_invoice'].contains(d['kind']),
             )
             .toList();
         templates = businessItems(results[2]);
@@ -1242,6 +1267,15 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                               'Bereits ausgestellte Rechnungen berücksichtigen',
                             ),
                             children: [
+                              const Padding(
+                                padding: EdgeInsets.all(12),
+                                child: Text(
+                                  'Die Positionen enthalten die gesamte bisherige Vertragsleistung. '
+                                  'Nur den neuesten Kettenbeleg oder unabhängige Abschläge wählen; '
+                                  'frühere Abschläge einer kumulierten Rechnung nicht zusätzlich abziehen. '
+                                  'Der Server prüft die Kette und berechnet den zusätzlichen Rechnungsbetrag.',
+                                ),
+                              ),
                               if (priorDocuments.isEmpty)
                                 const Padding(
                                   padding: EdgeInsets.all(12),
@@ -1252,7 +1286,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                               for (final previous in priorDocuments)
                                 CheckboxListTile(
                                   title: Text(
-                                    '${previous['number']} · ${businessMoney(businessMap(previous['totals'])['gross'])}',
+                                    '${previous['number']} · Vertragsbasis ${businessMoney(businessMap(previous['contract_totals'] ?? previous['totals'])['gross'])}',
                                   ),
                                   value: previousIds.contains(previous['id']),
                                   onChanged: enabled
@@ -1822,20 +1856,16 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
                         child: const Text('Stornoentwurf erstellen'),
                       ),
                     if (widget.session.canWrite('finance.write'))
-                      for (final target in ['order_confirmation', 'invoice'])
-                        if (target != d['kind'] &&
-                            (target != 'invoice' ||
-                                widget.session.canWrite('finance.write')))
-                          OutlinedButton(
-                            onPressed: busy
-                                ? null
-                                : () => action('convert', {
-                                    'target_kind': target,
-                                  }),
-                            child: Text(
-                              'In ${businessDocumentKinds[target]} umwandeln',
-                            ),
+                      for (final target in businessDocumentConversionTargets(d))
+                        OutlinedButton(
+                          onPressed: busy
+                              ? null
+                              : () =>
+                                    action('convert', {'target_kind': target}),
+                          child: Text(
+                            'In ${businessDocumentKinds[target]} umwandeln',
                           ),
+                        ),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -1886,6 +1916,22 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        if (d['contract_totals'] is Map) ...[
+                          Text(
+                            'Gesamte Vertragsleistung brutto: ${businessMoney(businessMap(d['contract_totals'])['gross'])}',
+                          ),
+                          Text(
+                            'Bereits berechnete Vertragsbasis brutto: ${businessMoney(d['previous_issued_gross'])}',
+                          ),
+                          for (final previous in businessItems(
+                            d['previous_documents'],
+                          ))
+                            Text(
+                              'Vorbeleg ${previous['number']}: ${businessMoney(previous['gross'])}',
+                            ),
+                          const SizedBox(height: 12),
+                          const Text('Zusätzlich berechneter Rechnungsbetrag'),
+                        ],
                         Text('Netto: ${businessMoney(totals['net'])}'),
                         Text('Umsatzsteuer: ${businessMoney(totals['tax'])}'),
                         if (totals['labor_gross'] != null)

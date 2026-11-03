@@ -90,6 +90,9 @@ class BusinessMaintenance(Domain):
             value['media_ids']=BusinessOperations(self.office)._media_refs(project_id,value.get('media_ids',[]),fresh)
             value['active']=value.get('active',True)
             if type(value['active']) is not bool: raise Problem(400,'Aktiv muss ein Wahrheitswert sein')
+            if old:
+                from business_asset_provenance import ensure_asset_identity
+                ensure_asset_identity(self.office, asset_id, json.loads(old['payload_json']), value)
             identifier_,now=asset_id or uuid.uuid4().hex,self.now()
             if old:
                 self.office.db.execute('UPDATE business_assets SET payload_json=?,revision=revision+1,updated_by=?,updated_at=? WHERE id=?',(canonical(value),fresh['id'],now,identifier_))

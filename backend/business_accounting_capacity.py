@@ -416,10 +416,12 @@ class ReusableDocumentComponents(Domain):
         else:
             r1_sequence, c1_sequence = historical['r1_sequence'], historical['c1_sequence']
             gate, eligibility = historical['gate'], historical['eligibility']
+            from accounting_invoice_sources import FAMILY, successful_eligibility
+            expected_eligibility = successful_eligibility(archive['invoice_chain']) if archive['kind'] == FAMILY else {'relations': []}
             if (type(r1_sequence) is not int or not 0 <= r1_sequence <= sources['r1_sequence']
                     or type(c1_sequence) is not int or not 0 <= c1_sequence <= sources['c1_sequence']
                     or version == 2 and (type(historical.get('r2_sequence')) is not int or historical['r2_sequence'] != r2_sequence)
-                    or eligibility != {'relations': []}):
+                    or eligibility != expected_eligibility):
                 raise ValueError('Invalid historical capacity observation')
             self._validate_gate_snapshot(document_id, gate, sources, r1_sequence=r1_sequence)
             authorized = set(historical['authorized_returns'])

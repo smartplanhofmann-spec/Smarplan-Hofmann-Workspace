@@ -14,7 +14,16 @@ Ausgeführte Prüfungen und ihre Grenzen stehen im
 Es erfasst bestätigte Geldflüsse mit Herkunft und ersetzt noch keine vollständige
 EÜR, Steuerberechnung, Kassenführung oder Bankabstimmung. Es löst keine Zahlung
 aus. Die erste vollständige Buchhaltung ist für ein Einzelunternehmen mit EÜR
-vorgesehen; der tatsächliche Umsatzsteuerstatus ist noch offen.
+vorgesehen. Für Smartplan Hofmann sind Regelbesteuerung, Ist-Versteuerung,
+Standard19%, SKR04 und Nettopreise inzwischen ausdrücklich
+[bestätigt](CRM_ERP_ENTSCHEIDUNGEN.md); ein konkreter Gültigkeits- und
+Buchführungsbeginn wird pro Installation erfasst.
+
+Der aktuelle [EÜR-Journalworkflow](CRM_ERP_EUER_WORKFLOW_API.md) erweitert diese
+Quellenvorbereitung um steuerliche Einordnung, Perioden, Berichtigung, lineare
+AfA und Jahresprüfpaket. Die nachstehende historische Quellenlogik bleibt dessen
+Basis; aus ihrem ursprünglichen Status wird keine Grenze des neuen Journals
+abgeleitet. Aktueller Restoreumfang mit Journal: Berichtschema9, siehe unten.
 
 ## Benutzung
 
@@ -375,7 +384,9 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    Erstattungsmodul oder [Schema 7](CRM_ERP_EUER_E1B3C_API.md#h6-berichtschema-7-und-unveränderte-finanzprojektionen)
    bei zusätzlich installiertem `business_accounting_refunds_v2` ohne
    Vorbereitungsprofil oder [Schema 8](CRM_ERP_EUER_E1B4A1_API.md#restore-und-abnahmegrenze)
-   bei zusätzlich installiertem `business_accounting_profile`. Der gesamte
+   bei zusätzlich installiertem `business_accounting_profile` ohne EÜR-Journal
+   oder [Schema 9](CRM_ERP_EUER_WORKFLOW_API.md) bei installiertem
+   `business_accounting_euer`. Der gesamte
    installierte Umfang gilt auch bei leeren Tabellen. Diese Regeln
    erweitern den technischen Restoreabgleich und ersetzen keine fachliche
    Prüfung der tatsächlich vorhandenen Zahlungs- und Belegnachweise.
@@ -440,6 +451,18 @@ keine HTTP-Funktion und keine zusätzliche Mitarbeiterberechtigung.
    Profilmodul benötigt diesen vollständigen Umfang mit beiden Counts 0.
    Die sechs bisherigen Teilhorizonte und alle äußeren Berichtsangaben bleiben
    unverändert. Ein Profil ersetzt keinen unabhängigen Zahlungs-/Belegabgleich.
+   Schema 9 ergänzt das EÜR-Journal:
+
+   ```text
+   {schema_version:8,prejournal:<H1>,allocations:<A1>,components:<C1>,
+    refunds:<R1>,capacity:<K1>,refunds_v2:<R2>,profile:<P1>,euer:<E1>}
+   ```
+
+   E1 enthält `schema_version:1`, `table_counts` mit genau
+   `business_euer_entries` und `business_euer_requests` sowie `sha256`.
+   Der vollständige Umfang ist auch bei leerem EÜR-Journal erforderlich.
+   Ein älterer erfolgreicher Abgleich bleibt als historische Quittung erhalten,
+   kann aber keinen neuen Restore mit zusätzlichem Journalumfang freigeben.
 4. Bericht privat speichern: unter POSIX höchstens Eigentümerrechte, etwa
    `chmod 600 abgleich.json`; unter Windows Zugriff über die Dateirechte auf die
    zuständigen Betreiber begrenzen. Keine Symlinks, keine öffentlichen Ablagen.
@@ -481,8 +504,9 @@ Komponenten, Schema 4 mit Komponenten ohne Erstattungsmodul, Schema 5
 mit Erstattungsmodul ohne Wiederverwendungsmodul, Schema 6 bei installiertem
 `business_accounting_capacity` ohne erweitertes Erstattungsmodul und Schema 7
 bei zusätzlich installiertem `business_accounting_refunds_v2` ohne Profilmodul.
-Schema 8 gilt bei zusätzlich installiertem `business_accounting_profile`,
-selbst bei leeren Tabellen.
+Schema 8 gilt bei zusätzlich installiertem `business_accounting_profile` ohne
+EÜR-Journal; Schema 9 bei zusätzlich installiertem `business_accounting_euer`,
+jeweils auch bei leeren Tabellen.
 Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
 
 ## Grenzen und nächste Schritte
@@ -490,8 +514,11 @@ Die lokale SQLite-CLI ist nicht für PostgreSQL bestimmt.
 Die Wiederverwendung ist auf die oben beschriebenen Quellen und Fälle begrenzt.
 Die Nachweise für weitere Erstattungen auf wiederverwendete Anteile sind im
 3c-Prüfnachweis gesondert abgegrenzt. Steuerliche Freigabe der dokumentarischen
-Komponenten, Quellenkorrekturen, Perioden,
-Anlagen, Privatanteile, Lohnbuchungen und Beraterpaket folgen gesondert. Ein
+Komponenten bleibt gesondert. Quellenkorrekturen, Perioden, lineare Anlagen-AfA,
+Privatanteile und eigenes Beraterprüfpaket sind inzwischen im
+[EÜR-Journalworkflow](CRM_ERP_EUER_WORKFLOW_API.md) umgesetzt und im dort
+genannten Fallumfang geprüft. Lohnbuchungen und weitere Sonderfälle bleiben
+gesondert zu vervollständigen. Ein
 Bankkonto in dieser Oberfläche ist kein Bankfeed; Bargeldkonto ist kein
 abgenommenes Kassenbuch. Keine vollständige Jahres-EÜR oder amtliche Meldung
 ableiten. Die Quellenlisten prüfen aktuell alle sichtbaren Originalnachweise

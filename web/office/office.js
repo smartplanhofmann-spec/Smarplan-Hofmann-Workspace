@@ -1,4 +1,26 @@
+import {purchaseChangesUi} from './purchase-changes.js';
+import {purchaseChangePendingAuthorize} from './purchase-changes.js';
+import {bankPendingAuthorize,bankReconciliationUi} from './bank-reconciliation.js';
+import {resourceCustodyPendingAuthorize} from './resource-custody.js';
+import {resourceCustodyUi} from './resource-custody.js';
+import {payrollCashPendingAuthorize} from './payroll-cash.js';
+import {servicePendingAuthorize,serviceUi} from './service.js';
+import {companyHandoverUi} from './company-handover.js';
+import {privacyCasesUi} from './privacy-cases.js';
+import {customFieldsPendingAuthorize,customFieldsUi} from './custom-fields.js';
+import {createAccountingEuer,euerRights,euerAuthorize} from './accounting-euer.js';
+import {createProjectEconomics} from './project-economics.js';
+import {renderCustomerWorkspace,customerWorkspaceRights} from './customer-workspace-staff.js';
 /* Smartplan Office online browser client. No providers, persistent credentials or service worker. */
+import {assetProvenanceUi} from './asset-provenance.js';
+import {personnelWorkflowUi} from './personnel-workflow.js';
+import {assistantUi} from './assistant.js';
+import {payrollPendingAuthorize,payrollUi} from './payroll.js';
+import {renderCompanyOverview} from './company-overview.js';
+import {migrationPendingAuthorize,migrationsUi} from './migrations.js';
+import {companyHandoverPendingAuthorize} from './company-handover.js';
+import {inventoryCountsUi,inventoryCountPendingAuthorize} from './inventory-counts.js';
+import {createSales,salesPendingAuthorize} from './sales.js';
 export class ApiError extends Error {
   constructor(message, status = 0, requestResolution = null) { super(message); this.name = 'ApiError'; this.status = status; this.requestResolution=status===409&&requestResolution==='not_accepted'?'not_accepted':null; }
 }
@@ -80,12 +102,15 @@ export function organizationCommandArea(path) {
   if(path.startsWith('/organization')||path.startsWith('/settings/')||path==='/commercial/settings')return null;
   if(/^\/portal\/grants\/[^/]+\/revoke$/.test(path))return null;
   if(path.startsWith('/portal/'))return 'documents';
-  if(/^\/(employees|absences|shifts|time)(?:\/|$)/.test(path))return 'personnel';
+  if(/^\/customer-workspace\/(?:grants|files)\/[a-f0-9]{32}\/revoke$/.test(path))return null;
+  if(/^\/customer-workspace(?:\/|$)/.test(path))return 'documents';
+  if(/^\/(employees|absences|shifts|time|personnel|payroll)(?:\/|$)/.test(path))return 'personnel';
   if(/^\/(resources|appointments|planning)(?:\/|$)/.test(path))return 'planning';
   if(/^\/(inventory|purchasing)(?:\/|$)/.test(path)||path==='/budgets'||/^\/projects\/[^/]+\/changes(?:\/|$)/.test(path))return 'material';
   if(/^\/(documents|articles|services|templates|text-blocks|commercial)(?:\/|$)/.test(path))return 'documents';
   if(/^\/adapters\/imports\/[^/]+\/(apply|offer)$/.test(path))return 'documents';
-  if(/^\/(finance|accounting)(?:\/|$)/.test(path))return 'finance';
+  if(/^\/(finance|accounting|project-economics|receipt-media)(?:\/|$)/.test(path))return 'finance';
+  if(path==='/assets/from-delivery'||/^\/assets\/[a-f0-9]{32}\/origin$/.test(path))return 'material';
   return null;
 }
 export function organizationChange(current, values) {
@@ -775,7 +800,7 @@ export function purchaseReceiptData(order,values) {
     lines.push({line_index:item.line_index,quantity:quantity.text,unit_cost_net:price.text});
   }
   if(!lines.length)throw new Error('Bitte mindestens eine tatsächlich gelieferte Menge eingeben.');
-  return {...purchaseRevision(order),receipt_reference,received_on:values.received_on,location_id:values.location_id,lines};
+  return {...purchaseRevision(order),...(Number.isSafeInteger(order.amendment_revision)?{expected_amendment_revision:order.amendment_revision}:{}),receipt_reference,received_on:values.received_on,location_id:values.location_id,lines};
 }
 const DAY_MS=86400000;
 function calendarDay(value) {
@@ -831,6 +856,10 @@ export class OfficeApi {
   get generation() { return this.#generation; }
   get pendingCount() { return this.#pending.size; }
   pendingOperations() { return [...this.#pending.entries()].map(([key,operation])=>({key,path:operation.path})); }
+  pendingCommandValues(key, path) {
+    const operation=this.#pending.get(key);
+    return operation&&operation.path===path?JSON.parse(operation.fingerprint):null;
+  }
   retry(key) {
     const operation=this.#pending.get(key);
     if(!operation)throw new ApiError('Vorgang ist nicht mehr offen.');
@@ -845,8 +874,10 @@ export class OfficeApi {
     this.#controllers.forEach(controller => controller.abort());
     this.#controllers.clear(); this.#pending.clear(); this.#token = '';
   }
-  async request(path, {method = 'GET', body, publicRequest = false, binary = false, maxBytes = binary ? 21 * 1024 * 1024 : 4 * 1024 * 1024} = {}) {
+  async request(path, {method = 'GET', body, publicRequest = false, binary = false, maxBytes} = {}) {
     if (typeof path !== 'string' || !path.startsWith('/') || path.startsWith('//') || path.includes('#') || /[\r\n]/.test(path)) throw new Error('Ungültiger API-Pfad.');
+    const bankJson = /^\/business\/bank\/(?:accounts|import\/preview|statements(?:\/[a-f0-9]{32})?|transactions\/[a-f0-9]{32}\/(?:candidates|history|preview|matches)|reconciliations(?:\/preview|\/[a-f0-9]{32})?)$/.test(path.split('?')[0]);
+    maxBytes ??= binary ? 21 * 1024 * 1024 : (bankJson ? 128 : 4) * 1024 * 1024;
     if (!publicRequest && !this.#token) throw new ApiError('Bitte anmelden.', 401);
     const generation = this.#generation, controller = new AbortController();
     this.#controllers.add(controller);
@@ -858,7 +889,10 @@ export class OfficeApi {
         signal: controller.signal, credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer'});
       if (generation !== this.#generation) throw new StaleSession();
       const advertised = Number(response.headers.get('Content-Length'));
-      if (Number.isFinite(advertised) && advertised > maxBytes) throw new ApiError('Antwort ist zu groß.', 413);
+      if (Number.isFinite(advertised) && advertised > maxBytes) {
+        await response.body?.cancel();
+        throw new ApiError('Antwort ist zu groß. Eine mögliche Übernahme ist noch nicht bestätigt.', 0);
+      }
       const reader = response.body?.getReader();
       let data;
       if (reader) {
@@ -867,14 +901,14 @@ export class OfficeApi {
           const {done, value} = await reader.read(); if (done) break;
           if (generation !== this.#generation) { await reader.cancel(); throw new StaleSession(); }
           size += value.byteLength;
-          if (size > maxBytes) { await reader.cancel(); throw new ApiError('Antwort ist zu groß.', 413); }
+          if (size > maxBytes) { await reader.cancel(); throw new ApiError('Antwort ist zu groß. Eine mögliche Übernahme ist noch nicht bestätigt.', 0); }
           parts.push(value);
         }
         data = new Uint8Array(size); let offset = 0;
         parts.forEach(part => { data.set(part, offset); offset += part.byteLength; });
       } else {
         data = new Uint8Array(await response.arrayBuffer());
-        if (data.byteLength > maxBytes) throw new ApiError('Antwort ist zu groß.', 413);
+        if (data.byteLength > maxBytes) throw new ApiError('Antwort ist zu groß. Eine mögliche Übernahme ist noch nicht bestätigt.', 0);
       }
       if (generation !== this.#generation) throw new StaleSession();
       if (!response.ok) {
@@ -893,29 +927,59 @@ export class OfficeApi {
   get(path) { return this.request(path); }
   post(path, body) { return this.request(path, {method: 'POST', body}); }
   binary(path) { return this.request(path, {binary: true}); }
-  async mutate(key, path, data) {
-    const fingerprint = JSON.stringify(data), old = this.#pending.get(key);
+  async mutate(key, path, data, {validate=null} = {}) {
+    const fingerprint = JSON.stringify(data), old = this.#pending.get(key), generation = this.#generation;
     if (old && (old.path !== path || old.fingerprint !== fingerprint)) throw new ApiError('Die vorige Antwort ist noch unklar. Bitte zuerst die unveränderte Eingabe erneut senden.');
-    const operation = old || {path, fingerprint, body: {...data, request_id: requestId()}};
+    const operation = old || {path, fingerprint, body: {...JSON.parse(fingerprint), request_id: requestId()}, validate};
     this.#pending.set(key, operation);
     try {
+      if(old&&path.startsWith('/business/assistant/'))await assistantPendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/payroll/cash/'))await payrollCashPendingAuthorize(this,{key,path});
+      if(old&&key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))await purchaseChangePendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/bank/'))await bankPendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/resource-custody/'))await resourceCustodyPendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/service/cases'))await servicePendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/payroll/')&&!path.startsWith('/business/payroll/cash/'))await payrollPendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/sales/'))await salesPendingAuthorize(this,{key,path});
+      if(old&&(path==='/business/migrations'||path.startsWith('/business/migrations/')))await migrationPendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/custom-fields/'))await customFieldsPendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/company-handover/'))await companyHandoverPendingAuthorize(this,{key,path});
+      if(old&&(path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')))await inventoryCountPendingAuthorize(this,{key,path});
+      if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
       const result = await this.post(path, operation.body);
+      if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
+      if(operation.validate)operation.validate(result);
       this.#pending.delete(key); return result;
     } catch (error) {
-      const protectedAccounting=path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
+      const protectedAccounting=(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
       const uncertainAccounting=protectedAccounting&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted');
-      if (error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && !uncertainAccounting) this.#pending.delete(key);
+      if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
       throw error;
     }
   }
 }
 
+export async function assistantPendingAuthorize(api,operation) {
+  const values=api.pendingCommandValues(operation?.key,operation?.path);
+  if(!values||!operation.path.startsWith('/business/assistant/'))throw new ApiError('Der ursprüngliche Assistentenauftrag ist nicht mehr verfügbar.',409);
+  const id=/^[a-f0-9]{32}$/;
+  let project=values.project_id;
+  const target=/^\/business\/assistant\/plans\/([a-f0-9]{32})\/(?:approve|reject|execute)$/.exec(operation.path);
+  if(target){const source=await api.get('/business/assistant/plans/'+target[1]);project=source.project_id;}
+  else if(id.test(values.context_id||'')){const source=await api.get('/business/assistant/contexts/'+values.context_id);project=source.project_id;}
+  if(!id.test(project||''))throw new ApiError('Der offene Auftrag hat keine eindeutige Projektbindung.',409);
+  const caps=await api.get('/business/capabilities?project_id='+project);
+  if(caps.readonly!==false||!caps.features?.includes('assistant_workflow')||!caps.capabilities?.includes('business_assistant')||!caps.permissions?.includes('assistant.use'))throw new ApiError('Aktuelle Projekt- und Assistentenrechte fehlen. Der ursprüngliche Auftrag bleibt offen.',403);
+  await api.get('/business/assistant/sources?project_id='+project);
+  return project;
+}
+
 const NAV = [
   ['overview','Übersicht','◈'], ['inquiries','Anfragen','↗'], ['projects','Projekte','▦'], ['contacts','Kontakte','◎'],
   ['planning','Einsatzplanung','▤'], ['documents','Dokumente','▧'], ['finance','Finanzen','€'],
-  ['material','Material','▣'], ['personnel','Personal','◷'], ['settings','Einstellungen','⚙']
+  ['material','Material','▣'], ['personnel','Personal','◷'], ['assistant','Assistent','✧'], ['service','Kundenservice','◉'], ['settings','Einstellungen','⚙']
 ];
-const LABELS = {draft:'Entwurf',final:'Festgeschrieben',signed:'Unterzeichnet',new:'Neu',in_progress:'In Arbeit',open:'Offen',
+const LABELS = {remainder_cancelled:'Restmenge storniert',draft:'Entwurf',final:'Festgeschrieben',signed:'Unterzeichnet',new:'Neu',in_progress:'In Arbeit',open:'Offen',
   resolved:'Behoben',accepted:'Abgenommen',needs_review:'Prüfen',queued:'In Warteschlange',running:'Wird verarbeitet',failed:'Fehlgeschlagen',
   ready:'Bereit',uploading:'Upload läuft',planned:'Geplant',completed:'Abgeschlossen',paused:'Pausiert',working:'Läuft',stopped:'Beendet',
   reserved:'Reserviert',partial:'Teilweise entnommen',picked:'Entnommen',pending:'Ausstehend',not_sent:'Nicht versendet',unknown:'Unklar',
@@ -933,6 +997,74 @@ const has = permission => state.permissions.has(permission);
 const canWrite = (permission,section=state.section) => has(permission) && !state.readonly && organizationModuleEnabled(section,state.organization);
 const biz = path => '/business' + path;
 const query = (path, values = {}) => path + '?' + new URLSearchParams(Object.entries(values).filter(([,v]) => v !== undefined && v !== null && v !== '')).toString();
+const assetOrigins=assetProvenanceUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,biz,query,mutation,action,download,refresh,formatDate,formatQuantity,
+  allowed:project=>state.features.has('asset_delivery_provenance')&&has('documents.read')&&has('inventory.read')&&(!state.projectId||state.projectId===project)&&state.projects.some(item=>item.id===project),
+  writable:()=>canWrite('documents.write','material')&&canWrite('inventory.write','material'),
+  openOrder:id=>purchaseOrderDialog(id)});
+
+const companyHandover=companyHandoverUi({el,button,field,form,dialog,panel,notice,table,api,biz,action,formatDate,
+  allowed:()=>state.user?.role==='owner'&&state.features.has('company_handover')&&state.capabilities.has('business_company_handover')&&state.section==='settings',
+  stamp:()=>`${api.generation}/${state.render}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+const privacyCases=privacyCasesUi({el,button,field,form,dialog,panel,notice,rows,row,api,biz,action,
+  allowed:()=>has('privacy.manage')&&state.features.has('privacy_cases')&&state.capabilities.has('business_privacy_cases')&&['settings','contacts'].includes(state.section),
+  stamp:()=>`${api.generation}/${state.render}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+const bankWorkspace=bankReconciliationUi({el,button,field,form,dialog,panel,notice,table,api,biz,action,formatDate,formatMoney,
+  available:()=>state.section==='finance',caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly,organization:state.organization}),
+  stamp:()=>`${api.generation}/${state.render}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+const payrollWorkspace=payrollUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,biz,query,mutation,action,refresh,formatDate,formatMoney,
+  available:()=>state.features.has('german_payroll_2026')&&state.section==='personnel',
+  caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly}),
+  organization:()=>state.organization,userId:()=>state.user?.id,stamp:()=>`${api.generation}/${state.render}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+const personnelWorkflow=personnelWorkflowUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,biz,query,mutation,action,refresh,formatDate,formatMoney,duration,
+  available:()=>state.features.has('personnel_preparation')&&state.section==='personnel',
+  payrollAvailable:()=>state.features.has('german_payroll_2026'),openPayroll:employee=>payrollWorkspace.open(employee),
+  permission:value=>state.globalPermissions.has(value),userId:()=>state.user?.id,
+  enabled:()=>!state.readonly&&organizationModuleEnabled('personnel',state.organization),
+  stamp:()=>`${api.generation}/${state.render}`,projects:()=>state.projects,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+const inventoryCounts=inventoryCountsUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,biz,query,mutation,action,refresh,formatDate,formatMoney,
+  caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly,organization:state.organization}),
+  stamp:()=>`${api.generation}/${state.render}`});
+
+const assistantWorkspace=assistantUi({el,button,field,form,dialog,closeModal,panel,rows,row,notice,table,api,biz,query,mutation,action,refresh,formatDate,requestId,
+  allowed:project=>state.features.has('assistant_workflow')&&has('assistant.use')&&state.projectId===project&&state.projects.some(item=>item.id===project),
+  writable:()=>has('assistant.use')&&!state.readonly,
+  settings:()=>has('settings.manage')&&!state.readonly,approve:()=>has('assistant.approve')&&!state.readonly,
+  actionAllowed:action=>action==='task.create'?has('projects.manage'):action==='offer.draft'?has('finance.read')&&has('finance.write'):action==='supplier.order'?has('inventory.read')&&has('inventory.write')&&has('finance.approve'):has('finance.read')&&has('finance.approve'),
+  speechAvailable:()=>state.features.has('assistant_speech')&&state.capabilities.has('business_assistant_speech'),
+  userId:()=>state.user?.id,stamp:()=>`${api.generation}/${state.render}`});
+
+function migrationsAllowed(){return state.user?.role==='owner'&&state.features.has('file_migrations')&&state.capabilities.has('business_migrations')&&['settings.manage','contacts.read','finance.read','documents.read'].every(right=>state.globalPermissions.has(right));}
+const fileMigrations=migrationsUi({el,button,field,form,dialog,closeModal,panel,rows,row,notice,table,api,biz,query,action,mutation,
+  openProject:async projectId=>{const projects=collection(await api.get('/projects'));if(!projects.some(value=>value.id===projectId))throw new Error('Projektbezug ist nicht mehr freigegeben.');state.projects=projects;closeModal();openProject(projectId);},
+  allowed:migrationsAllowed,writable:()=>migrationsAllowed()&&!state.readonly,
+  canApply:()=>migrationsAllowed()&&!state.readonly&&state.user?.role==='owner'&&['contacts.write','projects.manage'].every(right=>state.globalPermissions.has(right)),
+  stamp:()=>`${api.generation}/${state.render}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+const purchaseChanges=purchaseChangesUi({el,button,field,form,dialog,closeModal,panel,rows,row,notice,table,api,biz,query,action,mutation,formatDate,
+ allowed:()=>state.features.has('purchase_changes')&&state.capabilities.has('business_purchase_changes')&&has('inventory.read'),stamp:()=>`${api.generation}/${state.render}`,openOrder:id=>purchaseOrderDialog(id),
+ saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+function resourceCustodyAllowed(){return state.features.has('resource_custody')&&state.capabilities.has('business_resource_custody')&&['planning.read','planning.write'].every(value=>state.globalPermissions.has(value));}
+const resourceCustody=resourceCustodyUi({el,button,field,form,dialog,closeModal,panel,rows,row,notice,table,api,biz,query,action,mutation,formatDate,
+  allowed:resourceCustodyAllowed,writable:()=>resourceCustodyAllowed()&&!state.readonly&&organizationModuleEnabled('planning',state.organization),stamp:()=>`${api.generation}/${state.render}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+const customerService=serviceUi({el,button,field,form,dialog,closeModal,panel,rows,row,notice,table,api,biz,query,action,mutation,formatDate,
+  allowed:()=>state.features.has('service_cases')&&state.capabilities.has('business_service')&&has('contacts.read'),owner:()=>state.user?.role==='owner',canCreate:()=>!state.readonly&&(has('documents.write')||state.user?.role==='owner'&&has('contacts.write')),stamp:()=>`${api.generation}/${state.render}`,
+  openProject:async projectId=>{const projects=collection(await api.get('/projects'));if(!projects.some(value=>value.id===projectId))throw new Error('Das Fallprojekt ist nicht mehr freigegeben.');state.projects=projects;closeModal();openProject(projectId);},
+  openResources:projectId=>resourceCustody.open(projectId),resourcesAllowed:resourceCustodyAllowed,
+  openReport:async(reportId,projectId)=>{const source=await api.get(biz('/service-reports/'+reportId));if(source.project_id!==projectId||source.status!=='signed'||!/^[a-f0-9]{64}$/.test(source.pdf_sha256||''))throw new Error('Unterzeichneter Projektnachweis fehlt.');const generation=api.generation,blob=await api.binary(biz('/service-reports/'+reportId+'/pdf')),bytes=await blob.arrayBuffer(),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(value=>value.toString(16).padStart(2,'0')).join('');await api.get(biz('/service-reports/'+reportId));if(generation!==api.generation||hash!==source.pdf_sha256)throw new Error('Das Original stimmt nicht mit dem Nachweis überein.');const link=el('a',{href:objectUrl(blob),download:'Servicebericht.pdf',rel:'noopener'});document.body.append(link);link.click();link.remove();}});
 
 function el(tag, attributes = {}, ...children) {
   const node = document.createElement(tag);
@@ -961,7 +1093,11 @@ function objectUrl(blob) { const url=URL.createObjectURL(blob); state.urls.add(u
 function showError(error, target = main) {
   if (error instanceof StaleSession) return;
   if (error.status===401 && state.user) { endSession(); return; }
-  target.prepend(notice(error.message||'Vorgang fehlgeschlagen.','error'));updatePending();
+  // A fresh retry result replaces its old transient action message. Persistent
+  // domain warnings and the separate list of unresolved commands remain.
+  target.querySelectorAll(':scope > [data-action-error]').forEach(node=>node.remove());
+  const message=notice(error.message||'Vorgang fehlgeschlagen.','error');
+  message.dataset.actionError='true';target.prepend(message);updatePending();
 }
 async function action(function_, target = main) { try { return await function_(); } catch(error) { showError(error,target); } }
 function heading(title, description, actions = []) { return el('header',{class:'page-header'},el('div',{},el('p',{class:'eyebrow'},'Smartplan Office'),el('h1',{},title),el('p',{class:'muted'},description)),el('div',{class:'actions'},actions)); }
@@ -1016,9 +1152,10 @@ function dialog(title, content, description = '') {
   modal.addEventListener('keydown',event=> {
     if(event.key==='Escape') closeModal();
     if(event.key==='Tab') {
-      const targets=Array.from(box.querySelectorAll('button,input,select,textarea,a[href]')).filter(node=>!node.disabled);
+      const targets=Array.from(box.querySelectorAll('button,input,select,textarea,a[href]')).filter(node=>!node.disabled&&node.tabIndex>=0&&node.getClientRects().length&&!node.closest('[inert],[hidden]'));
       if(!targets.length) { event.preventDefault(); box.focus(); return; }
-      if(event.shiftKey&&document.activeElement===targets[0]) { event.preventDefault(); targets.at(-1).focus(); }
+      if(!targets.includes(document.activeElement)) { event.preventDefault(); (event.shiftKey?targets.at(-1):targets[0]).focus(); }
+      else if(event.shiftKey&&document.activeElement===targets[0]) { event.preventDefault(); targets.at(-1).focus(); }
       else if(!event.shiftKey&&document.activeElement===targets.at(-1)) { event.preventDefault(); targets[0].focus(); }
     }
   });
@@ -1027,14 +1164,16 @@ function dialog(title, content, description = '') {
 function closeModal() { if(modal) { const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
 async function download(path,filename) { const blob=await api.binary(path),url=objectUrl(blob),link=el('a',{href:url,download:filename,rel:'noopener'}); document.body.append(link); link.click(); link.remove(); }
 function jsonDownload(value,filename) { const link=el('a',{href:objectUrl(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),download:filename}); document.body.append(link); link.click(); link.remove(); }
-function mutation(key,path,data) {
+function mutation(key,path,data,options) {
   if(state.readonly)throw new ApiError('Der aktuelle Betriebsmodus erlaubt nur das Lesen vorhandener Daten.',409);
   if(!organizationModuleEnabled(organizationCommandArea(path),state.organization))
     throw new ApiError('Dieser Bereich ist fachlich deaktiviert. Neue Vorgänge benötigen die Aktivierung in den Unternehmenseinstellungen.',423);
-  return api.mutate(key,biz(path),data);
+  return api.mutate(key,biz(path),data,options);
 }
 function accountingRights(status=null) { return accountingAccess({permissions:[...state.globalPermissions],capabilities:[...state.capabilities],features:[...state.features],readonly:state.readonly},state.organization,status); }
 function sectionAuthorized(section) {
+  if(section==='service')return state.features.has('service_cases')&&state.capabilities.has('business_service')&&has('contacts.read');
+  if(section==='assistant')return state.features.has('assistant_workflow')&&has('assistant.use');
   if(section==='finance'&&accountingRights().read)return true;
   if(ORGANIZATION_AREAS.some(([name])=>name===section))return organizationAreaAuthorized(section,state.permissions,state.capabilities);
   return ({contacts:has('contacts.read'),planning:has('planning.read'),finance:has('finance.read'),material:has('inventory.read')||has('finance.read'),
@@ -1050,6 +1189,7 @@ function mayOpenSection(section) {
 }
 
 function loginScreen(challenge = null, enrollment = null) {
+  privacyCases.clear();
   refundPendingSources.clear();
   closeModal(); revokeUrls(); state.user=null; root.replaceChildren();
   const card=el('section',{class:'login-card'},el('div',{class:'brand'},el('span',{class:'brand-mark'},'S'),el('div',{},el('strong',{},'smartplan'),el('small',{},'OFFICE'))),el('h1',{},challenge?'Anmeldung bestätigen':'Willkommen im Büro.'),el('p',{class:'muted'},challenge?'Authentifizierungscode oder Wiederherstellungscode eingeben.':'Projekte, Team und Unterlagen an einem Ort.'));
@@ -1085,7 +1225,7 @@ async function startSession() {
   if(!state.projects.some(project=>project.id===state.projectId))state.projectId='';
   state.section='overview'; buildShell(); await refresh();
 }
-function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();photoUploads.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
+function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();photoUploads.clear();projectEconomics.clear();assistantWorkspace.clear();accountingEuer.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
 function buildShell() {
   root.replaceChildren(); shell=el('div',{class:'shell'});
   const nav=el('nav',{class:'navigation','aria-label':'Hauptnavigation'},NAV.filter(([id])=>sectionAllowed(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id)},el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label)));
@@ -1111,6 +1251,24 @@ function updateDrawer() {
 function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
 function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
 function operationLabel(path) {
+  if(path==='/business/bank/accounts')return 'Bankkontozuordnung speichern';
+  if(path==='/business/bank/statements')return 'Kontoauszug übernehmen';
+  if(path.startsWith('/business/bank/transactions/'))return 'Bankbuchung abgleichen';
+  if(path==='/business/bank/reconciliations')return 'Bankprüfstand dokumentieren';
+  if(path.startsWith('/business/resource-custody/'))return 'Betriebsmittelnachweis speichern';
+  if(path.startsWith('/business/payroll/cash/'))return 'Belegte Lohnzahlungen übernehmen';
+  if(path.startsWith('/business/payroll/'))return 'Lohnvorgang bestätigen';
+  if(path.startsWith('/business/service/cases'))return 'Kundenservicevorgang speichern';
+  if(/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/supplier-returns$/.test(path))return 'Lieferantenretoure dokumentieren';
+  if(/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/amendments$/.test(path))return 'Vereinbarte Bestellmengen ändern';
+  if(/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/change-files$/.test(path))return 'Einkaufsänderungsbeleg speichern';
+  if(path.startsWith('/business/assistant/'))return 'Assistentenauftrag unverändert prüfen';
+  if(path.startsWith('/business/personnel/'))return 'Personalvorgang unverändert bestätigen';
+  if(path==='/business/assets/from-delivery')return 'Geliefertes Gerät mit Herkunft anlegen';
+  if(/^\/business\/assets\/[^/]+\/origin$/.test(path))return 'Geräteherkunft verbindlich zuordnen';
+  if(/^\/business\/purchasing\/receipts\/[^/]+\/document$/.test(path))return 'Original-Lieferschein zuordnen';
+  if(path==='/business/project-economics/confirm')return 'Belegkosten vollständig einordnen';
+  if(path==='/business/accounting/euer/confirm')return 'Geprüfte EÜR-Buchung festhalten';
   if(path==='/business/accounting/profile/confirm')return 'Vorbereitungsprofil ausdrücklich speichern';
   if(path.startsWith('/business/accounting/refunds/'))return 'Erstattungsursprung dokumentieren';
   if(path.startsWith('/business/accounting/components/'))return 'Beleganteile dokumentarisch aufteilen';
@@ -1137,6 +1295,8 @@ function pendingDialog() {
     rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{
       if((item.path.startsWith(biz('/accounting/allocations/'))||item.path.startsWith(biz('/accounting/components/'))||item.path.startsWith(biz('/accounting/refunds/')))&&!navigator.onLine)throw new ApiError('Die Zahlungszuordnung benötigt eine Internetverbindung. Die unveränderte Anfrage bleibt offen.',0);
       const generation=api.generation,previous=modal,initialRender=state.render;
+      if(item.key.startsWith('euer-original-review-')){await accountingEuer.authorizeReceiptRetry();if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
+      if(item.path===biz('/accounting/euer/confirm')){await euerAuthorize(api,{write:true,online:navigator.onLine,organization:state.organization});if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
       if(item.path===biz('/accounting/profile/confirm')){await accountingProfileAuthorize(api,{write:true,online:navigator.onLine});if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
       if(item.path.startsWith(biz('/accounting/components/'))){componentWritable();await componentPendingAuthorize(api,item);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;componentWritable();}
       if(item.path.startsWith(biz('/accounting/refunds/'))){refundWritable();await refundPendingAuthorize(api,item);if(!item.path.startsWith(biz('/accounting/refunds/v2/'))){const sources=refundPendingSources.get(item.key);if(!sources||sources.generation!==generation)throw new ApiError('Die Ursprungsrechte können für diese offene Anfrage nicht sicher geprüft werden.',409);await refundAuthorizeCurrent(sources.eventId,sources.origins);}if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;refundWritable();}
@@ -1162,11 +1322,11 @@ async function refresh() {
     const organization=organizationMetadata(caps),organizationChanged=JSON.stringify(state.organization)!==JSON.stringify(organization);
     const navigationChanged=organizationChanged||[...state.globalPermissions].sort().join('|')!==[...(caps.permissions||[])].sort().join('|')||state.metadata?.can_read_inquiries!==metadata.can_read_inquiries||JSON.stringify(state.projects)!==JSON.stringify(collection(projects));
     state.globalPermissions=new Set(caps.permissions||[]);state.capabilities=new Set(caps.capabilities||[]);state.features=new Set(caps.features||[]);state.organization=organization;state.readonly=caps.readonly!==false;state.projects=collection(projects);state.metadata=metadata;
-    if(organizationChanged||(!accountingRights().read&&modal?.querySelector('[data-accounting-detail]'))||(!accountingProfileRights().read&&modal?.querySelector('[data-profile-detail]'))||(!refundRights().read&&modal?.querySelector('[data-refund-detail]'))||(!capacityRights().read&&modal?.querySelector('[data-capacity-detail]'))||(!refundV2Rights().read&&modal?.querySelector('[data-refund-v2-detail]')))closeModal();
+    if((!euerRights({permissions:[...state.globalPermissions],features:[...state.features],capabilities:[...state.capabilities],readonly:state.readonly},state.organization).read&&modal?.querySelector('[data-euer-detail]'))||organizationChanged||(!accountingRights().read&&modal?.querySelector('[data-accounting-detail]'))||(!accountingProfileRights().read&&modal?.querySelector('[data-profile-detail]'))||(!refundRights().read&&modal?.querySelector('[data-refund-detail]'))||(!capacityRights().read&&modal?.querySelector('[data-capacity-detail]'))||(!refundV2Rights().read&&modal?.querySelector('[data-refund-v2-detail]')))closeModal();
     if(state.projectId&&!state.projects.some(project=>project.id===state.projectId)){state.projectId='';state.tab='overview';closeModal();}
     let effective=state.globalPermissions;
     if(state.projectId) {
-      const profile=await api.get(state.section==='finance'?query(biz('/capabilities'),{project_id:state.projectId}):biz(`/projects/${state.projectId}/profile`));
+      const profile=await api.get(['finance','assistant','service'].includes(state.section)?query(biz('/capabilities'),{project_id:state.projectId}):biz(`/projects/${state.projectId}/profile`));
       if(version!==state.render||generation!==api.generation)return;
       effective=new Set(profile.permissions||state.globalPermissions);
     }
@@ -1175,7 +1335,17 @@ async function refresh() {
       if(!mayOpenSection(state.section)){state.section='overview';state.openedHiddenSection=null;}
       buildShell();
     }
-    const view=await ({overview:overviewView,inquiries:inquiriesView,projects:projectsView,contacts:contactsView,planning:planningView,documents:documentsView,finance:financeView,material:materialView,personnel:personnelView,settings:settingsView}[state.section]||overviewView)();
+    if(modal?.querySelector('[data-personnel-workflow]'))closeModal();
+    if(modal?.querySelector('[data-inventory-count]'))closeModal();
+    if(modal?.querySelector('[data-privacy-cases]')){privacyCases.clear();closeModal();}
+    if(modal?.querySelector('[data-file-migration]'))closeModal();
+    if(modal?.querySelector('[data-service-case],[data-resource-custody],[data-purchase-change]'))closeModal();
+    if(modal?.querySelector('[data-custom-fields]'))closeModal();
+    if(modal?.querySelector('[data-assistant-project]'))closeModal();
+    if(!state.features.has('assistant_workflow')||!has('assistant.use'))assistantWorkspace.clear();
+    const originDetail=modal?.querySelector('[data-asset-origin-detail]');
+    if(originDetail&&!assetOrigins.allowed(originDetail.getAttribute('data-asset-origin-detail')))closeModal();
+    const view=await ({overview:overviewView,inquiries:inquiriesView,projects:projectsView,contacts:contactsView,planning:planningView,documents:documentsView,finance:financeView,material:materialView,personnel:personnelView,assistant:assistantView,service:serviceView,settings:settingsView}[state.section]||overviewView)();
     if(version!==state.render||generation!==api.generation)return;
     main.replaceChildren(view);
     if(!organizationModuleEnabled(state.section,state.organization))main.prepend(notice('Dieser Bereich ist fachlich deaktiviert. Vorhandene Daten und Nachweise bleiben entsprechend Ihren Rechten lesbar. Neue Vorgänge sind gesperrt.','warn'));
@@ -1184,11 +1354,17 @@ async function refresh() {
   } catch(error) { if(version===state.render&&generation===api.generation) {main.replaceChildren();showError(error);main.append(button('Erneut laden',()=>refresh()));} }
 }
 
+async function serviceView(){return el('div',{class:'stack'},heading('Kundenservice','Anliegen, Reklamationen und Wartung mit Zuständigkeit, Wiedervorlage und unveränderlichem Verlauf.'),await customerService.view({project_id:state.projectId||null}));}
+
+async function assistantView(){return el('div',{class:'stack'},heading('Assistent','Belegte Projektquellen, konkrete Aufträge und nachvollziehbare Unternehmensregeln.'),await assistantWorkspace.view(state.projectId));}
+
 async function overviewView() {
   const data=await api.get(biz('/overview'));
+  const metrics=state.features.has('company_overview')?await api.get(query(biz('/overview/metrics'),{project_id:state.projectId})):null;
   const feed=collection(await api.get(query(biz('/feed'),{project_id:state.projectId})));
   const projects=data.projects||[];
   const content=el('div',{class:'stack'},heading('Guten Tag.','Was heute zählt – aus Ihrem gemeinsamen Projektbestand.',[button('Aktualisieren',()=>refresh())]),
+    metrics?renderCompanyOverview(metrics,{el,panel,row,rows,button,notice,formatMoney,formatDate,onProject:openProject,onAccounting:()=>{state.financeTab='accounting';state.accounting.tab='euer';navigate('finance');}}):null,
     el('div',{class:'grid'},panel('Projekte',el('div',{class:'metric'},data.counters?.projects??projects.length),el('p',{class:'metric-sub'},'Für Ihren Zugang freigegeben')),panel('Arbeitsbereich',el('h2',{},state.projectId?state.projects.find(p=>p.id===state.projectId)?.name:'Alle Projekte'),el('p',{class:'muted'},'Wählen Sie oben ein Projekt für die gemeinsame Projektmappe.'),button('Projekte öffnen',()=>navigate('projects'),'primary'))),
     panel('Zuletzt im Betrieb',rows(feed.slice(0,10),item=>row(item.summary||item.message||item.event_type,formatDate(item.created_at,true),[badge(item.visibility||'operational')]),'Noch keine Projektereignisse vorhanden.')),
     panel('Ihre Projekte',rows(projects.slice(0,8),project=>row(project.name,project.customer,[project.status?badge(project.status.name):null,button('Projekt öffnen',()=>openProject(project.id),'small')]))));
@@ -1212,7 +1388,7 @@ function newProjectDialog() {
 }
 async function projectView() {
   const id=state.projectId,profile=await api.get(biz(`/projects/${id}/profile`));
-  const tabs=[['overview','Übersicht'],['tasks','Aufgaben'],['appointments','Termine'],['documents','Dokumente'],['documentation','Fotos & Doku'],['materials','Material'],...(has('finance.read')?[['costs','Kalkulation']]:[]),['maintenance','Wartung'],['logbook','Logbuch']];
+  const tabs=[['overview','Übersicht'],['tasks','Aufgaben'],['appointments','Termine'],['documents','Dokumente'],['documentation','Fotos & Doku'],['materials','Material'],...(has('finance.read')?[['costs',state.features.has('project_economics')?'Wirtschaftlichkeit':'Kalkulation']]:[]),['maintenance','Wartung'],...(state.features.has('service_cases')&&has('contacts.read')?[['service','Kundenservice']]:[]),...(state.features.has('assistant_workflow')&&has('assistant.use')?[['assistant','Assistent']]:[]),['logbook','Logbuch']];
   if(!tabs.some(([tab])=>tab===state.tab))state.tab='overview';
   const head=heading(profile.name,`${profile.customer||''}${profile.site_address?' · '+profile.site_address:''}`,[button('Alle Projekte',()=>{state.projectId='';root.querySelector('.project-select').value='';refresh();})]);
   const navigation=el('div',{class:'tabs',role:'tablist','aria-label':'Projektmappe'},tabs.map(([tab,label])=>el('button',{type:'button',class:'tab',role:'tab','aria-selected':tab===state.tab,onClick:()=>{state.tab=tab;refresh();}},label)));
@@ -1220,7 +1396,7 @@ async function projectView() {
   if(state.tab==='overview') {
     const dashboard=await api.get(`/projects/${id}/workspace`);
     body=el('div',{class:'grid two'},panel('Projektstand',el('div',{class:'actions'},profile.status?badge(profile.status.name):badge('Ohne Pipeline-Status')),
-      el('p',{class:'muted'},profile.description||'Projektbeschreibung noch offen.'),el('p',{},`Projektnummer: ${profile.project_number||'noch nicht vergeben'}`),has('projects.manage')?button('Projektprofil bearbeiten',()=>projectProfileDialog(profile),'small'):null),
+      el('p',{class:'muted'},profile.description||'Projektbeschreibung noch offen.'),el('p',{},`Projektnummer: ${profile.project_number||'noch nicht vergeben'}`),has('projects.manage')?button('Projektprofil bearbeiten',()=>projectProfileDialog(profile),'small'):null,state.features.has('custom_fields')?button('Zusatzfelder',()=>action(()=>customFields.open('project',id)),'small'):null),
       panel('Nächste Aufgaben',rows(dashboard.open_tasks||[],item=>row(item.title,item.details,[badge(item.status)]),'Keine offenen Aufgaben.')),
       panel('Nächste Termine',rows(dashboard.upcoming_appointments||[],item=>row(item.title,`${formatDate(item.start_at,true)} – ${formatDate(item.end_at,true)}`),'Noch keine Termine geplant.')),
       panel('Projektteam',rows(dashboard.team||[],member=>row(member.email||member.name,member.role),'Noch keine Teammitglieder zugewiesen.')));
@@ -1231,6 +1407,8 @@ async function projectView() {
   else if(state.tab==='materials') body=await materialContent(id);
   else if(state.tab==='costs') body=await costsPanel(id);
   else if(state.tab==='maintenance') body=await maintenancePanel(id);
+  else if(state.tab==='assistant') body=await assistantWorkspace.view(id);
+  else if(state.tab==='service') body=await customerService.view({project_id:id,customer_id:profile.customer_id});
   else body=await logbookPanel(id);
   return el('div',{class:'stack'},head,navigation,body);
 }
@@ -1266,6 +1444,7 @@ async function inquiryDetail(id) {
     panel('Originalunterlagen',rows(collection(files.files||files),file=>row(file.filename,`${file.media_type} · ${Math.ceil(file.size/1024)} KB`,[file.status==='ready'?button('Original laden',()=>action(()=>download(`/inquiries/${id}/attachments/${file.id}/content`,file.filename)),'small'):badge(file.status)]),'Keine Originalunterlagen vorhanden.')));
   if(item.project_id)content.append(button('Verknüpftes Projekt öffnen',()=>{closeModal();openProject(item.project_id);},'primary'));
   else content.append(button('Geprüft in Projekt übernehmen',()=>action(()=>convertInquiryDialog(item)),'primary'));
+  if(state.features.has('sales_pipeline')&&has('contacts.write'))content.append(button('Verkaufschance erfassen',()=>action(()=>sales.choose(item.customer_id||null,item))));
   dialog(item.subject,content,'Eine Anfrage bestätigt weder Auftrag noch Termin oder Zahlung.');
 }
 async function convertInquiryDialog(item) {
@@ -1276,9 +1455,12 @@ async function convertInquiryDialog(item) {
 }
 async function contactsView() {
   const response=await api.get(biz('/contacts')),contacts=collection(response);
-  return el('div',{class:'stack'},heading('Kontakte','Kunden, Lieferanten und Partner mit nachvollziehbaren Projektbezügen.',response.can_create&&has('contacts.write')?[button('Kontakt anlegen',()=>contactDialog(),'primary')]:[]),
-    panel('Kontaktkartei',rows(contacts,item=>row(item.name,[item.email,item.phone,item.address].filter(Boolean).join(' · '),[...(item.kinds||[]).map(kind=>badge(({customer:'Kunde',supplier:'Lieferant',partner:'Partner'})[kind])),has('contacts.write')?button('Bearbeiten',()=>action(async()=>contactDialog(await api.get(biz('/contacts/'+item.id)))),'small'):null]))));
+  return el('div',{class:'stack contacts-workspace'},heading('Kontakte','Kunden, Lieferanten und Partner mit nachvollziehbaren Projektbezügen.',[...(response.can_create&&has('contacts.write')?[button('Kontakt anlegen',()=>contactDialog(),'primary')]:[]),...(state.features.has('sales_pipeline')&&has('contacts.read')?[button('Vertriebspipeline',()=>action(()=>sales.open()))]:[])]),
+    has('privacy.manage')&&state.features.has('privacy_cases')?panel('Datenschutzfälle',button('Datenschutzfälle öffnen',()=>action(()=>privacyCases.open()),'small')):null,
+    panel('Kontaktkartei',rows(contacts,item=>row(item.name,[item.email,item.phone,item.address].filter(Boolean).join(' · '),[state.features.has('custom_fields')?button('Zusatzfelder',()=>action(()=>customFields.open('contact',item.id)),'small'):null,...(item.kinds||[]).map(kind=>badge(({customer:'Kunde',supplier:'Lieferant',partner:'Partner'})[kind])),has('contacts.write')?button('Bearbeiten',()=>action(async()=>contactDialog(await api.get(biz('/contacts/'+item.id)))),'small'):null,state.features.has('sales_pipeline')&&has('contacts.read')?button('Verkaufschancen',()=>action(()=>sales.open(item.id)),'small'):null,state.features.has('service_cases')&&has('contacts.read')?button('Servicefälle',()=>action(()=>customerService.open({customer_id:item.id})),'small'):null]))));
 }
+const sales=createSales({api,biz,el,button,panel,row,rows,notice,empty,form,field,dialog,table,formatDate,action,mutation,refresh,openProject,documentDetail,actorId:()=>state.user?.id,permission:has,allowed:()=>state.features.has('sales_pipeline')&&has('contacts.read'),writable:()=>!state.readonly&&has('contacts.write')});
+const customFields=customFieldsUi({api,biz,el,button,field,form,dialog,panel,rows,row,notice,table,mutation,action,enabled:()=>!!state.user&&state.features.has('custom_fields'),admin:()=>has('settings.manage'),writable:()=>!state.readonly,stamp:()=>JSON.stringify([state.user?.id,state.generation,[...state.globalPermissions],[...state.permissions],state.projectId])});
 function contactDialog(contact=null) {
   const fields=[field('name','Name / Firma','text',contact?.name||'',{required:true}),field('entity_type','Kontakttyp','select',contact?.entity_type||'company',{options:[['company','Unternehmen'],['person','Person']]}),field('kinds','Beziehungen','multi',contact?.kinds||['customer'],{options:[['customer','Kunde'],['supplier','Lieferant'],['partner','Partner']],required:true}),field('contact','Ansprechpartner','text',contact?.contact||''),field('email','E-Mail','email',contact?.email||''),field('phone','Telefon','tel',contact?.phone||''),field('address','Adresse','textarea',contact?.address||''),field('notes','Interne Notizen','textarea',contact?.notes||'')];
   dialog(contact?'Kontakt bearbeiten':'Neuer Kontakt',form('',fields,(data,key)=>mutation(key,'/contacts'+(contact?'/'+contact.id:''),{...data,...(contact?{revision:contact.revision}:{})}),{key:'contact-'+(contact?.id||'new')}));
@@ -1341,7 +1523,7 @@ function projectTimeline(data,range,mode) {
 async function planningContent(projectId='') {
   const enhanced=state.features.has('project_timeline'),mode=enhanced?state.planning.mode:'week',range=planningRange(mode,enhanced?state.planning.anchor:dateInput(),state.planning.years);
   const timeline=enhanced?await api.get(query(biz('/planning/timeline'),{from:range.from,to:range.to,project_id:projectId})):null;
-  const controls=enhanced?planningControls(range):null;
+  const controls=el('div',{class:'stack'},enhanced?planningControls(range):null,resourceCustodyAllowed()?button('Betriebsmittel und Nachweise',()=>action(()=>resourceCustody.open(projectId||null))):null);
   if(!['week','month'].includes(mode))return el('div',{class:'stack'},controls,projectTimeline(timeline,range,mode));
   const [calendar,employees,resources]=await Promise.all([api.get(query(biz('/planning/calendar'),{from:range.from,to:range.to,project_id:projectId})),api.get(query(biz('/employees'),{project_id:projectId})),api.get(biz('/resources'))]);
   const appointments=calendar.appointments||[],days=[];
@@ -1376,11 +1558,18 @@ function appointmentDialog(item,employees,resources) {
 
 async function documentsView() { return el('div',{class:'stack'},heading('Dokumente','Belege und Berichte bleiben mit ihrem Projekt verknüpft.'),await documentsContent(state.projectId)); }
 async function documentsContent(projectId='') {
+  const workspaceGeneration=api.generation,workspaceRender=state.render,workspaceSection=state.section;
+  const workspaceCurrent=()=>api.generation===workspaceGeneration&&state.render===workspaceRender&&state.projectId===projectId&&state.section===workspaceSection;
+  let customerWorkspace=null;
+  if(projectId&&state.features.has('customer_workspace_portal')){
+    const capabilities=await api.get(query(biz('/capabilities'),{project_id:projectId}));
+    if(workspaceCurrent()&&customerWorkspaceRights(capabilities,state.organization).read)customerWorkspace=await renderCustomerWorkspace({api,projectId,capabilities,organization:state.organization,isCurrent:workspaceCurrent,onChange:()=>{if(workspaceCurrent())updatePending();}});
+  }
   const commercial=has('finance.read')?collection(await api.get(query(biz('/documents'),{project_id:projectId}))):[];
   const signed=projectId?collection(await api.get(query(biz('/service-reports'),{project_id:projectId}))):[];
   return el('div',{class:'stack'},has('finance.read')?panel('Angebote & Belege',canWrite('finance.write','documents')?button('Belegentwurf erstellen',()=>documentDialog(null,projectId),'primary'):null,
     rows(commercial,item=>row(item.title||LABELS[item.kind],`${item.number||'Noch ohne Nummer'} · ${formatDate(item.issue_date)} · ${formatMoney(item.totals?.gross)}`,[badge(item.status),button('Öffnen',()=>action(()=>documentDetail(item.id)),'small')]),'Noch keine eigenen kaufmännischen Belege vorhanden.')):notice('Kaufmännische Belege benötigen eine gesonderte Freigabe. Operative Berichte finden Sie im Projekt.'),
-    projectId?panel('Serviceberichte',rows(signed,item=>row(item.title,item.offline_capture?`Offline unterzeichnet: ${formatDate(item.offline_capture.signed_at,true)} (Geräteangabe) · Empfangen: ${formatDate(item.offline_capture.received_at,true)}`:formatDate(item.created_at,true),[badge(item.status),item.status==='signed'?button('PDF',()=>action(()=>download(biz('/service-reports/'+item.id+'/pdf'),'Servicebericht.pdf')),'small'):has('documents.write')?button('Unterzeichnen',()=>signatureDialog(item,'service-reports'),'small'):null]))):empty('Ein Projekt auswählen, um operative Serviceberichte anzuzeigen.'));
+    projectId?panel('Serviceberichte',rows(signed,item=>row(item.title,item.offline_capture?`Offline unterzeichnet: ${formatDate(item.offline_capture.signed_at,true)} (Geräteangabe) · Empfangen: ${formatDate(item.offline_capture.received_at,true)}`:formatDate(item.created_at,true),[badge(item.status),item.status==='signed'?button('PDF',()=>action(()=>download(biz('/service-reports/'+item.id+'/pdf'),'Servicebericht.pdf')),'small'):has('documents.write')?button('Unterzeichnen',()=>signatureDialog(item,'service-reports'),'small'):null]))):empty('Ein Projekt auswählen, um operative Serviceberichte anzuzeigen.'),customerWorkspace);
 }
 function positionEditor(initial=[]) {
   const container=el('div',{class:'table-scroll'}),list=el('div',{}),records=[];
@@ -1395,17 +1584,22 @@ function positionEditor(initial=[]) {
   initial.forEach(add);if(!initial.length)add();container.append(list,button('Position hinzufügen',()=>add(),'small'));
   container.values=()=>records.map(controls=>({description:controls.description.value,quantity:decimalText(controls.quantity.value),unit:controls.unit.value,unit_price_net:decimalText(controls.unit_price_net.value),tax_rate:decimalText(controls.tax_rate.value),kind:controls.kind.value}));return container;
 }
+export function documentConversionTargets(item) {
+  if(['advance_invoice','cumulative_invoice'].includes(item.kind)&&item.status!=='final')return [];
+  return ({estimate:['offer','order_confirmation'],offer:['order_confirmation','invoice','advance_invoice','delivery_note'],order_confirmation:['delivery_note','invoice','advance_invoice','final_invoice'],delivery_note:['invoice'],advance_invoice:['cumulative_invoice','final_invoice'],cumulative_invoice:['cumulative_invoice','final_invoice']})[item.kind]||[];
+}
 function documentDialog(item=null,projectId='') {
   const editor=positionEditor(item?.positions||[]);
-  const fields=[projectField(item?.project_id||projectId||state.projectId),field('kind','Belegart','select',item?.kind||'offer',{options:['estimate','offer','order_confirmation','delivery_note','invoice','advance_invoice','final_invoice'].map(kind=>[kind,LABELS[kind]]),required:true}),field('title','Titel','text',item?.title||'Angebot',{required:true}),field('issue_date','Belegdatum','date',item?.issue_date||dateInput(),{required:true}),field('due_date','Fällig am','date',item?.due_date||dateInput(),{required:true}),field('intro','Einleitung','textarea',item?.intro||''),field('notes','Hinweise','textarea',item?.notes||'')];
-  dialog(item?'Belegentwurf bearbeiten':'Neuer Belegentwurf',form('',fields,(data,key)=>mutation(key,'/documents'+(item?'/'+item.id:''),{...data,positions:editor.values(),...(item?{revision:item.revision}:{})}),{key:'document-'+(item?.id||'new'),extra:el('div',{},el('h3',{},'Positionen'),editor),submit:'Entwurf speichern'}),'Preise werden als Dezimalwerte an den Server gesendet. Summen und Steuer berechnet und prüft der Server.');
+  const fields=[projectField(item?.project_id||projectId||state.projectId),field('kind','Belegart','select',item?.kind||'offer',{options:['estimate','offer','order_confirmation','delivery_note','invoice','advance_invoice','cumulative_invoice','final_invoice'].map(kind=>[kind,LABELS[kind]]),required:true}),field('title','Titel','text',item?.title||'Angebot',{required:true}),field('issue_date','Belegdatum','date',item?.issue_date||dateInput(),{required:true}),field('due_date','Fällig am','date',item?.due_date||dateInput(),{required:true}),field('intro','Einleitung','textarea',item?.intro||''),field('notes','Hinweise','textarea',item?.notes||'')];
+  const prior=Array.isArray(item?.previous_document_ids)?item.previous_document_ids:[];
+  dialog(item?'Belegentwurf bearbeiten':'Neuer Belegentwurf',form('',fields,(data,key)=>mutation(key,'/documents'+(item?'/'+item.id:''),{...data,positions:editor.values(),...(item?{revision:item.revision,previous_document_ids:[...prior]}:{})}),{key:'document-'+(item?.id||'new'),extra:el('div',{},prior.length?notice(`${prior.length} Vorbeleg(e) sind durch die Umwandlung verknüpft. Die Positionen müssen die gesamte bisherige Vertragsleistung enthalten. Der Server zieht die bereits berechnete Vertragsbasis ab.`):null,el('h3',{},'Positionen'),editor),submit:'Entwurf speichern'}),'Summen und Steuer berechnet und prüft der Server. Für eine Rechnungskette den neuesten festgeschriebenen Abschlag oder kumulativen Beleg öffnen und in die nächste Rechnung umwandeln.');
 }
 async function documentDetail(id) {
   const item=await api.get(biz('/documents/'+id));
   const controls=[button(item.status==='final'?'Original-PDF':'PDF-Vorschau',()=>action(()=>download(biz(`/documents/${id}/${item.status==='final'?'pdf':'preview'}`),(item.number||item.title)+'.pdf')),'small')];
   if(item.status==='draft'&&canWrite('finance.write','documents'))controls.push(button('Bearbeiten',()=>documentDialog(item),'small'));
   if(item.status==='draft'&&canWrite('finance.issue','documents'))controls.push(button('Festschreiben',()=>confirmDialog('Beleg festschreiben','Die geprüfte Fassung wird unveränderlich archiviert und erhält eine Nummer. Es erfolgt kein automatischer Versand.',async()=>{await mutation('finalize-'+id,`/documents/${id}/finalize`,{revision:item.revision});refresh();}),'primary'));
-  const targets=({estimate:['offer','order_confirmation'],offer:['order_confirmation','invoice','advance_invoice','delivery_note'],order_confirmation:['delivery_note','invoice','advance_invoice','final_invoice'],delivery_note:['invoice'],advance_invoice:['final_invoice']})[item.kind]||[];
+  const targets=documentConversionTargets(item);
   if(canWrite('finance.write','documents'))targets.forEach(kind=>controls.push(button('→ '+LABELS[kind],()=>action(async()=>{const result=await mutation('convert-'+id+'-'+kind,`/documents/${id}/convert`,{revision:item.revision,target_kind:kind});closeModal();await documentDetail(result.id);}), 'small')));
   let portal=null;
   if(item.kind==='offer'&&item.status==='final'){
@@ -1414,7 +1608,9 @@ async function documentDetail(id) {
     else portal=notice('Dieser Server bietet derzeit keinen erreichbaren Angebotsportalzugang.');
   }
   dialog(item.number||item.title,el('div',{class:'stack'},el('div',{class:'actions'},badge(item.status),...controls),portal,panel('Empfänger',el('h3',{},item.buyer?.name),el('p',{class:'muted'},item.buyer?.address_line||'')),
-    panel('Positionen',table(['Beschreibung','Menge','Einheit','Netto'],(item.positions||[]).map(line=>[line.description,formatQuantity(line.quantity),line.unit,formatMoney(line.net)]))),panel('Belegsumme',el('p',{},'Netto: '+formatMoney(item.totals?.net)),el('p',{},'Steuer: '+formatMoney(item.totals?.tax)),el('h2',{},'Brutto: '+formatMoney(item.totals?.gross)))));
+    panel('Positionen',table(['Beschreibung','Menge','Einheit','Netto'],(item.positions||[]).map(line=>[line.description,formatQuantity(line.quantity),line.unit,formatMoney(line.net)]))),
+    item.contract_totals?panel('Rechnungskette',el('p',{},'Gesamte Vertragsleistung brutto: '+formatMoney(item.contract_totals.gross)),el('p',{},'Bereits berechnete Vertragsbasis brutto: '+formatMoney(item.previous_issued_gross)),...(item.previous_documents||[]).map(previous=>el('p',{},`Vorbeleg ${previous.number}: ${formatMoney(previous.gross)}`))):null,
+    panel(item.contract_totals?'Zusätzlich berechneter Rechnungsbetrag':'Belegsumme',el('p',{},'Netto: '+formatMoney(item.totals?.net)),el('p',{},'Steuer: '+formatMoney(item.totals?.tax)),el('h2',{},'Brutto: '+formatMoney(item.totals?.gross)))));
 }
 async function portalOfferDialog(item){
   const generation=api.generation,previous=modal,render=state.render;
@@ -1482,7 +1678,7 @@ function accountingTab(label,active,onClick) { return el('button',{type:'button'
 async function financeView() {
   if(!has('finance.read')&&accountingRights().read)state.financeTab='accounting';
   const tabs=el('div',{class:'tabs','aria-label':'Finanzbereiche'},has('finance.read')?accountingTab('Zahlungen & offene Posten',state.financeTab==='payments',()=>{state.financeTab='payments';refresh();}):null,accountingTab('EÜR-Vorbereitung',state.financeTab==='accounting',()=>{state.financeTab='accounting';refresh();}));
-  return el('div',{class:'stack'},tabs,state.financeTab==='accounting'?await accountingContent():await financePaymentsView());
+  return el('div',{class:'stack'},tabs,bankWorkspace.available()?button('Bankabgleich öffnen',()=>action(()=>bankWorkspace.open())):null,state.financeTab==='accounting'?await accountingContent():await financePaymentsView());
 }
 async function financePaymentsView() {
   const [open,payments,outbox]=await Promise.all([api.get(query(biz('/finance/open-items'),{project_id:state.projectId})),api.get(biz('/finance/payments')),api.get(biz('/finance/outbox'))]);
@@ -1523,7 +1719,13 @@ async function accountingSave(editor,generation,key,path,data) {
   }
 }
 const ACCOUNT_KINDS={bank:'Bankkonto',cash:'Barkasse',payment_service:'Zahlungsdienst'};
-const ACCOUNTING_BLOCKS={paid:'Vollständig ausgezahlt',review_changed:'Prüfung nach Auszahlung geändert – Klärung erforderlich',duplicate_original:'Original bereits anderweitig gebunden – Klärung erforderlich'};
+const ACCOUNTING_BLOCKS={external_cash_evidence:'Gebundener Zahlungsnachweis im EÜR-Journal · keine Lieferantenverbindlichkeit',paid:'Vollständig ausgezahlt',review_changed:'Prüfung nach Auszahlung geändert – Klärung erforderlich',duplicate_original:'Original bereits anderweitig gebunden – Klärung erforderlich'};
+export function accountingReceiptSummary(source) {
+  const original=`${formatDate(source.issue_date)} · Brutto ${formatMoney(source.gross)}`;
+  return source.source_role==='payment_evidence'
+    ? original+' · Gebundener Zahlungsnachweis im EÜR-Journal; keine Lieferantenverbindlichkeit'
+    : original+` · Ausgezahlt ${formatMoney(source.paid_amount)} · Verbleibend ${formatMoney(source.remaining_amount)}`;
+}
 const ACCOUNTING_REASONS={tax_profile_unconfigured:'Steuerprofil nicht eingerichtet',refund_origin_unresolved:'Ursprünglicher Erstattungsbezug ungeklärt'};
 function accountingPaging(key,page) {
   const offset=state.accounting[key],controls=[];
@@ -1533,6 +1735,8 @@ function accountingPaging(key,page) {
 }
 function accountingDirection(item) { return item.direction==='out'?(item.kind==='refund'?'Erstattung / Abfluss':'Abfluss'):'Zufluss'; }
 async function accountingContent() {
+  const euerAvailable=state.features.has('accounting_euer')&&state.capabilities.has('business_accounting_euer');
+  if(euerAvailable&&state.accounting.tab==='euer')return accountingEuer.render();
   const content=el('div',{class:'stack accounting'},heading('EÜR-Vorbereitung','Belegte Geldflüsse vorbereiten. Keine vollständige EÜR und keine Steuerberechnung.'),
     notice('Nur freigegebene Quellen. Der Projektfilter wird hier nicht angewendet. Diese Ansicht belegt keine vollständige Unternehmenssicht.'));
   const initial=accountingRights();
@@ -1542,10 +1746,10 @@ async function accountingContent() {
   const status=accountingStatus(rawStatus),rights=accountingRights(status);
   if(!Array.isArray(accountResponse?.items))throw new ApiError('Geldkonten konnten nicht sicher geladen werden.',502);
   const accounts=accountResponse.items;
-  content.append(notice(accountingProfileRights().available?'Steuerprofil: nicht eingerichtet. Ein separat gespeichertes Vorbereitungsprofil dokumentiert nur Angaben. Alle Geldflüsse bleiben steuerlich ungeklärt; es werden keine steuerlichen Summen oder Gewinne berechnet.':'Profil und Steuerstatus: nicht eingerichtet. Alle Geldflüsse bleiben steuerlich ungeklärt. Es werden keine steuerlichen Summen oder Gewinne berechnet.'));
+  content.append(notice(euerAvailable?'Das Vorjournal enthält unveränderte Geldflussnachweise und berechnet keine steuerlichen Summen. Die ausdrückliche fachliche Einordnung und Jahresauswertung stehen unter „Eigene EÜR“.':accountingProfileRights().available?'Steuerprofil: nicht eingerichtet. Ein separat gespeichertes Vorbereitungsprofil dokumentiert nur Angaben. Alle Geldflüsse bleiben steuerlich ungeklärt; es werden keine steuerlichen Summen oder Gewinne berechnet.':'Profil und Steuerstatus: nicht eingerichtet. Alle Geldflüsse bleiben steuerlich ungeklärt. Es werden keine steuerlichen Summen oder Gewinne berechnet.'));
   if(accountingProfileRights().read)content.append(el('div',{class:'actions'},button('Vorbereitungsprofil',()=>accountingAction(()=>accountingProfileDialog()),'small')));
   if(!status.writes_allowed)content.append(notice('Neue Vorgänge sind im aktuellen Betriebszustand gesperrt. Bestehende Nachweise bleiben lesbar; Betriebsmodus, Finanzmodul und gegebenenfalls Wiederherstellungsabgleich prüfen.','warn'));
-  content.append(el('div',{class:'tabs','aria-label':'Vorjournalbereiche'},[['events','Vorjournal'],['payments','Kundenzahlungen'],['receipts','Auszahlungen'],['accounts','Geldkonten']].map(([key,label])=>accountingTab(label,state.accounting.tab===key,()=>{state.accounting.tab=key;refresh();}))));
+  content.append(el('div',{class:'tabs',role:'group','aria-label':'Vorjournalbereiche'},[['events','Vorjournal'],['payments','Kundenzahlungen'],['receipts','Auszahlungen'],['accounts','Geldkonten'],...(euerAvailable?[['euer','Eigene EÜR']]:[])].map(([key,label])=>accountingTab(label,state.accounting.tab===key,()=>{state.accounting.tab=key;refresh();}))));
   const tab=state.accounting.tab,offset=state.accounting[tab];
   if(tab==='accounts') {
     const items=accounts.slice(offset,offset+25),page={items,total:accounts.length,next_offset:offset+25<accounts.length?offset+25:null};
@@ -1562,7 +1766,7 @@ async function accountingContent() {
     rows(page.items,source=>row(`${accountingDirection(source)} · ${formatMoney(source.amount)}`,`${formatDate(source.booking_date)} · ${source.reference||source.source_id} · Ursprünglich nicht zugeordnet ${formatMoney(source.unallocated)}`,
       [source.linked_event_id?button('Verknüpften Geldfluss ansehen',()=>accountingAction(()=>accountingEventDialog(source.linked_event_id)),'small'):rights.prepare?button('Bestehende Zahlung verknüpfen',()=>accountingCashDialog('payment',source,accounts),'primary'):badge('Noch nicht verknüpft'),source.linked_event_id&&source.kind==='receipt'&&accountingAllocationRights().read?button(accountingAllocationRights().prepare?'Rechnung zuordnen':'Zuordnungen ansehen',()=>accountingAction(()=>accountingAllocationDialog(source.payment_id)),'small'):null],`${source.allocations.length} ursprüngliche Rechnungszuordnung${source.allocations.length===1?'':'en'}. Der ursprüngliche Zahlungsnachweis bleibt unverändert; zusätzliche Zuordnungen werden getrennt angezeigt.`),'Keine freigegebenen bestätigten Kundenzahlungen vorhanden.'),accountingPaging(tab,page)));
   if(tab==='receipts')content.append(panel('Auszahlungen auf geprüfte Eingangsbelege',el('p',{class:'muted'},'Bereits tatsächlich geleistete Teil- oder Restzahlungen mit Beleg und Konto bestätigen. Diese Aktion löst keine Überweisung aus.'),
-    rows(page.items,source=>row(`${source.vendor} · ${source.invoice_number}`,`${formatDate(source.issue_date)} · Brutto ${formatMoney(source.gross)} · Ausgezahlt ${formatMoney(source.paid_amount)} · Verbleibend ${formatMoney(source.remaining_amount)}`,
+    rows(page.items,source=>row(`${source.vendor} · ${source.invoice_number}`,accountingReceiptSummary(source),
       [button('Original ansehen',()=>accountingAction(()=>download(biz(`/finance/receipts/${source.receipt_id}/original`),source.filename)),'small'),rights.prepare&&source.payable?button('Auszahlung bestätigen',()=>accountingCashDialog('receipt',source,accounts),'primary'):null,badge(ACCOUNTING_BLOCKS[source.blocked_reason]||(source.payable?'Zur Bestätigung verfügbar':'Gesperrt'))],`Prüfversion ${source.review_revision} · Auszahlungsstand ${source.cash_revision}`),'Keine freigegebenen geprüften EUR-Eingangsbelege vorhanden.'),accountingPaging(tab,page)));
   return content;
 }
@@ -2108,6 +2312,7 @@ async function materialContent(projectId='') {
   const articles=has('finance.read')?collection(await api.get(biz('/articles'))):[];
   const reserved=projectId?collection(await api.get(query(biz('/inventory/reservations'),{project_id:projectId}))):[];
   const controls=[];
+  if(state.features.has('inventory_counts')&&state.globalPermissions.has('inventory.read'))controls.push(button('Inventur öffnen',()=>action(()=>inventoryCounts.list()),'small'));
   if(canWrite('inventory.write','material'))controls.push(button('Lagerort anlegen',()=>dialog('Lagerort',form('',[field('name','Name','text','',{required:true})],(data,key)=>mutation(key,'/inventory/locations',data),{key:'location-new'})),'small'),
     button('Bewegung buchen',()=>stockMovementDialog(collection(locations),articles,projectId),'primary'));
   if(canWrite('finance.write','documents'))controls.push(button('Artikel / Leistung anlegen',()=>articleDialog(),'small'));
@@ -2182,6 +2387,7 @@ async function purchaseOrderDialog(id,knownLocations=null) {
     knownLocations?Promise.resolve({items:knownLocations}):api.get(biz('/inventory/locations'))]);
   const capabilities=await api.get(query(biz('/capabilities'),{project_id:order.project_id})),access=purchaseActions(order,capabilities,state.organization),
     locations=collection(locationResponse),costs=access.costs,controls=[];
+  if(capabilities.features?.includes('purchase_changes')&&capabilities.capabilities?.includes('business_purchase_changes'))controls.push(button('Belegte Mengenänderungen und Retouren',()=>action(()=>purchaseChanges.open(id))));
   if(access.edit)
     controls.push(button('Bestellvorschlag bearbeiten',()=>action(async()=>{
       const articles=state.features.has('purchasing_catalog')?[]:state.globalPermissions.has('finance.read')?collection(await api.get(biz('/articles'))):collection(await api.get(biz('/inventory/stock'))).map(item=>
@@ -2207,7 +2413,8 @@ async function purchaseOrderDialog(id,knownLocations=null) {
     panel('Lieferhistorie',rows(collection(history),receipt=>el('section',{class:'panel soft'},el('h3',{},receipt.receipt_reference),
       el('p',{class:'muted'},`${formatDate(receipt.received_on)} · ${locations.find(location=>location.id===receipt.location_id)?.name||'Lagerort'} · erfasst ${formatDate(receipt.created_at,true)}`),
       table(['Pos.','Artikel','Geliefert',...(costs?['Einstand je Einheit','Kosten netto']:[])],receipt.lines.map(line=>[
-        String(line.line_index+1),line.article_name,formatQuantity(line.quantity,line.unit),...(costs?[formatMoney(line.unit_cost_net),formatMoney(line.cost_net)]:[])]))),
+        String(line.line_index+1),line.article_name,formatQuantity(line.quantity,line.unit),...(costs?[formatMoney(line.unit_cost_net),formatMoney(line.cost_net)]:[])])),
+      assetOrigins.allowed(order.project_id)?button('Original-Lieferschein',()=>action(()=>assetOrigins.document(order.project_id,receipt.id)),'small'):null),
       'Noch keine Lieferung gebucht.')),
     el('p',{class:'caption'},'Diese Ansicht dokumentiert den tatsächlichen Ablauf. Die Anwendung versendet keine Bestellung an den Lieferanten.'));
   dialog('Bestellung · '+order.supplier_name,body,state.projects.find(project=>project.id===order.project_id)?.name||'');
@@ -2247,7 +2454,13 @@ function reservationDialog(projectId,locations,articles) {
   dialog('Material reservieren',form('',[field('article_id','Artikel','select','',{options:options(articles),required:true}),field('location_id','Lagerort','select','',{options:options(locations),required:true}),field('quantity','Menge','decimal','1',{required:true})],
     (data,key)=>mutation(key,'/inventory/reservations',{...data,project_id:projectId}),{key:'reserve-'+projectId}),'Reservierungen werden gegen den freien Bestand geprüft.');
 }
+const accountingEuer=createAccountingEuer({api,biz,el,button,panel,row,rows,notice,table,form,dialog,closeModal,formatMoney,formatDate,mutation,action,refresh,download,jsonDownload,updatePending,organization:()=>state.organization,context:()=>state.render,openEvent:accountingEventDialog,openProfile:accountingProfileDialog,openCash:tab=>{closeModal();state.accounting.tab=tab;refresh();},textDownload:(value,filename,type)=>{const link=el('a',{href:objectUrl(new Blob([value],{type})),download:filename});document.body.append(link);link.click();link.remove();},onDenied:()=>{closeModal();main?.querySelectorAll('.accounting-euer').forEach(node=>node.replaceChildren(notice('Die EÜR-Quellen sind aktuell nicht freigegeben. Offene Buchungsaufträge bleiben unverändert erhalten.','warn')));}});
+const projectEconomics=createProjectEconomics({api,biz,query,el,button,panel,row,rows,notice,empty,form,field,dialog,closeModal,table,formatMoney,formatDate,mutation,action,refresh,download,dateInput,bytesBase64,duration,canWrite,confirmDialog,documentDetail,projectId:()=>state.projectId,organization:()=>state.organization,actorId:()=>state.user?.id,onDenied:()=>{closeModal();main?.querySelectorAll('.project-economics').forEach(node=>node.replaceChildren(notice('Die Projektwirtschaftlichkeit ist aktuell nicht freigegeben. Offene Anfragen bleiben unverändert erhalten.','warn')));}});
 async function costsPanel(projectId) {
+  if(state.features.has('project_economics'))return projectEconomics.render(projectId);
+  return legacyCostsPanel(projectId);
+}
+async function legacyCostsPanel(projectId) {
   const [costs,changes]=await Promise.all([api.get(biz(`/projects/${projectId}/costs`)),api.get(biz(`/projects/${projectId}/changes`))]);
   return el('div',{class:'stack'},costs.costs_complete===false?notice(`Die Istkosten sind unvollständig: ${costs.missing_rates_count} genehmigte Zeitnachweise haben keinen bestätigten Kostensatz. Die bekannte Teilsumme ist kein vollständiger Gewinn- oder Budgetnachweis.`,'warn'):null,
     el('div',{class:'grid'},panel('Gespeichertes Budget',el('div',{class:'metric'},formatMoney(costs.budget_net)),el('p',{class:'metric-sub'},'Baseline · Revision '+costs.budget_revision)),
@@ -2394,6 +2607,7 @@ async function personnelView() {
   const current=entries.find(item=>['working','paused'].includes(item.status)&&item.employee_id===own?.id);
   const buttons=[];if(own&&canWrite('time.own','personnel'))buttons.push(button(current?'Laufende Zeit öffnen':'Zeit starten',()=>timeDialog(current),'primary'));
   if(canWrite('personnel.manage','personnel'))buttons.push(button('Mitarbeiterprofil anlegen',()=>action(()=>employeeDialog()),'small'));
+  if(selected&&personnelWorkflow.allowed(selected))buttons.push(button('Personalakte, Reisen und Lohnvorbereitung',()=>action(()=>personnelWorkflow.open(selected)),'primary'));
   const content=el('div',{class:'stack'},heading('Personal & Zeiten','Eigene Zeiten und bestätigte Tagesnachweise. Keine Hintergrundortung.',buttons),
     selected?select('Mitarbeiter',options(has('personnel.read')?employees:employees.filter(employee=>employee.user_id===state.user.id)),selected.id,value=>{state.employeeId=value;refresh();}):notice('Für diesen Zugang ist noch kein Mitarbeiterprofil eingerichtet. Die Geschäftsführung kann es mit dem vorhandenen Benutzer verknüpfen.','warn'));
   if(summary)content.append(el('div',{class:'grid'},panel('Arbeitszeit im Monat',el('div',{class:'metric'},duration(summary.worked_seconds)),el('p',{class:'metric-sub'},formatDate(dateInput(from))+' bis '+formatDate(dateInput(to))))),
@@ -2416,7 +2630,7 @@ async function employeeDialog(employee=null) {
 
 async function maintenancePanel(projectId) {
   const [assets,contracts,visits,reports]=await Promise.all(['assets','maintenance/contracts','maintenance/history','service-reports'].map(path=>api.get(query(biz('/'+path),{project_id:projectId})).then(collection)));
-  return el('div',{class:'stack'},panel('Anlagen',has('documents.write')?button('Anlage erfassen',()=>assetDialog(projectId),'primary'):null,rows(assets,item=>row(item.name,`${item.serial_number||'Seriennummer offen'} · ${item.location||'Standort offen'}`,[has('documents.write')?button('Bearbeiten',()=>assetDialog(projectId,item),'small'):null]))),
+  return el('div',{class:'stack'},panel('Anlagen',has('documents.write')?button('Anlage erfassen',()=>assetDialog(projectId),'primary'):null,assetOrigins.allowed(projectId)?button('Lieferungen und Geräte',()=>action(()=>assetOrigins.sources(projectId)),'primary'):null,rows(assets,item=>row(item.name,`${item.serial_number||'Seriennummer offen'} · ${item.location||'Standort offen'}`,[state.features.has('custom_fields')?button('Zusatzfelder',()=>action(()=>customFields.open('asset',item.id)),'small'):null,has('documents.write')?button('Bearbeiten',()=>assetDialog(projectId,item),'small'):null,assetOrigins.allowed(projectId)?button('Lieferherkunft',()=>action(()=>assetOrigins.origin(projectId,item)),'small'):null]))),
     panel('Wartungsverträge',has('projects.manage')?button('Wartungsvertrag anlegen',()=>maintenanceContractDialog(projectId,assets),'small'):null,rows(contracts,item=>row(item.title,`${assets.find(asset=>asset.id===item.asset_id)?.name||'Anlage'} · Nächste Fälligkeit ${formatDate(item.next_due_date)}`,[badge(item.active?'Aktiv':'Pausiert')])),
       has('projects.manage')?button('Fällige Einsätze planen',()=>action(async()=>{const result=await mutation('maintenance-schedule-'+projectId+'-'+dateInput(),'/maintenance/schedule',{project_id:projectId,as_of:dateInput()});if(result.more_due)main.prepend(notice('Weitere Fälligkeiten vorhanden. Planung erneut ausführen.','warn'));await refresh();}),'small'):null),
     panel('Wartungshistorie',rows(visits,visit=>row(visit.asset_snapshot?.name||'Anlage',`${formatDate(visit.due_date)} · ${visit.contract_snapshot?.title||''}`,[badge(visit.status),visit.status==='completed'?button('Service-PDF',()=>action(()=>download(biz(`/service-reports/${visit.report_id}/pdf`),'Servicebericht.pdf')),'small'):has('documents.write')?button('Mit Servicebericht abschließen',()=>completeVisitDialog(projectId,visit,reports),'small'):null]))));
@@ -2458,6 +2672,11 @@ async function settingsView() {
     state.features.has('organization_modules')?api.get(biz('/organization')):Promise.resolve(null)]);
   const content=el('div',{class:'stack'},heading('Einstellungen','Betriebsdaten und Freigaben. Externe Integrationen bleiben ausdrücklich getrennt.'),
     organization?organizationPanel(organization):null,
+    has('privacy.manage')&&state.features.has('privacy_cases')?panel('Datenschutzfälle',el('p',{},'Betroffenenanfragen, Fristen, Quellenprüfung und geschützte Auskunft mit eigener Aufbewahrung.'),button('Datenschutzfälle öffnen',()=>action(()=>privacyCases.open()),'small')):null,
+    state.features.has('custom_fields')?panel('Zusatzfelder',el('p',{},'Eigene Angaben für Kontakte, Projekte und Geräte mit lesbaren Fassungen.'),button('Zusatzfelder verwalten',()=>action(()=>customFields.definitions()),'small')):null,
+    state.user?.role==='owner'&&state.features.has('company_handover')&&state.capabilities.has('business_company_handover')?panel('Unternehmensübergabe',el('p',{},'Portable Unternehmensarchive und dokumentierte Ausstiegsprüfung für die Geschäftsführung.'),button('Unternehmensübergabe öffnen',()=>action(()=>companyHandover.open()),'small')):null,
+    migrationsAllowed()?panel('Kontrollierter Dateiimport',el('p',{},'Originaldateien, Feldzuordnung, Dubletten, Übernahmevorschau und Abgleich. Historische Rechnungen bleiben Archivbelege.'),button('Dateiimport öffnen',()=>action(()=>fileMigrations.open()),'small')):null,
+
     form('Aussteller & Briefpapier',[field('company_name','Firmenname','text',branding.company_name||'',{required:true}),field('address_line','Straße / Hausnummer','text',branding.address_line||''),field('postal_code','Postleitzahl','text',branding.postal_code||''),field('city','Ort','text',branding.city||''),field('vat_id','USt-IdNr.','text',branding.vat_id||''),field('tax_number','Steuernummer','text',branding.tax_number||''),field('email','Betriebliche E-Mail','email',branding.email||''),field('phone','Telefon','tel',branding.phone||''),field('iban','IBAN','text',branding.iban||''),field('bic','BIC','text',branding.bic||''),field('footer','Fußzeile','textarea',branding.footer||'')],
       (data,key)=>mutation(key,'/settings/branding',{...data,revision:branding.revision}),{key:'branding',description:'Die vorhandene Ausstellerfreigabe wird hier nicht still aktiviert. Historisch finale Dokumente behalten ihre eigene Fassung.'}),
     panel('Projektstatus',button('Status hinzufügen',()=>dialog('Projektstatus',form('',[field('name','Bezeichnung','text','',{required:true}),field('color','Farbe','color','#2864da'),field('position','Reihenfolge','integer',collection(statuses).length,{min:0}),field('terminal','Abschlussstatus','checkbox',false)],(data,key)=>mutation(key,'/project-statuses',{...data,active:true}),{key:'status-new'})),'small'),rows(collection(statuses),status=>row(status.name,`Position ${status.position}`,[badge(status.terminal?'Abschluss':'Laufend')]))),
@@ -2467,7 +2686,7 @@ async function settingsView() {
 }
 async function permissionsDialog() {
   const [grants,users]=await Promise.all([api.get(biz('/settings/permissions')),api.get('/users')]);
-  const permissions=['contacts.read','contacts.write','projects.manage','documents.read','documents.write','documents.classify','finance.read','finance.write','finance.issue','finance.approve','personnel.read','personnel.manage','time.own','time.approve','inventory.read','inventory.write','settings.manage','privacy.manage',...(state.capabilities.has('business_portal')?['portal.manage']:[]),...(state.capabilities.has('business_accounting')?['accounting.read','accounting.prepare','accounting.admin']:[])];
+  const permissions=['contacts.read','contacts.write','projects.manage','documents.read','documents.write','documents.classify','finance.read','finance.write','finance.issue','finance.approve','personnel.read','personnel.manage','personnel.write','personnel.approve','personnel.export','time.own','time.approve','inventory.read','inventory.write','settings.manage','privacy.manage',...(state.capabilities.has('business_portal')?['portal.manage']:[]),...(state.capabilities.has('business_accounting')?['accounting.read','accounting.prepare','accounting.admin']:[]),...(state.capabilities.has('business_assistant')?['assistant.use','assistant.approve']:[]),...(state.capabilities.has('business_bank_reconciliation')?['bank.read','bank.prepare','bank.admin']:[])];
   const editor=form('Freigabe / Sperre',[field('user_id','Benutzer','select','',{options:options(collection(users),user=>user.email),required:true}),field('permission','Fachrecht','select','documents.read',{options:permissions.map(name=>[name,name])}),field('scope','Geltungsbereich','select','*',{options:[['*','Global / alle freigegebenen Projekte'],...options(state.projects)]}),field('effect','Entscheidung','select','allow',{options:[['allow','Erlauben'],['deny','Sperren']]})],
     (data,key)=>{const scope=data.permission.startsWith('accounting.')?'*':data.scope;return mutation(key,'/settings/permissions',{...data,scope,revision:collection(grants).find(grant=>grant.user_id===data.user_id&&grant.permission===data.permission&&grant.scope===scope)?.revision||0});},
     {key:'grant-new',description:'Accounting-Rechte gelten ausschließlich global und benötigen zusätzlich global finance.read. Quellrechte und Projektzuweisungen bleiben erforderlich. Sperren gelten auch bei Wiederholungen.'});

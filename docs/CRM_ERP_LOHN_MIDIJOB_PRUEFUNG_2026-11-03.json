@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-03",
+  "rule_version": "de_2026_transition_monthly_pap_v3",
+  "rules_sha256": "4f53a8787052c036dee5faa86f853fdf8fc81434d92a3082a5f964264bce6f0e",
+  "files": [
+    {
+      "path": "backend/payroll_transition_2026.py",
+      "sha256": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897",
+      "bytes": 11844
+    },
+    {
+      "path": "backend/payroll_de_2026.py",
+      "sha256": "bbf583b6bae2e5f05c32655a296a74661e480fc0099f39a6a378021324260941",
+      "bytes": 21853
+    },
+    {
+      "path": "backend/payroll_pap_2026.py",
+      "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071",
+      "bytes": 6251
+    },
+    {
+      "path": "backend/business_payroll.py",
+      "sha256": "b38a473a4696f3d06a5a3c6c5e674f2c8aa14f9439e59f7262851602a3e76042",
+      "bytes": 39351
+    },
+    {
+      "path": "backend/payroll_ledger.py",
+      "sha256": "f9a389648294b12f8890362c9643f5159172c60237d42414c08ccc6b30c7f071",
+      "bytes": 19467
+    },
+    {
+      "path": "backend/test_payroll_transition_2026.py",
+      "sha256": "2a59d233ccaa0f88ae510e4d57de058a4ab3e2347ef6a2fa504e3781570c58e0",
+      "bytes": 9091
+    },
+    {
+      "path": "backend/test_business_payroll_transition.py",
+      "sha256": "18d759ef990b11f1dbbf50d979a843d90d95241bee5dac275acb62d032a6e00c",
+      "bytes": 14679
+    },
+    {
+      "path": "backend/online/test_business_payroll_transition_pg.py",
+      "sha256": "3c037f2a0ec61efac059a93125a9f837d01bf7cfa3f4933a397c28b7b8fa55d4",
+      "bytes": 11659
+    },
+    {
+      "path": "docs/CRM_ERP_LOHN_MIDIJOB_2026.md",
+      "sha256": "4a2bc71ee473de0debe3f1eaefe4f83e3b4a7201aaab3030513b256516abcb71",
+      "bytes": 11525
+    }
+  ],
+  "tests": [
+    {
+      "path": "work/verification/midijob-payroll-regression.log",
+      "sha256": "e75c9b86c95e09932c57f38194335c4130681ea7b2d66a81e41c018b775f49b3",
+      "bytes": 13248,
+      "tests": 67,
+      "passed": 67,
+      "skipped": 0,
+      "seconds": "18.423"
+    },
+    {
+      "path": "work/verification/midijob-postgres.log",
+      "sha256": "0755bebdc1f2b5823e1d01c3f2c376506dd4474176de28bb1c8b2ffa1382ddc6",
+      "bytes": 730,
+      "tests": 3,
+      "passed": 3,
+      "skipped": 0,
+      "seconds": "11.193"
+    },
+    {
+      "path": "work/verification/midijob-historical-postgres.log",
+      "sha256": "b242380d25e9f5e542e58f71c3d0c628b04a2f37b99ff4864ab6bb1942e10afd",
+      "bytes": 1987,
+      "tests": 9,
+      "passed": 9,
+      "skipped": 0,
+      "seconds": "54.926"
+    }
+  ],
+  "independent_reference_values": {
+    "drv_2026_assessment_pairs": 9,
+    "existing_official_bmf_annual_tax_values": 258,
+    "gkv_published_care_example_date": "2025-03-31"
+  },
+  "official_system_approval": false,
+  "statutory_report_status": "not_transmitted",
+  "live_provider_calls": false,
+  "client_acceptance": {
+    "document": "docs/CRM_ERP_LOHN_MIDIJOB_CLIENTS.md",
+    "node_tests": 37,
+    "flutter_tests": 41,
+    "flutter_analyze": "passed",
+    "real_browser": "passed",
+    "legacy_payroll_cash_browser": "passed"
+  },
+  "remaining_scope_document": "docs/CRM_ERP_LOHN_LUECKENPLAN_2026.md"
+}

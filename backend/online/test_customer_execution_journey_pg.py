@@ -96,7 +96,7 @@ class CustomerExecutionJourneyPostgres(unittest.TestCase):
         return self.call('POST', '/login/verify', {'challenge': pending['challenge'],
             'code': totp(pending['enrollment']['secret'], int(time.time() // 30))}, token=None).json['token']
 
-    def test_inquiry_catalog_portal_execution_capture_invoice_and_settlement_survive_restart(self):
+    def workflow(self):
         self.assertEqual(self.office.db.execute('SELECT current_user').fetchone()[0], 'smartplan-online')
         self.assertTrue(business_schema.require_runtime_security(self.office))
 
@@ -237,8 +237,27 @@ class CustomerExecutionJourneyPostgres(unittest.TestCase):
                           request(employee_id=employee['id'], revision=day['revision']))
 
         location = self.call('POST', '/business/inventory/locations', request(name='Synthetic van'), status=201).json
-        self.call('POST', '/business/inventory/movements', request(kind='receive', article_id=article['id'],
-            to_location_id=location['id'], quantity='2', unit_cost_net='12.50'), status=201)
+        purchase = self.call('POST', '/business/inventory/orders', request(project_id=project,
+            supplier_name='Synthetic device supplier', status='approved',
+            items=[dict(article_id=article['id'], quantity='2')]), status=201).json
+        purchase_path = '/business/purchasing/orders/' + purchase['id']
+        ordered = self.call('GET', purchase_path).json
+        self.call('POST', purchase_path + '/confirm', request(source_revision=ordered['source_revision'],
+            expected_receipt_revision=0, order_reference='SYN-ORDER-DEVICE-PURCHASE',
+            ordered_on=self.today, confirmation=True))
+        deliveries = []
+        for index in range(2):
+            ordered = self.call('GET', purchase_path).json
+            receipt_body = request(source_revision=ordered['source_revision'],
+                expected_receipt_revision=ordered['receipt_revision'], receipt_reference='SYN-DELIVERY-' + str(index),
+                received_on=self.today, location_id=location['id'],
+                lines=[dict(line_index=0, quantity='1', unit_cost_net='12.50')])
+            receipt = self.call('POST', purchase_path + '/receipts', receipt_body, status=201).json
+            self.assertEqual(self.call('POST', purchase_path + '/receipts', receipt_body, status=201).json, receipt)
+            deliveries.append(receipt)
+            ordered = self.call('GET', purchase_path).json
+            self.assertEqual(ordered['items'][0]['received_quantity'], str(index+1)+'.0000')
+            self.assertEqual(ordered['items'][0]['remaining_quantity'], str(1-index)+'.0000')
         issue_body = request(kind='issue', article_id=article['id'], from_location_id=location['id'],
                              project_id=project, quantity='2')
         issue = self.call('POST', '/business/inventory/movements', issue_body, status=201).json
@@ -347,6 +366,14 @@ class CustomerExecutionJourneyPostgres(unittest.TestCase):
         self.assertEqual(self.call('GET', report_path + '/pdf').data, report_pdf)
         self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_operation_entries').fetchone()[0], 1)
         self.assertTrue(business_schema.validate_integrity(self.office))
+
+        return dict(project=project,customer=customer,inquiry=intake,article=article,location=location,
+            purchase=purchase,deliveries=deliveries,issue=issue,costs=costs,time_entry_id=entry_id,
+            signed=signed,report_pdf=report_pdf,photo=photo,media=media,invoice=invoice,
+            invoice_pdf=invoice_pdf,payments=payments,tech_token=tech_token,device_token=device_token)
+
+    def test_inquiry_catalog_portal_execution_capture_invoice_and_settlement_survive_restart(self):
+        self.workflow()
 
 
 if __name__ == '__main__':

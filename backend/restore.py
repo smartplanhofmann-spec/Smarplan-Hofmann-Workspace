@@ -21,6 +21,12 @@ def restore(source, destination):
                 database.execute("DELETE FROM plan_sessions")
             from business_portal import sanitize_after_restore
             sanitize_after_restore(database)
+            from business_customer_workspace import sanitize_after_restore as sanitize_customer_workspace
+            sanitize_customer_workspace(database)
+            from business_assistant import sanitize_after_restore as sanitize_assistant
+            sanitize_assistant(database)
+            from business_assistant_speech import sanitize_after_restore as sanitize_speech
+            sanitize_speech(database)
             if database.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='business_schema_state'").fetchone():
                 # A backup cannot establish which financial events occurred
                 # after it. Only the separate local operator command releases

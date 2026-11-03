@@ -1,0 +1,10 @@
+{
+  "schema_version":1,"scope":"authorized_projects","project_id":null,"project_count":2,
+  "source_hash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "as_of":"2026-11-03T12:00:00+00:00","reporting_date":"2026-11-03","appointment_until":"2026-12-03",
+  "task_count":1,"overdue_task_count":1,"appointment_count":0,"appointments":[],
+  "tasks":[{"id":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","project_id":"cccccccccccccccccccccccccccccccc","project_name":"Synthetic project","title":"Beleg prüfen","due_date":"2026-11-02","overdue":true}],
+  "finance":{"project_count":1,"complete_for_recorded_sources":true,"revenue_net":"1000.00","costs_net":"400.00","contribution_net":"600.00","receipts_gross":"119.00","refunds_gross":"10.00","open_gross":"1081.00","overdue_gross":"1081.00",
+    "projects":[{"project_id":"cccccccccccccccccccccccccccccccc","project_name":"Synthetic project","revenue_net":"1000.00","costs_net":"400.00","complete":true}]},
+  "accounting":{"available":true,"year":2026,"scope":"recorded_sources","complete_for_recorded_sources":false,"totals":{"euer_surplus":null,"confirmed_income":"119.00","confirmed_expenses":"238.00"},"issue_count":1,"coverage_start":null,"balance":null,"opening_balances_available":false,"account_movements":[]}
+}

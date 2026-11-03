@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'business_accounting.dart';
+import 'business_bank_reconciliation.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -208,6 +209,27 @@ class _BusinessFinancePageState extends State<BusinessFinancePage> {
             ],
           ),
           const SizedBox(height: 12),
+          if (bankReadable(widget.session))
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.account_balance_outlined),
+                title: const Text('Bankabgleich'),
+                subtitle: const Text(
+                  'Originalauszüge und ausdrücklich geprüfte Geldflüsse',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => BusinessBankReconciliationPage(
+                        session: widget.session,
+                      ),
+                    ),
+                  );
+                  if (mounted) await load();
+                },
+              ),
+            ),
           if (businessAccountingReadable(widget.session))
             Card(
               child: ListTile(

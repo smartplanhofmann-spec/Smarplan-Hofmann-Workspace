@@ -44,7 +44,7 @@ def request(**data):
     return dict(request_id=uuid.uuid4().hex, **data)
 
 
-def seed(office, directory):
+def seed(office, directory, *, payroll_cash=False):
     actors = {}
     for role in ('owner', 'technician', 'accountant'):
         email = role + '@browser.example.test'
@@ -228,76 +228,94 @@ def seed(office, directory):
         archive = directory / (final['id'] + '.pdf'); archive.write_bytes(documents.archive(owner, final['id'], 'pdf'))
         allocation_invoices[key] = {'id': final['id'], 'number': final['number'], 'project_id': target,
                                     'customer_id': final['customer_id'], 'buyer_name': buyer, 'pdf_path': str(archive)}
+    chain_project=office.add_project(owner,'Synthetic invoice chain project',customer_id=customer['id'])
+    invoice_chain=dict(project_id=chain_project)
+    previous=None
+    for key,kind,amount in (('advance','advance_invoice','30.00'),('cumulative','cumulative_invoice','70.00'),
+                            ('final','final_invoice','100.00'),('independent','advance_invoice','30.00')):
+        draft=synthetic.create(owner,request(project_id=chain_project,kind=kind,title='Synthetic chain '+key,
+            issue_date='2026-11-02',due_date='2026-11-16',
+            buyer=dict(name=customer['name'],address_line='Synthetic buyer street',postal_code='10117',city='Berlin',country='DE'),
+            positions=[dict(description='Synthetic full contract',quantity='1',unit='C62',unit_price_net=amount,tax_rate='19',kind='service')],
+            previous_document_ids=[previous] if key in ('cumulative','final') else []))
+        final=synthetic.finalize(owner,draft['id'],render_prepared(synthetic.prepare_finalization(owner,draft['id'],draft['revision'])),uuid.uuid4().hex)
+        invoice_chain[key]=dict(id=final['id'],number=final['number'],title=final['title'])
+        previous=final['id']
     documents.save_settings(owner, request(revision=documents.settings(owner)['revision'], **issuer))
-    finance = Finance(office)
-    accounting_payments = []
-    for kind, amount in (('receipt', '119.00'), ('refund', '5.00')):
-        payment = finance.record_payment(owner, request(source_id='SYN-ACCOUNTING-' + kind,
-            kind=kind, amount=amount, currency='EUR', booking_date='2026-11-01',
-            reference='Synthetic accounting ' + kind, allocations=[]))
-        accounting_payments.append({'id': payment['id'], 'kind': kind})
-    allocation_shared = finance.record_payment(owner, request(source_id='SYN-ALLOCATION-SHARED',
-        kind='receipt', amount='50.00', currency='EUR', booking_date='2026-11-01',
-        reference='Synthetic allocation shared', allocations=[{'document_id': allocation_invoices['original']['id'], 'amount': '10.00'}]))
-    component_payments = []
-    for label, invoice_key, amount in (('single-1', 'component_single', '39.67'),
-            ('single-2', 'component_single', '39.67'), ('single-3', 'component_single', '39.66'),
-            ('multi', 'component_multi', '172.50')):
-        payment = finance.record_payment(owner, request(source_id='SYN-COMPONENT-' + label,
-            kind='receipt', amount=amount, currency='EUR', booking_date='2026-11-01',
-            reference='Synthetic component ' + label,
-            allocations=[{'document_id': allocation_invoices[invoice_key]['id'], 'amount': amount}]))
-        component_payments.append({'id': payment['id'], 'label': label, 'amount': amount,
-                                   'invoice_id': allocation_invoices[invoice_key]['id']})
-    # No imported cash events or component records are seeded here. The refund
-    # browser flow creates those using real authenticated forms after E1a tests.
-    refund_payments = []
-    for label, kind, invoice_key, amount, allocated, cash_date in (
-            ('origin-a', 'receipt', 'refund_main', '49.67', '39.67', '2026-11-01'),
-            ('origin-b', 'receipt', 'refund_main', '39.67', '39.67', '2026-11-02'),
-            ('future', 'receipt', 'refund_main', '1.00', '1.00', '2026-11-03'),
-            ('other-invoice', 'receipt', 'refund_other_invoice', '1.00', '1.00', '2026-11-01'),
-            ('other-customer', 'receipt', 'refund_other_customer', '1.00', '1.00', '2026-11-01'),
-            ('return-1', 'refund', 'refund_main', '26.44', '26.44', '2026-11-02'),
-            ('return-2', 'refund', 'refund_main', '26.44', '26.44', '2026-11-02'),
-            ('return-3', 'refund', 'refund_main', '26.46', '26.46', '2026-11-02')):
-        payment = finance.record_payment(owner, request(source_id='SYN-REFUND-' + label,
-            kind=kind, amount=amount, currency='EUR', booking_date='2026-11-01',
-            reference='Synthetic refund ' + label,
-            allocations=[{'document_id': allocation_invoices[invoice_key]['id'], 'amount': allocated}]))
-        refund_payments.append({'id': payment['id'], 'label': label, 'kind': kind, 'amount': amount,
-            'allocated': allocated, 'cash_date': cash_date, 'invoice_id': allocation_invoices[invoice_key]['id']})
-    # Isolated financial sources only: the browser imports, documents, binds the
-    # return and reuses capacity through real forms. One payment spans both writers.
-    capacity_payments = []
-    for label, kind, amount, main_amount, legacy_amount, cash_date in (
-            ('origin-first', 'receipt', '39.67', '39.67', None, '2026-11-01'),
-            ('origin-middle', 'receipt', '49.67', '39.67', None, '2026-11-01'),
-            ('origin-last', 'receipt', '39.66', '39.66', None, '2026-11-01'),
-            ('returned-middle', 'refund', '39.67', '39.67', None, '2026-11-02'),
-            ('mixed-replacement', 'receipt', '23.22', '13.22', '10.00', '2026-11-03'),
-            ('remaining-replacement', 'receipt', '26.45', '26.45', None, '2026-11-03')):
-        allocations = [{'document_id': allocation_invoices['capacity_main']['id'], 'amount': main_amount}]
-        if legacy_amount is not None:
-            allocations.append({'document_id': allocation_invoices['capacity_legacy']['id'], 'amount': legacy_amount})
-        payment = finance.record_payment(owner, request(source_id='SYN-CAPACITY-' + label,
-            kind=kind, amount=amount, currency='EUR', booking_date=cash_date,
-            reference='Synthetic capacity ' + label, allocations=allocations))
-        capacity_payments.append({'id': payment['id'], 'label': label, 'kind': kind, 'amount': amount,
-            'allocated': main_amount, 'legacy_amount': legacy_amount, 'cash_date': cash_date,
-            'invoice_id': allocation_invoices['capacity_main']['id']})
-    accounting_receipts = []
-    for target, vendor, invoice in ((project, 'Synthetic accounting supplier', 'SYN-ACCT-001'),
-                                    (private, 'Private accounting supplier', 'SYN-PRIVATE-001'),
-                                    (private, 'Synthetic component supplier', 'SYN-COMP-SUPPLIER')):
-        original = b'%PDF-1.4\nSynthetic accounting evidence ' + invoice.encode() + b'\n%%EOF'
-        receipt = finance.capture_receipt(owner, request(project_id=target, filename=invoice + '.pdf',
-            media_type='application/pdf', original_base64=base64.b64encode(original).decode(), note='Synthetic original'))
-        finance.review_receipt(owner, receipt['id'], request(revision=0, vendor=vendor, invoice_number=invoice,
-            issue_date='2026-11-01', net='100.00', tax='19.00', gross='119.00', currency='EUR',
-            status='reviewed', note='Synthetic confirmed supplier evidence'))
-        original_path = directory / (invoice + '.pdf'); original_path.write_bytes(original)
-        accounting_receipts.append({'id': receipt['id'], 'vendor': vendor, 'invoice': invoice, 'original_path': str(original_path)})
+    # The payroll cash workflow isolates its financial source catalog so a
+    # non-personnel bookkeeper does not inherit unrelated private payment seeds.
+    accounting_payments, component_payments, refund_payments, capacity_payments, accounting_receipts = [], [], [], [], []
+    allocation_shared = {"id": None}
+    if not payroll_cash:
+        finance = Finance(office)
+        accounting_payments = []
+        for kind, amount in (('receipt', '119.00'), ('refund', '5.00')):
+            payment = finance.record_payment(owner, request(source_id='SYN-ACCOUNTING-' + kind,
+                kind=kind, amount=amount, currency='EUR', booking_date='2026-11-01',
+                reference='Synthetic accounting ' + kind, allocations=[]))
+            accounting_payments.append({'id': payment['id'], 'kind': kind})
+        allocation_shared = finance.record_payment(owner, request(source_id='SYN-ALLOCATION-SHARED',
+            kind='receipt', amount='50.00', currency='EUR', booking_date='2026-11-01',
+            reference='Synthetic allocation shared', allocations=[{'document_id': allocation_invoices['original']['id'], 'amount': '10.00'}]))
+        component_payments = []
+        for label, invoice_key, amount in (('single-1', 'component_single', '39.67'),
+                ('single-2', 'component_single', '39.67'), ('single-3', 'component_single', '39.66'),
+                ('multi', 'component_multi', '172.50')):
+            payment = finance.record_payment(owner, request(source_id='SYN-COMPONENT-' + label,
+                kind='receipt', amount=amount, currency='EUR', booking_date='2026-11-01',
+                reference='Synthetic component ' + label,
+                allocations=[{'document_id': allocation_invoices[invoice_key]['id'], 'amount': amount}]))
+            component_payments.append({'id': payment['id'], 'label': label, 'amount': amount,
+                                       'invoice_id': allocation_invoices[invoice_key]['id']})
+        # No imported cash events or component records are seeded here. The refund
+        # browser flow creates those using real authenticated forms after E1a tests.
+        refund_payments = []
+        for label, kind, invoice_key, amount, allocated, cash_date in (
+                ('origin-a', 'receipt', 'refund_main', '49.67', '39.67', '2026-11-01'),
+                ('origin-b', 'receipt', 'refund_main', '39.67', '39.67', '2026-11-02'),
+                ('future', 'receipt', 'refund_main', '1.00', '1.00', '2026-11-03'),
+                ('other-invoice', 'receipt', 'refund_other_invoice', '1.00', '1.00', '2026-11-01'),
+                ('other-customer', 'receipt', 'refund_other_customer', '1.00', '1.00', '2026-11-01'),
+                ('return-1', 'refund', 'refund_main', '26.44', '26.44', '2026-11-02'),
+                ('return-2', 'refund', 'refund_main', '26.44', '26.44', '2026-11-02'),
+                ('return-3', 'refund', 'refund_main', '26.46', '26.46', '2026-11-02')):
+            payment = finance.record_payment(owner, request(source_id='SYN-REFUND-' + label,
+                kind=kind, amount=amount, currency='EUR', booking_date='2026-11-01',
+                reference='Synthetic refund ' + label,
+                allocations=[{'document_id': allocation_invoices[invoice_key]['id'], 'amount': allocated}]))
+            refund_payments.append({'id': payment['id'], 'label': label, 'kind': kind, 'amount': amount,
+                'allocated': allocated, 'cash_date': cash_date, 'invoice_id': allocation_invoices[invoice_key]['id']})
+        # Isolated financial sources only: the browser imports, documents, binds the
+        # return and reuses capacity through real forms. One payment spans both writers.
+        capacity_payments = []
+        for label, kind, amount, main_amount, legacy_amount, cash_date in (
+                ('origin-first', 'receipt', '39.67', '39.67', None, '2026-11-01'),
+                ('origin-middle', 'receipt', '49.67', '39.67', None, '2026-11-01'),
+                ('origin-last', 'receipt', '39.66', '39.66', None, '2026-11-01'),
+                ('returned-middle', 'refund', '39.67', '39.67', None, '2026-11-02'),
+                ('mixed-replacement', 'receipt', '23.22', '13.22', '10.00', '2026-11-03'),
+                ('remaining-replacement', 'receipt', '26.45', '26.45', None, '2026-11-03')):
+            allocations = [{'document_id': allocation_invoices['capacity_main']['id'], 'amount': main_amount}]
+            if legacy_amount is not None:
+                allocations.append({'document_id': allocation_invoices['capacity_legacy']['id'], 'amount': legacy_amount})
+            payment = finance.record_payment(owner, request(source_id='SYN-CAPACITY-' + label,
+                kind=kind, amount=amount, currency='EUR', booking_date=cash_date,
+                reference='Synthetic capacity ' + label, allocations=allocations))
+            capacity_payments.append({'id': payment['id'], 'label': label, 'kind': kind, 'amount': amount,
+                'allocated': main_amount, 'legacy_amount': legacy_amount, 'cash_date': cash_date,
+                'invoice_id': allocation_invoices['capacity_main']['id']})
+        accounting_receipts = []
+        for target, vendor, invoice in ((project, 'Synthetic accounting supplier', 'SYN-ACCT-001'),
+                                        (private, 'Private accounting supplier', 'SYN-PRIVATE-001'),
+                                        (private, 'Synthetic component supplier', 'SYN-COMP-SUPPLIER')):
+            original = b'%PDF-1.4\nSynthetic accounting evidence ' + invoice.encode() + b'\n%%EOF'
+            receipt = finance.capture_receipt(owner, request(project_id=target, filename=invoice + '.pdf',
+                media_type='application/pdf', original_base64=base64.b64encode(original).decode(), note='Synthetic original'))
+            finance.review_receipt(owner, receipt['id'], request(revision=0, vendor=vendor, invoice_number=invoice,
+                issue_date='2026-11-01', net='100.00', tax='19.00', gross='119.00', currency='EUR',
+                status='reviewed', note='Synthetic confirmed supplier evidence'))
+            original_path = directory / (invoice + '.pdf'); original_path.write_bytes(original)
+            accounting_receipts.append({'id': receipt['id'], 'vendor': vendor, 'invoice': invoice, 'original_path': str(original_path)})
     # Explicit synthetic-only website source. No SMTP transport is configured;
     # form acceptance may queue one approved reply, never send one.
     os.environ['SMARTPLAN_WEBSITE_LEAD_SECRET']='SPLD_'+secrets.token_urlsafe(32)
@@ -314,7 +332,7 @@ def seed(office, directory):
                 accounting_receipts=accounting_receipts, allocation_invoices=allocation_invoices,
                 allocation_shared_payment=allocation_shared['id'], allocation_target_project=allocation_target,
                 component_payments=component_payments, refund_payments=refund_payments,
-                capacity_payments=capacity_payments)
+                capacity_payments=capacity_payments,invoice_chain=invoice_chain)
 
 
 class LoopbackProxyContract:
@@ -337,6 +355,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--ready-file', required=True, type=Path)
     parser.add_argument('--port', type=int, default=0)
+    parser.add_argument('--synthetic-speech', action='store_true', help='Inject the explicit test-only local speech transport')
+    parser.add_argument('--synthetic-handover', action='store_true', help='Bind only the disposable company archive fixture')
+    parser.add_argument('--synthetic-payroll-cash', action='store_true', help='Seed only the payroll workflow financial sources')
     args = parser.parse_args()
     def stop(_signum, _frame): raise SystemExit(0)
     signal.signal(signal.SIGTERM, stop)
@@ -344,6 +365,7 @@ def main():
         directory = Path(temp)
         office = Office(directory / 'office.sqlite')
         server = None
+        speech_patch = None
         try:
             # Online-only schema mirrors test_workspace_api's production MFA
             # definitions. It does not replace authentication or issue sessions.
@@ -356,14 +378,48 @@ def main():
                 CREATE TABLE login_limits(key TEXT PRIMARY KEY,failures INTEGER NOT NULL,
                     reset_at DOUBLE PRECISION NOT NULL);
             ''')
-            metadata = seed(office, directory)
-            app = create_app(office=office, key=Fernet.generate_key(), host='127.0.0.1')
+            metadata = seed(office, directory, payroll_cash=args.synthetic_payroll_cash)
+            fixture_key = Fernet.generate_key()
+            if args.synthetic_handover:
+                from online.instance import bind
+                from online.storage import Storage
+                fixture_instance = uuid.uuid4().hex
+                storage = Storage(office, fixture_key, '127.0.0.1', config={'server': {'path': str(directory/'handover-storage')}})
+                bind(office, fixture_instance, '127.0.0.1', fixture_key, storage)
+                metadata['handover_instance_id'] = fixture_instance
+            app = create_app(office=office, key=fixture_key, host='127.0.0.1',
+                **({'storage':storage,'instance_id':fixture_instance} if args.synthetic_handover else {}))
+            if args.synthetic_speech:
+                from unittest.mock import patch
+                from business_assistant_speech import wav_bytes
+                probe_path=directory/'speech-probe.json'
+                probe_path.write_text('[]',encoding='utf-8')
+                row=office.db.execute('SELECT instance_id FROM business_instance_identity WHERE singleton=1').fetchone()
+                instance_id=row['instance_id'] if row else uuid.uuid4().hex
+                if row is None:
+                    with office.db:
+                        office.db.execute('INSERT INTO business_instance_identity(singleton,instance_id,public_host,storage_root,vault_fingerprint,created_at) VALUES(1,?,?,?,?,?)',
+                            (instance_id,'127.0.0.1',str(directory),'a'*64,datetime.now(timezone.utc).isoformat()))
+                class SyntheticSpeechTransport:
+                    def transcribe(self,config,audio,operation_id):
+                        raw,count=wav_bytes(base64.b64encode(audio).decode())
+                        attempts=json.loads(probe_path.read_text())
+                        attempts.append(dict(id=operation_id,sha256=hashlib.sha256(raw).hexdigest(),audio_bytes=len(raw),samples=count))
+                        probe_path.write_text(json.dumps(attempts),encoding='utf-8')
+                        return 'Synthetisch erkannter Text. Bitte offene Aufgaben prüfen.'
+                os.environ.update({'SMARTPLAN_ASSISTANT_SPEECH_'+key:value for key,value in dict(ENABLED='1',DATA_TRANSFER_APPROVED='1',INSTANCE_ID=instance_id,
+                    ENDPOINT='https://speech.example.test/v1/audio/transcriptions',MODEL='synthetic-browser-contract',API_KEY='synthetic-never-network-test-key').items()})
+                speech_patch=patch('business_assistant_speech.OpenAICompatibleSpeech',return_value=SyntheticSpeechTransport())
+                speech_patch.start()
+                metadata['speech_probe_path']=str(probe_path)
+
             server = make_server('127.0.0.1', args.port, LoopbackProxyContract(app), threaded=True)
             args.ready_file.write_text(json.dumps(dict(metadata, base_url='http://127.0.0.1:' + str(server.server_port))), encoding='utf-8')
             args.ready_file.chmod(0o600)
             server.serve_forever()
         finally:
             if server: server.server_close()
+            if speech_patch: speech_patch.stop()
             office.db.close()
             args.ready_file.unlink(missing_ok=True)
 

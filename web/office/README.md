@@ -1,6 +1,6 @@
 # Smartplan Office im Browser
 
-Die responsive Onlineoberfläche verwendet dieselbe authentifizierte `/api/v1`-API und denselben Projektbestand wie die nativen Clients. Einstieg: `/office/`. Zehn Hauptbereiche führen in die gemeinsame Projektmappe; Finanz-/Personalaktionen bleiben von eigenen Rechten abhängig. Die Oberfläche enthält keine fremden Skripte, Fonts, Tracker oder Kundendaten.
+Die responsive Onlineoberfläche verwendet dieselbe authentifizierte `/api/v1`-API und denselben Projektbestand wie die nativen Clients. Einstieg: `/office/`. Die Hauptbereiche führen in die gemeinsame Projektmappe; Finanz-/Personalaktionen bleiben von eigenen Rechten abhängig. Die Oberfläche enthält keine fremden Skripte, Fonts, Tracker oder Kundendaten.
 
 Passwort und MFA werden über die echte Onlineanmeldung geprüft. Bearer und unbestätigte Vorgänge bleiben ausschließlich im Arbeitsspeicher. Abmelden und Seitenwechsel aus dem Dokument löschen Sitzung und gerenderte Daten. Unklare Antworten können mit **derselben** Vorgangskennung ausdrücklich wiederholt werden; geänderte Inhalte ersetzen eine unbestätigte Operation nicht still. Die Browseroberfläche ist **keine PWA und besitzt keine dauerhafte Offlinewarteschlange**. Für dauerhafte Offlinearbeit bleibt die native App vorgesehen.
 
@@ -20,7 +20,7 @@ SMARTPLAN_BROWSER_TEST_PYTHON=/pfad/zum/online-venv/bin/python SMARTPLAN_CHROMIU
 
 Der Pythonruntime benötigt die bestehenden Backend-/Online-Lockabhängigkeiten. Playwright 1.62.1 ist im Lockfile gepinnt. Der Test selbst lädt keine Pakete nach. Ohne Browseroverride wird ein vorhandenes `/usr/bin/chromium` genutzt, sonst der installierte Playwrightbrowser; `SMARTPLAN_CHROMIUM_BINARY=''` wählt ausdrücklich den gepinnten Playwrightbrowser. Ein nichtleerer Override wählt einen konkreten Browserpfad. Optional: `SMARTPLAN_BROWSER_SCREENSHOT_DIR` für synthetische Prüfbilder. Der Test startet einen neuen privaten SQLite-Bestand auf Loopback und entfernt ihn samt Prozess nach dem Lauf. Die Prüfung verwendet echte Password-/MFA-/Recovery- und Fachrouten, keine injizierte Sitzung und keine Providerverbindung. Chromium läuft mit aktivierter Sandbox; Seitenanfragen an andere Origins werden abgewiesen.
 
-Die reine Testtransporthülle bildet auf Loopback den HTTPS-Proxyvertrag nach. Dieser Funktionslauf ist **kein TLS-Nachweis**; die bestehende echte Caddy-/TLS-Suite bleibt zusätzlich erforderlich. Er prüft Anmeldung, alle zehn Bereiche, Kalenderumplanung per Formular und Drag-and-drop, Text-/Rechtegrenzen, Fotooriginal, Aufmaßsignatur/PDF, Abmelden, 390-Pixel-Darstellung und das öffentliche Formular nach verlorener Quittung. Backendtests prüfen zusätzlich Transaktionen, Concurrent-Reservierung, Finanzrechteentzug, SHA-/Signaturintegrität und Wartungskalender.
+Die reine Testtransporthülle bildet auf Loopback den HTTPS-Proxyvertrag nach. Dieser Funktionslauf ist **kein TLS-Nachweis**; die bestehende echte Caddy-/TLS-Suite bleibt zusätzlich erforderlich. Er prüft Anmeldung, die damaligen Kernbereiche, Kalenderumplanung per Formular und Drag-and-drop, Text-/Rechtegrenzen, Fotooriginal, Aufmaßsignatur/PDF, Abmelden, 390-Pixel-Darstellung und das öffentliche Formular nach verlorener Quittung. Backendtests prüfen zusätzlich Transaktionen, Concurrent-Reservierung, Finanzrechteentzug, SHA-/Signaturintegrität und Wartungskalender.
 
 ## Betriebsgrenzen
 
@@ -33,3 +33,16 @@ Die hier vorbereitete Oberfläche ist kein Beleg für ein Serverupdate, produkti
 Die Annahme muss serverseitig mit einer festen Quelle, einem geschützten Schlüsselverweis, ausdrücklich bestätigten HTTPS-Origins und den entsprechenden Feature-Flags freigeschaltet werden. Das HTML enthält keinen Quellenschlüssel. Eine 201-Quittung bestätigt nur den Eingang; eine ausstehende Antwort wird ausdrücklich nicht als versendet oder zugestellt behauptet. Der kurze Formularhinweis ersetzt keine betriebliche Datenschutzprüfung.
 
 Der öffentliche Chromiumfall verwendet einen synthetisch freigegebenen Adapter und eine genehmigte Antwortvorlage ohne SMTP-Transport. Er verliert absichtlich die erste bereits gespeicherte Quittung, wiederholt exakt dieselbe Anfrage und prüft einen einzigen echten Inboxeintrag mit weiterhin ausstehender Antwort. Dafür bildet ausschließlich die Testhülle die exakt passende HTTP-Loopback-Origin auf ihre Test-HTTPS-Origin ab. Produktive TLS- und Origin-Grenzen werden mit diesem Funktionsfall nicht abgenommen.
+
+
+## Aktuelle CRM-/ERP-Erweiterungen
+
+Unternehmensübersicht, Vertriebschancen, Projektwirtschaftlichkeit,
+Kundenarbeitsbereich, Personal/Lohnkonten, eigene EÜR, Inventur,
+Zusatzfelder, Assistent/Sprachentwürfe, Dateiimport und Unternehmensübergabe
+verwenden die bestehenden Anmeldung und Fachrechte. Neue Service-,
+Datenschutz- und Zahlungsabläufe werden in denselben Client integriert.
+[Umfang, Testbelege und noch offene Arbeit](../../docs/CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md)
+stehen im gemeinsamen Repository-Nachweis. Die gezielten Browserprüfungen
+werden über `SMARTPLAN_BROWSER_WORKFLOW` ausgewählt; die konkrete Liste und
+Befehle stehen in `tests/e2e.cjs` beziehungsweise der CI.

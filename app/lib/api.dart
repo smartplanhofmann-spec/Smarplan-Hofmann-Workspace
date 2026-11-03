@@ -157,7 +157,11 @@ class OfficeApi extends ChangeNotifier {
   }
 
   Future<dynamic> call(String path, [Map<String, dynamic>? body]) async {
-    final bytes = await _request(path, body);
+    final bytes = await _request(
+      path,
+      body,
+      maxResponseBytes: officeJsonResponseLimit(path),
+    );
     try {
       return jsonDecode(utf8.decode(bytes));
     } on FormatException {
@@ -197,6 +201,15 @@ class OfficeApi extends ChangeNotifier {
     maxResponseBytes: maxBytes,
   );
 }
+
+/// A bounded large bank DTO can contain up to 10,000 canonical statement rows.
+/// Other API and binary download limits remain independent.
+int officeJsonResponseLimit(String path) =>
+    RegExp(
+      r'^/api/business/bank/(?:accounts|import/preview|statements(?:/[a-f0-9]{32})?|transactions/[a-f0-9]{32}/(?:candidates|history|preview|matches)|reconciliations(?:/preview|/[a-f0-9]{32})?)$',
+    ).hasMatch(path.split('?').first)
+    ? 128 * 1024 * 1024
+    : 20 * 1024 * 1024;
 
 const roleLabels = {
   'owner': 'Geschäftsführung',

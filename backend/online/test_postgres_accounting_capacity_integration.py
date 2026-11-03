@@ -511,7 +511,7 @@ class ComponentCapacityPostgres(unittest.TestCase):
 class CapacityMigrationPostgres(unittest.TestCase):
     def test_r1_migration_preserves_old_rows_and_schema5_replay_cannot_unlock_a_new_restore(self):
         full = business_schema.registry()
-        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile'))
+        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation'))
         fixture = refunds_fixture.RefundOriginsPostgres(methodName='runTest')
         self.addCleanup(fixture.doCleanups)
         with patch.object(business_schema, 'registry', return_value=prior), \

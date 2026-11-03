@@ -77,6 +77,7 @@ class NativePackageTests(unittest.TestCase):
         info = {'CFBundleIdentifier': release.BUNDLE_ID, 'CFBundleVersion': '109',
                 'CFBundleShortVersionString': release.version()[0], 'UIDeviceFamily': [1, 2],
                 'NSFaceIDUsageDescription': 'Synthetic unlock description',
+                'NSMicrophoneUsageDescription': 'Synthetic explicit dictation description',
                 'UISupportedInterfaceOrientations~ipad': ['UIInterfaceOrientationPortrait']}
         path.write_bytes(plistlib.dumps(info))
         return path, info
@@ -235,6 +236,18 @@ class NativePackageTests(unittest.TestCase):
         release.check_ios(info_path, self.config, '109', signed_entitlements=entitlements, team='TESTTEAM00')
         with self.assertRaisesRegex(ValueError, 'Apple-Team'):
             release.check_ios(info_path, self.config, '109', signed_entitlements=entitlements, team='OTHERTEAM0')
+
+    def test_dictation_package_requires_mic_purpose_and_forbids_background_audio(self):
+        info_path, info = self.ios_info()
+        description = info.pop('NSMicrophoneUsageDescription')
+        info_path.write_bytes(plistlib.dumps(info))
+        with self.assertRaisesRegex(ValueError, 'Mikrofonbeschreibung'):
+            release.check_ios(info_path, self.config, '109')
+        info['NSMicrophoneUsageDescription'] = description
+        info['UIBackgroundModes'] = ['audio']
+        info_path.write_bytes(plistlib.dumps(info))
+        with self.assertRaisesRegex(ValueError, 'Hintergrundaufnahme'):
+            release.check_ios(info_path, self.config, '109')
 
     def test_manifest_identifies_commit_backend_and_every_packaged_file(self):
         bundle = self.bundle('online')

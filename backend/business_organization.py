@@ -161,15 +161,25 @@ def command_module(path, module_name):
         return None
     if module_name == 'business_portal' and re.fullmatch(r'/portal/grants/[a-f0-9]{32}/revoke', path):
         return None
-    if module_name == 'business_time' or re.match(r'^/(employees|absences|shifts)(?:/|$)', path):
+    if module_name in ('business_time', 'business_personnel_workflow', 'business_payroll', 'business_payroll_accounts', 'business_payroll_cash') or re.match(r'^/(employees|absences|shifts)(?:/|$)', path):
         return 'personnel'
     if module_name == 'business_planning':
         return 'planning'
     if module_name == 'business_operations' and path == '/service-reports/offline':
         return 'documents'
+    if module_name == 'business_operations' and re.match(r'^/receipt-media(?:/|$)', path):
+        return 'finance'
+    if module_name in ('business_project_economics', 'business_accounting_euer', 'business_bank_reconciliation'):
+        return 'finance'
+    if module_name in ('business_asset_provenance', 'business_inventory_counts'):
+        return 'material'
+    if module_name == 'business_customer_workspace':
+        if re.fullmatch(r'/customer-workspace/(?:grants|files)/[a-f0-9]{32}/revoke', path):
+            return None
+        return 'documents'
     if module_name == 'business_adapters' and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/(apply|offer)', path):
         return 'documents'
-    return {'business_inventory': 'material', 'business_purchasing': 'material', 'business_documents': 'documents', 'business_portal': 'documents',
+    return {'business_inventory': 'material', 'business_documents': 'documents', 'business_portal': 'documents',
             'business_finance': 'finance', 'business_accounting': 'finance',
             'business_accounting_allocations': 'finance', 'business_accounting_components': 'finance',
             'business_accounting_refunds': 'finance', 'business_accounting_capacity': 'finance',

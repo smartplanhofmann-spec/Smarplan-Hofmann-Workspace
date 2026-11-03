@@ -199,8 +199,12 @@ class RefundOrigins(Domain):
                 proof = Accounting(self.office)._document_proof(document); payload = json.loads(document['payload_json'])
                 supported = (document['kind'] == 'invoice' and payload.get('currency') == 'EUR' and _cents(payload['totals']['gross']) > 0
                              and not payload.get('previous_document_ids') and not payload.get('previous_documents'))
-                portions.append(dict(portion_id=_portion_id(allocation['id']), allocation=dict(allocation), document=proof,
-                                     party_name=payload['buyer']['name'], supported=bool(supported)))
+                portion = dict(portion_id=_portion_id(allocation['id']), allocation=dict(allocation), document=proof,
+                               party_name=payload['buyer']['name'], supported=bool(supported))
+                from accounting_invoice_sources import is_incremental, archive_chain
+                if is_incremental(document):
+                    portion.update(supported=_cents(payload['totals']['gross']) > 0, invoice_chain=archive_chain(self.office, document))
+                portions.append(portion)
             customers = {value['document']['customer_id'] for value in portions}
             if portions and (len(customers) != 1 or not next(iter(customers))):
                 reason = 'source_customer_unresolved'
@@ -243,7 +247,9 @@ class RefundOrigins(Domain):
             raise Problem(409, 'Ursprung muss ein dokumentierter Kundeneingang sein')
         entry = entries[entry_id]; proof = json.loads(row['proof_json']); basis = json.loads(line['basis_json'])
         document = proof['archive']['archive']['document']
-        if (document['kind'] != 'invoice' or not document['customer_id'] or entry['portion']['document_id'] != document['id']
+        from accounting_invoice_sources import is_incremental, FAMILY
+        allowed = document['kind'] == 'invoice' or is_incremental(document) and proof['archive']['kind'] == FAMILY
+        if (not allowed or not document['customer_id'] or entry['portion']['document_id'] != document['id']
                 or _cents(line['net'])+_cents(line['tax']) != _cents(line['amount'], positive=True, input_value=True)
                 or type(row['sequence']) is not int or row['sequence'] < 1):
             raise ValueError('Invalid documentary income lot')

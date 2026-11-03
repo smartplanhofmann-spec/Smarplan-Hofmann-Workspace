@@ -107,10 +107,26 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
   late final ProjectIntegrationsController integrations;
   late final BusinessSession business;
   List<String> get businessSections => [
+    if (business.hasFeature('custom_fields') && business.can('documents.read'))
+      'Zusatzfelder',
+    if (business.hasFeature('service_cases') &&
+        business.hasModule('service') &&
+        business.can('contacts.read') &&
+        business.can('documents.read'))
+      'Kundenservice',
+    if (business.hasModule('assistant') &&
+        business.hasFeature('assistant_workflow') &&
+        business.can('assistant.use'))
+      'Assistent',
     if (business.hasModule('foundation') && business.can('documents.classify'))
       'Unterlagenfreigabe',
     if (business.hasModule('documents') && business.can('finance.read'))
       'Belege',
+    if (business.hasModule('customer_workspace') &&
+        business.hasFeature('customer_workspace_portal') &&
+        business.can('portal.manage') &&
+        business.can('documents.read'))
+      'Kundenportal',
     if ((business.hasModule('time') && business.can('time.own')) ||
         widget.repository?.timeEventsSupported == true)
       'Arbeitszeit',
@@ -137,6 +153,9 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
       ? _sectionIcons[index]
       : switch (visibleSections[index]) {
           'Belege' => Icons.receipt_long_outlined,
+          'Kundenportal' => Icons.public_outlined,
+          'Assistent' => Icons.auto_awesome_outlined,
+          'Kundenservice' => Icons.support_agent_outlined,
           'Arbeitszeit' => Icons.timer_outlined,
           'Einsatzplanung' => Icons.calendar_view_week_outlined,
           'Material' => Icons.inventory_2_outlined,

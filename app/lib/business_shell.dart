@@ -3,14 +3,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'business_documents.dart';
+import 'business_assistant.dart';
+import 'business_service.dart';
+import 'business_company_overview.dart';
+import 'business_accounting_euer.dart';
 import 'business_finance.dart';
 import 'business_settings.dart';
+import 'business_project_economics.dart';
+import 'business_customer_workspace.dart';
 import 'business_media.dart';
 import 'business_document_access.dart';
 import 'business_contacts.dart';
 import 'business_operations.dart';
 import 'business_planning.dart';
 import 'business_session.dart';
+import 'business_custom_fields.dart';
 import 'business_time.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -81,6 +88,20 @@ const _destinations = <_Destination>[
     permission: 'time.own',
   ),
   (
+    id: 'service',
+    label: 'Kundenservice',
+    icon: Icons.support_agent_outlined,
+    module: 'service',
+    permission: 'contacts.read',
+  ),
+  (
+    id: 'assistant',
+    label: 'Assistent',
+    icon: Icons.auto_awesome_outlined,
+    module: 'assistant',
+    permission: 'assistant.use',
+  ),
+  (
     id: 'settings',
     label: 'Einstellungen',
     icon: Icons.settings_outlined,
@@ -139,6 +160,9 @@ class _BusinessHomeState extends State<BusinessHome>
       .where(
         (d) =>
             widget.session.hasModule(d.module!) &&
+            (d.id != 'service' || widget.session.hasFeature('service_cases')) &&
+            (d.id != 'assistant' ||
+                widget.session.hasFeature('assistant_workflow')) &&
             (d.permission == null || widget.session.can(d.permission!)),
       )
       .toList();
@@ -263,12 +287,21 @@ class _BusinessHomeState extends State<BusinessHome>
         session: session,
         area: selected,
       ),
-      'contacts' => BusinessContactsPage(session: session),
+      'service' => BusinessServicePage(
+        session: session,
+        onProject: widget.onProject,
+      ),
+      'assistant' => BusinessAssistantPage(session: session),
+      'contacts' => BusinessContactsPage(
+        session: session,
+        onProject: widget.onProject,
+      ),
       'planning' => BusinessPlanningPage(session: session),
       'documents' => BusinessDocumentsPage(session: session),
       'finance' => BusinessFinancePage(session: session),
       'settings' => BusinessSettingsPage(
         session: session,
+        onProject: widget.onProject,
         onOpenSection: (section) {
           final destination = _destinations
               .where((d) => d.id == section)
@@ -373,6 +406,7 @@ class BusinessOverview extends StatefulWidget {
 
 class _BusinessOverviewState extends State<BusinessOverview> {
   Map<String, dynamic>? overview;
+  Map<String, dynamic>? metrics;
   List<Map<String, dynamic>> feed = [];
   String? error;
   bool loading = true;
@@ -387,8 +421,10 @@ class _BusinessOverviewState extends State<BusinessOverview> {
 
   void changed() {
     if (!mounted) return;
+    metrics = null;
     if (!widget.session.allowed) {
       overview = null;
+      metrics = null;
       feed = [];
     }
     setState(() {});
@@ -401,12 +437,25 @@ class _BusinessOverviewState extends State<BusinessOverview> {
   }
 
   Future<void> load() async {
-    setState(() => loading = true);
+    setState(() {
+      loading = true;
+      error = null;
+      metrics = null;
+    });
     try {
       final data = businessMap(await widget.session.read('/overview'));
       if (!mounted || !widget.session.allowed) return;
       setState(() => overview = data);
       if (!widget.projectsOnly) {
+        if (widget.session.hasFeature('company_overview')) {
+          final result = companyOverviewData(
+            await widget.session.read(
+              widget.session.query('/overview/metrics'),
+            ),
+          );
+          if (!mounted || !widget.session.allowed) return;
+          setState(() => metrics = result);
+        }
         final messages = businessItems(await widget.session.read('/feed'));
         if (mounted && widget.session.allowed) setState(() => feed = messages);
       }
@@ -458,6 +507,21 @@ class _BusinessOverviewState extends State<BusinessOverview> {
           const SizedBox(height: 24),
           if (error != null) Notice(error!, error: true),
           if (loading) const LinearProgressIndicator(),
+          if (!widget.projectsOnly && metrics != null)
+            BusinessCompanyOverview(
+              data: metrics!,
+              onProject: (id) {
+                final matching = (overview?['projects'] as List? ?? [])
+                    .map(businessMap)
+                    .where((p) => p['id'] == id);
+                if (matching.isNotEmpty) widget.onProject(matching.first);
+              },
+              onAccounting: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => BusinessEuerPage(session: widget.session),
+                ),
+              ),
+            ),
           TextField(
             decoration: const InputDecoration(
               labelText: 'Projekt, Kunde oder Projektnummer suchen',
@@ -542,6 +606,13 @@ class BusinessProjectFeature extends StatelessWidget {
   final OfflinePlans? repository;
   @override
   Widget build(BuildContext context) => switch (feature) {
+    'Zusatzfelder' => BusinessCustomFieldsPage(
+      session: session,
+      entityType: 'project',
+      entityId: session.projectId,
+    ),
+    'Kundenservice' => BusinessServicePage(session: session),
+    'Assistent' => BusinessAssistantPage(session: session),
     'Belege' => BusinessDocumentsPage(session: session),
     'Einsatzplanung' => BusinessPlanningPage(session: session),
     'Arbeitszeit' => BusinessTimePage(session: session, repository: repository),
@@ -552,9 +623,13 @@ class BusinessProjectFeature extends StatelessWidget {
       repository: repository,
     ),
     'Wartung' => BusinessAreaPage(session: session, area: 'maintenance'),
-    'Kalkulation' => BusinessCostPage(session: session),
+    'Kalkulation' =>
+      projectEconomicsReadable(session)
+          ? BusinessProjectEconomicsPage(session: session)
+          : BusinessCostPage(session: session),
     'Fotos' => BusinessMediaPage(session: session, repository: repository),
     'Unterlagenfreigabe' => BusinessDocumentAccessPage(session: session),
+    'Kundenportal' => BusinessCustomerWorkspacePage(session: session),
     'Finanzen' => BusinessFinancePage(session: session),
     _ => const SizedBox(),
   };

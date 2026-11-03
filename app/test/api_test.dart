@@ -47,6 +47,50 @@ void main() {
   );
 
   test(
+    'large bank DTO crosses ordinary limit without changing unrelated JSON bounds',
+    () => withServer((server, api) async {
+      final value = 'x' * (21 * 1024 * 1024);
+      server.listen((request) async {
+        request.response.headers.contentType = ContentType.json;
+        request.response.write(jsonEncode({'value': value}));
+        try {
+          await request.response.close();
+        } on HttpException {
+          // An ordinary route intentionally closes after its unchanged bound.
+        } on SocketException {
+          /* Same expected early client close. */
+        }
+      });
+      final result = await api.call(
+        '/api/business/bank/statements/${'a' * 32}',
+      );
+      expect(result['value'].length, value.length);
+      await expectLater(
+        api.call('/api/business/contacts'),
+        throwsA(
+          isA<ApiException>().having((e) => e.status, 'uncertain response', 0),
+        ),
+      );
+      expect(
+        officeJsonResponseLimit(
+          '/api/business/bank/reconciliations/${'a' * 32}',
+        ),
+        128 * 1024 * 1024,
+      );
+      expect(
+        officeJsonResponseLimit(
+          '/api/business/bank/statements/${'a' * 32}/original',
+        ),
+        20 * 1024 * 1024,
+      );
+      expect(
+        officeJsonResponseLimit('/api/business/bank/../contacts'),
+        20 * 1024 * 1024,
+      );
+    }),
+  );
+
+  test(
     'PDF request returns original binary bytes, not decoded JSON',
     () => withServer((server, api) async {
       final bytes = <int>[...ascii.encode('%PDF-1.7\n'), 0, 128, 255];

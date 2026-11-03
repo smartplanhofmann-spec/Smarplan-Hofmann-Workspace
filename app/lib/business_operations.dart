@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'business_session.dart';
+import 'business_custom_fields.dart';
 import 'business_widgets.dart';
 import 'business_documents.dart' show businessPositionKinds;
 import 'business_documentation.dart';
 import 'business_workflows.dart';
 import 'business_purchasing.dart';
 import 'business_service_reports.dart';
+import 'business_asset_provenance.dart';
+import 'business_personnel_workflow.dart';
+import 'business_inventory_counts.dart';
 import 'offline_plans.dart';
 import 'design.dart';
 
@@ -224,6 +228,73 @@ class BusinessAreaPage extends StatefulWidget {
 }
 
 class _BusinessAreaPageState extends State<BusinessAreaPage> {
+  bool get assetOriginsAvailable =>
+      widget.session.projectId != null &&
+      widget.session.hasFeature('asset_delivery_provenance') &&
+      widget.session.can('documents.read') &&
+      widget.session.can('inventory.read');
+
+  Future<void> openAssetOrigins([Map<String, dynamic>? asset]) async {
+    if (!assetOriginsAvailable) return;
+    await Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            BusinessAssetProvenancePage(session: widget.session, asset: asset),
+      ),
+    );
+    if (mounted) setState(() => refreshSerial++);
+  }
+
+  Future<void> openAssetFields(Map<String, dynamic> asset) async {
+    if (!widget.session.hasFeature('custom_fields') ||
+        !widget.session.can('documents.read'))
+      return;
+    await showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('${asset['name']}'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            OutlinedButton.icon(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push<void>(
+                  this.context,
+                  MaterialPageRoute(
+                    builder: (_) => BusinessCustomFieldsPage(
+                      session: widget.session,
+                      entityType: 'asset',
+                      entityId: asset['id'],
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.playlist_add),
+              label: const Text('Zusatzfelder'),
+            ),
+            if (assetOriginsAvailable)
+              OutlinedButton.icon(
+                onPressed: () {
+                  Navigator.pop(context);
+                  openAssetOrigins(asset);
+                },
+                icon: const Icon(Icons.inventory_2_outlined),
+                label: const Text('Lieferherkunft'),
+              ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Schließen'),
+          ),
+        ],
+      ),
+    );
+  }
+
   String? selected, error;
   bool loading = false;
   int epoch = 0, refreshSerial = 0;
@@ -915,6 +986,41 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
       );
     return Column(
       children: [
+        if (widget.area == 'material' &&
+            widget.session.projectId == null &&
+            widget.session.hasFeature('inventory_counts') &&
+            widget.session.can('inventory.read'))
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+            child: OutlinedButton.icon(
+              onPressed: () => Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      BusinessInventoryCountsPage(session: widget.session),
+                ),
+              ),
+              icon: const Icon(Icons.fact_check_outlined),
+              label: const Text('Inventur öffnen'),
+            ),
+          ),
+        if (widget.area == 'personnel' &&
+            widget.session.projectId == null &&
+            widget.session.hasFeature('personnel_preparation'))
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+            child: FilledButton.icon(
+              onPressed: () => Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      BusinessPersonnelWorkflowPage(session: widget.session),
+                ),
+              ),
+              icon: const Icon(Icons.folder_shared_outlined),
+              label: const Text('Personalakte, Reisen und Lohnvorbereitung'),
+            ),
+          ),
         Padding(
           padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
           child: DropdownButtonFormField<String>(
@@ -978,11 +1084,16 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
                           }
                         : null,
                     onOpen:
-                        [
-                          'measurements',
-                          'diary',
-                          'service-reports',
-                        ].contains(section.id)
+                        section.id == 'assets' &&
+                            widget.session.hasFeature('custom_fields')
+                        ? (record) => openAssetFields(record)
+                        : section.id == 'assets' && assetOriginsAvailable
+                        ? (record) => openAssetOrigins(record)
+                        : [
+                            'measurements',
+                            'diary',
+                            'service-reports',
+                          ].contains(section.id)
                         ? (record) async {
                             await Navigator.push<void>(
                               context,
@@ -1004,12 +1115,17 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
                                   widget.session.canWrite('time.approve'))
                         ? (record) => workflow(section.id, record)
                         : null,
-                    actions:
-                        [
-                              'maintenance/contracts',
-                              'maintenance/history',
-                            ].contains(section.id) &&
-                            widget.session.canWrite('projects.manage')
+                    actions: section.id == 'assets' && assetOriginsAvailable
+                        ? OutlinedButton.icon(
+                            onPressed: () => openAssetOrigins(),
+                            icon: const Icon(Icons.inventory_2_outlined),
+                            label: const Text('Lieferungen und Geräte'),
+                          )
+                        : [
+                                'maintenance/contracts',
+                                'maintenance/history',
+                              ].contains(section.id) &&
+                              widget.session.canWrite('projects.manage')
                         ? OutlinedButton.icon(
                             onPressed: schedule,
                             icon: const Icon(Icons.event_repeat),

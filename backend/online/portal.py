@@ -75,6 +75,8 @@ def _token():
 
 def register_portal_routes(app, office, vault_key, origin):
     """Install customer routes before the catch-all internal API dispatcher."""
+    from online.customer_workspace import register_customer_workspace_routes
+    register_customer_workspace_routes(app, office, vault_key, origin)
     material = vault_key.encode('ascii') if isinstance(vault_key, str) else bytes(vault_key)
     rate_secret = hmac.digest(material, b'smartplan.offer-portal.rate.v1', hashlib.sha256)
 

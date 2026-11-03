@@ -1,0 +1,74 @@
+{
+  "verified_at": "2026-11-03T20:09:35.332045+00:00",
+  "feature": "custom_fields",
+  "supported_entities": [
+    "contact",
+    "project",
+    "asset"
+  ],
+  "supported_types": [
+    "text",
+    "number",
+    "date",
+    "choice",
+    "boolean"
+  ],
+  "tests": {
+    "domain": {
+      "path": "work/verification/custom-fields-domain.log",
+      "passed": 39,
+      "sha256": "32548c37a13603d628f46ad733e6def14efc7f6a7ca2b272f068ca5b778b9140"
+    },
+    "postgres": {
+      "path": "work/verification/custom-fields-postgres.log",
+      "passed": 2,
+      "sha256": "53589d5ea6b2f82bb63f46513ceabfeceab5cb06017d4dd7a2e3043f9aab97ec"
+    },
+    "node": {
+      "path": "work/verification/custom-fields-node.log",
+      "passed": 6,
+      "sha256": "2616a818b1a0d2f5b4fedbcb16ba0a75e1ea0e32a30ce0edda2352e2e2977fbc"
+    },
+    "flutter": {
+      "path": "work/verification/custom-fields-flutter.log",
+      "passed": 7,
+      "sha256": "761f1f3d43f38b10f6bc179e339f17204b1595fc8d066f7d4c0fd2cb150b6113"
+    },
+    "browser": {
+      "path": "work/verification/custom-fields-browser.log",
+      "passed": 1,
+      "sha256": "27c1cb3825de6af74ff30b70da970fb3c8cecdebdcf1c9c2d8896c78e33d6f30"
+    },
+    "analysis": {
+      "path": "work/verification/custom-fields-analyze.log",
+      "passed": 0,
+      "sha256": "b97a5e8227a3cca9dcc04c2a02b060a8ce2e2b609386b30baa2112dd346c6726"
+    }
+  },
+  "domain_breakdown": {
+    "custom_fields": 11,
+    "foundation_regression": 28
+  },
+  "sources": {
+    "backend/business_custom_fields.py": "5b1957b704e2366fd818ecb14a23a1c254172ddb87254848935c555f757d910b",
+    "backend/test_business_custom_fields.py": "56e08677147f13ccb8f7178681b8c38b97ebb1de480dd5881c4046e206f781db",
+    "backend/online/test_business_custom_fields_pg.py": "4079141d0c355de8e9af45651aec5b0f4b228aea3733086de2e605ad85562d2f",
+    "web/office/custom-fields.js": "b63d98a4c16a1660072cc320433c616d9f605ec682db3aca943c7128b66c8966",
+    "web/office/tests/custom-fields.test.mjs": "2752467bbd2e54317c5efc769fcf93f1e4d84df04864cde6d757c2825967b5e5",
+    "web/office/tests/custom-fields-flow.cjs": "be966271d79ae3b071379bde9ae8e3cb4782d10e5892e9497738f1a59bb88909",
+    "app/lib/business_custom_fields.dart": "b742659a3003f65c34cbd491aa330e12788e0b80515d39e58bcdde4457470b11",
+    "app/test/business_custom_fields_test.dart": "60e266bd730ac6ff7c9a71bd5a9fecf24566a9d23d32befde15fb0e436fe106c",
+    "docs/CRM_ERP_ZUSATZFELDER.md": "00232d2bb26bff4644c76ed1dde4ab30946881b76ecd8f69462b141f371b7b40"
+  },
+  "boundaries": [
+    "Synthetic local data only; no external provider calls.",
+    "Free fields do not alter core fields, authorization, tax, accounting, payroll or metrics.",
+    "Required fields govern explicit custom-value saves; existing missing values are shown, never inferred.",
+    "No blanket retention period or implicit deletion of historical private free text.",
+    "PostgreSQL proof ran before the additional read-only can_write projection check; that check is covered by the domain compatibility test."
+  ],
+  "screenshots": [
+    "work/verification/custom-fields-browser/custom-fields-project.png",
+    "work/verification/custom-fields-browser/custom-fields-mobile.png"
+  ]
+}

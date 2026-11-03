@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_purchase_changes.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 
@@ -13,6 +14,7 @@ const purchaseStatuses = {
   'ordered': 'Extern bestellt',
   'partially_received': 'Teilweise eingegangen',
   'received': 'Vollständig eingegangen',
+  'remainder_cancelled': 'Restmenge storniert',
 };
 
 String purchaseQuantity(Object? value, [Object? unit]) =>
@@ -788,6 +790,8 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
               {
                 'source_revision': source['source_revision'],
                 'expected_receipt_revision': source['receipt_revision'],
+                if (source['amendment_revision'] is int)
+                  'expected_amendment_revision': source['amendment_revision'],
                 'receipt_reference': values['receipt_reference'],
                 'received_on': values['received_on'],
                 'location_id': values['location_id'],
@@ -831,6 +835,22 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
         spacing: 12,
         runSpacing: 12,
         children: [
+          if (access.hasFeature('purchase_changes') &&
+              access.hasModule('purchase_changes'))
+            OutlinedButton(
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => BusinessPurchaseChangesPage(
+                      session: widget.session,
+                      orderId: value['id'],
+                    ),
+                  ),
+                );
+                if (mounted) await load();
+              },
+              child: const Text('Belegte Mengenänderungen und Retouren'),
+            ),
           if (status == 'proposal' && write('') && mayChooseArticles) ...[
             OutlinedButton(
               onPressed: () => editProposal(),

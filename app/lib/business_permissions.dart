@@ -30,10 +30,15 @@ const businessPermissionLabels = <String, String>{
   'inventory.write': 'Material und Lager bearbeiten',
   'privacy.manage': 'Datenschutzvorgänge verwalten',
   'settings.manage': 'Facheinstellungen verwalten',
-  'portal.manage': 'Angebotsportal verwalten',
+  'portal.manage': 'Angebots- und Kundenportal verwalten',
+  'assistant.use': 'Assistenten mit eigenen Fachrechten verwenden',
+  'assistant.approve': 'Assistentenaktionen freigeben',
   'accounting.read': 'EÜR-Vorbereitung lesen',
   'accounting.prepare': 'Geldflüsse im Vorjournal bestätigen',
   'accounting.admin': 'Geldkonten verwalten',
+  'bank.read': 'Bankauszüge und Abgleiche lesen',
+  'bank.prepare': 'Bankauszüge importieren und zuordnen',
+  'bank.admin': 'Bankverbindungen verwalten und Abgleiche bestätigen',
 };
 
 const _roleLabels = {
@@ -62,7 +67,10 @@ class _BusinessPermissionsPageState extends State<BusinessPermissionsPage> {
   Map<String, String> get permissions => {
     for (final entry in businessPermissionLabels.entries)
       if ((entry.key != 'portal.manage' ||
-              widget.session.hasFeature('offer_portal')) &&
+              widget.session.hasFeature('offer_portal') ||
+              widget.session.hasFeature('customer_workspace_portal')) &&
+          (!entry.key.startsWith('assistant.') ||
+              widget.session.hasFeature('assistant_workflow')) &&
           (!entry.key.startsWith('accounting.') ||
               (scope == '*' &&
                   widget.session.hasFeature('accounting_prejournal'))))

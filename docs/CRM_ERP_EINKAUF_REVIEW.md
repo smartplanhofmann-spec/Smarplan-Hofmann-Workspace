@@ -130,7 +130,14 @@ Der abschließende Gesamtlauf auf unverändertem Code bestätigt **337 Tests,
 1:40 Minuten, Exit 0, keine übersprungenen Tests**; Log:
 `work/verification/purchasing-flutter-review-full.log`.
 
-## Offene Grenzen
+## Historische Grenzen dieses Reviews
+
+Die folgenden Punkte beschreiben den damaligen Prüfstand. Die strukturierte
+[Geräteherkunft](CRM_ERP_GERAETEHERKUNFT.md), die preisfreie Einkaufsartikelsuche
+in der [aktuellen Einkaufsanleitung](CRM_ERP_EINKAUF.md) sowie
+[Lieferantenretouren und belegte Mengenänderungen](CRM_ERP_EINKAUF_RETOUREN.md)
+sind seitdem ergänzt und mit eigenen Nachweisen geprüft. Die damaligen
+Testaussagen werden dadurch nicht nachträglich erweitert.
 
 - Die Bestätigung dokumentiert eine bereits extern erteilte Bestellung.
   Lieferantenversand und externe Bestellübermittlung sind nicht implementiert.

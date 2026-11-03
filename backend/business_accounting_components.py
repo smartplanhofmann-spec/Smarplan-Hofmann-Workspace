@@ -252,6 +252,10 @@ class DocumentComponents(Domain):
         archive = _archive(self.office, row); value = json.loads(row['payload_json'])
         metadata = dict(document_id=row['id'], receipt_id=None, project_id=row['project_id'], number=row['number'], party_name=value['buyer']['name'],
             payload_sha256=row['payload_sha256'], pdf_sha256=archive['pdf_sha256'], original_sha256=None, review_revision=None, review_sha256=None)
+        from accounting_invoice_sources import is_incremental, archive_chain, groups_from_chain, FAMILY
+        if is_incremental(row):
+            chain = archive_chain(self.office, row)
+            return metadata, groups_from_chain(chain), dict(kind=FAMILY, archive=archive, invoice_chain=chain)
         if row['kind'] != 'invoice':
             return metadata, [], dict(kind='document', archive=archive)
         # Reuse the repository's exact archived-position validator. No current
@@ -291,6 +295,9 @@ class DocumentComponents(Domain):
             return reason, evidence
         from business_accounting_allocations import _normal
         row = self.office.db.execute('SELECT * FROM business_documents WHERE id=?', (raw['document_id'],)).fetchone()
+        from accounting_invoice_sources import is_incremental, eligibility
+        if is_incremental(row):
+            return eligibility(self.office, row)
         relations = [dict(value) for value in self.office.db.execute("SELECT * FROM business_document_relations WHERE (source_id=? OR target_id=?) "
             "AND kind IN ('deducts','cancels') ORDER BY source_id,target_id,kind", (row['id'], row['id'])).fetchall()]
         return (None if _normal(self.office, row) else 'unsupported_document'), dict(relations=relations)
@@ -368,6 +375,9 @@ class DocumentComponents(Domain):
             raise ValueError('Changed component group basis')
         expected_eligibility = (dict(latest_review=dict(revision=raw['reference']['review_revision'], payload_sha256=raw['reference']['review_sha256']))
                                 if raw['kind'] == 'supplier_payout' else dict(relations=[]))
+        from accounting_invoice_sources import FAMILY, successful_eligibility
+        if archive['kind'] == FAMILY:
+            expected_eligibility = successful_eligibility(archive['invoice_chain'])
         if context['reason'] or proof['eligibility'] != expected_eligibility:
             raise ValueError('Invalid historical source eligibility')
         value = json.loads(row['entry_json']); portion = value['portion']

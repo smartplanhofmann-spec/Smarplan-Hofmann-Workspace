@@ -5,7 +5,11 @@ import 'package:cryptography/cryptography.dart';
 import 'package:flutter/material.dart';
 
 import 'business_session.dart';
+import 'business_service.dart';
+import 'business_privacy_cases.dart';
+import 'business_custom_fields.dart';
 import 'business_widgets.dart';
+import 'business_sales.dart';
 import 'design.dart';
 import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
@@ -40,8 +44,13 @@ const businessContactFields = [
 ];
 
 class BusinessContactsPage extends StatelessWidget {
-  const BusinessContactsPage({super.key, required this.session});
+  const BusinessContactsPage({
+    super.key,
+    required this.session,
+    this.onProject,
+  });
   final BusinessSession session;
+  final void Function(Map<String, dynamic>)? onProject;
   Future<void> create(BuildContext context) async {
     String? id;
     await showDialog<bool>(
@@ -68,7 +77,11 @@ class BusinessContactsPage extends StatelessWidget {
       await Navigator.push<void>(
         context,
         MaterialPageRoute(
-          builder: (_) => BusinessContactPage(session: session, id: id!),
+          builder: (_) => BusinessContactPage(
+            session: session,
+            id: id!,
+            onProject: onProject,
+          ),
         ),
       );
   }
@@ -89,11 +102,46 @@ class BusinessContactsPage extends StatelessWidget {
       r['phone'],
     ].where((s) => s != null && s != '').join(' · '),
     onCreate: () => create(context),
+    actions: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        if (session.hasFeature('sales_pipeline') &&
+            session.can('contacts.read'))
+          OutlinedButton.icon(
+            onPressed: () => Navigator.push<void>(
+              context,
+              MaterialPageRoute(
+                builder: (_) =>
+                    BusinessSalesPage(session: session, onProject: onProject),
+              ),
+            ),
+            icon: const Icon(Icons.trending_up),
+            label: const Text('Vertriebspipeline'),
+          ),
+        if (session.hasFeature('privacy_cases') &&
+            session.can('privacy.manage'))
+          OutlinedButton.icon(
+            onPressed: () => Navigator.push<void>(
+              context,
+              MaterialPageRoute(
+                builder: (_) => BusinessPrivacyCasesPage(session: session),
+              ),
+            ),
+            icon: const Icon(Icons.privacy_tip_outlined),
+            label: const Text('Datenschutzfälle'),
+          ),
+      ],
+    ),
     onOpen: (r) async {
       await Navigator.push<void>(
         context,
         MaterialPageRoute(
-          builder: (_) => BusinessContactPage(session: session, id: r['id']),
+          builder: (_) => BusinessContactPage(
+            session: session,
+            id: r['id'],
+            onProject: onProject,
+          ),
         ),
       );
     },
@@ -105,9 +153,11 @@ class BusinessContactPage extends StatefulWidget {
     super.key,
     required this.session,
     required this.id,
+    this.onProject,
   });
   final BusinessSession session;
   final String id;
+  final void Function(Map<String, dynamic>)? onProject;
   @override
   State<BusinessContactPage> createState() => _BusinessContactPageState();
 }
@@ -392,6 +442,52 @@ class _BusinessContactPageState extends State<BusinessContactPage> {
                       onPressed: busy ? null : editBase,
                       icon: const Icon(Icons.edit_outlined),
                       label: const Text('Kontakt bearbeiten'),
+                    ),
+                  if (widget.session.hasFeature('custom_fields'))
+                    OutlinedButton.icon(
+                      onPressed: () => Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => BusinessCustomFieldsPage(
+                            session: widget.session,
+                            entityType: 'contact',
+                            entityId: widget.id,
+                          ),
+                        ),
+                      ),
+                      icon: const Icon(Icons.playlist_add),
+                      label: const Text('Zusatzfelder'),
+                    ),
+                  if (widget.session.hasFeature('service_cases') &&
+                      widget.session.hasModule('service'))
+                    OutlinedButton.icon(
+                      onPressed: () => Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => BusinessServicePage(
+                            session: widget.session,
+                            customerId: widget.id,
+                            onProject: widget.onProject,
+                          ),
+                        ),
+                      ),
+                      icon: const Icon(Icons.support_agent_outlined),
+                      label: const Text('Servicefälle und Reklamationen'),
+                    ),
+                  if (widget.session.hasFeature('sales_pipeline'))
+                    OutlinedButton.icon(
+                      onPressed: () => Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => BusinessSalesPage(
+                            session: widget.session,
+                            customerId: widget.id,
+                            onProject: widget.onProject,
+                          ),
+                        ),
+                      ),
+                      icon: const Icon(Icons.trending_up),
+                      label: const Text('Verkaufschancen'),
                     ),
                   for (final kind in ['persons', 'addresses']) ...[
                     const SizedBox(height: 24),

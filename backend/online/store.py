@@ -71,10 +71,13 @@ class Database:
 class PostgresOffice(Office):
     integrity_error = psycopg.IntegrityError
 
-    def __init__(self, dsn, *, allow_restore_pending=False):
+    def __init__(self, dsn, *, allow_restore_pending=False, instance_roles=None):
         if type(allow_restore_pending) is not bool:
             raise ValueError('Explizite Restore-Prüferfreigabe erwartet.')
         self._allow_restore_pending = allow_restore_pending
+        from online.instance_roles import for_office
+        self.instance_roles = instance_roles
+        self.instance_roles = for_office(self)
         self.lock = threading.RLock()
         self.db = Database(dsn)
         try:
@@ -84,23 +87,36 @@ class PostgresOffice(Office):
             from business_schema import state
             if state(self)['storage_version'] != rows[0]['version']:
                 raise RuntimeError('PostgreSQL-/Business-Schemastand widersprüchlich.')
+            from online.instance_roles import verify_database
+            verify_database(self)
         except BaseException:
             self.db.close()
             raise
         self.failed_logins = {}
 
 
-def migrate(dsn, *, owner_role=None, compatibility_mode=None, require_business_modules=False):
+def migrate(dsn, *, owner_role=None, compatibility_mode=None, require_business_modules=False, instance_roles=None):
     """Explicit, transactional schema creation; never performed by an HTTP request."""
     if compatibility_mode not in (None, 'legacy', 'business'):
         raise ValueError('Unbekannter Kompatibilitätsmodus.')
-    if owner_role not in (None, 'smartplan-migrator'):
+    from online.instance_roles import for_office
+    from types import SimpleNamespace
+    roles = for_office(SimpleNamespace(instance_roles=instance_roles))
+    if owner_role not in (None, roles.owner):
         raise ValueError('Unbekannte Migrationsrolle.')
     with psycopg.connect(dsn, row_factory=row_factory, connect_timeout=5) as connection:
+        if roles.slug is not None:
+            if not roles.owns_database_name(connection.execute('SELECT current_database()').fetchone()[0]):
+                raise ValueError('Migration außerhalb des festen Unternehmensbereichs.')
+            if connection.execute("SELECT to_regclass('public.business_instance_identity')").fetchone()[0]:
+                identities=connection.execute('SELECT instance_id FROM business_instance_identity').fetchall()
+                if len(identities)>1 or identities and identities[0][0]!=roles.instance_id:
+                    raise ValueError('Migration einer fremden Unternehmensinstanz ist gesperrt.')
         if owner_role:
             if connection.execute('SELECT current_user').fetchone()[0] != 'postgres':
                 raise ValueError('Lokaler PostgreSQL-Operator erforderlich.')
-            connection.execute('SET LOCAL ROLE "smartplan-migrator"')
+            from psycopg import sql
+            connection.execute(sql.SQL('SET LOCAL ROLE {}').format(sql.Identifier(roles.owner)))
         connection.execute('SELECT pg_advisory_xact_lock(%s)', (LOCK_ID,))
         connection.execute('CREATE TABLE IF NOT EXISTS smartplan_schema(version INTEGER NOT NULL)')
         rows = connection.execute('SELECT version FROM smartplan_schema').fetchall()
@@ -148,7 +164,7 @@ def migrate(dsn, *, owner_role=None, compatibility_mode=None, require_business_m
                 connection.execute(statement)
             if row['version'] != SCHEMA_VERSION:
                 connection.execute('UPDATE smartplan_schema SET version=6')
-            _migrate_business(connection, dsn, compatibility_mode, require_business_modules)
+            _migrate_business(connection, dsn, compatibility_mode, require_business_modules, roles)
             return
         connection.execute('''
             CREATE TABLE users(id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, salt TEXT NOT NULL,
@@ -208,14 +224,15 @@ def migrate(dsn, *, owner_role=None, compatibility_mode=None, require_business_m
         from integration_bridge import schema_statements as bridge_schema
         for statement in bridge_schema():
             connection.execute(statement)
-        _migrate_business(connection, dsn, compatibility_mode, require_business_modules)
+        _migrate_business(connection, dsn, compatibility_mode, require_business_modules, roles)
 
 
-def _migrate_business(connection, dsn, mode, require_modules):
+def _migrate_business(connection, dsn, mode, require_modules, roles):
     from business_schema import ensure_schema, state, set_mode, require_complete_registry
     if require_modules:
         require_complete_registry()
     office = PostgresOffice.__new__(PostgresOffice)
+    office.instance_roles = roles
     office.lock = threading.RLock()
     office.db = Database.__new__(Database)
     office.db.dsn, office.db.contexts, office.db.connection = dsn, [], connection

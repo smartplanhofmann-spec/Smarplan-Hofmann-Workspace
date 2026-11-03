@@ -1,0 +1,120 @@
+/* Internal project workspace management; the Office host owns authentication. */
+import {workspaceSHA256} from './customer-workspace.js';
+
+const ID=/^[a-f0-9]{32}$/,HASH=/^[a-f0-9]{64}$/,TYPES=new Set(['application/pdf','image/png','image/jpeg','image/webp']);
+const SOURCE_KINDS=new Set(['media','service_report','document']);
+const CLASSIFICATIONS={restricted:'Geschützt · Dokumentfreigabe erforderlich',operational:'Projektteam · operative Dokumentation',financial:'Finanzen · gesonderte Finanzrechte',personnel:'Personal · gesonderte Personalrechte'};
+function fail(message='Der Kundenbereich konnte nicht sicher gelesen werden.'){const error=new Error(message);error.status=502;throw error;}
+function id(value){if(typeof value!=='string'||!ID.test(value))fail();return value;}
+function str(value,max=10000,required=false){if(typeof value!=='string'||value.length>max||(required&&!value.trim()))fail();return value;}
+function timestamp(value){str(value,100,true);if(!Number.isFinite(Date.parse(value)))fail();return value;}
+function object(value){if(!value||typeof value!=='object'||Array.isArray(value))fail();return value;}
+function list(value){if(!Array.isArray(value)||value.length>500)fail();return value;}
+function meta(value){object(value);if(!TYPES.has(value.media_type)||!Number.isSafeInteger(value.size)||value.size<1||value.size>21*1024*1024||!HASH.test(value.sha256||''))fail();return {filename:str(value.filename,240,true),media_type:value.media_type,size:value.size,sha256:value.sha256};}
+function publication(value){if(value===null)return null;object(value);if(!Number.isSafeInteger(value.revision)||value.revision<1)fail();return {id:id(value.id),revision:value.revision,title:str(value.title,300,true),description:str(value.description),status_label:str(value.status_label,200),start_date:value.start_date===null?null:str(value.start_date,10,true),end_date:value.end_date===null?null:str(value.end_date,10,true),published_at:timestamp(value.published_at)};}
+function grant(value){object(value);if(typeof value.allow_upload!=='boolean'||!['active','revoked','expired','unavailable'].includes(value.status))fail();return {id:id(value.id),recipient_name:str(value.recipient_name,200,true),recipient_email:str(value.recipient_email,254,true),allow_upload:value.allow_upload,status:value.status,created_at:timestamp(value.created_at),expires_at:timestamp(value.expires_at)};}
+export function customerWorkspaceAcceptance(value,uploadId,classification=null){object(value);if(value.upload_id!==uploadId||!Object.hasOwn(CLASSIFICATIONS,value.classification)||(classification!==null&&value.classification!==classification))fail('Die Übernahmebestätigung passt nicht zum geprüften Ziel.');return {upload_id:id(value.upload_id),media_id:id(value.media_id),classification:value.classification,accepted_at:timestamp(value.accepted_at)};}
+export function customerWorkspaceRights(capabilities,organization){
+  const permissions=new Set(capabilities?.permissions||[]),available=capabilities?.features?.includes('customer_workspace_portal')===true&&capabilities?.capabilities?.includes('business_customer_workspace')===true;
+  const read=available&&permissions.has('portal.manage')&&permissions.has('documents.read');
+  const active=!Array.isArray(capabilities?.active_capabilities)||capabilities.active_capabilities.includes('business_customer_workspace');
+  const writes=read&&active&&capabilities.readonly===false&&organization?.modules?.documents?.enabled!==false&&capabilities?.organization?.modules?.documents?.enabled!==false;
+  const classifications=Object.keys(CLASSIFICATIONS).filter(key=>key!=='financial'||permissions.has('finance.read')&&permissions.has('finance.write')).filter(key=>key!=='personnel'||permissions.has('personnel.read')&&permissions.has('personnel.manage'));
+  return {available,read,writes,classifications};
+}
+export function customerWorkspaceStaffView(value,projectId){
+  object(value);object(value.project);if(value.project.id!==projectId||typeof value.writes_allowed!=='boolean'||typeof value.can_accept!=='boolean')fail();
+  const project={id:id(value.project.id),customer_id:id(value.project.customer_id),name:str(value.project.name,500,true),customer:str(value.project.customer,500,true)};
+  const files=list(value.files).map(v=>{if(v.project_id!==projectId||!SOURCE_KINDS.has(v.source_kind)||!['published','revoked'].includes(v.status))fail();return {...meta(v),id:id(v.id),project_id:projectId,source_kind:v.source_kind,source_id:id(v.source_id),title:str(v.title,300,true),status:v.status,created_at:timestamp(v.created_at)};});
+  const uploads=list(value.uploads).map(v=>{if(v.project_id!==projectId||!['received','accepted'].includes(v.status))fail();const result={...meta(v),id:id(v.id),project_id:projectId,grant_id:id(v.grant_id),customer_id:id(v.customer_id),note:str(v.note,5000),status:v.status,created_at:timestamp(v.created_at),acceptance:v.acceptance===null?null:customerWorkspaceAcceptance(v.acceptance,v.id)};if((result.status==='accepted')!==(result.acceptance!==null))fail();return result;});
+  const source_files=list(value.source_files).map(v=>{if(!SOURCE_KINDS.has(v.source_kind))fail();return {...meta(v),source_kind:v.source_kind,source_id:id(v.source_id),title:str(v.title,300,true)};});
+  const grants=list(value.grants).map(grant);for(const rows of [files,uploads,grants])if(new Set(rows.map(v=>v.id)).size!==rows.length)fail();
+  return {project,publication:publication(value.publication),grants,files,uploads,source_files,writes_allowed:value.writes_allowed,can_accept:value.can_accept};
+}
+export function customerWorkspaceIssuedLink(result,hostname){
+  const saved=grant(result?.grant);if(result.link_available===false)return null;
+  let url;try{url=new URL(result?.portal_url);}catch{fail('Der Zugang wurde angelegt, sein Link aber nicht sicher bestätigt. Freigabe prüfen und bei Bedarf widerrufen.');}
+  const parts=new URLSearchParams(url.hash.slice(1));
+  if(result.link_available!==true||url.origin!=='https://'+hostname||url.username||url.password||url.pathname!=='/office/customer-workspace.html'||url.search||parts.size!==2||parts.getAll('grant').length!==1||parts.getAll('key').length!==1||parts.get('grant')!==saved.id||!/^SPCI_[A-Za-z0-9_-]{43}$/.test(parts.get('key')||''))fail('Der Link stimmt nicht mit diesem Projektportal überein. Freigabe prüfen und bei Bedarf widerrufen.');
+  return url.href;
+}
+export function customerWorkspacePublicationData(project,current,values){
+  const result={project_id:id(project.id),customer_id:id(project.customer_id),expected_revision:current?.revision??0,title:str(values.title,300,true).trim(),description:str(values.description,10000,true).trim(),status_label:str(values.status_label,200).trim(),start_date:values.start_date||null,end_date:values.end_date||null,confirmation:values.confirmation};
+  if(result.confirmation!==true)throw new Error('Die Veröffentlichung für alle aktuellen Projektfreigaben ausdrücklich bestätigen.');
+  for(const field of ['start_date','end_date'])if(result[field]!==null&&(!/^\d{4}-\d{2}-\d{2}$/.test(result[field])||!Number.isFinite(Date.parse(result[field]))))throw new Error('Bitte ein gültiges Datum angeben.');
+  if(result.start_date&&result.end_date&&result.end_date<result.start_date)throw new Error('Das Ende darf nicht vor dem Beginn liegen.');return result;
+}
+export async function customerWorkspaceOriginal(api,path,metadata){
+  const expected=meta(metadata),blob=await api.binary(path);
+  if(blob.size!==expected.size||blob.type!==expected.media_type||await workspaceSHA256(await blob.arrayBuffer())!==expected.sha256)fail('Die Datei stimmt nicht mit der freigegebenen Originalfassung überein.');return blob;
+}
+function node(tag,attributes={},...children){const element=document.createElement(tag);for(const [name,value]of Object.entries(attributes)){if(value===null||value===undefined)continue;if(name.startsWith('on'))element.addEventListener(name.slice(2).toLowerCase(),value);else if(name==='class')element.className=value;else if(name in element)element[name]=value;else element.setAttribute(name,value);}for(const child of children.flat(Infinity))if(child!==null&&child!==undefined)element.append(child instanceof Node?child:document.createTextNode(String(child)));return element;}
+const message=(text,error=false)=>node('p',{class:error?'notice error':'notice',role:error?'alert':'status'},text);
+const action=(label,callback,primary=false)=>node('button',{type:'button',class:primary?'button primary':'button',onClick:callback},label);
+const label=(title,control)=>{control.setAttribute('aria-label',title);return node('label',{class:'field'},node('span',{},title),control);};
+const time=value=>new Date(value).toLocaleString('de-DE');
+const paragraphs=value=>value.split('\n').map(text=>node('p',{},text));
+function save(blob,filename){const url=URL.createObjectURL(blob),anchor=node('a',{href:url,download:filename});document.body.append(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+
+export async function renderCustomerWorkspace({api,projectId,capabilities,organization=null,isCurrent=()=>true,onChange=()=>{},hostname=globalThis.location?.hostname}){
+  const root=node('section',{class:'panel stack customer-workspace','data-customer-workspace':''}),rights=customerWorkspaceRights(capabilities,organization),generation=api.generation;let data=null,busy=false,freshUrl=null,notice=null,editor=null;
+  const current=()=>isCurrent()&&api.generation===generation;
+  function guard(){if(!current()){data=null;freshUrl=null;root.replaceChildren(message('Der Projektzugriff hat sich geändert. Den Kundenbereich erneut öffnen.'));return false;}return true;}
+  if(!rights.read||!ID.test(projectId||'')){root.append(node('h2',{},'Kundenbereich'),message('Für diesen Projektbereich sind eine aktuelle Portal- und Dokumentfreigabe erforderlich.'));return root;}
+  function editable(){return rights.writes&&data?.writes_allowed===true;}
+  async function load(){if(!guard())return;const result=customerWorkspaceStaffView(await api.get('/business/customer-workspace?project_id='+projectId),projectId);if(!guard())return;if(data&&data.project.customer_id!==result.project.customer_id){freshUrl=null;editor=null;notice='Die Kundenbindung wurde geändert. Freigaben und Eingaben bitte neu prüfen.';}data=result;render();}
+  async function run(operation){if(busy||!guard())return;busy=true;root.querySelectorAll('button').forEach(v=>{v.disabled=true;});try{await operation();if(!guard())return;}catch(error){if(!guard())return;if([401,403,404].includes(error.status)){data=null;freshUrl=null;editor=null;root.replaceChildren(node('h2',{},'Kundenbereich'),message('Der Zugriff ist nicht mehr freigegeben. Gesicherte Vorgänge bleiben erhalten.',true));}else{notice=error.message||'Der Vorgang konnte nicht bestätigt werden.';if(!data)root.replaceChildren(node('h2',{},'Kundenbereich'),message(notice,true),action('Erneut laden',()=>run(load)));else renderStatus(true);}}finally{busy=false;if(current())root.querySelectorAll('button').forEach(v=>{v.disabled=false;});}}
+  function renderStatus(error=false){const target=root.querySelector('[data-workspace-status]');target?.replaceChildren(notice?message(notice,error):'');}
+  async function mutate(key,path,body,validate){if(!guard())return;const result=await api.mutate('customer-workspace-'+projectId+'-'+key,'/business/customer-workspace'+path,body,{validate});if(!guard())return;editor=null;notice='Gespeichert.';await load();if(guard()&&key!=='grant')onChange();return result;}
+  function openEditor(title,content){editor={title,content};render();root.querySelector('[data-workspace-editor] input,[data-workspace-editor] textarea,[data-workspace-editor] select')?.focus();}
+  function confirmation(text){const control=node('input',{type:'checkbox',required:true});return {control,node:node('label',{class:'field check'},control,node('span',{},text))};}
+  function submitForm(title,controls,submit,handler){const footer=node('div',{class:'actions'},node('button',{type:'submit',class:'button primary'},submit),action('Schließen',()=>{editor=null;render();})),form=node('form',{class:'stack'},controls,footer);form.addEventListener('submit',event=>{event.preventDefault();run(()=>handler());});openEditor(title,form);}
+  function grantEditor(){
+    const recipient=node('input',{required:true,maxLength:200}),email=node('input',{type:'email',required:true,maxLength:254}),days=node('input',{type:'number',min:1,max:30,value:7,required:true}),upload=node('input',{type:'checkbox'}),agree=confirmation('Ich gebe den Kundenbereich dieses Projekts für den genannten Empfänger ausdrücklich frei.');
+    submitForm('Projektzugang freigeben',[message('Der Link berechtigt zum freigegebenen Projektinhalt. Es wird keine Nachricht versendet. Die Empfängeradresse wird dokumentiert, nicht extern verifiziert.'),label('Empfängername',recipient),label('E-Mail-Adresse',email),label('Gültigkeit in Tagen',days),node('label',{class:'field check'},upload,'Kunde darf Dateien zur internen Prüfung übermitteln'),agree.node],'Projektzugang freigeben',async()=>{
+      if(!editable())throw new Error('Neue Freigaben sind derzeit gesperrt.');if(!agree.control.checked)throw new Error('Bitte die Freigabe bestätigen.');
+      const body={project_id:projectId,customer_id:data.project.customer_id,recipient_name:recipient.value.trim(),recipient_email:email.value.trim(),expires_in_days:Number(days.value),allow_upload:upload.checked,confirmation:true};
+      const result=await mutate('grant','/grants',body,value=>customerWorkspaceIssuedLink(value,hostname));
+      if(!result||!guard())return;const active=data.grants.some(item=>item.id===result.grant.id&&item.status==='active');freshUrl=active?customerWorkspaceIssuedLink(result,hostname):null;notice=freshUrl?'Der Link wird nur jetzt angezeigt. Gezielt sichern und ausschließlich dem vorgesehenen Empfänger weitergeben.':active?'Die Freigabe ist bereits gespeichert. Ihr geheimer Link wird nicht erneut angezeigt; bei Bedarf widerrufen und neu freigeben.':'Die Freigabe ist inzwischen nicht mehr aktiv. Kundenbindung und Freigabestand bitte erneut prüfen.';render();
+    });
+  }
+  function publicationEditor(){
+    const old=data.publication,title=node('input',{required:true,maxLength:300,value:old?.title||data.project.name}),description=node('textarea',{required:true,rows:6,maxLength:10000,value:old?.description||''}),phase=node('input',{maxLength:200,value:old?.status_label||''}),start=node('input',{type:'date',value:old?.start_date||''}),end=node('input',{type:'date',value:old?.end_date||''}),agree=confirmation('Ich veröffentliche genau diesen Text für alle aktuellen Kundenfreigaben dieses Projekts.');
+    submitForm('Projektinformationen veröffentlichen',[message('Nur diese ausdrücklich eingegebenen Informationen werden veröffentlicht. Interne Projekttexte werden nicht automatisch übernommen.'),label('Öffentlicher Titel',title),label('Öffentliche Projektinformation',description),label('Öffentlicher Status',phase),label('Beginn',start),label('Ende',end),agree.node],'Projektinformation veröffentlichen',()=>{
+      if(!editable())throw new Error('Veröffentlichungen sind derzeit gesperrt.');
+      const body=customerWorkspacePublicationData(data.project,old,{title:title.value,description:description.value,status_label:phase.value,start_date:start.value,end_date:end.value,confirmation:agree.control.checked});
+      return mutate('publication','/publications',body,value=>{const result=publication(value);if(result.revision!==body.expected_revision+1||['title','description','status_label','start_date','end_date'].some(key=>result[key]!==body[key]))fail('Die bestätigte Veröffentlichung stimmt nicht mit der geprüften Fassung überein.');});
+    });
+  }
+  function fileEditor(){
+    if(!data.source_files.length){notice='Es gibt derzeit keine freigebbaren Originaldateien mit Ihren aktuellen Rechten.';renderStatus();return;}
+    const select=node('select',{required:true},data.source_files.map(file=>node('option',{value:file.source_kind+':'+file.source_id},file.title+' · '+file.filename))),title=node('input',{required:true,maxLength:300,value:data.source_files[0].title}),agree=confirmation('Ich habe diese Originalfassung geprüft und veröffentliche sie für alle aktuellen Kundenfreigaben dieses Projekts.');
+    const selected=()=>data.source_files.find(v=>v.source_kind+':'+v.source_id===select.value);select.addEventListener('change',()=>{title.value=selected()?.title||'';agree.control.checked=false;});
+    const preview=action('Gewähltes Original herunterladen',()=>run(async()=>{const source=selected();if(!source)throw new Error('Bitte eine Originaldatei auswählen.');const blob=await customerWorkspaceOriginal(api,'/business/customer-workspace/sources/'+source.source_kind+'/'+source.source_id+'/content?project_id='+projectId,source);if(guard())save(blob,source.filename);}));
+    submitForm('Originaldatei freigeben',[label('Originaldatei',select),preview,label('Titel im Kundenbereich',title),agree.node],'Originaldatei freigeben',()=>{
+      if(!editable()||!agree.control.checked)throw new Error('Bitte die geprüfte Originalfassung ausdrücklich freigeben.');const source=selected();if(!source)throw new Error('Bitte eine Originaldatei auswählen.');
+      const body={project_id:projectId,customer_id:data.project.customer_id,source_kind:source.source_kind,source_id:source.source_id,source_sha256:source.sha256,title:title.value.trim(),confirmation:true};
+      return mutate('file-'+source.source_id,'/files',body,value=>{meta(value);if(value.project_id!==projectId||value.source_kind!==body.source_kind||value.source_id!==body.source_id||value.sha256!==body.source_sha256||value.status!=='published'||value.title!==body.title)fail('Die bestätigte Dateifreigabe stimmt nicht mit dem Original überein.');id(value.id);});
+    });
+  }
+  function revoke(kind,row){const reason=node('textarea',{required:true,rows:3,maxLength:500}),agree=confirmation('Ich widerrufe diese '+(kind==='grants'?'Projektfreigabe einschließlich ihrer laufenden Kundensitzungen.':'Dateifreigabe für den weiteren Kundenzugriff.'));submitForm(kind==='grants'?'Projektzugang widerrufen':'Dateifreigabe widerrufen',[message('Der Widerruf entfernt keine gespeicherte Historie und holt bereits heruntergeladene Dateien nicht zurück.'),label('Grund',reason),agree.node],'Widerruf speichern',()=>{if(!agree.control.checked)throw new Error('Bitte den Widerruf bestätigen.');return mutate('revoke-'+row.id,'/'+kind+'/'+row.id+'/revoke',{reason:reason.value.trim()},value=>{if(value?.id!==row.id||value.status!=='revoked')fail('Der Widerruf konnte nicht eindeutig bestätigt werden.');});});}
+  function accept(row){
+    const classification=node('select',{},rights.classifications.map(key=>node('option',{value:key,selected:key==='restricted'},CLASSIFICATIONS[key]))),agree=confirmation('Ich habe das übermittelte Original geprüft und übernehme es mit den gewählten Zugriffsrechten in dieses Projekt.');
+    submitForm('Kundendatei intern übernehmen',[message(row.filename+' · '+Math.ceil(row.size/1024)+' KiB'),action('Übermitteltes Original herunterladen',()=>run(async()=>{const blob=await customerWorkspaceOriginal(api,'/business/customer-workspace/uploads/'+row.id+'/content',row);if(guard())save(blob,row.filename);})),...paragraphs(row.note),label('Zugriff auf die übernommene Projektdatei',classification),agree.node],'Geprüfte Datei übernehmen',()=>{if(!editable()||!data.can_accept||!agree.control.checked)throw new Error('Bitte die Originalprüfung und Zielrechte ausdrücklich bestätigen.');const choice=classification.value;return mutate('accept-'+row.id,'/uploads/'+row.id+'/accept',{confirmation:true,classification:choice},value=>customerWorkspaceAcceptance(value,row.id,choice));});
+  }
+  function render(){
+    if(!guard()||!data)return;
+    const heading=node('div',{class:'panel-title'},node('div',{},node('h2',{},'Kundenbereich'),node('p',{class:'muted'},data.project.name+' · '+data.project.customer)),action('Kundenbereich aktualisieren',()=>run(load))),status=node('div',{'data-workspace-status':''});
+    const top=node('div',{class:'actions'},editable()?action('Projektzugang freigeben',grantEditor,true):null,editable()?action('Projektinformationen veröffentlichen',publicationEditor):null,editable()?action('Originaldatei freigeben',fileEditor):null);
+    const content=[heading,status,message('Kunden sehen ausschließlich ausdrücklich veröffentlichte Projektinformationen und Dateien. Angebotszugänge bleiben eigenständig.'),top];
+    if(!editable())content.push(message('Neue Veröffentlichungen und Übernahmen sind derzeit gesperrt. Bestehende Freigaben können weiterhin widerrufen werden.'));
+    if(freshUrl){const link=node('input',{value:freshUrl,readOnly:true,'aria-label':'Neuer Projektzugang'});content.push(node('section',{class:'panel'},node('h3',{},'Neuer Projektzugang'),message('Nur jetzt sichtbar. Dieser Link ist ein Zugangsschlüssel.'),label('Neuer Projektzugang',link),action('Link ausdrücklich kopieren',()=>run(async()=>{if(!guard())return;await navigator.clipboard.writeText(freshUrl);notice='Link kopiert. Es wurde keine Nachricht versendet.';renderStatus();}))));}
+    if(editor)content.push(node('section',{class:'panel stack','data-workspace-editor':''},node('h3',{},editor.title),editor.content));
+    const currentPublication=data.publication;content.push(node('section',{class:'panel'},node('h3',{},'Veröffentlichte Projektinformation'),currentPublication?[node('h4',{},currentPublication.title),node('p',{class:'muted'},currentPublication.status_label+' · Fassung '+currentPublication.revision+' · '+time(currentPublication.published_at)),...paragraphs(currentPublication.description)]:message('Noch keine Projektinformationen veröffentlicht.')));
+    content.push(node('section',{class:'panel'},node('h3',{},'Projektzugänge'),data.grants.length?data.grants.map(row=>node('article',{class:'list-row'},node('div',{class:'body'},node('h4',{class:'break-word'},row.recipient_name),node('p',{},row.recipient_email),node('p',{class:'muted'},row.status+' · bis '+time(row.expires_at)+(row.allow_upload?' · Dateieingang freigegeben':''))),row.status==='active'?action('Zugang widerrufen',()=>revoke('grants',row)):null)):message('Noch keine Projektzugänge vorhanden.')));
+    content.push(node('section',{class:'panel'},node('h3',{},'Freigegebene Originaldateien'),data.files.length?data.files.map(row=>node('article',{class:'list-row'},node('div',{class:'body'},node('h4',{class:'break-word'},row.title),node('p',{},row.filename),node('p',{class:'muted'},row.status==='published'?'Für berechtigte Kunden freigegeben':'Dateifreigabe widerrufen')),node('div',{class:'actions'},action('Veröffentlichte Fassung herunterladen',()=>run(async()=>{const blob=await customerWorkspaceOriginal(api,'/business/customer-workspace/files/'+row.id+'/content',row);if(guard())save(blob,row.filename);})),row.status==='published'?action('Dateifreigabe widerrufen',()=>revoke('files',row)):null))):message('Noch keine Dateien freigegeben.')));
+    content.push(node('section',{class:'panel'},node('h3',{},'Kundenposteingang'),data.uploads.length?data.uploads.map(row=>node('article',{class:'list-row'},node('div',{class:'body'},node('h4',{class:'break-word'},row.filename),node('p',{class:'muted'},time(row.created_at)+' · '+(row.status==='accepted'?'Übernommen · '+CLASSIFICATIONS[row.acceptance.classification]:'Interne Prüfung ausstehend')),...paragraphs(row.note)),node('div',{class:'actions'},action('Kundenoriginal herunterladen',()=>run(async()=>{const blob=await customerWorkspaceOriginal(api,'/business/customer-workspace/uploads/'+row.id+'/content',row);if(guard())save(blob,row.filename);})),row.status==='received'&&editable()&&data.can_accept?action('Prüfen und übernehmen',()=>accept(row),true):null))):message('Noch keine Kundendateien eingegangen.')));
+    root.replaceChildren(...content);renderStatus();
+  }
+  root.append(node('h2',{},'Kundenbereich'),message('Freigaben werden geladen …'));await run(load);return root;
+}

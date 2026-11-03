@@ -186,7 +186,7 @@ void main() {
   Future<void> choosePortal(WidgetTester tester) async {
     await pick(tester, field('Benutzer'), 'worker@example.test · Technik');
     await pick(tester, field('Umfang'), 'Synthetisches Projekt');
-    await pick(tester, field('Fachrecht'), 'Angebotsportal verwalten');
+    await pick(tester, field('Fachrecht'), 'Angebots- und Kundenportal verwalten');
     await tap(tester, find.text('Regel prüfen'));
   }
 

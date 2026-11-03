@@ -6,6 +6,7 @@ import 'business_accounting_components.dart';
 import 'business_accounting_refunds.dart';
 import 'business_accounting_refunds_v2.dart';
 import 'business_accounting_profile.dart';
+import 'business_accounting_euer.dart';
 import 'business_accounting_capacity.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
@@ -72,6 +73,7 @@ const _tabs = {
   'accounts': 'Geldkonten',
 };
 const _blockedReasons = {
+  'external_cash_evidence': 'Dieser Zahlungsnachweis ist an das EÜR-Journal gebunden; eine zusätzliche Lieferantenauszahlung ist gesperrt.',
   'review_changed': 'Die Belegprüfung wurde geändert. Weitere Auszahlungen benötigen eine Klärung.',
   'duplicate_original':
       'Dieses Original ist bereits anderweitig zahlungsgebunden. Bitte klären.',
@@ -79,8 +81,15 @@ const _blockedReasons = {
 };
 
 class BusinessAccountingPage extends StatefulWidget {
-  const BusinessAccountingPage({super.key, required this.session});
+  const BusinessAccountingPage({
+    super.key,
+    required this.session,
+    this.initialTab = 'events',
+    this.initialEventId,
+  });
   final BusinessSession session;
+  final String initialTab;
+  final String? initialEventId;
   @override
   State<BusinessAccountingPage> createState() => _BusinessAccountingPageState();
 }
@@ -108,7 +117,11 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
   void initState() {
     super.initState();
     widget.session.addListener(changed);
-    load();
+    tab = _tabs.containsKey(widget.initialTab) ? widget.initialTab : 'events';
+    load().then((_) {
+      if (mounted && widget.initialEventId != null)
+        openEvent(widget.initialEventId!);
+    });
   }
 
   void clear() {
@@ -431,7 +444,9 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
               'Bestätigter Geldabfluss (€)',
               type: BusinessInput.decimal,
               required: true,
-              hint: 'Offen: ${businessMoney(source['remaining_amount'])}',
+              hint: source['source_role'] == 'payment_evidence'
+                  ? 'Nur den bereits begonnenen unveränderten Auftrag klären.'
+                  : 'Offen: ${businessMoney(source['remaining_amount'])}',
             ),
           const BusinessField(
             'cash_date',
@@ -767,7 +782,9 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
       ),
       Text('Beleg brutto: ${businessMoney(source['gross'])}'),
       Text(
-        'Bestätigt ausgezahlt: ${businessMoney(source['paid_amount'])} · Verbleibend: ${businessMoney(source['remaining_amount'])}',
+        source['source_role'] == 'payment_evidence'
+            ? 'Gebundener Zahlungsnachweis im EÜR-Journal; keine Lieferantenverbindlichkeit.'
+            : 'Bestätigt ausgezahlt: ${businessMoney(source['paid_amount'])} · Verbleibend: ${businessMoney(source['remaining_amount'])}',
       ),
       if (source['payable'] != true)
         Text(
@@ -810,8 +827,24 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
         : ListView(
             padding: const EdgeInsets.all(24),
             children: [
+              if (businessEuerReadable(widget.session))
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: FilledButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) =>
+                            BusinessEuerPage(session: widget.session),
+                      ),
+                    ),
+                    icon: const Icon(Icons.account_balance_outlined),
+                    label: const Text('Eigene EÜR: Quellen bis Jahresausgabe'),
+                  ),
+                ),
               Notice(
-                businessPreparationProfileReadable(widget.session)
+                businessEuerReadable(widget.session)
+                    ? 'Dieses Geldflussvorjournal belegt tatsächliche Zahlungen. Fachliche Einordnungen, EÜR und Umsatzsteuer werden im eigenen EÜR-Journal getrennt geprüft und gebucht.'
+                    : businessPreparationProfileReadable(widget.session)
                     ? 'Dieses Vorjournal enthält belegte Geldflüsse ohne steuerliche Einordnung. Ein gespeichertes Vorbereitungsprofil aktiviert keine Steuerregel. Ein EÜR-Ergebnis ist weiterhin nicht verfügbar.'
                     : 'Steuerprofil nicht eingerichtet. Dieses Vorjournal enthält belegte Geldflüsse ohne steuerliche Einordnung. Ein EÜR-Ergebnis ist noch nicht verfügbar.',
               ),

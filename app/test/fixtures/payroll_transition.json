@@ -1,0 +1,1926 @@
+{
+  "employee": {
+    "id": "6c129152f3654a3987c9937d5740ac14",
+    "user_id": "ae7c7191c69947d387db626407f8778c",
+    "name": "Synthetic technician",
+    "active": true,
+    "revision": 1,
+    "updated_at": "2026-10-26T12:00:00+00:00",
+    "weekly_minutes": 2400,
+    "hourly_cost_minor": 3500,
+    "employment_from": null,
+    "employment_to": null
+  },
+  "original": {
+    "file": {
+      "id": "b24b87e1628d4043ac6e1a9cd1584375",
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "purpose": "personnel",
+      "owner_visible": 0,
+      "filename": "verified-payroll-profile.pdf",
+      "media_type": "application/pdf",
+      "size": 50,
+      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+      "content_hash": "35b6710750c1b7ff89aa67900d2cbeecfc431bac04e8586a55db655c01f55c29",
+      "supersedes": null,
+      "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+      "created_at": "2026-10-26T12:00:00+00:00"
+    },
+    "agreement": {
+      "amount_minor": 100000,
+      "correction_reason": "",
+      "currency": "EUR",
+      "effective_from": "2026-01-01",
+      "employment_kind": "regular",
+      "notes": "",
+      "pay_basis": "monthly",
+      "reference_file_id": "b24b87e1628d4043ac6e1a9cd1584375",
+      "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+      "id": "8358e034099342b08c00db15e883bd65",
+      "kind": "agreement",
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "revision": 1,
+      "content_hash": "86fbc6cbee8368867ab5e6670233fa4746796f2208c442d8250e69ce58b86a1b",
+      "previous_hash": null,
+      "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+      "created_at": "2026-10-26T12:00:00+00:00",
+      "pdf_sha256": null
+    },
+    "profile": {
+      "confirmed": true,
+      "correction_reason": "",
+      "profile": {
+        "church_tax": "none",
+        "date_of_birth": "1990-02-01",
+        "effective_from": "2026-01-01",
+        "employment_kind": "regular",
+        "federal_state": "HE",
+        "has_children": false,
+        "health_additional_percent": "2.900",
+        "health_fund": "Synthetic documented fund",
+        "health_insurance": "statutory_mandatory",
+        "minijob_rv_exempt": false,
+        "minijob_tax": "individual",
+        "pension_other_compulsory": false,
+        "pv_children_under_25": 0,
+        "regular_annual_gross_minor": 1200000,
+        "special_cases": [],
+        "tax_addition_monthly_minor": 0,
+        "tax_allowance_monthly_minor": 0,
+        "tax_children_half_units": 0,
+        "tax_class": 1,
+        "transition_assessment": {
+          "assessed_on": "2026-01-01",
+          "forecast_months": 12,
+          "foreseeable_one_off_payments": false,
+          "note": "Synthetic reviewed 12-month contract and hours prognosis",
+          "regular_monthly_gross_minor": 100000,
+          "status": "within_transition_area"
+        },
+        "u1_percent": "2.100",
+        "u1_required": true,
+        "u2_percent": "0.440",
+        "verification_note": "Synthetic verified source values for reference tests"
+      },
+      "source_file": {
+        "content_hash": "35b6710750c1b7ff89aa67900d2cbeecfc431bac04e8586a55db655c01f55c29",
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "id": "b24b87e1628d4043ac6e1a9cd1584375",
+        "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+      },
+      "id": "0480796bde584d26934cee7cd8b8a735",
+      "kind": "profile",
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "revision": 1,
+      "content_hash": "d3a83bc06779efbfaf04ab5986e9907fed3cbde063cdfaa85ee33c5b547ed81a",
+      "previous_hash": null,
+      "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+      "created_at": "2026-10-26T12:00:00+00:00",
+      "pdf_sha256": null
+    },
+    "preparation": {
+      "completeness_confirmed": true,
+      "correction_reason": "",
+      "month": "2026-10",
+      "payroll_calculated": false,
+      "snapshot": {
+        "agreements": [
+          {
+            "amount_minor": 100000,
+            "content_hash": "86fbc6cbee8368867ab5e6670233fa4746796f2208c442d8250e69ce58b86a1b",
+            "correction_reason": "",
+            "created_at": "2026-10-26T12:00:00+00:00",
+            "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+            "currency": "EUR",
+            "effective_from": "2026-01-01",
+            "employee_id": "6c129152f3654a3987c9937d5740ac14",
+            "employment_kind": "regular",
+            "id": "8358e034099342b08c00db15e883bd65",
+            "kind": "agreement",
+            "notes": "",
+            "pay_basis": "monthly",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "reference_file_id": "b24b87e1628d4043ac6e1a9cd1584375",
+            "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+            "revision": 1
+          }
+        ],
+        "allowance_calculation": false,
+        "approved_absences": [],
+        "approved_days": [],
+        "corrections": [],
+        "currency": "EUR",
+        "employee": {
+          "employment_from": null,
+          "employment_to": null,
+          "id": "6c129152f3654a3987c9937d5740ac14",
+          "name": "Synthetic technician",
+          "revision": 1,
+          "user_id": "ae7c7191c69947d387db626407f8778c"
+        },
+        "expenses": [],
+        "month": "2026-10",
+        "net_work_seconds": 0,
+        "payroll_calculated": false,
+        "recorded_expenses_minor": 0,
+        "schema_version": 1,
+        "scope": "recorded_and_approved_sources",
+        "tax_treatment": "not_determined"
+      },
+      "source_hash": "90744b5448d2e4ed2c13f51a7ec0d4ab458741ca7ec945fb67e3545492d01dfa",
+      "status": "preparation_closed",
+      "transmission_status": "not_transmitted",
+      "id": "7b8c05c2e845446db754c9d68fc6d9bb",
+      "kind": "preparation",
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "revision": 1,
+      "content_hash": "c973a0a818f955df1ab51f1a380501320cf7858d5277f48ca62853b47e1d90ec",
+      "previous_hash": null,
+      "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+      "created_at": "2026-10-26T12:00:00+00:00",
+      "pdf_sha256": "6e9dd5a9e70943a7d93964f020d21dbc69226fab9cfa30df368bb8494ef879f9"
+    },
+    "inputs": {
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "profile_id": "0480796bde584d26934cee7cd8b8a735",
+      "profile_revision": 1,
+      "preparation_id": "7b8c05c2e845446db754c9d68fc6d9bb",
+      "preparation_revision": 1,
+      "gross_minor": 100000,
+      "full_month_confirmed": true
+    }
+  },
+  "preview": {
+    "source": {
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "month": "2026-10",
+      "input": {
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "profile_id": "0480796bde584d26934cee7cd8b8a735",
+        "profile_revision": 1,
+        "preparation_id": "7b8c05c2e845446db754c9d68fc6d9bb",
+        "preparation_revision": 1,
+        "gross_minor": 100000,
+        "full_month_confirmed": true
+      },
+      "profile": {
+        "confirmed": true,
+        "correction_reason": "",
+        "profile": {
+          "church_tax": "none",
+          "date_of_birth": "1990-02-01",
+          "effective_from": "2026-01-01",
+          "employment_kind": "regular",
+          "federal_state": "HE",
+          "has_children": false,
+          "health_additional_percent": "2.900",
+          "health_fund": "Synthetic documented fund",
+          "health_insurance": "statutory_mandatory",
+          "minijob_rv_exempt": false,
+          "minijob_tax": "individual",
+          "pension_other_compulsory": false,
+          "pv_children_under_25": 0,
+          "regular_annual_gross_minor": 1200000,
+          "special_cases": [],
+          "tax_addition_monthly_minor": 0,
+          "tax_allowance_monthly_minor": 0,
+          "tax_children_half_units": 0,
+          "tax_class": 1,
+          "transition_assessment": {
+            "assessed_on": "2026-01-01",
+            "forecast_months": 12,
+            "foreseeable_one_off_payments": false,
+            "note": "Synthetic reviewed 12-month contract and hours prognosis",
+            "regular_monthly_gross_minor": 100000,
+            "status": "within_transition_area"
+          },
+          "u1_percent": "2.100",
+          "u1_required": true,
+          "u2_percent": "0.440",
+          "verification_note": "Synthetic verified source values for reference tests"
+        },
+        "source_file": {
+          "content_hash": "35b6710750c1b7ff89aa67900d2cbeecfc431bac04e8586a55db655c01f55c29",
+          "employee_id": "6c129152f3654a3987c9937d5740ac14",
+          "id": "b24b87e1628d4043ac6e1a9cd1584375",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        },
+        "id": "0480796bde584d26934cee7cd8b8a735",
+        "kind": "profile",
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "revision": 1,
+        "content_hash": "d3a83bc06779efbfaf04ab5986e9907fed3cbde063cdfaa85ee33c5b547ed81a",
+        "previous_hash": null,
+        "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "pdf_sha256": null
+      },
+      "preparation": {
+        "completeness_confirmed": true,
+        "correction_reason": "",
+        "month": "2026-10",
+        "payroll_calculated": false,
+        "snapshot": {
+          "agreements": [
+            {
+              "amount_minor": 100000,
+              "content_hash": "86fbc6cbee8368867ab5e6670233fa4746796f2208c442d8250e69ce58b86a1b",
+              "correction_reason": "",
+              "created_at": "2026-10-26T12:00:00+00:00",
+              "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+              "currency": "EUR",
+              "effective_from": "2026-01-01",
+              "employee_id": "6c129152f3654a3987c9937d5740ac14",
+              "employment_kind": "regular",
+              "id": "8358e034099342b08c00db15e883bd65",
+              "kind": "agreement",
+              "notes": "",
+              "pay_basis": "monthly",
+              "pdf_sha256": null,
+              "previous_hash": null,
+              "reference_file_id": "b24b87e1628d4043ac6e1a9cd1584375",
+              "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "revision": 1
+            }
+          ],
+          "allowance_calculation": false,
+          "approved_absences": [],
+          "approved_days": [],
+          "corrections": [],
+          "currency": "EUR",
+          "employee": {
+            "employment_from": null,
+            "employment_to": null,
+            "id": "6c129152f3654a3987c9937d5740ac14",
+            "name": "Synthetic technician",
+            "revision": 1,
+            "user_id": "ae7c7191c69947d387db626407f8778c"
+          },
+          "expenses": [],
+          "month": "2026-10",
+          "net_work_seconds": 0,
+          "payroll_calculated": false,
+          "recorded_expenses_minor": 0,
+          "schema_version": 1,
+          "scope": "recorded_and_approved_sources",
+          "tax_treatment": "not_determined"
+        },
+        "source_hash": "90744b5448d2e4ed2c13f51a7ec0d4ab458741ca7ec945fb67e3545492d01dfa",
+        "status": "preparation_closed",
+        "transmission_status": "not_transmitted",
+        "id": "7b8c05c2e845446db754c9d68fc6d9bb",
+        "kind": "preparation",
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "revision": 1,
+        "content_hash": "c973a0a818f955df1ab51f1a380501320cf7858d5277f48ca62853b47e1d90ec",
+        "previous_hash": null,
+        "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "pdf_sha256": "6e9dd5a9e70943a7d93964f020d21dbc69226fab9cfa30df368bb8494ef879f9"
+      },
+      "profiles_in_month": []
+    },
+    "calculation": {
+      "rule_version": "de_2026_transition_monthly_pap_v3",
+      "rules_sha256": "4f53a8787052c036dee5faa86f853fdf8fc81434d92a3082a5f964264bce6f0e",
+      "pap_version": "bmf_2026_2025_11_12_standard_v1",
+      "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+      "month": "2026-10",
+      "currency": "EUR",
+      "gross_minor": 100000,
+      "scope": "regular_transition_monthly",
+      "payroll_calculation_complete": true,
+      "social_contributions_available": true,
+      "employee_contributions": {
+        "health_general": 4149,
+        "health_additional": 824,
+        "pension": 5286,
+        "unemployment": 739,
+        "care": 1535
+      },
+      "employer_contributions": {
+        "health_general": 8321,
+        "health_additional": 1652,
+        "pension": 10600,
+        "unemployment": 1481,
+        "care": 2051
+      },
+      "employee_social_total_minor": 12533,
+      "employer_social_total_minor": 24105,
+      "employer_levies": {
+        "u1": 1794,
+        "u2": 376,
+        "insolvency": 128
+      },
+      "employer_flat_tax_minor": 0,
+      "employer_total_excluding_accident_insurance_minor": 126403,
+      "accident_insurance_included": false,
+      "individual_wage_tax_minor": 0,
+      "solidarity_minor": 0,
+      "church_tax_minor": 0,
+      "employee_tax_minor": 0,
+      "net_minor": 87467,
+      "payout_minor": 87467,
+      "employee_additional_payment_minor": 0,
+      "tax_parameters": {
+        "tax_class": 1,
+        "children_half_units": 0,
+        "church_tax_percent": "0",
+        "tax_allowance_monthly_minor": 0,
+        "tax_addition_monthly_minor": 0,
+        "church_assessment_minor": 0
+      },
+      "blockers": [],
+      "statutory_report_status": "not_transmitted",
+      "official_system_approval": false,
+      "transition": {
+        "regime": "within_transition_area",
+        "total_assessment_minor": 85406,
+        "employee_assessment_minor": 56836,
+        "regular_monthly_gross_minor": 100000,
+        "factor": "0.6619",
+        "branch_bases": {
+          "health_general": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          },
+          "health_additional": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          },
+          "pension": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          },
+          "unemployment": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          },
+          "care": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          }
+        },
+        "levy_assessment_minor": 85406,
+        "care_adjustments": {
+          "employee_before_adjustments_minor": 1023,
+          "childless_surcharge_minor": 512,
+          "children_discount_minor": 0,
+          "employee_base_percent": "1.800",
+          "employer_normal_percent": "1.800"
+        }
+      },
+      "care_childless_surcharge": true,
+      "care_discount_children": 0,
+      "tax_method": "individual_bmf_pap_2026_standard",
+      "travel_expenses_included_in_net": false
+    },
+    "preview_hash": "04894431f7dc9f095dcce2e0923f0de87e14fbcc621b7cabe73ea7825515ee9f",
+    "can_finalize": true
+  },
+  "command": {
+    "employee_id": "6c129152f3654a3987c9937d5740ac14",
+    "profile_id": "0480796bde584d26934cee7cd8b8a735",
+    "profile_revision": 1,
+    "preparation_id": "7b8c05c2e845446db754c9d68fc6d9bb",
+    "preparation_revision": 1,
+    "gross_minor": 100000,
+    "full_month_confirmed": true,
+    "request_id": "8c57e0004f7c4ca29bc0c127277dbfc8",
+    "preview_hash": "04894431f7dc9f095dcce2e0923f0de87e14fbcc621b7cabe73ea7825515ee9f",
+    "accepted_scope": "regular_transition_monthly",
+    "confirmed": true,
+    "revision": 0
+  },
+  "run": {
+    "accepted_scope": "regular_transition_monthly",
+    "calculation": {
+      "accident_insurance_included": false,
+      "blockers": [],
+      "care_childless_surcharge": true,
+      "care_discount_children": 0,
+      "church_tax_minor": 0,
+      "currency": "EUR",
+      "employee_additional_payment_minor": 0,
+      "employee_contributions": {
+        "care": 1535,
+        "health_additional": 824,
+        "health_general": 4149,
+        "pension": 5286,
+        "unemployment": 739
+      },
+      "employee_social_total_minor": 12533,
+      "employee_tax_minor": 0,
+      "employer_contributions": {
+        "care": 2051,
+        "health_additional": 1652,
+        "health_general": 8321,
+        "pension": 10600,
+        "unemployment": 1481
+      },
+      "employer_flat_tax_minor": 0,
+      "employer_levies": {
+        "insolvency": 128,
+        "u1": 1794,
+        "u2": 376
+      },
+      "employer_social_total_minor": 24105,
+      "employer_total_excluding_accident_insurance_minor": 126403,
+      "gross_minor": 100000,
+      "individual_wage_tax_minor": 0,
+      "month": "2026-10",
+      "net_minor": 87467,
+      "official_system_approval": false,
+      "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+      "pap_version": "bmf_2026_2025_11_12_standard_v1",
+      "payout_minor": 87467,
+      "payroll_calculation_complete": true,
+      "rule_version": "de_2026_transition_monthly_pap_v3",
+      "rules_sha256": "4f53a8787052c036dee5faa86f853fdf8fc81434d92a3082a5f964264bce6f0e",
+      "scope": "regular_transition_monthly",
+      "social_contributions_available": true,
+      "solidarity_minor": 0,
+      "statutory_report_status": "not_transmitted",
+      "tax_method": "individual_bmf_pap_2026_standard",
+      "tax_parameters": {
+        "children_half_units": 0,
+        "church_assessment_minor": 0,
+        "church_tax_percent": "0",
+        "tax_addition_monthly_minor": 0,
+        "tax_allowance_monthly_minor": 0,
+        "tax_class": 1
+      },
+      "transition": {
+        "branch_bases": {
+          "care": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          },
+          "health_additional": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          },
+          "health_general": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          },
+          "pension": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          },
+          "unemployment": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          }
+        },
+        "care_adjustments": {
+          "childless_surcharge_minor": 512,
+          "children_discount_minor": 0,
+          "employee_base_percent": "1.800",
+          "employee_before_adjustments_minor": 1023,
+          "employer_normal_percent": "1.800"
+        },
+        "employee_assessment_minor": 56836,
+        "factor": "0.6619",
+        "levy_assessment_minor": 85406,
+        "regime": "within_transition_area",
+        "regular_monthly_gross_minor": 100000,
+        "total_assessment_minor": 85406
+      },
+      "travel_expenses_included_in_net": false
+    },
+    "confirmed": true,
+    "correction_reason": "",
+    "delta": null,
+    "preview_hash": "04894431f7dc9f095dcce2e0923f0de87e14fbcc621b7cabe73ea7825515ee9f",
+    "source": {
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "input": {
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "full_month_confirmed": true,
+        "gross_minor": 100000,
+        "preparation_id": "7b8c05c2e845446db754c9d68fc6d9bb",
+        "preparation_revision": 1,
+        "profile_id": "0480796bde584d26934cee7cd8b8a735",
+        "profile_revision": 1
+      },
+      "month": "2026-10",
+      "preparation": {
+        "completeness_confirmed": true,
+        "content_hash": "c973a0a818f955df1ab51f1a380501320cf7858d5277f48ca62853b47e1d90ec",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "id": "7b8c05c2e845446db754c9d68fc6d9bb",
+        "kind": "preparation",
+        "month": "2026-10",
+        "payroll_calculated": false,
+        "pdf_sha256": "6e9dd5a9e70943a7d93964f020d21dbc69226fab9cfa30df368bb8494ef879f9",
+        "previous_hash": null,
+        "revision": 1,
+        "snapshot": {
+          "agreements": [
+            {
+              "amount_minor": 100000,
+              "content_hash": "86fbc6cbee8368867ab5e6670233fa4746796f2208c442d8250e69ce58b86a1b",
+              "correction_reason": "",
+              "created_at": "2026-10-26T12:00:00+00:00",
+              "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+              "currency": "EUR",
+              "effective_from": "2026-01-01",
+              "employee_id": "6c129152f3654a3987c9937d5740ac14",
+              "employment_kind": "regular",
+              "id": "8358e034099342b08c00db15e883bd65",
+              "kind": "agreement",
+              "notes": "",
+              "pay_basis": "monthly",
+              "pdf_sha256": null,
+              "previous_hash": null,
+              "reference_file_id": "b24b87e1628d4043ac6e1a9cd1584375",
+              "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "revision": 1
+            }
+          ],
+          "allowance_calculation": false,
+          "approved_absences": [],
+          "approved_days": [],
+          "corrections": [],
+          "currency": "EUR",
+          "employee": {
+            "employment_from": null,
+            "employment_to": null,
+            "id": "6c129152f3654a3987c9937d5740ac14",
+            "name": "Synthetic technician",
+            "revision": 1,
+            "user_id": "ae7c7191c69947d387db626407f8778c"
+          },
+          "expenses": [],
+          "month": "2026-10",
+          "net_work_seconds": 0,
+          "payroll_calculated": false,
+          "recorded_expenses_minor": 0,
+          "schema_version": 1,
+          "scope": "recorded_and_approved_sources",
+          "tax_treatment": "not_determined"
+        },
+        "source_hash": "90744b5448d2e4ed2c13f51a7ec0d4ab458741ca7ec945fb67e3545492d01dfa",
+        "status": "preparation_closed",
+        "transmission_status": "not_transmitted"
+      },
+      "profile": {
+        "confirmed": true,
+        "content_hash": "d3a83bc06779efbfaf04ab5986e9907fed3cbde063cdfaa85ee33c5b547ed81a",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "id": "0480796bde584d26934cee7cd8b8a735",
+        "kind": "profile",
+        "pdf_sha256": null,
+        "previous_hash": null,
+        "profile": {
+          "church_tax": "none",
+          "date_of_birth": "1990-02-01",
+          "effective_from": "2026-01-01",
+          "employment_kind": "regular",
+          "federal_state": "HE",
+          "has_children": false,
+          "health_additional_percent": "2.900",
+          "health_fund": "Synthetic documented fund",
+          "health_insurance": "statutory_mandatory",
+          "minijob_rv_exempt": false,
+          "minijob_tax": "individual",
+          "pension_other_compulsory": false,
+          "pv_children_under_25": 0,
+          "regular_annual_gross_minor": 1200000,
+          "special_cases": [],
+          "tax_addition_monthly_minor": 0,
+          "tax_allowance_monthly_minor": 0,
+          "tax_children_half_units": 0,
+          "tax_class": 1,
+          "transition_assessment": {
+            "assessed_on": "2026-01-01",
+            "forecast_months": 12,
+            "foreseeable_one_off_payments": false,
+            "note": "Synthetic reviewed 12-month contract and hours prognosis",
+            "regular_monthly_gross_minor": 100000,
+            "status": "within_transition_area"
+          },
+          "u1_percent": "2.100",
+          "u1_required": true,
+          "u2_percent": "0.440",
+          "verification_note": "Synthetic verified source values for reference tests"
+        },
+        "revision": 1,
+        "source_file": {
+          "content_hash": "35b6710750c1b7ff89aa67900d2cbeecfc431bac04e8586a55db655c01f55c29",
+          "employee_id": "6c129152f3654a3987c9937d5740ac14",
+          "id": "b24b87e1628d4043ac6e1a9cd1584375",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        }
+      },
+      "profiles_in_month": []
+    },
+    "status": "calculation_recorded",
+    "transmission_status": "not_transmitted",
+    "id": "352de188cc4f41bc96cb174b3e2f11c9",
+    "kind": "run",
+    "employee_id": "6c129152f3654a3987c9937d5740ac14",
+    "revision": 1,
+    "content_hash": "a0548b912547aee0263dcb50ff61b2c8814e537ec1a30945f89f5b8f4f89e5ad",
+    "previous_hash": null,
+    "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "pdf_sha256": "78540b23ad8aaef23a829c3db63ed3654e46e9250d5752b4acaedce53603dcff"
+  },
+  "corrected_profile": {
+    "confirmed": true,
+    "correction_reason": "Documented care parenthood correction",
+    "profile": {
+      "church_tax": "none",
+      "date_of_birth": "1990-02-01",
+      "effective_from": "2026-01-01",
+      "employment_kind": "regular",
+      "federal_state": "HE",
+      "has_children": true,
+      "health_additional_percent": "2.900",
+      "health_fund": "Synthetic documented fund",
+      "health_insurance": "statutory_mandatory",
+      "minijob_rv_exempt": false,
+      "minijob_tax": "individual",
+      "pension_other_compulsory": false,
+      "pv_children_under_25": 2,
+      "regular_annual_gross_minor": 1200000,
+      "special_cases": [],
+      "tax_addition_monthly_minor": 0,
+      "tax_allowance_monthly_minor": 0,
+      "tax_children_half_units": 0,
+      "tax_class": 1,
+      "transition_assessment": {
+        "assessed_on": "2026-01-01",
+        "forecast_months": 12,
+        "foreseeable_one_off_payments": false,
+        "note": "Synthetic reviewed 12-month contract and hours prognosis",
+        "regular_monthly_gross_minor": 100000,
+        "status": "within_transition_area"
+      },
+      "u1_percent": "2.100",
+      "u1_required": true,
+      "u2_percent": "0.440",
+      "verification_note": "Synthetic verified source values for reference tests"
+    },
+    "source_file": {
+      "content_hash": "35b6710750c1b7ff89aa67900d2cbeecfc431bac04e8586a55db655c01f55c29",
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "id": "b24b87e1628d4043ac6e1a9cd1584375",
+      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+    },
+    "id": "0480796bde584d26934cee7cd8b8a735",
+    "kind": "profile",
+    "employee_id": "6c129152f3654a3987c9937d5740ac14",
+    "revision": 2,
+    "content_hash": "14a7e6bcbccaa295a05cdd4fff729c91707c7e376efdf77149cb8df09ac9ab55",
+    "previous_hash": "d3a83bc06779efbfaf04ab5986e9907fed3cbde063cdfaa85ee33c5b547ed81a",
+    "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "pdf_sha256": null
+  },
+  "corrected_preview": {
+    "source": {
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "month": "2026-10",
+      "input": {
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "profile_id": "0480796bde584d26934cee7cd8b8a735",
+        "profile_revision": 2,
+        "preparation_id": "7b8c05c2e845446db754c9d68fc6d9bb",
+        "preparation_revision": 1,
+        "gross_minor": 100000,
+        "full_month_confirmed": true
+      },
+      "profile": {
+        "confirmed": true,
+        "correction_reason": "Documented care parenthood correction",
+        "profile": {
+          "church_tax": "none",
+          "date_of_birth": "1990-02-01",
+          "effective_from": "2026-01-01",
+          "employment_kind": "regular",
+          "federal_state": "HE",
+          "has_children": true,
+          "health_additional_percent": "2.900",
+          "health_fund": "Synthetic documented fund",
+          "health_insurance": "statutory_mandatory",
+          "minijob_rv_exempt": false,
+          "minijob_tax": "individual",
+          "pension_other_compulsory": false,
+          "pv_children_under_25": 2,
+          "regular_annual_gross_minor": 1200000,
+          "special_cases": [],
+          "tax_addition_monthly_minor": 0,
+          "tax_allowance_monthly_minor": 0,
+          "tax_children_half_units": 0,
+          "tax_class": 1,
+          "transition_assessment": {
+            "assessed_on": "2026-01-01",
+            "forecast_months": 12,
+            "foreseeable_one_off_payments": false,
+            "note": "Synthetic reviewed 12-month contract and hours prognosis",
+            "regular_monthly_gross_minor": 100000,
+            "status": "within_transition_area"
+          },
+          "u1_percent": "2.100",
+          "u1_required": true,
+          "u2_percent": "0.440",
+          "verification_note": "Synthetic verified source values for reference tests"
+        },
+        "source_file": {
+          "content_hash": "35b6710750c1b7ff89aa67900d2cbeecfc431bac04e8586a55db655c01f55c29",
+          "employee_id": "6c129152f3654a3987c9937d5740ac14",
+          "id": "b24b87e1628d4043ac6e1a9cd1584375",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        },
+        "id": "0480796bde584d26934cee7cd8b8a735",
+        "kind": "profile",
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "revision": 2,
+        "content_hash": "14a7e6bcbccaa295a05cdd4fff729c91707c7e376efdf77149cb8df09ac9ab55",
+        "previous_hash": "d3a83bc06779efbfaf04ab5986e9907fed3cbde063cdfaa85ee33c5b547ed81a",
+        "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "pdf_sha256": null
+      },
+      "preparation": {
+        "completeness_confirmed": true,
+        "correction_reason": "",
+        "month": "2026-10",
+        "payroll_calculated": false,
+        "snapshot": {
+          "agreements": [
+            {
+              "amount_minor": 100000,
+              "content_hash": "86fbc6cbee8368867ab5e6670233fa4746796f2208c442d8250e69ce58b86a1b",
+              "correction_reason": "",
+              "created_at": "2026-10-26T12:00:00+00:00",
+              "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+              "currency": "EUR",
+              "effective_from": "2026-01-01",
+              "employee_id": "6c129152f3654a3987c9937d5740ac14",
+              "employment_kind": "regular",
+              "id": "8358e034099342b08c00db15e883bd65",
+              "kind": "agreement",
+              "notes": "",
+              "pay_basis": "monthly",
+              "pdf_sha256": null,
+              "previous_hash": null,
+              "reference_file_id": "b24b87e1628d4043ac6e1a9cd1584375",
+              "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "revision": 1
+            }
+          ],
+          "allowance_calculation": false,
+          "approved_absences": [],
+          "approved_days": [],
+          "corrections": [],
+          "currency": "EUR",
+          "employee": {
+            "employment_from": null,
+            "employment_to": null,
+            "id": "6c129152f3654a3987c9937d5740ac14",
+            "name": "Synthetic technician",
+            "revision": 1,
+            "user_id": "ae7c7191c69947d387db626407f8778c"
+          },
+          "expenses": [],
+          "month": "2026-10",
+          "net_work_seconds": 0,
+          "payroll_calculated": false,
+          "recorded_expenses_minor": 0,
+          "schema_version": 1,
+          "scope": "recorded_and_approved_sources",
+          "tax_treatment": "not_determined"
+        },
+        "source_hash": "90744b5448d2e4ed2c13f51a7ec0d4ab458741ca7ec945fb67e3545492d01dfa",
+        "status": "preparation_closed",
+        "transmission_status": "not_transmitted",
+        "id": "7b8c05c2e845446db754c9d68fc6d9bb",
+        "kind": "preparation",
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "revision": 1,
+        "content_hash": "c973a0a818f955df1ab51f1a380501320cf7858d5277f48ca62853b47e1d90ec",
+        "previous_hash": null,
+        "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "pdf_sha256": "6e9dd5a9e70943a7d93964f020d21dbc69226fab9cfa30df368bb8494ef879f9"
+      },
+      "profiles_in_month": []
+    },
+    "calculation": {
+      "rule_version": "de_2026_transition_monthly_pap_v3",
+      "rules_sha256": "4f53a8787052c036dee5faa86f853fdf8fc81434d92a3082a5f964264bce6f0e",
+      "pap_version": "bmf_2026_2025_11_12_standard_v1",
+      "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+      "month": "2026-10",
+      "currency": "EUR",
+      "gross_minor": 100000,
+      "scope": "regular_transition_monthly",
+      "payroll_calculation_complete": true,
+      "social_contributions_available": true,
+      "employee_contributions": {
+        "health_general": 4149,
+        "health_additional": 824,
+        "pension": 5286,
+        "unemployment": 739,
+        "care": 881
+      },
+      "employer_contributions": {
+        "health_general": 8321,
+        "health_additional": 1652,
+        "pension": 10600,
+        "unemployment": 1481,
+        "care": 2051
+      },
+      "employee_social_total_minor": 11879,
+      "employer_social_total_minor": 24105,
+      "employer_levies": {
+        "u1": 1794,
+        "u2": 376,
+        "insolvency": 128
+      },
+      "employer_flat_tax_minor": 0,
+      "employer_total_excluding_accident_insurance_minor": 126403,
+      "accident_insurance_included": false,
+      "individual_wage_tax_minor": 0,
+      "solidarity_minor": 0,
+      "church_tax_minor": 0,
+      "employee_tax_minor": 0,
+      "net_minor": 88121,
+      "payout_minor": 88121,
+      "employee_additional_payment_minor": 0,
+      "tax_parameters": {
+        "tax_class": 1,
+        "children_half_units": 0,
+        "church_tax_percent": "0",
+        "tax_allowance_monthly_minor": 0,
+        "tax_addition_monthly_minor": 0,
+        "church_assessment_minor": 0
+      },
+      "blockers": [],
+      "statutory_report_status": "not_transmitted",
+      "official_system_approval": false,
+      "transition": {
+        "regime": "within_transition_area",
+        "total_assessment_minor": 85406,
+        "employee_assessment_minor": 56836,
+        "regular_monthly_gross_minor": 100000,
+        "factor": "0.6619",
+        "branch_bases": {
+          "health_general": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          },
+          "health_additional": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          },
+          "pension": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          },
+          "unemployment": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          },
+          "care": {
+            "total_minor": 85406,
+            "employee_minor": 56836
+          }
+        },
+        "levy_assessment_minor": 85406,
+        "care_adjustments": {
+          "employee_before_adjustments_minor": 1023,
+          "childless_surcharge_minor": 0,
+          "children_discount_minor": 142,
+          "employee_base_percent": "1.800",
+          "employer_normal_percent": "1.800"
+        }
+      },
+      "care_childless_surcharge": false,
+      "care_discount_children": 1,
+      "tax_method": "individual_bmf_pap_2026_standard",
+      "travel_expenses_included_in_net": false
+    },
+    "preview_hash": "f00d44e18615301f19746b65245f48fad36cee6d23a098d7c0db03d2fd4cc249",
+    "can_finalize": true
+  },
+  "corrected_command": {
+    "employee_id": "6c129152f3654a3987c9937d5740ac14",
+    "profile_id": "0480796bde584d26934cee7cd8b8a735",
+    "profile_revision": 2,
+    "preparation_id": "7b8c05c2e845446db754c9d68fc6d9bb",
+    "preparation_revision": 1,
+    "gross_minor": 100000,
+    "full_month_confirmed": true,
+    "request_id": "282cb48d7b8c48b3992c558a2eede961",
+    "preview_hash": "f00d44e18615301f19746b65245f48fad36cee6d23a098d7c0db03d2fd4cc249",
+    "accepted_scope": "regular_transition_monthly",
+    "confirmed": true,
+    "revision": 1,
+    "id": "352de188cc4f41bc96cb174b3e2f11c9",
+    "correction_reason": "Documented care contribution correction"
+  },
+  "corrected_run": {
+    "accepted_scope": "regular_transition_monthly",
+    "calculation": {
+      "accident_insurance_included": false,
+      "blockers": [],
+      "care_childless_surcharge": false,
+      "care_discount_children": 1,
+      "church_tax_minor": 0,
+      "currency": "EUR",
+      "employee_additional_payment_minor": 0,
+      "employee_contributions": {
+        "care": 881,
+        "health_additional": 824,
+        "health_general": 4149,
+        "pension": 5286,
+        "unemployment": 739
+      },
+      "employee_social_total_minor": 11879,
+      "employee_tax_minor": 0,
+      "employer_contributions": {
+        "care": 2051,
+        "health_additional": 1652,
+        "health_general": 8321,
+        "pension": 10600,
+        "unemployment": 1481
+      },
+      "employer_flat_tax_minor": 0,
+      "employer_levies": {
+        "insolvency": 128,
+        "u1": 1794,
+        "u2": 376
+      },
+      "employer_social_total_minor": 24105,
+      "employer_total_excluding_accident_insurance_minor": 126403,
+      "gross_minor": 100000,
+      "individual_wage_tax_minor": 0,
+      "month": "2026-10",
+      "net_minor": 88121,
+      "official_system_approval": false,
+      "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+      "pap_version": "bmf_2026_2025_11_12_standard_v1",
+      "payout_minor": 88121,
+      "payroll_calculation_complete": true,
+      "rule_version": "de_2026_transition_monthly_pap_v3",
+      "rules_sha256": "4f53a8787052c036dee5faa86f853fdf8fc81434d92a3082a5f964264bce6f0e",
+      "scope": "regular_transition_monthly",
+      "social_contributions_available": true,
+      "solidarity_minor": 0,
+      "statutory_report_status": "not_transmitted",
+      "tax_method": "individual_bmf_pap_2026_standard",
+      "tax_parameters": {
+        "children_half_units": 0,
+        "church_assessment_minor": 0,
+        "church_tax_percent": "0",
+        "tax_addition_monthly_minor": 0,
+        "tax_allowance_monthly_minor": 0,
+        "tax_class": 1
+      },
+      "transition": {
+        "branch_bases": {
+          "care": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          },
+          "health_additional": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          },
+          "health_general": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          },
+          "pension": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          },
+          "unemployment": {
+            "employee_minor": 56836,
+            "total_minor": 85406
+          }
+        },
+        "care_adjustments": {
+          "childless_surcharge_minor": 0,
+          "children_discount_minor": 142,
+          "employee_base_percent": "1.800",
+          "employee_before_adjustments_minor": 1023,
+          "employer_normal_percent": "1.800"
+        },
+        "employee_assessment_minor": 56836,
+        "factor": "0.6619",
+        "levy_assessment_minor": 85406,
+        "regime": "within_transition_area",
+        "regular_monthly_gross_minor": 100000,
+        "total_assessment_minor": 85406
+      },
+      "travel_expenses_included_in_net": false
+    },
+    "confirmed": true,
+    "correction_reason": "Documented care contribution correction",
+    "delta": {
+      "church_tax_minor": 0,
+      "employee_social_total_minor": -654,
+      "employee_tax_minor": 0,
+      "employer_flat_tax_minor": 0,
+      "employer_social_total_minor": 0,
+      "gross_minor": 0,
+      "individual_wage_tax_minor": 0,
+      "net_minor": 654,
+      "payout_minor": 654,
+      "solidarity_minor": 0
+    },
+    "preview_hash": "f00d44e18615301f19746b65245f48fad36cee6d23a098d7c0db03d2fd4cc249",
+    "source": {
+      "employee_id": "6c129152f3654a3987c9937d5740ac14",
+      "input": {
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "full_month_confirmed": true,
+        "gross_minor": 100000,
+        "preparation_id": "7b8c05c2e845446db754c9d68fc6d9bb",
+        "preparation_revision": 1,
+        "profile_id": "0480796bde584d26934cee7cd8b8a735",
+        "profile_revision": 2
+      },
+      "month": "2026-10",
+      "preparation": {
+        "completeness_confirmed": true,
+        "content_hash": "c973a0a818f955df1ab51f1a380501320cf7858d5277f48ca62853b47e1d90ec",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "id": "7b8c05c2e845446db754c9d68fc6d9bb",
+        "kind": "preparation",
+        "month": "2026-10",
+        "payroll_calculated": false,
+        "pdf_sha256": "6e9dd5a9e70943a7d93964f020d21dbc69226fab9cfa30df368bb8494ef879f9",
+        "previous_hash": null,
+        "revision": 1,
+        "snapshot": {
+          "agreements": [
+            {
+              "amount_minor": 100000,
+              "content_hash": "86fbc6cbee8368867ab5e6670233fa4746796f2208c442d8250e69ce58b86a1b",
+              "correction_reason": "",
+              "created_at": "2026-10-26T12:00:00+00:00",
+              "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+              "currency": "EUR",
+              "effective_from": "2026-01-01",
+              "employee_id": "6c129152f3654a3987c9937d5740ac14",
+              "employment_kind": "regular",
+              "id": "8358e034099342b08c00db15e883bd65",
+              "kind": "agreement",
+              "notes": "",
+              "pay_basis": "monthly",
+              "pdf_sha256": null,
+              "previous_hash": null,
+              "reference_file_id": "b24b87e1628d4043ac6e1a9cd1584375",
+              "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "revision": 1
+            }
+          ],
+          "allowance_calculation": false,
+          "approved_absences": [],
+          "approved_days": [],
+          "corrections": [],
+          "currency": "EUR",
+          "employee": {
+            "employment_from": null,
+            "employment_to": null,
+            "id": "6c129152f3654a3987c9937d5740ac14",
+            "name": "Synthetic technician",
+            "revision": 1,
+            "user_id": "ae7c7191c69947d387db626407f8778c"
+          },
+          "expenses": [],
+          "month": "2026-10",
+          "net_work_seconds": 0,
+          "payroll_calculated": false,
+          "recorded_expenses_minor": 0,
+          "schema_version": 1,
+          "scope": "recorded_and_approved_sources",
+          "tax_treatment": "not_determined"
+        },
+        "source_hash": "90744b5448d2e4ed2c13f51a7ec0d4ab458741ca7ec945fb67e3545492d01dfa",
+        "status": "preparation_closed",
+        "transmission_status": "not_transmitted"
+      },
+      "profile": {
+        "confirmed": true,
+        "content_hash": "14a7e6bcbccaa295a05cdd4fff729c91707c7e376efdf77149cb8df09ac9ab55",
+        "correction_reason": "Documented care parenthood correction",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+        "employee_id": "6c129152f3654a3987c9937d5740ac14",
+        "id": "0480796bde584d26934cee7cd8b8a735",
+        "kind": "profile",
+        "pdf_sha256": null,
+        "previous_hash": "d3a83bc06779efbfaf04ab5986e9907fed3cbde063cdfaa85ee33c5b547ed81a",
+        "profile": {
+          "church_tax": "none",
+          "date_of_birth": "1990-02-01",
+          "effective_from": "2026-01-01",
+          "employment_kind": "regular",
+          "federal_state": "HE",
+          "has_children": true,
+          "health_additional_percent": "2.900",
+          "health_fund": "Synthetic documented fund",
+          "health_insurance": "statutory_mandatory",
+          "minijob_rv_exempt": false,
+          "minijob_tax": "individual",
+          "pension_other_compulsory": false,
+          "pv_children_under_25": 2,
+          "regular_annual_gross_minor": 1200000,
+          "special_cases": [],
+          "tax_addition_monthly_minor": 0,
+          "tax_allowance_monthly_minor": 0,
+          "tax_children_half_units": 0,
+          "tax_class": 1,
+          "transition_assessment": {
+            "assessed_on": "2026-01-01",
+            "forecast_months": 12,
+            "foreseeable_one_off_payments": false,
+            "note": "Synthetic reviewed 12-month contract and hours prognosis",
+            "regular_monthly_gross_minor": 100000,
+            "status": "within_transition_area"
+          },
+          "u1_percent": "2.100",
+          "u1_required": true,
+          "u2_percent": "0.440",
+          "verification_note": "Synthetic verified source values for reference tests"
+        },
+        "revision": 2,
+        "source_file": {
+          "content_hash": "35b6710750c1b7ff89aa67900d2cbeecfc431bac04e8586a55db655c01f55c29",
+          "employee_id": "6c129152f3654a3987c9937d5740ac14",
+          "id": "b24b87e1628d4043ac6e1a9cd1584375",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        }
+      },
+      "profiles_in_month": []
+    },
+    "status": "calculation_recorded",
+    "transmission_status": "not_transmitted",
+    "id": "352de188cc4f41bc96cb174b3e2f11c9",
+    "kind": "run",
+    "employee_id": "6c129152f3654a3987c9937d5740ac14",
+    "revision": 2,
+    "content_hash": "1338554ee42f2460c5fa31fa8bf11d476aece6a232e618afa24dbe2a1c3b4324",
+    "previous_hash": "a0548b912547aee0263dcb50ff61b2c8814e537ec1a30945f89f5b8f4f89e5ad",
+    "created_by": "0be29ee847c04e5ab2990bca091aed3d",
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "pdf_sha256": "a8b041a1f819023cb688194852daf24b4c81dfc9e36993337ad085bd46e7153b"
+  },
+  "ledger": {
+    "ledger": {
+      "schema_version": 1,
+      "employee": {
+        "id": "6c129152f3654a3987c9937d5740ac14",
+        "name": "Synthetic technician"
+      },
+      "year": "2026",
+      "currency": "EUR",
+      "months": [
+        {
+          "month": "2026-01",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-02",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-03",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-04",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-05",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-06",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-07",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-08",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-09",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-10",
+          "status": "complete",
+          "run_id": "352de188cc4f41bc96cb174b3e2f11c9",
+          "revision": 2,
+          "content_hash": "1338554ee42f2460c5fa31fa8bf11d476aece6a232e618afa24dbe2a1c3b4324",
+          "calculation": {
+            "accident_insurance_included": false,
+            "blockers": [],
+            "care_childless_surcharge": false,
+            "care_discount_children": 1,
+            "church_tax_minor": 0,
+            "currency": "EUR",
+            "employee_additional_payment_minor": 0,
+            "employee_contributions": {
+              "care": 881,
+              "health_additional": 824,
+              "health_general": 4149,
+              "pension": 5286,
+              "unemployment": 739
+            },
+            "employee_social_total_minor": 11879,
+            "employee_tax_minor": 0,
+            "employer_contributions": {
+              "care": 2051,
+              "health_additional": 1652,
+              "health_general": 8321,
+              "pension": 10600,
+              "unemployment": 1481
+            },
+            "employer_flat_tax_minor": 0,
+            "employer_levies": {
+              "insolvency": 128,
+              "u1": 1794,
+              "u2": 376
+            },
+            "employer_social_total_minor": 24105,
+            "employer_total_excluding_accident_insurance_minor": 126403,
+            "gross_minor": 100000,
+            "individual_wage_tax_minor": 0,
+            "month": "2026-10",
+            "net_minor": 88121,
+            "official_system_approval": false,
+            "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+            "pap_version": "bmf_2026_2025_11_12_standard_v1",
+            "payout_minor": 88121,
+            "payroll_calculation_complete": true,
+            "rule_version": "de_2026_transition_monthly_pap_v3",
+            "rules_sha256": "4f53a8787052c036dee5faa86f853fdf8fc81434d92a3082a5f964264bce6f0e",
+            "scope": "regular_transition_monthly",
+            "social_contributions_available": true,
+            "solidarity_minor": 0,
+            "statutory_report_status": "not_transmitted",
+            "tax_method": "individual_bmf_pap_2026_standard",
+            "tax_parameters": {
+              "children_half_units": 0,
+              "church_assessment_minor": 0,
+              "church_tax_percent": "0",
+              "tax_addition_monthly_minor": 0,
+              "tax_allowance_monthly_minor": 0,
+              "tax_class": 1
+            },
+            "transition": {
+              "branch_bases": {
+                "care": {
+                  "employee_minor": 56836,
+                  "total_minor": 85406
+                },
+                "health_additional": {
+                  "employee_minor": 56836,
+                  "total_minor": 85406
+                },
+                "health_general": {
+                  "employee_minor": 56836,
+                  "total_minor": 85406
+                },
+                "pension": {
+                  "employee_minor": 56836,
+                  "total_minor": 85406
+                },
+                "unemployment": {
+                  "employee_minor": 56836,
+                  "total_minor": 85406
+                }
+              },
+              "care_adjustments": {
+                "childless_surcharge_minor": 0,
+                "children_discount_minor": 142,
+                "employee_base_percent": "1.800",
+                "employee_before_adjustments_minor": 1023,
+                "employer_normal_percent": "1.800"
+              },
+              "employee_assessment_minor": 56836,
+              "factor": "0.6619",
+              "levy_assessment_minor": 85406,
+              "regime": "within_transition_area",
+              "regular_monthly_gross_minor": 100000,
+              "total_assessment_minor": 85406
+            },
+            "travel_expenses_included_in_net": false
+          },
+          "source_refs": {
+            "profile": {
+              "id": "0480796bde584d26934cee7cd8b8a735",
+              "revision": 2,
+              "content_hash": "14a7e6bcbccaa295a05cdd4fff729c91707c7e376efdf77149cb8df09ac9ab55"
+            },
+            "preparation": {
+              "id": "7b8c05c2e845446db754c9d68fc6d9bb",
+              "revision": 1,
+              "content_hash": "c973a0a818f955df1ab51f1a380501320cf7858d5277f48ca62853b47e1d90ec"
+            }
+          },
+          "origin": "local",
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "payment_evidence_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-11",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-12",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        }
+      ],
+      "recorded_months": 1,
+      "missing_months": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-11",
+        "2026-12"
+      ],
+      "partial_months": [],
+      "calendar_year_complete": false,
+      "tax_totals_complete": true,
+      "annual_totals_complete": false,
+      "totals_scope": "recorded_effective_months_only",
+      "totals": {
+        "gross_minor": 100000,
+        "individual_wage_tax_minor": 0,
+        "solidarity_minor": 0,
+        "church_tax_minor": 0,
+        "employee_tax_minor": 0,
+        "employee_social_total_minor": 11879,
+        "employer_social_total_minor": 24105,
+        "employer_flat_tax_minor": 0,
+        "employer_total_excluding_accident_insurance_minor": 126403,
+        "net_minor": 88121,
+        "payout_minor": 88121,
+        "employee_additional_payment_minor": 0,
+        "employee_contributions": {
+          "health_general": 4149,
+          "health_additional": 824,
+          "pension": 5286,
+          "unemployment": 739,
+          "care": 881
+        },
+        "employer_contributions": {
+          "health_general": 8321,
+          "health_additional": 1652,
+          "pension": 10600,
+          "unemployment": 1481,
+          "care": 2051
+        },
+        "employer_levies": {
+          "u1": 1794,
+          "u2": 376,
+          "insolvency": 128
+        }
+      },
+      "correction_history": [
+        {
+          "month": "2026-10",
+          "run_id": "352de188cc4f41bc96cb174b3e2f11c9",
+          "revision": 2,
+          "previous_hash": "a0548b912547aee0263dcb50ff61b2c8814e537ec1a30945f89f5b8f4f89e5ad",
+          "content_hash": "1338554ee42f2460c5fa31fa8bf11d476aece6a232e618afa24dbe2a1c3b4324",
+          "reason": "Documented care contribution correction",
+          "delta": {
+            "church_tax_minor": 0,
+            "employee_social_total_minor": -654,
+            "employee_tax_minor": 0,
+            "employer_flat_tax_minor": 0,
+            "employer_social_total_minor": 0,
+            "gross_minor": 0,
+            "individual_wage_tax_minor": 0,
+            "net_minor": 654,
+            "payout_minor": 654,
+            "solidarity_minor": 0
+          },
+          "created_at": "2026-10-26T12:00:00+00:00"
+        }
+      ],
+      "statutory_wage_account_complete": false,
+      "supported_wage_account_fields_complete": false,
+      "expected_employment_months": [],
+      "account_missing_months": [],
+      "account_completeness_issues": [
+        "employment_period_missing"
+      ],
+      "account_records": [],
+      "recorded_tax_free_payments_minor": null,
+      "digital_audit_export_compliant": false,
+      "limitations": [
+        "Summen enthalten ausschließlich die aufgeführten wirksamen Monatsrevisionen; fehlende Monate und Vortragswerte werden nicht als null ergänzt.",
+        "Korrekturdifferenzen sind Nachweise und werden nicht zusätzlich zu den wirksamen Monatsbeträgen summiert.",
+        "Feldvollständigkeit gilt nur für die belegten unterstützten Standardfälle nach § 4 LStDV / § 41 EStG; keine externe Fachabnahme und kein amtlicher Prüfexport nach der Digitalen LohnSchnittstelle.",
+        "Auslagen, Unfallversicherung und Sonderfälle außerhalb des unterstützten Rechenumfangs sind nicht enthalten.",
+        "Keine Zahlung, amtliche Übermittlung, Annahmebestätigung oder Systemzulassung."
+      ],
+      "statutory_report_status": "not_transmitted",
+      "official_system_approval": false,
+      "snapshot_hash": "400fac6157287dbf0ab22801116066941875e52248ffcf55677dce301a675d5c"
+    },
+    "exports": {
+      "json": {
+        "sha256": "45ceb511dc09ee69f8d0e66464faa0ac8cc7fbdf7b28f64f58089ed37e13a2a8",
+        "size": 9206,
+        "filename": "lohn-jahressicht-2026-6c129152f3654a3987c9937d5740ac14.json",
+        "media_type": "application/json; charset=utf-8"
+      },
+      "csv": {
+        "sha256": "29d242a9a06109695ce6d52297792c322d9fe44a1d6a8b2be294fdff5164b104",
+        "size": 3929,
+        "filename": "lohn-jahressicht-2026-6c129152f3654a3987c9937d5740ac14.csv",
+        "media_type": "text/csv; charset=utf-8"
+      },
+      "pdf": {
+        "sha256": "aa5e65dba31ac880265370ea6c6557a5e2bb42449a7bec6dc80a522d343fdaef",
+        "size": 16381,
+        "filename": "lohn-jahressicht-2026-6c129152f3654a3987c9937d5740ac14.pdf",
+        "media_type": "application/pdf"
+      }
+    }
+  },
+  "below": {
+    "rule_version": "de_2026_transition_monthly_pap_v3",
+    "rules_sha256": "4f53a8787052c036dee5faa86f853fdf8fc81434d92a3082a5f964264bce6f0e",
+    "pap_version": "bmf_2026_2025_11_12_standard_v1",
+    "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+    "month": "2026-10",
+    "currency": "EUR",
+    "gross_minor": 60000,
+    "scope": "regular_transition_monthly",
+    "payroll_calculation_complete": true,
+    "social_contributions_available": true,
+    "employee_contributions": {
+      "health_general": 0,
+      "health_additional": 0,
+      "pension": 0,
+      "unemployment": 0,
+      "care": 0
+    },
+    "employer_contributions": {
+      "health_general": 5798,
+      "health_additional": 1152,
+      "pension": 7386,
+      "unemployment": 1032,
+      "care": 1430
+    },
+    "employee_social_total_minor": 0,
+    "employer_social_total_minor": 16798,
+    "employer_levies": {
+      "u1": 834,
+      "u2": 175,
+      "insolvency": 60
+    },
+    "employer_flat_tax_minor": 0,
+    "employer_total_excluding_accident_insurance_minor": 77867,
+    "accident_insurance_included": false,
+    "individual_wage_tax_minor": 0,
+    "solidarity_minor": 0,
+    "church_tax_minor": 0,
+    "employee_tax_minor": 0,
+    "net_minor": 60000,
+    "payout_minor": 60000,
+    "employee_additional_payment_minor": 0,
+    "tax_parameters": {
+      "tax_class": 1,
+      "children_half_units": 0,
+      "church_tax_percent": "0",
+      "tax_allowance_monthly_minor": 0,
+      "tax_addition_monthly_minor": 0,
+      "church_assessment_minor": 0
+    },
+    "blockers": [],
+    "statutory_report_status": "not_transmitted",
+    "official_system_approval": false,
+    "transition": {
+      "regime": "below_or_at_lower_limit",
+      "total_assessment_minor": 39714,
+      "employee_assessment_minor": 0,
+      "regular_monthly_gross_minor": 100000,
+      "factor": "0.6619",
+      "branch_bases": {
+        "health_general": {
+          "total_minor": 39714,
+          "employee_minor": 0
+        },
+        "health_additional": {
+          "total_minor": 39714,
+          "employee_minor": 0
+        },
+        "pension": {
+          "total_minor": 39714,
+          "employee_minor": 0
+        },
+        "unemployment": {
+          "total_minor": 39714,
+          "employee_minor": 0
+        },
+        "care": {
+          "total_minor": 39714,
+          "employee_minor": 0
+        }
+      },
+      "levy_assessment_minor": 39714,
+      "care_adjustments": {
+        "employee_before_adjustments_minor": 0,
+        "childless_surcharge_minor": 0,
+        "children_discount_minor": 0,
+        "employee_base_percent": "1.800",
+        "employer_normal_percent": "1.800"
+      }
+    },
+    "care_childless_surcharge": false,
+    "care_discount_children": 1,
+    "tax_method": "individual_bmf_pap_2026_standard",
+    "travel_expenses_included_in_net": false
+  },
+  "above": {
+    "rule_version": "de_2026_transition_monthly_pap_v3",
+    "rules_sha256": "4f53a8787052c036dee5faa86f853fdf8fc81434d92a3082a5f964264bce6f0e",
+    "pap_version": "bmf_2026_2025_11_12_standard_v1",
+    "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+    "month": "2026-10",
+    "currency": "EUR",
+    "gross_minor": 250000,
+    "scope": "regular_transition_monthly",
+    "payroll_calculation_complete": true,
+    "social_contributions_available": true,
+    "employee_contributions": {
+      "health_general": 18250,
+      "health_additional": 3625,
+      "pension": 23250,
+      "unemployment": 3250,
+      "care": 3875
+    },
+    "employer_contributions": {
+      "health_general": 18250,
+      "health_additional": 3625,
+      "pension": 23250,
+      "unemployment": 3250,
+      "care": 4500
+    },
+    "employee_social_total_minor": 52250,
+    "employer_social_total_minor": 52875,
+    "employer_levies": {
+      "u1": 5250,
+      "u2": 1100,
+      "insolvency": 375
+    },
+    "employer_flat_tax_minor": 0,
+    "employer_total_excluding_accident_insurance_minor": 309600,
+    "accident_insurance_included": false,
+    "individual_wage_tax_minor": 19275,
+    "solidarity_minor": 0,
+    "church_tax_minor": 0,
+    "employee_tax_minor": 19275,
+    "net_minor": 178475,
+    "payout_minor": 178475,
+    "employee_additional_payment_minor": 0,
+    "tax_parameters": {
+      "tax_class": 1,
+      "children_half_units": 0,
+      "church_tax_percent": "0",
+      "tax_allowance_monthly_minor": 0,
+      "tax_addition_monthly_minor": 0,
+      "church_assessment_minor": 0
+    },
+    "blockers": [],
+    "statutory_report_status": "not_transmitted",
+    "official_system_approval": false,
+    "transition": {
+      "regime": "above_upper_limit",
+      "total_assessment_minor": 250000,
+      "employee_assessment_minor": 250000,
+      "regular_monthly_gross_minor": 100000,
+      "factor": "0.6619",
+      "branch_bases": {
+        "health_general": {
+          "total_minor": 250000,
+          "employee_minor": 250000
+        },
+        "health_additional": {
+          "total_minor": 250000,
+          "employee_minor": 250000
+        },
+        "pension": {
+          "total_minor": 250000,
+          "employee_minor": 250000
+        },
+        "unemployment": {
+          "total_minor": 250000,
+          "employee_minor": 250000
+        },
+        "care": {
+          "total_minor": 250000,
+          "employee_minor": 250000
+        }
+      },
+      "levy_assessment_minor": 250000,
+      "care_adjustments": {
+        "employee_before_adjustments_minor": 4500,
+        "childless_surcharge_minor": 0,
+        "children_discount_minor": 625,
+        "employee_base_percent": "1.800",
+        "employer_normal_percent": "1.800"
+      }
+    },
+    "care_childless_surcharge": false,
+    "care_discount_children": 1,
+    "tax_method": "individual_bmf_pap_2026_standard",
+    "travel_expenses_included_in_net": false
+  },
+  "blocked": {
+    "rule_version": "de_2026_transition_monthly_pap_v3",
+    "rules_sha256": "4f53a8787052c036dee5faa86f853fdf8fc81434d92a3082a5f964264bce6f0e",
+    "pap_version": "bmf_2026_2025_11_12_standard_v1",
+    "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+    "month": "2026-10",
+    "currency": "EUR",
+    "gross_minor": 100000,
+    "scope": "unsupported",
+    "payroll_calculation_complete": false,
+    "social_contributions_available": false,
+    "employee_contributions": null,
+    "employer_contributions": null,
+    "employee_social_total_minor": null,
+    "employer_social_total_minor": null,
+    "employer_levies": null,
+    "employer_flat_tax_minor": null,
+    "employer_total_excluding_accident_insurance_minor": null,
+    "accident_insurance_included": false,
+    "individual_wage_tax_minor": null,
+    "solidarity_minor": null,
+    "church_tax_minor": null,
+    "employee_tax_minor": null,
+    "net_minor": null,
+    "payout_minor": null,
+    "employee_additional_payment_minor": null,
+    "tax_parameters": {
+      "tax_class": 1,
+      "children_half_units": 0,
+      "church_tax_percent": "0",
+      "tax_allowance_monthly_minor": 0,
+      "tax_addition_monthly_minor": 0
+    },
+    "blockers": [
+      {
+        "code": "special_case:one_off_payment",
+        "message": "Dieser ausdrücklich angegebene Sonderfall benötigt eine gesonderte Berechnung."
+      }
+    ],
+    "statutory_report_status": "not_transmitted",
+    "official_system_approval": false,
+    "transition": null,
+    "travel_expenses_included_in_net": false
+  }
+}

@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "status": "design_reference_only_not_executed_against_a_daily_kernel",
+  "reviewed_on": "2026-11-03",
+  "source": {
+    "url": "https://www.ihk-muenchen.de/ihk/documents/Recht-Steuern/Steuerrecht/Einkommensteuer/2025-11-12-PAP-2026-anlage-1.pdf",
+    "document": "BMF PAP 2026 Anlage 1, Stand 12.11.2025 endgültig",
+    "pages": [
+      2,
+      3,
+      5,
+      6,
+      15,
+      31,
+      32,
+      39
+    ],
+    "source_type": "official_document_publicly_hosted_by_IHK",
+    "original_pdf_downloaded": false
+  },
+  "method": "Annual LSt figures manually transcribed from printed page 39; exact daily gross = annual gross/360, daily LSt = floor(annual LSt*100/360); Soli independently from page 31; total for equal-pay days = sum of already truncated individual daily results. No product calculator imports or output used.",
+  "common_inputs": {
+    "additional_health_percent": "2.90",
+    "saxony": false,
+    "children_half_units": 0,
+    "care_child_discounts": 0,
+    "allowance_minor": 0,
+    "addition_minor": 0,
+    "ALV": 0,
+    "KRV": 0,
+    "PKV": 0
+  },
+  "daily_cases": [
+    {
+      "id": "day_45000_1",
+      "annual_gross_eur": 45000,
+      "published_annual_wage_tax_eur": 5570,
+      "gross_minor": 12500,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 1,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 1547,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_45000_2",
+      "annual_gross_eur": 45000,
+      "published_annual_wage_tax_eur": 4408,
+      "gross_minor": 12500,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 2,
+      "childless_surcharge": false,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 1224,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_45000_3",
+      "annual_gross_eur": 45000,
+      "published_annual_wage_tax_eur": 1850,
+      "gross_minor": 12500,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 3,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 513,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_45000_4",
+      "annual_gross_eur": 45000,
+      "published_annual_wage_tax_eur": 5570,
+      "gross_minor": 12500,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 4,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 1547,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_45000_5",
+      "annual_gross_eur": 45000,
+      "published_annual_wage_tax_eur": 10334,
+      "gross_minor": 12500,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 5,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 2870,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_45000_6",
+      "annual_gross_eur": 45000,
+      "published_annual_wage_tax_eur": 10865,
+      "gross_minor": 12500,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 6,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 3018,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_67500_1",
+      "annual_gross_eur": 67500,
+      "published_annual_wage_tax_eur": 11484,
+      "gross_minor": 18750,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 1,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 3190,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_67500_2",
+      "annual_gross_eur": 67500,
+      "published_annual_wage_tax_eur": 10121,
+      "gross_minor": 18750,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 2,
+      "childless_surcharge": false,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 2811,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_67500_3",
+      "annual_gross_eur": 67500,
+      "published_annual_wage_tax_eur": 6402,
+      "gross_minor": 18750,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 3,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 1778,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_67500_4",
+      "annual_gross_eur": 67500,
+      "published_annual_wage_tax_eur": 11484,
+      "gross_minor": 18750,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 4,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 3190,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_67500_5",
+      "annual_gross_eur": 67500,
+      "published_annual_wage_tax_eur": 17879,
+      "gross_minor": 18750,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 5,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 4966,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_67500_6",
+      "annual_gross_eur": 67500,
+      "published_annual_wage_tax_eur": 18410,
+      "gross_minor": 18750,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 6,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 5113,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_90000_1",
+      "annual_gross_eur": 90000,
+      "published_annual_wage_tax_eur": 19438,
+      "gross_minor": 25000,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 1,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 5399,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_90000_2",
+      "annual_gross_eur": 90000,
+      "published_annual_wage_tax_eur": 17826,
+      "gross_minor": 25000,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 2,
+      "childless_surcharge": false,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 4951,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_90000_3",
+      "annual_gross_eur": 90000,
+      "published_annual_wage_tax_eur": 12182,
+      "gross_minor": 25000,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 3,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 3383,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_90000_4",
+      "annual_gross_eur": 90000,
+      "published_annual_wage_tax_eur": 19438,
+      "gross_minor": 25000,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 4,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 5399,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_90000_5",
+      "annual_gross_eur": 90000,
+      "published_annual_wage_tax_eur": 26347,
+      "gross_minor": 25000,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 5,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 7318,
+        "SOLZLZZ": 198,
+        "BK": 0
+      }
+    },
+    {
+      "id": "day_90000_6",
+      "annual_gross_eur": 90000,
+      "published_annual_wage_tax_eur": 26879,
+      "gross_minor": 25000,
+      "lzz": 4,
+      "tax_days": 1,
+      "tax_class": 6,
+      "childless_surcharge": true,
+      "church_member": false,
+      "expected": {
+        "LSTLZZ": 7466,
+        "SOLZLZZ": 215,
+        "BK": 0
+      }
+    }
+  ],
+  "multiple_day_cases": [
+    {
+      "id": "seventeen_days_class_I",
+      "daily_reference": "day_90000_1",
+      "tax_days": 17,
+      "gross_minor": 425000,
+      "expected": {
+        "LSTLZZ": 91783,
+        "SOLZLZZ": 0,
+        "BK": 0
+      },
+      "incorrect_round_only_after_total_minor": 91790
+    },
+    {
+      "id": "seventeen_days_class_VI_with_church_base",
+      "daily_reference": "day_90000_6",
+      "church_member": true,
+      "tax_days": 17,
+      "gross_minor": 425000,
+      "expected": {
+        "LSTLZZ": 126922,
+        "SOLZLZZ": 3655,
+        "BK": 126922
+      },
+      "church_tax_not_asserted": true
+    },
+    {
+      "id": "twelve_days_class_III",
+      "daily_reference": "day_45000_3",
+      "tax_days": 12,
+      "gross_minor": 150000,
+      "expected": {
+        "LSTLZZ": 6156,
+        "SOLZLZZ": 0,
+        "BK": 0
+      }
+    },
+    {
+      "id": "last_calendar_day_of_31_day_month",
+      "daily_reference": "day_45000_1",
+      "tax_days": 1,
+      "gross_minor": 12500,
+      "employment_from": "2026-07-31",
+      "employment_to": "2026-07-31",
+      "expected": {
+        "LSTLZZ": 1547,
+        "SOLZLZZ": 0,
+        "BK": 0
+      },
+      "expected_social_days": 1
+    }
+  ],
+  "social_references": [
+    {
+      "id": "DRV_17_28_Feb_2026",
+      "days": 12,
+      "health_cap_minor": 232500,
+      "pension_cap_minor": 338000
+    },
+    {
+      "id": "DRV_01_16_Mar_2026",
+      "days": 16,
+      "health_cap_minor": 310000,
+      "pension_cap_minor": 450667
+    },
+    {
+      "id": "minijob_example_29",
+      "days": 20,
+      "gross_minor": 10000,
+      "minimum_basis_minor": 11667,
+      "total_pension_minor": 2170,
+      "household_employer_minor": 500,
+      "household_employee_minor": 1670,
+      "scope": "published household reference only; commercial adaptation needs employer 15 percent"
+    },
+    {
+      "id": "minijob_example_30_August",
+      "days": 27,
+      "gross_minor": 5000,
+      "minimum_basis_minor": 15750,
+      "published_total_minor": 2931,
+      "published_employee_minor": 2181,
+      "bvv_1_2_derived_total_minor": 2930,
+      "bvv_1_2_derived_employee_minor": 2180,
+      "employer_minor": 750,
+      "status": "published_arithmetic_discrepancy_do_not_use_as_unqualified_numeric_oracle"
+    }
+  ],
+  "implementation_verified": false,
+  "official_software_approval": false
+}

@@ -1,0 +1,1303 @@
+{
+  "accounts": {
+    "items": [
+      {
+        "account_id": "427c786d177b41a3908370e6c6123c5b",
+        "revision": 1,
+        "previous_hash": null,
+        "created_by": "ef256301f6294876a83a08151d50f8e2",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "payload": {
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "ef256301f6294876a83a08151d50f8e2",
+            "currency": "EUR",
+            "id": "427c786d177b41a3908370e6c6123c5b",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "active": true,
+          "coverage_from": "2026-01-01",
+          "coverage_to": null,
+          "iban": "DE89370400440532013000",
+          "label": "Synthetic bank",
+          "reason": ""
+        },
+        "content_hash": "bfabdcd9e0eac3cd3bd4502988f627e56e7e85029c339caa2456307dba4102cb"
+      }
+    ],
+    "available_accounts": [
+      {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "ef256301f6294876a83a08151d50f8e2",
+        "currency": "EUR",
+        "id": "427c786d177b41a3908370e6c6123c5b",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      }
+    ],
+    "csv_contract": {
+      "version": "smartplan_bank_csv_v1",
+      "columns": [
+        "transaction_id",
+        "booking_date",
+        "value_date",
+        "amount",
+        "currency",
+        "counterparty",
+        "reference"
+      ],
+      "max_bytes": 5242880,
+      "max_rows": 10000
+    },
+    "external_connection": false
+  },
+  "account": {
+    "id": "427c786d177b41a3908370e6c6123c5b",
+    "code": "BANK",
+    "name": "Synthetic bank account",
+    "kind": "bank",
+    "currency": "EUR",
+    "active": true,
+    "revision": 1,
+    "created_by": "ef256301f6294876a83a08151d50f8e2",
+    "created_at": "2026-11-02T12:00:00+00:00"
+  },
+  "account_body": {
+    "request_id": "5419271f1560427e856282b79b8014ae",
+    "account_id": "427c786d177b41a3908370e6c6123c5b",
+    "account_revision": 1,
+    "revision": 0,
+    "iban": "DE89370400440532013000",
+    "label": "Synthetic bank",
+    "active": true,
+    "coverage_from": "2026-01-01",
+    "coverage_to": null,
+    "reason": ""
+  },
+  "binding": {
+    "account_id": "427c786d177b41a3908370e6c6123c5b",
+    "revision": 1,
+    "previous_hash": null,
+    "created_by": "ef256301f6294876a83a08151d50f8e2",
+    "created_at": "2026-11-02T12:00:00+00:00",
+    "payload": {
+      "account": {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "ef256301f6294876a83a08151d50f8e2",
+        "currency": "EUR",
+        "id": "427c786d177b41a3908370e6c6123c5b",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      },
+      "active": true,
+      "coverage_from": "2026-01-01",
+      "coverage_to": null,
+      "iban": "DE89370400440532013000",
+      "label": "Synthetic bank",
+      "reason": ""
+    },
+    "content_hash": "bfabdcd9e0eac3cd3bd4502988f627e56e7e85029c339caa2456307dba4102cb"
+  },
+  "body": {
+    "account_id": "427c786d177b41a3908370e6c6123c5b",
+    "account_revision": 1,
+    "bank_revision": 1,
+    "statement_reference": "SYN-aaa8adb18da748828f640c9f42c57233",
+    "period_from": "2026-11-01",
+    "period_to": "2026-11-30",
+    "opening_balance": "0.00",
+    "closing_balance": "119.00",
+    "filename": "synthetic.csv",
+    "delimiter": ";",
+    "content_base64": "dHJhbnNhY3Rpb25faWQ7Ym9va2luZ19kYXRlO3ZhbHVlX2RhdGU7YW1vdW50O2N1cnJlbmN5O2NvdW50ZXJwYXJ0eTtyZWZlcmVuY2UNClRYMTsyMDI2LTExLTAyOzIwMjYtMTEtMDI7MTE5LjAwO0VVUjtTeW50aGV0aWMgcGF5ZXI7U3ludGhldGljIHJlY2VpcHQNCg==",
+    "complete_statement_confirmed": true
+  },
+  "preview": {
+    "metadata": {
+      "contract": "smartplan_bank_csv_v1",
+      "account": {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "ef256301f6294876a83a08151d50f8e2",
+        "currency": "EUR",
+        "id": "427c786d177b41a3908370e6c6123c5b",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      },
+      "bank": {
+        "account_id": "427c786d177b41a3908370e6c6123c5b",
+        "revision": 1,
+        "previous_hash": null,
+        "created_by": "ef256301f6294876a83a08151d50f8e2",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "payload": {
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "ef256301f6294876a83a08151d50f8e2",
+            "currency": "EUR",
+            "id": "427c786d177b41a3908370e6c6123c5b",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "active": true,
+          "coverage_from": "2026-01-01",
+          "coverage_to": null,
+          "iban": "DE89370400440532013000",
+          "label": "Synthetic bank",
+          "reason": ""
+        },
+        "content_hash": "bfabdcd9e0eac3cd3bd4502988f627e56e7e85029c339caa2456307dba4102cb"
+      },
+      "statement_reference": "SYN-aaa8adb18da748828f640c9f42c57233",
+      "period_from": "2026-11-01",
+      "period_to": "2026-11-30",
+      "opening_balance": "0.00",
+      "closing_balance": "119.00",
+      "filename": "synthetic.csv",
+      "delimiter": ";",
+      "file_sha256": "c1a492d17ec5b7346e0e506c014106ab33617a5219337c2e3acccff7e6a9a527",
+      "rows": [
+        {
+          "line_number": 1,
+          "transaction_id": "TX1",
+          "booking_date": "2026-11-02",
+          "value_date": "2026-11-02",
+          "amount": "119.00",
+          "currency": "EUR",
+          "counterparty": "Synthetic payer",
+          "reference": "Synthetic receipt"
+        }
+      ],
+      "complete_statement_confirmed": true,
+      "distinct_transaction_confirmations": {}
+    },
+    "errors": [],
+    "duplicates": [],
+    "identity_checks": [],
+    "duplicate_statement_id": null,
+    "can_import": true,
+    "total": "119.00",
+    "preview_hash": "bb48d547006c546d566f8305061b4b54ecbfd73760518353e089dec80d01363a"
+  },
+  "statement": {
+    "statement": {
+      "id": "c3284da826dd47c48256b4e89f6b0046",
+      "account_id": "427c786d177b41a3908370e6c6123c5b",
+      "reference_key": "syn-aaa8adb18da748828f640c9f42c57233",
+      "file_sha256": "c1a492d17ec5b7346e0e506c014106ab33617a5219337c2e3acccff7e6a9a527",
+      "created_by": "ef256301f6294876a83a08151d50f8e2",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "payload": {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "ef256301f6294876a83a08151d50f8e2",
+          "currency": "EUR",
+          "id": "427c786d177b41a3908370e6c6123c5b",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "bank": {
+          "account_id": "427c786d177b41a3908370e6c6123c5b",
+          "content_hash": "bfabdcd9e0eac3cd3bd4502988f627e56e7e85029c339caa2456307dba4102cb",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "ef256301f6294876a83a08151d50f8e2",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "currency": "EUR",
+              "id": "427c786d177b41a3908370e6c6123c5b",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-01-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        },
+        "closing_balance": "119.00",
+        "complete_statement_confirmed": true,
+        "contract": "smartplan_bank_csv_v1",
+        "delimiter": ";",
+        "distinct_transaction_confirmations": {},
+        "file_sha256": "c1a492d17ec5b7346e0e506c014106ab33617a5219337c2e3acccff7e6a9a527",
+        "filename": "synthetic.csv",
+        "opening_balance": "0.00",
+        "period_from": "2026-11-01",
+        "period_to": "2026-11-30",
+        "rows": [
+          {
+            "amount": "119.00",
+            "booking_date": "2026-11-02",
+            "counterparty": "Synthetic payer",
+            "currency": "EUR",
+            "line_number": 1,
+            "reference": "Synthetic receipt",
+            "transaction_id": "TX1",
+            "value_date": "2026-11-02"
+          }
+        ],
+        "statement_reference": "SYN-aaa8adb18da748828f640c9f42c57233"
+      },
+      "content_hash": "49d541c69897b33e95005510bbe6c564f773f6ad26bcd4df367ebb7921ad1c8e"
+    },
+    "lines": [
+      {
+        "line_number": 1,
+        "transaction_id": "55aeee02ef2243839001c0ebecbc152f",
+        "transaction": {
+          "id": "55aeee02ef2243839001c0ebecbc152f",
+          "account_id": "427c786d177b41a3908370e6c6123c5b",
+          "external_id": "TX1",
+          "created_by": "ef256301f6294876a83a08151d50f8e2",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "payload": {
+            "amount": "119.00",
+            "booking_date": "2026-11-02",
+            "counterparty": "Synthetic payer",
+            "currency": "EUR",
+            "reference": "Synthetic receipt",
+            "transaction_id": "TX1",
+            "value_date": "2026-11-02"
+          },
+          "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6"
+        }
+      }
+    ],
+    "original": {
+      "filename": "synthetic.csv",
+      "sha256": "c1a492d17ec5b7346e0e506c014106ab33617a5219337c2e3acccff7e6a9a527",
+      "path": "/bank/statements/c3284da826dd47c48256b4e89f6b0046/original"
+    }
+  },
+  "candidates": {
+    "transaction": {
+      "id": "55aeee02ef2243839001c0ebecbc152f",
+      "account_id": "427c786d177b41a3908370e6c6123c5b",
+      "external_id": "TX1",
+      "created_by": "ef256301f6294876a83a08151d50f8e2",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "payload": {
+        "amount": "119.00",
+        "booking_date": "2026-11-02",
+        "counterparty": "Synthetic payer",
+        "currency": "EUR",
+        "reference": "Synthetic receipt",
+        "transaction_id": "TX1",
+        "value_date": "2026-11-02"
+      },
+      "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6"
+    },
+    "current": {
+      "transaction_id": "55aeee02ef2243839001c0ebecbc152f",
+      "revision": 0,
+      "content_hash": null,
+      "previous_hash": null,
+      "payload": {
+        "links": [],
+        "reason": ""
+      }
+    },
+    "items": [
+      {
+        "source": {
+          "source_kind": "cash_event",
+          "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "ef256301f6294876a83a08151d50f8e2",
+            "currency": "EUR",
+            "id": "427c786d177b41a3908370e6c6123c5b",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "date": "2026-11-02",
+          "direction": "in",
+          "amount": "119.00",
+          "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb",
+          "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+          "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a"
+        },
+        "remaining": "119.00",
+        "stale_existing_links": false
+      }
+    ]
+  },
+  "match_body": {
+    "revision": 0,
+    "links": [
+      {
+        "source_kind": "cash_event",
+        "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+        "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+        "amount": "119.00",
+        "date_difference_reason": ""
+      }
+    ],
+    "reason": "Explicit synthetic existing cash"
+  },
+  "match_preview": {
+    "transaction": {
+      "id": "55aeee02ef2243839001c0ebecbc152f",
+      "account_id": "427c786d177b41a3908370e6c6123c5b",
+      "external_id": "TX1",
+      "created_by": "ef256301f6294876a83a08151d50f8e2",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "payload": {
+        "amount": "119.00",
+        "booking_date": "2026-11-02",
+        "counterparty": "Synthetic payer",
+        "currency": "EUR",
+        "reference": "Synthetic receipt",
+        "transaction_id": "TX1",
+        "value_date": "2026-11-02"
+      },
+      "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6"
+    },
+    "revision": 1,
+    "previous_hash": null,
+    "links": [
+      {
+        "source": {
+          "source_kind": "cash_event",
+          "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "ef256301f6294876a83a08151d50f8e2",
+            "currency": "EUR",
+            "id": "427c786d177b41a3908370e6c6123c5b",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "date": "2026-11-02",
+          "direction": "in",
+          "amount": "119.00",
+          "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb",
+          "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+          "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a"
+        },
+        "amount": "119.00",
+        "date_difference_reason": ""
+      }
+    ],
+    "reason": "Explicit synthetic existing cash",
+    "matched_amount": "119.00",
+    "remaining": "0.00",
+    "complete": true,
+    "preview_hash": "f98bd04ccc68edb438befe00c9b5bfc72155fb7864527b8d1fa364e40929b627"
+  },
+  "match": {
+    "transaction_id": "55aeee02ef2243839001c0ebecbc152f",
+    "revision": 1,
+    "previous_hash": null,
+    "created_by": "ef256301f6294876a83a08151d50f8e2",
+    "created_at": "2026-11-02T12:00:00+00:00",
+    "payload": {
+      "complete": true,
+      "links": [
+        {
+          "amount": "119.00",
+          "date_difference_reason": "",
+          "source": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "currency": "EUR",
+              "id": "427c786d177b41a3908370e6c6123c5b",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "amount": "119.00",
+            "date": "2026-11-02",
+            "direction": "in",
+            "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+            "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+            "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+            "source_kind": "cash_event",
+            "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+          }
+        }
+      ],
+      "matched_amount": "119.00",
+      "preview_hash": "f98bd04ccc68edb438befe00c9b5bfc72155fb7864527b8d1fa364e40929b627",
+      "reason": "Explicit synthetic existing cash",
+      "remaining": "0.00",
+      "transaction": {
+        "account_id": "427c786d177b41a3908370e6c6123c5b",
+        "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "ef256301f6294876a83a08151d50f8e2",
+        "external_id": "TX1",
+        "id": "55aeee02ef2243839001c0ebecbc152f",
+        "payload": {
+          "amount": "119.00",
+          "booking_date": "2026-11-02",
+          "counterparty": "Synthetic payer",
+          "currency": "EUR",
+          "reference": "Synthetic receipt",
+          "transaction_id": "TX1",
+          "value_date": "2026-11-02"
+        }
+      }
+    },
+    "content_hash": "cc5f327b05f0049c90b9e986713c52337da9776a36a31507bf1df868ea7764cd"
+  },
+  "report_body": {
+    "account_id": "427c786d177b41a3908370e6c6123c5b",
+    "period": "2026-11",
+    "statement_ids": [
+      "c3284da826dd47c48256b4e89f6b0046"
+    ],
+    "reason": "Synthetic month checked"
+  },
+  "report_preview": {
+    "schema_version": 1,
+    "account_id": "427c786d177b41a3908370e6c6123c5b",
+    "period": "2026-11",
+    "period_from": "2026-11-01",
+    "period_to": "2026-11-30",
+    "coverage_from": "2026-11-01",
+    "coverage_to": "2026-11-30",
+    "bank": {
+      "account_id": "427c786d177b41a3908370e6c6123c5b",
+      "revision": 1,
+      "previous_hash": null,
+      "created_by": "ef256301f6294876a83a08151d50f8e2",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "payload": {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "ef256301f6294876a83a08151d50f8e2",
+          "currency": "EUR",
+          "id": "427c786d177b41a3908370e6c6123c5b",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "active": true,
+        "coverage_from": "2026-01-01",
+        "coverage_to": null,
+        "iban": "DE89370400440532013000",
+        "label": "Synthetic bank",
+        "reason": ""
+      },
+      "content_hash": "bfabdcd9e0eac3cd3bd4502988f627e56e7e85029c339caa2456307dba4102cb"
+    },
+    "statement_ids": [
+      "c3284da826dd47c48256b4e89f6b0046"
+    ],
+    "statements": [
+      {
+        "id": "c3284da826dd47c48256b4e89f6b0046",
+        "content_hash": "49d541c69897b33e95005510bbe6c564f773f6ad26bcd4df367ebb7921ad1c8e"
+      }
+    ],
+    "bank_rows": [
+      {
+        "transaction": {
+          "id": "55aeee02ef2243839001c0ebecbc152f",
+          "account_id": "427c786d177b41a3908370e6c6123c5b",
+          "external_id": "TX1",
+          "created_by": "ef256301f6294876a83a08151d50f8e2",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "payload": {
+            "amount": "119.00",
+            "booking_date": "2026-11-02",
+            "counterparty": "Synthetic payer",
+            "currency": "EUR",
+            "reference": "Synthetic receipt",
+            "transaction_id": "TX1",
+            "value_date": "2026-11-02"
+          },
+          "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6"
+        },
+        "match": {
+          "transaction_id": "55aeee02ef2243839001c0ebecbc152f",
+          "revision": 1,
+          "previous_hash": null,
+          "created_by": "ef256301f6294876a83a08151d50f8e2",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "payload": {
+            "complete": true,
+            "links": [
+              {
+                "amount": "119.00",
+                "date_difference_reason": "",
+                "source": {
+                  "account": {
+                    "active": true,
+                    "code": "BANK",
+                    "created_at": "2026-11-02T12:00:00+00:00",
+                    "created_by": "ef256301f6294876a83a08151d50f8e2",
+                    "currency": "EUR",
+                    "id": "427c786d177b41a3908370e6c6123c5b",
+                    "kind": "bank",
+                    "name": "Synthetic bank account",
+                    "revision": 1
+                  },
+                  "amount": "119.00",
+                  "date": "2026-11-02",
+                  "direction": "in",
+                  "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+                  "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+                  "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+                  "source_kind": "cash_event",
+                  "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+                }
+              }
+            ],
+            "matched_amount": "119.00",
+            "preview_hash": "f98bd04ccc68edb438befe00c9b5bfc72155fb7864527b8d1fa364e40929b627",
+            "reason": "Explicit synthetic existing cash",
+            "remaining": "0.00",
+            "transaction": {
+              "account_id": "427c786d177b41a3908370e6c6123c5b",
+              "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "external_id": "TX1",
+              "id": "55aeee02ef2243839001c0ebecbc152f",
+              "payload": {
+                "amount": "119.00",
+                "booking_date": "2026-11-02",
+                "counterparty": "Synthetic payer",
+                "currency": "EUR",
+                "reference": "Synthetic receipt",
+                "transaction_id": "TX1",
+                "value_date": "2026-11-02"
+              }
+            }
+          },
+          "content_hash": "cc5f327b05f0049c90b9e986713c52337da9776a36a31507bf1df868ea7764cd"
+        },
+        "matched_amount": "119.00",
+        "remaining": "0.00",
+        "issues": []
+      }
+    ],
+    "cash_rows": [
+      {
+        "source": {
+          "source_kind": "cash_event",
+          "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "ef256301f6294876a83a08151d50f8e2",
+            "currency": "EUR",
+            "id": "427c786d177b41a3908370e6c6123c5b",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "date": "2026-11-02",
+          "direction": "in",
+          "amount": "119.00",
+          "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb",
+          "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+          "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a"
+        },
+        "matched_amount": "119.00",
+        "remaining": "0.00"
+      }
+    ],
+    "source_manifest": {
+      "cash_event:ee1d5fe5c20c46c5a0e71566eaebfadb": {
+        "source_kind": "cash_event",
+        "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "ef256301f6294876a83a08151d50f8e2",
+          "currency": "EUR",
+          "id": "427c786d177b41a3908370e6c6123c5b",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "date": "2026-11-02",
+        "direction": "in",
+        "amount": "119.00",
+        "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb",
+        "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+        "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a"
+      }
+    },
+    "allocation_manifest": [
+      {
+        "transaction_id": "55aeee02ef2243839001c0ebecbc152f",
+        "revision": 1,
+        "previous_hash": null,
+        "created_by": "ef256301f6294876a83a08151d50f8e2",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "payload": {
+          "complete": true,
+          "links": [
+            {
+              "amount": "119.00",
+              "date_difference_reason": "",
+              "source": {
+                "account": {
+                  "active": true,
+                  "code": "BANK",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "ef256301f6294876a83a08151d50f8e2",
+                  "currency": "EUR",
+                  "id": "427c786d177b41a3908370e6c6123c5b",
+                  "kind": "bank",
+                  "name": "Synthetic bank account",
+                  "revision": 1
+                },
+                "amount": "119.00",
+                "date": "2026-11-02",
+                "direction": "in",
+                "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+                "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+                "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+                "source_kind": "cash_event",
+                "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+              }
+            }
+          ],
+          "matched_amount": "119.00",
+          "preview_hash": "f98bd04ccc68edb438befe00c9b5bfc72155fb7864527b8d1fa364e40929b627",
+          "reason": "Explicit synthetic existing cash",
+          "remaining": "0.00",
+          "transaction": {
+            "account_id": "427c786d177b41a3908370e6c6123c5b",
+            "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "ef256301f6294876a83a08151d50f8e2",
+            "external_id": "TX1",
+            "id": "55aeee02ef2243839001c0ebecbc152f",
+            "payload": {
+              "amount": "119.00",
+              "booking_date": "2026-11-02",
+              "counterparty": "Synthetic payer",
+              "currency": "EUR",
+              "reference": "Synthetic receipt",
+              "transaction_id": "TX1",
+              "value_date": "2026-11-02"
+            }
+          }
+        },
+        "content_hash": "cc5f327b05f0049c90b9e986713c52337da9776a36a31507bf1df868ea7764cd"
+      }
+    ],
+    "opening_balance": "0.00",
+    "closing_balance": "119.00",
+    "bank_movement_net": "119.00",
+    "cash_movement_net": "119.00",
+    "issues": [],
+    "complete": true,
+    "reason": "Synthetic month checked",
+    "state_hash": "235cedf6b9a9ed45461f981f473fa4e036b737d834e13b099105160ddc760635",
+    "external_bank_verification": false,
+    "new_payment_created": false,
+    "tax_classification_changed": false,
+    "preview_hash": "d4ca835990ca4d23d299ef34deb98b08c84c527d8147dc90991140120ea88a56"
+  },
+  "report": {
+    "record": {
+      "id": "07919cbdeba74170b953251ce66fb167",
+      "account_id": "427c786d177b41a3908370e6c6123c5b",
+      "period": "2026-11",
+      "created_by": "ef256301f6294876a83a08151d50f8e2",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "payload": {
+        "account_id": "427c786d177b41a3908370e6c6123c5b",
+        "allocation_manifest": [
+          {
+            "content_hash": "cc5f327b05f0049c90b9e986713c52337da9776a36a31507bf1df868ea7764cd",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "ef256301f6294876a83a08151d50f8e2",
+            "payload": {
+              "complete": true,
+              "links": [
+                {
+                  "amount": "119.00",
+                  "date_difference_reason": "",
+                  "source": {
+                    "account": {
+                      "active": true,
+                      "code": "BANK",
+                      "created_at": "2026-11-02T12:00:00+00:00",
+                      "created_by": "ef256301f6294876a83a08151d50f8e2",
+                      "currency": "EUR",
+                      "id": "427c786d177b41a3908370e6c6123c5b",
+                      "kind": "bank",
+                      "name": "Synthetic bank account",
+                      "revision": 1
+                    },
+                    "amount": "119.00",
+                    "date": "2026-11-02",
+                    "direction": "in",
+                    "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+                    "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+                    "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+                    "source_kind": "cash_event",
+                    "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+                  }
+                }
+              ],
+              "matched_amount": "119.00",
+              "preview_hash": "f98bd04ccc68edb438befe00c9b5bfc72155fb7864527b8d1fa364e40929b627",
+              "reason": "Explicit synthetic existing cash",
+              "remaining": "0.00",
+              "transaction": {
+                "account_id": "427c786d177b41a3908370e6c6123c5b",
+                "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "ef256301f6294876a83a08151d50f8e2",
+                "external_id": "TX1",
+                "id": "55aeee02ef2243839001c0ebecbc152f",
+                "payload": {
+                  "amount": "119.00",
+                  "booking_date": "2026-11-02",
+                  "counterparty": "Synthetic payer",
+                  "currency": "EUR",
+                  "reference": "Synthetic receipt",
+                  "transaction_id": "TX1",
+                  "value_date": "2026-11-02"
+                }
+              }
+            },
+            "previous_hash": null,
+            "revision": 1,
+            "transaction_id": "55aeee02ef2243839001c0ebecbc152f"
+          }
+        ],
+        "bank": {
+          "account_id": "427c786d177b41a3908370e6c6123c5b",
+          "content_hash": "bfabdcd9e0eac3cd3bd4502988f627e56e7e85029c339caa2456307dba4102cb",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "ef256301f6294876a83a08151d50f8e2",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "currency": "EUR",
+              "id": "427c786d177b41a3908370e6c6123c5b",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-01-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        },
+        "bank_movement_net": "119.00",
+        "bank_rows": [
+          {
+            "issues": [],
+            "match": {
+              "content_hash": "cc5f327b05f0049c90b9e986713c52337da9776a36a31507bf1df868ea7764cd",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "payload": {
+                "complete": true,
+                "links": [
+                  {
+                    "amount": "119.00",
+                    "date_difference_reason": "",
+                    "source": {
+                      "account": {
+                        "active": true,
+                        "code": "BANK",
+                        "created_at": "2026-11-02T12:00:00+00:00",
+                        "created_by": "ef256301f6294876a83a08151d50f8e2",
+                        "currency": "EUR",
+                        "id": "427c786d177b41a3908370e6c6123c5b",
+                        "kind": "bank",
+                        "name": "Synthetic bank account",
+                        "revision": 1
+                      },
+                      "amount": "119.00",
+                      "date": "2026-11-02",
+                      "direction": "in",
+                      "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+                      "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+                      "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+                      "source_kind": "cash_event",
+                      "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+                    }
+                  }
+                ],
+                "matched_amount": "119.00",
+                "preview_hash": "f98bd04ccc68edb438befe00c9b5bfc72155fb7864527b8d1fa364e40929b627",
+                "reason": "Explicit synthetic existing cash",
+                "remaining": "0.00",
+                "transaction": {
+                  "account_id": "427c786d177b41a3908370e6c6123c5b",
+                  "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "ef256301f6294876a83a08151d50f8e2",
+                  "external_id": "TX1",
+                  "id": "55aeee02ef2243839001c0ebecbc152f",
+                  "payload": {
+                    "amount": "119.00",
+                    "booking_date": "2026-11-02",
+                    "counterparty": "Synthetic payer",
+                    "currency": "EUR",
+                    "reference": "Synthetic receipt",
+                    "transaction_id": "TX1",
+                    "value_date": "2026-11-02"
+                  }
+                }
+              },
+              "previous_hash": null,
+              "revision": 1,
+              "transaction_id": "55aeee02ef2243839001c0ebecbc152f"
+            },
+            "matched_amount": "119.00",
+            "remaining": "0.00",
+            "transaction": {
+              "account_id": "427c786d177b41a3908370e6c6123c5b",
+              "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "external_id": "TX1",
+              "id": "55aeee02ef2243839001c0ebecbc152f",
+              "payload": {
+                "amount": "119.00",
+                "booking_date": "2026-11-02",
+                "counterparty": "Synthetic payer",
+                "currency": "EUR",
+                "reference": "Synthetic receipt",
+                "transaction_id": "TX1",
+                "value_date": "2026-11-02"
+              }
+            }
+          }
+        ],
+        "cash_movement_net": "119.00",
+        "cash_rows": [
+          {
+            "matched_amount": "119.00",
+            "remaining": "0.00",
+            "source": {
+              "account": {
+                "active": true,
+                "code": "BANK",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "ef256301f6294876a83a08151d50f8e2",
+                "currency": "EUR",
+                "id": "427c786d177b41a3908370e6c6123c5b",
+                "kind": "bank",
+                "name": "Synthetic bank account",
+                "revision": 1
+              },
+              "amount": "119.00",
+              "date": "2026-11-02",
+              "direction": "in",
+              "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+              "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+              "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+              "source_kind": "cash_event",
+              "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+            }
+          }
+        ],
+        "closing_balance": "119.00",
+        "complete": true,
+        "coverage_from": "2026-11-01",
+        "coverage_to": "2026-11-30",
+        "external_bank_verification": false,
+        "issues": [],
+        "new_payment_created": false,
+        "opening_balance": "0.00",
+        "period": "2026-11",
+        "period_from": "2026-11-01",
+        "period_to": "2026-11-30",
+        "preview_hash": "d4ca835990ca4d23d299ef34deb98b08c84c527d8147dc90991140120ea88a56",
+        "reason": "Synthetic month checked",
+        "schema_version": 1,
+        "source_manifest": {
+          "cash_event:ee1d5fe5c20c46c5a0e71566eaebfadb": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "currency": "EUR",
+              "id": "427c786d177b41a3908370e6c6123c5b",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "amount": "119.00",
+            "date": "2026-11-02",
+            "direction": "in",
+            "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+            "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+            "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+            "source_kind": "cash_event",
+            "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+          }
+        },
+        "state_hash": "235cedf6b9a9ed45461f981f473fa4e036b737d834e13b099105160ddc760635",
+        "statement_ids": [
+          "c3284da826dd47c48256b4e89f6b0046"
+        ],
+        "statements": [
+          {
+            "content_hash": "49d541c69897b33e95005510bbe6c564f773f6ad26bcd4df367ebb7921ad1c8e",
+            "id": "c3284da826dd47c48256b4e89f6b0046"
+          }
+        ],
+        "tax_classification_changed": false
+      },
+      "content_hash": "14c8e27141a42b1e92bebc90f8ef7b5ee59c8afe4b9e8eca6ee6e992e519d149"
+    },
+    "exports": {
+      "json": {
+        "filename": "Bankabgleich-2026-11-07919cbdeba74170b953251ce66fb167.json",
+        "media_type": "application/json; charset=utf-8",
+        "size": 6927,
+        "sha256": "732c8c2ec6d26ddca456c75dc4220fd83db8b3636792cdfa52deb19c1690d85b"
+      },
+      "csv": {
+        "filename": "Bankabgleich-2026-11-07919cbdeba74170b953251ce66fb167.csv",
+        "media_type": "text/csv; charset=utf-8",
+        "size": 198,
+        "sha256": "d951c41872a495822d6e26fd9852d8eee13e7650487840bdd8212924761ed3d7"
+      },
+      "pdf": {
+        "filename": "Bankabgleich-2026-11-07919cbdeba74170b953251ce66fb167.pdf",
+        "media_type": "application/pdf",
+        "size": 1869,
+        "sha256": "c3a7b500e06b635dc3aa999eec1039a51eb198b6ec079b9c6aaaaa87a7fc4f3f"
+      }
+    }
+  },
+  "report_current": {
+    "record": {
+      "id": "07919cbdeba74170b953251ce66fb167",
+      "account_id": "427c786d177b41a3908370e6c6123c5b",
+      "period": "2026-11",
+      "created_by": "ef256301f6294876a83a08151d50f8e2",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "payload": {
+        "account_id": "427c786d177b41a3908370e6c6123c5b",
+        "allocation_manifest": [
+          {
+            "content_hash": "cc5f327b05f0049c90b9e986713c52337da9776a36a31507bf1df868ea7764cd",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "ef256301f6294876a83a08151d50f8e2",
+            "payload": {
+              "complete": true,
+              "links": [
+                {
+                  "amount": "119.00",
+                  "date_difference_reason": "",
+                  "source": {
+                    "account": {
+                      "active": true,
+                      "code": "BANK",
+                      "created_at": "2026-11-02T12:00:00+00:00",
+                      "created_by": "ef256301f6294876a83a08151d50f8e2",
+                      "currency": "EUR",
+                      "id": "427c786d177b41a3908370e6c6123c5b",
+                      "kind": "bank",
+                      "name": "Synthetic bank account",
+                      "revision": 1
+                    },
+                    "amount": "119.00",
+                    "date": "2026-11-02",
+                    "direction": "in",
+                    "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+                    "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+                    "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+                    "source_kind": "cash_event",
+                    "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+                  }
+                }
+              ],
+              "matched_amount": "119.00",
+              "preview_hash": "f98bd04ccc68edb438befe00c9b5bfc72155fb7864527b8d1fa364e40929b627",
+              "reason": "Explicit synthetic existing cash",
+              "remaining": "0.00",
+              "transaction": {
+                "account_id": "427c786d177b41a3908370e6c6123c5b",
+                "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "ef256301f6294876a83a08151d50f8e2",
+                "external_id": "TX1",
+                "id": "55aeee02ef2243839001c0ebecbc152f",
+                "payload": {
+                  "amount": "119.00",
+                  "booking_date": "2026-11-02",
+                  "counterparty": "Synthetic payer",
+                  "currency": "EUR",
+                  "reference": "Synthetic receipt",
+                  "transaction_id": "TX1",
+                  "value_date": "2026-11-02"
+                }
+              }
+            },
+            "previous_hash": null,
+            "revision": 1,
+            "transaction_id": "55aeee02ef2243839001c0ebecbc152f"
+          }
+        ],
+        "bank": {
+          "account_id": "427c786d177b41a3908370e6c6123c5b",
+          "content_hash": "bfabdcd9e0eac3cd3bd4502988f627e56e7e85029c339caa2456307dba4102cb",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "ef256301f6294876a83a08151d50f8e2",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "currency": "EUR",
+              "id": "427c786d177b41a3908370e6c6123c5b",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2026-01-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic bank",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        },
+        "bank_movement_net": "119.00",
+        "bank_rows": [
+          {
+            "issues": [],
+            "match": {
+              "content_hash": "cc5f327b05f0049c90b9e986713c52337da9776a36a31507bf1df868ea7764cd",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "payload": {
+                "complete": true,
+                "links": [
+                  {
+                    "amount": "119.00",
+                    "date_difference_reason": "",
+                    "source": {
+                      "account": {
+                        "active": true,
+                        "code": "BANK",
+                        "created_at": "2026-11-02T12:00:00+00:00",
+                        "created_by": "ef256301f6294876a83a08151d50f8e2",
+                        "currency": "EUR",
+                        "id": "427c786d177b41a3908370e6c6123c5b",
+                        "kind": "bank",
+                        "name": "Synthetic bank account",
+                        "revision": 1
+                      },
+                      "amount": "119.00",
+                      "date": "2026-11-02",
+                      "direction": "in",
+                      "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+                      "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+                      "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+                      "source_kind": "cash_event",
+                      "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+                    }
+                  }
+                ],
+                "matched_amount": "119.00",
+                "preview_hash": "f98bd04ccc68edb438befe00c9b5bfc72155fb7864527b8d1fa364e40929b627",
+                "reason": "Explicit synthetic existing cash",
+                "remaining": "0.00",
+                "transaction": {
+                  "account_id": "427c786d177b41a3908370e6c6123c5b",
+                  "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "ef256301f6294876a83a08151d50f8e2",
+                  "external_id": "TX1",
+                  "id": "55aeee02ef2243839001c0ebecbc152f",
+                  "payload": {
+                    "amount": "119.00",
+                    "booking_date": "2026-11-02",
+                    "counterparty": "Synthetic payer",
+                    "currency": "EUR",
+                    "reference": "Synthetic receipt",
+                    "transaction_id": "TX1",
+                    "value_date": "2026-11-02"
+                  }
+                }
+              },
+              "previous_hash": null,
+              "revision": 1,
+              "transaction_id": "55aeee02ef2243839001c0ebecbc152f"
+            },
+            "matched_amount": "119.00",
+            "remaining": "0.00",
+            "transaction": {
+              "account_id": "427c786d177b41a3908370e6c6123c5b",
+              "content_hash": "6a6ae65fcd4647ef529680685774adbd7157ed2673dbeef10fa8fb31c06ac1f6",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "external_id": "TX1",
+              "id": "55aeee02ef2243839001c0ebecbc152f",
+              "payload": {
+                "amount": "119.00",
+                "booking_date": "2026-11-02",
+                "counterparty": "Synthetic payer",
+                "currency": "EUR",
+                "reference": "Synthetic receipt",
+                "transaction_id": "TX1",
+                "value_date": "2026-11-02"
+              }
+            }
+          }
+        ],
+        "cash_movement_net": "119.00",
+        "cash_rows": [
+          {
+            "matched_amount": "119.00",
+            "remaining": "0.00",
+            "source": {
+              "account": {
+                "active": true,
+                "code": "BANK",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "ef256301f6294876a83a08151d50f8e2",
+                "currency": "EUR",
+                "id": "427c786d177b41a3908370e6c6123c5b",
+                "kind": "bank",
+                "name": "Synthetic bank account",
+                "revision": 1
+              },
+              "amount": "119.00",
+              "date": "2026-11-02",
+              "direction": "in",
+              "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+              "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+              "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+              "source_kind": "cash_event",
+              "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+            }
+          }
+        ],
+        "closing_balance": "119.00",
+        "complete": true,
+        "coverage_from": "2026-11-01",
+        "coverage_to": "2026-11-30",
+        "external_bank_verification": false,
+        "issues": [],
+        "new_payment_created": false,
+        "opening_balance": "0.00",
+        "period": "2026-11",
+        "period_from": "2026-11-01",
+        "period_to": "2026-11-30",
+        "preview_hash": "d4ca835990ca4d23d299ef34deb98b08c84c527d8147dc90991140120ea88a56",
+        "reason": "Synthetic month checked",
+        "schema_version": 1,
+        "source_manifest": {
+          "cash_event:ee1d5fe5c20c46c5a0e71566eaebfadb": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "ef256301f6294876a83a08151d50f8e2",
+              "currency": "EUR",
+              "id": "427c786d177b41a3908370e6c6123c5b",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "amount": "119.00",
+            "date": "2026-11-02",
+            "direction": "in",
+            "origin_hash": "193477c7ffceb7349c4adb1bfbb94e22ebe945db826690bb65fe7f0d3ef11de5",
+            "source_hash": "bfafd4514ea7d1be80ee8ae135b3e05d36629ec5158b4a1160021fac01bf558a",
+            "source_id": "ee1d5fe5c20c46c5a0e71566eaebfadb",
+            "source_kind": "cash_event",
+            "source_path": "/accounting/events/ee1d5fe5c20c46c5a0e71566eaebfadb"
+          }
+        },
+        "state_hash": "235cedf6b9a9ed45461f981f473fa4e036b737d834e13b099105160ddc760635",
+        "statement_ids": [
+          "c3284da826dd47c48256b4e89f6b0046"
+        ],
+        "statements": [
+          {
+            "content_hash": "49d541c69897b33e95005510bbe6c564f773f6ad26bcd4df367ebb7921ad1c8e",
+            "id": "c3284da826dd47c48256b4e89f6b0046"
+          }
+        ],
+        "tax_classification_changed": false
+      },
+      "content_hash": "14c8e27141a42b1e92bebc90f8ef7b5ee59c8afe4b9e8eca6ee6e992e519d149"
+    },
+    "exports": {
+      "json": {
+        "filename": "Bankabgleich-2026-11-07919cbdeba74170b953251ce66fb167.json",
+        "media_type": "application/json; charset=utf-8",
+        "size": 6927,
+        "sha256": "732c8c2ec6d26ddca456c75dc4220fd83db8b3636792cdfa52deb19c1690d85b"
+      },
+      "csv": {
+        "filename": "Bankabgleich-2026-11-07919cbdeba74170b953251ce66fb167.csv",
+        "media_type": "text/csv; charset=utf-8",
+        "size": 198,
+        "sha256": "d951c41872a495822d6e26fd9852d8eee13e7650487840bdd8212924761ed3d7"
+      },
+      "pdf": {
+        "filename": "Bankabgleich-2026-11-07919cbdeba74170b953251ce66fb167.pdf",
+        "media_type": "application/pdf",
+        "size": 1869,
+        "sha256": "c3a7b500e06b635dc3aa999eec1039a51eb198b6ec079b9c6aaaaa87a7fc4f3f"
+      }
+    },
+    "current": true,
+    "current_issues": []
+  }
+}

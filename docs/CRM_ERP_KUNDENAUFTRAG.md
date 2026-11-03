@@ -24,8 +24,9 @@ Arbeitspaket ersetzt diese Anforderungen nicht.
   vorhanden. Die Projekt-ID bleibt bei der Übernahme erhalten.
 - Planung, Offlinezeiten und Fotos, genehmigte Zeitkosten, Materialentnahmen,
   Serviceberichte, Rechnungen und Zahlungszuordnung sind vorhanden.
-- Der bestehende PostgreSQL-Ablauftest verbindet viele dieser Funktionen,
-  überspringt jedoch die Portalannahme und echte Offline-Erfassung.
+- Der PostgreSQL-Ablauftest verbindet diese Funktionen einschließlich echter
+  Portalannahme und Annahme eines unveränderten Offline-Auftrags. Die tatsächliche
+  verschlüsselte Flutter-Erfassung wird separat geprüft.
 
 Das vom Nutzer bereits getestete ältere Protokoll verwendet `core.reports`.
 Die integrierten Serviceberichte und Wartung verwenden
@@ -56,11 +57,13 @@ signiert.
 
 ## Grenzen der Aussage
 
-Der bestehende Kostenbericht erfasst Materialentnahmen und genehmigte Zeiten;
-Fremdleistungen, sonstige Kosten und die vollständige Projektwirtschaftlichkeit
-sind damit noch nicht abgenommen. Echte Windows-/iPhone-Installationen, Updates,
-Geräteprüfung und weitere Abnahmepunkte bleiben separat offen. Ein HTTP-Test
-ersetzt keinen tatsächlichen Offline-App-Test.
+Der einfache Kostenbericht erfasst Materialentnahmen und genehmigte Zeiten.
+Die erweiterte Projektwirtschaftlichkeit ergänzt belegte Fremdleistungen und
+weitere Kosten, Budget, Erlös, tatsächliche Zahlungen und ihre Quellen. Der
+zusammenhängende technische B/C-Nachweis wird unten gesondert geführt.
+Echte Windows-/iPhone-Installationen, Updates, Geräteprüfung und weitere
+Abnahmepunkte bleiben separat offen. Ein HTTP-Test ersetzt keinen tatsächlichen
+Offline-App-Test.
 
 Alle sieben Gesamtabnahmen A–G bleiben offen, bis ihre jeweiligen vollständigen
 Nachweise vorliegen. Die bislang genannten 28 von 62 Anforderungen sind eine
@@ -79,7 +82,8 @@ prüfsummengeprüftes PDF. Der neue
 verbindet Anfrage, Katalogimport, Portalannahme, Auftrag, Ausführung und
 vollständige Zahlung. Beide Prüfungen sind erfolgreich ausgeführt.
 
-642 Backendtests bestanden bei einem bestehenden Windows-Skip; 670 Fluttertests,
+Beim damaligen abgegrenzten Kundenauftrag-Prüfstand bestanden 642 Backendtests
+bei einem bestehenden Windows-Skip; 670 Fluttertests,
 147 JavaScript-Tests und 15 Paketprüfungen bestanden. Die Flutter-Analyse meldet
 keine Probleme. 37 gezielte HTTP-/TLS-/Restoreprüfungen und ein tatsächlicher
 PostgreSQL-Dump/Restore sind ebenfalls bestanden; Teilmengen werden nicht zu
@@ -88,18 +92,84 @@ einer Gesamtzahl addiert.
 [Bedienweg](CRM_ERP_OFFLINE_SERVICEBERICHTE.md),
 [Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_KUNDENAUFTRAG.json), tatsächliche Befehle,
 Fehlversuche und Grenzen im [Fortschritt](CRM_ERP_FORTSCHRITT.md) sind festgehalten.
-Die vollständige Abnahme B bleibt wegen der oben genannten Restumfänge offen.
+Diese historischen Prüfzahlen werden nicht mit späteren Modulläufen addiert.
+Die vollständige Nutzer-/Geräteabnahme B bleibt separat offen.
 
-## Nächster zusammenhängender Schritt
+## Ergänzter technischer Umfang B/C
 
-Die Priorität bleibt bei der Alltagstauglichkeit des Kundenauftrags:
-Fremdleistungen und sonstige belegte Projektkosten ergänzen und gemeinsam mit
-Material, genehmigten Zeiten, Budget, Rechnungsumsatz und tatsächlichen Zahlungen
-nachvollziehbar auswerten. Jede Zahl muss zu ihrer Quelle führen; Umsatz,
-Geldzufluss und Ergebnis bleiben getrennt. Ungeklärte Kosten oder Steuerangaben
-dürfen kein vermeintlich vollständiges Ergebnis erzeugen.
+Die ursprüngliche Reise verwendet nun eine bestätigte Projektbestellung mit
+Teil- und Restlieferung. Materialentnahme, angenommener Auftrag, Rechnung und
+Zahlungen verbleiben im selben Projekt. Der ergänzende
+[PostgreSQL-Ablauftest](../backend/online/test_customer_finance_service_journey_pg.py)
+verbindet diese Quellen mit ausdrücklich eingeordneten Eingangsbelegen,
+Budget und vollständiger Wirtschaftlichkeit für die erfassten Quellen.
+Ein noch ungeklärter Beleg führt zu einem offenen Prüfpunkt und keinem
+vermeintlich vollständigen Ergebnis.
 
-Danach folgt die strukturierte Verbindung von Lieferung, Materialentnahme,
-geliefertem Gerät und Wartung aus Abnahme C. Die verbliebenen Buchführungs-,
-Lohn-, KI- und Betriebsanforderungen bleiben im Gesamtplan erhalten. Die
-technischen Teilnachweise ersetzen keine tatsächliche Nutzer-/Geräteabnahme.
+Die Brücke zur EÜR nutzt dieselben Teil-/Restzahlungen und separat belegten
+Lieferantenauszahlungen. Die steuerliche und betriebliche Sicht werden auf ihre
+jeweilige Grundlage abgestimmt: genehmigte Zeitkosten sind kein belegter
+Lohnabfluss; vereinnahmte Umsatzsteuer ist keine bereits abgeführte Steuer.
+
+Für ein tatsächlich geliefertes und entnommenes Gerät verbindet derselbe Test
+Lieferscheinoriginal, Seriennummer, Inventur, Wartungsvertrag, vorhandenen
+Wartungstermin, Servicefall und unterschriebenen Wartungsbericht. Diese
+Verknüpfungen dürfen weder eine zweite Materialentnahme noch zusätzliche
+Projektkosten oder Geldflüsse erzeugen.
+
+Die verbleibenden Buchführungs-, Lohn-, KI- und Betriebsanforderungen bleiben
+im Gesamtplan erhalten. Die technischen Nachweise ersetzen keine tatsächliche
+Nutzer-/Geräteabnahme.
+
+## Zusammenhängender technischer Nachweis vom 03.11.2026
+
+Beide PostgreSQL-Journeys bestanden abschließend **2/2 in 33,139 s ohne Skip**
+auf der geprüften Umgebung mit cryptography 50/Pillow 13. Der vollständige
+Rechennachweis des synthetischen Kundenauftrags lautet:
+
+| Größe | Betrag | Gebundene Grundlage |
+|---|---:|---|
+| Projektbudget | 100,00 € netto | Bestätigte Budgetfassung |
+| Material | 25,00 € netto | Zwei Lieferungen à ein Stück zu 12,50 €, eine Projektentnahme |
+| Arbeitszeitkosten | 17,50 € netto | Genehmigte 30 Minuten mit historischem Stundensatz 35,00 € |
+| Fremdleistung | 20,00 € netto | Geprüftes Original und bestätigte Kosteneinordnung |
+| Weitere Projektkosten | 10,00 € netto | Eigenes geprüftes Original und bestätigte Kosteneinordnung |
+| Gesamte Projektkosten | 72,50 € netto | Die vier vorgenannten Kostenquellen; Lagerbeleg nicht nochmals addiert |
+| Rechnungsumsatz | 100,00 € netto | Rechnung aus dem im Portal angenommenen Auftrag |
+| Projektbeitrag / Budgetrest | 27,50 € netto | 100,00 € minus 72,50 € |
+| Kundenzahlungen | 119,00 € brutto | Belegte Teilzahlung 10,00 € und Restzahlung 109,00 € |
+| Lieferantenauszahlungen | 65,45 € brutto | Belegte Zahlungen 29,75 €, 23,80 € und 11,90 € |
+| Geldsaldo / EÜR-Überschuss | 53,55 € | Tatsächlich vereinnahmte 119,00 € minus tatsächlich ausgegebene 65,45 € |
+| Umsatzsteuersaldo | 8,55 € | Vereinnahmte 19,00 € minus belegte Vorsteuer 10,45 € |
+
+Die Differenz von 26,05 € zwischen Projektbeitrag und EÜR-Überschuss besteht in
+diesem Fall aus 17,50 € Zeitkosten ohne dokumentierte Lohnzahlung und 8,55 €
+Umsatzsteuersaldo ohne dokumentierte Steuerabführung. Für diese beiden Positionen
+erzeugt der Test keine erfundene Zahlung. Der Bestand enthält genau fünf
+Geldereignisse, ein Projekt und ein daraus abgeleitetes Gerät.
+
+Eine bestätigte Inventur des danach leeren Lagerplatzes, die Geräteübernahme
+und ihre Wartung verändern die Projektkosten und EÜR-Zahlen nicht. Alle
+Kennzahlen werden auf konkrete Materialbewegungen, Zeitfreigaben,
+Belegeinordnungen, Rechnungen und Zahlungsereignisse zurückgeführt.
+
+Nach einem echten `pg_dump`/Restore werden alte Sitzungen zurückgewiesen und
+Geldzahlen bis zum getrennten Finanzabgleich als ungeklärt gekennzeichnet.
+Die Runtime-Rolle kann den Abgleich nicht freigeben (403); auch der Operator
+kann dies bei noch aktiver Runtime-Verbindung nicht (409). Erst nach deren
+Schließung und dokumentierter Operatorfreigabe stimmen Wirtschaftlichkeit,
+Live-EÜR, gespeicherter Export, Geräte-/Servicehistorie und alle sieben
+geprüften Originaldownloads unverändert mit dem Vorzustand überein.
+
+Die fünf anfänglichen Fehler betrafen Testannahmen: HTTP-Erstellstatus 201,
+verpflichtende Servicetriage, ausschließliche Operatorfreigabe, notwendiger
+Stillstand vor dieser Freigabe und die zusätzliche Journalrevision durch den
+Exportvorgang. Der Test wurde an diese bestehenden Verträge angepasst; es war
+keine Produktionskorrektur erforderlich. Die Runtime-/Stillstandsgrenzen
+werden jetzt ausdrücklich als Ablehnungsfälle geprüft.
+
+Maschinenlesbarer Nachweis:
+[CRM_ERP_PRUEFNACHWEIS_KUNDENAUFTRAG_BC_2026-11-03.json](CRM_ERP_PRUEFNACHWEIS_KUNDENAUFTRAG_BC_2026-11-03.json).
+Dies ist eine zusammenhängende technische HTTP-/Datenbankprüfung. Eine erneute
+durchgängige Browserbedienung, echte Offline-Geräteerfassung, Installation und
+Nutzerabnahme auf Windows/iPhone sind keine Behauptung dieses Nachweises.

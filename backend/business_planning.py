@@ -323,6 +323,8 @@ class Planning:
             raise Problem(400, 'Ressourcenart oder Aktivstatus ungültig.')
         value['active'] = int(value['active'])
         value['code'] = _text(value['code'], 200) if value['code'] else None
+        from business_resource_custody import guard_resource_change
+        guard_resource_change(self.office, current, value)
         if value['code'] and self.db.execute('SELECT 1 FROM business_resources WHERE code=? AND id<>?', (value['code'], value['id'])).fetchone():
             raise Problem(409, 'Dieser Ressourcen-Code ist bereits vergeben.')
         value.update(revision=(current['revision'] if current else 0) + 1, updated_at=self.now())
@@ -371,14 +373,16 @@ class Planning:
                     raise Problem(400, 'Mitarbeiter muss diesem Projekt zugeordnet sein.') from None
         for identifier in values['resource_ids']:
             if not self.db.execute('SELECT 1 FROM business_resources WHERE id=? AND active=1', (identifier,)).fetchone():
-                raise Problem(400, 'Aktive Ressource erwartet.')
+                if not (current and values['status'] == 'cancelled' and identifier in current['resource_ids']):
+                    raise Problem(400, 'Aktive Ressource erwartet.')
         values.update(project_id=project, kind=kind)
         return values
 
     def _conflicts(self, values):
         if values['status'] == 'cancelled':
             return []
-        result = []
+        from business_resource_custody import usage_blockers
+        result = usage_blockers(self.office, values)
         for key in ('employee', 'resource'):
             for identifier in values[key + '_ids']:
                 rows = self.db.execute('SELECT a.id,a.start_at,a.end_at FROM business_appointments a JOIN business_appointment_' + key + 's b ON b.appointment_id=a.id '
@@ -458,6 +462,9 @@ class Planning:
         all_conflicts = []
         for item in occurrences:
             collisions = self._conflicts(item)
+            usage_holds = [entry for entry in collisions if entry['kind'] == 'resource_usage']
+            if usage_holds:
+                raise Problem(409, 'Betriebsmittel ist für diese Nutzung gesperrt: ' + usage_holds[0]['message'])
             if collisions:
                 if data.get('override_conflicts') is not True:
                     raise Problem(409, 'Mitarbeiter, Ressource oder Abwesenheit kollidieren. Bitte Zeitraum prüfen.')

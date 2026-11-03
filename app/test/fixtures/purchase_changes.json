@@ -1,0 +1,249 @@
+{
+  "detail": {
+    "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "order_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "supplier_name": "Synthetischer Lieferant",
+    "source_revision": 3,
+    "receipt_revision": 1,
+    "amendment_revision": 0,
+    "return_revision": 0,
+    "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "financial_values_visible": true,
+    "confirmation": {
+      "order_reference": "PO-SYN",
+      "ordered_on": "2026-11-01"
+    },
+    "items": [
+      {
+        "line_index": 0,
+        "article_id": "dddddddddddddddddddddddddddddddd",
+        "article_name": "Synthetisches Gerät",
+        "unit": "Stk",
+        "original_ordered_quantity": "10.0000",
+        "authorized_quantity": "10.0000",
+        "received_quantity": "6.0000",
+        "returned_quantity": "0.0000",
+        "retained_quantity": "6.0000",
+        "remaining_quantity": "4.0000"
+      }
+    ],
+    "receipts": [
+      {
+        "id": "cccccccccccccccccccccccccccccccc",
+        "receipt_reference": "DEL-SYN",
+        "received_on": "2026-11-02",
+        "location_id": "ffffffffffffffffffffffffffffffff",
+        "lines": [
+          {
+            "line_index": 0,
+            "article_id": "dddddddddddddddddddddddddddddddd",
+            "article_name": "Synthetisches Gerät",
+            "unit": "Stk",
+            "original_ordered_quantity": "10.0000",
+            "authorized_quantity": "10.0000",
+            "received_quantity": "6.0000",
+            "returned_quantity": "0.0000",
+            "retained_quantity": "6.0000",
+            "remaining_quantity": "4.0000",
+            "quantity": "6.0000",
+            "bound_quantity": "1.0000",
+            "returnable_quantity": "5.0000",
+            "free_quantity": "4.0000",
+            "stock_value_net": "60.0000"
+          }
+        ]
+      }
+    ],
+    "files": [
+      {
+        "id": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "order_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "filename": "Original.pdf",
+        "media_type": "application/pdf",
+        "size": 3,
+        "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+      }
+    ],
+    "amendments": [],
+    "returns": []
+  },
+  "body": {
+    "source_revision": 3,
+    "expected_receipt_revision": 1,
+    "expected_amendment_revision": 0,
+    "expected_return_revision": 0,
+    "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "reference": "RET-SYN",
+    "returned_on": "2026-11-03",
+    "reason": "Tatsächliche belegte Rücksendung.",
+    "evidence_id": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "lines": [
+      {
+        "receipt_id": "cccccccccccccccccccccccccccccccc",
+        "line_index": 0,
+        "quantity": "2.0000"
+      }
+    ]
+  },
+  "preview": {
+    "order_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "action": "supplier-returns",
+    "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "preview_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+    "values": {
+      "source_revision": 3,
+      "expected_receipt_revision": 1,
+      "expected_amendment_revision": 0,
+      "expected_return_revision": 0,
+      "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "reference": "RET-SYN",
+      "returned_on": "2026-11-03",
+      "reason": "Tatsächliche belegte Rücksendung.",
+      "evidence_id": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "lines": [
+        {
+          "receipt_id": "cccccccccccccccccccccccccccccccc",
+          "line_index": 0,
+          "quantity": "2.0000"
+        }
+      ]
+    },
+    "lines": [
+      {
+        "receipt_id": "cccccccccccccccccccccccccccccccc",
+        "line_index": 0,
+        "article_id": "dddddddddddddddddddddddddddddddd",
+        "article_name": "Synthetisches Gerät",
+        "unit": "Stk",
+        "location_id": "ffffffffffffffffffffffffffffffff",
+        "quantity": "2.0000",
+        "received_quantity": "6.0000",
+        "returned_quantity": "0.0000",
+        "bound_quantity": "1.0000",
+        "returnable_quantity": "5.0000",
+        "free_quantity": "4.0000",
+        "stock_quantity": "6.0000",
+        "stock_value_net": "60.0000",
+        "unit_cost_net": "10.0000",
+        "book_value_net": "20.0000",
+        "receipt_unit_cost_net": "10.0000"
+      }
+    ],
+    "total_book_value_net": "20.0000",
+    "financial_values_visible": true
+  },
+  "receipt": {
+    "order": {
+      "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "order_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "supplier_name": "Synthetischer Lieferant",
+      "source_revision": 3,
+      "receipt_revision": 1,
+      "amendment_revision": 0,
+      "return_revision": 0,
+      "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "financial_values_visible": true,
+      "confirmation": {
+        "order_reference": "PO-SYN",
+        "ordered_on": "2026-11-01"
+      },
+      "items": [
+        {
+          "line_index": 0,
+          "article_id": "dddddddddddddddddddddddddddddddd",
+          "article_name": "Synthetisches Gerät",
+          "unit": "Stk",
+          "original_ordered_quantity": "10.0000",
+          "authorized_quantity": "10.0000",
+          "received_quantity": "6.0000",
+          "returned_quantity": "0.0000",
+          "retained_quantity": "6.0000",
+          "remaining_quantity": "4.0000"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "cccccccccccccccccccccccccccccccc",
+          "receipt_reference": "DEL-SYN",
+          "received_on": "2026-11-02",
+          "location_id": "ffffffffffffffffffffffffffffffff",
+          "lines": [
+            {
+              "line_index": 0,
+              "article_id": "dddddddddddddddddddddddddddddddd",
+              "article_name": "Synthetisches Gerät",
+              "unit": "Stk",
+              "original_ordered_quantity": "10.0000",
+              "authorized_quantity": "10.0000",
+              "received_quantity": "6.0000",
+              "returned_quantity": "0.0000",
+              "retained_quantity": "6.0000",
+              "remaining_quantity": "4.0000",
+              "quantity": "6.0000",
+              "bound_quantity": "1.0000",
+              "returnable_quantity": "5.0000",
+              "free_quantity": "4.0000",
+              "stock_value_net": "60.0000"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "id": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "order_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "filename": "Original.pdf",
+          "media_type": "application/pdf",
+          "size": 3,
+          "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+        }
+      ],
+      "amendments": [],
+      "returns": []
+    },
+    "record": {
+      "id": "44444444444444444444444444444444",
+      "order_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "project_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "revision": 1,
+      "source_revision": 3,
+      "receipt_revision": 1,
+      "amendment_revision": 0,
+      "return_revision": 0,
+      "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "preview_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "evidence_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "reference": "RET-SYN",
+      "reason": "Tatsächliche belegte Rücksendung.",
+      "evidence_id": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "returned_on": "2026-11-03",
+      "lines": [
+        {
+          "receipt_id": "cccccccccccccccccccccccccccccccc",
+          "line_index": 0,
+          "article_id": "dddddddddddddddddddddddddddddddd",
+          "article_name": "Synthetisches Gerät",
+          "unit": "Stk",
+          "location_id": "ffffffffffffffffffffffffffffffff",
+          "quantity": "2.0000",
+          "received_quantity": "6.0000",
+          "returned_quantity": "0.0000",
+          "bound_quantity": "1.0000",
+          "returnable_quantity": "5.0000",
+          "free_quantity": "4.0000",
+          "stock_quantity": "6.0000",
+          "stock_value_net": "60.0000",
+          "unit_cost_net": "10.0000",
+          "book_value_net": "20.0000",
+          "receipt_unit_cost_net": "10.0000",
+          "id": "55555555555555555555555555555555",
+          "sequence_number": 1
+        }
+      ],
+      "total_book_value_net": "20.0000"
+    },
+    "financial_values_visible": true
+  }
+}

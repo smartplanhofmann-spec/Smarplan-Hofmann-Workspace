@@ -27,7 +27,10 @@ from online.plan_imports import validate_integrity
 NAME = re.compile(r'[a-z][a-z0-9_]{1,62}')
 
 
-def validate_dsns(active_dsn, candidate_dsn, *, test_mode=False):
+def validate_dsns(active_dsn, candidate_dsn, *, test_mode=False, instance_roles=None):
+    from online.instance_roles import for_office
+    from types import SimpleNamespace
+    roles = for_office(SimpleNamespace(instance_roles=instance_roles))
     source, target = conninfo_to_dict(active_dsn), conninfo_to_dict(candidate_dsn)
     if not test_mode and any(os.environ.get(name) for name in ('PGHOSTADDR', 'PGPORT', 'PGSERVICE', 'PGSERVICEFILE', 'PGOPTIONS')):
         raise ValueError('Unerwartete libpq-Umgebungsauswahl. Lokale Serverkonfiguration zuerst prüfen.')
@@ -40,10 +43,18 @@ def validate_dsns(active_dsn, candidate_dsn, *, test_mode=False):
     # No service files, hidden credentials, URI options, remote routes or role changes.
     allowed = {'dbname', 'host', 'port', 'user', 'connect_timeout', 'application_name'}
     if test_mode:
-        allowed.add('password')  # Explicit disposable CI credentials only; peer production stays password-free.
+        allowed.add('password')  # Explicit disposable credentials only.
     if set(source) - allowed or set(target) - allowed:
         raise ValueError('Für das Update wird eine explizite lokale Verbindung ohne Passwort erwartet.')
-    if test_mode:
+    if roles.slug is not None:
+        if not roles.owns_database_name(source['dbname']) or not roles.owns_database_name(target['dbname']):
+            raise ValueError('Datenbank liegt außerhalb der festen Unternehmensinstanz.')
+        if test_mode:
+            if source.get('host') not in ('127.0.0.1','localhost') or source.get('user') not in ('postgres',roles.runtime):
+                raise ValueError('Synthetische Instanzprüfung benötigt eigene Loopback-Rollen.')
+        elif (source.get('host')!='/var/run/postgresql' or source.get('user')!=roles.runtime or source.get('port','5432')!='5432'):
+            raise ValueError('Instanz erwartet ihre eigene lokale PostgreSQL-Peer-Anmeldung.')
+    elif test_mode:
         if (source['dbname'] != 'smartplan_check' or target['dbname'] != 'smartplan_release_check' or
                 source.get('host') not in ('127.0.0.1', 'localhost') or source.get('user') != 'postgres'):
             raise ValueError('Testmodus ausschließlich für die benannten lokalen Einwegdatenbanken.')
@@ -102,38 +113,46 @@ def inspect_source(dsn):
         return rows[0][0]
 
 
-def operator_dsns(active_dsn, candidate_dsn, *, test_mode=False):
+def operator_dsns(active_dsn, candidate_dsn, *, test_mode=False, instance_roles=None):
     """Keep configured runtime peer DSNs; derive admin DSNs only for trusted EUID."""
-    source, target = validate_dsns(active_dsn, candidate_dsn, test_mode=test_mode)
+    from online.instance_roles import for_office
+    from types import SimpleNamespace
+    roles = for_office(SimpleNamespace(instance_roles=instance_roles))
+    source, target = validate_dsns(active_dsn, candidate_dsn, test_mode=test_mode,instance_roles=roles)
     if not test_mode and os.geteuid() != pwd.getpwnam('postgres').pw_uid:
         raise ValueError('Privilegierte Vorbereitung ausschließlich als lokaler PostgreSQL-Operator.')
     source_dsn = make_conninfo(active_dsn, user='postgres')
     target_dsn = make_conninfo(candidate_dsn, user='postgres')
     with psycopg.connect(source_dsn, connect_timeout=5) as connection:
-        roles = connection.execute("SELECT rolname,rolcanlogin,rolsuper,rolcreatedb,rolcreaterole,rolreplication,rolbypassrls "
-                                   "FROM pg_roles WHERE rolname IN ('smartplan-online','smartplan-migrator')").fetchall()
-        found = {row[0]: row[1:] for row in roles}
-        if (set(found) != {'smartplan-online', 'smartplan-migrator'} or found['smartplan-migrator'] != (False, False, False, False, False, False)
-                or found['smartplan-online'] != (True, False, False, False, False, False)):
+        records = connection.execute("SELECT rolname,rolcanlogin,rolsuper,rolcreatedb,rolcreaterole,rolreplication,rolbypassrls "
+                                   "FROM pg_roles WHERE rolname IN (%s,%s)",(roles.runtime,roles.owner)).fetchall()
+        found = {row[0]: row[1:] for row in records}
+        if (set(found) != {roles.runtime,roles.owner} or found[roles.owner] != (False, False, False, False, False, False)
+                or found[roles.runtime] != (True, False, False, False, False, False)):
             raise ValueError('Bekannte getrennte PostgreSQL-Rollen zuerst vorbereiten.')
-        if connection.execute("SELECT pg_has_role('smartplan-online','smartplan-migrator','MEMBER')").fetchone()[0]:
+        if connection.execute("SELECT pg_has_role(%s,%s,'MEMBER')",(roles.runtime,roles.owner)).fetchone()[0]:
             raise ValueError('Runtime darf keine Migrationsrolle übernehmen.')
         owners = dict(connection.execute("SELECT datname,pg_get_userbyid(datdba) FROM pg_database WHERE datname IN (%s,%s)",
                                           (source['dbname'], target['dbname'])))
-        allowed_source = ('smartplan-online', 'smartplan-migrator', 'postgres') if test_mode else ('smartplan-online', 'smartplan-migrator')
-        if owners.get(source['dbname']) not in allowed_source or owners.get(target['dbname']) != 'smartplan-migrator':
+        allowed_source = (roles.runtime,roles.owner,'postgres') if test_mode else (roles.runtime,roles.owner)
+        if owners.get(source['dbname']) not in allowed_source or owners.get(target['dbname']) != roles.owner:
             raise ValueError('Quell-/Kandidatenownership zuerst prüfen.')
     return source_dsn, target_dsn
 
 
-def secure_database(active_dsn, *, test_mode=False):
+def secure_database(active_dsn, *, test_mode=False, instance_roles=None):
     """Explicit, stopped local installation only. No REASSIGN OWNED cluster effects."""
+    from online.instance_roles import for_office
+    from types import SimpleNamespace
+    roles = for_office(SimpleNamespace(instance_roles=instance_roles))
+    runtime,owner = sql.Identifier(roles.runtime),sql.Identifier(roles.owner)
     active = conninfo_to_dict(active_dsn)
     guard_name = 'smartplan_security_guard' if active.get('dbname') != 'smartplan_security_guard' else 'smartplan_security_guard2'
     if test_mode:
-        validate_dsns(active_dsn, make_conninfo(active_dsn, dbname='smartplan_release_check'), test_mode=True)
+        candidate = roles.database+'_security_guard' if roles.slug else 'smartplan_release_check'
+        validate_dsns(active_dsn, make_conninfo(active_dsn, dbname=candidate), test_mode=True,instance_roles=roles)
     else:
-        validate_dsns(active_dsn, make_conninfo(active_dsn, dbname=guard_name))
+        validate_dsns(active_dsn, make_conninfo(active_dsn, dbname=roles.database+'_security_guard' if roles.slug else guard_name),instance_roles=roles)
         if os.geteuid() != pwd.getpwnam('postgres').pw_uid:
             raise ValueError('Lokaler PostgreSQL-Operator erforderlich.')
     dsn = make_conninfo(active_dsn, user='postgres')
@@ -141,19 +160,19 @@ def secure_database(active_dsn, *, test_mode=False):
     with psycopg.connect(dsn, connect_timeout=5) as connection:
         connection.execute("SET LOCAL lock_timeout='10s'")
         connection.execute('SELECT pg_advisory_xact_lock(741290518)')
-        runtime = connection.execute("SELECT rolcanlogin,rolsuper,rolcreatedb,rolcreaterole,rolreplication,rolbypassrls FROM pg_roles WHERE rolname='smartplan-online'").fetchone()
-        if runtime != (True, False, False, False, False, False):
+        runtime_flags = connection.execute("SELECT rolcanlogin,rolsuper,rolcreatedb,rolcreaterole,rolreplication,rolbypassrls FROM pg_roles WHERE rolname=%s",(roles.runtime,)).fetchone()
+        if runtime_flags != (True, False, False, False, False, False):
             raise ValueError('Unbekannte Runtime-Rollenrechte; nicht automatisch verändern.')
-        migrator = connection.execute("SELECT rolcanlogin,rolsuper,rolcreatedb,rolcreaterole,rolreplication,rolbypassrls FROM pg_roles WHERE rolname='smartplan-migrator'").fetchone()
+        migrator = connection.execute("SELECT rolcanlogin,rolsuper,rolcreatedb,rolcreaterole,rolreplication,rolbypassrls FROM pg_roles WHERE rolname=%s",(roles.owner,)).fetchone()
         if migrator is None:
-            connection.execute('CREATE ROLE "smartplan-migrator" NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS')
+            connection.execute(sql.SQL('CREATE ROLE {} NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS').format(owner))
         elif migrator != (False, False, False, False, False, False):
             raise ValueError('Unbekannte Migrationsrollenrechte; nicht automatisch verändern.')
-        if connection.execute("SELECT pg_has_role('smartplan-online','smartplan-migrator','MEMBER')").fetchone()[0]:
+        if connection.execute("SELECT pg_has_role(%s,%s,'MEMBER')",(roles.runtime,roles.owner)).fetchone()[0]:
             raise ValueError('Runtime-Mitgliedschaft in Migrationsrolle zuerst ausdrücklich entfernen.')
-        owner = connection.execute('SELECT pg_get_userbyid(datdba) FROM pg_database WHERE datname=current_database()').fetchone()[0]
-        allowed_owners = ('smartplan-online', 'smartplan-migrator', 'postgres') if test_mode else ('smartplan-online', 'smartplan-migrator')
-        if owner not in allowed_owners:
+        current_owner = connection.execute('SELECT pg_get_userbyid(datdba) FROM pg_database WHERE datname=current_database()').fetchone()[0]
+        allowed_owners = (roles.runtime,roles.owner,'postgres') if test_mode else (roles.runtime,roles.owner)
+        if current_owner not in allowed_owners:
             raise ValueError('Fremde Datenbankownership nicht verändern.')
         if connection.execute("SELECT 1 FROM pg_namespace WHERE nspname NOT IN ('public','information_schema','pg_catalog') AND nspname NOT LIKE 'pg_toast%' AND nspname NOT LIKE 'pg_temp_%' LIMIT 1").fetchone():
             raise ValueError('Unbekannte Anwendungsschemas zuerst prüfen.')
@@ -161,28 +180,29 @@ def secure_database(active_dsn, *, test_mode=False):
                                      "AND c.relkind IN ('r','p','v','m','S','f') AND NOT(pg_get_userbyid(c.relowner)=ANY(%s)) LIMIT 1", (list(allowed_owners),)).fetchone()
         if foreign:
             raise ValueError('Fremde Objektownership nicht verändern.')
-        connection.execute(sql.SQL('ALTER DATABASE {} OWNER TO "smartplan-migrator"').format(sql.Identifier(active['dbname'])))
-        connection.execute('ALTER SCHEMA public OWNER TO "smartplan-migrator"')
+        connection.execute(sql.SQL('ALTER DATABASE {} OWNER TO {}').format(sql.Identifier(active['dbname']),owner))
+        connection.execute(sql.SQL('ALTER SCHEMA public OWNER TO {}').format(owner))
         for kind, command in (('r', 'TABLE'), ('p', 'TABLE'), ('v', 'VIEW'), ('m', 'MATERIALIZED VIEW')):
             for name, in connection.execute("SELECT c.relname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relkind=%s AND pg_get_userbyid(c.relowner)=ANY(%s)", (kind, list(allowed_owners))).fetchall():
-                connection.execute(sql.SQL('ALTER {} public.{} OWNER TO "smartplan-migrator"').format(sql.SQL(command), sql.Identifier(name)))
+                connection.execute(sql.SQL('ALTER {} public.{} OWNER TO {}').format(sql.SQL(command), sql.Identifier(name),owner))
         # Moving a table also moves its owned identity sequence. Handle only the
         # remaining standalone sequences, never REASSIGN OWNED shared databases.
         for name, in connection.execute("SELECT c.relname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relkind='S' AND pg_get_userbyid(c.relowner)=ANY(%s)", (list(allowed_owners),)).fetchall():
-            connection.execute(sql.SQL('ALTER SEQUENCE public.{} OWNER TO "smartplan-migrator"').format(sql.Identifier(name)))
+            connection.execute(sql.SQL('ALTER SEQUENCE public.{} OWNER TO {}').format(sql.Identifier(name),owner))
         for name, arguments in connection.execute("SELECT p.proname,pg_get_function_identity_arguments(p.oid) FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND pg_get_userbyid(p.proowner)=ANY(%s)", (list(allowed_owners),)).fetchall():
             if not name.startswith(('business_', 'smartplan_')):
                 raise ValueError('Unbekannte Funktionsownership zuerst prüfen.')
-            connection.execute(sql.SQL('ALTER FUNCTION public.{}({}) OWNER TO "smartplan-migrator"').format(sql.Identifier(name), sql.SQL(arguments)))
+            connection.execute(sql.SQL('ALTER FUNCTION public.{}({}) OWNER TO {}').format(sql.Identifier(name), sql.SQL(arguments),owner))
         from online.store import Database
         from business_schema import apply_runtime_privileges
         office = PostgresOffice.__new__(PostgresOffice)
+        office.instance_roles = roles
         office.lock = __import__('threading').RLock()
         office.db = Database.__new__(Database)
         office.db.connection = connection
         office.db.dsn, office.db.contexts = dsn, []
         apply_runtime_privileges(office)
-    return dict(owner='smartplan-migrator', runtime='smartplan-online', password_created=False)
+    return dict(owner=roles.owner, runtime=roles.runtime, password_created=False)
 
 
 def _control_rows(dsn):
@@ -212,8 +232,11 @@ def _verify_control_preserved(before, after, mode):
 
 
 def prepare(active_dsn, candidate_dsn, backup_directory, *, test_mode=False,
-            privileged_operator=False, compatibility_mode=None):
-    validate_dsns(active_dsn, candidate_dsn, test_mode=test_mode)
+            privileged_operator=False, compatibility_mode=None, instance_roles=None):
+    from online.instance_roles import for_office
+    from types import SimpleNamespace
+    roles=for_office(SimpleNamespace(instance_roles=instance_roles))
+    validate_dsns(active_dsn, candidate_dsn, test_mode=test_mode,instance_roles=roles)
     if compatibility_mode not in (None, 'legacy', 'business'):
         raise ValueError('Unbekannter Kandidaten-Kompatibilitätsmodus.')
     if not test_mode and not privileged_operator:
@@ -221,7 +244,7 @@ def prepare(active_dsn, candidate_dsn, backup_directory, *, test_mode=False,
     if privileged_operator:
         from business_schema import require_complete_registry
         require_complete_registry()
-        active_dsn, candidate_dsn = operator_dsns(active_dsn, candidate_dsn, test_mode=test_mode)
+        active_dsn, candidate_dsn = operator_dsns(active_dsn, candidate_dsn, test_mode=test_mode,instance_roles=roles)
     source_schema = inspect_source(active_dsn)
     with psycopg.connect(candidate_dsn, connect_timeout=5) as target:
         if target.execute("SELECT 1 FROM pg_tables WHERE schemaname NOT IN ('pg_catalog','information_schema')").fetchone():
@@ -234,20 +257,20 @@ def prepare(active_dsn, candidate_dsn, backup_directory, *, test_mode=False,
     if snapshot_fingerprint(active_dsn) != original or sequence_state(active_dsn) != sequences:
         raise RuntimeError('Quelle wurde während der Sicherung geändert; Update nicht fortsetzen.')
     if privileged_operator:
-        restore_dump(saved, active_dsn, candidate_dsn, owner_role='smartplan-migrator')
+        restore_dump(saved, active_dsn, candidate_dsn, owner_role=roles.owner,instance_roles=roles)
     else:
-        restore_dump(saved, active_dsn, candidate_dsn)
+        restore_dump(saved, active_dsn, candidate_dsn,instance_roles=roles)
     if snapshot_fingerprint(candidate_dsn) != original or sequence_state(candidate_dsn) != sequences:
         raise RuntimeError('Rücksicherung stimmt nicht vollständig mit der Quelle überein.')
-    migrate(candidate_dsn, owner_role='smartplan-migrator' if privileged_operator else None,
-            compatibility_mode=compatibility_mode, require_business_modules=privileged_operator)
+    migrate(candidate_dsn, owner_role=roles.owner if privileged_operator else None,
+            compatibility_mode=compatibility_mode, require_business_modules=privileged_operator,instance_roles=roles)
     migrated = snapshot_fingerprint(candidate_dsn)
     allowed_control = {'smartplan_schema', 'business_schema_state', 'business_schema_migrations',
                        'business_schema_events', 'business_feature_flags'}
     if any(migrated.get(table) != content for table, content in original.items() if table not in allowed_control):
         raise RuntimeError('Migration hat vorhandene Geschäftsdaten verändert.')
     _verify_control_preserved(controls, _control_rows(candidate_dsn), compatibility_mode)
-    office = PostgresOffice(candidate_dsn)
+    office = PostgresOffice(candidate_dsn,instance_roles=roles)
     try:
         with office.lock, office.db:
             if not office.db.execute("SELECT 1 FROM users WHERE active=1 AND role='owner'").fetchone():

@@ -1,6 +1,6 @@
 # Einkauf und Wareneingänge
 
-Stand: 02.11.2026. Dieser Abschnitt ergänzt die vorhandenen Bestellvorschläge
+Stand: 03.11.2026. Dieser Abschnitt ergänzt die vorhandenen Bestellvorschläge
 um dokumentierte Bestellungen und positionsgebundene Teil-/Restlieferungen.
 Er gehört zu R07.02 und Abnahme C aus `CRM_ERP_Gesamtziel.txt`.
 
@@ -24,10 +24,14 @@ Er gehört zu R07.02 und Abnahme C aus `CRM_ERP_Gesamtziel.txt`.
 Die Anwendung versendet in diesem Entwicklungsabschnitt keine Bestellung.
 Der technische Status `delivery_status=not_sent` beschreibt diesen Versandweg;
 die gesonderte Bestellbestätigung dokumentiert den extern erfolgten Vorgang.
-Es gibt noch keine Lieferantenretouren, Stornierung oder Änderung einer
-freigegebenen Bestellung, automatische Einheitenumrechnung oder direkte
-Lieferantenschnittstelle. Belegreferenzen werden gespeichert; die Verknüpfung
-mit hochgeladenen Original-Lieferscheinen ist noch offen.
+[Belegte Mengenänderungen, Reststornierungen und Lieferantenretouren](CRM_ERP_EINKAUF_RETOUREN.md)
+sind inzwischen ergänzt und geprüft. Die ursprünglichen Positionen und
+Lieferungen bleiben erhalten; weitere Wareneingänge binden die aktuelle
+Änderungsrevision. Automatische Einheitenumrechnung und eine direkte
+Lieferantenschnittstelle bleiben offen. Belegreferenzen werden gespeichert. Die ergänzte Verknüpfung mit hochgeladenen
+Original-Lieferscheinen sowie die explizite Geräteherkunft sind in
+[Original-Lieferschein, Geräteherkunft und Wartung](CRM_ERP_GERAETEHERKUNFT.md)
+beschrieben (Stand: 03.11.2026).
 
 ## Mengen und Kosten
 

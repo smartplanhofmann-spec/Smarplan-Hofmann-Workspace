@@ -1,0 +1,19 @@
+{
+  "reviewed_on": "2026-11-03",
+  "status": "reference_arithmetic_and_document_integrity_verified",
+  "daily_reference_count": 18,
+  "multiple_day_reference_count": 4,
+  "independent_partial_cap_pairs": 2,
+  "published_numeric_conflicts_documented": 1,
+  "product_daily_kernel_tested": false,
+  "new_runtime_code": false,
+  "postgres_used": false,
+  "official_software_approval": false,
+  "command": "backend/.venv/bin/python work/verification/check-payroll-partial-references.py",
+  "files": {
+    "docs/CRM_ERP_LOHN_TEILMONATE_REFERENZEN_2026-11-03.json": "579676e30ad489c31cefe95611184475b47a34cc32baa38c6b2f081c3b69beb6",
+    "docs/CRM_ERP_LOHN_R39B5_QUELLENAUSZUG_2026-11-03.txt": "3ed2d2ff3ed27cdb95530b419ed702abb99f3b15b0c13aeb55d3b2de02cb7a7a",
+    "docs/CRM_ERP_LOHN_ZEITACHSEN_TEILMONATE_ENTWURF.md": "781afc49a43ca03e70cf21e3931bd7e3c2fbbb2a5f050d3ffad55902c78e4bbe",
+    "work/verification/check-payroll-partial-references.py": "1064cfd6f00d990238b6ae00c8f22b08404395ff40b0cd79e2dba1d12faa3913"
+  }
+}

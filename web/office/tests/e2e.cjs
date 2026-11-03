@@ -49,7 +49,7 @@ async function ready(page){await page.locator('main .loading').waitFor({state:'d
 async function navigate(page,name){if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);}
 async function main(){
   const workflow=process.env.SMARTPLAN_BROWSER_WORKFLOW;
-  assert.ok(workflow===undefined||['accounting-allocation','accounting-components','accounting-refunds','accounting-capacity','accounting-refunds-v2','accounting-profile'].includes(workflow),'Unsupported targeted browser workflow');
+  assert.ok(workflow===undefined||['purchase-changes','payroll-transition','bank-reconciliation','resource-custody','accessibility','privacy-cases','service','custom-fields','migrations','payroll-cash','company-handover','speech','sales','company-overview','inventory-counts','invoice-chain','payroll','assistant','personnel-workflow','asset-provenance','project-economics','accounting-allocation','accounting-components','accounting-refunds','accounting-capacity','accounting-refunds-v2','accounting-profile'].includes(workflow),'Unsupported targeted browser workflow');
   const {chromium}=require('playwright');
   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'smartplan-browser-e2e-')),readyFile=path.join(directory,'ready.json');
   const screenshots=process.env.SMARTPLAN_BROWSER_SCREENSHOT_DIR||directory;
@@ -57,7 +57,7 @@ async function main(){
   try{
     await fs.mkdir(screenshots,{recursive:true,mode:0o700});
     const python=process.env.SMARTPLAN_BROWSER_TEST_PYTHON||'python3';
-    server=spawn(python,[path.join(__dirname,'serve_fixture.py'),'--ready-file',readyFile],{env:{PATH:process.env.PATH,LANG:'C.UTF-8',TZ:'Europe/Berlin',PYTHONDONTWRITEBYTECODE:'1'},stdio:['ignore','pipe','pipe']});
+    server=spawn(python,[path.join(__dirname,'serve_fixture.py'),'--ready-file',readyFile,...(workflow==='speech'?['--synthetic-speech']:[]),...(workflow==='payroll-cash'?['--synthetic-payroll-cash']:[]),...(['company-handover','payroll-cash'].includes(workflow)?['--synthetic-handover']:[])],{env:{PATH:process.env.PATH,LANG:'C.UTF-8',TZ:'Europe/Berlin',PYTHONDONTWRITEBYTECODE:'1'},stdio:['ignore','pipe','pipe']});
     for(const stream of [server.stdout,server.stderr])stream.on('data',chunk=>{output=(output+chunk.toString()).slice(-15000);});
     let fixture;
     for(let index=0;index<300;index++){try{fixture=JSON.parse(await fs.readFile(readyFile,'utf8'));break;}catch(error){if(error.code!=='ENOENT')throw error;if(server.exitCode!==null)throw new Error('Fixture exited: '+output);await delay(50);}}
@@ -67,7 +67,7 @@ async function main(){
     // Explicit empty override selects Playwright's pinned bundled browser in CI.
     launchInfo=await launchDiagnostics(executable);
     const namespaceArguments=namespaceSandboxArguments(process.env.SMARTPLAN_BROWSER_NAMESPACE_SANDBOX);
-    browser=await chromium.launch({...executable?{executablePath:executable}:{},headless:true,chromiumSandbox:true,args:['--enable-automation',...namespaceArguments]});
+    browser=await chromium.launch({...executable?{executablePath:executable}:{},headless:true,chromiumSandbox:true,args:['--enable-automation',...namespaceArguments,...(workflow==='speech'?['--use-fake-device-for-media-stream','--use-fake-ui-for-media-stream']:[])]});
     const debug=await browser.newBrowserCDPSession();
     const command=await debug.send('Browser.getBrowserCommandLine');
     assert.ok(!command.arguments.some(argument=>['--no-sandbox','--disable-web-security','--ignore-certificate-errors','--disable-seccomp-filter-sandbox','--disable-namespace-sandbox'].includes(argument)),'browser security must remain enabled');
@@ -85,7 +85,92 @@ async function main(){
     await context.route('**/*',route=>new URL(route.request().url()).origin===fixture.base_url?route.continue():route.abort());
     page=await context.newPage();page.on('pageerror',error=>pageErrors.push(error.message));page.on('console',message=>{if(message.type()==='error')consoleErrors.push(message.text());});page.setDefaultTimeout(15000);
     await page.goto(fixture.base_url+'/office/');
+    if(workflow==='accessibility')await require('./accessibility-flow.cjs').audit(page,'login');
     const recovery=await login(page,'owner@browser.example.test');
+    if(workflow==='accessibility'){
+      await require('./accessibility-flow.cjs').accessibilityFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted accessibility workflow passed (real rendered WCAG scans, keyboard and mobile views)');return;
+    }
+    if(workflow==='privacy-cases'){
+      await require('./privacy-cases-flow.cjs').privacyCasesFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted privacy case workflow passed (real MFA/HTTP, private RAM commands and supervised export)');return;
+    }
+    if(workflow==='custom-fields'){
+      await require('./custom-fields-flow.cjs').customFieldsFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted custom fields workflow passed (real MFA/HTTP, typed revisions and original retry)');return;
+    }
+    if(workflow==='purchase-changes'){
+      await require('./purchase-changes-flow.cjs').purchaseChangesFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted purchase changes workflow passed (actual MFA/HTTP, canonical purchase, stock, evidence and amendments)');return;
+    }
+    if(workflow==='resource-custody'){
+      await require('./resource-custody-flow.cjs').resourceCustodyFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted resource custody workflow passed (real MFA/HTTP, native resource, inspection, custody and planning)');return;
+    }
+    if(workflow==='service'){
+      await require('./service-flow.cjs').serviceFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted service workflow passed (real MFA/HTTP and canonical source, planning, signed report, maintenance domains)');return;
+    }
+    if(workflow==='migrations'){
+      await require('./migrations-flow.cjs').migrationsFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[],'browser runtime errors'); console.log('1 targeted migration workflow passed (real owner MFA/HTTP, synthetic files, no provider network)'); return;
+    }
+    if(workflow==='bank-reconciliation'){
+      await require('./bank-reconciliation-flow.cjs').bankFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted bank reconciliation workflow passed (MFA/HTTP, original files and explicit existing-cash matches)');return;
+    }
+    if(workflow==='payroll-transition'){
+      await require('./payroll-transition-flow.cjs').transitionFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted transition payroll workflow passed (MFA/HTTP, explicit forecast, historical corrections and original retries)');return;
+    }
+    if(workflow==='payroll-cash'){
+      await require('./payroll-cash-flow.cjs').payrollCashFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted actual payroll cash/EÜR workflow passed (private actual payments, public financial classification and original retries)');return;
+    }
+    if(workflow==='company-handover'){
+      await require('./company-handover-flow.cjs').companyHandoverFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted company handover workflow passed (owner MFA, immutable ZIP proof, original retry and explicit exit review)');return;
+    }
+    if(workflow==='sales'){
+      await require('./sales-flow.cjs').salesFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted sales workflow passed (real MFA/HTTP, canonical CRM adoptions and lost ACK)');return;
+    }
+    if(workflow==='company-overview'){
+      await require('./company-overview-flow.cjs').companyOverviewFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted company overview workflow passed (real MFA, sources and mobile UI)');return;
+    }
+    if(workflow==='invoice-chain'){
+      await require('./invoice-chain-flow.cjs').invoiceChainFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted invoice-chain workflow passed (real MFA/HTTP/draft conversions; synthetic archived invoices)');return;
+    }
+    if(workflow==='speech'){
+      await require('./speech-flow.cjs').speechFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted speech workflow passed (real MediaRecorder on synthetic device, real MFA/HTTP, test-only speech transport; no provider network)');return;
+    }
+    if(workflow==='assistant'){
+      await require('./assistant-flow.cjs').assistantFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted assistant workflow passed (real MFA/HTTP/rules/tasks/offers; no model provider or external action)');return;
+    }
+    if(workflow==='payroll'){
+      await require('./payroll-flow.cjs').payrollFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted payroll workflow passed (real owner/employee MFA and payroll UI; synthetic HR sources)');return;
+    }
+    if(workflow==='inventory-counts'){
+      await require('./inventory-counts-flow.cjs').inventoryCountsFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted inventory count workflow passed (real MFA/HTTP and synthetic physical inventory)');return;
+    }
+    if(workflow==='personnel-workflow'){
+      await require('./personnel-workflow-flow.cjs').personnelWorkflowFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted personnel workflow passed (real owner/employee MFA, original expense and month UI; synthetic local sources)');return;
+    }
+    if(workflow==='asset-provenance'){
+      await require('./asset-provenance-flow.cjs').assetProvenanceFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted asset provenance browser workflow passed (synthetic local purchasing setup; real original and device UI)');return;
+    }
+    if(workflow==='project-economics'){
+      await require('./project-economics-flow.cjs').projectEconomicsFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted project economics browser workflow passed (real original, review, classification and corrections; synthetic local fixture)');return;
+    }
     if(workflow==='accounting-profile'){
       await require('./profile-flow.cjs').profileFlow({page,context,navigate,ready,login,fixture,screenshots,bootstrap:true});
       assert.deepEqual(pageErrors,[]);await context.close();
@@ -117,10 +202,12 @@ async function main(){
       console.log('1 targeted allocation browser workflow passed (real UI bootstrap; synthetic legacy invoice archives; production issuance accepted separately)');return;
     }
 
-    assert.equal(await page.locator('.navigation button').count(),10);
+    const assistantAvailable=await page.locator('.navigation').getByRole('button',{name:'Assistent',exact:true}).count()===1;
+    const serviceAvailable=await page.locator('.navigation').getByRole('button',{name:'Kundenservice',exact:true}).count()===1;
+    assert.equal(await page.locator('.navigation button').count(),10+Number(assistantAvailable)+Number(serviceAvailable));
     assert.equal(await page.evaluate(()=>Object.keys(localStorage).length+Object.keys(sessionStorage).length),0);
-    for(const section of ['Anfragen','Kontakte','Einsatzplanung','Dokumente','Finanzen','Material','Personal','Einstellungen','Übersicht'])await navigate(page,section);
-    console.log('browser: actual MFA login and all ten areas loaded without API errors');
+    for(const section of ['Anfragen','Kontakte','Einsatzplanung','Dokumente','Finanzen','Material','Personal',...(assistantAvailable?['Assistent']:[]),...(serviceAvailable?['Kundenservice']:[]),'Einstellungen','Übersicht'])await navigate(page,section);
+    console.log('browser: actual MFA login and all available areas loaded without API errors');
     await navigate(page,'Einstellungen');
     async function saveOrganization(){
       const current=page.locator('form[data-form^="organization-"]');

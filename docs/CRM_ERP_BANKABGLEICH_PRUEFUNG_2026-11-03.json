@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-03",
+  "scope": "bank_reconciliation_backend_neutral_csv",
+  "synthetic_data_only": true,
+  "external_bank_calls": false,
+  "production_approval": false,
+  "sources": [
+    {
+      "path": "backend/business_bank_reconciliation.py",
+      "bytes": 68655,
+      "sha256": "716b8ede6b4912984dcef544af0c899cc15fb493c3ae7da25b571932e0004186"
+    },
+    {
+      "path": "backend/test_business_bank_reconciliation.py",
+      "bytes": 24623,
+      "sha256": "189eef66dac5febf97a157ed712bfabdf2855645bb07f37e2313dee1fb9917d9"
+    },
+    {
+      "path": "backend/online/test_business_bank_reconciliation_pg.py",
+      "bytes": 14555,
+      "sha256": "e27aac496a019c2d4143b4d3ccd6f2e596a3a6484646412df258271d4c5c2e29"
+    },
+    {
+      "path": "docs/CRM_ERP_BANKABGLEICH_API.md",
+      "bytes": 14420,
+      "sha256": "0e040aa70c116ae506d5731bb3e8b0ea9014bfb2c43f0c00312cbc13f70fe50d"
+    },
+    {
+      "path": "docs/CRM_ERP_BANKABGLEICH.md",
+      "bytes": 7005,
+      "sha256": "999e39b23c0aa2811e47efe24759393df7b7090bc9e4380f858a58bd1a78ebbe"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "work/verification/bank-domain-final.log",
+      "bytes": 3542,
+      "sha256": "8168b7cebe8474116868f62038506b5763b317797174b621b9564e98497059d5"
+    },
+    {
+      "path": "work/verification/bank-domain.log",
+      "bytes": 6580,
+      "sha256": "4389d96ae235a9b1afbf2ae707b3d653821dc71eee0079392447a19daf76ccc9"
+    },
+    {
+      "path": "work/verification/bank-postgres.log",
+      "bytes": 785,
+      "sha256": "987f7f74e01e6d83cd7f4b64b9f6e58072ae25cf9164332c85a32d2efcd20592"
+    }
+  ],
+  "results": [
+    {
+      "suite": "final_bank_domain",
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 6.261
+    },
+    {
+      "suite": "bank_and_euer_regression",
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 17.285,
+      "note": "14 bank cases at that stage plus 18 EÜR cases; final domain file adds three boundary/tamper cases without changing backend afterwards."
+    },
+    {
+      "suite": "actual_postgresql_mfa_http_concurrency_dump_restore",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 24.684
+    }
+  ],
+  "financial_horizon_schema": 10,
+  "restore_report_schema": 11,
+  "client_acceptance": "separate_work_package",
+  "limits": [
+    "No direct provider format or live connection claimed",
+    "EUR posted movements only",
+    "Bank identity and statement completeness require explicit original review"
+  ]
+}

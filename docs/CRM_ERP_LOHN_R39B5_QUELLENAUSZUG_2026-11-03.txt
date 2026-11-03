@@ -1,0 +1,59 @@
+# Quellenbeleg R 39b.5 – gelesen am 03.11.2026
+
+Dies ist ein textuell extrahierter Quellenbeleg, kein heruntergeladenes Original-PDF.
+Die Zeilen-/Seitenmarkierungen stammen vom Web-Lesewerkzeug; PDF-Seite 41 ist nullbasiert.
+Der folgende Auszug umfasst die vollständige Richtlinie R 39b.5 Absätze 1–5 einschließlich Zwischenüberschriften. Satznummern im PDF-Satz wurden vom Extraktor teilweise separat ausgegeben; der Wortlaut der Absätze ist hier vollständig. Die typografischen Zeilentrennungen wurden bewusst beibehalten.
+
+Endgültige Veröffentlichung: Bundessteuerblatt 2022, Sondernummer 2, 05.12.2022.
+Öffentlich wiederveröffentlichte Ausgabe:
+https://media.frag-den-staat.de/files/docs/58/87/65/588765db0e33433fa82243330f2e0feb/bstbl_2022_s2.pdf
+
+Amtliche inhaltlich entsprechende Vorlage:
+https://dserver.bundestag.de/brd/2022/0455-22.pdf
+Unveränderte Zustimmung des Bundesrates am 28.10.2022:
+https://dserver.bundestag.de/brd/2022/0455-22B.pdf
+
+Aktueller LStH-2026-Eintrag:
+https://ao.bundesfinanzministerium.de/lsth/2026/A-Einkommensteuergesetz/VI-Steuererhebung-36-47/2-Steuerabzug-vom-Arbeitslohn-Lohnsteuer-38-42g/Paragraf-39b/r-39b-5.html
+Die aktuelle BMF-HTML-Seite war direkt mit 503 nicht abrufbar; der vollständige Text wurde daher aus der endgültigen veröffentlichten Richtlinie gelesen. Der indexierte aktuelle Handbuchstand und die weiterhin geltende LStR 2023 wurden gegengeprüft. Diese Datei behauptet keinen erfolgreichen Abruf der vollständigen 2026-HTML-Seite und keine amtliche Softwarezulassung.
+
+## Vollständiger extrahierter Richtlinientext
+
+L2789@P41: R 39b.5 Einbehaltung der Lohnsteuer vom laufenden Arbeitslohn
+L2790@P41: Allgemeines
+L2791@P41: (1) Der Arbeitgeber hat die Lohnsteuer i. d. R. bei jeder Zahlung vom Arbeitslohn einzubehalten (§ 38 Abs. 3 EStG). Reichen die
+L2792@P41: dem Arbeitgeber zur Verfügung stehenden Mittel zur Zahlung des vollen vereinbarten Arbeitslohns nicht aus, hat er die Lohnsteuer
+L2793@P41: von dem tatsächlich zur Auszahlung gelangenden niedrigeren Betrag zu berechnen und einzubehalten. Der Lohnsteuerermittlung
+L2794@P41: sind jeweils die Lohnsteuerabzugsmerkmale (§ 39 EStG) zugrunde zu legen, die für den Tag gelten, an dem der Lohnzahlungszeit‐
+L2795@P41: raum endet; dies gilt auch bei einem Wechsel des ersten Arbeitgebers (Hauptarbeitgeber) im Laufe des Lohnzahlungszeitraums.
+L2796@P41: Für Lohnzahlungen vor Ende des betreffenden Lohnzahlungszeitraums sind zunächst die zu diesem Zeitpunkt bereitgestellten
+L2797@P41: Lohnsteuerabzugsmerkmale (§ 39e Abs. 5 EStG) zugrunde zu legen. Werden nach einer solchen Lohnzahlung Lohnsteuerabzugs‐
+L2798@P41: merkmale bekannt, die auf den Lohnzahlungszeitraum zurückwirken, ist § 41c Abs. 1 Satz 1 Nr. 1 EStG anzuwenden.
+L2799@P41: Lohnzahlungszeitraum
+L2800@P41: (2) Der Zeitraum, für den jeweils der laufende Arbeitslohn gezahlt wird, ist der Lohnzahlungszeitraum. Ist ein solcher Zeitraum nicht
+L2801@P41: feststellbar, tritt an seine Stelle die Summe der tatsächlichen Arbeitstage oder der tatsächlichen Arbeitswochen (§ 39b Abs. 5 Satz 4
+L2802@P41: EStG). Solange das Dienstverhältnis fortbesteht, sind auch solche in den Lohnzahlungszeitraum fallende Arbeitstage mitzuzählen,
+L2803@P41: für die der Arbeitnehmer keinen Arbeitslohn bezogen hat (z. B. Ablauf der Lohnfortzahlung im Krankheitsfall oder Übergang zum El‐
+L2804@P41: terngeldbezug). Arbeitstage, an denen der Arbeitnehmer Arbeitslohn bezogen hat, der nicht dem inländischen Lohnsteuerabzug un‐
+L2805@P41: terliegt, sind nicht mitzuzählen (z. B. Bezug von steuerfreiem Arbeitslohn nach DBA oder tageweise Beschäftigung im Inland).
+L2806@P41: (3) Wird der Arbeitslohn für einen Lohnzahlungszeitraum gezahlt, für den der steuerfreie Betrag oder der Hinzurechnungsbetrag
+L2807@P41: den Lohnsteuerabzugsmerkmalen nicht unmittelbar entnommen werden kann, hat der Arbeitgeber für diesen Lohnzahlungszeitraum
+L2808@P41: den zu berücksichtigenden Betrag selbst zu berechnen. Er hat dabei von dem für den monatlichen Lohnzahlungszeitraum gelten‐
+L2809@P41: den - also aufgerundeten - steuerfreien Betrag auszugehen.
+L2810@P41: Nachzahlungen, Vorauszahlungen
+L2811@P41: (4) Stellen Nachzahlungen oder Vorauszahlungen laufenden Arbeitslohn dar (>R 39b.2 Abs. 1), ist die Nachzahlung oder Voraus‐
+L2812@P41: zahlung für die Berechnung der Lohnsteuer den Lohnzahlungszeiträumen zuzurechnen, für die sie geleistet werden. Es bestehen
+L2813@P41: jedoch keine Bedenken, diese Nachzahlungen und Vorauszahlungen als sonstige Bezüge nach R 39b.6 zu behandeln, wenn nicht
+L2814@P41: der Arbeitnehmer die Besteuerung nach Satz 1 verlangt; die Pauschalierung nach § 40 Abs. 1 Satz 1 Nr. 1 EStG ist nicht zulässig.
+L2815@P41: Abschlagszahlungen
+L2816@P41: (5) Zahlt der Arbeitgeber den Arbeitslohn für den üblichen Lohnzahlungszeitraum nur in ungefährer Höhe (Abschlagszahlung) und
+L2817@P41: nimmt er eine genaue Lohnabrechnung für einen längeren Zeitraum vor, braucht er nach § 39b Abs. 5 EStG die Lohnsteuer erst bei
+L2818@P41: der Lohnabrechnung einzubehalten, wenn der Lohnabrechnungszeitraum fünf Wochen nicht übersteigt und die Lohnabrechnung in‐
+L2819@P41: nerhalb von drei Wochen nach Ablauf des Lohnabrechnungszeitraums erfolgt. Die Lohnabrechnung gilt als abgeschlossen, wenn
+L2820@P41: die Zahlungsbelege den Bereich des Arbeitgebers verlassen haben; auf den zeitlichen Zufluss der Zahlung beim Arbeitnehmer
+L2821@P41: kommt es nicht an. Wird die Lohnabrechnung für den letzten Abrechnungszeitraum des abgelaufenen Kj. erst im nachfolgenden Kj.,
+L2822@P41: aber noch innerhalb der Dreiwochenfrist vorgenommen, handelt es sich um Arbeitslohn und einbehaltene Lohnsteuer dieses Lohn‐
+L2823@P41: abrechnungszeitraums; der Arbeitslohn und die Lohnsteuer sind deshalb im Lohnkonto und in den Lohnsteuerbelegen des abgelau‐
+L2824@P41: fenen Kj. zu erfassen. Die einbehaltene Lohnsteuer ist aber für die Anmeldung und Abführung als Lohnsteuer des Kalendermonats
+L2825@P41: bzw. Kalendervierteljahres zu erfassen, in dem die Abrechnung tatsächlich vorgenommen wird.
+

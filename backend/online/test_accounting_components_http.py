@@ -89,8 +89,8 @@ class AccountingComponentHTTPTests(unittest.TestCase):
         old_cash, old_allocations = prejournal_horizon(office), allocation_horizon(office)
         frozen_e1a = {event['id']: self.call(self.company, '/business/accounting/events/' + event['id']).json
                       for event in (payout, customer_event)}
-        self.assertEqual(before['schema_version'], 7)
-        self.assertEqual(set(before), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile'})
+        self.assertEqual(before['schema_version'], 10)
+        self.assertEqual(set(before), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile', 'euer', 'payroll_cash', 'bank_reconciliation'})
         for event in (payout, customer_event):
             path, command = self.component_command(event)
             entry = self.call(self.company, path + '/confirm', command, status=201).json
@@ -118,13 +118,13 @@ class AccountingComponentHTTPTests(unittest.TestCase):
         office = self.company['office']
         self.require_reconciliation(office)
         report = self.report(office)
-        self.assertEqual(report['schema'], 8)
+        self.assertEqual(report['schema'], 11)
         self.assertEqual(report['accounting_horizon']['components']['table_counts'], {table: 0 for table in COMPONENT_TABLES})
         before = '\n'.join(office.db.iterdump())
         invalid = [
             {**report, 'schema': 3, 'accounting_horizon': self.old_horizon(report['accounting_horizon'])},
             {**report, 'schema': 2, 'accounting_horizon': report['accounting_horizon']['prejournal']},
-            {**report, 'schema': 9},
+            {**report, 'schema': 10},
             {**report, 'accounting_external_review': {**report['accounting_external_review'], 'reviewed_since_backup': False}},
         ]
         for changes in ({'schema_version': True}, {'schema_version': 2}, {'sha256': '0' * 64},
@@ -153,7 +153,7 @@ class AccountingComponentHTTPTests(unittest.TestCase):
 
     def test_schema3_receipt_survives_real_migration_but_cannot_unlock_a_new_restore(self):
         old_registry = tuple(spec for spec in business_schema.registry()
-                             if spec.name not in ('business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile'))
+                             if spec.name not in ('business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation'))
         with patch.object(business_schema, 'registry', return_value=old_registry):
             company = self.new_company('historical-components')
             account = self.account_record(company)
@@ -172,7 +172,7 @@ class AccountingComponentHTTPTests(unittest.TestCase):
         business_schema.ensure_schema(office)
         business_schema.ensure_schema(office)
         current_horizon = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(current_horizon['schema_version'], 7)
+        self.assertEqual(current_horizon['schema_version'], 10)
         self.assertEqual(self.old_horizon(current_horizon), h2)
         self.assertEqual(self.legacy_sources(company), frozen_sources)
         self.assertEqual(self.call(company, path + '/assign', command, status=201).json, entry)

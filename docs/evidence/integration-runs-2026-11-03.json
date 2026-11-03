@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-03",
+  "base_commit": "49369da1eb0c36cfa2ef7c0eefa6337aebe636c8",
+  "scope": "Intermediate development runs in a changing worktree; no release approval",
+  "python_runtime": "Python 3.12; /tmp/smartplan-backend-verified; cryptography 50.0.0, Pillow 13.0.0",
+  "counts_overlap": true,
+  "runs": [
+    {
+      "name": "backend_after_dependency_update",
+      "command": "PYTHONPATH=backend:backend/online python -m unittest discover -s backend -v",
+      "tests": 850,
+      "passed": 848,
+      "skipped": 1,
+      "errors": 1,
+      "note": "Transporttest sendete nach bereits abgewiesenen Kopfzeilen großen Körper; Testanfrage korrigiert, gezielt bestanden.",
+      "log_path": "work/verification/security-updated-backend.log",
+      "log_sha256": "1d7f16d7b63772509b63cfff646d0c55665684f22c8ba308923cf6924f26f229"
+    },
+    {
+      "name": "backend_integrated_intermediate",
+      "command": "PYTHONPATH=backend:backend/online python -m unittest discover -s backend -v",
+      "tests": 915,
+      "passed": 913,
+      "skipped": 1,
+      "errors": 1,
+      "note": "Während dieses Laufs wurde Service.sources auf frische vollständige Identität korrigiert; der importierte ältere Stand hatte KeyError role. Kein grüner Gesamtlauf.",
+      "log_path": "work/verification/combined-backend-current.log",
+      "log_sha256": "609ee4acebdc29a6a84fb81a7b05a427d8657af1c44db7ec00e606ceddbcd8ff"
+    },
+    {
+      "name": "service_corrected_target",
+      "command": "PYTHONPATH=backend python -m unittest test_business_service.ServiceTests.test_inquiry_to_single_canonical_project_dispatch_resolution_close_and_reopen -v",
+      "tests": 1,
+      "passed": 1,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Gezielter identischer Servicefall mit korrigiertem Quellstand.",
+      "log_path": "work/verification/service-compatibility-isolated.log",
+      "log_sha256": "518e27565a34a9ec7bad2abab0c8e98a9fadce230bcd402d206ac601a33b44b8"
+    },
+    {
+      "name": "commercial_updated_dependencies",
+      "command": "PYTHONPATH=backend:backend/business_tests:backend/online:scripts python -m unittest discover -s backend/business_tests -v",
+      "tests": 95,
+      "passed": 95,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Tatsächliche lokale Rechnungsvalidatoren und SMTP-Teststrecken.",
+      "log_path": "work/verification/security-updated-business.log",
+      "log_sha256": "0d23cc4d3f3556886ee2da331c70f4a58f9a86e45e1bace0aaa5fefe96ae4944"
+    },
+    {
+      "name": "plan_import_updated_dependencies",
+      "command": "PYTHONPATH=backend python -m unittest discover -s backend/plan_import/tests -v",
+      "tests": 67,
+      "passed": 67,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Synthetische PDF-Dateien mit tatsächlich installierten Planimportbibliotheken.",
+      "log_path": "work/verification/security-updated-plan-import.log",
+      "log_sha256": "fa137fac768a956f3a381802c42ccf38f662fe63bd9c92602e8d0a7a99b8f972"
+    },
+    {
+      "name": "node_intermediate",
+      "command": "node --test web/office/tests/*.test.mjs",
+      "tests": 284,
+      "passed": 284,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Zwischenstand vor neuester Service-/Privacy-/Bankintegration; spätere Änderungen nicht pauschal umfasst.",
+      "log_path": "work/verification/combined-node-current.log",
+      "log_sha256": "d14b1c2e43b7358f931a985917fceaa08a49ad77212e7170b16b75985af5798b"
+    },
+    {
+      "name": "packaging_intermediate",
+      "command": "python -m unittest discover -s scripts -p test_native_release.py -v",
+      "tests": 16,
+      "passed": 16,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Quell-/Offlinepaketstruktur und native Paketregeln, kein tatsächlich signierter Windows-/iOS-Build.",
+      "log_path": "work/verification/combined-native-packaging.log",
+      "log_sha256": "04c1019c15d3a814568771bfb53a3e3167a5fe3496a00f6e2525de93d0d49058"
+    },
+    {
+      "name": "flutter_shared_session",
+      "command": "flutter test --no-pub test/business_session_test.dart test/business_command_concurrency_test.dart test/business_company_overview_test.dart test/business_shell_widget_test.dart",
+      "tests": 13,
+      "passed": 13,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Gemeinsame Sitzungen, Parallelantworten, Übersicht und responsive Shell.",
+      "log_path": "work/verification/session-overview-regression-final.log",
+      "log_sha256": "a6ff13877e5e05c41cfaffecbf1dbc760f5bf50122ac39d6641554bad8b6cad0"
+    },
+    {
+      "name": "company_overview_browser",
+      "command": "SMARTPLAN_BROWSER_WORKFLOW=company-overview node web/office/tests/e2e.cjs",
+      "tests": 1,
+      "passed": 1,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Echte MFA/HTTP, isolierter Chromium mit nachgewiesenem Namespace-/Seccomp-Sandboxing, mobile Ansicht visuell geprüft.",
+      "log_path": "work/verification/company-overview-browser-final.log",
+      "log_sha256": "620f022b946e7969aec0ee1abbae1b209e5caa4b4dc7675244fd8cd9028a0502"
+    },
+    {
+      "name": "backend_bank_resource_integrated",
+      "command": "PYTHONPATH=backend:backend/online python -m unittest discover -s backend -v",
+      "tests": 950,
+      "passed": 949,
+      "skipped": 1,
+      "errors": 0,
+      "note": "Bank/Betriebsmittel integriert; vor Retouren-/Midijob-Erweiterung. Windows job-object cleanup nur Windows-CI.",
+      "log_path": "work/verification/integrated-backend-bank-resource.log",
+      "log_sha256": "dd6cd4d7232d83a431cde0c3dd8fc530f71422144d07a28c28fbbc7cf84e3fe4"
+    },
+    {
+      "name": "node_bank_resource_integrated",
+      "command": "node --test web/office/tests/*.test.mjs",
+      "tests": 323,
+      "passed": 323,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Integrierter Bank-/Betriebsmittel-Erststand; spätere Größenlimitkorrektur separat geprüft.",
+      "log_path": "work/verification/integrated-node-bank-resource.log",
+      "log_sha256": "8cc5dfa6ec33c5b5212c78ca17f81da36029998b42b1a819eefcb67a9f2aa768"
+    },
+    {
+      "name": "native_packaging_current",
+      "command": "python -m unittest discover -s scripts -p test_native_release.py -v",
+      "tests": 16,
+      "passed": 16,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Synthetische Paketprüfung, keine echte Windows-/iPhone-Installation.",
+      "log_path": "work/verification/current-native-packaging.log",
+      "log_sha256": "f1d7bf4bb6ef95a2391e6468f4babf7f008efc44bcf527fc90ccba3e984046a3"
+    },
+    {
+      "name": "global_project_session",
+      "command": "flutter test --no-pub test/business_command_concurrency_test.dart test/business_session_test.dart",
+      "tests": 9,
+      "passed": 9,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Globale Administration aus Projektansicht übernimmt keine Projektberechtigungen, ursprüngliche offene Befehle und Widerruf geprüft.",
+      "log_path": "work/verification/shared-global-session-tests.log",
+      "log_sha256": "06cbabf756bfbea98df7dd2c80c03e48d6ad766a46c37b30cb8dc842d9b8b2ae"
+    },
+    {
+      "name": "bank_response_transport_node",
+      "command": "node --test tests/client.test.mjs tests/bank-reconciliation.test.mjs tests/workflow-retry.test.mjs",
+      "tests": 31,
+      "passed": 31,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Große Bankantworten bleiben begrenzt; lokale Antwortabweisung wird nicht mehr als sicherer HTTP-Anfragefehler behandelt. Originalnonce bleibt erhalten.",
+      "log_path": "work/verification/bank-json-transport-node.log",
+      "log_sha256": "80bdb095b9ae2f1c62d7c85f6768001ec5bed26a0717a47ab792574342158c6c"
+    },
+    {
+      "name": "bank_response_transport_flutter",
+      "command": "flutter test --no-pub test/api_test.dart test/business_command_concurrency_test.dart",
+      "tests": 16,
+      "passed": 16,
+      "skipped": 0,
+      "errors": 0,
+      "note": "Echter lokaler HTTP-Transfer über 20MiB für Bank-DTO, unveränderte allgemeine Grenze, Sitzungs-/Nonceprüfung.",
+      "log_path": "work/verification/bank-json-transport-flutter.log",
+      "log_sha256": "1056f2a334a5f3d4b48c4f025b2c43737b17ff6001a87bb5dd62e4f834f5668f"
+    },
+    {
+      "name": "browser_baseline_during_integration",
+      "status": "failed",
+      "command": "node web/office/tests/e2e.cjs",
+      "note": "Anmeldung/Module, Portal und Finanzketten bis R2 bestanden; Profil-Metadatenwartezeit abgebrochen. Arbeitsbaum wurde während des langen Laufs weiter verändert; keine grüne Gesamtquittung.",
+      "log_path": "work/verification/integrated-browser-baseline.log",
+      "log_sha256": "719f2fbd417f647a952d6f3930060cd4563e8c0f228860350b3ad926cef4f237"
+    },
+    {
+      "name": "profile_browser_first_targeted",
+      "status": "failed",
+      "command": "node web/office/tests/e2e.cjs (SMARTPLAN_BROWSER_WORKFLOW=accounting-profile)",
+      "note": "Frischer Browser erreichte Profilrechte-/Versionskette; zwei veraltete gestapelte Actionfehlermeldungen führten zur strikten UI-Prüfverletzung.",
+      "log_path": "work/verification/profile-regression-browser.log",
+      "log_sha256": "cd2c4f25cdcf543d95009cec5805d5b5861a2a07519ad41afc515f373d181b6c"
+    },
+    {
+      "name": "profile_browser_after_error_replacement",
+      "status": "passed",
+      "command": "node web/office/tests/e2e.cjs (SMARTPLAN_BROWSER_WORKFLOW=accounting-profile)",
+      "note": "showError ersetzt vorherige flüchtige Actionmeldung desselben Ziels; Fachwarnungen und offene Aufträge bleiben. Gesamter gezielter Profilablauf einschließlich tatsächlicher Rechteänderung/Modulpause/Originalreplay bestanden.",
+      "log_path": "work/verification/profile-regression-browser-final.log",
+      "log_sha256": "f6508dea47a2301518e60141fd1308d4586f620bd6cc8a9d9725af2aee373486"
+    },
+    {
+      "name": "final-backend-checkpoint_interrupted_by_environment_restart",
+      "command": "PYTHONPATH=backend:backend/online python -m unittest discover -s backend -v",
+      "status": "interrupted",
+      "note": "Cloud execution environment restarted; no process/runner completion. Partial successes are not counted as complete.",
+      "log_path": "work/verification/final-backend-checkpoint-interrupted.log",
+      "log_sha256": "af2432020a1222d51adb8c8ed1765258e7d53ca9e910c1d26bc1cc9bddb36eb5"
+    },
+    {
+      "name": "final-browser-baseline_interrupted_by_environment_restart",
+      "command": "node web/office/tests/e2e.cjs",
+      "status": "interrupted",
+      "note": "Cloud execution environment restarted; no process/runner completion. Partial successes are not counted as complete.",
+      "log_path": "work/verification/final-browser-baseline-interrupted.log",
+      "log_sha256": "074bb40eda25d98d0877819ffacba452578b58ea824aeeacc59492a50fe1c41e"
+    },
+    {
+      "name": "final_node_checkpoint",
+      "command": "node --test web/office/tests/*.test.mjs",
+      "tests": 336,
+      "passed": 336,
+      "skipped": 0,
+      "errors": 0,
+      "log_path": "work/verification/final-node-checkpoint.log",
+      "log_sha256": "ae311bc2b44cf3e314c1a8cdde3fa7bf9392723022361c4354a206e5c82a80c2"
+    },
+    {
+      "name": "final_flutter_checkpoint",
+      "command": "flutter test --no-pub --reporter json",
+      "tests": 848,
+      "passed": 848,
+      "skipped": 0,
+      "errors": 0,
+      "log_path": "work/verification/flutter-final-regression.jsonl",
+      "log_sha256": "5a2c2a0fa3d1345c341e75a344d15ff6fd7736def1f68b0c82af589b54613cf4"
+    },
+    {
+      "name": "purchase_changes_final_browser",
+      "command": "SMARTPLAN_BROWSER_WORKFLOW=purchase-changes node tests/e2e.cjs",
+      "tests": 1,
+      "passed": 1,
+      "skipped": 0,
+      "errors": 0,
+      "log_path": "work/verification/purchase-changes-browser-final.log",
+      "log_sha256": "56ce76ced67873fd8699139a3709bf03607f69850fdac211c4677e140703ebbd"
+    },
+    {
+      "name": "provisioning_legacy_final_pg",
+      "command": "python work/verification/run-provisioning-legacy-pg.py",
+      "tests": 4,
+      "passed": 4,
+      "skipped": 0,
+      "errors": 0,
+      "log_path": "work/verification/provisioning-legacy-pg.log",
+      "log_sha256": "53fc09038271c09759adbf0d947900e66187448691e7016f469284a58ce82f10"
+    }
+  ]
+}

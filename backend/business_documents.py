@@ -1065,10 +1065,12 @@ class Documents:
             from business_delivery import configured_transport
             transport=configured_transport()
         with _transaction(self.office):
-            self._row(actor,identifier,'finance.approve')
+            document=self._row(actor,identifier,'finance.approve')
             financial_release(self.office)
             state=self._mail_state(state['outbox_id'])
             if state['status'] not in ('pending','not_sent'):return state
+            from business_assistant import require_send_policy
+            require_send_policy(self.office,actor,document['project_id'],'document.email',identifier,data['request_id'])
             outbox=self.db.execute('SELECT * FROM business_document_outbox WHERE id=?',(state['outbox_id'],)).fetchone();preview=json.loads(outbox['payload_json'])
             if self.email_preview(actor,identifier)['preview_sha256']!=outbox['payload_sha256']:raise Problem(409,'Versandquelle wurde geändert')
             attachments=[]
@@ -1082,7 +1084,8 @@ class Documents:
         from business_delivery import DeliveryReceipt
         try:
             with _transaction(self.office):
-                self._row(actor,identifier,'finance.approve');financial_release(self.office)
+                document=self._row(actor,identifier,'finance.approve');financial_release(self.office)
+                require_send_policy(self.office,actor,document['project_id'],'document.email',identifier,data['request_id'])
         except Problem:
             with _transaction(self.office):
                 self.db.execute("INSERT INTO business_document_mail_receipts(id,outbox_id,operation_id,status,ordinal,error_code,at) VALUES(?,?,?,'failed',?,'authorization_changed_before_io',?)",

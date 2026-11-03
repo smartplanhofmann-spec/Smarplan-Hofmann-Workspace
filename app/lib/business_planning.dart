@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'business_session.dart';
+import 'business_resource_custody.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 
@@ -311,6 +312,20 @@ class _BusinessPlanningPageState extends State<BusinessPlanningPage> {
               'Einsatzplanung',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            if (widget.session.hasFeature('resource_custody') &&
+                widget.session.hasModule('resource_custody') &&
+                widget.session.can('planning.write'))
+              OutlinedButton.icon(
+                onPressed: () async {
+                  try {
+                    await openResourceCustody(context, widget.session);
+                  } catch (value) {
+                    if (mounted) setState(() => error = '$value');
+                  }
+                },
+                icon: const Icon(Icons.handyman_outlined),
+                label: const Text('Betriebsmittel und Nachweise'),
+              ),
             if (widget.session.canWrite('planning.write'))
               FilledButton.icon(
                 onPressed: loading ? null : () => edit(),

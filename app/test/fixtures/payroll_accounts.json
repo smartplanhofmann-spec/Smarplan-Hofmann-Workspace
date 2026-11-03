@@ -1,0 +1,3179 @@
+{
+  "employee": {
+    "id": "07f8dd6474f1404bb279776d5e666ddd",
+    "user_id": "915d0244e43548849b0d24cbf0eb8e0e",
+    "name": "Synthetic technician",
+    "active": true,
+    "revision": 1,
+    "updated_at": "2026-10-26T12:00:00+00:00",
+    "weekly_minutes": 2400,
+    "hourly_cost_minor": 3500,
+    "employment_from": null,
+    "employment_to": null
+  },
+  "file": {
+    "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "purpose": "personnel",
+    "owner_visible": 0,
+    "filename": "verified-payroll-profile.pdf",
+    "media_type": "application/pdf",
+    "size": 50,
+    "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+    "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+    "supersedes": null,
+    "created_by": "9b306a2febbf495bb8fd755e641785fd",
+    "created_at": "2026-10-26T12:00:00+00:00"
+  },
+  "profile": {
+    "confirmed": true,
+    "correction_reason": "",
+    "profile": {
+      "church_tax": "none",
+      "date_of_birth": "1990-02-01",
+      "effective_from": "2026-01-01",
+      "employment_kind": "minijob",
+      "federal_state": "HE",
+      "has_children": false,
+      "health_additional_percent": "2.690",
+      "health_fund": "Synthetic documented fund",
+      "health_insurance": "statutory_mandatory",
+      "minijob_rv_exempt": false,
+      "minijob_tax": "flat_2_employer",
+      "pension_other_compulsory": false,
+      "pv_children_under_25": 0,
+      "regular_annual_gross_minor": 723600,
+      "special_cases": [],
+      "tax_children_half_units": 0,
+      "tax_class": 1,
+      "u1_percent": "0.800",
+      "u1_required": true,
+      "u2_percent": "0.220",
+      "verification_note": "Synthetic verified source values for reference tests"
+    },
+    "source_file": {
+      "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+      "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+      "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+    },
+    "id": "7d85d6bf514d492199da1fb324c39721",
+    "kind": "profile",
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "revision": 1,
+    "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+    "previous_hash": null,
+    "created_by": "9b306a2febbf495bb8fd755e641785fd",
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "pdf_sha256": null
+  },
+  "run": {
+    "accepted_scope": "commercial_minijob_flat_tax",
+    "calculation": {
+      "accident_insurance_included": false,
+      "blockers": [],
+      "church_tax_minor": null,
+      "currency": "EUR",
+      "employee_additional_payment_minor": 0,
+      "employee_contributions": {
+        "care": 0,
+        "health_additional": 0,
+        "health_general": 0,
+        "pension": 2171,
+        "unemployment": 0
+      },
+      "employee_social_total_minor": 2171,
+      "employee_tax_minor": 0,
+      "employer_contributions": {
+        "care": 0,
+        "health_additional": 0,
+        "health_general": 7839,
+        "pension": 9045,
+        "unemployment": 0
+      },
+      "employer_flat_tax_minor": 1206,
+      "employer_levies": {
+        "insolvency": 90,
+        "u1": 482,
+        "u2": 133
+      },
+      "employer_social_total_minor": 16884,
+      "employer_total_excluding_accident_insurance_minor": 79095,
+      "gross_minor": 60300,
+      "individual_wage_tax_minor": null,
+      "month": "2026-10",
+      "net_minor": 58129,
+      "official_system_approval": false,
+      "payout_minor": 58129,
+      "payroll_calculation_complete": true,
+      "rule_version": "de_2026_standard_contributions_v1",
+      "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+      "scope": "commercial_minijob_flat_tax",
+      "social_contributions_available": true,
+      "solidarity_minor": null,
+      "statutory_report_status": "not_transmitted",
+      "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+      "tax_parameters": {
+        "children_half_units": 0,
+        "church_tax_percent": "0",
+        "tax_class": 1
+      },
+      "travel_expenses_included_in_net": false
+    },
+    "confirmed": true,
+    "correction_reason": "",
+    "delta": null,
+    "preview_hash": "631602c84e4519b4d3a2b3c59d63935fa4d1989fc318594232b77b986c5b03f2",
+    "source": {
+      "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+      "input": {
+        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+        "full_month_confirmed": true,
+        "gross_minor": 60300,
+        "preparation_id": "0107992bf02b408795f494e947e96611",
+        "preparation_revision": 1,
+        "profile_id": "7d85d6bf514d492199da1fb324c39721",
+        "profile_revision": 1
+      },
+      "month": "2026-10",
+      "preparation": {
+        "completeness_confirmed": true,
+        "content_hash": "7035412dd3f28bc70fd4beafd9d66d65517baaf621036db84fe2a5daaeceecac",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "9b306a2febbf495bb8fd755e641785fd",
+        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+        "id": "0107992bf02b408795f494e947e96611",
+        "kind": "preparation",
+        "month": "2026-10",
+        "payroll_calculated": false,
+        "pdf_sha256": "1348ded35813ce360891d976f0fe755b4094b33593aba58de09ec8b57a805399",
+        "previous_hash": null,
+        "revision": 1,
+        "snapshot": {
+          "agreements": [
+            {
+              "amount_minor": 60300,
+              "content_hash": "e642a3f2b0ab44c9f6b70bf24e6f81ee0d9f44dcbacc646be065ce0ee3bb565b",
+              "correction_reason": "",
+              "created_at": "2026-10-26T12:00:00+00:00",
+              "created_by": "9b306a2febbf495bb8fd755e641785fd",
+              "currency": "EUR",
+              "effective_from": "2026-01-01",
+              "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+              "employment_kind": "minijob",
+              "id": "63ea0ccfbfd942be9fcce7456908cbf9",
+              "kind": "agreement",
+              "notes": "",
+              "pay_basis": "monthly",
+              "pdf_sha256": null,
+              "previous_hash": null,
+              "reference_file_id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+              "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+              "revision": 1
+            }
+          ],
+          "allowance_calculation": false,
+          "approved_absences": [],
+          "approved_days": [],
+          "corrections": [],
+          "currency": "EUR",
+          "employee": {
+            "employment_from": null,
+            "employment_to": null,
+            "id": "07f8dd6474f1404bb279776d5e666ddd",
+            "name": "Synthetic technician",
+            "revision": 1,
+            "user_id": "915d0244e43548849b0d24cbf0eb8e0e"
+          },
+          "expenses": [],
+          "month": "2026-10",
+          "net_work_seconds": 0,
+          "payroll_calculated": false,
+          "recorded_expenses_minor": 0,
+          "schema_version": 1,
+          "scope": "recorded_and_approved_sources",
+          "tax_treatment": "not_determined"
+        },
+        "source_hash": "199332cfe6b6cc21add42ecaf31f5b43a00315f563441809d1225501db3c6125",
+        "status": "preparation_closed",
+        "transmission_status": "not_transmitted"
+      },
+      "profile": {
+        "confirmed": true,
+        "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "9b306a2febbf495bb8fd755e641785fd",
+        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+        "id": "7d85d6bf514d492199da1fb324c39721",
+        "kind": "profile",
+        "pdf_sha256": null,
+        "previous_hash": null,
+        "profile": {
+          "church_tax": "none",
+          "date_of_birth": "1990-02-01",
+          "effective_from": "2026-01-01",
+          "employment_kind": "minijob",
+          "federal_state": "HE",
+          "has_children": false,
+          "health_additional_percent": "2.690",
+          "health_fund": "Synthetic documented fund",
+          "health_insurance": "statutory_mandatory",
+          "minijob_rv_exempt": false,
+          "minijob_tax": "flat_2_employer",
+          "pension_other_compulsory": false,
+          "pv_children_under_25": 0,
+          "regular_annual_gross_minor": 723600,
+          "special_cases": [],
+          "tax_children_half_units": 0,
+          "tax_class": 1,
+          "u1_percent": "0.800",
+          "u1_required": true,
+          "u2_percent": "0.220",
+          "verification_note": "Synthetic verified source values for reference tests"
+        },
+        "revision": 1,
+        "source_file": {
+          "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+          "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+          "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        }
+      },
+      "profiles_in_month": []
+    },
+    "status": "calculation_recorded",
+    "transmission_status": "not_transmitted",
+    "id": "1dc8a1d78ae644cca2716d3e70696c39",
+    "kind": "run",
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "revision": 1,
+    "content_hash": "0c0df9cf36a4569d41d380f00789fed2207992534b6bbb92584148735e3b2910",
+    "previous_hash": null,
+    "created_by": "9b306a2febbf495bb8fd755e641785fd",
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "pdf_sha256": "972a1dbf9c05c648754410fc6a3ac8210ee4ba950e891ae9ba5b65e3dfd32e6d"
+  },
+  "identity": {
+    "id": "ae6ee7f0a10e46a5b78212df70450787",
+    "revision": 1,
+    "kind": "identity",
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "previous_hash": null,
+    "created_by": "9b306a2febbf495bb8fd755e641785fd",
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "confirmed": true,
+    "correction_reason": "",
+    "details": {
+      "address_line": "Testweg 1",
+      "city": "Teststadt",
+      "country_code": "DE",
+      "date_of_birth": "1990-02-01",
+      "employer_address": "Teststraße 2, 12345 Teststadt",
+      "employer_name": "Synthetic Employer",
+      "employer_tax_number": "123/456/78901",
+      "employment_from": "2026-10-01",
+      "employment_to": "2026-10-31",
+      "family_name": "Employee",
+      "given_name": "Synthetic",
+      "postal_code": "12345",
+      "profile_id": "7d85d6bf514d492199da1fb324c39721",
+      "profile_revision": 1,
+      "religion_code": "none",
+      "standard_case_confirmed": true,
+      "tax_addition_yearly_minor": 0,
+      "tax_allowance_yearly_minor": 0,
+      "tax_id": "12345678903",
+      "tax_source": "flat_minijob_evidence",
+      "tax_source_date": "2026-01-01",
+      "valid_from": "2026-01-01",
+      "valid_to": "2026-12-31"
+    },
+    "source_file": {
+      "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+      "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+      "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+    },
+    "sources": {
+      "profile": {
+        "confirmed": true,
+        "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "9b306a2febbf495bb8fd755e641785fd",
+        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+        "id": "7d85d6bf514d492199da1fb324c39721",
+        "kind": "profile",
+        "pdf_sha256": null,
+        "previous_hash": null,
+        "profile": {
+          "church_tax": "none",
+          "date_of_birth": "1990-02-01",
+          "effective_from": "2026-01-01",
+          "employment_kind": "minijob",
+          "federal_state": "HE",
+          "has_children": false,
+          "health_additional_percent": "2.690",
+          "health_fund": "Synthetic documented fund",
+          "health_insurance": "statutory_mandatory",
+          "minijob_rv_exempt": false,
+          "minijob_tax": "flat_2_employer",
+          "pension_other_compulsory": false,
+          "pv_children_under_25": 0,
+          "regular_annual_gross_minor": 723600,
+          "special_cases": [],
+          "tax_children_half_units": 0,
+          "tax_class": 1,
+          "u1_percent": "0.800",
+          "u1_required": true,
+          "u2_percent": "0.220",
+          "verification_note": "Synthetic verified source values for reference tests"
+        },
+        "revision": 1,
+        "source_file": {
+          "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+          "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+          "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        }
+      }
+    },
+    "content_hash": "ff725ece22fff99efd2efb90999d454ee681a9e111b1efe665e55bc6553c5a5b"
+  },
+  "identity_body": {
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "kind": "identity",
+    "revision": 0,
+    "source_file_id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+    "confirmed": true,
+    "details": {
+      "profile_id": "7d85d6bf514d492199da1fb324c39721",
+      "profile_revision": 1,
+      "given_name": "Synthetic",
+      "family_name": "Employee",
+      "date_of_birth": "1990-02-01",
+      "address_line": "Testweg 1",
+      "postal_code": "12345",
+      "city": "Teststadt",
+      "country_code": "DE",
+      "tax_id": "12345678903",
+      "employer_name": "Synthetic Employer",
+      "employer_address": "Teststraße 2, 12345 Teststadt",
+      "employer_tax_number": "123/456/78901",
+      "employment_from": "2026-10-01",
+      "employment_to": "2026-10-31",
+      "tax_source": "flat_minijob_evidence",
+      "tax_source_date": "2026-01-01",
+      "valid_from": "2026-01-01",
+      "valid_to": "2026-12-31",
+      "tax_allowance_yearly_minor": 0,
+      "tax_addition_yearly_minor": 0,
+      "religion_code": "none",
+      "standard_case_confirmed": true
+    }
+  },
+  "payment": {
+    "id": "7b6c0f0613e44195b4d1461c0872d6fc",
+    "revision": 1,
+    "kind": "payment",
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "previous_hash": null,
+    "created_by": "9b306a2febbf495bb8fd755e641785fd",
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "confirmed": true,
+    "correction_reason": "",
+    "details": {
+      "identity_id": "ae6ee7f0a10e46a5b78212df70450787",
+      "identity_revision": 1,
+      "payments": [
+        {
+          "amount_minor": 30000,
+          "paid_on": "2026-10-30",
+          "payment_reference": "SYN-1"
+        },
+        {
+          "amount_minor": 28129,
+          "paid_on": "2026-10-31",
+          "payment_reference": "SYN-2"
+        }
+      ],
+      "run_id": "1dc8a1d78ae644cca2716d3e70696c39",
+      "run_revision": 1,
+      "standard_case_confirmed": true,
+      "tax_free_basis": "",
+      "tax_free_payments_minor": 0
+    },
+    "source_file": {
+      "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+      "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+      "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+    },
+    "sources": {
+      "identity": {
+        "confirmed": true,
+        "content_hash": "ff725ece22fff99efd2efb90999d454ee681a9e111b1efe665e55bc6553c5a5b",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "9b306a2febbf495bb8fd755e641785fd",
+        "details": {
+          "address_line": "Testweg 1",
+          "city": "Teststadt",
+          "country_code": "DE",
+          "date_of_birth": "1990-02-01",
+          "employer_address": "Teststraße 2, 12345 Teststadt",
+          "employer_name": "Synthetic Employer",
+          "employer_tax_number": "123/456/78901",
+          "employment_from": "2026-10-01",
+          "employment_to": "2026-10-31",
+          "family_name": "Employee",
+          "given_name": "Synthetic",
+          "postal_code": "12345",
+          "profile_id": "7d85d6bf514d492199da1fb324c39721",
+          "profile_revision": 1,
+          "religion_code": "none",
+          "standard_case_confirmed": true,
+          "tax_addition_yearly_minor": 0,
+          "tax_allowance_yearly_minor": 0,
+          "tax_id": "12345678903",
+          "tax_source": "flat_minijob_evidence",
+          "tax_source_date": "2026-01-01",
+          "valid_from": "2026-01-01",
+          "valid_to": "2026-12-31"
+        },
+        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+        "id": "ae6ee7f0a10e46a5b78212df70450787",
+        "kind": "identity",
+        "previous_hash": null,
+        "revision": 1,
+        "source_file": {
+          "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+          "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+          "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        },
+        "sources": {
+          "profile": {
+            "confirmed": true,
+            "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+            "correction_reason": "",
+            "created_at": "2026-10-26T12:00:00+00:00",
+            "created_by": "9b306a2febbf495bb8fd755e641785fd",
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "id": "7d85d6bf514d492199da1fb324c39721",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": false,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+              "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+              "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          }
+        }
+      },
+      "run": {
+        "accepted_scope": "commercial_minijob_flat_tax",
+        "calculation": {
+          "accident_insurance_included": false,
+          "blockers": [],
+          "church_tax_minor": null,
+          "currency": "EUR",
+          "employee_additional_payment_minor": 0,
+          "employee_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 0,
+            "pension": 2171,
+            "unemployment": 0
+          },
+          "employee_social_total_minor": 2171,
+          "employee_tax_minor": 0,
+          "employer_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 7839,
+            "pension": 9045,
+            "unemployment": 0
+          },
+          "employer_flat_tax_minor": 1206,
+          "employer_levies": {
+            "insolvency": 90,
+            "u1": 482,
+            "u2": 133
+          },
+          "employer_social_total_minor": 16884,
+          "employer_total_excluding_accident_insurance_minor": 79095,
+          "gross_minor": 60300,
+          "individual_wage_tax_minor": null,
+          "month": "2026-10",
+          "net_minor": 58129,
+          "official_system_approval": false,
+          "payout_minor": 58129,
+          "payroll_calculation_complete": true,
+          "rule_version": "de_2026_standard_contributions_v1",
+          "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+          "scope": "commercial_minijob_flat_tax",
+          "social_contributions_available": true,
+          "solidarity_minor": null,
+          "statutory_report_status": "not_transmitted",
+          "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+          "tax_parameters": {
+            "children_half_units": 0,
+            "church_tax_percent": "0",
+            "tax_class": 1
+          },
+          "travel_expenses_included_in_net": false
+        },
+        "confirmed": true,
+        "content_hash": "0c0df9cf36a4569d41d380f00789fed2207992534b6bbb92584148735e3b2910",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "9b306a2febbf495bb8fd755e641785fd",
+        "delta": null,
+        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+        "id": "1dc8a1d78ae644cca2716d3e70696c39",
+        "kind": "run",
+        "pdf_sha256": "972a1dbf9c05c648754410fc6a3ac8210ee4ba950e891ae9ba5b65e3dfd32e6d",
+        "preview_hash": "631602c84e4519b4d3a2b3c59d63935fa4d1989fc318594232b77b986c5b03f2",
+        "previous_hash": null,
+        "revision": 1,
+        "source": {
+          "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+          "input": {
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "full_month_confirmed": true,
+            "gross_minor": 60300,
+            "preparation_id": "0107992bf02b408795f494e947e96611",
+            "preparation_revision": 1,
+            "profile_id": "7d85d6bf514d492199da1fb324c39721",
+            "profile_revision": 1
+          },
+          "month": "2026-10",
+          "preparation": {
+            "completeness_confirmed": true,
+            "content_hash": "7035412dd3f28bc70fd4beafd9d66d65517baaf621036db84fe2a5daaeceecac",
+            "correction_reason": "",
+            "created_at": "2026-10-26T12:00:00+00:00",
+            "created_by": "9b306a2febbf495bb8fd755e641785fd",
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "id": "0107992bf02b408795f494e947e96611",
+            "kind": "preparation",
+            "month": "2026-10",
+            "payroll_calculated": false,
+            "pdf_sha256": "1348ded35813ce360891d976f0fe755b4094b33593aba58de09ec8b57a805399",
+            "previous_hash": null,
+            "revision": 1,
+            "snapshot": {
+              "agreements": [
+                {
+                  "amount_minor": 60300,
+                  "content_hash": "e642a3f2b0ab44c9f6b70bf24e6f81ee0d9f44dcbacc646be065ce0ee3bb565b",
+                  "correction_reason": "",
+                  "created_at": "2026-10-26T12:00:00+00:00",
+                  "created_by": "9b306a2febbf495bb8fd755e641785fd",
+                  "currency": "EUR",
+                  "effective_from": "2026-01-01",
+                  "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                  "employment_kind": "minijob",
+                  "id": "63ea0ccfbfd942be9fcce7456908cbf9",
+                  "kind": "agreement",
+                  "notes": "",
+                  "pay_basis": "monthly",
+                  "pdf_sha256": null,
+                  "previous_hash": null,
+                  "reference_file_id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+                  "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                  "revision": 1
+                }
+              ],
+              "allowance_calculation": false,
+              "approved_absences": [],
+              "approved_days": [],
+              "corrections": [],
+              "currency": "EUR",
+              "employee": {
+                "employment_from": null,
+                "employment_to": null,
+                "id": "07f8dd6474f1404bb279776d5e666ddd",
+                "name": "Synthetic technician",
+                "revision": 1,
+                "user_id": "915d0244e43548849b0d24cbf0eb8e0e"
+              },
+              "expenses": [],
+              "month": "2026-10",
+              "net_work_seconds": 0,
+              "payroll_calculated": false,
+              "recorded_expenses_minor": 0,
+              "schema_version": 1,
+              "scope": "recorded_and_approved_sources",
+              "tax_treatment": "not_determined"
+            },
+            "source_hash": "199332cfe6b6cc21add42ecaf31f5b43a00315f563441809d1225501db3c6125",
+            "status": "preparation_closed",
+            "transmission_status": "not_transmitted"
+          },
+          "profile": {
+            "confirmed": true,
+            "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+            "correction_reason": "",
+            "created_at": "2026-10-26T12:00:00+00:00",
+            "created_by": "9b306a2febbf495bb8fd755e641785fd",
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "id": "7d85d6bf514d492199da1fb324c39721",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": false,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+              "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+              "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "profiles_in_month": []
+        },
+        "status": "calculation_recorded",
+        "transmission_status": "not_transmitted"
+      }
+    },
+    "content_hash": "34179e473c256cfa4a877d8e99cf5ae6786d376db2e7b47d09a82af6612d6c84"
+  },
+  "payment_body": {
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "kind": "payment",
+    "revision": 0,
+    "source_file_id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+    "confirmed": true,
+    "details": {
+      "run_id": "1dc8a1d78ae644cca2716d3e70696c39",
+      "run_revision": 1,
+      "identity_id": "ae6ee7f0a10e46a5b78212df70450787",
+      "identity_revision": 1,
+      "payments": [
+        {
+          "paid_on": "2026-10-30",
+          "amount_minor": 30000,
+          "payment_reference": "SYN-1"
+        },
+        {
+          "paid_on": "2026-10-31",
+          "amount_minor": 28129,
+          "payment_reference": "SYN-2"
+        }
+      ],
+      "tax_free_payments_minor": 0,
+      "tax_free_basis": "",
+      "standard_case_confirmed": true
+    }
+  },
+  "corrected_identity": {
+    "id": "ae6ee7f0a10e46a5b78212df70450787",
+    "revision": 2,
+    "kind": "identity",
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "previous_hash": "ff725ece22fff99efd2efb90999d454ee681a9e111b1efe665e55bc6553c5a5b",
+    "created_by": "9b306a2febbf495bb8fd755e641785fd",
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "confirmed": true,
+    "correction_reason": "Dokumentierten Schreibfehler berichtigt",
+    "details": {
+      "address_line": "Berichtigter Testweg 2",
+      "city": "Teststadt",
+      "country_code": "DE",
+      "date_of_birth": "1990-02-01",
+      "employer_address": "Teststraße 2, 12345 Teststadt",
+      "employer_name": "Synthetic Employer",
+      "employer_tax_number": "123/456/78901",
+      "employment_from": "2026-10-01",
+      "employment_to": "2026-10-31",
+      "family_name": "Employee",
+      "given_name": "Synthetic",
+      "postal_code": "12345",
+      "profile_id": "7d85d6bf514d492199da1fb324c39721",
+      "profile_revision": 1,
+      "religion_code": "none",
+      "standard_case_confirmed": true,
+      "tax_addition_yearly_minor": 0,
+      "tax_allowance_yearly_minor": 0,
+      "tax_id": "12345678903",
+      "tax_source": "flat_minijob_evidence",
+      "tax_source_date": "2026-01-01",
+      "valid_from": "2026-01-01",
+      "valid_to": "2026-12-31"
+    },
+    "source_file": {
+      "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+      "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+      "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+    },
+    "sources": {
+      "profile": {
+        "confirmed": true,
+        "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "9b306a2febbf495bb8fd755e641785fd",
+        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+        "id": "7d85d6bf514d492199da1fb324c39721",
+        "kind": "profile",
+        "pdf_sha256": null,
+        "previous_hash": null,
+        "profile": {
+          "church_tax": "none",
+          "date_of_birth": "1990-02-01",
+          "effective_from": "2026-01-01",
+          "employment_kind": "minijob",
+          "federal_state": "HE",
+          "has_children": false,
+          "health_additional_percent": "2.690",
+          "health_fund": "Synthetic documented fund",
+          "health_insurance": "statutory_mandatory",
+          "minijob_rv_exempt": false,
+          "minijob_tax": "flat_2_employer",
+          "pension_other_compulsory": false,
+          "pv_children_under_25": 0,
+          "regular_annual_gross_minor": 723600,
+          "special_cases": [],
+          "tax_children_half_units": 0,
+          "tax_class": 1,
+          "u1_percent": "0.800",
+          "u1_required": true,
+          "u2_percent": "0.220",
+          "verification_note": "Synthetic verified source values for reference tests"
+        },
+        "revision": 1,
+        "source_file": {
+          "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+          "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+          "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        }
+      }
+    },
+    "content_hash": "8bf08589974c5c7ad1178ed4eacb9f30c21675ff0b1c9fe4297ed5a20cff40bc"
+  },
+  "corrected_identity_body": {
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "kind": "identity",
+    "revision": 1,
+    "source_file_id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+    "confirmed": true,
+    "details": {
+      "address_line": "Berichtigter Testweg 2",
+      "city": "Teststadt",
+      "country_code": "DE",
+      "date_of_birth": "1990-02-01",
+      "employer_address": "Teststraße 2, 12345 Teststadt",
+      "employer_name": "Synthetic Employer",
+      "employer_tax_number": "123/456/78901",
+      "employment_from": "2026-10-01",
+      "employment_to": "2026-10-31",
+      "family_name": "Employee",
+      "given_name": "Synthetic",
+      "postal_code": "12345",
+      "profile_id": "7d85d6bf514d492199da1fb324c39721",
+      "profile_revision": 1,
+      "religion_code": "none",
+      "standard_case_confirmed": true,
+      "tax_addition_yearly_minor": 0,
+      "tax_allowance_yearly_minor": 0,
+      "tax_id": "12345678903",
+      "tax_source": "flat_minijob_evidence",
+      "tax_source_date": "2026-01-01",
+      "valid_from": "2026-01-01",
+      "valid_to": "2026-12-31"
+    },
+    "id": "ae6ee7f0a10e46a5b78212df70450787",
+    "correction_reason": "Dokumentierten Schreibfehler berichtigt"
+  },
+  "corrected_payment": {
+    "id": "7b6c0f0613e44195b4d1461c0872d6fc",
+    "revision": 2,
+    "kind": "payment",
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "previous_hash": "34179e473c256cfa4a877d8e99cf5ae6786d376db2e7b47d09a82af6612d6c84",
+    "created_by": "9b306a2febbf495bb8fd755e641785fd",
+    "created_at": "2026-10-26T12:00:00+00:00",
+    "confirmed": true,
+    "correction_reason": "Berichtigte Identität übernommen",
+    "details": {
+      "identity_id": "ae6ee7f0a10e46a5b78212df70450787",
+      "identity_revision": 2,
+      "payments": [
+        {
+          "amount_minor": 30000,
+          "paid_on": "2026-10-30",
+          "payment_reference": "SYN-1"
+        },
+        {
+          "amount_minor": 28129,
+          "paid_on": "2026-10-31",
+          "payment_reference": "SYN-2"
+        }
+      ],
+      "run_id": "1dc8a1d78ae644cca2716d3e70696c39",
+      "run_revision": 1,
+      "standard_case_confirmed": true,
+      "tax_free_basis": "",
+      "tax_free_payments_minor": 0
+    },
+    "source_file": {
+      "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+      "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+      "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+    },
+    "sources": {
+      "identity": {
+        "confirmed": true,
+        "content_hash": "8bf08589974c5c7ad1178ed4eacb9f30c21675ff0b1c9fe4297ed5a20cff40bc",
+        "correction_reason": "Dokumentierten Schreibfehler berichtigt",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "9b306a2febbf495bb8fd755e641785fd",
+        "details": {
+          "address_line": "Berichtigter Testweg 2",
+          "city": "Teststadt",
+          "country_code": "DE",
+          "date_of_birth": "1990-02-01",
+          "employer_address": "Teststraße 2, 12345 Teststadt",
+          "employer_name": "Synthetic Employer",
+          "employer_tax_number": "123/456/78901",
+          "employment_from": "2026-10-01",
+          "employment_to": "2026-10-31",
+          "family_name": "Employee",
+          "given_name": "Synthetic",
+          "postal_code": "12345",
+          "profile_id": "7d85d6bf514d492199da1fb324c39721",
+          "profile_revision": 1,
+          "religion_code": "none",
+          "standard_case_confirmed": true,
+          "tax_addition_yearly_minor": 0,
+          "tax_allowance_yearly_minor": 0,
+          "tax_id": "12345678903",
+          "tax_source": "flat_minijob_evidence",
+          "tax_source_date": "2026-01-01",
+          "valid_from": "2026-01-01",
+          "valid_to": "2026-12-31"
+        },
+        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+        "id": "ae6ee7f0a10e46a5b78212df70450787",
+        "kind": "identity",
+        "previous_hash": "ff725ece22fff99efd2efb90999d454ee681a9e111b1efe665e55bc6553c5a5b",
+        "revision": 2,
+        "source_file": {
+          "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+          "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+          "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        },
+        "sources": {
+          "profile": {
+            "confirmed": true,
+            "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+            "correction_reason": "",
+            "created_at": "2026-10-26T12:00:00+00:00",
+            "created_by": "9b306a2febbf495bb8fd755e641785fd",
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "id": "7d85d6bf514d492199da1fb324c39721",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": false,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+              "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+              "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          }
+        }
+      },
+      "run": {
+        "accepted_scope": "commercial_minijob_flat_tax",
+        "calculation": {
+          "accident_insurance_included": false,
+          "blockers": [],
+          "church_tax_minor": null,
+          "currency": "EUR",
+          "employee_additional_payment_minor": 0,
+          "employee_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 0,
+            "pension": 2171,
+            "unemployment": 0
+          },
+          "employee_social_total_minor": 2171,
+          "employee_tax_minor": 0,
+          "employer_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 7839,
+            "pension": 9045,
+            "unemployment": 0
+          },
+          "employer_flat_tax_minor": 1206,
+          "employer_levies": {
+            "insolvency": 90,
+            "u1": 482,
+            "u2": 133
+          },
+          "employer_social_total_minor": 16884,
+          "employer_total_excluding_accident_insurance_minor": 79095,
+          "gross_minor": 60300,
+          "individual_wage_tax_minor": null,
+          "month": "2026-10",
+          "net_minor": 58129,
+          "official_system_approval": false,
+          "payout_minor": 58129,
+          "payroll_calculation_complete": true,
+          "rule_version": "de_2026_standard_contributions_v1",
+          "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+          "scope": "commercial_minijob_flat_tax",
+          "social_contributions_available": true,
+          "solidarity_minor": null,
+          "statutory_report_status": "not_transmitted",
+          "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+          "tax_parameters": {
+            "children_half_units": 0,
+            "church_tax_percent": "0",
+            "tax_class": 1
+          },
+          "travel_expenses_included_in_net": false
+        },
+        "confirmed": true,
+        "content_hash": "0c0df9cf36a4569d41d380f00789fed2207992534b6bbb92584148735e3b2910",
+        "correction_reason": "",
+        "created_at": "2026-10-26T12:00:00+00:00",
+        "created_by": "9b306a2febbf495bb8fd755e641785fd",
+        "delta": null,
+        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+        "id": "1dc8a1d78ae644cca2716d3e70696c39",
+        "kind": "run",
+        "pdf_sha256": "972a1dbf9c05c648754410fc6a3ac8210ee4ba950e891ae9ba5b65e3dfd32e6d",
+        "preview_hash": "631602c84e4519b4d3a2b3c59d63935fa4d1989fc318594232b77b986c5b03f2",
+        "previous_hash": null,
+        "revision": 1,
+        "source": {
+          "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+          "input": {
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "full_month_confirmed": true,
+            "gross_minor": 60300,
+            "preparation_id": "0107992bf02b408795f494e947e96611",
+            "preparation_revision": 1,
+            "profile_id": "7d85d6bf514d492199da1fb324c39721",
+            "profile_revision": 1
+          },
+          "month": "2026-10",
+          "preparation": {
+            "completeness_confirmed": true,
+            "content_hash": "7035412dd3f28bc70fd4beafd9d66d65517baaf621036db84fe2a5daaeceecac",
+            "correction_reason": "",
+            "created_at": "2026-10-26T12:00:00+00:00",
+            "created_by": "9b306a2febbf495bb8fd755e641785fd",
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "id": "0107992bf02b408795f494e947e96611",
+            "kind": "preparation",
+            "month": "2026-10",
+            "payroll_calculated": false,
+            "pdf_sha256": "1348ded35813ce360891d976f0fe755b4094b33593aba58de09ec8b57a805399",
+            "previous_hash": null,
+            "revision": 1,
+            "snapshot": {
+              "agreements": [
+                {
+                  "amount_minor": 60300,
+                  "content_hash": "e642a3f2b0ab44c9f6b70bf24e6f81ee0d9f44dcbacc646be065ce0ee3bb565b",
+                  "correction_reason": "",
+                  "created_at": "2026-10-26T12:00:00+00:00",
+                  "created_by": "9b306a2febbf495bb8fd755e641785fd",
+                  "currency": "EUR",
+                  "effective_from": "2026-01-01",
+                  "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                  "employment_kind": "minijob",
+                  "id": "63ea0ccfbfd942be9fcce7456908cbf9",
+                  "kind": "agreement",
+                  "notes": "",
+                  "pay_basis": "monthly",
+                  "pdf_sha256": null,
+                  "previous_hash": null,
+                  "reference_file_id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+                  "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                  "revision": 1
+                }
+              ],
+              "allowance_calculation": false,
+              "approved_absences": [],
+              "approved_days": [],
+              "corrections": [],
+              "currency": "EUR",
+              "employee": {
+                "employment_from": null,
+                "employment_to": null,
+                "id": "07f8dd6474f1404bb279776d5e666ddd",
+                "name": "Synthetic technician",
+                "revision": 1,
+                "user_id": "915d0244e43548849b0d24cbf0eb8e0e"
+              },
+              "expenses": [],
+              "month": "2026-10",
+              "net_work_seconds": 0,
+              "payroll_calculated": false,
+              "recorded_expenses_minor": 0,
+              "schema_version": 1,
+              "scope": "recorded_and_approved_sources",
+              "tax_treatment": "not_determined"
+            },
+            "source_hash": "199332cfe6b6cc21add42ecaf31f5b43a00315f563441809d1225501db3c6125",
+            "status": "preparation_closed",
+            "transmission_status": "not_transmitted"
+          },
+          "profile": {
+            "confirmed": true,
+            "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+            "correction_reason": "",
+            "created_at": "2026-10-26T12:00:00+00:00",
+            "created_by": "9b306a2febbf495bb8fd755e641785fd",
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "id": "7d85d6bf514d492199da1fb324c39721",
+            "kind": "profile",
+            "pdf_sha256": null,
+            "previous_hash": null,
+            "profile": {
+              "church_tax": "none",
+              "date_of_birth": "1990-02-01",
+              "effective_from": "2026-01-01",
+              "employment_kind": "minijob",
+              "federal_state": "HE",
+              "has_children": false,
+              "health_additional_percent": "2.690",
+              "health_fund": "Synthetic documented fund",
+              "health_insurance": "statutory_mandatory",
+              "minijob_rv_exempt": false,
+              "minijob_tax": "flat_2_employer",
+              "pension_other_compulsory": false,
+              "pv_children_under_25": 0,
+              "regular_annual_gross_minor": 723600,
+              "special_cases": [],
+              "tax_children_half_units": 0,
+              "tax_class": 1,
+              "u1_percent": "0.800",
+              "u1_required": true,
+              "u2_percent": "0.220",
+              "verification_note": "Synthetic verified source values for reference tests"
+            },
+            "revision": 1,
+            "source_file": {
+              "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+              "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+              "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            }
+          },
+          "profiles_in_month": []
+        },
+        "status": "calculation_recorded",
+        "transmission_status": "not_transmitted"
+      }
+    },
+    "content_hash": "4d8fb6b016d8ca2a979cc5bf495436ed6957bad398586c912a7185824a40d3f3"
+  },
+  "corrected_payment_body": {
+    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+    "kind": "payment",
+    "revision": 1,
+    "source_file_id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+    "confirmed": true,
+    "details": {
+      "identity_id": "ae6ee7f0a10e46a5b78212df70450787",
+      "identity_revision": 2,
+      "payments": [
+        {
+          "amount_minor": 30000,
+          "paid_on": "2026-10-30",
+          "payment_reference": "SYN-1"
+        },
+        {
+          "amount_minor": 28129,
+          "paid_on": "2026-10-31",
+          "payment_reference": "SYN-2"
+        }
+      ],
+      "run_id": "1dc8a1d78ae644cca2716d3e70696c39",
+      "run_revision": 1,
+      "standard_case_confirmed": true,
+      "tax_free_basis": "",
+      "tax_free_payments_minor": 0
+    },
+    "id": "7b6c0f0613e44195b4d1461c0872d6fc",
+    "correction_reason": "Berichtigte Identität übernommen"
+  },
+  "ledger": {
+    "ledger": {
+      "schema_version": 1,
+      "employee": {
+        "id": "07f8dd6474f1404bb279776d5e666ddd",
+        "name": "Synthetic technician"
+      },
+      "year": "2026",
+      "currency": "EUR",
+      "months": [
+        {
+          "month": "2026-01",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-02",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-03",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-04",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-05",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-06",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-07",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-08",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-09",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-10",
+          "status": "complete",
+          "run_id": "1dc8a1d78ae644cca2716d3e70696c39",
+          "revision": 1,
+          "content_hash": "0c0df9cf36a4569d41d380f00789fed2207992534b6bbb92584148735e3b2910",
+          "calculation": {
+            "accident_insurance_included": false,
+            "blockers": [],
+            "church_tax_minor": null,
+            "currency": "EUR",
+            "employee_additional_payment_minor": 0,
+            "employee_contributions": {
+              "care": 0,
+              "health_additional": 0,
+              "health_general": 0,
+              "pension": 2171,
+              "unemployment": 0
+            },
+            "employee_social_total_minor": 2171,
+            "employee_tax_minor": 0,
+            "employer_contributions": {
+              "care": 0,
+              "health_additional": 0,
+              "health_general": 7839,
+              "pension": 9045,
+              "unemployment": 0
+            },
+            "employer_flat_tax_minor": 1206,
+            "employer_levies": {
+              "insolvency": 90,
+              "u1": 482,
+              "u2": 133
+            },
+            "employer_social_total_minor": 16884,
+            "employer_total_excluding_accident_insurance_minor": 79095,
+            "gross_minor": 60300,
+            "individual_wage_tax_minor": null,
+            "month": "2026-10",
+            "net_minor": 58129,
+            "official_system_approval": false,
+            "payout_minor": 58129,
+            "payroll_calculation_complete": true,
+            "rule_version": "de_2026_standard_contributions_v1",
+            "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+            "scope": "commercial_minijob_flat_tax",
+            "social_contributions_available": true,
+            "solidarity_minor": null,
+            "statutory_report_status": "not_transmitted",
+            "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+            "tax_parameters": {
+              "children_half_units": 0,
+              "church_tax_percent": "0",
+              "tax_class": 1
+            },
+            "travel_expenses_included_in_net": false
+          },
+          "source_refs": {
+            "profile": {
+              "id": "7d85d6bf514d492199da1fb324c39721",
+              "revision": 1,
+              "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919"
+            },
+            "preparation": {
+              "id": "0107992bf02b408795f494e947e96611",
+              "revision": 1,
+              "content_hash": "7035412dd3f28bc70fd4beafd9d66d65517baaf621036db84fe2a5daaeceecac"
+            }
+          },
+          "origin": "local",
+          "carryover_id": null,
+          "wage_account": {
+            "complete": true,
+            "issues": [],
+            "identity_ref": {
+              "id": "ae6ee7f0a10e46a5b78212df70450787",
+              "revision": 2,
+              "content_hash": "8bf08589974c5c7ad1178ed4eacb9f30c21675ff0b1c9fe4297ed5a20cff40bc"
+            },
+            "payment_ref": {
+              "id": "7b6c0f0613e44195b4d1461c0872d6fc",
+              "revision": 2,
+              "content_hash": "4d8fb6b016d8ca2a979cc5bf495436ed6957bad398586c912a7185824a40d3f3"
+            },
+            "payments": [
+              {
+                "amount_minor": 30000,
+                "paid_on": "2026-10-30",
+                "payment_reference": "SYN-1"
+              },
+              {
+                "amount_minor": 28129,
+                "paid_on": "2026-10-31",
+                "payment_reference": "SYN-2"
+              }
+            ],
+            "tax_free_payments_minor": 0
+          }
+        },
+        {
+          "month": "2026-11",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        },
+        {
+          "month": "2026-12",
+          "status": "missing",
+          "run_id": null,
+          "revision": null,
+          "content_hash": null,
+          "calculation": null,
+          "source_refs": null,
+          "origin": null,
+          "carryover_id": null,
+          "wage_account": {
+            "complete": false,
+            "issues": [
+              "calculation_missing"
+            ],
+            "identity_ref": null,
+            "payment_ref": null,
+            "payments": [],
+            "tax_free_payments_minor": null
+          }
+        }
+      ],
+      "recorded_months": 1,
+      "missing_months": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-11",
+        "2026-12"
+      ],
+      "partial_months": [],
+      "calendar_year_complete": false,
+      "tax_totals_complete": true,
+      "annual_totals_complete": false,
+      "totals_scope": "recorded_effective_months_only",
+      "totals": {
+        "gross_minor": 60300,
+        "individual_wage_tax_minor": 0,
+        "solidarity_minor": 0,
+        "church_tax_minor": 0,
+        "employee_tax_minor": 0,
+        "employee_social_total_minor": 2171,
+        "employer_social_total_minor": 16884,
+        "employer_flat_tax_minor": 1206,
+        "employer_total_excluding_accident_insurance_minor": 79095,
+        "net_minor": 58129,
+        "payout_minor": 58129,
+        "employee_additional_payment_minor": 0,
+        "employee_contributions": {
+          "health_general": 0,
+          "health_additional": 0,
+          "pension": 2171,
+          "unemployment": 0,
+          "care": 0
+        },
+        "employer_contributions": {
+          "health_general": 7839,
+          "health_additional": 0,
+          "pension": 9045,
+          "unemployment": 0,
+          "care": 0
+        },
+        "employer_levies": {
+          "u1": 482,
+          "u2": 133,
+          "insolvency": 90
+        }
+      },
+      "correction_history": [],
+      "statutory_wage_account_complete": true,
+      "supported_wage_account_fields_complete": true,
+      "expected_employment_months": [
+        "2026-10"
+      ],
+      "account_missing_months": [],
+      "account_completeness_issues": [],
+      "account_records": [
+        {
+          "id": "7b6c0f0613e44195b4d1461c0872d6fc",
+          "revision": 2,
+          "kind": "payment",
+          "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+          "previous_hash": "34179e473c256cfa4a877d8e99cf5ae6786d376db2e7b47d09a82af6612d6c84",
+          "created_by": "9b306a2febbf495bb8fd755e641785fd",
+          "created_at": "2026-10-26T12:00:00+00:00",
+          "confirmed": true,
+          "correction_reason": "Berichtigte Identität übernommen",
+          "details": {
+            "identity_id": "ae6ee7f0a10e46a5b78212df70450787",
+            "identity_revision": 2,
+            "payments": [
+              {
+                "amount_minor": 30000,
+                "paid_on": "2026-10-30",
+                "payment_reference": "SYN-1"
+              },
+              {
+                "amount_minor": 28129,
+                "paid_on": "2026-10-31",
+                "payment_reference": "SYN-2"
+              }
+            ],
+            "run_id": "1dc8a1d78ae644cca2716d3e70696c39",
+            "run_revision": 1,
+            "standard_case_confirmed": true,
+            "tax_free_basis": "",
+            "tax_free_payments_minor": 0
+          },
+          "source_file": {
+            "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+          },
+          "sources": {
+            "identity": {
+              "confirmed": true,
+              "content_hash": "8bf08589974c5c7ad1178ed4eacb9f30c21675ff0b1c9fe4297ed5a20cff40bc",
+              "correction_reason": "Dokumentierten Schreibfehler berichtigt",
+              "created_at": "2026-10-26T12:00:00+00:00",
+              "created_by": "9b306a2febbf495bb8fd755e641785fd",
+              "details": {
+                "address_line": "Berichtigter Testweg 2",
+                "city": "Teststadt",
+                "country_code": "DE",
+                "date_of_birth": "1990-02-01",
+                "employer_address": "Teststraße 2, 12345 Teststadt",
+                "employer_name": "Synthetic Employer",
+                "employer_tax_number": "123/456/78901",
+                "employment_from": "2026-10-01",
+                "employment_to": "2026-10-31",
+                "family_name": "Employee",
+                "given_name": "Synthetic",
+                "postal_code": "12345",
+                "profile_id": "7d85d6bf514d492199da1fb324c39721",
+                "profile_revision": 1,
+                "religion_code": "none",
+                "standard_case_confirmed": true,
+                "tax_addition_yearly_minor": 0,
+                "tax_allowance_yearly_minor": 0,
+                "tax_id": "12345678903",
+                "tax_source": "flat_minijob_evidence",
+                "tax_source_date": "2026-01-01",
+                "valid_from": "2026-01-01",
+                "valid_to": "2026-12-31"
+              },
+              "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+              "id": "ae6ee7f0a10e46a5b78212df70450787",
+              "kind": "identity",
+              "previous_hash": "ff725ece22fff99efd2efb90999d454ee681a9e111b1efe665e55bc6553c5a5b",
+              "revision": 2,
+              "source_file": {
+                "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+                "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+              },
+              "sources": {
+                "profile": {
+                  "confirmed": true,
+                  "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+                  "correction_reason": "",
+                  "created_at": "2026-10-26T12:00:00+00:00",
+                  "created_by": "9b306a2febbf495bb8fd755e641785fd",
+                  "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                  "id": "7d85d6bf514d492199da1fb324c39721",
+                  "kind": "profile",
+                  "pdf_sha256": null,
+                  "previous_hash": null,
+                  "profile": {
+                    "church_tax": "none",
+                    "date_of_birth": "1990-02-01",
+                    "effective_from": "2026-01-01",
+                    "employment_kind": "minijob",
+                    "federal_state": "HE",
+                    "has_children": false,
+                    "health_additional_percent": "2.690",
+                    "health_fund": "Synthetic documented fund",
+                    "health_insurance": "statutory_mandatory",
+                    "minijob_rv_exempt": false,
+                    "minijob_tax": "flat_2_employer",
+                    "pension_other_compulsory": false,
+                    "pv_children_under_25": 0,
+                    "regular_annual_gross_minor": 723600,
+                    "special_cases": [],
+                    "tax_children_half_units": 0,
+                    "tax_class": 1,
+                    "u1_percent": "0.800",
+                    "u1_required": true,
+                    "u2_percent": "0.220",
+                    "verification_note": "Synthetic verified source values for reference tests"
+                  },
+                  "revision": 1,
+                  "source_file": {
+                    "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+                    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                    "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+                    "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                  }
+                }
+              }
+            },
+            "run": {
+              "accepted_scope": "commercial_minijob_flat_tax",
+              "calculation": {
+                "accident_insurance_included": false,
+                "blockers": [],
+                "church_tax_minor": null,
+                "currency": "EUR",
+                "employee_additional_payment_minor": 0,
+                "employee_contributions": {
+                  "care": 0,
+                  "health_additional": 0,
+                  "health_general": 0,
+                  "pension": 2171,
+                  "unemployment": 0
+                },
+                "employee_social_total_minor": 2171,
+                "employee_tax_minor": 0,
+                "employer_contributions": {
+                  "care": 0,
+                  "health_additional": 0,
+                  "health_general": 7839,
+                  "pension": 9045,
+                  "unemployment": 0
+                },
+                "employer_flat_tax_minor": 1206,
+                "employer_levies": {
+                  "insolvency": 90,
+                  "u1": 482,
+                  "u2": 133
+                },
+                "employer_social_total_minor": 16884,
+                "employer_total_excluding_accident_insurance_minor": 79095,
+                "gross_minor": 60300,
+                "individual_wage_tax_minor": null,
+                "month": "2026-10",
+                "net_minor": 58129,
+                "official_system_approval": false,
+                "payout_minor": 58129,
+                "payroll_calculation_complete": true,
+                "rule_version": "de_2026_standard_contributions_v1",
+                "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+                "scope": "commercial_minijob_flat_tax",
+                "social_contributions_available": true,
+                "solidarity_minor": null,
+                "statutory_report_status": "not_transmitted",
+                "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+                "tax_parameters": {
+                  "children_half_units": 0,
+                  "church_tax_percent": "0",
+                  "tax_class": 1
+                },
+                "travel_expenses_included_in_net": false
+              },
+              "confirmed": true,
+              "content_hash": "0c0df9cf36a4569d41d380f00789fed2207992534b6bbb92584148735e3b2910",
+              "correction_reason": "",
+              "created_at": "2026-10-26T12:00:00+00:00",
+              "created_by": "9b306a2febbf495bb8fd755e641785fd",
+              "delta": null,
+              "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+              "id": "1dc8a1d78ae644cca2716d3e70696c39",
+              "kind": "run",
+              "pdf_sha256": "972a1dbf9c05c648754410fc6a3ac8210ee4ba950e891ae9ba5b65e3dfd32e6d",
+              "preview_hash": "631602c84e4519b4d3a2b3c59d63935fa4d1989fc318594232b77b986c5b03f2",
+              "previous_hash": null,
+              "revision": 1,
+              "source": {
+                "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                "input": {
+                  "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                  "full_month_confirmed": true,
+                  "gross_minor": 60300,
+                  "preparation_id": "0107992bf02b408795f494e947e96611",
+                  "preparation_revision": 1,
+                  "profile_id": "7d85d6bf514d492199da1fb324c39721",
+                  "profile_revision": 1
+                },
+                "month": "2026-10",
+                "preparation": {
+                  "completeness_confirmed": true,
+                  "content_hash": "7035412dd3f28bc70fd4beafd9d66d65517baaf621036db84fe2a5daaeceecac",
+                  "correction_reason": "",
+                  "created_at": "2026-10-26T12:00:00+00:00",
+                  "created_by": "9b306a2febbf495bb8fd755e641785fd",
+                  "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                  "id": "0107992bf02b408795f494e947e96611",
+                  "kind": "preparation",
+                  "month": "2026-10",
+                  "payroll_calculated": false,
+                  "pdf_sha256": "1348ded35813ce360891d976f0fe755b4094b33593aba58de09ec8b57a805399",
+                  "previous_hash": null,
+                  "revision": 1,
+                  "snapshot": {
+                    "agreements": [
+                      {
+                        "amount_minor": 60300,
+                        "content_hash": "e642a3f2b0ab44c9f6b70bf24e6f81ee0d9f44dcbacc646be065ce0ee3bb565b",
+                        "correction_reason": "",
+                        "created_at": "2026-10-26T12:00:00+00:00",
+                        "created_by": "9b306a2febbf495bb8fd755e641785fd",
+                        "currency": "EUR",
+                        "effective_from": "2026-01-01",
+                        "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                        "employment_kind": "minijob",
+                        "id": "63ea0ccfbfd942be9fcce7456908cbf9",
+                        "kind": "agreement",
+                        "notes": "",
+                        "pay_basis": "monthly",
+                        "pdf_sha256": null,
+                        "previous_hash": null,
+                        "reference_file_id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+                        "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                        "revision": 1
+                      }
+                    ],
+                    "allowance_calculation": false,
+                    "approved_absences": [],
+                    "approved_days": [],
+                    "corrections": [],
+                    "currency": "EUR",
+                    "employee": {
+                      "employment_from": null,
+                      "employment_to": null,
+                      "id": "07f8dd6474f1404bb279776d5e666ddd",
+                      "name": "Synthetic technician",
+                      "revision": 1,
+                      "user_id": "915d0244e43548849b0d24cbf0eb8e0e"
+                    },
+                    "expenses": [],
+                    "month": "2026-10",
+                    "net_work_seconds": 0,
+                    "payroll_calculated": false,
+                    "recorded_expenses_minor": 0,
+                    "schema_version": 1,
+                    "scope": "recorded_and_approved_sources",
+                    "tax_treatment": "not_determined"
+                  },
+                  "source_hash": "199332cfe6b6cc21add42ecaf31f5b43a00315f563441809d1225501db3c6125",
+                  "status": "preparation_closed",
+                  "transmission_status": "not_transmitted"
+                },
+                "profile": {
+                  "confirmed": true,
+                  "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+                  "correction_reason": "",
+                  "created_at": "2026-10-26T12:00:00+00:00",
+                  "created_by": "9b306a2febbf495bb8fd755e641785fd",
+                  "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                  "id": "7d85d6bf514d492199da1fb324c39721",
+                  "kind": "profile",
+                  "pdf_sha256": null,
+                  "previous_hash": null,
+                  "profile": {
+                    "church_tax": "none",
+                    "date_of_birth": "1990-02-01",
+                    "effective_from": "2026-01-01",
+                    "employment_kind": "minijob",
+                    "federal_state": "HE",
+                    "has_children": false,
+                    "health_additional_percent": "2.690",
+                    "health_fund": "Synthetic documented fund",
+                    "health_insurance": "statutory_mandatory",
+                    "minijob_rv_exempt": false,
+                    "minijob_tax": "flat_2_employer",
+                    "pension_other_compulsory": false,
+                    "pv_children_under_25": 0,
+                    "regular_annual_gross_minor": 723600,
+                    "special_cases": [],
+                    "tax_children_half_units": 0,
+                    "tax_class": 1,
+                    "u1_percent": "0.800",
+                    "u1_required": true,
+                    "u2_percent": "0.220",
+                    "verification_note": "Synthetic verified source values for reference tests"
+                  },
+                  "revision": 1,
+                  "source_file": {
+                    "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+                    "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                    "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+                    "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                  }
+                },
+                "profiles_in_month": []
+              },
+              "status": "calculation_recorded",
+              "transmission_status": "not_transmitted"
+            }
+          },
+          "content_hash": "4d8fb6b016d8ca2a979cc5bf495436ed6957bad398586c912a7185824a40d3f3"
+        },
+        {
+          "id": "ae6ee7f0a10e46a5b78212df70450787",
+          "revision": 2,
+          "kind": "identity",
+          "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+          "previous_hash": "ff725ece22fff99efd2efb90999d454ee681a9e111b1efe665e55bc6553c5a5b",
+          "created_by": "9b306a2febbf495bb8fd755e641785fd",
+          "created_at": "2026-10-26T12:00:00+00:00",
+          "confirmed": true,
+          "correction_reason": "Dokumentierten Schreibfehler berichtigt",
+          "details": {
+            "address_line": "Berichtigter Testweg 2",
+            "city": "Teststadt",
+            "country_code": "DE",
+            "date_of_birth": "1990-02-01",
+            "employer_address": "Teststraße 2, 12345 Teststadt",
+            "employer_name": "Synthetic Employer",
+            "employer_tax_number": "123/456/78901",
+            "employment_from": "2026-10-01",
+            "employment_to": "2026-10-31",
+            "family_name": "Employee",
+            "given_name": "Synthetic",
+            "postal_code": "12345",
+            "profile_id": "7d85d6bf514d492199da1fb324c39721",
+            "profile_revision": 1,
+            "religion_code": "none",
+            "standard_case_confirmed": true,
+            "tax_addition_yearly_minor": 0,
+            "tax_allowance_yearly_minor": 0,
+            "tax_id": "12345678903",
+            "tax_source": "flat_minijob_evidence",
+            "tax_source_date": "2026-01-01",
+            "valid_from": "2026-01-01",
+            "valid_to": "2026-12-31"
+          },
+          "source_file": {
+            "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+            "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+            "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+          },
+          "sources": {
+            "profile": {
+              "confirmed": true,
+              "content_hash": "b068a38284e287c47bc3564e09833cac82ebb4041f08d656be056532315fc919",
+              "correction_reason": "",
+              "created_at": "2026-10-26T12:00:00+00:00",
+              "created_by": "9b306a2febbf495bb8fd755e641785fd",
+              "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+              "id": "7d85d6bf514d492199da1fb324c39721",
+              "kind": "profile",
+              "pdf_sha256": null,
+              "previous_hash": null,
+              "profile": {
+                "church_tax": "none",
+                "date_of_birth": "1990-02-01",
+                "effective_from": "2026-01-01",
+                "employment_kind": "minijob",
+                "federal_state": "HE",
+                "has_children": false,
+                "health_additional_percent": "2.690",
+                "health_fund": "Synthetic documented fund",
+                "health_insurance": "statutory_mandatory",
+                "minijob_rv_exempt": false,
+                "minijob_tax": "flat_2_employer",
+                "pension_other_compulsory": false,
+                "pv_children_under_25": 0,
+                "regular_annual_gross_minor": 723600,
+                "special_cases": [],
+                "tax_children_half_units": 0,
+                "tax_class": 1,
+                "u1_percent": "0.800",
+                "u1_required": true,
+                "u2_percent": "0.220",
+                "verification_note": "Synthetic verified source values for reference tests"
+              },
+              "revision": 1,
+              "source_file": {
+                "content_hash": "6bc6786a412a49b36d88910ec924cd39340cfb5bb0fc7a2dced4131cc3d6b550",
+                "employee_id": "07f8dd6474f1404bb279776d5e666ddd",
+                "id": "19feb7edf20445d58c7f5f6b3ed2cba9",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+              }
+            }
+          },
+          "content_hash": "8bf08589974c5c7ad1178ed4eacb9f30c21675ff0b1c9fe4297ed5a20cff40bc"
+        }
+      ],
+      "recorded_tax_free_payments_minor": 0,
+      "digital_audit_export_compliant": false,
+      "limitations": [
+        "Summen enthalten ausschließlich die aufgeführten wirksamen Monatsrevisionen; fehlende Monate und Vortragswerte werden nicht als null ergänzt.",
+        "Korrekturdifferenzen sind Nachweise und werden nicht zusätzlich zu den wirksamen Monatsbeträgen summiert.",
+        "Feldvollständigkeit gilt nur für die belegten unterstützten Standardfälle nach § 4 LStDV / § 41 EStG; keine externe Fachabnahme und kein amtlicher Prüfexport nach der Digitalen LohnSchnittstelle.",
+        "Auslagen, Unfallversicherung und Sonderfälle außerhalb des unterstützten Rechenumfangs sind nicht enthalten.",
+        "Keine Zahlung, amtliche Übermittlung, Annahmebestätigung oder Systemzulassung."
+      ],
+      "statutory_report_status": "not_transmitted",
+      "official_system_approval": false,
+      "snapshot_hash": "a2d131e009f324e65355ba9f7bd9b29017831f1c4e6e83b517db39cd1b44aff4"
+    },
+    "exports": {
+      "json": {
+        "sha256": "0cb91ee87738c8ecb62c7b649504b0a14989695fbd2b0d1ed369aebc1839a302",
+        "size": 19848,
+        "filename": "lohn-jahressicht-2026-07f8dd6474f1404bb279776d5e666ddd.json",
+        "media_type": "application/json; charset=utf-8"
+      },
+      "csv": {
+        "sha256": "1420ce4f0b9ee7174a20908b69bae99d680b2364c8fb740a7cfd0fb0a1a18616",
+        "size": 5697,
+        "filename": "lohn-jahressicht-2026-07f8dd6474f1404bb279776d5e666ddd.csv",
+        "media_type": "text/csv; charset=utf-8"
+      },
+      "pdf": {
+        "sha256": "ca77423b1ed5cda26a573ba90a1c829edb218802d7cced600e597baf0afd6721",
+        "size": 16780,
+        "filename": "lohn-jahressicht-2026-07f8dd6474f1404bb279776d5e666ddd.pdf",
+        "media_type": "application/pdf"
+      }
+    }
+  },
+  "carry_case": {
+    "employee": {
+      "id": "bc23a851500045a391cdbc4add08e7f2",
+      "user_id": "8ddd53b40c7c4611a36c68db5d27cab9",
+      "name": "Synthetic technician",
+      "active": true,
+      "revision": 1,
+      "updated_at": "2026-10-26T12:00:00+00:00",
+      "weekly_minutes": 2400,
+      "hourly_cost_minor": 3500,
+      "employment_from": null,
+      "employment_to": null
+    },
+    "file": {
+      "id": "96452020e83644799c6fbf8308cd4242",
+      "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+      "purpose": "personnel",
+      "owner_visible": 0,
+      "filename": "verified-payroll-profile.pdf",
+      "media_type": "application/pdf",
+      "size": 50,
+      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+      "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+      "supersedes": null,
+      "created_by": "c02c7c177a7440649c962d2e529510dc",
+      "created_at": "2026-10-26T12:00:00+00:00"
+    },
+    "profile": {
+      "confirmed": true,
+      "correction_reason": "",
+      "profile": {
+        "church_tax": "none",
+        "date_of_birth": "1990-02-01",
+        "effective_from": "2026-01-01",
+        "employment_kind": "minijob",
+        "federal_state": "HE",
+        "has_children": false,
+        "health_additional_percent": "2.690",
+        "health_fund": "Synthetic documented fund",
+        "health_insurance": "statutory_mandatory",
+        "minijob_rv_exempt": false,
+        "minijob_tax": "flat_2_employer",
+        "pension_other_compulsory": false,
+        "pv_children_under_25": 0,
+        "regular_annual_gross_minor": 723600,
+        "special_cases": [],
+        "tax_children_half_units": 0,
+        "tax_class": 1,
+        "u1_percent": "0.800",
+        "u1_required": true,
+        "u2_percent": "0.220",
+        "verification_note": "Synthetic verified source values for reference tests"
+      },
+      "source_file": {
+        "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+        "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+        "id": "96452020e83644799c6fbf8308cd4242",
+        "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+      },
+      "id": "8af9b3431f69434987c8be24bdbaaa72",
+      "kind": "profile",
+      "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+      "revision": 1,
+      "content_hash": "0c75ebef68789597386d47c3d1cb934adb2bc7feb3344ae8cc508cabd8a9c2a9",
+      "previous_hash": null,
+      "created_by": "c02c7c177a7440649c962d2e529510dc",
+      "created_at": "2026-10-26T12:00:00+00:00",
+      "pdf_sha256": null
+    },
+    "identity": {
+      "id": "f59db537f65d45ba99eec17d8ee5e8b5",
+      "revision": 1,
+      "kind": "identity",
+      "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+      "previous_hash": null,
+      "created_by": "c02c7c177a7440649c962d2e529510dc",
+      "created_at": "2026-10-26T12:00:00+00:00",
+      "confirmed": true,
+      "correction_reason": "",
+      "details": {
+        "address_line": "Testweg 1",
+        "city": "Teststadt",
+        "country_code": "DE",
+        "date_of_birth": "1990-02-01",
+        "employer_address": "Teststraße 2, 12345 Teststadt",
+        "employer_name": "Synthetic Employer",
+        "employer_tax_number": "123/456/78901",
+        "employment_from": "2026-10-01",
+        "employment_to": "2026-10-31",
+        "family_name": "Employee",
+        "given_name": "Synthetic",
+        "postal_code": "12345",
+        "profile_id": "8af9b3431f69434987c8be24bdbaaa72",
+        "profile_revision": 1,
+        "religion_code": "none",
+        "standard_case_confirmed": true,
+        "tax_addition_yearly_minor": 0,
+        "tax_allowance_yearly_minor": 0,
+        "tax_id": "12345678903",
+        "tax_source": "flat_minijob_evidence",
+        "tax_source_date": "2026-01-01",
+        "valid_from": "2026-01-01",
+        "valid_to": "2026-12-31"
+      },
+      "source_file": {
+        "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+        "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+        "id": "96452020e83644799c6fbf8308cd4242",
+        "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+      },
+      "sources": {
+        "profile": {
+          "confirmed": true,
+          "content_hash": "0c75ebef68789597386d47c3d1cb934adb2bc7feb3344ae8cc508cabd8a9c2a9",
+          "correction_reason": "",
+          "created_at": "2026-10-26T12:00:00+00:00",
+          "created_by": "c02c7c177a7440649c962d2e529510dc",
+          "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+          "id": "8af9b3431f69434987c8be24bdbaaa72",
+          "kind": "profile",
+          "pdf_sha256": null,
+          "previous_hash": null,
+          "profile": {
+            "church_tax": "none",
+            "date_of_birth": "1990-02-01",
+            "effective_from": "2026-01-01",
+            "employment_kind": "minijob",
+            "federal_state": "HE",
+            "has_children": false,
+            "health_additional_percent": "2.690",
+            "health_fund": "Synthetic documented fund",
+            "health_insurance": "statutory_mandatory",
+            "minijob_rv_exempt": false,
+            "minijob_tax": "flat_2_employer",
+            "pension_other_compulsory": false,
+            "pv_children_under_25": 0,
+            "regular_annual_gross_minor": 723600,
+            "special_cases": [],
+            "tax_children_half_units": 0,
+            "tax_class": 1,
+            "u1_percent": "0.800",
+            "u1_required": true,
+            "u2_percent": "0.220",
+            "verification_note": "Synthetic verified source values for reference tests"
+          },
+          "revision": 1,
+          "source_file": {
+            "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+            "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+            "id": "96452020e83644799c6fbf8308cd4242",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+          }
+        }
+      },
+      "content_hash": "b221a387584c84751c78c18aa7b314d822ed333c8c2236671d4d637a849888d0"
+    },
+    "carry": {
+      "id": "d5685b4597004298b337536d15fc9ca2",
+      "revision": 1,
+      "kind": "carryover",
+      "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+      "previous_hash": null,
+      "created_by": "c02c7c177a7440649c962d2e529510dc",
+      "created_at": "2026-10-26T12:00:00+00:00",
+      "confirmed": true,
+      "correction_reason": "",
+      "details": {
+        "expected_employee_social_total_minor": 2171,
+        "expected_employee_tax_minor": 0,
+        "expected_employer_social_total_minor": 16884,
+        "expected_employer_total_minor": 79095,
+        "expected_net_minor": 58129,
+        "gross_minor": 60300,
+        "identity_id": "f59db537f65d45ba99eec17d8ee5e8b5",
+        "identity_revision": 1,
+        "month": "2026-10",
+        "payments": [
+          {
+            "amount_minor": 58129,
+            "paid_on": "2026-10-31",
+            "payment_reference": "SYN-PRIOR-001"
+          }
+        ],
+        "profile_id": "8af9b3431f69434987c8be24bdbaaa72",
+        "profile_revision": 1,
+        "standard_case_confirmed": true,
+        "status": "active",
+        "tax_free_basis": "",
+        "tax_free_payments_minor": 0
+      },
+      "source_file": {
+        "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+        "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+        "id": "96452020e83644799c6fbf8308cd4242",
+        "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+      },
+      "sources": {
+        "calculation": {
+          "accident_insurance_included": false,
+          "blockers": [],
+          "church_tax_minor": null,
+          "currency": "EUR",
+          "employee_additional_payment_minor": 0,
+          "employee_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 0,
+            "pension": 2171,
+            "unemployment": 0
+          },
+          "employee_social_total_minor": 2171,
+          "employee_tax_minor": 0,
+          "employer_contributions": {
+            "care": 0,
+            "health_additional": 0,
+            "health_general": 7839,
+            "pension": 9045,
+            "unemployment": 0
+          },
+          "employer_flat_tax_minor": 1206,
+          "employer_levies": {
+            "insolvency": 90,
+            "u1": 482,
+            "u2": 133
+          },
+          "employer_social_total_minor": 16884,
+          "employer_total_excluding_accident_insurance_minor": 79095,
+          "gross_minor": 60300,
+          "individual_wage_tax_minor": null,
+          "month": "2026-10",
+          "net_minor": 58129,
+          "official_system_approval": false,
+          "payout_minor": 58129,
+          "payroll_calculation_complete": true,
+          "rule_version": "de_2026_standard_contributions_v1",
+          "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+          "scope": "commercial_minijob_flat_tax",
+          "social_contributions_available": true,
+          "solidarity_minor": null,
+          "statutory_report_status": "not_transmitted",
+          "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+          "tax_parameters": {
+            "children_half_units": 0,
+            "church_tax_percent": "0",
+            "tax_class": 1
+          },
+          "travel_expenses_included_in_net": false
+        },
+        "identity": {
+          "confirmed": true,
+          "content_hash": "b221a387584c84751c78c18aa7b314d822ed333c8c2236671d4d637a849888d0",
+          "correction_reason": "",
+          "created_at": "2026-10-26T12:00:00+00:00",
+          "created_by": "c02c7c177a7440649c962d2e529510dc",
+          "details": {
+            "address_line": "Testweg 1",
+            "city": "Teststadt",
+            "country_code": "DE",
+            "date_of_birth": "1990-02-01",
+            "employer_address": "Teststraße 2, 12345 Teststadt",
+            "employer_name": "Synthetic Employer",
+            "employer_tax_number": "123/456/78901",
+            "employment_from": "2026-10-01",
+            "employment_to": "2026-10-31",
+            "family_name": "Employee",
+            "given_name": "Synthetic",
+            "postal_code": "12345",
+            "profile_id": "8af9b3431f69434987c8be24bdbaaa72",
+            "profile_revision": 1,
+            "religion_code": "none",
+            "standard_case_confirmed": true,
+            "tax_addition_yearly_minor": 0,
+            "tax_allowance_yearly_minor": 0,
+            "tax_id": "12345678903",
+            "tax_source": "flat_minijob_evidence",
+            "tax_source_date": "2026-01-01",
+            "valid_from": "2026-01-01",
+            "valid_to": "2026-12-31"
+          },
+          "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+          "id": "f59db537f65d45ba99eec17d8ee5e8b5",
+          "kind": "identity",
+          "previous_hash": null,
+          "revision": 1,
+          "source_file": {
+            "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+            "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+            "id": "96452020e83644799c6fbf8308cd4242",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+          },
+          "sources": {
+            "profile": {
+              "confirmed": true,
+              "content_hash": "0c75ebef68789597386d47c3d1cb934adb2bc7feb3344ae8cc508cabd8a9c2a9",
+              "correction_reason": "",
+              "created_at": "2026-10-26T12:00:00+00:00",
+              "created_by": "c02c7c177a7440649c962d2e529510dc",
+              "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+              "id": "8af9b3431f69434987c8be24bdbaaa72",
+              "kind": "profile",
+              "pdf_sha256": null,
+              "previous_hash": null,
+              "profile": {
+                "church_tax": "none",
+                "date_of_birth": "1990-02-01",
+                "effective_from": "2026-01-01",
+                "employment_kind": "minijob",
+                "federal_state": "HE",
+                "has_children": false,
+                "health_additional_percent": "2.690",
+                "health_fund": "Synthetic documented fund",
+                "health_insurance": "statutory_mandatory",
+                "minijob_rv_exempt": false,
+                "minijob_tax": "flat_2_employer",
+                "pension_other_compulsory": false,
+                "pv_children_under_25": 0,
+                "regular_annual_gross_minor": 723600,
+                "special_cases": [],
+                "tax_children_half_units": 0,
+                "tax_class": 1,
+                "u1_percent": "0.800",
+                "u1_required": true,
+                "u2_percent": "0.220",
+                "verification_note": "Synthetic verified source values for reference tests"
+              },
+              "revision": 1,
+              "source_file": {
+                "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+                "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+                "id": "96452020e83644799c6fbf8308cd4242",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+              }
+            }
+          }
+        },
+        "profile": {
+          "confirmed": true,
+          "content_hash": "0c75ebef68789597386d47c3d1cb934adb2bc7feb3344ae8cc508cabd8a9c2a9",
+          "correction_reason": "",
+          "created_at": "2026-10-26T12:00:00+00:00",
+          "created_by": "c02c7c177a7440649c962d2e529510dc",
+          "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+          "id": "8af9b3431f69434987c8be24bdbaaa72",
+          "kind": "profile",
+          "pdf_sha256": null,
+          "previous_hash": null,
+          "profile": {
+            "church_tax": "none",
+            "date_of_birth": "1990-02-01",
+            "effective_from": "2026-01-01",
+            "employment_kind": "minijob",
+            "federal_state": "HE",
+            "has_children": false,
+            "health_additional_percent": "2.690",
+            "health_fund": "Synthetic documented fund",
+            "health_insurance": "statutory_mandatory",
+            "minijob_rv_exempt": false,
+            "minijob_tax": "flat_2_employer",
+            "pension_other_compulsory": false,
+            "pv_children_under_25": 0,
+            "regular_annual_gross_minor": 723600,
+            "special_cases": [],
+            "tax_children_half_units": 0,
+            "tax_class": 1,
+            "u1_percent": "0.800",
+            "u1_required": true,
+            "u2_percent": "0.220",
+            "verification_note": "Synthetic verified source values for reference tests"
+          },
+          "revision": 1,
+          "source_file": {
+            "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+            "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+            "id": "96452020e83644799c6fbf8308cd4242",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+          }
+        }
+      },
+      "content_hash": "1a51a860b53614c7a17409c454b33d3e5a96e81a105b33f96ef9718ea0397537"
+    },
+    "body": {
+      "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+      "kind": "carryover",
+      "revision": 0,
+      "source_file_id": "96452020e83644799c6fbf8308cd4242",
+      "confirmed": true,
+      "details": {
+        "month": "2026-10",
+        "profile_id": "8af9b3431f69434987c8be24bdbaaa72",
+        "profile_revision": 1,
+        "identity_id": "f59db537f65d45ba99eec17d8ee5e8b5",
+        "identity_revision": 1,
+        "gross_minor": 60300,
+        "expected_net_minor": 58129,
+        "expected_employee_tax_minor": 0,
+        "expected_employee_social_total_minor": 2171,
+        "expected_employer_social_total_minor": 16884,
+        "expected_employer_total_minor": 79095,
+        "payments": [
+          {
+            "paid_on": "2026-10-31",
+            "amount_minor": 58129,
+            "payment_reference": "SYN-PRIOR-001"
+          }
+        ],
+        "tax_free_payments_minor": 0,
+        "tax_free_basis": "",
+        "standard_case_confirmed": true,
+        "status": "active"
+      }
+    },
+    "ledger": {
+      "ledger": {
+        "schema_version": 1,
+        "employee": {
+          "id": "bc23a851500045a391cdbc4add08e7f2",
+          "name": "Synthetic technician"
+        },
+        "year": "2026",
+        "currency": "EUR",
+        "months": [
+          {
+            "month": "2026-01",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-02",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-03",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-04",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-05",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-06",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-07",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-08",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-09",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-10",
+            "status": "complete",
+            "run_id": null,
+            "revision": 1,
+            "content_hash": "1a51a860b53614c7a17409c454b33d3e5a96e81a105b33f96ef9718ea0397537",
+            "calculation": {
+              "accident_insurance_included": false,
+              "blockers": [],
+              "church_tax_minor": null,
+              "currency": "EUR",
+              "employee_additional_payment_minor": 0,
+              "employee_contributions": {
+                "care": 0,
+                "health_additional": 0,
+                "health_general": 0,
+                "pension": 2171,
+                "unemployment": 0
+              },
+              "employee_social_total_minor": 2171,
+              "employee_tax_minor": 0,
+              "employer_contributions": {
+                "care": 0,
+                "health_additional": 0,
+                "health_general": 7839,
+                "pension": 9045,
+                "unemployment": 0
+              },
+              "employer_flat_tax_minor": 1206,
+              "employer_levies": {
+                "insolvency": 90,
+                "u1": 482,
+                "u2": 133
+              },
+              "employer_social_total_minor": 16884,
+              "employer_total_excluding_accident_insurance_minor": 79095,
+              "gross_minor": 60300,
+              "individual_wage_tax_minor": null,
+              "month": "2026-10",
+              "net_minor": 58129,
+              "official_system_approval": false,
+              "payout_minor": 58129,
+              "payroll_calculation_complete": true,
+              "rule_version": "de_2026_standard_contributions_v1",
+              "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+              "scope": "commercial_minijob_flat_tax",
+              "social_contributions_available": true,
+              "solidarity_minor": null,
+              "statutory_report_status": "not_transmitted",
+              "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+              "tax_parameters": {
+                "children_half_units": 0,
+                "church_tax_percent": "0",
+                "tax_class": 1
+              },
+              "travel_expenses_included_in_net": false
+            },
+            "source_refs": {
+              "profile": {
+                "id": "8af9b3431f69434987c8be24bdbaaa72",
+                "revision": 1,
+                "content_hash": "0c75ebef68789597386d47c3d1cb934adb2bc7feb3344ae8cc508cabd8a9c2a9"
+              },
+              "preparation": null
+            },
+            "origin": "external_carryover",
+            "carryover_id": "d5685b4597004298b337536d15fc9ca2",
+            "wage_account": {
+              "complete": true,
+              "issues": [],
+              "identity_ref": {
+                "id": "f59db537f65d45ba99eec17d8ee5e8b5",
+                "revision": 1,
+                "content_hash": "b221a387584c84751c78c18aa7b314d822ed333c8c2236671d4d637a849888d0"
+              },
+              "payment_ref": {
+                "id": "d5685b4597004298b337536d15fc9ca2",
+                "revision": 1,
+                "content_hash": "1a51a860b53614c7a17409c454b33d3e5a96e81a105b33f96ef9718ea0397537"
+              },
+              "payments": [
+                {
+                  "amount_minor": 58129,
+                  "paid_on": "2026-10-31",
+                  "payment_reference": "SYN-PRIOR-001"
+                }
+              ],
+              "tax_free_payments_minor": 0
+            }
+          },
+          {
+            "month": "2026-11",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          },
+          {
+            "month": "2026-12",
+            "status": "missing",
+            "run_id": null,
+            "revision": null,
+            "content_hash": null,
+            "calculation": null,
+            "source_refs": null,
+            "origin": null,
+            "carryover_id": null,
+            "wage_account": {
+              "complete": false,
+              "issues": [
+                "calculation_missing"
+              ],
+              "identity_ref": null,
+              "payment_ref": null,
+              "payments": [],
+              "tax_free_payments_minor": null
+            }
+          }
+        ],
+        "recorded_months": 1,
+        "missing_months": [
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-11",
+          "2026-12"
+        ],
+        "partial_months": [],
+        "calendar_year_complete": false,
+        "tax_totals_complete": true,
+        "annual_totals_complete": false,
+        "totals_scope": "recorded_effective_months_only",
+        "totals": {
+          "gross_minor": 60300,
+          "individual_wage_tax_minor": 0,
+          "solidarity_minor": 0,
+          "church_tax_minor": 0,
+          "employee_tax_minor": 0,
+          "employee_social_total_minor": 2171,
+          "employer_social_total_minor": 16884,
+          "employer_flat_tax_minor": 1206,
+          "employer_total_excluding_accident_insurance_minor": 79095,
+          "net_minor": 58129,
+          "payout_minor": 58129,
+          "employee_additional_payment_minor": 0,
+          "employee_contributions": {
+            "health_general": 0,
+            "health_additional": 0,
+            "pension": 2171,
+            "unemployment": 0,
+            "care": 0
+          },
+          "employer_contributions": {
+            "health_general": 7839,
+            "health_additional": 0,
+            "pension": 9045,
+            "unemployment": 0,
+            "care": 0
+          },
+          "employer_levies": {
+            "u1": 482,
+            "u2": 133,
+            "insolvency": 90
+          }
+        },
+        "correction_history": [],
+        "statutory_wage_account_complete": true,
+        "supported_wage_account_fields_complete": true,
+        "expected_employment_months": [
+          "2026-10"
+        ],
+        "account_missing_months": [],
+        "account_completeness_issues": [],
+        "account_records": [
+          {
+            "id": "d5685b4597004298b337536d15fc9ca2",
+            "revision": 1,
+            "kind": "carryover",
+            "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+            "previous_hash": null,
+            "created_by": "c02c7c177a7440649c962d2e529510dc",
+            "created_at": "2026-10-26T12:00:00+00:00",
+            "confirmed": true,
+            "correction_reason": "",
+            "details": {
+              "expected_employee_social_total_minor": 2171,
+              "expected_employee_tax_minor": 0,
+              "expected_employer_social_total_minor": 16884,
+              "expected_employer_total_minor": 79095,
+              "expected_net_minor": 58129,
+              "gross_minor": 60300,
+              "identity_id": "f59db537f65d45ba99eec17d8ee5e8b5",
+              "identity_revision": 1,
+              "month": "2026-10",
+              "payments": [
+                {
+                  "amount_minor": 58129,
+                  "paid_on": "2026-10-31",
+                  "payment_reference": "SYN-PRIOR-001"
+                }
+              ],
+              "profile_id": "8af9b3431f69434987c8be24bdbaaa72",
+              "profile_revision": 1,
+              "standard_case_confirmed": true,
+              "status": "active",
+              "tax_free_basis": "",
+              "tax_free_payments_minor": 0
+            },
+            "source_file": {
+              "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+              "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+              "id": "96452020e83644799c6fbf8308cd4242",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            },
+            "sources": {
+              "calculation": {
+                "accident_insurance_included": false,
+                "blockers": [],
+                "church_tax_minor": null,
+                "currency": "EUR",
+                "employee_additional_payment_minor": 0,
+                "employee_contributions": {
+                  "care": 0,
+                  "health_additional": 0,
+                  "health_general": 0,
+                  "pension": 2171,
+                  "unemployment": 0
+                },
+                "employee_social_total_minor": 2171,
+                "employee_tax_minor": 0,
+                "employer_contributions": {
+                  "care": 0,
+                  "health_additional": 0,
+                  "health_general": 7839,
+                  "pension": 9045,
+                  "unemployment": 0
+                },
+                "employer_flat_tax_minor": 1206,
+                "employer_levies": {
+                  "insolvency": 90,
+                  "u1": 482,
+                  "u2": 133
+                },
+                "employer_social_total_minor": 16884,
+                "employer_total_excluding_accident_insurance_minor": 79095,
+                "gross_minor": 60300,
+                "individual_wage_tax_minor": null,
+                "month": "2026-10",
+                "net_minor": 58129,
+                "official_system_approval": false,
+                "payout_minor": 58129,
+                "payroll_calculation_complete": true,
+                "rule_version": "de_2026_standard_contributions_v1",
+                "rules_sha256": "31c469d27fdaff390f067cdb0f278e5f96e8e7a9749c8b97453ad84439a222e8",
+                "scope": "commercial_minijob_flat_tax",
+                "social_contributions_available": true,
+                "solidarity_minor": null,
+                "statutory_report_status": "not_transmitted",
+                "tax_method": "flat_2_percent_employer_including_church_and_solidarity",
+                "tax_parameters": {
+                  "children_half_units": 0,
+                  "church_tax_percent": "0",
+                  "tax_class": 1
+                },
+                "travel_expenses_included_in_net": false
+              },
+              "identity": {
+                "confirmed": true,
+                "content_hash": "b221a387584c84751c78c18aa7b314d822ed333c8c2236671d4d637a849888d0",
+                "correction_reason": "",
+                "created_at": "2026-10-26T12:00:00+00:00",
+                "created_by": "c02c7c177a7440649c962d2e529510dc",
+                "details": {
+                  "address_line": "Testweg 1",
+                  "city": "Teststadt",
+                  "country_code": "DE",
+                  "date_of_birth": "1990-02-01",
+                  "employer_address": "Teststraße 2, 12345 Teststadt",
+                  "employer_name": "Synthetic Employer",
+                  "employer_tax_number": "123/456/78901",
+                  "employment_from": "2026-10-01",
+                  "employment_to": "2026-10-31",
+                  "family_name": "Employee",
+                  "given_name": "Synthetic",
+                  "postal_code": "12345",
+                  "profile_id": "8af9b3431f69434987c8be24bdbaaa72",
+                  "profile_revision": 1,
+                  "religion_code": "none",
+                  "standard_case_confirmed": true,
+                  "tax_addition_yearly_minor": 0,
+                  "tax_allowance_yearly_minor": 0,
+                  "tax_id": "12345678903",
+                  "tax_source": "flat_minijob_evidence",
+                  "tax_source_date": "2026-01-01",
+                  "valid_from": "2026-01-01",
+                  "valid_to": "2026-12-31"
+                },
+                "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+                "id": "f59db537f65d45ba99eec17d8ee5e8b5",
+                "kind": "identity",
+                "previous_hash": null,
+                "revision": 1,
+                "source_file": {
+                  "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+                  "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+                  "id": "96452020e83644799c6fbf8308cd4242",
+                  "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                },
+                "sources": {
+                  "profile": {
+                    "confirmed": true,
+                    "content_hash": "0c75ebef68789597386d47c3d1cb934adb2bc7feb3344ae8cc508cabd8a9c2a9",
+                    "correction_reason": "",
+                    "created_at": "2026-10-26T12:00:00+00:00",
+                    "created_by": "c02c7c177a7440649c962d2e529510dc",
+                    "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+                    "id": "8af9b3431f69434987c8be24bdbaaa72",
+                    "kind": "profile",
+                    "pdf_sha256": null,
+                    "previous_hash": null,
+                    "profile": {
+                      "church_tax": "none",
+                      "date_of_birth": "1990-02-01",
+                      "effective_from": "2026-01-01",
+                      "employment_kind": "minijob",
+                      "federal_state": "HE",
+                      "has_children": false,
+                      "health_additional_percent": "2.690",
+                      "health_fund": "Synthetic documented fund",
+                      "health_insurance": "statutory_mandatory",
+                      "minijob_rv_exempt": false,
+                      "minijob_tax": "flat_2_employer",
+                      "pension_other_compulsory": false,
+                      "pv_children_under_25": 0,
+                      "regular_annual_gross_minor": 723600,
+                      "special_cases": [],
+                      "tax_children_half_units": 0,
+                      "tax_class": 1,
+                      "u1_percent": "0.800",
+                      "u1_required": true,
+                      "u2_percent": "0.220",
+                      "verification_note": "Synthetic verified source values for reference tests"
+                    },
+                    "revision": 1,
+                    "source_file": {
+                      "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+                      "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+                      "id": "96452020e83644799c6fbf8308cd4242",
+                      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                    }
+                  }
+                }
+              },
+              "profile": {
+                "confirmed": true,
+                "content_hash": "0c75ebef68789597386d47c3d1cb934adb2bc7feb3344ae8cc508cabd8a9c2a9",
+                "correction_reason": "",
+                "created_at": "2026-10-26T12:00:00+00:00",
+                "created_by": "c02c7c177a7440649c962d2e529510dc",
+                "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+                "id": "8af9b3431f69434987c8be24bdbaaa72",
+                "kind": "profile",
+                "pdf_sha256": null,
+                "previous_hash": null,
+                "profile": {
+                  "church_tax": "none",
+                  "date_of_birth": "1990-02-01",
+                  "effective_from": "2026-01-01",
+                  "employment_kind": "minijob",
+                  "federal_state": "HE",
+                  "has_children": false,
+                  "health_additional_percent": "2.690",
+                  "health_fund": "Synthetic documented fund",
+                  "health_insurance": "statutory_mandatory",
+                  "minijob_rv_exempt": false,
+                  "minijob_tax": "flat_2_employer",
+                  "pension_other_compulsory": false,
+                  "pv_children_under_25": 0,
+                  "regular_annual_gross_minor": 723600,
+                  "special_cases": [],
+                  "tax_children_half_units": 0,
+                  "tax_class": 1,
+                  "u1_percent": "0.800",
+                  "u1_required": true,
+                  "u2_percent": "0.220",
+                  "verification_note": "Synthetic verified source values for reference tests"
+                },
+                "revision": 1,
+                "source_file": {
+                  "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+                  "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+                  "id": "96452020e83644799c6fbf8308cd4242",
+                  "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                }
+              }
+            },
+            "content_hash": "1a51a860b53614c7a17409c454b33d3e5a96e81a105b33f96ef9718ea0397537"
+          },
+          {
+            "id": "f59db537f65d45ba99eec17d8ee5e8b5",
+            "revision": 1,
+            "kind": "identity",
+            "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+            "previous_hash": null,
+            "created_by": "c02c7c177a7440649c962d2e529510dc",
+            "created_at": "2026-10-26T12:00:00+00:00",
+            "confirmed": true,
+            "correction_reason": "",
+            "details": {
+              "address_line": "Testweg 1",
+              "city": "Teststadt",
+              "country_code": "DE",
+              "date_of_birth": "1990-02-01",
+              "employer_address": "Teststraße 2, 12345 Teststadt",
+              "employer_name": "Synthetic Employer",
+              "employer_tax_number": "123/456/78901",
+              "employment_from": "2026-10-01",
+              "employment_to": "2026-10-31",
+              "family_name": "Employee",
+              "given_name": "Synthetic",
+              "postal_code": "12345",
+              "profile_id": "8af9b3431f69434987c8be24bdbaaa72",
+              "profile_revision": 1,
+              "religion_code": "none",
+              "standard_case_confirmed": true,
+              "tax_addition_yearly_minor": 0,
+              "tax_allowance_yearly_minor": 0,
+              "tax_id": "12345678903",
+              "tax_source": "flat_minijob_evidence",
+              "tax_source_date": "2026-01-01",
+              "valid_from": "2026-01-01",
+              "valid_to": "2026-12-31"
+            },
+            "source_file": {
+              "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+              "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+              "id": "96452020e83644799c6fbf8308cd4242",
+              "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+            },
+            "sources": {
+              "profile": {
+                "confirmed": true,
+                "content_hash": "0c75ebef68789597386d47c3d1cb934adb2bc7feb3344ae8cc508cabd8a9c2a9",
+                "correction_reason": "",
+                "created_at": "2026-10-26T12:00:00+00:00",
+                "created_by": "c02c7c177a7440649c962d2e529510dc",
+                "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+                "id": "8af9b3431f69434987c8be24bdbaaa72",
+                "kind": "profile",
+                "pdf_sha256": null,
+                "previous_hash": null,
+                "profile": {
+                  "church_tax": "none",
+                  "date_of_birth": "1990-02-01",
+                  "effective_from": "2026-01-01",
+                  "employment_kind": "minijob",
+                  "federal_state": "HE",
+                  "has_children": false,
+                  "health_additional_percent": "2.690",
+                  "health_fund": "Synthetic documented fund",
+                  "health_insurance": "statutory_mandatory",
+                  "minijob_rv_exempt": false,
+                  "minijob_tax": "flat_2_employer",
+                  "pension_other_compulsory": false,
+                  "pv_children_under_25": 0,
+                  "regular_annual_gross_minor": 723600,
+                  "special_cases": [],
+                  "tax_children_half_units": 0,
+                  "tax_class": 1,
+                  "u1_percent": "0.800",
+                  "u1_required": true,
+                  "u2_percent": "0.220",
+                  "verification_note": "Synthetic verified source values for reference tests"
+                },
+                "revision": 1,
+                "source_file": {
+                  "content_hash": "576fdea70ed9d28d04c64ca26647b1049194c0335d42481e2d3c0b512333195e",
+                  "employee_id": "bc23a851500045a391cdbc4add08e7f2",
+                  "id": "96452020e83644799c6fbf8308cd4242",
+                  "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                }
+              }
+            },
+            "content_hash": "b221a387584c84751c78c18aa7b314d822ed333c8c2236671d4d637a849888d0"
+          }
+        ],
+        "recorded_tax_free_payments_minor": 0,
+        "digital_audit_export_compliant": false,
+        "limitations": [
+          "Summen enthalten ausschließlich die aufgeführten wirksamen Monatsrevisionen; fehlende Monate und Vortragswerte werden nicht als null ergänzt.",
+          "Korrekturdifferenzen sind Nachweise und werden nicht zusätzlich zu den wirksamen Monatsbeträgen summiert.",
+          "Feldvollständigkeit gilt nur für die belegten unterstützten Standardfälle nach § 4 LStDV / § 41 EStG; keine externe Fachabnahme und kein amtlicher Prüfexport nach der Digitalen LohnSchnittstelle.",
+          "Auslagen, Unfallversicherung und Sonderfälle außerhalb des unterstützten Rechenumfangs sind nicht enthalten.",
+          "Keine Zahlung, amtliche Übermittlung, Annahmebestätigung oder Systemzulassung."
+        ],
+        "statutory_report_status": "not_transmitted",
+        "official_system_approval": false,
+        "snapshot_hash": "22790c72c5d11519df93324195b3e84261915e25c88957d0734fc76e3f6854e0"
+      },
+      "exports": {
+        "json": {
+          "sha256": "312af183ae8a9bb1e038d1ab19a1946a5fa3aebb44b4993c14af0c257acfeeb9",
+          "size": 16717,
+          "filename": "lohn-jahressicht-2026-bc23a851500045a391cdbc4add08e7f2.json",
+          "media_type": "application/json; charset=utf-8"
+        },
+        "csv": {
+          "sha256": "0c0eafe15a3cfdb439c85a17c2a70e5edeb16c98a66ab54653c4e2f6f908df19",
+          "size": 6192,
+          "filename": "lohn-jahressicht-2026-bc23a851500045a391cdbc4add08e7f2.csv",
+          "media_type": "text/csv; charset=utf-8"
+        },
+        "pdf": {
+          "sha256": "8966e59bb5c6ecab87af100261a42a9bb039468890a842236096f5f04d18998b",
+          "size": 16360,
+          "filename": "lohn-jahressicht-2026-bc23a851500045a391cdbc4add08e7f2.pdf",
+          "media_type": "application/pdf"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "state": {
+    "instance_id": "847eab9bed614b0b820a17b3e93a7885",
+    "ready": true,
+    "blockers": [],
+    "catalog_sha256": "4b37fbc4845b6ef8e0344d53943cfcbba1e530923957feda9cf029b231d47b22",
+    "inventory": [
+      {
+        "table": "business_payroll_account_events",
+        "category": "personnel",
+        "purpose": "Employment, working time, payroll and evidence of expenses",
+        "personal_data": true,
+        "sensitive": true,
+        "retention_basis": "Employment/social-security/tax duties and applicable claims; case-specific review required",
+        "retention_days": null,
+        "access": "active_owner_only",
+        "included": true,
+        "exclusion_reason": null,
+        "omitted_columns": [],
+        "columns": [
+          {
+            "name": "id",
+            "type": "TEXT",
+            "primary_key_order": 1
+          },
+          {
+            "name": "revision",
+            "type": "INTEGER",
+            "primary_key_order": 2
+          },
+          {
+            "name": "kind",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "employee_id",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "identity_key",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "payload_json",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "content_hash",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "previous_hash",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "created_by",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "primary_key_order": 0
+          }
+        ],
+        "retention_rule": {
+          "legal_basis": "EStG § 41 Absatz 1 Satz 9; ergänzende Unterlagen nach Satz 10 gesondert zuordnen",
+          "source": "https://www.gesetze-im-internet.de/estg/__41.html",
+          "scope": "Lohnkonto und darin referenzierte bezahlte Lohnläufe einschließlich ihrer Profil-/Berechnungsquellen",
+          "trigger": "last_recorded_wage_payment_date",
+          "end": "end_of_sixth_calendar_year_following_payment_year",
+          "example": {
+            "last_payment_date": "2026-11-30",
+            "retain_through": "2032-12-31"
+          },
+          "other_retention_or_legal_holds_must_be_reviewed": true,
+          "not_a_blanket_deadline_for_unpaid_runs_or_personnel_files": true
+        },
+        "row_count": 0,
+        "relationships": [
+          {
+            "constraint": "0",
+            "ordinal": 0,
+            "column": "created_by",
+            "target_table": "users",
+            "target_column": "id",
+            "target_included": true
+          },
+          {
+            "constraint": "1",
+            "ordinal": 0,
+            "column": "employee_id",
+            "target_table": "business_employees",
+            "target_column": "id",
+            "target_included": true
+          }
+        ]
+      },
+      {
+        "table": "secrets",
+        "category": "security",
+        "purpose": "Accountability, access control and integration operation",
+        "personal_data": true,
+        "sensitive": false,
+        "retention_basis": "Security purpose and documented minimum duration; revoke access separately from records",
+        "retention_days": null,
+        "access": "active_owner_only",
+        "included": false,
+        "exclusion_reason": "provider_credentials_and_encrypted_settings",
+        "omitted_columns": [],
+        "columns": [
+          {
+            "name": "name",
+            "type": "TEXT",
+            "primary_key_order": 1
+          },
+          {
+            "name": "value",
+            "type": "TEXT",
+            "primary_key_order": 0
+          }
+        ],
+        "row_count": 0,
+        "relationships": []
+      },
+      {
+        "table": "users",
+        "category": "security",
+        "purpose": "Accountability, access control and integration operation",
+        "personal_data": true,
+        "sensitive": false,
+        "retention_basis": "Security purpose and documented minimum duration; revoke access separately from records",
+        "retention_days": null,
+        "access": "active_owner_only",
+        "included": true,
+        "exclusion_reason": null,
+        "omitted_columns": [
+          "password",
+          "salt"
+        ],
+        "columns": [
+          {
+            "name": "id",
+            "type": "TEXT",
+            "primary_key_order": 1
+          },
+          {
+            "name": "email",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "salt",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "password",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "role",
+            "type": "TEXT",
+            "primary_key_order": 0
+          },
+          {
+            "name": "active",
+            "type": "INTEGER",
+            "primary_key_order": 0
+          }
+        ],
+        "row_count": 3,
+        "relationships": []
+      }
+    ],
+    "exports": [],
+    "exit_review": null,
+    "access_review": {
+      "users": [
+        {
+          "id": "2d041c3078cb4ab19d5b9e154db2f5ca",
+          "email": "1937386e9be64ef8b54ea53465a7e2e2@example.test",
+          "role": "technician",
+          "active": 1
+        },
+        {
+          "id": "784a3f071ee5422d866e33ff80b4329c",
+          "email": "faa122025cf14181909b17fa636252a6@example.test",
+          "role": "accountant",
+          "active": 1
+        },
+        {
+          "id": "d051560363434ba5830d4e058ba8e2d1",
+          "email": "61c9da2aa2494283902852ac3dee370c@example.test",
+          "role": "owner",
+          "active": 1
+        }
+      ],
+      "portal_grants": [],
+      "integrations": [],
+      "offline_access": [],
+      "inbound_access": [],
+      "provider_revocations_executed": false,
+      "local_revocations_executed": false,
+      "external_recipients_review": "Review saved correspondence, portal publications and provider account recipients separately."
+    },
+    "limits": {
+      "max_archive_bytes": 134217728,
+      "max_source_bytes": 268435456,
+      "max_rows": 250000
+    },
+    "owner_only": true,
+    "database_restore_supported": false,
+    "external_only_files_downloaded": false,
+    "checklist_keys": [
+      "export_opened",
+      "retention_reviewed",
+      "recipient_handover_confirmed",
+      "provider_revocations_reviewed",
+      "local_access_reviewed",
+      "backup_plan_reviewed",
+      "service_shutdown_reviewed"
+    ],
+    "deletion_executed": false,
+    "revocations_executed": false
+  },
+  "archive": {
+    "id": "df6b722511a54dbfb214bc2854918bc8",
+    "instance_id": "847eab9bed614b0b820a17b3e93a7885",
+    "created_by": "d051560363434ba5830d4e058ba8e2d1",
+    "created_at": "2026-11-02T12:00:00+00:00",
+    "reason": "Synthetic documented company handover",
+    "catalog_sha256": "4b37fbc4845b6ef8e0344d53943cfcbba1e530923957feda9cf029b231d47b22",
+    "sha256": "c0e40677f6206ab446d596f002b37e38d12a1d7e2b9c51ef8f29e4c7b8ffcacd",
+    "size": 56922,
+    "table_count": 179,
+    "row_count": 56,
+    "file_count": 0
+  },
+  "body": {
+    "request_id": "ef146651ab6349da9d22c7421c1f25ba",
+    "instance_id": "847eab9bed614b0b820a17b3e93a7885",
+    "catalog_sha256": "4b37fbc4845b6ef8e0344d53943cfcbba1e530923957feda9cf029b231d47b22",
+    "reason": "Synthetic documented company handover",
+    "confirmation": true,
+    "sensitive_data_confirmed": true
+  },
+  "proof": {
+    "valid": true,
+    "sha256": "c0e40677f6206ab446d596f002b37e38d12a1d7e2b9c51ef8f29e4c7b8ffcacd",
+    "instance_id": "847eab9bed614b0b820a17b3e93a7885",
+    "table_count": 179,
+    "row_count": 56,
+    "file_count": 0
+  },
+  "review": {
+    "id": "62255c53d4a343b2a5d69c32821bf34e",
+    "instance_id": "847eab9bed614b0b820a17b3e93a7885",
+    "revision": 1,
+    "export_id": "df6b722511a54dbfb214bc2854918bc8",
+    "export_sha256": "c0e40677f6206ab446d596f002b37e38d12a1d7e2b9c51ef8f29e4c7b8ffcacd",
+    "evidence": "Synthetic explicit checks; no external transmission",
+    "reason": "Synthetic incomplete operator review",
+    "status": "in_progress",
+    "created_by": "d051560363434ba5830d4e058ba8e2d1",
+    "created_at": "2026-11-02T12:00:00+00:00",
+    "checks": {
+      "backup_plan_reviewed": false,
+      "export_opened": false,
+      "local_access_reviewed": false,
+      "provider_revocations_reviewed": false,
+      "recipient_handover_confirmed": false,
+      "retention_reviewed": false,
+      "service_shutdown_reviewed": false
+    },
+    "attested_only": true,
+    "revocations_executed": false,
+    "deletion_executed": false
+  },
+  "review_body": {
+    "request_id": "2524f33f0073415a8ccf024fddf9f67e",
+    "instance_id": "847eab9bed614b0b820a17b3e93a7885",
+    "expected_revision": 0,
+    "export_id": "df6b722511a54dbfb214bc2854918bc8",
+    "export_sha256": "c0e40677f6206ab446d596f002b37e38d12a1d7e2b9c51ef8f29e4c7b8ffcacd",
+    "checks": {
+      "export_opened": false,
+      "retention_reviewed": false,
+      "recipient_handover_confirmed": false,
+      "provider_revocations_reviewed": false,
+      "local_access_reviewed": false,
+      "backup_plan_reviewed": false,
+      "service_shutdown_reviewed": false
+    },
+    "evidence": "Synthetic explicit checks; no external transmission",
+    "reason": "Synthetic incomplete operator review",
+    "confirmation": true
+  },
+  "owner": "d051560363434ba5830d4e058ba8e2d1"
+}

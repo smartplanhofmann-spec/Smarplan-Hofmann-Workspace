@@ -479,6 +479,8 @@ class Finance:
             if snapshot['sender']!=os.environ.get('SMARTPLAN_SMTP_FROM',''):raise Problem(409,'Freigegebener SMTP-Absender wurde geändert')
             pdf=bytes(row['pdf'])
             if _hash(pdf)!=row['pdf_sha256']:raise Problem(409,'Freigegebenes Mahn-PDF ist beschädigt')
+            from business_assistant import require_send_policy
+            require_send_policy(self.office,fresh_actor,document['project_id'],'dunning.email',outbox_id,data['request_id'])
             if transport is None:transport=configured_transport()
             self._remember(fresh_actor,data,'dunning.deliver:'+outbox_id,digest,{'outbox_id':outbox_id,'operation_id':row['operation_id']})
             ordinal=self.db.execute('SELECT count(*) AS count FROM business_outbox_receipts WHERE outbox_id=?',(outbox_id,)).fetchone()['count']+1
@@ -495,6 +497,7 @@ class Finance:
                 current_balance=self._item(actor,Documents(self.office)._row(actor,row['document_id']))
                 if current_balance['supersession_conflict']:raise Problem(409,'Frühere Mahnfassung ist unklar; keinen weiteren Versand starten')
                 if any(snapshot[key]!=current_balance[key] for key in ('open','paid','credited')):raise Problem(409,'Zahlungsstand wurde vor dem Versand geändert')
+                require_send_policy(self.office,actor,document['project_id'],'dunning.email',outbox_id,data['request_id'])
         except Problem:
             with _transaction(self.office):
                 if self._operation_state(outbox_id,job['operation_id'])=='sending':
@@ -524,7 +527,14 @@ class Finance:
         if data.get('media_id'):
             if data.get('original_base64') is not None:raise Problem(400,'Genau eine Originalquelle erwartet')
             from business_operations import verified_receipt_media
-            media=verified_receipt_media(self.office,actor,data['media_id'],project_id)
+            try:
+                media=verified_receipt_media(self.office,actor,data['media_id'],project_id)
+            except Problem as error:
+                # The receipt lookup above found no committed command. A stale
+                # original is therefore a known refusal, not an ambiguous ACK.
+                if error.status == 409:
+                    raise Problem(409,error.message,request_resolution='not_accepted') from None
+                raise
             original=media['bytes'];filename=media['filename'];mime=media['media_type'];project_id=media['project_id']
         else:
             try:original=base64.b64decode(data.get('original_base64',''),validate=True)
@@ -581,10 +591,12 @@ class Finance:
 
     def review_receipt(self,actor,identifier,data):
         row=self._incoming(actor,identifier,'finance.approve');actor=require(self.office,actor,'finance.approve',row['project_id'])
+        # A stored reply still exposes the original reviewed financial data.
+        # Recheck reading authority before returning an old acknowledgement.
+        current=self.receipt(actor,identifier)
         replay,digest=self._receipt(actor,data,'receipt.review:'+identifier)
         if replay:return replay
-        current=self.receipt(actor,identifier)
-        if data.get('revision')!=current['revision']:raise Problem(409,'Eingangsbeleg wurde bereits geprüft')
+        if data.get('revision')!=current['revision']:raise Problem(409,'Eingangsbeleg wurde bereits geprüft',request_resolution='not_accepted')
         allowed={'vendor','invoice_number','issue_date','net','tax','gross','currency','status','note'}
         value={k:v for k,v in data.items() if k not in ('request_id','revision')}
         if set(value)-allowed or value.get('status') not in ('reviewed','rejected') or value.get('currency','EUR')!='EUR':raise Problem(400,'Geprüfte EUR-Belegdaten erwartet')

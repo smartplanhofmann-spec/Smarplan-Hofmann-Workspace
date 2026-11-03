@@ -17,61 +17,32 @@ Der vorhandene Businessstand `420c4c7` wird weiterentwickelt. Einstieg:
 [Umsetzungsplan](docs/CRM_ERP_UMSETZUNGSPLAN.md) und
 [aktueller Fortschritt mit Testergebnissen](docs/CRM_ERP_FORTSCHRITT.md).
 
-Die ersten Entwicklungsabschnitte ergänzen Unternehmensmodule, Instanzbindung,
-Protokollintegrität und [Bestellungen mit Teil-/Restwareneingängen](docs/CRM_ERP_EINKAUF.md).
-Die erste vollständige Buchhaltung ist gemäß Nutzerentscheidung für
-Einzelunternehmen mit EÜR vorgesehen; die erste deutsche Lohnabrechnung für
-reguläre Mitarbeiter und Minijobs. Diese beiden Fachmodule sind noch umzusetzen.
-Die preisfreie Einkaufsartikelsuche und das erste
-[Angebotsportal](docs/CRM_ERP_PORTAL.md) ergänzen den Ablauf: getrennte
-Kundenzugänge, unveränderte Angebots-PDFs, ausdrückliche Annahme/Ablehnung und
-eine gesonderte interne Übernahme in einen Auftragsentwurf. Allgemeine
-Kundenkonten, Dateiaustausch und Projektfreigaben bleiben weitere Arbeit.
-Der erste EÜR-Baustein ergänzt [belegte EUR-Geldflüsse](docs/CRM_ERP_EUER_BETRIEB.md):
-versionierte Geldkonten, einmalige Übernahme bestehender Kundenzahlungen und
-begrenzte Teil-/Restauszahlungen auf geprüfte Eingangsbelege. Browser und Flutter
-zeigen Quellen und Klärungsfälle. Freie Teile bereits übernommener Kundenzahlungen
-können nach Vorschau und ausdrücklicher Bestätigung normalen Rechnungen
-[zugeordnet werden](docs/CRM_ERP_EUER_E1B1_API.md). Offene Posten, Mahnvorschläge
-und neue Prüfexporte berücksichtigen diese Zuordnung; ursprüngliche Nachweise
-bleiben erhalten. Ganze bestätigte Quellenanteile können außerdem in
-[belegte Netto-/ausgewiesene Steueranteile](docs/CRM_ERP_EUER_E1B2_API.md)
-aufgeteilt werden. Teilzahlungen teilen die exakten Gruppenreste des
-Originalbelegs; mehrere Gruppen verlangen eine ausdrückliche Bruttoverteilung.
-Die ausdrücklichen [Erstattungsursprünge](docs/CRM_ERP_EUER_E1B3A_API.md)
-sind implementiert und geprüft: ganze bestehende Erstattungszuordnungen lassen
-sich auf ausdrücklich gewählte ursprüngliche Zahlungsanteile beziehen. Die
-Rücknahme erhält deren genaue Netto-/Steuercents und erzeugt keine zweite
-Zahlungswirkung. Der [Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3A.json)
-benennt die ausgeführten Tests und ihre Grenzen.
-Die [Wiederverwendung zurückgeführter Komponenten E1b-3b](docs/CRM_ERP_EUER_E1B3B_API.md)
-ist implementiert und im beschriebenen Umfang geprüft.
-Sie erhält genaue Netto-/Steuerreste in neuen Abschnitten und prüft
-Erstattungsursprünge, Zahlungsdaten und vollständige Quellenrechte. Neue
-Zahlungen oder zusätzliche OP-Wirkungen entstehen dadurch nicht.
-Die [versionierten Erstattungsursprünge E1b-3c](docs/CRM_ERP_EUER_E1B3C_API.md)
-sind implementiert und im beschriebenen Umfang geprüft: ursprüngliche und
-erneut verwendete Komponenten lassen sich auch gemeinsam als Ursprung einer
-ganzen Erstattungszuordnung auswählen.
-Wiederholte Rücknahmen und erneute Verwendungen erhalten die genauen Cents,
-alte Antworten und vollständige historische Quellenrechte. Im früheren
-E1b-3b-Umfang allein blieben die neuen Komponenten als Ursprung ungeklärt.
-Die ausgeführten Prüfungen einschließlich der abgeschlossenen Browser-,
-Flutter- und Paketläufe stehen im
-[E1b-3c-Nachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3C.json).
-Steuerliche Freigabe, Korrekturen, Perioden und Beraterpaket folgen gemäß
-[EÜR-Plan](docs/CRM_ERP_EUER_PLAN.md); die Prüfnachweise stehen im
-[E1b-3b-Nachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3B.json).
+Der [aktuelle Integrationsstand](docs/CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md)
+fasst die tatsächlich geprüften Abläufe zusammen: Kundenauftrag und Portal,
+Projektwirtschaftlichkeit, Einkauf/Geräte/Inventur, eigene EÜR mit
+Rechnungsketten, Personal und begrenzte deutsche Lohnfälle, Assistent/Regeln,
+Sprachentwürfe, Dateiimport, Unternehmensarchiv, freie Zusatzfelder,
+Datenschutzfälle, belegte Lohnzahlungen zur EÜR, Bankabgleich, Kundenservice und
+Betriebsmittel. Midijob-Vollmonate sind in beiden Oberflächen geprüft;
+Lieferantenretouren und die zusätzliche Unternehmensprovisionierung haben ihre
+Fach-/Gegenprüfungen bestanden. Die gemeinsame Integration wird abschließend
+geprüft. Danach folgen Teilmonate in der Lohnabrechnung und Reisekostenpauschalen. Das Gesamtziel ist noch nicht erreicht.
 
-Das gesonderte [Vorbereitungsprofil E1b-4a1](docs/CRM_ERP_EUER_E1B4A1_API.md)
-ist implementiert und im beschriebenen Umfang geprüft. Es speichert
-ausdrücklich bestätigte Angaben mit Grund,
-Belegreferenz und unveränderlichen Versionen. Unbekannte Steuerangaben bleiben
-`null`; ein gespeichertes Profil erzeugt weder ein steuerliches Ergebnis noch
-eine fachliche Freigabe. Die sachliche Einordnung einzelner Geldflüsse folgt
-erst in E1b-4a2 und bleibt offen. Ergebnisse und Grenzen dieses abgeschlossenen
-Profilabschnitts stehen im
-[E1b-4a1-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B4A1.json).
+Verbindlicher Unternehmensrahmen: Einzelunternehmen mit EÜR, Regelbesteuerung,
+Ist-Versteuerung, 19 % Standard-Umsatzsteuer, SKR04 und Nettopreise. Der
+Personalumfang umfasst reguläre Mitarbeiter und Minijobs; tatsächlich
+unterstützte Rechenfälle und verbleibende Zulassungen stehen in der
+[Lohndokumentation](docs/CRM_ERP_LOHN_RECHENWERK_2026.md). Echte Anfangsbestände,
+Gültigkeitsdaten und Betriebsfreigaben werden nicht erfunden.
+
+Das [Benutzerhandbuch](docs/CRM_ERP_BENUTZERHANDBUCH.md) verbindet die
+Arbeitsabläufe und verweist auf die detaillierten Fachanleitungen.
+
+Die [Komponenten-/Sicherheitsprüfung](docs/CRM_ERP_ABHAENGIGKEITEN_SICHERHEIT.md)
+und [fachliche Nachweisliste](docs/CRM_ERP_KONFORMITAET_QUELLEN.md) unterscheiden
+reproduzierbare Entwicklungsbelege, tatsächliche Anbieter-/Geräteprüfungen und
+noch erforderliche unabhängige Freigaben. Historische Zwischenstände bleiben
+im Fortschrittsbericht erhalten.
 
 **Aktuelle Nutzerabnahme laut Gesamtziel:** Bisher wurde nur ein digital
 unterschreibbares Protokoll geprüft. Weitergehende Test-/Betriebsbestätigungen

@@ -1,0 +1,3497 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "bom-ref": "pkg:npm/%40axe-core/playwright@4.14.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MPL-2.0"
+          }
+        }
+      ],
+      "name": "@axe-core/playwright",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "web/office/package-lock.json"
+        },
+        {
+          "name": "smartplan:use:web/office/package-lock.json",
+          "value": "development"
+        }
+      ],
+      "purl": "pkg:npm/%40axe-core/playwright@4.14.0",
+      "type": "library",
+      "version": "4.14.0"
+    },
+    {
+      "bom-ref": "pkg:npm/axe-core@4.14.0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MPL-2.0"
+          }
+        }
+      ],
+      "name": "axe-core",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "web/office/package-lock.json"
+        },
+        {
+          "name": "smartplan:use:web/office/package-lock.json",
+          "value": "development"
+        }
+      ],
+      "purl": "pkg:npm/axe-core@4.14.0",
+      "type": "library",
+      "version": "4.14.0"
+    },
+    {
+      "bom-ref": "pkg:npm/fsevents@2.3.2",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "name": "fsevents",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "web/office/package-lock.json"
+        },
+        {
+          "name": "smartplan:use:web/office/package-lock.json",
+          "value": "development"
+        }
+      ],
+      "purl": "pkg:npm/fsevents@2.3.2",
+      "type": "library",
+      "version": "2.3.2"
+    },
+    {
+      "bom-ref": "pkg:npm/playwright-core@1.62.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "Apache-2.0"
+          }
+        }
+      ],
+      "name": "playwright-core",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "web/office/package-lock.json"
+        },
+        {
+          "name": "smartplan:use:web/office/package-lock.json",
+          "value": "development"
+        }
+      ],
+      "purl": "pkg:npm/playwright-core@1.62.1",
+      "type": "library",
+      "version": "1.62.1"
+    },
+    {
+      "bom-ref": "pkg:npm/playwright@1.62.1",
+      "licenses": [
+        {
+          "license": {
+            "name": "Apache-2.0"
+          }
+        }
+      ],
+      "name": "playwright",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "web/office/package-lock.json"
+        },
+        {
+          "name": "smartplan:use:web/office/package-lock.json",
+          "value": "development"
+        }
+      ],
+      "purl": "pkg:npm/playwright@1.62.1",
+      "type": "library",
+      "version": "1.62.1"
+    },
+    {
+      "bom-ref": "pkg:pub/archive@4.5.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0d58d1fa1fddf6588251ccf2819f3fb3b6d0452c1b2813ac7413a05592bfbefe"
+        }
+      ],
+      "name": "archive",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/archive@4.5.2",
+      "type": "library",
+      "version": "4.5.2"
+    },
+    {
+      "bom-ref": "pkg:pub/args@2.7.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d0481093c50b1da8910eb0bb301626d4d8eb7284aa739614d2b394ee09e3ea04"
+        }
+      ],
+      "name": "args",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/args@2.7.0",
+      "type": "library",
+      "version": "2.7.0"
+    },
+    {
+      "bom-ref": "pkg:pub/async@2.13.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e2eb0491ba5ddb6177742d2da23904574082139b07c1e33b8503b9f46f3e1a37"
+        }
+      ],
+      "name": "async",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/async@2.13.1",
+      "type": "library",
+      "version": "2.13.1"
+    },
+    {
+      "bom-ref": "pkg:pub/barcode@2.2.9",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7b6729c37e3b7f34233e2318d866e8c48ddb46c1f7ad01ff7bb2a8de1da2b9f4"
+        }
+      ],
+      "name": "barcode",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/barcode@2.2.9",
+      "type": "library",
+      "version": "2.2.9"
+    },
+    {
+      "bom-ref": "pkg:pub/bidi@2.0.13",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "77f475165e94b261745cf1032c751e2032b8ed92ccb2bf5716036db79320637d"
+        }
+      ],
+      "name": "bidi",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/bidi@2.0.13",
+      "type": "library",
+      "version": "2.0.13"
+    },
+    {
+      "bom-ref": "pkg:pub/boolean_selector@2.1.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8aab1771e1243a5063b8b0ff68042d67334e3feab9e95b9490f9a6ebf73b42ea"
+        }
+      ],
+      "name": "boolean_selector",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/boolean_selector@2.1.2",
+      "type": "library",
+      "version": "2.1.2"
+    },
+    {
+      "bom-ref": "pkg:pub/characters@1.4.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "faf38497bda5ead2a8c7615f4f7939df04333478bf32e4173fcb06d428b5716b"
+        }
+      ],
+      "name": "characters",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/characters@1.4.1",
+      "type": "library",
+      "version": "1.4.1"
+    },
+    {
+      "bom-ref": "pkg:pub/clock@1.1.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e51d50bca3217c9a9fa2b41a30e4a38971133f5f9ec7a3d57bae095007f1d28e"
+        }
+      ],
+      "name": "clock",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/clock@1.1.3",
+      "type": "library",
+      "version": "1.1.3"
+    },
+    {
+      "bom-ref": "pkg:pub/code_assets@2.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "828110d598123b5ea96c00c9f3c72105bf79f8ee36c20a39b26209ade421ec57"
+        }
+      ],
+      "name": "code_assets",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/code_assets@2.1.0",
+      "type": "library",
+      "version": "2.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/collection@1.19.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2f5709ae4d3d59dd8f7cd309b4e023046b57d8a6c82130785d2b0e5868084e76"
+        }
+      ],
+      "name": "collection",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/collection@1.19.1",
+      "type": "library",
+      "version": "1.19.1"
+    },
+    {
+      "bom-ref": "pkg:pub/cross_file@0.3.5+5",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f141ea4f277af142a0356955707f6556f37b03947d39d55585981a06ca437bd6"
+        }
+      ],
+      "name": "cross_file",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/cross_file@0.3.5+5",
+      "type": "library",
+      "version": "0.3.5+5"
+    },
+    {
+      "bom-ref": "pkg:pub/crypto@3.0.7",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c8ea0233063ba03258fbcf2ca4d6dadfefe14f02fab57702265467a19f27fadf"
+        }
+      ],
+      "name": "crypto",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/crypto@3.0.7",
+      "type": "library",
+      "version": "3.0.7"
+    },
+    {
+      "bom-ref": "pkg:pub/cryptography@2.9.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3eda3029d34ec9095a27a198ac9785630fe525c0eb6a49f3d575272f8e792ef0"
+        }
+      ],
+      "name": "cryptography",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/cryptography@2.9.0",
+      "type": "library",
+      "version": "2.9.0"
+    },
+    {
+      "bom-ref": "pkg:pub/cupertino_ui@1.1.4",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a47c4e7c66fd7444a063a602597fceb238f705c3f6b1322bc0053d0a2638ee6e"
+        }
+      ],
+      "name": "cupertino_ui",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/cupertino_ui@1.1.4",
+      "type": "library",
+      "version": "1.1.4"
+    },
+    {
+      "bom-ref": "pkg:pub/fake_async@1.3.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5368f224a74523e8d2e7399ea1638b37aecfca824a3cc4dfdf77bf1fa905ac44"
+        }
+      ],
+      "name": "fake_async",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/fake_async@1.3.3",
+      "type": "library",
+      "version": "1.3.3"
+    },
+    {
+      "bom-ref": "pkg:pub/ffi@2.2.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6d7fd89431262d8f3125e81b50d3847a091d846eafcd4fdb88dd06f36d705a45"
+        }
+      ],
+      "name": "ffi",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/ffi@2.2.0",
+      "type": "library",
+      "version": "2.2.0"
+    },
+    {
+      "bom-ref": "pkg:pub/ffi_leak_tracker@0.1.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4093d4ef9ca06ffe2786e73bfb25e22aa92112b9bb4ec941f11e3e6b61489a97"
+        }
+      ],
+      "name": "ffi_leak_tracker",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/ffi_leak_tracker@0.1.2",
+      "type": "library",
+      "version": "0.1.2"
+    },
+    {
+      "bom-ref": "pkg:pub/file@7.0.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a3b4f84adafef897088c160faf7dfffb7696046cb13ae90b508c2cbc95d3b8d4"
+        }
+      ],
+      "name": "file",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/file@7.0.1",
+      "type": "library",
+      "version": "7.0.1"
+    },
+    {
+      "bom-ref": "pkg:pub/file_selector@1.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "bd15e43e9268db636b53eeaca9f56324d1622af30e5c34d6e267649758c84d9a"
+        }
+      ],
+      "name": "file_selector",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/file_selector@1.1.0",
+      "type": "library",
+      "version": "1.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/file_selector_android@0.5.2+11",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d670cd0ce77a2e785b18d8b4d0a8d6a222d6a813ec9b7ddf2790a1b4fb6fa92c"
+        }
+      ],
+      "name": "file_selector_android",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/file_selector_android@0.5.2+11",
+      "type": "library",
+      "version": "0.5.2+11"
+    },
+    {
+      "bom-ref": "pkg:pub/file_selector_ios@0.5.3+6",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "97269e5307a0ab813b1fa2430bada0a96e0afb74848417f8676f64ba5de0051c"
+        }
+      ],
+      "name": "file_selector_ios",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/file_selector_ios@0.5.3+6",
+      "type": "library",
+      "version": "0.5.3+6"
+    },
+    {
+      "bom-ref": "pkg:pub/file_selector_linux@0.9.4+1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "da76400e7872ce7637ffdce12749ec24169c25f6195c28372208e65a24bcd2ab"
+        }
+      ],
+      "name": "file_selector_linux",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/file_selector_linux@0.9.4+1",
+      "type": "library",
+      "version": "0.9.4+1"
+    },
+    {
+      "bom-ref": "pkg:pub/file_selector_macos@0.9.5+1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d57c62362766b5e7ae739448650b66c6aab7a68ba7ecc65e04018652645ae0f4"
+        }
+      ],
+      "name": "file_selector_macos",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/file_selector_macos@0.9.5+1",
+      "type": "library",
+      "version": "0.9.5+1"
+    },
+    {
+      "bom-ref": "pkg:pub/file_selector_platform_interface@2.7.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "35e0bd61ebcdb91a3505813b055b09b79dfdc7d0aee9c09a7ba59ae4bb13dc85"
+        }
+      ],
+      "name": "file_selector_platform_interface",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/file_selector_platform_interface@2.7.0",
+      "type": "library",
+      "version": "2.7.0"
+    },
+    {
+      "bom-ref": "pkg:pub/file_selector_web@0.9.5",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "73181fbc5257776d8ecaa6a94ab3c8e920ad143b9132a6d984a9271dfc6928d3"
+        }
+      ],
+      "name": "file_selector_web",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/file_selector_web@0.9.5",
+      "type": "library",
+      "version": "0.9.5"
+    },
+    {
+      "bom-ref": "pkg:pub/file_selector_windows@0.9.3+6",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fbefc5fb92c6d3cbe8d284a2cd971b593bb07d2cd6da8557b81a862250b4acec"
+        }
+      ],
+      "name": "file_selector_windows",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/file_selector_windows@0.9.3+6",
+      "type": "library",
+      "version": "0.9.3+6"
+    },
+    {
+      "bom-ref": "pkg:pub/fixnum@1.1.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b6dc7065e46c974bc7c5f143080a6764ec7a4be6da1285ececdc37be96de53be"
+        }
+      ],
+      "name": "fixnum",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/fixnum@1.1.1",
+      "type": "library",
+      "version": "1.1.1"
+    },
+    {
+      "bom-ref": "pkg:pub/flutter_plugin_android_lifecycle@2.0.35",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3854fe5e3bff0b113c658f260b90c95dea17c92db0f2addeac2e343dd9969785"
+        }
+      ],
+      "name": "flutter_plugin_android_lifecycle",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/flutter_plugin_android_lifecycle@2.0.35",
+      "type": "library",
+      "version": "2.0.35"
+    },
+    {
+      "bom-ref": "pkg:pub/flutter_secure_storage@11.2.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d4e1fb6b2cb524868929e78dc0282fa000554b22060fb53789dc481c9fc95bb8"
+        }
+      ],
+      "name": "flutter_secure_storage",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/flutter_secure_storage@11.2.0",
+      "type": "library",
+      "version": "11.2.0"
+    },
+    {
+      "bom-ref": "pkg:pub/flutter_secure_storage_darwin@0.4.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a031ceac9b070e62ef183cd7f7d1a8798ebde402d5049f0fe6eb3a51bd797a21"
+        }
+      ],
+      "name": "flutter_secure_storage_darwin",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/flutter_secure_storage_darwin@0.4.3",
+      "type": "library",
+      "version": "0.4.3"
+    },
+    {
+      "bom-ref": "pkg:pub/flutter_secure_storage_linux@3.0.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "caa75bd78f017422912e3a904933113b2428eb79f981ac37acd2dd2a700458ea"
+        }
+      ],
+      "name": "flutter_secure_storage_linux",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/flutter_secure_storage_linux@3.0.3",
+      "type": "library",
+      "version": "3.0.3"
+    },
+    {
+      "bom-ref": "pkg:pub/flutter_secure_storage_platform_interface@2.1.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "64951127f001f546891c86f414972bf49ef2c4c8a4c92c65f5790cc0c9100045"
+        }
+      ],
+      "name": "flutter_secure_storage_platform_interface",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/flutter_secure_storage_platform_interface@2.1.1",
+      "type": "library",
+      "version": "2.1.1"
+    },
+    {
+      "bom-ref": "pkg:pub/flutter_secure_storage_web@2.1.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "073a62b3aeb866ab4ce795f960413948e51e5a42a9b0c8333b6daf5bb3208a1c"
+        }
+      ],
+      "name": "flutter_secure_storage_web",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/flutter_secure_storage_web@2.1.1",
+      "type": "library",
+      "version": "2.1.1"
+    },
+    {
+      "bom-ref": "pkg:pub/flutter_secure_storage_windows@4.2.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "471951813a97006d899db4948acc654a4f28c440083ea08178935ce20b173ec1"
+        }
+      ],
+      "name": "flutter_secure_storage_windows",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/flutter_secure_storage_windows@4.2.2",
+      "type": "library",
+      "version": "4.2.2"
+    },
+    {
+      "bom-ref": "pkg:pub/glob@2.2.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "218aeb56050c714f62a3182775320dfa04602b55074873e24e31bbd39bda96fb"
+        }
+      ],
+      "name": "glob",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/glob@2.2.0",
+      "type": "library",
+      "version": "2.2.0"
+    },
+    {
+      "bom-ref": "pkg:pub/hooks@2.2.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "eaac480a35ec0814146c2c48d96aaa829e0e44a7662c88ae84c9edf4bc35651f"
+        }
+      ],
+      "name": "hooks",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/hooks@2.2.0",
+      "type": "library",
+      "version": "2.2.0"
+    },
+    {
+      "bom-ref": "pkg:pub/http@1.6.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "87721a4a50b19c7f1d49001e51409bddc46303966ce89a65af4f4e6004896412"
+        }
+      ],
+      "name": "http",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/http@1.6.0",
+      "type": "library",
+      "version": "1.6.0"
+    },
+    {
+      "bom-ref": "pkg:pub/http_parser@4.1.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "178d74305e7866013777bab2c3d8726205dc5a4dd935297175b19a23a2e66571"
+        }
+      ],
+      "name": "http_parser",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/http_parser@4.1.2",
+      "type": "library",
+      "version": "4.1.2"
+    },
+    {
+      "bom-ref": "pkg:pub/image@4.12.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "89ed75b2f8231fe676808c5564f9590d728024ded7ac782a7ed8474f1c95b72a"
+        }
+      ],
+      "name": "image",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/image@4.12.0",
+      "type": "library",
+      "version": "4.12.0"
+    },
+    {
+      "bom-ref": "pkg:pub/image_picker@1.2.4",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e71b1bd9e40124041128d60fc3034c7b1598e1bba4e570bba0c70301c817013a"
+        }
+      ],
+      "name": "image_picker",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/image_picker@1.2.4",
+      "type": "library",
+      "version": "1.2.4"
+    },
+    {
+      "bom-ref": "pkg:pub/image_picker_android@0.8.13+25",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8a7823d5d3e884f7780829d85d92110d072bdcd9ed48e2be158d2abe91a912d4"
+        }
+      ],
+      "name": "image_picker_android",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/image_picker_android@0.8.13+25",
+      "type": "library",
+      "version": "0.8.13+25"
+    },
+    {
+      "bom-ref": "pkg:pub/image_picker_for_web@3.1.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "66257a3191ab360d23a55c8241c91a6e329d31e94efa7be9cf7a212e65850214"
+        }
+      ],
+      "name": "image_picker_for_web",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/image_picker_for_web@3.1.1",
+      "type": "library",
+      "version": "3.1.1"
+    },
+    {
+      "bom-ref": "pkg:pub/image_picker_ios@0.8.13+13",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "57255225702ace8c81b8d92c1de6a04b60ee9befa6dab242b10a7612116886fd"
+        }
+      ],
+      "name": "image_picker_ios",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/image_picker_ios@0.8.13+13",
+      "type": "library",
+      "version": "0.8.13+13"
+    },
+    {
+      "bom-ref": "pkg:pub/image_picker_linux@0.2.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1f81c5f2046b9ab724f85523e4af65be1d47b038160a8c8deed909762c308ed4"
+        }
+      ],
+      "name": "image_picker_linux",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/image_picker_linux@0.2.2",
+      "type": "library",
+      "version": "0.2.2"
+    },
+    {
+      "bom-ref": "pkg:pub/image_picker_macos@0.2.2+1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "86f0f15a309de7e1a552c12df9ce5b59fe927e71385329355aec4776c6a8ec91"
+        }
+      ],
+      "name": "image_picker_macos",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/image_picker_macos@0.2.2+1",
+      "type": "library",
+      "version": "0.2.2+1"
+    },
+    {
+      "bom-ref": "pkg:pub/image_picker_platform_interface@2.11.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2dee4b4e3be429db71472c9c559c981498070a61af1ba82e0e4986fc5dadc042"
+        }
+      ],
+      "name": "image_picker_platform_interface",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/image_picker_platform_interface@2.11.2",
+      "type": "library",
+      "version": "2.11.2"
+    },
+    {
+      "bom-ref": "pkg:pub/image_picker_windows@0.2.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d248c86554a72b5495a31c56f060cf73a41c7ff541689327b1a7dbccc33adfae"
+        }
+      ],
+      "name": "image_picker_windows",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/image_picker_windows@0.2.2",
+      "type": "library",
+      "version": "0.2.2"
+    },
+    {
+      "bom-ref": "pkg:pub/intl@0.20.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1ca20c894b1717686a2319b8548763d812bc0aabdac580420a44c5178c57a867"
+        }
+      ],
+      "name": "intl",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/intl@0.20.3",
+      "type": "library",
+      "version": "0.20.3"
+    },
+    {
+      "bom-ref": "pkg:pub/jni@1.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6b9ca0602fef0230e83149afbe3f9f8227e94f2bbe84a1da4f14d699742f402d"
+        }
+      ],
+      "name": "jni",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/jni@1.1.0",
+      "type": "library",
+      "version": "1.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/jni_flutter@1.0.4+1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0dd33d67797560f66e961a6053882d4df54bd345bf063b8fe7ea133f7ad8b191"
+        }
+      ],
+      "name": "jni_flutter",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/jni_flutter@1.0.4+1",
+      "type": "library",
+      "version": "1.0.4+1"
+    },
+    {
+      "bom-ref": "pkg:pub/jni_util@1.0.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1ba86da04a5f2bf18fde2edb235587e70c5b0fc5bd4ba955f46b00942c3fc35f"
+        }
+      ],
+      "name": "jni_util",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/jni_util@1.0.0",
+      "type": "library",
+      "version": "1.0.0"
+    },
+    {
+      "bom-ref": "pkg:pub/leak_tracker@11.0.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "33e2e26bdd85a0112ec15400c8cbffea70d0f9c3407491f672a2fad47915e2de"
+        }
+      ],
+      "name": "leak_tracker",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/leak_tracker@11.0.2",
+      "type": "library",
+      "version": "11.0.2"
+    },
+    {
+      "bom-ref": "pkg:pub/leak_tracker_flutter_testing@3.0.10",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1dbc140bb5a23c75ea9c4811222756104fbcd1a27173f0c34ca01e16bea473c1"
+        }
+      ],
+      "name": "leak_tracker_flutter_testing",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/leak_tracker_flutter_testing@3.0.10",
+      "type": "library",
+      "version": "3.0.10"
+    },
+    {
+      "bom-ref": "pkg:pub/leak_tracker_testing@3.0.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8d5a2d49f4a66b49744b23b018848400d23e54caf9463f4eb20df3eb8acb2eb1"
+        }
+      ],
+      "name": "leak_tracker_testing",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/leak_tracker_testing@3.0.2",
+      "type": "library",
+      "version": "3.0.2"
+    },
+    {
+      "bom-ref": "pkg:pub/local_auth@3.0.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ecf24edf2283c509ecd217e3595f6f71034b68888d28ad1dae6bfa0857b816ac"
+        }
+      ],
+      "name": "local_auth",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/local_auth@3.0.2",
+      "type": "library",
+      "version": "3.0.2"
+    },
+    {
+      "bom-ref": "pkg:pub/local_auth_android@2.3.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e2ceb84cdecefe1bc0ddd4ac308b0f6525bbfa0a60d0e552082b2970e1fb38c2"
+        }
+      ],
+      "name": "local_auth_android",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/local_auth_android@2.3.0",
+      "type": "library",
+      "version": "2.3.0"
+    },
+    {
+      "bom-ref": "pkg:pub/local_auth_darwin@2.0.5",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "45a9db01b57082bc9d6115cb25eb8fc0b72f43e5f330819bdd8352ecdae87589"
+        }
+      ],
+      "name": "local_auth_darwin",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/local_auth_darwin@2.0.5",
+      "type": "library",
+      "version": "2.0.5"
+    },
+    {
+      "bom-ref": "pkg:pub/local_auth_platform_interface@1.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f98b8e388588583d3f781f6806e4f4c9f9e189d898d27f0c249b93a1973dd122"
+        }
+      ],
+      "name": "local_auth_platform_interface",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/local_auth_platform_interface@1.1.0",
+      "type": "library",
+      "version": "1.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/local_auth_windows@2.0.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d72b8a441e5e6a679902f87c51529fcce65f442d77598484cf35454c3d733eda"
+        }
+      ],
+      "name": "local_auth_windows",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/local_auth_windows@2.0.2",
+      "type": "library",
+      "version": "2.0.2"
+    },
+    {
+      "bom-ref": "pkg:pub/logging@1.3.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c8245ada5f1717ed44271ed1c26b8ce85ca3228fd2ffdb75468ab01979309d61"
+        }
+      ],
+      "name": "logging",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/logging@1.3.0",
+      "type": "library",
+      "version": "1.3.0"
+    },
+    {
+      "bom-ref": "pkg:pub/matcher@0.12.20",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "31bd099b47c10cd1aeb55146a2d46ce0277630ecef3f7dae54ad7873f36696cd"
+        }
+      ],
+      "name": "matcher",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/matcher@0.12.20",
+      "type": "library",
+      "version": "0.12.20"
+    },
+    {
+      "bom-ref": "pkg:pub/material_color_utilities@0.13.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9c337007e82b1889149c82ed242ed1cb24a66044e30979c44912381e9be4c48b"
+        }
+      ],
+      "name": "material_color_utilities",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/material_color_utilities@0.13.0",
+      "type": "library",
+      "version": "0.13.0"
+    },
+    {
+      "bom-ref": "pkg:pub/material_ui@1.8.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e4031746f96c8316864d9b92bce375f1320a36ed56e166307e1e1bda9d90b4ab"
+        }
+      ],
+      "name": "material_ui",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/material_ui@1.8.0",
+      "type": "library",
+      "version": "1.8.0"
+    },
+    {
+      "bom-ref": "pkg:pub/meta@1.19.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "307249ce4ff29d58a18e97f6345f539382eb9c9c29ecda628900f31de0443dd9"
+        }
+      ],
+      "name": "meta",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/meta@1.19.0",
+      "type": "library",
+      "version": "1.19.0"
+    },
+    {
+      "bom-ref": "pkg:pub/mime@2.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "bd47de35f07e27267e69c8c8b22edf9473bfee170a60d60fcc93730c5144b7f6"
+        }
+      ],
+      "name": "mime",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/mime@2.1.0",
+      "type": "library",
+      "version": "2.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/native_toolchain_c@0.19.5",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "90eaad8059ebc2004a63810a4696ea9acdb02473e47ed3b6b3bafb100ac77e31"
+        }
+      ],
+      "name": "native_toolchain_c",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/native_toolchain_c@0.19.5",
+      "type": "library",
+      "version": "0.19.5"
+    },
+    {
+      "bom-ref": "pkg:pub/objective_c@9.6.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5c80c2ad6e2c0397de5db38c6d653e69616a3397e13aa7633bf39eb668f2041b"
+        }
+      ],
+      "name": "objective_c",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/objective_c@9.6.2",
+      "type": "library",
+      "version": "9.6.2"
+    },
+    {
+      "bom-ref": "pkg:pub/package_config@3.0.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ffcf4cf3d6c0b74ac43708d9f56625506e8a68aa935abe9d267a7330f320eb5d"
+        }
+      ],
+      "name": "package_config",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/package_config@3.0.0",
+      "type": "library",
+      "version": "3.0.0"
+    },
+    {
+      "bom-ref": "pkg:pub/path@1.9.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "75cca69d1490965be98c73ceaea117e8a04dd21217b37b292c9ddbec0d955bc5"
+        }
+      ],
+      "name": "path",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/path@1.9.1",
+      "type": "library",
+      "version": "1.9.1"
+    },
+    {
+      "bom-ref": "pkg:pub/path_parsing@1.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "883402936929eac138ee0a45da5b0f2c80f89913e6dc3bf77eb65b84b409c6ca"
+        }
+      ],
+      "name": "path_parsing",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/path_parsing@1.1.0",
+      "type": "library",
+      "version": "1.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/path_provider@2.1.6",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a7f4874f987173da295a61c181b8ee71dab59b332a486b391babf26a1b884825"
+        }
+      ],
+      "name": "path_provider",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/path_provider@2.1.6",
+      "type": "library",
+      "version": "2.1.6"
+    },
+    {
+      "bom-ref": "pkg:pub/path_provider_android@2.3.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "69cbd515a62b94d32a7944f086b2f82b4ac40a1d45bebfc00813a430ab2dabcd"
+        }
+      ],
+      "name": "path_provider_android",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/path_provider_android@2.3.1",
+      "type": "library",
+      "version": "2.3.1"
+    },
+    {
+      "bom-ref": "pkg:pub/path_provider_foundation@2.6.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2a376b7d6392d80cd3705782d2caa734ca4727776db0b6ec36ef3f1855197699"
+        }
+      ],
+      "name": "path_provider_foundation",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/path_provider_foundation@2.6.0",
+      "type": "library",
+      "version": "2.6.0"
+    },
+    {
+      "bom-ref": "pkg:pub/path_provider_linux@2.2.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "58c2005f147315b11e9b4a7bc889cd5203e250cba8e3f012dae259b4972b5c16"
+        }
+      ],
+      "name": "path_provider_linux",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/path_provider_linux@2.2.2",
+      "type": "library",
+      "version": "2.2.2"
+    },
+    {
+      "bom-ref": "pkg:pub/path_provider_platform_interface@2.1.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "484838772624c3a4b94f1e44a3e19897fee738f2d5c4ce448443b0417f7c9dda"
+        }
+      ],
+      "name": "path_provider_platform_interface",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/path_provider_platform_interface@2.1.3",
+      "type": "library",
+      "version": "2.1.3"
+    },
+    {
+      "bom-ref": "pkg:pub/path_provider_windows@2.3.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "bd6f00dbd873bfb70d0761682da2b3a2c2fccc2b9e84c495821639601d81afe7"
+        }
+      ],
+      "name": "path_provider_windows",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/path_provider_windows@2.3.0",
+      "type": "library",
+      "version": "2.3.0"
+    },
+    {
+      "bom-ref": "pkg:pub/pdf@3.13.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6e40827f370d196e97c6611724d923a3d86c431ce8e2ce1e59edd03a67a1a6e6"
+        }
+      ],
+      "name": "pdf",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/pdf@3.13.1",
+      "type": "library",
+      "version": "3.13.1"
+    },
+    {
+      "bom-ref": "pkg:pub/pdf_widget_wrapper@1.0.4",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c930860d987213a3d58c7ec3b7ecf8085c3897f773e8dc23da9cae60a5d6d0f5"
+        }
+      ],
+      "name": "pdf_widget_wrapper",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/pdf_widget_wrapper@1.0.4",
+      "type": "library",
+      "version": "1.0.4"
+    },
+    {
+      "bom-ref": "pkg:pub/pdfium_dart@0.4.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e9f712166563540228e9ce7b8a515fcbd42ebd9d7c0925baa42c6b981f7e7900"
+        }
+      ],
+      "name": "pdfium_dart",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/pdfium_dart@0.4.0",
+      "type": "library",
+      "version": "0.4.0"
+    },
+    {
+      "bom-ref": "pkg:pub/pdfium_flutter@0.4.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e2c81c52bc4b44fc096ffae1f891328ccb0956013d7ae92ab29b473a5433cc97"
+        }
+      ],
+      "name": "pdfium_flutter",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/pdfium_flutter@0.4.0",
+      "type": "library",
+      "version": "0.4.0"
+    },
+    {
+      "bom-ref": "pkg:pub/pdfrx@2.10.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "259a4cf714ca281097f8821539bac733cdec48bb29e7e0b4dd320ff27d70c5b7"
+        }
+      ],
+      "name": "pdfrx",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/pdfrx@2.10.1",
+      "type": "library",
+      "version": "2.10.1"
+    },
+    {
+      "bom-ref": "pkg:pub/pdfrx_engine@0.8.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "70b8074111c08b44b9349b6500d8e2bca4a7f898c3c21b21d79370ae9447ef97"
+        }
+      ],
+      "name": "pdfrx_engine",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/pdfrx_engine@0.8.0",
+      "type": "library",
+      "version": "0.8.0"
+    },
+    {
+      "bom-ref": "pkg:pub/petitparser@7.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2f1564aadb14215e478563b5406cb80729d022158c01dc50c96013c2f7eb4790"
+        }
+      ],
+      "name": "petitparser",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/petitparser@7.1.0",
+      "type": "library",
+      "version": "7.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/platform@3.2.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a36d119c13416516a7b5913fbe8af8531e11633d784c550b2125f76c758524ec"
+        }
+      ],
+      "name": "platform",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/platform@3.2.0",
+      "type": "library",
+      "version": "3.2.0"
+    },
+    {
+      "bom-ref": "pkg:pub/plugin_platform_interface@2.1.8",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
+        }
+      ],
+      "name": "plugin_platform_interface",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/plugin_platform_interface@2.1.8",
+      "type": "library",
+      "version": "2.1.8"
+    },
+    {
+      "bom-ref": "pkg:pub/posix@6.5.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "bc1bad54ad2b735816e31f8d4600cfde6c7839975085ddfbca48b6c9f7c4044e"
+        }
+      ],
+      "name": "posix",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/posix@6.5.2",
+      "type": "library",
+      "version": "6.5.2"
+    },
+    {
+      "bom-ref": "pkg:pub/printing@5.15.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0f72f29f2e08b8453b7a45b6c7781eb792b1da3468bf0910be0eb3b1d6781f49"
+        }
+      ],
+      "name": "printing",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/printing@5.15.1",
+      "type": "library",
+      "version": "5.15.1"
+    },
+    {
+      "bom-ref": "pkg:pub/process@5.0.6",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4242ba3508d37e01808bdf71ad1d5bb93a8d671bf2e7450e6b1b353fb0808891"
+        }
+      ],
+      "name": "process",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/process@5.0.6",
+      "type": "library",
+      "version": "5.0.6"
+    },
+    {
+      "bom-ref": "pkg:pub/pub_semver@2.2.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "261236774e8b1d69cfc6b9eabbc96c40f25e7a2d6b171f3385d4f65d5734fb24"
+        }
+      ],
+      "name": "pub_semver",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/pub_semver@2.2.1",
+      "type": "library",
+      "version": "2.2.1"
+    },
+    {
+      "bom-ref": "pkg:pub/qr@3.0.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5a1d2586170e172b8a8c8470bbbffd5eb0cd38a66c0d77155ea138d3af3a4445"
+        }
+      ],
+      "name": "qr",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/qr@3.0.2",
+      "type": "library",
+      "version": "3.0.2"
+    },
+    {
+      "bom-ref": "pkg:pub/qr_flutter@4.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5095f0fc6e3f71d08adef8feccc8cea4f12eec18a2e31c2e8d82cb6019f4b097"
+        }
+      ],
+      "name": "qr_flutter",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/qr_flutter@4.1.0",
+      "type": "library",
+      "version": "4.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/record@7.1.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7c4467dec63435c9206db183f8a4672cf8a62f5e5579e45803ceada8330756e7"
+        }
+      ],
+      "name": "record",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/record@7.1.2",
+      "type": "library",
+      "version": "7.1.2"
+    },
+    {
+      "bom-ref": "pkg:pub/record_android@2.2.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f5080279259c4ad769590f1c165762eaa4e414178adc2e2fab137103228e07ac"
+        }
+      ],
+      "name": "record_android",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/record_android@2.2.0",
+      "type": "library",
+      "version": "2.2.0"
+    },
+    {
+      "bom-ref": "pkg:pub/record_ios@2.1.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "21d189f49a598af4697dac4cc9e48389ac0a1fb3e916622b5504a58d9b96313e"
+        }
+      ],
+      "name": "record_ios",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/record_ios@2.1.1",
+      "type": "library",
+      "version": "2.1.1"
+    },
+    {
+      "bom-ref": "pkg:pub/record_linux@2.1.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "00c847ba25684572674dacfbd4bcabee6c5d9a1fa948778ff34091c71c19250f"
+        }
+      ],
+      "name": "record_linux",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/record_linux@2.1.3",
+      "type": "library",
+      "version": "2.1.3"
+    },
+    {
+      "bom-ref": "pkg:pub/record_macos@2.1.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ced7495abf3d683e8a7dbe8fc96df8ea5722837a26f922b7cb7c5de11661bb46"
+        }
+      ],
+      "name": "record_macos",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/record_macos@2.1.1",
+      "type": "library",
+      "version": "2.1.1"
+    },
+    {
+      "bom-ref": "pkg:pub/record_platform_interface@2.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d94b37cadb8fe203e64b0e9893271c0b71b34f2550ee7fb0c6105d650e00c1f5"
+        }
+      ],
+      "name": "record_platform_interface",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/record_platform_interface@2.1.0",
+      "type": "library",
+      "version": "2.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/record_use@1.1.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1cb8564af8d43b464294411db9217f5ec04891c6f22ee2c32d73ae05e88a6bd2"
+        }
+      ],
+      "name": "record_use",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/record_use@1.1.1",
+      "type": "library",
+      "version": "1.1.1"
+    },
+    {
+      "bom-ref": "pkg:pub/record_web@2.1.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7f6950be87abacb05cf77eb6ca200b60f2c2a6af5d50236b5f4baf53f92e755e"
+        }
+      ],
+      "name": "record_web",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/record_web@2.1.3",
+      "type": "library",
+      "version": "2.1.3"
+    },
+    {
+      "bom-ref": "pkg:pub/record_windows@2.3.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8195489a47b5e8246985d6213ff65aae1b14e32a0ca45dc5f680e8d503296e1b"
+        }
+      ],
+      "name": "record_windows",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/record_windows@2.3.0",
+      "type": "library",
+      "version": "2.3.0"
+    },
+    {
+      "bom-ref": "pkg:pub/rxdart@0.28.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5c3004a4a8dbb94bd4bf5412a4def4acdaa12e12f269737a5751369e12d1a962"
+        }
+      ],
+      "name": "rxdart",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/rxdart@0.28.0",
+      "type": "library",
+      "version": "0.28.0"
+    },
+    {
+      "bom-ref": "pkg:pub/share_plus@13.3.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "db40767f130189d53f3ae8a6393c217ff4a492da1baff718a9873679c0c00224"
+        }
+      ],
+      "name": "share_plus",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/share_plus@13.3.1",
+      "type": "library",
+      "version": "13.3.1"
+    },
+    {
+      "bom-ref": "pkg:pub/share_plus_platform_interface@7.2.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "365ef7379fc22507256adda3385152942ffce08935452bc972c2e52a0bebae41"
+        }
+      ],
+      "name": "share_plus_platform_interface",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/share_plus_platform_interface@7.2.0",
+      "type": "library",
+      "version": "7.2.0"
+    },
+    {
+      "bom-ref": "pkg:pub/source_span@1.10.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "56a02f1f4cd1a2d96303c0144c93bd6d909eea6bee6bf5a0e0b685edbd4c47ab"
+        }
+      ],
+      "name": "source_span",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/source_span@1.10.2",
+      "type": "library",
+      "version": "1.10.2"
+    },
+    {
+      "bom-ref": "pkg:pub/stack_trace@1.12.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "277654b3034d17ac6f9f1cb5595db011b1d5d41e8806866db28e0abaa101c490"
+        }
+      ],
+      "name": "stack_trace",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/stack_trace@1.12.2",
+      "type": "library",
+      "version": "1.12.2"
+    },
+    {
+      "bom-ref": "pkg:pub/stream_channel@2.1.4",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "969e04c80b8bcdf826f8f16579c7b14d780458bd97f56d107d3950fdbeef059d"
+        }
+      ],
+      "name": "stream_channel",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/stream_channel@2.1.4",
+      "type": "library",
+      "version": "2.1.4"
+    },
+    {
+      "bom-ref": "pkg:pub/string_scanner@1.4.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "921cd31725b72fe181906c6a94d987c78e3b98c2e205b397ea399d4054872b43"
+        }
+      ],
+      "name": "string_scanner",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/string_scanner@1.4.1",
+      "type": "library",
+      "version": "1.4.1"
+    },
+    {
+      "bom-ref": "pkg:pub/synchronized@3.5.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b3d516dbd3757ff2a458735e4f6cbac9ff261f576f6e87bcb17feabb39e657c5"
+        }
+      ],
+      "name": "synchronized",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/synchronized@3.5.0",
+      "type": "library",
+      "version": "3.5.0"
+    },
+    {
+      "bom-ref": "pkg:pub/term_glyph@1.2.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7f554798625ea768a7518313e58f83891c7f5024f88e46e7182a4558850a4b8e"
+        }
+      ],
+      "name": "term_glyph",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/term_glyph@1.2.2",
+      "type": "library",
+      "version": "1.2.2"
+    },
+    {
+      "bom-ref": "pkg:pub/test_api@0.7.12",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2a122cbe059f8b610d3a5415f42e255b6c17b1f21eee1d960f31080237fb4f11"
+        }
+      ],
+      "name": "test_api",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/test_api@0.7.12",
+      "type": "library",
+      "version": "0.7.12"
+    },
+    {
+      "bom-ref": "pkg:pub/typed_data@1.4.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f9049c039ebfeb4cf7a7104a675823cd72dba8297f264b6637062516699fa006"
+        }
+      ],
+      "name": "typed_data",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/typed_data@1.4.0",
+      "type": "library",
+      "version": "1.4.0"
+    },
+    {
+      "bom-ref": "pkg:pub/url_launcher@6.3.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f6a7e5c4835bb4e3026a04793a4199ca2d14c739ec378fdfe23fc8075d0439f8"
+        }
+      ],
+      "name": "url_launcher",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/url_launcher@6.3.2",
+      "type": "library",
+      "version": "6.3.2"
+    },
+    {
+      "bom-ref": "pkg:pub/url_launcher_android@6.3.33",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "611e87fb320b70d1dd721dc46af89c98aceccea9b31fde49e084591414e0c610"
+        }
+      ],
+      "name": "url_launcher_android",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/url_launcher_android@6.3.33",
+      "type": "library",
+      "version": "6.3.33"
+    },
+    {
+      "bom-ref": "pkg:pub/url_launcher_ios@6.4.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8faa1aab294f1ab4040b43660c887b0418d5fa4f0cffef76a484e6aa1092eb4a"
+        }
+      ],
+      "name": "url_launcher_ios",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/url_launcher_ios@6.4.2",
+      "type": "library",
+      "version": "6.4.2"
+    },
+    {
+      "bom-ref": "pkg:pub/url_launcher_linux@3.2.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "10f86fef4c2c43563fa6c211ff9cf757adf4d3ab762c56bd430664a947d70cd0"
+        }
+      ],
+      "name": "url_launcher_linux",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/url_launcher_linux@3.2.3",
+      "type": "library",
+      "version": "3.2.3"
+    },
+    {
+      "bom-ref": "pkg:pub/url_launcher_macos@3.2.6",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5e835a3b869c2d70325349c81c5a45c28e20791265b67b2669da6b08c5cd5201"
+        }
+      ],
+      "name": "url_launcher_macos",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/url_launcher_macos@3.2.6",
+      "type": "library",
+      "version": "3.2.6"
+    },
+    {
+      "bom-ref": "pkg:pub/url_launcher_platform_interface@2.3.2",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "552f8a1e663569be95a8190206a38187b531910283c3e982193e4f2733f01029"
+        }
+      ],
+      "name": "url_launcher_platform_interface",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/url_launcher_platform_interface@2.3.2",
+      "type": "library",
+      "version": "2.3.2"
+    },
+    {
+      "bom-ref": "pkg:pub/url_launcher_web@2.4.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "85c81589622fbc87c1c683aaea164d3604a7777495a79d91e39ffcdec39ddb34"
+        }
+      ],
+      "name": "url_launcher_web",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/url_launcher_web@2.4.3",
+      "type": "library",
+      "version": "2.4.3"
+    },
+    {
+      "bom-ref": "pkg:pub/url_launcher_windows@3.1.6",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6c5ad3f22cd4c38e089b81963b3cd7bb83b111b2df5dce008bb066162f42e429"
+        }
+      ],
+      "name": "url_launcher_windows",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/url_launcher_windows@3.1.6",
+      "type": "library",
+      "version": "3.1.6"
+    },
+    {
+      "bom-ref": "pkg:pub/uuid@4.6.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9b129329f58692f6e6578329498a8fe9fbe98f090beb764ffbb8ee2eadd01dcd"
+        }
+      ],
+      "name": "uuid",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/uuid@4.6.0",
+      "type": "library",
+      "version": "4.6.0"
+    },
+    {
+      "bom-ref": "pkg:pub/vector_math@2.4.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "92b9910f66ed1057fd4da7b040ae7c74cafacf885bdc81be496928d5049b032d"
+        }
+      ],
+      "name": "vector_math",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/vector_math@2.4.3",
+      "type": "library",
+      "version": "2.4.3"
+    },
+    {
+      "bom-ref": "pkg:pub/vm_service@15.3.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5f37239c4851efcef929cea7824e76df7f2f0970aef85d66bbc430afa40e72f0"
+        }
+      ],
+      "name": "vm_service",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/vm_service@15.3.0",
+      "type": "library",
+      "version": "15.3.0"
+    },
+    {
+      "bom-ref": "pkg:pub/web@1.1.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "868d88a33d8a87b18ffc05f9f030ba328ffefba92d6c127917a2ba740f9cfe4a"
+        }
+      ],
+      "name": "web",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/web@1.1.1",
+      "type": "library",
+      "version": "1.1.1"
+    },
+    {
+      "bom-ref": "pkg:pub/win32@6.4.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a0b93865d5644f11cf6a8c3f6db909f1ec168958b5805f6cc684adea957cd63d"
+        }
+      ],
+      "name": "win32",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/win32@6.4.0",
+      "type": "library",
+      "version": "6.4.0"
+    },
+    {
+      "bom-ref": "pkg:pub/xdg_directories@1.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7a3f37b05d989967cdddcbb571f1ea834867ae2faa29725fd085180e0883aa15"
+        }
+      ],
+      "name": "xdg_directories",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/xdg_directories@1.1.0",
+      "type": "library",
+      "version": "1.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/xml@7.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0fe8cc98946def31cbcbc8734aa4067031e6f65ea3a78a508060bfed2200bfeb"
+        }
+      ],
+      "name": "xml",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/xml@7.1.0",
+      "type": "library",
+      "version": "7.1.0"
+    },
+    {
+      "bom-ref": "pkg:pub/yaml@3.1.4",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f67cdd8e07d3c6329146aaef1ba043542b3134c12489f553ca9a7435d1068aea"
+        }
+      ],
+      "name": "yaml",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "app/pubspec.lock"
+        },
+        {
+          "name": "smartplan:use:app/pubspec.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pub/yaml@3.1.4",
+      "type": "library",
+      "version": "3.1.4"
+    },
+    {
+      "bom-ref": "pkg:pypi/blinker@1.9.0",
+      "name": "blinker",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/blinker@1.9.0",
+      "type": "library",
+      "version": "1.9.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/cffi@2.1.1",
+      "name": "cffi",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/requirements.lock",
+          "value": "application"
+        },
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/cffi@2.1.1",
+      "type": "library",
+      "version": "2.1.1"
+    },
+    {
+      "bom-ref": "pkg:pypi/charset-normalizer@3.5.2",
+      "name": "charset-normalizer",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/requirements.lock",
+          "value": "application"
+        },
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/charset-normalizer@3.5.2",
+      "type": "library",
+      "version": "3.5.2"
+    },
+    {
+      "bom-ref": "pkg:pypi/click@8.5.0",
+      "name": "click",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/click@8.5.0",
+      "type": "library",
+      "version": "8.5.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/cryptography@50.0.0",
+      "name": "cryptography",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/requirements.lock",
+          "value": "application"
+        },
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/cryptography@50.0.0",
+      "type": "library",
+      "version": "50.0.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/flask@3.1.3",
+      "name": "flask",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/flask@3.1.3",
+      "type": "library",
+      "version": "3.1.3"
+    },
+    {
+      "bom-ref": "pkg:pypi/gunicorn@26.2.0",
+      "name": "gunicorn",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/gunicorn@26.2.0",
+      "type": "library",
+      "version": "26.2.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/itsdangerous@2.2.0",
+      "name": "itsdangerous",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/itsdangerous@2.2.0",
+      "type": "library",
+      "version": "2.2.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/jinja2@3.1.6",
+      "name": "jinja2",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/jinja2@3.1.6",
+      "type": "library",
+      "version": "3.1.6"
+    },
+    {
+      "bom-ref": "pkg:pypi/markupsafe@3.0.4",
+      "name": "markupsafe",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/markupsafe@3.0.4",
+      "type": "library",
+      "version": "3.0.4"
+    },
+    {
+      "bom-ref": "pkg:pypi/numpy@2.3.5",
+      "name": "numpy",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/plan_import/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/plan_import/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/numpy@2.3.5",
+      "type": "library",
+      "version": "2.3.5"
+    },
+    {
+      "bom-ref": "pkg:pypi/opencv-python-headless@4.13.0.92",
+      "name": "opencv-python-headless",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/plan_import/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/plan_import/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/opencv-python-headless@4.13.0.92",
+      "type": "library",
+      "version": "4.13.0.92"
+    },
+    {
+      "bom-ref": "pkg:pypi/pillow@13.0.0",
+      "name": "pillow",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/requirements.lock",
+          "value": "application"
+        },
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        },
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/plan_import/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/plan_import/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/pillow@13.0.0",
+      "type": "library",
+      "version": "13.0.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/psycopg-binary@3.3.6",
+      "name": "psycopg-binary",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/psycopg-binary@3.3.6",
+      "type": "library",
+      "version": "3.3.6"
+    },
+    {
+      "bom-ref": "pkg:pypi/psycopg@3.3.6",
+      "name": "psycopg",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/psycopg@3.3.6",
+      "type": "library",
+      "version": "3.3.6"
+    },
+    {
+      "bom-ref": "pkg:pypi/pycparser@3.11",
+      "name": "pycparser",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/requirements.lock",
+          "value": "application"
+        },
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/pycparser@3.11",
+      "type": "library",
+      "version": "3.11"
+    },
+    {
+      "bom-ref": "pkg:pypi/pypdfium2@5.14.0",
+      "name": "pypdfium2",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/plan_import/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/plan_import/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/pypdfium2@5.14.0",
+      "type": "library",
+      "version": "5.14.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/reportlab@4.5.1",
+      "name": "reportlab",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/requirements.lock",
+          "value": "application"
+        },
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/reportlab@4.5.1",
+      "type": "library",
+      "version": "4.5.1"
+    },
+    {
+      "bom-ref": "pkg:pypi/typing-extensions@4.16.0",
+      "name": "typing-extensions",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/typing-extensions@4.16.0",
+      "type": "library",
+      "version": "4.16.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/tzdata@2026.5",
+      "name": "tzdata",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/requirements.lock",
+          "value": "application"
+        },
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/tzdata@2026.5",
+      "type": "library",
+      "version": "2026.5"
+    },
+    {
+      "bom-ref": "pkg:pypi/werkzeug@3.1.9",
+      "name": "werkzeug",
+      "properties": [
+        {
+          "name": "smartplan:lockfile",
+          "value": "backend/online/requirements.lock"
+        },
+        {
+          "name": "smartplan:use:backend/online/requirements.lock",
+          "value": "application"
+        }
+      ],
+      "purl": "pkg:pypi/werkzeug@3.1.9",
+      "type": "library",
+      "version": "3.1.9"
+    }
+  ],
+  "metadata": {
+    "component": {
+      "name": "Smartplan CRM ERP source",
+      "type": "application"
+    },
+    "properties": [
+      {
+        "name": "smartplan:scope",
+        "value": "source_lock_inventory"
+      },
+      {
+        "name": "smartplan:locks",
+        "value": "[{\"path\":\"backend/requirements.lock\",\"sha256\":\"5ef54fa8511977eb03a92a2ed7909e920f0acb9ff4d3ebba6f9582c648e13930\"},{\"path\":\"backend/online/requirements.lock\",\"sha256\":\"0353701a40adb9703c8961b8f16d1f72a741a7cf3199043025103bf5385d0021\"},{\"path\":\"backend/plan_import/requirements.lock\",\"sha256\":\"5a9847c1da22279f79b7c55ce4920c9037c0c7b7878cc684cd4fde212d2e4967\"},{\"path\":\"app/pubspec.lock\",\"sha256\":\"abad959ff01e9b03eb345bee3f08c8b5c8189aefb78c88b4ac5be0bddcb682ad\"},{\"path\":\"web/office/package-lock.json\",\"sha256\":\"0dbc7a0378910fe9d75f07d731833b330068b6bd179cb773cc728f8612339f8e\"}]"
+      },
+      {
+        "name": "smartplan:advisory_scan",
+        "value": "not_performed_by_this_script"
+      },
+      {
+        "name": "smartplan:release_gaps",
+        "value": "OS packages; Flutter engine/SDK; bundled native DLLs; JDK and invoice validators; remote providers; binary provenance"
+      },
+      {
+        "name": "smartplan:license_status",
+        "value": "npm declared licenses only; other redistribution licenses require separate verification"
+      }
+    ]
+  },
+  "specVersion": "1.6",
+  "version": 1
+}

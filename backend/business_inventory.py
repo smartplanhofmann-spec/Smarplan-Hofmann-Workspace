@@ -120,6 +120,14 @@ class BusinessInventory(Domain):
         for row in self.office.db.execute('SELECT * FROM business_stock_movements WHERE article_id=? AND (from_location_id=? OR to_location_id=?) ORDER BY sequence_number',(article_id,location_id,location_id)).fetchall():
             sign=1 if row['to_location_id']==location_id else -1
             on_hand+=sign*Decimal(row['quantity']); value+=sign*Decimal(row['cost_net'])
+        from business_inventory_counts import adjustments
+        for row in adjustments(self.office):
+            if row['location_id']==location_id and row['article_id']==article_id:
+                on_hand+=Decimal(row['quantity_delta']); value+=Decimal(row['value_delta_net'])
+        from business_purchase_changes import return_lines
+        for row in return_lines(self.office):
+            if row['location_id']==location_id and row['article_id']==article_id:
+                on_hand-=Decimal(row['quantity']); value-=Decimal(row['book_value_net'])
         reserved=sum((Decimal(row['quantity'])-Decimal(row['picked_quantity']) for row in self.office.db.execute(
             "SELECT quantity,picked_quantity FROM business_stock_reservations WHERE article_id=? AND location_id=? AND status IN ('reserved','partial')",(article_id,location_id)).fetchall()),Decimal(0))
         return on_hand,value,reserved
@@ -189,6 +197,8 @@ class BusinessInventory(Domain):
             if not original: raise Problem(400,'Rückgabe benötigt die ursprüngliche Entnahme')
             already=sum((Decimal(row['quantity']) for row in self.office.db.execute('SELECT quantity FROM business_stock_movements WHERE reversal_of=?',(original['id'],)).fetchall()),Decimal(0))
             if already+amount>Decimal(original['quantity']): raise Problem(409,'Rückgabe übersteigt die Entnahme')
+            from business_asset_provenance import ensure_return_available
+            ensure_return_available(self.office, original['id'], amount)
             unit_cost=Decimal(original['cost_net'])/Decimal(original['quantity'])
         elif kind=='receive':
             if 'unit_cost_net' in body: self.access(fresh,'finance.write',project_id)
@@ -415,9 +425,25 @@ class BusinessInventory(Domain):
 
 def _validate_integrity(office):
     api=BusinessInventory(office)
-    stock={}; returns={}; picks={}
+    stock={}; values={}; returns={}; picks={}
+    from business_purchase_changes import mixed_stock_events
     next_sequence=1
-    for row in office.db.execute('SELECT * FROM business_stock_movements ORDER BY sequence_number').fetchall():
+    for event_kind,row in mixed_stock_events(office):
+        if event_kind=='count':
+            key=(row['location_id'],row['article_id'])
+            stock[key]=stock.get(key,Decimal(0))+decimal(row['quantity_delta'])
+            values[key]=values.get(key,Decimal(0))+decimal(row['value_delta_net'])
+            if stock[key]<0 or values[key]<0: raise ValueError('Negative inventory count stock or value')
+            continue
+        if event_kind=='supplier_return':
+            key=(row['location_id'],row['article_id']);before=stock.get(key,Decimal(0));value=values.get(key,Decimal(0))
+            amount=decimal(row['quantity'],positive=True);cost=decimal(row['book_value_net'])
+            if before<=0 or amount>before: raise ValueError('Supplier return exceeds actual historical stock')
+            expected=value if amount==before else (value*amount/before).quantize(Decimal('.0001'),rounding=ROUND_HALF_UP)
+            if Decimal(row['stock_quantity'])!=before or Decimal(row['stock_value_net'])!=value or cost!=expected or Decimal(row['unit_cost_net'])!=Decimal(quantity(value/before)):
+                raise ValueError('Supplier return differs from weighted historical stock value')
+            stock[key]=before-amount;values[key]=value-cost
+            continue
         if row['sequence_number']!=next_sequence: raise ValueError('Missing stock journal sequence')
         next_sequence+=1
         if row['kind'] not in ('receive','issue','return','transfer'): raise ValueError('Invalid stock movement')
@@ -427,9 +453,10 @@ def _validate_integrity(office):
         source,destination=row['from_location_id'],row['to_location_id']
         if (row['kind'] in ('receive','return') and (source is not None or not destination)) or (row['kind']=='issue' and (not source or destination is not None or not row['project_id'])) or (row['kind']=='transfer' and (not source or not destination or source==destination)): raise ValueError('Invalid movement locations')
         if source:
-            stock[(source,row['article_id'])]=stock.get((source,row['article_id']),Decimal(0))-amount
-            if stock[(source,row['article_id'])]<0: raise ValueError('Negative historical stock')
-        if destination: stock[(destination,row['article_id'])]=stock.get((destination,row['article_id']),Decimal(0))+amount
+            key=(source,row['article_id']);stock[key]=stock.get(key,Decimal(0))-amount;values[key]=values.get(key,Decimal(0))-cost
+            if stock[key]<0 or values[key]<0: raise ValueError('Negative historical stock or value')
+        if destination:
+            key=(destination,row['article_id']);stock[key]=stock.get(key,Decimal(0))+amount;values[key]=values.get(key,Decimal(0))+cost
         if row['kind']=='return': returns[row['reversal_of']]=returns.get(row['reversal_of'],Decimal(0))+amount
         if row['reservation_id']: picks[row['reservation_id']]=picks.get(row['reservation_id'],Decimal(0))+amount
     if any(value<0 for value in stock.values()): raise ValueError('Negative stock')
@@ -482,8 +509,9 @@ def dispatch(office,actor,path,method,data):
     if path=='/inventory/stock' and method=='GET':
         if parameter('location_id') and parameter('article_id'): return api.balance(actor,parameter('location_id'),parameter('article_id')),200,'application/json'
         api.access(actor,'inventory.read'); result=[]
-        for row in office.db.execute('SELECT DISTINCT article_id FROM business_stock_movements').fetchall():
-            for location in api.list_locations(actor): result.append(api.balance(actor,location['id'],row['article_id']))
+        from business_inventory_counts import inventory_article_ids
+        for article_id in inventory_article_ids(office):
+            for location in api.list_locations(actor): result.append(api.balance(actor,location['id'],article_id))
         return {'items':result},200,'application/json'
     if path=='/inventory/reorder-suggestions' and method=='GET': return {'items':api.reorder_suggestions(actor)},200,'application/json'
     if path=='/inventory/reorder-rules' and method=='POST': return api.set_reorder_rule(actor,body),200,'application/json'

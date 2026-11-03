@@ -1,8 +1,9 @@
 # CRM/ERP – Fortschritt und Testergebnisse
 
-Die Abschnitte sind chronologisch. Der letzte abgeschlossene Prüfstand steht
-unter **03.11.2026 – E1b-4a1 umgesetzt und geprüft**. Frühere Zwischenstände
-und fehlgeschlagene bzw. unterbrochene Läufe bleiben als Verlauf erhalten.
+Die Abschnitte sind chronologisch; die neuesten Einträge stehen am Ende.
+Der [aktuelle Integrationsstand](CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md) bündelt
+die belegten Teilabläufe und laufenden Arbeiten. Frühere Zwischenstände und
+fehlgeschlagene bzw. unterbrochene Läufe bleiben als Verlauf erhalten.
 Der erste Abschnitt gehört zum lokalen Commit `14fe4c9`, der zweite zu `64bdc26`.
 
 ## 02.11.2026 – Bestand, Integration und erste Entwicklung
@@ -1545,3 +1546,99 @@ Echte Windows-/iPhone-Installationen, Updates und Geräteabnahmen sind hier nich
 nachgewiesen. Weitere Dokumentarten, die fachliche Klärung konfliktbehafteter
 unterschriebener Erfassungen, vollständige EÜR, Lohn, KI/Regeln und externe
 Fach-/Sicherheitsnachweise bleiben im Gesamtplan bestehen.
+
+
+## 03.11.2026 – Fortsetzung des vollständigen Gesamtziels
+
+Der aktuelle zusammenhängende Integrationsstand und die laufenden Abschlussprüfungen stehen in [CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md](CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md). Bestätigte Unternehmens- und Steuerangaben stehen in [CRM_ERP_ENTSCHEIDUNGEN.md](CRM_ERP_ENTSCHEIDUNGEN.md). Dieser Zwischenstand bedeutet keine Gesamt- oder Produktivfreigabe.
+
+
+## 03.11.2026 – Fortsetzung über das Vorjournal hinaus
+
+Der aktuelle [Integrationsstand](CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md) dokumentiert die geprüften Kunden-, Personal-, EÜR-, Rechnungs-, Inventur-, Assistenten- und Übersichtsabläufe. Neue Quellen und Grenzen sind in den jeweiligen Fachberichten verlinkt. Sprachbedienung, Lohnkonto-Pflichtangaben, Verkaufschancen und Unternehmensübergabe werden weiterentwickelt. Die Gesamt-Abnahmen A–G bleiben offen; es gab keine produktive Veröffentlichung oder externe Fachübermittlung.
+
+
+## 03.11.2026 – Weitere gemeinsame Integration
+
+Dateiimport, Unternehmensübergabe, Lohnkonten, Sprachentwürfe und Zusatzfelder
+sind in den dokumentierten Grenzen mit echten Client-/HTTP-/Datenbankabläufen
+geprüft. Der [aktualisierte Integrationsstand](CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md)
+nennt die jeweiligen Nachweise und laufenden Arbeiten: Datenschutzclients,
+Lohnzahlungen/EÜR, Service/Reklamationen und belegter Bankabgleich.
+
+Das Abhängigkeitsupdate behebt 43 bekannte Meldungskennungen in zwei Python-
+Paketen. Der erneute Python/npm/Dart-Abgleich sowie die Grenzen der Prüfung
+stehen im [Sicherheitsnachweis](CRM_ERP_ABHAENGIGKEITEN_SICHERHEIT.md). Tatsächlich
+bestanden mit neuer Laufzeit 95 kaufmännische und 67 Planimporttests; der
+Node-Zwischenlauf bestand 284 Tests, die Paketprüfung 16. Das unveränderte
+Gesamtziel bleibt maßgeblich; keine vollständige Produktivfreigabe.
+
+
+## 03.11.2026 – zusammenhängende Fachketten und Bedienprüfung
+
+Datenschutzfälle, belegte Lohnzahlungen zur EÜR und Kundenservice sind mit
+Backend, beiden Clients und tatsächlichen Browserabläufen geprüft. Zwei
+PostgreSQL-Journeys verbinden den Kundenauftrag mit Teil-/Restlieferung,
+Offlinebericht, Rechnung/Zahlung, Projektkosten/EÜR, Inventur, Gerät, Wartung,
+Service und echter Wiederherstellung. Die konkreten Grenzen bleiben in den
+jeweiligen Fachdokumenten ausgewiesen.
+
+Die Browser-Bedienprüfung fand zu schwache Hilfstextkontraste und einen
+rückwärts aus dem Dialog entweichenden Tastaturfokus. Beide Fehler wurden
+behoben; der Lauf über 18 gerenderte Ansichten besteht. Menschliche und native
+Bedienhilfenprüfungen bleiben offen. Das aktualisierte Quellinventar enthält
+153 Komponenten; npm wurde nach Aufnahme des axe-Prüfwerkzeugs erneut ohne
+bekannte Meldung geprüft.
+
+Bankabgleich, Betriebsmittel und zweite Unternehmensinstanz werden integriert.
+Der Finanz-Restore umfasst jetzt Horizont 10/Prüfberichtschema 11; 49 bisherige
+Finanz-HTTP-Fälle und neun Lohnzahlungs-Fachfälle bestehen danach. Alte
+Prüfberichte werden weiterhin nach ihrem ursprünglichen Umfang validiert.
+Die Gesamtfreigabe und der abschließende gemeinsame Lauf stehen aus.
+
+
+## 03.11.2026 – breite Regression und nächste echte Funktionslücken
+
+950 Backendfälle liefen am integrierten Bank-/Betriebsmittelstand: 949 bestanden,
+ein Windows-Jobobjekttest unter Linux ausgelassen. 323 Node-Fälle bestanden.
+Die breite Flutterprüfung (835 Tests) hatte acht Fehler: ein leeres Bankdatum
+und sieben veraltete Portal-Testbeschriftungen. Die Fehler sind korrigiert,
+gezielte Rechte-/Banknachprüfungen bestehen. Der ursprüngliche Lauf bleibt im
+Nachweis als fehlgeschlagen erhalten; kein nachträgliches Grünrechnen.
+
+Ein großer gemeinsamer Browserlauf bestand Portal und Finanzketten bis zu den
+wiederverwendeten Erstattungsursprüngen, brach aber im Profilteil ab. Die frische
+gezielte Prüfung deckte veraltete gestapelte Fehlermeldungen auf. Nach enger
+Korrektur besteht der Profilablauf. Der abgebrochene Gesamtlauf ist keine
+Gesamtabnahme.
+
+Entwicklung wird konkret fortgesetzt: Lieferantenretouren/Bestellmengenänderungen,
+Midijob-Vollmonate und vollständig verkabelte zweite Unternehmensinstanz.
+Die weiteren Lohn-Codefälle sind im Lückenplan ausdrücklich benannt und bleiben
+Umsetzungsarbeit; externe Fachfreigabe ersetzt diese Arbeit nicht.
+
+
+## 03.11.2026 – eingefrorene Clients, Retouren-/Provisionierungsgegenprüfung
+
+- Vollständige Node-Regression: 336/336 in 2,466 s; vollständige Flutterregression:
+  848/848 aus 98 Suiten in 228,669 s, keine Skips, Analyse ohne Befund (6,2 s).
+  Die acht Befunde des früheren 835-Test-Laufs sind behoben und bleiben historisch
+  dokumentiert; siehe `CRM_ERP_FLUTTER_GESAMTPRUEFUNG_2026-11-03.md`.
+- Lieferantenretouren/Bestelländerungen: eigene Regression 118/118 in 28,617 s,
+  unabhängige überlappende Regression 96/96 in 23,397 s einschließlich sieben
+  eigener Gegenproben, PostgreSQL 3/3 in 13,732 s. Die Gegenprüfung deckte zwei
+  echte Widersprüche manipulierter historischer Quittungen auf; beide werden
+  jetzt gegen ursprüngliche normalisierte Eingaben und Journalstände geprüft.
+- Provisionierung: vier abschließende bestehende Release-/Restorefälle bestanden
+  in 16,194 s; getrennte Zwei-Unternehmens-/UID-Nachweise bleiben konkret in der
+  Provisionierungsdokumentation ausgewiesen. Kein Produktivhost verändert.
+- Paketprüfung: 16/16 in 4,172 s. Die anschließende reine Aufnahme der finalen
+  Retourenanleitung wird noch einmal auf Vollständigkeit geprüft.
+- Ein Neustart der Cloud-Umgebung unterbrach den breiten Backend- und
+  Browsergesamtlauf. Die unvollständigen Logs bleiben gesondert erhalten;
+  beide Prüfungen wurden am identischen eingefrorenen Produktcode neu gestartet.
+  Der Projektpfad und die unveränderte Ziel-Dateiprüfsumme sind bestätigt.
+- Nächste echte Entwicklungsarbeit: private belegte Lohnfakten, getrennte
+  Zeitachsen und Teilmonatsrechner sowie Reisepauschalen mit eigener
+  Erstattungsquelle. Quellen-/API-Entwürfe liegen vor; fehlender Code wird nicht
+  als externe Abhängigkeit behandelt.

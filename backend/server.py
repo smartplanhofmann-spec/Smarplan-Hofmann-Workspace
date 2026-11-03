@@ -77,15 +77,22 @@ def make_handler(office,drive,launch_id=""):
                 strict_accounting = (path == '/api/business/accounting/profile' or path.startswith((
                     '/api/business/accounting/allocations/', '/api/business/accounting/components/',
                     '/api/business/accounting/refunds/', '/api/business/accounting/profile/')) or
-                    business_api.strict_report_path(path.removeprefix('/api')))
+                    business_api.strict_report_path(path.removeprefix('/api')) or
+                    business_api.strict_workflow_path(path.removeprefix('/api')))
                 if self.command == 'POST' and strict_accounting and parsed.query:
                     raise Problem(400, 'Keine zusätzlichen Filter erlaubt')
                 if self.command=="POST":
                     size=int(self.headers.get("Content-Length","0"))
-                    if not 0<size<=1000000:
+                    maximum = 2_600_000 if path == '/api/business/assistant/speech/transcribe' else 1_000_000
+                    if re.fullmatch(r'/api/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files)', path):
+                        maximum = 2_850_000
+                    if path in ('/api/business/bank/import/preview', '/api/business/bank/statements'):
+                        maximum = 7_100_000
+                    if not 0<size<=maximum:
                         raise Problem(413,"Anfrage zu groß oder leer")
                     raw=self.rfile.read(size)
-                    data=(business_api.decode_offline_report(raw) if path == '/api/business/service-reports/offline'
+                    data=(business_api.decode_offline_report(raw, max_bytes=maximum) if (path == '/api/business/service-reports/offline' or
+                          business_api.strict_workflow_path(path.removeprefix('/api')))
                           else json.loads(raw))
                     if not isinstance(data,dict):
                         raise Problem(400,"JSON-Objekt erwartet")

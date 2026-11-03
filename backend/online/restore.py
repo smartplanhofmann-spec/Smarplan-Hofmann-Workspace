@@ -14,7 +14,7 @@ from online.store import PostgresOffice, migrate
 from online.plan_imports import validate_integrity
 
 
-def restore_dump(source, active_dsn, target_dsn, *, owner_role=None):
+def restore_dump(source, active_dsn, target_dsn, *, owner_role=None, instance_roles=None):
     """Restore into a different empty DB; caller must validate schema and contents."""
     source = Path(source)
     sidecar = Path(str(source) + '.sha256')
@@ -30,7 +30,14 @@ def restore_dump(source, active_dsn, target_dsn, *, owner_role=None):
             raise ValueError('Die aktive Datenbank darf nicht Wiederherstellungsziel sein.')
         if target.execute("SELECT 1 FROM pg_tables WHERE schemaname NOT IN ('pg_catalog','information_schema')").fetchone():
             raise ValueError('Wiederherstellungsziel muss leer sein.')
-    if owner_role not in (None, 'smartplan-migrator'):
+    from online.instance_roles import for_office
+    from types import SimpleNamespace
+    roles=for_office(SimpleNamespace(instance_roles=instance_roles))
+    if roles.slug:
+        from psycopg.conninfo import conninfo_to_dict
+        if any(not roles.owns_database_name(conninfo_to_dict(dsn).get('dbname')) for dsn in (active_dsn,target_dsn)):
+            raise ValueError('Wiederherstellung außerhalb der gebundenen Unternehmensdatenbanken.')
+    if owner_role not in (None, roles.owner):
         raise ValueError('Unbekannte Wiederherstellungsrolle.')
     command = ['pg_restore', '--exit-on-error', '--single-transaction', '--no-owner', '--no-acl']
     if owner_role:
@@ -43,17 +50,20 @@ def restore_dump(source, active_dsn, target_dsn, *, owner_role=None):
         raise RuntimeError('Wiederherstellung fehlgeschlagen; neue Zieldatenbank bleibt vom Betrieb getrennt.')
 
 
-def restore(source, active_dsn, target_dsn, *, privileged_operator=False, test_mode=False):
+def restore(source, active_dsn, target_dsn, *, privileged_operator=False, test_mode=False, instance_roles=None):
+    from online.instance_roles import for_office
+    from types import SimpleNamespace
+    roles=for_office(SimpleNamespace(instance_roles=instance_roles))
     if privileged_operator:
         from online.release import operator_dsns, no_other_clients
-        active_dsn, target_dsn = operator_dsns(active_dsn, target_dsn, test_mode=test_mode)
+        active_dsn, target_dsn = operator_dsns(active_dsn, target_dsn, test_mode=test_mode,instance_roles=roles)
         no_other_clients(active_dsn)
-    owner = 'smartplan-migrator' if privileged_operator else None
-    restore_dump(source, active_dsn, target_dsn, owner_role=owner)
+    owner = roles.owner if privileged_operator else None
+    restore_dump(source, active_dsn, target_dsn, owner_role=owner,instance_roles=roles)
     # Older supported backups are upgraded only in the separate empty target.
     # The active database is never migrated or restored by this command.
-    migrate(target_dsn, owner_role=owner, require_business_modules=privileged_operator)
-    office = PostgresOffice(target_dsn, allow_restore_pending=True)
+    migrate(target_dsn, owner_role=owner, require_business_modules=privileged_operator,instance_roles=roles)
+    office = PostgresOffice(target_dsn, allow_restore_pending=True,instance_roles=roles)
     try:
         with office.lock, office.db:
             for row in office.db.execute('SELECT pdf,pdf_hash FROM reports WHERE pdf IS NOT NULL'):
@@ -72,6 +82,12 @@ def restore(source, active_dsn, target_dsn, *, privileged_operator=False, test_m
             sanitize_finance(office)
             sanitize_adapters(office)
             sanitize_portal(office.db)
+            from business_customer_workspace import sanitize_after_restore as sanitize_customer_workspace
+            sanitize_customer_workspace(office.db)
+            from business_assistant import sanitize_after_restore as sanitize_assistant
+            sanitize_assistant(office.db)
+            from business_assistant_speech import sanitize_after_restore as sanitize_speech
+            sanitize_speech(office.db)
             restore_id = uuid.uuid4().hex
             office.db.execute('UPDATE business_restore_state SET pending=1,financial_reconciliation_required=1,restore_id=? WHERE singleton=1',
                               (restore_id,))
@@ -111,6 +127,8 @@ def complete_restore(office):
     from business_schema import (require_runtime_security, privacy_restore_guard,
                                  validate_integrity as validate_business)
     require_runtime_security(office)
+    from online.instance_roles import verify_database
+    verify_database(office,require_bound=True)
     if not getattr(office, '_allow_restore_pending', False):
         raise ValueError('Expliziter Restore-Prüfkontext erforderlich.')
     with office.lock, office.db:

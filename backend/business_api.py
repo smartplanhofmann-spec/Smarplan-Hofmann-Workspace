@@ -16,6 +16,7 @@ MODULES = (
     'business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity',
     'business_accounting_refunds_v2',
     'business_accounting_profile',
+    'business_project_economics', 'business_asset_provenance', 'business_customer_workspace', 'business_personnel_workflow', 'business_accounting_euer', 'business_assistant', 'business_payroll', 'business_inventory_counts', 'business_sales', 'business_payroll_accounts', 'business_assistant_speech', 'business_company_handover', 'business_migrations', 'business_custom_fields', 'business_privacy_cases', 'business_payroll_cash', 'business_service', 'business_bank_reconciliation', 'business_resource_custody', 'business_purchase_changes',
 )
 
 
@@ -98,7 +99,19 @@ def strict_report_path(path):
         isinstance(path, str) and re.fullmatch(r'/business/service-reports/[a-f0-9]{32}(?:/pdf)?', path) is not None)
 
 
-def decode_offline_report(raw):
+def strict_workflow_path(path):
+    """Explicit workflow commands must not silently ignore another input channel."""
+    if not isinstance(path, str):
+        return False
+    return re.fullmatch(
+        r'/business/(?:(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|assistant|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
+        r'finance/receipts(?:/[a-f0-9]{32}(?:/original)?)?|'
+        r'assets/(?:from-delivery|origin-sources|[a-f0-9]{32}/origin)|'
+        r'purchasing/orders/[a-f0-9]{32}/(?:changes|change-files(?:/[a-f0-9]{32}/original)?|amendments(?:/preview)?|supplier-returns(?:/preview)?)|'
+        r'purchasing/receipts/[a-f0-9]{32}/document)', path) is not None
+
+
+def decode_offline_report(raw, *, max_bytes=1_000_000):
     """One unambiguous UTF-8 signature envelope on both transports."""
     def pairs(items):
         result = {}
@@ -112,7 +125,7 @@ def decode_offline_report(raw):
         raise ValueError('Nonfinite number')
 
     try:
-        if not isinstance(raw, bytes) or not 0 < len(raw) <= 1_000_000:
+        if not isinstance(raw, bytes) or not 0 < len(raw) <= max_bytes:
             raise Problem(413, 'Anfrage zu groß oder leer')
         result = json.loads(raw.decode('utf-8'), object_pairs_hook=pairs, parse_constant=constant)
         if not isinstance(result, dict):
@@ -255,8 +268,11 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
         current = business_schema.state(office)
         active = current.get('capabilities', [])
         readable = current.get('read_capabilities', [])
-        security_revoke = (module.__name__ == 'business_portal' and method == 'POST'
-            and re.fullmatch(r'/portal/grants/[a-f0-9]{32}/revoke', relative) is not None)
+        security_revoke = (method == 'POST' and (
+            module.__name__ == 'business_portal'
+            and re.fullmatch(r'/portal/grants/[a-f0-9]{32}/revoke', relative) is not None
+            or module.__name__ == 'business_customer_workspace'
+            and re.fullmatch(r'/customer-workspace/(?:grants|files)/[a-f0-9]{32}/revoke', relative) is not None))
         if module.__name__ not in active and not ((method == 'GET' or security_revoke) and module.__name__ in readable):
             raise Problem(409, 'Dieses Modul ist im aktuellen Betriebsmodus nicht schreibend freigegeben.')
         if method != 'GET' and 'business_organization' in readable:

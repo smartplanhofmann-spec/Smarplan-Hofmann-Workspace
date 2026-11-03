@@ -31,7 +31,14 @@ String? organizationCommandSection(String path) {
       first == 'settings' ||
       route == '/commercial/settings')
     return null;
-  if (const {'employees', 'absences', 'shifts', 'time'}.contains(first)) {
+  if (const {
+    'employees',
+    'absences',
+    'shifts',
+    'time',
+    'personnel',
+    'payroll',
+  }.contains(first)) {
     return 'personnel';
   }
   if (const {'resources', 'appointments', 'planning'}.contains(first)) {
@@ -44,6 +51,12 @@ String? organizationCommandSection(String path) {
     return 'material';
   }
   if (first == 'portal') return 'documents';
+  if (first == 'customer-workspace') {
+    if (RegExp(r'^/customer-workspace/(?:grants|files)/[a-f0-9]{32}/revoke$')
+        .hasMatch(route))
+      return null;
+    return 'documents';
+  }
   if (const {
     'documents',
     'articles',
@@ -53,7 +66,16 @@ String? organizationCommandSection(String path) {
     'commercial',
   }.contains(first))
     return 'documents';
-  if (first == 'finance' || first == 'accounting') return 'finance';
+  if (first == 'finance' ||
+      first == 'bank' ||
+      first == 'accounting' ||
+      first == 'receipt-media' ||
+      first == 'project-economics')
+    return 'finance';
+  if (route == '/assets/from-delivery' ||
+      RegExp(r'^/assets/[a-f0-9]{32}/origin$').hasMatch(route)) {
+    return 'material';
+  }
   if (RegExp(r'^/adapters/imports/[a-f0-9]{32}/(?:apply|offer)$')
       .hasMatch(route)) {
     return 'documents';
@@ -79,6 +101,52 @@ class BusinessSession extends ChangeNotifier {
   final VoidCallback? onDenied;
   Timer? _metaTimer;
   List<Map<String, dynamic>> projects;
+  final _projectSessions = <String, BusinessSession>{};
+  BusinessSession? _globalOwner;
+  BusinessSession? _ownedGlobalSession;
+
+  /// Global administration always loads its own global grants. A project-only
+  /// view may open this session, but it never transfers project permissions.
+  BusinessSession sharedGlobalSession() {
+    _guard(_epoch);
+    if (projectId == null) return this;
+    if (_globalOwner != null) return _globalOwner!.sharedGlobalSession();
+    final global = _ownedGlobalSession ??= BusinessSession(
+      api: api,
+      offlineMode: offlineMode,
+      projects: projects,
+    );
+    global.projects = projects;
+    return global;
+  }
+
+  /// Parent-owned, memory-only sessions keep an unacknowledged project command
+  /// while the user follows a source from the company journal and returns.
+  /// Every child loads its own project permissions; it inherits no grants.
+  BusinessSession sharedProjectSession(String id) {
+    _guard(_epoch);
+    if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(id) ||
+        (projectId != null && projectId != id)) {
+      throw const ApiException(
+        403,
+        'Dieses Projekt ist in der aktuellen Ansicht nicht verfügbar.',
+      );
+    }
+    if (projectId == id) return this;
+    final child = _projectSessions.putIfAbsent(
+      id,
+      () => BusinessSession(
+        api: api,
+        offlineMode: offlineMode,
+        projectId: id,
+        projects: projects,
+      ),
+    );
+    child._globalOwner = this;
+    child.projects = projects;
+    return child;
+  }
+
   final String? _token;
   bool _disposed = false,
       ready = false,
@@ -106,6 +174,7 @@ class BusinessSession extends ChangeNotifier {
           String values,
           Object? generation,
           Map<String, dynamic> body,
+          void Function(dynamic)? validateResult,
         })
       >{};
   bool get allowed =>
@@ -138,6 +207,20 @@ class BusinessSession extends ChangeNotifier {
       !organizationSections.contains(section) ||
       organizationModules[section]?['enabled'] == true;
   bool pending(String key) => _pending.containsKey(key);
+
+  /// Only opaque command keys, never private bank bodies. Navigation must not
+  /// allocate a new nonce for an existing uncertain import or reconciliation.
+  List<String> get pendingBankKeys => !allowed
+      ? const []
+      : List.unmodifiable(
+          _pending.entries
+              .where(
+                (entry) =>
+                    entry.key.startsWith('bank-') &&
+                    entry.value.path.startsWith('/bank/'),
+              )
+              .map((entry) => entry.key),
+        );
 
   /// A detached copy of the exact unacknowledged input, held only in this
   /// authenticated session. Source/account versions must survive editor reopen.
@@ -232,6 +315,1023 @@ class BusinessSession extends ChangeNotifier {
       Map<String, dynamic>.from(jsonDecode(operation.values)),
       documentaryRetry: true,
     );
+  }
+
+  /// Replay keeps the original nonce, body and response validator. Reloading
+  /// capabilities is mandatory; a changed generation never creates a new write.
+  Future<dynamic> _repeatWorkflowCommand(
+    String key, {
+    required bool Function(String) matches,
+    required void Function() requireRights,
+    String? readPath,
+    void Function(Map<String, dynamic>)? verifyState,
+  }) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    final operation = _pending[key];
+    if (operation == null || !matches(operation.path)) {
+      throw const ApiException(
+        409,
+        'Der offene Vorgang ist nicht mehr verfügbar. Bitte neu laden.',
+      );
+    }
+    await load();
+    _guard(epoch);
+    if (error != null || loading) {
+      throw const ApiException(
+        0,
+        'Die aktuellen Berechtigungen konnten noch nicht bestätigt werden.',
+      );
+    }
+    requireRights();
+    if (readPath != null) {
+      final state = businessMap(await read(readPath));
+      _guard(epoch);
+      requireRights();
+      verifyState?.call(state);
+    }
+    if (_pending[key]?.body['request_id'] != operation.body['request_id']) {
+      throw const ApiException(
+        409,
+        'Die frühere Übertragung wurde inzwischen beantwortet. Bitte neu laden.',
+      );
+    }
+    return _command(
+      key,
+      operation.path,
+      Map<String, dynamic>.from(jsonDecode(operation.values)),
+      documentaryRetry: true,
+    );
+  }
+
+  Future<dynamic> repeatAccountingEuerCommand() => _repeatWorkflowCommand(
+    'accounting-euer',
+    matches: (path) => path == '/accounting/euer/confirm',
+    readPath: '/accounting/euer',
+    requireRights: () {
+      if (projectId != null ||
+          !hasFeature('accounting_euer') ||
+          !hasModule('accounting_euer') ||
+          !can('accounting.read') ||
+          !can('finance.read') ||
+          !canWrite('accounting.prepare') ||
+          !canWrite('accounting.admin') ||
+          !canWrite('finance.write')) {
+        throw const ApiException(
+          403,
+          'Aktuelle Rechte für das EÜR-Journal fehlen.',
+        );
+      }
+      if (!sectionEnabled('finance')) {
+        throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+      }
+    },
+  );
+
+  Future<dynamic> repeatCustomerWorkspaceCommand(String key) {
+    final operation = _pending[key];
+    final revoke =
+        operation != null &&
+        RegExp(r'^/customer-workspace/(?:grants|files)/[a-f0-9]{32}/revoke$')
+            .hasMatch(operation.path);
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path.startsWith('/customer-workspace/'),
+      readPath: '/customer-workspace?project_id=$projectId',
+      requireRights: () {
+        if (projectId == null ||
+            !hasFeature('customer_workspace_portal') ||
+            !hasModule('customer_workspace') ||
+            !can('portal.manage') ||
+            !can('documents.read') ||
+            (!revoke && readonly)) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für den Kundenbereich fehlen.',
+          );
+        }
+        if (!revoke && !sectionEnabled('documents')) {
+          throw const ApiException(423, 'Dokumente sind fachlich deaktiviert.');
+        }
+      },
+      verifyState: (state) {
+        if (businessMap(state['project'])['id'] != projectId ||
+            (operation?.body['project_id'] != null &&
+                operation!.body['project_id'] != projectId)) {
+          throw const ApiException(
+            403,
+            'Der Vorgang gehört zu einem anderen Projekt.',
+          );
+        }
+        final scoped = RegExp(
+          r'^/customer-workspace/(grants|files|uploads)/([a-f0-9]{32})/(?:revoke|accept)$',
+        ).firstMatch(operation?.path ?? '');
+        if (scoped != null &&
+            !businessItems(state[scoped.group(1)] ?? [])
+                .any((item) => item['id'] == scoped.group(2))) {
+          throw const ApiException(
+            403,
+            'Die Freigabe oder Datei ist in diesem Projekt nicht zugänglich.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatAssistantCommand(
+    String key,
+    String selectedProject,
+  ) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    final scope = sharedProjectSession(selectedProject);
+    await scope.load();
+    _guard(epoch);
+    if (scope.error != null || scope.loading) {
+      throw const ApiException(
+        0,
+        'Die aktuellen Projektrechte konnten nicht bestätigt werden.',
+      );
+    }
+    final operation = _pending[key];
+    final context = operation?.body['context_id'];
+    final target = RegExp(
+      r'^/assistant/plans/([a-f0-9]{32})/(?:approve|reject|execute)$',
+    ).firstMatch(operation?.path ?? '');
+    final readPath = target != null
+        ? '/assistant/plans/${target.group(1)}'
+        : context is String && RegExp(r'^[a-f0-9]{32}$').hasMatch(context)
+        ? '/assistant/contexts/$context'
+        : '/assistant/sources?project_id=$selectedProject';
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path.startsWith('/assistant/'),
+      readPath: readPath,
+      requireRights: () {
+        if (!scope.hasFeature('assistant_workflow') ||
+            !scope.hasModule('assistant') ||
+            !scope.canWrite('assistant.use')) {
+          throw const ApiException(
+            403,
+            'Aktuelle Projekt- und Assistentenrechte fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        final boundProject =
+            operation?.body['project_id'] ?? state['project_id'];
+        if (boundProject != selectedProject) {
+          throw const ApiException(
+            403,
+            'Der offene Assistentenvorgang gehört zu einem anderen Projekt.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatBankCommand(String key) {
+    final operation = _pending[key];
+    final route = operation?.path ?? '';
+    final accountCommand = route == '/bank/accounts';
+    final match = RegExp(r'^/bank/transactions/([a-f0-9]{32})/matches$')
+        .firstMatch(route);
+    final accountId = operation?.body['account_id'];
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) =>
+          key.startsWith('bank-') &&
+          (accountCommand ||
+              route == '/bank/statements' ||
+              route == '/bank/reconciliations' ||
+              match != null),
+      readPath: match == null
+          ? '/bank/accounts'
+          : '/bank/transactions/${match.group(1)}/candidates',
+      requireRights: () {
+        if (projectId != null ||
+            !hasFeature('bank_reconciliation') ||
+            !hasModule('bank_reconciliation') ||
+            !can('bank.read') ||
+            !can('accounting.read') ||
+            !can('finance.read') ||
+            !canWrite('bank.prepare') ||
+            !canWrite('accounting.prepare') ||
+            !canWrite('finance.write') ||
+            accountCommand &&
+                (!canWrite('bank.admin') || !canWrite('accounting.admin'))) {
+          throw const ApiException(
+            403,
+            'Aktuelle globale Rechte für den Bankabgleich fehlen.',
+          );
+        }
+        if (!sectionEnabled('finance')) {
+          throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+        }
+      },
+      verifyState: (state) {
+        if (match != null) {
+          if (businessMap(state['transaction'])['id'] != match.group(1)) {
+            throw const ApiException(
+              502,
+              'Der offene Vorgang gehört nicht zu dieser Bankbuchung.',
+            );
+          }
+        } else {
+          final available = state['available_accounts'];
+          final bindings = state['items'];
+          if (available is! List ||
+              bindings is! List ||
+              !available.any((item) => businessMap(item)['id'] == accountId) ||
+              !accountCommand &&
+                  !bindings.any(
+                    (item) => businessMap(item)['account_id'] == accountId,
+                  )) {
+            throw const ApiException(
+              403,
+              'Das ursprüngliche Bankkonto ist nicht mehr verfügbar.',
+            );
+          }
+        }
+        // Current revisions deliberately do not replace the accepted original.
+        // The server resolves its unchanged nonce before checking a new effect.
+      },
+    );
+  }
+
+  Future<dynamic> repeatResourceCustodyCommand(String key) {
+    final operation = _pending[key];
+    final target = RegExp(
+      r'^/resource-custody/([a-f0-9]{32})/(profile|requirements|files|inspections|handoffs|returns|corrections)$',
+    ).firstMatch(operation?.path ?? '');
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => key.startsWith('resource-custody-') && target != null,
+      readPath: '/resource-custody/${target?.group(1)}',
+      requireRights: () {
+        if (projectId != null ||
+            !hasFeature('resource_custody') ||
+            !hasModule('resource_custody') ||
+            !can('planning.read') ||
+            !canWrite('planning.write')) {
+          throw const ApiException(
+            403,
+            'Aktuelle globale Rechte für Betriebsmittel fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['id'] != target?.group(1) ||
+            businessMap(state['resource'])['id'] != target?.group(1)) {
+          throw const ApiException(
+            502,
+            'Der offene Vorgang gehört nicht zu diesem Betriebsmittel.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatCustomFieldsCommand(String key) {
+    final operation = _pending[key];
+    final definition = operation?.path == '/custom-fields/definitions';
+    final entity = RegExp(
+      r'^/custom-fields/entities/(contact|project|asset)/([a-f0-9]{32})$',
+    ).firstMatch(operation?.path ?? '');
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) =>
+          key.startsWith('custom-fields-') && (definition || entity != null),
+      readPath: definition
+          ? '/custom-fields/definitions'
+          : operation?.path ?? '/custom-fields/definitions',
+      requireRights: () {
+        if (readonly ||
+            !hasModule('custom_fields') ||
+            !hasFeature('custom_fields') ||
+            definition && (projectId != null || !canWrite('settings.manage'))) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für Zusatzfelder fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (definition) {
+          if (state['items'] is! List)
+            throw const ApiException(
+              502,
+              'Die Felddefinitionen konnten nicht bestätigt werden.',
+            );
+        } else {
+          final source = businessMap(state['entity']);
+          if (source['entity_type'] != entity?.group(1) ||
+              source['id'] != entity?.group(2)) {
+            throw const ApiException(
+              502,
+              'Die Zusatzwerte gehören nicht zum geöffneten Datensatz.',
+            );
+          }
+          if (state['can_write'] != true)
+            throw const ApiException(
+              403,
+              'Die aktuelle Schreibfreigabe für diesen Datensatz fehlt.',
+            );
+          if (projectId != null &&
+              source['project_id'] != null &&
+              source['project_id'] != projectId) {
+            throw const ApiException(
+              403,
+              'Die Zusatzwerte gehören zu einem anderen Projekt.',
+            );
+          }
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatPurchaseChangeCommand(String key) async {
+    final operation = _pending[key];
+    final target = RegExp(
+      r'^/purchasing/orders/([a-f0-9]{32})/(change-files|amendments|supplier-returns)$',
+    ).firstMatch(operation?.path ?? '');
+    if (operation == null ||
+        !key.startsWith('purchase-change-') ||
+        target == null) {
+      throw const ApiException(
+        409,
+        'Der ursprüngliche Einkaufsvorgang ist nicht verfügbar.',
+      );
+    }
+    final epoch = _epoch;
+    _guard(epoch);
+    final readPath = '/purchasing/orders/${target.group(1)}/changes';
+    final item = businessMap(await api.call(path(readPath)));
+    _guard(epoch);
+    final selectedProject = item['project_id'];
+    if (item['id'] != target.group(1) ||
+        item['order_id'] != target.group(1) ||
+        selectedProject != null &&
+            (selectedProject is! String ||
+                !RegExp(r'^[a-f0-9]{32}$').hasMatch(selectedProject))) {
+      throw const ApiException(
+        502,
+        'Die ursprüngliche Bestellung konnte nicht bestätigt werden.',
+      );
+    }
+    if (projectId != null && selectedProject != projectId) {
+      throw const ApiException(
+        403,
+        'Die Bestellung gehört nicht zum geöffneten Projekt.',
+      );
+    }
+    final scope = selectedProject == null || selectedProject == projectId
+        ? this
+        : sharedProjectSession(selectedProject as String);
+    await scope.load();
+    _guard(epoch);
+    if (scope.error != null || scope.loading) {
+      throw const ApiException(
+        0,
+        'Die aktuellen Einkaufsrechte konnten nicht bestätigt werden.',
+      );
+    }
+    return _repeatWorkflowCommand(
+      key,
+      matches: (value) => value == operation.path,
+      readPath: readPath,
+      requireRights: () {
+        if (!scope.hasFeature('purchase_changes') ||
+            !scope.hasModule('purchase_changes') ||
+            !scope.can('inventory.read') ||
+            !scope.canWrite('inventory.write') ||
+            !scope.canWrite(
+              target.group(2) == 'amendments'
+                  ? 'finance.approve'
+                  : 'finance.write',
+            )) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für diesen Einkaufsvorgang fehlen.',
+          );
+        }
+        // New effects still need an active material module on the server;
+        // an exact already accepted receipt must remain recoverable.
+      },
+      verifyState: (state) {
+        if (state['id'] != target.group(1) ||
+            state['order_id'] != target.group(1) ||
+            state['project_id'] != selectedProject) {
+          throw const ApiException(
+            409,
+            'Die Bestellung muss frisch geprüft werden.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatServiceCommand(String key) async {
+    final operation = _pending[key];
+    final route = operation?.path ?? '';
+    final target = RegExp(
+      r'^/service/cases/([a-f0-9]{32})/(events|project|dispatch|evidence|transition)$',
+    ).firstMatch(route);
+    if (operation == null ||
+        !key.startsWith('service-') ||
+        route != '/service/cases' && target == null) {
+      throw const ApiException(
+        409,
+        'Der ursprüngliche Serviceauftrag ist nicht verfügbar.',
+      );
+    }
+    final epoch = _epoch;
+    _guard(epoch);
+    final caseId = target?.group(1) ?? operation.body['id'];
+    String? selectedProject = operation.body['project_id'] as String?;
+    if (caseId != null) {
+      final item = businessMap(await api.call(path('/service/cases/$caseId')));
+      _guard(epoch);
+      if (item['id'] != caseId)
+        throw const ApiException(
+          502,
+          'Der Servicefall konnte nicht bestätigt werden.',
+        );
+      selectedProject = item['project_id'] as String?;
+    }
+    if (projectId != null && selectedProject != projectId) {
+      throw const ApiException(
+        403,
+        'Der Servicefall gehört nicht zum geöffneten Projekt.',
+      );
+    }
+    final scope = selectedProject == null || selectedProject == projectId
+        ? this
+        : sharedProjectSession(selectedProject);
+    await scope.load();
+    _guard(epoch);
+    if (scope.error != null || scope.loading)
+      throw const ApiException(
+        0,
+        'Die aktuellen Servicerechte konnten nicht bestätigt werden.',
+      );
+    if (selectedProject == null) {
+      final me = businessMap(await api.call('/api/me'));
+      _guard(epoch);
+      if (me['role'] != 'owner')
+        throw const ApiException(
+          403,
+          'Servicefälle ohne Projekt benötigen die Geschäftsführung.',
+        );
+    }
+    final query = Uri(
+      queryParameters: <String, String>{
+        if (operation.body['customer_id'] is String)
+          'customer_id': operation.body['customer_id'] as String,
+        if (selectedProject != null) 'project_id': selectedProject,
+      },
+    ).query;
+    return _repeatWorkflowCommand(
+      key,
+      matches: (value) => value == route,
+      readPath: caseId != null
+          ? '/service/cases/$caseId'
+          : '/service/options${query.isEmpty ? '' : '?$query'}',
+      requireRights: () {
+        if (!scope.hasFeature('service_cases') ||
+            !scope.hasModule('service') ||
+            scope.readonly ||
+            !scope.can('contacts.read') ||
+            (selectedProject == null
+                ? !scope.canWrite('contacts.write')
+                : !scope.can('documents.read') ||
+                      !scope.canWrite('documents.write')) ||
+            target?.group(2) == 'project' &&
+                !scope.canWrite('projects.manage') ||
+            target?.group(2) == 'dispatch' &&
+                !scope.canWrite('planning.write')) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für diesen Serviceauftrag fehlen.',
+          );
+        }
+        // The frozen request may already have succeeded before deactivation.
+        // The server distinguishes its receipt from any new native effect.
+      },
+      verifyState: (state) {
+        if (state['project_id'] != selectedProject ||
+            (caseId != null
+                ? state['id'] != caseId
+                : state['customer_id'] != operation.body['customer_id'])) {
+          throw const ApiException(
+            409,
+            'Die Zuordnung des Serviceauftrags muss frisch geprüft werden.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatCompanyHandoverCommand({bool review = false}) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    final me = businessMap(await api.call('/api/me'));
+    _guard(epoch);
+    if (me['role'] != 'owner')
+      throw const ApiException(
+        403,
+        'Die Unternehmensübergabe erfordert die Geschäftsführung.',
+      );
+    final key = review ? 'company-handover-review' : 'company-handover-export';
+    final route = review
+        ? '/company-handover/exit-reviews'
+        : '/company-handover/exports';
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == route,
+      readPath: '/company-handover',
+      requireRights: () {
+        if (projectId != null ||
+            readonly ||
+            !hasFeature('company_handover') ||
+            !hasModule('company_handover')) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für die Unternehmensübergabe fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['instance_id'] != _pending[key]?.body['instance_id']) {
+          throw const ApiException(
+            409,
+            'Der offene Auftrag gehört nicht zur Unternehmensinstanz.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatMigrationCommand(String key) async {
+    final operation = _pending[key];
+    final match = RegExp(
+      r'^/migrations/([a-f0-9]{32})/(files|mapping|apply|reconcile)$',
+    ).firstMatch(operation?.path ?? '');
+    final epoch = _epoch;
+    _guard(epoch);
+    final me = businessMap(await api.call('/api/me'));
+    _guard(epoch);
+    if (me['role'] != 'owner')
+      throw const ApiException(
+        403,
+        'Der Dateiimport erfordert die Geschäftsführung.',
+      );
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) =>
+          key.startsWith('migration-') &&
+          (path == '/migrations' || match != null),
+      readPath: match == null ? '/migrations' : '/migrations/${match.group(1)}',
+      requireRights: () {
+        if (projectId != null ||
+            !hasFeature('file_migrations') ||
+            !hasModule('migrations') ||
+            !canWrite('settings.manage') ||
+            !can('contacts.read') ||
+            !can('finance.read') ||
+            !can('documents.read') ||
+            match?.group(2) == 'apply' &&
+                (!canWrite('contacts.write') ||
+                    !canWrite('projects.manage') ||
+                    !sectionEnabled('documents'))) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für diesen Dateiimport fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (match != null && state['id'] != match.group(1)) {
+          throw const ApiException(
+            502,
+            'Der offene Auftrag gehört nicht zu diesem Importpaket.',
+          );
+        }
+        if (match == null && state['items'] is! List) {
+          throw const ApiException(
+            502,
+            'Die Importübersicht konnte nicht bestätigt werden.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatSalesCommand(String key) {
+    final operation = _pending[key];
+    final path = operation?.path ?? '';
+    final match = RegExp(
+      r'^/sales/opportunities/([a-f0-9]{32})(?:/(activities|project|offer))?$',
+    ).firstMatch(path);
+    final id = match?.group(1) ?? operation?.body['id'];
+    final customer = operation?.body['customer_id'];
+    return _repeatWorkflowCommand(
+      key,
+      matches: (route) =>
+          key.startsWith('sales-') &&
+          (route == '/sales/opportunities' || match != null),
+      readPath: id == null
+          ? '/sales/options?customer_id=$customer'
+          : '/sales/opportunities/$id',
+      requireRights: () {
+        if (projectId != null ||
+            !hasFeature('sales_pipeline') ||
+            !hasModule('sales') ||
+            !can('contacts.read') ||
+            !canWrite('contacts.write') ||
+            match?.group(2) == 'project' && !canWrite('projects.manage') ||
+            match?.group(2) == 'offer' &&
+                (!can('finance.read') ||
+                    !canWrite('finance.write') ||
+                    !canWrite('projects.manage'))) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für diesen Vertriebsvorgang fehlen.',
+          );
+        }
+        if (match?.group(2) == 'offer' && !sectionEnabled('documents')) {
+          throw const ApiException(423, 'Belege sind fachlich deaktiviert.');
+        }
+      },
+      verifyState: (state) {
+        if (id != null ? state['id'] != id : state['customer_id'] != customer) {
+          throw const ApiException(
+            502,
+            'Der offene Vorgang gehört nicht eindeutig zu dieser Verkaufschance.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatInventoryCountCommand(String key) {
+    final operation = _pending[key];
+    final match = RegExp(
+      r'^/inventory/counts/([a-f0-9]{32})/(count|approve|cancel)$',
+    ).firstMatch(operation?.path ?? '');
+    final location = operation?.body['location_id'];
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) =>
+          key.startsWith('inventory-count-') &&
+          (path == '/inventory/counts' || match != null),
+      readPath: match == null
+          ? '/inventory/count-sources?location_id=$location'
+          : '/inventory/counts/${match.group(1)}',
+      requireRights: () {
+        if (projectId != null ||
+            !hasFeature('inventory_counts') ||
+            !hasModule('inventory_counts') ||
+            !can('inventory.read') ||
+            !canWrite('inventory.write') ||
+            match?.group(2) == 'approve' &&
+                (!can('finance.read') ||
+                    !canWrite('finance.write') ||
+                    !canWrite('finance.approve'))) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für diese Inventur fehlen.',
+          );
+        }
+        if (!sectionEnabled('material'))
+          throw const ApiException(423, 'Material ist fachlich deaktiviert.');
+      },
+      verifyState: (state) {
+        if (match != null
+            ? state['id'] != match.group(1)
+            : businessMap(state['location'])['id'] != location) {
+          throw const ApiException(
+            502,
+            'Der offene Vorgang gehört nicht eindeutig zu dieser Inventur.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatPayrollCashCommand(String employeeId) async {
+    final key = 'payroll-cash-$employeeId';
+    final epoch = _epoch;
+    _guard(epoch);
+    final cash = businessMap(await api.call(path('/payroll/cash')));
+    _guard(epoch);
+    if (cash['writes_allowed'] != true) {
+      throw const ApiException(
+        423,
+        'Die aktuelle Freigabe für Lohnzahlungen fehlt. Der ursprüngliche Auftrag bleibt offen.',
+      );
+    }
+    if (cash['instance_id'] != _pending[key]?.body['instance_id']) {
+      throw const ApiException(
+        409,
+        'Die Lohnzahlungsübernahme gehört zu einer anderen Unternehmensinstanz.',
+      );
+    }
+    return _repeatWorkflowCommand(
+      key,
+      matches: (route) => route == '/payroll/cash/batches',
+      readPath: '/payroll/cash/sources?employee_id=$employeeId',
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            projectId != null ||
+            !hasFeature('payroll_actual_cash') ||
+            !hasModule('payroll_cash') ||
+            !can('personnel.read') ||
+            !can('accounting.read') ||
+            !can('finance.read') ||
+            !canWrite('personnel.approve') ||
+            !canWrite('accounting.prepare') ||
+            !canWrite('finance.write')) {
+          throw const ApiException(
+            403,
+            'Aktuelle Personal- und Finanzrechte für die Zahlungsübernahme fehlen.',
+          );
+        }
+        if (!sectionEnabled('personnel') || !sectionEnabled('finance')) {
+          throw const ApiException(
+            423,
+            'Personal und Finanzen müssen fachlich aktiviert sein.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['employee_id'] != employeeId ||
+            state['instance_id'] != _pending[key]?.body['instance_id']) {
+          throw const ApiException(
+            502,
+            'Die Zahlungsquellen gehören nicht zum Mitarbeiter und zur Unternehmensinstanz.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatPayrollAccountCommand(String employeeId) {
+    final key = 'payroll-account-$employeeId';
+    final kind = _pending[key]?.body['kind'];
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/account-records',
+      readPath: '/payroll/account-records?employee_id=$employeeId',
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            projectId != null ||
+            !hasFeature('payroll_wage_account') ||
+            !hasModule('payroll_accounts') ||
+            !['identity', 'payment', 'carryover'].contains(kind) ||
+            !can('personnel.read') ||
+            !canWrite(
+              kind == 'identity' ? 'personnel.write' : 'personnel.approve',
+            ) ||
+            _pending[key]?.body['employee_id'] != employeeId) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für diesen Lohnkontovorgang fehlen.',
+          );
+        }
+        if (!sectionEnabled('personnel'))
+          throw const ApiException(423, 'Personal ist fachlich deaktiviert.');
+      },
+      verifyState: (state) {
+        final items = state['items'];
+        if (state['employee_id'] != employeeId ||
+            items is! List ||
+            items.any(
+              (item) => item is! Map || item['employee_id'] != employeeId,
+            )) {
+          throw const ApiException(
+            502,
+            'Die Kontounterlagen gehören nicht eindeutig zum Mitarbeiter.',
+          );
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatPayrollCommand(
+    String employeeId, {
+    bool profile = false,
+  }) {
+    final key = 'payroll-${profile ? 'profile' : 'run'}-$employeeId';
+    final path = profile ? '/payroll/profiles' : '/payroll/runs';
+    return _repeatWorkflowCommand(
+      key,
+      matches: (stored) => stored == path,
+      readPath: '$path?employee_id=$employeeId',
+      verifyState: (state) {
+        final items = state['items'];
+        if (state['employee_id'] != employeeId ||
+            items is! List ||
+            items.any(
+              (item) => item is! Map || item['employee_id'] != employeeId,
+            )) {
+          throw const ApiException(
+            502,
+            'Die Lohnübersicht gehört nicht eindeutig zum gewählten Mitarbeiter.',
+          );
+        }
+      },
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            projectId != null ||
+            !hasFeature('german_payroll_2026') ||
+            !hasModule('payroll') ||
+            !can('personnel.read') ||
+            !canWrite(profile ? 'personnel.write' : 'personnel.approve') ||
+            _pending[key]?.body['employee_id'] != employeeId) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für diesen Lohnvorgang fehlen.',
+          );
+        }
+        if (!sectionEnabled('personnel')) {
+          throw const ApiException(423, 'Personal ist fachlich deaktiviert.');
+        }
+      },
+    );
+  }
+
+  Future<dynamic> repeatPersonnelCommand(String key) => _repeatWorkflowCommand(
+    key,
+    matches: (path) => path.startsWith('/personnel/'),
+    requireRights: () {
+      if (projectId != null ||
+          !hasFeature('personnel_preparation') ||
+          !hasModule('personnel_workflow') ||
+          readonly ||
+          (!can('personnel.read') && !can('time.own'))) {
+        throw const ApiException(
+          403,
+          'Aktuelle Rechte für den Personalvorgang fehlen.',
+        );
+      }
+      if (!sectionEnabled('personnel')) {
+        throw const ApiException(423, 'Personal ist fachlich deaktiviert.');
+      }
+      // Object-specific own/approve/export rights are rechecked by the domain
+      // before it can return an existing receipt or create another revision.
+    },
+  );
+
+  Future<dynamic> repeatProjectEconomicsCommand(
+    String project,
+    String receipt,
+  ) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(project) ||
+        !RegExp(r'^[a-f0-9]{32}$').hasMatch(receipt)) {
+      throw const ApiException(400, 'Ungültige Projekt- oder Belegkennung.');
+    }
+    final key = 'project-economics-$project-$receipt';
+    final operation = _pending[key];
+    if (operation == null || operation.path != '/project-economics/confirm') {
+      throw const ApiException(
+        409,
+        'Die frühere Übertragung wurde inzwischen beantwortet. Bitte den Stand neu laden.',
+      );
+    }
+    await load();
+    _guard(epoch);
+    if (error != null || loading) {
+      throw const ApiException(
+        0,
+        'Die aktuellen Berechtigungen konnten noch nicht bestätigt werden.',
+      );
+    }
+    void requireRights() {
+      _guard(epoch);
+      if (projectId != project ||
+          !hasFeature('project_economics') ||
+          !hasModule('project_economics') ||
+          !can('finance.read') ||
+          !canWrite('finance.write') ||
+          !canWrite('finance.approve')) {
+        throw const ApiException(
+          403,
+          'Die Projekteingangsbelege sind nicht zur Einordnung freigegeben.',
+        );
+      }
+      if (!sectionEnabled('finance')) {
+        throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+      }
+    }
+
+    requireRights();
+    await read(query('/project-economics/receipts/$receipt'));
+    requireRights();
+    if (_pending[key]?.body['request_id'] != operation.body['request_id']) {
+      throw const ApiException(
+        409,
+        'Die frühere Übertragung wurde inzwischen beantwortet. Bitte den Stand neu laden.',
+      );
+    }
+    return _command(
+      key,
+      operation.path,
+      Map<String, dynamic>.from(jsonDecode(operation.values)),
+      documentaryRetry: true,
+    );
+  }
+
+  /// Resume the exact original upload/capture/review after uncertain delivery.
+  /// The token and source rights are refreshed; a new nonce is never invented.
+  Future<dynamic> repeatProjectReceiptCommand(
+    String project,
+    String id, {
+    bool review = false,
+    String? phase,
+  }) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    final kind = phase ?? (review ? 'review' : 'capture');
+    if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(project) ||
+        !RegExp(r'^[a-f0-9]{32}$').hasMatch(id) ||
+        !const {
+          'capture',
+          'review',
+          'media',
+          'media-complete',
+        }.contains(kind)) {
+      throw const ApiException(400, 'Ungültige Belegübertragung.');
+    }
+    final key = 'project-receipt-$kind-$project-$id';
+    final operation = _pending[key];
+    if (operation == null || !_projectReceiptCommand(key, operation.path)) {
+      throw const ApiException(
+        409,
+        'Die frühere Übertragung wurde inzwischen beantwortet. Bitte den Stand neu laden.',
+      );
+    }
+    await load();
+    _guard(epoch);
+    if (error != null || loading) {
+      throw const ApiException(
+        0,
+        'Die aktuellen Berechtigungen konnten noch nicht bestätigt werden.',
+      );
+    }
+    void requireRights() {
+      _guard(epoch);
+      if (projectId != project ||
+          !can('finance.read') ||
+          !canWrite('finance.write') ||
+          (kind == 'review' && !canWrite('finance.approve')) ||
+          !hasModule('finance') ||
+          (kind.startsWith('media') && !hasModule('operations'))) {
+        throw const ApiException(
+          403,
+          'Die Eingangsbelege sind nicht zur Bearbeitung freigegeben.',
+        );
+      }
+      if (!sectionEnabled('finance')) {
+        throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+      }
+    }
+
+    requireRights();
+    if (kind == 'review') {
+      await read('/finance/receipts/$id');
+      requireRights();
+    }
+    if (_pending[key]?.body['request_id'] != operation.body['request_id']) {
+      throw const ApiException(
+        409,
+        'Die frühere Übertragung wurde inzwischen beantwortet. Bitte den Stand neu laden.',
+      );
+    }
+    return _command(
+      key,
+      operation.path,
+      Map<String, dynamic>.from(jsonDecode(operation.values)),
+      documentaryRetry: true,
+    );
+  }
+
+  bool _projectReceiptCommand(String key, String path) {
+    final match = RegExp(
+      r'^project-receipt-(capture|review|media|media-complete)-([a-f0-9]{32})-([a-f0-9]{32})$',
+    ).firstMatch(key);
+    if (match == null) return false;
+    return switch (match.group(1)) {
+      'capture' => path == '/finance/receipts',
+      'review' => path == '/finance/receipts/${match.group(3)}',
+      'media' => path == '/receipt-media',
+      'media-complete' => RegExp(
+        r'^/receipt-media/[a-f0-9]{32}/complete$',
+      ).hasMatch(path),
+      _ => false,
+    };
   }
 
   Future<dynamic> previewPreparationProfile(Map<String, dynamic> values) async {
@@ -346,7 +1446,28 @@ class BusinessSession extends ChangeNotifier {
   final _pendingEditorValues = <String, Map<String, dynamic>>{};
   Map<String, dynamic>? pendingEditorValues(String key) {
     final values = _pendingEditorValues[key];
-    if (!allowed || !pending(key) || values == null) return null;
+    if (!allowed || !pending(key)) return null;
+    if (values == null && key.startsWith('custom-fields-')) {
+      final body = _pending[key]!.body;
+      final definition = body['definition'];
+      if (definition is Map) {
+        final fields = <String, dynamic>{
+          ...businessMap(definition),
+          'reason': body['reason'] ?? '',
+        };
+        for (final option in businessItems(definition['options'] ?? [])) {
+          fields['label_${option['id']}'] = option['label'];
+          fields['active_${option['id']}'] = '${option['active']}';
+        }
+        return fields;
+      }
+      return <String, dynamic>{
+        for (final entry in businessMap(body['values']).entries)
+          entry.key: entry.value == null ? '' : '${entry.value}',
+        'reason': body['reason'] ?? '',
+      };
+    }
+    if (values == null) return null;
     return Map<String, dynamic>.from(jsonDecode(jsonEncode(values)));
   }
 
@@ -375,6 +1496,10 @@ class BusinessSession extends ChangeNotifier {
   }
 
   void revoke() {
+    _ownedGlobalSession?.revoke();
+    for (final child in _projectSessions.values) {
+      child.revoke();
+    }
     _epoch++;
     denied = true;
     supported = false;
@@ -523,26 +1648,55 @@ class BusinessSession extends ChangeNotifier {
   Future<dynamic> command(
     String key,
     String path,
-    Map<String, dynamic> values,
-  ) => _command(key, path, values);
+    Map<String, dynamic> values, {
+    void Function(dynamic)? validateResult,
+  }) => _command(key, path, values, validateResult: validateResult);
 
   Future<dynamic> _command(
     String key,
     String path,
     Map<String, dynamic> values, {
     bool documentaryRetry = false,
+    void Function(dynamic)? validateResult,
   }) async {
     final epoch = _epoch;
     _guard(epoch);
     final portalRevocation =
-        hasFeature('offer_portal') &&
-        RegExp(r'^/portal/grants/[a-f0-9]{32}/revoke$').hasMatch(path);
+        (hasFeature('offer_portal') &&
+            RegExp(r'^/portal/grants/[a-f0-9]{32}/revoke$').hasMatch(path)) ||
+        (hasFeature('customer_workspace_portal') &&
+            RegExp(
+              r'^/customer-workspace/(?:grants|files)/[a-f0-9]{32}/revoke$',
+            ).hasMatch(path));
     final documentaryMatch = RegExp(
       r'^/accounting/(components|refunds)/(?:v2/)?events/([a-f0-9]{32})/confirm$',
     ).firstMatch(path);
     final documentaryCommand =
+        _projectReceiptCommand(key, path) ||
+        path.startsWith('/customer-workspace/') ||
+        path.startsWith('/personnel/') ||
+        path.startsWith('/payroll/') ||
+        path == '/inventory/counts' ||
+        path.startsWith('/inventory/counts/') ||
+        path.startsWith('/assistant/') ||
+        path.startsWith('/sales/') ||
+        path.startsWith('/company-handover/') ||
+        path.startsWith('/custom-fields/') ||
+        path.startsWith('/service/cases') ||
+        path.startsWith('/resource-custody/') ||
+        path.startsWith('/bank/') ||
+        (key.startsWith('purchase-change-') &&
+            RegExp(
+              r'^/purchasing/orders/[a-f0-9]{32}/(change-files|amendments|supplier-returns)$',
+            ).hasMatch(path)) ||
+        path == '/migrations' ||
+        path.startsWith('/migrations/') ||
+        (path == '/accounting/euer/confirm' && key == 'accounting-euer') ||
         (path == '/accounting/profile/confirm' &&
             key == 'accounting-profile') ||
+        (path == '/project-economics/confirm' &&
+            RegExp(r'^project-economics-[a-f0-9]{32}-[a-f0-9]{32}$')
+                .hasMatch(key)) ||
         (documentaryMatch != null &&
             key ==
                 'accounting-${documentaryMatch.group(1)}-${documentaryMatch.group(2)}');
@@ -583,6 +1737,7 @@ class BusinessSession extends ChangeNotifier {
           generation: generation,
           body: Map<String, dynamic>.from(jsonDecode(canonical))
             ..['request_id'] = offlineId(),
+          validateResult: validateResult,
         );
     _pending[key] = operation;
     final requestGeneration = generation;
@@ -592,6 +1747,12 @@ class BusinessSession extends ChangeNotifier {
         Map<String, dynamic>.from(operation.body),
       );
       _guard(epoch);
+      if (_pending[key]?.body['request_id'] != operation.body['request_id']) {
+        throw const ApiException(
+          0,
+          'Die frühere Übertragung wurde inzwischen beantwortet. Bitte den aktuellen Stand neu laden.',
+        );
+      }
       if (documentaryCommand && generation != requestGeneration) {
         throw const ApiException(
           0,
@@ -605,6 +1766,7 @@ class BusinessSession extends ChangeNotifier {
           409,
           'Der Funktionsstand wurde geändert. Bitte den gespeicherten Stand prüfen, bevor Sie fortfahren.',
         );
+      operation.validateResult?.call(result);
       _pending.remove(key);
       _pendingEditorValues.remove(key);
       if (hasFeature('organization_modules') &&
@@ -613,7 +1775,8 @@ class BusinessSession extends ChangeNotifier {
       }
       return result;
     } on ApiException catch (e) {
-      if (e.status != 0 &&
+      if (_pending[key]?.body['request_id'] == operation.body['request_id'] &&
+          e.status != 0 &&
           e.status < 500 &&
           e.status != 429 &&
           e.status != 423 &&
@@ -846,6 +2009,12 @@ class BusinessSession extends ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
+    for (final child in _projectSessions.values) {
+      child.dispose();
+    }
+    _projectSessions.clear();
+    _ownedGlobalSession?.dispose();
+    _ownedGlobalSession = null;
     _metaTimer?.cancel();
     _epoch++;
     api.removeListener(_accessChanged);

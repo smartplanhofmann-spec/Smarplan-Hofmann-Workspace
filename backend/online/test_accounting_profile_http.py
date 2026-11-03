@@ -111,7 +111,7 @@ class AccountingProfileHTTPTests(unittest.TestCase):
         office = self.company['office']
         original_status = self.call(self.company, '/business/accounting/status').json
         horizon = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(horizon['schema_version'], 7)
+        self.assertEqual(horizon['schema_version'], 10)
         self.assertEqual(horizon['profile']['table_counts'], {table: 0 for table in TABLES})
         before, rows = self.database(), self.old_financial_rows(office)
         state = self.state()
@@ -177,14 +177,14 @@ class AccountingProfileHTTPTests(unittest.TestCase):
                 self.call(self.company, PREFIX+suffix, payload, token=credential, status=(401, 403))
         self.assertEqual(self.state()['revision'], 0)
 
-    def test_schema8_requires_exact_profile_inventory_even_empty_and_old_h6_cannot_unlock(self):
+    def test_schema10_requires_exact_profile_inventory_even_empty_and_old_h6_cannot_unlock(self):
         office = self.company['office']; self.require_reconciliation(office)
         report = self.report(office)
-        self.assertEqual(report['schema'], 8)
+        self.assertEqual(report['schema'], 11)
         self.assertEqual(set(report['accounting_horizon']), {'schema_version','prejournal','allocations',
-                         'components','refunds','capacity','refunds_v2','profile'})
+                         'components','refunds','capacity','refunds_v2','profile','euer','payroll_cash','bank_reconciliation'})
         invalid = [{**report, 'schema': 7, 'accounting_horizon': self.old_h6(report['accounting_horizon'])},
-                   {**report, 'schema': 9}, {**report, 'schema': True}]
+                   {**report, 'schema': 10}, {**report, 'schema': True}]
         for changes in ({'schema_version': True}, {'schema_version': 2}, {'sha256': '0'*64},
                         {'table_counts': {}}, {'table_counts': {name: True for name in TABLES}},
                         {'table_counts': {name: -1 for name in TABLES}},
@@ -202,7 +202,7 @@ class AccountingProfileHTTPTests(unittest.TestCase):
         self.assertEqual(self.database(),before)
 
     def test_genuine_h6_rows_and_schema7_receipt_survive_migration_but_cannot_release_a_new_restore(self):
-        previous=tuple(spec for spec in business_schema.registry() if spec.name!='business_accounting_profile')
+        previous=tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_profile','business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation'))
         with patch.object(business_schema,'registry',return_value=previous):
             company=self.new_company('historical-profile'); account=self.account_record(company)
             with patch.object(self,'company',company),patch.object(self,'account',account):
@@ -219,7 +219,7 @@ class AccountingProfileHTTPTests(unittest.TestCase):
             approved=business_schema.reconcile_local_financial_restore(office,report,digest,application_stopped=True)
         business_schema.ensure_schema(office); business_schema.ensure_schema(office)
         current=business_schema.financial_accounting_horizon(office)
-        self.assertEqual(current['schema_version'],7)
+        self.assertEqual(current['schema_version'],10)
         self.assertEqual(self.old_h6(current),horizon)
         self.assertEqual(current['profile']['table_counts'],{table:0 for table in TABLES})
         self.assertEqual(self.old_financial_rows(office),rows)
@@ -240,7 +240,7 @@ class AccountingProfileHTTPTests(unittest.TestCase):
             self.assertEqual('\n'.join(restored.db.iterdump()),before)
         self.assertTrue(business_schema.state(restored)['financial_reconciliation_required'])
 
-    def test_real_restore_requires_schema8_cli_evidence_then_replays_old_and_pending_profile_commands(self):
+    def test_real_restore_requires_schema10_cli_evidence_then_replays_old_and_pending_profile_commands(self):
         first,command=self.confirmed()
         second,second_command=self.confirmed(self.draft(profile=empty_profile(vat_regime='small_business',vat_effective_from='2026-01-01')))
         pending=self.command(self.draft(reason='Synthetic explicit third declaration'))
@@ -265,7 +265,7 @@ class AccountingProfileHTTPTests(unittest.TestCase):
         inspected=subprocess.run(args+['--inspect'],capture_output=True,text=True,timeout=20)
         self.assertEqual(inspected.returncode,0,inspected.stderr)
         result=json.loads(inspected.stdout)
-        self.assertEqual(result['evidence_schema'],8); self.assertEqual(result['accounting_horizon'],horizon)
+        self.assertEqual(result['evidence_schema'],11); self.assertEqual(result['accounting_horizon'],horizon)
         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(),before)
         stale={**report,'schema':7,'accounting_horizon':self.old_h6(horizon)}
         old=self.directory/'profile-old-review.json'; old.write_text(json.dumps(stale)); old.chmod(0o600)

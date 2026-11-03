@@ -1,0 +1,1595 @@
+{
+  "employee": {
+    "id": "ebe6f92fe66d4f6d9cc095069127764a",
+    "user_id": "3798f996f2264e2c813f2a01d4f41453",
+    "name": "Synthetic technician",
+    "active": true,
+    "revision": 1,
+    "updated_at": "2026-10-26T12:00:00+00:00",
+    "weekly_minutes": 2400,
+    "hourly_cost_minor": 3500,
+    "employment_from": null,
+    "employment_to": null
+  },
+  "account": {
+    "id": "aa64cc5dc018440a9e693170fc327ed9",
+    "code": "1200",
+    "name": "Synthetic company bank",
+    "kind": "bank",
+    "currency": "EUR",
+    "active": true,
+    "revision": 1,
+    "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+    "created_at": "2026-11-03T12:00:00+00:00"
+  },
+  "state": {
+    "instance_id": "6874eb4970354c6195065dd66faf1107",
+    "writes_allowed": true,
+    "batches": [],
+    "categories": [
+      "payroll_net",
+      "payroll_employee_tax",
+      "payroll_employee_social",
+      "payroll_employer_social",
+      "payroll_employer_levies",
+      "payroll_employer_flat_tax"
+    ],
+    "limits": {
+      "max_sources": 100,
+      "year": 2026
+    }
+  },
+  "sources": {
+    "instance_id": "6874eb4970354c6195065dd66faf1107",
+    "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+    "net_sources": [
+      {
+        "id": "84a1e68a5c954397ac9bb38276c40448",
+        "revision": 1,
+        "content_hash": "f94a103267d6eccd22dc4052510258a5f74ae12630ae93d6760315c8b189d860",
+        "kind": "payment",
+        "month": "2026-10",
+        "source_file": {
+          "content_hash": "79f7bd72bf5053ed23ded6d1055422b15bc884d5fd212ffa22574922ad00df98",
+          "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+          "id": "055558e4ca554a4baf3c4de4236c1737",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+        },
+        "eligible": true,
+        "issues": [],
+        "payments": [
+          {
+            "amount_minor": 313009,
+            "paid_on": "2026-10-31",
+            "payment_reference": "SYN-WAGE-001",
+            "index": 0,
+            "already_imported": false,
+            "import_batch_id": null
+          }
+        ]
+      }
+    ],
+    "remittance_sources": [
+      {
+        "source_kind": "run",
+        "id": "c3fc196972384355bc65a558ca64a260",
+        "revision": 1,
+        "content_hash": "2a42dcad5aeccfb61650ba7f42aa0bb21e9ed16ae4f6e55c1b94f72c41cd858b",
+        "month": "2026-10",
+        "calculated": {
+          "employee_tax": 78241,
+          "employee_social": 108750,
+          "employer_social": 105750,
+          "employer_levies": 13450,
+          "employer_flat_tax": 0
+        },
+        "remaining": {
+          "employee_tax": 78241,
+          "employee_social": 108750,
+          "employer_social": 105750,
+          "employer_levies": 13450,
+          "employer_flat_tax": 0
+        },
+        "eligible": true,
+        "issues": []
+      }
+    ],
+    "evidence_files": [
+      {
+        "id": "055558e4ca554a4baf3c4de4236c1737",
+        "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+        "purpose": "personnel",
+        "owner_visible": 0,
+        "filename": "verified-payroll-profile.pdf",
+        "media_type": "application/pdf",
+        "size": 50,
+        "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+        "content_hash": "79f7bd72bf5053ed23ded6d1055422b15bc884d5fd212ffa22574922ad00df98",
+        "supersedes": null,
+        "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "source_path": "/personnel/files/055558e4ca554a4baf3c4de4236c1737/original"
+      }
+    ],
+    "categories": [
+      "payroll_net",
+      "payroll_employee_tax",
+      "payroll_employee_social",
+      "payroll_employer_social",
+      "payroll_employer_levies",
+      "payroll_employer_flat_tax"
+    ]
+  },
+  "body": {
+    "batch_id": "082597bee43d452cb6595bfdf12decc2",
+    "expected_revision": 0,
+    "instance_id": "6874eb4970354c6195065dd66faf1107",
+    "action": "adopt",
+    "kind": "net",
+    "account_id": "aa64cc5dc018440a9e693170fc327ed9",
+    "account_revision": 1,
+    "sources": [
+      {
+        "account_record_id": "84a1e68a5c954397ac9bb38276c40448",
+        "revision": 1,
+        "content_hash": "f94a103267d6eccd22dc4052510258a5f74ae12630ae93d6760315c8b189d860",
+        "payment_indexes": [
+          0
+        ]
+      }
+    ],
+    "settlement": null,
+    "correction_file_id": null,
+    "reason": "Explicit synthetic actual payment evidence"
+  },
+  "preview": {
+    "batch_id": "082597bee43d452cb6595bfdf12decc2",
+    "revision": 1,
+    "kind": "net",
+    "instance_id": "6874eb4970354c6195065dd66faf1107",
+    "public_source": {
+      "kind": "payroll_cash",
+      "id": "082597bee43d452cb6595bfdf12decc2",
+      "revision": 1,
+      "instance_id": "6874eb4970354c6195065dd66faf1107",
+      "status": "active",
+      "date": "2026-10-31",
+      "cash_movements": [
+        {
+          "id": "3415acde32cf25e8dc35f13edbb24801",
+          "date": "2026-10-31",
+          "account": {
+            "active": true,
+            "code": "1200",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+            "currency": "EUR",
+            "id": "aa64cc5dc018440a9e693170fc327ed9",
+            "kind": "bank",
+            "name": "Synthetic company bank",
+            "revision": 1
+          },
+          "direction": "out",
+          "amount": "3130.09",
+          "categories": {
+            "payroll_net": "3130.09"
+          }
+        }
+      ],
+      "proof_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+      "source_path": "/payroll/cash/financial/082597bee43d452cb6595bfdf12decc2?revision=1",
+      "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929"
+    },
+    "private_source_count": 1,
+    "private_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+    "warnings": [
+      "Keine Bankübertragung; EÜR-Einordnung gesondert bestätigen."
+    ],
+    "preview_hash": "5604d9d6969aadd89781f324e917ea2b98e6b2a6cd17754c8dd4911708e99866"
+  },
+  "batch": {
+    "id": "082597bee43d452cb6595bfdf12decc2",
+    "revision": 1,
+    "kind": "net",
+    "status": "active",
+    "instance_id": "6874eb4970354c6195065dd66faf1107",
+    "public_source": {
+      "cash_movements": [
+        {
+          "account": {
+            "active": true,
+            "code": "1200",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+            "currency": "EUR",
+            "id": "aa64cc5dc018440a9e693170fc327ed9",
+            "kind": "bank",
+            "name": "Synthetic company bank",
+            "revision": 1
+          },
+          "amount": "3130.09",
+          "categories": {
+            "payroll_net": "3130.09"
+          },
+          "date": "2026-10-31",
+          "direction": "out",
+          "id": "3415acde32cf25e8dc35f13edbb24801"
+        }
+      ],
+      "date": "2026-10-31",
+      "id": "082597bee43d452cb6595bfdf12decc2",
+      "instance_id": "6874eb4970354c6195065dd66faf1107",
+      "kind": "payroll_cash",
+      "proof_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+      "revision": 1,
+      "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+      "source_path": "/payroll/cash/financial/082597bee43d452cb6595bfdf12decc2?revision=1",
+      "status": "active"
+    },
+    "private_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+    "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+    "created_at": "2026-11-03T12:00:00+00:00"
+  },
+  "detail": {
+    "id": "082597bee43d452cb6595bfdf12decc2",
+    "revision": 1,
+    "kind": "net",
+    "status": "active",
+    "instance_id": "6874eb4970354c6195065dd66faf1107",
+    "public_source": {
+      "cash_movements": [
+        {
+          "account": {
+            "active": true,
+            "code": "1200",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+            "currency": "EUR",
+            "id": "aa64cc5dc018440a9e693170fc327ed9",
+            "kind": "bank",
+            "name": "Synthetic company bank",
+            "revision": 1
+          },
+          "amount": "3130.09",
+          "categories": {
+            "payroll_net": "3130.09"
+          },
+          "date": "2026-10-31",
+          "direction": "out",
+          "id": "3415acde32cf25e8dc35f13edbb24801"
+        }
+      ],
+      "date": "2026-10-31",
+      "id": "082597bee43d452cb6595bfdf12decc2",
+      "instance_id": "6874eb4970354c6195065dd66faf1107",
+      "kind": "payroll_cash",
+      "proof_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+      "revision": 1,
+      "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+      "source_path": "/payroll/cash/financial/082597bee43d452cb6595bfdf12decc2?revision=1",
+      "status": "active"
+    },
+    "private_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+    "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+    "created_at": "2026-11-03T12:00:00+00:00",
+    "command": {
+      "account_id": "aa64cc5dc018440a9e693170fc327ed9",
+      "account_revision": 1,
+      "action": "adopt",
+      "batch_id": "082597bee43d452cb6595bfdf12decc2",
+      "correction_file_id": null,
+      "expected_revision": 0,
+      "instance_id": "6874eb4970354c6195065dd66faf1107",
+      "kind": "net",
+      "reason": "Explicit synthetic actual payment evidence",
+      "settlement": null,
+      "sources": [
+        {
+          "account_record_id": "84a1e68a5c954397ac9bb38276c40448",
+          "content_hash": "f94a103267d6eccd22dc4052510258a5f74ae12630ae93d6760315c8b189d860",
+          "payment_indexes": [
+            0
+          ],
+          "revision": 1
+        }
+      ]
+    },
+    "source_records": [
+      {
+        "calculation": {
+          "accident_insurance_included": false,
+          "blockers": [],
+          "care_childless_surcharge": true,
+          "care_discount_children": 0,
+          "care_employee_percent": "2.400",
+          "care_employer_percent": "1.800",
+          "church_tax_minor": 0,
+          "currency": "EUR",
+          "employee_additional_payment_minor": 0,
+          "employee_contributions": {
+            "care": 12000,
+            "health_additional": 7250,
+            "health_general": 36500,
+            "pension": 46500,
+            "unemployment": 6500
+          },
+          "employee_social_total_minor": 108750,
+          "employee_tax_minor": 78241,
+          "employer_contributions": {
+            "care": 9000,
+            "health_additional": 7250,
+            "health_general": 36500,
+            "pension": 46500,
+            "unemployment": 6500
+          },
+          "employer_flat_tax_minor": 0,
+          "employer_levies": {
+            "insolvency": 750,
+            "u1": 10500,
+            "u2": 2200
+          },
+          "employer_social_total_minor": 105750,
+          "employer_total_excluding_accident_insurance_minor": 619200,
+          "gross_minor": 500000,
+          "individual_wage_tax_minor": 78241,
+          "month": "2026-10",
+          "net_minor": 313009,
+          "official_system_approval": false,
+          "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+          "pap_version": "bmf_2026_2025_11_12_standard_v1",
+          "payout_minor": 313009,
+          "payroll_calculation_complete": true,
+          "rule_version": "de_2026_standard_monthly_pap_v2",
+          "rules_sha256": "ed93ba702e43d0afdeade7f222c4aa7720008e49b47032166e489e4c5064e608",
+          "scope": "regular_standard_monthly",
+          "social_contributions_available": true,
+          "solidarity_minor": 0,
+          "statutory_report_status": "not_transmitted",
+          "tax_method": "individual_bmf_pap_2026_standard",
+          "tax_parameters": {
+            "children_half_units": 0,
+            "church_assessment_minor": 0,
+            "church_tax_percent": "0",
+            "tax_addition_monthly_minor": 0,
+            "tax_allowance_monthly_minor": 0,
+            "tax_class": 1
+          },
+          "travel_expenses_included_in_net": false
+        },
+        "month": "2026-10",
+        "record": {
+          "confirmed": true,
+          "content_hash": "f94a103267d6eccd22dc4052510258a5f74ae12630ae93d6760315c8b189d860",
+          "correction_reason": "",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+          "details": {
+            "identity_id": "89ffd10824504cf9b56e2ce24e4ac832",
+            "identity_revision": 1,
+            "payments": [
+              {
+                "amount_minor": 313009,
+                "paid_on": "2026-10-31",
+                "payment_reference": "SYN-WAGE-001"
+              }
+            ],
+            "run_id": "c3fc196972384355bc65a558ca64a260",
+            "run_revision": 1,
+            "standard_case_confirmed": true,
+            "tax_free_basis": "",
+            "tax_free_payments_minor": 0
+          },
+          "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+          "id": "84a1e68a5c954397ac9bb38276c40448",
+          "kind": "payment",
+          "previous_hash": null,
+          "revision": 1,
+          "source_file": {
+            "content_hash": "79f7bd72bf5053ed23ded6d1055422b15bc884d5fd212ffa22574922ad00df98",
+            "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+            "id": "055558e4ca554a4baf3c4de4236c1737",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+          },
+          "sources": {
+            "identity": {
+              "confirmed": true,
+              "content_hash": "36e4d8787676ad9b76c78e919e51336015bdef3a3197498ded7b485a1d850ac7",
+              "correction_reason": "",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+              "details": {
+                "address_line": "Testweg 1",
+                "city": "Teststadt",
+                "country_code": "DE",
+                "date_of_birth": "1990-02-01",
+                "employer_address": "Teststraße 2, 12345 Teststadt",
+                "employer_name": "Synthetic Employer",
+                "employer_tax_number": "123/456/78901",
+                "employment_from": "2026-10-01",
+                "employment_to": "2026-10-31",
+                "family_name": "Employee",
+                "given_name": "Synthetic",
+                "postal_code": "12345",
+                "profile_id": "dbc06483db60481887e09757e0454ae3",
+                "profile_revision": 1,
+                "religion_code": "none",
+                "standard_case_confirmed": true,
+                "tax_addition_yearly_minor": 0,
+                "tax_allowance_yearly_minor": 0,
+                "tax_id": "12345678903",
+                "tax_source": "elstam_imported",
+                "tax_source_date": "2026-01-01",
+                "valid_from": "2026-01-01",
+                "valid_to": "2026-12-31"
+              },
+              "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+              "id": "89ffd10824504cf9b56e2ce24e4ac832",
+              "kind": "identity",
+              "previous_hash": null,
+              "revision": 1,
+              "source_file": {
+                "content_hash": "79f7bd72bf5053ed23ded6d1055422b15bc884d5fd212ffa22574922ad00df98",
+                "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+                "id": "055558e4ca554a4baf3c4de4236c1737",
+                "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+              },
+              "sources": {
+                "profile": {
+                  "confirmed": true,
+                  "content_hash": "b69a219ec9deca2b1d7b71e220500cf4598dc1ebe1afbe3fa53847fabab8138f",
+                  "correction_reason": "",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+                  "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+                  "id": "dbc06483db60481887e09757e0454ae3",
+                  "kind": "profile",
+                  "pdf_sha256": null,
+                  "previous_hash": null,
+                  "profile": {
+                    "church_tax": "none",
+                    "date_of_birth": "1990-02-01",
+                    "effective_from": "2026-01-01",
+                    "employment_kind": "regular",
+                    "federal_state": "HE",
+                    "has_children": false,
+                    "health_additional_percent": "2.900",
+                    "health_fund": "Synthetic documented fund",
+                    "health_insurance": "statutory_mandatory",
+                    "minijob_rv_exempt": false,
+                    "minijob_tax": "individual",
+                    "pension_other_compulsory": false,
+                    "pv_children_under_25": 0,
+                    "regular_annual_gross_minor": 6000000,
+                    "special_cases": [],
+                    "tax_addition_monthly_minor": 0,
+                    "tax_allowance_monthly_minor": 0,
+                    "tax_children_half_units": 0,
+                    "tax_class": 1,
+                    "u1_percent": "2.100",
+                    "u1_required": true,
+                    "u2_percent": "0.440",
+                    "verification_note": "Synthetic verified source values for reference tests"
+                  },
+                  "revision": 1,
+                  "source_file": {
+                    "content_hash": "79f7bd72bf5053ed23ded6d1055422b15bc884d5fd212ffa22574922ad00df98",
+                    "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+                    "id": "055558e4ca554a4baf3c4de4236c1737",
+                    "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                  }
+                }
+              }
+            },
+            "run": {
+              "accepted_scope": "regular_standard_monthly",
+              "calculation": {
+                "accident_insurance_included": false,
+                "blockers": [],
+                "care_childless_surcharge": true,
+                "care_discount_children": 0,
+                "care_employee_percent": "2.400",
+                "care_employer_percent": "1.800",
+                "church_tax_minor": 0,
+                "currency": "EUR",
+                "employee_additional_payment_minor": 0,
+                "employee_contributions": {
+                  "care": 12000,
+                  "health_additional": 7250,
+                  "health_general": 36500,
+                  "pension": 46500,
+                  "unemployment": 6500
+                },
+                "employee_social_total_minor": 108750,
+                "employee_tax_minor": 78241,
+                "employer_contributions": {
+                  "care": 9000,
+                  "health_additional": 7250,
+                  "health_general": 36500,
+                  "pension": 46500,
+                  "unemployment": 6500
+                },
+                "employer_flat_tax_minor": 0,
+                "employer_levies": {
+                  "insolvency": 750,
+                  "u1": 10500,
+                  "u2": 2200
+                },
+                "employer_social_total_minor": 105750,
+                "employer_total_excluding_accident_insurance_minor": 619200,
+                "gross_minor": 500000,
+                "individual_wage_tax_minor": 78241,
+                "month": "2026-10",
+                "net_minor": 313009,
+                "official_system_approval": false,
+                "pap_provenance_sha256": "e2ab3fa8699c1ffbacf8a0e3de9a83ef7719063d131799c8d57a84021f35604a",
+                "pap_version": "bmf_2026_2025_11_12_standard_v1",
+                "payout_minor": 313009,
+                "payroll_calculation_complete": true,
+                "rule_version": "de_2026_standard_monthly_pap_v2",
+                "rules_sha256": "ed93ba702e43d0afdeade7f222c4aa7720008e49b47032166e489e4c5064e608",
+                "scope": "regular_standard_monthly",
+                "social_contributions_available": true,
+                "solidarity_minor": 0,
+                "statutory_report_status": "not_transmitted",
+                "tax_method": "individual_bmf_pap_2026_standard",
+                "tax_parameters": {
+                  "children_half_units": 0,
+                  "church_assessment_minor": 0,
+                  "church_tax_percent": "0",
+                  "tax_addition_monthly_minor": 0,
+                  "tax_allowance_monthly_minor": 0,
+                  "tax_class": 1
+                },
+                "travel_expenses_included_in_net": false
+              },
+              "confirmed": true,
+              "content_hash": "2a42dcad5aeccfb61650ba7f42aa0bb21e9ed16ae4f6e55c1b94f72c41cd858b",
+              "correction_reason": "",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+              "delta": null,
+              "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+              "id": "c3fc196972384355bc65a558ca64a260",
+              "kind": "run",
+              "pdf_sha256": "80e5effb460d4e0e7e43d92429b4aeb55f29a42c139b54bf8dac8a4dc2b46a6d",
+              "preview_hash": "7e352f529ef46e081a4fac1fa39c79316ca2abddb4f5b26838f4ad41b130ca51",
+              "previous_hash": null,
+              "revision": 1,
+              "source": {
+                "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+                "input": {
+                  "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+                  "full_month_confirmed": true,
+                  "gross_minor": 500000,
+                  "preparation_id": "4d57eed4b7bc454781631f87e712c0c5",
+                  "preparation_revision": 1,
+                  "profile_id": "dbc06483db60481887e09757e0454ae3",
+                  "profile_revision": 1
+                },
+                "month": "2026-10",
+                "preparation": {
+                  "completeness_confirmed": true,
+                  "content_hash": "09da22362aa238634263bcca502282195ece713ecbb5b122cd3ecda7a1a69db4",
+                  "correction_reason": "",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+                  "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+                  "id": "4d57eed4b7bc454781631f87e712c0c5",
+                  "kind": "preparation",
+                  "month": "2026-10",
+                  "payroll_calculated": false,
+                  "pdf_sha256": "83a259d28909858277221bb5124a041b335bc0f39d7251cdea198b7beb52c3fe",
+                  "previous_hash": null,
+                  "revision": 1,
+                  "snapshot": {
+                    "agreements": [
+                      {
+                        "amount_minor": 500000,
+                        "content_hash": "ca7cad39c0c758bee35d03ec1a4c11f00c0b6cb8e645ef1a57c786d874bf69e3",
+                        "correction_reason": "",
+                        "created_at": "2026-11-03T12:00:00+00:00",
+                        "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+                        "currency": "EUR",
+                        "effective_from": "2026-01-01",
+                        "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+                        "employment_kind": "regular",
+                        "id": "ad89690294b747598d31c85f82ed0fee",
+                        "kind": "agreement",
+                        "notes": "",
+                        "pay_basis": "monthly",
+                        "pdf_sha256": null,
+                        "previous_hash": null,
+                        "reference_file_id": "055558e4ca554a4baf3c4de4236c1737",
+                        "reference_sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+                        "revision": 1
+                      }
+                    ],
+                    "allowance_calculation": false,
+                    "approved_absences": [],
+                    "approved_days": [],
+                    "corrections": [],
+                    "currency": "EUR",
+                    "employee": {
+                      "employment_from": null,
+                      "employment_to": null,
+                      "id": "ebe6f92fe66d4f6d9cc095069127764a",
+                      "name": "Synthetic technician",
+                      "revision": 1,
+                      "user_id": "3798f996f2264e2c813f2a01d4f41453"
+                    },
+                    "expenses": [],
+                    "month": "2026-10",
+                    "net_work_seconds": 0,
+                    "payroll_calculated": false,
+                    "recorded_expenses_minor": 0,
+                    "schema_version": 1,
+                    "scope": "recorded_and_approved_sources",
+                    "tax_treatment": "not_determined"
+                  },
+                  "source_hash": "36e67d66758187bd7d7cecdb2ddf660a9c8dd7856cb10fc89295c56c350955f6",
+                  "status": "preparation_closed",
+                  "transmission_status": "not_transmitted"
+                },
+                "profile": {
+                  "confirmed": true,
+                  "content_hash": "b69a219ec9deca2b1d7b71e220500cf4598dc1ebe1afbe3fa53847fabab8138f",
+                  "correction_reason": "",
+                  "created_at": "2026-11-03T12:00:00+00:00",
+                  "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+                  "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+                  "id": "dbc06483db60481887e09757e0454ae3",
+                  "kind": "profile",
+                  "pdf_sha256": null,
+                  "previous_hash": null,
+                  "profile": {
+                    "church_tax": "none",
+                    "date_of_birth": "1990-02-01",
+                    "effective_from": "2026-01-01",
+                    "employment_kind": "regular",
+                    "federal_state": "HE",
+                    "has_children": false,
+                    "health_additional_percent": "2.900",
+                    "health_fund": "Synthetic documented fund",
+                    "health_insurance": "statutory_mandatory",
+                    "minijob_rv_exempt": false,
+                    "minijob_tax": "individual",
+                    "pension_other_compulsory": false,
+                    "pv_children_under_25": 0,
+                    "regular_annual_gross_minor": 6000000,
+                    "special_cases": [],
+                    "tax_addition_monthly_minor": 0,
+                    "tax_allowance_monthly_minor": 0,
+                    "tax_children_half_units": 0,
+                    "tax_class": 1,
+                    "u1_percent": "2.100",
+                    "u1_required": true,
+                    "u2_percent": "0.440",
+                    "verification_note": "Synthetic verified source values for reference tests"
+                  },
+                  "revision": 1,
+                  "source_file": {
+                    "content_hash": "79f7bd72bf5053ed23ded6d1055422b15bc884d5fd212ffa22574922ad00df98",
+                    "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+                    "id": "055558e4ca554a4baf3c4de4236c1737",
+                    "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+                  }
+                },
+                "profiles_in_month": []
+              },
+              "status": "calculation_recorded",
+              "transmission_status": "not_transmitted"
+            }
+          }
+        },
+        "scope_key": "ebe6f92fe66d4f6d9cc095069127764a:2026-10",
+        "source_file": {
+          "content_hash": "79f7bd72bf5053ed23ded6d1055422b15bc884d5fd212ffa22574922ad00df98",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+          "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+          "filename": "verified-payroll-profile.pdf",
+          "id": "055558e4ca554a4baf3c4de4236c1737",
+          "media_type": "application/pdf",
+          "owner_visible": 0,
+          "purpose": "personnel",
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+          "size": 50,
+          "supersedes": null
+        }
+      }
+    ],
+    "correction_file": null
+  },
+  "remittance_body": {
+    "batch_id": "04f93d2727f64f549f4cb06ff45a5f28",
+    "expected_revision": 0,
+    "instance_id": "6874eb4970354c6195065dd66faf1107",
+    "action": "adopt",
+    "kind": "remittance",
+    "account_id": "aa64cc5dc018440a9e693170fc327ed9",
+    "account_revision": 1,
+    "sources": [
+      {
+        "source_kind": "run",
+        "id": "c3fc196972384355bc65a558ca64a260",
+        "revision": 1,
+        "content_hash": "2a42dcad5aeccfb61650ba7f42aa0bb21e9ed16ae4f6e55c1b94f72c41cd858b",
+        "amounts": {
+          "employee_tax": 78241,
+          "employee_social": 108750,
+          "employer_social": 105750,
+          "employer_levies": 13450,
+          "employer_flat_tax": 0
+        }
+      }
+    ],
+    "settlement": {
+      "paid_on": "2026-11-02",
+      "payment_reference": "SYN-PAID-TAX-SV-001",
+      "amount_minor": 306191,
+      "source_file_id": "055558e4ca554a4baf3c4de4236c1737",
+      "employee_id": "ebe6f92fe66d4f6d9cc095069127764a",
+      "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+    },
+    "correction_file_id": null,
+    "reason": "Explicit synthetic actual payment evidence"
+  },
+  "remittance_preview": {
+    "batch_id": "04f93d2727f64f549f4cb06ff45a5f28",
+    "revision": 1,
+    "kind": "remittance",
+    "instance_id": "6874eb4970354c6195065dd66faf1107",
+    "public_source": {
+      "kind": "payroll_cash",
+      "id": "04f93d2727f64f549f4cb06ff45a5f28",
+      "revision": 1,
+      "instance_id": "6874eb4970354c6195065dd66faf1107",
+      "status": "active",
+      "date": "2026-11-02",
+      "cash_movements": [
+        {
+          "id": "5c2c434f2f90bbb22f7a9719da43f8e6",
+          "date": "2026-11-02",
+          "account": {
+            "active": true,
+            "code": "1200",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+            "currency": "EUR",
+            "id": "aa64cc5dc018440a9e693170fc327ed9",
+            "kind": "bank",
+            "name": "Synthetic company bank",
+            "revision": 1
+          },
+          "direction": "out",
+          "amount": "3061.91",
+          "categories": {
+            "payroll_employee_social": "1087.50",
+            "payroll_employee_tax": "782.41",
+            "payroll_employer_levies": "134.50",
+            "payroll_employer_social": "1057.50"
+          }
+        }
+      ],
+      "proof_hash": "de6dd714d4909d8793b738dbc2a0fca59a108f0f90e719ecc979b94a72862a36",
+      "source_path": "/payroll/cash/financial/04f93d2727f64f549f4cb06ff45a5f28?revision=1",
+      "source_hash": "7915e11cf184889b29c2a5fc72bce0aca535e6b6a2705352baebd4b99c1b069a"
+    },
+    "private_source_count": 1,
+    "private_hash": "de6dd714d4909d8793b738dbc2a0fca59a108f0f90e719ecc979b94a72862a36",
+    "warnings": [
+      "Keine Bankübertragung; EÜR-Einordnung gesondert bestätigen."
+    ],
+    "preview_hash": "35dc469e8cee39cad0782bd633cdf60eb8124a1883134a5d4024c7971ed927fc"
+  },
+  "remittance_batch": {
+    "id": "04f93d2727f64f549f4cb06ff45a5f28",
+    "revision": 1,
+    "kind": "remittance",
+    "status": "active",
+    "instance_id": "6874eb4970354c6195065dd66faf1107",
+    "public_source": {
+      "cash_movements": [
+        {
+          "account": {
+            "active": true,
+            "code": "1200",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+            "currency": "EUR",
+            "id": "aa64cc5dc018440a9e693170fc327ed9",
+            "kind": "bank",
+            "name": "Synthetic company bank",
+            "revision": 1
+          },
+          "amount": "3061.91",
+          "categories": {
+            "payroll_employee_social": "1087.50",
+            "payroll_employee_tax": "782.41",
+            "payroll_employer_levies": "134.50",
+            "payroll_employer_social": "1057.50"
+          },
+          "date": "2026-11-02",
+          "direction": "out",
+          "id": "5c2c434f2f90bbb22f7a9719da43f8e6"
+        }
+      ],
+      "date": "2026-11-02",
+      "id": "04f93d2727f64f549f4cb06ff45a5f28",
+      "instance_id": "6874eb4970354c6195065dd66faf1107",
+      "kind": "payroll_cash",
+      "proof_hash": "de6dd714d4909d8793b738dbc2a0fca59a108f0f90e719ecc979b94a72862a36",
+      "revision": 1,
+      "source_hash": "7915e11cf184889b29c2a5fc72bce0aca535e6b6a2705352baebd4b99c1b069a",
+      "source_path": "/payroll/cash/financial/04f93d2727f64f549f4cb06ff45a5f28?revision=1",
+      "status": "active"
+    },
+    "private_hash": "de6dd714d4909d8793b738dbc2a0fca59a108f0f90e719ecc979b94a72862a36",
+    "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+    "created_at": "2026-11-03T12:00:00+00:00"
+  },
+  "euer_body": {
+    "operation": "payroll_cash",
+    "payload": {
+      "batch_id": "082597bee43d452cb6595bfdf12decc2",
+      "revision": 1,
+      "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+      "accounts": {
+        "payroll_net": "6020"
+      }
+    },
+    "expected_revision": 0,
+    "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+    "reason": "Explicit reviewed payroll expense",
+    "evidence_reference": "Protected batch checked"
+  },
+  "euer_preview": {
+    "operation": "payroll_cash",
+    "expected_revision": 0,
+    "reason": "Explicit reviewed payroll expense",
+    "evidence_reference": "Protected batch checked",
+    "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+    "payload": {
+      "batch_id": "082597bee43d452cb6595bfdf12decc2",
+      "revision": 1,
+      "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+      "accounts": {
+        "payroll_net": "6020"
+      }
+    },
+    "profile": {
+      "created_at": "2026-11-03T12:00:00+00:00",
+      "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+      "evidence_reference": "Synthetic owner evidence",
+      "id": "2f2fb3c2e011404890cf96c2d6beb424",
+      "preview_hash": "fe374a5670bd540e0738e03751b839e7e2d638cf64e5bec71e43aacc99286c18",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Synthetic confirmed EÜR facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "rule_version": "de_euer_regular_cash_2026_v1",
+    "target": "payroll_cash:082597bee43d452cb6595bfdf12decc2",
+    "effect": {
+      "operation": "payroll_cash",
+      "payload": {
+        "batch_id": "082597bee43d452cb6595bfdf12decc2",
+        "revision": 1,
+        "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+        "accounts": {
+          "payroll_net": "6020"
+        }
+      },
+      "source": {
+        "cash_movements": [
+          {
+            "account": {
+              "active": true,
+              "code": "1200",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+              "currency": "EUR",
+              "id": "aa64cc5dc018440a9e693170fc327ed9",
+              "kind": "bank",
+              "name": "Synthetic company bank",
+              "revision": 1
+            },
+            "amount": "3130.09",
+            "categories": {
+              "payroll_net": "3130.09"
+            },
+            "date": "2026-10-31",
+            "direction": "out",
+            "id": "3415acde32cf25e8dc35f13edbb24801"
+          }
+        ],
+        "date": "2026-10-31",
+        "id": "082597bee43d452cb6595bfdf12decc2",
+        "instance_id": "6874eb4970354c6195065dd66faf1107",
+        "kind": "payroll_cash",
+        "proof_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+        "revision": 1,
+        "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+        "source_path": "/payroll/cash/financial/082597bee43d452cb6595bfdf12decc2?revision=1",
+        "status": "active"
+      },
+      "target": "payroll_cash:082597bee43d452cb6595bfdf12decc2",
+      "postings": [
+        {
+          "ledger": "euer",
+          "category": "payroll_net",
+          "amount": "-3130.09",
+          "date": "2026-10-31",
+          "account": "6020",
+          "source_key": "payroll_cash:082597bee43d452cb6595bfdf12decc2"
+        }
+      ],
+      "details": {
+        "date": "2026-10-31",
+        "cash_dates": [
+          "2026-10-31"
+        ],
+        "status": "active"
+      }
+    },
+    "reverses": null,
+    "postings": [
+      {
+        "ledger": "euer",
+        "category": "payroll_net",
+        "amount": "-3130.09",
+        "date": "2026-10-31",
+        "account": "6020",
+        "source_key": "payroll_cash:082597bee43d452cb6595bfdf12decc2"
+      }
+    ],
+    "artifact": null,
+    "control": null,
+    "preview_hash": "b66e62054dc86a19915454b122ee1fa79580c6c762680193942c0de6f8db088b"
+  },
+  "euer_entry": {
+    "operation": "payroll_cash",
+    "reason": "Explicit reviewed payroll expense",
+    "evidence_reference": "Protected batch checked",
+    "payload": {
+      "batch_id": "082597bee43d452cb6595bfdf12decc2",
+      "revision": 1,
+      "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+      "accounts": {
+        "payroll_net": "6020"
+      }
+    },
+    "profile": {
+      "created_at": "2026-11-03T12:00:00+00:00",
+      "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+      "evidence_reference": "Synthetic owner evidence",
+      "id": "2f2fb3c2e011404890cf96c2d6beb424",
+      "preview_hash": "fe374a5670bd540e0738e03751b839e7e2d638cf64e5bec71e43aacc99286c18",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Synthetic confirmed EÜR facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "rule_version": "de_euer_regular_cash_2026_v1",
+    "target": "payroll_cash:082597bee43d452cb6595bfdf12decc2",
+    "effect": {
+      "operation": "payroll_cash",
+      "payload": {
+        "batch_id": "082597bee43d452cb6595bfdf12decc2",
+        "revision": 1,
+        "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+        "accounts": {
+          "payroll_net": "6020"
+        }
+      },
+      "source": {
+        "cash_movements": [
+          {
+            "account": {
+              "active": true,
+              "code": "1200",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+              "currency": "EUR",
+              "id": "aa64cc5dc018440a9e693170fc327ed9",
+              "kind": "bank",
+              "name": "Synthetic company bank",
+              "revision": 1
+            },
+            "amount": "3130.09",
+            "categories": {
+              "payroll_net": "3130.09"
+            },
+            "date": "2026-10-31",
+            "direction": "out",
+            "id": "3415acde32cf25e8dc35f13edbb24801"
+          }
+        ],
+        "date": "2026-10-31",
+        "id": "082597bee43d452cb6595bfdf12decc2",
+        "instance_id": "6874eb4970354c6195065dd66faf1107",
+        "kind": "payroll_cash",
+        "proof_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+        "revision": 1,
+        "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+        "source_path": "/payroll/cash/financial/082597bee43d452cb6595bfdf12decc2?revision=1",
+        "status": "active"
+      },
+      "target": "payroll_cash:082597bee43d452cb6595bfdf12decc2",
+      "postings": [
+        {
+          "ledger": "euer",
+          "category": "payroll_net",
+          "amount": "-3130.09",
+          "date": "2026-10-31",
+          "account": "6020",
+          "source_key": "payroll_cash:082597bee43d452cb6595bfdf12decc2"
+        }
+      ],
+      "details": {
+        "date": "2026-10-31",
+        "cash_dates": [
+          "2026-10-31"
+        ],
+        "status": "active"
+      }
+    },
+    "reverses": null,
+    "postings": [
+      {
+        "ledger": "euer",
+        "category": "payroll_net",
+        "amount": "-3130.09",
+        "date": "2026-10-31",
+        "account": "6020",
+        "source_key": "payroll_cash:082597bee43d452cb6595bfdf12decc2"
+      }
+    ],
+    "artifact": null,
+    "control": null,
+    "preview_hash": "b66e62054dc86a19915454b122ee1fa79580c6c762680193942c0de6f8db088b",
+    "id": "bcceb0059458478c82a98e3707c51335",
+    "sequence": 1,
+    "previous_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+    "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+    "created_at": "2026-11-03T12:00:00+00:00",
+    "entry_hash": "8f592e96c47d02b4b024acdf32922ce9ecdb8ac372d94ccee0e0c842909f226f"
+  },
+  "euer_sources": {
+    "items": [
+      {
+        "kind": "payroll_cash",
+        "id": "04f93d2727f64f549f4cb06ff45a5f28",
+        "date": "2026-11-02",
+        "source": {
+          "cash_movements": [
+            {
+              "account": {
+                "active": true,
+                "code": "1200",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+                "currency": "EUR",
+                "id": "aa64cc5dc018440a9e693170fc327ed9",
+                "kind": "bank",
+                "name": "Synthetic company bank",
+                "revision": 1
+              },
+              "amount": "3061.91",
+              "categories": {
+                "payroll_employee_social": "1087.50",
+                "payroll_employee_tax": "782.41",
+                "payroll_employer_levies": "134.50",
+                "payroll_employer_social": "1057.50"
+              },
+              "date": "2026-11-02",
+              "direction": "out",
+              "id": "5c2c434f2f90bbb22f7a9719da43f8e6"
+            }
+          ],
+          "date": "2026-11-02",
+          "id": "04f93d2727f64f549f4cb06ff45a5f28",
+          "instance_id": "6874eb4970354c6195065dd66faf1107",
+          "kind": "payroll_cash",
+          "proof_hash": "de6dd714d4909d8793b738dbc2a0fca59a108f0f90e719ecc979b94a72862a36",
+          "revision": 1,
+          "source_hash": "7915e11cf184889b29c2a5fc72bce0aca535e6b6a2705352baebd4b99c1b069a",
+          "source_path": "/payroll/cash/financial/04f93d2727f64f549f4cb06ff45a5f28?revision=1",
+          "status": "active"
+        },
+        "current": null,
+        "reasons": [
+          "payroll_cash_classification_missing"
+        ]
+      },
+      {
+        "kind": "payroll_cash",
+        "id": "082597bee43d452cb6595bfdf12decc2",
+        "date": "2026-10-31",
+        "source": {
+          "cash_movements": [
+            {
+              "account": {
+                "active": true,
+                "code": "1200",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+                "currency": "EUR",
+                "id": "aa64cc5dc018440a9e693170fc327ed9",
+                "kind": "bank",
+                "name": "Synthetic company bank",
+                "revision": 1
+              },
+              "amount": "3130.09",
+              "categories": {
+                "payroll_net": "3130.09"
+              },
+              "date": "2026-10-31",
+              "direction": "out",
+              "id": "3415acde32cf25e8dc35f13edbb24801"
+            }
+          ],
+          "date": "2026-10-31",
+          "id": "082597bee43d452cb6595bfdf12decc2",
+          "instance_id": "6874eb4970354c6195065dd66faf1107",
+          "kind": "payroll_cash",
+          "proof_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+          "revision": 1,
+          "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+          "source_path": "/payroll/cash/financial/082597bee43d452cb6595bfdf12decc2?revision=1",
+          "status": "active"
+        },
+        "current": {
+          "artifact": null,
+          "control": null,
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+          "effect": {
+            "details": {
+              "cash_dates": [
+                "2026-10-31"
+              ],
+              "date": "2026-10-31",
+              "status": "active"
+            },
+            "operation": "payroll_cash",
+            "payload": {
+              "accounts": {
+                "payroll_net": "6020"
+              },
+              "batch_id": "082597bee43d452cb6595bfdf12decc2",
+              "revision": 1,
+              "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929"
+            },
+            "postings": [
+              {
+                "account": "6020",
+                "amount": "-3130.09",
+                "category": "payroll_net",
+                "date": "2026-10-31",
+                "ledger": "euer",
+                "source_key": "payroll_cash:082597bee43d452cb6595bfdf12decc2"
+              }
+            ],
+            "source": {
+              "cash_movements": [
+                {
+                  "account": {
+                    "active": true,
+                    "code": "1200",
+                    "created_at": "2026-11-03T12:00:00+00:00",
+                    "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+                    "currency": "EUR",
+                    "id": "aa64cc5dc018440a9e693170fc327ed9",
+                    "kind": "bank",
+                    "name": "Synthetic company bank",
+                    "revision": 1
+                  },
+                  "amount": "3130.09",
+                  "categories": {
+                    "payroll_net": "3130.09"
+                  },
+                  "date": "2026-10-31",
+                  "direction": "out",
+                  "id": "3415acde32cf25e8dc35f13edbb24801"
+                }
+              ],
+              "date": "2026-10-31",
+              "id": "082597bee43d452cb6595bfdf12decc2",
+              "instance_id": "6874eb4970354c6195065dd66faf1107",
+              "kind": "payroll_cash",
+              "proof_hash": "dd1a5e18089e8e47207a4beae54e51141143a8cd8a001297ac1a53b4f551a749",
+              "revision": 1,
+              "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929",
+              "source_path": "/payroll/cash/financial/082597bee43d452cb6595bfdf12decc2?revision=1",
+              "status": "active"
+            },
+            "target": "payroll_cash:082597bee43d452cb6595bfdf12decc2"
+          },
+          "evidence_reference": "Protected batch checked",
+          "id": "bcceb0059458478c82a98e3707c51335",
+          "operation": "payroll_cash",
+          "payload": {
+            "accounts": {
+              "payroll_net": "6020"
+            },
+            "batch_id": "082597bee43d452cb6595bfdf12decc2",
+            "revision": 1,
+            "source_hash": "e98311c4f004eda1430153d0cd51de0c503e64b98c2cb8717a3992899292b929"
+          },
+          "postings": [
+            {
+              "account": "6020",
+              "amount": "-3130.09",
+              "category": "payroll_net",
+              "date": "2026-10-31",
+              "ledger": "euer",
+              "source_key": "payroll_cash:082597bee43d452cb6595bfdf12decc2"
+            }
+          ],
+          "preview_hash": "b66e62054dc86a19915454b122ee1fa79580c6c762680193942c0de6f8db088b",
+          "previous_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+            "evidence_reference": "Synthetic owner evidence",
+            "id": "2f2fb3c2e011404890cf96c2d6beb424",
+            "preview_hash": "fe374a5670bd540e0738e03751b839e7e2d638cf64e5bec71e43aacc99286c18",
+            "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-01-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2026-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Synthetic confirmed EÜR facts",
+            "revision": 1,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "reason": "Explicit reviewed payroll expense",
+          "reverses": null,
+          "rule_version": "de_euer_regular_cash_2026_v1",
+          "sequence": 1,
+          "target": "payroll_cash:082597bee43d452cb6595bfdf12decc2",
+          "entry_hash": "8f592e96c47d02b4b024acdf32922ce9ecdb8ac372d94ccee0e0c842909f226f"
+        },
+        "reasons": []
+      }
+    ],
+    "issues": [
+      {
+        "code": "payroll_cash_classification_missing",
+        "source_id": "04f93d2727f64f549f4cb06ff45a5f28",
+        "date": "2026-11-02",
+        "source_path": "/payroll/cash/financial/04f93d2727f64f549f4cb06ff45a5f28?revision=1"
+      }
+    ],
+    "cash_movements": [
+      {
+        "source_kind": "payroll_cash",
+        "source_id": "3415acde32cf25e8dc35f13edbb24801",
+        "account": {
+          "active": true,
+          "code": "1200",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+          "currency": "EUR",
+          "id": "aa64cc5dc018440a9e693170fc327ed9",
+          "kind": "bank",
+          "name": "Synthetic company bank",
+          "revision": 1
+        },
+        "date": "2026-10-31",
+        "direction": "out",
+        "amount": "3130.09",
+        "source_path": "/payroll/cash/financial/082597bee43d452cb6595bfdf12decc2?revision=1"
+      },
+      {
+        "source_kind": "payroll_cash",
+        "source_id": "5c2c434f2f90bbb22f7a9719da43f8e6",
+        "account": {
+          "active": true,
+          "code": "1200",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+          "currency": "EUR",
+          "id": "aa64cc5dc018440a9e693170fc327ed9",
+          "kind": "bank",
+          "name": "Synthetic company bank",
+          "revision": 1
+        },
+        "date": "2026-11-02",
+        "direction": "out",
+        "amount": "3061.91",
+        "source_path": "/payroll/cash/financial/04f93d2727f64f549f4cb06ff45a5f28?revision=1"
+      }
+    ],
+    "account_movements": [
+      {
+        "account": {
+          "active": true,
+          "code": "1200",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "e3045681f4204ff1a29b7d274bd0d0d1",
+          "currency": "EUR",
+          "id": "aa64cc5dc018440a9e693170fc327ed9",
+          "kind": "bank",
+          "name": "Synthetic company bank",
+          "revision": 1
+        },
+        "inflows": "0.00",
+        "outflows": "6192.00",
+        "movement_net": "-6192.00",
+        "opening_balance": null,
+        "balance": null
+      }
+    ],
+    "cash_scope": "existing_cash_events_reviewed_external_and_payroll_cash",
+    "opening_balances_available": false
+  },
+  "negative": {
+    "employee": {
+      "id": "3fce157de95141b9939e30b3a00c2ccc",
+      "user_id": "6d111baf3fba46d794cfb38a6777db3f",
+      "name": "Synthetic technician",
+      "active": true,
+      "revision": 1,
+      "updated_at": "2026-10-26T12:00:00+00:00",
+      "weekly_minutes": 2400,
+      "hourly_cost_minor": 3500,
+      "employment_from": null,
+      "employment_to": null
+    },
+    "account": {
+      "id": "d4d0d88affea498183ab1a71c7052825",
+      "code": "1200",
+      "name": "Synthetic company bank",
+      "kind": "bank",
+      "currency": "EUR",
+      "active": true,
+      "revision": 1,
+      "created_by": "f7ec109ccb0c4b799701631ba970484a",
+      "created_at": "2026-11-03T12:00:00+00:00"
+    },
+    "state": {
+      "instance_id": "5b245f35f8a64c62bd4ed77b4d8050d4",
+      "writes_allowed": true,
+      "batches": [],
+      "categories": [
+        "payroll_net",
+        "payroll_employee_tax",
+        "payroll_employee_social",
+        "payroll_employer_social",
+        "payroll_employer_levies",
+        "payroll_employer_flat_tax"
+      ],
+      "limits": {
+        "max_sources": 100,
+        "year": 2026
+      }
+    },
+    "sources": {
+      "instance_id": "5b245f35f8a64c62bd4ed77b4d8050d4",
+      "employee_id": "3fce157de95141b9939e30b3a00c2ccc",
+      "net_sources": [
+        {
+          "id": "11c4d0abd1df4f9eaa5a09c97a8c037e",
+          "revision": 1,
+          "content_hash": "0acec6218ed076ee930906b5e3be56b1c6711cf2019537feaa08ca202eafd3ed",
+          "kind": "payment",
+          "month": "2026-10",
+          "source_file": {
+            "content_hash": "4de249092be1b50ded1031f5bcd93ffeb60f2794c8b75d6e2aefe3510354233c",
+            "employee_id": "3fce157de95141b9939e30b3a00c2ccc",
+            "id": "79fca53e1f884c458f19353309452292",
+            "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d"
+          },
+          "eligible": true,
+          "issues": [],
+          "payments": [
+            {
+              "amount_minor": 60000,
+              "paid_on": "2026-10-30",
+              "payment_reference": "SYN-ACTUAL-600",
+              "index": 0,
+              "already_imported": false,
+              "import_batch_id": null
+            },
+            {
+              "amount_minor": -1871,
+              "paid_on": "2026-11-01",
+              "payment_reference": "SYN-ACTUAL-RETURN-1871",
+              "index": 1,
+              "already_imported": false,
+              "import_batch_id": null
+            }
+          ]
+        }
+      ],
+      "remittance_sources": [
+        {
+          "source_kind": "run",
+          "id": "72e426e862ac4273b247730395b10b9e",
+          "revision": 1,
+          "content_hash": "4ded8051ea7efb1227b7c6c082ed5bfad9d2a9358b4f804c9e024081ddd40593",
+          "month": "2026-10",
+          "calculated": {
+            "employee_tax": 0,
+            "employee_social": 2171,
+            "employer_social": 16884,
+            "employer_levies": 705,
+            "employer_flat_tax": 1206
+          },
+          "remaining": {
+            "employee_tax": 0,
+            "employee_social": 2171,
+            "employer_social": 16884,
+            "employer_levies": 705,
+            "employer_flat_tax": 1206
+          },
+          "eligible": true,
+          "issues": []
+        }
+      ],
+      "evidence_files": [
+        {
+          "id": "79fca53e1f884c458f19353309452292",
+          "employee_id": "3fce157de95141b9939e30b3a00c2ccc",
+          "purpose": "personnel",
+          "owner_visible": 0,
+          "filename": "verified-payroll-profile.pdf",
+          "media_type": "application/pdf",
+          "size": 50,
+          "sha256": "1e5fe97cc2cb422fd2de3401e9cd773ad19e1da26da1831d92b1598352d5bb3d",
+          "content_hash": "4de249092be1b50ded1031f5bcd93ffeb60f2794c8b75d6e2aefe3510354233c",
+          "supersedes": null,
+          "created_by": "f7ec109ccb0c4b799701631ba970484a",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "source_path": "/personnel/files/79fca53e1f884c458f19353309452292/content"
+        }
+      ],
+      "categories": [
+        "payroll_net",
+        "payroll_employee_tax",
+        "payroll_employee_social",
+        "payroll_employer_social",
+        "payroll_employer_levies",
+        "payroll_employer_flat_tax"
+      ]
+    },
+    "body": {
+      "batch_id": "59ebdf0e71be49e39d7a950d4b2e2dfa",
+      "expected_revision": 0,
+      "instance_id": "5b245f35f8a64c62bd4ed77b4d8050d4",
+      "action": "adopt",
+      "kind": "net",
+      "account_id": "d4d0d88affea498183ab1a71c7052825",
+      "account_revision": 1,
+      "sources": [
+        {
+          "account_record_id": "11c4d0abd1df4f9eaa5a09c97a8c037e",
+          "revision": 1,
+          "content_hash": "0acec6218ed076ee930906b5e3be56b1c6711cf2019537feaa08ca202eafd3ed",
+          "payment_indexes": [
+            1
+          ]
+        }
+      ],
+      "settlement": null,
+      "correction_file_id": null,
+      "reason": "Explicit synthetic actual payment evidence"
+    },
+    "preview": {
+      "batch_id": "59ebdf0e71be49e39d7a950d4b2e2dfa",
+      "revision": 1,
+      "kind": "net",
+      "instance_id": "5b245f35f8a64c62bd4ed77b4d8050d4",
+      "public_source": {
+        "kind": "payroll_cash",
+        "id": "59ebdf0e71be49e39d7a950d4b2e2dfa",
+        "revision": 1,
+        "instance_id": "5b245f35f8a64c62bd4ed77b4d8050d4",
+        "status": "active",
+        "date": "2026-11-01",
+        "cash_movements": [
+          {
+            "id": "64f7aa23c917870bbb3ca9cdcc8ca4cc",
+            "date": "2026-11-01",
+            "account": {
+              "active": true,
+              "code": "1200",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "f7ec109ccb0c4b799701631ba970484a",
+              "currency": "EUR",
+              "id": "d4d0d88affea498183ab1a71c7052825",
+              "kind": "bank",
+              "name": "Synthetic company bank",
+              "revision": 1
+            },
+            "direction": "in",
+            "amount": "18.71",
+            "categories": {
+              "payroll_net": "18.71"
+            }
+          }
+        ],
+        "proof_hash": "7fab6adbb0ed088461b14dbae2f99c3cedb9789c0a65757ea3bd7231cf693a5c",
+        "source_path": "/payroll/cash/financial/59ebdf0e71be49e39d7a950d4b2e2dfa?revision=1",
+        "source_hash": "594fb36396d4494db16d4dc8116850a2b1860b90366783bfef6e9924a76f431c"
+      },
+      "private_source_count": 1,
+      "private_hash": "7fab6adbb0ed088461b14dbae2f99c3cedb9789c0a65757ea3bd7231cf693a5c",
+      "warnings": [
+        "Keine Bankübertragung; EÜR-Einordnung gesondert bestätigen."
+      ],
+      "preview_hash": "f085594728d4cc8a5642c9222ab03cae285626acc6e98d7e2297ab58356f215d"
+    },
+    "batch": {
+      "id": "59ebdf0e71be49e39d7a950d4b2e2dfa",
+      "revision": 1,
+      "kind": "net",
+      "status": "active",
+      "instance_id": "5b245f35f8a64c62bd4ed77b4d8050d4",
+      "public_source": {
+        "cash_movements": [
+          {
+            "account": {
+              "active": true,
+              "code": "1200",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "f7ec109ccb0c4b799701631ba970484a",
+              "currency": "EUR",
+              "id": "d4d0d88affea498183ab1a71c7052825",
+              "kind": "bank",
+              "name": "Synthetic company bank",
+              "revision": 1
+            },
+            "amount": "18.71",
+            "categories": {
+              "payroll_net": "18.71"
+            },
+            "date": "2026-11-01",
+            "direction": "in",
+            "id": "64f7aa23c917870bbb3ca9cdcc8ca4cc"
+          }
+        ],
+        "date": "2026-11-01",
+        "id": "59ebdf0e71be49e39d7a950d4b2e2dfa",
+        "instance_id": "5b245f35f8a64c62bd4ed77b4d8050d4",
+        "kind": "payroll_cash",
+        "proof_hash": "7fab6adbb0ed088461b14dbae2f99c3cedb9789c0a65757ea3bd7231cf693a5c",
+        "revision": 1,
+        "source_hash": "594fb36396d4494db16d4dc8116850a2b1860b90366783bfef6e9924a76f431c",
+        "source_path": "/payroll/cash/financial/59ebdf0e71be49e39d7a950d4b2e2dfa?revision=1",
+        "status": "active"
+      },
+      "private_hash": "7fab6adbb0ed088461b14dbae2f99c3cedb9789c0a65757ea3bd7231cf693a5c",
+      "created_by": "f7ec109ccb0c4b799701631ba970484a",
+      "created_at": "2026-11-03T12:00:00+00:00"
+    }
+  }
+}

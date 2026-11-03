@@ -1,9 +1,9 @@
 {
   "date": "2026-11-03",
-  "status": "integration_in_progress",
+  "status": "increment_verified_with_recorded_version_boundaries",
   "base_commit": "91304fc9eb5cf8c42caa1c75c6b1d5c16ea2a612",
   "previous_implementation_commit": "bef8ec23adbddcde0b619f41b5df88db7d481d59",
-  "implementation_commit": null,
+  "implementation_commit": "df7a4325bc28681b5e677efa6f6a1da56c11ee86",
   "previous_increment_proof": "docs/CRM_ERP_PRUEFNACHWEIS_E1B3C.json",
   "previous_increment_proof_sha256": "9ec7b3441670744359ecf673c4e5d339a16e7e27dbf975f723af6ea189a50abf",
   "goal_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
@@ -11,7 +11,7 @@
   "contract_sha256": "1eb0c2efc61d51e5590709d922bc191f2cde1014fa57801116dcea5fb9140d77",
   "scope": "E1b-4a1: expressly confirmed, versioned organization preparation facts for sole proprietorship/EÜR, with reason, evidence reference, immutable history and exact request replay. Optional VAT regime/timing and declared dates remain null unless supplied. Two independent profile tables, global read/admin rights, existing write gates and additive H7/schema8 restore. No automatic profile version, tax activation, CashEvent classification or changed Accounting.status.",
   "completion": {
-    "increment_verified": false,
+    "increment_verified": true,
     "overall_goal_completed": false,
     "production_acceptance_completed": false,
     "requirement": "R08.05",
@@ -178,19 +178,20 @@
       "source_check": "accounting-profile-r1-wait-targeted-code-check.log",
       "source_count": 14,
       "note": "Actual original R1 workflow passed after only the test completion observer changed. Genuine response status, exact event/preview hash, closed dialog and bounded waits remain asserted."
-    }
-  },
-  "pending_acceptance": {
+    },
     "actual_browser_full": {
-      "status": "second_attempt_running",
-      "expected_workflows": 17,
+      "passed": 17,
+      "exit_code": 0,
       "log": "accounting-profile-browser-full.log",
       "source_manifest": "accounting-profile-root-final-code.sha256",
+      "source_check": "accounting-profile-browser-source-check.log",
       "source_count": 150,
-      "counted_as_passed": false,
-      "required": "Completed second full browser regression and its matching source check. Targeted R1/profile results are not substituted for full acceptance."
+      "sources_unchanged": true,
+      "note": "Second complete existing-application regression plus profile workflow passed after the isolated R1 test-wait correction. Actual loopback HTTP and sandboxed Chromium; independent TLS/Origin/MFA evidence is listed separately.",
+      "final_screenshots": 25
     }
   },
+  "pending_acceptance": {},
   "initial_attempts": {
     "local_registration_framing": {
       "run": 13,
@@ -260,7 +261,7 @@
       "log": "accounting-profile-browser-scope-helper-failure.log",
       "source_manifest": "accounting-profile-browser-scope-helper-code.sha256",
       "cause": "Test helper attempted selectOption on the deliberately disabled global scope selector for accounting.admin.",
-      "owner_reported_correction": "Adapt the global-admin scope helper; no product correction. Corrected targeted workflow passed; full17 regression remains in progress."
+      "owner_reported_correction": "Adapt the global-admin scope helper; no product correction. The corrected targeted profile workflow and the final complete17-workflow regression passed."
     },
     "full_browser_refund_wait": {
       "result": "failed",
@@ -274,7 +275,7 @@
       "finding_status": "The confirmed correction changes only the R1 test completion observer; no product defect or product-source change was found.",
       "other_completed_checks": "Previously completed backend, domain, HTTP/HTTPS, PostgreSQL, Flutter, Node, native and profile-target results retain their stated validity and source boundaries.",
       "correction": "Observe the actual client promise rather than Playwright Response.finished after routed response headers. Genuine status/event/hash and no dialog reopening remain asserted with bounded waits.",
-      "followup": "Targeted R1 workflow passed; a second complete17-workflow regression is running."
+      "followup": "The targeted R1 workflow and second complete17-workflow regression passed. Only the test completion observer changed; all150 final sources remained unchanged during the final full run."
     }
   },
   "version_boundaries": {
@@ -300,7 +301,7 @@
       "diff": "e1b4a1-documentation-status-only.diff"
     },
     "historical_contract_notes": "Existing accounting API/operator documents now explain H7/profile/schema8 while preserving historical parser inventories. These changes belong to this increment; the closed 3c proof remains unchanged.",
-    "client_snapshot": "All product sources remain identical to the independent final review. Only refund-flow.cjs changed after the failed full attempt; its before/after hashes and successful targeted verification are recorded. The second full browser attempt is still running on the renewed150-source manifest.",
+    "client_snapshot": "All product sources remain identical to independent final review. Only refund-flow.cjs changed after the first failed full attempt. Its explicit before/after boundary, targeted pass and second complete17-workflow pass are recorded; final150-source inventory matches the implementation commit.",
     "r1_browser_test_wait": {
       "scope": "Only the R1 browser test completion observer changed after the failed full run. Product sources are identical. Actual response status, event, preview hash and absence of dialog reopening remain asserted.",
       "changed_sources": [
@@ -310,10 +311,10 @@
           "after_sha256": "2cdf24cd87bafd093f7f0e54621ddae31818f10175535e0086eb83d3a3875270"
         }
       ],
-      "status": "test_only_correction_verified_by_targeted_run",
+      "status": "test_only_correction_verified_by_targeted_and_full_runs",
       "artifact": "accounting-profile-r1-wait-source-boundary.json",
       "targeted_r1_result": "passed",
-      "complete17_workflow_result": "pending"
+      "complete17_workflow_result": "passed"
     }
   },
   "source_verification": {
@@ -337,7 +338,7 @@
       "manifest": "e1b4a1-backend-final-code.sha256",
       "post_run_check": "e1b4a1-backend-source-check.log"
     },
-    "changed_source_selection": "Implementation, tests, CI/package code and operator/API contracts changed relative to 91304fc9, including the R1 test wait correction. Progress-only documents, next-step plan and this proof are excluded. Current sources are frozen for the second complete browser attempt.",
+    "changed_source_selection": "All50 implementation, test, CI/package and operator/API contract files changed relative to91304fc9, including the R1 browser test-wait correction. Current hashes and final150-source inventory were independently checked against implementation commit df7a4325bc28681b5e677efa6f6a1da56c11ee86. Progress-only documents, next-step plan and this proof are excluded.",
     "flutter": {
       "flutter_source_count": 10,
       "backend_source_count": 115,
@@ -354,19 +355,20 @@
       "manifest": "accounting-profile-browser-targeted-code.sha256",
       "post_run_check": "accounting-profile-browser-targeted-code-check.log"
     },
-    "browser_full_pending": {
-      "status": "second_attempt_running",
-      "source_manifest": "accounting-profile-root-final-code.sha256",
-      "source_count": 150,
-      "current_pre_run_hashes_match": true,
-      "post_run_verification": "pending",
-      "last_failed_attempt_manifest": "accounting-profile-root-before-refund-wait-fix.sha256"
-    },
     "r1_targeted_after_wait_fix": {
       "source_count": 14,
       "current_hashes_match": true,
       "source_manifest": "accounting-profile-r1-wait-targeted-code.sha256",
       "post_run_check": "accounting-profile-r1-wait-targeted-code-check.log"
+    },
+    "browser_full": {
+      "source_count": 150,
+      "unchanged_during_run": true,
+      "current_hashes_match": true,
+      "source_manifest": "accounting-profile-root-final-code.sha256",
+      "post_run_check": "accounting-profile-browser-source-check.log",
+      "implementation_commit": "df7a4325bc28681b5e677efa6f6a1da56c11ee86",
+      "all_sources_match_implementation_commit": true
     }
   },
   "packaging_preparation": {
@@ -380,7 +382,7 @@
     "transport_finding": "Both transports now reject profile GET bodies and POST queries before payload loss; exact base/subtree matching leaves unrelated routes unchanged.",
     "profile_facts": "Confirmed null fields stay null. EÜR implies no VAT timing. Dates are independent declarations, not implemented validity periods. Accounting.status remains unchanged.",
     "historical_preservation": "Migration and restore cases preserve genuine C1/R1/C2/R2 rows and replies. Profile facts neither rewrite financial evidence nor gate otherwise permitted financial operations.",
-    "final_review_status": "independent_product_review_no_confirmed_findings; test_wait_correction_targeted_verified; second_full_browser_acceptance_pending",
+    "final_review_status": "independent_product_review_no_confirmed_findings; increment_checks_completed_with_recorded_boundaries",
     "remaining_confirmed_findings": 0,
     "reviewed_product_sha256": {
       "web/office/office.js": "7ace296056a6cceb5357eb7dd2e52962ccd7f93dccbf61d2a3c2d0bd498f7d25",
@@ -388,10 +390,10 @@
       "app/lib/business_session.dart": "1fa88924fdbe69262dd53bd0866418bd5d59ce0c42743b0b5752a3813c69ef81",
       "backend/business_accounting_profile.py": "af95ccf0c97c48651e7cdfa44ad64e30e60fac050e7986f8fdc21fd65d394d54"
     },
-    "visual": "Root visually inspected the targeted desktop and mobile profile screenshots. Complete browser regression is still pending."
+    "visual": "Root visually inspected targeted desktop and mobile profile screenshots. The final complete browser regression passed its desktop/mobile assertions; final screenshots are separately hashed below."
   },
   "limitations": [
-    "Integration-progress checkpoint only. The first full17 browser attempt failed on an existing R1 test wait. The correction is confined to that test and the targeted R1 workflow passed. The second complete browser run and its final source check remain pending; other completed checks retain their recorded validity.",
+    "The bounded E1b-4a1 preparation-profile increment is verified with the recorded version boundaries. This is not completion of the overall CRM/ERP goal, full EÜR/accounting/payroll or production acceptance.",
     "R08.05 remains partial. A preparation profile neither configures tax rules nor classifies CashEvents, produces fiscal postings or completes EÜR/accounting/payroll.",
     "Migration, GET, authentication and preview create no profile version. References document explicit user statements; no authority proof is retrieved or verified.",
     "VAT regime, cash/accrual timing and dates are never inferred from company form, payments or document history. They do not constitute tax approval or supported tax-period logic.",
@@ -643,8 +645,10 @@
   },
   "log_sha256": {
     "accounting-profile-browser-full-refund-wait-failure.log": "30f21d68ab91210db5f858074bc761205b455b7ebbfe3bde92045b23c59327a8",
+    "accounting-profile-browser-full.log": "94e31129ba26cfd1d13f6765ebd4a41fa651d4d6efe93fd82b5077f0b7fd5c26",
     "accounting-profile-browser-scope-helper-code.sha256": "dcba152a7b5fbb5be838ddb57016668b933744099f46edf065cf583df6f86534",
     "accounting-profile-browser-scope-helper-failure.log": "2b493b458ba6120f4fcd675466c751dd175028779e290c7fc2907d056abd1f33",
+    "accounting-profile-browser-source-check.log": "76e6f9e6058d721306234e627b96938533d0ea518f2b163e1ca86ccfecb86d02",
     "accounting-profile-browser-targeted-code-check.log": "4f3e48ebb34e53a53a7bdac29fe07e38b1ec44c0ef63a8d54f06934ef6619f12",
     "accounting-profile-browser-targeted-code.sha256": "4b3fedeedbeb099769a0ff06f52ba462c4559caef938b999e90876e2da5d0364",
     "accounting-profile-browser-targeted.log": "f6508dea47a2301518e60141fd1308d4586f620bd6cc8a9d9725af2aee373486",
@@ -697,7 +701,7 @@
     "profile-pg-initial-summary.json": "616ed8e886f653f196c6175ce4a246bb1463b01f2d1c8737f1f36e609f0c82a9",
     "profile-pg-regression-summary.json": "031703fe7f55cd63d23d6aa54bc6d02b20c6a91f9287f56cc525eb09e193da69"
   },
-  "note": "Only this new proof is written. Raw logs remain in ignored work/verification; ongoing logs are named but not hashed or counted as completed. No tests were run for compiling this checkpoint. implementation_commit remains null.",
+  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, this summary and hashes are versioned. Failed attempts remain historical evidence and are not counted as passes. Test groups overlap. No tests or product changes were made while finalizing this proof; the closed3c proof is unchanged.",
   "postgres_environment": {
     "host": "127.0.0.1",
     "port": 55433,
@@ -741,6 +745,31 @@
     "backend/online/web.py": "ed104633cbaa37e33d3bd0ba886f83d5214afea13c11c2d328cbdc55485ed5b8"
   },
   "screenshots_sha256": {
+    "accounting-profile-browser-full-previews/accounting-allocation-desktop.png": "a5638eef56232ca6846fbd7400cf866b04fad40d8216564086f344442c34b550",
+    "accounting-profile-browser-full-previews/accounting-allocation-mobile.png": "a5f002dc59fe6e5904d2bb180a09e130797e49a7acbfb3aabfdc8c2996249ad2",
+    "accounting-profile-browser-full-previews/accounting-desktop.png": "53d4618a44f599b09cd5af644b6c8c1d59a31ff7c1973493f521652ed8b95e1e",
+    "accounting-profile-browser-full-previews/accounting-mobile.png": "69e70580378abd828b6775d7575d5d9c602bbbeda20e42113d3f4068df3f1ea3",
+    "accounting-profile-browser-full-previews/capacity-desktop.png": "6219d238e2a2576bc4a81574c8b7c8ba3cc43a79be69d9a8ba49dd691f2ec0a2",
+    "accounting-profile-browser-full-previews/capacity-mobile.png": "9e495a8f7e95d165611074f2e60d04f7de10fa4053826d5a2f9c103410881cff",
+    "accounting-profile-browser-full-previews/components-desktop.png": "19d7753bd5a0960b55cb94d49d40c189115a373a58760b2604baef3f30383d9b",
+    "accounting-profile-browser-full-previews/components-mobile.png": "226c347609a6bfe559d4ba954adc67ce175d0bcad8570a1d1f7ad40a518cea40",
+    "accounting-profile-browser-full-previews/desktop.png": "65c6e7f9d1b9772d7a2dc59b151915e289a02262b7fca27b80ff2bbb0ba24184",
+    "accounting-profile-browser-full-previews/mobile.png": "a9189a5f624d1f9e91cdffb41f962f2d9bb51996e8eac236f7c5539814666dce",
+    "accounting-profile-browser-full-previews/portal-customer-desktop.png": "e57d0b40697b5eb4b55f44f1e1ae951de4858aa2af1080aa18e9819a994d473f",
+    "accounting-profile-browser-full-previews/portal-customer-mobile.png": "16f51cdf9987a65542f46e0ca6e85acc1ef45c75de3b9b4dbb6a64a08e6cbb3d",
+    "accounting-profile-browser-full-previews/profile-desktop.png": "06d96816b32b5f477472ea0ec77f6803581ff97f0656c1416a4695db0ca0c5d9",
+    "accounting-profile-browser-full-previews/profile-mobile.png": "2c89a3ee7675d177aee698a3270a71fa9b20abe5422977deaa52c7eaaa2fa1b6",
+    "accounting-profile-browser-full-previews/purchasing-catalog-desktop.png": "139e0f740d8896874802f1e81fe830e5d844d6a24fc7b416b8036dc06379eecf",
+    "accounting-profile-browser-full-previews/purchasing-catalog-mobile.png": "906f42d153d15638e33a9a380d29d4ea7f7c1158a38a1b408537b1a4ca641656",
+    "accounting-profile-browser-full-previews/purchasing-desktop-history.png": "c5b4ca5cfd9e4e2f9f8df7f90a4ec5e1df41ebfda01e76d17e2f2ccb9d5389ec",
+    "accounting-profile-browser-full-previews/purchasing-mobile-history.png": "7e70f1598916ce9cedca3850202667e00b3f32972b0b9dad30ca58dea3f5413d",
+    "accounting-profile-browser-full-previews/purchasing-mobile.png": "691a927a0b020ef3ef03d7d6858e24163ac490305647a41f6297781fcded67a8",
+    "accounting-profile-browser-full-previews/refunds-desktop.png": "a9ec88372b623ea77668cab6a2c1aaf5cb23816d2843252f37f29c4cbb9f5642",
+    "accounting-profile-browser-full-previews/refunds-mobile.png": "6984d4272c6e652cd65152bed19d87da510dba2ce23f5d443062aa946ffb77a5",
+    "accounting-profile-browser-full-previews/refunds-v2-desktop.png": "45a0371940cd829d91e273f978e4548145540d82bd6e1bee22d76dbf1495542e",
+    "accounting-profile-browser-full-previews/refunds-v2-mobile.png": "cebb2228cb9b4ae9aa25fad03a95976e346e3e70615945515d29a8e258b76b0e",
+    "accounting-profile-browser-full-previews/timeline-mobile.png": "80eac8cd474df27bf06269a02bd5a2f7e2bb757eef2c9b8e1c4606ee49292c1d",
+    "accounting-profile-browser-full-previews/timeline-year.png": "8b5ffd5d0919b940320e40ce2e308c3ae4264bd7cef631925559c199a21154f9",
     "accounting-profile-browser-previews/profile-desktop.png": "06d96816b32b5f477472ea0ec77f6803581ff97f0656c1416a4695db0ca0c5d9",
     "accounting-profile-browser-previews/profile-mobile.png": "2c89a3ee7675d177aee698a3270a71fa9b20abe5422977deaa52c7eaaa2fa1b6"
   },
@@ -906,7 +935,27 @@
     "accounting-profile-browser-full-refund-wait-failure-previews/portal-customer-desktop.png": "40952bb9a49fa444b3f677179a3d4d694f85321228272cdb2b0d984099fa2314",
     "accounting-profile-browser-full-refund-wait-failure-previews/portal-customer-mobile.png": "99bd343f9b8dcf3e711ca1e20dc3e4995087c51e6e4e7f8e0fa9918d9148fd49"
   },
-  "full_browser_pending_source_sha256": {
+  "r1_wait_targeted_source_sha256": {
+    "web/office/office.js": "7ace296056a6cceb5357eb7dd2e52962ccd7f93dccbf61d2a3c2d0bd498f7d25",
+    "web/office/office.css": "6c8057d8969ae54a11ef24ac62a9de3010970bb860c1fe29ec418d10425f9457",
+    "web/office/index.html": "9e45c5e81f1b2f3cf8a9028d782f2b71e11b3c41b3a199cbf97118eeab228021",
+    "web/office/tests/refund-flow.cjs": "2cdf24cd87bafd093f7f0e54621ddae31818f10175535e0086eb83d3a3875270",
+    "web/office/tests/e2e.cjs": "a725520ac051818c562cf8af799e0a157fc7e1d520c3c57a7253d3405f3fb288",
+    "web/office/tests/serve_fixture.py": "a62cdfa27576cab11f0bc9f879503d324523372ee3152cc4e44d7b7d5d8f26e7",
+    "backend/business_accounting_refunds.py": "e5f1c70f9123497043f3c26d1f748d641eefe3c6c504065385d4908c822d8922",
+    "backend/business_accounting_capacity.py": "103cd9c36fb676b92e4243195deac549bab17282c292d48c227859f7071a27d9",
+    "backend/business_accounting_refunds_v2.py": "9277f7605c03a05567a3badd8074a947dd10f66356b63e852f998d63accb0f70",
+    "backend/business_accounting_profile.py": "af95ccf0c97c48651e7cdfa44ad64e30e60fac050e7986f8fdc21fd65d394d54",
+    "backend/business_schema.py": "b4387184f206a4150e8586812e399666dc3efbd5db3787fbe5817dc7ae50f2ac",
+    "backend/business_api.py": "f1625f66ae0ea3bd0d13f148e83306fca1ea341de26019d568512f8ecbec8b0f",
+    "backend/business_organization.py": "7723d9338a218f84d3cc9dbb048234fe04737e524691fcca7b105ec2f6b120f7",
+    "backend/online/web.py": "ed104633cbaa37e33d3bd0ba886f83d5214afea13c11c2d328cbdc55485ed5b8"
+  },
+  "r1_wait_targeted_screenshots_sha256": {
+    "accounting-profile-r1-wait-targeted-previews/refunds-desktop.png": "3902851bd18d6d317f1e190371d7b9657525eadcb3f65a7df561892eb934c8c9",
+    "accounting-profile-r1-wait-targeted-previews/refunds-mobile.png": "e96d38129ceeb603f0193117d2c05042ccfb94370324e466caf18bf1c7e0876b"
+  },
+  "root_final_verification_source_sha256": {
     "backend/accounting_component_segments.py": "24de42a70a9405fa9a3eda98fc8e536f9ba19be30cb5a67fd861247f41cfa30e",
     "backend/accounting_joint_access.py": "82baa593e9d3a3c717dab7bdc1e198b11331f0d06e5b9f09aa83914341cf7aaf",
     "backend/accounting_joint_ledger.py": "677c7dda0bd6182be714e22651b9b5ec454d462d1a8248b2def570fe01509dd2",
@@ -1058,24 +1107,12 @@
     "web/office/tests/refund.test.mjs": "ab38cc9ec81d6e52142d453e955912eb2492dc161669d8597a2adad4af412cdf",
     "web/office/tests/serve_fixture.py": "a62cdfa27576cab11f0bc9f879503d324523372ee3152cc4e44d7b7d5d8f26e7"
   },
-  "r1_wait_targeted_source_sha256": {
-    "web/office/office.js": "7ace296056a6cceb5357eb7dd2e52962ccd7f93dccbf61d2a3c2d0bd498f7d25",
-    "web/office/office.css": "6c8057d8969ae54a11ef24ac62a9de3010970bb860c1fe29ec418d10425f9457",
-    "web/office/index.html": "9e45c5e81f1b2f3cf8a9028d782f2b71e11b3c41b3a199cbf97118eeab228021",
-    "web/office/tests/refund-flow.cjs": "2cdf24cd87bafd093f7f0e54621ddae31818f10175535e0086eb83d3a3875270",
-    "web/office/tests/e2e.cjs": "a725520ac051818c562cf8af799e0a157fc7e1d520c3c57a7253d3405f3fb288",
-    "web/office/tests/serve_fixture.py": "a62cdfa27576cab11f0bc9f879503d324523372ee3152cc4e44d7b7d5d8f26e7",
-    "backend/business_accounting_refunds.py": "e5f1c70f9123497043f3c26d1f748d641eefe3c6c504065385d4908c822d8922",
-    "backend/business_accounting_capacity.py": "103cd9c36fb676b92e4243195deac549bab17282c292d48c227859f7071a27d9",
-    "backend/business_accounting_refunds_v2.py": "9277f7605c03a05567a3badd8074a947dd10f66356b63e852f998d63accb0f70",
-    "backend/business_accounting_profile.py": "af95ccf0c97c48651e7cdfa44ad64e30e60fac050e7986f8fdc21fd65d394d54",
-    "backend/business_schema.py": "b4387184f206a4150e8586812e399666dc3efbd5db3787fbe5817dc7ae50f2ac",
-    "backend/business_api.py": "f1625f66ae0ea3bd0d13f148e83306fca1ea341de26019d568512f8ecbec8b0f",
-    "backend/business_organization.py": "7723d9338a218f84d3cc9dbb048234fe04737e524691fcca7b105ec2f6b120f7",
-    "backend/online/web.py": "ed104633cbaa37e33d3bd0ba886f83d5214afea13c11c2d328cbdc55485ed5b8"
-  },
-  "r1_wait_targeted_screenshots_sha256": {
-    "accounting-profile-r1-wait-targeted-previews/refunds-desktop.png": "3902851bd18d6d317f1e190371d7b9657525eadcb3f65a7df561892eb934c8c9",
-    "accounting-profile-r1-wait-targeted-previews/refunds-mobile.png": "e96d38129ceeb603f0193117d2c05042ccfb94370324e466caf18bf1c7e0876b"
-  }
+  "verification_history": [
+    "The initial local framing run passed12/13 and exposed the missing profile GET-body gate. Both local and online transports were corrected; local20, independent HTTP82 and verified HTTPS6 then passed.",
+    "The initial Flutter runner could not bind a loopback port, so no test bodies ran. Subsequent targeted failures were two test assumptions about single-line newline filtering and a lazily built paging control; fixture-only corrections preserved product code. Targeted132, final profile widgets39, full649 and analysis0 passed.",
+    "The initial profile browser helper tried to change the disabled global accounting.admin scope selector. The helper was corrected without changing the product; the targeted profile workflow passed.",
+    "The first full browser attempt timed out waiting for Playwright Response.finished in the existing R1 delayed-preview scenario, with no page errors or visible alerts. Only refund-flow.cjs changed to observe the actual parsed client promise while preserving response, event, preview-hash, closed-dialog and bounded-wait checks. The targeted R1 workflow and second full17 run passed.",
+    "The only post-transport contract change is the recorded status wording in the new API document. Final native packaging and Flutter checks use the updated document; DTOs, schemas, behavior and operator commands were unchanged.",
+    "The implementation checkpoint was committed before full-browser completion with an honest integration-in-progress proof. This final evidence records the later successful full17 result and verifies all50 changed sources and150 full-run sources against that implementation commit."
+  ]
 }

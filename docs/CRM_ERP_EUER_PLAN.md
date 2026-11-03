@@ -2,14 +2,16 @@
 
 Stand: 03.11.2026. Die ursprüngliche Bestandsprüfung im Hauptprojekt `/workspace/Smarplan-Hofmann-Workspace` bezieht sich auf `54b08c2`, abschließend gegen den Portalstand `cb60561` geprüft; die damaligen Finanzmodule wurden dazwischen nicht verändert. Anschließend wurden E1a als additives Vorjournal, E1b-1 als zusätzliche Rechnungszuordnung, E1b-2 als dokumentarische Centaufteilung und E1b-3a als ausdrückliche Erstattungsursprungsbindung entwickelt. [Bedienung und Betreiberablauf](CRM_ERP_EUER_BETRIEB.md), [E1a-Vertrag](CRM_ERP_EUER_E1A_API.md), [E1b-1-Vertrag](CRM_ERP_EUER_E1B1_API.md), [E1b-2-Vertrag](CRM_ERP_EUER_E1B2_API.md) und [Fortschritt mit ausgeführten Prüfungen](CRM_ERP_FORTSCHRITT.md) beschreiben diesen Stand. [Erstattungsursprünge E1b-3a](CRM_ERP_EUER_E1B3A_API.md) sind implementiert und [geprüft](CRM_ERP_PRUEFNACHWEIS_E1B3A.json), ohne Gruppenrestkapazität freizugeben. Die [Restkapazitätsabschnitte E1b-3b](CRM_ERP_EUER_E1B3B_API.md) sind implementiert und im beschriebenen Umfang geprüft. Der [Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3B.json) benennt die ausgeführten Prüfungen und ihre Grenzen. [E1b-3c](CRM_ERP_EUER_E1B3C_API.md) ist implementiert und im beschriebenen Umfang geprüft: gemischte ursprüngliche/erneut verwendete Erstattungsursprünge und weitere Rücknahme-/Wiederverwendungszyklen erhalten die genauen Cents, alte Antworten und vollständige historische Quellenrechte. Diese Fälle waren im E1b-3b-Umfang allein noch ungeklärt. Die abschließenden Browser-, Flutter- und Paketprüfungen sind bestanden, siehe [Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json). Weitere Steuerfälle, E1c–E1d und die vollständige EÜR bleiben offen.
 
-Gesonderter aktueller Entwicklungsabschnitt nach dem abgeschlossenen E1b-3c
-ist das [Vorbereitungsprofil E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md); die
-Prüfungen laufen. Ausdrücklich bestätigte Angaben werden mit Grund,
+Das gesonderte [Vorbereitungsprofil E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md)
+nach E1b-3c ist implementiert und im beschriebenen Umfang geprüft.
+Ausdrücklich bestätigte Angaben werden mit Grund,
 Belegreferenz und unveränderlichen Versionen gespeichert. Unbekannte
 Steuerangaben bleiben `null`; ein gespeicherter Vorbereitungsstand liefert
 kein steuerliches Ergebnis und keine fachliche Freigabe. Die sachliche
-Einordnung einzelner CashEvents gehört erst zu E1b-4a2. Dieser neue Abschnitt
-ist kein Bestandteil des abgeschlossenen E1b-3c-Prüfnachweises.
+Einordnung einzelner CashEvents bleibt als E1b-4a2 offen. Der abgeschlossene
+Profilabschnitt hat einen eigenen
+[Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B4A1.json) und gehört nicht zum
+historischen E1b-3c-Abschluss.
 
 ## 1. Festgelegter Umfang und offene Angaben
 

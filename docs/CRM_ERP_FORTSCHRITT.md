@@ -1,7 +1,7 @@
 # CRM/ERP – Fortschritt und Testergebnisse
 
 Die Abschnitte sind chronologisch. Der letzte abgeschlossene Prüfstand steht
-unter **03.11.2026 – E1b-3c umgesetzt und geprüft**. Frühere Zwischenstände
+unter **03.11.2026 – E1b-4a1 umgesetzt und geprüft**. Frühere Zwischenstände
 und fehlgeschlagene bzw. unterbrochene Läufe bleiben als Verlauf erhalten.
 Der erste Abschnitt gehört zum lokalen Commit `14fe4c9`, der zweite zu `64bdc26`.
 
@@ -1398,3 +1398,39 @@ geprüft: unbekannte Angaben sind lesbar, die schmale Ansicht scrollt vertikal
 und bleibt innerhalb der Breite. Eine signierte Windows-/iPhone-Geräteabnahme
 oder Produktivbereitstellung ist weiterhin nicht nachgewiesen. Gesamtquote
 28/62, R08.05 teilweise und alle Gesamtabnahmen A–G bleiben unverändert.
+
+
+## 03.11.2026 – E1b-4a1 umgesetzt und geprüft
+
+Der abschließende vollständige Browserlauf hat **alle 17 tatsächlichen Abläufe
+bestanden**, Exit 0. Er umfasst das neue ausdrücklich gespeicherte
+Vorbereitungsprofil und die bisherigen Bereiche einschließlich der mehrfachen
+Erstattungs-/Wiederverwendungszyklen, Einkauf, Kalender, Fotos, Unterschrift,
+rollenbegrenzter Lagerarbeit und Kontaktformular. Die zuvor korrigierte
+R1-Teststelle bestand auch in diesem vollständigen Lauf. Rohprotokoll:
+`work/verification/accounting-profile-browser-full.log`.
+
+Die 150 Dateien seines abschließenden Quellmanifests blieben während des Laufs
+bytegleich (`accounting-profile-browser-source-check.log`). Zusammen mit den
+oben genannten bestandenen Prüfungen — Backend 629 bestanden plus ein
+bestehender Windows-Skip, Flutter 649/649 und Analyse ohne Befund, Node 147/147,
+HTTP/Restore 82/82, tatsächliches HTTPS/MFA 6/6, PostgreSQL 9+12 und native
+Paketprüfung 15/15 — ist der Profilabschnitt im beschriebenen Umfang geprüft.
+Die Gruppen überschneiden sich; keine addierte Gesamtfallzahl wird behauptet.
+Der lokale Browsertransport ersetzt weiterhin nicht den separat ausgeführten
+HTTPS-/MFA-Nachweis oder eine echte native Geräteabnahme.
+
+Der gesicherte Implementierungsstand ist
+`df7a4325bc28681b5e677efa6f6a1da56c11ee86`. Alle 50 geänderten Code-/
+Vertragsdateien und alle 150 vollständigen Browserprüfquellen wurden zusätzlich
+gegen genau diesen Commit geprüft. Der [4a1-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B4A1.json)
+bindet endgültige Ergebnisse, historische Fehlversuche und Versionsgrenzen.
+Die Originalzieldatei wurde erneut bytegleich mit dem Upload verglichen;
+der abgeschlossene 3c-Prüfnachweis blieb unverändert. Es wurde nichts gepusht
+oder produktiv bereitgestellt.
+
+E1b-4a1 ist damit abgeschlossen; die sachliche Einordnung einzelner Geldflüsse
+E1b-4a2, steuerliche Klassifikation, Perioden/Korrekturen, Beraterpaket und
+vollständige EÜR bleiben offen. Das Vorbereitungsprofil aktiviert keine
+Steuerregel. Die Gesamtquote bleibt 28/62 ungewichtete Bausteine, R08.05 bleibt
+teilweise, alle Gesamtabnahmen A–G bleiben offen.

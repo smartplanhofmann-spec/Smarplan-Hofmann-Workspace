@@ -1,8 +1,8 @@
 # Nächster Schritt: Vorbereitungsprofil und sachliche Einordnung
 
 Stand: 03.11.2026. **Gesamtentwurf für Profil und sachliche Einordnung.**
-Der Profilteil wird gesondert in [E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md) umgesetzt
-und geprüft; die sachliche Einordnung bleibt der anschließende Abschnitt
+Der Profilteil ist gesondert in [E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md) umgesetzt
+und im beschriebenen Umfang geprüft; die sachliche Einordnung bleibt der anschließende Abschnitt
 E1b-4a2. Der vollständige Umfang dieses Entwurfs ist noch nicht implementiert.
 Dieser Vorschlag gehört weder zur Implementierung noch zum Prüfnachweis von
 E1b-3c. Grundlage sind [EÜR-Plan](CRM_ERP_EUER_PLAN.md),

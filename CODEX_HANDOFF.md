@@ -204,9 +204,10 @@ bestanden ebenfalls.
 Gruppen überschneiden sich; Details und Versionsgrenzen stehen im
 [E1b-3c-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B3C.json).
 
-**Aktuell in Entwicklung: [Vorbereitungsprofil E1b-4a1](docs/CRM_ERP_EUER_E1B4A1_API.md).**
-Dieser gesonderte Abschnitt baut auf dem abgeschlossenen 3c-Nachweispin auf;
-seine Prüfungen laufen und sind noch keine vollständige Teilabnahme.
+**Abgeschlossener Abschnitt: [Vorbereitungsprofil E1b-4a1](docs/CRM_ERP_EUER_E1B4A1_API.md)
+ist implementiert und im beschriebenen Umfang geprüft.** Implementierung
+`df7a4325bc28681b5e677efa6f6a1da56c11ee86`; dieser gesonderte Abschnitt baut
+auf dem abgeschlossenen 3c-Nachweispin auf.
 Ausdrücklich bestätigte Unternehmens-/Buchführungsangaben werden mit Grund,
 Belegreferenz und unveränderlicher Version gespeichert. Vorschau, GET oder
 Öffnen des Editors speichern keinen Profilstand. Einzelunternehmen/EÜR bleibt
@@ -214,7 +215,21 @@ die bestätigte fachliche Richtung; unbekannte Umsatzsteuerangaben und Daten
 bleiben `null`. Auch gespeicherte Angaben erzeugen kein steuerliches Ergebnis,
 keine steuerliche Freigabe und keine Änderung bestehender Geldflüsse oder
 Antworten. Die sachliche Einordnung einzelner CashEvents ist ausdrücklich
-E1b-4a2 und gehört nicht zu E1b-4a1.
+E1b-4a2 und bleibt als nächster eigenständiger Abschnitt offen.
+
+Prüfungen dieses Profilabschnitts: 630 Backendfälle ausgeführt, davon 629
+bestanden und ein bestehender Windows-Fall unter Linux übersprungen; 125
+gezielte Domänenfälle, belegt durch den 123-Fälle-Lauf und zwei zusätzliche
+Fälle; 82 HTTP-/Restore- sowie sechs echte HTTPS-Fälle; neun neue und zwölf
+historische PostgreSQL-Fälle. 649 Flutterfälle und 147 Browser-Unitfälle
+bestanden; Analyze blieb ohne Befund. Alle 15 Paketfälle und der vollständige
+Browserlauf mit 17 echten Abläufen bestanden. Der Profilablauf und der
+historische R1-Rechtefall bestanden zusätzlich gezielt. Ein früherer
+Browserlauf scheiterte ausschließlich an einem `response.finished`-Warten im
+R1-Testhelper; die Korrektur beobachtet die tatsächliche Client-Promise,
+ohne den Produktcode zu verändern. Prüfläufe und Versionsgrenzen stehen im
+[E1b-4a1-Prüfnachweis](docs/CRM_ERP_PRUEFNACHWEIS_E1B4A1.json).
+Die Gruppen überschneiden sich und werden nicht addiert.
 
 Unzugeordnete Erstattungsreste und weitere bislang nicht unterstützte
 Rechnungs-/Kundenfälle bleiben ungeklärt. Der Umsatzsteuerstatus bleibt

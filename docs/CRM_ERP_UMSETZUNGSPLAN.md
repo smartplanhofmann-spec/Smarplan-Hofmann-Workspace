@@ -29,7 +29,7 @@ Abnahmen A–G werden in [Anforderungen](CRM_ERP_ANFORDERUNGEN.md) nachverfolgt.
 | 1. Unternehmensgrundlage und Dokumenterhalt | Bedarf erfassen; manuell korrigierbare Modulvorschläge; Sichtbarkeit, Aktivierung und Rechte trennen; feste Unternehmensinstanz an Datenbank/Ablage binden; signierte Protokolle gegen beschädigte Inhalte und verlorene Antworten absichern | implementiert und mit den im Fortschrittsbericht genannten Prüfungen getestet; vollständige Infrastrukturtrennung bleibt offen |
 | 2. Anfrage bis Zahlung vervollständigen | Vorhandene Angebote/Kalkulation/Zeiten/Kosten/Rechnungen verbinden; Kundenportal mit enger Freigabe und nachvollziehbarer Annahme; durchgängige Abnahme B mit Wiederholung/Neustart/Rechteentzug | erster [Angebotsportalabschnitt](CRM_ERP_PORTAL.md) implementiert; vollständige Abnahme B weiter offen |
 | 3. Einkauf bis Service | Bestellungen mit Teil-/Restwareneingängen, Lagerbewegungen und Projektkosten verbinden; Katalogimporte mit Vorschau/Einheiten/Fehlerbericht; Service- und Betriebsmittelhistorie, Abnahme C | lokaler Bestell-/Liefer-/Kostenablauf implementiert; [Umfang und Grenzen](CRM_ERP_EINKAUF.md); tatsächliche Bestellauslösung, Originalbeleg- und strukturierte Gerätebindung weiter offen |
-| 4. Buchführung | Erste vollständige Version für Einzelunternehmen mit EÜR: reproduzierbares Journal, Zahlungs-/Steuerzuordnung, Perioden/Korrekturen und Steuerberaterexport; weitere Buchführungsfälle separat | begonnen: E1a mit Geldkonten, Quellen und bestätigten Geldflüssen; E1b-1 mit zusätzlicher Rechnungszuordnung und gemeinsamer OP-Projektion in Browser/Flutter geprüft. E1b-2 ergänzt geprüfte dokumentarische Netto-/Steuercents; E1b-3a bindet bestehende Erstattungszuordnungen an ausdrückliche Ursprünge und ist geprüft. E1b-3b zur Wiederverwendung zurückgeführter Komponenten ist implementiert und im beschriebenen Umfang geprüft. E1b-3c für gemischte ursprüngliche/erneut verwendete Erstattungsursprünge ist implementiert und im beschriebenen Umfang geprüft. Das gesonderte Vorbereitungsprofil E1b-4a1 wird entwickelt; seine Prüfungen laufen. Weitere [EÜR-Journalschritte](CRM_ERP_EUER_PLAN.md) und Gesamtanforderung offen |
+| 4. Buchführung | Erste vollständige Version für Einzelunternehmen mit EÜR: reproduzierbares Journal, Zahlungs-/Steuerzuordnung, Perioden/Korrekturen und Steuerberaterexport; weitere Buchführungsfälle separat | begonnen: E1a mit Geldkonten, Quellen und bestätigten Geldflüssen; E1b-1 mit zusätzlicher Rechnungszuordnung und gemeinsamer OP-Projektion in Browser/Flutter geprüft. E1b-2 ergänzt geprüfte dokumentarische Netto-/Steuercents; E1b-3a bindet bestehende Erstattungszuordnungen an ausdrückliche Ursprünge und ist geprüft. E1b-3b zur Wiederverwendung zurückgeführter Komponenten ist implementiert und im beschriebenen Umfang geprüft. E1b-3c für gemischte ursprüngliche/erneut verwendete Erstattungsursprünge ist implementiert und im beschriebenen Umfang geprüft. Das gesonderte Vorbereitungsprofil E1b-4a1 ist implementiert und im beschriebenen Umfang geprüft; die sachliche CashEvent-Einordnung E1b-4a2 bleibt offen. Weitere [EÜR-Journalschritte](CRM_ERP_EUER_PLAN.md) und Gesamtanforderung offen |
 | 5. Personal und Lohn | Erste deutsche Lohnabrechnung für reguläre Mitarbeiter und Minijobs: vorhandene Mitarbeiter/Zeiten/Abwesenheiten ergänzen, Reisekosten, geprüfte Abrechnungsfälle/Korrekturen und Meldungen nach tatsächlichen Zugangs-/Prüfvorgaben, Abnahme D | offen; Beschäftigungsumfang vom Nutzer am 02.11.2026 festgelegt |
 | 6. KI und Regeln | Berechtigungsgebundene Datenwerkzeuge, belegbare Antworten, Freigaben, Wiederholschutz, Unternehmensisolation und Schutz gegen Dokumentanweisungen; Chat/Sprachbedienung, Abnahme E | offen |
 | 7. Betrieb und Clients | Browser-/Windows-/iPhone-Abläufe zusammenführen, Offline-Berichte und Konfliktfälle, Installation/Updates/Backup/Restore, Kundenexport/-ausstieg, Abnahmen F/G | offen |
@@ -64,12 +64,14 @@ benennt den ausgeführten Umfang. Weitere
 Beraterpaket bleiben offen. Der noch offene Umsatzsteuerstatus wird nicht aus
 der EÜR-Auswahl abgeleitet.
 
-Der nächste gesonderte Entwicklungsabschnitt nach E1b-3c ist das
-[Vorbereitungsprofil E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md); seine Prüfungen
-laufen. Ausdrücklich bestätigte Angaben werden mit Grund, Belegreferenz und
+Das gesonderte [Vorbereitungsprofil E1b-4a1](CRM_ERP_EUER_E1B4A1_API.md)
+ist implementiert und im beschriebenen Umfang geprüft. Ausdrücklich
+bestätigte Angaben werden mit Grund, Belegreferenz und
 unveränderlichen Versionen gespeichert. Unbekannte Steuerangaben bleiben
 `null`, und es entsteht kein steuerliches Ergebnis oder Freigabestatus.
-Die sachliche Einordnung einzelner CashEvents gehört erst zu E1b-4a2.
+Die sachliche Einordnung einzelner CashEvents bleibt als E1b-4a2 offen.
+Ergebnisse und Grenzen des abgeschlossenen Profilabschnitts stehen im
+[E1b-4a1-Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_E1B4A1.json).
 
 Abschnitt 1 verwendet zunächst einen eigenen Prozess, Datenbankzugang,
 Dateibestand, Geheimnissatz, Datenschutz-Checkpoint und Worker je Unternehmen.

@@ -101,6 +101,17 @@
       "seconds": 2.891,
       "log": "accounting-refunds-native-final.log",
       "coverage": "Actual extracted support archive imports packaged backend and invokes operator CLI; no native-device acceptance"
+    },
+    "browser_real_full": {
+      "passed": 14,
+      "log": "accounting-refunds-browser-full.log",
+      "sandbox": [
+        "namespace",
+        "PID",
+        "network",
+        "seccomp"
+      ],
+      "transport": "Loopback HTTP fixture/proxy-Origin contract; independent actual HTTPS suite remains separate"
     }
   },
   "verification_version_boundary": {
@@ -202,7 +213,8 @@
     "accounting-refunds-http-first-code.sha256": "5304ee03cafe69345d3fae2f389ffabf1e7973b31c61664dd63a8f3e7db8f96e",
     "e1b3a-flutter-code-check.log": "8a19a8acde305fd7bdec2a40a57d1320db954a008b07c68769d878791cc8ce0d",
     "e1b3a-flutter-review.md": "0633afce8dc27b87434bba7169d53920f39e0cd1bf7ecbca91e198b5349e6fcf",
-    "e1b3a-flutter-full-toolchain-start.log": "5a0b1c80cfee13c18350eaffe146235e23f02d0e89d986308e35aa07dbd15be0"
+    "e1b3a-flutter-full-toolchain-start.log": "5a0b1c80cfee13c18350eaffe146235e23f02d0e89d986308e35aa07dbd15be0",
+    "accounting-refunds-browser-full.log": "2a8d5645538e2f27cccc2de04e57f1dc958f06d00470bfe3c44c2ae99d24f9f1"
   },
   "visual_sha256": {
     "refunds-desktop.png": "86cfaaa01b79b5bf2be5e34176e0914b6fb89a7a1fe323196379f68c375cd552",
@@ -212,5 +224,6 @@
     "sha256": "eaa6270e790d2aaaad70368b145b6fa81d9e42b193b1b615a3e64d4259b1a4bb",
     "contents": "fee250ada98e15374a5924380329b5514222d241ff9f47b536c385e138e33cf2  app/lib/business_accounting.dart\n4e14a004aca7236e52aa7e19f926db6d26e89fe58a997628bc468652fcac58f5  app/lib/business_accounting_refunds.dart\n03fe76c5feaa12a4b8315dd342d11f90d0c81cff8548ed500da38b019e555de4  app/lib/business_session.dart\n8045c97bd0163e7d430ba7fbee1b20f43dfd3652ab41d7a6fc813902b5023aeb  app/test/business_accounting_refunds_test.dart\nd6a4c4e9e63bb26aaad395df683256cdd51e0826b515662c8acd1879d75c5040  app/test/business_accounting_refunds_http_test.dart\n"
   },
-  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, summary and hashes are versioned. Completing this increment does not complete or stop the overall goal; exact returned-capacity work follows."
+  "note": "All evidence uses synthetic data. Raw logs/screenshots remain in ignored work/verification; source tests, summary and hashes are versioned. Completing this increment does not complete or stop the overall goal; exact returned-capacity work follows.",
+  "implementation_commit": "ec69d13f813baada86613c2a139faa105d1fc903"
 }

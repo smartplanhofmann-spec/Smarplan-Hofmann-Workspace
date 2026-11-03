@@ -974,6 +974,7 @@ Ursprünge bleiben Voraussetzung.
 | Flutteranalyse | keine Befunde, 9,1 s | `e1b3a-flutter-analyze.log` |
 | Browser-Unitgruppe | 109/109, rund 0,54 s | `accounting-refunds-node-agent.log` |
 | Tatsächlicher gezielter Erstattungsablauf im Browser | 1/1; Desktop und 390-Pixel-Ansicht visuell geprüft | `accounting-refunds-browser-final.log` |
+| Vollständige tatsächliche Browserregression | 14/14 | `accounting-refunds-browser-full.log` |
 | Abschließende native Paketprüfung | 15/15, 2,891 s | `accounting-refunds-native-final.log` |
 
 Die Gruppen überschneiden sich und werden nicht als eindeutige Abnahmen addiert.
@@ -1020,3 +1021,9 @@ Bereiche wie vollständige EÜR, Lohn und KI sowie die innerhalb einzelner
 Bausteine genannten Restarbeiten werden dadurch nicht als erledigt bewertet.
 Keine der sieben Gesamtabnahmen A–G ist abgeschlossen. Die unabhängige
 Entwicklung wird fortgesetzt.
+
+Der E1b-3a-Code ist im lokalen Commit `ec69d13f` gesichert; der
+Prüfnachweis bindet seine Quellen an den vollständigen Commit. Auch die
+abschließende vollständige Browserregression über alle 14 Abläufe ist grün.
+Die Weiterentwicklung von E1b-3b hat mit dem isolierten Rechenkern und dem
+Vertrag begonnen; sie ist kein Teil dieser E1b-3a-Abnahme.

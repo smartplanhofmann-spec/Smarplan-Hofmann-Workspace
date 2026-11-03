@@ -1,7 +1,8 @@
 # CRM/ERP – Fortschritt und Testergebnisse
 
 Die Abschnitte sind chronologisch. Der letzte abgeschlossene Prüfstand steht
-unter **03.11.2026 – E1b-3b umgesetzt und geprüft** am Ende dieser Datei.
+unter **03.11.2026 – E1b-3b umgesetzt und geprüft**. Die anschließende
+Entwicklung von E1b-3c ist gesondert dokumentiert.
 Der erste Abschnitt gehört zum lokalen Commit `14fe4c9`, der zweite zu `64bdc26`.
 
 ## 02.11.2026 – Bestand, Integration und erste Entwicklung
@@ -1177,3 +1178,32 @@ Gesamtabnahmen A–G bleiben offen. Die Quote bleibt 28/62 ungewichtete Baustein
 Der abschließende E1b-3b-Stand ist lokal in Commit `36f72a29e6074b8a06d470a59f0c03230037de1d`
 gesichert; der Prüfnachweis bindet alle 51 Code-/Vertragsdateien an diesen
 Commit. Es wurde nichts gepusht oder produktiv bereitgestellt.
+
+
+## 03.11.2026 – E1b-3c begonnen
+
+Die Entwicklung setzt unmittelbar auf der abgeschlossenen 3b-Basis
+`5a6e22ca278d647b4889243688b04e52b308a5b9` fort. Der
+[neue Vertrag](CRM_ERP_EUER_E1B3C_API.md) beschreibt ganze Erstattungsportionen
+mit gemischten ursprünglichen und wiederverwendeten Zahlungsanteilen sowie
+mindestens zwei weitere vollständige Rücknahme-/Wiederverwendungszyklen.
+Neue Financewirkungen oder steuerliche Ergebnisse sind damit nicht verbunden.
+
+Zwei isolierte Grundlagen sind bereits umgesetzt und geprüft:
+
+| Baustein | Nachweis | Rohprotokoll unter `work/verification/` |
+| --- | --- | --- |
+| Eindeutige gemeinsame Reihenfolge zweier Journalströme | 13/13, 0,025 s; 923 unabhängige tatsächliche Reihenfolgen und 697 begrenzte Kopfkombinationen | `e1b3c-joint-order.log` |
+| Versionierte Lots und kumulative Rücknahmen ohne Rundungsreset | 12/12, 0,075 s; 3.731 Vergleiche gegen genaue Bruchrechnung | `e1b3c-return-lots.log` |
+
+Der zweite Baustein erhält die tatsächliche ursprüngliche Lotbasis über den
+Wechsel des Erstattungsschreibers. Beim mittleren 39,67-Euro-Lot mit 6,34 Euro
+Steuer ergibt die erste Rücknahme von 13,22 Euro genau 2,11 Euro Steuer; die
+zweite gleich hohe Rücknahme muss 2,12 Euro ergeben. Ein falscher Neustart
+am verbleibenden Rest würde diese Grenze verletzen.
+
+Der [vorläufige 3c-Nachweis](CRM_ERP_PRUEFNACHWEIS_E1B3C.json) bindet diese
+begrenzten Ergebnisse und ihre Quellstände. Sie sind keine Abnahme der noch
+laufenden Datenbank-, API-, Client- oder Restoreintegration. Deren gemeinsame
+Chronologie und vollständige aktuelle Quellenrechte werden getrennt umgesetzt.
+Die Gesamtquote und die offenen Gesamtabnahmen ändern sich dadurch nicht.

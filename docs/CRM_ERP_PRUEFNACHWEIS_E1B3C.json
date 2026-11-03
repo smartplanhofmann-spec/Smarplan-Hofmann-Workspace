@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-03",
+  "status": "development_started_only_isolated_foundations_verified",
+  "base_commit": "5a6e22ca278d647b4889243688b04e52b308a5b9",
+  "previous_implementation_commit": "36f72a29e6074b8a06d470a59f0c03230037de1d",
+  "scope": "E1b-3c implementation contract and isolated immutable order/return arithmetic. Full R2 persistence, joint C2/R2 validation, API, clients and restore integration are under development and not accepted by these tests.",
+  "contract_sha256": "8f20d7eb639466188057cb161f975bd3265994f40c5eb9059b6f5507539f5122",
+  "results": {
+    "joint_order": {
+      "passed": 13,
+      "seconds": 0.025,
+      "independent_interleavings": 923,
+      "bounded_head_pairs": 697,
+      "log": "e1b3c-joint-order.log"
+    },
+    "return_lots": {
+      "passed": 12,
+      "seconds": 0.075,
+      "exact_fraction_comparisons": 3731,
+      "log": "e1b3c-return-lots.log"
+    }
+  },
+  "foundation_source_sha256": {
+    "backend/accounting_joint_order.py": "c01040475245bfb073ab320e1347f0da64be1df77458650b3070338fe0bd718f",
+    "backend/test_accounting_joint_order.py": "6e29926bd05434709e9ade2684be1084b490ff67d94c33c727c622b79d878c3d",
+    "backend/accounting_return_lots.py": "6f7ebe7f45239c9b04f2045720a08fd907ee01ffd8b40c3592656d258f72cc9c",
+    "backend/test_accounting_return_lots.py": "740e2a843bbe6a13efe52e03414089941282fefd100a03a311550c263a790f6a"
+  },
+  "log_sha256": {
+    "e1b3c-joint-order.log": "c83c4a18115916dc48ba1a3fce66e74aa0d693cd8c86630df88d5bcea77e2473",
+    "e1b3c-return-lots.log": "859805b068f32bcec5488ca559321436850cc2e408ec79604524063868ed66f3"
+  },
+  "limitations": [
+    "Pure arithmetic assumes independently authenticated original lot cents and complete previous claims; it cannot establish their completeness.",
+    "Joint order validates exact global opposite-head chronology only; it does not validate stored domain rows or current source permissions.",
+    "No claim of working integrated R2 lifecycle, runtime migration, H6/schema7 restore, browser, Flutter or PostgreSQL acceptance yet."
+  ],
+  "independent_read_only_review": {
+    "joint_order": "No confirmed findings; independent actual-interleaving oracle.",
+    "return_lots": "No confirmed findings; independent exact Fraction oracle, immutable original basis and versioned identities verified.",
+    "tests_rerun_by_reviewer": false
+  }
+}

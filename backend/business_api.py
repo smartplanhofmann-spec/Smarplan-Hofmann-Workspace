@@ -5,6 +5,7 @@ names are source-controlled; neither requests nor database rows select Python
 modules. Provider I/O and rendering must not run inside a global Office lock.
 """
 import importlib
+import json
 import re
 from core import Problem
 
@@ -70,7 +71,7 @@ def query_data(pairs):
 
 
 def offline_path(path, method, scopes=None):
-    scopes = {'time_events', 'field_media'} if scopes is None else set(scopes)
+    scopes = {'time_events', 'field_media', 'offline_reports'} if scopes is None else set(scopes)
     if path == '/business/capabilities' and method == 'GET':
         return True
     if 'time_events' in scopes and ((path == '/business/time/events' and method == 'POST') or
@@ -83,7 +84,70 @@ def offline_path(path, method, scopes=None):
             return True
         if isinstance(path, str) and re.fullmatch(r'/business/media/[a-f0-9]{32}/(?:chunks/[0-9]{1,3}|complete)', path) and method == 'POST':
             return True
+    if 'offline_reports' in scopes:
+        if path == '/business/service-reports/offline' and method == 'POST':
+            return True
+        if method == 'GET' and isinstance(path, str) and re.fullmatch(r'/business/service-reports/[a-f0-9]{32}(?:/pdf)?', path):
+            return True
     return False
+
+
+def strict_report_path(path):
+    """Framing for the capture command and individual signed archive reads."""
+    return path == '/business/service-reports/offline' or (
+        isinstance(path, str) and re.fullmatch(r'/business/service-reports/[a-f0-9]{32}(?:/pdf)?', path) is not None)
+
+
+def decode_offline_report(raw):
+    """One unambiguous UTF-8 signature envelope on both transports."""
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            if key in result:
+                raise ValueError('Duplicate field')
+            result[key] = value
+        return result
+
+    def constant(value):
+        raise ValueError('Nonfinite number')
+
+    try:
+        if not isinstance(raw, bytes) or not 0 < len(raw) <= 1_000_000:
+            raise Problem(413, 'Anfrage zu groß oder leer')
+        result = json.loads(raw.decode('utf-8'), object_pairs_hook=pairs, parse_constant=constant)
+        if not isinstance(result, dict):
+            raise ValueError('Expected object')
+        return result
+    except (UnicodeError, ValueError, RecursionError):
+        raise Problem(400, 'Eindeutiges UTF-8-JSON-Objekt erwartet.') from None
+
+
+def _report_access(office, actor, state):
+    """Current project hints; authorization is repeated at every domain write.
+
+    Pausing a module only suspends writes, so devices can retain their original
+    queue without mistaking a pause for a revoked project permission.
+    """
+    from business_foundation import _fresh, require_permission
+    from business_organization import module_enabled
+    actor = _fresh(office, actor)
+    readable = set(state.get('read_capabilities', []))
+    project_ids = []
+    if 'business_operations' in readable:
+        for project in office.projects(actor):
+            try:
+                require_permission(office, actor, 'documents.read', project['id'])
+                require_permission(office, actor, 'documents.write', project['id'])
+            except Problem as error:
+                if error.status not in (403, 404):
+                    raise
+            else:
+                project_ids.append(project['id'])
+    enabled = (not state.get('readonly', True) and
+               'business_operations' in state.get('active_capabilities', state.get('capabilities', [])))
+    if 'business_organization' in readable:
+        enabled = enabled and module_enabled(office, 'documents')
+    return {'report_project_ids': sorted(project_ids), 'report_writes_enabled': bool(enabled)}
 
 
 def capabilities(office, actor, project_id=None):
@@ -134,7 +198,7 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
     if relative is None:
         return None
     if offline and not offline_path(path, method, offline_capabilities):
-        raise Problem(403, 'Dieser Gerätezugang erlaubt nur eigene Zeitereignisse.')
+        raise Problem(403, 'Dieser Gerätezugang erlaubt nur ausdrücklich freigegebene Baustellenfunktionen.')
     if relative == '/capabilities':
         if method != 'GET':
             raise Problem(405, 'HTTP-Methode nicht erlaubt.')
@@ -146,9 +210,11 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
             result['global_permissions'] = result['permissions']
             result['capabilities'] = [p for p in result['capabilities'] if
                 (p == 'business_time' and 'time_events' in offline_capabilities) or
-                (p == 'business_operations' and 'field_media' in offline_capabilities)]
+                (p == 'business_operations' and set(offline_capabilities) & {'field_media', 'offline_reports'})]
             permitted_modules = {name for name, scope in (('business_time', 'time_events'),
-                ('business_operations', 'field_media')) if scope in offline_capabilities}
+                ('business_operations', 'field_media'), ('business_operations', 'offline_reports')) if scope in offline_capabilities}
+            if 'offline_reports' in offline_capabilities:
+                result.update(_report_access(office, actor, result))
             for key in ('active_capabilities', 'read_capabilities'):
                 result[key] = [name for name in result.get(key, []) if name in permitted_modules]
             result.pop('restore_id', None)
@@ -169,9 +235,13 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
                 caps.append('time_events')
             if 'business_operations' in active and 'documents.write' in allowed:
                 caps.append('field_media')
+            reports = _report_access(office, actor, state)
+            if reports['report_writes_enabled'] and reports['report_project_ids']:
+                caps.append('offline_reports')
             if not caps:
                 raise Problem(403, 'Keine freigegebenen Baustellenfunktionen verfügbar.')
             return {**plan_access.issue(office, actor, workspace=True, business=True, business_capabilities=caps),
+                    **reports,
                     'capabilities': ['project_plans', 'offline_plan_access', 'plan_imports',
                                      'plan_deletion', 'project_workspace', 'offline_workspace', *caps]}, 201, 'application/json'
     import business_schema
@@ -217,7 +287,31 @@ def dispatch(office, actor, path, method, data, *, offline=False, offline_capabi
     if not offline:
         return _dispatch(office, actor, path, method, data)
     if not offline_path(path, method, offline_capabilities):
-        raise Problem(403, 'Dieser Gerätezugang erlaubt nur eigene Zeitereignisse.')
+        raise Problem(403, 'Dieser Gerätezugang erlaubt nur ausdrücklich freigegebene Baustellenfunktionen.')
+    if path.startswith('/business/service-reports/'):
+        # Rendering owns two short domain transactions. Never wrap this command
+        # in the shared time/media lock or a surrounding database transaction.
+        from business_foundation import require_permission
+        from business_operations import own_offline_report
+        try:
+            with office.lock:
+                if method == 'GET':
+                    if data:
+                        raise Problem(400, 'Keine zusätzlichen Filter erlaubt')
+                    entry_id = path.split('/')[3]
+                    if not own_offline_report(office, actor, entry_id):
+                        raise Problem(403, 'Eigenes Offline-Protokoll nicht verfügbar.')
+                else:
+                    if not isinstance(data, dict) or '_query' in data:
+                        raise Problem(400, 'Unveränderte Offline-Erfassung erwartet.')
+                    project_id = data.get('project_id')
+                    require_permission(office, actor, 'documents.read', project_id)
+                    require_permission(office, actor, 'documents.write', project_id)
+            return _dispatch(office, actor, path, method, data, offline=True, offline_capabilities=offline_capabilities)
+        except Problem as error:
+            if error.status == 404:
+                raise Problem(403, 'Eigenes Offline-Protokoll oder Projekt nicht verfügbar.') from None
+            raise
     # The narrow time path does no provider I/O or rendering. Hold its ownership
     # check through the event's nested transaction to close cross-entry races.
     with office.lock, office.db:

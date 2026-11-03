@@ -17,6 +17,14 @@ extension OfflineBusinessTime on OfflinePlans {
       final readonly = value['readonly'] == true;
       await _change((state) {
         state['business_readonly'] = readonly;
+        if (value['report_project_ids'] is List) {
+          final allowed = List<String>.from(value['report_project_ids']);
+          (state['report_project_ids'] as List? ?? []).removeWhere(
+            (id) => !allowed.contains(id),
+          );
+        }
+        if (value['report_writes_enabled'] is bool)
+          state['report_writes_enabled'] = value['report_writes_enabled'];
       });
       if (readonly) {
         notice = 'Der Server ist im Lesemodus. Gesicherte Zeiten und Fotos warten unverändert auf die erneute Schreibfreigabe.';

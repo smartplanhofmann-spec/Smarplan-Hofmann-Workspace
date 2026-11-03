@@ -1434,3 +1434,114 @@ E1b-4a2, steuerliche Klassifikation, Perioden/Korrekturen, Beraterpaket und
 vollständige EÜR bleiben offen. Das Vorbereitungsprofil aktiviert keine
 Steuerregel. Die Gesamtquote bleibt 28/62 ungewichtete Bausteine, R08.05 bleibt
 teilweise, alle Gesamtabnahmen A–G bleiben offen.
+
+## 03.11.2026 – Gesamtziel wieder priorisiert: Kundenauftrag ausführen und abrechnen
+
+Der erneute vollständige Zielabgleich hat die Schwerpunktsetzung korrigiert:
+Die bisherigen EÜR-Unterabschnitte sind erhalten und geprüft, schließen jedoch
+keinen Gesamtabnahmefall A–G. Der aktive Schwerpunkt ist wieder der früh
+nutzbare durchgängige Kundenauftrag. Einzelunternehmen mit EÜR sowie reguläre
+Mitarbeiter und Minijobs bleiben verbindlicher Fachumfang. Es wird kein neuer
+Fertigstellungsprozentsatz aus Unterabschnitten abgeleitet.
+
+Der [Arbeitsplan Kundenauftrag](CRM_ERP_KUNDENAUFTRAG.md), die Anforderungen und
+der Umsetzungsplan sind aktualisiert. Das Original `CRM_ERP_Gesamtziel.txt`
+ist erneut bytegleich mit dem Upload verglichen; SHA-256 bleibt
+`a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5`.
+
+### Umgesetzt
+
+- Integrierte Offline-Serviceberichte verwenden das bestehende Businessarchiv.
+  Entwurf, geprüfter Inhalt, Name und Zeichnung werden im verschlüsselten
+  Gerätespeicher gesichert. Eine lokale Unterschrift ist sichtbar von einer
+  bestätigten Übertragung getrennt. Historische Core-Protokolle bleiben erhalten.
+- Atomarer Import mit festen Kennungen, zwei Archivversionen, einer
+  Empfangsbestätigung und unveränderlichem PDF. Originalinhalt und Gerätezeiten
+  werden nicht normalisiert; der Serverempfang ist gesondert gekennzeichnet.
+- Neue enge Gerätefreigabe nur für die Erfassung und eigene Einzelberichte/PDFs.
+  Aktuelle Rechte und Modulfreigabe werden auch bei Wiederholungen und nach der
+  PDF-Erzeugung geprüft. Änderungen an Projektname oder Kundenname verhindern den Erstimport;
+  bereits bestätigte Wiederholungen behalten ihren historischen Stand.
+- Die Flutter→Python-Offline-Reise verbindet Zeiten, Foto, Protokoll, Neustart,
+  verlorene Commit-Antwort, identische Wiederholung, PDF-Prüfsumme und erneutes
+  Offlineöffnen. Eine zweite echte PostgreSQL-/HTTP-Reise führt von Anfrage und
+  Artikelimport über Angebot, Kundenportalannahme, Auftrag und Ausführung bis
+  Rechnung sowie vollständiger Zahlung. Die Projekt-ID bleibt dabei gleich.
+- Ein vorhandener SQLite-Restorefehler ist korrigiert: Fremdschlüssel werden vor
+  dem Widerruf der Sitzungen aktiviert, damit abhängige Gerätefreigaben ebenfalls
+  entfernt werden. SQLite- und tatsächlicher PostgreSQL-Dump/Restore erhalten
+  Original, PDF, Versionen und Empfangsbestätigung.
+- Die [Bedienanleitung](CRM_ERP_OFFLINE_SERVICEBERICHTE.md), das neue Backendmodul
+  und die Tests sind in Paketquellen beziehungsweise CI berücksichtigt. Im
+  Browser kennzeichnet die Berichtsliste Gerätezeit und Serverempfang getrennt.
+
+### Tatsächlich ausgeführte Abschlussprüfungen
+
+| Prüfung | Ergebnis | Nachweis unter `work/verification/` |
+| --- | --- | --- |
+| Backend vollständig | 643 ausgeführt, 642 bestanden, 1 bestehender Windows-Skip; 135,186 s | `customer-workflow-backend-full.log` |
+| Flutter vollständig | 670 bestanden | `customer-workflow-flutter-full.log` |
+| Flutter Analyse | keine Probleme; 6,5 s | `customer-workflow-flutter-analyze.log` |
+| JavaScript/Node | 147 bestanden | `customer-workflow-node-authorized.log` |
+| Native Paketprüfungen | 15 bestanden; 3,573 s | `customer-workflow-native-final.log` |
+| Flutter Repository + echter HTTP-Ablauf | 19 bestanden; Teilmenge der Gesamtsuite | `offline-service-reports-client-final.log` |
+| Neue Widgetabläufe | 2 bestanden; Teilmenge der Gesamtsuite | `offline-service-report-widgets.log` |
+| HTTP/TLS/Restore und passende Altregression | 37 bestanden; 14,415 s; teilweise in Backend-Gesamtsuite enthalten | `offline-reports-transport-final.log` |
+| Anfrage bis vollständige Zahlung, echtes PostgreSQL/HTTP/MFA | 1 bestanden; 2,327 s | `customer-execution-journey-pg.log` |
+| Tatsächlicher PostgreSQL-Dump/Restore | 1 bestanden; 4,546 s | `offline-reports-pg-restore-final.log` |
+
+Die Zahlen werden nicht addiert. 78 Backend-Produktquellen sowie 127
+Flutter-Quellen/Testdateien sind vor und nach den jeweiligen Gesamtläufen
+unverändert geprüft. 29 geänderte Code-/Test-/CI-Dateien, 26 Artefakte und die
+Versionsgrenzen sind im [Prüfnachweis](CRM_ERP_PRUEFNACHWEIS_KUNDENAUFTRAG.json)
+mit Prüfsummen festgehalten. Die separate interne Quellprüfung meldet nach den
+Korrekturen keinen verbleibenden Blocker; sie ersetzt keine unabhängige
+Sicherheitsprüfung. Die komplette Browser-17er-Suite wurde für diesen Abschnitt
+nicht erneut ausgeführt; JavaScript-Tests und die echte HTTP-/App-Kette sind der
+hier tatsächlich ausgeführte Umfang.
+
+Reproduzierbare Hauptbefehle aus dem Repository (Flutter innerhalb `app`):
+
+```bash
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest discover -s backend -p 'test_*.py' -v
+flutter analyze --no-pub
+flutter test --no-pub --reporter expanded
+node --test --test-reporter=tap web/office/tests/*.test.mjs
+backend/.venv/bin/python -m unittest discover -s scripts -p test_native_release.py -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_business_offline_reports_api test_business_offline_reports_transport test_business_offline test_plan_access test_backup online.test_business_boundary_review online.test_business_operations_api online.test_business_planning_time_api -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_customer_execution_journey_pg -v
+PYTHONPATH=backend:backend/online backend/.venv/bin/python -m unittest online.test_business_offline_reports_restore_pg -v
+```
+
+Die PostgreSQL-Befehle verlangen ausdrücklich eine entbehrliche lokale
+`SMARTPLAN_TEST_DSN` und die vorhandenen `pg_dump`-/`pg_restore`-Werkzeuge. Sie
+setzen das Testschema zurück. Alle Daten waren synthetisch; lokale Socket- und
+Kindprozessrechte wurden für diese Testläufe freigegeben. Es wurden keine Nachrichten versandt, keine realen Zahlungen ausgeführt und
+keine Anbieter- oder Produktivdaten verändert.
+
+### Fehlversuche und Grenzen
+
+Die neuen Tests fanden den oben behobenen SQLite-Restorefehler und im Client
+Fehler bei typisierten Map-Zuweisungen beziehungsweise veränderlichen
+Unterschriftslisten. Die eingefrorene Erfassung ist nun gegen spätere Änderungen
+an den Editorlisten geschützt. Weitere frühe Fehlläufe betrafen Testannahmen zu
+vorhandenen Antwortformaten, fehlende synthetische PG-Anmeldung, einen im
+Restoretest fälschlich ersetzten MFA-Verschlüsselungsschlüssel sowie
+Widgetausrichtung/Timerbereinigung. Korrigierte Tests sind bestanden; solche
+Fehlläufe werden nicht als erfolgreiche Produktprüfungen gezählt.
+
+Ein Node-Erstlauf scheiterte an `EPERM` beim lokalen Zeitzonen-Kindprozess und
+bestand nach Freigabe der benötigten Ausführungsrechte. Der erste
+Flutter-Analyseaufruf versuchte unnötig einen Paket-Sicherheitsabgleich im
+Netzwerk und endete mit Exit 69; ein parallel gestarteter Testlauf wurde vor
+Abschluss abgebrochen. Die abschließenden Läufe nutzten mit `--no-pub` die
+installierten Abhängigkeiten. Der erste Analyse-Rohlog wurde beim erneuten
+Aufruf überschrieben; dafür liegt nur der beobachtete Werkzeugausgang vor.
+
+Das Gesamtziel ist weiterhin nicht erreicht. Alle Abnahmen A–G bleiben offen.
+Der Kostenabgleich umfasst gebuchte Materialien und genehmigte Zeiten;
+Fremdleistungen, sonstige Kosten und vollständige Wirtschaftlichkeit fehlen.
+Echte Windows-/iPhone-Installationen, Updates und Geräteabnahmen sind hier nicht
+nachgewiesen. Weitere Dokumentarten, die fachliche Klärung konfliktbehafteter
+unterschriebener Erfassungen, vollständige EÜR, Lohn, KI/Regeln und externe
+Fach-/Sicherheitsnachweise bleiben im Gesamtplan bestehen.

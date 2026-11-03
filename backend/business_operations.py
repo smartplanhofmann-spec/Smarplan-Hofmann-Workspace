@@ -592,9 +592,15 @@ class BusinessOperations(Domain):
         return value
 
     def _entry(self,row):
+        from business_offline_reports import validate_row
+        validate_row(row)
         value=self._record(row); value['kind']=row['kind']; value['content_hash']=row['content_hash']
         if row['pdf_sha256']: value['pdf_sha256']=row['pdf_sha256']
         return value
+
+    def capture_offline(self,actor,project_id,data):
+        from business_offline_reports import capture
+        return capture(self,actor,project_id,data)
 
     def _insert_entry(self,fresh,project_id,kind,body):
         identifier_,now=uuid.uuid4().hex,self.now()
@@ -672,6 +678,7 @@ class BusinessOperations(Domain):
         with self.office.lock:
             self.access(actor,'documents.read',project_id)
             row=self.row('business_operation_entries',project_id,entry_id)
+            self._entry(row)
             if not row['pdf']: raise Problem(409,'Dokument ist noch nicht unterzeichnet')
             content=bytes(row['pdf'])
             if hashlib.sha256(content).hexdigest()!=row['pdf_sha256']: raise Problem(500,'PDF-Prüfsumme stimmt nicht')
@@ -757,6 +764,14 @@ def _render_pdf(value):
     stream=io.BytesIO(); styles=getSampleStyleSheet()
     document=SimpleDocTemplate(stream,pageCompression=0)
     story=[Paragraph('Smartplan – '+escape(value['title']),styles['Title']),Spacer(1,12)]
+    offline=value.get('offline_capture')
+    if offline:
+        for label,field in (('Projekt','project_name'),('Kunde','customer')):
+            story.append(Paragraph(escape(label+': '+offline['content'][field]),styles['Normal']))
+        story.append(Paragraph('Offline erfasst. Gerätezeiten sind Angaben des Geräts; kein vertrauenswürdiger Zeitstempel.',styles['Normal']))
+        story.append(Paragraph(escape('Erfasst (Geräteangabe, UTC): '+offline['content']['captured_at']),styles['Normal']))
+        story.append(Paragraph(escape('Am Server empfangen (UTC): '+offline['received_at']),styles['Normal']))
+        story.append(Paragraph(escape('Prüfsumme des auf dem Gerät bestätigten Inhalts: '+offline['content_hash']),styles['Normal']))
     for key in ('project_id','kind','content_hash'):
         story.append(Paragraph(escape(key+': '+str(value[key])),styles['Normal']))
     for key in ('description','work','issues','notes','details','location','resolution'):
@@ -776,7 +791,7 @@ def _render_pdf(value):
         story.append(Paragraph(escape(item['label']+': '+('Ja' if answer is True else 'Nein' if answer is False else str(answer))),styles['Normal']))
     signed_at=datetime.fromisoformat(instant(value['signed_at'])).strftime('%d.%m.%Y, %H:%M:%S UTC')
     story.extend([Spacer(1,20),Paragraph('Unterzeichner: '+escape(value['signer']),styles['Normal']),
-                  Paragraph('Unterzeichnet: '+escape(signed_at),styles['Normal']),Signature(value['strokes'])])
+                  Paragraph(('Unterzeichnet (Geräteangabe): ' if offline else 'Unterzeichnet: ')+escape(signed_at),styles['Normal']),Signature(value['strokes'])])
     document.build(story)
     return stream.getvalue()
 
@@ -912,7 +927,19 @@ def verified_receipt_media(office,actor,media_id,project_id=None):
         return dict(bytes=original,filename=row['filename'],media_type=row['media_type'],sha256=row['sha256'],project_id=row['project_id'])
 
 
+def own_offline_report(office,actor,entry_id):
+    """Narrow device ownership check; authentication remains the host's job."""
+    row=office.db.execute('SELECT * FROM business_operation_entries WHERE id=?',(entry_id,)).fetchone()
+    if row is None or row['kind']!='service' or row['created_by']!=actor['id']:
+        return False
+    api=BusinessOperations(office)
+    api.access(actor,'documents.read',row['project_id'])
+    value=api._entry(row)
+    return value.get('offline_capture') is not None and value.get('status')=='signed'
+
+
 def methods(path):
+    if path=='/service-reports/offline': return 'POST'
     if path=='/documentation/export' or re.fullmatch(r'/checklist-runs(?:/[a-f0-9]{32})?',path): return 'GET'
     if re.fullmatch(r'/(media|receipt-media|diary|defects|measurements|service-reports|checklists)(?:/[a-f0-9]{32})?(?:/(content|chunks/\d+|complete|sign|pdf|start|answers|report))?', path):
         if path.endswith(('/content','/pdf')): return 'GET'
@@ -928,6 +955,10 @@ def dispatch(office,actor,path,method,data):
     project_id=query.get('project_id') if method=='GET' else body.get('project_id')
     if isinstance(project_id,list): project_id=project_id[0] if len(project_id)==1 else None
     if method!='GET' and isinstance(body,dict): body={k:v for k,v in body.items() if k!='project_id'}
+    if path=='/service-reports/offline':
+        if method!='POST': raise Problem(405,'Methode nicht unterstützt')
+        if '_query' in data: raise Problem(400,'Keine zusätzlichen Filter bei Offline-Erfassung erlaubt')
+        return api.capture_offline(actor,project_id,body),201,'application/json'
     if path=='/documentation/export':
         if method!='GET': raise Problem(405,'Methode nicht unterstützt')
         if not project_id: raise Problem(400,'project_id fehlt')

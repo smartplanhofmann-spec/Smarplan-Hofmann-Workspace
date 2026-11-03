@@ -23,11 +23,29 @@ Abnahmen A–G werden in [Anforderungen](CRM_ERP_ANFORDERUNGEN.md) nachverfolgt.
 
 ## Reihenfolge und überprüfbare Ergebnisse
 
+**Aktuelle Arbeitspriorität: den Kundenauftrag ausführen und abrechnen (B).**
+Der Zielabgleich vom 03.11.2026 hat eine falsche Schwerpunktsetzung festgestellt:
+Die abgeschlossenen EÜR-Unterabschnitte schließen noch keinen der sieben
+Gesamtabnahmefälle. Weitere steuerliche Detailarbeit verdrängt deshalb nicht den
+früh geforderten nutzbaren Gesamtprozess. Unterschriebene Serviceprotokolle können inzwischen im vorhandenen
+Businessarchiv offline erfasst, verschlüsselt gesichert und nach Neustart ohne
+Duplikate synchronisiert werden; die echte App-/HTTP-Kette ist geprüft. Ein
+zusammenhängender PostgreSQL-Nachweis verbindet Anfrage, Katalog, Portalannahme,
+Ausführung, Rechnung und vollständige Zahlung. Für die vollständige Abnahme B bleiben insbesondere die gesamte Kosten- und
+Finanzsicht und die reale Geräteabnahme nachzuweisen. Umfang und offene Nachweise stehen im
+[Arbeitsplan Kundenauftrag](CRM_ERP_KUNDENAUFTRAG.md).
+
+Das Projekt entsteht bereits bei der Anfrageübernahme. Seine Identität bleibt
+bei Portalannahme und Auftrag erhalten, damit Aufmaß, Zeiten und Belege auf
+dieselben Quellen verweisen. Eine zusätzliche Projektanlage nach Annahme ist
+keine Voraussetzung für diese Umsetzung. Historische Protokolle und die bereits
+geprüften Buchhaltungsfunktionen bleiben erhalten.
+
 | Abschnitt | Ergebnis und Prüfung | Status |
 | --- | --- | --- |
 | 0. Bestand konsolidieren | Vorhandene Business-Suite integrieren; Backend-, Browser- und App-Prüfungen erneut ausführen; historische Aussagen kennzeichnen | umgesetzt und geprüft; ursprüngliche Browserblockade im zweiten Abschnitt behoben, 8 echte Browserabläufe bestanden |
 | 1. Unternehmensgrundlage und Dokumenterhalt | Bedarf erfassen; manuell korrigierbare Modulvorschläge; Sichtbarkeit, Aktivierung und Rechte trennen; feste Unternehmensinstanz an Datenbank/Ablage binden; signierte Protokolle gegen beschädigte Inhalte und verlorene Antworten absichern | implementiert und mit den im Fortschrittsbericht genannten Prüfungen getestet; vollständige Infrastrukturtrennung bleibt offen |
-| 2. Anfrage bis Zahlung vervollständigen | Vorhandene Angebote/Kalkulation/Zeiten/Kosten/Rechnungen verbinden; Kundenportal mit enger Freigabe und nachvollziehbarer Annahme; durchgängige Abnahme B mit Wiederholung/Neustart/Rechteentzug | erster [Angebotsportalabschnitt](CRM_ERP_PORTAL.md) implementiert; vollständige Abnahme B weiter offen |
+| 2. Anfrage bis Zahlung vervollständigen | Vorhandene Angebote/Kalkulation/Zeiten/Kosten/Rechnungen verbinden; Kundenportal mit enger Freigabe und nachvollziehbarer Annahme; durchgängige Abnahme B mit Wiederholung/Neustart/Rechteentzug | [Angebotsportal](CRM_ERP_PORTAL.md), integrierte Offline-Serviceprotokolle und zusammenhängende technische [Auftragskette](CRM_ERP_KUNDENAUFTRAG.md) implementiert und im benannten Umfang geprüft; vollständige Abnahme B weiter offen |
 | 3. Einkauf bis Service | Bestellungen mit Teil-/Restwareneingängen, Lagerbewegungen und Projektkosten verbinden; Katalogimporte mit Vorschau/Einheiten/Fehlerbericht; Service- und Betriebsmittelhistorie, Abnahme C | lokaler Bestell-/Liefer-/Kostenablauf implementiert; [Umfang und Grenzen](CRM_ERP_EINKAUF.md); tatsächliche Bestellauslösung, Originalbeleg- und strukturierte Gerätebindung weiter offen |
 | 4. Buchführung | Erste vollständige Version für Einzelunternehmen mit EÜR: reproduzierbares Journal, Zahlungs-/Steuerzuordnung, Perioden/Korrekturen und Steuerberaterexport; weitere Buchführungsfälle separat | begonnen: E1a mit Geldkonten, Quellen und bestätigten Geldflüssen; E1b-1 mit zusätzlicher Rechnungszuordnung und gemeinsamer OP-Projektion in Browser/Flutter geprüft. E1b-2 ergänzt geprüfte dokumentarische Netto-/Steuercents; E1b-3a bindet bestehende Erstattungszuordnungen an ausdrückliche Ursprünge und ist geprüft. E1b-3b zur Wiederverwendung zurückgeführter Komponenten ist implementiert und im beschriebenen Umfang geprüft. E1b-3c für gemischte ursprüngliche/erneut verwendete Erstattungsursprünge ist implementiert und im beschriebenen Umfang geprüft. Das gesonderte Vorbereitungsprofil E1b-4a1 ist implementiert und im beschriebenen Umfang geprüft; die sachliche CashEvent-Einordnung E1b-4a2 bleibt offen. Weitere [EÜR-Journalschritte](CRM_ERP_EUER_PLAN.md) und Gesamtanforderung offen |
 | 5. Personal und Lohn | Erste deutsche Lohnabrechnung für reguläre Mitarbeiter und Minijobs: vorhandene Mitarbeiter/Zeiten/Abwesenheiten ergänzen, Reisekosten, geprüfte Abrechnungsfälle/Korrekturen und Meldungen nach tatsächlichen Zugangs-/Prüfvorgaben, Abnahme D | offen; Beschäftigungsumfang vom Nutzer am 02.11.2026 festgelegt |
@@ -41,7 +59,8 @@ Danach wurde der erste [Angebotsportalabschnitt](CRM_ERP_PORTAL.md) aus
 Abschnitt 2 entwickelt: eigene Kundensitzung, ausdrückliche Erklärung und
 gesonderte interne Übernahme. Er verwendet das vorhandene Projekt-/Belegmodell
 und ersetzt noch nicht die gesamte Abnahme B. Allgemeiner Dateiaustausch,
-Projektfreigaben und Projektanlage nach Annahme bleiben weitere Arbeit.
+Projektfreigaben und die vollständige Ablaufabnahme bleiben weitere Arbeit.
+Die ausdrückliche Auftragsübernahme verwendet das bestehende Projekt.
 E1a des [EÜR-Plans](CRM_ERP_EUER_PLAN.md) ergänzt Quellen und tatsächlich
 bestätigte EUR-Geldflüsse mit sichtbaren Klärungsfällen. Die zusätzliche
 quellengebundene Rechnungszuordnung und konsistente offene Posten sind als

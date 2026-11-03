@@ -234,6 +234,11 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
                   business?.readonly == false &&
                   business?.hasModule('operations') == true &&
                   business!.can('documents.write'),
+              offlineReports:
+                  business?.readonly == false &&
+                  business?.hasModule('operations') == true &&
+                  business!.can('documents.read') &&
+                  business!.can('documents.write'),
             );
           } catch (e) {
             if (mounted)

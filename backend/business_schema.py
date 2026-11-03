@@ -306,7 +306,7 @@ def validate_integrity(office, *, registry=None):
             issued = datetime.fromisoformat(row['issued_at'])
             session = office.db.execute('SELECT user_id,expiry FROM plan_sessions WHERE token=?', (row['token_hash'],)).fetchone()
             if (not re.fullmatch(r'[a-f0-9]{64}', row['token_hash']) or not isinstance(caps, list) or not caps
-                    or any(not isinstance(cap, str) or cap not in ('time_events', 'field_media') for cap in caps)
+                    or any(not isinstance(cap, str) or cap not in ('time_events', 'field_media', 'offline_reports') for cap in caps)
                     or len(set(caps)) != len(caps) or issued.tzinfo is None
                     or type(row['expiry']) not in (int, float) or not math.isfinite(row['expiry'])
                     # ISO serialization can round sub-microsecond epoch values;

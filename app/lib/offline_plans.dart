@@ -11,6 +11,7 @@ import 'offline_assets.dart';
 part 'offline_imports.dart';
 part 'offline_workspace.dart';
 part 'business_offline.dart';
+part 'offline_service_reports.dart';
 
 /// Plan-only offline workspace. Its scoped seven-day token stays in OS secure storage.
 class OfflinePlans extends ChangeNotifier {
@@ -61,7 +62,8 @@ class OfflinePlans extends ChangeNotifier {
       (_state?['import_delete_outbox'] as List? ?? []).length +
       (_state?['workspace_outbox'] as List? ?? []).length +
       (_state?['business_time_outbox'] as List? ?? []).length +
-      (_state?['business_media_outbox'] as List? ?? []).length;
+      (_state?['business_media_outbox'] as List? ?? []).length +
+      (_state?['service_report_outbox'] as List? ?? []).length;
   bool get syncing => _syncing;
   void changed() {
     if (!_disposed) notifyListeners();
@@ -102,6 +104,7 @@ class OfflinePlans extends ChangeNotifier {
     List<dynamic> projects, {
     bool businessTime = false,
     bool fieldMedia = false,
+    bool offlineReports = false,
   }) async {
     _epoch++;
     await _tail;
@@ -110,7 +113,7 @@ class OfflinePlans extends ChangeNotifier {
     final vault = await device.open(server, user['id'], create: true);
     final grant = Map<String, dynamic>.from(
       await api.call(
-        (businessTime || fieldMedia)
+        (businessTime || fieldMedia || offlineReports)
             ? '/api/business/offline/access'
             : '/api/offline/access',
         {},
@@ -128,6 +131,13 @@ class OfflinePlans extends ChangeNotifier {
       'field_media_supported':
           fieldMedia &&
           (grant['capabilities'] as List? ?? []).contains('field_media'),
+      'offline_reports_supported':
+          offlineReports &&
+          (grant['capabilities'] as List? ?? []).contains('offline_reports'),
+      'report_project_ids': grant['report_project_ids'] is List
+          ? List<String>.from(grant['report_project_ids'])
+          : <String>[],
+      'report_writes_enabled': grant['report_writes_enabled'] != false,
       'cache_schema': 1,
       'user': user,
       'projects': projects,
@@ -157,6 +167,11 @@ class OfflinePlans extends ChangeNotifier {
       }
     }
     for (final record in (state['workspace_records'] as Map? ?? {}).values) {
+      if (record['sync_status'] == 'Zugriff gesperrt')
+        record['sync_status'] = 'Wartet auf Verbindung';
+    }
+    for (final record
+        in (state['service_report_records'] as Map? ?? {}).values) {
       if (record['sync_status'] == 'Zugriff gesperrt')
         record['sync_status'] = 'Wartet auf Verbindung';
     }
@@ -897,15 +912,18 @@ class OfflinePlans extends ChangeNotifier {
         await _syncWorkspace(epoch, token);
       final businessPending =
           (_state?['business_time_outbox'] as List? ?? []).isNotEmpty ||
-          (_state?['business_media_outbox'] as List? ?? []).isNotEmpty;
+          (_state?['business_media_outbox'] as List? ?? []).isNotEmpty ||
+          (_state?['service_report_outbox'] as List? ?? []).isNotEmpty;
       if (epoch == _epoch &&
           transport.token == token &&
           permitted &&
-          businessPending &&
+          (businessPending || offlineReportsSupported) &&
           await _businessWritesAvailable(epoch, token)) {
         await _syncBusinessTime(epoch, token);
         if (epoch == _epoch && transport.token == token && permitted)
           await _syncBusinessMedia(epoch, token);
+        if (epoch == _epoch && transport.token == token && permitted)
+          await _syncServiceReports(epoch, token);
       }
     } catch (e) {
       if (epoch == _epoch && active) {

@@ -1,0 +1,279 @@
+{
+  "date": "2026-11-03",
+  "status": "bounded_customer_execution_workflow_verified",
+  "baseline_commit": "068cca6422bfec38c34c2c04492eaf98ccb9c606",
+  "overall_goal_complete": false,
+  "production_released": false,
+  "overall_acceptance": {
+    "A": "open",
+    "B": "open",
+    "C": "open",
+    "D": "open",
+    "E": "open",
+    "F": "open",
+    "G": "open"
+  },
+  "goal_file": {
+    "path": "CRM_ERP_Gesamtziel.txt",
+    "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+    "identical_to_uploaded_file": true
+  },
+  "business_scope": {
+    "company": "Einzelunternehmen mit EÜR",
+    "payroll": [
+      "Reguläre Mitarbeiter",
+      "Minijobs"
+    ],
+    "vat_regime_not_inferred": true
+  },
+  "verified_behavior": [
+    "Existing canonical project joins inquiry, imported catalog, accepted offer, order, execution, invoice and full payment.",
+    "Actual Flutter to Flask offline time, photo and signed service report survive encrypted restart, lost real commit response, unchanged retry, PDF hash verification and offline reopening.",
+    "Business service-report archive retains exact signed content, two revisions, one receipt and original PDF; legacy report archives unchanged.",
+    "Current permissions and module state are rechecked on replay and after rendering; old grants remain narrow.",
+    "Actual SQLite and PostgreSQL restore retain signed originals and revoke device grants."
+  ],
+  "tests": [
+    {
+      "name": "backend_full",
+      "run": 643,
+      "passed": 642,
+      "skipped": 1,
+      "seconds": 135.186,
+      "skip_reason": "existing Windows-specific test",
+      "log": "work/verification/customer-workflow-backend-full.log"
+    },
+    {
+      "name": "flutter_full",
+      "passed": 670,
+      "skipped": 0,
+      "log": "work/verification/customer-workflow-flutter-full.log"
+    },
+    {
+      "name": "flutter_analyze",
+      "issues": 0,
+      "seconds": 6.5,
+      "log": "work/verification/customer-workflow-flutter-analyze.log"
+    },
+    {
+      "name": "javascript_node",
+      "passed": 147,
+      "log": "work/verification/customer-workflow-node-authorized.log"
+    },
+    {
+      "name": "native_packages",
+      "passed": 15,
+      "seconds": 3.573,
+      "log": "work/verification/customer-workflow-native-final.log"
+    },
+    {
+      "name": "targeted_flutter_repository_and_actual_http",
+      "passed": 19,
+      "overlaps_flutter_full": true,
+      "log": "work/verification/offline-service-reports-client-final.log"
+    },
+    {
+      "name": "targeted_flutter_widgets",
+      "passed": 2,
+      "overlaps_flutter_full": true,
+      "log": "work/verification/offline-service-report-widgets.log"
+    },
+    {
+      "name": "targeted_http_tls_restore_regression",
+      "passed": 37,
+      "seconds": 14.415,
+      "partly_overlaps_backend_full": true,
+      "log": "work/verification/offline-reports-transport-final.log"
+    },
+    {
+      "name": "actual_postgresql_customer_execution_journey",
+      "passed": 1,
+      "seconds": 2.327,
+      "log": "work/verification/customer-execution-journey-pg.log"
+    },
+    {
+      "name": "actual_postgresql_dump_restore",
+      "passed": 1,
+      "seconds": 4.546,
+      "log": "work/verification/offline-reports-pg-restore-final.log"
+    }
+  ],
+  "counts_are_not_additive": true,
+  "source_boundaries": {
+    "backend_product_sources_unchanged_during_full_run": 78,
+    "flutter_sources_and_tests_unchanged_during_full_run": 127,
+    "transport_details": "work/verification/offline-reports-transport-verification.json"
+  },
+  "review": "Independent internal source review found no remaining blocker after input/receipt/read-only metadata corrections; not an external security audit.",
+  "historical_attempts": [
+    {
+      "kind": "product_defect_fixed",
+      "detail": "SQLite restore did not enable foreign keys on its own connection; deleting sessions retained dangling device grants. PRAGMA foreign_keys=ON before first deletion fixes the tested restore."
+    },
+    {
+      "kind": "client_defect_fixed",
+      "detail": "Repository tests caught typed map assignment and mutable stroke aliasing; frozen commands now retain exact signed input."
+    },
+    {
+      "kind": "test_fixture_corrections",
+      "detail": "Initial journey attempts lacked synthetic test authentication and assumed two old DTO response shapes; PG restore fixture incorrectly changed its Fernet key. Corrected fixtures passed unchanged product paths."
+    },
+    {
+      "kind": "test_harness_corrections",
+      "detail": "Widget harness adjusted target orientation and timer teardown; no successful product run claimed for failed harness starts."
+    },
+    {
+      "kind": "environment_retry",
+      "detail": "Initial Node timezone child process failed EPERM; authorized local rerun passed 147 tests."
+    },
+    {
+      "kind": "environment_retry",
+      "detail": "Initial flutter analyze attempted an unnecessary package advisory network request and exited 69; an initial full test startup was interrupted before completion. Final analyze and full tests used --no-pub and existing installed dependencies. The initial analyzer log was overwritten during retry; this entry records observed tool output, not a retained raw log."
+    }
+  ],
+  "limitations": [
+    "All A–G overall acceptance cases remain open; no effort or production-readiness percentage is inferred.",
+    "Cost reconciliation covers posted material and approved labor; external services, other costs and complete project profitability remain open.",
+    "No actual Windows/iPhone install/update/device acceptance or production release is claimed.",
+    "Legacy reports and other document types are not migrated into the new offline capture path.",
+    "Conflicting signed captures are retained for clarification, not automatically rewritten.",
+    "No complete EÜR, payroll, AI/rules, provider transmission or external audit is claimed."
+  ],
+  "changed_code_sha256": {
+    ".github/workflows/checks.yml": "27984bf288b109a56cbc07e5f452333211745d1541b3ebe17cf70276d7866e91",
+    "app/lib/business_offline.dart": "002b342504effcc853f29c92da45f8e29d19ce74845e1691a72deb21d099b726",
+    "app/lib/business_operations.dart": "195da7d36ae3a6f7f1e9197f92a708aa84a7b3ecf4954ab397212098f3547839",
+    "app/lib/business_service_reports.dart": "6a1ae56179b3be7a8e093ffc33802e884ad87813029f50d6e40c2b2e672fb9c8",
+    "app/lib/business_shell.dart": "6c9a8c85ca35ae0c8055dda601e2985d45bdcb3f6f31494109fe78c9505f6186",
+    "app/lib/main.dart": "da3396126ed6143aa870f00df8c7ac422b92a2b83afc9ae8928f2734b47324c7",
+    "app/lib/offline_plans.dart": "d6323af37b9a01a2ecc00b8ad210165ec5075aa431164535c8082b44ff85a63b",
+    "app/lib/offline_service_reports.dart": "a9670d7e8c1d61ff31494cfe014f1c7394b0da847b7d282c8526a153bb7fa521",
+    "app/lib/project_workspace_page.dart": "f7852eff05d6114affe29ebe95803755580112ec6ce99adb0ed1772ce6699d31",
+    "app/test/business_offline_reports_test.dart": "f2afaee63df61bc9cf8bb0572ec2b9e0bef9e92f597b11bd037d75f8bcf57aea",
+    "app/test/offline_service_report_backend_integration_test.dart": "e8fcd23e9f3268ac1581ff915512958a222f4f098afd822b90795c6d26e73b92",
+    "app/test/offline_service_report_widget_test.dart": "603b234b70208f5aeec245be00587e4ebaab06b7f889986085ca793edbba45e2",
+    "backend/business_api.py": "0c6df95709beba6754cee92d1a567cbaf5adbaa5ae01bf6c65381010ef5d3c25",
+    "backend/business_offline_reports.py": "7889884a6169bec6f11bd7469841b641ec4131efeab3723d5bf3d65304fc4af9",
+    "backend/business_operations.py": "fb9f620d37bf7ef506c5681683f74064b5d102c6bf14bdd2616249155df9a186",
+    "backend/business_organization.py": "470e1eac510d90a959d860d62581a24466bfaf0bc646896494e3d04afe2e6121",
+    "backend/business_schema.py": "34fb9c915872b5eb4aa17a8d460b476566eda50167b5ee91c84ba004e2c74abe",
+    "backend/online/test_business_offline_reports_api.py": "1a39ebd552606880484203f222e009e8c5124e1e7cd4d9860d1da18ad091ada1",
+    "backend/online/test_business_offline_reports_restore_pg.py": "9e5b22c96a2ee5f7b9ac38ada24b1374e91becc1df46763d1eb7983f43afb269",
+    "backend/online/test_customer_execution_journey_pg.py": "e8ae4ec5d3309e45cd73f23340618b5bac2a01cb7d21f94e5dd5e04ed8f100a5",
+    "backend/online/web.py": "e5028b7647183f4b58be88781d9f0469018fc2948fb3d6f8f6d6d5ef01455cd3",
+    "backend/plan_access.py": "730d8f8d1cd72b3163a7fc77022d912ccf2199a5370504729967b7bf27e4a9d6",
+    "backend/restore.py": "c9db2ad7290521dffd2bc06235b4aca5f558618fb940d62bc2129eb19d42c502",
+    "backend/server.py": "93b42c35932470fec678ceed11c8855ae5e7ef9db3e4de28da3af397fe549aae",
+    "backend/test_business_offline_reports.py": "0b9b58e5c675e450b19ac7a912664e7b2ef950d977551f6f1cc9e7826c3f3043",
+    "backend/test_business_offline_reports_transport.py": "929464c48f0c3b52d69e7314ffb72dd9623fe552099db31d367b6d49029bb122",
+    "scripts/native-release.py": "52981a8987226b74800af106ede42133d2cd1553638c68f1f08bbb0fab9f92ff",
+    "scripts/package-windows-support.py": "2ada3677970b4b2186c4bf81d4a185934411f28768e9712de62703f8b13a74ef",
+    "web/office/office.js": "9eccb6f242b7efcd11f9b38366fc95d66ab327f9e292d5877fff372c8cc286dc"
+  },
+  "artifacts": {
+    "work/verification/customer-workflow-backend-full.log": {
+      "sha256": "e38c0721e4fec3bc515815cb430059086d96f918f2a54bddf606d777d73adbe1",
+      "bytes": 125835
+    },
+    "work/verification/customer-workflow-backend-sources.json": {
+      "sha256": "f17018d19b089a1f56ed5cddd42e90af0334502a7393974cce015d8a3dcc66bc",
+      "bytes": 8070
+    },
+    "work/verification/customer-workflow-backend-source-check.json": {
+      "sha256": "16eaaf455f7a70de4bc4ee098ae3a895a5c34741ee94a65765f2a1fc2fb2b461",
+      "bytes": 37
+    },
+    "work/verification/customer-workflow-flutter-full.log": {
+      "sha256": "06ad8b55ac2a2ce93ac65851d12334ce7ef02f5afa33981d4f1d2c168ef69d0e",
+      "bytes": 118060
+    },
+    "work/verification/customer-workflow-flutter-analyze.log": {
+      "sha256": "4e942fea75cc6bc6f40ee4cb450327533f5cb770620c5d4e09eb5df9732d3f8c",
+      "bytes": 96
+    },
+    "work/verification/customer-workflow-flutter-sources.json": {
+      "sha256": "e4f5295096c191099d20f4d5efe470ab7d6d673cf97832c259ee83b85577ce1f",
+      "bytes": 14083
+    },
+    "work/verification/customer-workflow-flutter-source-check.json": {
+      "sha256": "dd09d205c8a28179122eb8b1933274308783995a5417060c23c26b88e7db0394",
+      "bytes": 38
+    },
+    "work/verification/customer-workflow-node-authorized.log": {
+      "sha256": "857ca23d6e67e076f8d3997074767dad944b1a5bd70eaa5989cfa502ac8fe392",
+      "bytes": 35746
+    },
+    "work/verification/customer-workflow-native-final.log": {
+      "sha256": "18e63843b5dc1b7d5a3abc83c8b74bf3f84db15ccee324be9bd3e14a76a8cd6f",
+      "bytes": 3405
+    },
+    "work/verification/customer-execution-journey-pg.log": {
+      "sha256": "977693f9ddb2dfcdb592e19880d59648a3e19851c4de55f1da30fe84ff820b21",
+      "bytes": 351
+    },
+    "work/verification/customer-execution-journey-code.sha256": {
+      "sha256": "ad50c39e7e2ad192cd30f24b079ea836b14fa048252af5303882d738dac30a32",
+      "bytes": 669
+    },
+    "work/verification/offline-service-reports-client-final.log": {
+      "sha256": "3f03f9cbffea2326ed3afab48e3c6815d6eaa9c5d9ef36105514ee48d29a7d86",
+      "bytes": 4107
+    },
+    "work/verification/offline-service-report-widgets.log": {
+      "sha256": "66827d7ea3dd70ecb388e0cb9e682398026c559527dcc6022bcd6a6cbabcf246",
+      "bytes": 391
+    },
+    "work/verification/offline-reports-transport-final.log": {
+      "sha256": "edafac73e520d26c65d1edb9a848f7d2a2c2375564bb6aaa298be67fef71b7dd",
+      "bytes": 7946
+    },
+    "work/verification/offline-reports-pg-restore-final.log": {
+      "sha256": "f047bc4cfb6729cca2cdd731e6d46ff1822920b12a0d0ae74aaba700c61b2b42",
+      "bytes": 334
+    },
+    "work/verification/offline-reports-transport-verification.json": {
+      "sha256": "150e6c0721c45b062a81c74a6efd992b157245454c3e0d83477b13361879f9cb",
+      "bytes": 6288
+    },
+    "work/verification/offline-reports-transport-final-code.sha256": {
+      "sha256": "3b390c6453d541731347c6348668e03005837ed09701b678f744502a2acfda13",
+      "bytes": 1866
+    },
+    "work/verification/offline-reports-pg-restore-code.sha256": {
+      "sha256": "b1c748282041b118e39baf10f371ba1cccc463885b9aebc3fb9b0bc826fdc2e0",
+      "bytes": 1408
+    },
+    "work/verification/customer-workflow-node.log": {
+      "sha256": "b6cf8227d0d6f4c59226c5009515732618e62f0fe9e89ec4c5924816ae529437",
+      "bytes": 1152
+    },
+    "work/verification/customer-workflow-flutter-start-interrupted.log": {
+      "sha256": "8cc90dfc71b23729b8ae7c66cde615bb9efd694e79ae73d93e50ee0096976779",
+      "bytes": 1265
+    },
+    "work/verification/offline-service-reports-client-initial-failure.log": {
+      "sha256": "da293fe454ed4ec7f8e4dc37a432c822305b96c8985dc1cd782b4a847cc2855f",
+      "bytes": 8906
+    },
+    "work/verification/offline-reports-http-initial.log": {
+      "sha256": "ac5e8dbd88afad5f5cdcf1f930d774c4044cfb83d8179e056b3be45feef2251c",
+      "bytes": 2807
+    },
+    "work/verification/offline-reports-pg-restore-initial.log": {
+      "sha256": "630f995ddfdfcbe8196bb0fd6d9904dfb8d114300a7a3ad68efcba3834d85e5c",
+      "bytes": 1731
+    },
+    "work/verification/customer-execution-journey-pg-missing-auth.log": {
+      "sha256": "d9de79df75ce0a1a0803a7c149a5e26824183381e4edc7375900ea36a646bf1b",
+      "bytes": 1391
+    },
+    "work/verification/customer-execution-journey-pg-intake-dto.log": {
+      "sha256": "219ec14fca131d1563dbee4fc281c36fd69b4fc6ec65b6b88272f2149208972a",
+      "bytes": 1188
+    },
+    "work/verification/customer-execution-journey-pg-appointment-dto.log": {
+      "sha256": "83532ef9e805c7e82b82744fd6460d3e0ab9ffe0c9e1d80cd7028b5c6728ebe7",
+      "bytes": 1872
+    }
+  }
+}

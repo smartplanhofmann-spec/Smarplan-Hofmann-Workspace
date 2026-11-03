@@ -6,6 +6,8 @@ import 'business_documents.dart' show businessPositionKinds;
 import 'business_documentation.dart';
 import 'business_workflows.dart';
 import 'business_purchasing.dart';
+import 'business_service_reports.dart';
+import 'offline_plans.dart';
 import 'design.dart';
 
 typedef _Section = ({
@@ -212,9 +214,11 @@ class BusinessAreaPage extends StatefulWidget {
     super.key,
     required this.session,
     required this.area,
+    this.repository,
   });
   final BusinessSession session;
   final String area;
+  final OfflinePlans? repository;
   @override
   State<BusinessAreaPage> createState() => _BusinessAreaPageState();
 }
@@ -227,16 +231,26 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
   List<_Section> get sections => (_sections[widget.area] ?? [])
       .where(
         (s) =>
-            widget.session.hasModule(s.module) &&
-            widget.session.can(s.read) &&
-            (s.id != 'purchasing/orders' ||
-                widget.session.hasFeature('purchasing_receipts')),
+            ((s.id == 'service-reports' &&
+                widget.session.projectId != null &&
+                !widget.session.denied &&
+                (widget.session.offlineMode ||
+                    widget.session.can('documents.read')) &&
+                widget.repository?.canAccessServiceReports(
+                      widget.session.projectId!,
+                    ) ==
+                    true) ||
+            (widget.session.hasModule(s.module) &&
+                widget.session.can(s.read) &&
+                (s.id != 'purchasing/orders' ||
+                    widget.session.hasFeature('purchasing_receipts')))),
       )
       .toList();
   @override
   void initState() {
     super.initState();
     widget.session.addListener(changed);
+    widget.repository?.addListener(changed);
     if (sections.isNotEmpty) {
       selected = sections.first.id;
       loadReferences();
@@ -251,6 +265,7 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
   void dispose() {
     epoch++;
     widget.session.removeListener(changed);
+    widget.repository?.removeListener(changed);
     super.dispose();
   }
 
@@ -926,6 +941,16 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
           Expanded(
             child: section.id == 'time/accounts'
                 ? BusinessTimeAccountsPage(session: widget.session)
+                : section.id == 'service-reports' &&
+                      widget.session.projectId != null &&
+                      widget.repository?.canAccessServiceReports(
+                            widget.session.projectId!,
+                          ) ==
+                          true
+                ? BusinessServiceReportsPage(
+                    session: widget.session,
+                    repository: widget.repository!,
+                  )
                 : section.id == 'purchasing/orders'
                 ? BusinessPurchasingPage(session: widget.session)
                 : section.id == 'checklists'

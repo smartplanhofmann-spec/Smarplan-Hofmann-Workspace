@@ -13,6 +13,9 @@ def restore(source, destination):
     try:
         with closing(sqlite3.connect(target)) as database, database:
             database.row_factory = sqlite3.Row
+            # SQLite enables cascades per connection. Revoke dependent device
+            # grants together with their sessions before any transaction starts.
+            database.execute("PRAGMA foreign_keys=ON")
             database.execute("DELETE FROM sessions")
             if database.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='plan_sessions'").fetchone():
                 database.execute("DELETE FROM plan_sessions")

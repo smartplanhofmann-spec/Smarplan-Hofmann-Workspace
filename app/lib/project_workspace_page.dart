@@ -122,7 +122,9 @@ class _ProjectWorkspacePageState extends State<ProjectWorkspacePage> {
       'Kalkulation',
     if (business.hasModule('finance') && business.can('finance.read'))
       'Finanzen',
-    if (business.hasModule('operations') && business.can('documents.read'))
+    if ((business.hasModule('operations') && business.can('documents.read')) ||
+        widget.repository?.canAccessServiceReports(widget.project['id']) ==
+            true)
       'Dokumentation',
     if ((business.hasModule('operations') && business.can('documents.read')) ||
         widget.repository?.fieldMediaSupported == true)

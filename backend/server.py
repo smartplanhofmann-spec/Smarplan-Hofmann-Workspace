@@ -76,14 +76,17 @@ def make_handler(office,drive,launch_id=""):
                 data={}
                 strict_accounting = (path == '/api/business/accounting/profile' or path.startswith((
                     '/api/business/accounting/allocations/', '/api/business/accounting/components/',
-                    '/api/business/accounting/refunds/', '/api/business/accounting/profile/')))
+                    '/api/business/accounting/refunds/', '/api/business/accounting/profile/')) or
+                    business_api.strict_report_path(path.removeprefix('/api')))
                 if self.command == 'POST' and strict_accounting and parsed.query:
                     raise Problem(400, 'Keine zusätzlichen Filter erlaubt')
                 if self.command=="POST":
                     size=int(self.headers.get("Content-Length","0"))
                     if not 0<size<=1000000:
                         raise Problem(413,"Anfrage zu groß oder leer")
-                    data=json.loads(self.rfile.read(size))
+                    raw=self.rfile.read(size)
+                    data=(business_api.decode_offline_report(raw) if path == '/api/business/service-reports/offline'
+                          else json.loads(raw))
                     if not isinstance(data,dict):
                         raise Problem(400,"JSON-Objekt erwartet")
                 if self.command == 'GET' and path.startswith('/api/business/'):

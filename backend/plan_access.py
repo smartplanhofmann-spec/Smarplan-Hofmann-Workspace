@@ -36,7 +36,7 @@ def issue(office, user, *, workspace=False, business=False, business_capabilitie
         raise Problem(401, 'Bitte anmelden')
     caps = ['time_events'] if business_capabilities is None else business_capabilities
     if business and (not isinstance(caps, (list, tuple)) or not caps or any(not isinstance(cap, str) for cap in caps) or len(set(caps)) != len(caps)
-                     or any(cap not in ('time_events', 'field_media') for cap in caps)):
+                     or any(cap not in ('time_events', 'field_media', 'offline_reports') for cap in caps)):
         raise Problem(400, 'Ungültiger Gerätezugriffsbereich')
     if not business and business_capabilities is not None:
         raise Problem(400, 'Ausdrücklicher Business-Gerätezugang erforderlich')
@@ -82,6 +82,6 @@ def business_capabilities(office, token):
     except (TypeError, ValueError):
         raise Problem(403, 'Ungültige Gerätefreigabe.') from None
     if (not isinstance(caps, list) or not caps or any(not isinstance(value, str) for value in caps) or len(set(caps)) != len(caps)
-            or any(value not in ('time_events', 'field_media') for value in caps)):
+            or any(value not in ('time_events', 'field_media', 'offline_reports') for value in caps)):
         raise Problem(403, 'Ungültige Gerätefreigabe.')
     return caps

@@ -549,6 +549,7 @@ class BusinessProjectFeature extends StatelessWidget {
     'Dokumentation' => BusinessAreaPage(
       session: session,
       area: 'documentation',
+      repository: repository,
     ),
     'Wartung' => BusinessAreaPage(session: session, area: 'maintenance'),
     'Kalkulation' => BusinessCostPage(session: session),

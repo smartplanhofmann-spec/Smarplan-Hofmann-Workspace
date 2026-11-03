@@ -376,7 +376,8 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             return response
         strict_accounting_body = (path == '/business/accounting/profile' or
             path.startswith(('/business/accounting/allocations/', '/business/accounting/components/',
-                             '/business/accounting/refunds/', '/business/accounting/profile/')))
+                             '/business/accounting/refunds/', '/business/accounting/profile/')) or
+            business_api.strict_report_path(path))
         if (request.method == 'GET' and strict_accounting_body
                 and request.get_data(cache=False)):
             raise Problem(400, 'GET erwartet keinen Anfragekörper')
@@ -390,6 +391,10 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
             if request.headers.get('Content-Encoding', 'identity') != 'identity':
                 raise Problem(400, 'Komprimierte Uploadabschnitte werden nicht unterstützt')
             data = request.get_data(cache=False)
+        elif path == '/business/service-reports/offline' and request.method == 'POST':
+            if not request.is_json:
+                raise Problem(415, 'JSON-Erfassung erwartet.')
+            data = business_api.decode_offline_report(request.get_data(cache=False))
         else:
             data = body() if request.method == 'POST' else (
                 business_api.query_data(request.args.items(multi=True)) if path.startswith('/business/') else {})

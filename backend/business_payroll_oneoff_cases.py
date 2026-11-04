@@ -318,6 +318,11 @@ def record_run_consumption(office, actor, run, previous=None):
     expected_previous = payroll._event(payroll._row(run['id'], 'run', run['revision']-1)) if run['revision'] > 1 else None
     if expected_previous != previous: raise Problem(409, 'Einmalbezug muss an die tatsächliche vorherige Lohnrevision anschließen.')
     claim_id = case['details']['one_off_earning_ref']['id']
+    from business_schema import _tables
+    if 'business_payroll_multiple_consumptions' in _tables(office) and office.db.execute(
+            'SELECT run_id FROM business_payroll_multiple_consumptions WHERE employee_id=? AND claim_identity_key=?',
+            (run['employee_id'],claim_id)).fetchone() is not None:
+        raise Problem(409,'Der ursprüngliche Anspruch ist bereits einem Source5-Lauf zugeordnet.')
     owner = office.db.execute('SELECT run_id FROM ' + TABLES[2] + ' WHERE employee_id=? AND claim_identity_key=?',
         (run['employee_id'], claim_id)).fetchone()
     if owner is not None and owner['run_id'] != run['id']:

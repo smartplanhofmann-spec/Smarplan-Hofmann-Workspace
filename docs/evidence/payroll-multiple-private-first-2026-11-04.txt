@@ -1,0 +1,25 @@
+test_actual_private_case_replay_keeps_sources_and_has_no_run_or_cash_effect (test_business_payroll_multiple.MultipleWorkflow.test_actual_private_case_replay_keeps_sources_and_has_no_run_or_cash_effect) ... ok
+test_finalization_atomic_claim_and_original_replay (test_business_payroll_multiple.MultipleWorkflow.test_finalization_atomic_claim_and_original_replay) ... ok
+test_real_paid_v5_upgrade_separate_days_and_original_receipts (test_business_payroll_multiple.MultipleWorkflow.test_real_paid_v5_upgrade_separate_days_and_original_receipts) ... ERROR
+test_revised_actual_forecast_blocks_fresh_source_but_historical_receipt_survives (test_business_payroll_multiple.MultipleWorkflow.test_revised_actual_forecast_blocks_fresh_source_but_historical_receipt_survives) ... ok
+test_rights_and_duplicate_month_reject_without_acceptance (test_business_payroll_multiple.MultipleWorkflow.test_rights_and_duplicate_month_reject_without_acceptance) ... ok
+
+======================================================================
+ERROR: test_real_paid_v5_upgrade_separate_days_and_original_receipts (test_business_payroll_multiple.MultipleWorkflow.test_real_paid_v5_upgrade_separate_days_and_original_receipts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_multiple.py", line 85, in test_real_paid_v5_upgrade_separate_days_and_original_receipts
+    case,_=self.case();body=self.run_command(case,id=old['id'],revision=1,correction_reason='One original bonus after running payment')
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_multiple.py", line 67, in run_command
+    return command(self.f.payroll,self.f.owner,inputs,**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_periods.py", line 21, in command
+    return dict(data,request_id=rid(),preview_hash=preview['preview_hash'],accepted_scope=preview['calculation']['scope'],
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: dict() got multiple values for keyword argument 'revision'
+
+----------------------------------------------------------------------
+Ran 5 tests in 5.864s
+
+FAILED (errors=1)

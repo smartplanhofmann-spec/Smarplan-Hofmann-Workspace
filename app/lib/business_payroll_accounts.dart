@@ -1,6 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:cryptography/cryptography.dart';
+
+import 'business_payroll_facts.dart' show payrollFactRef, payrollFactDate;
+import 'business_payroll_multiple_case_contract.dart'
+    show payrollMultipleSource;
 
 import 'api.dart';
 import 'business_session.dart';
@@ -99,6 +104,238 @@ int payrollAccountMinor(dynamic value, {bool signed = false}) {
   return negative ? -amount : amount;
 }
 
+Never _multipleFail(String text) => throw ApiException(0, text);
+int _multipleInteger(dynamic n, [int min = 0]) {
+  if (n is! int || n < min || n > 1000000000000)
+    _multipleFail('Die Nettozuordnung benötigt belegte ganze Centbeträge.');
+  return n;
+}
+
+void _multipleKeys(dynamic raw, List<String> names) {
+  if (raw is! Map || !_same(raw.keys.toList()..sort(), [...names]..sort()))
+    _multipleFail(
+      'Die genaue Form des ursprünglichen Zahlungsnachweises fehlt.',
+    );
+}
+
+Map<String, dynamic> _multipleSettlement(
+  Map<String, dynamic> details,
+  Map<String, dynamic> run, {
+  Map<String, dynamic>? prior,
+  Map<String, dynamic>? archived,
+}) {
+  payrollMultipleSource({
+    ...run,
+    'can_finalize': true,
+  }, businessMap(run['source']['input']));
+  final c = run['calculation'],
+      event = c['multiple_one_off_details']['receipt_events'][0],
+      parts = details['payments'],
+      allocations = details['settlement_allocations'];
+  if (run['kind'] != 'run' ||
+      run['confirmed'] != true ||
+      run['status'] != 'calculation_recorded' ||
+      run['accepted_scope'] != c['scope'] ||
+      details['run_id'] != run['id'] ||
+      details['run_revision'] != run['revision'] ||
+      details['payment_source_schema_version'] is! int ||
+      details['payment_source_schema_version'] != 1 ||
+      !details.containsKey('prior_payment_ref') ||
+      parts is! List ||
+      parts.isEmpty ||
+      parts.length > 20 ||
+      allocations is! List ||
+      allocations.length != parts.length)
+    _multipleFail(
+      'Die bestätigte Monatsgruppe und sämtliche tatsächlichen Zahlungsteile müssen eindeutig gebunden sein.',
+    );
+  final running = _multipleInteger(
+        c['running_calculation']['net_minor'] -
+            c['running_calculation']['net_deductions_minor'],
+      ),
+      total = _multipleInteger(c['net_minor'] - c['net_deductions_minor']),
+      bonus = _multipleInteger(total - running, 1);
+  var runningSum = 0, bonusSum = 0;
+  final seen = <String>{};
+  for (var i = 0; i < parts.length; i++) {
+    final p = parts[i], a = allocations[i];
+    _multipleKeys(p, ['paid_on', 'amount_minor', 'payment_reference']);
+    _multipleInteger(p['amount_minor'], 1);
+    final date = payrollFactDate(p['paid_on'])!,
+        reference = p['payment_reference'];
+    if (!date.startsWith('2026-') ||
+        date.substring(0, 7).compareTo(run['source']['month']) < 0 ||
+        reference is! String ||
+        reference.isEmpty ||
+        reference.trim() != reference ||
+        reference.length > 200 ||
+        RegExp(r'[\x00-\x1f\x7f]').hasMatch(reference) ||
+        !seen.add('$date|${reference.toLowerCase()}'))
+      _multipleFail(
+        'Jeder Zahlungsteil benötigt seinen tatsächlichen Tag und einen eindeutigen unveränderten Originalverweis.',
+      );
+    _multipleKeys(a, ['payment_index', 'running_minor', 'one_off_allocations']);
+    final current = _multipleInteger(a['running_minor']);
+    if (a['payment_index'] is! int ||
+        a['payment_index'] != i ||
+        a['one_off_allocations'] is! List ||
+        (a['one_off_allocations'] as List).length > 1)
+      _multipleFail(
+        'Jeder Zahlungsteil benötigt genau seine eigene Nettozuordnung.',
+      );
+    var b = 0;
+    if ((a['one_off_allocations'] as List).isNotEmpty) {
+      final o = a['one_off_allocations'][0];
+      _multipleKeys(o, ['event_key', 'net_minor']);
+      b = _multipleInteger(o['net_minor'], 1);
+      if (o['event_key'] != event['event_key'] || date != event['receipt_date'])
+        _multipleFail(
+          'Die Bonuszahlung gehört zu genau ihrem ursprünglichen Zuflussereignis und Tag.',
+        );
+    }
+    if (current + b != p['amount_minor'])
+      _multipleFail(
+        'Laufender Nettoanteil und Bonus müssen exakt den tatsächlichen Zahlungsteil ergeben.',
+      );
+    runningSum += current;
+    bonusSum += b;
+  }
+  if (runningSum != running || bonusSum != bonus)
+    _multipleFail(
+      'Laufendes Netto und Bonus müssen jeweils vollständig erfüllt werden.',
+    );
+  var count = 0;
+  Map<String, dynamic>? refs;
+  if (details['prior_payment_ref'] != null && archived != null) {
+    refs = businessMap(archived['prior_settlement_refs']);
+    if (archived['preserved_prior_payment_indexes'] is! List)
+      _multipleFail('Die früheren Zahlungsteile fehlen.');
+    count = (archived['preserved_prior_payment_indexes'] as List).length;
+    for (final k in ['run', 'payment']) {
+      _multipleKeys(refs[k], ['id', 'revision', 'content_hash']);
+      payrollFactRef(refs[k]);
+    }
+    if (!_same(refs['payment'], details['prior_payment_ref']) ||
+        refs['run']['id'] != run['id'] ||
+        refs['run']['revision'] >= run['revision'] ||
+        count < 1 ||
+        count >= parts.length ||
+        parts
+                .take(count)
+                .fold<int>(
+                  0,
+                  (n, p) => n + _multipleInteger(p['amount_minor']),
+                ) !=
+            running ||
+        List.generate(count, (i) => i).any(
+          (i) =>
+              allocations[i]['running_minor'] != parts[i]['amount_minor'] ||
+              (allocations[i]['one_off_allocations'] as List).isNotEmpty,
+        ))
+      _multipleFail(
+        'Der archivierte Übernahmestand muss sämtliche früheren laufenden Originalteile eindeutig erhalten.',
+      );
+  } else if (details['prior_payment_ref'] != null) {
+    if (prior == null ||
+        prior['kind'] != 'payment' ||
+        prior['employee_id'] != run['employee_id'] ||
+        !_same(payrollFactRef(prior), details['prior_payment_ref']))
+      _multipleFail(
+        'Den bereits bezahlten ursprünglichen laufenden Lohn ausdrücklich auswählen.',
+      );
+    payrollAccountRecord(prior, run['employee_id'], kind: 'payment');
+    final old = businessMap(prior['sources']?['run']);
+    if (old['source']?['source_schema_version'] != 3 ||
+        old['id'] != run['id'] ||
+        old['revision'] >= run['revision'] ||
+        prior['details']['run_id'] != old['id'] ||
+        prior['details']['run_revision'] != old['revision'] ||
+        !_same(old['calculation'], c['running_calculation']) ||
+        !_same(
+          old['source']['calculation_case'],
+          run['source']['calculation_case'],
+        ))
+      _multipleFail(
+        'Die vorherige Zahlung muss genau dieselbe unveränderte laufende Rechnung belegen.',
+      );
+    count = (prior['details']['payments'] as List).length;
+    if (count < 1 ||
+        count >= parts.length ||
+        !_same(parts.take(count).toList(), prior['details']['payments']) ||
+        (prior['details']['payments'] as List).fold<int>(
+              0,
+              (n, p) => n + _multipleInteger(p['amount_minor']),
+            ) !=
+            running ||
+        List.generate(count, (i) => i).any(
+          (i) =>
+              allocations[i]['running_minor'] != parts[i]['amount_minor'] ||
+              (allocations[i]['one_off_allocations'] as List).isNotEmpty,
+        ))
+      _multipleFail(
+        'Alle bezahlten laufenden Originalteile bleiben mit Betrag, Tag, Referenz und Reihenfolge unverändert.',
+      );
+    refs = {'run': payrollFactRef(old), 'payment': payrollFactRef(prior)};
+  }
+  return {
+    'schema_version': 1,
+    'contract': 'source5_single_other_payment_settlement_v1',
+    'employee_id': run['employee_id'],
+    'month': run['source']['month'],
+    'event_key': event['event_key'],
+    'bonus_receipt_date': event['receipt_date'],
+    'running_net_minor': running,
+    'one_off_net_minor': bonus,
+    'total_net_minor': total,
+    'payments': jsonDecode(jsonEncode(parts)),
+    'allocations': jsonDecode(jsonEncode(allocations)),
+    'prior_settlement_refs': refs,
+    'preserved_prior_payment_indexes': List.generate(count, (i) => i),
+    'new_payment_indexes': List.generate(
+      parts.length - count,
+      (i) => i + count,
+    ),
+    'actual_payment_created': false,
+    'cash_import_created': false,
+    'claim_consumption_created': false,
+  };
+}
+
+Future<String> _multipleHash(dynamic value) async =>
+    (await Sha256().hash(utf8.encode(jsonEncode(_ordered(value))))).bytes
+        .map((v) => v.toRadixString(16).padLeft(2, '0'))
+        .join();
+Future<Map<String, dynamic>> payrollMultiplePaymentPlan(
+  Map<String, dynamic> details,
+  Map<String, dynamic> run, {
+  Map<String, dynamic>? prior,
+}) async {
+  final plan = _multipleSettlement(details, run, prior: prior);
+  plan['composition_hash'] = await _multipleHash(run['calculation']);
+  return {...plan, 'plan_hash': await _multipleHash(plan)};
+}
+
+void _multiplePaymentRecord(Map<String, dynamic> value) {
+  final run = businessMap(value['sources']['run']),
+      plan = businessMap(value['sources']['single_payment_plan']);
+  if (run['employee_id'] != value['employee_id'] ||
+      !RegExp(r'^[a-f0-9]{64}$').hasMatch('${plan['composition_hash']}') ||
+      !RegExp(r'^[a-f0-9]{64}$').hasMatch('${plan['plan_hash']}'))
+    _multipleFail('Der originale Nettozuordnungsplan fehlt.');
+  final expected = _multipleSettlement(
+    businessMap(value['details']),
+    run,
+    archived: plan,
+  );
+  if (!_same(
+    {...plan, 'composition_hash': null, 'plan_hash': null},
+    {...expected, 'composition_hash': null, 'plan_hash': null},
+  ))
+    _multipleFail(
+      'Der Zahlungsplan widerspricht seinen tatsächlichen Originalteilen, Tagen oder Erfüllungsbeträgen.',
+    );
+}
+
 Map<String, dynamic> payrollAccountRecord(
   dynamic raw,
   String employee, {
@@ -118,6 +355,24 @@ Map<String, dynamic> payrollAccountRecord(
       0,
       'Der Lohnkontonachweis ist nicht eindeutig an Mitarbeiter und Vorgang gebunden.',
     );
+  if (value['kind'] == 'payment') {
+    final details = businessMap(value['details']),
+        sources = businessMap(value['sources']);
+    final multiple =
+        details.containsKey('payment_source_schema_version') ||
+        details.containsKey('settlement_allocations') ||
+        details.containsKey('prior_payment_ref') ||
+        sources.containsKey('single_payment_plan') ||
+        sources['run']?['calculation']?['rule_version'] ==
+            'de_2026_multiple_oneoff_v7';
+    if (multiple && sources['run']?['source']?['source_schema_version'] != 5)
+      _multipleFail(
+        'Die neue Zahlungszuordnung benötigt ihre vollständige ursprüngliche Source5-Monatsfassung.',
+      );
+  }
+  if (value['kind'] == 'payment' &&
+      value['sources']?['run']?['source']?['source_schema_version'] == 5)
+    _multiplePaymentRecord(value);
   if (value['kind'] == 'payment' &&
       value['sources']?['run']?['source']?['source_schema_version'] == 4) {
     final run = businessMap(value['sources']['run']);
@@ -399,6 +654,37 @@ Map<String, dynamic> payrollAccountDetails(
       throw const FormatException(
         'Eine tatsächliche Zahlung oder Nachzahlung muss einen Betrag ungleich null haben.',
       );
+    if (run?['source']?['source_schema_version'] == 5) {
+      final payments = sources['payments'] ?? [],
+          selected = values['prior_payment_ref'];
+      if (selected != 'none' && !payments.any((p) => _ref(p) == selected))
+        throw const FormatException(
+          'Vorherige tatsächliche Zahlung ausdrücklich beurteilen.',
+        );
+      final prior = payments.where((p) => _ref(p) == selected).firstOrNull;
+      final event =
+          run!['calculation']['multiple_one_off_details']['receipt_events'][0];
+      details['payment_source_schema_version'] = 1;
+      details['prior_payment_ref'] = prior == null
+          ? null
+          : payrollFactRef(prior);
+      details['settlement_allocations'] = [
+        for (var i = 0; i < count; i++)
+          {
+            'payment_index': i,
+            'running_minor': payrollAccountMinor(values['running_$i']),
+            'one_off_allocations': payrollAccountMinor(values['bonus_$i']) == 0
+                ? []
+                : [
+                    {
+                      'event_key': event['event_key'],
+                      'net_minor': payrollAccountMinor(values['bonus_$i']),
+                    },
+                  ],
+          },
+      ];
+      _multipleSettlement(details, run, prior: prior);
+    }
     details['tax_free_payments_minor'] = payrollAccountMinor(
       values['tax_free_payments_minor'],
     );
@@ -710,6 +996,9 @@ class _BusinessPayrollAccountsPageState
       final sources = {
             'profiles': businessItems(pages[0]),
             'runs': businessItems(pages[1]),
+            'payments': businessItems(pages[2])
+                .where((r) => r['kind'] == 'payment')
+                .toList(),
             'identities': businessItems(pages[2])
                 .where((r) => r['kind'] == 'identity')
                 .toList(),
@@ -782,6 +1071,69 @@ class _BusinessPayrollAccountsPageState
           return;
         selectedRun = sources['runs']!.firstWhere((v) => _ref(v) == chosen);
       }
+      final multiple = selectedRun?['source']?['source_schema_version'] == 5;
+      Map<String, dynamic>? prior;
+      String priorKey = 'none';
+      if (multiple) {
+        final options = sources['payments']!
+            .where(
+              (p) =>
+                  p['sources']?['run']?['source']?['source_schema_version'] ==
+                      3 &&
+                  p['details']['run_id'] == selectedRun!['id'] &&
+                  p['details']['run_revision'] < selectedRun['revision'],
+            )
+            .toList();
+        String? chosen;
+        await privateEditor(
+          context: context,
+          builder: (_) => BusinessEditor(
+            session: session,
+            title: 'Vorherige laufende Zahlung prüfen',
+            readPermission: 'personnel.read',
+            writePermission: 'personnel.approve',
+            readAllowed: () =>
+                readable && captured == epoch && opening == session.generation,
+            fields: [
+              BusinessField(
+                'prior_payment_ref',
+                'Bereits belegte laufende Originalzahlung',
+                type: BusinessInput.choice,
+                required: true,
+                choices: {
+                  '': 'Tatsächlichen Zahlungsstand ausdrücklich wählen',
+                  'none': 'Keine bereits belegte laufende Zahlung',
+                  for (final p in options)
+                    _ref(
+                      p,
+                    ): 'Lohnfassung ${p['details']['run_revision']} · Nachweisfassung ${p['revision']}',
+                },
+              ),
+            ],
+            saveLabel: 'Laufenden Zahlungsursprung festhalten',
+            onSave: (v) async {
+              await fresh(kind: kind);
+              if (v['prior_payment_ref'] != 'none' &&
+                  !options.any((p) => _ref(p) == v['prior_payment_ref']))
+                throw const FormatException(
+                  'Die tatsächliche Zahlungsfassung auswählen.',
+                );
+              chosen = v['prior_payment_ref'];
+            },
+          ),
+        );
+        if (chosen == null ||
+            !mounted ||
+            !readable ||
+            captured != epoch ||
+            opening != session.generation)
+          return;
+        priorKey = chosen!;
+        prior = options.where((p) => _ref(p) == chosen).firstOrNull;
+      }
+      final preserved = prior == null
+          ? 0
+          : (prior['details']['payments'] as List).length;
       final zeroDue =
           selectedRun != null && payrollAccountNoPaymentDue(selectedRun);
       int count = 0;
@@ -804,11 +1156,13 @@ class _BusinessPayrollAccountsPageState
                 required: true,
               ),
             ],
-            initial: {'count': previous?['details']['payments'].length ?? 1},
+            initial: {
+              'count': previous?['details']['payments'].length ?? preserved + 1,
+            },
             saveLabel: 'Zahlungsnachweise erfassen',
             onSave: (values) async {
               final n = values['count'];
-              if (n is! int || n < 1 || n > 20)
+              if (n is! int || n < 1 || n > 20 || n <= preserved)
                 throw const FormatException(
                   'Ein bis 20 tatsächlich belegte Zahlungsteile angeben.',
                 );
@@ -947,10 +1301,52 @@ class _BusinessPayrollAccountsPageState
           );
           initial['status'] = details['status'] ?? '';
         }
+        if (multiple) {
+          fields.add(
+            BusinessField(
+              'prior_payment_summary',
+              'Übernommener laufender Zahlungsstand',
+              type: BusinessInput.choice,
+              required: true,
+              choices: {
+                priorKey: prior == null
+                    ? 'Keine frühere Zahlung übernommen'
+                    : '${preserved} frühere laufende Zahlungsteile bleiben unverändert',
+              },
+            ),
+          );
+          initial['prior_payment_summary'] = priorKey;
+          for (var i = 0; i < preserved; i++) {
+            final p = prior!['details']['payments'][i];
+            fields.add(
+              BusinessField(
+                'preserved_$i',
+                'Unverändertes Zahlungsoriginal ${i + 1}',
+                type: BusinessInput.choice,
+                required: true,
+                choices: {
+                  'original':
+                      '${businessDate(p['paid_on'])} · ${_money(p['amount_minor'])} · ${p['payment_reference']}',
+                },
+              ),
+            );
+            initial['preserved_$i'] = 'original';
+          }
+        }
         for (var i = 0; i < count; i++) {
           final p = businessMap(
-            (details['payments'] as List? ?? []).elementAtOrNull(i),
+            i < preserved
+                ? prior!['details']['payments'][i]
+                : (details['payments'] as List? ?? []).elementAtOrNull(i),
           );
+          if (i < preserved) {
+            initial['paid_on_$i'] = p['paid_on'];
+            initial['amount_$i'] = _amount(p['amount_minor']);
+            initial['reference_$i'] = p['payment_reference'];
+            initial['running_$i'] = _amount(p['amount_minor']);
+            initial['bonus_$i'] = '0.00';
+            continue;
+          }
           fields.addAll([
             BusinessField(
               'paid_on_$i',
@@ -974,6 +1370,35 @@ class _BusinessPayrollAccountsPageState
           initial['paid_on_$i'] = p['paid_on'];
           initial['amount_$i'] = _amount(p['amount_minor']);
           initial['reference_$i'] = p['payment_reference'];
+          if (multiple) {
+            final a = businessMap(
+              (details['settlement_allocations'] as List? ?? [])
+                  .elementAtOrNull(i),
+            );
+            fields.addAll([
+              BusinessField(
+                'running_$i',
+                'Laufender Nettoanteil EUR ${i + 1}',
+                type: BusinessInput.decimal,
+                required: true,
+              ),
+              BusinessField(
+                'bonus_$i',
+                'Bonusanteil EUR ${i + 1}',
+                type: BusinessInput.decimal,
+                required: true,
+              ),
+            ]);
+            initial['running_$i'] = _amount(a['running_minor']);
+            initial['bonus_$i'] = a.isEmpty
+                ? ''
+                : _amount(
+                    (a['one_off_allocations'] as List).fold<int>(
+                      0,
+                      (n, o) => n + (o['net_minor'] as int),
+                    ),
+                  );
+          }
         }
         fields.addAll(const [
           BusinessField(
@@ -1065,12 +1490,26 @@ class _BusinessPayrollAccountsPageState
               throw const FormatException(
                 'Passendes geschütztes Original auswählen.',
               );
+            final paymentValues = {
+              ...values,
+              if (multiple) 'prior_payment_ref': priorKey,
+            };
+            for (var i = 0; i < preserved; i++) {
+              final p = prior!['details']['payments'][i];
+              paymentValues.addAll({
+                'paid_on_$i': p['paid_on'],
+                'amount_$i': _amount(p['amount_minor']),
+                'reference_$i': p['payment_reference'],
+                'running_$i': _amount(p['amount_minor']),
+                'bonus_$i': '0.00',
+              });
+            }
             final body = <String, dynamic>{
               'employee_id': employeeId,
               'kind': kind,
               'details': payrollAccountDetails(
                 kind,
-                values,
+                paymentValues,
                 sources,
                 count: count,
               ),
@@ -1082,6 +1521,24 @@ class _BusinessPayrollAccountsPageState
                 'correction_reason': '${values['correction_reason'] ?? ''}'
                     .trim(),
             };
+            final paymentPlan = multiple
+                ? await payrollMultiplePaymentPlan(
+                    businessMap(body['details']),
+                    selectedRun!,
+                    prior: prior,
+                  )
+                : null;
+            if (multiple) {
+              await fresh(kind: kind);
+              if (!mounted ||
+                  !readable ||
+                  captured != epoch ||
+                  opening != session.generation)
+                throw const ApiException(
+                  403,
+                  'Die private Zahlungsansicht wurde gewechselt.',
+                );
+            }
             await session.command(
               key,
               '/payroll/account-records',
@@ -1091,6 +1548,7 @@ class _BusinessPayrollAccountsPageState
                 file,
                 previous: previous,
                 sourceEvidence: {
+                  if (multiple) 'single_payment_plan': paymentPlan,
                   for (final entry in {
                     'profile': 'profiles',
                     'run': 'runs',
@@ -1127,6 +1585,25 @@ class _BusinessPayrollAccountsPageState
             '${payrollAccountKinds[value['kind']]} · Fassung ${value['revision']}',
             style: Theme.of(context).textTheme.titleMedium,
           ),
+          if (value['details']['payment_source_schema_version'] == 1) ...[
+            const Text('Belegte Nettozuordnung'),
+            for (final a in businessItems(
+              value['details']['settlement_allocations'],
+            ))
+              ListTile(
+                title: Text(
+                  'Tatsächlicher Zahlungsteil ${a['payment_index'] + 1}',
+                ),
+                subtitle: Text(
+                  'Laufender Nettoanteil: ${_money(a['running_minor'])} · Bonusanteil: ${_money((a['one_off_allocations'] as List).fold<int>(0, (n, v) => n + (v['net_minor'] as int)))}',
+                ),
+              ),
+            Notice(
+              value['details']['prior_payment_ref'] == null
+                  ? 'Keine frühere Zahlung übernommen.'
+                  : 'Frühere laufende Zahlungsoriginale bleiben unverändert erhalten.',
+            ),
+          ],
           if (value['kind'] == 'payment' &&
               (value['details']['payments'] as List).isEmpty)
             const Notice(
@@ -1136,9 +1613,14 @@ class _BusinessPayrollAccountsPageState
           ExpansionTile(
             title: const Text('Belegte Angaben'),
             children: [
-              for (final entry in businessMap(
-                value['details'],
-              ).entries.where((e) => e.key != 'payments'))
+              for (final entry in businessMap(value['details']).entries.where(
+                (e) => ![
+                  'payments',
+                  'payment_source_schema_version',
+                  'settlement_allocations',
+                  'prior_payment_ref',
+                ].contains(e.key),
+              ))
                 ListTile(
                   title: Text(
                     payrollIdentityLabels[entry.key] ??

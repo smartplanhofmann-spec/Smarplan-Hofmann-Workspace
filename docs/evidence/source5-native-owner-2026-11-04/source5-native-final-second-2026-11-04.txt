@@ -1,0 +1,95 @@
+00:00 +0: loading /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_contract_test.dart
+00:00 +0: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_contract_test.dart: actual canonical case, source, preview and sealed receipt preserve all originals
+00:00 +1: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +3: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +4: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +5: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +6: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +7: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +8: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:01 +9: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:01 +10: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:01 +11: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:01 +12: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:01 +13: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:01 +14: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual incomplete monthly group remains reviewable without native finalize
+00:01 +15: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: late Source5 preview response cannot revive private data after background
+00:02 +16: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:03 +17: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:04 +18: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:04 +19: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:04 +20: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:04 +21: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: approval withdrawal removes Source5 payment editor before any transfer evidence is sent
+00:05 +22: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:06 +23: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:06 +24: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:06 +25: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:06 +26: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:06 +27: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:06 +28: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:08 +29: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:10 +30: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 session replacement closes editor and detaches old listener
+00:11 +31: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 session replacement closes editor and detaches old listener
+00:11 +32: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_test.dart: late v6 preview result cannot restore private data after background
+00:11 +33: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 employee change invalidates pending original preview
+00:12 +34: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_test.dart: late v6 preview error cannot restore private data after background
+00:12 +35: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 approve loss with read retained invalidates delayed preview
+00:12 +36: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_test.dart: approval withdrawal closes v6 editor while personnel read remains
+00:12 +37: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 session replacement suppresses delayed private preview error
+00:13 +38: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 session replacement suppresses delayed private preview error
+00:13 +39: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_test.dart: actual v6 replay rejects wrong employee, rule and source contract before resending
+00:13 +40: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 original callback waits for still valid view after held authorization
+00:13 +41: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 original callback waits for still valid view after held authorization
+00:13 +42: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 old private history error stays hidden after context replacement
+00:14 +43: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: actual correction keeps original run, full delta and existing paid part
+00:14 +44: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: actual paid_v5_upgrade keeps original run, full delta and existing paid part
+00:14 +45: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: actual Source4 general adapters retain running travel, bonus and deductions
+00:14 +46: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: actual Source4 source substitution and money replacement fail closed
+00:14 +47: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:14 +48: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:14 +49: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: actual Source4 account and yearly ledger require original amount and receipt day
+00:14 +50: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: actual Source4 account and yearly ledger require original amount and receipt day
+00:14 +51: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: actual Source4 account and yearly ledger require original amount and receipt day
+00:14 +52: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: actual Source4 account and yearly ledger require original amount and receipt day
+00:14 +53: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:16 +54: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:16 +55: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:16 +56: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:16 +57: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:17 +58: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:18 +59: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:19 +60: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:19 +61: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:19 +62: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:19 +63: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:19 +64: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:19 +65: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:19 +66: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: late private source error remains cleared after background
+00:19 +67: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:19 +68: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:20 +69: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_accounts_test.dart: account pending survives page closure and repeats original identity once
+00:20 +70: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+00:20 +71: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+00:20 +72: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: original callback receives the exact selected historical file
+00:21 +73: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+00:21 +74: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+00:21 +75: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+00:21 +76: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+00:21 +77: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:22 +78: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:22 +79: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:22 +80: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_calculation_cases_review_test.dart: revoked read right prevents original opening after a visible selection
+00:23 +81: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v5_test.dart: actual v5 employee projection preserves own amounts and net deduction
+00:23 +82: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v5_test.dart: own projection rejects raw sources, unknown kinds and altered cash payout
+00:23 +83: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v5_test.dart: existing payroll, receipt and annual parsers dispatch actual source3 additively
+00:23 +84: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v6_test.dart: actual v6 own statement and March split coexist with original v5 PDF
+00:23 +85: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v6_test.dart: rehashing cannot admit private annual facts or inconsistent year and money
+00:23 +86: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v6_test.dart: existing own payroll entry shows v6 bonus and v5 history at 390px without private routes, then clears revocation
+00:24 +87: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v6_test.dart: existing own payroll entry shows v6 bonus and v5 history at 390px without private routes, then clears revocation
+00:24 +88: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v6_test.dart: existing own payroll entry shows v6 bonus and v5 history at 390px without private routes, then clears revocation
+00:24 +89: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v6_test.dart: existing own payroll entry shows v6 bonus and v5 history at 390px without private routes, then clears revocation
+00:25 +90: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v7_test.dart: 390px own Source5 JSON export and history never request private originals
+00:25 +91: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v7_test.dart: revocation during JSON download clears view and cannot export
+00:25 +92: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_statements_v7_test.dart: paused or changed-token session discards late JSON response
+00:26 +93: All tests passed!

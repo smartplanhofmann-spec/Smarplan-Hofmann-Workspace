@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-04",
+  "scope": "Pure additive Source5/v7 planning composition, no API/DB/claim-consumption/payment activation",
+  "status": "passed",
+  "new_unique_cases": 14,
+  "existing_v6_parity_cases": 14,
+  "logs": [
+    {
+      "path": "docs/evidence/payroll-multiple-oneoff-core-first-2026-11-04.txt",
+      "sha256": "43bbaa3a63733b9ffdd5949ee4aaafbfead72dad38ee262d3c813f578e259df7",
+      "tests": 13,
+      "seconds": 2.868,
+      "passed": true,
+      "note": "13 new canonical/monthly/PAP cases"
+    },
+    {
+      "path": "docs/evidence/payroll-multiple-oneoff-core-parity-2026-11-04.txt",
+      "sha256": "026e73d4606691d63ffc3c3f999e280f374dcff098fb2f7bafaffc027b4d0da1",
+      "tests": 27,
+      "seconds": 8.952,
+      "passed": true,
+      "note": "13 new plus 14 unchanged v6 composition and independent boundary cases"
+    },
+    {
+      "path": "docs/evidence/payroll-multiple-oneoff-source4-successor-2026-11-04.txt",
+      "sha256": "44ab359c9bc220ba9cd0cf29e24b570316e657c7440c228e69b9d940c0a0cb63",
+      "tests": 1,
+      "seconds": 9.301,
+      "passed": true,
+      "note": "Actual paid Source4 October, November annual compact originals and v7 single-claim parity"
+    }
+  ],
+  "source_binding": "v5/annual/claim originals generated through actual accepted private domain commands; new v7 receipt events are explicitly drafts",
+  "official_boundaries": [
+    "KBS January2026 section13.1 p19: entire first-quarter monthly payment group assessed together",
+    "243750-cent March threshold and one-cent excess",
+    "Whole group changes assignment after running-wage correction",
+    "Separate May health/pension room and April receipt exclusion",
+    "BMF PAP2026 p14/p35/p39: split Soli 5236 cents differs from grouped10472; unresolved tax grouping remains blocked"
+  ],
+  "known_limits": [
+    "No canonical private Source5 case acceptance yet",
+    "No actual Source5 run, event ownership or payment records yet",
+    "Multiple tax groups and allocation of individual contributions remain blocked, even same-day claims",
+    "Source4/v6 and historical receipts are unchanged"
+  ],
+  "files": {
+    "backend/payroll_multiple_oneoff_2026.py": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7",
+    "backend/test_payroll_multiple_oneoff_2026.py": "be4914270b79aa28cc00a585bd746a0a9048a85cbf437a36ed69b5e99084e186",
+    "docs/CRM_ERP_LOHN_MEHRFACHBEZUEGE_V7_VERTRAG_2026.md": "3749e47836f394cc035458ca293a296e4946ec001cb48197861a316e0e3976e6",
+    "docs/CRM_ERP_LOHN_MEHRFACHBEZUEGE_QUELLEN_2026.md": "96d47d9ca06331181d0b75f21058f8e746cdad85e21967df3bd916aa11195966"
+  }
+}

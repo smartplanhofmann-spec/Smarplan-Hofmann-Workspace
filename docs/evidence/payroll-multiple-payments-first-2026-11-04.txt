@@ -1,0 +1,12 @@
+test_actual_paid_running_v5_on_30th_and_bonus_on_31st_remain_separate (test_payroll_multiple_payments.SingleBonusPaymentAllocation.test_actual_paid_running_v5_on_30th_and_bonus_on_31st_remain_separate) ... ok
+test_exact_transfer_identity_cannot_be_duplicated_for_two_cash_parts (test_payroll_multiple_payments.SingleBonusPaymentAllocation.test_exact_transfer_identity_cannot_be_duplicated_for_two_cash_parts) ... ok
+test_invented_prior_running_calculation_cannot_authorize_transfer_reuse (test_payroll_multiple_payments.SingleBonusPaymentAllocation.test_invented_prior_running_calculation_cannot_authorize_transfer_reuse) ... ok
+test_one_combined_transfer_is_one_money_part_with_two_exact_private_allocations (test_payroll_multiple_payments.SingleBonusPaymentAllocation.test_one_combined_transfer_is_one_money_part_with_two_exact_private_allocations) ... ok
+test_original_v5_paid_part_cannot_be_shifted_combined_or_relabelled (test_payroll_multiple_payments.SingleBonusPaymentAllocation.test_original_v5_paid_part_cannot_be_shifted_combined_or_relabelled) ... ok
+test_unresolved_multiple_or_partial_gross_never_becomes_a_payment_plan (test_payroll_multiple_payments.SingleBonusPaymentAllocation.test_unresolved_multiple_or_partial_gross_never_becomes_a_payment_plan) ... ok
+test_wrong_bonus_date_missing_net_cent_and_future_part_are_rejected (test_payroll_multiple_payments.SingleBonusPaymentAllocation.test_wrong_bonus_date_missing_net_cent_and_future_part_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 3.217s
+
+OK

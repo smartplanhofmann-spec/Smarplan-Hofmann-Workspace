@@ -105,11 +105,26 @@ class PayrollAccounts:
             '(SELECT 1 FROM business_payroll_account_events n WHERE n.id=e.id AND n.revision>e.revision) ORDER BY e.created_at,e.id',(employee_id,)).fetchall()
         return [self._event(row) for row in rows]
 
+    def _verify_source5(self,record):
+        if record.get('sources',{}).get('run',{}).get('source',{}).get('source_schema_version')!=5:return
+        if self._get(record['id'],record['revision'])!=record:
+            raise Problem(500,'Source5-Zahlungsquittung widerspricht dem tatsächlichen Original.')
+        details,sources,_=self._normalize(record['employee_id'],'payment',record['details'])
+        if details!=record['details'] or sources!=record['sources']:
+            raise Problem(500,'Source5-Zahlungszuordnung ist nicht unverändert nachrechenbar.')
+        receipts=self.db.execute('SELECT result_json FROM business_payroll_account_requests WHERE user_id=?',(record['created_by'],)).fetchall()
+        if sum(json.loads(row['result_json'])==record for row in receipts)!=1:
+            raise Problem(500,'Ursprüngliche Source5-Zahlungsannahmequittung fehlt oder ist doppelt vorhanden.')
+        original=self.hr._file(record['source_file']['id'],record['employee_id'])
+        if any(original[key]!=record['source_file'][key] for key in record['source_file']):
+            raise Problem(500,'Geschütztes Source5-Zahlungsoriginal wurde verändert.')
+
     def records(self,actor,query):
         _shape(query,('employee_id',),('employee_id',))
         with transaction(self.office):
             _,employee=self.hr._employee(actor,query['employee_id'],own=True)
             items=self._all(employee['id'])
+            for item in items:self._verify_source5(item)
             self.payroll._period_read_access(actor,employee['id'],[value.get('sources',{}).get('run',{}) for value in items])
             return dict(employee_id=employee['id'],items=items)
 
@@ -119,8 +134,10 @@ class PayrollAccounts:
             self.hr._employee(actor,record['employee_id'],own=True)
             if history:
                 items=[self._event(row) for row in self.db.execute('SELECT * FROM business_payroll_account_events WHERE id=? ORDER BY revision',(object_id,)).fetchall()]
+                for item in items:self._verify_source5(item)
                 self.payroll._period_read_access(actor,record['employee_id'],[value.get('sources',{}).get('run',{}) for value in items])
                 return dict(items=items)
+            self._verify_source5(record)
             self.payroll._period_read_access(actor,record['employee_id'],[record.get('sources',{}).get('run',{})])
             return record
 
@@ -189,6 +206,13 @@ class PayrollAccounts:
 
     def _normalize(self,employee_id,kind,details,*,rule_version=None):
         fields=IDENTITY_FIELDS if kind=='identity' else PAYMENT_FIELDS if kind=='payment' else CARRY_FIELDS
+        if kind=='payment':
+            _shape(details,PAYMENT_FIELDS+('payment_source_schema_version','settlement_allocations','prior_payment_ref'),PAYMENT_FIELDS)
+            run=self.payroll._event(self.payroll._row(details['run_id'],'run',details['run_revision']))
+            if run['source'].get('source_schema_version')==5:
+                fields=PAYMENT_FIELDS+('payment_source_schema_version','settlement_allocations','prior_payment_ref')
+                if type(details.get('payment_source_schema_version')) is not int or details['payment_source_schema_version']!=1:
+                    raise Problem(400,'Source5-Zahlungen benötigen die ausdrückliche Zuordnungsfassung 1.')
         _shape(details,fields,fields)
         details=json.loads(canonical(details))
         if kind=='identity':
@@ -235,14 +259,17 @@ class PayrollAccounts:
             if not record['calculation']['payroll_calculation_complete']:
                 raise Problem(409,'Ein unvollständiger SV-Lauf kann kein vollständiger Lohnkontoeintrag werden.')
             source_version=record['source'].get('source_schema_version')
-            if source_version in (3,4):self.payroll._verify_calculation_record(record)
-            period_plan=(record['source']['calculation_case']['plan'] if source_version in (3,4) else
+            if source_version in (3,4,5):self.payroll._verify_calculation_record(record)
+            period_plan=(record['source']['calculation_case']['plan'] if source_version in (3,4,5) else
                 record['source']['period_case']['plan'] if source_version==2 else None)
             identity=self._identity(employee_id,details,record['source']['profile'],record['source']['month'],period_plan=period_plan)
-            self._payment_fields(details,record['calculation'],record['source']['month'],verified_composite=source_version in (3,4),
+            self._payment_fields(details,record['calculation'],record['source']['month'],verified_composite=source_version in (3,4,5),
                 receipt_date=record['calculation']['one_off_details']['receipt_date'] if source_version==4 else None)
             sources=dict(run=record,identity=identity)
-            if source_version in (3,4):
+            if source_version==5:
+                from payroll_multiple_payments import resolve_single_payment_plan
+                sources['single_payment_plan']=resolve_single_payment_plan(self,record,details)
+            if source_version in (3,4,5):
                 sources['identity_intervals']=[]
                 for period in period_plan['identity_intervals']:
                     ref=period['identity_ref'];original=self._get(ref['id'],ref['revision'])
@@ -286,7 +313,8 @@ class PayrollAccounts:
             if prior:
                 if prior['request_hash']!=fingerprint:
                     raise Problem(409,'Vorgangs-ID wurde mit anderem Inhalt verwendet.')
-                return json.loads(prior['result_json'])
+                result=json.loads(prior['result_json']);self._verify_source5(result)
+                return result
             try:
                 previous=self._get(data['id']) if data.get('id') else None
                 if previous and (previous['employee_id']!=employee['id'] or previous['kind']!=data['kind']):
@@ -298,7 +326,10 @@ class PayrollAccounts:
                 if original['purpose']!='personnel':
                     raise Problem(400,'Geschützter Personalakten-Originalnachweis erforderlich.')
                 details,sources,key=self._normalize(employee['id'],data['kind'],data['details'])
-                if data['kind']=='payment' and sources['run']['source'].get('source_schema_version')==4:
+                if data['kind']=='payment' and sources['run']['source'].get('source_schema_version')==5:
+                    from payroll_multiple_payments import require_current_prior_settlement
+                    require_current_prior_settlement(self,sources['run'],details)
+                if data['kind']=='payment' and sources['run']['source'].get('source_schema_version') in (4,5):
                     from payroll_cash_sources import require_preserved_actual_net_parts
                     require_preserved_actual_net_parts(self.office,employee['id'],sources['run']['source']['month'],details['payments'])
                 existing=self.db.execute('SELECT id FROM business_payroll_account_events WHERE employee_id=? AND identity_key=?',(employee['id'],key)).fetchone()
@@ -363,6 +394,7 @@ def validate_integrity(office):
     try:
         for row in office.db.execute('SELECT * FROM business_payroll_account_events ORDER BY id,revision').fetchall():
             record=api._event(row);prior=previous.get(record['id'])
+            api._verify_source5(record)
             if record['revision']!=(prior['revision']+1 if prior else 1) or record['previous_hash']!=(prior['content_hash'] if prior else None):
                 raise ValueError('Broken payroll account history')
             version=record['sources']['calculation']['rule_version'] if record['kind']=='carryover' else None

@@ -1,0 +1,6 @@
+test_paid_source4_prior_month_compact_annual_original_is_usable_in_v7 (test_payroll_multiple_oneoff_2026.ActualSource4Successor.test_paid_source4_prior_month_compact_annual_original_is_usable_in_v7) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 9.301s
+
+OK

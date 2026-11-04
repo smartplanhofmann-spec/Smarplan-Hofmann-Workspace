@@ -1,0 +1,31 @@
+{
+  "recorded_at_utc": "2026-11-04T08:25:11.201207+00:00",
+  "scope": "Independent accepted-command review of prior actual running transfers across unpaid Source3 and Source5 run revisions",
+  "finding": "Immediate-predecessor lookup lost the actual earlier paid Source3 transfer after an unpaid intervening revision; a new payment could omit prior_payment_ref and relabel the original transfer.",
+  "first": {
+    "review_tests": 3,
+    "failed": 1,
+    "errors": 2,
+    "passed": 0,
+    "total_discovered_tests": 25,
+    "fixture_tests_passed": 22,
+    "note": "Initial review module imported TestCase fixture classes, so unittest additionally discovered22 existing fixture tests; imports were corrected to module aliases before final focused run.",
+    "log": "docs/evidence/payroll-multiple-settlement-review-first-2026-11-04.txt"
+  },
+  "final": {
+    "tests": 3,
+    "passed": 3,
+    "failed": 0,
+    "errors": 0,
+    "duration_seconds": 13.706,
+    "command": "PYTHONPATH=backend:backend/online:scripts /tmp/smartplan-backend-verified/bin/python -m unittest -v test_payroll_multiple_settlement_review.EarlierActualSettlement",
+    "log": "docs/evidence/payroll-multiple-settlement-review-final-2026-11-04.txt"
+  },
+  "fix": "All earlier actual settlements of the same run are resolved and original running source/payment retained. Paid Source5 ancestry remains blocked until explicit difference settlement is implemented.",
+  "source_sha256": {
+    "backend/test_payroll_multiple_settlement_review.py": "505a242024425e3849a39003d331c4ac973b72aa97b91670bc07c08b58f8cb6f",
+    "backend/payroll_multiple_payments.py": "5b5043db1f662efa3f844a147ec7b73f629a5ced87dd63f0c5feddb28df99e0f",
+    "backend/payroll_multiple_runs.py": "1e4976e35aa046c41773296bc53be0ae52dc774d825b172388b99f608b463fd2"
+  },
+  "production_contacts": false
+}

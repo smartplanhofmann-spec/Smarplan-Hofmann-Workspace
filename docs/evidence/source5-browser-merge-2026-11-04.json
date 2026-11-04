@@ -1,0 +1,216 @@
+{
+  "recorded_at_utc": "2026-11-04T09:12:19.516657+00:00",
+  "baseline_commit": "4c2f0086b4a9979b7cbe9d261fc22a97cd046913",
+  "browser_merge": [
+    {
+      "path": "web/office/payroll-multiple-cases.js",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "base": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "61d9995c8863facf518c348ad1138ac1c54c749e6128a96d39c23ec3a02d46fa",
+      "candidate": "61d9995c8863facf518c348ad1138ac1c54c749e6128a96d39c23ec3a02d46fa",
+      "conflicts": 0,
+      "merged": "61d9995c8863facf518c348ad1138ac1c54c749e6128a96d39c23ec3a02d46fa"
+    },
+    {
+      "path": "web/office/payroll.js",
+      "before": "eaf4be9caddafac2fb16504c1f6f6a002ef3f4554dd8b16d321a874c53bbe8c5",
+      "base": "eaf4be9caddafac2fb16504c1f6f6a002ef3f4554dd8b16d321a874c53bbe8c5",
+      "incoming": "83d23c21a7141ffd6a5720b0a86de33468cba630a8d79bb7f58d239fd92c3ef6",
+      "candidate": "83d23c21a7141ffd6a5720b0a86de33468cba630a8d79bb7f58d239fd92c3ef6",
+      "conflicts": 0,
+      "merged": "83d23c21a7141ffd6a5720b0a86de33468cba630a8d79bb7f58d239fd92c3ef6"
+    },
+    {
+      "path": "web/office/payroll-accounts.js",
+      "before": "3a5542cee5904d741de79ede099cfbb0f08cbd546b53f7d0061f5647d32d50ee",
+      "base": "3a5542cee5904d741de79ede099cfbb0f08cbd546b53f7d0061f5647d32d50ee",
+      "incoming": "d5e400d4e8226f785c607f050cacbb048a77804f92f4d4722d9e50c864264404",
+      "candidate": "d5e400d4e8226f785c607f050cacbb048a77804f92f4d4722d9e50c864264404",
+      "conflicts": 0,
+      "merged": "d5e400d4e8226f785c607f050cacbb048a77804f92f4d4722d9e50c864264404"
+    },
+    {
+      "path": "web/office/office.js",
+      "before": "b8a7a3859d3ac778071729bbc9ea15de1f2fb3911cb6ff9d03e9698dcb8c146d",
+      "base": "e0cc82055f225b92a3e3a8b9e6afd4f643337d422f3d48c9012be977ca422d35",
+      "incoming": "f7f2fa6fdab780e003b27e70665324c3d158008ed2863cec0abde806d1bc9f2c",
+      "candidate": "7b539abe96f269e7103d6c7a982eae6625cc5de894e5bd78fb53d1db50a4bfe6",
+      "conflicts": 2,
+      "merged": "beb95b8fe2e9d496c2bb641b16c84ce241e73a71d7f544b758a3e421e722834c"
+    },
+    {
+      "path": "backend/online/web.py",
+      "before": "612ea3d8bce51d0d83910e9b6c553a22a32e223ddf287f77153dd62e9272e856",
+      "base": "6798911d2ab14f974554c8259366bdca503e22125f71b5aac1ee0a11e1ca6739",
+      "incoming": "8bbad915db730f31b67ba695ada7182a23d244a76044febe14d6680b35d4877f",
+      "candidate": "334904ed51c70dd4cdfb6fbcd0da0467786675663322d0bcb059c551b458b537",
+      "conflicts": 0,
+      "merged": "334904ed51c70dd4cdfb6fbcd0da0467786675663322d0bcb059c551b458b537"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "before": "2683a02c519cb098fe4cec47d844f934698eeff35d7473421b6c3a53380f3ff0",
+      "base": "f650ef581dbbe165fc469a687768d452b2028971cdeda2dcb4a5a5d1abfe3bba",
+      "incoming": "2f90e974c4d1a42e66a293b4f86c249350161c67d738d98ada7e00862b3a343d",
+      "candidate": "c05d8978ea36993b8346d997e1a781ad55630144000479a066f160b311562bf1",
+      "conflicts": 1,
+      "merged": "c9513d2bdeb4903c57673f2ebd9a29300e3a61dd6846cd0f04f7ad47a0916979"
+    },
+    {
+      "path": ".github/workflows/checks.yml",
+      "before": "25711141b089177a6a6f96da2975df2a1f8fd7566b2eb1e2d498834fe2ec53f2",
+      "base": "fdeee9f3b51977f45c04150d7ab44afc93119f1d69fcdefd3fb1be8fabfb0537",
+      "incoming": "39e764551aac6bc750b42b93aacc376f6ae4d3c09665daa6bc626e6d633bc63a",
+      "candidate": "643fa7bcfaf61e012772c525e958c925746a553b3168cfdb24fbd89719f34d7b",
+      "conflicts": 1,
+      "merged": "c1084c7fee550ab0f6e8cbaabb918d1e7f6bf22c925519968fb654457ddb9a18"
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-cases.test.mjs",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "base": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "64b3baf6b71947793fc8e3215bfddc841462b7622bd4e07f7475f9903bd61087",
+      "candidate": "64b3baf6b71947793fc8e3215bfddc841462b7622bd4e07f7475f9903bd61087",
+      "conflicts": 0,
+      "merged": "64b3baf6b71947793fc8e3215bfddc841462b7622bd4e07f7475f9903bd61087"
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-runs.test.mjs",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "base": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "a3c1f808033679a6535ebdaff6de7a7378ca4bfce96ddcf02ac067e7780d3d61",
+      "candidate": "a3c1f808033679a6535ebdaff6de7a7378ca4bfce96ddcf02ac067e7780d3d61",
+      "conflicts": 0,
+      "merged": "a3c1f808033679a6535ebdaff6de7a7378ca4bfce96ddcf02ac067e7780d3d61"
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-context.test.mjs",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "base": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "6dc807d2fac30622f80357892f97f4cba52254cb9d935cf4c8db32226a06931e",
+      "candidate": "6dc807d2fac30622f80357892f97f4cba52254cb9d935cf4c8db32226a06931e",
+      "conflicts": 0,
+      "merged": "6dc807d2fac30622f80357892f97f4cba52254cb9d935cf4c8db32226a06931e"
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-session.test.mjs",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "base": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "045f8a9c8e11e2dc636d8bf835f691f25d0d2176e3b9ac7f290e2e4538e97cc7",
+      "candidate": "045f8a9c8e11e2dc636d8bf835f691f25d0d2176e3b9ac7f290e2e4538e97cc7",
+      "conflicts": 0,
+      "merged": "045f8a9c8e11e2dc636d8bf835f691f25d0d2176e3b9ac7f290e2e4538e97cc7"
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-cases-flow.cjs",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "base": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "b6a3699acdf65708047a92a0b9aaa5d461d0bae9593ce56f0e83e72537c63b21",
+      "candidate": "b6a3699acdf65708047a92a0b9aaa5d461d0bae9593ce56f0e83e72537c63b21",
+      "conflicts": 0,
+      "merged": "b6a3699acdf65708047a92a0b9aaa5d461d0bae9593ce56f0e83e72537c63b21"
+    },
+    {
+      "path": "docs/CRM_ERP_SOURCE5_CLIENTS_2026-11-04.md",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "base": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "a8c85f3826e6da9438647a5574225a8e17f842aa25a750a9a1f5dad12a804033",
+      "candidate": "a8c85f3826e6da9438647a5574225a8e17f842aa25a750a9a1f5dad12a804033",
+      "conflicts": 0,
+      "merged": "a8c85f3826e6da9438647a5574225a8e17f842aa25a750a9a1f5dad12a804033"
+    }
+  ],
+  "own_flow_helper_update": {
+    "path": "web/office/tests/payroll-multiple-own-flow.cjs",
+    "before": "47cdf2d4b80be6a92ef5320a3252e66caf3293c1e9d6506f48b50cb1ff80c6d0",
+    "after": "53035247316f34bfd6a636d4f89037e4dc58cfae469e2053d3a171f416b5ac87",
+    "reason": "Consume JSON response in waitForResponse before UI click finishes; actual browser helper timing fix."
+  },
+  "durable_artifacts": [
+    {
+      "original_path": "work/verification/source5-private-node-first-2026-11-04.txt",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-private-node-first-2026-11-04.txt",
+      "sha256": "5d33a95d2b4e1aa6aab9682e845e3c3eb5f22a6dc469f8073e0e50b22f7615de",
+      "bytes": 1468
+    },
+    {
+      "original_path": "work/verification/source5-node-all-final-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-node-all-final-2026-11-04.log",
+      "sha256": "5b54b8926816eab92711324fe1b7a60ae25ef9f8097a5ed1609b0fed4cc525bc",
+      "bytes": 52016
+    },
+    {
+      "original_path": "work/verification/source5-context-node-first-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-context-node-first-2026-11-04.log",
+      "sha256": "b142ada2f77906ee395410d2b85d3ea30f1ae8d8f20b7bb5ce31af72dc35a3e3",
+      "bytes": 6019
+    },
+    {
+      "original_path": "work/verification/source5-context-node-actual-red-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-context-node-actual-red-2026-11-04.log",
+      "sha256": "e3812f4799d100d0bce4886ee5f98896e04760a95917f9f83b563f144cb7d009",
+      "bytes": 3336
+    },
+    {
+      "original_path": "work/verification/source5-context-node-fixed-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-context-node-fixed-2026-11-04.log",
+      "sha256": "778b2a0c734f27763157b2eedda3b1a68f5dbef37468bcef277f895cc967b110",
+      "bytes": 1147
+    },
+    {
+      "original_path": "work/verification/source5-browser-first-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-browser-first-2026-11-04.log",
+      "sha256": "97cd200536f8c7037c7a37510cb887beaf411f71eebfb645b52f9b6f9ef50534",
+      "bytes": 726
+    },
+    {
+      "original_path": "work/verification/source5-browser-context-red-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-browser-context-red-2026-11-04.log",
+      "sha256": "c052d5f08945090dcb5ee7e085685f5bde8d36ad8bc970c0989ae63d4627981c",
+      "bytes": 2445
+    },
+    {
+      "original_path": "work/verification/source5-browser-context-fixed-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-browser-context-fixed-2026-11-04.log",
+      "sha256": "97cd200536f8c7037c7a37510cb887beaf411f71eebfb645b52f9b6f9ef50534",
+      "bytes": 726
+    },
+    {
+      "original_path": "work/verification/source5-browser-final-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-browser-final-2026-11-04.log",
+      "sha256": "0963ae16d1c55f253e45e527e9840c29b153b0af0edaaaa7f94437608e29a9b6",
+      "bytes": 2759
+    },
+    {
+      "original_path": "work/verification/source5-browser-final-second-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source5-browser-final-second-2026-11-04.log",
+      "sha256": "90f1dfa8c31e73599543ed95641e6d7baec1d19c9cb1e0b967c2a341cb1ccb81",
+      "bytes": 728
+    },
+    {
+      "original_path": "work/verification/source4-browser-regression-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/source4-browser-regression-2026-11-04.log",
+      "sha256": "e245eaf82b4cedb89c488635f76ac5f40b3aa6c2be4e5f2fbd9f2ce5970fbdf6",
+      "bytes": 700
+    },
+    {
+      "original_path": "work/verification/source5-browser-final-second-2026-11-04/payroll-multiple-cases-synthetic-commands.json",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/payroll-multiple-cases-synthetic-commands.json.gz",
+      "sha256": "9074a9698a05082a9be7f35887212a7978e6cfed901bc101074e9b362ef5603f",
+      "bytes": 3600105
+    },
+    {
+      "original_path": "work/verification/source5-browser-final-second-2026-11-04/payroll-multiple-own-mobile.png",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/payroll-multiple-own-mobile.png",
+      "sha256": "84dac1c33afb068ba58474f162899e2e7cacc84c74c161d0198f34d790c17e38",
+      "bytes": 61863
+    },
+    {
+      "original_path": "work/verification/source5-browser-final-second-2026-11-04/payroll-multiple-cases-mobile.png",
+      "repository_path": "docs/evidence/source5-private-browser-2026-11-04/payroll-multiple-cases-mobile.png",
+      "sha256": "3489fad371a3182af0d58d142e6b27d63dd0a472bb2718a6c04e4c2e85334c47",
+      "bytes": 58990
+    }
+  ],
+  "integration_checks": "pending"
+}

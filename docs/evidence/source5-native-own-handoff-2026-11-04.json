@@ -1,0 +1,180 @@
+{
+  "date": "2026-11-04",
+  "workspace": "/workspace/smartplan-source5-clients-20261104",
+  "status": "Product files frozen, no commits or staging",
+  "results": {
+    "targeted_native": "107/107 passed, 33 seconds; 24 new Source5 tests plus 13 independent review cases and existing Source3/4/own contracts",
+    "static_analysis": "13 files, no issues, 5.9 seconds",
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  "files": [
+    {
+      "path": "app/lib/business_payroll.dart",
+      "sha256": "2578e8353558ec770fb287777b601f338f4d7a2868ce717169c660a13373940c",
+      "bytes": 129784
+    },
+    {
+      "path": "app/lib/business_payroll_accounts.dart",
+      "sha256": "75550bda9a9be904e0732d5cdffbab80455e704865778105c78a69e8df0c12f6",
+      "bytes": 65637
+    },
+    {
+      "path": "app/lib/business_payroll_multiple_case_contract.dart",
+      "sha256": "79e8db349d8714e4da7f51ae4db72788d2d2dbbd55ae1b26de84750a88825724",
+      "bytes": 31491
+    },
+    {
+      "path": "app/lib/business_payroll_multiple_cases.dart",
+      "sha256": "1ecae98cf521cd3ce3fa6af2cf45560cd1c4947006441e666654371ac0635d17",
+      "bytes": 35324
+    },
+    {
+      "path": "app/lib/business_payroll_statements.dart",
+      "sha256": "df1015b834b60c981af92c235871e1247c4e85624c0a0e4fe6d750d662f36962",
+      "bytes": 30555
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "sha256": "3520548e1ff86fcf132b5558bceccd163d7f303d1da6c776e7580d89824c93d5",
+      "bytes": 86426
+    },
+    {
+      "path": "app/test/business_payroll_multiple_cases_test.dart",
+      "sha256": "92470ec0660d8a7640a37a2cfa2a952ad729442d405ea26b042567c649dad7fe",
+      "bytes": 13110
+    },
+    {
+      "path": "app/test/business_payroll_multiple_contract_test.dart",
+      "sha256": "12a647bf9d25715caa01f2afbfd70f505f7adedeb7b5037235684601fe800003",
+      "bytes": 7274
+    },
+    {
+      "path": "app/test/business_payroll_multiple_independent_review_test.dart",
+      "sha256": "38832aa5e73d968c71dbe81b5114064f37b0b97e294b6763c33fdeb9c8cbae24",
+      "bytes": 6326
+    },
+    {
+      "path": "app/test/business_payroll_multiple_payment_page_test.dart",
+      "sha256": "8f013c0c2c78d4f21d770354e829d7e36ee25538e16ea5c22fc5bf31383254f7",
+      "bytes": 8876
+    },
+    {
+      "path": "app/test/business_payroll_multiple_payments_test.dart",
+      "sha256": "095ea984758833465e301a5825068628f8c4df72bcbd7253c3d9b1e4c431f5e8",
+      "bytes": 5951
+    },
+    {
+      "path": "app/test/business_payroll_multiple_runs_test.dart",
+      "sha256": "3aff038192725950b6cef46b7678c6ce9ed63036062332be801da0ae97e0eefa",
+      "bytes": 6498
+    },
+    {
+      "path": "app/test/business_payroll_statements_v7_test.dart",
+      "sha256": "31f8d25f79ec834e4a850b43cb8541c2b2942a5eafad494d9833bff9852cf6a3",
+      "bytes": 10895
+    },
+    {
+      "path": "app/test/fixtures/payroll_multiple_runs.json",
+      "sha256": "87ccd3d7d31ed8327c3fbcc96d2f7629d6a873b1ab6d652ac914248ffc70d34b",
+      "bytes": 6911607
+    },
+    {
+      "path": "app/test/fixtures/payroll_statements_v7.json",
+      "sha256": "e029ce1f7600c1188b37bdac6ecde41aea044437f7cf2f65eb3ac61d48283d11",
+      "bytes": 37039
+    },
+    {
+      "path": "backend/business_payroll_statements.py",
+      "sha256": "deba6bfd98854e50d591340e85b30e99a121ab8346be8c8ea04c13399cfb55e6",
+      "bytes": 17659
+    },
+    {
+      "path": "backend/test_business_payroll_multiple.py",
+      "sha256": "d0435e75da4c361f1d5789d910212ea11a981ddb8b74f2b712d95883f882d7e9",
+      "bytes": 19207
+    },
+    {
+      "path": "backend/test_business_payroll_statements_v7.py",
+      "sha256": "4f56ef63ff9720bc731765b691c6c15cbee510e9692580471d92416716c2fc36",
+      "bytes": 12073
+    },
+    {
+      "path": "docs/CRM_ERP_SOURCE5_MITARBEITERBELEGE_2026-11-04.md",
+      "sha256": "d007002064feacfe5382b00909b458e14b33816c226e7153ebeb80f5bd14c467",
+      "bytes": 3353
+    },
+    {
+      "path": "docs/CRM_ERP_SOURCE5_NATIVE_2026-11-04.md",
+      "sha256": "fd8d94565c23a9aca068beb16d57874a67451126de42bfc75ea241bd8d9e64c6",
+      "bytes": 6035
+    },
+    {
+      "path": "docs/evidence/source5-native-clients-2026-11-04.json",
+      "sha256": "e6dff015e8d246027adfa2ff31b2112bc5609946e740a5e0223a2b6b71852f47",
+      "bytes": 6609
+    },
+    {
+      "path": "docs/evidence/source5-own-statements-2026-11-04.json",
+      "sha256": "a1a03a5e3987ea1e55dad23affa4e275fc4fd2031e915cb49ba1fc04aa65187b",
+      "bytes": 4959
+    },
+    {
+      "path": "scripts/generate-payroll-multiple-run-fixture.py",
+      "sha256": "ad6eb9b211189653c9f81e128f3e3199261057ec0f8012d2a2d9ff2298cf7682",
+      "bytes": 5442
+    },
+    {
+      "path": "scripts/generate-payroll-multiple-statement-fixture.py",
+      "sha256": "0e053a0ccf9c2692b69b546478735f800c585d6655f88598b15cfe4da9ec6273",
+      "bytes": 1516
+    },
+    {
+      "path": "web/office/payroll-statements.js",
+      "sha256": "acb865fe6a6c1a2fab27b289c6b9b4ce92c95c9396a85511e8e500c084733e6b",
+      "bytes": 19765
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-own-flow.cjs",
+      "sha256": "53035247316f34bfd6a636d4f89037e4dc58cfae469e2053d3a171f416b5ac87",
+      "bytes": 5826
+    },
+    {
+      "path": "web/office/tests/payroll-statements-v7.test.mjs",
+      "sha256": "054a5c86084e0e15a7a7eefb67f08d46e83901cb9629b41aa97b91eef6160560",
+      "bytes": 3363
+    }
+  ],
+  "integration_notes": [
+    "business_session.dart only adds repeatPayrollMultipleCaseCommand (55 lines); preserve newer Session.load race fix from independent assets work",
+    "backend/test_business_payroll_multiple.py only changes explicitly blocked Source5-own expectation into positive reduced schema4 assertion; preserve unrelated main changes",
+    "Source5 private browser files and their separate manifest remain owned by finish_v6_clients; do not replace those from this own/native handoff",
+    "Own browser helper now immediately reads actual response in waitForResponse promise; actual full final Source5 browser is green",
+    "No global schema/API/package changes; JSON own endpoint is versioned inside existing statements module",
+    "Do not overwrite newer main V7 contract docs with stale client-base copies"
+  ],
+  "evidence_logs": [
+    {
+      "path": "work/verification/source5-native-final-reviewed-2026-11-04.txt",
+      "sha256": "6a512601d5bafbb37e571323a11ddbb2ee85fbd698cabac5b3c5307d6379678a",
+      "bytes": 21238
+    },
+    {
+      "path": "work/verification/source5-native-analysis-reviewed-2026-11-04.txt",
+      "sha256": "8395530aaac8eefffe2e3172d829a0e54c56f08e6170e62524d23b7e4096b9b0",
+      "bytes": 96
+    },
+    {
+      "path": "work/verification/source5-browser-final-second-2026-11-04.log",
+      "sha256": "90f1dfa8c31e73599543ed95641e6d7baec1d19c9cb1e0b967c2a341cb1ccb81",
+      "bytes": 728
+    },
+    {
+      "path": "work/verification/source5-own-backend-final-2026-11-04.txt",
+      "sha256": "f2b353e21214d3f6ab487e461302f733310d3b90db6f6ce7f394cb09f86f92f4",
+      "bytes": 5402
+    }
+  ]
+}

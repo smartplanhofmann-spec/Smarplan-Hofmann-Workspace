@@ -1,0 +1,73 @@
+test_actual_original_payment_is_bound_across_unpaid_source3_revision (test_payroll_multiple_settlement_review.EarlierActualSettlement.test_actual_original_payment_is_bound_across_unpaid_source3_revision) ... ERROR
+test_actual_original_payment_is_bound_across_unpaid_source5_revision (test_payroll_multiple_settlement_review.EarlierActualSettlement.test_actual_original_payment_is_bound_across_unpaid_source5_revision) ... ERROR
+test_unpaid_intermediate_source5_cannot_erase_actual_paid_running (test_payroll_multiple_settlement_review.EarlierActualSettlement.test_unpaid_intermediate_source5_cannot_erase_actual_paid_running) ... FAIL
+test_actual_private_case_replay_keeps_sources_and_has_no_run_or_cash_effect (test_business_payroll_multiple.MultipleWorkflow.test_actual_private_case_replay_keeps_sources_and_has_no_run_or_cash_effect) ... ok
+test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) ... ok
+test_consumption_failure_rolls_back_run_receipt_and_pdf (test_business_payroll_multiple.MultipleWorkflow.test_consumption_failure_rolls_back_run_receipt_and_pdf) ... ok
+test_consumption_loss_blocks_read_replay_pdf_ledger_and_restore_validation (test_business_payroll_multiple.MultipleWorkflow.test_consumption_loss_blocks_read_replay_pdf_ledger_and_restore_validation) ... ok
+test_finalization_atomic_claim_and_original_replay (test_business_payroll_multiple.MultipleWorkflow.test_finalization_atomic_claim_and_original_replay) ... ok
+test_multiple_claim_net_remains_blocked_and_zero_consumption (test_business_payroll_multiple.MultipleWorkflow.test_multiple_claim_net_remains_blocked_and_zero_consumption) ... ok
+test_only_new_actual_bonus_part_is_cash_and_euer_once (test_business_payroll_multiple.MultipleWorkflow.test_only_new_actual_bonus_part_is_cash_and_euer_once) ... ok
+test_original_source5_unpaid_revision_keeps_owner_and_cannot_be_downgraded (test_business_payroll_multiple.MultipleWorkflow.test_original_source5_unpaid_revision_keeps_owner_and_cannot_be_downgraded) ... ok
+test_own_source5_projection_is_explicitly_blocked_until_private_contract_is_ready (test_business_payroll_multiple.MultipleWorkflow.test_own_source5_projection_is_explicitly_blocked_until_private_contract_is_ready) ... ok
+test_paid_source5_annual_projection_keeps_different_dates_and_prior_bonus_tax (test_business_payroll_multiple.MultipleWorkflow.test_paid_source5_annual_projection_keeps_different_dates_and_prior_bonus_tax) ... ok
+test_private_ledger_and_pdf_expose_versioned_source5_evidence (test_business_payroll_multiple.MultipleWorkflow.test_private_ledger_and_pdf_expose_versioned_source5_evidence) ... ok
+test_real_paid_v5_upgrade_separate_days_and_original_receipts (test_business_payroll_multiple.MultipleWorkflow.test_real_paid_v5_upgrade_separate_days_and_original_receipts) ... ok
+test_revised_actual_forecast_blocks_fresh_source_but_historical_receipt_survives (test_business_payroll_multiple.MultipleWorkflow.test_revised_actual_forecast_blocks_fresh_source_but_historical_receipt_survives) ... ok
+test_rights_and_duplicate_month_reject_without_acceptance (test_business_payroll_multiple.MultipleWorkflow.test_rights_and_duplicate_month_reject_without_acceptance) ... ok
+test_carryover_is_documented_recomputed_and_excludes_duplicate_local_month (test_business_payroll_accounts.PayrollAccountTests.test_carryover_is_documented_recomputed_and_excludes_duplicate_local_month) ... ok
+test_corrected_identity_requires_fresh_payment_reference_and_preserves_history (test_business_payroll_accounts.PayrollAccountTests.test_corrected_identity_requires_fresh_payment_reference_and_preserves_history) ... ok
+test_missing_or_contradictory_mandatory_fields_and_future_actual_payment_are_rejected (test_business_payroll_accounts.PayrollAccountTests.test_missing_or_contradictory_mandatory_fields_and_future_actual_payment_are_rejected) ... ok
+test_negative_minijob_net_records_real_employee_top_up_without_fictitious_zero_payment (test_business_payroll_accounts.PayrollAccountTests.test_negative_minijob_net_records_real_employee_top_up_without_fictitious_zero_payment) ... ok
+test_rehashed_payment_tamper_still_fails_referenced_run_and_amount_validation (test_business_payroll_accounts.PayrollAccountTests.test_rehashed_payment_tamper_still_fails_referenced_run_and_amount_validation) ... ok
+test_required_fields_and_actual_payment_complete_only_the_supported_employment_period (test_business_payroll_accounts.PayrollAccountTests.test_required_fields_and_actual_payment_complete_only_the_supported_employment_period) ... ok
+test_same_payment_cannot_be_reused_for_two_months_or_hidden_with_unicode (test_business_payroll_accounts.PayrollAccountTests.test_same_payment_cannot_be_reused_for_two_months_or_hidden_with_unicode) ... ok
+test_staff_permissions_source_binding_and_append_only_guards (test_business_payroll_accounts.PayrollAccountTests.test_staff_permissions_source_binding_and_append_only_guards) ... ok
+
+======================================================================
+ERROR: test_actual_original_payment_is_bound_across_unpaid_source3_revision (test_payroll_multiple_settlement_review.EarlierActualSettlement.test_actual_original_payment_is_bound_across_unpaid_source3_revision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_multiple_settlement_review.py", line 79, in test_actual_original_payment_is_bound_across_unpaid_source3_revision
+    receipt = self.payment(run, reference(paid))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_multiple_settlement_review.py", line 57, in payment
+    return f.save_account(f.data, 'payment', details)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_accounts.py", line 35, in save_account
+    return self.account_api().save(self.owner,body),body
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_accounts.py", line 371, in save
+    raise Problem(409,error.message,request_resolution='not_accepted') from None
+core.Problem: (409, 'Übernahme benötigt den tatsächlichen bezahlten v5-Lauf mit exakt derselben laufenden Originalrechnung.')
+
+======================================================================
+ERROR: test_actual_original_payment_is_bound_across_unpaid_source5_revision (test_payroll_multiple_settlement_review.EarlierActualSettlement.test_actual_original_payment_is_bound_across_unpaid_source5_revision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_multiple_settlement_review.py", line 71, in test_actual_original_payment_is_bound_across_unpaid_source5_revision
+    receipt = self.payment(run, reference(paid))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_multiple_settlement_review.py", line 57, in payment
+    return f.save_account(f.data, 'payment', details)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_accounts.py", line 35, in save_account
+    return self.account_api().save(self.owner,body),body
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_accounts.py", line 371, in save
+    raise Problem(409,error.message,request_resolution='not_accepted') from None
+core.Problem: (409, 'Übernahme benötigt den tatsächlichen bezahlten v5-Lauf mit exakt derselben laufenden Originalrechnung.')
+
+======================================================================
+FAIL: test_unpaid_intermediate_source5_cannot_erase_actual_paid_running (test_payroll_multiple_settlement_review.EarlierActualSettlement.test_unpaid_intermediate_source5_cannot_erase_actual_paid_running)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_multiple_settlement_review.py", line 63, in test_unpaid_intermediate_source5_cannot_erase_actual_paid_running
+    with self.assertRaises(Problem) as raised:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+----------------------------------------------------------------------
+Ran 25 tests in 40.894s
+
+FAILED (failures=1, errors=2)

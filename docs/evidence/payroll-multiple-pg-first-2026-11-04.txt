@@ -1,0 +1,8 @@
+test_distinct_actual_first_commands_cannot_create_two_month_owners (online.test_business_payroll_multiple_pg.MultiplePayrollPostgres.test_distinct_actual_first_commands_cannot_create_two_month_owners) ... ok
+test_paid_v5_separate_day_source5_and_compact_annual_originals_restore_exactly (online.test_business_payroll_multiple_pg.MultiplePayrollPostgres.test_paid_v5_separate_day_source5_and_compact_annual_originals_restore_exactly) ... ok
+test_two_actual_finalize_writers_one_atomic_claim_event_and_private_rights (online.test_business_payroll_multiple_pg.MultiplePayrollPostgres.test_two_actual_finalize_writers_one_atomic_claim_event_and_private_rights) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 34.637s
+
+OK

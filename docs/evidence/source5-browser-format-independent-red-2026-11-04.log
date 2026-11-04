@@ -1,0 +1,125 @@
+✔ independent browser format review preserves actual Source5 and earlier paid v5 payment originals (36.556922ms)
+✖ independent browser format review refuses missing Source5 dispatch markers with remaining settlement_allocations (3.536495ms)
+✖ independent browser format review refuses missing Source5 dispatch markers with remaining prior_payment_ref (2.294775ms)
+✖ independent browser format review refuses missing Source5 dispatch markers with remaining single_payment_plan (2.182957ms)
+✖ independent browser format review refuses missing Source5 dispatch markers with remaining v7_calculation (2.560365ms)
+✖ independent browser format review refuses new settlement fields when run_missing (4.158421ms)
+✖ independent browser format review refuses new settlement fields when version3 (2.098289ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 1
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 212.699369
+
+✖ failing tests:
+
+test at web/office/tests/payroll-multiple-format-review.test.mjs:7:110
+✖ independent browser format review refuses missing Source5 dispatch markers with remaining settlement_allocations (3.536495ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-format-review.test.mjs:8:426)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-format-review.test.mjs:7:110
+✖ independent browser format review refuses missing Source5 dispatch markers with remaining prior_payment_ref (2.294775ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-format-review.test.mjs:8:426)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-format-review.test.mjs:7:110
+✖ independent browser format review refuses missing Source5 dispatch markers with remaining single_payment_plan (2.182957ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-format-review.test.mjs:8:426)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-format-review.test.mjs:7:110
+✖ independent browser format review refuses missing Source5 dispatch markers with remaining v7_calculation (2.560365ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-format-review.test.mjs:8:426)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-format-review.test.mjs:10:48
+✖ independent browser format review refuses new settlement fields when run_missing (4.158421ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-format-review.test.mjs:10:320)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-format-review.test.mjs:10:48
+✖ independent browser format review refuses new settlement fields when version3 (2.098289ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-format-review.test.mjs:10:320)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

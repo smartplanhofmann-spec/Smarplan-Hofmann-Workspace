@@ -1,0 +1,8 @@
+test_actual_original_payment_is_bound_across_unpaid_source3_revision (test_payroll_multiple_settlement_review.EarlierActualSettlement.test_actual_original_payment_is_bound_across_unpaid_source3_revision) ... ok
+test_actual_original_payment_is_bound_across_unpaid_source5_revision (test_payroll_multiple_settlement_review.EarlierActualSettlement.test_actual_original_payment_is_bound_across_unpaid_source5_revision) ... ok
+test_unpaid_intermediate_source5_cannot_erase_actual_paid_running (test_payroll_multiple_settlement_review.EarlierActualSettlement.test_unpaid_intermediate_source5_cannot_erase_actual_paid_running) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 13.706s
+
+OK

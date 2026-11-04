@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "worktree": "/workspace/Smarplan-Hofmann-Workspace",
+  "reviewer": "overall_completion_review",
+  "synthetic_only": true,
+  "product_code_changes": false,
+  "production_contacts": false,
+  "command": "PYTHONPATH=backend:backend/online /tmp/smartplan-backend-verified/bin/python -m unittest test_payroll_multiple_oneoff_review -v",
+  "result": {
+    "tests": 12,
+    "passed": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 4.235
+  },
+  "log": {
+    "path": "docs/evidence/payroll-multiple-oneoff-independent-2026-11-04.txt",
+    "sha256": "c5736a4a4813995c2759893cce09775bb83ee1b9b9be97ae3b4f46fc57b390f4",
+    "bytes": 2635
+  },
+  "source_sha256": {
+    "backend/payroll_multiple_oneoff_2026.py": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7",
+    "backend/test_payroll_multiple_oneoff_2026.py": "be4914270b79aa28cc00a585bd746a0a9048a85cbf437a36ed69b5e99084e186",
+    "backend/test_payroll_multiple_oneoff_review.py": "0ea9c73c9ff865d390e02622cb87ef4a23f8bdccaa375d06562ae8a26777eaf9",
+    "backend/payroll_oneoff_composition_2026.py": "eb1d6d3806a5c75fb1675b184aab9c009e80bd38c9f7740986d9663a767c7136",
+    "backend/payroll_oneoff_2026.py": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8",
+    "docs/CRM_ERP_LOHN_MEHRFACHBEZUEGE_QUELLEN_2026.md": "96d47d9ca06331181d0b75f21058f8e746cdad85e21967df3bd916aa11195966",
+    "docs/CRM_ERP_LOHN_MEHRFACHBEZUEGE_V7_VERTRAG_2026.md": "3749e47836f394cc035458ca293a296e4946ec001cb48197861a316e0e3976e6"
+  },
+  "findings": [],
+  "verified": [
+    "All monetary fields of a complete original v6 prior-year-assigned claim are unchanged and calculation has no database effect.",
+    "Two planned partial receipts on different dates keep unpaid remainder, deterministic event order and null final tax/contribution/net fields.",
+    "A duplicate event across two accepted claims and overconsumption by one cent are rejected.",
+    "Employee, month, latest group cutoff and current original calculation remain bound.",
+    "Rebuilding a foreign-employer claim plan or an invented current social projection cannot override source checks.",
+    "An accepted tax forecast cannot be relinked to another accepted claim.",
+    "Changed original hashes/revisions, repeated documentary references and actual_paid flags are rejected.",
+    "Mixed prior-year mini/regular history remains a blocker.",
+    "Consumption belonging to another prior receipt group remains present in the yearly room; unrelated person/employer/section is rejected."
+  ],
+  "limitations": [
+    "The pure kernel deliberately leaves multiple tax grouping and component contribution allocation unresolved; this is expected behavior.",
+    "New v7 receipt events are planned proposals, not accepted payments or claim consumption.",
+    "Database authority, freshness, full monthly event enumeration, finalization, payment allocation and later corrections require the private runtime integration and are outside this pure-kernel review.",
+    "The separate payroll_multiple_payments.py was not reviewed here."
+  ]
+}

@@ -60,31 +60,40 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    PostgreSQL-/Restore-, Client- und gemeinsame Prüfungen bestehen. Auch der
    reduzierte Mitarbeiterbeleg und die Übernahme bereits gezahlter Boni in
    spätere Jahresbasen sind integriert. Mehrere Boni desselben Monats und
-   unterschiedliche Zahlungstage werden als additive V7-/Source5-Verträge
-   entwickelt; ungeklärte Steuergruppen liefern ausdrücklich kein Endnetto.
+   unterschiedliche Zahlungstage werden über additive V7-/Source5-Verträge
+   behandelt. Der begrenzte vollständige Originalbonus mit getrennten
+   tatsächlichen Transfers ist [gemeinsam geprüft](CRM_ERP_SOURCE5_GESAMTPRUEFUNG_2026-11-04.md);
+   die tatsächliche Mehrfachsteuerberechnung wird separat weiterentwickelt.
+   Ungeklärte Steuergruppen liefern ausdrücklich kein Endnetto.
 2. **Unterbrechungen und Nullnetto vervollständigen.** Das belegte U-Merkmal und
    ein Zahlungsnachweis ohne geschuldete Nettozahlung sind implementiert und
    gezielt geprüft. Tatsächliche Leistungsbeträge, Jahresüberträge und weitere
    Versicherungsfälle bleiben im [Lückenplan](CRM_ERP_LOHN_LUECKENPLAN_2026.md).
    Eine leere Nettozahlung erzeugt keinen Geldfluss; geschuldete Abführungen
    bleiben gesondert nachzuweisen.
-3. **Gemeinsame Integration weiter absichern.** Auf `5d9e7fd` sind Anfangssalden
+3. **Gemeinsame Integration weiter absichern.** Auf `c7dbab0` sind Anfangssalden
    in beiden Clients sowie Katalogoriginale/Browserimport zusammengeführt.
    Die neue vollständige Prüfung besteht 1.565 Backendtests bei einer
    plattformspezifischen Auslassung, 522 Node- und 1.118 Fluttertests,
    vollständige Flutter-Analyse und 16 Paketprüfungen. Tatsächliche gemeinsame
    PostgreSQL-/Restore- und Browserabläufe sind geprüft; siehe
    [Gesamtnachweis](CRM_ERP_ANFANGSSALDEN_KATALOG_GESAMTPRUEFUNG_2026-11-04.md).
-   Die laufenden Source5-, Anlagen- und Preis-v2-Erweiterungen erhalten eigene
-   Abnahmen und werden danach in den nächsten gemeinsamen Stand übernommen.
+   Source5 ist inzwischen mit beiden Clients auf `4c2f008` zusammengeführt:
+   1.626 Backendfälle bei einem Windows-Skip, 555 Node- und 1.208 Flutterfälle
+   sowie 16 Paketprüfungen bestehen. Anlagen und Preis-v2 folgen mit eigenen
+   Abnahmen im nächsten gemeinsamen Stand.
 4. **Verbleibende Gesamtanforderungen am Code prüfen und schließen.** Die
    Abnahmefälle A–G bleiben der Maßstab. Parallel zur Lohnintegration werden
    konkrete Lücken der übrigen Module mit tatsächlichem Code und vorhandenen
    Tests abgeglichen; historische Planpunkte allein gelten nicht als Beleg
    fehlender Funktionen. Die [Gegenprüfung vom 04.11.2026](CRM_ERP_GESAMTZIEL_GEGENPRUEFUNG_2026-11-04.md)
    priorisiert belegte Finanzübernahme, Katalogpreisgültigkeit/Browserimport
-   und unternehmensweite Ereignisregeln. Die Anfangssaldo-Implementierung
-   läuft zunächst isoliert; historische Anlagen folgen als eigener Vertrag.
+   und unternehmensweite Ereignisregeln. Anfangssalden und Katalogoriginale
+   sind unter `c7dbab0` und `4c2f008` integriert. Historische Anlagen und
+   zeitgebundene Preise werden in isolierten Arbeitsständen abschließend
+   geprüft. Die Erweiterung der unternehmensweiten Ereignisregeln ist im
+   eigenen Arbeitsstand begonnen; sie ist noch kein geprüfter Bestandteil
+   des Hauptprojekts.
 
 Die v5-Zusammenrechnung mehrerer belegter Entgelt-/SV-Abschnitte mit
 Anspruchsbausteinen und Reise-Lohnübergabe sowie der eigene v5-Mitarbeiterbeleg

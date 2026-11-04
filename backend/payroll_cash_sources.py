@@ -53,6 +53,7 @@ class Sources:
         if actor is not None:self.hr._employee(actor,record['employee_id'])
         if record['content_hash']!=ref['content_hash'] or record['kind'] not in ('payment','carryover'):
             raise Problem(409,'Genau passender Lohnkonto-Zahlungsnachweis erforderlich.')
+        self.accounts._verify_source5(record)
         details=record['details'];origin=self.file(actor,record['source_file']['id'],record['employee_id'])
         if any(origin[key]!=record['source_file'][key] for key in record['source_file']):
             raise Problem(409,'Lohnkonto-Original wurde verändert.')
@@ -62,7 +63,7 @@ class Sources:
             raise Problem(409,'Unveränderten unterstützten Barlohn ohne zusätzliche steuerfreie Bezüge auswählen.')
         if record['kind']=='payment':
             run=record['sources']['run'];month=run['source']['month']
-            if run['source'].get('source_schema_version') in (3,4):self.payroll._verify_calculation_record(run)
+            if run['source'].get('source_schema_version') in (3,4,5):self.payroll._verify_calculation_record(run)
             if _calculate_source(run['source'],rule_version=calculation['rule_version'])!=calculation:
                 raise Problem(409,'Lohnrechnung besteht die Quellenprüfung nicht.')
             if current and self.payroll._row(run['id'],'run')['revision']!=run['revision']:
@@ -89,7 +90,7 @@ class Sources:
         if record['content_hash']!=ref['content_hash'] or current and self.payroll._row(record['id'],'run')['revision']!=record['revision']:
             raise Problem(409,'Genau passende wirksame Lohnrevision auswählen.')
         calculation=record['calculation'];calculated(calculation)
-        if record['source'].get('source_schema_version') in (3,4):self.payroll._verify_calculation_record(record)
+        if record['source'].get('source_schema_version') in (3,4,5):self.payroll._verify_calculation_record(record)
         if _calculate_source(record['source'],rule_version=calculation['rule_version'])!=calculation:
             raise Problem(409,'Lohnrechnung besteht die Quellenprüfung nicht.')
         profile=record['source']['profile'];origin=self.file(actor,profile['source_file']['id'],record['employee_id'])

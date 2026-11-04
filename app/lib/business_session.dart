@@ -1489,6 +1489,61 @@ class BusinessSession extends ChangeNotifier {
     );
   }
 
+  Future<dynamic> repeatPayrollMultipleCaseCommand(String employeeId) {
+    final key = 'payroll-multiple-$employeeId';
+    final operation = _pending[key];
+    final details = operation?.body['details'];
+    final month = details is Map ? details['month'] : null;
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/multiple-one-off-cases',
+      readPath:
+          '/payroll/multiple-one-off-cases/sources?employee_id=$employeeId&month=$month',
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            month is! String ||
+            !RegExp(r'^2026-(0[1-9]|1[0-2])$').hasMatch(month) ||
+            projectId != null ||
+            !hasFeature('payroll_multiple_cases') ||
+            !hasModule('payroll_multiple_cases') ||
+            !can('personnel.read') ||
+            !canWrite('personnel.approve') ||
+            operation?.body['kind'] != 'multiple_one_off_case' ||
+            operation?.body['rule_version'] != 'de_2026_multiple_oneoff_v7' ||
+            operation?.body['source_contract_version'] is! int ||
+            operation?.body['source_contract_version'] != 1 ||
+            operation?.body['employee_id'] != employeeId) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte und der ursprüngliche belegte Monatsgruppenfall fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['employee_id'] != employeeId ||
+            state['employee'] is! Map ||
+            state['employee']['id'] != employeeId ||
+            state['month'] != month ||
+            state['calculation_cases'] is! List ||
+            state['annual_facts'] is! List ||
+            state['multiple_one_off_cases'] is! List) {
+          throw const ApiException(
+            502,
+            'Die Quellen gehören nicht eindeutig zum Mitarbeiter und Abrechnungsmonat.',
+          );
+        }
+        if (state['can_approve'] != true) {
+          throw const ApiException(
+            403,
+            'Die aktuellen Freigaberechte am Monatsgruppenfall fehlen.',
+          );
+        }
+        // The original accepted body stays unchanged despite newer sources
+        // or a paused personnel module. Only the server receipt proves success.
+      },
+    );
+  }
+
   Future<dynamic> repeatPayrollAnnualBasisCommand(String employeeId) {
     final key = 'payroll-annual-basis-$employeeId';
     final operation = _pending[key];

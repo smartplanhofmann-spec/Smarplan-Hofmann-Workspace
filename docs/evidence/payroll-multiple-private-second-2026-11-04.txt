@@ -1,0 +1,10 @@
+test_actual_private_case_replay_keeps_sources_and_has_no_run_or_cash_effect (test_business_payroll_multiple.MultipleWorkflow.test_actual_private_case_replay_keeps_sources_and_has_no_run_or_cash_effect) ... ok
+test_finalization_atomic_claim_and_original_replay (test_business_payroll_multiple.MultipleWorkflow.test_finalization_atomic_claim_and_original_replay) ... ok
+test_real_paid_v5_upgrade_separate_days_and_original_receipts (test_business_payroll_multiple.MultipleWorkflow.test_real_paid_v5_upgrade_separate_days_and_original_receipts) ... ok
+test_revised_actual_forecast_blocks_fresh_source_but_historical_receipt_survives (test_business_payroll_multiple.MultipleWorkflow.test_revised_actual_forecast_blocks_fresh_source_but_historical_receipt_survives) ... ok
+test_rights_and_duplicate_month_reject_without_acceptance (test_business_payroll_multiple.MultipleWorkflow.test_rights_and_duplicate_month_reject_without_acceptance) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 6.491s
+
+OK

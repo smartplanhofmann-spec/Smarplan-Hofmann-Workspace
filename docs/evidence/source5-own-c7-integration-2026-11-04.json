@@ -1,0 +1,31 @@
+{
+  "scope": "Source5 private backend and own statement integrated with c7 financial/catalog backend; 4c2 later adds only tested native catalog files",
+  "domain": {
+    "passed": 34,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 119.517,
+    "log": "docs/evidence/source5-own-c7-integration-2026-11-04.txt"
+  },
+  "postgres": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 54.913,
+    "actual_backup_restore": true,
+    "financial_horizon": 12,
+    "financial_restore_schema": 13,
+    "log": "docs/evidence/source5-own-c7-postgres-2026-11-04.txt"
+  },
+  "source_sha256": {
+    "backend/business_payroll_statements.py": "deba6bfd98854e50d591340e85b30e99a121ab8346be8c8ea04c13399cfb55e6",
+    "backend/business_payroll_multiple_cases.py": "3952ffe27f514577e87e84bf6842cb978b7846990f279c22038c0b0842d984af",
+    "backend/business_schema.py": "aa23822ff428e8a2da51b5d619be9b47927e79236cdc3dd1df417ab491909f60",
+    "backend/business_api.py": "b842a052125ead75c935d38d993b48c8117d11e83cfe42e083fa79b939ddd2bc",
+    "backend/company_export_catalog.py": "3b3212f664ea05bd603bb42a0ead5762b53d22a0b13da7c6550b05dafc0100fa",
+    "backend/test_business_payroll_statements_v7.py": "4f56ef63ff9720bc731765b691c6c15cbee510e9692580471d92416716c2fc36",
+    "backend/test_business_payroll_multiple.py": "d0435e75da4c361f1d5789d910212ea11a981ddb8b74f2b712d95883f882d7e9",
+    "backend/online/test_business_payroll_multiple_pg.py": "12b7e1fb6984a25c582a33488235a3027a0f182940cd375bfc0528426b45bfe4"
+  },
+  "remaining": "Private Source5 browser/native chain integration and final full regression"
+}

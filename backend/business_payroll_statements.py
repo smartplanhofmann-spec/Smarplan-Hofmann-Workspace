@@ -7,7 +7,7 @@ storage or a second payroll calculation. PDF generation happens outside locks.
 import io
 import re
 
-from core import Problem
+from core import Problem, canonical
 from business_foundation import permissions, require_permission
 from business_operations import transaction
 from business_personnel_workflow import _sha, _shape
@@ -40,6 +40,29 @@ def _revision(value):
 def project(record):
     """Positive allowlist, including nested fields; never copy arbitrary extras."""
     source, calculation = record['source'], record['calculation']
+    source5 = source.get('source_schema_version') == 5
+    source5_extra = None
+    if source5:
+        # A separate projection version accepts only the currently verified,
+        # complete single-claim branch. Private source/group/event identities
+        # are deliberately absent from the employee-facing statement.
+        private = calculation.get('multiple_one_off_details', {})
+        single = private.get('single_original_calculation', {})
+        components, events = private.get('components', []), private.get('receipt_events', [])
+        source5_extra = single.get('one_off_details', {})
+        if (calculation.get('rule_version') != 'de_2026_multiple_oneoff_v7'
+                or calculation.get('source_contract_version') != 1
+                or calculation.get('scope') != 'regular_standard_multiple_oneoff'
+                or calculation.get('payroll_calculation_complete') is not True
+                or single.get('rule_version') != 'de_2026_oneoff_composition_v6'
+                or single.get('payroll_calculation_complete') is not True
+                or len(components) != 1 or len(events) != 1
+                or components[0].get('remaining_claim_minor') != 0
+                or components[0].get('claim_minor') != source5_extra.get('amount_minor')
+                or events[0].get('gross_minor') != source5_extra.get('amount_minor')
+                or events[0].get('receipt_date') != source5_extra.get('receipt_date')
+                or any(calculation.get(key) != single.get(key) for key in AMOUNTS)):
+            raise Problem(409, 'Dieser Mitarbeiterbeleg benötigt einen vollständig geprüften einzelnen Source5-Anspruch; eine ungeklärte Mehrfachgruppe bleibt gesperrt.')
     contributions = calculation['employee_contributions']
     narrow = {key: calculation[key] for key in AMOUNTS}
     narrow.update(rule_version=calculation['rule_version'], scope=calculation['scope'], currency='EUR',
@@ -59,7 +82,7 @@ def project(record):
                 month=source['month'], created_at=record['created_at'], calculation=narrow,
                 period_summary=summary, transmission_status='not_transmitted',
                 payment_status='not_evidenced_by_calculation')
-    if source.get('source_schema_version') in (3, 4):
+    if source.get('source_schema_version') in (3, 4, 5):
         # A new projection version preserves every legacy statement/PDF byte.
         # Only the employee's own amounts and dates leave the private case.
         base['schema_version'] = 2
@@ -73,11 +96,11 @@ def project(record):
                 'individual_taxable_payroll_minor', 'benefit_in_kind_non_cash_minor', 'letter_m')}
         base['travel_summary']['employee_flat_tax_deduction_minor'] = (
             periods['flat_travel_tax']['employee_tax_minor'] if periods['flat_travel_tax'] else 0)
-    if source.get('source_schema_version') == 4:
+    if source.get('source_schema_version') in (4, 5):
         # Source4 carries private annual evidence. Only the employee's amounts
         # and the resulting year assignment belong in the employee statement.
-        extra = calculation['one_off_details']
-        base['schema_version'] = 3
+        extra = source5_extra if source5 else calculation['one_off_details']
+        base['schema_version'] = 4 if source5 else 3
         base['one_off_summary'] = dict(
             amount_minor=extra['amount_minor'], receipt_date=extra['receipt_date'],
             **{key: extra['assignment'][key] for key in ('tax_year', 'social_year', 'march_clause')},
@@ -128,7 +151,7 @@ def render_pdf(statement):
         line('Unvollständiger Rechenumfang: Lohnsteuer und Netto sind noch nicht vollständig ermittelt.')
     for key in AMOUNTS:
         line(LABELS[key] + ': ' + _money(calculation[key]))
-    if statement['schema_version'] in (2, 3):
+    if statement['schema_version'] in (2, 3, 4):
         line('Belegte Nettoabzüge: ' + _money(calculation['net_deductions_minor']))
         line('Eigene Entgeltbestandteile', True)
         labels = dict(ordinary_work='Regelmäßiges Arbeitsentgelt',
@@ -146,7 +169,7 @@ def render_pdf(statement):
             ('employee_flat_tax_deduction_minor', 'Belegter Arbeitnehmer-Steuerkostenabzug')):
             line(label + ': ' + _money(travel[key]))
         line('Mahlzeitenmerkmal M: ' + ('Ja' if travel['letter_m'] else 'Nein'))
-    if statement['schema_version'] == 3:
+    if statement['schema_version'] in (3, 4):
         extra = statement['one_off_summary']
         line('Einmalzahlung / sonstiger Bezug', True)
         line('Brutto der Einmalzahlung: ' + _money(extra['amount_minor']))
@@ -170,7 +193,7 @@ def render_pdf(statement):
             for item in summary[name]:
                 line(f"{title}: {item['start']} bis {item['end']} / {item[days]}")
     line('Berechneter Auszahlungsbetrag ist kein Zahlungsnachweis. '
-         + ('Steuerfreie Reiseerstattungen werden außerhalb dieses Lohnnettos gezahlt.' if statement['schema_version'] in (2, 3)
+         + ('Steuerfreie Reiseerstattungen werden außerhalb dieses Lohnnettos gezahlt.' if statement['schema_version'] in (2, 3, 4)
             else 'Auslagen und Reisekosten werden gesondert belegt.'))
     line('Keine amtliche Meldung oder vollständige gesetzliche Entgeltbescheinigung. Nachweis des ausgewiesenen Rechenumfangs.')
     line('Beleg-SHA256: ' + statement['statement_hash'])
@@ -199,7 +222,7 @@ class PayrollStatements:
     def _verified(self, row):
         from business_payroll import _calculate_source
         record = self.payroll._event(row)
-        if record['source'].get('source_schema_version') in (3, 4):
+        if record['source'].get('source_schema_version') in (3, 4, 5):
             self.payroll._verify_calculation_record(record)
         elif record['source'].get('source_schema_version') == 2:
             self.payroll._verify_period_record(record)
@@ -236,7 +259,7 @@ class PayrollStatements:
             return dict(employee_id=employee['id'], can_export=can_export,
                         **({'items': items} if history else {'statement': items[0]}))
 
-    def export(self, actor, object_id, query):
+    def export(self, actor, object_id, query, *, file_format='pdf'):
         _shape(query, ('revision', 'statement_hash'), ('revision', 'statement_hash'))
         revision = _revision(query['revision'])
         if not isinstance(query['statement_hash'], str) or not re.fullmatch(r'[a-f0-9]{64}', query['statement_hash']):
@@ -247,15 +270,17 @@ class PayrollStatements:
             statement = self._verified(row)
         if statement['statement_hash'] != query['statement_hash']:
             raise Problem(409, 'Der gewählte Mitarbeiterbeleg stimmt nicht mit der geprüften Fassung überein.')
-        content = render_pdf(statement)
+        if file_format not in ('pdf', 'json'):
+            raise Problem(400, 'PDF oder JSON als Mitarbeiterbelegformat wählen.')
+        content = render_pdf(statement) if file_format == 'pdf' else canonical(package(statement)).encode('utf-8')
         with transaction(self.office):
             fresh, _, _ = self._access(actor, employee['id'], exporting=True)
             self.office.audit(fresh, 'payroll.employee_statement.exported', object_id + ':' + str(revision))
-        return BinaryAttachment(content, f"lohnnachweis-{statement['month']}-v{revision}.pdf"), 'application/pdf'
+        return BinaryAttachment(content, f"lohnnachweis-{statement['month']}-v{revision}.{file_format}"), 'application/pdf' if file_format == 'pdf' else 'application/json; charset=utf-8'
 
 
 def methods(path):
-    if path == ROOT or re.fullmatch(ROOT + '/' + ID + r'(?:/(?:history|pdf))?', path):
+    if path == ROOT or re.fullmatch(ROOT + '/' + ID + r'(?:/(?:history|pdf|json))?', path):
         return 'GET'
     return None
 
@@ -272,8 +297,8 @@ def dispatch(office, actor, path, method, data):
         value = api.records(actor, query)
     else:
         parts = path[len(ROOT) + 1:].split('/')
-        if len(parts) == 2 and parts[1] == 'pdf':
-            value, mime = api.export(actor, parts[0], query)
+        if len(parts) == 2 and parts[1] in ('pdf', 'json'):
+            value, mime = api.export(actor, parts[0], query, file_format=parts[1])
             return value, 200, mime
         value = api.get(actor, parts[0], query, history=len(parts) == 2)
     return value, 200, 'application/json'

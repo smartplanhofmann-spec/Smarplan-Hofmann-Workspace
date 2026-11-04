@@ -1,0 +1,167 @@
+{
+  "date": "2026-11-04",
+  "scope": "Native Source5 original single bonus, explicit separate actual settlement dates, exact paid-v5 prefix retention; unresolved multiple tax remains blocked",
+  "results": {
+    "targeted_native": "107/107 passed, 33 seconds; 24 new Source5 tests plus 13 independent review cases and existing Source3/4/own contracts",
+    "static_analysis": "13 files, no issues, 5.9 seconds",
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  "test_mode": "Real domain fixtures with controlled native HTTP adapters; separate browser and PG evidence are not counted as Flutter live HTTP",
+  "source_files": [
+    {
+      "path": "app/lib/business_payroll.dart",
+      "sha256": "2578e8353558ec770fb287777b601f338f4d7a2868ce717169c660a13373940c",
+      "bytes": 129784
+    },
+    {
+      "path": "app/lib/business_payroll_accounts.dart",
+      "sha256": "75550bda9a9be904e0732d5cdffbab80455e704865778105c78a69e8df0c12f6",
+      "bytes": 65637
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "sha256": "3520548e1ff86fcf132b5558bceccd163d7f303d1da6c776e7580d89824c93d5",
+      "bytes": 86426
+    },
+    {
+      "path": "app/lib/business_payroll_multiple_case_contract.dart",
+      "sha256": "79e8db349d8714e4da7f51ae4db72788d2d2dbbd55ae1b26de84750a88825724",
+      "bytes": 31491
+    },
+    {
+      "path": "app/lib/business_payroll_multiple_cases.dart",
+      "sha256": "1ecae98cf521cd3ce3fa6af2cf45560cd1c4947006441e666654371ac0635d17",
+      "bytes": 35324
+    },
+    {
+      "path": "app/test/business_payroll_multiple_contract_test.dart",
+      "sha256": "12a647bf9d25715caa01f2afbfd70f505f7adedeb7b5037235684601fe800003",
+      "bytes": 7274
+    },
+    {
+      "path": "app/test/business_payroll_multiple_cases_test.dart",
+      "sha256": "92470ec0660d8a7640a37a2cfa2a952ad729442d405ea26b042567c649dad7fe",
+      "bytes": 13110
+    },
+    {
+      "path": "app/test/business_payroll_multiple_payments_test.dart",
+      "sha256": "095ea984758833465e301a5825068628f8c4df72bcbd7253c3d9b1e4c431f5e8",
+      "bytes": 5951
+    },
+    {
+      "path": "app/test/business_payroll_multiple_payment_page_test.dart",
+      "sha256": "8f013c0c2c78d4f21d770354e829d7e36ee25538e16ea5c22fc5bf31383254f7",
+      "bytes": 8876
+    },
+    {
+      "path": "app/test/business_payroll_multiple_runs_test.dart",
+      "sha256": "3aff038192725950b6cef46b7678c6ce9ed63036062332be801da0ae97e0eefa",
+      "bytes": 6498
+    },
+    {
+      "path": "app/test/fixtures/payroll_multiple_runs.json",
+      "sha256": "87ccd3d7d31ed8327c3fbcc96d2f7629d6a873b1ab6d652ac914248ffc70d34b",
+      "bytes": 6911607
+    },
+    {
+      "path": "scripts/generate-payroll-multiple-run-fixture.py",
+      "sha256": "ad6eb9b211189653c9f81e128f3e3199261057ec0f8012d2a2d9ff2298cf7682",
+      "bytes": 5442
+    },
+    {
+      "path": "app/test/business_payroll_multiple_independent_review_test.dart",
+      "sha256": "38832aa5e73d968c71dbe81b5114064f37b0b97e294b6763c33fdeb9c8cbae24",
+      "bytes": 6326
+    }
+  ],
+  "logs": [
+    {
+      "path": "work/verification/source5-native-final-2026-11-04.txt",
+      "sha256": "ba76cadfb2e415672a1d35a3402b865061574e465b27afeaaac759745b00354a",
+      "bytes": 18087
+    },
+    {
+      "path": "work/verification/source5-native-analysis-final-2026-11-04.txt",
+      "sha256": "927671f7f88fbe1dd58dce7bf6312d2a0d6d671c9879a64c9c302a5dd53758d6",
+      "bytes": 96
+    },
+    {
+      "path": "work/verification/source5-native-private-first-2026-11-04.txt",
+      "sha256": "b7bc78ffbf46b351c97fc6a189adc6865b7d008ab647788981a4f33910fc56b1",
+      "bytes": 2655
+    },
+    {
+      "path": "work/verification/source5-native-page-first-2026-11-04.txt",
+      "sha256": "4340f99e219436482c61fb99e330f3489365bdfad4fbbfb943ee8e047d160354",
+      "bytes": 3271
+    },
+    {
+      "path": "work/verification/source5-native-page-second-2026-11-04.txt",
+      "sha256": "c4cacd5e5473fb46b56142c562aa8736e70d8a029c53d1df9fdf8735b374b350",
+      "bytes": 6585
+    },
+    {
+      "path": "work/verification/source5-native-payment-page-third-2026-11-04.txt",
+      "sha256": "34b9c2a7c4dc2d11c656cf8a5beca5d99dd039f7954c35b9d369b21edc0b14cf",
+      "bytes": 2427
+    },
+    {
+      "path": "work/verification/source5-native-payment-page-fourth-2026-11-04.txt",
+      "sha256": "54679185d30f3acee879d46b49b48d0c49ebc861000c9bc6e42ce39aa5bb34b0",
+      "bytes": 3913
+    },
+    {
+      "path": "work/verification/source5-native-payment-page-sixth-2026-11-04.txt",
+      "sha256": "6bb4a7a88cd05a5a4058f1f47bed1a416c0e06cb97c84069542083a093821f0a",
+      "bytes": 374
+    },
+    {
+      "path": "work/verification/source5-native-final-second-2026-11-04.txt",
+      "sha256": "f3470db892116aecc787a3a9f71a9ec7ff70a00dfe414462ce5dac4610d5a846",
+      "bytes": 18152
+    },
+    {
+      "path": "work/verification/source5-native-analysis-final-second-2026-11-04.txt",
+      "sha256": "438c32194e6fd9fc9dd06e83e7ce934c2151835ede6036fb41c6d11f4d3abf45",
+      "bytes": 96
+    },
+    {
+      "path": "work/verification/source5-native-final-third-2026-11-04.txt",
+      "sha256": "15a776d1ece8593609358c0f48e60bc41394a54319f4c9e7a6ef8b163bc548f6",
+      "bytes": 18221
+    },
+    {
+      "path": "work/verification/source5-native-analysis-final-third-2026-11-04.txt",
+      "sha256": "927671f7f88fbe1dd58dce7bf6312d2a0d6d671c9879a64c9c302a5dd53758d6",
+      "bytes": 96
+    },
+    {
+      "path": "work/verification/source5-native-independent-red-2026-11-04.log",
+      "sha256": "a23cccb9933c3f4eea3102f1e4c68e051135911443dfdf5e1b83ecf31f26b13f",
+      "bytes": 1101756
+    },
+    {
+      "path": "work/verification/source5-native-final-reviewed-2026-11-04.txt",
+      "sha256": "6a512601d5bafbb37e571323a11ddbb2ee85fbd698cabac5b3c5307d6379678a",
+      "bytes": 21238
+    },
+    {
+      "path": "work/verification/source5-native-analysis-reviewed-2026-11-04.txt",
+      "sha256": "8395530aaac8eefffe2e3172d829a0e54c56f08e6170e62524d23b7e4096b9b0",
+      "bytes": 96
+    }
+  ],
+  "limitations": [
+    "No general multiple-tax-group finalization",
+    "No correction of already-paid Source5 or repayment branch",
+    "No production, banking, statutory transmission or migration executed"
+  ],
+  "independent_finding": {
+    "reproduced": "New Source5 payment details were read as a legacy payment if original run/source version was absent or downgraded",
+    "fixed": "Any new payment marker, single settlement plan or v7 rule requires complete Source5 run; strict dispatch precedes legacy branches",
+    "proof": "Original three negative cases plus ten other independent cases included in final107"
+  }
+}

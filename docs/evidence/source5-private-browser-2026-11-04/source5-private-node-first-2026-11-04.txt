@@ -1,0 +1,20 @@
+✔ actual Source5 case originals, canonical typed input and exact accepted preview survive unchanged (40.912262ms)
+✔ actual one-full-claim run and paid v5 upgrade bind unchanged original calculations (41.235837ms)
+✔ actual multiple-claim plan remains visibly incomplete with unknown net and cannot form run input (17.511384ms)
+✔ claim/event/annual and original-file substitutions fail source binding (18.832541ms)
+✔ frozen accepted receipt cannot replace original metadata, plan or previous linkage (27.917697ms)
+✔ unknown source metadata does not turn a planned claim into an actual payment (1.384161ms)
+✔ unchanged case retry rechecks current global employee rights but may replay accepted history during module pause (3.051547ms)
+✔ actual Source5 main parser and exact initial/paid-v5 upgrade receipts match full original source (80.502706ms)
+✔ actual Source5 ledger schema4 binds each case and counts only current correction (114.289051ms)
+✔ actual Source5 split dates and exact typed explicit allocations reproduce accepted payment plans and receipts (76.87461ms)
+✔ Source5 settlement rejects wrong dates, event identity, invented zero fields, duplicate parts and altered original payment (54.96051ms)
+✔ Source5 payment replay parser rejects substituted preserved indexes and false financial side-effect flags (29.066369ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 490.28293

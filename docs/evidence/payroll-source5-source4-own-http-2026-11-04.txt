@@ -1,0 +1,6 @@
+test_actual_http_own_history_pdf_denies_private_annual_case_and_original (test_business_payroll_statements_v6.OneoffStatementHTTP.test_actual_http_own_history_pdf_denies_private_annual_case_and_original) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 3.183s
+
+OK

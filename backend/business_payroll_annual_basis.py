@@ -179,7 +179,7 @@ class PayrollAnnualBasis:
         if run['employee_id']!=employee_id:raise Problem(404,'Lohnperiode gehört nicht zu diesem Mitarbeiter.')
         if reference(run)!=value or fresh and reference(api._latest(value['id'],'run'))!=value:raise Problem(409,'Die wirksame Lohnperiode wurde geändert.')
         if not run['calculation']['payroll_calculation_complete']:raise Problem(409,'Unvollständige Lohnperiode ist kein Jahresvortrag.')
-        if run['source'].get('source_schema_version') in (3,4):api._verify_calculation_record(run)
+        if run['source'].get('source_schema_version') in (3,4,5):api._verify_calculation_record(run)
         else:
             from business_payroll import validate_integrity as validate_payroll_integrity
             validate_payroll_integrity(self.office)
@@ -190,13 +190,13 @@ class PayrollAnnualBasis:
         """Project verified original running wages and actual separate v6 receipts."""
         from business_payroll_accounts import PayrollAccounts
         source,calc=run['source'],run['calculation'];month=source['month'];year=int(month[:4])
-        composite=source.get('source_schema_version')==4
+        composite=source.get('source_schema_version') in (4,5)
         original_calc=calc
         if composite:calc=calc['running_calculation']
         basis_year=year if basis_year is None else basis_year
         first=month+'-01';last=month+f'-{calendar.monthrange(year,int(month[5:]))[1]:02}'
         period_details=calc.get('period_details');run_ref=reference(run);periods=[]
-        if source.get('source_schema_version') in (3,4):
+        if source.get('source_schema_version') in (3,4,5):
             snapshot=source['calculation_case']['sources']
             profiles={canonical(reference(item)):item['profile'] for item in snapshot['profiles']}
             assessments=period_details['social_assessments']
@@ -239,23 +239,31 @@ class PayrollAnnualBasis:
             # The exact accepted payment ref is part of the annual command.
             # Later payments must never rewrite an earlier historical snapshot.
             accounts=PayrollAccounts(self.office)
+            accounts._verify_source5(payment)
             normalized,sources,_=accounts._normalize(run['employee_id'],'payment',payment['details'])
             if normalized!=payment['details'] or sources!=payment['sources']:raise Problem(500,'Zahlungsquelle der Jahresperiode ist nicht kanonisch.')
+        running_payments=payment['details']['payments'] if payment else []
+        if source.get('source_schema_version')==5 and payment:
+            running_payments=[payment['details']['payments'][item['payment_index']] for item in payment['details']['settlement_allocations'] if item['running_minor']>0]
         if candidate:status='planned_current_period'
         elif taxable==0:status='not_individually_taxable'
-        elif payment and all(value['paid_on']<=as_of_date and running_tax_year(last,value['paid_on'])==year for value in payment['details']['payments']):status='received_same_year'
+        elif payment and all(value['paid_on']<=as_of_date and running_tax_year(last,value['paid_on'])==year for value in running_payments):status='received_same_year'
         else:status='unproven'
         projection=dict(source_ref=run_ref,coverage_start=first,coverage_end=last,periods=periods,
             running_taxable_minor=taxable if status!='unproven' else 0,tax_receipt_status=status,payment_evidence=payment)
         if composite:
-            extra=original_calc['one_off_details'];assignment=extra['assignment']
-            if not payment or not payment['details']['payments'] or any(
-                    part['paid_on']!=extra['receipt_date'] or part['paid_on']>as_of_date for part in payment['details']['payments']):
+            extra=(original_calc['multiple_one_off_details']['single_original_calculation']['one_off_details'] if source.get('source_schema_version')==5 else original_calc['one_off_details'])
+            assignment=extra['assignment']
+            bonus_payments=payment['details']['payments'] if payment else []
+            if source.get('source_schema_version')==5 and payment:
+                bonus_payments=[payment['details']['payments'][item['payment_index']] for item in payment['details']['settlement_allocations'] if item['one_off_allocations']]
+            if not payment or not bonus_payments or any(
+                    part['paid_on']!=extra['receipt_date'] or part['paid_on']>as_of_date for part in bonus_payments):
                 raise Problem(409,'Ein früherer interner Einmalbezug benötigt seinen tatsächlichen vollständig gebundenen Zufluss bis zum Jahresstichtag.')
             projected_ref=run_ref if assignment['assigned_period_ref']==reference(source['calculation_case']) else assignment['assigned_period_ref']
             projection['one_off_payment']=dict(source_ref=run_ref,payment_ref=reference(payment),
                 receipt_date=extra['receipt_date'],tax_year=assignment['tax_year'],social_year=assignment['social_year'],
-                amount_minor=extra['amount_minor'],section_key=source['one_off_case']['sources']['calculation_source']['one_off_earning']['details']['section_key'],
+                amount_minor=extra['amount_minor'],section_key=(source['multiple_one_off_case']['sources']['calculation_source']['components'][0]['earning']['details']['section_key'] if source.get('source_schema_version')==5 else source['one_off_case']['sources']['calculation_source']['one_off_earning']['details']['section_key']),
                 assigned_period_ref=projected_ref,assigned_part_key=extra['assigned_part_key'],
                 assigned_period_end=assignment['assigned_period_end'],bases_minor=assignment['bases_minor'])
             projection['assignment_profiles']=[dict(part_key='social:'+str(index),start=value['period']['start'],end=value['period']['end'],
@@ -274,9 +282,10 @@ class PayrollAnnualBasis:
 
     @staticmethod
     def _compact_run(run):
-        if run['source'].get('source_schema_version')!=4:return run
+        version=run['source'].get('source_schema_version')
+        if version not in (4,5):return run
         return dict(reference(run),kind='run',employee_id=run['employee_id'],
-            source=dict(source_schema_version=4,month=run['source']['month']),projection_format='source4_annual_reference_v1')
+            source=dict(source_schema_version=version,month=run['source']['month']),projection_format='source'+str(version)+'_annual_reference_v1')
 
     @staticmethod
     def _relevant_run(run,details,candidate,current_one_off_id=None):
@@ -285,9 +294,11 @@ class PayrollAnnualBasis:
         # year March-clause assignment. Other accepted claims remain mandatory.
         if (current_one_off_id is not None and run['source'].get('source_schema_version')==4
                 and run['source']['one_off_case']['details']['one_off_earning_ref']['id']==current_one_off_id):return False
+        if (current_one_off_id is not None and run['source'].get('source_schema_version')==5
+                and any(part['component_key']==current_one_off_id for part in run['source']['multiple_one_off_case']['details']['components'])):return False
         if candidate is not None and month==candidate['details']['month']:return False
         if month.startswith(str(details['year'])+'-') and month<=details['coverage_to'][:7]:return True
-        extra=run['calculation'].get('one_off_details')
+        extra=(run['calculation'].get('one_off_details') or run['calculation'].get('multiple_one_off_details',{}).get('single_original_calculation',{}).get('one_off_details'))
         return bool(extra and extra['assignment']['social_year']==details['year']
             and extra['assignment']['assigned_period_end']<=details['coverage_to'] and extra['receipt_date']<=details['as_of_date'])
 
@@ -363,7 +374,7 @@ class PayrollAnnualBasis:
             if candidate is not None:projected.append(self._project_run(current,candidate=True,as_of_date=d['as_of_date']))
             for run,projection in zip(runs,projected):
                 source=run['source']
-                identities=(source['calculation_case']['sources']['identities'] if source.get('source_schema_version') in (3,4) else
+                identities=(source['calculation_case']['sources']['identities'] if source.get('source_schema_version') in (3,4,5) else
                     source['period_case']['sources']['identities'] if source.get('source_schema_version')==2 else
                     [projection['payment_evidence']['sources']['identity']] if projection['payment_evidence'] else [])
                 if not identities or any(employer_key(item)!=employer_key(identity) for item in identities):
@@ -371,7 +382,7 @@ class PayrollAnnualBasis:
             if candidate is not None and any(employer_key(item)!=employer_key(identity) for item in candidate['sources']['identities']):
                 raise Problem(409,'Aktuelle Monatsquelle gehört zu einer anderen Arbeitgeberidentität.')
             snapshot.update(imported_periods=imported,imported_one_offs=bonuses,payroll_runs=[self._compact_run(run) for run in runs],
-                payroll_payments=[self._compact_payment(payment) if next(run for run in runs if run['id']==payment['details']['run_id'])['source'].get('source_schema_version')==4 else payment for payment in payments],
+                payroll_payments=[self._compact_payment(payment) if next(run for run in runs if run['id']==payment['details']['run_id'])['source'].get('source_schema_version') in (4,5) else payment for payment in payments],
                 current_calculation_case=candidate,internal_periods=projected)
         else:
             history=self._reference(employee_id,d['annual_basis_ref'],'annual_basis',fresh=fresh)

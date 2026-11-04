@@ -1,0 +1,30 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+response.json: Protocol error (Network.getResponseBody): No data found for resource with given identifier
+Response body is not available for a response that was navigated away from. Read response.body() before triggering any navigation.
+    at Object.payrollMultipleOwnFlow (/workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-own-flow.cjs:21:44)
+    at async Object.payrollMultipleCasesFlow (/workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-cases-flow.cjs:45:3)
+    at async main (/workspace/smartplan-source5-clients-20261104/web/office/tests/e2e.cjs:107:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED'
+]
+Fixture log tail:
+ET /api/v1/business/personnel/files?employee_id=4caa54a52f374268ac3ca856f89e9d9e HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:31] "GET /api/v1/business/personnel/expenses?employee_id=4caa54a52f374268ac3ca856f89e9d9e HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:31] "GET /api/v1/business/personnel/payroll-preparations?employee_id=4caa54a52f374268ac3ca856f89e9d9e HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:31] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:31] "GET /api/v1/business/payroll/runs?employee_id=4caa54a52f374268ac3ca856f89e9d9e HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:31] "GET /api/v1/business/payroll/profiles?employee_id=4caa54a52f374268ac3ca856f89e9d9e HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:31] "GET /api/v1/business/payroll/runs?employee_id=4caa54a52f374268ac3ca856f89e9d9e HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:31] "GET /api/v1/business/personnel/payroll-preparations?employee_id=4caa54a52f374268ac3ca856f89e9d9e HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:31] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:31] "GET /api/v1/business/payroll/employee-statements?employee_id=4caa54a52f374268ac3ca856f89e9d9e HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:32] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 09:59:32] "GET /api/v1/business/payroll/employee-statements/2f7484e887e14a4b93097f422d3ec378?revision=3 HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T09:18:07.017973+00:00",
+  "scope": "Narrow browser Source5 account reader follow-up after independent native format review; no changes to source1-4 accepted original contracts, no backend or production mutation",
+  "prior_manifest": {
+    "path": "docs/evidence/source5-private-clients-2026-11-04.json",
+    "bytes": 11414,
+    "sha256": "b3acbb35983104968eb83d73c7523da52fa24751f994bb3f4332da331df42a93"
+  },
+  "before_runtime": {
+    "path": "web/office/payroll-accounts.js",
+    "sha256": "d5e400d4e8226f785c607f050cacbb048a77804f92f4d4722d9e50c864264404",
+    "bytes": 35248
+  },
+  "after_files": [
+    {
+      "path": "web/office/payroll-accounts.js",
+      "bytes": 35466,
+      "sha256": "bd33519efdf4a88cef3c4829a3f9130f3acc87a25a53798e09923facfed2908c"
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-format-review.test.mjs",
+      "bytes": 1672,
+      "sha256": "f06c50578299f29ffab269be1b63fb52f27d9617be7bf340656f0a4885f5c1b5"
+    }
+  ],
+  "confirmed_finding": "Removing both Source5 dispatch markers allowed a modified actual Source5 payment to bypass its reader despite remaining new settlement fields, single_payment_plan or v7 calculation. Six independently isolated tamper variants failed the expected rejection before the fix; unmodified Source5 and paid-v5 originals passed. This was a client reader contract failure, not a server acceptance bypass.",
+  "fix": "Every new payment detail field, the single-payment-plan source, or the v7 calculation now requires an explicit complete Source5 source before dispatch.",
+  "tests": {
+    "command": "node --test web/office/tests/*.test.mjs",
+    "execution": "require_escalated; actual named assertions",
+    "passed": 506,
+    "failed": 0,
+    "exit_code": 0,
+    "new_independent_tests": 7,
+    "red": {
+      "path": "work/verification/source5-browser-format-independent-red-2026-11-04.log",
+      "bytes": 6652,
+      "sha256": "eee7f3f12eb715ed1b1e3d61738ab7aece5623d68db6412c7b25e5e8c0cc9d84"
+    },
+    "green": {
+      "path": "work/verification/source5-browser-format-followup-all-2026-11-04.log",
+      "bytes": 52807,
+      "sha256": "d27423dc5278718f343078a5fdcec6e190c7ae59b04c893f1b42dff4af4cb69d"
+    }
+  },
+  "e2e_scope": "Existing real Source5 and Source4 logs in the prior manifest prove the earlier stable runtime. This narrow guard follow-up is verified by all506 Node assertions with actual accepted source5/v5 fixtures; combined final integration E2E is owned by root.",
+  "unchanged_files": [
+    {
+      "path": "web/office/payroll-multiple-cases.js",
+      "sha256": "61d9995c8863facf518c348ad1138ac1c54c749e6128a96d39c23ec3a02d46fa",
+      "bytes": 39314,
+      "still_matches": true
+    },
+    {
+      "path": "web/office/payroll.js",
+      "sha256": "83d23c21a7141ffd6a5720b0a86de33468cba630a8d79bb7f58d239fd92c3ef6",
+      "bytes": 71553,
+      "still_matches": true
+    },
+    {
+      "path": "web/office/office.js",
+      "sha256": "f7f2fa6fdab780e003b27e70665324c3d158008ed2863cec0abde806d1bc9f2c",
+      "bytes": 340298,
+      "still_matches": true
+    },
+    {
+      "path": "backend/online/web.py",
+      "sha256": "8bbad915db730f31b67ba695ada7182a23d244a76044febe14d6680b35d4877f",
+      "bytes": 28630,
+      "still_matches": true
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "sha256": "2f90e974c4d1a42e66a293b4f86c249350161c67d738d98ada7e00862b3a343d",
+      "bytes": 45681,
+      "still_matches": true
+    },
+    {
+      "path": ".github/workflows/checks.yml",
+      "sha256": "39e764551aac6bc750b42b93aacc376f6ae4d3c09665daa6bc626e6d633bc63a",
+      "bytes": 47617,
+      "still_matches": true
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-cases.test.mjs",
+      "sha256": "64b3baf6b71947793fc8e3215bfddc841462b7622bd4e07f7475f9903bd61087",
+      "bytes": 5892,
+      "still_matches": true
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-runs.test.mjs",
+      "sha256": "a3c1f808033679a6535ebdaff6de7a7378ca4bfce96ddcf02ac067e7780d3d61",
+      "bytes": 5229,
+      "still_matches": true
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-context.test.mjs",
+      "sha256": "6dc807d2fac30622f80357892f97f4cba52254cb9d935cf4c8db32226a06931e",
+      "bytes": 4426,
+      "still_matches": true
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-session.test.mjs",
+      "sha256": "045f8a9c8e11e2dc636d8bf835f691f25d0d2176e3b9ac7f290e2e4538e97cc7",
+      "bytes": 4510,
+      "still_matches": true
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-cases-flow.cjs",
+      "sha256": "b6a3699acdf65708047a92a0b9aaa5d461d0bae9593ce56f0e83e72537c63b21",
+      "bytes": 25464,
+      "still_matches": true
+    },
+    {
+      "path": "docs/CRM_ERP_SOURCE5_CLIENTS_2026-11-04.md",
+      "sha256": "a8c85f3826e6da9438647a5574225a8e17f842aa25a750a9a1f5dad12a804033",
+      "bytes": 8242,
+      "still_matches": true
+    }
+  ]
+}

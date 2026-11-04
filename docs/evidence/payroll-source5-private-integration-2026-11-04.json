@@ -1,0 +1,221 @@
+{
+  "date": "2026-11-04",
+  "scope": "Source5/v7 full single claim with distinct actual running and bonus settlement days",
+  "result": "26/26 final private/payment/independent-chain tests; 3/3 actual registered PostgreSQL tests including restore",
+  "isolated_database": "Disposable loopback PostgreSQL port55433; released after completion; no production migration",
+  "exact_supported_paths": [
+    "actual private case originals and historical replay",
+    "same-transaction run and permanent claim/event ownership",
+    "paid Source3/v5 original plus Source5 full bonus on a separate date",
+    "prior actual paid original remains bound through unpaid intermediate revisions",
+    "only new actual net part becomes Cash and EÜR",
+    "Source5 compact annual successor with separate running/bonus tax and SV room",
+    "private ledger schema4, original PDF replay and complete real PostgreSQL backup/restore"
+  ],
+  "independent_finding": {
+    "finding": "Immediate-predecessor lookup lost a paid Source3 original after an unpaid intermediate revision",
+    "fix": "Resolve all prior revisions and actual accepted payment originals; bind latest compatible previous settlement; block paid Source5 predecessor anywhere in chain",
+    "regression": "backend/test_payroll_multiple_settlement_review.py: 3 independently written actual-path cases passed"
+  },
+  "explicit_remaining": [
+    "Multiple tax grouping and per-event SV/net allocation unresolved and blocked",
+    "Source4 to Source5 in same month blocked",
+    "already paid Source5 correction, repayment, offsets and different prior settlement manifestations blocked",
+    "Source5 own projection temporarily409 until separate client/privacy implementation",
+    "Client integration separately owned",
+    "Existing actual flat travel tax recording date must remain satisfied; no implicit backdated recording reuse"
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/payroll-source5-private-final-2026-11-04.txt",
+      "sha256": "b65ad34fcc9cbd84e57cb64e565f201a4f165e0f4e408266349dc3d26c10d82c",
+      "status": "passed",
+      "executed_tests": 26
+    },
+    {
+      "path": "docs/evidence/payroll-multiple-pg-first-2026-11-04.txt",
+      "sha256": "5608cbe246e93858c7ab8483901ee421f6f55afaf5feb1311eea3af6eb0f4fef",
+      "status": "passed",
+      "executed_tests": 3
+    },
+    {
+      "path": "docs/evidence/payroll-source5-actual-successor-2026-11-04.txt",
+      "sha256": "c8b145bb2c16d3f5c41ea09616bf92a1295f3f3a007ba79985a78b55e95a1760",
+      "status": "passed",
+      "executed_tests": 1
+    },
+    {
+      "path": "docs/evidence/payroll-source5-receipt-loss-2026-11-04.txt",
+      "sha256": "c67843e0c90ceeef49b3c6ced6587d1ba32456069f4a4e60335bbf4e7f9ba25e",
+      "status": "passed",
+      "executed_tests": 1
+    },
+    {
+      "path": "docs/evidence/payroll-source5-source4-own-http-2026-11-04.txt",
+      "sha256": "887c21f91dff37cbf401a4a826adb6a9ff25429c90117cfe87a3269d280c9075",
+      "status": "passed",
+      "executed_tests": 1
+    },
+    {
+      "path": "docs/evidence/payroll-source5-client-fixture-2026-11-04.txt",
+      "sha256": "240f9ba059c971ccf0cd6593fb1c6a2decfddf4f89be50a3c58bdd60ebee24ef",
+      "status": "generated_actual_fixture",
+      "executed_tests": null
+    },
+    {
+      "path": "docs/evidence/payroll-source5-dispatch-regression-2026-11-04.txt",
+      "sha256": "6cae62a44a329b7787cc8747b7e102cfdddd71192e6def52bd597de25ddf1dc5",
+      "status": "97_executed_passed_one_incorrect_test_module_name_loader_error",
+      "executed_tests": 98
+    },
+    {
+      "path": "docs/evidence/payroll-source5-settlement-chain-fix-2026-11-04.txt",
+      "sha256": "6efadf1b9ed10b6e6e54250082658250187dc08c498c06dc482acaa2f69b3790",
+      "status": "51_passed_one_localhost_permission_error_rechecked_separately",
+      "executed_tests": 52
+    },
+    {
+      "path": "docs/evidence/payroll-multiple-private-first-2026-11-04.txt",
+      "sha256": "b27c060a027f0b0c8993280005e532ff880261bb31b3692dc63a7424a89c9792",
+      "status": "fixture_revision_keyword_error_fixed",
+      "executed_tests": 5
+    },
+    {
+      "path": "docs/evidence/payroll-multiple-private-second-2026-11-04.txt",
+      "sha256": "cb0ed6ef846ce1e0d75749b613ce9d237e6e8e1b5e20691ebf437ac3a16f6efa",
+      "status": "passed",
+      "executed_tests": 5
+    },
+    {
+      "path": "docs/evidence/payroll-multiple-private-third-2026-11-04.txt",
+      "sha256": "3fefc8b5d4923850b263341e627d36b648d546d8cc0081a332aacf1d77443a7b",
+      "status": "fixture_accounts_attribute_error_fixed",
+      "executed_tests": 10
+    },
+    {
+      "path": "docs/evidence/payroll-multiple-private-fourth-2026-11-04.txt",
+      "sha256": "9fe0f6085b553d714875b24898ce93c98410b31c2778977e4ca8f4a37cc68b11",
+      "status": "passed",
+      "executed_tests": 10
+    },
+    {
+      "path": "docs/evidence/payroll-multiple-private-fifth-2026-11-04.txt",
+      "sha256": "3be30d7e0c220bcec609d7a01bff076e5e49ad086cc3a9ba366fc8f43c95cf81",
+      "status": "passed",
+      "executed_tests": 14
+    },
+    {
+      "path": "docs/evidence/payroll-multiple-payments-first-2026-11-04.txt",
+      "sha256": "bd0c948272e137971508fd2a301ea312211096f8d24adcb9a4ec76f9f8f97e48",
+      "status": "passed",
+      "executed_tests": 7
+    }
+  ],
+  "source_files": [
+    {
+      "path": "backend/business_payroll_multiple_cases.py",
+      "sha256": "3952ffe27f514577e87e84bf6842cb978b7846990f279c22038c0b0842d984af",
+      "bytes": 37368
+    },
+    {
+      "path": "backend/payroll_multiple_runs.py",
+      "sha256": "1e4976e35aa046c41773296bc53be0ae52dc774d825b172388b99f608b463fd2",
+      "bytes": 6470
+    },
+    {
+      "path": "backend/payroll_multiple_payments.py",
+      "sha256": "5b5043db1f662efa3f844a147ec7b73f629a5ced87dd63f0c5feddb28df99e0f",
+      "bytes": 11799
+    },
+    {
+      "path": "backend/payroll_multiple_oneoff_2026.py",
+      "sha256": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7",
+      "bytes": 19339
+    },
+    {
+      "path": "backend/business_payroll.py",
+      "sha256": "de62e004c104b61eff410e9f7c1bf72068c2b1c29c000761f25af69455d52e09",
+      "bytes": 58909
+    },
+    {
+      "path": "backend/business_payroll_accounts.py",
+      "sha256": "188fa7f2c3474c780b41e62724c5812cc959ef4bec406af514c9017268b21c26",
+      "bytes": 33297
+    },
+    {
+      "path": "backend/business_payroll_annual_basis.py",
+      "sha256": "264fca579eeef48382cd83184369defdac254a498ecc8b5260e7eb75fee868a8",
+      "bytes": 51152
+    },
+    {
+      "path": "backend/business_payroll_oneoff_cases.py",
+      "sha256": "891e93b87b958d060cfb3c681f49204af3dee7ddab026d692d16a9efb3b42b0e",
+      "bytes": 32285
+    },
+    {
+      "path": "backend/business_payroll_statements.py",
+      "sha256": "64b839ddf4d502516ed8704ad12f4e82e3081758885b6d077991fb78b138aa6e",
+      "bytes": 15740
+    },
+    {
+      "path": "backend/payroll_cash_sources.py",
+      "sha256": "1442703f0cce4cfc91efbf2da466879395da4fee875f96bf801e8442741fe59f",
+      "bytes": 11404
+    },
+    {
+      "path": "backend/payroll_ledger.py",
+      "sha256": "2217268741313a7ff9fee421da90a663f0bf4333fa4850e921e82244c6e045c5",
+      "bytes": 29265
+    },
+    {
+      "path": "backend/payroll_oneoff_composition_2026.py",
+      "sha256": "9b48ef4898b043c647b1c238a6f37d8b05bf8f78dcf9967fb691b9803454d0d7",
+      "bytes": 22473
+    },
+    {
+      "path": "backend/payroll_travel_recording.py",
+      "sha256": "503caff012976aae460496ae4f14c512f800158fc28a6216b8e7b68d57bd0236",
+      "bytes": 8964
+    },
+    {
+      "path": "backend/test_business_payroll_multiple.py",
+      "sha256": "6ce0e53cd657ab960e3ea76b0c08692b8e4e187d0577cfe59c20745afc4fad28",
+      "bytes": 19056
+    },
+    {
+      "path": "backend/test_payroll_multiple_payments.py",
+      "sha256": "c39ade9a14bdab04d7eeadf7944a9bb26e4ddf02c6c80ebad8a3341a97bb6ed2",
+      "bytes": 7542
+    },
+    {
+      "path": "backend/test_payroll_multiple_settlement_review.py",
+      "sha256": "505a242024425e3849a39003d331c4ac973b72aa97b91670bc07c08b58f8cb6f",
+      "bytes": 4882
+    },
+    {
+      "path": "backend/online/test_business_payroll_multiple_pg.py",
+      "sha256": "12b7e1fb6984a25c582a33488235a3027a0f182940cd375bfc0528426b45bfe4",
+      "bytes": 12741
+    },
+    {
+      "path": "backend/business_schema.py",
+      "sha256": "1f0a4c3381c3e20a822dcd3c8b7be10b2f2be0680ad532d0a09d57b3e0140ff6",
+      "bytes": 78806
+    },
+    {
+      "path": "backend/business_api.py",
+      "sha256": "0d67a645b256d2539dd2c3e445b070186a6054ad6f9fe600afd70c13c40d2afd",
+      "bytes": 22068
+    },
+    {
+      "path": "scripts/generate-payroll-multiple-run-fixture.py",
+      "sha256": "ad6eb9b211189653c9f81e128f3e3199261057ec0f8012d2a2d9ff2298cf7682",
+      "bytes": 5442
+    },
+    {
+      "path": "app/test/fixtures/payroll_multiple_runs.json",
+      "sha256": "87ccd3d7d31ed8327c3fbcc96d2f7629d6a873b1ab6d652ac914248ffc70d34b",
+      "bytes": 6911607
+    }
+  ]
+}

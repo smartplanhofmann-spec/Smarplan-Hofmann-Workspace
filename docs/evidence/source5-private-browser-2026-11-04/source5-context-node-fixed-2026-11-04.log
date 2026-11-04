@@ -1,0 +1,19 @@
+✔ Source5 UI late original source catalog cannot reopen after close (19.991524ms)
+✔ Source5 UI late case preview cannot reopen after close (67.702237ms)
+✔ Source5 UI late immutable history cannot reopen after close (41.142546ms)
+✔ Source5 UI late original source catalog cannot reopen after change (4.712539ms)
+✔ Source5 UI late case preview cannot reopen after change (56.313016ms)
+✔ Source5 UI late immutable history cannot reopen after change (34.088638ms)
+✔ Source5 UI read revocation during accepted preview removes private body and title (47.714364ms)
+✔ actual Source5 OfficeApi retry requires current approval and exact source person/month, keeps original nonce through a pause (63.901527ms)
+✔ actual Source5 endpoint rejects unrelated pending keys before another POST (4.233297ms)
+✔ Source5 keeps the original receipt validator when an unrelated valid saved record is returned (20.941486ms)
+✔ replacing the session during fresh Source5 authorization cannot send the old accepted request (3.122223ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 385.416643

@@ -1,0 +1,67 @@
+00:00 +0: loading /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart
+00:00 +0: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.firstWhere (dart:core/iterable.dart:722:5)
+#1      choose (file:///workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart:108:8)
+#2      start (file:///workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart:129:3)
+<asynchronous suspension>
+#3      main.<anonymous closure> (file:///workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart:157:9)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and
+  retries lost ACK
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -1: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:01 +0 -1: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK [E]
+  Test failed. See exception logs above.
+  The test description was: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+  
+00:01 +0 -1: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: approval withdrawal removes Source5 payment editor before any transfer evidence is sent
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.firstWhere (dart:core/iterable.dart:722:5)
+#1      choose (file:///workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart:108:8)
+#2      start (file:///workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart:129:3)
+<asynchronous suspension>
+#3      main.<anonymous closure> (file:///workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart:243:9)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  approval withdrawal removes Source5 payment editor before any transfer evidence is sent
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:01 +0 -2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: approval withdrawal removes Source5 payment editor before any transfer evidence is sent [E]
+  Test failed. See exception logs above.
+  The test description was: approval withdrawal removes Source5 payment editor before any transfer evidence is sent
+  
+00:02 +1 -2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual incomplete monthly group remains reviewable without native finalize
+00:02 +2 -2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: late Source5 preview response cannot revive private data after background
+00:03 +3 -2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: late Source5 preview failure cannot revive private data after background
+00:04 +4 -2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: native Source5 editor closes immediately after approval withdrawal
+00:05 +5 -2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: original Source5 lost-ACK command repeats while module paused and rejects foreign receipt
+00:05 +6 -2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: Source5 retry rejects wrong person, source contract and rule before resend
+00:05 +7 -2: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+  /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart: approval withdrawal removes Source5 payment editor before any transfer evidence is sent

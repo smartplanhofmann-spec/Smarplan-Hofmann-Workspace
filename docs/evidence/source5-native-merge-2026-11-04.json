@@ -1,0 +1,216 @@
+{
+  "base": "4c2f008",
+  "files": [
+    {
+      "path": "app/lib/business_payroll.dart",
+      "before": "8727d1655dba5f9721f7d981498986eba313e50e92bac8307a7bb86a3308d558",
+      "incoming": "2578e8353558ec770fb287777b601f338f4d7a2868ce717169c660a13373940c",
+      "after": "2578e8353558ec770fb287777b601f338f4d7a2868ce717169c660a13373940c",
+      "mode": "updated"
+    },
+    {
+      "path": "app/lib/business_payroll_accounts.dart",
+      "before": "987b7923e9e138a349c55499ba9e3d91da44602846bde87081a258ed620073e2",
+      "incoming": "75550bda9a9be904e0732d5cdffbab80455e704865778105c78a69e8df0c12f6",
+      "after": "75550bda9a9be904e0732d5cdffbab80455e704865778105c78a69e8df0c12f6",
+      "mode": "updated"
+    },
+    {
+      "path": "app/lib/business_payroll_multiple_case_contract.dart",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "79e8db349d8714e4da7f51ae4db72788d2d2dbbd55ae1b26de84750a88825724",
+      "after": "79e8db349d8714e4da7f51ae4db72788d2d2dbbd55ae1b26de84750a88825724",
+      "mode": "new"
+    },
+    {
+      "path": "app/lib/business_payroll_multiple_cases.dart",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "1ecae98cf521cd3ce3fa6af2cf45560cd1c4947006441e666654371ac0635d17",
+      "after": "1ecae98cf521cd3ce3fa6af2cf45560cd1c4947006441e666654371ac0635d17",
+      "mode": "new"
+    },
+    {
+      "path": "app/lib/business_payroll_statements.dart",
+      "before": "df1015b834b60c981af92c235871e1247c4e85624c0a0e4fe6d750d662f36962",
+      "incoming": "df1015b834b60c981af92c235871e1247c4e85624c0a0e4fe6d750d662f36962",
+      "after": "df1015b834b60c981af92c235871e1247c4e85624c0a0e4fe6d750d662f36962",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "before": "7c2252942c2f90a4b949138b209f7f4675e0a0af60a2c36c9ba3a9d3d3c5f5e6",
+      "incoming": "3520548e1ff86fcf132b5558bceccd163d7f303d1da6c776e7580d89824c93d5",
+      "after": "bc9ce81e10c93e1f2e40011c282e5cb2f116b6489d90e855eebfec7efae85408",
+      "mode": "three_way_merged"
+    },
+    {
+      "path": "app/test/business_payroll_multiple_cases_test.dart",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "92470ec0660d8a7640a37a2cfa2a952ad729442d405ea26b042567c649dad7fe",
+      "after": "92470ec0660d8a7640a37a2cfa2a952ad729442d405ea26b042567c649dad7fe",
+      "mode": "new"
+    },
+    {
+      "path": "app/test/business_payroll_multiple_contract_test.dart",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "12a647bf9d25715caa01f2afbfd70f505f7adedeb7b5037235684601fe800003",
+      "after": "12a647bf9d25715caa01f2afbfd70f505f7adedeb7b5037235684601fe800003",
+      "mode": "new"
+    },
+    {
+      "path": "app/test/business_payroll_multiple_independent_review_test.dart",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "38832aa5e73d968c71dbe81b5114064f37b0b97e294b6763c33fdeb9c8cbae24",
+      "after": "38832aa5e73d968c71dbe81b5114064f37b0b97e294b6763c33fdeb9c8cbae24",
+      "mode": "new"
+    },
+    {
+      "path": "app/test/business_payroll_multiple_payment_page_test.dart",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "8f013c0c2c78d4f21d770354e829d7e36ee25538e16ea5c22fc5bf31383254f7",
+      "after": "8f013c0c2c78d4f21d770354e829d7e36ee25538e16ea5c22fc5bf31383254f7",
+      "mode": "new"
+    },
+    {
+      "path": "app/test/business_payroll_multiple_payments_test.dart",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "095ea984758833465e301a5825068628f8c4df72bcbd7253c3d9b1e4c431f5e8",
+      "after": "095ea984758833465e301a5825068628f8c4df72bcbd7253c3d9b1e4c431f5e8",
+      "mode": "new"
+    },
+    {
+      "path": "app/test/business_payroll_multiple_runs_test.dart",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "3aff038192725950b6cef46b7678c6ce9ed63036062332be801da0ae97e0eefa",
+      "after": "3aff038192725950b6cef46b7678c6ce9ed63036062332be801da0ae97e0eefa",
+      "mode": "new"
+    },
+    {
+      "path": "app/test/business_payroll_statements_v7_test.dart",
+      "before": "31f8d25f79ec834e4a850b43cb8541c2b2942a5eafad494d9833bff9852cf6a3",
+      "incoming": "31f8d25f79ec834e4a850b43cb8541c2b2942a5eafad494d9833bff9852cf6a3",
+      "after": "31f8d25f79ec834e4a850b43cb8541c2b2942a5eafad494d9833bff9852cf6a3",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "app/test/fixtures/payroll_multiple_runs.json",
+      "before": "87ccd3d7d31ed8327c3fbcc96d2f7629d6a873b1ab6d652ac914248ffc70d34b",
+      "incoming": "87ccd3d7d31ed8327c3fbcc96d2f7629d6a873b1ab6d652ac914248ffc70d34b",
+      "after": "87ccd3d7d31ed8327c3fbcc96d2f7629d6a873b1ab6d652ac914248ffc70d34b",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "app/test/fixtures/payroll_statements_v7.json",
+      "before": "e029ce1f7600c1188b37bdac6ecde41aea044437f7cf2f65eb3ac61d48283d11",
+      "incoming": "e029ce1f7600c1188b37bdac6ecde41aea044437f7cf2f65eb3ac61d48283d11",
+      "after": "e029ce1f7600c1188b37bdac6ecde41aea044437f7cf2f65eb3ac61d48283d11",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "backend/business_payroll_statements.py",
+      "before": "deba6bfd98854e50d591340e85b30e99a121ab8346be8c8ea04c13399cfb55e6",
+      "incoming": "deba6bfd98854e50d591340e85b30e99a121ab8346be8c8ea04c13399cfb55e6",
+      "after": "deba6bfd98854e50d591340e85b30e99a121ab8346be8c8ea04c13399cfb55e6",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "backend/test_business_payroll_multiple.py",
+      "before": "d0435e75da4c361f1d5789d910212ea11a981ddb8b74f2b712d95883f882d7e9",
+      "incoming": "d0435e75da4c361f1d5789d910212ea11a981ddb8b74f2b712d95883f882d7e9",
+      "after": "d0435e75da4c361f1d5789d910212ea11a981ddb8b74f2b712d95883f882d7e9",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "backend/test_business_payroll_statements_v7.py",
+      "before": "4f56ef63ff9720bc731765b691c6c15cbee510e9692580471d92416716c2fc36",
+      "incoming": "4f56ef63ff9720bc731765b691c6c15cbee510e9692580471d92416716c2fc36",
+      "after": "4f56ef63ff9720bc731765b691c6c15cbee510e9692580471d92416716c2fc36",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "docs/CRM_ERP_SOURCE5_MITARBEITERBELEGE_2026-11-04.md",
+      "before": "c2c0a1dc74fb6d3ae2f7ef5cbefcec8f74124b4382d0c712c1bd8c1b76a5101c",
+      "incoming": "d007002064feacfe5382b00909b458e14b33816c226e7153ebeb80f5bd14c467",
+      "after": "d007002064feacfe5382b00909b458e14b33816c226e7153ebeb80f5bd14c467",
+      "mode": "document_followup"
+    },
+    {
+      "path": "docs/CRM_ERP_SOURCE5_NATIVE_2026-11-04.md",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "fd8d94565c23a9aca068beb16d57874a67451126de42bfc75ea241bd8d9e64c6",
+      "after": "fd8d94565c23a9aca068beb16d57874a67451126de42bfc75ea241bd8d9e64c6",
+      "mode": "document_followup"
+    },
+    {
+      "path": "docs/evidence/source5-native-clients-2026-11-04.json",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "incoming": "e6dff015e8d246027adfa2ff31b2112bc5609946e740a5e0223a2b6b71852f47",
+      "after": "e6dff015e8d246027adfa2ff31b2112bc5609946e740a5e0223a2b6b71852f47",
+      "mode": "document_followup"
+    },
+    {
+      "path": "docs/evidence/source5-own-statements-2026-11-04.json",
+      "before": "7ead7c3487086259fbe0bfaa3a13cec17a192170fe5036ae24c1a3d710dcdbb2",
+      "incoming": "a1a03a5e3987ea1e55dad23affa4e275fc4fd2031e915cb49ba1fc04aa65187b",
+      "after": "a1a03a5e3987ea1e55dad23affa4e275fc4fd2031e915cb49ba1fc04aa65187b",
+      "mode": "document_followup"
+    },
+    {
+      "path": "scripts/generate-payroll-multiple-run-fixture.py",
+      "before": "ad6eb9b211189653c9f81e128f3e3199261057ec0f8012d2a2d9ff2298cf7682",
+      "incoming": "ad6eb9b211189653c9f81e128f3e3199261057ec0f8012d2a2d9ff2298cf7682",
+      "after": "ad6eb9b211189653c9f81e128f3e3199261057ec0f8012d2a2d9ff2298cf7682",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "scripts/generate-payroll-multiple-statement-fixture.py",
+      "before": "0e053a0ccf9c2692b69b546478735f800c585d6655f88598b15cfe4da9ec6273",
+      "incoming": "0e053a0ccf9c2692b69b546478735f800c585d6655f88598b15cfe4da9ec6273",
+      "after": "0e053a0ccf9c2692b69b546478735f800c585d6655f88598b15cfe4da9ec6273",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "web/office/payroll-statements.js",
+      "before": "acb865fe6a6c1a2fab27b289c6b9b4ce92c95c9396a85511e8e500c084733e6b",
+      "incoming": "acb865fe6a6c1a2fab27b289c6b9b4ce92c95c9396a85511e8e500c084733e6b",
+      "after": "acb865fe6a6c1a2fab27b289c6b9b4ce92c95c9396a85511e8e500c084733e6b",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-own-flow.cjs",
+      "before": "53035247316f34bfd6a636d4f89037e4dc58cfae469e2053d3a171f416b5ac87",
+      "incoming": "53035247316f34bfd6a636d4f89037e4dc58cfae469e2053d3a171f416b5ac87",
+      "after": "53035247316f34bfd6a636d4f89037e4dc58cfae469e2053d3a171f416b5ac87",
+      "mode": "already_integrated"
+    },
+    {
+      "path": "web/office/tests/payroll-statements-v7.test.mjs",
+      "before": "054a5c86084e0e15a7a7eefb67f08d46e83901cb9629b41aa97b91eef6160560",
+      "incoming": "054a5c86084e0e15a7a7eefb67f08d46e83901cb9629b41aa97b91eef6160560",
+      "after": "054a5c86084e0e15a7a7eefb67f08d46e83901cb9629b41aa97b91eef6160560",
+      "mode": "already_integrated"
+    }
+  ],
+  "archived_logs": [
+    {
+      "source_path": "work/verification/source5-native-final-reviewed-2026-11-04.txt",
+      "repository_path": "docs/evidence/source5-native-final-reviewed-2026-11-04.txt",
+      "sha256": "6a512601d5bafbb37e571323a11ddbb2ee85fbd698cabac5b3c5307d6379678a"
+    },
+    {
+      "source_path": "work/verification/source5-native-analysis-reviewed-2026-11-04.txt",
+      "repository_path": "docs/evidence/source5-native-analysis-reviewed-2026-11-04.txt",
+      "sha256": "8395530aaac8eefffe2e3172d829a0e54c56f08e6170e62524d23b7e4096b9b0"
+    },
+    {
+      "source_path": "work/verification/source5-browser-final-second-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-browser-final-second-2026-11-04.log",
+      "sha256": "90f1dfa8c31e73599543ed95641e6d7baec1d19c9cb1e0b967c2a341cb1ccb81"
+    },
+    {
+      "source_path": "work/verification/source5-own-backend-final-2026-11-04.txt",
+      "repository_path": "docs/evidence/source5-own-backend-final-2026-11-04.txt",
+      "sha256": "f2b353e21214d3f6ab487e461302f733310d3b90db6f6ce7f394cb09f86f92f4"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+✔ Source5 UI late original source catalog cannot reopen after close (25.964999ms)
+✖ Source5 UI late case preview cannot reopen after close (89.285151ms)
+✔ Source5 UI late immutable history cannot reopen after close (86.202379ms)
+✔ Source5 UI late original source catalog cannot reopen after change (7.773003ms)
+✖ Source5 UI late case preview cannot reopen after change (67.494837ms)
+✔ Source5 UI late immutable history cannot reopen after change (40.563243ms)
+✖ Source5 UI read revocation during accepted preview removes private body and title (59.913458ms)
+✔ actual Source5 OfficeApi retry requires current approval and exact source person/month, keeps original nonce through a pause (75.227374ms)
+✔ actual Source5 endpoint rejects unrelated pending keys before another POST (3.953513ms)
+✔ Source5 keeps the original receipt validator when an unrelated valid saved record is returned (21.054721ms)
+✔ replacing the session during fresh Source5 authorization cannot send the old accepted request (2.820396ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 8
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 519.969381
+
+✖ failing tests:
+
+test at web/office/tests/payroll-multiple-context.test.mjs:16:2
+✖ Source5 UI late case preview cannot reopen after close (89.285151ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:16:193)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-context.test.mjs:16:2
+✖ Source5 UI late case preview cannot reopen after change (67.494837ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:16:193)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-context.test.mjs:19:1
+✖ Source5 UI read revocation during accepted preview removes private body and title (59.913458ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Monatsgruppe berichtigen · 2026-10'
+  - 'Monatsgruppen nicht freigegeben'
+                 ^
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:19:325)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Monatsgruppe berichtigen · 2026-10',
+    expected: 'Monatsgruppen nicht freigegeben',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

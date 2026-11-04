@@ -40,7 +40,7 @@ def guard_statements(dialect):
 
 
 def _expected(run):
-    if run.get('source',{}).get('source_schema_version') not in (3,4):return None
+    if run.get('source',{}).get('source_schema_version') not in (3,4,5):return None
     case=run['source']['calculation_case'];flat=case['sources']['flat_travel_tax']
     if flat is None:return None
     calculation=flat['calculation'];planned=flat['recording_context']
@@ -113,11 +113,14 @@ def validate_integrity(office):
     try:
         for row in office.db.execute("SELECT id,revision FROM business_payroll_events WHERE kind='run'"):
             run=api._event(api._row(row['id'],'run',row['revision']))
-            if run['source'].get('source_schema_version') not in (3,4):continue
+            if run['source'].get('source_schema_version') not in (3,4,5):continue
             validate_case_sources(office,run['source']['calculation_case'])
             if run['source'].get('source_schema_version')==4:
                 from business_payroll_oneoff_cases import validate_case_sources as validate_one_off,validate_run_consumption
                 validate_one_off(office,run['source']['one_off_case']);validate_run_consumption(office,run)
+            if run['source'].get('source_schema_version')==5:
+                from business_payroll_multiple_cases import validate_case_sources as validate_multiple,validate_run_consumption
+                validate_multiple(office,run['source']['multiple_one_off_case']);validate_run_consumption(office,run)
             if _calculate_source(run['source'],rule_version=run['calculation']['rule_version'])!=run['calculation']:raise ValueError('Changed recorded payroll calculation')
             if validate_tax_recording(office,run) is not None:expected.add((run['id'],run['revision']))
         actual={(row['run_id'],row['run_revision']) for row in office.db.execute('SELECT run_id,run_revision FROM business_payroll_travel_tax_recordings')}

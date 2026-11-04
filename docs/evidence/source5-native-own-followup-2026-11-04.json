@@ -1,0 +1,80 @@
+{
+  "date": "2026-11-04",
+  "workspace": "/workspace/smartplan-source5-clients-20261104",
+  "scope": "Narrow Source5 page-owned dialog cleanup on dispose and allowed parent session replacement",
+  "first_handoff": {
+    "path": "docs/evidence/source5-native-own-handoff-2026-11-04.json",
+    "sha256": "dc9df85adffa7b86dd2d9c29ad12911cf08020ca1e4923c57b878c7c822f239d",
+    "unchanged": true
+  },
+  "results": {
+    "post_fix_targeted": "23/23 passed, 24 seconds",
+    "independent_final": "15/15 passed, unchanged negative assertions",
+    "static_analysis": "Two changed files: no issues, 3.7 seconds"
+  },
+  "changed_files": [
+    {
+      "path": "app/lib/business_payroll_multiple_cases.dart",
+      "sha256": "ba3950237e3083453f717dc1f6f893d17ecd56a09244f000b20ccd66dbd4efbf",
+      "bytes": 35835,
+      "previous_sha256": "1ecae98cf521cd3ce3fa6af2cf45560cd1c4947006441e666654371ac0635d17"
+    },
+    {
+      "path": "app/test/business_payroll_multiple_independent_review_test.dart",
+      "sha256": "d50093a5cf50f3072f7c5bc3e148c25a9d448441da57b6250deafe9d96f03ee6",
+      "bytes": 9576,
+      "previous_sha256": "38832aa5e73d968c71dbe81b5114064f37b0b97e294b6763c33fdeb9c8cbae24"
+    },
+    {
+      "path": "docs/CRM_ERP_SOURCE5_NATIVE_2026-11-04.md",
+      "sha256": "3cb09fcf56cb1a4f8a0fd21880f0aadcebffcb895511672260c1572c94a7d08b",
+      "bytes": 6339,
+      "previous_sha256": "fd8d94565c23a9aca068beb16d57874a67451126de42bfc75ea241bd8d9e64c6"
+    }
+  ],
+  "new_files": [
+    {
+      "path": "docs/CRM_ERP_SOURCE5_NATIVE_KONTEXTNACHTRAG_2026-11-04.md",
+      "sha256": "c1e4272a0a5fdbc62ce0b4ecbc37b99f1f4f0687e2dd8e3a503d31a357ba36e8",
+      "bytes": 2194
+    },
+    {
+      "path": "docs/evidence/source5-native-independent-review-2026-11-04.json",
+      "sha256": "e1b7ac7950cc757922daa5f58a9abe55c44cee6f8ae8041f8265d28d87e900b9",
+      "bytes": 5187
+    }
+  ],
+  "logs": [
+    {
+      "path": "work/verification/source5-native-dispose-final-2026-11-04.txt",
+      "sha256": "779d85004d390b33120df95523b9d4c5241eeddb5dd183294e761b251904bcf0",
+      "bytes": 4516
+    },
+    {
+      "path": "work/verification/source5-native-dispose-analysis-2026-11-04.txt",
+      "sha256": "b94b01afd5961e2e9b99cbe090c5d3be6458161c4b7d44f510762c53864a9982",
+      "bytes": 96
+    },
+    {
+      "path": "work/verification/source5-native-independent-final-2026-11-04.log",
+      "sha256": "b859ceeadaa8d7074917838750e8617b6bbe9ff0b6d872ff37cb506b66d0a39b",
+      "bytes": 1427
+    },
+    {
+      "path": "work/verification/source5-native-independent-analysis-final-2026-11-04.log",
+      "sha256": "9bea736b7e7e2be470b4bbbe1eb828190965cb495bdc37a27890058e0342c74e",
+      "bytes": 104
+    },
+    {
+      "path": "work/verification/source5-native-independent-final-context-2026-11-04.log",
+      "sha256": "982f333d261da6294f77e4c349fbc47245e92dd80208c701ed5ffd22bbcece91",
+      "bytes": 3552
+    }
+  ],
+  "integration_notes": [
+    "Only app/lib/business_payroll_multiple_cases.dart product change since initial27-file handoff",
+    "Native source contract, amounts, settlement plan, backend, Own schemas/PDF/JSON, Session hook and browser files unchanged",
+    "Remove only owned captured dialog routes after build; no context lookup or unrelated route removal",
+    "Previous107-test broad run remains a historical result; full final root integration regression is separate"
+  ]
+}

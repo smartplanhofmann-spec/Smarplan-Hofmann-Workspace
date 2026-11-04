@@ -1,0 +1,25 @@
+00:00 +0: loading /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_independent_review_test.dart
+00:00 +0: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_independent_review_test.dart: independent actual Source5 accepted records retain both exact settlement plans
+00:00 +1: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +2: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +3: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +4: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +5: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +6: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +7: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +8: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +9: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +10: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +11: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +12: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:00 +13: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual Source5 at 390px preserves original files, complete handoff and history
+00:02 +14: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_independent_review_test.dart: independent Source5 page unmount closes private editor on retained navigator
+00:03 +15: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: actual incomplete monthly group remains reviewable without native finalize
+00:03 +16: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_independent_review_test.dart: independent Source5 allowed session replacement closes original private editor
+00:03 +17: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: late Source5 preview response cannot revive private data after background
+00:05 +18: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: late Source5 preview failure cannot revive private data after background
+00:06 +19: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: native Source5 editor closes immediately after approval withdrawal
+00:07 +20: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: original Source5 lost-ACK command repeats while module paused and rejects foreign receipt
+00:07 +21: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_cases_test.dart: Source5 retry rejects wrong person, source contract and rule before resend
+00:20 +22: /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_runs_test.dart: productive native entry opens the actual case and finalizes its Source5 run after exact lost response retry
+00:24 +23: All tests passed!

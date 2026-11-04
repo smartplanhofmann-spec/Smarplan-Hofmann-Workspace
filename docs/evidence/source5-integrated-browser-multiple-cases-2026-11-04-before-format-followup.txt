@@ -1,0 +1,4 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll multiple employee statement: actual Source5 reduced schema4, own bonus, independent PDF SHA256 and exact protected JSON, no annual/source originals, exact history and mobile390 passed
+Source5 actual browser: full original monthly group, paid-v5 upgrade, unpaid correction, exact lostACK case/run/payment, separately dated running/bonus transfers with preserved originals, historical PDF/JSON, schema4 ledger, employee-safe schema4 PDF/JSON, 390px and immutable case history passed
+1 targeted Source5 payroll workflow passed (actual MFA, original source chain, separately dated actual transfers, private and employee-safe exports)

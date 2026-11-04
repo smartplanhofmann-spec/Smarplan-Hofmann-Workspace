@@ -1,0 +1,25 @@
+{
+  "recorded_at_utc": "2026-11-04T08:39:10.985060+00:00",
+  "base_commit": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+  "scope": "Current main working tree, additive Source5 private backend plus committed Opening/Catalog baseline; Source5 own/client work excluded",
+  "tests_run": 92,
+  "passed": 92,
+  "failed": 0,
+  "skipped": 0,
+  "duration_seconds": 74.988,
+  "log": "docs/evidence/source5-opening-catalog-registration-2026-11-04.txt",
+  "command": "PYTHONPATH=backend:backend/online:scripts /tmp/smartplan-backend-verified/bin/python -m unittest -v test_business_schema test_business_api test_business_company_handover test_business_payroll_multiple test_payroll_multiple_settlement_review test_business_accounting_openings test_business_catalog_imports",
+  "source_sha256": {
+    "backend/business_api.py": "b842a052125ead75c935d38d993b48c8117d11e83cfe42e083fa79b939ddd2bc",
+    "backend/business_schema.py": "aa23822ff428e8a2da51b5d619be9b47927e79236cdc3dd1df417ab491909f60",
+    "backend/company_export_catalog.py": "3b3212f664ea05bd603bb42a0ead5762b53d22a0b13da7c6550b05dafc0100fa",
+    "backend/business_payroll_multiple_cases.py": "3952ffe27f514577e87e84bf6842cb978b7846990f279c22038c0b0842d984af",
+    "backend/business_payroll.py": "de62e004c104b61eff410e9f7c1bf72068c2b1c29c000761f25af69455d52e09",
+    "backend/payroll_multiple_runs.py": "1e4976e35aa046c41773296bc53be0ae52dc774d825b172388b99f608b463fd2",
+    "backend/payroll_multiple_payments.py": "5b5043db1f662efa3f844a147ec7b73f629a5ced87dd63f0c5feddb28df99e0f",
+    "backend/business_accounting_openings.py": "daab353586aaa11bb9928da44ae55597df61e1d83dc0dfba4547cd0213f93691",
+    "backend/business_catalog_imports.py": "e9e7e17fc174b0cc63a07cb557b2d82d3147fdb30bda5390c0a3dc6626e4a555",
+    "backend/business_payroll_accounts.py": "188fa7f2c3474c780b41e62724c5812cc959ef4bec406af514c9017268b21c26",
+    "backend/business_payroll_annual_basis.py": "264fca579eeef48382cd83184369defdac254a498ecc8b5260e7eb75fee868a8"
+  }
+}

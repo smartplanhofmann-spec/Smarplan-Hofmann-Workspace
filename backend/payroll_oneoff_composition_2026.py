@@ -103,8 +103,8 @@ def _assignment_profile(basis, period):
         if len(runs) != 1:
             raise Problem(409, 'Zuordnungsperiode fehlt in den tatsächlichen Jahresoriginalen.')
         run = runs[0]
-        if run['source'].get('source_schema_version') == 4:
-            if run.get('projection_format')!='source4_annual_reference_v1':
+        if run['source'].get('source_schema_version') in (4,5):
+            if run.get('projection_format')!='source'+str(run['source']['source_schema_version'])+'_annual_reference_v1':
                 raise Problem(409,'Unbekannte interne Jahresprojektion des Einmalbezugs.')
             projections=[item for item in source['internal_periods'] if item['source_ref']==ref]
             choices=[item for projection in projections for item in projection['assignment_profiles']

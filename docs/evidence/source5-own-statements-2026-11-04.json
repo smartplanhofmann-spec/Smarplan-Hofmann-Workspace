@@ -1,0 +1,122 @@
+{
+  "date": "2026-11-04",
+  "scope": "Only complete single Source5 own employee statement schema4, exact protected PDF and JSON",
+  "results": {
+    "backend_http_and_frozen_schemas_1_2_3": "26/26 passed",
+    "browser_contracts": "12/12 passed",
+    "native_own_and_historical": "16/16 passed",
+    "native_analysis": "No issues found"
+  },
+  "privacy": [
+    "positive nested allowlist, no original annual/claim/component/event IDs",
+    "actual original run and consumption validation before any own projection",
+    "fresh employee access before and after PDF/JSON generation",
+    "client entire selected statement and reference checked before/after download",
+    "strict canonical JSON rejects hidden duplicate-key shadows",
+    "revocation, paused app and token change discard delayed native download",
+    "original schema1/2/3 statement and PDF bytes unchanged"
+  ],
+  "browser_e2e": "Actual integrated local Source5 browser workflow passed, including own schema4 PDF/JSON, private-original exclusion, history and mobile390; see work/verification/source5-browser-final-second-2026-11-04.log",
+  "fixture": {
+    "path": "app/test/fixtures/payroll_statements_v7.json",
+    "actual_originals": true,
+    "synthetic_personal_data": true
+  },
+  "source_files": [
+    {
+      "path": "backend/business_payroll_statements.py",
+      "sha256": "deba6bfd98854e50d591340e85b30e99a121ab8346be8c8ea04c13399cfb55e6"
+    },
+    {
+      "path": "backend/test_business_payroll_statements_v7.py",
+      "sha256": "4f56ef63ff9720bc731765b691c6c15cbee510e9692580471d92416716c2fc36"
+    },
+    {
+      "path": "backend/test_business_payroll_multiple.py",
+      "sha256": "d0435e75da4c361f1d5789d910212ea11a981ddb8b74f2b712d95883f882d7e9"
+    },
+    {
+      "path": "web/office/payroll-statements.js",
+      "sha256": "acb865fe6a6c1a2fab27b289c6b9b4ce92c95c9396a85511e8e500c084733e6b"
+    },
+    {
+      "path": "web/office/tests/payroll-statements-v7.test.mjs",
+      "sha256": "054a5c86084e0e15a7a7eefb67f08d46e83901cb9629b41aa97b91eef6160560"
+    },
+    {
+      "path": "web/office/tests/payroll-multiple-own-flow.cjs",
+      "sha256": "53035247316f34bfd6a636d4f89037e4dc58cfae469e2053d3a171f416b5ac87"
+    },
+    {
+      "path": "app/lib/business_payroll_statements.dart",
+      "sha256": "df1015b834b60c981af92c235871e1247c4e85624c0a0e4fe6d750d662f36962"
+    },
+    {
+      "path": "app/test/business_payroll_statements_v7_test.dart",
+      "sha256": "31f8d25f79ec834e4a850b43cb8541c2b2942a5eafad494d9833bff9852cf6a3"
+    },
+    {
+      "path": "app/test/fixtures/payroll_statements_v7.json",
+      "sha256": "e029ce1f7600c1188b37bdac6ecde41aea044437f7cf2f65eb3ac61d48283d11"
+    },
+    {
+      "path": "scripts/generate-payroll-multiple-statement-fixture.py",
+      "sha256": "0e053a0ccf9c2692b69b546478735f800c585d6655f88598b15cfe4da9ec6273"
+    }
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/source5-own-backend-final-2026-11-04.txt",
+      "sha256": "f2b353e21214d3f6ab487e461302f733310d3b90db6f6ce7f394cb09f86f92f4",
+      "tests": 26,
+      "result": "passed"
+    },
+    {
+      "path": "docs/evidence/source5-own-browser-contracts-final-2026-11-04.txt",
+      "sha256": "311a8e4e32c1c1ad1d3031b73b1c46ee5cb5563c3171b9a10da9ea1f12ba1004",
+      "tests": 12,
+      "result": "passed"
+    },
+    {
+      "path": "docs/evidence/source5-own-native-final-2026-11-04.txt",
+      "sha256": "9a6b83801e54e42a49e7576acb8bbc672258b80d9a110e298c915334ab8c83e8",
+      "tests": 16,
+      "result": "passed"
+    },
+    {
+      "path": "docs/evidence/source5-own-native-analysis-2026-11-04.txt",
+      "sha256": "aeb4fde12f423d792bdd48adbc6b9f234d193a0f515ce3244cc49be2eda2d461",
+      "tests": null,
+      "result": "no_issues"
+    },
+    {
+      "path": "docs/evidence/source5-own-fixture-2026-11-04.txt",
+      "sha256": "9bbc26edf7525ee7192fdf2431d68a30a138b4d449d1a875f4f4a0a87697ca16",
+      "tests": null,
+      "result": "generated_actual_fixture"
+    },
+    {
+      "path": "docs/evidence/source5-own-first-2026-11-04.txt",
+      "sha256": "d9f0a5bbb606b23321b73dcf3cc1d0cb3a0f5ba7c496aa2949c35bc645ed4191",
+      "tests": 25,
+      "result": "first23_passed_wrong_frozen_wrapper_and_JSON_MIME_fixed"
+    },
+    {
+      "path": "docs/evidence/source5-own-native-first-2026-11-04.txt",
+      "sha256": "0783c3f818d386ea0b708527c282a0d3aca293ee05bbab18e3be6a92521c8687",
+      "tests": null,
+      "result": "isolated_worktree_dependency_configuration_missing_then_offline_installed"
+    },
+    {
+      "path": "docs/evidence/source5-own-native-second-2026-11-04.txt",
+      "sha256": "fa90bbf39af4c9636f4acec784f079656a306e058a56805f03305502d2d16b84",
+      "tests": null,
+      "result": "local_clang_wrapper_not_in_path_then_fixed"
+    }
+  ],
+  "integrated_browser_log": {
+    "path": "work/verification/source5-browser-final-second-2026-11-04.log",
+    "sha256": "90f1dfa8c31e73599543ed95641e6d7baec1d19c9cb1e0b967c2a341cb1ccb81",
+    "bytes": 728
+  }
+}

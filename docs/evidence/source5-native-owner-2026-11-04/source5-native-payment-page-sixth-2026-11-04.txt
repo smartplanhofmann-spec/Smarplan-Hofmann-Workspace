@@ -1,0 +1,4 @@
+00:00 +0: loading /workspace/smartplan-source5-clients-20261104/app/test/business_payroll_multiple_payment_page_test.dart
+00:00 +0: actual paid v5 prefix is visible but never editable; missing bonus saves exact Source5 payment and retries lost ACK
+00:02 +1: approval withdrawal removes Source5 payment editor before any transfer evidence is sent
+00:02 +2: All tests passed!

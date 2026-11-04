@@ -1,0 +1,50 @@
+test_existing_schema1_schema2_schema3_pdf_bytes_remain_exact (test_business_payroll_statements_v7.FrozenStatements.test_existing_schema1_schema2_schema3_pdf_bytes_remain_exact) ... ERROR
+test_actual_http_own_json_pdf_history_deny_private_source5_originals (test_business_payroll_statements_v7.Source5StatementHTTP.test_actual_http_own_json_pdf_history_deny_private_source5_originals) ... FAIL
+test_actual_foreign_user_and_read_revocation_block_own_json_and_pdf (test_business_payroll_statements_v7.Source5StatementTests.test_actual_foreign_user_and_read_revocation_block_own_json_and_pdf) ... ok
+test_actual_schema4_pdf_json_amounts_and_original_v5_history (test_business_payroll_statements_v7.Source5StatementTests.test_actual_schema4_pdf_json_amounts_and_original_v5_history) ... ok
+test_missing_atomic_consumption_denies_own_list_detail_history_pdf_and_json (test_business_payroll_statements_v7.Source5StatementTests.test_missing_atomic_consumption_denies_own_list_detail_history_pdf_and_json) ... ok
+test_positive_allowlist_discards_private_extras_at_every_new_source5_layer (test_business_payroll_statements_v7.Source5StatementTests.test_positive_allowlist_discards_private_extras_at_every_new_source5_layer) ... ok
+test_read_revocation_during_actual_pdf_generation_cannot_release_export (test_business_payroll_statements_v7.Source5StatementTests.test_read_revocation_during_actual_pdf_generation_cannot_release_export) ... ok
+test_unsupported_group_never_becomes_an_employee_net_statement (test_business_payroll_statements_v7.Source5StatementTests.test_unsupported_group_never_becomes_an_employee_net_statement) ... ok
+test_existing_schema1_and_schema2_fixture_pdf_bytes_are_unchanged (test_business_payroll_statements_v6.HistoricalStatementBytes.test_existing_schema1_and_schema2_fixture_pdf_bytes_are_unchanged) ... ok
+test_actual_http_own_history_pdf_denies_private_annual_case_and_original (test_business_payroll_statements_v6.OneoffStatementHTTP.test_actual_http_own_history_pdf_denies_private_annual_case_and_original) ... ok
+test_actual_march_clause_retains_2026_tax_and_2025_social_only (test_business_payroll_statements_v6.OneoffStatementTests.test_actual_march_clause_retains_2026_tax_and_2025_social_only) ... ok
+test_actual_missing_claim_consumption_fails_all_current_own_routes (test_business_payroll_statements_v6.OneoffStatementTests.test_actual_missing_claim_consumption_fails_all_current_own_routes) ... ok
+test_actual_own_bonus_travel_deductions_and_frozen_v5_history (test_business_payroll_statements_v6.OneoffStatementTests.test_actual_own_bonus_travel_deductions_and_frozen_v5_history) ... ok
+test_positive_allowlist_discards_private_additions_at_all_oneoff_layers (test_business_payroll_statements_v6.OneoffStatementTests.test_positive_allowlist_discards_private_additions_at_all_oneoff_layers) ... ok
+test_actual_own_amounts_net_deductions_and_pdf_have_no_source_projection (test_business_payroll_statements_v5.CompositeStatementTests.test_actual_own_amounts_net_deductions_and_pdf_have_no_source_projection) ... ok
+test_actual_recording_verifier_is_mandatory_on_list_detail_history_and_pdf (test_business_payroll_statements_v5.CompositeStatementTests.test_actual_recording_verifier_is_mandatory_on_list_detail_history_and_pdf) ... ok
+test_positive_projection_ignores_private_additions_at_every_new_layer (test_business_payroll_statements_v5.CompositeStatementTests.test_positive_projection_ignores_private_additions_at_every_new_layer) ... ok
+test_actual_http_own_pdf_history_private_denial_and_revocation (test_business_payroll_statements.PayrollStatementHTTP.test_actual_http_own_pdf_history_private_denial_and_revocation) ... ok
+test_actual_own_statement_has_full_values_but_no_private_sources_or_original (test_business_payroll_statements.PayrollStatementTests.test_actual_own_statement_has_full_values_but_no_private_sources_or_original) ... ok
+test_actual_role_revocation_during_pdf_render_prevents_return (test_business_payroll_statements.PayrollStatementTests.test_actual_role_revocation_during_pdf_render_prevents_return) ... ok
+test_canonical_employee_account_mapping_rejects_reassignment_and_foreign_access (test_business_payroll_statements.PayrollStatementTests.test_canonical_employee_account_mapping_rejects_reassignment_and_foreign_access) ... ok
+test_exact_historical_statement_pdf_survives_correction_current_name_and_pause (test_business_payroll_statements.PayrollStatementTests.test_exact_historical_statement_pdf_survives_correction_current_name_and_pause) ... ok
+test_fresh_own_person_mapping_foreign_person_and_role_revocation (test_business_payroll_statements.PayrollStatementTests.test_fresh_own_person_mapping_foreign_person_and_role_revocation) ... ok
+test_strict_revision_hash_export_permission_and_positive_nested_allowlist (test_business_payroll_statements.PayrollStatementTests.test_strict_revision_hash_export_permission_and_positive_nested_allowlist) ... ok
+test_v1_partial_scope_keeps_unknown_net_and_private_sources_hidden (test_business_payroll_statements.PayrollStatementTests.test_v1_partial_scope_keeps_unknown_net_and_private_sources_hidden) ... ok
+
+======================================================================
+ERROR: test_existing_schema1_schema2_schema3_pdf_bytes_remain_exact (test_business_payroll_statements_v7.FrozenStatements.test_existing_schema1_schema2_schema3_pdf_bytes_remain_exact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-source5-clients-20261104/backend/test_business_payroll_statements_v7.py", line 158, in test_existing_schema1_schema2_schema3_pdf_bytes_remain_exact
+    if value['calculation']['employee_contributions'] is not None:
+       ~~~~~^^^^^^^^^^^^^^^
+KeyError: 'calculation'
+
+======================================================================
+FAIL: test_actual_http_own_json_pdf_history_deny_private_source5_originals (test_business_payroll_statements_v7.Source5StatementHTTP.test_actual_http_own_json_pdf_history_deny_private_source5_originals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-source5-clients-20261104/backend/test_business_payroll_statements_v7.py", line 142, in test_actual_http_own_json_pdf_history_deny_private_source5_originals
+    self.assertEqual(value, json.loads(self.http(base+'/json'+query, raw=True)))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-source5-clients-20261104/backend/test_business_payroll_statements.py", line 192, in http
+    self.assertEqual(response.status, status, value[:300])
+AssertionError: 400 != 200 : b'{"error": "Ung\xc3\xbcltige Anfrage"}'
+
+----------------------------------------------------------------------
+Ran 25 tests in 35.427s
+
+FAILED (failures=1, errors=1)

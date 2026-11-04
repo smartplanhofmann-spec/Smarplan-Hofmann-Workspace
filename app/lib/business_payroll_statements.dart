@@ -31,6 +31,7 @@ const statementBranches = {
   'care': 'Pflegeversicherung',
 };
 const _scopes = {
+  'regular_standard_multiple_oneoff',
   'regular_standard_oneoff',
   'regular_standard_segments',
   'regular_transition_segments',
@@ -87,8 +88,8 @@ Future<Map<String, dynamic>> payrollStatement(
   Map<String, dynamic>? reference,
 }) async {
   final v = businessMap(raw),
-      oneoff = businessMap(raw)['schema_version'] == 3,
-      composite = [2, 3].contains(businessMap(raw)['schema_version']);
+      oneoff = [3, 4].contains(businessMap(raw)['schema_version']),
+      composite = [2, 3, 4].contains(businessMap(raw)['schema_version']);
   _shape(v, [
     if (oneoff) 'one_off_summary',
     if (composite) ...['earnings_summary', 'travel_summary'],
@@ -108,7 +109,7 @@ Future<Map<String, dynamic>> payrollStatement(
   ]);
   final ref = businessMap(v['run_ref']);
   _shape(ref, ['id', 'revision', 'content_hash']);
-  if (![1, 2, 3].contains(v['schema_version']) ||
+  if (![1, 2, 3, 4].contains(v['schema_version']) ||
       !_id.hasMatch(employeeId) ||
       v['employee_id'] != employeeId ||
       !_id.hasMatch('${ref['id']}') ||
@@ -145,8 +146,13 @@ Future<Map<String, dynamic>> payrollStatement(
             'regular_transition_segments',
             'commercial_minijob_segments_flat_tax',
           ].contains(c['scope']) ||
-      oneoff != (c['rule_version'] == 'de_2026_oneoff_composition_v6') ||
-      oneoff != (c['scope'] == 'regular_standard_oneoff'))
+      (v['schema_version'] == 3) !=
+          (c['rule_version'] == 'de_2026_oneoff_composition_v6') ||
+      (v['schema_version'] == 3) != (c['scope'] == 'regular_standard_oneoff') ||
+      (v['schema_version'] == 4) !=
+          (c['rule_version'] == 'de_2026_multiple_oneoff_v7') ||
+      (v['schema_version'] == 4) !=
+          (c['scope'] == 'regular_standard_multiple_oneoff'))
     _fail(
       'Die Belegversion stimmt nicht mit dem Gesamtlohnregelstand überein.',
     );
@@ -373,6 +379,38 @@ Future<VerifiedMailAttachment> payrollStatementAttachment(
   );
 }
 
+Future<VerifiedMailAttachment> payrollStatementJsonAttachment(
+  Uint8List bytes,
+  Map<String, dynamic> value,
+) async {
+  if (bytes.isEmpty || bytes.length > 1024 * 1024)
+    _fail('Der JSON-Lohnnachweis hat eine ungültige Größe.');
+  dynamic decoded;
+  late String encoded;
+  try {
+    encoded = utf8.decode(bytes);
+    decoded = jsonDecode(encoded);
+  } on FormatException {
+    _fail('Der JSON-Lohnnachweis ist nicht lesbar.');
+  }
+  await payrollStatement(
+    decoded,
+    value['employee_id'],
+    reference: businessMap(value['run_ref']),
+  );
+  if (encoded != jsonEncode(_order(decoded)) || !_same(decoded, value))
+    _fail(
+      'Der JSON-Lohnnachweis stimmt nicht mit der gewählten ursprünglichen Fassung überein.',
+    );
+  return VerifiedMailAttachment(
+    bytes: bytes,
+    filename:
+        'lohnnachweis-${value['month']}-v${value['run_ref']['revision']}.json',
+    mediaType: 'application/json',
+    sha256: await payrollStatementHash(bytes),
+  );
+}
+
 bool payrollStatementsAvailable(BusinessSession s) =>
     s.projectId == null &&
     s.hasModule('payroll') &&
@@ -384,9 +422,11 @@ class BusinessPayrollStatementsPage extends StatefulWidget {
     super.key,
     required this.session,
     required this.employee,
+    this.exporter,
   });
   final BusinessSession session;
   final Map<String, dynamic> employee;
+  final MailAttachmentExporter? exporter;
   @override
   State<BusinessPayrollStatementsPage> createState() => _StatementsState();
 }
@@ -574,7 +614,10 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
     }
   }
 
-  Future<void> export(Map<String, dynamic> value) async {
+  Future<void> export(
+    Map<String, dynamic> value, {
+    String fileFormat = 'pdf',
+  }) async {
     final captured = ++epoch;
     setState(() {
       busy = true;
@@ -598,11 +641,15 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
         );
       final bytes = await session.api.bytes(
         session.path(
-          '$path/pdf?revision=${ref['revision']}&statement_hash=${value['statement_hash']}',
+          '$path/$fileFormat?revision=${ref['revision']}&statement_hash=${value['statement_hash']}',
         ),
-        mediaType: 'application/pdf',
+        mediaType: fileFormat == 'json'
+            ? 'application/json'
+            : 'application/pdf',
       );
-      final document = await payrollStatementAttachment(bytes, value);
+      final document = fileFormat == 'json'
+          ? await payrollStatementJsonAttachment(bytes, value)
+          : await payrollStatementAttachment(bytes, value);
       await fresh();
       final finalPage = await payrollStatementPage(
         await session.read('$path?revision=${ref['revision']}'),
@@ -617,7 +664,7 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
           finalPage['can_export'] != true ||
           !_same(finalPage['statement'], value))
         return;
-      await exportMailAttachment(
+      await (widget.exporter ?? exportMailAttachment)(
         context,
         document,
         () =>
@@ -656,7 +703,7 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
         ),
       for (final entry in statementAmounts.entries)
         line(entry.value, money(c[entry.key])),
-      if ([2, 3].contains(v['schema_version'])) ...[
+      if ([2, 3, 4].contains(v['schema_version'])) ...[
         line('Belegte Nettoabzüge', money(c['net_deductions_minor'])),
         const Text('Eigene Entgeltbestandteile'),
         for (final row in businessItems(v['earnings_summary']))
@@ -686,7 +733,7 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
           v['travel_summary']['letter_m'] == true ? 'Ja' : 'Nein',
         ),
       ],
-      if (v['schema_version'] == 3) ...[
+      if ([3, 4].contains(v['schema_version'])) ...[
         const Text('Einmalzahlung / sonstiger Bezug'),
         line(
           'Brutto der Einmalzahlung',
@@ -739,7 +786,7 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
             ),
       ],
       Notice(
-        [2, 3].contains(v['schema_version'])
+        [2, 3, 4].contains(v['schema_version'])
             ? 'Der berechnete Auszahlungsbetrag ist kein Zahlungsnachweis. Steuerfreie Reiseerstattungen werden außerhalb dieses Lohnnettos gezahlt. Es wurde keine amtliche Meldung übermittelt.'
             : 'Der berechnete Auszahlungsbetrag ist kein Zahlungsnachweis. Auslagen und Reisekosten werden gesondert belegt. Es wurde keine amtliche Meldung übermittelt.',
       ),
@@ -747,6 +794,11 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
         FilledButton(
           onPressed: busy ? null : () => export(v),
           child: const Text('Eigenen PDF-Lohnnachweis herunterladen'),
+        ),
+      if (canExport)
+        OutlinedButton(
+          onPressed: busy ? null : () => export(v, fileFormat: 'json'),
+          child: const Text('Eigenen JSON-Lohnnachweis herunterladen'),
         ),
       OutlinedButton(
         onPressed: busy ? null : () => showHistory(v),

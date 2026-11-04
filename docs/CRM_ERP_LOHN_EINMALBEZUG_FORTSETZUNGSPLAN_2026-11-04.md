@@ -1,5 +1,7 @@
 # Einmalbezüge: mehrere Ansprüche und getrennte tatsächliche Zahlungstage
 
+Nachtrag vom selben Tag: Die inzwischen durchgeführte [amtliche Quellenprüfung](CRM_ERP_LOHN_MEHRFACHBEZUEGE_QUELLEN_2026.md) präzisiert diesen Plan. Insbesondere werden Einmalzahlungen desselben Monats im ersten Quartal für die Märzklausel gemeinsam geprüft; die unten skizzierte Ereignisfolge darf dabei keine unabhängigen SV-Einzelentscheidungen treffen. Die steuerliche Untermonatsgruppierung bleibt ausdrücklich offen.
+
 Stand: 04.11.2026. Unabhängige Bestandsaufnahme und nächster Umsetzungsschritt; noch keine Implementierungs- oder Produktivfreigabe. Gelesen wurden das vollständige `CRM_ERP_Gesamtziel.txt` sowie die unten bezeichneten Rechen-, Quellen-, Lauf-, Jahres-, Lohnkonto-, Cash- und Clientverträge. Für dieses Dokument wurden keine Produktdateien geändert und keine neuen Tests ausgeführt. Vorhandene Tests werden als nachlesbare Spezifikation genannt, nicht als in dieser Bestandsaufnahme erneut bestanden ausgegeben.
 
 ## 1. Ergebnis und Abgrenzung

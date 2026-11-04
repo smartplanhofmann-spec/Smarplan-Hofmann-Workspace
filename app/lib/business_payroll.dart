@@ -19,6 +19,7 @@ import 'business_payroll_statements.dart';
 import 'business_payroll_wage_interruptions.dart';
 import 'business_payroll_annual_basis.dart';
 import 'business_payroll_oneoff_cases.dart';
+import 'business_payroll_multiple_cases.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -26,6 +27,9 @@ import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
 
 const payrollScopes = {
+  'regular_standard_multiple_oneoff': 'Regulärer Gesamtlohn mit vollständigem Einzelanspruch · getrennte Zahlungstage',
+  'multiple_oneoff_review_required':
+      'Monatsgruppe mit ungeklärter Steuer- oder Beitragszuordnung',
   'regular_standard_oneoff':
       'Regulärer Gesamtlohn mit belegtem Einmalbezug · PAP 2026',
   'regular_standard_segments': 'Regulärer belegter Gesamtfall · PAP 2026',
@@ -203,6 +207,8 @@ int _sum(dynamic v) {
 
 Map<String, dynamic> payrollCalculation(dynamic value) {
   final v = businessMap(value), scope = v['scope'];
+  if (v['rule_version'] == payrollMultipleRule)
+    return payrollMultipleCalculation(v);
   if (v['rule_version'] == payrollOneOffRule)
     return payrollOneOffCalculation(v);
   if (v['rule_version'] == payrollCalculationCaseRule)
@@ -385,6 +391,12 @@ Map<String, dynamic> payrollTransition(Map<String, dynamic> value) {
 }
 
 Map<String, dynamic> payrollPreview(dynamic raw, Map<String, dynamic> input) {
+  if (input['source_schema_version'] == 5) {
+    final value = payrollMultipleSource(raw, input);
+    if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
+      throw const ApiException(0, 'Die Vorschauprüfsumme fehlt.');
+    return value;
+  }
   if (input['source_schema_version'] == 4) {
     final value = payrollOneOffSource(raw, input);
     if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
@@ -486,6 +498,7 @@ void Function(dynamic) payrollReceiptValidator(
                     'regular_standard_period',
                     'regular_transition_period',
                     'regular_standard_oneoff',
+                    'regular_standard_multiple_oneoff',
                     'regular_standard_segments',
                     'regular_transition_segments',
                   ].contains(scope),
@@ -1222,6 +1235,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
   }
 
   Future<void> calculate([Map<String, dynamic>? previous]) async {
+    if (previous?['source']?['source_schema_version'] == 5)
+      return openMultipleCases(previous);
     if (previous?['source']?['source_schema_version'] == 4)
       return chooseOneOffCorrection(previous!);
     if (previous?['source']?['source_schema_version'] == 3)
@@ -1362,7 +1377,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           403,
           'Aktuelle Personal-Leserechte und geklärte Berechnung erforderlich.',
         );
-      if (fact['kind'] == 'one_off_case' && previous == null) {
+      if (['one_off_case', 'multiple_one_off_case'].contains(fact['kind']) &&
+          previous == null) {
         final current = runs
             .where((r) => r['source']?['month'] == fact['details']['month'])
             .toList();
@@ -1375,7 +1391,9 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           return await oneOffCorrectionReason(fact, current.single);
       }
       final opening = session.generation,
-          input = fact['kind'] == 'one_off_case'
+          input = fact['kind'] == 'multiple_one_off_case'
+              ? payrollMultipleCaseRunInput(fact)
+              : fact['kind'] == 'one_off_case'
               ? payrollOneOffCaseRunInput(fact)
               : fact['kind'] == 'calculation_case'
               ? payrollCalculationCaseRunInput(fact)
@@ -1478,6 +1496,81 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                   409,
                   'Die Korrektur muss denselben ursprünglichen Einmalanspruch binden.',
                 );
+              }
+              chosen = _copy(fact);
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      );
+      if (!currentContext(owner, person, ticket) || !readable || chosen == null)
+        return;
+      await load();
+      if (!currentContext(owner, person, ticket + 1) || !readable) return;
+      if (previous != null)
+        await oneOffCorrectionReason(chosen!, previous);
+      else
+        await calculatePeriod(chosen!);
+    } catch (error) {
+      if (mounted &&
+          identical(owner, session) &&
+          person == employeeId &&
+          !suspended &&
+          (epoch == ticket || epoch == ticket + 1))
+        failure(error);
+    }
+  }
+
+  Future<void> openMultipleCases([Map<String, dynamic>? previous]) async {
+    if (!canPreview) return;
+    final owner = session,
+        person = employeeId,
+        ticket = epoch,
+        originalEmployee = _copy(employee);
+    Map<String, dynamic>? chosen;
+    try {
+      await privateRoute<void>(
+        MaterialPageRoute<void>(
+          builder: (_) => BusinessPayrollMultipleCasesPage(
+            session: owner,
+            employee: originalEmployee,
+            initialMonth: previous?['source']?['month'],
+            onOriginal: (file) async {
+              if (currentContext(owner, person, ticket)) await original(file);
+            },
+            onCalculate: (fact) async {
+              if (!currentContext(owner, person, ticket))
+                throw const ApiException(
+                  403,
+                  'Die private Lohnansicht wurde gewechselt.',
+                );
+              if (previous != null) {
+                final before =
+                    previous['source']['multiple_one_off_case']['details'];
+                final after = fact['details'];
+                dynamic identities(dynamic parts) => [
+                  for (final p in businessItems(parts))
+                    {
+                      'component_key': p['component_key'],
+                      'events': [
+                        for (final e in businessItems(p['planned_receipts']))
+                          {
+                            'event_key': e['event_key'],
+                            'receipt_date': e['receipt_date'],
+                            'gross_minor': e['gross_minor'],
+                          },
+                      ],
+                    },
+                ];
+                if (!payrollSame(
+                  identities(before['components']),
+                  identities(after['components']),
+                )) {
+                  throw const ApiException(
+                    409,
+                    'Die Korrektur muss dieselben ursprünglichen Ansprüche und Bruttozuflüsse binden.',
+                  );
+                }
               }
               chosen = _copy(fact);
               Navigator.pop(context);
@@ -2183,6 +2276,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
             [
                   payrollCalculationCaseRule,
                   payrollOneOffRule,
+                  payrollMultipleRule,
                 ].contains(calc['rule_version'])
                 ? 'Die belegten Arbeitnehmerabzüge übersteigen den verbleibenden Barbetrag. Zusätzlicher Arbeitnehmeranteil: ${payrollMoney(calc['employee_additional_payment_minor'])}. Der berechnete Auszahlungsbetrag beträgt 0,00 €.'
                 : 'Der Mindest-RV-Beitrag übersteigt das Brutto. Zusätzlicher Arbeitnehmeranteil: ${payrollMoney(calc['employee_additional_payment_minor'])}. Der berechnete Auszahlungsbetrag beträgt 0,00 €.',
@@ -2191,6 +2285,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
       if ([
         payrollCalculationCaseRule,
         payrollOneOffRule,
+        payrollMultipleRule,
       ].contains(calc['rule_version'])) ...[
         ListTile(
           title: const Text(
@@ -2202,7 +2297,11 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
           plan: {
             ...businessMap(calc['period_details']),
             'month': calc['month'],
-            'gross_minor': calc['rule_version'] == payrollOneOffRule
+            'gross_minor':
+                [
+                  payrollOneOffRule,
+                  payrollMultipleRule,
+                ].contains(calc['rule_version'])
                 ? calc['running_calculation']['gross_minor']
                 : calc['gross_minor'],
             'blockers': calc['blockers'],
@@ -2214,6 +2313,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         ),
       if (calc['rule_version'] == payrollOneOffRule)
         PayrollOneoffCasePlanView(plan: calc),
+      if (calc['rule_version'] == payrollMultipleRule)
+        PayrollMultipleCasePlanView(plan: calc),
       if (calc['scope'] == 'regular_transition_monthly')
         ExpansionTile(
           title: const Text('Prognose und Beitragsbemessung'),
@@ -2265,6 +2366,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
         [
               payrollCalculationCaseRule,
               payrollOneOffRule,
+              payrollMultipleRule,
             ].contains(calc['rule_version'])
             ? 'Unfallversicherung ist nicht enthalten. Steuerfreie Reiseerstattungen werden außerhalb des Lohnnettos verarbeitet. Amtliche Meldungen und tatsächliche Zahlungen erfolgen separat.'
             : 'Unfallversicherung ist nicht enthalten. Reisekostenerstattungen werden getrennt verarbeitet. Amtliche Meldungen und Zahlungen erfolgen separat.',
@@ -2274,6 +2376,10 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
   Widget sourceView(Map<String, dynamic> source) => ExpansionTile(
     title: Text('Eingefrorene Quellen · ${source['month']}'),
     children: [
+      if (source['source_schema_version'] == 5)
+        Text(
+          'Bestätigte Monatsgruppe · Fassung ${source['multiple_one_off_case']?['revision']} · ursprünglicher Einzelanspruch und getrennte tatsächliche Zahlungszuordnung',
+        ),
       if (source['source_schema_version'] == 4)
         Text(
           'Bestätigter Einmalbezugsfall · Fassung ${source['one_off_case']?['revision']} · unveränderte laufende Rechnung und geprüfte Jahresoriginale',
@@ -2594,6 +2700,13 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                           'Abrechnungsfälle mit Ansprüchen und Reisen',
                         ),
                       ),
+                    if (payrollMultipleCasesReadable(session))
+                      OutlinedButton(
+                        onPressed: loading || busy ? null : openMultipleCases,
+                        child: const Text(
+                          'Monatsgruppen mit getrennten Zahlungstagen öffnen',
+                        ),
+                      ),
                     if (payrollOneoffCasesReadable(session))
                       OutlinedButton(
                         onPressed: loading || busy ? null : openOneOffCases,
@@ -2814,11 +2927,15 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage>
                               TextButton(
                                 onPressed: canPreview
                                     ? () =>
-                                          preview?['source']?['source_schema_version'] ==
-                                              4
+                                          [4, 5].contains(
+                                            preview?['source']?['source_schema_version'],
+                                          )
                                           ? calculatePeriod(
                                               businessMap(
-                                                preview!['source']['one_off_case'],
+                                                preview!['source'][preview!['source']['source_schema_version'] ==
+                                                        5
+                                                    ? 'multiple_one_off_case'
+                                                    : 'one_off_case'],
                                               ),
                                               previous: correction,
                                               reason:
@@ -2993,7 +3110,9 @@ Future<Map<String, dynamic>> payrollLedgerSnapshot(
   int year,
 ) async {
   final view = businessMap(raw), ledger = businessMap(view['ledger']);
-  if (ledger['schema_version'] != 1 ||
+  if ((ledger['schema_version'] != 1 &&
+          (ledger['schema_version'] is! int ||
+              ledger['schema_version'] != 4)) ||
       ledger['employee']?['id'] != employee ||
       ledger['year'] != '$year' ||
       ledger['currency'] != 'EUR' ||
@@ -3127,6 +3246,39 @@ Future<Map<String, dynamic>> payrollLedgerSnapshot(
       0,
       'Die Lohnkonto-Vollständigkeit ist nicht belegt.',
     );
+  final multiples = recorded
+      .where((m) => m['calculation']['rule_version'] == payrollMultipleRule)
+      .toList();
+  if (ledger['schema_version'] == 4) {
+    final expected = [
+      for (final m in multiples)
+        {
+          'month': m['month'],
+          'run_ref': {
+            'id': m['run_id'],
+            'revision': m['revision'],
+            'content_hash': m['content_hash'],
+          },
+          'case_ref': m['source_refs']['multiple_one_off_case'],
+          'details': m['calculation']['multiple_one_off_details'],
+          'letter_s': false,
+        },
+    ];
+    if (multiples.isEmpty ||
+        !payrollSame(ledger['recorded_multiple_one_off_payments'], expected))
+      throw const ApiException(
+        0,
+        'Die Jahresübersicht ersetzt die ursprünglichen Monatsgruppen.',
+      );
+    for (final m in multiples)
+      payrollFactRef(m['source_refs']['multiple_one_off_case']);
+  } else if (multiples.isNotEmpty ||
+      ledger.containsKey('recorded_multiple_one_off_payments')) {
+    throw const ApiException(
+      0,
+      'Die neue Monatsgruppe benötigt ihre eigene Jahresquellenfassung.',
+    );
+  }
   if (ledger.containsKey('account_records'))
     for (final record in businessItems(ledger['account_records']))
       payrollAccountRecord(record, employee);

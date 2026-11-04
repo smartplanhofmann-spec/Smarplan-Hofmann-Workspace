@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T09:22:15.503054+00:00",
+  "workspace": "/workspace/smartplan-source5-clients-20261104",
+  "reviewer": "finish_v6_clients",
+  "implementation_owner": "finish_v6_backend",
+  "scope": "Independent read-only native Source5 review, own new testfile only; no product mutations by reviewer",
+  "reviewed_files": [
+    {
+      "path": "app/lib/business_payroll_multiple_case_contract.dart",
+      "bytes": 31491,
+      "sha256": "79e8db349d8714e4da7f51ae4db72788d2d2dbbd55ae1b26de84750a88825724"
+    },
+    {
+      "path": "app/lib/business_payroll_multiple_cases.dart",
+      "bytes": 35835,
+      "sha256": "ba3950237e3083453f717dc1f6f893d17ecd56a09244f000b20ccd66dbd4efbf"
+    },
+    {
+      "path": "app/lib/business_payroll_accounts.dart",
+      "bytes": 65637,
+      "sha256": "75550bda9a9be904e0732d5cdffbab80455e704865778105c78a69e8df0c12f6"
+    },
+    {
+      "path": "app/lib/business_payroll.dart",
+      "bytes": 129784,
+      "sha256": "2578e8353558ec770fb287777b601f338f4d7a2868ce717169c660a13373940c"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "bytes": 86426,
+      "sha256": "3520548e1ff86fcf132b5558bceccd163d7f303d1da6c776e7580d89824c93d5"
+    },
+    {
+      "path": "app/test/business_payroll_multiple_independent_review_test.dart",
+      "bytes": 9576,
+      "sha256": "d50093a5cf50f3072f7c5bc3e148c25a9d448441da57b6250deafe9d96f03ee6"
+    },
+    {
+      "path": "app/test/fixtures/payroll_multiple_runs.json",
+      "bytes": 6911607,
+      "sha256": "87ccd3d7d31ed8327c3fbcc96d2f7629d6a873b1ab6d652ac914248ffc70d34b"
+    }
+  ],
+  "result": {
+    "tests": 15,
+    "passed": 15,
+    "failed": 0,
+    "flutter_analyze": "No issues found",
+    "command": "flutter test --no-pub test/business_payroll_multiple_independent_review_test.dart",
+    "analysis_command": "flutter analyze --no-pub test/business_payroll_multiple_independent_review_test.dart",
+    "execution": "require_escalated, clang-19, offline pre-resolved Flutter dependencies"
+  },
+  "coverage": [
+    "Exact accepted initial and paid-v5 Source5 payment plans and hashes",
+    "Missing/downgraded Source5 source dispatch refused for remaining new payment format",
+    "Original component/event-document/month-completeness/year-source/tax-day/previous-year/claim bindings",
+    "Prior actual payment revision, date and reference cannot be replaced",
+    "Unmounted native Source5 page removes private editor while root Navigator remains",
+    "Allowed BusinessSession replacement with same generation closes old private editor without framework errors"
+  ],
+  "confirmed_and_fixed": [
+    {
+      "id": "native-payment-source-dispatch",
+      "red": "work/verification/source5-native-independent-red-2026-11-04.log",
+      "finding": "3 variants accepted a modified actual Source5 payment when run source was missing or its schema marker absent/downgraded. New settlement fields thereby bypassed the native Source5 reader.",
+      "fix": "Owner requires explicit complete Source5 run whenever any new detail field, single-payment-plan source or v7 calculation marks this format.",
+      "limitation": "No backend financial acceptance bypass demonstrated; the defect was in native reader dispatch."
+    },
+    {
+      "id": "native-page-disposal-private-dialog",
+      "red": "work/verification/source5-native-independent-final-context-2026-11-04.log",
+      "finding": "Removing native Source5 page with retained root Navigator left its private editor and original verification text visible.",
+      "fix": "Owner captures and clears only this page's own private dialog routes and removes them after the current build; widget-context replacement uses build-safe cleanup too."
+    }
+  ],
+  "logs": [
+    {
+      "path": "work/verification/source5-native-independent-red-2026-11-04.log",
+      "bytes": 1101756,
+      "sha256": "a23cccb9933c3f4eea3102f1e4c68e051135911443dfdf5e1b83ecf31f26b13f"
+    },
+    {
+      "path": "work/verification/source5-native-independent-final-context-2026-11-04.log",
+      "bytes": 3552,
+      "sha256": "982f333d261da6294f77e4c349fbc47245e92dd80208c701ed5ffd22bbcece91"
+    },
+    {
+      "path": "work/verification/source5-native-independent-session-context-2026-11-04.log",
+      "bytes": 1427,
+      "sha256": "6b0ad3d0fc3e34e439e17db173989972139fcae082860b8a980b852011ea9e19"
+    },
+    {
+      "path": "work/verification/source5-native-independent-final-2026-11-04.log",
+      "bytes": 1427,
+      "sha256": "b859ceeadaa8d7074917838750e8617b6bbe9ff0b6d872ff37cb506b66d0a39b"
+    },
+    {
+      "path": "work/verification/source5-native-independent-analysis-final-2026-11-04.log",
+      "bytes": 104,
+      "sha256": "9bea736b7e7e2be470b4bbbe1eb828190965cb495bdc37a27890058e0342c74e"
+    }
+  ],
+  "related_browser_followup": "docs/evidence/source5-browser-format-followup-2026-11-04.json",
+  "limits": [
+    "Focused independent review; owner runs broader Native regression and root owns integrated release checks.",
+    "Widget test exercises native Flutter components in test runtime, not a physical mobile-device installation.",
+    "No production actions or complete CRM/ERP-goal claim."
+  ]
+}

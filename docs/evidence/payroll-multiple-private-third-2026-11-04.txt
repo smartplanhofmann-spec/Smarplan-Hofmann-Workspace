@@ -1,0 +1,55 @@
+test_actual_private_case_replay_keeps_sources_and_has_no_run_or_cash_effect (test_business_payroll_multiple.MultipleWorkflow.test_actual_private_case_replay_keeps_sources_and_has_no_run_or_cash_effect) ... ok
+test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) ... 
+  test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) (alteration='wrong_day') ... ERROR
+  test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) (alteration='missing_prior') ... ERROR
+  test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) (alteration='wrong_contract') ... ERROR
+  test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) (alteration='new_reference') ... ERROR
+test_consumption_failure_rolls_back_run_receipt_and_pdf (test_business_payroll_multiple.MultipleWorkflow.test_consumption_failure_rolls_back_run_receipt_and_pdf) ... ok
+test_consumption_loss_blocks_read_replay_pdf_ledger_and_restore_validation (test_business_payroll_multiple.MultipleWorkflow.test_consumption_loss_blocks_read_replay_pdf_ledger_and_restore_validation) ... ok
+test_finalization_atomic_claim_and_original_replay (test_business_payroll_multiple.MultipleWorkflow.test_finalization_atomic_claim_and_original_replay) ... ok
+test_multiple_claim_net_remains_blocked_and_zero_consumption (test_business_payroll_multiple.MultipleWorkflow.test_multiple_claim_net_remains_blocked_and_zero_consumption) ... ok
+test_only_new_actual_bonus_part_is_cash_and_euer_once (test_business_payroll_multiple.MultipleWorkflow.test_only_new_actual_bonus_part_is_cash_and_euer_once) ... ok
+test_real_paid_v5_upgrade_separate_days_and_original_receipts (test_business_payroll_multiple.MultipleWorkflow.test_real_paid_v5_upgrade_separate_days_and_original_receipts) ... ok
+test_revised_actual_forecast_blocks_fresh_source_but_historical_receipt_survives (test_business_payroll_multiple.MultipleWorkflow.test_revised_actual_forecast_blocks_fresh_source_but_historical_receipt_survives) ... ok
+test_rights_and_duplicate_month_reject_without_acceptance (test_business_payroll_multiple.MultipleWorkflow.test_rights_and_duplicate_month_reject_without_acceptance) ... ok
+
+======================================================================
+ERROR: test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) (alteration='wrong_day')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_multiple.py", line 136, in test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected
+    with self.subTest(alteration=alteration),self.assertRaises(Problem):f.accounts.save(f.owner,body)
+                                                                        ^^^^^^^^^^
+AttributeError: 'PayrollAnnualBasisTests' object has no attribute 'accounts'
+
+======================================================================
+ERROR: test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) (alteration='missing_prior')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_multiple.py", line 136, in test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected
+    with self.subTest(alteration=alteration),self.assertRaises(Problem):f.accounts.save(f.owner,body)
+                                                                        ^^^^^^^^^^
+AttributeError: 'PayrollAnnualBasisTests' object has no attribute 'accounts'
+
+======================================================================
+ERROR: test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) (alteration='wrong_contract')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_multiple.py", line 136, in test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected
+    with self.subTest(alteration=alteration),self.assertRaises(Problem):f.accounts.save(f.owner,body)
+                                                                        ^^^^^^^^^^
+AttributeError: 'PayrollAnnualBasisTests' object has no attribute 'accounts'
+
+======================================================================
+ERROR: test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected (test_business_payroll_multiple.MultipleWorkflow.test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected) (alteration='new_reference')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_multiple.py", line 136, in test_bonus_date_prior_payment_omission_and_unversioned_shape_are_rejected
+    with self.subTest(alteration=alteration),self.assertRaises(Problem):f.accounts.save(f.owner,body)
+                                                                        ^^^^^^^^^^
+AttributeError: 'PayrollAnnualBasisTests' object has no attribute 'accounts'
+
+----------------------------------------------------------------------
+Ran 10 tests in 18.225s
+
+FAILED (errors=4)

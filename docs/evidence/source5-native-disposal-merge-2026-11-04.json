@@ -1,0 +1,41 @@
+{
+  "files": [
+    {
+      "path": "app/lib/business_payroll_multiple_cases.dart",
+      "before": "1ecae98cf521cd3ce3fa6af2cf45560cd1c4947006441e666654371ac0635d17",
+      "after": "ba3950237e3083453f717dc1f6f893d17ecd56a09244f000b20ccd66dbd4efbf"
+    },
+    {
+      "path": "app/test/business_payroll_multiple_independent_review_test.dart",
+      "before": "38832aa5e73d968c71dbe81b5114064f37b0b97e294b6763c33fdeb9c8cbae24",
+      "after": "d50093a5cf50f3072f7c5bc3e148c25a9d448441da57b6250deafe9d96f03ee6"
+    }
+  ],
+  "logs": [
+    {
+      "source_path": "work/verification/source5-native-independent-red-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-independent-red-2026-11-04.log.gz",
+      "sha256": "9dc8129eeecea18e2a9f77e1e046881aaf314047d550e49cc46c1ff86543871b"
+    },
+    {
+      "source_path": "work/verification/source5-native-independent-final-context-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-independent-final-context-2026-11-04.log",
+      "sha256": "982f333d261da6294f77e4c349fbc47245e92dd80208c701ed5ffd22bbcece91"
+    },
+    {
+      "source_path": "work/verification/source5-native-independent-session-context-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-independent-session-context-2026-11-04.log",
+      "sha256": "6b0ad3d0fc3e34e439e17db173989972139fcae082860b8a980b852011ea9e19"
+    },
+    {
+      "source_path": "work/verification/source5-native-independent-final-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-independent-final-2026-11-04.log",
+      "sha256": "b859ceeadaa8d7074917838750e8617b6bbe9ff0b6d872ff37cb506b66d0a39b"
+    },
+    {
+      "source_path": "work/verification/source5-native-independent-analysis-final-2026-11-04.log",
+      "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-independent-analysis-final-2026-11-04.log",
+      "sha256": "9bea736b7e7e2be470b4bbbe1eb828190965cb495bdc37a27890058e0342c74e"
+    }
+  ]
+}

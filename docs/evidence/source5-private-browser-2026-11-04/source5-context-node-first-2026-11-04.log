@@ -1,0 +1,106 @@
+✔ Source5 UI late original source catalog cannot reopen after close (7.05778ms)
+✖ Source5 UI late case preview cannot reopen after close (5.877743ms)
+✖ Source5 UI late immutable history cannot reopen after close (2.507296ms)
+✔ Source5 UI late original source catalog cannot reopen after change (2.219974ms)
+✖ Source5 UI late case preview cannot reopen after change (4.185895ms)
+✖ Source5 UI late immutable history cannot reopen after change (2.145712ms)
+✖ Source5 UI read revocation during accepted preview removes private body and title (2.055987ms)
+✔ actual Source5 OfficeApi retry requires current approval and exact source person/month, keeps original nonce through a pause (56.758047ms)
+✔ actual Source5 endpoint rejects unrelated pending keys before another POST (3.426611ms)
+✖ Source5 keeps the original receipt validator when an unrelated valid saved record is returned (4.456061ms)
+✔ replacing the session during fresh Source5 authorization cannot send the old accepted request (2.056617ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 5
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 235.285084
+
+✖ failing tests:
+
+test at web/office/tests/payroll-multiple-context.test.mjs:16:2
+✖ Source5 UI late case preview cannot reopen after close (5.877743ms)
+  AssertionError [ERR_ASSERTION]: Missing button Monatsgruppe öffnen
+      at button (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:11:115)
+      at Object.correction (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:12:410)
+      at async TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:16:94)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-context.test.mjs:17:2
+✖ Source5 UI late immutable history cannot reopen after close (2.507296ms)
+  AssertionError [ERR_ASSERTION]: Missing button Monatsgruppe öffnen
+      at Object.button (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:11:115)
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:17:139)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-context.test.mjs:16:2
+✖ Source5 UI late case preview cannot reopen after change (4.185895ms)
+  AssertionError [ERR_ASSERTION]: Missing button Monatsgruppe öffnen
+      at button (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:11:115)
+      at Object.correction (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:12:410)
+      at async TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:16:94)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-context.test.mjs:17:2
+✖ Source5 UI late immutable history cannot reopen after change (2.145712ms)
+  AssertionError [ERR_ASSERTION]: Missing button Monatsgruppe öffnen
+      at Object.button (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:11:115)
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:17:139)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-context.test.mjs:19:1
+✖ Source5 UI read revocation during accepted preview removes private body and title (2.055987ms)
+  AssertionError [ERR_ASSERTION]: Missing button Monatsgruppe öffnen
+      at button (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:11:115)
+      at Object.correction (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:12:410)
+      at async TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-context.test.mjs:19:120)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-multiple-session.test.mjs:39:1
+✖ Source5 keeps the original receipt validator when an unrelated valid saved record is returned (4.456061ms)
+  TypeError: Cannot read properties of undefined (reading 'revision')
+      at TestContext.<anonymous> (file:///workspace/smartplan-source5-clients-20261104/web/office/tests/payroll-multiple-session.test.mjs:40:68)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

@@ -1849,6 +1849,17 @@ Unternehmensweite Ereignisregeln und verbleibende Lohn-/Steuerfälle sind weiter
 Implementierungsarbeit. Es wurde keine Produktivmigration oder Gesamtabnahme
 behauptet.
 
+### Source5 nach dem gemeinsamen Checkpoint c7dbab0
+
+Die additive Source5-Registrierung ist nach Übernahme des Anfangssalden-/
+Katalogstands gemeinsam geprüft: 92/92 Domain-, API-, Schema- und Übergabefälle
+bestehen in 74,988 Sekunden. Drei unabhängig geschriebene Gegenfälle sichern
+bereits gezahlten laufenden Lohn über unbezahlte Zwischenrevisionen; dieser
+konkrete Fehler ist behoben. Nachweise: `evidence/source5-opening-catalog-registration-2026-11-04.json`
+und `evidence/payroll-multiple-settlement-review-2026-11-04.json`.
+Die Source5-Oberflächen und der reduzierte eigene Beleg werden noch getrennt
+integriert. Diese 92 Fälle ersetzen keine vollständige Source5-Gesamtregression.
+
 ## Native Kataloghistorie nach c7dbab0 – 04.11.2026
 
 Der bisherige native Dateiimport besitzt jetzt dieselben unveränderten Originale,
@@ -1861,3 +1872,26 @@ Befund. Backend und Browser bleiben exakt auf dem geprüften c7dbab0-Stand.
 [Prüfumfang und Nachweise](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 Source5, historische Anlagen und datierte Preisquellen sind weiter getrennte
 Entwicklungsarbeit und in diesem Clientcheckpoint nicht enthalten.
+
+
+## 04.11.2026 – Source5 mit beiden Clients gemeinsam geprüft
+
+Der neue gemeinsame Stand auf `4c2f008` verbindet einen vollständigen
+ursprünglichen Bonus, getrennte tatsächliche Zahlungstage, unveränderte bereits
+bezahlte laufende Teile und reduzierte eigene Mitarbeiterbelege. Unabhängig
+reproduzierte Versions-/Dialogfehler und die ursprüngliche Zahlungskette sind
+korrigiert. Browser und App verwenden dieselben belegten Quellen.
+
+Die vollständige Regression besteht 1.626/1.627 Backendfälle (ein vorhandener
+Windows-Skip), 555 Node- und 1.208 Flutterfälle; Analyse ohne Befund und
+16 Paketprüfungen. Echte Source5-/Source4-/Anfangssalden-Browserabläufe bestehen.
+Drei tatsächliche PostgreSQL-/Restorefälle werden nur für ihren unveränderten
+gebundenen Fachstand wiederverwendet. 1.138 Eingabedateien sind abschließend
+gegen ihre Prüfläufe verglichen. [Gesamtnachweis](CRM_ERP_SOURCE5_GESAMTPRUEFUNG_2026-11-04.md).
+
+Historische Anlagen und Preisgültigkeiten werden separat abschließend geprüft
+und integriert. Unternehmensweite Ereignisregeln und die weitere
+Mehrfachbonusberechnung sind in eigenen Arbeitsständen begonnen. Die
+[Statusübersicht](CRM_ERP_STATUS_AKTUELL.md) und Anforderungsmatrix trennen
+geprüfte Teilfunktionen von offenen Gesamtanforderungen. Die Schätzung von
+zwei bis vier Stunden war keine Zusage für die vollständige Buchhaltung.

@@ -1,0 +1,92 @@
+[
+  {
+    "original_path": "work/verification/source5-native-final-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-final-2026-11-04.txt",
+    "sha256": "ba76cadfb2e415672a1d35a3402b865061574e465b27afeaaac759745b00354a",
+    "bytes": 18087
+  },
+  {
+    "original_path": "work/verification/source5-native-analysis-final-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-analysis-final-2026-11-04.txt",
+    "sha256": "927671f7f88fbe1dd58dce7bf6312d2a0d6d671c9879a64c9c302a5dd53758d6",
+    "bytes": 96
+  },
+  {
+    "original_path": "work/verification/source5-native-private-first-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-private-first-2026-11-04.txt",
+    "sha256": "b7bc78ffbf46b351c97fc6a189adc6865b7d008ab647788981a4f33910fc56b1",
+    "bytes": 2655
+  },
+  {
+    "original_path": "work/verification/source5-native-page-first-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-page-first-2026-11-04.txt",
+    "sha256": "4340f99e219436482c61fb99e330f3489365bdfad4fbbfb943ee8e047d160354",
+    "bytes": 3271
+  },
+  {
+    "original_path": "work/verification/source5-native-page-second-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-page-second-2026-11-04.txt",
+    "sha256": "c4cacd5e5473fb46b56142c562aa8736e70d8a029c53d1df9fdf8735b374b350",
+    "bytes": 6585
+  },
+  {
+    "original_path": "work/verification/source5-native-payment-page-third-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-payment-page-third-2026-11-04.txt",
+    "sha256": "34b9c2a7c4dc2d11c656cf8a5beca5d99dd039f7954c35b9d369b21edc0b14cf",
+    "bytes": 2427
+  },
+  {
+    "original_path": "work/verification/source5-native-payment-page-fourth-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-payment-page-fourth-2026-11-04.txt",
+    "sha256": "54679185d30f3acee879d46b49b48d0c49ebc861000c9bc6e42ce39aa5bb34b0",
+    "bytes": 3913
+  },
+  {
+    "original_path": "work/verification/source5-native-payment-page-sixth-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-payment-page-sixth-2026-11-04.txt",
+    "sha256": "6bb4a7a88cd05a5a4058f1f47bed1a416c0e06cb97c84069542083a093821f0a",
+    "bytes": 374
+  },
+  {
+    "original_path": "work/verification/source5-native-final-second-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-final-second-2026-11-04.txt",
+    "sha256": "f3470db892116aecc787a3a9f71a9ec7ff70a00dfe414462ce5dac4610d5a846",
+    "bytes": 18152
+  },
+  {
+    "original_path": "work/verification/source5-native-analysis-final-second-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-analysis-final-second-2026-11-04.txt",
+    "sha256": "438c32194e6fd9fc9dd06e83e7ce934c2151835ede6036fb41c6d11f4d3abf45",
+    "bytes": 96
+  },
+  {
+    "original_path": "work/verification/source5-native-final-third-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-final-third-2026-11-04.txt",
+    "sha256": "15a776d1ece8593609358c0f48e60bc41394a54319f4c9e7a6ef8b163bc548f6",
+    "bytes": 18221
+  },
+  {
+    "original_path": "work/verification/source5-native-analysis-final-third-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-analysis-final-third-2026-11-04.txt",
+    "sha256": "927671f7f88fbe1dd58dce7bf6312d2a0d6d671c9879a64c9c302a5dd53758d6",
+    "bytes": 96
+  },
+  {
+    "original_path": "work/verification/source5-native-independent-red-2026-11-04.log",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-independent-red-2026-11-04.log.gz",
+    "sha256": "9dc8129eeecea18e2a9f77e1e046881aaf314047d550e49cc46c1ff86543871b",
+    "bytes": 78641
+  },
+  {
+    "original_path": "work/verification/source5-native-final-reviewed-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-final-reviewed-2026-11-04.txt",
+    "sha256": "6a512601d5bafbb37e571323a11ddbb2ee85fbd698cabac5b3c5307d6379678a",
+    "bytes": 21238
+  },
+  {
+    "original_path": "work/verification/source5-native-analysis-reviewed-2026-11-04.txt",
+    "repository_path": "docs/evidence/source5-native-owner-2026-11-04/source5-native-analysis-reviewed-2026-11-04.txt",
+    "sha256": "8395530aaac8eefffe2e3172d829a0e54c56f08e6170e62524d23b7e4096b9b0",
+    "bytes": 96
+  }
+]

@@ -30,7 +30,7 @@ for name in ('MS_CLIENT_ID','MS_CLIENT_SECRET','MS_REDIRECT_URI','OFFICE_VAULT_K
     os.environ.pop(name,None)
 f=YearOpeningWorkflow('runTest');f.setUp();office=f.office
 key=Fernet.generate_key();instance=uuid.uuid4().hex;temp=tempfile.TemporaryDirectory(prefix='synthetic-native-v2-')
-host='year-review-v2.example.test';storage=Storage(office,key,host,config={'server':{'path':str(Path(temp.name)/'company')}})
+host='year-review-v2.example.test';storage=Storage(office,key,host,config={'server':{'path':str(Path(temp.name).resolve(strict=True)/'company')}})
 bind(office,instance,host,key,storage)
 original,_=f.save();f.classify(original)
 payment,_=f.f.payment(f.old,'59.50',day='2026-11-01');f.f.classify(payment)

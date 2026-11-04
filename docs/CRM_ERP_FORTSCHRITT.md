@@ -2231,3 +2231,11 @@ erwartungsgemäß übersprungen und dort weiter ausgewählt. Der vollständige L
 Backendlauf bleibt unverändert. App-/Backend-Fachquellen wurden nicht geändert.
 Für die tatsächliche Geräteabnahme ist eine CSV mit 20 ungeprüften Fällen
 vorbereitet. Weitere Server-/TestFlight-Bereitstellung steht weiterhin aus.
+
+Der volle Linux-Backendlauf auf 112bc91 besteht mit 1.924 Fällen und drei
+erwarteten Ausnahmen (zwei gesondert ausgeführte PG-Quittungsfälle, ein reiner
+Windows-Jobobjektfall). Die iPhone-Prüfung findet drei macOS-spezifische
+Fixturefehler am temporären /var-Symlink. Vier Testpfadstellen sind kanonisch
+vorbereitet; alle drei Fehler sind unter einer eigenen Symlink-Tempumgebung
+reproduziert und danach mit den bestehenden tatsächlichen HTTP-Abläufen
+geschlossen. Produkt-Dateischutz und Assertions bleiben unverändert.

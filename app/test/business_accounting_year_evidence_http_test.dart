@@ -33,7 +33,7 @@ foundation=BusinessFoundation(office)
 for permission in ('accounting.read','finance.read'):
     foundation.save_grant(f.owner,dict(request_id=uuid.uuid4().hex,user_id=worker,permission=permission,scope='*',effect='allow',revision=0))
 office.assign(f.owner,f.f.fixture.project,worker)
-host='year-review.example.test';storage=Storage(office,f.key,host,config={'server':{'path':str(Path(f.temp.name)/'company')}})
+host='year-review.example.test';storage=Storage(office,f.key,host,config={'server':{'path':str(Path(f.temp.name).resolve(strict=True)/'company')}})
 app=create_app(office=office,key=f.key,host=host,instance_id=f.instance,storage=storage)
 def proxy(environ,start_response):
     environ['HTTP_HOST']=host;environ['HTTP_X_FORWARDED_PROTO']='https'

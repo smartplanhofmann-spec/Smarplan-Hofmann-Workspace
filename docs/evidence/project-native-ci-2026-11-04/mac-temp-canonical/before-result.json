@@ -1,0 +1,18 @@
+{
+  "phase": "before",
+  "exit_code": 1,
+  "duration_seconds": 7.398,
+  "source_commit": "70b5cb28d2afa43e37715222e34ab62abd55db82",
+  "source_sha256": {
+    "app/test/business_company_events_http_test.dart": "62f572b605c2c04d3134a2c132eb6f53378eb2768e1cd9fa36edfa8fdcc2d7e9",
+    "app/test/business_accounting_year_evidence_http_test.dart": "9108761c8e852bd1f10d436dde09f6304a1d2fa2b484041c5245518edd58c4bd",
+    "app/test/business_accounting_year_evidence_v2_http_test.dart": "e49a384427a73c6334a3b3cde37516e427d28b7c4ecf0a73259305bed045a9e3",
+    "backend/test_accounting_year_package.py": "3e79f68c4310614cd6ba25819c9051c0640b2572266ee339dc85022b6622ee21",
+    "backend/online/storage_backends.py": "cd01e514d2320c37389f9e46b6786a1366d8f5b908ef953c37b0446208862e48",
+    "backend/online/instance.py": "d15889a42dbe3fb190d3577a4fb6c7b9d64efc7ed6c8fc79f4fcd00a2c719b1a"
+  },
+  "source_unchanged_during_run": true,
+  "owned_symlink_parent_removed": true,
+  "real_HTTP_tests": 3,
+  "note": "Linux alias reproduces rejected macOS /var ancestor; actual macOS run is separate."
+}

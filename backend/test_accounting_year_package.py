@@ -34,7 +34,7 @@ class YearPackageTests(unittest.TestCase):
         self.office,self.owner,self.api=self.f.office,self.f.owner,self.f.api
         self.temp=tempfile.TemporaryDirectory(prefix='synthetic-year-review-');self.addCleanup(self.temp.cleanup)
         self.key=Fernet.generate_key();self.instance=uuid.uuid4().hex
-        storage=Storage(self.office,self.key,'year-review.example.test',config={'server':{'path':str(Path(self.temp.name)/'company')}})
+        storage=Storage(self.office,self.key,'year-review.example.test',config={'server':{'path':str(Path(self.temp.name).resolve(strict=True)/'company')}})
         bind(self.office,self.instance,'year-review.example.test',self.key,storage)
 
     def year(self):

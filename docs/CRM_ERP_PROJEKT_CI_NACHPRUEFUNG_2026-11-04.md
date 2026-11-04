@@ -151,3 +151,25 @@ sind erhalten. Die bereits erfolgreichen 1.621 Linux-App-Tests und der echte
 iOS-Simulatorbuild auf `112bc91` bleiben getrennt nachgewiesen. App-/Backend-
 Fachruntime ist durch diese reine CI-Helferänderung unverändert; der laufende
 iPhone-Prüfjob wird von diesem geänderten Skriptpfad nicht neu ausgelöst.
+
+## macOS: temporäre Elternpfade der drei gebundenen Testinstanzen
+
+Der vollständige Intel-macOS-App-Lauf auf `112bc91` endet mit drei Fehlern
+bei der Instanzbindung: macOS stellt den temporären Elternpfad unter dem
+System-Symlink /var bereit. Der geschützte Serveradapter verweigert diesen
+Symlink wie vorgesehen mit O_NOFOLLOW. Betroffen sind der Ereignis-HTTP-Fall
+und beide Jahresnachweis-HTTP-Fälle; bei letzterem liegt eine erste Bindung
+bereits in der verwendeten Python-Testfixture.
+
+Vier reine Fixture-Pfadstellen verwenden jetzt den kanonischen, bereits
+vorhandenen temporären Elternpfad mit resolve(strict=True), bevor sie das
+neue private Ablageverzeichnis anhängen. Der Produktionsadapter, die
+Instanzprüfung und sämtliche Verhaltensassertionen sind unverändert.
+
+Eine eigene lokale Symlink-Tempumgebung reproduziert genau alle drei Fehler
+vor der Korrektur. Anschließend bestehen dort alle drei vollständigen echten
+HTTP-Abläufe; Flutter analyze meldet keine Befunde. Die eigene Tempumgebung
+ist jeweils entfernt. [Vorher-/Nachher-Läufe und Quellbindungen](evidence/project-native-ci-2026-11-04/mac-temp-canonical/after-result.json)
+und der vollständige ursprüngliche [macOS-Fehlerlauf](evidence/project-native-ci-2026-11-04/current-ios-failed.log)
+sind erhalten. Die tatsächliche macOS-Nachprüfung und der unsignierte
+Gerätebuild stehen noch aus.

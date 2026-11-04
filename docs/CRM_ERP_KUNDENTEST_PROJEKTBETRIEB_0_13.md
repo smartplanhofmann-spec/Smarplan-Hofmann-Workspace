@@ -22,6 +22,36 @@ Buchhaltung gehören nicht zu dieser Testphase.
 - Buildkennung und Quellstand sowie verwendete Geräte im Testprotokoll
   notieren. Alle drei Zugänge müssen dieselbe Unternehmensinstanz verwenden.
 
+## Vorhandenen Serverstand lesen
+
+Diese Befehle sind für die bestehende SSH-Konsole des Servers vorbereitet;
+in dieser Cloud wurde damit kein Serverzugriff ausgeführt. Sie lesen nur
+Dienststatus, ausgecheckten und tatsächlich installierten Quellstand sowie den
+öffentlichen Zustandsendpunkt. Sie installieren, migrieren und starten nichts.
+
+```bash
+systemctl show smartplan-online.service smartplan-https.service --property=Id --property=ActiveState --property=SubState
+git -C /opt/smartplan-test rev-parse HEAD
+python3 - <<'PY'
+from pathlib import Path
+import re
+try:
+    value = Path('/opt/smartplan-online/SOURCE_COMMIT').read_text().strip()
+except OSError:
+    value = ''
+print('Installierter Quellstand:', value if re.fullmatch('[0-9a-f]{40}', value) else 'nicht feststellbar')
+PY
+curl --fail --silent --show-error --max-time 15 https://office.smartplan-hofmann.de/health
+```
+
+Die vorhandene Backend-Kompatibilitätskennung `0.12.0-online-pilot` und Schema 7
+sind keine App-Buildnummer und belegen für sich kein aktuelles Serverupdate.
+Der installierte Quellstand ist deshalb separat zu vergleichen. Ein git pull
+allein ersetzt die laufende Serverkopie nicht. Die Erstinstallation und
+Aktivierung der bestehenden Anlage werden nicht wiederholt; das spätere Update
+verwendet den vorhandenen geprüften Ablauf für eine getrennte Datenbankkopie.
+Die obigen Befehle lesen keine Passwörter, Token oder service.env-Datei.
+
 ## Gemeinsame Bedienfolge
 
 1. **Kunde und Projekt:** Im Browser einen Testkunden mit vollständiger

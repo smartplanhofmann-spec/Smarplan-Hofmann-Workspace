@@ -1,0 +1,7 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_company_events_http_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:09 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_v2_http_test.dart: actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:10 +3: All tests passed!

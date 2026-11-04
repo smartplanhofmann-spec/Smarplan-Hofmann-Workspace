@@ -1,0 +1,185 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_company_events_http_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:00 +0 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:00 +0 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task [E]
+  Expected: <true>
+    Actual: <false>
+  Traceback (most recent call last):
+    File "/workspace/Smarplan-Hofmann-Workspace/backend/online/instance.py", line 162, in bind
+      directory = server._open_root(binding_operation=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/workspace/Smarplan-Hofmann-Workspace/backend/online/storage_backends.py", line 82, in _open_root
+      child = os.open(component, flags, dir_fd=descriptor)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  NotADirectoryError: [Errno 20] Not a directory: 'alias'
+  
+  During handling of the above exception, another exception occurred:
+  
+  Traceback (most recent call last):
+    File "<string>", line 27, in <module>
+    File "/workspace/Smarplan-Hofmann-Workspace/backend/online/instance.py", line 185, in bind
+      _fail()
+    File "/workspace/Smarplan-Hofmann-Workspace/backend/online/instance.py", line 29, in _fail
+      raise InstanceConfigurationError(ERROR)
+  online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+  
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/business_company_events_http_test.dart 86:7    main.<fn>
+  
+00:01 +0 -1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown while running async test code:
+Expected: <true>
+  Actual: <false>
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/instance.py", line 162, in bind
+    directory = server._open_root(binding_operation=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/storage_backends.py", line 82, in
+_open_root
+    child = os.open(component, flags, dir_fd=descriptor)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotADirectoryError: [Errno 20] Not a directory: 'alias'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 11, in <module>
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_accounting_year_package.py", line 38, in
+setUp
+    bind(self.office,self.instance,'year-review.example.test',self.key,storage)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/instance.py", line 185, in bind
+    _fail()
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/instance.py", line 29, in _fail
+    raise InstanceConfigurationError(ERROR)
+online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host,
+Schlüssel oder Serverablage überein.
+
+When the exception was thrown, this was the stack:
+#0      fail (package:matcher/src/expect/expect.dart:187:31)
+#1      _expect (package:matcher/src/expect/expect.dart:182:3)
+#2      expect (package:matcher/src/expect/expect.dart:65:3)
+#3      expect (package:flutter_test/src/widget_tester.dart:473:18)
+#4      main.<anonymous closure>.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_http_test.dart:127:11)
+<asynchronous suspension>
+<asynchronous suspension>
+#6      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_http_test.dart:112:24)
+<asynchronous suspension>
+#7      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#8      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 2 frames from dart:async and package:stack_trace)
+
+The exception was caught asynchronously.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following _TypeError was thrown running a test:
+Null check operator used on a null value
+
+When the exception was thrown, this was the stack:
+#0      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_http_test.dart:133:12)
+<asynchronous suspension>
+#1      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#2      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source
+  revocation before save
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save [E]
+  Test failed. See exception logs above.
+  The test description was: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+  
+00:01 +0 -2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_v2_http_test.dart: actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown while running async test code:
+Expected: <true>
+  Actual: <false>
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/instance.py", line 162, in bind
+    directory = server._open_root(binding_operation=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/storage_backends.py", line 82, in
+_open_root
+    child = os.open(component, flags, dir_fd=descriptor)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotADirectoryError: [Errno 20] Not a directory: 'alias'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 16, in <module>
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/instance.py", line 185, in bind
+    _fail()
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/instance.py", line 29, in _fail
+    raise InstanceConfigurationError(ERROR)
+online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host,
+Schlüssel oder Serverablage überein.
+
+When the exception was thrown, this was the stack:
+#0      fail (package:matcher/src/expect/expect.dart:187:31)
+#1      _expect (package:matcher/src/expect/expect.dart:182:3)
+#2      expect (package:matcher/src/expect/expect.dart:65:3)
+#3      expect (package:flutter_test/src/widget_tester.dart:473:18)
+#4      main.<anonymous closure>.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_v2_http_test.dart:136:11)
+<asynchronous suspension>
+<asynchronous suspension>
+#6      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_v2_http_test.dart:121:24)
+<asynchronous suspension>
+#7      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#8      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 2 frames from dart:async and package:stack_trace)
+
+The exception was caught asynchronously.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following _TypeError was thrown running a test:
+Null check operator used on a null value
+
+When the exception was thrown, this was the stack:
+#0      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_v2_http_test.dart:142:12)
+<asynchronous suspension>
+#1      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#2      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source
+  revocation before save
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +0 -3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_v2_http_test.dart: actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save [E]
+  Test failed. See exception logs above.
+  The test description was: actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+  
+00:02 +0 -3: Some tests failed.
+
+Failing tests:
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_v2_http_test.dart: actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task

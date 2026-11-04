@@ -62,7 +62,7 @@ from online.instance import bind
 from online.storage import Storage
 instance_key=Fernet.generate_key()
 instance_id=uuid.uuid4().hex
-instance_storage=Storage(office,instance_key,'office.example.test',config={'server':{'path':str(Path(sys.argv[1])/'private-storage')}})
+instance_storage=Storage(office,instance_key,'office.example.test',config={'server':{'path':str(Path(sys.argv[1]).resolve(strict=True)/'private-storage')}})
 bind(office,instance_id,'office.example.test',instance_key,instance_storage)
 with transaction(office):
     ProjectWorkspace(office).save_item(user,project,'tasks',dict(request_id=uuid.uuid4().hex,

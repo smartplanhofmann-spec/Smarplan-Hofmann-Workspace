@@ -1,5 +1,11 @@
 # Aktueller Stand der CRM-/ERP-Entwicklung
 
+**Aktuelle Nutzerpriorität vom 04.11.2026:** Zuerst Projektbetrieb, Angebote,
+Rechnungen und Stunden in Browser, mobiler App und Windows-App fertigstellen.
+Lohnabrechnung und Buchhaltung sind zurückgestellt. Maßgeblich für die
+laufende Reihenfolge ist der [Projektphasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md);
+historische Lohn-/Buchhaltungsnachweise bleiben erhalten.
+
 Stand: 04.11.2026. Hauptprojekt: `/workspace/Smarplan-Hofmann-Workspace`.
 Das [unveränderte Gesamtziel](../CRM_ERP_Gesamtziel.txt) bleibt maßgeblich.
 Einzelunternehmen, EÜR, Regelbesteuerung/Ist, SKR04, Nettopreise und reguläre
@@ -47,7 +53,10 @@ Die [Anforderungsmatrix](CRM_ERP_ANFORDERUNGEN.md) und der
 Technisch geprüfte Entwicklungsfunktionen sind keine vollständige Fach- oder
 Betriebsfreigabe.
 
-## Laufende Integration und Entwicklung
+## Bisherige Integration und Entwicklung
+
+Die folgende Liste dokumentiert abgeschlossene beziehungsweise frühere
+Arbeiten. Die aktuelle Reihenfolge steht im Projektphasenplan oben.
 
 1. Source5-Lohnabläufe verbinden einen vollständigen ursprünglichen Bonus
    mit getrennten tatsächlichen Zahlungstagen, erhalten bereits bezahlte

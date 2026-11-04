@@ -2099,3 +2099,17 @@ und Integrationsprüfung. Backend, Browser, 15/16 und 144/213 bleiben unverände
 Keine Anforderungsstatushochsetzung; private Lohn-/Quellenpakete sowie Gesamt-
 und reale Betriebsabnahmen bleiben offen. Die etwa 65 Prozent bleiben eine
 ungewichtete Anforderungszeilenzählung und keine Arbeitszeitquote.
+
+
+## 04.11.2026 – Nutzerpriorität: Projektbetrieb vor Lohn und Buchhaltung
+
+Der Nutzer hat den nächsten Fertigstellungsumfang ausdrücklich geändert:
+alles rund um Projekte einschließlich Angebote, Rechnungen und Stunden im
+Browser sowie mobiler und Windows-App. Lohn und Buchhaltung sind zurückgestellt.
+Der [Projektphasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md) benennt
+die Prüfkette, aktuelle Lücken und Auslieferungsgrenzen. Der bisherige
+Quellstand c875ea5 bleibt die gemeinsame Ausgangsbasis. Parallele Korrekturen
+laufen in getrennten Arbeitskopien; hiermit werden keine neuen erfolgreichen
+Produktprüfungen und keine abgeschlossene Geräteauslieferung behauptet.
+Das Gesamtziel bleibt unverändert; die privaten Lohnpakete bleiben erhalten
+und werden nicht für diese Phase integriert.

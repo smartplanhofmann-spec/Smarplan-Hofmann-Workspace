@@ -1,5 +1,11 @@
 # CRM/ERP: Anforderungen und Abnahmestand
 
+**Aktuelle Nutzerpriorität vom 04.11.2026:** Zuerst Projektbetrieb, Angebote,
+Rechnungen und Stunden in Browser, mobiler App und Windows-App fertigstellen.
+Lohnabrechnung und Buchhaltung sind zurückgestellt. Maßgeblich für die
+laufende Reihenfolge ist der [Projektphasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md);
+historische Lohn-/Buchhaltungsnachweise bleiben erhalten.
+
 Stand: 04.11.2026. Quelle ist das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt). Die integrierte Basis `4c2f008` und
 nachfolgende Änderungen sind im [Fortschritt](CRM_ERP_FORTSCHRITT.md)

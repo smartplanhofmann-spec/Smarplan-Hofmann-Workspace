@@ -1,5 +1,11 @@
 # CRM/ERP – laufender Umsetzungsplan
 
+**Aktuelle Nutzerpriorität vom 04.11.2026:** Zuerst Projektbetrieb, Angebote,
+Rechnungen und Stunden in Browser, mobiler App und Windows-App fertigstellen.
+Lohnabrechnung und Buchhaltung sind zurückgestellt. Maßgeblich für die
+laufende Reihenfolge ist der [Projektphasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md);
+historische Lohn-/Buchhaltungsnachweise bleiben erhalten.
+
 Stand: 04.11.2026. Maßgeblich bleiben das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt) und die
 [Anforderungsmatrix](CRM_ERP_ANFORDERUNGEN.md). Projekt:
@@ -53,6 +59,17 @@ Anfangssaldo-/Browserstand fertig integriert: 1.163 Fluttertests und Analyse
 ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 
 ## Aktive Arbeitspakete
+
+1. Kunden-/Projektanlage und vollständige Rechnungsanschrift in beiden Clients.
+2. Durchgängige Angebote, Aufträge und tatsächliche Rechnungsausstellung.
+3. Stunden mit Freigabe/Korrektur sowie zuverlässiger App-Offlinesynchronisation.
+4. Sichere Projektregister, Planbearbeitung und Rücknavigation.
+5. Gemeinsame Regressionen und aktuelle Windows-/iPhone-Builds mit Serverabgleich.
+
+Prüffälle, konkrete Lücken und Grenzen stehen im
+[aktuellen Phasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md).
+
+## Bisherige Reihenfolge – durch die Projektphase zurückgestellt
 
 1. **Weitere Einmalbezugsfälle fertigstellen.** Die private Jahresquellen-API
    besitzt Browser- und App-Formulare. Source4/v6 verbindet einen belegten
@@ -118,7 +135,8 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    Die [native Service-/Betriebsmittelkorrektur](CRM_ERP_SERVICE_BETRIEBSMITTEL_GESAMTPRUEFUNG_2026-11-04.md)
    ist ebenfalls mit 35 Fällen und Analyse integriert. Private Lohnvergleichs-,
    SV-Gruppen- und Quellenpakete liegen noch getrennt vor. Ihre Integration und
-   weitere tatsächliche Fach-/Betriebsnachweise bleiben die nächsten Schritte.
+   weitere tatsächliche Fach-/Betriebsnachweise bleiben spätere Schritte;
+   die aktuelle Projektphase hat Vorrang.
 
 Die v5-Zusammenrechnung mehrerer belegter Entgelt-/SV-Abschnitte mit
 Anspruchsbausteinen und Reise-Lohnübergabe sowie der eigene v5-Mitarbeiterbeleg
@@ -134,7 +152,7 @@ getestet, fünf teilweise, elf offen und sechs extern blockiert. 64,5 % (etwa
 65 %) ist lediglich die ungewichtete Zeilenzählung, keine Fertigstellungs- oder
 Zeitquote. Gesamtbuchhaltung und alle Abnahmen A–G bleiben offen.
 
-Nach den aktiven Paketen werden verbleibende konkrete Steuer-/Lohnfälle,
+Nach dem Abschluss der Projektphase bleiben die konkreten Steuer-/Lohnfälle,
 vollständige menschliche und gerätebezogene Bedienprüfung und die
 vollständigen technischen Abnahmen A–G abgearbeitet. Dabei werden vorhandene
 Teilnachweise verbunden und Lücken gezielt ergänzt. Neue Anbieter-/Dateiformate

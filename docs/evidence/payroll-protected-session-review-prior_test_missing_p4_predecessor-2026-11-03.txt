@@ -1,0 +1,83 @@
+✔ actual OfficeApi imported_period guard requires current approval and preserves nonce after module pause (39.802893ms)
+✔ actual OfficeApi imported_one_off guard requires current approval and preserves nonce after module pause (6.693053ms)
+✔ actual OfficeApi annual_basis guard requires current approval and preserves nonce after module pause (12.053818ms)
+✔ actual OfficeApi one_off_earning guard requires current approval and preserves nonce after module pause (4.097739ms)
+✔ actual OfficeApi annual_tax_forecast guard requires current approval and preserves nonce after module pause (11.206279ms)
+✔ actual OfficeApi annual hook refuses other employee sources and an edited pending year without another POST (5.963663ms)
+✔ actual OfficeApi annual replay retains original result validator for wrong employee or year responses (7.292047ms)
+✔ actual OfficeApi annual path cannot bypass its fresh guard through an unrelated command key (0.938836ms)
+✔ actual OfficeApi annual path rejects a valid-shaped key belonging to another person (0.99436ms)
+✔ actual OfficeApi source3 original remains exact through fresh rights and paused module (38.526739ms)
+✔ actual OfficeApi source3 endpoint cannot bypass its fresh guard with an unrelated pending key (2.238535ms)
+✔ actual OfficeApi retains sickness_history nonce through rights drift and module pause (27.395658ms)
+✔ actual OfficeApi retains regular_absence nonce through rights drift and module pause (1.729048ms)
+✔ actual OfficeApi retains vacation_reference nonce through rights drift and module pause (1.293401ms)
+✔ actual OfficeApi retains unpaid_continuation nonce through rights drift and module pause (3.215599ms)
+✔ actual OfficeApi retains employment_terms nonce through rights drift and module pause (30.137077ms)
+✔ actual OfficeApi retains period_case nonce through rights drift and module pause (1.702898ms)
+✔ actual OfficeApi P2 employment terms rejects an unrelated replay key without another POST (3.576234ms)
+✔ actual OfficeApi P2 employment terms accepts exact authorized original after rights restoration and module pause (37.49267ms)
+✔ actual OfficeApi P2 period case rejects an unrelated replay key without another POST (0.896241ms)
+✔ actual OfficeApi P2 period case accepts exact authorized original after rights restoration and module pause (4.500587ms)
+✔ actual OfficeApi P4 sickness rejects an unrelated replay key without another POST (1.812914ms)
+✖ actual OfficeApi P4 sickness accepts exact authorized original after rights restoration and module pause (9.746998ms)
+✔ actual OfficeApi P4 vacation rejects an unrelated replay key without another POST (4.114244ms)
+✖ actual OfficeApi P4 vacation accepts exact authorized original after rights restoration and module pause (16.059337ms)
+✔ actual OfficeApi P4 unpaid rejects an unrelated replay key without another POST (1.172027ms)
+✖ actual OfficeApi P4 unpaid accepts exact authorized original after rights restoration and module pause (3.077511ms)
+✔ actual OfficeApi global employer policy rejects an unrelated replay key without another POST (0.891314ms)
+✔ actual OfficeApi global employer policy accepts exact authorized original after rights restoration and module pause (2.794253ms)
+✔ actual OfficeApi Source3 calculation case rejects an unrelated replay key without another POST (1.647905ms)
+✔ actual OfficeApi Source3 calculation case accepts exact authorized original after rights restoration and module pause (6.86984ms)
+✔ actual OfficeApi retains travel_tax_policy nonce through rights drift and module pause (35.597612ms)
+✔ actual OfficeApi U hook preserves exact original across fresh approve withdrawal and later source revisions (43.948515ms)
+✔ actual OfficeApi U hook refuses wrong source person or year and edited pending year without a second POST (12.787183ms)
+✔ actual OfficeApi U replay keeps receipt validator and pending nonce when response changes person or year (15.957389ms)
+✔ actual OfficeApi U path cannot bypass fresh scope guard through a malformed command key (2.568203ms)
+✔ actual OfficeApi U path refuses a valid-shaped command key for another employee (1.964923ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 34
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 508.942531
+
+✖ failing tests:
+
+test at web/office/tests/payroll-protected-session-review.test.mjs:35:2
+✖ actual OfficeApi P4 sickness accepts exact authorized original after rights restoration and module pause (9.746998ms)
+  Error: Die Anspruchsquittung gehört nicht zum unveränderten ursprünglichen Auftrag.
+      at fail (file:///workspace/Smarplan-Hofmann-Workspace/web/office/payroll-entitlements.js:13:46)
+      at Object.validate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/payroll-entitlements.js:122:360)
+      at OfficeApi.mutate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/office.js:964:39)
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-protected-session-review.test.mjs:40:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    status: 0
+  }
+
+test at web/office/tests/payroll-protected-session-review.test.mjs:35:2
+✖ actual OfficeApi P4 vacation accepts exact authorized original after rights restoration and module pause (16.059337ms)
+  Error: Die Anspruchsquittung gehört nicht zum unveränderten ursprünglichen Auftrag.
+      at fail (file:///workspace/Smarplan-Hofmann-Workspace/web/office/payroll-entitlements.js:13:46)
+      at Object.validate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/payroll-entitlements.js:122:360)
+      at OfficeApi.mutate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/office.js:964:39)
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-protected-session-review.test.mjs:40:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    status: 0
+  }
+
+test at web/office/tests/payroll-protected-session-review.test.mjs:35:2
+✖ actual OfficeApi P4 unpaid accepts exact authorized original after rights restoration and module pause (3.077511ms)
+  Error: Die Anspruchsquittung gehört nicht zum unveränderten ursprünglichen Auftrag.
+      at fail (file:///workspace/Smarplan-Hofmann-Workspace/web/office/payroll-entitlements.js:13:46)
+      at Object.validate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/payroll-entitlements.js:122:360)
+      at OfficeApi.mutate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/office.js:964:39)
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-protected-session-review.test.mjs:40:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    status: 0
+  }

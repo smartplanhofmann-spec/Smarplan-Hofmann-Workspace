@@ -50,7 +50,9 @@ class AnnualPayrollHTTP(unittest.TestCase):
 
     def test_private_sources_strict_queries_methods_bodies_and_size(self):
         path='/payroll/annual-facts/sources?employee_id='+self.f.employee['id']
-        self.assertEqual(self.http('GET',path)['annual_facts'],[])
+        catalog=self.http('GET',path)
+        for name in ('annual_facts','calculation_cases','payroll_payments','payroll_runs'):
+            self.assertEqual(catalog[name],[])
         self.http('GET',path,token=self.tech_token,status=403)
         self.http('GET',path,{},status=400)
         self.http('GET',path+'&ignored=1',status=400)

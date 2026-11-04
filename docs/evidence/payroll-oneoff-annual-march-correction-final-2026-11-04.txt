@@ -1,0 +1,6 @@
+test_march_clause_correction_replaces_own_bonus_without_reusing_other_room (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_correction_replaces_own_bonus_without_reusing_other_room) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 4.565s
+
+OK

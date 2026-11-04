@@ -199,6 +199,8 @@ class PayrollCash:
                 for index,payment in enumerate(value['details']['payments']):
                     reserved=self.db.execute('SELECT batch_id FROM business_payroll_cash_parts WHERE part_key=?',(part_key(employee_id,payment),)).fetchone()
                     payments.append(dict(payment,index=index,already_imported=bool(reserved),import_batch_id=reserved['batch_id'] if reserved else None))
+                if not payments and not issues:
+                    issues=['Für diesen belegten Nullbetrag ist keine Nettozahlung geschuldet; es gibt keinen Cash-Zahlungsteil.']
                 net.append(dict(id=value['id'],revision=value['revision'],content_hash=value['content_hash'],kind=value['kind'],month=month,
                     source_file=value['source_file'],eligible=not issues,issues=issues,payments=payments))
                 if value['kind']=='carryover':

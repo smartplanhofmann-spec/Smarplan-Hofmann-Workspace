@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-03",
+  "scope": "P5 annual evidence source service and isolated one-off kernels; not complete one-off payroll",
+  "synthetic_only": true,
+  "tests_passed": 61,
+  "tests_skipped": 0,
+  "global_schema_and_api_registration": true,
+  "final_postgres_registry_patch": false,
+  "logs": [
+    {
+      "path": "work/verification/payroll-oneoff-annual-domain-final.log",
+      "tests": 56,
+      "seconds": 6.727,
+      "sha256": "5e20ee8730506d251b6ef8d94813a407ee2f789d210ab6e68b643f1c3374a09b",
+      "passed": true
+    },
+    {
+      "path": "work/verification/payroll-annual-http-final.log",
+      "tests": 2,
+      "seconds": 2.014,
+      "sha256": "4e192976c0397d4d9faed9f109baef426e69d8778a0a4cf268748c969d17d28d",
+      "passed": true
+    },
+    {
+      "path": "work/verification/payroll-annual-pg-global.log",
+      "tests": 3,
+      "seconds": 12.285,
+      "sha256": "6689a84d4dfdcbfa28d8987931318fd83bdb7b9dce8a319c9661f8c9e930fed4",
+      "passed": true
+    }
+  ],
+  "sha256": {
+    "backend/payroll_annual_basis_2026.py": "28475b4fc0e4297dfef7bdfcb428d47b130e980eaa9f6667c33a9b642a89ecbe",
+    "backend/business_payroll_annual_basis.py": "09e8e4278388bd3e8ca0e5d3e78c16fabf817603b988216c5248c4ccc982513e",
+    "backend/test_payroll_annual_basis_2026.py": "7c90bc4c940e61a08a8f0b83cb357dc9e7328fe0fc13ae1bb2d38c5d131326c2",
+    "backend/test_business_payroll_annual_basis.py": "1f09259c33aecd61ad72d233c7f3b74aa456dd1f2663e2d871e44d4a610e7d5d",
+    "backend/test_business_payroll_annual_transport.py": "bb29154c383484e6c99611cd14feca54e8dd49b63ed38d3987c0cb40244be0e9",
+    "backend/online/test_business_payroll_annual_pg.py": "c7b6c1ccc051662effefdd7b7bd1896c2aa0c9f123d1a72eb6e0b667f484a414",
+    "backend/test_payroll_annual_basis_review.py": "d806471c878bc13fef43bd11f26965b159a152486750c32a9eb1b431c337d892",
+    "backend/payroll_oneoff_2026.py": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8",
+    "backend/payroll_pap_oneoff_2026.py": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456",
+    "docs/fixtures/payroll-annual-basis-2026.json": "fe577d29eb42ac9263e17ca2f467053f4a0ec2d098beba80c93a59f048be26d1"
+  },
+  "independent_review": "docs/evidence/payroll-annual-independent-review-2026-11-03.json",
+  "fixed_finding": "Known 2026 tax receipts assigned to 2025 social periods must be bound explicitly in annual tax forecast; immutable prior accepted snapshots are preserved.",
+  "remaining": [
+    "New v6 composition and source contract",
+    "Typed clients",
+    "One-off allocation and payment integration",
+    "Complete Mini/Midi status sources",
+    "External professional total approval"
+  ]
+}

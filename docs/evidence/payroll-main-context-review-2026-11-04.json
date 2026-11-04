@@ -1,0 +1,134 @@
+{
+  "date": "2026-11-04",
+  "status": "completed; all three concrete defects fixed by client owner and independently verified",
+  "scope": "Independent actual Source4 main payroll navigation and preview lifecycle using production BusinessSession and actual backend-generated fixtures, synthetic data only.",
+  "results": {
+    "session-first": {
+      "passed": 0,
+      "failed": 1,
+      "phase": "before main lifecycle fix",
+      "log": "docs/evidence/payroll-main-context-session-first-2026-11-04.txt",
+      "sha256": "d32a75c2836bc468ef3bb28db52da79759e1ef95df33d899e9df0900eb2600b2"
+    },
+    "expanded-first": {
+      "passed": 24,
+      "failed": 0,
+      "phase": "after initial main lifecycle fix",
+      "log": "docs/evidence/payroll-main-context-expanded-first-2026-11-04.txt",
+      "sha256": "ae13af3b14661cf326f17cf4c73f1c0233b5f88b1a8289e51e9e734f5ce97c83"
+    },
+    "nested-first": {
+      "passed": 4,
+      "failed": 2,
+      "phase": "new nested editor cases after initial main lifecycle fix",
+      "log": "docs/evidence/payroll-main-context-nested-first-2026-11-04.txt",
+      "sha256": "3bd81de2e5180f1fa21bd3e2d82a9a405e3677d239279d4783d477cf9a5bd98d"
+    },
+    "selector-first": {
+      "passed": 12,
+      "failed": 0,
+      "phase": "additional correction selector and error paths",
+      "log": "docs/evidence/payroll-main-context-selector-first-2026-11-04.txt",
+      "sha256": "54d2d55076cc5894cda7d49d9aff16d20efdb17723a983d9f925dfb13d0c894a"
+    },
+    "final": {
+      "passed": 49,
+      "failed": 0,
+      "phase": "42 new and 7 existing tests after nested fix",
+      "log": "docs/evidence/payroll-main-context-final-2026-11-04.txt",
+      "sha256": "d72342cbebddfe428002dcf478d106b8e259dd495b2fe2d5e99a70130333ee40"
+    },
+    "unmount-first": {
+      "passed": 0,
+      "failed": 1,
+      "phase": "new retained-navigator unmount case",
+      "log": "docs/evidence/payroll-main-context-unmount-first-2026-11-04.txt",
+      "sha256": "7c9a770f6f805400cfe9f71e394cae9d4d2c3d4c21548d198aa91d9498939c1b"
+    },
+    "integrated-final": {
+      "passed": 50,
+      "failed": 0,
+      "phase": "43 independent context cases plus7 existing Source4 cases after all three runtime fixes",
+      "log": "docs/evidence/payroll-main-context-integrated-final-2026-11-04.txt",
+      "sha256": "2fc2e2dc833b12e94366c802fa7bdf179cc48ccd2f3f330f61174948cb06eaa9"
+    },
+    "analyze-final": {
+      "issues": 0,
+      "phase": "final independent review test static analysis",
+      "log": "docs/evidence/payroll-main-context-analyze-final-2026-11-04.txt",
+      "sha256": "94002577ca36887f9114e8623bc6166687feb30820135d38a272b1478d2186e7"
+    }
+  },
+  "findings": [
+    "Held actual Source4 payroll preview appears after replacing the main page with another allowed BusinessSession at the same generation.",
+    "After initial main fix, removing a Source4 child route during session/employee replacement leaves its private correction editor visible and triggers a Navigator ProxyAnimation build-phase assertion.",
+    "Replacing the main payroll widget while retaining MaterialApp/Navigator leaves the private Source4 child route and nested editor visible; source main widget is already gone."
+  ],
+  "current_test_count": 43,
+  "sources_at_nested_failure_recording": {
+    "app/lib/business_payroll.dart": "ad6b7c905793855f37638b3b00d088cbd21702555dde874b88a74223c5556892",
+    "app/lib/business_payroll_oneoff_cases.dart": "351b381e60274612c1b0854e7f7df995fccd818311b5a1266f626fdef954b16d",
+    "app/test/business_payroll_main_context_review_test.dart": "a6e0aa131a503883e3d8f014e82de8d987df5a3361d6987173553e9157318453"
+  },
+  "final_results": {
+    "independent_context_tests": 43,
+    "existing_source4_tests": 7,
+    "passed": 50,
+    "failed": 0,
+    "analysis_issues": 0
+  },
+  "context_matrix": {
+    "changes": [
+      "replacement allowed BusinessSession with same generation",
+      "different employee in same BusinessSession",
+      "personnel.read withdrawn",
+      "personnel.approve withdrawn while read retained",
+      "capability generation changed",
+      "app hidden/paused then resumed"
+    ],
+    "paths": [
+      "held actual Source4 main payroll preview",
+      "open main correction reason dialog",
+      "held main correction preview",
+      "late private main preview error",
+      "late private main correction error",
+      "open main correction selector",
+      "open nested private case correction editor"
+    ],
+    "additional": "main widget removed with MaterialApp/Navigator retained and nested private editor open"
+  },
+  "fixes_by_client_owner": [
+    "Main view transfers session listeners and invalidates current actions using session identity, employee identity and epoch; lifecycle changes and privilege/generation changes close tracked private routes and discard stale success/error responses.",
+    "Nested descendants are closed before the owning private route is removed; Navigator mutations triggered during widget update run safely after the frame.",
+    "Main disposal dismisses tracked private routes, including nested child editors, while pending callbacks are already invalidated."
+  ],
+  "source_sha256_final": {
+    "app/lib/business_payroll.dart": "8727d1655dba5f9721f7d981498986eba313e50e92bac8307a7bb86a3308d558",
+    "app/lib/business_payroll_oneoff_cases.dart": "351b381e60274612c1b0854e7f7df995fccd818311b5a1266f626fdef954b16d",
+    "app/lib/business_widgets.dart": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+    "app/lib/business_session.dart": "b2ce8252048b9dcb230046e2546f211eb351d72621f42fc6f842cf66c2de148d",
+    "app/test/business_payroll_main_context_review_test.dart": "afdaad81a157f5dbbc9370604376ce9872e48a259b150d4e24590e897543ca51",
+    "app/test/business_payroll_oneoff_runs_test.dart": "519dc675b5218f28b6366db0f62c7eaf1adaf038a6d59a08312c32a09297e83b",
+    "app/test/business_editor_context_test.dart": "279057c6834342e925279e0a5778082f880871df699bb6e70353ccf1b0a2c51f",
+    "app/test/fixtures/payroll_oneoff_runs.json": "8c5483501bb7e1e5e20e178f15e6d5f18332b1de33b78201b34a5c1d0ed4946b"
+  },
+  "commands": {
+    "final": "flutter test --no-pub --reporter expanded test/business_payroll_main_context_review_test.dart test/business_payroll_oneoff_runs_test.dart",
+    "analysis": "flutter analyze --no-pub test/business_payroll_main_context_review_test.dart",
+    "nested_red": "flutter test --no-pub --reporter expanded test/business_payroll_main_context_review_test.dart --name \"nested case\"",
+    "unmount_red": "flutter test --no-pub --reporter expanded test/business_payroll_main_context_review_test.dart --name \"unmount closes\""
+  },
+  "environment": {
+    "flutter": "/workspace/toolchains/flutter",
+    "pub_cache": "/workspace/toolchains/pub-cache",
+    "python": "/tmp/smartplan-backend-verified/bin/python",
+    "clang": "/workspace/toolchains/clang-19/bin",
+    "review_viewport": "1100 x 14000 logical pixels, so private preview content is built and observable in these lifecycle assertions; existing productive test supplies its normal viewport."
+  },
+  "limits": [
+    "This is targeted native Source4 lifecycle evidence, not a complete product/privacy/legal approval.",
+    "Negative logs belong to three distinct stages: initial delayed preview, nested editor after first fix, retained Navigator disposal after second fix. Other cases were added after the corresponding fix and have no claimed red baseline.",
+    "The tests use actual backend-generated Source4 fixtures and production BusinessSession; transport is the existing OneOffRunApi extended only for held responses, capabilities and employee selection.",
+    "All runtime changes were made by finish_v6_clients; independent reviewer changed only its review test and evidence."
+  ]
+}

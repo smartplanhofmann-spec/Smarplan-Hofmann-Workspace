@@ -1,0 +1,33 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: /payroll/runs/496d7a21c51a434588c3bf0e0cbfad32 {"accepted_scope":"commercial_minijob_flat_tax","calculation":{"accident_insurance_included":false,"blockers":[],"church_tax_minor":null,"currency":"EUR","employee_additional_payment_minor":0,"employee_contributions":{"care":0,"health_additional":0,"health_general":0,"pension":0,"unemployment":0},"employee_social_total_ [line truncated]
+
+
+200 !== 403
+
+    at api (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-flow.cjs:8:314)
+    at async Object.payrollFlow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-flow.cjs:59:1424)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:195:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: the server responded with a status of 400 (Bad Request)'
+]
+Fixture log tail:
+ness/time/summary?employee_id=d061f6d1731c4bceb4e724b721fd6c80&from=2026-11-01&to=2026-11-04 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:17] "GET /api/v1/business/personnel/agreements?employee_id=d061f6d1731c4bceb4e724b721fd6c80 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:17] "GET /api/v1/business/personnel/payroll-preparations?employee_id=d061f6d1731c4bceb4e724b721fd6c80 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:17] "GET /api/v1/business/personnel/expenses?employee_id=d061f6d1731c4bceb4e724b721fd6c80 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:17] "GET /api/v1/business/personnel/files?employee_id=d061f6d1731c4bceb4e724b721fd6c80 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:17] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:17] "GET /api/v1/business/payroll/employee-statements?employee_id=d061f6d1731c4bceb4e724b721fd6c80 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:17] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:17] "GET /api/v1/business/payroll/employee-statements/496d7a21c51a434588c3bf0e0cbfad32?revision=2 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:18] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:18] "GET /api/v1/business/payroll/employee-statements/496d7a21c51a434588c3bf0e0cbfad32/history HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 01:00:18] "GET /api/v1/business/payroll/runs/496d7a21c51a434588c3bf0e0cbfad32 HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

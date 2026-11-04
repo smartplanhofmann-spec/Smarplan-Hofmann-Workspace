@@ -1,0 +1,18 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: absence earnings show the exact nonconsecutive claim dates
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: actual source3 receipt survives pause with original body and validator
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+00:01 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: late inspect response cannot repopulate a hidden private page
+00:01 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:02 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_test.dart: typed correction previews then repeats accepted original after lost acknowledgement
+00:02 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: month switch requests the new month and clears selected original and plan
+00:02 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: original callback receives the exact selected historical file
+00:03 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: flat tax recording remains an explicit new instruction on correction
+00:03 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: late preview after background cannot restore editor or submit a command
+00:04 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: pending original blocks month change and new calculation-case actions
+00:04 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_cases_review_test.dart: revoked read right prevents original opening after a visible selection
+00:04 +16: All tests passed!

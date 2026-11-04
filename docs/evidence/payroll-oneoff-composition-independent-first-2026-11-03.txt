@@ -1,0 +1,45 @@
+test_bonus_above_distinct_caps_preserves_actual_running_pay_and_cash_identity (test_payroll_oneoff_composition_review.OneOffCompositionIndependentReview.test_bonus_above_distinct_caps_preserves_actual_running_pay_and_cash_identity) ... FAIL
+test_exact_current_health_room_keeps_whole_bonus_in_receipt_year (test_payroll_oneoff_composition_review.OneOffCompositionIndependentReview.test_exact_current_health_room_keeps_whole_bonus_in_receipt_year) ... FAIL
+test_one_cent_over_health_room_assigns_entire_payment_to_actual_prior_year (test_payroll_oneoff_composition_review.OneOffCompositionIndependentReview.test_one_cent_over_health_room_assigns_entire_payment_to_actual_prior_year) ... ok
+test_source_person_and_receipt_month_cannot_be_relabelled (test_payroll_oneoff_composition_review.OneOffCompositionIndependentReview.test_source_person_and_receipt_month_cannot_be_relabelled) ... ok
+
+======================================================================
+FAIL: test_bonus_above_distinct_caps_preserves_actual_running_pay_and_cash_identity (test_payroll_oneoff_composition_review.OneOffCompositionIndependentReview.test_bonus_above_distinct_caps_preserves_actual_running_pay_and_cash_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_oneoff_composition_review.py", line 57, in test_bonus_above_distinct_caps_preserves_actual_running_pay_and_cash_identity
+    self.assertEqual(dict(health_general=12035, health_additional=2390, pension=29231, unemployment=4086, care=3957), extra['social']['employee_contributions'])
+AssertionError: {'hea[38 chars]l': 2390, 'pension': 29231, 'unemployment': 4086, 'care': 3957} != {'hea[38 chars]l': 2390, 'pension': 29231, 'unemployment': 4086, 'care': 3956}
+- {'care': 3957,
+?             ^
+
++ {'care': 3956,
+?             ^
+
+   'health_additional': 2390,
+   'health_general': 12035,
+   'pension': 29231,
+   'unemployment': 4086}
+
+======================================================================
+FAIL: test_exact_current_health_room_keeps_whole_bonus_in_receipt_year (test_payroll_oneoff_composition_review.OneOffCompositionIndependentReview.test_exact_current_health_room_keeps_whole_bonus_in_receipt_year)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_payroll_oneoff_composition_review.py", line 33, in test_exact_current_health_room_keeps_whole_bonus_in_receipt_year
+    self.assertEqual(result['one_off_details']['social']['employee_contributions'],
+AssertionError: {'hea[38 chars]l': 2390, 'pension': 15332, 'unemployment': 2143, 'care': 3956} != {'hea[38 chars]l': 2390, 'pension': 15332, 'unemployment': 2143, 'care': 3957}
+- {'care': 3956,
+?             ^
+
++ {'care': 3957,
+?             ^
+
+   'health_additional': 2390,
+   'health_general': 12035,
+   'pension': 15332,
+   'unemployment': 2143}
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.670s
+
+FAILED (failures=2)

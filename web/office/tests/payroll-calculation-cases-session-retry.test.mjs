@@ -22,3 +22,10 @@ test('actual OfficeApi source3 original remains exact through fresh rights and p
  sourceMonth='2026-10';active=false;await api.retry(key);
  assert.equal(posts.length,2);assert.deepEqual(posts[0],posts[1]);assert.equal(api.pendingCount,0);
 });
+test('actual OfficeApi source3 endpoint cannot bypass its fresh guard with an unrelated pending key',async()=>{
+ let posts=0;const api=new OfficeApi({fetcher:async()=>{posts++;throw new Error('Synthetic original response lost');}});api.setToken('synthetic-case-unknown-key');
+ const body=structuredClone(fixture.command);delete body.request_id;
+ await assert.rejects(api.mutate('unrelated-case-command','/business/payroll/calculation-cases',body));
+ await assert.rejects(api.retry('unrelated-case-command'),error=>error.status===409);
+ assert.equal(posts,1);assert.equal(api.pendingCount,1);
+});

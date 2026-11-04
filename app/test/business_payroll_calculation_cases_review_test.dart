@@ -99,6 +99,32 @@ void reviewWidgets(
 }
 
 void main() {
+  reviewWidgets('late private source error remains cleared after background', (
+    t,
+    api,
+    session,
+  ) async {
+    const secret =
+        'Synthetischer privater Abrechnungsvermerk aus verspäteter Quellenfehlermeldung';
+    await openReviewPage(t, api, session);
+    final tile = find.text('Abrechnungsfall 2026-10 · Fassung 1').last;
+    await t.ensureVisible(tile);
+    await t.pumpAndSettle();
+    api.holdSource = true;
+    await t.tap(tile);
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 100));
+    expect(api.release, isNotNull);
+    background(t);
+    await t.pump();
+    resume(t);
+    await t.pump();
+    api.release!.completeError(const ApiException(400, secret));
+    await t.pumpAndSettle();
+    expect(find.text(secret), findsNothing);
+    expect(api.sent, isEmpty);
+    expect(t.takeException(), isNull);
+  });
   TestWidgetsFlutterBinding.ensureInitialized();
 
   reviewWidgets(

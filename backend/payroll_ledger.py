@@ -76,18 +76,19 @@ def _account(record,accounts):
         issues.append('identity_revision_outdated')
     result=dict(complete=not issues,issues=issues,identity_ref=_ref(identity),payment_ref=_ref(evidence),
         payments=evidence['details']['payments'],tax_free_payments_minor=evidence['details']['tax_free_payments_minor'])
-    if record.get('source',{}).get('source_schema_version')==3:
+    if record.get('source',{}).get('source_schema_version') in (3,4):
         intervals=evidence['sources']['identity_intervals']
         references=[_ref(value['identity']) for value in intervals]
         if any(not any(item['id']==ref['id'] and item['revision']==ref['revision'] for item in accounts) for ref in references):
             if 'identity_revision_outdated' not in issues:issues.append('identity_revision_outdated')
         result.update(complete=not issues,identity_intervals=[dict(start=value['start'],end=value['end'],identity_ref=_ref(value['identity'])) for value in intervals],
             net_deductions_minor=record['calculation']['net_deductions_minor'],
-            payable_minor=record['calculation']['net_minor']-record['calculation']['net_deductions_minor'])
+            payable_minor=record['calculation']['net_minor']-record['calculation']['net_deductions_minor'],
+            payment_status='payments_evidenced' if result['payments'] else 'no_payment_due')
     return result
 
 
-def build_ledger(employee,year,records,histories,accounts=(),carry_histories=None):
+def build_ledger(employee,year,records,histories,accounts=(),carry_histories=None,*,wage_interruptions=None):
     by_month={record['source']['month']:record for record in records}
     months=[]; corrections=[]
     for number in range(1,13):
@@ -106,8 +107,10 @@ def build_ledger(employee,year,records,histories,accounts=(),carry_histories=Non
                     for kind in ('profile','preparation')},wage_account=_account(record,accounts))
             if source.get('source_schema_version')==2:
                 item['source_refs']['period_case']=_ref(source['period_case'])
-            elif source.get('source_schema_version')==3:
+            elif source.get('source_schema_version') in (3,4):
                 item['source_refs']['calculation_case']=_ref(source['calculation_case'])
+                if source.get('source_schema_version')==4:
+                    item['source_refs']['one_off_case']=_ref(source['one_off_case'])
             for prior in histories[record['id']]:
                 if prior['revision']>1:
                     corrections.append(dict(month=month,run_id=prior['id'],revision=prior['revision'],
@@ -130,7 +133,7 @@ def build_ledger(employee,year,records,histories,accounts=(),carry_histories=Non
     missing=[item['month'] for item in months if item['status']=='missing']
     partial=[item['month'] for item in months if item['status']=='social_only']
     totals={key:_total(records,key) for key in AMOUNTS}
-    composite=[record for record in records if record['source'].get('source_schema_version')==3]
+    composite=[record for record in records if record['source'].get('source_schema_version') in (3,4)]
     if composite:totals['net_deductions_minor']=sum(record['calculation'].get('net_deductions_minor',0) for record in records)
     for group,keys in (('employee_contributions',COMPONENTS),('employer_contributions',COMPONENTS),('employer_levies',LEVIES)):
         totals[group]={key:_total(records,key,group) for key in keys}
@@ -147,7 +150,7 @@ def build_ledger(employee,year,records,histories,accounts=(),carry_histories=Non
         # superseded tax profile is not a further overlapping employment episode.
         effective_profiles={}
         for record in records:
-            values=(record['source']['calculation_case']['sources']['profiles'] if record['source'].get('source_schema_version')==3
+            values=(record['source']['calculation_case']['sources']['profiles'] if record['source'].get('source_schema_version') in (3,4)
                 else [record['source']['profile']])
             for value in values:effective_profiles[value['id']]=max(effective_profiles.get(value['id'],0),value['revision'])
         identities=[item for item in identities if item['details']['profile_revision']>=effective_profiles.get(item['details']['profile_id'],0)]
@@ -165,7 +168,10 @@ def build_ledger(employee,year,records,histories,accounts=(),carry_histories=Non
             account_issues=[]
     unpaid=[dict(month=record['source']['month'],dates=record['calculation']['period_details']['unpaid_dates'])
         for record in composite if record['calculation']['period_details']['unpaid_dates']]
-    if unpaid:account_issues.append('unpaid_statutory_marker_requires_evidence')
+    if unpaid and (wage_interruptions is None or wage_interruptions['status']!='current'):
+        account_issues.append('unpaid_statutory_marker_requires_evidence')
+    if wage_interruptions is not None and wage_interruptions['additional_statutory_fields_required']:
+        account_issues.append('section41_sentence4_amount_evidence_missing')
     complete_months={item['month'] for item in months if item['wage_account']['complete']}
     account_missing=sorted(expected-complete_months)
     field_complete=bool(records) and all(item['wage_account']['complete'] for item in months if item['status']!='missing')
@@ -188,6 +194,14 @@ def build_ledger(employee,year,records,histories,accounts=(),carry_histories=Non
             letter_m=any(record['calculation']['period_details']['travel']['letter_m'] for record in composite),
             **{key:sum(record['calculation']['period_details']['travel'][key] for record in composite) for key in travel_keys})
         ledger['recorded_unpaid_periods']=unpaid
+        if wage_interruptions is not None:ledger['recorded_wage_interruptions']=wage_interruptions
+    one_off=[dict(month=record['source']['month'],run_ref=_ref(record),case_ref=_ref(record['source']['one_off_case']),
+        details=record['calculation']['one_off_details'],letter_s=False,
+        prior_wage_evidence_ref=record['calculation']['one_off_details']['annual_tax_forecast_ref'])
+        for record in composite if record['source'].get('source_schema_version')==4]
+    if one_off:
+        ledger['recorded_travel']['scope']='recorded_effective_v5_v6_months_only'
+        ledger['recorded_one_off_payments']=one_off
     ledger['snapshot_hash']=_sha(ledger)
     return ledger
 
@@ -227,6 +241,8 @@ def _csv(ledger):
     if 'recorded_travel' in ledger:
         row(['recorded_travel',canonical(ledger['recorded_travel'])])
         row(['recorded_unpaid_periods',canonical(ledger['recorded_unpaid_periods'])])
+    if 'recorded_wage_interruptions' in ledger:
+        row(['recorded_wage_interruptions',canonical(ledger['recorded_wage_interruptions'])])
     for item in ledger['correction_history']:
         delta=[item['delta'].get(field) for field in fields]
         row(['correction',item['month'],'not_added_to_totals',item['run_id'],item['revision'],item['content_hash'],*delta,item['reason']])
@@ -234,6 +250,8 @@ def _csv(ledger):
         row(['account_evidence',record['kind'],record['id'],record['revision'],record['content_hash'],record['source_file']['id'],record['source_file']['sha256']])
         for key,value in record['details'].items():
             row(['account_field',record['id'],key,canonical(value) if isinstance(value,(list,dict)) else value])
+    for record in ledger.get('recorded_one_off_payments',[]):
+        row(['one_off_payment',record['month'],canonical(record)])
     return ('\ufeff'+stream.getvalue()).encode('utf-8')
 
 
@@ -258,6 +276,13 @@ def _pdf(ledger):
     line('Monate mit offener Steuerberechnung: '+(', '.join(ledger['partial_months']) or 'keine'))
     line('Pflichtfelder des unterstützten Lohnkontofalls vollständig: '+('ja' if ledger['statutory_wage_account_complete'] else 'nein'))
     line('Beschäftigungsmonate ohne vollständige Nachweise: '+(', '.join(ledger['account_missing_months']) or 'keine; Beschäftigungszeitraum gesondert prüfen'))
+    if 'recorded_wage_interruptions' in ledger:
+        interruptions=ledger['recorded_wage_interruptions']
+        line('U-Merkmalsnachweis: '+interruptions['status']+' / Anzahl U: '+str(interruptions['number_u'] if interruptions['number_u'] is not None else 'offen'))
+        if interruptions['reference'] is not None:
+            line('U-Original: '+canonical(interruptions['reference'])+' / geprüft bis '+interruptions['assessment_through'])
+        for period in interruptions['periods']:
+            line('U-Folge: '+period['from_date']+' bis '+period['to_date']+' / '+str(period['workday_count'])+' belegte Arbeitstage')
     columns=['Monat','Revision','Brutto EUR','AN-SV EUR','AN-Steuer EUR','Netto EUR']
     rows=[columns]
     for item in ledger['months']:
@@ -306,6 +331,14 @@ def _pdf(ledger):
                 for period in periods['social_periods']:
                     line('SV-Tage '+str(period['days'])+' / KV-PV-Grenze '+amount(period['caps']['health_minor'])+
                         ' EUR / RV-AV-Grenze '+amount(period['caps']['pension_minor'])+' EUR')
+            if item['calculation'].get('one_off_details'):
+                extra=item['calculation']['one_off_details']
+                line('Sonstiger Bezug '+amount(extra['amount_minor'])+' EUR / gebundener Zuflusstag '+extra['receipt_date'])
+                line('Einmalanspruch '+canonical(extra['earning_ref'])+' / SV-Zuordnung '+canonical(extra['assignment']))
+                line('Steuer auf sonstigen Bezug: Lohnsteuer '+amount(extra['tax']['STS'])+' EUR / Solidaritätszuschlag '+
+                    amount(extra['tax']['SOLZS'])+' EUR / Kirchensteuer '+amount(extra['church_tax_minor'])+' EUR')
+                line('Großbuchstabe S: nein; belegte Vorarbeitgeberbezüge vollständig berücksichtigt oder ausdrücklich als nicht vorhanden belegt.')
+                line('Nachweis der Vorbezüge: '+canonical(extra['annual_tax_forecast_ref']))
     for correction in ledger['correction_history']:
         line(correction['month']+' Revision '+str(correction['revision'])+': '+correction['reason'])
         line('Vorgänger '+correction['previous_hash']+' / Ergebnis '+correction['content_hash'])
@@ -328,10 +361,14 @@ def _pdf(ledger):
             line('Steuerklasse: '+str(profile['tax_class'])+' / Kinderfreibeträge in halben Einheiten: '+str(profile['tax_children_half_units']))
             line('Monatsfreibetrag: '+amount(profile.get('tax_allowance_monthly_minor'))+' EUR / Monatshinzurechnung: '+amount(profile.get('tax_addition_monthly_minor'))+' EUR')
         else:
+            source3=account['kind']=='payment' and account['sources']['run']['source'].get('source_schema_version') in (3,4)
+            if source3 and not details['payments']:
+                line('Keine Nettozahlung geschuldet: verifizierter Lauf mit 0,00 EUR Auszahlungsverpflichtung; ausdrücklich belegter Originalnachweis, kein Zahlungszufluss.')
             for payment in details['payments']:
                 line('Tatsächliche Nettozahlung '+payment['paid_on']+': '+amount(payment['amount_minor'])+' EUR / '+payment['payment_reference'])
             line('Zusätzliche steuerfreie Bezüge: '+amount(details['tax_free_payments_minor'])+' EUR / '+details['tax_free_basis'])
-            line('Ausdrücklich bestätigter Fall: laufender Barlohn, keine weiteren Sach-/Sonderbezüge und keine U/S-Fälle.')
+            line('Ausdrücklich bestätigt: ausschließlich die im geprüften Gesamtfall belegten Entgelte und Nettoabzüge ohne weitere unberücksichtigte Sachverhalte.' if source3 else
+                'Ausdrücklich bestätigter Fall: laufender Barlohn, keine weiteren Sach-/Sonderbezüge und keine U/S-Fälle.')
     SimpleDocTemplate(stream,invariant=1,pageCompression=0).build(story)
     return stream.getvalue()
 

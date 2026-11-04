@@ -19,11 +19,16 @@ historischen Sperrgründe bleiben unter ihren gespeicherten Versionen erhalten.
 Der begrenzte eigene Mitarbeiterbeleg für v1–v4 ist inzwischen geprüft.
 P4 besitzt geprüfte private Anspruchsfakten; die neue Stundenlohn-Regel v2
 behandelt zusätzlich den fachlich nachgewiesenen AU-Beginn am freien Tag.
-Aktiv entwickelt werden P3b (mehrere belegte Beschäftigungs-/Entgelt-/SV-
-Abschnitte), deren v5-Zusammenrechnung mit P4 und Reisen sowie Einmalbezüge P5.
-Der P5-Steuerhelfer besitzt amtlich abgeleitete und unabhängig handgerechnete
-Referenzfälle; tatsächliche Jahresquellen und SV-Zuordnung sind noch in Arbeit.
-Die weiteren benannten Fälle bleiben offen. Die folgende Bestandsaufnahme bewahrt den Ausgangspunkt vor P1
+Die v5-Zusammenrechnung mehrerer belegter Beschäftigungs-/Entgelt-/SV-
+Abschnitte mit P4 und Reisen ist inzwischen einschließlich beider Clients,
+Mitarbeiterbeleg, PostgreSQL und Wiederherstellung geprüft. Jahresquellen für
+Einmalbezüge sind als private API und Browser-/App-Erfassung vorhanden.
+Die reine v6-Zusammenrechnung besitzt vier unabhängige Grenzfälle zusätzlich
+zu neun Entwicklungstests. Aktiv entsteht die vollständige Source4-Kette
+mit Anspruchsbindung, Abrechnung und tatsächlich belegtem Zufluss.
+Das U-Merkmal und der Nachweis ohne Nettozahlung wurden separat ergänzt;
+ihre begrenzten Verträge ersetzen nicht die noch fehlenden Leistungsbeträge,
+Jahresüberträge und weiteren benannten Lohnfälle. Die folgende Bestandsaufnahme bewahrt den Ausgangspunkt vor P1
 und darf nicht als aktueller Vollständigkeitsnachweis gelesen werden.
 
 ## Codebefund vor P1

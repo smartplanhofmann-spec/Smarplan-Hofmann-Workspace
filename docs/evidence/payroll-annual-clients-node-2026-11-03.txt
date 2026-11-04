@@ -1,0 +1,27 @@
+✔ actual OfficeApi imported_period guard requires current approval and preserves nonce after module pause (35.291455ms)
+✔ actual OfficeApi imported_one_off guard requires current approval and preserves nonce after module pause (5.733026ms)
+✔ actual OfficeApi annual_basis guard requires current approval and preserves nonce after module pause (7.964855ms)
+✔ actual OfficeApi one_off_earning guard requires current approval and preserves nonce after module pause (4.965262ms)
+✔ actual OfficeApi annual_tax_forecast guard requires current approval and preserves nonce after module pause (8.490356ms)
+✔ actual OfficeApi annual hook refuses other employee sources and an edited pending year without another POST (5.116689ms)
+✔ actual OfficeApi annual replay retains original result validator for wrong employee or year responses (5.079934ms)
+✔ actual OfficeApi annual path cannot bypass its fresh guard through an unrelated command key (0.702026ms)
+✔ actual OfficeApi annual path rejects a valid-shaped key belonging to another person (0.809558ms)
+✔ actual imported_period typed references preserve canonical preview and original receipt (5.837074ms)
+✔ actual imported_one_off typed references preserve canonical preview and original receipt (6.60608ms)
+✔ actual annual_basis typed references preserve canonical preview and original receipt (4.995617ms)
+✔ actual one_off_earning typed references preserve canonical preview and original receipt (1.44853ms)
+✔ actual annual_tax_forecast typed references preserve canonical preview and original receipt (14.041769ms)
+✔ annual sources reject foreign originals and swapped accepted plan or employer identity (10.784778ms)
+✔ unknown monetary basis is never silently converted to a zero source (0.472731ms)
+✔ accepted annual fact retries preserve original command through module pause with fresh approval (1.348379ms)
+✔ actual OfficeApi source3 original remains exact through fresh rights and paused module (31.983848ms)
+✔ actual OfficeApi source3 endpoint cannot bypass its fresh guard with an unrelated pending key (1.736824ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 214.475306

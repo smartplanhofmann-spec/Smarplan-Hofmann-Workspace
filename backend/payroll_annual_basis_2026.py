@@ -233,7 +233,7 @@ def build_annual_plan(snapshot,*,rule_version=ANNUAL_BASIS_VERSION):
             taxable+=sum(item['taxable_minor'] for item in receipts if running_tax_year(record['details']['period_end'],item['received_on'])==d['year'])
             if paid!=record['details']['running_taxable_minor']:unpaid_tax_sources.append(reference(record))
         for projected in snapshot['internal_periods']:
-            cover(projected['coverage_start'],projected['coverage_end'],projected['source_ref'])
+            if projected['coverage_start'] is not None:cover(projected['coverage_start'],projected['coverage_end'],projected['source_ref'])
             periods.extend(projected['periods']);taxable+=projected['running_taxable_minor']
             if projected['tax_receipt_status']=='unproven':unpaid_tax_sources.append(projected['source_ref'])
         for gap in d['gaps']:cover(gap['start'],gap['end'],dict(kind=gap['reason'],reference=gap['evidence_ref']))
@@ -245,6 +245,18 @@ def build_annual_plan(snapshot,*,rule_version=ANNUAL_BASIS_VERSION):
             if p['social_year']!=d['year'] or p['assigned_period_end']>d['coverage_to']:raise Problem(409,'Früherer Einmalbezug liegt außerhalb der Jahreszuordnung.')
             if not any(value['source_ref']==record['details']['assigned_period_ref'] for value in periods):raise Problem(409,'Ursprüngliche Zuordnungsperiode des früheren Einmalbezugs fehlt.')
             oneoffs.append(dict(source_ref=reference(record),section_key=p['section_key'],assigned_period_end=p['assigned_period_end'],bases_minor=p['bases_minor']))
+        internal_other=0
+        for projected in snapshot['internal_periods']:
+            bonus=projected.get('one_off_payment')
+            if bonus is None:continue
+            if bonus['receipt_date']>d['as_of_date']:raise Problem(409,'Späterer interner Einmalzufluss gehört nicht zum Jahresstichtag.')
+            if bonus['tax_year']==d['year']:internal_other+=bonus['amount_minor']
+            if bonus['social_year']!=d['year']:continue
+            if bonus['assigned_period_end']>d['coverage_to'] or not any(
+                    value['source_ref']==bonus['assigned_period_ref'] and value['part_key']==bonus['assigned_part_key']
+                    and value['end']==bonus['assigned_period_end'] for value in periods):
+                raise Problem(409,'Die tatsächliche Zuordnungsperiode des internen Einmalbezugs fehlt in der Jahresquelle.')
+            oneoffs.append({key:bonus[key] for key in ('source_ref','section_key','assigned_period_end','bases_minor')})
         projection=dict(year=d['year'],employee_id=employee['id'],employer_key=common['employer_key'],coverage_to=d['coverage_to'],
             periods=sorted(periods,key=lambda value:(value['start'],value['part_key'])),prior_one_offs=oneoffs)
         # Temporary ref is only for arithmetic validation; it is not persisted as
@@ -253,7 +265,7 @@ def build_annual_plan(snapshot,*,rule_version=ANNUAL_BASIS_VERSION):
         sections=sorted({value['section_key'] for value in periods})
         room={section:annual_social_room(dict(projection,source_ref=temporary),through=d['coverage_to'],section_key=section)['branches'] for section in sections}
         plan=dict(common,kind=kind,year=d['year'],coverage_to=d['coverage_to'],as_of_date=d['as_of_date'],projection=projection,section_rooms=room,
-            running_taxable_minor=taxable,earlier_other_taxable_minor=sum(record['details']['amount_minor'] for record in snapshot['imported_one_offs'] if record['plan']['tax_year']==d['year']),
+            running_taxable_minor=taxable,earlier_other_taxable_minor=internal_other+sum(record['details']['amount_minor'] for record in snapshot['imported_one_offs'] if record['plan']['tax_year']==d['year']),
             coverage=sorted(bindings,key=lambda value:value['start']),unpaid_tax_sources=unpaid_tax_sources,
             contains_planned_current_period=d['current_calculation_case_ref'] is not None)
     else:

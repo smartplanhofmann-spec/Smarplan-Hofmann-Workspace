@@ -1,0 +1,52 @@
+✔ actual OfficeApi imported_period guard requires current approval and preserves nonce after module pause (33.529392ms)
+✔ actual OfficeApi imported_one_off guard requires current approval and preserves nonce after module pause (5.280924ms)
+✔ actual OfficeApi annual_basis guard requires current approval and preserves nonce after module pause (6.790255ms)
+✔ actual OfficeApi one_off_earning guard requires current approval and preserves nonce after module pause (4.390996ms)
+✔ actual OfficeApi annual_tax_forecast guard requires current approval and preserves nonce after module pause (7.538531ms)
+✔ actual OfficeApi annual hook refuses other employee sources and an edited pending year without another POST (5.108485ms)
+✔ actual OfficeApi annual replay retains original result validator for wrong employee or year responses (6.867853ms)
+✖ actual OfficeApi annual path cannot bypass its fresh guard through an unrelated command key (1.676792ms)
+✔ actual OfficeApi annual path rejects a valid-shaped key belonging to another person (0.97044ms)
+✔ actual OfficeApi U hook preserves exact original across fresh approve withdrawal and later source revisions (61.221431ms)
+✔ actual OfficeApi U hook refuses wrong source person or year and edited pending year without a second POST (15.377224ms)
+✔ actual OfficeApi U replay keeps receipt validator and pending nonce when response changes person or year (17.761331ms)
+✖ actual OfficeApi U path cannot bypass fresh scope guard through a malformed command key (8.002809ms)
+✔ actual OfficeApi U path refuses a valid-shaped command key for another employee (2.835326ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 12
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 238.336719
+
+✖ failing tests:
+
+test at web/office/tests/payroll-annual-basis-session-review.test.mjs:46:1
+✖ actual OfficeApi annual path cannot bypass its fresh guard through an unrelated command key (1.676792ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-annual-basis-session-review.test.mjs:48:2)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at web/office/tests/payroll-wage-interruptions-session-review.test.mjs:46:1
+✖ actual OfficeApi U path cannot bypass fresh scope guard through a malformed command key (8.002809ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-wage-interruptions-session-review.test.mjs:48:2)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }

@@ -102,7 +102,12 @@ bool _sicknessPlanShape(Map<String, dynamic> plan) {
   if (!_phaseRules.contains(plan['rule_version'])) return true;
   if (plan['episodes'] is! List ||
       plan['prevention_cases'] is! List ||
-      plan['phases'] is! List)
+      plan['phases'] is! List ||
+      [
+        ...plan['episodes'],
+        ...plan['prevention_cases'],
+        ...plan['phases'],
+      ].any((v) => v is! Map))
     return false;
   final cases = businessItems(plan['prevention_cases'])
           .map((v) => v['id'])

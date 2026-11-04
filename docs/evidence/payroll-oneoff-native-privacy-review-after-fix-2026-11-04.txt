@@ -1,0 +1,10 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_review_test.dart
+00:00 +0: independent v6 session replacement closes editor and detaches old listener
+00:01 +1: independent v6 employee change invalidates pending original preview
+00:02 +2: independent v6 approve loss with read retained invalidates delayed preview
+00:03 +3: independent v6 session replacement suppresses delayed private preview error
+00:04 +4: independent v6 original callback waits for still valid view after held authorization
+00:04 +5: independent v6 old private history error stays hidden after context replacement
+00:05 +6: All tests passed!

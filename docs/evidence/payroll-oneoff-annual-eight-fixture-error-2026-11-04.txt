@@ -1,0 +1,26 @@
+test_actual_paid_composition_contributes_running_and_bonus_separately (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_actual_paid_composition_contributes_running_and_bonus_separately) ... ok
+test_march_clause_correction_replaces_own_bonus_without_reusing_other_room (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_correction_replaces_own_bonus_without_reusing_other_room) ... ERROR
+test_march_clause_receipt_consumes_only_actual_previous_social_year (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_receipt_consumes_only_actual_previous_social_year) ... ok
+test_rehashed_compact_historical_profile_cannot_replace_verified_original (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_rehashed_compact_historical_profile_cannot_replace_verified_original) ... ok
+test_second_claim_same_month_does_not_hide_first_bonus (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_second_claim_same_month_does_not_hide_first_bonus) ... ok
+test_second_march_clause_bonus_consumes_only_remaining_previous_year_room (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_second_march_clause_bonus_consumes_only_remaining_previous_year_room) ... ok
+test_three_actual_bonuses_keep_tax_and_social_room_and_bounded_sources (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_three_actual_bonuses_keep_tax_and_social_room_and_bounded_sources) ... ok
+test_unpaid_omitted_later_or_replaced_actual_source_cannot_be_zero (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_unpaid_omitted_later_or_replaced_actual_source_cannot_be_zero) ... ok
+
+======================================================================
+ERROR: test_march_clause_correction_replaces_own_bonus_without_reusing_other_room (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_correction_replaces_own_bonus_without_reusing_other_room)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_oneoff_annual.py", line 205, in test_march_clause_correction_replaces_own_bonus_without_reusing_other_room
+    self.assertEqual(self.w.api.save(f.owner,body),case)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_oneoff_cases.py", line 193, in save
+    if receipt['operation'] != operation or receipt['request_hash'] != fingerprint: raise Problem(409, 'Vorgangs-ID gehört zu einem anderen ursprünglichen Auftrag.')
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+core.Problem: (409, 'Vorgangs-ID gehört zu einem anderen ursprünglichen Auftrag.')
+
+----------------------------------------------------------------------
+Ran 8 tests in 50.508s
+
+FAILED (errors=1)
+SOURCE4_SUCCESSOR_SIZES_BYTES [206183, 217530, 228168]

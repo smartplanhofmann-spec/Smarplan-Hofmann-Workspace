@@ -95,7 +95,8 @@ export async function payrollTravelTaxPoliciesAuthorize(api,{write=false,replay=
 export async function payrollTravelTaxPoliciesPendingAuthorize(api, operation) {
   const body=api.pendingCommandValues(operation?.key,operation?.path);
   if (operation?.key!==PAYROLL_TRAVEL_POLICY_KEY || operation?.path!==PAYROLL_TRAVEL_POLICY_PATH || body?.employee_id!==null || body?.employee_revision!==null || body?.kind!=='travel_tax_policy' || body?.rule_version!==PAYROLL_TRAVEL_POLICY_RULE || body?.source_contract_version!==1) throw fail('Der ursprüngliche betriebliche Steuerauftrag fehlt.',409);
-  return payrollTravelTaxPoliciesAuthorize(api,{write:true,replay:true});
+  await payrollTravelTaxPoliciesAuthorize(api,{write:true,replay:true});
+  return true;
 }
 export function payrollTravelTaxPolicyInput(sources, values, previous=null) {
   payrollTravelTaxPolicySources(sources);

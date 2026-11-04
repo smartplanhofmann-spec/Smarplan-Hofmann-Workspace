@@ -1,0 +1,140 @@
+{
+  "date": "2026-11-04",
+  "scope": "Actual Source4 annual successors and same-claim correction; synthetic originals in isolated SQLite domain fixture",
+  "result": "passed",
+  "unique_final_tests": 55,
+  "new_annual_cases": 8,
+  "final_seconds": 90.742,
+  "test_command": "PYTHONPATH=backend:backend/online /tmp/smartplan-backend-verified/bin/python -m unittest test_business_payroll_annual_basis test_payroll_oneoff_composition_2026 test_business_payroll_oneoff_runs test_business_payroll_oneoff_cases test_payroll_oneoff_composition_review test_business_payroll_oneoff_review test_business_payroll_oneoff_annual -v",
+  "synthetic_clock": "2026-12-31 for annual successor domain cases; no actual future production payments",
+  "source_sizes_bytes": {
+    "run_october": 206183,
+    "run_november": 217530,
+    "run_december": 228168,
+    "complete_three_month_source_catalog": 2340035,
+    "current_client_limit": 4194304
+  },
+  "guarantees": [
+    "Running taxable pay and prior bonuses are counted separately; current claim remains excluded from its own forecast",
+    "Actual prior contributed branch bases reduce subsequent contribution room",
+    "2026 tax and 2025 social March-clause assignment remain separate",
+    "Second actual March-clause bonus consumes only remaining previous-year room",
+    "Same January claim correction replaces only its own prior consumption",
+    "Different second same-month claim is rejected explicitly before a false complete preview",
+    "Compact historical profiles are re-derived from exact immutable accepted runs; rehashed invented profiles are rejected",
+    "Successful immutable checks are scoped to one read operation, never persisted between requests",
+    "Earlier accepted receipts remain byte-equivalent after successors and corrections"
+  ],
+  "exclusions": [
+    "Different actual receipt days for running and one-off pay remain blocked",
+    "Multiple distinct bonus claims in the same month remain blocked",
+    "Dependent downstream correction and broader mini-/midijob one-off scope are not completed by this change",
+    "No production changes or external statutory transmissions"
+  ],
+  "postgresql_evidence": "docs/CRM_ERP_LOHN_EINMALBEZUG_PG_PRUEFUNG_2026-11-04.md",
+  "logs": [
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-baseline-2026-11-04.txt",
+      "sha256": "9cc8acedaf715ade4ba19a5dfc61f321a948b4c483de7dd298a821ab04a9804d",
+      "status": "passed",
+      "tests": 32,
+      "seconds": 21.726,
+      "note": "Existing annual, composition and actual-run regression before new boundary cases"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-first-2026-11-04.txt",
+      "sha256": "79d6cac246f394d14e7c41c578b25ebce3f6dadaab473a5c63a857b874f4562a",
+      "status": "failed",
+      "tests": 4,
+      "seconds": 14.387,
+      "note": "Fixture expectation used 2.90 instead of canonical 2.900; synthetic future fixture had not isolated the default verification clock"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-second-2026-11-04.txt",
+      "sha256": "afd00531428cf0d8df9c442ba2b5eedf1761a4214d736e00b851f1a94ce4bc35",
+      "status": "passed",
+      "tests": 4,
+      "seconds": 61.571,
+      "note": "Four initial actual successor cases before scoped repeated-check optimization"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-six-2026-11-04.txt",
+      "sha256": "fbb56d7effbc92336ebc7f442e2084f107fa632a30d94e9119863ce6fffbb8ee",
+      "status": "passed",
+      "tests": 6,
+      "seconds": 34.481,
+      "note": "Six actual successor, source omission, same-month conflict and rehashed historical-profile cases"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-integrated-first-2026-11-04.txt",
+      "sha256": "d850fb245d86298028c4246387bc24ee5e13e8ba81ff46b57dce2b7f510e1f97",
+      "status": "passed",
+      "tests": 53,
+      "seconds": 68.284,
+      "note": "Integrated initial six-case extension; superseded by final 55-test execution"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-march-correction-before-2026-11-04.txt",
+      "sha256": "e03bea9b1610dd2fb0d4bd31a3bae31eda5dbae4241fd9c737cb3d4bf3233195",
+      "status": "failed",
+      "tests": 1,
+      "seconds": 1.904,
+      "note": "Product defect demonstrated: current January claim incorrectly required itself in the fresh prior-year basis"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-march-correction-fixture-error-2026-11-04.txt",
+      "sha256": "440ba2b4ee843ac7ee5bf28754456aa8846b01cff0cc2fd01acf142b5ccdcf30",
+      "status": "failed",
+      "tests": 1,
+      "seconds": 3.703,
+      "note": "After runtime fix, fixture mutated its original accepted request through a shared details object; fixed by creating separate correction details"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-eight-fixture-error-2026-11-04.txt",
+      "sha256": "c540f3a9551e2b42a053dd8ea74d7a26f982794a3ea2f46cd3ecceee5f1e199e",
+      "status": "failed",
+      "tests": 8,
+      "seconds": 50.508,
+      "note": "Execution loaded before that test-only shared-object correction; seven passed and the same original-request fixture error remained"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-march-correction-final-2026-11-04.txt",
+      "sha256": "6c3bd7454f36bfa464b8178cfc13a8866ee0c0bd15f83f1379f83c6ee767bb92",
+      "status": "passed",
+      "tests": 1,
+      "seconds": 4.565,
+      "note": "Actual January correction, exact original replay and corrected prior-year contribution room"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-annual-final-2026-11-04.txt",
+      "sha256": "8014e9609ce1089a527b90b530271c0e3263672de7b97625b72397fa4bea250f",
+      "status": "passed",
+      "tests": 55,
+      "seconds": 90.742,
+      "note": "Final integrated runtime, source binding, original replay, money and eight actual annual successor checks"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-run-fixture-extended-2026-11-04.txt",
+      "sha256": "c852072ce42963ec151f911f5edb5162bb0f0c114d47416620c8cc04386cd2e7",
+      "status": "passed",
+      "tests": null,
+      "seconds": null,
+      "note": "Actual Source4 correction and paid v5 upgrade fixture, each with complete archive integrity verification"
+    }
+  ],
+  "source_hashes": {
+    "backend/business_payroll_annual_basis.py": "4a2078e5558c27707245f531e5e870161722c55068d38e6ac307d6cb046f4302",
+    "backend/payroll_annual_basis_2026.py": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431",
+    "backend/payroll_oneoff_composition_2026.py": "eb1d6d3806a5c75fb1675b184aab9c009e80bd38c9f7740986d9663a767c7136",
+    "backend/business_payroll_oneoff_cases.py": "83af882859a8a66853d5ebe57a12e35ff7d3d9c89ff474749e9651b5666712f8",
+    "backend/payroll_oneoff_runs.py": "559b0d2ca08afeaefc2ca58b228aa0dccd92abe6c179f9a0d22da4ab3871365a",
+    "backend/business_payroll.py": "eb5bdeecfcacb0ea8ac27b8dddbd382f57137c7f2db18ac1743adf364534ea90",
+    "backend/business_payroll_accounts.py": "d2deb4200129a277196557601ddfbeefd000974539d67f3dcf9478ab73089638",
+    "backend/payroll_ledger.py": "b4ec84c59ea75ab6524a08f15fc1bb142a1f695205be466c2254598df3ebb564",
+    "backend/business_payroll_cash.py": "8a585255c0bb08ee0bfadfd816b5e0c852a89c62926b34961ba830ac1cbd3da7",
+    "backend/payroll_cash_sources.py": "b69729c0c463bcf85622b69c3a3713c702263d768ed2ee77c42534ac10867184",
+    "backend/test_business_payroll_oneoff_annual.py": "9af51e57071efdd275d81d7951a11d654eae208ea2c25268347456a97b91880a",
+    "scripts/generate-payroll-oneoff-run-fixture.py": "b0e66f19abd0051e6b201318a5ece5f9f15cd6e5bc7470bcf2b539f7db9270c9",
+    "app/test/fixtures/payroll_oneoff_runs.json": "8c5483501bb7e1e5e20e178f15e6d5f18332b1de33b78201b34a5c1d0ed4946b"
+  }
+}

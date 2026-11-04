@@ -1,0 +1,32 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual imported_period typed references preserve canonical preview and receipt
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual imported_one_off typed references preserve canonical preview and receipt
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual annual_basis typed references preserve canonical preview and receipt
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual one_off_earning typed references preserve canonical preview and receipt
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual annual_tax_forecast typed references preserve canonical preview and receipt
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: foreign originals, employer identity and replaced plan are rejected
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: unknown monetary basis never becomes a zero source
+00:10 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:10 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:10 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:10 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:10 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:10 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: receipts bind frozen source, exact correction delta and original evidence
+00:10 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 typed case command and accepted plan preserve all original sources
+00:10 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: historical JSON validates exact envelope hash rather than only current record equality
+00:10 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 net includes taxable travel once and subtracts documented employee flat tax costs
+00:10 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: lost ACK remains pending through fresh rights revocation and retries original nonce and body
+00:10 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: lost ACK remains pending through fresh rights revocation and retries original nonce and body
+00:10 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: mismatched acknowledgment retains request and employee-bound state prevents replay
+00:10 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: regular PAP receipt requires provenance, exact taxes and net
+00:10 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: regular correction retains extended tax delta fields and unknown prior tax
+00:10 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual snapshot sums only effective correction and exposes missing months
+00:10 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: empty and partial annual snapshots preserve unknown money and verify hashes
+00:10 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual export validates manifest size and exact bytes
+00:10 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:11 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:11 +26: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:11 +27: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:12 +28: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: pending run survives closing page and renders a recoverable exact retry
+00:12 +29: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: own payroll hides staff writes and loses all displayed data after access withdrawal
+00:12 +30: All tests passed!

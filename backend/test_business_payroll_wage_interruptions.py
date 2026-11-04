@@ -13,8 +13,8 @@ from business_foundation import BusinessFoundation
 from business_personnel_workflow import _sha
 from core import canonical
 from test_business_payroll import rid
-from test_business_payroll_calculations import CalculationPayrollWorkflow
-from test_business_payroll_entitlements import PayrollEntitlementTests
+import test_business_payroll_calculations as calculation_fixture
+import test_business_payroll_entitlements as entitlement_fixture
 
 
 class WageInterruptionWorkflow(unittest.TestCase):
@@ -22,11 +22,11 @@ class WageInterruptionWorkflow(unittest.TestCase):
         names=business_schema.MODULE_NAMES
         if 'business_payroll_wage_interruptions' not in names:names+=('business_payroll_wage_interruptions',)
         registry=patch.object(business_schema,'MODULE_NAMES',names);registry.start();self.addCleanup(registry.stop)
-        self.c=CalculationPayrollWorkflow('runTest');self.c.setUp();self.addCleanup(self.c.doCleanups);self.f=self.c.f
+        self.c=calculation_fixture.CalculationPayrollWorkflow('runTest');self.c.setUp();self.addCleanup(self.c.doCleanups);self.f=self.c.f
         self.api=markers.PayrollWageInterruptions(self.f.office,clock=lambda:self.f.now)
 
     def originals(self,lost_from='2026-10-20',lost_to='2026-10-26'):
-        f=self.f;self.schedule=PayrollEntitlementTests.schedule(f,'2026-10')
+        f=self.f;self.schedule=entitlement_fixture.PayrollEntitlementTests.schedule(f,'2026-10')
         original=dict(id=f.data['file']['id'],revision=1,content_hash=f.data['file']['content_hash'])
         self.claim=None;claim_refs=[]
         if lost_from:
@@ -58,6 +58,12 @@ class WageInterruptionWorkflow(unittest.TestCase):
         self.assertEqual(['2026-10-20','2026-10-21','2026-10-22','2026-10-23','2026-10-26'],saved['plan']['periods'][0]['qualifying_workdays'])
         self.assertNotIn('accepted_command',saved)
         self.assertEqual(saved,self.api.save(f.owner,body));self.assertEqual(saved,self.api.get(f.owner,saved['id']))
+        ledger=f.payroll.ledger(f.owner,dict(employee_id=f.employee['id'],year='2026'))['ledger']
+        self.assertEqual(1,ledger['recorded_wage_interruptions']['number_u'])
+        self.assertEqual('current',ledger['recorded_wage_interruptions']['status'])
+        self.assertNotIn('unpaid_statutory_marker_requires_evidence',ledger['account_completeness_issues'])
+        for format_ in ('pdf','csv','json'):
+            self.assertTrue(f.payroll.export_ledger(f.owner,dict(employee_id=f.employee['id'],year='2026',snapshot_hash=ledger['snapshot_hash']),format_)[0])
         self.assertEqual(0,f.office.db.execute('SELECT COUNT(*) FROM business_time_days').fetchone()[0])
         self.assertTrue(business_schema.validate_integrity(f.office))
 
@@ -82,6 +88,10 @@ class WageInterruptionWorkflow(unittest.TestCase):
             kind='qualification_benefit',evidence_refs=details['exception_review_file_refs'])]
         body,preview=self.command(details);saved=self.api.save(self.f.owner,body)
         self.assertEqual(0,saved['plan']['number_u']);self.assertEqual(0,preview['plan']['number_u'])
+        ledger=self.f.payroll.ledger(self.f.owner,dict(employee_id=self.f.employee['id'],year='2026'))['ledger']
+        self.assertEqual(0,ledger['recorded_wage_interruptions']['number_u'])
+        self.assertIn('section41_sentence4_amount_evidence_missing',ledger['account_completeness_issues'])
+        self.assertFalse(ledger['statutory_wage_account_complete'])
         self.assertTrue(business_schema.validate_integrity(self.f.office))
 
     def test_correction_void_pause_replay_and_fresh_read_approval(self):
@@ -115,6 +125,22 @@ class WageInterruptionWorkflow(unittest.TestCase):
         for table in markers.TABLES:
             with self.assertRaises(sqlite3.IntegrityError):f.office.db.execute('DELETE FROM '+table)
         f.problem(403,lambda:self.api.sources(f.technician,dict(employee_id=f.employee['id'],year='2026')))
+
+    def test_new_actual_run_revision_marks_old_assessment_outdated_but_original_is_unchanged(self):
+        f=self.f;details=self.originals();body,_=self.command(details);saved=self.api.save(f.owner,body)
+        original=f.payroll.export_ledger(f.owner,dict(employee_id=f.employee['id'],year='2026',
+            snapshot_hash=f.payroll.ledger(f.owner,dict(employee_id=f.employee['id'],year='2026'))['ledger']['snapshot_hash']),'json')[0]
+        changed=f.payroll.finalize(f.owner,self.c.command(self.case,id=self.run['id'],revision=1,correction_reason='Actual reviewed run revision'))
+        ledger=f.payroll.ledger(f.owner,dict(employee_id=f.employee['id'],year='2026'))['ledger']
+        self.assertEqual('outdated',ledger['recorded_wage_interruptions']['status'])
+        self.assertIsNone(ledger['recorded_wage_interruptions']['number_u'])
+        self.assertIn('unpaid_statutory_marker_requires_evidence',ledger['account_completeness_issues'])
+        self.assertEqual(saved,self.api.save(f.owner,body));self.assertTrue(original)
+        new_body,_=self.command(details|dict(run_refs=[reference(changed)]),id=saved['id'],revision=1,correction_reason='Actual corrected run bound')
+        updated=self.api.save(f.owner,new_body)
+        self.assertEqual([saved,updated],self.api.get(f.owner,saved['id'],True)['items'])
+        self.assertEqual('current',f.payroll.ledger(f.owner,dict(employee_id=f.employee['id'],year='2026'))['ledger']['recorded_wage_interruptions']['status'])
+        self.assertTrue(business_schema.validate_integrity(f.office))
 
 
 if __name__=='__main__':unittest.main()

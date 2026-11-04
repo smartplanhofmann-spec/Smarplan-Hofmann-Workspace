@@ -1,0 +1,9 @@
+test_actual_bonus_uses_2025_social_caps_but_2026_tax_year (test_payroll_annual_basis_review.AnnualBasisIndependentReview.test_actual_bonus_uses_2025_social_caps_but_2026_tax_year) ... ok
+test_january21_running_receipt_stays_in_prior_tax_year_and_is_not_added_again (test_payroll_annual_basis_review.AnnualBasisIndependentReview.test_january21_running_receipt_stays_in_prior_tax_year_and_is_not_added_again) ... ok
+test_known_current_tax_receipt_assigned_to_previous_social_year_cannot_be_omitted (test_payroll_annual_basis_review.AnnualBasisIndependentReview.test_known_current_tax_receipt_assigned_to_previous_social_year_cannot_be_omitted) ... ok
+test_later_known_original_requires_new_basis_without_rewriting_accepted_receipt (test_payroll_annual_basis_review.AnnualBasisIndependentReview.test_later_known_original_requires_new_basis_without_rewriting_accepted_receipt) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.358s
+
+OK

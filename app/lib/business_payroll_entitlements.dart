@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -55,7 +56,9 @@ class PayrollEntitlementPlanView extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       if (kind == 'sickness_history') ...[
-        for (final entry in businessItems(plan['prevention_cases']).indexed)
+        for (final entry in businessItems(
+          plan['prevention_cases'] ?? [],
+        ).indexed)
           ExpansionTile(
             title: Text('Zusammenhängender Verhinderungsfall ${entry.$1 + 1}'),
             children: [
@@ -83,7 +86,7 @@ class PayrollEntitlementPlanView extends StatelessWidget {
               ),
             ],
           ),
-        for (final p in businessItems(plan['preemployment_periods']))
+        for (final p in businessItems(plan['preemployment_periods'] ?? []))
           line(
             'Belegter Zeitraum vor Beschäftigungsbeginn',
             '${businessDate(p['from_date'])} – ${businessDate(p['to_date'])}: kein Entgeltanspruch aus dieser Beschäftigung.',
@@ -207,11 +210,14 @@ class _BusinessPayrollEntitlementsPageState
   String get commandKey => 'payroll-entitlements-$employeeId';
   Map<String, dynamic>? sources, selected, preview, previewBody, correction;
   List<Map<String, dynamic>> history = [];
-  bool loading = false, busy = false, historical = false;
+  bool loading = false, busy = false, historical = false, suspended = false;
   String? error;
-  Object? generation;
+  Object? generation, activeAction;
+  bool? approvalState;
   int epoch = 0;
-  bool get readable => payrollEntitlementsReadable(session);
+  final privateDialogs = <DialogRoute<dynamic>>[];
+  final pageScroll = ScrollController();
+  bool get readable => !suspended && payrollEntitlementsReadable(session);
   bool get permitted =>
       readable && !session.readonly && session.can('personnel.approve');
   bool get writable =>
@@ -226,7 +232,24 @@ class _BusinessPayrollEntitlementsPageState
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     session.addListener(changed);
+    approvalState = permitted;
     load();
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessPayrollEntitlementsPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.session != widget.session ||
+        oldWidget.employee['id'] != employeeId) {
+      oldWidget.session.removeListener(changed);
+      session.addListener(changed);
+      epoch++;
+      dismissPrivateDialogs();
+      clear();
+      generation = null;
+      approvalState = permitted;
+      unawaited(load());
+    }
   }
 
   @override
@@ -234,6 +257,7 @@ class _BusinessPayrollEntitlementsPageState
     epoch++;
     session.removeListener(changed);
     WidgetsBinding.instance.removeObserver(this);
+    pageScroll.dispose();
     super.dispose();
   }
 
@@ -241,6 +265,32 @@ class _BusinessPayrollEntitlementsPageState
     sources = selected = preview = previewBody = correction = null;
     history = [];
     loading = false;
+    busy = false;
+    activeAction = null;
+    error = null;
+  }
+
+  void showBeginning() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && pageScroll.hasClients) pageScroll.jumpTo(0);
+    });
+  }
+
+  void dismissPrivateDialogs() {
+    for (final route in privateDialogs.toList().reversed) {
+      if (route.isActive) route.navigator?.removeRoute(route);
+    }
+    privateDialogs.clear();
+  }
+
+  Future<T?> privateDialog<T>(WidgetBuilder builder) async {
+    final route = DialogRoute<T>(context: context, builder: builder);
+    privateDialogs.add(route);
+    try {
+      return await Navigator.of(context, rootNavigator: true).push(route);
+    } finally {
+      privateDialogs.remove(route);
+    }
   }
 
   @override
@@ -248,14 +298,24 @@ class _BusinessPayrollEntitlementsPageState
     if (state == AppLifecycleState.hidden ||
         state == AppLifecycleState.paused) {
       epoch++;
+      suspended = true;
+      dismissPrivateDialogs();
       if (mounted) setState(clear);
+    } else if (state == AppLifecycleState.resumed && suspended && mounted) {
+      setState(() => suspended = false);
+      unawaited(load());
     }
   }
 
   void changed() {
+    final approvalLost = approvalState == true && !permitted;
+    approvalState = permitted;
     if (mounted &&
-        (!readable || generation != null && generation != session.generation)) {
+        (!readable ||
+            approvalLost ||
+            generation != null && generation != session.generation)) {
       epoch++;
+      dismissPrivateDialogs();
       setState(() {
         clear();
         generation = session.generation;
@@ -273,13 +333,17 @@ class _BusinessPayrollEntitlementsPageState
           : 'Der Anspruchsvorgang konnte nicht abgeschlossen werden.';
       if (e is ApiException && [401, 403, 404].contains(e.status)) clear();
     });
+    showBeginning();
   }
 
   Future<Map<String, dynamic>> fresh({
     bool write = false,
     bool replay = false,
   }) async {
+    final opening = epoch;
     await session.load();
+    if (opening != epoch || suspended)
+      _fail('Die private Ansicht wurde verlassen. Quellen erneut öffnen.', 409);
     if (!mounted || !readable || session.error != null || write && !permitted)
       _fail('Aktuelle globale Personal-Lese- und Freigaberechte fehlen.', 403);
     final captured = session.generation,
@@ -291,6 +355,7 @@ class _BusinessPayrollEntitlementsPageState
         );
     if (!mounted ||
         !readable ||
+        opening != epoch ||
         captured != session.generation ||
         write && (!permitted || value['can_approve'] != true))
       _fail(
@@ -331,41 +396,55 @@ class _BusinessPayrollEntitlementsPageState
 
   Future<void> act(Future<void> Function() run) async {
     if (busy) return;
+    final opening = epoch, action = Object();
     setState(() {
+      activeAction = action;
       busy = true;
       error = null;
     });
     try {
       await run();
     } catch (e) {
-      failed(e);
+      if (mounted && readable && opening == epoch) failed(e);
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (mounted && identical(activeAction, action)) {
+        setState(() {
+          activeAction = null;
+          busy = false;
+        });
+      }
     }
   }
 
   Future<void> inspect(Map<String, dynamic> fact, {bool old = false}) async {
+    final opening = epoch;
     final record = payrollEntitlementRecord(fact, employeeId),
         page = await fresh();
-    if (mounted)
+    if (mounted && readable && opening == epoch) {
       setState(() {
         sources = page;
         selected = _copy(record);
         historical = old;
         preview = previewBody = correction = null;
         history = [];
+        generation = session.generation;
       });
+      showBeginning();
+    }
   }
 
   Future<void> repeat() => act(() async {
+    final opening = epoch;
     final result = await session.repeatPayrollEntitlementsCommand(employeeId);
-    if (mounted && readable) await inspect(businessMap(result));
+    if (mounted && readable && opening == epoch)
+      await inspect(businessMap(result));
   });
   Future<void> save(
     Map<String, dynamic> body, {
     Map<String, dynamic>? previous,
     Map<String, dynamic>? proof,
   }) async {
+    final opening = epoch;
     await fresh(write: true);
     if (pending != null)
       _fail(
@@ -385,7 +464,7 @@ class _BusinessPayrollEntitlementsPageState
       ),
       employeeId,
     );
-    if (mounted && readable) await inspect(result);
+    if (mounted && readable && opening == epoch) await inspect(result);
   }
 
   Map<String, String> choices(
@@ -437,17 +516,17 @@ class _BusinessPayrollEntitlementsPageState
     List<BusinessField> fields, {
     Map<String, dynamic> initial = const {},
   }) async {
+    final opening = epoch;
     Map<String, dynamic>? result;
-    await showDialog<bool>(
-      context: context,
-      builder: (_) => BusinessEditor(
+    await privateDialog<bool>(
+      (_) => BusinessEditor(
         session: session,
         title: title,
         fields: fields,
         initial: initial,
         readPermission: 'personnel.read',
         writePermission: 'personnel.approve',
-        readAllowed: () => readable,
+        readAllowed: () => readable && opening == epoch,
         saveLabel: 'Konkrete Anspruchsangaben belegen',
         onSave: (values) async {
           await fresh(write: true);
@@ -455,14 +534,15 @@ class _BusinessPayrollEntitlementsPageState
         },
       ),
     );
-    return mounted && readable ? result : null;
+    return mounted && readable && opening == epoch ? result : null;
   }
 
   Future<void> edit(String kind, [Map<String, dynamic>? previous]) async {
     if (busy || pending != null) return;
+    final opening = epoch;
     try {
       final page = await fresh(write: true);
-      if (!mounted) return;
+      if (!mounted || !readable || opening != epoch) return;
       final details = businessMap(previous?['details']),
           input = businessMap(details['input']);
       final fields = <BusinessField>[
@@ -705,11 +785,11 @@ class _BusinessPayrollEntitlementsPageState
         '${previous == null ? 'Erfassen' : 'Korrigieren'}: ${payrollEntitlementKinds[kind]}',
         fields,
       );
-      if (values == null) return;
+      if (values == null || !mounted || !readable || opening != epoch) return;
       values['case_key'] = details['case_key'] ?? offlineId();
       await typed(page, kind, values, previous);
     } catch (e) {
-      failed(e);
+      if (mounted && readable && opening == epoch) failed(e);
     }
   }
 
@@ -719,6 +799,7 @@ class _BusinessPayrollEntitlementsPageState
     Map<String, dynamic> values,
     Map<String, dynamic>? previous,
   ) async {
+    final opening = epoch;
     final prior = businessMap(previous?['details']?['input']),
         outer = values['source_file_ids'];
     if (outer is! List || outer.isEmpty)
@@ -796,7 +877,7 @@ class _BusinessPayrollEntitlementsPageState
           prior['history_evidence_refs'],
         ),
       );
-      final oldCases = businessItems(prior['prevention_cases']);
+      final oldCases = businessItems(prior['prevention_cases'] ?? []);
       if (phased)
         fields.add(
           evidence(
@@ -1346,15 +1427,14 @@ class _BusinessPayrollEntitlementsPageState
     final captured = session.generation;
     Map<String, dynamic>? nextBody, nextPreview;
     if (!mounted) return;
-    await showDialog<bool>(
-      context: context,
-      builder: (_) => BusinessEditor(
+    await privateDialog<bool>(
+      (_) => BusinessEditor(
         session: session,
         title: 'Konkrete Angaben: ${payrollEntitlementKinds[kind]}',
         fields: fields,
         readPermission: 'personnel.read',
         writePermission: 'personnel.approve',
-        readAllowed: () => readable,
+        readAllowed: () => readable && opening == epoch,
         saveLabel: 'Anspruch unverbindlich prüfen',
         onSave: (input) async {
           if (input['confirmed'] != true)
@@ -1363,7 +1443,7 @@ class _BusinessPayrollEntitlementsPageState
               400,
             );
           await fresh(write: true);
-          if (captured != session.generation)
+          if (captured != session.generation || opening != epoch)
             _fail(
               'Der freigegebene Quellenstand wurde geändert. Den Vorgang neu öffnen.',
               409,
@@ -1390,9 +1470,10 @@ class _BusinessPayrollEntitlementsPageState
     );
     if (mounted &&
         readable &&
+        opening == epoch &&
         captured == session.generation &&
         nextPreview != null &&
-        nextBody != null)
+        nextBody != null) {
       setState(() {
         sources = page;
         preview = nextPreview;
@@ -1401,6 +1482,8 @@ class _BusinessPayrollEntitlementsPageState
         selected = null;
         history = [];
       });
+      showBeginning();
+    }
   }
 
   Future<void> confirm() async {
@@ -1408,25 +1491,38 @@ class _BusinessPayrollEntitlementsPageState
       return;
     final proof = _copy(preview!),
         body = _copy(previewBody!),
-        prior = correction == null ? null : _copy(correction!);
-    if (!await businessConfirm(
-      context,
-      title: 'Geprüften Anspruchsbaustein festhalten',
-      message: 'Ich bestätige genau diesen geprüften Anspruchsbaustein und seine Originale.',
-      action: 'Anspruchsbaustein festhalten',
-    ))
-      return;
+        prior = correction == null ? null : _copy(correction!),
+        opening = epoch;
+    final confirmed = await privateDialog<bool>(
+      (context) => AlertDialog(
+        title: const Text('Geprüften Anspruchsbaustein festhalten'),
+        content: const Text(
+          'Ich bestätige genau diesen geprüften Anspruchsbaustein und seine Originale.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Abbrechen'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Anspruchsbaustein festhalten'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted || !readable || opening != epoch) return;
     await act(() => save(body, previous: prior, proof: proof));
   }
 
   Future<void> cancel(Map<String, dynamic> fact) async {
     if (pending != null) return;
+    final opening = epoch;
     try {
       await fresh(write: true);
-      if (!mounted) return;
-      await showDialog<bool>(
-        context: context,
-        builder: (_) => BusinessEditor(
+      if (!mounted || !readable || opening != epoch) return;
+      await privateDialog<bool>(
+        (_) => BusinessEditor(
           session: session,
           title: 'Fälschlichen Anspruch aufheben',
           fields: const [
@@ -1443,7 +1539,7 @@ class _BusinessPayrollEntitlementsPageState
           ],
           readPermission: 'personnel.read',
           writePermission: 'personnel.approve',
-          readAllowed: () => readable,
+          readAllowed: () => readable && opening == epoch,
           pendingKey: commandKey,
           saveLabel: 'Anspruch belegt aufheben',
           onSave: (values) async {
@@ -1473,9 +1569,9 @@ class _BusinessPayrollEntitlementsPageState
           },
         ),
       );
-      if (mounted && readable) await load();
+      if (mounted && readable && opening == epoch) await load();
     } catch (e) {
-      failed(e);
+      if (mounted && readable && opening == epoch) failed(e);
     }
   }
 
@@ -1581,6 +1677,7 @@ class _BusinessPayrollEntitlementsPageState
             ),
           )
         : ListView(
+            controller: pageScroll,
             padding: const EdgeInsets.all(20),
             children: [
               const Notice(

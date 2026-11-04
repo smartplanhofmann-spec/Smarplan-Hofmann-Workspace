@@ -1,0 +1,81 @@
+{
+  "recorded_at_utc": "2026-11-03T23:52:21.392560+00:00",
+  "scope": "Independent actual OfficeApi replay integration of six dedicated payroll routes and productive U browser lifecycle regression",
+  "node": {
+    "passed": 61,
+    "failed": 0,
+    "new_review_cases": 28,
+    "existing_session_cases": 9,
+    "existing_component_cases": 24,
+    "log": {
+      "path": "docs/evidence/payroll-protected-session-review-node_final-2026-11-03.txt",
+      "sha256": "31f0e9c4deb66bc4dd219e93c7cac9171010d9cd2884e82c51ac84459ec79d2f"
+    },
+    "command": "node --test web/office/tests/payroll-protected-session-review.test.mjs web/office/tests/payroll-wage-interruptions-session-review.test.mjs web/office/tests/payroll-annual-basis-session-review.test.mjs web/office/tests/payroll-facts-session-retry.test.mjs web/office/tests/payroll-entitlements-session-retry.test.mjs web/office/tests/payroll-travel-tax-policy-session-retry.test.mjs web/office/tests/payroll-calculation-cases-session-retry.test.mjs web/office/tests/payroll-facts.test.mjs web/office/tests/payroll-entitlements.test.mjs web/office/tests/payroll-travel-tax-policies.test.mjs"
+  },
+  "browser": {
+    "passed": 1,
+    "failed": 0,
+    "workflow": "payroll-wage-interruptions",
+    "log": {
+      "path": "docs/evidence/payroll-protected-session-review-browser_final-2026-11-03.txt",
+      "sha256": "12793c08c766f47ab2f0f799bdd6923c5cfe0cecaf4764d266d2b8ae26fe90ba"
+    },
+    "screenshot": {
+      "path": "docs/evidence/payroll-wage-interruptions-clear-rerun-mobile-2026-11-03.png",
+      "sha256": "bc7e4c9b9267fb0c6bec4545e64aacc94d17d30caec1f82f32e2a71ed06ffe19"
+    },
+    "checks": [
+      "Productive private U entry and explicit close/reopen clearing",
+      "Internal U steps retain only U draft after targeted clear integration",
+      "Actual P2/P4/Source3 and U HTTP commands; exact lost-ACK repeat",
+      "Original protected file checksum",
+      "Five contractual workdays produce U1; genuine exception period U0 keeps further statutory fields open",
+      "Void can be corrected into active revision4; original revision1 and void revision3 retained exactly",
+      "Private employee-context refresh clears historical dialog; mobile390"
+    ]
+  },
+  "findings": [
+    {
+      "finding": "OfficeApi ignored false from U and annual guards when the pending key was unrelated",
+      "fix": "All six recognized dedicated payroll routes require explicit true from fresh pending authorization",
+      "negative_control": {
+        "path": "docs/evidence/payroll-protected-session-review-first_path_bypass_failure-2026-11-03.txt",
+        "sha256": "7989559901017ca861a906a077b10b611e425271b9ab9398edc26e99396e3926"
+      }
+    },
+    {
+      "finding": "Three existing P2/P4/policy guards returned authorization objects, incompatible with new explicit success contract",
+      "fix": "Await full authorization and return true only after success; exact original replay remains allowed when module pauses",
+      "negative_control": {
+        "path": "docs/evidence/payroll-protected-session-review-first_guard_success_contract_failure-2026-11-03.txt",
+        "sha256": "d63b8c122147d1a1576f2f95b0d4551f0c1679b07e22b8c999357edaaf444985"
+      }
+    },
+    {
+      "finding": "Independent P4 review initially omitted the actual predecessor from correction fixture validator setup",
+      "fix": "Supply immutable history.items[0] as predecessor; production validator unchanged",
+      "prior_log": {
+        "path": "docs/evidence/payroll-protected-session-review-prior_test_missing_p4_predecessor-2026-11-03.txt",
+        "sha256": "c2a8476e17b822452db60d02b0a8c08edb3bdc6fd46b5060dd34e03d67102d56"
+      }
+    }
+  ],
+  "source_snapshot": {
+    "web/office/tests/payroll-wage-interruptions-session-review.test.mjs": "4b6216363be8c9793d35bcadc941fcdef6fa6c397aa48df1b33631caac89f469",
+    "web/office/tests/payroll-annual-basis-session-review.test.mjs": "46633ba647ddcdef3f575db1dcabd7f83ef6ada502de37489d3e17640a95a5d2",
+    "web/office/tests/payroll-protected-session-review.test.mjs": "b7c48ad76dc612683c59ae6fdbaa263f811c31b18c27a16db58eb1100a172a29",
+    "web/office/payroll-facts.js": "bc0cdb662359c1815a915935f67c2df4c50b3176b786fc90c59a2f0331dbe8cd",
+    "web/office/payroll-entitlements.js": "4fde2017bcb616fbe4b6cb81f71b72ed711f24f13212e0c36192a35822086962",
+    "web/office/payroll-travel-tax-policies.js": "c0f81fb9c21a403647fb773da68cc43bbd9876af6ec933ec8414ca13633ed6f2",
+    "web/office/tests/payroll-wage-interruptions-flow.cjs": "4eb19af2175dd01ddfc8267bd1548547028ac0b1f61b4ded05e0391b268d60ee",
+    "web/office/payroll-wage-interruptions.js": "043e078b7c9752ea06a5e9d0c90b2d45065dccf0aef2ad9a7aacd8ed659203d5"
+  },
+  "limitations": [
+    "Node exercises actual OfficeApi with synthetic fetch responses and genuine domain fixture bodies/receipts; no real employer data",
+    "Browser exercises actual local MFA/HTTP with synthetic data and active namespace/PID/network/seccomp sandbox",
+    "Two restricted-shell attempts listed only file-level tests; not counted as case-level evidence; final authorized execution reports all61 actual cases",
+    "Client guard bypass does not establish backend authorization bypass",
+    "No official tax submission, production TLS or physical-device acceptance"
+  ]
+}

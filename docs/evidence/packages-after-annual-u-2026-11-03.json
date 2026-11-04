@@ -1,0 +1,9 @@
+{
+  "scope": "Packaging after annual/U manual and runtime registration, before private Source4 service registration.",
+  "passed": 16,
+  "duration_seconds": 5.369,
+  "log": "docs/evidence/packages-after-annual-u-2026-11-03.txt",
+  "log_sha256": "6ab95e48065e5721ae86d6668b5610a342d8b1da4e8a17d8cf3eeff3e4d6c53a",
+  "full_native_binaries_built": false,
+  "external_publication": false
+}

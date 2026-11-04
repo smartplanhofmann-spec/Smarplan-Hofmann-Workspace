@@ -1,6 +1,6 @@
 # Smartplan Office – Entwicklungsstand 0.12.0
 
-## Aktuelles Gesamtziel – 03.11.2026
+## Aktuelles Gesamtziel – 04.11.2026
 
 Für die weitere Entwicklung gilt
 [CRM_ERP_Gesamtziel.txt](CRM_ERP_Gesamtziel.txt). Es erweitert den bisherigen
@@ -25,16 +25,20 @@ Sprachentwürfe, Dateiimport, Unternehmensarchiv, freie Zusatzfelder,
 Datenschutzfälle, belegte Lohnzahlungen zur EÜR, Bankabgleich, Kundenservice und
 Betriebsmittel. Midijob-Vollmonate sind in beiden Oberflächen geprüft;
 Lieferantenretouren und die zusätzliche Unternehmensprovisionierung haben ihre
-Fach-/Gegenprüfungen bestanden. Der gemeinsame Integrationsstand ist lokal
-als `31c5184` gesichert. Belegte Lohnzeitachsen und einfache Teilmonate sind
+Fach-/Gegenprüfungen bestanden. Der zuletzt vollständig eingefrorene und
+breit geprüfte Integrationsstand ist lokal als `2fdfa9f` gesichert.
+Belegte Lohnzeitachsen und einfache Teilmonate sind
 inzwischen im Backend, PostgreSQL und beiden Clients geprüft
 ([Teilmonate](docs/CRM_ERP_LOHN_TEILMONATE_2026.md),
 [Oberflächen](docs/CRM_ERP_LOHN_ZEITACHSEN_CLIENTS.md)). Die
 [eigene Mitarbeiter-Belegansicht](docs/CRM_ERP_LOHN_MITARBEITERBELEG.md) ist
-für bestehende Lohnregeln geprüft. Reisepauschalen besitzen eine tatsächliche
-Zahlungs-/EÜR-/Bankkette; die erweiterte gemeinsame Abnahme läuft.
-Aktuell entstehen mehrteilige Lohnfälle, bezahlte Abwesenheiten, die vollständige
-Reise-Lohnübergabe und Einmalbezüge. Das Gesamtziel ist noch nicht erreicht.
+für v1–v5 geprüft. Reisepauschalen besitzen eine tatsächliche
+Zahlungs-/EÜR-/Bankkette. Die v5 verbindet mehrteilige Lohnfälle, belegte
+Ansprüche und Reise-Lohnwerte; Reise-v3 ergänzt Mischreisen und Boden-Zeitzonen.
+Aktuell werden Jahresquellen, Unterbrechungen, Nullnetto und die neue
+Source4-Kette für Einmalbezüge zusammengeführt. Deren laufende Änderungen
+liegen außerhalb des genannten eingefrorenen Nachweises.
+Das Gesamtziel ist noch nicht erreicht.
 
 Verbindlicher Unternehmensrahmen: Einzelunternehmen mit EÜR, Regelbesteuerung,
 Ist-Versteuerung, 19 % Standard-Umsatzsteuer, SKR04 und Nettopreise. Der

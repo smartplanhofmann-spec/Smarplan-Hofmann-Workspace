@@ -1,0 +1,15 @@
+✔ real U fixture binds actual runs schedules employment and all eight reviewed payment kinds (6.653509ms)
+✔ absence of an exception requires eight actual explicit decisions not an unchecked empty list (4.208201ms)
+✔ actual excluded-payment periods need exact originals and coherent explicit review (7.770419ms)
+✔ preview freezes daily source references and cannot turn unknown U into confirmed zero (5.255817ms)
+✔ accepted record must retain original preview and an immutable private predecessor (8.044082ms)
+✔ actual correction and documentary void keep the exact original historical source (12.302818ms)
+✔ fresh global rights gate every new write while unchanged accepted replay survives pause (5.25798ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 124.348788

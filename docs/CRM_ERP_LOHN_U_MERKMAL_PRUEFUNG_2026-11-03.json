@@ -1,0 +1,53 @@
+{
+  "checked_on": "2026-11-03",
+  "status": "backend_and_independent_review_verified_client_acceptance_pending",
+  "rule": "de_2026_wage_interruptions_v1",
+  "source_contract_version": 1,
+  "results": {
+    "pure_and_actual_domain_17": {
+      "log": "docs/evidence/payroll-u-final-source-integrity-2026-11-03.txt",
+      "sha256": "6ae3e1be75a8119154a86cfe24790a66797b21b4dc530dbb6db9e281947f7ead",
+      "passed": true
+    },
+    "postgres_mfa_concurrency_restore_2": {
+      "log": "docs/evidence/payroll-u-pg-first-2026-11-03.txt",
+      "sha256": "494652539d842902afb8aedc28d62a76ea03a4aa5f462fecab711f7861ae0b60",
+      "passed": true
+    },
+    "current_registration_regression_62": {
+      "log": "docs/evidence/payroll-u-current-registration-regression-2026-11-03.txt",
+      "sha256": "3f580fd7cf2da5e617f7b5f22e50361cbd31a0a27c2876eb69fa2934aa4d4c92",
+      "passed": true
+    },
+    "current_zero_u_and_legacy_regression_72": {
+      "log": "docs/evidence/payroll-zero-u-current-regression-2026-11-03.txt",
+      "sha256": "cc1bef33d84084e762fd53a6358a53898a3e4baf4bfc6a0ec4c1dcc523f28f32",
+      "passed": true
+    }
+  },
+  "fixtures": {
+    "generator": "scripts/generate-payroll-wage-interruptions-fixture.py",
+    "file": "app/test/fixtures/payroll_wage_interruptions.json"
+  },
+  "source_status": {
+    "section41_estg": "official search index initially read; independent reviewer subsequently read official consolidated EStG.pdf, status2026-10-15, printed page170/PDFindex169, full paragraph1 sentences4/5; HTML direct fetch still timed out",
+    "section4_lstdv": "official full text opened, lines24–34 and paragraph2a",
+    "lsth2026_annex23_I": "official search index Number2 read; direct BMF fetch503"
+  },
+  "supported": [
+    "Actual full loss of wage claim from original Source3/P4 records",
+    "Contractual workdays from actual complete P2 daily schedule",
+    "Actual eight-kind statutory sentence4 exclusion evidence",
+    "Zero distinct from unknown; one count across a month boundary",
+    "Fresh current annual projection, old correction/void/replay preserved",
+    "PDF/CSV/JSON, actual MFA+PG runtime/migrator guards and byte-identical dump/restore ledger",
+    "Prior-year sickness exhaustion and first loss on January1 independently distinguished within same employment"
+  ],
+  "remaining": [
+    "Client acceptance",
+    "Partially remaining wage claim, prior-year continuing loss, flat-tax minijob and noncash-with-unpaid assessment explicitly blocked",
+    "Statutory amounts of sentence4 benefits remain separate required fields; U0 does not falsely complete entire wage account",
+    "No official transmission, DLS approval or external payroll certification"
+  ],
+  "independent_review": "docs/evidence/payroll-u-independent-review-2026-11-03.json"
+}

@@ -16,7 +16,7 @@ MODULES = (
     'business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity',
     'business_accounting_refunds_v2',
     'business_accounting_profile',
-    'business_project_economics', 'business_asset_provenance', 'business_customer_workspace', 'business_personnel_workflow', 'business_accounting_euer', 'business_assistant', 'business_payroll', 'business_inventory_counts', 'business_sales', 'business_payroll_accounts', 'business_assistant_speech', 'business_company_handover', 'business_migrations', 'business_custom_fields', 'business_privacy_cases', 'business_payroll_cash', 'business_service', 'business_bank_reconciliation', 'business_resource_custody', 'business_purchase_changes', 'business_payroll_facts', 'business_travel_allowances', 'business_payroll_entitlements', 'business_payroll_calculation_cases',
+    'business_project_economics', 'business_asset_provenance', 'business_customer_workspace', 'business_personnel_workflow', 'business_accounting_euer', 'business_assistant', 'business_payroll', 'business_inventory_counts', 'business_sales', 'business_payroll_accounts', 'business_assistant_speech', 'business_company_handover', 'business_migrations', 'business_custom_fields', 'business_privacy_cases', 'business_payroll_cash', 'business_service', 'business_bank_reconciliation', 'business_resource_custody', 'business_purchase_changes', 'business_payroll_facts', 'business_travel_allowances', 'business_payroll_entitlements', 'business_payroll_calculation_cases', 'business_payroll_annual_basis', 'business_payroll_wage_interruptions', 'business_payroll_oneoff_cases',
 )
 
 

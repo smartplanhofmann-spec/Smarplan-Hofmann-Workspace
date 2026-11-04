@@ -1,0 +1,321 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart
+00:00 +0: Source3 employee change closes private correction editor
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TypeWidgetFinder:<Found 1 widget with type "BusinessEditor": [
+            BusinessEditor(dependencies: [InheritedCupertinoTheme, _InheritedTheme,
+_LocalizationsScope-[GlobalKey#68f49]], state: _BusinessEditorState#49629),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:148:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 148
+The test description was:
+  Source3 employee change closes private correction editor
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -1: Source3 employee change closes private correction editor [E]
+  Test failed. See exception logs above.
+  The test description was: Source3 employee change closes private correction editor
+  
+00:01 +0 -1: P4 employee change closes private correction editor
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TypeWidgetFinder:<Found 1 widget with type "BusinessEditor": [
+            BusinessEditor(dependencies: [InheritedCupertinoTheme, _InheritedTheme,
+_LocalizationsScope-[GlobalKey#b483c]], state: _BusinessEditorState#3fae6),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:181:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 181
+The test description was:
+  P4 employee change closes private correction editor
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +0 -2: P4 employee change closes private correction editor [E]
+  Test failed. See exception logs above.
+  The test description was: P4 employee change closes private correction editor
+  
+00:02 +0 -2: Source3 session change closes private correction editor
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TypeWidgetFinder:<Found 1 widget with type "BusinessEditor": [
+            BusinessEditor(dependencies: [InheritedCupertinoTheme, _InheritedTheme,
+_LocalizationsScope-[GlobalKey#528c0]], state: _BusinessEditorState#23eab),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:148:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 148
+The test description was:
+  Source3 session change closes private correction editor
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +0 -3: Source3 session change closes private correction editor [E]
+  Test failed. See exception logs above.
+  The test description was: Source3 session change closes private correction editor
+  
+00:02 +0 -3: P4 session change closes private correction editor
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TypeWidgetFinder:<Found 1 widget with type "BusinessEditor": [
+            BusinessEditor(dependencies: [InheritedCupertinoTheme, _InheritedTheme,
+_LocalizationsScope-[GlobalKey#d8dfc]], state: _BusinessEditorState#1d2bc),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:181:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 181
+The test description was:
+  P4 session change closes private correction editor
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +0 -4: P4 session change closes private correction editor [E]
+  Test failed. See exception logs above.
+  The test description was: P4 session change closes private correction editor
+  
+00:02 +0 -4: Source3 approval change closes private correction editor
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TypeWidgetFinder:<Found 1 widget with type "BusinessEditor": [
+            BusinessEditor(dependencies: [InheritedCupertinoTheme, _InheritedTheme,
+_LocalizationsScope-[GlobalKey#ab404]], state: _BusinessEditorState#4a664),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:148:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 148
+The test description was:
+  Source3 approval change closes private correction editor
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:03 +0 -5: Source3 approval change closes private correction editor [E]
+  Test failed. See exception logs above.
+  The test description was: Source3 approval change closes private correction editor
+  
+00:03 +0 -5: P4 approval change closes private correction editor
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TypeWidgetFinder:<Found 1 widget with type "BusinessEditor": [
+            BusinessEditor(dependencies: [InheritedCupertinoTheme, _InheritedTheme,
+_LocalizationsScope-[GlobalKey#4d4e3]], state: _BusinessEditorState#3e272),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:181:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 181
+The test description was:
+  P4 approval change closes private correction editor
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:03 +0 -6: P4 approval change closes private correction editor [E]
+  Test failed. See exception logs above.
+  The test description was: P4 approval change closes private correction editor
+  
+00:03 +0 -6: Source3 late preview cannot cross employee change
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Abrechnungsfall prüfen": [
+            Text("Abrechnungsfall prüfen", debugLabel: (englishLike titleLarge
+2021).merge((blackMountainView titleLarge).apply), inherit: false, color: Color(alpha: 1.0000, red:
+0.1137, green: 0.1059, blue: 0.1255, colorSpace: ColorSpace.sRGB), family: Roboto, size: 22.0,
+weight: 400, letterSpacing: 0.0, baseline: alphabetic, height: 1.3x, leadingDistribution: even,
+decoration: Color(alpha: 1.0000, red: 0.1137, green: 0.1059, blue: 0.1255, colorSpace:
+ColorSpace.sRGB) TextDecoration.none, dependencies: [DefaultSelectionStyle, DefaultTextStyle,
+MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:211:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 211
+The test description was:
+  Source3 late preview cannot cross employee change
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:04 +0 -7: Source3 late preview cannot cross employee change [E]
+  Test failed. See exception logs above.
+  The test description was: Source3 late preview cannot cross employee change
+  
+00:04 +0 -7: P4 late preview cannot cross employee change
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Anspruchsbaustein prüfen": [
+            Text("Anspruchsbaustein prüfen", debugLabel: (englishLike titleLarge
+2021).merge((blackMountainView titleLarge).apply), inherit: false, color: Color(alpha: 1.0000, red:
+0.1137, green: 0.1059, blue: 0.1255, colorSpace: ColorSpace.sRGB), family: Roboto, size: 22.0,
+weight: 400, letterSpacing: 0.0, baseline: alphabetic, height: 1.3x, leadingDistribution: even,
+decoration: Color(alpha: 1.0000, red: 0.1137, green: 0.1059, blue: 0.1255, colorSpace:
+ColorSpace.sRGB) TextDecoration.none, dependencies: [DefaultSelectionStyle, DefaultTextStyle,
+MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:235:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 235
+The test description was:
+  P4 late preview cannot cross employee change
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:05 +0 -8: P4 late preview cannot cross employee change [E]
+  Test failed. See exception logs above.
+  The test description was: P4 late preview cannot cross employee change
+  
+00:05 +0 -8: Source3 late preview cannot cross approval change
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Abrechnungsfall prüfen": [
+            Text("Abrechnungsfall prüfen", debugLabel: (englishLike titleLarge
+2021).merge((blackMountainView titleLarge).apply), inherit: false, color: Color(alpha: 1.0000, red:
+0.1137, green: 0.1059, blue: 0.1255, colorSpace: ColorSpace.sRGB), family: Roboto, size: 22.0,
+weight: 400, letterSpacing: 0.0, baseline: alphabetic, height: 1.3x, leadingDistribution: even,
+decoration: Color(alpha: 1.0000, red: 0.1137, green: 0.1059, blue: 0.1255, colorSpace:
+ColorSpace.sRGB) TextDecoration.none, dependencies: [DefaultSelectionStyle, DefaultTextStyle,
+MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:211:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 211
+The test description was:
+  Source3 late preview cannot cross approval change
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:06 +0 -9: Source3 late preview cannot cross approval change [E]
+  Test failed. See exception logs above.
+  The test description was: Source3 late preview cannot cross approval change
+  
+00:06 +0 -9: P4 late preview cannot cross approval change
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Anspruchsbaustein prüfen": [
+            Text("Anspruchsbaustein prüfen", debugLabel: (englishLike titleLarge
+2021).merge((blackMountainView titleLarge).apply), inherit: false, color: Color(alpha: 1.0000, red:
+0.1137, green: 0.1059, blue: 0.1255, colorSpace: ColorSpace.sRGB), family: Roboto, size: 22.0,
+weight: 400, letterSpacing: 0.0, baseline: alphabetic, height: 1.3x, leadingDistribution: even,
+decoration: Color(alpha: 1.0000, red: 0.1137, green: 0.1059, blue: 0.1255, colorSpace:
+ColorSpace.sRGB) TextDecoration.none, dependencies: [DefaultSelectionStyle, DefaultTextStyle,
+MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart:235:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart line 235
+The test description was:
+  P4 late preview cannot cross approval change
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:07 +0 -10: P4 late preview cannot cross approval change [E]
+  Test failed. See exception logs above.
+  The test description was: P4 late preview cannot cross approval change
+  
+00:07 +0 -10: Some tests failed.
+
+Failing tests:
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: P4 approval change closes private correction editor
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: P4 employee change closes private correction editor
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: P4 late preview cannot cross approval change
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart: P4 late preview cannot cross employee change
+  ... and 6 more

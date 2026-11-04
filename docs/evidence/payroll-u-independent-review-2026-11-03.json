@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-03",
+  "scope": "Independent bounded U calendar/source/permission review; seven countercases, no full professional approval",
+  "tests_passed": 7,
+  "seconds": 1.548,
+  "product_changed_by_reviewer": false,
+  "findings": [
+    {
+      "status": "fixed_by_owner_and_independently_rerun",
+      "description": "A bound P4 sickness phase already unpaid on 2025-12-31 and 2026-01-01 bypassed the declared unresolved prior-year boundary because U projection inspected only unpaid_continuation input dates.",
+      "reproduction": "Pure actual P4-v3 phase and full v5 January calculation plus U projection; not represented as an executed private HTTP case",
+      "countercase": "P4 entitlement through 2025-12-31, first lost wage on 2026-01-01 stays determinate."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.gesetze-im-internet.de/estg/EStG.pdf",
+      "status": "Successfully opened official full PDF and located section41 paragraph1 sentences4/5",
+      "pdf_page": 169,
+      "printed_page": 170,
+      "legislation_updated": "2026-10-15",
+      "tool_lines": "8698-8706",
+      "use": "Five actual consecutive workdays and current statutory exclusion categories"
+    },
+    {
+      "url": "https://www.gesetze-im-internet.de/estg/__41.html",
+      "status": "HTML timeout"
+    },
+    {
+      "url": "https://www.gesetze-im-internet.de/lstdv/__4.html",
+      "status": "HTML timeout in independent review"
+    },
+    {
+      "url": "https://lsth.bundesfinanzministerium.de/lsth/2026/B-Anhaenge/Anhang-23/I/inhalt.html",
+      "status": "503 in independent review"
+    }
+  ],
+  "cases": [
+    "10 actual workdays across month boundary count one interruption",
+    "Actual Saturday/Sunday shifts count; preserved paid workday interrupts",
+    "Prior-year exhausted EFZ blocks unresolved carry-in",
+    "First wage loss exactly January1 is not prior-year loss",
+    "Actual schedule revision invalidates current projection but original receipt persists",
+    "Superseded protected original blocks fresh use but exact receipt persists",
+    "Removed personnel.approve denies replay while retained personnel.read permits original read"
+  ],
+  "logs": [
+    {
+      "path": "work/verification/payroll-u-independent-first.log",
+      "sha256": "d64ee6c7b0738fe0023e976c4e802c9a8aa6bd3f0f1683d7ceffd92a55528550"
+    },
+    {
+      "path": "work/verification/payroll-u-independent-second.log",
+      "sha256": "313c716d7a58a1592aaef6ed60c328e2939ed43653bf0bee8fc9476448b43f4a"
+    },
+    {
+      "path": "work/verification/payroll-u-independent-boundaries.log",
+      "sha256": "15a7b46e72bcdcb11d08fb26889700a5124ef00dafc3bc636856f7537d1d5e52"
+    },
+    {
+      "path": "work/verification/payroll-u-independent-after-fix.log",
+      "sha256": "8c4d1e8635a8d078ab3668447b55c2839475d4fab75bae1885c5be352c898f1c"
+    }
+  ],
+  "sha256": {
+    "backend/payroll_wage_interruptions_2026.py": "3039dc435c9c689fbc5a50b005581393e4093c8703a9ae9b74e52d559a236aa9",
+    "backend/business_payroll_wage_interruptions.py": "facd3231beebd77399b0b4fa95f73d760c01383e37f5aa9e7fb0836d61634f3f",
+    "backend/test_payroll_wage_interruptions_review.py": "eef16a4719640e23b8b8944ece31343bbc4e77181925499d540379a359d08296"
+  },
+  "first_attempt_note": "Initial new boundary fixture lacked the required explicit social continuation/benefit proof and failed earlier; second and third logs show the actual reported U boundary failure. Original logs retained."
+}

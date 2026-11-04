@@ -1,0 +1,60 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: money and known zero ELStAM never round fractional cents or invent missing inputs
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: profile normalizer separates explicitly selected standard tax and legacy contribution scope
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: backend minijob calculation accepts exact 581.29 and rejects fabricated net and totals
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: preview rejects another employee even when profile and preparation ids match
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: receipts bind frozen source, exact correction delta and original evidence
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: historical JSON validates exact envelope hash rather than only current record equality
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: lost ACK remains pending through fresh rights revocation and retries original nonce and body
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: mismatched acknowledgment retains request and employee-bound state prevents replay
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: regular PAP receipt requires provenance, exact taxes and net
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: regular correction retains extended tax delta fields and unknown prior tax
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual snapshot sums only effective correction and exposes missing months
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: empty and partial annual snapshots preserve unknown money and verify hashes
+00:00 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual export validates manifest size and exact bytes
+00:00 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:00 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:00 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:00 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:00 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:00 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:00 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:00 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:01 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:01 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:02 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: pending run survives closing page and renders a recoverable exact retry
+00:02 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: own payroll hides staff writes and loses all displayed data after access withdrawal
+00:03 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: actual accepted zero-net original correction and ledger retain no fictitious cash and open statutory gaps
+00:03 +26: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: missing old malformed or substituted source3 data never authorizes empty payments
+00:03 +27: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: zero account original replay retains validation and nonce across missing approval and a false receipt
+00:03 +28: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:03 +29: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:03 +30: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:03 +31: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:03 +32: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:04 +33: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:04 +34: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:04 +35: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:04 +36: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:04 +37: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:04 +38: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_zero_account_test.dart: rendered zero-net selection requires original and both confirmations then replays and corrects without cash fields
+00:05 +39: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:06 +40: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:06 +41: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:07 +42: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:07 +43: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:07 +44: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:07 +45: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:07 +46: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:07 +47: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 mobile correction confirms exact sources, replays lost ACK, voids and reads original history
+00:08 +48: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:09 +49: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:09 +50: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:10 +51: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:10 +52: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:10 +53: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: employee context replacement cannot retain a private v6 editor
+00:10 +54: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 replay rejects wrong employee, rule and source contract before resending
+00:10 +55: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_test.dart: actual v6 replay preserves the original validator against a foreign receipt
+00:10 +56: All tests passed!

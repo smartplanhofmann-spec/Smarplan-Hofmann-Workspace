@@ -1,0 +1,66 @@
+{
+  "recorded_at_utc": "2026-11-03T23:59:01.171194+00:00",
+  "scope": "Independent native P5 private lifecycle and actual BusinessSession replay review",
+  "tests": {
+    "passed": 10,
+    "failed": 0,
+    "command": "PATH=/workspace/toolchains/clang-19/bin:/workspace/toolchains/flutter/bin:$PATH PUB_CACHE=/workspace/toolchains/pub-cache flutter test --reporter expanded test/business_payroll_annual_basis_review_test.dart",
+    "cwd": "app"
+  },
+  "analyze": {
+    "files": 3,
+    "issues": 0
+  },
+  "initial_review": {
+    "passed": 5,
+    "failed": 3,
+    "subsequently_added_cases": 2
+  },
+  "findings": [
+    "Existing private correction editor survived employee changes in the same Widget State",
+    "Revoked approval with retained personnel.read did not invalidate the open correction editor",
+    "Delayed preview could revive a write workflow after approval withdrawal"
+  ],
+  "fix_owner": "payroll_claims_resume; didUpdateWidget rebinds session, clears private context and dialogs; approval-loss transition invalidates epoch and private workflow; previous action cannot release newer busy state",
+  "verified": [
+    "Employee change clears original editor and selected private data",
+    "Replacement session removes editor from prior session and respects new denied read scope",
+    "Late preview cannot restore previous employee after Widget update",
+    "Approve withdrawal with read retained closes correction dialog",
+    "Late preview cannot restore write workflow after approval withdrawal",
+    "Delayed original authorization cannot dispatch download after background",
+    "Frozen wrong employee is rejected before repeat POST and exact pending body remains",
+    "Frozen unknown annual kind is rejected before repeat POST and exact pending body remains",
+    "Actual repeat method retains original receipt validator against foreign employee, wrong kind and replaced year; all retries retain original body and nonce",
+    "Foreign fresh catalog is rejected and original pending request remains repeatable after correct catalog restored"
+  ],
+  "logs": {
+    "prior_failure": {
+      "path": "docs/evidence/payroll-annual-native-review-prior_failure-2026-11-03.txt",
+      "sha256": "7ca877536b0e2a8091901a5c1be3dd444dea9de5e88647c6a5b08927ca30ad97"
+    },
+    "review": {
+      "path": "docs/evidence/payroll-annual-native-review-review-2026-11-03.txt",
+      "sha256": "4447a247189f036938c1212da8a135bb4de57bda62a7aa2656e8b3199c0cc5f6"
+    },
+    "analyze": {
+      "path": "docs/evidence/payroll-annual-native-review-analyze-2026-11-03.txt",
+      "sha256": "3487fc13b7eaa83656acd1175a0d6a505ad214a0e4580115e3a433f8f27a5c44"
+    }
+  },
+  "source_snapshot": {
+    "app/lib/business_payroll_annual_basis.dart": "c4bad75698a342d0349723c97557f9d386eb186683100edcc057736465b87db5",
+    "app/lib/business_payroll_annual_basis_forms.dart": "c9f78cca31936f1200d9fa1cebe1223c053b0091bd8f5188fedb0cefc12f8261",
+    "app/lib/business_payroll_annual_basis_contract.dart": "9c56061982b147466f4cf9dc2f54e70e3866ac28d91c189ec99a5d5ef3402c6d",
+    "app/lib/business_session.dart": "7d9e4735c4f7eccde81ad2a626f502cdffe820d8124a831e19924c0e59b34f12",
+    "app/test/business_payroll_annual_basis_review_test.dart": "edd9e5719b0f407c894e2f497ccbe04937d37637790e2ec960b639645ed659af",
+    "app/test/business_payroll_annual_basis_test.dart": "9712ab111f2b6794d365b7bb4fd0432c4c8f77a08ce4a75b40932dfb21c05b95",
+    "docs/fixtures/payroll-annual-basis-2026.json": "fe577d29eb42ac9263e17ca2f467053f4a0ec2d098beba80c93a59f048be26d1"
+  },
+  "limitations": [
+    "Flutter host widget/unit tests with synthetic API transport and actual immutable domain fixtures; no physical device or live employer data",
+    "Original-download case holds authorization before callback dispatch; this does not assert cancellation of an external download already started",
+    "10 new review cases are separate from 27 owner checks; combined owner regression reports37",
+    "No official tax submission or production certification"
+  ]
+}

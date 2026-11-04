@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-03",
+  "scope": "Flutter native U annual assessment; actual backend fixtures; instrumented API transport, no native live HTTP claim",
+  "rule_version": "de_2026_wage_interruptions_v1",
+  "tests": {
+    "passed": 10,
+    "failed": 0,
+    "log": "docs/evidence/payroll-wage-interruptions-native-2026-11-03.txt",
+    "command": "PATH=/workspace/toolchains/clang-19/bin:$PATH PUB_CACHE=/workspace/toolchains/pub-cache /workspace/toolchains/flutter/bin/flutter test test/business_payroll_wage_interruptions_test.dart --reporter expanded"
+  },
+  "analysis": {
+    "files": 3,
+    "issues": 0,
+    "log": "docs/evidence/payroll-wage-interruptions-native-analyze-2026-11-03.txt",
+    "command": "PUB_CACHE=/workspace/toolchains/pub-cache /workspace/toolchains/flutter/bin/flutter analyze lib/business_payroll_wage_interruption_contract.dart lib/business_payroll_wage_interruptions.dart test/business_payroll_wage_interruptions_test.dart"
+  },
+  "working_directory": "app",
+  "loopback_permission_required": true,
+  "file_sha256": {
+    "app/lib/business_payroll_wage_interruption_contract.dart": "1fc2c069bf9c8cb1ddbac8bf5c11ab3954993b45d021fb2438aed3d292a40513",
+    "app/lib/business_payroll_wage_interruptions.dart": "b47b9a74069b89315dcd86695a9360bf0fe3769ae888eaa4678ce42c7ec0b4ef",
+    "app/test/business_payroll_wage_interruptions_test.dart": "eb9a07352752bdf5fa00c3d54f881b73444d67b8a2372550981a218e8ae313c3",
+    "app/test/fixtures/payroll_wage_interruptions.json": "51a39eaed32ff3672d3e51e61ef7b3345f606072fa6d7798231c9ab814fdcbd0"
+  },
+  "first_executed_failure_preserved": "docs/evidence/payroll-wage-interruptions-native-first-executed-2026-11-03.txt",
+  "private_editor_counterexample_preserved": "docs/evidence/payroll-wage-interruptions-native-private-editor-first-2026-11-03.txt",
+  "limitations": [
+    "No native device acceptance",
+    "No native live HTTP integration in Flutter test",
+    "No statutory transmission",
+    "Domain limits of CRM_ERP_LOHN_U_MERKMAL_VERTRAG_2026.md remain enforced"
+  ],
+  "documentation": "docs/CRM_ERP_LOHN_U_MERKMAL_NATIVE_PRUEFUNG_2026-11-03.md"
+}

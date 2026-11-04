@@ -1,0 +1,12 @@
+test_actual_paid_composition_contributes_running_and_bonus_separately (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_actual_paid_composition_contributes_running_and_bonus_separately) ... ok
+test_march_clause_receipt_consumes_only_actual_previous_social_year (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_receipt_consumes_only_actual_previous_social_year) ... ok
+test_rehashed_compact_historical_profile_cannot_replace_verified_original (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_rehashed_compact_historical_profile_cannot_replace_verified_original) ... ok
+test_second_claim_same_month_does_not_hide_first_bonus (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_second_claim_same_month_does_not_hide_first_bonus) ... ok
+test_three_actual_bonuses_keep_tax_and_social_room_and_bounded_sources (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_three_actual_bonuses_keep_tax_and_social_room_and_bounded_sources) ... ok
+test_unpaid_omitted_later_or_replaced_actual_source_cannot_be_zero (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_unpaid_omitted_later_or_replaced_actual_source_cannot_be_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 34.481s
+
+OK
+SOURCE4_SUCCESSOR_SIZES_BYTES [206183, 217530, 228168]

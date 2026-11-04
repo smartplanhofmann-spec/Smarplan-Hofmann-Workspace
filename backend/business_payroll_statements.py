@@ -59,7 +59,7 @@ def project(record):
                 month=source['month'], created_at=record['created_at'], calculation=narrow,
                 period_summary=summary, transmission_status='not_transmitted',
                 payment_status='not_evidenced_by_calculation')
-    if source.get('source_schema_version') == 3:
+    if source.get('source_schema_version') in (3, 4):
         # A new projection version preserves every legacy statement/PDF byte.
         # Only the employee's own amounts and dates leave the private case.
         base['schema_version'] = 2
@@ -73,6 +73,19 @@ def project(record):
                 'individual_taxable_payroll_minor', 'benefit_in_kind_non_cash_minor', 'letter_m')}
         base['travel_summary']['employee_flat_tax_deduction_minor'] = (
             periods['flat_travel_tax']['employee_tax_minor'] if periods['flat_travel_tax'] else 0)
+    if source.get('source_schema_version') == 4:
+        # Source4 carries private annual evidence. Only the employee's amounts
+        # and the resulting year assignment belong in the employee statement.
+        extra = calculation['one_off_details']
+        base['schema_version'] = 3
+        base['one_off_summary'] = dict(
+            amount_minor=extra['amount_minor'], receipt_date=extra['receipt_date'],
+            **{key: extra['assignment'][key] for key in ('tax_year', 'social_year', 'march_clause')},
+            employee_contributions={key: extra['social']['employee_contributions'][key]
+                                    for key in CONTRIBUTIONS},
+            employee_social_total_minor=extra['social']['employee_total_minor'],
+            individual_wage_tax_minor=extra['tax']['STS'], solidarity_minor=extra['tax']['SOLZS'],
+            church_tax_minor=extra['church_tax_minor'])
     return dict(base, statement_hash=_sha(base))
 
 
@@ -115,7 +128,7 @@ def render_pdf(statement):
         line('Unvollständiger Rechenumfang: Lohnsteuer und Netto sind noch nicht vollständig ermittelt.')
     for key in AMOUNTS:
         line(LABELS[key] + ': ' + _money(calculation[key]))
-    if statement['schema_version'] == 2:
+    if statement['schema_version'] in (2, 3):
         line('Belegte Nettoabzüge: ' + _money(calculation['net_deductions_minor']))
         line('Eigene Entgeltbestandteile', True)
         labels = dict(ordinary_work='Regelmäßiges Arbeitsentgelt',
@@ -133,6 +146,17 @@ def render_pdf(statement):
             ('employee_flat_tax_deduction_minor', 'Belegter Arbeitnehmer-Steuerkostenabzug')):
             line(label + ': ' + _money(travel[key]))
         line('Mahlzeitenmerkmal M: ' + ('Ja' if travel['letter_m'] else 'Nein'))
+    if statement['schema_version'] == 3:
+        extra = statement['one_off_summary']
+        line('Einmalzahlung / sonstiger Bezug', True)
+        line('Brutto der Einmalzahlung: ' + _money(extra['amount_minor']))
+        line('Berechneter Zuflussstichtag: ' + extra['receipt_date'])
+        line(f"Steuerjahr: {extra['tax_year']} / SV-Zuordnungsjahr: {extra['social_year']}")
+        line('Märzklausel: ' + ('Ja' if extra['march_clause'] else 'Nein'))
+        for key in ('employee_social_total_minor', 'individual_wage_tax_minor', 'solidarity_minor', 'church_tax_minor'):
+            line(LABELS[key] + ' der Einmalzahlung: ' + _money(extra[key]))
+        for key, value in extra['employee_contributions'].items():
+            line(BRANCH_LABELS[key] + ' der Einmalzahlung: ' + _money(value))
     if calculation['employee_contributions'] is not None:
         line('Arbeitnehmerbeiträge', True)
         for key, value in calculation['employee_contributions'].items():
@@ -146,7 +170,7 @@ def render_pdf(statement):
             for item in summary[name]:
                 line(f"{title}: {item['start']} bis {item['end']} / {item[days]}")
     line('Berechneter Auszahlungsbetrag ist kein Zahlungsnachweis. '
-         + ('Steuerfreie Reiseerstattungen werden außerhalb dieses Lohnnettos gezahlt.' if statement['schema_version'] == 2
+         + ('Steuerfreie Reiseerstattungen werden außerhalb dieses Lohnnettos gezahlt.' if statement['schema_version'] in (2, 3)
             else 'Auslagen und Reisekosten werden gesondert belegt.'))
     line('Keine amtliche Meldung oder vollständige gesetzliche Entgeltbescheinigung. Nachweis des ausgewiesenen Rechenumfangs.')
     line('Beleg-SHA256: ' + statement['statement_hash'])
@@ -175,7 +199,7 @@ class PayrollStatements:
     def _verified(self, row):
         from business_payroll import _calculate_source
         record = self.payroll._event(row)
-        if record['source'].get('source_schema_version') == 3:
+        if record['source'].get('source_schema_version') in (3, 4):
             self.payroll._verify_calculation_record(record)
         elif record['source'].get('source_schema_version') == 2:
             self.payroll._verify_period_record(record)

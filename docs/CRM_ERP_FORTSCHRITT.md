@@ -1735,3 +1735,71 @@ werden additiv entwickelt; dieser Zwischenstand ist keine Gesamtfertigstellung.
 Diese Prüfgruppen überlappen. Sie werden weder zu einer Gesamtzahl addiert
 noch als vollständige Fertigstellung der Software ausgegeben. Noch laufende
 Quelländerungen benötigen den anschließenden gemeinsamen Regressionsstand.
+
+## Geprüfter Quellstand 2fdfa9f – 03.11.2026
+
+Der lokale Commit `2fdfa9f37bbbaf9e8b6fe4070be6809fe15b69c3` sichert die isoliert geprüfte Zusammenführung der Lohnquellen, Gesamtfälle und Reise-/Finanzabläufe. Auf genau diesem eingefrorenen Quellstand bestanden 1.484 von 1.485 Backendtests (ein Windows-spezifischer Test unter Linux ausgelassen), 398 Node-Tests und 932 Flutter-Tests; die vollständige Flutter-Analyse meldete keine Probleme. Quelldateien und Protokolle sind mit SHA-256 im Nachweis `docs/evidence/payroll-travel-core-regression-2026-11-03.json` und dem zugehörigen Dateimanifest gebunden.
+
+Der erste Flutter-Start scheiterte an einem fehlenden Testinterpreter-Pfad und wurde abgebrochen; der anschließende vollständige Lauf mit dem vorhandenen verifizierten Interpreter bestand. Spätere globale Jahres-/U-Registrierungen, die neueren P4-Oberflächen sowie Einmalbezug-v6 liegen außerhalb dieses eingefrorenen Nachweises. Sie werden weiter implementiert und gesondert geprüft. Der Commit ist ein lokaler Entwicklungszwischenstand, keine Behauptung eines abgeschlossenen Gesamtziels oder einer Produktivfreigabe.
+
+## Weiterentwicklung am 04.11.2026: Jahresquellen, Nullnetto und Einmalbezüge
+
+Die fünf privaten Jahresquellenarten besitzen Browser- und App-Formulare. Die unabhängige App-Gegenprüfung fand und behob verbliebene Dialoge nach Mitarbeiter-/Sessionwechsel und entzogenem Freigaberecht; zehn gezielte Gegenfälle sind nach dem Fix grün. Die Wiederholungsprüfung der geschützten Browser-Lohnpfade besteht61Tests. P4 und Gesamtfälle wurden zusätzlich gegen spät eintreffende private Fehlertexte abgesichert.
+
+Ein tatsächlicher Nullnettomonat kann jetzt mit Originalbeleg und leerer Zahlungsteilliste dokumentiert werden, ohne einen Geldfluss zu erzeugen. Positive Abführungen bleiben separat zu belegen. Domain-, PostgreSQL- und Clientnachweise liegen unter `CRM_ERP_LOHN_NULLMONAT_PRUEFUNG_2026-11-03.json`; die Browser-Gesamtregression wird getrennt fortgeschrieben.
+
+Die neue Source4-Kette für reguläre Einmalbezüge ist in Entwicklung: kanonische Jahresquellen, geschützte Fallannahme, ein dauerhaft an seinen Lohnlauf gebundener Anspruch, tatsächlicher Zahlungsnachweis, Cash und EÜR. Vier unabhängige private Quellen-/Rechtegegenfälle bestehen. Die globale Registrierung aller drei Tabellen, der Unternehmensübergabe und der Quellpakete besteht48Tests (11,138s). Nachweise: `evidence/payroll-oneoff-private-independent-2026-11-03.json` und `evidence/source4-three-table-registration-2026-11-04.json`. Die vollständige PostgreSQL-/Browser-/App-Abnahme dieser neuen Kette ist damit noch nicht erklärt.
+
+Weiter offen bleiben unter anderem weitere Jahreszuordnungen nach bereits abgerechneten Einmalbezügen, mehrere Boni und unterschiedliche tatsächliche Zuflusstage sowie die im Lohn-Lückenplan ausdrücklich benannten Versicherungs- und Meldefälle. Das Gesamtziel bleibt die vollständige Software; ein geprüfter Teilumfang wird nicht als Gesamtabschluss ausgewiesen.
+
+## Fortsetzung am 04.11.2026: Einmalbezug, Sitzungswechsel und Finanzübernahme
+
+Die zusätzliche PostgreSQL-Integration der bezahlten Source4-Jahresübernahme
+besteht vier Fälle in 44,607 Sekunden. Nach echter Sicherung und
+Wiederherstellung bleiben die kompakte Jahresbasis, ihre Originalannahme,
+Lohnlauf, Zahlungsnachweis, Anspruchsverbrauch und PDFs unverändert.
+Der Nachweis bindet seinen genauen Quellstand:
+`evidence/payroll-oneoff-pg-annual-integration-2026-11-04.json`.
+Weitere Änderungen an der Märzklausel-Korrektur werden gesondert geprüft.
+
+Die unabhängigen nativen Gegenprüfungen fanden private Dialoge und verspätete
+Fehler nach Kontextwechsel. P4/Source3 bestehen nach Korrektur 59 gemeinsame
+Fälle, v6 sechs zusätzliche Fälle. Der gemeinsame Formulareditor löst seinen
+alten Sessionlistener und verwirft einen übernommenen Kontext. Ein weiterer
+echter Gegenfall zeigte, dass eine späte Antwort des alten Auftrags A die
+Formularwerte eines neuen Auftrags B unter gleichem Schlüssel überschreiben
+konnte. Die Sicherung der Formularwerte bindet sich jetzt an Owner, Schlüssel
+und ursprüngliche request_id. 18 neue Editorfälle und sechs bestehende
+Sessionfälle bestehen gemeinsam; Rot-/Grünbelege stehen unter
+`evidence/business-editor-context-2026-11-04.json`.
+
+Die Gegenprüfung außerhalb der Lohnentwicklung benennt drei konkrete
+verbleibende Implementierungspakete: belegte Finanzübernahme, Katalogpreise
+mit Gültigkeitszeiträumen und vollständigem Browserimport sowie
+unternehmensweite Ereignisregeln. Bericht:
+`CRM_ERP_GESAMTZIEL_GEGENPRUEFUNG_2026-11-04.md`.
+Die Anfangssaldo-Implementierung beginnt in einem isolierten Arbeitsbaum;
+sie ist zu diesem Zeitpunkt noch nicht im Hauptrepository integriert oder
+abgenommen. Historische Anlagen folgen als eigener Vertrag. Bestehende
+Archivimporte werden dabei nicht zu neuen Einnahmen oder Ausgaben erklärt.
+
+### Source4-Clients vor der eingefrorenen Gesamtregression
+
+Browser und Flutter unterstützen Vorschau, Abschluss, Korrektur und exakte
+Wiederholung der Source4-Rechnung einschließlich tatsächlich belegter
+Zahlung, Lohnkonto und eigener reduzierter Mitarbeiterbelege. Der vollständige
+Chromium-Ablauf besteht einschließlich Originalhistorie, PDF/JSON und
+390-Pixel-Ansicht. 14 benannte Nodefälle, 56 native Regressionsfälle und die
+abschließende unabhängige Hauptansichtsprüfung mit 43 neuen Kontextfällen plus
+sieben tatsächlichen Source4-Abläufen bestehen. Die Analyse meldet keine
+Befunde. Nachweise: `evidence/payroll-oneoff-clients-2026-11-04.json` und
+`evidence/payroll-main-context-review-2026-11-04.json`.
+
+Die unabhängige Prüfung fand drei tatsächliche Hauptansichtsfehler: eine
+verspätete Vorschau nach Austausch gegen eine andere erlaubte Sitzung mit
+gleicher Generation, einen offenen verschachtelten Editor nach Personen-/
+Sitzungswechsel und private Unterfenster nach Entfernung der Hauptansicht
+bei erhaltenem Navigator. Der Clientowner korrigierte Kontextbindung und
+Unterfensterabbau; unveränderte rote und grüne Protokolle bleiben erhalten.
+Backend und Clients sind nun für eine neue eingefrorene Gesamtregression
+stabil. Deren Ergebnis ist zu diesem Eintrag noch nicht vorweggenommen.

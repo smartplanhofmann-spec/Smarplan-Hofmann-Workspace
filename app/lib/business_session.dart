@@ -7,6 +7,22 @@ import 'package:flutter/scheduler.dart';
 import 'api.dart';
 import 'offline_vault.dart' show offlineId;
 
+/// A failed response belongs to one exact command, even if its UI key is reused.
+class BusinessCommandException extends ApiException {
+  final BusinessSession owner;
+  final String key, requestId;
+  BusinessCommandException(
+    this.owner,
+    this.key,
+    this.requestId,
+    ApiException error,
+  ) : super(
+        error.status,
+        error.message,
+        requestResolution: error.requestResolution,
+      );
+}
+
 Map<String, dynamic> businessMap(dynamic value) =>
     value is Map ? Map<String, dynamic>.from(value) : <String, dynamic>{};
 List<Map<String, dynamic>> businessItems(dynamic value) {
@@ -1271,6 +1287,173 @@ class BusinessSession extends ChangeNotifier {
     );
   }
 
+  Future<dynamic> repeatPayrollOneoffCaseCommand(String employeeId) {
+    final key = 'payroll-oneoff-cases-$employeeId';
+    final operation = _pending[key];
+    final details = operation?.body['details'];
+    final month = details is Map ? details['month'] : null;
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/one-off-cases',
+      readPath:
+          '/payroll/one-off-cases/sources?employee_id=$employeeId&month=$month',
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            month is! String ||
+            !RegExp(r'^2026-(0[1-9]|1[0-2])$').hasMatch(month) ||
+            projectId != null ||
+            !hasFeature('payroll_oneoff_cases') ||
+            !hasModule('payroll_oneoff_cases') ||
+            !can('personnel.read') ||
+            !canWrite('personnel.approve') ||
+            operation?.body['kind'] != 'one_off_case' ||
+            operation?.body['rule_version'] !=
+                'de_2026_oneoff_composition_v6' ||
+            operation?.body['source_contract_version'] is! int ||
+            operation?.body['source_contract_version'] != 1 ||
+            operation?.body['employee_id'] != employeeId) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte und der ursprüngliche belegte Einmalbezugsfall fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['employee_id'] != employeeId ||
+            state['employee'] is! Map ||
+            state['employee']['id'] != employeeId ||
+            state['month'] != month ||
+            state['calculation_cases'] is! List ||
+            state['annual_facts'] is! List ||
+            state['one_off_cases'] is! List) {
+          throw const ApiException(
+            502,
+            'Die Quellen gehören nicht eindeutig zum Mitarbeiter und Abrechnungsmonat.',
+          );
+        }
+        if (state['can_approve'] != true) {
+          throw const ApiException(
+            403,
+            'Die aktuellen Freigaberechte am Einmalbezugsfall fehlen.',
+          );
+        }
+        // The original accepted body stays unchanged despite newer sources
+        // or a paused personnel module. Only the server receipt proves success.
+      },
+    );
+  }
+
+  Future<dynamic> repeatPayrollAnnualBasisCommand(String employeeId) {
+    final key = 'payroll-annual-basis-$employeeId';
+    final operation = _pending[key];
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/annual-facts',
+      readPath: '/payroll/annual-facts/sources?employee_id=$employeeId',
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            projectId != null ||
+            !hasFeature('payroll_annual_basis') ||
+            !hasModule('payroll_annual_basis') ||
+            !can('personnel.read') ||
+            !canWrite('personnel.approve') ||
+            operation?.body['employee_id'] != employeeId ||
+            ![
+              'imported_period',
+              'imported_one_off',
+              'annual_basis',
+              'one_off_earning',
+              'annual_tax_forecast',
+            ].contains(operation?.body['kind'])) {
+          throw const ApiException(
+            403,
+            'Aktuelle globale Rechte und die ursprüngliche Jahresquelle fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['employee_id'] != employeeId ||
+            state['employee'] is! Map ||
+            state['employee']['id'] != employeeId ||
+            state['annual_facts'] is! List ||
+            state['payroll_runs'] is! List ||
+            state['payroll_payments'] is! List ||
+            state['calculation_cases'] is! List) {
+          throw const ApiException(
+            502,
+            'Die privaten Jahresquellen gehören nicht eindeutig zum Mitarbeiter.',
+          );
+        }
+        if (state['can_approve'] != true) {
+          throw const ApiException(
+            403,
+            'Die aktuellen Freigaberechte für die Jahresquelle fehlen.',
+          );
+        }
+        // Exact accepted requests remain repeatable after source changes or a
+        // module pause. This never changes the frozen original or its nonce.
+      },
+    );
+  }
+
+  Future<dynamic> repeatPayrollWageInterruptionsCommand(String employeeId) {
+    final key = 'payroll-wage-interruptions-$employeeId';
+    final operation = _pending[key];
+    final details = operation?.body['details'];
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => path == '/payroll/wage-interruptions',
+      readPath:
+          '/payroll/wage-interruptions/sources?employee_id=$employeeId&year=2026',
+      requireRights: () {
+        if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(employeeId) ||
+            projectId != null ||
+            !hasFeature('payroll_wage_interruptions') ||
+            !hasModule('payroll_wage_interruptions') ||
+            !can('personnel.read') ||
+            !canWrite('personnel.approve') ||
+            operation?.body['employee_id'] != employeeId ||
+            operation?.body['kind'] != 'wage_interruption_assessment' ||
+            operation?.body['rule_version'] !=
+                'de_2026_wage_interruptions_v1' ||
+            operation?.body['source_contract_version'] is! int ||
+            operation?.body['source_contract_version'] != 1 ||
+            details is! Map ||
+            details['year'] is! int ||
+            details['year'] != 2026) {
+          throw const ApiException(
+            403,
+            'Aktuelle globale Rechte und der ursprüngliche U-Nachweis fehlen.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['employee_id'] != employeeId ||
+            state['employee'] is! Map ||
+            state['employee']['id'] != employeeId ||
+            state['year'] is! int ||
+            state['year'] != 2026 ||
+            state['assessments'] is! List ||
+            state['runs'] is! List ||
+            state['entitlements'] is! List ||
+            state['file_references'] is! List) {
+          throw const ApiException(
+            502,
+            'Die privaten Jahresquellen sind nicht eindeutig der Person zugeordnet.',
+          );
+        }
+        if (state['can_approve'] != true) {
+          throw const ApiException(
+            403,
+            'Die aktuellen Freigaberechte für den U-Nachweis fehlen.',
+          );
+        }
+        // A newer source revision or a paused module never changes the
+        // accepted original. The server verifies its immutable receipt.
+      },
+    );
+  }
+
   Future<dynamic> repeatPayrollTravelTaxPolicyCommand() {
     const key = 'payroll-travel-tax-policies';
     final operation = _pending[key];
@@ -1674,7 +1857,18 @@ class BusinessSession extends ChangeNotifier {
     return Map<String, dynamic>.from(jsonDecode(jsonEncode(values)));
   }
 
-  void preservePendingEditor(String key, Map<String, dynamic> values) {
+  void preservePendingEditor(
+    String key,
+    Map<String, dynamic> values, {
+    ApiException? commandError,
+  }) {
+    if (commandError != null &&
+        (commandError is! BusinessCommandException ||
+            !identical(commandError.owner, this) ||
+            commandError.key != key ||
+            commandError.requestId != _pending[key]?.body['request_id'])) {
+      return;
+    }
     if (allowed && pending(key)) {
       _pendingEditorValues[key] = Map<String, dynamic>.from(
         jsonDecode(jsonEncode(values)),
@@ -1977,7 +2171,7 @@ class BusinessSession extends ChangeNotifier {
         await load();
       }
       return result;
-    } on ApiException catch (e) {
+    } on ApiException catch (e, stack) {
       if (_pending[key]?.body['request_id'] == operation.body['request_id'] &&
           e.status != 0 &&
           e.status < 500 &&
@@ -1991,7 +2185,15 @@ class BusinessSession extends ChangeNotifier {
         _pendingEditorValues.remove(key);
       }
       if (e.status == 401) revoke();
-      rethrow;
+      Error.throwWithStackTrace(
+        BusinessCommandException(
+          this,
+          key,
+          operation.body['request_id'] as String,
+          e,
+        ),
+        stack,
+      );
     }
   }
 

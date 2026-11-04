@@ -21,6 +21,23 @@ def part_key(employee_id,payment):
     return _sha([employee_id,payment['paid_on'],_evidence(payment['payment_reference'])[1]])
 
 
+def require_preserved_actual_net_parts(office,employee_id,month,payments):
+    """A new Source4 account must retain already adopted actual money facts.
+
+    This is a fresh-write guard only. Historical source reconstruction remains
+    tied to its accepted original, including after later payment corrections.
+    """
+    from business_schema import _tables
+    if 'business_payroll_cash_batches' not in _tables(office):return
+    from business_payroll_cash import PayrollCash
+    api=PayrollCash(office);scope=employee_id+':'+month
+    full={part_key(employee_id,value):value['amount_minor'] for value in payments}
+    for row in api._latest():
+        for value in api._private(row)['transactions']:
+            if value['component']=='net' and value['scope_key']==scope and full.get(value['part_key'])!=value['amount_minor']:
+                raise Problem(409,'Bereits tatsächlich übernommene Nettozahlungen müssen mit unverändertem Tag, Betrag und Originalreferenz enthalten bleiben; zuerst deren bestehenden Zahlungsnachweis ausdrücklich korrigieren.')
+
+
 class Sources:
     def __init__(self,api):
         self.api,self.hr,self.accounts,self.payroll=api,api.hr,api.accounts,api.accounts.payroll
@@ -45,7 +62,7 @@ class Sources:
             raise Problem(409,'Unveränderten unterstützten Barlohn ohne zusätzliche steuerfreie Bezüge auswählen.')
         if record['kind']=='payment':
             run=record['sources']['run'];month=run['source']['month']
-            if run['source'].get('source_schema_version')==3:self.payroll._verify_calculation_record(run)
+            if run['source'].get('source_schema_version') in (3,4):self.payroll._verify_calculation_record(run)
             if _calculate_source(run['source'],rule_version=calculation['rule_version'])!=calculation:
                 raise Problem(409,'Lohnrechnung besteht die Quellenprüfung nicht.')
             if current and self.payroll._row(run['id'],'run')['revision']!=run['revision']:
@@ -72,7 +89,7 @@ class Sources:
         if record['content_hash']!=ref['content_hash'] or current and self.payroll._row(record['id'],'run')['revision']!=record['revision']:
             raise Problem(409,'Genau passende wirksame Lohnrevision auswählen.')
         calculation=record['calculation'];calculated(calculation)
-        if record['source'].get('source_schema_version')==3:self.payroll._verify_calculation_record(record)
+        if record['source'].get('source_schema_version') in (3,4):self.payroll._verify_calculation_record(record)
         if _calculate_source(record['source'],rule_version=calculation['rule_version'])!=calculation:
             raise Problem(409,'Lohnrechnung besteht die Quellenprüfung nicht.')
         profile=record['source']['profile'];origin=self.file(actor,profile['source_file']['id'],record['employee_id'])

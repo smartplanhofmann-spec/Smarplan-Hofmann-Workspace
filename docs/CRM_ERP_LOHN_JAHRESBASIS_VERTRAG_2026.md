@@ -1,7 +1,7 @@
 # Private Jahresquellen für Einmalbezüge
 
-Stand: 03.11.2026. Implementierter, isoliert geprüfter P5-Quellenvertrag.
-Die neue API ist noch nicht global registriert. Eine bestätigte Jahresquelle
+Stand: 03.11.2026. Implementierter, global registrierter P5-Quellenvertrag.
+Schema, API und Exportkatalog sind registriert. Eine bestätigte Jahresquelle
 ist weder ein fertig gerechneter Einmalbezug noch eine Auszahlung. Die
 Zusammenführung mit Lohnlauf v6, Lohnkonto, Cash/EÜR und Clients steht aus.
 Gespeicherte Lohnregeln v1–v5 bleiben unverändert.
@@ -25,7 +25,7 @@ Gespeicherte Lohnregeln v1–v5 bleiben unverändert.
 |---|---|
 | `/payroll/annual-facts` | GET mit `employee_id`, optional `kind`; POST Bestätigung/Korrektur |
 | `/payroll/annual-facts/preview` | POST konkrete Quellenprüfung und Vorschau |
-| `/payroll/annual-facts/sources` | GET mit `employee_id`; private P2-Quellen, `annual_facts`, tatsächliche `payroll_runs` |
+| `/payroll/annual-facts/sources` | GET mit `employee_id`; private P2-Quellen, `annual_facts`, tatsächliche `payroll_runs`, `payroll_payments`, `calculation_cases` |
 | `/payroll/annual-facts/{id}` | GET aktuelle Fassung |
 | `/payroll/annual-facts/{id}/history` | GET alle unveränderlichen Fassungen |
 
@@ -231,10 +231,32 @@ Vertragsprognose, fehlende Zuflüsse, Rechte, Tabellen-Guards und Manipulation.
 Zwei echte lokale HTTP-Fälle bestanden. Der erste Sandboxversuch konnte keine
 Sockets öffnen; der anschließend erlaubte Loopbacklauf war grün.
 
-Logs: `work/verification/payroll-annual-private-boundaries-first.log`,
-`work/verification/payroll-annual-http-first.log` und
-`work/verification/payroll-annual-http-loopback.log`. Die neue PostgreSQL-
-Prüfung läuft mit ausschließlich testlokaler Registrierung; ihr Ergebnis wird
-erst nach Ausführung ergänzt. Eine unabhängige Gegenprüfung der Quellenmodule
-ist beauftragt. Globale Registrierung, v6, beide Clients, vollständige
-Lohnkonto-/Cash-Kette und externe fachliche Gesamtfreigabe sind offen.
+Vier unabhängige Gegenfälle sichern zusätzlich die getrennten Steuer-/SV-Jahre,
+die tatsächliche 2025-BBG, spätere Originale und die 21.-Januar-Grenze. Die dabei
+gefundene fehlende Vollständigkeitsprüfung für 2026 zugeflossene, der SV 2025
+zugeordnete Bezüge ist behoben. Bekannte solche Originale müssen ausdrücklich
+gebunden sein; historische angenommene Zustände bleiben unverändert.
+
+Nach diesem Fix bestanden 56 Kern-/Domänen-/Gegentests, zwei echte lokale
+HTTP-Fälle und drei PostgreSQL-Fälle. Der letzte PG-Lauf verlangte die echte
+globale Registrierung genau einmal und ergänzte keine testlokale Registrierung.
+Er prüfte MFA-/HTTP-Rechte, SQL-Laufzeitrechte, unveränderliche Tabellen,
+parallele Annahme, additive Migration, reale Sicherung/Wiederherstellung,
+Originaldateibytes und unveränderte Quittungen.
+
+Ergebnis und Dateihashes: `docs/evidence/payroll-annual-integrated-2026-11-03.json`.
+Finale Logs: `work/verification/payroll-oneoff-annual-domain-final.log`,
+`work/verification/payroll-annual-http-final.log`,
+`work/verification/payroll-annual-pg-global.log`. Frühere Versuche bleiben
+erhalten. Echte synthetische Antwortverträge aller fünf Arten liegen unter
+`docs/fixtures/payroll-annual-basis-2026.json`.
+
+Diese Nachweise beschreiben den Stand vom 03.11.2026. Die spätere Source4/v6-Integration ist im folgenden Nachtrag getrennt dokumentiert.
+
+## Nachtrag 04.11.2026: tatsächliche interne Source4-Jahresfolgen
+
+Source4-Läufe sind nun zulässige interne Jahresoriginale. Die laufende Beitrags-/Steuerprojektion wird aus ihrer unveränderten v5-Teilrechnung hergeleitet; der tatsächliche Bonus wird gesondert mit Steuerjahr, SV-Jahr, Zuordnungsreferenz, Abschnittsschlüssel und branchengenauen Beitragsbasen gebunden. Der vollständig bestätigte tatsächliche Zahlungsnachweis muss bis zum Stichtag vorliegen. Bekannte Läufe oder Zahlungen dürfen nicht ausgelassen werden.
+
+Neue Source4-Quellen speichern flache `source4_annual_reference_v1`-Lohnreferenzen und kompakte Zahlungsnachweise. `internal_periods` enthält zusätzlich `one_off_payment` und die genauen historischen `assignment_profiles`. Die Originale werden über ihre exakten Referenzen aus dem Archiv vollständig verifiziert; diese Felder sind keine freien Clientangaben. Vorhandene v1–v5-Quellen bleiben unverändert nachrechenbar.
+
+Ein Anfang 2026 tatsächlich gezahlter, Ende 2025 zugeordneter Bonus vermindert allein die 2025-SV-Luft, erhöht aber die 2026-Steuerbasis. Ein außerhalb des laufenden Jahres gebundener Lauf liefert dafür keine falschen laufenden Kalendertage. Bei einer Korrektur desselben Anspruchs nimmt der private Resolver ausschließlich dessen zu ersetzenden eigenen Verbrauch aus; dies ist kein Clientfeld. Ein zweiter Märzklauselbonus muss dagegen den tatsächlichen früheren Bonus und dessen bereits verbrauchte 2025-Basis berücksichtigen. Drei echte aufeinanderfolgende synthetische Bonusmonate mit isolierter Testuhr sowie neu gehashte Manipulationen werden in `backend/test_business_payroll_oneoff_annual.py` geprüft. Nachweis: `docs/evidence/payroll-oneoff-annual-followup-2026-11-04.json`. Der aktuelle Gesamtvertrag steht in `CRM_ERP_LOHN_EINMALBEZUG_V6_VERTRAG_2026.md`.

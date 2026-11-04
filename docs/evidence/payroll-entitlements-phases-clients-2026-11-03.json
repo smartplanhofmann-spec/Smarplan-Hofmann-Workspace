@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-03",
+  "scope": "P4 browser/native explicit sickness v3/v4 extension, historic v1/v2 preserved",
+  "results": {
+    "new_node_contract_cases": 6,
+    "flutter_cases": 21,
+    "dart_analyze": "no issues found",
+    "real_browser": "pass actual MFA/HTTP; unpaid original/replay/void history preserved; v3 joined causes and v4 preemployment source forms, previews, accepted exact plans and mobile390"
+  },
+  "runtime_files": {
+    "web/office/payroll-entitlements.js": "84b492d25dd2e81b4d2e58fee0d63c8890677720db2edfabd0afd567bf0c62f1",
+    "app/lib/business_payroll_entitlement_contract.dart": "43850105cd22e53ce5771f299b6e27647aec9460fe86a4052f7519ebb2f979dd",
+    "app/lib/business_payroll_entitlements.dart": "775ebcf9d87767f57ca335c19220d3cafd9c74db38f8f436a19eaca6326303d4",
+    "web/office/tests/payroll-sickness-phases.test.mjs": "15bb11e0b51c2c7c9d76c071b21eaab881cd13bbec44a083ddada5856d8b7e35",
+    "web/office/tests/payroll-entitlements-flow.cjs": "d7b6136a030e6d9bf37c35954768f02a870e0aac56578e4fbcbfa45758dcc845",
+    "app/test/business_payroll_sickness_phases_contract_test.dart": "391a74b57b3a736aca57bce65cedb3ce0c0568610a12184f5f9505c3344c1abb",
+    "app/test/business_payroll_sickness_phases_test.dart": "fa53fbd7aef30f6cfeadcd8667641a5419c8c450d26d37c21ede4ab9df0d19d7",
+    "app/test/fixtures/payroll_sickness_phases_v3.json": "9e15ecf3821c8a5c3233ba1d4229b6a41c76e72a69113608d9287bbd229e59bf",
+    "app/test/fixtures/payroll_sickness_start_v4.json": "8fa28aa17c3e666634dc3acca4566bae0f40a908646b32cb6f1aeb3277fd26a1"
+  },
+  "logs": [
+    "payroll-entitlements-phases-node-direct.log",
+    "payroll-entitlements-node-preserved-final.log",
+    "payroll-entitlements-retry-node-preserved-final.log",
+    "payroll-entitlements-phases-native-sixth.log",
+    "payroll-entitlements-phases-analyze-final.log",
+    "payroll-entitlements-phases-browser-first.log"
+  ],
+  "durable_log": "docs/evidence/payroll-entitlements-phases-clients-2026-11-03.txt",
+  "confirmed_and_fixed": [
+    {
+      "finding": "Native optional v4-only collection caused v3 view to reject a missing list",
+      "fix": "Optional version-specific collections explicitly default to empty; known version parser remains required"
+    },
+    {
+      "finding": "Private native editor remained visible after background and resume",
+      "fix": "Own private DialogRoutes removed on privacy boundary, suspended readability, epoch checked before/after sources and preview; late preview cannot publish or send command"
+    }
+  ],
+  "prior_attempts_preserved": {
+    "native_first": "test compilation error: lifecycle callback returns void",
+    "native_second_third_diagnosis": "test API fixtureVersion accidentally shadowed OfficeApi.version; corrected test double",
+    "native_fourth": "confirmed optional-list and private-editor failures",
+    "native_fifth": "fixed runtime; test needed to scroll to lazily built preview confirmation button",
+    "native_sixth": "21/21 pass"
+  },
+  "limits": [
+    "No legal rule changes; documented backend special cases remain blocked",
+    "No claim of completed full payroll or official transmissions",
+    "Native tests use actual service-generated fixtures; browser acceptance uses disposable actual HTTP backend and synthetic originals"
+  ],
+  "screenshots": [
+    "docs/evidence/payroll-sickness-phases-v3-mobile.png",
+    "docs/evidence/payroll-sickness-start-v4-mobile.png"
+  ],
+  "later_privacy_fix": "docs/evidence/payroll-private-late-errors-2026-11-03.json"
+}

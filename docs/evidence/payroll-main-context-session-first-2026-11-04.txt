@@ -1,0 +1,41 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart
+00:00 +0: Source4 main late preview cannot cross allowed session change
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Unverbindliche Berechnungsvorschau": [
+            Text("Unverbindliche Berechnungsvorschau", debugLabel: (englishLike titleLarge
+2021).merge((blackMountainView titleLarge).apply), inherit: false, color: Color(alpha: 1.0000, red:
+0.1137, green: 0.1059, blue: 0.1255, colorSpace: ColorSpace.sRGB), family: Roboto, size: 22.0,
+weight: 400, letterSpacing: 0.0, baseline: alphabetic, height: 1.3x, leadingDistribution: even,
+decoration: Color(alpha: 1.0000, red: 0.1137, green: 0.1059, blue: 0.1255, colorSpace:
+ColorSpace.sRGB) TextDecoration.none, dependencies: [DefaultSelectionStyle, DefaultTextStyle,
+MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart:168:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart line 168
+The test description was:
+  Source4 main late preview cannot cross allowed session change
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +0 -1: Source4 main late preview cannot cross allowed session change [E]
+  Test failed. See exception logs above.
+  The test description was: Source4 main late preview cannot cross allowed session change
+  
+00:02 +0 -1: Some tests failed.
+
+Failing tests:
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross allowed session change

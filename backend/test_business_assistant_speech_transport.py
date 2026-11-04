@@ -1,5 +1,6 @@
 """Actual local HTTP framing preserves speech-only size and JSON limits."""
 import base64
+from datetime import timedelta
 from http.server import ThreadingHTTPServer
 import json
 import os
@@ -44,6 +45,19 @@ class SpeechLocalHTTP(unittest.TestCase):
         self.call('GET','/business/assistant/speech/requests/'+body['request_id'],{},status=400)
         self.assertEqual(len(self.transport.calls),1)
         self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_assistant_speech_requests').fetchone()[0],1)
+
+    def test_day_change_rejects_old_context_before_audio_transfer_and_accepts_fresh_selection(self):
+        self.fixture.fixture.today += timedelta(days=1)
+        path = '/business/assistant/speech/transcribe'
+        self.call('POST', path, self.fixture.body, status=409)
+        self.assertEqual(self.transport.calls, [])
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM business_assistant_speech_requests').fetchone()[0], 0)
+        # A new explicit selection uses the same current clock as the native
+        # HTTP handler. The stale-source protection itself remains unchanged.
+        current = self.fixture.fixture.context()
+        body = self.fixture.body | dict(context_id=current['id'])
+        self.assertEqual(self.call('POST', path, body)[0]['status'], 'completed')
+        self.assertEqual(len(self.transport.calls), 1)
 
 
 if __name__=='__main__':unittest.main()

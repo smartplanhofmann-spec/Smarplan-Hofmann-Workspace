@@ -1,0 +1,8 @@
+test_actual_zero_payable_requires_original_declaration_without_fictitious_cash (test_business_payroll_calculations.CalculationPayrollWorkflow.test_actual_zero_payable_requires_original_declaration_without_fictitious_cash) ... ok
+test_zero_declaration_cannot_cover_corrected_nonzero_run_or_create_remittance_cash (test_business_payroll_calculations.CalculationPayrollWorkflow.test_zero_declaration_cannot_cover_corrected_nonzero_run_or_create_remittance_cash) ... ok
+test_zero_net_declaration_leaves_nonzero_minijob_remittance_separately_unpaid (test_business_payroll_calculations.CalculationPayrollWorkflow.test_zero_net_declaration_leaves_nonzero_minijob_remittance_separately_unpaid) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.634s
+
+OK

@@ -1,0 +1,45 @@
+{
+  "checked_on": "2026-11-03",
+  "status": "backend_and_actual_restore_verified_client_acceptance_pending",
+  "results": {
+    "actual_zero_original_correction_and_nonzero_remittance_3": {
+      "log": "docs/evidence/payroll-zero-accounts-final-2026-11-03.txt",
+      "sha256": "0a6faade71c6149f0c32d54ab7b47f702b60b6892506f0229a1c73d1d72a2d5c",
+      "passed": true
+    },
+    "actual_postgres_source3_zero_restore_3": {
+      "log": "docs/evidence/payroll-zero-accounts-pg-2026-11-03.txt",
+      "sha256": "ed668d7ac20dd7f833efe5e9277f15abce52bdb300e3f30606aa584ada22ac66",
+      "passed": true
+    },
+    "current_zero_u_and_legacy_regression_72": {
+      "log": "docs/evidence/payroll-zero-u-current-regression-2026-11-03.txt",
+      "sha256": "cc1bef33d84084e762fd53a6358a53898a3e4baf4bfc6a0ec4c1dcc523f28f32",
+      "passed": true
+    }
+  },
+  "contract": {
+    "source_schema_version": 3,
+    "actual_due": "net_minor - net_deductions_minor == 0",
+    "payments": [],
+    "protected_original_required": true,
+    "explicit_confirmation_required": true,
+    "cash_created": false,
+    "nonzero_remittances_require_actual_separate_payment": true,
+    "legacy_sources_and_carryovers_unchanged": true
+  },
+  "facts": [
+    "Actual pre-employment sickness zero wage month, exact acceptance replay and explicit PDF",
+    "Actual correction from zero to nonzero requires new payment revision; old original remains",
+    "Actual minijob 1604 cent gross and 1604 cent employee pension means net zero but real remittances remain",
+    "Actual MFA HTTP, PostgreSQL backup/restore original and identical ledger/PDF without any cash batch"
+  ],
+  "fixtures": {
+    "generator": "scripts/generate-payroll-zero-account-fixture.py",
+    "file": "app/test/fixtures/payroll_zero_account.json"
+  },
+  "remaining": [
+    "Independent client acceptance",
+    "No official transmission or DLS certification inferred from this evidence"
+  ]
+}

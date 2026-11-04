@@ -1,0 +1,3 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart
+00:00 +0: pre-command changed-body conflict cannot overwrite the existing pending draft
+00:00 +1: All tests passed!

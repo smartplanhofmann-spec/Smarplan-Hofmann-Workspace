@@ -14,7 +14,7 @@ const fail=(message,status=0)=>Object.assign(new Error(message),{status});
 const supportedPlan=(plan,kind)=>plan?.schema_version===1&&plan.kind===kind&&(plan.rule_version==='de_2026_entitlements_v1'||kind==='sickness_history'&&['de_2026_sickness_v2',...PHASE_RULES].includes(plan.rule_version))&&['rules_hash','input_hash','source_hash','plan_hash'].every(k=>HASH.test(plan[k]||''))&&sicknessPlanShape(plan);
 function sicknessPlanShape(plan){
  if(!PHASE_RULES.includes(plan.rule_version))return true;
- if(!Array.isArray(plan.episodes)||!Array.isArray(plan.prevention_cases)||!Array.isArray(plan.phases))return false;
+ if(!Array.isArray(plan.episodes)||!Array.isArray(plan.prevention_cases)||!Array.isArray(plan.phases)||[...plan.episodes,...plan.prevention_cases,...plan.phases].some(v=>!v||typeof v!=='object'||Array.isArray(v)))return false;
  const cases=new Set(plan.prevention_cases.map(v=>v.id)),episodes=new Set(plan.episodes.map(v=>v.episode_id));let last=null;
  if(cases.size!==plan.prevention_cases.length||episodes.size!==plan.episodes.length||[...cases,...episodes].some(v=>!ID.test(v||'')))return false;
  for(const phase of plan.phases){
@@ -82,7 +82,8 @@ export async function payrollEntitlementsAuthorize(api,employeeId,{write=false,r
 export async function payrollEntitlementsPendingAuthorize(api,operation){
  const match=/^payroll-entitlements-([a-f0-9]{32})$/.exec(operation?.key||''),body=api.pendingCommandValues(operation?.key,operation?.path);
  if(!match||operation.path!=='/business/payroll/entitlements'||body?.employee_id!==match[1]||!Object.hasOwn(PAYROLL_ENTITLEMENT_KINDS,body?.kind))throw fail('Der ursprüngliche private Anspruchsauftrag fehlt.',409);
- return payrollEntitlementsAuthorize(api,match[1],{write:true,replay:true});
+ await payrollEntitlementsAuthorize(api,match[1],{write:true,replay:true});
+ return true;
 }
 export function payrollEntitlementEvidence(sources,ids,outerIds){
  if(!Array.isArray(ids)||!ids.length||new Set(ids).size!==ids.length)throw fail('Die konkreten Anspruchsoriginale ausdrücklich auswählen.');

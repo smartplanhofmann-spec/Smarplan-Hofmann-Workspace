@@ -7,7 +7,7 @@ from business_operations import transaction
 
 def _proof(office,run,settlement_ref,month,source_hash):
     from business_payroll import Payroll
-    if (run['source'].get('source_schema_version')!=3 or run['source']['month']!=month
+    if (run['source'].get('source_schema_version') not in (3,4) or run['source']['month']!=month
             or not run['calculation']['payroll_calculation_complete'] or run['status']!='calculation_recorded'):
         raise Problem(409,'Vollständig angenommener passender neuer Lohnlauf erforderlich.')
     Payroll(office)._verify_calculation_record(run)

@@ -1,0 +1,19 @@
+{
+  "recorded_at_utc": "2026-11-03T23:58:28.776281+00:00",
+  "scope": "Independent actual private Source4 case commands and original receipts; no payroll dispatcher or cash approval implied.",
+  "passed": 4,
+  "duration_seconds": 3.124,
+  "first_run_passed": true,
+  "cases": [
+    "Approve revoked while read retained blocks accepted replay and creates no extra receipt.",
+    "Superseded original blocks fresh use while original accepted replay/integrity survives.",
+    "Changed employee invalidates new use and unrefreshed preview, old receipt/history unchanged.",
+    "No accepted_command at any nested public DTO level, including catalogs and history."
+  ],
+  "log": "docs/evidence/payroll-oneoff-private-independent-2026-11-03.txt",
+  "log_sha256": "72de6b8957aa9aef9aa0ca0827d3693c313b4a1cd674f5a2cd1ec6de148bd3ce",
+  "source_sha256": {
+    "backend/business_payroll_oneoff_cases.py": "2313607a9095f5bb779d0c5b7a12664fea72c9573e841e6553e5ec45d26b87d7",
+    "backend/test_business_payroll_oneoff_review.py": "ea810e5dca5d97599f13a9a4173bcc84973fb60b80165950783cba0b7c459278"
+  }
+}

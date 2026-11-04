@@ -1,0 +1,17 @@
+{
+  "recorded_at_utc": "2026-11-04T06:43:29.510362+00:00",
+  "scope": "Independent actual OfficeApi retry path with genuine accepted synthetic Source4 case DTOs and the original receipt validator.",
+  "tests": 4,
+  "passed": 4,
+  "duration_ms": 201.3871,
+  "cases": [
+    "Current global and source-level approval; wrong source person/month blocks POST; module pause and changed employee revision preserve original nonce/body.",
+    "Unrelated pending key cannot bypass guarded Source4 endpoint.",
+    "Wrong valid correction receipt leaves original command pending; later original receipt succeeds with same nonce.",
+    "Session replacement during fresh authorization prevents old request from being sent."
+  ],
+  "log": "docs/evidence/payroll-oneoff-session-independent-2026-11-04.txt",
+  "log_sha256": "f0e6721758696acf079e0aba20b586cb278d610aa1887fc7a3b1f20195c358db",
+  "test_sha256": "ab46d6663ccfb7e9b0375b85c6fd9baceb5ced799cb571ad863c868f8a280603",
+  "initial_restricted_attempt": "Reported only an aggregate file-level test; not counted as the four executed assertions. The full repeated run with local child-process access reports all four named cases."
+}

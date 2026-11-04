@@ -1,0 +1,47 @@
+✔ actual v5 case typed command, canonical sources and receipt match the original backend record (10.268519ms)
+✔ real total payroll preview and receipt include taxable travel once and exact net deductions (24.707583ms)
+✔ wrong source, foreign travel, changed net cost and replaced accepted plan fail closed (6.935715ms)
+✔ accepted uncertain case keeps original month and sources through pause with fresh approval (1.658305ms)
+✔ actual evidence policy uses canonical ELStAM identity with membership separate from evidence (20.837ms)
+✔ fact dates and explicit whole-day plan distinguish unknown, zero and valid calendar boundaries (2.101151ms)
+✔ new employment facts bind actual personnel dates, original and exact agreement, with no assumed method (1.556521ms)
+✔ work schedule requires every chronological day with explicit zero and region; does not invent workdays (0.938872ms)
+✔ actual backend period preview binds full source versions and has no editable gross or day counts (1.554409ms)
+✔ unsupported entitlement may be documented without claiming a complete calculation or zero net (19.039735ms)
+✔ historical receipt validation binds predecessor, exact input, plan and original source; void keeps prior plan (11.153541ms)
+✔ source and rights validation excludes employee-self fallback and cross-person metadata (1.07016ms)
+✔ approved absence choices bind the same person and actual claim dates without private free text (10.273477ms)
+✔ pending authorization freshly checks role and person, accepts later sources and module pause without changing old command (4.804568ms)
+✔ all three actual v4 calculations bind frozen periods and historical run receipts (24.265608ms)
+✔ v4 correction and annual ledger count one effective monthly revision (27.734718ms)
+✔ void receipt cannot replace old plan or source despite unchanged ordinary command fields (17.903155ms)
+✔ actual v5 employee projection includes own travel and claim values with deducted payout (42.331305ms)
+✔ narrow v5 projection rejects raw sources, unknown claim kinds and missing net deductions (2.840063ms)
+✔ actual reduced v4 statement and deterministic PDF retain own values and explicit periods (25.794019ms)
+✔ private top-level and nested fields, foreign person, tampered revision and source hash are rejected (37.123774ms)
+✔ incomplete legacy scope keeps unknown net and does not fabricate zero (4.963918ms)
+✔ self permissions require current feature and matching employee identity; read does not imply foreign access (0.400252ms)
+✔ exact decimal money, explicit zero ELStAM and rates reject fractional cents or unspecified values (1.473757ms)
+✔ profile forms never invent personal choices and require explicit standard-tax amounts (2.231658ms)
+✔ own payroll is readable but not editable or exportable; paused personnel retains history (0.220172ms)
+✔ actual backend minijob result preserves net and exact correction; partial net remains unknown (0.613623ms)
+✔ preview and acknowledgments bind employee, revisions, sources, scope and exact correction delta (2.20039ms)
+✔ historical JSON verifies server envelope hash before and after correction (10.881992ms)
+✔ lost ACK survives fresh read revocation and repeats frozen payload only after recovery (40.928108ms)
+✔ fresh pending check refuses mismatched employee page and disabled personnel module (0.609157ms)
+✔ profile acknowledgment cannot consume pending run (1.946168ms)
+✔ historical export in flight is withheld after export permission revocation (7.299954ms)
+✔ regular PAP result binds individual taxes, provenance and exact net without changing legacy scope (0.807184ms)
+✔ private original is withheld when server revokes staff read while cached own access remains (11.368965ms)
+✔ regular upgrade receipt preserves unknown tax/net deltas instead of silently substituting zero (0.98361ms)
+✔ annual view totals latest corrected month once and exposes missing months (11.181823ms)
+✔ empty and partial annual views preserve unknown totals and check snapshot hashes (14.145472ms)
+✔ annual export must match the complete preview manifest and exact snapshot (9.73702ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 576.847809

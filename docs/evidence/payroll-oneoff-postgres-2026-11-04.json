@@ -1,0 +1,46 @@
+{
+  "recorded_at_utc": "2026-11-04T06:41:08.234985+00:00",
+  "scope": "Three real globally registered Source4 PostgreSQL tests using a disposable loopback database and synthetic personnel originals.",
+  "runs": [
+    {
+      "run": "first",
+      "passed": 3,
+      "duration_seconds": 32.19,
+      "log": "docs/evidence/payroll-oneoff-postgres-first-2026-11-04.txt",
+      "sha256": "463f02220ccb0d7c0a9517c490e41065eaae323cd974004a4d83ac257c757e97"
+    },
+    {
+      "run": "resume",
+      "passed": 3,
+      "duration_seconds": 27.372,
+      "log": "docs/evidence/payroll-oneoff-postgres-resume-2026-11-04.txt",
+      "sha256": "277dd30140f54e4398e4c88ad15a8d4d480110370fc3d51753c9e295ec427d5d"
+    }
+  ],
+  "unique_test_count": 3,
+  "first_attempt_status": "Existing first log already passed before this resumed task. The original wrapper refused overwriting it with FileExistsError before database execution.",
+  "resume_status": "A separate run was started during resumption before the parent instruction to avoid repetition arrived. It was allowed to finish cleanly. This is repeated verification of the same three cases, not six distinct tests.",
+  "checks": [
+    "Two independent PostgreSQL runtime connections finalize the same accepted Source4 request into one run and one immutable consumption row.",
+    "Two distinct first-confirmation requests for the same claim produce exactly one accepted case and one409; original successful replay remains unchanged.",
+    "Actual MFA-backed HTTP denies technician/offline access and malformed methods/query bodies. Runtime privileges and operator immutable triggers reject edits/deletions.",
+    "Actual backup/dump restore retains the exact case, run, payment receipt, private original, consumption allocation, travel tax recording, ledger snapshot, ledger PDF and payroll PDF."
+  ],
+  "limits": [
+    "No new test cases or product changes were made by this task.",
+    "These PG cases record an actual net-payment evidence document but do not create a cash import or EÜR posting. That chain is covered separately by Source4 domain tests.",
+    "Subsequent Source4 annual-history integration, multiple bonuses and differing receipt dates are outside this test scope.",
+    "Source hashes below were sampled after the resumed run, not from an isolated frozen source snapshot. Existing first-run log has no corresponding frozen source manifest.",
+    "No real payroll records, external payments, filings, production database changes or publication."
+  ],
+  "source_files_sampled_after_run_sha256": {
+    "backend/online/test_business_payroll_oneoff_pg.py": "2e098056b2debe75b5589f7c724c6adfbfa3bb5097af5aec2fb073cebbbe821c",
+    "backend/business_payroll_oneoff_cases.py": "00deff14dc06a3a404225b7707263c9742c2fe4476cc06560672dd0a0864a89f",
+    "backend/business_payroll.py": "eb5bdeecfcacb0ea8ac27b8dddbd382f57137c7f2db18ac1743adf364534ea90",
+    "backend/business_payroll_accounts.py": "d2deb4200129a277196557601ddfbeefd000974539d67f3dcf9478ab73089638",
+    "backend/payroll_oneoff_runs.py": "559b0d2ca08afeaefc2ca58b228aa0dccd92abe6c179f9a0d22da4ab3871365a",
+    "backend/payroll_oneoff_composition_2026.py": "454acd81b5876931bb99f85acf948b120150d9c0d12354f3efe8e00f8ab00280",
+    "backend/business_schema.py": "ee3f4abb4ada76dbd7e32f8f894c5c40d5d0d0d344f80ea290d0bb21e3a28ef1",
+    "backend/company_export_catalog.py": "484ec9766c529262f21f3dd93be8b3aae012b88de6c8defa9c4e97bb0c6bef42"
+  }
+}

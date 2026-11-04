@@ -168,7 +168,8 @@ class _BusinessPayrollCalculationCasesPageState
   bool busy = false, loading = false, historical = false, suspended = false;
   final privateDialogs = <Route<dynamic>>{};
   String? error;
-  Object? generation;
+  Object? generation, activeAction;
+  bool? approvalState;
   int epoch = 0;
   final pageScroll = ScrollController();
   void showBeginning() {
@@ -196,7 +197,26 @@ class _BusinessPayrollCalculationCasesPageState
         widget.initialMonth ?? DateTime.now().toIso8601String().substring(0, 7);
     WidgetsBinding.instance.addObserver(this);
     session.addListener(changed);
+    approvalState = permitted;
     load();
+  }
+
+  @override
+  void didUpdateWidget(
+    covariant BusinessPayrollCalculationCasesPage oldWidget,
+  ) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.session != widget.session ||
+        oldWidget.employee['id'] != employeeId) {
+      oldWidget.session.removeListener(changed);
+      session.addListener(changed);
+      epoch++;
+      dismissPrivateDialogs();
+      clear();
+      generation = null;
+      approvalState = permitted;
+      unawaited(load());
+    }
   }
 
   @override
@@ -212,6 +232,8 @@ class _BusinessPayrollCalculationCasesPageState
     sources = selected = preview = previewBody = correction = null;
     history = [];
     loading = false;
+    busy = false;
+    activeAction = null;
     error = null;
   }
 
@@ -233,8 +255,12 @@ class _BusinessPayrollCalculationCasesPageState
   }
 
   void changed() {
+    final approvalLost = approvalState == true && !permitted;
+    approvalState = permitted;
     if (mounted &&
-        (!readable || generation != null && generation != session.generation)) {
+        (!readable ||
+            approvalLost ||
+            generation != null && generation != session.generation)) {
       epoch++;
       dismissPrivateDialogs();
       setState(() {
@@ -332,16 +358,23 @@ class _BusinessPayrollCalculationCasesPageState
 
   Future<void> act(Future<void> Function() run) async {
     if (busy) return;
+    final opening = epoch, action = Object();
     setState(() {
+      activeAction = action;
       busy = true;
       error = null;
     });
     try {
       await run();
     } catch (e) {
-      failed(e);
+      if (mounted && readable && opening == epoch) failed(e);
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (mounted && identical(activeAction, action)) {
+        setState(() {
+          activeAction = null;
+          busy = false;
+        });
+      }
     }
   }
 
@@ -487,7 +520,7 @@ class _BusinessPayrollCalculationCasesPageState
       });
       await load();
     } catch (e) {
-      failed(e);
+      if (mounted && readable && opening == epoch) failed(e);
     }
   }
 
@@ -902,7 +935,7 @@ class _BusinessPayrollCalculationCasesPageState
         showBeginning();
       }
     } catch (e) {
-      failed(e);
+      if (mounted && readable && opening == epoch) failed(e);
     }
   }
 
@@ -937,9 +970,10 @@ class _BusinessPayrollCalculationCasesPageState
 
   Future<void> cancel(Map<String, dynamic> fact) async {
     if (pending != null) return;
+    final opening = epoch;
     try {
       await fresh(write: true);
-      if (!mounted) return;
+      if (!mounted || !readable || opening != epoch) return;
       final values = await choose(
         'Fälschlichen Abrechnungsfall aufheben',
         const [
@@ -956,7 +990,7 @@ class _BusinessPayrollCalculationCasesPageState
         ],
         saveLabel: 'Aufhebung prüfen',
       );
-      if (values == null) return;
+      if (values == null || !mounted || !readable || opening != epoch) return;
       if (values['confirmed'] != true)
         _fail('Die Aufhebung ausdrücklich bestätigen.');
       await act(() async {
@@ -978,7 +1012,7 @@ class _BusinessPayrollCalculationCasesPageState
         }, previous: fact);
       });
     } catch (e) {
-      failed(e);
+      if (mounted && readable && opening == epoch) failed(e);
     }
   }
 

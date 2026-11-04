@@ -1,0 +1,22 @@
+✔ actual oneoff source choices preserve the complete canonical original command and preview (22.396571ms)
+✔ actual oneoff correction, void and immutable history preserve original plan and source bindings (34.296175ms)
+✔ composition keeps the original running net and adds the bonus only once (8.438238ms)
+✔ preview refuses a substituted current claim, previous year, employee or original file (7.050078ms)
+✔ receipt validation remains frozen after editor values are changed (18.004832ms)
+✔ fresh source resolution refuses missing, foreign and inactive selected sources (4.987885ms)
+✔ oneoff replay requires exact rule, person, month and current approval even through a pause (3.645816ms)
+✔ actual history response uses original person-bound records without invented employee wrapper (12.090123ms)
+✔ actual Source4 accepted run uses the general payroll preview, receipt and archive readers (61.085454ms)
+✔ general Source4 preview rejects swapped original running case, bonus and employee (25.975325ms)
+✔ Source4 receipt binds frozen sources and original run hash after a lost response (36.83758ms)
+✔ actual Source4 account payment and year totals retain original net deductions and actual receipt date (53.636828ms)
+✔ Source4 bonus correction preserves original run identity, full delta and original paid part (28.708407ms)
+✔ already paid v5 upgrade preserves original run identity, full delta and original paid part (19.012208ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 352.628281

@@ -1,0 +1,96 @@
+{
+  "recorded_at_utc": "2026-11-04T00:02:58.006489+00:00",
+  "scope": "Actual local MFA/HTTP browser validation of zero-payable account evidence and existing payroll regression",
+  "browser": {
+    "passed_workflows": 2,
+    "failed_final_workflows": 0,
+    "workflows": [
+      "payroll-zero-account",
+      "payroll"
+    ],
+    "sandbox": [
+      "namespace",
+      "PID",
+      "network",
+      "seccomp"
+    ],
+    "command_template": "SMARTPLAN_BROWSER_WORKFLOW=<workflow> SMARTPLAN_BROWSER_TEST_PYTHON=/tmp/smartplan-backend-verified/bin/python SMARTPLAN_CHROMIUM_BINARY=/usr/lib/chromium/chromium SMARTPLAN_BROWSER_NAMESPACE_SANDBOX=1 SMARTPLAN_BROWSER_SCREENSHOT_DIR=<isolated-output> node tests/e2e.cjs",
+    "cwd": "web/office"
+  },
+  "zero_account_verified": [
+    "Actual HTTP employment, protected original, profile, identity, P2 period, P4 full unpaid phase15-31October and Source3 accepted complete run with gross0 and payout0",
+    "Explicit original run selection before account form, no fabricated paid_on/amount/payment_reference or count fields",
+    "Tax-free amount and original initially empty; both confirmations start false; one confirmation cannot send POST",
+    "No payments in actual command; accepted lost response repeats exact original body/nonce and identical receipt",
+    "Protected original download SHA256 matches uploaded bytes",
+    "Correction repeats explicit run selection and both confirmations; actual revision2 preserves revision1 exactly",
+    "Actual monthly account payment_status no_payment_due/payable0/payments[] and latest payment reference",
+    "Incomplete U evidence remains explicit in ledger and readable German UI rather than raw technical key",
+    "Annual JSON download exactly matches original ledger snapshot; mobile390 visually inspected"
+  ],
+  "regression_verified": [
+    "Legacy minijob and regular monthly profiles, previews and final runs",
+    "Exact lost-ACK repeat and historical correction delta/PDF/JSON integrity",
+    "Positive actual payment parts and external carryover through new explicit run selector",
+    "Annual supported employment account and immutable downloads",
+    "Current technician own-statement list and historical receipts, no administrative UI actions",
+    "Internal payroll PDF and private facts catalog denied403; legacy schema1 raw own-read unchanged by this work"
+  ],
+  "findings": [
+    {
+      "kind": "product_copy",
+      "finding": "Initial mobile view exposed raw unpaid_statutory_marker_requires_evidence",
+      "resolution": "Runtime owner replaced it with readable German U-year evidence instruction in browser and native; final browser asserts no raw key"
+    },
+    {
+      "kind": "test_contract",
+      "finding": "Existing payroll browser expected obsolete internal payroll dialog for technician",
+      "resolution": "Expect current own employee statements and original receipt history"
+    },
+    {
+      "kind": "test_contract",
+      "finding": "New additional test initially assumed legacy schema1 raw own-run should be403",
+      "resolution": "Read actual backend _period_read_access contract, retain explicit denial checks for internal PDF and private facts; no backend authorization changed"
+    }
+  ],
+  "logs": {
+    "zero_first": {
+      "path": "docs/evidence/payroll-zero-account-browser-zero_first-2026-11-04.txt",
+      "sha256": "e18273a6db385937d8690db5a700b334c0c61388c436f992d96c1b4307e742c0"
+    },
+    "zero_final": {
+      "path": "docs/evidence/payroll-zero-account-browser-zero_final-2026-11-04.txt",
+      "sha256": "e18273a6db385937d8690db5a700b334c0c61388c436f992d96c1b4307e742c0"
+    },
+    "regression_old_own_view_expectation": {
+      "path": "docs/evidence/payroll-zero-account-browser-regression_old_own_view_expectation-2026-11-04.txt",
+      "sha256": "78f6fc34cc231bfb6b2acadf40bd3d390093d1bba19f574d3e531d776b116d14"
+    },
+    "regression_wrong_schema1_denial_expectation": {
+      "path": "docs/evidence/payroll-zero-account-browser-regression_wrong_schema1_denial_expectation-2026-11-04.txt",
+      "sha256": "c950bfa26e60fb596f37528f3b185bb93c901979c32e6dcf9ad4da1b489d89c9"
+    },
+    "regression_final": {
+      "path": "docs/evidence/payroll-zero-account-browser-regression_final-2026-11-04.txt",
+      "sha256": "6d6285af8f210fc6d5a7e2fa4137d7a24cbeb8fc3bdd25a9b3bea996d546f872"
+    }
+  },
+  "screenshot": {
+    "path": "docs/evidence/payroll-zero-account-browser-mobile-2026-11-04.png",
+    "sha256": "3dfb58b0d830f22792601a8ada6c23a567bb5bf5a9527109527b5f497b26bab1"
+  },
+  "source_snapshot": {
+    "web/office/tests/payroll-zero-account-flow.cjs": "08fb0156dffd6660b548d83f7d960805a06ac6fb3133adeac12ad9802f13605d",
+    "web/office/tests/payroll-flow.cjs": "0c8edff639f94e2051b263c0add78faa5db32eb96eb0c04c0c14d35a1e32f804",
+    "web/office/payroll-accounts.js": "cfb74bfc1084b068dc3f75bcb015e3a809fd6311c61cd9a6fc18aa37f4ec45a8",
+    "web/office/payroll.js": "804d2c8fc0bd1eb1a95019b4d4f2bf41e9650ba6b499dc9cfa318ff6f8411154",
+    "app/test/fixtures/payroll_wage_interruptions.json": "51a39eaed32ff3672d3e51e61ef7b3345f606072fa6d7798231c9ab814fdcbd0"
+  },
+  "limitations": [
+    "Synthetic local employees and original files; no real payroll or banking operations",
+    "App responses were actual HTTP; only accepted response loss intentionally simulated via network abort",
+    "No physical-device acceptance, productionTLS, official tax submission or DLS certification",
+    "Zero-payable declaration does not prove contribution/tax remittance, U evidence or complete annual account",
+    "Native and pure contract tests are separately maintained by runtime owner and not added to browser workflow count"
+  ]
+}

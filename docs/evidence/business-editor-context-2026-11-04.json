@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-04",
+  "status": "completed; confirmed reused-key defect fixed centrally and all independent cases passed",
+  "logs": {
+    "first": {
+      "path": "docs/evidence/business-editor-context-first-2026-11-04.txt",
+      "sha256": "9687d0702b199fd9920ff53b74edb1569e0cf3db14476597e15f8c0307f74f09"
+    },
+    "reused-key-first": {
+      "path": "docs/evidence/business-editor-context-reused-key-first-2026-11-04.txt",
+      "sha256": "870c430847007188e827490289aacc155fb810348a61d11699a2f6e3743c1b42"
+    },
+    "conflict-first": {
+      "path": "docs/evidence/business-editor-context-conflict-first-2026-11-04.txt",
+      "sha256": "bdfbb51eb61b90c6daac6767ec79e784c9fcac2acd5df50e10be25bc24c54e16"
+    },
+    "final": {
+      "path": "docs/evidence/business-editor-context-final-2026-11-04.txt",
+      "sha256": "f97532d386d269c55002b9bab91b4df812e21d9b36584ca2f1a70558827ae5e5"
+    },
+    "analyze": {
+      "path": "docs/evidence/business-editor-context-analyze-2026-11-04.txt",
+      "sha256": "30af980ad2cb7c174065d3fa4213cc1d253a3ebb40e0cbf4b43141fbd98cb1f0"
+    }
+  },
+  "sources_at_failure_recording": {
+    "app/lib/business_widgets.dart": "278bd8cab1365443123497958429b6b9f292122d85b65383dea219c08604747d",
+    "app/lib/business_session.dart": "7d9e4735c4f7eccde81ad2a626f502cdffe820d8124a831e19924c0e59b34f12",
+    "app/test/business_editor_context_test.dart": "e17c9728576a11763403c59f90cf8faa48d2f7cd288049a2c113deed2e4d554c"
+  },
+  "initial_context_tests_passed": 16,
+  "additional_reused_key_test_passed": 0,
+  "additional_reused_key_test_failed": 1,
+  "finding": "An old unconfirmed command A can overwrite pending editor values of newer command B under the same original session/key, while production pendingCommandValues correctly remain B. Reproduced with real BusinessSession.command and BusinessTestApi, no fake mutation bookkeeping.",
+  "final_results": {
+    "editor_context_tests": 18,
+    "existing_business_session_tests": 6,
+    "passed": 24,
+    "failed": 0,
+    "analysis_issues": 0
+  },
+  "coverage": [
+    "Listenerwechsel: alte Sitzung abmelden, neue anmelden und beim Schließen wieder abmelden.",
+    "session, pendingSession und pendingKey jeweils einzeln wechseln bei ausstehendem Erfolg, ApiException400, ApiException0 und FormatException.",
+    "Bei unbestätigter Übertragung Originaleingaben nur im ursprünglichen Owner/Key behalten; vorhandene fremde Eingaben bleiben unverändert und Original-Retry behält request_id.",
+    "Kontrollen: normaler Erfolg schließt mit true; normaler unbestätigter Vorgang kann mit identischer request_id und identischen Werten erneut gesendet werden.",
+    "Logout des ursprünglichen Owners verhindert Wiederherstellung privater Eingaben.",
+    "Bestätigtes A, danach neues unbestätigtes B unter demselben Key: verspäteter A-Fehler darf weder PendingB noch EditorB verändern.",
+    "Anderer Formularinhalt vor command wird bei vorhandenem PendingB ohne API-Aufruf abgewiesen; PendingB und EditorB bleiben unverändert."
+  ],
+  "production_fix_by_root": "BusinessCommandException bindet tatsächliche command-Fehler an Owner, Key und request_id. Der Editor gibt diesen Fehler an preservePendingEditor weiter; nur der noch zu dieser Kennung gehörende Vorgang darf seine Eingaben behalten.",
+  "source_sha256_final": {
+    "app/lib/business_widgets.dart": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+    "app/lib/business_session.dart": "b2ce8252048b9dcb230046e2546f211eb351d72621f42fc6f842cf66c2de148d",
+    "app/test/business_editor_context_test.dart": "279057c6834342e925279e0a5778082f880871df699bb6e70353ccf1b0a2c51f",
+    "app/test/business_session_test.dart": "033cf4b0f301c960096fe64d8c7e2f880ff397060eef0db552068a7c866790d7"
+  },
+  "commands": {
+    "final": "flutter test --no-pub --reporter expanded test/business_editor_context_test.dart test/business_session_test.dart",
+    "analysis": "flutter analyze --no-pub test/business_editor_context_test.dart",
+    "reused_key_red": "flutter test --no-pub --reporter expanded test/business_editor_context_test.dart --name \"late old command\""
+  },
+  "environment": {
+    "flutter": "/workspace/toolchains/flutter",
+    "pub_cache": "/workspace/toolchains/pub-cache",
+    "python": "/tmp/smartplan-backend-verified/bin/python",
+    "clang": "/workspace/toolchains/clang-19/bin"
+  },
+  "limits": [
+    "Alle Daten sind synthetisch. Die Mutation und Pendingverwaltung stammen aus der echten BusinessSession, der Transport aus vorhandenem BusinessTestApi.",
+    "Der Conflict-409-Fall wurde erst nach dem zentralen Fix ausgeführt und war bereits grün; dafür wird kein roter Vorfixlauf behauptet.",
+    "Die erste 16-Fälle-Prüfung war bereits grün. Erst der zusätzlich untersuchte wiederverwendete Vorgangsschlüssel ergab den konkret nachgewiesenen roten Fall.",
+    "Diese gezielte Prüfung ersetzt keine vollständige Produktregression. Runtime-Dateien wurden ausschließlich vom Rootagent bearbeitet."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "recorded_at_utc": "2026-11-04T07:06:55.916736+00:00",
+  "tests": 4,
+  "passed": 4,
+  "failed": 0,
+  "skipped": 0,
+  "duration_seconds": 46.48,
+  "log": "docs/evidence/payroll-oneoff-pg-annual-final-2026-11-04.txt",
+  "log_sha256": "bf22d1a5ad9f7353867858399a333774ed09e59c319ed98de8ce334bd226578f",
+  "scope": [
+    "Actual MFA/HTTP PostgreSQL writes with canonical private Source4 origins.",
+    "Same-command finalize concurrency and distinct-command claim ownership.",
+    "Existing run, receipt, consumption and PDF backup/restore.",
+    "New: actual paid Source4 creates compact annual basis via HTTP; prior bonus and four SV bases are retained; technician access denied; database backup/restore preserves exact accepted annual command and resolved original."
+  ],
+  "source_sha256": {
+    "backend/online/test_business_payroll_oneoff_pg.py": "64f4adf74cbce29dd05d21f2ead147dfe1927ec6a08e26109fb518711a9e33e9",
+    "backend/business_payroll_annual_basis.py": "4a2078e5558c27707245f531e5e870161722c55068d38e6ac307d6cb046f4302",
+    "backend/payroll_annual_basis_2026.py": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431",
+    "backend/payroll_oneoff_composition_2026.py": "eb1d6d3806a5c75fb1675b184aab9c009e80bd38c9f7740986d9663a767c7136",
+    "backend/payroll_oneoff_runs.py": "559b0d2ca08afeaefc2ca58b228aa0dccd92abe6c179f9a0d22da4ab3871365a",
+    "backend/business_payroll_oneoff_cases.py": "83af882859a8a66853d5ebe57a12e35ff7d3d9c89ff474749e9651b5666712f8"
+  },
+  "limits": [
+    "Synthetic disposable loopback PostgreSQL only; no production database touched.",
+    "This adds evidence for annual projection transport and restore. Multiple bonuses in one month and distinct running/bonus payment dates remain outside the current Source4 contract."
+  ],
+  "reason_for_repeat": "Backend subsequently fixed the same-claim March-clause correction. This is a new final-runtime integration run; prior evidence remains unchanged.",
+  "prior_evidence": "docs/evidence/payroll-oneoff-pg-annual-integration-2026-11-04.json"
+}

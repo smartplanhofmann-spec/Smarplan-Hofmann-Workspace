@@ -374,7 +374,7 @@ class CalculationPayrollWorkflow(unittest.TestCase):
         f.problem(500,lambda:f.payroll.get(f.owner,'run',run['id']))
         with self.assertRaises(ValueError):business_schema.validate_integrity(f.office)
 
-    def test_actual_preemployment_sickness_preserves_waiting_period_and_does_not_invent_prestart_wage(self):
+    def preemployment_zero_case(self):
         from business_payroll_entitlements import PayrollEntitlements
         f=self.f;api=PayrollEntitlements(f.office,clock=lambda:f.now)
         original=dict(id=f.data['file']['id'],revision=1,content_hash=f.data['file']['content_hash'])
@@ -396,12 +396,100 @@ class CalculationPayrollWorkflow(unittest.TestCase):
             no_wage_claim=True,intervening_paid_days=[],evidence_refs=[original],exceptions=[]))
         case,_=self.case(self.details()|dict(entitlement_case_refs=sorted([reference(history),reference(continuation)],key=lambda v:v['id'])))
         run=f.payroll.finalize(f.owner,self.command(case))
+        return api,history,continuation,case,run
+
+    def test_actual_preemployment_sickness_preserves_waiting_period_and_does_not_invent_prestart_wage(self):
+        f=self.f;api,history,continuation,case,run=self.preemployment_zero_case()
         self.assertEqual('de_2026_sickness_start_v4',history['plan']['rule_version'])
         self.assertEqual('2026-10-15',run['calculation']['period_details']['unpaid_dates'][0])
         self.assertEqual(17,len(run['calculation']['period_details']['unpaid_dates']))
         self.assertEqual(0,run['calculation']['gross_minor']);self.assertEqual(0,run['calculation']['payout_minor'])
         self.assertEqual(17,run['calculation']['period_details']['social_periods'][0]['days'])
         self.assertEqual(0,f.office.db.execute('SELECT COUNT(*) FROM business_time_days').fetchone()[0])
+        self.assertTrue(business_schema.validate_integrity(f.office))
+
+    def test_actual_zero_payable_requires_original_declaration_without_fictitious_cash(self):
+        f=self.f;api,history,continuation,case,run=self.preemployment_zero_case()
+        details=accounts_fixture.PayrollAccountTests.payment_details(f,run,f.identity,payments=[])
+        f.problem(400,lambda:f.account_api()._payment_fields(details,run['calculation'],'2026-10'))
+        f.problem(400,lambda:f.save_account(f.data,'payment',details,confirmed=False))
+        f.problem(400,lambda:f.save_account(f.data,'payment',details|dict(standard_case_confirmed=False)))
+        f.problem(400,lambda:f.save_account(f.data,'payment',details|dict(payments=[dict(paid_on='2026-10-31',amount_minor=0,payment_reference='NOT-A-PAYMENT')])) )
+        payment,command=f.save_account(f.data,'payment',details)
+        self.assertEqual(payment,f.account_api().save(f.owner,command))
+        ledger=f.payroll.ledger(f.owner,dict(employee_id=f.employee['id'],year='2026'))['ledger']
+        account=ledger['months'][9]['wage_account']
+        self.assertTrue(account['complete']);self.assertEqual('no_payment_due',account['payment_status'])
+        self.assertEqual([],account['payments']);self.assertEqual(0,account['payable_minor'])
+        self.assertEqual(reference(payment),account['payment_ref'])
+        self.assertNotIn('payment_evidence_missing',account['issues'])
+        self.assertIn('unpaid_statutory_marker_requires_evidence',ledger['account_completeness_issues'])
+        pdf=f.payroll.export_ledger(f.owner,dict(employee_id=f.employee['id'],year='2026',snapshot_hash=ledger['snapshot_hash']),'pdf')[0]
+        self.assertIn(b'Keine Nettozahlung geschuldet',pdf)
+        finance=self.finance()
+        f.problem(400,lambda:finance.api.preview(f.owner,finance.body(payment)))
+        self.assertEqual(0,f.office.db.execute('SELECT COUNT(*) FROM business_payroll_cash_batches').fetchone()[0])
+        self.assertTrue(business_schema.validate_integrity(f.office))
+
+    def test_zero_net_declaration_leaves_nonzero_minijob_remittance_separately_unpaid(self):
+        from decimal import Decimal
+        from test_payroll_de_2026 import profile
+        self.f=f=facts_fixture.PayrollFactTests('runTest');f.setUp();self.addCleanup(f.doCleanups)
+        old=f.data;amount=2925
+        agreement=f.hr.save_agreement(f.owner,dict(request_id=rid(),employee_id=f.employee['id'],id=old['agreement']['id'],revision=1,
+            effective_from='2026-01-01',employment_kind='minijob',pay_basis='monthly',amount_minor=amount,currency='EUR',
+            reference_file_id=old['file']['id'],correction_reason='Actual small contractual wage with minimum pension contribution'))
+        saved=f.payroll.save_profile(f.owner,dict(request_id=rid(),employee_id=f.employee['id'],id=old['profile']['id'],revision=1,
+            profile=profile('minijob',regular_annual_gross_minor=amount*12),source_file_id=old['file']['id'],confirmed=True,
+            correction_reason='Actual minimum pension liability evidenced'))
+        fresh=f.hr.preview(f.owner,dict(employee_id=f.employee['id'],month='2026-10'))
+        preparation=f.hr.close_preparation(f.owner,dict(request_id=rid(),employee_id=f.employee['id'],month='2026-10',
+            id=old['preparation']['id'],revision=1,source_hash=fresh['source_hash'],completeness_confirmed=True,
+            correction_reason='Actual corrected small monthly contractual wage'))
+        f.data=dict(old,agreement=agreement,profile=saved,preparation=preparation)
+        f.identity,_=f.save_account(f.data,'identity',f.identity_details(f.data,employment_from='2026-10-15',employment_to=None))
+        self.base,_,_=f.period();self.api=cases.PayrollCalculationCases(f.office,clock=lambda:f.now)
+        case,_=self.case();run=f.payroll.finalize(f.owner,self.command(case))
+        self.assertEqual(1604,run['calculation']['gross_minor'])
+        self.assertEqual(1604,run['calculation']['employee_social_total_minor'])
+        self.assertEqual(0,run['calculation']['net_minor'])
+        payment,_=f.save_account(f.data,'payment',accounts_fixture.PayrollAccountTests.payment_details(f,run,f.identity,payments=[]))
+        finance=self.finance()
+        f.problem(400,lambda:finance.api.preview(f.owner,finance.body(payment)))
+        self.assertEqual(0,f.office.db.execute('SELECT COUNT(*) FROM business_payroll_cash_batches').fetchone()[0])
+        remittance=finance.remittance(f.data,run,payment)
+        self.assertGreater(remittance['settlement']['amount_minor'],1604)
+        f.problem(400,lambda:finance.api.preview(f.owner,remittance|dict(settlement=None)))
+        actual=finance.import_cash(remittance)
+        self.assertEqual(1,len(actual['public_source']['cash_movements']))
+        self.assertEqual(remittance['settlement']['amount_minor'],int(Decimal(actual['public_source']['cash_movements'][0]['amount'])*100))
+        self.assertEqual([],payment['details']['payments'])
+        self.assertTrue(business_schema.validate_integrity(f.office))
+
+    def test_zero_declaration_cannot_cover_corrected_nonzero_run_or_create_remittance_cash(self):
+        f=self.f;api,history,continuation,case,run=self.preemployment_zero_case()
+        details=accounts_fixture.PayrollAccountTests.payment_details(f,run,f.identity,payments=[])
+        payment,command=f.save_account(f.data,'payment',details)
+        for fact in (history,continuation):
+            proposal={key:fact[key] for key in ('employee_id','kind','details')}
+            proposal.update(employee_revision=f.employee['revision'],source_file_ids=[f.data['file']['id']])
+            preview=api.preview(f.owner,proposal)
+            api.save(f.owner,proposal|dict(request_id=rid(),id=fact['id'],revision=fact['revision'],status='void',confirmed=True,
+                preview_hash=preview['preview_hash'],correction_reason='Original evidence corrected: employee was not unable to work'))
+        corrected_case,_=self.case(self.details(),id=case['id'],revision=1,correction_reason='Bind corrected original claims')
+        corrected=f.payroll.finalize(f.owner,self.command(corrected_case,id=run['id'],revision=1,correction_reason='Actual wage obligation restored'))
+        self.assertGreater(corrected['calculation']['payout_minor'],0)
+        ledger=f.payroll.ledger(f.owner,dict(employee_id=f.employee['id'],year='2026'))['ledger']
+        self.assertIn('payment_evidence_missing',ledger['months'][9]['wage_account']['issues'])
+        self.assertEqual(payment,f.account_api().save(f.owner,command))
+        f.problem(400,lambda:f.save_account(f.data,'payment',details|dict(run_revision=2)))
+        finance=self.finance()
+        f.problem(409,lambda:finance.api.preview(f.owner,finance.body(payment)))
+        new_payment=self.payment(corrected)
+        self.assertEqual(2,new_payment['details']['run_revision'])
+        current=f.payroll.ledger(f.owner,dict(employee_id=f.employee['id'],year='2026'))['ledger']
+        self.assertEqual('payments_evidenced',current['months'][9]['wage_account']['payment_status'])
+        self.assertEqual(0,f.office.db.execute('SELECT COUNT(*) FROM business_payroll_cash_batches').fetchone()[0])
         self.assertTrue(business_schema.validate_integrity(f.office))
 
 

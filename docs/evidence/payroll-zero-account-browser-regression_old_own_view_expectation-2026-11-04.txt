@@ -1,0 +1,33 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('dialog', { name: 'Lohnberechnung 2026 · Synthetic technician', exact: true }) to be visible[22m
+
+    at open (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-flow.cjs:9:226)
+    at async Object.payrollFlow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-flow.cjs:59:222)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:195:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: the server responded with a status of 400 (Bad Request)'
+]
+Fixture log tail:
+ /api/v1/business/feed HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/employees HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/time/entries?employee_id=f19b2cf0cd98481ca77d790b1347f632&from=2026-11-01&to=2026-11-04 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/time/summary?employee_id=f19b2cf0cd98481ca77d790b1347f632&from=2026-11-01&to=2026-11-04 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/personnel/files?employee_id=f19b2cf0cd98481ca77d790b1347f632 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/personnel/agreements?employee_id=f19b2cf0cd98481ca77d790b1347f632 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/personnel/payroll-preparations?employee_id=f19b2cf0cd98481ca77d790b1347f632 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/personnel/expenses?employee_id=f19b2cf0cd98481ca77d790b1347f632 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 00:58:43] "GET /api/v1/business/payroll/employee-statements?employee_id=f19b2cf0cd98481ca77d790b1347f632 HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

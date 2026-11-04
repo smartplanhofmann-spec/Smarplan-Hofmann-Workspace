@@ -1,0 +1,45 @@
+{
+  "recorded_at_utc": "2026-11-03T23:31:14.113964+00:00",
+  "scope": "Focused development checks, overlapping other reports; recorded source snapshot can be newer than individual runs. Separate complete frozen regression is ongoing.",
+  "runs": [
+    {
+      "name": "payroll-cases-native-final",
+      "passed": 16,
+      "log": "docs/evidence/payroll-cases-native-final-2026-11-03.txt",
+      "sha256": "9b4a235364d51e0cd4d8ab5796637dcd290d4e1cf83042972ec327a8ae2876e8"
+    },
+    {
+      "name": "payroll-cases-session-node-first",
+      "passed": 1,
+      "log": "docs/evidence/payroll-cases-session-node-first-2026-11-03.txt",
+      "sha256": "839ebdfcabcefce2b79878e6a19af9d6016dbff967cc16e56f31eae2de52a046"
+    },
+    {
+      "name": "payroll-root-integration-review-current",
+      "passed": 44,
+      "log": "docs/evidence/payroll-root-integration-review-current-2026-11-03.txt",
+      "sha256": "9b072acd964f477c10bedecae7826d170363785cdf6454645a7a5e0aa7cf49b3"
+    },
+    {
+      "name": "packages-after-payroll-cases-second",
+      "passed": 16,
+      "log": "docs/evidence/packages-after-payroll-cases-second-2026-11-03.txt",
+      "sha256": "2425836050cb13d5d22ab272fb4f2f301397d25b856be1d028a3e26c6f14d32e"
+    }
+  ],
+  "source_snapshot": {
+    "app/lib/business_payroll_calculation_cases.dart": "276e1e6c18e3eaf3715092010c1429d867e48dde0186cc8356c7e621b48843f7",
+    "app/lib/business_session.dart": "b4d68c0eece9870311ea442b16989a7df7dbd721b2f69700f94154e88258cc24",
+    "app/test/business_payroll_calculation_cases_test.dart": "bc8638b4cdfb7fd0e23f46f4aadae9801761be11bf3d58c1c7f2af6ad986e642",
+    "web/office/office.js": "4576704e4a2b4f347093d22135ef002449fc05df1474094db892aa50564ede3f",
+    "web/office/tests/payroll-calculation-cases-session-retry.test.mjs": "99c0bd3a00971d26ff1b48f369a5756fcd26fe9c24eac5ce458b85adc9bf5c34"
+  },
+  "earlier_failures": [
+    "payroll-cases-native-first.log: Root used incorrect working directory; no test executed.",
+    "payroll-cases-native-second.log: product duplicate empty optional dropdown choices; fixed.",
+    "payroll-cases-native-third/fourth.log: preview heading outside built viewport; new preview now scrolls to beginning.",
+    "payroll-cases-native-fifth.log: pending notice above old scroll position; failure now scrolls to notice.",
+    "payroll-cases-native-sixth.log: independent test waited for animations while deliberately delaying a request; bounded pump fixed.",
+    "packages-after-payroll-cases-first.log: new sickness phases module missing from packages; registered."
+  ]
+}

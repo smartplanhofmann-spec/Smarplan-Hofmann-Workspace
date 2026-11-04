@@ -1,0 +1,14 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart
+00:00 +0: Source4 main correction selector closes on session change
+00:01 +1: Source4 main late private correction error is discarded on session
+00:02 +2: Source4 main correction selector closes on employee change
+00:03 +3: Source4 main late private correction error is discarded on employee
+00:04 +4: Source4 main correction selector closes on read change
+00:04 +5: Source4 main late private correction error is discarded on read
+00:05 +6: Source4 main correction selector closes on approve change
+00:05 +7: Source4 main late private correction error is discarded on approve
+00:06 +8: Source4 main correction selector closes on generation change
+00:06 +9: Source4 main late private correction error is discarded on generation
+00:07 +10: Source4 main correction selector closes on background change
+00:07 +11: Source4 main late private correction error is discarded on background
+00:08 +12: All tests passed!

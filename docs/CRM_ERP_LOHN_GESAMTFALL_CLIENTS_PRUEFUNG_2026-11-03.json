@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-03",
+  "scope": "Source3 v5 private case clients, run/receipt/annual parsing, narrow own schema2; not complete payroll product",
+  "results": {
+    "node": 39,
+    "flutter": 38,
+    "analyze": "5 items, no issues",
+    "own_statement_domain_http": 11,
+    "real_browser": "pass MFA HTTP typed canonical case exact case+run lost_ack own schema2 PDF annual history mobile390"
+  },
+  "native_ui_tests": "Separate root-owned dialog/session/review evidence",
+  "known_scope": "Browser creates real source3 case without travel; taxable travel and employee flat-tax deduction109 are covered by actual service fixtures and independent backend tests. No statutory transmission or bank payment inferred.",
+  "sources": {
+    "web/office/payroll-calculation-cases.js": "8010172ef082c6403ee1f4ee72268683c9441644d6c759aa09d4328679369e3d",
+    "web/office/payroll.js": "a328fae4bc57171fd1506de3506554f4dea32500e67f72d448a5cf566c6b924f",
+    "web/office/payroll-statements.js": "0cc04ec465b98d9d32923124e79aa1bff5ac857f7491808e28f0705c4c6f677c",
+    "app/lib/business_payroll_calculation_case_contract.dart": "727399469aac07c73d8110a0d104b7a28a9b14f6f58de197ee8146a9b47717c2",
+    "app/lib/business_payroll.dart": "5510f3a4fd6e3f90ccbed4d680e1478cef4c82f7d39e2eb175c208e9b1a47f93",
+    "app/lib/business_payroll_statements.dart": "fe7b3f7f0092c75a0b69f448b1164f4b0e70aa8b2173582471a2f0cfdba260cd",
+    "backend/business_payroll_statements.py": "64c0199a9bee93002cd79c3c2a345effc09b48538c9563fc7fa62be837418f96",
+    "app/test/fixtures/payroll_calculation_cases.json": "defaa6bca158278969f4bdb280fcd978e5d48b7547351fa8dd2c0a2dd377d007",
+    "app/test/fixtures/payroll_calculation_case_evidence.json": "699541b04d77a137c33af21a1106e8e465adb286fbc8934bd27026484e7b7de3"
+  }
+}

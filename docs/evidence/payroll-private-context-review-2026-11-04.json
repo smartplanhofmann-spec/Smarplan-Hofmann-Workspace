@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-04",
+  "scope": "Native Flutter-Ansichten Source3/v5-Abrechnungsfälle und P4-Anspruchsbausteine; ausschließlich synthetische Testdaten.",
+  "findings_before_fix": [
+    "Private Korrektureditoren überlebten Mitarbeiter-/Sessionwechsel oder reinen Freigabeentzug bei weiter vorhandenem Leserecht.",
+    "Verspätete Vorschauergebnisse konnten nach Mitarbeiterwechsel oder Freigabeentzug wieder erscheinen.",
+    "Verspätete private ApiException-Fehler direkter Bearbeiten-/Aufheben-Aufrufe erschienen nach Background/Resume erneut."
+  ],
+  "fixes": [
+    "didUpdateWidget trennt den vorherigen Sessionlistener und bindet den neuen; Kontextwechsel schließt private Dialoge, leert Daten und invalidiert laufende Antworten.",
+    "Ein eigener Freigabestatus erkennt Approve-Entzug auch bei verbleibendem Read-Recht.",
+    "Direkte Fehlerpfade prüfen den erfassten Ansichtskontext vor der Anzeige.",
+    "Aktionsidentitäten verhindern, dass veraltete Abschlüsse die Busy-Anzeige neuer Aktionen zurücksetzen; legitime Load-Schritte dürfen innerhalb derselben Aktion den Kontextzähler verändern."
+  ],
+  "test_cases": [
+    "Je Ansicht: Mitarbeiterwechsel bei offenem Editor",
+    "Je Ansicht: Sessionwechsel bei offenem Editor",
+    "Je Ansicht: Approve-Entzug bei offenem Editor und verbleibendem Read-Recht",
+    "Je Ansicht: Mitarbeiterwechsel bei ausstehender Vorschau",
+    "Je Ansicht: Approve-Entzug bei ausstehender Vorschau und verbleibendem Read-Recht",
+    "Je Ansicht: verspäteter privater Bearbeiten-Fehler nach Background/Resume",
+    "Je Ansicht: verspäteter privater Aufheben-Fehler nach Background/Resume"
+  ],
+  "results": {
+    "first": {
+      "passed": 0,
+      "failed": 10,
+      "purpose": "Unveränderte Gegenfälle vor den Runtime-Fixes: offene Korrektureditoren und ausstehende Vorschauen bei Mitarbeiter-, Session- oder Approve-Wechsel.",
+      "log": "docs/evidence/payroll-private-context-review-first-2026-11-04.txt",
+      "sha256": "8681fd1737b13ff36d54505a4ca361e2c5ab0cd6ff0e9bb21d9da9f4937a290b"
+    },
+    "action-errors-first": {
+      "passed": 0,
+      "failed": 4,
+      "purpose": "Unveränderte Gegenfälle vor den Runtime-Fixes: private Fehler aus direkten Bearbeiten-/Aufheben-Aufrufen nach Background/Resume.",
+      "log": "docs/evidence/payroll-private-context-review-action-errors-first-2026-11-04.txt",
+      "sha256": "d3fdb6711490dc069f24e50eef2f728d342293770d4e773f2d81f28870ad8e2f"
+    },
+    "final": {
+      "passed": 14,
+      "failed": 0,
+      "purpose": "Alle neuen Gegenfälle nach den Runtime-Fixes.",
+      "log": "docs/evidence/payroll-private-context-review-final-2026-11-04.txt",
+      "sha256": "3cb51f5541049611d6727376676806604273b4e971fd55ce4caef76be782b93c"
+    },
+    "regression": {
+      "passed": 59,
+      "failed": 0,
+      "purpose": "Neue Gegenfälle und acht bestehende Widget-/Vertrags-Testdateien gemeinsam.",
+      "log": "docs/evidence/payroll-private-context-review-regression-2026-11-04.txt",
+      "sha256": "767a710c5a9308e857da1c61ab33488f3625e9b9a753d098dd73903ce6fccea4"
+    },
+    "analyze": {
+      "issues": 0,
+      "purpose": "Gezielte statische Analyse der zwei Runtime-Dateien und des neuen Reviewtests.",
+      "log": "docs/evidence/payroll-private-context-review-analyze-2026-11-04.txt",
+      "sha256": "0920754ade9d07aafeae4ca6057aa16cad33262aa38ace3ecb7f927ef097dbd7"
+    },
+    "integrated": {
+      "passed": 59,
+      "failed": 0,
+      "purpose": "Erneute gemeinsame Prüfung nach Roots bestätigt notwendigem Fix im gemeinsamen BusinessEditor. Vorherige Prüfprotokolle bleiben unverändert.",
+      "log": "docs/evidence/payroll-private-context-review-integrated-2026-11-04.txt",
+      "sha256": "65ff925bc35b6a41b8464d4cbc2b83acf0c9704922dc37d1860c2da47a2e4295"
+    }
+  },
+  "source_sha256": {
+    "app/lib/business_payroll_calculation_cases.dart": "c5da41bd33709434e2d3df1a38cc151c56892bf660798831c8f98a0a068b8d1a",
+    "app/lib/business_payroll_entitlements.dart": "c91fcd05c7a2b93f321b588876e7cc45a6b76da4457fafcadc98682f69dd0d46",
+    "app/test/business_payroll_private_context_review_test.dart": "9c93a0f6d4240fce6dceb5d647e2eddb2f5e0ffb50bd609d1033833b64dd308d"
+  },
+  "regression_test_files": [
+    "business_payroll_private_context_review_test.dart",
+    "business_payroll_calculation_cases_test.dart",
+    "business_payroll_calculation_cases_review_test.dart",
+    "business_payroll_calculation_case_contract_test.dart",
+    "business_payroll_entitlements_test.dart",
+    "business_payroll_entitlements_session_test.dart",
+    "business_payroll_entitlement_contract_test.dart",
+    "business_payroll_sickness_phases_test.dart",
+    "business_payroll_sickness_phases_contract_test.dart"
+  ],
+  "environment": {
+    "flutter": "/workspace/toolchains/flutter",
+    "pub_cache": "/workspace/toolchains/pub-cache",
+    "python": "/tmp/smartplan-backend-verified/bin/python",
+    "clang": "/workspace/toolchains/clang-19/bin",
+    "test_command": "flutter test --no-pub --reporter expanded <regression_test_files>",
+    "analysis_command": "flutter analyze --no-pub lib/business_payroll_calculation_cases.dart lib/business_payroll_entitlements.dart test/business_payroll_private_context_review_test.dart"
+  },
+  "limits": [
+    "Dies ist gezielte native Lifecycle-Evidenz, keine vollständige Produkt-, Datenschutz- oder steuerrechtliche Abnahme.",
+    "Der separat bestätigte Listenerrest im gemeinsamen BusinessEditor wurde von Root korrigiert. Die integrierte 59-Fälle-Prüfung enthält diesen Fix; der dedizierte Listenernachweis steht in payroll-oneoff-native-privacy-review-2026-11-04.json.",
+    "Laufende Änderungen anderer Bereiche sind nicht Teil dieses Prüfumfangs."
+  ],
+  "integrated_shared_editor_sha256": "278bd8cab1365443123497958429b6b9f292122d85b65383dea219c08604747d"
+}

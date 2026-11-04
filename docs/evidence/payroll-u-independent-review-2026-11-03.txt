@@ -1,0 +1,12 @@
+test_actual_weekend_shifts_are_workdays_and_paid_holiday_breaks_sequence (test_payroll_wage_interruptions_review.IndependentUCalendar.test_actual_weekend_shifts_are_workdays_and_paid_holiday_breaks_sequence) ... ok
+test_efz_through_december31_is_first_loss_in_january_and_has_no_carryin (test_payroll_wage_interruptions_review.IndependentUCalendar.test_efz_through_december31_is_first_loss_in_january_and_has_no_carryin) ... ok
+test_sickness_loss_already_in_previous_year_cannot_bypass_carryin_blocker (test_payroll_wage_interruptions_review.IndependentUCalendar.test_sickness_loss_already_in_previous_year_cannot_bypass_carryin_blocker) ... ok
+test_ten_actual_workdays_across_month_boundary_are_one_period (test_payroll_wage_interruptions_review.IndependentUCalendar.test_ten_actual_workdays_across_month_boundary_are_one_period) ... ok
+test_changed_actual_schedule_invalidates_current_projection_preserves_original_receipt (test_payroll_wage_interruptions_review.IndependentUOriginals.test_changed_actual_schedule_invalidates_current_projection_preserves_original_receipt) ... ok
+test_revoked_approval_still_allows_private_read_but_denies_original_command_replay (test_payroll_wage_interruptions_review.IndependentUOriginals.test_revoked_approval_still_allows_private_read_but_denies_original_command_replay) ... ok
+test_superseded_protected_original_blocks_new_use_but_keeps_original_acceptance (test_payroll_wage_interruptions_review.IndependentUOriginals.test_superseded_protected_original_blocks_new_use_but_keeps_original_acceptance) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.548s
+
+OK

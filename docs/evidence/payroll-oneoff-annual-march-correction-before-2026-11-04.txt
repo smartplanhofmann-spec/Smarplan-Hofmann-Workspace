@@ -1,0 +1,30 @@
+test_march_clause_correction_replaces_own_bonus_without_reusing_other_room (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_correction_replaces_own_bonus_without_reusing_other_room) ... ERROR
+
+======================================================================
+ERROR: test_march_clause_correction_replaces_own_bonus_without_reusing_other_room (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_correction_replaces_own_bonus_without_reusing_other_room)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_oneoff_annual.py", line 172, in test_march_clause_correction_replaces_own_bonus_without_reusing_other_room
+    self.assertEqual(case,self.w.api.resolve_one_off_case(f.owner,f.employee['id'],reference(case)))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_oneoff_cases.py", line 246, in resolve_one_off_case
+    if fresh and self._snapshot(employee, record['details'], record['source_file_ids']) != record['sources']:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_oneoff_cases.py", line 119, in _snapshot
+    previous = (annual._reference(employee_id, details['previous_annual_basis_ref'], 'annual_basis', fresh=fresh)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_annual_basis.py", line 171, in _reference
+    if self._snapshot(result['sources']['employee'],result['kind'],result['details'],result['source_file_ids'],fresh=True)!=result['sources']:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_annual_basis.py", line 40, in checked
+    try:return function(*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_annual_basis.py", line 353, in _snapshot
+    if sorted(expected_runs,key=lambda v:v['id'])!=d['payroll_run_refs']:raise Problem(409,'Alle tatsächlichen wirksamen Lohnperioden vollständig binden; die aktuelle laufende Quelle ersetzt nur ihren eigenen Monat.')
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+core.Problem: (409, 'Alle tatsächlichen wirksamen Lohnperioden vollständig binden; die aktuelle laufende Quelle ersetzt nur ihren eigenen Monat.')
+
+----------------------------------------------------------------------
+Ran 1 test in 1.904s
+
+FAILED (errors=1)

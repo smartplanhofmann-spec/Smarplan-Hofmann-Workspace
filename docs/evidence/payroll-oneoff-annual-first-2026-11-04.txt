@@ -1,0 +1,52 @@
+test_actual_paid_composition_contributes_running_and_bonus_separately (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_actual_paid_composition_contributes_running_and_bonus_separately) ... FAIL
+test_march_clause_receipt_consumes_only_actual_previous_social_year (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_receipt_consumes_only_actual_previous_social_year) ... ok
+test_three_actual_bonuses_keep_tax_and_social_room_and_bounded_sources (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_three_actual_bonuses_keep_tax_and_social_room_and_bounded_sources) ... ERROR
+test_unpaid_omitted_later_or_replaced_actual_source_cannot_be_zero (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_unpaid_omitted_later_or_replaced_actual_source_cannot_be_zero) ... ok
+
+======================================================================
+ERROR: test_three_actual_bonuses_keep_tax_and_social_room_and_bounded_sources (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_three_actual_bonuses_keep_tax_and_social_room_and_bounded_sources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_oneoff_annual.py", line 94, in test_three_actual_bonuses_keep_tax_and_social_room_and_bounded_sources
+    case,_,run,payment,basis,_=self.successor(month,runs,payments)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_oneoff_annual.py", line 50, in successor
+    annual,annual_command,_=f.save('annual_basis',self.basis_details(runs,payments,month=month,as_of_date=end,current=current))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_annual_basis.py", line 60, in save
+    body,preview=self.request(kind,details or self.imported_details())
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_annual_basis.py", line 56, in request
+    preview=self.annual.preview(self.owner,body)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_annual_basis.py", line 424, in preview
+    snapshot=self._snapshot(employee,data['kind'],d,ids);plan=build_annual_plan(snapshot)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_annual_basis.py", line 337, in _snapshot
+    projected=[self._project_run(value,as_of_date=d['as_of_date'],payment=payment_by_run.get((value['id'],value['revision'])),basis_year=d['year'],coverage_to=d['coverage_to']) for value in runs]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_annual_basis.py", line 222, in _project_run
+    normalized,sources,_=accounts._normalize(run['employee_id'],'payment',payment['details'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_accounts.py", line 242, in _normalize
+    self._payment_fields(details,record['calculation'],record['source']['month'],verified_composite=source_version in (3,4),
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_accounts.py", line 171, in _payment_fields
+    raise Problem(400,'Tatsächlicher Zahlungstag darf nicht zukünftig sein und muss im Abrechnungsmonat oder später im unterstützten Jahr 2026 liegen.')
+core.Problem: (400, 'Tatsächlicher Zahlungstag darf nicht zukünftig sein und muss im Abrechnungsmonat oder später im unterstützten Jahr 2026 liegen.')
+
+======================================================================
+FAIL: test_actual_paid_composition_contributes_running_and_bonus_separately (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_actual_paid_composition_contributes_running_and_bonus_separately)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_oneoff_annual.py", line 75, in test_actual_paid_composition_contributes_running_and_bonus_separately
+    self.assertEqual(social['health_additional_percent'],'2.90')
+AssertionError: '2.900' != '2.90'
+- 2.900
+?     -
++ 2.90
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 14.387s
+
+FAILED (failures=1, errors=1)

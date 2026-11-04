@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_payroll_oneoff_case_contract.dart' show payrollOneOffSource;
+import 'business_payroll_calculation_case_contract.dart'
+    show payrollCompositeSource;
 import 'business_widgets.dart';
 import 'design.dart';
 
@@ -115,7 +118,150 @@ Map<String, dynamic> payrollAccountRecord(
       0,
       'Der Lohnkontonachweis ist nicht eindeutig an Mitarbeiter und Vorgang gebunden.',
     );
+  if (value['kind'] == 'payment' &&
+      value['sources']?['run']?['source']?['source_schema_version'] == 4) {
+    final run = businessMap(value['sources']['run']);
+    payrollOneOffSource({
+      ...run,
+      'can_finalize': true,
+    }, businessMap(run['source']['input']));
+    final payments = value['details']['payments'];
+    final due =
+        run['calculation']['net_minor'] -
+        run['calculation']['net_deductions_minor'];
+    if (run['employee_id'] != employee ||
+        run['id'] != value['details']['run_id'] ||
+        run['revision'] != value['details']['run_revision'] ||
+        run['confirmed'] != true ||
+        run['accepted_scope'] != run['calculation']['scope'] ||
+        payments is! List ||
+        payments.isEmpty ||
+        payments.any(
+          (p) =>
+              p is! Map ||
+              p['amount_minor'] is! int ||
+              p['amount_minor'] == 0 ||
+              p['paid_on'] !=
+                  run['calculation']['one_off_details']['receipt_date'],
+        ) ||
+        payments.fold<int>(0, (sum, p) => sum + (p['amount_minor'] as int)) !=
+            due) {
+      throw const ApiException(
+        0,
+        'Der Einmalbezugs-Zahlungsnachweis muss seine bestätigte Monatsfassung, den tatsächlichen Zuflusstag und den vollständigen Barbetrag belegen.',
+      );
+    }
+  }
+  if (value['kind'] == 'payment' &&
+      value['details']['payments'] is List &&
+      (value['details']['payments'] as List).isEmpty) {
+    final run = businessMap(value['sources']?['run']);
+    if (run['employee_id'] != employee ||
+        run['id'] != value['details']['run_id'] ||
+        run['revision'] != value['details']['run_revision'] ||
+        !payrollAccountNoPaymentDue(run)) {
+      throw const ApiException(
+        0,
+        'Der Nachweis ohne Zahlungsteile benötigt seine vollständig geprüfte Nullnetto-Monatsfassung.',
+      );
+    }
+  }
   return value;
+}
+
+bool payrollAccountNoPaymentDue(dynamic raw) {
+  final run = businessMap(raw);
+  if (run['source']?['source_schema_version'] != 3) return false;
+  if (run['kind'] != 'run' ||
+      !RegExp(r'^[a-f0-9]{32}$').hasMatch('${run['id']}') ||
+      !RegExp(r'^[a-f0-9]{64}$').hasMatch('${run['content_hash']}') ||
+      run['revision'] is! int ||
+      run['revision'] < 1 ||
+      run['confirmed'] != true ||
+      run['status'] != 'calculation_recorded' ||
+      run['source']?['input']?['employee_id'] != run['employee_id'] ||
+      run['calculation']?['payroll_calculation_complete'] != true ||
+      run['accepted_scope'] != run['calculation']?['scope']) {
+    throw const ApiException(
+      0,
+      'Keine vollständig bestätigte Quellenfassung für den Nullnetto-Nachweis.',
+    );
+  }
+  payrollCompositeSource({
+    ...run,
+    'can_finalize': true,
+  }, businessMap(run['source']['input']));
+  return run['calculation']['net_minor'] -
+          run['calculation']['net_deductions_minor'] ==
+      0;
+}
+
+String? payrollAccountPaymentStatus(
+  Map<String, dynamic> month,
+  dynamic records,
+  String employee,
+) {
+  final account = businessMap(month['wage_account']),
+      source3 = month['source_refs']?['calculation_case'] != null;
+  if (!account.containsKey('payment_status')) {
+    if (source3 &&
+        account['payment_ref'] != null &&
+        (account['payments'] is! List || (account['payments'] as List).isEmpty))
+      throw const ApiException(
+        0,
+        'Der belegte Gesamtlohn-Zahlungsstand fehlt.',
+      );
+    return null;
+  }
+  if (!source3 ||
+      ![
+        'no_payment_due',
+        'payments_evidenced',
+      ].contains(account['payment_status']) ||
+      account['payments'] is! List) {
+    throw const ApiException(
+      0,
+      'Der ausgewiesene Nettozahlungsstand ist nicht belegt.',
+    );
+  }
+  final evidence = businessItems(records)
+      .where(
+        (r) => _same({
+          for (final k in ['id', 'revision', 'content_hash']) k: r[k],
+        }, account['payment_ref']),
+      )
+      .firstOrNull;
+  if (evidence == null)
+    throw const ApiException(
+      0,
+      'Die ursprüngliche Lohnkonto-Zahlungsfassung fehlt.',
+    );
+  payrollAccountRecord(evidence, employee, kind: 'payment');
+  final run = businessMap(evidence['sources']?['run']),
+      zeroDue = payrollAccountNoPaymentDue(run),
+      calc = businessMap(month['calculation']),
+      payments = businessItems(account['payments']);
+  final due = calc['net_minor'] - calc['net_deductions_minor'];
+  if (run['id'] != month['run_id'] ||
+      run['revision'] != month['revision'] ||
+      run['content_hash'] != month['content_hash'] ||
+      !_same(run['calculation'], calc) ||
+      !_same(evidence['details']['payments'], payments) ||
+      account['payable_minor'] != due ||
+      account['net_deductions_minor'] != calc['net_deductions_minor'] ||
+      payments.any(
+        (p) => p['amount_minor'] is! int || p['amount_minor'] == 0,
+      ) ||
+      payments.fold<int>(0, (n, p) => n + (p['amount_minor'] as int)) != due ||
+      (account['payment_status'] == 'no_payment_due'
+          ? (!zeroDue || payments.isNotEmpty)
+          : payments.isEmpty)) {
+    throw const ApiException(
+      0,
+      'Der Nettozahlungsstand widerspricht dem tatsächlichen Monatslauf und seinen Originalen.',
+    );
+  }
+  return account['payment_status'];
 }
 
 void Function(dynamic) payrollAccountReceiptValidator(
@@ -228,8 +374,16 @@ Map<String, dynamic> payrollAccountDetails(
         throw const FormatException('Vortragsstatus ausdrücklich wählen.');
       details['status'] = values['status'];
     }
-    if (count < 1 || count > 20)
-      throw const FormatException('Ein bis 20 belegte Zahlungsteile erfassen.');
+    final run = kind == 'payment'
+        ? sources['runs']
+              ?.where((r) => _ref(r) == values['run_ref'])
+              .firstOrNull
+        : null;
+    final zeroDue = run != null && payrollAccountNoPaymentDue(run);
+    if (count < (zeroDue ? 0 : 1) || count > 20)
+      throw const FormatException(
+        'Ein bis 20 belegte Zahlungsteile erfassen; nur eine bestätigte Nullnetto-Berechnung erlaubt keine Zahlungsteile.',
+      );
     details['payments'] = [
       for (var i = 0; i < count; i++)
         {
@@ -270,7 +424,8 @@ class BusinessPayrollAccountsPage extends StatefulWidget {
 }
 
 class _BusinessPayrollAccountsPageState
-    extends State<BusinessPayrollAccountsPage> {
+    extends State<BusinessPayrollAccountsPage>
+    with WidgetsBindingObserver {
   BusinessSession get session => widget.session;
   String get employeeId => widget.employee['id'];
   String get key => 'payroll-account-$employeeId';
@@ -278,13 +433,16 @@ class _BusinessPayrollAccountsPageState
   List<Map<String, dynamic>> records = [], history = [];
   String? actorId, error, message;
   Object? generation;
-  bool loading = false, busy = false, denied = false;
+  bool loading = false, busy = false, denied = false, foreground = true;
+  BuildContext? editorContext;
+  String? editingKind;
   int epoch = 0;
   bool get available =>
       session.hasFeature('payroll_wage_account') &&
       session.hasModule('payroll_accounts') &&
       session.projectId == null;
   bool get readable =>
+      foreground &&
       !denied &&
       available &&
       (session.can('personnel.read') ||
@@ -299,6 +457,7 @@ class _BusinessPayrollAccountsPageState
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     employee = _copy(widget.employee);
     generation = session.generation;
     session.addListener(changed);
@@ -308,23 +467,83 @@ class _BusinessPayrollAccountsPageState
   @override
   void dispose() {
     epoch++;
+    WidgetsBinding.instance.removeObserver(this);
     session.removeListener(changed);
     super.dispose();
   }
 
   void changed() {
     if (!mounted) return;
-    if (!readable || generation != session.generation) {
-      epoch++;
-      records = [];
-      history = [];
+    if (!readable ||
+        generation != session.generation ||
+        editingKind != null && !writable(editingKind!)) {
+      clearPrivate();
       generation = session.generation;
     }
     setState(() {});
   }
 
-  void fail(Object e) {
-    if (!mounted) return;
+  void clearPrivate() {
+    epoch++;
+    records = [];
+    history = [];
+    error = message = null;
+    loading = false;
+    final editor = editorContext;
+    editorContext = null;
+    if (editor != null)
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (editor.mounted && ModalRoute.of(editor)?.isCurrent == true)
+          Navigator.of(editor).pop();
+      });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.paused) {
+      foreground = false;
+      if (mounted) setState(clearPrivate);
+    } else if (state == AppLifecycleState.resumed && mounted) {
+      setState(() => foreground = true);
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessPayrollAccountsPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.employee['id'] != employeeId ||
+        !identical(oldWidget.session, session)) {
+      oldWidget.session.removeListener(changed);
+      clearPrivate();
+      employee = _copy(widget.employee);
+      actorId = null;
+      denied = false;
+      generation = session.generation;
+      session.addListener(changed);
+      load();
+    }
+  }
+
+  Future<void> privateEditor({
+    required BuildContext context,
+    required WidgetBuilder builder,
+  }) async {
+    await showDialog<void>(
+      context: context,
+      builder: (dialog) {
+        editorContext = dialog;
+        return builder(dialog);
+      },
+    );
+    editorContext = null;
+  }
+
+  void fail(Object e, {int? expectedEpoch}) {
+    if (!mounted ||
+        !foreground ||
+        expectedEpoch != null && expectedEpoch != epoch)
+      return;
     setState(() {
       if (e is ApiException && [401, 403, 404].contains(e.status)) {
         denied = true;
@@ -408,20 +627,23 @@ class _BusinessPayrollAccountsPageState
 
   Future<void> repeat() async {
     if (busy) return;
+    final captured = epoch;
     setState(() => busy = true);
     try {
       await session.repeatPayrollAccountCommand(employeeId);
+      if (!mounted || !readable || captured != epoch) return;
       await load();
       if (mounted)
         setState(() => message = 'Der ursprüngliche Nachweis ist bestätigt.');
     } catch (e) {
-      fail(e);
+      fail(e, expectedEpoch: captured);
     } finally {
       if (mounted) setState(() => busy = false);
     }
   }
 
   Future<void> openHistory(Map<String, dynamic> value) async {
+    final captured = epoch;
     try {
       await fresh();
       final opening = session.generation,
@@ -438,28 +660,142 @@ class _BusinessPayrollAccountsPageState
             'Historie gehört nicht zum gewählten Nachweis.',
           );
       }
-      if (mounted && readable && opening == session.generation)
+      if (mounted &&
+          readable &&
+          opening == session.generation &&
+          captured == epoch)
         setState(() => history = page);
     } catch (e) {
-      fail(e);
+      fail(e, expectedEpoch: captured);
+    }
+  }
+
+  Future<void> openOriginal(Map<String, dynamic> value) async {
+    final captured = epoch;
+    try {
+      await fresh();
+      if (mounted && readable && captured == epoch) {
+        await widget.onOriginal(businessMap(value['source_file']));
+      }
+    } catch (e) {
+      fail(e, expectedEpoch: captured);
     }
   }
 
   Future<void> edit(String kind, [Map<String, dynamic>? previous]) async {
     if (busy || !writable(kind) || session.pending(key)) return;
+    final captured = epoch;
+    editingKind = kind;
     try {
       await fresh(kind: kind);
+      await fresh(kind: kind);
+      final opening = session.generation;
+      final pages = await Future.wait(
+        [
+          '/payroll/profiles',
+          '/payroll/runs',
+          '/payroll/account-records',
+          '/personnel/files',
+        ].map((path) => session.read('$path?employee_id=$employeeId')),
+      );
+      for (final page in pages)
+        if (businessMap(page)['employee_id'] != employeeId ||
+            businessItems(page).any((row) => row['employee_id'] != employeeId))
+          throw const ApiException(0, 'Quellen gehören nicht zum Mitarbeiter.');
+      if (!mounted ||
+          !readable ||
+          captured != epoch ||
+          opening != session.generation)
+        return;
+      final sources = {
+            'profiles': businessItems(pages[0]),
+            'runs': businessItems(pages[1]),
+            'identities': businessItems(pages[2])
+                .where((r) => r['kind'] == 'identity')
+                .toList(),
+          },
+          files = businessItems(pages[3])
+              .where((f) => f['purpose'] == 'personnel')
+              .toList();
+      if (previous != null)
+        for (final entry in {
+          'profile': 'profiles',
+          'run': 'runs',
+          'identity': 'identities',
+        }.entries) {
+          final source = businessMap(previous['sources']?[entry.key]);
+          if (source.isNotEmpty &&
+              !sources[entry.value]!.any((s) => _ref(s) == _ref(source)))
+            sources[entry.value]!.add(source);
+        }
+      Map<String, dynamic>? selectedRun;
+      if (kind == 'payment') {
+        String? chosen;
+        await privateEditor(
+          context: context,
+          builder: (_) => BusinessEditor(
+            session: session,
+            title: 'Abgerechneten Lauf für den Lohnkontonachweis auswählen',
+            readPermission: 'personnel.read',
+            writePermission: 'personnel.approve',
+            readAllowed: () =>
+                readable && captured == epoch && opening == session.generation,
+            fields: [
+              BusinessField(
+                'run_ref',
+                'Abgeschlossene Monatsberechnung',
+                type: BusinessInput.choice,
+                required: true,
+                choices: {
+                  '': 'Quelle ausdrücklich auswählen',
+                  for (final run in sources['runs']!)
+                    _ref(
+                      run,
+                    ): '${run['source']?['month']} · Fassung ${run['revision']}',
+                },
+              ),
+            ],
+            initial: {
+              'run_ref': previous?['details']['run_id'] == null
+                  ? ''
+                  : '${previous!['details']['run_id']}@${previous['details']['run_revision']}',
+            },
+            saveLabel: 'Ausgewählten Lauf prüfen',
+            onSave: (values) async {
+              await fresh(kind: kind);
+              final run = sources['runs']!
+                  .where((v) => _ref(v) == values['run_ref'])
+                  .firstOrNull;
+              if (run == null)
+                throw const FormatException(
+                  'Die konkrete angenommene Monatsfassung fehlt.',
+                );
+              payrollAccountNoPaymentDue(run);
+              chosen = values['run_ref'];
+            },
+          ),
+        );
+        if (chosen == null ||
+            !mounted ||
+            !readable ||
+            opening != session.generation)
+          return;
+        selectedRun = sources['runs']!.firstWhere((v) => _ref(v) == chosen);
+      }
+      final zeroDue =
+          selectedRun != null && payrollAccountNoPaymentDue(selectedRun);
       int count = 0;
-      if (kind != 'identity') {
+      if (kind != 'identity' && !zeroDue) {
         int? selected;
-        await showDialog<void>(
+        await privateEditor(
           context: context,
           builder: (_) => BusinessEditor(
             session: session,
             title: 'Belegte Zahlungsteile auswählen',
             readPermission: 'personnel.read',
             writePermission: 'personnel.approve',
-            readAllowed: () => readable,
+            readAllowed: () =>
+                readable && captured == epoch && opening == session.generation,
             fields: const [
               BusinessField(
                 'count',
@@ -483,43 +819,11 @@ class _BusinessPayrollAccountsPageState
         if (selected == null || !mounted) return;
         count = selected!;
       }
-      await fresh(kind: kind);
-      final opening = session.generation;
-      final pages = await Future.wait(
-        [
-          '/payroll/profiles',
-          '/payroll/runs',
-          '/payroll/account-records',
-          '/personnel/files',
-        ].map((path) => session.read('$path?employee_id=$employeeId')),
-      );
-      for (final page in pages)
-        if (businessMap(page)['employee_id'] != employeeId ||
-            businessItems(page).any((row) => row['employee_id'] != employeeId))
-          throw const ApiException(0, 'Quellen gehören nicht zum Mitarbeiter.');
-      if (!mounted || !readable || opening != session.generation) return;
-      final sources = {
-            'profiles': businessItems(pages[0]),
-            'runs': businessItems(pages[1]),
-            'identities': businessItems(pages[2])
-                .where((r) => r['kind'] == 'identity')
-                .toList(),
+      final details = {
+            ...businessMap(previous?['details']),
+            if (selectedRun != null) 'run_id': selectedRun['id'],
+            if (selectedRun != null) 'run_revision': selectedRun['revision'],
           },
-          files = businessItems(pages[3])
-              .where((f) => f['purpose'] == 'personnel')
-              .toList();
-      if (previous != null)
-        for (final entry in {
-          'profile': 'profiles',
-          'run': 'runs',
-          'identity': 'identities',
-        }.entries) {
-          final source = businessMap(previous['sources']?[entry.key]);
-          if (source.isNotEmpty &&
-              !sources[entry.value]!.any((s) => _ref(s) == _ref(source)))
-            sources[entry.value]!.add(source);
-        }
-      final details = businessMap(previous?['details']),
           fields = <BusinessField>[],
           initial = <String, dynamic>{};
       void sourceField(String name, String collection, String label) {
@@ -531,7 +835,8 @@ class _BusinessPayrollAccountsPageState
             required: true,
             choices: {
               '': 'Quelle ausdrücklich auswählen',
-              for (final r in sources[collection]!)
+              for (final r
+                  in name == 'run' ? [selectedRun!] : sources[collection]!)
                 _ref(
                   r,
                 ): "${r['profile'] != null ? '${r['profile']['employment_kind'] == 'minijob' ? 'Minijob' : 'Regulär'} · ${r['profile']['effective_from']}' : r['source']?['month'] ?? '${r['sources']?['profile']?['profile']?['employment_kind'] == 'minijob' ? 'Minijob' : 'Regulär'} · ${r['details']?['valid_from']} · Profilfassung ${r['details']?['profile_revision']}'} · Fassung ${r['revision']}",
@@ -597,7 +902,11 @@ class _BusinessPayrollAccountsPageState
           'Gültiger Stamm- und Steuermerkmalsnachweis',
         );
         if (kind == 'payment')
-          sourceField('run', 'runs', 'Abgeschlossene Monatsberechnung');
+          sourceField(
+            'run',
+            'runs',
+            'Ausgewählte unveränderte Monatsberechnung',
+          );
         else {
           sourceField(
             'profile',
@@ -685,9 +994,11 @@ class _BusinessPayrollAccountsPageState
         initial['tax_free_basis'] = details['tax_free_basis'];
       }
       fields.addAll([
-        const BusinessField(
+        BusinessField(
           'standard_case_confirmed',
-          'Ich habe den unterstützten inländischen Standardfall mit laufendem Barlohn ohne weitere Sonderbezüge oder U-/S-Fälle geprüft.',
+          kind == 'payment'
+              ? 'Ich habe ausschließlich die im ausgewählten Lohnlauf belegten Entgelte und Nettoabzüge ohne weitere unberücksichtigte Sachverhalte geprüft.'
+              : 'Ich habe den unterstützten inländischen Standardfall mit laufendem Barlohn ohne weitere Sonderbezüge oder U-/S-Fälle geprüft.',
           type: BusinessInput.toggle,
         ),
         BusinessField(
@@ -707,20 +1018,22 @@ class _BusinessPayrollAccountsPageState
             type: BusinessInput.multiline,
             required: true,
           ),
-        const BusinessField(
+        BusinessField(
           'confirmed',
-          'Ich bestätige die tatsächlichen belegten Angaben und die ausgewählten Quellfassungen.',
+          zeroDue
+              ? 'Ich bestätige den belegten Nullnetto-Nachweis und die ausgewählten Quellfassungen. Gesonderte Steuer- und Beitragsabführungen bleiben getrennt nachzuweisen.'
+              : 'Ich bestätige die tatsächlichen belegten Angaben und die ausgewählten Quellfassungen.',
           type: BusinessInput.toggle,
         ),
       ]);
       initial['source_file_id'] = previous?['source_file']['id'] ?? '';
       initial['confirmed'] = initial['standard_case_confirmed'] = false;
-      await showDialog<void>(
+      await privateEditor(
         context: context,
         builder: (_) => BusinessEditor(
           session: session,
           title:
-              '${previous == null ? 'Erfassung' : 'Berichtigung'} · ${payrollAccountKinds[kind]}',
+              '${previous == null ? 'Erfassung' : 'Berichtigung'} · ${zeroDue ? 'Keine Nettozahlung geschuldet' : payrollAccountKinds[kind]}',
           fields: fields,
           initial: initial,
           pendingKey: key,
@@ -728,7 +1041,8 @@ class _BusinessPayrollAccountsPageState
           writePermission: kind == 'identity'
               ? 'personnel.write'
               : 'personnel.approve',
-          readAllowed: () => readable && opening == session.generation,
+          readAllowed: () =>
+              readable && captured == epoch && opening == session.generation,
           saveLabel: 'Geprüften Lohnkontonachweis speichern',
           onSave: (values) async {
             await fresh(kind: kind);
@@ -795,9 +1109,11 @@ class _BusinessPayrollAccountsPageState
           },
         ),
       );
-      if (mounted && readable) await load();
+      if (mounted && readable && captured == epoch) await load();
     } catch (e) {
-      fail(e);
+      fail(e, expectedEpoch: captured);
+    } finally {
+      editingKind = null;
     }
   }
 
@@ -811,6 +1127,12 @@ class _BusinessPayrollAccountsPageState
             '${payrollAccountKinds[value['kind']]} · Fassung ${value['revision']}',
             style: Theme.of(context).textTheme.titleMedium,
           ),
+          if (value['kind'] == 'payment' &&
+              (value['details']['payments'] as List).isEmpty)
+            const Notice(
+              'Keine Nettozahlung geschuldet. Gesonderte Steuer- und Beitragsabführungen bleiben getrennt nachzuweisen.',
+              error: false,
+            ),
           ExpansionTile(
             title: const Text('Belegte Angaben'),
             children: [
@@ -851,8 +1173,7 @@ class _BusinessPayrollAccountsPageState
             spacing: 8,
             children: [
               TextButton(
-                onPressed: () =>
-                    widget.onOriginal(businessMap(value['source_file'])),
+                onPressed: () => openOriginal(value),
                 child: const Text('Nachweisoriginal öffnen'),
               ),
               if (!historical)
@@ -881,7 +1202,11 @@ class _BusinessPayrollAccountsPageState
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lohnkonto-Nachweise · ${employee['name']}'),
+        title: Text(
+          readable
+              ? 'Lohnkonto-Nachweise · ${employee['name']}'
+              : 'Lohnkonto-Nachweise',
+        ),
         actions: [
           IconButton(
             tooltip: 'Rechte und Nachweise aktualisieren',

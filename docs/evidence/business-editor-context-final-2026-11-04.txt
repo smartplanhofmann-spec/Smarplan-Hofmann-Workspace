@@ -1,0 +1,28 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:01 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late success after session replacement
+00:01 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late rejected after session replacement
+00:01 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late unconfirmed after session replacement
+00:01 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late format after session replacement
+00:01 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late success after pendingSession replacement
+00:01 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late rejected after pendingSession replacement
+00:01 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late unconfirmed after pendingSession replacement
+00:01 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late format after pendingSession replacement
+00:01 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late success after pendingKey replacement
+00:02 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late rejected after pendingKey replacement
+00:02 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late unconfirmed after pendingKey replacement
+00:02 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: editor ignores late format after pendingKey replacement
+00:02 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: same-context save still closes with a confirmed result
+00:02 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: same-context uncertain save preserves and repeats exact input
+00:02 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: late failure cannot restore values in a revoked original owner
+00:02 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: late old command failure cannot overwrite a newer command at the same key
+00:02 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart: pre-command changed-body conflict cannot overwrite the existing pending draft
+00:02 +24: All tests passed!

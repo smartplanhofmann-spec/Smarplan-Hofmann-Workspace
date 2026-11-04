@@ -1,0 +1,28 @@
+{
+  "recorded_at_utc": "2026-11-04T06:59:00.348328+00:00",
+  "tests": 4,
+  "passed": 4,
+  "failed": 0,
+  "skipped": 0,
+  "duration_seconds": 44.607,
+  "log": "docs/evidence/payroll-oneoff-pg-annual-integration-2026-11-04.txt",
+  "log_sha256": "e825f32d05bbf69f9d9b4bd7660e4c9a85be54849f6784421485448f9451d934",
+  "scope": [
+    "Actual MFA/HTTP PostgreSQL writes with canonical private Source4 origins.",
+    "Same-command finalize concurrency and distinct-command claim ownership.",
+    "Existing run, receipt, consumption and PDF backup/restore.",
+    "New: actual paid Source4 creates compact annual basis via HTTP; prior bonus and four SV bases are retained; technician access denied; database backup/restore preserves exact accepted annual command and resolved original."
+  ],
+  "source_sha256": {
+    "backend/online/test_business_payroll_oneoff_pg.py": "64f4adf74cbce29dd05d21f2ead147dfe1927ec6a08e26109fb518711a9e33e9",
+    "backend/business_payroll_annual_basis.py": "98db121d2e5a99f737a9a78e16cd9db0300c5659d40c9fe0d8b227806bffed8d",
+    "backend/payroll_annual_basis_2026.py": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431",
+    "backend/payroll_oneoff_composition_2026.py": "eb1d6d3806a5c75fb1675b184aab9c009e80bd38c9f7740986d9663a767c7136",
+    "backend/payroll_oneoff_runs.py": "559b0d2ca08afeaefc2ca58b228aa0dccd92abe6c179f9a0d22da4ab3871365a",
+    "backend/business_payroll_oneoff_cases.py": "1e106591cb6ee97d1718a1729dd3665de578797ea91eb5442c6b212b01e5d5a9"
+  },
+  "limits": [
+    "Synthetic disposable loopback PostgreSQL only; no production database touched.",
+    "This adds evidence for annual projection transport and restore. Multiple bonuses in one month and distinct running/bonus payment dates remain outside the current Source4 contract."
+  ]
+}

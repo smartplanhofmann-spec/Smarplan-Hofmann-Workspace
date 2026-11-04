@@ -1,0 +1,56 @@
+{
+  "recorded_at_utc": "2026-11-03T23:42:39.479483+00:00",
+  "scope": "Browser U annual evidence UI with real local MFA/HTTP, existing P2/P4/Source3 original payroll and canonical work schedules. Native results maintained separately.",
+  "node": {
+    "passed": 7,
+    "failed": 0,
+    "command": "node --test web/office/tests/payroll-wage-interruptions.test.mjs"
+  },
+  "browser": {
+    "passed": 1,
+    "failed": 0,
+    "workflow": "payroll-wage-interruptions",
+    "sandbox": [
+      "namespace",
+      "PID",
+      "network",
+      "seccomp"
+    ],
+    "command": "SMARTPLAN_BROWSER_WORKFLOW=payroll-wage-interruptions SMARTPLAN_BROWSER_TEST_PYTHON=/tmp/smartplan-backend-verified/bin/python SMARTPLAN_CHROMIUM_BINARY=/usr/lib/chromium/chromium SMARTPLAN_BROWSER_NAMESPACE_SANDBOX=1 node tests/e2e.cjs",
+    "cwd": "web/office"
+  },
+  "verified": [
+    "Actual per-HTTP P2/P4/Source3 and work schedule sources; no mocked application responses",
+    "Five contractual workdays across a weekend produce U1; no free U count or daily claim input",
+    "Year/date and each of eight statutory exception review choices start empty",
+    "Read-only original-bound daily interpretation, separate preview/confirmation, original download checksum",
+    "Lost accepted response repeats exact same original body and nonce",
+    "Explicit close and reopen discard private incomplete form; employee-context refresh closes historical private dialog",
+    "Actual annual ledger U1; evidenced qualification-benefit period yields U0 while independent further statutory-fields requirement remains explicit",
+    "Correction and documentary void retain exact original historical U1; mobile390 inspected"
+  ],
+  "logs": {
+    "node": {
+      "path": "docs/evidence/payroll-wage-interruptions-node-2026-11-03.txt",
+      "sha256": "78c1e7ebf4da2c46971f14c1a2218487c19d3c45b4d354bc68d4bc5cc6f22d4e"
+    },
+    "browser": {
+      "path": "docs/evidence/payroll-wage-interruptions-browser-2026-11-03.txt",
+      "sha256": "11cdfa0d23267b090c8c200d79847bc77c7615748b15bb73b4c4d4d82bb9e890"
+    }
+  },
+  "source_snapshot": {
+    "web/office/payroll-wage-interruptions.js": "043e078b7c9752ea06a5e9d0c90b2d45065dccf0aef2ad9a7aacd8ed659203d5",
+    "web/office/tests/payroll-wage-interruptions.test.mjs": "9eb6fb0398ef68e51d8e42ced8a7ca622f90ad1a0857955cd6a16aa92534d848",
+    "web/office/tests/payroll-wage-interruptions-flow.cjs": "3a43f5381fb8bb314159ea917fb172b13d03f8fbcba377f85624bb734429705d",
+    "app/test/fixtures/payroll_wage_interruptions.json": "51a39eaed32ff3672d3e51e61ef7b3345f606072fa6d7798231c9ab814fdcbd0",
+    "scripts/generate-payroll-wage-interruptions-fixture.py": "d921db8a9c96aaf96f58ef7c230180e177d4dcd0a6902700a7d2756af9b9b073"
+  },
+  "limitations": [
+    "All companies, employees and files are synthetic local test data",
+    "Fresh rights withdrawal is covered in Node contracts; browser employee-context cleanup is a deliberately simulated change event",
+    "No production TLS, official tax submission or DLS approval",
+    "Native platform acceptance is not included in this browser-only record",
+    "Partial wage claims, flat-tax minijobs and cross-year carry-in remain explicit domain blockers; U evidence is not full certification of other statutory amounts"
+  ]
+}

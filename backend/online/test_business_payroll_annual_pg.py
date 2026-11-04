@@ -1,6 +1,5 @@
-"""Isolated additive annual module: real PG, MFA/HTTP, writers and restore.
+"""Globally registered annual module: real PG, MFA/HTTP, writers and restore.
 
-The feature registry patch is test-local; production registration is separate.
 Only the shared guarded disposable loopback fixture database is ever reset.
 """
 from concurrent.futures import ThreadPoolExecutor
@@ -37,12 +36,8 @@ class PayrollAnnualPostgres(unittest.TestCase):
     basis_details=annual_fixture.PayrollAnnualBasisTests.basis_details
 
     def setUp(self):
-        names=business_schema.MODULE_NAMES
-        if 'business_payroll_annual_basis' not in names:names+=('business_payroll_annual_basis',)
-        schema=patch.object(business_schema,'MODULE_NAMES',names);schema.start();self.addCleanup(schema.stop)
-        modules=business_api.MODULES
-        if 'business_payroll_annual_basis' not in modules:modules+=('business_payroll_annual_basis',)
-        routing=patch.object(business_api,'MODULES',modules);routing.start();self.addCleanup(routing.stop)
+        self.assertEqual(business_schema.MODULE_NAMES.count('business_payroll_annual_basis'),1)
+        self.assertEqual(business_api.MODULES.count('business_payroll_annual_basis'),1)
         self.previous=tuple(spec for spec in business_schema.registry() if spec.name!='business_payroll_annual_basis')
         if self._testMethodName.startswith('test_additive'):
             with patch.object(business_schema,'registry',return_value=self.previous),patch.object(business_schema,'MODULE_NAMES',tuple(spec.name for spec in self.previous)):

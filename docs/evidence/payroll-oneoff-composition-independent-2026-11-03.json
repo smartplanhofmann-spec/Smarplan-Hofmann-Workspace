@@ -1,0 +1,47 @@
+{
+  "recorded_at_utc": "2026-11-03T23:51:53.455976+00:00",
+  "scope": "Independent v6 pure composition checks using actual accepted synthetic private source receipts; no Source4 release or external filing.",
+  "result": {
+    "passed": 13,
+    "independent_cases": 4,
+    "owner_cases": 9,
+    "duration_seconds": 5.443
+  },
+  "first_run": {
+    "passed": 2,
+    "failed": 2,
+    "reason": "Own expected PV values initially combined 1.8% and0.6% before rounding. The documented permitted separate method gives2967+989=3956 rather than3957. Expected tests corrected after reading GKV section3.3; no product change."
+  },
+  "checks": [
+    "Exact164859cent January KV room keeps whole bonus in2026; +1cent assigns whole164860 to actual2025 period.",
+    "Historical1.1% Zusatz/Saxony/childdiscount yield independently calculated33797cent AN-SV.",
+    "500000cent bonus uses KV164859 andRV314317 distinct bases with no additionalU1/U2; original running pay and source unchanged.",
+    "Employee and receipt month cannot be relabelled."
+  ],
+  "sources": [
+    {
+      "url": "https://www.gkv-spitzenverband.de/media/dokumente/pflegeversicherung/grundprinzipien/2025-03-31_GH_Beitragssatzdifferenzierung_sPV.pdf",
+      "section": "3.3 printedpage12",
+      "access": "FullPDF text opened and relevant paragraph read via web; separate rounding expressly permitted."
+    },
+    {
+      "repository": "docs/evidence/payroll-oneoff-social-reference-facts-2026.json",
+      "purpose": "Previously read statutory2025/2026 caps andMarch assignment sources."
+    }
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/payroll-oneoff-composition-independent-first-2026-11-03.txt",
+      "sha256": "621b71536b3ce116478c30d6c6b0f39752a0cb08fbd9dcefad1f361557d8b9f5"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-composition-independent-final-2026-11-03.txt",
+      "sha256": "651d99c706475589badec5c7d1cd65417b39dca46197bbcc7637b00241440672"
+    }
+  ],
+  "source_sha256": {
+    "backend/payroll_oneoff_composition_2026.py": "454acd81b5876931bb99f85acf948b120150d9c0d12354f3efe8e00f8ab00280",
+    "backend/payroll_oneoff_2026.py": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8",
+    "backend/test_payroll_oneoff_composition_review.py": "4cfb156e1aa9f7a6c2c656bbfdfc078ac49ff7bafb3a67649298eb20913deae3"
+  }
+}

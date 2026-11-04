@@ -1,0 +1,101 @@
+test_archive_is_still_readable_after_down_and_reopening_the_real_file (test_business_schema.BusinessSchemaContract.test_archive_is_still_readable_after_down_and_reopening_the_real_file) ... ok
+test_changed_registered_ddl_checksum_fails_without_modifying_any_record (test_business_schema.BusinessSchemaContract.test_changed_registered_ddl_checksum_fails_without_modifying_any_record) ... ok
+test_device_scope_never_accepts_financial_unknown_or_duplicate_capabilities (test_business_schema.BusinessSchemaContract.test_device_scope_never_accepts_financial_unknown_or_duplicate_capabilities) ... ok
+test_down_checks_archive_integrity_before_changing_active_capabilities (test_business_schema.BusinessSchemaContract.test_down_checks_archive_integrity_before_changing_active_capabilities) ... ok
+test_explicit_new_device_scope_survives_down_and_cascades_on_session_revocation (test_business_schema.BusinessSchemaContract.test_explicit_new_device_scope_survives_down_and_cascades_on_session_revocation) ... ok
+test_explicit_up_is_additive_and_preserves_legacy_ids_and_binary_originals (test_business_schema.BusinessSchemaContract.test_explicit_up_is_additive_and_preserves_legacy_ids_and_binary_originals) ... ok
+test_failed_module_validator_does_not_publish_any_new_schema_state (test_business_schema.BusinessSchemaContract.test_failed_module_validator_does_not_publish_any_new_schema_state) ... ok
+test_legacy_read_is_lazy_and_never_creates_or_migrates_any_table (test_business_schema.BusinessSchemaContract.test_legacy_read_is_lazy_and_never_creates_or_migrates_any_table) ... ok
+test_missing_previously_registered_module_cannot_silently_down_or_skip_validation (test_business_schema.BusinessSchemaContract.test_missing_previously_registered_module_cannot_silently_down_or_skip_validation) ... ok
+test_partial_second_module_ddl_failure_rolls_back_the_whole_first_up (test_business_schema.BusinessSchemaContract.test_partial_second_module_ddl_failure_rolls_back_the_whole_first_up) ... ok
+test_repeated_up_does_not_change_generation_timestamps_receipts_or_rows (test_business_schema.BusinessSchemaContract.test_repeated_up_does_not_change_generation_timestamps_receipts_or_rows) ... ok
+test_schema_up_never_commits_an_enclosing_sqlite_request (test_business_schema.BusinessSchemaContract.test_schema_up_never_commits_an_enclosing_sqlite_request) ... ok
+test_sqlite_startup_migration_never_reenables_a_deliberate_legacy_mode (test_business_schema.BusinessSchemaContract.test_sqlite_startup_migration_never_reenables_a_deliberate_legacy_mode) ... ok
+test_unavailable_registered_code_fails_closed_without_partial_migration (test_business_schema.BusinessSchemaContract.test_unavailable_registered_code_fails_closed_without_partial_migration) ... ok
+test_unknown_mode_fails_before_any_write_or_module_load (test_business_schema.BusinessSchemaContract.test_unknown_mode_fails_before_any_write_or_module_load) ... ok
+test_up_up_down_down_up_keeps_finalized_archive_audit_numbers_and_unknown_send (test_business_schema.BusinessSchemaContract.test_up_up_down_down_up_keeps_finalized_archive_audit_numbers_and_unknown_send) ... ok
+test_original_statement_bytes_use_source_file_hash_and_sensitive_inventory (test_business_company_handover.BankOriginalExportTests.test_original_statement_bytes_use_source_file_hash_and_sensitive_inventory) ... ok
+test_resource_custody_schema_inventory_and_private_original_match_exactly (test_business_company_handover.BankOriginalExportTests.test_resource_custody_schema_inventory_and_private_original_match_exactly) ... ok
+test_archive_cannot_be_swapped_between_valid_receipts (test_business_company_handover.CompanyHandoverTests.test_archive_cannot_be_swapped_between_valid_receipts) ... ok
+test_archive_verifier_rejects_missing_changed_duplicate_and_unsafe_members (test_business_company_handover.CompanyHandoverTests.test_archive_verifier_rejects_missing_changed_duplicate_and_unsafe_members) ... /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/zipfile/__init__.py:1625: UserWarning: Duplicate name: 'README.txt'
+  return self._open_to_write(zinfo, force_zip64=force_zip64)
+ok
+test_chunked_plan_original_and_private_personnel_file_are_portable (test_business_company_handover.CompanyHandoverTests.test_chunked_plan_original_and_private_personnel_file_are_portable) ... ok
+test_distributed_verifier_reopens_archive_without_application_or_database (test_business_company_handover.CompanyHandoverTests.test_distributed_verifier_reopens_archive_without_application_or_database) ... ok
+test_exit_review_is_explicit_versioned_evidence_and_changes_no_access (test_business_company_handover.CompanyHandoverTests.test_exit_review_is_explicit_versioned_evidence_and_changes_no_access) ... ok
+test_foreign_binding_fresh_owner_and_offline_or_project_user_cannot_export (test_business_company_handover.CompanyHandoverTests.test_foreign_binding_fresh_owner_and_offline_or_project_user_cannot_export) ... ok
+test_future_schema_is_fail_closed_and_never_silently_partial (test_business_company_handover.CompanyHandoverTests.test_future_schema_is_fail_closed_and_never_silently_partial) ... ok
+test_lost_ack_parallel_same_request_returns_one_immutable_archive (test_business_company_handover.CompanyHandoverTests.test_lost_ack_parallel_same_request_returns_one_immutable_archive) ... ok
+test_migration_source_files_are_exact_sensitive_originals_and_corruption_blocks_export (test_business_company_handover.CompanyHandoverTests.test_migration_source_files_are_exact_sensitive_originals_and_corruption_blocks_export) ... ok
+test_originals_audit_relationships_quarantine_and_no_authentication_material (test_business_company_handover.CompanyHandoverTests.test_originals_audit_relationships_quarantine_and_no_authentication_material) ... ok
+test_self_consistent_zip_still_requires_matching_inventory_and_original_descriptors (test_business_company_handover.CompanyHandoverTests.test_self_consistent_zip_still_requires_matching_inventory_and_original_descriptors) ... ok
+test_size_limit_and_audit_failure_roll_back_complete_export_atomically (test_business_company_handover.CompanyHandoverTests.test_size_limit_and_audit_failure_roll_back_complete_export_atomically) ... ok
+test_strict_transport_and_sensitive_confirmation (test_business_company_handover.CompanyHandoverTests.test_strict_transport_and_sensitive_confirmation) ... ok
+test_tampered_technical_receipt_cannot_survive_restore_validation (test_business_company_handover.CompanyHandoverTests.test_tampered_technical_receipt_cannot_survive_restore_validation) ... ok
+test_actual_support_archive_imports_the_packaged_backend (test_native_release.NativePackageTests.test_actual_support_archive_imports_the_packaged_backend) ... ok
+test_current_sources_include_phone_tablet_and_keychain_configuration (test_native_release.NativePackageTests.test_current_sources_include_phone_tablet_and_keychain_configuration) ... ok
+test_dependency_update_is_explicit_offline_locked_and_never_opens_business_data (test_native_release.NativePackageTests.test_dependency_update_is_explicit_offline_locked_and_never_opens_business_data) ... ok
+test_dictation_package_requires_mic_purpose_and_forbids_background_audio (test_native_release.NativePackageTests.test_dictation_package_requires_mic_purpose_and_forbids_background_audio) ... ok
+test_full_support_archive_contains_validated_wheels_installer_and_reproducible_manifest (test_native_release.NativePackageTests.test_full_support_archive_contains_validated_wheels_installer_and_reproducible_manifest) ... ok
+test_ios_cli_manifest_requires_workspace_backend_and_actual_build_number (test_native_release.NativePackageTests.test_ios_cli_manifest_requires_workspace_backend_and_actual_build_number) ... ok
+test_ios_requires_ipad_and_expected_signed_keychain_identity (test_native_release.NativePackageTests.test_ios_requires_ipad_and_expected_signed_keychain_identity) ... ok
+test_local_manifest_keeps_packaged_backend_and_project_plan_scope (test_native_release.NativePackageTests.test_local_manifest_keeps_packaged_backend_and_project_plan_scope) ... ok
+test_local_package_checks_offline_hash_manifest_before_claiming_complete_dependencies (test_native_release.NativePackageTests.test_local_package_checks_offline_hash_manifest_before_claiming_complete_dependencies) ... ERROR
+test_local_package_rejects_omitted_plan_backend_and_accepts_complete_sources (test_native_release.NativePackageTests.test_local_package_rejects_omitted_plan_backend_and_accepts_complete_sources) ... ERROR
+test_local_package_requires_unchanged_restore_operator_and_instructions (test_native_release.NativePackageTests.test_local_package_requires_unchanged_restore_operator_and_instructions) ... ERROR
+test_manifest_identifies_commit_backend_and_every_packaged_file (test_native_release.NativePackageTests.test_manifest_identifies_commit_backend_and_every_packaged_file) ... ok
+test_offline_bundle_requires_every_locked_wheel_and_rejects_source_archives_or_other_platforms (test_native_release.NativePackageTests.test_offline_bundle_requires_every_locked_wheel_and_rejects_source_archives_or_other_platforms) ... ok
+test_online_package_rejects_missing_native_storage_library_and_local_startup (test_native_release.NativePackageTests.test_online_package_rejects_missing_native_storage_library_and_local_startup) ... ok
+test_release_checks_reject_a_build_targeting_the_other_backend (test_native_release.NativePackageTests.test_release_checks_reject_a_build_targeting_the_other_backend) ... ok
+test_source_support_archive_is_honestly_source_only_without_offline_wheels (test_native_release.NativePackageTests.test_source_support_archive_is_honestly_source_only_without_offline_wheels) ... ok
+
+======================================================================
+ERROR: test_local_package_checks_offline_hash_manifest_before_claiming_complete_dependencies (test_native_release.NativePackageTests.test_local_package_checks_offline_hash_manifest_before_claiming_complete_dependencies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/test_native_release.py", line 161, in test_local_package_checks_offline_hash_manifest_before_claiming_complete_dependencies
+    release.check_windows(bundle, self.config, 'local')
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/native-release.py", line 137, in check_windows
+    local_backend(bundle, root)
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/native-release.py", line 125, in local_backend
+    require(module not in local_modules or module in packaged_modules,
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/native-release.py", line 37, in require
+    raise ValueError(message)
+ValueError: Lokales Backend benötigt eine nicht gepackte Datei: payroll_oneoff_runs.py
+
+======================================================================
+ERROR: test_local_package_rejects_omitted_plan_backend_and_accepts_complete_sources (test_native_release.NativePackageTests.test_local_package_rejects_omitted_plan_backend_and_accepts_complete_sources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/test_native_release.py", line 99, in test_local_package_rejects_omitted_plan_backend_and_accepts_complete_sources
+    release.check_windows(bundle, self.config, 'local')
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/native-release.py", line 137, in check_windows
+    local_backend(bundle, root)
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/native-release.py", line 125, in local_backend
+    require(module not in local_modules or module in packaged_modules,
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/native-release.py", line 37, in require
+    raise ValueError(message)
+ValueError: Lokales Backend benötigt eine nicht gepackte Datei: payroll_oneoff_runs.py
+
+======================================================================
+ERROR: test_local_package_requires_unchanged_restore_operator_and_instructions (test_native_release.NativePackageTests.test_local_package_requires_unchanged_restore_operator_and_instructions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/test_native_release.py", line 120, in test_local_package_requires_unchanged_restore_operator_and_instructions
+    release.check_windows(bundle, self.config, 'local')
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/native-release.py", line 137, in check_windows
+    local_backend(bundle, root)
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/native-release.py", line 125, in local_backend
+    require(module not in local_modules or module in packaged_modules,
+  File "/workspace/Smarplan-Hofmann-Workspace/scripts/native-release.py", line 37, in require
+    raise ValueError(message)
+ValueError: Lokales Backend benötigt eine nicht gepackte Datei: payroll_oneoff_runs.py
+
+----------------------------------------------------------------------
+Ran 48 tests in 8.476s
+
+FAILED (errors=3)
+support.zip 1275022 bytes f2b2108edc49689521202914321bb856ddc2b9ee37384266ef673c4fe1133285
+offline-support.zip 1283106 bytes c6994b83befac436b2739343e168ece4e979c0522d39866336339543791b0ab9
+offline-support.zip 1283106 bytes c6994b83befac436b2739343e168ece4e979c0522d39866336339543791b0ab9
+source-only.zip 1275022 bytes f2b2108edc49689521202914321bb856ddc2b9ee37384266ef673c4fe1133285

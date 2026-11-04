@@ -234,6 +234,10 @@ class PayrollAnnualBasisTests(monthly.BusinessFixture,unittest.TestCase):
         body,_=self.request('annual_basis',payment_details)
         actual=self.annual.save(self.owner,body|dict(id=accepted['id'],revision=accepted['revision'],correction_reason='Tatsächlichen Lohnkontozufluss gebunden'))
         self.assertEqual(actual['sources']['payroll_payments'],[payment])
+        catalog=self.annual.sources(self.owner,dict(employee_id=self.employee['id']))
+        self.assertEqual(catalog['calculation_cases'],[current])
+        self.assertEqual(catalog['payroll_payments'],[payment])
+        self.assertEqual(catalog['payroll_runs'],[run])
         self.assertTrue(annual.validate_integrity(self.office))
 
     def test_pauschal_minijob_identity_never_becomes_individual_annual_tax_wage(self):

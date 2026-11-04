@@ -259,3 +259,44 @@ eine Vorschau behauptet keine erfolgte Zahlung oder Übermittlung.
 Der neue PAP-Helfer für Einmalbezüge besteht zusätzlich vier unabhängig von
 seiner Implementierung hergeleitete Rechenfälle; ein fertiger Einmalbezugsablauf
 ist damit noch nicht nachgewiesen.
+
+## Geprüfter Quellstand 2fdfa9f – 03.11.2026
+
+Der lokale Commit `2fdfa9f37bbbaf9e8b6fe4070be6809fe15b69c3` sichert die isoliert geprüfte Zusammenführung der Lohnquellen, Gesamtfälle und Reise-/Finanzabläufe. Auf genau diesem eingefrorenen Quellstand bestanden 1.484 von 1.485 Backendtests (ein Windows-spezifischer Test unter Linux ausgelassen), 398 Node-Tests und 932 Flutter-Tests; die vollständige Flutter-Analyse meldete keine Probleme. Quelldateien und Protokolle sind mit SHA-256 im Nachweis `docs/evidence/payroll-travel-core-regression-2026-11-03.json` und dem zugehörigen Dateimanifest gebunden.
+
+Der erste Flutter-Start scheiterte an einem fehlenden Testinterpreter-Pfad und wurde abgebrochen; der anschließende vollständige Lauf mit dem vorhandenen verifizierten Interpreter bestand. Spätere globale Jahres-/U-Registrierungen, die neueren P4-Oberflächen sowie Einmalbezug-v6 liegen außerhalb dieses eingefrorenen Nachweises. Sie werden weiter implementiert und gesondert geprüft. Der Commit ist ein lokaler Entwicklungszwischenstand, keine Behauptung eines abgeschlossenen Gesamtziels oder einer Produktivfreigabe.
+
+## Weiterentwicklung am 04.11.2026: Jahresquellen, Nullnetto und Einmalbezüge
+
+Die fünf privaten Jahresquellenarten besitzen Browser- und App-Formulare. Die unabhängige App-Gegenprüfung fand und behob verbliebene Dialoge nach Mitarbeiter-/Sessionwechsel und entzogenem Freigaberecht; zehn gezielte Gegenfälle sind nach dem Fix grün. Die Wiederholungsprüfung der geschützten Browser-Lohnpfade besteht61Tests. P4 und Gesamtfälle wurden zusätzlich gegen spät eintreffende private Fehlertexte abgesichert.
+
+Ein tatsächlicher Nullnettomonat kann jetzt mit Originalbeleg und leerer Zahlungsteilliste dokumentiert werden, ohne einen Geldfluss zu erzeugen. Positive Abführungen bleiben separat zu belegen. Domain-, PostgreSQL- und Clientnachweise liegen unter `CRM_ERP_LOHN_NULLMONAT_PRUEFUNG_2026-11-03.json`; die Browser-Gesamtregression wird getrennt fortgeschrieben.
+
+Die neue Source4-Kette für reguläre Einmalbezüge ist in Entwicklung: kanonische Jahresquellen, geschützte Fallannahme, ein dauerhaft an seinen Lohnlauf gebundener Anspruch, tatsächlicher Zahlungsnachweis, Cash und EÜR. Vier unabhängige private Quellen-/Rechtegegenfälle bestehen. Die globale Registrierung aller drei Tabellen, der Unternehmensübergabe und der Quellpakete besteht48Tests (11,138s). Nachweise: `evidence/payroll-oneoff-private-independent-2026-11-03.json` und `evidence/source4-three-table-registration-2026-11-04.json`. Die vollständige PostgreSQL-/Browser-/App-Abnahme dieser neuen Kette ist damit noch nicht erklärt.
+
+Weiter offen bleiben unter anderem weitere Jahreszuordnungen nach bereits abgerechneten Einmalbezügen, mehrere Boni und unterschiedliche tatsächliche Zuflusstage sowie die im Lohn-Lückenplan ausdrücklich benannten Versicherungs- und Meldefälle. Das Gesamtziel bleibt die vollständige Software; ein geprüfter Teilumfang wird nicht als Gesamtabschluss ausgewiesen.
+
+## Source4-Jahresfortschreibung und weitere Gesamtzielarbeit – 04.11.2026
+
+Die bezahlte Source4-Zusammenrechnung fließt jetzt in spätere Jahresbasen und
+Steuerprognosen ein. Laufendes Entgelt und frühere Boni bleiben getrennt; ein
+Märzklauselbonus verbraucht die tatsächliche Vorjahres-SV-Basis, ohne dadurch
+falsche Beschäftigungstage im Vorjahr zu erzeugen. Bei Korrektur desselben
+Anspruchs wird dessen bisheriger Verbrauch ersetzt. Acht gezielte Jahresfälle
+bestehen in einer gemeinsamen 55-Fälle-Prüfung (90,742 Sekunden). Drei echte
+Monatsläufe bleiben zwischen 206.183 und 228.168 Bytes; der vollständige
+Drei-Monats-Quellenkatalog umfasst 2.340.035 Bytes. Nachweis:
+`evidence/payroll-oneoff-annual-followup-2026-11-04.json`.
+
+Die finale zusätzliche PostgreSQL-Prüfung besteht vier Fälle (46,480 Sekunden),
+einschließlich tatsächlichem Backup/Restore der bezahlten Jahresfortschreibung:
+`evidence/payroll-oneoff-pg-annual-final-2026-11-04.json`. Der aktuelle Source4-
+Vertrag ist in `CRM_ERP_LOHN_EINMALBEZUG_V6_VERTRAG_2026.md` beschrieben.
+Mehrere Boni im selben Monat, verschiedene Zuflusstage und abhängige
+Folgekorrekturen bleiben benannte Entwicklungsarbeit.
+
+Außerhalb Lohn/Reisen wurde das Gesamtziel erneut mit der Runtime verglichen.
+`CRM_ERP_GESAMTZIEL_GEGENPRUEFUNG_2026-11-04.md` beschreibt konkrete weitere
+Pakete zu Finanzübernahme, Katalogpreisen und Ereignisregeln. Die Übernahme
+belegter Konto-Anfangssalden entsteht in einem isolierten Arbeitsbaum und
+ist noch kein Bestandteil eines freigegebenen Hauptrepository-Stands.

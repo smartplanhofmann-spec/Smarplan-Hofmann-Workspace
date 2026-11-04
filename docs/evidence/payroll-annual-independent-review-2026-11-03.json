@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-03",
+  "scope": "Independent bounded technical and tax/social-year source review; actual domain operations and accepted receipts",
+  "tests": 4,
+  "passed": 4,
+  "seconds": 1.358,
+  "skipped": 0,
+  "product_changes_by_reviewer": false,
+  "source_sha256": {
+    "backend/payroll_annual_basis_2026.py": "28475b4fc0e4297dfef7bdfcb428d47b130e980eaa9f6667c33a9b642a89ecbe",
+    "backend/business_payroll_annual_basis.py": "fa9dc3c0447c385a5b49d81f966d0c8248d1164bc1fc7517264a30051435812f",
+    "backend/test_payroll_annual_basis_review.py": "d806471c878bc13fef43bd11f26965b159a152486750c32a9eb1b431c337d892"
+  },
+  "log": "docs/evidence/payroll-annual-independent-review-2026-11-03.txt",
+  "log_sha256": "9651b157484c16f20f3252b36336000c8c855be7059675951f254afada0447cc",
+  "finding": {
+    "code": "omitted_known_current_tax_year_receipt_with_previous_social_year",
+    "status": "closed_by_owner_and_independently_verified",
+    "first_observation": "docs/evidence/payroll-annual-independent-before-fix-2026-11-03.json",
+    "fix": "Fresh forecast requires all known active tax receipts outside the explicitly selected social annual basis; missing reference returns409; historical selected snapshots stay immutable"
+  },
+  "checked": [
+    "Actual2025 full-month KV/RV caps after running and one-off consumption",
+    "Current2026 tax receipt kept separate from2025 SV assignment",
+    "January21 running wage assignment and prevention of duplicate current tax count",
+    "Newly entered original invalidates fresh annual basis without changing original accepted receipt"
+  ],
+  "limitations": [
+    "Four bounded independent domain cases; no claim of full v6 composition or client acceptance",
+    "The before-fix evidence records an actually executed direct counterexample; the four unittest cases were run after the owner fix"
+  ]
+}

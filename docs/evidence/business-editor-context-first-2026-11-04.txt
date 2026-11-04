@@ -1,0 +1,20 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_editor_context_test.dart
+00:00 +0: editor transfers only its listener on session replacement
+00:00 +1: editor ignores late success after session replacement
+00:01 +2: editor ignores late rejected after session replacement
+00:01 +3: editor ignores late unconfirmed after session replacement
+00:01 +4: editor ignores late format after session replacement
+00:01 +5: editor ignores late success after pendingSession replacement
+00:01 +6: editor ignores late rejected after pendingSession replacement
+00:01 +7: editor ignores late unconfirmed after pendingSession replacement
+00:01 +8: editor ignores late format after pendingSession replacement
+00:01 +9: editor ignores late success after pendingKey replacement
+00:01 +10: editor ignores late rejected after pendingKey replacement
+00:02 +11: editor ignores late unconfirmed after pendingKey replacement
+00:02 +12: editor ignores late format after pendingKey replacement
+00:02 +13: same-context save still closes with a confirmed result
+00:02 +14: same-context uncertain save preserves and repeats exact input
+00:02 +15: late failure cannot restore values in a revoked original owner
+00:02 +16: All tests passed!

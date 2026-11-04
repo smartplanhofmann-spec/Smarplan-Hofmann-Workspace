@@ -1,0 +1,24 @@
+{
+  "recorded_at_utc": "2026-11-03T23:58:15.212689+00:00",
+  "scope": "Global Source4 private-case registration and reproducible runtime support packages. Does not certify the unfinished Source4 run/client workflow.",
+  "schema_and_company_handover": {
+    "passed": 32,
+    "run": "First combined48 run had32 schema/handover+13 package passes and3 package errors."
+  },
+  "first_package_errors": "New payroll_oneoff_runs.py helper was being added by parallel kernel work and initially absent from packaging. All three runtime lists now include it.",
+  "package_repeat": {
+    "passed": 16,
+    "duration_seconds": 5.561
+  },
+  "logs": [
+    {
+      "path": "docs/evidence/source4-registration-integration-first-2026-11-03.txt",
+      "sha256": "cdbcfc4a56cdb6e10a917c72e537598b65a9e40c833a6b021855240b096660d7"
+    },
+    {
+      "path": "docs/evidence/source4-packages-second-2026-11-03.txt",
+      "sha256": "653bcd80eaa4062fce42fccd8b70f536d9d7bce173923c1bbd1abb4c74892867"
+    }
+  ],
+  "external_publication": false
+}

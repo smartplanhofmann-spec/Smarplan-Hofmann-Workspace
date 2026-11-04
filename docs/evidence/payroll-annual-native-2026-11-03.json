@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-03",
+  "scope": "P5 native private annual-source page and structured forms, not full payroll completion",
+  "results": {
+    "flutter_cases": 27,
+    "form_cases": 8,
+    "contract_cases": 7,
+    "native_ui_and_replay_cases": 12,
+    "dart_analyze": "no issues found"
+  },
+  "coverage": [
+    "All five actual service fixtures reconstructed through structured native forms",
+    "All five complete mobile correction flows at 390 pixels produce exact canonical preview request",
+    "Actual browser HTTP correction revision2 and void revision3 receipts; preserved revision1 original view",
+    "Exact personnel original callback and fresh active-fact selection callback",
+    "Read/approve checks, paused-module exact original replay, pending command blocks new forms",
+    "Private editor removed on background; late preview success and late private error cannot restore data"
+  ],
+  "product_finding": {
+    "confirmed": "Late private ApiException text could appear after background/resume",
+    "before_log": "work/verification/payroll-annual-native-late-error-first.log",
+    "fix": "act captures opening epoch; catch publishes only while mounted, readable and same epoch",
+    "after_log": "work/verification/payroll-annual-native-complete.log"
+  },
+  "sources": {
+    "app/lib/business_payroll_annual_basis.dart": "c4bad75698a342d0349723c97557f9d386eb186683100edcc057736465b87db5",
+    "app/lib/business_payroll_annual_basis_forms.dart": "c9f78cca31936f1200d9fa1cebe1223c053b0091bd8f5188fedb0cefc12f8261",
+    "app/test/business_payroll_annual_basis_test.dart": "9712ab111f2b6794d365b7bb4fd0432c4c8f77a08ce4a75b40932dfb21c05b95",
+    "app/test/business_payroll_annual_basis_forms_test.dart": "26dd18045f5f8d98f56caa3fa93bb79951cc352dd52bbda888c6fe221a14d20c",
+    "app/lib/business_payroll_annual_basis_contract.dart": "9c56061982b147466f4cf9dc2f54e70e3866ac28d91c189ec99a5d5ef3402c6d",
+    "app/test/business_payroll_annual_basis_contract_test.dart": "a66c9d66589e341e0fd343b4740229dc8483c44cf66447b2b679818ef413adcd",
+    "app/test/fixtures/payroll_annual_basis_browser.json": "5e43b676fb2b197934905b6c7cd83178294f90ff1a62def09e4c02edfe0cc928",
+    "docs/fixtures/payroll-annual-basis-2026.json": "fe577d29eb42ac9263e17ca2f467053f4a0ec2d098beba80c93a59f048be26d1"
+  },
+  "logs": [
+    "payroll-annual-native-forms-first.log",
+    "payroll-annual-native-ui-first.log",
+    "payroll-annual-native-ui-second.log",
+    "payroll-annual-native-final.log",
+    "payroll-annual-native-late-error-first.log",
+    "payroll-annual-native-complete.log",
+    "payroll-annual-native-analyze-final.log"
+  ],
+  "independent_review": "10 independent review cases implemented by travel_policy_clients_resume; all included in 37-case follow-up pass; separate independent rerun pending",
+  "limitations": [
+    "Current five source forms only; not official payroll reporting",
+    "Native API test doubles return actual service-generated fixtures or recorded HTTP receipts; actual full HTTP browser workflow is separately documented by browser owner"
+  ],
+  "context_followup": {
+    "flutter_cases": 37,
+    "independent_cases_included": 10,
+    "analyze": "no issues found",
+    "findings_fixed": [
+      "Employee change closes private editors and invalidates old data",
+      "Replacement session listener correctly detached/rebound",
+      "Approval withdrawal closes editor and invalidates pending preview",
+      "Old action completion cannot clear busy flag of newer context"
+    ],
+    "logs": [
+      "payroll-annual-native-context-complete.log",
+      "payroll-annual-native-context-analyze.log"
+    ]
+  }
+}

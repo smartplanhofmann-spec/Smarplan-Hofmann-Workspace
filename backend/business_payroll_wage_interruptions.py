@@ -1,4 +1,5 @@
 """Private annual U assessments bound to actual payroll, P4 and daily originals."""
+import calendar
 import json
 import re
 import uuid
@@ -90,7 +91,25 @@ def build_plan(snapshot):
                 claim_evidence_refs=[reference(run)] if run else [reference(term)],
                 schedule_evidence_refs=[reference(schedule)] if schedule else [reference(term)],
                 exception_evidence_refs=exception['evidence_refs'] if exception else details['exception_review_file_refs']))
-    carry=year+'-01-01' in unpaid and any(value['details']['employment_from']<year+'-01-01' for value in terms)
+    # A January-only SV continuation proof cannot erase an earlier loss of
+    # wage entitlement in its bound sickness history. Inspect the original
+    # entitlement result at the year boundary, within the same employment.
+    prior_day='2025-12-31';first_day=year+'-01-01'
+    continuing_terms=[reference(value) for value in terms if value['details']['employment_from']<=prior_day
+        and (value['details']['employment_to'] is None or value['details']['employment_to']>=first_day)]
+    def prior_loss(value):
+        if value['details']['employment_terms_ref'] not in continuing_terms:return False
+        plan=value['plan']
+        if value['kind']=='unpaid_continuation':
+            return any(part['from']<=prior_day<=part['to'] for part in plan['intervals'])
+        if value['kind']!='sickness_history':return False
+        if 'phases' in plan:
+            return any(part['from_date']<=prior_day<=part['to_date'] and not part['entitled']
+                and not part['first_day_remaining_regular_wage'] for part in plan['phases'])
+        return any(part['from_date']<=prior_day<=part['to_date']
+            and not (part['entitlement_from'] is not None and part['entitlement_from']<=prior_day<=part['entitlement_to'])
+            and part['first_day_remaining_regular_wage']!=prior_day for part in plan['episodes'])
+    carry=first_day in unpaid and any(prior_loss(value) for value in snapshot['entitlements'])
     source=dict(year=2026,assessment_through=through,employment_intervals=intervals,days=rows,carry_in_loss=carry,
         tax_scope='flat_minijob' if mini else 'individual')
     result=calculate_wage_interruptions(source)
@@ -151,7 +170,7 @@ class PayrollWageInterruptions(PayrollFacts):
                 if sorted(expected,key=lambda v:v['id'])!=details[key]:raise Problem(409,'Alle tatsächlichen aktuellen Beschäftigungs-, Lauf- und Anspruchsquellen des Prüfzeitraums müssen vollständig gebunden sein.')
             for claim in claims:
                 for run in runs:
-                    month=run['source']['month'];last=__import__('calendar').monthrange(2026,int(month[-2:]))[1]
+                    month=run['source']['month'];last=calendar.monthrange(2026,int(month[-2:]))[1]
                     if claim['effective_from']<=min(through,month+'-'+str(last)) and claim['effective_to']>=month+'-01':
                         bound=run['source'].get('calculation_case',{}).get('details',{}).get('entitlement_case_refs',[])
                         if reference(claim) not in bound:raise Problem(409,'Ein aktueller einschlägiger Anspruch ist noch nicht in der tatsächlichen Lohnrevision berücksichtigt.')
@@ -173,6 +192,7 @@ class PayrollWageInterruptions(PayrollFacts):
             source=PayrollFacts(self.office).sources(fresh,dict(employee_id=employee['id']))
             source.update(year=2026,runs=Payroll(self.office).records(fresh,'run',dict(employee_id=employee['id']))['items'],
                 entitlements=PayrollEntitlements(self.office)._all(employee['id']),assessments=self._all(employee['id']))
+            for value in source['assessments']:validate_sources(self.office,value)
             source['file_references']=[dict(id=value['id'],revision=1,content_hash=value['content_hash']) for value in source['files']]
             return source
 
@@ -196,6 +216,7 @@ class PayrollWageInterruptions(PayrollFacts):
     def _versions(data):
         if data['kind']!=KIND or data['rule_version']!=RULE_VERSION or type(data['source_contract_version']) is not int or data['source_contract_version']!=1:
             raise Problem(400,'U-Nachweisart und explizite Regel-/Quellenversion angeben.')
+        _integer(data['employee_revision'],1)
 
     def preview(self,actor,data):
         fields=('employee_id','employee_revision','kind','rule_version','source_contract_version','details','source_file_ids')
@@ -262,7 +283,10 @@ def validate_sources(office,value):
         row=api._row(value['id'],value['revision']);payload=json.loads(row['payload_json']);command=payload['accepted_command'];api._versions(command)
         details=normalize_details(value['details']);fingerprint=_sha(['wage_interruption.saved',command])
         receipt=office.db.execute('SELECT * FROM '+TABLES[1]+' WHERE user_id=? AND request_id=?',(value['created_by'],command['request_id'])).fetchone()
-        if (api._event(row)!=value or row['command_hash']!=fingerprint or receipt is None or receipt['operation']!='wage_interruption.saved'
+        if (api._event(row)!=value or value['rule_version']!=RULE_VERSION or type(value['source_contract_version']) is not int or value['source_contract_version']!=1
+                or value['kind']!=KIND or value['effective_from']!='2026-01-01' or value['effective_to']!=details['assessment_through']
+                or row['identity_key']!=('year:2026' if value['revision']==1 else None)
+                or row['command_hash']!=fingerprint or receipt is None or receipt['operation']!='wage_interruption.saved'
                 or receipt['request_hash']!=fingerprint or receipt['fact_id']!=value['id'] or receipt['fact_revision']!=value['revision']
                 or receipt['fact_content_hash']!=value['content_hash'] or receipt['created_at']!=value['created_at']
                 or normalize_details(command['details'])!=details or command['employee_id']!=value['employee_id']
@@ -272,6 +296,10 @@ def validate_sources(office,value):
                 or text(command.get('correction_reason',''),'Korrekturgrund',2000)!=value['correction_reason']):raise ValueError('Changed U acceptance original')
         employee=value['sources']['employee'];_shape(employee,EMPLOYEE_FIELDS,EMPLOYEE_FIELDS)
         if employee['id']!=value['employee_id'] or value['status']=='active' and employee['revision']!=command['employee_revision']:raise ValueError('Changed U employee original')
+        current=office.db.execute('SELECT user_id FROM business_employees WHERE id=?',(employee['id'],)).fetchone()
+        if current is None or current['user_id']!=employee['user_id']:raise ValueError('Changed immutable U employee binding')
+        if not office.db.execute('SELECT 1 FROM business_employee_terms WHERE employee_id=? AND revision=?',(employee['id'],employee['revision'])).fetchone():
+            raise ValueError('Missing original U employee revision')
         accepted=[]
         for item in office.db.execute("SELECT result_json FROM business_planning_requests WHERE operation='employee' AND result_json LIKE ?",('%"id":"'+employee['id']+'"%',)):
             original=json.loads(item['result_json'])
@@ -302,6 +330,37 @@ def validate_integrity(office):
     receipts=[(row['fact_id'],row['fact_revision']) for row in office.db.execute('SELECT * FROM '+TABLES[1])]
     if len(receipts)!=len(accepted) or set(receipts)!=accepted:raise ValueError('Missing or duplicated wage interruption acceptance')
     return True
+
+
+def current_projection(office,employee_id,year,records):
+    """Fresh yearly field completeness; preserve invalidated original evidence."""
+    from business_schema import _tables
+    empty=dict(status='missing',reference=None,assessment_through=None,number_u=None,periods=[],covered_dates=[],blockers=[],additional_statutory_fields_required=False)
+    if not set(TABLES).issubset(_tables(office)):return empty
+    api=PayrollWageInterruptions(office)
+    selected=[value for value in api._all(employee_id) if str(value['details']['year'])==year and value['status']=='active']
+    if not selected:return empty
+    if len(selected)!=1:raise Problem(500,'Mehrere aktuelle U-Jahresnachweise vorhanden.')
+    value=selected[0]
+    try:validate_sources(office,value)
+    except ValueError as error:raise Problem(500,'Integrität des ursprünglichen U-Merkmalsnachweises verletzt.') from error
+    plan=value['plan'];status='current' if plan['can_determine'] else 'incomplete';blockers=list(plan['blockers'])
+    try:
+        employee=api.db.execute('SELECT * FROM business_employees WHERE id=?',(employee_id,)).fetchone()
+        expected=api._snapshot(dict(employee),value['details'],value['source_file_ids'])
+        if expected!=value['sources']:raise Problem(409,'Aktuelle U-Quellen weichen von der angenommenen Fassung ab.')
+        bound=value['details']['run_refs'];covered=set(plan['covered_dates'])
+        for run in records:
+            if run.get('source',{}).get('source_schema_version')!=3:continue
+            unpaid=run['calculation']['period_details']['unpaid_dates']
+            if unpaid and (reference(run) not in bound or not set(unpaid).issubset(covered)):
+                raise Problem(409,'Ein tatsächlich unbezahlter Zeitraum ist vom U-Nachweis noch nicht abgedeckt.')
+    except Problem as error:
+        if error.status not in (400,404,409):raise
+        status='outdated';blockers.append(dict(code='wage_interruption_sources_outdated',message=error.message))
+    return dict(status=status,reference=reference(value),assessment_through=plan['assessment_through'],
+        number_u=plan['number_u'] if status=='current' else None,periods=plan['periods'],covered_dates=plan['covered_dates'],blockers=blockers,
+        additional_statutory_fields_required=bool(value['details']['excluded_payments']))
 
 
 def methods(path):

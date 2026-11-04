@@ -1,0 +1,12 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_wage_interruptions_test.dart
+00:00 +0: actual backend create correction and void bind exact original plans and histories
+00:00 +1: all eight legal exception decisions must be explicit and agree with actual periods
+00:00 +2: unknown annual count never becomes zero and fake daily evidence is refused
+00:00 +3: accepted receipt cannot replace original note, proof or revision chain
+00:00 +4: actual accepted LostACK keeps body nonce and validator through pause and newer employee sources
+00:00 +5: fresh approval and exact private employee gate original replay
+00:00 +6: readonly actual day derivation and explicit unknown count render on mobile
+00:01 +7: real correction form resets reviews and LostACK UI replays original through personnel pause
+00:03 +8: new annual form begins with no assumed date or source and clears private draft on employee change
+00:03 +9: current void annual assessment can be explicitly corrected but cannot be voided again
+00:04 +10: All tests passed!

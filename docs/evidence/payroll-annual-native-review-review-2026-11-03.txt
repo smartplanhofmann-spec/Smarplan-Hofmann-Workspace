@@ -1,0 +1,14 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart
+00:00 +0: review employee change removes existing private annual editor and old selected original
+00:01 +1: review replacement session removes private editor tied to the previous session
+00:01 +2: review delayed annual preview cannot restore previous employee data after widget change
+00:02 +3: review approve withdrawal with read retained closes private annual correction dialog
+00:03 +4: review delayed annual preview cannot restore a write workflow after approval withdrawal
+00:03 +5: review delayed original authorization cannot dispatch private download after background
+00:03 +6: review actual annual repeat rejects frozen wrong employee_id without new POST and retains original nonce
+00:03 +7: review actual annual repeat rejects frozen wrong kind without new POST and retains original nonce
+00:03 +8: review actual annual repeat retains receipt validator against foreign employee kind and year
+00:03 +9: review actual annual repeat rejects a foreign fresh source catalog and preserves exact pending body
+00:04 +10: All tests passed!

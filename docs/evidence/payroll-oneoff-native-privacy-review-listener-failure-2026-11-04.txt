@@ -1,0 +1,35 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_review_test.dart
+00:00 +0: independent v6 session replacement closes editor and detaches old listener
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: empty
+  Actual: Set:[Closure: () => void from Function 'changed':.]
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_review_test.dart:102:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_review_test.dart line 102
+The test description was:
+  independent v6 session replacement closes editor and detaches old listener
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -1: independent v6 session replacement closes editor and detaches old listener [E]
+  Test failed. See exception logs above.
+  The test description was: independent v6 session replacement closes editor and detaches old listener
+  
+00:01 +0 -1: independent v6 employee change invalidates pending original preview
+00:02 +1 -1: independent v6 approve loss with read retained invalidates delayed preview
+00:02 +2 -1: independent v6 session replacement suppresses delayed private preview error
+00:03 +3 -1: independent v6 original callback waits for still valid view after held authorization
+00:03 +4 -1: independent v6 old private history error stays hidden after context replacement
+00:03 +5 -1: Some tests failed.
+
+Failing tests:
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_cases_review_test.dart: independent v6 session replacement closes editor and detaches old listener

@@ -1,0 +1,18 @@
+test_march_clause_correction_replaces_own_bonus_without_reusing_other_room (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_correction_replaces_own_bonus_without_reusing_other_room) ... ERROR
+
+======================================================================
+ERROR: test_march_clause_correction_replaces_own_bonus_without_reusing_other_room (test_business_payroll_oneoff_annual.OneoffAnnualWorkflow.test_march_clause_correction_replaces_own_bonus_without_reusing_other_room)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/test_business_payroll_oneoff_annual.py", line 192, in test_march_clause_correction_replaces_own_bonus_without_reusing_other_room
+    self.assertEqual(self.w.api.save(f.owner,body),case)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_payroll_oneoff_cases.py", line 193, in save
+    if receipt['operation'] != operation or receipt['request_hash'] != fingerprint: raise Problem(409, 'Vorgangs-ID gehört zu einem anderen ursprünglichen Auftrag.')
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+core.Problem: (409, 'Vorgangs-ID gehört zu einem anderen ursprünglichen Auftrag.')
+
+----------------------------------------------------------------------
+Ran 1 test in 3.703s
+
+FAILED (errors=1)

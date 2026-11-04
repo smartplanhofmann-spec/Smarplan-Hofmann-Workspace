@@ -31,6 +31,7 @@ const statementBranches = {
   'care': 'Pflegeversicherung',
 };
 const _scopes = {
+  'regular_standard_oneoff',
   'regular_standard_segments',
   'regular_transition_segments',
   'commercial_minijob_segments_flat_tax',
@@ -86,8 +87,10 @@ Future<Map<String, dynamic>> payrollStatement(
   Map<String, dynamic>? reference,
 }) async {
   final v = businessMap(raw),
-      composite = businessMap(raw)['schema_version'] == 2;
+      oneoff = businessMap(raw)['schema_version'] == 3,
+      composite = [2, 3].contains(businessMap(raw)['schema_version']);
   _shape(v, [
+    if (oneoff) 'one_off_summary',
     if (composite) ...['earnings_summary', 'travel_summary'],
     'schema_version',
     'employee_id',
@@ -105,7 +108,7 @@ Future<Map<String, dynamic>> payrollStatement(
   ]);
   final ref = businessMap(v['run_ref']);
   _shape(ref, ['id', 'revision', 'content_hash']);
-  if (![1, 2].contains(v['schema_version']) ||
+  if (![1, 2, 3].contains(v['schema_version']) ||
       !_id.hasMatch(employeeId) ||
       v['employee_id'] != employeeId ||
       !_id.hasMatch('${ref['id']}') ||
@@ -134,13 +137,16 @@ Future<Map<String, dynamic>> payrollStatement(
     'payroll_calculation_complete',
     'employee_contributions',
   ]);
-  if (composite != (c['rule_version'] == 'de_2026_segments_entitlements_v5') ||
-      composite !=
+  if ((v['schema_version'] == 2) !=
+          (c['rule_version'] == 'de_2026_segments_entitlements_v5') ||
+      (v['schema_version'] == 2) !=
           [
             'regular_standard_segments',
             'regular_transition_segments',
             'commercial_minijob_segments_flat_tax',
-          ].contains(c['scope']))
+          ].contains(c['scope']) ||
+      oneoff != (c['rule_version'] == 'de_2026_oneoff_composition_v6') ||
+      oneoff != (c['scope'] == 'regular_standard_oneoff'))
     _fail(
       'Die Belegversion stimmt nicht mit dem Gesamtlohnregelstand überein.',
     );
@@ -211,6 +217,65 @@ Future<Map<String, dynamic>> payrollStatement(
       }
     }
   }
+  if (oneoff) {
+    final extra = businessMap(v['one_off_summary']);
+    _shape(extra, [
+      'amount_minor',
+      'receipt_date',
+      'tax_year',
+      'social_year',
+      'march_clause',
+      'employee_contributions',
+      'employee_social_total_minor',
+      'individual_wage_tax_minor',
+      'solidarity_minor',
+      'church_tax_minor',
+    ]);
+    _integer(extra['amount_minor'], 1);
+    if (!_date(extra['receipt_date']).startsWith(v['month']) ||
+        !(v['month'] as String).startsWith('2026-') ||
+        extra['tax_year'] != 2026 ||
+        ![2025, 2026].contains(extra['social_year']) ||
+        extra['march_clause'] is! bool ||
+        extra['march_clause'] != (extra['social_year'] == 2025) ||
+        extra['march_clause'] == true &&
+            int.parse((v['month'] as String).substring(5)) > 3 ||
+        c['payroll_calculation_complete'] != true ||
+        v['period_summary'] == null ||
+        c['employee_contributions'] == null)
+      _fail(
+        'Die Einmalzahlung ist nicht eindeutig dem belegten Monat und Jahr zugeordnet.',
+      );
+    final parts = businessMap(extra['employee_contributions']);
+    _shape(parts, statementBranches.keys);
+    var total = 0;
+    for (final entry in parts.entries) {
+      final amount = _integer(entry.value);
+      if (amount > c['employee_contributions'][entry.key])
+        _fail('Einzelbeiträge übersteigen den Gesamtbeitrag.');
+      total += amount;
+    }
+    if (total != _integer(extra['employee_social_total_minor']))
+      _fail('Die Arbeitnehmerbeiträge der Einmalzahlung stimmen nicht.');
+    for (final key in [
+      'employee_social_total_minor',
+      'individual_wage_tax_minor',
+      'solidarity_minor',
+      'church_tax_minor',
+    ]) {
+      if (_integer(extra[key]) > _integer(c[key]))
+        _fail('Die Beträge der Einmalzahlung übersteigen den Gesamtlohn.');
+    }
+    if ([
+          'individual_wage_tax_minor',
+          'solidarity_minor',
+          'church_tax_minor',
+        ].fold<int>(0, (sum, key) => sum + (c[key] as int)) !=
+        c['employee_tax_minor'])
+      _fail(
+        'Die einzelnen Arbeitnehmersteuern stimmen nicht mit der Gesamtsteuer überein.',
+      );
+  }
   if (composite) {
     final t = businessMap(v['travel_summary']);
     _shape(t, [
@@ -249,7 +314,8 @@ Future<Map<String, dynamic>> payrollStatement(
     if (earnings.fold<int>(0, (a, b) => a + (b['gross_minor'] as int)) +
             t['flat_taxable_payroll_minor'] +
             t['individual_taxable_payroll_minor'] +
-            t['benefit_in_kind_non_cash_minor'] !=
+            t['benefit_in_kind_non_cash_minor'] +
+            (oneoff ? v['one_off_summary']['amount_minor'] : 0) !=
         c['gross_minor'])
       _fail(
         'Eigene Anspruchs- und Reisebeträge summieren sich nicht zum Brutto.',
@@ -590,7 +656,7 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
         ),
       for (final entry in statementAmounts.entries)
         line(entry.value, money(c[entry.key])),
-      if (v['schema_version'] == 2) ...[
+      if ([2, 3].contains(v['schema_version'])) ...[
         line('Belegte Nettoabzüge', money(c['net_deductions_minor'])),
         const Text('Eigene Entgeltbestandteile'),
         for (final row in businessItems(v['earnings_summary']))
@@ -620,6 +686,40 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
           v['travel_summary']['letter_m'] == true ? 'Ja' : 'Nein',
         ),
       ],
+      if (v['schema_version'] == 3) ...[
+        const Text('Einmalzahlung / sonstiger Bezug'),
+        line(
+          'Brutto der Einmalzahlung',
+          money(v['one_off_summary']['amount_minor']),
+        ),
+        line(
+          'Berechneter Zuflussstichtag',
+          businessDate(v['one_off_summary']['receipt_date']),
+        ),
+        line(
+          'Steuerjahr / SV-Zuordnungsjahr',
+          '${v['one_off_summary']['tax_year']} / ${v['one_off_summary']['social_year']}',
+        ),
+        line(
+          'Märzklausel',
+          v['one_off_summary']['march_clause'] == true ? 'Ja' : 'Nein',
+        ),
+        for (final key in [
+          'employee_social_total_minor',
+          'individual_wage_tax_minor',
+          'solidarity_minor',
+          'church_tax_minor',
+        ])
+          line(
+            '${statementAmounts[key]} der Einmalzahlung',
+            money(v['one_off_summary'][key]),
+          ),
+        for (final entry in statementBranches.entries)
+          line(
+            '${entry.value} der Einmalzahlung',
+            money(v['one_off_summary']['employee_contributions'][entry.key]),
+          ),
+      ],
       if (c['employee_contributions'] != null) ...[
         const Text('Arbeitnehmerbeiträge'),
         for (final entry in statementBranches.entries)
@@ -639,7 +739,7 @@ class _StatementsState extends State<BusinessPayrollStatementsPage>
             ),
       ],
       Notice(
-        v['schema_version'] == 2
+        [2, 3].contains(v['schema_version'])
             ? 'Der berechnete Auszahlungsbetrag ist kein Zahlungsnachweis. Steuerfreie Reiseerstattungen werden außerhalb dieses Lohnnettos gezahlt. Es wurde keine amtliche Meldung übermittelt.'
             : 'Der berechnete Auszahlungsbetrag ist kein Zahlungsnachweis. Auslagen und Reisekosten werden gesondert belegt. Es wurde keine amtliche Meldung übermittelt.',
       ),

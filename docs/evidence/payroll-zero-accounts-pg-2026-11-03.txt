@@ -1,0 +1,8 @@
+test_actual_dump_restore_preserves_run_original_case_receipts_pdf_and_tax_without_cash (backend.online.test_business_payroll_calculations_pg.CalculationPayrollPostgres.test_actual_dump_restore_preserves_run_original_case_receipts_pdf_and_tax_without_cash) ... ok
+test_actual_mfa_two_writers_fresh_rights_offline_acl_and_restart (backend.online.test_business_payroll_calculations_pg.CalculationPayrollPostgres.test_actual_mfa_two_writers_fresh_rights_offline_acl_and_restart) ... ok
+test_actual_zero_net_declaration_restores_without_cash_and_with_identical_ledger_pdf (backend.online.test_business_payroll_calculations_pg.CalculationPayrollPostgres.test_actual_zero_net_declaration_restores_without_cash_and_with_identical_ledger_pdf) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 15.365s
+
+OK

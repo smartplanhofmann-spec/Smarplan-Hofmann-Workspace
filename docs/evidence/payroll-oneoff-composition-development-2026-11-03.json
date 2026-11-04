@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-03",
+  "scope": "Inactive regular v6 development composition; no Source4 acceptance/payment integration",
+  "tests_passed": 9,
+  "seconds": 3.605,
+  "source_origins": "Actual synthetic private domain commands",
+  "sha256": {
+    "backend/payroll_oneoff_composition_2026.py": "454acd81b5876931bb99f85acf948b120150d9c0d12354f3efe8e00f8ab00280",
+    "backend/test_payroll_oneoff_composition_2026.py": "4dcb26345252cba19729c46665d2536f5b31ee772c9a5d2e83b0e1179d5bc2e1",
+    "backend/payroll_calculations_2026.py": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553",
+    "docs/CRM_ERP_LOHN_EINMALBEZUG_V6_VERTRAG_2026.md": "3d42e7bc97553f1a8b1860f2d6624bf068c11ae57f7f002a03e828f6e1948668",
+    "work/verification/payroll-oneoff-composition-boundaries.log": "8331e0003647161e46a0e10c634bd8d0230b3567cd2322eb44e06f4185f4f1a7"
+  },
+  "independent_review_pending": true
+}

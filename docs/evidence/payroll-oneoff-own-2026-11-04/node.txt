@@ -1,0 +1,17 @@
+✔ actual v5 employee projection includes own travel and claim values with deducted payout (6.403247ms)
+✔ narrow v5 projection rejects raw sources, unknown claim kinds and missing net deductions (1.230592ms)
+✔ actual v6 own statement, v5 original, March assignment and independent PDF remain bound (4.441444ms)
+✔ rehashing cannot admit private annual material, invalid year split or inconsistent bonus money (9.873348ms)
+✔ employee PDF bytes and selected historical reference cannot be swapped (2.214704ms)
+✔ actual reduced v4 statement and deterministic PDF retain own values and explicit periods (4.716277ms)
+✔ private top-level and nested fields, foreign person, tampered revision and source hash are rejected (2.881076ms)
+✔ incomplete legacy scope keeps unknown net and does not fabricate zero (0.455145ms)
+✔ self permissions require current feature and matching employee identity; read does not imply foreign access (0.314834ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 49.216467

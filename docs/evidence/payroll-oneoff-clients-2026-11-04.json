@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "scope": "Source4/v6 browser and native payroll integration; repository implementation, no production rollout",
+  "project_path": "/workspace/Smarplan-Hofmann-Workspace",
+  "rule_version": "de_2026_oneoff_composition_v6",
+  "source_schema_version": 4,
+  "whole_crm_erp_goal_complete": false,
+  "checks": [
+    {
+      "name": "named Node case and run contracts",
+      "passed": 14,
+      "failed": 0,
+      "process_test_isolation": "functional, executed with approved process permissions",
+      "log": "docs/evidence/payroll-oneoff-clients-2026-11-04/node.txt"
+    },
+    {
+      "name": "native payroll/account/zero-payment/v5/v6 regression",
+      "passed": 56,
+      "failed": 0,
+      "log": "docs/evidence/payroll-oneoff-clients-2026-11-04/native-regression.txt",
+      "note": "Followed by independent context review on final route cleanup."
+    },
+    {
+      "name": "independent native main-context review and actual Source4 flows",
+      "passed": 50,
+      "failed": 0,
+      "review_cases": 43,
+      "actual_source4_cases": 7,
+      "log": "docs/evidence/payroll-oneoff-clients-2026-11-04/native-context-review.txt"
+    },
+    {
+      "name": "targeted Dart analysis",
+      "issues": 0,
+      "log": "docs/evidence/payroll-oneoff-clients-2026-11-04/analyze.txt"
+    },
+    {
+      "name": "real MFA and HTTP Chromium workflow",
+      "passed_workflows": 1,
+      "failed": 0,
+      "browser_sandbox": [
+        "namespace",
+        "pid",
+        "network",
+        "seccomp"
+      ],
+      "log": "docs/evidence/payroll-oneoff-clients-2026-11-04/browser.txt"
+    }
+  ],
+  "contracts_verified": [
+    "case originals and person-bound actual history items",
+    "run preview and immutable receipt",
+    "same-run correction and full delta",
+    "paid v5 upgrade with original payment retained",
+    "changed bonus 50000 to 70000 minor units",
+    "case and run accepted-but-lost-response retry",
+    "running travel 400 and original deduction 109 minor units retained",
+    "protected original and historical PDF/JSON hashes",
+    "actual payment day, amount and effective annual totals",
+    "limited schema3 employee statement with no private annual originals",
+    "390px browser views",
+    "native allowed-session replacement with equal generation, employee change, rights loss, generation, background, nested case and correction dialogs, late values and errors",
+    "main-page unmount with retained Navigator closes private child and nested editor"
+  ],
+  "original_failure_fixes": [
+    {
+      "finding": "history wrapper has items but no employee_id",
+      "fix": "validate employee, case and ordered revision per original record"
+    },
+    {
+      "finding": "late Source4 preview crossed distinct allowed sessions with equal generation",
+      "fix": "bind to session object, employee and context epoch"
+    },
+    {
+      "finding": "parent route removal left nested editor on session/person switch and triggered build-phase navigator animation",
+      "fix": "remove owned descendant routes first; invalidate context immediately and schedule navigator mutation outside build"
+    },
+    {
+      "finding": "unmounting main payroll with retained Navigator left private child/editor routes visible",
+      "fix": "dispose invalidates context and closes tracked private route subtree"
+    }
+  ],
+  "limited_prior_checks": [
+    "Earlier sandboxed node --test logs reporting only file aggregates are not treated as proof of individual cases."
+  ],
+  "own_role_boundary": "Browser opens limited employee document from staff context. Independent actual own-role HTTP denials and legacy PDF parity are recorded by own-statement evidence.",
+  "related_evidence": [
+    "docs/evidence/payroll-oneoff-own-2026-11-04/manifest.json",
+    "docs/evidence/payroll-oneoff-native-privacy-review-2026-11-04.json",
+    "docs/evidence/payroll-main-context-review-2026-11-04.json"
+  ],
+  "limitations": [
+    "No claim of full CRM/ERP completion, production rollout or official system approval.",
+    "Only backend-complete v6 cases can finalize; unresolved annual evidence and unsupported cases remain blocked.",
+    "Different actual receipt dates require separate supported allocation; no invented Source4 zero-payment evidence.",
+    "No actual bank transfer or statutory filing is created by preview or finalization."
+  ],
+  "files": {
+    "web/office/payroll-oneoff-cases.js": {
+      "sha256": "8777a1594027ecb971287c1cfdea332189dbf91ff179ceda3f0990d0bfaa2eb8",
+      "bytes": 31088
+    },
+    "web/office/payroll.js": {
+      "sha256": "eaf4be9caddafac2fb16504c1f6f6a002ef3f4554dd8b16d321a874c53bbe8c5",
+      "bytes": 64665
+    },
+    "web/office/payroll-accounts.js": {
+      "sha256": "3a5542cee5904d741de79ede099cfbb0f08cbd546b53f7d0061f5647d32d50ee",
+      "bytes": 23751
+    },
+    "app/lib/business_payroll_oneoff_case_contract.dart": {
+      "sha256": "8ed8b3ac0cbb7b774ec40d548df44a3bb49dc9d4f756a0fb8c7e5acde154301f",
+      "bytes": 22189
+    },
+    "app/lib/business_payroll.dart": {
+      "sha256": "8727d1655dba5f9721f7d981498986eba313e50e92bac8307a7bb86a3308d558",
+      "bytes": 123630
+    },
+    "app/lib/business_payroll_accounts.dart": {
+      "sha256": "987b7923e9e138a349c55499ba9e3d91da44602846bde87081a258ed620073e2",
+      "bytes": 46337
+    },
+    "web/office/tests/payroll-oneoff-cases.test.mjs": {
+      "sha256": "92a3670b19a84e7c123f113873f2481fca920c088fd1877b3c9e21168277af1b",
+      "bytes": 5563
+    },
+    "web/office/tests/payroll-oneoff-runs.test.mjs": {
+      "sha256": "0f7a39552a6868c2149f05ebdfbaadeb12c5853b5a2406d1ae22b7d0e2225b4e",
+      "bytes": 4343
+    },
+    "web/office/tests/payroll-oneoff-cases-flow.cjs": {
+      "sha256": "83e8337d9628993972571a796595532cbcd724a9b799e5b655b109b9aa91b496",
+      "bytes": 20099
+    },
+    "web/office/tests/payroll-oneoff-own-flow.cjs": {
+      "sha256": "f93b865c98201f24367d9503aec5c4da10bcc37e0d9af2b985663fae90b92d44",
+      "bytes": 5107
+    },
+    "app/test/business_payroll_oneoff_runs_test.dart": {
+      "sha256": "519dc675b5218f28b6366db0f62c7eaf1adaf038a6d59a08312c32a09297e83b",
+      "bytes": 11325
+    },
+    "app/test/business_payroll_main_context_review_test.dart": {
+      "sha256": "afdaad81a157f5dbbc9370604376ce9872e48a259b150d4e24590e897543ca51",
+      "bytes": 12522
+    },
+    "app/test/fixtures/payroll_oneoff_runs.json": {
+      "sha256": "8c5483501bb7e1e5e20e178f15e6d5f18332b1de33b78201b34a5c1d0ed4946b",
+      "bytes": 7238352
+    },
+    "docs/CRM_ERP_LOHN_EINMALBEZUG_CLIENTS.md": {
+      "sha256": "5a7adc3747088cfe89ab63fb77bbf46d07cf55ed906655191d3ce039fdf05b02",
+      "bytes": 7320
+    },
+    "docs/evidence/payroll-oneoff-clients-2026-11-04/node.txt": {
+      "sha256": "41f41bc76d216f5e200532665f65f3d39fb03b82a14cdd85336de0b644f47efc",
+      "bytes": 1575
+    },
+    "docs/evidence/payroll-oneoff-clients-2026-11-04/native-regression.txt": {
+      "sha256": "6892d25fe59cc6da96b62a0fdcdfcb59f7bb44491d0377be764f649a90841294",
+      "bytes": 10577
+    },
+    "docs/evidence/payroll-oneoff-clients-2026-11-04/native-context-review.txt": {
+      "sha256": "2fc2e2dc833b12e94366c802fa7bdf179cc48ccd2f3f330f61174948cb06eaa9",
+      "bytes": 8617
+    },
+    "docs/evidence/payroll-oneoff-clients-2026-11-04/analyze.txt": {
+      "sha256": "5a21c957efe1254ba68c2597d62a2cba964aaa37da06ab19ed0b228056d7265e",
+      "bytes": 96
+    },
+    "docs/evidence/payroll-oneoff-clients-2026-11-04/browser.txt": {
+      "sha256": "e245eaf82b4cedb89c488635f76ac5f40b3aa6c2be4e5f2fbd9f2ce5970fbdf6",
+      "bytes": 700
+    },
+    "docs/evidence/payroll-oneoff-clients-2026-11-04/browser-case-mobile.png": {
+      "sha256": "f61a9e39d2d8c856b245a5013adf95ed3ced027be991d3d2c21146cd47ea3054",
+      "bytes": 57002
+    },
+    "docs/evidence/payroll-oneoff-clients-2026-11-04/browser-own-mobile.png": {
+      "sha256": "84dac1c33afb068ba58474f162899e2e7cacc84c74c161d0198f34d790c17e38",
+      "bytes": 61863
+    }
+  }
+}

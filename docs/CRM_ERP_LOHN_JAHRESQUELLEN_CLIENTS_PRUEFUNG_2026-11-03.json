@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-03",
+  "scope": "Private P5 annual source typed clients, shared canonical source/preview/receipt contract, productive entry in browser and Flutter; native page-specific review separate",
+  "results": {
+    "node": {
+      "total": 19,
+      "annual": 17,
+      "source3_replay_regression": 2
+    },
+    "flutter": {
+      "total": 30,
+      "annual_contract": 7,
+      "existing_payroll_source3_own_regressions": 23
+    },
+    "dart_analyze": "3 files, no issues",
+    "real_browser": "pass actual MFA/HTTP all five forms, exact accepted lost ACK, correction, void and three historical revisions, original SHA256, mobile390, Chromium namespace/PID/network/seccomp sandboxes"
+  },
+  "independent_browser_assertions": {
+    "sv_days": 30,
+    "used_branch_basis_minor": 120000,
+    "annual_pay_before_minor": 1120000,
+    "current_one_off_excluded_minor": 50000
+  },
+  "known_scope": "Does not execute a v6 payroll run, bank transfer or statutory submission. Native five-form UI, privacy and replay checks are separately owned and evidenced.",
+  "sources": {
+    "web/office/payroll-annual-basis.js": "6b53d8cc3d97651e1b264ba10ff4e33cd0e1f1d9844791373b754ef8f4d04238",
+    "app/lib/business_payroll_annual_basis_contract.dart": "9c56061982b147466f4cf9dc2f54e70e3866ac28d91c189ec99a5d5ef3402c6d",
+    "web/office/tests/payroll-annual-basis.test.mjs": "500196572408529a692100ce2ad9f6112d687ec32156e098aaf62693ee27a8c0",
+    "web/office/tests/payroll-annual-basis-session-review.test.mjs": "46633ba647ddcdef3f575db1dcabd7f83ef6ada502de37489d3e17640a95a5d2",
+    "web/office/tests/payroll-annual-basis-flow.cjs": "75bba2fc57ee16e0c7ee82e67b7a5dd4993badf52f541a7197f949f4c9aa51c3",
+    "app/test/business_payroll_annual_basis_contract_test.dart": "a66c9d66589e341e0fd343b4740229dc8483c44cf66447b2b679818ef413adcd",
+    "docs/fixtures/payroll-annual-basis-2026.json": "fe577d29eb42ac9263e17ca2f467053f4a0ec2d098beba80c93a59f048be26d1"
+  }
+}

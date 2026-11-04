@@ -1,0 +1,12 @@
+✔ actual v6 OfficeApi retry requires current approval and exact source person/month, keeps original nonce through a pause (53.518472ms)
+✔ actual v6 endpoint rejects unrelated pending keys before another POST (3.529154ms)
+✔ v6 keeps the original receipt validator when an unrelated valid saved record is returned (20.675604ms)
+✔ replacing the session during fresh v6 authorization cannot send the old accepted request (1.831287ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 201.3871

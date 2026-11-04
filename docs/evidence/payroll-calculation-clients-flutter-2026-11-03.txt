@@ -1,0 +1,40 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual evidence policy binds ELStAM identity and separately evidenced membership
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 typed case command and accepted plan preserve all original sources
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: actual v5 net includes taxable travel once and subtracts documented employee flat tax costs
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_calculation_case_contract_test.dart: foreign private source, replaced case, unsupported rules and altered accepted body fail
+00:13 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v5_test.dart: actual v5 employee projection preserves own amounts and net deduction
+00:13 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v5_test.dart: own projection rejects raw sources, unknown kinds and altered cash payout
+00:13 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_v5_test.dart: existing payroll, receipt and annual parsers dispatch actual source3 additively
+00:13 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: actual v4 employee statement and own PDF bind exact frozen bytes
+00:13 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: private nested fields and foreign or altered historical statement are rejected
+00:13 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: incomplete scope retains unknown values
+00:13 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_statements_test.dart: existing payroll entry uses only reduced own routes and clears on revoked rights at 390px
+00:14 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: private mobile fact page opens details and clears them on fresh role withdrawal
+00:15 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +26: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +27: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +28: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +29: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +30: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +31: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +32: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +33: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:15 +34: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_facts_test.dart: new native employment form starts with explicit empty dates and method
+00:16 +35: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: annual overview shows missing periods and never adds a correction twice
+00:17 +36: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: pending run survives closing page and renders a recoverable exact retry
+00:17 +37: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_test.dart: own payroll hides staff writes and loses all displayed data after access withdrawal
+00:17 +38: All tests passed!

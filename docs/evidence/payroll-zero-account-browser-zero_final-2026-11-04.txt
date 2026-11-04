@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll zero account: actual MFA/HTTP P2/P4/Source3 full unpaid phase creates complete zero-payable run; explicit run selection, no invented payment parts, blank proof/amount and two renewed confirmations; protected original hash, exact accepted lost-ACK repeat, immutable correction history, actual monthly no_payment_due with separately incomplete U evidence, exact annual JSON and mobile390 passed
+1 targeted payroll zero account workflow passed

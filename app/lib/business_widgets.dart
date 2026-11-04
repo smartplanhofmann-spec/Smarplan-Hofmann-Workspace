@@ -146,6 +146,7 @@ class _BusinessEditorState extends State<BusinessEditor> {
       ? null
       : pendingSession.pendingEditorValues(widget.pendingKey!);
   bool get mayView =>
+      !contextInvalidated &&
       widget.session.allowed &&
       (widget.readAllowed?.call() ?? true) &&
       (widget.readPermission == null ||
@@ -158,7 +159,7 @@ class _BusinessEditorState extends State<BusinessEditor> {
   final form = GlobalKey<FormState>();
   final controllers = <String, TextEditingController>{};
   final choices = <String, dynamic>{};
-  bool busy = false, uncertain = false;
+  bool busy = false, uncertain = false, contextInvalidated = false;
   String? error;
   Map<String, dynamic>? frozen;
   @override
@@ -193,6 +194,27 @@ class _BusinessEditorState extends State<BusinessEditor> {
               : '${field.type == BusinessInput.decimal ? '$value'.replaceAll('.', ',') : value}',
         );
       }
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessEditor oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.session, widget.session)) {
+      oldWidget.session.removeListener(changed);
+      widget.session.addListener(changed);
+    }
+    if (!identical(oldWidget.session, widget.session) ||
+        !identical(oldWidget.pendingSession, widget.pendingSession) ||
+        oldWidget.pendingKey != widget.pendingKey) {
+      // A draft belongs to its original authenticated context. Reopen the
+      // form from freshly authorized sources instead of moving that draft.
+      contextInvalidated = true;
+      for (final controller in controllers.values) controller.clear();
+      choices.clear();
+      frozen = null;
+      error = null;
+      busy = uncertain = false;
     }
   }
 
@@ -265,6 +287,14 @@ class _BusinessEditorState extends State<BusinessEditor> {
 
   Future<void> save() async {
     if (busy || !mayWrite || !(form.currentState?.validate() ?? false)) return;
+    final submittingSession = widget.session;
+    final submittingPendingSession = pendingSession;
+    final submittingKey = widget.pendingKey;
+    bool sameContext() =>
+        !contextInvalidated &&
+        identical(widget.session, submittingSession) &&
+        identical(pendingSession, submittingPendingSession) &&
+        widget.pendingKey == submittingKey;
     Map<String, dynamic>? attempted;
     setState(() {
       busy = true;
@@ -274,34 +304,38 @@ class _BusinessEditorState extends State<BusinessEditor> {
       frozen ??= values();
       attempted = Map<String, dynamic>.from(frozen!);
       await widget.onSave(Map<String, dynamic>.from(attempted));
-      if (mounted && widget.session.allowed) Navigator.pop(context, true);
+      if (mounted && sameContext() && mayView) Navigator.pop(context, true);
     } on ApiException catch (e) {
       final unconfirmed =
           e.status == 0 ||
           e.status >= 500 ||
           e.status == 429 ||
           e.status == 423 ||
-          (widget.pendingKey != null &&
-              pendingSession.pending(widget.pendingKey!));
-      if (unconfirmed && attempted != null && widget.pendingKey != null) {
+          (submittingKey != null &&
+              submittingPendingSession.pending(submittingKey));
+      if (unconfirmed && attempted != null && submittingKey != null) {
         // A barrier/back action may already have disposed the dialog while
         // this request was in flight. The authenticated session still owns it.
-        pendingSession.preservePendingEditor(widget.pendingKey!, attempted);
+        submittingPendingSession.preservePendingEditor(
+          submittingKey,
+          attempted,
+          commandError: e,
+        );
       }
-      if (mounted)
+      if (mounted && sameContext() && mayView)
         setState(() {
           error = e.message;
           uncertain = unconfirmed;
           if (!uncertain) frozen = null;
         });
     } catch (e) {
-      if (mounted)
+      if (mounted && sameContext() && mayView)
         setState(() {
           error = e is FormatException ? e.message : 'Der Eintrag konnte nicht gespeichert werden. Ihre Eingaben bleiben geöffnet.';
           frozen = null;
         });
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (mounted && sameContext()) setState(() => busy = false);
     }
   }
 
@@ -457,7 +491,12 @@ class _BusinessEditorState extends State<BusinessEditor> {
       width: 600,
       child: SingleChildScrollView(
         child: !mayView
-            ? const Notice('Der Zugang ist nicht mehr verfügbar.', error: true)
+            ? Notice(
+                contextInvalidated
+                    ? 'Die Sitzung oder der Vorgang wurde gewechselt. Bitte die Erfassung neu öffnen.'
+                    : 'Der Zugang ist nicht mehr verfügbar.',
+                error: true,
+              )
             : Form(
                 key: form,
                 child: Column(

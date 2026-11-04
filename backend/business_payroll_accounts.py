@@ -154,9 +154,13 @@ class PayrollAccounts:
             raise Problem(409,'Identitäts-/Steuernachweis deckt diese Profilrevision und den erforderlichen Beschäftigungszeitraum nicht ab.')
         return identity
 
-    def _payment_fields(self,details,calculation,month):
+    def _payment_fields(self,details,calculation,month,*,verified_composite=False,receipt_date=None):
         payments=details['payments']
-        if not isinstance(payments,list) or not 1<=len(payments)<=20:
+        actual_due=calculation['net_minor']-calculation.get('net_deductions_minor',0)
+        # A private declaration tied to an actual verified zero-payable run is
+        # evidence that no net transfer is due, never an invented cash payment.
+        minimum=0 if verified_composite and actual_due==0 else 1
+        if not isinstance(payments,list) or not minimum<=len(payments)<=20:
             raise Problem(400,'Ein bis zwanzig tatsächlich belegte Zahlungsteile angeben.')
         seen=set();total=0
         for payment in payments:
@@ -172,11 +176,12 @@ class PayrollAccounts:
             if reference!=payment['payment_reference'] or _payment_key(payment) in seen:
                 raise Problem(400,'Zahlungsreferenzen müssen eindeutig und ohne Rand-Leerzeichen sein.')
             seen.add(_payment_key(payment));total+=amount
-        actual_due=calculation['net_minor']-calculation.get('net_deductions_minor',0)
         if total!=actual_due:
             raise Problem(400,'Die belegten Zahlungen abzüglich Arbeitnehmer-Nachzahlungen müssen dem tatsächlichen Auszahlungsnetto nach belegten Nettoabzügen entsprechen.')
         if calculation.get('travel_expenses_included_in_net') and any(payment['paid_on'][:7]!=month for payment in payments):
             raise Problem(409,'Reise-Mehrerstattungen müssen im tatsächlich gebundenen Zuflussmonat ausgezahlt werden; den Gesamtfall bei abweichender Zahlung korrigieren.')
+        if receipt_date is not None and any(payment['paid_on']!=receipt_date for payment in payments):
+            raise Problem(409,'Dieser Einmalfall benötigt sämtliche tatsächlich belegten Nettozahlungsteile am gebundenen Anspruchszuflusstag; unterschiedliche Zuflusstage benötigen eine gesonderte belegte Aufteilung.')
         _integer(details['tax_free_payments_minor'])
         text(details['tax_free_basis'],'Nachweis steuerfreier Bezüge',2000,required=details['tax_free_payments_minor']>0)
         if details['standard_case_confirmed'] is not True:
@@ -230,13 +235,14 @@ class PayrollAccounts:
             if not record['calculation']['payroll_calculation_complete']:
                 raise Problem(409,'Ein unvollständiger SV-Lauf kann kein vollständiger Lohnkontoeintrag werden.')
             source_version=record['source'].get('source_schema_version')
-            if source_version==3:self.payroll._verify_calculation_record(record)
-            period_plan=(record['source']['calculation_case']['plan'] if source_version==3 else
+            if source_version in (3,4):self.payroll._verify_calculation_record(record)
+            period_plan=(record['source']['calculation_case']['plan'] if source_version in (3,4) else
                 record['source']['period_case']['plan'] if source_version==2 else None)
             identity=self._identity(employee_id,details,record['source']['profile'],record['source']['month'],period_plan=period_plan)
-            self._payment_fields(details,record['calculation'],record['source']['month'])
+            self._payment_fields(details,record['calculation'],record['source']['month'],verified_composite=source_version in (3,4),
+                receipt_date=record['calculation']['one_off_details']['receipt_date'] if source_version==4 else None)
             sources=dict(run=record,identity=identity)
-            if source_version==3:
+            if source_version in (3,4):
                 sources['identity_intervals']=[]
                 for period in period_plan['identity_intervals']:
                     ref=period['identity_ref'];original=self._get(ref['id'],ref['revision'])
@@ -292,6 +298,9 @@ class PayrollAccounts:
                 if original['purpose']!='personnel':
                     raise Problem(400,'Geschützter Personalakten-Originalnachweis erforderlich.')
                 details,sources,key=self._normalize(employee['id'],data['kind'],data['details'])
+                if data['kind']=='payment' and sources['run']['source'].get('source_schema_version')==4:
+                    from payroll_cash_sources import require_preserved_actual_net_parts
+                    require_preserved_actual_net_parts(self.office,employee['id'],sources['run']['source']['month'],details['payments'])
                 existing=self.db.execute('SELECT id FROM business_payroll_account_events WHERE employee_id=? AND identity_key=?',(employee['id'],key)).fetchone()
                 if existing and (not previous or previous['id']!=existing['id']):
                     raise Problem(409,'Für diese Quelle besteht bereits ein Nachweis. Begründete Korrekturversion anlegen.')

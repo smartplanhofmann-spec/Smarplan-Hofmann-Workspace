@@ -1,0 +1,21 @@
+{
+  "recorded_at_utc": "2026-11-04T00:02:31.932657+00:00",
+  "scope": "Additive Source4 case, receipt and immutable claim allocation tables; schema migration/integrity, company export policy and source/support packaging.",
+  "passed": 48,
+  "schema_and_company_handover_passed": 32,
+  "package_checks_passed": 16,
+  "duration_seconds": 11.138,
+  "log": "docs/evidence/source4-three-table-registration-2026-11-04.txt",
+  "log_sha256": "8c4b57b5a25b6f4f3c3ad963be72e892ab6c74674a24d50fc624c0af15e881c4",
+  "source_sha256": {
+    "backend/business_schema.py": "ee3f4abb4ada76dbd7e32f8f894c5c40d5d0d0d344f80ea290d0bb21e3a28ef1",
+    "backend/business_api.py": "b1bba237fd092ffe13702c63608e4d8a03acf05e121ce638d84e3b21317d77cb",
+    "backend/company_export_catalog.py": "484ec9766c529262f21f3dd93be8b3aae012b88de6c8defa9c4e97bb0c6bef42",
+    "backend/business_payroll_oneoff_cases.py": "00deff14dc06a3a404225b7707263c9742c2fe4476cc06560672dd0a0864a89f",
+    "scripts/native-release.py": "bbd052654571d1ac2ec1738e1b6f4f517f8614e259e0b114c83e65b0f62f1154",
+    "scripts/package-windows-support.py": "5718c178ffa69ab8ea8acaa3d8837a12f1abd694e2201aa1ed6cbcf412423d82",
+    ".github/workflows/checks.yml": "1f0afd1749dfa3d2dfa5c22627e295186fb52b820ab086f2b1273a4866152e49"
+  },
+  "full_native_binaries_built": false,
+  "external_publication": false
+}

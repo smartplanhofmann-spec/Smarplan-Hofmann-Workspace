@@ -24,15 +24,18 @@
     "Actual travel flat, individual, noncash, M-only, separate TravelCash/EUR money ownership",
     "Explicit sickness-v3 phases and sickness-before-employment-v4 composition",
     "Actual MFA/HTTP, two PostgreSQL connections, runtime and migrator write guards, restart and dump/restore",
-    "Public DTOs omit private accepted_command while archive validation binds original request and receipt"
+    "Public DTOs omit private accepted_command while archive validation binds original request and receipt",
+    "Explicit private zero-payable declaration creates no fictitious payment; actual correction, separate remittance and PG restore verified"
   ],
   "remaining": [
     "Final independent client and integrated acceptance",
-    "Unpaid statutory U marker has pure helper only; private annual evidence and ledger binding are not yet complete",
-    "Explicit blockers remain for unsupported insurance transitions, minijob travel and further special cases"
+    "Explicit blockers remain for unsupported insurance transitions, minijob travel and further special cases",
+    "Additive U backend verified separately; independent review/client acceptance and specified special cases remain"
   ],
   "fixture_generator": "scripts/generate-payroll-calculation-fixture.py",
   "rule": "de_2026_segments_entitlements_v5",
   "source_schema_version": 3,
-  "source_contract_version": 1
+  "source_contract_version": 1,
+  "u_evidence": "docs/CRM_ERP_LOHN_U_MERKMAL_PRUEFUNG_2026-11-03.json",
+  "zero_account_evidence": "docs/CRM_ERP_LOHN_NULLMONAT_PRUEFUNG_2026-11-03.json"
 }

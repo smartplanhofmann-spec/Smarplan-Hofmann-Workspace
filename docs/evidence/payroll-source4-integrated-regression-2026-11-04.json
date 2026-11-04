@@ -1,0 +1,90 @@
+{
+  "recorded_at_utc": "2026-11-04T07:40:32.091443+00:00",
+  "source_snapshot": "docs/evidence/payroll-source4-integrated-source-snapshot-2026-11-04.json",
+  "corrected_test_snapshot": "docs/evidence/payroll-source4-integrated-final-source-snapshot-2026-11-04.json",
+  "status": "completed; all final checks passed; one explicit platform skip",
+  "logs": {
+    "backend_first": {
+      "log": "docs/evidence/payroll-source4-integrated-backend_first-2026-11-04.txt",
+      "sha256": "b7f309d134602214637850b99007aeaef8f98c747b0ec3104d388fc8e2e0ebf7"
+    },
+    "node": {
+      "log": "docs/evidence/payroll-source4-integrated-node-2026-11-04.txt",
+      "sha256": "a9c5106d2ea26855a48351a7d0e659b00b8b67c6d3d4fa5143474c5b19a9b93f"
+    },
+    "flutter": {
+      "log": "docs/evidence/payroll-source4-integrated-flutter-2026-11-04.txt",
+      "sha256": "f44aec5ba20866ca18b56267a205b9d1e82aec16372a937b9b11e02bc7bc1ad7"
+    },
+    "analyze": {
+      "log": "docs/evidence/payroll-source4-integrated-analyze-2026-11-04.txt",
+      "sha256": "e38bc2605896c3b19c04d0de38cd1d8eed3d0a4043f2a2f1a3021d57d23ae239"
+    },
+    "packages_first": {
+      "log": "docs/evidence/payroll-source4-integrated-packages_first-2026-11-04.txt",
+      "sha256": "8d82376648152398fbf5906c042781068babf6bc21c45182a70c4d23b492e8cb"
+    },
+    "packages_final": {
+      "log": "docs/evidence/payroll-source4-integrated-packages_final-2026-11-04.txt",
+      "sha256": "8ae96bbb4ee1f343adcaca31b520d605c68087b51a04fb724a23cd8e7660ca68"
+    },
+    "assistant_clock": {
+      "log": "docs/evidence/payroll-source4-integrated-assistant_clock-2026-11-04.txt",
+      "sha256": "cd7cfaf20539b94341301ad056e9010747cab79e46e3ca8f52ef5b0ed339772f"
+    },
+    "backend_final": {
+      "log": "docs/evidence/payroll-source4-integrated-backend_final-2026-11-04.txt",
+      "sha256": "c02957a5624a496fa37d702ee0d981f921928fd18a41ecd02ef62ee64c8038ae"
+    }
+  },
+  "completed_results": {
+    "node": {
+      "passed": 473,
+      "failed": 0,
+      "duration_ms": 5778.280062
+    },
+    "flutter": {
+      "passed": 1103,
+      "failed": 0,
+      "wall_time_seconds": 363.159
+    },
+    "analyze": {
+      "issues": 0,
+      "duration_seconds": 11.6
+    },
+    "packages": {
+      "passed": 16,
+      "failed": 0,
+      "wall_time_seconds": 9.742
+    },
+    "assistant_clock": {
+      "passed": 35,
+      "failed": 0,
+      "duration_seconds": 8.15
+    },
+    "backend": {
+      "run": 1509,
+      "passed": 1508,
+      "failed": 0,
+      "skipped": 1,
+      "duration_seconds": 480.949
+    }
+  },
+  "first_backend_attempt": {
+    "run": 1508,
+    "passed": 1503,
+    "failed": 4,
+    "skipped": 1,
+    "duration_seconds": 534.012,
+    "reason": "Fixed November 3 domain clock disagreed with default current-date clocks in native send and speech HTTP fixture paths. Only tests changed; stale-day protection remains and has a new explicit HTTP regression."
+  },
+  "first_package_attempt": {
+    "run": 16,
+    "passed": 15,
+    "failed": 1,
+    "reason": "Ignored backend/.venv/bin/python was absent from isolated worktree. Configured wrapper points to the already verified local test interpreter; package source unchanged."
+  },
+  "final_snapshot_sha256": "852fd460bf0935a14914588047e4132cb74084b21ac299b41da69601cb7016d9",
+  "captured_files_verified_unchanged_after_tests": 1515,
+  "scope": "The exact isolated Source4 snapshot and its two explicit test-clock corrections. New V7 work in the active repository, financial opening worktree and catalog worktree are excluded. Node/Flutter/analysis/package runtime files did not change between initial and corrected snapshots."
+}

@@ -34,5 +34,6 @@
     "First runner invocation lacked Clang PATH; retried using existing toolchain",
     "Test timer disposal and valid lifecycle transitions corrected before final review",
     "An intentionally pending response requires bounded pump before release; pumpAndSettle would wait forever"
-  ]
+  ],
+  "later_privacy_fix": "docs/evidence/payroll-private-late-errors-2026-11-03.json"
 }

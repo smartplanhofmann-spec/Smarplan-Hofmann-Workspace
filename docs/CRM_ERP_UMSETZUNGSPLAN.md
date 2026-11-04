@@ -1,6 +1,6 @@
 # CRM/ERP – laufender Umsetzungsplan
 
-Stand: 03.11.2026. Maßgeblich bleiben das unveränderte
+Stand: 04.11.2026. Maßgeblich bleiben das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt) und die
 [Anforderungsmatrix](CRM_ERP_ANFORDERUNGEN.md). Projekt:
 `/workspace/Smarplan-Hofmann-Workspace`, Branch `work`.
@@ -49,36 +49,42 @@ ist allein eine Produktivfreigabe oder eine abgeschlossene Gesamtabnahme A–G.
 
 ## Aktive Arbeitspakete
 
-1. **Reisekosten vollständig verbinden.** Die Inland-/Auslandstabelle 2026 ist
-   mit 214 Positionen und 642 Beträgen unabhängig verglichen. Die tatsächliche
-   Zahlungskette zur EÜR und zum Bankabgleich wird mit Berichtigungen,
-   Periodensperren, Originalschutz und Finanzrechten ohne Personalzugriff geprüft.
-   Flug-/Schiffsreisen, belegte Auslagen und die Übernahme bereits tatsächlich
-   erstatteter Altauslagen bestehen die v2-Backend-/PostgreSQL-Prüfungen.
-   Der abschließende Browserlauf besteht einschließlich Altauslagenübernahme,
-   Berichtigung und EÜR. Ein früherer Katalogfehler ließ sich nach dem Neustart
-   nicht reproduzieren; seine Ursache ist nicht als behoben behauptet.
-   Die neue v3 behandelt belegte Mischreisen und Boden-Zeitzonen.
-   Die vollständige steuerpflichtige Lohnübergabe wird mit v5 verbunden.
-2. **Mehrteilige Lohnfälle und Ansprüche fertigstellen.** P2-Lohnfakten und P3a
-   (eine Beschäftigungsepisode/eine Vereinbarung/ein SV-Profil) sind geprüft.
-   P3b ergänzt nachgewiesene Wechsel, P4 Urlaub/Feiertag/Krankheit und
-   Unterbrechungen. Neue Gesamtfälle bekommen eine eigene gespeicherte
-   Regelversion; alte v4-Ergebnisse und damalige Sperrgründe bleiben unverändert.
-3. **Eigene Mitarbeiterabrechnung fortführen.** Die begrenzte persönliche
-   Belegansicht für v1–v4 ist mit PDF, Historie, zwei echten MFA-Sitzungen,
-   mobilen Ansichten und Rechteentzug geprüft. Ihre Erweiterung auf v5 bindet
-   zusätzlich den tatsächlichen Erfassungsnachweis und bleibt eine schmale
-   Projektion ohne private Entscheidungs- und Originalquellen.
-4. **Neue Integration abnehmen.** Die breite vorherige Prüfung ist abgeschlossen
-   (989 Backendprüfungen mit einer Plattformauslassung, 336 Node-, 848 Flutter-,
-   16 Paketprüfungen und 17 Browserabläufe). Neue Lohn-/Reisemodule benötigen
-   eigene aktuelle Paket-/Transport-/Client-/Restore-Nachweise; frühere Zahlen
-   gelten nicht automatisch für den erweiterten Stand.
-5. **Einmalbezüge und weitere belegte Lohn-/Steuerfälle schließen.** P5 und die
-   weiteren ausdrücklich benannten Fälle im
-   [Lückenplan](CRM_ERP_LOHN_LUECKENPLAN_2026.md) bleiben Entwicklungsarbeit.
-   Keine Herabstufung zu externen Hindernissen allein wegen fehlenden Codes.
+1. **Einmalbezüge durchgängig fertigstellen.** Die private Jahresquellen-API
+   besitzt Browser- und App-Formulare. Source4/v6 verbindet einen belegten
+   Anspruch mit laufender v5-Rechnung, Steuerprognose, SV-Jahresbasis,
+   Anspruchsverbrauch, Lohnlauf, Lohnkonto und tatsächlich belegter Zahlung.
+   PostgreSQL-/Restore- und gezielte Fachprüfungen bestehen. Aktiv abgeschlossen
+   werden die Clientabläufe, der reduzierte Mitarbeiterbeleg und die Übernahme
+   bereits gezahlter Boni in spätere Jahresbasen. Mehrere Boni desselben Monats
+   und unterschiedliche Zahlungstage bleiben eigene, noch offene Erweiterungen.
+2. **Unterbrechungen und Nullnetto vervollständigen.** Das belegte U-Merkmal und
+   ein Zahlungsnachweis ohne geschuldete Nettozahlung sind implementiert und
+   gezielt geprüft. Tatsächliche Leistungsbeträge, Jahresüberträge und weitere
+   Versicherungsfälle bleiben im [Lückenplan](CRM_ERP_LOHN_LUECKENPLAN_2026.md).
+   Eine leere Nettozahlung erzeugt keinen Geldfluss; geschuldete Abführungen
+   bleiben gesondert nachzuweisen.
+3. **Gemeinsame Integration erneut prüfen.** Der letzte vollständig eingefrorene
+   Quellstand ist `2fdfa9f`: 1.484 bestandene Backendtests bei einer
+   plattformspezifischen Auslassung, 398 Node- und 932 Flutter-Tests,
+   vollständige Flutter-Analyse ohne Befund. Dieser Stand enthält die
+   v5-Zusammenrechnung und Reise-v3, aber nicht alle späteren Jahres-/U-/v6-
+   Änderungen. Nach deren gezielter Abnahme folgt eine neue eingefrorene
+   Gesamtregression mit Quellenmanifest und lokalem Commit.
+4. **Verbleibende Gesamtanforderungen am Code prüfen und schließen.** Die
+   Abnahmefälle A–G bleiben der Maßstab. Parallel zur Lohnintegration werden
+   konkrete Lücken der übrigen Module mit tatsächlichem Code und vorhandenen
+   Tests abgeglichen; historische Planpunkte allein gelten nicht als Beleg
+   fehlender Funktionen. Die [Gegenprüfung vom 04.11.2026](CRM_ERP_GESAMTZIEL_GEGENPRUEFUNG_2026-11-04.md)
+   priorisiert belegte Finanzübernahme, Katalogpreisgültigkeit/Browserimport
+   und unternehmensweite Ereignisregeln. Die Anfangssaldo-Implementierung
+   läuft zunächst isoliert; historische Anlagen folgen als eigener Vertrag.
+
+Die v5-Zusammenrechnung mehrerer belegter Entgelt-/SV-Abschnitte mit
+Anspruchsbausteinen und Reise-Lohnübergabe sowie der eigene v5-Mitarbeiterbeleg
+sind inzwischen geprüft. Reise-v3 ergänzt Mischreisen und Boden-Zeitzonen;
+die erhaltenen alten Regelversionen bleiben reproduzierbar. Weitere benannte
+Lohn-/Steuerfälle bleiben Entwicklungsarbeit und werden nicht wegen fehlenden
+Codes zu externen Hindernissen umgedeutet.
 
 ## Noch offener Zielumfang
 

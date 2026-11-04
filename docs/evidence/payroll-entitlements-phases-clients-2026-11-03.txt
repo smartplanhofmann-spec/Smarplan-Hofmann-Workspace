@@ -1,0 +1,84 @@
+payroll-entitlements-phases-node-direct.log
+✔ actual overlap v3 typed grouping preserves exact original command and preview (11.220802ms)
+✔ actual preemployment v4 typed grouping preserves exact original command and preview (1.314127ms)
+✔ cause grouping requires genuine existing AU and never invents a shift or recovery (0.687034ms)
+✔ preemployment needs explicit contract original and preserves earlier actual AU (0.300111ms)
+✔ new phase versions reject unknown rules, overlapping phases and changed cause identity (1.625064ms)
+✔ new case and contract evidence remain canonical private file references (1.009288ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21.703502
+
+
+payroll-entitlements-node-preserved-final.log
+✔ actual P4 kinds retain canonical originals and exact typed correction command (26.883815ms)
+✔ private source pages reject foreign originals, wrong immutable file revisions and own-only permission (2.392509ms)
+✔ claim preview and accepted receipt cannot replace person, selected sources, prior case or plan (3.832295ms)
+✔ uncertain accepted claim retries only unchanged command with fresh global approval despite module pause (2.989983ms)
+✔ explicit sickness v2 is additive, historical v1 persists and unknown versions fail closed (0.554545ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 44.050997
+
+
+payroll-entitlements-retry-node-preserved-final.log
+✔ actual OfficeApi retains sickness_history nonce through rights drift and module pause (33.546373ms)
+✔ actual OfficeApi retains regular_absence nonce through rights drift and module pause (2.176304ms)
+✔ actual OfficeApi retains vacation_reference nonce through rights drift and module pause (1.876634ms)
+✔ actual OfficeApi retains unpaid_continuation nonce through rights drift and module pause (0.954376ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45.219975
+
+
+payroll-entitlements-phases-native-sixth.log
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_contract_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_contract_test.dart: actual sickness v3 structured input preserves original and checked preview
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_contract_test.dart: actual sickness v4 structured input preserves original and checked preview
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_contract_test.dart: joined cause needs existing AU without fabricated recovery or shift
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_contract_test.dart: preemployment keeps actual earlier onset and requires contract original
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_contract_test.dart: phase parser rejects unknown rules overlap identity errors and nonboolean flags
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_contract_test.dart: case and employment contract proof remain canonical employee file references
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+00:01 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+00:02 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+00:02 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual phases_v3 mobile correction uses structured cases and exact original dates
+00:02 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: actual unpaid plan displays private result on mobile and clears on rights withdrawal
+00:02 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual start_v4 mobile correction uses structured cases and exact original dates
+00:02 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: actual start_v4 mobile correction uses structured cases and exact original dates
+00:03 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_entitlements_test.dart: unpaid source form requires renewed explicit legal facts even for correction
+00:03 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: backgrounding an open private sickness editor removes personal fields
+00:03 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_sickness_phases_test.dart: late sickness preview after background cannot restore private details or submit a command
+00:04 +21: All tests passed!
+
+
+payroll-entitlements-phases-analyze-final.log
+Analyzing business_payroll_entitlements.dart, business_payroll_entitlement_contract.dart, business_payroll_sickness_phases_test.dart, business_payroll_sickness_phases_contract_test.dart...
+No issues found!
+
+
+payroll-entitlements-phases-browser-first.log
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll entitlements: actual MFA/HTTP, empty typed fields, exact personnel sources, explicit unpaid facts, checked statutory deadline, original download, exact lost-ACK replay, historical void and mobile390 passed
+payroll sickness: actual v3 overlapping causes and v4 preemployment onset created through typed forms, explicit evidence/recovery, exact checked phases accepted and mobile390 passed
+1 targeted payroll entitlements workflow passed

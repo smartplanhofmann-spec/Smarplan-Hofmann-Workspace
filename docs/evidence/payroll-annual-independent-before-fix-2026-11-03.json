@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-03",
+  "finding": "Known tax-year receipt assigned to previous social year could be omitted from annual forecast",
+  "method": "Direct actual PayrollAnnualBasis domain commands executed before owner fix; observed counterexample, not a pre-fix unittest run",
+  "facts": {
+    "imported_period": "2025-12-01/2025-12-31",
+    "bonus_received_on": "2026-01-15",
+    "bonus_minor": 50000,
+    "bonus_social_year": 2025,
+    "bonus_tax_year": 2026,
+    "current_forecast_month": "2026-10"
+  },
+  "observed": {
+    "with_omitted_extra_reference_minor": 700000,
+    "with_explicit_extra_reference_minor": 750000
+  },
+  "expected": "Missing known original must reject instead of reducing annual tax wages",
+  "owner_confirmed": true
+}

@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'api.dart';
 import 'business_personnel_workflow.dart' show personnelMinor;
@@ -14,6 +16,9 @@ import 'business_payroll_entitlements.dart';
 import 'business_payroll_calculation_case_contract.dart';
 import 'business_payroll_calculation_cases.dart';
 import 'business_payroll_statements.dart';
+import 'business_payroll_wage_interruptions.dart';
+import 'business_payroll_annual_basis.dart';
+import 'business_payroll_oneoff_cases.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -21,6 +26,8 @@ import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
 
 const payrollScopes = {
+  'regular_standard_oneoff':
+      'Regulärer Gesamtlohn mit belegtem Einmalbezug · PAP 2026',
   'regular_standard_segments': 'Regulärer belegter Gesamtfall · PAP 2026',
   'regular_transition_segments': 'Belegter Übergangsbereich · Gesamtfall',
   'commercial_minijob_segments_flat_tax':
@@ -196,6 +203,8 @@ int _sum(dynamic v) {
 
 Map<String, dynamic> payrollCalculation(dynamic value) {
   final v = businessMap(value), scope = v['scope'];
+  if (v['rule_version'] == payrollOneOffRule)
+    return payrollOneOffCalculation(v);
   if (v['rule_version'] == payrollCalculationCaseRule)
     return payrollCompositeCalculation(v);
   if (!payrollScopes.containsKey(scope) ||
@@ -376,6 +385,12 @@ Map<String, dynamic> payrollTransition(Map<String, dynamic> value) {
 }
 
 Map<String, dynamic> payrollPreview(dynamic raw, Map<String, dynamic> input) {
+  if (input['source_schema_version'] == 4) {
+    final value = payrollOneOffSource(raw, input);
+    if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
+      throw const ApiException(0, 'Die Vorschauprüfsumme fehlt.');
+    return value;
+  }
   if (input['source_schema_version'] == 3) {
     final value = payrollCompositeSource(raw, input);
     if (!RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['preview_hash']}'))
@@ -470,6 +485,7 @@ void Function(dynamic) payrollReceiptValidator(
                     'regular_transition_monthly',
                     'regular_standard_period',
                     'regular_transition_period',
+                    'regular_standard_oneoff',
                     'regular_standard_segments',
                     'regular_transition_segments',
                   ].contains(scope),
@@ -775,7 +791,8 @@ class BusinessPayrollPage extends StatefulWidget {
   State<BusinessPayrollPage> createState() => _BusinessPayrollPageState();
 }
 
-class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
+class _BusinessPayrollPageState extends State<BusinessPayrollPage>
+    with WidgetsBindingObserver {
   List<Map<String, dynamic>> profiles = [],
       preparations = [],
       runs = [],
@@ -788,12 +805,21 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
   String? actorId, error, message, historyKind;
   bool loading = false, busy = false, denied = false, accepted = false;
   int epoch = 0;
+  bool suspended = false, approvalState = false;
+  final privateRoutes = <Route<dynamic>>[];
+  bool currentContext(BusinessSession owner, String person, int ticket) =>
+      mounted &&
+      identical(session, owner) &&
+      employeeId == person &&
+      epoch == ticket &&
+      !suspended;
   final previews = <MailAttachmentPreviewController>[];
   BusinessSession get session => widget.session;
   String get employeeId => widget.employee['id'];
   String key(bool profile) =>
       'payroll-${profile ? 'profile' : 'run'}-$employeeId';
   bool get readable =>
+      !suspended &&
       !denied &&
       payrollAvailable(session) &&
       (session.can('personnel.read') ||
@@ -819,13 +845,82 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
     employee = _copy(widget.employee);
     generation = session.generation;
     session.addListener(changed);
+    approvalState = session.can('personnel.approve');
+    WidgetsBinding.instance.addObserver(this);
     load();
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessPayrollPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.session, session) ||
+        oldWidget.employee['id'] != employeeId) {
+      oldWidget.session.removeListener(changed);
+      session.addListener(changed);
+      dismissPrivateRoutes();
+      clear();
+      employee = _copy(widget.employee);
+      actorId = null;
+      denied = false;
+      error = message = null;
+      generation = session.generation;
+      approvalState = session.can('personnel.approve');
+      if (!suspended) unawaited(load());
+    }
+  }
+
+  void dismissPrivateRoutes() {
+    final routes = privateRoutes.toList().reversed.toList();
+    privateRoutes.clear();
+    void remove() {
+      for (final route in routes) {
+        final navigator = route.navigator;
+        if (navigator == null || !route.isActive) continue;
+        // A case editor lives above its source page in the root navigator.
+        // Close those owned descendants before removing the source page.
+        navigator.popUntil((candidate) => identical(candidate, route));
+        if (route.isActive) navigator.removeRoute(route);
+      }
+    }
+
+    // didUpdateWidget runs during build. The context epoch is invalidated
+    // synchronously; navigator animation notifications must wait for its end.
+    if (WidgetsBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => remove());
+    } else {
+      remove();
+    }
+  }
+
+  Future<T?> privateRoute<T>(Route<T> route) async {
+    privateRoutes.add(route);
+    try {
+      return await Navigator.of(context, rootNavigator: true).push(route);
+    } finally {
+      privateRoutes.remove(route);
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.paused) {
+      suspended = true;
+      dismissPrivateRoutes();
+      if (mounted) setState(clear);
+    } else if (state == AppLifecycleState.resumed && suspended && mounted) {
+      setState(() => suspended = false);
+      unawaited(load(refresh: true));
+    }
   }
 
   @override
   void dispose() {
     epoch++;
+    dismissPrivateRoutes();
     session.removeListener(changed);
+    WidgetsBinding.instance.removeObserver(this);
     for (final p in previews) p.revoke();
     super.dispose();
   }
@@ -840,15 +935,20 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
     rules = preview = inputs = correction = runDraft = null;
     yearView = null;
     accepted = false;
-    loading = false;
+    loading = busy = false;
+    error = message = historyKind = null;
     for (final p in previews) p.revoke();
   }
 
   void changed() {
     if (!mounted) return;
+    final approvalLost = approvalState && !session.can('personnel.approve');
+    approvalState = session.can('personnel.approve');
     if (!payrollAvailable(session) ||
+        approvalLost ||
         (actorId != null && !readable) ||
         generation != session.generation) {
+      dismissPrivateRoutes();
       clear();
       generation = session.generation;
     } else if (!session.can('personnel.read')) {
@@ -942,7 +1042,13 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
   }
 
   Future<void> fresh({String? permission}) async {
-    await session.load();
+    final owner = session, person = employeeId, ticket = epoch;
+    await owner.load();
+    if (!currentContext(owner, person, ticket))
+      throw const ApiException(
+        409,
+        'Die private Lohnansicht wurde gewechselt.',
+      );
     if (!mounted || !readable || session.error != null)
       throw const ApiException(
         403,
@@ -957,9 +1063,14 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
         'Die aktuelle Personalberechtigung für diesen Vorgang fehlt.',
       );
     final page = businessMap(
-      await session.read('/payroll/profiles?employee_id=$employeeId'),
+      await owner.read('/payroll/profiles?employee_id=$person'),
     );
-    if (page['employee_id'] != employeeId)
+    if (!currentContext(owner, person, ticket))
+      throw const ApiException(
+        409,
+        'Die private Lohnansicht wurde gewechselt.',
+      );
+    if (page['employee_id'] != person)
       throw const ApiException(
         0,
         'Der Mitarbeiterbezug konnte nicht bestätigt werden.',
@@ -969,23 +1080,25 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
   Future<void> repeat(bool profile) async {
     if (busy || !write(profile ? 'personnel.write' : 'personnel.approve'))
       return;
+    final owner = session, person = employeeId, ticket = epoch;
     setState(() {
       busy = true;
       error = null;
     });
     try {
       await session.repeatPayrollCommand(employeeId, profile: profile);
-      if (!mounted || !readable) return;
+      if (!currentContext(owner, person, ticket) || !readable) return;
       setState(() {
+        busy = false;
         message = 'Der ursprüngliche Payroll-Auftrag ist bestätigt.';
         preview = inputs = null;
         accepted = false;
       });
       await load();
     } catch (e) {
-      failure(e);
+      if (currentContext(owner, person, ticket)) failure(e);
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (currentContext(owner, person, ticket)) setState(() => busy = false);
     }
   }
 
@@ -1109,6 +1222,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
   }
 
   Future<void> calculate([Map<String, dynamic>? previous]) async {
+    if (previous?['source']?['source_schema_version'] == 4)
+      return chooseOneOffCorrection(previous!);
     if (previous?['source']?['source_schema_version'] == 3)
       return chooseCompositeCorrection(previous!);
     if (previous?['source']?['source_schema_version'] == 2)
@@ -1233,30 +1348,163 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
     Map<String, dynamic>? previous,
     String reason = '',
   }) async {
-    await fresh();
-    if (!session.can('personnel.read') || !canPreview)
-      throw const ApiException(
-        403,
-        'Aktuelle Personal-Leserechte und geklärte Berechnung erforderlich.',
+    final owner = session, person = employeeId, ticket = epoch;
+    try {
+      await fresh();
+      if (!currentContext(owner, person, ticket)) return;
+      if (fact['employee_id'] != person)
+        throw const ApiException(
+          403,
+          'Der Lohnfall gehört nicht zum gewählten Mitarbeiter.',
+        );
+      if (!session.can('personnel.read') || !canPreview)
+        throw const ApiException(
+          403,
+          'Aktuelle Personal-Leserechte und geklärte Berechnung erforderlich.',
+        );
+      if (fact['kind'] == 'one_off_case' && previous == null) {
+        final current = runs
+            .where((r) => r['source']?['month'] == fact['details']['month'])
+            .toList();
+        if (current.length > 1)
+          throw const ApiException(
+            409,
+            'Der vorhandene Monatslauf ist nicht eindeutig.',
+          );
+        if (current.isNotEmpty)
+          return await oneOffCorrectionReason(fact, current.single);
+      }
+      final opening = session.generation,
+          input = fact['kind'] == 'one_off_case'
+              ? payrollOneOffCaseRunInput(fact)
+              : fact['kind'] == 'calculation_case'
+              ? payrollCalculationCaseRunInput(fact)
+              : payrollFactRunInput(fact);
+      final value = payrollPreview(
+        await session.api.call(session.path('/payroll/preview'), input),
+        input,
       );
-    final opening = session.generation,
-        input = fact['kind'] == 'calculation_case'
-            ? payrollCalculationCaseRunInput(fact)
-            : payrollFactRunInput(fact);
-    final value = payrollPreview(
-      await session.api.call(session.path('/payroll/preview'), input),
-      input,
-    );
-    if (!mounted || !readable || opening != session.generation) return;
-    setState(() {
-      preview = value;
-      inputs = input;
-      correction = previous;
-      runDraft = {'correction_reason': reason};
-      accepted = false;
-      error = message = null;
-    });
+      if (!currentContext(owner, person, ticket) ||
+          !readable ||
+          opening != session.generation)
+        return;
+      await fresh();
+      if (!currentContext(owner, person, ticket) ||
+          !readable ||
+          opening != session.generation)
+        return;
+      setState(() {
+        preview = value;
+        inputs = input;
+        correction = previous;
+        runDraft = {'correction_reason': reason};
+        accepted = false;
+        error = message = null;
+      });
+    } catch (error) {
+      if (currentContext(owner, person, ticket)) rethrow;
+    }
   }
+
+  Future<void> oneOffCorrectionReason(
+    Map<String, dynamic> fact,
+    Map<String, dynamic> previous,
+  ) async {
+    if (!mounted || !readable || !canPreview) return;
+    final owner = session, person = employeeId, ticket = epoch;
+    await privateRoute<void>(
+      DialogRoute<void>(
+        context: context,
+        builder: (_) => BusinessEditor(
+          session: owner,
+          title: 'Monatslauf mit Einmalbezug korrigieren',
+          fields: const [
+            BusinessField(
+              'reason',
+              'Nachvollziehbarer Korrekturgrund',
+              required: true,
+            ),
+          ],
+          readPermission: 'personnel.read',
+          writePermission: 'personnel.read',
+          readAllowed: () =>
+              currentContext(owner, person, ticket) &&
+              readable &&
+              owner.can('personnel.approve'),
+          onSave: (values) async {
+            if (!currentContext(owner, person, ticket))
+              throw const ApiException(
+                403,
+                'Die private Lohnansicht wurde gewechselt.',
+              );
+            await calculatePeriod(
+              fact,
+              previous: previous,
+              reason: values['reason'],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Future<void> openOneOffCases([Map<String, dynamic>? previous]) async {
+    if (!canPreview) return;
+    final owner = session,
+        person = employeeId,
+        ticket = epoch,
+        originalEmployee = _copy(employee);
+    Map<String, dynamic>? chosen;
+    try {
+      await privateRoute<void>(
+        MaterialPageRoute<void>(
+          builder: (_) => BusinessPayrollOneoffCasesPage(
+            session: owner,
+            employee: originalEmployee,
+            initialMonth: previous?['source']?['month'],
+            onOriginal: (file) async {
+              if (currentContext(owner, person, ticket)) await original(file);
+            },
+            onCalculate: (fact) async {
+              if (!currentContext(owner, person, ticket))
+                throw const ApiException(
+                  403,
+                  'Die private Lohnansicht wurde gewechselt.',
+                );
+              if (previous != null &&
+                  fact['details']['one_off_earning_ref']['id'] !=
+                      previous['source']['one_off_case']['details']['one_off_earning_ref']['id']) {
+                throw const ApiException(
+                  409,
+                  'Die Korrektur muss denselben ursprünglichen Einmalanspruch binden.',
+                );
+              }
+              chosen = _copy(fact);
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      );
+      if (!currentContext(owner, person, ticket) || !readable || chosen == null)
+        return;
+      await load();
+      if (!currentContext(owner, person, ticket + 1) || !readable) return;
+      if (previous != null)
+        await oneOffCorrectionReason(chosen!, previous);
+      else
+        await calculatePeriod(chosen!);
+    } catch (error) {
+      if (mounted &&
+          identical(owner, session) &&
+          person == employeeId &&
+          !suspended &&
+          (epoch == ticket || epoch == ticket + 1))
+        failure(error);
+    }
+  }
+
+  Future<void> chooseOneOffCorrection(Map<String, dynamic> previous) =>
+      openOneOffCases(previous);
 
   Future<void> chooseCompositeCorrection(Map<String, dynamic> previous) async {
     if (!canPreview) return;
@@ -1397,13 +1645,16 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
       if (previous != null)
         'correction_reason': '${runDraft?['correction_reason'] ?? ''}'.trim(),
     };
+    final owner = session, person = employeeId, ticket = epoch;
     setState(() {
       busy = true;
       error = null;
     });
     try {
       await fresh(permission: 'personnel.approve');
-      if (opening != session.generation || preview == null)
+      if (!currentContext(owner, person, ticket) ||
+          opening != session.generation ||
+          preview == null)
         throw const ApiException(
           409,
           'Datenstand geändert. Monatsberechnung erneut prüfen.',
@@ -1418,17 +1669,18 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
           previous: previous,
         ),
       );
-      if (!mounted || !readable) return;
+      if (!currentContext(owner, person, ticket) || !readable) return;
       setState(() {
+        busy = false;
         message = 'Der ausdrücklich bestätigte Berechnungsumfang ist unveränderlich gespeichert. Es wurde keine Meldung oder Zahlung ausgelöst.';
         preview = inputs = runDraft = correction = null;
         accepted = false;
       });
       await load();
     } catch (e) {
-      failure(e);
+      if (currentContext(owner, person, ticket)) failure(e);
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (currentContext(owner, person, ticket)) setState(() => busy = false);
     }
   }
 
@@ -1768,6 +2020,7 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
                       'employment_period_missing':
                           'Ein belegter Beschäftigungszeitraum fehlt.',
                       'employment_periods_conflict': 'Die Beschäftigungszeiträume der Stammnachweise widersprechen sich. Den tatsächlichen Beginn und das Ende des Arbeitsverhältnisses in allen Profilnachweisen abgleichen.',
+                      'unpaid_statutory_marker_requires_evidence': 'Für die belegten unbezahlten Tage fehlt noch der geprüfte Jahresnachweis zum U-Merkmal. Die Jahresprüfung der Unterbrechungen im Lohnkonto ergänzen.',
                     }[issue] ??
                     '$issue',
               ),
@@ -1794,7 +2047,11 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
                       : 'Berechnet · Fassung ${month['revision']}'}',
                 ),
                 subtitle: Text(
-                  'Brutto ${payrollMoney(month['calculation']?['gross_minor'])} · Netto ${payrollMoney(month['calculation']?['net_minor'])}',
+                  'Brutto ${payrollMoney(month['calculation']?['gross_minor'])} · Netto ${payrollMoney(month['calculation']?['net_minor'])}${month['wage_account']?['payment_status'] == 'no_payment_due'
+                      ? '\nKeine Nettozahlung geschuldet · Steuer- und Beitragsabführungen separat nachweisen'
+                      : month['wage_account']?['payment_status'] == 'payments_evidenced'
+                      ? '\nTatsächliche Nettozahlungen belegt'
+                      : ''}',
                 ),
               ),
             Text(
@@ -1923,10 +2180,18 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
         if (calc['employee_additional_payment_minor'] is int &&
             calc['employee_additional_payment_minor'] > 0)
           Notice(
-            'Der Mindest-RV-Beitrag übersteigt das Brutto. Zusätzlicher Arbeitnehmeranteil: ${payrollMoney(calc['employee_additional_payment_minor'])}. Der berechnete Auszahlungsbetrag beträgt 0,00 €.',
+            [
+                  payrollCalculationCaseRule,
+                  payrollOneOffRule,
+                ].contains(calc['rule_version'])
+                ? 'Die belegten Arbeitnehmerabzüge übersteigen den verbleibenden Barbetrag. Zusätzlicher Arbeitnehmeranteil: ${payrollMoney(calc['employee_additional_payment_minor'])}. Der berechnete Auszahlungsbetrag beträgt 0,00 €.'
+                : 'Der Mindest-RV-Beitrag übersteigt das Brutto. Zusätzlicher Arbeitnehmeranteil: ${payrollMoney(calc['employee_additional_payment_minor'])}. Der berechnete Auszahlungsbetrag beträgt 0,00 €.',
           ),
       ],
-      if (calc['rule_version'] == payrollCalculationCaseRule) ...[
+      if ([
+        payrollCalculationCaseRule,
+        payrollOneOffRule,
+      ].contains(calc['rule_version'])) ...[
         ListTile(
           title: const Text(
             'Belegte Nettoabzüge für Sachbezug und Steuerkosten',
@@ -1937,7 +2202,9 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
           plan: {
             ...businessMap(calc['period_details']),
             'month': calc['month'],
-            'gross_minor': calc['gross_minor'],
+            'gross_minor': calc['rule_version'] == payrollOneOffRule
+                ? calc['running_calculation']['gross_minor']
+                : calc['gross_minor'],
             'blockers': calc['blockers'],
           },
         ),
@@ -1945,6 +2212,8 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
         PayrollPeriodPlanView(
           plan: {...businessMap(calc['period_details']), 'blockers': []},
         ),
+      if (calc['rule_version'] == payrollOneOffRule)
+        PayrollOneoffCasePlanView(plan: calc),
       if (calc['scope'] == 'regular_transition_monthly')
         ExpansionTile(
           title: const Text('Prognose und Beitragsbemessung'),
@@ -1992,14 +2261,23 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
               ),
           ],
         ),
-      const Notice(
-        'Unfallversicherung ist nicht enthalten. Reisekostenerstattungen werden getrennt verarbeitet. Amtliche Meldungen und Zahlungen erfolgen separat.',
+      Notice(
+        [
+              payrollCalculationCaseRule,
+              payrollOneOffRule,
+            ].contains(calc['rule_version'])
+            ? 'Unfallversicherung ist nicht enthalten. Steuerfreie Reiseerstattungen werden außerhalb des Lohnnettos verarbeitet. Amtliche Meldungen und tatsächliche Zahlungen erfolgen separat.'
+            : 'Unfallversicherung ist nicht enthalten. Reisekostenerstattungen werden getrennt verarbeitet. Amtliche Meldungen und Zahlungen erfolgen separat.',
       ),
     ],
   );
   Widget sourceView(Map<String, dynamic> source) => ExpansionTile(
     title: Text('Eingefrorene Quellen · ${source['month']}'),
     children: [
+      if (source['source_schema_version'] == 4)
+        Text(
+          'Bestätigter Einmalbezugsfall · Fassung ${source['one_off_case']?['revision']} · unveränderte laufende Rechnung und geprüfte Jahresoriginale',
+        ),
       if (source['source_schema_version'] == 3)
         Text(
           'Bestätigter Gesamtfall · Fassung ${source['calculation_case']?['revision']} · ursprüngliche Anspruchs- und Reisequellen',
@@ -2316,6 +2594,49 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
                           'Abrechnungsfälle mit Ansprüchen und Reisen',
                         ),
                       ),
+                    if (payrollOneoffCasesReadable(session))
+                      OutlinedButton(
+                        onPressed: loading || busy ? null : openOneOffCases,
+                        child: const Text(
+                          'Einmalbezugsfälle aus Jahresquellen öffnen',
+                        ),
+                      ),
+                    if (payrollAnnualBasisReadable(session))
+                      OutlinedButton(
+                        onPressed: loading || busy
+                            ? null
+                            : () => Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      BusinessPayrollAnnualBasisPage(
+                                        session: session,
+                                        employee: employee,
+                                        onOriginal: original,
+                                      ),
+                                ),
+                              ),
+                        child: const Text(
+                          'Jahresquellen und Einmalansprüche öffnen',
+                        ),
+                      ),
+                    if (payrollWageInterruptionsReadable(session))
+                      OutlinedButton(
+                        onPressed: loading || busy
+                            ? null
+                            : () => Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      BusinessPayrollWageInterruptionsPage(
+                                        session: session,
+                                        employee: employee,
+                                        onOriginal: original,
+                                      ),
+                                ),
+                              ),
+                        child: const Text('U-Merkmal im Lohnkonto prüfen'),
+                      ),
                     if (payrollEntitlementsReadable(session))
                       OutlinedButton(
                         onPressed: loading || busy
@@ -2492,7 +2813,19 @@ class _BusinessPayrollPageState extends State<BusinessPayrollPage> {
                               ],
                               TextButton(
                                 onPressed: canPreview
-                                    ? () => calculate(correction)
+                                    ? () =>
+                                          preview?['source']?['source_schema_version'] ==
+                                              4
+                                          ? calculatePeriod(
+                                              businessMap(
+                                                preview!['source']['one_off_case'],
+                                              ),
+                                              previous: correction,
+                                              reason:
+                                                  runDraft?['correction_reason'] ??
+                                                  '',
+                                            )
+                                          : calculate(correction)
                                     : null,
                                 child: const Text('Eingaben erneut prüfen'),
                               ),
@@ -2711,6 +3044,7 @@ Future<Map<String, dynamic>> payrollLedgerSnapshot(
           m['revision'] < 1)
         throw const ApiException(0, 'Ein Monatsnachweis fehlt.');
       final calc = payrollCalculation(m['calculation']);
+      payrollAccountPaymentStatus(m, ledger['account_records'] ?? [], employee);
       if (calc['month'] != month ||
           (m['status'] == 'complete') !=
               (calc['payroll_calculation_complete'] == true))

@@ -1,0 +1,203 @@
+payroll-annual-native-forms-first.log
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_forms_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_forms_test.dart: all structured imported_period steps reconstruct actual canonical source details
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual imported_period typed references preserve canonical preview and receipt
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual imported_period typed references preserve canonical preview and receipt
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_forms_test.dart: all structured annual_basis steps reconstruct actual canonical source details
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual imported_one_off typed references preserve canonical preview and receipt
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_forms_test.dart: all structured one_off_earning steps reconstruct actual canonical source details
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual annual_basis typed references preserve canonical preview and receipt
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_forms_test.dart: all structured annual_tax_forecast steps reconstruct actual canonical source details
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual one_off_earning typed references preserve canonical preview and receipt
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual one_off_earning typed references preserve canonical preview and receipt
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_forms_test.dart: missing renewed classification and completeness produce form error 400
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: actual annual_tax_forecast typed references preserve canonical preview and receipt
+00:00 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_forms_test.dart: unknown amount and count are rejected before they become annual zero
+00:00 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: foreign originals, employer identity and replaced plan are rejected
+00:00 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_contract_test.dart: unknown monetary basis never becomes a zero source
+00:00 +15: All tests passed!
+
+
+payroll-annual-native-ui-first.log
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart
+00:00 +0: actual imported_period mobile view and all correction steps preserve canonical details
+00:02 +1: actual imported_one_off mobile view and all correction steps preserve canonical details
+00:02 +2: actual annual_basis mobile view and all correction steps preserve canonical details
+00:03 +3: actual one_off_earning mobile view and all correction steps preserve canonical details
+00:04 +4: actual annual_tax_forecast mobile view and all correction steps preserve canonical details
+00:04 +5: accepted annual source replays exact nonce after pause, with renewed global rights
+00:04 +6: historical original and active selection use exact fresh employee sources
+00:04 +7: background removes an open private annual editor
+00:05 +8: late annual preview cannot restore private data after returning from background
+00:05 +9: All tests passed!
+
+
+payroll-annual-native-ui-second.log
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart
+00:00 +0: actual imported_period mobile view and all correction steps preserve canonical details
+00:02 +1: actual imported_one_off mobile view and all correction steps preserve canonical details
+00:03 +2: actual annual_basis mobile view and all correction steps preserve canonical details
+00:03 +3: actual one_off_earning mobile view and all correction steps preserve canonical details
+00:04 +4: actual annual_tax_forecast mobile view and all correction steps preserve canonical details
+00:04 +5: accepted annual source replays exact nonce after pause, with renewed global rights
+00:04 +6: historical original and active selection use exact fresh employee sources
+00:05 +7: background removes an open private annual editor
+00:05 +8: late annual preview cannot restore private data after returning from background
+00:05 +9: actual HTTP correction and void receipts survive native confirmation and preserve historical original
+00:06 +10: All tests passed!
+
+
+payroll-annual-native-final.log
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:02 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_one_off mobile view and all correction steps preserve canonical details
+00:03 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_basis mobile view and all correction steps preserve canonical details
+00:03 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual one_off_earning mobile view and all correction steps preserve canonical details
+00:04 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_tax_forecast mobile view and all correction steps preserve canonical details
+00:04 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: accepted annual source replays exact nonce after pause, with renewed global rights
+00:04 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: historical original and active selection use exact fresh employee sources
+00:05 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: background removes an open private annual editor
+00:05 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: late annual preview cannot restore private data after returning from background
+00:05 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual HTTP correction and void receipts survive native confirmation and preserve historical original
+00:06 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: pending annual confirmation blocks new forms and replays the original after module pause
+00:06 +26: All tests passed!
+
+
+payroll-annual-native-late-error-first.log
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart
+00:00 +0: late annual error text stays cleared after the private view was left
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Synthetischer privater Belegvermerk in
+verspäteter Fehlermeldung": [
+            Text("Synthetischer privater Belegvermerk in verspäteter Fehlermeldung", inherit: true,
+color: Color(alpha: 1.0000, red: 0.7020, green: 0.1490, blue: 0.1176, colorSpace: ColorSpace.sRGB),
+dependencies: [DefaultSelectionStyle, DefaultTextStyle, MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart:526:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart line 526
+The test description was:
+  late annual error text stays cleared after the private view was left
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +0 -1: late annual error text stays cleared after the private view was left [E]
+  Test failed. See exception logs above.
+  The test description was: late annual error text stays cleared after the private view was left
+  
+00:02 +0 -1: Some tests failed.
+
+Failing tests:
+  /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: late annual error text stays cleared after the private view was left
+
+
+payroll-annual-native-complete.log
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:01 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:01 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:02 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_one_off mobile view and all correction steps preserve canonical details
+00:03 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_basis mobile view and all correction steps preserve canonical details
+00:04 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual one_off_earning mobile view and all correction steps preserve canonical details
+00:04 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_tax_forecast mobile view and all correction steps preserve canonical details
+00:05 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: accepted annual source replays exact nonce after pause, with renewed global rights
+00:05 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: historical original and active selection use exact fresh employee sources
+00:05 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: background removes an open private annual editor
+00:05 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: late annual preview cannot restore private data after returning from background
+00:06 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual HTTP correction and void receipts survive native confirmation and preserve historical original
+00:07 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: pending annual confirmation blocks new forms and replays the original after module pause
+00:07 +26: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: late annual error text stays cleared after the private view was left
+00:08 +27: All tests passed!
+
+
+payroll-annual-native-analyze-final.log
+Analyzing business_payroll_annual_basis.dart, business_payroll_annual_basis_forms.dart, business_payroll_annual_basis_test.dart, business_payroll_annual_basis_forms_test.dart...
+No issues found!
+
+
+payroll-annual-native-context-complete.log
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:00 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:01 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:01 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:01 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:01 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:01 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:01 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:01 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:04 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_period mobile view and all correction steps preserve canonical details
+00:04 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart: review replacement session removes private editor tied to the previous session
+00:04 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual imported_one_off mobile view and all correction steps preserve canonical details
+00:04 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart: review delayed annual preview cannot restore previous employee data after widget change
+00:05 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_basis mobile view and all correction steps preserve canonical details
+00:05 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart: review approve withdrawal with read retained closes private annual correction dialog
+00:05 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual one_off_earning mobile view and all correction steps preserve canonical details
+00:06 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart: review delayed annual preview cannot restore a write workflow after approval withdrawal
+00:06 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_tax_forecast mobile view and all correction steps preserve canonical details
+00:06 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual annual_tax_forecast mobile view and all correction steps preserve canonical details
+00:06 +26: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart: review actual annual repeat rejects frozen wrong employee_id without new POST and retains original nonce
+00:06 +27: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: accepted annual source replays exact nonce after pause, with renewed global rights
+00:06 +28: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: accepted annual source replays exact nonce after pause, with renewed global rights
+00:06 +29: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_review_test.dart: review actual annual repeat retains receipt validator against foreign employee kind and year
+00:06 +30: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: historical original and active selection use exact fresh employee sources
+00:06 +31: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: historical original and active selection use exact fresh employee sources
+00:07 +32: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: background removes an open private annual editor
+00:07 +33: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: late annual preview cannot restore private data after returning from background
+00:07 +34: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: actual HTTP correction and void receipts survive native confirmation and preserve historical original
+00:08 +35: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: pending annual confirmation blocks new forms and replays the original after module pause
+00:08 +36: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_annual_basis_test.dart: late annual error text stays cleared after the private view was left
+00:09 +37: All tests passed!
+
+
+payroll-annual-native-context-analyze.log
+Analyzing business_payroll_annual_basis.dart, business_payroll_annual_basis_forms.dart, business_payroll_annual_basis_test.dart, business_payroll_annual_basis_forms_test.dart...
+No issues found!

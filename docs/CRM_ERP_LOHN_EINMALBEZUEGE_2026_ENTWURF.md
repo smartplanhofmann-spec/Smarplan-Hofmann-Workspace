@@ -231,12 +231,12 @@ ursprünglich angenommenen Zustand mit frischen Rechten.
 | Amtliche PAP-/SV-/2025-Quellen | gelesen, Zugriffsbeschränkungen dokumentiert |
 | 252 abgeleitete PAP-Referenzen | gegen eigenen isolierten Sondersteuerkern grün |
 | Amtliches SV-Luft-Zahlenbeispiel | unabhängig festgehalten |
-| Jahres-/Periodenvertrag | Striktes isoliertes Schema implementiert: [Jahresbasis-Vertrag](CRM_ERP_LOHN_JAHRESBASIS_VERTRAG_2026.md), noch nicht global registriert |
+| Jahres-/Periodenvertrag | Striktes Schema implementiert und global registriert: [Jahresbasis-Vertrag](CRM_ERP_LOHN_JAHRESBASIS_VERTRAG_2026.md) |
 | Allgemeiner Sondersteuerkern | `payroll_pap_oneoff_2026.py`: 8 eigene Tests plus 4 unabhängige Gegenfälle grün |
 | SV-Luft/Märzklausel/2025-Rechnung | Isolierter Kern implementiert; 23 Tests einschließlich tatsächlicher Beitragsanteile grün, vollständige Quellenkomposition noch offen |
 | Minijobprognose / Midijob-Einmalbezüge | Isolierte Prognose, unvorhersehbare Überschreitung, RV-Mindestbasis und Beitragsdifferenzen implementiert; eigene private Statusquellen und v6-Verknüpfung offen |
 | Private Jahresfakten | 15 Domain- und 2 Jahreswechseltests grün; tatsächliche v5-Quellen und konkrete Lohnkontozuflüsse gebunden |
-| HTTP / PostgreSQL / Restore | 2 HTTP- und 3 PG-Fälle isoliert grün; additive Migration, parallele Annahme, echte Sicherung/Wiederherstellung und Originalbytes geprüft |
+| HTTP / PostgreSQL / Restore | 2 HTTP- und 3 PG-Fälle global registriert grün; additive Migration, parallele Annahme, echte Sicherung/Wiederherstellung und Originalbytes geprüft |
 | v6, Clients, Lohnkonto, Cash/EÜR | Neue Gesamtintegration offen; vorbereitete Jahresquellen sind noch keine vollständige Einmalabrechnung |
 
 Der isolierte Lauf mit den 8 neuen und 3 unveränderten bestehenden PAP-Tests
@@ -255,7 +255,10 @@ konnte in der Jahressteuerprognose fehlen. Die neue Prüfung verlangt nun alle
 bekannten tatsächlichen Steuerzuflüsse außerhalb der gewählten SV-Jahresbasis.
 Sie werden nicht still ergänzt; fehlende Originalreferenzen sperren die
 Bestätigung. Der unabhängige Gegenfall und das ursprüngliche Ergebnis bleiben
-als Prüfnachweis erhalten. Globale Registrierung folgt erst nach Gegenprüfung.
+als Prüfnachweis erhalten. Die globale Registrierung ist abgeschlossen; der
+finale Lauf mit 56 Kern-/Domänen-/Gegentests, zwei HTTP- und drei PG-Fällen
+bestand nach dem Fix. Der letzte PG-Lauf setzt echte globale Registrierung
+voraus. Nachweis: `docs/evidence/payroll-annual-integrated-2026-11-03.json`.
 
 Einzelne noch offene Rechenfälle sind eigene Softwarearbeit innerhalb des
 Gesamtziels. Sie werden nicht als externe Anbindung umbenannt.

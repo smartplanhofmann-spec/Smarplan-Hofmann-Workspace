@@ -39,7 +39,50 @@ async function payrollEntitlementsFlow(h){
   await page.setViewportSize({width:390,height:844});await page.locator('.sidebar').evaluate(el=>Promise.all(el.getAnimations().map(a=>a.finished)));assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.equal(await saved.locator('.table-scroll').evaluateAll(nodes=>nodes.every(n=>n.scrollWidth<=n.clientWidth+1)),true);await page.screenshot({path:path.join(screenshots,'payroll-entitlements-mobile.png'),fullPage:false});
   await saved.getByRole('button',{name:'Fälschlichen Anspruch aufheben',exact:true}).click();const cancel=modal('Fälschlichen Anspruch aufheben');await cancel.getByLabel('Belegter Aufhebungsgrund',{exact:true}).fill('Synthetic original unpaid request was canceled');await cancel.getByLabel('Ich bestätige die Aufhebung; frühere Abrechnungen bleiben unverändert.',{exact:true}).check();await cancel.getByRole('button',{name:'Anspruch belegt aufheben',exact:true}).click();await modal(label).waitFor();assert.match(await modal(label).innerText(),/Aufgehoben/);await modal(label).getByRole('button',{name:'Anspruchshistorie öffnen',exact:true}).click();await modal('Anspruchshistorie').waitFor();assert.equal(await modal('Anspruchshistorie').getByRole('button',{name:'Diese Anspruchsfassung öffnen',exact:true}).count(),2);await modal('Anspruchshistorie').getByRole('button',{name:'Diese Anspruchsfassung öffnen',exact:true}).first().click();await modal('Historische Anspruchsfassung · '+label).waitFor();assert.equal(await modal('Historische Anspruchsfassung · '+label).getByRole('button',{name:'Anspruch korrigieren',exact:true}).count(),0);
   const history=await api('/payroll/entitlements/'+record.id+'/history');assert.deepEqual(history.items[0],record);assert.equal(history.items[1].status,'void');assert.deepEqual(history.items[1].plan,record.plan);
+  const sicknessLabel='Krankheitsverlauf und Vorzeiten';
+  for(const preemployment of [false,true]){
+   await open();await modal('Private Anspruchsnachweise · Synthetic technician').getByRole('button',{name:sicknessLabel+' erfassen',exact:true}).click();
+   const editor=modal('Erfassen: '+sicknessLabel);
+   await editor.getByLabel('Belegte Beschäftigungsfassung',{exact:true}).selectOption(terms.id);
+   await editor.getByLabel('Alle einschlägigen Entgeltvereinbarungen',{exact:true}).selectOption(agreement.id);
+   await editor.getByLabel('Geschützte Originale für diesen Anspruch',{exact:true}).selectOption(file.id);
+   await editor.getByLabel('Nachvollziehbarer Anspruchsprüfvermerk',{exact:true}).fill('Synthetic evidenced '+(preemployment?'preemployment sickness and prior contract':'joined causes and continuous work incapacity'));
+   await editor.getByLabel('Belegte Form des Krankheitsverlaufs',{exact:true}).selectOption(preemployment?'preemployment':'combined');
+   await editor.getByLabel('Belegte vollständige Vorzeiten ab',{exact:true}).fill('2026-01-01');
+   await editor.getByLabel('Belegte vollständige Vorzeiten bis',{exact:true}).fill('2026-12-31');
+   await editor.getByLabel('Anzahl vollständig belegter Krankheitsfälle, auch bekannte 0',{exact:true}).fill(preemployment?'1':'2');
+   await editor.getByRole('button',{name:'Konkrete Anspruchsangaben belegen',exact:true}).click();
+   const details=modal('Konkrete Angaben: '+sicknessLabel);
+   await details.getByLabel('Originale für die Vollständigkeit der Vorzeiten',{exact:true}).selectOption(file.id);
+   await details.getByLabel('Originale für die zusammenhängenden Verhinderungsfälle und ihre Zuordnung',{exact:true}).selectOption(file.id);
+   if(preemployment){
+    await details.getByLabel('Tatsächliches Datum des Vertragsabschlusses vor der Erkrankung',{exact:true}).fill('2025-12-01');
+    await details.getByLabel('Vertragsoriginal für den vereinbarten Beschäftigungsbeginn',{exact:true}).selectOption(file.id);
+   }
+   const episodes=preemployment?[{from:'2025-12-20',to:'2026-03-31',onset:'before_employment',relation:'new',recovery:'yes'}]:[{from:'2026-04-01',to:'2026-04-20',onset:'before_work',relation:'new',recovery:'yes'},{from:'2026-04-10',to:'2026-05-31',onset:'during_existing_au',relation:'same:0',recovery:'no'}];
+   for(const [index,e]of episodes.entries()){
+    const p='Vorzeitenfall '+(index+1)+': ';
+    await details.getByLabel(p+'Beginn',{exact:true}).fill(e.from);await details.getByLabel(p+'Ende',{exact:true}).fill(e.to);
+    await details.getByLabel(p+'tatsächlicher Beginn zur Arbeit',{exact:true}).selectOption(e.onset);
+    await details.getByLabel(p+'belegter Fortsetzungszusammenhang',{exact:true}).selectOption('new');
+    await details.getByLabel(p+'belegter Verhinderungsfall',{exact:true}).selectOption(e.relation);
+    const recovery=details.getByLabel(p+'vorherige Arbeitsfähigkeit belegt (Nein bei fortbestehender AU)',{exact:true});assert.equal(await recovery.inputValue(),'');await recovery.selectOption(e.recovery);
+    assert.equal(await details.getByLabel(p+'erster ausgefallener Solltag nur bei Stundenlohn-AU am freien Tag',{exact:true}).inputValue(),'');
+    await details.getByLabel(p+'Unverschuldete Arbeitsverhinderung ist belegt.',{exact:true}).check();
+    await details.getByLabel(p+'konkrete Originale',{exact:true}).selectOption(file.id);
+   }
+   await details.getByLabel('Ich bestätige diese konkreten Anspruchsangaben und Originale.',{exact:true}).check();await details.getByRole('button',{name:'Anspruch unverbindlich prüfen',exact:true}).click();
+   const preview=modal('Anspruchsbaustein prüfen');await preview.waitFor();assert.match(await preview.innerText(),/Zusammenhängender Verhinderungsfall 1/);assert.match(await preview.innerText(),/Geprüfte Phasen ohne doppelte Tageszählung/);
+   const checked=records.filter(v=>v.path.endsWith('/preview')).at(-1);assert.equal(checked.status,200);assert.equal(checked.value.plan.rule_version,preemployment?'de_2026_sickness_start_v4':'de_2026_sickness_phases_v3');
+   assert.equal(checked.value.plan.prevention_cases[0].statutory_deadline,preemployment?'2026-03-11':'2026-05-12');
+   assert.equal(checked.body.details.input.episodes[0].from,episodes[0].from);assert.ok(checked.body.details.input.episodes.every(e=>e.first_scheduled_day===null));
+   if(preemployment){assert.equal(checked.value.plan.preemployment_periods[0].employment_wage_entitlement,false);assert.match(await preview.innerText(),/20\.12\.2025/);}
+   await preview.getByLabel('Ich bestätige genau diesen geprüften Anspruchsbaustein und seine Originale.',{exact:true}).check();await preview.getByRole('button',{name:'Geprüften Anspruchsbaustein festhalten',exact:true}).click();await modal(sicknessLabel).waitFor();
+   const accepted=records.filter(v=>v.body&&v.path.endsWith('/entitlements')).at(-1);assert.equal(accepted.status,200);assert.deepEqual(accepted.value.plan,checked.value.plan);assert.deepEqual(accepted.value.details.input,checked.body.details.input);
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await page.screenshot({path:path.join(screenshots,preemployment?'payroll-sickness-start-v4-mobile.png':'payroll-sickness-phases-v3-mobile.png'),fullPage:false});
+  }
   console.log('payroll entitlements: actual MFA/HTTP, empty typed fields, exact personnel sources, explicit unpaid facts, checked statutory deadline, original download, exact lost-ACK replay, historical void and mobile390 passed');
+  console.log('payroll sickness: actual v3 overlapping causes and v4 preemployment onset created through typed forms, explicit evidence/recovery, exact checked phases accepted and mobile390 passed');
  }finally{await context.unroute(pattern);await fs.writeFile(path.join(screenshots,'payroll-entitlements-synthetic-commands.json'),JSON.stringify(records,null,2));}
 }
 module.exports={payrollEntitlementsFlow};

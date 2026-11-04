@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-03",
+  "scope": "P4/Source3 native late private error handling after background",
+  "confirmed_failures": 2,
+  "failure_cases": [
+    "P4 delayed save ApiException400 exposes private text after resume",
+    "Source3 delayed source-read ApiException400 exposes private text after resume"
+  ],
+  "fix": "Action captures epoch; its failure is published only while mounted, readable and on the original epoch. Original pending command is not changed.",
+  "tests": {
+    "full_targeted_flutter_regression": 40,
+    "failed": 0,
+    "dart_analyze": "no issues found"
+  },
+  "logs": [
+    "payroll-private-late-errors-first.log",
+    "payroll-private-late-errors-complete.log",
+    "payroll-private-late-errors-analyze.log"
+  ],
+  "sources": {
+    "app/lib/business_payroll_entitlements.dart": "f8d668019492c7c4173fbd02358070e13a69a77f7336716f988bb736c08a3e1e",
+    "app/lib/business_payroll_calculation_cases.dart": "479c56dd3d356370acf209b79b25c911a848fcfe2e2b1e5140b7db69699ec84f",
+    "app/test/business_payroll_sickness_phases_test.dart": "95f4e74124e4c2f172255995627cf4e8e2b2e51724ba9c43fa052c399ca6d691",
+    "app/test/business_payroll_calculation_cases_review_test.dart": "3d5a2037a5c7bc7469b9a5d6771f2403566fbf004b54fc380dc3b49c8f4136a5"
+  }
+}

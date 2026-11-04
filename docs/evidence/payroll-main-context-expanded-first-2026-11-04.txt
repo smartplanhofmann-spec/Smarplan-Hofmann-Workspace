@@ -1,0 +1,26 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart
+00:00 +0: Source4 main late preview cannot cross allowed session change
+00:01 +1: Source4 main late preview cannot cross employee change
+00:02 +2: Source4 main late preview cannot cross read change
+00:03 +3: Source4 main late preview cannot cross approve change
+00:03 +4: Source4 main late preview cannot cross generation change
+00:04 +5: Source4 main late preview cannot cross background change
+00:04 +6: Source4 main private correction closes on session change
+00:05 +7: Source4 main late correction preview is discarded on session
+00:07 +8: Source4 main late private preview error is discarded on session
+00:07 +9: Source4 main private correction closes on employee change
+00:08 +10: Source4 main late correction preview is discarded on employee
+00:09 +11: Source4 main late private preview error is discarded on employee
+00:10 +12: Source4 main private correction closes on read change
+00:11 +13: Source4 main late correction preview is discarded on read
+00:12 +14: Source4 main late private preview error is discarded on read
+00:12 +15: Source4 main private correction closes on approve change
+00:13 +16: Source4 main late correction preview is discarded on approve
+00:14 +17: Source4 main late private preview error is discarded on approve
+00:14 +18: Source4 main private correction closes on generation change
+00:15 +19: Source4 main late correction preview is discarded on generation
+00:15 +20: Source4 main late private preview error is discarded on generation
+00:16 +21: Source4 main private correction closes on background change
+00:16 +22: Source4 main late correction preview is discarded on background
+00:17 +23: Source4 main late private preview error is discarded on background
+00:17 +24: All tests passed!

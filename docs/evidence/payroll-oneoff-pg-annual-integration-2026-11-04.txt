@@ -1,0 +1,9 @@
+test_actual_backup_restore_retains_original_run_receipts_consumption_and_pdf (online.test_business_payroll_oneoff_pg.OneoffPayrollPostgres.test_actual_backup_restore_retains_original_run_receipts_consumption_and_pdf) ... ok
+test_actual_paid_source4_annual_projection_survives_backup_restore (online.test_business_payroll_oneoff_pg.OneoffPayrollPostgres.test_actual_paid_source4_annual_projection_survives_backup_restore) ... ok
+test_distinct_parallel_first_commands_cannot_reserve_same_claim_twice (online.test_business_payroll_oneoff_pg.OneoffPayrollPostgres.test_distinct_parallel_first_commands_cannot_reserve_same_claim_twice) ... ok
+test_two_real_finalize_writers_create_one_claim_consumption_with_private_mfa_acl (online.test_business_payroll_oneoff_pg.OneoffPayrollPostgres.test_two_real_finalize_writers_create_one_claim_consumption_with_private_mfa_acl) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 44.607s
+
+OK

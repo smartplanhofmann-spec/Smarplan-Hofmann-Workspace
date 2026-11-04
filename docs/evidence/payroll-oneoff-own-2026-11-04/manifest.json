@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-04",
+  "scope": "employee-only Source4/v6 statement schema3; historical schema1/2 unchanged",
+  "tests": {
+    "backend": {
+      "passed": 17,
+      "exit_code": 0
+    },
+    "node": {
+      "passed": 9,
+      "exit_code": 0
+    },
+    "flutter": {
+      "passed": 10,
+      "exit_code": 0
+    },
+    "dart_analyze": {
+      "issues": 0,
+      "exit_code": 0
+    },
+    "chromium_integrated": {
+      "passed": 1,
+      "exit_code": 0,
+      "sandbox": "namespace, PID, network, seccomp verified before application access",
+      "actor": "staff opens reduced employee statement contract; actual own-role private-route HTTP403 verified separately by backend tests",
+      "checks": [
+        "actual Source4 schema3 own bonus and payout",
+        "independent employee PDF SHA256",
+        "no private annual/original IDs",
+        "no private route requests after completed staff screen and employee-view navigation",
+        "exact historical statement",
+        "390px viewport without horizontal overflow"
+      ]
+    }
+  },
+  "browser_helper": "passed in actual integrated Source4 Chromium workflow",
+  "files": {
+    "backend/business_payroll_statements.py": "8d2e6dd3fdc2744cdb6e3bb154dc45daf1db51d010668695a5cdecf35f900407",
+    "backend/test_business_payroll_statements_v6.py": "e85bd08f65edcfa725afe50ca34e7766080a0383e329505c7869b06c0bdbdb26",
+    "web/office/payroll-statements.js": "89e94a0396ea37364a5bb20bbe89d49bb75edbda3d48d5e9d8f361820fb3377e",
+    "web/office/tests/payroll-statements-v6.test.mjs": "e0691ce241ccf5aa7094b988a65b1ecd89bfc9df1a141f26305e5a67fa536a44",
+    "web/office/tests/payroll-oneoff-own-flow.cjs": "f93b865c98201f24367d9503aec5c4da10bcc37e0d9af2b985663fae90b92d44",
+    "app/lib/business_payroll_statements.dart": "60f6b50d28e3a8a4d1bb796b73ea1ab3bf0a57d0a6bdf55ec67e9659c9edd2d2",
+    "app/test/business_payroll_statements_v6_test.dart": "9cc399756cfc27ed066747af13abbbaa93f33b62bfaf95fc2c606c821a25b75e",
+    "app/test/fixtures/payroll_statements_v6.json": "7548948cb9551d76c4e132d386ed3b4e11f07c5a9ca4f6bd1a6dc6392d4ce3b8",
+    "scripts/generate-payroll-oneoff-statement-fixture.py": "93989b4777d45137d15cfadaff9fe481bfed31f105eb858f8eb3dabfce466146"
+  },
+  "logs": {
+    "backend.txt": "380cf1dd57fb0d50e7d7757f404198f51ee6b3c962a421c447445364bb243323",
+    "node.txt": "38d4ee054ca7f7ca582555ada8cff505cf2b43937b3bfe2204d29e81987ee866",
+    "flutter.txt": "0741483d2585dbbcf514857c1f3eda225b4d8af2ba418b2620a2199e11b51dbb",
+    "analyze.txt": "c0878af6d8fc8ac6753c745d84247441ad693e9e06fc4d478b6db2d2ccdb4ba8",
+    "browser.txt": "e245eaf82b4cedb89c488635f76ac5f40b3aa6c2be4e5f2fbd9f2ce5970fbdf6"
+  },
+  "screenshots": {
+    "browser-mobile.png": "84dac1c33afb068ba58474f162899e2e7cacc84c74c161d0198f34d790c17e38"
+  }
+}

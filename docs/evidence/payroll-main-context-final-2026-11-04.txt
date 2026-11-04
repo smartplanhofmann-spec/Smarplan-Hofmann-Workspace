@@ -1,0 +1,51 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross allowed session change
+00:00 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross allowed session change
+00:00 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross allowed session change
+00:00 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross allowed session change
+00:00 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross allowed session change
+00:00 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross allowed session change
+00:00 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross allowed session change
+00:01 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:02 +8: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:02 +9: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_oneoff_runs_test.dart: productive native entry opens the actual case and finalizes its Source4 run after exact lost response retry
+00:03 +10: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross approve change
+00:03 +11: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross generation change
+00:03 +12: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late preview cannot cross background change
+00:04 +13: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on session change
+00:04 +14: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main correction selector closes on session change
+00:05 +15: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on session change
+00:06 +16: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on session
+00:06 +17: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on session
+00:07 +18: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on session
+00:07 +19: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on employee change
+00:08 +20: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main correction selector closes on employee change
+00:08 +21: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on employee change
+00:09 +22: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on employee
+00:09 +23: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on employee
+00:10 +24: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on employee
+00:10 +25: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on read change
+00:11 +26: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main correction selector closes on read change
+00:11 +27: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on read change
+00:11 +28: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on read
+00:12 +29: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on read
+00:12 +30: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on read
+00:13 +31: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on approve change
+00:13 +32: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main correction selector closes on approve change
+00:13 +33: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on approve change
+00:14 +34: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on approve
+00:14 +35: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on approve
+00:15 +36: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on approve
+00:15 +37: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on generation change
+00:16 +38: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main correction selector closes on generation change
+00:16 +39: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on generation change
+00:16 +40: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on generation
+00:17 +41: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on generation
+00:17 +42: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on generation
+00:18 +43: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main nested case editor closes on background change
+00:18 +44: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main correction selector closes on background change
+00:18 +45: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main private correction closes on background change
+00:19 +46: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late correction preview is discarded on background
+00:19 +47: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private preview error is discarded on background
+00:20 +48: /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_main_context_review_test.dart: Source4 main late private correction error is discarded on background
+00:20 +49: All tests passed!

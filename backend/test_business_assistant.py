@@ -55,7 +55,16 @@ class AssistantTests(unittest.TestCase):
         self.other = dict(id=self.office.add_user('other@example.test', 'Synthetic-other-password', 'technician'), role='technician')
         self.project = self.office.add_project(self.owner, 'Synthetic project', 'Synthetic customer')
         self.private = self.office.add_project(self.owner, 'Other project', 'Other customer')
-        self.clock = lambda: datetime(2026, 11, 3, 12, tzinfo=timezone.utc)
+        self.today = datetime(2026, 11, 3, 12, tzinfo=timezone.utc)
+        self.clock = lambda: self.today
+        # Native send gates and HTTP speech handlers construct their own
+        # Assistant instances. Their default clock must use the same fixture
+        # day as the explicitly injected domain clock, on every real test date.
+        for module in ('business_assistant', 'business_assistant_speech'):
+            clock_patch = patch(module + '.datetime', wraps=datetime)
+            default_clock = clock_patch.start()
+            self.addCleanup(clock_patch.stop)
+            default_clock.now.side_effect = lambda zone: self.clock().astimezone(zone)
         self.api = Assistant(self.office, clock=self.clock)
 
     def problem(self, code, function, *args):

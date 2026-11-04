@@ -1,0 +1,16 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_payroll_private_context_review_test.dart
+00:00 +0: Source3 employee change closes private correction editor
+00:01 +1: P4 employee change closes private correction editor
+00:02 +2: Source3 session change closes private correction editor
+00:02 +3: P4 session change closes private correction editor
+00:02 +4: Source3 approval change closes private correction editor
+00:03 +5: P4 approval change closes private correction editor
+00:03 +6: Source3 late preview cannot cross employee change
+00:04 +7: P4 late preview cannot cross employee change
+00:05 +8: Source3 late preview cannot cross approval change
+00:05 +9: P4 late preview cannot cross approval change
+00:06 +10: Source3 late private edit error is discarded after background
+00:06 +11: P4 late private edit error is discarded after background
+00:06 +12: Source3 late private cancel error is discarded after background
+00:07 +13: P4 late private cancel error is discarded after background
+00:07 +14: All tests passed!

@@ -177,5 +177,67 @@ class CalculationPayrollPostgres(unittest.TestCase):
             with psycopg.connect(fixture.DSN,autocommit=True) as operator:operator.execute('DROP DATABASE smartplan_release_check WITH (FORCE)')
         self.reopen()
 
+    def test_actual_zero_net_declaration_restores_without_cash_and_with_identical_ledger_pdf(self):
+        from business_payroll_accounts import PayrollAccounts
+        data=self.workflow();employee=data['employee'];file=data['file']
+        common=dict(employee_id=employee['id'],employee_revision=employee['revision'],source_file_ids=[file['id']])
+        original=dict(id=file['id'],revision=1,content_hash=file['content_hash'])
+        details=dict(case_key=req()['request_id'],employment_terms_ref=data['case']['details']['employment_terms_refs'][0],
+            work_schedule_refs=[],preparation_refs=[],agreement_refs=[reference(data['agreement'])],sickness_history_ref=None,
+            input=dict(**{'from':'2026-10-15','to':'2026-10-31'},employment_to=None,employment_continues=True,
+                no_wage_claim=True,intervening_paid_days=[],evidence_refs=[original],exceptions=[]),
+            verification_note='Actual full unpaid first employment period')
+        proposal=dict(common,kind='unpaid_continuation',details=details)
+        preview=self.call('POST','/business/payroll/entitlements/preview',proposal).json
+        claim=self.call('POST','/business/payroll/entitlements',req(**proposal,revision=0,status='active',confirmed=True,
+            preview_hash=preview['preview_hash'])).json
+        proposal={key:data['case_command'][key] for key in ('employee_id','employee_revision','kind','rule_version','source_contract_version','details','source_file_ids')}
+        proposal['details']=dict(proposal['details'],entitlement_case_refs=[reference(claim)],travel_settlement_refs=[],flat_tax_decision=None)
+        preview=self.call('POST','/business/payroll/calculation-cases/preview',proposal).json
+        case=self.call('POST','/business/payroll/calculation-cases',req(**proposal,id=data['case']['id'],revision=1,status='active',confirmed=True,
+            preview_hash=preview['preview_hash'],correction_reason='Actual zero wage period; travel is not processed in this run')).json
+        run_input=dict(source_schema_version=3,employee_id=employee['id'],calculation_case_ref=reference(case))
+        preview=self.call('POST','/business/payroll/preview',run_input).json
+        run_command=req(**run_input,revision=0,confirmed=True,preview_hash=preview['preview_hash'],accepted_scope=preview['calculation']['scope'])
+        run=self.call('POST','/business/payroll/runs',run_command).json
+        self.assertEqual(0,run['calculation']['net_minor']-run['calculation']['net_deductions_minor'])
+        payment_command=req(employee_id=employee['id'],kind='payment',revision=0,source_file_id=file['id'],confirmed=True,
+            details=entitlement_pg.accounts.PayrollAccountTests.payment_details(self,run,data['identity'],payments=[]))
+        payment=self.call('POST','/business/payroll/account-records',payment_command).json
+        self.assertEqual(payment,self.call('POST','/business/payroll/account-records',payment_command).json)
+        ledger=self.call('GET','/business/payroll/ledger?employee_id='+employee['id']+'&year=2026').json['ledger']
+        self.assertEqual('no_payment_due',ledger['months'][9]['wage_account']['payment_status'])
+        self.assertTrue(ledger['months'][9]['wage_account']['complete'])
+        query=dict(employee_id=employee['id'],year='2026',snapshot_hash=ledger['snapshot_hash'])
+        pdf=Payroll(self.office).export_ledger(self.owner,query,'pdf')[0]
+        self.assertIn(b'Keine Nettozahlung geschuldet',pdf)
+        self.assertEqual(0,self.office.db.execute('SELECT COUNT(*) FROM business_payroll_cash_batches').fetchone()[0])
+        self.office.db.close();target=make_conninfo(fixture.DSN,dbname='smartplan_release_check')
+        release.validate_dsns(fixture.DSN,target,test_mode=True)
+        with psycopg.connect(fixture.DSN,autocommit=True) as operator:
+            if operator.execute("SELECT 1 FROM pg_database WHERE datname='smartplan_release_check'").fetchone():raise RuntimeError('Existing restore target remains untouched')
+            operator.execute('CREATE DATABASE smartplan_release_check OWNER "smartplan-migrator" TEMPLATE template0')
+        try:
+            with tempfile.TemporaryDirectory(prefix='synthetic-payroll-zero-backup-') as directory:
+                archive=backup(fixture.DSN,directory);result=restore(archive,fixture.DSN,target,privileged_operator=True,test_mode=True)
+                self.assertTrue(result['restore_pending'])
+            runtime=make_conninfo(self.runtime,dbname='smartplan_release_check');verifier=PostgresOffice(runtime,allow_restore_pending=True)
+            try:self.assertFalse(complete_restore(verifier)['restore_pending'])
+            finally:verifier.db.close()
+            restored=PostgresOffice(runtime)
+            try:
+                payroll=Payroll(restored);accounts=PayrollAccounts(restored)
+                self.assertEqual(payment,accounts.save(self.owner,payment_command))
+                self.assertEqual(run,payroll.finalize(self.owner,run_command))
+                self.assertEqual(ledger,payroll.ledger(self.owner,dict(employee_id=employee['id'],year='2026'))['ledger'])
+                self.assertEqual(pdf,payroll.export_ledger(self.owner,query,'pdf')[0])
+                self.assertEqual(data['original'],bytes(payroll.hr._file(file['id'])['original']))
+                self.assertEqual(0,restored.db.execute('SELECT COUNT(*) FROM business_payroll_cash_batches').fetchone()[0])
+                self.assertTrue(business_schema.validate_integrity(restored))
+            finally:restored.db.close()
+        finally:
+            with psycopg.connect(fixture.DSN,autocommit=True) as operator:operator.execute('DROP DATABASE smartplan_release_check WITH (FORCE)')
+        self.reopen()
+
 
 if __name__=='__main__':unittest.main()

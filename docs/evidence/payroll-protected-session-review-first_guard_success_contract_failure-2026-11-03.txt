@@ -1,0 +1,90 @@
+✔ actual OfficeApi P2 employment terms rejects an unrelated replay key without another POST (3.322544ms)
+✖ actual OfficeApi P2 employment terms accepts exact authorized original after rights restoration and module pause (24.329725ms)
+✔ actual OfficeApi P2 period case rejects an unrelated replay key without another POST (0.855801ms)
+✖ actual OfficeApi P2 period case accepts exact authorized original after rights restoration and module pause (2.779935ms)
+✔ actual OfficeApi P4 sickness rejects an unrelated replay key without another POST (1.375376ms)
+✖ actual OfficeApi P4 sickness accepts exact authorized original after rights restoration and module pause (4.269172ms)
+✔ actual OfficeApi P4 vacation rejects an unrelated replay key without another POST (6.564716ms)
+✖ actual OfficeApi P4 vacation accepts exact authorized original after rights restoration and module pause (6.218524ms)
+✔ actual OfficeApi P4 unpaid rejects an unrelated replay key without another POST (0.693957ms)
+✖ actual OfficeApi P4 unpaid accepts exact authorized original after rights restoration and module pause (1.662128ms)
+✔ actual OfficeApi global employer policy rejects an unrelated replay key without another POST (0.589359ms)
+✖ actual OfficeApi global employer policy accepts exact authorized original after rights restoration and module pause (1.684632ms)
+✔ actual OfficeApi Source3 calculation case rejects an unrelated replay key without another POST (1.332861ms)
+✔ actual OfficeApi Source3 calculation case accepts exact authorized original after rights restoration and module pause (5.943108ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 8
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 188.643006
+
+✖ failing tests:
+
+test at web/office/tests/payroll-protected-session-review.test.mjs:35:2
+✖ actual OfficeApi P2 employment terms accepts exact authorized original after rights restoration and module pause (24.329725ms)
+  Error [ApiError]: Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.
+      at OfficeApi.mutate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/office.js:949:114)
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-protected-session-review.test.mjs:40:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    status: 403,
+    requestResolution: null
+  }
+
+test at web/office/tests/payroll-protected-session-review.test.mjs:35:2
+✖ actual OfficeApi P2 period case accepts exact authorized original after rights restoration and module pause (2.779935ms)
+  Error [ApiError]: Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.
+      at OfficeApi.mutate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/office.js:949:114)
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-protected-session-review.test.mjs:40:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    status: 403,
+    requestResolution: null
+  }
+
+test at web/office/tests/payroll-protected-session-review.test.mjs:35:2
+✖ actual OfficeApi P4 sickness accepts exact authorized original after rights restoration and module pause (4.269172ms)
+  Error [ApiError]: Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.
+      at OfficeApi.mutate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/office.js:950:128)
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-protected-session-review.test.mjs:40:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    status: 403,
+    requestResolution: null
+  }
+
+test at web/office/tests/payroll-protected-session-review.test.mjs:35:2
+✖ actual OfficeApi P4 vacation accepts exact authorized original after rights restoration and module pause (6.218524ms)
+  Error [ApiError]: Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.
+      at OfficeApi.mutate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/office.js:950:128)
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-protected-session-review.test.mjs:40:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    status: 403,
+    requestResolution: null
+  }
+
+test at web/office/tests/payroll-protected-session-review.test.mjs:35:2
+✖ actual OfficeApi P4 unpaid accepts exact authorized original after rights restoration and module pause (1.662128ms)
+  Error [ApiError]: Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.
+      at OfficeApi.mutate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/office.js:950:128)
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-protected-session-review.test.mjs:40:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    status: 403,
+    requestResolution: null
+  }
+
+test at web/office/tests/payroll-protected-session-review.test.mjs:35:2
+✖ actual OfficeApi global employer policy accepts exact authorized original after rights restoration and module pause (1.684632ms)
+  Error [ApiError]: Die offene Lohnanfrage konnte nicht eindeutig autorisiert werden.
+      at OfficeApi.mutate (file:///workspace/Smarplan-Hofmann-Workspace/web/office/office.js:951:140)
+      at async TestContext.<anonymous> (file:///workspace/Smarplan-Hofmann-Workspace/web/office/tests/payroll-protected-session-review.test.mjs:40:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    status: 403,
+    requestResolution: null
+  }

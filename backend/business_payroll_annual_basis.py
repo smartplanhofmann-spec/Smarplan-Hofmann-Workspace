@@ -5,7 +5,9 @@ retain their protected originals and explicit tax/SV provenance. All new uses
 check current source revisions. Original accepted commands remain private.
 """
 import calendar
+from contextvars import ContextVar
 from datetime import date,timedelta
+from functools import wraps
 import json
 import re
 import uuid
@@ -21,6 +23,23 @@ from payroll_oneoff_2026 import BRANCHES,annual_social_room
 FEATURES=('payroll_annual_basis',)
 TABLES=('business_payroll_annual_events','business_payroll_annual_requests')
 ID=r'[a-f0-9]{32}'
+_CHECKS=ContextVar('payroll_annual_original_checks',default=None)
+
+
+def _original_check_scope(function):
+    """Deduplicate successful graph checks only within this read operation.
+
+    The next request always starts empty, including after a changed original
+    or missing receipt. Freshness checks are never cached. Context isolation
+    also keeps concurrent PostgreSQL writers from sharing successful checks.
+    """
+    @wraps(function)
+    def checked(*args,**kwargs):
+        if _CHECKS.get() is not None:return function(*args,**kwargs)
+        token=_CHECKS.set(set())
+        try:return function(*args,**kwargs)
+        finally:_CHECKS.reset(token)
+    return checked
 
 
 def schema_statements(binary_type='BYTEA'):
@@ -131,12 +150,16 @@ class PayrollAnnualBasis:
     def sources(self,actor,query):
         _shape(query,('employee_id',),('employee_id',))
         from business_payroll import Payroll
+        from business_payroll_accounts import PayrollAccounts
+        from business_payroll_calculation_cases import PayrollCalculationCases
         with transaction(self.office):
             result=self.facts.sources(actor,query)
-            result.update(annual_facts=self._all(result['employee_id']),payroll_runs=Payroll(self.office)._all('run',result['employee_id']))
+            result.update(annual_facts=self._all(result['employee_id']),payroll_runs=Payroll(self.office)._all('run',result['employee_id']),
+                payroll_payments=[item for item in PayrollAccounts(self.office)._all(result['employee_id']) if item['kind']=='payment'],
+                calculation_cases=PayrollCalculationCases(self.office)._all(result['employee_id'],'calculation_case'))
             return result
 
-    def _reference(self,employee_id,value,kind=None,*,fresh):
+    def _reference(self,employee_id,value,kind=None,*,fresh,current_one_off_id=None):
         value=ref(value);result=self._get(value['id'],value['revision'])
         if result['employee_id']!=employee_id or kind is not None and result['kind']!=kind:raise Problem(404,'Jahresquelle gehört nicht zu diesem Mitarbeiter oder Quellentyp.')
         if result['status']!='active' or reference(result)!=value or fresh and reference(self._get(value['id']))!=value:raise Problem(409,'Jahresquelle wurde korrigiert oder archiviert.')
@@ -145,7 +168,8 @@ class PayrollAnnualBasis:
             self.facts._files(employee_id,result['source_file_ids'],fresh=True)
             # Re-resolve dependencies with the original accepted employee view;
             # current top-level employee revision is checked at the caller.
-            if self._snapshot(result['sources']['employee'],result['kind'],result['details'],result['source_file_ids'],fresh=True)!=result['sources']:
+            if self._snapshot(result['sources']['employee'],result['kind'],result['details'],result['source_file_ids'],
+                    fresh=True,current_one_off_id=current_one_off_id)!=result['sources']:
                 raise Problem(409,'Jahresquelle entspricht nicht mehr ihren vollständigen aktuellen Originalen.')
         return result
 
@@ -155,20 +179,24 @@ class PayrollAnnualBasis:
         if run['employee_id']!=employee_id:raise Problem(404,'Lohnperiode gehört nicht zu diesem Mitarbeiter.')
         if reference(run)!=value or fresh and reference(api._latest(value['id'],'run'))!=value:raise Problem(409,'Die wirksame Lohnperiode wurde geändert.')
         if not run['calculation']['payroll_calculation_complete']:raise Problem(409,'Unvollständige Lohnperiode ist kein Jahresvortrag.')
-        if run['source'].get('source_schema_version')==3:api._verify_calculation_record(run)
+        if run['source'].get('source_schema_version') in (3,4):api._verify_calculation_record(run)
         else:
             from business_payroll import validate_integrity as validate_payroll_integrity
             validate_payroll_integrity(self.office)
             if _calculate_source(run['source'],rule_version=run['calculation']['rule_version'])!=run['calculation']:raise Problem(500,'Historische Lohnperiode ist nicht unverändert nachrechenbar.')
         return run
 
-    def _project_run(self,run,*,candidate=False,as_of_date,payment=None):
-        """Project canonical pre-v6 running wages, never infer annual totals."""
+    def _project_run(self,run,*,candidate=False,as_of_date,payment=None,basis_year=None,coverage_to=None):
+        """Project verified original running wages and actual separate v6 receipts."""
         from business_payroll_accounts import PayrollAccounts
         source,calc=run['source'],run['calculation'];month=source['month'];year=int(month[:4])
+        composite=source.get('source_schema_version')==4
+        original_calc=calc
+        if composite:calc=calc['running_calculation']
+        basis_year=year if basis_year is None else basis_year
         first=month+'-01';last=month+f'-{calendar.monthrange(year,int(month[5:]))[1]:02}'
         period_details=calc.get('period_details');run_ref=reference(run);periods=[]
-        if source.get('source_schema_version')==3:
+        if source.get('source_schema_version') in (3,4):
             snapshot=source['calculation_case']['sources']
             profiles={canonical(reference(item)):item['profile'] for item in snapshot['profiles']}
             assessments=period_details['social_assessments']
@@ -217,10 +245,54 @@ class PayrollAnnualBasis:
         elif taxable==0:status='not_individually_taxable'
         elif payment and all(value['paid_on']<=as_of_date and running_tax_year(last,value['paid_on'])==year for value in payment['details']['payments']):status='received_same_year'
         else:status='unproven'
-        return dict(source_ref=run_ref,coverage_start=first,coverage_end=last,periods=periods,
+        projection=dict(source_ref=run_ref,coverage_start=first,coverage_end=last,periods=periods,
             running_taxable_minor=taxable if status!='unproven' else 0,tax_receipt_status=status,payment_evidence=payment)
+        if composite:
+            extra=original_calc['one_off_details'];assignment=extra['assignment']
+            if not payment or not payment['details']['payments'] or any(
+                    part['paid_on']!=extra['receipt_date'] or part['paid_on']>as_of_date for part in payment['details']['payments']):
+                raise Problem(409,'Ein früherer interner Einmalbezug benötigt seinen tatsächlichen vollständig gebundenen Zufluss bis zum Jahresstichtag.')
+            projected_ref=run_ref if assignment['assigned_period_ref']==reference(source['calculation_case']) else assignment['assigned_period_ref']
+            projection['one_off_payment']=dict(source_ref=run_ref,payment_ref=reference(payment),
+                receipt_date=extra['receipt_date'],tax_year=assignment['tax_year'],social_year=assignment['social_year'],
+                amount_minor=extra['amount_minor'],section_key=source['one_off_case']['sources']['calculation_source']['one_off_earning']['details']['section_key'],
+                assigned_period_ref=projected_ref,assigned_part_key=extra['assigned_part_key'],
+                assigned_period_end=assignment['assigned_period_end'],bases_minor=assignment['bases_minor'])
+            projection['assignment_profiles']=[dict(part_key='social:'+str(index),start=value['period']['start'],end=value['period']['end'],
+                profile_ref=value['period']['profile_ref'],profile=profiles[canonical(value['period']['profile_ref'])]) for index,value in enumerate(assessments)]
+            # The exact originals are read and verified above; store their small
+            # reference projections to avoid recursively copying all prior years.
+            projection['payment_evidence']=self._compact_payment(payment)
+            if basis_year!=year or coverage_to is not None and last>coverage_to:
+                projection.update(coverage_start=None,coverage_end=None,periods=[],running_taxable_minor=0,
+                    tax_receipt_status='outside_running_year',assignment_profiles=[])
+        return projection
 
-    def _snapshot(self,employee,kind,d,ids,*,fresh=True):
+    @staticmethod
+    def _compact_payment(payment):
+        return {key:payment[key] for key in ('id','revision','content_hash','kind','employee_id','details','source_file','created_at')}
+
+    @staticmethod
+    def _compact_run(run):
+        if run['source'].get('source_schema_version')!=4:return run
+        return dict(reference(run),kind='run',employee_id=run['employee_id'],
+            source=dict(source_schema_version=4,month=run['source']['month']),projection_format='source4_annual_reference_v1')
+
+    @staticmethod
+    def _relevant_run(run,details,candidate,current_one_off_id=None):
+        month=run['source']['month']
+        # A correction replaces this exact bound claim, including its previous-
+        # year March-clause assignment. Other accepted claims remain mandatory.
+        if (current_one_off_id is not None and run['source'].get('source_schema_version')==4
+                and run['source']['one_off_case']['details']['one_off_earning_ref']['id']==current_one_off_id):return False
+        if candidate is not None and month==candidate['details']['month']:return False
+        if month.startswith(str(details['year'])+'-') and month<=details['coverage_to'][:7]:return True
+        extra=run['calculation'].get('one_off_details')
+        return bool(extra and extra['assignment']['social_year']==details['year']
+            and extra['assignment']['assigned_period_end']<=details['coverage_to'] and extra['receipt_date']<=details['as_of_date'])
+
+    @_original_check_scope
+    def _snapshot(self,employee,kind,d,ids,*,fresh=True,current_one_off_id=None):
         employee_id=employee['id'];files=self.facts._files(employee_id,ids,fresh=fresh)
         file_refs={item['id']:dict(id=item['id'],revision=1,content_hash=item['content_hash']) for item in files}
         if any(file_refs.get(value['id'])!=value for value in _document_refs(d)):raise Problem(409,'Jede strukturierte Jahresangabe muss ihre exakte geschützte Originalfassung derselben Person binden.')
@@ -282,24 +354,25 @@ class PayrollAnnualBasis:
                 if sorted(expected_periods,key=lambda v:v['id'])!=d['imported_period_refs'] or sorted(expected_bonuses,key=lambda v:v['id'])!=d['imported_one_off_refs']:
                     raise Problem(409,'Alle einschlägigen aktuellen Importperioden und bereits verarbeiteten Einmalbezüge binden.')
                 from business_payroll import Payroll
-                expected_runs=[reference(value) for value in Payroll(self.office)._all('run',employee_id) if value['source']['month'].startswith(str(d['year'])+'-')
-                    and value['source']['month']<=d['coverage_to'][:7] and (candidate is None or value['source']['month']!=candidate['details']['month'])]
+                expected_runs=[reference(value) for value in Payroll(self.office)._all('run',employee_id) if self._relevant_run(value,d,candidate,current_one_off_id)]
                 if sorted(expected_runs,key=lambda v:v['id'])!=d['payroll_run_refs']:raise Problem(409,'Alle tatsächlichen wirksamen Lohnperioden vollständig binden; die aktuelle laufende Quelle ersetzt nur ihren eigenen Monat.')
                 expected_payments=[reference(value) for value in accounts._all(employee_id) if value['kind']=='payment' and
                     (value['details']['run_id'],value['details']['run_revision']) in {(run['id'],run['revision']) for run in runs}]
                 if sorted(expected_payments,key=lambda value:value['id'])!=d['payroll_payment_refs']:raise Problem(409,'Alle aktuellen tatsächlichen Zahlungsfassungen der gebundenen Lohnperioden angeben.')
-            projected=[self._project_run(value,as_of_date=d['as_of_date'],payment=payment_by_run.get((value['id'],value['revision']))) for value in runs]
+            projected=[self._project_run(value,as_of_date=d['as_of_date'],payment=payment_by_run.get((value['id'],value['revision'])),basis_year=d['year'],coverage_to=d['coverage_to']) for value in runs]
             if candidate is not None:projected.append(self._project_run(current,candidate=True,as_of_date=d['as_of_date']))
             for run,projection in zip(runs,projected):
                 source=run['source']
-                identities=(source['calculation_case']['sources']['identities'] if source.get('source_schema_version')==3 else
+                identities=(source['calculation_case']['sources']['identities'] if source.get('source_schema_version') in (3,4) else
                     source['period_case']['sources']['identities'] if source.get('source_schema_version')==2 else
                     [projection['payment_evidence']['sources']['identity']] if projection['payment_evidence'] else [])
                 if not identities or any(employer_key(item)!=employer_key(identity) for item in identities):
                     raise Problem(409,'Tatsächliche interne Lohnperioden benötigen ihre passende belegte Arbeitgeberidentität.')
             if candidate is not None and any(employer_key(item)!=employer_key(identity) for item in candidate['sources']['identities']):
                 raise Problem(409,'Aktuelle Monatsquelle gehört zu einer anderen Arbeitgeberidentität.')
-            snapshot.update(imported_periods=imported,imported_one_offs=bonuses,payroll_runs=runs,payroll_payments=payments,current_calculation_case=candidate,internal_periods=projected)
+            snapshot.update(imported_periods=imported,imported_one_offs=bonuses,payroll_runs=[self._compact_run(run) for run in runs],
+                payroll_payments=[self._compact_payment(payment) if next(run for run in runs if run['id']==payment['details']['run_id'])['source'].get('source_schema_version')==4 else payment for payment in payments],
+                current_calculation_case=candidate,internal_periods=projected)
         else:
             history=self._reference(employee_id,d['annual_basis_ref'],'annual_basis',fresh=fresh)
             earning=self._reference(employee_id,d['current_one_off_ref'],'one_off_earning',fresh=fresh)
@@ -439,8 +512,11 @@ class PayrollAnnualBasis:
         return annual_social_room(dict(record['plan']['projection'],source_ref=reference(record)),through=through,section_key=section_key)
 
 
+@_original_check_scope
 def validate_annual_sources(office,value):
     api=PayrollAnnualBasis(office)
+    checks=_CHECKS.get();key=(id(office),'annual',_sha(value))
+    if key in checks:return True
     try:
         row=api._row(value['id'],value['revision']);payload=json.loads(row['payload_json']);command=payload['accepted_command']
         if (value!=api._event(row) or _sha(['annual.saved:'+value['kind'],command])!=row['command_hash']
@@ -465,6 +541,7 @@ def validate_annual_sources(office,value):
         plan=build_annual_plan(expected,rule_version=value['plan']['rule_version'])
         if expected!=value['sources'] or _sha(expected)!=value['source_hash'] or plan!=value['plan'] or value['preview_hash']!=_sha(dict(source_snapshot=expected,plan=plan)):
             raise ValueError('Changed annual sources or arithmetic')
+        checks.add(key)
         return True
     except (Problem,KeyError,TypeError,ValueError,RecursionError) as error:raise ValueError('Invalid historical annual payroll sources') from error
 

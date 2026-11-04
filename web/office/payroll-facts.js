@@ -112,7 +112,8 @@ export async function payrollFactsPendingAuthorize(api, operation) {
   const match = /^payroll-facts-([a-f0-9]{32})$/.exec(operation?.key || '');
   const body = api.pendingCommandValues(operation?.key, operation?.path);
   if (!match || operation.path !== '/business/payroll/facts' || body?.employee_id !== match[1] || !Object.hasOwn(PAYROLL_FACT_KINDS, body?.kind)) throw fail('Der ursprüngliche private Faktenauftrag ist nicht verfügbar.', 409);
-  return payrollFactsAuthorize(api, match[1], body.kind, {replay: true});
+  await payrollFactsAuthorize(api, match[1], body.kind, {replay: true});
+  return true;
 }
 function selection(items, ids, employeeId, label, {optional = false, kind = null} = {}) {
   if (!Array.isArray(ids) || new Set(ids).size !== ids.length || !optional && !ids.length) throw fail(label + ' ausdrücklich auswählen.');

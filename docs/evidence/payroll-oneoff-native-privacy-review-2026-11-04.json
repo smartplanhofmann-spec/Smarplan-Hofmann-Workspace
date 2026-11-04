@@ -1,0 +1,91 @@
+{
+  "recorded_at_utc": "2026-11-04T06:50:33.537181+00:00",
+  "status": "passed_after_shared_editor_fix",
+  "scope": "Native v6 private page lifecycle only; synthetic accepted Source4 fixtures and actual BusinessSession/widget implementations.",
+  "initial_checks": {
+    "passed": 6,
+    "listener_detachment_instrumented": false
+  },
+  "strengthened_checks": {
+    "passed": 5,
+    "failed": 1,
+    "listener_detachment_instrumented": true
+  },
+  "finding": "Before the shared-editor fix, an actual listener registered in _BusinessEditorState.initState remained attached to the old BusinessSession after widget/session replacement. The independent instrumented assertion failed. After the root-owned business_widgets.dart fix, the same assertion and all other five cases pass. No reappearing visible private content was observed in the original failure.",
+  "runtime_modified_by_reviewer": false,
+  "logs": [
+    {
+      "path": "docs/evidence/payroll-oneoff-native-privacy-review-initial-2026-11-04.txt",
+      "sha256": "f5fddc85435a453723422baaa37b28b71a0a3043f102a05a4617f3374e74ad4e"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-native-privacy-review-listener-failure-2026-11-04.txt",
+      "sha256": "2b7c619c933d8fd334b5c1159e95e32f9982e456c2dfb13b92cf3b7908a6f9d3"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-native-privacy-review-listener-origin-2026-11-04.txt",
+      "sha256": "8a35067fdf6ba7d7cc8b1d4fd588e442681049b47ec1f8360a0b605d7705e7ba"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-native-privacy-review-after-fix-2026-11-04.txt",
+      "sha256": "b11d50718d2d7548f6311bd285a5b2b33b490af4b304a5275aaedd13a7f664ce"
+    },
+    {
+      "path": "docs/evidence/payroll-oneoff-native-privacy-review-analyze-after-fix-2026-11-04.txt",
+      "sha256": "6f42519162e4bbcb040cd2aee0c074e12b59276e4ee717ca848875f04eb92fa2"
+    }
+  ],
+  "fix": {
+    "owner": "/root",
+    "runtime_path": "app/lib/business_widgets.dart",
+    "reviewer_runtime_changes": false,
+    "reviewed_change": "Rebind session listener in didUpdateWidget; invalidate and clear old-context draft; capture submitting context for pending state and reject late completion/error updates in a changed context."
+  },
+  "final_checks": {
+    "passed": 6,
+    "failed": 0,
+    "listener_detachment_instrumented": true,
+    "command": "flutter test --no-pub test/business_payroll_oneoff_cases_review_test.dart --reporter expanded",
+    "cases": [
+      "Session replacement closes the private editor and detaches every tracked old-session listener.",
+      "Employee replacement discards a delayed successful correction preview.",
+      "Approve permission withdrawal while read remains allowed closes the editor and discards delayed preview.",
+      "Session replacement suppresses a delayed private preview ApiException.",
+      "Backgrounding during held original-source authorization prevents the original callback, including after resume.",
+      "Employee context replacement suppresses a delayed private history ApiException."
+    ]
+  },
+  "analysis": {
+    "command": "flutter analyze --no-pub lib/business_payroll_oneoff_cases.dart test/business_payroll_oneoff_cases_review_test.dart",
+    "items": 2,
+    "issues": 0
+  },
+  "limitations": [
+    "Widget checks use fake transport with synthetic accepted Source4 fixtures; this report does not assert backend or production payroll release completion.",
+    "The original-document case checks authorization before the callback; it does not assert cancellation of an external viewer callback that already started.",
+    "Shared-editor direct regression and the owner v6 suite are verified separately by their respective owners.",
+    "Captured hashes identify files after this run, in a shared working tree; no immutable repository snapshot is claimed."
+  ],
+  "captured_after_run_files": [
+    {
+      "path": "app/test/business_payroll_oneoff_cases_review_test.dart",
+      "sha256": "034edd72c0f18f72a967eeae9fa7f10069c90956d41c44ebd88216bbce89ce2d"
+    },
+    {
+      "path": "app/lib/business_payroll_oneoff_cases.dart",
+      "sha256": "351b381e60274612c1b0854e7f7df995fccd818311b5a1266f626fdef954b16d"
+    },
+    {
+      "path": "app/lib/business_widgets.dart",
+      "sha256": "278bd8cab1365443123497958429b6b9f292122d85b65383dea219c08604747d"
+    },
+    {
+      "path": "app/test/business_payroll_oneoff_cases_test.dart",
+      "sha256": "8eea2a753cfadc9a21bceac68ad6c5d65bf4c1b75a7deccee3ac27f140de5b45"
+    },
+    {
+      "path": "docs/fixtures/payroll-oneoff-cases-2026.json",
+      "sha256": "7f75d50ecd395e6b7e8358522131e0d94c2d606526afefa391552028b047537b"
+    }
+  ]
+}

@@ -39,6 +39,16 @@ List<Map<String, dynamic>> businessItems(dynamic value) {
   }).toList();
 }
 
+bool _catalogCommand(String key, String path) {
+  final match = RegExp(r'^catalog-(import|apply)-([a-f0-9]{32})$')
+      .firstMatch(key);
+  if (match == null) return false;
+  return path ==
+      (match.group(1) == 'import'
+          ? '/adapters/${match.group(2)}/import'
+          : '/adapters/imports/${match.group(2)}/apply');
+}
+
 /// An early client hint only; the server checks the same module on every write.
 String? organizationCommandSection(String path) {
   final route = path.split('?').first;
@@ -582,6 +592,60 @@ class BusinessSession extends ChangeNotifier {
           throw const ApiException(
             403,
             'Der offene Assistentenvorgang gehört zu einem anderen Projekt.',
+          );
+        }
+      },
+    );
+  }
+
+  /// Catalog replay keeps the original file/mapping, nonce and validator.
+  /// Only the two explicit catalog command paths may use this retry policy.
+  Future<dynamic> repeatCatalogCommand(String key) {
+    final operation = _pending[key];
+    final match = RegExp(r'^catalog-(import|apply)-([a-f0-9]{32})$')
+        .firstMatch(key);
+    final importing = match?.group(1) == 'import';
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => _catalogCommand(key, path),
+      readPath: match == null
+          ? null
+          : importing
+          ? '/adapters/${match.group(2)}'
+          : '/adapters/imports/${match.group(2)}',
+      requireRights: () {
+        if (projectId != null ||
+            !hasModule('adapters') ||
+            !hasModule('catalog_imports') ||
+            !can('settings.manage') ||
+            !can('finance.read') ||
+            !canWrite('finance.write')) {
+          throw const ApiException(
+            403,
+            'Aktuelle globale Katalog- und Finanzrechte fehlen.',
+          );
+        }
+        if (!sectionEnabled('documents')) {
+          throw const ApiException(
+            423,
+            'Kaufmännische Belege sind fachlich deaktiviert.',
+          );
+        }
+      },
+      verifyState: (state) {
+        if (state['id'] != match?.group(2) ||
+            !const [
+              'catalog_csv_v1',
+              'datanorm_a14_cp850_v1',
+            ].contains(state['profile']) ||
+            importing && state['enabled'] != true ||
+            !importing &&
+                !const ['staged', 'applied'].contains(state['status']) ||
+            operation == null ||
+            !_catalogCommand(key, operation.path)) {
+          throw const ApiException(
+            409,
+            'Die ursprüngliche Katalogquelle ist nicht sicher freigegeben.',
           );
         }
       },
@@ -2151,6 +2215,7 @@ class BusinessSession extends ChangeNotifier {
       r'^/accounting/(components|refunds)/(?:v2/)?events/([a-f0-9]{32})/confirm$',
     ).firstMatch(path);
     final documentaryCommand =
+        _catalogCommand(key, path) ||
         (key.startsWith('accounting-opening-') &&
             const [
               '/accounting/opening-balances/originals',

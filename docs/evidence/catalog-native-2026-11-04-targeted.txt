@@ -1,0 +1,47 @@
+00:00 +0: loading /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart
+00:00 +0: actual backend preview and digest: csv_create
+00:00 +1: actual backend preview and digest: csv_update
+00:00 +2: actual backend preview and digest: csv_noop_preserves_unknown_cost
+00:00 +3: actual backend preview and digest: datanorm_create_half_up
+00:00 +4: actual backend preview and digest: datanorm_update_preserves_sales_price
+00:00 +5: preview rejects altered original, mapping, article revision, hash and forged exact price
+00:00 +6: DATANORM is decimal exact and does not infer price scale or VAT
+00:00 +7: only exact catalog JSON paths receive a 32 MiB response allowance
+00:00 +8: catalog command retains exact nonce on uncertain 0 across a fresh generation
+00:00 +9: catalog command retains exact nonce on uncertain 403 across a fresh generation
+00:00 +10: catalog command retains exact nonce on uncertain 404 across a fresh generation
+00:00 +11: catalog command retains exact nonce on uncertain 409 across a fresh generation
+00:00 +12: catalog replay verifies fresh read authority before another POST
+00:00 +13: catalog replay verifies fresh write authority before another POST
+00:00 +14: catalog replay verifies fresh module authority before another POST
+00:00 +15: real file bytes, bound CSV preview, explicit confirmation, history and original export
+00:01 +16: lost import ACK survives page disposal with exact original request_id and bytes
+00:01 +17: lost acceptance ACK reopens applied history and repeats the identical confirmation
+00:01 +18: existing no-op keeps unknown cost and does not promise a new article revision
+00:01 +19: readonly and module-off retain genuine inspection without acceptance controls
+00:01 +20: late native server preview cannot refill after write changes
+00:02 +21: late native server preview cannot refill after module changes
+00:02 +22: late native server preview cannot refill after read changes
+00:02 +23: late native server preview cannot refill after generation changes
+00:02 +24: session replacement detaches old listener and suppresses its late private error
+00:02 +25: background invalidates a late file picker result before upload
+00:02 +26: background invalidates a late file picker error before upload
+00:02 +27: withdrawn original download cannot reach the native exporter
+00:02 +28: native catalog preview fits a 390-pixel viewport
+00:02 +29: existing adapter page routes catalogs to evidence workflow and keeps GAEB import
+00:02 +30: adapter replacement while picker is pending suppresses the late private error
+00:02 +31: session replacement while picker is pending suppresses the late private error
+00:03 +32: adapter replacement while preview is pending suppresses the late private error
+00:03 +33: session replacement while preview is pending suppresses the late private error
+00:03 +34: adapter replacement while accept is pending suppresses the late private error
+00:03 +35: session replacement while accept is pending suppresses the late private error
+00:03 +36: accepted original ACK after adapter replacement resolves only its captured command
+00:03 +37: late preview failure after background does not reappear on resume
+00:03 +38: oversize file is rejected before a catalog import command exists
+00:03 +39: DATANORM native mapping starts empty and requires a new preview after edits
+00:04 +40: a changed original is rejected before any native exporter sees its bytes
+00:04 +41: list navigation closes catalog when the parent session is replaced
+00:04 +42: detail navigation closes catalog when the parent session is replaced
+00:04 +43: actual HTTP enforces exact 32 MiB catalog and unchanged 20 MiB ordinary JSON boundaries
+00:05 +44: actual native HTTP imports original bytes, binds preview, replays both lost ACKs and reads 2 MiB Unicode catalog
+00:08 +45: All tests passed!

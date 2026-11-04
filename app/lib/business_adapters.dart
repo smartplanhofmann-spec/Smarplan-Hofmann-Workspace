@@ -7,11 +7,19 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_catalog_imports.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 import 'mail_attachment_preview.dart';
 import 'mail_attachment_widgets.dart' show exportMailAttachment;
 import 'offline_vault.dart' show offlineId;
+
+void _closeAdapterRoute(Route<void>? route) {
+  if (route == null) return;
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (route.isActive) route.navigator?.removeRoute(route);
+  });
+}
 
 class BusinessAdaptersPage extends StatefulWidget {
   const BusinessAdaptersPage({super.key, required this.session});
@@ -23,6 +31,18 @@ class BusinessAdaptersPage extends StatefulWidget {
 class _BusinessAdaptersPageState extends State<BusinessAdaptersPage> {
   List<Map<String, dynamic>> adapters = [], profiles = [], suppliers = [];
   String? error;
+  int epoch = 0;
+  Route<void>? adapterRoute;
+  GlobalKey<_BusinessAdapterPageState>? adapterPage;
+
+  void closeAdapter() {
+    adapterPage?.currentState?.closeCatalog();
+    adapterPage = null;
+    final route = adapterRoute;
+    adapterRoute = null;
+    _closeAdapterRoute(route);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +53,9 @@ class _BusinessAdaptersPageState extends State<BusinessAdaptersPage> {
   void changed() {
     if (mounted) {
       if (!widget.session.can('settings.manage')) {
+        closeAdapter();
+        epoch++;
+        error = null;
         adapters = [];
         profiles = [];
         suppliers = [];
@@ -42,15 +65,36 @@ class _BusinessAdaptersPageState extends State<BusinessAdaptersPage> {
   }
 
   @override
+  void didUpdateWidget(covariant BusinessAdaptersPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.session, widget.session)) {
+      closeAdapter();
+      oldWidget.session.removeListener(changed);
+      widget.session.addListener(changed);
+      epoch++;
+      adapters = [];
+      profiles = [];
+      suppliers = [];
+      error = null;
+      load();
+    }
+  }
+
+  @override
   void dispose() {
+    closeAdapter();
     widget.session.removeListener(changed);
     super.dispose();
   }
 
   Future<void> load() async {
+    final captured = epoch, session = widget.session;
     try {
-      final data = businessMap(await widget.session.read('/adapters'));
-      if (mounted && widget.session.can('settings.manage'))
+      final data = businessMap(await session.read('/adapters'));
+      if (mounted &&
+          captured == epoch &&
+          identical(session, widget.session) &&
+          session.can('settings.manage'))
         setState(() {
           adapters = businessItems(data);
           profiles = (data['profiles'] as List? ?? [])
@@ -61,7 +105,11 @@ class _BusinessAdaptersPageState extends State<BusinessAdaptersPage> {
               .toList();
         });
     } catch (e) {
-      if (mounted) setState(() => error = '$e');
+      if (mounted &&
+          captured == epoch &&
+          identical(session, widget.session) &&
+          session.can('settings.manage'))
+        setState(() => error = '$e');
     }
   }
 
@@ -152,17 +200,24 @@ class _BusinessAdaptersPageState extends State<BusinessAdaptersPage> {
                 ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () async {
-                  await Navigator.push<void>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => BusinessAdapterPage(
-                        session: widget.session,
-                        adapter: adapter,
-                        onConfigure: () => configure(adapter),
-                      ),
+                  final owner = widget.session,
+                      page = GlobalKey<_BusinessAdapterPageState>();
+                  final route = MaterialPageRoute<void>(
+                    builder: (_) => BusinessAdapterPage(
+                      key: page,
+                      session: owner,
+                      adapter: adapter,
+                      onConfigure: () => configure(adapter),
                     ),
                   );
-                  if (mounted) await load();
+                  adapterPage = page;
+                  adapterRoute = route;
+                  await Navigator.of(context).push(route);
+                  if (identical(adapterRoute, route)) {
+                    adapterRoute = null;
+                    adapterPage = null;
+                  }
+                  if (mounted && identical(owner, widget.session)) await load();
                 },
               ),
             ),
@@ -209,6 +264,14 @@ class _BusinessAdapterPageState extends State<BusinessAdapterPage> {
   String? error, notice;
   bool busy = false;
   late Map<String, dynamic> adapter;
+  Route<void>? catalogRoute;
+
+  void closeCatalog() {
+    final route = catalogRoute;
+    catalogRoute = null;
+    _closeAdapterRoute(route);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -231,7 +294,25 @@ class _BusinessAdapterPageState extends State<BusinessAdapterPage> {
   }
 
   @override
+  void didUpdateWidget(covariant BusinessAdapterPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.session, widget.session) ||
+        oldWidget.adapter['id'] != widget.adapter['id']) {
+      oldWidget.session.removeListener(changed);
+      widget.session.addListener(changed);
+      closeCatalog();
+      adapter = businessMap(widget.adapter);
+      staged = null;
+      pendingImport = null;
+      error = null;
+      notice = null;
+      busy = false;
+    }
+  }
+
+  @override
   void dispose() {
+    closeCatalog();
     widget.session.removeListener(changed);
     pendingImport = null;
     staged = null;
@@ -507,6 +588,9 @@ class _BusinessAdapterPageState extends State<BusinessAdapterPage> {
     if (!widget.session.can('settings.manage'))
       return const Scaffold(body: Center(child: Text('Kein Zugriff.')));
     final run = staged;
+    final catalog =
+        catalogProfiles.containsKey(adapter['profile']) &&
+        widget.session.hasModule('catalog_imports');
     return Scaffold(
       appBar: AppBar(title: Text('${adapter['name']}')),
       body: ListView(
@@ -529,6 +613,21 @@ class _BusinessAdapterPageState extends State<BusinessAdapterPage> {
             spacing: 12,
             runSpacing: 12,
             children: [
+              if (catalog && catalogReadable(widget.session))
+                FilledButton(
+                  onPressed: () async {
+                    final route = MaterialPageRoute<void>(
+                      builder: (_) => BusinessCatalogImportsPage(
+                        session: widget.session,
+                        adapter: adapter,
+                      ),
+                    );
+                    catalogRoute = route;
+                    await Navigator.of(context).push(route);
+                    if (identical(catalogRoute, route)) catalogRoute = null;
+                  },
+                  child: const Text('Katalogimporte und Originale'),
+                ),
               if (widget.session.canWrite('settings.manage'))
                 OutlinedButton(
                   onPressed: busy
@@ -546,6 +645,7 @@ class _BusinessAdapterPageState extends State<BusinessAdapterPage> {
                   child: const Text('Profil bearbeiten'),
                 ),
               if (adapter['enabled'] == true &&
+                  !catalog &&
                   profile['import'] == true &&
                   adapter['profile'] != 'website_lead_v1' &&
                   widget.session.canWrite('finance.write'))
@@ -588,6 +688,7 @@ class _BusinessAdapterPageState extends State<BusinessAdapterPage> {
                 ),
               ),
             if (run['status'] == 'staged' &&
+                !catalog &&
                 [
                   'catalog_csv_v1',
                   'datanorm_a14_cp850_v1',

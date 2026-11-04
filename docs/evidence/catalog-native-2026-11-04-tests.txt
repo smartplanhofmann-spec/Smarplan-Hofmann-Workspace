@@ -1,0 +1,91 @@
+00:00 +0: loading /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart
+00:00 +0: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: csv_create
+00:00 +1: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: csv_update
+00:00 +2: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: csv_noop_preserves_unknown_cost
+00:00 +3: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: datanorm_create_half_up
+00:00 +4: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: datanorm_update_preserves_sales_price
+00:00 +5: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: preview rejects altered original, mapping, article revision, hash and forged exact price
+00:00 +6: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: DATANORM is decimal exact and does not infer price scale or VAT
+00:00 +7: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: only exact catalog JSON paths receive a 32 MiB response allowance
+00:00 +8: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: catalog command retains exact nonce on uncertain 0 across a fresh generation
+00:00 +9: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: catalog command retains exact nonce on uncertain 403 across a fresh generation
+00:00 +10: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: catalog command retains exact nonce on uncertain 404 across a fresh generation
+00:00 +11: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: catalog command retains exact nonce on uncertain 409 across a fresh generation
+00:00 +12: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: catalog replay verifies fresh read authority before another POST
+00:00 +13: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: catalog replay verifies fresh write authority before another POST
+00:00 +14: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: catalog replay verifies fresh module authority before another POST
+00:00 +15: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: real file bytes, bound CSV preview, explicit confirmation, history and original export
+00:01 +16: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: lost import ACK survives page disposal with exact original request_id and bytes
+00:01 +17: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: lost acceptance ACK reopens applied history and repeats the identical confirmation
+00:01 +18: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: existing no-op keeps unknown cost and does not promise a new article revision
+00:01 +19: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: readonly and module-off retain genuine inspection without acceptance controls
+00:01 +20: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after write changes
+00:02 +21: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after module changes
+00:02 +22: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after read changes
+00:02 +23: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after generation changes
+00:02 +24: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: session replacement detaches old listener and suppresses its late private error
+00:02 +25: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: background invalidates a late file picker result before upload
+00:02 +26: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: background invalidates a late file picker error before upload
+00:02 +27: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: withdrawn original download cannot reach the native exporter
+00:02 +28: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: native catalog preview fits a 390-pixel viewport
+00:02 +29: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: existing adapter page routes catalogs to evidence workflow and keeps GAEB import
+00:02 +30: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: adapter replacement while picker is pending suppresses the late private error
+00:03 +31: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: session replacement while picker is pending suppresses the late private error
+00:03 +32: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: adapter replacement while preview is pending suppresses the late private error
+00:03 +33: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: session replacement while preview is pending suppresses the late private error
+00:03 +34: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: adapter replacement while accept is pending suppresses the late private error
+00:03 +35: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: session replacement while accept is pending suppresses the late private error
+00:03 +36: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: accepted original ACK after adapter replacement resolves only its captured command
+00:03 +37: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: late preview failure after background does not reappear on resume
+00:03 +38: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: oversize file is rejected before a catalog import command exists
+00:03 +39: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: DATANORM native mapping starts empty and requires a new preview after edits
+00:04 +40: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: a changed original is rejected before any native exporter sees its bytes
+00:04 +41: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: list navigation closes catalog when the parent session is replaced
+00:04 +42: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: detail navigation closes catalog when the parent session is replaced
+00:04 +43: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: actual HTTP enforces exact 32 MiB catalog and unchanged 20 MiB ordinary JSON boundaries
+00:05 +44: /workspace/smartplan-catalog-browser-20261104/app/test/business_catalog_imports_test.dart: actual native HTTP imports original bytes, binds preview, replays both lost ACKs and reads 2 MiB Unicode catalog
+00:08 +45: loading /workspace/smartplan-catalog-browser-20261104/app/test/business_session_test.dart
+00:09 +45: /workspace/smartplan-catalog-browser-20261104/app/test/business_session_test.dart: Additive feature support neither grants rights nor survives logout or removal
+00:09 +46: /workspace/smartplan-catalog-browser-20261104/app/test/business_session_test.dart: Permissions come from server and unsupported modules remain absent
+00:09 +47: /workspace/smartplan-catalog-browser-20261104/app/test/business_session_test.dart: Old server remains unsupported and offline grant makes no business request
+00:09 +48: /workspace/smartplan-catalog-browser-20261104/app/test/business_session_test.dart: Logout during a real asynchronous read drops its late result
+00:09 +49: /workspace/smartplan-catalog-browser-20261104/app/test/business_session_test.dart: Uncertain retries keep exact body and request ID, changed edits are refused
+00:09 +50: /workspace/smartplan-catalog-browser-20261104/app/test/business_session_test.dart: Read-only return mode keeps archives visible and refuses every command
+00:09 +51: loading /workspace/smartplan-catalog-browser-20261104/app/test/business_workflows_widget_test.dart
+00:10 +51: /workspace/smartplan-catalog-browser-20261104/app/test/business_workflows_widget_test.dart: Contact work persists multiple address and person records through their real revisions
+00:11 +52: /workspace/smartplan-catalog-browser-20261104/app/test/business_workflows_widget_test.dart: A document template is editable without a project or invoice issue date
+00:12 +53: /workspace/smartplan-catalog-browser-20261104/app/test/business_workflows_widget_test.dart: The time account requires an explicit approval of the displayed day revision
+00:12 +54: loading /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart
+00:13 +54: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: exact bank cents reject rounding, implicit zeros and unrequested signs
+00:13 +55: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: original preview and ACK bind exact file metadata and all normalized bank rows
+00:13 +56: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: lookalike evidence is explicitly included only after new bound preview
+00:13 +57: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: explicit partial match requires current source and date justification without changing cash date
+00:13 +58: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: stored nested account match report receipts cannot change original reviewed sources
+00:13 +59: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: archived charset parameters are normalized for exact native media check
+00:13 +60: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: historical exports require complete digest size and exact JSON envelope
+00:13 +61: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: native lost import ACK keeps nonce body and neutral key through bank grant removal and later revisions
+00:13 +62: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: native match replay checks transaction binding before any repeated POST
+00:13 +63: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: 390px private bank view clears IBAN and pending content when bank read is revoked
+00:14 +64: /workspace/smartplan-catalog-browser-20261104/app/test/business_bank_reconciliation_test.dart: bank binding defaults all factual choices empty and activation unconfirmed
+00:15 +65: loading /workspace/smartplan-catalog-browser-20261104/app/test/business_purchase_changes_test.dart
+00:16 +65: /workspace/smartplan-catalog-browser-20261104/app/test/business_purchase_changes_test.dart: exact decimal quantities never round or invent a null return
+00:16 +66: /workspace/smartplan-catalog-browser-20261104/app/test/business_purchase_changes_test.dart: input binds actual receipt source and amendment includes every position
+00:16 +67: /workspace/smartplan-catalog-browser-20261104/app/test/business_purchase_changes_test.dart: strict previews and receipts preserve source, exact quantities and price redaction
+00:16 +68: /workspace/smartplan-catalog-browser-20261104/app/test/business_purchase_changes_test.dart: lost ACK retries original nonce after fresh project rights and source advance (scoped=false)
+00:16 +69: /workspace/smartplan-catalog-browser-20261104/app/test/business_purchase_changes_test.dart: lost ACK retries original nonce after fresh project rights and source advance (scoped=true)
+00:16 +70: /workspace/smartplan-catalog-browser-20261104/app/test/business_purchase_changes_test.dart: real return form leads to source-bound preview and explicit confirmation without duplicate effect after lost ACK
+00:18 +71: loading /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart
+00:19 +71: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: JSON requests preserve UTF-8, bearer token and POST body
+00:19 +72: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: large bank DTO crosses ordinary limit without changing unrelated JSON bounds
+00:19 +73: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: PDF request returns original binary bytes, not decoded JSON
+00:19 +74: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: A non-PDF response is rejected before preview or saving
+00:19 +75: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: Unauthorized response clears session and notifies the UI
+00:19 +76: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: Redirects are refused rather than forwarding authentication
+00:19 +77: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: Remote cleartext HTTP is rejected before connecting
+00:19 +78: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: Online configuration uses the versioned API path
+00:19 +79: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: request resolution is retained only for explicit not-accepted conflict (409, not_accepted, not_accepted)
+00:19 +80: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: request resolution is retained only for explicit not-accepted conflict (409, null, null)
+00:19 +81: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: request resolution is retained only for explicit not-accepted conflict (409, unknown, null)
+00:19 +82: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: request resolution is retained only for explicit not-accepted conflict (403, not_accepted, null)
+00:19 +83: /workspace/smartplan-catalog-browser-20261104/app/test/api_test.dart: request resolution is retained only for explicit not-accepted conflict (500, not_accepted, null)
+00:19 +84: All tests passed!

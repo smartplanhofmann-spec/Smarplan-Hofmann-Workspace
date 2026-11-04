@@ -47,6 +47,10 @@ Testzahlen, konkrete Grenzen und laufende Integration stehen im
 [Integrationsstand](CRM_ERP_INTEGRATIONSSTAND_2026-11-03.md). Keine Tabellenzeile
 ist allein eine Produktivfreigabe oder eine abgeschlossene Gesamtabnahme A–G.
 
+Die native Kataloghistorie und Originalübernahme sind nach dem gemeinsamen
+Anfangssaldo-/Browserstand fertig integriert: 1.163 Fluttertests und Analyse
+ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
+
 ## Aktive Arbeitspakete
 
 1. **Weitere Einmalbezugsfälle fertigstellen.** Die private Jahresquellen-API

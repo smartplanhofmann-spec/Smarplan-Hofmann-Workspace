@@ -1848,3 +1848,16 @@ weiter. Ihre Teilnachweise gehören nicht zum neuen eingefrorenen Gesamtstand.
 Unternehmensweite Ereignisregeln und verbleibende Lohn-/Steuerfälle sind weiterhin
 Implementierungsarbeit. Es wurde keine Produktivmigration oder Gesamtabnahme
 behauptet.
+
+## Native Kataloghistorie nach c7dbab0 – 04.11.2026
+
+Der bisherige native Dateiimport besitzt jetzt dieselben unveränderten Originale,
+Annahmehistorien und serverseitigen Vorschauen wie der Browser. Der gemeinsame
+Sessioncode bewahrt Opening- und Source4-Aufträge und erhält einen eng begrenzten
+Katalog-Replaypfad. Reale HTTP-Prüfungen belegen 2 MiB mit 2.000 Artikeln in Unicode sowie
+die genaue Grenze von 32 MiB für Katalogantworten und deren Überschreitung um ein Byte.
+Die vollständige integrierte Flutterregression besteht 1.163/1.163; Analyse ohne
+Befund. Backend und Browser bleiben exakt auf dem geprüften c7dbab0-Stand.
+[Prüfumfang und Nachweise](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
+Source5, historische Anlagen und datierte Preisquellen sind weiter getrennte
+Entwicklungsarbeit und in diesem Clientcheckpoint nicht enthalten.

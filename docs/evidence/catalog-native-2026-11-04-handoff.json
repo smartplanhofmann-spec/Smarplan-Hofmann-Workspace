@@ -1,0 +1,91 @@
+{
+  "worktree": "/workspace/smartplan-catalog-browser-20261104",
+  "worktree_base": "2fdfa9f37bbbaf9e8b6fe4070be6809fe15b69c3",
+  "tracked_delta_base": "5d9e7fd2cc0f04ef46d25d112549408454c6519a",
+  "expected_root_target": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+  "scope": "Native CSV-v1 / limited DATANORM originals, history, bound preview and exact replay",
+  "validation": {
+    "catalog_tests": 45,
+    "combined_tests": 84,
+    "analyze_issues": 0,
+    "diff_check": "passed",
+    "frozen_browser_backend_hashes": "all unchanged"
+  },
+  "integration_warning": "Merge business_session.dart and api.dart against 5d9e7fd; retain Root Opening/Source4 changes. Do not overwrite shared session from this older worktree. business_widgets.dart remains exact 5d9e7fd and is not part of this package.",
+  "files": [
+    {
+      "path": "app/lib/business_catalog_imports.dart",
+      "baseline_commit": null,
+      "baseline_sha256": null,
+      "current_sha256": "892f4b639ba054788612159eab4dcfdf6f7b20f077be2630342507a09a5acf10",
+      "bytes": 32368
+    },
+    {
+      "path": "app/lib/business_adapters.dart",
+      "baseline_commit": "5d9e7fd2cc0f04ef46d25d112549408454c6519a",
+      "baseline_sha256": "864a45864791d5aeb4613a5d2b7231a4641b5e5253a4b6f9519109671c9cb8a2",
+      "current_sha256": "0761a477009083039efbc43a46299030576f281c53a682c7c4bb414589bbcefd",
+      "bytes": 23414
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "baseline_commit": "5d9e7fd2cc0f04ef46d25d112549408454c6519a",
+      "baseline_sha256": "b2ce8252048b9dcb230046e2546f211eb351d72621f42fc6f842cf66c2de148d",
+      "current_sha256": "6e6c1a42f7eaa574f855b247be007343563b5129f628bae665a7613b0df8fa75",
+      "bytes": 86364
+    },
+    {
+      "path": "app/lib/api.dart",
+      "baseline_commit": "5d9e7fd2cc0f04ef46d25d112549408454c6519a",
+      "baseline_sha256": "8e1cab8905dc94900491ffd30d360ed00c81b95847d2cecf44959e52b07711f3",
+      "current_sha256": "d1241f02b7f7163bae00ec1c6a5cfa2ae42c5a1b5ca505218fe25c1efac501b8",
+      "bytes": 7402
+    },
+    {
+      "path": "app/test/business_catalog_imports_test.dart",
+      "baseline_commit": null,
+      "baseline_sha256": null,
+      "current_sha256": "6d8c7cf1e1e560e4b530102efe0eae97017cc5966fc620312e7949c6fe21a6fc",
+      "bytes": 43250
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04.md",
+      "baseline_commit": null,
+      "baseline_sha256": null,
+      "current_sha256": "59cc1ce2ac74f2f4d087a233bd47c7e8054aedc209cdc6f467f31e176b42b5a7",
+      "bytes": 6269
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04-tests.txt",
+      "baseline_commit": null,
+      "baseline_sha256": null,
+      "current_sha256": "f22aff6a4b65b6fc22c54dbc7666aae03c19817b6c4c655b94d83b5aa11d67cc",
+      "bytes": 15196
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04-targeted.txt",
+      "baseline_commit": null,
+      "baseline_sha256": null,
+      "current_sha256": "6574c414de920c464ca2032a3ebdb35855ff1e507deffee0451f4df435d5d26e",
+      "bytes": 3865
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04-analyze.txt",
+      "baseline_commit": null,
+      "baseline_sha256": null,
+      "current_sha256": "5062e22488db8ba1e824d88670edc881b986e5e1eea2b72ae29101c25231a661",
+      "bytes": 96
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04-tracked.patch",
+      "baseline_commit": null,
+      "baseline_sha256": null,
+      "current_sha256": "6361cfd274b77493a84d88a09a7c0af29e2562537cd4e075c9477264f1d6d244",
+      "bytes": 12631
+    }
+  ],
+  "unchanged_fixture_dependency": {
+    "path": "web/office/tests/fixtures/catalog-import-previews.json",
+    "sha256": "d4aefd5f323343f5f38ee39478898f87617eddbd1adeae84ca701e33bbedd6de"
+  }
+}

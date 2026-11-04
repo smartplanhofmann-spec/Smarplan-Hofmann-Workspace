@@ -206,8 +206,12 @@ class OfficeApi extends ChangeNotifier {
 /// Other API and binary download limits remain independent.
 int officeJsonResponseLimit(String path) =>
     RegExp(
-      r'^/api/business/bank/(?:accounts|import/preview|statements(?:/[a-f0-9]{32})?|transactions/[a-f0-9]{32}/(?:candidates|history|preview|matches)|reconciliations(?:/preview|/[a-f0-9]{32})?)$',
+      r'^/api/(?:v1/)?business/adapters/(?:[a-f0-9]{32}/import|imports/[a-f0-9]{32}(?:/(?:catalog-preview|apply))?)$',
     ).hasMatch(path.split('?').first)
+    ? 32 * 1024 * 1024
+    : RegExp(
+        r'^/api/business/bank/(?:accounts|import/preview|statements(?:/[a-f0-9]{32})?|transactions/[a-f0-9]{32}/(?:candidates|history|preview|matches)|reconciliations(?:/preview|/[a-f0-9]{32})?)$',
+      ).hasMatch(path.split('?').first)
     ? 128 * 1024 * 1024
     : 20 * 1024 * 1024;
 

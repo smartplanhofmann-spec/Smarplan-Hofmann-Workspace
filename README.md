@@ -44,7 +44,9 @@ Katalogimport sind jetzt gemeinsam geprüft: [1.565 bestandene Backendtests,
 522 Node- und 1.118 Fluttertests, 16 Paketprüfungen sowie tatsächliche
 PostgreSQL-/Restore- und Browserabläufe](docs/CRM_ERP_ANFANGSSALDEN_KATALOG_GESAMTPRUEFUNG_2026-11-04.md).
 Aktiv entstehen Source5-Lohn-/Zahlungsfälle, historische Anlagen, datierte
-Katalogpreise und die native Kataloghistorie. Diese weiteren Änderungen
+Katalogpreise. Die native Kataloghistorie ist inzwischen integriert und durch
+eine [weitere vollständige App-Prüfung mit 1.163 Tests](docs/CRM_ERP_KATALOG_NATIVE_2026-11-04.md) abgesichert.
+Die noch laufenden fachlichen Erweiterungen
 liegen außerhalb des neuen eingefrorenen Gesamtnachweises.
 Das Gesamtziel ist noch nicht erreicht.
 

@@ -1,0 +1,85 @@
+{
+  "recorded_at_utc": "2026-11-04T08:57:26.462077+00:00",
+  "base_commit": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+  "scope": "Native V1/limited DATANORM catalog original/history/authoritative preview and exact replay integrated with c7 Opening and Source4 clients",
+  "checks": [
+    {
+      "name": "flutter",
+      "passed": 1163,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 356.776,
+      "command": [
+        "/workspace/toolchains/flutter/bin/flutter",
+        "test",
+        "--no-pub",
+        "--reporter",
+        "expanded",
+        "test"
+      ],
+      "log": "docs/evidence/catalog-native-integrated-flutter-2026-11-04.txt"
+    },
+    {
+      "name": "analyze",
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 12.504,
+      "command": [
+        "/workspace/toolchains/flutter/bin/flutter",
+        "analyze",
+        "--no-pub"
+      ],
+      "log": "docs/evidence/catalog-native-integrated-analyze-2026-11-04.txt"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "app/lib/business_catalog_imports.dart",
+      "sha256": "892f4b639ba054788612159eab4dcfdf6f7b20f077be2630342507a09a5acf10"
+    },
+    {
+      "path": "app/lib/business_adapters.dart",
+      "sha256": "0761a477009083039efbc43a46299030576f281c53a682c7c4bb414589bbcefd"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "sha256": "7c2252942c2f90a4b949138b209f7f4675e0a0af60a2c36c9ba3a9d3d3c5f5e6"
+    },
+    {
+      "path": "app/lib/api.dart",
+      "sha256": "d1241f02b7f7163bae00ec1c6a5cfa2ae42c5a1b5ca505218fe25c1efac501b8"
+    },
+    {
+      "path": "app/test/business_catalog_imports_test.dart",
+      "sha256": "6d8c7cf1e1e560e4b530102efe0eae97017cc5966fc620312e7949c6fe21a6fc"
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04.md",
+      "sha256": "59cc1ce2ac74f2f4d087a233bd47c7e8054aedc209cdc6f467f31e176b42b5a7"
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04-tests.txt",
+      "sha256": "f22aff6a4b65b6fc22c54dbc7666aae03c19817b6c4c655b94d83b5aa11d67cc"
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04-targeted.txt",
+      "sha256": "6574c414de920c464ca2032a3ebdb35855ff1e507deffee0451f4df435d5d26e"
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04-analyze.txt",
+      "sha256": "5062e22488db8ba1e824d88670edc881b986e5e1eea2b72ae29101c25231a661"
+    },
+    {
+      "path": "docs/evidence/catalog-native-2026-11-04-tracked.patch",
+      "sha256": "6361cfd274b77493a84d88a09a7c0af29e2562537cd4e075c9477264f1d6d244"
+    }
+  ],
+  "backend_and_browser_runtime_unchanged_from_base": true,
+  "unchanged_base_checks": "c7:1565/1566 backend (one Windows skip),522 Node,16 packages and actual PG/restore/Chromium",
+  "limits": [
+    "Own local native tests use synthetic loopback HTTP, no supplier or production access",
+    "Source5, historical assets and dated catalog prices v2 excluded",
+    "No actual OS picker, iPhone or Windows device acceptance claimed"
+  ]
+}

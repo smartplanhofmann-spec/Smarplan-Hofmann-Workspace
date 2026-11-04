@@ -2084,3 +2084,18 @@ nach dem Nutzungslimit der Bearbeiter von Root verifiziert und als solche
 gekennzeichnet gesichert. Service-/Betriebsmittel- und Lohnvergleichspakete
 bleiben getrennt. Alle Anforderungsstatus, etwa 65 Prozent ungewichtete
 Zeilenabdeckung und die offenen Gesamtabnahmen bleiben unverändert.
+
+
+## 04.11.2026 – Native Service-/Betriebsmittelkontexte abgeschlossen
+
+Auf `d5f1978` sind zwei native Seiten und genau zwei optionale Sessionguards
+[integriert](CRM_ERP_SERVICE_BETRIEBSMITTEL_GESAMTPRUEFUNG_2026-11-04.md).
+35 betroffene Fälle bestehen, darunter zwei tatsächliche lokale HTTP-Abläufe
+für angenommene Originale, verlorene Erfolgsantwort, unterbrochene Vorbereitung
+und spätere identische Wiederholung ohne Doppelwirkung. Analyse ohne Befund.
+Die ursprünglichen vier roten Fälle und die nach dem Nutzungslimit geretteten
+Ownerquellen sind erhalten. Root ergänzte und beendete die tatsächliche HTTP-
+und Integrationsprüfung. Backend, Browser, 15/16 und 144/213 bleiben unverändert.
+Keine Anforderungsstatushochsetzung; private Lohn-/Quellenpakete sowie Gesamt-
+und reale Betriebsabnahmen bleiben offen. Die etwa 65 Prozent bleiben eine
+ungewichtete Anforderungszeilenzählung und keine Arbeitszeitquote.

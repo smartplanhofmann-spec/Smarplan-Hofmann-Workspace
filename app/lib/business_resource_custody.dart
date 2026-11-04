@@ -168,7 +168,8 @@ class BusinessResourceCustodyPage extends StatefulWidget {
 }
 
 class _BusinessResourceCustodyPageState
-    extends State<BusinessResourceCustodyPage> {
+    extends State<BusinessResourceCustodyPage>
+    with WidgetsBindingObserver {
   BusinessSession get session => widget.session;
   Map<String, dynamic>? selected, options, caps;
   List<Map<String, dynamic>> listing = [];
@@ -177,7 +178,11 @@ class _BusinessResourceCustodyPageState
   int epoch = 0;
   Object? generation;
   Set<String> rights = {};
+  String? token, baseUrl;
+  bool backgrounded = false;
+  final Map<Route<dynamic>, NavigatorState> ownedDialogs = {};
   bool get available =>
+      !backgrounded &&
       session.allowed &&
       session.hasFeature('resource_custody') &&
       session.hasModule('resource_custody');
@@ -197,6 +202,9 @@ class _BusinessResourceCustodyPageState
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    token = session.api.token;
+    baseUrl = session.api.base;
     selectedId = widget.resourceId;
     generation = session.generation;
     rights = Set.of(session.permissions);
@@ -204,9 +212,98 @@ class _BusinessResourceCustodyPageState
     load();
   }
 
+  bool current(int captured) => mounted && !backgrounded && captured == epoch;
+
+  void ensureCurrent(int captured) {
+    if (!current(captured))
+      throw const ApiException(
+        0,
+        'Der Betriebsmittelkontext wurde geschlossen.',
+      );
+  }
+
+  void closeOwnedDialogs() {
+    final previous = Map<Route<dynamic>, NavigatorState>.of(ownedDialogs);
+    ownedDialogs.clear();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      for (final entry in previous.entries) {
+        if (entry.value.mounted && entry.key.isActive)
+          entry.value.removeRoute(entry.key);
+      }
+    });
+  }
+
+  Future<T?> ownedDialog<T>({
+    required BuildContext context,
+    required WidgetBuilder builder,
+    bool barrierDismissible = true,
+  }) async {
+    final captured = epoch;
+    ensureCurrent(captured);
+    final navigator = Navigator.of(context, rootNavigator: true);
+    final route = DialogRoute<T>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: (context) =>
+          current(captured) ? builder(context) : const SizedBox.shrink(),
+    );
+    ownedDialogs[route] = navigator;
+    try {
+      return await navigator.push(route);
+    } finally {
+      ownedDialogs.remove(route);
+    }
+  }
+
+  void clearPrivate() {
+    epoch++;
+    closeOwnedDialogs();
+    selected = options = caps = null;
+    listing = [];
+    loading = false;
+    error = null;
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessResourceCustodyPage old) {
+    super.didUpdateWidget(old);
+    if (!identical(old.session, session) ||
+        old.projectId != widget.projectId ||
+        old.resourceId != widget.resourceId) {
+      old.session.removeListener(changed);
+      clearPrivate();
+      selectedId = widget.resourceId;
+      session.addListener(changed);
+      token = session.api.token;
+      baseUrl = session.api.base;
+      generation = session.generation;
+      rights = Set.of(session.permissions);
+      load();
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState value) {
+    if (!mounted) return;
+    if ([
+      AppLifecycleState.hidden,
+      AppLifecycleState.paused,
+      AppLifecycleState.detached,
+    ].contains(value)) {
+      setState(() {
+        backgrounded = true;
+        clearPrivate();
+      });
+    } else if (value == AppLifecycleState.resumed) {
+      setState(() => backgrounded = false);
+    }
+  }
+
   @override
   void dispose() {
     epoch++;
+    WidgetsBinding.instance.removeObserver(this);
+    closeOwnedDialogs();
     session.removeListener(changed);
     super.dispose();
   }
@@ -214,15 +311,14 @@ class _BusinessResourceCustodyPageState
   void changed() {
     if (!mounted) return;
     if (!available ||
+        token != session.api.token ||
+        baseUrl != session.api.base ||
         generation != session.generation ||
         !session.permissions.containsAll(rights)) {
-      epoch++;
-      selected = null;
-      options = null;
-      caps = null;
-      listing = [];
-      loading = false;
+      clearPrivate();
     }
+    token = session.api.token;
+    baseUrl = session.api.base;
     generation = session.generation;
     rights = Set.of(session.permissions);
     setState(() {});
@@ -237,10 +333,11 @@ class _BusinessResourceCustodyPageState
   }
 
   Future<void> attempt(Future<void> Function() fn) async {
+    final captured = epoch;
     try {
       await fn();
     } catch (value) {
-      if (mounted) setState(() => error = '$value');
+      if (current(captured)) setState(() => error = '$value');
     }
   }
 
@@ -254,12 +351,9 @@ class _BusinessResourceCustodyPageState
         throw const ApiException(0, 'Sitzung geändert.');
       return value;
     } on ApiException catch (e) {
-      if ([401, 403, 404].contains(e.status) && mounted) {
+      if ([401, 403, 404].contains(e.status) && current(captured)) {
         setState(() {
-          selected = null;
-          options = null;
-          caps = null;
-          listing = [];
+          clearPrivate();
         });
       }
       rethrow;
@@ -281,6 +375,12 @@ class _BusinessResourceCustodyPageState
       final data = await get(
         '/resource-custody${selectedId == null ? '' : '/$selectedId'}',
       );
+      await session.load();
+      ensureCurrent(captured);
+      if (session.error != null)
+        throw const ApiException(403, 'Aktuelle Betriebsmittelrechte fehlen.');
+      caps = await get('/capabilities');
+      guard();
       if (mounted && captured == epoch)
         setState(() {
           options = choices;
@@ -295,7 +395,16 @@ class _BusinessResourceCustodyPageState
           }
         });
     } catch (value) {
-      if (mounted && captured == epoch) setState(() => error = '$value');
+      if (current(captured))
+        setState(() {
+          if (value is ApiException && [401, 403, 404].contains(value.status)) {
+            clearPrivate();
+            error =
+                'Der globale Betriebsmittelzugang ist nicht mehr freigegeben.';
+          } else {
+            error = '$value';
+          }
+        });
     } finally {
       if (mounted && captured == epoch) setState(() => loading = false);
     }
@@ -345,52 +454,65 @@ class _BusinessResourceCustodyPageState
     String? originalSha256,
   }) async {
     guard();
+    final captured = epoch, commandSession = session;
+    var active = true;
+    bool stillCurrent() => active && current(captured);
     final item = selected!, path = '/resource-custody/${item['id']}/$operation';
     key ??= 'resource-custody-$operation-${item['id']}';
     final commandKey = key;
     dynamic result;
-    await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => BusinessEditor(
-        session: session,
-        pendingKey: commandKey,
-        readAllowed: () => readable,
-        readPermission: 'planning.read',
-        writePermission: 'planning.write',
-        title: title,
-        fields: fields,
-        saveLabel: title,
-        onSave: (values) async {
-          guard();
-          if (session.pending(commandKey)) {
-            result = await session.repeatResourceCustodyCommand(commandKey);
-            return;
-          }
-          guard(write: true);
-          final body = build(values);
-          result = await session.command(
-            commandKey,
-            path,
-            body,
-            validateResult: (value) => custodyReceipt(
+    try {
+      await ownedDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => BusinessEditor(
+          session: commandSession,
+          pendingKey: commandKey,
+          readAllowed: () => stillCurrent() && readable,
+          readPermission: 'planning.read',
+          writePermission: 'planning.write',
+          title: title,
+          fields: fields,
+          saveLabel: title,
+          onSave: (values) async {
+            ensureCurrent(captured);
+            guard();
+            if (commandSession.pending(commandKey)) {
+              result = await commandSession.repeatResourceCustodyCommand(
+                commandKey,
+                stillCurrent: stillCurrent,
+              );
+              return;
+            }
+            guard(write: true);
+            final body = build(values);
+            result = await commandSession.command(
+              commandKey,
               path,
               body,
-              value,
-              originalSha256: originalSha256,
-            ),
-          );
-        },
-      ),
-    );
-    if (result != null && mounted) await load();
+              validateResult: (value) => custodyReceipt(
+                path,
+                body,
+                value,
+                originalSha256: originalSha256,
+              ),
+            );
+          },
+        ),
+      );
+    } finally {
+      active = false;
+    }
+    if (!current(captured)) return null;
+    if (result != null) await load();
     return result;
   }
 
   Future<void> nativeResource([Map<String, dynamic>? previous]) async {
     guard(write: true);
+    final captured = epoch;
     final key = 'resource-native-${previous?['id'] ?? 'new'}';
-    await showDialog<bool>(
+    await ownedDialog<bool>(
       context: context,
       builder: (_) => BusinessEditor(
         session: session,
@@ -427,6 +549,7 @@ class _BusinessResourceCustodyPageState
           ),
         ],
         onSave: (values) async {
+          ensureCurrent(captured);
           guard(write: true);
           await session.command(key, '/resources', {
             ...values,
@@ -437,7 +560,7 @@ class _BusinessResourceCustodyPageState
         },
       ),
     );
-    if (mounted) await load();
+    if (current(captured)) await load();
   }
 
   Future<void> profile() async {
@@ -799,6 +922,7 @@ class _BusinessResourceCustodyPageState
       if (captured != epoch || bytes.length != length || media == null)
         throw const ApiException(409, 'Datei oder Sitzung ungültig.');
       digest = _hex((await Sha256().hash(bytes)).bytes);
+      ensureCurrent(captured);
       body = {
         'filename': file.name,
         'media_type': media,
@@ -828,6 +952,7 @@ class _BusinessResourceCustodyPageState
       mediaType: 'application/octet-stream',
       maxBytes: 2097152,
     );
+    ensureCurrent(captured);
     await get('/resource-custody/${item['id']}');
     guard();
     final digest = _hex((await Sha256().hash(bytes)).bytes);
@@ -850,9 +975,10 @@ class _BusinessResourceCustodyPageState
 
   Future<void> availability() async {
     guard();
+    final captured = epoch;
     final item = selected!;
     Map<String, dynamic>? result;
-    await showDialog<bool>(
+    await ownedDialog<bool>(
       context: context,
       builder: (_) => BusinessEditor(
         session: session,
@@ -902,6 +1028,7 @@ class _BusinessResourceCustodyPageState
           ),
         ],
         onSave: (values) async {
+          ensureCurrent(captured);
           guard();
           result = await get(
             '/resource-custody/${item['id']}/availability?${Uri(queryParameters: {for (final entry in values.entries)
@@ -910,7 +1037,7 @@ class _BusinessResourceCustodyPageState
         },
       ),
     );
-    if (result != null && mounted)
+    if (result != null && current(captured))
       await showInfo('Ergebnis der Verfügbarkeitsprüfung', [
         Notice(
           result!['available'] == true
@@ -925,7 +1052,7 @@ class _BusinessResourceCustodyPageState
 
   Future<void> showInfo(String title, List<Widget> children) async {
     guard();
-    await showDialog<void>(
+    await ownedDialog<void>(
       context: context,
       builder: (_) => AnimatedBuilder(
         animation: session,
@@ -1131,6 +1258,13 @@ class _BusinessResourceCustodyPageState
         title: Text(
           item?['resource']?['name'] ?? 'Betriebsmittel und Nachweise',
         ),
+        actions: [
+          IconButton(
+            onPressed: load,
+            icon: const Icon(Icons.refresh),
+            tooltip: 'Neu laden',
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
@@ -1327,24 +1461,34 @@ class _BusinessResourceCustodyPageState
   Future<void> profileForm() => profile();
   Future<void> resolvePending(String key, String path) async {
     guard();
+    final captured = epoch, commandSession = session;
+    var active = true;
     final body = session.pendingCommandValues(key, path: path);
     if (body == null) return;
-    await showDialog<bool>(
-      context: context,
-      builder: (_) => BusinessEditor(
-        session: session,
-        pendingKey: key,
-        readAllowed: () => readable,
-        writePermission: 'planning.write',
-        title: 'Ursprünglichen Betriebsmittelauftrag prüfen',
-        fields: const [],
-        initial: body,
-        onSave: (_) async {
-          guard();
-          await session.repeatResourceCustodyCommand(key);
-        },
-      ),
-    );
-    if (mounted) await load();
+    try {
+      await ownedDialog<bool>(
+        context: context,
+        builder: (_) => BusinessEditor(
+          session: commandSession,
+          pendingKey: key,
+          readAllowed: () => active && current(captured) && readable,
+          writePermission: 'planning.write',
+          title: 'Ursprünglichen Betriebsmittelauftrag prüfen',
+          fields: const [],
+          initial: body,
+          onSave: (_) async {
+            ensureCurrent(captured);
+            guard();
+            await commandSession.repeatResourceCustodyCommand(
+              key,
+              stillCurrent: () => active && current(captured),
+            );
+          },
+        ),
+      );
+    } finally {
+      active = false;
+    }
+    if (current(captured)) await load();
   }
 }

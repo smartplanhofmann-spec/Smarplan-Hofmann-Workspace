@@ -1,0 +1,1927 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "actor": {
+    "id": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+    "email": "custody-owner@example.test",
+    "role": "owner"
+  },
+  "capabilities": {
+    "storage_version": 7,
+    "compatibility_mode": "business",
+    "generation": 1,
+    "capabilities": [
+      "business_accounting",
+      "business_accounting_allocations",
+      "business_accounting_asset_openings",
+      "business_accounting_capacity",
+      "business_accounting_components",
+      "business_accounting_euer",
+      "business_accounting_open_items",
+      "business_accounting_openings",
+      "business_accounting_profile",
+      "business_accounting_refunds",
+      "business_accounting_refunds_v2",
+      "business_adapters",
+      "business_asset_provenance",
+      "business_assistant",
+      "business_assistant_speech",
+      "business_bank_reconciliation",
+      "business_catalog_imports",
+      "business_catalog_prices",
+      "business_company_events",
+      "business_company_handover",
+      "business_custom_fields",
+      "business_customer_workspace",
+      "business_documents",
+      "business_finance",
+      "business_foundation",
+      "business_inventory",
+      "business_inventory_counts",
+      "business_maintenance",
+      "business_migrations",
+      "business_operations",
+      "business_organization",
+      "business_payroll",
+      "business_payroll_accounts",
+      "business_payroll_annual_basis",
+      "business_payroll_calculation_cases",
+      "business_payroll_cash",
+      "business_payroll_entitlements",
+      "business_payroll_facts",
+      "business_payroll_multiple_cases",
+      "business_payroll_oneoff_cases",
+      "business_payroll_wage_interruptions",
+      "business_personnel_workflow",
+      "business_planning",
+      "business_portal",
+      "business_privacy_cases",
+      "business_project_economics",
+      "business_purchase_changes",
+      "business_purchasing",
+      "business_resource_custody",
+      "business_sales",
+      "business_service",
+      "business_time",
+      "business_travel_allowances"
+    ],
+    "read_capabilities": [
+      "business_accounting",
+      "business_accounting_allocations",
+      "business_accounting_asset_openings",
+      "business_accounting_capacity",
+      "business_accounting_components",
+      "business_accounting_euer",
+      "business_accounting_open_items",
+      "business_accounting_openings",
+      "business_accounting_profile",
+      "business_accounting_refunds",
+      "business_accounting_refunds_v2",
+      "business_adapters",
+      "business_asset_provenance",
+      "business_assistant",
+      "business_assistant_speech",
+      "business_bank_reconciliation",
+      "business_catalog_imports",
+      "business_catalog_prices",
+      "business_company_events",
+      "business_company_handover",
+      "business_custom_fields",
+      "business_customer_workspace",
+      "business_documents",
+      "business_finance",
+      "business_foundation",
+      "business_instance",
+      "business_inventory",
+      "business_inventory_counts",
+      "business_maintenance",
+      "business_migrations",
+      "business_operations",
+      "business_organization",
+      "business_payroll",
+      "business_payroll_accounts",
+      "business_payroll_annual_basis",
+      "business_payroll_calculation_cases",
+      "business_payroll_cash",
+      "business_payroll_entitlements",
+      "business_payroll_facts",
+      "business_payroll_multiple_cases",
+      "business_payroll_oneoff_cases",
+      "business_payroll_wage_interruptions",
+      "business_personnel_workflow",
+      "business_planning",
+      "business_portal",
+      "business_privacy_cases",
+      "business_project_economics",
+      "business_purchase_changes",
+      "business_purchasing",
+      "business_resource_custody",
+      "business_sales",
+      "business_service",
+      "business_time",
+      "business_travel_allowances",
+      "payroll_travel_recording"
+    ],
+    "readonly": false,
+    "restore_pending": false,
+    "financial_reconciliation_required": false,
+    "restore_id": null,
+    "organization": {
+      "revision": 0,
+      "configured": false,
+      "modules": {
+        "personnel": {
+          "visible": true,
+          "enabled": true
+        },
+        "material": {
+          "visible": false,
+          "enabled": true
+        },
+        "planning": {
+          "visible": true,
+          "enabled": true
+        },
+        "documents": {
+          "visible": true,
+          "enabled": true
+        },
+        "finance": {
+          "visible": true,
+          "enabled": true
+        }
+      }
+    },
+    "features": [
+      "accounting_document_component_reuse",
+      "accounting_document_components",
+      "accounting_euer",
+      "accounting_historical_assets",
+      "accounting_open_items",
+      "accounting_opening_balances",
+      "accounting_payment_allocation",
+      "accounting_prejournal",
+      "accounting_preparation_profile",
+      "accounting_refund_origins",
+      "accounting_refund_origins_v2",
+      "accounting_year_evidence_v1",
+      "asset_delivery_provenance",
+      "assistant_speech",
+      "assistant_workflow",
+      "bank_reconciliation",
+      "billing_contact",
+      "catalog_import_history",
+      "catalog_prices_v2",
+      "company_event_rules",
+      "company_handover",
+      "company_overview",
+      "custom_fields",
+      "file_migrations",
+      "german_payroll_2026",
+      "inventory_counts",
+      "measurement_transfer",
+      "organization_modules",
+      "payroll_actual_cash",
+      "payroll_annual_basis",
+      "payroll_calculation_cases",
+      "payroll_employee_statements",
+      "payroll_entitlements",
+      "payroll_multiple_cases",
+      "payroll_oneoff_cases",
+      "payroll_period_facts",
+      "payroll_wage_account",
+      "payroll_wage_interruptions",
+      "personnel_preparation",
+      "privacy_cases",
+      "project_economics",
+      "project_timeline",
+      "purchase_changes",
+      "purchasing_catalog",
+      "purchasing_receipts",
+      "quote_pricing",
+      "resource_custody",
+      "sales_pipeline",
+      "service_cases",
+      "travel_allowances"
+    ],
+    "active_capabilities": [
+      "business_accounting",
+      "business_accounting_allocations",
+      "business_accounting_asset_openings",
+      "business_accounting_capacity",
+      "business_accounting_components",
+      "business_accounting_euer",
+      "business_accounting_open_items",
+      "business_accounting_openings",
+      "business_accounting_profile",
+      "business_accounting_refunds",
+      "business_accounting_refunds_v2",
+      "business_adapters",
+      "business_asset_provenance",
+      "business_assistant",
+      "business_assistant_speech",
+      "business_bank_reconciliation",
+      "business_catalog_imports",
+      "business_catalog_prices",
+      "business_company_events",
+      "business_company_handover",
+      "business_custom_fields",
+      "business_customer_workspace",
+      "business_documents",
+      "business_finance",
+      "business_foundation",
+      "business_instance",
+      "business_inventory",
+      "business_inventory_counts",
+      "business_maintenance",
+      "business_migrations",
+      "business_operations",
+      "business_organization",
+      "business_payroll",
+      "business_payroll_accounts",
+      "business_payroll_annual_basis",
+      "business_payroll_calculation_cases",
+      "business_payroll_cash",
+      "business_payroll_entitlements",
+      "business_payroll_facts",
+      "business_payroll_multiple_cases",
+      "business_payroll_oneoff_cases",
+      "business_payroll_wage_interruptions",
+      "business_personnel_workflow",
+      "business_planning",
+      "business_portal",
+      "business_privacy_cases",
+      "business_project_economics",
+      "business_purchase_changes",
+      "business_purchasing",
+      "business_resource_custody",
+      "business_sales",
+      "business_service",
+      "business_time",
+      "business_travel_allowances",
+      "payroll_travel_recording"
+    ],
+    "permissions": [
+      "accounting.admin",
+      "accounting.prepare",
+      "accounting.read",
+      "assistant.approve",
+      "assistant.use",
+      "bank.admin",
+      "bank.prepare",
+      "bank.read",
+      "contacts.read",
+      "contacts.write",
+      "documents.classify",
+      "documents.read",
+      "documents.write",
+      "finance.approve",
+      "finance.issue",
+      "finance.read",
+      "finance.write",
+      "inventory.read",
+      "inventory.write",
+      "personnel.approve",
+      "personnel.export",
+      "personnel.manage",
+      "personnel.read",
+      "personnel.write",
+      "planning.override",
+      "planning.read",
+      "planning.write",
+      "portal.manage",
+      "privacy.manage",
+      "projects.manage",
+      "settings.manage",
+      "time.approve",
+      "time.own"
+    ],
+    "global_permissions": [
+      "accounting.admin",
+      "accounting.prepare",
+      "accounting.read",
+      "assistant.approve",
+      "assistant.use",
+      "bank.admin",
+      "bank.prepare",
+      "bank.read",
+      "contacts.read",
+      "contacts.write",
+      "documents.classify",
+      "documents.read",
+      "documents.write",
+      "finance.approve",
+      "finance.issue",
+      "finance.read",
+      "finance.write",
+      "inventory.read",
+      "inventory.write",
+      "personnel.approve",
+      "personnel.export",
+      "personnel.manage",
+      "personnel.read",
+      "personnel.write",
+      "planning.override",
+      "planning.read",
+      "planning.write",
+      "portal.manage",
+      "privacy.manage",
+      "projects.manage",
+      "settings.manage",
+      "time.approve",
+      "time.own"
+    ],
+    "project_id": null
+  },
+  "scoped_capabilities": {
+    "storage_version": 7,
+    "compatibility_mode": "business",
+    "generation": 1,
+    "capabilities": [
+      "business_accounting",
+      "business_accounting_allocations",
+      "business_accounting_asset_openings",
+      "business_accounting_capacity",
+      "business_accounting_components",
+      "business_accounting_euer",
+      "business_accounting_open_items",
+      "business_accounting_openings",
+      "business_accounting_profile",
+      "business_accounting_refunds",
+      "business_accounting_refunds_v2",
+      "business_adapters",
+      "business_asset_provenance",
+      "business_assistant",
+      "business_assistant_speech",
+      "business_bank_reconciliation",
+      "business_catalog_imports",
+      "business_catalog_prices",
+      "business_company_events",
+      "business_company_handover",
+      "business_custom_fields",
+      "business_customer_workspace",
+      "business_documents",
+      "business_finance",
+      "business_foundation",
+      "business_inventory",
+      "business_inventory_counts",
+      "business_maintenance",
+      "business_migrations",
+      "business_operations",
+      "business_organization",
+      "business_payroll",
+      "business_payroll_accounts",
+      "business_payroll_annual_basis",
+      "business_payroll_calculation_cases",
+      "business_payroll_cash",
+      "business_payroll_entitlements",
+      "business_payroll_facts",
+      "business_payroll_multiple_cases",
+      "business_payroll_oneoff_cases",
+      "business_payroll_wage_interruptions",
+      "business_personnel_workflow",
+      "business_planning",
+      "business_portal",
+      "business_privacy_cases",
+      "business_project_economics",
+      "business_purchase_changes",
+      "business_purchasing",
+      "business_resource_custody",
+      "business_sales",
+      "business_service",
+      "business_time",
+      "business_travel_allowances"
+    ],
+    "read_capabilities": [
+      "business_accounting",
+      "business_accounting_allocations",
+      "business_accounting_asset_openings",
+      "business_accounting_capacity",
+      "business_accounting_components",
+      "business_accounting_euer",
+      "business_accounting_open_items",
+      "business_accounting_openings",
+      "business_accounting_profile",
+      "business_accounting_refunds",
+      "business_accounting_refunds_v2",
+      "business_adapters",
+      "business_asset_provenance",
+      "business_assistant",
+      "business_assistant_speech",
+      "business_bank_reconciliation",
+      "business_catalog_imports",
+      "business_catalog_prices",
+      "business_company_events",
+      "business_company_handover",
+      "business_custom_fields",
+      "business_customer_workspace",
+      "business_documents",
+      "business_finance",
+      "business_foundation",
+      "business_instance",
+      "business_inventory",
+      "business_inventory_counts",
+      "business_maintenance",
+      "business_migrations",
+      "business_operations",
+      "business_organization",
+      "business_payroll",
+      "business_payroll_accounts",
+      "business_payroll_annual_basis",
+      "business_payroll_calculation_cases",
+      "business_payroll_cash",
+      "business_payroll_entitlements",
+      "business_payroll_facts",
+      "business_payroll_multiple_cases",
+      "business_payroll_oneoff_cases",
+      "business_payroll_wage_interruptions",
+      "business_personnel_workflow",
+      "business_planning",
+      "business_portal",
+      "business_privacy_cases",
+      "business_project_economics",
+      "business_purchase_changes",
+      "business_purchasing",
+      "business_resource_custody",
+      "business_sales",
+      "business_service",
+      "business_time",
+      "business_travel_allowances",
+      "payroll_travel_recording"
+    ],
+    "readonly": false,
+    "restore_pending": false,
+    "financial_reconciliation_required": false,
+    "restore_id": null,
+    "organization": {
+      "revision": 0,
+      "configured": false,
+      "modules": {
+        "personnel": {
+          "visible": true,
+          "enabled": true
+        },
+        "material": {
+          "visible": false,
+          "enabled": true
+        },
+        "planning": {
+          "visible": true,
+          "enabled": true
+        },
+        "documents": {
+          "visible": true,
+          "enabled": true
+        },
+        "finance": {
+          "visible": true,
+          "enabled": true
+        }
+      }
+    },
+    "features": [
+      "accounting_document_component_reuse",
+      "accounting_document_components",
+      "accounting_euer",
+      "accounting_historical_assets",
+      "accounting_open_items",
+      "accounting_opening_balances",
+      "accounting_payment_allocation",
+      "accounting_prejournal",
+      "accounting_preparation_profile",
+      "accounting_refund_origins",
+      "accounting_refund_origins_v2",
+      "accounting_year_evidence_v1",
+      "asset_delivery_provenance",
+      "assistant_speech",
+      "assistant_workflow",
+      "bank_reconciliation",
+      "billing_contact",
+      "catalog_import_history",
+      "catalog_prices_v2",
+      "company_event_rules",
+      "company_handover",
+      "company_overview",
+      "custom_fields",
+      "file_migrations",
+      "german_payroll_2026",
+      "inventory_counts",
+      "measurement_transfer",
+      "organization_modules",
+      "payroll_actual_cash",
+      "payroll_annual_basis",
+      "payroll_calculation_cases",
+      "payroll_employee_statements",
+      "payroll_entitlements",
+      "payroll_multiple_cases",
+      "payroll_oneoff_cases",
+      "payroll_period_facts",
+      "payroll_wage_account",
+      "payroll_wage_interruptions",
+      "personnel_preparation",
+      "privacy_cases",
+      "project_economics",
+      "project_timeline",
+      "purchase_changes",
+      "purchasing_catalog",
+      "purchasing_receipts",
+      "quote_pricing",
+      "resource_custody",
+      "sales_pipeline",
+      "service_cases",
+      "travel_allowances"
+    ],
+    "active_capabilities": [
+      "business_accounting",
+      "business_accounting_allocations",
+      "business_accounting_asset_openings",
+      "business_accounting_capacity",
+      "business_accounting_components",
+      "business_accounting_euer",
+      "business_accounting_open_items",
+      "business_accounting_openings",
+      "business_accounting_profile",
+      "business_accounting_refunds",
+      "business_accounting_refunds_v2",
+      "business_adapters",
+      "business_asset_provenance",
+      "business_assistant",
+      "business_assistant_speech",
+      "business_bank_reconciliation",
+      "business_catalog_imports",
+      "business_catalog_prices",
+      "business_company_events",
+      "business_company_handover",
+      "business_custom_fields",
+      "business_customer_workspace",
+      "business_documents",
+      "business_finance",
+      "business_foundation",
+      "business_instance",
+      "business_inventory",
+      "business_inventory_counts",
+      "business_maintenance",
+      "business_migrations",
+      "business_operations",
+      "business_organization",
+      "business_payroll",
+      "business_payroll_accounts",
+      "business_payroll_annual_basis",
+      "business_payroll_calculation_cases",
+      "business_payroll_cash",
+      "business_payroll_entitlements",
+      "business_payroll_facts",
+      "business_payroll_multiple_cases",
+      "business_payroll_oneoff_cases",
+      "business_payroll_wage_interruptions",
+      "business_personnel_workflow",
+      "business_planning",
+      "business_portal",
+      "business_privacy_cases",
+      "business_project_economics",
+      "business_purchase_changes",
+      "business_purchasing",
+      "business_resource_custody",
+      "business_sales",
+      "business_service",
+      "business_time",
+      "business_travel_allowances",
+      "payroll_travel_recording"
+    ],
+    "permissions": [
+      "accounting.admin",
+      "accounting.prepare",
+      "accounting.read",
+      "assistant.approve",
+      "assistant.use",
+      "bank.admin",
+      "bank.prepare",
+      "bank.read",
+      "contacts.read",
+      "contacts.write",
+      "documents.classify",
+      "documents.read",
+      "documents.write",
+      "finance.approve",
+      "finance.issue",
+      "finance.read",
+      "finance.write",
+      "inventory.read",
+      "inventory.write",
+      "personnel.approve",
+      "personnel.export",
+      "personnel.manage",
+      "personnel.read",
+      "personnel.write",
+      "planning.override",
+      "planning.read",
+      "planning.write",
+      "portal.manage",
+      "privacy.manage",
+      "projects.manage",
+      "settings.manage",
+      "time.approve",
+      "time.own"
+    ],
+    "global_permissions": [
+      "accounting.admin",
+      "accounting.prepare",
+      "accounting.read",
+      "assistant.approve",
+      "assistant.use",
+      "bank.admin",
+      "bank.prepare",
+      "bank.read",
+      "contacts.read",
+      "contacts.write",
+      "documents.classify",
+      "documents.read",
+      "documents.write",
+      "finance.approve",
+      "finance.issue",
+      "finance.read",
+      "finance.write",
+      "inventory.read",
+      "inventory.write",
+      "personnel.approve",
+      "personnel.export",
+      "personnel.manage",
+      "personnel.read",
+      "personnel.write",
+      "planning.override",
+      "planning.read",
+      "planning.write",
+      "portal.manage",
+      "privacy.manage",
+      "projects.manage",
+      "settings.manage",
+      "time.approve",
+      "time.own"
+    ],
+    "project_id": "afeb0f9cbee54757898bb10e01ce81b4"
+  },
+  "service": {
+    "item": {
+      "asset_id": null,
+      "contract_id": null,
+      "created_at": "2026-11-03T12:00:00+00:00",
+      "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+      "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+      "customer_snapshot": {
+        "id": "526e1896e01c4de99e30ba0d90f7d223",
+        "name": "Synthetic equipment customer"
+      },
+      "defect_id": null,
+      "description": "Synthetic private customer history",
+      "follow_up_on": "2026-11-04",
+      "id": "33761acd13914a46b3cd6b267eeedd9a",
+      "inquiry_id": null,
+      "kind": "complaint",
+      "last_transition_reason": "",
+      "origin_id": null,
+      "origin_kind": "manual",
+      "person_id": null,
+      "person_snapshot": null,
+      "priority": "high",
+      "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+      "resolution": "",
+      "responsible_id": "3ec449c642ed47d0b9187e1857275d34",
+      "revision": 1,
+      "status": "open",
+      "title": "Synthetic private complaint R07.07",
+      "updated_at": "2026-11-03T12:00:00+00:00",
+      "updated_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+      "visit_id": null,
+      "customer_name": "Synthetic equipment customer",
+      "responsible_name": "custody-manager@example.test",
+      "source_sha256": "ad152ef3af546923a54df3deb8f68e3c35a5032b6f8166a9d4c6c8eed4fae3f5",
+      "links": [],
+      "overdue": false,
+      "allowed_transitions": [
+        "triaged",
+        "cancelled"
+      ]
+    },
+    "listing": {
+      "items": [
+        {
+          "asset_id": null,
+          "contract_id": null,
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+          "customer_snapshot": {
+            "id": "526e1896e01c4de99e30ba0d90f7d223",
+            "name": "Synthetic equipment customer"
+          },
+          "defect_id": null,
+          "description": "Synthetic private customer history",
+          "follow_up_on": "2026-11-04",
+          "id": "33761acd13914a46b3cd6b267eeedd9a",
+          "inquiry_id": null,
+          "kind": "complaint",
+          "last_transition_reason": "",
+          "origin_id": null,
+          "origin_kind": "manual",
+          "person_id": null,
+          "person_snapshot": null,
+          "priority": "high",
+          "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+          "resolution": "",
+          "responsible_id": "3ec449c642ed47d0b9187e1857275d34",
+          "revision": 1,
+          "status": "open",
+          "title": "Synthetic private complaint R07.07",
+          "updated_at": "2026-11-03T12:00:00+00:00",
+          "updated_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "visit_id": null,
+          "customer_name": "Synthetic equipment customer",
+          "responsible_name": "custody-manager@example.test",
+          "source_sha256": "ad152ef3af546923a54df3deb8f68e3c35a5032b6f8166a9d4c6c8eed4fae3f5",
+          "links": [],
+          "overdue": false,
+          "allowed_transitions": [
+            "triaged",
+            "cancelled"
+          ]
+        }
+      ],
+      "summary": {
+        "open_count": 1,
+        "overdue_count": 0,
+        "as_of": "2026-11-03T12:00:00+00:00"
+      }
+    },
+    "options": {
+      "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+      "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+      "customers": [
+        {
+          "id": "526e1896e01c4de99e30ba0d90f7d223",
+          "name": "Synthetic equipment customer",
+          "persons": []
+        }
+      ],
+      "projects": [
+        {
+          "id": "afeb0f9cbee54757898bb10e01ce81b4",
+          "name": "Synthetic equipment project",
+          "customer": "Synthetic equipment customer",
+          "customer_id": "526e1896e01c4de99e30ba0d90f7d223"
+        }
+      ],
+      "responsibles": [
+        {
+          "id": "3ec449c642ed47d0b9187e1857275d34",
+          "email": "custody-manager@example.test"
+        },
+        {
+          "id": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "email": "custody-owner@example.test"
+        }
+      ],
+      "assets": [],
+      "contracts": [],
+      "visits": [],
+      "defects": [],
+      "reports": [],
+      "employees": [
+        {
+          "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+          "user_id": "3ec449c642ed47d0b9187e1857275d34",
+          "name": "Synthetic actual employee",
+          "active": true,
+          "revision": 1,
+          "updated_at": "2026-11-04T13:32:11+00:00",
+          "weekly_minutes": 2400,
+          "hourly_cost_minor": 0,
+          "employment_from": null,
+          "employment_to": null
+        }
+      ],
+      "resources": [
+        {
+          "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "name": "Synthetic test drill",
+          "kind": "tool",
+          "active": true,
+          "code": "SYN-DRILL",
+          "revision": 1,
+          "updated_at": "2026-11-04T13:32:11+00:00"
+        }
+      ],
+      "inquiries": [],
+      "stages": [
+        "open",
+        "triaged",
+        "planned",
+        "in_progress",
+        "waiting_customer",
+        "waiting_supplier",
+        "resolved",
+        "closed",
+        "cancelled"
+      ],
+      "priorities": [
+        "low",
+        "normal",
+        "high",
+        "urgent"
+      ]
+    },
+    "history": {
+      "versions": [
+        {
+          "asset_id": null,
+          "contract_id": null,
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+          "customer_snapshot": {
+            "id": "526e1896e01c4de99e30ba0d90f7d223",
+            "name": "Synthetic equipment customer"
+          },
+          "defect_id": null,
+          "description": "Synthetic private customer history",
+          "follow_up_on": "2026-11-04",
+          "id": "33761acd13914a46b3cd6b267eeedd9a",
+          "inquiry_id": null,
+          "kind": "complaint",
+          "last_transition_reason": "",
+          "origin_id": null,
+          "origin_kind": "manual",
+          "person_id": null,
+          "person_snapshot": null,
+          "priority": "high",
+          "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+          "resolution": "",
+          "responsible_id": "3ec449c642ed47d0b9187e1857275d34",
+          "revision": 1,
+          "status": "open",
+          "title": "Synthetic private complaint R07.07",
+          "updated_at": "2026-11-03T12:00:00+00:00",
+          "updated_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "visit_id": null
+        }
+      ],
+      "events": [
+        {
+          "case_id": "33761acd13914a46b3cd6b267eeedd9a",
+          "case_revision": 1,
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "id": "61a45794061a474ca548bece652f4c96",
+          "kind": "created",
+          "ordinal": 1,
+          "supersedes_id": null,
+          "values": {
+            "source_sha256": "ad152ef3af546923a54df3deb8f68e3c35a5032b6f8166a9d4c6c8eed4fae3f5"
+          }
+        }
+      ]
+    }
+  },
+  "custody": {
+    "item": {
+      "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+      "resource": {
+        "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+        "name": "Synthetic test drill",
+        "kind": "tool",
+        "active": true,
+        "code": "SYN-DRILL",
+        "revision": 1,
+        "updated_at": "2026-11-04T13:32:11+00:00"
+      },
+      "profile": {
+        "condition": "unknown",
+        "created_at": "2026-11-03T12:00:00+00:00",
+        "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+        "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+        "location": "Synthetic custody desk",
+        "manufacturer": "Synthetic maker",
+        "model": "Review drill",
+        "native_resource_snapshot": {
+          "active": true,
+          "code": "SYN-DRILL",
+          "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "kind": "tool",
+          "name": "Synthetic test drill",
+          "revision": 1,
+          "updated_at": "2026-11-04T13:32:11+00:00"
+        },
+        "notes": "",
+        "reason": "Synthetic explicitly reviewed profile",
+        "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+        "revision": 1,
+        "sequence": 1,
+        "serial_number": "SYN-R0707-ORIGINAL"
+      },
+      "requirements": [
+        {
+          "active": true,
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "due_on": "2026-11-01",
+          "id": "a0b3a1ffe28c45dc906dc89f94714434",
+          "notes": "Actual documented requirement",
+          "reason": "Explicitly required for safe use",
+          "required_for_use": true,
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "revision": 1,
+          "sequence": 3,
+          "title": "Synthetic mandatory operator requirement"
+        }
+      ],
+      "inspections": [
+        {
+          "correction_reason": "",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "evidence_id": "45184849431e4f52aa3bed4352eaa80a",
+          "evidence_snapshot": {
+            "filename": "actual-proof.pdf",
+            "id": "45184849431e4f52aa3bed4352eaa80a",
+            "sha256": "a4ede04b5ea0fc1792deabbd6f0f7fe66e617283f75ca765e465e56cf19a3399"
+          },
+          "id": "3fc6bc6bbf7747179c70fefcf12be7be",
+          "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+          "identity_snapshot": {
+            "code": "SYN-DRILL",
+            "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "kind": "tool",
+            "manufacturer": "Synthetic maker",
+            "model": "Review drill",
+            "serial_number": "SYN-R0707-ORIGINAL"
+          },
+          "inspector": "Synthetic named inspector",
+          "next_due_on": "2026-11-04",
+          "note": "Actual test recorded in attached original",
+          "performed_at": "2026-11-02T09:00:00+00:00",
+          "requirement_id": "a0b3a1ffe28c45dc906dc89f94714434",
+          "requirement_revision": 1,
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "result": "passed",
+          "revision": 1,
+          "sequence": 4,
+          "supersedes_id": null
+        }
+      ],
+      "handoffs": [
+        {
+          "condition": "serviceable",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+          "employee_snapshot": {
+            "active": 1,
+            "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+            "name": "Synthetic actual employee",
+            "user_active": 1,
+            "user_id": "3ec449c642ed47d0b9187e1857275d34"
+          },
+          "evidence_id": null,
+          "evidence_snapshot": null,
+          "expected_return_at": "2026-11-03T10:00:00+00:00",
+          "id": "37c2874d53bf43088157be5ebcc533cd",
+          "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+          "identity_snapshot": {
+            "code": "SYN-DRILL",
+            "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "kind": "tool",
+            "manufacturer": "Synthetic maker",
+            "model": "Review drill",
+            "serial_number": "SYN-R0707-ORIGINAL"
+          },
+          "issued_at": "2026-11-03T09:00:00+00:00",
+          "notes": "Actual issue acknowledged",
+          "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+          "project_snapshot": {
+            "customer": "Synthetic equipment customer",
+            "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+            "id": "afeb0f9cbee54757898bb10e01ce81b4",
+            "name": "Synthetic equipment project"
+          },
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "revision": 1,
+          "sequence": 5,
+          "effective": {
+            "condition": "serviceable",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+            "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+            "employee_snapshot": {
+              "active": 1,
+              "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+              "name": "Synthetic actual employee",
+              "user_active": 1,
+              "user_id": "3ec449c642ed47d0b9187e1857275d34"
+            },
+            "evidence_id": null,
+            "evidence_snapshot": null,
+            "expected_return_at": "2026-11-03T10:00:00+00:00",
+            "id": "37c2874d53bf43088157be5ebcc533cd",
+            "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+            "identity_snapshot": {
+              "code": "SYN-DRILL",
+              "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "kind": "tool",
+              "manufacturer": "Synthetic maker",
+              "model": "Review drill",
+              "serial_number": "SYN-R0707-ORIGINAL"
+            },
+            "issued_at": "2026-11-03T09:00:00+00:00",
+            "notes": "Actual issue acknowledged",
+            "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+            "project_snapshot": {
+              "customer": "Synthetic equipment customer",
+              "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+              "id": "afeb0f9cbee54757898bb10e01ce81b4",
+              "name": "Synthetic equipment project"
+            },
+            "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "revision": 1,
+            "sequence": 5
+          },
+          "return": null
+        }
+      ],
+      "files": [
+        {
+          "id": "45184849431e4f52aa3bed4352eaa80a",
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "filename": "actual-proof.pdf",
+          "media_type": "application/pdf",
+          "size": 53,
+          "sha256": "a4ede04b5ea0fc1792deabbd6f0f7fe66e617283f75ca765e465e56cf19a3399",
+          "sequence": 2
+        }
+      ],
+      "source_sha256": "cf3e53e1d7becf2a03b141cc0f1835d728054fb7cdf7b38cc65be4ed2060435a",
+      "state": {
+        "configured": true,
+        "checked_at": "2026-11-03T12:00:00+00:00",
+        "condition": "serviceable",
+        "open_handoff": {
+          "condition": "serviceable",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+          "employee_snapshot": {
+            "active": 1,
+            "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+            "name": "Synthetic actual employee",
+            "user_active": 1,
+            "user_id": "3ec449c642ed47d0b9187e1857275d34"
+          },
+          "evidence_id": null,
+          "evidence_snapshot": null,
+          "expected_return_at": "2026-11-03T10:00:00+00:00",
+          "id": "37c2874d53bf43088157be5ebcc533cd",
+          "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+          "identity_snapshot": {
+            "code": "SYN-DRILL",
+            "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "kind": "tool",
+            "manufacturer": "Synthetic maker",
+            "model": "Review drill",
+            "serial_number": "SYN-R0707-ORIGINAL"
+          },
+          "issued_at": "2026-11-03T09:00:00+00:00",
+          "notes": "Actual issue acknowledged",
+          "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+          "project_snapshot": {
+            "customer": "Synthetic equipment customer",
+            "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+            "id": "afeb0f9cbee54757898bb10e01ce81b4",
+            "name": "Synthetic equipment project"
+          },
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "revision": 1,
+          "sequence": 5,
+          "effective": {
+            "condition": "serviceable",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+            "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+            "employee_snapshot": {
+              "active": 1,
+              "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+              "name": "Synthetic actual employee",
+              "user_active": 1,
+              "user_id": "3ec449c642ed47d0b9187e1857275d34"
+            },
+            "evidence_id": null,
+            "evidence_snapshot": null,
+            "expected_return_at": "2026-11-03T10:00:00+00:00",
+            "id": "37c2874d53bf43088157be5ebcc533cd",
+            "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+            "identity_snapshot": {
+              "code": "SYN-DRILL",
+              "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "kind": "tool",
+              "manufacturer": "Synthetic maker",
+              "model": "Review drill",
+              "serial_number": "SYN-R0707-ORIGINAL"
+            },
+            "issued_at": "2026-11-03T09:00:00+00:00",
+            "notes": "Actual issue acknowledged",
+            "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+            "project_snapshot": {
+              "customer": "Synthetic equipment customer",
+              "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+              "id": "afeb0f9cbee54757898bb10e01ce81b4",
+              "name": "Synthetic equipment project"
+            },
+            "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "revision": 1,
+            "sequence": 5
+          },
+          "return": null
+        },
+        "blockers": [
+          {
+            "code": "custody",
+            "message": "Im gewählten Zeitraum besteht eine Ausgabe an einen anderen Mitarbeiter oder ein anderes Projekt."
+          }
+        ],
+        "available": false,
+        "inspection_knowledge": "declared"
+      }
+    },
+    "listing": {
+      "items": [
+        {
+          "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "resource": {
+            "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "name": "Synthetic test drill",
+            "kind": "tool",
+            "active": true,
+            "code": "SYN-DRILL",
+            "revision": 1,
+            "updated_at": "2026-11-04T13:32:11+00:00"
+          },
+          "profile": {
+            "condition": "unknown",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+            "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "location": "Synthetic custody desk",
+            "manufacturer": "Synthetic maker",
+            "model": "Review drill",
+            "native_resource_snapshot": {
+              "active": true,
+              "code": "SYN-DRILL",
+              "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "kind": "tool",
+              "name": "Synthetic test drill",
+              "revision": 1,
+              "updated_at": "2026-11-04T13:32:11+00:00"
+            },
+            "notes": "",
+            "reason": "Synthetic explicitly reviewed profile",
+            "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "revision": 1,
+            "sequence": 1,
+            "serial_number": "SYN-R0707-ORIGINAL"
+          },
+          "requirements": [
+            {
+              "active": true,
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+              "due_on": "2026-11-01",
+              "id": "a0b3a1ffe28c45dc906dc89f94714434",
+              "notes": "Actual documented requirement",
+              "reason": "Explicitly required for safe use",
+              "required_for_use": true,
+              "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "revision": 1,
+              "sequence": 3,
+              "title": "Synthetic mandatory operator requirement"
+            }
+          ],
+          "inspections": [
+            {
+              "correction_reason": "",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+              "evidence_id": "45184849431e4f52aa3bed4352eaa80a",
+              "evidence_snapshot": {
+                "filename": "actual-proof.pdf",
+                "id": "45184849431e4f52aa3bed4352eaa80a",
+                "sha256": "a4ede04b5ea0fc1792deabbd6f0f7fe66e617283f75ca765e465e56cf19a3399"
+              },
+              "id": "3fc6bc6bbf7747179c70fefcf12be7be",
+              "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+              "identity_snapshot": {
+                "code": "SYN-DRILL",
+                "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+                "kind": "tool",
+                "manufacturer": "Synthetic maker",
+                "model": "Review drill",
+                "serial_number": "SYN-R0707-ORIGINAL"
+              },
+              "inspector": "Synthetic named inspector",
+              "next_due_on": "2026-11-04",
+              "note": "Actual test recorded in attached original",
+              "performed_at": "2026-11-02T09:00:00+00:00",
+              "requirement_id": "a0b3a1ffe28c45dc906dc89f94714434",
+              "requirement_revision": 1,
+              "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "result": "passed",
+              "revision": 1,
+              "sequence": 4,
+              "supersedes_id": null
+            }
+          ],
+          "handoffs": [
+            {
+              "condition": "serviceable",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+              "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+              "employee_snapshot": {
+                "active": 1,
+                "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+                "name": "Synthetic actual employee",
+                "user_active": 1,
+                "user_id": "3ec449c642ed47d0b9187e1857275d34"
+              },
+              "evidence_id": null,
+              "evidence_snapshot": null,
+              "expected_return_at": "2026-11-03T10:00:00+00:00",
+              "id": "37c2874d53bf43088157be5ebcc533cd",
+              "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+              "identity_snapshot": {
+                "code": "SYN-DRILL",
+                "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+                "kind": "tool",
+                "manufacturer": "Synthetic maker",
+                "model": "Review drill",
+                "serial_number": "SYN-R0707-ORIGINAL"
+              },
+              "issued_at": "2026-11-03T09:00:00+00:00",
+              "notes": "Actual issue acknowledged",
+              "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+              "project_snapshot": {
+                "customer": "Synthetic equipment customer",
+                "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+                "id": "afeb0f9cbee54757898bb10e01ce81b4",
+                "name": "Synthetic equipment project"
+              },
+              "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "revision": 1,
+              "sequence": 5,
+              "effective": {
+                "condition": "serviceable",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+                "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+                "employee_snapshot": {
+                  "active": 1,
+                  "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+                  "name": "Synthetic actual employee",
+                  "user_active": 1,
+                  "user_id": "3ec449c642ed47d0b9187e1857275d34"
+                },
+                "evidence_id": null,
+                "evidence_snapshot": null,
+                "expected_return_at": "2026-11-03T10:00:00+00:00",
+                "id": "37c2874d53bf43088157be5ebcc533cd",
+                "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+                "identity_snapshot": {
+                  "code": "SYN-DRILL",
+                  "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+                  "kind": "tool",
+                  "manufacturer": "Synthetic maker",
+                  "model": "Review drill",
+                  "serial_number": "SYN-R0707-ORIGINAL"
+                },
+                "issued_at": "2026-11-03T09:00:00+00:00",
+                "notes": "Actual issue acknowledged",
+                "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+                "project_snapshot": {
+                  "customer": "Synthetic equipment customer",
+                  "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+                  "id": "afeb0f9cbee54757898bb10e01ce81b4",
+                  "name": "Synthetic equipment project"
+                },
+                "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+                "revision": 1,
+                "sequence": 5
+              },
+              "return": null
+            }
+          ],
+          "files": [
+            {
+              "id": "45184849431e4f52aa3bed4352eaa80a",
+              "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "filename": "actual-proof.pdf",
+              "media_type": "application/pdf",
+              "size": 53,
+              "sha256": "a4ede04b5ea0fc1792deabbd6f0f7fe66e617283f75ca765e465e56cf19a3399",
+              "sequence": 2
+            }
+          ],
+          "source_sha256": "cf3e53e1d7becf2a03b141cc0f1835d728054fb7cdf7b38cc65be4ed2060435a",
+          "state": {
+            "configured": true,
+            "checked_at": "2026-11-03T12:00:00+00:00",
+            "condition": "serviceable",
+            "open_handoff": {
+              "condition": "serviceable",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+              "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+              "employee_snapshot": {
+                "active": 1,
+                "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+                "name": "Synthetic actual employee",
+                "user_active": 1,
+                "user_id": "3ec449c642ed47d0b9187e1857275d34"
+              },
+              "evidence_id": null,
+              "evidence_snapshot": null,
+              "expected_return_at": "2026-11-03T10:00:00+00:00",
+              "id": "37c2874d53bf43088157be5ebcc533cd",
+              "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+              "identity_snapshot": {
+                "code": "SYN-DRILL",
+                "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+                "kind": "tool",
+                "manufacturer": "Synthetic maker",
+                "model": "Review drill",
+                "serial_number": "SYN-R0707-ORIGINAL"
+              },
+              "issued_at": "2026-11-03T09:00:00+00:00",
+              "notes": "Actual issue acknowledged",
+              "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+              "project_snapshot": {
+                "customer": "Synthetic equipment customer",
+                "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+                "id": "afeb0f9cbee54757898bb10e01ce81b4",
+                "name": "Synthetic equipment project"
+              },
+              "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "revision": 1,
+              "sequence": 5,
+              "effective": {
+                "condition": "serviceable",
+                "created_at": "2026-11-03T12:00:00+00:00",
+                "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+                "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+                "employee_snapshot": {
+                  "active": 1,
+                  "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+                  "name": "Synthetic actual employee",
+                  "user_active": 1,
+                  "user_id": "3ec449c642ed47d0b9187e1857275d34"
+                },
+                "evidence_id": null,
+                "evidence_snapshot": null,
+                "expected_return_at": "2026-11-03T10:00:00+00:00",
+                "id": "37c2874d53bf43088157be5ebcc533cd",
+                "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+                "identity_snapshot": {
+                  "code": "SYN-DRILL",
+                  "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+                  "kind": "tool",
+                  "manufacturer": "Synthetic maker",
+                  "model": "Review drill",
+                  "serial_number": "SYN-R0707-ORIGINAL"
+                },
+                "issued_at": "2026-11-03T09:00:00+00:00",
+                "notes": "Actual issue acknowledged",
+                "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+                "project_snapshot": {
+                  "customer": "Synthetic equipment customer",
+                  "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+                  "id": "afeb0f9cbee54757898bb10e01ce81b4",
+                  "name": "Synthetic equipment project"
+                },
+                "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+                "revision": 1,
+                "sequence": 5
+              },
+              "return": null
+            },
+            "blockers": [
+              {
+                "code": "custody",
+                "message": "Im gewählten Zeitraum besteht eine Ausgabe an einen anderen Mitarbeiter oder ein anderes Projekt."
+              }
+            ],
+            "available": false,
+            "inspection_knowledge": "declared"
+          }
+        }
+      ]
+    },
+    "options": {
+      "resources": [
+        {
+          "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "name": "Synthetic test drill",
+          "kind": "tool",
+          "active": true,
+          "code": "SYN-DRILL",
+          "revision": 1,
+          "updated_at": "2026-11-04T13:32:11+00:00"
+        }
+      ],
+      "employees": [
+        {
+          "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+          "user_id": "3ec449c642ed47d0b9187e1857275d34",
+          "name": "Synthetic actual employee",
+          "active": true
+        }
+      ],
+      "projects": [
+        {
+          "id": "afeb0f9cbee54757898bb10e01ce81b4",
+          "name": "Synthetic equipment project",
+          "customer": "Synthetic equipment customer",
+          "customer_id": "526e1896e01c4de99e30ba0d90f7d223"
+        }
+      ],
+      "conditions": [
+        "unknown",
+        "serviceable",
+        "restricted",
+        "out_of_service"
+      ]
+    },
+    "history": {
+      "profiles": [
+        {
+          "condition": "unknown",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "location": "Synthetic custody desk",
+          "manufacturer": "Synthetic maker",
+          "model": "Review drill",
+          "native_resource_snapshot": {
+            "active": true,
+            "code": "SYN-DRILL",
+            "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "kind": "tool",
+            "name": "Synthetic test drill",
+            "revision": 1,
+            "updated_at": "2026-11-04T13:32:11+00:00"
+          },
+          "notes": "",
+          "reason": "Synthetic explicitly reviewed profile",
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "revision": 1,
+          "sequence": 1,
+          "serial_number": "SYN-R0707-ORIGINAL"
+        }
+      ],
+      "requirements": [
+        {
+          "active": true,
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "due_on": "2026-11-01",
+          "id": "a0b3a1ffe28c45dc906dc89f94714434",
+          "notes": "Actual documented requirement",
+          "reason": "Explicitly required for safe use",
+          "required_for_use": true,
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "revision": 1,
+          "sequence": 3,
+          "title": "Synthetic mandatory operator requirement"
+        }
+      ],
+      "inspections": [
+        {
+          "correction_reason": "",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "evidence_id": "45184849431e4f52aa3bed4352eaa80a",
+          "evidence_snapshot": {
+            "filename": "actual-proof.pdf",
+            "id": "45184849431e4f52aa3bed4352eaa80a",
+            "sha256": "a4ede04b5ea0fc1792deabbd6f0f7fe66e617283f75ca765e465e56cf19a3399"
+          },
+          "id": "3fc6bc6bbf7747179c70fefcf12be7be",
+          "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+          "identity_snapshot": {
+            "code": "SYN-DRILL",
+            "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "kind": "tool",
+            "manufacturer": "Synthetic maker",
+            "model": "Review drill",
+            "serial_number": "SYN-R0707-ORIGINAL"
+          },
+          "inspector": "Synthetic named inspector",
+          "next_due_on": "2026-11-04",
+          "note": "Actual test recorded in attached original",
+          "performed_at": "2026-11-02T09:00:00+00:00",
+          "requirement_id": "a0b3a1ffe28c45dc906dc89f94714434",
+          "requirement_revision": 1,
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "result": "passed",
+          "revision": 1,
+          "sequence": 4,
+          "supersedes_id": null
+        }
+      ],
+      "handoffs": [
+        {
+          "condition": "serviceable",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+          "employee_snapshot": {
+            "active": 1,
+            "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+            "name": "Synthetic actual employee",
+            "user_active": 1,
+            "user_id": "3ec449c642ed47d0b9187e1857275d34"
+          },
+          "evidence_id": null,
+          "evidence_snapshot": null,
+          "expected_return_at": "2026-11-03T10:00:00+00:00",
+          "id": "37c2874d53bf43088157be5ebcc533cd",
+          "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+          "identity_snapshot": {
+            "code": "SYN-DRILL",
+            "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "kind": "tool",
+            "manufacturer": "Synthetic maker",
+            "model": "Review drill",
+            "serial_number": "SYN-R0707-ORIGINAL"
+          },
+          "issued_at": "2026-11-03T09:00:00+00:00",
+          "notes": "Actual issue acknowledged",
+          "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+          "project_snapshot": {
+            "customer": "Synthetic equipment customer",
+            "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+            "id": "afeb0f9cbee54757898bb10e01ce81b4",
+            "name": "Synthetic equipment project"
+          },
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "revision": 1,
+          "sequence": 5
+        }
+      ],
+      "returns": [],
+      "corrections": []
+    },
+    "proof": {
+      "id": "45184849431e4f52aa3bed4352eaa80a",
+      "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+      "filename": "actual-proof.pdf",
+      "media_type": "application/pdf",
+      "size": 53,
+      "sha256": "a4ede04b5ea0fc1792deabbd6f0f7fe66e617283f75ca765e465e56cf19a3399",
+      "sequence": 2
+    },
+    "inspection": {
+      "requirement_id": "a0b3a1ffe28c45dc906dc89f94714434",
+      "requirement_revision": 1,
+      "performed_at": "2026-11-02T09:00:00+00:00",
+      "inspector": "Synthetic named inspector",
+      "result": "passed",
+      "next_due_on": "2026-11-04",
+      "evidence_id": "45184849431e4f52aa3bed4352eaa80a",
+      "evidence_snapshot": {
+        "id": "45184849431e4f52aa3bed4352eaa80a",
+        "sha256": "a4ede04b5ea0fc1792deabbd6f0f7fe66e617283f75ca765e465e56cf19a3399",
+        "filename": "actual-proof.pdf"
+      },
+      "note": "Actual test recorded in attached original",
+      "supersedes_id": null,
+      "correction_reason": "",
+      "identity_snapshot": {
+        "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+        "kind": "tool",
+        "code": "SYN-DRILL",
+        "serial_number": "SYN-R0707-ORIGINAL",
+        "manufacturer": "Synthetic maker",
+        "model": "Review drill"
+      },
+      "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+      "id": "3fc6bc6bbf7747179c70fefcf12be7be",
+      "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+      "revision": 1,
+      "sequence": 4,
+      "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+      "created_at": "2026-11-03T12:00:00+00:00"
+    },
+    "issued": {
+      "resource": {
+        "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+        "resource": {
+          "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "name": "Synthetic test drill",
+          "kind": "tool",
+          "active": true,
+          "code": "SYN-DRILL",
+          "revision": 1,
+          "updated_at": "2026-11-04T13:32:11+00:00"
+        },
+        "profile": {
+          "condition": "unknown",
+          "created_at": "2026-11-03T12:00:00+00:00",
+          "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+          "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "location": "Synthetic custody desk",
+          "manufacturer": "Synthetic maker",
+          "model": "Review drill",
+          "native_resource_snapshot": {
+            "active": true,
+            "code": "SYN-DRILL",
+            "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "kind": "tool",
+            "name": "Synthetic test drill",
+            "revision": 1,
+            "updated_at": "2026-11-04T13:32:11+00:00"
+          },
+          "notes": "",
+          "reason": "Synthetic explicitly reviewed profile",
+          "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "revision": 1,
+          "sequence": 1,
+          "serial_number": "SYN-R0707-ORIGINAL"
+        },
+        "requirements": [
+          {
+            "active": true,
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+            "due_on": "2026-11-01",
+            "id": "a0b3a1ffe28c45dc906dc89f94714434",
+            "notes": "Actual documented requirement",
+            "reason": "Explicitly required for safe use",
+            "required_for_use": true,
+            "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "revision": 1,
+            "sequence": 3,
+            "title": "Synthetic mandatory operator requirement"
+          }
+        ],
+        "inspections": [
+          {
+            "correction_reason": "",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+            "evidence_id": "45184849431e4f52aa3bed4352eaa80a",
+            "evidence_snapshot": {
+              "filename": "actual-proof.pdf",
+              "id": "45184849431e4f52aa3bed4352eaa80a",
+              "sha256": "a4ede04b5ea0fc1792deabbd6f0f7fe66e617283f75ca765e465e56cf19a3399"
+            },
+            "id": "3fc6bc6bbf7747179c70fefcf12be7be",
+            "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+            "identity_snapshot": {
+              "code": "SYN-DRILL",
+              "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "kind": "tool",
+              "manufacturer": "Synthetic maker",
+              "model": "Review drill",
+              "serial_number": "SYN-R0707-ORIGINAL"
+            },
+            "inspector": "Synthetic named inspector",
+            "next_due_on": "2026-11-04",
+            "note": "Actual test recorded in attached original",
+            "performed_at": "2026-11-02T09:00:00+00:00",
+            "requirement_id": "a0b3a1ffe28c45dc906dc89f94714434",
+            "requirement_revision": 1,
+            "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "result": "passed",
+            "revision": 1,
+            "sequence": 4,
+            "supersedes_id": null
+          }
+        ],
+        "handoffs": [
+          {
+            "condition": "serviceable",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+            "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+            "employee_snapshot": {
+              "active": 1,
+              "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+              "name": "Synthetic actual employee",
+              "user_active": 1,
+              "user_id": "3ec449c642ed47d0b9187e1857275d34"
+            },
+            "evidence_id": null,
+            "evidence_snapshot": null,
+            "expected_return_at": "2026-11-03T10:00:00+00:00",
+            "id": "37c2874d53bf43088157be5ebcc533cd",
+            "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+            "identity_snapshot": {
+              "code": "SYN-DRILL",
+              "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "kind": "tool",
+              "manufacturer": "Synthetic maker",
+              "model": "Review drill",
+              "serial_number": "SYN-R0707-ORIGINAL"
+            },
+            "issued_at": "2026-11-03T09:00:00+00:00",
+            "notes": "Actual issue acknowledged",
+            "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+            "project_snapshot": {
+              "customer": "Synthetic equipment customer",
+              "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+              "id": "afeb0f9cbee54757898bb10e01ce81b4",
+              "name": "Synthetic equipment project"
+            },
+            "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "revision": 1,
+            "sequence": 5,
+            "effective": {
+              "condition": "serviceable",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+              "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+              "employee_snapshot": {
+                "active": 1,
+                "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+                "name": "Synthetic actual employee",
+                "user_active": 1,
+                "user_id": "3ec449c642ed47d0b9187e1857275d34"
+              },
+              "evidence_id": null,
+              "evidence_snapshot": null,
+              "expected_return_at": "2026-11-03T10:00:00+00:00",
+              "id": "37c2874d53bf43088157be5ebcc533cd",
+              "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+              "identity_snapshot": {
+                "code": "SYN-DRILL",
+                "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+                "kind": "tool",
+                "manufacturer": "Synthetic maker",
+                "model": "Review drill",
+                "serial_number": "SYN-R0707-ORIGINAL"
+              },
+              "issued_at": "2026-11-03T09:00:00+00:00",
+              "notes": "Actual issue acknowledged",
+              "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+              "project_snapshot": {
+                "customer": "Synthetic equipment customer",
+                "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+                "id": "afeb0f9cbee54757898bb10e01ce81b4",
+                "name": "Synthetic equipment project"
+              },
+              "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "revision": 1,
+              "sequence": 5
+            },
+            "return": null
+          }
+        ],
+        "files": [
+          {
+            "id": "45184849431e4f52aa3bed4352eaa80a",
+            "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "filename": "actual-proof.pdf",
+            "media_type": "application/pdf",
+            "size": 53,
+            "sha256": "a4ede04b5ea0fc1792deabbd6f0f7fe66e617283f75ca765e465e56cf19a3399",
+            "sequence": 2
+          }
+        ],
+        "source_sha256": "cf3e53e1d7becf2a03b141cc0f1835d728054fb7cdf7b38cc65be4ed2060435a",
+        "state": {
+          "configured": true,
+          "checked_at": "2026-11-03T12:00:00+00:00",
+          "condition": "serviceable",
+          "open_handoff": {
+            "condition": "serviceable",
+            "created_at": "2026-11-03T12:00:00+00:00",
+            "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+            "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+            "employee_snapshot": {
+              "active": 1,
+              "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+              "name": "Synthetic actual employee",
+              "user_active": 1,
+              "user_id": "3ec449c642ed47d0b9187e1857275d34"
+            },
+            "evidence_id": null,
+            "evidence_snapshot": null,
+            "expected_return_at": "2026-11-03T10:00:00+00:00",
+            "id": "37c2874d53bf43088157be5ebcc533cd",
+            "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+            "identity_snapshot": {
+              "code": "SYN-DRILL",
+              "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "kind": "tool",
+              "manufacturer": "Synthetic maker",
+              "model": "Review drill",
+              "serial_number": "SYN-R0707-ORIGINAL"
+            },
+            "issued_at": "2026-11-03T09:00:00+00:00",
+            "notes": "Actual issue acknowledged",
+            "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+            "project_snapshot": {
+              "customer": "Synthetic equipment customer",
+              "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+              "id": "afeb0f9cbee54757898bb10e01ce81b4",
+              "name": "Synthetic equipment project"
+            },
+            "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+            "revision": 1,
+            "sequence": 5,
+            "effective": {
+              "condition": "serviceable",
+              "created_at": "2026-11-03T12:00:00+00:00",
+              "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+              "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+              "employee_snapshot": {
+                "active": 1,
+                "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+                "name": "Synthetic actual employee",
+                "user_active": 1,
+                "user_id": "3ec449c642ed47d0b9187e1857275d34"
+              },
+              "evidence_id": null,
+              "evidence_snapshot": null,
+              "expected_return_at": "2026-11-03T10:00:00+00:00",
+              "id": "37c2874d53bf43088157be5ebcc533cd",
+              "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+              "identity_snapshot": {
+                "code": "SYN-DRILL",
+                "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+                "kind": "tool",
+                "manufacturer": "Synthetic maker",
+                "model": "Review drill",
+                "serial_number": "SYN-R0707-ORIGINAL"
+              },
+              "issued_at": "2026-11-03T09:00:00+00:00",
+              "notes": "Actual issue acknowledged",
+              "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+              "project_snapshot": {
+                "customer": "Synthetic equipment customer",
+                "customer_id": "526e1896e01c4de99e30ba0d90f7d223",
+                "id": "afeb0f9cbee54757898bb10e01ce81b4",
+                "name": "Synthetic equipment project"
+              },
+              "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+              "revision": 1,
+              "sequence": 5
+            },
+            "return": null
+          },
+          "blockers": [
+            {
+              "code": "custody",
+              "message": "Im gewählten Zeitraum besteht eine Ausgabe an einen anderen Mitarbeiter oder ein anderes Projekt."
+            }
+          ],
+          "available": false,
+          "inspection_knowledge": "declared"
+        }
+      },
+      "record": {
+        "employee_id": "bf2cbfc228164040a54f62dc9be6b0bd",
+        "project_id": "afeb0f9cbee54757898bb10e01ce81b4",
+        "issued_at": "2026-11-03T09:00:00+00:00",
+        "expected_return_at": "2026-11-03T10:00:00+00:00",
+        "condition": "serviceable",
+        "notes": "Actual issue acknowledged",
+        "evidence_id": null,
+        "evidence_snapshot": null,
+        "employee_snapshot": {
+          "id": "bf2cbfc228164040a54f62dc9be6b0bd",
+          "user_id": "3ec449c642ed47d0b9187e1857275d34",
+          "name": "Synthetic actual employee",
+          "active": 1,
+          "user_active": 1
+        },
+        "project_snapshot": {
+          "id": "afeb0f9cbee54757898bb10e01ce81b4",
+          "name": "Synthetic equipment project",
+          "customer": "Synthetic equipment customer",
+          "customer_id": "526e1896e01c4de99e30ba0d90f7d223"
+        },
+        "identity_snapshot": {
+          "id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+          "kind": "tool",
+          "code": "SYN-DRILL",
+          "serial_number": "SYN-R0707-ORIGINAL",
+          "manufacturer": "Synthetic maker",
+          "model": "Review drill"
+        },
+        "identity_sha256": "61c745eae5894d8c8376ea3b8fc91710f2e9ce9ce6d25fb18d205ec9e64ddd8b",
+        "id": "37c2874d53bf43088157be5ebcc533cd",
+        "resource_id": "c6f27a21f06a41b59bccb2c5b5f09d8b",
+        "revision": 1,
+        "sequence": 5,
+        "created_by": "d2e2eb5a325f4224b756e1bfef3bb9fd",
+        "created_at": "2026-11-03T12:00:00+00:00"
+      }
+    }
+  }
+}

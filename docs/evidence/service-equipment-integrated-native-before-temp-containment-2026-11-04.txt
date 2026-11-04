@@ -1,0 +1,42 @@
+Command: ['/workspace/toolchains/flutter/bin/flutter', 'test', '--no-pub', '--reporter', 'expanded', 'test/business_service_equipment_lifecycle_review_test.dart', 'test/business_service_equipment_http_review_test.dart', 'test/business_service_test.dart', 'test/business_resource_custody_test.dart']
+Cwd: /workspace/smartplan-service-equipment-integration-20261104/app
+Started: 2026-11-04T19:06:04.688052+00:00
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_lifecycle_review_test.dart
+00:00 +0: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: actual service original is removed on allowed session replacement
+00:01 +1: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual service HTTP keeps one accepted original across closed-view retry and explicit replay
+00:01 +2: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual service HTTP keeps one accepted original across closed-view retry and explicit replay
+00:02 +3: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual service HTTP keeps one accepted original across closed-view retry and explicit replay
+00:02 +4: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual service HTTP keeps one accepted original across closed-view retry and explicit replay
+00:02 +5: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual service HTTP keeps one accepted original across closed-view retry and explicit replay
+00:02 +6: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: service owned draft closes for foreign_dialog and preserves unrelated routes
+00:03 +7: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:03 +8: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:03 +9: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:03 +10: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:03 +11: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:03 +12: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:03 +13: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:03 +14: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:04 +15: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:04 +16: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:04 +17: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_http_review_test.dart: actual custody HTTP keeps one accepted original across closed-view retry and explicit replay
+00:04 +18: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: custody held original reply cannot populate a superseded or revoked view
+00:04 +19: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: custody held original error cannot populate a superseded or revoked view
+00:04 +20: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: custody held original silent_revocation cannot populate a superseded or revoked view
+00:04 +21: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: custody pending preflight cannot post after originating view closes
+00:05 +22: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: origin and customer remain explicit and status uses current allowed transitions
+00:05 +23: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: activity acknowledgement binds immutable event and same case revision
+00:05 +24: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: lost transition retries exact nonce with fresh central session rights
+00:05 +25: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: lost transition retries exact nonce with fresh project session rights
+00:05 +26: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: accepted native dispatch replays its original receipt after planning is disabled
+00:05 +27: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:05 +28: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:05 +29: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:05 +30: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:07 +31: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:07 +32: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:07 +33: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: native case resolves, closes and reopens without discarding historical resolution (variant: TargetPlatform.windows)
+00:07 +34: /workspace/smartplan-service-equipment-integration-20261104/app/test/business_service_test.dart: project source right loss clears case and stops transitions (variant: TargetPlatform.windows)
+00:07 +35: All tests passed!

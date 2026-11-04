@@ -113,10 +113,15 @@ Betriebsfreigabe.
     91 betroffene Appfälle, sieben tatsächliche Zwei-Prozess-HTTP-Fälle,
     ein CI-Guardfall und alle 848 Browsermodulfälle bestehen. Analyse ohne Befund,
     16 Paketprüfungen. Produktive Isolations-/Sicherheitsabnahme bleibt offen.
-11. Service-/Betriebsmittelkorrekturen sowie private Lohnvergleichs- und
-    Quellenpakete liegen weiterhin in separaten Arbeitsständen. Nach dem
-    Nutzungslimit der parallelen Bearbeiter sind ihre ausstehenden Prüfungen
-    vor einer Integration wieder aufzunehmen.
+11. Die nativen Service-/Betriebsmittelkorrekturen sind
+    [integriert und geprüft](CRM_ERP_SERVICE_BETRIEBSMITTEL_GESAMTPRUEFUNG_2026-11-04.md):
+    35 betroffene Fälle einschließlich zwei tatsächlicher HTTP-Abläufe bestehen;
+    App-Analyse ohne Befund. Originalaufträge bleiben erhalten, während ein
+    geschlossener Ansichtskontext weitere Wiederholungs-POSTs verhindert.
+12. Private Lohnvergleichs-, SV-Gruppen- und Quellenpakete liegen weiterhin
+    getrennt vor. Ihre Integration sowie weitere fachliche und betriebliche
+    Abnahmen sind noch offen. Die parallelen Bearbeiter wurden durch ihr
+    Nutzungslimit unterbrochen; gespeicherte Zwischenstände sind erhalten.
 
 ## Noch offene Buchhaltungs- und Gesamtanforderungen
 

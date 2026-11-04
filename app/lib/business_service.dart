@@ -190,7 +190,8 @@ class BusinessServicePage extends StatefulWidget {
   State<BusinessServicePage> createState() => _BusinessServicePageState();
 }
 
-class _BusinessServicePageState extends State<BusinessServicePage> {
+class _BusinessServicePageState extends State<BusinessServicePage>
+    with WidgetsBindingObserver {
   BusinessSession get session => widget.session;
   BusinessSession? scope;
   Map<String, dynamic>? listing, selected, options, history;
@@ -202,8 +203,12 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
   int epoch = 0;
   Object? generation;
   Set<String> rights = {};
+  String? token, baseUrl;
+  bool backgrounded = false;
+  final Map<Route<dynamic>, NavigatorState> ownedDialogs = {};
   String? get projectId => widget.projectId ?? session.projectId;
   bool get available =>
+      !backgrounded &&
       session.allowed &&
       session.hasFeature('service_cases') &&
       session.hasModule('service') &&
@@ -223,15 +228,109 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    token = session.api.token;
+    baseUrl = session.api.base;
     generation = session.generation;
     rights = Set.of(session.permissions);
     session.addListener(changed);
     load();
   }
 
+  bool current(int captured) => mounted && !backgrounded && captured == epoch;
+
+  void ensureCurrent(int captured) {
+    if (!current(captured))
+      throw const ApiException(0, 'Der Servicekontext wurde geschlossen.');
+  }
+
+  void closeOwnedDialogs() {
+    final previous = Map<Route<dynamic>, NavigatorState>.of(ownedDialogs);
+    ownedDialogs.clear();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      for (final entry in previous.entries) {
+        if (entry.value.mounted && entry.key.isActive)
+          entry.value.removeRoute(entry.key);
+      }
+    });
+  }
+
+  Future<T?> ownedDialog<T>({
+    required BuildContext context,
+    required WidgetBuilder builder,
+    bool barrierDismissible = true,
+  }) async {
+    final captured = epoch;
+    ensureCurrent(captured);
+    final navigator = Navigator.of(context, rootNavigator: true);
+    final route = DialogRoute<T>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: (context) =>
+          current(captured) ? builder(context) : const SizedBox.shrink(),
+    );
+    ownedDialogs[route] = navigator;
+    try {
+      return await navigator.push(route);
+    } finally {
+      ownedDialogs.remove(route);
+    }
+  }
+
+  void clearPrivate() {
+    epoch++;
+    closeOwnedDialogs();
+    if (scope != null && !identical(scope, session))
+      scope!.removeListener(changed);
+    scope = null;
+    listing = selected = options = history = null;
+    selectedId = error = null;
+    filterResponsibles = [];
+    status = due = priority = responsible = '';
+    search.clear();
+    owner = loading = false;
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessServicePage old) {
+    super.didUpdateWidget(old);
+    if (!identical(old.session, session) ||
+        old.projectId != widget.projectId ||
+        old.customerId != widget.customerId ||
+        old.origin != widget.origin) {
+      old.session.removeListener(changed);
+      clearPrivate();
+      session.addListener(changed);
+      token = session.api.token;
+      baseUrl = session.api.base;
+      generation = session.generation;
+      rights = Set.of(session.permissions);
+      load();
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState value) {
+    if (!mounted) return;
+    if ([
+      AppLifecycleState.hidden,
+      AppLifecycleState.paused,
+      AppLifecycleState.detached,
+    ].contains(value)) {
+      setState(() {
+        backgrounded = true;
+        clearPrivate();
+      });
+    } else if (value == AppLifecycleState.resumed) {
+      setState(() => backgrounded = false);
+    }
+  }
+
   @override
   void dispose() {
     epoch++;
+    WidgetsBinding.instance.removeObserver(this);
+    closeOwnedDialogs();
     session.removeListener(changed);
     if (scope != null && !identical(scope, session))
       scope!.removeListener(changed);
@@ -242,19 +341,16 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
   void changed() {
     if (!mounted) return;
     if (!available ||
+        token != session.api.token ||
+        baseUrl != session.api.base ||
         generation != session.generation ||
         !session.permissions.containsAll(rights) ||
         (selected?['project_id'] != null &&
             scope?.can('documents.read') != true)) {
-      epoch++;
-      listing = null;
-      selected = null;
-      options = null;
-      history = null;
-      filterResponsibles = [];
-      responsible = '';
-      loading = false;
+      clearPrivate();
     }
+    token = session.api.token;
+    baseUrl = session.api.base;
     generation = session.generation;
     rights = Set.of(session.permissions);
     setState(() {});
@@ -269,10 +365,11 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
   }
 
   Future<void> attempt(Future<void> Function() callback) async {
+    final captured = epoch;
     try {
       await callback();
     } catch (value) {
-      if (mounted && available) setState(() => error = '$value');
+      if (current(captured) && available) setState(() => error = '$value');
     }
   }
 
@@ -289,17 +386,14 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
           captured == epoch &&
           [401, 403, 404].contains(value.status))
         setState(() {
-          selected = null;
-          listing = null;
-          options = null;
-          history = null;
-          epoch++;
+          clearPrivate();
         });
       rethrow;
     }
   }
 
   Future<void> sources(String? customer, String? project) async {
+    final captured = epoch;
     final next = project == null
         ? session
         : session.sharedProjectSession(project);
@@ -309,19 +403,28 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
       next.addListener(changed);
     scope = next;
     await next.load();
+    ensureCurrent(captured);
     if (next.error != null)
       throw const ApiException(
         0,
         'Aktuelle Fachrechte konnten nicht geladen werden.',
       );
-    options = await get(
+    final choices = await get(
       session.query('/service/options', {
         if (customer != null) 'customer_id': customer,
         if (project != null) 'project_id': project,
       }),
     );
     final actor = businessMap(await session.api.call('/api/me'));
-    if (!mounted || !available) return;
+    ensureCurrent(captured);
+    await next.load();
+    ensureCurrent(captured);
+    if (next.error != null ||
+        !next.can('contacts.read') ||
+        project != null && !next.can('documents.read'))
+      throw const ApiException(403, 'Aktuelle Quellenrechte wurden entzogen.');
+    if (!available) return;
+    options = choices;
     owner = actor['role'] == 'owner';
   }
 
@@ -351,6 +454,10 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
             if (projectId != null) 'project_id': projectId!,
           }),
         );
+        await session.load();
+        ensureCurrent(captured);
+        if (session.error != null || !available)
+          throw const ApiException(403, 'Aktuelle Servicerechte fehlen.');
         if (mounted && captured == epoch)
           setState(() {
             listing = result;
@@ -370,6 +477,13 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
           throw const ApiException(0, 'Falscher Servicefall.');
         await sources(item['customer_id'], item['project_id']);
         final events = await get('/service/cases/$selectedId/history');
+        await sources(item['customer_id'], item['project_id']);
+        ensureCurrent(captured);
+        if (item['project_id'] == null && !owner)
+          throw const ApiException(
+            403,
+            'Der ursprüngliche Fall ist nicht mehr freigegeben.',
+          );
         events['events'] = businessItems(events['events'])
             .map((value) => {...value, ...businessMap(value['values'])})
             .toList();
@@ -380,7 +494,16 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
           });
       }
     } catch (value) {
-      if (mounted && captured == epoch) setState(() => error = '$value');
+      if (current(captured))
+        setState(() {
+          if (value is ApiException && [401, 403, 404].contains(value.status)) {
+            clearPrivate();
+            error =
+                'Der Service- oder Quellenzugang ist nicht mehr freigegeben.';
+          } else {
+            error = '$value';
+          }
+        });
     } finally {
       if (mounted && captured == epoch) setState(() => loading = false);
     }
@@ -394,54 +517,68 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
     Map<String, dynamic> Function(Map<String, dynamic>) build,
   ) async {
     guard(write: true);
+    final captured = epoch, commandSession = session;
+    var active = true;
+    bool stillCurrent() => active && current(captured);
     dynamic result;
-    await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => BusinessEditor(
-        session: scope!,
-        pendingSession: session,
-        title: title,
-        fields: fields,
-        pendingKey: key,
-        readAllowed: () => readable,
-        writePermission: scope!.projectId == null
-            ? 'contacts.write'
-            : 'documents.write',
-        saveLabel: title,
-        onSave: (values) async {
-          guard(write: true);
-          if (session.pending(key)) {
-            result = await session.repeatServiceCommand(key);
-            return;
-          }
-          final body = build(values);
-          result = await session.command(
-            key,
-            path,
-            body,
-            validateResult: (value) => serviceReceipt(path, body, value),
-          );
-        },
-      ),
-    );
-    return result;
+    try {
+      await ownedDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => BusinessEditor(
+          session: scope!,
+          pendingSession: commandSession,
+          title: title,
+          fields: fields,
+          pendingKey: key,
+          readAllowed: () => stillCurrent() && readable,
+          writePermission: scope!.projectId == null
+              ? 'contacts.write'
+              : 'documents.write',
+          saveLabel: title,
+          onSave: (values) async {
+            ensureCurrent(captured);
+            guard(write: true);
+            if (commandSession.pending(key)) {
+              result = await commandSession.repeatServiceCommand(
+                key,
+                stillCurrent: stillCurrent,
+              );
+              return;
+            }
+            final body = build(values);
+            result = await commandSession.command(
+              key,
+              path,
+              body,
+              validateResult: (value) => serviceReceipt(path, body, value),
+            );
+          },
+        ),
+      );
+    } finally {
+      active = false;
+    }
+    return current(captured) ? result : null;
   }
 
   Future<void> choose() async {
+    final captured = epoch;
     final original = session.pendingCommandValues(
       'service-case-new',
       path: '/service/cases',
     );
     if (original != null) {
       await sources(original['customer_id'], original['project_id']);
+      ensureCurrent(captured);
       await caseForm(refs: original);
       return;
     }
     await sources(widget.customerId, projectId);
+    ensureCurrent(captured);
     final data = options!;
     Map<String, dynamic>? refs;
-    await showDialog<bool>(
+    await ownedDialog<bool>(
       context: context,
       builder: (_) => BusinessEditor(
         session: session,
@@ -485,7 +622,7 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
         },
       ),
     );
-    if (refs != null && mounted) await caseForm(refs: refs!);
+    if (refs != null && current(captured)) await caseForm(refs: refs!);
   }
 
   Future<void> caseForm({
@@ -908,9 +1045,11 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
 
   Future<void> openProject() async {
     guard();
+    final captured = epoch;
     final id = selected!['project_id'];
     final projects = businessItems(await session.api.call('/api/projects')),
         project = projects.where((value) => value['id'] == id).firstOrNull;
+    ensureCurrent(captured);
     guard();
     if (project == null)
       throw const ApiException(
@@ -939,6 +1078,10 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
     final digest = (await Sha256().hash(bytes)).bytes
         .map((value) => value.toRadixString(16).padLeft(2, '0'))
         .join();
+    ensureCurrent(captured);
+    await sources(item['customer_id'], item['project_id']);
+    await get('/service/cases/${item['id']}');
+    ensureCurrent(captured);
     guard();
     if (captured != epoch || digest != current['pdf_sha256'])
       throw const ApiException(
@@ -958,15 +1101,16 @@ class _BusinessServicePageState extends State<BusinessServicePage> {
   }
 
   Future<void> linkDetail(Map<String, dynamic> link) async {
+    final captured = epoch;
     await get('/service/cases/$selectedId');
+    ensureCurrent(captured);
     Map<String, dynamic>? current;
     if (link['kind'] == 'appointment')
       current = await get('/appointments/${link['target_id']}');
     if (link['kind'] == 'report')
       current = await get('/service-reports/${link['target_id']}');
-    if (!mounted) return;
-    final captured = epoch;
-    await showDialog<void>(
+    ensureCurrent(captured);
+    await ownedDialog<void>(
       context: context,
       builder: (_) => ListenableBuilder(
         listenable: scope!,

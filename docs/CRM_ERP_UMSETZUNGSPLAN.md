@@ -115,9 +115,10 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 5. **Parallele Arbeitsstände erst nach eigenen Nachweisen integrieren.**
    Die [native Assistenten-/Sprachkorrektur und technischen Isolationsnachweise](CRM_ERP_UNTERNEHMENSISOLATION_GESAMTPRUEFUNG_2026-11-04.md)
    sind integriert; produktive Host- und Sicherheitsabnahme bleiben offen.
-   Service/Betriebsmittel und private Lohnvergleichs-/Quellenpakete liegen noch
-   getrennt vor. Ausstehende tatsächliche Prüfungen und Übergaben sind nach dem
-   Nutzungslimit der parallelen Bearbeiter wieder aufzunehmen.
+   Die [native Service-/Betriebsmittelkorrektur](CRM_ERP_SERVICE_BETRIEBSMITTEL_GESAMTPRUEFUNG_2026-11-04.md)
+   ist ebenfalls mit 35 Fällen und Analyse integriert. Private Lohnvergleichs-,
+   SV-Gruppen- und Quellenpakete liegen noch getrennt vor. Ihre Integration und
+   weitere tatsächliche Fach-/Betriebsnachweise bleiben die nächsten Schritte.
 
 Die v5-Zusammenrechnung mehrerer belegter Entgelt-/SV-Abschnitte mit
 Anspruchsbausteinen und Reise-Lohnübergabe sowie der eigene v5-Mitarbeiterbeleg

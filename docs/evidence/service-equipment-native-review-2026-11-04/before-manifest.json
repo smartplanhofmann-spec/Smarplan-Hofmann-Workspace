@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-04",
+  "base_commit": "2e2ed5ca33b928216b940c6334cdfbbca0a14c27",
+  "confirmed_red_cases": 4,
+  "finding": "Both native service and resource custody retain original visible records across allowed BusinessSession replacement and app backgrounding. No runtime edits before reproduction.",
+  "files": {
+    "docs/evidence/service-equipment-native-review-2026-11-04/business_resource_custody.before.dart": {
+      "bytes": 45470,
+      "sha256": "5ae8250d877e9e489efb9da725721ce6340b79cf608484c9430e3ed1436e7915"
+    },
+    "docs/evidence/service-equipment-native-review-2026-11-04/business_service.before.dart": {
+      "bytes": 46737,
+      "sha256": "a5af88ca4a65a39e57583b8b67e589b26e67641e8efdd2d0efd6ae920a97e538"
+    },
+    "docs/evidence/service-equipment-native-review-2026-11-04/context-original-red.txt": {
+      "bytes": 9075,
+      "sha256": "cc2c336d541120634c8e47b137d455fdee06d06121eb352ed169ca2747021b0b"
+    },
+    "docs/evidence/service-equipment-native-review-2026-11-04/context-original-repros.dart": {
+      "bytes": 4896,
+      "sha256": "aa0f1fb2b7b7fc95da3b15877d897b3c10398034819db43caa172d5f11558a1f"
+    },
+    "docs/fixtures/service_equipment_native_review_2026.json": {
+      "bytes": 69335,
+      "sha256": "7a1c75b1ae4d8290a792c7b6d61c11ac1a84356261f8d409d92a4d39ac2e67a4"
+    }
+  }
+}

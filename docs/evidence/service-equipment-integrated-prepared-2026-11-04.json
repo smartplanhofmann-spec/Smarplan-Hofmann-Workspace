@@ -1,0 +1,22 @@
+{
+  "base_commit": "d5f1978e13a3fd6df6aec12b2d2c4dc3d06ef984",
+  "owner_base_commit": "2e2ed5ca33b928216b940c6334cdfbbca0a14c27",
+  "owner_workspace": "/workspace/smartplan-service-equipment-review-20261104",
+  "copied": {
+    "app/test/business_service_equipment_lifecycle_review_test.dart": "a140478b50352964c0375fd1809ef9d247192a7beffe01586757fbbb703ee046",
+    "app/test/fixtures/service_equipment_native_review_2026.json": "7a1c75b1ae4d8290a792c7b6d61c11ac1a84356261f8d409d92a4d39ac2e67a4",
+    "docs/CRM_ERP_SERVICE_BETRIEBSMITTEL_R0707_PRUEFUNG_2026-11-04.md": "aa34d23a4d62c21d1bdfaa2e0aa6fcf39ac5a44d316031a7d2d36ed4db328286",
+    "docs/evidence/service-equipment-native-review-2026-11-04/before-manifest.json": "c5425c14ba67a2e6cc88be54efa821b6ecf478159e3277b3737435ca57b536ef",
+    "docs/evidence/service-equipment-native-review-2026-11-04/business_resource_custody.before.dart": "5ae8250d877e9e489efb9da725721ce6340b79cf608484c9430e3ed1436e7915",
+    "docs/evidence/service-equipment-native-review-2026-11-04/business_service.before.dart": "a5af88ca4a65a39e57583b8b67e589b26e67641e8efdd2d0efd6ae920a97e538",
+    "docs/evidence/service-equipment-native-review-2026-11-04/context-original-red.txt": "cc2c336d541120634c8e47b137d455fdee06d06121eb352ed169ca2747021b0b",
+    "docs/evidence/service-equipment-native-review-2026-11-04/context-original-repros.dart": "aa0f1fb2b7b7fc95da3b15877d897b3c10398034819db43caa172d5f11558a1f",
+    "docs/fixtures/service_equipment_native_review_2026.json": "7a1c75b1ae4d8290a792c7b6d61c11ac1a84356261f8d409d92a4d39ac2e67a4",
+    "scripts/generate-service-equipment-native-review-fixture.py": "c00c08debdbfe0746fb36b05ca69c9e3e2588d762699fd856eec2f697fb98755",
+    "app/lib/business_service.dart": "1b386ea53dc20876d3a157dd544452d904e06718a919f31b5f6fe71654443d69",
+    "app/lib/business_resource_custody.dart": "1cfe84c61d7cb05c766c1cc696d326806a41ac1c08792b98cefba57672835479"
+  },
+  "session_merge": "Exact owner two-method patch applied with git apply after --check; current year-values and other session hooks retained",
+  "session_final_sha256": "242dfacd6ee75191d227c8d863678c056dfbf35a9ea480ec5fd784bfbf7b1654",
+  "not_yet_finally_validated": true
+}

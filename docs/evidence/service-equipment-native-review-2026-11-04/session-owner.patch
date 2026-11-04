@@ -1,0 +1,89 @@
+diff --git a/app/lib/business_session.dart b/app/lib/business_session.dart
+index 5d424cd..af9cacd 100644
+--- a/app/lib/business_session.dart
++++ b/app/lib/business_session.dart
+@@ -1385,7 +1385,10 @@ class BusinessSession extends ChangeNotifier {
+     );
+   }
+ 
+-  Future<dynamic> repeatResourceCustodyCommand(String key) {
++  Future<dynamic> repeatResourceCustodyCommand(
++    String key, {
++    bool Function()? stillCurrent,
++  }) {
+     final operation = _pending[key];
+     final target = RegExp(
+       r'^/resource-custody/([a-f0-9]{32})/(profile|requirements|files|inspections|handoffs|returns|corrections)$',
+@@ -1395,6 +1398,11 @@ class BusinessSession extends ChangeNotifier {
+       matches: (path) => key.startsWith('resource-custody-') && target != null,
+       readPath: '/resource-custody/${target?.group(1)}',
+       requireRights: () {
++        if (stillCurrent?.call() == false)
++          throw const ApiException(
++            0,
++            'Der Betriebsmittelkontext wurde geschlossen. Der Originalauftrag bleibt offen.',
++          );
+         if (projectId != null ||
+             !hasFeature('resource_custody') ||
+             !hasModule('resource_custody') ||
+@@ -1557,7 +1565,10 @@ class BusinessSession extends ChangeNotifier {
+     );
+   }
+ 
+-  Future<dynamic> repeatServiceCommand(String key) async {
++  Future<dynamic> repeatServiceCommand(
++    String key, {
++    bool Function()? stillCurrent,
++  }) async {
+     final operation = _pending[key];
+     final route = operation?.path ?? '';
+     final target = RegExp(
+@@ -1573,11 +1584,21 @@ class BusinessSession extends ChangeNotifier {
+     }
+     final epoch = _epoch;
+     _guard(epoch);
++    void requireContext() {
++      _guard(epoch);
++      if (stillCurrent?.call() == false)
++        throw const ApiException(
++          0,
++          'Der Servicekontext wurde geschlossen. Der Originalauftrag bleibt offen.',
++        );
++    }
++
++    requireContext();
+     final caseId = target?.group(1) ?? operation.body['id'];
+     String? selectedProject = operation.body['project_id'] as String?;
+     if (caseId != null) {
+       final item = businessMap(await api.call(path('/service/cases/$caseId')));
+-      _guard(epoch);
++      requireContext();
+       if (item['id'] != caseId)
+         throw const ApiException(
+           502,
+@@ -1595,7 +1616,7 @@ class BusinessSession extends ChangeNotifier {
+         ? this
+         : sharedProjectSession(selectedProject);
+     await scope.load();
+-    _guard(epoch);
++    requireContext();
+     if (scope.error != null || scope.loading)
+       throw const ApiException(
+         0,
+@@ -1603,7 +1624,7 @@ class BusinessSession extends ChangeNotifier {
+       );
+     if (selectedProject == null) {
+       final me = businessMap(await api.call('/api/me'));
+-      _guard(epoch);
++      requireContext();
+       if (me['role'] != 'owner')
+         throw const ApiException(
+           403,
+@@ -1624,6 +1645,7 @@ class BusinessSession extends ChangeNotifier {
+           ? '/service/cases/$caseId'
+           : '/service/options${query.isEmpty ? '' : '?$query'}',
+       requireRights: () {
++        requireContext();
+         if (!scope.hasFeature('service_cases') ||
+             !scope.hasModule('service') ||
+             scope.readonly ||

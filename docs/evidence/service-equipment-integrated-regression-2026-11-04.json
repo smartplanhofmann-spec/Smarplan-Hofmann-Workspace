@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T19:09:02.909492+00:00",
+  "base_commit": "d5f1978e13a3fd6df6aec12b2d2c4dc3d06ef984",
+  "overall_goal_complete": false,
+  "scope": "Native service and equipment private view lifecycle, owned dialogs and original pending replay guards",
+  "source_snapshot": {
+    "path": "docs/evidence/service-equipment-integrated-source-snapshot-2026-11-04.json",
+    "sha256": "3eeaac00d6f54dda1589f3301660cd67fbc35f287ad3b97c604fc9413a307b11",
+    "bytes": 145749
+  },
+  "checks": [
+    {
+      "name": "native",
+      "passed": 35,
+      "seconds": 11.468,
+      "metadata": {
+        "path": "docs/evidence/service-equipment-integrated-native-2026-11-04.json",
+        "sha256": "74b37fe19bf3b05239434bb60119836b52255d80aa639cb67522db6a60236f81",
+        "bytes": 144369
+      },
+      "log": {
+        "path": "docs/evidence/service-equipment-integrated-native-2026-11-04.txt",
+        "sha256": "eb0320462551016e57a9e1de512d4d6879e7e893befcb8ab0ad4e2005f0ea942",
+        "bytes": 8020
+      }
+    },
+    {
+      "name": "analyze",
+      "issues": 0,
+      "seconds": 9.869,
+      "metadata": {
+        "path": "docs/evidence/service-equipment-integrated-analyze-2026-11-04.json",
+        "sha256": "6f5098c8544073b50c92d35b7da3bbf818b07f2f3b083d3b4472e5cf337c200a",
+        "bytes": 144125
+      },
+      "log": {
+        "path": "docs/evidence/service-equipment-integrated-analyze-2026-11-04.txt",
+        "sha256": "2c9ab848cab7e9d567eab2deb9210db255d15672335257c41d7b9877cd565693",
+        "bytes": 285
+      }
+    }
+  ],
+  "native_breakdown": {
+    "existing": 13,
+    "owner_original_and_extended_cases": 20,
+    "root_actual_local_http": 2
+  },
+  "original_red_cases": 4,
+  "original_red_manifest": {
+    "path": "docs/evidence/service-equipment-native-review-2026-11-04/before-manifest.json",
+    "sha256": "c5425c14ba67a2e6cc88be54efa821b6ecf478159e3277b3737435ca57b536ef",
+    "bytes": 1334
+  },
+  "owner_copy_binding": {
+    "path": "docs/evidence/service-equipment-integrated-prepared-2026-11-04.json",
+    "sha256": "1c2dfa31b9bbd6378a1d170d83b3833edd1a728096158eb095968707b0ff22ed",
+    "bytes": 2201
+  },
+  "session_delta_exact_to_owner_two_method_patch": true,
+  "backend_and_browser_runtime_unchanged": true,
+  "financial_horizon": 15,
+  "restore_report_version": 16,
+  "package_counts": {
+    "backend": 144,
+    "operator": 213
+  },
+  "root_followup": "Owner stopped at usage limit after preparing20 cases. Root preserved inputs, added2 actual local HTTP acceptance/replay cases and ran all35 affected cases plus static analysis on final merged sources.",
+  "test_harness_followup": "First35-case run passed. Temporary Python fixture directories were then explicitly placed inside their parent test directory; original test and first logs retained. Final35 cases and analysis rerun passed.",
+  "limits": [
+    "HTTP uses synthetic local authenticated sessions and a trusted proxy envelope; not new MFA/TLS/provider acceptance",
+    "Windows widget target is not physical Windows/iPhone acceptance",
+    "No new PostgreSQL or full-backend/full-app run claimed for this three-file native change",
+    "R07.07 and end-to-end acceptances remain open; no production action"
+  ]
+}

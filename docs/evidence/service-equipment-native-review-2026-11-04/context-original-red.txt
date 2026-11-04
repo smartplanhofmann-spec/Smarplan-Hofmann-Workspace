@@ -1,0 +1,126 @@
+00:00 +0: loading /workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart
+00:00 +0: actual service original is removed on allowed session replacement
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Synthetic private complaint R07.07": [
+            Text("Synthetic private complaint R07.07", dependencies: [DefaultSelectionStyle,
+DefaultTextStyle, MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+The replacement session has no corresponding visible record.
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart:67:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart line 67
+The test description was:
+  actual service original is removed on allowed session replacement
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:03 +0 -1: actual service original is removed on allowed session replacement [E]
+  Test failed. See exception logs above.
+  The test description was: actual service original is removed on allowed session replacement
+  
+00:03 +0 -1: actual service original is cleared while backgrounded
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Synthetic private complaint R07.07": [
+            Text("Synthetic private complaint R07.07", dependencies: [DefaultSelectionStyle,
+DefaultTextStyle, MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart:94:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart line 94
+The test description was:
+  actual service original is cleared while backgrounded
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:03 +0 -2: actual service original is cleared while backgrounded [E]
+  Test failed. See exception logs above.
+  The test description was: actual service original is cleared while backgrounded
+  
+00:03 +0 -2: actual custody original is removed on allowed session replacement
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Synthetic test drill": [
+            Text("Synthetic test drill", dependencies: [DefaultSelectionStyle, DefaultTextStyle,
+MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+The replacement session has no corresponding visible record.
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart:67:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart line 67
+The test description was:
+  actual custody original is removed on allowed session replacement
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:04 +0 -3: actual custody original is removed on allowed session replacement [E]
+  Test failed. See exception logs above.
+  The test description was: actual custody original is removed on allowed session replacement
+  
+00:04 +0 -3: actual custody original is cleared while backgrounded
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Synthetic test drill": [
+            Text("Synthetic test drill", dependencies: [DefaultSelectionStyle, DefaultTextStyle,
+MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart:94:9)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart line 94
+The test description was:
+  actual custody original is cleared while backgrounded
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:04 +0 -4: actual custody original is cleared while backgrounded [E]
+  Test failed. See exception logs above.
+  The test description was: actual custody original is cleared while backgrounded
+  
+00:04 +0 -4: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: actual custody original is cleared while backgrounded
+  /workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: actual custody original is removed on allowed session replacement
+  /workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: actual service original is cleared while backgrounded
+  /workspace/smartplan-service-equipment-review-20261104/app/test/business_service_equipment_lifecycle_review_test.dart: actual service original is removed on allowed session replacement

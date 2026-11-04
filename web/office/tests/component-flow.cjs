@@ -40,12 +40,28 @@ async function componentFlow({page,context,navigate,ready,login,fixture,screensh
     await payments();await paymentRow(page,'single-1').getByRole('button',{name:'Verknüpften Geldfluss ansehen',exact:true}).click();await page.getByRole('dialog').getByRole('heading',{name:'Bestätigte Quellfassung',exact:true}).waitFor();assert.equal(await page.getByRole('dialog').getByRole('button',{name:'Beleganteile aufteilen',exact:true}).count(),0);assert.equal(records.filter(item=>item.path.includes('/components/')).length,before);await close();await context.unroute(caps);
     // A genuine preview reply arriving after the editor is closed cannot reopen it.
     console.log('components: negotiated legacy feature fallback completed');
+    // Observe the real client promise, as the refund/capacity journeys do.
+    // response.finished() can remain pending for routed headless responses.
+    // Return the original result/error unchanged; compare the complete parsed DTO.
+    await page.evaluate(async expectedPath=>{
+      const {OfficeApi}=await import('/office/office.js'),original=OfficeApi.prototype.post;
+      window.__componentPreviewObserved={state:'waiting'};
+      OfficeApi.prototype.post=async function(path,body){
+        if(path!==expectedPath)return original.call(this,path,body);
+        try{const result=await original.call(this,path,body);window.__componentPreviewObserved={state:'fulfilled',value:JSON.parse(JSON.stringify(result))};return result;}
+        catch(error){window.__componentPreviewObserved={state:'rejected',name:error.name,status:error.status};throw error;}
+      };
+      window.__restoreComponentPreviewObserver=()=>{OfficeApi.prototype.post=original;delete window.__componentPreviewObserved;delete window.__restoreComponentPreviewObserver;};
+    },'/business/accounting/components/events/'+events.get('single-1').id+'/preview');
     await open(page,'single-1');let modal=await choose(page);await modal.getByLabel('Begründung der Aufteilung',{exact:true}).fill('Synthetic delayed preview');
-    holdPreview=new Promise(resolve=>{releaseHeldPreview=resolve;});let reply=wait('POST','/preview',page);await modal.getByRole('button',{name:'Unverbindliche Vorschau prüfen',exact:true}).click();assert.equal((await reply).status,200);
+    holdPreview=new Promise(resolve=>{releaseHeldPreview=resolve;});let reply=wait('POST','/preview',page);await modal.getByRole('button',{name:'Unverbindliche Vorschau prüfen',exact:true}).click();const late=await reply;assert.equal(late.status,200);
     console.log('components: genuine preview captured and held before browser delivery');
     await close();await navigate(page,'Übersicht');const delivered=page.waitForResponse(response=>response.url().endsWith('/preview'),{timeout:15000});releaseHeldPreview();releaseHeldPreview=null;
     console.log('components: preview released after editor closure and navigation');
-    await bounded((await delivered).finished(),'delayed component response completion');
+    assert.equal((await delivered).status(),200);
+    await page.waitForFunction(()=>window.__componentPreviewObserved.state!=='waiting',null,{timeout:15000,polling:50});
+    const observed=await bounded(page.evaluate(()=>{const result=window.__componentPreviewObserved;window.__restoreComponentPreviewObserver();return result;}),'actual delayed component client completion',5000);
+    assert.deepEqual(observed,{state:'fulfilled',value:late.value});
     // RAF can stop in an inactive headless page. Drain a bounded task turn;
     // keep the same assertion that the genuine late reply cannot reopen UI.
     await bounded(page.evaluate(()=>new Promise(resolve=>setTimeout(resolve,0))),'late preview UI settlement',5000);
@@ -72,6 +88,6 @@ async function componentFlow({page,context,navigate,ready,login,fixture,screensh
     // Recognized read denial from an already open historical detail removes it.
     await worker.getByRole('dialog').getByRole('button',{name:'Aufteilung ansehen',exact:true}).click();await worker.getByRole('dialog',{name:'Bestätigte Belegaufteilung',exact:true}).waitFor();await close();await navigate(page,'Einstellungen');await page.getByRole('button',{name:'Freigaben ansehen / ändern',exact:true}).click();modal=page.getByRole('dialog',{name:'Fachrechte',exact:true});await modal.getByLabel('Benutzer',{exact:true}).selectOption({label:'components@browser.example.test'});await modal.getByLabel('Fachrecht',{exact:true}).selectOption('finance.read');await modal.getByLabel('Geltungsbereich',{exact:true}).selectOption(fixture.private_project_id);await modal.getByLabel('Entscheidung',{exact:true}).selectOption('deny');await modal.getByRole('button',{name:'Speichern',exact:true}).click();await modal.waitFor({state:'detached'});await ready(page);await worker.getByRole('dialog').getByRole('button',{name:'Rechnungs-PDF ansehen',exact:true}).click();await worker.getByRole('dialog').waitFor({state:'detached'});await worker.locator('main [role=alert]').waitFor();assert.equal(await paymentRow(worker,'single-3').count(),0);
     assert.deepEqual(errors,[]);console.log('browser: documentary whole portions, explicit multi-groups, shared remaining cents, stale/lost-before/lost-after replies, late preview clearing, supplier aggregate, fresh rights and390px passed');
-  } finally {releaseHeldPreview?.();releaseHeldPreview=null;await bounded(context.unroute(pattern),'component route cleanup',5000);for(const item of waiting)clearTimeout(item.timer);waiting.clear();if(worker)await bounded(worker.close(),'component secondary page cleanup',5000);}
+  } finally {releaseHeldPreview?.();releaseHeldPreview=null;await page.evaluate(()=>window.__restoreComponentPreviewObserver?.()).catch(()=>{});await bounded(context.unroute(pattern),'component route cleanup',5000);for(const item of waiting)clearTimeout(item.timer);waiting.clear();if(worker)await bounded(worker.close(),'component secondary page cleanup',5000);}
 }
 module.exports={componentFlow};

@@ -134,8 +134,10 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: backend/requirements.lock
-      - run: python -m pip install -r backend/requirements.lock
+          cache-dependency-path: |
+            backend/requirements.lock
+            backend/online/requirements.lock
+      - run: python -m pip install -r backend/online/requirements.lock
       - run: python -m pip check
       - run: python -m unittest discover -s backend -v
       - name: Verify the deterministic source component inventory
@@ -377,6 +379,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           & ../backend/.venv/Scripts/python.exe -m pip check
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $smartplanTestPython = (Resolve-Path '../backend/.venv/Scripts/python.exe').Path
+          "SMARTPLAN_TEST_PYTHON=$smartplanTestPython" | Out-File $env:GITHUB_ENV -Append -Encoding utf8
       - name: Build and test complete offline Windows Python dependencies
         if: runner.os == 'Windows'
         shell: pwsh
@@ -425,14 +429,14 @@ jobs:
           PY
           fi
           exit "$smartplan_pdf_exit"
-      - name: Test Windows client against real backend
+      - name: Test Windows client and portable local backend
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           $smartplanTestLog = Join-Path $env:RUNNER_TEMP 'smartplan-windows-tests.log'
           $smartplanTestReport = Join-Path $env:RUNNER_TEMP 'smartplan-windows-tests.jsonl'
           $PSNativeCommandUseErrorActionPreference = $false
-          & flutter test --exclude-tags native_pdf --reporter expanded --file-reporter "json:$smartplanTestReport" 2>&1 | Tee-Object -FilePath $smartplanTestLog
+          & flutter test --exclude-tags "native_pdf || posix_backend" --reporter expanded --file-reporter "json:$smartplanTestReport" 2>&1 | Tee-Object -FilePath $smartplanTestLog
           $smartplanTestExit = $LASTEXITCODE
           if ($smartplanTestExit -ne 0) {
             python ../scripts/report-flutter-test-failures.py --report $smartplanTestReport --log $smartplanTestLog --summary $env:GITHUB_STEP_SUMMARY

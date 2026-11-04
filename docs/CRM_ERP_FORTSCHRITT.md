@@ -2193,3 +2193,17 @@ Der Fallback verwendet jetzt die eingerichtete Projekt-venv, einschließlich
 Windows Scripts/python.exe. Acht echte App-/HTTP-Fälle bestehen ohne lokale
 Interpreterüberschreibung. Keine Änderung der App-Fachlogik oder Assertions;
 der nächste native Prüflauf übernimmt die portable Testvorbereitung.
+
+
+## 04.11.2026 – Linux-App grün; Windows- und Browser-CI gezielt nachgebessert
+
+Der vollständige GitHub-Flutterlauf auf c437ddc ist erfolgreich, ebenso Update
+und HTTPS-Prüfung. Der Windows-PDF-Engine-Test besteht. Die Windows-Suite trennt
+jetzt POSIX-Online-Testserver von den weiterhin laufenden Client-/portablen
+Backendtests. Der Backend-Job erhält die vorhandenen gepinnten Online-
+Abhängigkeiten. Der Browsertest beobachtet eine echte verspätete Antwort im
+ursprünglichen Client-Promise. Lokal: 51 ausgewählte Appfälle, ein positiver
+POSIX-HTTP-Fall, 18 Backendfälle, vollständiger Chromium-Komponentenablauf und
+Analyse ohne Befunde bestanden. [Details und Belege](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md).
+Aktuelle native Binärartefakte, gemeinsamer Serverstand und Geräteabnahme stehen
+weiter aus; macOS-/iPhone-Jobs wurden vor Runner-Zuteilung abgebrochen.

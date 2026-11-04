@@ -1,3 +1,6 @@
+@Tags(['posix_backend'])
+library;
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';

@@ -1,0 +1,214 @@
+{
+  "base_commit": "c437ddcd5ad3daf1fb89a6923aee57d1c664c11e",
+  "scope": "CI preparation and browser test observation; no app business-runtime or database-schema changes",
+  "checks": {
+    "selection": {
+      "passed": 51,
+      "excluded": "native_pdf || posix_backend",
+      "note": "Linux execution of Windows selection, not Windows device proof"
+    },
+    "posix_positive_http": {
+      "passed": 1,
+      "exclusion": null
+    },
+    "flutter_analyze": "No issues found",
+    "browser_accounting_components": "Actual sandboxed Chromium and backend: exit 0",
+    "backend_online_dependencies": {
+      "passed": 18
+    }
+  },
+  "windows_boundary": {
+    "whole_libraries_posix_only": 23,
+    "additional_posix_only_case_in_mixed_library": 1,
+    "portable_local_backend_and_GUI_retained": true,
+    "online_server_requires_POSIX": true,
+    "actual_Windows_build": "pending"
+  },
+  "fifth_run": {
+    "run_id": 41921506900,
+    "source_commit": "c437ddcd5ad3daf1fb89a6923aee57d1c664c11e",
+    "backend": "1812 tests: 59 errors, 8 skipped; PostgreSQL driver absent in this job",
+    "macOS_simulator": "cancelled before runner allocation; runner_id=0; cause not established",
+    "iPhone_unsigned_run": 41921506913,
+    "iPhone_unsigned": "cancelled before runner allocation; no current artifact"
+  },
+  "changed_sources": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "sha256": "507dbd33a084f1767f36730e0aec71e9a83546f2c4b6167416ac28d6b960e3c4",
+      "before_sha256": "29262f999b87cdd2b4ac8b14bc140964c6f87654d76b50f078cf9851f58f38e9"
+    },
+    {
+      "path": "app/dart_test.yaml",
+      "sha256": "9ca666f5d46f9ccfc9c9351d51d281c51376f3d06e4b0688757acdb679ca60c9",
+      "before_sha256": null
+    },
+    {
+      "path": "app/test/business_accounting_allocations_http_test.dart",
+      "sha256": "15446f0274c8a0f83abc69f1a6e6c99250855cc062f80a8cdf90d405fa5d73c2",
+      "before_sha256": "93be261778bae2696061c6e5dbb9e104eaf1b1442fecfed77650b69fab3190d8"
+    },
+    {
+      "path": "app/test/business_accounting_capacity_http_test.dart",
+      "sha256": "9d0641b69bc40afc80bef08bbdcf21aefb93d8dbca426fda0535f8bd7bd3f4f3",
+      "before_sha256": "82c1d33aa8fc0152e7a842a405333cdb551f81ce64647e142fad32647d484514"
+    },
+    {
+      "path": "app/test/business_accounting_components_http_test.dart",
+      "sha256": "a95a42bb8cf89a22098b6dcb721fa6e607fd1993b448132750fad29648d63323",
+      "before_sha256": "abdab3a3881103e325aae0b68a504b7313b2d1efba67af5c4e0e793f2b85d6eb"
+    },
+    {
+      "path": "app/test/business_accounting_euer_http_test.dart",
+      "sha256": "2ef2870b9bd150a02af25da736590ad4995fa5abe59733f14ab7cd654daf455f",
+      "before_sha256": "df533e8270086ff511de70679fa4af30a12a3a81b46a379cd28ffca2a166017b"
+    },
+    {
+      "path": "app/test/business_accounting_http_test.dart",
+      "sha256": "72977fc3939c3ceb0b4d026d9407db893ba0c247e9803884bf36fb30ac29a5e4",
+      "before_sha256": "38d1c2a952915b5777f14dea6c86cd4a6aedbd3e1624fabf8fd1cc8612ed7c0a"
+    },
+    {
+      "path": "app/test/business_accounting_openings_http_widget_test.dart",
+      "sha256": "89718483243e3aac9ce65fbb778222aab4563092dc742d08bc9db7dfae417108",
+      "before_sha256": "907e0029ff0885f628cda73b694abaffc5de35fb233a4be45095fd9c55d99dff"
+    },
+    {
+      "path": "app/test/business_accounting_profile_http_widget_test.dart",
+      "sha256": "4605e82724315900d74b63a9e22f030d01c78c2f50f606715d8bc790f73e0522",
+      "before_sha256": "4b658bb394edfd082a26908dfe00725c8d280f610990ded2a0e9ad9cce0daea6"
+    },
+    {
+      "path": "app/test/business_accounting_refunds_http_test.dart",
+      "sha256": "2f989fb192830021e771e533b2eff46ffc98cc16624778614c5801f207bbd2e4",
+      "before_sha256": "d6a4c4e9e63bb26aaad395df683256cdd51e0826b515662c8acd1879d75c5040"
+    },
+    {
+      "path": "app/test/business_accounting_refunds_v2_http_widget_test.dart",
+      "sha256": "ef4846cbc96a777eac20bb5fdfcfae8e583cd9b7f4f3356ed564cf51fd094000",
+      "before_sha256": "df493a36dc19fc3fd7aaa88272bf621063d4f4a523cdf236e60cb327e122523f"
+    },
+    {
+      "path": "app/test/business_accounting_year_evidence_http_test.dart",
+      "sha256": "9108761c8e852bd1f10d436dde09f6304a1d2fa2b484041c5245518edd58c4bd",
+      "before_sha256": "67abc7bd750b66e831993d6798ee1a45401d4b3751462c6d8cc2b787d13e1cc5"
+    },
+    {
+      "path": "app/test/business_accounting_year_evidence_v2_http_test.dart",
+      "sha256": "e49a384427a73c6334a3b3cde37516e427d28b7c4ecf0a73259305bed045a9e3",
+      "before_sha256": "b6efbc5c4205bb1455fc79e1c12faa6f32d11ebe6f14003d7c2024bb317d612f"
+    },
+    {
+      "path": "app/test/business_accounting_year_values_http_test.dart",
+      "sha256": "d7e1389cc9bef140286143180af7fa11b82bdabbe53dcd2bf37b7c24d98e458d",
+      "before_sha256": "dcbbf6bc4cfd5f171488ebcb04e116ce0dd3beaa6f955ca940ca2dc51f0abbb9"
+    },
+    {
+      "path": "app/test/business_backend_integration_test.dart",
+      "sha256": "cd86f076d1a0da501c69325dc13f3c43c438aa8e51349b62092e2017f83c7e59",
+      "before_sha256": "fe2dde3ccd1a8fe4c2f19ad1adde8eae7478e917c0a62f623e0dcce274521fbe"
+    },
+    {
+      "path": "app/test/business_catalog_imports_test.dart",
+      "sha256": "fb6765893033e5841046b01cfbde41a12808cda94deb01d4a6aff2a5e0ebe023",
+      "before_sha256": "6d8c7cf1e1e560e4b530102efe0eae97017cc5966fc620312e7949c6fe21a6fc"
+    },
+    {
+      "path": "app/test/business_catalog_prices_http_test.dart",
+      "sha256": "7a53bc39393424629e2b9b2edf5ea3e685819545fe88bfb49a0dd9b252a98ea4",
+      "before_sha256": "72e7375d3b40e3e924740c0d8afc81ae67409beb5bb87be292ceb2de091a5e86"
+    },
+    {
+      "path": "app/test/business_company_events_http_test.dart",
+      "sha256": "62f572b605c2c04d3134a2c132eb6f53378eb2768e1cd9fa36edfa8fdcc2d7e9",
+      "before_sha256": "3f84f329756b1f8161cb406a270b079ef25ba8497a9739953e45fb53e2f643bd"
+    },
+    {
+      "path": "app/test/business_document_completion_http_test.dart",
+      "sha256": "d2b6931b3e7fcab8213fbda8622cb6062745c7284595357beeb6e06c9c871060",
+      "before_sha256": "6fc211073a8a2dad12e86b8097ae3c3bd52877a96a4382d189e12180ba3d74d5"
+    },
+    {
+      "path": "app/test/business_module_pause_integration_test.dart",
+      "sha256": "33c504a0455f03703063023396f649ea08532aabc85366a5e0801d0de2affe17",
+      "before_sha256": "7de092171a473316d1c5cc26b5b9dbb48b7c1f25f57edf9a58adc373bb73a765"
+    },
+    {
+      "path": "app/test/business_portal_http_test.dart",
+      "sha256": "31d63551d12696dd22fab891b7288de2faf27b01452d5f81002c40e044617e09",
+      "before_sha256": "19fc073460583145edb9129a3a6148a32434e0efd6c49c7a8ea3afe34e3bba4c"
+    },
+    {
+      "path": "app/test/business_purchasing_http_test.dart",
+      "sha256": "7a3c08b4204f00ee84fae9ff7dded19774937d1ce33f62bfb9c5752d5695b981",
+      "before_sha256": "ff3263086031f91ad52a0c40285114313830c7e5cfeadd8ab291320fbc20d002"
+    },
+    {
+      "path": "app/test/business_service_equipment_http_review_test.dart",
+      "sha256": "c2d046857c80d26d4695e6b35f6df5a8cbe82c06c2e748e55e6144a373d235a7",
+      "before_sha256": "5011e779390968ba7cb080bac91bdbdc7ba9ba437ce2aa71d8b6a750c5474a71"
+    },
+    {
+      "path": "app/test/import_backend_integration_test.dart",
+      "sha256": "ffe752de0c621c0e220d8fdcb934347a9204063c743ad899f077b0254145940d",
+      "before_sha256": "5e7a0956f5a3498fb0c8124359ec90443938d13d0ec713112981dab8c7891067"
+    },
+    {
+      "path": "app/test/offline_service_report_backend_integration_test.dart",
+      "sha256": "0b76f61f5fe10e473376a2a2370a6fb513d7f1dbaa1e298f0875c3b62cac1cfe",
+      "before_sha256": "e8fcd23e9f3268ac1581ff915512958a222f4f098afd822b90795c6d26e73b92"
+    },
+    {
+      "path": "app/test/project_economics_backend_integration_test.dart",
+      "sha256": "6d01e7e694fe6e412133bfbb3b6a45774bc5fa2243b76e7323782d2a1bb5094d",
+      "before_sha256": "d6bf28220e7cbfa253a36a23051dcc99a5ce4038843acdffdfbdccbb5c5b9a66"
+    },
+    {
+      "path": "web/office/tests/component-flow.cjs",
+      "sha256": "e64bc3df1b9655253274d198da4ed13c127f48c5dfec278422e960597ec3d8b1",
+      "before_sha256": "43ebbbe071b3397873bda43aa11c31638408a3e0be179fab9a9860d08afca0de"
+    }
+  ],
+  "proofs": [
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/component-recheck.txt",
+      "bytes": 910,
+      "sha256": "1ac123f7b0f07d2cb56a986f892b6d17c60060daeee761382b601047cf9de66f"
+    },
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/posix-selection.txt",
+      "bytes": 8370,
+      "sha256": "fe82579ebb7494eb0cc2dfd825401f164a8d342f0e41342c363db349ac5443e9"
+    },
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/posix-positive-http.txt",
+      "bytes": 341,
+      "sha256": "147d03c41d2bd61fa6f7a8d7f164dbcf5be0ebd3cb58242251b92102e01a5969"
+    },
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/posix-analyze.txt",
+      "bytes": 96,
+      "sha256": "8ce32e58b7a7bc836547d56561657cd95fe0fcdf90cd9bdcaa47e21af945e0f9"
+    },
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/backend-online-dependencies.txt",
+      "bytes": 3939,
+      "sha256": "e691b6d16f497d8f8d13c9ae53c5069112588a0b84bb6c8b5ee5530eedf321a1"
+    },
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/fifth-run-backend.log",
+      "bytes": 546905,
+      "sha256": "2073477b41db9ac8524056998adf593960ef8b1f27ff031b10232f1e69c5f4ed"
+    },
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/fifth-run-browser.log",
+      "bytes": 442519,
+      "sha256": "008e95a662f2cd200d65ff9d92d8f624e0e56ceee3f08087b18198b2b556f3e4"
+    },
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/fifth-run-windows.log",
+      "bytes": 587014,
+      "sha256": "50c344c65307c4c665141a4ef2340acfee82df5684d0ee96e2f58d50798584aa"
+    }
+  ]
+}

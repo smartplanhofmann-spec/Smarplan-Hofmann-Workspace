@@ -1,8 +1,13 @@
-# Aktueller Buildstatus: Veröffentlichung benötigt Freigabe
+# Aktueller Buildstatus: Veröffentlichung autorisiert, CI-Nachprüfung läuft
 
 **Aktuell nach ausdrücklicher Zustimmung:** Upload erfolgreich. Der neue
-Branch `codex/testupdate-0.7-projects-20261104` steht auf dem unveränderten
-Commit `8e320bd60671fb7e95c95a197ee34dd3e078bd66`. GitHub hat die
+Branch `codex/testupdate-0.7-projects-20261104` enthält den Quellstand 0.13.0
+und nachfolgende gezielte CI-Korrekturen. Auf `c437ddc` ist der vollständige
+Linux-App-Testlauf grün; Windows-/Browser-Testvorbereitung wird nachgeprüft.
+Aktuelle native Binärartefakte sind noch nicht belegt; macOS-/iPhone-Jobs
+brachen vor Runner-Zuteilung ab. [Fortlaufender CI-Nachweis](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md).
+
+**Erste Veröffentlichung:** GitHub hat für `8e320bd` die
 [Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157732)
 und den [iPhone-Prüfbuild](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157953)
 automatisch gestartet. Die nachstehende Ablehnung ist der erhaltene Verlauf

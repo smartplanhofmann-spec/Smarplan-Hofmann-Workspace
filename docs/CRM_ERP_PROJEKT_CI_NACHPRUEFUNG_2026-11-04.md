@@ -55,3 +55,49 @@ Unix-Interpreter. Eine ausdrückliche SMARTPLAN_TEST_PYTHON-Angabe hat weiter
 Vorrang. Acht tatsächliche App-/HTTP-Fälle bestehen ohne diese
 Umgebungsüberschreibung; Testlogik und Assertions sind unverändert.
 [Quellbindungen und Log](evidence/project-native-ci-2026-11-04/portable-python.json).
+
+## Windows-Testgrenze und vollständige Backend-Testabhängigkeiten
+
+Auf `c437ddc` bestehen der vollständige Linux-Flutter-Lauf, die Updateprüfung
+und HTTPS-Einrichtung in GitHub. Windows besteht die eigene echte PDF-Prüfung,
+stoppt danach aber an Testservern: Der geschützte Online-Dateispeicher benötigt
+POSIX (`fcntl`), und ältere Tests verwenden ohne Überschreibung Unix-venv-Pfade.
+
+Der Windows-Job setzt deshalb den eingerichteten Scripts/python.exe ausdrücklich
+für seine Testprozesse. 23 reine Online-HTTP-Testbibliotheken und genau ein
+Online-HTTP-Fall innerhalb einer gemischten Katalogbibliothek tragen nun
+`posix_backend`. Nur der Windows-Job schließt diesen Tag aus. GUI-, Validierungs-
+und portable lokale Backendtests bleiben erhalten; Linux und der unsignierte
+iPhone-Prüfjob führen die POSIX-Fälle weiterhin aus. Die Server-Dateischutzlogik
+ist unverändert. Das ersetzt keinen Windows-Clienttest gegen den gemeinsamen
+Linux-Server und keine Geräteabnahme.
+
+Die lokale Prüfung dieser Auswahl besteht mit **51 Fällen**. Ein ausdrücklich
+nicht ausgeschlossener POSIX-App-/HTTP-Fall besteht ebenfalls; Flutter analyze
+meldet keine Befunde. Die Tags sind in dart_test.yaml deklariert.
+
+Der vollständige Backend-Job fand außerdem 59 Fehler durch den fehlenden
+PostgreSQL-Treiber in seiner bisherigen reinen SQLite-Abhängigkeitsinstallation.
+Er installiert nun den vorhandenen fest gepinnten Online-Lock, der auch die
+bisherigen Basisabhängigkeiten enthält. 18 gezielte vorhandene Fälle einschließlich
+Archiv, Reisequellen und Worker bestehen mit diesen Abhängigkeiten. Eine neue
+vollständige Remoteprüfung steht aus; keine fachliche Lohnentwicklung wurde
+aufgenommen.
+
+## Verzögerte Browserantwort tatsächlich im Client nachweisen
+
+Der Browser-Komponententest wartete auf response.finished(), obwohl die echte
+zurückgehaltene Antwort bereits zum Client unterwegs war. Wie die vorhandenen
+Erstattungs-/Kapazitätsprüfungen beobachtet er jetzt das originale OfficeApi-
+Promise transparent: Ergebnis und Fehler werden unverändert weitergegeben;
+das vollständig geparste Ergebnis muss dem echten Backend-DTO entsprechen.
+Das geschlossene Fenster darf nach der späten Antwort weiterhin nicht aufgehen.
+Alle anschließenden Rechte-, Wiederholungs- und schmalen Bildschirmprüfungen
+bleiben erhalten. Der vollständige Komponentenablauf besteht mit tatsächlich
+sandboxiertem Chromium und Testbackend.
+
+[Quellhashes, Erstfehler und tatsächliche Nachläufe](evidence/project-native-ci-2026-11-04/platform-ci-preparation.json)
+liegen im Repository. Der macOS-Simulatorjob und der unsignierte iPhone-Job der
+fünften Runde wurden vor Zuteilung eines Runners abgebrochen; ein aktuelles
+iPhone-Artefakt liegt daraus nicht vor. Die Ursache der Runner-Abbrüche ist noch
+nicht belegt. Keine aktuelle Windows-/iPhone-Auslieferung wird behauptet.

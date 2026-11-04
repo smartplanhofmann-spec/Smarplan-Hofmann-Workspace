@@ -1010,176 +1010,184 @@ void main() {
       }
     }, BackendHttp());
   });
-  test('actual native HTTP imports original bytes, binds preview, replays both lost ACKs and reads 2 MiB Unicode catalog', () async {
-    final backend = Directory('../backend').absolute,
-        python =
-            Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
-            '${Directory('../backend').absolute.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}',
-        temporary = await Directory.systemTemp.createTemp(
-          'smartplan-native-catalog-',
+  test(
+    'actual native HTTP imports original bytes, binds preview, replays both lost ACKs and reads 2 MiB Unicode catalog',
+    () async {
+      final backend = Directory('../backend').absolute,
+          python =
+              Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
+              '${Directory('../backend').absolute.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}',
+          temporary = await Directory.systemTemp.createTemp(
+            'smartplan-native-catalog-',
+          );
+      Process? server;
+      StreamIterator<String>? output;
+      StreamSubscription<String>? stderr;
+      CatalogHttpApi? api;
+      BusinessSession? session;
+      final diagnostics = StringBuffer();
+      try {
+        final seed = fixture.replaceFirst(
+          'app = create_app(',
+          'from business_schema import ensure_schema\nensure_schema(office, activate=True)\napp = create_app(',
         );
-    Process? server;
-    StreamIterator<String>? output;
-    StreamSubscription<String>? stderr;
-    CatalogHttpApi? api;
-    BusinessSession? session;
-    final diagnostics = StringBuffer();
-    try {
-      final seed = fixture.replaceFirst(
-        'app = create_app(',
-        'from business_schema import ensure_schema\nensure_schema(office, activate=True)\napp = create_app(',
-      );
-      server = await Process.start(python, [
-        '-u',
-        '-c',
-        seed,
-        temporary.path,
-      ], workingDirectory: backend.path);
-      stderr = server.stderr.transform(utf8.decoder).listen(diagnostics.write);
-      output = StreamIterator(
-        server.stdout.transform(utf8.decoder).transform(const LineSplitter()),
-      );
-      if (!await output.moveNext().timeout(const Duration(seconds: 30)))
-        throw StateError('Catalog fixture not ready: $diagnostics');
-      final hello = cloneCatalog(jsonDecode(output.current));
-      await HttpOverrides.runWithHttpOverrides(() async {
-        api = CatalogHttpApi('http://127.0.0.1:${hello['port']}')
-          ..token = hello['token'];
-        session = BusinessSession(api: api!);
-        await session!.load();
-        expect(catalogWritable(session!), true, reason: session!.error);
-        final source = businessMap(
-          await session!.command('native-catalog-config', '/adapters', {
-            'name': 'Synthetic native HTTP source',
-            'profile': 'catalog_csv_v1',
-            'enabled': true,
-          }),
+        server = await Process.start(python, [
+          '-u',
+          '-c',
+          seed,
+          temporary.path,
+        ], workingDirectory: backend.path);
+        stderr = server.stderr
+            .transform(utf8.decoder)
+            .listen(diagnostics.write);
+        output = StreamIterator(
+          server.stdout.transform(utf8.decoder).transform(const LineSplitter()),
         );
-        final importKey = 'catalog-import-${source['id']}',
-            importPath = '/adapters/${source['id']}/import',
-            body = {
-              'filename': 'native-original.csv',
-              'content_base64': base64Encode(catalogBytes),
-            };
-        await expectLater(
-          session!.command(importKey, importPath, body),
-          throwsA(isA<ApiException>()),
-        );
-        final run = catalogRun(
-          await session!.repeatCatalogCommand(importKey),
-          adapterId: source['id'],
-        );
-        expect(api!.commands[0], api!.commands[1]);
-        expect(businessItems(await session!.read('/articles')), isEmpty);
-        final rawPreview = await api!.call(
-          session!.path('/adapters/imports/${run['id']}/catalog-preview'),
-          {},
-        );
-        final preview = await catalogPreview(run, {}, rawPreview);
-        expect(preview['rows'][0]['action'], 'create');
-        final applyKey = 'catalog-apply-${run['id']}';
-        await expectLater(
-          session!.command(applyKey, '/adapters/imports/${run['id']}/apply', {
-            'confirmed': true,
-          }),
-          throwsA(isA<ApiException>()),
-        );
-        final accepted = catalogRun(
-          await session!.repeatCatalogCommand(applyKey),
-          adapterId: source['id'],
-          runId: run['id'],
-        );
-        expect(accepted['status'], 'applied');
-        expect(api!.commands[2], api!.commands[3]);
-        final original = await api!.bytes(
-          session!.path('/adapters/imports/${run['id']}/original'),
-          mediaType: 'application/octet-stream',
-          maxBytes: 2097152,
-        );
-        expect(original, catalogBytes);
-        final history = businessMap(
-          await session!.read(
-            '/adapters/${source['id']}/imports?offset=0&limit=20',
-          ),
-        );
-        expect(history['total'], 1);
-        expect(history['items'][0]['original']['available'], true);
-        final current = businessItems(await session!.read('/articles')).single;
-        await session!.command(
-          'native-catalog-unknown-cost',
-          '/articles/${current['id']}',
-          {'revision': current['revision'], 'cost_known': false},
-        );
-        final again = catalogRun(
-          await session!.command(importKey, importPath, body),
-          adapterId: source['id'],
-        );
-        final noOp = await catalogPreview(
-          again,
-          {},
-          await api!.call(
-            session!.path('/adapters/imports/${again['id']}/catalog-preview'),
+        if (!await output.moveNext().timeout(const Duration(seconds: 30)))
+          throw StateError('Catalog fixture not ready: $diagnostics');
+        final hello = cloneCatalog(jsonDecode(output.current));
+        await HttpOverrides.runWithHttpOverrides(() async {
+          api = CatalogHttpApi('http://127.0.0.1:${hello['port']}')
+            ..token = hello['token'];
+          session = BusinessSession(api: api!);
+          await session!.load();
+          expect(catalogWritable(session!), true, reason: session!.error);
+          final source = businessMap(
+            await session!.command('native-catalog-config', '/adapters', {
+              'name': 'Synthetic native HTTP source',
+              'profile': 'catalog_csv_v1',
+              'enabled': true,
+            }),
+          );
+          final importKey = 'catalog-import-${source['id']}',
+              importPath = '/adapters/${source['id']}/import',
+              body = {
+                'filename': 'native-original.csv',
+                'content_base64': base64Encode(catalogBytes),
+              };
+          await expectLater(
+            session!.command(importKey, importPath, body),
+            throwsA(isA<ApiException>()),
+          );
+          final run = catalogRun(
+            await session!.repeatCatalogCommand(importKey),
+            adapterId: source['id'],
+          );
+          expect(api!.commands[0], api!.commands[1]);
+          expect(businessItems(await session!.read('/articles')), isEmpty);
+          final rawPreview = await api!.call(
+            session!.path('/adapters/imports/${run['id']}/catalog-preview'),
             {},
-          ),
-        );
-        expect(noOp['rows'][0]['action'], 'noop');
-        expect(noOp['rows'][0]['after']['cost_known'], false);
-        final raw = utf8.encode(
-          'code;name;unit;cost_price_net;unit_price_net;tax_rate\n' +
-              List.generate(
-                2000,
-                (i) =>
-                    'SYN-LARGE-$i;${List.filled(500, 'é').join()};ST;1;2;19\n',
-              ).join(),
-        );
-        expect(raw.length, lessThan(2097152));
-        final large = Uint8List.fromList([
-          ...raw,
-          ...List.filled(2097152 - raw.length, 10),
-        ]);
-        final largeRun = catalogRun(
-          await session!.command(importKey, importPath, {
-            'filename': 'native-limit.csv',
-            'content_base64': base64Encode(large),
-          }),
-          adapterId: source['id'],
-        );
-        expect(largeRun['rows'], hasLength(2000));
-        final largePreview = await catalogPreview(
-          largeRun,
-          {},
-          await api!.call(
-            session!.path(
-              '/adapters/imports/${largeRun['id']}/catalog-preview',
-            ),
-            {},
-          ),
-        );
-        expect(largePreview['rows'], hasLength(2000));
-        expect(
-          await api!.bytes(
-            session!.path('/adapters/imports/${largeRun['id']}/original'),
+          );
+          final preview = await catalogPreview(run, {}, rawPreview);
+          expect(preview['rows'][0]['action'], 'create');
+          final applyKey = 'catalog-apply-${run['id']}';
+          await expectLater(
+            session!.command(applyKey, '/adapters/imports/${run['id']}/apply', {
+              'confirmed': true,
+            }),
+            throwsA(isA<ApiException>()),
+          );
+          final accepted = catalogRun(
+            await session!.repeatCatalogCommand(applyKey),
+            adapterId: source['id'],
+            runId: run['id'],
+          );
+          expect(accepted['status'], 'applied');
+          expect(api!.commands[2], api!.commands[3]);
+          final original = await api!.bytes(
+            session!.path('/adapters/imports/${run['id']}/original'),
             mediaType: 'application/octet-stream',
             maxBytes: 2097152,
-          ),
-          large,
-        );
-      }, BackendHttp());
-    } finally {
-      session?.dispose();
-      api?.dispose();
-      await output?.cancel();
-      await stderr?.cancel();
-      if (server != null) {
-        server.kill();
-        try {
-          await server.exitCode.timeout(const Duration(seconds: 5));
-        } on TimeoutException {
-          server.kill(ProcessSignal.sigkill);
-          await server.exitCode;
+          );
+          expect(original, catalogBytes);
+          final history = businessMap(
+            await session!.read(
+              '/adapters/${source['id']}/imports?offset=0&limit=20',
+            ),
+          );
+          expect(history['total'], 1);
+          expect(history['items'][0]['original']['available'], true);
+          final current = businessItems(await session!.read('/articles'))
+              .single;
+          await session!.command(
+            'native-catalog-unknown-cost',
+            '/articles/${current['id']}',
+            {'revision': current['revision'], 'cost_known': false},
+          );
+          final again = catalogRun(
+            await session!.command(importKey, importPath, body),
+            adapterId: source['id'],
+          );
+          final noOp = await catalogPreview(
+            again,
+            {},
+            await api!.call(
+              session!.path('/adapters/imports/${again['id']}/catalog-preview'),
+              {},
+            ),
+          );
+          expect(noOp['rows'][0]['action'], 'noop');
+          expect(noOp['rows'][0]['after']['cost_known'], false);
+          final raw = utf8.encode(
+            'code;name;unit;cost_price_net;unit_price_net;tax_rate\n' +
+                List.generate(
+                  2000,
+                  (i) =>
+                      'SYN-LARGE-$i;${List.filled(500, 'é').join()};ST;1;2;19\n',
+                ).join(),
+          );
+          expect(raw.length, lessThan(2097152));
+          final large = Uint8List.fromList([
+            ...raw,
+            ...List.filled(2097152 - raw.length, 10),
+          ]);
+          final largeRun = catalogRun(
+            await session!.command(importKey, importPath, {
+              'filename': 'native-limit.csv',
+              'content_base64': base64Encode(large),
+            }),
+            adapterId: source['id'],
+          );
+          expect(largeRun['rows'], hasLength(2000));
+          final largePreview = await catalogPreview(
+            largeRun,
+            {},
+            await api!.call(
+              session!.path(
+                '/adapters/imports/${largeRun['id']}/catalog-preview',
+              ),
+              {},
+            ),
+          );
+          expect(largePreview['rows'], hasLength(2000));
+          expect(
+            await api!.bytes(
+              session!.path('/adapters/imports/${largeRun['id']}/original'),
+              mediaType: 'application/octet-stream',
+              maxBytes: 2097152,
+            ),
+            large,
+          );
+        }, BackendHttp());
+      } finally {
+        session?.dispose();
+        api?.dispose();
+        await output?.cancel();
+        await stderr?.cancel();
+        if (server != null) {
+          server.kill();
+          try {
+            await server.exitCode.timeout(const Duration(seconds: 5));
+          } on TimeoutException {
+            server.kill(ProcessSignal.sigkill);
+            await server.exitCode;
+          }
         }
+        await temporary.delete(recursive: true);
       }
-      await temporary.delete(recursive: true);
-    }
-  }, timeout: const Timeout(Duration(minutes: 3)));
+    },
+    tags: const ['posix_backend'],
+    timeout: const Timeout(Duration(minutes: 3)),
+  );
 }

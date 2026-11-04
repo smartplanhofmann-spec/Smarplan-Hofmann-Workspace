@@ -1,0 +1,18 @@
+{
+  "app/lib/business_accounting_euer.dart": {
+    "sha256": "39d07ad6e6700e382d017ad7f50890f07ff4b5603c295d4c29989a6c923751af",
+    "bytes": 79776
+  },
+  "app/lib/business_session.dart": {
+    "sha256": "2adfa90857ce50702d691728400605d7859e413c18acdf024aede1d1f0a5e60f",
+    "bytes": 100801
+  },
+  "app/lib/api.dart": {
+    "sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+    "bytes": 7537
+  },
+  "app/lib/mail_attachment_widgets.dart": {
+    "sha256": "22ecd7f343dd07b71473f9f837bff68e8e99de3eba85ac40e4bb9cb962385c9a",
+    "bytes": 35961
+  }
+}

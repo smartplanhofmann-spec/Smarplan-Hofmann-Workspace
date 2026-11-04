@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "scope": "Independent V1 backend review; narrowed explicitly authenticated archive-hash contract, not intrinsic historical dependency completeness",
+  "reviewed_at_utc": "2026-11-04T12:12:21.080993+00:00",
+  "original_candidate_manifest_sha256": "e2f228173bb6d0eb3408d1cf48dadf0f7cbfd0e138c19ea3dc8ed8f89f13d069",
+  "runtime_sha256": {
+    "backend/accounting_year_package_v1.py": "8e79534d2739e05f2b34141adf66399563c4cc07e076d2618125374701d77f42",
+    "backend/accounting_year_verify_v1.py": "77b032a6e19f27dfefd290106ecda73675e8e5a9c68afaedfdda9ddae0c60baa",
+    "backend/business_accounting_euer.py": "8b2f98d357e00af6c861f2f8b64c1899e36581383f8c1ee3b384b295a0e3c318"
+  },
+  "review": {
+    "passed": 12,
+    "seconds": 16.35,
+    "log": "work/verification/year-package-independent-authenticated-final-2026-11-04.log",
+    "product_files_changed_by_reviewer": false,
+    "pg_used": false
+  },
+  "historical_findings": {
+    "initial_confirmed": 3,
+    "subsequent_confirmed": 2,
+    "original_ten_case_contract_preserved": true,
+    "remaining_intrinsic_dependency_limit_explicit": true
+  },
+  "files": [
+    {
+      "path": "backend/test_accounting_year_package_independent_review.py",
+      "sha256": "f608c03e2ae6d951b75110ee4533a81ea543fc6bf116d8e42892bc5378bc0906",
+      "bytes": 19053
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_UNABHAENGIGER_BACKENDREVIEW_2026-11-04.md",
+      "sha256": "a54a1abcd756407ea7ec1cf656ea3345f2b7c1651fa944bb8f9bf872c13636fe",
+      "bytes": 6770
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/initial-runtime.json",
+      "sha256": "df5966273fbcfda52568c4b18860279dfdbddabc6a1dd553b649834129bd4df8",
+      "bytes": 687
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/intrinsic-review-ten-cases-original.py",
+      "sha256": "f873dd8051f8651d05176739cb80590766cfd44e224782e27ac50e15f924653a",
+      "bytes": 15305
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/original-frozen-v1-checker.py",
+      "sha256": "2137aaecccbc2e254a176c00c7aa53495edc4ce12c8d6191092c673bf3707980",
+      "bytes": 21882
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/original-review-snapshot.json",
+      "sha256": "0690daafd1adb6aa0cd052bbe8b833ee539d13725619c78d33ac3211a1aa1729",
+      "bytes": 326
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/review-test-final.py",
+      "sha256": "f608c03e2ae6d951b75110ee4533a81ea543fc6bf116d8e42892bc5378bc0906",
+      "bytes": 19053
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/year-package-independent-authenticated-final-2026-11-04.log",
+      "sha256": "8602ff014115ab1a65c2caee2cf60d35ed43fde27454ed40f74b54c33a6a283e",
+      "bytes": 3014
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/year-package-independent-authenticated-first-2026-11-04.log",
+      "sha256": "847e183ed6aff4b1c1c148c8aa7bc2a691c7764e531016070b56d5156c6e0c17",
+      "bytes": 3014
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/year-package-independent-first-2026-11-04.log",
+      "sha256": "54556c3ade08bd75a865605b69487a1f6ddedee312542a7fed5ea5608adcf65d",
+      "bytes": 3157
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/year-package-independent-second-2026-11-04.log",
+      "sha256": "b5cc67097685ca91f7065dce86c177bf8ceceaee16681eed81219a429e64f6df",
+      "bytes": 2043
+    },
+    {
+      "path": "docs/evidence/year-package-independent-2026-11-04/year-package-independent-third-2026-11-04.log",
+      "sha256": "4b8e4874db8999cd31d7f9811b078d186469c63a05a207541562f3da11ffcd1e",
+      "bytes": 2120
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+test_actual_purchase_sale_correction_originals_and_frozen_bytes (test_accounting_year_package.YearPackageTests.test_actual_purchase_sale_correction_originals_and_frozen_bytes) ... ok
+test_archive_duplicate_and_traversal_path_rejected_without_extraction (test_accounting_year_package.YearPackageTests.test_archive_duplicate_and_traversal_path_rejected_without_extraction) ... ok
+test_historical_asset_and_old_supplier_have_originals_no_new_cash_or_vat (test_accounting_year_package.YearPackageTests.test_historical_asset_and_old_supplier_have_originals_no_new_cash_or_vat) ... ok
+test_local_standard_library_checker_after_office_closed_and_external_hash (test_accounting_year_package.YearPackageTests.test_local_standard_library_checker_after_office_closed_and_external_hash) ... ok
+test_public_payroll_finance_only_has_no_private_originals (test_accounting_year_package.YearPackageTests.test_public_payroll_finance_only_has_no_private_originals) ... ok
+test_truncated_correction_rehashed_source_and_missing_original_rejected (test_accounting_year_package.YearPackageTests.test_truncated_correction_rehashed_source_and_missing_original_rejected) ... ok
+test_unbooked_report_reference_rechecks_project_rights (test_accounting_year_package.YearPackageTests.test_unbooked_report_reference_rechecks_project_rights) ... ERROR
+test_unknown_export_or_current_finance_right_denied (test_accounting_year_package.YearPackageTests.test_unknown_export_or_current_finance_right_denied) ... ok
+
+======================================================================
+ERROR: test_unbooked_report_reference_rechecks_project_rights (test_accounting_year_package.YearPackageTests.test_unbooked_report_reference_rechecks_project_rights)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/backend/test_accounting_year_package.py", line 154, in test_unbooked_report_reference_rechecks_project_rights
+    build(self.office,actor,export['id'])
+  File "/workspace/smartplan-year-review-export-20261104/backend/accounting_year_package_v1.py", line 305, in build
+    authorize_report(office,fresh,report)
+  File "/workspace/smartplan-year-review-export-20261104/backend/accounting_year_package_v1.py", line 105, in authorize_report
+    elif receipt:Finance(office)._incoming(actor,receipt[1])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-year-review-export-20261104/backend/business_finance.py", line 569, in _incoming
+    current=require(self.office,actor,permission,row['project_id'])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-year-review-export-20261104/backend/business_documents.py", line 183, in require
+    return require_permission(office,actor,permission,project_id=project_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-year-review-export-20261104/backend/business_foundation.py", line 163, in require_permission
+    office.project(current, _id(project_id))
+  File "/workspace/smartplan-year-review-export-20261104/backend/core.py", line 473, in project
+    raise Problem(404,"Projekt nicht verfügbar")
+core.Problem: (404, 'Projekt nicht verfügbar')
+
+----------------------------------------------------------------------
+Ran 8 tests in 7.083s
+
+FAILED (errors=1)

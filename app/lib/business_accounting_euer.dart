@@ -14,6 +14,7 @@ import 'business_accounting_profile.dart';
 import 'business_accounting_openings.dart';
 import 'business_accounting_historical_assets.dart';
 import 'business_accounting_open_items.dart';
+import 'business_accounting_year_evidence.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -1710,6 +1711,20 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
                     ),
                 ],
                 if (entry['operation'] == 'export') ...[
+                  if (yearEvidenceReadable(widget.session))
+                    OutlinedButton(
+                      onPressed: () => Navigator.of(context).push<void>(
+                        MaterialPageRoute(
+                          builder: (_) => BusinessYearEvidencePage(
+                            session: widget.session,
+                            exportEntry: yearEvidenceCopy(entry),
+                          ),
+                        ),
+                      ),
+                      child: const Text(
+                        'Original-/Journal-Jahresnachweis öffnen',
+                      ),
+                    ),
                   OutlinedButton(
                     onPressed: () => exportFile(entry, false),
                     child: const Text('Prüfpaket JSON speichern'),

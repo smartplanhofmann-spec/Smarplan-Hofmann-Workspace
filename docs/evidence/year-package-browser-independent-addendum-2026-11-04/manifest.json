@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-04",
+  "scope": "Independent archive follow-up after explicit V1 trust boundary freeze",
+  "workspace": "/workspace/smartplan-year-review-export-20261104",
+  "original_manifest": {
+    "path": "docs/evidence/year-package-browser-independent-2026-11-04/manifest.json",
+    "size": 7165,
+    "sha256": "c4c6b8b9c12c9b76550152689909960341b27569de828e9487f235fdcd38f671"
+  },
+  "original_owned_artifacts_unchanged": 18,
+  "results": {
+    "archives_verified": 6,
+    "external_anchor_negative_variants_rejected": 18,
+    "node_passed": 49,
+    "node_failures": 0,
+    "controlled_temporary_negative_reproduction_expected_failures": 3,
+    "controlled_negative_other_passed": 18,
+    "remaining_confirmed_findings": 0
+  },
+  "intrinsic_dependency_closure": false,
+  "required_trust": "separately_authenticated_archive_sha256",
+  "reviewer_runtime_edits": [],
+  "provenance_clarification": "before-hashes.json captured two context runtime files after their owner fix; original actual red log predates those writes. Historical artifacts remain unchanged.",
+  "owned_artifacts": [
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_BROWSER_GEGENPRUEFUNG_NACHTRAG_2026-11-04.md",
+      "size": 5536,
+      "sha256": "9cead7bb560e56377811ce98f0d15aeb407109f8f99cb10e95b972c3dad5b872"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-archive-addendum.py",
+      "size": 4835,
+      "sha256": "078a4319232a332a21a90881e869379c3a1f3716a14f67217f5c9ff7154c7234"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-addendum-2026-11-04/archives-six-external-anchor.json",
+      "size": 3916,
+      "sha256": "ec30f65eea76e44c7765390c795f1e5a9201b22a16ac6400d5625f5fd2c6a102"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-addendum-2026-11-04/controlled-context-negative-3.txt",
+      "size": 9438,
+      "sha256": "096d8da96bff413a4b0ac1f81592514ea3aae133a2fb20fcf341035c0638b779"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-addendum-2026-11-04/node-49.txt",
+      "size": 4317,
+      "sha256": "04b48b4eb04503254de89d3a7f6f93a35ae6850175603306ec356d6db9dea09c"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-addendum-2026-11-04/provenance-clarification.json",
+      "size": 907,
+      "sha256": "df43508435d1aab44768aff063114a93f20a877f4b3dcb37d3a23097950a4694"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-addendum-2026-11-04/reproduce-context-guard-removal.py",
+      "size": 2764,
+      "sha256": "5fa19ba33e629b31c5b593596ca4e37999e796bf27d17bd199258546d0a25e8e"
+    }
+  ],
+  "read_only_dependencies": [
+    {
+      "path": "docs/fixtures/accounting_year_package_v1.json",
+      "size": 719679,
+      "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0"
+    },
+    {
+      "path": "app/test/fixtures/accounting_year_package_v1.json",
+      "size": 719679,
+      "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0"
+    },
+    {
+      "path": "backend/accounting_year_verify_v1.py",
+      "size": 24982,
+      "sha256": "77b032a6e19f27dfefd290106ecda73675e8e5a9c68afaedfdda9ddae0c60baa"
+    },
+    {
+      "path": "backend/accounting_year_package_v1.py",
+      "size": 21781,
+      "sha256": "8e79534d2739e05f2b34141adf66399563c4cc07e076d2618125374701d77f42"
+    },
+    {
+      "path": "web/office/accounting-year-package-contract.js",
+      "size": 4329,
+      "sha256": "247c128d79c60b3e3fe4cfec917d12f2e84d44d73eb7924c9a1a12682c9a700d"
+    },
+    {
+      "path": "web/office/accounting-year-package.js",
+      "size": 4416,
+      "sha256": "1f27716c37b88f99df5bd11f897845f2d321c7180b1d4644296d77c24341a3ee"
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "size": 50174,
+      "sha256": "08c6fe37ddaa3ae9afbe62882e9834bdbb8e61c839d3e5e6cdcdd49f21c02381"
+    },
+    {
+      "path": "web/office/office.js",
+      "size": 354272,
+      "sha256": "9f3a5a21dc28066fcf8cab4fc7b6ae1623ee73b8d15a0f13a13618424511d5a7"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package.test.mjs",
+      "size": 9631,
+      "sha256": "1b5c91f1f7774971f29c105789c1f085ffec44473c4796af192b666e333be50c"
+    }
+  ]
+}

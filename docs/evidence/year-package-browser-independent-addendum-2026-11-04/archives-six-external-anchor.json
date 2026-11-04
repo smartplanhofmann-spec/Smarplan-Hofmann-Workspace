@@ -1,0 +1,114 @@
+{
+  "fixture_sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+  "fixture_size": 719679,
+  "verified_archives": 6,
+  "rejected_negative_cases": 18,
+  "scenarios": [
+    {
+      "scenario": "ordinary_correction",
+      "archive_sha256": "792da13e8698c2de3d678e63443c709170c5e2d0f4103aa6f3755c09ca2a1370",
+      "size": 102636,
+      "files_including_manifest": 9,
+      "originals": 2,
+      "original_year_complete": true,
+      "private_source_boundaries": [],
+      "intrinsic_dependency_closure": false,
+      "external_anchor_source": "authenticated_metadata.sha256",
+      "negative_cases_rejected": [
+        "missing_external_anchor",
+        "wrong_external_anchor",
+        "changed_archive_original_anchor"
+      ]
+    },
+    {
+      "scenario": "incomplete_year",
+      "archive_sha256": "896cce9ec92d494e57a56a33d7fb2f61c3e33e73a38c594da6dc1604faa9ce77",
+      "size": 103083,
+      "files_including_manifest": 9,
+      "originals": 2,
+      "original_year_complete": false,
+      "private_source_boundaries": [],
+      "intrinsic_dependency_closure": false,
+      "external_anchor_source": "authenticated_metadata.sha256",
+      "negative_cases_rejected": [
+        "missing_external_anchor",
+        "wrong_external_anchor",
+        "changed_archive_original_anchor"
+      ]
+    },
+    {
+      "scenario": "old_after_profile_change",
+      "archive_sha256": "792da13e8698c2de3d678e63443c709170c5e2d0f4103aa6f3755c09ca2a1370",
+      "size": 102636,
+      "files_including_manifest": 9,
+      "originals": 2,
+      "original_year_complete": true,
+      "private_source_boundaries": [],
+      "intrinsic_dependency_closure": false,
+      "external_anchor_source": "authenticated_metadata.sha256",
+      "negative_cases_rejected": [
+        "missing_external_anchor",
+        "wrong_external_anchor",
+        "changed_archive_original_anchor"
+      ]
+    },
+    {
+      "scenario": "historical_assets_old_supplier",
+      "archive_sha256": "f0fe61b16d9d024c637605db43d95268d2de739bee1eb81fac6eadb90e8763d1",
+      "size": 86995,
+      "files_including_manifest": 12,
+      "originals": 5,
+      "original_year_complete": true,
+      "private_source_boundaries": [],
+      "intrinsic_dependency_closure": false,
+      "external_anchor_source": "authenticated_metadata.sha256",
+      "negative_cases_rejected": [
+        "missing_external_anchor",
+        "wrong_external_anchor",
+        "changed_archive_original_anchor"
+      ]
+    },
+    {
+      "scenario": "public_payroll",
+      "archive_sha256": "0d73063bc2b6a1810296426fd34e00159dab7aaf1ee075ec2fbc3ed7ee5f8c04",
+      "size": 43605,
+      "files_including_manifest": 7,
+      "originals": 0,
+      "original_year_complete": true,
+      "private_source_boundaries": [
+        "payroll_cash"
+      ],
+      "intrinsic_dependency_closure": false,
+      "external_anchor_source": "authenticated_metadata.sha256",
+      "negative_cases_rejected": [
+        "missing_external_anchor",
+        "wrong_external_anchor",
+        "changed_archive_original_anchor"
+      ]
+    },
+    {
+      "scenario": "public_travel",
+      "archive_sha256": "146a08c91ffdd5010586a98b07127529916828884a0d27284be5ce181a3d97a5",
+      "size": 43616,
+      "files_including_manifest": 7,
+      "originals": 0,
+      "original_year_complete": true,
+      "private_source_boundaries": [
+        "travel_cash"
+      ],
+      "intrinsic_dependency_closure": false,
+      "external_anchor_source": "authenticated_metadata.sha256",
+      "negative_cases_rejected": [
+        "missing_external_anchor",
+        "wrong_external_anchor",
+        "changed_archive_original_anchor"
+      ]
+    }
+  ],
+  "trusted_repository_verifier_sha256": "77b032a6e19f27dfefd290106ecda73675e8e5a9c68afaedfdda9ddae0c60baa",
+  "no_extraction": true,
+  "no_archive_script_execution": true,
+  "no_database": true,
+  "no_network": true,
+  "intrinsic_dependency_closure": false
+}

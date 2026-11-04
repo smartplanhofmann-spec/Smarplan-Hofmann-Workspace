@@ -1,0 +1,3 @@
+00:00 +0: loading /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart
+00:00 +0: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:07 +1: All tests passed!

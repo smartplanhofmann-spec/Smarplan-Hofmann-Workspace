@@ -1,0 +1,8 @@
+test_actual_old_supplier_package_is_identical_after_populated_restore (online.test_accounting_year_package_pg.YearPackagePostgres.test_actual_old_supplier_package_is_identical_after_populated_restore) ... ok
+test_real_invoice_original_partial_cash_and_restart_preserve_package (online.test_accounting_year_package_pg.YearPackagePostgres.test_real_invoice_original_partial_cash_and_restart_preserve_package) ... ok
+test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope (online.test_open_items_events_catalog_restore_pg.OpenItemsEventsCatalogRestore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 49.425s
+
+OK

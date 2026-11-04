@@ -1,0 +1,51 @@
+00:00 +0: loading /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart
+00:00 +0: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual ordinary_correction export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +1: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual incomplete_year export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +2: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual old_after_profile_change export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +3: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual historical_assets_old_supplier export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +4: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual public_payroll export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +5: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual public_travel export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +6: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: old export bytes remain identical after actual profile change
+00:00 +7: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: foreign export, completeness, unsafe path and excessive limits are rejected
+00:00 +8: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: public_payroll original public source boundary cannot be hidden
+00:00 +9: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: public_travel original public source boundary cannot be hidden
+00:00 +10: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: download rejects equal-sized foreign ZIP and changed second instance metadata
+00:00 +11: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: 390px old incomplete year stays incomplete and successful read-only download rechecks metadata
+00:03 +12: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:03 +13: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:03 +14: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:04 +15: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:04 +16: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:05 +17: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:05 +18: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:05 +19: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:05 +20: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:06 +21: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:08 +22: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:08 +23: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:17 +24: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:17 +25: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:18 +26: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:18 +27: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:21 +28: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:21 +29: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:25 +30: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:26 +31: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:26 +32: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:26 +33: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:29 +34: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:30 +35: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:32 +36: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:33 +37: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: import links original payment and resumes after link exists
+00:33 +38: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: finance read loss clears editor data
+00:35 +39: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: known server denial clears loaded sources
+00:35 +40: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: source pages append without project filter
+00:36 +41: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:36 +42: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: account admin edits without cash prepare permission
+00:37 +43: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: pending snapshot is detached, path-bound and cleared on token loss
+00:37 +44: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: server source denial during save hides the open financial form
+00:37 +45: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: reopen during an in-flight payout restores frozen original fields before any error
+00:39 +46: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: late successful acknowledgement cannot turn an open retry into a second payout
+00:40 +47: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: cash date validates real calendar days without normalization
+00:40 +48: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+00:42 +49: All tests passed!

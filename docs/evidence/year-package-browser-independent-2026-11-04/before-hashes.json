@@ -1,0 +1,8 @@
+{
+  "web/office/accounting-year-package.js": "bdf6bca2cacaf11fc9d1a298e9a3e3c395c55463a2a474b36a5aeba031e32f78",
+  "web/office/accounting-year-package-contract.js": "247c128d79c60b3e3fe4cfec917d12f2e84d44d73eb7924c9a1a12682c9a700d",
+  "web/office/accounting-euer.js": "08c6fe37ddaa3ae9afbe62882e9834bdbb8e61c839d3e5e6cdcdd49f21c02381",
+  "web/office/office.js": "9f3a5a21dc28066fcf8cab4fc7b6ae1623ee73b8d15a0f13a13618424511d5a7",
+  "web/office/tests/accounting-year-package-independent.test.mjs": "a918d1bfbc088fbdc0f848dfc048db7260a6be717356847e4c1915a0fcf05b1e",
+  "web/office/tests/fixtures/accounting-year-package-independent.json": "643710c61e6da8dba3b27e9ade57d0e487514c5adeb1799f4f7b0946b76678de"
+}

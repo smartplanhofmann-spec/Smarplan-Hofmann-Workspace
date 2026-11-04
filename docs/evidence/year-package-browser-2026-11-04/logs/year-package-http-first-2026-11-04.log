@@ -1,0 +1,7 @@
+test_actual_loopback_binary_hash_strict_requests_and_fresh_revocation (test_accounting_year_package_http.YearPackageHTTP.test_actual_loopback_binary_hash_strict_requests_and_fresh_revocation) ... ok
+test_actual_mfa_metadata_download_and_foreign_export (test_accounting_year_package_http.YearPackageHTTP.test_actual_mfa_metadata_download_and_foreign_export) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.834s
+
+OK

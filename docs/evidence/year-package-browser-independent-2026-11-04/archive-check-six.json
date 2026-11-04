@@ -1,0 +1,59 @@
+{
+  "verified": true,
+  "scenarios": [
+    {
+      "scenario": "ordinary_correction",
+      "archive_sha256": "b63b92b12ecc7f7a4bc91085a23627049011a415a76b36678fe599c91a5e834b",
+      "files": 9,
+      "originals": 2,
+      "original_year_complete": true,
+      "private_source_boundaries": []
+    },
+    {
+      "scenario": "incomplete_year",
+      "archive_sha256": "0cfeaefb6c27b8f7050650b3cc8332ff0beb35c85a6c6d3e4930517224821c74",
+      "files": 9,
+      "originals": 2,
+      "original_year_complete": false,
+      "private_source_boundaries": []
+    },
+    {
+      "scenario": "old_after_profile_change",
+      "archive_sha256": "b63b92b12ecc7f7a4bc91085a23627049011a415a76b36678fe599c91a5e834b",
+      "files": 9,
+      "originals": 2,
+      "original_year_complete": true,
+      "private_source_boundaries": []
+    },
+    {
+      "scenario": "historical_assets_old_supplier",
+      "archive_sha256": "d52f7ff850527f9cec26b3cdefa405687ec9626db73f65a00c57d5104c739b9b",
+      "files": 12,
+      "originals": 5,
+      "original_year_complete": true,
+      "private_source_boundaries": []
+    },
+    {
+      "scenario": "public_payroll",
+      "archive_sha256": "906f325ec8552f306b8e4a978e9f3eac874116b68354f82e14f9e16d070e9175",
+      "files": 7,
+      "originals": 0,
+      "original_year_complete": true,
+      "private_source_boundaries": [
+        "payroll_cash"
+      ]
+    },
+    {
+      "scenario": "public_travel",
+      "archive_sha256": "053aebaf0a6e7d00876bc2729df4e0971589ac5d05c8fa6a6efe61bad5733101",
+      "files": 7,
+      "originals": 0,
+      "original_year_complete": true,
+      "private_source_boundaries": [
+        "travel_cash"
+      ]
+    }
+  ],
+  "no_extraction": true,
+  "no_archive_script_execution": true
+}

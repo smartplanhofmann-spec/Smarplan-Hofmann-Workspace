@@ -1,0 +1,23 @@
+00:00 +0: loading /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart
+00:00 +0: actual ordinary_correction export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +1: actual incomplete_year export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +2: actual old_after_profile_change export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +3: actual historical_assets_old_supplier export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +4: actual public_payroll export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +5: actual public_travel export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +6: old export bytes remain identical after actual profile change
+00:00 +7: foreign export, completeness, unsafe path and excessive limits are rejected
+00:00 +8: public_payroll original public source boundary cannot be hidden
+00:00 +9: public_travel original public source boundary cannot be hidden
+00:00 +10: download rejects equal-sized foreign ZIP and changed second instance metadata
+00:00 +11: 390px old incomplete year stays incomplete and successful read-only download rechecks metadata
+00:02 +12: unknown archive response is retried as same original read without any command
+00:03 +13: held ZIP is discarded after read context change
+00:03 +14: held ZIP is discarded after background context change
+00:03 +15: held ZIP is discarded after generation context change
+00:04 +16: silent source-right loss during file chooser is rechecked before actual save
+00:04 +17: late old metadata and errors cannot populate a replacement export screen
+00:04 +18: explicit recheck can recover restored global rights without restoring old private screen state
+00:05 +19: held old ZIP cannot save after selecting another valid export in the same session
+00:05 +20: project-scoped session cannot use the global original-year download
+00:05 +21: All tests passed!

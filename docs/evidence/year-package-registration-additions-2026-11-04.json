@@ -1,0 +1,70 @@
+{
+  "scripts/native-release.py": {
+    "backend_add": [
+      "accounting_year_package_v1.py",
+      "accounting_year_verify_v1.py"
+    ],
+    "operator_add": [
+      "docs/CRM_ERP_JAHRESPAKET_VERIFIKATION_NACHTRAG_2026-11-04.md",
+      "docs/CRM_ERP_JAHRESPAKET_UNABHAENGIGER_BACKENDREVIEW_2026-11-04.md",
+      "docs/evidence/year-package-backend-final-2026-11-04/manifest.json",
+      "docs/evidence/year-package-independent-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_BROWSER_2026-11-04.md",
+      "docs/evidence/year-package-browser-2026-11-04.json",
+      "docs/CRM_ERP_JAHRESPAKET_BROWSER_GEGENPRUEFUNG_2026-11-04.md",
+      "docs/evidence/year-package-browser-independent-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_BROWSER_GEGENPRUEFUNG_NACHTRAG_2026-11-04.md",
+      "docs/evidence/year-package-browser-independent-addendum-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_NATIVE_2026-11-04.md",
+      "docs/evidence/year-evidence-native-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_NATIVE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md",
+      "docs/evidence/year-evidence-native-independent-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_INTEGRATION_2026-11-04.md",
+      "docs/CRM_ERP_JAHRESPAKET_VERTRAG_2026-11-04.md",
+      "docs/CRM_ERP_JAHRESPAKET_API_2026.md",
+      "docs/CRM_ERP_JAHRESPAKET_FORTSCHRITT_2026-11-04.md",
+      "docs/CRM_ERP_JAHRESVERTRAEGE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md"
+    ]
+  },
+  "scripts/package-windows-support.py": {
+    "backend_add": [
+      "accounting_year_package_v1.py",
+      "accounting_year_verify_v1.py"
+    ],
+    "operator_add": [
+      "docs/CRM_ERP_JAHRESPAKET_VERIFIKATION_NACHTRAG_2026-11-04.md",
+      "docs/CRM_ERP_JAHRESPAKET_UNABHAENGIGER_BACKENDREVIEW_2026-11-04.md",
+      "docs/evidence/year-package-backend-final-2026-11-04/manifest.json",
+      "docs/evidence/year-package-independent-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_BROWSER_2026-11-04.md",
+      "docs/evidence/year-package-browser-2026-11-04.json",
+      "docs/CRM_ERP_JAHRESPAKET_BROWSER_GEGENPRUEFUNG_2026-11-04.md",
+      "docs/evidence/year-package-browser-independent-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_BROWSER_GEGENPRUEFUNG_NACHTRAG_2026-11-04.md",
+      "docs/evidence/year-package-browser-independent-addendum-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_NATIVE_2026-11-04.md",
+      "docs/evidence/year-evidence-native-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_NATIVE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md",
+      "docs/evidence/year-evidence-native-independent-2026-11-04/manifest.json",
+      "docs/CRM_ERP_JAHRESPAKET_INTEGRATION_2026-11-04.md",
+      "docs/CRM_ERP_JAHRESPAKET_VERTRAG_2026-11-04.md",
+      "docs/CRM_ERP_JAHRESPAKET_API_2026.md",
+      "docs/CRM_ERP_JAHRESPAKET_FORTSCHRITT_2026-11-04.md",
+      "docs/CRM_ERP_JAHRESVERTRAEGE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md"
+    ]
+  },
+  "backend/online/web.py": {
+    "static_allowlist_add": [
+      "accounting-year-package-contract.js",
+      "accounting-year-package.js"
+    ],
+    "own_body_limit_changes": [],
+    "inherited_body_limit_note": "Two Altposten original-upload limit rows belong to frozen inherited overlay, not this year-package delta."
+  },
+  ".github/workflows/checks.yml": {
+    "online_pg_add": "python -m unittest discover -s backend/online -p test_accounting_year_package_pg.py -v",
+    "browser_add": "node tests/accounting-year-package-e2e.cjs",
+    "windows_backend_and_operator_add": "Exactly same additions as both package scripts; retain every existing entry",
+    "native_test_registration": "Existing full flutter test discovery includes new tests; no new selective list"
+  }
+}

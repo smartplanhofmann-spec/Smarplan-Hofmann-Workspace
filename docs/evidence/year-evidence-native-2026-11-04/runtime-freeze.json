@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-04",
+  "status": "native v1 complete; final real fixture acceptance passed; frozen for independent review",
+  "runtime": {
+    "app/lib/business_accounting_year_evidence.dart": {
+      "sha256": "0480ab38fe16ecf124b1e45eca8fec1e50740e93045a0312320234c595d7b887",
+      "bytes": 10976
+    },
+    "app/lib/business_accounting_year_evidence_contract.dart": {
+      "sha256": "80d91aa00f31905f5bf288a6b86ef1c30eeea244465266f018f007604a2139d5",
+      "bytes": 7423
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "f08cfd822d9530f1fb529076d31a41ebb807370d7957b66677d83938d959b149",
+      "bytes": 80462
+    }
+  },
+  "tests": {
+    "app/test/business_accounting_year_evidence_test.dart": {
+      "sha256": "14b5fbfb242fd9ea54f12081386bf733bb49a1a0272cc1d07ba12be152b6f245",
+      "bytes": 14892
+    },
+    "app/test/business_accounting_year_evidence_http_test.dart": {
+      "sha256": "51c731d0f4e9498b400650531248de457ed825e2cdf44bd650180ada263d2456",
+      "bytes": 12980
+    }
+  },
+  "unchanged": {
+    "app/lib/business_session.dart": {
+      "sha256": "2adfa90857ce50702d691728400605d7859e413c18acdf024aede1d1f0a5e60f",
+      "bytes": 100801
+    },
+    "app/lib/api.dart": {
+      "sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+      "bytes": 7537
+    },
+    "app/lib/mail_attachment_widgets.dart": {
+      "sha256": "22ecd7f343dd07b71473f9f837bff68e8e99de3eba85ac40e4bb9cb962385c9a",
+      "bytes": 35961
+    }
+  },
+  "current_fixture": {
+    "path": "app/test/fixtures/accounting_year_package_v1.json",
+    "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+    "bytes": 719679
+  },
+  "checks": {
+    "combined_passed": 49,
+    "contract_and_lifecycle": 21,
+    "actual_local_http_390px": 1,
+    "existing_euer_accounting_regression": 27,
+    "analyzer_issues": 0
+  },
+  "limits": [
+    "Authenticated ZIP hash is required; intrinsic_dependency_closure remains false.",
+    "No on-device native file-dialog test; local HTTP/file output chain tested with controlled exporter.",
+    "Independent review and root integration are separate.",
+    "No mutation, Session/API/shared exporter change, backend change, dependency change, commit or main-tree edit."
+  ],
+  "integration_patch": {
+    "sha256": "23c2ebc67a68d8b199b069fad1d0a6383b73d276fa67ba5be59088c8f2b19336",
+    "bytes": 1332
+  }
+}

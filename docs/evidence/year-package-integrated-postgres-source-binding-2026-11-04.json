@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "candidate": "/workspace/smartplan-year-package-integration-20261104",
+  "git_head": "ad354261e13145eb8b96cb942ec3fdad47bba3f1",
+  "tests": 3,
+  "test_seconds": 49.425,
+  "wrapper_seconds": 50.623,
+  "exit_code": 0,
+  "cleanup": {
+    "databases": [
+      "smartplan_check"
+    ],
+    "other_connections": []
+  },
+  "files": [
+    {
+      "path": "backend/accounting_year_package_v1.py",
+      "sha256": "8e79534d2739e05f2b34141adf66399563c4cc07e076d2618125374701d77f42",
+      "size": 21781
+    },
+    {
+      "path": "backend/accounting_year_verify_v1.py",
+      "sha256": "77b032a6e19f27dfefd290106ecda73675e8e5a9c68afaedfdda9ddae0c60baa",
+      "size": 24982
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "sha256": "8b2f98d357e00af6c861f2f8b64c1899e36581383f8c1ee3b384b295a0e3c318",
+      "size": 86418
+    },
+    {
+      "path": "backend/business_schema.py",
+      "sha256": "5c47d6cd2b3151a36f94679c67cdcb088556f7db9aad32ae8d1209365d9a126a",
+      "size": 86079
+    },
+    {
+      "path": "backend/online/test_accounting_year_package_pg.py",
+      "sha256": "213df653cc8fcc3e82116e1a5cbe1599f1f8b9aa7af67e75c8ed9783c2f6ee37",
+      "size": 5424
+    },
+    {
+      "path": "backend/online/test_open_items_events_catalog_restore_pg.py",
+      "sha256": "223c6268598234b3a9a11ed0af0ba61e05610a974de81e0b5dcf62397e2f9240",
+      "size": 17644
+    },
+    {
+      "path": "docs/evidence/year-package-integrated-postgres-2026-11-04.txt",
+      "sha256": "05671e995b796e3950ffbced13bcef81019d295e9a860164aaea7c762eb6d198",
+      "size": 785
+    },
+    {
+      "path": "work/verification/year-package-integrated-postgres-cleanup-2026-11-04.json",
+      "sha256": "5cda18fd7379ee90acd7806c92584b4aa9bbe2ef7546136fed4e704ed49ded22",
+      "size": 62
+    }
+  ]
+}

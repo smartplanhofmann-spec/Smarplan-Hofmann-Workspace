@@ -77,19 +77,22 @@ Betriebsfreigabe.
    gesperrt; diese Grundlage berechnet noch keine freigegebenen Nettobeträge.
 7. Belegte laufende Jahreswerte vor einem unterjährigen Softwarebeginn sind
    im Backend isoliert einschließlich eigener unabhängiger Fälle geprüft;
-   beide Oberflächen entstehen. Das ergänzende Original-/Journalpaket ist mit
-   beiden Clients separat geprüft und folgt zur gemeinsamen Integration.
+   beide Oberflächen befinden sich in tatsächlicher Prüfung. Historische Werte
+   erzeugen keinen neuen Geldfluss oder Vorsteueranspruch.
+8. Das ergänzende Original-/Journalpaket ist mit beiden Clients
+   [gemeinsam geprüft](CRM_ERP_JAHRESPAKET_GESAMTPRUEFUNG_2026-11-04.md):
+   84 betroffene Backend-, 401 Buchhaltungs-/Export-App- und alle 762 Nodefälle,
+   drei tatsächliche PostgreSQLfälle und vier echte Browserabläufe bestehen.
    Die ZIP-Prüfung benötigt den separat vertrauenswürdig gesicherten Hash;
    sie beweist allein keine vollständige Menge aller ursprünglichen Belege.
-   Historische Werte erzeugen keinen neuen Geldfluss oder Vorsteueranspruch.
-8. Ein privater Vergleich einer bereits bezahlten Bonussteuer bei belegtem
+9. Ein privater Vergleich einer bereits bezahlten Bonussteuer bei belegtem
    ursprünglichem Vorarbeitgeberbetragsfehler ist isoliert und unabhängig geprüft.
    Er ist noch nicht integriert und enthält keine Zulässigkeitsentscheidung,
    Korrekturannahme, neue Zahlung oder Meldung.
 
 ## Noch offene Buchhaltungs- und Gesamtanforderungen
 
-Weitere Steuerfälle, die Integration der Jahresvorträge und Originalpakete,
+Weitere Steuerfälle, die Integration der Jahresvorträge und ihres V2-Archivanschlusses,
 geeignete Steuerberater-/DATEV- und Behördenwege sowie die vollständige fachliche
 Buchhaltungsprüfung bleiben offen. Ein automatischer Bankabruf benötigt zusätzlich einen ausgewählten
 Anbieter und dessen echten Vertrag. Weitere Lohn-/Korrektur-/Versicherungsfälle,

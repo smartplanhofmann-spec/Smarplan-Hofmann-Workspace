@@ -1,0 +1,46 @@
+✔ exact EUR cents reject rounding and retain explicit zero (2.822929ms)
+✔ global rights, finance activation and write gates remain distinct from read (0.415165ms)
+✔ cash editor preserves documentary units and never guesses deductible shares or SKR04 accounts (2.019039ms)
+✔ input VAT and linear asset forms have no invented start date or source amount percentage (0.546713ms)
+✔ preview and immutable ACK compare nested semantic fields including period control (1.377634ms)
+✔ unknown ACK, denied access and unmarked conflicts retain the exact original receipt until valid replay (44.970432ms)
+✔ confirmed not-accepted conflict releases only that pending command (1.472557ms)
+✔ fresh authorization reads global capabilities and current state before protected retry (0.625682ms)
+✔ open annual sources cannot masquerade as a complete taxable result (0.809098ms)
+✔ source identities and documentary cents cannot silently cross cash events (4.099922ms)
+✔ external EÜR payment evidence is not presented as a supplier liability or missing payout balance (22.446577ms)
+✔ actual immutable ordinary_correction export, metadata and original ZIP remain bound (33.537899ms)
+✔ actual immutable incomplete_year export, metadata and original ZIP remain bound (3.264379ms)
+✔ actual immutable old_after_profile_change export, metadata and original ZIP remain bound (3.62087ms)
+✔ actual immutable historical_assets_old_supplier export, metadata and original ZIP remain bound (4.791903ms)
+✔ actual immutable public_payroll export, metadata and original ZIP remain bound (4.910116ms)
+✔ actual immutable public_travel export, metadata and original ZIP remain bound (2.369346ms)
+✔ same original export stays byte-identical after later profile change (1.191273ms)
+✔ foreign identity, rewritten completion, private scope, path and hostile size are rejected (1.068498ms)
+✔ CSV/report mutation and one-byte archive mutation cannot pass original hashes (14.153385ms)
+✔ read-only mode works without write permissions; either read permission is required (0.784431ms)
+✔ actual UI download reads only GET and checks source rights again after bytes (69.09102ms)
+✔ late metadata after close cannot reveal or download old export (2.901868ms)
+✔ late archive after close cannot reveal or download old export (5.994643ms)
+✔ late metadata after other cannot reveal or download old export (2.566273ms)
+✔ late archive after other cannot reveal or download old export (5.270974ms)
+✔ late metadata after session cannot reveal or download old export (4.639244ms)
+✔ late archive after session cannot reveal or download old export (2.50462ms)
+✔ late metadata after view cannot reveal or download old export (1.848332ms)
+✔ late archive after view cannot reveal or download old export (2.523248ms)
+✔ export selection change cannot be overwritten by earlier metadata response (3.245696ms)
+✔ fresh source denial at initial removes private content and title (1.837636ms)
+✔ fresh source denial at download removes private content and title (2.223767ms)
+✔ fresh source denial at after-bytes removes private content and title (4.880686ms)
+✔ server global read revocation during archive prevents file output (3.602743ms)
+✔ late authorization failure cannot close a newer unrelated dialog (1.054347ms)
+✔ changed authenticated metadata after bytes never downloads mixed export or instance (2.260522ms)
+✔ background invalidation during archive hashing never starts a download (4.181384ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 348.430775

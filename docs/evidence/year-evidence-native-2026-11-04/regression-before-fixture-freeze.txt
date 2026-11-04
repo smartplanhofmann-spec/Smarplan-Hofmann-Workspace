@@ -1,0 +1,48 @@
+00:00 +0: loading /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart
+00:00 +0: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual ordinary_correction export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +1: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual incomplete_year export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +2: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual old_after_profile_change export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +3: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual historical_assets_old_supplier export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +4: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual public_payroll export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +5: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: actual public_travel export, immutable journal hash, metadata and exact ZIP bytes
+00:00 +6: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: old export bytes remain identical after actual profile change
+00:00 +7: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: foreign export, completeness, unsafe path and excessive limits are rejected
+00:00 +8: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: public_payroll original public source boundary cannot be hidden
+00:00 +9: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: public_travel original public source boundary cannot be hidden
+00:00 +10: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: download rejects equal-sized foreign ZIP and changed second instance metadata
+00:00 +11: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_test.dart: Explicit EÜR inputs preserve source cents and never invent dates, tax shares or SKR04 accounts
+00:00 +12: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: 390px old incomplete year stays incomplete and successful read-only download rechecks metadata
+00:00 +13: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_test.dart: 390px old incomplete year stays incomplete and successful read-only download rechecks metadata
+00:01 +14: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:02 +15: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:02 +16: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:02 +17: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:02 +18: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:03 +19: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:03 +20: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:03 +21: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:06 +22: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:06 +23: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:07 +24: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:07 +25: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:09 +26: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:12 +27: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:12 +28: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:13 +29: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:13 +30: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:15 +31: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_euer_http_test.dart: Real HTTP EÜR chain separates cash, input VAT, asset depreciation, counter-postings, periods and immutable year packages
+00:15 +32: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: third decimal is explained before transmission
+00:16 +33: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: lost payout resumes exact id after review and inactive renamed account
+00:18 +34: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: import links original payment and resumes after link exists
+00:19 +35: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: finance read loss clears editor data
+00:20 +36: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: known server denial clears loaded sources
+00:20 +37: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: source pages append without project filter
+00:20 +38: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:20 +39: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: account admin edits without cash prepare permission
+00:20 +40: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: pending snapshot is detached, path-bound and cleared on token loss
+00:20 +41: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: server source denial during save hides the open financial form
+00:21 +42: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: reopen during an in-flight payout restores frozen original fields before any error
+00:23 +43: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: late successful acknowledgement cannot turn an open retry into a second payout
+00:24 +44: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: cash date validates real calendar days without normalization
+00:24 +45: /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+00:25 +46: All tests passed!

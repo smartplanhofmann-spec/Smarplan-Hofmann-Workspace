@@ -1,0 +1,9 @@
+{
+  "recorded_at_utc": "2026-11-04T11:49:32.272740+00:00",
+  "files": {
+    "web/office/accounting-euer.js": "e6cdd35968ad781e96c99e282891f88514540072c6033e7bae7d67340111ec41",
+    "web/office/office.js": "2a4a70624893cb52f2a0fce7347360fac0668ef3cddd457f8f197928a84e294c",
+    "web/office/accounting-year-package.js": "bdf6bca2cacaf11fc9d1a298e9a3e3c395c55463a2a474b36a5aeba031e32f78",
+    "web/office/accounting-year-package-contract.js": "247c128d79c60b3e3fe4cfec917d12f2e84d44d73eb7924c9a1a12682c9a700d"
+  }
+}

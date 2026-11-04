@@ -1,0 +1,19 @@
+test_actual_purchase_sale_correction_originals_and_frozen_bytes (test_accounting_year_package.YearPackageTests.test_actual_purchase_sale_correction_originals_and_frozen_bytes) ... FAIL
+test_archive_duplicate_and_traversal_path_rejected_without_extraction (test_accounting_year_package.YearPackageTests.test_archive_duplicate_and_traversal_path_rejected_without_extraction) ... ok
+test_local_standard_library_checker_after_office_closed_and_external_hash (test_accounting_year_package.YearPackageTests.test_local_standard_library_checker_after_office_closed_and_external_hash) ... ok
+test_truncated_correction_rehashed_source_and_missing_original_rejected (test_accounting_year_package.YearPackageTests.test_truncated_correction_rehashed_source_and_missing_original_rejected) ... ok
+test_unknown_export_or_current_finance_right_denied (test_accounting_year_package.YearPackageTests.test_unknown_export_or_current_finance_right_denied) ... ok
+
+======================================================================
+FAIL: test_actual_purchase_sale_correction_originals_and_frozen_bytes (test_accounting_year_package.YearPackageTests.test_actual_purchase_sale_correction_originals_and_frozen_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/backend/test_accounting_year_package.py", line 61, in test_actual_purchase_sale_correction_originals_and_frozen_bytes
+    journal=json.loads(files['journal.json']);self.assertEqual(len(journal['decisions']),6)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 5 != 6
+
+----------------------------------------------------------------------
+Ran 5 tests in 5.439s
+
+FAILED (failures=1)

@@ -1998,3 +1998,24 @@ dokumentiert: 40 von 62 Anforderungspunkten implementiert/getestet, rund 65 %.
 Dies ist weder der Anteil erledigter Arbeitszeit noch eine vollständige
 Fachfreigabe. Jahresvorträge, ergänzende Originalpakete, weitere Lohn-/Steuerfälle,
 Abnahmen A–G und externe Betriebsnachweise bleiben im Gesamtplan offen.
+
+
+## 04.11.2026 – Jahresoriginalpaket mit beiden Clients gemeinsam geprüft
+
+Auf `ad35426` ergänzt das [Jahrespaket](CRM_ERP_JAHRESPAKET_GESAMTPRUEFUNG_2026-11-04.md)
+den ursprünglichen EÜR-Export rein lesend um aufgelöste Originale und
+Journalentscheidungen. 84 betroffene Backend-, 401 Buchhaltungs-/Export-App-
+und alle 762 Nodefälle bestehen; Analyse ohne Befund und 16 Paketprüfungen.
+Drei echte PostgreSQLfälle erhalten Original-ZIPs auch im befüllten gemeinsamen
+Restore bytegleich. Vier tatsächliche Browserabläufe bestehen mit aktiver Sandbox.
+
+191 Handoffpfade und sieben additive Zusammenführungen sind unabhängig geprüft;
+keine der erfassten Eingabedateien änderte sich während der finalen Prüfläufe.
+Die vorherige vollständige Backend-/App-/Finanzmatrix gehört weiterhin zu ihrem
+exakten Altpostenstand. Neue Prüfgruppen werden nicht mit ihr aufsummiert.
+
+Der separat vertrauenswürdig gesicherte ZIP-Hash ist zwingend; der Prüfer behauptet
+keinen intrinsischen Vollständigkeitsbeweis alter Abhängigkeiten. Frühere echte
+Gegenfälle bleiben archiviert. Keine finanzielle Mutation oder neue Migration;
+Horizont 14/Bericht 15 bleiben erhalten. Jahresvorträge samt V2-Archivanschluss,
+weitere Steuer-/Lohnfälle, Gesamtabnahmen und externe Nachweise laufen weiter.

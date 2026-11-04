@@ -1,0 +1,19 @@
+{
+  "original_review_manifest_unchanged": true,
+  "all_18_original_owned_artifacts_unchanged": true,
+  "original_red_log_timestamp_utc": "2026-11-04T11:48:04.166256138Z",
+  "owner_context_fix_file_timestamps_utc": {
+    "web/office/accounting-euer.js": "2026-11-04T11:49:32.274293113Z",
+    "web/office/office.js": "2026-11-04T11:49:32.276830993Z"
+  },
+  "before_hashes_record_timestamp_utc": "2026-11-04T11:49:33.818106508Z",
+  "correction": "Despite its filename, before-hashes.json captured these two runtime files after the owner context fix. It is not a historical pre-fix runtime snapshot.",
+  "controlled_negative_reproduction": {
+    "source": "current copied runtime with only exportGeneration/invalidateExport guard removed",
+    "historic_snapshot_claim": false,
+    "unchanged_test_assertions": true,
+    "expected_failures": 3,
+    "other_passed": 18,
+    "product_files_modified": false
+  }
+}

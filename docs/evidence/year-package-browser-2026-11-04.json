@@ -1,0 +1,541 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T12:19:36.116258+00:00",
+  "workspace": "/workspace/smartplan-year-review-export-20261104",
+  "owner": "finish_v6_clients",
+  "status": "v1_browser_frozen_for_root_integration",
+  "overall_goal_complete": false,
+  "scope": "Read-only browser access from an accepted immutable EÜR export to its original-bound v1 ZIP, explicit trust/completeness limits, protected initial export selection and downloads. Backend and native ownership remain separate.",
+  "basis": {
+    "commit": "b0b96024f0a7cf2c7097fb3b77c64032265850a5",
+    "before": {
+      "path": "docs/evidence/year-package-browser-2026-11-04/browser-before.json",
+      "size": 814,
+      "sha256": "c29b1286c48d6ad7dc1083197375a46aabe17effa7465e27be21194775ebbef4"
+    },
+    "shared_patch": {
+      "path": "docs/evidence/year-package-browser-2026-11-04/shared-browser-hooks-from-b0b96024.patch",
+      "size": 18277,
+      "sha256": "63b893688cde0fc3cf7eabacbc0699385a388b1ad7f4345ec59a523e7ac99931"
+    },
+    "shared_patch_reproduces_current_bytes": true,
+    "shared_files": [
+      "web/office/accounting-euer.js",
+      "web/office/office.js"
+    ]
+  },
+  "owned_files": [
+    {
+      "path": "web/office/accounting-year-package-contract.js",
+      "size": 4329,
+      "sha256": "247c128d79c60b3e3fe4cfec917d12f2e84d44d73eb7924c9a1a12682c9a700d"
+    },
+    {
+      "path": "web/office/accounting-year-package.js",
+      "size": 4416,
+      "sha256": "1f27716c37b88f99df5bd11f897845f2d321c7180b1d4644296d77c24341a3ee"
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "size": 50174,
+      "sha256": "08c6fe37ddaa3ae9afbe62882e9834bdbb8e61c839d3e5e6cdcdd49f21c02381"
+    },
+    {
+      "path": "web/office/office.js",
+      "size": 354272,
+      "sha256": "9f3a5a21dc28066fcf8cab4fc7b6ae1623ee73b8d15a0f13a13618424511d5a7"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package.test.mjs",
+      "size": 9631,
+      "sha256": "1b5c91f1f7774971f29c105789c1f085ffec44473c4796af192b666e333be50c"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-fixture.py",
+      "size": 2645,
+      "sha256": "9b00bf8868e86d32c06aaed051ccb802f2da8ed6e10fe00c7491bae1f42eb6cb"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-e2e.cjs",
+      "size": 5214,
+      "sha256": "fb25428561dd42474b6d5b1157c7780f7e62548edd09c485a925b3ce7dac36b9"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-flow.cjs",
+      "size": 9821,
+      "sha256": "3a90ad6202a77dd3e4901c1896c86d25967aa683b2942595bdac03acfbb8a34e"
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_BROWSER_2026-11-04.md",
+      "size": 8305,
+      "sha256": "3bab3515ba194583c7bcd3242d2e0b80db717eac6305eaa86aa67386e8708c92"
+    }
+  ],
+  "shared_registration_only": {
+    ".github/workflows/checks.yml": "Add node tests/accounting-year-package-e2e.cjs after the existing accounting-euer-e2e.cjs; preserve other Backend/Altposten/Company registrations.",
+    "backend/online/web.py": "Backendowner registered accounting-year-package.js and accounting-year-package-contract.js static module paths."
+  },
+  "final_source_dependencies": [
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_API_2026.md",
+      "size": 5284,
+      "sha256": "d6e74333a46159663870d94e0afadc62e627162b3030d5c10c39e36f66f26507"
+    },
+    {
+      "path": "docs/fixtures/accounting_year_package_v1.json",
+      "size": 719679,
+      "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0"
+    },
+    {
+      "path": "app/test/fixtures/accounting_year_package_v1.json",
+      "size": 719679,
+      "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0"
+    },
+    {
+      "path": "backend/accounting_year_package_v1.py",
+      "size": 21781,
+      "sha256": "8e79534d2739e05f2b34141adf66399563c4cc07e076d2618125374701d77f42"
+    },
+    {
+      "path": "backend/accounting_year_verify_v1.py",
+      "size": 24982,
+      "sha256": "77b032a6e19f27dfefd290106ecda73675e8e5a9c68afaedfdda9ddae0c60baa"
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "size": 86418,
+      "sha256": "8b2f98d357e00af6c861f2f8b64c1899e36581383f8c1ee3b384b295a0e3c318"
+    }
+  ],
+  "independent_reviews": [
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/manifest.json",
+      "size": 7165,
+      "sha256": "c4c6b8b9c12c9b76550152689909960341b27569de828e9487f235fdcd38f671",
+      "owned_artifact_hashes_verified_unchanged": 18
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-addendum-2026-11-04/manifest.json",
+      "size": 4249,
+      "sha256": "95feb8f84da8853aebfcc387b67459e2cbfbf8c5459f27ec6fca8f7ce7a9bd68",
+      "owned_artifact_hashes_verified_unchanged": 7
+    }
+  ],
+  "verification": {
+    "node": {
+      "command": "node --test web/office/tests/*.test.mjs",
+      "execution": "require_escalated with actual named tests",
+      "passed": 659,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "log": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-checker-followup-node-final-2026-11-04.log"
+    },
+    "browser": {
+      "command": "node web/office/tests/accounting-year-package-e2e.cjs",
+      "passed": true,
+      "exit_code": 0,
+      "log": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-chromium-checker-followup-2026-11-04.log",
+      "actual_flows": [
+        "real bound instance and MFA",
+        "immutable accepted export and actual original ZIP",
+        "unchanged repeat bytes and separately anchored offline check",
+        "incomplete versus recorded-complete prior year",
+        "both initial export response orders",
+        "simulated visibility roundtrip through real host listener",
+        "late metadata and archive after different export",
+        "corrupted archive bytes rejected",
+        "real global read revocation before file output",
+        "390px rendering"
+      ]
+    },
+    "legacy_browser": {
+      "command": "node web/office/tests/accounting-euer-e2e.cjs",
+      "passed": true,
+      "exit_code": 0,
+      "log": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-legacy-euer-final-2026-11-04.log"
+    },
+    "browser_environment": {
+      "NODE_PATH": "/workspace/Smarplan-Hofmann-Workspace/web/office/node_modules",
+      "SMARTPLAN_BROWSER_NAMESPACE_SANDBOX": "1",
+      "SMARTPLAN_CHROMIUM_BINARY": "/usr/lib/chromium/chromium",
+      "SMARTPLAN_BROWSER_TEST_PYTHON": "/tmp/smartplan-backend-verified/bin/python",
+      "sandbox_disabled": false,
+      "verified_sandboxes": [
+        "namespace",
+        "PID",
+        "network",
+        "seccomp"
+      ]
+    },
+    "new_owner_node_cases": 28,
+    "new_independent_node_cases": 21,
+    "independent_original_targeted_total": 60,
+    "independent_new_fixture_targeted_total": 49,
+    "independent_archives_verified": 6,
+    "independent_external_anchor_negative_cases": 18,
+    "independent_actual_chromium_source_only_revocation": true
+  },
+  "trust_boundary": {
+    "intrinsic_dependency_closure": false,
+    "requires_separately_authenticated_archive_sha256": true,
+    "official_tax_return": false,
+    "datev_certified": false,
+    "private_personnel_originals_included": false,
+    "description": "A byte/hash match binds the authenticated archive. It is not an independent completeness guarantee for every original dependency of historical source records. UI explicitly states that limit and the offline external hash requirement."
+  },
+  "artifacts": [
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/README.md",
+      "size": 6118,
+      "sha256": "2c6c4ecadd823238286543e5f5279dfb6e997f18062abb369758e5988fe668c5"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-checker-followup-2026-11-04/actual-year-package-offline-check.json",
+      "size": 524,
+      "sha256": "aacc8089b39f4cb4834fb4067409ef48402c11df28ed5ba4369edcd073df135d"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-checker-followup-2026-11-04/actual-year-package.zip",
+      "size": 102634,
+      "sha256": "065ee6de646f90a8d2edc80274f2b5bc3ecc15a409f03f8dba2c444e7ee72359"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-checker-followup-2026-11-04/year-package-http-records.json",
+      "size": 183205,
+      "sha256": "2cb5fa4079577d9495a8e04a99253e5b7f45d9830a33cde079062983a9b1155e"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-checker-followup-2026-11-04/year-package-incomplete-mobile.png",
+      "size": 65951,
+      "sha256": "e7daada29003e7bd4c5aad71a4c0e4ea74fb5965f5fc602eccfa0e97c8de8319"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-context-fixed-2026-11-04/actual-year-package-offline-check.json",
+      "size": 398,
+      "sha256": "8222b2f70499e53a400afe6c32ff8bf9cb47a76bb024230c7f0b6b202f050383"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-context-fixed-2026-11-04/actual-year-package.zip",
+      "size": 98884,
+      "sha256": "5b49c28519bd6def5fa9111d6530b945ffb7d8b38a7451dee0ff8a33a216aaa6"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-context-fixed-2026-11-04/year-package-http-records.json",
+      "size": 183187,
+      "sha256": "925bfbf1c2df605d77a1a6fcb275e70e03763f2b5c12b308b145d1c227dca8df"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-context-fixed-2026-11-04/year-package-incomplete-mobile.png",
+      "size": 65685,
+      "sha256": "f13404c95b9234b2d3e39e5b0129b22ca8fb369fb7dcd27f961bb7e87956a1ab"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-reviewed-2026-11-04/actual-year-package-offline-check.json",
+      "size": 398,
+      "sha256": "569e3cfa660864306153097654ae5dbb2e32f9a39e7125c82f15cb09adcf7a83"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-reviewed-2026-11-04/actual-year-package.zip",
+      "size": 98884,
+      "sha256": "d1748fbc9a0d2cc255e248e423639a5ef83070eef829676a048015f86ebb4f4d"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-reviewed-2026-11-04/year-package-http-records.json",
+      "size": 144206,
+      "sha256": "8d2c977beea266f80620d5ea3cef118663fbe006e04795528326e8beee9651fc"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-browser-reviewed-2026-11-04/year-package-incomplete-mobile.png",
+      "size": 65169,
+      "sha256": "5de6baf0480b82a94ffb9b282184d8969a338a69ad443c84a0bf008aa3a4c5cf"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-final-2026-11-04/accounting-euer-desktop-viewport.png",
+      "size": 157019,
+      "sha256": "7d0857936ef0751f0fc6b05d545bb141e29a0b18edf286c4776074954443f808"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-final-2026-11-04/accounting-euer-desktop.png",
+      "size": 577218,
+      "sha256": "66976e675c139c33dc51069b13c561b9a932174880bd13bd3e676517ab7c2e67"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-final-2026-11-04/accounting-euer-http-records.json",
+      "size": 2877833,
+      "sha256": "5add8e6192da7c326633beae42cc5a9e6f22c15b49050324e9e5cf481bd88169"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-final-2026-11-04/accounting-euer-mobile-viewport.png",
+      "size": 60950,
+      "sha256": "00909929ab11728d57957d090cf0e7836cba3f52a107ed536a1c57938d766b1c"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-final-2026-11-04/accounting-euer-mobile.png",
+      "size": 518935,
+      "sha256": "35206002e29628c6ef25024ecd7a7b4f02b5b50554e11150692e1d8c3f3ff114"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-first-2026-11-04/accounting-euer-desktop-viewport.png",
+      "size": 154957,
+      "sha256": "e467e0d9bf1349faae80f2a751d7c6ea6f78ca712f74deefda572b71aa233cd9"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-first-2026-11-04/accounting-euer-desktop.png",
+      "size": 571985,
+      "sha256": "3d02099d833270e5b4c16815d051bdf3b1cc794660f5d283fa254829f51c4b96"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-first-2026-11-04/accounting-euer-http-records.json",
+      "size": 2877833,
+      "sha256": "5e0c7b442642f32a2294b85ac295cad4108307461861a9ed6f2be5e0aed3517f"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-first-2026-11-04/accounting-euer-mobile-viewport.png",
+      "size": 61250,
+      "sha256": "02eb5a140bc7cb45885dbf7a0c465917581e93ca11b0d5c14ffd3bf1e4b91cd9"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/artifacts/year-package-legacy-euer-first-2026-11-04/accounting-euer-mobile.png",
+      "size": 515824,
+      "sha256": "96253bd9659a2cd0cde63c513b09c304290af1e204f6bdfce277b66da5e3a0c2"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/before-independent-runtime.json",
+      "size": 513,
+      "sha256": "8ab7d34c2f3c5e0c0f31db9956aeba3181c84dc4f1aa3c64162595eec5ddedf6"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/browser-before.json",
+      "size": 814,
+      "sha256": "c29b1286c48d6ad7dc1083197375a46aabe17effa7465e27be21194775ebbef4"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/fixtures/backend-v1-before-checker-followup.json",
+      "size": 689672,
+      "sha256": "bd3ff5a40bf10211b67ca563dcf14ad2850949e43be54cdb19deba4b5e0557cc"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-browser-first-2026-11-04.log",
+      "size": 5091,
+      "sha256": "300ebb86ce7eba46beb716261d46c783b6d9e189f74048cbd48ba8010f782df6"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-browser-second-2026-11-04.log",
+      "size": 3624,
+      "sha256": "9697d806019aa25376c73b3ca2085e81e13e1180819760c9e0b6381f26040967"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-checker-followup-node-final-2026-11-04.log",
+      "size": 68046,
+      "sha256": "8e2f4d483718a39722d4a41b84cf95f34dc00627f47c50019b455230cf9cf6a2"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-chromium-checker-followup-2026-11-04.log",
+      "size": 501,
+      "sha256": "15aab674ceb0a169e210b8c56c3176d2de8136d04880166e61e31ab6b388f4b1"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-chromium-context-fixed-2026-11-04.log",
+      "size": 501,
+      "sha256": "15aab674ceb0a169e210b8c56c3176d2de8136d04880166e61e31ab6b388f4b1"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-chromium-first-2026-11-04.log",
+      "size": 988,
+      "sha256": "385e82552fb27f1cdcbf1f1f9dd25e5b22700f71cf31df6d2033caf252dc181b"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-chromium-reviewed-2026-11-04.log",
+      "size": 463,
+      "sha256": "2e27fbb20ebfda2234cafcb797f63c448cb2670f4e92d42632a23eef25fa0d92"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-chromium-second-2026-11-04.log",
+      "size": 755,
+      "sha256": "e901dd68576af5ca466ad565c61ace52fb72cf712d3a139693674524270cf4d8"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-chromium-third-2026-11-04.log",
+      "size": 444,
+      "sha256": "960affc4108bf6b2bae6d9f4eef907a4f1888b86d6054809ec33768ba5dad6c8"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-closed-proof-2026-11-04.log",
+      "size": 3422,
+      "sha256": "c580bf97ed4eb58f294b871d35038c25a58fde0d6b514d1fea1f3778cbcbfa0c"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-documentary-families-first-2026-11-04.log",
+      "size": 290,
+      "sha256": "ddc70fcd20fcbf45d4cd768ff7fdbcd1ebe898a1ecf9cf75188fa87d5ffc586d"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-domain-final-first-2026-11-04.log",
+      "size": 2694,
+      "sha256": "141e99bd9e6ac1e8969a64bfc0a990ecc4f35c4f4fbab33534307476dd94d2fb"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-domain-http-euer-final-2026-11-04.log",
+      "size": 7088,
+      "sha256": "9c9741f7fd48a66a3928a4fc278f5e194be8a93b3356af5414b426f3fa444e61"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-final-domain-http-independent-euer-2026-11-04.log",
+      "size": 10245,
+      "sha256": "68a4d0cf7c6cc863df981a4afcf8e7ab83b8d6da8188e050d6e856ae78b83afe"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-first-2026-11-04.log",
+      "size": 1798,
+      "sha256": "fa439d6b9bd4886788be987c4575a779802be9a426d3a0046c27e678b41222e3"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-first-complete-2026-11-04.log",
+      "size": 1761,
+      "sha256": "d5937b88c204657c1ef8c6aba00dd2d85a8d962ed0e0523b2626b3e669b4c240"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-fixture-final-first-2026-11-04.log",
+      "size": 250,
+      "sha256": "26aecbde79d0c431b92bb146a224c9e38e44f2cd89bf3eba3a58cf06b7bfe3bd"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-fixture-first-2026-11-04.log",
+      "size": 233,
+      "sha256": "bf0d02e37bb90727d2a42b7dbee181d3219dd098d30dc6da2860f92e788180a7"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-fixture-trusted-anchor-final-2026-11-04.log",
+      "size": 250,
+      "sha256": "8102f08694d670b44a9b8acc6ef8afd02cd7449c1f1b93866a773439cb3ef7df"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-full-node-final-2026-11-04.log",
+      "size": 67888,
+      "sha256": "78645083ccc0bdba7db63bf27662265d67ba85eebf55e55161e09e4b0aa02a11"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-full-node-first-2026-11-04.log",
+      "size": 66130,
+      "sha256": "d09a83a05203deb2a3f78c6a3d2ea2274b18fa39e6baf366cdea73c81675f749"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-history-2026-11-04.log",
+      "size": 2319,
+      "sha256": "1293bd6a541b5bba36ac5711b683d83c77024efe2bdf9dc4c3a4b40bf2b01072"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-http-first-2026-11-04.log",
+      "size": 462,
+      "sha256": "52b697471852d74e3c315bbc7d166e1150dce39edf4576faf3ca5eaa85aebc16"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-independent-authenticated-final-2026-11-04.log",
+      "size": 3014,
+      "sha256": "8602ff014115ab1a65c2caee2cf60d35ed43fde27454ed40f74b54c33a6a283e"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-independent-authenticated-first-2026-11-04.log",
+      "size": 3014,
+      "sha256": "847e183ed6aff4b1c1c148c8aa7bc2a691c7764e531016070b56d5156c6e0c17"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-independent-first-2026-11-04.log",
+      "size": 3157,
+      "sha256": "54556c3ade08bd75a865605b69487a1f6ddedee312542a7fed5ea5608adcf65d"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-independent-fix-first-2026-11-04.log",
+      "size": 3832,
+      "sha256": "01f65529ce7bd5d847c427bcf018fb19beb9cc1ebf053236b8ba09d4b1998ecd"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-independent-second-2026-11-04.log",
+      "size": 2043,
+      "sha256": "b5cc67097685ca91f7065dce86c177bf8ceceaee16681eed81219a429e64f6df"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-independent-third-2026-11-04.log",
+      "size": 2120,
+      "sha256": "4b8e4874db8999cd31d7f9811b078d186469c63a05a207541562f3da11ffcd1e"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-legacy-euer-final-2026-11-04.log",
+      "size": 290,
+      "sha256": "764987094c11d04cfc59fe6c69b29f15219d58a729d340b652b4ec1dd87eac8b"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-legacy-euer-first-2026-11-04.log",
+      "size": 290,
+      "sha256": "764987094c11d04cfc59fe6c69b29f15219d58a729d340b652b4ec1dd87eac8b"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-packages-first-2026-11-04.log",
+      "size": 3603,
+      "sha256": "597a9d161570d2533bcbecf426c1e4a0eadfc139853cb908d509da71e6e8ab29"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-pg-first-2026-11-04.log",
+      "size": 2595,
+      "sha256": "c6138aa4956074f6b1dbfcdc423ceca6ca132e6fc32227c3121afdb443eabe46"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-pg-second-2026-11-04.log",
+      "size": 513,
+      "sha256": "94188d7722cfe1f42646aad6915e25da3fafabc16ea48eb11490b72dec60b7fc"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-prepayment-travel-2026-11-04.log",
+      "size": 4954,
+      "sha256": "68f73d231fdd90526db78377b243fda4e212ad27b695b4c13131c95c00960569"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-private-boundary-after-2026-11-04.log",
+      "size": 3731,
+      "sha256": "60713abb38bb6637b7f2274cd9bda01575cde84d6d59acf7a842ac328de70f1f"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-private-boundary-before-2026-11-04.log",
+      "size": 3601,
+      "sha256": "74a4590c7a46e49bfbf10770ba8b54d3688f290e47eb848a9bd47bef90094195"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-second-2026-11-04.log",
+      "size": 5321,
+      "sha256": "ff70d65f209281bbcc772723ae30a823a45ecbf75563c3959afae30f78f36c89"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-third-2026-11-04.log",
+      "size": 7054,
+      "sha256": "9e012e402a3cd2887e0b62ffd99ae58830d45ab7118c56bc485c25abe4832aed"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/logs/year-package-trusted-anchor-first-2026-11-04.log",
+      "size": 3701,
+      "sha256": "9ecee5834df278d2e7dcd0eb72993e9406b48e38db08e962640d2c2de12fa21f"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/shared-browser-hooks-before-independent.patch",
+      "size": 14118,
+      "sha256": "b4735dc8cdf25ad7f71170e32e8b536f8e88f1d047dba6af1b04ba565f3bbe91"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/shared-browser-hooks-from-b0b96024.patch",
+      "size": 18277,
+      "sha256": "63b893688cde0fc3cf7eabacbc0699385a388b1ad7f4345ec59a523e7ac99931"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04/shared-patch-application.txt",
+      "size": 189,
+      "sha256": "77d590865eea68d10ff0fe5ae461e5344107b3f232f94f64d50527645f32abb3"
+    }
+  ],
+  "integration_notes": [
+    "Do not overwrite newer Root accounting-euer.js or office.js wholesale; apply the narrow two-file patch while preserving Altposten, Company Events, Source5 and asset hooks.",
+    "The existing dialogGeneration/privateContext is reused; accountingEuer.invalidateExport() must be called on background even before a dialog exists.",
+    "v1 fixture and client are frozen. The separately proposed carryover/v2 format is not implemented here.",
+    "Old independent manifest remains unchanged. Its after-fix hash-snapshot timing is explicitly corrected in the addendum; actual red logs and controlled negative reproduction remain preserved.",
+    "Local synthetic data only; no production service, payment, submission or external delivery."
+  ]
+}

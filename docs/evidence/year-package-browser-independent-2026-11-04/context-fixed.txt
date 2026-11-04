@@ -1,0 +1,12 @@
+✔ real readonly export entry opens exactly its package and incomplete original remains incomplete (41.463356ms)
+✔ initial original export success cannot return after background and foreground (1.061558ms)
+✔ initial original export error cannot return after background and foreground (0.784681ms)
+✔ latest original export intent wins before either initial request created a dialog (3.528502ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 126.853537

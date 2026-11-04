@@ -1,0 +1,8 @@
+{
+  "backend/accounting_year_package_v1.py": "e2dfabe86ed40f0f31dfd9a627935c439d8fb4ea9b7e6566062a363ca18427db",
+  "backend/accounting_year_verify_v1.py": "2137aaecccbc2e254a176c00c7aa53495edc4ce12c8d6191092c673bf3707980",
+  "backend/business_accounting_euer.py": "8b2f98d357e00af6c861f2f8b64c1899e36581383f8c1ee3b384b295a0e3c318",
+  "backend/test_accounting_year_package.py": "a5ad1f596e5ca91a8a5ef2b0f4d39ad80e88295b3d619b7b6a489b5749e0ff0b",
+  "backend/test_accounting_year_package_http.py": "3524ff8a2c19a77761c760cf81c1b3f43c0020374aa9ae4247949f4bb605ad73",
+  "backend/online/test_accounting_year_package_pg.py": "213df653cc8fcc3e82116e1a5cbe1599f1f8b9aa7af67e75c8ed9783c2f6ee37"
+}

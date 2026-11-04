@@ -1,0 +1,92 @@
+{
+  "date": "2026-11-04",
+  "reviewer": "finish_v6_backend",
+  "scope": "Independent native V1 yearly original export review",
+  "status": "16 independent tests plus 1 unchanged actual HTTP test passed; analysis zero issues",
+  "independent_tests": 16,
+  "combined_tests": 17,
+  "runtime_unchanged": true,
+  "backend_changed": false,
+  "pg_used": false,
+  "intrinsic_dependency_closure": false,
+  "required_trust": "separately_authenticated_archive_sha256",
+  "files": {
+    "app/test/business_accounting_year_evidence_independent_review_test.dart": {
+      "sha256": "b382dfbed7179b72d4656b20787012ede2305d62b9b3eab80b681fd45af3f41e",
+      "bytes": 12731
+    },
+    "docs/CRM_ERP_JAHRESPAKET_NATIVE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md": {
+      "sha256": "5889cb94c74a201c166c55a39ace495d8bbcfbf06ef771f2696f0d2f3a315fe7",
+      "bytes": 6066
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/manifest.json": {
+      "sha256": "9430514d6c59a7a5143a2f54529e017a76d627fc227a34c5cf3c292f99a681a6",
+      "bytes": 5503
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/runtime-freeze.json": {
+      "sha256": "eb44bf042198724e844a365129e583934c5d6704ed803b79e51e31a943448bc3",
+      "bytes": 2391
+    },
+    "app/lib/business_accounting_year_evidence.dart": {
+      "sha256": "0480ab38fe16ecf124b1e45eca8fec1e50740e93045a0312320234c595d7b887",
+      "bytes": 10976
+    },
+    "app/lib/business_accounting_year_evidence_contract.dart": {
+      "sha256": "80d91aa00f31905f5bf288a6b86ef1c30eeea244465266f018f007604a2139d5",
+      "bytes": 7423
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "f08cfd822d9530f1fb529076d31a41ebb807370d7957b66677d83938d959b149",
+      "bytes": 80462
+    },
+    "app/lib/business_session.dart": {
+      "sha256": "2adfa90857ce50702d691728400605d7859e413c18acdf024aede1d1f0a5e60f",
+      "bytes": 100801
+    },
+    "app/lib/api.dart": {
+      "sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+      "bytes": 7537
+    },
+    "app/lib/mail_attachment_widgets.dart": {
+      "sha256": "22ecd7f343dd07b71473f9f837bff68e8e99de3eba85ac40e4bb9cb962385c9a",
+      "bytes": 35961
+    },
+    "app/test/business_accounting_year_evidence_test.dart": {
+      "sha256": "14b5fbfb242fd9ea54f12081386bf733bb49a1a0272cc1d07ba12be152b6f245",
+      "bytes": 14892
+    },
+    "app/test/business_accounting_year_evidence_http_test.dart": {
+      "sha256": "51c731d0f4e9498b400650531248de457ed825e2cdf44bd650180ada263d2456",
+      "bytes": 12980
+    },
+    "app/test/fixtures/accounting_year_package_v1.json": {
+      "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+      "bytes": 719679
+    }
+  },
+  "logs": {
+    "work/verification/year-evidence-native-independent-first-2026-11-04.log": {
+      "sha256": "509d57744aee17a46df4f01a52ba6af6827be4474b213bd0f89504d9f43a88e3",
+      "bytes": 12002
+    },
+    "work/verification/year-evidence-native-independent-second-2026-11-04.log": {
+      "sha256": "8f5989aa0db5cfcf3b902981ba688b92659e5120c3b4bd6bfd308e708b205fcd",
+      "bytes": 1445
+    },
+    "work/verification/year-evidence-native-independent-analysis-2026-11-04.log": {
+      "sha256": "efdc76860e9bfbaaad6f19f09395888f16675f0530a52234a69886b0c02bb4ac",
+      "bytes": 93
+    },
+    "work/verification/year-evidence-native-independent-final-2026-11-04.log": {
+      "sha256": "cbd776267775b23717fddaa8d59f4b0b48284e9f050bffa7fc07a427988ae385",
+      "bytes": 4181
+    }
+  },
+  "first_run": "11 passed, 5 harness failures from not draining genuine file IO and real-zone picker completion; only independent helper corrected, product unchanged",
+  "limits": [
+    "Plugin picker response controlled; actual desktop product authorization and File IO executed.",
+    "No actual Windows dialog or iOS sharing device acceptance.",
+    "Actual HTTP source-specific revocation repeated using unchanged owner test.",
+    "Overall root integration remains separate."
+  ]
+}

@@ -1,0 +1,29 @@
+✔ real readonly export entry opens exactly its package and incomplete original remains incomplete (36.540221ms)
+✔ initial original export success cannot return after background and foreground (1.224914ms)
+✔ initial original export error cannot return after background and foreground (0.782358ms)
+✔ latest original export intent wins before either initial request created a dialog (1.745347ms)
+✔ held metadata success is discarded after session (2.913035ms)
+✔ held metadata error is discarded after session (1.046315ms)
+✔ held metadata success is discarded after export (1.545577ms)
+✔ held metadata error is discarded after export (1.350152ms)
+✔ held metadata success is discarded after background (1.125284ms)
+✔ held metadata error is discarded after background (0.629177ms)
+✔ held binary success is discarded after session (1.101237ms)
+✔ held binary error is discarded after session (1.130121ms)
+✔ held binary success is discarded after export (1.503172ms)
+✔ held binary error is discarded after export (1.5414ms)
+✔ held binary success is discarded after background (1.163602ms)
+✔ held binary error is discarded after background (1.359867ms)
+✔ fresh individual-source denial after ZIP does not rely on unchanged global read rights (2.693625ms)
+✔ old json original reread cannot leak after choosing a different export (2.374925ms)
+✔ old csv original reread cannot leak after choosing a different export (2.4316ms)
+✔ archive corruption, truncation, unsupported type and authenticated metadata drift never output a file (10.811704ms)
+✔ incomplete and public-only payroll/travel years retain their actual boundaries (3.717806ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 147.299367

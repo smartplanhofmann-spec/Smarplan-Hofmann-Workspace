@@ -101,8 +101,10 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    Die gemeinsame Altpostenintegration erhält diese Regeln und die datierten
    Preise: 1.816 Backendfälle bei einem Windows-Skip, 1.434 App-, 713 Node- und
    109 eindeutige PostgreSQLfälle bestehen. Das ergänzende Original-/Journalpaket
-   folgt als nächster gemeinsamer Stand. Unterjährige Jahresvorträge erhalten
-   beide Oberflächen und anschließend ihren eigenen vollständigen Finanzhorizont.
+   ist anschließend [gemeinsam geprüft](CRM_ERP_JAHRESPAKET_GESAMTPRUEFUNG_2026-11-04.md):
+   84 betroffene Backend-, 401 Buchhaltungs-App-, 762 Node- und drei PG-Fälle.
+   Unterjährige Jahresvorträge erhalten beide geprüften Oberflächen und danach
+   ihren eigenen vollständigen Finanzhorizont samt getrenntem V2-Archivanschluss.
 
 Die v5-Zusammenrechnung mehrerer belegter Entgelt-/SV-Abschnitte mit
 Anspruchsbausteinen und Reise-Lohnübergabe sowie der eigene v5-Mitarbeiterbeleg

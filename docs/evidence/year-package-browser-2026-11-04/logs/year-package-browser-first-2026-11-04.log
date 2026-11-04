@@ -1,0 +1,66 @@
+✔ exact EUR cents reject rounding and retain explicit zero (1.157554ms)
+✔ global rights, finance activation and write gates remain distinct from read (3.336256ms)
+✔ cash editor preserves documentary units and never guesses deductible shares or SKR04 accounts (5.617602ms)
+✔ input VAT and linear asset forms have no invented start date or source amount percentage (0.473102ms)
+✔ preview and immutable ACK compare nested semantic fields including period control (0.823421ms)
+✔ unknown ACK, denied access and unmarked conflicts retain the exact original receipt until valid replay (75.761562ms)
+✔ confirmed not-accepted conflict releases only that pending command (0.430128ms)
+✔ fresh authorization reads global capabilities and current state before protected retry (0.380393ms)
+✔ open annual sources cannot masquerade as a complete taxable result (0.419402ms)
+✔ source identities and documentary cents cannot silently cross cash events (0.549248ms)
+✔ external EÜR payment evidence is not presented as a supplier liability or missing payout balance (48.930386ms)
+✔ actual immutable ordinary_correction export, metadata and original ZIP remain bound (9.022757ms)
+✔ actual immutable incomplete_year export, metadata and original ZIP remain bound (4.334609ms)
+✔ actual immutable old_after_profile_change export, metadata and original ZIP remain bound (1.701483ms)
+✔ actual immutable historical_assets_old_supplier export, metadata and original ZIP remain bound (1.385677ms)
+✔ actual immutable public_payroll export, metadata and original ZIP remain bound (1.111524ms)
+✔ actual immutable public_travel export, metadata and original ZIP remain bound (1.174029ms)
+✔ same original export stays byte-identical after later profile change (1.217774ms)
+✔ foreign identity, rewritten completion, private scope, path and hostile size are rejected (3.188523ms)
+✔ CSV/report mutation and one-byte archive mutation cannot pass original hashes (21.963614ms)
+✔ read-only mode works without write permissions; either read permission is required (0.59129ms)
+✔ actual UI download reads only GET and checks source rights again after bytes (41.247103ms)
+✔ late metadata after close cannot reveal or download old export (1.790667ms)
+✔ late archive after close cannot reveal or download old export (4.950026ms)
+✔ late metadata after other cannot reveal or download old export (1.79243ms)
+✔ late archive after other cannot reveal or download old export (2.21743ms)
+✖ late metadata after session cannot reveal or download old export (2.181026ms)
+✖ late archive after session cannot reveal or download old export (3.536227ms)
+✔ late metadata after view cannot reveal or download old export (1.669956ms)
+✔ late archive after view cannot reveal or download old export (2.008025ms)
+✔ export selection change cannot be overwritten by earlier metadata response (2.087584ms)
+✔ fresh source denial at initial removes private content and title (1.247739ms)
+✔ fresh source denial at download removes private content and title (1.331225ms)
+✔ fresh source denial at after-bytes removes private content and title (4.712739ms)
+✔ server global read revocation during archive prevents file output (2.162097ms)
+✔ late authorization failure cannot close a newer unrelated dialog (0.768047ms)
+✔ changed authenticated metadata after bytes never downloads mixed export or instance (23.192852ms)
+✔ background invalidation during archive hashing never starts a download (4.791328ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 36
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 380.846244
+
+✖ failing tests:
+
+test at web/office/tests/accounting-year-package.test.mjs:27:100
+✖ late metadata after session cannot reveal or download old export (2.181026ms)
+  Error: Ungültige Sitzung.
+      at OfficeApi.setToken (file:///workspace/smartplan-year-review-export-20261104/web/office/office.js:885:85)
+      at Object.session (file:///workspace/smartplan-year-review-export-20261104/web/office/tests/accounting-year-package.test.mjs:24:302)
+      at TestContext.<anonymous> (file:///workspace/smartplan-year-review-export-20261104/web/office/tests/accounting-year-package.test.mjs:27:487)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at web/office/tests/accounting-year-package.test.mjs:27:100
+✖ late archive after session cannot reveal or download old export (3.536227ms)
+  Error: Ungültige Sitzung.
+      at OfficeApi.setToken (file:///workspace/smartplan-year-review-export-20261104/web/office/office.js:885:85)
+      at Object.session (file:///workspace/smartplan-year-review-export-20261104/web/office/tests/accounting-year-package.test.mjs:24:302)
+      at TestContext.<anonymous> (file:///workspace/smartplan-year-review-export-20261104/web/office/tests/accounting-year-package.test.mjs:27:487)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

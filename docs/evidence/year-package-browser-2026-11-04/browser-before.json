@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-11-04T11:32:05.439635+00:00",
+  "files": {
+    "web/office/office.js": "d97e213ba9a2e8c409a4a6f2eb3be7dfdcaaaebb9254830fdc72386ec0d108d3",
+    "web/office/accounting-euer.js": "81a4e9899661bcef174ec9e1b4fd5b0d2ae91b0e6706c3028549677eb79fa0da",
+    "web/office/tests/e2e.cjs": "4e13a7ab28c5acef41d66d085f86b5f035e1f3c54d761fd622f7e42401139e1d",
+    "web/office/tests/accounting-euer-e2e.cjs": "fe8a258d06bda9576f66b358dcf33a9bfd667024520417f5e6c9cc173a493e5b",
+    "web/office/tests/accounting-euer-fixture.py": "56804906b68911c0adfe64c8d6d90f8968a25acbbb22fad58dec3286fb23fc36",
+    ".github/workflows/checks.yml": "bd12c8d88beb1e85f6248affd177810e35ee11860ac860cd69263c9b6a86a43a",
+    "backend/online/web.py": "4f67047df2d3e2855cee6d7e0ed985471095216de0b1314f795d1bea1772e63b"
+  }
+}

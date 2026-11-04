@@ -1,0 +1,25 @@
+test_prior_vat_cannot_be_hidden_by_relabeling_unverified_prefix_target_hint (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_prior_vat_cannot_be_hidden_by_relabeling_unverified_prefix_target_hint) ... FAIL
+test_replaced_actual_payment_cannot_be_substituted_by_equal_voided_old_payment (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_replaced_actual_payment_cannot_be_substituted_by_equal_voided_old_payment) ... FAIL
+
+======================================================================
+FAIL: test_prior_vat_cannot_be_hidden_by_relabeling_unverified_prefix_target_hint (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_prior_vat_cannot_be_hidden_by_relabeling_unverified_prefix_target_hint)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/backend/test_accounting_year_package_independent_review.py", line 170, in test_prior_vat_cannot_be_hidden_by_relabeling_unverified_prefix_target_hint
+    with self.assertRaises(ValueError):verify(modified)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_replaced_actual_payment_cannot_be_substituted_by_equal_voided_old_payment (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_replaced_actual_payment_cannot_be_substituted_by_equal_voided_old_payment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/backend/test_accounting_year_package_independent_review.py", line 185, in test_replaced_actual_payment_cannot_be_substituted_by_equal_voided_old_payment
+    with self.assertRaises(ValueError):verify(modified)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.777s
+
+FAILED (failures=2)

@@ -1,0 +1,35 @@
+test_original_item_revision_cannot_be_removed_behind_unchanged_payment_revision (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_original_item_revision_cannot_be_removed_behind_unchanged_payment_revision) ... FAIL
+test_prior_actual_payment_proof_cannot_be_removed_from_later_rest_cent_source (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_prior_actual_payment_proof_cannot_be_removed_from_later_rest_cent_source) ... FAIL
+test_prior_year_input_vat_decision_cannot_be_removed_from_current_payment_archive (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_prior_year_input_vat_decision_cannot_be_removed_from_current_payment_archive) ... FAIL
+
+======================================================================
+FAIL: test_original_item_revision_cannot_be_removed_behind_unchanged_payment_revision (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_original_item_revision_cannot_be_removed_behind_unchanged_payment_revision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/backend/test_accounting_year_package_independent_review.py", line 68, in test_original_item_revision_cannot_be_removed_behind_unchanged_payment_revision
+    with self.assertRaises(ValueError):verify(modified)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_prior_actual_payment_proof_cannot_be_removed_from_later_rest_cent_source (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_prior_actual_payment_proof_cannot_be_removed_from_later_rest_cent_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/backend/test_accounting_year_package_independent_review.py", line 80, in test_prior_actual_payment_proof_cannot_be_removed_from_later_rest_cent_source
+    with self.assertRaises(ValueError):verify(modified)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_prior_year_input_vat_decision_cannot_be_removed_from_current_payment_archive (test_accounting_year_package_independent_review.IndependentYearPackageReview.test_prior_year_input_vat_decision_cannot_be_removed_from_current_payment_archive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/backend/test_accounting_year_package_independent_review.py", line 57, in test_prior_year_input_vat_decision_cannot_be_removed_from_current_payment_archive
+    with self.assertRaises(ValueError):verify(modified)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.192s
+
+FAILED (failures=3)

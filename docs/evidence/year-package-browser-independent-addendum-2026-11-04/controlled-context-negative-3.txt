@@ -1,0 +1,267 @@
+✔ real readonly export entry opens exactly its package and incomplete original remains incomplete (46.383027ms)
+✖ initial original export success cannot return after background and foreground (5.956653ms)
+✖ initial original export error cannot return after background and foreground (1.125253ms)
+✖ latest original export intent wins before either initial request created a dialog (4.181713ms)
+✔ held metadata success is discarded after session (4.157236ms)
+✔ held metadata error is discarded after session (8.155782ms)
+✔ held metadata success is discarded after export (1.541329ms)
+✔ held metadata error is discarded after export (6.385233ms)
+✔ held metadata success is discarded after background (2.467152ms)
+✔ held metadata error is discarded after background (3.036028ms)
+✔ held binary success is discarded after session (2.232249ms)
+✔ held binary error is discarded after session (5.082549ms)
+✔ held binary success is discarded after export (2.069294ms)
+✔ held binary error is discarded after export (1.968933ms)
+✔ held binary success is discarded after background (1.592596ms)
+✔ held binary error is discarded after background (1.293736ms)
+✔ fresh individual-source denial after ZIP does not rely on unchanged global read rights (2.524469ms)
+✔ old json original reread cannot leak after choosing a different export (2.410387ms)
+✔ old csv original reread cannot leak after choosing a different export (3.094186ms)
+✔ archive corruption, truncation, unsupported type and authenticated metadata drift never output a file (24.390343ms)
+✔ incomplete and public-only payroll/travel years retain their actual boundaries (3.837194ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 18
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 209.523615
+
+✖ failing tests:
+
+test at web/office/tests/accounting-year-package-independent.test.mjs:51:34
+✖ initial original export success cannot return after background and foreground (5.956653ms)
+  AssertionError [ERR_ASSERTION]: A first export response must remain invalid after the document returned to foreground
+  + actual - expected
+  
+  + {
+  +   append: [Function: append],
+  +   attrs: {
+  +     'data-euer-detail': 'true',
+  +     'data-year-export': 'true',
+  +     class: 'stack break-word'
+  +   },
+  +   children: [
+  +     {
+  +       append: [Function: append],
+  +       attrs: {
+  +         'data-euer-detail': 'true',
+  +         class: 'stack euer-report'
+  +       },
+  +       children: [
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Jahresauswertung 2026'
+  +           ],
+  +           isConnected: true,
+  +           tag: 'h3'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Buchführungsbeginn laut bestätigtem Profil: 2026-01-01'
+  +           ],
+  +           isConnected: true,
+  +           tag: 'p'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Alle erfassten Quellen sind eingeordnet. Die Vollständigkeit des Unternehmensjahres erfordert weiterhin Bank-, Beleg- und Sonderfallabgleich.'
+  +           ],
+  +           isConnected: true,
+  +           tag: 'notice'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Bestätigte Sicht',
+  +             'Betrag',
+  +             'Bestätigte Einnahmen einschließlich Umsatzsteuer',
+  +             '119.00',
+  +             'Bestätigte Ausgaben einschließlich bezahlter Vorsteuer',
+  +             '59.50',
+  +             'Zwischensumme bestätigter Buchungen',
+  +             '59.50',
+  +             'EÜR-Ergebnis für erfasste Quellen',
+  +             '59.50',
+  +             'Bestätigte Ist-Umsatzsteuer',
+  +             '19.00',
+  +             'Bestätigtes Vorsteuerrecht',
+  +             '9.50',
+  +             'USt-Saldo für erfasste Quellen',
+  +             '9.50'
+  +           ],
+  +           isConnected: true,
+  +           tag: 'table'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [],
+  +           isConnected: true,
+  +           tag: 'rows'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Sicht',
+  +             'Kategorie',
+  +             'Betrag',
+  +             'EÜR',
+  +             'Material',
+  +             '-50.00',
+  +             'EÜR',
+  +             'Bezahlte abziehbare Vorsteuer',
+  +             '-9.50',
+  +             'EÜR',
+  +             'Inländischer Erlös',
+  +             '100.00',
+  +             'EÜR',
+  +             'Vereinnahmte Umsatzsteuer',
+  +             '19.00',
+  +             'Umsatzsteuer',
+  +             'Vorsteuerrecht',
+  +             '-9.50',
+  +             'Umsatzsteuer',
+  +             'Ist-Umsatzsteuer',
+  +             '19.00'
+  +           ],
+  +           isConnected: true,
+  +           tag: 'table'
+  +         }
+  +       ],
+  +       isConnected: true,
+  +       tag: 'div'
+  +     },
+  +     {
+  +       append: [Function: append],
+  +       attrs: {},
+  +       children: [
+  +         'Gesichert am 2026-11-02T12:00:00+00:00'
+  +       ],
+  +       isConnected: true,
+  +       tag: 'p'
+  +     },
+  +     {
+  +       append: [Function: append],
+  +       attrs: {
+  +         class: 'caption'
+  +       },
+  +       children: [
+  +         'Bericht SHA-256: 4b9d843d0a41c185f936eb22a71b841badc8cde4ba6b104760a7d26f2c141483'
+  +       ],
+  +       isConnected: true,
+  +       tag: 'p'
+  +     },
+  +     {
+  +       append: [Function: append],
+  +       attrs: {
+  +         class: 'caption'
+  +       },
+  +       children: [
+  +         'CSV SHA-256: 06b79b8fa886b9b58f42c7866df1df8ebe0d1d31a803ec71a715b41243442d0e'
+  +       ],
+  +       isConnected: true,
+  +       tag: 'p'
+  +     },
+  +     {
+  +       append: [Function: append],
+  +       attrs: {
+  +         class: 'actions'
+  +       },
+  +       children: [
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'JSON-Prüfpaket herunterladen'
+  +           ],
+  +           isConnected: true,
+  +           label: 'JSON-Prüfpaket herunterladen',
+  +           run: [Function (anonymous)],
+  +           tag: 'button'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'CSV-Buchungsnachweise herunterladen'
+  +           ],
+  +           isConnected: true,
+  +           label: 'CSV-Buchungsnachweise herunterladen',
+  +           run: [Function (anonymous)],
+  +           tag: 'button'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Jahresnachweis mit Originalen öffnen'
+  +           ],
+  +           isConnected: true,
+  +           label: 'Jahresnachweis mit Originalen öffnen',
+  +           run: [Function (anonymous)],
+  +           tag: 'button'
+  +         }
+  +       ],
+  +       isConnected: true,
+  +       tag: 'div'
+  +     }
+  +   ],
+  +   isConnected: true,
+  +   tag: 'div'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///tmp/year-context-negative-tr3rsr5v/web/office/tests/accounting-year-package-independent.test.mjs:54:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Object],
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-year-package-independent.test.mjs:51:34
+✖ initial original export error cannot return after background and foreground (1.125253ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///tmp/year-context-negative-tr3rsr5v/web/office/tests/accounting-year-package-independent.test.mjs:54:123)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-year-package-independent.test.mjs:57:1
+✖ latest original export intent wins before either initial request created a dialog (4.181713ms)
+  AssertionError [ERR_ASSERTION]: The explicitly later original export must remain selected
+      at TestContext.<anonymous> (file:///tmp/year-context-negative-tr3rsr5v/web/office/tests/accounting-year-package-independent.test.mjs:60:63)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+
+{"controlled_temporary_copy": true, "historical_snapshot_claimed": false, "unchanged_test_assertions": true, "expected_failures": 3, "other_passed": 18, "product_mutated": false}

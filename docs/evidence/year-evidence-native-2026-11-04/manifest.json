@@ -1,0 +1,126 @@
+{
+  "date": "2026-11-04",
+  "scope": "native year evidence v1 final handoff",
+  "tree": "/workspace/smartplan-year-review-export-20261104",
+  "status": "49 tests passed, analysis zero; runtime frozen for independent review",
+  "runtime": [
+    "app/lib/business_accounting_year_evidence.dart",
+    "app/lib/business_accounting_year_evidence_contract.dart",
+    "app/lib/business_accounting_euer.dart"
+  ],
+  "tests": [
+    "app/test/business_accounting_year_evidence_test.dart",
+    "app/test/business_accounting_year_evidence_http_test.dart"
+  ],
+  "results": {
+    "combined_passed": 49,
+    "contract_and_lifecycle": 21,
+    "actual_local_http_390px": 1,
+    "existing_euer_accounting_regression": 27,
+    "analyzer_issues": 0
+  },
+  "unchanged": {
+    "app/lib/business_session.dart": {
+      "sha256": "2adfa90857ce50702d691728400605d7859e413c18acdf024aede1d1f0a5e60f",
+      "bytes": 100801
+    },
+    "app/lib/api.dart": {
+      "sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+      "bytes": 7537
+    },
+    "app/lib/mail_attachment_widgets.dart": {
+      "sha256": "22ecd7f343dd07b71473f9f837bff68e8e99de3eba85ac40e4bb9cb962385c9a",
+      "bytes": 35961
+    }
+  },
+  "files": {
+    "app/lib/business_accounting_year_evidence.dart": {
+      "sha256": "0480ab38fe16ecf124b1e45eca8fec1e50740e93045a0312320234c595d7b887",
+      "bytes": 10976
+    },
+    "app/lib/business_accounting_year_evidence_contract.dart": {
+      "sha256": "80d91aa00f31905f5bf288a6b86ef1c30eeea244465266f018f007604a2139d5",
+      "bytes": 7423
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "f08cfd822d9530f1fb529076d31a41ebb807370d7957b66677d83938d959b149",
+      "bytes": 80462
+    },
+    "app/test/business_accounting_year_evidence_test.dart": {
+      "sha256": "14b5fbfb242fd9ea54f12081386bf733bb49a1a0272cc1d07ba12be152b6f245",
+      "bytes": 14892
+    },
+    "app/test/business_accounting_year_evidence_http_test.dart": {
+      "sha256": "51c731d0f4e9498b400650531248de457ed825e2cdf44bd650180ada263d2456",
+      "bytes": 12980
+    },
+    "app/test/fixtures/accounting_year_package_v1.json": {
+      "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+      "bytes": 719679
+    },
+    "docs/fixtures/accounting_year_package_v1.json": {
+      "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+      "bytes": 719679
+    },
+    "docs/CRM_ERP_JAHRESPAKET_NATIVE_2026-11-04.md": {
+      "sha256": "a597ba8c95eeb8ec728d36960b803d5cb940f92052202253c2bcae4080e1d176",
+      "bytes": 5740
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/README.md": {
+      "sha256": "0c404f99e3579f9e94809cdd36b5c4aa1ab1bb0e36a07fb94c846fdf3ad65e4b",
+      "bytes": 2146
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/actual-http-before-fixture-freeze.txt": {
+      "sha256": "bb73200880b7c5237769b873ca9bf32e8c8111c54c7e2b64c8c46395dc81637d",
+      "bytes": 282
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/analysis.txt": {
+      "sha256": "bc6b5aca95b05bdfe86ee3b9dd1f868574f68889e43499743c6a7cfc2caa61ae",
+      "bytes": 244
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/baseline.json": {
+      "sha256": "8c349e92c7846f634308a67e3a5e2c9f76d2456ff26c7675431846ee602c6eb5",
+      "bytes": 577
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/contract-lifecycle-before-fixture-freeze.txt": {
+      "sha256": "445ea760b7ed529ab14b48a73a8b06624657de6314aba73853175794a997b59e",
+      "bytes": 1966
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/final-acceptance-49.txt": {
+      "sha256": "63c69cf53d6c1ea74413fb0dea515cf623a6a8c5087c0b580e335e5e38f96e72",
+      "bytes": 10301
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/final-analysis.txt": {
+      "sha256": "bc6b5aca95b05bdfe86ee3b9dd1f868574f68889e43499743c6a7cfc2caa61ae",
+      "bytes": 244
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/integration.patch": {
+      "sha256": "23c2ebc67a68d8b199b069fad1d0a6383b73d276fa67ba5be59088c8f2b19336",
+      "bytes": 1332
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/regression-before-fixture-freeze.txt": {
+      "sha256": "5b6f2c8b95bfd133f8cccc3d47ca04086de4341c057339c4f68983263ef69625",
+      "bytes": 9509
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/runtime-freeze-before-final-offline-boundary.json": {
+      "sha256": "501511539bf8632523c0ba270b9e2d51b5350accb96e64c188e37810cd12caae",
+      "bytes": 2231
+    },
+    "docs/evidence/year-evidence-native-2026-11-04/runtime-freeze.json": {
+      "sha256": "eb44bf042198724e844a365129e583934c5d6704ed803b79e51e31a943448bc3",
+      "bytes": 2391
+    }
+  },
+  "integration": "Apply the narrow Euer integration.patch and copy the two new runtime files; preserve newer independent Euer hooks. Copy two new tests and final actual fixture. No Session/API/shared exporter change.",
+  "trusted_fixture": {
+    "path": "app/test/fixtures/accounting_year_package_v1.json",
+    "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+    "bytes": 719679
+  },
+  "limitations": [
+    "Authenticated ZIP hash is required; intrinsic_dependency_closure remains false.",
+    "No on-device native file-dialog test; local HTTP/file output chain tested with controlled exporter.",
+    "Independent review and root integration are separate.",
+    "No mutation, Session/API/shared exporter change, backend change, dependency change, commit or main-tree edit."
+  ]
+}

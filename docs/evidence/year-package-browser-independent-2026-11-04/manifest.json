@@ -1,0 +1,188 @@
+{
+  "date": "2026-11-04",
+  "scope": "Independent year-package browser review; frozen before announced offline verifier hardening",
+  "workspace": "/workspace/smartplan-year-review-export-20261104",
+  "git_head": "b0b96024f0a7cf2c7097fb3b77c64032265850a5",
+  "reviewer_runtime_edits": [],
+  "results": {
+    "independent_node": 21,
+    "combined_node": 60,
+    "failed": 0,
+    "skipped": 0,
+    "verified_archives": 6,
+    "actual_chromium_mfa_http_workflows": 1,
+    "original_negative_variants": 3,
+    "resolved_negative_variants": 3,
+    "remaining_confirmed_findings": 0
+  },
+  "actual_browser": {
+    "single_project_source_permission_revoked_after_archive_200": true,
+    "global_finance_read_retained": true,
+    "global_accounting_read_retained": true,
+    "post_bytes_metadata_status": 403,
+    "downloads": 0,
+    "viewport_width": 390,
+    "overflow": false,
+    "sandbox_verified": true,
+    "production_contacts": false
+  },
+  "owned_artifacts": [
+    {
+      "path": "web/office/tests/accounting-year-package-independent.test.mjs",
+      "size": 11098,
+      "sha256": "871c2cda9fff34c88bde693d7caccc98185a6fd8e289feed621f086322145103"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-fixture.py",
+      "size": 1292,
+      "sha256": "a396112ef00bec582b6f3105a6e920b19c81f16b5333d3ffc5231498ee7b689a"
+    },
+    {
+      "path": "web/office/tests/fixtures/accounting-year-package-independent.json",
+      "size": 294803,
+      "sha256": "643710c61e6da8dba3b27e9ade57d0e487514c5adeb1799f4f7b0946b76678de"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-archive-check.py",
+      "size": 2512,
+      "sha256": "1fa73b21be35e64f44d77a2db289aef29f1142e5a6d29ad8c713c798da9c6596"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-browser.cjs",
+      "size": 4909,
+      "sha256": "c5ce1b6e28cbdde1f2e6244e761eb7ddd1ca33039ee07e102d79a64a7e1d5361"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-preload.cjs",
+      "size": 387,
+      "sha256": "009170b34f5d5ab09ed1e9cfac97f164aed9eedc7057bc84605e8dc93b529ee4"
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_BROWSER_GEGENPRUEFUNG_2026-11-04.md",
+      "size": 7355,
+      "sha256": "e85d9350ecc2caacf9b2e0d9d8873383308f6bd46bcb7c6cbdc40e2167eccf2c"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/archive-check-six.json",
+      "size": 1742,
+      "sha256": "d1fa41e71935979efef7eb44d020dc211224441272601677837a25bc336705d8"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/before-export-context.txt",
+      "size": 8023,
+      "sha256": "44625b0d187ed279239790331eb00209776e43597b5d859c053e5f1182e19a56"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/before-hashes.json",
+      "size": 706,
+      "sha256": "6b07c7a6e1bb53a049685bd63c388ce025d2b35e9bdeef632277c3344850c6f4"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/browser/independent-year-source-before-390.png",
+      "size": 63859,
+      "sha256": "7516a3bcef049bf16dee4598b0978cd0cad04221ef476f64b4b08e56dc4c29a2"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/browser/independent-year-source-denied-390.png",
+      "size": 82991,
+      "sha256": "8579166c61fe7b90faa8d0b6c027d56c51ec6274b40af28220cc34670e937087"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/browser/independent-year-source-results.json",
+      "size": 981,
+      "sha256": "b9b4f4a0c11b335c813ccbcf4f8a8a8e76479546742a7e2df5e07cc8d1596fdf"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/browser-real-source-revocation.txt",
+      "size": 1000,
+      "sha256": "d0f49fb7acb45537c560dca61f140bab1b189ee04f9673e441bab7ddb145144b"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/combined-60.txt",
+      "size": 5397,
+      "sha256": "c4ad26cc33299856df18b006340c84f14995c6d3e9947c89b47d8ed03d252190"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/context-fixed.txt",
+      "size": 516,
+      "sha256": "047e704b12e5e41f40a6f739b02fa9866c3db75a1d39b565eea1e97b149ad516"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/fixture-reviewed-bd3ff5a4.json",
+      "size": 689672,
+      "sha256": "bd3ff5a40bf10211b67ca563dcf14ad2850949e43be54cdb19deba4b5e0557cc"
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/independent-21.txt",
+      "size": 1785,
+      "sha256": "56f8ad973ba1e0f1b6126658890c47dfa8aa04110507313529b16f115b0d3704"
+    }
+  ],
+  "read_only_dependencies": [
+    {
+      "path": "web/office/accounting-year-package-contract.js",
+      "size": 4329,
+      "sha256": "247c128d79c60b3e3fe4cfec917d12f2e84d44d73eb7924c9a1a12682c9a700d"
+    },
+    {
+      "path": "web/office/accounting-year-package.js",
+      "size": 4240,
+      "sha256": "bdf6bca2cacaf11fc9d1a298e9a3e3c395c55463a2a474b36a5aeba031e32f78"
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "size": 50174,
+      "sha256": "08c6fe37ddaa3ae9afbe62882e9834bdbb8e61c839d3e5e6cdcdd49f21c02381"
+    },
+    {
+      "path": "web/office/office.js",
+      "size": 354272,
+      "sha256": "9f3a5a21dc28066fcf8cab4fc7b6ae1623ee73b8d15a0f13a13618424511d5a7"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package.test.mjs",
+      "size": 9494,
+      "sha256": "23f751bd03c662b2e9733b217b875153e74ce49521f6f0e8ca989a9677a64f6b"
+    },
+    {
+      "path": "web/office/tests/accounting-euer.test.mjs",
+      "size": 9672,
+      "sha256": "4e2d2339a93a1efb4e1d192b8401b8902ac51a0ea5aa7d0874bdfd6a49db743e"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-e2e.cjs",
+      "size": 5214,
+      "sha256": "fb25428561dd42474b6d5b1157c7780f7e62548edd09c485a925b3ce7dac36b9"
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-fixture.py",
+      "size": 2645,
+      "sha256": "9b00bf8868e86d32c06aaed051ccb802f2da8ed6e10fe00c7491bae1f42eb6cb"
+    },
+    {
+      "path": "docs/fixtures/accounting_year_package_v1.json",
+      "size": 689672,
+      "sha256": "bd3ff5a40bf10211b67ca563dcf14ad2850949e43be54cdb19deba4b5e0557cc"
+    },
+    {
+      "path": "app/test/fixtures/accounting_year_package_v1.json",
+      "size": 689672,
+      "sha256": "bd3ff5a40bf10211b67ca563dcf14ad2850949e43be54cdb19deba4b5e0557cc"
+    },
+    {
+      "path": "backend/accounting_year_package_v1.py",
+      "size": 20949,
+      "sha256": "e2dfabe86ed40f0f31dfd9a627935c439d8fb4ea9b7e6566062a363ca18427db"
+    },
+    {
+      "path": "backend/accounting_year_verify_v1.py",
+      "size": 24465,
+      "sha256": "462418ef94d7384f1ac5bb679e39bbff78746698a20a209e9c01e5ce22c2618c"
+    }
+  ],
+  "limitations": [
+    "Not a whole-product or tax sign-off.",
+    "Controlled DOM tests are distinct from the actual HTTP workflow.",
+    "Subsequent offline verifier hardening and regenerated archive bytes require a separate addendum."
+  ]
+}

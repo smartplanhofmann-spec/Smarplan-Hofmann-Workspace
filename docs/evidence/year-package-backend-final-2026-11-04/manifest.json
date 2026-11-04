@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "package": "accounting_year_evidence_v1_backend_followup",
+  "frozen_at_utc": "2026-11-04T12:16:29.096119+00:00",
+  "source_workspace": "/workspace/smartplan-year-review-export-20261104",
+  "baseline_commit": "b0b96024f0a7cf2c7097fb3b77c64032265850a5",
+  "overlay_manifest_sha256": "4fc7db209ebf5ce98799400d330182692f88ffdb5c9b9e1e924649385c6f3a88",
+  "supersedes_candidate": {
+    "manifest": "docs/evidence/year-package-backend-2026-11-04/manifest.json",
+    "sha256": "e2f228173bb6d0eb3408d1cf48dadf0f7cbfd0e138c19ea3dc8ed8f89f13d069",
+    "reason": "Independent actual completeness counterexamples and explicit mandatory external archive trust boundary before release"
+  },
+  "files": [
+    {
+      "path": "backend/accounting_year_package_v1.py",
+      "sha256": "8e79534d2739e05f2b34141adf66399563c4cc07e076d2618125374701d77f42",
+      "bytes": 21781
+    },
+    {
+      "path": "backend/accounting_year_verify_v1.py",
+      "sha256": "77b032a6e19f27dfefd290106ecda73675e8e5a9c68afaedfdda9ddae0c60baa",
+      "bytes": 24982
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "sha256": "8b2f98d357e00af6c861f2f8b64c1899e36581383f8c1ee3b384b295a0e3c318",
+      "bytes": 86418
+    },
+    {
+      "path": "backend/test_accounting_year_package.py",
+      "sha256": "3e79f68c4310614cd6ba25819c9051c0640b2572266ee339dc85022b6622ee21",
+      "bytes": 17616
+    },
+    {
+      "path": "backend/test_accounting_year_package_http.py",
+      "sha256": "3524ff8a2c19a77761c760cf81c1b3f43c0020374aa9ae4247949f4bb605ad73",
+      "bytes": 4485
+    },
+    {
+      "path": "backend/online/test_accounting_year_package_pg.py",
+      "sha256": "213df653cc8fcc3e82116e1a5cbe1599f1f8b9aa7af67e75c8ed9783c2f6ee37",
+      "bytes": 5424
+    },
+    {
+      "path": "scripts/generate-accounting-year-package-fixture.py",
+      "sha256": "a78328248c7bc3b3db35fe13a36cf3d969d3e5a6f0a25dc892fecac12e77d0ae",
+      "bytes": 3980
+    },
+    {
+      "path": "docs/fixtures/accounting_year_package_v1.json",
+      "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+      "bytes": 719679
+    },
+    {
+      "path": "app/test/fixtures/accounting_year_package_v1.json",
+      "sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+      "bytes": 719679
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_VERTRAG_2026-11-04.md",
+      "sha256": "787c9c3c303d640059a98a8eb6d2bb45c576ecd7e63781b61720eb24eee4af6c",
+      "bytes": 7626
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_API_2026.md",
+      "sha256": "d6e74333a46159663870d94e0afadc62e627162b3030d5c10c39e36f66f26507",
+      "bytes": 5284
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_FORTSCHRITT_2026-11-04.md",
+      "sha256": "e240ce8da58e0093e0632f7242af7e5cd09257d3af1377a2e4347db5335b35ee",
+      "bytes": 6930
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESVERTRAEGE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md",
+      "sha256": "68fb014767b72df4adc535f2d6bb4d519541475ebe97b04215d05bf915cd1b48",
+      "bytes": 8047
+    },
+    {
+      "path": "backend/test_accounting_year_package_independent_review.py",
+      "sha256": "f608c03e2ae6d951b75110ee4533a81ea543fc6bf116d8e42892bc5378bc0906",
+      "bytes": 19053
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_VERIFIKATION_NACHTRAG_2026-11-04.md",
+      "sha256": "567c35bdbd464d9b7b3a6f277dfc35eb66894f323464b2c0554397603417e5cb",
+      "bytes": 2889
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_UNABHAENGIGER_BACKENDREVIEW_2026-11-04.md",
+      "sha256": "a54a1abcd756407ea7ec1cf656ea3345f2b7c1651fa944bb8f9bf872c13636fe",
+      "bytes": 6770
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_INTEGRATION_2026-11-04.md",
+      "sha256": "a094cb32ae945dc25295b05861a5c8ce87c764c7a5d86efd9f8ca7fc7bfeb390",
+      "bytes": 4891
+    }
+  ],
+  "shared_registrations": [
+    {
+      "path": "backend/online/web.py",
+      "sha256": "1b522c30ab835e62ff9bd83b1a4cf48be265ecebe90dd7c4f6de326e6cbb70ee",
+      "bytes": 29619
+    },
+    {
+      "path": "scripts/native-release.py",
+      "sha256": "4fbbc073ce46e9934f4e2468935d777db07f8f3fca1d50022c695fe365b8130c",
+      "bytes": 24798
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "sha256": "20285ee264120db0091c4bd08146eeadec084325c8af8db65fe6c6269e8c27db",
+      "bytes": 15434
+    },
+    {
+      "path": ".github/workflows/checks.yml",
+      "sha256": "56d587475cc6fbea676cf1a10ec79b222531c4ce58e37db39515c381410bde63",
+      "bytes": 52124
+    }
+  ],
+  "review_manifest": {
+    "path": "docs/evidence/year-package-independent-2026-11-04/manifest.json",
+    "sha256": "1110875dbb3e85881fc5432f38b7d400c00a831e8ce0b47b900616c6d043c6d7",
+    "bytes": 3776
+  },
+  "validation": {
+    "domain_http_independent_legacy_euer": {
+      "passed": 49,
+      "seconds": 83.775,
+      "components": {
+        "owner_domain": 17,
+        "independent": 12,
+        "actual_http_mfa": 2,
+        "legacy_euer": 18
+      },
+      "log": "logs/year-package-final-domain-http-independent-euer-2026-11-04.log"
+    },
+    "previous_pg_candidate": {
+      "passed": 2,
+      "seconds": 14.847,
+      "real_dump_restore": true,
+      "log": "logs/year-package-pg-second-2026-11-04.log"
+    },
+    "previous_packages": {
+      "passed": 16,
+      "seconds": 8.295,
+      "log": "logs/year-package-packages-first-2026-11-04.log"
+    },
+    "pg_cleanup_previous": {
+      "source": "Parent /root report after its independently approved read-only docker exec -u postgres PostgreSQL metadata query",
+      "databases": [
+        "smartplan_check"
+      ],
+      "other_connections": 0,
+      "restore_targets": 0,
+      "credential_read_rejected": true,
+      "credential_read_performed": false,
+      "approval_pending": false
+    },
+    "final_pg_combined_adapter": {
+      "passed": 3,
+      "seconds": 19.002,
+      "v1_cases": 2,
+      "v2_cases": 1,
+      "real_dump_restore": true,
+      "log": "logs/year-package-v1-v2-final-pg-2026-11-04.log",
+      "combined_euer_sha256": "5a98d2a7ef63f4244938048c85014724b79c9b572303e0b832fb27e628f2de67",
+      "v1_core_byte_identical": true
+    },
+    "final_packages": {
+      "passed": 16,
+      "seconds": 6.183,
+      "log": "logs/year-package-final-all-clients-packages-2026-11-04.log",
+      "scope": "All registered backend/client/operator paths; evidence metadata updated afterward"
+    },
+    "final_pg_cleanup": {
+      "method": "Approved local docker exec -u postgres psql read-only metadata; no credential reading",
+      "databases": [
+        "smartplan_check"
+      ],
+      "other_connections": [],
+      "log": "logs/year-package-v1-v2-final-pg-cleanup-2026-11-04.json"
+    }
+  },
+  "trust_contract": {
+    "intrinsic_dependency_closure": false,
+    "required_trust": "separately_authenticated_archive_sha256",
+    "metadata_shape_changed": false,
+    "original_euer_export_changed": false
+  },
+  "clients": [
+    {
+      "path": "docs/evidence/year-package-browser-2026-11-04.json",
+      "sha256": "b73b1cfe0ed45697e1d41a678c067b9f61f3c5bc993a609bfc182106340435aa",
+      "bytes": 24877
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-2026-11-04/manifest.json",
+      "sha256": "c4c6b8b9c12c9b76550152689909960341b27569de828e9487f235fdcd38f671",
+      "bytes": 7165
+    },
+    {
+      "path": "docs/evidence/year-package-browser-independent-addendum-2026-11-04/manifest.json",
+      "sha256": "95feb8f84da8853aebfcc387b67459e2cbfbf8c5459f27ec6fca8f7ce7a9bd68",
+      "bytes": 4249
+    },
+    {
+      "path": "docs/evidence/year-evidence-native-2026-11-04/manifest.json",
+      "sha256": "9430514d6c59a7a5143a2f54529e017a76d627fc227a34c5cf3c292f99a681a6",
+      "bytes": 5503
+    },
+    {
+      "path": "docs/evidence/year-evidence-native-independent-2026-11-04/manifest.json",
+      "sha256": "db1266a5977402c1c568165acbc9987e35e95638d0c45d12c7ae6e5961cfbf79",
+      "bytes": 3971
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/evidence/year-package-backend-final-2026-11-04/logs/year-package-final-all-clients-packages-2026-11-04.log",
+      "sha256": "1787801d3bcb845bd9fc2d69ffbba6fc034da5c619559e67dc70c89dbc73ccf3",
+      "bytes": 3603
+    },
+    {
+      "path": "docs/evidence/year-package-backend-final-2026-11-04/logs/year-package-final-domain-http-independent-euer-2026-11-04.log",
+      "sha256": "68a4d0cf7c6cc863df981a4afcf8e7ab83b8d6da8188e050d6e856ae78b83afe",
+      "bytes": 10245
+    },
+    {
+      "path": "docs/evidence/year-package-backend-final-2026-11-04/logs/year-package-fixture-trusted-anchor-final-2026-11-04.log",
+      "sha256": "8102f08694d670b44a9b8acc6ef8afd02cd7449c1f1b93866a773439cb3ef7df",
+      "bytes": 250
+    },
+    {
+      "path": "docs/evidence/year-package-backend-final-2026-11-04/logs/year-package-independent-fix-first-2026-11-04.log",
+      "sha256": "01f65529ce7bd5d847c427bcf018fb19beb9cc1ebf053236b8ba09d4b1998ecd",
+      "bytes": 3832
+    },
+    {
+      "path": "docs/evidence/year-package-backend-final-2026-11-04/logs/year-package-trusted-anchor-first-2026-11-04.log",
+      "sha256": "9ecee5834df278d2e7dcd0eb72993e9406b48e38db08e962640d2c2de12fa21f",
+      "bytes": 3701
+    },
+    {
+      "path": "docs/evidence/year-package-backend-final-2026-11-04/logs/year-package-v1-v2-final-pg-2026-11-04.log",
+      "sha256": "bc17f463c4c6f520eaffd0296bea9efffa4982e14376d7fb6d90ce1fae4ab2c2",
+      "bytes": 737
+    },
+    {
+      "path": "docs/evidence/year-package-backend-final-2026-11-04/logs/year-package-v1-v2-final-pg-cleanup-2026-11-04.json",
+      "sha256": "5cda18fd7379ee90acd7806c92584b4aa9bbe2ef7546136fed4e704ed49ded22",
+      "bytes": 62
+    }
+  ],
+  "status": "backend_and_separate_v1_clients_frozen_after_independent_review"
+}

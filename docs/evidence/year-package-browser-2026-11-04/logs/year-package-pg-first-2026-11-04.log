@@ -1,0 +1,29 @@
+test_actual_old_supplier_package_is_identical_after_populated_restore (online.test_accounting_year_package_pg.YearPackagePostgres.test_actual_old_supplier_package_is_identical_after_populated_restore) ... FAIL
+test_real_invoice_original_partial_cash_and_restart_preserve_package (online.test_accounting_year_package_pg.YearPackagePostgres.test_real_invoice_original_partial_cash_and_restart_preserve_package) ... FAIL
+
+======================================================================
+FAIL: test_actual_old_supplier_package_is_identical_after_populated_restore (online.test_accounting_year_package_pg.YearPackagePostgres.test_actual_old_supplier_package_is_identical_after_populated_restore)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/backend/online/test_accounting_year_package_pg.py", line 49, in test_actual_old_supplier_package_is_identical_after_populated_restore
+    metadata=self.call('GET',path).json;raw=self.call('GET',path+'/archive').data
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-year-review-export-20261104/backend/online/test_customer_execution_journey_pg.py", line 89, in call
+    self.assertEqual(response.status_code, status, (method, path, response.status_code))
+AssertionError: 409 != 200 : ('GET', '/business/accounting/euer/exports/871651b072cc4ab6b7afa2cc79bfadc6/evidence', 409)
+
+======================================================================
+FAIL: test_real_invoice_original_partial_cash_and_restart_preserve_package (online.test_accounting_year_package_pg.YearPackagePostgres.test_real_invoice_original_partial_cash_and_restart_preserve_package)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/backend/online/test_accounting_year_package_pg.py", line 40, in test_real_invoice_original_partial_cash_and_restart_preserve_package
+    metadata=self.call('GET',path).json;raw=self.call('GET',path+'/archive').data
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-year-review-export-20261104/backend/online/test_customer_execution_journey_pg.py", line 89, in call
+    self.assertEqual(response.status_code, status, (method, path, response.status_code))
+AssertionError: 409 != 200 : ('GET', '/business/accounting/euer/exports/1ea13b650d524f319fc2a41017ea0bac/evidence', 409)
+
+----------------------------------------------------------------------
+Ran 2 tests in 13.623s
+
+FAILED (failures=2)

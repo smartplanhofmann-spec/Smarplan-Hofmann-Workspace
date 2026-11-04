@@ -1,0 +1,33 @@
+{
+  "case": "real project-only source revocation after original archive was fetched",
+  "globalFinanceReadRetained": true,
+  "globalAccountingReadRetained": true,
+  "downloads": 0,
+  "requests": [
+    {
+      "path": "/api/v1/business/accounting/euer/exports/a9f7b1cd3df74d989af33342ec39ce58",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/business/accounting/euer/exports/a9f7b1cd3df74d989af33342ec39ce58/evidence",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/business/accounting/euer/exports/a9f7b1cd3df74d989af33342ec39ce58/evidence",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/business/accounting/euer/exports/a9f7b1cd3df74d989af33342ec39ce58/evidence/archive",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/business/accounting/euer/exports/a9f7b1cd3df74d989af33342ec39ce58/evidence",
+      "status": 403,
+      "method": "GET"
+    }
+  ]
+}

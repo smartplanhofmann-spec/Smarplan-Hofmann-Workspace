@@ -1,0 +1,1 @@
+{"bytes": 628316, "sha256": "c3d48a6e102ce9ad9d014010d835f2fe80169083f6bbae137028fd3c102cc457", "scenarios": ["ordinary_correction", "incomplete_year", "old_after_profile_change", "historical_assets_old_supplier", "public_payroll"]}

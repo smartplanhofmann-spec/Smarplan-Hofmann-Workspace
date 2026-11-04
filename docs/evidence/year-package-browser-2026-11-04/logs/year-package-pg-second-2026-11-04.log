@@ -1,0 +1,7 @@
+test_actual_old_supplier_package_is_identical_after_populated_restore (online.test_accounting_year_package_pg.YearPackagePostgres.test_actual_old_supplier_package_is_identical_after_populated_restore) ... ok
+test_real_invoice_original_partial_cash_and_restart_preserve_package (online.test_accounting_year_package_pg.YearPackagePostgres.test_real_invoice_original_partial_cash_and_restart_preserve_package) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 14.847s
+
+OK

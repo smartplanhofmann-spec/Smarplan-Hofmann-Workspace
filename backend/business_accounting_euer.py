@@ -18,7 +18,7 @@ from business_accounting import Accounting, _hash, _page, _paged, _sha, _evidenc
 from business_accounting_components import DocumentComponents, _cents as _unsigned_cents, _money as _unsigned_money, _stored
 from business_accounting_profile import AccountingPreparationProfile
 
-FEATURES = ('accounting_euer',)
+FEATURES = ('accounting_euer', 'accounting_year_evidence_v1')
 RULE_VERSION = 'de_euer_regular_cash_2026_v1'
 _TABLES = ('business_euer_entries', 'business_euer_requests')
 _INPUT = {'operation', 'expected_revision', 'state_hash', 'payload', 'reason', 'evidence_reference'}
@@ -1012,6 +1012,22 @@ class EuerAccounting(Domain):
             if not entry or entry['operation']!='export': raise Problem(404,'Prüfpaket nicht verfügbar')
             return dict(entry_id=entry['id'],entry_hash=entry['entry_hash'],created_at=entry['created_at'],**entry['artifact'])
 
+    def year_evidence(self,actor,entry_id,*,archive=False):
+        """Read-only supplement; old report and source acceptance remain intact."""
+        from accounting_year_package_v1 import build,sha,FORMAT,BASE
+        from workspace_api import BinaryAttachment
+        try:
+            raw,manifest=build(self.office,actor,entry_id)
+        except (ValueError,KeyError,TypeError,IndexError,ArithmeticError):
+            raise Problem(409,'Der ursprüngliche Jahresnachweis ist unvollständig oder seine Bindung wurde verändert.') from None
+        filename='smartplan-jahresnachweis-'+str(manifest['year'])+'-'+entry_id+'.zip'
+        if archive:return BinaryAttachment(raw,filename)
+        return dict(format=FORMAT,schema_version=1,instance_id=manifest['instance_id'],year=manifest['year'],
+            export_id=entry_id,export_hash=manifest['export_hash'],sha256=sha(raw),size=len(raw),filename=filename,
+            archive_path=BASE+entry_id+'/evidence/archive',original_count=len(manifest['originals']),
+            original_year_complete=manifest['original_year_complete'],private_source_boundaries=manifest['private_source_boundaries'],
+            official_tax_return=False,datev_certified=False,private_personnel_originals_included=False)
+
     def preview(self,actor,data):
         self._inputs(data)
         with transaction(self.office):
@@ -1114,7 +1130,7 @@ def restore_horizon(office):
 
 
 def methods(path):
-    match=re.fullmatch(r'/accounting/euer(?:/(sources|journal|report|preview|confirm|exports/[a-f0-9]{32}))?',path)
+    match=re.fullmatch(r'/accounting/euer(?:/(sources|journal|report|preview|confirm|exports/[a-f0-9]{32}(?:/evidence(?:/archive)?)?))?',path)
     return ('POST' if match[1] in ('preview','confirm') else 'GET') if match else None
 
 
@@ -1137,5 +1153,8 @@ def dispatch(office,actor,path,method,data):
         value=api.report(actor,int(query['year']))
     else:
         if query:raise Problem(400,'Keine zusätzlichen Filter erlaubt')
+        if action.startswith('exports/') and action.endswith(('/evidence','/evidence/archive')):
+            archive=action.endswith('/archive')
+            return api.year_evidence(actor,action.split('/')[1],archive=archive),200,'application/zip' if archive else 'application/json'
         value=api.exported(actor,action.split('/')[1]) if action.startswith('exports/') else getattr(api,action)(actor)
     return value,200,'application/json'

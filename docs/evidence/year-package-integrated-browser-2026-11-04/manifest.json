@@ -1,0 +1,25 @@
+{
+  "scope": "Actual integrated Chromium/MFA/HTTP year-original ZIP with active namespace sandbox; synthetic data",
+  "files": [
+    {
+      "path": "docs/evidence/year-package-integrated-browser-2026-11-04/actual-year-package-offline-check.json",
+      "sha256": "587b6f61e0cc1cd426e0e0bc2f2acea150617d5e30210a31c47d5be46b12852b",
+      "size": 524
+    },
+    {
+      "path": "docs/evidence/year-package-integrated-browser-2026-11-04/actual-year-package.zip",
+      "sha256": "7653e6cd5e97c6da83d8f9cf8104d0175026b0230fa2b007c892afac3eb6b499",
+      "size": 102634
+    },
+    {
+      "path": "docs/evidence/year-package-integrated-browser-2026-11-04/year-package-http-records.json",
+      "sha256": "4eeff4c36de59bbfebcbe9838f7014f11a92861efded2d2c43e59046e594f9ed",
+      "size": 183205
+    },
+    {
+      "path": "docs/evidence/year-package-integrated-browser-2026-11-04/year-package-incomplete-mobile.png",
+      "sha256": "37da14197f77d97747480fa2614f289551c016ec8c6dced901e5a808f4a70dd3",
+      "size": 64759
+    }
+  ]
+}

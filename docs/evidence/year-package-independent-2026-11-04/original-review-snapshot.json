@@ -1,0 +1,5 @@
+{
+  "path": "docs/evidence/year-package-independent-2026-11-04/intrinsic-review-ten-cases-original.py",
+  "sha256": "f873dd8051f8651d05176739cb80590766cfd44e224782e27ac50e15f924653a",
+  "purpose": "Historical original ten-case intrinsic-closure contract; not silently relabeled as passing after changing the trust boundary"
+}

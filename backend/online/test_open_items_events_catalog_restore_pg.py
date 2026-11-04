@@ -24,6 +24,7 @@ import business_accounting_asset_openings as assets
 import business_accounting_openings as openings
 import business_payroll_multiple_cases as multiple
 from business_accounting_euer import EuerAccounting
+from accounting_year_verify_v1 import verify as verify_year_archive
 from business_adapters import Adapters
 from business_payroll import Payroll, TABLES as PAYROLL_TABLES
 from core import Problem
@@ -94,6 +95,12 @@ class OpenItemsEventsCatalogRestore(unittest.TestCase):
         old_post, old_post_command = item_pg_fixture.OpeningItemPostgres.classify(f, old_payment)
         export, export_command = asset_fixture.euer.EuerPostgres.post(f, 'export', dict(year=int(f.today[:4])))
         artifact = EuerAccounting(f.office).exported(f.owner, export['id'])
+        year_metadata = EuerAccounting(f.office).year_evidence(f.owner, export['id'])
+        year_archive = bytes(EuerAccounting(f.office).year_evidence(f.owner, export['id'], archive=True))
+        self.assertEqual(year_metadata['export_id'], export['id'])
+        self.assertTrue(verify_year_archive(year_archive, year_metadata['sha256'])['verified'])
+        with self.assertRaises(ValueError):
+            verify_year_archive(year_archive)
         self.assertEqual(artifact['report']['historical_assets'][0]['continuation']['amount'], '1200.00')
         self.assertEqual(artifact['report']['totals']['confirmed_input_vat'], '0.00')
         self.assertEqual(artifact['report']['totals']['confirmed_expenses'], '1319.00')
@@ -173,6 +180,8 @@ class OpenItemsEventsCatalogRestore(unittest.TestCase):
                 self.assertEqual(Documents(restored).get(f.owner, document['id']), document)
                 self.assertEqual(Payroll(restored).export(f.owner, run['id'], 'pdf')[0], payroll_pdf)
                 self.assertEqual(EuerAccounting(restored).exported(f.owner, export['id']), artifact)
+                self.assertEqual(EuerAccounting(restored).year_evidence(f.owner, export['id']), year_metadata)
+                self.assertEqual(bytes(EuerAccounting(restored).year_evidence(f.owner, export['id'], archive=True)), year_archive)
                 evidence = evidence_for(restored, report)
                 self.assertEqual(evidence['schema'], 15)
                 self.assertEqual(evidence['accounting_horizon'], horizon)
@@ -213,6 +222,8 @@ class OpenItemsEventsCatalogRestore(unittest.TestCase):
                 self.assertEqual(EuerAccounting(restored).confirm(f.owner, depreciation_command), depreciation)
                 self.assertEqual(EuerAccounting(restored).confirm(f.owner, export_command), export)
                 self.assertEqual(EuerAccounting(restored).exported(f.owner, export['id']), artifact)
+                self.assertEqual(EuerAccounting(restored).year_evidence(f.owner, export['id']), year_metadata)
+                self.assertEqual(bytes(EuerAccounting(restored).year_evidence(f.owner, export['id'], archive=True)), year_archive)
                 event_api = CompanyEvents(restored)
                 self.assertEqual(event_api.execute(f.owner, completed['id'], event_command)['outcome'], event_accepted['outcome'])
                 self.assertEqual(event_api.plan(f.owner, pending['id'])['status'], 'suspended_after_restore')

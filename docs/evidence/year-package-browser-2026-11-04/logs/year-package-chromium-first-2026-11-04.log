@@ -1,0 +1,10 @@
+Error: Fixture failed: Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-20261104/web/office/tests/accounting-year-package-fixture.py", line 38, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/smartplan-year-review-export-20261104/web/office/tests/accounting-year-package-fixture.py", line 33, in main
+    args.ready_file.write_text(json.dumps(dict(base_url='http://127.0.0.1:'+str(server.server_port),email=email,reader_email=reader,reader_id=reader_user['id'],exports=[dict(id=e['id'],sequence=e['sequence']) for e in [first,second]])));args.ready_file.chmod(0o600)
+                                                                                                                                              ~~~~~~~~~~~^^^^^^
+TypeError: string indices must be integers, not 'str'
+
+    at main (/workspace/smartplan-year-review-export-20261104/web/office/tests/accounting-year-package-e2e.cjs:11:144)

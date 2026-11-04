@@ -1,0 +1,18 @@
+00:00 +0: loading /workspace/smartplan-year-review-export-20261104/app/test/business_accounting_year_evidence_independent_review_test.dart
+00:00 +0: independent real desktop output retains actual historical bytes and external hash
+00:01 +1: independent actual picker discards old bytes after source_right
+00:02 +2: independent actual picker discards old bytes after external_hash
+00:03 +3: independent actual picker discards old bytes after session
+00:03 +4: independent actual picker discards old bytes after export
+00:04 +5: independent actual picker discards old bytes after background
+00:04 +6: independent actual picker discards old bytes after dispose
+00:05 +7: independent actual picker discards old bytes after token
+00:05 +8: independent real write failure cannot report success or overwrite original metadata
+00:06 +9: independent picker cancellation has no file or success assertion
+00:07 +10: independent late initial original response cannot revive token context
+00:07 +11: independent late initial original response cannot revive background context
+00:07 +12: independent late initial original response cannot revive session context
+00:07 +13: independent late initial original response cannot revive export context
+00:07 +14: independent foreign original response is rejected before archive metadata or picker
+00:07 +15: independent downloaded altered archive never substitutes its self-supplied hash
+00:07 +16: All tests passed!

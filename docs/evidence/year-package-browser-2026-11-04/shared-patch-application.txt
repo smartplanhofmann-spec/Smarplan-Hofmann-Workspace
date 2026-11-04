@@ -1,0 +1,3 @@
+patching file web/office/accounting-euer.js
+patching file web/office/office.js
+Verified: both final shared files reproduced byte-for-byte from independently hash-checked original baseline.

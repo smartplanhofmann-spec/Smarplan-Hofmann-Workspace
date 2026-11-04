@@ -1,0 +1,56 @@
+✔ actual immutable ordinary_correction export, metadata and original ZIP remain bound (12.942307ms)
+✔ actual immutable incomplete_year export, metadata and original ZIP remain bound (1.265104ms)
+✔ actual immutable old_after_profile_change export, metadata and original ZIP remain bound (1.232084ms)
+✔ actual immutable historical_assets_old_supplier export, metadata and original ZIP remain bound (0.964892ms)
+✔ actual immutable public_payroll export, metadata and original ZIP remain bound (0.857651ms)
+✔ actual immutable public_travel export, metadata and original ZIP remain bound (0.845342ms)
+✔ same original export stays byte-identical after later profile change (1.459501ms)
+✔ foreign identity, rewritten completion, private scope, path and hostile size are rejected (0.954106ms)
+✔ CSV/report mutation and one-byte archive mutation cannot pass original hashes (3.453046ms)
+✔ read-only mode works without write permissions; either read permission is required (0.521615ms)
+✔ actual UI download reads only GET and checks source rights again after bytes (27.406774ms)
+✔ late metadata after close cannot reveal or download old export (3.799338ms)
+✔ late archive after close cannot reveal or download old export (2.587014ms)
+✔ late metadata after other cannot reveal or download old export (1.025354ms)
+✔ late archive after other cannot reveal or download old export (1.802432ms)
+✔ late metadata after session cannot reveal or download old export (0.959174ms)
+✔ late archive after session cannot reveal or download old export (1.576843ms)
+✔ late metadata after view cannot reveal or download old export (0.776258ms)
+✔ late archive after view cannot reveal or download old export (1.27599ms)
+✔ export selection change cannot be overwritten by earlier metadata response (1.645706ms)
+✔ fresh source denial at initial removes private content and title (0.773384ms)
+✔ fresh source denial at download removes private content and title (0.889809ms)
+✔ fresh source denial at after-bytes removes private content and title (3.198734ms)
+✔ server global read revocation during archive prevents file output (2.082974ms)
+✔ late authorization failure cannot close a newer unrelated dialog (0.913975ms)
+✔ changed authenticated metadata after bytes never downloads mixed export or instance (1.549582ms)
+✔ background invalidation during archive hashing never starts a download (1.865338ms)
+✖ a known public payroll or travel source cannot lose its explicit private-original boundary (0.775807ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 27
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 191.145792
+
+✖ failing tests:
+
+test at web/office/tests/accounting-year-package.test.mjs:34:1
+✖ a known public payroll or travel source cannot lose its explicit private-original boundary (0.775807ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/smartplan-year-review-export-20261104/web/office/tests/accounting-year-package.test.mjs:34:189)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

@@ -1,0 +1,742 @@
+﻿2026-11-04T21:37:20.8945761Z Current runner version: '2.338.2'
+2026-11-04T21:37:20.8964747Z ##[group]Runner Image Provisioner
+2026-11-04T21:37:20.8965296Z Hosted Compute Agent
+2026-11-04T21:37:20.8965698Z Version: 20261028.624
+2026-11-04T21:37:20.8966129Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+2026-11-04T21:37:20.8966567Z Build Date: 2026-10-28T21:51:42Z
+2026-11-04T21:37:20.8967013Z Worker ID: {2c9fa8f3-1cd8-4e5b-881e-ec4836b3d2ae}
+2026-11-04T21:37:20.8967436Z Region: centralus
+2026-11-04T21:37:20.8967861Z Cloud: Azure
+2026-11-04T21:37:20.8968211Z ##[endgroup]
+2026-11-04T21:37:20.8968992Z ##[group]Operating System
+2026-11-04T21:37:20.8969656Z Ubuntu
+2026-11-04T21:37:20.8969978Z 24.04.5
+2026-11-04T21:37:20.8970307Z LTS
+2026-11-04T21:37:20.8970668Z ##[endgroup]
+2026-11-04T21:37:20.8971131Z ##[group]Runner Image
+2026-11-04T21:37:20.8971524Z Image: ubuntu-24.04
+2026-11-04T21:37:20.8971914Z Version: 20261101.360.1
+2026-11-04T21:37:20.8972708Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261101.360/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-04T21:37:20.8973596Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261101.360
+2026-11-04T21:37:20.8974174Z ##[endgroup]
+2026-11-04T21:37:20.8974864Z ##[group]GITHUB_TOKEN Permissions
+2026-11-04T21:37:20.8976289Z Contents: read
+2026-11-04T21:37:20.8976645Z Metadata: read
+2026-11-04T21:37:20.8976973Z ##[endgroup]
+2026-11-04T21:37:20.8978369Z Secret source: Actions
+2026-11-04T21:37:20.8978943Z Cache mode: write
+2026-11-04T21:37:20.8979586Z Prepare workflow directory
+2026-11-04T21:37:20.9257178Z Prepare all required actions
+2026-11-04T21:37:20.9291191Z Getting action download info
+2026-11-04T21:37:21.1628294Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-04T21:37:21.2739152Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-04T21:37:21.4480580Z Complete job name: online-api
+2026-11-04T21:37:21.4872428Z ##[group]Checking docker version
+2026-11-04T21:37:21.4880209Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-11-04T21:37:21.5492890Z '1.48'
+2026-11-04T21:37:21.5504652Z Docker daemon API version: '1.48'
+2026-11-04T21:37:21.5505139Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-11-04T21:37:21.5643962Z '1.48'
+2026-11-04T21:37:21.5658182Z Docker client API version: '1.48'
+2026-11-04T21:37:21.5662085Z ##[endgroup]
+2026-11-04T21:37:21.5663408Z ##[group]Clean up resources from previous jobs
+2026-11-04T21:37:21.5667587Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=7358d1"
+2026-11-04T21:37:21.5787749Z ##[command]/usr/bin/docker network prune --force --filter "label=7358d1"
+2026-11-04T21:37:21.5898782Z ##[endgroup]
+2026-11-04T21:37:21.5899079Z ##[group]Create local container network
+2026-11-04T21:37:21.5905844Z ##[command]/usr/bin/docker network create --label 7358d1 github_network_1a102782b4e942349c65c1529e3a18e9
+2026-11-04T21:37:21.6305768Z ce919d3d91e656f1828c6fe72bbac31d5313143d3d9bbbfd321ec256b7f39101
+2026-11-04T21:37:21.6324734Z ##[endgroup]
+2026-11-04T21:37:21.6343249Z ##[group]Starting postgres service container
+2026-11-04T21:37:21.6357721Z ##[command]/usr/bin/docker pull postgres:16-bookworm
+2026-11-04T21:37:22.2173510Z 16-bookworm: Pulling from library/postgres
+2026-11-04T21:37:22.4033291Z 3c5439d0ae62: Pulling fs layer
+2026-11-04T21:37:22.4037612Z 32b3865c6b95: Pulling fs layer
+2026-11-04T21:37:22.4038472Z a05d3c04a0b3: Pulling fs layer
+2026-11-04T21:37:22.4039383Z be40935ea959: Pulling fs layer
+2026-11-04T21:37:22.4040135Z c7c711084a8d: Pulling fs layer
+2026-11-04T21:37:22.4040837Z 02bf8ce38b0f: Pulling fs layer
+2026-11-04T21:37:22.4041626Z 21e72f5ffc9d: Pulling fs layer
+2026-11-04T21:37:22.4042343Z 0562cc31bd02: Pulling fs layer
+2026-11-04T21:37:22.4043039Z a5e7b10af5f7: Pulling fs layer
+2026-11-04T21:37:22.4043721Z 9275373a97ca: Pulling fs layer
+2026-11-04T21:37:22.4044439Z 21d3e9954fa8: Pulling fs layer
+2026-11-04T21:37:22.4045142Z 43e465beccff: Pulling fs layer
+2026-11-04T21:37:22.4046072Z 3525f5dd20e9: Pulling fs layer
+2026-11-04T21:37:22.4046778Z 7f0980702fb2: Pulling fs layer
+2026-11-04T21:37:22.4047461Z 0562cc31bd02: Waiting
+2026-11-04T21:37:22.4048033Z a5e7b10af5f7: Waiting
+2026-11-04T21:37:22.4048600Z 9275373a97ca: Waiting
+2026-11-04T21:37:22.4049205Z 21d3e9954fa8: Waiting
+2026-11-04T21:37:22.4049858Z 43e465beccff: Waiting
+2026-11-04T21:37:22.4050473Z 3525f5dd20e9: Waiting
+2026-11-04T21:37:22.4051187Z 7f0980702fb2: Waiting
+2026-11-04T21:37:22.4051775Z be40935ea959: Waiting
+2026-11-04T21:37:22.4052556Z c7c711084a8d: Waiting
+2026-11-04T21:37:22.4053335Z 02bf8ce38b0f: Waiting
+2026-11-04T21:37:22.6060141Z 32b3865c6b95: Verifying Checksum
+2026-11-04T21:37:22.6061841Z 32b3865c6b95: Download complete
+2026-11-04T21:37:22.7038852Z a05d3c04a0b3: Verifying Checksum
+2026-11-04T21:37:22.7039991Z a05d3c04a0b3: Download complete
+2026-11-04T21:37:22.7693679Z 3c5439d0ae62: Verifying Checksum
+2026-11-04T21:37:22.7695531Z 3c5439d0ae62: Download complete
+2026-11-04T21:37:22.8194432Z be40935ea959: Verifying Checksum
+2026-11-04T21:37:22.8195727Z be40935ea959: Download complete
+2026-11-04T21:37:22.9420368Z c7c711084a8d: Verifying Checksum
+2026-11-04T21:37:22.9421831Z c7c711084a8d: Download complete
+2026-11-04T21:37:22.9796275Z 21e72f5ffc9d: Verifying Checksum
+2026-11-04T21:37:22.9798107Z 21e72f5ffc9d: Download complete
+2026-11-04T21:37:22.9992835Z 02bf8ce38b0f: Verifying Checksum
+2026-11-04T21:37:22.9994969Z 02bf8ce38b0f: Download complete
+2026-11-04T21:37:23.0919372Z 0562cc31bd02: Verifying Checksum
+2026-11-04T21:37:23.1628635Z 0562cc31bd02: Download complete
+2026-11-04T21:37:23.1629805Z 9275373a97ca: Verifying Checksum
+2026-11-04T21:37:23.1631007Z 9275373a97ca: Download complete
+2026-11-04T21:37:23.2539501Z 21d3e9954fa8: Verifying Checksum
+2026-11-04T21:37:23.2540593Z 21d3e9954fa8: Download complete
+2026-11-04T21:37:23.3328155Z 43e465beccff: Download complete
+2026-11-04T21:37:23.4247034Z 3525f5dd20e9: Verifying Checksum
+2026-11-04T21:37:23.4247855Z 3525f5dd20e9: Download complete
+2026-11-04T21:37:23.4255612Z a5e7b10af5f7: Verifying Checksum
+2026-11-04T21:37:23.4255854Z a5e7b10af5f7: Download complete
+2026-11-04T21:37:23.4688622Z 7f0980702fb2: Verifying Checksum
+2026-11-04T21:37:23.4688919Z 7f0980702fb2: Download complete
+2026-11-04T21:37:23.5195862Z 3c5439d0ae62: Pull complete
+2026-11-04T21:37:25.8184536Z 32b3865c6b95: Pull complete
+2026-11-04T21:37:25.9592752Z a05d3c04a0b3: Pull complete
+2026-11-04T21:37:26.0081992Z be40935ea959: Pull complete
+2026-11-04T21:37:26.3575084Z c7c711084a8d: Pull complete
+2026-11-04T21:37:26.4093334Z 02bf8ce38b0f: Pull complete
+2026-11-04T21:37:26.4160742Z 21e72f5ffc9d: Pull complete
+2026-11-04T21:37:26.4401448Z 0562cc31bd02: Pull complete
+2026-11-04T21:37:29.7797578Z a5e7b10af5f7: Pull complete
+2026-11-04T21:37:29.7929829Z 9275373a97ca: Pull complete
+2026-11-04T21:37:29.8016780Z 21d3e9954fa8: Pull complete
+2026-11-04T21:37:29.8094762Z 43e465beccff: Pull complete
+2026-11-04T21:37:29.8159608Z 3525f5dd20e9: Pull complete
+2026-11-04T21:37:29.8225031Z 7f0980702fb2: Pull complete
+2026-11-04T21:37:29.8257627Z Digest: sha256:e8a07d2c7579b038938cdba6c539e580e5001caf9ea203d397b5cc83e76bd938
+2026-11-04T21:37:29.8273420Z Status: Downloaded newer image for postgres:16-bookworm
+2026-11-04T21:37:29.8284555Z docker.io/library/postgres:16-bookworm
+2026-11-04T21:37:29.8332873Z ##[command]/usr/bin/docker create --name 3775c64220d442c28362da9c2bb52df5_postgres16bookworm_1208b4 --label 7358d1 --network github_network_1a102782b4e942349c65c1529e3a18e9 --network-alias postgres -p 55433:5432 --health-cmd "pg_isready -U postgres -d smartplan_check" --health-interval 5s --health-timeout 5s --health-retries 10 -e "POSTGRES_DB=smartplan_check" -e "POSTGRES_PASSWORD=disposable-ci-only" -e GITHUB_ACTIONS=true -e CI=true postgres:16-bookworm
+2026-11-04T21:37:29.8540749Z 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:37:29.8563164Z ##[command]/usr/bin/docker start 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:37:30.0270372Z 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:37:30.0290710Z ##[command]/usr/bin/docker ps --all --filter id=3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-11-04T21:37:30.0409933Z 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189 Up Less than a second (health: starting)
+2026-11-04T21:37:30.0429837Z ##[command]/usr/bin/docker port 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:37:30.0544622Z 5432/tcp -> 0.0.0.0:55433
+2026-11-04T21:37:30.0544867Z 5432/tcp -> [::]:55433
+2026-11-04T21:37:30.0593495Z ##[endgroup]
+2026-11-04T21:37:30.0601147Z ##[group]Waiting for all services to be ready
+2026-11-04T21:37:30.0611615Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:37:30.0734115Z starting
+2026-11-04T21:37:30.0757506Z postgres service is starting, waiting 2 seconds before checking again.
+2026-11-04T21:37:32.0751861Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:37:32.0863117Z starting
+2026-11-04T21:37:32.0877305Z postgres service is starting, waiting 3 seconds before checking again.
+2026-11-04T21:37:35.9355987Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:37:35.9465821Z healthy
+2026-11-04T21:37:35.9483454Z postgres service is healthy.
+2026-11-04T21:37:35.9483990Z ##[endgroup]
+2026-11-04T21:37:35.9660852Z ##[group]Run actions/checkout@v4
+2026-11-04T21:37:35.9661253Z with:
+2026-11-04T21:37:35.9661424Z   repository: smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T21:37:35.9662781Z   token: ***
+2026-11-04T21:37:35.9662910Z   ssh-strict: true
+2026-11-04T21:37:35.9663024Z   ssh-user: git
+2026-11-04T21:37:35.9663148Z   persist-credentials: true
+2026-11-04T21:37:35.9663285Z   clean: true
+2026-11-04T21:37:35.9663405Z   sparse-checkout-cone-mode: true
+2026-11-04T21:37:35.9663549Z   fetch-depth: 1
+2026-11-04T21:37:35.9663662Z   fetch-tags: false
+2026-11-04T21:37:35.9663780Z   show-progress: true
+2026-11-04T21:37:35.9663898Z   lfs: false
+2026-11-04T21:37:35.9664003Z   submodules: false
+2026-11-04T21:37:35.9722027Z   set-safe-directory: true
+2026-11-04T21:37:35.9722193Z   allow-unsafe-pr-checkout: false
+2026-11-04T21:37:35.9722971Z env:
+2026-11-04T21:37:35.9723085Z   PYTHONPATH: backend
+2026-11-04T21:37:35.9723438Z   SMARTPLAN_TEST_DSN: host=127.0.0.1 port=55433 dbname=smartplan_check user=postgres ***
+2026-11-04T21:37:35.9723667Z ##[endgroup]
+2026-11-04T21:37:36.1557008Z Syncing repository: smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T21:37:36.1558440Z ##[group]Getting Git version info
+2026-11-04T21:37:36.1558857Z Working directory is '/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace'
+2026-11-04T21:37:36.1559444Z [command]/usr/bin/git version
+2026-11-04T21:37:36.1611908Z git version 2.56.0
+2026-11-04T21:37:36.1625328Z ##[endgroup]
+2026-11-04T21:37:36.1635375Z Temporarily overriding HOME='/home/runner/work/_temp/d51ed5aa-0752-4bbe-abe7-13545769a6c8' before making global git config changes
+2026-11-04T21:37:36.1636101Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T21:37:36.1638911Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-04T21:37:36.1683307Z Deleting the contents of '/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace'
+2026-11-04T21:37:36.1686326Z ##[group]Initializing the repository
+2026-11-04T21:37:36.1689063Z [command]/usr/bin/git init /home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-04T21:37:36.1766104Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-04T21:37:36.1766876Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-04T21:37:36.1767300Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-04T21:37:36.1767643Z hint: call:
+2026-11-04T21:37:36.1767810Z hint:
+2026-11-04T21:37:36.1768113Z hint: 	git config --global init.defaultBranch <name>
+2026-11-04T21:37:36.1768397Z hint:
+2026-11-04T21:37:36.1768655Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-04T21:37:36.1769090Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-04T21:37:36.1769410Z hint:
+2026-11-04T21:37:36.1769601Z hint: 	git branch -m <name>
+2026-11-04T21:37:36.1769795Z hint:
+2026-11-04T21:37:36.1770227Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-04T21:37:36.1774425Z Initialized empty Git repository in /home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/.git/
+2026-11-04T21:37:36.1784590Z [command]/usr/bin/git remote add origin https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T21:37:36.1828357Z ##[endgroup]
+2026-11-04T21:37:36.1828832Z ##[group]Disabling automatic garbage collection
+2026-11-04T21:37:36.1832062Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-04T21:37:36.1872174Z ##[endgroup]
+2026-11-04T21:37:36.1872715Z ##[group]Setting up auth
+2026-11-04T21:37:36.1878188Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T21:37:36.1910238Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T21:37:36.2216839Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T21:37:36.2255462Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T21:37:36.2448887Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T21:37:36.2486536Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T21:37:36.2687739Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-04T21:37:36.2774935Z ##[endgroup]
+2026-11-04T21:37:36.2775353Z ##[group]Fetching the repository
+2026-11-04T21:37:36.2783558Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9c9742e2ca771909769710fc7354daba3d27f51e:refs/remotes/origin/codex/testupdate-0.7-projects-20261104
+2026-11-04T21:37:38.4855286Z From https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T21:37:38.4857470Z  * [new ref]         9c9742e2ca771909769710fc7354daba3d27f51e -> origin/codex/testupdate-0.7-projects-20261104
+2026-11-04T21:37:38.4869610Z ##[endgroup]
+2026-11-04T21:37:38.4870220Z ##[group]Determining the checkout info
+2026-11-04T21:37:38.4871784Z ##[endgroup]
+2026-11-04T21:37:38.4877929Z [command]/usr/bin/git sparse-checkout disable
+2026-11-04T21:37:38.4940067Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-04T21:37:38.4979476Z ##[group]Checking out the ref
+2026-11-04T21:37:38.4983432Z [command]/usr/bin/git checkout --progress --force -B codex/testupdate-0.7-projects-20261104 refs/remotes/origin/codex/testupdate-0.7-projects-20261104
+2026-11-04T21:37:39.0156577Z Switched to a new branch 'codex/testupdate-0.7-projects-20261104'
+2026-11-04T21:37:39.0161958Z branch 'codex/testupdate-0.7-projects-20261104' set up to track 'origin/codex/testupdate-0.7-projects-20261104'.
+2026-11-04T21:37:39.0194715Z ##[endgroup]
+2026-11-04T21:37:39.0243220Z [command]/usr/bin/git log -1 --format=%H
+2026-11-04T21:37:39.0272595Z 9c9742e2ca771909769710fc7354daba3d27f51e
+2026-11-04T21:37:39.0471799Z ##[group]Run actions/setup-python@v5
+2026-11-04T21:37:39.0471969Z with:
+2026-11-04T21:37:39.0472082Z   python-version: 3.12
+2026-11-04T21:37:39.0472210Z   check-latest: false
+2026-11-04T21:37:39.0473498Z   token: ***
+2026-11-04T21:37:39.0473616Z   update-environment: true
+2026-11-04T21:37:39.0473752Z   allow-prereleases: false
+2026-11-04T21:37:39.0473885Z   freethreaded: false
+2026-11-04T21:37:39.0474002Z env:
+2026-11-04T21:37:39.0474108Z   PYTHONPATH: backend
+2026-11-04T21:37:39.0474388Z   SMARTPLAN_TEST_DSN: host=127.0.0.1 port=55433 dbname=smartplan_check user=postgres ***
+2026-11-04T21:37:39.0474614Z ##[endgroup]
+2026-11-04T21:37:39.1337402Z ##[group]Installed versions
+2026-11-04T21:37:39.1397031Z (node:2532) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T21:37:39.1397651Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T21:37:39.1408105Z Successfully set up CPython (3.12.16)
+2026-11-04T21:37:39.1408518Z ##[endgroup]
+2026-11-04T21:37:39.1545628Z ##[group]Run python -m pip install -r backend/online/requirements.lock
+2026-11-04T21:37:39.1545988Z [36;1mpython -m pip install -r backend/online/requirements.lock[0m
+2026-11-04T21:37:39.1574407Z shell: /usr/bin/bash -e {0}
+2026-11-04T21:37:39.1574559Z env:
+2026-11-04T21:37:39.1574671Z   PYTHONPATH: backend
+2026-11-04T21:37:39.1575107Z   SMARTPLAN_TEST_DSN: host=127.0.0.1 port=55433 dbname=smartplan_check user=postgres ***
+2026-11-04T21:37:39.1575577Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:39.1576010Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+2026-11-04T21:37:39.1576455Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:39.1576843Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:39.1577230Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:39.1577665Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+2026-11-04T21:37:39.1578017Z ##[endgroup]
+2026-11-04T21:37:39.8307058Z Collecting blinker==1.9.0 (from -r backend/online/requirements.lock (line 1))
+2026-11-04T21:37:39.9078602Z   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+2026-11-04T21:37:40.0102067Z Collecting cffi==2.1.1 (from -r backend/online/requirements.lock (line 2))
+2026-11-04T21:37:40.0257354Z   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+2026-11-04T21:37:40.1269043Z Collecting charset-normalizer==3.5.2 (from -r backend/online/requirements.lock (line 3))
+2026-11-04T21:37:40.1425505Z   Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+2026-11-04T21:37:40.1814985Z Collecting click==8.5.0 (from -r backend/online/requirements.lock (line 4))
+2026-11-04T21:37:40.1965073Z   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+2026-11-04T21:37:40.3115016Z Collecting cryptography==50.0.0 (from -r backend/online/requirements.lock (line 5))
+2026-11-04T21:37:40.3264166Z   Downloading cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.3 kB)
+2026-11-04T21:37:40.3491979Z Collecting Flask==3.1.3 (from -r backend/online/requirements.lock (line 6))
+2026-11-04T21:37:40.3643352Z   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+2026-11-04T21:37:40.3869027Z Collecting gunicorn==26.2.0 (from -r backend/online/requirements.lock (line 7))
+2026-11-04T21:37:40.4020970Z   Downloading gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+2026-11-04T21:37:40.4361348Z Collecting itsdangerous==2.2.0 (from -r backend/online/requirements.lock (line 8))
+2026-11-04T21:37:40.4513839Z   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+2026-11-04T21:37:40.4727560Z Collecting Jinja2==3.1.6 (from -r backend/online/requirements.lock (line 9))
+2026-11-04T21:37:40.4875549Z   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-11-04T21:37:40.5282836Z Collecting MarkupSafe==3.0.4 (from -r backend/online/requirements.lock (line 10))
+2026-11-04T21:37:40.5433744Z   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-11-04T21:37:40.6435678Z Collecting pillow==13.0.0 (from -r backend/online/requirements.lock (line 11))
+2026-11-04T21:37:40.6588493Z   Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+2026-11-04T21:37:40.6831789Z Collecting psycopg==3.3.6 (from -r backend/online/requirements.lock (line 12))
+2026-11-04T21:37:40.6999336Z   Downloading psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+2026-11-04T21:37:40.8128541Z Collecting psycopg-binary==3.3.6 (from -r backend/online/requirements.lock (line 13))
+2026-11-04T21:37:40.8281542Z   Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+2026-11-04T21:37:40.8483251Z Collecting pycparser==3.11 (from -r backend/online/requirements.lock (line 14))
+2026-11-04T21:37:40.8633531Z   Downloading pycparser-3.11-py3-none-any.whl.metadata (8.2 kB)
+2026-11-04T21:37:40.9317777Z Collecting reportlab==4.5.1 (from -r backend/online/requirements.lock (line 15))
+2026-11-04T21:37:40.9472887Z   Downloading reportlab-4.5.1-py3-none-any.whl.metadata (1.7 kB)
+2026-11-04T21:37:40.9701589Z Collecting typing_extensions==4.16.0 (from -r backend/online/requirements.lock (line 16))
+2026-11-04T21:37:40.9850498Z   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-11-04T21:37:41.0061950Z Collecting tzdata==2026.5 (from -r backend/online/requirements.lock (line 17))
+2026-11-04T21:37:41.0221688Z   Downloading tzdata-2026.5-py2.py3-none-any.whl.metadata (1.4 kB)
+2026-11-04T21:37:41.0452541Z Collecting Werkzeug==3.1.9 (from -r backend/online/requirements.lock (line 18))
+2026-11-04T21:37:41.0601028Z   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+2026-11-04T21:37:41.0844618Z Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+2026-11-04T21:37:41.1012487Z Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+2026-11-04T21:37:41.1378834Z Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+2026-11-04T21:37:41.1583483Z Downloading click-8.5.0-py3-none-any.whl (125 kB)
+2026-11-04T21:37:41.1752216Z Downloading cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl (4.7 MB)
+2026-11-04T21:37:41.2390605Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 75.1 MB/s  0:00:00
+2026-11-04T21:37:41.2547114Z Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+2026-11-04T21:37:41.2715003Z Downloading gunicorn-26.2.0-py3-none-any.whl (228 kB)
+2026-11-04T21:37:41.2890109Z Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+2026-11-04T21:37:41.3125317Z Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-11-04T21:37:41.3296005Z Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-11-04T21:37:41.3467845Z Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+2026-11-04T21:37:41.3877612Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 177.1 MB/s  0:00:00
+2026-11-04T21:37:41.4029648Z Downloading psycopg-3.3.6-py3-none-any.whl (215 kB)
+2026-11-04T21:37:41.4202868Z Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.2 MB)
+2026-11-04T21:37:41.4677944Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 108.7 MB/s  0:00:00
+2026-11-04T21:37:41.4828788Z Downloading pycparser-3.11-py3-none-any.whl (51 kB)
+2026-11-04T21:37:41.4996073Z Downloading reportlab-4.5.1-py3-none-any.whl (2.0 MB)
+2026-11-04T21:37:41.5059587Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 365.8 MB/s  0:00:00
+2026-11-04T21:37:41.5208134Z Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-11-04T21:37:41.5374271Z Downloading tzdata-2026.5-py2.py3-none-any.whl (347 kB)
+2026-11-04T21:37:41.5553272Z Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+2026-11-04T21:37:41.6329549Z Installing collected packages: tzdata, typing_extensions, pycparser, psycopg-binary, pillow, MarkupSafe, itsdangerous, gunicorn, click, charset-normalizer, blinker, Werkzeug, reportlab, psycopg, Jinja2, cffi, Flask, cryptography
+2026-11-04T21:37:42.9779072Z 
+2026-11-04T21:37:42.9793562Z Successfully installed Flask-3.1.3 Jinja2-3.1.6 MarkupSafe-3.0.4 Werkzeug-3.1.9 blinker-1.9.0 cffi-2.1.1 charset-normalizer-3.5.2 click-8.5.0 cryptography-50.0.0 gunicorn-26.2.0 itsdangerous-2.2.0 pillow-13.0.0 psycopg-3.3.6 psycopg-binary-3.3.6 pycparser-3.11 reportlab-4.5.1 typing_extensions-4.16.0 tzdata-2026.5
+2026-11-04T21:37:42.9799769Z 
+2026-11-04T21:37:42.9800003Z [notice] A new release of pip is available: 26.2.2 -> 26.3
+2026-11-04T21:37:42.9800338Z [notice] To update, run: pip install --upgrade pip
+2026-11-04T21:37:43.0512377Z ##[group]Run python -m pip check
+2026-11-04T21:37:43.0512581Z [36;1mpython -m pip check[0m
+2026-11-04T21:37:43.0529614Z shell: /usr/bin/bash -e {0}
+2026-11-04T21:37:43.0529749Z env:
+2026-11-04T21:37:43.0529854Z   PYTHONPATH: backend
+2026-11-04T21:37:43.0530207Z   SMARTPLAN_TEST_DSN: host=127.0.0.1 port=55433 dbname=smartplan_check user=postgres ***
+2026-11-04T21:37:43.0530465Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:43.0530691Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+2026-11-04T21:37:43.0531000Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:43.0531198Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:43.0531399Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:43.0531600Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+2026-11-04T21:37:43.0531770Z ##[endgroup]
+2026-11-04T21:37:43.2022679Z No broken requirements found.
+2026-11-04T21:37:43.2239219Z ##[group]Run python -m unittest discover -s backend/online -p test_online.py -v
+2026-11-04T21:37:43.2239590Z [36;1mpython -m unittest discover -s backend/online -p test_online.py -v[0m
+2026-11-04T21:37:43.2239879Z [36;1mpython -m unittest discover -s backend/online -p test_report_integrity_pg.py -v[0m
+2026-11-04T21:37:43.2240180Z [36;1mpython -m unittest discover -s backend/online -p test_instance_isolation.py -v[0m
+2026-11-04T21:37:43.2240480Z [36;1mpython -m unittest discover -s backend/online -p 'test_company*isolation*.py' -v[0m
+2026-11-04T21:37:43.2240776Z [36;1mpython -m unittest discover -s backend/online -p test_organization_http.py -v[0m
+2026-11-04T21:37:43.2241299Z [36;1mpython -m unittest discover -s backend/online -p test_inventory_article_references_api.py -v[0m
+2026-11-04T21:37:43.2241611Z [36;1mPYTHONPATH=backend python -m unittest test_project_creation_replay -v[0m
+2026-11-04T21:37:43.2242009Z [36;1mPYTHONPATH=backend python -m unittest test_project_creation_counterreview.ProjectCreationPostgresCounterreview -v[0m
+2026-11-04T21:37:43.2242387Z [36;1mpython -m unittest discover -s backend/online -p test_organization_pg.py -v[0m
+2026-11-04T21:37:43.2242678Z [36;1mpython -m unittest discover -s backend/online -p test_purchasing_journey.py -v[0m
+2026-11-04T21:37:43.2242982Z [36;1mpython -m unittest discover -s backend/online -p test_purchasing_catalog_http.py -v[0m
+2026-11-04T21:37:43.2243307Z [36;1mpython -m unittest discover -s backend/online -p test_postgres_purchasing_integration.py -v[0m
+2026-11-04T21:37:43.2243619Z [36;1mpython -m unittest discover -s backend/online -p test_portal_http.py -v[0m
+2026-11-04T21:37:43.2243897Z [36;1mpython -m unittest discover -s backend/online -p test_portal_journey.py -v[0m
+2026-11-04T21:37:43.2244204Z [36;1mpython -m unittest discover -s backend/online -p test_postgres_portal_integration.py -v[0m
+2026-11-04T21:37:43.2244507Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_http.py -v[0m
+2026-11-04T21:37:43.2244928Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_journey.py -v[0m
+2026-11-04T21:37:43.2245239Z [36;1mpython -m unittest discover -s backend/online -p test_postgres_accounting_integration.py -v[0m
+2026-11-04T21:37:43.2245568Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_allocations_http.py -v[0m
+2026-11-04T21:37:43.2245892Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_allocations_journey.py -v[0m
+2026-11-04T21:37:43.2246245Z [36;1mpython -m unittest discover -s backend/online -p test_postgres_accounting_allocations_integration.py -v[0m
+2026-11-04T21:37:43.2246597Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_components_http.py -v[0m
+2026-11-04T21:37:43.2246921Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_components_journey.py -v[0m
+2026-11-04T21:37:43.2247273Z [36;1mpython -m unittest discover -s backend/online -p test_postgres_accounting_components_integration.py -v[0m
+2026-11-04T21:37:43.2247618Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_refunds_http.py -v[0m
+2026-11-04T21:37:43.2247931Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_refunds_journey.py -v[0m
+2026-11-04T21:37:43.2248269Z [36;1mpython -m unittest discover -s backend/online -p test_postgres_accounting_refunds_integration.py -v[0m
+2026-11-04T21:37:43.2248607Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_capacity_http.py -v[0m
+2026-11-04T21:37:43.2248924Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_capacity_journey.py -v[0m
+2026-11-04T21:37:43.2249263Z [36;1mpython -m unittest discover -s backend/online -p test_postgres_accounting_capacity_integration.py -v[0m
+2026-11-04T21:37:43.2249599Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_refunds_v2_http.py -v[0m
+2026-11-04T21:37:43.2250027Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_refunds_v2_journey.py -v[0m
+2026-11-04T21:37:43.2250378Z [36;1mpython -m unittest discover -s backend/online -p test_postgres_accounting_refunds_v2_integration.py -v[0m
+2026-11-04T21:37:43.2250716Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_profile_http.py -v[0m
+2026-11-04T21:37:43.2251211Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_profile_journey.py -v[0m
+2026-11-04T21:37:43.2251547Z [36;1mpython -m unittest discover -s backend/online -p test_postgres_accounting_profile_integration.py -v[0m
+2026-11-04T21:37:43.2251865Z [36;1mpython -m unittest discover -s backend/online -p test_plans_online.py -v[0m
+2026-11-04T21:37:43.2252139Z [36;1mpython -m unittest discover -s backend/online -p test_plan_imports.py -v[0m
+2026-11-04T21:37:43.2252425Z [36;1mpython -m unittest discover -s backend/online -p test_import_cancellation.py -v[0m
+2026-11-04T21:37:43.2252720Z [36;1mpython -m unittest discover -s backend/online -p test_plan_deletions.py -v[0m
+2026-11-04T21:37:43.2253002Z [36;1mpython -m unittest discover -s backend/online -p test_workspace_api.py -v[0m
+2026-11-04T21:37:43.2253294Z [36;1mpython -m unittest discover -s backend/online -p test_inquiry_attachments_api.py -v[0m
+2026-11-04T21:37:43.2253611Z [36;1mpython -m unittest discover -s backend/online -p test_business_intake_contract.py -v[0m
+2026-11-04T21:37:43.2253905Z [36;1mpython -m unittest discover -s backend/online -p 'test_integration*.py' -v[0m
+2026-11-04T21:37:43.2254174Z [36;1mpython -m unittest discover -s backend/online -p test_release.py -v[0m
+2026-11-04T21:37:43.2254451Z [36;1mpython -m unittest discover -s backend/online -p test_release_workspace.py -v[0m
+2026-11-04T21:37:43.2254740Z [36;1mpython -m unittest discover -s backend/online -p test_release_attachments.py -v[0m
+2026-11-04T21:37:43.2255036Z [36;1mpython -m unittest discover -s backend/online -p test_release_integrations.py -v[0m
+2026-11-04T21:37:43.2255318Z [36;1mpython -m unittest discover -s backend/online -p test_storage.py -v[0m
+2026-11-04T21:37:43.2255678Z [36;1mpython -m unittest discover -s backend/online -p test_onedrive.py -v[0m
+2026-11-04T21:37:43.2255944Z [36;1mpython -m unittest discover -s backend/online -p 'test_business*.py' -v[0m
+2026-11-04T21:37:43.2256239Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_year_package_pg.py -v[0m
+2026-11-04T21:37:43.2256524Z [36;1mpython -m unittest -v online.test_accounting_year_package_v2_pg[0m
+2026-11-04T21:37:43.2256784Z [36;1mpython -m unittest -v online.test_year_values_full_financial_restore_pg[0m
+2026-11-04T21:37:43.2257073Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_open_items_pg.py -v[0m
+2026-11-04T21:37:43.2257389Z [36;1mpython -m unittest discover -s backend/online -p test_accounting_year_openings_pg.py -v[0m
+2026-11-04T21:37:43.2276317Z [36;1mpython -m unittest discover -s backend/online -p 'test_customer_workspace*.py' -v[0m
+2026-11-04T21:37:43.2276812Z [36;1mpython -m unittest discover -s backend/online -p 'test_assistant*.py' -v[0m
+2026-11-04T21:37:43.2277261Z [36;1mpython -m unittest discover -s backend/online -p 'test_company_events*.py' -v[0m
+2026-11-04T21:37:43.2277575Z [36;1mpython -m unittest discover -s backend/online -p 'test_company_handover*.py' -v[0m
+2026-11-04T21:37:43.2277891Z [36;1mpython -m unittest discover -s backend/online -p test_customer_execution_journey_pg.py -v[0m
+2026-11-04T21:37:43.2278238Z [36;1mpython -m unittest discover -s backend/online -p test_customer_finance_service_journey_pg.py -v[0m
+2026-11-04T21:37:43.2278561Z [36;1mpython -m unittest discover -s backend/online -p test_release_business.py -v[0m
+2026-11-04T21:37:43.2278877Z [36;1mpython -m unittest discover -s backend/online -p 'test_provisioning*.py' -v[0m
+2026-11-04T21:37:43.2296325Z shell: /usr/bin/bash -e {0}
+2026-11-04T21:37:43.2296464Z env:
+2026-11-04T21:37:43.2296576Z   PYTHONPATH: backend
+2026-11-04T21:37:43.2297051Z   SMARTPLAN_TEST_DSN: host=127.0.0.1 port=55433 dbname=smartplan_check user=postgres ***
+2026-11-04T21:37:43.2297318Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:43.2297564Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+2026-11-04T21:37:43.2297792Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:43.2298002Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:43.2298208Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-04T21:37:43.2298417Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+2026-11-04T21:37:43.2298597Z ##[endgroup]
+2026-11-04T21:37:45.5715777Z test_connection_loss_recovers_on_next_request (test_online.OnlineApiTests.test_connection_loss_recovers_on_next_request) ... ok
+2026-11-04T21:37:48.9222829Z test_dump_restore_preserves_pdf_and_revokes_sessions (test_online.OnlineApiTests.test_dump_restore_preserves_pdf_and_revokes_sessions) ... ok
+2026-11-04T21:37:50.4623011Z test_enrollment_replay_recovery_logout_and_encrypted_storage (test_online.OnlineApiTests.test_enrollment_replay_recovery_logout_and_encrypted_storage) ... ok
+2026-11-04T21:37:51.9794269Z test_expired_and_repeated_wrong_codes_do_not_grant_sessions (test_online.OnlineApiTests.test_expired_and_repeated_wrong_codes_do_not_grant_sessions) ... ok
+2026-11-04T21:37:53.6794818Z test_full_two_device_workflow_access_revocation_and_restart (test_online.OnlineApiTests.test_full_two_device_workflow_access_revocation_and_restart) ... ok
+2026-11-04T21:37:55.2991711Z test_parallel_signing_commits_only_one_signature (test_online.OnlineApiTests.test_parallel_signing_commits_only_one_signature) ... ok
+2026-11-04T21:37:58.0831347Z test_password_change_invalidates_pending_challenge (test_online.OnlineApiTests.test_password_change_invalidates_pending_challenge) ... ok
+2026-11-04T21:37:59.5893165Z test_request_limits_methods_https_and_host (test_online.OnlineApiTests.test_request_limits_methods_https_and_host) ... ok
+2026-11-04T21:38:01.3448060Z test_wrong_password_limit_survives_new_process_state (test_online.OnlineApiTests.test_wrong_password_limit_survives_new_process_state) ... ok
+2026-11-04T21:38:03.2330484Z test_disabled_user_and_failed_login (test_online.PostgresContracts.test_disabled_user_and_failed_login) ... ok
+2026-11-04T21:38:05.3142058Z test_http_auth_and_project_permissions (test_online.PostgresContracts.test_http_auth_and_project_permissions) ... ok
+2026-11-04T21:38:06.9826991Z test_oauth_pkce_encryption_and_state_replay (test_online.PostgresContracts.test_oauth_pkce_encryption_and_state_replay) ... ok
+2026-11-04T21:38:08.5397332Z test_onedrive_upload_uses_app_folder_and_denies_technician (test_online.PostgresContracts.test_onedrive_upload_uses_app_folder_and_denies_technician) ... ok
+2026-11-04T21:38:10.1292752Z test_pdf_tampering_detected (test_online.PostgresContracts.test_pdf_tampering_detected) ... ok
+2026-11-04T21:38:11.7110100Z test_project_isolation_including_pdf (test_online.PostgresContracts.test_project_isolation_including_pdf) ... ok
+2026-11-04T21:38:13.1658810Z test_revoked_project_access (test_online.PostgresContracts.test_revoked_project_access) ... ok
+2026-11-04T21:38:14.6982485Z test_signature_binds_version_and_is_immutable (test_online.PostgresContracts.test_signature_binds_version_and_is_immutable) ... ok
+2026-11-04T21:38:16.2877331Z test_technician_cannot_create_project_or_connect_drive (test_online.PostgresContracts.test_technician_cannot_create_project_or_connect_drive) ... ok
+2026-11-04T21:38:16.2878158Z test_rfc6238_sha1_vectors (test_online.TotpStandardTest.test_rfc6238_sha1_vectors) ... ok
+2026-11-04T21:38:16.2878522Z 
+2026-11-04T21:38:16.2878736Z ----------------------------------------------------------------------
+2026-11-04T21:38:16.2879040Z Ran 19 tests in 32.516s
+2026-11-04T21:38:16.2880159Z 
+2026-11-04T21:38:16.2880239Z OK
+2026-11-04T21:38:18.1053805Z test_access_is_checked_before_disclosing_corruption (test_report_integrity_pg.ReportIntegrityPostgres.test_access_is_checked_before_disclosing_corruption) ... ok
+2026-11-04T21:38:19.5154831Z test_concurrent_identical_requests_commit_one_signature (test_report_integrity_pg.ReportIntegrityPostgres.test_concurrent_identical_requests_commit_one_signature) ... ok
+2026-11-04T21:38:20.9960474Z test_content_identity_and_project_corruption_fail_on_every_read_and_sign_path (test_report_integrity_pg.ReportIntegrityPostgres.test_content_identity_and_project_corruption_fail_on_every_read_and_sign_path) ... ok
+2026-11-04T21:38:23.1291718Z test_http_retry_reopens_the_same_signed_snapshot_and_pdf (test_report_integrity_pg.ReportIntegrityPostgres.test_http_retry_reopens_the_same_signed_snapshot_and_pdf) ... ok
+2026-11-04T21:38:24.6335266Z test_identical_sign_retries_from_separate_workers_share_original_archive (test_report_integrity_pg.ReportIntegrityPostgres.test_identical_sign_retries_from_separate_workers_share_original_archive) ... ok
+2026-11-04T21:38:26.0728785Z test_identical_sign_retry_after_restart_returns_original_archive_once (test_report_integrity_pg.ReportIntegrityPostgres.test_identical_sign_retry_after_restart_returns_original_archive_once) ... ok
+2026-11-04T21:38:27.5588394Z test_incomplete_signed_metadata_and_invalid_strokes_fail_closed (test_report_integrity_pg.ReportIntegrityPostgres.test_incomplete_signed_metadata_and_invalid_strokes_fail_closed) ... ok
+2026-11-04T21:38:29.3068126Z test_legacy_archive_survives_restart_and_customer_rename_without_rewriting (test_report_integrity_pg.ReportIntegrityPostgres.test_legacy_archive_survives_restart_and_customer_rename_without_rewriting) ... ok
+2026-11-04T21:38:30.8595391Z test_malformed_and_incomplete_payloads_are_integrity_errors (test_report_integrity_pg.ReportIntegrityPostgres.test_malformed_and_incomplete_payloads_are_integrity_errors) ... ok
+2026-11-04T21:38:32.2326735Z test_missing_empty_or_corrupt_signed_pdf_is_never_regenerated (test_report_integrity_pg.ReportIntegrityPostgres.test_missing_empty_or_corrupt_signed_pdf_is_never_regenerated) ... ok
+2026-11-04T21:38:33.6744145Z test_retry_rejects_different_actor_content_name_ink_or_revoked_access (test_report_integrity_pg.ReportIntegrityPostgres.test_retry_rejects_different_actor_content_name_ink_or_revoked_access) ... ok
+2026-11-04T21:38:35.1353290Z test_signed_status_cannot_be_downgraded_while_retaining_archive (test_report_integrity_pg.ReportIntegrityPostgres.test_signed_status_cannot_be_downgraded_while_retaining_archive) ... ok
+2026-11-04T21:38:35.1354452Z 
+2026-11-04T21:38:35.1354657Z ----------------------------------------------------------------------
+2026-11-04T21:38:35.1355073Z Ran 12 tests in 18.581s
+2026-11-04T21:38:35.1355294Z 
+2026-11-04T21:38:35.1355685Z OK
+2026-11-04T21:38:35.9564924Z test_bound_external_storage_choice_is_rejected_before_provider_activity (test_instance_isolation.InstanceIsolationTests.test_bound_external_storage_choice_is_rejected_before_provider_activity) ... ok
+2026-11-04T21:38:36.3799040Z test_bound_startup_rejects_wrong_host_database_key_root_and_missing_id (test_instance_isolation.InstanceIsolationTests.test_bound_startup_rejects_wrong_host_database_key_root_and_missing_id) ... ok
+2026-11-04T21:38:37.0861218Z test_database_worker_rejects_missing_or_foreign_company_configuration (test_instance_isolation.InstanceIsolationTests.test_database_worker_rejects_missing_or_foreign_company_configuration) ... ok
+2026-11-04T21:38:37.6263977Z test_explicit_binding_is_idempotent_and_cannot_change_existing_business_data (test_instance_isolation.InstanceIsolationTests.test_explicit_binding_is_idempotent_and_cannot_change_existing_business_data) ... ok
+2026-11-04T21:38:38.0451730Z test_marker_symlink_and_insecure_permissions_are_rejected (test_instance_isolation.InstanceIsolationTests.test_marker_symlink_and_insecure_permissions_are_rejected) ... ok
+2026-11-04T21:38:38.8624810Z test_same_email_mfa_challenges_and_restricted_role_stay_in_their_instance (test_instance_isolation.InstanceIsolationTests.test_same_email_mfa_challenges_and_restricted_role_stay_in_their_instance) ... ok
+2026-11-04T21:38:39.2731727Z test_shared_storage_and_replaced_marker_fail_closed_including_after_startup (test_instance_isolation.InstanceIsolationTests.test_shared_storage_and_replaced_marker_fail_closed_including_after_startup) ... ok
+2026-11-04T21:38:39.8037145Z test_two_companies_enforce_sessions_objects_lists_files_and_offline_scope (test_instance_isolation.InstanceIsolationTests.test_two_companies_enforce_sessions_objects_lists_files_and_offline_scope) ... ok
+2026-11-04T21:38:40.1831931Z test_unbound_legacy_app_does_not_bind_or_create_storage_and_configured_unbound_fails (test_instance_isolation.InstanceIsolationTests.test_unbound_legacy_app_does_not_bind_or_create_storage_and_configured_unbound_fails) ... ok
+2026-11-04T21:38:40.6878792Z test_unbound_legacy_instance_cannot_use_a_reserved_company_root (test_instance_isolation.InstanceIsolationTests.test_unbound_legacy_instance_cannot_use_a_reserved_company_root) ... ok
+2026-11-04T21:38:40.6879418Z 
+2026-11-04T21:38:40.6879560Z ----------------------------------------------------------------------
+2026-11-04T21:38:40.6879898Z Ran 10 tests in 5.308s
+2026-11-04T21:38:40.6880031Z 
+2026-11-04T21:38:40.6880101Z OK
+2026-11-04T21:38:42.6445197Z test_actual_catalog_source_right_revocation_closes_existing_chat_and_speech_in_only_one_company (test_company_assistant_isolation_review.CompanyAssistantIsolationReview.test_actual_catalog_source_right_revocation_closes_existing_chat_and_speech_in_only_one_company) ... ok
+2026-11-04T21:38:43.9391805Z test_actual_mismatched_provider_company_configuration_blocks_both_transports (test_company_assistant_isolation_review.CompanyAssistantIsolationReview.test_actual_mismatched_provider_company_configuration_blocks_both_transports) ... ok
+2026-11-04T21:38:45.3244072Z test_actual_same_nonces_keep_search_chat_speech_and_original_sources_in_each_instance (test_company_assistant_isolation_review.CompanyAssistantIsolationReview.test_actual_same_nonces_keep_search_chat_speech_and_original_sources_in_each_instance) ... ok
+2026-11-04T21:38:45.3249593Z test_online_ci_database_is_accepted_by_real_provisioning_guard (test_company_isolation_ci.CompanyIsolationCIContract.test_online_ci_database_is_accepted_by_real_provisioning_guard) ... ok
+2026-11-04T21:38:46.5996256Z test_two_processes_contexts_same_rule_ids_event_jobs_and_actual_actions (test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_contexts_same_rule_ids_event_jobs_and_actual_actions) ... ok
+2026-11-04T21:38:48.3401053Z test_two_processes_original_bytes_current_search_and_complete_archives (test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_original_bytes_current_search_and_complete_archives) ... ok
+2026-11-04T21:38:49.7612333Z test_two_processes_private_originals_and_fresh_download_permissions (test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_private_originals_and_fresh_download_permissions) ... ok
+2026-11-04T21:38:49.7614225Z test_two_processes_queue_and_separate_actual_parser_processes (test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_queue_and_separate_actual_parser_processes) ... skipped 'Set SMARTPLAN_TEST_PARSER_PYTHON for actual local parser acceptance'
+2026-11-04T21:38:55.3350377Z test_actual_two_runtime_roles_contexts_equal_rule_ids_events_and_actions (test_company_isolation_current_pg.CompanyIsolationCurrentPostgres.test_actual_two_runtime_roles_contexts_equal_rule_ids_events_and_actions) ... ok
+2026-11-04T21:39:00.7568517Z test_actual_two_runtime_roles_originals_search_and_full_archives (test_company_isolation_current_pg.CompanyIsolationCurrentPostgres.test_actual_two_runtime_roles_originals_search_and_full_archives) ... ok
+2026-11-04T21:39:04.9443697Z test_actual_two_runtime_roles_private_originals_and_fresh_permissions (test_company_isolation_current_pg.CompanyIsolationCurrentPostgres.test_actual_two_runtime_roles_private_originals_and_fresh_permissions) ... ok
+2026-11-04T21:39:04.9445506Z test_actual_two_runtime_roles_queue_and_separate_parser_processes (test_company_isolation_current_pg.CompanyIsolationCurrentPostgres.test_actual_two_runtime_roles_queue_and_separate_parser_processes) ... skipped 'Set SMARTPLAN_TEST_PARSER_PYTHON for actual local parser acceptance'
+2026-11-04T21:39:04.9446509Z 
+2026-11-04T21:39:04.9446790Z ----------------------------------------------------------------------
+2026-11-04T21:39:04.9447424Z Ran 12 tests in 23.947s
+2026-11-04T21:39:04.9447546Z 
+2026-11-04T21:39:04.9447614Z OK (skipped=2)
+2026-11-04T21:39:05.5596616Z test_onboarding_employee_suggestion_manual_override_and_history (test_organization_http.OrganizationHttpTests.test_onboarding_employee_suggestion_manual_override_and_history) ... ok
+2026-11-04T21:39:05.8041398Z test_query_and_field_injection_never_selects_another_company (test_organization_http.OrganizationHttpTests.test_query_and_field_injection_never_selects_another_company) ... ok
+2026-11-04T21:39:05.8042021Z 
+2026-11-04T21:39:05.8042164Z ----------------------------------------------------------------------
+2026-11-04T21:39:05.8042471Z Ran 2 tests in 0.583s
+2026-11-04T21:39:05.8042583Z 
+2026-11-04T21:39:05.8042689Z OK
+2026-11-04T21:39:06.5049350Z test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads) ... ok
+2026-11-04T21:39:07.0099163Z test_company_session_isolation_rejects_a_foreign_real_login (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_company_session_isolation_rejects_a_foreign_real_login) ... ok
+2026-11-04T21:39:07.5220097Z test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission) ... ok
+2026-11-04T21:39:07.8795368Z test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed) ... ok
+2026-11-04T21:39:08.2599576Z test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) ... ok
+2026-11-04T21:39:08.6112462Z test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access) ... ok
+2026-11-04T21:39:08.6113152Z 
+2026-11-04T21:39:08.6113303Z ----------------------------------------------------------------------
+2026-11-04T21:39:08.6113612Z Ran 6 tests in 2.556s
+2026-11-04T21:39:08.6113732Z 
+2026-11-04T21:39:08.6113805Z OK
+2026-11-04T21:39:09.5732829Z test_actual_http_replays_original_existing_customer_project (test_project_creation_replay.ProjectCreationHttpReplayTests.test_actual_http_replays_original_existing_customer_project) ... ok
+2026-11-04T21:39:09.7459102Z test_changed_command_rejected_and_receipt_unchanged (test_project_creation_replay.ProjectCreationReplayTests.test_changed_command_rejected_and_receipt_unchanged) ... ok
+2026-11-04T21:39:09.9117870Z test_invalid_request_id_does_not_create_anything (test_project_creation_replay.ProjectCreationReplayTests.test_invalid_request_id_does_not_create_anything) ... ok
+2026-11-04T21:39:10.0877825Z test_legacy_without_receipt_remains_explicit_new_creation (test_project_creation_replay.ProjectCreationReplayTests.test_legacy_without_receipt_remains_explicit_new_creation) ... ok
+2026-11-04T21:39:10.4051790Z test_online_dispatch_keeps_original_request_identifier (test_project_creation_replay.ProjectCreationReplayTests.test_online_dispatch_keeps_original_request_identifier) ... ok
+2026-11-04T21:39:10.5740641Z test_project_creation_preserves_enclosing_transaction (test_project_creation_replay.ProjectCreationReplayTests.test_project_creation_preserves_enclosing_transaction) ... ok
+2026-11-04T21:39:10.7515997Z test_receipt_failure_rolls_back_project_new_customer_and_audit (test_project_creation_replay.ProjectCreationReplayTests.test_receipt_failure_rolls_back_project_new_customer_and_audit) ... ok
+2026-11-04T21:39:10.9579373Z test_retry_after_restart_returns_original_without_second_customer_or_audit (test_project_creation_replay.ProjectCreationReplayTests.test_retry_after_restart_returns_original_without_second_customer_or_audit) ... ok
+2026-11-04T21:39:11.1295487Z test_retry_observes_revoked_owner_role (test_project_creation_replay.ProjectCreationReplayTests.test_retry_observes_revoked_owner_role) ... ok
+2026-11-04T21:39:11.1295966Z 
+2026-11-04T21:39:11.1296108Z ----------------------------------------------------------------------
+2026-11-04T21:39:11.1296404Z Ran 9 tests in 2.348s
+2026-11-04T21:39:11.1296521Z 
+2026-11-04T21:39:11.1296593Z OK
+2026-11-04T21:39:12.7579755Z test_independent_connections_replay_one_customer_project_and_receipt (test_project_creation_counterreview.ProjectCreationPostgresCounterreview.test_independent_connections_replay_one_customer_project_and_receipt) ... ok
+2026-11-04T21:39:14.0058634Z test_receipt_failure_and_outer_rollback_leave_no_partial_project (test_project_creation_counterreview.ProjectCreationPostgresCounterreview.test_receipt_failure_and_outer_rollback_leave_no_partial_project) ... ok
+2026-11-04T21:39:14.0059607Z 
+2026-11-04T21:39:14.0059917Z ----------------------------------------------------------------------
+2026-11-04T21:39:14.0060425Z Ran 2 tests in 2.626s
+2026-11-04T21:39:14.0060774Z 
+2026-11-04T21:39:14.0061115Z OK
+2026-11-04T21:39:16.0629165Z test_bound_runtime_rejects_missing_or_wrong_company_configuration (test_organization_pg.InstanceBindingPostgres.test_bound_runtime_rejects_missing_or_wrong_company_configuration) ... ok
+2026-11-04T21:39:17.9301480Z test_explicit_migrator_binding_survives_restart_and_runtime_cannot_change_identity (test_organization_pg.InstanceBindingPostgres.test_explicit_migrator_binding_survives_restart_and_runtime_cannot_change_identity) ... ok
+2026-11-04T21:39:19.6087158Z test_competing_runtime_writers_commit_one_revision_and_replay_it_after_reconnect (test_organization_pg.OrganizationPostgres.test_competing_runtime_writers_commit_one_revision_and_replay_it_after_reconnect) ... ok
+2026-11-04T21:39:21.3969736Z test_employee_suggestion_manual_override_history_and_permissions (test_organization_pg.OrganizationPostgres.test_employee_suggestion_manual_override_history_and_permissions) ... ok
+2026-11-04T21:39:21.3970577Z 
+2026-11-04T21:39:21.3971049Z ----------------------------------------------------------------------
+2026-11-04T21:39:21.3971708Z Ran 4 tests in 7.141s
+2026-11-04T21:39:21.3971827Z 
+2026-11-04T21:39:21.3971965Z OK
+2026-11-04T21:39:22.0167978Z test_disabled_material_stops_confirm_and_receipts_but_keeps_history_readable (test_purchasing_journey.PurchasingJourneyTests.test_disabled_material_stops_confirm_and_receipts_but_keeps_history_readable) ... ok
+2026-11-04T21:39:22.3119629Z test_overdelivery_batch_and_changed_article_unit_leave_stock_unchanged (test_purchasing_journey.PurchasingJourneyTests.test_overdelivery_batch_and_changed_article_unit_leave_stock_unchanged) ... ok
+2026-11-04T21:39:22.7551935Z test_partial_and_final_delivery_issue_valuation_and_signed_maintenance_survive_restart (test_purchasing_journey.PurchasingJourneyTests.test_partial_and_final_delivery_issue_valuation_and_signed_maintenance_survive_restart) ... ok
+2026-11-04T21:39:23.1680603Z test_receipt_prices_and_order_scope_are_checked_on_reads_writes_and_replay (test_purchasing_journey.PurchasingJourneyTests.test_receipt_prices_and_order_scope_are_checked_on_reads_writes_and_replay) ... ok
+2026-11-04T21:39:23.1681366Z 
+2026-11-04T21:39:23.1681512Z ----------------------------------------------------------------------
+2026-11-04T21:39:23.1681816Z Ran 4 tests in 1.514s
+2026-11-04T21:39:23.1681936Z 
+2026-11-04T21:39:23.1682007Z OK
+2026-11-04T21:39:24.0507901Z test_calculated_article_financial_snapshots_never_escape_via_draft_replay_or_scan (test_purchasing_catalog_http.PurchasingCatalogHTTPTests.test_calculated_article_financial_snapshots_never_escape_via_draft_replay_or_scan) ... ok
+2026-11-04T21:39:24.4307167Z test_inventory_reader_can_find_and_propose_unstocked_article_without_finance (test_purchasing_catalog_http.PurchasingCatalogHTTPTests.test_inventory_reader_can_find_and_propose_unstocked_article_without_finance) ... ok
+2026-11-04T21:39:24.9342841Z test_project_permission_and_membership_are_checked_again_on_every_read (test_purchasing_catalog_http.PurchasingCatalogHTTPTests.test_project_permission_and_membership_are_checked_again_on_every_read) ... ok
+2026-11-04T21:39:25.3461218Z test_search_pagination_and_rejected_filters_do_not_write_to_database (test_purchasing_catalog_http.PurchasingCatalogHTTPTests.test_search_pagination_and_rejected_filters_do_not_write_to_database) ... ok
+2026-11-04T21:39:25.3461634Z 
+2026-11-04T21:39:25.3461743Z ----------------------------------------------------------------------
+2026-11-04T21:39:25.3461943Z Ran 4 tests in 1.936s
+2026-11-04T21:39:25.3462029Z 
+2026-11-04T21:39:25.3462102Z OK
+2026-11-04T21:39:27.6359013Z test_additive_migration_preserves_real_issued_invoice_pdf_numbers_and_audit (test_postgres_purchasing_integration.PurchasingMigrationPostgres.test_additive_migration_preserves_real_issued_invoice_pdf_numbers_and_audit) ... ok
+2026-11-04T21:39:29.2074077Z test_failure_after_first_stock_post_rolls_back_header_lines_stock_and_receipt (test_postgres_purchasing_integration.PurchasingPostgres.test_failure_after_first_stock_post_rolls_back_header_lines_stock_and_receipt) ... ok
+2026-11-04T21:39:30.9677762Z test_http_partial_final_restart_replay_integrity_and_runtime_ledger_grants (test_postgres_purchasing_integration.PurchasingPostgres.test_http_partial_final_restart_replay_integrity_and_runtime_ledger_grants) ... ok
+2026-11-04T21:39:32.7993610Z test_permission_revocation_is_fresh_before_idempotent_receipt_replay (test_postgres_purchasing_integration.PurchasingPostgres.test_permission_revocation_is_fresh_before_idempotent_receipt_replay) ... ok
+2026-11-04T21:39:35.1793128Z test_price_free_catalogue_under_runtime_role_is_scoped_and_does_not_change_storage (test_postgres_purchasing_integration.PurchasingPostgres.test_price_free_catalogue_under_runtime_role_is_scoped_and_does_not_change_storage) ... ok
+2026-11-04T21:39:36.7966080Z test_separate_connections_competing_for_last_delivery_commit_once (test_postgres_purchasing_integration.PurchasingPostgres.test_separate_connections_competing_for_last_delivery_commit_once) ... ok
+2026-11-04T21:39:36.7966773Z 
+2026-11-04T21:39:36.7966916Z ----------------------------------------------------------------------
+2026-11-04T21:39:36.7967203Z Ran 6 tests in 11.196s
+2026-11-04T21:39:36.7967337Z 
+2026-11-04T21:39:36.7967409Z OK
+2026-11-04T21:39:37.4314052Z test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf (test_portal_http.PortalHTTPTests.test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf) ... ERROR
+2026-11-04T21:39:37.7628091Z test_expiry_logout_and_explicit_token_prefixes_are_enforced_through_http (test_portal_http.PortalHTTPTests.test_expiry_logout_and_explicit_token_prefixes_are_enforced_through_http) ... ok
+2026-11-04T21:39:38.5073603Z test_hmac_rate_limits_commit_before_auth_json_origin_and_trust_only_proxy_peer (test_portal_http.PortalHTTPTests.test_hmac_rate_limits_commit_before_auth_json_origin_and_trust_only_proxy_peer) ... ok
+2026-11-04T21:39:38.7957010Z test_origin_host_methods_query_and_body_are_closed_with_security_headers (test_portal_http.PortalHTTPTests.test_origin_host_methods_query_and_body_are_closed_with_security_headers) ... ok
+2026-11-04T21:39:39.2895995Z test_previous_registry_returns_503_without_request_migration_or_internal_details (test_portal_http.PortalHTTPTests.test_previous_registry_returns_503_without_request_migration_or_internal_details) ... ok
+2026-11-04T21:39:39.5868888Z test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access (test_portal_http.PortalHTTPTests.test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access) ... ERROR
+2026-11-04T21:39:39.8801148Z test_strict_json_rejects_ambiguous_nonfinite_compressed_and_oversized_inputs (test_portal_http.PortalHTTPTests.test_strict_json_rejects_ambiguous_nonfinite_compressed_and_oversized_inputs) ... ok
+2026-11-04T21:39:39.8801750Z 
+2026-11-04T21:39:39.8801871Z ======================================================================
+2026-11-04T21:39:39.8802641Z ERROR: test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf (test_portal_http.PortalHTTPTests.test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf)
+2026-11-04T21:39:39.8803445Z ----------------------------------------------------------------------
+2026-11-04T21:39:39.8803735Z Traceback (most recent call last):
+2026-11-04T21:39:39.8810294Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/online/test_portal_http.py", line 233, in test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf
+2026-11-04T21:39:39.8811042Z     saved = backup(self.path, self.directory / 'backup.sqlite3')
+2026-11-04T21:39:39.8811274Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-04T21:39:39.8811614Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 20, in backup
+2026-11-04T21:39:39.8827226Z ##[error]    raise RuntimeError('PostgreSQL-Sicherung fehlgeschlagen; pg_dump/Verbindung prüfen.')
+2026-11-04T21:39:39.8832292Z RuntimeError: PostgreSQL-Sicherung fehlgeschlagen; pg_dump/Verbindung prüfen.
+2026-11-04T21:39:39.8832468Z 
+2026-11-04T21:39:39.8832540Z ======================================================================
+2026-11-04T21:39:39.8832983Z ERROR: test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access (test_portal_http.PortalHTTPTests.test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access)
+2026-11-04T21:39:39.8833442Z ----------------------------------------------------------------------
+2026-11-04T21:39:39.8833841Z Traceback (most recent call last):
+2026-11-04T21:39:39.8834343Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/online/test_portal_http.py", line 261, in test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access
+2026-11-04T21:39:39.8834823Z     saved = backup(self.path, self.directory / 'backup.sqlite3')
+2026-11-04T21:39:39.8835018Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-04T21:39:39.8835353Z   File "/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 20, in backup
+2026-11-04T21:39:39.8836084Z ##[error]    raise RuntimeError('PostgreSQL-Sicherung fehlgeschlagen; pg_dump/Verbindung prüfen.')
+2026-11-04T21:39:39.8836688Z RuntimeError: PostgreSQL-Sicherung fehlgeschlagen; pg_dump/Verbindung prüfen.
+2026-11-04T21:39:39.8836854Z 
+2026-11-04T21:39:39.8836942Z ----------------------------------------------------------------------
+2026-11-04T21:39:39.8837122Z Ran 7 tests in 2.835s
+2026-11-04T21:39:39.8837198Z 
+2026-11-04T21:39:39.8837244Z FAILED (errors=2)
+2026-11-04T21:39:39.9317224Z ##[error]Process completed with exit code 1.
+2026-11-04T21:39:39.9389948Z Post job cleanup.
+2026-11-04T21:39:39.9942931Z [command]/usr/bin/git version
+2026-11-04T21:39:40.0003516Z git version 2.56.0
+2026-11-04T21:39:40.0025666Z Temporarily overriding HOME='/home/runner/work/_temp/ef178129-1215-40cd-a6ef-4d3c11a618f2' before making global git config changes
+2026-11-04T21:39:40.0026326Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T21:39:40.0028538Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-04T21:39:40.0059962Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T21:39:40.0087473Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T21:39:40.0290033Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T21:39:40.0313284Z http.https://github.com/.extraheader
+2026-11-04T21:39:40.0321635Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-04T21:39:40.0352141Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T21:39:40.0561658Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T21:39:40.0600661Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T21:39:40.0911612Z Print service container logs: 3775c64220d442c28362da9c2bb52df5_postgres16bookworm_1208b4
+2026-11-04T21:39:40.0915735Z ##[command]/usr/bin/docker logs --details 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:39:40.1020611Z  The files belonging to this database system will be owned by user "postgres".
+2026-11-04T21:39:40.1021012Z  This user must also own the server process.
+2026-11-04T21:39:40.1021338Z  
+2026-11-04T21:39:40.1021586Z  The database cluster will be initialized with locale "en_US.utf8".
+2026-11-04T21:39:40.1022704Z  initdb: warning: enabling "trust" authentication for local connections
+2026-11-04T21:39:40.1023312Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-11-04T21:39:40.1023885Z  The default database encoding has accordingly been set to "UTF8".
+2026-11-04T21:39:40.1024217Z  The default text search configuration will be set to "english".
+2026-11-04T21:39:40.1024394Z  
+2026-11-04T21:39:40.1024805Z  Data page checksums are disabled.
+2026-11-04T21:39:40.1025021Z  
+2026-11-04T21:39:40.1025265Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2026-11-04T21:39:40.1025580Z  creating subdirectories ... ok
+2026-11-04T21:39:40.1025753Z  selecting dynamic shared memory implementation ... posix
+2026-11-04T21:39:40.1025935Z  selecting default max_connections ... 100
+2026-11-04T21:39:40.1026094Z  selecting default shared_buffers ... 128MB
+2026-11-04T21:39:40.1026246Z  selecting default time zone ... Etc/UTC
+2026-11-04T21:39:40.1026395Z  creating configuration files ... ok
+2026-11-04T21:39:40.1026543Z  running bootstrap script ... ok
+2026-11-04T21:39:40.1026700Z  performing post-bootstrap initialization ... ok
+2026-11-04T21:39:40.1026862Z  syncing data to disk ... ok
+2026-11-04T21:39:40.1026986Z  
+2026-11-04T21:39:40.1027076Z  
+2026-11-04T21:39:40.1027198Z  Success. You can now start the database server using:
+2026-11-04T21:39:40.1027358Z  
+2026-11-04T21:39:40.1027487Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2026-11-04T21:39:40.1027652Z  
+2026-11-04T21:39:40.1028017Z  waiting for server to start....2026-11-04 21:37:30.768 UTC [49] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-11-04T21:39:40.1028496Z  2026-11-04 21:37:30.769 UTC [49] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-11-04T21:39:40.1028791Z  2026-11-04 21:37:30.771 UTC [52] LOG:  database system was shut down at 2026-11-04 21:37:30 UTC
+2026-11-04T21:39:40.1029062Z  2026-11-04 21:37:30.774 UTC [49] LOG:  database system is ready to accept connections
+2026-11-04T21:39:40.1029254Z   done
+2026-11-04T21:39:40.1029352Z  server started
+2026-11-04T21:39:40.1029460Z  CREATE DATABASE
+2026-11-04T21:39:40.1029561Z  
+2026-11-04T21:39:40.1030093Z  2026-11-04 21:37:31.149 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-11-04T21:39:40.1030424Z  
+2026-11-04T21:39:40.1030712Z  2026-11-04 21:37:31.149 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-11-04T21:39:40.1031216Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2026-11-04T21:39:40.1031598Z  2026-11-04 21:37:31.149 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-11-04T21:39:40.1031832Z  
+2026-11-04T21:39:40.1032141Z  2026-11-04 21:37:31.150 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-11-04T21:39:40.1032480Z  waiting for server to shut down...2026-11-04 21:37:30.932 UTC [49] LOG:  received fast shutdown request
+2026-11-04T21:39:40.1032906Z  2026-11-04 21:37:31.152 UTC [65] LOG:  database system was shut down at 2026-11-04 21:37:31 UTC
+2026-11-04T21:39:40.1033194Z  .2026-11-04 21:37:30.932 UTC [49] LOG:  aborting any active transactions
+2026-11-04T21:39:40.1033775Z  2026-11-04 21:37:31.155 UTC [1] LOG:  database system is ready to accept connections
+2026-11-04T21:39:40.1034177Z  2026-11-04 21:37:30.934 UTC [49] LOG:  background worker "logical replication launcher" (PID 55) exited with exit code 1
+2026-11-04T21:39:40.1034641Z  2026-11-04 21:37:45.558 UTC [95] FATAL:  terminating connection due to administrator command
+2026-11-04T21:39:40.1034914Z  2026-11-04 21:37:30.935 UTC [50] LOG:  shutting down
+2026-11-04T21:39:40.1035239Z  2026-11-04 21:37:48.697 UTC [63] LOG:  checkpoint starting: immediate force wait
+2026-11-04T21:39:40.1035524Z  2026-11-04 21:37:30.935 UTC [50] LOG:  checkpoint starting: shutdown immediate
+2026-11-04T21:39:40.1036298Z  2026-11-04 21:37:48.798 UTC [63] LOG:  checkpoint complete: wrote 1646 buffers (10.0%); 0 WAL file(s) added, 0 removed, 2 recycled; write=0.061 s, sync=0.015 s, total=0.102 s; sync files=3158, longest=0.001 s, average=0.001 s; distance=37434 kB, estimate=37434 kB; lsn=0/3DA0AB0, redo lsn=0/3DA0A78
+2026-11-04T21:39:40.1037180Z  2026-11-04 21:37:31.036 UTC [50] LOG:  checkpoint complete: wrote 922 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.065 s, sync=0.035 s, total=0.102 s; sync files=301, longest=0.029 s, average=0.001 s; distance=4255 kB, estimate=4255 kB; lsn=0/1912118, redo lsn=0/1912118
+2026-11-04T21:39:40.1038028Z  2026-11-04 21:38:53.091 UTC [335] FATAL:  permission denied for database "sp_test12826f6c1a89"
+2026-11-04T21:39:40.1038348Z  2026-11-04 21:37:31.043 UTC [49] LOG:  database system is shut down
+2026-11-04T21:39:40.1038639Z  2026-11-04 21:38:53.091 UTC [335] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1038934Z   done
+2026-11-04T21:39:40.1039210Z  2026-11-04 21:38:53.114 UTC [337] FATAL:  permission denied for database "sp_testefa85a7cf3b3"
+2026-11-04T21:39:40.1039614Z  2026-11-04 21:38:53.114 UTC [337] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1040011Z  2026-11-04 21:38:53.683 UTC [339] FATAL:  permission denied for database "sp_test12826f6c1a89"
+2026-11-04T21:39:40.1040414Z  2026-11-04 21:38:53.683 UTC [339] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1040815Z  2026-11-04 21:38:53.706 UTC [341] FATAL:  permission denied for database "sp_testefa85a7cf3b3"
+2026-11-04T21:39:40.1041304Z  2026-11-04 21:38:53.706 UTC [341] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1041671Z  2026-11-04 21:38:53.725 UTC [63] LOG:  checkpoint starting: immediate force wait
+2026-11-04T21:39:40.1042438Z  2026-11-04 21:38:54.901 UTC [63] LOG:  checkpoint complete: wrote 11432 buffers (69.8%); 0 WAL file(s) added, 0 removed, 24 recycled; write=0.432 s, sync=0.219 s, total=1.177 s; sync files=45246, longest=0.009 s, average=0.001 s; distance=381914 kB, estimate=381914 kB; lsn=0/1B297300, redo lsn=0/1B2972C8
+2026-11-04T21:39:40.1042990Z  2026-11-04 21:38:55.056 UTC [63] LOG:  checkpoint starting: immediate force wait
+2026-11-04T21:39:40.1043520Z  2026-11-04 21:38:55.058 UTC [63] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=86 kB, estimate=343731 kB; lsn=0/1B2ACE28, redo lsn=0/1B2ACDF0
+2026-11-04T21:39:40.1044077Z  2026-11-04 21:38:58.627 UTC [374] FATAL:  permission denied for database "sp_testbe450a0c9475"
+2026-11-04T21:39:40.1044333Z  2026-11-04 21:38:58.627 UTC [374] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1044587Z  2026-11-04 21:38:58.653 UTC [376] FATAL:  permission denied for database "sp_testeb096336ae36"
+2026-11-04T21:39:40.1044840Z  2026-11-04 21:38:58.653 UTC [376] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1045096Z  2026-11-04 21:39:00.149 UTC [378] FATAL:  permission denied for database "sp_testbe450a0c9475"
+2026-11-04T21:39:40.1045349Z  2026-11-04 21:39:00.149 UTC [378] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1045603Z  2026-11-04 21:39:00.174 UTC [380] FATAL:  permission denied for database "sp_testeb096336ae36"
+2026-11-04T21:39:40.1045972Z  2026-11-04 21:39:00.174 UTC [380] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1046208Z  2026-11-04 21:39:00.192 UTC [63] LOG:  checkpoint starting: immediate force wait
+2026-11-04T21:39:40.1046752Z  2026-11-04 21:39:00.417 UTC [63] LOG:  checkpoint complete: wrote 1809 buffers (11.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.083 s, sync=0.027 s, total=0.225 s; sync files=1858, longest=0.018 s, average=0.001 s; distance=29779 kB, estimate=312336 kB; lsn=0/1CFC1E20, redo lsn=0/1CFC1DE8
+2026-11-04T21:39:40.1047290Z  2026-11-04 21:39:00.558 UTC [63] LOG:  checkpoint starting: immediate force wait
+2026-11-04T21:39:40.1047811Z  2026-11-04 21:39:00.560 UTC [63] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=89 kB, estimate=281111 kB; lsn=0/1CFD8280, redo lsn=0/1CFD8248
+2026-11-04T21:39:40.1048361Z  2026-11-04 21:39:03.908 UTC [414] FATAL:  permission denied for database "sp_test24ca5c3bbfed"
+2026-11-04T21:39:40.1048703Z  2026-11-04 21:39:03.908 UTC [414] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1048960Z  2026-11-04 21:39:03.931 UTC [416] FATAL:  permission denied for database "sp_test89cf2686825d"
+2026-11-04T21:39:40.1049214Z  2026-11-04 21:39:03.931 UTC [416] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1049469Z  2026-11-04 21:39:04.490 UTC [418] FATAL:  permission denied for database "sp_test24ca5c3bbfed"
+2026-11-04T21:39:40.1049722Z  2026-11-04 21:39:04.490 UTC [418] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1049977Z  2026-11-04 21:39:04.514 UTC [420] FATAL:  permission denied for database "sp_test89cf2686825d"
+2026-11-04T21:39:40.1050228Z  2026-11-04 21:39:04.514 UTC [420] DETAIL:  User does not have CONNECT privilege.
+2026-11-04T21:39:40.1050459Z  2026-11-04 21:39:04.531 UTC [63] LOG:  checkpoint starting: immediate force wait
+2026-11-04T21:39:40.1051207Z  2026-11-04 21:39:04.651 UTC [63] LOG:  checkpoint complete: wrote 1798 buffers (11.0%); 0 WAL file(s) added, 0 removed, 2 recycled; write=0.082 s, sync=0.038 s, total=0.121 s; sync files=1859, longest=0.021 s, average=0.001 s; distance=29624 kB, estimate=255962 kB; lsn=0/1ECC6530, redo lsn=0/1ECC64F8
+2026-11-04T21:39:40.1051749Z  2026-11-04 21:39:04.774 UTC [63] LOG:  checkpoint starting: immediate force wait
+2026-11-04T21:39:40.1052274Z  2026-11-04 21:39:04.777 UTC [63] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=91 kB, estimate=230375 kB; lsn=0/1ECDD140, redo lsn=0/1ECDD108
+2026-11-04T21:39:40.1052826Z  2026-11-04 21:39:17.884 UTC [471] ERROR:  permission denied for table business_instance_identity
+2026-11-04T21:39:40.1053097Z  2026-11-04 21:39:17.884 UTC [471] STATEMENT:  DELETE FROM business_instance_identity
+2026-11-04T21:39:40.1053370Z  2026-11-04 21:39:17.885 UTC [471] ERROR:  permission denied for table business_instance_identity
+2026-11-04T21:39:40.1053699Z  2026-11-04 21:39:17.885 UTC [471] STATEMENT:  UPDATE business_instance_identity SET public_host='other.example.test'
+2026-11-04T21:39:40.1054025Z  2026-11-04 21:39:17.885 UTC [471] ERROR:  permission denied for table business_instance_identity
+2026-11-04T21:39:40.1054358Z  2026-11-04 21:39:17.885 UTC [471] STATEMENT:  INSERT INTO business_instance_identity SELECT * FROM business_instance_identity
+2026-11-04T21:39:40.1054694Z  2026-11-04 21:39:17.886 UTC [471] ERROR:  permission denied for table business_instance_identity
+2026-11-04T21:39:40.1054956Z  2026-11-04 21:39:17.886 UTC [471] STATEMENT:  TRUNCATE business_instance_identity
+2026-11-04T21:39:40.1055226Z  2026-11-04 21:39:21.267 UTC [499] ERROR:  permission denied for table business_organization_events
+2026-11-04T21:39:40.1055503Z  2026-11-04 21:39:21.267 UTC [499] STATEMENT:  DELETE FROM business_organization_events
+2026-11-04T21:39:40.1055886Z  2026-11-04 21:39:21.268 UTC [499] ERROR:  permission denied for table business_organization_events
+2026-11-04T21:39:40.1056180Z  2026-11-04 21:39:21.268 UTC [499] STATEMENT:  UPDATE business_organization_events SET revision=2
+2026-11-04T21:39:40.1056466Z  2026-11-04 21:39:30.813 UTC [534] ERROR:  permission denied for table business_purchasing_requests
+2026-11-04T21:39:40.1056742Z  2026-11-04 21:39:30.813 UTC [534] STATEMENT:  DELETE FROM business_purchasing_requests
+2026-11-04T21:39:40.1057016Z  2026-11-04 21:39:30.814 UTC [534] ERROR:  permission denied for table business_purchasing_requests
+2026-11-04T21:39:40.1057311Z  2026-11-04 21:39:30.814 UTC [534] STATEMENT:  UPDATE business_purchasing_requests SET user_id=user_id
+2026-11-04T21:39:40.1057604Z  2026-11-04 21:39:30.814 UTC [534] ERROR:  permission denied for table business_purchasing_requests
+2026-11-04T21:39:40.1057872Z  2026-11-04 21:39:30.814 UTC [534] STATEMENT:  TRUNCATE business_purchasing_requests
+2026-11-04T21:39:40.1058156Z  2026-11-04 21:39:30.814 UTC [534] ERROR:  permission denied for table business_purchase_confirmations
+2026-11-04T21:39:40.1058539Z  2026-11-04 21:39:30.814 UTC [534] STATEMENT:  DELETE FROM business_purchase_confirmations
+2026-11-04T21:39:40.1058822Z  2026-11-04 21:39:30.815 UTC [534] ERROR:  permission denied for table business_purchase_confirmations
+2026-11-04T21:39:40.1059134Z  2026-11-04 21:39:30.815 UTC [534] STATEMENT:  UPDATE business_purchase_confirmations SET order_id=order_id
+2026-11-04T21:39:40.1059446Z  2026-11-04 21:39:30.815 UTC [534] ERROR:  permission denied for table business_purchase_confirmations
+2026-11-04T21:39:40.1068657Z  2026-11-04 21:39:30.815 UTC [534] STATEMENT:  TRUNCATE business_purchase_confirmations
+2026-11-04T21:39:40.1068961Z  2026-11-04 21:39:30.816 UTC [534] ERROR:  permission denied for table business_purchase_receipts
+2026-11-04T21:39:40.1069235Z  2026-11-04 21:39:30.816 UTC [534] STATEMENT:  DELETE FROM business_purchase_receipts
+2026-11-04T21:39:40.1069512Z  2026-11-04 21:39:30.816 UTC [534] ERROR:  permission denied for table business_purchase_receipts
+2026-11-04T21:39:40.1069792Z  2026-11-04 21:39:30.816 UTC [534] STATEMENT:  UPDATE business_purchase_receipts SET id=id
+2026-11-04T21:39:40.1070068Z  2026-11-04 21:39:30.817 UTC [534] ERROR:  permission denied for table business_purchase_receipts
+2026-11-04T21:39:40.1070280Z  server stopped
+2026-11-04T21:39:40.1070457Z  2026-11-04 21:39:30.817 UTC [534] STATEMENT:  TRUNCATE business_purchase_receipts
+2026-11-04T21:39:40.1070737Z  2026-11-04 21:39:30.817 UTC [534] ERROR:  permission denied for table business_purchase_receipt_lines
+2026-11-04T21:39:40.1071164Z  2026-11-04 21:39:30.817 UTC [534] STATEMENT:  DELETE FROM business_purchase_receipt_lines
+2026-11-04T21:39:40.1071449Z  2026-11-04 21:39:30.818 UTC [534] ERROR:  permission denied for table business_purchase_receipt_lines
+2026-11-04T21:39:40.1071772Z  2026-11-04 21:39:30.818 UTC [534] STATEMENT:  UPDATE business_purchase_receipt_lines SET receipt_id=receipt_id
+2026-11-04T21:39:40.1072095Z  2026-11-04 21:39:30.818 UTC [534] ERROR:  permission denied for table business_purchase_receipt_lines
+2026-11-04T21:39:40.1072380Z  2026-11-04 21:39:30.818 UTC [534] STATEMENT:  TRUNCATE business_purchase_receipt_lines
+2026-11-04T21:39:40.1072572Z  
+2026-11-04T21:39:40.1072701Z  PostgreSQL init process complete; ready for start up.
+2026-11-04T21:39:40.1072857Z  
+2026-11-04T21:39:40.1075874Z Stop and remove container: 3775c64220d442c28362da9c2bb52df5_postgres16bookworm_1208b4
+2026-11-04T21:39:40.1079076Z ##[command]/usr/bin/docker rm --force 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:39:40.4793568Z 3f5ec274a39651dad90b5302e46d5ff0a23c211428ef1c28c16f485e4944c189
+2026-11-04T21:39:40.4821495Z Remove container network: github_network_1a102782b4e942349c65c1529e3a18e9
+2026-11-04T21:39:40.4823932Z ##[command]/usr/bin/docker network rm github_network_1a102782b4e942349c65c1529e3a18e9
+2026-11-04T21:39:40.5518913Z github_network_1a102782b4e942349c65c1529e3a18e9
+2026-11-04T21:39:40.5584869Z Cleaning up orphan processes
+2026-11-04T21:39:40.5844268Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

@@ -13,7 +13,7 @@ from business_customer_workspace import CustomerWorkspace, MAX_UPLOAD
 from core import Office
 from online import test_portal_http as fixture
 from online.web import create_app
-from restore import restore
+from backend.restore import restore
 from test_business_customer_workspace import png
 
 

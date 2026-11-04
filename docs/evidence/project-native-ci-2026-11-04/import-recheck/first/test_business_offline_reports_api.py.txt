@@ -1,0 +1,36 @@
+test_ambiguous_json_query_get_body_and_extra_capture_fields_never_write (test_business_offline_reports_api.OfflineReportsHttpTests.test_ambiguous_json_query_get_body_and_extra_capture_fields_never_write) ... ok
+test_capture_get_and_pdf_are_own_only_and_project_permissions_are_fresh (test_business_offline_reports_api.OfflineReportsHttpTests.test_capture_get_and_pdf_are_own_only_and_project_permissions_are_fresh) ... ok
+test_frozen_capture_receipt_and_pdf_are_one_integrated_archive (test_business_offline_reports_api.OfflineReportsHttpTests.test_frozen_capture_receipt_and_pdf_are_one_integrated_archive) ... ok
+test_old_tokens_and_narrow_report_token_cannot_open_other_business_routes (test_business_offline_reports_api.OfflineReportsHttpTests.test_old_tokens_and_narrow_report_token_cannot_open_other_business_routes) ... ok
+test_pause_retains_project_hints_and_original_command_can_retry_after_resume (test_business_offline_reports_api.OfflineReportsHttpTests.test_pause_retains_project_hints_and_original_command_can_retry_after_resume) ... ok
+test_project_scoped_grant_and_write_revocation_are_enforced_server_side (test_business_offline_reports_api.OfflineReportsHttpTests.test_project_scoped_grant_and_write_revocation_are_enforced_server_side) ... ok
+test_render_does_not_hold_global_lock_and_final_recheck_stops_revoked_write (test_business_offline_reports_api.OfflineReportsHttpTests.test_render_does_not_hold_global_lock_and_final_recheck_stops_revoked_write) ... ok
+test_restore_keeps_exact_capture_pdf_and_receipt_but_revokes_device_token (test_business_offline_reports_api.OfflineReportsHttpTests.test_restore_keeps_exact_capture_pdf_and_receipt_but_revokes_device_token) ... ERROR
+test_actual_trusted_tls_normal_mfa_retry_and_integrated_archive (test_business_offline_reports_api.OfflineReportsTlsTests.test_actual_trusted_tls_normal_mfa_retry_and_integrated_archive) ... ok
+
+======================================================================
+ERROR: test_restore_keeps_exact_capture_pdf_and_receipt_but_revokes_device_token (test_business_offline_reports_api.OfflineReportsHttpTests.test_restore_keeps_exact_capture_pdf_and_receipt_but_revokes_device_token)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_business_offline_reports_api.py", line 230, in test_restore_keeps_exact_capture_pdf_and_receipt_but_revokes_device_token
+    destination = restore(source, Path(self.temporary.name) / 'restored.db')
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/restore.py", line 12, in restore
+    target = backup(source, destination)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.027s
+
+FAILED (errors=1)

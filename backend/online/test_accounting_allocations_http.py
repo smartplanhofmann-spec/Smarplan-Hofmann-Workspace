@@ -15,11 +15,11 @@ import unittest
 from unittest.mock import patch
 import uuid
 
-from backup import backup
+from backend.backup import backup
 from business_accounting import restore_horizon as prejournal_horizon
 import business_schema
 from core import Office, Problem
-from restore import restore
+from backend.restore import restore
 from online import test_accounting_http as operator_fixture
 from online import test_accounting_journey as journey
 

@@ -1,0 +1,18 @@
+test_actual_sqlite_restore_kills_old_link_and_session_but_retains_accepted_source (test_portal_journey.PortalJourneyTests.test_actual_sqlite_restore_kills_old_link_and_session_but_retains_accepted_source) ... ok
+test_adoption_rollback_and_existing_manual_order_never_duplicate_targets (test_portal_journey.PortalJourneyTests.test_adoption_rollback_and_existing_manual_order_never_duplicate_targets) ... ok
+test_disabled_documents_keep_history_and_security_revocation_available (test_portal_journey.PortalJourneyTests.test_disabled_documents_keep_history_and_security_revocation_available) ... ok
+test_fresh_staff_permissions_precede_saved_grant_and_adoption_receipts (test_portal_journey.PortalJourneyTests.test_fresh_staff_permissions_precede_saved_grant_and_adoption_receipts) ... ok
+test_known_customer_binding_change_and_revocation_reject_sessions_and_decision_replay (test_portal_journey.PortalJourneyTests.test_known_customer_binding_change_and_revocation_reject_sessions_and_decision_replay) ... ok
+test_one_time_staff_link_receipt_customer_decision_and_adoption_are_immutable_and_idempotent (test_portal_journey.PortalJourneyTests.test_one_time_staff_link_receipt_customer_decision_and_adoption_are_immutable_and_idempotent) ... ok
+test_origin_token_boundary_and_failed_session_attempts_are_enforced (test_portal_journey.PortalJourneyTests.test_origin_token_boundary_and_failed_session_attempts_are_enforced) ... ok
+test_real_tls_socket_trusts_only_synthetic_ca_and_correct_hostname (test_portal_journey.PortalJourneyTests.test_real_tls_socket_trusts_only_synthetic_ca_and_correct_hostname) ... 127.0.0.1 - - [04/Nov/2026 21:44:59] "[35m[1mPOST /api/v1/portal/sessions HTTP/1.1[0m" 201 -
+127.0.0.1 - - [04/Nov/2026 21:44:59] "GET /api/v1/portal/offer HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 21:44:59] "GET /api/v1/portal/offer/pdf HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 21:44:59] "[35m[1mPOST /api/v1/portal/offer/decision HTTP/1.1[0m" 201 -
+ok
+test_two_customers_and_two_bound_company_databases_isolate_tokens_sources_and_original_pdfs (test_portal_journey.PortalJourneyTests.test_two_customers_and_two_bound_company_databases_isolate_tokens_sources_and_original_pdfs) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.334s
+
+OK

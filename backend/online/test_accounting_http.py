@@ -16,11 +16,11 @@ import unittest
 from unittest.mock import patch
 import uuid
 
-from backup import backup
+from backend.backup import backup
 import business_schema
 from business_accounting import restore_horizon
 from core import Office, Problem
-from restore import restore
+from backend.restore import restore
 from online import test_accounting_journey as journey
 
 

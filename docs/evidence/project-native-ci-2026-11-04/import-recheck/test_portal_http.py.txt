@@ -1,0 +1,12 @@
+test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf (test_portal_http.PortalHTTPTests.test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf) ... ok
+test_expiry_logout_and_explicit_token_prefixes_are_enforced_through_http (test_portal_http.PortalHTTPTests.test_expiry_logout_and_explicit_token_prefixes_are_enforced_through_http) ... ok
+test_hmac_rate_limits_commit_before_auth_json_origin_and_trust_only_proxy_peer (test_portal_http.PortalHTTPTests.test_hmac_rate_limits_commit_before_auth_json_origin_and_trust_only_proxy_peer) ... ok
+test_origin_host_methods_query_and_body_are_closed_with_security_headers (test_portal_http.PortalHTTPTests.test_origin_host_methods_query_and_body_are_closed_with_security_headers) ... ok
+test_previous_registry_returns_503_without_request_migration_or_internal_details (test_portal_http.PortalHTTPTests.test_previous_registry_returns_503_without_request_migration_or_internal_details) ... ok
+test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access (test_portal_http.PortalHTTPTests.test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access) ... ok
+test_strict_json_rejects_ambiguous_nonfinite_compressed_and_oversized_inputs (test_portal_http.PortalHTTPTests.test_strict_json_rejects_ambiguous_nonfinite_compressed_and_oversized_inputs) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.995s
+
+OK

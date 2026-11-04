@@ -1,0 +1,12 @@
+test_methods_parameters_and_customer_or_offline_tokens_cannot_access_refund_sources (test_accounting_refunds_http.AccountingRefundHTTPTests.test_methods_parameters_and_customer_or_offline_tokens_cannot_access_refund_sources) ... ok
+test_new_operator_release_requires_complete_current_scope_even_for_empty_refund_scope (test_accounting_refunds_http.AccountingRefundHTTPTests.test_new_operator_release_requires_complete_current_scope_even_for_empty_refund_scope) ... ok
+test_partial_refund_installation_never_falls_back_or_repairs_the_old_horizons (test_accounting_refunds_http.AccountingRefundHTTPTests.test_partial_refund_installation_never_falls_back_or_repairs_the_old_horizons) ... ok
+test_private_origin_access_is_checked_before_candidates_preview_and_bound_history (test_accounting_refunds_http.AccountingRefundHTTPTests.test_private_origin_access_is_checked_before_candidates_preview_and_bound_history) ... ok
+test_real_restore_blocks_new_and_replayed_refunds_until_current_schema_cli_release (test_accounting_refunds_http.AccountingRefundHTTPTests.test_real_restore_blocks_new_and_replayed_refunds_until_current_schema_cli_release) ... ok
+test_refund_binding_changes_only_r1_and_preserves_finance_e1a_c1_and_old_replays (test_accounting_refunds_http.AccountingRefundHTTPTests.test_refund_binding_changes_only_r1_and_preserves_finance_e1a_c1_and_old_replays) ... ok
+test_schema4_receipt_survives_real_migration_but_cannot_unlock_a_new_restore (test_accounting_refunds_http.AccountingRefundHTTPTests.test_schema4_receipt_survives_real_migration_but_cannot_unlock_a_new_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 8.983s
+
+OK

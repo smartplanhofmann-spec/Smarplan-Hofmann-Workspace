@@ -1,0 +1,35 @@
+test_actual_sqlite_restore_preserves_events_and_blocks_new_writes_until_operator_reconciliation (test_accounting_journey.AccountingJourneyTests.test_actual_sqlite_restore_preserves_events_and_blocks_new_writes_until_operator_reconciliation) ... ERROR
+test_changed_receipt_review_blocks_new_payout_but_preserves_historical_replay (test_accounting_journey.AccountingJourneyTests.test_changed_receipt_review_blocks_new_payout_but_preserves_historical_replay) ... ok
+test_existing_payments_and_refunds_are_imported_once_without_creating_payments (test_accounting_journey.AccountingJourneyTests.test_existing_payments_and_refunds_are_imported_once_without_creating_payments) ... ok
+test_fresh_global_and_source_permissions_gate_reads_and_historical_replays (test_accounting_journey.AccountingJourneyTests.test_fresh_global_and_source_permissions_gate_reads_and_historical_replays) ... ok
+test_partial_payouts_replay_and_restart_preserve_original_sources_and_account_version (test_accounting_journey.AccountingJourneyTests.test_partial_payouts_replay_and_restart_preserve_original_sources_and_account_version) ... ok
+test_private_sources_stay_private_and_duplicate_original_never_opens_another_budget (test_accounting_journey.AccountingJourneyTests.test_private_sources_stay_private_and_duplicate_original_never_opens_another_budget) ... ok
+test_separate_company_database_and_tokens_cannot_read_or_import_foreign_sources (test_accounting_journey.AccountingJourneyTests.test_separate_company_database_and_tokens_cannot_read_or_import_foreign_sources) ... ok
+test_status_strict_inputs_and_visible_pagination_do_not_claim_tax_results (test_accounting_journey.AccountingJourneyTests.test_status_strict_inputs_and_visible_pagination_do_not_claim_tax_results) ... ok
+
+======================================================================
+ERROR: test_actual_sqlite_restore_preserves_events_and_blocks_new_writes_until_operator_reconciliation (test_accounting_journey.AccountingJourneyTests.test_actual_sqlite_restore_preserves_events_and_blocks_new_writes_until_operator_reconciliation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_accounting_journey.py", line 355, in test_actual_sqlite_restore_preserves_events_and_blocks_new_writes_until_operator_reconciliation
+    restored = restore(saved, self.directory / 'restored-alpha.sqlite3')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/restore.py", line 12, in restore
+    target = backup(source, destination)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.769s
+
+FAILED (errors=1)

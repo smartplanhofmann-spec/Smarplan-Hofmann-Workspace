@@ -1,0 +1,56 @@
+test_actual_restore_blocks_new_and_replayed_capacity_until_current_schema_operator_release (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_actual_restore_blocks_new_and_replayed_capacity_until_current_schema_operator_release) ... ERROR
+test_current_schema_is_required_even_for_empty_scope_and_malformed_subhorizons_never_write (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_current_schema_is_required_even_for_empty_scope_and_malformed_subhorizons_never_write) ... ok
+test_mode_gate_cannot_resolve_lost_accepted_c1_or_c2_acknowledgements (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_mode_gate_cannot_resolve_lost_accepted_c1_or_c2_acknowledgements) ... ok
+test_partial_capacity_installation_cannot_downgrade_horizon_or_repair_on_read (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_partial_capacity_installation_cannot_downgrade_horizon_or_repair_on_read) ... ok
+test_strict_http_method_query_payload_and_offline_boundaries (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_strict_http_method_query_payload_and_offline_boundaries) ... ok
+test_successful_schema5_receipt_replays_after_migration_but_never_unlocks_new_restore (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_successful_schema5_receipt_replays_after_migration_but_never_unlocks_new_restore) ... ERROR
+test_takeover_changes_only_capacity_keeps_old_receipts_and_rejects_unaccepted_old_command (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_takeover_changes_only_capacity_keeps_old_receipts_and_rejects_unaccepted_old_command) ... ok
+
+======================================================================
+ERROR: test_actual_restore_blocks_new_and_replayed_capacity_until_current_schema_operator_release (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_actual_restore_blocks_new_and_replayed_capacity_until_current_schema_operator_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_accounting_capacity_http.py", line 210, in test_actual_restore_blocks_new_and_replayed_capacity_until_current_schema_operator_release
+    target = restore(saved, self.directory / 'capacity-restored.sqlite3')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/restore.py", line 12, in restore
+    target = backup(source, destination)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+======================================================================
+ERROR: test_successful_schema5_receipt_replays_after_migration_but_never_unlocks_new_restore (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_successful_schema5_receipt_replays_after_migration_but_never_unlocks_new_restore)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_accounting_capacity_http.py", line 187, in test_successful_schema5_receipt_replays_after_migration_but_never_unlocks_new_restore
+    restored = Office(restore(saved, self.directory / 'capacity-historical-restored.sqlite3'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/restore.py", line 12, in restore
+    target = backup(source, destination)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+----------------------------------------------------------------------
+Ran 7 tests in 6.581s
+
+FAILED (errors=2)

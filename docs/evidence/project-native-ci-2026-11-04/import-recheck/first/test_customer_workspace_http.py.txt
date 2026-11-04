@@ -1,0 +1,33 @@
+test_actual_restore_retains_originals_and_receipts_but_revokes_all_customer_access (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_actual_restore_retains_originals_and_receipts_but_revokes_all_customer_access) ... ERROR
+test_actual_upload_review_accept_publish_download_and_identical_replies (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_actual_upload_review_accept_publish_download_and_identical_replies) ... ok
+test_duplicate_nonfinite_compressed_and_malformed_customer_uploads_fail_closed (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_duplicate_nonfinite_compressed_and_malformed_customer_uploads_fail_closed) ... ok
+test_large_supported_upload_uses_bounded_customer_limit_not_staff_json_limit (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_large_supported_upload_uses_bounded_customer_limit_not_staff_json_limit) ... ok
+test_modulpause_stops_new_work_but_allows_explicit_revocation (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_modulpause_stops_new_work_but_allows_explicit_revocation) ... ok
+test_no_credential_family_can_cross_and_public_paths_remain_strict (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_no_credential_family_can_cross_and_public_paths_remain_strict) ... ok
+test_separate_company_database_never_accepts_other_company_links_tokens_or_originals (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_separate_company_database_never_accepts_other_company_links_tokens_or_originals) ... ok
+
+======================================================================
+ERROR: test_actual_restore_retains_originals_and_receipts_but_revokes_all_customer_access (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_actual_restore_retains_originals_and_receipts_but_revokes_all_customer_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_customer_workspace_http.py", line 168, in test_actual_restore_retains_originals_and_receipts_but_revokes_all_customer_access
+    restore(self.path, destination)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/restore.py", line 12, in restore
+    target = backup(source, destination)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.311s
+
+FAILED (errors=1)

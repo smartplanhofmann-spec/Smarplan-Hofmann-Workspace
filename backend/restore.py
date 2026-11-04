@@ -5,7 +5,10 @@ import sqlite3
 import uuid
 from pathlib import Path
 
-from backup import backup
+if __package__:
+    from .backup import backup
+else:
+    from backup import backup
 
 
 def restore(source, destination):

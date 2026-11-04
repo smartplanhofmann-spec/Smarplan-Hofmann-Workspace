@@ -14,10 +14,10 @@ import unittest
 from unittest.mock import patch
 import uuid
 
-from backup import backup
+from backend.backup import backup
 import business_schema
 from core import Office, Problem, canonical
-from restore import restore
+from backend.restore import restore
 from online import test_accounting_refunds_v2_http as refunds
 from online import test_accounting_journey as journey
 

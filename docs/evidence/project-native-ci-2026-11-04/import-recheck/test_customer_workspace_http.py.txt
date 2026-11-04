@@ -1,0 +1,12 @@
+test_actual_restore_retains_originals_and_receipts_but_revokes_all_customer_access (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_actual_restore_retains_originals_and_receipts_but_revokes_all_customer_access) ... ok
+test_actual_upload_review_accept_publish_download_and_identical_replies (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_actual_upload_review_accept_publish_download_and_identical_replies) ... ok
+test_duplicate_nonfinite_compressed_and_malformed_customer_uploads_fail_closed (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_duplicate_nonfinite_compressed_and_malformed_customer_uploads_fail_closed) ... ok
+test_large_supported_upload_uses_bounded_customer_limit_not_staff_json_limit (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_large_supported_upload_uses_bounded_customer_limit_not_staff_json_limit) ... ok
+test_modulpause_stops_new_work_but_allows_explicit_revocation (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_modulpause_stops_new_work_but_allows_explicit_revocation) ... ok
+test_no_credential_family_can_cross_and_public_paths_remain_strict (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_no_credential_family_can_cross_and_public_paths_remain_strict) ... ok
+test_separate_company_database_never_accepts_other_company_links_tokens_or_originals (test_customer_workspace_http.CustomerWorkspaceHTTPTests.test_separate_company_database_never_accepts_other_company_links_tokens_or_originals) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.486s
+
+OK

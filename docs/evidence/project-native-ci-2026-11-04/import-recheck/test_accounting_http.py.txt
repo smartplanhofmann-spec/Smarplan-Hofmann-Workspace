@@ -1,0 +1,13 @@
+test_actual_restore_cli_reviews_bytes_then_unblocks_without_mutating_sources_or_reimporting (test_accounting_http.AccountingHTTPTests.test_actual_restore_cli_reviews_bytes_then_unblocks_without_mutating_sources_or_reimporting) ... ok
+test_cli_inspection_is_read_only_even_while_restore_is_pending_and_is_not_an_approval_report (test_accounting_http.AccountingHTTPTests.test_cli_inspection_is_read_only_even_while_restore_is_pending_and_is_not_an_approval_report) ... ok
+test_cli_rejects_ambiguous_or_public_reports_symlinks_and_missing_databases_without_writes (test_accounting_http.AccountingHTTPTests.test_cli_rejects_ambiguous_or_public_reports_symlinks_and_missing_databases_without_writes) ... ok
+test_current_report_requires_exact_cash_horizon_and_independent_external_review_atomically (test_accounting_http.AccountingHTTPTests.test_current_report_requires_exact_cash_horizon_and_independent_external_review_atomically) ... ok
+test_local_operator_refuses_enclosing_transaction_and_competing_writer (test_accounting_http.AccountingHTTPTests.test_local_operator_refuses_enclosing_transaction_and_competing_writer) ... ok
+test_malformed_money_and_source_fields_never_round_or_create_cash_events (test_accounting_http.AccountingHTTPTests.test_malformed_money_and_source_fields_never_round_or_create_cash_events) ... ok
+test_schema1_compatibility_and_legacy_restore_without_adding_accounting_tables (test_accounting_http.AccountingHTTPTests.test_schema1_compatibility_and_legacy_restore_without_adding_accounting_tables) ... ok
+test_scope_methods_unknown_fields_and_customer_offline_tokens_never_open_accounting (test_accounting_http.AccountingHTTPTests.test_scope_methods_unknown_fields_and_customer_offline_tokens_never_open_accounting) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 5.538s
+
+OK

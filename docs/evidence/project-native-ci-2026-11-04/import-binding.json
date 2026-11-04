@@ -1,0 +1,24 @@
+{
+  "base_commit": "9c9742e2ca771909769710fc7354daba3d27f51e",
+  "cause": "unittest discovery prioritizes backend/online; bare backup/restore imports chose PostgreSQL helpers for SQLite tests, including the transitive import in package-loaded backend.restore.",
+  "change": "Explicit backend package imports in twelve online tests; backend.restore uses relative SQLite helper when package-loaded, retains previous bare import in script/top-level mode.",
+  "online_cases_passed": 89,
+  "online_modules_passed": 12,
+  "legacy_backup_cases_passed": 2,
+  "test_bodies_and_assertions_unchanged": true,
+  "source_sha256": {
+    "backend/restore.py": "3573bf9bfb638fb28f97ed44f06e457df33e34cec79dc431d0ce8bc9f107447d",
+    "backend/online/test_portal_http.py": "f182b4c0d2ba79ea6771334dfdc92b9b4546b753c30be5b13946099838a58ca4",
+    "backend/online/test_accounting_refunds_http.py": "10d4f6d2c5fef42040ee52e3cd911b357067be0ddeda7f8ba2b640ea5577b4bc",
+    "backend/online/test_accounting_allocations_http.py": "5d76bc4b7dac6c5b912895aa586fe3d5d1069fd0735c594950a8eff56ad853f1",
+    "backend/online/test_business_offline_reports_api.py": "aa0eb69173f59018f21b3e928a433c637066c2b8423ea8e6de92c27f68e445ba",
+    "backend/online/test_accounting_refunds_v2_http.py": "37d5c8d5978a374d042d40f4abf73e874c0671701fe0022e15ca656b030643db",
+    "backend/online/test_accounting_components_http.py": "80758694da9a14ff645fb466544618055053621d11b24e9f54b6928f050a6592",
+    "backend/online/test_portal_journey.py": "ebb7b2f96d174ede47328048e944b00c41c8677504dd4aac383cde41379dba35",
+    "backend/online/test_accounting_journey.py": "5fd7c9ebd8fad6609ead3758324da9277f405df2e7aef174c32350368f2ea9ae",
+    "backend/online/test_customer_workspace_http.py": "3597f27794b8838be216c4b515f5ba5f126ebfd4a6512df00fa8ad12f42a9546",
+    "backend/online/test_accounting_capacity_http.py": "0602462bc08bf6ba2477d8acedae9ec1e103083edd45581bd9e411a7e714ed51",
+    "backend/online/test_accounting_http.py": "f9d904486c629badc5f2dfe968d1f4dd5b7fe767198f4e2bc9bfcfc65dc6d6aa",
+    "backend/online/test_accounting_profile_http.py": "d8c7e5b4c5ba2e560bd0fef36a3d96b81aed63330ef0769ff87d016a858cec9a"
+  }
+}

@@ -20,7 +20,7 @@ import business_operations
 import business_schema
 from core import Office, canonical, digest
 import plan_access
-from restore import restore
+from backend.restore import restore
 from online.web import create_app
 from online import test_accounting_journey as journey
 from online import test_accounting_allocations_journey as tls_fixture

@@ -1,0 +1,14 @@
+test_ambiguous_json_query_get_body_and_extra_capture_fields_never_write (test_business_offline_reports_api.OfflineReportsHttpTests.test_ambiguous_json_query_get_body_and_extra_capture_fields_never_write) ... ok
+test_capture_get_and_pdf_are_own_only_and_project_permissions_are_fresh (test_business_offline_reports_api.OfflineReportsHttpTests.test_capture_get_and_pdf_are_own_only_and_project_permissions_are_fresh) ... ok
+test_frozen_capture_receipt_and_pdf_are_one_integrated_archive (test_business_offline_reports_api.OfflineReportsHttpTests.test_frozen_capture_receipt_and_pdf_are_one_integrated_archive) ... ok
+test_old_tokens_and_narrow_report_token_cannot_open_other_business_routes (test_business_offline_reports_api.OfflineReportsHttpTests.test_old_tokens_and_narrow_report_token_cannot_open_other_business_routes) ... ok
+test_pause_retains_project_hints_and_original_command_can_retry_after_resume (test_business_offline_reports_api.OfflineReportsHttpTests.test_pause_retains_project_hints_and_original_command_can_retry_after_resume) ... ok
+test_project_scoped_grant_and_write_revocation_are_enforced_server_side (test_business_offline_reports_api.OfflineReportsHttpTests.test_project_scoped_grant_and_write_revocation_are_enforced_server_side) ... ok
+test_render_does_not_hold_global_lock_and_final_recheck_stops_revoked_write (test_business_offline_reports_api.OfflineReportsHttpTests.test_render_does_not_hold_global_lock_and_final_recheck_stops_revoked_write) ... ok
+test_restore_keeps_exact_capture_pdf_and_receipt_but_revokes_device_token (test_business_offline_reports_api.OfflineReportsHttpTests.test_restore_keeps_exact_capture_pdf_and_receipt_but_revokes_device_token) ... ok
+test_actual_trusted_tls_normal_mfa_retry_and_integrated_archive (test_business_offline_reports_api.OfflineReportsTlsTests.test_actual_trusted_tls_normal_mfa_retry_and_integrated_archive) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.656s
+
+OK

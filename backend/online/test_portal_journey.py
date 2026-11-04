@@ -28,8 +28,8 @@ from cryptography.x509.oid import ExtendedKeyUsageOID, NameOID
 from werkzeug.serving import make_server
 
 from core import Office
-from backup import backup
-from restore import restore
+from backend.backup import backup
+from backend.restore import restore
 from online.auth import totp
 from online.instance import bind
 from online.storage import Storage

@@ -15,7 +15,7 @@ import uuid
 
 from cryptography.fernet import Fernet
 
-from backup import backup
+from backend.backup import backup
 import business_schema
 from business_portal import Portal
 from core import Office
@@ -23,7 +23,7 @@ from online.auth import totp
 from online.portal import MAX_BODY_BYTES, REQUESTS_PER_WINDOW, SESSIONS_PER_WINDOW, DECISIONS_PER_WINDOW
 from online.test_instance_isolation import MFA_SCHEMA
 from online.web import create_app
-from restore import restore
+from backend.restore import restore
 
 
 class PortalHTTPTests(unittest.TestCase):

@@ -1,0 +1,55 @@
+test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf (test_portal_http.PortalHTTPTests.test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf) ... ERROR
+test_expiry_logout_and_explicit_token_prefixes_are_enforced_through_http (test_portal_http.PortalHTTPTests.test_expiry_logout_and_explicit_token_prefixes_are_enforced_through_http) ... ok
+test_hmac_rate_limits_commit_before_auth_json_origin_and_trust_only_proxy_peer (test_portal_http.PortalHTTPTests.test_hmac_rate_limits_commit_before_auth_json_origin_and_trust_only_proxy_peer) ... ok
+test_origin_host_methods_query_and_body_are_closed_with_security_headers (test_portal_http.PortalHTTPTests.test_origin_host_methods_query_and_body_are_closed_with_security_headers) ... ok
+test_previous_registry_returns_503_without_request_migration_or_internal_details (test_portal_http.PortalHTTPTests.test_previous_registry_returns_503_without_request_migration_or_internal_details) ... ok
+test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access (test_portal_http.PortalHTTPTests.test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access) ... ERROR
+test_strict_json_rejects_ambiguous_nonfinite_compressed_and_oversized_inputs (test_portal_http.PortalHTTPTests.test_strict_json_rejects_ambiguous_nonfinite_compressed_and_oversized_inputs) ... ok
+
+======================================================================
+ERROR: test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf (test_portal_http.PortalHTTPTests.test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_portal_http.py", line 236, in test_actual_sqlite_restore_revokes_old_backup_links_but_retains_recorded_decision_and_original_pdf
+    restored_path = restore(saved, self.directory / 'restored.sqlite3')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/restore.py", line 12, in restore
+    target = backup(source, destination)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+======================================================================
+ERROR: test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access (test_portal_http.PortalHTTPTests.test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_portal_http.py", line 266, in test_restore_sanitizer_failure_removes_only_new_target_and_preserves_source_access
+    restore(saved, target)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/restore.py", line 12, in restore
+    target = backup(source, destination)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.704s
+
+FAILED (errors=2)

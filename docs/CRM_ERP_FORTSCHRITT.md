@@ -2173,3 +2173,14 @@ bestehen. [Nachweis](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md).
 Überholte unsignierte iPhone-Prüfungen werden ausschließlich auf Testbranches
 abgelöst; der Releasebranch und dessen ausdrückliche Signierschranke bleiben
 erhalten. Eine gemeinsame Testfolge für den Kundentermin ist vorbereitet.
+
+
+## 04.11.2026 – SQLite-/PostgreSQL-Namenskollision der Online-Restoreprüfung behoben
+
+Die vollständige Remoteprüfung stoppte anschließend an unqualifizierten
+Sicherungs-/Restoreimporten. Zwölf Online-Testmodule verwenden jetzt eindeutig
+die SQLite-Helfer. Der paketweise SQLite-Restore importiert seinen eigenen
+Sicherungshelfer relativ; der bisherige Skriptmodus bleibt erhalten.
+89 tatsächliche Fälle in zwölf separat gestarteten Modulen und zwei
+bestehende Sicherungsfälle bestehen, ohne geänderte Verhaltensassertionen.
+Nachweise liegen in der fortgeschriebenen CI-Nachprüfung.

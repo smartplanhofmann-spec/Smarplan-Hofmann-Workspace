@@ -1,0 +1,12 @@
+test_actual_restore_blocks_new_and_replayed_capacity_until_current_schema_operator_release (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_actual_restore_blocks_new_and_replayed_capacity_until_current_schema_operator_release) ... ok
+test_current_schema_is_required_even_for_empty_scope_and_malformed_subhorizons_never_write (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_current_schema_is_required_even_for_empty_scope_and_malformed_subhorizons_never_write) ... ok
+test_mode_gate_cannot_resolve_lost_accepted_c1_or_c2_acknowledgements (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_mode_gate_cannot_resolve_lost_accepted_c1_or_c2_acknowledgements) ... ok
+test_partial_capacity_installation_cannot_downgrade_horizon_or_repair_on_read (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_partial_capacity_installation_cannot_downgrade_horizon_or_repair_on_read) ... ok
+test_strict_http_method_query_payload_and_offline_boundaries (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_strict_http_method_query_payload_and_offline_boundaries) ... ok
+test_successful_schema5_receipt_replays_after_migration_but_never_unlocks_new_restore (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_successful_schema5_receipt_replays_after_migration_but_never_unlocks_new_restore) ... ok
+test_takeover_changes_only_capacity_keeps_old_receipts_and_rejects_unaccepted_old_command (test_accounting_capacity_http.AccountingCapacityHTTPTests.test_takeover_changes_only_capacity_keeps_old_receipts_and_rejects_unaccepted_old_command) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 8.114s
+
+OK

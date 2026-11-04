@@ -1,0 +1,11 @@
+test_methods_parameters_and_nonstaff_tokens_do_not_open_documentary_sources (test_accounting_components_http.AccountingComponentHTTPTests.test_methods_parameters_and_nonstaff_tokens_do_not_open_documentary_sources) ... ok
+test_new_operator_release_requires_complete_current_scope_even_for_empty_components (test_accounting_components_http.AccountingComponentHTTPTests.test_new_operator_release_requires_complete_current_scope_even_for_empty_components) ... ok
+test_partial_component_installation_never_falls_back_or_repairs_a_horizon (test_accounting_components_http.AccountingComponentHTTPTests.test_partial_component_installation_never_falls_back_or_repairs_a_horizon) ... ok
+test_payout_and_customer_components_change_only_c1_and_preserve_historical_responses (test_accounting_components_http.AccountingComponentHTTPTests.test_payout_and_customer_components_change_only_c1_and_preserve_historical_responses) ... ok
+test_real_restore_blocks_new_and_replayed_components_until_read_only_inspect_and_current_scope_release (test_accounting_components_http.AccountingComponentHTTPTests.test_real_restore_blocks_new_and_replayed_components_until_read_only_inspect_and_current_scope_release) ... ok
+test_schema3_receipt_survives_real_migration_but_cannot_unlock_a_new_restore (test_accounting_components_http.AccountingComponentHTTPTests.test_schema3_receipt_survives_real_migration_but_cannot_unlock_a_new_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 5.795s
+
+OK

@@ -29,3 +29,19 @@ Damit blockiert ein überholter unsignierter Testlauf nicht die nächste Fassung
 [Gebundene Quellen, Erstfehler und Nachläufe](evidence/project-native-ci-2026-11-04/ci-fixes.json)
 liegen im Repository. Die neuen GitHub-Läufe müssen diesen Stand noch bestätigen.
 Keine produktive Migration, Serveränderung oder TestFlight-Veröffentlichung.
+
+## Eindeutige Sicherungsimporte im Online-Testmodus
+
+Die nachfolgende echte GitHub-Runde `9c9742e` deckte eine Namenskollision
+auf: unittest-Discovery priorisiert backend/online; gleichnamige unqualifizierte
+backup-/restore-Importe verwendeten die PostgreSQL-Helfer in SQLite-Restoretests.
+Zwölf Online-Testdateien importieren jetzt ausdrücklich die SQLite-Funktionen
+aus backend. Der paketweise geladene SQLite-Restore bindet auch seinen
+untergeordneten Sicherungshelfer relativ; Skript-/Top-Level-Modus behalten
+den bisherigen Import. Alle bestehenden Testkörper und Assertions bleiben
+erhalten. 89 Fälle in zwölf separat gestarteten Online-Modulen sowie
+die beiden bisherigen Sicherungsfälle bestehen.
+
+[Importbindung, Quellhashes und Nachläufe](evidence/project-native-ci-2026-11-04/import-binding.json).
+Frühere Fehlerlogs bleiben separat erhalten; App-Fachlogik und Datenbankschema
+wurden nicht geändert.

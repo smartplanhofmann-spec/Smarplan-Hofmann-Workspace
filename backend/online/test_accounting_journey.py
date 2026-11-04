@@ -16,9 +16,9 @@ import uuid
 
 from cryptography.fernet import Fernet
 
-from backup import backup
+from backend.backup import backup
 from core import Office
-from restore import restore
+from backend.restore import restore
 from online.auth import totp
 from online.instance import bind
 from online.storage import Storage

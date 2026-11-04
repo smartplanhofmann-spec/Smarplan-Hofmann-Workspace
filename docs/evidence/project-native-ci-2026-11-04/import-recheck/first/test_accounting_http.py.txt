@@ -1,0 +1,57 @@
+test_actual_restore_cli_reviews_bytes_then_unblocks_without_mutating_sources_or_reimporting (test_accounting_http.AccountingHTTPTests.test_actual_restore_cli_reviews_bytes_then_unblocks_without_mutating_sources_or_reimporting) ... ERROR
+test_cli_inspection_is_read_only_even_while_restore_is_pending_and_is_not_an_approval_report (test_accounting_http.AccountingHTTPTests.test_cli_inspection_is_read_only_even_while_restore_is_pending_and_is_not_an_approval_report) ... ok
+test_cli_rejects_ambiguous_or_public_reports_symlinks_and_missing_databases_without_writes (test_accounting_http.AccountingHTTPTests.test_cli_rejects_ambiguous_or_public_reports_symlinks_and_missing_databases_without_writes) ... ok
+test_current_report_requires_exact_cash_horizon_and_independent_external_review_atomically (test_accounting_http.AccountingHTTPTests.test_current_report_requires_exact_cash_horizon_and_independent_external_review_atomically) ... ok
+test_local_operator_refuses_enclosing_transaction_and_competing_writer (test_accounting_http.AccountingHTTPTests.test_local_operator_refuses_enclosing_transaction_and_competing_writer) ... ok
+test_malformed_money_and_source_fields_never_round_or_create_cash_events (test_accounting_http.AccountingHTTPTests.test_malformed_money_and_source_fields_never_round_or_create_cash_events) ... ok
+test_schema1_compatibility_and_legacy_restore_without_adding_accounting_tables (test_accounting_http.AccountingHTTPTests.test_schema1_compatibility_and_legacy_restore_without_adding_accounting_tables) ... ERROR
+test_scope_methods_unknown_fields_and_customer_offline_tokens_never_open_accounting (test_accounting_http.AccountingHTTPTests.test_scope_methods_unknown_fields_and_customer_offline_tokens_never_open_accounting) ... ok
+
+======================================================================
+ERROR: test_actual_restore_cli_reviews_bytes_then_unblocks_without_mutating_sources_or_reimporting (test_accounting_http.AccountingHTTPTests.test_actual_restore_cli_reviews_bytes_then_unblocks_without_mutating_sources_or_reimporting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_accounting_http.py", line 169, in test_actual_restore_cli_reviews_bytes_then_unblocks_without_mutating_sources_or_reimporting
+    target = restore(saved, self.directory / 'restored.sqlite3')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/restore.py", line 12, in restore
+    target = backup(source, destination)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+======================================================================
+ERROR: test_schema1_compatibility_and_legacy_restore_without_adding_accounting_tables (test_accounting_http.AccountingHTTPTests.test_schema1_compatibility_and_legacy_restore_without_adding_accounting_tables)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_accounting_http.py", line 238, in test_schema1_compatibility_and_legacy_restore_without_adding_accounting_tables
+    path = restore(self.directory / 'pure-legacy.sqlite3', self.directory / 'pure-legacy-restored.sqlite3')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/restore.py", line 12, in restore
+    target = backup(source, destination)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+----------------------------------------------------------------------
+Ran 8 tests in 4.709s
+
+FAILED (errors=2)

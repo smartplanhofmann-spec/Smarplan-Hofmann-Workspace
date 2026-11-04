@@ -250,16 +250,28 @@ async function purchasingCatalogFlow({page,context,navigate,ready,fixture,screen
     await orderDialog().waitFor();await close(page);await ready(page);
     await page.setViewportSize({width:1440,height:1000});await page.waitForFunction(()=>!document.querySelector('.sidebar').inert);
     const count=requests.filter(url=>url.pathname.endsWith('/business/purchasing/articles')).length,capRoute='**/api/v1/business/capabilities*';
-    await context.route(capRoute,async route=>{assert.equal(new URL(route.request().url()).origin,fixture.base_url);const result=await route.fetch({maxRedirects:0}),body=await result.json();await route.fulfill({response:result,json:{...body,features:body.features.filter(name=>name!=='purchasing_catalog')}});});
-    try{
-      await navigate(page,'Material');await page.getByRole('button',{name:'Bestellvorschlag anlegen',exact:true}).click();
-      modal=page.getByRole('dialog',{name:'Bestellvorschlag anlegen',exact:true});
-      await modal.getByText('Dieser Server bietet noch keine vollständige Einkaufssuche.',{exact:false}).waitFor();
-      await modal.getByRole('status').filter({hasText:'Artikeln geladen.'}).waitFor();
-      assert.equal(await modal.getByLabel('Bestellartikel',{exact:true}).locator('option').filter({hasText:'SYN-UNSTOCKED'}).count(),0);
-      assert.equal(requests.filter(url=>url.pathname.endsWith('/business/purchasing/articles')).length,count,'legacy fallback must not call unavailable endpoint');
-      await close(page);
-    }finally{await context.unroute(capRoute);}
+    for(const withReferences of [true,false]){
+      const refsBefore=requests.filter(url=>url.pathname.endsWith('/business/inventory/articles')).length;
+      await context.route(capRoute,async route=>{
+        assert.equal(new URL(route.request().url()).origin,fixture.base_url);
+        const result=await route.fetch({maxRedirects:0}),body=await result.json();
+        assert.ok(body.features.includes('inventory_article_refs'),'fixture must advertise the real price-free reference contract');
+        const disabled=new Set(['purchasing_catalog',...(!withReferences?['inventory_article_refs']:[])]);
+        await route.fulfill({response:result,json:{...body,features:body.features.filter(name=>!disabled.has(name))}});
+      });
+      try{
+        await navigate(page,'Material');await page.getByRole('button',{name:'Bestellvorschlag anlegen',exact:true}).click();
+        modal=page.getByRole('dialog',{name:'Bestellvorschlag anlegen',exact:true});
+        await modal.getByText('Dieser Server bietet noch keine vollständige Einkaufssuche.',{exact:false}).waitFor();
+        await modal.getByRole('status').filter({hasText:'Artikeln geladen.'}).waitFor();
+        const unstocked=await modal.getByLabel('Bestellartikel',{exact:true}).locator('option').filter({hasText:'SYN-UNSTOCKED'}).count();
+        const refsAfter=requests.filter(url=>url.pathname.endsWith('/business/inventory/articles')).length;
+        if(withReferences){assert.ok(unstocked>0,'negotiated price-free references include unstocked articles');assert.ok(refsAfter>refsBefore);}
+        else{assert.equal(unstocked,0);assert.equal(refsAfter,refsBefore,'legacy fallback must not call unavailable reference endpoint');}
+        assert.equal(requests.filter(url=>url.pathname.endsWith('/business/purchasing/articles')).length,count,'legacy fallback must not call unavailable purchasing endpoint');
+        await close(page);
+      }finally{await context.unroute(capRoute);}
+    }
     assert.equal(requests.some(url=>url.pathname.endsWith('/business/articles')),false,'warehouse purchasing must never request financial catalogue');
     if(catalogError)throw catalogError;
     console.log('browser: warehouse without financial access found unstocked articles, paged and searched without losing positions, saved and edited a projectless draft; scoped search, mobile and legacy fallback passed');

@@ -173,3 +173,25 @@ ist jeweils entfernt. [Vorher-/Nachher-Läufe und Quellbindungen](evidence/proje
 und der vollständige ursprüngliche [macOS-Fehlerlauf](evidence/project-native-ci-2026-11-04/current-ios-failed.log)
 sind erhalten. Die tatsächliche macOS-Nachprüfung und der unsignierte
 Gerätebuild stehen noch aus.
+
+## Einkauf: neue preisfreie Auswahl und vollständiger Legacy-Fallback
+
+Der vollständige Browserlauf auf `70b5cb2` besteht die vorher korrigierte
+Komponentenprüfung und die anschließenden Finanzabläufe. Er stoppt später
+an einer veralteten Erwartung im Einkaufstest: Das simulierte Legacy-Angebot
+entfernt purchasing_catalog, lässt aber die neue inventory_article_refs-
+Fähigkeit aktiv und erwartet trotzdem keine unbestückten Artikel.
+
+Der Test prüft jetzt beide tatsächlich unterschiedlichen Verträge. Ohne
+Einkaufssuche, aber mit preisfreien Referenzen bleiben unbestückte Artikel
+auswählbar und der Referenzendpunkt wird benutzt. Fehlen beide Fähigkeiten,
+bleibt die Bestandsauswahl erhalten und keiner der beiden nicht angebotenen
+Endpunkte wird aufgerufen. Die Schranke gegen finanzielle Katalogabfragen
+sowie alle bestehenden Pagination-, Projekt-, Speicher-, Bearbeitungs- und
+390px-Prüfungen bleiben erhalten.
+
+Der gleiche bestehende Ablauf ist zusätzlich gezielt als purchasing-catalog
+ausführbar und besteht mit echtem Testbackend und sandboxiertem Chromium.
+Produktcode wurde dafür nicht geändert. [Lauf, Screenshots und Quellen](evidence/project-native-ci-2026-11-04/purchasing-fallback/result.json)
+und der ursprüngliche [vollständige CI-Fehlerlauf](evidence/project-native-ci-2026-11-04/browser-70b5-failed.log)
+sind erhalten. Der vollständige nachfolgende CI-Browserlauf steht noch aus.

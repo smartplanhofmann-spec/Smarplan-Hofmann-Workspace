@@ -2239,3 +2239,10 @@ Fixturefehler am temporären /var-Symlink. Vier Testpfadstellen sind kanonisch
 vorbereitet; alle drei Fehler sind unter einer eigenen Symlink-Tempumgebung
 reproduziert und danach mit den bestehenden tatsächlichen HTTP-Abläufen
 geschlossen. Produkt-Dateischutz und Assertions bleiben unverändert.
+
+Der vollständige Browserlauf auf 70b5cb2 bestätigt die vorher korrigierte
+Komponentenprüfung und findet anschließend einen veralteten Einkaufstest für
+die neue preisfreie Artikelreferenz-Fähigkeit. Dieser prüft jetzt sowohl die
+angebotene Referenzsuche als auch den vollständigen Legacy-Fallback, weiterhin
+ohne finanzielle Katalogabfragen. Der gesamte vorhandene Einkaufsablauf besteht
+gezielt im echten sandboxierten Chromium. Keine Produktänderung dafür.

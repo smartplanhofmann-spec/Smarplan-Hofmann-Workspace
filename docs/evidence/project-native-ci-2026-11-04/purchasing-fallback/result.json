@@ -1,0 +1,29 @@
+{
+  "base_commit": "7a6fd80480dc34bf9de7fbc5e2b6f787358c89c7",
+  "workflow": "purchasing-catalog",
+  "result": "passed",
+  "actual_sandboxed_chromium": true,
+  "test_backend": "actual disposable local HTTP fixture",
+  "contracts": [
+    "No purchasing_catalog, with inventory_article_refs: unstocked articles remain available",
+    "Neither capability: stock-only fallback; neither unavailable endpoint called",
+    "No financial catalogue request across the complete warehouse journey"
+  ],
+  "sources": {
+    "web/office/tests/purchasing-flow.cjs": "35b1539b77ed826edfc575ab901f32e2ca5678cb86da23fc161f5a7a8fb3617e",
+    "web/office/tests/e2e.cjs": "e7ae08396c5a86146469ddd95005de64c453007d015445d1cc24a126a9ed6060",
+    "web/office/office.js": "74214ce23be56e72d0bb5e8426b478dc29e6eb5854c87b4a54fa863bf12c89c4",
+    "backend/business_inventory.py": "b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b"
+  },
+  "before": {
+    "web/office/tests/purchasing-flow.cjs": "ba35f82f211c109f844f3c4166458186bb639eb5df98eb9e3739acffaed20021",
+    "web/office/tests/e2e.cjs": "5a508e3a8494955fe71bd46de6b4e672cac42e3d9531261e444942dc194d78b1",
+    "web/office/office.js": "74214ce23be56e72d0bb5e8426b478dc29e6eb5854c87b4a54fa863bf12c89c4",
+    "backend/business_inventory.py": "b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b"
+  },
+  "proofs": {
+    "docs/evidence/project-native-ci-2026-11-04/purchasing-fallback/browser.txt": "fa3d9ead809ab48c767f2dbf906f82ce3e6103bc3958927d89d3cba0e9b487f8",
+    "docs/evidence/project-native-ci-2026-11-04/purchasing-fallback/screenshots/purchasing-catalog-desktop.png": "d7e979f28cbe12e36f53aec65a80c22d9d0e375ba7f5be6b33ad246ffae54b8b",
+    "docs/evidence/project-native-ci-2026-11-04/purchasing-fallback/screenshots/purchasing-catalog-mobile.png": "6fab82703bf6326199d5a0d3c271c5bfb9179b4bdd0762205e6db626a4a8986f"
+  }
+}

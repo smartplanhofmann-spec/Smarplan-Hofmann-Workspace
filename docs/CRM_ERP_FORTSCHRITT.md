@@ -2152,3 +2152,12 @@ und iPhone-Prüfbuild (41915157953) sind tatsächlich gestartet; Ergebnisse
 und aktuelle Binärartefakte werden noch geprüft. Die frühere automatische
 Ablehnung wurde durch die ausdrückliche Zustimmung aufgelöst.
 Kein Defaultbranch-Update, Serverupdate oder TestFlight-Upload.
+
+
+## 04.11.2026 – Windows-Paketbeschriftung an aktuelle Appversion gebunden
+
+Beim laufenden Buildabgleich wurde eine alte feste Versionsaufschrift 0.12.0
+im Windows-Beipacktext gefunden. Beide Paketvarianten übernehmen jetzt 0.13.0
+aus derselben vorhandenen Quellprüfung wie das Manifest. App-/Backendruntime
+bleibt unverändert. Der neue autorisierte Buildcommit ersetzt die erste
+Buildrunde; tatsächliche Windowsausführung dieser Verbindung wird in CI geprüft.

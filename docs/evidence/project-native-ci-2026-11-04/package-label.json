@@ -1,0 +1,9 @@
+{
+  "reason": "The first build source still hardcoded 0.12.0 in Windows bundle instructions; app and manifest are 0.13.0.",
+  "change": "Both bundle instruction headers now use the version returned by the existing native source validator.",
+  "current_source_version": "0.13.0",
+  "static_template_connections_checked": 2,
+  "workflow_sha256": "29262f999b87cdd2b4ac8b14bc140964c6f87654d76b50f078cf9851f58f38e9",
+  "new_functional_runtime_changes": false,
+  "actual_windows_execution": "Awaiting new GitHub Actions run."
+}

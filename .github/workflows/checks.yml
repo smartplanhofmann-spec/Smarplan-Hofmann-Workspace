@@ -534,8 +534,10 @@ jobs:
             Copy-Item (Join-Path '..' $smartplanOperatorFile) -Destination $smartplanOperatorTarget
           }
           Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
+          $smartplanPackageVersion = (python ../scripts/native-release.py source | ConvertFrom-Json).version
+          if ($LASTEXITCODE -ne 0 -or -not $smartplanPackageVersion) { throw 'Windows package version unavailable' }
           $smartplanReadme = @'
-          Smartplan Office 0.12.0 - lokales Windows-Pruefpaket (x64)
+          Smartplan Office @APP_VERSION@ - lokales Windows-Pruefpaket (x64)
 
           1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
           2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
@@ -558,7 +560,7 @@ jobs:
           Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung. Geraeteentsperrung separat pruefen.
           OneDrive ist erst nach einer gesonderten Einrichtung nutzbar.
           '@
-          Set-Content -Path (Join-Path $smartplanBundle 'APP_VERSION.txt') -Value $smartplanReadme -Encoding utf8
+          Set-Content -Path (Join-Path $smartplanBundle 'APP_VERSION.txt') -Value ($smartplanReadme.Replace('@APP_VERSION@', $smartplanPackageVersion)) -Encoding utf8
           python ../scripts/native-release.py windows --bundle $smartplanBundle --config windows/flutter/ephemeral/generated_config.cmake --flavor local --commit $env:GITHUB_SHA
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Report Windows package diagnostics
@@ -612,8 +614,10 @@ jobs:
           foreach ($smartplanFile in @('START_HIER.txt', 'APP_VERSION.txt', 'Python_Umgebung_aktualisieren.py')) {
             if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
           }
+          $smartplanPackageVersion = (python ../scripts/native-release.py source | ConvertFrom-Json).version
+          if ($LASTEXITCODE -ne 0 -or -not $smartplanPackageVersion) { throw 'Online Windows package version unavailable' }
           $smartplanInstructions = @'
-          Smartplan Office 0.12.0 - Online-Pruefpaket fuer Windows (x64)
+          Smartplan Office @APP_VERSION@ - Online-Pruefpaket fuer Windows (x64)
 
           Alle Dateien vollstaendig in einen neuen Ordner entpacken.
           smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
@@ -621,7 +625,7 @@ jobs:
           Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
           und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
           Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
-          0.12-Paket: Projektmappe, CRM, Belege, Finanzen, Einsatzplanung, Zeiten, Material und Wartung.
+          Enthalten: Projektmappe, CRM, Belege, Finanzen, Einsatzplanung, Zeiten, Material und Wartung.
           Browserzugang alternativ unter https://office.smartplan-hofmann.de/office/.
           Sevdesk bleibt bis zur dokumentierten Umstellung fuehrend. Eigene Rechnungsstellung und SMTP-Versand sind zunaechst gesperrt.
           Der vorhandene SPIN-Maileingang samt Anhaengen bleibt erhalten; Kalender und OneDrive verwenden weiterhin die bestaetigte Botanbindung.
@@ -643,7 +647,7 @@ jobs:
           Eine zusaetzliche PDF-Ablage ist nach Einrichtung und Auswahl in der App nutzbar.
           Echte Kontoverbindung, Datenuebernahme und getrennte verschluesselte Backups separat pruefen.
           '@
-          Set-Content -Path (Join-Path $smartplanOnline 'ONLINE_START_HIER.txt') -Value $smartplanInstructions -Encoding utf8
+          Set-Content -Path (Join-Path $smartplanOnline 'ONLINE_START_HIER.txt') -Value ($smartplanInstructions.Replace('@APP_VERSION@', $smartplanPackageVersion)) -Encoding utf8
           foreach ($smartplanFile in @('smartplan_office.exe', 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')) {
             if (-not (Test-Path (Join-Path $smartplanOnline $smartplanFile))) { throw "Online package file missing: $smartplanFile" }
           }

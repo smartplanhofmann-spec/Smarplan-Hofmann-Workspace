@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-11-04",
+  "status": "native_scope_verified",
+  "workspace": "/workspace/smartplan-historical-assets-20261104",
+  "baseline_checkpoint": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+  "scope": "Native historical linear assets and narrowly coordinated BusinessSession capability inflight fix; excludes global software completion",
+  "runtime": [
+    {
+      "path": "app/lib/business_accounting.dart",
+      "bytes": 37776,
+      "sha256": "c4b637e6b56ec069c94dff191cf05fa8aeef693eb501fd613ee62ce4f77e63b0"
+    },
+    {
+      "path": "app/lib/business_accounting_euer.dart",
+      "bytes": 79776,
+      "sha256": "39d07ad6e6700e382d017ad7f50890f07ff4b5603c295d4c29989a6c923751af"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "bytes": 90876,
+      "sha256": "c345aaa3fef30642141ed7a3b61cdf67e6b3166300b77f28874109490157d017"
+    },
+    {
+      "path": "app/lib/business_accounting_historical_assets.dart",
+      "bytes": 36219,
+      "sha256": "6fd8a3fe3992dd3b397eebde924f4e2016b3e396ad85c63d903a9b718535aaee"
+    },
+    {
+      "path": "app/lib/business_accounting_historical_assets_contract.dart",
+      "bytes": 28547,
+      "sha256": "e9d44f9b1c5571eb158005b191dca681655d475ad2d06685e7f1638e395c8681"
+    }
+  ],
+  "tests": [
+    {
+      "path": "app/test/business_accounting_historical_assets_contract_test.dart",
+      "bytes": 6187,
+      "sha256": "114534a74f04a573826e229e8949056ba9cd1028ef83d9c9bc850e25968d8b0c"
+    },
+    {
+      "path": "app/test/business_accounting_historical_assets_lifecycle_test.dart",
+      "bytes": 14177,
+      "sha256": "6ba68a3be9e2ba11c769129a322bfca6b91a4f8f3b07b970683492792d314cb1"
+    },
+    {
+      "path": "app/test/business_accounting_historical_assets_http_widget_test.dart",
+      "bytes": 22662,
+      "sha256": "dda0f6a02678edac8c2cffae93449ec670edce97823efe4b206aff24dd596a62"
+    },
+    {
+      "path": "app/test/business_session_load_concurrency_test.dart",
+      "bytes": 4578,
+      "sha256": "9a5358ce331db48e1999fd761f3b319591f6aaf833ccef20d82e01d2fa8f1990"
+    }
+  ],
+  "documentation": [
+    {
+      "path": "docs/CRM_ERP_HISTORISCHE_ANLAGEN_NATIVE.md",
+      "bytes": 6307,
+      "sha256": "532894cfcf4625da510d85c8179076b598f10e011036c89f84a0595233062e5b"
+    }
+  ],
+  "fixtures": [
+    {
+      "path": "app/test/fixtures/accounting_historical_assets_2026.json",
+      "bytes": 278402,
+      "sha256": "78aa6210f54ca382afa0f167703dd341c3d1127873475e1971ea71e47b355d15"
+    }
+  ],
+  "preserved_opening_files": [
+    {
+      "path": "app/lib/business_accounting_openings.dart",
+      "bytes": 31452,
+      "sha256": "2ec19d04d768ca2adff3af7b6169bf8038bbfb77a384c34305268a3a2e6cd5b8"
+    },
+    {
+      "path": "app/lib/business_accounting_openings_contract.dart",
+      "bytes": 24567,
+      "sha256": "cf5b83d5de3844e4747c3db5b63325a7d3a94c3f6b1fd5b011ca20bb68a75b0a"
+    },
+    {
+      "path": "app/test/business_accounting_openings_http_widget_test.dart",
+      "bytes": 18460,
+      "sha256": "43eb71112a1eb7f37a2702e703d3f6c4218147aa64e07c509544a8dd124e1a0b"
+    },
+    {
+      "path": "app/test/business_accounting_openings_lifecycle_test.dart",
+      "bytes": 15009,
+      "sha256": "df25cde1ac46c75130ad39500cab4f707be8b5ada7617764434428381d269a8e"
+    },
+    {
+      "path": "app/test/business_accounting_openings_test.dart",
+      "bytes": 10807,
+      "sha256": "978a698f289f750b4ab40327470146203b44f509fc6409f8d0ed6eb2e3b9f906"
+    },
+    {
+      "path": "app/test/fixtures/accounting_openings_2026.json",
+      "bytes": 130482,
+      "sha256": "ac3f212b8503b9449973a623bbe33fd36c2ff5ac25f9365da0bb802e3473009d"
+    },
+    {
+      "path": "app/test/fixtures/accounting_openings_large_balances_2026.json",
+      "bytes": 29648,
+      "sha256": "aefbb0e3af79baa1a62a759f2a9108b30204304fd883728680c74b2c4ead70b5"
+    }
+  ],
+  "results": {
+    "focused": {
+      "passed": 17,
+      "failed": 0,
+      "contract": 5,
+      "lifecycle_receipts": 7,
+      "session_concurrency": 4,
+      "real_http_widget": 1,
+      "surface_pixels": [
+        390,
+        844
+      ]
+    },
+    "existing_regression": {
+      "passed": 145,
+      "failed": 0,
+      "files": [
+        "business_session_test.dart",
+        "business_accounting_test.dart",
+        "business_accounting_euer_test.dart",
+        "business_accounting_euer_http_test.dart",
+        "business_accounting_profile_test.dart",
+        "business_accounting_profile_session_test.dart",
+        "business_accounting_profile_http_widget_test.dart",
+        "business_accounting_openings_test.dart",
+        "business_accounting_openings_lifecycle_test.dart",
+        "business_accounting_openings_http_widget_test.dart",
+        "business_travel_cash_test.dart",
+        "business_payroll_cash_test.dart",
+        "business_bank_reconciliation_test.dart"
+      ]
+    },
+    "analyzer": {
+      "items": 9,
+      "issues": 0
+    },
+    "pre_fix_reproduction": {
+      "expected_failure": true,
+      "failure": "Parallel caller completed while actual capability response remained held"
+    }
+  },
+  "commands": {
+    "working_directory": "/workspace/smartplan-historical-assets-20261104/app",
+    "environment": {
+      "PATH_prefix": "/workspace/toolchains/clang-19/bin",
+      "PUB_CACHE": "/workspace/toolchains/pub-cache",
+      "SMARTPLAN_TEST_PYTHON": "/tmp/smartplan-backend-verified/bin/python"
+    },
+    "focused": "/workspace/toolchains/flutter/bin/flutter test --no-pub test/business_session_load_concurrency_test.dart test/business_accounting_historical_assets_contract_test.dart test/business_accounting_historical_assets_lifecycle_test.dart test/business_accounting_historical_assets_http_widget_test.dart",
+    "regression": "/workspace/toolchains/flutter/bin/flutter test --no-pub test/business_session_test.dart test/business_accounting_test.dart test/business_accounting_euer_test.dart test/business_accounting_euer_http_test.dart test/business_accounting_profile_test.dart test/business_accounting_profile_session_test.dart test/business_accounting_profile_http_widget_test.dart test/business_accounting_openings_test.dart test/business_accounting_openings_lifecycle_test.dart test/business_accounting_openings_http_widget_test.dart test/business_travel_cash_test.dart test/business_payroll_cash_test.dart test/business_bank_reconciliation_test.dart",
+    "analysis": "/workspace/toolchains/flutter/bin/flutter analyze --no-pub lib/business_accounting.dart lib/business_accounting_euer.dart lib/business_session.dart lib/business_accounting_historical_assets.dart lib/business_accounting_historical_assets_contract.dart test/business_accounting_historical_assets_contract_test.dart test/business_accounting_historical_assets_lifecycle_test.dart test/business_accounting_historical_assets_http_widget_test.dart test/business_session_load_concurrency_test.dart",
+    "sandbox": "Loopback Flutter tests executed through explicit require_escalated auto-review; sandbox was not disabled."
+  },
+  "limitations": [
+    "Synthetic local actual HTTP/SQLite acceptance; no productive company or MFA setup tested.",
+    "Under-year real Domainfixture validates in native DTO tests; HTTP workflow uses January 1.",
+    "Flutter 390px widget execution is not an installed mobile or desktop release proof.",
+    "Source5/Assets integration is a separate Root merge; preserve Source5 retry hooks.",
+    "Historical unchanged linear exclusively business movable assets only; no GWG/degressive/special depreciation or disposal automation."
+  ],
+  "evidence": [
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/README.md",
+      "bytes": 4010,
+      "sha256": "e97dc48b204445f4160a705fe3476ade5aa3ff892a69ca885ee7dd0cfc529281"
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/analyzer.txt",
+      "bytes": 96,
+      "sha256": "890c41900856eac7786472fd05d422841e277c70b92d33d4fa27dcdeb7bfbd75"
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/focused-final.txt",
+      "bytes": 4268,
+      "sha256": "c641c50e5236bf44e76a45deddc5ba7a937fb37079be6ab3d74e41adecb9e211"
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/native-first-full-http.txt",
+      "bytes": 3801,
+      "sha256": "f30397e1e7f2bb33fa2f7b846f7e79c119baff91881f0ba5e4ec8be31c000758"
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/opening-baseline.json",
+      "bytes": 1802,
+      "sha256": "573c0223197d9b63de7c000be68df8a36fd7e0b03112da2709ecf28b17523954"
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/regression.txt",
+      "bytes": 31352,
+      "sha256": "5fe8973439a94224a747a9efeec7238b3b90d53e903cf1b160a0c68631ef9a6f"
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/session-inflight-only.patch",
+      "bytes": 1201,
+      "sha256": "16b392c1d44185a1d813996f08bb63aae3f86de6140b8446d087298232ce7edd"
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/session-load-before.txt",
+      "bytes": 1203,
+      "sha256": "12f780ce49001e64d228ac1e3b22f8f76192100a10429bea1539ff6b6df8a108"
+    }
+  ]
+}

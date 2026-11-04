@@ -1,0 +1,47 @@
+[
+  {
+    "source_path": "work/verification/historical-assets-browser-independent-first-2026-11-04.log",
+    "repository_path": "docs/evidence/historical-assets-browser-review-artifacts-2026-11-04/historical-assets-browser-independent-first-2026-11-04.log",
+    "sha256": "e0a21851d894f5c710f48bf4d914a7d61a8550831766d4f6ad992dc436e51668"
+  },
+  {
+    "source_path": "work/verification/historical-assets-browser-independent-second-2026-11-04.log",
+    "repository_path": "docs/evidence/historical-assets-browser-review-artifacts-2026-11-04/historical-assets-browser-independent-second-2026-11-04.log",
+    "sha256": "e898fb56a5eb68a440001e7272c58b2cb445749c37bf0152fb732ff06c57917f"
+  },
+  {
+    "source_path": "work/verification/historical-assets-browser-independent-final-2026-11-04.log",
+    "repository_path": "docs/evidence/historical-assets-browser-review-artifacts-2026-11-04/historical-assets-browser-independent-final-2026-11-04.log",
+    "sha256": "b1653972cbc081378dfb876fea5424585cdf127ff3d24dcc139515335c8ea72b"
+  },
+  {
+    "source_path": "work/verification/historical-assets-independent-browser-first-2026-11-04.log",
+    "repository_path": "docs/evidence/historical-assets-browser-review-artifacts-2026-11-04/historical-assets-independent-browser-first-2026-11-04.log",
+    "sha256": "f2ac4435d4e96cd31b2945647ef6c0feb0f7813b4b09b9748467c239ab211c29"
+  },
+  {
+    "source_path": "work/verification/historical-assets-independent-browser-final-2026-11-04.log",
+    "repository_path": "docs/evidence/historical-assets-browser-review-artifacts-2026-11-04/historical-assets-independent-browser-final-2026-11-04.log",
+    "sha256": "d780426bf298cb1c30149df1a1e3d21f44ebafa2e22a891e4096e86056956b53"
+  },
+  {
+    "source_path": "work/verification/historical-assets-independent-browser-first-2026-11-04/independent-initial-state-dialog.png",
+    "repository_path": "docs/evidence/historical-assets-browser-review-artifacts-2026-11-04/historical-assets-independent-browser-first-2026-11-04/independent-initial-state-dialog.png",
+    "sha256": "4da64ef14e888804afdac53041e0fcaeaa33f01451ed48eaf258d6ac904c5199"
+  },
+  {
+    "source_path": "work/verification/historical-assets-independent-browser-first-2026-11-04/independent-initial-state-dialog-result.json",
+    "repository_path": "docs/evidence/historical-assets-browser-review-artifacts-2026-11-04/historical-assets-independent-browser-first-2026-11-04/independent-initial-state-dialog-result.json",
+    "sha256": "1f623b2a07aaf7fad3c9d5df0c9aed7b5253fdcd5ae46a9aff8ada3bfb219527"
+  },
+  {
+    "source_path": "work/verification/historical-assets-independent-browser-final-2026-11-04/independent-initial-state-dialog.png",
+    "repository_path": "docs/evidence/historical-assets-browser-review-artifacts-2026-11-04/historical-assets-independent-browser-final-2026-11-04/independent-initial-state-dialog.png",
+    "sha256": "14393243fdc6fa7be85725a9fd0ad81daae386c7ceea7768f75280c567ddde4c"
+  },
+  {
+    "source_path": "work/verification/historical-assets-independent-browser-final-2026-11-04/independent-initial-state-dialog-result.json",
+    "repository_path": "docs/evidence/historical-assets-browser-review-artifacts-2026-11-04/historical-assets-independent-browser-final-2026-11-04/independent-initial-state-dialog-result.json",
+    "sha256": "480f72e2936584b500a86aaf491beeb3a9d7b5d65743b67545ea2f687a982c96"
+  }
+]

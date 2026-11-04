@@ -1,0 +1,11 @@
+test_active_follow_up_requires_counterposting_before_source_correction (test_business_accounting_asset_openings.HistoricalAssetWorkflow.test_active_follow_up_requires_counterposting_before_source_correction) ... ok
+test_completed_asset_and_explicit_zero_year_need_no_fictitious_afa (test_business_accounting_asset_openings.HistoricalAssetWorkflow.test_completed_asset_and_explicit_zero_year_need_no_fictitious_afa) ... ok
+test_late_commit_failure_rolls_back_event_and_receipt (test_business_accounting_asset_openings.HistoricalAssetWorkflow.test_late_commit_failure_rolls_back_event_and_receipt) ... ok
+test_real_original_carryover_then_exact_afa_without_new_cash_vat_or_changed_old_export (test_business_accounting_asset_openings.HistoricalAssetWorkflow.test_real_original_carryover_then_exact_afa_without_new_cash_vat_or_changed_old_export) ... ok
+test_same_original_position_cannot_be_doubled_by_renaming_inventory (test_business_accounting_asset_openings.HistoricalAssetWorkflow.test_same_original_position_cannot_be_doubled_by_renaming_inventory) ... ok
+test_under_year_cutover_subtracts_actual_already_booked_year_amount (test_business_accounting_asset_openings.HistoricalAssetWorkflow.test_under_year_cutover_subtracts_actual_already_booked_year_amount) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.621s
+
+OK

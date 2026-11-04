@@ -111,8 +111,8 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         self.assertFalse(entry['capacity_released'])
         self.assertFalse(entry['tax_result_available'])
         after = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(after['schema_version'], 12)
-        self.assertEqual(set(after), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile', 'euer', 'payroll_cash', 'bank_reconciliation', 'travel_cash', 'opening_balances'})
+        self.assertEqual(after['schema_version'], 13)
+        self.assertEqual(set(after), {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile', 'euer', 'payroll_cash', 'bank_reconciliation', 'travel_cash', 'opening_balances', 'historical_assets'})
         self.assertEqual(self.historical_h5(before), self.historical_h5(after))
         self.assertNotEqual(before['refunds_v2']['sha256'], after['refunds_v2']['sha256'])
         self.assertEqual(after['refunds_v2']['table_counts'], {table: (0 if table.endswith('_releases') else 1) for table in TABLES})
@@ -161,7 +161,7 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         office = self.company['office']
         self.require_reconciliation(office)
         report = self.report(office)
-        self.assertEqual(report['schema'], 13)
+        self.assertEqual(report['schema'], 14)
         self.assertEqual(report['accounting_horizon']['refunds_v2']['table_counts'], {table: 0 for table in TABLES})
         before = '\n'.join(office.db.iterdump())
         invalid = [{**report, 'schema': 6, 'accounting_horizon': self.historical_h5(report['accounting_horizon'])},
@@ -188,7 +188,7 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         self.assertEqual('\n'.join(office.db.iterdump()), current)
 
     def test_successful_schema6_report_and_old_c2_proofs_survive_migration_but_not_a_new_restore(self):
-        old_registry = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings'))
+        old_registry = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings', 'business_accounting_asset_openings'))
         with patch.object(business_schema, 'registry', return_value=old_registry):
             company = self.new_company('historical-refunds-v2')
             account = self.account_record(company)
@@ -208,7 +208,7 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         business_schema.ensure_schema(office)
         business_schema.ensure_schema(office)
         h6 = business_schema.financial_accounting_horizon(office)
-        self.assertEqual(h6['schema_version'], 12)
+        self.assertEqual(h6['schema_version'], 13)
         self.assertEqual(self.historical_h5(h6), h5)
         self.assertEqual(h6['refunds_v2']['table_counts'], {table: 0 for table in TABLES})
         self.assertEqual({table: sorted(tuple(row) for row in office.db.execute('SELECT * FROM ' + table)) for table in capacity.TABLES}, old_rows)
@@ -262,7 +262,7 @@ class AccountingRefundsV2HTTPTests(unittest.TestCase):
         inspected = subprocess.run(args + ['--inspect'], capture_output=True, text=True, timeout=20)
         self.assertEqual(inspected.returncode, 0, inspected.stderr)
         inspection = json.loads(inspected.stdout)
-        self.assertEqual(inspection['evidence_schema'], 13)
+        self.assertEqual(inspection['evidence_schema'], 14)
         self.assertEqual(inspection['accounting_horizon'], horizon)
         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), before)
         stale = {**report, 'schema': 6, 'accounting_horizon': self.historical_h5(horizon)}

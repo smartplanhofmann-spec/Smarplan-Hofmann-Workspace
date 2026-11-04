@@ -47,7 +47,7 @@ class CatalogAndOpeningRestore(unittest.TestCase):
                 with self.assertRaises(Problem):
                     OpeningBalances(restored).confirm(f.actor, opening_command)
                 evidence = evidence_for(restored, report)
-                self.assertEqual(evidence['schema'], 13)
+                self.assertEqual(evidence['schema'], 14)
             finally:
                 restored.db.close()
             operator = PostgresOffice(target)

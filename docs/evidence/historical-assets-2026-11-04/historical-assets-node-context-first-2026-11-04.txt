@@ -1,0 +1,19 @@
+✔ deferred file bytes after view replacement never create an original or reopen private UI (35.455041ms)
+✔ genuine delayed preview after dialog close cannot reopen confirmation or post acceptance (9.212771ms)
+✔ fresh financial read revocation during download hides original title and prevents use of bytes (4.692816ms)
+✔ deferred original hash after background close never triggers a download (8.817967ms)
+✔ revoked editor rights remove private inputs before any preview request (2.034202ms)
+✔ actual historical original, state, preview, correction and void keep original identity and profile (29.877818ms)
+✔ server Unicode identity is exact and input uses original explicit values including documented zeros (2.339923ms)
+✔ substituted original, cutoff, amount, historical profile and acquisition flags fail closed (2.972425ms)
+✔ actual EÜR source and separate follow-up use immutable historical source and no new cash or input VAT (2.23101ms)
+✔ accepted lost acknowledgment preserves exact bytes and checks freshly revoked rights or paused finance (30.690862ms)
+✔ asynchronous original receipt validation cannot consume a new pending request after session replacement (2.177909ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 193.906016

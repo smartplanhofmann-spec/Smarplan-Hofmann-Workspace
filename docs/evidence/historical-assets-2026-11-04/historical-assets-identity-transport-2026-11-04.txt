@@ -1,0 +1,12 @@
+test_exact_methods_and_strict_framing_do_not_create_originals (test_accounting_asset_openings_transport.HistoricalAssetLocalTransport.test_exact_methods_and_strict_framing_do_not_create_originals) ... ok
+test_five_mib_original_exact_replay_download_and_oversize (test_accounting_asset_openings_transport.HistoricalAssetLocalTransport.test_five_mib_original_exact_replay_download_and_oversize) ... ok
+test_server_identity_uses_exact_unicode_casefold_without_mutating_database (test_accounting_asset_openings_transport.HistoricalAssetLocalTransport.test_server_identity_uses_exact_unicode_casefold_without_mutating_database) ... ok
+test_exact_methods_and_strict_framing_do_not_create_originals (test_accounting_asset_openings_transport.HistoricalAssetMFATransport.test_exact_methods_and_strict_framing_do_not_create_originals) ... ok
+test_five_mib_original_exact_replay_download_and_oversize (test_accounting_asset_openings_transport.HistoricalAssetMFATransport.test_five_mib_original_exact_replay_download_and_oversize) ... ok
+test_json_media_type (test_accounting_asset_openings_transport.HistoricalAssetMFATransport.test_json_media_type) ... ok
+test_server_identity_uses_exact_unicode_casefold_without_mutating_database (test_accounting_asset_openings_transport.HistoricalAssetMFATransport.test_server_identity_uses_exact_unicode_casefold_without_mutating_database) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 3.756s
+
+OK

@@ -1,0 +1,116 @@
+✔ independent assets initial original state cannot escape rights while loading (38.320073ms)
+✔ independent assets initial original state cannot escape session while loading (0.914246ms)
+✖ independent assets initial original state cannot escape dialog while loading (5.11099ms)
+✖ independent assets accepted confirmation cannot replace a newer unrelated dialog (5.248327ms)
+✖ independent assets accepted confirmation hides private values after fresh server read revocation (4.112503ms)
+✔ independent assets accepted response from an old session cannot consume replacement pending command (5.272474ms)
+✖ independent assets genuine original bytes produce no download after dialog change (2.548045ms)
+✖ independent assets genuine original bytes produce no download after rights change (4.910915ms)
+✔ independent assets selected file read cannot upload into replaced editor (4.92439ms)
+✖ independent assets profile change during editing blocks stale original preview (2.196135ms)
+✔ independent assets foreign valid receipt cannot clear pending; original exact replay survives journal progress (6.47915ms)
+✔ independent assets exact original identity and EÜR handoff refuse crossed accepted originals (2.172239ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 6
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 246.32584
+
+✖ failing tests:
+
+test at web/office/tests/accounting-historical-assets-independent-review.test.mjs:29:55
+✖ independent assets initial original state cannot escape dialog while loading (5.11099ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:32:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-historical-assets-independent-review.test.mjs:34:1
+✖ independent assets accepted confirmation cannot replace a newer unrelated dialog (5.248327ms)
+  AssertionError [ERR_ASSERTION]: Expected button Anlagenwerte aus Original vorbereiten
+      at button (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:26:91)
+      at Object.editor (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:27:446)
+      at async Object.confirmation (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:27:568)
+      at async TestContext.<anonymous> (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:34:127)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-historical-assets-independent-review.test.mjs:35:1
+✖ independent assets accepted confirmation hides private values after fresh server read revocation (4.112503ms)
+  AssertionError [ERR_ASSERTION]: Expected button Anlagenwerte aus Original vorbereiten
+      at button (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:26:91)
+      at Object.editor (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:27:446)
+      at async Object.confirmation (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:27:568)
+      at async TestContext.<anonymous> (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:35:143)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-historical-assets-independent-review.test.mjs:37:41
+✖ independent assets genuine original bytes produce no download after dialog change (2.548045ms)
+  AssertionError [ERR_ASSERTION]: Expected button Gebundenes Anlagenoriginal ansehen
+      at Object.button (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:26:91)
+      at TestContext.<anonymous> (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:37:303)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-historical-assets-independent-review.test.mjs:37:41
+✖ independent assets genuine original bytes produce no download after rights change (4.910915ms)
+  AssertionError [ERR_ASSERTION]: Expected button Gebundenes Anlagenoriginal ansehen
+      at Object.button (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:26:91)
+      at TestContext.<anonymous> (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:37:303)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-historical-assets-independent-review.test.mjs:39:1
+✖ independent assets profile change during editing blocks stale original preview (2.196135ms)
+  AssertionError [ERR_ASSERTION]: Expected button Anlagenwerte aus Original vorbereiten
+      at button (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:26:91)
+      at Object.editor (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:27:446)
+      at async TestContext.<anonymous> (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:39:119)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

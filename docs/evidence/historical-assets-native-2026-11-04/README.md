@@ -1,0 +1,19 @@
+# Native historische Anlagen — abgeschlossene Abnahme am 04.11.2026
+
+Der eingefrorene Stand besteht aus fünf nativen Runtime-Dateien, vier neuen Testdateien und der Domainfixture. Dateipfade, SHA-256, Prüfbefehle und Grenzen stehen in `manifest.json`. Die Bedienung beschreibt `../../CRM_ERP_HISTORISCHE_ANLAGEN_NATIVE.md`.
+
+- `focused-final.txt`: **17/17** neue Fälle. Fünf Vertragsprüfungen, sieben Lifecycle-/Quittungsprüfungen, vier gemeinsame Sessionprüfungen und ein umfassender realer HTTP-Widgetablauf mit 390 × 844 Pixeln. Der HTTP-Fall enthält zahlreiche benannte Assertions zu tatsächlich angenommenen Aufträgen.
+- `regression.txt`: **145/145** bestehende Fälle aus 13 Testdateien zu Sitzungen, Buchhaltung, EÜR, Buchführungsprofil, Anfangssalden, Bankabgleich, Reise- und Lohnzahlungen. Die vorhandenen nativen Anfangssalden- und Profil-HTTP-Abläufe sind enthalten.
+- `analyzer.txt`: neun geänderte/neue Runtime- und Testdateien statisch geprüft; kein Befund.
+- `session-load-before.txt`: unabhängiger roter Nachweis des vorherigen gemeinsamen Capability-Race. Der parallele Workflow wurde fertig, obwohl der tatsächliche Rechteabruf noch gehalten war. Der Vorzustand wurde nur für diese kontrollierte Prüfung hergestellt und anschließend automatisch durch den Fix ersetzt.
+- `session-inflight-only.patch`: ausschließlich der von Root freigegebene gemeinsame `load()`-Fix, getrennt von den historischen Anlagenhooks, damit Source5-Hooks beim Zusammenführen erhalten bleiben.
+- `native-first-full-http.txt`: erster vollständiger grüner Zwischenstand mit 15 Fällen, vor den zusätzlichen Reentranz-/EÜR-Dialogprüfungen und der Periodenerweiterung. Maßgeblich für die finale Freigabe ist `focused-final.txt`.
+- `opening-baseline.json`: unverändertes Ausgangsmanifest des bereits bestätigten c7-Anfangssaldenstands.
+
+Der reale HTTP-Fall verwendet einen lokal gestarteten `online.web.create_app`-Server mit synthetischer SQLite-Datenbank, einem regulären Accountant ohne `bank.read` und einer getrennten Verwaltungsidentität für den tatsächlichen Rechteentzug. Er führt aus: serverseitige Unicode-Identität mit Originalleerzeichen, echtes PDF, Quittungs-/Hashprüfung, ursprünglicher Upload-LostACK, Anlagenvorschau/-annahme und LostACK, unveränderter Download, ausdrückliche Folge-AfA und LostACK, echte Kontoberichtigung 6220→6221, Periodenschluss, gesperrte Gegenbuchung (409), begründete Wiederöffnung, aktive-AfA-Quellsperre (409), Gegenbuchung, Quellkorrektur, ausdrückliche Aufhebung, dreistufige unveränderte Historie und tatsächlicher `finance.read`-Entzug. Wiederholungen werden gegen die vollständigen tatsächlichen Requests einschließlich `request_id` verglichen.
+
+Gehaltene Quellen-/Preview-/Pickerantworten, Sitzungsersatz und Hintergrundwechsel werden zusätzlich kontrolliert geprüft. Ein ausgefüllter EÜR-Dialog entfernt auch seinen Titel und private Entwürfe nach Schreibrechteverlust oder Hintergrundwechsel. Der Sessionfix umfasst synchron reentrante Listener, parallelen periodischen Abruf, Fehler, Widerruf, Tokenwechsel, Disposal und eine neue unabhängige Sitzung.
+
+Die normale und unterjährige echte Domainfixture werden vollständig gelesen: Original, Vorschau, Annahme, Korrektur, Aufhebung, Historie, Folge-AfA und Berichte. Der unterjährige Fall enthält tatsächlich 500,00 EUR bereits gebuchte und 700,00 EUR verbleibende Jahres-AfA. Die native HTTP-Abnahme verwendet den normalen Jahresbeginn; sie ersetzt keine Prüfung einer echten Firma und keine MFA-Einrichtung. Es wurde keine Plattformauslieferung behauptet. Die alte EÜR-Exportunveränderlichkeit wurde zuvor gesondert in `../historical-assets-independent-2026-11-04/` gegen das archivierte alte Modul nachgewiesen.
+
+Keine Produktivkontakte, keine Commits und keine Änderungen am Hauptrepository oder am eingefrorenen Finanzbaum erfolgten in dieser Aufgabe. Der gemeinsame Source5-/Assets-Merge und seine anschließende Gesamtprüfung liegen bei Root.

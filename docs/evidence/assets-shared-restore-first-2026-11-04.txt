@@ -1,0 +1,15 @@
+test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope (online.test_assets_source5_catalog_restore_pg.AssetsSource5CatalogRestore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope) ... ERROR
+
+======================================================================
+ERROR: test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope (online.test_assets_source5_catalog_restore_pg.AssetsSource5CatalogRestore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-assets-integration-20261104/backend/online/test_assets_source5_catalog_restore_pg.py", line 110, in test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope
+    self.assertEqual(actual[table], fingerprints[table], table)
+                     ~~~~~~^^^^^^^
+KeyError: 'business_payroll_runs'
+
+----------------------------------------------------------------------
+Ran 1 test in 33.299s
+
+FAILED (errors=1)

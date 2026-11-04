@@ -80,8 +80,9 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    [Gesamtnachweis](CRM_ERP_ANFANGSSALDEN_KATALOG_GESAMTPRUEFUNG_2026-11-04.md).
    Source5 ist inzwischen mit beiden Clients auf `4c2f008` zusammengeführt:
    1.626 Backendfälle bei einem Windows-Skip, 555 Node- und 1.208 Flutterfälle
-   sowie 16 Paketprüfungen bestehen. Anlagen und Preis-v2 folgen mit eigenen
-   Abnahmen im nächsten gemeinsamen Stand.
+   sowie 16 Paketprüfungen bestehen. Die historische lineare Anlagenübernahme
+   ist anschließend auf `8858db4` mit beiden Clients, 107 PostgreSQL-Fällen und
+   zusätzlichem gemeinsamem Restore geprüft; Preis-v2 folgt als nächstes.
 4. **Verbleibende Gesamtanforderungen am Code prüfen und schließen.** Die
    Abnahmefälle A–G bleiben der Maßstab. Parallel zur Lohnintegration werden
    konkrete Lücken der übrigen Module mit tatsächlichem Code und vorhandenen
@@ -89,9 +90,11 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    fehlender Funktionen. Die [Gegenprüfung vom 04.11.2026](CRM_ERP_GESAMTZIEL_GEGENPRUEFUNG_2026-11-04.md)
    priorisiert belegte Finanzübernahme, Katalogpreisgültigkeit/Browserimport
    und unternehmensweite Ereignisregeln. Anfangssalden und Katalogoriginale
-   sind unter `c7dbab0` und `4c2f008` integriert. Historische Anlagen und
-   zeitgebundene Preise werden in isolierten Arbeitsständen abschließend
-   geprüft. Die Erweiterung der unternehmensweiten Ereignisregeln ist im
+   sind unter `c7dbab0` und `4c2f008` integriert. Historische lineare Anlagen
+   sind [gemeinsam geprüft](CRM_ERP_ANLAGEN_GESAMTPRUEFUNG_2026-11-04.md).
+   Die zeitgebundenen Preise werden als nächstes zusammengeführt. Belegte
+   historische offene Posten erhalten aktuell ihre tatsächlichen Zahlungswege
+   zu EÜR, Bankabgleich und Liquidität. Die Erweiterung der unternehmensweiten Ereignisregeln ist im
    eigenen Arbeitsstand begonnen; sie ist noch kein geprüfter Bestandteil
    des Hauptprojekts.
 

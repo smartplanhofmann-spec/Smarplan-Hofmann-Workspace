@@ -1,0 +1,17 @@
+test_server_identity_never_returns_an_unusable_overlong_casefolded_key (test_accounting_asset_openings_boundaries.HistoricalAssetBoundaries.test_server_identity_never_returns_an_unusable_overlong_casefolded_key) ... FAIL
+
+======================================================================
+FAIL: test_server_identity_never_returns_an_unusable_overlong_casefolded_key (test_accounting_asset_openings_boundaries.HistoricalAssetBoundaries.test_server_identity_never_returns_an_unusable_overlong_casefolded_key)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-historical-assets-20261104/backend/test_accounting_asset_openings_boundaries.py", line 22, in test_server_identity_never_returns_an_unusable_overlong_casefolded_key
+    self.f.reject(400,self.api.identity,self.owner,dict(inventory_number='ß'*51))
+  File "/workspace/smartplan-historical-assets-20261104/backend/test_business_accounting_asset_openings.py", line 46, in reject
+    with self.assertRaises(Problem) as caught:call(*args)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.299s
+
+FAILED (failures=1)

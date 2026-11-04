@@ -1,0 +1,12 @@
+test_genuine_h6_rows_and_schema7_receipt_survive_migration_but_cannot_release_a_new_restore (online.test_accounting_profile_http.AccountingProfileHTTPTests.test_genuine_h6_rows_and_schema7_receipt_survive_migration_but_cannot_release_a_new_restore) ... ok
+test_missing_historical_receipt_blocks_reads_and_exact_replay_without_terminal_resolution (online.test_accounting_profile_http.AccountingProfileHTTPTests.test_missing_historical_receipt_blocks_reads_and_exact_replay_without_terminal_resolution) ... ok
+test_partial_profile_installation_or_missing_dependency_fails_closed_without_read_repair (online.test_accounting_profile_http.AccountingProfileHTTPTests.test_partial_profile_installation_or_missing_dependency_fails_closed_without_read_repair) ... ok
+test_reads_and_preview_never_save_and_explicit_null_profile_changes_no_financial_history (online.test_accounting_profile_http.AccountingProfileHTTPTests.test_reads_and_preview_never_save_and_explicit_null_profile_changes_no_financial_history) ... ok
+test_real_restore_requires_schema10_cli_evidence_then_replays_old_and_pending_profile_commands (online.test_accounting_profile_http.AccountingProfileHTTPTests.test_real_restore_requires_schema10_cli_evidence_then_replays_old_and_pending_profile_commands) ... ok
+test_schema10_requires_exact_profile_inventory_even_empty_and_old_h6_cannot_unlock (online.test_accounting_profile_http.AccountingProfileHTTPTests.test_schema10_requires_exact_profile_inventory_even_empty_and_old_h6_cannot_unlock) ... ok
+test_strict_profile_dto_wire_framing_and_nonstaff_tokens_cannot_create_a_version (online.test_accounting_profile_http.AccountingProfileHTTPTests.test_strict_profile_dto_wire_framing_and_nonstaff_tokens_cannot_create_a_version) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 6.277s
+
+OK

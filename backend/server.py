@@ -86,7 +86,7 @@ def make_handler(office,drive,launch_id=""):
                     maximum = 2_600_000 if path == '/api/business/assistant/speech/transcribe' else 1_000_000
                     if re.fullmatch(r'/api/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import)', path):
                         maximum = 2_850_000
-                    if path in ('/api/business/bank/import/preview', '/api/business/bank/statements', '/api/business/accounting/opening-balances/originals'):
+                    if path in ('/api/business/bank/import/preview', '/api/business/bank/statements', '/api/business/accounting/opening-balances/originals', '/api/business/accounting/historical-assets/originals'):
                         maximum = 7_100_000
                     if not 0<size<=maximum:
                         raise Problem(413,"Anfrage zu groß oder leer")

@@ -1,0 +1,812 @@
+{
+  "schema_version": 1,
+  "source_workspace": "/workspace/smartplan-historical-assets-20261104",
+  "baseline_commit": "5d9e7fd2cc0f04ef46d25d112549408454c6519a",
+  "baseline_manifests": [
+    "work/verification/historical-assets-opening-backend-baseline.json",
+    "work/verification/historical-assets-opening-large-balances-followup.json",
+    "work/verification/assets-client-c7-baseline.json",
+    "work/verification/assets-opening-browser-baseline.json"
+  ],
+  "scope": "Candidate file differences from imported Opening baseline overlays; globals require targeted merge into newer Source5/Catalog main. No commits.",
+  "files": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "baseline_sha256": "fc5032e5fa78d759de0437bc47f74ce458ca5e4a0e6856f285ab1892c973d88d",
+      "sha256": "11c742d393cffd3f21747e955390c8805e253717ce57513675278d022c1f98c6",
+      "bytes": 47787
+    },
+    {
+      "path": "app/lib/business_accounting.dart",
+      "baseline_sha256": "18cac53771021f9a27017f99b1d39f55bc4729002c611bf3f472e8aff5925520",
+      "sha256": "c4b637e6b56ec069c94dff191cf05fa8aeef693eb501fd613ee62ce4f77e63b0",
+      "bytes": 37776
+    },
+    {
+      "path": "app/lib/business_accounting_euer.dart",
+      "baseline_sha256": "1d4d9db902a5e699eecda9a0f01cc1fcaae16ea462c523502c8fde33a7825ff0",
+      "sha256": "39d07ad6e6700e382d017ad7f50890f07ff4b5603c295d4c29989a6c923751af",
+      "bytes": 79776
+    },
+    {
+      "path": "app/lib/business_accounting_historical_assets.dart",
+      "baseline_sha256": null,
+      "sha256": "6fd8a3fe3992dd3b397eebde924f4e2016b3e396ad85c63d903a9b718535aaee",
+      "bytes": 36219
+    },
+    {
+      "path": "app/lib/business_accounting_historical_assets_contract.dart",
+      "baseline_sha256": null,
+      "sha256": "e9d44f9b1c5571eb158005b191dca681655d475ad2d06685e7f1638e395c8681",
+      "bytes": 28547
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "baseline_sha256": "ab9400d0ec005fe6f83c147dcaf6e14625318051dc2f2b73f2830a41cc7306fa",
+      "sha256": "c345aaa3fef30642141ed7a3b61cdf67e6b3166300b77f28874109490157d017",
+      "bytes": 90876
+    },
+    {
+      "path": "app/test/business_accounting_historical_assets_contract_test.dart",
+      "baseline_sha256": null,
+      "sha256": "114534a74f04a573826e229e8949056ba9cd1028ef83d9c9bc850e25968d8b0c",
+      "bytes": 6187
+    },
+    {
+      "path": "app/test/business_accounting_historical_assets_http_widget_test.dart",
+      "baseline_sha256": null,
+      "sha256": "dda0f6a02678edac8c2cffae93449ec670edce97823efe4b206aff24dd596a62",
+      "bytes": 22662
+    },
+    {
+      "path": "app/test/business_accounting_historical_assets_lifecycle_test.dart",
+      "baseline_sha256": null,
+      "sha256": "6ba68a3be9e2ba11c769129a322bfca6b91a4f8f3b07b970683492792d314cb1",
+      "bytes": 14177
+    },
+    {
+      "path": "app/test/business_session_load_concurrency_test.dart",
+      "baseline_sha256": null,
+      "sha256": "9a5358ce331db48e1999fd761f3b319591f6aaf833ccef20d82e01d2fa8f1990",
+      "bytes": 4578
+    },
+    {
+      "path": "app/test/fixtures/accounting_historical_assets_2026.json",
+      "baseline_sha256": null,
+      "sha256": "78aa6210f54ca382afa0f167703dd341c3d1127873475e1971ea71e47b355d15",
+      "bytes": 278402
+    },
+    {
+      "path": "backend/accounting_asset_opening_rules.py",
+      "baseline_sha256": null,
+      "sha256": "73eb246fd606d80cfa265fe803274c79c4f25f5f325f17dd325dc1540dd5810d",
+      "bytes": 7202
+    },
+    {
+      "path": "backend/accounting_asset_opening_sources.py",
+      "baseline_sha256": null,
+      "sha256": "27b8ad1aff5e746df4007e59ddd47bcf08cc24b35ae1413ca70f1c4096986483",
+      "bytes": 6872
+    },
+    {
+      "path": "backend/business_accounting_asset_openings.py",
+      "baseline_sha256": null,
+      "sha256": "4a5c57621d8a5af701bf488f32fd82e48577473bc6fda400eebc12bb2002579b",
+      "bytes": 28249
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "baseline_sha256": "18ad7133bd8150fee765fd25b27083c011860b79c95468a4d274fa338faddd1b",
+      "sha256": "e0807590431553d48124692c135e37a4db05ff33e1a62be167216f7bb4778535",
+      "bytes": 83637
+    },
+    {
+      "path": "backend/business_accounting_openings.py",
+      "baseline_sha256": "a69047139f038aca87223b15436d8fc092b9a3950961163490cf152db60656ed",
+      "sha256": "daab353586aaa11bb9928da44ae55597df61e1d83dc0dfba4547cd0213f93691",
+      "bytes": 43019
+    },
+    {
+      "path": "backend/business_api.py",
+      "baseline_sha256": "aa85d31b80bc4ab2b58c1c8ac4a74f068d4f18a56d11534b1eaae7c8261f4452",
+      "sha256": "fb7ec626dd48ed47fb8f818fcb87c269455f9d8a20ed6043bd0fd92ff0697234",
+      "bytes": 22160
+    },
+    {
+      "path": "backend/business_organization.py",
+      "baseline_sha256": "6ef7e4e3fbbfc7556913405c8b259e795d3147e139a50d7262beba42229c3fc3",
+      "sha256": "f178d97dd94dbeea9dc50f93ac0956be9dfceac6973a4239caa289dbdffc670a",
+      "bytes": 14101
+    },
+    {
+      "path": "backend/business_schema.py",
+      "baseline_sha256": "c752009598781b0a44fc7a03ada9ee56b483d4e09c29426bbc3d8e3ccdee18a8",
+      "sha256": "19c8651b340973c072bdf811d41247b2b0fd88671cf60ea63773ca1fb7af1c3c",
+      "bytes": 83747
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "baseline_sha256": "89c80af977dc5752c79cb28c2cbd00804aad493400a8f6d40fab14a64693727f",
+      "sha256": "707237ceebe57376557ccd9d48b87337f9c64af176e2385fe7dfe7db5dc898a2",
+      "bytes": 44995
+    },
+    {
+      "path": "backend/online/test_accounting_allocations_http.py",
+      "baseline_sha256": "dba32ce534c33ee74c64744e4122a490e271c9a6d68dcfb26106ceb009a4b882",
+      "sha256": "c53e8fa105c37c166758b04e17dd340f1918ff0b046d0b774a740e81df577ac1",
+      "bytes": 16379
+    },
+    {
+      "path": "backend/online/test_accounting_asset_openings_pg.py",
+      "baseline_sha256": null,
+      "sha256": "ec7a25daca08ccd99ce4278bbb71cd2e42fe1e59ececb9fa8583f5ef705ce5fd",
+      "bytes": 9280
+    },
+    {
+      "path": "backend/online/test_accounting_capacity_http.py",
+      "baseline_sha256": "40899e8ba8bd82e96bda82462617faa44dc25e218fc816d5043ec1bff861abd7",
+      "sha256": "7bc8cecf1d4ac4f42ec2be3b903c41f99894d1163cb72e020644ef130bba5095",
+      "bytes": 21659
+    },
+    {
+      "path": "backend/online/test_accounting_components_http.py",
+      "baseline_sha256": "b57bdbb00b501e1cde6a799cff6f255581eecaff7f4ccad606f9b893e2cfa2e5",
+      "sha256": "b88d1969579bc2aa83528c52869b8b2ab1dbb8dec237e912ef24b9c1b29e6762",
+      "bytes": 20845
+    },
+    {
+      "path": "backend/online/test_accounting_http.py",
+      "baseline_sha256": "00a79e4d181a541c9b5f1425e007419a0574078c37413816bedd03076bd86505",
+      "sha256": "11b111b0240adb787f449eff9105b3815aa525e544966a8d0b1d3e42395bc89d",
+      "bytes": 20247
+    },
+    {
+      "path": "backend/online/test_accounting_profile_http.py",
+      "baseline_sha256": "1865fb05982a75f209fd69e027d972ea429c112ef9725d818a84f0a4ab88d37f",
+      "sha256": "5bd3060a5626717ee99a87e66d8d477fc003347203b2521ecbfe4f6617261a76",
+      "bytes": 21921
+    },
+    {
+      "path": "backend/online/test_accounting_refunds_http.py",
+      "baseline_sha256": "02c774c781917620205d1f93200c0dd6aaf377e8b29877fefcc0c8f9dc592ef5",
+      "sha256": "cac7000d1db4bacb284e5171ac649a88060ac36232ee4ff0e3bb2bec518f3bd0",
+      "bytes": 23392
+    },
+    {
+      "path": "backend/online/test_accounting_refunds_v2_http.py",
+      "baseline_sha256": "7b168f9ab3f25dfcf2b591990c67f329f8df9fdcf450cceb8e2a36769a6bb564",
+      "sha256": "aeaa4653e8a8d504f9d4ecb40359a2b12cd048bed8ff1416f73bce6975100dd5",
+      "bytes": 25130
+    },
+    {
+      "path": "backend/online/test_business_accounting_euer_pg.py",
+      "baseline_sha256": "ec013428031c5eaf938d44d59b7abfbcd2d73e1413475188a44547457de08349",
+      "sha256": "95f00a28fa1022bfcf303898f3a0f5bf270f862fc26f2a2af8a49827f793442e",
+      "bytes": 17030
+    },
+    {
+      "path": "backend/online/test_business_accounting_openings_pg.py",
+      "baseline_sha256": "b4b942718a34754dc1e189273db0beeac956bef2150271f3b172ffe373066e1c",
+      "sha256": "41751b9c58150338bf7e962279ae33b3cb286fbc22f8e0c04e87e29b1630b068",
+      "bytes": 13234
+    },
+    {
+      "path": "backend/online/test_business_bank_reconciliation_pg.py",
+      "baseline_sha256": "1982c6ed77f609c2707d4a653a66be28f3afc1c84573498fad9bf4b106287dcf",
+      "sha256": "990658ae1770d74d6d77eb22150d108468be68b8d36ef8e7476b0426535e087a",
+      "bytes": 14555
+    },
+    {
+      "path": "backend/online/test_business_payroll_cash_pg.py",
+      "baseline_sha256": "12d97478745e329c08347ad614c20ebe8ed14805d9ae78768a6f771d1812ea97",
+      "sha256": "fd7777984371f5810fc8a5e27a00b773f3afd0c1c1da5de1d593d2883a22e3c5",
+      "bytes": 10015
+    },
+    {
+      "path": "backend/online/test_business_travel_pg.py",
+      "baseline_sha256": "3500690ba718c461f386b4afe30dd0ed3b309f508e96ab8694347cec9c49535a",
+      "sha256": "a315c23917b25ef36ada39daebc1749bdfa848fc52976f37df5336b96ec1de10",
+      "bytes": 16852
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_allocations_integration.py",
+      "baseline_sha256": "461f5cc1e6fc2dff0ee33d1d0542005cfa81ad2631ed871ac61b8bccedfdf6bc",
+      "sha256": "cdc9004d6a590348a7c95884529f0a5b18eeff32de4ee108425ab17fb5c76804",
+      "bytes": 28704
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_capacity_integration.py",
+      "baseline_sha256": "cbb9c1a2c92af479f5cf6af1fbac149b0a76b7ac5574f92f144d8a1dd8ee9ed8",
+      "sha256": "21563a870dc3221729925bdb721f42f4ec3d13d66885f759e2e8470eedeb83ea",
+      "bytes": 39437
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_components_integration.py",
+      "baseline_sha256": "bb1fc0a6f8b0d00676661de2063259fec966e165f047962a3a725d96a5189fac",
+      "sha256": "ea1413f8a7ec34949e3c7cdadbb45e58ba998e61457e6d06629898800a3e2d00",
+      "bytes": 34128
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_integration.py",
+      "baseline_sha256": "dbcfadbb9259bf258a4ea677cd9ce9a9904800a1f1424eabf0fba1cdf2a95b90",
+      "sha256": "039ea76e4e148f27048340630cf4262902c4a9a58c0a69a2bc49458f33580f10",
+      "bytes": 36144
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_profile_integration.py",
+      "baseline_sha256": "5ec626b69e9f8a193d77f920fa7ba23cdbfc50e7b565b03391a508b11febad2f",
+      "sha256": "8c4959fcef5c23899897fe99c46e9fbd7bfac71451de705becf31d17716eb6aa",
+      "bytes": 26338
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_refunds_integration.py",
+      "baseline_sha256": "b4174ac5a714c5c808fae6b140bc5ee75706b113c1d111aef60eb54b2de86de6",
+      "sha256": "6557ecbdfbb8e1ca1237d8aed52995abd7d8cf08ed23163c5e4fb67543cdf16d",
+      "bytes": 30126
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_refunds_v2_integration.py",
+      "baseline_sha256": "2910fad28817edbdf448fb18c3a10fab8c717f38c2136fd387060e4e9031f125",
+      "sha256": "585720a980883a4bcc0f4adcd6add8034b44f3487e7babdd5a13501e53feef68",
+      "bytes": 39517
+    },
+    {
+      "path": "backend/online/web.py",
+      "baseline_sha256": "16d6546b0a5c9acaee1610ab8582a51a85463140c2a99cf628f87e9394679156",
+      "sha256": "6d39dfc3d36a930b2b25149edb9d37474b48deab38b26820711841ad5a61c643",
+      "bytes": 28933
+    },
+    {
+      "path": "backend/server.py",
+      "baseline_sha256": "cf64aa6004354c48f79dd86144db36a822a6f27ee3e687c322c95183f3285c05",
+      "sha256": "669ff5f9646560db4e918a877dba36dfed8bcb7a0c38a7c8ac4dbb17a9fcf79a",
+      "bytes": 16467
+    },
+    {
+      "path": "backend/test_accounting_asset_opening_rules.py",
+      "baseline_sha256": null,
+      "sha256": "fba892baa63a0a0a9a88be5a60f842bf1fbc192894e426f0fa4c7d1fab0a1295",
+      "bytes": 4447
+    },
+    {
+      "path": "backend/test_accounting_asset_opening_rules_independent_review.py",
+      "baseline_sha256": null,
+      "sha256": "0b9520748bced12f315748c54a74b0f647edc0eec069a2cbf83488d1266817f2",
+      "bytes": 10506
+    },
+    {
+      "path": "backend/test_accounting_asset_openings_boundaries.py",
+      "baseline_sha256": null,
+      "sha256": "359e3d310e9f1413690ed5239647abf32e81494be929118b0304e2cbd0ee13b4",
+      "bytes": 6725
+    },
+    {
+      "path": "backend/test_accounting_asset_openings_independent_review.py",
+      "baseline_sha256": null,
+      "sha256": "998d3333d8b80aca1bd013e40a97786890b64643cfeac3de6bb76b3c17cb6f86",
+      "bytes": 12960
+    },
+    {
+      "path": "backend/test_accounting_asset_openings_registration.py",
+      "baseline_sha256": null,
+      "sha256": "68fbc40fddbc72902fc5967119204943883faafedf6828ada520d8fe3740edff",
+      "bytes": 7253
+    },
+    {
+      "path": "backend/test_accounting_asset_openings_transport.py",
+      "baseline_sha256": null,
+      "sha256": "4d45256f38d6d0684f86b0f9411c261da1d8876652c24792a9340d2fff445459",
+      "bytes": 3741
+    },
+    {
+      "path": "backend/test_accounting_openings_registration.py",
+      "baseline_sha256": "a39bdc81e1f27686fd6200ae1d1f9be714a5580f499fd71b3a0739c1a6994c9b",
+      "sha256": "cf176634b9a797a49ff75b58f8f1d3fb3dc020e6a8224d5f9ec1e075b7bfabd5",
+      "bytes": 13854
+    },
+    {
+      "path": "backend/test_business_accounting.py",
+      "baseline_sha256": "98866a2f330c1505d1e220326d6e9bd0c207b046b04eb3b465dcb95425557f89",
+      "sha256": "2ae1367893b71eea74b4d7a4eef5241b9b6f37edeaeb1708fae355d61d90b050",
+      "bytes": 31961
+    },
+    {
+      "path": "backend/test_business_accounting_allocations.py",
+      "baseline_sha256": "33ba42d25761c0b85d26bc6da566c9aab29cfd583a044fa6b9f1c8fc04087d9c",
+      "sha256": "591464e51c39c29b60909608c85058647c161aa26a0f7a649977fc17bd46308a",
+      "bytes": 26083
+    },
+    {
+      "path": "backend/test_business_accounting_asset_openings.py",
+      "baseline_sha256": null,
+      "sha256": "64f9ff79bb413579135a434c4ec2453a8b9deeeb1563e6908ff19026a5806be8",
+      "bytes": 7826
+    },
+    {
+      "path": "backend/test_business_accounting_openings_large_balances.py",
+      "baseline_sha256": null,
+      "sha256": "622f3002dc2d35f72dd240a568863a746129147886daf7d6edece6a851b4f550",
+      "bytes": 1903
+    },
+    {
+      "path": "backend/test_business_accounting_refunds_v2.py",
+      "baseline_sha256": "809e640c099160288c57a65c95a1c5aff0dd21145e97770e07be618fb7882231",
+      "sha256": "28d0e7c7d61292e6e49b1fd6aeb4b7ff1808f284f4329427b088c1d401061ccc",
+      "bytes": 30115
+    },
+    {
+      "path": "backend/test_business_bank_euer_review.py",
+      "baseline_sha256": "1d96c9de1836f1bb2cc25c37dd0b04684b67e01c663639311eec50c41bb47534",
+      "sha256": "092b726d7bf325ff6c570cca51b48aeb823f4a98d7d69b028551c22554cd5792",
+      "bytes": 5323
+    },
+    {
+      "path": "backend/test_business_payroll_cash.py",
+      "baseline_sha256": "45c08208f27b2df10fda2f5f1367ccd2a9216e836b3be53f3d0c5bbb5b9e0485",
+      "sha256": "b01083281052b3bd4360704a294b2fab683c2ddae0ea4d05dfd3df450a834a39",
+      "bytes": 17366
+    },
+    {
+      "path": "backend/test_business_travel_finance.py",
+      "baseline_sha256": "09c433ef39bfca0f38f5ac8b1b55184e9cf2f82c67634cf1e10711cdf1f7b5a9",
+      "sha256": "923cbc4453b671dfc5cf2e501186002b88ca9738d0abeb829d8c22ac93a23c2b",
+      "bytes": 11946
+    },
+    {
+      "path": "docs/CRM_ERP_HISTORISCHE_ANLAGEN_API.md",
+      "baseline_sha256": null,
+      "sha256": "e61e19cc3c3f2feefcc19b2f6c069939f4256b32f6e63d3dc24a79dcdb9cbb26",
+      "bytes": 9865
+    },
+    {
+      "path": "docs/CRM_ERP_HISTORISCHE_ANLAGEN_FORTSCHRITT_2026-11-04.md",
+      "baseline_sha256": null,
+      "sha256": "40a95696a16159feb9418125249382676a683f88893c2770cc7750db9cefde5f",
+      "bytes": 9387
+    },
+    {
+      "path": "docs/CRM_ERP_HISTORISCHE_ANLAGEN_NATIVE.md",
+      "baseline_sha256": null,
+      "sha256": "532894cfcf4625da510d85c8179076b598f10e011036c89f84a0595233062e5b",
+      "bytes": 6307
+    },
+    {
+      "path": "docs/evidence/accounting-openings-large-balances-2026-11-04.json",
+      "baseline_sha256": null,
+      "sha256": "c67649b32726ac25494f59667f1585f6a0240504261a0b0590100b15a562a8d9",
+      "bytes": 2748
+    },
+    {
+      "path": "docs/evidence/accounting-openings-large-balances-after-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "878b7865fe1c1e4c25072a5790a61305a41178656bd0fddb380689f0effa55c2",
+      "bytes": 5841
+    },
+    {
+      "path": "docs/evidence/accounting-openings-large-balances-before-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "cd2134ac25e0888cb15a6e6e30d283c2bc7290747e1be9b227de3b801b11a28a",
+      "bytes": 3770
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04.json",
+      "baseline_sha256": null,
+      "sha256": "f3208fdc58474ff89260c3f380c0750c692ef49a61d6396dc8b09c4bdc11077d",
+      "bytes": 12324
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/assets-client-c7-baseline.json",
+      "baseline_sha256": null,
+      "sha256": "573c0223197d9b63de7c000be68df8a36fd7e0b03112da2709ecf28b17523954",
+      "bytes": 1802
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/assets-opening-browser-baseline.json",
+      "baseline_sha256": null,
+      "sha256": "8d818f88def6f5db8f62d46721f45ee96692954fbce14957492e5c6946b2b1c1",
+      "bytes": 1978
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-boundaries-final-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "af83f854d81a52dcc08abdc60f09d00fbbd014193d3bbde933cdebe5cbca77ad",
+      "bytes": 2686
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-boundaries-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "cd7751a01e69f29204d3d1362e447b1f07992053b65c6b705b89a15e8ede76a9",
+      "bytes": 5741
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-browser-dialog-fixed-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "fbba09ed7a29c020458c1141e28c7d9c9ed147a89f249fe7626491ac2813388c",
+      "bytes": 418
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-browser-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "fbba09ed7a29c020458c1141e28c7d9c9ed147a89f249fe7626491ac2813388c",
+      "bytes": 418
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-combined-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "b74791d84796bda39ff830f42fbe496320ef902f2c170263b219c86140ee6591",
+      "bytes": 14351
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-domain-after-identity-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "37fe57743b58530a099bae76d9cd237958c9317a9f210a0080e9b2fdad5b31ef",
+      "bytes": 21562
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-domain-final-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "b722f359fc58a1e353ac2348c37615f39c38c15b6da75fbf686bb9b6a5f4f9ea",
+      "bytes": 21343
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-domain-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "2cb2904f84ad4ed8fd3640e5ab19a0085853d08161536ded41c6908e28e0a039",
+      "bytes": 1366
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-financial-regression-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "5bd5ca261e535bafb81a45ddd72594bf8088a32af91e210abb731fc87981826b",
+      "bytes": 16105
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-full-node-dialog-fixed-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "e6fe704afe4b3793a0ba5e47f38d5d9a31e00db7db10708ed7f2221b3bbcfd9c",
+      "bytes": 53939
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-full-node-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "efc8fedcb29979c9a6f5371445a74daa9a2dc58572ceae7a1ba72e6214cd5e4e",
+      "bytes": 52756
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-http-profile-final-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "3df3b997580398f839202cd1d0185cbe80e9e5b955677dfa19aff30e4bc64778",
+      "bytes": 1840
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-http-regression-final-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "a04cc022592dc68ef1ad2698677edb6c7096201e1118828507690bee44dd6779",
+      "bytes": 11873
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-http-regression-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "41254a0d4fdc8edbf4737d792726bfbe796051370b3b06ef0f6089052211b3ef",
+      "bytes": 12787
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-identity-length-after-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "b9545e4041ddd5e6c8b504082331b59bdd278fe55d280c1a0efcef24dec0284e",
+      "bytes": 5601
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-identity-length-before-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "6b57280fa89ef7b234e68fb634ea41b6d4860803b8fd6b6e82797b8d6e2da484",
+      "bytes": 1265
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-identity-transport-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "d47aa22e085c520cb27c42e198d02746cba5c328f06df2adc95148923427e4ba",
+      "bytes": 1472
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-mobile.png",
+      "baseline_sha256": null,
+      "sha256": "8fa09cf3175b31589ab1c7369dc9dc6978894f006ae25de4dc2dc5ecccb87874",
+      "bytes": 62555
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-node-context-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "d35616fbcfcffe4bd76d853c8fff72e70cb1e4d9b1fd7482c89d6c647c3d03be",
+      "bytes": 1322
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-node-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "e86ee9cda3092993737711be043c02a64c03457499fb799454fbbf2de784bfa1",
+      "bytes": 1903
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-opening-backend-baseline.json",
+      "baseline_sha256": null,
+      "sha256": "4e37cf5b9ae29fcd5a1653d05e3fe2ad0f624b20c58d2693323b776b3a34e5c7",
+      "bytes": 187030
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-opening-large-balances-followup.json",
+      "baseline_sha256": null,
+      "sha256": "477d318f56df16e61e48ffe897d8010eb45d4c511bc87b57d5825174cfedf25a",
+      "bytes": 1485
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-packages-final-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "696af0baee86cf000d1e9af17255ac68733462a4c8a3cfe58a1cc224bfc2a8a8",
+      "bytes": 4454
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-packages-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "cdebf1723c7d40035847fff03846257096440f825483ccfc1460d4cbcedb637a",
+      "bytes": 3603
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-packages-handoff-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "deffedb3e9d49e37a37b4cd05b3f63f7fdebd59e67ac9fca3cb436ca8f940233",
+      "bytes": 3603
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-packages-stable-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "bfd3a52965ab4d5248dc158261ea50519e51fd303620423c1d247d557efee081",
+      "bytes": 3603
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-pg-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "4c5bc43487871130b27eb5c1441ac333d09afd53719002b5ec1e11f3cce32758",
+      "bytes": 793
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-registration-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "1200e52d216c02dcea963287b74c6283160c9fd64d736a9b8629142c92c35279",
+      "bytes": 1884
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-registration-regression-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "6b1dfc2e454b6ba1e5eca1ff0b390ae55cd24bb6475db4363861dde943d196aa",
+      "bytes": 11871
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-rules-after-month-review-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "9b15fb88af09461ba1ddfa7a03a428fe35a72061be4fdf476ee0156894097460",
+      "bytes": 1444
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-rules-first-2026-11-04.txt",
+      "baseline_sha256": null,
+      "sha256": "f6b7e463d71da3d470d528ad7697c0a03f1d8e3fde0adab20bee6e70e02daf36",
+      "bytes": 1444
+    },
+    {
+      "path": "docs/evidence/historical-assets-2026-11-04/historical-assets-synthetic-commands.json",
+      "baseline_sha256": null,
+      "sha256": "5014090f34b8c3a5b2dd4202b5a44e04e5fb4cb8e5046039e1e39ff028c7744b",
+      "bytes": 329249
+    },
+    {
+      "path": "docs/evidence/historical-assets-browser-independent-review-2026-11-04.json",
+      "baseline_sha256": null,
+      "sha256": "576d17f89a1290c1d9fb69778259029398e6e13e723ad3701ca599ac4c328b74",
+      "bytes": 8683
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/README.md",
+      "baseline_sha256": null,
+      "sha256": "3e8ba41126ed8b8df1ef159fc0a4b022c2ce458a485469d0b2fd573d4e24da10",
+      "bytes": 8022
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/acquisition-month-probe.txt",
+      "baseline_sha256": null,
+      "sha256": "cda9176258c3649ff521f586eb0708852e618e863c64fae400179acd477a1d01",
+      "bytes": 248
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/domain-first.txt",
+      "baseline_sha256": null,
+      "sha256": "ebce89da73162cfffe7f1c62f0375011ded00aec1bd5d00dbbe7becef1dc3dd3",
+      "bytes": 3195
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/frozen-projection-first.txt",
+      "baseline_sha256": null,
+      "sha256": "f9e5f5c0049ad914cb6033c166883798769108680d6b17d598130dd8fde776a9",
+      "bytes": 1453
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/independent-euer-final.txt",
+      "baseline_sha256": null,
+      "sha256": "9155a814263d7a11916f192abd59dcec80f346c6f2e7994b85b889f23f7ece97",
+      "bytes": 8082
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/independent-final.txt",
+      "baseline_sha256": null,
+      "sha256": "198fcc0f8be018d86300cdfc6ead04dc559e70204409aa04ffb132d28dea433f",
+      "bytes": 4203
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/legacy-euer-source-before-historical.txt",
+      "baseline_sha256": null,
+      "sha256": "8b7de3d9ea21083160af66cad5e9dcd42ce42d1776b9473b3e20b0207b9b4322",
+      "bytes": 80086
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/manifest.json",
+      "baseline_sha256": null,
+      "sha256": "f9385cfc74a7db3be8f8d59ec78223110f874769a54f16d6fb64c2aa2f95a1bf",
+      "bytes": 5824
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/rules-combined.txt",
+      "baseline_sha256": null,
+      "sha256": "69b3624d0aefa80d8e29e92be5645d563362f525ae1103f4a81d9ce0181878d4",
+      "bytes": 3711
+    },
+    {
+      "path": "docs/evidence/historical-assets-independent-2026-11-04/rules-first.txt",
+      "baseline_sha256": null,
+      "sha256": "934acbfe2aa1ab74a1c548508abdcb6cac7a28ddaa6728c1c6fc7ee4c84889bc",
+      "bytes": 2364
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/README.md",
+      "baseline_sha256": null,
+      "sha256": "e97dc48b204445f4160a705fe3476ade5aa3ff892a69ca885ee7dd0cfc529281",
+      "bytes": 4010
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/analyzer.txt",
+      "baseline_sha256": null,
+      "sha256": "890c41900856eac7786472fd05d422841e277c70b92d33d4fa27dcdeb7bfbd75",
+      "bytes": 96
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/focused-final.txt",
+      "baseline_sha256": null,
+      "sha256": "c641c50e5236bf44e76a45deddc5ba7a937fb37079be6ab3d74e41adecb9e211",
+      "bytes": 4268
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/manifest.json",
+      "baseline_sha256": null,
+      "sha256": "3c08df2e8b8e350624a84a53ba1f43b6118ed8fe1c447baabde418fd58c4ff05",
+      "bytes": 9184
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/native-first-full-http.txt",
+      "baseline_sha256": null,
+      "sha256": "f30397e1e7f2bb33fa2f7b846f7e79c119baff91881f0ba5e4ec8be31c000758",
+      "bytes": 3801
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/opening-baseline.json",
+      "baseline_sha256": null,
+      "sha256": "573c0223197d9b63de7c000be68df8a36fd7e0b03112da2709ecf28b17523954",
+      "bytes": 1802
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/regression.txt",
+      "baseline_sha256": null,
+      "sha256": "5fe8973439a94224a747a9efeec7238b3b90d53e903cf1b160a0c68631ef9a6f",
+      "bytes": 31352
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/session-inflight-only.patch",
+      "baseline_sha256": null,
+      "sha256": "16b392c1d44185a1d813996f08bb63aae3f86de6140b8446d087298232ce7edd",
+      "bytes": 1201
+    },
+    {
+      "path": "docs/evidence/historical-assets-native-2026-11-04/session-load-before.txt",
+      "baseline_sha256": null,
+      "sha256": "12f780ce49001e64d228ac1e3b22f8f76192100a10429bea1539ff6b6df8a108",
+      "bytes": 1203
+    },
+    {
+      "path": "docs/fixtures/accounting_historical_assets_2026.json",
+      "baseline_sha256": null,
+      "sha256": "78aa6210f54ca382afa0f167703dd341c3d1127873475e1971ea71e47b355d15",
+      "bytes": 278402
+    },
+    {
+      "path": "scripts/generate-accounting-historical-assets-fixture.py",
+      "baseline_sha256": null,
+      "sha256": "598b8d5fda4bbf153d885fd10cf93fcb098fea1cf8eebf026e0535d18207fa3b",
+      "bytes": 4024
+    },
+    {
+      "path": "scripts/native-release.py",
+      "baseline_sha256": "fe4f194457d5d6f6f4e72ef554c243687c01fa97e35fe61fb0c815534eee0e30",
+      "sha256": "b3d352d244307dbebe6cb28d4388d89cddb7673ff21546c925cf5c77892af305",
+      "bytes": 22272
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "baseline_sha256": "281a2e1f159a8616fe5dfd4874efb80631c62c56f7976d16c2988a3786844e79",
+      "sha256": "9941ab7744e047d7bde34ad51b12963aa8950985c3d47287ce4c73db70f9c2d0",
+      "bytes": 12908
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "baseline_sha256": "fe5d967688cc14bf97bfdba6a9e817153e6a90a0cab4e7d807ec41806303b8a0",
+      "sha256": "81a4e9899661bcef174ec9e1b4fd5b0d2ae91b0e6706c3028549677eb79fa0da",
+      "bytes": 48886
+    },
+    {
+      "path": "web/office/accounting-historical-assets-contract.js",
+      "baseline_sha256": null,
+      "sha256": "d8a55c99110950a149e891af200cd711bdac891e9a7cc49bceaca2be0452f162",
+      "bytes": 16320
+    },
+    {
+      "path": "web/office/accounting-historical-assets.js",
+      "baseline_sha256": null,
+      "sha256": "20b6ad6eef8ace5a67b04ab8f0b6ea265da9e4edb0cf3fb3b9c18d9f4ebacdf8",
+      "bytes": 15326
+    },
+    {
+      "path": "web/office/office.js",
+      "baseline_sha256": "96a155c5eccc38f65316af6f828a0846677fee14581a3245415772323e17c6c4",
+      "sha256": "605cd35d5ba2f7ea761bbfe7bfe6f7ee30caf77a2f7f8b4a5200f9cf65d419b7",
+      "bytes": 343787
+    },
+    {
+      "path": "web/office/tests/accounting-historical-assets-context.test.mjs",
+      "baseline_sha256": null,
+      "sha256": "0331e5b7fc004e9fef44673726b4ddc6c5431ce0ea16ecba46558010c015eb44",
+      "bytes": 7546
+    },
+    {
+      "path": "web/office/tests/accounting-historical-assets-flow.cjs",
+      "baseline_sha256": null,
+      "sha256": "27248284cec746155fee15ae3b1058453ba71a682c4d588c344ab7b2a3ec8b49",
+      "bytes": 16550
+    },
+    {
+      "path": "web/office/tests/accounting-historical-assets-independent-flow.cjs",
+      "baseline_sha256": null,
+      "sha256": "03e63bc24482985f8c61364f9cad412de4c50bc8ad05fcd7b3a2abeb69462d71",
+      "bytes": 1987
+    },
+    {
+      "path": "web/office/tests/accounting-historical-assets-independent-preload.cjs",
+      "baseline_sha256": null,
+      "sha256": "c2266c82be5bad25c867ba4aade0b4ded167a752d7e77319fe6c2e1875b11007",
+      "bytes": 432
+    },
+    {
+      "path": "web/office/tests/accounting-historical-assets-independent-review.test.mjs",
+      "baseline_sha256": null,
+      "sha256": "38949580392b214ed1de9f055a248d08b487586e327fae4b1f000ec98d4a1c7d",
+      "bytes": 11073
+    },
+    {
+      "path": "web/office/tests/accounting-historical-assets.test.mjs",
+      "baseline_sha256": null,
+      "sha256": "fb056eb6a7b394c16e010b7f655c6c439f24871e37c59dee5bd701a048b66576",
+      "bytes": 7286
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "baseline_sha256": "666006f669707d7060590284d8992b650ca55559576599ad828ca08ef71ccf56",
+      "sha256": "e216d31c0c29e6864927c70fcb6b7e826c8cde120c351c751dc9e26f5c067d72",
+      "bytes": 45910
+    }
+  ]
+}

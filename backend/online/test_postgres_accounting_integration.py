@@ -476,7 +476,7 @@ class AccountingMigrationPostgres(unittest.TestCase):
     def test_additive_migration_preserves_prior_final_invoice_payment_original_and_signed_report(self):
         module = importlib.import_module('business_accounting')
         prior = tuple(spec for spec in business_schema.registry()
-                      if spec.name not in ('business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings'))
+                      if spec.name not in ('business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings', 'business_accounting_asset_openings'))
         with patch.object(business_schema, 'registry', return_value=prior):
             base.reset()
             bootstrap = PostgresOffice(journey.DSN)

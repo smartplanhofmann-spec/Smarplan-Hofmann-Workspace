@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T09:33:10.589311+00:00",
+  "workspace": "/workspace/smartplan-historical-assets-20261104",
+  "reviewer": "finish_v6_clients",
+  "implementation_owner": "overall_completion_review",
+  "scope": "Independent historical-assets browser review: real product UI/OfficeApi with separate Node DOM host and one independently targeted real Chromium/MFA/HTTP reproduction. No product runtime edits, existing test edits, commits or production actions by reviewer.",
+  "owned_review_files": [
+    {
+      "path": "web/office/tests/accounting-historical-assets-independent-review.test.mjs",
+      "bytes": 11073,
+      "sha256": "38949580392b214ed1de9f055a248d08b487586e327fae4b1f000ec98d4a1c7d"
+    },
+    {
+      "path": "web/office/tests/accounting-historical-assets-independent-flow.cjs",
+      "bytes": 1987,
+      "sha256": "03e63bc24482985f8c61364f9cad412de4c50bc8ad05fcd7b3a2abeb69462d71"
+    },
+    {
+      "path": "web/office/tests/accounting-historical-assets-independent-preload.cjs",
+      "bytes": 432,
+      "sha256": "c2266c82be5bad25c867ba4aade0b4ded167a752d7e77319fe6c2e1875b11007"
+    }
+  ],
+  "reviewed_runtime_and_fixture": [
+    {
+      "path": "web/office/accounting-historical-assets-contract.js",
+      "bytes": 16320,
+      "sha256": "d8a55c99110950a149e891af200cd711bdac891e9a7cc49bceaca2be0452f162"
+    },
+    {
+      "path": "web/office/accounting-historical-assets.js",
+      "bytes": 15326,
+      "sha256": "20b6ad6eef8ace5a67b04ab8f0b6ea265da9e4edb0cf3fb3b9c18d9f4ebacdf8"
+    },
+    {
+      "path": "web/office/office.js",
+      "bytes": 343787,
+      "sha256": "605cd35d5ba2f7ea761bbfe7bfe6f7ee30caf77a2f7f8b4a5200f9cf65d419b7"
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "bytes": 48886,
+      "sha256": "81a4e9899661bcef174ec9e1b4fd5b0d2ae91b0e6706c3028549677eb79fa0da"
+    },
+    {
+      "path": "docs/fixtures/accounting_historical_assets_2026.json",
+      "bytes": 278402,
+      "sha256": "78aa6210f54ca382afa0f167703dd341c3d1127873475e1971ea71e47b355d15"
+    }
+  ],
+  "results": {
+    "independent_node_cases": 12,
+    "existing_asset_cases_run_together": 11,
+    "total_node_cases": 23,
+    "passed": 23,
+    "failed": 0,
+    "node_command": "node --test web/office/tests/accounting-historical-assets-independent-review.test.mjs web/office/tests/accounting-historical-assets*.test.mjs",
+    "node_execution": "require_escalated; actual named Node assertions",
+    "real_browser_targeted_flows": 1,
+    "real_browser_exit_code": 0,
+    "browser_scope": "Initial genuine historical-asset state response held until the user opens actual bookkeeping-profile dialog; release must preserve the later profile dialog.",
+    "browser_sandbox": "namespace, PID, network and seccomp independently verified before application access",
+    "browser_command": "NODE_OPTIONS=--require=<workspace>/web/office/tests/accounting-historical-assets-independent-preload.cjs NODE_PATH=/workspace/Smarplan-Hofmann-Workspace/web/office/node_modules SMARTPLAN_BROWSER_NAMESPACE_SANDBOX=1 SMARTPLAN_CHROMIUM_BINARY=/usr/lib/chromium/chromium SMARTPLAN_BROWSER_TEST_PYTHON=/tmp/smartplan-backend-verified/bin/python SMARTPLAN_BROWSER_WORKFLOW=historical-assets SMARTPLAN_BROWSER_SCREENSHOT_DIR=<workspace>/work/verification/historical-assets-independent-browser-final-2026-11-04 node web/office/tests/e2e.cjs"
+  },
+  "confirmed_finding": {
+    "id": "initial-state-dialog-replacement",
+    "controlled_red": "work/verification/historical-assets-browser-independent-second-2026-11-04.log",
+    "actual_browser_red": "work/verification/historical-assets-independent-browser-first-2026-11-04.log",
+    "actual_before": "Historische Anlagen",
+    "expected": "Vorbereitungsprofil",
+    "trigger": "Initial asset-state read starts before any asset dialog exists; another financial dialog opens while actual state response is held. Old stamp had only API generation/render; no prior asset-marker existed to trigger module clear. Late response replaced the newer dialog.",
+    "impact": "Context/interaction failure, not a demonstrated authorization or financial write bypass.",
+    "owner_fix": "Global dialogGeneration increments on closeModal even when no dialog exists; only historical-assets stamp includes it. A changed initial dialog/view is discarded without opening a private placeholder. Current authorization errors and true session changes retain failure semantics.",
+    "green": "work/verification/historical-assets-independent-browser-final-2026-11-04.log"
+  },
+  "green_countercases": [
+    "Initial state after read permission revoked",
+    "Initial state after session replacement",
+    "Accepted confirmation after unrelated dialog replacement cannot reopen private values",
+    "Accepted confirmation after current server permission revocation neutralizes values/title",
+    "Old-session accepted response cannot clear replacement pending command",
+    "Genuine original bytes after view change do not download",
+    "Genuine original bytes after permission revoke do not download or retain filename/title",
+    "Held file read cannot upload into replaced editor",
+    "Changed actual profile blocks stale original preview before POST",
+    "Foreign valid accepted receipt cannot clear pending; exact original receipt replays after actual fixture journal has advanced through correction/void",
+    "Crossed original selection and EÜR source binding reject altered accepted references"
+  ],
+  "harness_notes": [
+    "Initial test pass used the fixture's separate Unicode identity example (masse-01) for the actual accepted asset (m-001). Five missing-button failures were fixture-host mistakes; corrected to derive the displayed identity from actual preview_request.",
+    "The remaining initial-state case was retained as an assertion that the later dialog remains. It reproduced both in the corrected controlled host and in actual Chromium.",
+    "After the owner fix, the host adds the real dialog-generation semantics to the provided stamp. Assertions on rights, pending commands and later dialog remained unchanged.",
+    "The explicit preload substitutes only the named existing E2E test-entry export with the independent helper. It never patches product modules, auth checks, financial data or HTTP response contents. Parent runner's generic final workflow label is interpreted only with the independent helper's explicit targeted scope.",
+    "The owner's full productive Assets browser workflow and broader integrated regression remain separate evidence; they are not claimed as independently executed here."
+  ],
+  "artifacts": [
+    {
+      "path": "work/verification/historical-assets-browser-independent-first-2026-11-04.log",
+      "bytes": 7376,
+      "sha256": "e0a21851d894f5c710f48bf4d914a7d61a8550831766d4f6ad992dc436e51668"
+    },
+    {
+      "path": "work/verification/historical-assets-browser-independent-second-2026-11-04.log",
+      "bytes": 2216,
+      "sha256": "e898fb56a5eb68a440001e7272c58b2cb445749c37bf0152fb732ff06c57917f"
+    },
+    {
+      "path": "work/verification/historical-assets-browser-independent-final-2026-11-04.log",
+      "bytes": 2555,
+      "sha256": "b1653972cbc081378dfb876fea5424585cdf127ff3d24dcc139515335c8ea72b"
+    },
+    {
+      "path": "work/verification/historical-assets-independent-browser-first-2026-11-04.log",
+      "bytes": 2400,
+      "sha256": "f2ac4435d4e96cd31b2945647ef6c0feb0f7813b4b09b9748467c239ab211c29"
+    },
+    {
+      "path": "work/verification/historical-assets-independent-browser-final-2026-11-04.log",
+      "bytes": 329,
+      "sha256": "d780426bf298cb1c30149df1a1e3d21f44ebafa2e22a891e4096e86056956b53"
+    },
+    {
+      "path": "work/verification/historical-assets-independent-browser-first-2026-11-04/independent-initial-state-dialog.png",
+      "bytes": 159338,
+      "sha256": "4da64ef14e888804afdac53041e0fcaeaa33f01451ed48eaf258d6ac904c5199"
+    },
+    {
+      "path": "work/verification/historical-assets-independent-browser-first-2026-11-04/independent-initial-state-dialog-result.json",
+      "bytes": 158,
+      "sha256": "1f623b2a07aaf7fad3c9d5df0c9aed7b5253fdcd5ae46a9aff8ada3bfb219527"
+    },
+    {
+      "path": "work/verification/historical-assets-independent-browser-final-2026-11-04/independent-initial-state-dialog.png",
+      "bytes": 150375,
+      "sha256": "14393243fdc6fa7be85725a9fd0ad81daae386c7ceea7768f75280c567ddde4c"
+    },
+    {
+      "path": "work/verification/historical-assets-independent-browser-final-2026-11-04/independent-initial-state-dialog-result.json",
+      "bytes": 158,
+      "sha256": "480f72e2936584b500a86aaf491beeb3a9d7b5d65743b67545ea2f687a982c96"
+    }
+  ]
+}

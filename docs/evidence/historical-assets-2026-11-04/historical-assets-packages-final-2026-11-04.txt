@@ -1,0 +1,33 @@
+test_actual_support_archive_imports_the_packaged_backend (test_native_release.NativePackageTests.test_actual_support_archive_imports_the_packaged_backend) ... ok
+test_current_sources_include_phone_tablet_and_keychain_configuration (test_native_release.NativePackageTests.test_current_sources_include_phone_tablet_and_keychain_configuration) ... ok
+test_dependency_update_is_explicit_offline_locked_and_never_opens_business_data (test_native_release.NativePackageTests.test_dependency_update_is_explicit_offline_locked_and_never_opens_business_data) ... ok
+test_dictation_package_requires_mic_purpose_and_forbids_background_audio (test_native_release.NativePackageTests.test_dictation_package_requires_mic_purpose_and_forbids_background_audio) ... ok
+test_full_support_archive_contains_validated_wheels_installer_and_reproducible_manifest (test_native_release.NativePackageTests.test_full_support_archive_contains_validated_wheels_installer_and_reproducible_manifest) ... FAIL
+test_ios_cli_manifest_requires_workspace_backend_and_actual_build_number (test_native_release.NativePackageTests.test_ios_cli_manifest_requires_workspace_backend_and_actual_build_number) ... ok
+test_ios_requires_ipad_and_expected_signed_keychain_identity (test_native_release.NativePackageTests.test_ios_requires_ipad_and_expected_signed_keychain_identity) ... ok
+test_local_manifest_keeps_packaged_backend_and_project_plan_scope (test_native_release.NativePackageTests.test_local_manifest_keeps_packaged_backend_and_project_plan_scope) ... ok
+test_local_package_checks_offline_hash_manifest_before_claiming_complete_dependencies (test_native_release.NativePackageTests.test_local_package_checks_offline_hash_manifest_before_claiming_complete_dependencies) ... ok
+test_local_package_rejects_omitted_plan_backend_and_accepts_complete_sources (test_native_release.NativePackageTests.test_local_package_rejects_omitted_plan_backend_and_accepts_complete_sources) ... ok
+test_local_package_requires_unchanged_restore_operator_and_instructions (test_native_release.NativePackageTests.test_local_package_requires_unchanged_restore_operator_and_instructions) ... ok
+test_manifest_identifies_commit_backend_and_every_packaged_file (test_native_release.NativePackageTests.test_manifest_identifies_commit_backend_and_every_packaged_file) ... ok
+test_offline_bundle_requires_every_locked_wheel_and_rejects_source_archives_or_other_platforms (test_native_release.NativePackageTests.test_offline_bundle_requires_every_locked_wheel_and_rejects_source_archives_or_other_platforms) ... ok
+test_online_package_rejects_missing_native_storage_library_and_local_startup (test_native_release.NativePackageTests.test_online_package_rejects_missing_native_storage_library_and_local_startup) ... ok
+test_release_checks_reject_a_build_targeting_the_other_backend (test_native_release.NativePackageTests.test_release_checks_reject_a_build_targeting_the_other_backend) ... ok
+test_source_support_archive_is_honestly_source_only_without_offline_wheels (test_native_release.NativePackageTests.test_source_support_archive_is_honestly_source_only_without_offline_wheels) ... ok
+
+======================================================================
+FAIL: test_full_support_archive_contains_validated_wheels_installer_and_reproducible_manifest (test_native_release.NativePackageTests.test_full_support_archive_contains_validated_wheels_installer_and_reproducible_manifest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-historical-assets-20261104/scripts/test_native_release.py", line 181, in test_full_support_archive_contains_validated_wheels_installer_and_reproducible_manifest
+    self.assertEqual(archive.read_bytes(), first)
+AssertionError: b'PK\[3012146 chars]0T]\xf9:\x16\xc9`\x0e\x00\x00b\x1f\x00\x00`\x0[835134 chars]\x00' != b'PK\[3012146 chars]0T]\x80@\x89\xabT\x0e\x00\x00%\x1f\x00\x00`\x0[834886 chars]\x00'
+
+----------------------------------------------------------------------
+Ran 16 tests in 6.123s
+
+FAILED (failures=1)
+support.zip 1354632 bytes a09cccf02b924f18740d74065f59affd7e48f17fcd156dc460abd1dd0f85b399
+offline-support.zip 1362715 bytes d6e740302c8c23db8613434ec2691f62a8fc284263e2823f9fb494387f802d6e
+offline-support.zip 1362799 bytes 9723e89493fd52f13b55d312d8906ed1c07b277c30d80f22443d0d7b1bde1a78
+source-only.zip 1354716 bytes 92e9f7373e38ce75a249e2a9266379b1aba2533b5422ac81fc2945894269eab7

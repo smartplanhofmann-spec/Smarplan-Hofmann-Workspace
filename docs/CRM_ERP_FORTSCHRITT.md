@@ -1895,3 +1895,28 @@ Mehrfachbonusberechnung sind in eigenen Arbeitsständen begonnen. Die
 [Statusübersicht](CRM_ERP_STATUS_AKTUELL.md) und Anforderungsmatrix trennen
 geprüfte Teilfunktionen von offenen Gesamtanforderungen. Die Schätzung von
 zwei bis vier Stunden war keine Zusage für die vollständige Buchhaltung.
+
+
+## 04.11.2026 – Historische Anlagen nach Source5 gemeinsam geprüft
+
+Die belegte Übernahme linearer historischer Anlagen ist auf `8858db4` mit
+beiden Clients, EÜR und Wiederherstellung zusammengeführt. Originale,
+bisherige AfA, unterjähriger Vortrag, Folge-AfA und Korrekturen bleiben an ihre
+ursprünglichen Quellen gebunden. Der native gemeinsame Sitzungsabruf und der
+verspätete initiale Browserdialog sind gezielt korrigiert; Source5 und
+Katalogoriginale bleiben erhalten.
+
+1.674/1.675 Backendfälle (ein vorhandener Windows-Skip), 578 Node- und 1.225
+Flutterfälle, Analyse ohne Befund, 16 Paket- und 49 Finanz-HTTP-Fälle bestehen.
+Alle 107 unterschiedlichen PostgreSQL-Regressionsfälle sind abschließend grün;
+ein Teststeuerungs-Zeitlimit und eine veraltete Travel-Migrationsfixture sind
+mit ursprünglichen Protokollen und gezieltem Nachlauf dokumentiert. Ein
+zusätzlicher befüllter gemeinsamer Restore erhält Anlagen, Anfangssalden,
+Katalogoriginale, Source5-Anspruch/Lauf und EÜR-Export. Der unabhängige Mergecheck
+hat keinen Produktbefund. [Gesamtnachweis](CRM_ERP_ANLAGEN_GESAMTPRUEFUNG_2026-11-04.md).
+
+Preisgültigkeiten folgen als nächster gemeinsamer Stand. Unternehmensereignisse,
+historische offene Posten und die getrennte SV-Gruppenkorrekturgrundlage bleiben
+in ihren eigenen Entwicklungs-/Reviewständen; vollständige Buchhaltung und
+Gesamtsoftware sind weiterhin offen. Die genannte Spanne von zwei bis vier
+Stunden ist kein Fertigstellungstermin für dieses Gesamtziel.

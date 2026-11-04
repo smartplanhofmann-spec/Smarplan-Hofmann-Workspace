@@ -1,0 +1,5 @@
+{
+  "scenario": "actual initial asset-state response after unrelated profile dialog",
+  "expected": "Vorbereitungsprofil",
+  "actual": "Historische Anlagen"
+}

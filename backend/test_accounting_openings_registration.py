@@ -49,6 +49,13 @@ def require_review(office):
 
 
 class OpeningRegistrationTests(unittest.TestCase):
+    def setUp(self):
+        # This suite proves the original horizon12/report13 transition. The
+        # additive asset horizon13/report14 has its own actual migration suite.
+        previous=tuple(spec for spec in business_schema.registry() if spec.name!='business_accounting_asset_openings')
+        guard=patch.object(business_schema,'registry',return_value=previous)
+        guard.start();self.addCleanup(guard.stop)
+
     def office(self, suffix='current'):
         temporary = tempfile.TemporaryDirectory(prefix='synthetic-opening-registration-')
         self.addCleanup(temporary.cleanup)

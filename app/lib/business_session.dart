@@ -330,6 +330,90 @@ class BusinessSession extends ChangeNotifier {
     }
   }
 
+  List<String> get pendingHistoricalAssetKeys => !allowed
+      ? const []
+      : List.unmodifiable(
+          _pending.entries
+              .where(
+                (entry) =>
+                    entry.key.startsWith('historical-asset-') &&
+                    const [
+                      '/accounting/historical-assets/originals',
+                      '/accounting/historical-assets/confirm',
+                    ].contains(entry.value.path),
+              )
+              .map((entry) => entry.key),
+        );
+
+  void _requireHistoricalAssetRights() {
+    if (projectId != null ||
+        !hasFeature('accounting_historical_assets') ||
+        !hasModule('accounting_asset_openings') ||
+        !['accounting.read', 'finance.read'].every(can) ||
+        ![
+          'accounting.admin',
+          'accounting.prepare',
+          'finance.write',
+        ].every(canWrite)) {
+      throw const ApiException(
+        403,
+        'Aktuelle globale Rechte für historische Anlagen fehlen.',
+      );
+    }
+    if (!sectionEnabled('finance'))
+      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+  }
+
+  Future<dynamic> repeatHistoricalAssetCommand(
+    String key,
+  ) => _repeatWorkflowCommand(
+    key,
+    matches: (path) =>
+        key.startsWith('historical-asset-') &&
+        const [
+          '/accounting/historical-assets/originals',
+          '/accounting/historical-assets/confirm',
+        ].contains(path),
+    requireRights: _requireHistoricalAssetRights,
+    readPath: '/accounting/historical-assets',
+    verifyState: (state) {
+      if (state['schema_version'] != 1 ||
+          state['rule_version'] != 'de_historical_linear_assets_v1' ||
+          state['can_prepare'] != true) {
+        throw const ApiException(
+          423,
+          'historische Anlagen sind derzeit nicht zur Bearbeitung freigegeben.',
+        );
+      }
+      // Do not replace the original asset/profile revisions or nonce. The
+      // server checks the saved receipt before evaluating a new journal effect.
+    },
+  );
+
+  Future<dynamic> previewHistoricalAsset(Map<String, dynamic> values) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    _requireHistoricalAssetRights();
+    final capturedGeneration = generation;
+    try {
+      final result = await api.call(
+        path('/accounting/historical-assets/preview'),
+        Map<String, dynamic>.from(jsonDecode(jsonEncode(values))),
+      );
+      _guard(epoch);
+      _requireHistoricalAssetRights();
+      if (generation != capturedGeneration)
+        throw const ApiException(
+          409,
+          'Der Funktionsstand wurde geändert. Bitte neu prüfen.',
+        );
+      return result;
+    } on ApiException catch (error) {
+      if (error.status == 401) revoke();
+      rethrow;
+    }
+  }
+
   /// A detached copy of the exact unacknowledged input, held only in this
   /// authenticated session. Source/account versions must survive editor reopen.
   Map<String, dynamic>? pendingCommandValues(
@@ -2120,8 +2204,31 @@ class BusinessSession extends ChangeNotifier {
       throw const ApiException(401, 'Der Zugang ist nicht mehr verfügbar.');
   }
 
-  Future<void> load() async {
-    if (loading) return;
+  Future<void>? _loadingFuture;
+
+  /// A workflow and the periodic refresh must observe the same completed
+  /// capability read. Returning an already completed future while another read
+  /// was pending incorrectly made callers reject still-loading permissions.
+  Future<void> load() {
+    final current = _loadingFuture;
+    if (current != null) return current;
+    final completion = Completer<void>();
+    final future = completion.future;
+    _loadingFuture = future;
+    _loadCapabilities().then(
+      (_) {
+        if (identical(_loadingFuture, future)) _loadingFuture = null;
+        completion.complete();
+      },
+      onError: (Object error, StackTrace stack) {
+        if (identical(_loadingFuture, future)) _loadingFuture = null;
+        completion.completeError(error, stack);
+      },
+    );
+    return future;
+  }
+
+  Future<void> _loadCapabilities() async {
     if (!allowed) {
       ready = true;
       _changed();
@@ -2271,6 +2378,11 @@ class BusinessSession extends ChangeNotifier {
     ).firstMatch(path);
     final documentaryCommand =
         _catalogCommand(key, path) ||
+        (key.startsWith('historical-asset-') &&
+            const [
+              '/accounting/historical-assets/originals',
+              '/accounting/historical-assets/confirm',
+            ].contains(path)) ||
         (key.startsWith('accounting-opening-') &&
             const [
               '/accounting/opening-balances/originals',

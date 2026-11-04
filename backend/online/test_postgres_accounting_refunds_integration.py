@@ -379,7 +379,7 @@ class RefundOriginsPostgres(unittest.TestCase):
 class RefundMigrationPostgres(unittest.TestCase):
     def test_c1_migration_preserves_every_old_row_and_schema4_receipt_cannot_unlock_new_restore(self):
         full = business_schema.registry()
-        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_refunds', 'business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings'))
+        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_refunds', 'business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings', 'business_accounting_asset_openings'))
         fixture = components_fixture.ComponentsPostgres(methodName='runTest')
         self.addCleanup(fixture.doCleanups)
         with patch.object(business_schema, 'registry', return_value=prior), \

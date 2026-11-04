@@ -9,6 +9,7 @@ import 'business_accounting_profile.dart';
 import 'business_accounting_euer.dart';
 import 'business_accounting_capacity.dart';
 import 'business_accounting_openings.dart';
+import 'business_accounting_historical_assets.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -828,6 +829,23 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
         : ListView(
             padding: const EdgeInsets.all(24),
             children: [
+              if (historicalAssetsReadable(widget.session))
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => BusinessHistoricalAssetsPage(
+                          session: widget.session,
+                        ),
+                      ),
+                    ),
+                    icon: const Icon(Icons.inventory_2_outlined),
+                    label: const Text(
+                      'Historische Anlagen übernehmen und prüfen',
+                    ),
+                  ),
+                ),
               if (openingReadable(widget.session))
                 Align(
                   alignment: Alignment.centerLeft,

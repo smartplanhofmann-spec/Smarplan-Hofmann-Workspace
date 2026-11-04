@@ -22,7 +22,7 @@ FEATURES = ('accounting_euer',)
 RULE_VERSION = 'de_euer_regular_cash_2026_v1'
 _TABLES = ('business_euer_entries', 'business_euer_requests')
 _INPUT = {'operation', 'expected_revision', 'state_hash', 'payload', 'reason', 'evidence_reference'}
-_ECONOMIC = {'cash', 'input_vat', 'external_cash', 'asset', 'depreciation', 'payroll_cash', 'travel_cash'}
+_ECONOMIC = {'cash', 'input_vat', 'external_cash', 'asset', 'depreciation', 'payroll_cash', 'travel_cash', 'opening_depreciation'}
 _OPERATIONS = _ECONOMIC | {'reverse', 'correct', 'period', 'export'}
 _EXPENSE = ('materials', 'external_services', 'rent', 'insurance', 'software', 'travel', 'other_expense', 'asset_acquisition')
 _EXTERNAL = {'vat_payment':'out', 'vat_refund':'in', 'owner_contribution':'in', 'owner_withdrawal':'out',
@@ -31,7 +31,7 @@ _MONEY = ('business_net', 'deductible_net', 'business_tax', 'deductible_input_ta
 _LIMITATIONS = ['Domestic regular taxation with explicitly recorded cash VAT profile',
     'Invoice chains require verified incremental documentary components; historical invoice proofs remain unchanged',
     'No automatic reverse charge, cross-border VAT, VAT-free sales, private deemed supplies or partial advance input VAT',
-    'Linear depreciation for evidenced new assets only; no opening assets, disposal, special/degressive depreciation or GWG automation',
+    'Linear depreciation for evidenced new assets and separately reviewed unchanged historical movable assets; no disposal, special/degressive depreciation or GWG automation',
     'No automatic loan-interest limitation, home-office allowance or payroll tax determination; travel cash requires separately reviewed travel claims',
     'Own adviser review format; no official tax return, ELSTER transmission or DATEV certification']
 
@@ -195,7 +195,10 @@ class EuerAccounting(Domain):
             return
         from accounting_joint_access import authorize_sources
         from business_finance import Finance
-        if source['kind'] == 'travel_cash':
+        if source['kind'] == 'opening_asset':
+            from business_accounting_asset_openings import financial_access
+            financial_access(self.office,actor,write)
+        elif source['kind'] == 'travel_cash':
             from travel_allowance_cash import financial_access
             financial_access(self.office,actor,write)
         elif source['kind'] == 'payroll_cash':
@@ -254,7 +257,10 @@ class EuerAccounting(Domain):
         return dict(source, source_hash=_sha(canonical(source)))
 
     def _validate_source(self, source):
-        if source['kind'] == 'travel_cash':
+        if source['kind'] == 'opening_asset':
+            from business_accounting_asset_openings import public_source
+            current=public_source(self.office,source['id'])
+        elif source['kind'] == 'travel_cash':
             from travel_allowance_cash import public_source
             current=public_source(self.office,source['id'],source['revision'])
         elif source['kind'] == 'payroll_cash':
@@ -305,8 +311,7 @@ class EuerAccounting(Domain):
                                                       status='closed' if payload['action'] == 'close' else 'open', entry_id=entry['id'])
         ledger['entries'].append(entry); ledger['by_id'][entry['id']] = entry
 
-    @staticmethod
-    def _validate_report(report, ledger, profile):
+    def _validate_report(self, report, ledger, profile):
         """A frozen package must reproduce its actual journal prefix exactly.
 
         Unbooked sources may arrive later; their historical completeness review
@@ -334,6 +339,11 @@ class EuerAccounting(Domain):
                     confirmed_input_vat=_money(iv),vat_balance=_money(output-iv) if complete else None)
         if report['categories']!=categories or report['totals']!=totals or report['complete_for_recorded_sources'] is not complete:
             raise ValueError('Frozen report changed its monetary projection')
+        if 'historical_assets' in report:
+            from accounting_asset_opening_sources import validate_report_assets
+            validate_report_assets(self,report,ledger)
+        elif any(entry['effect'] and entry['effect']['operation']=='opening_depreciation' for entry in ledger['entries']):
+            raise ValueError('Historical asset journal cannot have a legacy report without its asset projection')
 
     @_stored
     def _ledger(self):
@@ -642,6 +652,11 @@ class EuerAccounting(Domain):
         if type(payload['life_months']) is not int or not 12 <= payload['life_months'] <= 1200 or payload['life_months'] % 12:
             raise Problem(400, 'Ausdrücklich geprüfte lineare Nutzungsdauer in ganzen Jahren (12 bis 1200 Monate) erwartet')
         source = historical or self._receipt_source(actor,payload['receipt_id']); receipt=source['receipt']
+        if not historical:
+            from business_accounting_asset_openings import HistoricalAssets,installed as historical_assets_installed
+            if historical_assets_installed(self.office) and any(entry['status']=='active' and entry['source_proof']['original']['sha256']==receipt['original_sha256']
+                    for entry in HistoricalAssets(self.office)._ledger()['current'].values()):
+                raise Problem(409,'Dieses Original ist bereits als historische Anlage übernommen; keine neue Anschaffung daraus anlegen.')
         if source['source_hash'] != payload['source_hash']:
             raise Problem(409,'Anlagenoriginal wurde geändert')
         vat = ledger['active'].get('input_vat:'+receipt['original_sha256'])
@@ -682,6 +697,10 @@ class EuerAccounting(Domain):
             date=day,asset_entry_id=asset['id'],basis=setup['business_basis'],months=after-before,amount=_money(amount),
             opening_book_value=_money(basis-accrued(before)),closing_book_value=_money(basis-accrued(after)))
 
+    def _prepare_opening_depreciation(self,actor,payload,ledger,historical):
+        from accounting_asset_opening_sources import prepare
+        return prepare(self,actor,payload,ledger,historical)
+
     def _authorized_ledger(self, actor, ledger, write=False):
         seen=set()
         for entry in ledger['entries']:
@@ -704,6 +723,10 @@ class EuerAccounting(Domain):
         if not old or not old['effect'] or ledger['active'].get(old['target'],{}).get('id')!=entry_id:
             raise Problem(409,'Nur die aktive wirtschaftliche Einordnung kann berichtigt werden')
         operation=old['effect']['operation']
+        if operation=='opening_depreciation' and any(value['effect']['operation']=='opening_depreciation'
+                and value['effect']['source']['id']==old['effect']['source']['id']
+                and value['effect']['payload']['year']>old['effect']['payload']['year'] for value in ledger['active'].values()):
+            raise Problem(409,'Spätere Folgeabschreibungen dieser Anlagenfassung zuerst ausdrücklich gegenbuchen.')
         if operation=='asset' and any(value['effect']['operation']=='depreciation' and
                 value['effect']['payload']['asset_entry_id']==entry_id for value in ledger['active'].values()):
             raise Problem(409,'Zugehörige Abschreibungen zuerst nachvollziehbar berichtigen')
@@ -796,6 +819,9 @@ class EuerAccounting(Domain):
         from accounting_travel_sources import catalog as travel_catalog
         travel_items,travel_issues,travel_movements=travel_catalog(self,actor,ledger)
         items.extend(travel_items);issues.extend(travel_issues);movements.extend(travel_movements)
+        from accounting_asset_opening_sources import catalog as historical_asset_catalog
+        asset_items,asset_issues=historical_asset_catalog(self,actor)
+        items.extend(asset_items);issues.extend(asset_issues)
         totals={}
         for value in movements:
             key=value['account']['id']; total=totals.setdefault(key,dict(account=value['account'],inflows=0,outflows=0))
@@ -833,6 +859,9 @@ class EuerAccounting(Domain):
             require_financial_release(self.office)
         except Problem:
             issues.append(dict(code='restore_reconciliation_pending',source_id=None,date=prefix,source_path=None))
+        from accounting_asset_opening_sources import report_assets
+        historical_assets,historical_issues=report_assets(self,actor,year,ledger,month=month)
+        issues.extend(historical_issues)
         grouped={}
         for value in postings:
             key=(value['ledger'],value['category']); grouped[key]=grouped.get(key,0)+_cents(value['amount'])
@@ -856,7 +885,7 @@ class EuerAccounting(Domain):
                     totals=dict(confirmed_income=_money(income),confirmed_expenses=_money(expenses),confirmed_surplus=_money(income-expenses),
                                 euer_surplus=_money(income-expenses) if complete else None,confirmed_output_vat=_money(output),
                                 confirmed_input_vat=_money(iv),vat_balance=_money(output-iv) if complete else None),
-                    categories=categories,postings=postings,issues=issues,assets=assets,periods=periods,sources=source_manifest,
+                    categories=categories,postings=postings,issues=issues,assets=assets,historical_assets=historical_assets,periods=periods,sources=source_manifest,
                     cash_movements=movements,cash_scope=catalog['cash_scope'],opening_balances_available=False)
 
     @staticmethod
@@ -935,19 +964,21 @@ class EuerAccounting(Domain):
                 writes=False
             profile=self._profile()
             from business_accounting_openings import entrypoint as opening_entrypoint
+            from business_accounting_asset_openings import entrypoint as historical_asset_entrypoint
             return dict(revision=len(ledger['entries']),state_hash=_state_hash(ledger['entries']),profile=profile,
                         profile_ready=self._configured(profile),writes_allowed=writes,rule_version=RULE_VERSION,account_frame='SKR04',
                         categories=dict(income=['sales'],expense=list(_EXPENSE),external_cash=dict(_EXTERNAL),
                             payroll_cash=['payroll_net','payroll_employee_tax','payroll_employee_social','payroll_employer_social','payroll_employer_levies','payroll_employer_flat_tax'],
                             travel_cash=['travel_allowance']),
                         periods=list(ledger['periods'].values()),limitations=list(_LIMITATIONS),official_tax_return=False,
-                        opening_balances_path=opening_entrypoint(self.office,fresh))
+                        opening_balances_path=opening_entrypoint(self.office,fresh),historical_assets_path=historical_asset_entrypoint(self.office,fresh))
 
     def sources(self,actor):
         with transaction(self.office):
             fresh=self._access(actor); ledger=self._ledger(); self._authorized_ledger(fresh,ledger)
             from business_accounting_openings import entrypoint as opening_entrypoint
-            return dict(self._catalog(fresh,ledger),opening_balances_path=opening_entrypoint(self.office,fresh))
+            from business_accounting_asset_openings import entrypoint as historical_asset_entrypoint
+            return dict(self._catalog(fresh,ledger),opening_balances_path=opening_entrypoint(self.office,fresh),historical_assets_path=historical_asset_entrypoint(self.office,fresh))
 
     def journal(self,actor,limit=50,offset=0):
         _page(limit,offset)
@@ -971,12 +1002,16 @@ class EuerAccounting(Domain):
     def preview(self,actor,data):
         self._inputs(data)
         with transaction(self.office):
+            from business_accounting_asset_openings import HistoricalAssets,installed as historical_assets_installed
+            if historical_assets_installed(self.office):HistoricalAssets(self.office)._lock()
             fresh=self._access(actor,True); self._gate(); ledger=self._ledger(); self._authorized_ledger(fresh,ledger,True)
             return self._prepare(fresh,ledger,data)
 
     def confirm(self,actor,data):
         self._inputs(data,True)
         with transaction(self.office):
+            from business_accounting_asset_openings import HistoricalAssets,installed as historical_assets_installed
+            if historical_assets_installed(self.office):HistoricalAssets(self.office)._lock()
             fresh=self._access(actor,True); self._gate(); ledger=self._ledger(); self._authorized_ledger(fresh,ledger,True)
             digest=_sha(canonical(data))
             receipt=self.office.db.execute('SELECT * FROM business_euer_requests WHERE user_id=? AND request_id=?',(fresh['id'],data['request_id'])).fetchone()

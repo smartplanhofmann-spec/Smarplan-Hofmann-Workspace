@@ -1,0 +1,5 @@
+Command: ['/workspace/toolchains/flutter/bin/flutter', 'analyze', '--no-pub']
+Cwd: /workspace/smartplan-assets-integration-20261104/app
+Started UTC: 2026-11-04T09:50:38.809929+00:00
+Analyzing app...                                                
+No issues found! (ran in 21.1s)

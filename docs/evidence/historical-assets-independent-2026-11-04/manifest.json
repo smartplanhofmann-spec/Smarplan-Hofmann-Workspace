@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "workspace": "/workspace/smartplan-historical-assets-20261104",
+  "status": "reviewed_kernel_and_domain_cases_passed",
+  "scope": "Independent ordinary unchanged linear historical asset rules and actual EÜR integration review; no full package or full CRM/ERP completion claim",
+  "checks": [
+    {
+      "name": "Independent rational/monthly rules",
+      "passed": 9,
+      "failed": 0,
+      "subtest_matrix_cases": 900
+    },
+    {
+      "name": "Independent actual domain and rehashed export tests",
+      "passed": 8,
+      "failed": 0,
+      "rehash_variants": 4
+    },
+    {
+      "name": "Existing EÜR regressions",
+      "passed": 18,
+      "failed": 0
+    }
+  ],
+  "final_passed": 35,
+  "final_failed": 0,
+  "final_log": "docs/evidence/historical-assets-independent-2026-11-04/independent-euer-final.txt",
+  "runner": "PYTHONPATH=backend /tmp/smartplan-backend-verified/bin/python -m unittest -v test_accounting_asset_opening_rules_independent_review test_accounting_asset_openings_independent_review test_business_accounting_euer",
+  "reviewed_source_sha256": {
+    "backend/accounting_asset_opening_rules.py": "29729b585358f2fedf274b4d90ef079d61ece6ee015691a90316fe5c0e575905",
+    "backend/business_accounting_asset_openings.py": "016ec3437bfa5b008a588e1f7a0ad4a65a755f0053b4fafdf053088aaf898bbe",
+    "backend/accounting_asset_opening_sources.py": "27b8ad1aff5e746df4007e59ddd47bcf08cc24b35ae1413ca70f1c4096986483",
+    "backend/business_accounting_euer.py": "e0807590431553d48124692c135e37a4db05ff33e1a62be167216f7bb4778535"
+  },
+  "own_test_sha256": {
+    "backend/test_accounting_asset_opening_rules_independent_review.py": "0b9520748bced12f315748c54a74b0f647edc0eec069a2cbf83488d1266817f2",
+    "backend/test_accounting_asset_openings_independent_review.py": "998d3333d8b80aca1bd013e40a97786890b64643cfeac3de6bb76b3c17cb6f86"
+  },
+  "legacy_source": {
+    "commit": "5d9e7fd2cc0f04ef46d25d112549408454c6519a",
+    "git_blob": "11058a8d87ae5bc5faeda9a3332ffecd3eeaf818",
+    "path": "docs/evidence/historical-assets-independent-2026-11-04/legacy-euer-source-before-historical.txt",
+    "bytes": 80086,
+    "sha256": "8b7de3d9ea21083160af66cad5e9dcd42ce42d1776b9473b3e20b0207b9b4322",
+    "purpose": "Exact unchanged predecessor module creates an actually accepted old export; current module subsequently reads the old journal and preserves JSON/CSV bytes"
+  },
+  "findings": [
+    {
+      "id": "acquisition_month_shift",
+      "status": "owner_fixed_independently_tested",
+      "evidence": "An acquisition in January with use_start July is rejected; different days in the same acquisition month retain statutory monthly quota.",
+      "red_run_recorded": false
+    },
+    {
+      "id": "duplicate_original_position",
+      "status": "owner_fixed_independently_tested",
+      "evidence": "Original SHA256 and normalized position unique among active inventory identities; different positions allowed; explicit void and original replay retained.",
+      "red_run_recorded": false
+    },
+    {
+      "id": "new_and_historical_asset_double_use",
+      "status": "owner_hardened_both_directions_independently_tested",
+      "evidence": "Same incoming original cannot simultaneously back an active new EÜR asset and historical carryover."
+    },
+    {
+      "id": "frozen_projection_legacy_downgrade",
+      "status": "owner_fixed_red_green_independent_proof",
+      "red_log": "docs/evidence/historical-assets-independent-2026-11-04/frozen-projection-first.txt",
+      "evidence": "New historical-asset export with fully removed projection and fully recomputed nested hashes is rejected when original prefix contains opening_depreciation; actual old export remains unchanged."
+    }
+  ],
+  "limits": [
+    "No independent HTTP/MFA/PostgreSQL/backup-restore/client acceptance by this reviewer; those remain in separate package work.",
+    "Legal host was not on enforced network allowlist; direct official §7 reading is attributed to kernel owner, not newly claimed by reviewer.",
+    "Three selected rounding conventions must be evidenced unchanged historical facts; no GWG/degressive/special depreciation or new tax-method choice.",
+    "All review stores are disposable synthetic SQLite databases; no company assets or production contacts."
+  ],
+  "product_edits_by_reviewer": false,
+  "commits_by_reviewer": false,
+  "production_contacts": false,
+  "evidence_sha256": {
+    "docs/evidence/historical-assets-independent-2026-11-04/README.md": "3e8ba41126ed8b8df1ef159fc0a4b022c2ce458a485469d0b2fd573d4e24da10",
+    "docs/evidence/historical-assets-independent-2026-11-04/acquisition-month-probe.txt": "cda9176258c3649ff521f586eb0708852e618e863c64fae400179acd477a1d01",
+    "docs/evidence/historical-assets-independent-2026-11-04/domain-first.txt": "ebce89da73162cfffe7f1c62f0375011ded00aec1bd5d00dbbe7becef1dc3dd3",
+    "docs/evidence/historical-assets-independent-2026-11-04/frozen-projection-first.txt": "f9e5f5c0049ad914cb6033c166883798769108680d6b17d598130dd8fde776a9",
+    "docs/evidence/historical-assets-independent-2026-11-04/independent-euer-final.txt": "9155a814263d7a11916f192abd59dcec80f346c6f2e7994b85b889f23f7ece97",
+    "docs/evidence/historical-assets-independent-2026-11-04/independent-final.txt": "198fcc0f8be018d86300cdfc6ead04dc559e70204409aa04ffb132d28dea433f",
+    "docs/evidence/historical-assets-independent-2026-11-04/legacy-euer-source-before-historical.txt": "8b7de3d9ea21083160af66cad5e9dcd42ce42d1776b9473b3e20b0207b9b4322",
+    "docs/evidence/historical-assets-independent-2026-11-04/rules-combined.txt": "69b3624d0aefa80d8e29e92be5645d563362f525ae1103f4a81d9ce0181878d4",
+    "docs/evidence/historical-assets-independent-2026-11-04/rules-first.txt": "934acbfe2aa1ab74a1c548508abdcb6cac7a28ddaa6728c1c6fc7ee4c84889bc"
+  }
+}

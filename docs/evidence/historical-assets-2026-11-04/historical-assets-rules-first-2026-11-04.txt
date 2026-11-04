@@ -1,0 +1,11 @@
+test_cutover_does_not_reset_old_start_or_create_second_yearly_depreciation (test_accounting_asset_opening_rules.HistoricalLinearRuleExamples.test_cutover_does_not_reset_old_start_or_create_second_yearly_depreciation) ... ok
+test_documented_cent_roundings_are_kept_distinct_and_consume_exact_original_basis (test_accounting_asset_opening_rules.HistoricalLinearRuleExamples.test_documented_cent_roundings_are_kept_distinct_and_consume_exact_original_basis) ... ok
+test_fully_depreciated_still_used_asset_stays_zero_without_fictitious_rate (test_accounting_asset_opening_rules.HistoricalLinearRuleExamples.test_fully_depreciated_still_used_asset_stays_zero_without_fictitious_rate) ... ok
+test_inventory_identity_normalization_prevents_simple_duplicate_keys (test_accounting_asset_opening_rules.HistoricalLinearRuleExamples.test_inventory_identity_normalization_prevents_simple_duplicate_keys) ... ok
+test_leap_day_acquisition_uses_original_month_and_preserves_later_dependency (test_accounting_asset_opening_rules.HistoricalLinearRuleExamples.test_leap_day_acquisition_uses_original_month_and_preserves_later_dependency) ... ok
+test_unknown_history_or_unsupported_method_is_not_a_zero_or_new_purchase (test_accounting_asset_opening_rules.HistoricalLinearRuleExamples.test_unknown_history_or_unsupported_method_is_not_a_zero_or_new_purchase) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+OK

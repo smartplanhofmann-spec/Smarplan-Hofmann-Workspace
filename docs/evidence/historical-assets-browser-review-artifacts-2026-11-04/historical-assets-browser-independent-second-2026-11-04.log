@@ -1,0 +1,41 @@
+✔ independent assets initial original state cannot escape rights while loading (75.350036ms)
+✔ independent assets initial original state cannot escape session while loading (1.388159ms)
+✖ independent assets initial original state cannot escape dialog while loading (4.18644ms)
+✔ independent assets accepted confirmation cannot replace a newer unrelated dialog (14.191136ms)
+✔ independent assets accepted confirmation hides private values after fresh server read revocation (9.843729ms)
+✔ independent assets accepted response from an old session cannot consume replacement pending command (3.364493ms)
+✔ independent assets genuine original bytes produce no download after dialog change (5.277432ms)
+✔ independent assets genuine original bytes produce no download after rights change (5.838096ms)
+✔ independent assets selected file read cannot upload into replaced editor (3.631355ms)
+✔ independent assets profile change during editing blocks stale original preview (24.209148ms)
+✔ independent assets foreign valid receipt cannot clear pending; original exact replay survives journal progress (6.788241ms)
+✔ independent assets exact original identity and EÜR handoff refuse crossed accepted originals (2.226601ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 11
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 397.863592
+
+✖ failing tests:
+
+test at web/office/tests/accounting-historical-assets-independent-review.test.mjs:30:55
+✖ independent assets initial original state cannot escape dialog while loading (4.18644ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Historische Anlagen'
+  - 'Unrelated neutral dialog'
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-historical-assets-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs:33:129)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Historische Anlagen',
+    expected: 'Unrelated neutral dialog',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

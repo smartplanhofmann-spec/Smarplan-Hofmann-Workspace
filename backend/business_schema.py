@@ -30,7 +30,7 @@ MODULE_NAMES = tuple('business_' + name for name in (
     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
     'inventory', 'maintenance', 'adapters', 'catalog_imports', 'organization', 'instance', 'purchasing', 'portal', 'accounting',
     'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity', 'accounting_refunds_v2', 'accounting_profile',
-    'project_economics', 'asset_provenance', 'customer_workspace', 'personnel_workflow', 'accounting_euer', 'assistant', 'payroll', 'inventory_counts', 'sales', 'payroll_accounts', 'assistant_speech', 'company_handover', 'migrations', 'custom_fields', 'privacy_cases', 'payroll_cash', 'service', 'bank_reconciliation', 'resource_custody', 'purchase_changes', 'payroll_facts', 'travel_allowances', 'payroll_entitlements', 'payroll_calculation_cases', 'payroll_annual_basis', 'payroll_wage_interruptions', 'payroll_oneoff_cases', 'payroll_multiple_cases', 'accounting_openings')) + ('payroll_travel_recording',)
+    'project_economics', 'asset_provenance', 'customer_workspace', 'personnel_workflow', 'accounting_euer', 'assistant', 'payroll', 'inventory_counts', 'sales', 'payroll_accounts', 'assistant_speech', 'company_handover', 'migrations', 'custom_fields', 'privacy_cases', 'payroll_cash', 'service', 'bank_reconciliation', 'resource_custody', 'purchase_changes', 'payroll_facts', 'travel_allowances', 'payroll_entitlements', 'payroll_calculation_cases', 'payroll_annual_basis', 'payroll_wage_interruptions', 'payroll_oneoff_cases', 'payroll_multiple_cases', 'accounting_openings', 'accounting_asset_openings')) + ('payroll_travel_recording',)
 CONTROL_TABLES = frozenset((
     'business_schema_state', 'business_schema_migrations', 'business_schema_events',
     'business_feature_flags', 'business_privacy_anchors', 'business_device_grants', 'business_restore_state',
@@ -526,6 +526,9 @@ def financial_accounting_horizon(office):
         bank_reconciliation = 'business_bank_reconciliation' in installed
         travel_cash = 'business_travel_allowances' in installed
         opening_balances = 'business_accounting_openings' in installed
+        historical_assets = 'business_accounting_asset_openings' in installed
+        if historical_assets and not opening_balances:
+            raise ValueError('Historical assets require the complete installed opening financial scope')
         if opening_balances and not travel_cash:
             raise ValueError('Opening balances require the complete installed financial schema')
         if travel_cash and not bank_reconciliation:
@@ -632,7 +635,14 @@ def financial_accounting_horizon(office):
         opening = opening_horizon(office)
         if opening is None:
             raise ValueError('Installed opening balance horizon is missing')
-        return dict(horizon, schema_version=12, opening_balances=opening)
+        horizon = dict(horizon, schema_version=12, opening_balances=opening)
+        if not historical_assets:
+            return horizon
+        from business_accounting_asset_openings import restore_horizon as historical_asset_horizon
+        historical = historical_asset_horizon(office)
+        if historical is None:
+            raise ValueError('Installed historical asset horizon is missing')
+        return dict(horizon,schema_version=13,historical_assets=historical)
 
 
 def _validate_prejournal_horizon(horizon):
@@ -647,6 +657,21 @@ def _validate_prejournal_horizon(horizon):
 def _validate_financial_accounting_horizon(horizon, report_schema):
     if report_schema == 2:
         _validate_prejournal_horizon(horizon)
+        return
+    if report_schema == 14:
+        if (not isinstance(horizon,dict) or set(horizon)!={'schema_version','prejournal','allocations','components','refunds','capacity','refunds_v2','profile','euer','payroll_cash','bank_reconciliation','travel_cash','opening_balances','historical_assets'}
+                or type(horizon['schema_version']) is not int or horizon['schema_version']!=13):
+            raise ValueError('Exact version-13 combined accounting horizon required')
+        previous={key:value for key,value in horizon.items() if key!='historical_assets'};previous['schema_version']=12
+        _validate_financial_accounting_horizon(previous,13)
+        historical=horizon['historical_assets']
+        tables={'business_accounting_asset_opening_originals','business_accounting_asset_opening_events','business_accounting_asset_opening_requests'}
+        if (not isinstance(historical,dict) or set(historical)!={'schema_version','table_counts','sha256'}
+                or type(historical['schema_version']) is not int or historical['schema_version']!=1
+                or not isinstance(historical['table_counts'],dict) or set(historical['table_counts'])!=tables
+                or any(type(value) is not int or value<0 for value in historical['table_counts'].values())
+                or not isinstance(historical['sha256'],str) or not re.fullmatch(r'[a-f0-9]{64}',historical['sha256'])):
+            raise ValueError('Exact version-1 historical asset horizon required')
         return
     if report_schema == 13:
         if (not isinstance(horizon, dict) or set(horizon) != {'schema_version', 'prejournal', 'allocations', 'components', 'refunds', 'capacity', 'refunds_v2', 'profile', 'euer', 'payroll_cash', 'bank_reconciliation', 'travel_cash', 'opening_balances'}
@@ -865,6 +890,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
     bank_installed = 'business_bank_reconciliation' in value.get('read_capabilities', [])
     travel_installed = 'business_travel_allowances' in value.get('read_capabilities', [])
     opening_installed = 'business_accounting_openings' in value.get('read_capabilities', [])
+    historical_assets_installed = 'business_accounting_asset_openings' in value.get('read_capabilities', [])
+    if historical_assets_installed and not opening_installed:
+        raise ValueError('Historical assets require the complete installed opening financial scope')
     if opening_installed and not travel_installed:
         raise ValueError('Opening balances require the complete installed financial schema')
     if travel_installed and not bank_installed:
@@ -887,9 +915,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
         raise ValueError('Document components require the installed prejournal and payment allocations')
     if allocations_installed and not accounting_installed:
         raise ValueError('Payment allocations require the installed accounting prejournal')
-    required_schema = 13 if opening_installed else 12 if travel_installed else 11 if bank_installed else 10 if payroll_cash_installed else 9 if euer_installed else 8 if profile_installed else 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
+    required_schema = 14 if historical_assets_installed else 13 if opening_installed else 12 if travel_installed else 11 if bank_installed else 10 if payroll_cash_installed else 9 if euer_installed else 8 if profile_installed else 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
     declared_schema = evidence.get('schema') if isinstance(evidence, dict) else None
-    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13):
+    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14):
         raise ValueError('Known explicit financial report schema required')
     fields = {'schema', 'restore_id', 'reviewed_by', 'reviewed_at', 'number_horizons', 'outbound_reconciled'}
     if declared_schema >= 2:

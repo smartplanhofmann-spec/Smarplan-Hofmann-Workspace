@@ -53,9 +53,9 @@ class BankEuerIntegrationReview(unittest.TestCase):
         self.b.binding=self.b.bank.save_account(self.owner,self.b.account_body())
         statement,_=self.b.save_statement([]);self.b.report([statement])
         complete=business_schema.financial_accounting_horizon(self.office)
-        self.assertEqual(complete['schema_version'],12)
-        business_schema._validate_financial_accounting_horizon(complete,13)
-        value={key:item for key,item in complete.items() if key not in ('travel_cash','opening_balances')};value['schema_version']=10
+        self.assertEqual(complete['schema_version'],13)
+        business_schema._validate_financial_accounting_horizon(complete,14)
+        value={key:item for key,item in complete.items() if key not in ('travel_cash','opening_balances','historical_assets')};value['schema_version']=10
         original=canonical(value);business_schema._validate_financial_accounting_horizon(value,11)
         self.assertEqual(canonical(value),original)
         previous={key:item for key,item in value.items() if key!='bank_reconciliation'};previous['schema_version']=9

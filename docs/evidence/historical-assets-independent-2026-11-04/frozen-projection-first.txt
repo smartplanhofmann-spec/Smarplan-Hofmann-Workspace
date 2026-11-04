@@ -1,0 +1,16 @@
+test_rehashed_new_export_rejects_changed_or_missing_historical_projection (test_accounting_asset_openings_independent_review.IndependentHistoricalAssetWorkflowReview.test_rehashed_new_export_rejects_changed_or_missing_historical_projection) ... 
+  test_rehashed_new_export_rejects_changed_or_missing_historical_projection (test_accounting_asset_openings_independent_review.IndependentHistoricalAssetWorkflowReview.test_rehashed_new_export_rejects_changed_or_missing_historical_projection) (alteration='removed_projection') ... FAIL
+
+======================================================================
+FAIL: test_rehashed_new_export_rejects_changed_or_missing_historical_projection (test_accounting_asset_openings_independent_review.IndependentHistoricalAssetWorkflowReview.test_rehashed_new_export_rejects_changed_or_missing_historical_projection) (alteration='removed_projection')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-historical-assets-20261104/backend/test_accounting_asset_openings_independent_review.py", line 160, in test_rehashed_new_export_rejects_changed_or_missing_historical_projection
+    with self.assertRaises(Problem) as caught: self.euer.api._ledger()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.424s
+
+FAILED (failures=1)

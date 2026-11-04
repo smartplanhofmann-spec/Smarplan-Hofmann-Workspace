@@ -12,6 +12,7 @@ import 'business_accounting.dart'
 import 'business_project_receipts.dart';
 import 'business_accounting_profile.dart';
 import 'business_accounting_openings.dart';
+import 'business_accounting_historical_assets.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -27,6 +28,7 @@ const euerOperations = {
   'external_cash': 'Steuer- oder Kapitalgeldbewegung',
   'asset': 'Anlagegut erfassen',
   'depreciation': 'Lineare Jahres-AfA',
+  'opening_depreciation': 'Belegte historische Jahres-AfA',
   'reverse': 'Buchung gegenbuchen',
   'correct': 'Buchung berichtigen',
   'period': 'Monatsperiode prüfen',
@@ -137,6 +139,8 @@ Map<String, dynamic> euerPreview(
       'Die Buchungsvorschau gehört nicht zu den eingegebenen Angaben.',
     );
   }
+  if (value['effect']?['operation'] == 'opening_depreciation')
+    historicalAssetEuerPreview(value, body);
   return value;
 }
 
@@ -147,6 +151,8 @@ void Function(dynamic) euerReceiptValidator(
   final frozen = _copy(body), proof = _copy(preview);
   return (dynamic raw) {
     final value = businessMap(raw);
+    if (proof['effect']?['operation'] == 'opening_depreciation')
+      historicalAssetEuerReceipt(proof)(value);
     if (!RegExp(r'^[a-f0-9]{32}$').hasMatch('${value['id']}') ||
         !RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['entry_hash']}') ||
         value['sequence'] != frozen['expected_revision'] + 1 ||
@@ -562,6 +568,17 @@ EuerForm euerForm(
         'life_months': v['life_months'],
         'account': _account(v['account']),
       };
+    case 'opening_depreciation':
+      historicalAssetSource(source);
+      input('year', 'AfA-Jahr', type: BusinessInput.integer);
+      account();
+      build = (v) => {
+        'asset_entry_id': source['id'],
+        'source_hash': source['source_hash'],
+        'year': v['year'],
+        'account': _account(v['account']),
+      };
+      break;
     case 'depreciation':
       input('year', 'AfA-Jahr', type: BusinessInput.integer);
       account();
@@ -619,6 +636,14 @@ EuerForm euerForm(
 }
 
 const _issues = {
+  'historical_asset_review_missing':
+      'Historisches Anlagenoriginal noch nicht ausdrücklich übernommen',
+  'historical_asset_profile_changed':
+      'Buchführungsprofil geändert; historische Anlage erneut prüfen',
+  'historical_asset_depreciation_missing':
+      'Belegte historische Jahres-AfA noch nicht bestätigt',
+  'historical_asset_prior_depreciation_missing':
+      'Frühere erforderliche historische Jahres-AfA fehlt',
   'travel_cash_classification_missing':
       'Belegte Reiseerstattung noch nicht eingeordnet',
   'travel_cash_source_changed':
@@ -660,13 +685,26 @@ String _ledgerLabel(Object? code) =>
     '$code';
 
 class BusinessEuerPage extends StatefulWidget {
-  const BusinessEuerPage({super.key, required this.session});
+  const BusinessEuerPage({
+    super.key,
+    required this.session,
+    this.initialHistoricalAssetId,
+    this.initialYear,
+    this.initialTab = 'sources',
+  });
   final BusinessSession session;
+  final String? initialHistoricalAssetId;
+  final int? initialYear;
+  final String initialTab;
   @override
   State<BusinessEuerPage> createState() => _BusinessEuerPageState();
 }
 
-class _BusinessEuerPageState extends State<BusinessEuerPage> {
+class _BusinessEuerPageState extends State<BusinessEuerPage>
+    with WidgetsBindingObserver {
+  final modalEpoch = ValueNotifier<int>(0);
+  String? token;
+  bool backgrounded = false, initialHistoricalHandled = false;
   final year = TextEditingController(text: '${DateTime.now().year}');
   Map<String, dynamic>? state, report, preview, body, catalog;
   List<Map<String, dynamic>> sources = [], journal = [], accounts = [];
@@ -676,8 +714,10 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
   bool loading = false, busy = false, denied = false, accepted = false;
   String tab = 'sources';
   String? error, message;
-  bool get readable => businessEuerReadable(widget.session) && !denied;
-  bool get rights => businessEuerWritable(widget.session) && !denied;
+  bool get readable =>
+      businessEuerReadable(widget.session) && !denied && !backgrounded;
+  bool get rights =>
+      businessEuerWritable(widget.session) && !denied && !backgrounded;
   bool get pending => widget.session.pending(euerPendingKey);
   bool get writable =>
       rights &&
@@ -688,13 +728,62 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    token = widget.session.api.token;
+    tab = widget.initialTab;
+    if (widget.initialYear != null) year.text = '${widget.initialYear}';
     generation = widget.session.generation;
     widget.session.addListener(changed);
     load();
   }
 
+  void clearPrivate() {
+    epoch++;
+    state = report = catalog = preview = body = null;
+    sources = [];
+    journal = [];
+    accounts = [];
+    loading = busy = accepted = false;
+    error = message = null;
+    modalEpoch.value++;
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessEuerPage old) {
+    super.didUpdateWidget(old);
+    if (!identical(old.session, widget.session)) {
+      old.session.removeListener(changed);
+      widget.session.addListener(changed);
+      clearPrivate();
+      token = widget.session.api.token;
+      generation = widget.session.generation;
+      initialHistoricalHandled = false;
+      load(refreshRights: true);
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState value) {
+    if (!mounted) return;
+    if ([
+      AppLifecycleState.hidden,
+      AppLifecycleState.paused,
+      AppLifecycleState.detached,
+    ].contains(value)) {
+      setState(() {
+        clearPrivate();
+        backgrounded = true;
+        denied = true;
+      });
+    } else if (value == AppLifecycleState.resumed) {
+      setState(() => backgrounded = false);
+    }
+  }
+
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    modalEpoch.dispose();
     epoch++;
     widget.session.removeListener(changed);
     year.dispose();
@@ -704,7 +793,10 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
   void changed() {
     if (!mounted) return;
     if (!businessEuerReadable(widget.session) ||
-        generation != widget.session.generation) {
+        generation != widget.session.generation ||
+        token != widget.session.api.token) {
+      modalEpoch.value++;
+      token = widget.session.api.token;
       epoch++;
       state = report = catalog = preview = body = null;
       sources = [];
@@ -714,6 +806,7 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
       accepted = false;
       generation = widget.session.generation;
     } else if (!businessEuerWritable(widget.session)) {
+      modalEpoch.value++;
       preview = body = null;
       accepted = false;
     }
@@ -748,6 +841,7 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
   }
 
   Future<void> load({bool refreshRights = false}) async {
+    if (backgrounded) return;
     if (refreshRights) {
       await widget.session.load();
       if (!mounted) return;
@@ -786,7 +880,20 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
           0,
           'Der EÜR-Stand konnte nicht eindeutig gelesen werden.',
         );
+      if (yearReport.containsKey('historical_assets'))
+        historicalAssetReport(yearReport);
       for (final row in businessItems(sourcePage)) {
+        if (row['kind'] == 'opening_asset') {
+          final source = historicalAssetSource(row['source']),
+              entry = historicalAssetEvent(row['current']);
+          if (row['id'] != source['id'] ||
+              entry['id'] != source['id'] ||
+              entry['content_hash'] != source['entry_hash'])
+            throw const ApiException(
+              0,
+              'Die historische Anlagenquelle gehört nicht zur angenommenen Fassung.',
+            );
+        }
         if (row['kind'] == 'travel_cash') {
           final source = travelCashPublic(row['source']);
           if (source['id'] != row['id'])
@@ -805,6 +912,12 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
         }
       }
       if (!mounted || current != epoch || !readable) return;
+      await widget.session.load();
+      if (!mounted ||
+          current != epoch ||
+          !readable ||
+          widget.session.error != null)
+        return;
       setState(() {
         state = next;
         catalog = sourcePage;
@@ -819,16 +932,44 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
     } finally {
       if (mounted && current == epoch) setState(() => loading = false);
     }
+    if (mounted &&
+        current == epoch &&
+        writable &&
+        !initialHistoricalHandled &&
+        widget.initialHistoricalAssetId != null) {
+      initialHistoricalHandled = true;
+      final source = sources
+          .where(
+            (r) =>
+                r['kind'] == 'opening_asset' &&
+                r['id'] == widget.initialHistoricalAssetId,
+          )
+          .firstOrNull;
+      if (source != null)
+        await edit(
+          'opening_depreciation',
+          businessMap(source['source']),
+          initial: {'year': selectedYear()},
+        );
+    }
   }
 
   Future<Map<String, dynamic>> fresh({bool write = false}) async {
+    final current = epoch, currentToken = token, currentGeneration = generation;
     await widget.session.load();
-    if (!mounted || !readable || widget.session.error != null)
+    if (!mounted ||
+        current != epoch ||
+        !readable ||
+        widget.session.error != null ||
+        currentToken != widget.session.api.token ||
+        currentGeneration != widget.session.generation)
       throw const ApiException(
         403,
         'Die aktuellen globalen Rechte sind nicht bestätigt.',
       );
     final next = businessMap(await widget.session.read(euerPath));
+    if (!mounted || current != epoch || !readable)
+      throw const ApiException(403, 'Der Finanzkontext wurde geändert.');
     if (write && (!rights || next['writes_allowed'] != true))
       throw const ApiException(
         423,
@@ -874,7 +1015,19 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
       await fresh();
       if (!mounted) return;
       final source = businessMap(row?['source']), kind = row?['kind'];
-      if (kind == 'payroll_cash' || kind == 'travel_cash') {
+      if (kind == 'opening_asset') {
+        final proof = historicalAssetSource(source);
+        if (!mounted || !readable) return;
+        await Navigator.push<void>(
+          context,
+          MaterialPageRoute(
+            builder: (_) => BusinessHistoricalAssetsPage(
+              session: widget.session,
+              assetKey: proof['asset_key'],
+            ),
+          ),
+        );
+      } else if (kind == 'payroll_cash' || kind == 'travel_cash') {
         final proof = (kind == 'travel_cash' ? travelCashPublic : payrollCashPublic)(
           await widget.session.read(
             kind == 'travel_cash'
@@ -1016,7 +1169,16 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
     Map<String, dynamic> initial = const {},
   }) async {
     if (!writable) return;
-    final openingGeneration = widget.session.generation;
+    final openingGeneration = widget.session.generation,
+        openingToken = widget.session.api.token,
+        openingEpoch = epoch;
+    bool currentContext() =>
+        mounted &&
+        readable &&
+        rights &&
+        epoch == openingEpoch &&
+        openingGeneration == widget.session.generation &&
+        openingToken == widget.session.api.token;
     final effect = businessMap(correction?['effect']);
     final initialValues = {...businessMap(effect['payload']), ...initial};
     final spec = euerForm(
@@ -1031,79 +1193,96 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
     );
     await showDialog<void>(
       context: context,
-      builder: (_) => BusinessEditor(
-        session: widget.session,
-        title: correction == null
-            ? euerOperations[operation]!
-            : '${euerOperations[operation]} berichtigen',
-        readPermission: 'accounting.read',
-        writePermission: 'accounting.prepare',
-        readAllowed: () =>
-            readable && openingGeneration == widget.session.generation,
-        fields: spec.fields,
-        initial: spec.initial,
-        saveLabel: 'Buchung unverbindlich prüfen',
-        onSave: (values) async {
-          if (pending)
-            throw const ApiException(
-              409,
-              'Zuerst die offene Buchungsbestätigung unverändert klären.',
-            );
-          final next = await fresh(write: true);
-          if (openingGeneration != widget.session.generation)
-            throw const ApiException(
-              409,
-              'Datenstand geändert. Quellen neu laden und erneut prüfen.',
-            );
-          final payload = spec.payload(values);
-          if (operation == 'period')
-            payload['expected_period_revision'] =
-                businessItems(next['periods'])
-                    .where((p) => p['period'] == payload['period'])
-                    .firstOrNull?['revision'] ??
-                0;
-          final input = <String, dynamic>{
-            'operation': correction == null ? operation : 'correct',
-            'expected_revision': next['revision'],
-            'state_hash': next['state_hash'],
-            'payload': correction == null
-                ? payload
-                : {
-                    'entry_id': correction['id'],
-                    'operation': operation,
-                    'payload': payload,
-                  },
-            'reason': _required(values['reason'], 'Fachliche Begründung'),
-            'evidence_reference': _required(
-              values['evidence_reference'],
-              'Nachweis',
-            ),
-          };
-          final result = euerPreview(
-            businessMap(
-              await widget.session.api.call(
-                widget.session.path('$euerPath/preview'),
-                input,
+      builder: (_) => ValueListenableBuilder<int>(
+        valueListenable: modalEpoch,
+        builder: (_, __, ___) => !currentContext()
+            ? const AlertDialog(
+                title: Text('Zugang geändert'),
+                content: Notice(
+                  'Der ursprüngliche Finanzkontext ist nicht mehr freigegeben.',
+                ),
+              )
+            : BusinessEditor(
+                session: widget.session,
+                title: correction == null
+                    ? euerOperations[operation]!
+                    : '${euerOperations[operation]} berichtigen',
+                readPermission: 'accounting.read',
+                writePermission: 'accounting.prepare',
+                readAllowed: currentContext,
+                fields: spec.fields,
+                initial: spec.initial,
+                saveLabel: 'Buchung unverbindlich prüfen',
+                onSave: (values) async {
+                  if (pending)
+                    throw const ApiException(
+                      409,
+                      'Zuerst die offene Buchungsbestätigung unverändert klären.',
+                    );
+                  final next = await fresh(write: true);
+                  if (openingGeneration != widget.session.generation)
+                    throw const ApiException(
+                      409,
+                      'Datenstand geändert. Quellen neu laden und erneut prüfen.',
+                    );
+                  final payload = spec.payload(values);
+                  if (operation == 'period')
+                    payload['expected_period_revision'] =
+                        businessItems(next['periods'])
+                            .where((p) => p['period'] == payload['period'])
+                            .firstOrNull?['revision'] ??
+                        0;
+                  final input = <String, dynamic>{
+                    'operation': correction == null ? operation : 'correct',
+                    'expected_revision': next['revision'],
+                    'state_hash': next['state_hash'],
+                    'payload': correction == null
+                        ? payload
+                        : {
+                            'entry_id': correction['id'],
+                            'operation': operation,
+                            'payload': payload,
+                          },
+                    'reason': _required(
+                      values['reason'],
+                      'Fachliche Begründung',
+                    ),
+                    'evidence_reference': _required(
+                      values['evidence_reference'],
+                      'Nachweis',
+                    ),
+                  };
+                  final result = euerPreview(
+                    businessMap(
+                      await widget.session.api.call(
+                        widget.session.path('$euerPath/preview'),
+                        input,
+                      ),
+                    ),
+                    input,
+                  );
+                  if (!currentContext()) return;
+                  final latest = await fresh(write: true);
+                  if (!currentContext()) return;
+                  if (latest['revision'] != next['revision'] ||
+                      latest['state_hash'] != next['state_hash'])
+                    throw const ApiException(
+                      409,
+                      'Das EÜR-Journal wurde während der Vorschau geändert. Bitte neu prüfen.',
+                    );
+                  setState(() {
+                    state = next;
+                    preview = result;
+                    body = {
+                      ...input,
+                      'preview_hash': result['preview_hash'],
+                      'confirmation': true,
+                    };
+                    accepted = false;
+                    error = message = null;
+                  });
+                },
               ),
-            ),
-            input,
-          );
-          if (!mounted ||
-              !readable ||
-              openingGeneration != widget.session.generation)
-            return;
-          setState(() {
-            state = next;
-            preview = result;
-            body = {
-              ...input,
-              'preview_hash': result['preview_hash'],
-              'confirmation': true,
-            };
-            accepted = false;
-            error = message = null;
-          });
-        },
       ),
     );
   }
@@ -1224,7 +1403,9 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              row['kind'] == 'travel_cash'
+              row['kind'] == 'opening_asset'
+                  ? 'Historische Anlage · ${source['asset']['inventory_number']} · ${source['asset']['description']}'
+                  : row['kind'] == 'travel_cash'
                   ? 'Belegte Reiseerstattung · Fassung ${source['revision']}'
                   : row['kind'] == 'payroll_cash'
                   ? 'Belegte Lohnzahlungen · Fassung ${source['revision']}'
@@ -1247,7 +1428,7 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                 'Beleganteil ${unit['version']}: ${businessMoney(unit['net'])} netto + ${businessMoney(unit['tax'])} Steuer = ${businessMoney(unit['gross'])}',
               ),
             for (final reason in row['reasons'] ?? []) Text(_issue(reason)),
-            if (current.isNotEmpty)
+            if (current.isNotEmpty && row['kind'] != 'opening_asset')
               Text(
                 'Aktuelle Buchung: ${current['sequence']} · ${current['reason']}',
               ),
@@ -1258,8 +1439,10 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                 TextButton(
                   onPressed: () => upstream(row),
                   child: Text(
-                    row['kind'] == 'payroll_cash' ||
-                            row['kind'] == 'travel_cash'
+                    row['kind'] == 'opening_asset'
+                        ? 'Historische Anlage und Original öffnen'
+                        : row['kind'] == 'payroll_cash' ||
+                              row['kind'] == 'travel_cash'
                         ? 'Öffentlichen Zahlungsnachweis ansehen'
                         : row['kind'] == 'receipt' ||
                               row['kind'] == 'receipt_review'
@@ -1267,6 +1450,17 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                         : 'Geldfluss / Beleganteile',
                   ),
                 ),
+                if (row['kind'] == 'opening_asset')
+                  FilledButton(
+                    onPressed: writable
+                        ? () => edit(
+                            'opening_depreciation',
+                            source,
+                            initial: {'year': selectedYear()},
+                          )
+                        : null,
+                    child: const Text('Belegte historische Jahres-AfA prüfen'),
+                  ),
                 if (row['kind'] == 'travel_cash' &&
                     (source['status'] == 'active' || current.isNotEmpty))
                   FilledButton(
@@ -1482,6 +1676,25 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                     ),
                   ],
                 ),
+                if (state?['historical_assets_path'] == historicalAssetPath &&
+                    historicalAssetsReadable(widget.session))
+                  OutlinedButton.icon(
+                    onPressed: () async {
+                      await Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => BusinessHistoricalAssetsPage(
+                            session: widget.session,
+                          ),
+                        ),
+                      );
+                      if (mounted) await load(refreshRights: true);
+                    },
+                    icon: const Icon(Icons.inventory_2_outlined),
+                    label: const Text(
+                      'Historische Anlagen übernehmen und prüfen',
+                    ),
+                  ),
                 if (state != null) ...[
                   Text(
                     'Journalstand ${state!['revision']} · SKR04 · ${state!['profile_ready'] == true ? 'Profil mit bestätigter Gültigkeit' : 'Profil oder tatsächliche Startdaten fehlen'}',
@@ -1734,6 +1947,20 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                           child: const Text('Prüfen'),
                         ),
                       ),
+                    if (report!.containsKey('historical_assets'))
+                      for (final asset in historicalAssetReport(report!))
+                        ListTile(
+                          title: Text(
+                            '${asset['asset']['inventory_number']} · ${asset['asset']['description']}',
+                          ),
+                          subtitle: Text(
+                            'Belegter Vortrag ${businessMoney(asset['asset']['opening_book_value'])} · Jahresrest ${businessMoney(asset['continuation']['amount'])} · ${asset['depreciation'] == null ? 'nicht gebucht' : 'bestätigt'}',
+                          ),
+                          onTap: () => upstream({
+                            'kind': 'opening_asset',
+                            'source': asset['source'],
+                          }),
+                        ),
                     for (final asset in businessItems(report!['assets']))
                       ListTile(
                         title: Text('${asset['description']}'),

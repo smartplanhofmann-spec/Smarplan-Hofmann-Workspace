@@ -1,0 +1,17 @@
+test_actual_schema13_approval_survives_additive_migration_but_new_restore_requires14 (test_accounting_asset_openings_registration.HistoricalAssetRegistration.test_actual_schema13_approval_survives_additive_migration_but_new_restore_requires14) ... ok
+test_current_scope_requires_exact_assets_and_old_scope_cannot_unlock_new_restore (test_accounting_asset_openings_registration.HistoricalAssetRegistration.test_current_scope_requires_exact_assets_and_old_scope_cannot_unlock_new_restore) ... ok
+test_exact_catalog_and_actual_archive_retain_original_without_technical_receipts (test_accounting_asset_openings_registration.HistoricalAssetRegistration.test_exact_catalog_and_actual_archive_retain_original_without_technical_receipts) ... FAIL
+test_route_registration_offline_gates_and_incomplete_dependency (test_accounting_asset_openings_registration.HistoricalAssetRegistration.test_route_registration_offline_gates_and_incomplete_dependency) ... ok
+
+======================================================================
+FAIL: test_exact_catalog_and_actual_archive_retain_original_without_technical_receipts (test_accounting_asset_openings_registration.HistoricalAssetRegistration.test_exact_catalog_and_actual_archive_retain_original_without_technical_receipts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-historical-assets-20261104/backend/test_accounting_asset_openings_registration.py", line 77, in test_exact_catalog_and_actual_archive_retain_original_without_technical_receipts
+    self.assertEqual(metadata['source_access'],['accounting.read','finance.read'])
+AssertionError: 'Current global accounting read and finance read access' != ['accounting.read', 'finance.read']
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.823s
+
+FAILED (failures=1)

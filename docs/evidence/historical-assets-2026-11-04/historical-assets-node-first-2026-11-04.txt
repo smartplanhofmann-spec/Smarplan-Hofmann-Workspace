@@ -1,0 +1,25 @@
+✔ exact EUR cents reject rounding and retain explicit zero (1.208708ms)
+✔ global rights, finance activation and write gates remain distinct from read (0.315445ms)
+✔ cash editor preserves documentary units and never guesses deductible shares or SKR04 accounts (1.656593ms)
+✔ input VAT and linear asset forms have no invented start date or source amount percentage (0.555145ms)
+✔ preview and immutable ACK compare nested semantic fields including period control (0.984542ms)
+✔ unknown ACK, denied access and unmarked conflicts retain the exact original receipt until valid replay (27.729834ms)
+✔ confirmed not-accepted conflict releases only that pending command (0.479832ms)
+✔ fresh authorization reads global capabilities and current state before protected retry (0.846574ms)
+✔ open annual sources cannot masquerade as a complete taxable result (0.446892ms)
+✔ source identities and documentary cents cannot silently cross cash events (0.604369ms)
+✔ external EÜR payment evidence is not presented as a supplier liability or missing payout balance (13.55031ms)
+✔ actual historical original, state, preview, correction and void keep original identity and profile (43.177008ms)
+✔ server Unicode identity is exact and input uses original explicit values including documented zeros (2.082314ms)
+✔ substituted original, cutoff, amount, historical profile and acquisition flags fail closed (8.236443ms)
+✔ actual EÜR source and separate follow-up use immutable historical source and no new cash or input VAT (3.003459ms)
+✔ accepted lost acknowledgment preserves exact bytes and checks freshly revoked rights or paused finance (36.939309ms)
+✔ asynchronous original receipt validation cannot consume a new pending request after session replacement (2.447463ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 209.933531

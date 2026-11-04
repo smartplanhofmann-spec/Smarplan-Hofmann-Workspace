@@ -1,0 +1,8 @@
+test_original_and_all_three_tables_retain_runtime_immutable_acl_after_restart (online.test_accounting_asset_openings_pg.HistoricalAssetPostgres.test_original_and_all_three_tables_retain_runtime_immutable_acl_after_restart) ... ok
+test_populated_dump_restore_requires_new_scope_and_preserves_original_afa_and_exports (online.test_accounting_asset_openings_pg.HistoricalAssetPostgres.test_populated_dump_restore_requires_new_scope_and_preserves_original_afa_and_exports) ... ok
+test_two_connections_exact_replay_and_changed_commands_keep_one_version (online.test_accounting_asset_openings_pg.HistoricalAssetPostgres.test_two_connections_exact_replay_and_changed_commands_keep_one_version) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 12.909s
+
+OK

@@ -1,0 +1,6 @@
+test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon (online.test_business_travel_pg.TravelPostgres.test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 11.819s
+
+OK

@@ -1,0 +1,45 @@
+{
+  "scope": "Final tested Opening browser module and Source4 hooks, same Opening functionality as c7; independent Catalog browser not added because Catalog backend is outside this asset baseline",
+  "files": [
+    {
+      "path": "web/office/office.js",
+      "before_sha256": "e0cc82055f225b92a3e3a8b9e6afd4f643337d422f3d48c9012be977ca422d35",
+      "after_sha256": "96a155c5eccc38f65316af6f828a0846677fee14581a3245415772323e17c6c4"
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "before_sha256": "13462568a6c28703f756d8104431bf9ec3361e05d8dbba13022fa62286c727fc",
+      "after_sha256": "fe5d967688cc14bf97bfdba6a9e817153e6a90a0cab4e7d807ec41806303b8a0"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "before_sha256": "f650ef581dbbe165fc469a687768d452b2028971cdeda2dcb4a5a5d1abfe3bba",
+      "after_sha256": "666006f669707d7060590284d8992b650ca55559576599ad828ca08ef71ccf56"
+    },
+    {
+      "path": "web/office/accounting-openings.js",
+      "sha256": "c4940ac0e525329ab9a743a03c45b526d0187494b67adc999f211ab663f643bb"
+    },
+    {
+      "path": "web/office/tests/accounting-openings.test.mjs",
+      "sha256": "1405b3e87f09be4d3c4a68fd200f893e34053da8cce4ae0cf9d22ebd00686352"
+    },
+    {
+      "path": "web/office/tests/accounting-openings-context-review.test.mjs",
+      "sha256": "6ae41a0bdeb70b4ba4c50234eb777428f8b37c20224f3ef27494953a8afa179e"
+    },
+    {
+      "path": "web/office/tests/accounting-openings-flow.cjs",
+      "sha256": "64a218b3929b5abfde0103a5f00522466f898b2ef4f45d1d79fb80d1cc786a52"
+    },
+    {
+      "path": "docs/fixtures/accounting_openings_large_balances_2026.json",
+      "sha256": "aefbb0e3af79baa1a62a759f2a9108b30204304fd883728680c74b2c4ead70b5"
+    },
+    {
+      "path": "backend/online/web.py",
+      "change": "Only opening JavaScript static asset added; all historical asset runtime changes preserved",
+      "sha256": "16d6546b0a5c9acaee1610ab8582a51a85463140c2a99cf628f87e9394679156"
+    }
+  ]
+}

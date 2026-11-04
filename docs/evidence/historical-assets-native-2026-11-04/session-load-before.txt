@@ -1,0 +1,17 @@
+00:00 +0: loading /workspace/smartplan-historical-assets-20261104/app/test/business_session_load_concurrency_test.dart
+00:00 +0: parallel timer/workflow capability callers await the same actual read and receive revoked grants before continuing
+00:00 +0 -1: parallel timer/workflow capability callers await the same actual read and receive revoked grants before continuing [E]
+  Expected: <false>
+    Actual: <true>
+  Workflow must not continue on stale grants while periodic refresh remains held
+  
+  package:matcher                                        expect
+  package:flutter_test/src/widget_tester.dart 473:18     expect
+  test/business_session_load_concurrency_test.dart 47:5  main.<fn>
+  
+00:00 +0 -1: shared capability failure completes every waiter, retains error and permits actual retry
+00:00 +1 -1: old token or disposed session cannot receive a late shared capability response; new session has independent in-flight state
+00:00 +2 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-historical-assets-20261104/app/test/business_session_load_concurrency_test.dart: parallel timer/workflow capability callers await the same actual read and receive revoked grants before continuing

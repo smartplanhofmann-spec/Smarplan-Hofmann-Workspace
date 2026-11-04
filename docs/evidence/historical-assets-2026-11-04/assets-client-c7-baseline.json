@@ -1,0 +1,46 @@
+{
+  "checkpoint": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+  "scope": "Opening native clients added before dedicated historical asset UI implementation; no asset backend changed",
+  "files": [
+    {
+      "path": "app/lib/business_accounting.dart",
+      "sha256": "18cac53771021f9a27017f99b1d39f55bc4729002c611bf3f472e8aff5925520"
+    },
+    {
+      "path": "app/lib/business_accounting_euer.dart",
+      "sha256": "1d4d9db902a5e699eecda9a0f01cc1fcaae16ea462c523502c8fde33a7825ff0"
+    },
+    {
+      "path": "app/lib/business_accounting_openings.dart",
+      "sha256": "2ec19d04d768ca2adff3af7b6169bf8038bbfb77a384c34305268a3a2e6cd5b8"
+    },
+    {
+      "path": "app/lib/business_accounting_openings_contract.dart",
+      "sha256": "cf5b83d5de3844e4747c3db5b63325a7d3a94c3f6b1fd5b011ca20bb68a75b0a"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "sha256": "ab9400d0ec005fe6f83c147dcaf6e14625318051dc2f2b73f2830a41cc7306fa"
+    },
+    {
+      "path": "app/test/business_accounting_openings_http_widget_test.dart",
+      "sha256": "43eb71112a1eb7f37a2702e703d3f6c4218147aa64e07c509544a8dd124e1a0b"
+    },
+    {
+      "path": "app/test/business_accounting_openings_lifecycle_test.dart",
+      "sha256": "df25cde1ac46c75130ad39500cab4f707be8b5ada7617764434428381d269a8e"
+    },
+    {
+      "path": "app/test/business_accounting_openings_test.dart",
+      "sha256": "978a698f289f750b4ab40327470146203b44f509fc6409f8d0ed6eb2e3b9f906"
+    },
+    {
+      "path": "app/test/fixtures/accounting_openings_2026.json",
+      "sha256": "ac3f212b8503b9449973a623bbe33fd36c2ff5ac25f9365da0bb802e3473009d"
+    },
+    {
+      "path": "app/test/fixtures/accounting_openings_large_balances_2026.json",
+      "sha256": "aefbb0e3af79baa1a62a759f2a9108b30204304fd883728680c74b2c4ead70b5"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+--- a/app/lib/business_session.dart
++++ b/app/lib/business_session.dart
+@@ -2085,8 +2085,31 @@
+       throw const ApiException(401, 'Der Zugang ist nicht mehr verfügbar.');
+   }
+ 
+-  Future<void> load() async {
+-    if (loading) return;
++  Future<void>? _loadingFuture;
++
++  /// A workflow and the periodic refresh must observe the same completed
++  /// capability read. Returning an already completed future while another read
++  /// was pending incorrectly made callers reject still-loading permissions.
++  Future<void> load() {
++    final current = _loadingFuture;
++    if (current != null) return current;
++    final completion = Completer<void>();
++    final future = completion.future;
++    _loadingFuture = future;
++    _loadCapabilities().then(
++      (_) {
++        if (identical(_loadingFuture, future)) _loadingFuture = null;
++        completion.complete();
++      },
++      onError: (Object error, StackTrace stack) {
++        if (identical(_loadingFuture, future)) _loadingFuture = null;
++        completion.completeError(error, stack);
++      },
++    );
++    return future;
++  }
++
++  Future<void> _loadCapabilities() async {
+     if (!allowed) {
+       ready = true;
+       _changed();

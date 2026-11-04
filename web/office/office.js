@@ -1,5 +1,7 @@
 import {catalogImportsUi,catalogPendingAuthorize} from './catalog-imports.js';
 import {payrollMultipleCasesPendingAuthorize} from './payroll-multiple-cases.js';
+import {historicalAssetsUi} from './accounting-historical-assets.js';
+import {assetPendingAuthorize} from './accounting-historical-assets-contract.js';
 import {purchaseChangesUi} from './purchase-changes.js';
 import {purchaseChangePendingAuthorize} from './purchase-changes.js';
 import {accountingOpeningsUi,openingPendingAuthorize} from './accounting-openings.js';
@@ -949,6 +951,7 @@ export class OfficeApi {
       if(old&&path.startsWith('/business/assistant/'))await assistantPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/payroll/cash/'))await payrollCashPendingAuthorize(this,{key,path});
       if(old&&key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))await purchaseChangePendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/accounting/historical-assets'))await assetPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/accounting/opening-balances'))await openingPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/bank/'))await bankPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/resource-custody/'))await resourceCustodyPendingAuthorize(this,{key,path});
@@ -974,7 +977,7 @@ export class OfficeApi {
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
       this.#pending.delete(key); return result;
     } catch (error) {
-      const protectedAccounting=key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
+      const protectedAccounting=path.startsWith('/business/accounting/historical-assets')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
       const uncertainAccounting=protectedAccounting&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted');
       if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
       throw error;
@@ -1016,6 +1019,7 @@ const api = new OfficeApi();
 const refundPendingSources=new Map();
 const state = {financeTab:'payments',accounting:{tab:'events',payments:0,receipts:0,events:0,accounts:0},section:'overview', projectId:'', tab:'overview', user:null, projects:[], permissions:new Set(), globalPermissions:new Set(), capabilities:new Set(), features:new Set(), organization:null, openedHiddenSection:null, readonly:true, planning:{mode:'week',anchor:dateInput(),years:3}, render:0, urls:new Set(), deviceId:'browser-'+requestId()};
 let root, main, shell, banner, modal;
+let dialogGeneration=0;
 const has = permission => state.permissions.has(permission);
 const canWrite = (permission,section=state.section) => has(permission) && !state.readonly && organizationModuleEnabled(section,state.organization);
 const biz = path => '/business' + path;
@@ -1048,6 +1052,11 @@ const bankWorkspace=bankReconciliationUi({el,button,field,form,dialog,panel,noti
 const openingWorkspace=accountingOpeningsUi({el,button,field,form,dialog,panel,notice,table,api,biz,action,formatDate,formatMoney,updatePending,
   available:()=>state.section==='finance',caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly,organization:state.organization}),
   stamp:()=>`${api.generation}/${state.render}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+const historicalWorkspace=historicalAssetsUi({el,button,field,form,dialog,panel,notice,table,api,biz,action,formatDate,formatMoney,updatePending,
+  available:()=>state.section==='finance',caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly,organization:state.organization}),
+  stamp:()=>`${api.generation}/${state.render}/${dialogGeneration}`,
   saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
 
 const payrollWorkspace=payrollUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,biz,query,mutation,action,refresh,formatDate,formatMoney,
@@ -1200,7 +1209,7 @@ function dialog(title, content, description = '') {
   });
   document.body.append(modal); box.focus(); return box;
 }
-function closeModal({keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false}={}) { if(modal) { if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
+function closeModal({keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false}={}) { dialogGeneration++; if(modal) { if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
 async function download(path,filename) { const blob=await api.binary(path),url=objectUrl(blob),link=el('a',{href:url,download:filename,rel:'noopener'}); document.body.append(link); link.click(); link.remove(); }
 function jsonDownload(value,filename) { const link=el('a',{href:objectUrl(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),download:filename}); document.body.append(link); link.click(); link.remove(); }
 function mutation(key,path,data,options) {
@@ -1228,7 +1237,7 @@ function mayOpenSection(section) {
 }
 
 function loginScreen(challenge = null, enrollment = null) {
-  privacyCases.clear();travelWorkspace.clear();payrollWorkspace.clear();openingWorkspace.clear();catalogWorkspace.clear();
+  privacyCases.clear();travelWorkspace.clear();payrollWorkspace.clear();openingWorkspace.clear();catalogWorkspace.clear();historicalWorkspace.clear();
   refundPendingSources.clear();
   closeModal(); revokeUrls(); state.user=null; root.replaceChildren();
   const card=el('section',{class:'login-card'},el('div',{class:'brand'},el('span',{class:'brand-mark'},'S'),el('div',{},el('strong',{},'smartplan'),el('small',{},'OFFICE'))),el('h1',{},challenge?'Anmeldung bestätigen':'Willkommen im Büro.'),el('p',{class:'muted'},challenge?'Authentifizierungscode oder Wiederherstellungscode eingeben.':'Projekte, Team und Unterlagen an einem Ort.'));
@@ -1290,6 +1299,8 @@ function updateDrawer() {
 function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
 function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
 function operationLabel(path) {
+  if(path===biz('/accounting/historical-assets/originals'))return 'Historisches Anlagenoriginal speichern';
+  if(path===biz('/accounting/historical-assets/confirm'))return 'Historischen Anlagenvortrag bestätigen';
   if(path===biz('/accounting/opening-balances/originals'))return 'Anfangsbestandsoriginal speichern';
   if(path===biz('/accounting/opening-balances/confirm'))return 'Anfangsbestandsfassung bestätigen';
   if(path==='/business/bank/accounts')return 'Bankkontozuordnung speichern';
@@ -1337,6 +1348,7 @@ function pendingDialog() {
     rows(api.pendingOperations(),item=>row(operationLabel(item.path),'Unveränderte Eingabe im Arbeitsspeicher',[button('Unverändert erneut senden',()=>action(async()=>{
       if((item.path.startsWith(biz('/accounting/allocations/'))||item.path.startsWith(biz('/accounting/components/'))||item.path.startsWith(biz('/accounting/refunds/')))&&!navigator.onLine)throw new ApiError('Die Zahlungszuordnung benötigt eine Internetverbindung. Die unveränderte Anfrage bleibt offen.',0);
       const generation=api.generation,previous=modal,initialRender=state.render;
+      if(item.path.startsWith(biz('/accounting/historical-assets'))){await assetPendingAuthorize(api,item);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
       if(item.path.startsWith(biz('/accounting/opening-balances'))){await openingPendingAuthorize(api,item);if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
       if(item.key.startsWith('euer-original-review-')){await accountingEuer.authorizeReceiptRetry();if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
       if(item.path===biz('/accounting/euer/confirm')){await euerAuthorize(api,{write:true,online:navigator.onLine,organization:state.organization});if(generation!==api.generation||previous!==modal||initialRender!==state.render)return;}
@@ -1385,6 +1397,7 @@ async function refresh() {
     if(modal?.querySelector('[data-payroll-annual-basis]')){payrollWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-payroll-oneoff-cases],[data-payroll-multiple-cases]')){payrollWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-inventory-count]'))closeModal();
+    if(modal?.querySelector('[data-historical-assets]')){historicalWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-accounting-openings]')){openingWorkspace.clear();closeModal();}
     if(modal?.querySelector('[data-privacy-cases]')){privacyCases.clear();closeModal();}
     if(modal?.querySelector('[data-travel-allowances]')){travelWorkspace.clear();closeModal();}
@@ -1797,6 +1810,7 @@ async function accountingContent() {
   if(!Array.isArray(accountResponse?.items))throw new ApiError('Geldkonten konnten nicht sicher geladen werden.',502);
   const accounts=accountResponse.items;
   content.append(notice(euerAvailable?'Das Vorjournal enthält unveränderte Geldflussnachweise und berechnet keine steuerlichen Summen. Die ausdrückliche fachliche Einordnung und Jahresauswertung stehen unter „Eigene EÜR“.':accountingProfileRights().available?'Steuerprofil: nicht eingerichtet. Ein separat gespeichertes Vorbereitungsprofil dokumentiert nur Angaben. Alle Geldflüsse bleiben steuerlich ungeklärt; es werden keine steuerlichen Summen oder Gewinne berechnet.':'Profil und Steuerstatus: nicht eingerichtet. Alle Geldflüsse bleiben steuerlich ungeklärt. Es werden keine steuerlichen Summen oder Gewinne berechnet.'));
+  if(historicalWorkspace.available())content.append(el('div',{class:'actions'},button('Historische Anlagen',()=>action(()=>historicalWorkspace.open()),'small')));
   if(openingWorkspace.available())content.append(el('div',{class:'actions'},button('Anfangsbestände und Liquidität',()=>action(()=>openingWorkspace.open()),'small')));
   if(accountingProfileRights().read)content.append(el('div',{class:'actions'},button('Vorbereitungsprofil',()=>accountingAction(()=>accountingProfileDialog()),'small')));
   if(!status.writes_allowed)content.append(notice('Neue Vorgänge sind im aktuellen Betriebszustand gesperrt. Bestehende Nachweise bleiben lesbar; Betriebsmodus, Finanzmodul und gegebenenfalls Wiederherstellungsabgleich prüfen.','warn'));
@@ -2505,7 +2519,7 @@ function reservationDialog(projectId,locations,articles) {
   dialog('Material reservieren',form('',[field('article_id','Artikel','select','',{options:options(articles),required:true}),field('location_id','Lagerort','select','',{options:options(locations),required:true}),field('quantity','Menge','decimal','1',{required:true})],
     (data,key)=>mutation(key,'/inventory/reservations',{...data,project_id:projectId}),{key:'reserve-'+projectId}),'Reservierungen werden gegen den freien Bestand geprüft.');
 }
-const accountingEuer=createAccountingEuer({api,biz,el,button,panel,row,rows,notice,table,form,dialog,closeModal,formatMoney,formatDate,mutation,action,refresh,download,jsonDownload,updatePending,organization:()=>state.organization,context:()=>state.render,openEvent:accountingEventDialog,openProfile:accountingProfileDialog,openingAvailable:()=>openingWorkspace.available(),openOpenings:()=>openingWorkspace.open(),openCash:tab=>{closeModal();state.accounting.tab=tab;refresh();},textDownload:(value,filename,type)=>{const link=el('a',{href:objectUrl(new Blob([value],{type})),download:filename});document.body.append(link);link.click();link.remove();},onDenied:()=>{closeModal();main?.querySelectorAll('.accounting-euer').forEach(node=>node.replaceChildren(notice('Die EÜR-Quellen sind aktuell nicht freigegeben. Offene Buchungsaufträge bleiben unverändert erhalten.','warn')));}});
+const accountingEuer=createAccountingEuer({api,biz,el,button,panel,row,rows,notice,table,form,dialog,closeModal,formatMoney,formatDate,mutation,action,refresh,download,jsonDownload,updatePending,organization:()=>state.organization,context:()=>state.render,openEvent:accountingEventDialog,openProfile:accountingProfileDialog,historicalAvailable:()=>historicalWorkspace.available(),openHistoricalAssets:(identity)=>identity?historicalWorkspace.detail(identity):historicalWorkspace.open(),openingAvailable:()=>openingWorkspace.available(),openOpenings:()=>openingWorkspace.open(),openCash:tab=>{closeModal();state.accounting.tab=tab;refresh();},textDownload:(value,filename,type)=>{const link=el('a',{href:objectUrl(new Blob([value],{type})),download:filename});document.body.append(link);link.click();link.remove();},onDenied:()=>{closeModal();main?.querySelectorAll('.accounting-euer').forEach(node=>node.replaceChildren(notice('Die EÜR-Quellen sind aktuell nicht freigegeben. Offene Buchungsaufträge bleiben unverändert erhalten.','warn')));}});
 const projectEconomics=createProjectEconomics({api,biz,query,el,button,panel,row,rows,notice,empty,form,field,dialog,closeModal,table,formatMoney,formatDate,mutation,action,refresh,download,dateInput,bytesBase64,duration,canWrite,confirmDialog,documentDetail,projectId:()=>state.projectId,organization:()=>state.organization,actorId:()=>state.user?.id,onDenied:()=>{closeModal();main?.querySelectorAll('.project-economics').forEach(node=>node.replaceChildren(notice('Die Projektwirtschaftlichkeit ist aktuell nicht freigegeben. Offene Anfragen bleiben unverändert erhalten.','warn')));}});
 async function costsPanel(projectId) {
   if(state.features.has('project_economics'))return projectEconomics.render(projectId);
@@ -2754,7 +2768,7 @@ if(typeof document!=='undefined') {
     addEventListener('online',networkState);addEventListener('offline',networkState);
     matchMedia('(max-width:760px)').addEventListener('change',updateDrawer);
     addEventListener('beforeunload',event=>{if(api.pendingCount){event.preventDefault();event.returnValue='';}});
-    document.addEventListener('visibilitychange',()=>{if(document.hidden&&modal?.querySelector('[data-accounting-openings]'))closeModal();});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden&&modal?.querySelector('[data-accounting-openings], [data-historical-assets]'))closeModal();});
     addEventListener('pagehide',()=>endSession());
   }
 }

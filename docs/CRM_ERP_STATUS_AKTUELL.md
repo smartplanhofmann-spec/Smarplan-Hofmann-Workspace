@@ -36,16 +36,23 @@ Betriebsfreigabe.
    korrigiert. Die [gemeinsame Regression](CRM_ERP_SOURCE5_GESAMTPRUEFUNG_2026-11-04.md)
    ist abgeschlossen: 1.626 Backend-, 555 Browser- und 1.208 Appfälle bestanden;
    ein Windows-spezifischer Backendfall wurde unter Linux ausgelassen.
-2. Historische Anlagen übernehmen belegte Anschaffungswerte, bisherige AfA
-   und Restbuchwerte. Backend-, Browser- und native Fachläufe sind separat
-   geprüft; unabhängiger Review und Zusammenführung laufen.
+2. Historische lineare Anlagen übernehmen belegte Anschaffungswerte, bisherige
+   AfA und Restbuchwerte. Beide Clients, EÜR und Wiederherstellung sind
+   [gemeinsam geprüft](CRM_ERP_ANLAGEN_GESAMTPRUEFUNG_2026-11-04.md):
+   1.674 Backendfälle bei einem Windows-Skip, 578 Browser- und 1.225 Appfälle,
+   107 PostgreSQL-Fälle und ein zusätzlicher gemeinsamer Restore bestanden.
 3. Katalogpreise erhalten Gültigkeitszeiträume, Einkaufs-/Verkaufsrollen und
    exakte Preisbasen. Alte Angebote bleiben an ihrer ursprünglichen Fassung.
-   Backend/Browser sind separat geprüft; die App-Erweiterung läuft.
+   Backend, Browser und App sind separat geprüft; die gemeinsame Integration
+   einschließlich eines gefundenen Assistenten-Kostensummenfehlers folgt.
 4. Unternehmensweite Ereignisregeln werden zusätzlich zur vorhandenen
    projektbezogenen Planautomatik implementiert.
-5. Die noch gesperrte tatsächliche Berechnung mehrerer Bonus-Steuergruppen
-   wird als eigenständige neue Lohnversion entwickelt.
+5. Historische offene Kunden-/Lieferantenposten erhalten einen eigenen
+   belegten Zahlungsweg zu EÜR, Bankabgleich und Liquidität. Erste tatsächliche
+   Fachfälle bestehen; unabhängiger Review und Clients bleiben in Arbeit.
+6. Eine getrennte SV-Gruppenkorrekturgrundlage befindet sich im unabhängigen
+   Review. Die tatsächliche Berechnung mehrerer Bonus-Steuergruppen bleibt
+   gesperrt; diese Grundlage berechnet noch keine freigegebenen Nettobeträge.
 
 ## Noch offene Buchhaltungs- und Gesamtanforderungen
 

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "original_baseline_verified_files": 1563,
+  "original_baseline_mismatches": 0,
+  "reason": "Root-authorized exact opening derived-sum correction before historical asset implementation; immutable original baseline manifest retained.",
+  "source_worktree": "/workspace/smartplan-financial-opening-20261104",
+  "changes": [
+    {
+      "path": "backend/business_accounting_openings.py",
+      "before_sha256": "a69047139f038aca87223b15436d8fc092b9a3950961163490cf152db60656ed",
+      "after_sha256": "daab353586aaa11bb9928da44ae55597df61e1d83dc0dfba4547cd0213f93691"
+    },
+    {
+      "path": "backend/test_business_accounting_openings_large_balances.py",
+      "before_sha256": null,
+      "after_sha256": "622f3002dc2d35f72dd240a568863a746129147886daf7d6edece6a851b4f550"
+    },
+    {
+      "path": "docs/evidence/accounting-openings-large-balances-2026-11-04.json",
+      "before_sha256": null,
+      "after_sha256": "c67649b32726ac25494f59667f1585f6a0240504261a0b0590100b15a562a8d9"
+    },
+    {
+      "path": "docs/evidence/accounting-openings-large-balances-before-2026-11-04.txt",
+      "before_sha256": null,
+      "after_sha256": "cd2134ac25e0888cb15a6e6e30d283c2bc7290747e1be9b227de3b801b11a28a"
+    },
+    {
+      "path": "docs/evidence/accounting-openings-large-balances-after-2026-11-04.txt",
+      "before_sha256": null,
+      "after_sha256": "878b7865fe1c1e4c25072a5790a61305a41178656bd0fddb380689f0effa55c2"
+    }
+  ]
+}

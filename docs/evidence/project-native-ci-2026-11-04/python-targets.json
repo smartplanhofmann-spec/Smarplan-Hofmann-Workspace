@@ -1,0 +1,9 @@
+[
+  "app/test/business_accounting_year_evidence_http_test.dart",
+  "app/test/business_accounting_open_items_http_widget_test.dart",
+  "app/test/business_accounting_year_values_http_test.dart",
+  "app/test/business_accounting_historical_assets_http_widget_test.dart",
+  "app/test/business_accounting_openings_http_widget_test.dart",
+  "app/test/business_accounting_year_evidence_v2_http_test.dart",
+  "app/test/business_catalog_prices_http_test.dart"
+]

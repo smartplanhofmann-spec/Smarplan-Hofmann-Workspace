@@ -1,0 +1,76 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_catalog_prices_http_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:03 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_v2_http_test.dart: actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:04 +2: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_v2_http_test.dart: actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:08 +3: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_evidence_http_test.dart: actual 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:12 +4: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_openings_http_widget_test.dart: actual native HTTP upload, negative bank opening, lost ACK, corrected zero, explicit void, original bytes and revoked access at 390px
+00:18 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_historical_assets_http_widget_test.dart: actual historical 390px HTTP originals, Unicode identity, three lost ACKs, annual AfA, source correction, void, journal and revoked access
+00:21 +5: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Jahresoriginal hochladen
+Native yearly step: Unverändert erneut prüfen
+Native yearly step: Jahresvortrag vorbereiten
+Native yearly field: Belegter Zeitraum von (JJJJ-MM-TT)
+Native yearly field: Belegter Zeitraum bis (JJJJ-MM-TT)
+Native yearly field: Ursprüngliches SKR04-Nettokonto
+Native yearly field: Ursprüngliches SKR04-Steuerkonto
+Native yearly field: Ursprüngliches SKR04-Vorsteuerkonto
+Native yearly field: Alte Zahlungsbuchungen: eine Kennung je Zahlung in Originalreihenfolge
+Native yearly field: Ursprüngliche Vorsteuerbuchungsidentität (nur Lieferantenrechnung)
+Native yearly step: Geprüfte ursprüngliche Quelle hinzufügen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Buchführungsmethode unverändert fortgeführt
+Native yearly step: Ursprüngliches Journal im erklärten Zeitraum vollständig geprüft
+Native yearly step: Keine unzulässigen Anlagen-, Lohn-, Privat- oder Sonderwerte enthalten
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Originale und Jahreswerte vorprüfen
+Native yearly step: Genau diese ursprünglichen Werte und Nachweise verbindlich bestätigen
+Native yearly step: Geprüfte Jahresfassung annehmen
+Native yearly step: Unverändert erneut prüfen
+Native yearly step: EÜR, Gegenbuchungen und Perioden prüfen
+Native yearly field: Fachliche Begründung
+Native yearly field: Nachweis / Prüfgrundlage
+Native yearly step: Buchung unverbindlich prüfen
+Native yearly step: Ich habe Quelle, fachliche Einordnung, Beträge, Zeitraum und Konten geprüft und bestätige diesen Vorgang.
+Native yearly step: Buchung verbindlich festhalten
+Native yearly step: Belegte Korrektur vorbereiten
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Buchführungsmethode unverändert fortgeführt
+Native yearly step: Ursprüngliches Journal im erklärten Zeitraum vollständig geprüft
+Native yearly step: Keine unzulässigen Anlagen-, Lohn-, Privat- oder Sonderwerte enthalten
+Native yearly step: Originale und Jahreswerte vorprüfen
+Native yearly step: Bearbeitung schließen
+Native yearly step: Unverändert aufheben
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Originale und Jahreswerte vorprüfen
+Native yearly step: Genau diese ursprünglichen Werte und Nachweise verbindlich bestätigen
+Native yearly step: Geprüfte Jahresfassung annehmen
+Native yearly step: Belegte Korrektur vorbereiten
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Buchführungsmethode unverändert fortgeführt
+Native yearly step: Ursprüngliches Journal im erklärten Zeitraum vollständig geprüft
+Native yearly step: Keine unzulässigen Anlagen-, Lohn-, Privat- oder Sonderwerte enthalten
+Native yearly step: Originale und Jahreswerte vorprüfen
+Native yearly step: Genau diese ursprünglichen Werte und Nachweise verbindlich bestätigen
+Native yearly step: Geprüfte Jahresfassung annehmen
+Native yearly step: Geschützte Jahresoriginale (2)
+Native yearly step: reviewed-year-journal.pdf
+Native yearly step: Ursprüngliche Jahresfassungen
+Native yearly step: Ursprüngliche Fassung 1 · Aktiv
+Native yearly step: Diese ursprüngliche Quelle prüfen
+Native yearly step: Neu laden
+00:46 +6: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_historical_assets_http_widget_test.dart: actual historical 390px HTTP originals, Unicode identity, three lost ACKs, annual AfA, source correction, void, journal and revoked access
+00:51 +7: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_open_items_http_widget_test.dart: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss
+01:52 +8: All tests passed!

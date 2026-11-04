@@ -2184,3 +2184,12 @@ Sicherungshelfer relativ; der bisherige Skriptmodus bleibt erhalten.
 89 tatsächliche Fälle in zwölf separat gestarteten Modulen und zwei
 bestehende Sicherungsfälle bestehen, ohne geänderte Verhaltensassertionen.
 Nachweise liegen in der fortgeschriebenen CI-Nachprüfung.
+
+
+## 04.11.2026 – App-Integrationstests auf frischen Build-Rechnern portabel
+
+Sieben App-Testdateien enthielten noch einen festen lokalen /tmp-Interpreter.
+Der Fallback verwendet jetzt die eingerichtete Projekt-venv, einschließlich
+Windows Scripts/python.exe. Acht echte App-/HTTP-Fälle bestehen ohne lokale
+Interpreterüberschreibung. Keine Änderung der App-Fachlogik oder Assertions;
+der nächste native Prüflauf übernimmt die portable Testvorbereitung.

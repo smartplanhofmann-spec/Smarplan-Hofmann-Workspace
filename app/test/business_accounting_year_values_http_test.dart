@@ -94,7 +94,7 @@ void main() {
         final setup = await t.runAsync(() async {
           process = await Process.start(
             Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
-                '/tmp/smartplan-backend-verified/bin/python',
+                '${Directory('../backend').absolute.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}',
             ['-u', '-c', yearValuesHttpFixture],
             workingDirectory: Directory('../backend').absolute.path,
           );

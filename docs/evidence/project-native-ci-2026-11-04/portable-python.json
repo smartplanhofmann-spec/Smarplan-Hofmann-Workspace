@@ -1,0 +1,22 @@
+{
+  "base_commit": "9e5bd30af31127a1347f688924fd55c72be08864",
+  "cause": "Seven app test files used an absolute developer-only /tmp interpreter fallback, absent on clean GitHub runners.",
+  "change": "Keep explicit SMARTPLAN_TEST_PYTHON selection, otherwise use the project backend/.venv interpreter with Windows Scripts/python.exe or Unix bin/python.",
+  "verification": {
+    "targeted_actual_app_cases_passed": 8,
+    "explicit_test_python_environment_unset": true,
+    "format_files": 7,
+    "format_changes": 0,
+    "runtime_product_changes": false
+  },
+  "source_sha256": {
+    "app/test/business_accounting_year_evidence_http_test.dart": "67abc7bd750b66e831993d6798ee1a45401d4b3751462c6d8cc2b787d13e1cc5",
+    "app/test/business_accounting_open_items_http_widget_test.dart": "d1a373fa29d6edbde19eb0a844814a1593187e2a770f4d301a912433e54a104c",
+    "app/test/business_accounting_year_values_http_test.dart": "dcbbf6bc4cfd5f171488ebcb04e116ce0dd3beaa6f955ca940ca2dc51f0abbb9",
+    "app/test/business_accounting_historical_assets_http_widget_test.dart": "0925f1cfe0a72669f9e5940495772447c1304827236db93bd07bd09b5c66fe1e",
+    "app/test/business_accounting_openings_http_widget_test.dart": "907e0029ff0885f628cda73b694abaffc5de35fb233a4be45095fd9c55d99dff",
+    "app/test/business_accounting_year_evidence_v2_http_test.dart": "b6efbc5c4205bb1455fc79e1c12faa6f32d11ebe6f14003d7c2024bb317d612f",
+    "app/test/business_catalog_prices_http_test.dart": "72e7375d3b40e3e924740c0d8afc81ae67409beb5bb87be292ceb2de091a5e86"
+  },
+  "log_sha256": "10133fa681d284924ef81f431e84f45b096f0c2bcd4f35cd5450562482cc6029"
+}

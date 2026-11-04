@@ -118,7 +118,7 @@ void main() {
         final setup = (await t.runAsync(() async {
           process = await Process.start(
             Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
-                '/tmp/smartplan-backend-verified/bin/python',
+                '${Directory('../backend').absolute.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}',
             ['-u', '-c', yearHttpFixture],
             workingDirectory: Directory('../backend').absolute.path,
           );
@@ -312,7 +312,7 @@ void main() {
           final checked = await t.runAsync(
             () => Process.run(
               Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
-                  '/tmp/smartplan-backend-verified/bin/python',
+                  '${Directory('../backend').absolute.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}',
               [
                 '-I',
                 File('../backend/accounting_year_verify_v2.py').absolute.path,

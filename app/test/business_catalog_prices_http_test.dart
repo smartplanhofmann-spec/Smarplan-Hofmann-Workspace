@@ -62,7 +62,7 @@ void main() {
         );
     final python =
         Platform.environment['SMARTPLAN_TEST_PYTHON'] ??
-        '/tmp/smartplan-backend-verified/bin/python';
+        '${Directory('../backend').absolute.path}/.venv/${Platform.isWindows ? 'Scripts/python.exe' : 'bin/python'}';
     Process? server;
     StreamIterator<String>? output;
     StreamSubscription<String>? errors;

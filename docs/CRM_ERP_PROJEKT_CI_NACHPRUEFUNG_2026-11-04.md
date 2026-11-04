@@ -45,3 +45,13 @@ die beiden bisherigen Sicherungsfälle bestehen.
 [Importbindung, Quellhashes und Nachläufe](evidence/project-native-ci-2026-11-04/import-binding.json).
 Frühere Fehlerlogs bleiben separat erhalten; App-Fachlogik und Datenbankschema
 wurden nicht geändert.
+
+## Portable Python-Auswahl der App-Prüfungen
+
+Die echte Flutter-Runde auf `9e5bd30` fand in sieben Testdateien einen
+Entwicklerpfad unter /tmp. Diese Dateien verwenden jetzt wie die übrigen
+Integrationstests die eingerichtete Projekt-venv und den passenden Windows-/
+Unix-Interpreter. Eine ausdrückliche SMARTPLAN_TEST_PYTHON-Angabe hat weiter
+Vorrang. Acht tatsächliche App-/HTTP-Fälle bestehen ohne diese
+Umgebungsüberschreibung; Testlogik und Assertions sind unverändert.
+[Quellbindungen und Log](evidence/project-native-ci-2026-11-04/portable-python.json).

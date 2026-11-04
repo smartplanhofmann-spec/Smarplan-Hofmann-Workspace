@@ -1,0 +1,9 @@
+{
+  "status": "One confirmed lifecycle cancellation gap after first owner fixes; held capabilities response starts later source reads after hidden/paused/resume and repopulates chat",
+  "files": {
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-capabilities-roundtrip-repro.dart": "43fc14193549d2885b65c302e8950ecfc00b58a31df3c7cca39748a9831c193e",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-capabilities-roundtrip-red.log": "69ae98e079fdf0da178756620d3484d077f9bab5bb6a3cb6c2a6a792d5195411",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/business_assistant-before-capabilities-roundtrip-fix.dart": "7d5ef94df17c6469b27f3e463993bcbc5bdc3f9444046ab85630fa6dd4267e3c"
+  },
+  "fixture_sha256": "d42e9cbb076aef370abf9c51132cea69cc1ab75e09a580866fb73e1f499f773f"
+}

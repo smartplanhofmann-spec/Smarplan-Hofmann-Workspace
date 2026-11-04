@@ -1,0 +1,16 @@
+{
+  "status": "1 contract case green, 5 confirmed lifecycle regressions red, unmodified product",
+  "original_two_repros_unchanged_in_scope": true,
+  "new_cases": [
+    "private original chat dialog remains after parent session replacement",
+    "private original chat dialog remains after page unmount on retained navigator",
+    "active speech recorder not cancelled after parent session/host replacement"
+  ],
+  "files": {
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-expanded-repros.dart": "080672ccc5fa5f266bcc43c340623cf637f80107ce57aef838a808eab1e445ff",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-expanded-red.log": "866c6159d90c25a4e220e44629225c28f4c940d4ebea6baeda997525e1ac64f7",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/business_assistant-before-session-fix.dart": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/business_speech-before-session-fix.dart": "11505c99d97150066943e2ac27227e3e9b761fb8bf0cbb5130785eaac187eb54",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/actual-two-company-responses.json": "d42e9cbb076aef370abf9c51132cea69cc1ab75e09a580866fb73e1f499f773f"
+  }
+}

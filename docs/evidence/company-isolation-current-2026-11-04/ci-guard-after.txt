@@ -1,0 +1,6 @@
+test_online_ci_database_is_accepted_by_real_provisioning_guard (online.test_company_isolation_ci.CompanyIsolationCIContract.test_online_ci_database_is_accepted_by_real_provisioning_guard) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK

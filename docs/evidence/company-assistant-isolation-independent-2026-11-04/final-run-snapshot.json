@@ -1,0 +1,24 @@
+{
+  "files": {
+    "app/lib/business_assistant.dart": "e9acc7a54a6d5ff3480631f3c93d99b03150afe30e429531df4202524373f2b2",
+    "app/lib/business_speech.dart": "c2846687ca7efca56790996ae6408b0f2f7d67792d5f14bef210fb45aa8fc615",
+    "app/lib/business_session.dart": "475a0a59cf64d468f488a77d6dd848a2806e88f0a47ccd29b0189e16fde8e1a8",
+    "app/lib/api.dart": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+    "web/office/assistant.js": "af6a532772ef31863254d853f043eba7332d5384fdb329128eec13fea31f9539",
+    "web/office/speech.js": "b7c3bfcfbc64eadb97ad692227beaec0c815607796e71f7598dfb00840117423",
+    "web/office/office.js": "741dc8ae4214f1e6ede4ca199e11b0c25a2c98f7e6b5d6594821270773734d20",
+    "backend/business_assistant.py": "83099731d683cd828188b8ef8c631e1931d085587418b43849158073f6149813",
+    "backend/business_assistant_speech.py": "00bdcd3af1d2115ffc03bd3fa6622a0f85a555678a94a07ee45ea4cf8fa744d0",
+    "backend/business_assistant_provider.py": "8a3e358282a4fa8f7a5bae9df0fb815d3b8befb800dec5fa86d194b76d6a82a1",
+    "backend/business_assistant_sources.py": "74dbc22004f041dc4b3e47928c1ae3f72e0b4defe9a29432bbf48811d0aee9df",
+    "backend/online/web.py": "52e32755de364ddd0644fec465198c9a7c6e0353adb7731ee2d0daab03e720a9",
+    "backend/online/instance.py": "d15889a42dbe3fb190d3577a4fb6c7b9d64efc7ed6c8fc79f4fcd00a2c719b1a",
+    "backend/core.py": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7",
+    "backend/business_schema.py": "5c47d6cd2b3151a36f94679c67cdcb088556f7db9aad32ae8d1209365d9a126a",
+    "backend/online/test_company_isolation_current.py": "fefd50994b2e4be98dc206a1073141c0f50eed689e57bf5159d328d8f341a0c7",
+    "backend/online/test_company_assistant_isolation_review.py": "ce6d342a1518c98cf2f909901661d96241e0a1f1b980c5dba0ae4d8f360736f9",
+    "app/test/business_company_assistant_isolation_review_test.dart": "a45f72c922aa1e6543a7518b4397fb236703d3084e48f0aa8deb8c8e833e6ac7",
+    "web/office/tests/company-assistant-isolation-independent.test.mjs": "c87cd009ee48e689e0efab84dbb4cb5048845d185589c99f560cd921a794da83",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/actual-two-company-responses.json": "d42e9cbb076aef370abf9c51132cea69cc1ab75e09a580866fb73e1f499f773f"
+  }
+}

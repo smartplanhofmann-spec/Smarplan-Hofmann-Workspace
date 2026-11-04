@@ -1,0 +1,9 @@
+test_two_processes_contexts_same_rule_ids_event_jobs_and_actual_actions (online.test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_contexts_same_rule_ids_event_jobs_and_actual_actions) ... ok
+test_two_processes_original_bytes_current_search_and_complete_archives (online.test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_original_bytes_current_search_and_complete_archives) ... ok
+test_two_processes_private_originals_and_fresh_download_permissions (online.test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_private_originals_and_fresh_download_permissions) ... ok
+test_two_processes_queue_and_separate_actual_parser_processes (online.test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_queue_and_separate_actual_parser_processes) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 9.993s
+
+OK

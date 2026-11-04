@@ -108,10 +108,15 @@ Betriebsfreigabe.
    Er ist noch nicht integriert und enthält keine Zulässigkeitsentscheidung,
    Korrekturannahme, neue Zahlung oder Meldung. Weitere private Lohnquellenpakete
    befinden sich ebenfalls außerhalb dieses Integrationsstands.
-10. Die parallelen Erweiterungen zur Unternehmensisolation, zum nativen
-    Assistenten und zur Sprache sowie zu Service und Betriebsmitteln sind
-    noch nicht integriert. Ihre eigenen Nachweise werden vor einer späteren
-    Zusammenführung separat bewertet.
+10. Die Korrekturen für Unternehmenswechsel, private Assistentendialoge und
+    Sprachkontext sind [integriert und geprüft](CRM_ERP_UNTERNEHMENSISOLATION_GESAMTPRUEFUNG_2026-11-04.md):
+    91 betroffene Appfälle, sieben tatsächliche Zwei-Prozess-HTTP-Fälle,
+    ein CI-Guardfall und alle 848 Browsermodulfälle bestehen. Analyse ohne Befund,
+    16 Paketprüfungen. Produktive Isolations-/Sicherheitsabnahme bleibt offen.
+11. Service-/Betriebsmittelkorrekturen sowie private Lohnvergleichs- und
+    Quellenpakete liegen weiterhin in separaten Arbeitsständen. Nach dem
+    Nutzungslimit der parallelen Bearbeiter sind ihre ausstehenden Prüfungen
+    vor einer Integration wieder aufzunehmen.
 
 ## Noch offene Buchhaltungs- und Gesamtanforderungen
 

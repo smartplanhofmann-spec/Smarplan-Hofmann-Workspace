@@ -1,0 +1,6 @@
+{
+  "path": ".github/workflows/checks.yml",
+  "sha256": "cba2a89046165fc971603a6dbe093314c4dce7b86fcc08b7ddf68da3d8601710",
+  "bytes": 53739,
+  "note": "Before port fix; additive current-isolation discovery already present."
+}

@@ -1,0 +1,6 @@
+test_two_processes_queue_and_separate_actual_parser_processes (online.test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_queue_and_separate_actual_parser_processes) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 6.021s
+
+OK

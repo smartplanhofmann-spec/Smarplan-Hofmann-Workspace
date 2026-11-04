@@ -1,0 +1,22 @@
+{
+  "scope": "Two unchanged actual-response native host/session replacement regressions; both failed before owner fix",
+  "runtime_product_changed_by_reviewer": false,
+  "files": {
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-session-repros.dart": "5080fcd210a67e2e698287e10da1870712a01edbad1b0a814660c23fa272d203",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-session-red.log": "46334003b7af8ae98a472beac2f92421b03b80a9b153692021d487196cb0c446",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/business_assistant-before-session-fix.dart": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/business_speech-before-session-fix.dart": "11505c99d97150066943e2ac27227e3e9b761fb8bf0cbb5130785eaac187eb54"
+  },
+  "fixture": {
+    "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/actual-two-company-responses.json",
+    "sha256": "d42e9cbb076aef370abf9c51132cea69cc1ab75e09a580866fb73e1f499f773f"
+  },
+  "original_parent_runtime_hashes": {
+    "app/lib/business_assistant.dart": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+    "app/lib/business_speech.dart": "11505c99d97150066943e2ac27227e3e9b761fb8bf0cbb5130785eaac187eb54",
+    "app/lib/business_session.dart": "475a0a59cf64d468f488a77d6dd848a2806e88f0a47ccd29b0189e16fde8e1a8",
+    "app/lib/api.dart": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+    "app/test/business_company_assistant_isolation_review_test.dart": "941f326286541c21f0e09bc2c708235b9c57e881f32261b7b91290f2c3e43014",
+    "docs/evidence/company-assistant-isolation-independent-2026-11-04/actual-two-company-responses.json": "d42e9cbb076aef370abf9c51132cea69cc1ab75e09a580866fb73e1f499f773f"
+  }
+}

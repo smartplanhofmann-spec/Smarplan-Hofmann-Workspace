@@ -1,0 +1,16 @@
+test_online_ci_database_is_accepted_by_real_provisioning_guard (online.test_company_isolation_ci.CompanyIsolationCIContract.test_online_ci_database_is_accepted_by_real_provisioning_guard) ... ERROR
+
+======================================================================
+ERROR: test_online_ci_database_is_accepted_by_real_provisioning_guard (online.test_company_isolation_ci.CompanyIsolationCIContract.test_online_ci_database_is_accepted_by_real_provisioning_guard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-isolation-20261104/backend/online/test_company_isolation_ci.py", line 20, in test_online_ci_database_is_accepted_by_real_provisioning_guard
+    provisioning._operator_dsn(company('testcicontract'), dsn, test_mode=True)
+  File "/workspace/smartplan-company-isolation-20261104/backend/online/provisioning.py", line 306, in _operator_dsn
+    raise ValueError('Provisionierungstest ausschließlich im reservierten Einwegcluster 55433.')
+ValueError: Provisionierungstest ausschließlich im reservierten Einwegcluster 55433.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (errors=1)

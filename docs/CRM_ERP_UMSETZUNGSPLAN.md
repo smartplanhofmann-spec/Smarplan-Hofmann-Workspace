@@ -113,10 +113,11 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    bestehen. Endgültige Quellen und Prüfläufe sind im Gesamtnachweis gebunden.
    Finanzhorizont 15/Bericht 16, 144 Backend- und 209 Betreiberpfade.
 5. **Parallele Arbeitsstände erst nach eigenen Nachweisen integrieren.**
-   Unternehmensisolation, native Assistenten-/Sprachabläufe, Service/Betriebsmittel
-   und private Lohnvergleichs-/Quellenpakete laufen in getrennten Arbeitsständen.
-   Sie gehören noch nicht zum beschriebenen Integrationsstand. Befunde und echte
-   Nachprüfungen dieser Bereiche werden vor einer Zusammenführung ausgewertet.
+   Die [native Assistenten-/Sprachkorrektur und technischen Isolationsnachweise](CRM_ERP_UNTERNEHMENSISOLATION_GESAMTPRUEFUNG_2026-11-04.md)
+   sind integriert; produktive Host- und Sicherheitsabnahme bleiben offen.
+   Service/Betriebsmittel und private Lohnvergleichs-/Quellenpakete liegen noch
+   getrennt vor. Ausstehende tatsächliche Prüfungen und Übergaben sind nach dem
+   Nutzungslimit der parallelen Bearbeiter wieder aufzunehmen.
 
 Die v5-Zusammenrechnung mehrerer belegter Entgelt-/SV-Abschnitte mit
 Anspruchsbausteinen und Reise-Lohnübergabe sowie der eigene v5-Mitarbeiterbeleg

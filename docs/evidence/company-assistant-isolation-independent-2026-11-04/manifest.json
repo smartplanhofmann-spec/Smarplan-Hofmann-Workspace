@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "assembled_by": "Root after reviewer usage-limit interruption; original final logs, report and 20-file snapshot were already written by the independent reviewer",
+  "recorded_at_utc": "2026-11-04T18:58:00.429990+00:00",
+  "historical_source_workspace": "/workspace/smartplan-company-isolation-20261104",
+  "historical_base_commit": "2e2ed5ca33b928216b940c6334cdfbbca0a14c27",
+  "independent_results": {
+    "native": 12,
+    "browser_contract": 6,
+    "actual_two_process_http": 3,
+    "analysis_issues": 0
+  },
+  "reviewer_final_snapshot_verified_before_copy": {
+    "files": {
+      "app/lib/business_assistant.dart": "e9acc7a54a6d5ff3480631f3c93d99b03150afe30e429531df4202524373f2b2",
+      "app/lib/business_speech.dart": "c2846687ca7efca56790996ae6408b0f2f7d67792d5f14bef210fb45aa8fc615",
+      "app/lib/business_session.dart": "475a0a59cf64d468f488a77d6dd848a2806e88f0a47ccd29b0189e16fde8e1a8",
+      "app/lib/api.dart": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+      "web/office/assistant.js": "af6a532772ef31863254d853f043eba7332d5384fdb329128eec13fea31f9539",
+      "web/office/speech.js": "b7c3bfcfbc64eadb97ad692227beaec0c815607796e71f7598dfb00840117423",
+      "web/office/office.js": "741dc8ae4214f1e6ede4ca199e11b0c25a2c98f7e6b5d6594821270773734d20",
+      "backend/business_assistant.py": "83099731d683cd828188b8ef8c631e1931d085587418b43849158073f6149813",
+      "backend/business_assistant_speech.py": "00bdcd3af1d2115ffc03bd3fa6622a0f85a555678a94a07ee45ea4cf8fa744d0",
+      "backend/business_assistant_provider.py": "8a3e358282a4fa8f7a5bae9df0fb815d3b8befb800dec5fa86d194b76d6a82a1",
+      "backend/business_assistant_sources.py": "74dbc22004f041dc4b3e47928c1ae3f72e0b4defe9a29432bbf48811d0aee9df",
+      "backend/online/web.py": "52e32755de364ddd0644fec465198c9a7c6e0353adb7731ee2d0daab03e720a9",
+      "backend/online/instance.py": "d15889a42dbe3fb190d3577a4fb6c7b9d64efc7ed6c8fc79f4fcd00a2c719b1a",
+      "backend/core.py": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7",
+      "backend/business_schema.py": "5c47d6cd2b3151a36f94679c67cdcb088556f7db9aad32ae8d1209365d9a126a",
+      "backend/online/test_company_isolation_current.py": "fefd50994b2e4be98dc206a1073141c0f50eed689e57bf5159d328d8f341a0c7",
+      "backend/online/test_company_assistant_isolation_review.py": "ce6d342a1518c98cf2f909901661d96241e0a1f1b980c5dba0ae4d8f360736f9",
+      "app/test/business_company_assistant_isolation_review_test.dart": "a45f72c922aa1e6543a7518b4397fb236703d3084e48f0aa8deb8c8e833e6ac7",
+      "web/office/tests/company-assistant-isolation-independent.test.mjs": "c87cd009ee48e689e0efab84dbb4cb5048845d185589c99f560cd921a794da83",
+      "docs/evidence/company-assistant-isolation-independent-2026-11-04/actual-two-company-responses.json": "d42e9cbb076aef370abf9c51132cea69cc1ab75e09a580866fb73e1f499f773f"
+    }
+  },
+  "product_changes_by_reviewer": false,
+  "artifacts": [
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/actual-two-company-responses.json",
+      "sha256": "d42e9cbb076aef370abf9c51132cea69cc1ab75e09a580866fb73e1f499f773f",
+      "bytes": 48745
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/browser-six-final.log",
+      "sha256": "5a449e9f5a27dd17b2da7eaad6d21240e49feb8bf72a177ecdb10475ca827dee",
+      "bytes": 722
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/business_assistant-before-capabilities-roundtrip-fix.dart",
+      "sha256": "7d5ef94df17c6469b27f3e463993bcbc5bdc3f9444046ab85630fa6dd4267e3c",
+      "bytes": 61552
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/business_assistant-before-session-fix.dart",
+      "sha256": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+      "bytes": 57687
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/business_speech-before-session-fix.dart",
+      "sha256": "11505c99d97150066943e2ac27227e3e9b761fb8bf0cbb5130785eaac187eb54",
+      "bytes": 20374
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/final-run-snapshot.json",
+      "sha256": "b4398ca39962082f78f38397c9dd36d6370490b8bc4f3097df83096df4a4267d",
+      "bytes": 2265
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/historical-client-summary-expectation-error.log",
+      "sha256": "5251999d14479cc47e94960bbeae6d5d237e53e49631b1ab23839ddccfbfde53",
+      "bytes": 1792
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/historical-http-test-guard-error.log",
+      "sha256": "ac4db41876a7548d195bff1c1c1c0e4d91035c6b637ce2d8651c970f93252bb7",
+      "bytes": 11784
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/http-current-fixture-three-final.log",
+      "sha256": "a28cf6a4639a177b616ee1fa64f44bb8c7f582a25cbc458c8c59c795da614f01",
+      "bytes": 880
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/http-three-final.log",
+      "sha256": "ac780d38a492870b86d891869c3c93275c999a4aa4400ded50ad5e9ea93af489",
+      "bytes": 880
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/native-final-analysis.log",
+      "sha256": "d5fc1df24dea395b78b24ed5c03b4863bd79fcbf0ae7f69224de7149be70590d",
+      "bytes": 84
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/native-first-snapshot.json",
+      "sha256": "fdad99cecdeb3be00c3c90441b4b0c8644f2458984a3712891994106d428c862",
+      "bytes": 740
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/native-initial-analysis.log",
+      "sha256": "d5fc1df24dea395b78b24ed5c03b4863bd79fcbf0ae7f69224de7149be70590d",
+      "bytes": 84
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/native-twelve-final.log",
+      "sha256": "20a7423b49440861e10632e315a438b4aa2784df1852c7feb290effb34289cb7",
+      "bytes": 1448
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-capabilities-roundtrip-red-manifest.json",
+      "sha256": "4dfd743f2871c40e93dbfb6e171624c12967dcb1a2e08e80cabe7d6f9de7e64a",
+      "bytes": 865
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-capabilities-roundtrip-red.log",
+      "sha256": "69ae98e079fdf0da178756620d3484d077f9bab5bb6a3cb6c2a6a792d5195411",
+      "bytes": 2520
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-capabilities-roundtrip-repro.dart",
+      "sha256": "43fc14193549d2885b65c302e8950ecfc00b58a31df3c7cca39748a9831c193e",
+      "bytes": 18358
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-expanded-red-manifest.json",
+      "sha256": "da5c6f6a4e0a2d177d936aa41978c228ca318d2f708cd6d4b19b1d02c99de9eb",
+      "bytes": 1318
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-expanded-red.log",
+      "sha256": "866c6159d90c25a4e220e44629225c28f4c940d4ebea6baeda997525e1ac64f7",
+      "bytes": 11824
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-expanded-repros.dart",
+      "sha256": "080672ccc5fa5f266bcc43c340623cf637f80107ce57aef838a808eab1e445ff",
+      "bytes": 9896
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-session-red-manifest.json",
+      "sha256": "6af8b1eee851cbc23a4bc79c31a8f971e275d3b09c4cb1024612be9f7da3c774",
+      "bytes": 1874
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-session-red.log",
+      "sha256": "46334003b7af8ae98a472beac2f92421b03b80a9b153692021d487196cb0c446",
+      "bytes": 4878
+    },
+    {
+      "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/original-native-session-repros.dart",
+      "sha256": "5080fcd210a67e2e698287e10da1870712a01edbad1b0a814660c23fa272d203",
+      "bytes": 5721
+    }
+  ],
+  "limits": [
+    "Actual PG/UID chains are separate owner evidence",
+    "Controlled recorder and local provider doubles; no physical microphone or live provider acceptance"
+  ]
+}

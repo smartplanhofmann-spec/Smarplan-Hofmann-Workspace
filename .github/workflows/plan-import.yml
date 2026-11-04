@@ -8,6 +8,8 @@ on:
       - 'backend/online/import_worker.py'
       - 'backend/online/plan_imports.py'
       - 'backend/online/test_import_sandbox.py'
+      - 'backend/online/test_company_isolation_current.py'
+      - 'backend/online/instance.py'
       - 'deploy/hetzner/online/smartplan-plan-import.service'
       - 'deploy/hetzner/online/accept-plan-import.sh'
       - 'deploy/hetzner/online/accept-plan-import-fixture.py'
@@ -21,6 +23,8 @@ on:
       - 'backend/online/import_worker.py'
       - 'backend/online/plan_imports.py'
       - 'backend/online/test_import_sandbox.py'
+      - 'backend/online/test_company_isolation_current.py'
+      - 'backend/online/instance.py'
       - 'deploy/hetzner/online/smartplan-plan-import.service'
       - 'deploy/hetzner/online/accept-plan-import.sh'
       - 'deploy/hetzner/online/accept-plan-import-fixture.py'
@@ -69,6 +73,14 @@ jobs:
           smartplan_worker_python="$RUNNER_TEMP/plan-import-sandbox-venv/bin/python"
           SMARTPLAN_IMPORT_TEST_WORKER_PYTHON="$smartplan_worker_python" \
             "$smartplan_worker_python" -m unittest online.test_import_sandbox -v
+      - name: Require two companies with separate actual import queues and parser processes
+        run: |
+          umask 0077
+          smartplan_worker_python="$RUNNER_TEMP/plan-import-sandbox-venv/bin/python"
+          "$smartplan_worker_python" -m pip install --only-binary=:all: -r backend/online/requirements.lock
+          "$smartplan_worker_python" -m pip check
+          SMARTPLAN_TEST_PARSER_PYTHON="$smartplan_worker_python" \
+            "$smartplan_worker_python" -m unittest online.test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_queue_and_separate_actual_parser_processes -v
       - name: Accept the exact production systemd unit with synthetic PostgreSQL jobs
         env:
           SMARTPLAN_SYSTEMD_IMPORT_CI: '1'

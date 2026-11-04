@@ -1,0 +1,9 @@
+test_actual_two_runtime_roles_contexts_equal_rule_ids_events_and_actions (online.test_company_isolation_current_pg.CompanyIsolationCurrentPostgres.test_actual_two_runtime_roles_contexts_equal_rule_ids_events_and_actions) ... ok
+test_actual_two_runtime_roles_originals_search_and_full_archives (online.test_company_isolation_current_pg.CompanyIsolationCurrentPostgres.test_actual_two_runtime_roles_originals_search_and_full_archives) ... ok
+test_actual_two_runtime_roles_private_originals_and_fresh_permissions (online.test_company_isolation_current_pg.CompanyIsolationCurrentPostgres.test_actual_two_runtime_roles_private_originals_and_fresh_permissions) ... ok
+test_actual_two_runtime_roles_queue_and_separate_parser_processes (online.test_company_isolation_current_pg.CompanyIsolationCurrentPostgres.test_actual_two_runtime_roles_queue_and_separate_parser_processes) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 22.865s
+
+OK

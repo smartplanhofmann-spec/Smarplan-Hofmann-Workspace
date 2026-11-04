@@ -1,0 +1,8 @@
+test_actual_catalog_source_right_revocation_closes_existing_chat_and_speech_in_only_one_company (online.test_company_assistant_isolation_review.CompanyAssistantIsolationReview.test_actual_catalog_source_right_revocation_closes_existing_chat_and_speech_in_only_one_company) ... ok
+test_actual_mismatched_provider_company_configuration_blocks_both_transports (online.test_company_assistant_isolation_review.CompanyAssistantIsolationReview.test_actual_mismatched_provider_company_configuration_blocks_both_transports) ... ok
+test_actual_same_nonces_keep_search_chat_speech_and_original_sources_in_each_instance (online.test_company_assistant_isolation_review.CompanyAssistantIsolationReview.test_actual_same_nonces_keep_search_chat_speech_and_original_sources_in_each_instance) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 5.762s
+
+OK

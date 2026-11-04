@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -278,20 +279,23 @@ class BusinessAssistantPage extends StatefulWidget {
   State<BusinessAssistantPage> createState() => _BusinessAssistantPageState();
 }
 
-class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
+class _BusinessAssistantPageState extends State<BusinessAssistantPage>
+    with WidgetsBindingObserver {
   BusinessSession? scope;
   String? project, userId, error;
-  int epoch = 0, sourceOffset = 0, sourceTotal = 0;
+  int epoch = 0, foregroundEpoch = 0, sourceOffset = 0, sourceTotal = 0;
   int? nextSourceOffset;
   String sourceQuery = '', speechDraft = '';
   Map<String, dynamic>? speechStatus;
-  bool busy = false;
+  bool busy = false, foreground = true;
+  final privateDialogs = <DialogRoute<dynamic>>[];
   Set<String> loadedPermissions = {}, loadedParentPermissions = {};
   Object? loadedGeneration, loadedParentGeneration;
   Map<String, dynamic>? status, contextValue;
   List<Map<String, dynamic>> sources = [], rules = [], plans = [], chats = [];
   _AssistantMemory get memory => _memory[scope!] ??= _AssistantMemory();
   bool get readable =>
+      foreground &&
       scope != null &&
       scope!.hasFeature('assistant_workflow') &&
       scope!.hasModule('assistant') &&
@@ -314,15 +318,115 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
   void initState() {
     super.initState();
     widget.session.addListener(changed);
+    WidgetsBinding.instance.addObserver(this);
     if (widget.session.projectId != null) select(widget.session.projectId!);
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessAssistantPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.session, widget.session)) {
+      oldWidget.session.removeListener(changed);
+      if (!identical(scope, oldWidget.session)) scope?.removeListener(changed);
+      scope = null;
+      project = null;
+      erase();
+      dismissPrivateDialogs(afterBuild: true);
+      widget.session.addListener(changed);
+      if (widget.session.projectId != null) {
+        unawaited(select(widget.session.projectId!));
+      }
+    }
   }
 
   @override
   void dispose() {
     epoch++;
+    dismissPrivateDialogs(afterBuild: true);
+    WidgetsBinding.instance.removeObserver(this);
     widget.session.removeListener(changed);
     if (scope != widget.session) scope?.removeListener(changed);
     super.dispose();
+  }
+
+  void erase() {
+    epoch++;
+    loadedGeneration = loadedParentGeneration = null;
+    loadedPermissions = {};
+    loadedParentPermissions = {};
+    sources = [];
+    rules = [];
+    plans = [];
+    chats = [];
+    status = contextValue = speechStatus = null;
+    userId = error = null;
+    sourceOffset = sourceTotal = 0;
+    nextSourceOffset = null;
+    sourceQuery = speechDraft = '';
+    busy = false;
+  }
+
+  void dismissPrivateDialogs({bool afterBuild = false}) {
+    final routes = privateDialogs.toList().reversed.toList();
+    privateDialogs.clear();
+    void remove() {
+      for (final route in routes) {
+        if (route.isActive) route.navigator?.removeRoute(route);
+      }
+    }
+
+    if (afterBuild && routes.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => remove());
+    } else {
+      remove();
+    }
+  }
+
+  Future<T?> privateDialog<T>({
+    required WidgetBuilder builder,
+    bool barrierDismissible = true,
+  }) async {
+    guard();
+    final route = DialogRoute<T>(
+      context: context,
+      builder: builder,
+      barrierDismissible: barrierDismissible,
+    );
+    privateDialogs.add(route);
+    try {
+      return await Navigator.of(context, rootNavigator: true).push(route);
+    } finally {
+      privateDialogs.remove(route);
+    }
+  }
+
+  bool Function() currentView() {
+    final session = scope,
+        parent = widget.session,
+        selected = project,
+        current = epoch;
+    return () =>
+        mounted &&
+        identical(scope, session) &&
+        identical(widget.session, parent) &&
+        project == selected &&
+        epoch == current &&
+        readable;
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      foreground = true;
+    } else if (state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      foreground = false;
+      foregroundEpoch++;
+      erase();
+      dismissPrivateDialogs();
+    }
+    if (mounted) setState(() {});
   }
 
   void changed() {
@@ -335,18 +439,8 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
                   loadedParentPermissions,
                 ) ||
                 !scope!.permissions.containsAll(loadedPermissions)))) {
-      loadedGeneration = null;
-      loadedPermissions = {};
-      epoch++;
-      sources = [];
-      rules = [];
-      plans = [];
-      chats = [];
-      status = null;
-      contextValue = null;
-      speechDraft = '';
-      speechStatus = null;
-      busy = false;
+      erase();
+      dismissPrivateDialogs();
     }
     setState(() {});
   }
@@ -360,8 +454,9 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
   }
 
   Future<void> select(String id) async {
+    dismissPrivateDialogs();
     if (scope != widget.session) scope?.removeListener(changed);
-    epoch++;
+    erase();
     project = id;
     sourceOffset = 0;
     sourceQuery = '';
@@ -380,16 +475,26 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
   }
 
   Future<void> load() async {
-    final session = scope;
+    final session = scope,
+        parent = widget.session,
+        startedForeground = foregroundEpoch;
     if (session == null) return;
     epoch++;
+    int? current;
+    bool ownsRequest() =>
+        mounted &&
+        identical(session, scope) &&
+        identical(parent, widget.session) &&
+        foreground &&
+        startedForeground == foregroundEpoch &&
+        (current == null || current == epoch);
     setState(() {
       busy = true;
       error = null;
     });
     try {
       await session.load();
-      if (!mounted || session != scope) return;
+      if (!ownsRequest()) return;
       if (!readable) {
         setState(
           () => error =
@@ -397,8 +502,9 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         );
         return;
       }
-      final current = epoch;
-      userId = '${businessMap(await session.api.call('/api/me'))['id']}';
+      current = epoch;
+      final actorId = '${businessMap(await session.api.call('/api/me'))['id']}';
+      if (!ownsRequest() || !readable) return;
       final query = Uri(queryParameters: {'project_id': project!}).query;
       final result = await Future.wait(
         [
@@ -412,18 +518,20 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
             '/assistant/speech/status?$query',
         ].map(session.read),
       );
-      if (!mounted || session != scope || current != epoch || !readable) return;
+      if (!ownsRequest() || !readable) return;
       Map<String, dynamic>? context;
       if (memory.contextId != null) {
         try {
           context = await freshContext(memory.contextId!);
         } on ApiException catch (e) {
+          if (!ownsRequest() || !readable) return;
           if (![403, 404, 409].contains(e.status)) rethrow;
           memory.contextId = null;
         }
       }
-      if (!mounted || session != scope || !readable) return;
+      if (!ownsRequest() || !readable) return;
       setState(() {
+        userId = actorId;
         loadedGeneration = session.generation;
         loadedPermissions = Set.of(session.permissions);
         loadedParentPermissions = Set.of(widget.session.permissions);
@@ -439,9 +547,9 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         contextValue = context;
       });
     } catch (e) {
-      if (mounted && session == scope) setState(() => error = '$e');
+      if (ownsRequest()) setState(() => error = '$e');
     } finally {
-      if (mounted && session == scope) {
+      if (ownsRequest()) {
         setState(() => busy = false);
       }
     }
@@ -449,10 +557,11 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
 
   Future<Map<String, dynamic>> freshContext(String id) async {
     guard();
+    final valid = currentView(), session = scope!;
     final selected = project;
-    final result = businessMap(await scope!.read('/assistant/contexts/$id'));
+    final result = businessMap(await session.read('/assistant/contexts/$id'));
     guard();
-    if (selected != project || result['project_id'] != project)
+    if (!valid() || selected != project || result['project_id'] != project)
       throw const ApiException(
         403,
         'Die Datenbasis gehört zu einem anderen Projekt.',
@@ -467,7 +576,7 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
     String title,
   ) async {
     guard(true);
-    final session = scope!, selected = project!;
+    final session = scope!, selected = project!, valid = currentView();
     memory.pending[key] = (path: path, title: title);
     final dynamic result = session.pending(key)
         ? await session.repeatAssistantCommand(key, selected)
@@ -478,7 +587,7 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
             validateResult: (result) =>
                 assistantReceipt(path, selected, values, result),
           );
-    if (!mounted || scope != session) return result;
+    if (!valid()) return null;
     if (!session.pending(key)) memory.pending.remove(key);
     if (path == '/assistant/contexts') {
       final row = businessMap(result);
@@ -492,17 +601,20 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
 
   Future<void> repeat(String key) async {
     guard(true);
-    final session = scope!, entry = memory.pending[key], selected = project!;
+    final session = scope!,
+        entry = memory.pending[key],
+        selected = project!,
+        valid = currentView();
     setState(() => busy = true);
     try {
       final result = await session.repeatAssistantCommand(key, selected);
-      if (!mounted || session != scope) return;
+      if (!valid()) return;
       if (entry?.path == '/assistant/contexts')
         memory.contextId = '${businessMap(result)['id']}';
       memory.pending.remove(key);
       await load();
     } catch (e) {
-      if (mounted && session == scope) setState(() => error = '$e');
+      if (valid()) setState(() => error = '$e');
     } finally {
       if (mounted && session == scope) setState(() => busy = false);
     }
@@ -517,10 +629,12 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
     String permission = 'assistant.use',
   }) async {
     guard(true);
-    final session = scope!, selected = project;
+    final session = scope!,
+        selected = project,
+        parent = widget.session,
+        valid = currentView();
     dynamic result;
-    await showDialog<bool>(
-      context: context,
+    await privateDialog<bool>(
       barrierDismissible: false,
       builder: (_) => BusinessEditor(
         session: session,
@@ -529,10 +643,14 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         pendingKey: key,
         readPermission: 'assistant.use',
         writePermission: permission,
-        readAllowed: () =>
-            mounted && scope == session && project == selected && readable,
+        readAllowed: () => valid() && project == selected,
         saveLabel: title,
         onSave: (values) async {
+          if (!valid())
+            throw const ApiException(
+              403,
+              'Die ursprüngliche Sitzung wurde geändert.',
+            );
           guard(true);
           result = await command(
             key,
@@ -543,16 +661,21 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         },
       ),
     );
-    if (mounted && session == scope) await load();
-    return result;
+    if (!valid()) return null;
+    await load();
+    return mounted &&
+            identical(session, scope) &&
+            identical(parent, widget.session) &&
+            readable
+        ? result
+        : null;
   }
 
   Future<void> searchSources() async {
     guard();
-    final session = scope, selected = project;
+    final session = scope, selected = project, valid = currentView();
     var text = sourceQuery;
-    final query = await showDialog<String>(
-      context: context,
+    final query = await privateDialog<String>(
       builder: (dialogContext) => AlertDialog(
         title: const Text('Quellen durchsuchen'),
         content: TextFormField(
@@ -575,7 +698,7 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         ],
       ),
     );
-    if (query == null || !mounted || scope != session || project != selected)
+    if (query == null || !valid() || scope != session || project != selected)
       return;
     guard();
     sourceQuery = query;
@@ -663,8 +786,7 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         session.generation == generation &&
         widget.session.generation == parentGeneration &&
         widget.session.permissions.containsAll(parentPermissions);
-    await showDialog<void>(
-      context: context,
+    await privateDialog<void>(
       builder: (_) => ListenableBuilder(
         listenable: Listenable.merge([session, widget.session]),
         builder: (context, _) => AlertDialog(
@@ -697,11 +819,13 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
   }
 
   Future<void> sourceDetail(String contextId, String sourceId) async {
+    final valid = currentView();
     try {
       final context = await freshContext(contextId),
           source = businessItems(context['sources'])
               .firstWhere((row) => row['source_id'] == sourceId),
           data = businessMap(source['data']);
+      if (!valid()) return;
       guard();
       final labels = {
         'name': 'Bezeichnung',
@@ -750,25 +874,28 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         ],
       );
     } catch (e) {
-      if (mounted && readable) setState(() => error = '$e');
+      if (valid()) setState(() => error = '$e');
     }
   }
 
   Future<void> speak() async {
     guard(true);
-    final current = contextValue, session = scope;
+    final current = contextValue, session = scope, valid = currentView();
     if (current == null ||
         current['current'] != true ||
         speechStatus?['provider']?['configured'] != true)
       return;
-    final result = await showBusinessSpeechDraft(
-      context,
-      session: session!,
-      source: current,
-      provider: businessMap(speechStatus!['provider']),
+    final provider = businessMap(speechStatus!['provider']);
+    final result = await privateDialog<String>(
+      barrierDismissible: false,
+      builder: (_) => BusinessSpeechDraft(
+        session: session!,
+        source: current,
+        provider: provider,
+      ),
     );
     if (result != null &&
-        mounted &&
+        valid() &&
         scope == session &&
         readable &&
         contextValue?['id'] == current['id'])
@@ -817,9 +944,12 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
 
   Future<void> chatDetail(String id) async {
     guard();
+    final valid = currentView(), session = scope!;
     try {
-      final chat = businessMap(await scope!.read('/assistant/chat/$id'));
+      final chat = businessMap(await session.read('/assistant/chat/$id'));
+      if (!valid()) return;
       final source = await freshContext('${chat['context_id']}');
+      if (!valid()) return;
       guard();
       final children = <Widget>[
         Text('Ihre Frage: ${chat['message']}'),
@@ -874,17 +1004,16 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         );
       await dialogContent('Antwort und Belege', children);
     } catch (e) {
-      if (mounted && readable) setState(() => error = '$e');
+      if (valid()) setState(() => error = '$e');
     }
   }
 
   Future<void> planForm() async {
     guard(true);
-    final current = contextValue;
+    final current = contextValue, valid = currentView();
     if (current == null || current['current'] != true) return;
     Map<String, dynamic>? choice;
-    await showDialog<bool>(
-      context: context,
+    await privateDialog<bool>(
       builder: (_) => BusinessEditor(
         session: scope!,
         title: 'Aktionsart auswählen',
@@ -912,7 +1041,7 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         onSave: (values) async => choice = values,
       ),
     );
-    if (choice == null || !mounted) return;
+    if (choice == null || !valid()) return;
     guard(true);
     final action = '${choice!['action']}',
         fields = <BusinessField>[
@@ -1043,11 +1172,14 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
 
   Future<void> planDetail(String id) async {
     guard();
+    final valid = currentView(), session = scope!;
     try {
-      final item = businessMap(await scope!.read('/assistant/plans/$id'));
+      final item = businessMap(await session.read('/assistant/plans/$id'));
+      if (!valid()) return;
       if (item['project_id'] != project)
         throw const ApiException(403, 'Der Auftrag gehört nicht zum Projekt.');
       final source = await freshContext('${item['context_id']}');
+      if (!valid()) return;
       guard();
       final policy = businessMap(item['policy']),
           parameters = businessMap(item['parameters']),
@@ -1169,7 +1301,7 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         ],
       ], buttons: buttons);
     } catch (e) {
-      if (mounted && readable) setState(() => error = '$e');
+      if (valid()) setState(() => error = '$e');
     }
   }
 
@@ -1230,20 +1362,22 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
 
   Future<void> ruleForm([Map<String, dynamic>? old]) async {
     guard(true);
+    final valid = currentView(), session = scope!;
     if (!scope!.canWrite('settings.manage')) return;
     var users = <Map<String, dynamic>>[
       {'id': userId, 'email': 'Eigene Zuständigkeit'},
     ];
     try {
-      users = businessItems(await scope!.api.call('/api/users'));
+      users = businessItems(await session.api.call('/api/users'));
     } on ApiException catch (e) {
+      if (!valid()) return;
       if (e.status != 403) rethrow;
     }
+    if (!valid()) return;
     guard(true);
     final original = businessItems(old?['conditions'] ?? []);
     int? count;
-    await showDialog<bool>(
-      context: context,
+    await privateDialog<bool>(
       builder: (_) => BusinessEditor(
         session: scope!,
         title: 'Regelbedingungen',
@@ -1268,7 +1402,7 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         },
       ),
     );
-    if (count == null || !mounted) return;
+    if (count == null || !valid()) return;
     guard(true);
     final id = old?['id'] ?? offlineId(),
         fields = <BusinessField>[
@@ -1412,10 +1546,12 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
 
   Future<void> ruleHistory(String id) async {
     guard();
+    final valid = currentView(), session = scope!;
     try {
       final result = businessMap(
-        await scope!.read('/assistant/rules/$id/history'),
+        await session.read('/assistant/rules/$id/history'),
       );
+      if (!valid()) return;
       guard();
       await dialogContent('Regelhistorie', [
         for (final rule in businessItems(result['items'])) ...[
@@ -1440,7 +1576,7 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
         ],
       ]);
     } catch (e) {
-      if (mounted && readable) setState(() => error = '$e');
+      if (valid()) setState(() => error = '$e');
     }
   }
 

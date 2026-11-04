@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T19:02:00.390940+00:00",
+  "base_commit": "657e565068145a2c77169e922d65a5afbf782d33",
+  "scope": "Native assistant/speech session, background and private-dialog invalidation plus actual two-company acceptance and disposable CI port correction",
+  "overall_goal_complete": false,
+  "financial_horizon": 15,
+  "restore_report_version": 16,
+  "package_counts": {
+    "backend": 144,
+    "operator": 213
+  },
+  "product_runtime_changed": [
+    "app/lib/business_assistant.dart",
+    "app/lib/business_speech.dart"
+  ],
+  "source_snapshot": {
+    "path": "docs/evidence/company-isolation-integrated-source-snapshot-2026-11-04.json",
+    "sha256": "4846885019ea2a81f94d016cdfdaed7ededceca500f24e6931c258ad77655485",
+    "bytes": 145077
+  },
+  "checks": [
+    {
+      "name": "native",
+      "passed": 91,
+      "seconds": 25.93,
+      "metadata": {
+        "path": "docs/evidence/company-isolation-integrated-native-2026-11-04.json",
+        "sha256": "836e3ad4b56059f4900a81a5a1f9a07a51431f98aad13380f309e4c21d79ee3a",
+        "bytes": 143920
+      },
+      "log": {
+        "path": "docs/evidence/company-isolation-integrated-native-2026-11-04.txt",
+        "sha256": "5135f5a7eeba0e554dde5c7700cc8eea85b8d01caa09373b305c82678311f032",
+        "bytes": 19445
+      }
+    },
+    {
+      "name": "http",
+      "passed": 8,
+      "seconds": 26.83,
+      "metadata": {
+        "path": "docs/evidence/company-isolation-integrated-http-2026-11-04.json",
+        "sha256": "f416f7818bccfbe77f99e4a28943610a295b33e42db7e84884514f91fa03afe3",
+        "bytes": 143723
+      },
+      "log": {
+        "path": "docs/evidence/company-isolation-integrated-http-2026-11-04.txt",
+        "sha256": "a80d8e04ac1be03cfea03bf19a2c511d227ec9a9f4b34f575793b8028fc051b7",
+        "bytes": 2236
+      }
+    },
+    {
+      "name": "node",
+      "passed": 848,
+      "seconds": 6.748,
+      "metadata": {
+        "path": "docs/evidence/company-isolation-integrated-node-2026-11-04.json",
+        "sha256": "8bf89b079e8484980959f3108d4d19c270daecc4b1c3f31f1e9a75395bd4c3a0",
+        "bytes": 154804
+      },
+      "log": {
+        "path": "docs/evidence/company-isolation-integrated-node-2026-11-04.txt",
+        "sha256": "844b57f327aed34883661fdb5f2bd4a4e708a71eed9d6242c261fe77739bdfcf",
+        "bytes": 97128
+      }
+    },
+    {
+      "name": "analyze",
+      "issues": 0,
+      "seconds": 15.195,
+      "metadata": {
+        "path": "docs/evidence/company-isolation-integrated-analyze-2026-11-04.json",
+        "sha256": "e5e8194c0167fafa17f01b5ec076d0c4043ad79c9091032eb69d240ec178a1f1",
+        "bytes": 143585
+      },
+      "log": {
+        "path": "docs/evidence/company-isolation-integrated-analyze-2026-11-04.txt",
+        "sha256": "3be33321b4f837456d0fd491064d65c1a72b5b37293432c77b3b5443ceb19d8e",
+        "bytes": 286
+      }
+    },
+    {
+      "name": "packages",
+      "passed": 16,
+      "seconds": 12.346,
+      "metadata": {
+        "path": "docs/evidence/company-isolation-integrated-packages-2026-11-04.json",
+        "sha256": "1f8ec67252b329fa2c9b691f39169d7c63bf119630ca4b0466d5a95013a627f9",
+        "bytes": 143631
+      },
+      "log": {
+        "path": "docs/evidence/company-isolation-integrated-packages-2026-11-04.txt",
+        "sha256": "fa93f186a1bf5f875fa410599fcb3ba6d673e515b1cd244a8edab43bb669e85b",
+        "bytes": 3953
+      }
+    }
+  ],
+  "copied_handoff": {
+    "path": "docs/evidence/company-isolation-integrated-handoff-2026-11-04.json",
+    "sha256": "48abfdad30d501bff191d7bf9650877a7b119b9586efa1bbce6af6287f6c105b",
+    "bytes": 11586
+  },
+  "recovered_independent_final": {
+    "path": "docs/evidence/company-assistant-isolation-independent-2026-11-04/manifest.json",
+    "sha256": "9e2bc4e4e791aa5d787995b85e2e854ccea15083bf7afe20cf154a0d848062e5",
+    "bytes": 8564
+  },
+  "recovered_owner_final": {
+    "path": "docs/evidence/company-isolation-current-2026-11-04/manifest.json",
+    "sha256": "25a0407b19136a10ef9ef35cc2f61d65bf9d09f74e14d018fc21aaf4508f8089",
+    "bytes": 4322
+  },
+  "earlier_pg_and_uid_scope": "Four actual separate-role PostgreSQL cases and one actual Linux UID case passed in isolated base2e2ed5c; logs are preserved. They were not rerun on this root candidate. Current root ran seven actual two-process HTTP cases and one CI guard check. No backend runtime changed in this integration.",
+  "first_node_run": {
+    "manifest": {
+      "path": "docs/evidence/company-isolation-integrated-node-sandbox-first-2026-11-04.json",
+      "sha256": "9faa15d25befbc4a6a52f1dc4fb54693a2355a9c85969f397c3798a669616979",
+      "bytes": 154804
+    },
+    "log": {
+      "path": "docs/evidence/company-isolation-integrated-node-sandbox-first-2026-11-04.txt",
+      "sha256": "c7c40280c8ad66f197dce7a4f8b91d524910d94ed2016c0da5388b3ce94c5eea",
+      "bytes": 23776
+    },
+    "result": "Restricted execution reported only98 file-level entries and one unexplained subprocess failure, with no individual assertions. Not counted as successful test coverage. Same code rerun with required local subprocess permissions passed848 individual tests."
+  },
+  "limits": [
+    "All A-G and production host/security acceptances remain open",
+    "No physical microphone acceptance or live provider calls",
+    "CI configuration checked locally; no remote GitHub run triggered",
+    "Parallel reviewers stopped at usage limit; Root assembled already-completed preserved evidence and performed final integration checks",
+    "No production deployment, filing or payment"
+  ]
+}

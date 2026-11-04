@@ -1,0 +1,37 @@
+✖ independent real two-company replies bind selected article/project originals despite identical speech nonce (2.910871ms)
+✔ independent old search response cannot cross a company session generation (42.333518ms)
+✔ independent old context response cannot cross a company session generation (18.153039ms)
+✔ independent old chat response cannot cross a company session generation (0.631931ms)
+✔ independent old speech response cannot cross a company session generation (0.588596ms)
+✔ independent old context ACK cannot clear a new company context using the same local operation key (1.994552ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 195.129132
+
+✖ failing tests:
+
+test at tests/company-assistant-isolation-independent.test.mjs:14:1
+✖ independent real two-company replies bind selected article/project originals despite identical speech nonce (2.910871ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Die ausgewählten Fachquellen belegen die nachstehenden Angaben.'
+  - 'ONLYALPHA local model answer'
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-company-isolation-20261104/web/office/tests/company-assistant-isolation-independent.test.mjs:18:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Die ausgewählten Fachquellen belegen die nachstehenden Angaben.',
+    expected: 'ONLYALPHA local model answer',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

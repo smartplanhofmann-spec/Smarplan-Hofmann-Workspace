@@ -2066,3 +2066,21 @@ Statusverteilung bleibt 40 von 62 Zeilen implementiert/getestet (64,5 %, rund
 keine Fertigstellungs- oder Zeitquote. Parallele Isolation, native Assistenten-/
 Sprachabläufe, Service/Betriebsmittel und private Lohnvergleichs-/Quellenpakete
 sind nicht Teil dieses Checkpoints.
+
+
+## 04.11.2026 – Unternehmenswechsel im nativen Assistenten abgesichert
+
+Auf dem abgeschlossenen Jahresvortragsstand `657e565` sind zwei native
+Produktdateien und die technischen Isolationsnachweise [integriert](CRM_ERP_UNTERNEHMENSISOLATION_GESAMTPRUEFUNG_2026-11-04.md).
+91 betroffene Appfälle, sieben tatsächliche Zwei-Prozess-HTTP-Fälle plus
+CI-Guardfall, alle 848 Nodefälle und 16 Paketprüfungen bestehen; Analyse ohne
+Befund. Der erste eingeschränkte Node-Lauf und sämtliche ursprünglichen roten
+nativen Gegenfälle bleiben erhalten. Die vier früheren isolierten PG-Fälle
+werden ausdrücklich nicht als neue gemeinsame PG-Abnahme ausgegeben.
+
+Keine Backend-Produktänderung; 15/16 bleibt erhalten, 144/213 Paketpfade.
+Die bereits fertiggeschriebenen unabhängigen Logs und Quellbindungen wurden
+nach dem Nutzungslimit der Bearbeiter von Root verifiziert und als solche
+gekennzeichnet gesichert. Service-/Betriebsmittel- und Lohnvergleichspakete
+bleiben getrennt. Alle Anforderungsstatus, etwa 65 Prozent ungewichtete
+Zeilenabdeckung und die offenen Gesamtabnahmen bleiben unverändert.

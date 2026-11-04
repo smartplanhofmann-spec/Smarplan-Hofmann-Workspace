@@ -1,0 +1,7 @@
+{
+  "kind": "static-independent-review",
+  "file": "backend/online/test_company_isolation_current.py",
+  "sha256_before": "51c4ea1ecb410d7c706fbe06327f741e49d42a78af42c4791c31999fb971b660",
+  "finding": "Existing PG fixture company dict contains local binder closure; spawn cannot pickle whole dict. No PostgreSQL run yet.",
+  "resolution": "Pass only explicit worker configuration; no binder, token, archive or user context."
+}

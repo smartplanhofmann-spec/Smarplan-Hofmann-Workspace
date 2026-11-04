@@ -1,0 +1,14 @@
+✔ independent real two-company replies bind selected article/project originals despite identical speech nonce (2.624029ms)
+✔ independent old search response cannot cross a company session generation (22.602955ms)
+✔ independent old context response cannot cross a company session generation (2.562937ms)
+✔ independent old chat response cannot cross a company session generation (0.51797ms)
+✔ independent old speech_status response cannot cross a company session generation (0.4315ms)
+✔ independent old context ACK cannot clear a new company context using the same local operation key (1.728932ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 91.428591

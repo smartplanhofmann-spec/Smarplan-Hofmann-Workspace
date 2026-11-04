@@ -341,15 +341,22 @@ class _BusinessSpeechDraftState extends State<BusinessSpeechDraft>
   late final SpeechCaptureController capture;
   final text = TextEditingController(), requestId = offlineId();
   late final String? token;
+  late final BusinessSession originalSession;
   late final Object? generation;
   late final Set<String> permissions;
-  bool consent = false, sent = false, closing = false, foreground = true;
+  bool consent = false,
+      sent = false,
+      closing = false,
+      foreground = true,
+      contextInvalidated = false;
   String status = '';
   int cancellationEpoch = 0;
   bool get allowed =>
       mounted &&
       !closing &&
+      !contextInvalidated &&
       foreground &&
+      identical(widget.session, originalSession) &&
       widget.session.allowed &&
       widget.session.api.token == token &&
       widget.session.generation == generation &&
@@ -360,6 +367,7 @@ class _BusinessSpeechDraftState extends State<BusinessSpeechDraft>
   @override
   void initState() {
     super.initState();
+    originalSession = widget.session;
     token = widget.session.api.token;
     generation = widget.session.generation;
     permissions = Set.of(widget.session.permissions);
@@ -369,6 +377,28 @@ class _BusinessSpeechDraftState extends State<BusinessSpeechDraft>
     )..addListener(changed);
     widget.session.addListener(accessChanged);
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessSpeechDraft oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.session, widget.session) ||
+        oldWidget.source['id'] != widget.source['id'] ||
+        oldWidget.source['project_id'] != widget.source['project_id'] ||
+        oldWidget.source['sha256'] != widget.source['sha256'] ||
+        jsonEncode(oldWidget.provider) != jsonEncode(widget.provider) ||
+        !identical(oldWidget.recorder, widget.recorder)) {
+      oldWidget.session.removeListener(accessChanged);
+      widget.session.addListener(accessChanged);
+      contextInvalidated = true;
+      cancellationEpoch++;
+      capture.cancel(
+        'Sitzung oder Datenbasis geändert. Aufnahme und Entwurf wurden verworfen. Bitte neu öffnen.',
+      );
+      text.clear();
+      status = '';
+      consent = false;
+    }
   }
 
   void changed() {
@@ -478,11 +508,12 @@ class _BusinessSpeechDraftState extends State<BusinessSpeechDraft>
 
   Future<void> poll() async {
     if (!allowed || !sent) return;
+    final startedEpoch = cancellationEpoch;
     try {
       final value = businessMap(
         await widget.session.read('/assistant/speech/requests/$requestId'),
       );
-      if (!allowed) return;
+      if (!allowed || startedEpoch != cancellationEpoch) return;
       if (value['id'] != requestId ||
           value['context_id'] != widget.source['id'] ||
           value['project_id'] != widget.source['project_id'] ||
@@ -495,9 +526,9 @@ class _BusinessSpeechDraftState extends State<BusinessSpeechDraft>
       status =
           'Dokumentierter Status: ${{'started': 'Begonnen', 'completed': 'Anbieterantwort erhalten; der Text wurde nicht gespeichert', 'failed': 'Fehlgeschlagen', 'interrupted': 'Unterbrochen'}[value['status']] ?? 'Unbestätigt'}. Für einen neuen Versuch eine neue Aufnahme ausdrücklich starten.';
     } catch (error) {
-      if (allowed) status = '$error';
+      if (allowed && startedEpoch == cancellationEpoch) status = '$error';
     }
-    if (allowed) changed();
+    if (allowed && startedEpoch == cancellationEpoch) changed();
   }
 
   @override

@@ -1,0 +1,1423 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "transport": "local deterministic provider doubles; actual two HTTP/MFA/DB instances",
+  "companies": [
+    {
+      "instance_id": "f3b6e8d0b18f400599c29fccdad6c082",
+      "marker": "ONLYALPHA",
+      "project": "99e313b12ed941ddbfb20e5551ef946f",
+      "article": {
+        "active": true,
+        "code": "SAME-CODE",
+        "components": [],
+        "cost_known": true,
+        "cost_price_net": "1.25",
+        "currency": "EUR",
+        "id": "d07ee190cd334ae3b92d90416482273d",
+        "kind": "material",
+        "name": "ONLYALPHA original",
+        "revision": 1,
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "ST",
+        "unit_price_net": "2.50",
+        "updated_at": "2026-11-04T13:28:58+00:00"
+      },
+      "catalog": {
+        "acceptance": {
+          "articles": [
+            {
+              "article_id": "d07ee190cd334ae3b92d90416482273d",
+              "revision": 1
+            }
+          ],
+          "confirmed": true,
+          "created_at": "2026-11-04T13:28:58+00:00",
+          "created_by": "4d06456b06ba401b89cdf87254de22a6",
+          "original_available": true,
+          "price_mapping": {},
+          "request_id": "51840ec82f1d486096b5a1e9da7303d4",
+          "request_sha256": "726ebe67b34a1601e293118292ec1c4903909c902aa53f834a9f5b20b2847fb8",
+          "rows_sha256": "c315c90e47b5210c469e9916ec9c141e22c0ca4ffa7b8e46472a70950325335f",
+          "run_id": "d411e6e4afe242d38e2b31c6c4bba71c",
+          "sha256": "4ed824b6099048365e272dc4c8d72bad868d8fa190d3d741210a01ff49a2f1c2",
+          "source_sha256": "3e35c50743cc63a0f6875b1dc0a74f38d29bdf9d1c13eb5d43ebf92c7c58c7f9"
+        },
+        "adapter_id": "2416d70fd5134911b13b31222e5b9a28",
+        "created_at": "2026-11-04T13:28:58+00:00",
+        "id": "d411e6e4afe242d38e2b31c6c4bba71c",
+        "original": {
+          "available": true,
+          "filename": "same-filename.csv",
+          "sha256": "3e35c50743cc63a0f6875b1dc0a74f38d29bdf9d1c13eb5d43ebf92c7c58c7f9",
+          "size": 101
+        },
+        "profile": "catalog_csv_v1",
+        "result": {
+          "article_ids": [
+            "d07ee190cd334ae3b92d90416482273d"
+          ]
+        },
+        "rows": [
+          {
+            "code": "SAME-CODE",
+            "cost_price_net": "1.25",
+            "name": "ONLYALPHA original",
+            "tax_rate": "19",
+            "unit": "ST",
+            "unit_price_net": "2.50"
+          }
+        ],
+        "source_sha256": "3e35c50743cc63a0f6875b1dc0a74f38d29bdf9d1c13eb5d43ebf92c7c58c7f9",
+        "status": "applied"
+      },
+      "context": {
+        "as_of": "2026-11-04",
+        "available_actions": [
+          "task.create",
+          "offer.draft",
+          "document.email",
+          "dunning.email",
+          "supplier.order",
+          "payment.execute"
+        ],
+        "created_at": "2026-11-04T13:28:59+00:00",
+        "current": true,
+        "facts": {
+          "costs_complete": false,
+          "open_minor": 0,
+          "overdue_payment": false,
+          "overdue_task": false,
+          "payment_overdue_days": 0,
+          "task_overdue_days": 0,
+          "total_cost_minor": null
+        },
+        "id": "de19db92038d45cdbd7f8ce8b4df4ca3",
+        "instance_id": "f3b6e8d0b18f400599c29fccdad6c082",
+        "project_id": "99e313b12ed941ddbfb20e5551ef946f",
+        "sha256": "bde98e1a0e12cd6b3a31b24eea1bd8c6ee5676df9ecf6bb70b6e950741cfa6a2",
+        "sources": [
+          {
+            "data": {
+              "customer_id": "9ad616ce216e4749b5f2ecfb2333869c",
+              "description": "",
+              "end_date": null,
+              "id": "99e313b12ed941ddbfb20e5551ef946f",
+              "name": "ONLYALPHA project",
+              "phase": "planning",
+              "revision": 0,
+              "start_date": null
+            },
+            "descriptor": {
+              "id": "99e313b12ed941ddbfb20e5551ef946f",
+              "kind": "project"
+            },
+            "sha256": "c4b4a00a58cee008382ed31a19388f0ba5581b2b391facf3bc186fd6661bbdf2",
+            "source_id": "project:99e313b12ed941ddbfb20e5551ef946f"
+          },
+          {
+            "data": {
+              "active": true,
+              "currency": "EUR",
+              "id": "d07ee190cd334ae3b92d90416482273d",
+              "kind": "material",
+              "name": "ONLYALPHA original",
+              "revision": 1,
+              "tax_rate": "19",
+              "unit": "ST",
+              "unit_price_net": "2.50"
+            },
+            "descriptor": {
+              "id": "d07ee190cd334ae3b92d90416482273d",
+              "kind": "article"
+            },
+            "sha256": "3e84fabd61781bbd21f7c124dce66f5e2a328cd9bb070c264d7e58e2962ff7d1",
+            "source_id": "article:d07ee190cd334ae3b92d90416482273d"
+          }
+        ]
+      },
+      "search": {
+        "items": [
+          {
+            "id": "99e313b12ed941ddbfb20e5551ef946f",
+            "kind": "project",
+            "title": "Projektstand"
+          },
+          {
+            "id": "d07ee190cd334ae3b92d90416482273d",
+            "kind": "article",
+            "title": "ONLYALPHA original"
+          },
+          {
+            "id": "99e313b12ed941ddbfb20e5551ef946f",
+            "kind": "costs",
+            "title": "Erfasste Projektwirtschaftlichkeit"
+          }
+        ],
+        "next_offset": null,
+        "offset": 0,
+        "total": 3,
+        "truncated": false
+      },
+      "chat": {
+        "context_id": "de19db92038d45cdbd7f8ce8b4df4ca3",
+        "context_sha256": "bde98e1a0e12cd6b3a31b24eea1bd8c6ee5676df9ecf6bb70b6e950741cfa6a2",
+        "created_at": "2026-11-04T13:28:59+00:00",
+        "created_by": "4d06456b06ba401b89cdf87254de22a6",
+        "data_transfer_confirmed": true,
+        "id": "710685354de1488e8a9befd4dda2ed0d",
+        "message": "ONLYALPHA selected originals only",
+        "project_id": "99e313b12ed941ddbfb20e5551ef946f",
+        "provider": {
+          "adapter": "openai_compatible",
+          "endpoint": "https://never-called.example.test/v1/chat/completions",
+          "instance_id": "f3b6e8d0b18f400599c29fccdad6c082",
+          "model": "synthetic-local-review"
+        },
+        "provider_sha256": "ac71e1999c21acd2c454d25fb1518b5528b8c9c3ff2d6f6f7f69a6ac328174e5",
+        "result": {
+          "actions_executed_by_model": false,
+          "business_values": "resolved_from_selected_sources",
+          "citations": [
+            "project:99e313b12ed941ddbfb20e5551ef946f",
+            "article:d07ee190cd334ae3b92d90416482273d"
+          ],
+          "facts": [
+            {
+              "path": "name",
+              "source_id": "project:99e313b12ed941ddbfb20e5551ef946f",
+              "value": "ONLYALPHA project"
+            },
+            {
+              "path": "name",
+              "source_id": "article:d07ee190cd334ae3b92d90416482273d",
+              "value": "ONLYALPHA original"
+            }
+          ],
+          "model_generated": false,
+          "plan_ids": [],
+          "response_type": "source_answer",
+          "selection_generated_by_model": true,
+          "summary": "Die ausgewählten Fachquellen belegen die nachstehenden Angaben."
+        },
+        "retry_automatically": false,
+        "source_current": true,
+        "status": "completed"
+      },
+      "speech": {
+        "audio_persisted": false,
+        "audio_sha256": "e15f83de2f7b19c3c9a83c96371b7c97373b0e39d39e39dd53e4e04ce5db92fd",
+        "context_id": "de19db92038d45cdbd7f8ce8b4df4ca3",
+        "context_sha256": "bde98e1a0e12cd6b3a31b24eea1bd8c6ee5676df9ecf6bb70b6e950741cfa6a2",
+        "id": "9aa530a35e9944918173b616e7f81a95",
+        "project_id": "99e313b12ed941ddbfb20e5551ef946f",
+        "retry_automatically": false,
+        "status": "completed",
+        "text": "ONLYALPHA local transient dictation",
+        "transcript_persisted": false
+      },
+      "speech_status": {
+        "audio_persisted": false,
+        "audio_sha256": "e15f83de2f7b19c3c9a83c96371b7c97373b0e39d39e39dd53e4e04ce5db92fd",
+        "context_id": "de19db92038d45cdbd7f8ce8b4df4ca3",
+        "context_sha256": "bde98e1a0e12cd6b3a31b24eea1bd8c6ee5676df9ecf6bb70b6e950741cfa6a2",
+        "created_at": "2026-11-04T13:28:59+00:00",
+        "error_code": "",
+        "id": "9aa530a35e9944918173b616e7f81a95",
+        "project_id": "99e313b12ed941ddbfb20e5551ef946f",
+        "provider_call_may_have_been_charged": true,
+        "retry_automatically": false,
+        "status": "completed",
+        "transcript_persisted": false
+      },
+      "capabilities": {
+        "active_capabilities": [
+          "business_accounting",
+          "business_accounting_allocations",
+          "business_accounting_asset_openings",
+          "business_accounting_capacity",
+          "business_accounting_components",
+          "business_accounting_euer",
+          "business_accounting_open_items",
+          "business_accounting_openings",
+          "business_accounting_profile",
+          "business_accounting_refunds",
+          "business_accounting_refunds_v2",
+          "business_adapters",
+          "business_asset_provenance",
+          "business_assistant",
+          "business_assistant_speech",
+          "business_bank_reconciliation",
+          "business_catalog_imports",
+          "business_catalog_prices",
+          "business_company_events",
+          "business_company_handover",
+          "business_custom_fields",
+          "business_customer_workspace",
+          "business_documents",
+          "business_finance",
+          "business_foundation",
+          "business_instance",
+          "business_inventory",
+          "business_inventory_counts",
+          "business_maintenance",
+          "business_migrations",
+          "business_operations",
+          "business_organization",
+          "business_payroll",
+          "business_payroll_accounts",
+          "business_payroll_annual_basis",
+          "business_payroll_calculation_cases",
+          "business_payroll_cash",
+          "business_payroll_entitlements",
+          "business_payroll_facts",
+          "business_payroll_multiple_cases",
+          "business_payroll_oneoff_cases",
+          "business_payroll_wage_interruptions",
+          "business_personnel_workflow",
+          "business_planning",
+          "business_portal",
+          "business_privacy_cases",
+          "business_project_economics",
+          "business_purchase_changes",
+          "business_purchasing",
+          "business_resource_custody",
+          "business_sales",
+          "business_service",
+          "business_time",
+          "business_travel_allowances",
+          "payroll_travel_recording"
+        ],
+        "capabilities": [
+          "business_accounting",
+          "business_accounting_allocations",
+          "business_accounting_asset_openings",
+          "business_accounting_capacity",
+          "business_accounting_components",
+          "business_accounting_euer",
+          "business_accounting_open_items",
+          "business_accounting_openings",
+          "business_accounting_profile",
+          "business_accounting_refunds",
+          "business_accounting_refunds_v2",
+          "business_adapters",
+          "business_asset_provenance",
+          "business_assistant",
+          "business_assistant_speech",
+          "business_bank_reconciliation",
+          "business_catalog_imports",
+          "business_catalog_prices",
+          "business_company_events",
+          "business_company_handover",
+          "business_custom_fields",
+          "business_customer_workspace",
+          "business_documents",
+          "business_finance",
+          "business_foundation",
+          "business_inventory",
+          "business_inventory_counts",
+          "business_maintenance",
+          "business_migrations",
+          "business_operations",
+          "business_organization",
+          "business_payroll",
+          "business_payroll_accounts",
+          "business_payroll_annual_basis",
+          "business_payroll_calculation_cases",
+          "business_payroll_cash",
+          "business_payroll_entitlements",
+          "business_payroll_facts",
+          "business_payroll_multiple_cases",
+          "business_payroll_oneoff_cases",
+          "business_payroll_wage_interruptions",
+          "business_personnel_workflow",
+          "business_planning",
+          "business_portal",
+          "business_privacy_cases",
+          "business_project_economics",
+          "business_purchase_changes",
+          "business_purchasing",
+          "business_resource_custody",
+          "business_sales",
+          "business_service",
+          "business_time",
+          "business_travel_allowances"
+        ],
+        "compatibility_mode": "business",
+        "features": [
+          "accounting_document_component_reuse",
+          "accounting_document_components",
+          "accounting_euer",
+          "accounting_historical_assets",
+          "accounting_open_items",
+          "accounting_opening_balances",
+          "accounting_payment_allocation",
+          "accounting_prejournal",
+          "accounting_preparation_profile",
+          "accounting_refund_origins",
+          "accounting_refund_origins_v2",
+          "accounting_year_evidence_v1",
+          "asset_delivery_provenance",
+          "assistant_speech",
+          "assistant_workflow",
+          "bank_reconciliation",
+          "billing_contact",
+          "catalog_import_history",
+          "catalog_prices_v2",
+          "company_event_rules",
+          "company_handover",
+          "company_overview",
+          "custom_fields",
+          "customer_workspace_portal",
+          "file_migrations",
+          "german_payroll_2026",
+          "inventory_counts",
+          "measurement_transfer",
+          "offer_portal",
+          "organization_modules",
+          "payroll_actual_cash",
+          "payroll_annual_basis",
+          "payroll_calculation_cases",
+          "payroll_employee_statements",
+          "payroll_entitlements",
+          "payroll_multiple_cases",
+          "payroll_oneoff_cases",
+          "payroll_period_facts",
+          "payroll_wage_account",
+          "payroll_wage_interruptions",
+          "personnel_preparation",
+          "privacy_cases",
+          "project_economics",
+          "project_timeline",
+          "purchase_changes",
+          "purchasing_catalog",
+          "purchasing_receipts",
+          "quote_pricing",
+          "resource_custody",
+          "sales_pipeline",
+          "service_cases",
+          "travel_allowances"
+        ],
+        "financial_reconciliation_required": false,
+        "generation": 1,
+        "global_permissions": [
+          "accounting.admin",
+          "accounting.prepare",
+          "accounting.read",
+          "assistant.approve",
+          "assistant.use",
+          "bank.admin",
+          "bank.prepare",
+          "bank.read",
+          "contacts.read",
+          "contacts.write",
+          "documents.classify",
+          "documents.read",
+          "documents.write",
+          "finance.approve",
+          "finance.issue",
+          "finance.read",
+          "finance.write",
+          "inventory.read",
+          "inventory.write",
+          "personnel.approve",
+          "personnel.export",
+          "personnel.manage",
+          "personnel.read",
+          "personnel.write",
+          "planning.override",
+          "planning.read",
+          "planning.write",
+          "portal.manage",
+          "privacy.manage",
+          "projects.manage",
+          "settings.manage",
+          "time.approve",
+          "time.own"
+        ],
+        "organization": {
+          "configured": false,
+          "modules": {
+            "documents": {
+              "enabled": true,
+              "visible": true
+            },
+            "finance": {
+              "enabled": true,
+              "visible": true
+            },
+            "material": {
+              "enabled": true,
+              "visible": false
+            },
+            "personnel": {
+              "enabled": true,
+              "visible": false
+            },
+            "planning": {
+              "enabled": true,
+              "visible": true
+            }
+          },
+          "revision": 0
+        },
+        "permissions": [
+          "accounting.admin",
+          "accounting.prepare",
+          "accounting.read",
+          "assistant.approve",
+          "assistant.use",
+          "bank.admin",
+          "bank.prepare",
+          "bank.read",
+          "contacts.read",
+          "contacts.write",
+          "documents.classify",
+          "documents.read",
+          "documents.write",
+          "finance.approve",
+          "finance.issue",
+          "finance.read",
+          "finance.write",
+          "inventory.read",
+          "inventory.write",
+          "personnel.approve",
+          "personnel.export",
+          "personnel.manage",
+          "personnel.read",
+          "personnel.write",
+          "planning.override",
+          "planning.read",
+          "planning.write",
+          "portal.manage",
+          "privacy.manage",
+          "projects.manage",
+          "settings.manage",
+          "time.approve",
+          "time.own"
+        ],
+        "project_id": "99e313b12ed941ddbfb20e5551ef946f",
+        "read_capabilities": [
+          "business_accounting",
+          "business_accounting_allocations",
+          "business_accounting_asset_openings",
+          "business_accounting_capacity",
+          "business_accounting_components",
+          "business_accounting_euer",
+          "business_accounting_open_items",
+          "business_accounting_openings",
+          "business_accounting_profile",
+          "business_accounting_refunds",
+          "business_accounting_refunds_v2",
+          "business_adapters",
+          "business_asset_provenance",
+          "business_assistant",
+          "business_assistant_speech",
+          "business_bank_reconciliation",
+          "business_catalog_imports",
+          "business_catalog_prices",
+          "business_company_events",
+          "business_company_handover",
+          "business_custom_fields",
+          "business_customer_workspace",
+          "business_documents",
+          "business_finance",
+          "business_foundation",
+          "business_instance",
+          "business_inventory",
+          "business_inventory_counts",
+          "business_maintenance",
+          "business_migrations",
+          "business_operations",
+          "business_organization",
+          "business_payroll",
+          "business_payroll_accounts",
+          "business_payroll_annual_basis",
+          "business_payroll_calculation_cases",
+          "business_payroll_cash",
+          "business_payroll_entitlements",
+          "business_payroll_facts",
+          "business_payroll_multiple_cases",
+          "business_payroll_oneoff_cases",
+          "business_payroll_wage_interruptions",
+          "business_personnel_workflow",
+          "business_planning",
+          "business_portal",
+          "business_privacy_cases",
+          "business_project_economics",
+          "business_purchase_changes",
+          "business_purchasing",
+          "business_resource_custody",
+          "business_sales",
+          "business_service",
+          "business_time",
+          "business_travel_allowances",
+          "payroll_travel_recording"
+        ],
+        "readonly": false,
+        "restore_id": null,
+        "restore_pending": false,
+        "storage_version": 7
+      },
+      "me": {
+        "email": "same-owner@example.test",
+        "id": "4d06456b06ba401b89cdf87254de22a6",
+        "role": "owner"
+      },
+      "assistant_status": {
+        "actions": [
+          {
+            "action": "task.create",
+            "executable": true,
+            "external": false,
+            "unavailable_reason": null
+          },
+          {
+            "action": "offer.draft",
+            "executable": true,
+            "external": false,
+            "unavailable_reason": null
+          },
+          {
+            "action": "document.email",
+            "executable": true,
+            "external": true,
+            "unavailable_reason": null
+          },
+          {
+            "action": "dunning.email",
+            "executable": true,
+            "external": true,
+            "unavailable_reason": null
+          },
+          {
+            "action": "supplier.order",
+            "executable": false,
+            "external": true,
+            "unavailable_reason": "Kein ausführender Anbieteradapter eingerichtet."
+          },
+          {
+            "action": "payment.execute",
+            "executable": false,
+            "external": true,
+            "unavailable_reason": "Kein ausführender Anbieteradapter eingerichtet."
+          }
+        ],
+        "default_policy": "deny",
+        "modes": [
+          "auto",
+          "approval",
+          "deny"
+        ],
+        "payroll_sources": false,
+        "provider": {
+          "adapter": "openai_compatible",
+          "configured": true,
+          "endpoint": "https://never-called.example.test/v1/chat/completions",
+          "instance_id": "f3b6e8d0b18f400599c29fccdad6c082",
+          "model": "synthetic-local-review"
+        },
+        "source_kinds": [
+          "project",
+          "task",
+          "open_item",
+          "costs",
+          "communication",
+          "document",
+          "dunning",
+          "purchase",
+          "article"
+        ],
+        "triggers": [
+          "manual",
+          "payment.overdue",
+          "task.overdue",
+          "cost.threshold"
+        ],
+        "voice_recording": false
+      },
+      "speech_provider_status": {
+        "limits": {
+          "bits_per_sample": 16,
+          "channels": 1,
+          "max_audio_bytes": 1920044,
+          "max_seconds": 60,
+          "sample_rate": 16000
+        },
+        "provider": {
+          "adapter": "openai_compatible_transcription",
+          "configured": true,
+          "endpoint": "https://never-called.example.test/v1/audio/transcriptions",
+          "instance_id": "f3b6e8d0b18f400599c29fccdad6c082",
+          "model": "synthetic-local-review"
+        }
+      },
+      "rules": {
+        "default_policy": "deny",
+        "items": []
+      },
+      "plans": {
+        "items": []
+      },
+      "chats": {
+        "items": [
+          {
+            "context_id": "de19db92038d45cdbd7f8ce8b4df4ca3",
+            "context_sha256": "bde98e1a0e12cd6b3a31b24eea1bd8c6ee5676df9ecf6bb70b6e950741cfa6a2",
+            "created_at": "2026-11-04T13:28:59+00:00",
+            "created_by": "4d06456b06ba401b89cdf87254de22a6",
+            "data_transfer_confirmed": true,
+            "id": "710685354de1488e8a9befd4dda2ed0d",
+            "message": "ONLYALPHA selected originals only",
+            "project_id": "99e313b12ed941ddbfb20e5551ef946f",
+            "provider": {
+              "adapter": "openai_compatible",
+              "endpoint": "https://never-called.example.test/v1/chat/completions",
+              "instance_id": "f3b6e8d0b18f400599c29fccdad6c082",
+              "model": "synthetic-local-review"
+            },
+            "provider_sha256": "ac71e1999c21acd2c454d25fb1518b5528b8c9c3ff2d6f6f7f69a6ac328174e5",
+            "result": {
+              "actions_executed_by_model": false,
+              "business_values": "resolved_from_selected_sources",
+              "citations": [
+                "project:99e313b12ed941ddbfb20e5551ef946f",
+                "article:d07ee190cd334ae3b92d90416482273d"
+              ],
+              "facts": [
+                {
+                  "path": "name",
+                  "source_id": "project:99e313b12ed941ddbfb20e5551ef946f",
+                  "value": "ONLYALPHA project"
+                },
+                {
+                  "path": "name",
+                  "source_id": "article:d07ee190cd334ae3b92d90416482273d",
+                  "value": "ONLYALPHA original"
+                }
+              ],
+              "model_generated": false,
+              "plan_ids": [],
+              "response_type": "source_answer",
+              "selection_generated_by_model": true,
+              "summary": "Die ausgewählten Fachquellen belegen die nachstehenden Angaben."
+            },
+            "retry_automatically": false,
+            "source_current": true,
+            "status": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "instance_id": "c4170ae6a0ed430dba842d23c09b7898",
+      "marker": "ONLYBETA",
+      "project": "401de9e1dd4547809f6803a4feab371a",
+      "article": {
+        "active": true,
+        "code": "SAME-CODE",
+        "components": [],
+        "cost_known": true,
+        "cost_price_net": "1.25",
+        "currency": "EUR",
+        "id": "38162b40920a432389fa65ae7d961f00",
+        "kind": "material",
+        "name": "ONLYBETA original",
+        "revision": 1,
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "ST",
+        "unit_price_net": "2.50",
+        "updated_at": "2026-11-04T13:28:59+00:00"
+      },
+      "catalog": {
+        "acceptance": {
+          "articles": [
+            {
+              "article_id": "38162b40920a432389fa65ae7d961f00",
+              "revision": 1
+            }
+          ],
+          "confirmed": true,
+          "created_at": "2026-11-04T13:28:59+00:00",
+          "created_by": "c149245abe8d4759976775367c6bce05",
+          "original_available": true,
+          "price_mapping": {},
+          "request_id": "9c97255bb39448eeab23e02662a57151",
+          "request_sha256": "9590b1f59bb412a376ec0a909033ae6e4a86d46a28bfd67e4b1d0bc582559046",
+          "rows_sha256": "abaa17d3d5d82654452eb23c6927ee9c9892d149be3b17c2e60922788dccdc64",
+          "run_id": "4d7fa420e6f8405795bd244a002a9729",
+          "sha256": "07e2cf708baa75da5915b6130a426469d2c9c3247a9fac556d63d80f82fe18d6",
+          "source_sha256": "d2bcf3572875a0902b7beca35896f27a660f8067d9247b95860c3d6f3eae511f"
+        },
+        "adapter_id": "1e60ea2e8e274b1895411518730814ff",
+        "created_at": "2026-11-04T13:28:59+00:00",
+        "id": "4d7fa420e6f8405795bd244a002a9729",
+        "original": {
+          "available": true,
+          "filename": "same-filename.csv",
+          "sha256": "d2bcf3572875a0902b7beca35896f27a660f8067d9247b95860c3d6f3eae511f",
+          "size": 100
+        },
+        "profile": "catalog_csv_v1",
+        "result": {
+          "article_ids": [
+            "38162b40920a432389fa65ae7d961f00"
+          ]
+        },
+        "rows": [
+          {
+            "code": "SAME-CODE",
+            "cost_price_net": "1.25",
+            "name": "ONLYBETA original",
+            "tax_rate": "19",
+            "unit": "ST",
+            "unit_price_net": "2.50"
+          }
+        ],
+        "source_sha256": "d2bcf3572875a0902b7beca35896f27a660f8067d9247b95860c3d6f3eae511f",
+        "status": "applied"
+      },
+      "context": {
+        "as_of": "2026-11-04",
+        "available_actions": [
+          "task.create",
+          "offer.draft",
+          "document.email",
+          "dunning.email",
+          "supplier.order",
+          "payment.execute"
+        ],
+        "created_at": "2026-11-04T13:28:59+00:00",
+        "current": true,
+        "facts": {
+          "costs_complete": false,
+          "open_minor": 0,
+          "overdue_payment": false,
+          "overdue_task": false,
+          "payment_overdue_days": 0,
+          "task_overdue_days": 0,
+          "total_cost_minor": null
+        },
+        "id": "e83b3aa9c6e348e289beb90ab25a0568",
+        "instance_id": "c4170ae6a0ed430dba842d23c09b7898",
+        "project_id": "401de9e1dd4547809f6803a4feab371a",
+        "sha256": "f132cc4054ee14888e9848f5a816294be44866769a57f79c76bf16723e3b1956",
+        "sources": [
+          {
+            "data": {
+              "customer_id": "34a33b8270f3430e828f24b203db9702",
+              "description": "",
+              "end_date": null,
+              "id": "401de9e1dd4547809f6803a4feab371a",
+              "name": "ONLYBETA project",
+              "phase": "planning",
+              "revision": 0,
+              "start_date": null
+            },
+            "descriptor": {
+              "id": "401de9e1dd4547809f6803a4feab371a",
+              "kind": "project"
+            },
+            "sha256": "e88e28d52a95ae0e1ebe69ad6837d70210e29877f6a3ae316f87a9cbf39ebc78",
+            "source_id": "project:401de9e1dd4547809f6803a4feab371a"
+          },
+          {
+            "data": {
+              "active": true,
+              "currency": "EUR",
+              "id": "38162b40920a432389fa65ae7d961f00",
+              "kind": "material",
+              "name": "ONLYBETA original",
+              "revision": 1,
+              "tax_rate": "19",
+              "unit": "ST",
+              "unit_price_net": "2.50"
+            },
+            "descriptor": {
+              "id": "38162b40920a432389fa65ae7d961f00",
+              "kind": "article"
+            },
+            "sha256": "2cd61584485527ff7ef779f0179e860ae5c7d8123250aeb0797a1b20592f782a",
+            "source_id": "article:38162b40920a432389fa65ae7d961f00"
+          }
+        ]
+      },
+      "search": {
+        "items": [
+          {
+            "id": "401de9e1dd4547809f6803a4feab371a",
+            "kind": "project",
+            "title": "Projektstand"
+          },
+          {
+            "id": "38162b40920a432389fa65ae7d961f00",
+            "kind": "article",
+            "title": "ONLYBETA original"
+          },
+          {
+            "id": "401de9e1dd4547809f6803a4feab371a",
+            "kind": "costs",
+            "title": "Erfasste Projektwirtschaftlichkeit"
+          }
+        ],
+        "next_offset": null,
+        "offset": 0,
+        "total": 3,
+        "truncated": false
+      },
+      "chat": {
+        "context_id": "e83b3aa9c6e348e289beb90ab25a0568",
+        "context_sha256": "f132cc4054ee14888e9848f5a816294be44866769a57f79c76bf16723e3b1956",
+        "created_at": "2026-11-04T13:28:59+00:00",
+        "created_by": "c149245abe8d4759976775367c6bce05",
+        "data_transfer_confirmed": true,
+        "id": "f0d9e0bebc77400b84eee690ab92aa56",
+        "message": "ONLYBETA selected originals only",
+        "project_id": "401de9e1dd4547809f6803a4feab371a",
+        "provider": {
+          "adapter": "openai_compatible",
+          "endpoint": "https://never-called.example.test/v1/chat/completions",
+          "instance_id": "c4170ae6a0ed430dba842d23c09b7898",
+          "model": "synthetic-local-review"
+        },
+        "provider_sha256": "a423ddbb4dc4d782546f541f9212dc1801fb9a2df68f0f864e4e0937f8f92bda",
+        "result": {
+          "actions_executed_by_model": false,
+          "business_values": "resolved_from_selected_sources",
+          "citations": [
+            "project:401de9e1dd4547809f6803a4feab371a",
+            "article:38162b40920a432389fa65ae7d961f00"
+          ],
+          "facts": [
+            {
+              "path": "name",
+              "source_id": "project:401de9e1dd4547809f6803a4feab371a",
+              "value": "ONLYBETA project"
+            },
+            {
+              "path": "name",
+              "source_id": "article:38162b40920a432389fa65ae7d961f00",
+              "value": "ONLYBETA original"
+            }
+          ],
+          "model_generated": false,
+          "plan_ids": [],
+          "response_type": "source_answer",
+          "selection_generated_by_model": true,
+          "summary": "Die ausgewählten Fachquellen belegen die nachstehenden Angaben."
+        },
+        "retry_automatically": false,
+        "source_current": true,
+        "status": "completed"
+      },
+      "speech": {
+        "audio_persisted": false,
+        "audio_sha256": "e15f83de2f7b19c3c9a83c96371b7c97373b0e39d39e39dd53e4e04ce5db92fd",
+        "context_id": "e83b3aa9c6e348e289beb90ab25a0568",
+        "context_sha256": "f132cc4054ee14888e9848f5a816294be44866769a57f79c76bf16723e3b1956",
+        "id": "9aa530a35e9944918173b616e7f81a95",
+        "project_id": "401de9e1dd4547809f6803a4feab371a",
+        "retry_automatically": false,
+        "status": "completed",
+        "text": "ONLYBETA local transient dictation",
+        "transcript_persisted": false
+      },
+      "speech_status": {
+        "audio_persisted": false,
+        "audio_sha256": "e15f83de2f7b19c3c9a83c96371b7c97373b0e39d39e39dd53e4e04ce5db92fd",
+        "context_id": "e83b3aa9c6e348e289beb90ab25a0568",
+        "context_sha256": "f132cc4054ee14888e9848f5a816294be44866769a57f79c76bf16723e3b1956",
+        "created_at": "2026-11-04T13:28:59+00:00",
+        "error_code": "",
+        "id": "9aa530a35e9944918173b616e7f81a95",
+        "project_id": "401de9e1dd4547809f6803a4feab371a",
+        "provider_call_may_have_been_charged": true,
+        "retry_automatically": false,
+        "status": "completed",
+        "transcript_persisted": false
+      },
+      "capabilities": {
+        "active_capabilities": [
+          "business_accounting",
+          "business_accounting_allocations",
+          "business_accounting_asset_openings",
+          "business_accounting_capacity",
+          "business_accounting_components",
+          "business_accounting_euer",
+          "business_accounting_open_items",
+          "business_accounting_openings",
+          "business_accounting_profile",
+          "business_accounting_refunds",
+          "business_accounting_refunds_v2",
+          "business_adapters",
+          "business_asset_provenance",
+          "business_assistant",
+          "business_assistant_speech",
+          "business_bank_reconciliation",
+          "business_catalog_imports",
+          "business_catalog_prices",
+          "business_company_events",
+          "business_company_handover",
+          "business_custom_fields",
+          "business_customer_workspace",
+          "business_documents",
+          "business_finance",
+          "business_foundation",
+          "business_instance",
+          "business_inventory",
+          "business_inventory_counts",
+          "business_maintenance",
+          "business_migrations",
+          "business_operations",
+          "business_organization",
+          "business_payroll",
+          "business_payroll_accounts",
+          "business_payroll_annual_basis",
+          "business_payroll_calculation_cases",
+          "business_payroll_cash",
+          "business_payroll_entitlements",
+          "business_payroll_facts",
+          "business_payroll_multiple_cases",
+          "business_payroll_oneoff_cases",
+          "business_payroll_wage_interruptions",
+          "business_personnel_workflow",
+          "business_planning",
+          "business_portal",
+          "business_privacy_cases",
+          "business_project_economics",
+          "business_purchase_changes",
+          "business_purchasing",
+          "business_resource_custody",
+          "business_sales",
+          "business_service",
+          "business_time",
+          "business_travel_allowances",
+          "payroll_travel_recording"
+        ],
+        "capabilities": [
+          "business_accounting",
+          "business_accounting_allocations",
+          "business_accounting_asset_openings",
+          "business_accounting_capacity",
+          "business_accounting_components",
+          "business_accounting_euer",
+          "business_accounting_open_items",
+          "business_accounting_openings",
+          "business_accounting_profile",
+          "business_accounting_refunds",
+          "business_accounting_refunds_v2",
+          "business_adapters",
+          "business_asset_provenance",
+          "business_assistant",
+          "business_assistant_speech",
+          "business_bank_reconciliation",
+          "business_catalog_imports",
+          "business_catalog_prices",
+          "business_company_events",
+          "business_company_handover",
+          "business_custom_fields",
+          "business_customer_workspace",
+          "business_documents",
+          "business_finance",
+          "business_foundation",
+          "business_inventory",
+          "business_inventory_counts",
+          "business_maintenance",
+          "business_migrations",
+          "business_operations",
+          "business_organization",
+          "business_payroll",
+          "business_payroll_accounts",
+          "business_payroll_annual_basis",
+          "business_payroll_calculation_cases",
+          "business_payroll_cash",
+          "business_payroll_entitlements",
+          "business_payroll_facts",
+          "business_payroll_multiple_cases",
+          "business_payroll_oneoff_cases",
+          "business_payroll_wage_interruptions",
+          "business_personnel_workflow",
+          "business_planning",
+          "business_portal",
+          "business_privacy_cases",
+          "business_project_economics",
+          "business_purchase_changes",
+          "business_purchasing",
+          "business_resource_custody",
+          "business_sales",
+          "business_service",
+          "business_time",
+          "business_travel_allowances"
+        ],
+        "compatibility_mode": "business",
+        "features": [
+          "accounting_document_component_reuse",
+          "accounting_document_components",
+          "accounting_euer",
+          "accounting_historical_assets",
+          "accounting_open_items",
+          "accounting_opening_balances",
+          "accounting_payment_allocation",
+          "accounting_prejournal",
+          "accounting_preparation_profile",
+          "accounting_refund_origins",
+          "accounting_refund_origins_v2",
+          "accounting_year_evidence_v1",
+          "asset_delivery_provenance",
+          "assistant_speech",
+          "assistant_workflow",
+          "bank_reconciliation",
+          "billing_contact",
+          "catalog_import_history",
+          "catalog_prices_v2",
+          "company_event_rules",
+          "company_handover",
+          "company_overview",
+          "custom_fields",
+          "customer_workspace_portal",
+          "file_migrations",
+          "german_payroll_2026",
+          "inventory_counts",
+          "measurement_transfer",
+          "offer_portal",
+          "organization_modules",
+          "payroll_actual_cash",
+          "payroll_annual_basis",
+          "payroll_calculation_cases",
+          "payroll_employee_statements",
+          "payroll_entitlements",
+          "payroll_multiple_cases",
+          "payroll_oneoff_cases",
+          "payroll_period_facts",
+          "payroll_wage_account",
+          "payroll_wage_interruptions",
+          "personnel_preparation",
+          "privacy_cases",
+          "project_economics",
+          "project_timeline",
+          "purchase_changes",
+          "purchasing_catalog",
+          "purchasing_receipts",
+          "quote_pricing",
+          "resource_custody",
+          "sales_pipeline",
+          "service_cases",
+          "travel_allowances"
+        ],
+        "financial_reconciliation_required": false,
+        "generation": 1,
+        "global_permissions": [
+          "accounting.admin",
+          "accounting.prepare",
+          "accounting.read",
+          "assistant.approve",
+          "assistant.use",
+          "bank.admin",
+          "bank.prepare",
+          "bank.read",
+          "contacts.read",
+          "contacts.write",
+          "documents.classify",
+          "documents.read",
+          "documents.write",
+          "finance.approve",
+          "finance.issue",
+          "finance.read",
+          "finance.write",
+          "inventory.read",
+          "inventory.write",
+          "personnel.approve",
+          "personnel.export",
+          "personnel.manage",
+          "personnel.read",
+          "personnel.write",
+          "planning.override",
+          "planning.read",
+          "planning.write",
+          "portal.manage",
+          "privacy.manage",
+          "projects.manage",
+          "settings.manage",
+          "time.approve",
+          "time.own"
+        ],
+        "organization": {
+          "configured": false,
+          "modules": {
+            "documents": {
+              "enabled": true,
+              "visible": true
+            },
+            "finance": {
+              "enabled": true,
+              "visible": true
+            },
+            "material": {
+              "enabled": true,
+              "visible": false
+            },
+            "personnel": {
+              "enabled": true,
+              "visible": false
+            },
+            "planning": {
+              "enabled": true,
+              "visible": true
+            }
+          },
+          "revision": 0
+        },
+        "permissions": [
+          "accounting.admin",
+          "accounting.prepare",
+          "accounting.read",
+          "assistant.approve",
+          "assistant.use",
+          "bank.admin",
+          "bank.prepare",
+          "bank.read",
+          "contacts.read",
+          "contacts.write",
+          "documents.classify",
+          "documents.read",
+          "documents.write",
+          "finance.approve",
+          "finance.issue",
+          "finance.read",
+          "finance.write",
+          "inventory.read",
+          "inventory.write",
+          "personnel.approve",
+          "personnel.export",
+          "personnel.manage",
+          "personnel.read",
+          "personnel.write",
+          "planning.override",
+          "planning.read",
+          "planning.write",
+          "portal.manage",
+          "privacy.manage",
+          "projects.manage",
+          "settings.manage",
+          "time.approve",
+          "time.own"
+        ],
+        "project_id": "401de9e1dd4547809f6803a4feab371a",
+        "read_capabilities": [
+          "business_accounting",
+          "business_accounting_allocations",
+          "business_accounting_asset_openings",
+          "business_accounting_capacity",
+          "business_accounting_components",
+          "business_accounting_euer",
+          "business_accounting_open_items",
+          "business_accounting_openings",
+          "business_accounting_profile",
+          "business_accounting_refunds",
+          "business_accounting_refunds_v2",
+          "business_adapters",
+          "business_asset_provenance",
+          "business_assistant",
+          "business_assistant_speech",
+          "business_bank_reconciliation",
+          "business_catalog_imports",
+          "business_catalog_prices",
+          "business_company_events",
+          "business_company_handover",
+          "business_custom_fields",
+          "business_customer_workspace",
+          "business_documents",
+          "business_finance",
+          "business_foundation",
+          "business_instance",
+          "business_inventory",
+          "business_inventory_counts",
+          "business_maintenance",
+          "business_migrations",
+          "business_operations",
+          "business_organization",
+          "business_payroll",
+          "business_payroll_accounts",
+          "business_payroll_annual_basis",
+          "business_payroll_calculation_cases",
+          "business_payroll_cash",
+          "business_payroll_entitlements",
+          "business_payroll_facts",
+          "business_payroll_multiple_cases",
+          "business_payroll_oneoff_cases",
+          "business_payroll_wage_interruptions",
+          "business_personnel_workflow",
+          "business_planning",
+          "business_portal",
+          "business_privacy_cases",
+          "business_project_economics",
+          "business_purchase_changes",
+          "business_purchasing",
+          "business_resource_custody",
+          "business_sales",
+          "business_service",
+          "business_time",
+          "business_travel_allowances",
+          "payroll_travel_recording"
+        ],
+        "readonly": false,
+        "restore_id": null,
+        "restore_pending": false,
+        "storage_version": 7
+      },
+      "me": {
+        "email": "same-owner@example.test",
+        "id": "c149245abe8d4759976775367c6bce05",
+        "role": "owner"
+      },
+      "assistant_status": {
+        "actions": [
+          {
+            "action": "task.create",
+            "executable": true,
+            "external": false,
+            "unavailable_reason": null
+          },
+          {
+            "action": "offer.draft",
+            "executable": true,
+            "external": false,
+            "unavailable_reason": null
+          },
+          {
+            "action": "document.email",
+            "executable": true,
+            "external": true,
+            "unavailable_reason": null
+          },
+          {
+            "action": "dunning.email",
+            "executable": true,
+            "external": true,
+            "unavailable_reason": null
+          },
+          {
+            "action": "supplier.order",
+            "executable": false,
+            "external": true,
+            "unavailable_reason": "Kein ausführender Anbieteradapter eingerichtet."
+          },
+          {
+            "action": "payment.execute",
+            "executable": false,
+            "external": true,
+            "unavailable_reason": "Kein ausführender Anbieteradapter eingerichtet."
+          }
+        ],
+        "default_policy": "deny",
+        "modes": [
+          "auto",
+          "approval",
+          "deny"
+        ],
+        "payroll_sources": false,
+        "provider": {
+          "adapter": "openai_compatible",
+          "configured": true,
+          "endpoint": "https://never-called.example.test/v1/chat/completions",
+          "instance_id": "c4170ae6a0ed430dba842d23c09b7898",
+          "model": "synthetic-local-review"
+        },
+        "source_kinds": [
+          "project",
+          "task",
+          "open_item",
+          "costs",
+          "communication",
+          "document",
+          "dunning",
+          "purchase",
+          "article"
+        ],
+        "triggers": [
+          "manual",
+          "payment.overdue",
+          "task.overdue",
+          "cost.threshold"
+        ],
+        "voice_recording": false
+      },
+      "speech_provider_status": {
+        "limits": {
+          "bits_per_sample": 16,
+          "channels": 1,
+          "max_audio_bytes": 1920044,
+          "max_seconds": 60,
+          "sample_rate": 16000
+        },
+        "provider": {
+          "adapter": "openai_compatible_transcription",
+          "configured": true,
+          "endpoint": "https://never-called.example.test/v1/audio/transcriptions",
+          "instance_id": "c4170ae6a0ed430dba842d23c09b7898",
+          "model": "synthetic-local-review"
+        }
+      },
+      "rules": {
+        "default_policy": "deny",
+        "items": []
+      },
+      "plans": {
+        "items": []
+      },
+      "chats": {
+        "items": [
+          {
+            "context_id": "e83b3aa9c6e348e289beb90ab25a0568",
+            "context_sha256": "f132cc4054ee14888e9848f5a816294be44866769a57f79c76bf16723e3b1956",
+            "created_at": "2026-11-04T13:28:59+00:00",
+            "created_by": "c149245abe8d4759976775367c6bce05",
+            "data_transfer_confirmed": true,
+            "id": "f0d9e0bebc77400b84eee690ab92aa56",
+            "message": "ONLYBETA selected originals only",
+            "project_id": "401de9e1dd4547809f6803a4feab371a",
+            "provider": {
+              "adapter": "openai_compatible",
+              "endpoint": "https://never-called.example.test/v1/chat/completions",
+              "instance_id": "c4170ae6a0ed430dba842d23c09b7898",
+              "model": "synthetic-local-review"
+            },
+            "provider_sha256": "a423ddbb4dc4d782546f541f9212dc1801fb9a2df68f0f864e4e0937f8f92bda",
+            "result": {
+              "actions_executed_by_model": false,
+              "business_values": "resolved_from_selected_sources",
+              "citations": [
+                "project:401de9e1dd4547809f6803a4feab371a",
+                "article:38162b40920a432389fa65ae7d961f00"
+              ],
+              "facts": [
+                {
+                  "path": "name",
+                  "source_id": "project:401de9e1dd4547809f6803a4feab371a",
+                  "value": "ONLYBETA project"
+                },
+                {
+                  "path": "name",
+                  "source_id": "article:38162b40920a432389fa65ae7d961f00",
+                  "value": "ONLYBETA original"
+                }
+              ],
+              "model_generated": false,
+              "plan_ids": [],
+              "response_type": "source_answer",
+              "selection_generated_by_model": true,
+              "summary": "Die ausgewählten Fachquellen belegen die nachstehenden Angaben."
+            },
+            "retry_automatically": false,
+            "source_current": true,
+            "status": "completed"
+          }
+        ]
+      }
+    }
+  ]
+}

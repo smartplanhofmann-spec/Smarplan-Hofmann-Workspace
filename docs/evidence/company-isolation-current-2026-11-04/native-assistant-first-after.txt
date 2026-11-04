@@ -1,0 +1,53 @@
+Resolving dependencies...
+Downloading packages...
+  archive 4.5.2 (4.6.0 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  crypto 3.0.7 (3.0.8 available)
+  cupertino_ui 1.1.4 (1.1.5 available)
+  file_selector_ios 0.5.3+6 (0.5.3+7 available)
+  file_selector_macos 0.9.5+1 (0.9.5+2 available)
+  image_picker_ios 0.8.13+13 (0.8.13+14 available)
+  jni 1.1.0 (1.1.1 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.8.0 (1.9.0 available)
+  pdfium_dart 0.4.0 (0.4.1 available)
+  pdfium_flutter 0.4.0 (0.4.1 available)
+  pdfrx 2.10.1 (2.11.0 available)
+  pdfrx_engine 0.8.0 (0.9.0 available)
+  posix 6.5.2 (6.5.4 available)
+  qr 3.0.2 (4.0.1 available)
+  test_api 0.7.12 (0.7.15 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.4.3 (2.4.4 available)
+  vm_service 15.3.0 (15.4.0 available)
+  web 1.1.1 (1.1.2 available)
+Got dependencies!
+21 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart
+00:00 +0: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual company chat and speech readers accept only each selected original
+00:00 +1: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual company chat and speech readers accept only each selected original
+00:00 +2: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: typed rule comparisons use exact decimal cents
+00:00 +3: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual company host and parent session replacement discards visible private chat
+00:00 +4: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual company host and parent session replacement discards visible private chat
+00:01 +5: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual company host and parent session replacement discards visible private chat
+00:01 +6: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:01 +7: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:02 +8: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual private assistant dialog clears on session with retained navigator
+00:02 +9: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:02 +10: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:02 +11: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:02 +12: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:03 +13: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: source search remains readable in readonly mode without creating a command (variant: TargetPlatform.windows)
+00:03 +14: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: project-owned pending operation cannot replay in a second project and survives navigation
+00:03 +15: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: canonical WAV keeps raw PCM unchanged and bounds duration and alignment
+00:03 +16: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: permission cancelled while pending cannot later start microphone
+00:03 +17: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: explicit stop produces RAM-only WAV and disposal erases held bytes
+00:03 +18: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: hard 60 second timer stops capture without triggering any provider
+00:03 +19: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: press and release only prepares audio; explicit consent produces an editable draft without chat send (variant: TargetPlatform.windows)
+00:04 +20: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: lost speech acknowledgement only polls metadata and never posts audio again (variant: TargetPlatform.windows)
+00:04 +21: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: late provider response after background and resume cannot restore discarded text (variant: TargetPlatform.windows)
+00:05 +22: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: background transition and known rights loss stop microphone and erase draft (variant: TargetPlatform.windows)
+00:05 +23: All tests passed!

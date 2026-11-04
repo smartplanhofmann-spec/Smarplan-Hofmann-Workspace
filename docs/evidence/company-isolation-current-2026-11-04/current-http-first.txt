@@ -1,0 +1,7 @@
+test_two_processes_contexts_same_rule_ids_event_jobs_and_actual_actions (online.test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_contexts_same_rule_ids_event_jobs_and_actual_actions) ... ok
+test_two_processes_original_bytes_current_search_and_complete_archives (online.test_company_isolation_current.CompanyIsolationCurrentHTTP.test_two_processes_original_bytes_current_search_and_complete_archives) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 4.683s
+
+OK

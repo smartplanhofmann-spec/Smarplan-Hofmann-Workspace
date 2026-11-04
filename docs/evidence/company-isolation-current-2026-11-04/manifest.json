@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "assembled_by": "Root from completed owner logs after usage-limit interruption; new integration checks are separate",
+  "recorded_at_utc": "2026-11-04T18:58:00.430561+00:00",
+  "historical_source_workspace": "/workspace/smartplan-company-isolation-20261104",
+  "historical_base_commit": "2e2ed5ca33b928216b940c6334cdfbbca0a14c27",
+  "actual_http": 4,
+  "actual_pg": 4,
+  "actual_uid": 1,
+  "native_regression": 90,
+  "analysis_issues": 0,
+  "runtime": {
+    "app/lib/business_assistant.dart": "e9acc7a54a6d5ff3480631f3c93d99b03150afe30e429531df4202524373f2b2",
+    "app/lib/business_speech.dart": "c2846687ca7efca56790996ae6408b0f2f7d67792d5f14bef210fb45aa8fc615"
+  },
+  "artifacts": [
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/actual-uid-regression.txt",
+      "sha256": "7a6b2c0f366efce8379c4df1b93d30514fa8657b592b766b795a8e2a89c8ebdc",
+      "bytes": 301
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/ci-guard-after.txt",
+      "sha256": "7062e63902f68d6d493e60531ab2b90bb082c1ed6a851f646c41b61cd29a74f9",
+      "bytes": 292
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/ci-guard-before-checks.yml",
+      "sha256": "cba2a89046165fc971603a6dbe093314c4dce7b86fcc08b7ddf68da3d8601710",
+      "bytes": 53739
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/ci-guard-before-source.json",
+      "sha256": "1f3618f1d8cbe3c1a55ca20fb657dc0a13d958f68c0bbc6d0cd0460f9ce083f2",
+      "bytes": 227
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/ci-guard-before.txt",
+      "sha256": "0dd26ec35e0371a4eec657cdeecc4afb801d6ced1d697b9bf392fc533bf5f673",
+      "bytes": 1239
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/current-http-expanded-first.txt",
+      "sha256": "6832c893ecd73a0db073416a195e118fc35deb97954b7c9c33b7701e1da918b9",
+      "bytes": 944
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/current-http-first.txt",
+      "sha256": "6890afc65242d818ef819f1cd7d909e89f7743bfe9ab454887650620d9934212",
+      "bytes": 534
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/current-pg-cleanup.txt",
+      "sha256": "e7acd8f7a35b118d3848a4370b3b6cacd9633e4913843468ebdaee80f2aca38a",
+      "bytes": 77
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/current-pg-first.txt",
+      "sha256": "f9dddaf0ec805db2371e598492f760e29a53bd2c3fb2adc00c0b2e5dcfeac711",
+      "bytes": 975
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/current-queue-spawn-after.txt",
+      "sha256": "ebf0facdce4665d601f3e9c8d76e7c49377b654e9618966d836f2d02313631c7",
+      "bytes": 296
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/existing-regression-first.txt",
+      "sha256": "955e013a029cbf912b542e368feb8dfa43b6815ee3300a178fe3f679460243df",
+      "bytes": 11601
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/native-assistant-analyze.txt",
+      "sha256": "47f1b430e704bbc8f6a574d173b33ba8ae2fcd76f8677334a0ad10359ff1afd6",
+      "bytes": 96
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/native-assistant-context-final.txt",
+      "sha256": "678d481c9102e19d47eff0f570d4ff6c34241f415267c826afbb374778cf3d8f",
+      "bytes": 17051
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/native-assistant-final-analyze.txt",
+      "sha256": "aeb77b7deb5d7169583c8c9faade384fdce48daeac3767663a53043a8ead1692",
+      "bytes": 96
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/native-assistant-first-after.txt",
+      "sha256": "ad34e2d874b396c8add271cf76adea23cc3d8b3ac26b0665c0bfbe0886ec7a07",
+      "bytes": 5861
+    },
+    {
+      "path": "docs/evidence/company-isolation-current-2026-11-04/prepared-pg-spawn-review.json",
+      "sha256": "cf1e8d583511ff1b59c3e4c9d023e1ca41bdcbaf780d10ff5cfc801b5a05285f",
+      "bytes": 429
+    }
+  ],
+  "limits": [
+    "Remote GitHub workflow not executed",
+    "Local parser uses DevelopmentRunner; not a production kernel sandbox proof",
+    "Production host and independent security acceptance remain open"
+  ]
+}

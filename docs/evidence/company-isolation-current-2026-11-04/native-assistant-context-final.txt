@@ -1,0 +1,94 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart
+00:00 +0: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent background roundtrip cancels capabilities phase before old company source reads
+00:00 +1: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent background roundtrip cancels capabilities phase before old company source reads
+00:00 +2: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent background roundtrip cancels capabilities phase before old company source reads
+00:00 +3: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent background roundtrip cancels capabilities phase before old company source reads
+00:00 +4: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent background roundtrip cancels capabilities phase before old company source reads
+00:00 +5: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:00 +6: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:01 +7: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:01 +8: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:01 +9: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent old company detail original cannot open after host replacement
+00:01 +10: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:01 +11: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:02 +12: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:02 +13: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent old company context lost ACK cannot select originals in new company
+00:02 +14: /workspace/smartplan-company-isolation-20261104/app/test/business_assistant_test.dart: source search remains readable in readonly mode without creating a command (variant: TargetPlatform.windows)
+00:02 +15: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual private assistant dialog clears on session with retained navigator
+00:02 +16: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual private assistant dialog clears on session with retained navigator
+00:02 +17: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual private assistant dialog clears on unmount with retained navigator
+00:02 +18: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual private assistant dialog clears on session_under_foreign_dialog with retained navigator
+00:03 +19: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual company speech widget cancels active recorder when parent session and host change
+00:03 +20: /workspace/smartplan-company-isolation-20261104/app/test/business_company_assistant_isolation_review_test.dart: independent actual company speech widget cancels active recorder when parent session and host change
+00:03 +21: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: permission cancelled while pending cannot later start microphone
+00:03 +22: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: explicit stop produces RAM-only WAV and disposal erases held bytes
+00:03 +23: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: hard 60 second timer stops capture without triggering any provider
+00:03 +24: /workspace/smartplan-company-isolation-20261104/app/test/business_speech_test.dart: press and release only prepares audio; explicit consent produces an editable draft without chat send (variant: TargetPlatform.windows)
+00:04 +25: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:04 +26: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:04 +27: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:04 +28: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:05 +29: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: only bound company commands retry original receipt through generation and rights changes
+00:05 +30: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: concurrent same-intent calls share one future and one original nonce
+00:05 +31: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: wrong receipt remains pending; later exact accepted claim may clear without outcome
+00:05 +32: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: plan replay rechecks project source, approval and actor rather than global permissions
+00:05 +33: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: uncertain 403 preserves the closed event command nonce
+00:05 +34: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: uncertain 404 preserves the closed event command nonce
+00:05 +35: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: uncertain 409 preserves the closed event command nonce
+00:05 +36: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: uncertain 423 preserves the closed event command nonce
+00:05 +37: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: uncertain 429 preserves the closed event command nonce
+00:05 +38: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: uncertain 503 preserves the closed event command nonce
+00:05 +39: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: explicit not_accepted releases only the rejected event request
+00:05 +40: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: rights withdrawn during held current-actor check prevent the POST
+00:05 +41: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: 390px actual approval plan original and execution state
+00:05 +42: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: unconfirmed original execution cannot be relabelled as succeeded without an outcome
+00:05 +43: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: 390px actual external_unknown plan original and execution state
+00:05 +44: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:05 +45: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:06 +46: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: rule creation, history and scan all require explicit confirmations
+00:06 +47: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: rule creation, history and scan all require explicit confirmations
+00:06 +48: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: project-only source withdrawal clears private editor while global rights remain
+00:06 +49: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: project-only source withdrawal clears private editor while global rights remain
+00:07 +50: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: project-only source withdrawal clears private editor while global rights remain
+00:07 +51: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: project-only source withdrawal clears private editor while global rights remain
+00:07 +52: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: late private plan success discarded after background
+00:07 +53: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: project-only approve withdrawal clears private editor while global rights remain
+00:07 +54: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: project-only approve withdrawal clears private editor while global rights remain
+00:07 +55: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: late private plan success discarded after generation
+00:07 +56: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: project write right disappearing during actor read prevents a fresh command
+00:07 +57: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: late private plan error discarded after generation
+00:07 +58: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:07 +59: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:07 +60: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:07 +61: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:07 +62: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: late private plan error discarded after write
+00:07 +63: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: older plan error cannot replace or erase a newly entered rule
+00:07 +64: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: older plan error cannot replace or erase a newly entered rule
+00:08 +65: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: older plan error cannot replace or erase a newly entered rule
+00:08 +66: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: approve-only withdrawal closes a private reason editor with read retained
+00:08 +67: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: late approval success belongs to its original pending operation and preserves newer editor
+00:08 +68: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: late approval success belongs to its original pending operation and preserves newer editor
+00:08 +69: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after session
+00:08 +70: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: late approval error belongs to its original pending operation and preserves newer editor
+00:08 +71: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: late approval error belongs to its original pending operation and preserves newer editor
+00:09 +72: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after background
+00:09 +73: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: private rule draft is erased after session
+00:09 +74: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after background
+00:09 +75: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: private rule draft is erased after background
+00:09 +76: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after generation
+00:09 +77: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after generation
+00:09 +78: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_independent_review_test.dart: three pending operation kinds preserve distinct original bodies and reject crossed receipts
+00:09 +79: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after generation
+00:09 +80: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after read
+00:10 +81: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after read
+00:10 +82: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after approve
+00:10 +83: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after approve
+00:10 +84: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after module
+00:11 +85: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after module
+00:11 +86: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after session
+00:11 +87: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after background
+00:11 +88: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after generation
+00:11 +89: /workspace/smartplan-company-isolation-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after approve
+00:12 +90: All tests passed!

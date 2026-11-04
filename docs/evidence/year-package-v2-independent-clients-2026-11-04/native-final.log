@@ -1,0 +1,12 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-year-review-export-carryover-20261104/app/test/business_accounting_year_evidence_v2_independent_review_test.dart
+00:00 +0: independent actual V2 pending_review original export and archive stay exact
+00:00 +1: independent actual V2 partial_coverage original export and archive stay exact
+00:00 +2: independent actual V2 complete_history original export and archive stay exact
+00:00 +3: independent actual V2 old_partial_after_correction original export and archive stay exact
+00:00 +4: independent V2 earlier partial archive stays byte-identical after actual correction
+00:00 +5: independent V2 actual production desktop write retains trusted complete-history bytes
+00:02 +6: independent V2-to-V1 metadata format replacement after chooser cannot change original contract
+00:02 +7: independent pending V2 bytes cannot populate newly selected real V1 export
+00:02 +8: All tests passed!

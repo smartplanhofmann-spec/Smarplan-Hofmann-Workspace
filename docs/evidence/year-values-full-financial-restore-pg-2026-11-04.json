@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "scope": "First real joint PostgreSQL dump/restore of original year journals and both immutable archive versions with all previously populated source families",
+  "source_workspace": "/workspace/smartplan-year-values-integration-20261104",
+  "git_head": "2e2ed5ca33b928216b940c6334cdfbbca0a14c27",
+  "tests_passed": 1,
+  "test_seconds": 29.393,
+  "wrapper_seconds": 30.648,
+  "first_attempt_passed": true,
+  "product_changes_by_test_owner": false,
+  "existing_tests_changed_by_test_owner": false,
+  "horizon": 15,
+  "restore_report": 16,
+  "financial_assertions": {
+    "historical_gross": "59.50",
+    "historical_net": "50.00",
+    "historical_tax": "9.50",
+    "historical_vat": "19.00",
+    "new_remainder_cash": "59.50",
+    "total_current_cash_out": "178.50",
+    "total_year_euer_expenses": "1438.00",
+    "original_opening": "1000.00",
+    "current_liquidity": "821.50"
+  },
+  "archive_versions": [
+    "smartplan-year-evidence-v1",
+    "smartplan-year-evidence-v2"
+  ],
+  "archive_preservation": "Both metadata and bytes unchanged before and after actual complete financial reconciliation; external authenticated archive hash mandatory",
+  "preserved_families": [
+    "Source5 payroll original PDF and consumption",
+    "catalog V1 import and exact original",
+    "dated catalog V2 and actual offer price source",
+    "historical assets and actual annual depreciation",
+    "documented opening balance",
+    "two original open items and old/current payment cents",
+    "year-values original journal, upload/confirm/E\u00dcR receipts",
+    "company events original completed outcome and suspended pending plan"
+  ],
+  "negative_cases": [
+    "missing external archive hash fails",
+    "restore pending year mutation replay409",
+    "restore pending balances incomplete",
+    "valid old14/15 scope cannot approve15/16",
+    "changed year-source digest rejected without writes"
+  ],
+  "cleanup": {
+    "databases": [
+      "smartplan_check"
+    ],
+    "other_connections": []
+  },
+  "source_hash_timing": "Recorded immediately after the first passed test; no runtime modification by this test owner. Root declared backend ready before invocation.",
+  "files": [
+    {
+      "path": "backend/online/test_year_values_full_financial_restore_pg.py",
+      "sha256": "f3feaac56ea89a694365df9fe4f84177fcd48b27fa002d6268dabcbb5f6bce40",
+      "bytes": 26921
+    },
+    {
+      "path": "backend/business_schema.py",
+      "sha256": "d358885df0a35e62a2312e255b0415484a3ed946f0de8426249fc2342b77edce",
+      "bytes": 88322
+    },
+    {
+      "path": "backend/business_accounting_year_openings.py",
+      "sha256": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd",
+      "bytes": 36733
+    },
+    {
+      "path": "backend/accounting_year_opening_rules.py",
+      "sha256": "ae8bc91c8e68a3927cc478c7f4b02b56a66d99e26d55468053940a1ea86392a7",
+      "bytes": 8518
+    },
+    {
+      "path": "backend/accounting_year_opening_sources.py",
+      "sha256": "4bdb0c049f78018a9e2c519cd003d4cffe56dba3296fdf399745a61d82eb632a",
+      "bytes": 5337
+    },
+    {
+      "path": "backend/accounting_year_package_v1.py",
+      "sha256": "8e79534d2739e05f2b34141adf66399563c4cc07e076d2618125374701d77f42",
+      "bytes": 21781
+    },
+    {
+      "path": "backend/accounting_year_verify_v1.py",
+      "sha256": "77b032a6e19f27dfefd290106ecda73675e8e5a9c68afaedfdda9ddae0c60baa",
+      "bytes": 24982
+    },
+    {
+      "path": "backend/accounting_year_package_v2.py",
+      "sha256": "e3d7928f2df77f51dd93c975445a32197c699d4917b057e8fa367e0d4b7ac638",
+      "bytes": 10329
+    },
+    {
+      "path": "backend/accounting_year_verify_v2.py",
+      "sha256": "7a3edfc97c501290962c71736203c1397215378fab3b91d93351e5ee2a6943ab",
+      "bytes": 30824
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "sha256": "5a98d2a7ef63f4244938048c85014724b79c9b572303e0b832fb27e628f2de67",
+      "bytes": 88654
+    },
+    {
+      "path": "backend/business_accounting_open_items.py",
+      "sha256": "8f75aff4f916772e16bdacb95c83a8898bdc8e109ef63e499a08893d36fa6080",
+      "bytes": 38596
+    },
+    {
+      "path": "backend/accounting_open_item_sources.py",
+      "sha256": "f44e1ceda7ad682c6ee61033e154ec0380022dc8d12d9e82e0450870c0b0cfca",
+      "bytes": 5090
+    },
+    {
+      "path": "backend/business_accounting_openings.py",
+      "sha256": "daab353586aaa11bb9928da44ae55597df61e1d83dc0dfba4547cd0213f93691",
+      "bytes": 43019
+    },
+    {
+      "path": "backend/business_accounting_asset_openings.py",
+      "sha256": "216253560e8abc0fdc129633c9fc2a7734f10a025276bfe1e7f8dd2ecb3eacf3",
+      "bytes": 28628
+    },
+    {
+      "path": "backend/business_payroll_multiple_cases.py",
+      "sha256": "3952ffe27f514577e87e84bf6842cb978b7846990f279c22038c0b0842d984af",
+      "bytes": 37368
+    },
+    {
+      "path": "backend/business_catalog_prices.py",
+      "sha256": "7c5e5fe1a5cad1f4629368b461ec0be55a111a4ecde075a2ca7123037289c1f7",
+      "bytes": 59712
+    },
+    {
+      "path": "backend/business_company_events.py",
+      "sha256": "1cdf6d30aa3b2764cd5c036d9af55fd2a68c89e8cc6d671d4233a2c812ad2fdd",
+      "bytes": 60388
+    },
+    {
+      "path": "backend/online/test_accounting_year_openings_pg.py",
+      "sha256": "03b7c095a9cef9088e9211628b83543cbb822b8a17d7133ca442977c14ac9049",
+      "bytes": 10998
+    },
+    {
+      "path": "backend/online/test_open_items_events_catalog_restore_pg.py",
+      "sha256": "97609a02a11d0dbbbfc2ce784b8b0809baeadd4bc3696dd39ea8c48db3822463",
+      "bytes": 17705
+    },
+    {
+      "path": "docs/evidence/year-values-full-financial-restore-pg-2026-11-04.txt",
+      "sha256": "a4fd5b50c0381c6cdc7c98da3229210d77755443a5efaa6cbe002b91aad07ad3",
+      "bytes": 360
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+00:00 +0: loading /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart
+00:00 +0: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: actual complete original state preview receipt source and history
+00:00 +1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: actual partial_then_corrected original state preview receipt source and history
+00:00 +2: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: actual closed_trade original state preview receipt source and history
+00:00 +3: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: separate signed cent controls without guessed zeros
+00:00 +4: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: rehash cannot change old VAT day or original account projection
+00:00 +5: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: source requires original entry even after valid foreign rehash
+00:00 +6: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: partial coverage cannot be relabelled complete
+00:00 +7: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: receipt rejects foreign actual original and frozen state alteration
+00:00 +8: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: unknown acceptance repeats original nonce and frozen receipt after newer state
+00:00 +9: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: foreign valid acceptance cannot clear original pending
+00:00 +10: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: held capability preflight cannot send after editor context ended
+00:00 +11: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: 390px original year state history and no invented cash
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextWidgetFinder:<Found 0 widgets with text "Originalgebundene Jahres-/EÜR-Quelle": []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart:280:5)
+<asynchronous suspension>
+#5      yearWidget.<anonymous closure> (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart:167:9)
+<asynchronous suspension>
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart line 280
+The test description was:
+  390px original year state history and no invented cash
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +11 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +11 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: 390px original year state history and no invented cash [E]
+  Test failed. See exception logs above.
+  The test description was: 390px original year state history and no invented cash
+  
+00:02 +12 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +13 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +14 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:03 +15 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Jahresoriginal hochladen
+00:03 +16 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:03 +17 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Unverändert erneut prüfen
+Native yearly step: Jahresvortrag vorbereiten
+Native yearly field: Belegter Zeitraum von (JJJJ-MM-TT)
+Native yearly field: Belegter Zeitraum bis (JJJJ-MM-TT)
+Native yearly field: Ursprüngliches SKR04-Nettokonto
+Native yearly field: Ursprüngliches SKR04-Steuerkonto
+Native yearly field: Ursprüngliches SKR04-Vorsteuerkonto
+Native yearly field: Alte Zahlungsbuchungen: eine Kennung je Zahlung in Originalreihenfolge
+Native yearly field: Ursprüngliche Vorsteuerbuchungsidentität (nur Lieferantenrechnung)
+Native yearly step: Geprüfte ursprüngliche Quelle hinzufügen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.last (dart:core/iterable.dart:679:7)
+#1      _LastFinderMixin.filter (package:flutter_test/src/finders.dart:1410:28)
+#3      _AncestorFinderMixin.allCandidates (package:flutter_test/src/finders.dart:1857:49)
+#4      FinderBase.evaluate (package:flutter_test/src/finders.dart:1030:76)
+#5      WidgetController.widgetList (package:flutter_test/src/controller.dart:848:19)
+#6      WidgetController._maybeViewOf (package:flutter_test/src/controller.dart:795:34)
+#7      WidgetController.tap (package:flutter_test/src/controller.dart:1078:31)
+#8      main.<anonymous closure>.<anonymous closure>.choose (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart:226:21)
+<asynchronous suspension>
+#9      main.<anonymous closure>.<anonymous closure> (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart:291:13)
+<asynchronous suspension>
+#10     main.<anonymous closure> (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart:116:9)
+<asynchronous suspension>
+#11     testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#12     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 2 frames from dart:async-patch and package:stack_trace)
+
+The test description was:
+  actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR,
+  history, correction and void
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:10 +17 -2: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void [E]
+  Test failed. See exception logs above.
+  The test description was: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+  
+00:10 +17 -2: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+  /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: 390px original year state history and no invented cash

@@ -1,0 +1,7 @@
+test_explicit_independent_zero_journal_is_allowed_only_without_known_old_values (test_accounting_year_openings.YearOpeningWorkflow.test_explicit_independent_zero_journal_is_allowed_only_without_known_old_values) ... ok
+test_late_acceptance_failure_is_atomic_then_exact_request_is_recoverable (test_accounting_year_openings.YearOpeningWorkflow.test_late_acceptance_failure_is_atomic_then_exact_request_is_recoverable) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.424s
+
+OK

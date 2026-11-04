@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {yearPackageExport,yearPackageMetadata,yearPackageArchive} from '../accounting-year-package-contract.js';
+const fixture=JSON.parse(readFileSync(new URL('../../../docs/fixtures/accounting_year_package_v2.json',import.meta.url)));
+const original=JSON.parse(readFileSync(new URL('../../../docs/fixtures/accounting_year_package_v1.json',import.meta.url)));
+for(const [name,value] of Object.entries(fixture.scenarios))test('actual v2 '+name+' export and original archive stay exactly bound',async()=>{await yearPackageExport(value.export);const metadata=yearPackageMetadata(value.metadata,value.export);assert.equal(metadata.format,'smartplan-year-evidence-v2');assert.equal(metadata.original_year_complete,value.export.report.complete_for_recorded_sources);await yearPackageArchive(new Blob([Buffer.from(value.archive_base64,'base64')],{type:'application/zip'}),metadata);});
+test('later original correction preserves actual earlier v2 archive',()=>{assert.deepEqual(fixture.scenarios.partial_coverage,fixture.scenarios.old_partial_after_correction);});
+test('v1 remains accepted and future or non-string versions remain rejected',async()=>{const v1=original.scenarios.ordinary_correction;await yearPackageExport(v1.export);assert.equal(yearPackageMetadata(v1.metadata,v1.export).format,'smartplan-year-evidence-v1');for(const format of ['smartplan-year-evidence-v3','smartplan-year-evidence-v20',1,null,{},'smartplan-year-evidence-v2 '])assert.throws(()=>yearPackageMetadata({...v1.metadata,format},v1.export));});
+test('a format switch after first metadata cannot replace bound archive',()=>{const value=fixture.scenarios.complete_history;assert.throws(()=>yearPackageMetadata({...value.metadata,format:'smartplan-year-evidence-v1'},value.export,value.metadata));});
+test('actual v1 and v2 original exports and archive bytes cannot cross',async()=>{const v1=original.scenarios.ordinary_correction,v2=fixture.scenarios.complete_history;assert.throws(()=>yearPackageMetadata(v2.metadata,v1.export));assert.throws(()=>yearPackageMetadata(v1.metadata,v2.export));await assert.rejects(yearPackageArchive(new Blob([Buffer.from(v1.archive_base64,'base64')],{type:'application/zip'}),v2.metadata));});

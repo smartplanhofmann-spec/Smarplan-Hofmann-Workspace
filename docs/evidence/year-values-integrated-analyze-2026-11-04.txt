@@ -1,0 +1,5 @@
+Command: ['/workspace/toolchains/flutter/bin/flutter', 'analyze', '--no-pub']
+Cwd: /workspace/smartplan-year-values-integration-20261104/app
+Started UTC: 2026-11-04T13:22:43.246756+00:00
+Analyzing app...                                                
+No issues found! (ran in 16.2s)

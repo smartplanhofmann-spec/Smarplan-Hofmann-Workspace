@@ -1,0 +1,130 @@
+Zum Inhalt
+S
+smartplan
+OFFICE
+◈
+Übersicht
+↗
+Anfragen
+▦
+Projekte
+◎
+Kontakte
+▤
+Einsatzplanung
+▧
+Dokumente
+€
+Finanzen
+✧
+Assistent
+◉
+Kundenservice
+⚙
+Einstellungen
+Weitere Bereiche
+Ihr Betrieb. Ein gemeinsamer Stand.
+
+Online · Daten vom eigenen Office-Server
+
+Alle Projekte
+Private project
+Second project, same customer
+Synthetic project
+year-values-browser-owner@example.test
+Abmelden
+Zahlungen & offene Posten
+EÜR-Vorbereitung
+Bankabgleich öffnen
+Eigene EÜR und Umsatzsteuer
+Eigene EÜR- und Umsatzsteuer-Arbeitsergebnisse für geprüfte erfasste Quellen. Keine amtliche Erklärung oder zertifizierte DATEV-Datei. Rechnung, Zahlung, Vorsteuerrecht und EÜR-Jahr werden getrennt beurteilt.
+Geldflüsse vorbereiten
+Unternehmensprofil und Gültigkeit
+Stand aktualisieren
+Belegte frühere Jahreswerte
+Offene Altposten
+Historische Anlagen
+Anfangsbestände und Liquidität
+Quellen und fachliche Prüfung
+Belegte frühere Jahreswerte · 2026 · Fassung 3
+
+01.08.2026
+
+Aktuelle Einordnung vorhanden.
+
+Jahresvortrag und Originale
+Erfasste Kontobewegungen
+Nur nachgewiesene Bewegungen. Unbekannte Anfangssalden werden nicht ergänzt; dies ist kein bestätigter Bank-/Kassenbestand.
+Geldkonto	Zuflüsse	Abflüsse	Bewegungssaldo	Anfangs-/Endsaldo
+Jahresausgabe
+Auswertungsjahr
+Jahr anzeigen
+Jahresauswertung 2026
+
+Buchführungsbeginn laut bestätigtem Profil: 01.11.2026
+
+Offene Quellen begrenzen diese Auswertung. Nicht bestätigte Wirkungen werden nicht als Null ergänzt.
+Bestätigte Sicht	Betrag
+Bestätigte Einnahmen einschließlich Umsatzsteuer	0,00 €
+Bestätigte Ausgaben einschließlich bezahlter Vorsteuer	0,00 €
+Zwischensumme bestätigter Buchungen	0,00 €
+EÜR-Ergebnis für erfasste Quellen	—
+Bestätigte Ist-Umsatzsteuer	0,00 €
+Bestätigtes Vorsteuerrecht	0,00 €
+USt-Saldo für erfasste Quellen	—
+Das Profil deckt den Auswertungszeitraum nur teilweise ab
+
+01.01.2026
+
+Sicht	Kategorie	Betrag
+EÜR	Material	0,00 €
+EÜR	Bezahlte abziehbare Vorsteuer	0,00 €
+Umsatzsteuer	Vorsteuerrecht	0,00 €
+Jahresprüfpaket festhalten
+Anlagen und lineare AfA
+Noch keine belegten neuen Anlagegüter erfasst.
+Historische Anlagen und verbleibende AfA
+Noch keine historischen Anlagen übernommen.
+Monatsperioden
+Monatsperiode prüfen
+Noch keine Einträge vorhanden.
+Unveränderliches Buchungsjournal
+Nr. 2 · Buchung gegenbuchen
+
+04.11.2026, 14:46 · Synthetic explicit reversal before source correction
+
+Nachweis ansehen
+Nr. 1 · Belegte frühere Jahreswerte übernehmen
+
+04.11.2026, 14:46 · Synthetic exact original year journal adoption
+
+Nachweis ansehen
+Belegter Jahresvortrag 2026
+×
+Belegte frühere Jahreswerte · Fassung 4
+
+01.01.2026 bis 31.10.2026
+
+Der erklärte Zeitraum deckt das Startjahr bis zum Softwarebeginn ab. Die Vollständigkeit des gesamten Unternehmensjahres wird dadurch nicht behauptet.
+Historische Journalzeilen: keine neue Geldbewegung und kein neuer Vorsteueranspruch. Alte Zahlungstage und frühere ausgeübte Vorsteuer bleiben getrennt.
+Ursprünglicher Tag	Journal / Kategorie	SKR04	Betrag	Originale Buchung
+20.08.2026	EÜR · Material	5400	-50,00 €	OLD-2026-081
+20.08.2026	EÜR · Bezahlte abziehbare Vorsteuer	1406	-9,50 €	OLD-2026-081
+11.06.2026	USt · Bereits ausgeübter Vorsteueranspruch	1406	-19,00 €	OLD-2026-061
+20.08.2026	EÜR · Material	5400	-100,00 €	ORIGINAL-CLOSED-CASH
+20.08.2026	EÜR · Bezahlte abziehbare Vorsteuer	1406	-19,00 €	ORIGINAL-CLOSED-CASH
+11.06.2026	USt · Bereits ausgeübter Vorsteueranspruch	1406	-19,00 €	ORIGINAL-CLOSED-VAT
+Ursprüngliches Journal	Kategorie	SKR04	Erklärte Kontrollsumme
+euer	Material	5400	-150,00 €
+euer	Bezahlte abziehbare Vorsteuer	1406	-28,50 €
+vat	Bereits ausgeübter Vorsteueranspruch	1406	-38,00 €
+Gebundene Originale
+original-year-journal.pdf · 493c8e3dfebc · Original ansehensynthetic.pdf · 668ce5527ab7 · Original ansehensynthetic.pdf · ae60fe767a99 · Original ansehensynthetic.pdf · 49e7ff4e3d95 · Original ansehenclosed-invoice.pdf · 18eced1f6728 · Original ansehenclosed-payment.pdf · e8055e128fa5 · Original ansehenclosed-vat.pdf · 2f80d256e616 · Original ansehen
+Unveränderliche Jahresfassungen öffnen
+Gebundene Originale
+original-year-journal.pdf · 493c8e3dfebc · Original ansehenclosed-payment.pdf · e8055e128fa5 · Original ansehenclosed-invoice.pdf · 18eced1f6728 · Original ansehenclosed-vat.pdf · 2f80d256e616 · Original ansehenhistorical.pdf · ceb5dc1e87a8 · Original ansehen
+Jahresoriginal unverändert hochladen
+Belegte Jahresfassung berichtigen
+Fälschlichen Jahresvortrag aufheben
+Vor einer Quellenkorrektur eine aktive EÜR-Übernahme ausdrücklich gegenbuchen und betroffene geschlossene Perioden öffnen. Der EÜR-Vorgang bleibt eine getrennte Entscheidung.
+Getrennte EÜR-Übernahme und Buchungen öffnen

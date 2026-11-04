@@ -1,0 +1,56 @@
+✔ independent original: unchanged real 59.50 cash history and 19.00 exercised VAT remain readable (21.802581ms)
+✖ independent original: rehashed preview cannot move actual old payment from August to September (4.36986ms)
+✖ independent original: rehashed preview cannot change old cash cents while leaving actual source unchanged (3.066421ms)
+✖ independent original: source hash alone cannot legitimize contradictory historical posting amount (1.004861ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 1
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37.23167
+
+✖ failing tests:
+
+test at web/office/tests/accounting-year-values-independent.test.mjs:19:1
+✖ independent original: rehashed preview cannot move actual old payment from August to September (4.36986ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection: Derived date must match actual original payment
+      at async TestContext.<anonymous> (file:///workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-independent.test.mjs:27:2)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-year-values-independent.test.mjs:30:1
+✖ independent original: rehashed preview cannot change old cash cents while leaving actual source unchanged (3.066421ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection: Copied cents must match actual original payment and postings
+      at async TestContext.<anonymous> (file:///workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-independent.test.mjs:35:2)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-year-values-independent.test.mjs:38:1
+✖ independent original: source hash alone cannot legitimize contradictory historical posting amount (1.004861ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection: Posting must match copied original cents, not merely controls
+      at async TestContext.<anonymous> (file:///workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-independent.test.mjs:44:2)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }

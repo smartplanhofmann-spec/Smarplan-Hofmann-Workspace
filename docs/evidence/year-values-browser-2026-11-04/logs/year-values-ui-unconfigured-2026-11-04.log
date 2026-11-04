@@ -1,0 +1,57 @@
+✔ actual complete period, original source, accepted receipt and immutable history read unchanged (33.167688ms)
+✔ actual partial_then_corrected period, original source, accepted receipt and immutable history read unchanged (18.278009ms)
+✔ actual closed_trade period, original source, accepted receipt and immutable history read unchanged (16.362401ms)
+✔ signed cents preserve the explicit original journal with no rounding or negative zero (0.988354ms)
+✔ original receipt remains bound to the old command even after other journal versions exist (4.349033ms)
+✔ declared partial coverage cannot become a complete year or an invented cash/VAT claim (1.206933ms)
+✔ EÜR projection copies original dates and exercised VAT without a new tax claim (0.777668ms)
+✔ actual original source selection, explicit controls, preview, final acceptance and immutable history (75.21106ms)
+✔ delayed genuine preview after close cannot reopen or confirm (11.246406ms)
+✔ delayed genuine preview after other cannot reopen or confirm (10.975659ms)
+✔ delayed genuine preview after session cannot reopen or confirm (8.607812ms)
+✔ delayed genuine preview after background cannot reopen or confirm (10.700025ms)
+✔ delayed initial state after other reveals no original values (2.058342ms)
+✔ delayed initial state after session reveals no original values (0.538499ms)
+✔ delayed initial state after background reveals no original values (3.69399ms)
+✔ server-only read revocation while state is pending neutralizes the original dialog (2.202959ms)
+✔ accepted command lost ACK keeps exact nonce and original receipt after later journal state (16.457855ms)
+✔ foreign genuine receipt cannot consume an unresolved original command (1.828988ms)
+✔ exact EÜR year identity and source-only form preserve legacy 32-character restrictions (1.568556ms)
+✔ genuine accepted confirmation after other cannot replace the current dialog (17.303185ms)
+✔ genuine accepted confirmation after session cannot replace the current dialog (9.03899ms)
+✔ genuine accepted confirmation after background cannot replace the current dialog (15.867868ms)
+✔ held original file bytes after other cause no upload or private reopen (2.607127ms)
+✔ held original file bytes after session cause no upload or private reopen (1.939774ms)
+✔ fresh source read rights after genuine original bytes prevent a download and neutralize title (4.310966ms)
+✖ actual accepted incomplete profile stays readable and never becomes assumed beginning or tax status (1.107504ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 25
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 343.216355
+
+✖ failing tests:
+
+test at web/office/tests/accounting-year-values.test.mjs:35:1
+✖ actual accepted incomplete profile stays readable and never becomes assumed beginning or tax status (1.107504ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values.test.mjs:35:172)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

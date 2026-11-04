@@ -1,0 +1,30 @@
+--- a/backend/business_accounting_euer.py
++++ b/backend/business_accounting_euer.py
+@@ -18,7 +18,7 @@
+ from business_accounting_components import DocumentComponents, _cents as _unsigned_cents, _money as _unsigned_money, _stored
+ from business_accounting_profile import AccountingPreparationProfile
+ 
+-FEATURES = ('accounting_euer', 'accounting_year_evidence_v1')
++FEATURES = ('accounting_euer', 'accounting_year_evidence_v1', 'accounting_year_evidence_v2')
+ RULE_VERSION = 'de_euer_regular_cash_2026_v1'
+ _TABLES = ('business_euer_entries', 'business_euer_requests')
+ _INPUT = {'operation', 'expected_revision', 'state_hash', 'payload', 'reason', 'evidence_reference'}
+@@ -1046,7 +1046,8 @@
+ 
+     def year_evidence(self,actor,entry_id,*,archive=False):
+         """Read-only supplement; old report and source acceptance remain intact."""
+-        from accounting_year_package_v1 import build,sha,FORMAT,BASE
++        from accounting_year_package_v1 import sha,BASE
++        from accounting_year_package_v2 import build_selected as build
+         from workspace_api import BinaryAttachment
+         try:
+             raw,manifest=build(self.office,actor,entry_id)
+@@ -1054,7 +1055,7 @@
+             raise Problem(409,'Der ursprüngliche Jahresnachweis ist unvollständig oder seine Bindung wurde verändert.') from None
+         filename='smartplan-jahresnachweis-'+str(manifest['year'])+'-'+entry_id+'.zip'
+         if archive:return BinaryAttachment(raw,filename)
+-        return dict(format=FORMAT,schema_version=1,instance_id=manifest['instance_id'],year=manifest['year'],
++        return dict(format=manifest['format'],schema_version=1,instance_id=manifest['instance_id'],year=manifest['year'],
+             export_id=entry_id,export_hash=manifest['export_hash'],sha256=sha(raw),size=len(raw),filename=filename,
+             archive_path=BASE+entry_id+'/evidence/archive',original_count=len(manifest['originals']),
+             original_year_complete=manifest['original_year_complete'],private_source_boundaries=manifest['private_source_boundaries'],

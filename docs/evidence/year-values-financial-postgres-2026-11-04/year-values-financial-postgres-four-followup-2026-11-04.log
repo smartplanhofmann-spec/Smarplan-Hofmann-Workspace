@@ -1,0 +1,9 @@
+test_populated_dump_restore_requires_new_scope_and_preserves_original_afa_and_exports (online.test_accounting_asset_openings_pg.HistoricalAssetPostgres.test_populated_dump_restore_requires_new_scope_and_preserves_original_afa_and_exports) ... ok
+test_dump_restore_binds_original_and_old_euer_export_to_explicit_report13 (online.test_business_accounting_openings_pg.OpeningBalancesPostgres.test_dump_restore_binds_original_and_old_euer_export_to_explicit_report13) ... ok
+test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon (online.test_business_travel_pg.TravelPostgres.test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon) ... ok
+test_populated_actual_dump_restore_keeps_old_exports_all_originals_and_no_repeated_input_vat (online.test_accounting_open_items_pg.OpeningItemPostgres.test_populated_actual_dump_restore_keeps_old_exports_all_originals_and_no_repeated_input_vat) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 39.118s
+
+OK

@@ -1,0 +1,24 @@
+00:00 +0: loading /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart
+test/business_accounting_year_values_independent_review_test.dart:298:1: Error: Directives must appear before any declarations.
+Try moving the directive before any declarations.
+import 'dart:convert';
+^^^^^^
+test/business_accounting_year_values_independent_review_test.dart:299:1: Error: Directives must appear before any declarations.
+Try moving the directive before any declarations.
+import 'dart:io';
+^^^^^^
+00:00 +0 -1: loading /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart [E]
+  Failed to load "/workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart":
+  Compilation failed for testPath=/workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart: test/business_accounting_year_values_independent_review_test.dart:298:1: Error: Directives must appear before any declarations.
+  Try moving the directive before any declarations.
+  import 'dart:convert';
+  ^^^^^^
+  test/business_accounting_year_values_independent_review_test.dart:299:1: Error: Directives must appear before any declarations.
+  Try moving the directive before any declarations.
+  import 'dart:io';
+  ^^^^^^
+  .
+00:00 +0 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart: loading /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart

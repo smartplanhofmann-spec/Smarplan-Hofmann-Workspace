@@ -1,0 +1,33 @@
+{
+  "scope": "Narrow borrowed YearValues/OpenItems browser source-reader baseline solely for actual V2 export integration flow; owner retains full feature implementation. Own V2 product delta remains two format readers.",
+  "files": [
+    {
+      "path": "web/office/accounting-year-values-contract.js",
+      "owner_source": "/workspace/smartplan-opening-year-values-20261104/web/office/accounting-year-values-contract.js",
+      "sha256": "120ff8c0ce08b9694f07533df53e52f89937156a66a5b2f0db6f1a0d4ad77f8f",
+      "previous_sha256": null,
+      "mode": "borrowed_owner_baseline"
+    },
+    {
+      "path": "web/office/accounting-open-items-contract.js",
+      "owner_source": "/workspace/smartplan-opening-year-values-20261104/web/office/accounting-open-items-contract.js",
+      "sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1",
+      "previous_sha256": null,
+      "mode": "borrowed_owner_baseline"
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "owner_source": "/workspace/smartplan-opening-year-values-20261104/web/office/accounting-euer.js",
+      "owner_sha256": "88d3f085561aedeab398281f407526141f0e0fd45dff7b47ff84ebb23a39b05b",
+      "before_sha256": "08c6fe37ddaa3ae9afbe62882e9834bdbb8e61c839d3e5e6cdcdd49f21c02381",
+      "sha256": "b238e22c4aff9dc93bbf5ae32a52d5f68d118c27fda13b82e0e4d020127d556e",
+      "mode": "only owner euerSources plus two imports; V1 exported dialog untouched"
+    },
+    {
+      "path": "backend/online/web.py",
+      "before_sha256": "c6c12b2890fbde20927a3c7ce604f34e89330f7de2afab8f702b892a65c00dab",
+      "sha256": "23e506dab16f82b61a588d56ad6460e989863335d76d30cf8b81fe36e86faf00",
+      "mode": "only borrowed source-reader static imports"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "app/lib/business_session.dart": {
+    "before": {
+      "sha256": "475a0a59cf64d468f488a77d6dd848a2806e88f0a47ccd29b0189e16fde8e1a8",
+      "bytes": 115052
+    },
+    "after": {
+      "sha256": "7d437f2b441a4e6835e5dddfe7c9d4699b590496eed68583b4a9c3be441539b8",
+      "bytes": 119337
+    },
+    "inserted_lines": 128,
+    "removed_lines": 0
+  },
+  "app/lib/business_accounting_euer.dart": {
+    "before": {
+      "sha256": "4ca5779018258d3aa3892c3501dbc0aa57c72784206e3e8c7992de072d3793eb",
+      "bytes": 85328
+    },
+    "after": {
+      "sha256": "5d6974b44875bfb2fc5273b0c95567634da20b396d4969158a7aac6e51080b6d",
+      "bytes": 89157
+    },
+    "inserted_lines": 88,
+    "removed_lines": 0
+  }
+}

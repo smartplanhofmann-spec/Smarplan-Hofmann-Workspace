@@ -1,0 +1,31 @@
+test_actual_closed_trade_adds_old_expense_but_no_second_money_movement (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_actual_closed_trade_adds_old_expense_but_no_second_money_movement) ... ok
+test_actual_mixed_report_rechecks_one_project_source_without_global_right_loss (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_actual_mixed_report_rechecks_one_project_source_without_global_right_loss) ... ok
+test_actual_old_and_new_halves_keep_exact_annual_sum_and_opening_money (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_actual_old_and_new_halves_keep_exact_annual_sum_and_opening_money) ... ok
+test_actual_previous_year_vat_is_not_reclaimed_with_current_year_supplier_cash (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_actual_previous_year_vat_is_not_reclaimed_with_current_year_supplier_cash) ... ERROR
+test_actual_three_revisions_require_original_void_and_acceptance_history (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_actual_three_revisions_require_original_void_and_acceptance_history) ... ok
+test_earlier_v1_stays_exact_after_real_new_profile_and_year_original (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_earlier_v1_stays_exact_after_real_new_profile_and_year_original) ... ok
+test_live_missing_acceptance_rejects_new_download_but_old_archive_remains_verifiable (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_live_missing_acceptance_rejects_new_download_but_old_archive_remains_verifiable) ... ok
+test_partial_original_coverage_cannot_be_presented_as_completed_year (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_partial_original_coverage_cannot_be_presented_as_completed_year) ... ok
+test_removed_period_journal_and_crossed_acceptance_fail_even_rehashed_envelopes (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_removed_period_journal_and_crossed_acceptance_fail_even_rehashed_envelopes) ... ok
+
+======================================================================
+ERROR: test_actual_previous_year_vat_is_not_reclaimed_with_current_year_supplier_cash (test_accounting_year_package_v2_independent_review.IndependentYearPackageV2.test_actual_previous_year_vat_is_not_reclaimed_with_current_year_supplier_cash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-year-review-export-carryover-20261104/backend/test_accounting_year_package_v2_independent_review.py", line 80, in test_actual_previous_year_vat_is_not_reclaimed_with_current_year_supplier_cash
+    old, _ = self.f.f.save('item', self.f.old['entity_key'], record)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-year-review-export-carryover-20261104/backend/test_business_accounting_open_items.py", line 41, in save
+    body=self.body(operation,key,payload);preview=self.api.preview(self.owner,body)
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-year-review-export-carryover-20261104/backend/business_accounting_open_items.py", line 335, in preview
+    self._lock();self._access(actor,True);self._gate();return self._prepare(self._ledger(),data)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-year-review-export-carryover-20261104/backend/business_accounting_open_items.py", line 220, in _prepare
+    raise Problem(409,'Externe Identität und ursprüngliche Rechnung bleiben unverändert; keine Umbenennung eines Altpostens.')
+core.Problem: (409, 'Externe Identität und ursprüngliche Rechnung bleiben unverändert; keine Umbenennung eines Altpostens.')
+
+----------------------------------------------------------------------
+Ran 9 tests in 6.679s
+
+FAILED (errors=1)

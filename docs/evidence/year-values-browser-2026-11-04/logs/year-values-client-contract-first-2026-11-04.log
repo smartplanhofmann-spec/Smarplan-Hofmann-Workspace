@@ -1,0 +1,15 @@
+✔ actual complete period, original source, accepted receipt and immutable history read unchanged (28.777364ms)
+✔ actual partial_then_corrected period, original source, accepted receipt and immutable history read unchanged (8.082352ms)
+✔ actual closed_trade period, original source, accepted receipt and immutable history read unchanged (8.975918ms)
+✔ signed cents preserve the explicit original journal with no rounding or negative zero (0.775628ms)
+✔ original receipt remains bound to the old command even after other journal versions exist (3.244733ms)
+✔ declared partial coverage cannot become a complete year or an invented cash/VAT claim (1.106535ms)
+✔ EÜR projection copies original dates and exercised VAT without a new tax claim (0.762938ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 134.362361

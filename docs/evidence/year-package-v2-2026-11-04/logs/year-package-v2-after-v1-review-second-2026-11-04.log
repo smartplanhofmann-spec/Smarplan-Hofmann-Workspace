@@ -1,0 +1,12 @@
+test_closed_trade_originals_and_original_acceptance_are_bound (test_accounting_year_package_v2.YearPackageCarryover.test_closed_trade_originals_and_original_acceptance_are_bound) ... ok
+test_later_source_void_and_correction_preserve_earlier_v2_bytes (test_accounting_year_package_v2.YearPackageCarryover.test_later_source_void_and_correction_preserve_earlier_v2_bytes) ... ok
+test_original_journal_and_old_item_chain_with_new_payment_have_no_new_cash (test_accounting_year_package_v2.YearPackageCarryover.test_original_journal_and_old_item_chain_with_new_payment_have_no_new_cash) ... ok
+test_partial_prior_coverage_stays_incomplete_and_unclassified_source_is_explicit (test_accounting_year_package_v2.YearPackageCarryover.test_partial_prior_coverage_stays_incomplete_and_unclassified_source_is_explicit) ... ok
+test_rehashed_removed_original_subgraphs_and_coverage_are_rejected (test_accounting_year_package_v2.YearPackageCarryover.test_rehashed_removed_original_subgraphs_and_coverage_are_rejected) ... ok
+test_standalone_checker_and_fresh_rights (test_accounting_year_package_v2.YearPackageCarryover.test_standalone_checker_and_fresh_rights) ... ok
+test_v1_selection_stays_byte_identical_after_later_year_original_upload (test_accounting_year_package_v2.YearPackageCarryover.test_v1_selection_stays_byte_identical_after_later_year_original_upload) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 6.461s
+
+OK

@@ -1,0 +1,366 @@
+✔ independent host: initial year response stays gone after background and return success (46.751985ms)
+✔ independent host: initial year response stays gone after background and return error (3.206267ms)
+✔ independent preview: fresh write withdrawal does not offer confirmation (19.855096ms)
+✔ independent preview: fresh module withdrawal does not offer confirmation (12.0143ms)
+✔ independent held preview error after other never replaces current view (12.716417ms)
+✔ independent held preview error after session never replaces current view (10.178916ms)
+✔ independent held preview error after background never replaces current view (10.318207ms)
+✔ independent actual original byte corruption cannot download (6.080366ms)
+✔ independent actual original length corruption cannot download (6.464414ms)
+✔ independent actual opening-item original needs its own fresh source rights after bytes (8.803005ms)
+✔ independent upload lost ACK keeps actual file and exact nonce after closing (8.362622ms)
+✔ independent second preview hash after dialog switch cannot reopen old confirmation (17.565308ms)
+✖ independent EÜR initial source after actual host background cycle success cannot reveal private year values (9.469068ms)
+✖ independent EÜR initial source after actual host background cycle error cannot reveal private year values (6.524524ms)
+✔ independent EÜR displays actual historical VAT and cash dates without current cash (11.646226ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 13
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 262.892073
+
+✖ failing tests:
+
+test at web/office/tests/accounting-year-values-independent-lifecycle.test.mjs:42:33
+✖ independent EÜR initial source after actual host background cycle success cannot reveal private year values (9.469068ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   append: [Function: append],
+  +   attrs: {},
+  +   children: [
+  +     {
+  +       append: [Function: append],
+  +       attrs: {
+  +         'data-euer-detail': 'true',
+  +         class: 'stack break-word'
+  +       },
+  +       children: [
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Unveränderte frühere Journalzeilen: keine neue Geldbewegung und kein neuer Vorsteueranspruch. Ein belegter Teilzeitraum macht das Startjahr nicht vollständig.'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           tag: 'notice'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             '2026-01-01 bis 2026-10-31'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           tag: 'p'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Sicht',
+  +             'Kategorie',
+  +             'Datum',
+  +             'Betrag',
+  +             'SKR04',
+  +             'EÜR',
+  +             'Material',
+  +             '2026-08-20',
+  +             '-50.00',
+  +             '5400',
+  +             'EÜR',
+  +             'Bezahlte abziehbare Vorsteuer',
+  +             '2026-08-20',
+  +             '-9.50',
+  +             '1406',
+  +             'Umsatzsteuer',
+  +             'Vorsteuerrecht',
+  +             '2026-06-11',
+  +             '-19.00',
+  +             '1406'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           tag: 'table'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Jahresvortrag und ursprüngliche Originale öffnen'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           label: 'Jahresvortrag und ursprüngliche Originale öffnen',
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           run: [Function (anonymous)],
+  +           tag: 'button'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {
+  +             class: 'caption'
+  +           },
+  +           children: [
+  +             'Quellenstand: cd28e53d8c87fa94a365ae9ba3d319f5de77f637da7d1d2e150ddc77d8ac05b8'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           tag: 'p'
+  +         }
+  +       ],
+  +       classList: {
+  +         add: [Function: add]
+  +       },
+  +       dataset: {},
+  +       isConnected: true,
+  +       querySelector: [Function: querySelector],
+  +       replaceChildren: [Function: replaceChildren],
+  +       tag: 'div'
+  +     }
+  +   ],
+  +   classList: {
+  +     add: [Function: add]
+  +   },
+  +   controls: Map(2) {
+  +     'evidence_reference' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         listeners: {
+  +           input: [Function (anonymous)]
+  +         },
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'Nachweis / Prüfgrundlage',
+  +         name: 'evidence_reference',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     },
+  +     'reason' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         listeners: {
+  +           input: [Function (anonymous)]
+  +         },
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'Fachliche Begründung',
+  +         name: 'reason',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     }
+  +   },
+  +   dataset: {
+  +     euerDetail: 'true'
+  +   },
+  +   fields: [
+  +     {
+  +       label: 'Fachliche Begründung',
+  +       name: 'reason',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     },
+  +     {
+  +       label: 'Nachweis / Prüfgrundlage',
+  +       name: 'evidence_reference',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     }
+  +   ],
+  +   isConnected: true,
+  +   options: {
+  +     description: 'Eigene EÜR- und Umsatzsteuer-Arbeitsergebnisse für geprüfte erfasste Quellen. Keine amtliche Erklärung oder zertifizierte DATEV-Datei. Rechnung, Zahlung, Vorsteuerrecht und EÜR-Jahr werden getrennt beurteilt.',
+  +     extra: {
+  +       append: [Function: append],
+  +       attrs: {
+  +         'data-euer-detail': 'true',
+  +         class: 'stack break-word'
+  +       },
+  +       children: [
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Unveränderte frühere Journalzeilen: keine neue Geldbewegung und kein neuer Vorsteueranspruch. Ein belegter Teilzeitraum macht das Startjahr nicht vollständig.'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           tag: 'notice'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             '2026-01-01 bis 2026-10-31'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           tag: 'p'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Sicht',
+  +             'Kategorie',
+  +             'Datum',
+  +             'Betrag',
+  +             'SKR04',
+  +             'EÜR',
+  +             'Material',
+  +             '2026-08-20',
+  +             '-50.00',
+  +             '5400',
+  +             'EÜR',
+  +             'Bezahlte abziehbare Vorsteuer',
+  +             '2026-08-20',
+  +             '-9.50',
+  +             '1406',
+  +             'Umsatzsteuer',
+  +             'Vorsteuerrecht',
+  +             '2026-06-11',
+  +             '-19.00',
+  +             '1406'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           tag: 'table'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Jahresvortrag und ursprüngliche Originale öffnen'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           label: 'Jahresvortrag und ursprüngliche Originale öffnen',
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           run: [Function (anonymous)],
+  +           tag: 'button'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {
+  +             class: 'caption'
+  +           },
+  +           children: [
+  +             'Quellenstand: cd28e53d8c87fa94a365ae9ba3d319f5de77f637da7d1d2e150ddc77d8ac05b8'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           querySelector: [Function: querySelector],
+  +           replaceChildren: [Function: replaceChildren],
+  +           tag: 'p'
+  +         }
+  +       ],
+  +       classList: {
+  +         add: [Function: add]
+  +       },
+  +       dataset: {},
+  +       isConnected: true,
+  +       querySelector: [Function: querySelector],
+  +       replaceChildren: [Function: replaceChildren],
+  +       tag: 'div'
+  +     },
+  +     initial: {},
+  +     key: 'euer-edit-opening_year_values:2026:cd28e53d8c87fa94a365ae9ba3d319f5de77f637da7d1d2e150ddc77d8ac05b8',
+  +     submit: 'Buchung unverbindlich prüfen'
+  +   },
+  +   querySelector: [Function: querySelector],
+  +   replaceChildren: [Function: replaceChildren],
+  +   save: [AsyncFunction (anonymous)],
+  +   tag: 'form',
+  +   values: [Function (anonymous)]
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-independent-lifecycle.test.mjs:45:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Object],
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-year-values-independent-lifecycle.test.mjs:42:33
+✖ independent EÜR initial source after actual host background cycle error cannot reveal private year values (6.524524ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-independent-lifecycle.test.mjs:45:61)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

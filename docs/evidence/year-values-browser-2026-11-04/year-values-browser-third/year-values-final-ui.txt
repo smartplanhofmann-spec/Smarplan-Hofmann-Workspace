@@ -1,0 +1,144 @@
+Zum Inhalt
+S
+smartplan
+OFFICE
+◈
+Übersicht
+↗
+Anfragen
+▦
+Projekte
+◎
+Kontakte
+▤
+Einsatzplanung
+▧
+Dokumente
+€
+Finanzen
+✧
+Assistent
+◉
+Kundenservice
+⚙
+Einstellungen
+Weitere Bereiche
+Ihr Betrieb. Ein gemeinsamer Stand.
+
+Online · Daten vom eigenen Office-Server
+
+Alle Projekte
+Private project
+Second project, same customer
+Synthetic project
+year-values-browser-owner@example.test
+Abmelden
+Zahlungen & offene Posten
+EÜR-Vorbereitung
+Bankabgleich öffnen
+
+SMARTPLAN OFFICE
+
+EÜR-Vorbereitung
+
+Belegte Geldflüsse vorbereiten. Keine vollständige EÜR und keine Steuerberechnung.
+
+Nur freigegebene Quellen. Der Projektfilter wird hier nicht angewendet. Diese Ansicht belegt keine vollständige Unternehmenssicht.
+Das Vorjournal enthält unveränderte Geldflussnachweise und berechnet keine steuerlichen Summen. Die ausdrückliche fachliche Einordnung und Jahresauswertung stehen unter „Eigene EÜR“.
+Belegte frühere Jahreswerte
+Historische Anlagen
+Anfangsbestände und Liquidität
+Vorbereitungsprofil
+Vorjournal
+Kundenzahlungen
+Auszahlungen
+Geldkonten
+Eigene EÜR
+Vorjournal
+Noch keine Geldflüsse verknüpft oder bestätigt.
+0–0 von 0 freigegebenen Einträgen
+Belegten Jahresvortrag vorbereiten
+×
+Historische Quelle 1
+
+Synthetic counterparty · OLD-year-history
+
+1 ursprüngliche Zahlungsbuchungen · ursprüngliche Vorsteuerbuchung OLD-2026-061
+
+Quelle aus diesem Entwurf entfernen
+Kanonischen Altposten auswählen
+Vollständig erledigten externen Beleg hinzufügen
+Jahresoriginal hochladen
+Ursprüngliche Kontrollsumme hinzufügen
+Letzte Kontrollsumme aus Entwurf entfernen
+
+Kontrollsummen stammen ausdrücklich aus dem ursprünglichen Journal. Sie werden nicht aus gewünschten Ergebnissen vorbelegt.
+
+Belegter früherer Zeitraum von
+Belegter früherer Zeitraum bis
+Eigenständiges ursprüngliches Zeitraumjournal
+Angenommenes Jahresoriginal auswählen
+original-year-journal.pdf · 493c8e3dfebc
+historical.pdf · ceb5dc1e87a8
+Kontrollsumme 1: ursprüngliches Journal
+Journal ausdrücklich auswählen
+EÜR
+Umsatzsteuer
+Kontrollsumme 1: ursprüngliche Kategorie
+Kategorie ausdrücklich auswählen
+Inländischer Erlös
+Material
+Fremdleistungen
+Miete
+Versicherung
+Software
+Sonstiger Aufwand
+Vereinnahmte Umsatzsteuer
+Bezahlte abziehbare Vorsteuer
+Bereits ausgeübter Vorsteueranspruch
+Ist-Umsatzsteuer
+Kontrollsumme 1: ursprüngliches SKR04-Konto
+Kontrollsumme 1: ursprünglicher Betrag mit Vorzeichen (€)
+Kontrollsumme 2: ursprüngliches Journal
+Journal ausdrücklich auswählen
+EÜR
+Umsatzsteuer
+Kontrollsumme 2: ursprüngliche Kategorie
+Kategorie ausdrücklich auswählen
+Inländischer Erlös
+Material
+Fremdleistungen
+Miete
+Versicherung
+Software
+Sonstiger Aufwand
+Vereinnahmte Umsatzsteuer
+Bezahlte abziehbare Vorsteuer
+Bereits ausgeübter Vorsteueranspruch
+Ist-Umsatzsteuer
+Kontrollsumme 2: ursprüngliches SKR04-Konto
+Kontrollsumme 2: ursprünglicher Betrag mit Vorzeichen (€)
+Kontrollsumme 3: ursprüngliches Journal
+Journal ausdrücklich auswählen
+EÜR
+Umsatzsteuer
+Kontrollsumme 3: ursprüngliche Kategorie
+Kategorie ausdrücklich auswählen
+Inländischer Erlös
+Material
+Fremdleistungen
+Miete
+Versicherung
+Software
+Sonstiger Aufwand
+Vereinnahmte Umsatzsteuer
+Bezahlte abziehbare Vorsteuer
+Bereits ausgeübter Vorsteueranspruch
+Ist-Umsatzsteuer
+Kontrollsumme 3: ursprüngliches SKR04-Konto
+Kontrollsumme 3: ursprünglicher Betrag mit Vorzeichen (€)
+Prüf- oder Korrekturgrund
+Unveränderte EÜR, Regel- und Istbesteuerung im gesamten erklärten Zeitraum geprüft
+Originaljournal, alle ursprünglichen Buchungsidentitäten und Kontrollsummen für den erklärten Zeitraum vollständig geprüft
+Ich bestätige gewöhnliche vollständig betriebliche inländische EUR-Belege mit einer 19- oder 7-Prozent-Gruppe. Keine Anlagen, Lohnwerte, Privatanteile, Auslandsfälle, Skonti, Erstattungen oder Methodenwechsel.
+Jahresvortrag unverbindlich prüfen

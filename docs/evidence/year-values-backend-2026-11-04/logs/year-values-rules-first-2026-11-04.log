@@ -1,0 +1,9 @@
+test_fully_paid_external_trade_is_supported_without_fake_open_remainder (test_accounting_year_opening_rules.YearOpeningRules.test_fully_paid_external_trade_is_supported_without_fake_open_remainder) ... ok
+test_known_old_half_and_old_full_vat_retain_distinct_actual_periods (test_accounting_year_opening_rules.YearOpeningRules.test_known_old_half_and_old_full_vat_retain_distinct_actual_periods) ... ok
+test_partial_coverage_is_not_full_and_cannot_move_original_vat_month (test_accounting_year_opening_rules.YearOpeningRules.test_partial_coverage_is_not_full_and_cannot_move_original_vat_month) ... ok
+test_wrong_year_start_day_duplicate_identity_and_control_cent_fail (test_accounting_year_opening_rules.YearOpeningRules.test_wrong_year_start_day_duplicate_identity_and_control_cent_fail) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.621s
+
+OK

@@ -82,7 +82,7 @@ class CatalogV2AssetsSource5Restore(unittest.TestCase):
         self.assertEqual(document['totals']['net'], '30.00')
         document_price = document['positions'][0]['catalog_price_snapshot']
         horizon = business_schema.financial_accounting_horizon(f.office)
-        self.assertEqual(horizon['schema_version'], 14)
+        self.assertEqual(horizon['schema_version'], 15)
         fingerprints = release.snapshot_fingerprint(payroll_fixture.fixture.DSN)
         f.office.db.close()
 
@@ -99,7 +99,7 @@ class CatalogV2AssetsSource5Restore(unittest.TestCase):
                 self.assertEqual(Payroll(restored).export(f.owner, run['id'], 'pdf')[0], payroll_pdf)
                 self.assertEqual(EuerAccounting(restored).exported(f.owner, export['id']), artifact)
                 evidence = evidence_for(restored, report)
-                self.assertEqual(evidence['schema'], 15)
+                self.assertEqual(evidence['schema'], 16)
                 self.assertEqual(evidence['accounting_horizon'], horizon)
                 for api, command in ((assets.HistoricalAssets(restored), asset_command),
                                      (openings.OpeningBalances(restored), opening_command)):
@@ -112,6 +112,7 @@ class CatalogV2AssetsSource5Restore(unittest.TestCase):
             try:
                 old = deepcopy(evidence)
                 old['schema'] = 13
+                old['accounting_horizon'].pop('year_values')
                 old['accounting_horizon'].pop('opening_items')
                 old['accounting_horizon'].pop('historical_assets')
                 old['accounting_horizon']['schema_version'] = 12

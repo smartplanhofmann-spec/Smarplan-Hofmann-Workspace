@@ -1,0 +1,112 @@
+{
+  "baseline_commit": "b0b96024f0a7cf2c7097fb3b77c64032265850a5",
+  "year_package_v1_manifest_sha256": "e2f228173bb6d0eb3408d1cf48dadf0f7cbfd0e138c19ea3dc8ed8f89f13d069",
+  "year_values_snapshot_sha256": "1d7034e5953b5790d1104add35a67af288fabdaa2cf9a5ba086e68158ef74fdf",
+  "files": [
+    {
+      "path": "backend/accounting_open_item_rules.py",
+      "common_sha256": "d6fa590cd24b9dd765aea97cb6f10b684a3681430e6b839167576586935fd190",
+      "ours_sha256": "d6fa590cd24b9dd765aea97cb6f10b684a3681430e6b839167576586935fd190",
+      "year_values_sha256": "c4241405e8a6d05fddb4a729c53d0710628cc2ac9d010679727a57a2d17cdcac",
+      "result_sha256": "c4241405e8a6d05fddb4a729c53d0710628cc2ac9d010679727a57a2d17cdcac"
+    },
+    {
+      "path": "backend/accounting_year_opening_rules.py",
+      "common_sha256": null,
+      "ours_sha256": "ae8bc91c8e68a3927cc478c7f4b02b56a66d99e26d55468053940a1ea86392a7",
+      "year_values_sha256": "ae8bc91c8e68a3927cc478c7f4b02b56a66d99e26d55468053940a1ea86392a7",
+      "result_sha256": "ae8bc91c8e68a3927cc478c7f4b02b56a66d99e26d55468053940a1ea86392a7"
+    },
+    {
+      "path": "backend/business_accounting_year_openings.py",
+      "common_sha256": null,
+      "ours_sha256": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd",
+      "year_values_sha256": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd",
+      "result_sha256": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd"
+    },
+    {
+      "path": "backend/accounting_year_opening_sources.py",
+      "common_sha256": null,
+      "ours_sha256": "4bdb0c049f78018a9e2c519cd003d4cffe56dba3296fdf399745a61d82eb632a",
+      "year_values_sha256": "4bdb0c049f78018a9e2c519cd003d4cffe56dba3296fdf399745a61d82eb632a",
+      "result_sha256": "4bdb0c049f78018a9e2c519cd003d4cffe56dba3296fdf399745a61d82eb632a"
+    },
+    {
+      "path": "backend/business_accounting_open_items.py",
+      "common_sha256": "9077d748850e298e31187c63b71c256a8810582deb2acc5d5f302f39149671a6",
+      "ours_sha256": "9077d748850e298e31187c63b71c256a8810582deb2acc5d5f302f39149671a6",
+      "year_values_sha256": "8f75aff4f916772e16bdacb95c83a8898bdc8e109ef63e499a08893d36fa6080",
+      "result_sha256": "8f75aff4f916772e16bdacb95c83a8898bdc8e109ef63e499a08893d36fa6080"
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "common_sha256": "906293f5da88ca10022054b2e555860e5d2dfca105358141090b7754a8ff1dfe",
+      "ours_sha256": "8b2f98d357e00af6c861f2f8b64c1899e36581383f8c1ee3b384b295a0e3c318",
+      "year_values_sha256": "15a7b301004f7a4079b7694c7cbe9cd8442fcd51d2ab8e3628a6b261878ca605",
+      "result_sha256": "e345b161f96ec43cafc0229df9aa876393acd2824a4c5eb2068b046b651ace0f"
+    },
+    {
+      "path": "backend/business_accounting_asset_openings.py",
+      "common_sha256": "7d7d4d01051e9623b0990cabf8404679c86c87759c1fe755fec1745407a9f312",
+      "ours_sha256": "7d7d4d01051e9623b0990cabf8404679c86c87759c1fe755fec1745407a9f312",
+      "year_values_sha256": "216253560e8abc0fdc129633c9fc2a7734f10a025276bfe1e7f8dd2ecb3eacf3",
+      "result_sha256": "216253560e8abc0fdc129633c9fc2a7734f10a025276bfe1e7f8dd2ecb3eacf3"
+    },
+    {
+      "path": "backend/business_finance.py",
+      "common_sha256": "62bd0103ecc806f78bc2792d99d99e51569a988360d3e8e2efe765f2c3e088d1",
+      "ours_sha256": "62bd0103ecc806f78bc2792d99d99e51569a988360d3e8e2efe765f2c3e088d1",
+      "year_values_sha256": "83f89fb212fe99edf2ae829211f1fc9eb1eb6fb1da820c9e954f26b25147d9de",
+      "result_sha256": "83f89fb212fe99edf2ae829211f1fc9eb1eb6fb1da820c9e954f26b25147d9de"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "common_sha256": "a3e1de704fcc117b5e5785af7a1be53013830166cca3de27aec073ab5ca1044b",
+      "ours_sha256": "416af73900ad9e275333b12e2dd6ae3124674c77f22ea54e8b34d69792b060ed",
+      "year_values_sha256": "c934ddb1f7ba523aebe924390d35868e71a9a2cd6d9212a94fc870bbb3be3e8b",
+      "result_sha256": "fb98ed194841536d22f0f20e3224c0c5bf0fac94da63d750db1933ffd487d461"
+    },
+    {
+      "path": "backend/business_api.py",
+      "common_sha256": "8fd290c130fc82934bb86a16a4000da7f00ec404d6bb91622ff40df04dc09b6c",
+      "ours_sha256": "3f5e9a1281b99ba1baac3837099a7c0f8e0a0ac90f41e10bbb2475134bea857e",
+      "year_values_sha256": "a22cd8bed3f1a674fad45c89eef0f900c6516a613f543cc8da35f6011744192f",
+      "result_sha256": "712b472ec78861adf11d79c8e2e29f29188d3d73d73f26ac106c164c53eb5719"
+    },
+    {
+      "path": "backend/business_organization.py",
+      "common_sha256": "a29f792f8c76a69870d1e03ef4d23c686fa9163cdeb89b9813b7d7473b2f8c48",
+      "ours_sha256": "3dc1ed72f626e33c2d9ea5406fbc6b545276c7edca97ab87371ed12b2b22f846",
+      "year_values_sha256": "d4cb60300c0baa48c1ea9582d6fd1a62a42c5ac80a25c6cd272ca878ac9c163e",
+      "result_sha256": "0defa8eae4498745bf8e9f82732f944c2571e25b7e2a70a4b96401d005bb7251"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "common_sha256": "03fd20f2f63cde8d4dcbfd43f5f72f35b18957048735564c750c43ad135e5768",
+      "ours_sha256": "b0276b3420a7c3638955d9910d0226b71e5ed7f39b565b2f528e0e895a033d12",
+      "year_values_sha256": "c8138927c9714f82f412658eea5f9d4d5f30ed888c1525bab8e878d014babff0",
+      "result_sha256": "ffc3e408743573b70c72c026e3ba5ef0caef06b8b1ec086390256aaa8d0855a4"
+    },
+    {
+      "path": "backend/server.py",
+      "common_sha256": "d00620343aa8266d9a360fe5b3dffb205e5e2b71208153da0aea4256e40b8ece",
+      "ours_sha256": "6aced07895f002fb8682d473c966ac235fae99f6c859bddfa671acdc0861cefb",
+      "year_values_sha256": "af4f8b63b12b688603faa181fa42e36a8cb45a9ad0b6abe904905c1482b9e447",
+      "result_sha256": "0b8e22be901a5361f2c9d7f7ac99effa0745835d9edde02881f8619c6fa25a1e"
+    },
+    {
+      "path": "backend/online/web.py",
+      "common_sha256": "ddc3ba955dc0f4a940cda3bf4e3f1e7708df1970fecaccaf79f3f3bad8e16ae1",
+      "ours_sha256": "1b522c30ab835e62ff9bd83b1a4cf48be265ecebe90dd7c4f6de326e6cbb70ee",
+      "year_values_sha256": "c9f0c29ddd386b241de1cf4361f6361bff77106fa7b7a05ef58fedbd52378a60",
+      "result_sha256": "c6c12b2890fbde20927a3c7ce604f34e89330f7de2afab8f702b892a65c00dab"
+    }
+  ],
+  "conflicts": [
+    "backend/business_api.py",
+    "backend/server.py",
+    "backend/online/web.py"
+  ],
+  "year_values_handoff_sha256": "6c665abc663964c27dff1a38baf61a895d064904a7aa3957079e14e84db8221a",
+  "conflicts_resolved": "All three additive HTTP route/body-limit conflicts retain b0b dated catalog V2 and add actual year-values routes."
+}

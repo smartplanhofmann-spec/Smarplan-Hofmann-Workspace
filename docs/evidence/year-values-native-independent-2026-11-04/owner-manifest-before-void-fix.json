@@ -1,0 +1,146 @@
+{
+  "date": "2026-11-04",
+  "scope": "native evidenced same-year carryover v1",
+  "source_workspace": "/workspace/smartplan-opening-year-values-20261104",
+  "status": "own implementation complete; runtime frozen for independent review",
+  "runtime": [
+    "app/lib/business_accounting_year_values.dart",
+    "app/lib/business_accounting_year_values_contract.dart",
+    "app/lib/business_accounting_open_items_contract.dart",
+    "app/lib/business_accounting_euer.dart",
+    "app/lib/business_session.dart"
+  ],
+  "tests": [
+    "app/test/business_accounting_year_values_test.dart",
+    "app/test/business_accounting_year_values_lifecycle_test.dart",
+    "app/test/business_accounting_year_values_http_test.dart"
+  ],
+  "checks": {
+    "contract": 10,
+    "lifecycle_session_desktop_profile": 21,
+    "actual_http_390px": 1,
+    "euer_accounting_regression": 27,
+    "combined_passed": 59,
+    "analysis_issues": 0
+  },
+  "files": {
+    "app/lib/business_accounting_year_values.dart": {
+      "sha256": "a31684ea07803994ab0485d4eaeec30790305086c9eef6f272a8e498d93f7c88",
+      "bytes": 48291
+    },
+    "app/lib/business_accounting_year_values_contract.dart": {
+      "sha256": "a83bf75212e0181444c5953130e1696956bc599d4bf5bb7e24f5e4f20798aa06",
+      "bytes": 40841
+    },
+    "app/lib/business_accounting_open_items_contract.dart": {
+      "sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+      "bytes": 33097
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "76f368fe389936709b9c682a057e85e709e90b644c7c90fc1b946bfb7d335b87",
+      "bytes": 83605
+    },
+    "app/lib/business_session.dart": {
+      "sha256": "96ff12431a93b3a10c122d956252721d790dff673c954376639092f43b5a3f5e",
+      "bytes": 99251
+    },
+    "app/test/business_accounting_year_values_test.dart": {
+      "sha256": "0a5829452e834e3b1dd3766bb45581ce24d57214899c9d14b32415e6eb52d44e",
+      "bytes": 5348
+    },
+    "app/test/business_accounting_year_values_lifecycle_test.dart": {
+      "sha256": "c23257bca959263f720a88e882a0c3c1497a0bfc20d534ba3a609375b8b5dd02",
+      "bytes": 21552
+    },
+    "app/test/business_accounting_year_values_http_test.dart": {
+      "sha256": "e9d25c76d79d57f6c5735cccc0a3fa83c3f53d9b6912431d890ed2555ca0de7a",
+      "bytes": 21207
+    },
+    "docs/fixtures/accounting_year_values_v1.json": {
+      "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+      "bytes": 654241
+    },
+    "app/test/fixtures/accounting_year_values_v1.json": {
+      "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+      "bytes": 654241
+    },
+    "docs/fixtures/accounting_year_values_native_boundaries_v1.json": {
+      "sha256": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+      "bytes": 148143
+    },
+    "app/test/fixtures/accounting_year_values_native_boundaries_v1.json": {
+      "sha256": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+      "bytes": 148143
+    },
+    "scripts/generate-accounting-year-values-native-boundaries.py": {
+      "sha256": "be1c3366c9d03a27309f85bfbe62b3e62a048fdd786270677285037664e70239",
+      "bytes": 1342
+    },
+    "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_2026-11-04.md": {
+      "sha256": "dbbf69ff6eae694572320f18ef65c7da0255f9cff44db0819079afc3da8d4cf0",
+      "bytes": 7751
+    },
+    "docs/evidence/year-values-native-2026-11-04/README.md": {
+      "sha256": "e44152e098339436baf7e265c36a5b5c3ab15e97a494b3bef1c18fb9d34fb432",
+      "bytes": 2269
+    },
+    "docs/evidence/year-values-native-2026-11-04/actual-http-green-profile-fallback-red.txt": {
+      "sha256": "4c002a485593f3495f60b412dd053fb65dcf1f07b528c697bcc37c871866a130",
+      "bytes": 13605
+    },
+    "docs/evidence/year-values-native-2026-11-04/baseline.json": {
+      "sha256": "8fc110a24e182e6546ed97f3f1eb1cc43a715609b713acf1069d822051931146",
+      "bytes": 733
+    },
+    "docs/evidence/year-values-native-2026-11-04/final-acceptance-59.txt": {
+      "sha256": "10d9819524129fc3ecf9cddf86e033532b98ea889ae24c322f7d250c19804975",
+      "bytes": 17296
+    },
+    "docs/evidence/year-values-native-2026-11-04/final-analysis.txt": {
+      "sha256": "26522c02c0396c0954e0a53924f883d5abdf16cbd6d7f049380fdc36baa6d794",
+      "bytes": 358
+    },
+    "docs/evidence/year-values-native-2026-11-04/first-390px-layout-red.txt": {
+      "sha256": "8d57bd6a52b5f2eba52ff90ba717793b50dd551227b7a94b5b22d44a82be0e7c",
+      "bytes": 77384857
+    },
+    "docs/evidence/year-values-native-2026-11-04/integration.patch": {
+      "sha256": "44ec50f256f96fc4bf59e699a918121e77263dc47472e2498eae35a42b9d9e5a",
+      "bytes": 11939
+    },
+    "docs/evidence/year-values-native-2026-11-04/reader-dependency.json": {
+      "sha256": "5b9e30edc7915f51e61896b9ad967d700b704908146db2cc13d0d1a2f322a5a3",
+      "bytes": 397
+    },
+    "docs/evidence/year-values-native-2026-11-04/runtime-freeze.json": {
+      "sha256": "d42c6ff13dc6f99dbecdc606daaf2e90959f8b839eb61c31e4cbc8085da2434f",
+      "bytes": 2936
+    },
+    "docs/evidence/year-values-native-2026-11-04/scroll-and-test-driver-progress.txt": {
+      "sha256": "b6dd53257e9f48334c85c29782970f5d9d704b8d293c4b44299f1b912169afbf",
+      "bytes": 10192
+    }
+  },
+  "unchanged": {
+    "app/lib/business_accounting_openings_contract.dart": {
+      "sha256": "cf5b83d5de3844e4747c3db5b63325a7d3a94c3f6b1fd5b011ca20bb68a75b0a",
+      "bytes": 24567
+    },
+    "app/lib/business_widgets.dart": {
+      "sha256": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+      "bytes": 27927
+    },
+    "app/lib/api.dart": {
+      "sha256": "d1241f02b7f7163bae00ec1c6a5cfa2ae42c5a1b5ca505218fe25c1efac501b8",
+      "bytes": 7402
+    }
+  },
+  "integration": "Copy two new year-values runtime files and the exact final open-items contract dependency. Apply narrow Euer/Session integration.patch preserving all newer unrelated global hooks. Copy three own tests, actual fixtures and boundary generator; no backend runtime edits.",
+  "limits": [
+    "Independent review and root integration are separate.",
+    "Declared coverage does not independently establish completeness of all external legacy records.",
+    "Mobile platform output not tested on a physical device.",
+    "Actual HTTP form uses canonical opening-item route; closed external trade covered by actual fixture contract.",
+    "No production contact, filing, main-tree mutation or commits."
+  ]
+}

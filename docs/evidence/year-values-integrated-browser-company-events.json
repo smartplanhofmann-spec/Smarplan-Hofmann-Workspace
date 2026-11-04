@@ -1,0 +1,8 @@
+{
+  "workflow": "company-events",
+  "exit_code": 0,
+  "duration_seconds": 51.199,
+  "log": "docs/evidence/year-values-integrated-browser-company-events-2026-11-04.txt",
+  "log_sha256": "bd691f7412c8bd1fa82cd8dbff06f4b83aa3a513faec6affa173abbcd3a29a32",
+  "recorded_at_utc": "2026-11-04T13:33:19.983372+00:00"
+}

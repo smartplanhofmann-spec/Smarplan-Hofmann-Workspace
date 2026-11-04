@@ -224,6 +224,8 @@ class HistoricalAssets:
         if not historical:
             from business_accounting_open_items import require_unreserved_original
             require_unreserved_original(self.office,data['source']['sha256'])
+            from business_accounting_year_openings import require_unreserved_original as require_unreserved_year_original
+            require_unreserved_year_original(self.office,data['source']['sha256'])
             self._open(data,old)
         value=dict({key:data[key] for key in INPUT},**FLAGS,profile=profile,source_proof=proof,previous_ref=event_reference(old) if old else None,
                    original_schedule=original_schedule(data['asset']),start_year=continuation(data['asset'],data['opening_date'],int(data['opening_date'][:4])))

@@ -1,0 +1,27 @@
+✔ actual complete period, original source, accepted receipt and immutable history read unchanged (121.508742ms)
+✔ actual partial_then_corrected period, original source, accepted receipt and immutable history read unchanged (27.046497ms)
+✔ actual closed_trade period, original source, accepted receipt and immutable history read unchanged (53.209214ms)
+✔ signed cents preserve the explicit original journal with no rounding or negative zero (6.849211ms)
+✔ original receipt remains bound to the old command even after other journal versions exist (13.719063ms)
+✔ declared partial coverage cannot become a complete year or an invented cash/VAT claim (6.299954ms)
+✔ EÜR projection copies original dates and exercised VAT without a new tax claim (0.884101ms)
+✔ actual original source selection, explicit controls, preview, final acceptance and immutable history (363.728205ms)
+✔ delayed genuine preview after close cannot reopen or confirm (34.894021ms)
+✔ delayed genuine preview after other cannot reopen or confirm (54.948761ms)
+✔ delayed genuine preview after session cannot reopen or confirm (44.344918ms)
+✔ delayed genuine preview after background cannot reopen or confirm (89.710657ms)
+✔ delayed initial state after other reveals no original values (9.632321ms)
+✔ delayed initial state after session reveals no original values (4.874869ms)
+✔ delayed initial state after background reveals no original values (35.824411ms)
+✔ server-only read revocation while state is pending neutralizes the original dialog (20.310696ms)
+✔ accepted command lost ACK keeps exact nonce and original receipt after later journal state (133.631367ms)
+✔ foreign genuine receipt cannot consume an unresolved original command (8.440297ms)
+✔ exact EÜR year identity and source-only form preserve legacy 32-character restrictions (2.687146ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1461.7176

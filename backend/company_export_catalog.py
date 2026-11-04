@@ -8,6 +8,9 @@ legal/business decisions; this inventory never invents one universal duration.
 CATALOG_VERSION = 1
 # Every known table, including excluded security/receipt tables, is accounted for.
 COLUMNS = {
+    'business_accounting_year_opening_originals': 'id,entity_key,filename,media_type,size,sha256,original,created_by,created_at',
+    'business_accounting_year_opening_events': 'id,sequence,entity_key,revision,previous_hash,payload_json,content_hash,created_by,created_at',
+    'business_accounting_year_opening_requests': 'user_id,request_id,operation,request_json,request_hash,result_json',
     'business_accounting_open_item_originals': 'id,entity_key,filename,media_type,size,sha256,original,created_by,created_at',
     'business_accounting_open_item_events': 'id,sequence,entity_key,revision,previous_hash,payload_json,content_hash,created_by,created_at',
     'business_accounting_open_item_requests': 'user_id,request_id,operation,request_json,request_hash,result_json',
@@ -427,6 +430,11 @@ def policy(table):
         result['sensitive']=True
         result['purpose']='Original bank statements, account identity, counterparties/references and explicit reconciliation history of existing cash flows'
         result['retention_basis']='Applicable financial evidence and original statement duties; source-specific review, no universal legal duration'
+    if table.startswith('business_accounting_year_opening_'):
+        result['sensitive']=True
+        result['purpose']='Original historical yearly journal values and explicitly reviewed coverage; no current cash flow or new input VAT claim'
+        result['retention_basis']='Applicable original financial evidence duties; source-specific review, no universal legal duration'
+        result['source_access']='Current global accounting read and finance read access'
     if table.startswith('business_accounting_open_item_'):
         result['sensitive']=True
         result['purpose']='Original historical receivables/payables, already settled portions and immutable actual subsequent payments; no recreated invoice or repeated historical input VAT deduction'

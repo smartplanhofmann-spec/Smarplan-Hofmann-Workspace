@@ -7,14 +7,22 @@ Beschäftigte/Minijobs sind der vereinbarte Rahmen.
 
 ## Nachvollziehbarer Orientierungswert
 
-Am Hauptstand `13af5bc` tragen 40 von 62 Anforderungspunkten den Status
-„implementiert“ oder „getestet“: rund 65 Prozent nach ungewichteter Punktzahl.
-Fünf Punkte sind teilweise umgesetzt, elf offen und sechs benötigen externe
-Zugänge oder Nachweise. Die unterschiedlichen Umfänge und noch offenen Abnahmen
-A–G erlauben daraus weder einen Prozentsatz der erledigten Arbeitszeit noch
-einen Fertigstellungstermin. Die Nachweise beziehen sich jeweils auf den in der
-Matrix ausdrücklich abgegrenzten Funktionsumfang.
-[Zählung und Bezugsstand](evidence/requirements-progress-count-2026-11-04.json).
+Die Statusverteilung bleibt in diesem Integrationsstand unverändert: 40 von
+62 Anforderungszeilen sind „implementiert“ oder „getestet“. Das sind 64,5 %,
+gerundet etwa 65 %, als ungewichtete Zeilenzählung. Fünf Zeilen sind teilweise
+umgesetzt, elf offen und sechs extern blockiert. Keine Zeile wird allein wegen
+der zusätzlichen Jahresvortrags- und Archivtests höher eingestuft.
+
+Die unterschiedlichen Umfänge und offenen Abnahmen A–G erlauben daraus weder
+eine Fertigstellungs- oder Arbeitszeitquote noch einen Termin. Die
+[ursprüngliche Zählung am Stand `13af5bc`](evidence/requirements-progress-count-2026-11-04.json)
+bleibt als Bezugsnachweis erhalten; die [erneute Zählung](evidence/requirements-progress-year-values-2026-11-04.json)
+bestätigt dieselben Statuswerte am aktuellen Integrationsstand.
+
+Der [gemeinsam geprüfte Integrationsstand](CRM_ERP_JAHRESVORTRAG_GESAMTPRUEFUNG_2026-11-04.md)
+auf Basis `2e2ed5c` integriert Jahresvorträge und V2-Archive. Der
+[Gesamtnachweis](evidence/year-values-integrated-regression-2026-11-04.json)
+bindet die endgültigen Quellen und archivierten Prüfläufe.
 
 ## Bereits vorhandene und abgegrenzt geprüfte Funktionen
 
@@ -24,7 +32,8 @@ Matrix ausdrücklich abgegrenzten Funktionsumfang.
   Posten, Mahnungen, Teilzahlungen und Erstattungen.
 - EÜR-Geldjournal, steuerliche Einordnung, Privat-/Kapitalbewegungen,
   Vorsteuerzeitpunkte, lineare Abschreibung, Gegenbuchung, Periodensperren
-  und nachvollziehbares Jahresprüfpaket.
+  und nachvollziehbares Jahresprüfpaket; im aktuellen Integrationsstand zusätzlich
+  belegte unterjährige Jahresvorträge und der zugehörige V2-Originalnachweis.
 - Original-Bankauszüge, Zahlungsabgleich und belegte Bank-/Kassen-Anfangssalden.
 - Personalunterlagen, Zeiten, Abwesenheiten, Reisekosten sowie begrenzte,
   ausdrücklich versionierte Lohnfälle. Dies ist keine vollständige deutsche
@@ -76,9 +85,18 @@ Betriebsfreigabe.
    geprüft, aber noch nicht integriert. Die Berechnung mehrerer Bonus-Steuergruppen bleibt
    gesperrt; diese Grundlage berechnet noch keine freigegebenen Nettobeträge.
 7. Belegte laufende Jahreswerte vor einem unterjährigen Softwarebeginn sind
-   im Backend isoliert einschließlich eigener unabhängiger Fälle geprüft;
-   beide Oberflächen befinden sich in tatsächlicher Prüfung. Historische Werte
-   erzeugen keinen neuen Geldfluss oder Vorsteueranspruch.
+   mit beiden Clients und V2-Archivanschluss im Integrationsstand
+   [technisch integriert und gemeinsam geprüft](CRM_ERP_JAHRESVORTRAG_GESAMTPRUEFUNG_2026-11-04.md):
+   1.899 von 1.900 Backendfällen (ein Windows-Skip), 1.542 Flutter-, 842 Node-
+   und 16 Paketfälle bestehen; Analyse ohne Befund. 121 unterschiedliche
+   PostgreSQLfälle sind nach vier gezielten Nachprüfungen erfolgreich abgedeckt.
+   Drei Fehler des Erstlaufs betrafen historische Testaufbauten; ausschließlich
+   vier PG-Testdateien wurden nach den Gesamtprüfungen angepasst. Fünf echte
+   Browserabläufe bestehen. Der separate mobile CSS-Nachtrag besitzt einen
+   weiteren bestandenen Browsernachlauf und seine finale Quellbindung.
+   Historische Werte erzeugen keinen neuen Geldfluss oder Vorsteueranspruch.
+   Finanzhorizont 15/Bericht 16 sowie 144 Backend- und 209 Betreiberpfade sind
+   registriert.
 8. Das ergänzende Original-/Journalpaket ist mit beiden Clients
    [gemeinsam geprüft](CRM_ERP_JAHRESPAKET_GESAMTPRUEFUNG_2026-11-04.md):
    84 betroffene Backend-, 401 Buchhaltungs-/Export-App- und alle 762 Nodefälle,
@@ -88,13 +106,19 @@ Betriebsfreigabe.
 9. Ein privater Vergleich einer bereits bezahlten Bonussteuer bei belegtem
    ursprünglichem Vorarbeitgeberbetragsfehler ist isoliert und unabhängig geprüft.
    Er ist noch nicht integriert und enthält keine Zulässigkeitsentscheidung,
-   Korrekturannahme, neue Zahlung oder Meldung.
+   Korrekturannahme, neue Zahlung oder Meldung. Weitere private Lohnquellenpakete
+   befinden sich ebenfalls außerhalb dieses Integrationsstands.
+10. Die parallelen Erweiterungen zur Unternehmensisolation, zum nativen
+    Assistenten und zur Sprache sowie zu Service und Betriebsmitteln sind
+    noch nicht integriert. Ihre eigenen Nachweise werden vor einer späteren
+    Zusammenführung separat bewertet.
 
 ## Noch offene Buchhaltungs- und Gesamtanforderungen
 
-Weitere Steuerfälle, die Integration der Jahresvorträge und ihres V2-Archivanschlusses,
-geeignete Steuerberater-/DATEV- und Behördenwege sowie die vollständige fachliche
-Buchhaltungsprüfung bleiben offen. Ein automatischer Bankabruf benötigt zusätzlich einen ausgewählten
+Weitere Steuerfälle, geeignete Steuerberater-/DATEV- und Behördenwege sowie
+die vollständige fachliche Buchhaltungsprüfung bleiben offen. Der technisch
+integrierte Jahresvortrag mit V2-Archivanschluss schließt diese Gesamtanforderung
+nicht. Ein automatischer Bankabruf benötigt zusätzlich einen ausgewählten
 Anbieter und dessen echten Vertrag. Weitere Lohn-/Korrektur-/Versicherungsfälle,
 Meldeverfahren, durchgängige Gesamtabnahmen A–G und reale Windows-/iPhone-
 Betriebsnachweise sind weiterhin erforderlich.

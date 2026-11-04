@@ -1,0 +1,80 @@
+{
+  "date": "2026-11-04",
+  "status": "runtime frozen for independent review; 59 own/regression tests passed and analyzer zero",
+  "runtime": {
+    "app/lib/business_accounting_year_values.dart": {
+      "sha256": "a31684ea07803994ab0485d4eaeec30790305086c9eef6f272a8e498d93f7c88",
+      "bytes": 48291
+    },
+    "app/lib/business_accounting_year_values_contract.dart": {
+      "sha256": "a83bf75212e0181444c5953130e1696956bc599d4bf5bb7e24f5e4f20798aa06",
+      "bytes": 40841
+    },
+    "app/lib/business_accounting_open_items_contract.dart": {
+      "sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+      "bytes": 33097
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "76f368fe389936709b9c682a057e85e709e90b644c7c90fc1b946bfb7d335b87",
+      "bytes": 83605
+    },
+    "app/lib/business_session.dart": {
+      "sha256": "96ff12431a93b3a10c122d956252721d790dff673c954376639092f43b5a3f5e",
+      "bytes": 99251
+    }
+  },
+  "tests": {
+    "app/test/business_accounting_year_values_test.dart": {
+      "sha256": "0a5829452e834e3b1dd3766bb45581ce24d57214899c9d14b32415e6eb52d44e",
+      "bytes": 5348
+    },
+    "app/test/business_accounting_year_values_lifecycle_test.dart": {
+      "sha256": "c23257bca959263f720a88e882a0c3c1497a0bfc20d534ba3a609375b8b5dd02",
+      "bytes": 21552
+    },
+    "app/test/business_accounting_year_values_http_test.dart": {
+      "sha256": "e9d25c76d79d57f6c5735cccc0a3fa83c3f53d9b6912431d890ed2555ca0de7a",
+      "bytes": 21207
+    }
+  },
+  "fixtures": {
+    "docs/fixtures/accounting_year_values_v1.json": {
+      "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+      "bytes": 654241
+    },
+    "app/test/fixtures/accounting_year_values_v1.json": {
+      "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+      "bytes": 654241
+    },
+    "docs/fixtures/accounting_year_values_native_boundaries_v1.json": {
+      "sha256": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+      "bytes": 148143
+    },
+    "app/test/fixtures/accounting_year_values_native_boundaries_v1.json": {
+      "sha256": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+      "bytes": 148143
+    }
+  },
+  "unchanged": {
+    "app/lib/business_accounting_openings_contract.dart": {
+      "sha256": "cf5b83d5de3844e4747c3db5b63325a7d3a94c3f6b1fd5b011ca20bb68a75b0a",
+      "bytes": 24567
+    },
+    "app/lib/business_widgets.dart": {
+      "sha256": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+      "bytes": 27927
+    },
+    "app/lib/api.dart": {
+      "sha256": "d1241f02b7f7163bae00ec1c6a5cfa2ae42c5a1b5ca505218fe25c1efac501b8",
+      "bytes": 7402
+    }
+  },
+  "checks": {
+    "contract": 10,
+    "lifecycle_session_desktop_profile": 21,
+    "actual_http_390px": 1,
+    "euer_accounting_regression": 27,
+    "combined_passed": 59,
+    "analysis_issues": 0
+  }
+}

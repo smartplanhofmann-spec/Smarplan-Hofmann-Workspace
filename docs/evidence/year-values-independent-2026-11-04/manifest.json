@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "scope": "Independent actual yearly journal carryover product review; no runtime changes",
+  "source_workspace": "/workspace/smartplan-opening-year-values-20261104",
+  "owner_backend_manifest_sha256": "6c665abc663964c27dff1a38baf61a895d064904a7aa3957079e14e84db8221a",
+  "runtime": {
+    "backend/accounting_year_opening_rules.py": "ae8bc91c8e68a3927cc478c7f4b02b56a66d99e26d55468053940a1ea86392a7",
+    "backend/business_accounting_year_openings.py": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd",
+    "backend/accounting_year_opening_sources.py": "4bdb0c049f78018a9e2c519cd003d4cffe56dba3296fdf399745a61d82eb632a",
+    "backend/business_accounting_open_items.py": "8f75aff4f916772e16bdacb95c83a8898bdc8e109ef63e499a08893d36fa6080",
+    "backend/accounting_open_item_rules.py": "c4241405e8a6d05fddb4a729c53d0710628cc2ac9d010679727a57a2d17cdcac",
+    "backend/business_accounting_euer.py": "15a7b301004f7a4079b7694c7cbe9cd8442fcd51d2ab8e3628a6b261878ca605",
+    "backend/business_accounting_asset_openings.py": "216253560e8abc0fdc129633c9fc2a7734f10a025276bfe1e7f8dd2ecb3eacf3",
+    "backend/business_finance.py": "83f89fb212fe99edf2ae829211f1fc9eb1eb6fb1da820c9e954f26b25147d9de"
+  },
+  "validation": {
+    "passed": 8,
+    "seconds": 4.824,
+    "log": "docs/evidence/year-values-independent-2026-11-04/domain-eight.txt",
+    "postgres_rerun": false,
+    "production_contact": false
+  },
+  "files": {
+    "backend/test_accounting_year_openings_independent_review.py": "093181295df40261a360d0c0ad172820f688c7918602504587f983314e9c342d",
+    "docs/CRM_ERP_JAHRESVORTRAG_UNABHAENGIGE_PRODUKTPRUEFUNG_2026-11-04.md": "96e734c009874f36087d14cadd287f1f9f88b922ae899fbcd99ccd307dd60d8c",
+    "docs/evidence/year-values-independent-2026-11-04/domain-eight.txt": "af5aee08a6c3a7e713341b466a1b22c744102787c67c7829099073e5d6a3a560"
+  },
+  "confirmed_new_product_findings": []
+}

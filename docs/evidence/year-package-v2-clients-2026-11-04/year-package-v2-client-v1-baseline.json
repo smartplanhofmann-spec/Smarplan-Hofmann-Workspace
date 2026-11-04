@@ -1,0 +1,144 @@
+{
+  "scope": "Exact frozen V1 client baseline copied before isolated V2 format extension",
+  "v1_handoff_sha256": "67eda6d6af6bd33ee44f71bac99816692fb6e66fff1a1cf243b576696b18642b",
+  "files": [
+    {
+      "path": "app/lib/business_accounting_euer.dart",
+      "source_sha256": "f08cfd822d9530f1fb529076d31a41ebb807370d7957b66677d83938d959b149",
+      "previous_sha256": "39d07ad6e6700e382d017ad7f50890f07ff4b5603c295d4c29989a6c923751af",
+      "bytes": 80462
+    },
+    {
+      "path": "app/lib/business_accounting_year_evidence.dart",
+      "source_sha256": "0480ab38fe16ecf124b1e45eca8fec1e50740e93045a0312320234c595d7b887",
+      "previous_sha256": null,
+      "bytes": 10976
+    },
+    {
+      "path": "app/lib/business_accounting_year_evidence_contract.dart",
+      "source_sha256": "80d91aa00f31905f5bf288a6b86ef1c30eeea244465266f018f007604a2139d5",
+      "previous_sha256": null,
+      "bytes": 7423
+    },
+    {
+      "path": "app/test/business_accounting_year_evidence_http_test.dart",
+      "source_sha256": "51c731d0f4e9498b400650531248de457ed825e2cdf44bd650180ada263d2456",
+      "previous_sha256": null,
+      "bytes": 12980
+    },
+    {
+      "path": "app/test/business_accounting_year_evidence_independent_review_test.dart",
+      "source_sha256": "b382dfbed7179b72d4656b20787012ede2305d62b9b3eab80b681fd45af3f41e",
+      "previous_sha256": null,
+      "bytes": 12731
+    },
+    {
+      "path": "app/test/business_accounting_year_evidence_test.dart",
+      "source_sha256": "14b5fbfb242fd9ea54f12081386bf733bb49a1a0272cc1d07ba12be152b6f245",
+      "previous_sha256": null,
+      "bytes": 14892
+    },
+    {
+      "path": "app/test/fixtures/accounting_year_package_v1.json",
+      "source_sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+      "previous_sha256": "bd3ff5a40bf10211b67ca563dcf14ad2850949e43be54cdb19deba4b5e0557cc",
+      "bytes": 719679
+    },
+    {
+      "path": "docs/fixtures/accounting_year_package_v1.json",
+      "source_sha256": "a859f2bbbcfab6f890c2968a05aa2fa839299117ae43b8e15e2d7852c82d36a0",
+      "previous_sha256": "bd3ff5a40bf10211b67ca563dcf14ad2850949e43be54cdb19deba4b5e0557cc",
+      "bytes": 719679
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "source_sha256": "08c6fe37ddaa3ae9afbe62882e9834bdbb8e61c839d3e5e6cdcdd49f21c02381",
+      "previous_sha256": "81a4e9899661bcef174ec9e1b4fd5b0d2ae91b0e6706c3028549677eb79fa0da",
+      "bytes": 50174
+    },
+    {
+      "path": "web/office/accounting-year-package-contract.js",
+      "source_sha256": "247c128d79c60b3e3fe4cfec917d12f2e84d44d73eb7924c9a1a12682c9a700d",
+      "previous_sha256": null,
+      "bytes": 4329
+    },
+    {
+      "path": "web/office/accounting-year-package.js",
+      "source_sha256": "1f27716c37b88f99df5bd11f897845f2d321c7180b1d4644296d77c24341a3ee",
+      "previous_sha256": null,
+      "bytes": 4416
+    },
+    {
+      "path": "web/office/office.js",
+      "source_sha256": "9f3a5a21dc28066fcf8cab4fc7b6ae1623ee73b8d15a0f13a13618424511d5a7",
+      "previous_sha256": "d97e213ba9a2e8c409a4a6f2eb3be7dfdcaaaebb9254830fdc72386ec0d108d3",
+      "bytes": 354272
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-e2e.cjs",
+      "source_sha256": "fb25428561dd42474b6d5b1157c7780f7e62548edd09c485a925b3ce7dac36b9",
+      "previous_sha256": null,
+      "bytes": 5214
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-fixture.py",
+      "source_sha256": "9b00bf8868e86d32c06aaed051ccb802f2da8ed6e10fe00c7491bae1f42eb6cb",
+      "previous_sha256": null,
+      "bytes": 2645
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-flow.cjs",
+      "source_sha256": "3a90ad6202a77dd3e4901c1896c86d25967aa683b2942595bdac03acfbb8a34e",
+      "previous_sha256": null,
+      "bytes": 9821
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-archive-addendum.py",
+      "source_sha256": "078a4319232a332a21a90881e869379c3a1f3716a14f67217f5c9ff7154c7234",
+      "previous_sha256": null,
+      "bytes": 4835
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-archive-check.py",
+      "source_sha256": "1fa73b21be35e64f44d77a2db289aef29f1142e5a6d29ad8c713c798da9c6596",
+      "previous_sha256": null,
+      "bytes": 2512
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-browser.cjs",
+      "source_sha256": "c5ce1b6e28cbdde1f2e6244e761eb7ddd1ca33039ee07e102d79a64a7e1d5361",
+      "previous_sha256": null,
+      "bytes": 4909
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-fixture.py",
+      "source_sha256": "a396112ef00bec582b6f3105a6e920b19c81f16b5333d3ffc5231498ee7b689a",
+      "previous_sha256": null,
+      "bytes": 1292
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent-preload.cjs",
+      "source_sha256": "009170b34f5d5ab09ed1e9cfac97f164aed9eedc7057bc84605e8dc93b529ee4",
+      "previous_sha256": null,
+      "bytes": 387
+    },
+    {
+      "path": "web/office/tests/accounting-year-package-independent.test.mjs",
+      "source_sha256": "871c2cda9fff34c88bde693d7caccc98185a6fd8e289feed621f086322145103",
+      "previous_sha256": null,
+      "bytes": 11098
+    },
+    {
+      "path": "web/office/tests/accounting-year-package.test.mjs",
+      "source_sha256": "1b5c91f1f7774971f29c105789c1f085ffec44473c4796af192b666e333be50c",
+      "previous_sha256": null,
+      "bytes": 9631
+    },
+    {
+      "path": "web/office/tests/fixtures/accounting-year-package-independent.json",
+      "source_sha256": "643710c61e6da8dba3b27e9ade57d0e487514c5adeb1799f4f7b0946b76678de",
+      "previous_sha256": null,
+      "bytes": 294803
+    }
+  ]
+}

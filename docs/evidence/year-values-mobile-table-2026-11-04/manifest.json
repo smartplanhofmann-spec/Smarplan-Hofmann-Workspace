@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T13:48:33.522796+00:00",
+  "scope": "Only additive component-specific CSS for original year journal and control-sum tables; no new tests or JS/backend/app/registry edits.",
+  "css": {
+    "path": "web/office/office.css",
+    "before_sha256": "011d4162cb71da7b80ee73b7e59dd9074a36ad67aea3532f732e0c7761142933",
+    "after_sha256": "5df39fa68d4fc52d5f499f2d2578c6e9fa34db77dc0967cc615939e6e85eb400",
+    "additive_only": true,
+    "patch": "office-css-addendum.patch"
+  },
+  "original_screenshot": {
+    "path": "work/verification/year-values-integrated-browser-year-values/year-values-mobile.png",
+    "sha256": "a2ac60db368b75c66f053cef81035f8d65133b8a251a8141ad6b4ad7e46a1d47"
+  },
+  "final_screenshot": {
+    "path": "docs/evidence/year-values-mobile-table-2026-11-04/year-values-mobile.final.png",
+    "sha256": "ecd1fb355974fd0e22a1f3f431a4ab4e09ac42f16927e160c06205a0dc71c000",
+    "bytes": 86363,
+    "width": 390,
+    "height": 1300,
+    "visually_inspected": true
+  },
+  "layout": {
+    "scope": ".year-values-workspace",
+    "scroll_container": ".table-scroll",
+    "four_column_control_table_min_width_px": 540,
+    "five_column_original_journal_min_width_px": 640,
+    "normal_word_breaks": true,
+    "date_account_amount_cells_nowrap": true,
+    "reason_for_four_column_rule": "The first corrected screenshot exposed the existing control table below; its SKR04 account also split across lines. Same scoped fix applied, with first screenshot and CSS retained."
+  },
+  "workflow_runs": [
+    {
+      "workflow": "year-values",
+      "exit_code": 0,
+      "duration_seconds": 25.091,
+      "log": "docs/evidence/year-values-integrated-browser-year-values-mobile-table-2026-11-04.txt",
+      "log_sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+      "recorded_at_utc": "2026-11-04T13:43:58.865505+00:00"
+    },
+    {
+      "workflow": "year-values",
+      "exit_code": 0,
+      "duration_seconds": 26.494,
+      "log": "docs/evidence/year-values-integrated-browser-year-values-mobile-table-final-2026-11-04.txt",
+      "log_sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+      "recorded_at_utc": "2026-11-04T13:46:42.742795+00:00"
+    }
+  ],
+  "final_command": "NODE_PATH=/workspace/Smarplan-Hofmann-Workspace/web/office/node_modules python work/verification/run-year-values-integrated-browser.py year-values year-values-mobile-table-final",
+  "actual_browser_result": "passed: unchanged full year-values/profile-void MFA/HTTP/Chromium workflow, including existing mobile390 no-page-overflow assertion",
+  "protected_files_before_after_equal": {
+    "web/office/office.js": "a5811ca172cc649917d886e1f82299c99513cd00099b065c0fc2f5ed61689fb0",
+    "web/office/accounting-euer.js": "e9a792a3ecf40b7a790acc7a8cd245a53c64530d2a81453f12ad97c93a6b72b2",
+    "web/office/accounting-year-values.js": "daeb81263feb4b5e580638282d46811e47391efc6ee3ea65dac344e114517a4b",
+    "web/office/accounting-year-values-contract.js": "a701fdbd31e39454c97fa3da9cbf3ad292510b13f5fa537ad2d50e19c745b114",
+    "web/office/accounting-year-package-contract.js": "4459c3580c3da8ede338d33ec567901d8117620e99c6670c1c74e8b639cc4b73",
+    "backend/online/web.py": "9c678d2125f66e57f5a5c54afc425a7239730cac981fd1fc3d4d1ac4818e70dc",
+    "backend/business_accounting_year_openings.py": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd",
+    "app/lib/business_accounting_year_values.dart": "a31684ea07803994ab0485d4eaeec30790305086c9eef6f272a8e498d93f7c88",
+    "app/lib/business_session.dart": "7d437f2b441a4e6835e5dddfe7c9d4699b590496eed68583b4a9c3be441539b8",
+    ".github/workflows/checks.yml": "5be76c78e4e65bdfbbd9f9e2a9ff81b0d99a8952bfcba7deaca76893058e8ff2",
+    "scripts/native-release.py": "039e5dca2280619571be4d437ff169e5a695af19363b394f3784d7ece64db0bf",
+    "scripts/package-windows-support.py": "36c76af5bbca2d2b26b7e62fd586131d1d900ea2d5b207b311bf583c92496966"
+  },
+  "no_commits": true,
+  "artifacts": [
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/before.json",
+      "sha256": "af6adf7556d84e5679360f5ed4aa376b7403b6b217b81826599de7ea6738de85",
+      "bytes": 1748
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/browser-final.log",
+      "sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+      "bytes": 692
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/browser-journal-first.log",
+      "sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+      "bytes": 692
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/office-css-addendum.patch",
+      "sha256": "7d06d7ef6f74e1984895ec5153b16ed12d4eb4510eeb22777ddd4659fea04130",
+      "bytes": 1828
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/office.css.before",
+      "sha256": "011d4162cb71da7b80ee73b7e59dd9074a36ad67aea3532f732e0c7761142933",
+      "bytes": 22461
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/office.css.journal-first",
+      "sha256": "414c1a6672fd1c74e9483d3e225d312a16e9870340e55c6ed15bbef4a3e6628e",
+      "bytes": 23125
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/run-final.json",
+      "sha256": "12d9ab455cfa1c1e5d7533fce302450a7d55b94d8e3df600e8f328b6b66cd89a",
+      "bytes": 324
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/run-journal-first.json",
+      "sha256": "c2bd061eca58f0ff31ee7827ae8b3585f3392b65aa067b6d1881fe16e0ced5ad",
+      "bytes": 318
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/year-values-mobile.before.png",
+      "sha256": "a2ac60db368b75c66f053cef81035f8d65133b8a251a8141ad6b4ad7e46a1d47",
+      "bytes": 87139
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/year-values-mobile.final.png",
+      "sha256": "ecd1fb355974fd0e22a1f3f431a4ab4e09ac42f16927e160c06205a0dc71c000",
+      "bytes": 86363
+    },
+    {
+      "path": "docs/evidence/year-values-mobile-table-2026-11-04/year-values-mobile.journal-first.png",
+      "sha256": "ac851cce1a7ffd007ecdcc9d4cf36125d441e1d495c931f45965a9ebca494c09",
+      "bytes": 89467
+    }
+  ]
+}

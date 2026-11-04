@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "status": "historical_void_followup_frozen",
+  "recorded_at_utc": "2026-11-04T13:23:54.208761+00:00",
+  "workspace": "/workspace/smartplan-opening-year-values-20261104",
+  "prior_owner_manifest": {
+    "path": "docs/evidence/year-values-browser-2026-11-04/manifest.json",
+    "bytes": 25953,
+    "sha256": "7307bc17673de238bb8403b0772cfdd01ded47494843312eafea18edf96fe520"
+  },
+  "prior_independent_manifest": {
+    "path": "docs/evidence/year-values-browser-independent-2026-11-04/manifest.json",
+    "bytes": 12177,
+    "sha256": "d4a11801dd4d44bd615ae466dd152994f39a19d68f03ea7e7d097dc9fc637c62"
+  },
+  "owned_files": [
+    {
+      "path": "web/office/accounting-year-values-contract.js",
+      "bytes": 21800,
+      "sha256": "a701fdbd31e39454c97fa3da9cbf3ad292510b13f5fa537ad2d50e19c745b114"
+    },
+    {
+      "path": "web/office/accounting-year-values.js",
+      "bytes": 27858,
+      "sha256": "daeb81263feb4b5e580638282d46811e47391efc6ee3ea65dac344e114517a4b"
+    },
+    {
+      "path": "web/office/tests/accounting-year-values-profile-void-flow.cjs",
+      "bytes": 5002,
+      "sha256": "b7f9b32e77b4f7f4f700b4e5077fc40a85c2a52175fb55d8b85f4d4ddbeb522c"
+    },
+    {
+      "path": "web/office/tests/accounting-year-values-profile-void-e2e.cjs",
+      "bytes": 5162,
+      "sha256": "2dd9b093046831a1c808bf58595a6a3e9e87ba1e9337efe512f6786df2488041"
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_PROFIL_AUFHEBUNG_2026-11-04.md",
+      "bytes": 2778,
+      "sha256": "75e545f7cc4c0932991a8fd216269b893fdee6e727752b1bbcb460fea7a728f2"
+    }
+  ],
+  "runtime_before_sha256": {
+    "web/office/accounting-year-values-contract.js": "ca5035e24120917fc501d214d0d4c3d3e8dce98c7bbdbc4b52fb7d15964dfa7a",
+    "web/office/accounting-year-values.js": "79d6dee5dd9c463b7155cefa639b8bde0c12bdf8b9491cdae2597b72e6f91538"
+  },
+  "runtime_patch": "narrow-runtime.patch",
+  "actual_fixture_dependency": {
+    "path": "docs/fixtures/accounting_year_values_native_independent_v1.json",
+    "bytes": 137367,
+    "sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc"
+  },
+  "independent_review": {
+    "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/manifest.json",
+    "bytes": 5238,
+    "sha256": "30db87e3248c02ff48aa3f7ffb219355f5ac03e0df25a31171269920f71da17f"
+  },
+  "independent_report": {
+    "path": "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_PROFIL_AUFHEBUNG_GEGENPRUEFUNG_2026-11-04.md",
+    "bytes": 4543,
+    "sha256": "b122c1d7815c8d92f06ce45358da7301bb85e3dbbacec82ef80bdbaa99543186"
+  },
+  "validation": {
+    "focused_node": {
+      "tests": 64,
+      "passed": 64,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "exit_code": 0,
+      "owner_cases": 27,
+      "independent_cases": 37,
+      "execution": "require_escalated",
+      "log": "focused-final.log"
+    },
+    "actual_browser": {
+      "runner": "web/office/tests/accounting-year-values-profile-void-e2e.cjs",
+      "exit_code": 0,
+      "log": "actual-browser.log",
+      "scope": "unchanged complete original Chromium/MFA/HTTP flow followed by actual missing-start profile, blocked active drafts, exact original historical void and lost-ACK replay"
+    }
+  },
+  "scope": {
+    "product_files_changed": 2,
+    "other_7307_owned_files_unchanged": true,
+    "old_manifests_preserved": true,
+    "only_existing_active_original_can_enter_exception": true,
+    "fresh_permissions_and_finance_module_required": true,
+    "server_preview_and_confirm_gates_unchanged": true,
+    "new_active_input_still_requires_can_prepare": true,
+    "no_backend_or_native_or_shared_office_euer_edits": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/accounting-year-values-contract.js.before",
+      "bytes": 20667,
+      "sha256": "ca5035e24120917fc501d214d0d4c3d3e8dce98c7bbdbc4b52fb7d15964dfa7a"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/accounting-year-values.js.before",
+      "bytes": 27626,
+      "sha256": "79d6dee5dd9c463b7155cefa639b8bde0c12bdf8b9491cdae2597b72e6f91538"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/actual-browser.log",
+      "bytes": 692,
+      "sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/before-hashes.json",
+      "bytes": 232,
+      "sha256": "fd16aa064996b8a636d4a550ad766a393c8834c3ff7c4d340885e467aaf47f59"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/downloaded-year-journal.pdf",
+      "bytes": 67,
+      "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-final-ui.png",
+      "bytes": 350429,
+      "sha256": "a2a2825dfbe3e2b8ee77204c24dc16d8562233bb7aef0b2d89dc3591dfd46d18"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-final-ui.txt",
+      "bytes": 4780,
+      "sha256": "0d0440dc3992f61ce27e1826e9d13d7b9139ad7de4903bbdd1100a756b247032"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-http-records.json",
+      "bytes": 983847,
+      "sha256": "d3a07bafc2853457bbf2400a6c1e49b8625beded1cebe0be18f3867fc9f33b9b"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-mobile.png",
+      "bytes": 86518,
+      "sha256": "fad5eae73549c8f44639b322ec99dd153d5560e5e3e87968bd51e15aa56292c8"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-profile-void-originals.json",
+      "bytes": 121440,
+      "sha256": "d385b9fd5e433a6293aff011c4c9cb1f977f212b1fb8b9abf6fd08901f098c20"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/focused-final.log",
+      "bytes": 6763,
+      "sha256": "bbf4ce25632b13e732754e03cd512c50a0006cf965f783e0920997b3cc844eda"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/focused-first.log",
+      "bytes": 6765,
+      "sha256": "9931cc1e6a60df61b772111a7df7e26410a3df573d49fa28a7930bdfaaadccc7"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/narrow-runtime.patch",
+      "bytes": 22806,
+      "sha256": "3d41f98d5ce7e3e4bf87dc2e8333187ebbca37d8459a937334adeccf9a0c4c9b"
+    }
+  ]
+}

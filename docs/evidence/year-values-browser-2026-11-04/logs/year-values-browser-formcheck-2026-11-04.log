@@ -1,0 +1,29 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   {
++     message: 'Please select an item in the list.',
++     name: 'control_2_ledger',
++     value: ''
++   },
++   {
++     message: 'Please select an item in the list.',
++     name: 'control_2_category',
++     value: ''
++   },
++   {
++     message: 'Please fill out this field.',
++     name: 'control_2_account',
++     value: ''
++   },
++   {
++     message: 'Please fill out this field.',
++     name: 'control_2_amount',
++     value: ''
++   }
++ ]
+- []
+
+    at Object.accountingYearValuesFlow (/workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-flow.cjs:15:38)
+    at async main (/workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-e2e.cjs:16:3)

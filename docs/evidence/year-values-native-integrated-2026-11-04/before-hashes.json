@@ -1,0 +1,3718 @@
+{
+  ".github/workflows/checks.yml": {
+    "sha256": "08edd0ff61505c0e604732e13853b4c9dfa62955e9504c174cc3a5ca690f955d",
+    "bytes": 55049
+  },
+  ".github/workflows/ios-testflight.yml": {
+    "sha256": "6cf1228338f9749a100e17927342385efe6d962d0a7c71e6a270503bfe759636",
+    "bytes": 13592
+  },
+  ".github/workflows/mail-bot.yml": {
+    "sha256": "4a5d2d2395206990e833f917b924c61546bc8fa4832860a250303b150aaa2963",
+    "bytes": 2819
+  },
+  ".github/workflows/plan-import.yml": {
+    "sha256": "6f8bce49ad2caa3cc98aa2e5fd340ed6850944ab0bd76e1d76b363d4a0cac28d",
+    "bytes": 3284
+  },
+  ".github/workflows/project-bot.yml": {
+    "sha256": "4ce30961bd3ebaca05458753a3d03dee29fe3ebf0668911d564c896b0d728f5f",
+    "bytes": 2517
+  },
+  "app/lib/admin_pages.dart": {
+    "sha256": "67b4795acc5d4d0478f14f658f15b47bce3ff8c96ec5b6cf6752723572fa8bd7",
+    "bytes": 17468
+  },
+  "app/lib/api.dart": {
+    "sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+    "bytes": 7537
+  },
+  "app/lib/app_version.dart": {
+    "sha256": "1467eae4d94c6afa840f9d8a9b8ecde595ffd34aa144bde6f5c03f2c07fedea8",
+    "bytes": 108
+  },
+  "app/lib/business_accounting.dart": {
+    "sha256": "28e4e555fe6491b523872f6f19c5c0eb64db349bee8e3a3e5463cd226d8cee46",
+    "bytes": 38513
+  },
+  "app/lib/business_accounting_allocations.dart": {
+    "sha256": "6f54ee90ae6fb57777c742c2b0abb1b16ceb0bd750e9d29d329ab0021f00000b",
+    "bytes": 22379
+  },
+  "app/lib/business_accounting_capacity.dart": {
+    "sha256": "919b91e877ebbd8af7f4da8ed36ff7f9895b97c92393510d2db0528b1851e701",
+    "bytes": 31624
+  },
+  "app/lib/business_accounting_components.dart": {
+    "sha256": "c1ef05661d5cd16fbb9a7f2215af9ad82f8f030dfe8d5701fc60d3bab0da2cdf",
+    "bytes": 25555
+  },
+  "app/lib/business_accounting_euer.dart": {
+    "sha256": "4ca5779018258d3aa3892c3501dbc0aa57c72784206e3e8c7992de072d3793eb",
+    "bytes": 85328
+  },
+  "app/lib/business_accounting_historical_assets.dart": {
+    "sha256": "6fd8a3fe3992dd3b397eebde924f4e2016b3e396ad85c63d903a9b718535aaee",
+    "bytes": 36219
+  },
+  "app/lib/business_accounting_historical_assets_contract.dart": {
+    "sha256": "e9d44f9b1c5571eb158005b191dca681655d475ad2d06685e7f1638e395c8681",
+    "bytes": 28547
+  },
+  "app/lib/business_accounting_open_items.dart": {
+    "sha256": "5891345f736e6bf81ae7f3f87d03c785e31e24611a0f6a6c8415950d934e050a",
+    "bytes": 47527
+  },
+  "app/lib/business_accounting_open_items_contract.dart": {
+    "sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+    "bytes": 33097
+  },
+  "app/lib/business_accounting_openings.dart": {
+    "sha256": "2ec19d04d768ca2adff3af7b6169bf8038bbfb77a384c34305268a3a2e6cd5b8",
+    "bytes": 31452
+  },
+  "app/lib/business_accounting_openings_contract.dart": {
+    "sha256": "cf5b83d5de3844e4747c3db5b63325a7d3a94c3f6b1fd5b011ca20bb68a75b0a",
+    "bytes": 24567
+  },
+  "app/lib/business_accounting_profile.dart": {
+    "sha256": "deb05b549fcb98a1e0c23661eea3b2b458b49a0cacd3fe69cc4933a8c245269a",
+    "bytes": 21514
+  },
+  "app/lib/business_accounting_refunds.dart": {
+    "sha256": "1b4f3dc428226a64704f02236df2f83489071c602f63efd533ecebd45f31404f",
+    "bytes": 28878
+  },
+  "app/lib/business_accounting_refunds_v2.dart": {
+    "sha256": "5ccbe03194c2a4cdab06ec4ff2e72ad4a3921cfb53a6024d75eb43918d478bb9",
+    "bytes": 34927
+  },
+  "app/lib/business_accounting_year_evidence.dart": {
+    "sha256": "0480ab38fe16ecf124b1e45eca8fec1e50740e93045a0312320234c595d7b887",
+    "bytes": 10976
+  },
+  "app/lib/business_accounting_year_evidence_contract.dart": {
+    "sha256": "d0e2bb02e1bd46f50ef04abba3c06c54c9f29f23e11c7669190629e6bab19c11",
+    "bytes": 7521
+  },
+  "app/lib/business_adapters.dart": {
+    "sha256": "dcbb7a70a73c7454a6a688652b7c5db1aa6df7ff0c4679d5ee36127f6a02525d",
+    "bytes": 24022
+  },
+  "app/lib/business_asset_provenance.dart": {
+    "sha256": "1389cd158e4c14f8e18b56d0cc7d1747447e44b6a4a4ff947d76dae22cef1edf",
+    "bytes": 23326
+  },
+  "app/lib/business_assistant.dart": {
+    "sha256": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+    "bytes": 57687
+  },
+  "app/lib/business_bank_reconciliation.dart": {
+    "sha256": "fdfd10890f8f0529c5f7945c5cbecf3d0835405519a6cc83d7a12a03b2da27ee",
+    "bytes": 52587
+  },
+  "app/lib/business_catalog_imports.dart": {
+    "sha256": "892f4b639ba054788612159eab4dcfdf6f7b20f077be2630342507a09a5acf10",
+    "bytes": 32368
+  },
+  "app/lib/business_catalog_prices.dart": {
+    "sha256": "69a6db02697db31d4430cccb32480c946be5d240f977a1108657c1de9a259f04",
+    "bytes": 50542
+  },
+  "app/lib/business_company_event_contract.dart": {
+    "sha256": "977def401a70c4a11f240f6c2c8a15ce0b81756288b580e9bb16ca45f9b1c2e6",
+    "bytes": 23572
+  },
+  "app/lib/business_company_events.dart": {
+    "sha256": "7f05b2bb24bf34f8dfc1208683f4e0119425f55dd2a692528e81219ddfa60782",
+    "bytes": 50028
+  },
+  "app/lib/business_company_handover.dart": {
+    "sha256": "f8912a61973a2aa4dfa509425ec17da0678d0496ef4770e32553ec83cfbd7eda",
+    "bytes": 24527
+  },
+  "app/lib/business_company_overview.dart": {
+    "sha256": "8f4d525487fb4dabc1494a1b9ebb3344d16da017434b3528d779e935c2edef76",
+    "bytes": 8976
+  },
+  "app/lib/business_contacts.dart": {
+    "sha256": "cf1973caa503457f5f3bcb8043dd6ebe7198d191a9b32fe06e1400e1723a5d26",
+    "bytes": 19511
+  },
+  "app/lib/business_custom_fields.dart": {
+    "sha256": "b742659a3003f65c34cbd491aa330e12788e0b80515d39e58bcdde4457470b11",
+    "bytes": 25064
+  },
+  "app/lib/business_customer_workspace.dart": {
+    "sha256": "91be28055fc65d3a5610609d85e4767ec0d3167b6f6cc86f1c29e25bf3c40245",
+    "bytes": 24523
+  },
+  "app/lib/business_document_access.dart": {
+    "sha256": "92c7412a5a16df5ff6dc3a578e98a2acf7cc69332e9db21f498faeae8f2fca16",
+    "bytes": 8726
+  },
+  "app/lib/business_document_pricing.dart": {
+    "sha256": "abc0ff95d6319865a642495eb78fcf7b68b70dfb96b17811990da567258d6a0e",
+    "bytes": 48596
+  },
+  "app/lib/business_documentation.dart": {
+    "sha256": "49acfffe3278d578251a0b21b788174de59a4ad4091a54cd0aea514c455baff8",
+    "bytes": 20485
+  },
+  "app/lib/business_documents.dart": {
+    "sha256": "be5ae6c8503ed0ae4b895f2f5aafcfc58e5c5d61ab2f141be6c9e50e3a8a6f77",
+    "bytes": 87998
+  },
+  "app/lib/business_finance.dart": {
+    "sha256": "94b200516cb624009185be53783d2c5b512b7ffc42bb06e341364cbc6b3afdf6",
+    "bytes": 12509
+  },
+  "app/lib/business_inventory_counts.dart": {
+    "sha256": "6e8128df1ac36f8481d3a2d33389be33aa841c15f00ef38afcb39e5d8ab99627",
+    "bytes": 22218
+  },
+  "app/lib/business_media.dart": {
+    "sha256": "5562e4f9aeba94ffb0e5dd62931f2915f0f4c355f3dee8fb121cfd11eaab09ea",
+    "bytes": 16717
+  },
+  "app/lib/business_migrations.dart": {
+    "sha256": "9dbfdcf4671dcdf6f0deccbd6588f20efb1679abe62ae4ec0fbf8db7ac04d809",
+    "bytes": 48135
+  },
+  "app/lib/business_offline.dart": {
+    "sha256": "002b342504effcc853f29c92da45f8e29d19ce74845e1691a72deb21d099b726",
+    "bytes": 20251
+  },
+  "app/lib/business_operations.dart": {
+    "sha256": "21388ecf9bfbbadd5cb6fc7448e30d51431b70b1849b19e895c1f65271ba2e7e",
+    "bytes": 37751
+  },
+  "app/lib/business_organization.dart": {
+    "sha256": "71f5410015dc059430bfa489f80f3025ade95d3fbae969ea1fca9d612a44d243",
+    "bytes": 11424
+  },
+  "app/lib/business_payroll.dart": {
+    "sha256": "2578e8353558ec770fb287777b601f338f4d7a2868ce717169c660a13373940c",
+    "bytes": 129784
+  },
+  "app/lib/business_payroll_accounts.dart": {
+    "sha256": "75550bda9a9be904e0732d5cdffbab80455e704865778105c78a69e8df0c12f6",
+    "bytes": 65637
+  },
+  "app/lib/business_payroll_annual_basis.dart": {
+    "sha256": "c4bad75698a342d0349723c97557f9d386eb186683100edcc057736465b87db5",
+    "bytes": 30464
+  },
+  "app/lib/business_payroll_annual_basis_contract.dart": {
+    "sha256": "9c56061982b147466f4cf9dc2f54e70e3866ac28d91c189ec99a5d5ef3402c6d",
+    "bytes": 24646
+  },
+  "app/lib/business_payroll_annual_basis_forms.dart": {
+    "sha256": "c9f78cca31936f1200d9fa1cebe1223c053b0091bd8f5188fedb0cefc12f8261",
+    "bytes": 24477
+  },
+  "app/lib/business_payroll_calculation_case_contract.dart": {
+    "sha256": "727399469aac07c73d8110a0d104b7a28a9b14f6f58de197ee8146a9b47717c2",
+    "bytes": 31233
+  },
+  "app/lib/business_payroll_calculation_cases.dart": {
+    "sha256": "c5da41bd33709434e2d3df1a38cc151c56892bf660798831c8f98a0a068b8d1a",
+    "bytes": 43475
+  },
+  "app/lib/business_payroll_cash.dart": {
+    "sha256": "1d05c71b0f9f48513dca39a01daf9bcdedb96afa1a99528d8802517557b8fd66",
+    "bytes": 13224
+  },
+  "app/lib/business_payroll_cash_page.dart": {
+    "sha256": "189366f44eec0b379f30747a1df692467b9434f6be1cf5b030a7073c77f7c865",
+    "bytes": 27349
+  },
+  "app/lib/business_payroll_entitlement_contract.dart": {
+    "sha256": "43850105cd22e53ce5771f299b6e27647aec9460fe86a4052f7519ebb2f979dd",
+    "bytes": 25473
+  },
+  "app/lib/business_payroll_entitlements.dart": {
+    "sha256": "c91fcd05c7a2b93f321b588876e7cc45a6b76da4457fafcadc98682f69dd0d46",
+    "bytes": 63170
+  },
+  "app/lib/business_payroll_facts.dart": {
+    "sha256": "e213b4240c26154b9388ece5c0c050c19dd0ecc33b66e489d5badc3547749782",
+    "bytes": 67988
+  },
+  "app/lib/business_payroll_multiple_case_contract.dart": {
+    "sha256": "79e8db349d8714e4da7f51ae4db72788d2d2dbbd55ae1b26de84750a88825724",
+    "bytes": 31491
+  },
+  "app/lib/business_payroll_multiple_cases.dart": {
+    "sha256": "ba3950237e3083453f717dc1f6f893d17ecd56a09244f000b20ccd66dbd4efbf",
+    "bytes": 35835
+  },
+  "app/lib/business_payroll_oneoff_case_contract.dart": {
+    "sha256": "8ed8b3ac0cbb7b774ec40d548df44a3bb49dc9d4f756a0fb8c7e5acde154301f",
+    "bytes": 22189
+  },
+  "app/lib/business_payroll_oneoff_cases.dart": {
+    "sha256": "351b381e60274612c1b0854e7f7df995fccd818311b5a1266f626fdef954b16d",
+    "bytes": 32428
+  },
+  "app/lib/business_payroll_statements.dart": {
+    "sha256": "df1015b834b60c981af92c235871e1247c4e85624c0a0e4fe6d750d662f36962",
+    "bytes": 30555
+  },
+  "app/lib/business_payroll_travel_tax_policies.dart": {
+    "sha256": "7a3ea8a46b268e86aa38d2952c2e486d30c8a15227ffa4dc59e836e116b6a590",
+    "bytes": 35893
+  },
+  "app/lib/business_payroll_wage_interruption_contract.dart": {
+    "sha256": "1fc2c069bf9c8cb1ddbac8bf5c11ab3954993b45d021fb2438aed3d292a40513",
+    "bytes": 21733
+  },
+  "app/lib/business_payroll_wage_interruptions.dart": {
+    "sha256": "6a77d60ca92030067c2acfb89a2df29b6d1fca676484feeebf50ab803ab18cb0",
+    "bytes": 33688
+  },
+  "app/lib/business_permissions.dart": {
+    "sha256": "3ce0e5951e94f52d0e27a9a8958fb4534944129181019700e36b9cf58a9914e0",
+    "bytes": 14508
+  },
+  "app/lib/business_personnel_workflow.dart": {
+    "sha256": "eba8755db9c487811823c44b814ea1b73d801ddb43c86aa34f81ffd3d029eea0",
+    "bytes": 52336
+  },
+  "app/lib/business_planning.dart": {
+    "sha256": "89200fcfa4b67450098fd16e7805dcc715af76501d74298e234aeb00bf355720",
+    "bytes": 15085
+  },
+  "app/lib/business_portal.dart": {
+    "sha256": "0c0bf4570208fa2f87c63962efd01cdd3976251676993a75e9969f1a9e9a52d1",
+    "bytes": 23390
+  },
+  "app/lib/business_privacy_cases.dart": {
+    "sha256": "8a924a9aa341c64985b133d18ae83b25d3cd22de24cfd1d32ca0a5542f3f47fb",
+    "bytes": 36869
+  },
+  "app/lib/business_project_economics.dart": {
+    "sha256": "72a8545ea1be4b1df9128ef251ae020013d14f97b6068f725af3a1cb9bb22543",
+    "bytes": 37618
+  },
+  "app/lib/business_project_receipts.dart": {
+    "sha256": "b2502f97189072acc54479d834981346b3f07a3de7fbec741ce39c0e98dbc5cf",
+    "bytes": 26234
+  },
+  "app/lib/business_purchase_changes.dart": {
+    "sha256": "7be8fb96d516af56e9454b39f76330dbd3bb2dd26c1ed251994c8ff014571979",
+    "bytes": 35697
+  },
+  "app/lib/business_purchasing.dart": {
+    "sha256": "034b0c9c2dbbe607bab7ed4668691d89039b93ff1a1b674b1f7c12a6132ec023",
+    "bytes": 42651
+  },
+  "app/lib/business_resource_custody.dart": {
+    "sha256": "5ae8250d877e9e489efb9da725721ce6340b79cf608484c9430e3ed1436e7915",
+    "bytes": 45470
+  },
+  "app/lib/business_sales.dart": {
+    "sha256": "75549d29a9ae00d34c5fcd3fd537a346ab7f6d46d42d41147bd480dcb359c733",
+    "bytes": 32042
+  },
+  "app/lib/business_service.dart": {
+    "sha256": "a5af88ca4a65a39e57583b8b67e589b26e67641e8efdd2d0efd6ae920a97e538",
+    "bytes": 46737
+  },
+  "app/lib/business_service_reports.dart": {
+    "sha256": "6a1ae56179b3be7a8e093ffc33802e884ad87813029f50d6e40c2b2e672fb9c8",
+    "bytes": 23041
+  },
+  "app/lib/business_session.dart": {
+    "sha256": "475a0a59cf64d468f488a77d6dd848a2806e88f0a47ccd29b0189e16fde8e1a8",
+    "bytes": 115052
+  },
+  "app/lib/business_settings.dart": {
+    "sha256": "349f3a9b2f8a292806bc635331dbfa2cab43bbf21e32e25eb68a3985a819fdb3",
+    "bytes": 18400
+  },
+  "app/lib/business_shell.dart": {
+    "sha256": "c6c93cb692f621cc6af69969e40247802d9cd1cb47c2658c932a089eba14e0b1",
+    "bytes": 20687
+  },
+  "app/lib/business_speech.dart": {
+    "sha256": "11505c99d97150066943e2ac27227e3e9b761fb8bf0cbb5130785eaac187eb54",
+    "bytes": 20374
+  },
+  "app/lib/business_templates.dart": {
+    "sha256": "e8e6a10ba02a59f165c1e0bd2ff16a39bd73cfa769155c7b303527ad414e00c1",
+    "bytes": 3999
+  },
+  "app/lib/business_time.dart": {
+    "sha256": "ac8dd10fa5f5c3722bc0656cf97160dc7907114c2d986356246dc110b87cae9a",
+    "bytes": 11751
+  },
+  "app/lib/business_travel_allowances.dart": {
+    "sha256": "626a640f0e4b9cea66ce513f74d381b83d2317936437c70c821e66bfbfa04832",
+    "bytes": 115942
+  },
+  "app/lib/business_travel_cash.dart": {
+    "sha256": "93762a182ca56c130aabb175a3247364c95fad91d675ad9e583973fb685f8864",
+    "bytes": 4486
+  },
+  "app/lib/business_widgets.dart": {
+    "sha256": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+    "bytes": 27927
+  },
+  "app/lib/business_workflows.dart": {
+    "sha256": "952264544988f10e218e75794e34a7ef4c2283a134c2361ec4c2e981a4e98ff4",
+    "bytes": 27700
+  },
+  "app/lib/customer_pages.dart": {
+    "sha256": "8d2df653c9eaca0c2e671a55212009f3b7f9d1949555dd6a56862586ac485767",
+    "bytes": 21746
+  },
+  "app/lib/design.dart": {
+    "sha256": "814b5e61057b38253c682426d0f9d6419f1a1796e3baa64833a16e3739c96d99",
+    "bytes": 14591
+  },
+  "app/lib/home_views.dart": {
+    "sha256": "dc531301779faf4c4907454d238b58d6c84510a55296252ca39ca6c5ff7a6256",
+    "bytes": 54825
+  },
+  "app/lib/inquiry_pages.dart": {
+    "sha256": "6fdb457836e4e2a213fbaa4efc19d5f662cf36f5173b5e80b4814b00d329f716",
+    "bytes": 68539
+  },
+  "app/lib/integration_pages.dart": {
+    "sha256": "ac3fea4820be2fd4f66def8d7168b7a7d33819f6c28984a4919706a0a11a37a6",
+    "bytes": 30518
+  },
+  "app/lib/mail_attachment_preview.dart": {
+    "sha256": "21e49e9db26c4b117da2cc97293bca51d042aa5101127d62a799027b32c82b31",
+    "bytes": 16184
+  },
+  "app/lib/mail_attachment_widgets.dart": {
+    "sha256": "22ecd7f343dd07b71473f9f837bff68e8e99de3eba85ac40e4bb9cb962385c9a",
+    "bytes": 35961
+  },
+  "app/lib/main.dart": {
+    "sha256": "da3396126ed6143aa870f00df8c7ac422b92a2b83afc9ae8928f2734b47324c7",
+    "bytes": 20460
+  },
+  "app/lib/mfa_dialog.dart": {
+    "sha256": "50307f1bd2c9b28773704fe7b9b1d4ae6bb8ff298d38cac0c5b4882cc37bb75c",
+    "bytes": 5110
+  },
+  "app/lib/offline_assets.dart": {
+    "sha256": "b6ec0deb65fe09031eea65bc4698ab85ab6e7561c58588bae455af8fe591c42c",
+    "bytes": 14964
+  },
+  "app/lib/offline_imports.dart": {
+    "sha256": "627bd47b8c61d9748ab71da576f54ef2730f4072bcf082664806fd842caa3cd5",
+    "bytes": 22025
+  },
+  "app/lib/offline_plans.dart": {
+    "sha256": "d6323af37b9a01a2ecc00b8ad210165ec5075aa431164535c8082b44ff85a63b",
+    "bytes": 36125
+  },
+  "app/lib/offline_service_reports.dart": {
+    "sha256": "a9670d7e8c1d61ff31494cfe014f1c7394b0da847b7d282c8526a153bb7fa521",
+    "bytes": 14811
+  },
+  "app/lib/offline_vault.dart": {
+    "sha256": "9653cfbe06dbaf7912a5505b7305d3ef68c4b7cdb516fb4b7c797b4906aab649",
+    "bytes": 7635
+  },
+  "app/lib/offline_workspace.dart": {
+    "sha256": "7c392c294fc66ecb0b33fd9b95ab81f617bc69356a9d991b80d48ad8bf914848",
+    "bytes": 31497
+  },
+  "app/lib/pdf_page.dart": {
+    "sha256": "2e861d8fbefbaf4ba520fd95beac040c729cf643c5f433f3bbe963d2c59d779a",
+    "bytes": 3553
+  },
+  "app/lib/plan_import_page.dart": {
+    "sha256": "3e86468092b81041357b6e2f852af02f29dcbdbc8eaf35acb2439675c3a30f3b",
+    "bytes": 43842
+  },
+  "app/lib/plan_pages.dart": {
+    "sha256": "860357f02a7f9d16ed0a7132c4b7e1cb12b253bdf066fa2f44a26926b0af1789",
+    "bytes": 30751
+  },
+  "app/lib/project_integration_widgets.dart": {
+    "sha256": "fa64049e60f19d2c6ff4ea496d248ddd86367f2ae85c61f80d59220099dc6c50",
+    "bytes": 41822
+  },
+  "app/lib/project_page.dart": {
+    "sha256": "21996fdf4233f1c7245f595e75ab0f75afc0a7c879f4fdfecf62850f3315968b",
+    "bytes": 25170
+  },
+  "app/lib/project_workspace_forms.dart": {
+    "sha256": "191e3619bd5f988aff7c90671ea4a766881d9920aaca533bc516037c7e6a2e47",
+    "bytes": 28297
+  },
+  "app/lib/project_workspace_page.dart": {
+    "sha256": "b2e9a6667099931ec2f93306b689fc971977b068fcc42c153b0c4c46210074d2",
+    "bytes": 65872
+  },
+  "app/lib/signature_editor.dart": {
+    "sha256": "9869b1bbb6cbd74e0072c3639eb600297dd1bddc4a61073f1ca5eceaccb87422",
+    "bytes": 10793
+  },
+  "backend/.env.example": {
+    "sha256": "4ba08f36880542c55b0ee611d88ca32efaea09cf843bd2ce28c9765810f6644d",
+    "bytes": 182
+  },
+  "backend/.venv/bin/python": {
+    "sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+    "bytes": 30894944
+  },
+  "backend/accounting_asset_opening_rules.py": {
+    "sha256": "73eb246fd606d80cfa265fe803274c79c4f25f5f325f17dd325dc1540dd5810d",
+    "bytes": 7202
+  },
+  "backend/accounting_asset_opening_sources.py": {
+    "sha256": "27b8ad1aff5e746df4007e59ddd47bcf08cc24b35ae1413ca70f1c4096986483",
+    "bytes": 6872
+  },
+  "backend/accounting_component_segments.py": {
+    "sha256": "24de42a70a9405fa9a3eda98fc8e536f9ba19be30cb5a67fd861247f41cfa30e",
+    "bytes": 4955
+  },
+  "backend/accounting_invoice_sources.py": {
+    "sha256": "a56c140ff3a3c720497b26a339f7d9171af1ed04f58be17f1cf44b5181c3c42a",
+    "bytes": 10939
+  },
+  "backend/accounting_joint_access.py": {
+    "sha256": "82baa593e9d3a3c717dab7bdc1e198b11331f0d06e5b9f09aa83914341cf7aaf",
+    "bytes": 4986
+  },
+  "backend/accounting_joint_ledger.py": {
+    "sha256": "677c7dda0bd6182be714e22651b9b5ec454d462d1a8248b2def570fe01509dd2",
+    "bytes": 7243
+  },
+  "backend/accounting_joint_order.py": {
+    "sha256": "c01040475245bfb073ab320e1347f0da64be1df77458650b3070338fe0bd718f",
+    "bytes": 4314
+  },
+  "backend/accounting_open_item_rules.py": {
+    "sha256": "c4241405e8a6d05fddb4a729c53d0710628cc2ac9d010679727a57a2d17cdcac",
+    "bytes": 7182
+  },
+  "backend/accounting_open_item_sources.py": {
+    "sha256": "f44e1ceda7ad682c6ee61033e154ec0380022dc8d12d9e82e0450870c0b0cfca",
+    "bytes": 5090
+  },
+  "backend/accounting_return_lots.py": {
+    "sha256": "6f7ebe7f45239c9b04f2045720a08fd907ee01ffd8b40c3592656d258f72cc9c",
+    "bytes": 3725
+  },
+  "backend/accounting_travel_sources.py": {
+    "sha256": "151e239ecb199df42d8a980fc4856249f3931eda0a99c2aec4da66ccbd3711fd",
+    "bytes": 5218
+  },
+  "backend/accounting_year_opening_rules.py": {
+    "sha256": "ae8bc91c8e68a3927cc478c7f4b02b56a66d99e26d55468053940a1ea86392a7",
+    "bytes": 8518
+  },
+  "backend/accounting_year_opening_sources.py": {
+    "sha256": "4bdb0c049f78018a9e2c519cd003d4cffe56dba3296fdf399745a61d82eb632a",
+    "bytes": 5337
+  },
+  "backend/accounting_year_package_v1.py": {
+    "sha256": "8e79534d2739e05f2b34141adf66399563c4cc07e076d2618125374701d77f42",
+    "bytes": 21781
+  },
+  "backend/accounting_year_package_v2.py": {
+    "sha256": "e3d7928f2df77f51dd93c975445a32197c699d4917b057e8fa367e0d4b7ac638",
+    "bytes": 10329
+  },
+  "backend/accounting_year_verify_v1.py": {
+    "sha256": "77b032a6e19f27dfefd290106ecda73675e8e5a9c68afaedfdda9ddae0c60baa",
+    "bytes": 24982
+  },
+  "backend/accounting_year_verify_v2.py": {
+    "sha256": "7a3edfc97c501290962c71736203c1397215378fab3b91d93351e5ee2a6943ab",
+    "bytes": 30824
+  },
+  "backend/backup.py": {
+    "sha256": "628453fd45121e9dd4af03da618187b3de0b5a1c93865ed98a8fcc4fb4a58e91",
+    "bytes": 1664
+  },
+  "backend/business_accounting.py": {
+    "sha256": "8bdca7b6c7d5764dc70fe3f74fb39eab56dc82458093382f13ce9c400306169a",
+    "bytes": 47870
+  },
+  "backend/business_accounting_allocations.py": {
+    "sha256": "0aa50a7a72893849a19b3eab78f5702f86ed68c663cd5d1268b6591c539806f2",
+    "bytes": 37344
+  },
+  "backend/business_accounting_asset_openings.py": {
+    "sha256": "216253560e8abc0fdc129633c9fc2a7734f10a025276bfe1e7f8dd2ecb3eacf3",
+    "bytes": 28628
+  },
+  "backend/business_accounting_capacity.py": {
+    "sha256": "b4ed055d0b4d020838a4e60c8bfcbda08510818cd575f6ed504ffd1a2f4ef3f5",
+    "bytes": 64130
+  },
+  "backend/business_accounting_components.py": {
+    "sha256": "57d44aa890af23d73f359ba30e874c9dcf97c6232162564d02965124ce109dcc",
+    "bytes": 45811
+  },
+  "backend/business_accounting_euer.py": {
+    "sha256": "5a98d2a7ef63f4244938048c85014724b79c9b572303e0b832fb27e628f2de67",
+    "bytes": 88654
+  },
+  "backend/business_accounting_open_items.py": {
+    "sha256": "8f75aff4f916772e16bdacb95c83a8898bdc8e109ef63e499a08893d36fa6080",
+    "bytes": 38596
+  },
+  "backend/business_accounting_openings.py": {
+    "sha256": "daab353586aaa11bb9928da44ae55597df61e1d83dc0dfba4547cd0213f93691",
+    "bytes": 43019
+  },
+  "backend/business_accounting_profile.py": {
+    "sha256": "af95ccf0c97c48651e7cdfa44ad64e30e60fac050e7986f8fdc21fd65d394d54",
+    "bytes": 17583
+  },
+  "backend/business_accounting_refunds.py": {
+    "sha256": "7d8390f180bf94b298ce5940722593ef31a4bf0229e7f30cae40759958357e24",
+    "bytes": 43992
+  },
+  "backend/business_accounting_refunds_v2.py": {
+    "sha256": "9277f7605c03a05567a3badd8074a947dd10f66356b63e852f998d63accb0f70",
+    "bytes": 49090
+  },
+  "backend/business_accounting_year_openings.py": {
+    "sha256": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd",
+    "bytes": 36733
+  },
+  "backend/business_adapters.py": {
+    "sha256": "75ea51c08b84752f0fe3f932b571b23b239f0a9b1e1b56183af8f82b0bf6144f",
+    "bytes": 85419
+  },
+  "backend/business_api.py": {
+    "sha256": "bf713fc0cc88b9a6569793f7f221fde72dadb25be90a205d314ea6f713186822",
+    "bytes": 22921
+  },
+  "backend/business_asset_provenance.py": {
+    "sha256": "6fd96f7bc1dea10566d9b2a70aae71ce71471c545e7c73c7e4e670c608c5cdc6",
+    "bytes": 33783
+  },
+  "backend/business_assistant.py": {
+    "sha256": "83099731d683cd828188b8ef8c631e1931d085587418b43849158073f6149813",
+    "bytes": 66866
+  },
+  "backend/business_assistant_provider.py": {
+    "sha256": "8a3e358282a4fa8f7a5bae9df0fb815d3b8befb800dec5fa86d194b76d6a82a1",
+    "bytes": 9825
+  },
+  "backend/business_assistant_sources.py": {
+    "sha256": "74dbc22004f041dc4b3e47928c1ae3f72e0b4defe9a29432bbf48811d0aee9df",
+    "bytes": 16372
+  },
+  "backend/business_assistant_speech.py": {
+    "sha256": "00bdcd3af1d2115ffc03bd3fa6622a0f85a555678a94a07ee45ea4cf8fa744d0",
+    "bytes": 22844
+  },
+  "backend/business_bank_reconciliation.py": {
+    "sha256": "1170b90d98dc8c82f2da1d8e9843d27b29466e4c0082e67626e1e98a2049422f",
+    "bytes": 69384
+  },
+  "backend/business_catalog_imports.py": {
+    "sha256": "e9e7e17fc174b0cc63a07cb557b2d82d3147fdb30bda5390c0a3dc6626e4a555",
+    "bytes": 23919
+  },
+  "backend/business_catalog_prices.py": {
+    "sha256": "7c5e5fe1a5cad1f4629368b461ec0be55a111a4ecde075a2ca7123037289c1f7",
+    "bytes": 59712
+  },
+  "backend/business_company_events.py": {
+    "sha256": "1cdf6d30aa3b2764cd5c036d9af55fd2a68c89e8cc6d671d4233a2c812ad2fdd",
+    "bytes": 60388
+  },
+  "backend/business_company_handover.py": {
+    "sha256": "5a277d5796c53a8f67a85764ea4bc45d9d9b3340d7bb4ed7a850e0869a5e45fb",
+    "bytes": 20173
+  },
+  "backend/business_custom_fields.py": {
+    "sha256": "5b1957b704e2366fd818ecb14a23a1c254172ddb87254848935c555f757d910b",
+    "bytes": 29322
+  },
+  "backend/business_customer_workspace.py": {
+    "sha256": "d385eb9d09247162607fb38283f68bed37a5f06dc92ff805c181809a9af185ce",
+    "bytes": 57735
+  },
+  "backend/business_delivery.py": {
+    "sha256": "cc2a3546bdddb15d2650fbf55a83caa814b54d52e956bec8a3b37f1813fa6694",
+    "bytes": 11663
+  },
+  "backend/business_documents.py": {
+    "sha256": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+    "bytes": 132432
+  },
+  "backend/business_einvoice.py": {
+    "sha256": "a90c605b8d841c742feace9695a42c3960f1f3433cd4e7251da752f354860a81",
+    "bytes": 30702
+  },
+  "backend/business_finance.py": {
+    "sha256": "83f89fb212fe99edf2ae829211f1fc9eb1eb6fb1da820c9e954f26b25147d9de",
+    "bytes": 68023
+  },
+  "backend/business_foundation.py": {
+    "sha256": "0bb453dc36da531e7222b426ed5d6bf5f80792da5e380905b833094d1ea9bd57",
+    "bytes": 75557
+  },
+  "backend/business_instance.py": {
+    "sha256": "f7f6297ae36622692fd168b9105c9adfd31b4da20a17447c15badd26da2a97a5",
+    "bytes": 2756
+  },
+  "backend/business_inventory.py": {
+    "sha256": "96d97bc9d5893d1fc0106b5eaae8378fe85460ac7842d94d72bdfccacaaa99d6",
+    "bytes": 49682
+  },
+  "backend/business_inventory_counts.py": {
+    "sha256": "cee5f04e8d4ba7197978a1bc06607c3877e410684cdf9378111d004231bd161c",
+    "bytes": 28604
+  },
+  "backend/business_maintenance.py": {
+    "sha256": "28ee836381c18946c262b82557d80688a07c29279a2cca976d19d0b777ff525b",
+    "bytes": 21970
+  },
+  "backend/business_migrations.py": {
+    "sha256": "7a10e016d4a7ba8223398495db24abbee83e9e56d23ff76eef0f9573dacb7936",
+    "bytes": 53839
+  },
+  "backend/business_offline_reports.py": {
+    "sha256": "7889884a6169bec6f11bd7469841b641ec4131efeab3723d5bf3d65304fc4af9",
+    "bytes": 10845
+  },
+  "backend/business_operations.py": {
+    "sha256": "fb9f620d37bf7ef506c5681683f74064b5d102c6bf14bdd2616249155df9a186",
+    "bytes": 69098
+  },
+  "backend/business_organization.py": {
+    "sha256": "0defa8eae4498745bf8e9f82732f944c2571e25b7e2a70a4b96401d005bb7251",
+    "bytes": 14234
+  },
+  "backend/business_overview.py": {
+    "sha256": "2c6e01f4158f858121f7a3f84d78d77f4eff158b76ba98995fa7595f0de16c44",
+    "bytes": 8156
+  },
+  "backend/business_payroll.py": {
+    "sha256": "de62e004c104b61eff410e9f7c1bf72068c2b1c29c000761f25af69455d52e09",
+    "bytes": 58909
+  },
+  "backend/business_payroll_accounts.py": {
+    "sha256": "188fa7f2c3474c780b41e62724c5812cc959ef4bec406af514c9017268b21c26",
+    "bytes": 33297
+  },
+  "backend/business_payroll_annual_basis.py": {
+    "sha256": "264fca579eeef48382cd83184369defdac254a498ecc8b5260e7eb75fee868a8",
+    "bytes": 51152
+  },
+  "backend/business_payroll_calculation_cases.py": {
+    "sha256": "d885bc3b9aa3e0fad5896ec83ec28372d459c8bfcc5abf33e099273b0232bc3e",
+    "bytes": 42147
+  },
+  "backend/business_payroll_cash.py": {
+    "sha256": "8a585255c0bb08ee0bfadfd816b5e0c852a89c62926b34961ba830ac1cbd3da7",
+    "bytes": 30071
+  },
+  "backend/business_payroll_entitlements.py": {
+    "sha256": "e8679069a9b6eb99eac7c9cedf6870ca0ce92f1f920eb55d57c90869610448d6",
+    "bytes": 35786
+  },
+  "backend/business_payroll_facts.py": {
+    "sha256": "30464819ade4fdd5da4f3c21c37a2ef8bb15a7d922d6d4bd93f60e24f992ea82",
+    "bytes": 41429
+  },
+  "backend/business_payroll_multiple_cases.py": {
+    "sha256": "3952ffe27f514577e87e84bf6842cb978b7846990f279c22038c0b0842d984af",
+    "bytes": 37368
+  },
+  "backend/business_payroll_oneoff_cases.py": {
+    "sha256": "891e93b87b958d060cfb3c681f49204af3dee7ddab026d692d16a9efb3b42b0e",
+    "bytes": 32285
+  },
+  "backend/business_payroll_statements.py": {
+    "sha256": "deba6bfd98854e50d591340e85b30e99a121ab8346be8c8ea04c13399cfb55e6",
+    "bytes": 17659
+  },
+  "backend/business_payroll_wage_interruptions.py": {
+    "sha256": "facd3231beebd77399b0b4fa95f73d760c01383e37f5aa9e7fb0836d61634f3f",
+    "bytes": 31853
+  },
+  "backend/business_personnel_workflow.py": {
+    "sha256": "cdd32edf62b24db9524367d8c07ebe01f923d4c23d48c6ea6914cdeafce2a07c",
+    "bytes": 56744
+  },
+  "backend/business_planning.py": {
+    "sha256": "5ffa25178fae0a0d6987261f2b6bd78cd0fae76f8e70df81fa682f3ec69ca63f",
+    "bytes": 50238
+  },
+  "backend/business_portal.py": {
+    "sha256": "63d1d7c0841f48821d726c9f253ab79dfde2d205eaa3d17305fe6b5639e50bd2",
+    "bytes": 43158
+  },
+  "backend/business_pricing.py": {
+    "sha256": "4970e0d916a05b3c4559b6fd1385c1da88ea08b6b89f25b01b4020c40f14aaf9",
+    "bytes": 15141
+  },
+  "backend/business_privacy_cases.py": {
+    "sha256": "fcbc4e8160f9f33685c7755cad9169e39ce74c0d7871337f9cf23349cee96ef6",
+    "bytes": 44852
+  },
+  "backend/business_project_economics.py": {
+    "sha256": "c1b951db7091fbb734bbfb61e81a3e2db9bf99f429ba1e541ce0e6201f271434",
+    "bytes": 31834
+  },
+  "backend/business_purchase_changes.py": {
+    "sha256": "31eb5547e584abae316b2459b70d53f1b14052d7012b8b72c26942ab68fb5473",
+    "bytes": 59243
+  },
+  "backend/business_purchasing.py": {
+    "sha256": "b2f513a536412c8104fff4271e1b61501069431e481a6354b70a407c787f2752",
+    "bytes": 35221
+  },
+  "backend/business_resource_custody.py": {
+    "sha256": "0ca6430a46cc7a48d7af1ff37a35b161d98f56ace47756f617f5afe2d8233f96",
+    "bytes": 44398
+  },
+  "backend/business_sales.py": {
+    "sha256": "aee82f64ffe6b0c3974512852f158cdb61e76b1a07f72c7817beed2a8866f25d",
+    "bytes": 33231
+  },
+  "backend/business_schema.py": {
+    "sha256": "d358885df0a35e62a2312e255b0415484a3ed946f0de8426249fc2342b77edce",
+    "bytes": 88322
+  },
+  "backend/business_service.py": {
+    "sha256": "b1b27dec26540d4520ca76b5846f5d74ec74c5586cd9864446598992b14ea8c6",
+    "bytes": 40368
+  },
+  "backend/business_tests/test_commercial_http.py": {
+    "sha256": "c81e1d0ce0ec461bf806fb032bf4c483ae680f3fa7c13f6fc1b16055b80bf9e2",
+    "bytes": 7252
+  },
+  "backend/business_tests/test_delivery.py": {
+    "sha256": "0e1296e2c3368be1270d8d7764618ec8c93ae2083c09780540728db9f7cb7289",
+    "bytes": 10128
+  },
+  "backend/business_tests/test_documents.py": {
+    "sha256": "3575891a66a72a7cd0ec5462dfe8dcf7cdb5db92a2fc57afb4539e3ee1fc7c91",
+    "bytes": 17857
+  },
+  "backend/business_tests/test_einvoice.py": {
+    "sha256": "7fcf6e0f0e8dfd5970a978e5fe313a949dc87682e16c9759f2589578e6f14e50",
+    "bytes": 5444
+  },
+  "backend/business_tests/test_finance.py": {
+    "sha256": "0128390c439f1b9c17dd999fdfe26957dd7a978a3b1cf7da2933fd1b131f1de8",
+    "bytes": 23643
+  },
+  "backend/business_tests/test_finance_review.py": {
+    "sha256": "dbcc06fef89a06c415a44038b39315d0320a4e6216feddb4da53e2972848a5d0",
+    "bytes": 11060
+  },
+  "backend/business_tests/test_pricing_measurements.py": {
+    "sha256": "b51f038c0caf77cb85fcbc2670261180959158a9e5e084ca44149f4df6151a34",
+    "bytes": 23258
+  },
+  "backend/business_tests/test_restore_outbox.py": {
+    "sha256": "391a5256e4a566ba48af344ad492ce73cb87b355ee916e9bbe77c7e1f29eb39f",
+    "bytes": 3525
+  },
+  "backend/business_tests/test_time_billing.py": {
+    "sha256": "370ebd816d67255eeacc63e498932615cfb51d81b8cb53e13cab3975d62450a3",
+    "bytes": 3170
+  },
+  "backend/business_time.py": {
+    "sha256": "05a0026b60fe20f9e40324943c16dfc83e90ec0f2719b165e084df2eeb9330fe",
+    "bytes": 57304
+  },
+  "backend/business_travel_allowances.py": {
+    "sha256": "bf842976b973e652307d566c0e2f853ce75dff2530ba6236728d949ab6e3b887",
+    "bytes": 63998
+  },
+  "backend/company_event_sources.py": {
+    "sha256": "27257d83a8ef775aedc6324813cc8c4ce871ec01bbf70cc9e02b1d7d6bf76056",
+    "bytes": 14425
+  },
+  "backend/company_event_worker.py": {
+    "sha256": "7bc9bacba9bbad1f97a289680307c97893bad13412079cd86298a3e423354c8a",
+    "bytes": 1127
+  },
+  "backend/company_export_archive.py": {
+    "sha256": "ccdf48c79553301c9945ae7dc4a9c5ae4c7232f8a35cd1e4b0fd5e251d58802d",
+    "bytes": 13822
+  },
+  "backend/company_export_catalog.py": {
+    "sha256": "914c57f51c64bea2b78a351b078508f0bffb7132a5b4de9e5df69ab5a4c2bda2",
+    "bytes": 50059
+  },
+  "backend/company_export_verify.py": {
+    "sha256": "c7ccd368dcb267f4b35e0d7d3136140946ed5039a1eae118dae8b459f6397dfb",
+    "bytes": 8860
+  },
+  "backend/core.py": {
+    "sha256": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7",
+    "bytes": 33640
+  },
+  "backend/external_integrations.py": {
+    "sha256": "ccec531afcb5cf82c1fa3d63123126b215e8f99af1b06993cbddc3729f26c871",
+    "bytes": 51049
+  },
+  "backend/inbound_connectors.py": {
+    "sha256": "7c2179ff0514b0a28ed23fb615989b27c7bc81dce41e657fa7b357fb5c974fb2",
+    "bytes": 9655
+  },
+  "backend/inquiries.py": {
+    "sha256": "9bb849103a4b1084c6fcc7720b194f70d65edeb0cb65e57ba99689abbc8211a7",
+    "bytes": 27593
+  },
+  "backend/inquiry_attachments.py": {
+    "sha256": "0874a743d4a31e7b863c5585bf9dc8b00abfd8b311c991b3aa3390a1711c6bd9",
+    "bytes": 31305
+  },
+  "backend/integration_bridge.py": {
+    "sha256": "841bf3cd3dec687faf50337e81ec7bb7dd74ec4ac3e6d3b61e68d4c295fb5f60",
+    "bytes": 28078
+  },
+  "backend/onedrive.py": {
+    "sha256": "b4e6254984bedf109038383f227f806ceb36461335894c2d0309397517bcb95f",
+    "bytes": 5868
+  },
+  "backend/online/INTEGRATIONEN.md": {
+    "sha256": "541d13b69d2af6be81901a75f6e62953bdf7ec66f8eae804dea6487dc7e2afdb",
+    "bytes": 4821
+  },
+  "backend/online/INTEGRATIONEN_QUELLEN.md": {
+    "sha256": "268e27e4fb887d0c515f9e215089992a27d1918927b2959d1c83aa32263386c3",
+    "bytes": 17834
+  },
+  "backend/online/PLANIMPORT.md": {
+    "sha256": "1ef142da396ce2176a4115f174cbfa6137e0f811af4e9482fa9266cebdb25873",
+    "bytes": 12951
+  },
+  "backend/online/auth.py": {
+    "sha256": "175c1e5c0587f60788381d0bc759bab3c683e5f7c5777d3f25ed730fd27f3793",
+    "bytes": 7801
+  },
+  "backend/online/backup.py": {
+    "sha256": "3123a1510099e30800dc49c641ce1046dad8dc26321a77e481152cb5bbb71125",
+    "bytes": 1580
+  },
+  "backend/online/customer_workspace.py": {
+    "sha256": "f98e8eaa99fb81470c652897899425d0617651a6db6b43b9d6b4c765628de308",
+    "bytes": 4898
+  },
+  "backend/online/import_sandbox.py": {
+    "sha256": "2fcf3600ac022ac2332ff87b9f762844757419a1a254fdd22493d489400e4f71",
+    "bytes": 13578
+  },
+  "backend/online/import_worker.py": {
+    "sha256": "c22526edbccd11eac255c5ff926df331e7e2ceef22ecf515b0c034668601b1b2",
+    "bytes": 11121
+  },
+  "backend/online/instance.py": {
+    "sha256": "d15889a42dbe3fb190d3577a4fb6c7b9d64efc7ed6c8fc79f4fcd00a2c719b1a",
+    "bytes": 9226
+  },
+  "backend/online/instance_roles.py": {
+    "sha256": "b28de003f3d0f32c32fd638070f813a7f80888f5e9e72d61f9be8568937e2610",
+    "bytes": 5465
+  },
+  "backend/online/integration_bot_service.py": {
+    "sha256": "f2da964a46c4a6a5651d244ff781ee3b91715453d589297768f6e2d446b85120",
+    "bytes": 28927
+  },
+  "backend/online/integration_google.py": {
+    "sha256": "6e79389d9fe5a69285152b40c1c14a287fe667bb6d54dbef9cc21f60a159e7ff",
+    "bytes": 24027
+  },
+  "backend/online/integration_http.py": {
+    "sha256": "6de848deed7a66385a266e2fd1fc2ceb1a31ba074e77a0cf79402ed434010eb3",
+    "bytes": 15275
+  },
+  "backend/online/integration_onedrive.py": {
+    "sha256": "dd67edac5eb1710dde1fad48839656042cdea2cd3419dc4c6d723761b80854fb",
+    "bytes": 9080
+  },
+  "backend/online/integration_sevdesk.py": {
+    "sha256": "7941472a6d461e24f81ee4d1d571e08c33cff66f98fa3a7b5c576a92e1139763",
+    "bytes": 10150
+  },
+  "backend/online/integrations_service.py": {
+    "sha256": "6c21edb51a6a0e826c892057b9bbfd20d77338ecf9a690d55458c9b32e6e1338",
+    "bytes": 35066
+  },
+  "backend/online/manage.py": {
+    "sha256": "ea11d4bdcf3724ba64273190cd1df87568d4093ac8773140bdf02f13ea3a2d02",
+    "bytes": 2308
+  },
+  "backend/online/onedrive_connector.py": {
+    "sha256": "e0d40dbd4348bcb78a8c997275a8b499baf2fc2d16fd4c5998b0583ad6042af6",
+    "bytes": 23409
+  },
+  "backend/online/plan_imports.py": {
+    "sha256": "db7ed8611123c0d23fab6c0fae9c788f6dcf24cf62a6006706d91374ff83d514",
+    "bytes": 19854
+  },
+  "backend/online/portal.py": {
+    "sha256": "06870670b2a43d83b0b00c6b4b05f246614394ed819f43b60aef3139b0c0c52b",
+    "bytes": 6236
+  },
+  "backend/online/provisioning.py": {
+    "sha256": "fd438766522c55e9c4fb77deeaa48639d4746ff66bbddd69f2f65feadfaa0b66",
+    "bytes": 23349
+  },
+  "backend/online/provisioning_host.py": {
+    "sha256": "9cceb19b00cc1b88955e1cab725b5fdda7a7549f76fcaf8e1db14f3116661fc7",
+    "bytes": 23325
+  },
+  "backend/online/release.py": {
+    "sha256": "67fa05a21bf19cb9dab81f0eedce3903c264b16296aee204705412c7a5706e63",
+    "bytes": 36782
+  },
+  "backend/online/requirements.lock": {
+    "sha256": "0353701a40adb9703c8961b8f16d1f72a741a7cf3199043025103bf5385d0021",
+    "bytes": 311
+  },
+  "backend/online/requirements.txt": {
+    "sha256": "d1486922e59bf8c7014a9867ee25588e8cf3eb7a3bca59857b3d2c7d0f120abd",
+    "bytes": 77
+  },
+  "backend/online/restore.py": {
+    "sha256": "17e6a353d347e624b747c8c27c55227ae3e9639ac50718a6f98b63b2acc16f83",
+    "bytes": 9337
+  },
+  "backend/online/storage.py": {
+    "sha256": "be2f19bd58f7f37e56a9556339cc5480ff44b2f83d374b70176a561763672fdf",
+    "bytes": 10191
+  },
+  "backend/online/storage_backends.py": {
+    "sha256": "cd01e514d2320c37389f9e46b6786a1366d8f5b908ef953c37b0446208862e48",
+    "bytes": 14572
+  },
+  "backend/online/store.py": {
+    "sha256": "7964282716f397902c7c988e360b57952fbfa2b2f0040828211e5d8d3ddd39d4",
+    "bytes": 13347
+  },
+  "backend/online/test_accounting_allocations_http.py": {
+    "sha256": "73268b6298b3150ad3eecb5befea15716a2bb93c726f739c38a48a7a57cd9336",
+    "bytes": 16479
+  },
+  "backend/online/test_accounting_allocations_journey.py": {
+    "sha256": "3e0f67ae186f37d74cfaeac8e87acbdcada10e7e552fd0128b2ab59ebd77020d",
+    "bytes": 24504
+  },
+  "backend/online/test_accounting_asset_openings_pg.py": {
+    "sha256": "71203161ae95c219100e30e36e73b3fc28af0621af3b6f04a20cabdd797aaafb",
+    "bytes": 9327
+  },
+  "backend/online/test_accounting_capacity_http.py": {
+    "sha256": "b4d9c9822c909284a86aa3014ae57289c68ac5ea9ce19134f5f72fbd02c8258c",
+    "bytes": 21759
+  },
+  "backend/online/test_accounting_capacity_journey.py": {
+    "sha256": "2099c500cd07aca02d5145c863f445528fb751a043d9e96eed233502b5525d21",
+    "bytes": 23756
+  },
+  "backend/online/test_accounting_components_http.py": {
+    "sha256": "f8f20ed87b80b4ee8c687980c26112b07397e51d576af47417f1ae6dd8477319",
+    "bytes": 20945
+  },
+  "backend/online/test_accounting_components_journey.py": {
+    "sha256": "adbb05e58b53462e11add0b6d1f35758e1a4c3822bd076ddb7870716d5a35429",
+    "bytes": 23438
+  },
+  "backend/online/test_accounting_http.py": {
+    "sha256": "1cb10913ef734436cc3955d92d159e03d6059a55a3b6f50839bcfe62659aaf52",
+    "bytes": 20317
+  },
+  "backend/online/test_accounting_journey.py": {
+    "sha256": "07dad148424576af5874b22ea653720db5f07c8312a75e270aca617ddded03eb",
+    "bytes": 25388
+  },
+  "backend/online/test_accounting_open_items_pg.py": {
+    "sha256": "a5a85b76d4a73f6756b341366d6ba6ec1846f71ea01957dd6391098be45a3ac7",
+    "bytes": 10912
+  },
+  "backend/online/test_accounting_profile_http.py": {
+    "sha256": "e5613d5936946779d0c93dd024d5d337540b21ace5c4f3114a6842e12d9062a4",
+    "bytes": 22090
+  },
+  "backend/online/test_accounting_profile_journey.py": {
+    "sha256": "a8c39bb53959c5e8bc62615dfff71c6018686bbf4f0e7f05c9d793bb7b584d53",
+    "bytes": 12744
+  },
+  "backend/online/test_accounting_refunds_http.py": {
+    "sha256": "016e2cf7bba85cb0035fd32d1d8bcefb2ca074aed4c356f549fa9311baffdcbe",
+    "bytes": 23492
+  },
+  "backend/online/test_accounting_refunds_journey.py": {
+    "sha256": "62479e85dbb211237882376989446c525a2c4aaff8d81d571a30e7a24d71a353",
+    "bytes": 27668
+  },
+  "backend/online/test_accounting_refunds_v2_http.py": {
+    "sha256": "47bc17d074e2c74c890a1440cc566c0bafec2b0a7142374d4aacf9617cbd7b53",
+    "bytes": 25230
+  },
+  "backend/online/test_accounting_refunds_v2_journey.py": {
+    "sha256": "b6a23cdab78c774e7541e20b72b3bd1f91ce34491269a2c50cfcae5d95e934ef",
+    "bytes": 26065
+  },
+  "backend/online/test_accounting_year_openings_pg.py": {
+    "sha256": "03b7c095a9cef9088e9211628b83543cbb822b8a17d7133ca442977c14ac9049",
+    "bytes": 10998
+  },
+  "backend/online/test_accounting_year_package_pg.py": {
+    "sha256": "213df653cc8fcc3e82116e1a5cbe1599f1f8b9aa7af67e75c8ed9783c2f6ee37",
+    "bytes": 5424
+  },
+  "backend/online/test_accounting_year_package_v2_pg.py": {
+    "sha256": "1a09fa52d3bd23f8e417f82fe94763e764392fd30ee4ee3111fff7808b1ac3db",
+    "bytes": 3884
+  },
+  "backend/online/test_assets_source5_catalog_restore_pg.py": {
+    "sha256": "153f1001871179e89f681a3ac20ca3737a846e46cb90063dc41ea24f3ee1fb2f",
+    "bytes": 7555
+  },
+  "backend/online/test_assistant_http.py": {
+    "sha256": "c02c3f17df28e2314d5133c6f18c5efff2d0a3d20abebf6e9d544955562c2941",
+    "bytes": 5082
+  },
+  "backend/online/test_assistant_pg.py": {
+    "sha256": "062964c5e29685c94c85be1f22579763f2f9121bc77022342d56bca7667e0c75",
+    "bytes": 15229
+  },
+  "backend/online/test_assistant_speech_http.py": {
+    "sha256": "be7f74e03dca6c92d8bc8e9e32f2f88a9cbe6eb88afe25eac97afe75ed0cf440",
+    "bytes": 4054
+  },
+  "backend/online/test_assistant_speech_pg.py": {
+    "sha256": "2d23ac5a216786c2d8fc9dbdef0cd3c9e765d56523d82669191d90faaaad33e1",
+    "bytes": 9042
+  },
+  "backend/online/test_business_accounting_euer_pg.py": {
+    "sha256": "3c85b2f662d16c7011de1552ee2591e23f28253102e8f410d10255439de5549e",
+    "bytes": 17100
+  },
+  "backend/online/test_business_accounting_invoice_chain_pg.py": {
+    "sha256": "1978987d21cdaa59e1ece6be3e056953938a88daadf3cb2a40bdf1fcf613ab33",
+    "bytes": 10646
+  },
+  "backend/online/test_business_accounting_openings_pg.py": {
+    "sha256": "3ba14e9f5380c900207c21733b11b2599613e106d4347ba14195edb1daff2bd0",
+    "bytes": 13281
+  },
+  "backend/online/test_business_asset_provenance_api.py": {
+    "sha256": "e7739153eaec0835fc5db2762afc36adafa39445a747dfeb941cca076d57acaa",
+    "bytes": 5128
+  },
+  "backend/online/test_business_asset_provenance_pg.py": {
+    "sha256": "45dcdb5fb662506d815b017ee1c52e913fe5a6e934402d3511b0cc12b7d548ca",
+    "bytes": 5894
+  },
+  "backend/online/test_business_bank_reconciliation_pg.py": {
+    "sha256": "1f015907e6b0b86c0e4a6da92b9c50ae4adea7e809c44822e3aa098e089247bc",
+    "bytes": 14555
+  },
+  "backend/online/test_business_boundary_review.py": {
+    "sha256": "857be3cb495a77ef5495ee9347a73b4674439bbfccddbd09b5f116700e288182",
+    "bytes": 21540
+  },
+  "backend/online/test_business_catalog_imports_pg.py": {
+    "sha256": "071caf421a12bc94e303a3471fa05f2e93164e86bd1abd9c05cf0cec78ee70a1",
+    "bytes": 4670
+  },
+  "backend/online/test_business_catalog_opening_restore_pg.py": {
+    "sha256": "38af2b49e3c2408ff158dda88b1dd8f21cb84cc1e8834b4172a51e8eb558f2a9",
+    "bytes": 4347
+  },
+  "backend/online/test_business_catalog_prices_pg.py": {
+    "sha256": "7c4439f356fce58d1fa8b873f2d678af1f06ff87c46fe3fb12963b47aa3e182a",
+    "bytes": 7382
+  },
+  "backend/online/test_business_company_handover_pg.py": {
+    "sha256": "7c1496410496224df9a4664486cb679765f4956c9627ecf6f025311b7920bfc2",
+    "bytes": 7826
+  },
+  "backend/online/test_business_completion_pg.py": {
+    "sha256": "cd791c08c86293bba78dbbc801c55a7eedd43a2763fdeff6e4ec0a82895c63fc",
+    "bytes": 12717
+  },
+  "backend/online/test_business_contact_api.py": {
+    "sha256": "fbb6c6c6376b80ad9461f73aae5f254504bcb4427c6797f3f71d59c07fe31cd8",
+    "bytes": 4702
+  },
+  "backend/online/test_business_custom_fields_pg.py": {
+    "sha256": "4079141d0c355de8e9af45651aec5b0f4b228aea3733086de2e605ad85562d2f",
+    "bytes": 7463
+  },
+  "backend/online/test_business_document_access_api.py": {
+    "sha256": "a18040255aea55a19bb7b888d93514cb2a04d637940cdda613a3488857de85b7",
+    "bytes": 4931
+  },
+  "backend/online/test_business_intake_contract.py": {
+    "sha256": "b8a5a532555ccaa4aa9ce2c549f13017c6541e5edb1adcaff355e46faf2e91eb",
+    "bytes": 12187
+  },
+  "backend/online/test_business_inventory_counts_http.py": {
+    "sha256": "d280de2e0658ad56a314ce7005c534492986da6af1cf9376ba6ffcbf1ec47bc9",
+    "bytes": 3507
+  },
+  "backend/online/test_business_inventory_counts_pg.py": {
+    "sha256": "e62ec779d39e2efdc2b9da5b2af81b9118fc5cd4cf10cdc77c6e7c3a8352fbf5",
+    "bytes": 3136
+  },
+  "backend/online/test_business_journey_pg.py": {
+    "sha256": "8725cbb9ea50aeabb30c356bdedd7353c7d5a47206bcdf1f5d530175ae176c04",
+    "bytes": 15791
+  },
+  "backend/online/test_business_migrations_pg.py": {
+    "sha256": "842ec7243b4d81290fd6c3eed6f4a71731ffa99811aea52be8a06540a75a2c4f",
+    "bytes": 10074
+  },
+  "backend/online/test_business_offline_reports_api.py": {
+    "sha256": "1a39ebd552606880484203f222e009e8c5124e1e7cd4d9860d1da18ad091ada1",
+    "bytes": 16505
+  },
+  "backend/online/test_business_offline_reports_restore_pg.py": {
+    "sha256": "9e5b22c96a2ee5f7b9ac38ada24b1374e91becc1df46763d1eb7983f43afb269",
+    "bytes": 5416
+  },
+  "backend/online/test_business_operations_api.py": {
+    "sha256": "1957a690dd2c62381442c9a058deb5fe490c8c32fc582d51f0a70108be2d6a0f",
+    "bytes": 6469
+  },
+  "backend/online/test_business_overview_http.py": {
+    "sha256": "3837f016f36457cb8ab41c5c91162ea3522d11d3d5499328dbd7908c513e693f",
+    "bytes": 1836
+  },
+  "backend/online/test_business_payroll_accounts_pg.py": {
+    "sha256": "a17526c42923a3898342981e313e641bcc9da469005beeb7b86ea55e524ec356",
+    "bytes": 8106
+  },
+  "backend/online/test_business_payroll_annual_pg.py": {
+    "sha256": "c7b6c1ccc051662effefdd7b7bd1896c2aa0c9f123d1a72eb6e0b667f484a414",
+    "bytes": 8216
+  },
+  "backend/online/test_business_payroll_calculations_pg.py": {
+    "sha256": "0b30fbeb786a94c23cc2438f8963e19cefbbedc90f20ae294ee81e785b4a9afb",
+    "bytes": 20424
+  },
+  "backend/online/test_business_payroll_cash_http.py": {
+    "sha256": "b601921d5976544cb7a66f6c5b9308d6854b91386b92528c6f556a5a2b91309f",
+    "bytes": 5472
+  },
+  "backend/online/test_business_payroll_cash_pg.py": {
+    "sha256": "f905efa1a8850721bd5340de67c107160fd2e60a7d5e09bea427397a8859452e",
+    "bytes": 10085
+  },
+  "backend/online/test_business_payroll_entitlements_pg.py": {
+    "sha256": "8bf9d19b5c70a6cfc2b7253f0ef164a0878c8e76288dd374945d45759f907cf8",
+    "bytes": 17308
+  },
+  "backend/online/test_business_payroll_facts_pg.py": {
+    "sha256": "3236960f52be7245859616cfc82b57265edb0a38955b619eddfebd0b55315a0d",
+    "bytes": 13419
+  },
+  "backend/online/test_business_payroll_multiple_pg.py": {
+    "sha256": "12b7e1fb6984a25c582a33488235a3027a0f182940cd375bfc0528426b45bfe4",
+    "bytes": 12741
+  },
+  "backend/online/test_business_payroll_oneoff_pg.py": {
+    "sha256": "64f4adf74cbce29dd05d21f2ead147dfe1927ec6a08e26109fb518711a9e33e9",
+    "bytes": 15438
+  },
+  "backend/online/test_business_payroll_periods_pg.py": {
+    "sha256": "87803435a531a33e933a843c44cbc89bd98d2fb93dff61e492dba6cccb641a1f",
+    "bytes": 13624
+  },
+  "backend/online/test_business_payroll_pg.py": {
+    "sha256": "33ebfbe7d2e0f5613d6798a90d2d9a2f8037d14c6dd5e1526affdf1bd2dd4746",
+    "bytes": 14200
+  },
+  "backend/online/test_business_payroll_transition_pg.py": {
+    "sha256": "3c037f2a0ec61efac059a93125a9f837d01bf7cfa3f4933a397c28b7b8fa55d4",
+    "bytes": 11659
+  },
+  "backend/online/test_business_payroll_wage_interruptions_pg.py": {
+    "sha256": "d0776cc754c32a7f46d460cad63f9d37be0213ea3ce67d5d8d4cfafe60adbe8f",
+    "bytes": 11455
+  },
+  "backend/online/test_business_personnel_workflow_pg.py": {
+    "sha256": "07262ee1cbf6b24c8b0aedc36f0eab25ebe20bc3fd0ebb6fe05403c0d73f427e",
+    "bytes": 9927
+  },
+  "backend/online/test_business_planning_time_api.py": {
+    "sha256": "5e0f464bdebf1f055325924c1e10a590617f7b4bda23b89f5d0bfd5d8c7a0c07",
+    "bytes": 6721
+  },
+  "backend/online/test_business_planning_time_pg.py": {
+    "sha256": "a229ab66734cc46badf14f5dcd9f23bb63f018b96bc5d3092d425e88e6099bb4",
+    "bytes": 5062
+  },
+  "backend/online/test_business_privacy_cases_http.py": {
+    "sha256": "01acb1db718607e9902eedeb303856b602ed7db0109bb7f8f55d8d1ff5536a85",
+    "bytes": 2560
+  },
+  "backend/online/test_business_privacy_cases_pg.py": {
+    "sha256": "25df93b79f6d6b4a3f628a9d3c5f78f7eaea8cf61501348faba4b21eb3d973db",
+    "bytes": 9666
+  },
+  "backend/online/test_business_project_economics_pg.py": {
+    "sha256": "68db19ede3b4de4cd3cac8e7d1fdd4f7870bb9e9784e9d2e62065bdb69336cad",
+    "bytes": 11411
+  },
+  "backend/online/test_business_purchase_changes_pg.py": {
+    "sha256": "79173e8b4ae5831c6d5ac324da384107f20c0f44ccd30cf1fd7e87dcb2219f21",
+    "bytes": 16037
+  },
+  "backend/online/test_business_resource_custody_pg.py": {
+    "sha256": "3344f7007b9f9c058b4cfe99addeb5677eb1637677089837dd0fb766f5fd6eb6",
+    "bytes": 11397
+  },
+  "backend/online/test_business_sales_pg.py": {
+    "sha256": "09a95446df1dd57f5846e7fb315f9d447f06b64ca5648615374db33a8278f6a8",
+    "bytes": 8762
+  },
+  "backend/online/test_business_service_pg.py": {
+    "sha256": "61ea9c46b39dd85804e7f50b3b3a85e886034548d580a0b853d8bdfe18bf2d3c",
+    "bytes": 10877
+  },
+  "backend/online/test_business_travel_http.py": {
+    "sha256": "6990edbfe84eddebf94cfc7eeb0638e94007dbe3d66e3955777ef4c20700165c",
+    "bytes": 6897
+  },
+  "backend/online/test_business_travel_pg.py": {
+    "sha256": "067df0a60c715ef6a82776c4ad7cfc94eb3ea77fb0934dd5aa36ad1c1a49fa5d",
+    "bytes": 17260
+  },
+  "backend/online/test_catalog_v2_source5_assets_restore_pg.py": {
+    "sha256": "f0efdb3cde1d2c4f408433d81ed613248d2660a60327f03dc77d2b59bc21f9e2",
+    "bytes": 10585
+  },
+  "backend/online/test_company_events_http.py": {
+    "sha256": "3b85f572581baa0b1d5fd002310ede8d4058e292a60d4030c0352b8da02efc4d",
+    "bytes": 5809
+  },
+  "backend/online/test_company_events_pg.py": {
+    "sha256": "78a8a7fdb04d6719f3bf99022c229dce6aec3d6a4326df4abce36a9f6c8c6230",
+    "bytes": 9684
+  },
+  "backend/online/test_company_handover_http.py": {
+    "sha256": "14bb9f441326a3184634934091d9a095e17bff4d901edeccdcd306574bc332ce",
+    "bytes": 4301
+  },
+  "backend/online/test_customer_execution_journey_pg.py": {
+    "sha256": "ca177a7000625a0b2c9b0a8815e31e90cc4d29216114f3ea6470b16a11682565",
+    "bytes": 25835
+  },
+  "backend/online/test_customer_finance_service_journey_pg.py": {
+    "sha256": "d7a365315963b9dcf2ed2aa6659b79380b34a7fc788de0c9d062fb19ee33f88e",
+    "bytes": 18130
+  },
+  "backend/online/test_customer_workspace_http.py": {
+    "sha256": "a01fe48dd659bd6ac1531958e3100e5da95ec8307490a43585a5c639cf556215",
+    "bytes": 13895
+  },
+  "backend/online/test_customer_workspace_pg.py": {
+    "sha256": "621f7544013cd69713056c2efb2a60a2a3b76909264685d2ed7db63ef9859bf9",
+    "bytes": 9805
+  },
+  "backend/online/test_events_catalog_assets_source5_restore_pg.py": {
+    "sha256": "82ae02f37dc75171424389d3e7b2d1364bd04ca4271c80db79c1c595b401e777",
+    "bytes": 14450
+  },
+  "backend/online/test_import_cancellation.py": {
+    "sha256": "4099d6b7aebe5b6ccd44911d1709cba6ca1a92759a2d6f177866141b2f9c86fd",
+    "bytes": 4179
+  },
+  "backend/online/test_import_sandbox.py": {
+    "sha256": "421029576cc9921632ebf96a05c5c2236cdc4b8434e1d1cae3d15da895c154ac",
+    "bytes": 27318
+  },
+  "backend/online/test_inquiry_attachments_api.py": {
+    "sha256": "7589476e8397524838cc6218780bba59373710e31ef457fec19cfbc1ec7a808c",
+    "bytes": 25155
+  },
+  "backend/online/test_instance_isolation.py": {
+    "sha256": "6d5e44b606c6205d287ef61765151efc3d8269b3c05158dff04ce9dd73a5a59e",
+    "bytes": 14974
+  },
+  "backend/online/test_integration_google.py": {
+    "sha256": "c492caaa9fba5e5f2df2f556d9bf0d02d915a04da2d283675f579be3b159a9cc",
+    "bytes": 17348
+  },
+  "backend/online/test_integration_google_bridge.py": {
+    "sha256": "c48fd2c2cb85ead20b513a1171615c21606954efa52607d1ced22eb67f0d3669",
+    "bytes": 9951
+  },
+  "backend/online/test_integration_http.py": {
+    "sha256": "49b7162154163dbc1985d521b5db35851ce3f53bea9212d51bee75d07c592e9b",
+    "bytes": 19763
+  },
+  "backend/online/test_integration_onedrive.py": {
+    "sha256": "0aa2768355a44a08864c9573d833df142453a6e9f14d9e1e84cbce13e3895d91",
+    "bytes": 11664
+  },
+  "backend/online/test_integration_sevdesk.py": {
+    "sha256": "272b42184d92201b2bf80547f1787f040d94ebf9c00a5a6156b4dc5639d8bd8d",
+    "bytes": 8556
+  },
+  "backend/online/test_integrations_api.py": {
+    "sha256": "32aad14e6ae774414c38a1673d41224410e7556d348d7fc51de4ebe2c6d3e670",
+    "bytes": 62456
+  },
+  "backend/online/test_onedrive.py": {
+    "sha256": "1a6f36f088e52d6fac1b1855625bc2f11d34e7b23711311db88767dce641802a",
+    "bytes": 25502
+  },
+  "backend/online/test_online.py": {
+    "sha256": "588c479c700cd7b2c2fe6b67bc44cea94d75851d6af3d0821bfcacb5c360a5b9",
+    "bytes": 13407
+  },
+  "backend/online/test_open_items_events_catalog_restore_pg.py": {
+    "sha256": "97609a02a11d0dbbbfc2ce784b8b0809baeadd4bc3696dd39ea8c48db3822463",
+    "bytes": 17705
+  },
+  "backend/online/test_organization_http.py": {
+    "sha256": "a3d8ad45eb4434a718e078cd5594d2224e30323f105bd3aea836f85a55d2de87",
+    "bytes": 2537
+  },
+  "backend/online/test_organization_pg.py": {
+    "sha256": "1d0f4c6d37be3cd117ab856212864324c68cd4b0c63762adf1640ed3ae29589c",
+    "bytes": 9498
+  },
+  "backend/online/test_plan_deletions.py": {
+    "sha256": "9c6012c4cc4158e1488f11f47e43e2fbfbb0a40f10b5886c5fa9429739cc25ba",
+    "bytes": 19675
+  },
+  "backend/online/test_plan_imports.py": {
+    "sha256": "2e10959a83abd40de3127e3a33c2f8a891b12cd684228928562bc5c127baf177",
+    "bytes": 36225
+  },
+  "backend/online/test_plans_online.py": {
+    "sha256": "6a67f0c3194a5ef668485abbab4fa0aad1b5e00e2082542438e951c80469ff26",
+    "bytes": 3540
+  },
+  "backend/online/test_portal_http.py": {
+    "sha256": "d82ca49fd0b539f3fb911199335b80e2f5d3e8eb717ad1b64c8210240aee480e",
+    "bytes": 18324
+  },
+  "backend/online/test_portal_journey.py": {
+    "sha256": "bcd9b90048b69f9ac32de480909f46b43503fad151b609996715c23c695d3a2f",
+    "bytes": 31082
+  },
+  "backend/online/test_postgres_accounting_allocations_integration.py": {
+    "sha256": "b0cdaf132dde4f9642717fda2043ac99286d10dd827f465f811ce3cde33abd14",
+    "bytes": 28774
+  },
+  "backend/online/test_postgres_accounting_capacity_integration.py": {
+    "sha256": "b704424df585d0ee8779fe9ee91d5a1c491f4aa973bc646c2b5f1dd582b90f58",
+    "bytes": 39507
+  },
+  "backend/online/test_postgres_accounting_components_integration.py": {
+    "sha256": "de8c1b5850bfe13392087a010c9d6c1bf664963f01e9c776f6ce9ac093b650ab",
+    "bytes": 34198
+  },
+  "backend/online/test_postgres_accounting_integration.py": {
+    "sha256": "0d48ddea0751519e847972bf54aa23f1b2d5d6722885b25d9fe62b870e148a28",
+    "bytes": 36214
+  },
+  "backend/online/test_postgres_accounting_profile_integration.py": {
+    "sha256": "cba494760ee18cab8b1a7ea41741dd1d2d988232f845987957099849a064ca8d",
+    "bytes": 26408
+  },
+  "backend/online/test_postgres_accounting_refunds_integration.py": {
+    "sha256": "d3a4274888e29f3b773c5bbd6b1e3ed1976a3159fcd5ff62d47d4463b0dbf7c5",
+    "bytes": 30196
+  },
+  "backend/online/test_postgres_accounting_refunds_v2_integration.py": {
+    "sha256": "f1f6f62985e9da9eab2b0903751a6da95bb77de717fcd2821cf6fb97d4a9aa47",
+    "bytes": 39587
+  },
+  "backend/online/test_postgres_portal_integration.py": {
+    "sha256": "841c2bcfdd92c796c053c759d5f98b86a4057cdb92d1be3f4c8d74c092240ef2",
+    "bytes": 26832
+  },
+  "backend/online/test_postgres_purchasing_integration.py": {
+    "sha256": "c0a51fd25de07a52752eb2121109f2ff1d6400c2079712121e7e716f6d7043b5",
+    "bytes": 19938
+  },
+  "backend/online/test_provisioning.py": {
+    "sha256": "59d0d253a4ff958dfa3f57e2a4bc648c9b3bc1b93b14760d76d6b76b7842b81d",
+    "bytes": 10037
+  },
+  "backend/online/test_provisioning_pg.py": {
+    "sha256": "f23505d466ced5d30325ee2761f82b9ad7a3300f412c286a6b135ebc71c5b4ff",
+    "bytes": 15350
+  },
+  "backend/online/test_provisioning_security_review.py": {
+    "sha256": "396b6f1664d0fa4886adc9233c705705655d0602f871e47c2be17c9234bda282",
+    "bytes": 5870
+  },
+  "backend/online/test_provisioning_uid.py": {
+    "sha256": "a6ad2966a80b8b6dfee4ec1bc41b0cd6de9c4e05e0bc461d7f5c80c216686cf5",
+    "bytes": 2811
+  },
+  "backend/online/test_purchasing_catalog_http.py": {
+    "sha256": "441df0cadfe246b500d28caffa64d9f51183c52f8cb0270f27a6836363974183",
+    "bytes": 12235
+  },
+  "backend/online/test_purchasing_journey.py": {
+    "sha256": "e6317cb5663f0d30143dfe8beb43feb02dabcb6fc901bedb4e830eb234b599b0",
+    "bytes": 16475
+  },
+  "backend/online/test_release.py": {
+    "sha256": "ae9672551c4768b55f7d93fde203663d74192122f05cc3386d73535ed42b4d61",
+    "bytes": 34338
+  },
+  "backend/online/test_release_attachments.py": {
+    "sha256": "32fe93f4ddbeb49e89149b1ec275a12a09a1a82221af0f9c55841641e7364429",
+    "bytes": 15261
+  },
+  "backend/online/test_release_business.py": {
+    "sha256": "c1030a060734cb5c87932c4deb8e07fb11bc6669e18eab1644a442f449010a8f",
+    "bytes": 28443
+  },
+  "backend/online/test_release_integrations.py": {
+    "sha256": "e7d616d2b18f51e805bbda58ddf05ae9a4d3818e880b90c819bad8d3ee953c07",
+    "bytes": 24165
+  },
+  "backend/online/test_release_tls.py": {
+    "sha256": "db57cb25d861b40d878277f168476608137585e8f5518d4fb5ea0d3d7e4fd6b0",
+    "bytes": 11733
+  },
+  "backend/online/test_release_workspace.py": {
+    "sha256": "4d20280e5f8afb919078aed227ac4eeef276696abf9a8fe825f7c4bf84ef20b7",
+    "bytes": 20301
+  },
+  "backend/online/test_report_integrity_pg.py": {
+    "sha256": "d68942a9c125477ccf657e654be580c0f926d66f93faae60fb9ab6721b07cc50",
+    "bytes": 2192
+  },
+  "backend/online/test_runtime.py": {
+    "sha256": "fbc330594be03118497499d125a3033de57cd56dfa4419929749459c5183ca75",
+    "bytes": 9166
+  },
+  "backend/online/test_storage.py": {
+    "sha256": "da6fd8e2fbe6bb94c1e7c5e685a0505acb1b2418861703f046dd862b45494882",
+    "bytes": 21432
+  },
+  "backend/online/test_workspace_api.py": {
+    "sha256": "d0866541b4a2b022dac3e632b0e1c173ee04641d60e5e59ba945fb0979609bb0",
+    "bytes": 32454
+  },
+  "backend/online/test_year_values_full_financial_restore_pg.py": {
+    "sha256": "f3feaac56ea89a694365df9fe4f84177fcd48b27fa002d6268dabcbb5f6bce40",
+    "bytes": 26921
+  },
+  "backend/online/web.py": {
+    "sha256": "9c678d2125f66e57f5a5c54afc425a7239730cac981fd1fc3d4d1ac4818e70dc",
+    "bytes": 30008
+  },
+  "backend/payroll_annual_basis_2026.py": {
+    "sha256": "5b17e71d13ed596a2f4a18ec49f12970e95329ac17dd69ef17709978191ad431",
+    "bytes": 26387
+  },
+  "backend/payroll_calculations_2026.py": {
+    "sha256": "5133cc7b0a52471bcfd08c76960461799bd92e335ac7e5d141368dc69f14b553",
+    "bytes": 28918
+  },
+  "backend/payroll_cash_sources.py": {
+    "sha256": "1442703f0cce4cfc91efbf2da466879395da4fee875f96bf801e8442741fe59f",
+    "bytes": 11404
+  },
+  "backend/payroll_claims_composition_2026.py": {
+    "sha256": "e8a08c7402ae06803045cf5a4421cee1bca0a50183e43677788194c9242e342d",
+    "bytes": 12261
+  },
+  "backend/payroll_de_2026.py": {
+    "sha256": "bbf583b6bae2e5f05c32655a296a74661e480fc0099f39a6a378021324260941",
+    "bytes": 21853
+  },
+  "backend/payroll_entitlement_dispatch.py": {
+    "sha256": "12143f36ddb38ec227861db2563e20e5d20ac4b39e7b61e91e216283dc0b72ea",
+    "bytes": 3173
+  },
+  "backend/payroll_entitlements_2026.py": {
+    "sha256": "c495a10a871f68dcc13d656a303d5d671855a7b5ea522b454ad141829cb457e7",
+    "bytes": 22755
+  },
+  "backend/payroll_holidays_2026.py": {
+    "sha256": "d8ed5b71ce2f334d5670e707e421212e71abfad953121271efb81ea0eac99280",
+    "bytes": 2616
+  },
+  "backend/payroll_ledger.py": {
+    "sha256": "2217268741313a7ff9fee421da90a663f0bf4333fa4850e921e82244c6e045c5",
+    "bytes": 29265
+  },
+  "backend/payroll_multiple_oneoff_2026.py": {
+    "sha256": "c6ea0b98dab3528055c7e0b190b93e062dc1469466f670513bd75c8d856f33c7",
+    "bytes": 19339
+  },
+  "backend/payroll_multiple_payments.py": {
+    "sha256": "5b5043db1f662efa3f844a147ec7b73f629a5ced87dd63f0c5feddb28df99e0f",
+    "bytes": 11799
+  },
+  "backend/payroll_multiple_runs.py": {
+    "sha256": "1e4976e35aa046c41773296bc53be0ae52dc774d825b172388b99f608b463fd2",
+    "bytes": 6470
+  },
+  "backend/payroll_oneoff_2026.py": {
+    "sha256": "a52973b0f88f0658906db61b610762959b84f1cefe2ded866a663d718f9f1ce8",
+    "bytes": 28619
+  },
+  "backend/payroll_oneoff_composition_2026.py": {
+    "sha256": "9b48ef4898b043c647b1c238a6f37d8b05bf8f78dcf9967fb691b9803454d0d7",
+    "bytes": 22473
+  },
+  "backend/payroll_oneoff_runs.py": {
+    "sha256": "559b0d2ca08afeaefc2ca58b228aa0dccd92abe6c179f9a0d22da4ab3871365a",
+    "bytes": 4587
+  },
+  "backend/payroll_pap_2026.py": {
+    "sha256": "f8bbcd27efd87ce902237cda51a4c81b48f1b9eb944f26d9db8006acb68be071",
+    "bytes": 6251
+  },
+  "backend/payroll_pap_oneoff_2026.py": {
+    "sha256": "f2fc8ced86ab844e5c7b4ea592fab2ba5870a7843f47b78bc379b9f874b2f456",
+    "bytes": 3208
+  },
+  "backend/payroll_pap_periods_2026.py": {
+    "sha256": "9307e599d25512db069bc42b8662ff0aa84b5436808745916bc97018b2675444",
+    "bytes": 4724
+  },
+  "backend/payroll_periods_2026.py": {
+    "sha256": "c3df3ae3ee93c756010290f382bf17050676a7bbc6a327082ea07b83e7b96890",
+    "bytes": 24827
+  },
+  "backend/payroll_segments_2026.py": {
+    "sha256": "819894663d24ae4a74e15d4f22c2b421ec34fbf4fc1d8a10a868a62b6270c83d",
+    "bytes": 12751
+  },
+  "backend/payroll_sickness_2026.py": {
+    "sha256": "05dc76065032993b9ec59035cf17bc99c388b1b119ac30feb4540d937cb45e33",
+    "bytes": 7523
+  },
+  "backend/payroll_sickness_phases_2026.py": {
+    "sha256": "3a9f7bcc4262d2594e94c6f87bb6f5035901411e64a73f91586fc5b7b9d19c0b",
+    "bytes": 11674
+  },
+  "backend/payroll_sickness_start_2026.py": {
+    "sha256": "dc69e48b0ef255893b962d6d20ba8dadc478c17a53ccb438b7f12565c1a979c7",
+    "bytes": 4422
+  },
+  "backend/payroll_transition_2026.py": {
+    "sha256": "b3b649e5179990ed54058ee4daee497a8744277cfe64c98750a5b333963d1897",
+    "bytes": 11844
+  },
+  "backend/payroll_travel_2026.py": {
+    "sha256": "7c4be0176679fd9d6dcfe1b1049c223e33a1a8b75804f2864df7b0ccd65935fb",
+    "bytes": 9382
+  },
+  "backend/payroll_travel_2026_v1.py": {
+    "sha256": "03cbcb42b4a5c0eedfc11536c5997a53509c1ab5304a89e2c69c8fbc775164cb",
+    "bytes": 24828
+  },
+  "backend/payroll_travel_2026_v2.py": {
+    "sha256": "83b2673315b2e828abbf72fef26841bd80e8e8bbd70da45f587a01a5037527e5",
+    "bytes": 29689
+  },
+  "backend/payroll_travel_2026_v3.py": {
+    "sha256": "6c8496f63c3f44ea56054d7eafa17aa75dbba71bc131306fcf59925d93faf45e",
+    "bytes": 32238
+  },
+  "backend/payroll_travel_expenses_2026.py": {
+    "sha256": "2d96af39ded426f9868f3011ad3b47cdfc74c25c29f49ade56b6b178f67587d1",
+    "bytes": 8245
+  },
+  "backend/payroll_travel_ground_2026.py": {
+    "sha256": "9fbc82efc589654ed2eb1425ce50fb4fe6a59b30bcde5ae29d27ec5f595deebc",
+    "bytes": 2941
+  },
+  "backend/payroll_travel_link.py": {
+    "sha256": "7dde8046c6e52258c21f25c8bbad71b0dd9355d857ca87ca943d22036b7ef58a",
+    "bytes": 2665
+  },
+  "backend/payroll_travel_mixed_2026.py": {
+    "sha256": "0e640106f0d70e3a0f0c54e3154f22e3576d5120dabb9117dbfcf3bde0f6dced",
+    "bytes": 7175
+  },
+  "backend/payroll_travel_rates_2026.py": {
+    "sha256": "b327e00ea0624b6e41b45843077984af077917eb83400b341a3f88842192b7c0",
+    "bytes": 15954
+  },
+  "backend/payroll_travel_recording.py": {
+    "sha256": "503caff012976aae460496ae4f14c512f800158fc28a6216b8e7b68d57bd0236",
+    "bytes": 8964
+  },
+  "backend/payroll_travel_tax_2026.py": {
+    "sha256": "8b28d2a38923fe64e7e640a1e3487834dea38ab701f07e010bb62dda81495f21",
+    "bytes": 11219
+  },
+  "backend/payroll_travel_transport_2026.py": {
+    "sha256": "60cc47920cd49bd6daf6ca8a8bba94b49c46b5963d940b655ad100461d2be7d5",
+    "bytes": 18940
+  },
+  "backend/payroll_wage_interruptions_2026.py": {
+    "sha256": "3039dc435c9c689fbc5a50b005581393e4093c8703a9ae9b74e52d559a236aa9",
+    "bytes": 6084
+  },
+  "backend/plan_access.py": {
+    "sha256": "730d8f8d1cd72b3163a7fc77022d912ccf2199a5370504729967b7bf27e4a9d6",
+    "bytes": 4678
+  },
+  "backend/plan_deletions.py": {
+    "sha256": "48cea7e0ac826f495a66b64db67148b603aba61a52e2ed4f21b03e79c9712c82",
+    "bytes": 11220
+  },
+  "backend/plan_import/.dockerignore": {
+    "sha256": "3932f8ae4a1ac08d952a887628d5f288641611e45ef5123d39efbdea4e032ba7",
+    "bytes": 63
+  },
+  "backend/plan_import/Dockerfile.test": {
+    "sha256": "cdc7c812ccd71e7a64bbc086dd35a966242f79041798db1fc2dc0357fd41ebe8",
+    "bytes": 2686
+  },
+  "backend/plan_import/README.md": {
+    "sha256": "10ba1ba1a0adb47242e4b3f82f34c8bae882acc352acfe03d0f6e49619656fdc",
+    "bytes": 15023
+  },
+  "backend/plan_import/__init__.py": {
+    "sha256": "77eddcc55cb280aeee1dfa8f467ccf08372bf976391fafcfb6c6976769705c91",
+    "bytes": 94
+  },
+  "backend/plan_import/__main__.py": {
+    "sha256": "a13573d9be4be0b5f5ba126b52d09b03966dacc48d005020384a04780c55df5c",
+    "bytes": 10534
+  },
+  "backend/plan_import/process.py": {
+    "sha256": "dc9875b66842124870768b0a5721575223a70a5f881362e72acb5d37ea3bb776",
+    "bytes": 4055
+  },
+  "backend/plan_import/recognize.py": {
+    "sha256": "0dd559f553fc53d8607405ea33c01c4ca4d46946ced3b0991da353e3c65871b8",
+    "bytes": 12544
+  },
+  "backend/plan_import/render.py": {
+    "sha256": "31b8ebd50549326be0158da7a9dddc6ed524714584c2c45f0b87e0c0a128851d",
+    "bytes": 14879
+  },
+  "backend/plan_import/report.py": {
+    "sha256": "d82dc7ed19b039f7ab88fbe8000ba1241a0e0a2f66d7dcd9963bfaa69d94f1c4",
+    "bytes": 6847
+  },
+  "backend/plan_import/requirements-test.lock": {
+    "sha256": "9460c89e21d3a455fa7fdbad8399fef2599e8e1228962d021569aabc1a804e21",
+    "bytes": 64
+  },
+  "backend/plan_import/requirements.lock": {
+    "sha256": "5a9847c1da22279f79b7c55ce4920c9037c0c7b7878cc684cd4fde212d2e4967",
+    "bytes": 80
+  },
+  "backend/plan_import/sandbox_entry.py": {
+    "sha256": "d9fa5b3cef3f36b65e0b90ead03a993b46b658a7940b2f6be4ee7caea14164d7",
+    "bytes": 2233
+  },
+  "backend/plan_import/sandbox_probe.py": {
+    "sha256": "bc5b7d708dd61c4689a22e7426105e7c86bf8d26a7b1df881b35eb3fa06b0c0e",
+    "bytes": 2878
+  },
+  "backend/plan_import/sandbox_protocol.py": {
+    "sha256": "1f235bbe4952494c0339c9215c5ea2fdfff6a69d81356bfdbe73f90a6ec131e0",
+    "bytes": 125
+  },
+  "backend/plan_import/store.py": {
+    "sha256": "0a39cb826febc9dca576595043db5a6d63b793b06135535e73b20a4af7f8a020",
+    "bytes": 21900
+  },
+  "backend/plan_import/test-docker.sh": {
+    "sha256": "c95787823c031abd3b986435ebd6ab83450cd2a03efa9f9246adb77252b29973",
+    "bytes": 1553
+  },
+  "backend/plan_import/tests/test_cli.py": {
+    "sha256": "e1c46b9cd2d0835886f6d060a11047d37bf34faca2625ad273b5ba9c62251480",
+    "bytes": 18226
+  },
+  "backend/plan_import/tests/test_recognize.py": {
+    "sha256": "339205b7ab54b4cf83f290e7b5f53b95793e6642f0cccfab3b77eb2faa62a41a",
+    "bytes": 11571
+  },
+  "backend/plan_import/tests/test_render.py": {
+    "sha256": "304130a4caa0b0c49590be4089f7e3e3123346e6e6e0d4326e03f79fc53ba1a1",
+    "bytes": 17668
+  },
+  "backend/plan_import/tests/test_report_security.py": {
+    "sha256": "4c3bacb7064705cc1206c119b787f04bd7c83622c449dd95ee5d9314213b76d6",
+    "bytes": 10891
+  },
+  "backend/plan_import/tests/test_store.py": {
+    "sha256": "9fb5f035518450a7f67ebfa1ea2f4ab12002daf7e441ab1873ac414fbc67ab90",
+    "bytes": 18745
+  },
+  "backend/plans.py": {
+    "sha256": "ceabfb9edf16ae4ea7b1443d91f22b47e079d481dd86c52178e283514ae4041e",
+    "bytes": 1242
+  },
+  "backend/privacy_case_sources.py": {
+    "sha256": "438fb4491e9f15671f3b701acada1c0ccc9297e5892b732f8e74130f55fae6f0",
+    "bytes": 11351
+  },
+  "backend/project_workspace.py": {
+    "sha256": "721f59cd4830e0bafdf8cfa636dfcd955c54ae4d65a545f435da3d85027265fe",
+    "bytes": 26072
+  },
+  "backend/requirements.lock": {
+    "sha256": "5ef54fa8511977eb03a92a2ed7909e920f0acb9ff4d3ebba6f9582c648e13930",
+    "bytes": 122
+  },
+  "backend/requirements.txt": {
+    "sha256": "bf0f4e9c949d690c3638b7c91c924c235142c251dd98c55a48c035444b940c0f",
+    "bytes": 69
+  },
+  "backend/restore.py": {
+    "sha256": "17b4214ae4d107a041231e9f0d61e46c7b4f0266de486fc78092199dc5fcc933",
+    "bytes": 2612
+  },
+  "backend/server.py": {
+    "sha256": "0b8e22be901a5361f2c9d7f7ac99effa0745835d9edde02881f8619c6fa25a1e",
+    "bytes": 16732
+  },
+  "backend/test_accounting_allocation_transport.py": {
+    "sha256": "28e5dac35916d973fdb6558e8dcf7145b8d266ff16c19a8408c1c4c53c21d47c",
+    "bytes": 6431
+  },
+  "backend/test_accounting_asset_opening_rules.py": {
+    "sha256": "fba892baa63a0a0a9a88be5a60f842bf1fbc192894e426f0fa4c7d1fab0a1295",
+    "bytes": 4447
+  },
+  "backend/test_accounting_asset_opening_rules_independent_review.py": {
+    "sha256": "0b9520748bced12f315748c54a74b0f647edc0eec069a2cbf83488d1266817f2",
+    "bytes": 10506
+  },
+  "backend/test_accounting_asset_openings_boundaries.py": {
+    "sha256": "359e3d310e9f1413690ed5239647abf32e81494be929118b0304e2cbd0ee13b4",
+    "bytes": 6725
+  },
+  "backend/test_accounting_asset_openings_independent_review.py": {
+    "sha256": "998d3333d8b80aca1bd013e40a97786890b64643cfeac3de6bb76b3c17cb6f86",
+    "bytes": 12960
+  },
+  "backend/test_accounting_asset_openings_registration.py": {
+    "sha256": "993d01d985be6446dba4b712cc5ef5821cd7f8c29f05bd5a02a0cc0a915ff032",
+    "bytes": 7553
+  },
+  "backend/test_accounting_asset_openings_transport.py": {
+    "sha256": "4d45256f38d6d0684f86b0f9411c261da1d8876652c24792a9340d2fff445459",
+    "bytes": 3741
+  },
+  "backend/test_accounting_component_segments.py": {
+    "sha256": "6758648d2ce25e54ca2dbf22a65e600718fce0b643e1b5ba926fc2818cea8512",
+    "bytes": 11143
+  },
+  "backend/test_accounting_joint_order.py": {
+    "sha256": "6e29926bd05434709e9ade2684be1084b490ff67d94c33c727c622b79d878c3d",
+    "bytes": 8097
+  },
+  "backend/test_accounting_open_items_boundaries.py": {
+    "sha256": "6448580ed60e52657eb58d642e74d6648df5b68329ecbe227d01c7a28b445bc5",
+    "bytes": 4257
+  },
+  "backend/test_accounting_open_items_independent_review.py": {
+    "sha256": "97472175253fbafc46604ec35f3683e70cd3056c1e7e282cc9c44514a69faf66",
+    "bytes": 13956
+  },
+  "backend/test_accounting_open_items_registration.py": {
+    "sha256": "d32c2067dfd3155ec55a2940dc1e1d51c7a668db2a027c9c37c92dca33a6b508",
+    "bytes": 7208
+  },
+  "backend/test_accounting_open_items_transport.py": {
+    "sha256": "82cce9b816cf1bcf438eb83dc528c8b089357aca63cd0d84ba3e7bf5e92dca3c",
+    "bytes": 5900
+  },
+  "backend/test_accounting_opening_items_inventory.py": {
+    "sha256": "3b544ca7b2c6e02beb4d5579391cc00ea7c8e4dd6d63c9a7c2496985abc5e969",
+    "bytes": 3451
+  },
+  "backend/test_accounting_openings_registration.py": {
+    "sha256": "5c0cbe2183de9921780fe9a632de8748932cac4a0a03d426429209c44ab7a705",
+    "bytes": 13931
+  },
+  "backend/test_accounting_openings_transport.py": {
+    "sha256": "312e66231eeb99cfb90e7b9a1a05389728a3876f6e6661bc277151e15f7fb46d",
+    "bytes": 6193
+  },
+  "backend/test_accounting_profile_transport.py": {
+    "sha256": "ff103852cb4b9bcefbd3adcdd39660854fb1367cab7e367eb6efe7526ed2c2dd",
+    "bytes": 5474
+  },
+  "backend/test_accounting_registration.py": {
+    "sha256": "4e5cfadf09fab5dc9d87b933ee57f46a63b6e8524a0de6a6d0b7e8b5c0c58970",
+    "bytes": 15316
+  },
+  "backend/test_accounting_return_lots.py": {
+    "sha256": "740e2a843bbe6a13efe52e03414089941282fefd100a03a311550c263a790f6a",
+    "bytes": 8838
+  },
+  "backend/test_accounting_year_opening_rules.py": {
+    "sha256": "a1ee81fc55950ec9916e578aa3d761d317d58bccebab4ae7247a313f979fba3b",
+    "bytes": 5275
+  },
+  "backend/test_accounting_year_openings.py": {
+    "sha256": "840600b76085b847a03c2d28a25fbb2e7b23dc399666d0e0863359f1b0af89ed",
+    "bytes": 14447
+  },
+  "backend/test_accounting_year_openings_independent_review.py": {
+    "sha256": "093181295df40261a360d0c0ad172820f688c7918602504587f983314e9c342d",
+    "bytes": 9320
+  },
+  "backend/test_accounting_year_openings_registration.py": {
+    "sha256": "fe85867e2096a2df3dda1efc6bd6c50b202f755c362ac06bb699e0a15f05fe0b",
+    "bytes": 6870
+  },
+  "backend/test_accounting_year_openings_transport.py": {
+    "sha256": "5b262fd34214abe09395d40edb692cc930e2f78f3afe57ff687dab367f77789e",
+    "bytes": 7580
+  },
+  "backend/test_accounting_year_package.py": {
+    "sha256": "3e79f68c4310614cd6ba25819c9051c0640b2572266ee339dc85022b6622ee21",
+    "bytes": 17616
+  },
+  "backend/test_accounting_year_package_http.py": {
+    "sha256": "3524ff8a2c19a77761c760cf81c1b3f43c0020374aa9ae4247949f4bb605ad73",
+    "bytes": 4485
+  },
+  "backend/test_accounting_year_package_independent_review.py": {
+    "sha256": "f608c03e2ae6d951b75110ee4533a81ea543fc6bf116d8e42892bc5378bc0906",
+    "bytes": 19053
+  },
+  "backend/test_accounting_year_package_v2.py": {
+    "sha256": "a31f9530bc47cbd8135717e2613a6fc324cb71d2d616b1a3fefc8be2213a39e3",
+    "bytes": 9454
+  },
+  "backend/test_accounting_year_package_v2_http.py": {
+    "sha256": "4d463b702f3afa4c032c605981de495257a7bc3821d4ec21dbbc4cfc926b676a",
+    "bytes": 2330
+  },
+  "backend/test_accounting_year_package_v2_independent_review.py": {
+    "sha256": "f12cd7266dffe462b178b0184d7bec208e2d0bcedccd2696629858129158b53a",
+    "bytes": 14953
+  },
+  "backend/test_adapter_payment_scope.py": {
+    "sha256": "2e8006dc61f60c71d7c906802cfa69c9e37c442f4da7aad0b08628e37f54d1d6",
+    "bytes": 4755
+  },
+  "backend/test_admin_api.py": {
+    "sha256": "6210bdef0524c15b64e51e1a470d4075cd4a358e58af67bde2b7dafdaef7715b",
+    "bytes": 9220
+  },
+  "backend/test_assistant_cost_total_v2.py": {
+    "sha256": "09bf4268022996249c807e3edde4e188746da1febcf2f1961b4d7060b427b0f1",
+    "bytes": 5447
+  },
+  "backend/test_backup.py": {
+    "sha256": "927d219de5b4cd3337a4bc232dcfc919eea1ddb146f2bec3af571ab1017fd299",
+    "bytes": 2590
+  },
+  "backend/test_business_accounting.py": {
+    "sha256": "0538583b6fde38400cd592e9b14ea2ecb50b83764d9644bd73eb35cb966d5a4e",
+    "bytes": 32101
+  },
+  "backend/test_business_accounting_allocations.py": {
+    "sha256": "043aa1e6a5389501db3a043c69458458fb31068491fadf1b8a622e81385ed2ee",
+    "bytes": 26153
+  },
+  "backend/test_business_accounting_asset_openings.py": {
+    "sha256": "64f9ff79bb413579135a434c4ec2453a8b9deeeb1563e6908ff19026a5806be8",
+    "bytes": 7826
+  },
+  "backend/test_business_accounting_capacity.py": {
+    "sha256": "9781f2821c9e086d0ca4543e44304657a1d962be655a4d0a4310e21fc0dff196",
+    "bytes": 25986
+  },
+  "backend/test_business_accounting_components.py": {
+    "sha256": "e997b6e4ab77839c199e3be697d550beda22c40f7e9d16a29a37972aa703a066",
+    "bytes": 23738
+  },
+  "backend/test_business_accounting_euer.py": {
+    "sha256": "767bb2c891c95d67944aace93af561239f62a6735be34164eac8f486b43089a2",
+    "bytes": 24103
+  },
+  "backend/test_business_accounting_invoice_chain.py": {
+    "sha256": "5c049c9ea45155b59e9a43a9673e453361d2349110a65bf935118b6fd9687c64",
+    "bytes": 12315
+  },
+  "backend/test_business_accounting_open_items.py": {
+    "sha256": "3a490c351c96907cdc329a2462496f4a38996633572aca93360bca071a3aef95",
+    "bytes": 15394
+  },
+  "backend/test_business_accounting_openings.py": {
+    "sha256": "e864de7c96d0eecb8e2d9f666c361fdd36211955ea6a7df6834a5614109e8c76",
+    "bytes": 19033
+  },
+  "backend/test_business_accounting_openings_large_balances.py": {
+    "sha256": "622f3002dc2d35f72dd240a568863a746129147886daf7d6edece6a851b4f550",
+    "bytes": 1903
+  },
+  "backend/test_business_accounting_openings_review.py": {
+    "sha256": "067ff31a8f77bfb6b7503a1fab0c06aae9ecce6737a672c8af2a381234064653",
+    "bytes": 7962
+  },
+  "backend/test_business_accounting_profile.py": {
+    "sha256": "d1003efc951bd600433e98d106e19798c65229cd72629630d197b56cab92a8b7",
+    "bytes": 25267
+  },
+  "backend/test_business_accounting_refunds.py": {
+    "sha256": "8bed89a46155b9b69f5240ba04934ad4320fc9739346a999d11dac50f1abe9b9",
+    "bytes": 27529
+  },
+  "backend/test_business_accounting_refunds_v2.py": {
+    "sha256": "6e99f98d03304a183786925fc9fdb7e9b80ea96f45c5369da09fc513bdf27670",
+    "bytes": 30185
+  },
+  "backend/test_business_adapters.py": {
+    "sha256": "0a98a22fe1484bde8a7157319a95e8128c20504d1402a4ce6fde709b20951b26",
+    "bytes": 32401
+  },
+  "backend/test_business_api.py": {
+    "sha256": "ce73d2b31f9ff2c022f1af34604f58590f32df958788b07d257f24140e1dda62",
+    "bytes": 3106
+  },
+  "backend/test_business_asset_provenance.py": {
+    "sha256": "bf6213fe46a8798778be28e48c524fc08d9a17c4b422ff7b80ecac144c86b559",
+    "bytes": 18385
+  },
+  "backend/test_business_assistant.py": {
+    "sha256": "53e3997ee16c88067faeed570fe43ef321175a733485438c15f89849654c20f4",
+    "bytes": 28881
+  },
+  "backend/test_business_assistant_provider.py": {
+    "sha256": "c3248077863d8d3a8e6ef19b498fb10a693d82f08262fa19b0b2c31c26c7c391",
+    "bytes": 6257
+  },
+  "backend/test_business_assistant_speech.py": {
+    "sha256": "70edab51bdf9ff96f7bbd62e3c5bd60c871a7dc40f12a90983f7783820270631",
+    "bytes": 13881
+  },
+  "backend/test_business_assistant_speech_transport.py": {
+    "sha256": "03dc5f68173dbb8fb65704a28db808f83e7c3535723ae0ed5d93f00682c428ce",
+    "bytes": 3582
+  },
+  "backend/test_business_bank_euer_review.py": {
+    "sha256": "cc9377a9ed189cef976e3782f80e79bd030e4fe917d1da71363d91470fd479ff",
+    "bytes": 5353
+  },
+  "backend/test_business_bank_reconciliation.py": {
+    "sha256": "189eef66dac5febf97a157ed712bfabdf2855645bb07f37e2313dee1fb9917d9",
+    "bytes": 24623
+  },
+  "backend/test_business_catalog_imports.py": {
+    "sha256": "e3b7339070dc2ecd189b3b4017a33d39cd04b80a2de82a131a3707797a4d208a",
+    "bytes": 22826
+  },
+  "backend/test_business_catalog_imports_transport.py": {
+    "sha256": "3a6bfcae769eb7f50ef46a08007f68c5691e79629cc1a75cb535b47582354bbe",
+    "bytes": 3851
+  },
+  "backend/test_business_catalog_price_consumers.py": {
+    "sha256": "82d8325697d0451ea0592289f9be4223bb8bf944a82bbb476bf4e9f614a824f2",
+    "bytes": 23418
+  },
+  "backend/test_business_catalog_prices.py": {
+    "sha256": "e7881d3b2a668c6fb6800ffa8b9f7f86224840cd6476d1d23e9688bc62f1c4f8",
+    "bytes": 17982
+  },
+  "backend/test_business_catalog_prices_evidence.py": {
+    "sha256": "3e5de8ec5307d5ff52829066d1e4877bfd3cfde1e1972140df1a4d3bb4fe5355",
+    "bytes": 8229
+  },
+  "backend/test_business_catalog_prices_purchasing.py": {
+    "sha256": "ba508d09ea1378c5c2826feb26c37d6fe5e940271e88bccb7eaa58358a861864",
+    "bytes": 6569
+  },
+  "backend/test_business_catalog_prices_transport.py": {
+    "sha256": "987d1a6ad885e8b2406db046c49c926e7d5164a2daf8f23dcb8deb23f62238cd",
+    "bytes": 4324
+  },
+  "backend/test_business_company_events.py": {
+    "sha256": "e05fbb61ee6d09aad0239bf497ad8242a75c585caf63792c80b394aa66c4999d",
+    "bytes": 15910
+  },
+  "backend/test_business_company_events_independent_review.py": {
+    "sha256": "4c4d3de94f5b82843db8a130be83e880b6f798ebcbe0c584bc9bfd6b31e38317",
+    "bytes": 17238
+  },
+  "backend/test_business_company_handover.py": {
+    "sha256": "afa37208152297c7cb143003154a4a7b1f117febe60d39e2caf8143e885ab93c",
+    "bytes": 22892
+  },
+  "backend/test_business_contact_snapshot.py": {
+    "sha256": "6f37a661c92e1691aa1bacad14536f1cbfad62c9707dc3bcb1033f3ed1268e91",
+    "bytes": 15247
+  },
+  "backend/test_business_custom_fields.py": {
+    "sha256": "56e08677147f13ccb8f7178681b8c38b97ebb1de480dd5881c4046e206f781db",
+    "bytes": 12465
+  },
+  "backend/test_business_customer_workspace.py": {
+    "sha256": "5fc59e4425028b641de315dd40647874072c5e5b56280e8e4514da09f66e2bde",
+    "bytes": 17539
+  },
+  "backend/test_business_customer_workspace_retries.py": {
+    "sha256": "2096d163740cf2e856ede94f1cdc33d7f923a5f56247ee2472caa2ba13c2bf5a",
+    "bytes": 2747
+  },
+  "backend/test_business_features.py": {
+    "sha256": "7d6c80a9113f536e1eecb73bcedc82ff4f51a550ed948acad36729466579f08d",
+    "bytes": 2606
+  },
+  "backend/test_business_foundation.py": {
+    "sha256": "b597481cba0cf54665d85a66e241f3f4b84cb2485e87eb496a25699e3df7e5fc",
+    "bytes": 32802
+  },
+  "backend/test_business_inventory.py": {
+    "sha256": "340fca3401e55c15ad5261a7df73cc6704047867f90a52697e078945528a29ef",
+    "bytes": 27561
+  },
+  "backend/test_business_inventory_counts.py": {
+    "sha256": "f38015ba15b022a43b75e3e88f6c95d7a0deb2286b7c78715caaa73962ae16b8",
+    "bytes": 10667
+  },
+  "backend/test_business_maintenance.py": {
+    "sha256": "f9334223693b405849a27199747931677d44d2339820f1cdb8b22ad8f94174bc",
+    "bytes": 5847
+  },
+  "backend/test_business_migrations.py": {
+    "sha256": "a2e42749f0f9d01e0020ba6616738e1a59587289e70e464be6bbed4381d1e31e",
+    "bytes": 15522
+  },
+  "backend/test_business_migrations_transport.py": {
+    "sha256": "4fffc97e02f5cdb3c40a22a1e80ee8b942f8e1dcb184f4cb094c49653713db07",
+    "bytes": 3490
+  },
+  "backend/test_business_offline.py": {
+    "sha256": "7fb9c1e122f9119dfc59fb3c0c911ac9872ca542094dad87fdb16d2d73cd942a",
+    "bytes": 2767
+  },
+  "backend/test_business_offline_reports.py": {
+    "sha256": "0b9b58e5c675e450b19ac7a912664e7b2ef950d977551f6f1cc9e7826c3f3043",
+    "bytes": 9975
+  },
+  "backend/test_business_offline_reports_transport.py": {
+    "sha256": "929464c48f0c3b52d69e7314ffb72dd9623fe552099db31d367b6d49029bb122",
+    "bytes": 5298
+  },
+  "backend/test_business_operations.py": {
+    "sha256": "5c63ca0ef1a35f3b093f10d089b6b425c1fe934326f8854ed2512d77baded1d1",
+    "bytes": 27545
+  },
+  "backend/test_business_organization.py": {
+    "sha256": "97d3f5c161a381c645e281c685f378f4fcb9e5915144c01eadd57f19a6bb3046",
+    "bytes": 13368
+  },
+  "backend/test_business_overview.py": {
+    "sha256": "6c76e46f094d02558190884ae0bfb718bc25f75f07b1a3fba39025911a2cb94e",
+    "bytes": 6364
+  },
+  "backend/test_business_payroll.py": {
+    "sha256": "888ca0ae37888b5eae8ed4485b97e97fe91f5b853c8488748840b135869a1a14",
+    "bytes": 16740
+  },
+  "backend/test_business_payroll_accounts.py": {
+    "sha256": "ba7d45acd56823a1e6c8180d93e91a8227bf68d98ebc4940da5da556e9c3c7a6",
+    "bytes": 13985
+  },
+  "backend/test_business_payroll_annual_basis.py": {
+    "sha256": "1f09259c33aecd61ad72d233c7f3b74aa456dd1f2663e2d871e44d4a610e7d5d",
+    "bytes": 21557
+  },
+  "backend/test_business_payroll_annual_transport.py": {
+    "sha256": "bb29154c383484e6c99611cd14feca54e8dd49b63ed38d3987c0cb40244be0e9",
+    "bytes": 3925
+  },
+  "backend/test_business_payroll_calculation_cases.py": {
+    "sha256": "e61f4dd907d737d514a6d80287986a312de7e285e33118d414e5f9d2d065fb58",
+    "bytes": 12923
+  },
+  "backend/test_business_payroll_calculation_cases_review.py": {
+    "sha256": "42c8b502ae314e6bf4ca85290e39cb5de6cd3fc044ab8e39a9d10adfbfb33734",
+    "bytes": 7182
+  },
+  "backend/test_business_payroll_calculations.py": {
+    "sha256": "d5cd1f32a5f7025b51fdbfee838d4a5712e00420bde8a81e9c4d375db5393c7b",
+    "bytes": 40916
+  },
+  "backend/test_business_payroll_cash.py": {
+    "sha256": "14ff2e26973404f9b47ec123107c8a9018a367eecce8001581da7a0dab7d61dd",
+    "bytes": 17396
+  },
+  "backend/test_business_payroll_entitlements.py": {
+    "sha256": "636f89aa98984bb1beacb9a816bddd904b8f32b76f85d2e4c9b21c067dec6c68",
+    "bytes": 24385
+  },
+  "backend/test_business_payroll_entitlements_review.py": {
+    "sha256": "55c681ea7b610783fc9b99b43f2f68d65b7760e1a36368e7f2b1a39e76c780ba",
+    "bytes": 10049
+  },
+  "backend/test_business_payroll_entitlements_transport.py": {
+    "sha256": "1723e665bc9556484c805f3e23a7033fc06190dbcb4877fff13fa4e268a6cea4",
+    "bytes": 7667
+  },
+  "backend/test_business_payroll_facts.py": {
+    "sha256": "e042d278763303cf97d2f0eb7fd5627a6d2f548b11ef539c7b65abe304b8f503",
+    "bytes": 16702
+  },
+  "backend/test_business_payroll_facts_review.py": {
+    "sha256": "d8e296b63695e233c681479a9d509f2f4dbcb8eaae34636b87785463c4a2fe4e",
+    "bytes": 12886
+  },
+  "backend/test_business_payroll_facts_transport.py": {
+    "sha256": "b370d19795c46d2776a9dff8a6e9de4c17832fe74cb2283c86a3ae3f266cf188",
+    "bytes": 4616
+  },
+  "backend/test_business_payroll_ledger.py": {
+    "sha256": "20ec3ee7731d7c468ce9f1814868ebe59abc78f0259c782476a4893bb2672209",
+    "bytes": 8319
+  },
+  "backend/test_business_payroll_multiple.py": {
+    "sha256": "d0435e75da4c361f1d5789d910212ea11a981ddb8b74f2b712d95883f882d7e9",
+    "bytes": 19207
+  },
+  "backend/test_business_payroll_oneoff_annual.py": {
+    "sha256": "9af51e57071efdd275d81d7951a11d654eae208ea2c25268347456a97b91880a",
+    "bytes": 18109
+  },
+  "backend/test_business_payroll_oneoff_cases.py": {
+    "sha256": "d8af2954fe43d1a0e2408414bf1da77126dd0d6c9a47651b0649d0a3c076a485",
+    "bytes": 8265
+  },
+  "backend/test_business_payroll_oneoff_review.py": {
+    "sha256": "ea810e5dca5d97599f13a9a4173bcc84973fb60b80165950783cba0b7c459278",
+    "bytes": 4063
+  },
+  "backend/test_business_payroll_oneoff_runs.py": {
+    "sha256": "6dff9d2f749c56dba099aa76596cf23a8203084e24751dadcc8bdc3c1093be23",
+    "bytes": 11894
+  },
+  "backend/test_business_payroll_periods.py": {
+    "sha256": "8404c2c347ca24f615a5a466f4f836674769493af4410b3af9aeda7bbf9b1df2",
+    "bytes": 12820
+  },
+  "backend/test_business_payroll_sickness_phases.py": {
+    "sha256": "58ac6ea53801fe2f03a36ba77376b7c7f902e61393a491a97f748152c439b5e3",
+    "bytes": 4233
+  },
+  "backend/test_business_payroll_sickness_start.py": {
+    "sha256": "d2747e18c0da2e6c33f1794ed6b5a50681b7d122f45306fb2da439ea6593c12d",
+    "bytes": 2855
+  },
+  "backend/test_business_payroll_sickness_v2.py": {
+    "sha256": "0c9ef8f30321c7e6e02c2038b8df3cb89a4921d745e9525b7c3a603721b725c8",
+    "bytes": 5588
+  },
+  "backend/test_business_payroll_statements.py": {
+    "sha256": "ab64ed268141d436f98a2799fd784849cae6dbfbd0857ca0a47aa23c24dfd116",
+    "bytes": 12698
+  },
+  "backend/test_business_payroll_statements_v5.py": {
+    "sha256": "31f12bb5aef4b80730ad11ca1272d5a2361cd8b2b7ef93513dd3b440dbbf5ca7",
+    "bytes": 3859
+  },
+  "backend/test_business_payroll_statements_v6.py": {
+    "sha256": "e85bd08f65edcfa725afe50ca34e7766080a0383e329505c7869b06c0bdbdb26",
+    "bytes": 10354
+  },
+  "backend/test_business_payroll_statements_v7.py": {
+    "sha256": "4f56ef63ff9720bc731765b691c6c15cbee510e9692580471d92416716c2fc36",
+    "bytes": 12073
+  },
+  "backend/test_business_payroll_transition.py": {
+    "sha256": "18d759ef990b11f1dbbf50d979a843d90d95241bee5dac275acb62d032a6e00c",
+    "bytes": 14679
+  },
+  "backend/test_business_payroll_wage_interruptions.py": {
+    "sha256": "d44b0de55ab61ad207b31590a288a4dbd305a04cc2ecc63e5090e28ddfb87623",
+    "bytes": 11735
+  },
+  "backend/test_business_personnel_workflow.py": {
+    "sha256": "3c0e856ec39651c2db8a73b8917dd4055841be7a67604bda7b77617503594ff5",
+    "bytes": 19971
+  },
+  "backend/test_business_planning.py": {
+    "sha256": "aa993f2a7e97553bc7e5c12ec61f3fe0ec75a26ba06d4a993058a0bb5db3b2ea",
+    "bytes": 12025
+  },
+  "backend/test_business_portal.py": {
+    "sha256": "e9e595cebfb2011462d9786be6e76bbb51a95229497bbe446232143c8327c3a1",
+    "bytes": 36611
+  },
+  "backend/test_business_portal_registration.py": {
+    "sha256": "5ddefdd101bfb8ec9bd57b7818d980d8bdee53a62d72cd908c6a046842f91c05",
+    "bytes": 4288
+  },
+  "backend/test_business_privacy_cases.py": {
+    "sha256": "8bc651f6cf66d2b82d641090f0a0ffcd4648983073c8dedb3f15f79f390c7cee",
+    "bytes": 21850
+  },
+  "backend/test_business_privacy_checkpoint.py": {
+    "sha256": "21e039366741d5896d4d310e24ef9e7c2f81dd21daf6a7ce1274e3372935522a",
+    "bytes": 10984
+  },
+  "backend/test_business_project_economics.py": {
+    "sha256": "bf2629baf1dbdf655b0c810d92a668af440bc9371b101f7afbc42a7bfc884132",
+    "bytes": 19116
+  },
+  "backend/test_business_purchase_changes.py": {
+    "sha256": "1c81ce83bb2db86705a8c5b88718004f10266526d9fc192cd81cd44b52b6eeb5",
+    "bytes": 24896
+  },
+  "backend/test_business_purchase_changes_review.py": {
+    "sha256": "b6d211c4fdbdf11fb6a4d35e766a5fca7d642763b21b08ea6510849c5b4a2535",
+    "bytes": 11657
+  },
+  "backend/test_business_purchase_changes_transport.py": {
+    "sha256": "2bb174130ad8b0a82255ce060f583ebc1a2fbb88f3b42d79f9283f15faf64b2c",
+    "bytes": 3942
+  },
+  "backend/test_business_purchasing.py": {
+    "sha256": "9dd50168f5d027328cb40a9d8996c62deeec307afc158d468c5c036cdfccc99a",
+    "bytes": 41004
+  },
+  "backend/test_business_receipt_retries.py": {
+    "sha256": "789f618f5d24d0a7cb071c4f883862fd05321442eb451c7a2f15d984f4d908b0",
+    "bytes": 6848
+  },
+  "backend/test_business_resource_custody.py": {
+    "sha256": "f3b3b0a7e4d6ed298bb33c8723969e2813427dbde35439a735cb5ff7da966810",
+    "bytes": 15737
+  },
+  "backend/test_business_resource_custody_transport.py": {
+    "sha256": "ee49672152a7d9d488d66a6ac1936ca4e65ef5614adeefd6704246a08480729f",
+    "bytes": 3412
+  },
+  "backend/test_business_sales.py": {
+    "sha256": "7e87bfff1f2b73aaa9a72e664ff0d912043794fcf1afcbdbedab82de214e0dc7",
+    "bytes": 13085
+  },
+  "backend/test_business_schema.py": {
+    "sha256": "d4b7d6ea33bb60d817da0ecd469161cfcf7d1b3ac4b0ca32222c7612d874bc5d",
+    "bytes": 14364
+  },
+  "backend/test_business_service.py": {
+    "sha256": "e570831495729b55cd46ec2771aeed137fe48f45e55d40dd7de9c3ce48aa92b4",
+    "bytes": 14483
+  },
+  "backend/test_business_time.py": {
+    "sha256": "146841c6d6ffabb33b37745c4bdf7db49cba79d18c79fbfb14e4fd6e9519df3c",
+    "bytes": 20727
+  },
+  "backend/test_business_timeline.py": {
+    "sha256": "ce1a6cb3f9bf8ce4ad79976ec3c37dee8be596fe7b6d6f7678b4b37fb35fa799",
+    "bytes": 11440
+  },
+  "backend/test_business_travel_allowances.py": {
+    "sha256": "33960114065f44287711182a73a890b5bdb5db12c4d97ae91f819227c8d94f54",
+    "bytes": 8940
+  },
+  "backend/test_business_travel_expenses.py": {
+    "sha256": "20b9ce0afefe39e7b0fdd110bba9851c80d180990f83eb7c10492255724f285b",
+    "bytes": 8642
+  },
+  "backend/test_business_travel_finance.py": {
+    "sha256": "1942d10da6a575a9c278921d4488c2b558a08cb2212dd0371877eb2cc7022000",
+    "bytes": 11976
+  },
+  "backend/test_business_travel_review.py": {
+    "sha256": "9c95cd4c88753580ff6cdd968a274b43ad683322c7e3c00735024c1a59ffd366",
+    "bytes": 5849
+  },
+  "backend/test_business_travel_v3.py": {
+    "sha256": "d6df1c4f4612098e089d5968e04db1b63729d67896b5afd740092420047422ec",
+    "bytes": 7198
+  },
+  "backend/test_catalog_prices_independent_review.py": {
+    "sha256": "1019eb268c44168e984273c9d0226b97b7037b777200134a6e8fcab33d119e22",
+    "bytes": 18083
+  },
+  "backend/test_company_event_registration.py": {
+    "sha256": "dedaba1c5aed3959e91e1c0dde7033ca6f3589fc63a960e16d09664e1ef617bc",
+    "bytes": 4783
+  },
+  "backend/test_company_event_restore_worker.py": {
+    "sha256": "56aa55a8be9775a47acd8bae4a738a97eade244ca70719de8dabc585a68cc750",
+    "bytes": 9644
+  },
+  "backend/test_company_event_worker_cli.py": {
+    "sha256": "edad3a19553c2ec72e43103cca7c7610420cdaae37497ccf544249149b905070",
+    "bytes": 2846
+  },
+  "backend/test_company_events_catalog_v2_integration.py": {
+    "sha256": "2f7742e0b5bd74d6ec90d8bda628d0072707739a7d3147d1c3666708460084f0",
+    "bytes": 4371
+  },
+  "backend/test_customers.py": {
+    "sha256": "559333ac9ab7ab3794100168ffa4ba685c01aa1623c371bfe4703f204ff86a39",
+    "bytes": 11980
+  },
+  "backend/test_external_integrations.py": {
+    "sha256": "77979fdc8e52937865414c83f805b16dfa009a808f3c9be767e578328025f162",
+    "bytes": 35999
+  },
+  "backend/test_inbound_connectors.py": {
+    "sha256": "269d0c80863acf05371b5eb860c7028b379fc8a1c14730ff6be6c882a2fb8ab3",
+    "bytes": 10857
+  },
+  "backend/test_inquiries.py": {
+    "sha256": "537c305cc87c96b22a4fa307735ba743ac68047bb6cfb022a60309a44ca1c526",
+    "bytes": 17773
+  },
+  "backend/test_inquiry_attachments.py": {
+    "sha256": "0a3d736bdf6ac64ec3fe580aed3b79e55ffad5ec174bede0ce199ce097579033",
+    "bytes": 36353
+  },
+  "backend/test_integration_bridge.py": {
+    "sha256": "e93ffca8e4e6866002cb125b6c129fce36359e8e86598b853761444dd0ff5d51",
+    "bytes": 20817
+  },
+  "backend/test_office.py": {
+    "sha256": "fd74ea5ed18197760add881572163c67cf283ebb53a4cc1ccc0d468d5b90abdf",
+    "bytes": 7210
+  },
+  "backend/test_payroll_annual_basis_2026.py": {
+    "sha256": "7c90bc4c940e61a08a8f0b83cb357dc9e7328fe0fc13ae1bb2d38c5d131326c2",
+    "bytes": 754
+  },
+  "backend/test_payroll_annual_basis_review.py": {
+    "sha256": "d806471c878bc13fef43bd11f26965b159a152486750c32a9eb1b431c337d892",
+    "bytes": 5334
+  },
+  "backend/test_payroll_calculations_2026.py": {
+    "sha256": "989999bca2d5b60a038b2dcaf31e54d8dd6b5b5e06122ad7aacb18052c3c9c11",
+    "bytes": 11385
+  },
+  "backend/test_payroll_calculations_review.py": {
+    "sha256": "2cb3e911786fc35031820d790100b9e2f48ea5ca4b1052162fd98277529dae2b",
+    "bytes": 6549
+  },
+  "backend/test_payroll_claims_composition_2026.py": {
+    "sha256": "5b907dae64e0cb958c00eda3284e5445e78f83983f6f53542d973fc17951bbb2",
+    "bytes": 9691
+  },
+  "backend/test_payroll_de_2026.py": {
+    "sha256": "98f5eaf5192452079019c01352318e63ea58e01919e956ea4a6172a31284c15d",
+    "bytes": 13776
+  },
+  "backend/test_payroll_entitlements_2026.py": {
+    "sha256": "9ad04dc4e1f4272d6014b77ecf303fad8dbd0d8d94587f7ed5639ebf87910b5d",
+    "bytes": 13871
+  },
+  "backend/test_payroll_entitlements_review.py": {
+    "sha256": "3785cf85ae89eebe98ae5c8cc87c45a24a74b17c4e12b28a556b9366df01d145",
+    "bytes": 7309
+  },
+  "backend/test_payroll_multiple_oneoff_2026.py": {
+    "sha256": "be4914270b79aa28cc00a585bd746a0a9048a85cbf437a36ed69b5e99084e186",
+    "bytes": 13767
+  },
+  "backend/test_payroll_multiple_oneoff_review.py": {
+    "sha256": "0ea9c73c9ff865d390e02622cb87ef4a23f8bdccaa375d06562ae8a26777eaf9",
+    "bytes": 9602
+  },
+  "backend/test_payroll_multiple_payments.py": {
+    "sha256": "c39ade9a14bdab04d7eeadf7944a9bb26e4ddf02c6c80ebad8a3341a97bb6ed2",
+    "bytes": 7542
+  },
+  "backend/test_payroll_multiple_settlement_review.py": {
+    "sha256": "505a242024425e3849a39003d331c4ac973b72aa97b91670bc07c08b58f8cb6f",
+    "bytes": 4882
+  },
+  "backend/test_payroll_oneoff_2026.py": {
+    "sha256": "87dc8b35a23a14d5a2bc6ee8df6b0f3e750c84bc7d7111c9922f79cf5f796e8b",
+    "bytes": 17272
+  },
+  "backend/test_payroll_oneoff_composition_2026.py": {
+    "sha256": "368074bdf29f134aa817a4ef64071b94416c0915e8b2ad579e47ae586465ab56",
+    "bytes": 14652
+  },
+  "backend/test_payroll_oneoff_composition_review.py": {
+    "sha256": "4cfb156e1aa9f7a6c2c656bbfdfc078ac49ff7bafb3a67649298eb20913deae3",
+    "bytes": 4638
+  },
+  "backend/test_payroll_pap_2026.py": {
+    "sha256": "99fd682bf7054b75f74b23cc96e355ff1ce4ef2d70f8a09d655ec06fcffc4981",
+    "bytes": 3967
+  },
+  "backend/test_payroll_pap_oneoff_2026.py": {
+    "sha256": "629b34d5013d25070010399c9b1e8da69f1765c783c00911959497c166303d5d",
+    "bytes": 4301
+  },
+  "backend/test_payroll_pap_oneoff_review.py": {
+    "sha256": "158125502f2ee9fb016db7f3790d2bd10f0c203060bf6528c915b821849305f5",
+    "bytes": 2753
+  },
+  "backend/test_payroll_periods_2026.py": {
+    "sha256": "90eaf91619f0bbf7933da8e64a85aeda0fe74e9e83793603571348d7a7dffe9f",
+    "bytes": 13991
+  },
+  "backend/test_payroll_periods_review.py": {
+    "sha256": "44e225b5fba3ada9e1ccc174a50a0751d73d9b661a6826c8e901cc50926f4dc5",
+    "bytes": 10710
+  },
+  "backend/test_payroll_segments_2026.py": {
+    "sha256": "bb51c093edd8ea6dcefb5b19c2776e76752a626d7d8ce8951bdec9a15f203e67",
+    "bytes": 10264
+  },
+  "backend/test_payroll_sickness_2026.py": {
+    "sha256": "66c93d35f666090c354bb46e151d146622ef0926ef56a5d14afe92fad395e052",
+    "bytes": 5305
+  },
+  "backend/test_payroll_sickness_phases_2026.py": {
+    "sha256": "58d3b9e4e09be23a8290c3ff59519cc7df1999705aa970614cb464f21cbb01de",
+    "bytes": 8226
+  },
+  "backend/test_payroll_sickness_phases_review.py": {
+    "sha256": "b71c44935cb2b7d0c662fae54af0cd509fb7e5e5eb09587d43f3d53a59a1fbc2",
+    "bytes": 5705
+  },
+  "backend/test_payroll_sickness_review.py": {
+    "sha256": "5cfe02806eb3ed7c3d7dc6fd8943b44bb199b4d32cab4f3001e59585482aae81",
+    "bytes": 3759
+  },
+  "backend/test_payroll_sickness_start_2026.py": {
+    "sha256": "c571d94e792522666c02fab9201502b7ddce0ca0e533e881c1b1f84451a11f04",
+    "bytes": 4255
+  },
+  "backend/test_payroll_sickness_start_review.py": {
+    "sha256": "85825c22d81c593151d47a3c766b94c54d66434e8669a9a23b7d289a00c9e24d",
+    "bytes": 3938
+  },
+  "backend/test_payroll_transition_2026.py": {
+    "sha256": "2a59d233ccaa0f88ae510e4d57de058a4ab3e2347ef6a2fa504e3781570c58e0",
+    "bytes": 9091
+  },
+  "backend/test_payroll_travel_2026.py": {
+    "sha256": "5ddf89e46df22d0e33cf8959623086dd2d645747eda4999907e479a2222f7c85",
+    "bytes": 8255
+  },
+  "backend/test_payroll_travel_ground_2026.py": {
+    "sha256": "c40f77c8760cfa2ee550f28a62d22937c259c1f87b896cec4e506961a61e8f43",
+    "bytes": 2975
+  },
+  "backend/test_payroll_travel_integration.py": {
+    "sha256": "e8c99c5888297a304b98193b2122d50992f527788f075491772ac69d0c0603be",
+    "bytes": 7399
+  },
+  "backend/test_payroll_travel_mixed_2026.py": {
+    "sha256": "f21cf332805d082992e85ec881b437d0d85579a6507adae0c8898574a854dae9",
+    "bytes": 8149
+  },
+  "backend/test_payroll_travel_review.py": {
+    "sha256": "9fba6cd2eb3ed858597c0893a87c7db9bdab588674dcd4d643bad5376717f5fa",
+    "bytes": 10377
+  },
+  "backend/test_payroll_travel_tax_2026.py": {
+    "sha256": "26b8ab1ae0d70de066a3f9411e49a605525541883f9c624e1e691a5f08b78043",
+    "bytes": 8291
+  },
+  "backend/test_payroll_travel_tax_review.py": {
+    "sha256": "c9454ce772fa7a6e8fd5c3baa9e04d0eb83916d2c41f7f830bc96475f5113af4",
+    "bytes": 7810
+  },
+  "backend/test_payroll_travel_transport_2026.py": {
+    "sha256": "3157e3b7f800cb4074fea4758988606abf66924ddb3a9c7d8833b4d967278f03",
+    "bytes": 11708
+  },
+  "backend/test_payroll_travel_v3_review.py": {
+    "sha256": "b7b853c53a424212b68bcd626d68dd168604638cab9bd899dc7eee2b5ece4321",
+    "bytes": 7120
+  },
+  "backend/test_payroll_wage_interruptions_2026.py": {
+    "sha256": "5a5637202b92cb705bcd4f0c98fcf76fc2146a7b7647aaa999cd529fc9e71fb6",
+    "bytes": 5009
+  },
+  "backend/test_payroll_wage_interruptions_review.py": {
+    "sha256": "eef16a4719640e23b8b8944ece31343bbc4e77181925499d540379a359d08296",
+    "bytes": 9726
+  },
+  "backend/test_plan_access.py": {
+    "sha256": "fcec0128c823bffa61761472543a485b6b05d4140c6cd8b18492e549ea27befa",
+    "bytes": 3459
+  },
+  "backend/test_plans.py": {
+    "sha256": "d4d022933b59cae782889e379bfbb44f89ec0db2aee81c67752241f684871784",
+    "bytes": 4442
+  },
+  "backend/test_project_workspace.py": {
+    "sha256": "a0b80296c27c116f24e7743c5a037d4578fa3a8ca71971b63a8da9ec1a6a1b0a",
+    "bytes": 22627
+  },
+  "backend/test_report_integrity.py": {
+    "sha256": "9c39d15898de1ff4e66ad29dcbec5f89f4eb11fb401e7968c3aa2dd434d38f68",
+    "bytes": 10810
+  },
+  "backend/test_stock_article_identity.py": {
+    "sha256": "abb6f72e35a1debc26097ba8a0aa84beef02eca96c09d926c22243118c5dff14",
+    "bytes": 4384
+  },
+  "backend/test_travel_payroll_sources.py": {
+    "sha256": "1144e837978cc0d751c4f1b17b456551b581bdee984d685052ad0c94285a11f9",
+    "bytes": 2969
+  },
+  "backend/test_windows_office.py": {
+    "sha256": "a30aac63ac5084bcf859c3816316fa5beb10dec4368d2fe06c57069dcb0bc140",
+    "bytes": 9776
+  },
+  "backend/test_workspace_access.py": {
+    "sha256": "6caa1ca3a2c8464644bb5478018ddc447715d6399a67a22b667725737f97796c",
+    "bytes": 8861
+  },
+  "backend/travel_allowance_cash.py": {
+    "sha256": "787a796abd4798d3f8011cd13afe95b579ac5be637d86a72be4014bc3b7d32d1",
+    "bytes": 16960
+  },
+  "backend/travel_payroll_sources.py": {
+    "sha256": "2eade65d966b0e9f3d25e1899b039e2ca0f0710a2e20f299a3a2fc563623f5a3",
+    "bytes": 3052
+  },
+  "backend/windows_office.py": {
+    "sha256": "b93d6e3376dbd6b1881ee965fb88ec67e3fabaf7fd5df15c2ca27dc94578946d",
+    "bytes": 17275
+  },
+  "backend/workspace_api.py": {
+    "sha256": "5b8ff726403b36e59a408a9c509ee5dacadc642362e10ba119ba32cc073d5c65",
+    "bytes": 8403
+  },
+  "scripts/create-brand-assets.py": {
+    "sha256": "9ae309ad94c063732467549926e57ddf717ce10b34d45c515ac871d3c9645c34",
+    "bytes": 1723
+  },
+  "scripts/fetch-einvoice-tools.py": {
+    "sha256": "8fad5eb3a6f95babe8e5ffdaeff76900511b4554744af63cfb572f7fb3931c5a",
+    "bytes": 7057
+  },
+  "scripts/generate-accounting-historical-assets-fixture.py": {
+    "sha256": "598b8d5fda4bbf153d885fd10cf93fcb098fea1cf8eebf026e0535d18207fa3b",
+    "bytes": 4024
+  },
+  "scripts/generate-accounting-open-items-fixture.py": {
+    "sha256": "d389a49747071467d0662db6513164c4a14e9701d621bf541b84ba49015e5692",
+    "bytes": 3649
+  },
+  "scripts/generate-accounting-opening-fixture.py": {
+    "sha256": "665387773e754fc1914c9a979dcd688aef0169a517e8d6df8f3252093535a59c",
+    "bytes": 3900
+  },
+  "scripts/generate-accounting-opening-large-balance-fixture.py": {
+    "sha256": "05ffcad220b28a41829da7c9305888d1fb072b6733c2dae1894a1c341c2bcfad",
+    "bytes": 1598
+  },
+  "scripts/generate-accounting-year-package-fixture.py": {
+    "sha256": "a78328248c7bc3b3db35fe13a36cf3d969d3e5a6f0a25dc892fecac12e77d0ae",
+    "bytes": 3980
+  },
+  "scripts/generate-accounting-year-package-v2-fixture.py": {
+    "sha256": "bdec7fe7801d29675724565b481971fc31fcebe6ebc4eecad3a9c434090e556b",
+    "bytes": 2695
+  },
+  "scripts/generate-accounting-year-values-fixture.py": {
+    "sha256": "95b9950651f0bcaa75e23807fb86028dab32a0ddd40222b871467ed8f9e94e38",
+    "bytes": 4718
+  },
+  "scripts/generate-company-events-fixture.py": {
+    "sha256": "8e4e8709179f97bbf496cad20a4af7fe5e3e4ad43b7fa8f5fd5a822df0e1bf9b",
+    "bytes": 5232
+  },
+  "scripts/generate-payroll-calculation-fixture.py": {
+    "sha256": "fcef0ccbeb6039faf7a72d33dcc1e95b3acc194570fb4b0d8d4176a2123a725a",
+    "bytes": 4020
+  },
+  "scripts/generate-payroll-multiple-run-fixture.py": {
+    "sha256": "ad6eb9b211189653c9f81e128f3e3199261057ec0f8012d2a2d9ff2298cf7682",
+    "bytes": 5442
+  },
+  "scripts/generate-payroll-multiple-statement-fixture.py": {
+    "sha256": "0e053a0ccf9c2692b69b546478735f800c585d6655f88598b15cfe4da9ec6273",
+    "bytes": 1516
+  },
+  "scripts/generate-payroll-oneoff-run-fixture.py": {
+    "sha256": "b0e66f19abd0051e6b201318a5ece5f9f15cd6e5bc7470bcf2b539f7db9270c9",
+    "bytes": 6488
+  },
+  "scripts/generate-payroll-oneoff-statement-fixture.py": {
+    "sha256": "93989b4777d45137d15cfadaff9fe481bfed31f105eb858f8eb3dabfce466146",
+    "bytes": 1912
+  },
+  "scripts/generate-payroll-wage-interruptions-fixture.py": {
+    "sha256": "d921db8a9c96aaf96f58ef7c230180e177d4dcd0a6902700a7d2756af9b9b073",
+    "bytes": 2176
+  },
+  "scripts/generate-payroll-zero-account-fixture.py": {
+    "sha256": "eea646a39a0bf2484ce8af7dd0c55cc7255581636c89fccf5a9c85c7255d6b90",
+    "bytes": 1929
+  },
+  "scripts/native-release.py": {
+    "sha256": "faaddeb1b75d1dda5635547c45d5ab790ec76fc7c46201eba0c332bd05a7cbc7",
+    "bytes": 26979
+  },
+  "scripts/package-windows-support.py": {
+    "sha256": "0766d8fa86b86867e3da19325edf257eb8a6b68efba607e69b894f3b24ffc96e",
+    "bytes": 17615
+  },
+  "scripts/process-company-events.py": {
+    "sha256": "10338670e665fb436bb37c03ff045176fc7c2931bc1314f50c059036662a5504",
+    "bytes": 2110
+  },
+  "scripts/product-inventory.py": {
+    "sha256": "c6205e5408b3c4e75d8896b8af145e073f51b1ed483dee953fc30c2719f92d03",
+    "bytes": 5402
+  },
+  "scripts/reconcile-accounting-restore.py": {
+    "sha256": "065291753e3d8f953b3d1ca9229d735554d9926dd35379ca606209ebb1d3b765",
+    "bytes": 6762
+  },
+  "scripts/report-flutter-test-failures.py": {
+    "sha256": "81e4e1375dd25a750686bbe0fceb7e8b887630bdfc2be726dd94a4717572b73b",
+    "bytes": 9295
+  },
+  "scripts/setup-cloud.sh": {
+    "sha256": "81c072cf83e0055d1467b14ec7943cd4f6d69fdf0c2c7487b18df24a868c3b66",
+    "bytes": 1995
+  },
+  "scripts/test-backend-ci.py": {
+    "sha256": "73b9ecae36c205f33e7d1ffa7474f54a9375c17a705624635ff1339a6fc8019f",
+    "bytes": 776
+  },
+  "scripts/test-import-systemd.sh": {
+    "sha256": "d19b93535bc2ae155a6b040fb57ef129025d815d47f6dc99b24815390dd155fd",
+    "bytes": 9603
+  },
+  "scripts/test-update-flow.sh": {
+    "sha256": "8e099e50438e438a8f028404a1482a220185b59125c53a171bcdfdaaaa48a9ca",
+    "bytes": 632
+  },
+  "scripts/test-windows-offline-update.py": {
+    "sha256": "187f9c14fa9afdd9c6fde772936d1cd4527ebccbf3a69ea683c4f96943ead9e5",
+    "bytes": 5770
+  },
+  "scripts/test_einvoice_tools.py": {
+    "sha256": "e984a33e708043022f76e6cac409e060a236e3f8cf04f723191c591ba83ba876",
+    "bytes": 3723
+  },
+  "scripts/test_flutter_failure_reporter.py": {
+    "sha256": "68f343de1b57e61f0f4446722eb32067c1adcad80dda7412218bb208eab4b737",
+    "bytes": 8893
+  },
+  "scripts/test_mail_bot.py": {
+    "sha256": "043baacbcc422a3f731504695aad69543d0c2a5260071e3f74d00bff6408069c",
+    "bytes": 23699
+  },
+  "scripts/test_mail_bot_attachments.py": {
+    "sha256": "433ad188650e5a4f8497e640ffeced8e08b87976e8dfc328fe002c3ccbf1a29b",
+    "bytes": 22095
+  },
+  "scripts/test_native_release.py": {
+    "sha256": "d1e8ea78168ea3ed504610cddd5a1c969d14b4cb3976658547dd9c0a3c4523fa",
+    "bytes": 20130
+  },
+  "scripts/test_product_inventory.py": {
+    "sha256": "b37edd9ec7e0b6f18e82a63fdbce7c58a80d5f4be4e2e98b5239b7bcaf59d46e",
+    "bytes": 1433
+  },
+  "scripts/test_project_bot.py": {
+    "sha256": "6671106206d9ecde47ae167b3b0559668f152bf7d4e5e39ff157908ff1e1d903",
+    "bytes": 13600
+  },
+  "web/office/.gitignore": {
+    "sha256": "a305958521f5e61b8274ed12814e86b9028f06fab15092ed08e355d1845684bc",
+    "bytes": 47
+  },
+  "web/office/README.md": {
+    "sha256": "8ebeed3b14d8e653ffacf5bcd304caddeaf13fc2a8dd0843496eadf58cd0d133",
+    "bytes": 6436
+  },
+  "web/office/accounting-euer.js": {
+    "sha256": "e9a792a3ecf40b7a790acc7a8cd245a53c64530d2a81453f12ad97c93a6b72b2",
+    "bytes": 59995
+  },
+  "web/office/accounting-historical-assets-contract.js": {
+    "sha256": "d8a55c99110950a149e891af200cd711bdac891e9a7cc49bceaca2be0452f162",
+    "bytes": 16320
+  },
+  "web/office/accounting-historical-assets.js": {
+    "sha256": "20b6ad6eef8ace5a67b04ab8f0b6ea265da9e4edb0cf3fb3b9c18d9f4ebacdf8",
+    "bytes": 15326
+  },
+  "web/office/accounting-open-items-contract.js": {
+    "sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1",
+    "bytes": 23901
+  },
+  "web/office/accounting-open-items.js": {
+    "sha256": "0724a14408e88e7cfbe60eefe756418ba8e7a196ed217e2839327ec90500598e",
+    "bytes": 23790
+  },
+  "web/office/accounting-openings.js": {
+    "sha256": "c4940ac0e525329ab9a743a03c45b526d0187494b67adc999f211ab663f643bb",
+    "bytes": 35288
+  },
+  "web/office/accounting-year-package-contract.js": {
+    "sha256": "4459c3580c3da8ede338d33ec567901d8117620e99c6670c1c74e8b639cc4b73",
+    "bytes": 4369
+  },
+  "web/office/accounting-year-package.js": {
+    "sha256": "1f27716c37b88f99df5bd11f897845f2d321c7180b1d4644296d77c24341a3ee",
+    "bytes": 4416
+  },
+  "web/office/accounting-year-values-contract.js": {
+    "sha256": "ca5035e24120917fc501d214d0d4c3d3e8dce98c7bbdbc4b52fb7d15964dfa7a",
+    "bytes": 20667
+  },
+  "web/office/accounting-year-values.js": {
+    "sha256": "79d6dee5dd9c463b7155cefa639b8bde0c12bdf8b9491cdae2597b72e6f91538",
+    "bytes": 27626
+  },
+  "web/office/asset-provenance.js": {
+    "sha256": "c45c90010e6c69c0cb86afefe7d939cd2d7c2e4dd21d3eaad08741a6b50065b1",
+    "bytes": 10242
+  },
+  "web/office/assistant.js": {
+    "sha256": "af6a532772ef31863254d853f043eba7332d5384fdb329128eec13fea31f9539",
+    "bytes": 31464
+  },
+  "web/office/bank-reconciliation.js": {
+    "sha256": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647",
+    "bytes": 32627
+  },
+  "web/office/catalog-imports.js": {
+    "sha256": "813ee87aec7a50ce4eccade41727156e4f140cf085bad6268056b3402f063cdf",
+    "bytes": 23702
+  },
+  "web/office/catalog-prices.js": {
+    "sha256": "4588b266cb8728a9ad67378215ffe4040ccabb3d0b8210299ef67b17512c4935",
+    "bytes": 26481
+  },
+  "web/office/company-events-contract.js": {
+    "sha256": "5e70f7bb8e51338b205c5218cd85419faddaa75d05b98a9273e5009317600746",
+    "bytes": 18094
+  },
+  "web/office/company-events.js": {
+    "sha256": "76c80e5baba621f8c240c9b1cedf272ac09fcb636432fd5d91f54db006368b1a",
+    "bytes": 29282
+  },
+  "web/office/company-handover.js": {
+    "sha256": "7b155ac7cfa4977c33be33c4d34021959cca9d6448dc2021538b37e989bd8bbf",
+    "bytes": 14791
+  },
+  "web/office/company-overview.js": {
+    "sha256": "c02112a520bee6b518ebeddbae9a90d26717d1cf30063a740095e7356b44c5dd",
+    "bytes": 5617
+  },
+  "web/office/contact.html": {
+    "sha256": "1e39759df8b901f0c90a215fdad8e49770c63bdc88acf4e929b664c11700f143",
+    "bytes": 3122
+  },
+  "web/office/contact.js": {
+    "sha256": "ddbf79c55c287f35886d21d7d7897d4fbb9584eab21547879d4dece5ae35bf52",
+    "bytes": 6595
+  },
+  "web/office/custom-fields.js": {
+    "sha256": "b63d98a4c16a1660072cc320433c616d9f605ec682db3aca943c7128b66c8966",
+    "bytes": 12695
+  },
+  "web/office/customer-workspace-staff.js": {
+    "sha256": "75ef2e183651a4bdd6cc59bb9f6e87b22495aca702b524c451e5f06ed7df12a1",
+    "bytes": 24167
+  },
+  "web/office/customer-workspace.html": {
+    "sha256": "280d7e3b3b32e2266c56991635f71f969054914a78f251ee3587014eb5a40cad",
+    "bytes": 832
+  },
+  "web/office/customer-workspace.js": {
+    "sha256": "930201dea32c50b7e394bd84743104d233fd88278f9e51f6f1321c7bb2198e6c",
+    "bytes": 20233
+  },
+  "web/office/index.html": {
+    "sha256": "9e45c5e81f1b2f3cf8a9028d782f2b71e11b3c41b3a199cbf97118eeab228021",
+    "bytes": 730
+  },
+  "web/office/inventory-counts.js": {
+    "sha256": "32539a87728f1f15803a2b0fb27a1d7e9289e1fafc8f33df8c4290bb3e6fcf12",
+    "bytes": 12743
+  },
+  "web/office/migrations.js": {
+    "sha256": "2388d84e73bb736ecbc1c8267ebe0c1534b5e0e9e6cf6f7c45388002e4581314",
+    "bytes": 25209
+  },
+  "web/office/office.css": {
+    "sha256": "011d4162cb71da7b80ee73b7e59dd9074a36ad67aea3532f732e0c7761142933",
+    "bytes": 22461
+  },
+  "web/office/office.js": {
+    "sha256": "a5811ca172cc649917d886e1f82299c99513cd00099b065c0fc2f5ed61689fb0",
+    "bytes": 360092
+  },
+  "web/office/package-lock.json": {
+    "sha256": "0dbc7a0378910fe9d75f07d731833b330068b6bd179cb773cc728f8612339f8e",
+    "bytes": 2637
+  },
+  "web/office/package.json": {
+    "sha256": "88da22eb95d36a862a7279dafe7ff95e035ded4dfed05d880b7dd018f9e5996d",
+    "bytes": 274
+  },
+  "web/office/payroll-accounts.js": {
+    "sha256": "bd33519efdf4a88cef3c4829a3f9130f3acc87a25a53798e09923facfed2908c",
+    "bytes": 35466
+  },
+  "web/office/payroll-annual-basis.js": {
+    "sha256": "6b53d8cc3d97651e1b264ba10ff4e33cd0e1f1d9844791373b754ef8f4d04238",
+    "bytes": 49006
+  },
+  "web/office/payroll-calculation-cases.js": {
+    "sha256": "0a04e67215299b8de95cf2c230480cd79a913fdda4c6c089bf5802a0a7b69238",
+    "bytes": 41226
+  },
+  "web/office/payroll-cash.js": {
+    "sha256": "91e00cfc0481cbfe480fbdd85c3a82a6f379f5af387ad245e038d9676f63b748",
+    "bytes": 22150
+  },
+  "web/office/payroll-entitlements.js": {
+    "sha256": "4fde2017bcb616fbe4b6cb81f71b72ed711f24f13212e0c36192a35822086962",
+    "bytes": 50116
+  },
+  "web/office/payroll-facts.js": {
+    "sha256": "bc0cdb662359c1815a915935f67c2df4c50b3176b786fc90c59a2f0331dbe8cd",
+    "bytes": 45708
+  },
+  "web/office/payroll-multiple-cases.js": {
+    "sha256": "61d9995c8863facf518c348ad1138ac1c54c749e6128a96d39c23ec3a02d46fa",
+    "bytes": 39314
+  },
+  "web/office/payroll-oneoff-cases.js": {
+    "sha256": "8777a1594027ecb971287c1cfdea332189dbf91ff179ceda3f0990d0bfaa2eb8",
+    "bytes": 31088
+  },
+  "web/office/payroll-statements.js": {
+    "sha256": "acb865fe6a6c1a2fab27b289c6b9b4ce92c95c9396a85511e8e500c084733e6b",
+    "bytes": 19765
+  },
+  "web/office/payroll-travel-tax-policies.js": {
+    "sha256": "c0f81fb9c21a403647fb773da68cc43bbd9876af6ec933ec8414ca13633ed6f2",
+    "bytes": 21970
+  },
+  "web/office/payroll-wage-interruptions.js": {
+    "sha256": "043e078b7c9752ea06a5e9d0c90b2d45065dccf0aef2ad9a7aacd8ed659203d5",
+    "bytes": 33763
+  },
+  "web/office/payroll.js": {
+    "sha256": "83d23c21a7141ffd6a5720b0a86de33468cba630a8d79bb7f58d239fd92c3ef6",
+    "bytes": 71553
+  },
+  "web/office/personnel-workflow.js": {
+    "sha256": "6351784f0a7882a4c4525ca296c84bf6f4d6db11465555c367397cb4b4f34fee",
+    "bytes": 22676
+  },
+  "web/office/portal.css": {
+    "sha256": "c2887fa779f6889dd0e9acaeb7a2cda31fd0d937a7e887f6425acb605ebbe968",
+    "bytes": 3154
+  },
+  "web/office/portal.html": {
+    "sha256": "bc366836695680d8555397433917af49c874f7a9f37648326cc17c30b809ff09",
+    "bytes": 813
+  },
+  "web/office/portal.js": {
+    "sha256": "feb121fa2c48b50b89c2f26278cfe197a9756f08985e2b687b0277871bf7911a",
+    "bytes": 22472
+  },
+  "web/office/privacy-cases.js": {
+    "sha256": "93343bea783af34beb6f569770a49de5dbfaf231322118d5b3f1affcc717813a",
+    "bytes": 19963
+  },
+  "web/office/project-economics.js": {
+    "sha256": "68ff718a629338b864ed798b22bea26c8d9bb31084aa743cc50e752778dae41f",
+    "bytes": 37485
+  },
+  "web/office/purchase-changes.js": {
+    "sha256": "86e4ac1f710bbf287334aa0c7d934567575ae760951da74e32bb0010bd50bd9a",
+    "bytes": 20286
+  },
+  "web/office/resource-custody.js": {
+    "sha256": "7624feff4ed42abec0a1ddf8c8aa0dae2ca56442ff5a134cb060c8e5f8b2ccc6",
+    "bytes": 25148
+  },
+  "web/office/sales.js": {
+    "sha256": "9ccfe223743ab70771542db34b86e3ee02f7c6abdfbcf4b2939cfe81c5ecb462",
+    "bytes": 17215
+  },
+  "web/office/service.js": {
+    "sha256": "11f2a4676683e1b913c379af98f62ea63d4ebfa434093ee9789d648d039ace16",
+    "bytes": 22091
+  },
+  "web/office/speech.js": {
+    "sha256": "b7c3bfcfbc64eadb97ad692227beaec0c815607796e71f7598dfb00840117423",
+    "bytes": 12804
+  },
+  "web/office/tests/accessibility-flow.cjs": {
+    "sha256": "28275804440fb322c5cba9e29ee6331cc03bb3746a2b92d5e26449cfa6aef367",
+    "bytes": 3157
+  },
+  "web/office/tests/accounting-allocation-flow.cjs": {
+    "sha256": "ea33d2b7e6ce8acae7b5a82e602285553ecd857629a6b3d6a6cceedcf551112b",
+    "bytes": 16180
+  },
+  "web/office/tests/accounting-allocation.test.mjs": {
+    "sha256": "0b6659b0beb4390b58da2eed6fbbaea3fc7a563b93840e9dc5ce41e3345812f6",
+    "bytes": 9483
+  },
+  "web/office/tests/accounting-euer-e2e.cjs": {
+    "sha256": "fe8a258d06bda9576f66b358dcf33a9bfd667024520417f5e6c9cc173a493e5b",
+    "bytes": 5040
+  },
+  "web/office/tests/accounting-euer-fixture.py": {
+    "sha256": "56804906b68911c0adfe64c8d6d90f8968a25acbbb22fad58dec3286fb23fc36",
+    "bytes": 3041
+  },
+  "web/office/tests/accounting-euer-flow.cjs": {
+    "sha256": "834f4512ba531ee47270a848b6e1fa2e453316de9ee0976e8bb70163fd427749",
+    "bytes": 11048
+  },
+  "web/office/tests/accounting-euer-legacy-context-fixture.py": {
+    "sha256": "74c1eb4476d0204c586336a7fdbb9dfeb929d88256a864fe8fc71b63625fe48f",
+    "bytes": 3120
+  },
+  "web/office/tests/accounting-euer-legacy-context.test.mjs": {
+    "sha256": "76869182b8e1dafb59388ef72884820f834e0c9a295bc1bd042c605cf4a4d1df",
+    "bytes": 11295
+  },
+  "web/office/tests/accounting-euer.test.mjs": {
+    "sha256": "4e2d2339a93a1efb4e1d192b8401b8902ac51a0ea5aa7d0874bdfd6a49db743e",
+    "bytes": 9672
+  },
+  "web/office/tests/accounting-flow.cjs": {
+    "sha256": "7ba08eadeeda4222b871113a9239560f951463d626f78ad1118088b478f683ea",
+    "bytes": 15188
+  },
+  "web/office/tests/accounting-historical-assets-context.test.mjs": {
+    "sha256": "0331e5b7fc004e9fef44673726b4ddc6c5431ce0ea16ecba46558010c015eb44",
+    "bytes": 7546
+  },
+  "web/office/tests/accounting-historical-assets-flow.cjs": {
+    "sha256": "27248284cec746155fee15ae3b1058453ba71a682c4d588c344ab7b2a3ec8b49",
+    "bytes": 16550
+  },
+  "web/office/tests/accounting-historical-assets-independent-flow.cjs": {
+    "sha256": "03e63bc24482985f8c61364f9cad412de4c50bc8ad05fcd7b3a2abeb69462d71",
+    "bytes": 1987
+  },
+  "web/office/tests/accounting-historical-assets-independent-preload.cjs": {
+    "sha256": "c2266c82be5bad25c867ba4aade0b4ded167a752d7e77319fe6c2e1875b11007",
+    "bytes": 432
+  },
+  "web/office/tests/accounting-historical-assets-independent-review.test.mjs": {
+    "sha256": "38949580392b214ed1de9f055a248d08b487586e327fae4b1f000ec98d4a1c7d",
+    "bytes": 11073
+  },
+  "web/office/tests/accounting-historical-assets.test.mjs": {
+    "sha256": "fb056eb6a7b394c16e010b7f655c6c439f24871e37c59dee5bd701a048b66576",
+    "bytes": 7286
+  },
+  "web/office/tests/accounting-open-items-context.test.mjs": {
+    "sha256": "c38130e349b89a0921e65358ef90d447ab6fb49e6d4eb352e4f67f15615f7680",
+    "bytes": 8000
+  },
+  "web/office/tests/accounting-open-items-contract.test.mjs": {
+    "sha256": "0b2cd07f111eccb87f2122ace6785e95885db3b499780c4f81cf0bc62b03876a",
+    "bytes": 4080
+  },
+  "web/office/tests/accounting-open-items-flow.cjs": {
+    "sha256": "8d88fe10af184b310eb15ec172360b310a7d3360f94b01f2d1a52d1d7a20367c",
+    "bytes": 25208
+  },
+  "web/office/tests/accounting-open-items-independent-bank-fixture.py": {
+    "sha256": "95f697f2843c85ea1a02c10aacc60f65ad3bc208057a2f54cd51e3c987f89544",
+    "bytes": 1841
+  },
+  "web/office/tests/accounting-open-items-independent.test.mjs": {
+    "sha256": "071714b8b533efbac789853a38ed429f29fee9c01a5de6a43a59bdcc760efcad",
+    "bytes": 20026
+  },
+  "web/office/tests/accounting-openings-context-review.test.mjs": {
+    "sha256": "6ae41a0bdeb70b4ba4c50234eb777428f8b37c20224f3ef27494953a8afa179e",
+    "bytes": 12274
+  },
+  "web/office/tests/accounting-openings-flow.cjs": {
+    "sha256": "64a218b3929b5abfde0103a5f00522466f898b2ef4f45d1d79fb80d1cc786a52",
+    "bytes": 18803
+  },
+  "web/office/tests/accounting-openings.test.mjs": {
+    "sha256": "1405b3e87f09be4d3c4a68fd200f893e34053da8cce4ae0cf9d22ebd00686352",
+    "bytes": 12037
+  },
+  "web/office/tests/accounting-year-package-e2e.cjs": {
+    "sha256": "fb25428561dd42474b6d5b1157c7780f7e62548edd09c485a925b3ce7dac36b9",
+    "bytes": 5214
+  },
+  "web/office/tests/accounting-year-package-fixture.py": {
+    "sha256": "9b00bf8868e86d32c06aaed051ccb802f2da8ed6e10fe00c7491bae1f42eb6cb",
+    "bytes": 2645
+  },
+  "web/office/tests/accounting-year-package-flow.cjs": {
+    "sha256": "3a90ad6202a77dd3e4901c1896c86d25967aa683b2942595bdac03acfbb8a34e",
+    "bytes": 9821
+  },
+  "web/office/tests/accounting-year-package-independent-archive-addendum.py": {
+    "sha256": "078a4319232a332a21a90881e869379c3a1f3716a14f67217f5c9ff7154c7234",
+    "bytes": 4835
+  },
+  "web/office/tests/accounting-year-package-independent-archive-check.py": {
+    "sha256": "1fa73b21be35e64f44d77a2db289aef29f1142e5a6d29ad8c713c798da9c6596",
+    "bytes": 2512
+  },
+  "web/office/tests/accounting-year-package-independent-browser.cjs": {
+    "sha256": "c5ce1b6e28cbdde1f2e6244e761eb7ddd1ca33039ee07e102d79a64a7e1d5361",
+    "bytes": 4909
+  },
+  "web/office/tests/accounting-year-package-independent-fixture.py": {
+    "sha256": "a396112ef00bec582b6f3105a6e920b19c81f16b5333d3ffc5231498ee7b689a",
+    "bytes": 1292
+  },
+  "web/office/tests/accounting-year-package-independent-preload.cjs": {
+    "sha256": "009170b34f5d5ab09ed1e9cfac97f164aed9eedc7057bc84605e8dc93b529ee4",
+    "bytes": 387
+  },
+  "web/office/tests/accounting-year-package-independent.test.mjs": {
+    "sha256": "871c2cda9fff34c88bde693d7caccc98185a6fd8e289feed621f086322145103",
+    "bytes": 11098
+  },
+  "web/office/tests/accounting-year-package-v2-e2e.cjs": {
+    "sha256": "b07d9e60c209d7fec78ac6eca8e553682bf89076805c3af5e6f3c7d015780a4f",
+    "bytes": 5220
+  },
+  "web/office/tests/accounting-year-package-v2-fixture.py": {
+    "sha256": "8ab2e0461f2e99b53a3d5146ed12b3a8e7ce389c69ea1d045e53437ec9669559",
+    "bytes": 2611
+  },
+  "web/office/tests/accounting-year-package-v2-flow.cjs": {
+    "sha256": "378343158b1b255977375007751fa428c6a77eda92bf04b5231a23622b12d04c",
+    "bytes": 9885
+  },
+  "web/office/tests/accounting-year-package-v2-independent-review.test.mjs": {
+    "sha256": "01eef2af9c759d5bab53918cfb30ccc8d0b6307e1b58979a34a06b9b25fd15d6",
+    "bytes": 3102
+  },
+  "web/office/tests/accounting-year-package-v2.test.mjs": {
+    "sha256": "85f6df1a04c03628576d0eb2b29915423fc6458eace05f1851a925aba27d1073",
+    "bytes": 2308
+  },
+  "web/office/tests/accounting-year-package.test.mjs": {
+    "sha256": "1b5c91f1f7774971f29c105789c1f085ffec44473c4796af192b666e333be50c",
+    "bytes": 9631
+  },
+  "web/office/tests/accounting-year-values-browser-fixture.py": {
+    "sha256": "176d257b0d7119fa634a63ba672401a0cc55a6dc30ffdfbfeb727c0e16b2a068",
+    "bytes": 1780
+  },
+  "web/office/tests/accounting-year-values-contract.test.mjs": {
+    "sha256": "045d483d6b591c89f4826014d47ef2a3e0cb3ff177e54baa4198255e4a12bab3",
+    "bytes": 2908
+  },
+  "web/office/tests/accounting-year-values-e2e.cjs": {
+    "sha256": "1e2a65310d8a2ae2435be773632d0559df9d2564a03bdf43ef913cbf6fd40b71",
+    "bytes": 5098
+  },
+  "web/office/tests/accounting-year-values-flow.cjs": {
+    "sha256": "e75f4c1790dfcd6825f5aa6b8c1b3d14379101b1843d47c5b2653ca7ed7f7f74",
+    "bytes": 17754
+  },
+  "web/office/tests/accounting-year-values-independent-harness.mjs": {
+    "sha256": "a292a21c019ffe7480e3e3f73fad3794274728f560f54cc0cc17fa83b3124766",
+    "bytes": 8796
+  },
+  "web/office/tests/accounting-year-values-independent-lifecycle.test.mjs": {
+    "sha256": "f60f30f62b22a96965bb10aa82eaf4df03eb2974830c9378344b7f2bdff6b024",
+    "bytes": 13278
+  },
+  "web/office/tests/accounting-year-values-independent.test.mjs": {
+    "sha256": "f0cf34715601a1315ef9e15ee3df31102da4ad16721319ec49f5900ea873f4f1",
+    "bytes": 2746
+  },
+  "web/office/tests/accounting-year-values-ui-fixture.py": {
+    "sha256": "c5641f8832a7f3c0ba192cbc14e541f66c3a8542bf1342ed587a460279b80368",
+    "bytes": 2394
+  },
+  "web/office/tests/accounting-year-values.test.mjs": {
+    "sha256": "8e7650ab5051004178296b0ca070834b8ce46ba19c322298be1aa7e980f30eca",
+    "bytes": 13125
+  },
+  "web/office/tests/accounting.test.mjs": {
+    "sha256": "1dc4ff7a746a0d7a1d09bb3b560f63e28ea23e90983de2378e73f0071f47f68c",
+    "bytes": 9032
+  },
+  "web/office/tests/asset-provenance-flow.cjs": {
+    "sha256": "44fa79150ecdc706670bddf7735a20d9d6dd9bafcc570975f0b9916dd046b2da",
+    "bytes": 9948
+  },
+  "web/office/tests/asset-provenance.test.mjs": {
+    "sha256": "f8afe8449274de87ecd0e0122030c79ede2deb0bfbf0a9ef0c50e7f86bffd1bb",
+    "bytes": 2110
+  },
+  "web/office/tests/assistant-flow.cjs": {
+    "sha256": "4c995cac44cb0556e534d6e4ff039b0a325e7f451b463fd664521f2305ddadcb",
+    "bytes": 12909
+  },
+  "web/office/tests/assistant.test.mjs": {
+    "sha256": "d985d5c03ed662e40c8f3f06153b0ae048ec6e82a388979c1246288b4dab5977",
+    "bytes": 9405
+  },
+  "web/office/tests/bank-reconciliation-flow.cjs": {
+    "sha256": "78c40baf6c05fe12e05278d2efd484355cd0c1f7b26d315283d191c7e0349d8a",
+    "bytes": 15224
+  },
+  "web/office/tests/bank-reconciliation.test.mjs": {
+    "sha256": "9cab417aeb5490157c9766f534ed86d1e39949da2057fa7cb30d0adf8842c317",
+    "bytes": 7565
+  },
+  "web/office/tests/capacity-flow.cjs": {
+    "sha256": "ec27fff0add85200af7896f023683c7dfa26f139f774f1bbabac6c16c297d53b",
+    "bytes": 25239
+  },
+  "web/office/tests/capacity.test.mjs": {
+    "sha256": "7c31cc3f44cce433a9046d55396937c8666e13d37465cd475813880f00fbe4d3",
+    "bytes": 17216
+  },
+  "web/office/tests/catalog-imports-flow.cjs": {
+    "sha256": "33a71ee95808b9878344088823abda9f9a8c0477ae33e089c0ec34a545a6bc58",
+    "bytes": 17374
+  },
+  "web/office/tests/catalog-imports-review.test.mjs": {
+    "sha256": "803f1c8df64587b37f89765b32927f63045d2df8def34bc000299db94383553f",
+    "bytes": 11763
+  },
+  "web/office/tests/catalog-imports.test.mjs": {
+    "sha256": "4715d83b904d1746a46855d95bc12a5497ff6122acd3effcaa43b96c6d3cb948",
+    "bytes": 9330
+  },
+  "web/office/tests/catalog-prices-flow.cjs": {
+    "sha256": "1cac801c493efb1129a5d7d2133408c4d99352d3bb5b5e5406f54779f46b23bf",
+    "bytes": 13504
+  },
+  "web/office/tests/catalog-prices-lifecycle.test.mjs": {
+    "sha256": "446075ad66d030c01b0eee727d074ef30a69de01902c7e5b4d264d8f7d3b297f",
+    "bytes": 11152
+  },
+  "web/office/tests/catalog-prices.test.mjs": {
+    "sha256": "0c17615876becce0f3aaa76d0f0c1bea378fdc875b64d3ffb970ec525781e05d",
+    "bytes": 9946
+  },
+  "web/office/tests/client.test.mjs": {
+    "sha256": "05c2923db87abc3bd3e3a6909208b08fc453fdf1ae79a5b6219516d6319ab306",
+    "bytes": 8949
+  },
+  "web/office/tests/company-events-access.test.mjs": {
+    "sha256": "353b98af228b1c8af0f31c8ad92b99e5f8303cf24537e4c05b44c6b2fc8973b6",
+    "bytes": 3924
+  },
+  "web/office/tests/company-events-contract.test.mjs": {
+    "sha256": "6ae20db33104e17736322e5191002d020006d2a666c8c78e9ea69524f2952c37",
+    "bytes": 3793
+  },
+  "web/office/tests/company-events-flow.cjs": {
+    "sha256": "cc363df30329883da6bf7d76ba3293c22a7a0fd1f56cbd6fffea363ce55b7462",
+    "bytes": 16238
+  },
+  "web/office/tests/company-events-independent-browser.cjs": {
+    "sha256": "f67f6a65c178257b62b0b4af0e5d5449fc546828b550b803a9d6366f3ea4797d",
+    "bytes": 3217
+  },
+  "web/office/tests/company-events-independent-preload.cjs": {
+    "sha256": "c78f90677a578956a78a7ea70c0ba735856a472b15490c026708a55876428855",
+    "bytes": 459
+  },
+  "web/office/tests/company-events-independent-review.test.mjs": {
+    "sha256": "74b93f3df83ef47a3ecb14a2cbfc9b993b876cd95af6c69a15e3df0acde738a8",
+    "bytes": 12913
+  },
+  "web/office/tests/company-events-merge-review.test.mjs": {
+    "sha256": "b790327a322b5a985430cbca650c3dcde226389d1e1efff29901f1b122cd2ffb",
+    "bytes": 7618
+  },
+  "web/office/tests/company-events-session.test.mjs": {
+    "sha256": "15f5a8d40c49acdff024b59f0f7a8b234126e83680bb80336d6358a0b738163c",
+    "bytes": 4727
+  },
+  "web/office/tests/company-handover-flow.cjs": {
+    "sha256": "06ca21fe3ebb081fc09cbcd0c8c5b304a89bf8c2f1e439f8cbaf82b949b6d913",
+    "bytes": 9512
+  },
+  "web/office/tests/company-handover.test.mjs": {
+    "sha256": "1944275095bc35d9968edebabf5675f3a5c191b54887765702255456059ea7cf",
+    "bytes": 5795
+  },
+  "web/office/tests/company-overview-flow.cjs": {
+    "sha256": "517ac4fd887c1c89b1016ff197f09ed33ab08c2abaf6759410ca26498768d97a",
+    "bytes": 1992
+  },
+  "web/office/tests/company-overview.test.mjs": {
+    "sha256": "7b97e3c7f6a35ddb1f82b3b0186de8b97d80ebc97a033dc78ca09b2ed2bb6019",
+    "bytes": 2041
+  },
+  "web/office/tests/component-flow.cjs": {
+    "sha256": "43ebbbe071b3397873bda43aa11c31638408a3e0be179fab9a9860d08afca0de",
+    "bytes": 19729
+  },
+  "web/office/tests/component.test.mjs": {
+    "sha256": "6e5f023f411ae1f05903885fd09d146e4b2a16f73e88456270f93005518bd442",
+    "bytes": 11734
+  },
+  "web/office/tests/contact.test.mjs": {
+    "sha256": "61e317931ff03708f6f16249377f5eadb5210b9d3dce54f92c9b0f4df9ce1df1",
+    "bytes": 4844
+  },
+  "web/office/tests/custom-fields-flow.cjs": {
+    "sha256": "be966271d79ae3b071379bde9ae8e3cb4782d10e5892e9497738f1a59bb88909",
+    "bytes": 9031
+  },
+  "web/office/tests/custom-fields.test.mjs": {
+    "sha256": "2752467bbd2e54317c5efc769fcf93f1e4d84df04864cde6d757c2825967b5e5",
+    "bytes": 5244
+  },
+  "web/office/tests/customer-workspace-e2e.cjs": {
+    "sha256": "a480cb821c47a50f60a5d0f55fdefd9f32ecd886a996afd305c102b296cef611",
+    "bytes": 19526
+  },
+  "web/office/tests/customer-workspace-staff.test.mjs": {
+    "sha256": "b18142da032ca341afac69fa17d433dbb0c71fcee29f88d75400daf0df4fda1f",
+    "bytes": 7527
+  },
+  "web/office/tests/customer-workspace.test.mjs": {
+    "sha256": "1f722c9d2495f4922a336ba845612262da3362047be667212e81049cac7aef1c",
+    "bytes": 12023
+  },
+  "web/office/tests/customer_workspace_fixture.py": {
+    "sha256": "31577d8ddb1fce363d42cc7adbd33b2f07c09aa2d8a8562bfd6704d87123dc2f",
+    "bytes": 3438
+  },
+  "web/office/tests/e2e-diagnostics.test.mjs": {
+    "sha256": "816ce154077eacb43a35fd8ae56cf0fa15c09e0abac497d77996578bd3be116c",
+    "bytes": 2323
+  },
+  "web/office/tests/e2e.cjs": {
+    "sha256": "cd91c7631b5f34aacfef69a5f7ee6a928de304b472fce5fbd633c4b7181e944f",
+    "bytes": 47738
+  },
+  "web/office/tests/fixtures/accounting-euer-legacy-context.json": {
+    "sha256": "5f46a17678fbffb114edc9ab855eec73fd9e4c7bf78c43c4ed60d7237a5b3a70",
+    "bytes": 31522
+  },
+  "web/office/tests/fixtures/accounting-euer-legacy-followups.json": {
+    "sha256": "d3563bc37aa550653c45cbaeb74a4a7373d23e63ce1da772b88ae80aad0b7b81",
+    "bytes": 108513
+  },
+  "web/office/tests/fixtures/accounting-open-items-independent-bank.json": {
+    "sha256": "71626323f37f98deb004d77596e59badc4b9148bc0997fa6b8b786aba1180f0f",
+    "bytes": 9411
+  },
+  "web/office/tests/fixtures/accounting-year-package-independent.json": {
+    "sha256": "643710c61e6da8dba3b27e9ade57d0e487514c5adeb1799f4f7b0946b76678de",
+    "bytes": 294803
+  },
+  "web/office/tests/fixtures/accounting-year-values-euer-ui.json": {
+    "sha256": "a3fd1e91e6e913b965693efe1eff69c55c42b26a5ee082720aedea6051a0926a",
+    "bytes": 139030
+  },
+  "web/office/tests/fixtures/accounting-year-values-ui.json": {
+    "sha256": "819ddc38cbd80bb79b97fc277d0c7380393f8c5da514b384abf5c28951403b4c",
+    "bytes": 133441
+  },
+  "web/office/tests/fixtures/catalog-import-previews.json": {
+    "sha256": "d4aefd5f323343f5f38ee39478898f87617eddbd1adeae84ca701e33bbedd6de",
+    "bytes": 12888
+  },
+  "web/office/tests/fixtures/catalog-prices-v2.json": {
+    "sha256": "b1a173038ddebe152da4b5d570c38bb58538746b6074888c16fc28a54f2ddf27",
+    "bytes": 10793
+  },
+  "web/office/tests/inventory-counts-flow.cjs": {
+    "sha256": "a07ba2f5a50f22ba1d2e1ad3249d2eb85db55f674ad972af69ee9ebe8d2b2ddb",
+    "bytes": 6377
+  },
+  "web/office/tests/inventory-counts.test.mjs": {
+    "sha256": "06c54adf7db0560b943229a658b99f3a58fc0a6e231e35969759b22fd3066918",
+    "bytes": 4520
+  },
+  "web/office/tests/invoice-chain-flow.cjs": {
+    "sha256": "0b8ef18d4389d0a0a4089576ff3c2ad9126294489c23fd0607d5c84256012f4b",
+    "bytes": 4691
+  },
+  "web/office/tests/migrations-flow.cjs": {
+    "sha256": "4eb09d34c6645b47e36d5b22f1e69775c647a05031b74afa7d565eefceac3d16",
+    "bytes": 11758
+  },
+  "web/office/tests/migrations.test.mjs": {
+    "sha256": "c55d51576ea9f12be078d8404d76fe774feccca5531ed08e10052b5c55d84c96",
+    "bytes": 6431
+  },
+  "web/office/tests/organization.test.mjs": {
+    "sha256": "7618734930735ac474a82a3ee3b482dd1159eceb6389be834b18d2fda84f9a03",
+    "bytes": 7823
+  },
+  "web/office/tests/payroll-accounts.test.mjs": {
+    "sha256": "f595871409067c997345298b412783fbc89dc2527c51ed748e9f032b37d9254d",
+    "bytes": 6599
+  },
+  "web/office/tests/payroll-annual-basis-flow.cjs": {
+    "sha256": "75bba2fc57ee16e0c7ee82e67b7a5dd4993badf52f541a7197f949f4c9aa51c3",
+    "bytes": 17442
+  },
+  "web/office/tests/payroll-annual-basis-session-review.test.mjs": {
+    "sha256": "46633ba647ddcdef3f575db1dcabd7f83ef6ada502de37489d3e17640a95a5d2",
+    "bytes": 4861
+  },
+  "web/office/tests/payroll-annual-basis.test.mjs": {
+    "sha256": "500196572408529a692100ce2ad9f6112d687ec32156e098aaf62693ee27a8c0",
+    "bytes": 3134
+  },
+  "web/office/tests/payroll-calculation-cases-flow.cjs": {
+    "sha256": "65809f2a4ddb4cf348d2636dfadab95238532170929c2a236e76be40c8be8d7e",
+    "bytes": 12822
+  },
+  "web/office/tests/payroll-calculation-cases-session-retry.test.mjs": {
+    "sha256": "e8f6273693cfc9af6dc49a8b3ea32678fe80d7cb4ca3452dc03a92a48299c530",
+    "bytes": 2656
+  },
+  "web/office/tests/payroll-calculation-cases.test.mjs": {
+    "sha256": "d72573eb9eb1bc3c9052363c1fa710f1c7c5dcded5c826b81927da36f48c4ba3",
+    "bytes": 5735
+  },
+  "web/office/tests/payroll-cash-flow.cjs": {
+    "sha256": "a68232fd2722ccb396bdcea87ea6047499335d8f498ec37ae0a96b2c0faeeb9b",
+    "bytes": 16176
+  },
+  "web/office/tests/payroll-cash.test.mjs": {
+    "sha256": "bd62a676e9d11e7621c36a296c9b909591ad3d59a81fa06f9d68085afbc84664",
+    "bytes": 8469
+  },
+  "web/office/tests/payroll-entitlements-flow.cjs": {
+    "sha256": "d7b6136a030e6d9bf37c35954768f02a870e0aac56578e4fbcbfa45758dcc845",
+    "bytes": 14721
+  },
+  "web/office/tests/payroll-entitlements-session-retry.test.mjs": {
+    "sha256": "66520d29e9fc5335f813f4686ee20629e1e0c29c1244908003a4ab69d21ec580",
+    "bytes": 2585
+  },
+  "web/office/tests/payroll-entitlements.test.mjs": {
+    "sha256": "40b5d83be06ffec13fe1d8a4fdcf505e1f1926a8fc71b5d1999e6d220643f9ee",
+    "bytes": 5053
+  },
+  "web/office/tests/payroll-facts-session-retry.test.mjs": {
+    "sha256": "cb1b0a9b04126822db76495f7a16e70cf036ab258b34c7478baa0556f893d302",
+    "bytes": 2459
+  },
+  "web/office/tests/payroll-facts.test.mjs": {
+    "sha256": "a76a2220d401aa1912e87c8bcb8bf3c52a8e6bb8c50b3ef252d30f944acb6eb1",
+    "bytes": 10288
+  },
+  "web/office/tests/payroll-flow.cjs": {
+    "sha256": "0c8edff639f94e2051b263c0add78faa5db32eb96eb0c04c0c14d35a1e32f804",
+    "bytes": 25129
+  },
+  "web/office/tests/payroll-multiple-cases-flow.cjs": {
+    "sha256": "b6a3699acdf65708047a92a0b9aaa5d461d0bae9593ce56f0e83e72537c63b21",
+    "bytes": 25464
+  },
+  "web/office/tests/payroll-multiple-cases.test.mjs": {
+    "sha256": "64b3baf6b71947793fc8e3215bfddc841462b7622bd4e07f7475f9903bd61087",
+    "bytes": 5892
+  },
+  "web/office/tests/payroll-multiple-context.test.mjs": {
+    "sha256": "6dc807d2fac30622f80357892f97f4cba52254cb9d935cf4c8db32226a06931e",
+    "bytes": 4426
+  },
+  "web/office/tests/payroll-multiple-format-review.test.mjs": {
+    "sha256": "f06c50578299f29ffab269be1b63fb52f27d9617be7bf340656f0a4885f5c1b5",
+    "bytes": 1672
+  },
+  "web/office/tests/payroll-multiple-own-flow.cjs": {
+    "sha256": "1623d635a3eb1f8d9cfba3fbd70da715dee9d9a6538b96e7c84f8429f989096c",
+    "bytes": 6653
+  },
+  "web/office/tests/payroll-multiple-runs.test.mjs": {
+    "sha256": "a3c1f808033679a6535ebdaff6de7a7378ca4bfce96ddcf02ac067e7780d3d61",
+    "bytes": 5229
+  },
+  "web/office/tests/payroll-multiple-session.test.mjs": {
+    "sha256": "045f8a9c8e11e2dc636d8bf835f691f25d0d2176e3b9ac7f290e2e4538e97cc7",
+    "bytes": 4510
+  },
+  "web/office/tests/payroll-oneoff-cases-flow.cjs": {
+    "sha256": "83e8337d9628993972571a796595532cbcd724a9b799e5b655b109b9aa91b496",
+    "bytes": 20099
+  },
+  "web/office/tests/payroll-oneoff-cases-session-review.test.mjs": {
+    "sha256": "ab46d6663ccfb7e9b0375b85c6fd9baceb5ced799cb571ad863c868f8a280603",
+    "bytes": 4436
+  },
+  "web/office/tests/payroll-oneoff-cases.test.mjs": {
+    "sha256": "92a3670b19a84e7c123f113873f2481fca920c088fd1877b3c9e21168277af1b",
+    "bytes": 5563
+  },
+  "web/office/tests/payroll-oneoff-own-flow.cjs": {
+    "sha256": "f93b865c98201f24367d9503aec5c4da10bcc37e0d9af2b985663fae90b92d44",
+    "bytes": 5107
+  },
+  "web/office/tests/payroll-oneoff-runs.test.mjs": {
+    "sha256": "0f7a39552a6868c2149f05ebdfbaadeb12c5853b5a2406d1ae22b7d0e2225b4e",
+    "bytes": 4343
+  },
+  "web/office/tests/payroll-periods-flow.cjs": {
+    "sha256": "41534434b692d1012fe5aed05dfa43c86d05ca388f10de556584d9bcf1c92633",
+    "bytes": 14651
+  },
+  "web/office/tests/payroll-protected-session-review.test.mjs": {
+    "sha256": "b7c48ad76dc612683c59ae6fdbaa263f811c31b18c27a16db58eb1100a172a29",
+    "bytes": 4877
+  },
+  "web/office/tests/payroll-sickness-phases.test.mjs": {
+    "sha256": "15bb11e0b51c2c7c9d76c071b21eaab881cd13bbec44a083ddada5856d8b7e35",
+    "bytes": 4745
+  },
+  "web/office/tests/payroll-statements-flow.cjs": {
+    "sha256": "11756aef42fb3c323665a441de3ffeb967dd8ed4bfe5820066886cdb331fc6d3",
+    "bytes": 5074
+  },
+  "web/office/tests/payroll-statements-v5.test.mjs": {
+    "sha256": "6bfe9c716c293a0f4c87a3e21addc94b695d45631147929d05277408e340ba26",
+    "bytes": 1090
+  },
+  "web/office/tests/payroll-statements-v6.test.mjs": {
+    "sha256": "e0691ce241ccf5aa7094b988a65b1ecd89bfc9df1a141f26305e5a67fa536a44",
+    "bytes": 3239
+  },
+  "web/office/tests/payroll-statements-v7.test.mjs": {
+    "sha256": "054a5c86084e0e15a7a7eefb67f08d46e83901cb9629b41aa97b91eef6160560",
+    "bytes": 3363
+  },
+  "web/office/tests/payroll-statements.test.mjs": {
+    "sha256": "b55ba4e494fce144de0c55773cffe2c62ac147781d5d1ed6767969fcf409de57",
+    "bytes": 2773
+  },
+  "web/office/tests/payroll-transition-flow.cjs": {
+    "sha256": "c018fa1c6c53c8a89b75afb1963c5ce5db17df81d08b2de906bad9168293570a",
+    "bytes": 11315
+  },
+  "web/office/tests/payroll-transition.test.mjs": {
+    "sha256": "b644dac9686b1ffd5f8e84ecb460a20f3a221f0221559c8e671c736ed4035aac",
+    "bytes": 4231
+  },
+  "web/office/tests/payroll-travel-tax-policies-flow.cjs": {
+    "sha256": "b457c28be529e80243a17c8198188f7c88e2dd299165c787c1d409740e2ac326",
+    "bytes": 9044
+  },
+  "web/office/tests/payroll-travel-tax-policies.test.mjs": {
+    "sha256": "b14b70d0d297c60b3b4acc64e30a320fed94ff5b9e5be189201664bce0206354",
+    "bytes": 5900
+  },
+  "web/office/tests/payroll-travel-tax-policy-session-retry.test.mjs": {
+    "sha256": "3a6ae88965f737691550bfa96a890d70d2bf336927fbdd1359ef15ae92a55cf2",
+    "bytes": 2595
+  },
+  "web/office/tests/payroll-wage-interruptions-flow.cjs": {
+    "sha256": "4eb19af2175dd01ddfc8267bd1548547028ac0b1f61b4ded05e0391b268d60ee",
+    "bytes": 18613
+  },
+  "web/office/tests/payroll-wage-interruptions-session-review.test.mjs": {
+    "sha256": "4b6216363be8c9793d35bcadc941fcdef6fa6c397aa48df1b33631caac89f469",
+    "bytes": 4955
+  },
+  "web/office/tests/payroll-wage-interruptions.test.mjs": {
+    "sha256": "9eb6fb0398ef68e51d8e42ced8a7ca622f90ad1a0857955cd6a16aa92534d848",
+    "bytes": 7353
+  },
+  "web/office/tests/payroll-zero-account-flow.cjs": {
+    "sha256": "08fb0156dffd6660b548d83f7d960805a06ac6fb3133adeac12ad9802f13605d",
+    "bytes": 14909
+  },
+  "web/office/tests/payroll-zero-account.test.mjs": {
+    "sha256": "cbc9ca7ebfadbb1f3a79a95c53328361f14596b2d4afca4e0776ba77d74a3c0c",
+    "bytes": 5094
+  },
+  "web/office/tests/payroll.test.mjs": {
+    "sha256": "dc330f0404b418011f3b1e5e027456e0579e6300ce7e2b5e9be9b25b64c9fab6",
+    "bytes": 12911
+  },
+  "web/office/tests/payroll_period_fixture.py": {
+    "sha256": "6b53bf76ea04ec3d7d77c41642e32e095188726a207318b6ac8a820cc776bf46",
+    "bytes": 4729
+  },
+  "web/office/tests/payroll_statement_fixture.py": {
+    "sha256": "5d0eff4254b9474bf59dfc82d2064f030d4ef904fa8fa39e96271065dd6cc375",
+    "bytes": 1556
+  },
+  "web/office/tests/payroll_travel_tax_policy_fixture.py": {
+    "sha256": "cdd4877a972ff07b3622859a116edc7662f96d0d614930bcc0519830706afa0f",
+    "bytes": 2427
+  },
+  "web/office/tests/personnel-workflow-flow.cjs": {
+    "sha256": "900d744d4d342251f7f87caad1fab7df30ec7cc9570f0ec4fb17d08b928b7735",
+    "bytes": 14021
+  },
+  "web/office/tests/personnel-workflow.test.mjs": {
+    "sha256": "6978050c335f214093338535f4aabcfdf7dc456f18876933e9135bf60c667bee",
+    "bytes": 4946
+  },
+  "web/office/tests/planning.test.mjs": {
+    "sha256": "5658f20c40e4ed6819edd8383b6d7ed27b9a6549ee60f1ea14969f934c2f1d0e",
+    "bytes": 4588
+  },
+  "web/office/tests/portal-flow.cjs": {
+    "sha256": "6613550f5f799dc7108c1d1cfc0696c748d3498cb999106f42990af4e1458ef0",
+    "bytes": 14053
+  },
+  "web/office/tests/portal-staff.test.mjs": {
+    "sha256": "d871c22703b5d64d3fc386efa87b7d3cf61d20f2d2d830081ae8aa7e92b5e6e0",
+    "bytes": 4228
+  },
+  "web/office/tests/portal.test.mjs": {
+    "sha256": "b7d64c08c944edf035e8331c80b17d7b4dd30e688f1b6d1ac85af7ebf9fef9bc",
+    "bytes": 9600
+  },
+  "web/office/tests/privacy-cases-flow.cjs": {
+    "sha256": "e97eba74853a3abbb66ef0e18f6f6c9df3902a50a1f1267dbc78d2bdb9275e48",
+    "bytes": 7162
+  },
+  "web/office/tests/privacy-cases.test.mjs": {
+    "sha256": "203990a69d1ca4fe023357cd4acd6384246117a41abc79a23d4f93e55831fd4a",
+    "bytes": 5969
+  },
+  "web/office/tests/profile-flow.cjs": {
+    "sha256": "f91aeec34e2d5ac08cf73480ae681946cde6a2e93c9341d5e38aaa9742b6565b",
+    "bytes": 19764
+  },
+  "web/office/tests/profile.test.mjs": {
+    "sha256": "12b9828855f9d14b8896534798cf3a8c7a3ed6b550552fa516a46b0d4551e20e",
+    "bytes": 12788
+  },
+  "web/office/tests/project-economics-flow.cjs": {
+    "sha256": "d0f21ca1cafa4fbf1482bf86295fb4c4031323a005a165dd77148bcd92681973",
+    "bytes": 9959
+  },
+  "web/office/tests/project-economics.test.mjs": {
+    "sha256": "cac5e2471ad9535450c3e3a49306c844c862bf94055c5ac6cb9312c7ca869c52",
+    "bytes": 12691
+  },
+  "web/office/tests/purchase-changes-flow.cjs": {
+    "sha256": "39c4e0c5902eefe810b563118910182afe50379b92fa4f22be1d66df40d701af",
+    "bytes": 9721
+  },
+  "web/office/tests/purchase-changes.test.mjs": {
+    "sha256": "ebee62a6c25b0f07d8e950316a02b35c17b0debd52ec15087f817d58a12572c8",
+    "bytes": 5839
+  },
+  "web/office/tests/purchasing-catalog.test.mjs": {
+    "sha256": "955d63b798a083a4a67950d0f93e861422d25288c1d6d4e4b6cf37e56a959ea8",
+    "bytes": 5472
+  },
+  "web/office/tests/purchasing-flow.cjs": {
+    "sha256": "ba35f82f211c109f844f3c4166458186bb639eb5df98eb9e3739acffaed20021",
+    "bytes": 24080
+  },
+  "web/office/tests/purchasing.test.mjs": {
+    "sha256": "d9dc42c799f2970d7ef938c403f61126bf5cf580495ff30fa7342a169792658a",
+    "bytes": 8342
+  },
+  "web/office/tests/refund-flow.cjs": {
+    "sha256": "2cdf24cd87bafd093f7f0e54621ddae31818f10175535e0086eb83d3a3875270",
+    "bytes": 24503
+  },
+  "web/office/tests/refund-v2-flow.cjs": {
+    "sha256": "4fda9c06ec02d570632724ddf82a1d6dcda5bdded7a071445bb23dd37f913107",
+    "bytes": 32226
+  },
+  "web/office/tests/refund-v2.test.mjs": {
+    "sha256": "f72c6615f27337a9ec2cd1242497b5c23e2b89d40e8700b131eddf4a4d277d62",
+    "bytes": 17976
+  },
+  "web/office/tests/refund.test.mjs": {
+    "sha256": "ab38cc9ec81d6e52142d453e955912eb2492dc161669d8597a2adad4af412cdf",
+    "bytes": 12079
+  },
+  "web/office/tests/resource-custody-flow.cjs": {
+    "sha256": "f063ba1e8e72ec4a39e5dd4ddc423b4516887bf1dde3b3582eeabf90baa7f216",
+    "bytes": 12527
+  },
+  "web/office/tests/resource-custody.test.mjs": {
+    "sha256": "13a66cae6243bafacc3eefe541e3ed6f7b4beef07319d879ecdb33d1b4d7915f",
+    "bytes": 4832
+  },
+  "web/office/tests/sales-flow.cjs": {
+    "sha256": "6fb4ad8c2a32a39ace3302be432872f3e0182c5866bc623b408360afd6895213",
+    "bytes": 9292
+  },
+  "web/office/tests/sales.test.mjs": {
+    "sha256": "643a393a18108bde20781a433bff10d8abb296274cfd648c20d94bcddf6445d3",
+    "bytes": 5118
+  },
+  "web/office/tests/serve_fixture.py": {
+    "sha256": "de011d9487e919fc5e9670428c19e48c2e90e56c7d220ae21e3f8abfa4a10dc2",
+    "bytes": 33668
+  },
+  "web/office/tests/service-flow.cjs": {
+    "sha256": "93fb6c5b7e43b1c55497410a6de47a14e574138d192ec5b98f0642d8e7a122f0",
+    "bytes": 14854
+  },
+  "web/office/tests/service.test.mjs": {
+    "sha256": "ac0661b6e1a6105b9a06f98cae735b7e8f98acf6909157964b4d48d15ed664de",
+    "bytes": 5766
+  },
+  "web/office/tests/speech-flow.cjs": {
+    "sha256": "5cf462e408bdc44add4b678954c4db73fae31c8e23432e85bfca3d7abcf78a0e",
+    "bytes": 7089
+  },
+  "web/office/tests/speech.test.mjs": {
+    "sha256": "68e2172ba7c914914c0df09daf8336844013262523a716e168c2763e523e5c2e",
+    "bytes": 4251
+  },
+  "web/office/tests/travel-allowances-flow.cjs": {
+    "sha256": "c05ab2a6e20cb359f262945f055b6ee5cf8517fe089829cf043d0e74540d243c",
+    "bytes": 23158
+  },
+  "web/office/tests/travel-allowances.test.mjs": {
+    "sha256": "9f047730c627113f9e70ebd7a92fb8cc67b458ca3b7a5eb369bd1803e50bb8fd",
+    "bytes": 11411
+  },
+  "web/office/tests/travel-cash.test.mjs": {
+    "sha256": "956f047f29d884ad5a2c5e82e31b6ba5fb4595d29cb25d5fb5b98466fe795b67",
+    "bytes": 3367
+  },
+  "web/office/tests/travel-legacy-flow.cjs": {
+    "sha256": "70caaba04dfca20577049b132415ee17eebd5a7b011bc500167760b67cc3b423",
+    "bytes": 12407
+  },
+  "web/office/tests/travel-v3-flow.cjs": {
+    "sha256": "a34d16063faca2509753bcdb557c168831666ecf34cf464e8f036f796195ac36",
+    "bytes": 15225
+  },
+  "web/office/tests/travel-v3.test.mjs": {
+    "sha256": "44150972b15ab88b901501dba933d5dd90369230226531018a5919fbf5c67016",
+    "bytes": 3463
+  },
+  "web/office/tests/travel_fixture.py": {
+    "sha256": "4b8561e283f81468652b4d8767da51a7379c55ea4c006f2456cf5d15fc1b6417",
+    "bytes": 6973
+  },
+  "web/office/tests/travel_v3_fixture.py": {
+    "sha256": "9f1960960b20f66c474863f4099e6074fb8e42c8610655d489320da5e12c9d4a",
+    "bytes": 5401
+  },
+  "web/office/tests/workflow-retry.test.mjs": {
+    "sha256": "c21a69deabc1142bc4d9fe7654fae02c817cd5d912b5a00b32c0e64370889137",
+    "bytes": 1713
+  },
+  "web/office/travel-allowances.js": {
+    "sha256": "c66e021bf9e46c90d07bcbcac89d4123ea9dddf1a8d4959ca4b0c230050b723d",
+    "bytes": 83394
+  },
+  "web/office/travel-cash.js": {
+    "sha256": "f686270f3263b46a0293609fb89b1244a97a8a3e1fe0392831d7d8fb0732774e",
+    "bytes": 3582
+  }
+}

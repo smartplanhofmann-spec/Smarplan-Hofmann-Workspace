@@ -1,0 +1,135 @@
+{
+  "cwd": "/workspace/smartplan-year-values-integration-20261104/app",
+  "environment": {
+    "PATH_prefix": "/workspace/toolchains/clang-19/bin",
+    "PUB_CACHE": "/workspace/toolchains/pub-cache",
+    "SMARTPLAN_TEST_PYTHON": "/tmp/smartplan-backend-verified/bin/python"
+  },
+  "test_argv": [
+    "/workspace/toolchains/flutter/bin/flutter",
+    "test",
+    "--no-pub",
+    "test/business_accounting_year_values_test.dart",
+    "test/business_accounting_year_values_lifecycle_test.dart",
+    "test/business_accounting_year_values_http_test.dart",
+    "test/business_accounting_year_values_independent_review_test.dart",
+    "test/business_accounting_euer_test.dart",
+    "test/business_accounting_euer_http_test.dart",
+    "test/business_accounting_test.dart",
+    "test/business_accounting_open_items_contract_test.dart",
+    "test/business_accounting_open_items_lifecycle_test.dart",
+    "test/business_accounting_open_items_http_widget_test.dart",
+    "test/business_accounting_open_items_independent_review_test.dart",
+    "test/business_accounting_year_evidence_test.dart",
+    "test/business_accounting_year_evidence_http_test.dart",
+    "test/business_accounting_year_evidence_independent_review_test.dart",
+    "test/business_accounting_year_evidence_v2_test.dart",
+    "test/business_accounting_year_evidence_v2_http_test.dart",
+    "test/business_accounting_year_evidence_v2_independent_review_test.dart",
+    "test/business_session_test.dart",
+    "test/business_session_load_concurrency_test.dart",
+    "test/business_company_events_test.dart",
+    "test/business_catalog_price_workflows_test.dart",
+    "--reporter",
+    "expanded"
+  ],
+  "test_files": {
+    "app/test/business_accounting_year_values_test.dart": {
+      "sha256": "0a5829452e834e3b1dd3766bb45581ce24d57214899c9d14b32415e6eb52d44e",
+      "bytes": 5348
+    },
+    "app/test/business_accounting_year_values_lifecycle_test.dart": {
+      "sha256": "c23257bca959263f720a88e882a0c3c1497a0bfc20d534ba3a609375b8b5dd02",
+      "bytes": 21552
+    },
+    "app/test/business_accounting_year_values_http_test.dart": {
+      "sha256": "e9d25c76d79d57f6c5735cccc0a3fa83c3f53d9b6912431d890ed2555ca0de7a",
+      "bytes": 21207
+    },
+    "app/test/business_accounting_year_values_independent_review_test.dart": {
+      "sha256": "df83729054f86116b34c8c0cf2cb568debf96ea0ae95ab597ab6fe1e04349e24",
+      "bytes": 18597
+    },
+    "app/test/business_accounting_euer_test.dart": {
+      "sha256": "af19e3747eacf04985111f00edb75365c02b4520a7c51b94c359b6d4b5189267",
+      "bytes": 14089
+    },
+    "app/test/business_accounting_euer_http_test.dart": {
+      "sha256": "df533e8270086ff511de70679fa4af30a12a3a81b46a379cd28ffca2a166017b",
+      "bytes": 20843
+    },
+    "app/test/business_accounting_test.dart": {
+      "sha256": "179a896a5974f1bb87f2bac23c460bac833b8a8ffa49c6e2353b1eb92076c59b",
+      "bytes": 23822
+    },
+    "app/test/business_accounting_open_items_contract_test.dart": {
+      "sha256": "264cd92354f403afdc478f819482bd43761712780b7db44235604d80ae3cb09b",
+      "bytes": 5533
+    },
+    "app/test/business_accounting_open_items_lifecycle_test.dart": {
+      "sha256": "a9cdb196f2a808a7be5300704378e1b374bfc41e64e13f846c86298e5c22a17d",
+      "bytes": 16893
+    },
+    "app/test/business_accounting_open_items_http_widget_test.dart": {
+      "sha256": "c039d7e13955cc25e3f74989812c26534f9d36528e92a52fbe32d1051479c2e5",
+      "bytes": 28429
+    },
+    "app/test/business_accounting_open_items_independent_review_test.dart": {
+      "sha256": "5faceec8e3d8047f91b0473c0939ae9e6210ab7b8e5cc7dc7fb65a09fb5b43f2",
+      "bytes": 18231
+    },
+    "app/test/business_accounting_year_evidence_test.dart": {
+      "sha256": "14b5fbfb242fd9ea54f12081386bf733bb49a1a0272cc1d07ba12be152b6f245",
+      "bytes": 14892
+    },
+    "app/test/business_accounting_year_evidence_http_test.dart": {
+      "sha256": "51c731d0f4e9498b400650531248de457ed825e2cdf44bd650180ada263d2456",
+      "bytes": 12980
+    },
+    "app/test/business_accounting_year_evidence_independent_review_test.dart": {
+      "sha256": "b382dfbed7179b72d4656b20787012ede2305d62b9b3eab80b681fd45af3f41e",
+      "bytes": 12731
+    },
+    "app/test/business_accounting_year_evidence_v2_test.dart": {
+      "sha256": "45d0d4d8e31680430233d6cc982eb9b8ae5f2c880f2c4d5b5d01d3b47e00b4c7",
+      "bytes": 2718
+    },
+    "app/test/business_accounting_year_evidence_v2_http_test.dart": {
+      "sha256": "57041cf8c54153461c22744c37628a16ddfda573ccfb89f1799778d84553e5aa",
+      "bytes": 13614
+    },
+    "app/test/business_accounting_year_evidence_v2_independent_review_test.dart": {
+      "sha256": "6cc9393183eebc16465bf269bf356958eed115dd5e674a1d41362ee9292c275d",
+      "bytes": 6396
+    },
+    "app/test/business_session_test.dart": {
+      "sha256": "033cf4b0f301c960096fe64d8c7e2f880ff397060eef0db552068a7c866790d7",
+      "bytes": 5719
+    },
+    "app/test/business_session_load_concurrency_test.dart": {
+      "sha256": "9a5358ce331db48e1999fd761f3b319591f6aaf833ccef20d82e01d2fa8f1990",
+      "bytes": 4578
+    },
+    "app/test/business_company_events_test.dart": {
+      "sha256": "6e560817e0074321f412f7a084a414bbf0465ca952f1db730bd4bb425de4ebee",
+      "bytes": 27551
+    },
+    "app/test/business_catalog_price_workflows_test.dart": {
+      "sha256": "f1362e891270ab621026095fdd786dedbd9fa2fc66e196f13d8381e36b10307a",
+      "bytes": 16154
+    }
+  },
+  "analysis_argv": [
+    "/workspace/toolchains/flutter/bin/dart",
+    "analyze",
+    "lib/business_accounting_year_values.dart",
+    "lib/business_accounting_year_values_contract.dart",
+    "lib/business_accounting_open_items_contract.dart",
+    "lib/business_accounting_euer.dart",
+    "lib/business_session.dart",
+    "test/business_accounting_year_values_test.dart",
+    "test/business_accounting_year_values_lifecycle_test.dart",
+    "test/business_accounting_year_values_http_test.dart",
+    "test/business_accounting_year_values_independent_review_test.dart"
+  ]
+}

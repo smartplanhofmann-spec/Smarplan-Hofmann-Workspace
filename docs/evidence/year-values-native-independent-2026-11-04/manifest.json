@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "scope": "Independent native yearly carryover contract, historical correction and lifecycle review",
+  "workspace": "/workspace/smartplan-opening-year-values-20261104",
+  "status": "23 independent cases passed; two confirmed product findings fixed by implementation owner; no remaining confirmed finding",
+  "reviewer_product_edits": false,
+  "postgresql_used": false,
+  "tests": {
+    "passed": 23,
+    "contract_and_session": 16,
+    "widgets": 7,
+    "final_log": "work/verification/year-values-native-independent-final-second-2026-11-04.log",
+    "analysis": "work/verification/year-values-native-independent-analysis-final-second-2026-11-04.log",
+    "analysis_issues": 0
+  },
+  "findings": [
+    {
+      "id": "owned_private_dialog",
+      "status": "fixed and independently retested",
+      "original_manifest": "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-red-manifest.json"
+    },
+    {
+      "id": "historical_void_with_current_missing_start",
+      "status": "fixed and independently retested",
+      "original_manifest": "docs/evidence/year-values-native-independent-2026-11-04/original-void-red-manifest.json"
+    }
+  ],
+  "historical_harness_error": "First extended lifecycle run used an invalid paused-to-resumed transition and observed a paused frame; corrected only test lifecycle sequencing, not product or original findings.",
+  "runtime": {
+    "app/lib/business_accounting_year_values.dart": {
+      "sha256": "a31684ea07803994ab0485d4eaeec30790305086c9eef6f272a8e498d93f7c88",
+      "bytes": 48291
+    },
+    "app/lib/business_accounting_year_values_contract.dart": {
+      "sha256": "a83bf75212e0181444c5953130e1696956bc599d4bf5bb7e24f5e4f20798aa06",
+      "bytes": 40841
+    },
+    "app/lib/business_accounting_open_items_contract.dart": {
+      "sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+      "bytes": 33097
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "76f368fe389936709b9c682a057e85e709e90b644c7c90fc1b946bfb7d335b87",
+      "bytes": 83605
+    },
+    "app/lib/business_session.dart": {
+      "sha256": "3d07efc7ec86a1e36c903127b7454901ca3b3d53941fdf1515a0de4857fb0d1a",
+      "bytes": 99705
+    }
+  },
+  "selected_frozen_backend": {
+    "backend/accounting_open_item_rules.py": {
+      "sha256": "c4241405e8a6d05fddb4a729c53d0710628cc2ac9d010679727a57a2d17cdcac",
+      "bytes": 7182
+    },
+    "backend/accounting_year_opening_rules.py": {
+      "sha256": "ae8bc91c8e68a3927cc478c7f4b02b56a66d99e26d55468053940a1ea86392a7",
+      "bytes": 8518
+    },
+    "backend/business_accounting_year_openings.py": {
+      "sha256": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd",
+      "bytes": 36733
+    },
+    "backend/accounting_year_opening_sources.py": {
+      "sha256": "4bdb0c049f78018a9e2c519cd003d4cffe56dba3296fdf399745a61d82eb632a",
+      "bytes": 5337
+    },
+    "backend/business_accounting_open_items.py": {
+      "sha256": "8f75aff4f916772e16bdacb95c83a8898bdc8e109ef63e499a08893d36fa6080",
+      "bytes": 38596
+    },
+    "backend/business_accounting_euer.py": {
+      "sha256": "15a7b301004f7a4079b7694c7cbe9cd8442fcd51d2ab8e3628a6b261878ca605",
+      "bytes": 86957
+    },
+    "backend/business_accounting_asset_openings.py": {
+      "sha256": "216253560e8abc0fdc129633c9fc2a7734f10a025276bfe1e7f8dd2ecb3eacf3",
+      "bytes": 28628
+    },
+    "backend/business_finance.py": {
+      "sha256": "83f89fb212fe99edf2ae829211f1fc9eb1eb6fb1da820c9e954f26b25147d9de",
+      "bytes": 68023
+    },
+    "backend/business_schema.py": {
+      "sha256": "c934ddb1f7ba523aebe924390d35868e71a9a2cd6d9212a94fc870bbb3be3e8b",
+      "bytes": 88286
+    },
+    "backend/business_api.py": {
+      "sha256": "a22cd8bed3f1a674fad45c89eef0f900c6516a613f543cc8da35f6011744192f",
+      "bytes": 22611
+    },
+    "backend/business_organization.py": {
+      "sha256": "d4cb60300c0baa48c1ea9582d6fd1a62a42c5ac80a25c6cd272ca878ac9c163e",
+      "bytes": 14194
+    },
+    "backend/company_export_catalog.py": {
+      "sha256": "c8138927c9714f82f412658eea5f9d4d5f30ed888c1525bab8e878d014babff0",
+      "bytes": 47663
+    },
+    "backend/server.py": {
+      "sha256": "af4f8b63b12b688603faa181fa42e36a8cb45a9ad0b6abe904905c1482b9e447",
+      "bytes": 16595
+    }
+  },
+  "references": {
+    "docs/evidence/year-values-native-2026-11-04/manifest.json": {
+      "sha256": "35bd199aa0e5660bd09f04eb77c9d1c2fc9a4e07708d59532a3dbc831fabadfa",
+      "bytes": 6432
+    },
+    "docs/evidence/year-values-native-review-fix-2026-11-04/manifest.json": {
+      "sha256": "d35d015b5130c5fc1f39e499bef5b8d3c1b99422db45f3a541d82a071e5bd7e3",
+      "bytes": 5260
+    },
+    "docs/evidence/year-values-native-review-fix-2026-11-04/runtime-freeze.json": {
+      "sha256": "ce865b8e624a7f16acf48b88f683b0ead3543e4b591960da07bb917ff64d6cdd",
+      "bytes": 1627
+    },
+    "docs/evidence/year-values-backend-2026-11-04/manifest.json": {
+      "sha256": "6c665abc663964c27dff1a38baf61a895d064904a7aa3957079e14e84db8221a",
+      "bytes": 19299
+    },
+    "work/verification/year-values-runtime-review-snapshot.json": {
+      "sha256": "1d7034e5953b5790d1104add35a67af288fabdaa2cf9a5ba086e68158ef74fdf",
+      "bytes": 2128
+    },
+    "app/test/business_accounting_year_values_lifecycle_test.dart": {
+      "sha256": "c23257bca959263f720a88e882a0c3c1497a0bfc20d534ba3a609375b8b5dd02",
+      "bytes": 21552
+    },
+    "app/test/business_accounting_year_values_test.dart": {
+      "sha256": "0a5829452e834e3b1dd3766bb45581ce24d57214899c9d14b32415e6eb52d44e",
+      "bytes": 5348
+    },
+    "app/test/fixtures/accounting_year_values_native_boundaries_v1.json": {
+      "sha256": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+      "bytes": 148143
+    },
+    "app/test/fixtures/accounting_year_values_v1.json": {
+      "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+      "bytes": 654241
+    },
+    "docs/fixtures/accounting_year_values_v1.json": {
+      "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+      "bytes": 654241
+    }
+  },
+  "files": {
+    "app/test/business_accounting_year_values_independent_review_test.dart": {
+      "sha256": "df83729054f86116b34c8c0cf2cb568debf96ea0ae95ab597ab6fe1e04349e24",
+      "bytes": 18597
+    },
+    "scripts/generate-year-values-native-independent-fixture.py": {
+      "sha256": "68d6ce09b3b8d9e1a61e165157f71970f2f2b4eb55f6202bbc5f071c473d71e3",
+      "bytes": 3157
+    },
+    "docs/fixtures/accounting_year_values_native_independent_v1.json": {
+      "sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+      "bytes": 137367
+    },
+    "app/test/fixtures/accounting_year_values_native_independent_v1.json": {
+      "sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+      "bytes": 137367
+    },
+    "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md": {
+      "sha256": "8230ee6284f8d83c9e1a404da068d7360d96f6bca68439f04df1d60980c814d8",
+      "bytes": 6594
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/dialog-runtime-fragments.json": {
+      "sha256": "d700fbc6a5168cf5de26fb4ff5d6319ff0e1a91d4446fd87e332a373751e9b6d",
+      "bytes": 1697
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/earlier-12-semantics-tests.log": {
+      "sha256": "1d13e7d6f8aa1386e7ec0376e79e0ada64768fd702792b01f5ed042c7fa336b4",
+      "bytes": 1228
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/final-23-tests.log": {
+      "sha256": "282778bfe1e600ec5bd5852ffaf7325eae95b374cf2b23e007662793d77a3257",
+      "bytes": 2231
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/final-analysis.log": {
+      "sha256": "6d4fb0b0cea322ae3bb5804332d92fd22bf3b2b641b056f52e9391702d4d6f8d",
+      "bytes": 91
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/final-run-snapshot.json": {
+      "sha256": "e88f2e30be5c973a63348064775de9906391d285847b4774f8e43c4ec4f645d7",
+      "bytes": 1497
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/first-final-run-snapshot.json": {
+      "sha256": "7c41fb7dc9e1c9de304946471c73836641ddd2f373f993aa26993080b0e12e97",
+      "bytes": 1169
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/historical-lifecycle-harness-error.log": {
+      "sha256": "de76c79b043039b689b9c29679d0cfdc6cfb00bd2664740792889beac565fbc5",
+      "bytes": 9330
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-red-manifest.json": {
+      "sha256": "ea6fa340ea2bc15d6e09a472ae27419e6d5ea796f1752c5e96a6dc8fb99b71e1",
+      "bytes": 687
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-red.log": {
+      "sha256": "f7af7a4a993625bfdc030b6b48db6ad1ef66b6e50e011d1a60c7a985317219f6",
+      "bytes": 4670
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-repros.dart": {
+      "sha256": "bae281290f4766e7c150b6676d154b0cd1e0ac42af88978cb817ec8a408ff82c",
+      "bytes": 3663
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/original-void-red-manifest.json": {
+      "sha256": "8c70dac8c55d688fdd9639364733a4d53dc85d0c93302fc8052ed653f1a9c48a",
+      "bytes": 1271
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/original-void-red.log": {
+      "sha256": "f13b79e49af797105bffa6fc8758c4a725be05f12619abf10de613b422891ffd",
+      "bytes": 786
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/original-void-repro.dart": {
+      "sha256": "ff2c8c2feb6c5c90550532a133e209ffcf6d3f3774638b44a7a75ed630c9d164",
+      "bytes": 11375
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/owner-manifest-before-void-fix.json": {
+      "sha256": "35bd199aa0e5660bd09f04eb77c9d1c2fc9a4e07708d59532a3dbc831fabadfa",
+      "bytes": 6432
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/session-before-void-fix.dart": {
+      "sha256": "96ff12431a93b3a10c122d956252721d790dff673c954376639092f43b5a3f5e",
+      "bytes": 99251
+    }
+  },
+  "handoff_paths": [
+    "app/test/business_accounting_year_values_independent_review_test.dart",
+    "scripts/generate-year-values-native-independent-fixture.py",
+    "docs/fixtures/accounting_year_values_native_independent_v1.json",
+    "app/test/fixtures/accounting_year_values_native_independent_v1.json",
+    "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md",
+    "docs/evidence/year-values-native-independent-2026-11-04/dialog-runtime-fragments.json",
+    "docs/evidence/year-values-native-independent-2026-11-04/earlier-12-semantics-tests.log",
+    "docs/evidence/year-values-native-independent-2026-11-04/final-23-tests.log",
+    "docs/evidence/year-values-native-independent-2026-11-04/final-analysis.log",
+    "docs/evidence/year-values-native-independent-2026-11-04/final-run-snapshot.json",
+    "docs/evidence/year-values-native-independent-2026-11-04/first-final-run-snapshot.json",
+    "docs/evidence/year-values-native-independent-2026-11-04/historical-lifecycle-harness-error.log",
+    "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-red-manifest.json",
+    "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-red.log",
+    "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-repros.dart",
+    "docs/evidence/year-values-native-independent-2026-11-04/original-void-red-manifest.json",
+    "docs/evidence/year-values-native-independent-2026-11-04/original-void-red.log",
+    "docs/evidence/year-values-native-independent-2026-11-04/original-void-repro.dart",
+    "docs/evidence/year-values-native-independent-2026-11-04/owner-manifest-before-void-fix.json",
+    "docs/evidence/year-values-native-independent-2026-11-04/session-before-void-fix.dart",
+    "docs/evidence/year-values-native-independent-2026-11-04/manifest.json"
+  ],
+  "limits": [
+    "Synthetic actual SQLite source fixtures plus native contract/widget checks; no production data or real payment.",
+    "Desktop save selector replaced in tests; actual product file IO used. No physical-device or store acceptance.",
+    "Owner 59-case real-HTTP and legacy checks are separate evidence and are not counted as independent tests.",
+    "No additional tax case or broader yearly completeness is enabled by this review."
+  ]
+}

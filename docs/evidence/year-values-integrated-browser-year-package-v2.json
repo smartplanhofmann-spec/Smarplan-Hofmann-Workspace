@@ -1,0 +1,8 @@
+{
+  "workflow": "year-package-v2",
+  "exit_code": 0,
+  "duration_seconds": 40.339,
+  "log": "docs/evidence/year-values-integrated-browser-year-package-v2-2026-11-04.txt",
+  "log_sha256": "15aab674ceb0a169e210b8c56c3176d2de8136d04880166e61e31ab6b388f4b1",
+  "recorded_at_utc": "2026-11-04T13:30:24.851271+00:00"
+}

@@ -1,0 +1,645 @@
+name: Development checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  update-flow:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check update and recovery in an isolated container
+        run: bash scripts/test-update-flow.sh
+  online-api:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_DB: smartplan_check
+          POSTGRES_PASSWORD: disposable-ci-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d smartplan_check"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PYTHONPATH: backend
+      SMARTPLAN_TEST_DSN: host=127.0.0.1 port=5432 dbname=smartplan_check user=postgres password=disposable-ci-only
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backend/online/requirements.lock
+      - run: python -m pip check
+      - name: PostgreSQL-, Speicher- und OneDrive-Vertraege pruefen
+        run: |
+          python -m unittest discover -s backend/online -p test_online.py -v
+          python -m unittest discover -s backend/online -p test_report_integrity_pg.py -v
+          python -m unittest discover -s backend/online -p test_instance_isolation.py -v
+          python -m unittest discover -s backend/online -p test_organization_http.py -v
+          python -m unittest discover -s backend/online -p test_organization_pg.py -v
+          python -m unittest discover -s backend/online -p test_purchasing_journey.py -v
+          python -m unittest discover -s backend/online -p test_purchasing_catalog_http.py -v
+          python -m unittest discover -s backend/online -p test_postgres_purchasing_integration.py -v
+          python -m unittest discover -s backend/online -p test_portal_http.py -v
+          python -m unittest discover -s backend/online -p test_portal_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_portal_integration.py -v
+          python -m unittest discover -s backend/online -p test_accounting_http.py -v
+          python -m unittest discover -s backend/online -p test_accounting_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_accounting_integration.py -v
+          python -m unittest discover -s backend/online -p test_accounting_allocations_http.py -v
+          python -m unittest discover -s backend/online -p test_accounting_allocations_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_accounting_allocations_integration.py -v
+          python -m unittest discover -s backend/online -p test_accounting_components_http.py -v
+          python -m unittest discover -s backend/online -p test_accounting_components_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_accounting_components_integration.py -v
+          python -m unittest discover -s backend/online -p test_accounting_refunds_http.py -v
+          python -m unittest discover -s backend/online -p test_accounting_refunds_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_accounting_refunds_integration.py -v
+          python -m unittest discover -s backend/online -p test_accounting_capacity_http.py -v
+          python -m unittest discover -s backend/online -p test_accounting_capacity_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_accounting_capacity_integration.py -v
+          python -m unittest discover -s backend/online -p test_accounting_refunds_v2_http.py -v
+          python -m unittest discover -s backend/online -p test_accounting_refunds_v2_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_accounting_refunds_v2_integration.py -v
+          python -m unittest discover -s backend/online -p test_accounting_profile_http.py -v
+          python -m unittest discover -s backend/online -p test_accounting_profile_journey.py -v
+          python -m unittest discover -s backend/online -p test_postgres_accounting_profile_integration.py -v
+          python -m unittest discover -s backend/online -p test_plans_online.py -v
+          python -m unittest discover -s backend/online -p test_plan_imports.py -v
+          python -m unittest discover -s backend/online -p test_import_cancellation.py -v
+          python -m unittest discover -s backend/online -p test_plan_deletions.py -v
+          python -m unittest discover -s backend/online -p test_workspace_api.py -v
+          python -m unittest discover -s backend/online -p test_inquiry_attachments_api.py -v
+          python -m unittest discover -s backend/online -p test_business_intake_contract.py -v
+          python -m unittest discover -s backend/online -p 'test_integration*.py' -v
+          python -m unittest discover -s backend/online -p test_release.py -v
+          python -m unittest discover -s backend/online -p test_release_workspace.py -v
+          python -m unittest discover -s backend/online -p test_release_attachments.py -v
+          python -m unittest discover -s backend/online -p test_release_integrations.py -v
+          python -m unittest discover -s backend/online -p test_storage.py -v
+          python -m unittest discover -s backend/online -p test_onedrive.py -v
+          python -m unittest discover -s backend/online -p 'test_business*.py' -v
+          python -m unittest discover -s backend/online -p test_accounting_year_package_pg.py -v
+          python -m unittest discover -s backend/online -p test_accounting_year_package_v2_pg.py -v
+          python -m unittest discover -s backend/online -p 'test_customer_workspace*.py' -v
+          python -m unittest discover -s backend/online -p 'test_assistant*.py' -v
+          python -m unittest discover -s backend/online -p 'test_company_handover*.py' -v
+          python -m unittest discover -s backend/online -p test_customer_execution_journey_pg.py -v
+          python -m unittest discover -s backend/online -p test_customer_finance_service_journey_pg.py -v
+          python -m unittest discover -s backend/online -p test_release_business.py -v
+          python -m unittest discover -s backend/online -p 'test_provisioning*.py' -v
+      - name: Check online units, scripts and real HTTPS runtime
+        run: |
+          bash -n deploy/hetzner/online/*.sh
+          systemd-analyze verify deploy/hetzner/online/*.service deploy/hetzner/online/*.timer
+          smartplan_caddy_test=$(mktemp -d)
+          trap 'rm -rf -- "$smartplan_caddy_test"' EXIT
+          bash deploy/hetzner/https/fetch-caddy.sh "$smartplan_caddy_test"
+          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python backend/online/test_runtime.py
+          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python -m unittest discover -s backend/online -p test_release_tls.py -v
+  https-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check isolated HTTPS setup with real Caddy and verified TLS
+        run: |
+          bash -n deploy/hetzner/https/install-https.sh deploy/hetzner/https/fetch-caddy.sh
+          python3 -m unittest discover -s deploy/hetzner/https -p test_dns.py -v
+          systemd-analyze verify deploy/hetzner/https/smartplan-https.service
+          smartplan_caddy_test=$(mktemp -d)
+          trap 'rm -rf -- "$smartplan_caddy_test"' EXIT
+          bash deploy/hetzner/https/fetch-caddy.sh "$smartplan_caddy_test"
+          SMARTPLAN_CADDY_BINARY="$smartplan_caddy_test/caddy" python3 deploy/hetzner/https/test_https.py
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.lock
+      - run: python -m pip install -r backend/requirements.lock
+      - run: python -m pip check
+      - run: python -m unittest discover -s backend -v
+      - name: Verify the deterministic source component inventory
+        run: |
+          python -m unittest discover -s scripts -p test_product_inventory.py -v
+          python scripts/product-inventory.py --output "$RUNNER_TEMP/product-source-bom.json"
+          cmp docs/evidence/product-source-bom.json "$RUNNER_TEMP/product-source-bom.json"
+      - name: Require synthetic Gmail bridge retry and scope contracts
+        run: node integrations/google_apps_script/test_gmail.js
+  business-services:
+    runs-on: ubuntu-24.04
+    env:
+      PYTHONPATH: backend:backend/business_tests:backend/online:scripts
+      PYTHONDONTWRITEBYTECODE: '1'
+      SMARTPLAN_SRGB_ICC: /usr/share/color/icc/ghostscript/srgb.icc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install backend and actual local invoice validators
+        run: |
+          python -m pip install -r backend/online/requirements.lock
+          python -m pip check
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends openjdk-21-jre-headless ghostscript icc-profiles-free
+          python scripts/fetch-einvoice-tools.py "$RUNNER_TEMP/smartplan-invoice-tools" --github-env "$GITHUB_ENV"
+          python -m unittest discover -s scripts -p test_einvoice_tools.py -v
+      - name: Require all commercial, SMTP and official e-invoice tests
+        run: |
+          python -m unittest discover -s backend/business_tests -v
+          python -m unittest discover -s backend -p test_business_contact_snapshot.py -v
+      - name: Test responsive browser client with actual auth and API
+        env:
+          SMARTPLAN_BROWSER_TEST_PYTHON: python
+          SMARTPLAN_BROWSER_SCREENSHOT_DIR: ${{ runner.temp }}/smartplan-browser-previews
+          # The runner's packaged Chrome has the vendor AppArmor userns
+          # profile. An unprofiled /usr/bin/chromium cannot start its sandbox
+          # on Ubuntu 24.04; keep both sandboxing and the host policy enabled.
+          SMARTPLAN_CHROMIUM_BINARY: /opt/google/chrome/chrome
+        run: |
+          smartplan_browser_log="$RUNNER_TEMP/smartplan-browser-check.log"
+          set +e
+          {
+            node --test web/office/tests/*.test.mjs &&
+            npm ci --prefix web/office --ignore-scripts --no-audit --no-fund &&
+            cd web/office &&
+            test -x "$SMARTPLAN_CHROMIUM_BINARY" &&
+            "$SMARTPLAN_CHROMIUM_BINARY" --version &&
+            node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=accounting-openings node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=project-economics node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=asset-provenance node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=personnel-workflow node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=travel-allowances node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=travel-v3 node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=sales node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-transition node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-periods node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-entitlements node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-travel-tax-policies node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-calculation-cases node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-wage-interruptions node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-annual-basis node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-zero-account node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-oneoff-cases node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-multiple-cases node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-statements node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=assistant node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=speech node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=company-handover node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=migrations node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=custom-fields node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=service node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=privacy-cases node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=payroll-cash node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=historical-assets node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=accounting-open-items node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=bank-reconciliation node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=resource-custody node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=purchase-changes node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=catalog-imports node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=catalog-prices node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=accessibility node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=invoice-chain node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=inventory-counts node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=company-overview node tests/e2e.cjs &&
+            node tests/customer-workspace-e2e.cjs &&
+            node tests/accounting-euer-e2e.cjs &&
+            node tests/accounting-year-package-e2e.cjs
+          } 2>&1 | tee "$smartplan_browser_log"
+          smartplan_browser_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_browser_exit" -ne 0 ]; then
+            python - "$smartplan_browser_log" <<'PY'
+          from pathlib import Path
+          import sys
+          lines = Path(sys.argv[1]).read_text(errors='replace').splitlines()
+          if 'SMARTPLAN_BROWSER_FAILURE_BEGIN' in lines:
+              start = lines.index('SMARTPLAN_BROWSER_FAILURE_BEGIN') + 1
+              end = lines.index('SMARTPLAN_BROWSER_FAILURE_END', start) if 'SMARTPLAN_BROWSER_FAILURE_END' in lines[start:] else len(lines)
+              selected = lines[start:end]
+          else:
+              selected = lines if len(lines) <= 50 else lines[:35] + ['[middle diagnostic lines omitted]'] + lines[-15:]
+          detail = '\n'.join(line[:500] for line in selected)[:25000]
+          print('::error title=Browser acceptance::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+          PY
+          fi
+          exit "$smartplan_browser_exit"
+      - name: Upload synthetic browser acceptance screenshots
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Browser-Previews
+          path: ${{ runner.temp }}/smartplan-browser-previews/
+          if-no-files-found: error
+          retention-days: 14
+  flutter:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install real backend for client integration test
+        run: |
+          python -m venv ../backend/.venv
+          ../backend/.venv/bin/python -m pip install -r ../backend/requirements.lock -r ../backend/online/requirements.lock
+          ../backend/.venv/bin/python -m pip check
+      - name: Check private Linux pilot launcher and backup
+        run: |
+          bash -n ../deploy/hetzner/install-pilot.sh
+          bash -n ../deploy/hetzner/run-pilot.sh
+          systemd-analyze verify ../deploy/hetzner/smartplan-pilot.service ../deploy/hetzner/smartplan-pilot-backup.service ../deploy/hetzner/smartplan-pilot-backup.timer
+          ../backend/.venv/bin/python -m unittest discover -s ../deploy/hetzner -p test_pilot.py -v
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+      - run: flutter pub get --enforce-lockfile
+      - name: Check native release configuration and package contracts
+        run: |
+          python ../scripts/native-release.py source
+          python -m unittest discover -s ../scripts -p test_native_release.py -v
+      - run: flutter analyze
+      - name: Require bounded rendering with the real native PDF engine
+        shell: bash
+        run: |
+          umask 0077
+          clang --version
+          smartplan_pdf_log="$RUNNER_TEMP/smartplan-native-pdf.log"
+          set +e
+          flutter test --no-pub test/mail_attachment_preview_widget_test.dart --tags native_pdf --reporter expanded 2>&1 | tee "$smartplan_pdf_log"
+          smartplan_pdf_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_pdf_exit" -ne 0 ]; then
+            python - "$smartplan_pdf_log" <<'PY'
+          import pathlib, sys
+          detail = '\n'.join(pathlib.Path(sys.argv[1]).read_text(errors='replace').splitlines()[-100:])[-25000:]
+          print('::error title=Native PDF smoke::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+          PY
+          fi
+          exit "$smartplan_pdf_exit"
+      - name: Test app and retain bounded failure diagnostics
+        shell: bash
+        env:
+          SMARTPLAN_CAPTURE_UI: '1'
+          SMARTPLAN_UI_OUTPUT: ${{ runner.temp }}/smartplan-ui-previews
+        run: |
+          umask 0077
+          smartplan_test_log="$RUNNER_TEMP/smartplan-flutter-tests.log"
+          smartplan_test_report="$RUNNER_TEMP/smartplan-flutter-tests.jsonl"
+          set +e
+          flutter test --exclude-tags native_pdf --reporter expanded --file-reporter "json:$smartplan_test_report" 2>&1 | tee "$smartplan_test_log"
+          smartplan_test_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_test_exit" -ne 0 ]; then
+            python ../scripts/report-flutter-test-failures.py --report "$smartplan_test_report" --log "$smartplan_test_log" --summary "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$smartplan_test_exit"
+      - name: Upload real widget previews
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-UI-Previews
+          path: ${{ runner.temp }}/smartplan-ui-previews/
+          if-no-files-found: error
+          retention-days: 14
+  native-build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            command: flutter build windows --release
+          - os: macos-latest
+            command: flutter build ios --simulator --debug --dart-define=API_URL=https://office.smartplan-hofmann.de --dart-define=API_VERSION=v1
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check native release configuration
+        shell: bash
+        run: |
+          python ../scripts/native-release.py source
+          python -m unittest discover -s ../scripts -p test_flutter_failure_reporter.py -v
+      - name: Check Visual C++ ATL for protected device storage
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanVswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+          $smartplanAtl = & $smartplanVswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.ATL -property installationPath
+          if ($LASTEXITCODE -ne 0 -or -not $smartplanAtl) { throw 'Visual Studio C++ x64 and ATL components are required for the offline storage plugin.' }
+      - name: Install Windows backend for client integration test
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -m venv ../backend/.venv
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & ../backend/.venv/Scripts/python.exe -m pip install -r ../backend/requirements.lock -r ../backend/online/requirements.lock
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & ../backend/.venv/Scripts/python.exe -m pip check
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build and test complete offline Windows Python dependencies
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanWheels = Join-Path $env:RUNNER_TEMP 'smartplan-windows-python-wheels'
+          New-Item -ItemType Directory -Force $smartplanWheels | Out-Null
+          python -m pip download --only-binary=:all: --dest $smartplanWheels --requirement ../backend/requirements.lock
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python ../scripts/native-release.py wheels --directory $smartplanWheels
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python ../scripts/test-windows-offline-update.py --wheels-dir $smartplanWheels
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python ../scripts/package-windows-support.py (Join-Path $env:RUNNER_TEMP 'Smartplan_Windows_Start_und_Sicherung.zip') --wheels-dir $smartplanWheels
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          "SMARTPLAN_WINDOWS_WHEELS=$smartplanWheels" | Out-File $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Upload complete offline Windows support package
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Windows-Start-und-Sicherung
+          path: |
+            ${{ runner.temp }}/Smartplan_Windows_Start_und_Sicherung.zip
+            ${{ runner.temp }}/Smartplan_Windows_Start_und_Sicherung.zip.sha256
+          if-no-files-found: error
+          retention-days: 14
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+      - run: flutter pub get --enforce-lockfile
+      - name: Require bounded rendering with the real Windows PDF engine
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          umask 0077
+          smartplan_pdf_log="$RUNNER_TEMP/smartplan-native-pdf.log"
+          set +e
+          flutter test --no-pub test/mail_attachment_preview_widget_test.dart --tags native_pdf --reporter expanded 2>&1 | tee "$smartplan_pdf_log"
+          smartplan_pdf_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_pdf_exit" -ne 0 ]; then
+            python - "$smartplan_pdf_log" <<'PY'
+          import pathlib, sys
+          detail = '\n'.join(pathlib.Path(sys.argv[1]).read_text(errors='replace').splitlines()[-100:])[-25000:]
+          print('::error title=Windows native PDF smoke::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+          PY
+          fi
+          exit "$smartplan_pdf_exit"
+      - name: Test Windows client against real backend
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanTestLog = Join-Path $env:RUNNER_TEMP 'smartplan-windows-tests.log'
+          $smartplanTestReport = Join-Path $env:RUNNER_TEMP 'smartplan-windows-tests.jsonl'
+          $PSNativeCommandUseErrorActionPreference = $false
+          & flutter test --exclude-tags native_pdf --reporter expanded --file-reporter "json:$smartplanTestReport" 2>&1 | Tee-Object -FilePath $smartplanTestLog
+          $smartplanTestExit = $LASTEXITCODE
+          if ($smartplanTestExit -ne 0) {
+            python ../scripts/report-flutter-test-failures.py --report $smartplanTestReport --log $smartplanTestLog --summary $env:GITHUB_STEP_SUMMARY
+            exit $smartplanTestExit
+          }
+      - name: Test Windows backup, restore and launcher lifecycle
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          & ../backend/.venv/Scripts/python.exe ../scripts/test-backend-ci.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build Windows release with compiler diagnostics
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanBuildLog = Join-Path $env:RUNNER_TEMP 'smartplan-windows-local-build.log'
+          $PSNativeCommandUseErrorActionPreference = $false
+          & flutter build windows --release 2>&1 | Tee-Object -FilePath $smartplanBuildLog
+          $smartplanBuildExit = $LASTEXITCODE
+          if ($smartplanBuildExit -ne 0) {
+            $smartplanBuildTail = (Get-Content -LiteralPath $smartplanBuildLog -Tail 120) -join "`n"
+            @('### Windows local native build failed', '', '```text', $smartplanBuildTail, '```') | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            if ($smartplanBuildTail.Length -gt 40000) { $smartplanBuildTail = $smartplanBuildTail.Substring($smartplanBuildTail.Length - 40000) }
+            $smartplanBuildAnnotation = $smartplanBuildTail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows local native build::$smartplanBuildAnnotation"
+            exit $smartplanBuildExit
+          }
+      - name: Build iOS simulator
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          set +e
+          ${{ matrix.command }} 2>&1 | tee "$RUNNER_TEMP/smartplan-ios-simulator-build.log"
+          result=${PIPESTATUS[0]}
+          set -e
+          if [ "$result" -ne 0 ]; then
+            {
+              echo '### iOS simulator native build failed'
+              echo '```text'
+              tail -n 120 "$RUNNER_TEMP/smartplan-ios-simulator-build.log"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            python - <<'PY'
+          import os
+          from pathlib import Path
+          log = Path(os.environ['RUNNER_TEMP']) / 'smartplan-ios-simulator-build.log'
+          detail = '\n'.join(log.read_text(errors='replace').splitlines()[-120:])[-25000:]
+          detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print(f'::error title=iOS simulator native build::{detail}')
+          PY
+            exit "$result"
+          fi
+      - name: Prepare portable Windows package
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          trap {
+            $smartplanError = $_.Exception.Message.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows packaging::$smartplanError"
+            '### Windows package error' | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            $_.Exception.Message | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            throw
+          }
+          $smartplanBundle = (Resolve-Path 'build/windows/x64/runner/Release').Path
+          $smartplanBundleFiles = (Get-ChildItem $smartplanBundle -Name) -join ', '
+          Write-Host "::notice title=Windows bundle files::$smartplanBundleFiles"
+          foreach ($smartplanFile in @('smartplan_office.exe', 'flutter_windows.dll', 'printing_plugin.dll', 'pdfium.dll', 'pdfrx_pdfium_gate.dll', 'file_selector_windows_plugin.dll', 'flutter_secure_storage_windows_plugin.dll', 'local_auth_windows_plugin.dll', 'url_launcher_windows_plugin.dll', 'share_plus_plugin.dll')) {
+            if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
+              throw "Required application file is missing: $smartplanFile"
+            }
+          }
+          $smartplanVswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+          $smartplanVsRoot = & $smartplanVswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          if ($LASTEXITCODE -ne 0 -or -not $smartplanVsRoot) { throw 'Visual C++ toolchain not found' }
+          $smartplanRedistRoot = Join-Path $smartplanVsRoot 'VC/Redist/MSVC'
+          $smartplanCrt = Get-ChildItem $smartplanRedistRoot -Directory |
+            ForEach-Object { Get-ChildItem (Join-Path $_.FullName 'x64/Microsoft.VC*.CRT') -Directory -ErrorAction SilentlyContinue } |
+            Sort-Object FullName -Descending |
+            Select-Object -First 1
+          if (-not $smartplanCrt) { throw 'Redistributable x64 Visual C++ runtime not found' }
+          Copy-Item (Join-Path $smartplanCrt.FullName '*.dll') -Destination $smartplanBundle
+          foreach ($smartplanFile in @('msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')) {
+            if (-not (Test-Path (Join-Path $smartplanBundle $smartplanFile))) {
+              throw "Required runtime file is missing: $smartplanFile"
+            }
+          }
+          New-Item -ItemType Directory -Force (Join-Path $smartplanBundle 'backend') | Out-Null
+          foreach ($smartplanFile in @('backup.py', 'restore.py', 'core.py', 'server.py', 'onedrive.py', 'windows_office.py', 'plans.py', 'plan_access.py', 'plan_deletions.py', 'project_workspace.py', 'inquiries.py', 'inbound_connectors.py', 'inquiry_attachments.py', 'workspace_api.py', 'external_integrations.py', 'integration_bridge.py', 'business_api.py', 'business_schema.py', 'business_foundation.py', 'business_documents.py', 'business_pricing.py', 'business_finance.py', 'business_einvoice.py', 'business_delivery.py', 'business_planning.py', 'business_time.py', 'business_operations.py', 'business_offline_reports.py', 'business_project_economics.py', 'business_asset_provenance.py', 'business_customer_workspace.py', 'business_personnel_workflow.py', 'business_accounting_euer.py', 'accounting_year_package_v1.py', 'accounting_year_verify_v1.py', 'accounting_year_package_v2.py', 'accounting_year_verify_v2.py', 'business_accounting_year_openings.py', 'accounting_year_opening_rules.py', 'accounting_year_opening_sources.py', 'business_accounting_openings.py', 'business_accounting_asset_openings.py', 'accounting_asset_opening_rules.py', 'accounting_asset_opening_sources.py', 'business_accounting_open_items.py', 'accounting_open_item_rules.py', 'accounting_open_item_sources.py', 'business_assistant.py', 'business_assistant_sources.py', 'business_assistant_provider.py', 'business_assistant_speech.py', 'business_payroll.py', 'business_payroll_statements.py', 'payroll_travel_2026_v1.py', 'payroll_travel_recording.py', 'payroll_travel_mixed_2026.py', 'payroll_travel_link.py', 'payroll_travel_ground_2026.py', 'payroll_travel_2026_v3.py', 'payroll_sickness_2026.py', 'payroll_sickness_phases_2026.py', 'payroll_sickness_start_2026.py', 'payroll_wage_interruptions_2026.py', 'business_payroll_wage_interruptions.py', 'payroll_pap_oneoff_2026.py', 'payroll_oneoff_2026.py', 'payroll_oneoff_composition_2026.py', 'payroll_oneoff_runs.py', 'payroll_entitlement_dispatch.py', 'payroll_annual_basis_2026.py', 'business_payroll_calculation_cases.py', 'business_payroll_annual_basis.py', 'business_payroll_oneoff_cases.py', 'business_payroll_multiple_cases.py', 'payroll_multiple_oneoff_2026.py', 'payroll_multiple_payments.py', 'payroll_multiple_runs.py', 'payroll_calculations_2026.py', 'payroll_claims_composition_2026.py', 'payroll_segments_2026.py', 'payroll_travel_tax_2026.py', 'payroll_travel_2026_v2.py', 'payroll_travel_expenses_2026.py', 'travel_payroll_sources.py', 'payroll_de_2026.py', 'payroll_transition_2026.py', 'business_payroll_facts.py', 'payroll_holidays_2026.py', 'payroll_entitlements_2026.py', 'business_payroll_entitlements.py', 'payroll_periods_2026.py', 'payroll_pap_periods_2026.py', 'accounting_invoice_sources.py', 'business_inventory_counts.py', 'payroll_pap_2026.py', 'business_overview.py', 'business_migrations.py', 'business_custom_fields.py', 'business_privacy_cases.py', 'privacy_case_sources.py', 'business_payroll_cash.py', 'payroll_cash_sources.py', 'accounting_travel_sources.py', 'travel_allowance_cash.py', 'business_travel_allowances.py', 'payroll_travel_2026.py', 'payroll_travel_transport_2026.py', 'payroll_travel_rates_2026.py', 'business_service.py', 'business_bank_reconciliation.py', 'business_resource_custody.py', 'business_purchase_changes.py', 'company_export_archive.py', 'company_export_verify.py', 'company_export_catalog.py', 'business_company_handover.py', 'business_payroll_accounts.py', 'payroll_ledger.py', 'business_sales.py', 'business_inventory.py', 'business_maintenance.py', 'business_adapters.py', 'business_catalog_imports.py', 'business_catalog_prices.py', 'business_organization.py', 'business_instance.py', 'business_purchasing.py', 'business_portal.py', 'business_accounting.py', 'business_accounting_allocations.py', 'business_accounting_components.py', 'business_accounting_refunds.py', 'business_accounting_capacity.py', 'accounting_component_segments.py', 'business_accounting_refunds_v2.py', 'accounting_joint_ledger.py', 'accounting_joint_access.py', 'accounting_joint_order.py', 'accounting_return_lots.py', 'business_accounting_profile.py', 'requirements.lock')) {
+            Copy-Item (Join-Path '../backend' $smartplanFile) -Destination (Join-Path $smartplanBundle 'backend')
+          }
+          Copy-Item '../windows/*.cmd' -Destination $smartplanBundle
+          Copy-Item '../windows/Python_Umgebung_aktualisieren.py' -Destination $smartplanBundle
+          if (-not $env:SMARTPLAN_WINDOWS_WHEELS -or -not (Test-Path $env:SMARTPLAN_WINDOWS_WHEELS)) { throw 'Validated offline Python wheels are missing' }
+          Copy-Item -LiteralPath $env:SMARTPLAN_WINDOWS_WHEELS -Destination (Join-Path $smartplanBundle 'python-wheels') -Recurse
+          Copy-Item '../windows/START_HIER.txt' -Destination $smartplanBundle
+          foreach ($smartplanOperatorFile in @('scripts/reconcile-accounting-restore.py', 'docs/CRM_ERP_JAHRESPAKET_VORTRAG_V2_2026-11-04.md', 'docs/CRM_ERP_JAHRESPAKET_VERIFIKATION_NACHTRAG_2026-11-04.md', 'docs/CRM_ERP_JAHRESVORTRAG_API.md', 'docs/CRM_ERP_JAHRESPAKET_VERTRAG_2026-11-04.md', 'docs/CRM_ERP_JAHRESPAKET_API_2026.md', 'docs/CRM_ERP_JAHRESPAKET_FORTSCHRITT_2026-11-04.md', 'docs/CRM_ERP_JAHRESVERTRAEGE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md', 'docs/CRM_ERP_EUER_BETRIEB.md', 'docs/CRM_ERP_ANFANGSSALDEN_API.md', 'docs/CRM_ERP_HISTORISCHE_ANLAGEN_API.md', 'docs/CRM_ERP_HISTORISCHE_ANLAGEN_NATIVE.md', 'docs/evidence/historical-assets-browser-independent-review-2026-11-04.json', 'docs/evidence/historical-assets-native-2026-11-04/manifest.json', 'docs/CRM_ERP_HISTORISCHE_ANLAGEN_FORTSCHRITT_2026-11-04.md', 'docs/evidence/historical-assets-2026-11-04.json', 'docs/CRM_ERP_ANFANGSSALDEN_CLIENTS.md', 'docs/CRM_ERP_KATALOG_BROWSER_2026-11-04.md', 'docs/evidence/accounting-openings-domain-2026-11-04.json', 'docs/evidence/accounting-openings-postgres-first-2026-11-04.json', 'docs/CRM_ERP_EUER_E1A_API.md', 'docs/CRM_ERP_EUER_E1B1_API.md', 'docs/CRM_ERP_EUER_E1B2_API.md', 'docs/CRM_ERP_EUER_E1B3A_API.md', 'docs/CRM_ERP_EUER_E1B3B_API.md', 'docs/CRM_ERP_EUER_E1B3C_API.md', 'docs/CRM_ERP_EUER_E1B4A1_API.md', 'docs/CRM_ERP_OFFLINE_SERVICEBERICHTE.md', 'docs/CRM_ERP_ENTSCHEIDUNGEN.md', 'docs/CRM_ERP_EUER_WORKFLOW_API.md', 'docs/CRM_ERP_EUER_CLIENTS.md', 'docs/CRM_ERP_EUER_REGELQUELLEN_2026.md', 'docs/CRM_ERP_PERSONAL_WORKFLOW.md', 'docs/CRM_ERP_LOHN_QUELLEN.md', 'docs/CRM_ERP_UNTERNEHMENSEXPORT.md', 'docs/CRM_ERP_LOHN_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_LOHN_CLIENTS.md', 'docs/CRM_ERP_LOHN_MIDIJOB_2026.md', 'docs/CRM_ERP_LOHN_MIDIJOB_CLIENTS.md', 'docs/CRM_ERP_LOHN_ZEITACHSEN_API.md', 'docs/CRM_ERP_LOHN_ANSPRUECHE_GEGENPRUEFUNG_2026.md', 'docs/CRM_ERP_LOHN_ANSPRUECHE_2026.md', 'docs/CRM_ERP_LOHN_ANSPRUECHE_API.md', 'docs/CRM_ERP_LOHN_GESAMTFALL_KERNEL_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_REISE_V3_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_REISE_V3_VERTRAG_2026.md', 'docs/evidence/payroll-travel-policy-clients-2026-11-03.json', 'docs/CRM_ERP_REISE_PAUSCHALSTEUER_CLIENTS.md', 'docs/CRM_ERP_LOHN_ANSPRUECHE_CLIENTS_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_LOHN_ANSPRUECHE_CLIENTS.md', 'docs/CRM_ERP_LOHN_KRANKHEIT_VERSIONEN_2026.md', 'docs/CRM_ERP_LOHN_GESAMTFALL_CLIENTS.md', 'docs/CRM_ERP_LOHN_GESAMTFALL_CLIENTS_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_LOHN_U_MERKMAL_VERTRAG_2026.md', 'docs/CRM_ERP_LOHN_U_MERKMAL_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_LOHN_U_MERKMAL_CLIENTS.md', 'docs/CRM_ERP_LOHN_U_MERKMAL_NATIVE_PRUEFUNG_2026-11-03.md', 'docs/CRM_ERP_LOHN_JAHRESQUELLEN_NATIVE_GEGENPRUEFUNG_2026-11-03.md', 'docs/CRM_ERP_LOHN_NULLMONAT_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_LOHN_EINMALBEZUG_V6_VERTRAG_2026.md', 'docs/CRM_ERP_LOHN_MEHRFACHBEZUEGE_V7_VERTRAG_2026.md', 'docs/CRM_ERP_LOHN_MEHRFACHBEZUEGE_QUELLEN_2026.md', 'docs/CRM_ERP_SOURCE5_MITARBEITERBELEGE_2026-11-04.md', 'docs/CRM_ERP_SOURCE5_CLIENTS_2026-11-04.md', 'docs/CRM_ERP_SOURCE5_NATIVE_2026-11-04.md', 'docs/CRM_ERP_SOURCE5_NATIVE_KONTEXTNACHTRAG_2026-11-04.md', 'docs/evidence/source5-native-clients-2026-11-04.json', 'docs/evidence/source5-native-independent-review-2026-11-04.json', 'docs/evidence/source5-browser-format-followup-2026-11-04.json', 'docs/evidence/source5-own-statements-2026-11-04.json', 'docs/evidence/source5-private-clients-2026-11-04.json', 'docs/CRM_ERP_LOHN_EINMALBEZUG_PG_PRUEFUNG_2026-11-04.md', 'docs/CRM_ERP_LOHN_EINMALBEZUG_CLIENTS.md', 'docs/payroll-oneoff-own-statements-2026-11-04.md', 'docs/CRM_ERP_LOHN_NULLNETTO_BROWSERPRUEFUNG_2026-11-04.md', 'docs/evidence/payroll-oneoff-clients-2026-11-04.json', 'docs/evidence/payroll-oneoff-pg-annual-integration-2026-11-04.json', 'docs/evidence/payroll-oneoff-pg-annual-final-2026-11-04.json', 'docs/CRM_ERP_LOHN_JAHRESBASIS_VERTRAG_2026.md', 'docs/CRM_ERP_LOHN_JAHRESBASIS_GEGENPRUEFUNG_2026.md', 'docs/CRM_ERP_LOHN_JAHRESQUELLEN_CLIENTS.md', 'docs/CRM_ERP_LOHN_JAHRESQUELLEN_CLIENTS_PRUEFUNG_2026-11-03.json', 'docs/evidence/payroll-travel-core-regression-2026-11-03.json', 'docs/CRM_ERP_LOHN_BERECHNUNGSFAELLE_API.md', 'docs/CRM_ERP_LOHN_GESAMTFALL_GEGENPRUEFUNG_2026.md', 'docs/CRM_ERP_REISE_PAUSCHALSTEUER_GEGENPRUEFUNG_2026.md', 'docs/evidence/travel-clients-2026-11-03.json', 'docs/CRM_ERP_REISEPAUSCHALEN_CLIENTS.md', 'docs/CRM_ERP_REISE_PAUSCHALSTEUER_2026.md', 'docs/CRM_ERP_LOHN_MITARBEITERBELEG_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_LOHN_MITARBEITERBELEG_API.md', 'docs/CRM_ERP_LOHN_MITARBEITERBELEG.md', 'docs/CRM_ERP_LOHN_ZEITACHSEN_CLIENTS_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_LOHN_ZEITACHSEN_CLIENTS.md', 'docs/CRM_ERP_LOHN_FAKTEN_2026.md', 'docs/CRM_ERP_LOHN_FAKTEN_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_LOHN_TEILMONATE_2026.md', 'docs/CRM_ERP_LOHN_TEILMONATE_PRUEFUNG_2026-11-03.json', 'docs/evidence/travel-rates-2026-transcription.json', 'docs/CRM_ERP_REISEPAUSCHALEN_API.md', 'docs/CRM_ERP_LOHN_MIDIJOB_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_LOHN_RECHENWERK_2026.md', 'docs/CRM_ERP_ASSISTENT.md', 'docs/CRM_ERP_SPRACHE.md', 'docs/CRM_ERP_DATEIMIGRATION.md', 'docs/CRM_ERP_DATEIIMPORT.md', 'docs/CRM_ERP_ZUSATZFELDER.md', 'docs/CRM_ERP_KONFORMITAET_QUELLEN.md', 'docs/CRM_ERP_ABHAENGIGKEITEN_SICHERHEIT.md', 'docs/evidence/product-source-bom.json', 'docs/evidence/source-advisories-2026-11-03.json', 'docs/CRM_ERP_VERTRIEB.md', 'docs/CRM_ERP_SERVICE.md', 'docs/CRM_ERP_SERVICE_CLIENTS.md', 'docs/CRM_ERP_DATENSCHUTZFAELLE.md', 'docs/CRM_ERP_LOHNZAHLUNGEN_EUER_CLIENTS.md', 'docs/CRM_ERP_BANKABGLEICH_API.md', 'docs/CRM_ERP_BANKABGLEICH.md', 'docs/CRM_ERP_BANKABGLEICH_CLIENTS.md', 'docs/CRM_ERP_BANKABGLEICH_PRUEFUNG_2026-11-03.json', 'docs/CRM_ERP_BANK_EUER_INTEGRATION_PRUEFUNG.md', 'docs/CRM_ERP_BEDIENBARKEIT.md', 'docs/CRM_ERP_BENUTZERHANDBUCH.md', 'docs/CRM_ERP_BETRIEBSMITTEL.md', 'docs/CRM_ERP_BETRIEBSMITTEL_CLIENTS.md', 'docs/CRM_ERP_EINKAUF_RETOUREN.md', 'docs/CRM_ERP_EINKAUF_RETOUREN_API.md', 'docs/CRM_ERP_EINKAUF_RETOUREN_CLIENTS.md', 'docs/CRM_ERP_PROVISIONIERUNG.md', 'docs/CRM_ERP_PROVISIONIERUNG_SICHERHEITSPRUEFUNG.md', 'docs/evidence/accessibility-2026-11-03.json', 'docs/CRM_ERP_LOHNZAHLUNGEN_EUER.md', 'docs/CRM_ERP_LOHNZAHLUNGEN_EUER_API.md', 'docs/CRM_ERP_EUER_KETTEN_ANALYSE.md', 'docs/CRM_ERP_INVENTUR.md', 'docs/CRM_ERP_UNTERNEHMENSUEBERSICHT.md', 'docs/CRM_ERP_ASSISTENT_CLIENTS.md', 'docs/CRM_ERP_KUNDENARBEITSBEREICH.md', 'docs/CRM_ERP_GERAETEHERKUNFT.md', 'docs/CRM_ERP_PROJEKTWIRTSCHAFTLICHKEIT_CLIENTS.md', 'docs/CRM_ERP_KATALOG_PREISGUELTIGKEIT_V2_VERTRAG_2026-11-04.md', 'docs/CRM_ERP_KATALOG_PREISE_V2_API_2026-11-04.md', 'docs/CRM_ERP_KATALOG_V2_VERBRAUCHER_2026-11-04.md', 'docs/CRM_ERP_KATALOG_PREISE_V2_NATIVE_2026-11-04.md', 'docs/CRM_ERP_ASSISTENT_KOSTENSUMME_V2_2026-11-04.md')) {
+            $smartplanOperatorTarget = Join-Path $smartplanBundle $smartplanOperatorFile
+            New-Item -ItemType Directory -Force (Split-Path $smartplanOperatorTarget) | Out-Null
+            Copy-Item (Join-Path '..' $smartplanOperatorFile) -Destination $smartplanOperatorTarget
+          }
+          Copy-Item 'assets/fonts/OFL.txt' -Destination (Join-Path $smartplanBundle 'Inter-LICENSE.txt')
+          $smartplanReadme = @'
+          Smartplan Office 0.12.0 - lokales Windows-Pruefpaket (x64)
+
+          1. ZIP vollstaendig entpacken. Alle Dateien und den data-Ordner zusammen lassen.
+          2. Den bisherigen manuell gestarteten Python-Server mit Strg+C beenden.
+          3. Einmal Python_Umgebung_aktualisieren.cmd starten. Es aktualisiert die vorhandene private Python-3.12-Umgebung aus den enthaltenen Offline-Wheels, ohne Internet und ohne Datenbankzugriff.
+          4. Starten.cmd doppelt anklicken. Es startet Server und App und erstellt Sicherungen.
+          5. Mit der selbst eingerichteten E-Mail-Adresse und dem eigenen Passwort anmelden.
+
+          Die App verwendet den lokalen Server unter http://127.0.0.1:8765.
+          Flutter, Visual Studio und C++-Buildwerkzeuge werden zum Start dieses Pakets nicht benoetigt.
+          Die benoetigten Visual-C++-Laufzeit-DLLs sind enthalten.
+          Python selbst wird nicht neu installiert. Die bisher eingerichtete private Python-3.12-x64-Umgebung muss vorhanden sein; es gibt kein automatisches Abhaengigkeitsupdate beim Appstart.
+          EXE und Paket sind unsigniert; Windows-Signierung und SmartScreen-Abnahme bleiben offen.
+          Diese unveroeffentlichte Entwicklungsfassung benoetigt die zusammenhaengende Funktionsabnahme vor einer Freigabe.
+          Das Paket ist eine Entwicklungsstufe, kein Installer und kein produktiver Mehrbenutzerbetrieb.
+          Gezeichnete Projektplaene werden zuerst lokal verschluesselt gespeichert und spaeter synchronisiert.
+          Auch vorgemerkte Grundrissloeschungen werden nach der naechsten Verbindung synchronisiert.
+          Offline-Berechtigung: bis zu sieben Tage nach Online-Anmeldung; vorhandene lokale Eingaben bleiben danach erhalten.
+          Foto-/PDF-Planimport ist ausschliesslich im getrennten Online-Paket vorgesehen und in diesem lokalen Paket nicht sichtbar.
+          Anfrageanhaenge benoetigen Verbindung; die Weitergabe an die geschuetzte Planverarbeitung ist nur online verfuegbar.
+          Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung. Geraeteentsperrung separat pruefen.
+          OneDrive ist erst nach einer gesonderten Einrichtung nutzbar.
+          '@
+          Set-Content -Path (Join-Path $smartplanBundle 'APP_VERSION.txt') -Value $smartplanReadme -Encoding utf8
+          python ../scripts/native-release.py windows --bundle $smartplanBundle --config windows/flutter/ephemeral/generated_config.cmake --flavor local --commit $env:GITHUB_SHA
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Report Windows package diagnostics
+        if: failure() && runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          '### Windows bundle files' | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          if (Test-Path 'build/windows/x64/runner/Release') {
+            Get-ChildItem 'build/windows/x64/runner/Release' -Name | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
+          '### Visual C++ runtime directories' | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          $smartplanVswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+          $smartplanVsRoot = & $smartplanVswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          if ($smartplanVsRoot) {
+            Get-ChildItem (Join-Path $smartplanVsRoot 'VC/Redist/MSVC') -Directory -ErrorAction SilentlyContinue |
+              ForEach-Object { Get-ChildItem (Join-Path $_.FullName 'x64/Microsoft.VC*.CRT') -Directory -ErrorAction SilentlyContinue } |
+              ForEach-Object { $_.FullName; Get-ChildItem $_.FullName -Name } |
+              Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
+      - name: Upload Windows package
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Office-Windows
+          path: app/build/windows/x64/runner/Release/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Build separate online Windows pilot
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $smartplanOnline = Join-Path (Get-Location) 'build/online-package'
+          New-Item -ItemType Directory -Path $smartplanOnline | Out-Null
+          Copy-Item 'build/windows/x64/runner/Release/*' -Destination $smartplanOnline -Recurse
+          $smartplanBuildLog = Join-Path $env:RUNNER_TEMP 'smartplan-windows-online-build.log'
+          $PSNativeCommandUseErrorActionPreference = $false
+          & flutter build windows --release --dart-define=API_URL=https://office.smartplan-hofmann.de --dart-define=API_VERSION=v1 2>&1 | Tee-Object -FilePath $smartplanBuildLog
+          $smartplanBuildExit = $LASTEXITCODE
+          if ($smartplanBuildExit -ne 0) {
+            $smartplanBuildTail = (Get-Content -LiteralPath $smartplanBuildLog -Tail 120) -join "`n"
+            @('### Windows online native build failed', '', '```text', $smartplanBuildTail, '```') | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            if ($smartplanBuildTail.Length -gt 40000) { $smartplanBuildTail = $smartplanBuildTail.Substring($smartplanBuildTail.Length - 40000) }
+            $smartplanBuildAnnotation = $smartplanBuildTail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows online native build::$smartplanBuildAnnotation"
+            exit $smartplanBuildExit
+          }
+          Copy-Item 'build/windows/x64/runner/Release/*' -Destination $smartplanOnline -Recurse -Force
+          if (Test-Path (Join-Path $smartplanOnline 'backend')) { Remove-Item (Join-Path $smartplanOnline 'backend') -Recurse -Force }
+          if (Test-Path (Join-Path $smartplanOnline 'python-wheels')) { Remove-Item (Join-Path $smartplanOnline 'python-wheels') -Recurse -Force }
+          Get-ChildItem $smartplanOnline -Filter '*.cmd' | Remove-Item -Force
+          foreach ($smartplanFile in @('START_HIER.txt', 'APP_VERSION.txt', 'Python_Umgebung_aktualisieren.py')) {
+            if (Test-Path (Join-Path $smartplanOnline $smartplanFile)) { Remove-Item (Join-Path $smartplanOnline $smartplanFile) -Force }
+          }
+          $smartplanInstructions = @'
+          Smartplan Office 0.12.0 - Online-Pruefpaket fuer Windows (x64)
+
+          Alle Dateien vollstaendig in einen neuen Ordner entpacken.
+          smartplan_office.exe direkt oeffnen. Kein SSH-Tunnel und kein lokaler Server erforderlich.
+          Dieses Paket verbindet ausschliesslich https://office.smartplan-hofmann.de ueber API v1.
+          Das getrennte Online-Testkonto verwenden. Bei der ersten Anmeldung Authenticator einrichten
+          und die einmal angezeigten Wiederherstellungscodes sicher aufbewahren.
+          Nur fiktive Testdaten; das bestehende lokale Paket und dessen Daten bleiben erhalten.
+          0.12-Paket: Projektmappe, CRM, Belege, Finanzen, Einsatzplanung, Zeiten, Material und Wartung.
+          Browserzugang alternativ unter https://office.smartplan-hofmann.de/office/.
+          Sevdesk bleibt bis zur dokumentierten Umstellung fuehrend. Eigene Rechnungsstellung und SMTP-Versand sind zunaechst gesperrt.
+          Der vorhandene SPIN-Maileingang samt Anhaengen bleibt erhalten; Kalender und OneDrive verwenden weiterhin die bestaetigte Botanbindung.
+          Servervoraussetzung: Backend 0.12, PostgreSQL-Schema 7, business_suite sowie die bestehenden Mail-/Plan-/Workspace-Faehigkeiten.
+          Den geschuetzten Updateablauf und BETRIEB_BUSINESS_UPDATE.md beachten; kein automatisches Serverupdate durch die App.
+          Die Erkennung benoetigt einen separat eingerichteten Importworker; dieses Paket aktiviert keinen Serverdienst automatisch.
+          Dieses Pruefpaket aktualisiert den Hetzner-Server oder seine Datenbank nicht automatisch.
+          Projektplaene vor der Fahrt oeffnen; neue Plaene und Planquellen werden zuerst lokal verschluesselt gespeichert.
+          Ohne neue Import-API bleiben Quellen lokal erhalten; ein erforderliches Serverupdate wird gemeldet.
+          Grundriss- und Quellenloeschungen bleiben bis zur erfolgreichen Synchronisierung vorgemerkt.
+          Ohne Faehigkeit plan_deletion warten sie auf das freigegebene Serverupdate.
+          Die zuvor geoeffnete Projektmappe mit Aufgaben, Bautagebuch und Terminen ist fuer Offline-Arbeit vorgesehen.
+          Eigene Zeitereignisse und Baustellenfotos erhalten eine eigene verschluesselte Warteschlange; neue ausdrueckliche Geraetefreigabe erforderlich.
+          Anfragen mit ihren Anhaengen, Finanzvorgaenge und Berichte benoetigen weiterhin Verbindung.
+          Offline bis zu sieben Tage; Berichte, Kundenverwaltung und weitere Berichtsmedien benoetigen weiterhin Verbindung.
+          Ausstehende Plaene nicht durch Deinstallation oder Loeschen von App-Daten entfernen.
+          EXE und Paket sind unsigniert; Windows-Signierung und SmartScreen-Abnahme bleiben offen.
+          Das Paket ist ein Online-Pruefpaket, kein Installer.
+          Eine zusaetzliche PDF-Ablage ist nach Einrichtung und Auswahl in der App nutzbar.
+          Echte Kontoverbindung, Datenuebernahme und getrennte verschluesselte Backups separat pruefen.
+          '@
+          Set-Content -Path (Join-Path $smartplanOnline 'ONLINE_START_HIER.txt') -Value $smartplanInstructions -Encoding utf8
+          foreach ($smartplanFile in @('smartplan_office.exe', 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll')) {
+            if (-not (Test-Path (Join-Path $smartplanOnline $smartplanFile))) { throw "Online package file missing: $smartplanFile" }
+          }
+          python ../scripts/native-release.py windows --bundle $smartplanOnline --config windows/flutter/ephemeral/generated_config.cmake --flavor online --commit $env:GITHUB_SHA
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Upload separate online Windows pilot
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Office-Windows-Online-Pilot
+          path: app/build/online-package/
+          if-no-files-found: error
+          retention-days: 14

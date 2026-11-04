@@ -1,0 +1,190 @@
+TAP version 13
+# Subtest: independent host: initial year response stays gone after background and return success
+ok 1 - independent host: initial year response stays gone after background and return success
+  ---
+  duration_ms: 58.339326
+  type: 'test'
+  ...
+# Subtest: independent host: initial year response stays gone after background and return error
+ok 2 - independent host: initial year response stays gone after background and return error
+  ---
+  duration_ms: 6.125018
+  type: 'test'
+  ...
+# Subtest: independent preview: fresh write withdrawal does not offer confirmation
+ok 3 - independent preview: fresh write withdrawal does not offer confirmation
+  ---
+  duration_ms: 35.390776
+  type: 'test'
+  ...
+# Subtest: independent preview: fresh module withdrawal does not offer confirmation
+ok 4 - independent preview: fresh module withdrawal does not offer confirmation
+  ---
+  duration_ms: 32.185852
+  type: 'test'
+  ...
+# Subtest: independent held preview error after other never replaces current view
+ok 5 - independent held preview error after other never replaces current view
+  ---
+  duration_ms: 20.727206
+  type: 'test'
+  ...
+# Subtest: independent held preview error after session never replaces current view
+ok 6 - independent held preview error after session never replaces current view
+  ---
+  duration_ms: 11.202721
+  type: 'test'
+  ...
+# Subtest: independent held preview error after background never replaces current view
+ok 7 - independent held preview error after background never replaces current view
+  ---
+  duration_ms: 10.031187
+  type: 'test'
+  ...
+# Subtest: independent actual original byte corruption cannot download
+ok 8 - independent actual original byte corruption cannot download
+  ---
+  duration_ms: 14.684165
+  type: 'test'
+  ...
+# Subtest: independent actual original length corruption cannot download
+ok 9 - independent actual original length corruption cannot download
+  ---
+  duration_ms: 9.78027
+  type: 'test'
+  ...
+# Subtest: independent actual opening-item original needs its own fresh source rights after bytes
+ok 10 - independent actual opening-item original needs its own fresh source rights after bytes
+  ---
+  duration_ms: 7.756524
+  type: 'test'
+  ...
+# Subtest: independent upload lost ACK keeps actual file and exact nonce after closing
+ok 11 - independent upload lost ACK keeps actual file and exact nonce after closing
+  ---
+  duration_ms: 9.607695
+  type: 'test'
+  ...
+# Subtest: independent second preview hash after dialog switch cannot reopen old confirmation
+ok 12 - independent second preview hash after dialog switch cannot reopen old confirmation
+  ---
+  duration_ms: 20.223268
+  type: 'test'
+  ...
+# Subtest: independent EÜR initial source after actual host background cycle success cannot reveal private year values
+ok 13 - independent EÜR initial source after actual host background cycle success cannot reveal private year values
+  ---
+  duration_ms: 13.601917
+  type: 'test'
+  ...
+# Subtest: independent EÜR initial source after actual host background cycle error cannot reveal private year values
+ok 14 - independent EÜR initial source after actual host background cycle error cannot reveal private year values
+  ---
+  duration_ms: 4.476868
+  type: 'test'
+  ...
+# Subtest: independent EÜR displays actual historical VAT and cash dates without current cash
+ok 15 - independent EÜR displays actual historical VAT and cash dates without current cash
+  ---
+  duration_ms: 8.827255
+  type: 'test'
+  ...
+# Subtest: independent EÜR held preview success stays closed across actual background cycle
+ok 16 - independent EÜR held preview success stays closed across actual background cycle
+  ---
+  duration_ms: 5.998939
+  type: 'test'
+  ...
+# Subtest: independent EÜR held preview error stays closed across actual background cycle
+ok 17 - independent EÜR held preview error stays closed across actual background cycle
+  ---
+  duration_ms: 5.648602
+  type: 'test'
+  ...
+# Subtest: independent EÜR accepted ACK success after other never closes or refreshes another view
+ok 18 - independent EÜR accepted ACK success after other never closes or refreshes another view
+  ---
+  duration_ms: 6.754035
+  type: 'test'
+  ...
+# Subtest: independent EÜR accepted ACK success after background never closes or refreshes another view
+ok 19 - independent EÜR accepted ACK success after background never closes or refreshes another view
+  ---
+  duration_ms: 9.051213
+  type: 'test'
+  ...
+# Subtest: independent EÜR accepted ACK error after other never closes or refreshes another view
+ok 20 - independent EÜR accepted ACK error after other never closes or refreshes another view
+  ---
+  duration_ms: 7.947331
+  type: 'test'
+  ...
+# Subtest: independent EÜR accepted ACK error after background never closes or refreshes another view
+ok 21 - independent EÜR accepted ACK error after background never closes or refreshes another view
+  ---
+  duration_ms: 8.130858
+  type: 'test'
+  ...
+# Subtest: independent EÜR held initial authorization 403 cannot close later unrelated dialog
+ok 22 - independent EÜR held initial authorization 403 cannot close later unrelated dialog
+  ---
+  duration_ms: 3.697064
+  type: 'test'
+  ...
+# Subtest: independent EÜR held confirm authorization 403 cannot close later unrelated dialog
+ok 23 - independent EÜR held confirm authorization 403 cannot close later unrelated dialog
+  ---
+  duration_ms: 9.20223
+  type: 'test'
+  ...
+# Subtest: independent accepted EÜR exact replay after clear resolves only original pending operation
+ok 24 - independent accepted EÜR exact replay after clear resolves only original pending operation
+  ---
+  duration_ms: 19.729631
+  type: 'test'
+  ...
+# Subtest: independent held original file rejection after actual background remains silent and never posts
+ok 25 - independent held original file rejection after actual background remains silent and never posts
+  ---
+  duration_ms: 4.118619
+  type: 'test'
+  ...
+# Subtest: independent source selection retains readable original history after incomplete profile, without new draft
+ok 26 - independent source selection retains readable original history after incomplete profile, without new draft
+  ---
+  duration_ms: 8.463338
+  type: 'test'
+  ...
+# Subtest: independent original: unchanged real 59.50 cash history and 19.00 exercised VAT remain readable
+ok 27 - independent original: unchanged real 59.50 cash history and 19.00 exercised VAT remain readable
+  ---
+  duration_ms: 4.852218
+  type: 'test'
+  ...
+# Subtest: independent original: rehashed preview cannot move actual old payment from August to September
+ok 28 - independent original: rehashed preview cannot move actual old payment from August to September
+  ---
+  duration_ms: 2.266511
+  type: 'test'
+  ...
+# Subtest: independent original: rehashed preview cannot change old cash cents while leaving actual source unchanged
+ok 29 - independent original: rehashed preview cannot change old cash cents while leaving actual source unchanged
+  ---
+  duration_ms: 1.011863
+  type: 'test'
+  ...
+# Subtest: independent original: source hash alone cannot legitimize contradictory historical posting amount
+ok 30 - independent original: source hash alone cannot legitimize contradictory historical posting amount
+  ---
+  duration_ms: 0.835648
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 447.165759

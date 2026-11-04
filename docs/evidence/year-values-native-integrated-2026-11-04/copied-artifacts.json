@@ -1,0 +1,206 @@
+{
+  "app/lib/business_accounting_year_values.dart": {
+    "sha256": "a31684ea07803994ab0485d4eaeec30790305086c9eef6f272a8e498d93f7c88",
+    "bytes": 48291
+  },
+  "app/lib/business_accounting_year_values_contract.dart": {
+    "sha256": "a83bf75212e0181444c5953130e1696956bc599d4bf5bb7e24f5e4f20798aa06",
+    "bytes": 40841
+  },
+  "app/test/business_accounting_year_values_http_test.dart": {
+    "sha256": "e9d25c76d79d57f6c5735cccc0a3fa83c3f53d9b6912431d890ed2555ca0de7a",
+    "bytes": 21207
+  },
+  "app/test/business_accounting_year_values_independent_review_test.dart": {
+    "sha256": "df83729054f86116b34c8c0cf2cb568debf96ea0ae95ab597ab6fe1e04349e24",
+    "bytes": 18597
+  },
+  "app/test/business_accounting_year_values_lifecycle_test.dart": {
+    "sha256": "c23257bca959263f720a88e882a0c3c1497a0bfc20d534ba3a609375b8b5dd02",
+    "bytes": 21552
+  },
+  "app/test/business_accounting_year_values_test.dart": {
+    "sha256": "0a5829452e834e3b1dd3766bb45581ce24d57214899c9d14b32415e6eb52d44e",
+    "bytes": 5348
+  },
+  "app/test/fixtures/accounting_year_values_native_boundaries_v1.json": {
+    "sha256": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+    "bytes": 148143
+  },
+  "app/test/fixtures/accounting_year_values_native_independent_v1.json": {
+    "sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+    "bytes": 137367
+  },
+  "app/test/fixtures/accounting_year_values_v1.json": {
+    "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+    "bytes": 654241
+  },
+  "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_2026-11-04.md": {
+    "sha256": "dbbf69ff6eae694572320f18ef65c7da0255f9cff44db0819079afc3da8d4cf0",
+    "bytes": 7751
+  },
+  "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_REVIEWFIX_2026-11-04.md": {
+    "sha256": "f7ee20d5710122e9d7f7af18c2ad9eb4e115a9ad5cad1c21119cfeac2437288f",
+    "bytes": 2664
+  },
+  "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md": {
+    "sha256": "8230ee6284f8d83c9e1a404da068d7360d96f6bca68439f04df1d60980c814d8",
+    "bytes": 6594
+  },
+  "docs/evidence/year-values-native-2026-11-04/README.md": {
+    "sha256": "e44152e098339436baf7e265c36a5b5c3ab15e97a494b3bef1c18fb9d34fb432",
+    "bytes": 2269
+  },
+  "docs/evidence/year-values-native-2026-11-04/actual-http-green-profile-fallback-red.txt": {
+    "sha256": "4c002a485593f3495f60b412dd053fb65dcf1f07b528c697bcc37c871866a130",
+    "bytes": 13605
+  },
+  "docs/evidence/year-values-native-2026-11-04/baseline.json": {
+    "sha256": "8fc110a24e182e6546ed97f3f1eb1cc43a715609b713acf1069d822051931146",
+    "bytes": 733
+  },
+  "docs/evidence/year-values-native-2026-11-04/final-acceptance-59.txt": {
+    "sha256": "10d9819524129fc3ecf9cddf86e033532b98ea889ae24c322f7d250c19804975",
+    "bytes": 17296
+  },
+  "docs/evidence/year-values-native-2026-11-04/final-analysis.txt": {
+    "sha256": "26522c02c0396c0954e0a53924f883d5abdf16cbd6d7f049380fdc36baa6d794",
+    "bytes": 358
+  },
+  "docs/evidence/year-values-native-2026-11-04/first-390px-layout-red.txt": {
+    "sha256": "8d57bd6a52b5f2eba52ff90ba717793b50dd551227b7a94b5b22d44a82be0e7c",
+    "bytes": 77384857
+  },
+  "docs/evidence/year-values-native-2026-11-04/integration.patch": {
+    "sha256": "44ec50f256f96fc4bf59e699a918121e77263dc47472e2498eae35a42b9d9e5a",
+    "bytes": 11939
+  },
+  "docs/evidence/year-values-native-2026-11-04/manifest.json": {
+    "sha256": "35bd199aa0e5660bd09f04eb77c9d1c2fc9a4e07708d59532a3dbc831fabadfa",
+    "bytes": 6432
+  },
+  "docs/evidence/year-values-native-2026-11-04/reader-dependency.json": {
+    "sha256": "5b9e30edc7915f51e61896b9ad967d700b704908146db2cc13d0d1a2f322a5a3",
+    "bytes": 397
+  },
+  "docs/evidence/year-values-native-2026-11-04/runtime-freeze.json": {
+    "sha256": "d42c6ff13dc6f99dbecdc606daaf2e90959f8b839eb61c31e4cbc8085da2434f",
+    "bytes": 2936
+  },
+  "docs/evidence/year-values-native-2026-11-04/scroll-and-test-driver-progress.txt": {
+    "sha256": "b6dd53257e9f48334c85c29782970f5d9d704b8d293c4b44299f1b912169afbf",
+    "bytes": 10192
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/dialog-runtime-fragments.json": {
+    "sha256": "d700fbc6a5168cf5de26fb4ff5d6319ff0e1a91d4446fd87e332a373751e9b6d",
+    "bytes": 1697
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/earlier-12-semantics-tests.log": {
+    "sha256": "1d13e7d6f8aa1386e7ec0376e79e0ada64768fd702792b01f5ed042c7fa336b4",
+    "bytes": 1228
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/final-23-tests.log": {
+    "sha256": "282778bfe1e600ec5bd5852ffaf7325eae95b374cf2b23e007662793d77a3257",
+    "bytes": 2231
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/final-analysis.log": {
+    "sha256": "6d4fb0b0cea322ae3bb5804332d92fd22bf3b2b641b056f52e9391702d4d6f8d",
+    "bytes": 91
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/final-run-snapshot.json": {
+    "sha256": "e88f2e30be5c973a63348064775de9906391d285847b4774f8e43c4ec4f645d7",
+    "bytes": 1497
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/first-final-run-snapshot.json": {
+    "sha256": "7c41fb7dc9e1c9de304946471c73836641ddd2f373f993aa26993080b0e12e97",
+    "bytes": 1169
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/historical-lifecycle-harness-error.log": {
+    "sha256": "de76c79b043039b689b9c29679d0cfdc6cfb00bd2664740792889beac565fbc5",
+    "bytes": 9330
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/manifest.json": {
+    "sha256": "897039f27f7da7b425c2606bf765592276027543e8fd5f3377ec238bddb96f2f",
+    "bytes": 12456
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-red-manifest.json": {
+    "sha256": "ea6fa340ea2bc15d6e09a472ae27419e6d5ea796f1752c5e96a6dc8fb99b71e1",
+    "bytes": 687
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-red.log": {
+    "sha256": "f7af7a4a993625bfdc030b6b48db6ad1ef66b6e50e011d1a60c7a985317219f6",
+    "bytes": 4670
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/original-dialog-repros.dart": {
+    "sha256": "bae281290f4766e7c150b6676d154b0cd1e0ac42af88978cb817ec8a408ff82c",
+    "bytes": 3663
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/original-void-red-manifest.json": {
+    "sha256": "8c70dac8c55d688fdd9639364733a4d53dc85d0c93302fc8052ed653f1a9c48a",
+    "bytes": 1271
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/original-void-red.log": {
+    "sha256": "f13b79e49af797105bffa6fc8758c4a725be05f12619abf10de613b422891ffd",
+    "bytes": 786
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/original-void-repro.dart": {
+    "sha256": "ff2c8c2feb6c5c90550532a133e209ffcf6d3f3774638b44a7a75ed630c9d164",
+    "bytes": 11375
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/owner-manifest-before-void-fix.json": {
+    "sha256": "35bd199aa0e5660bd09f04eb77c9d1c2fc9a4e07708d59532a3dbc831fabadfa",
+    "bytes": 6432
+  },
+  "docs/evidence/year-values-native-independent-2026-11-04/session-before-void-fix.dart": {
+    "sha256": "96ff12431a93b3a10c122d956252721d790dff673c954376639092f43b5a3f5e",
+    "bytes": 99251
+  },
+  "docs/evidence/year-values-native-review-fix-2026-11-04/README.md": {
+    "sha256": "cb1b5865b732bd715c0d78b892cc5c8957ee9f98769edf6896e09f019148e358",
+    "bytes": 1571
+  },
+  "docs/evidence/year-values-native-review-fix-2026-11-04/acceptance-59.txt": {
+    "sha256": "7a5b04e346b0ed95ec63e20e398098bca037d46b07df7176edcb39c31bd777e0",
+    "bytes": 17296
+  },
+  "docs/evidence/year-values-native-review-fix-2026-11-04/analysis.txt": {
+    "sha256": "7a09fbb303b82b14f52031effea877be7744aa169f450d644439fb67f514da5b",
+    "bytes": 358
+  },
+  "docs/evidence/year-values-native-review-fix-2026-11-04/manifest.json": {
+    "sha256": "d35d015b5130c5fc1f39e499bef5b8d3c1b99422db45f3a541d82a071e5bd7e3",
+    "bytes": 5260
+  },
+  "docs/evidence/year-values-native-review-fix-2026-11-04/reviewed-original-void-green.txt": {
+    "sha256": "c6e98affd6f078d1366bd2abc0107c9caa489c2cf9dbe03e832819fb68f7bc4a",
+    "bytes": 273
+  },
+  "docs/evidence/year-values-native-review-fix-2026-11-04/runtime-freeze.json": {
+    "sha256": "ce865b8e624a7f16acf48b88f683b0ead3543e4b591960da07bb917ff64d6cdd",
+    "bytes": 1627
+  },
+  "docs/evidence/year-values-native-review-fix-2026-11-04/session-historical-void.patch": {
+    "sha256": "18cd95127ba1c72ae76d786a0979c2475e52bedf3e9fd746b8e4d0efb822b058",
+    "bytes": 985
+  },
+  "docs/fixtures/accounting_year_values_native_boundaries_v1.json": {
+    "sha256": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+    "bytes": 148143
+  },
+  "docs/fixtures/accounting_year_values_native_independent_v1.json": {
+    "sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+    "bytes": 137367
+  },
+  "docs/fixtures/accounting_year_values_v1.json": {
+    "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+    "bytes": 654241
+  },
+  "scripts/generate-accounting-year-values-native-boundaries.py": {
+    "sha256": "be1c3366c9d03a27309f85bfbe62b3e62a048fdd786270677285037664e70239",
+    "bytes": 1342
+  },
+  "scripts/generate-year-values-native-independent-fixture.py": {
+    "sha256": "68d6ce09b3b8d9e1a61e165157f71970f2f2b4eb55f6202bbc5f071c473d71e3",
+    "bytes": 3157
+  }
+}

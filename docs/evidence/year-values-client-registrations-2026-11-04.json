@@ -1,0 +1,40 @@
+{
+  "operator_added": [
+    "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_2026-11-04.md",
+    "docs/evidence/year-values-browser-2026-11-04/manifest.json",
+    "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_GEGENPRUEFUNG_2026-11-04.md",
+    "docs/evidence/year-values-browser-independent-2026-11-04/manifest.json",
+    "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_PROFIL_AUFHEBUNG_2026-11-04.md",
+    "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_PROFIL_AUFHEBUNG_GEGENPRUEFUNG_2026-11-04.md",
+    "docs/evidence/year-values-browser-profile-void-2026-11-04/manifest.json",
+    "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/manifest.json",
+    "docs/evidence/year-values-browser-integrated-2026-11-04/manifest.json",
+    "docs/evidence/year-values-browser-profile-void-integrated-2026-11-04/manifest.json",
+    "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_2026-11-04.md",
+    "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_REVIEWFIX_2026-11-04.md",
+    "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_UNABHAENGIGE_PRUEFUNG_2026-11-04.md",
+    "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_INTEGRATION_2026-11-04.md",
+    "docs/evidence/year-values-native-2026-11-04/manifest.json",
+    "docs/evidence/year-values-native-review-fix-2026-11-04/manifest.json",
+    "docs/evidence/year-values-native-independent-2026-11-04/manifest.json",
+    "docs/evidence/year-values-native-integrated-2026-11-04/manifest.json"
+  ],
+  "operator_count": 209,
+  "backend_count": 144,
+  "browser_runner": "node tests/accounting-year-values-profile-void-e2e.cjs",
+  "reason": "The complete original workflow plus the actually reproduced and fixed historical void/profile case; existing V1/V2 and other browser workflows retained.",
+  "files": {
+    "scripts/native-release.py": {
+      "before_sha256": "faaddeb1b75d1dda5635547c45d5ab790ec76fc7c46201eba0c332bd05a7cbc7",
+      "after_sha256": "039e5dca2280619571be4d437ff169e5a695af19363b394f3784d7ece64db0bf"
+    },
+    "scripts/package-windows-support.py": {
+      "before_sha256": "0766d8fa86b86867e3da19325edf257eb8a6b68efba607e69b894f3b24ffc96e",
+      "after_sha256": "36c76af5bbca2d2b26b7e62fd586131d1d900ea2d5b207b311bf583c92496966"
+    },
+    ".github/workflows/checks.yml": {
+      "before_sha256": "08edd0ff61505c0e604732e13853b4c9dfa62955e9504c174cc3a5ca690f955d",
+      "after_sha256": "5be76c78e4e65bdfbbd9f9e2a9ff81b0d99a8952bfcba7deaca76893058e8ff2"
+    }
+  }
+}

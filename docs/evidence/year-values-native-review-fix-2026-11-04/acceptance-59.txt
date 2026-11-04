@@ -1,0 +1,124 @@
+00:00 +0: loading /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart
+00:00 +0: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: actual complete original state preview receipt source and history
+00:00 +1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: actual partial_then_corrected original state preview receipt source and history
+00:00 +2: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: actual closed_trade original state preview receipt source and history
+00:00 +3: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: separate signed cent controls without guessed zeros
+00:00 +4: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: rehash cannot change old VAT day or original account projection
+00:00 +5: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: source requires original entry even after valid foreign rehash
+00:00 +6: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: partial coverage cannot be relabelled complete
+00:00 +7: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: receipt rejects foreign actual original and frozen state alteration
+00:00 +8: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: unchanged originals reject rehashed moved days and copied cent substitutions
+00:00 +9: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: public rehashed source still binds copied original net to projected journal cents
+00:00 +10: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: unknown acceptance repeats original nonce and frozen receipt after newer state
+00:00 +11: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: foreign valid acceptance cannot clear original pending
+00:00 +12: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: held capability preflight cannot send after editor context ended
+00:00 +13: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: 390px original year state history and no invented cash
+00:02 +14: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +15: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +16: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +17: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +18: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:03 +19: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:03 +20: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Jahresoriginal hochladen
+00:03 +21: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:03 +22: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:03 +23: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:04 +24: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:04 +25: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Unverändert erneut prüfen
+Native yearly step: Jahresvortrag vorbereiten
+Native yearly field: Belegter Zeitraum von (JJJJ-MM-TT)
+Native yearly field: Belegter Zeitraum bis (JJJJ-MM-TT)
+Native yearly field: Ursprüngliches SKR04-Nettokonto
+Native yearly field: Ursprüngliches SKR04-Steuerkonto
+Native yearly field: Ursprüngliches SKR04-Vorsteuerkonto
+Native yearly field: Alte Zahlungsbuchungen: eine Kennung je Zahlung in Originalreihenfolge
+Native yearly field: Ursprüngliche Vorsteuerbuchungsidentität (nur Lieferantenrechnung)
+Native yearly step: Geprüfte ursprüngliche Quelle hinzufügen
+00:07 +26: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Belegte Kontrollsumme hinzufügen
+00:08 +27: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:08 +28: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:08 +29: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:08 +30: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:08 +31: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+00:09 +32: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:09 +33: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Buchführungsmethode unverändert fortgeführt
+Native yearly step: Ursprüngliches Journal im erklärten Zeitraum vollständig geprüft
+Native yearly step: Keine unzulässigen Anlagen-, Lohn-, Privat- oder Sonderwerte enthalten
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Originale und Jahreswerte vorprüfen
+00:12 +34: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:13 +35: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:13 +36: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Genau diese ursprünglichen Werte und Nachweise verbindlich bestätigen
+00:13 +37: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Geprüfte Jahresfassung annehmen
+Native yearly step: Unverändert erneut prüfen
+Native yearly step: EÜR, Gegenbuchungen und Perioden prüfen
+Native yearly field: Fachliche Begründung
+Native yearly field: Nachweis / Prüfgrundlage
+Native yearly step: Buchung unverbindlich prüfen
+Native yearly step: Ich habe Quelle, fachliche Einordnung, Beträge, Zeitraum und Konten geprüft und bestätige diesen Vorgang.
+Native yearly step: Buchung verbindlich festhalten
+Native yearly step: Belegte Korrektur vorbereiten
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Buchführungsmethode unverändert fortgeführt
+00:19 +38: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Ursprüngliches Journal im erklärten Zeitraum vollständig geprüft
+Native yearly step: Keine unzulässigen Anlagen-, Lohn-, Privat- oder Sonderwerte enthalten
+00:20 +39: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Originale und Jahreswerte vorprüfen
+Native yearly step: Bearbeitung schließen
+00:21 +40: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Unverändert aufheben
+00:21 +41: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:21 +42: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:21 +43: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Originale und Jahreswerte vorprüfen
+00:22 +44: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Genau diese ursprünglichen Werte und Nachweise verbindlich bestätigen
+Native yearly step: Geprüfte Jahresfassung annehmen
+00:23 +45: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Belegte Korrektur vorbereiten
+00:24 +46: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly field: Prüf-/Korrekturgrund
+00:24 +47: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Buchführungsmethode unverändert fortgeführt
+Native yearly step: Ursprüngliches Journal im erklärten Zeitraum vollständig geprüft
+00:25 +48: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:25 +49: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Keine unzulässigen Anlagen-, Lohn-, Privat- oder Sonderwerte enthalten
+00:25 +50: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:25 +51: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Originale und Jahreswerte vorprüfen
+00:26 +52: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:26 +53: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:26 +54: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Genau diese ursprünglichen Werte und Nachweise verbindlich bestätigen
+00:27 +55: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Geprüfte Jahresfassung annehmen
+00:28 +56: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:28 +57: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:28 +58: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Geschützte Jahresoriginale (2)
+Native yearly step: reviewed-year-journal.pdf
+Native yearly step: Ursprüngliche Jahresfassungen
+Native yearly step: Ursprüngliche Fassung 1 · Aktiv
+Native yearly step: Diese ursprüngliche Quelle prüfen
+Native yearly step: Neu laden
+00:30 +59: All tests passed!

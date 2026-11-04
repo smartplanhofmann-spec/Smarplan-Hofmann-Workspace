@@ -1,0 +1,27 @@
+{
+  "confirmed_red_case": "Valid original void after actual E\u00dcR reverse and later missing current bookkeeping_start is blocked by native can_prepare preflight; actual unchanged backend accepted exact original-profile void.",
+  "files": {
+    "original-void-repro.dart": {
+      "source": "app/test/business_accounting_year_values_independent_review_test.dart",
+      "sha256": "ff2c8c2feb6c5c90550532a133e209ffcf6d3f3774638b44a7a75ed630c9d164",
+      "bytes": 11375
+    },
+    "original-void-red.log": {
+      "source": "work/verification/year-values-native-independent-void-repro-2026-11-04.log",
+      "sha256": "f13b79e49af797105bffa6fc8758c4a725be05f12619abf10de613b422891ffd",
+      "bytes": 786
+    },
+    "session-before-void-fix.dart": {
+      "source": "app/lib/business_session.dart",
+      "sha256": "96ff12431a93b3a10c122d956252721d790dff673c954376639092f43b5a3f5e",
+      "bytes": 99251
+    },
+    "owner-manifest-before-void-fix.json": {
+      "source": "docs/evidence/year-values-native-2026-11-04/manifest.json",
+      "sha256": "35bd199aa0e5660bd09f04eb77c9d1c2fc9a4e07708d59532a3dbc831fabadfa",
+      "bytes": 6432
+    }
+  },
+  "actual_fixture_sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+  "product_edits": false
+}

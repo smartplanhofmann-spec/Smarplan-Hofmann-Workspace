@@ -1,0 +1,9 @@
+00:00 +0: loading /workspace/smartplan-year-review-export-carryover-20261104/app/test/business_accounting_year_evidence_v2_test.dart
+00:00 +0: /workspace/smartplan-year-review-export-carryover-20261104/app/test/business_accounting_year_evidence_v2_test.dart: actual v2 pending_review preserves original export and ZIP
+00:00 +1: /workspace/smartplan-year-review-export-carryover-20261104/app/test/business_accounting_year_evidence_v2_test.dart: actual v2 partial_coverage preserves original export and ZIP
+00:00 +2: /workspace/smartplan-year-review-export-carryover-20261104/app/test/business_accounting_year_evidence_v2_test.dart: actual v2 complete_history preserves original export and ZIP
+00:00 +3: /workspace/smartplan-year-review-export-carryover-20261104/app/test/business_accounting_year_evidence_v2_test.dart: actual v2 old_partial_after_correction preserves original export and ZIP
+00:00 +4: /workspace/smartplan-year-review-export-carryover-20261104/app/test/business_accounting_year_evidence_v2_test.dart: old v1 remains accepted; unknown formats are not guessed
+00:00 +5: /workspace/smartplan-year-review-export-carryover-20261104/app/test/business_accounting_year_evidence_v2_test.dart: version change after first read and crossed actual originals fail
+00:00 +6: /workspace/smartplan-year-review-export-carryover-20261104/app/test/business_accounting_year_evidence_v2_http_test.dart: actual v2 390px original EÜR navigation, exact ZIP file, unknown response and project-only source revocation before save
+00:07 +7: All tests passed!

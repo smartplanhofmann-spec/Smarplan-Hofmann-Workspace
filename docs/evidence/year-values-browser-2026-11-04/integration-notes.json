@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "patch": "shared-browser-hooks.patch",
+  "euer_base": {
+    "source": "/workspace/smartplan-opening-items-20261104/web/office/accounting-euer.js",
+    "copy": "work/verification/accounting-euer-from-frozen-open-items.js",
+    "sha256": "f467b2725f6c207552627c8d94711c0dbe0d5d77341779749480382e22f3e0e5",
+    "note": "Frozen Altposten and confirmed legacy cash context fixes. New year-values patch only; Root must preserve later V1 year-package export intent guard."
+  },
+  "office_base": {
+    "commit": "80e051a28ad6ffe2b25818ed26d198f49ebb0c09",
+    "sha256": "c2bdb5a21ad7a1ffc3a48c288bdbbdf2e9781701cfff85b5418ca9b1cf015c92"
+  },
+  "preserve_newer_main_guards": [
+    "year-package-v1 exportGeneration/initial export intent",
+    "year-package-v1 accountingEuer.invalidateExport() on hidden",
+    "all existing opening-item and legacy cash private guards",
+    "other newer module hooks"
+  ],
+  "static_js_allowlist_add": [
+    "accounting-year-values-contract.js",
+    "accounting-year-values.js"
+  ],
+  "dependency_already_in_main": "accounting-open-items-contract.js",
+  "ci_add_after_existing_euer_e2e": "node tests/accounting-year-values-e2e.cjs",
+  "runtime_frozen": true,
+  "exact_baseline_patch_application": "passed; resulting bytes equal final shared files"
+}

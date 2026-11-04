@@ -1,0 +1,43 @@
+--- a/backend/online/test_accounting_asset_openings_pg.py
++++ b/backend/online/test_accounting_asset_openings_pg.py
+@@ -114,6 +114,7 @@
+             operator=PostgresOffice(target)
+             try:
+                 old=deepcopy(evidence);old['schema']=13;old['accounting_horizon'].pop('opening_items');old['accounting_horizon'].pop('historical_assets');old['accounting_horizon']['schema_version']=12
++                old['accounting_horizon'].pop('year_values')
+                 business_schema._validate_financial_accounting_horizon(old['accounting_horizon'],13)
+                 bad=deepcopy(evidence);bad['accounting_horizon']['historical_assets']['sha256']='0'*64
+                 before=release.snapshot_fingerprint(target)
+--- a/backend/online/test_business_accounting_openings_pg.py
++++ b/backend/online/test_business_accounting_openings_pg.py
+@@ -196,6 +196,7 @@
+             try:
+                 old = deepcopy(evidence)
+                 old['schema'] = 12
++                old['accounting_horizon'].pop('year_values')
+                 old['accounting_horizon'].pop('opening_balances')
+                 old['accounting_horizon'].pop('opening_items');old['accounting_horizon'].pop('historical_assets')
+                 old['accounting_horizon']['schema_version'] = 11
+--- a/backend/online/test_business_travel_pg.py
++++ b/backend/online/test_business_travel_pg.py
+@@ -124,7 +124,7 @@
+         # Model the actual pre-travel financial registry. Later opening-balance
+         # and historical-asset modules require that missing predecessor and
+         # must be migrated together with it, not installed in the old fixture.
+-        later_financial_modules={'business_travel_allowances','business_accounting_openings','business_accounting_asset_openings','business_accounting_open_items'}
++        later_financial_modules={'business_travel_allowances','business_accounting_openings','business_accounting_asset_openings','business_accounting_open_items','business_accounting_year_openings'}
+         prior=tuple(s for s in full if s.name not in later_financial_modules)
+         with patch.object(business_schema,'registry',return_value=prior),patch.object(business_schema,'MODULE_NAMES',tuple(s.name for s in prior)):
+             self.setUp();data=self.original_sources();before=release.snapshot_fingerprint(fixture.DSN);self.office.db.close()
+--- a/backend/online/test_accounting_open_items_pg.py
++++ b/backend/online/test_accounting_open_items_pg.py
+@@ -122,7 +122,8 @@
+             finally:restored.db.close()
+             operator=PostgresOffice(target)
+             try:
+-                old=deepcopy(evidence);old['schema']=14;old['accounting_horizon'].pop('opening_items');old['accounting_horizon']['schema_version']=13
++                old=deepcopy(evidence);old['schema']=14;old['accounting_horizon'].pop('year_values');old['accounting_horizon'].pop('opening_items');old['accounting_horizon']['schema_version']=13
++                business_schema._validate_financial_accounting_horizon(old['accounting_horizon'],14)
+                 bad=deepcopy(evidence);bad['accounting_horizon']['opening_items']['sha256']='0'*64
+                 before=release.snapshot_fingerprint(target)
+                 for value in (old,bad):

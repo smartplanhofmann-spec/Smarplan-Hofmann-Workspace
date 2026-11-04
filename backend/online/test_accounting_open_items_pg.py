@@ -116,13 +116,14 @@ class OpeningItemPostgres(unittest.TestCase):
                 for original,upload,raw in self.uploads:self.assertEqual(api.original(self.actor,original['id'])[0],raw)
                 with self.assertRaises(Problem) as denied:api.confirm(self.actor,payment_command)
                 self.assertEqual(denied.exception.status,409)
-                evidence=evidence_for(restored,report);self.assertEqual(evidence['schema'],15);self.assertEqual(evidence['accounting_horizon']['opening_items'],scope)
+                evidence=evidence_for(restored,report);self.assertEqual(evidence['schema'],16);self.assertEqual(evidence['accounting_horizon']['opening_items'],scope)
                 with self.assertRaises(Problem) as denied:approve(restored,evidence)
                 self.assertEqual(denied.exception.status,403)
             finally:restored.db.close()
             operator=PostgresOffice(target)
             try:
-                old=deepcopy(evidence);old['schema']=14;old['accounting_horizon'].pop('opening_items');old['accounting_horizon']['schema_version']=13
+                old=deepcopy(evidence);old['schema']=14;old['accounting_horizon'].pop('year_values');old['accounting_horizon'].pop('opening_items');old['accounting_horizon']['schema_version']=13
+                business_schema._validate_financial_accounting_horizon(old['accounting_horizon'],14)
                 bad=deepcopy(evidence);bad['accounting_horizon']['opening_items']['sha256']='0'*64
                 before=release.snapshot_fingerprint(target)
                 for value in (old,bad):

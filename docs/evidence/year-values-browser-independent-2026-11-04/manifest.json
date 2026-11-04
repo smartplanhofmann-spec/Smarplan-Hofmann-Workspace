@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T13:06:49.216211+00:00",
+  "tree": "/workspace/smartplan-opening-year-values-20261104",
+  "scope": "Independent browser contract and controlled lifecycle review of historical year values V1; no product changes, no independent Chromium or PostgreSQL execution",
+  "runtime_freeze": {
+    "recorded_at_utc": "2026-11-04T13:05:01.610811+00:00",
+    "owner_runtime_frozen": true,
+    "before_after_identical": true,
+    "files": {
+      "web/office/accounting-year-values-contract.js": {
+        "sha256": "ca5035e24120917fc501d214d0d4c3d3e8dce98c7bbdbc4b52fb7d15964dfa7a",
+        "bytes": 20667
+      },
+      "web/office/accounting-year-values.js": {
+        "sha256": "79d6dee5dd9c463b7155cefa639b8bde0c12bdf8b9491cdae2597b72e6f91538",
+        "bytes": 27626
+      },
+      "web/office/accounting-euer.js": {
+        "sha256": "025d7b69b0c92a1fe8ed9db23b2984dd0984a8962721f493772150a52bd3bced",
+        "bytes": 58707
+      },
+      "web/office/office.js": {
+        "sha256": "5f26dad2790f008752c2194fc29e3363afc5ecf471d7e8af9d96f174549678b8",
+        "bytes": 347584
+      },
+      "web/office/accounting-open-items-contract.js": {
+        "sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1",
+        "bytes": 23901
+      },
+      "docs/fixtures/accounting_year_values_v1.json": {
+        "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+        "bytes": 654241
+      },
+      "web/office/tests/fixtures/accounting-year-values-ui.json": {
+        "sha256": "819ddc38cbd80bb79b97fc277d0c7380393f8c5da514b384abf5c28951403b4c",
+        "bytes": 133441
+      },
+      "web/office/tests/fixtures/accounting-year-values-euer-ui.json": {
+        "sha256": "a3fd1e91e6e913b965693efe1eff69c55c42b26a5ee082720aedea6051a0926a",
+        "bytes": 139030
+      },
+      "web/office/tests/accounting-year-values-independent.test.mjs": {
+        "sha256": "f0cf34715601a1315ef9e15ee3df31102da4ad16721319ec49f5900ea873f4f1",
+        "bytes": 2746
+      },
+      "web/office/tests/accounting-year-values-independent-lifecycle.test.mjs": {
+        "sha256": "f60f30f62b22a96965bb10aa82eaf4df03eb2974830c9378344b7f2bdff6b024",
+        "bytes": 13278
+      },
+      "web/office/tests/accounting-year-values-independent-harness.mjs": {
+        "sha256": "a292a21c019ffe7480e3e3f73fad3794274728f560f54cc0cc17fa83b3124766",
+        "bytes": 8796
+      }
+    }
+  },
+  "own_result": {
+    "executed": 30,
+    "passed": 30,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "contract_cases": 4,
+    "lifecycle_cases": 26,
+    "case_names": [
+      "independent host: initial year response stays gone after background and return success",
+      "independent host: initial year response stays gone after background and return error",
+      "independent preview: fresh write withdrawal does not offer confirmation",
+      "independent preview: fresh module withdrawal does not offer confirmation",
+      "independent held preview error after other never replaces current view",
+      "independent held preview error after session never replaces current view",
+      "independent held preview error after background never replaces current view",
+      "independent actual original byte corruption cannot download",
+      "independent actual original length corruption cannot download",
+      "independent actual opening-item original needs its own fresh source rights after bytes",
+      "independent upload lost ACK keeps actual file and exact nonce after closing",
+      "independent second preview hash after dialog switch cannot reopen old confirmation",
+      "independent EÜR initial source after actual host background cycle success cannot reveal private year values",
+      "independent EÜR initial source after actual host background cycle error cannot reveal private year values",
+      "independent EÜR displays actual historical VAT and cash dates without current cash",
+      "independent EÜR held preview success stays closed across actual background cycle",
+      "independent EÜR held preview error stays closed across actual background cycle",
+      "independent EÜR accepted ACK success after other never closes or refreshes another view",
+      "independent EÜR accepted ACK success after background never closes or refreshes another view",
+      "independent EÜR accepted ACK error after other never closes or refreshes another view",
+      "independent EÜR accepted ACK error after background never closes or refreshes another view",
+      "independent EÜR held initial authorization 403 cannot close later unrelated dialog",
+      "independent EÜR held confirm authorization 403 cannot close later unrelated dialog",
+      "independent accepted EÜR exact replay after clear resolves only original pending operation",
+      "independent held original file rejection after actual background remains silent and never posts",
+      "independent source selection retains readable original history after incomplete profile, without new draft",
+      "independent original: unchanged real 59.50 cash history and 19.00 exercised VAT remain readable",
+      "independent original: rehashed preview cannot move actual old payment from August to September",
+      "independent original: rehashed preview cannot change old cash cents while leaving actual source unchanged",
+      "independent original: source hash alone cannot legitimize contradictory historical posting amount"
+    ]
+  },
+  "prior_actual_failures": [
+    {
+      "scope": "original binding",
+      "executed": 4,
+      "passed": 1,
+      "failed": 3,
+      "log": "before-original-fix/contract-red.txt"
+    },
+    {
+      "scope": "EÜR initial background context",
+      "executed": 15,
+      "passed": 13,
+      "failed": 2,
+      "log": "before-euer-context-fix/context-red.txt"
+    }
+  ],
+  "confirmed_findings_open": [],
+  "product_edits_by_reviewer": false,
+  "owner_product_fixes": [
+    "Bind copied original dates/amounts and public posting relations",
+    "Invalidate private EÜR context on actual hidden event including no-modal initial request; close year EÜR dialogs through explicit markers"
+  ],
+  "report": {
+    "path": "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_GEGENPRUEFUNG_2026-11-04.md",
+    "bytes": 7259,
+    "sha256": "15b419de52730051ef428d050558ad3fae2c4cb91d8b7feebe3b7918a8b916b7"
+  },
+  "own_tests": [
+    {
+      "path": "web/office/tests/accounting-year-values-independent.test.mjs",
+      "bytes": 2746,
+      "sha256": "f0cf34715601a1315ef9e15ee3df31102da4ad16721319ec49f5900ea873f4f1"
+    },
+    {
+      "path": "web/office/tests/accounting-year-values-independent-lifecycle.test.mjs",
+      "bytes": 13278,
+      "sha256": "f60f30f62b22a96965bb10aa82eaf4df03eb2974830c9378344b7f2bdff6b024"
+    },
+    {
+      "path": "web/office/tests/accounting-year-values-independent-harness.mjs",
+      "bytes": 8796,
+      "sha256": "a292a21c019ffe7480e3e3f73fad3794274728f560f54cc0cc17fa83b3124766"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-euer-context-fix/accounting-euer.js",
+      "bytes": 57868,
+      "sha256": "88d3f085561aedeab398281f407526141f0e0fd45dff7b47ff84ebb23a39b05b"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-euer-context-fix/accounting-year-values-contract.js",
+      "bytes": 20633,
+      "sha256": "58c08734d5dbe55954415735e02b3f646fb378e8e2007bb7907c8d81f22b3459"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-euer-context-fix/accounting-year-values-euer-ui.json",
+      "bytes": 139030,
+      "sha256": "a3fd1e91e6e913b965693efe1eff69c55c42b26a5ee082720aedea6051a0926a"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-euer-context-fix/accounting-year-values-independent-harness.mjs",
+      "bytes": 8759,
+      "sha256": "ac71af62353a299d1615c20100bab4199d75ec2b3d018b65313d87441e745d15"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-euer-context-fix/accounting-year-values-independent-lifecycle.test.mjs",
+      "bytes": 7060,
+      "sha256": "57a069d02cd1a2f640ac6b71c07770154cd13eb9a1bdef07c74ed64e7d2139b2"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-euer-context-fix/accounting-year-values.js",
+      "bytes": 27554,
+      "sha256": "f37482999c156ae0201a3eb13b54975ea10aa65f301708929448ab7b68b34c96"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-euer-context-fix/context-red.txt",
+      "bytes": 12667,
+      "sha256": "a49aae55b4eea695983aabb5ac4544c16e7b6cbf223423b0c99153d39ffe3568"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-euer-context-fix/office.js",
+      "bytes": 347518,
+      "sha256": "1b3016a80b93d05a7d9f75cb233ed1cee8a7f80fa13ca345139fd6aa836fd8b2"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-euer-context-fix/source-hashes.json",
+      "bytes": 933,
+      "sha256": "e0265860189e3a144dcf7baa2b5e5aab2fcf0fa9898d621b1705e8f4a8234d37"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-original-fix/accounting-euer.js",
+      "bytes": 57868,
+      "sha256": "88d3f085561aedeab398281f407526141f0e0fd45dff7b47ff84ebb23a39b05b"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-original-fix/accounting-year-values-contract.js",
+      "bytes": 17554,
+      "sha256": "120ff8c0ce08b9694f07533df53e52f89937156a66a5b2f0db6f1a0d4ad77f8f"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-original-fix/accounting-year-values-independent.test.mjs",
+      "bytes": 2746,
+      "sha256": "f0cf34715601a1315ef9e15ee3df31102da4ad16721319ec49f5900ea873f4f1"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-original-fix/accounting-year-values.js",
+      "bytes": 27506,
+      "sha256": "5235dc3f8db13a59ec418bab5edf3aa44e9417a971166a31170133347aab3f2c"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-original-fix/contract-red.txt",
+      "bytes": 2919,
+      "sha256": "dc2c8e5d849059865ed40c0b7f3578829f72ff87963c241f90eb3b782fbaaf1e"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-original-fix/office.js",
+      "bytes": 347518,
+      "sha256": "1b3016a80b93d05a7d9f75cb233ed1cee8a7f80fa13ca345139fd6aa836fd8b2"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-original-fix/original-red.txt",
+      "bytes": 385,
+      "sha256": "a085e4266b558b6de426be27607344ac5821d1a12a510ee77c13b0ebadd42b06"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/before-original-fix/source-hashes.json",
+      "bytes": 815,
+      "sha256": "4f0636829e0d347b978d8fab963b281c771d06ce1853360e828fd016a90d7769"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/final/independent-30.txt",
+      "bytes": 7395,
+      "sha256": "87eb8e757441220e8dd9e04a89fb1e82031c409b77de2bcf41c8ffccd3e9914b"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/final/run.json",
+      "bytes": 768,
+      "sha256": "2753d7fd0473fc283ec574393548081dfd0655c5ddb41ce759eb8b0cded49122"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/final/source-hashes.json",
+      "bytes": 2015,
+      "sha256": "99c1618b917d00be0cc367dcefc990a2a657b27733b42698613ae00a9ee273cb"
+    }
+  ],
+  "limitations": [
+    "Fixtures were genuinely generated by backend; HTTP responses controlled in independent Node tests",
+    "Actual OfficeApi and actual host visibility handler execute against a small synthetic DOM",
+    "Owner Chromium and total Node suites are separate evidence, not extra independent counts",
+    "No claim of complete original provenance beyond explicit V1 contract or full software completion"
+  ]
+}

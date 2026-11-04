@@ -1,0 +1,13 @@
+{
+  "files": {
+    "app/lib/business_accounting_year_values.dart": "a31684ea07803994ab0485d4eaeec30790305086c9eef6f272a8e498d93f7c88",
+    "app/lib/business_accounting_year_values_contract.dart": "a83bf75212e0181444c5953130e1696956bc599d4bf5bb7e24f5e4f20798aa06",
+    "app/lib/business_accounting_open_items_contract.dart": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+    "app/lib/business_accounting_euer.dart": "76f368fe389936709b9c682a057e85e709e90b644c7c90fc1b946bfb7d335b87",
+    "app/lib/business_session.dart": "3d07efc7ec86a1e36c903127b7454901ca3b3d53941fdf1515a0de4857fb0d1a",
+    "app/test/business_accounting_year_values_independent_review_test.dart": "a9243c44d78822fae41a0b541ac197ad42c58f4d926aff09d755bf35409e247f",
+    "app/test/fixtures/accounting_year_values_native_independent_v1.json": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+    "app/test/fixtures/accounting_year_values_native_boundaries_v1.json": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+    "app/test/fixtures/accounting_year_values_v1.json": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5"
+  }
+}

@@ -1,0 +1,95 @@
+Zum Inhalt
+S
+smartplan
+OFFICE
+◈
+Übersicht
+↗
+Anfragen
+▦
+Projekte
+◎
+Kontakte
+▤
+Einsatzplanung
+▧
+Dokumente
+€
+Finanzen
+✧
+Assistent
+◉
+Kundenservice
+⚙
+Einstellungen
+Weitere Bereiche
+Ihr Betrieb. Ein gemeinsamer Stand.
+
+Online · Daten vom eigenen Office-Server
+
+Alle Projekte
+Private project
+Second project, same customer
+Synthetic project
+year-values-browser-owner@example.test
+Abmelden
+Zahlungen & offene Posten
+EÜR-Vorbereitung
+Bankabgleich öffnen
+Eigene EÜR und Umsatzsteuer
+Eigene EÜR- und Umsatzsteuer-Arbeitsergebnisse für geprüfte erfasste Quellen. Keine amtliche Erklärung oder zertifizierte DATEV-Datei. Rechnung, Zahlung, Vorsteuerrecht und EÜR-Jahr werden getrennt beurteilt.
+Geldflüsse vorbereiten
+Unternehmensprofil und Gültigkeit
+Stand aktualisieren
+Belegte frühere Jahreswerte
+Historische Anlagen
+Anfangsbestände und Liquidität
+Quellen und fachliche Prüfung
+Belegte frühere Jahreswerte · 2026 · Fassung 1
+
+01.01.2026
+
+Aktuelle Einordnung vorhanden.
+
+Jahresvortrag und Originale
+Jahresübernahme berichtigen
+Erfasste Kontobewegungen
+Nur nachgewiesene Bewegungen. Unbekannte Anfangssalden werden nicht ergänzt; dies ist kein bestätigter Bank-/Kassenbestand.
+Geldkonto	Zuflüsse	Abflüsse	Bewegungssaldo	Anfangs-/Endsaldo
+Jahresausgabe
+Auswertungsjahr
+Jahr anzeigen
+Jahresauswertung 2026
+
+Buchführungsbeginn laut bestätigtem Profil: 01.11.2026
+
+Alle erfassten Quellen sind eingeordnet. Die Vollständigkeit des Unternehmensjahres erfordert weiterhin Bank-, Beleg- und Sonderfallabgleich.
+Bestätigte Sicht	Betrag
+Bestätigte Einnahmen einschließlich Umsatzsteuer	0,00 €
+Bestätigte Ausgaben einschließlich bezahlter Vorsteuer	59,50 €
+Zwischensumme bestätigter Buchungen	-59,50 €
+EÜR-Ergebnis für erfasste Quellen	-59,50 €
+Bestätigte Ist-Umsatzsteuer	0,00 €
+Bestätigtes Vorsteuerrecht	19,00 €
+USt-Saldo für erfasste Quellen	-19,00 €
+Keine offenen Fälle innerhalb dieser erfassten Jahresmenge.
+Sicht	Kategorie	Betrag
+EÜR	Material	-50,00 €
+EÜR	Bezahlte abziehbare Vorsteuer	-9,50 €
+Umsatzsteuer	Vorsteuerrecht	-19,00 €
+Jahresprüfpaket festhalten
+Anlagen und lineare AfA
+Noch keine belegten neuen Anlagegüter erfasst.
+Historische Anlagen und verbleibende AfA
+Noch keine historischen Anlagen übernommen.
+Monatsperioden
+Monatsperiode prüfen
+Noch keine Einträge vorhanden.
+Unveränderliches Buchungsjournal
+Nr. 1 · Belegte frühere Jahreswerte übernehmen
+
+04.11.2026, 13:55 · Synthetic exact original year journal adoption
+
+Nachweis ansehen
+Berichtigen
+Gegenbuchen

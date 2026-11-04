@@ -1,0 +1,21 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "web/office/tests/accounting-euer-legacy-context.test.mjs",
+    "web/office/tests/accounting-euer.test.mjs",
+    "web/office/tests/accounting-open-items-context.test.mjs",
+    "web/office/tests/accounting-open-items-contract.test.mjs",
+    "web/office/tests/accounting-open-items-independent.test.mjs",
+    "web/office/tests/accounting-year-package-independent.test.mjs",
+    "web/office/tests/accounting-year-package-v2-independent-review.test.mjs",
+    "web/office/tests/accounting-year-package-v2.test.mjs",
+    "web/office/tests/accounting-year-package.test.mjs",
+    "web/office/tests/accounting-year-values-contract.test.mjs",
+    "web/office/tests/accounting-year-values-independent-lifecycle.test.mjs",
+    "web/office/tests/accounting-year-values-independent.test.mjs",
+    "web/office/tests/accounting-year-values.test.mjs"
+  ],
+  "execution": "require_escalated",
+  "counted_actual_named_assertions": true
+}

@@ -228,6 +228,8 @@ class OpeningItems:
             payments=[entry for entry in ledger['current'].values() if entry['operation']=='payment' and entry['payload']['item_key']==data['entity_key'] and entry['payload']['status']=='active']
             if payments and (not old or payload!=old['payload'] or opening!=old['details']['opening_date']):raise Problem(409,'Tatsächliche Folgezahlungen binden die Altpostenfassung; fehlerhafte Belege zuerst nachvollziehbar korrigieren.')
             if not historical:
+                from business_accounting_year_openings import require_item_change
+                require_item_change(self.office,payload,profile)
                 self._periods([opening],following=True)
                 # Existing ordinary originals must continue through their own
                 # domain. This initial import cannot silently steal a source.

@@ -328,7 +328,7 @@ class AllocationTests(unittest.TestCase):
 class AllocationMigrationTests(unittest.TestCase):
     def test_preallocation_schema_migrates_twice_preserving_signed_reports_and_final_invoice_sources(self):
         import business_schema
-        old_registry = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings', 'business_accounting_asset_openings', 'business_accounting_open_items'))
+        old_registry = tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity', 'business_accounting_refunds_v2', 'business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings', 'business_accounting_asset_openings', 'business_accounting_open_items','business_accounting_year_openings'))
         fixture_case = AllocationTests('runTest'); self.addCleanup(fixture_case.doCleanups)
         with patch.object(business_schema, 'registry', return_value=old_registry):
             fixture_case.setUp()

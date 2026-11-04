@@ -1,0 +1,365 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T18:54:00.437567+00:00",
+  "base_commit": "2e2ed5ca33b928216b940c6334cdfbbca0a14c27",
+  "scope": "Original-backed year carryovers before an intra-year software start, both clients and read-only V2 journal/original archives",
+  "overall_goal_complete": false,
+  "financial_horizon": 15,
+  "restore_report_version": 16,
+  "package_counts": {
+    "backend": 144,
+    "operator": 209
+  },
+  "source_snapshot": {
+    "path": "docs/evidence/year-values-integrated-source-snapshot-2026-11-04.json",
+    "sha256": "64facd875d023044919178d57613e2e414c79775e32a30e0d22675491b08ed18",
+    "bytes": 144295
+  },
+  "checks": [
+    {
+      "name": "backend",
+      "result": "passed",
+      "passed": 1899,
+      "executed": 1900,
+      "skipped": 1,
+      "duration_seconds": 954.469,
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-backend-2026-11-04.json",
+        "sha256": "844070303d92de1e0515345ea036a9008d7fc7f613d37f2583bbaf509d5de728",
+        "bytes": 62091
+      },
+      "log": {
+        "path": "docs/evidence/year-values-integrated-backend-2026-11-04.txt",
+        "sha256": "d1d11a6e5652bc502fb9eff22b57d2cc4c7425ed17dcb886ca666aa09df7d158",
+        "bytes": 383202
+      },
+      "changed_during_run": [],
+      "subsequent_final_source_differences": [
+        {
+          "path": "backend/online/test_accounting_asset_openings_pg.py",
+          "at_check_sha256": "71203161ae95c219100e30e36e73b3fc28af0621af3b6f04a20cabdd797aaafb",
+          "final_sha256": "912842deb9777bdf30e8a7d91e2ee78b566a3e2b0354c9f0c1825def01672b24",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        },
+        {
+          "path": "backend/online/test_accounting_open_items_pg.py",
+          "at_check_sha256": "a5a85b76d4a73f6756b341366d6ba6ec1846f71ea01957dd6391098be45a3ac7",
+          "final_sha256": "8104152b51d758ea5141088e02661e73862c7ee0e8f2595fd44bd538935001e4",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        },
+        {
+          "path": "backend/online/test_business_accounting_openings_pg.py",
+          "at_check_sha256": "3ba14e9f5380c900207c21733b11b2599613e106d4347ba14195edb1daff2bd0",
+          "final_sha256": "82be94b7963f0316b024334312758faf756192ff96db8dea0420fb3bf47f3b7d",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        },
+        {
+          "path": "backend/online/test_business_travel_pg.py",
+          "at_check_sha256": "067df0a60c715ef6a82776c4ad7cfc94eb3ea77fb0934dd5aa36ad1c1a49fa5d",
+          "final_sha256": "72033082c2aa640a92376e55ba9b9f1be6bcdfb80f82f29921080a1dab2a980e",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        }
+      ]
+    },
+    {
+      "name": "flutter",
+      "result": "passed",
+      "passed": 1542,
+      "executed": 1542,
+      "skipped": 0,
+      "duration_seconds": 633.054,
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-flutter-2026-11-04.json",
+        "sha256": "e66ad5f65ea32c993b04be2690657fe68fc6befce7b7f11b1624bdc1525ccb5b",
+        "bytes": 108244
+      },
+      "log": {
+        "path": "docs/evidence/year-values-integrated-flutter-2026-11-04.txt",
+        "sha256": "48cec0f9c9c18110b0dce5cd49dcbaed307a03c82e68e1688c77ad54f607a76f",
+        "bytes": 320955
+      },
+      "changed_during_run": [],
+      "subsequent_final_source_differences": [
+        {
+          "path": "backend/online/test_accounting_asset_openings_pg.py",
+          "at_check_sha256": "71203161ae95c219100e30e36e73b3fc28af0621af3b6f04a20cabdd797aaafb",
+          "final_sha256": "912842deb9777bdf30e8a7d91e2ee78b566a3e2b0354c9f0c1825def01672b24",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        },
+        {
+          "path": "backend/online/test_accounting_open_items_pg.py",
+          "at_check_sha256": "a5a85b76d4a73f6756b341366d6ba6ec1846f71ea01957dd6391098be45a3ac7",
+          "final_sha256": "8104152b51d758ea5141088e02661e73862c7ee0e8f2595fd44bd538935001e4",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        },
+        {
+          "path": "backend/online/test_business_accounting_openings_pg.py",
+          "at_check_sha256": "3ba14e9f5380c900207c21733b11b2599613e106d4347ba14195edb1daff2bd0",
+          "final_sha256": "82be94b7963f0316b024334312758faf756192ff96db8dea0420fb3bf47f3b7d",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        },
+        {
+          "path": "backend/online/test_business_travel_pg.py",
+          "at_check_sha256": "067df0a60c715ef6a82776c4ad7cfc94eb3ea77fb0934dd5aa36ad1c1a49fa5d",
+          "final_sha256": "72033082c2aa640a92376e55ba9b9f1be6bcdfb80f82f29921080a1dab2a980e",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        }
+      ]
+    },
+    {
+      "name": "node",
+      "result": "passed",
+      "passed": 842,
+      "executed": 842,
+      "skipped": 0,
+      "duration_seconds": 22.858,
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-node-2026-11-04.json",
+        "sha256": "c471f6706c75b32a201c508d688036f00d0c7e3b012a2af59790fedbc0c77bea",
+        "bytes": 45618
+      },
+      "log": {
+        "path": "docs/evidence/year-values-integrated-node-2026-11-04.txt",
+        "sha256": "a68ce84e85ab29a45eb3be47bbbbbfbcea15c5439265767e53f1aeb5dba2f90a",
+        "bytes": 96085
+      },
+      "changed_during_run": [],
+      "subsequent_final_source_differences": [
+        {
+          "path": "web/office/office.css",
+          "at_check_sha256": "011d4162cb71da7b80ee73b7e59dd9074a36ad67aea3532f732e0c7761142933",
+          "final_sha256": "5df39fa68d4fc52d5f499f2d2578c6e9fa34db77dc0967cc615939e6e85eb400",
+          "covered_by": "docs/evidence/year-values-mobile-table-2026-11-04/manifest.json"
+        }
+      ]
+    },
+    {
+      "name": "packages",
+      "result": "passed",
+      "passed": 16,
+      "executed": 16,
+      "skipped": 0,
+      "duration_seconds": 31.048,
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-packages-2026-11-04.json",
+        "sha256": "c592a158d4c398c9b19731b90eaaa672b7c86453bffe238c9761756c171dd866",
+        "bytes": 66398
+      },
+      "log": {
+        "path": "docs/evidence/year-values-integrated-packages-2026-11-04.txt",
+        "sha256": "102f36cb70fa76768df482b2f149eaa5fda02839ed707d6a3155d3284a376756",
+        "bytes": 3951
+      },
+      "changed_during_run": [],
+      "subsequent_final_source_differences": [
+        {
+          "path": "backend/online/test_accounting_asset_openings_pg.py",
+          "at_check_sha256": "71203161ae95c219100e30e36e73b3fc28af0621af3b6f04a20cabdd797aaafb",
+          "final_sha256": "912842deb9777bdf30e8a7d91e2ee78b566a3e2b0354c9f0c1825def01672b24",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        },
+        {
+          "path": "backend/online/test_accounting_open_items_pg.py",
+          "at_check_sha256": "a5a85b76d4a73f6756b341366d6ba6ec1846f71ea01957dd6391098be45a3ac7",
+          "final_sha256": "8104152b51d758ea5141088e02661e73862c7ee0e8f2595fd44bd538935001e4",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        },
+        {
+          "path": "backend/online/test_business_accounting_openings_pg.py",
+          "at_check_sha256": "3ba14e9f5380c900207c21733b11b2599613e106d4347ba14195edb1daff2bd0",
+          "final_sha256": "82be94b7963f0316b024334312758faf756192ff96db8dea0420fb3bf47f3b7d",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        },
+        {
+          "path": "backend/online/test_business_travel_pg.py",
+          "at_check_sha256": "067df0a60c715ef6a82776c4ad7cfc94eb3ea77fb0934dd5aa36ad1c1a49fa5d",
+          "final_sha256": "72033082c2aa640a92376e55ba9b9f1be6bcdfb80f82f29921080a1dab2a980e",
+          "covered_by": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json"
+        }
+      ]
+    },
+    {
+      "name": "analyze",
+      "result": "passed",
+      "issues": 0,
+      "executed": 0,
+      "skipped": 0,
+      "duration_seconds": 16.935,
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-analyze-2026-11-04.json",
+        "sha256": "f3fb8ac72633c911f6def672db994f79703957429fbcf9ae647010469906ab5a",
+        "bytes": 46667
+      },
+      "log": {
+        "path": "docs/evidence/year-values-integrated-analyze-2026-11-04.txt",
+        "sha256": "ded10123101dc95bcf127a0804a2fcb08afa08943f1a5e559a460c2f73d35e2b",
+        "bytes": 284
+      },
+      "changed_during_run": [],
+      "subsequent_final_source_differences": []
+    }
+  ],
+  "actual_postgresql": {
+    "manifest": {
+      "path": "docs/evidence/year-values-financial-postgres-2026-11-04/manifest.json",
+      "sha256": "c4f7f71d6162a8b7bfec799595b797c5d7aa9d52268e8b5ab4e4b9e317d20bd7",
+      "bytes": 32954
+    },
+    "unique_cases": 121,
+    "passed_latest_outcomes": 121,
+    "total_executions": 125,
+    "initial_passed": 118,
+    "initial_fixture_errors": 3,
+    "targeted_followup_passed": 4,
+    "followup_changes": "Four online PostgreSQL test fixtures only; no runtime changes"
+  },
+  "actual_browsers": [
+    {
+      "workflow": "year-values",
+      "exit_code": 0,
+      "duration_seconds": 69.341,
+      "log": "docs/evidence/year-values-integrated-browser-year-values-2026-11-04.txt",
+      "log_sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+      "recorded_at_utc": "2026-11-04T13:30:47.033607+00:00",
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-browser-year-values.json",
+        "sha256": "b0de210cb62c537f8ba8f3c60ac5a1d224a35bac1acd01f29ce07064cb1d8411",
+        "bytes": 305
+      },
+      "run_label": "year-values"
+    },
+    {
+      "workflow": "year-package-v2",
+      "exit_code": 0,
+      "duration_seconds": 40.339,
+      "log": "docs/evidence/year-values-integrated-browser-year-package-v2-2026-11-04.txt",
+      "log_sha256": "15aab674ceb0a169e210b8c56c3176d2de8136d04880166e61e31ab6b388f4b1",
+      "recorded_at_utc": "2026-11-04T13:30:24.851271+00:00",
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-browser-year-package-v2.json",
+        "sha256": "1b3855116dca6e6d725673d37dd687640fa9497678b2b2dfa23c1df6eb3b130d",
+        "bytes": 313
+      },
+      "run_label": "year-package-v2"
+    },
+    {
+      "workflow": "legacy-euer",
+      "exit_code": 0,
+      "duration_seconds": 63.155,
+      "log": "docs/evidence/year-values-integrated-browser-legacy-euer-2026-11-04.txt",
+      "log_sha256": "764987094c11d04cfc59fe6c69b29f15219d58a729d340b652b4ec1dd87eac8b",
+      "recorded_at_utc": "2026-11-04T13:33:29.998101+00:00",
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-browser-legacy-euer.json",
+        "sha256": "0ba316d4ebd7b58525238a456789273e40e07880fb20331fdb9761512dc778ed",
+        "bytes": 305
+      },
+      "run_label": "legacy-euer"
+    },
+    {
+      "workflow": "accounting-open-items",
+      "exit_code": 0,
+      "duration_seconds": 71.281,
+      "log": "docs/evidence/year-values-integrated-browser-accounting-open-items-2026-11-04.txt",
+      "log_sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24",
+      "recorded_at_utc": "2026-11-04T13:33:38.271953+00:00",
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-browser-accounting-open-items.json",
+        "sha256": "9b6db4b647d9b8294a607385ee8338c90e600efe56390e876bebdfed1d1f17e0",
+        "bytes": 325
+      },
+      "run_label": "accounting-open-items"
+    },
+    {
+      "workflow": "company-events",
+      "exit_code": 0,
+      "duration_seconds": 51.199,
+      "log": "docs/evidence/year-values-integrated-browser-company-events-2026-11-04.txt",
+      "log_sha256": "bd691f7412c8bd1fa82cd8dbff06f4b83aa3a513faec6affa173abbcd3a29a32",
+      "recorded_at_utc": "2026-11-04T13:33:19.983372+00:00",
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-browser-company-events.json",
+        "sha256": "32e259fe35b97fdf881b08162d79cb6f20f37447c51ea7c4e56135c42b661a61",
+        "bytes": 311
+      },
+      "run_label": "company-events"
+    },
+    {
+      "workflow": "year-values",
+      "exit_code": 0,
+      "duration_seconds": 25.091,
+      "log": "docs/evidence/year-values-integrated-browser-year-values-mobile-table-2026-11-04.txt",
+      "log_sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+      "recorded_at_utc": "2026-11-04T13:43:58.865505+00:00",
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-browser-year-values-mobile-table.json",
+        "sha256": "c2bd061eca58f0ff31ee7827ae8b3585f3392b65aa067b6d1881fe16e0ced5ad",
+        "bytes": 318
+      },
+      "run_label": "year-values-mobile-table"
+    },
+    {
+      "workflow": "year-values",
+      "exit_code": 0,
+      "duration_seconds": 26.494,
+      "log": "docs/evidence/year-values-integrated-browser-year-values-mobile-table-final-2026-11-04.txt",
+      "log_sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+      "recorded_at_utc": "2026-11-04T13:46:42.742795+00:00",
+      "metadata": {
+        "path": "docs/evidence/year-values-integrated-browser-year-values-mobile-table-final.json",
+        "sha256": "12d9ab455cfa1c1e5d7533fce302450a7d55b94d8e3df600e8f328b6b66cd89a",
+        "bytes": 324
+      },
+      "run_label": "year-values-mobile-table-final"
+    }
+  ],
+  "browser_artifacts": {
+    "path": "docs/evidence/year-values-integrated-browser-2026-11-04/manifest.json",
+    "sha256": "676137dfd82d999132817b1ed07c8cec459e30507ceee4c3fd4f0241ea0c8fdf",
+    "bytes": 15173
+  },
+  "independent_merge_review": {
+    "manifest": {
+      "path": "docs/evidence/year-values-integrated-independent-2026-11-04/manifest.json",
+      "sha256": "8270267dda1c3372308125e38fd64caa588bc607397bb0d182ae5775f068165f",
+      "bytes": 65174
+    },
+    "final_bindings_verified": 398,
+    "final_binding_differences": []
+  },
+  "mobile_css_followup": {
+    "path": "docs/evidence/year-values-mobile-table-2026-11-04/manifest.json",
+    "sha256": "2a349165727e59faa749cfd3479d92332744cdf8f4cef25fff316086b40e24db",
+    "bytes": 6316
+  },
+  "frozen_owner_and_review_manifests": {
+    "docs/evidence/year-values-backend-2026-11-04/manifest.json": "6c665abc663964c27dff1a38baf61a895d064904a7aa3957079e14e84db8221a",
+    "docs/evidence/year-values-independent-2026-11-04/manifest.json": "4d35573d747769314fbe81723db15af96bb22a8ab1ccd0af2e67cc41f8dd9131",
+    "docs/evidence/year-values-browser-2026-11-04/manifest.json": "7307bc17673de238bb8403b0772cfdd01ded47494843312eafea18edf96fe520",
+    "docs/evidence/year-values-browser-independent-2026-11-04/manifest.json": "d4a11801dd4d44bd615ae466dd152994f39a19d68f03ea7e7d097dc9fc637c62",
+    "docs/evidence/year-values-browser-integrated-2026-11-04/manifest.json": "537aa77a0317c22e20522e8e2c5a4528721cea3b1f6165398e70ad53bb11d4eb",
+    "docs/evidence/year-values-browser-profile-void-2026-11-04/manifest.json": "9c327e56184d7245c4a9b35f957f96649d5f6a048f3503a84d142a5765b13664",
+    "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/manifest.json": "30db87e3248c02ff48aa3f7ffb219355f5ac03e0df25a31171269920f71da17f",
+    "docs/evidence/year-values-browser-profile-void-integrated-2026-11-04/manifest.json": "10d27c8952fbc7df9c0b8b6f2af48cb9daf4ec565b9c575c47bdf2723d1e424e",
+    "docs/evidence/year-values-native-2026-11-04/manifest.json": "35bd199aa0e5660bd09f04eb77c9d1c2fc9a4e07708d59532a3dbc831fabadfa",
+    "docs/evidence/year-values-native-review-fix-2026-11-04/manifest.json": "d35d015b5130c5fc1f39e499bef5b8d3c1b99422db45f3a541d82a071e5bd7e3",
+    "docs/evidence/year-values-native-independent-2026-11-04/manifest.json": "897039f27f7da7b425c2606bf765592276027543e8fd5f3377ec238bddb96f2f",
+    "docs/evidence/year-values-native-integrated-2026-11-04/manifest.json": "cac327df95305ece337c886b02e77112145783a988a787cae3232ba1eaa6cfbd",
+    "docs/evidence/year-package-v2-2026-11-04/manifest.json": "f3f61ddbca9e2aadfe4189cb21613a86ceb2bede9249700903c7e4e3b1873c02",
+    "docs/evidence/year-package-v2-clients-2026-11-04/manifest.json": "c9558abddb86f6ba05c98972defb224e88a0d72d07ae3cf45dce8b31370caff5",
+    "docs/evidence/year-package-v2-independent-backend-2026-11-04/manifest.json": "c92cf18a932a7b7b7c224cd61df587c8ee2ad23986267a4b8f2262a4c4a40413",
+    "docs/evidence/year-package-v2-independent-clients-2026-11-04/manifest.json": "bd7ec26bf9056bf8c32ee25b762b5d33b2a204621a865dcb8f8fac3c0dc66da9"
+  },
+  "source_boundary": "Full checks had no in-run changes. Afterwards only four historical PG test fixtures and scoped mobile CSS changed; explicit per-check exceptions and targeted final validations are preserved.",
+  "trust": {
+    "intrinsic_dependency_closure": false,
+    "required": "separately authenticated external archive SHA-256",
+    "official_tax_return": false,
+    "datev_certified": false
+  },
+  "limits": [
+    "Unweighted requirements percentage is not effort completion or an ETA",
+    "No complete bookkeeping or A-G acceptance claimed",
+    "No production migration, payment, tax filing, deploy or remote push"
+  ]
+}

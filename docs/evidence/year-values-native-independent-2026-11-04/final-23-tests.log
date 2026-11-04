@@ -1,0 +1,25 @@
+00:00 +0: loading /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart
+00:00 +0: independent actual missing_start preserves readable original history and receipt
+00:00 +1: independent actual missing_vat_timing preserves readable original history and receipt
+00:00 +2: independent historical void exception does not allow new_active
+00:00 +3: independent historical void exception does not allow void_without_write_rights
+00:00 +4: independent evidenced zero remains distinct from missing controls or missing journal
+00:00 +5: independent genuine original void after EÜR reverse remains possible with missing current start
+00:00 +6: independent rehashed cash_date cannot override unchanged actual original
+00:00 +7: independent rehashed cash_cent cannot override unchanged actual original
+00:00 +8: independent rehashed net_projection cannot override unchanged actual original
+00:00 +9: independent rehashed account_projection cannot override unchanged actual original
+00:00 +10: independent rehashed vat_date cannot override unchanged actual original
+00:00 +11: independent rehashed vat_deduction_date cannot override unchanged actual original
+00:00 +12: independent old 19 VAT and 59.50 expense retain exact distinct days without cash
+00:00 +13: independent missing controls is not converted to an implicit zero journal
+00:00 +14: independent missing journal is not converted to an implicit zero journal
+00:00 +15: independent actual private old-item history remains required for a valid yearly entry
+00:00 +16: independent yearly controls editor closes when page unmounts with retained navigator
+00:02 +17: independent yearly controls editor closes on allowed parent session replacement
+00:02 +18: independent private controls close on background without removing foreign route
+00:02 +19: independent private controls close on dispose_under_unrelated_dialog without removing foreign route
+00:03 +20: independent actual original file chooser protects background boundary
+00:03 +21: independent actual original file chooser protects session boundary
+00:04 +22: independent actual original file chooser protects write_failure boundary
+00:04 +23: All tests passed!

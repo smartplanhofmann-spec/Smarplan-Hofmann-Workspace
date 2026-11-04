@@ -1,0 +1,16 @@
+✔ independent actual V2 pending_review stays bound to retained export and separately read metadata (13.337722ms)
+✔ independent actual V2 partial_coverage stays bound to retained export and separately read metadata (5.21648ms)
+✔ independent actual V2 complete_history stays bound to retained export and separately read metadata (2.052849ms)
+✔ independent actual V2 old_partial_after_correction stays bound to retained export and separately read metadata (2.373132ms)
+✔ independent new reader preserves every actual V1 export/metadata/archive (6.428333ms)
+✔ independent historical partial V2 is unchanged after actual new complete correction (1.009449ms)
+✔ independent V2 metadata cannot switch versions or external archive anchor after initial read (0.3387ms)
+✔ independent altered V2 ZIP cannot use its own newly computed hash as the previous external anchor (0.685712ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 70.056108

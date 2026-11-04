@@ -1,0 +1,44 @@
+✔ actual v2 pending_review export and original archive stay exactly bound (6.204116ms)
+✔ actual v2 partial_coverage export and original archive stay exactly bound (1.671717ms)
+✔ actual v2 complete_history export and original archive stay exactly bound (1.134739ms)
+✔ actual v2 old_partial_after_correction export and original archive stay exactly bound (1.259166ms)
+✔ later original correction preserves actual earlier v2 archive (2.203548ms)
+✔ v1 remains accepted and future or non-string versions remain rejected (1.799189ms)
+✔ a format switch after first metadata cannot replace bound archive (0.259952ms)
+✔ actual v1 and v2 original exports and archive bytes cannot cross (0.600554ms)
+✔ actual immutable ordinary_correction export, metadata and original ZIP remain bound (1.863796ms)
+✔ actual immutable incomplete_year export, metadata and original ZIP remain bound (1.507509ms)
+✔ actual immutable old_after_profile_change export, metadata and original ZIP remain bound (1.175279ms)
+✔ actual immutable historical_assets_old_supplier export, metadata and original ZIP remain bound (3.019876ms)
+✔ actual immutable public_payroll export, metadata and original ZIP remain bound (0.663879ms)
+✔ actual immutable public_travel export, metadata and original ZIP remain bound (0.745202ms)
+✔ same original export stays byte-identical after later profile change (0.301874ms)
+✔ foreign identity, rewritten completion, private scope, path and hostile size are rejected (0.735478ms)
+✔ CSV/report mutation and one-byte archive mutation cannot pass original hashes (0.914247ms)
+✔ read-only mode works without write permissions; either read permission is required (0.162775ms)
+✔ actual UI download reads only GET and checks source rights again after bytes (37.554586ms)
+✔ late metadata after close cannot reveal or download old export (1.459497ms)
+✔ late archive after close cannot reveal or download old export (3.562378ms)
+✔ late metadata after other cannot reveal or download old export (1.757155ms)
+✔ late archive after other cannot reveal or download old export (2.547636ms)
+✔ late metadata after session cannot reveal or download old export (1.075009ms)
+✔ late archive after session cannot reveal or download old export (1.64733ms)
+✔ late metadata after view cannot reveal or download old export (1.550173ms)
+✔ late archive after view cannot reveal or download old export (2.202646ms)
+✔ export selection change cannot be overwritten by earlier metadata response (2.25145ms)
+✔ fresh source denial at initial removes private content and title (1.080466ms)
+✔ fresh source denial at download removes private content and title (0.900085ms)
+✔ fresh source denial at after-bytes removes private content and title (4.063267ms)
+✔ server global read revocation during archive prevents file output (9.949269ms)
+✔ late authorization failure cannot close a newer unrelated dialog (0.93035ms)
+✔ changed authenticated metadata after bytes never downloads mixed export or instance (1.8262ms)
+✔ background invalidation during archive hashing never starts a download (1.292205ms)
+✔ a known public payroll or travel source cannot lose its explicit private-original boundary (0.193332ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 199.089248

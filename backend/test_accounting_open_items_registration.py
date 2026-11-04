@@ -19,6 +19,11 @@ MODULE='business_accounting_open_items'
 class OpeningItemRegistration(unittest.TestCase):
     office=fixture.OpeningRegistrationTests.office
 
+    def setUp(self):
+        # Preserve the actual historical horizon14/report15 contract.
+        prior=tuple(spec for spec in business_schema.registry() if spec.name!='business_accounting_year_openings')
+        guard=patch.object(business_schema,'registry',return_value=prior);guard.start();self.addCleanup(guard.stop)
+
     def test_exact_new_scope_and_reject_omitted_boolean_extra_old_horizon(self):
         office=self.office();fixture.require_review(office);evidence=fixture.report(office)
         self.assertEqual((evidence['schema'],evidence['accounting_horizon']['schema_version']),(15,14))

@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T13:21:46.061634+00:00",
+  "scope": "Independent actual-fixture browser historical void despite missing current profile; separate addendum, not a replacement of original freeze",
+  "previous_unchanged": [
+    {
+      "path": "docs/evidence/year-values-browser-2026-11-04/manifest.json",
+      "bytes": 25953,
+      "sha256": "7307bc17673de238bb8403b0772cfdd01ded47494843312eafea18edf96fe520"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-independent-2026-11-04/manifest.json",
+      "bytes": 12177,
+      "sha256": "d4a11801dd4d44bd615ae466dd152994f39a19d68f03ea7e7d097dc9fc637c62"
+    }
+  ],
+  "original_result": {
+    "executed": 4,
+    "passed": 3,
+    "failed": 1
+  },
+  "new_cases": 7,
+  "final_combined_independent_result": {
+    "executed": 37,
+    "passed": 37,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "runtime_and_sources": {
+    "web/office/accounting-year-values-contract.js": "a701fdbd31e39454c97fa3da9cbf3ad292510b13f5fa537ad2d50e19c745b114",
+    "web/office/accounting-year-values.js": "daeb81263feb4b5e580638282d46811e47391efc6ee3ea65dac344e114517a4b",
+    "web/office/accounting-euer.js": "025d7b69b0c92a1fe8ed9db23b2984dd0984a8962721f493772150a52bd3bced",
+    "web/office/office.js": "5f26dad2790f008752c2194fc29e3363afc5ecf471d7e8af9d96f174549678b8",
+    "docs/fixtures/accounting_year_values_native_independent_v1.json": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+    "scripts/generate-year-values-native-independent-fixture.py": "68d6ce09b3b8d9e1a61e165157f71970f2f2b4eb55f6202bbc5f071c473d71e3",
+    "web/office/tests/accounting-year-values-profile-void-independent.test.mjs": "013887e4583a4dbc71ab99a3ea98b60e816f85c9a0027a22117bd40c2089ca3b",
+    "web/office/tests/accounting-year-values-independent.test.mjs": "f0cf34715601a1315ef9e15ee3df31102da4ad16721319ec49f5900ea873f4f1",
+    "web/office/tests/accounting-year-values-independent-lifecycle.test.mjs": "f60f30f62b22a96965bb10aa82eaf4df03eb2974830c9378344b7f2bdff6b024",
+    "web/office/tests/accounting-year-values-independent-harness.mjs": "a292a21c019ffe7480e3e3f73fad3794274728f560f54cc0cc17fa83b3124766"
+  },
+  "original_manifest_unchanged": true,
+  "product_or_backend_edits_by_reviewer": false,
+  "pg_used": false,
+  "independent_chromium_executed": false,
+  "remaining_confirmed_findings": [],
+  "report": {
+    "path": "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_PROFIL_AUFHEBUNG_GEGENPRUEFUNG_2026-11-04.md",
+    "bytes": 4543,
+    "sha256": "b122c1d7815c8d92f06ce45358da7301bb85e3dbbacec82ef80bdbaa99543186"
+  },
+  "test": {
+    "path": "web/office/tests/accounting-year-values-profile-void-independent.test.mjs",
+    "bytes": 5439,
+    "sha256": "013887e4583a4dbc71ab99a3ea98b60e816f85c9a0027a22117bd40c2089ca3b"
+  },
+  "evidence": [
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting-euer.js",
+      "bytes": 58707,
+      "sha256": "025d7b69b0c92a1fe8ed9db23b2984dd0984a8962721f493772150a52bd3bced"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting-year-values-contract.js",
+      "bytes": 20667,
+      "sha256": "ca5035e24120917fc501d214d0d4c3d3e8dce98c7bbdbc4b52fb7d15964dfa7a"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting-year-values-profile-void-independent.test.mjs",
+      "bytes": 3500,
+      "sha256": "62019ca50c0916660c8ae67f20c3bd330d7abc342536e55db41e4f109d03c265"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting-year-values.js",
+      "bytes": 27626,
+      "sha256": "79d6dee5dd9c463b7155cefa639b8bde0c12bdf8b9491cdae2597b72e6f91538"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting_year_values_native_independent_v1.json",
+      "bytes": 137367,
+      "sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/office.js",
+      "bytes": 347584,
+      "sha256": "5f26dad2790f008752c2194fc29e3363afc5ecf471d7e8af9d96f174549678b8"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/red.txt",
+      "bytes": 2092,
+      "sha256": "e4a478de11650cd11f4c11dee7021e7c586251442fa77b0005faca227c51dd9b"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/source-hashes.json",
+      "bytes": 1448,
+      "sha256": "2d9cfa127a61b0187d5ffefd690b77a1d32ab04a190a9fdb15d62109c3709cca"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/final/independent-37.txt",
+      "bytes": 9368,
+      "sha256": "78b4508d5be204cf47a35d75f0d40a41f4e00fa763c5d5f8f0f456d697efddd7"
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/final/run.json",
+      "bytes": 1873,
+      "sha256": "7f18ba956b8d3c68f84f23b093a69cad335025a752f7acd63cc0b558d9449c79"
+    }
+  ]
+}

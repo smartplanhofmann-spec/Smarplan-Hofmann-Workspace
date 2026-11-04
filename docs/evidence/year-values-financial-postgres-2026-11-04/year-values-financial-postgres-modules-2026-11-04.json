@@ -1,0 +1,30 @@
+{
+  "origin": "Distinct actual test modules in preceding109casefinancialmatrix plus six named current/year/joint regressions; explicit historical-opening-item module previously covered by separate targeted run",
+  "modules": [
+    "online.test_accounting_asset_openings_pg",
+    "online.test_business_accounting_euer_pg",
+    "online.test_business_accounting_openings_pg",
+    "online.test_business_bank_reconciliation_pg",
+    "online.test_business_catalog_imports_pg",
+    "online.test_business_catalog_opening_restore_pg",
+    "online.test_business_payroll_cash_pg",
+    "online.test_business_payroll_multiple_pg",
+    "online.test_business_travel_pg",
+    "online.test_postgres_accounting_allocations_integration",
+    "online.test_postgres_accounting_capacity_integration",
+    "online.test_postgres_accounting_components_integration",
+    "online.test_postgres_accounting_integration",
+    "online.test_postgres_accounting_profile_integration",
+    "online.test_postgres_accounting_refunds_integration",
+    "online.test_postgres_accounting_refunds_v2_integration",
+    "online.test_assets_source5_catalog_restore_pg",
+    "online.test_open_items_events_catalog_restore_pg",
+    "online.test_accounting_year_openings_pg",
+    "online.test_accounting_year_package_pg",
+    "online.test_accounting_year_package_v2_pg",
+    "online.test_year_values_full_financial_restore_pg",
+    "online.test_catalog_v2_source5_assets_restore_pg",
+    "online.test_events_catalog_assets_source5_restore_pg",
+    "online.test_accounting_open_items_pg"
+  ]
+}

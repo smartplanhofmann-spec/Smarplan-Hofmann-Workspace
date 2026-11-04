@@ -24,7 +24,7 @@ class HistoricalAssetRegistration(unittest.TestCase):
     office=fixture.OpeningRegistrationTests.office
 
     def setUp(self):
-        previous=tuple(spec for spec in business_schema.registry() if spec.name!='business_accounting_open_items')
+        previous=tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_open_items','business_accounting_year_openings'))
         guard=patch.object(business_schema,'registry',return_value=previous);guard.start();self.addCleanup(guard.stop)
 
     def test_current_scope_requires_exact_assets_and_old_scope_cannot_unlock_new_restore(self):

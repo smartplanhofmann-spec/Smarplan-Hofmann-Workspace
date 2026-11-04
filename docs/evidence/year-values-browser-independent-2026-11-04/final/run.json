@@ -1,0 +1,26 @@
+{
+  "started_at_utc": "2026-11-04T13:05:01.112860+00:00",
+  "finished_at_utc": "2026-11-04T13:05:01.610811+00:00",
+  "cwd": "/workspace/smartplan-opening-year-values-20261104",
+  "command": [
+    "node",
+    "--test",
+    "--test-isolation=none",
+    "--test-timeout=5000",
+    "--test-reporter=tap",
+    "web/office/tests/accounting-year-values-independent.test.mjs",
+    "web/office/tests/accounting-year-values-independent-lifecycle.test.mjs"
+  ],
+  "exit_code": 0,
+  "summary_lines": [
+    "# Subtest: independent original: source hash alone cannot legitimize contradictory historical posting amount",
+    "# tests 30",
+    "# suites 0",
+    "# pass 30",
+    "# fail 0",
+    "# cancelled 0",
+    "# skipped 0",
+    "# todo 0",
+    "# duration_ms 447.165759"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "workflow": "accounting-open-items",
+  "exit_code": 0,
+  "duration_seconds": 71.281,
+  "log": "docs/evidence/year-values-integrated-browser-accounting-open-items-2026-11-04.txt",
+  "log_sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24",
+  "recorded_at_utc": "2026-11-04T13:33:38.271953+00:00"
+}

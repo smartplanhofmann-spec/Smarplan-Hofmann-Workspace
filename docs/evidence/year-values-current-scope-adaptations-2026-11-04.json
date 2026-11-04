@@ -1,0 +1,25 @@
+{
+  "scope": "Four existing joint fixtures use current15/16; deliberately historical13/12 evidence explicitly excludes the later year_values family as well as opening_items and historical_assets. No product change.",
+  "files": [
+    {
+      "path": "backend/online/test_catalog_v2_source5_assets_restore_pg.py",
+      "before_sha256": "47d6ce2cdc737e2d3650acd0beefaa72c171cbae44aac20a00d1def9fddd0691",
+      "after_sha256": "f0efdb3cde1d2c4f408433d81ed613248d2660a60327f03dc77d2b59bc21f9e2"
+    },
+    {
+      "path": "backend/online/test_events_catalog_assets_source5_restore_pg.py",
+      "before_sha256": "239517ae29d1c7d3557ed7cbf04ead0eacb2ad694c033868b732dc29a17ec917",
+      "after_sha256": "82ae02f37dc75171424389d3e7b2d1364bd04ca4271c80db79c1c595b401e777"
+    },
+    {
+      "path": "backend/online/test_open_items_events_catalog_restore_pg.py",
+      "before_sha256": "223c6268598234b3a9a11ed0af0ba61e05610a974de81e0b5dcf62397e2f9240",
+      "after_sha256": "97609a02a11d0dbbbfc2ce784b8b0809baeadd4bc3696dd39ea8c48db3822463"
+    },
+    {
+      "path": "backend/online/test_assets_source5_catalog_restore_pg.py",
+      "before_sha256": "f31d438e4c3105d152244c8cd64009603d64d8516f6573affb151e024652acd5",
+      "after_sha256": "153f1001871179e89f681a3ac20ca3737a846e46cb90063dc41ea24f3ee1fb2f"
+    }
+  ]
+}

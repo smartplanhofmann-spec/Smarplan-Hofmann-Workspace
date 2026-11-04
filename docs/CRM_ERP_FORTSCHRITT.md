@@ -2019,3 +2019,50 @@ keinen intrinsischen Vollständigkeitsbeweis alter Abhängigkeiten. Frühere ech
 Gegenfälle bleiben archiviert. Keine finanzielle Mutation oder neue Migration;
 Horizont 14/Bericht 15 bleiben erhalten. Jahresvorträge samt V2-Archivanschluss,
 weitere Steuer-/Lohnfälle, Gesamtabnahmen und externe Nachweise laufen weiter.
+
+
+## 04.11.2026 – Integrationsstand: Jahresvorträge und V2-Jahresarchive
+
+Der Kandidat auf `2e2ed5c` verbindet belegte Jahreswerte vor einem unterjährigen
+Softwarebeginn mit beiden Clients, der EÜR und dem getrennt versionierten
+Original-/Journalarchiv V2. Tatsächliche alte Netto-/Steueranteile und frühere
+Vorsteuerzeitpunkte bleiben erhalten; der Vortrag erzeugt keine neue Zahlung
+oder erneuten Vorsteueranspruch. Bestehende V1-Archive und Quittungen bleiben
+bytegleich. [Umfang und Nachweise](CRM_ERP_JAHRESVORTRAG_GESAMTPRUEFUNG_2026-11-04.md).
+
+Die vollständigen Prüfungen bestehen mit 1.899 von 1.900 Backendfällen
+(ein vorhandener Windows-Skip), 1.542 Flutter- und 842 Nodefällen,
+Analyse ohne Befund und 16 Paketprüfungen. Fünf tatsächliche Browserabläufe
+sind grün: Jahresvortrag 69,341 Sekunden, V2-ZIP 40,339, bestehende EÜR 63,155,
+Altposten 71,281 und Ereignisse 51,199. Ein reiner CSS-Nachtrag schützt Datum,
+SKR04-Konto und Betrag vor zerrissener Darstellung bei 390 Pixeln; ein weiterer
+Root-Browsernachlauf besteht in 26,494 Sekunden. Die endgültige Bindung dieses
+Darstellungsnachtrags und des Gesamtstands liegt im maschinellen Gesamtnachweis vor.
+
+Die vollständige Finanzmatrix lief einmal über 25 Module mit 121 tatsächlich
+unterschiedlichen Fällen: 118 bestanden zunächst, drei Fehler betrafen bewusst
+historische Testaufbauten. Nach Ende aller Gesamtprüfungen wurden ausschließlich
+vier PG-Testdateien korrigiert und genau vier Methoden erneut geprüft: 4/4 grün.
+Damit haben alle 121 unterschiedlichen Fälle ein bestandenes letztes Ergebnis;
+125 Ausführungen sind nicht 125 unterschiedliche Fälle. Die 517 Backendquellen
+waren während des vollständigen Laufs unverändert. Danach weichen ausschließlich
+die vier freigegebenen Testdateien ab; Produktlogik, Appdateien und Paketregister
+wurden durch diesen Nachlauf nicht geändert. Erstlogs und Originaltesttexte
+bleiben [dauerhaft erhalten](evidence/year-values-financial-postgres-2026-11-04/manifest.json).
+
+Der neue gemeinsame gefüllte Restore erhält Jahresjournal, alte Centanteile,
+neue Restzahlungen, Anfangssaldo, Anlagen, Source5, Kataloge und Ereignisse.
+Er belegt 1.438,00 € EÜR-Ausgaben bei 178,50 € neuen Auszahlungen und 821,50 €
+Bestand. Beide Archivversionen bleiben vor und nach der ausdrücklichen
+Restorefreigabe unverändert. Finanzhorizont 15 und Bericht 16 umfassen die
+neue Quellenfamilie; 144 Backend- und 209 Betreiberpfade sind registriert.
+Die abschließende lokale PostgreSQL-Nachkontrolle bestätigt nur die Testdatenbank
+und keine weiteren Verbindungen oder Restoreziele.
+
+Die endgültige Quellbindung und archivierten Prüfläufe belegen diesen
+technisch integrierten Stand. Gesamtbuchhaltung und A–G bleiben offen. Die
+Statusverteilung bleibt 40 von 62 Zeilen implementiert/getestet (64,5 %, rund
+65 %, ungewichtet), fünf teilweise, elf offen und sechs extern blockiert;
+keine Fertigstellungs- oder Zeitquote. Parallele Isolation, native Assistenten-/
+Sprachabläufe, Service/Betriebsmittel und private Lohnvergleichs-/Quellenpakete
+sind nicht Teil dieses Checkpoints.

@@ -1,0 +1,11 @@
+# Native Jahresvorträge im gemeinsamen Finanzstand
+
+Die geprüften nativen Jahresvorträge wurden am 04.11.2026 in `smartplan-year-values-integration-20261104` zusammengeführt. Ausgangspunkt war Commit `2e2ed5ca33b928216b940c6334cdfbbca0a14c27` mit den bereits vorhandenen Jahresvortrags-Backend- und Jahrespaket-v2-Ergänzungen.
+
+Übernommen wurden die beiden neuen Jahresvortragdateien, ihre drei eigenen Tests, der unabhängige Reviewtest, tatsächliche Fixtures, Generatoren sowie alle gebundenen Owner- und Reviewnachweise. Die ursprünglichen roten Dialog-/Aufhebungsbelege und der additive Sessionfix bleiben historisch erhalten. Der bereits vorhandene finale Altposten-Reader ist bytegleich und wurde nicht ersetzt.
+
+Die gemeinsame EÜR-Datei erhielt ausschließlich 88 zusätzliche Zeilen; die Sessiondatei ausschließlich 128. Sämtliche vorherigen Zeilen bleiben erhalten. Damit bestehen die ursprünglichen Altposten-, Jahrespaket-v1/v2-, Unternehmensereignis-, Katalog- und Source5-Anschlüsse weiter. Der enge Sessionnachtrag für eine belegte historische Aufhebung bei fehlendem heutigem Starttag ist enthalten. API, gemeinsamer Dateiexporter, Backend, Browser, CI und Paketskripte wurden durch diese Integration nicht geändert.
+
+Der tatsächliche gemeinsame Lauf besteht **257/257 Tests aus 21 Dateien**. Er umfasst die nativen Jahresvortrag- und unabhängigen Reviewfälle, EÜR/Accounting, Altposten, Jahrespaket-v1/v2, Session- und Ladeparallelität, Unternehmensereignisse und datierte Katalog-Dokumentabläufe. Tatsächliche lokale HTTP-Abläufe einschließlich der 390-Pixel-Formulare und ZIP-Downloads sind im selben Lauf enthalten. Die Analyse der fünf unmittelbar betroffenen Runtime- und vier Jahresvortragtestdateien meldet **0 Probleme**.
+
+Die eigenen und unabhängigen Ursprungsnachweise werden nicht auf neue Integrationshashes umgeschrieben. Der gesonderte [Integrationsnachweis](evidence/year-values-native-integrated-2026-11-04/README.md) bindet ihre unveränderten Bytes an die jetzt zusammengeführten Runtime-Dateien, die genauen Vorher-/Nachherhashes und den tatsächlichen gemeinsamen Testlauf. Roots vollständiger App-Lauf und unabhängiger Gesamtmerge-Review sind eigene nachfolgende Schritte. Keine Commits oder Produktivkontakte.

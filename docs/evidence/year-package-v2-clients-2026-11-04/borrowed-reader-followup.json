@@ -1,0 +1,7 @@
+{
+  "reason": "Owner independently reproduced source DTO internal date/net/posting mismatches; updated borrowed reader, own V2 readers unchanged.",
+  "path": "web/office/accounting-year-values-contract.js",
+  "before_sha256": "120ff8c0ce08b9694f07533df53e52f89937156a66a5b2f0db6f1a0d4ad77f8f",
+  "sha256": "58c08734d5dbe55954415735e02b3f646fb378e8e2007bb7907c8d81f22b3459",
+  "owner_source": "/workspace/smartplan-opening-year-values-20261104/web/office/accounting-year-values-contract.js"
+}

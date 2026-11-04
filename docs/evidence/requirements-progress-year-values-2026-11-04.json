@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-11-04T18:55:09.404600+00:00",
+  "reference_base_commit": "2e2ed5ca33b928216b940c6334cdfbbca0a14c27",
+  "source": "docs/CRM_ERP_ANFORDERUNGEN.md",
+  "source_sha256": "4819e9848366ef0f24c4dd888a5b67365555c812c203ea11321d20a75b24abc1",
+  "requirements": 62,
+  "counts": {
+    "offen": 11,
+    "implementiert": 26,
+    "getestet": 14,
+    "teilweise; Gesamtanforderung offen": 5,
+    "extern_blockiert": 6
+  },
+  "implemented_or_tested": 40,
+  "unweighted_requirement_coverage_percent": 64.52,
+  "overall_work_completion_percent": null,
+  "all_end_to_end_acceptances_complete": false,
+  "limitation": "Unweighted heterogeneous requirement rows with bounded documented scope; not a labor completion percentage, timeline or complete product approval."
+}

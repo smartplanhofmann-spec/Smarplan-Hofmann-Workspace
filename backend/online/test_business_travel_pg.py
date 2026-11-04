@@ -124,7 +124,7 @@ class TravelPostgres(unittest.TestCase):
         # Model the actual pre-travel financial registry. Later opening-balance
         # and historical-asset modules require that missing predecessor and
         # must be migrated together with it, not installed in the old fixture.
-        later_financial_modules={'business_travel_allowances','business_accounting_openings','business_accounting_asset_openings','business_accounting_open_items'}
+        later_financial_modules={'business_travel_allowances','business_accounting_openings','business_accounting_asset_openings','business_accounting_open_items','business_accounting_year_openings'}
         prior=tuple(s for s in full if s.name not in later_financial_modules)
         with patch.object(business_schema,'registry',return_value=prior),patch.object(business_schema,'MODULE_NAMES',tuple(s.name for s in prior)):
             self.setUp();data=self.original_sources();before=release.snapshot_fingerprint(fixture.DSN);self.office.db.close()
@@ -140,7 +140,7 @@ class TravelPostgres(unittest.TestCase):
         with disposable_restore(self.runtime) as (target,runtime,report):
             operator=PostgresOffice(target)
             try:
-                evidence=evidence_for(operator,report);self.assertEqual(evidence['schema'],15)
+                evidence=evidence_for(operator,report);self.assertEqual(evidence['schema'],16)
                 self.assertEqual(evidence['accounting_horizon']['travel_cash']['table_counts']['business_travel_payments'],1)
                 approve(operator,evidence)
             finally:operator.db.close()

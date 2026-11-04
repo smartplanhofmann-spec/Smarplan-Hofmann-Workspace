@@ -1,0 +1,20 @@
+--- a/app/lib/business_session.dart
++++ b/app/lib/business_session.dart
+@@ -405,9 +405,16 @@
+       );
+     final state = businessMap(await read('/accounting/year-values'));
+     check();
++    // A historical void retains the accepted source's original profile. The
++    // current profile only gates creation of new active sources and originals;
++    // current rights, module gates and the server's original binding still apply.
++    final historicalVoid =
++        commandPath == '/accounting/year-values/confirm' &&
++        values['operation'] == 'year_values' &&
++        businessMap(values['payload'])['status'] == 'void';
+     if (state['schema_version'] != 1 ||
+         state['rule_version'] != 'de_euer_same_year_carryover_v1' ||
+-        (!retry && state['can_prepare'] != true))
++        (!retry && !historicalVoid && state['can_prepare'] != true))
+       throw const ApiException(
+         423,
+         'Jahresvorträge sind aktuell nicht zur Bearbeitung freigegeben.',

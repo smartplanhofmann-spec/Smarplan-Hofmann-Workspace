@@ -1,0 +1,13 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'Ungültiger Quellnachweis.'
++ ]
+- []
+
+    at ready (/workspace/smartplan-year-review-export-carryover-20261104/web/office/tests/accounting-year-package-v2-e2e.cjs:5:99)
+    at async overview (/workspace/smartplan-year-review-export-carryover-20261104/web/office/tests/accounting-year-package-v2-flow.cjs:10:233)
+    at async Object.accountingYearPackageFlow (/workspace/smartplan-year-review-export-carryover-20261104/web/office/tests/accounting-year-package-v2-flow.cjs:15:3)
+    at async main (/workspace/smartplan-year-review-export-carryover-20261104/web/office/tests/accounting-year-package-v2-e2e.cjs:17:3)

@@ -1,0 +1,39 @@
+✔ actual complete period, original source, accepted receipt and immutable history read unchanged (38.941275ms)
+✔ actual partial_then_corrected period, original source, accepted receipt and immutable history read unchanged (15.66656ms)
+✔ actual closed_trade period, original source, accepted receipt and immutable history read unchanged (29.689935ms)
+✔ signed cents preserve the explicit original journal with no rounding or negative zero (0.652142ms)
+✔ original receipt remains bound to the old command even after other journal versions exist (14.508055ms)
+✔ declared partial coverage cannot become a complete year or an invented cash/VAT claim (0.992044ms)
+✔ EÜR projection copies original dates and exercised VAT without a new tax claim (0.678222ms)
+✔ independent original: unchanged real 59.50 cash history and 19.00 exercised VAT remain readable (19.082192ms)
+✔ independent original: rehashed preview cannot move actual old payment from August to September (3.342292ms)
+✔ independent original: rehashed preview cannot change old cash cents while leaving actual source unchanged (3.08192ms)
+✔ independent original: source hash alone cannot legitimize contradictory historical posting amount (1.281639ms)
+✔ actual original source selection, explicit controls, preview, final acceptance and immutable history (87.688504ms)
+✔ delayed genuine preview after close cannot reopen or confirm (11.49918ms)
+✔ delayed genuine preview after other cannot reopen or confirm (13.01692ms)
+✔ delayed genuine preview after session cannot reopen or confirm (11.282409ms)
+✔ delayed genuine preview after background cannot reopen or confirm (12.262905ms)
+✔ delayed initial state after other reveals no original values (4.711579ms)
+✔ delayed initial state after session reveals no original values (0.601876ms)
+✔ delayed initial state after background reveals no original values (2.25129ms)
+✔ server-only read revocation while state is pending neutralizes the original dialog (2.263538ms)
+✔ accepted command lost ACK keeps exact nonce and original receipt after later journal state (30.367946ms)
+✔ foreign genuine receipt cannot consume an unresolved original command (2.586244ms)
+✔ exact EÜR year identity and source-only form preserve legacy 32-character restrictions (2.013471ms)
+✔ genuine accepted confirmation after other cannot replace the current dialog (12.483558ms)
+✔ genuine accepted confirmation after session cannot replace the current dialog (17.457901ms)
+✔ genuine accepted confirmation after background cannot replace the current dialog (16.07866ms)
+✔ held original file bytes after other cause no upload or private reopen (3.682274ms)
+✔ held original file bytes after session cause no upload or private reopen (2.381346ms)
+✔ fresh source read rights after genuine original bytes prevent a download and neutralize title (5.202418ms)
+✔ actual accepted incomplete profile stays readable and never becomes assumed beginning or tax status (2.639865ms)
+✔ original accepted receipt remains recoverable after the actual profile loses its start date (23.648968ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 396.4179

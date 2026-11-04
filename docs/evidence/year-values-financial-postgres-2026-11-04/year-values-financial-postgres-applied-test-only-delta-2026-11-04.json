@@ -1,0 +1,28 @@
+{
+  "root_authorized": true,
+  "patch_sha256": "b90b4c3d18fffc794ce0e71bf8a85695e13270d62bf708f2aa6b393dc35d671a",
+  "source_files_checked": 517,
+  "changed": [
+    {
+      "path": "backend/online/test_accounting_asset_openings_pg.py",
+      "before_sha256": "71203161ae95c219100e30e36e73b3fc28af0621af3b6f04a20cabdd797aaafb",
+      "after_sha256": "912842deb9777bdf30e8a7d91e2ee78b566a3e2b0354c9f0c1825def01672b24"
+    },
+    {
+      "path": "backend/online/test_accounting_open_items_pg.py",
+      "before_sha256": "a5a85b76d4a73f6756b341366d6ba6ec1846f71ea01957dd6391098be45a3ac7",
+      "after_sha256": "8104152b51d758ea5141088e02661e73862c7ee0e8f2595fd44bd538935001e4"
+    },
+    {
+      "path": "backend/online/test_business_accounting_openings_pg.py",
+      "before_sha256": "3ba14e9f5380c900207c21733b11b2599613e106d4347ba14195edb1daff2bd0",
+      "after_sha256": "82be94b7963f0316b024334312758faf756192ff96db8dea0420fb3bf47f3b7d"
+    },
+    {
+      "path": "backend/online/test_business_travel_pg.py",
+      "before_sha256": "067df0a60c715ef6a82776c4ad7cfc94eb3ea77fb0934dd5aa36ad1c1a49fa5d",
+      "after_sha256": "72033082c2aa640a92376e55ba9b9f1be6bcdfb80f82f29921080a1dab2a980e"
+    }
+  ],
+  "runtime_changes": []
+}

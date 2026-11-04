@@ -1,0 +1,21 @@
+{
+  "recorded_at_utc": "2026-11-04T12:06:39.593797+00:00",
+  "fixture_sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+  "files": {
+    "web/office/office.js": "c2bdb5a21ad7a1ffc3a48c288bdbbdf2e9781701cfff85b5418ca9b1cf015c92",
+    "web/office/accounting-euer.js": "81a4e9899661bcef174ec9e1b4fd5b0d2ae91b0e6706c3028549677eb79fa0da",
+    "backend/online/web.py": "c9f0c29ddd386b241de1cf4361f6361bff77106fa7b7a05ef58fedbd52378a60",
+    ".github/workflows/checks.yml": "15b0723bf9988f069067e2e3c3688ad3d337c8254245c1f6b0240b7c555c0f50"
+  },
+  "unchanged_opening_items_reader_dependency": {
+    "source": "/workspace/smartplan-opening-items-20261104/web/office/accounting-open-items-contract.js",
+    "destination": "web/office/accounting-open-items-contract.js",
+    "sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1"
+  },
+  "euer_patch_base": {
+    "source": "/workspace/smartplan-opening-items-20261104/web/office/accounting-euer.js",
+    "copy": "work/verification/accounting-euer-from-frozen-open-items.js",
+    "sha256": "f467b2725f6c207552627c8d94711c0dbe0d5d77341779749480382e22f3e0e5",
+    "note": "Frozen Altposten and confirmed legacy cash context fixes. New year-values patch only; Root must preserve later V1 year-package export intent guard."
+  }
+}

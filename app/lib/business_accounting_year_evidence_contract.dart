@@ -8,6 +8,10 @@ import 'business_session.dart';
 import 'mail_attachment_widgets.dart' show VerifiedMailAttachment;
 
 const yearEvidenceFormat = 'smartplan-year-evidence-v1';
+const _yearEvidenceFormats = {
+  yearEvidenceFormat,
+  'smartplan-year-evidence-v2',
+};
 const yearEvidenceMaxBytes = 128 * 1024 * 1024;
 const _metadataFields = [
   'format',
@@ -175,7 +179,7 @@ Map<String, dynamic> yearEvidenceMetadata(
   _hash(v['export_hash']);
   _hash(v['sha256']);
   final boundaries = v['private_source_boundaries'];
-  if (v['format'] != yearEvidenceFormat ||
+  if (!_yearEvidenceFormats.contains(v['format']) ||
       v['schema_version'] != 1 ||
       v['export_id'] != e['id'] ||
       v['export_hash'] != e['entry_hash'] ||

@@ -30,6 +30,7 @@ Restarbeiten in diesem Plan.
 | Einkauf/Geräte/Inventur | Teil-/Restlieferung, Original-Lieferschein, Entnahme/Geräteherkunft, Wartung, Zählung und Bestandskorrektur | `CRM_ERP_EINKAUF.md`, `CRM_ERP_GERAETEHERKUNFT.md`, `CRM_ERP_INVENTUR.md` |
 | Kundenbereich und Vertrieb | Isolierte freigegebene Informationen/Originale/Uploads; Chancen, Aktivitäten, Wiedervorlagen und Projekt-/Angebotsübernahme | `CRM_ERP_KUNDENARBEITSBEREICH.md`, `CRM_ERP_VERTRIEB.md` |
 | EÜR | Quellen-/Geldjournal, exakte Komponenten, Erstattungen, steuerliche Einordnung, AfA, Gegenbuchung, Perioden und Jahresprüfpaket; Abschlags-/Schlussketten | `CRM_ERP_EUER_WORKFLOW_PRUEFUNG.md`, `CRM_ERP_EUER_KETTEN_ANALYSE.md` |
+| Unterjährige Jahresvorträge und V2-Archiv | Belegte alte Journal-/Steuerwerte, neue Restzahlungen und beide Clients im Integrationsstand integriert; V1-Originale erhalten, gemeinsamer Restore 15/16 | [Root-Gesamtprüfung](CRM_ERP_JAHRESVORTRAG_GESAMTPRUEFUNG_2026-11-04.md), [121 unterschiedliche Finanz-PG-Fälle](CRM_ERP_JAHRESVORTRAG_FINANZ_PG_2026-11-04.md) |
 | Personal/Lohn | Private Originalakten, Auslagen/Fremdfreigabe/Erstattung, Monatsvorbereitung, begrenzte 2026-Lohnfälle, Lohnkonten/Zahlungsteile/Vorträge/Jahresausgabe | `CRM_ERP_PERSONAL_WORKFLOW.md`, `CRM_ERP_LOHN_RECHENWERK_2026.md`, `CRM_ERP_LOHN_CLIENTS.md` |
 | Assistent und Sprache | Berechtigte Quellen, belegbare Antworten/Entwürfe, Regeln/Freigaben, native Versandgates, ausdrücklich gestartete Sprachentwürfe | `CRM_ERP_ASSISTENT.md`, `CRM_ERP_ASSISTENT_CLIENTS.md`, `CRM_ERP_SPRACHE.md` |
 | Migration/Übergabe | Kontrollierter neutraler Dateiimport mit Originalen/Abgleich; portables Unternehmensarchiv mit eigenem Prüfer und expliziter Übergabeprüfung | `CRM_ERP_DATEIMIGRATION.md`, `CRM_ERP_DATEIIMPORT.md`, `CRM_ERP_UNTERNEHMENSEXPORT.md` |
@@ -103,8 +104,19 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    109 eindeutige PostgreSQLfälle bestehen. Das ergänzende Original-/Journalpaket
    ist anschließend [gemeinsam geprüft](CRM_ERP_JAHRESPAKET_GESAMTPRUEFUNG_2026-11-04.md):
    84 betroffene Backend-, 401 Buchhaltungs-App-, 762 Node- und drei PG-Fälle.
-   Unterjährige Jahresvorträge erhalten beide geprüften Oberflächen und danach
-   ihren eigenen vollständigen Finanzhorizont samt getrenntem V2-Archivanschluss.
+   Unterjährige Jahresvorträge und der V2-Archivanschluss sind jetzt mit beiden
+   Clients im [Integrationsstand auf `2e2ed5c`](CRM_ERP_JAHRESVORTRAG_GESAMTPRUEFUNG_2026-11-04.md)
+   technisch integriert: 1.899 Backendfälle bei einem Windows-Skip, 1.542 App-,
+   842 Node- und 16 Paketfälle bestehen; Analyse ohne Befund. 121 unterschiedliche
+   Finanz-PG-Fälle sind nach vier gezielten Testfixture-Nachprüfungen bestanden.
+   Fünf tatsächliche Browserabläufe und der zusätzliche mobile CSS-Nachlauf
+   bestehen. Endgültige Quellen und Prüfläufe sind im Gesamtnachweis gebunden.
+   Finanzhorizont 15/Bericht 16, 144 Backend- und 209 Betreiberpfade.
+5. **Parallele Arbeitsstände erst nach eigenen Nachweisen integrieren.**
+   Unternehmensisolation, native Assistenten-/Sprachabläufe, Service/Betriebsmittel
+   und private Lohnvergleichs-/Quellenpakete laufen in getrennten Arbeitsständen.
+   Sie gehören noch nicht zum beschriebenen Integrationsstand. Befunde und echte
+   Nachprüfungen dieser Bereiche werden vor einer Zusammenführung ausgewertet.
 
 Die v5-Zusammenrechnung mehrerer belegter Entgelt-/SV-Abschnitte mit
 Anspruchsbausteinen und Reise-Lohnübergabe sowie der eigene v5-Mitarbeiterbeleg
@@ -114,6 +126,11 @@ Lohn-/Steuerfälle bleiben Entwicklungsarbeit und werden nicht wegen fehlenden
 Codes zu externen Hindernissen umgedeutet.
 
 ## Noch offener Zielumfang
+
+Die Anforderungsstatus bleiben unverändert: 40 von 62 Zeilen implementiert oder
+getestet, fünf teilweise, elf offen und sechs extern blockiert. 64,5 % (etwa
+65 %) ist lediglich die ungewichtete Zeilenzählung, keine Fertigstellungs- oder
+Zeitquote. Gesamtbuchhaltung und alle Abnahmen A–G bleiben offen.
 
 Nach den aktiven Paketen werden verbleibende konkrete Steuer-/Lohnfälle,
 vollständige menschliche und gerätebezogene Bedienprüfung und die

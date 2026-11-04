@@ -1,0 +1,3791 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "generated_by": "scripts/generate-accounting-year-values-native-boundaries.py",
+  "missing_start": {
+    "before": {
+      "schema_version": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "cash_flow_created": false,
+      "new_input_vat_claim_created": false,
+      "timezone": "Europe/Berlin",
+      "revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "preview_hash": "27c57a8f5fd91cddcbe44ffb6ceef0e8d4a4b3f3f9242f21d0260ea341dc9caa",
+        "previous_state_hash": "610563eb840723ed5e8dad35015f7c6a15bf4e9fc7704dcd1589a7fc987b3eb3",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "revision": 3,
+        "entry_sha256": "6102bfe6699779f7649240990f36586c6e2622b5ddf9bd601772367a667c9f08"
+      },
+      "items": [],
+      "originals": [
+        {
+          "id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "media_type": "application/pdf",
+          "size": 97,
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "path": "/accounting/year-values/originals/a6cbe99af3b94a3bb6e15ef24ed7a948"
+        }
+      ],
+      "can_prepare": true,
+      "max_original_bytes": 5242880
+    },
+    "preview": {
+      "entity_key": "2026",
+      "reason": "Original historical journal and actual old payments reviewed",
+      "expected_revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile_ref": {
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "revision": 3,
+        "entry_sha256": "6102bfe6699779f7649240990f36586c6e2622b5ddf9bd601772367a667c9f08"
+      },
+      "operation": "year_values",
+      "payload": {
+        "status": "active",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "sources": [
+          {
+            "kind": "opening_item",
+            "entry_id": "7c93b4c4d414450ebbe6be63e9010084",
+            "entry_hash": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+            "accounts": {
+              "net": "5400",
+              "tax": "1406",
+              "input_vat": "1406"
+            },
+            "cash_entry_keys": [
+              "OLD-2026-081"
+            ],
+            "vat_entry_key": "OLD-2026-061"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "ledger_proof": {
+          "original_id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+        },
+        "attestations": {
+          "continuous_method": true,
+          "original_journal_complete": true,
+          "no_unsupported_values": true
+        }
+      },
+      "schema_version": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "cash_flow_created": false,
+      "new_input_vat_claim_created": false,
+      "timezone": "Europe/Berlin",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "preview_hash": "27c57a8f5fd91cddcbe44ffb6ceef0e8d4a4b3f3f9242f21d0260ea341dc9caa",
+        "previous_state_hash": "610563eb840723ed5e8dad35015f7c6a15bf4e9fc7704dcd1589a7fc987b3eb3",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "proofs": [
+        {
+          "id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "media_type": "application/pdf",
+          "size": 97,
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "path": "/accounting/year-values/originals/a6cbe99af3b94a3bb6e15ef24ed7a948"
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "e4a872633bb74f03844f6f3b81215669",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/e4a872633bb74f03844f6f3b81215669",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "4dac895e285049d3b075e7434ca820a7",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "4dac895e285049d3b075e7434ca820a7",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "2e28150a70e64a96a228793f434486a1",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/2e28150a70e64a96a228793f434486a1",
+          "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+          "size": 73
+        }
+      ],
+      "resolved_sources": [
+        {
+          "kind": "opening_item",
+          "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+          "record": {
+            "category": "materials",
+            "counterparty_key": "customer-year-history",
+            "counterparty_name": "Synthetic counterparty",
+            "currency": "EUR",
+            "cutover_proof": {
+              "original_id": "4dac895e285049d3b075e7434ca820a7",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+            },
+            "direction": "payable",
+            "external_id": "year-history",
+            "external_system": "Legacy system",
+            "gross": "119.00",
+            "history_through": "2026-10-31",
+            "invoice_date": "2026-06-10",
+            "invoice_number": "OLD-year-history",
+            "invoice_proof": {
+              "original_id": "e4a872633bb74f03844f6f3b81215669",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+            },
+            "invoice_received_date": "2026-06-11",
+            "net": "100.00",
+            "prior_input_vat": {
+              "amount": "19.00",
+              "declared_period": "2026-06",
+              "deducted_on": "2026-07-10",
+              "entitlement_date": "2026-06-11",
+              "proof": {
+                "original_id": "2e28150a70e64a96a228793f434486a1",
+                "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+              }
+            },
+            "prior_payments": [
+              {
+                "date": "2026-08-20",
+                "gross": "59.50",
+                "net": "50.00",
+                "proof": {
+                  "original_id": "4dac895e285049d3b075e7434ca820a7",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "reference": "Original August part",
+                "tax": "9.50"
+              }
+            ],
+            "rate": "19",
+            "scope_confirmed": true,
+            "service_date": "2026-06-10",
+            "status": "active",
+            "tax": "19.00"
+          },
+          "accounts": {
+            "net": "5400",
+            "tax": "1406",
+            "input_vat": "1406"
+          },
+          "cash_entry_keys": [
+            "OLD-2026-081"
+          ],
+          "vat_entry_key": "OLD-2026-061"
+        }
+      ],
+      "details": {
+        "schema_version": 1,
+        "rule_version": "de_euer_same_year_carryover_v1",
+        "year": 2026,
+        "opening_date": "2026-11-01",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "complete_prior_period": true,
+        "historical_postings": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00",
+            "date": "2026-06-11",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "copied_rows": [
+          {
+            "kind": "cash_history",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "date": "2026-08-20",
+            "gross": "59.50",
+            "net": "50.00",
+            "tax": "9.50",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          },
+          {
+            "kind": "already_exercised_input_vat",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "date": "2026-06-11",
+            "amount": "19.00",
+            "deducted_on": "2026-07-10",
+            "declared_period": "2026-06",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          }
+        ],
+        "economic_keys": [
+          "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+          "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+        ],
+        "cash_flow_created": false,
+        "new_input_vat_claim_created": false,
+        "original_periods_preserved": true
+      },
+      "previous_ref": null,
+      "preview_hash": "cdef5f745333e37e9bc3141a36b9ea45b79af29f6db4c157b59594be62b16ffe"
+    },
+    "entry": {
+      "entity_key": "2026",
+      "reason": "Original historical journal and actual old payments reviewed",
+      "expected_revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile_ref": {
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "revision": 3,
+        "entry_sha256": "6102bfe6699779f7649240990f36586c6e2622b5ddf9bd601772367a667c9f08"
+      },
+      "operation": "year_values",
+      "payload": {
+        "status": "active",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "sources": [
+          {
+            "kind": "opening_item",
+            "entry_id": "7c93b4c4d414450ebbe6be63e9010084",
+            "entry_hash": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+            "accounts": {
+              "net": "5400",
+              "tax": "1406",
+              "input_vat": "1406"
+            },
+            "cash_entry_keys": [
+              "OLD-2026-081"
+            ],
+            "vat_entry_key": "OLD-2026-061"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "ledger_proof": {
+          "original_id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+        },
+        "attestations": {
+          "continuous_method": true,
+          "original_journal_complete": true,
+          "no_unsupported_values": true
+        }
+      },
+      "schema_version": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "cash_flow_created": false,
+      "new_input_vat_claim_created": false,
+      "timezone": "Europe/Berlin",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "preview_hash": "27c57a8f5fd91cddcbe44ffb6ceef0e8d4a4b3f3f9242f21d0260ea341dc9caa",
+        "previous_state_hash": "610563eb840723ed5e8dad35015f7c6a15bf4e9fc7704dcd1589a7fc987b3eb3",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "proofs": [
+        {
+          "id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "media_type": "application/pdf",
+          "size": 97,
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "path": "/accounting/year-values/originals/a6cbe99af3b94a3bb6e15ef24ed7a948"
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "e4a872633bb74f03844f6f3b81215669",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/e4a872633bb74f03844f6f3b81215669",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "4dac895e285049d3b075e7434ca820a7",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "4dac895e285049d3b075e7434ca820a7",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "2e28150a70e64a96a228793f434486a1",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/2e28150a70e64a96a228793f434486a1",
+          "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+          "size": 73
+        }
+      ],
+      "resolved_sources": [
+        {
+          "kind": "opening_item",
+          "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+          "record": {
+            "category": "materials",
+            "counterparty_key": "customer-year-history",
+            "counterparty_name": "Synthetic counterparty",
+            "currency": "EUR",
+            "cutover_proof": {
+              "original_id": "4dac895e285049d3b075e7434ca820a7",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+            },
+            "direction": "payable",
+            "external_id": "year-history",
+            "external_system": "Legacy system",
+            "gross": "119.00",
+            "history_through": "2026-10-31",
+            "invoice_date": "2026-06-10",
+            "invoice_number": "OLD-year-history",
+            "invoice_proof": {
+              "original_id": "e4a872633bb74f03844f6f3b81215669",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+            },
+            "invoice_received_date": "2026-06-11",
+            "net": "100.00",
+            "prior_input_vat": {
+              "amount": "19.00",
+              "declared_period": "2026-06",
+              "deducted_on": "2026-07-10",
+              "entitlement_date": "2026-06-11",
+              "proof": {
+                "original_id": "2e28150a70e64a96a228793f434486a1",
+                "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+              }
+            },
+            "prior_payments": [
+              {
+                "date": "2026-08-20",
+                "gross": "59.50",
+                "net": "50.00",
+                "proof": {
+                  "original_id": "4dac895e285049d3b075e7434ca820a7",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "reference": "Original August part",
+                "tax": "9.50"
+              }
+            ],
+            "rate": "19",
+            "scope_confirmed": true,
+            "service_date": "2026-06-10",
+            "status": "active",
+            "tax": "19.00"
+          },
+          "accounts": {
+            "net": "5400",
+            "tax": "1406",
+            "input_vat": "1406"
+          },
+          "cash_entry_keys": [
+            "OLD-2026-081"
+          ],
+          "vat_entry_key": "OLD-2026-061"
+        }
+      ],
+      "details": {
+        "schema_version": 1,
+        "rule_version": "de_euer_same_year_carryover_v1",
+        "year": 2026,
+        "opening_date": "2026-11-01",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "complete_prior_period": true,
+        "historical_postings": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00",
+            "date": "2026-06-11",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "copied_rows": [
+          {
+            "kind": "cash_history",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "date": "2026-08-20",
+            "gross": "59.50",
+            "net": "50.00",
+            "tax": "9.50",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          },
+          {
+            "kind": "already_exercised_input_vat",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "date": "2026-06-11",
+            "amount": "19.00",
+            "deducted_on": "2026-07-10",
+            "declared_period": "2026-06",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          }
+        ],
+        "economic_keys": [
+          "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+          "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+        ],
+        "cash_flow_created": false,
+        "new_input_vat_claim_created": false,
+        "original_periods_preserved": true
+      },
+      "previous_ref": null,
+      "preview_hash": "cdef5f745333e37e9bc3141a36b9ea45b79af29f6db4c157b59594be62b16ffe",
+      "id": "e3d92776092a41fb88b4b75c2d11a713",
+      "sequence": 1,
+      "revision": 1,
+      "previous_hash": null,
+      "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "content_hash": "ffee98086ca8e4c28907c4f0075095775dbdfbcca45fcacee207b8c88830387e"
+    },
+    "command": {
+      "expected_revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "entity_key": "2026",
+      "profile_ref": {
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "revision": 3,
+        "entry_sha256": "6102bfe6699779f7649240990f36586c6e2622b5ddf9bd601772367a667c9f08"
+      },
+      "operation": "year_values",
+      "payload": {
+        "status": "active",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "sources": [
+          {
+            "kind": "opening_item",
+            "entry_id": "7c93b4c4d414450ebbe6be63e9010084",
+            "entry_hash": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+            "accounts": {
+              "net": "5400",
+              "tax": "1406",
+              "input_vat": "1406"
+            },
+            "cash_entry_keys": [
+              "OLD-2026-081"
+            ],
+            "vat_entry_key": "OLD-2026-061"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "ledger_proof": {
+          "original_id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+        },
+        "attestations": {
+          "continuous_method": true,
+          "original_journal_complete": true,
+          "no_unsupported_values": true
+        }
+      },
+      "reason": "Original historical journal and actual old payments reviewed",
+      "request_id": "0b1883c7ec1f49bda5c7e7e47d33aa22",
+      "preview_hash": "cdef5f745333e37e9bc3141a36b9ea45b79af29f6db4c157b59594be62b16ffe",
+      "confirmation": true
+    },
+    "state": {
+      "schema_version": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "cash_flow_created": false,
+      "new_input_vat_claim_created": false,
+      "timezone": "Europe/Berlin",
+      "revision": 1,
+      "state_hash": "803899f56dde6447979744c3855ed7de3cb2ce41e620e0adfe7077e7383133e4",
+      "profile": null,
+      "profile_ref": null,
+      "items": [
+        {
+          "cash_flow_created": false,
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "details": {
+            "cash_flow_created": false,
+            "complete_prior_period": true,
+            "controls": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "ledger": "vat"
+              }
+            ],
+            "copied_rows": [
+              {
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "gross": "59.50",
+                "kind": "cash_history",
+                "net": "50.00",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+                "tax": "9.50"
+              },
+              {
+                "amount": "19.00",
+                "date": "2026-06-11",
+                "declared_period": "2026-06",
+                "deducted_on": "2026-07-10",
+                "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+                "kind": "already_exercised_input_vat",
+                "original_entry_key": "OLD-2026-061",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+              }
+            ],
+            "coverage": {
+              "from": "2026-01-01",
+              "through": "2026-10-31"
+            },
+            "economic_keys": [
+              "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+              "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+            ],
+            "historical_postings": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "ledger": "euer",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "ledger": "euer",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "date": "2026-06-11",
+                "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+                "ledger": "vat",
+                "original_entry_key": "OLD-2026-061",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+              }
+            ],
+            "new_input_vat_claim_created": false,
+            "opening_date": "2026-11-01",
+            "original_periods_preserved": true,
+            "rule_version": "de_euer_same_year_carryover_v1",
+            "schema_version": 1,
+            "year": 2026
+          },
+          "entity_key": "2026",
+          "expected_revision": 0,
+          "id": "e3d92776092a41fb88b4b75c2d11a713",
+          "new_input_vat_claim_created": false,
+          "operation": "year_values",
+          "payload": {
+            "attestations": {
+              "continuous_method": true,
+              "no_unsupported_values": true,
+              "original_journal_complete": true
+            },
+            "controls": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "ledger": "vat"
+              }
+            ],
+            "coverage": {
+              "from": "2026-01-01",
+              "through": "2026-10-31"
+            },
+            "ledger_proof": {
+              "original_id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+              "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+            },
+            "sources": [
+              {
+                "accounts": {
+                  "input_vat": "1406",
+                  "net": "5400",
+                  "tax": "1406"
+                },
+                "cash_entry_keys": [
+                  "OLD-2026-081"
+                ],
+                "entry_hash": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+                "entry_id": "7c93b4c4d414450ebbe6be63e9010084",
+                "kind": "opening_item",
+                "vat_entry_key": "OLD-2026-061"
+              }
+            ],
+            "status": "active"
+          },
+          "preview_hash": "cdef5f745333e37e9bc3141a36b9ea45b79af29f6db4c157b59594be62b16ffe",
+          "previous_hash": null,
+          "previous_ref": null,
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "4c1134044a97447e9eda95a854886cae",
+            "preview_hash": "27c57a8f5fd91cddcbe44ffb6ceef0e8d4a4b3f3f9242f21d0260ea341dc9caa",
+            "previous_state_hash": "610563eb840723ed5e8dad35015f7c6a15bf4e9fc7704dcd1589a7fc987b3eb3",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-11-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2025-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 3,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "profile_ref": {
+            "entry_sha256": "6102bfe6699779f7649240990f36586c6e2622b5ddf9bd601772367a667c9f08",
+            "id": "4c1134044a97447e9eda95a854886cae",
+            "revision": 3
+          },
+          "proofs": [
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "2026",
+              "filename": "historical.pdf",
+              "id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+              "media_type": "application/pdf",
+              "path": "/accounting/year-values/originals/a6cbe99af3b94a3bb6e15ef24ed7a948",
+              "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+              "size": 97
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "e4a872633bb74f03844f6f3b81215669",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/e4a872633bb74f03844f6f3b81215669",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "4dac895e285049d3b075e7434ca820a7",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "4dac895e285049d3b075e7434ca820a7",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "2e28150a70e64a96a228793f434486a1",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/2e28150a70e64a96a228793f434486a1",
+              "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+              "size": 73
+            }
+          ],
+          "reason": "Original historical journal and actual old payments reviewed",
+          "resolved_sources": [
+            {
+              "accounts": {
+                "input_vat": "1406",
+                "net": "5400",
+                "tax": "1406"
+              },
+              "cash_entry_keys": [
+                "OLD-2026-081"
+              ],
+              "kind": "opening_item",
+              "record": {
+                "category": "materials",
+                "counterparty_key": "customer-year-history",
+                "counterparty_name": "Synthetic counterparty",
+                "currency": "EUR",
+                "cutover_proof": {
+                  "original_id": "4dac895e285049d3b075e7434ca820a7",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "direction": "payable",
+                "external_id": "year-history",
+                "external_system": "Legacy system",
+                "gross": "119.00",
+                "history_through": "2026-10-31",
+                "invoice_date": "2026-06-10",
+                "invoice_number": "OLD-year-history",
+                "invoice_proof": {
+                  "original_id": "e4a872633bb74f03844f6f3b81215669",
+                  "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+                },
+                "invoice_received_date": "2026-06-11",
+                "net": "100.00",
+                "prior_input_vat": {
+                  "amount": "19.00",
+                  "declared_period": "2026-06",
+                  "deducted_on": "2026-07-10",
+                  "entitlement_date": "2026-06-11",
+                  "proof": {
+                    "original_id": "2e28150a70e64a96a228793f434486a1",
+                    "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+                  }
+                },
+                "prior_payments": [
+                  {
+                    "date": "2026-08-20",
+                    "gross": "59.50",
+                    "net": "50.00",
+                    "proof": {
+                      "original_id": "4dac895e285049d3b075e7434ca820a7",
+                      "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                    },
+                    "reference": "Original August part",
+                    "tax": "9.50"
+                  }
+                ],
+                "rate": "19",
+                "scope_confirmed": true,
+                "service_date": "2026-06-10",
+                "status": "active",
+                "tax": "19.00"
+              },
+              "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+              "vat_entry_key": "OLD-2026-061"
+            }
+          ],
+          "revision": 1,
+          "rule_version": "de_euer_same_year_carryover_v1",
+          "schema_version": 1,
+          "sequence": 1,
+          "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "timezone": "Europe/Berlin",
+          "content_hash": "ffee98086ca8e4c28907c4f0075095775dbdfbcca45fcacee207b8c88830387e"
+        }
+      ],
+      "originals": [
+        {
+          "id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "media_type": "application/pdf",
+          "size": 97,
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "path": "/accounting/year-values/originals/a6cbe99af3b94a3bb6e15ef24ed7a948"
+        }
+      ],
+      "can_prepare": false,
+      "max_original_bytes": 5242880
+    },
+    "replay": {
+      "cash_flow_created": false,
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+      "details": {
+        "cash_flow_created": false,
+        "complete_prior_period": true,
+        "controls": [
+          {
+            "account": "5400",
+            "amount": "-50.00",
+            "category": "materials",
+            "ledger": "euer"
+          },
+          {
+            "account": "1406",
+            "amount": "-9.50",
+            "category": "paid_input_vat",
+            "ledger": "euer"
+          },
+          {
+            "account": "1406",
+            "amount": "-19.00",
+            "category": "input_vat",
+            "ledger": "vat"
+          }
+        ],
+        "copied_rows": [
+          {
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "gross": "59.50",
+            "kind": "cash_history",
+            "net": "50.00",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+            "tax": "9.50"
+          },
+          {
+            "amount": "19.00",
+            "date": "2026-06-11",
+            "declared_period": "2026-06",
+            "deducted_on": "2026-07-10",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "kind": "already_exercised_input_vat",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          }
+        ],
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "economic_keys": [
+          "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+          "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+        ],
+        "historical_postings": [
+          {
+            "account": "5400",
+            "amount": "-50.00",
+            "category": "materials",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "ledger": "euer",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          },
+          {
+            "account": "1406",
+            "amount": "-9.50",
+            "category": "paid_input_vat",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "ledger": "euer",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          },
+          {
+            "account": "1406",
+            "amount": "-19.00",
+            "category": "input_vat",
+            "date": "2026-06-11",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "ledger": "vat",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+          }
+        ],
+        "new_input_vat_claim_created": false,
+        "opening_date": "2026-11-01",
+        "original_periods_preserved": true,
+        "rule_version": "de_euer_same_year_carryover_v1",
+        "schema_version": 1,
+        "year": 2026
+      },
+      "entity_key": "2026",
+      "expected_revision": 0,
+      "id": "e3d92776092a41fb88b4b75c2d11a713",
+      "new_input_vat_claim_created": false,
+      "operation": "year_values",
+      "payload": {
+        "attestations": {
+          "continuous_method": true,
+          "no_unsupported_values": true,
+          "original_journal_complete": true
+        },
+        "controls": [
+          {
+            "account": "5400",
+            "amount": "-50.00",
+            "category": "materials",
+            "ledger": "euer"
+          },
+          {
+            "account": "1406",
+            "amount": "-9.50",
+            "category": "paid_input_vat",
+            "ledger": "euer"
+          },
+          {
+            "account": "1406",
+            "amount": "-19.00",
+            "category": "input_vat",
+            "ledger": "vat"
+          }
+        ],
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "ledger_proof": {
+          "original_id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+        },
+        "sources": [
+          {
+            "accounts": {
+              "input_vat": "1406",
+              "net": "5400",
+              "tax": "1406"
+            },
+            "cash_entry_keys": [
+              "OLD-2026-081"
+            ],
+            "entry_hash": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+            "entry_id": "7c93b4c4d414450ebbe6be63e9010084",
+            "kind": "opening_item",
+            "vat_entry_key": "OLD-2026-061"
+          }
+        ],
+        "status": "active"
+      },
+      "preview_hash": "cdef5f745333e37e9bc3141a36b9ea45b79af29f6db4c157b59594be62b16ffe",
+      "previous_hash": null,
+      "previous_ref": null,
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "preview_hash": "27c57a8f5fd91cddcbe44ffb6ceef0e8d4a4b3f3f9242f21d0260ea341dc9caa",
+        "previous_state_hash": "610563eb840723ed5e8dad35015f7c6a15bf4e9fc7704dcd1589a7fc987b3eb3",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "6102bfe6699779f7649240990f36586c6e2622b5ddf9bd601772367a667c9f08",
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "revision": 3
+      },
+      "proofs": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/a6cbe99af3b94a3bb6e15ef24ed7a948",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "e4a872633bb74f03844f6f3b81215669",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/e4a872633bb74f03844f6f3b81215669",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "4dac895e285049d3b075e7434ca820a7",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "4dac895e285049d3b075e7434ca820a7",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "2e28150a70e64a96a228793f434486a1",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/2e28150a70e64a96a228793f434486a1",
+          "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+          "size": 73
+        }
+      ],
+      "reason": "Original historical journal and actual old payments reviewed",
+      "resolved_sources": [
+        {
+          "accounts": {
+            "input_vat": "1406",
+            "net": "5400",
+            "tax": "1406"
+          },
+          "cash_entry_keys": [
+            "OLD-2026-081"
+          ],
+          "kind": "opening_item",
+          "record": {
+            "category": "materials",
+            "counterparty_key": "customer-year-history",
+            "counterparty_name": "Synthetic counterparty",
+            "currency": "EUR",
+            "cutover_proof": {
+              "original_id": "4dac895e285049d3b075e7434ca820a7",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+            },
+            "direction": "payable",
+            "external_id": "year-history",
+            "external_system": "Legacy system",
+            "gross": "119.00",
+            "history_through": "2026-10-31",
+            "invoice_date": "2026-06-10",
+            "invoice_number": "OLD-year-history",
+            "invoice_proof": {
+              "original_id": "e4a872633bb74f03844f6f3b81215669",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+            },
+            "invoice_received_date": "2026-06-11",
+            "net": "100.00",
+            "prior_input_vat": {
+              "amount": "19.00",
+              "declared_period": "2026-06",
+              "deducted_on": "2026-07-10",
+              "entitlement_date": "2026-06-11",
+              "proof": {
+                "original_id": "2e28150a70e64a96a228793f434486a1",
+                "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+              }
+            },
+            "prior_payments": [
+              {
+                "date": "2026-08-20",
+                "gross": "59.50",
+                "net": "50.00",
+                "proof": {
+                  "original_id": "4dac895e285049d3b075e7434ca820a7",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "reference": "Original August part",
+                "tax": "9.50"
+              }
+            ],
+            "rate": "19",
+            "scope_confirmed": true,
+            "service_date": "2026-06-10",
+            "status": "active",
+            "tax": "19.00"
+          },
+          "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+          "vat_entry_key": "OLD-2026-061"
+        }
+      ],
+      "revision": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "sequence": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin",
+      "content_hash": "ffee98086ca8e4c28907c4f0075095775dbdfbcca45fcacee207b8c88830387e"
+    },
+    "history": {
+      "schema_version": 1,
+      "entity_key": "2026",
+      "items": [
+        {
+          "cash_flow_created": false,
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "details": {
+            "cash_flow_created": false,
+            "complete_prior_period": true,
+            "controls": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "ledger": "vat"
+              }
+            ],
+            "copied_rows": [
+              {
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "gross": "59.50",
+                "kind": "cash_history",
+                "net": "50.00",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+                "tax": "9.50"
+              },
+              {
+                "amount": "19.00",
+                "date": "2026-06-11",
+                "declared_period": "2026-06",
+                "deducted_on": "2026-07-10",
+                "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+                "kind": "already_exercised_input_vat",
+                "original_entry_key": "OLD-2026-061",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+              }
+            ],
+            "coverage": {
+              "from": "2026-01-01",
+              "through": "2026-10-31"
+            },
+            "economic_keys": [
+              "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+              "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+            ],
+            "historical_postings": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "ledger": "euer",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "ledger": "euer",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "date": "2026-06-11",
+                "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+                "ledger": "vat",
+                "original_entry_key": "OLD-2026-061",
+                "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+              }
+            ],
+            "new_input_vat_claim_created": false,
+            "opening_date": "2026-11-01",
+            "original_periods_preserved": true,
+            "rule_version": "de_euer_same_year_carryover_v1",
+            "schema_version": 1,
+            "year": 2026
+          },
+          "entity_key": "2026",
+          "expected_revision": 0,
+          "id": "e3d92776092a41fb88b4b75c2d11a713",
+          "new_input_vat_claim_created": false,
+          "operation": "year_values",
+          "payload": {
+            "attestations": {
+              "continuous_method": true,
+              "no_unsupported_values": true,
+              "original_journal_complete": true
+            },
+            "controls": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "ledger": "vat"
+              }
+            ],
+            "coverage": {
+              "from": "2026-01-01",
+              "through": "2026-10-31"
+            },
+            "ledger_proof": {
+              "original_id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+              "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+            },
+            "sources": [
+              {
+                "accounts": {
+                  "input_vat": "1406",
+                  "net": "5400",
+                  "tax": "1406"
+                },
+                "cash_entry_keys": [
+                  "OLD-2026-081"
+                ],
+                "entry_hash": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+                "entry_id": "7c93b4c4d414450ebbe6be63e9010084",
+                "kind": "opening_item",
+                "vat_entry_key": "OLD-2026-061"
+              }
+            ],
+            "status": "active"
+          },
+          "preview_hash": "cdef5f745333e37e9bc3141a36b9ea45b79af29f6db4c157b59594be62b16ffe",
+          "previous_hash": null,
+          "previous_ref": null,
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "4c1134044a97447e9eda95a854886cae",
+            "preview_hash": "27c57a8f5fd91cddcbe44ffb6ceef0e8d4a4b3f3f9242f21d0260ea341dc9caa",
+            "previous_state_hash": "610563eb840723ed5e8dad35015f7c6a15bf4e9fc7704dcd1589a7fc987b3eb3",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-11-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2025-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 3,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "profile_ref": {
+            "entry_sha256": "6102bfe6699779f7649240990f36586c6e2622b5ddf9bd601772367a667c9f08",
+            "id": "4c1134044a97447e9eda95a854886cae",
+            "revision": 3
+          },
+          "proofs": [
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "2026",
+              "filename": "historical.pdf",
+              "id": "a6cbe99af3b94a3bb6e15ef24ed7a948",
+              "media_type": "application/pdf",
+              "path": "/accounting/year-values/originals/a6cbe99af3b94a3bb6e15ef24ed7a948",
+              "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+              "size": 97
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "e4a872633bb74f03844f6f3b81215669",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/e4a872633bb74f03844f6f3b81215669",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "4dac895e285049d3b075e7434ca820a7",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "4dac895e285049d3b075e7434ca820a7",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "2e28150a70e64a96a228793f434486a1",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/2e28150a70e64a96a228793f434486a1",
+              "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+              "size": 73
+            }
+          ],
+          "reason": "Original historical journal and actual old payments reviewed",
+          "resolved_sources": [
+            {
+              "accounts": {
+                "input_vat": "1406",
+                "net": "5400",
+                "tax": "1406"
+              },
+              "cash_entry_keys": [
+                "OLD-2026-081"
+              ],
+              "kind": "opening_item",
+              "record": {
+                "category": "materials",
+                "counterparty_key": "customer-year-history",
+                "counterparty_name": "Synthetic counterparty",
+                "currency": "EUR",
+                "cutover_proof": {
+                  "original_id": "4dac895e285049d3b075e7434ca820a7",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "direction": "payable",
+                "external_id": "year-history",
+                "external_system": "Legacy system",
+                "gross": "119.00",
+                "history_through": "2026-10-31",
+                "invoice_date": "2026-06-10",
+                "invoice_number": "OLD-year-history",
+                "invoice_proof": {
+                  "original_id": "e4a872633bb74f03844f6f3b81215669",
+                  "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+                },
+                "invoice_received_date": "2026-06-11",
+                "net": "100.00",
+                "prior_input_vat": {
+                  "amount": "19.00",
+                  "declared_period": "2026-06",
+                  "deducted_on": "2026-07-10",
+                  "entitlement_date": "2026-06-11",
+                  "proof": {
+                    "original_id": "2e28150a70e64a96a228793f434486a1",
+                    "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+                  }
+                },
+                "prior_payments": [
+                  {
+                    "date": "2026-08-20",
+                    "gross": "59.50",
+                    "net": "50.00",
+                    "proof": {
+                      "original_id": "4dac895e285049d3b075e7434ca820a7",
+                      "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                    },
+                    "reference": "Original August part",
+                    "tax": "9.50"
+                  }
+                ],
+                "rate": "19",
+                "scope_confirmed": true,
+                "service_date": "2026-06-10",
+                "status": "active",
+                "tax": "19.00"
+              },
+              "source_ref": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92",
+              "vat_entry_key": "OLD-2026-061"
+            }
+          ],
+          "revision": 1,
+          "rule_version": "de_euer_same_year_carryover_v1",
+          "schema_version": 1,
+          "sequence": 1,
+          "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "timezone": "Europe/Berlin",
+          "content_hash": "ffee98086ca8e4c28907c4f0075095775dbdfbcca45fcacee207b8c88830387e"
+        }
+      ]
+    },
+    "old_item": {
+      "balance_timing": "start_of_day",
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+      "details": {
+        "external_identity": [
+          "legacy system",
+          "year-history"
+        ],
+        "opening_date": "2026-11-01",
+        "opening_remaining": "59.50",
+        "opening_remaining_net": "50.00",
+        "opening_remaining_tax": "9.50",
+        "original_gross": "119.00",
+        "original_identity": [
+          "payable",
+          "customer-year-history",
+          "old-year-history",
+          "2026-06-10"
+        ],
+        "settled_before_start": "59.50"
+      },
+      "entity_key": "year-history",
+      "expected_revision": 0,
+      "id": "7c93b4c4d414450ebbe6be63e9010084",
+      "invoice_created": false,
+      "opening_cash_flow_created": false,
+      "opening_tax_postings_created": false,
+      "operation": "item",
+      "payload": {
+        "category": "materials",
+        "counterparty_key": "customer-year-history",
+        "counterparty_name": "Synthetic counterparty",
+        "currency": "EUR",
+        "cutover_proof": {
+          "original_id": "4dac895e285049d3b075e7434ca820a7",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+        },
+        "direction": "payable",
+        "external_id": "year-history",
+        "external_system": "Legacy system",
+        "gross": "119.00",
+        "history_through": "2026-10-31",
+        "invoice_date": "2026-06-10",
+        "invoice_number": "OLD-year-history",
+        "invoice_proof": {
+          "original_id": "e4a872633bb74f03844f6f3b81215669",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+        },
+        "invoice_received_date": "2026-06-11",
+        "net": "100.00",
+        "prior_input_vat": {
+          "amount": "19.00",
+          "declared_period": "2026-06",
+          "deducted_on": "2026-07-10",
+          "entitlement_date": "2026-06-11",
+          "proof": {
+            "original_id": "2e28150a70e64a96a228793f434486a1",
+            "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+          }
+        },
+        "prior_payments": [
+          {
+            "date": "2026-08-20",
+            "gross": "59.50",
+            "net": "50.00",
+            "proof": {
+              "original_id": "4dac895e285049d3b075e7434ca820a7",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+            },
+            "reference": "Original August part",
+            "tax": "9.50"
+          }
+        ],
+        "rate": "19",
+        "scope_confirmed": true,
+        "service_date": "2026-06-10",
+        "status": "active",
+        "tax": "19.00"
+      },
+      "preview_hash": "560181151d7246571b3152c92f033d47163c9a572583f1c39ff76bd27f2e7b81",
+      "previous_hash": null,
+      "previous_ref": null,
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "preview_hash": "27c57a8f5fd91cddcbe44ffb6ceef0e8d4a4b3f3f9242f21d0260ea341dc9caa",
+        "previous_state_hash": "610563eb840723ed5e8dad35015f7c6a15bf4e9fc7704dcd1589a7fc987b3eb3",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "6102bfe6699779f7649240990f36586c6e2622b5ddf9bd601772367a667c9f08",
+        "id": "4c1134044a97447e9eda95a854886cae",
+        "revision": 3
+      },
+      "proofs": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "e4a872633bb74f03844f6f3b81215669",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/e4a872633bb74f03844f6f3b81215669",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "4dac895e285049d3b075e7434ca820a7",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "4dac895e285049d3b075e7434ca820a7",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/4dac895e285049d3b075e7434ca820a7",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "04fc58b5a7e9461b9d52c03f2ce675d9",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "2e28150a70e64a96a228793f434486a1",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/2e28150a70e64a96a228793f434486a1",
+          "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+          "size": 73
+        }
+      ],
+      "reason": "Synthetic original and complete payment history reviewed",
+      "revision": 1,
+      "rule_version": "de_euer_ist_open_items_v1",
+      "schema_version": 1,
+      "sequence": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin",
+      "content_hash": "d08397797bc3fc4b349a0990f944243c5ec471c2fe0984c90d252ecd149d5b92"
+    }
+  },
+  "missing_vat_timing": {
+    "before": {
+      "schema_version": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "cash_flow_created": false,
+      "new_input_vat_claim_created": false,
+      "timezone": "Europe/Berlin",
+      "revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "preview_hash": "628db54c47e6634dbc6ad0430fa190ee93b85add84f834ef30697206f38b46ed",
+        "previous_state_hash": "d6d1f21438c50c624421846772649adeee4ede0fc87fd884b3946d413c939470",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "revision": 3,
+        "entry_sha256": "f0b0918bba7e1bcf9be28770c10432225ce1a640647afa98cbe885f75d797f84"
+      },
+      "items": [],
+      "originals": [
+        {
+          "id": "ee22cb2341b4454186d6f6445ef9f88e",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "media_type": "application/pdf",
+          "size": 97,
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "path": "/accounting/year-values/originals/ee22cb2341b4454186d6f6445ef9f88e"
+        }
+      ],
+      "can_prepare": true,
+      "max_original_bytes": 5242880
+    },
+    "preview": {
+      "entity_key": "2026",
+      "reason": "Original historical journal and actual old payments reviewed",
+      "expected_revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile_ref": {
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "revision": 3,
+        "entry_sha256": "f0b0918bba7e1bcf9be28770c10432225ce1a640647afa98cbe885f75d797f84"
+      },
+      "operation": "year_values",
+      "payload": {
+        "status": "active",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "sources": [
+          {
+            "kind": "opening_item",
+            "entry_id": "fb50b417442a412ea59792dc4813e3f3",
+            "entry_hash": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+            "accounts": {
+              "net": "5400",
+              "tax": "1406",
+              "input_vat": "1406"
+            },
+            "cash_entry_keys": [
+              "OLD-2026-081"
+            ],
+            "vat_entry_key": "OLD-2026-061"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "ledger_proof": {
+          "original_id": "ee22cb2341b4454186d6f6445ef9f88e",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+        },
+        "attestations": {
+          "continuous_method": true,
+          "original_journal_complete": true,
+          "no_unsupported_values": true
+        }
+      },
+      "schema_version": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "cash_flow_created": false,
+      "new_input_vat_claim_created": false,
+      "timezone": "Europe/Berlin",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "preview_hash": "628db54c47e6634dbc6ad0430fa190ee93b85add84f834ef30697206f38b46ed",
+        "previous_state_hash": "d6d1f21438c50c624421846772649adeee4ede0fc87fd884b3946d413c939470",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "proofs": [
+        {
+          "id": "ee22cb2341b4454186d6f6445ef9f88e",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "media_type": "application/pdf",
+          "size": 97,
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "path": "/accounting/year-values/originals/ee22cb2341b4454186d6f6445ef9f88e"
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "5e14038b401b4a23904d57cb6b065c52",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/5e14038b401b4a23904d57cb6b065c52",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "05b6ae96a5bd47f8a30274569183703b",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "05b6ae96a5bd47f8a30274569183703b",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/51dd21f5a9544b0f8aee0fa73984f1c2",
+          "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+          "size": 73
+        }
+      ],
+      "resolved_sources": [
+        {
+          "kind": "opening_item",
+          "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+          "record": {
+            "category": "materials",
+            "counterparty_key": "customer-year-history",
+            "counterparty_name": "Synthetic counterparty",
+            "currency": "EUR",
+            "cutover_proof": {
+              "original_id": "05b6ae96a5bd47f8a30274569183703b",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+            },
+            "direction": "payable",
+            "external_id": "year-history",
+            "external_system": "Legacy system",
+            "gross": "119.00",
+            "history_through": "2026-10-31",
+            "invoice_date": "2026-06-10",
+            "invoice_number": "OLD-year-history",
+            "invoice_proof": {
+              "original_id": "5e14038b401b4a23904d57cb6b065c52",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+            },
+            "invoice_received_date": "2026-06-11",
+            "net": "100.00",
+            "prior_input_vat": {
+              "amount": "19.00",
+              "declared_period": "2026-06",
+              "deducted_on": "2026-07-10",
+              "entitlement_date": "2026-06-11",
+              "proof": {
+                "original_id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+                "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+              }
+            },
+            "prior_payments": [
+              {
+                "date": "2026-08-20",
+                "gross": "59.50",
+                "net": "50.00",
+                "proof": {
+                  "original_id": "05b6ae96a5bd47f8a30274569183703b",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "reference": "Original August part",
+                "tax": "9.50"
+              }
+            ],
+            "rate": "19",
+            "scope_confirmed": true,
+            "service_date": "2026-06-10",
+            "status": "active",
+            "tax": "19.00"
+          },
+          "accounts": {
+            "net": "5400",
+            "tax": "1406",
+            "input_vat": "1406"
+          },
+          "cash_entry_keys": [
+            "OLD-2026-081"
+          ],
+          "vat_entry_key": "OLD-2026-061"
+        }
+      ],
+      "details": {
+        "schema_version": 1,
+        "rule_version": "de_euer_same_year_carryover_v1",
+        "year": 2026,
+        "opening_date": "2026-11-01",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "complete_prior_period": true,
+        "historical_postings": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00",
+            "date": "2026-06-11",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "copied_rows": [
+          {
+            "kind": "cash_history",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "date": "2026-08-20",
+            "gross": "59.50",
+            "net": "50.00",
+            "tax": "9.50",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          },
+          {
+            "kind": "already_exercised_input_vat",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "date": "2026-06-11",
+            "amount": "19.00",
+            "deducted_on": "2026-07-10",
+            "declared_period": "2026-06",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          }
+        ],
+        "economic_keys": [
+          "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+          "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+        ],
+        "cash_flow_created": false,
+        "new_input_vat_claim_created": false,
+        "original_periods_preserved": true
+      },
+      "previous_ref": null,
+      "preview_hash": "e9b32ec3ec6a468249b627cb666e00c52116659282bf2349e654380bc5bf98bf"
+    },
+    "entry": {
+      "entity_key": "2026",
+      "reason": "Original historical journal and actual old payments reviewed",
+      "expected_revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile_ref": {
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "revision": 3,
+        "entry_sha256": "f0b0918bba7e1bcf9be28770c10432225ce1a640647afa98cbe885f75d797f84"
+      },
+      "operation": "year_values",
+      "payload": {
+        "status": "active",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "sources": [
+          {
+            "kind": "opening_item",
+            "entry_id": "fb50b417442a412ea59792dc4813e3f3",
+            "entry_hash": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+            "accounts": {
+              "net": "5400",
+              "tax": "1406",
+              "input_vat": "1406"
+            },
+            "cash_entry_keys": [
+              "OLD-2026-081"
+            ],
+            "vat_entry_key": "OLD-2026-061"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "ledger_proof": {
+          "original_id": "ee22cb2341b4454186d6f6445ef9f88e",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+        },
+        "attestations": {
+          "continuous_method": true,
+          "original_journal_complete": true,
+          "no_unsupported_values": true
+        }
+      },
+      "schema_version": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "cash_flow_created": false,
+      "new_input_vat_claim_created": false,
+      "timezone": "Europe/Berlin",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "preview_hash": "628db54c47e6634dbc6ad0430fa190ee93b85add84f834ef30697206f38b46ed",
+        "previous_state_hash": "d6d1f21438c50c624421846772649adeee4ede0fc87fd884b3946d413c939470",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "proofs": [
+        {
+          "id": "ee22cb2341b4454186d6f6445ef9f88e",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "media_type": "application/pdf",
+          "size": 97,
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "path": "/accounting/year-values/originals/ee22cb2341b4454186d6f6445ef9f88e"
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "5e14038b401b4a23904d57cb6b065c52",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/5e14038b401b4a23904d57cb6b065c52",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "05b6ae96a5bd47f8a30274569183703b",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "05b6ae96a5bd47f8a30274569183703b",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/51dd21f5a9544b0f8aee0fa73984f1c2",
+          "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+          "size": 73
+        }
+      ],
+      "resolved_sources": [
+        {
+          "kind": "opening_item",
+          "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+          "record": {
+            "category": "materials",
+            "counterparty_key": "customer-year-history",
+            "counterparty_name": "Synthetic counterparty",
+            "currency": "EUR",
+            "cutover_proof": {
+              "original_id": "05b6ae96a5bd47f8a30274569183703b",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+            },
+            "direction": "payable",
+            "external_id": "year-history",
+            "external_system": "Legacy system",
+            "gross": "119.00",
+            "history_through": "2026-10-31",
+            "invoice_date": "2026-06-10",
+            "invoice_number": "OLD-year-history",
+            "invoice_proof": {
+              "original_id": "5e14038b401b4a23904d57cb6b065c52",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+            },
+            "invoice_received_date": "2026-06-11",
+            "net": "100.00",
+            "prior_input_vat": {
+              "amount": "19.00",
+              "declared_period": "2026-06",
+              "deducted_on": "2026-07-10",
+              "entitlement_date": "2026-06-11",
+              "proof": {
+                "original_id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+                "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+              }
+            },
+            "prior_payments": [
+              {
+                "date": "2026-08-20",
+                "gross": "59.50",
+                "net": "50.00",
+                "proof": {
+                  "original_id": "05b6ae96a5bd47f8a30274569183703b",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "reference": "Original August part",
+                "tax": "9.50"
+              }
+            ],
+            "rate": "19",
+            "scope_confirmed": true,
+            "service_date": "2026-06-10",
+            "status": "active",
+            "tax": "19.00"
+          },
+          "accounts": {
+            "net": "5400",
+            "tax": "1406",
+            "input_vat": "1406"
+          },
+          "cash_entry_keys": [
+            "OLD-2026-081"
+          ],
+          "vat_entry_key": "OLD-2026-061"
+        }
+      ],
+      "details": {
+        "schema_version": 1,
+        "rule_version": "de_euer_same_year_carryover_v1",
+        "year": 2026,
+        "opening_date": "2026-11-01",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "complete_prior_period": true,
+        "historical_postings": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00",
+            "date": "2026-06-11",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "copied_rows": [
+          {
+            "kind": "cash_history",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "date": "2026-08-20",
+            "gross": "59.50",
+            "net": "50.00",
+            "tax": "9.50",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          },
+          {
+            "kind": "already_exercised_input_vat",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "date": "2026-06-11",
+            "amount": "19.00",
+            "deducted_on": "2026-07-10",
+            "declared_period": "2026-06",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          }
+        ],
+        "economic_keys": [
+          "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+          "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+        ],
+        "cash_flow_created": false,
+        "new_input_vat_claim_created": false,
+        "original_periods_preserved": true
+      },
+      "previous_ref": null,
+      "preview_hash": "e9b32ec3ec6a468249b627cb666e00c52116659282bf2349e654380bc5bf98bf",
+      "id": "c3bcac9ae1cf4006a1e3305cc0b321f8",
+      "sequence": 1,
+      "revision": 1,
+      "previous_hash": null,
+      "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "content_hash": "d37671398bf9a979238cfd0e00db211c79400e1fcd0195ebda1349a9f3b3c836"
+    },
+    "command": {
+      "expected_revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "entity_key": "2026",
+      "profile_ref": {
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "revision": 3,
+        "entry_sha256": "f0b0918bba7e1bcf9be28770c10432225ce1a640647afa98cbe885f75d797f84"
+      },
+      "operation": "year_values",
+      "payload": {
+        "status": "active",
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "sources": [
+          {
+            "kind": "opening_item",
+            "entry_id": "fb50b417442a412ea59792dc4813e3f3",
+            "entry_hash": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+            "accounts": {
+              "net": "5400",
+              "tax": "1406",
+              "input_vat": "1406"
+            },
+            "cash_entry_keys": [
+              "OLD-2026-081"
+            ],
+            "vat_entry_key": "OLD-2026-061"
+          }
+        ],
+        "controls": [
+          {
+            "ledger": "euer",
+            "category": "materials",
+            "account": "5400",
+            "amount": "-50.00"
+          },
+          {
+            "ledger": "euer",
+            "category": "paid_input_vat",
+            "account": "1406",
+            "amount": "-9.50"
+          },
+          {
+            "ledger": "vat",
+            "category": "input_vat",
+            "account": "1406",
+            "amount": "-19.00"
+          }
+        ],
+        "ledger_proof": {
+          "original_id": "ee22cb2341b4454186d6f6445ef9f88e",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+        },
+        "attestations": {
+          "continuous_method": true,
+          "original_journal_complete": true,
+          "no_unsupported_values": true
+        }
+      },
+      "reason": "Original historical journal and actual old payments reviewed",
+      "request_id": "8405ffd711744f6c8de77852c5d0b3c8",
+      "preview_hash": "e9b32ec3ec6a468249b627cb666e00c52116659282bf2349e654380bc5bf98bf",
+      "confirmation": true
+    },
+    "state": {
+      "schema_version": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "cash_flow_created": false,
+      "new_input_vat_claim_created": false,
+      "timezone": "Europe/Berlin",
+      "revision": 1,
+      "state_hash": "b15e58a35e0e0abb2bebedced758d10c62ac28828754deb7aa6f33ce429277ae",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "065c35caf4c5424c9612fdfcf77758f8",
+        "preview_hash": "e5fe0eb8a584512f48236b03257adacdaf9a73d141acfca795b4b6416fefddc6",
+        "previous_state_hash": "f965061c8c68cf9aea59f0fcf9e1ef4ceaba5979fe906aa6a5c4b26539cc9fe7",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": null
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 4,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "id": "065c35caf4c5424c9612fdfcf77758f8",
+        "revision": 4,
+        "entry_sha256": "db8f189e151889686f5ea35c89d07949e6497524156d677691c8c0cb44f130cf"
+      },
+      "items": [
+        {
+          "cash_flow_created": false,
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "details": {
+            "cash_flow_created": false,
+            "complete_prior_period": true,
+            "controls": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "ledger": "vat"
+              }
+            ],
+            "copied_rows": [
+              {
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "gross": "59.50",
+                "kind": "cash_history",
+                "net": "50.00",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+                "tax": "9.50"
+              },
+              {
+                "amount": "19.00",
+                "date": "2026-06-11",
+                "declared_period": "2026-06",
+                "deducted_on": "2026-07-10",
+                "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+                "kind": "already_exercised_input_vat",
+                "original_entry_key": "OLD-2026-061",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+              }
+            ],
+            "coverage": {
+              "from": "2026-01-01",
+              "through": "2026-10-31"
+            },
+            "economic_keys": [
+              "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+              "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+            ],
+            "historical_postings": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "ledger": "euer",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "ledger": "euer",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "date": "2026-06-11",
+                "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+                "ledger": "vat",
+                "original_entry_key": "OLD-2026-061",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+              }
+            ],
+            "new_input_vat_claim_created": false,
+            "opening_date": "2026-11-01",
+            "original_periods_preserved": true,
+            "rule_version": "de_euer_same_year_carryover_v1",
+            "schema_version": 1,
+            "year": 2026
+          },
+          "entity_key": "2026",
+          "expected_revision": 0,
+          "id": "c3bcac9ae1cf4006a1e3305cc0b321f8",
+          "new_input_vat_claim_created": false,
+          "operation": "year_values",
+          "payload": {
+            "attestations": {
+              "continuous_method": true,
+              "no_unsupported_values": true,
+              "original_journal_complete": true
+            },
+            "controls": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "ledger": "vat"
+              }
+            ],
+            "coverage": {
+              "from": "2026-01-01",
+              "through": "2026-10-31"
+            },
+            "ledger_proof": {
+              "original_id": "ee22cb2341b4454186d6f6445ef9f88e",
+              "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+            },
+            "sources": [
+              {
+                "accounts": {
+                  "input_vat": "1406",
+                  "net": "5400",
+                  "tax": "1406"
+                },
+                "cash_entry_keys": [
+                  "OLD-2026-081"
+                ],
+                "entry_hash": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+                "entry_id": "fb50b417442a412ea59792dc4813e3f3",
+                "kind": "opening_item",
+                "vat_entry_key": "OLD-2026-061"
+              }
+            ],
+            "status": "active"
+          },
+          "preview_hash": "e9b32ec3ec6a468249b627cb666e00c52116659282bf2349e654380bc5bf98bf",
+          "previous_hash": null,
+          "previous_ref": null,
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+            "preview_hash": "628db54c47e6634dbc6ad0430fa190ee93b85add84f834ef30697206f38b46ed",
+            "previous_state_hash": "d6d1f21438c50c624421846772649adeee4ede0fc87fd884b3946d413c939470",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-11-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2025-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 3,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "profile_ref": {
+            "entry_sha256": "f0b0918bba7e1bcf9be28770c10432225ce1a640647afa98cbe885f75d797f84",
+            "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+            "revision": 3
+          },
+          "proofs": [
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "2026",
+              "filename": "historical.pdf",
+              "id": "ee22cb2341b4454186d6f6445ef9f88e",
+              "media_type": "application/pdf",
+              "path": "/accounting/year-values/originals/ee22cb2341b4454186d6f6445ef9f88e",
+              "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+              "size": 97
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "5e14038b401b4a23904d57cb6b065c52",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/5e14038b401b4a23904d57cb6b065c52",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "05b6ae96a5bd47f8a30274569183703b",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "05b6ae96a5bd47f8a30274569183703b",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/51dd21f5a9544b0f8aee0fa73984f1c2",
+              "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+              "size": 73
+            }
+          ],
+          "reason": "Original historical journal and actual old payments reviewed",
+          "resolved_sources": [
+            {
+              "accounts": {
+                "input_vat": "1406",
+                "net": "5400",
+                "tax": "1406"
+              },
+              "cash_entry_keys": [
+                "OLD-2026-081"
+              ],
+              "kind": "opening_item",
+              "record": {
+                "category": "materials",
+                "counterparty_key": "customer-year-history",
+                "counterparty_name": "Synthetic counterparty",
+                "currency": "EUR",
+                "cutover_proof": {
+                  "original_id": "05b6ae96a5bd47f8a30274569183703b",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "direction": "payable",
+                "external_id": "year-history",
+                "external_system": "Legacy system",
+                "gross": "119.00",
+                "history_through": "2026-10-31",
+                "invoice_date": "2026-06-10",
+                "invoice_number": "OLD-year-history",
+                "invoice_proof": {
+                  "original_id": "5e14038b401b4a23904d57cb6b065c52",
+                  "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+                },
+                "invoice_received_date": "2026-06-11",
+                "net": "100.00",
+                "prior_input_vat": {
+                  "amount": "19.00",
+                  "declared_period": "2026-06",
+                  "deducted_on": "2026-07-10",
+                  "entitlement_date": "2026-06-11",
+                  "proof": {
+                    "original_id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+                    "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+                  }
+                },
+                "prior_payments": [
+                  {
+                    "date": "2026-08-20",
+                    "gross": "59.50",
+                    "net": "50.00",
+                    "proof": {
+                      "original_id": "05b6ae96a5bd47f8a30274569183703b",
+                      "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                    },
+                    "reference": "Original August part",
+                    "tax": "9.50"
+                  }
+                ],
+                "rate": "19",
+                "scope_confirmed": true,
+                "service_date": "2026-06-10",
+                "status": "active",
+                "tax": "19.00"
+              },
+              "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+              "vat_entry_key": "OLD-2026-061"
+            }
+          ],
+          "revision": 1,
+          "rule_version": "de_euer_same_year_carryover_v1",
+          "schema_version": 1,
+          "sequence": 1,
+          "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "timezone": "Europe/Berlin",
+          "content_hash": "d37671398bf9a979238cfd0e00db211c79400e1fcd0195ebda1349a9f3b3c836"
+        }
+      ],
+      "originals": [
+        {
+          "id": "ee22cb2341b4454186d6f6445ef9f88e",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "media_type": "application/pdf",
+          "size": 97,
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "path": "/accounting/year-values/originals/ee22cb2341b4454186d6f6445ef9f88e"
+        }
+      ],
+      "can_prepare": true,
+      "max_original_bytes": 5242880
+    },
+    "replay": {
+      "cash_flow_created": false,
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+      "details": {
+        "cash_flow_created": false,
+        "complete_prior_period": true,
+        "controls": [
+          {
+            "account": "5400",
+            "amount": "-50.00",
+            "category": "materials",
+            "ledger": "euer"
+          },
+          {
+            "account": "1406",
+            "amount": "-9.50",
+            "category": "paid_input_vat",
+            "ledger": "euer"
+          },
+          {
+            "account": "1406",
+            "amount": "-19.00",
+            "category": "input_vat",
+            "ledger": "vat"
+          }
+        ],
+        "copied_rows": [
+          {
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "gross": "59.50",
+            "kind": "cash_history",
+            "net": "50.00",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+            "tax": "9.50"
+          },
+          {
+            "amount": "19.00",
+            "date": "2026-06-11",
+            "declared_period": "2026-06",
+            "deducted_on": "2026-07-10",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "kind": "already_exercised_input_vat",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          }
+        ],
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "economic_keys": [
+          "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+          "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+        ],
+        "historical_postings": [
+          {
+            "account": "5400",
+            "amount": "-50.00",
+            "category": "materials",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "ledger": "euer",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          },
+          {
+            "account": "1406",
+            "amount": "-9.50",
+            "category": "paid_input_vat",
+            "date": "2026-08-20",
+            "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+            "ledger": "euer",
+            "original_entry_key": "OLD-2026-081",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          },
+          {
+            "account": "1406",
+            "amount": "-19.00",
+            "category": "input_vat",
+            "date": "2026-06-11",
+            "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+            "ledger": "vat",
+            "original_entry_key": "OLD-2026-061",
+            "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+          }
+        ],
+        "new_input_vat_claim_created": false,
+        "opening_date": "2026-11-01",
+        "original_periods_preserved": true,
+        "rule_version": "de_euer_same_year_carryover_v1",
+        "schema_version": 1,
+        "year": 2026
+      },
+      "entity_key": "2026",
+      "expected_revision": 0,
+      "id": "c3bcac9ae1cf4006a1e3305cc0b321f8",
+      "new_input_vat_claim_created": false,
+      "operation": "year_values",
+      "payload": {
+        "attestations": {
+          "continuous_method": true,
+          "no_unsupported_values": true,
+          "original_journal_complete": true
+        },
+        "controls": [
+          {
+            "account": "5400",
+            "amount": "-50.00",
+            "category": "materials",
+            "ledger": "euer"
+          },
+          {
+            "account": "1406",
+            "amount": "-9.50",
+            "category": "paid_input_vat",
+            "ledger": "euer"
+          },
+          {
+            "account": "1406",
+            "amount": "-19.00",
+            "category": "input_vat",
+            "ledger": "vat"
+          }
+        ],
+        "coverage": {
+          "from": "2026-01-01",
+          "through": "2026-10-31"
+        },
+        "ledger_proof": {
+          "original_id": "ee22cb2341b4454186d6f6445ef9f88e",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+        },
+        "sources": [
+          {
+            "accounts": {
+              "input_vat": "1406",
+              "net": "5400",
+              "tax": "1406"
+            },
+            "cash_entry_keys": [
+              "OLD-2026-081"
+            ],
+            "entry_hash": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+            "entry_id": "fb50b417442a412ea59792dc4813e3f3",
+            "kind": "opening_item",
+            "vat_entry_key": "OLD-2026-061"
+          }
+        ],
+        "status": "active"
+      },
+      "preview_hash": "e9b32ec3ec6a468249b627cb666e00c52116659282bf2349e654380bc5bf98bf",
+      "previous_hash": null,
+      "previous_ref": null,
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "preview_hash": "628db54c47e6634dbc6ad0430fa190ee93b85add84f834ef30697206f38b46ed",
+        "previous_state_hash": "d6d1f21438c50c624421846772649adeee4ede0fc87fd884b3946d413c939470",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f0b0918bba7e1bcf9be28770c10432225ce1a640647afa98cbe885f75d797f84",
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "revision": 3
+      },
+      "proofs": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "ee22cb2341b4454186d6f6445ef9f88e",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/ee22cb2341b4454186d6f6445ef9f88e",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "5e14038b401b4a23904d57cb6b065c52",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/5e14038b401b4a23904d57cb6b065c52",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "05b6ae96a5bd47f8a30274569183703b",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "05b6ae96a5bd47f8a30274569183703b",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/51dd21f5a9544b0f8aee0fa73984f1c2",
+          "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+          "size": 73
+        }
+      ],
+      "reason": "Original historical journal and actual old payments reviewed",
+      "resolved_sources": [
+        {
+          "accounts": {
+            "input_vat": "1406",
+            "net": "5400",
+            "tax": "1406"
+          },
+          "cash_entry_keys": [
+            "OLD-2026-081"
+          ],
+          "kind": "opening_item",
+          "record": {
+            "category": "materials",
+            "counterparty_key": "customer-year-history",
+            "counterparty_name": "Synthetic counterparty",
+            "currency": "EUR",
+            "cutover_proof": {
+              "original_id": "05b6ae96a5bd47f8a30274569183703b",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+            },
+            "direction": "payable",
+            "external_id": "year-history",
+            "external_system": "Legacy system",
+            "gross": "119.00",
+            "history_through": "2026-10-31",
+            "invoice_date": "2026-06-10",
+            "invoice_number": "OLD-year-history",
+            "invoice_proof": {
+              "original_id": "5e14038b401b4a23904d57cb6b065c52",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+            },
+            "invoice_received_date": "2026-06-11",
+            "net": "100.00",
+            "prior_input_vat": {
+              "amount": "19.00",
+              "declared_period": "2026-06",
+              "deducted_on": "2026-07-10",
+              "entitlement_date": "2026-06-11",
+              "proof": {
+                "original_id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+                "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+              }
+            },
+            "prior_payments": [
+              {
+                "date": "2026-08-20",
+                "gross": "59.50",
+                "net": "50.00",
+                "proof": {
+                  "original_id": "05b6ae96a5bd47f8a30274569183703b",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "reference": "Original August part",
+                "tax": "9.50"
+              }
+            ],
+            "rate": "19",
+            "scope_confirmed": true,
+            "service_date": "2026-06-10",
+            "status": "active",
+            "tax": "19.00"
+          },
+          "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+          "vat_entry_key": "OLD-2026-061"
+        }
+      ],
+      "revision": 1,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "sequence": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin",
+      "content_hash": "d37671398bf9a979238cfd0e00db211c79400e1fcd0195ebda1349a9f3b3c836"
+    },
+    "history": {
+      "schema_version": 1,
+      "entity_key": "2026",
+      "items": [
+        {
+          "cash_flow_created": false,
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "details": {
+            "cash_flow_created": false,
+            "complete_prior_period": true,
+            "controls": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "ledger": "vat"
+              }
+            ],
+            "copied_rows": [
+              {
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "gross": "59.50",
+                "kind": "cash_history",
+                "net": "50.00",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+                "tax": "9.50"
+              },
+              {
+                "amount": "19.00",
+                "date": "2026-06-11",
+                "declared_period": "2026-06",
+                "deducted_on": "2026-07-10",
+                "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+                "kind": "already_exercised_input_vat",
+                "original_entry_key": "OLD-2026-061",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+              }
+            ],
+            "coverage": {
+              "from": "2026-01-01",
+              "through": "2026-10-31"
+            },
+            "economic_keys": [
+              "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+              "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7"
+            ],
+            "historical_postings": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "ledger": "euer",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "date": "2026-08-20",
+                "economic_key": "c034b938d4cea658aa9bc34c5b5570b75e44e0bdda1953d48721ada1227831e7",
+                "ledger": "euer",
+                "original_entry_key": "OLD-2026-081",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "date": "2026-06-11",
+                "economic_key": "70007bda17d8b871587a61271f886be9dff8a8652769c9cf54b2e947e0057970",
+                "ledger": "vat",
+                "original_entry_key": "OLD-2026-061",
+                "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+              }
+            ],
+            "new_input_vat_claim_created": false,
+            "opening_date": "2026-11-01",
+            "original_periods_preserved": true,
+            "rule_version": "de_euer_same_year_carryover_v1",
+            "schema_version": 1,
+            "year": 2026
+          },
+          "entity_key": "2026",
+          "expected_revision": 0,
+          "id": "c3bcac9ae1cf4006a1e3305cc0b321f8",
+          "new_input_vat_claim_created": false,
+          "operation": "year_values",
+          "payload": {
+            "attestations": {
+              "continuous_method": true,
+              "no_unsupported_values": true,
+              "original_journal_complete": true
+            },
+            "controls": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "ledger": "euer"
+              },
+              {
+                "account": "1406",
+                "amount": "-19.00",
+                "category": "input_vat",
+                "ledger": "vat"
+              }
+            ],
+            "coverage": {
+              "from": "2026-01-01",
+              "through": "2026-10-31"
+            },
+            "ledger_proof": {
+              "original_id": "ee22cb2341b4454186d6f6445ef9f88e",
+              "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4"
+            },
+            "sources": [
+              {
+                "accounts": {
+                  "input_vat": "1406",
+                  "net": "5400",
+                  "tax": "1406"
+                },
+                "cash_entry_keys": [
+                  "OLD-2026-081"
+                ],
+                "entry_hash": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+                "entry_id": "fb50b417442a412ea59792dc4813e3f3",
+                "kind": "opening_item",
+                "vat_entry_key": "OLD-2026-061"
+              }
+            ],
+            "status": "active"
+          },
+          "preview_hash": "e9b32ec3ec6a468249b627cb666e00c52116659282bf2349e654380bc5bf98bf",
+          "previous_hash": null,
+          "previous_ref": null,
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+            "preview_hash": "628db54c47e6634dbc6ad0430fa190ee93b85add84f834ef30697206f38b46ed",
+            "previous_state_hash": "d6d1f21438c50c624421846772649adeee4ede0fc87fd884b3946d413c939470",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-11-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2025-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 3,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "profile_ref": {
+            "entry_sha256": "f0b0918bba7e1bcf9be28770c10432225ce1a640647afa98cbe885f75d797f84",
+            "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+            "revision": 3
+          },
+          "proofs": [
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "2026",
+              "filename": "historical.pdf",
+              "id": "ee22cb2341b4454186d6f6445ef9f88e",
+              "media_type": "application/pdf",
+              "path": "/accounting/year-values/originals/ee22cb2341b4454186d6f6445ef9f88e",
+              "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+              "size": 97
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "5e14038b401b4a23904d57cb6b065c52",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/5e14038b401b4a23904d57cb6b065c52",
+              "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "05b6ae96a5bd47f8a30274569183703b",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "05b6ae96a5bd47f8a30274569183703b",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+              "size": 58
+            },
+            {
+              "created_at": "2026-12-31T12:00:00+00:00",
+              "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+              "entity_key": "year-history",
+              "filename": "synthetic.pdf",
+              "id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+              "media_type": "application/pdf",
+              "path": "/accounting/open-items/originals/51dd21f5a9544b0f8aee0fa73984f1c2",
+              "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+              "size": 73
+            }
+          ],
+          "reason": "Original historical journal and actual old payments reviewed",
+          "resolved_sources": [
+            {
+              "accounts": {
+                "input_vat": "1406",
+                "net": "5400",
+                "tax": "1406"
+              },
+              "cash_entry_keys": [
+                "OLD-2026-081"
+              ],
+              "kind": "opening_item",
+              "record": {
+                "category": "materials",
+                "counterparty_key": "customer-year-history",
+                "counterparty_name": "Synthetic counterparty",
+                "currency": "EUR",
+                "cutover_proof": {
+                  "original_id": "05b6ae96a5bd47f8a30274569183703b",
+                  "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                },
+                "direction": "payable",
+                "external_id": "year-history",
+                "external_system": "Legacy system",
+                "gross": "119.00",
+                "history_through": "2026-10-31",
+                "invoice_date": "2026-06-10",
+                "invoice_number": "OLD-year-history",
+                "invoice_proof": {
+                  "original_id": "5e14038b401b4a23904d57cb6b065c52",
+                  "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+                },
+                "invoice_received_date": "2026-06-11",
+                "net": "100.00",
+                "prior_input_vat": {
+                  "amount": "19.00",
+                  "declared_period": "2026-06",
+                  "deducted_on": "2026-07-10",
+                  "entitlement_date": "2026-06-11",
+                  "proof": {
+                    "original_id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+                    "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+                  }
+                },
+                "prior_payments": [
+                  {
+                    "date": "2026-08-20",
+                    "gross": "59.50",
+                    "net": "50.00",
+                    "proof": {
+                      "original_id": "05b6ae96a5bd47f8a30274569183703b",
+                      "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+                    },
+                    "reference": "Original August part",
+                    "tax": "9.50"
+                  }
+                ],
+                "rate": "19",
+                "scope_confirmed": true,
+                "service_date": "2026-06-10",
+                "status": "active",
+                "tax": "19.00"
+              },
+              "source_ref": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c",
+              "vat_entry_key": "OLD-2026-061"
+            }
+          ],
+          "revision": 1,
+          "rule_version": "de_euer_same_year_carryover_v1",
+          "schema_version": 1,
+          "sequence": 1,
+          "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "timezone": "Europe/Berlin",
+          "content_hash": "d37671398bf9a979238cfd0e00db211c79400e1fcd0195ebda1349a9f3b3c836"
+        }
+      ]
+    },
+    "old_item": {
+      "balance_timing": "start_of_day",
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+      "details": {
+        "external_identity": [
+          "legacy system",
+          "year-history"
+        ],
+        "opening_date": "2026-11-01",
+        "opening_remaining": "59.50",
+        "opening_remaining_net": "50.00",
+        "opening_remaining_tax": "9.50",
+        "original_gross": "119.00",
+        "original_identity": [
+          "payable",
+          "customer-year-history",
+          "old-year-history",
+          "2026-06-10"
+        ],
+        "settled_before_start": "59.50"
+      },
+      "entity_key": "year-history",
+      "expected_revision": 0,
+      "id": "fb50b417442a412ea59792dc4813e3f3",
+      "invoice_created": false,
+      "opening_cash_flow_created": false,
+      "opening_tax_postings_created": false,
+      "operation": "item",
+      "payload": {
+        "category": "materials",
+        "counterparty_key": "customer-year-history",
+        "counterparty_name": "Synthetic counterparty",
+        "currency": "EUR",
+        "cutover_proof": {
+          "original_id": "05b6ae96a5bd47f8a30274569183703b",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+        },
+        "direction": "payable",
+        "external_id": "year-history",
+        "external_system": "Legacy system",
+        "gross": "119.00",
+        "history_through": "2026-10-31",
+        "invoice_date": "2026-06-10",
+        "invoice_number": "OLD-year-history",
+        "invoice_proof": {
+          "original_id": "5e14038b401b4a23904d57cb6b065c52",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9"
+        },
+        "invoice_received_date": "2026-06-11",
+        "net": "100.00",
+        "prior_input_vat": {
+          "amount": "19.00",
+          "declared_period": "2026-06",
+          "deducted_on": "2026-07-10",
+          "entitlement_date": "2026-06-11",
+          "proof": {
+            "original_id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+            "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441"
+          }
+        },
+        "prior_payments": [
+          {
+            "date": "2026-08-20",
+            "gross": "59.50",
+            "net": "50.00",
+            "proof": {
+              "original_id": "05b6ae96a5bd47f8a30274569183703b",
+              "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331"
+            },
+            "reference": "Original August part",
+            "tax": "9.50"
+          }
+        ],
+        "rate": "19",
+        "scope_confirmed": true,
+        "service_date": "2026-06-10",
+        "status": "active",
+        "tax": "19.00"
+      },
+      "preview_hash": "751371339f6db47cfc580cd4203be5ee85d4ea80b62a509223405ffd32a7c644",
+      "previous_hash": null,
+      "previous_ref": null,
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "preview_hash": "628db54c47e6634dbc6ad0430fa190ee93b85add84f834ef30697206f38b46ed",
+        "previous_state_hash": "d6d1f21438c50c624421846772649adeee4ede0fc87fd884b3946d413c939470",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f0b0918bba7e1bcf9be28770c10432225ce1a640647afa98cbe885f75d797f84",
+        "id": "41ca7cf6fd5d40cbb4d5e6614eda5b8d",
+        "revision": 3
+      },
+      "proofs": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "5e14038b401b4a23904d57cb6b065c52",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/5e14038b401b4a23904d57cb6b065c52",
+          "sha256": "668ce5527ab79db441fdc201e71c9801f1f579f419523a3496b581353b7c6ec9",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "05b6ae96a5bd47f8a30274569183703b",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "05b6ae96a5bd47f8a30274569183703b",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/05b6ae96a5bd47f8a30274569183703b",
+          "sha256": "ae60fe767a99448671b9e887468543ac10d581d2075d65db1f3da13142941331",
+          "size": 58
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "d3ad34cf782a4aa4877693fde8a4dd1e",
+          "entity_key": "year-history",
+          "filename": "synthetic.pdf",
+          "id": "51dd21f5a9544b0f8aee0fa73984f1c2",
+          "media_type": "application/pdf",
+          "path": "/accounting/open-items/originals/51dd21f5a9544b0f8aee0fa73984f1c2",
+          "sha256": "49e7ff4e3d95f178beeb4faac42bdbf94c92729fd62a9aecb18b0668936fc441",
+          "size": 73
+        }
+      ],
+      "reason": "Synthetic original and complete payment history reviewed",
+      "revision": 1,
+      "rule_version": "de_euer_ist_open_items_v1",
+      "schema_version": 1,
+      "sequence": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin",
+      "content_hash": "1a84a86f14ea1b8bebd33a8b77da44744044623b69b2ec0745fe820280a63f5c"
+    }
+  }
+}

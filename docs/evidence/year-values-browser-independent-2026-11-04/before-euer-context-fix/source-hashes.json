@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-11-04T12:56:31.762095+00:00",
+  "files": {
+    "web/office/office.js": "1b3016a80b93d05a7d9f75cb233ed1cee8a7f80fa13ca345139fd6aa836fd8b2",
+    "web/office/accounting-euer.js": "88d3f085561aedeab398281f407526141f0e0fd45dff7b47ff84ebb23a39b05b",
+    "web/office/accounting-year-values.js": "f37482999c156ae0201a3eb13b54975ea10aa65f301708929448ab7b68b34c96",
+    "web/office/accounting-year-values-contract.js": "58c08734d5dbe55954415735e02b3f646fb378e8e2007bb7907c8d81f22b3459",
+    "web/office/tests/accounting-year-values-independent-lifecycle.test.mjs": "57a069d02cd1a2f640ac6b71c07770154cd13eb9a1bdef07c74ed64e7d2139b2",
+    "web/office/tests/accounting-year-values-independent-harness.mjs": "ac71af62353a299d1615c20100bab4199d75ec2b3d018b65313d87441e745d15",
+    "web/office/tests/fixtures/accounting-year-values-euer-ui.json": "a3fd1e91e6e913b965693efe1eff69c55c42b26a5ee082720aedea6051a0926a"
+  }
+}

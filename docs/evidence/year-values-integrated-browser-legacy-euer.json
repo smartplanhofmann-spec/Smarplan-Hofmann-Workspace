@@ -1,0 +1,8 @@
+{
+  "workflow": "legacy-euer",
+  "exit_code": 0,
+  "duration_seconds": 63.155,
+  "log": "docs/evidence/year-values-integrated-browser-legacy-euer-2026-11-04.txt",
+  "log_sha256": "764987094c11d04cfc59fe6c69b29f15219d58a729d340b652b4ec1dd87eac8b",
+  "recorded_at_utc": "2026-11-04T13:33:29.998101+00:00"
+}

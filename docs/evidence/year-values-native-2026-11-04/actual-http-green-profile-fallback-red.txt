@@ -1,0 +1,134 @@
+00:00 +0: loading /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart
+00:00 +0: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: actual complete original state preview receipt source and history
+00:00 +1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: actual partial_then_corrected original state preview receipt source and history
+00:00 +2: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: actual closed_trade original state preview receipt source and history
+00:00 +3: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: separate signed cent controls without guessed zeros
+00:00 +4: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: rehash cannot change old VAT day or original account projection
+00:00 +5: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: source requires original entry even after valid foreign rehash
+00:00 +6: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: partial coverage cannot be relabelled complete
+00:00 +7: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_test.dart: receipt rejects foreign actual original and frozen state alteration
+00:00 +8: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: unknown acceptance repeats original nonce and frozen receipt after newer state
+00:00 +9: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: foreign valid acceptance cannot clear original pending
+00:00 +10: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: held capability preflight cannot send after editor context ended
+00:00 +11: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: 390px original year state history and no invented cash
+00:02 +12: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +13: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +14: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +15: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:02 +16: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:03 +17: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:03 +18: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Jahresoriginal hochladen
+00:03 +19: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:03 +20: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:04 +21: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:04 +22: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:04 +23: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Unverändert erneut prüfen
+Native yearly step: Jahresvortrag vorbereiten
+Native yearly field: Belegter Zeitraum von (JJJJ-MM-TT)
+Native yearly field: Belegter Zeitraum bis (JJJJ-MM-TT)
+Native yearly field: Ursprüngliches SKR04-Nettokonto
+Native yearly field: Ursprüngliches SKR04-Steuerkonto
+Native yearly field: Ursprüngliches SKR04-Vorsteuerkonto
+Native yearly field: Alte Zahlungsbuchungen: eine Kennung je Zahlung in Originalreihenfolge
+Native yearly field: Ursprüngliche Vorsteuerbuchungsidentität (nur Lieferantenrechnung)
+00:07 +24: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly step: Geprüfte ursprüngliche Quelle hinzufügen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+00:08 +25: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:08 +26: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:08 +26: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: actual missing_start profile preserves readable original annual history with new editor disabled
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#2      WidgetController.dragUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2489:38)
+<asynchronous suspension>
+#3      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#4      WidgetController.scrollUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2439:7)
+<asynchronous suspension>
+#5      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#6      yvTap (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart:179:3)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart:600:9)
+<asynchronous suspension>
+#8      yearWidget.<anonymous closure> (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart:192:9)
+<asynchronous suspension>
+#9      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#10     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  actual missing_start profile preserves readable original annual history with new editor disabled
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:08 +26 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+00:08 +26 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: actual missing_start profile preserves readable original annual history with new editor disabled [E]
+  Test failed. See exception logs above.
+  The test description was: actual missing_start profile preserves readable original annual history with new editor disabled
+  
+00:08 +27 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+00:08 +28 -1: /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_http_test.dart: actual 390px yearly original upload, canonical prior values, controls, exact lost ACK, EÜR, history, correction and void
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Belegte Kontrollsumme hinzufügen
+Native yearly field: Geprüftes ursprüngliches SKR04-Konto
+Native yearly field: Belegter vorzeichenbehafteter Betrag
+Native yearly step: Geprüfte Angaben übernehmen
+Native yearly step: Buchführungsmethode unverändert fortgeführt
+Native yearly step: Ursprüngliches Journal im erklärten Zeitraum vollständig geprüft
+Native yearly step: Keine unzulässigen Anlagen-, Lohn-, Privat- oder Sonderwerte enthalten
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Originale und Jahreswerte vorprüfen
+Native yearly step: Genau diese ursprünglichen Werte und Nachweise verbindlich bestätigen
+Native yearly step: Geprüfte Jahresfassung annehmen
+Native yearly step: Unverändert erneut prüfen
+Native yearly step: EÜR, Gegenbuchungen und Perioden prüfen
+Native yearly field: Fachliche Begründung
+Native yearly field: Nachweis / Prüfgrundlage
+Native yearly step: Buchung unverbindlich prüfen
+Native yearly step: Ich habe Quelle, fachliche Einordnung, Beträge, Zeitraum und Konten geprüft und bestätige diesen Vorgang.
+Native yearly step: Buchung verbindlich festhalten
+Native yearly step: Belegte Korrektur vorbereiten
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Buchführungsmethode unverändert fortgeführt
+Native yearly step: Ursprüngliches Journal im erklärten Zeitraum vollständig geprüft
+Native yearly step: Keine unzulässigen Anlagen-, Lohn-, Privat- oder Sonderwerte enthalten
+Native yearly step: Originale und Jahreswerte vorprüfen
+Native yearly step: Bearbeitung schließen
+Native yearly step: Unverändert aufheben
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Originale und Jahreswerte vorprüfen
+Native yearly step: Genau diese ursprünglichen Werte und Nachweise verbindlich bestätigen
+Native yearly step: Geprüfte Jahresfassung annehmen
+Native yearly step: Belegte Korrektur vorbereiten
+Native yearly field: Prüf-/Korrekturgrund
+Native yearly step: Buchführungsmethode unverändert fortgeführt
+Native yearly step: Ursprüngliches Journal im erklärten Zeitraum vollständig geprüft
+Native yearly step: Keine unzulässigen Anlagen-, Lohn-, Privat- oder Sonderwerte enthalten
+Native yearly step: Originale und Jahreswerte vorprüfen
+Native yearly step: Genau diese ursprünglichen Werte und Nachweise verbindlich bestätigen
+Native yearly step: Geprüfte Jahresfassung annehmen
+Native yearly step: Geschützte Jahresoriginale (2)
+Native yearly step: reviewed-year-journal.pdf
+Native yearly step: Ursprüngliche Jahresfassungen
+Native yearly step: Ursprüngliche Fassung 1 · Aktiv
+Native yearly step: Diese ursprüngliche Quelle prüfen
+Native yearly step: Neu laden
+00:29 +29 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_lifecycle_test.dart: actual missing_start profile preserves readable original annual history with new editor disabled

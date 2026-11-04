@@ -1,0 +1,10 @@
+00:00 +0: loading /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart
+00:00 +0: independent genuine original void after EÜR reverse remains possible with missing current start
+00:00 +0 -1: independent genuine original void after EÜR reverse remains possible with missing current start [E]
+  Jahresvorträge sind aktuell nicht zur Bearbeitung freigegeben.
+  package:smartplan_office/business_session.dart 411:7  BusinessSession.yearValuesCommand
+  
+00:00 +0 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart: independent genuine original void after EÜR reverse remains possible with missing current start

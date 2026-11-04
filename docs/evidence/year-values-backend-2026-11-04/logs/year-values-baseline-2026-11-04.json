@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "scope": "Actual current baseline, synthetic temporary Office only",
+  "annual_gap": {
+    "bookkeeping_start": "2026-11-01",
+    "old_paid_same_year": "59.50",
+    "new_paid_same_year": "59.50",
+    "actual_confirmed_expenses": "59.50",
+    "known_combined_expense_from_originals": "119.00",
+    "annual_surplus": null,
+    "issues": [
+      "partial_period_profile_coverage"
+    ],
+    "fully_paid_old_item": {
+      "status": 409,
+      "message": "Nur tatsächlich noch offene Altposten übernehmen."
+    },
+    "ordinary_before_cutover": {
+      "status": 409,
+      "message": "Sachverhalt liegt vor dem bestätigten Buchführungs-/Umsatzsteuerbeginn"
+    },
+    "available_euer_operations": [
+      "asset",
+      "cash",
+      "correct",
+      "depreciation",
+      "export",
+      "external_cash",
+      "input_vat",
+      "opening_depreciation",
+      "opening_item_cash",
+      "payroll_cash",
+      "period",
+      "reverse",
+      "travel_cash"
+    ]
+  },
+  "advisor_gap": {
+    "format": "smartplan_euer_review_v1",
+    "artifact_keys": [
+      "created_at",
+      "csv",
+      "csv_sha256",
+      "datev_certified",
+      "entry_hash",
+      "entry_id",
+      "format",
+      "generated_at",
+      "official_tax_return",
+      "report",
+      "report_sha256"
+    ],
+    "source_manifest_keys": [
+      "entry_hash",
+      "entry_id",
+      "kind",
+      "source_hash",
+      "source_path"
+    ],
+    "source_reference_count": 1,
+    "original_available_separately": true,
+    "original_bytes_embedded": false,
+    "full_journal_entries_embedded": false,
+    "original_sha256": "56e7249405a416c534f374e61f95e068a4dc7a790726dac98df07e9312804f7f",
+    "csv_header": "entry_id;sequence;date;ledger;category;amount_eur;account_skr04;source_key",
+    "official_tax_return": false,
+    "datev_certified": false
+  }
+}

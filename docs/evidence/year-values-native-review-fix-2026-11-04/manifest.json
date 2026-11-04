@@ -1,0 +1,117 @@
+{
+  "date": "2026-11-04",
+  "scope": "additive native historical void fix after independent review",
+  "status": "own final acceptance complete; runtime frozen for independent final review",
+  "previous_handoff": {
+    "path": "docs/evidence/year-values-native-2026-11-04/manifest.json",
+    "sha256": "35bd199aa0e5660bd09f04eb77c9d1c2fc9a4e07708d59532a3dbc831fabadfa",
+    "bytes": 6432
+  },
+  "changed_runtime": [
+    "app/lib/business_session.dart"
+  ],
+  "checks": {
+    "unchanged_actual_independent_void_repro_passed": 1,
+    "original_owner_combined_passed": 59,
+    "contract": 10,
+    "lifecycle_session_desktop_profile": 21,
+    "actual_http_390px": 1,
+    "euer_accounting_regression": 27,
+    "analysis_issues": 0
+  },
+  "files": {
+    "app/lib/business_accounting_year_values.dart": {
+      "sha256": "a31684ea07803994ab0485d4eaeec30790305086c9eef6f272a8e498d93f7c88",
+      "bytes": 48291
+    },
+    "app/lib/business_accounting_year_values_contract.dart": {
+      "sha256": "a83bf75212e0181444c5953130e1696956bc599d4bf5bb7e24f5e4f20798aa06",
+      "bytes": 40841
+    },
+    "app/lib/business_accounting_open_items_contract.dart": {
+      "sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+      "bytes": 33097
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "76f368fe389936709b9c682a057e85e709e90b644c7c90fc1b946bfb7d335b87",
+      "bytes": 83605
+    },
+    "app/lib/business_session.dart": {
+      "sha256": "3d07efc7ec86a1e36c903127b7454901ca3b3d53941fdf1515a0de4857fb0d1a",
+      "bytes": 99705
+    },
+    "app/test/business_accounting_year_values_test.dart": {
+      "sha256": "0a5829452e834e3b1dd3766bb45581ce24d57214899c9d14b32415e6eb52d44e",
+      "bytes": 5348
+    },
+    "app/test/business_accounting_year_values_lifecycle_test.dart": {
+      "sha256": "c23257bca959263f720a88e882a0c3c1497a0bfc20d534ba3a609375b8b5dd02",
+      "bytes": 21552
+    },
+    "app/test/business_accounting_year_values_http_test.dart": {
+      "sha256": "e9d25c76d79d57f6c5735cccc0a3fa83c3f53d9b6912431d890ed2555ca0de7a",
+      "bytes": 21207
+    },
+    "docs/fixtures/accounting_year_values_v1.json": {
+      "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+      "bytes": 654241
+    },
+    "app/test/fixtures/accounting_year_values_v1.json": {
+      "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+      "bytes": 654241
+    },
+    "docs/fixtures/accounting_year_values_native_boundaries_v1.json": {
+      "sha256": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+      "bytes": 148143
+    },
+    "app/test/fixtures/accounting_year_values_native_boundaries_v1.json": {
+      "sha256": "e4e869223305a929984a710ba322c36dedaecbfde8f73881a86dd27e5157685d",
+      "bytes": 148143
+    },
+    "docs/fixtures/accounting_year_values_native_independent_v1.json": {
+      "sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+      "bytes": 137367
+    },
+    "docs/CRM_ERP_JAHRESVORTRAG_NATIVE_REVIEWFIX_2026-11-04.md": {
+      "sha256": "f7ee20d5710122e9d7f7af18c2ad9eb4e115a9ad5cad1c21119cfeac2437288f",
+      "bytes": 2664
+    },
+    "docs/evidence/year-values-native-independent-2026-11-04/original-void-red-manifest.json": {
+      "sha256": "8c70dac8c55d688fdd9639364733a4d53dc85d0c93302fc8052ed653f1a9c48a",
+      "bytes": 1271
+    },
+    "docs/evidence/year-values-native-review-fix-2026-11-04/README.md": {
+      "sha256": "cb1b5865b732bd715c0d78b892cc5c8957ee9f98769edf6896e09f019148e358",
+      "bytes": 1571
+    },
+    "docs/evidence/year-values-native-review-fix-2026-11-04/acceptance-59.txt": {
+      "sha256": "7a5b04e346b0ed95ec63e20e398098bca037d46b07df7176edcb39c31bd777e0",
+      "bytes": 17296
+    },
+    "docs/evidence/year-values-native-review-fix-2026-11-04/analysis.txt": {
+      "sha256": "7a09fbb303b82b14f52031effea877be7744aa169f450d644439fb67f514da5b",
+      "bytes": 358
+    },
+    "docs/evidence/year-values-native-review-fix-2026-11-04/reviewed-original-void-green.txt": {
+      "sha256": "c6e98affd6f078d1366bd2abc0107c9caa489c2cf9dbe03e832819fb68f7bc4a",
+      "bytes": 273
+    },
+    "docs/evidence/year-values-native-review-fix-2026-11-04/runtime-freeze.json": {
+      "sha256": "ce865b8e624a7f16acf48b88f683b0ead3543e4b591960da07bb917ff64d6cdd",
+      "bytes": 1627
+    },
+    "docs/evidence/year-values-native-review-fix-2026-11-04/session-historical-void.patch": {
+      "sha256": "18cd95127ba1c72ae76d786a0979c2475e52bedf3e9fd746b8e4d0efb822b058",
+      "bytes": 985
+    }
+  },
+  "independent_review": "Final negative and lifecycle checks remain separately owned and evidenced by finish_v6_backend. Original red manifest preserved.",
+  "integration": "Keep original 35bd199a handoff; apply its narrow integrations preserving newer global hooks, then apply session-historical-void.patch. Only Session runtime changed after original freeze.",
+  "limits": [
+    "No backend or API-contract changes.",
+    "Original fixture and original native evidence unchanged.",
+    "Declared historical coverage does not independently prove completeness of all external legacy data.",
+    "Physical mobile output not retested.",
+    "No production contacts, main-tree changes or commits."
+  ]
+}

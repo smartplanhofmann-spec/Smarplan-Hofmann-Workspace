@@ -18,11 +18,11 @@ from business_accounting import Accounting, _hash, _page, _paged, _sha, _evidenc
 from business_accounting_components import DocumentComponents, _cents as _unsigned_cents, _money as _unsigned_money, _stored
 from business_accounting_profile import AccountingPreparationProfile
 
-FEATURES = ('accounting_euer', 'accounting_year_evidence_v1')
+FEATURES = ('accounting_euer', 'accounting_year_evidence_v1', 'accounting_year_evidence_v2')
 RULE_VERSION = 'de_euer_regular_cash_2026_v1'
 _TABLES = ('business_euer_entries', 'business_euer_requests')
 _INPUT = {'operation', 'expected_revision', 'state_hash', 'payload', 'reason', 'evidence_reference'}
-_ECONOMIC = {'cash', 'input_vat', 'external_cash', 'asset', 'depreciation', 'payroll_cash', 'travel_cash', 'opening_depreciation', 'opening_item_cash'}
+_ECONOMIC = {'cash', 'input_vat', 'external_cash', 'asset', 'depreciation', 'payroll_cash', 'travel_cash', 'opening_depreciation', 'opening_item_cash', 'opening_year_values'}
 _OPERATIONS = _ECONOMIC | {'reverse', 'correct', 'period', 'export'}
 _EXPENSE = ('materials', 'external_services', 'rent', 'insurance', 'software', 'travel', 'other_expense', 'asset_acquisition')
 _EXTERNAL = {'vat_payment':'out', 'vat_refund':'in', 'owner_contribution':'in', 'owner_withdrawal':'out',
@@ -195,7 +195,10 @@ class EuerAccounting(Domain):
             return
         from accounting_joint_access import authorize_sources
         from business_finance import Finance
-        if source['kind'] == 'opening_item_cash':
+        if source['kind'] == 'opening_year_values':
+            from business_accounting_year_openings import financial_access
+            financial_access(self.office,actor,write)
+        elif source['kind'] == 'opening_item_cash':
             from business_accounting_open_items import financial_access
             financial_access(self.office,actor,write)
         elif source['kind'] == 'opening_asset':
@@ -260,7 +263,10 @@ class EuerAccounting(Domain):
         return dict(source, source_hash=_sha(canonical(source)))
 
     def _validate_source(self, source):
-        if source['kind'] == 'opening_item_cash':
+        if source['kind'] == 'opening_year_values':
+            from business_accounting_year_openings import public_source
+            current=public_source(self.office,source['id'],source['revision'])
+        elif source['kind'] == 'opening_item_cash':
             from business_accounting_open_items import public_source
             current=public_source(self.office,source['id'],source['revision'])
         elif source['kind'] == 'opening_asset':
@@ -350,6 +356,10 @@ class EuerAccounting(Domain):
             validate_report_assets(self,report,ledger)
         elif any(entry['effect'] and entry['effect']['operation']=='opening_depreciation' for entry in ledger['entries']):
             raise ValueError('Historical asset journal cannot have a legacy report without its asset projection')
+
+        if 'historical_year_values' in report or 'opening_year_values:'+str(report['year']) in ledger['active']:
+            from accounting_year_opening_sources import validate_report
+            validate_report(self,report,ledger,profile)
 
     @_stored
     def _ledger(self):
@@ -456,7 +466,14 @@ class EuerAccounting(Domain):
     def _economic(self, actor, operation, payload, ledger, profile, historical=None):
         method = getattr(self, '_prepare_'+operation)
         source, target, postings, details = method(actor, payload, ledger, historical)
-        self._profile_dates(profile, [value['date'] for value in postings] or [details['date']])
+        if operation=='opening_year_values':
+            # Only this original-bound historical copy may precede software start.
+            self._profile_dates(profile,[source['date']])
+            from business_accounting_openings import profile_reference
+            if source['profile_ref']!=profile_reference(profile):
+                raise Problem(409,'Historische Jahresquelle gehört zu einem anderen Buchführungsprofil.')
+        else:
+            self._profile_dates(profile, [value['date'] for value in postings] or [details['date']])
         return dict(operation=operation, payload=payload, source=source, target=target, postings=postings, details=details)
 
     def _prepare_cash(self, actor, payload, ledger, historical):
@@ -703,6 +720,10 @@ class EuerAccounting(Domain):
             date=day,asset_entry_id=asset['id'],basis=setup['business_basis'],months=after-before,amount=_money(amount),
             opening_book_value=_money(basis-accrued(before)),closing_book_value=_money(basis-accrued(after)))
 
+    def _prepare_opening_year_values(self,actor,payload,ledger,historical):
+        from accounting_year_opening_sources import prepare
+        return prepare(self,actor,payload,ledger,historical)
+
     def _prepare_opening_item_cash(self,actor,payload,ledger,historical):
         from accounting_open_item_sources import prepare
         return prepare(self,actor,payload,ledger,historical)
@@ -726,6 +747,11 @@ class EuerAccounting(Domain):
         if 'cash_date' in effect['details']:
             days.add(effect['details']['cash_date'])
         days.update(effect['details'].get('cash_dates',[]))
+        if effect['operation']=='opening_year_values':
+            from datetime import timedelta
+            coverage=effect['details']['coverage'];current=date.fromisoformat(coverage['from'])
+            while current.isoformat()<=coverage['through']:
+                days.add(current.isoformat());current+=timedelta(days=1)
         return days
 
     def _counter_target(self, ledger, entry_id):
@@ -835,6 +861,9 @@ class EuerAccounting(Domain):
         from accounting_open_item_sources import catalog as opening_item_catalog
         opening_items,opening_issues,opening_movements=opening_item_catalog(self,actor,ledger)
         items.extend(opening_items);issues.extend(opening_issues);movements.extend(opening_movements)
+        from accounting_year_opening_sources import catalog as year_catalog
+        year_items,year_issues=year_catalog(self,actor,ledger)
+        items.extend(year_items);issues.extend(year_issues)
         totals={}
         for value in movements:
             key=value['account']['id']; total=totals.setdefault(key,dict(account=value['account'],inflows=0,outflows=0))
@@ -890,8 +919,11 @@ class EuerAccounting(Domain):
                 source_manifest.append(dict(entry_id=entry['id'],entry_hash=entry['entry_hash'],source_hash=source['source_hash'],source_path=source['source_path'],kind=source['kind']))
         movements=[value for value in catalog['cash_movements'] if value['date'].startswith(prefix)]
         periods=[value for key,value in sorted(ledger['periods'].items()) if key.startswith(prefix)]
+        from accounting_year_opening_sources import report_projection
+        year_values,covered=report_projection(ledger,profile,year,month)
+        if covered:issues=[row for row in issues if row['code']!='partial_period_profile_coverage']
         complete=not issues
-        return dict(year=year,period=month,currency='EUR',rule_version=RULE_VERSION,account_frame='SKR04',scope='recorded_sources',
+        return dict(**({'historical_year_values':year_values} if year_values else {}),year=year,period=month,currency='EUR',rule_version=RULE_VERSION,account_frame='SKR04',scope='recorded_sources',
                     profile=profile,revision=len(ledger['entries']),state_hash=_state_hash(ledger['entries']),
                     coverage_start=profile['profile']['bookkeeping_start'] if profile else None,
                     complete_for_recorded_sources=complete,official_tax_return=False,limitations=list(_LIMITATIONS),
@@ -1014,7 +1046,8 @@ class EuerAccounting(Domain):
 
     def year_evidence(self,actor,entry_id,*,archive=False):
         """Read-only supplement; old report and source acceptance remain intact."""
-        from accounting_year_package_v1 import build,sha,FORMAT,BASE
+        from accounting_year_package_v1 import sha,BASE
+        from accounting_year_package_v2 import build_selected as build
         from workspace_api import BinaryAttachment
         try:
             raw,manifest=build(self.office,actor,entry_id)
@@ -1022,7 +1055,7 @@ class EuerAccounting(Domain):
             raise Problem(409,'Der ursprüngliche Jahresnachweis ist unvollständig oder seine Bindung wurde verändert.') from None
         filename='smartplan-jahresnachweis-'+str(manifest['year'])+'-'+entry_id+'.zip'
         if archive:return BinaryAttachment(raw,filename)
-        return dict(format=FORMAT,schema_version=1,instance_id=manifest['instance_id'],year=manifest['year'],
+        return dict(format=manifest['format'],schema_version=1,instance_id=manifest['instance_id'],year=manifest['year'],
             export_id=entry_id,export_hash=manifest['export_hash'],sha256=sha(raw),size=len(raw),filename=filename,
             archive_path=BASE+entry_id+'/evidence/archive',original_count=len(manifest['originals']),
             original_year_complete=manifest['original_year_complete'],private_source_boundaries=manifest['private_source_boundaries'],

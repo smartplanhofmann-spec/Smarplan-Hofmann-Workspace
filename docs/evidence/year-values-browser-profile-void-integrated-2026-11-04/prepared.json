@@ -1,0 +1,218 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T13:24:52.455500+00:00",
+  "owner_manifest": "docs/evidence/year-values-browser-profile-void-2026-11-04/manifest.json",
+  "owner_manifest_sha256": "9c327e56184d7245c4a9b35f957f96649d5f6a048f3503a84d142a5765b13664",
+  "independent_manifest": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/manifest.json",
+  "independent_manifest_sha256": "30db87e3248c02ff48aa3f7ffb219355f5ac03e0df25a31171269920f71da17f",
+  "files": [
+    {
+      "path": "web/office/accounting-year-values-contract.js",
+      "before_sha256": "ca5035e24120917fc501d214d0d4c3d3e8dce98c7bbdbc4b52fb7d15964dfa7a",
+      "after_sha256": "a701fdbd31e39454c97fa3da9cbf3ad292510b13f5fa537ad2d50e19c745b114",
+      "bytes": 21800
+    },
+    {
+      "path": "web/office/accounting-year-values.js",
+      "before_sha256": "79d6dee5dd9c463b7155cefa639b8bde0c12bdf8b9491cdae2597b72e6f91538",
+      "after_sha256": "daeb81263feb4b5e580638282d46811e47391efc6ee3ea65dac344e114517a4b",
+      "bytes": 27858
+    },
+    {
+      "path": "web/office/tests/accounting-year-values-profile-void-flow.cjs",
+      "before_sha256": null,
+      "after_sha256": "b7f9b32e77b4f7f4f700b4e5077fc40a85c2a52175fb55d8b85f4d4ddbeb522c",
+      "bytes": 5002
+    },
+    {
+      "path": "web/office/tests/accounting-year-values-profile-void-e2e.cjs",
+      "before_sha256": null,
+      "after_sha256": "2dd9b093046831a1c808bf58595a6a3e9e87ba1e9337efe512f6786df2488041",
+      "bytes": 5162
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_PROFIL_AUFHEBUNG_2026-11-04.md",
+      "before_sha256": null,
+      "after_sha256": "75e545f7cc4c0932991a8fd216269b893fdee6e727752b1bbcb460fea7a728f2",
+      "bytes": 2778
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/accounting-year-values-contract.js.before",
+      "before_sha256": null,
+      "after_sha256": "ca5035e24120917fc501d214d0d4c3d3e8dce98c7bbdbc4b52fb7d15964dfa7a",
+      "bytes": 20667
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/accounting-year-values.js.before",
+      "before_sha256": null,
+      "after_sha256": "79d6dee5dd9c463b7155cefa639b8bde0c12bdf8b9491cdae2597b72e6f91538",
+      "bytes": 27626
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/actual-browser.log",
+      "before_sha256": null,
+      "after_sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+      "bytes": 692
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/before-hashes.json",
+      "before_sha256": null,
+      "after_sha256": "fd16aa064996b8a636d4a550ad766a393c8834c3ff7c4d340885e467aaf47f59",
+      "bytes": 232
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/downloaded-year-journal.pdf",
+      "before_sha256": null,
+      "after_sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+      "bytes": 67
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-final-ui.png",
+      "before_sha256": null,
+      "after_sha256": "a2a2825dfbe3e2b8ee77204c24dc16d8562233bb7aef0b2d89dc3591dfd46d18",
+      "bytes": 350429
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-final-ui.txt",
+      "before_sha256": null,
+      "after_sha256": "0d0440dc3992f61ce27e1826e9d13d7b9139ad7de4903bbdd1100a756b247032",
+      "bytes": 4780
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-http-records.json",
+      "before_sha256": null,
+      "after_sha256": "d3a07bafc2853457bbf2400a6c1e49b8625beded1cebe0be18f3867fc9f33b9b",
+      "bytes": 983847
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-mobile.png",
+      "before_sha256": null,
+      "after_sha256": "fad5eae73549c8f44639b322ec99dd153d5560e5e3e87968bd51e15aa56292c8",
+      "bytes": 86518
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/browser/year-values-profile-void-originals.json",
+      "before_sha256": null,
+      "after_sha256": "d385b9fd5e433a6293aff011c4c9cb1f977f212b1fb8b9abf6fd08901f098c20",
+      "bytes": 121440
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/focused-final.log",
+      "before_sha256": null,
+      "after_sha256": "bbf4ce25632b13e732754e03cd512c50a0006cf965f783e0920997b3cc844eda",
+      "bytes": 6763
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/focused-first.log",
+      "before_sha256": null,
+      "after_sha256": "9931cc1e6a60df61b772111a7df7e26410a3df573d49fa28a7930bdfaaadccc7",
+      "bytes": 6765
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/narrow-runtime.patch",
+      "before_sha256": null,
+      "after_sha256": "3d41f98d5ce7e3e4bf87dc2e8333187ebbca37d8459a937334adeccf9a0c4c9b",
+      "bytes": 22806
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting-euer.js",
+      "before_sha256": null,
+      "after_sha256": "025d7b69b0c92a1fe8ed9db23b2984dd0984a8962721f493772150a52bd3bced",
+      "bytes": 58707
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting-year-values-contract.js",
+      "before_sha256": null,
+      "after_sha256": "ca5035e24120917fc501d214d0d4c3d3e8dce98c7bbdbc4b52fb7d15964dfa7a",
+      "bytes": 20667
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting-year-values-profile-void-independent.test.mjs",
+      "before_sha256": null,
+      "after_sha256": "62019ca50c0916660c8ae67f20c3bd330d7abc342536e55db41e4f109d03c265",
+      "bytes": 3500
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting-year-values.js",
+      "before_sha256": null,
+      "after_sha256": "79d6dee5dd9c463b7155cefa639b8bde0c12bdf8b9491cdae2597b72e6f91538",
+      "bytes": 27626
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/accounting_year_values_native_independent_v1.json",
+      "before_sha256": null,
+      "after_sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+      "bytes": 137367
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/office.js",
+      "before_sha256": null,
+      "after_sha256": "5f26dad2790f008752c2194fc29e3363afc5ecf471d7e8af9d96f174549678b8",
+      "bytes": 347584
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/red.txt",
+      "before_sha256": null,
+      "after_sha256": "e4a478de11650cd11f4c11dee7021e7c586251442fa77b0005faca227c51dd9b",
+      "bytes": 2092
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/before-fix/source-hashes.json",
+      "before_sha256": null,
+      "after_sha256": "2d9cfa127a61b0187d5ffefd690b77a1d32ab04a190a9fdb15d62109c3709cca",
+      "bytes": 1448
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/final/independent-37.txt",
+      "before_sha256": null,
+      "after_sha256": "78b4508d5be204cf47a35d75f0d40a41f4e00fa763c5d5f8f0f456d697efddd7",
+      "bytes": 9368
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/final/run.json",
+      "before_sha256": null,
+      "after_sha256": "7f18ba956b8d3c68f84f23b093a69cad335025a752f7acd63cc0b558d9449c79",
+      "bytes": 1873
+    },
+    {
+      "path": "web/office/tests/accounting-year-values-profile-void-independent.test.mjs",
+      "before_sha256": null,
+      "after_sha256": "013887e4583a4dbc71ab99a3ea98b60e816f85c9a0027a22117bd40c2089ca3b",
+      "bytes": 5439
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESVORTRAG_BROWSER_PROFIL_AUFHEBUNG_GEGENPRUEFUNG_2026-11-04.md",
+      "before_sha256": null,
+      "after_sha256": "b122c1d7815c8d92f06ce45358da7301bb85e3dbbacec82ef80bdbaa99543186",
+      "bytes": 4543
+    },
+    {
+      "path": "docs/fixtures/accounting_year_values_native_independent_v1.json",
+      "before_sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+      "after_sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+      "bytes": 137367
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-2026-11-04/manifest.json",
+      "before_sha256": null,
+      "after_sha256": "9c327e56184d7245c4a9b35f957f96649d5f6a048f3503a84d142a5765b13664",
+      "bytes": 6578
+    },
+    {
+      "path": "docs/evidence/year-values-browser-profile-void-independent-2026-11-04/manifest.json",
+      "before_sha256": null,
+      "after_sha256": "30db87e3248c02ff48aa3f7ffb219355f5ac03e0df25a31171269920f71da17f",
+      "bytes": 5238
+    }
+  ],
+  "protected_before_and_after": {
+    "web/office/office.js": "a5811ca172cc649917d886e1f82299c99513cd00099b065c0fc2f5ed61689fb0",
+    "web/office/accounting-euer.js": "e9a792a3ecf40b7a790acc7a8cd245a53c64530d2a81453f12ad97c93a6b72b2",
+    "web/office/accounting-year-package-contract.js": "4459c3580c3da8ede338d33ec567901d8117620e99c6670c1c74e8b639cc4b73",
+    "web/office/accounting-year-package.js": "1f27716c37b88f99df5bd11f897845f2d321c7180b1d4644296d77c24341a3ee",
+    "backend/online/web.py": "9c678d2125f66e57f5a5c54afc425a7239730cac981fd1fc3d4d1ac4818e70dc",
+    ".github/workflows/checks.yml": "08edd0ff61505c0e604732e13853b4c9dfa62955e9504c174cc3a5ca690f955d",
+    "scripts/native-release.py": "faaddeb1b75d1dda5635547c45d5ab790ec76fc7c46201eba0c332bd05a7cbc7",
+    "scripts/package-windows-support.py": "0766d8fa86b86867e3da19325edf257eb8a6b68efba607e69b894f3b24ffc96e"
+  }
+}

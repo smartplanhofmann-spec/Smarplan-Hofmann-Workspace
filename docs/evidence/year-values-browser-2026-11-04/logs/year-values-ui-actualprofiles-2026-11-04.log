@@ -1,0 +1,34 @@
+✔ actual complete period, original source, accepted receipt and immutable history read unchanged (34.783007ms)
+✔ actual partial_then_corrected period, original source, accepted receipt and immutable history read unchanged (21.872136ms)
+✔ actual closed_trade period, original source, accepted receipt and immutable history read unchanged (28.470377ms)
+✔ signed cents preserve the explicit original journal with no rounding or negative zero (1.193384ms)
+✔ original receipt remains bound to the old command even after other journal versions exist (9.354695ms)
+✔ declared partial coverage cannot become a complete year or an invented cash/VAT claim (1.329919ms)
+✔ EÜR projection copies original dates and exercised VAT without a new tax claim (0.983309ms)
+✔ actual original source selection, explicit controls, preview, final acceptance and immutable history (88.51081ms)
+✔ delayed genuine preview after close cannot reopen or confirm (11.269334ms)
+✔ delayed genuine preview after other cannot reopen or confirm (23.579333ms)
+✔ delayed genuine preview after session cannot reopen or confirm (10.883073ms)
+✔ delayed genuine preview after background cannot reopen or confirm (12.174826ms)
+✔ delayed initial state after other reveals no original values (2.343383ms)
+✔ delayed initial state after session reveals no original values (0.63834ms)
+✔ delayed initial state after background reveals no original values (5.198616ms)
+✔ server-only read revocation while state is pending neutralizes the original dialog (2.156272ms)
+✔ accepted command lost ACK keeps exact nonce and original receipt after later journal state (26.511327ms)
+✔ foreign genuine receipt cannot consume an unresolved original command (2.412848ms)
+✔ exact EÜR year identity and source-only form preserve legacy 32-character restrictions (2.045656ms)
+✔ genuine accepted confirmation after other cannot replace the current dialog (24.857632ms)
+✔ genuine accepted confirmation after session cannot replace the current dialog (10.247363ms)
+✔ genuine accepted confirmation after background cannot replace the current dialog (17.374169ms)
+✔ held original file bytes after other cause no upload or private reopen (3.05379ms)
+✔ held original file bytes after session cause no upload or private reopen (2.82785ms)
+✔ fresh source read rights after genuine original bytes prevent a download and neutralize title (4.665953ms)
+✔ actual accepted incomplete profile stays readable and never becomes assumed beginning or tax status (2.36179ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 388.65308

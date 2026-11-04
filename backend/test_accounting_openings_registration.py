@@ -52,7 +52,7 @@ class OpeningRegistrationTests(unittest.TestCase):
     def setUp(self):
         # This suite proves the original horizon12/report13 transition. The
         # additive asset horizon13/report14 has its own actual migration suite.
-        previous=tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_asset_openings','business_accounting_open_items'))
+        previous=tuple(spec for spec in business_schema.registry() if spec.name not in ('business_accounting_asset_openings','business_accounting_open_items','business_accounting_year_openings'))
         guard=patch.object(business_schema,'registry',return_value=previous)
         guard.start();self.addCleanup(guard.stop)
 

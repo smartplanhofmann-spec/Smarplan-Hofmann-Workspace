@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "scope": "Stable yearly values backend after actual PG3; no UI implementation",
+  "files": {
+    "backend/accounting_open_item_rules.py": "c4241405e8a6d05fddb4a729c53d0710628cc2ac9d010679727a57a2d17cdcac",
+    "backend/accounting_year_opening_rules.py": "ae8bc91c8e68a3927cc478c7f4b02b56a66d99e26d55468053940a1ea86392a7",
+    "backend/business_accounting_year_openings.py": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd",
+    "backend/accounting_year_opening_sources.py": "4bdb0c049f78018a9e2c519cd003d4cffe56dba3296fdf399745a61d82eb632a",
+    "backend/business_accounting_open_items.py": "8f75aff4f916772e16bdacb95c83a8898bdc8e109ef63e499a08893d36fa6080",
+    "backend/business_accounting_euer.py": "15a7b301004f7a4079b7694c7cbe9cd8442fcd51d2ab8e3628a6b261878ca605",
+    "backend/business_accounting_asset_openings.py": "216253560e8abc0fdc129633c9fc2a7734f10a025276bfe1e7f8dd2ecb3eacf3",
+    "backend/business_finance.py": "83f89fb212fe99edf2ae829211f1fc9eb1eb6fb1da820c9e954f26b25147d9de",
+    "backend/business_schema.py": "c934ddb1f7ba523aebe924390d35868e71a9a2cd6d9212a94fc870bbb3be3e8b",
+    "backend/business_api.py": "a22cd8bed3f1a674fad45c89eef0f900c6516a613f543cc8da35f6011744192f",
+    "backend/business_organization.py": "d4cb60300c0baa48c1ea9582d6fd1a62a42c5ac80a25c6cd272ca878ac9c163e",
+    "backend/company_export_catalog.py": "c8138927c9714f82f412658eea5f9d4d5f30ed888c1525bab8e878d014babff0",
+    "backend/server.py": "af4f8b63b12b688603faa181fa42e36a8cb45a9ad0b6abe904905c1482b9e447",
+    "backend/online/web.py": "c9f0c29ddd386b241de1cf4361f6361bff77106fa7b7a05ef58fedbd52378a60",
+    "scripts/native-release.py": "2cb836a48137af824c11612a20c97f8a7d7df1492372c1413e527aa03adbf2ae",
+    "scripts/package-windows-support.py": "baea89c24113901f3fb6f2749bf0978930b7cb6b05928cecedfdb456954e1c43",
+    ".github/workflows/checks.yml": "15b0723bf9988f069067e2e3c3688ad3d337c8254245c1f6b0240b7c555c0f50"
+  },
+  "fixture": {
+    "path": "docs/fixtures/accounting_year_values_v1.json",
+    "sha256": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5"
+  }
+}

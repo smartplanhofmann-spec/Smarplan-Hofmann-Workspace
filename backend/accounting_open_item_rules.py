@@ -32,7 +32,7 @@ def payment_split(item,already,amount):
     return dict(gross=money(amount),net=money(amount-after+before),tax=money(after-before),
                 settled_before=money(already),settled_after=money(already+amount),remaining=money(total-already-amount))
 
-def normalize_item(item,opening_date,vat_effective_from):
+def normalize_item(item,opening_date,vat_effective_from,*,allow_settled=False):
     shape(item,('status','external_system','external_id','direction','counterparty_key','counterparty_name','invoice_number',
                 'invoice_date','service_date','invoice_received_date','currency','rate','category','net','tax','gross',
                 'prior_payments','invoice_proof','cutover_proof','history_through','prior_input_vat','scope_confirmed'))
@@ -64,7 +64,7 @@ def normalize_item(item,opening_date,vat_effective_from):
         seen.add(key);split=payment_split(item,settled,cents(paid['gross']))
         if any(paid[key]!=split[key] for key in ('gross','net','tax')):raise Problem(409,'Historische Centaufteilung passt nicht zum ausdrücklich unterstützten Originalverfahren; keine Altdaten umrechnen.')
         settled+=cents(paid['gross']);last=paid['date']
-    if settled>=gross:raise Problem(409,'Nur tatsächlich noch offene Altposten übernehmen.')
+    if settled>=gross and not allow_settled:raise Problem(409,'Nur tatsächlich noch offene Altposten übernehmen.')
     vat=item['prior_input_vat']
     if item['direction']=='receivable':
         if vat is not None:raise Problem(400,'Ausgangsrechnung besitzt keinen Vorsteuerübertrag.')

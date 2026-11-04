@@ -1,0 +1,207 @@
+{
+  "scope": "Actual Chromium/MFA/HTTP workflows with namespace sandbox and synthetic data",
+  "workflow_count": 5,
+  "css_followups": 2,
+  "files": [
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/downloaded-year-journal.pdf",
+      "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+      "bytes": 67
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-final-ui.png",
+      "sha256": "69c7aed63625d031e7f6138516f1e7b841346f75b71b0b3bcce7e9a123c08db9",
+      "bytes": 356262
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-final-ui.txt",
+      "sha256": "c61ffc37cbc757af17875832ab5c613dc21c2cb29e454382ff5e26b01a907fd8",
+      "bytes": 4797
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-http-records.json",
+      "sha256": "4c1770a7f302f45829d08287e170fc86fbd811b0c363b12f99427b24c45f1ab6",
+      "bytes": 983847
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-mobile.png",
+      "sha256": "a2ac60db368b75c66f053cef81035f8d65133b8a251a8141ad6b4ad7e46a1d47",
+      "bytes": 87139
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-profile-void-originals.json",
+      "sha256": "4d7f7afa25679a0618a73216f9fe9117bf5874f6153e252a9fce0c59bf44e4e2",
+      "bytes": 121440
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-package-v2/actual-year-package-offline-check.json",
+      "sha256": "3b9113df352d3d36609aa28f514bcb68701f1c3ddc02963579e5672434b323d1",
+      "bytes": 525
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-package-v2/actual-year-package.zip",
+      "sha256": "96f2c301640f0a4a8351c9e7dbf7c1a281626026109c3839bf13c29bccc00f8d",
+      "bytes": 123371
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-package-v2/year-package-http-records.json",
+      "sha256": "fddf5d047f7b80181f729dba021e44bcd48452b4869d61da40f6015635c4ef4a",
+      "bytes": 169392
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-package-v2/year-package-incomplete-mobile.png",
+      "sha256": "01b961bbac7d740b27c8fa3822716e0fad12c69593a97bee98cd931556cc732c",
+      "bytes": 62197
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-desktop-viewport.png",
+      "sha256": "bde949cb18142fde19b3fe541921984fdc33c263f003005a8e127a90d5601746",
+      "bytes": 143231
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-desktop.png",
+      "sha256": "200a5a261c3c5231d38d1031e0684f2b46dbfdbadff3126aad7638578aa81b07",
+      "bytes": 583637
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-http-records.json",
+      "sha256": "68006803a69e6e512225e1073467fe483f0a42961b52fd18a88d394690f327c1",
+      "bytes": 2877833
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-mobile-viewport.png",
+      "sha256": "d3d05ba0d78ee0d207af5390ea3c97a2a84a1590ea1632c073df88272859a022",
+      "bytes": 54769
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-mobile.png",
+      "sha256": "40cfa9847907e72cd0176fabbe9792b24263ec523ddbc8fa38ecef8edcbe5071",
+      "bytes": 526191
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/accounting-open-items/opening-items-mobile.png",
+      "sha256": "92059c4e9c5b9406e39fa36089da5768674942f1aabf07f0e5f02574cfaab024",
+      "bytes": 54343
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/accounting-open-items/opening-items-payment-history.png",
+      "sha256": "c0fb77563555e4f28ae8939162b5269604ef64d34a18075e89cbd11d460d2db5",
+      "bytes": 169242
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/accounting-open-items/opening-items-synthetic-http.json",
+      "sha256": "542fd4474ef68bdbb6260b8cb58404d51c5bd2f876e3af9fe711944ef8e1a2ee",
+      "bytes": 1926845
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/company-events/company-events-history.png",
+      "sha256": "3e7db3a4a88c40614bca8659ea0160245dac42949391679336a76f41b978946c",
+      "bytes": 247076
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/company-events/company-events-http-records.json",
+      "sha256": "1e8f94a658b9ef64a8d96eed210c100ead307c43ac16589f9c7332a02142abe4",
+      "bytes": 315330
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/company-events/company-events-mobile.png",
+      "sha256": "7996cdc6cc3f0a1fe38aa702e4a81e935bbeb17fc6a583eef70ee09ad1ef29fe",
+      "bytes": 143166
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/downloaded-year-journal.pdf",
+      "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+      "bytes": 67
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-final-ui.png",
+      "sha256": "a03c58cdcfd937d28e410647abbe0f3fb08125ea2c3bf9c7257778946a06cc63",
+      "bytes": 356271
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-final-ui.txt",
+      "sha256": "3d0181311356bae13c1e78dc7f0f5b919392e698af62c9e24fbd381b41b198bb",
+      "bytes": 4797
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-http-records.json",
+      "sha256": "e80b67a19e9da52e94afe05a3facd251a45655a74a66a30d5799e437c4f951d8",
+      "bytes": 983847
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-mobile.png",
+      "sha256": "ac851cce1a7ffd007ecdcc9d4cf36125d441e1d495c931f45965a9ebca494c09",
+      "bytes": 89467
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-profile-void-originals.json",
+      "sha256": "5b1cbbd32f8d5973a989c19f9555d1a68980d6a798f4fb09cfb56393181ccb8f",
+      "bytes": 121440
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/downloaded-year-journal.pdf",
+      "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+      "bytes": 67
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-final-ui.png",
+      "sha256": "94379df62720f41c5dd1b2d57e45d6cc50ca037a9b3c18ac05dec3d2719e3f2e",
+      "bytes": 356242
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-final-ui.txt",
+      "sha256": "bf065cfe216f969c646d2fdcdf49180504354bebfefa3b06cb290abe8a81fddc",
+      "bytes": 4797
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-http-records.json",
+      "sha256": "959b5f68f3f05d4371b20a33b228e1bee08e8469d2a8f6ffdabdecda2fb61971",
+      "bytes": 983847
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-mobile.png",
+      "sha256": "ecd1fb355974fd0e22a1f3f431a4ab4e09ac42f16927e160c06205a0dc71c000",
+      "bytes": 86363
+    },
+    {
+      "path": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-profile-void-originals.json",
+      "sha256": "7b8bcf2393abe6a459a446df9aeb0471b9f6d588da7004940b3ea1716f411f39",
+      "bytes": 121440
+    }
+  ],
+  "archived_path_aliases": {
+    "work/verification/year-values-integrated-browser-year-values/downloaded-year-journal.pdf": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/downloaded-year-journal.pdf",
+    "work/verification/year-values-integrated-browser-year-values/year-values-final-ui.png": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-final-ui.png",
+    "work/verification/year-values-integrated-browser-year-values/year-values-final-ui.txt": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-final-ui.txt",
+    "work/verification/year-values-integrated-browser-year-values/year-values-http-records.json": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-http-records.json",
+    "work/verification/year-values-integrated-browser-year-values/year-values-mobile.png": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-mobile.png",
+    "work/verification/year-values-integrated-browser-year-values/year-values-profile-void-originals.json": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values/year-values-profile-void-originals.json",
+    "work/verification/year-values-integrated-browser-year-package-v2/actual-year-package-offline-check.json": "docs/evidence/year-values-integrated-browser-2026-11-04/year-package-v2/actual-year-package-offline-check.json",
+    "work/verification/year-values-integrated-browser-year-package-v2/actual-year-package.zip": "docs/evidence/year-values-integrated-browser-2026-11-04/year-package-v2/actual-year-package.zip",
+    "work/verification/year-values-integrated-browser-year-package-v2/year-package-http-records.json": "docs/evidence/year-values-integrated-browser-2026-11-04/year-package-v2/year-package-http-records.json",
+    "work/verification/year-values-integrated-browser-year-package-v2/year-package-incomplete-mobile.png": "docs/evidence/year-values-integrated-browser-2026-11-04/year-package-v2/year-package-incomplete-mobile.png",
+    "work/verification/year-values-integrated-browser-legacy-euer/accounting-euer-desktop-viewport.png": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-desktop-viewport.png",
+    "work/verification/year-values-integrated-browser-legacy-euer/accounting-euer-desktop.png": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-desktop.png",
+    "work/verification/year-values-integrated-browser-legacy-euer/accounting-euer-http-records.json": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-http-records.json",
+    "work/verification/year-values-integrated-browser-legacy-euer/accounting-euer-mobile-viewport.png": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-mobile-viewport.png",
+    "work/verification/year-values-integrated-browser-legacy-euer/accounting-euer-mobile.png": "docs/evidence/year-values-integrated-browser-2026-11-04/legacy-euer/accounting-euer-mobile.png",
+    "work/verification/year-values-integrated-browser-accounting-open-items/opening-items-mobile.png": "docs/evidence/year-values-integrated-browser-2026-11-04/accounting-open-items/opening-items-mobile.png",
+    "work/verification/year-values-integrated-browser-accounting-open-items/opening-items-payment-history.png": "docs/evidence/year-values-integrated-browser-2026-11-04/accounting-open-items/opening-items-payment-history.png",
+    "work/verification/year-values-integrated-browser-accounting-open-items/opening-items-synthetic-http.json": "docs/evidence/year-values-integrated-browser-2026-11-04/accounting-open-items/opening-items-synthetic-http.json",
+    "work/verification/year-values-integrated-browser-company-events/company-events-history.png": "docs/evidence/year-values-integrated-browser-2026-11-04/company-events/company-events-history.png",
+    "work/verification/year-values-integrated-browser-company-events/company-events-http-records.json": "docs/evidence/year-values-integrated-browser-2026-11-04/company-events/company-events-http-records.json",
+    "work/verification/year-values-integrated-browser-company-events/company-events-mobile.png": "docs/evidence/year-values-integrated-browser-2026-11-04/company-events/company-events-mobile.png",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table/downloaded-year-journal.pdf": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/downloaded-year-journal.pdf",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table/year-values-final-ui.png": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-final-ui.png",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table/year-values-final-ui.txt": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-final-ui.txt",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table/year-values-http-records.json": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-http-records.json",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table/year-values-mobile.png": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-mobile.png",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table/year-values-profile-void-originals.json": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table/year-values-profile-void-originals.json",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table-final/downloaded-year-journal.pdf": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/downloaded-year-journal.pdf",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table-final/year-values-final-ui.png": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-final-ui.png",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table-final/year-values-final-ui.txt": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-final-ui.txt",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table-final/year-values-http-records.json": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-http-records.json",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table-final/year-values-mobile.png": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-mobile.png",
+    "work/verification/year-values-integrated-browser-year-values-mobile-table-final/year-values-profile-void-originals.json": "docs/evidence/year-values-integrated-browser-2026-11-04/year-values-mobile-table-final/year-values-profile-void-originals.json"
+  }
+}

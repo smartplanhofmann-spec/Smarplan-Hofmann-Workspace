@@ -1,0 +1,16 @@
+{
+  "checked_existing_files": 929,
+  "changed_existing_files": [
+    "app/lib/business_accounting_euer.dart",
+    "app/lib/business_session.dart"
+  ],
+  "unchanged_existing_files": 927,
+  "protected_groups": [
+    "all other app/lib files including API, shared exporter, company events, catalog, Source5, yearly packages and open-items reader",
+    "backend",
+    "web/office",
+    "scripts except new fixture generators",
+    "CI"
+  ],
+  "all_other_preexisting_files_unchanged": true
+}

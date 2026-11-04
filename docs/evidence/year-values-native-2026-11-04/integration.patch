@@ -1,0 +1,323 @@
+--- a/app/lib/business_session.dart
++++ b/app/lib/business_session.dart
+@@ -330,6 +330,122 @@
+     }
+   }
+ 
++  List<String> get pendingYearValuesKeys => !allowed
++      ? const []
++      : List.unmodifiable(
++          _pending.entries
++              .where(
++                (e) =>
++                    e.key.startsWith('accounting-year-values-') &&
++                    const [
++                      '/accounting/year-values/originals',
++                      '/accounting/year-values/confirm',
++                    ].contains(e.value.path),
++              )
++              .map((e) => e.key),
++        );
++
++  void _requireYearValuesRights() {
++    if (projectId != null ||
++        !hasFeature('accounting_year_values') ||
++        !hasModule('accounting_year_openings') ||
++        !['accounting.read', 'finance.read'].every(can) ||
++        ![
++          'accounting.admin',
++          'accounting.prepare',
++          'finance.write',
++        ].every(canWrite)) {
++      throw const ApiException(
++        403,
++        'Aktuelle globale Rechte für Jahresvorträge fehlen.',
++      );
++    }
++    if (!sectionEnabled('finance'))
++      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
++  }
++
++  Future<dynamic> yearValuesCommand(
++    String key,
++    String commandPath,
++    Map<String, dynamic> values, {
++    void Function(dynamic)? validateResult,
++    bool Function()? stillCurrent,
++    bool retry = false,
++  }) async {
++    final epoch = _epoch, originalGeneration = generation;
++    void check() {
++      _guard(epoch);
++      _requireYearValuesRights();
++      if (generation != originalGeneration || stillCurrent?.call() == false)
++        throw const ApiException(
++          409,
++          'Der Jahresvortragskontext wurde geändert. Bitte neu laden.',
++        );
++    }
++
++    if (!RegExp(r'^accounting-year-values-(original|confirm)-20[0-9]{2}$')
++            .hasMatch(key) ||
++        !const [
++          '/accounting/year-values/originals',
++          '/accounting/year-values/confirm',
++        ].contains(commandPath) ||
++        key !=
++            'accounting-year-values-${commandPath.endsWith('/originals') ? 'original' : 'confirm'}-${values['entity_key']}')
++      throw const ApiException(
++        409,
++        'Der ursprüngliche Jahresauftrag ist nicht eindeutig gebunden.',
++      );
++    check();
++    await load();
++    check();
++    if (error != null || loading)
++      throw const ApiException(
++        0,
++        'Aktuelle Jahresvortragsrechte konnten nicht bestätigt werden.',
++      );
++    final state = businessMap(await read('/accounting/year-values'));
++    check();
++    if (state['schema_version'] != 1 ||
++        state['rule_version'] != 'de_euer_same_year_carryover_v1' ||
++        (!retry && state['can_prepare'] != true))
++      throw const ApiException(
++        423,
++        'Jahresvorträge sind aktuell nicht zur Bearbeitung freigegeben.',
++      );
++    await load();
++    check();
++    if (error != null || loading)
++      throw const ApiException(
++        0,
++        'Aktuelle Jahresvortragsrechte konnten nicht bestätigt werden.',
++      );
++    return _command(
++      key,
++      commandPath,
++      values,
++      validateResult: validateResult,
++      documentaryRetry: retry,
++    );
++  }
++
++  Future<dynamic> repeatYearValuesCommand(
++    String key, {
++    bool Function()? stillCurrent,
++  }) async {
++    final saved = _pending[key];
++    if (saved == null)
++      throw const ApiException(409, 'Der ursprüngliche Jahresauftrag fehlt.');
++    return yearValuesCommand(
++      key,
++      saved.path,
++      Map<String, dynamic>.from(jsonDecode(saved.values)),
++      retry: true,
++      stillCurrent: () =>
++          _pending[key]?.body['request_id'] == saved.body['request_id'] &&
++          (stillCurrent?.call() ?? true),
++    );
++  }
++
+   List<String> get pendingHistoricalAssetKeys => !allowed
+       ? const []
+       : List.unmodifiable(
+@@ -2378,6 +2494,11 @@
+     ).firstMatch(path);
+     final documentaryCommand =
+         _catalogCommand(key, path) ||
++        (key.startsWith('accounting-year-values-') &&
++            const [
++              '/accounting/year-values/originals',
++              '/accounting/year-values/confirm',
++            ].contains(path)) ||
+         (key.startsWith('historical-asset-') &&
+             const [
+               '/accounting/historical-assets/originals',
+--- a/app/lib/business_accounting_euer.dart
++++ b/app/lib/business_accounting_euer.dart
+@@ -13,6 +13,7 @@
+ import 'business_accounting_profile.dart';
+ import 'business_accounting_openings.dart';
+ import 'business_accounting_historical_assets.dart';
++import 'business_accounting_year_values.dart';
+ import 'business_session.dart';
+ import 'business_widgets.dart';
+ import 'design.dart';
+@@ -29,6 +30,7 @@
+   'asset': 'Anlagegut erfassen',
+   'depreciation': 'Lineare Jahres-AfA',
+   'opening_depreciation': 'Belegte historische Jahres-AfA',
++  'opening_year_values': 'Belegte frühere Jahreswerte übernehmen',
+   'reverse': 'Buchung gegenbuchen',
+   'correct': 'Buchung berichtigen',
+   'period': 'Monatsperiode prüfen',
+@@ -141,6 +143,8 @@
+   }
+   if (value['effect']?['operation'] == 'opening_depreciation')
+     historicalAssetEuerPreview(value, body);
++  if (value['effect']?['operation'] == 'opening_year_values')
++    yearValuesEuerPreview(value, body);
+   return value;
+ }
+ 
+@@ -568,6 +572,14 @@
+         'life_months': v['life_months'],
+         'account': _account(v['account']),
+       };
++    case 'opening_year_values':
++      yearValuesSource(source);
++      build = (v) => {
++        'year': source['id'],
++        'revision': source['revision'],
++        'source_hash': source['source_hash'],
++      };
++      break;
+     case 'opening_depreciation':
+       historicalAssetSource(source);
+       input('year', 'AfA-Jahr', type: BusinessInput.integer);
+@@ -689,11 +701,13 @@
+     super.key,
+     required this.session,
+     this.initialHistoricalAssetId,
++    this.initialYearValuesYear,
+     this.initialYear,
+     this.initialTab = 'sources',
+   });
+   final BusinessSession session;
+   final String? initialHistoricalAssetId;
++  final String? initialYearValuesYear;
+   final int? initialYear;
+   final String initialTab;
+   @override
+@@ -880,9 +894,20 @@
+           0,
+           'Der EÜR-Stand konnte nicht eindeutig gelesen werden.',
+         );
++      if (yearReport.containsKey('historical_year_values') ||
++          businessItems(sourcePage)
++              .any((r) => r['kind'] == 'opening_year_values'))
++        yearValuesReport(yearReport, businessItems(sourcePage));
+       if (yearReport.containsKey('historical_assets'))
+         historicalAssetReport(yearReport);
+       for (final row in businessItems(sourcePage)) {
++        if (row['kind'] == 'opening_year_values') {
++          await yearValuesVerifiedSource(
++            widget.session,
++            row['source'],
++            stillCurrent: () => mounted && current == epoch && readable,
++          );
++        }
+         if (row['kind'] == 'opening_asset') {
+           final source = historicalAssetSource(row['source']),
+               entry = historicalAssetEvent(row['current']);
+@@ -936,6 +961,22 @@
+         current == epoch &&
+         writable &&
+         !initialHistoricalHandled &&
++        widget.initialYearValuesYear != null) {
++      initialHistoricalHandled = true;
++      final row = sources
++          .where(
++            (r) =>
++                r['kind'] == 'opening_year_values' &&
++                r['id'] == widget.initialYearValuesYear,
++          )
++          .firstOrNull;
++      if (row != null && businessMap(row['current']).isEmpty)
++        await edit('opening_year_values', businessMap(row['source']));
++    }
++    if (mounted &&
++        current == epoch &&
++        writable &&
++        !initialHistoricalHandled &&
+         widget.initialHistoricalAssetId != null) {
+       initialHistoricalHandled = true;
+       final source = sources
+@@ -1015,7 +1056,14 @@
+       await fresh();
+       if (!mounted) return;
+       final source = businessMap(row?['source']), kind = row?['kind'];
+-      if (kind == 'opening_asset') {
++      if (kind == 'opening_year_values') {
++        await Navigator.push<void>(
++          context,
++          MaterialPageRoute(
++            builder: (_) => BusinessYearValuesPage(session: widget.session),
++          ),
++        );
++      } else if (kind == 'opening_asset') {
+         final proof = historicalAssetSource(source);
+         if (!mounted || !readable) return;
+         await Navigator.push<void>(
+@@ -1439,7 +1487,9 @@
+                 TextButton(
+                   onPressed: () => upstream(row),
+                   child: Text(
+-                    row['kind'] == 'opening_asset'
++                    row['kind'] == 'opening_year_values'
++                        ? 'Jahresvortrag und Originale öffnen'
++                        : row['kind'] == 'opening_asset'
+                         ? 'Historische Anlage und Original öffnen'
+                         : row['kind'] == 'payroll_cash' ||
+                               row['kind'] == 'travel_cash'
+@@ -1450,6 +1500,15 @@
+                         : 'Geldfluss / Beleganteile',
+                   ),
+                 ),
++                if (row['kind'] == 'opening_year_values' &&
++                    source['status'] == 'active' &&
++                    current.isEmpty)
++                  FilledButton(
++                    onPressed: writable
++                        ? () => edit('opening_year_values', source)
++                        : null,
++                    child: const Text('Belegte frühere Jahreswerte übernehmen'),
++                  ),
+                 if (row['kind'] == 'opening_asset')
+                   FilledButton(
+                     onPressed: writable
+@@ -1676,6 +1735,21 @@
+                     ),
+                   ],
+                 ),
++                if (yearValuesReadable(widget.session))
++                  OutlinedButton.icon(
++                    onPressed: () async {
++                      await Navigator.push<void>(
++                        context,
++                        MaterialPageRoute(
++                          builder: (_) =>
++                              BusinessYearValuesPage(session: widget.session),
++                        ),
++                      );
++                      if (mounted) await load(refreshRights: true);
++                    },
++                    icon: const Icon(Icons.history),
++                    label: const Text('Belegte Jahreswerte vor Softwarebeginn'),
++                  ),
+                 if (state?['historical_assets_path'] == historicalAssetPath &&
+                     historicalAssetsReadable(widget.session))
+                   OutlinedButton.icon(
+@@ -1947,6 +2021,20 @@
+                           child: const Text('Prüfen'),
+                         ),
+                       ),
++                    if (report!.containsKey('historical_year_values')) ...[
++                      const Notice(yearValuesBoundary),
++                      ListTile(
++                        title: const Text('Gebundene frühere Jahreswerte'),
++                        subtitle: Text(
++                          'Belegter Zeitraum ${businessDate(report!['historical_year_values']['coverage']['from'])} bis ${businessDate(report!['historical_year_values']['coverage']['through'])} · Keine neue Geldbewegung oder Vorsteuerforderung',
++                        ),
++                        onTap: () => upstream(
++                          sources
++                              .where((r) => r['kind'] == 'opening_year_values')
++                              .firstOrNull,
++                        ),
++                      ),
++                    ],
+                     if (report!.containsKey('historical_assets'))
+                       for (final asset in historicalAssetReport(report!))
+                         ListTile(

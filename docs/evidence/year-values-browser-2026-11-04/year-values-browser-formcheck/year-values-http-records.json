@@ -1,0 +1,1274 @@
+[
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values/originals",
+    "method": "POST",
+    "body": {
+      "entity_key": "2026",
+      "filename": "original-year-journal.pdf",
+      "media_type": "application/pdf",
+      "content_base64": "JVBERi0xLjQKU3ludGhldGljIGluZGVwZW5kZW50IGNvbXBsZXRlIHllYXIgam91cm5hbCBvcmlnaW5hbAolJUVPRg==",
+      "request_id": "e646cfd270f2406c92ed75645bfcfa67"
+    },
+    "status": 201,
+    "value": {
+      "created_at": "2026-11-04T12:47:09+00:00",
+      "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+      "entity_key": "2026",
+      "filename": "original-year-journal.pdf",
+      "id": "be108bab21104a1baae2fb0fa892393b",
+      "media_type": "application/pdf",
+      "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+      "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+      "size": 67
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values/originals",
+    "method": "POST",
+    "body": {
+      "entity_key": "2026",
+      "filename": "original-year-journal.pdf",
+      "media_type": "application/pdf",
+      "content_base64": "JVBERi0xLjQKU3ludGhldGljIGluZGVwZW5kZW50IGNvbXBsZXRlIHllYXIgam91cm5hbCBvcmlnaW5hbAolJUVPRg==",
+      "request_id": "e646cfd270f2406c92ed75645bfcfa67"
+    },
+    "status": 201,
+    "value": {
+      "created_at": "2026-11-04T12:47:09+00:00",
+      "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+      "entity_key": "2026",
+      "filename": "original-year-journal.pdf",
+      "id": "be108bab21104a1baae2fb0fa892393b",
+      "media_type": "application/pdf",
+      "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+      "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+      "size": 67
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  },
+  {
+    "path": "/api/v1/business/accounting/year-values",
+    "method": "GET",
+    "body": null,
+    "status": 200,
+    "value": {
+      "can_prepare": true,
+      "cash_flow_created": false,
+      "items": [],
+      "max_original_bytes": 5242880,
+      "new_input_vat_claim_created": false,
+      "originals": [
+        {
+          "created_at": "2026-11-04T12:47:09+00:00",
+          "created_by": "926046a8bb7a422cabbc470e25ed8fb7",
+          "entity_key": "2026",
+          "filename": "original-year-journal.pdf",
+          "id": "be108bab21104a1baae2fb0fa892393b",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/be108bab21104a1baae2fb0fa892393b",
+          "sha256": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+          "size": 67
+        },
+        {
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "4198a042d52d417b818de5fb7533e6ab",
+          "entity_key": "2026",
+          "filename": "historical.pdf",
+          "id": "5b815831627f4835ade831ab921e230a",
+          "media_type": "application/pdf",
+          "path": "/accounting/year-values/originals/5b815831627f4835ade831ab921e230a",
+          "sha256": "ceb5dc1e87a82bb3c7dc4d961879c38908f5bab58cac03b89784db10cae9f7d4",
+          "size": 97
+        }
+      ],
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "4198a042d52d417b818de5fb7533e6ab",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "preview_hash": "1ea36af029ce904a5ae67bc3ca5d24666072e46fb90aa70c8d54b80c1dba9493",
+        "previous_state_hash": "01abe83f88759631c15c76cc1dca55066d0dcc25645a1ac71c2471fa5e3e64f4",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-11-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2025-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 3,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "entry_sha256": "f3a453eaee8246069049b5adba0e1c14c92130a1b4356296ade6249211518f09",
+        "id": "e5211ef750644589ab2073133c1e02a7",
+        "revision": 3
+      },
+      "revision": 0,
+      "rule_version": "de_euer_same_year_carryover_v1",
+      "schema_version": 1,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "timezone": "Europe/Berlin"
+    }
+  }
+]

@@ -1,0 +1,13 @@
+# Native Jahresvorträge: historische Aufhebung bei unvollständigem heutigen Profil
+
+Additiver Nachtrag vom 04.11.2026. Der ursprüngliche native Handoff und seine Nachweise bleiben unverändert erhalten.
+
+Der unabhängige Review belegte einen tatsächlichen Vorgang: Eine angenommene Jahresquelle war zuerst durch ihre aktive EÜR-Übernahme gesperrt. Nach deren ausdrücklicher Gegenbuchung und einem später fehlenden heutigen Buchführungsstart erlaubte der unveränderte Server eine neue Aufhebung mit dem unveränderten ursprünglichen Profil. Der native Session-Vorlauf wies diese gültige Aufhebung wegen `can_prepare=false` ab. Die Oberfläche und der Quittungsparser verwendeten bereits den ursprünglichen Vertrag.
+
+Der Fix ändert ausschließlich `business_session.dart`: Nur ein Bestätigungsauftrag an `/accounting/year-values/confirm` mit `operation=year_values` und `payload.status=void` benötigt keine Freigabe zum Anlegen neuer Quellen im heutigen Profil. Neue aktive Quellen und Originaluploads behalten diese Voraussetzung. Aktuelle Lese- und Schreibrechte, aktives Finanzmodul, Funktionsstand, Sitzungs-/Kontextprüfung, erneute Rechteabfrage und die verbindliche serverseitige Original-, Perioden- und EÜR-Prüfung bleiben erhalten. Es werden keine neuen Profilwerte ergänzt und keine Quellreferenzen aktualisiert.
+
+Der unveränderte tatsächliche Reviewfall besteht nach dem Fix. Der erneute ursprüngliche eigene Gesamtlauf besteht **59/59**: zehn Vertragsfälle, 21 Session-/Widget-/Lifecycle-/Desktop-/Profilfälle, ein tatsächlicher HTTP-Ablauf bei 390 Pixel Breite und 27 bestehende EÜR-/Accountingfälle. Die Analyse der fünf Runtime- und drei eigenen Testdateien meldet **0 Probleme**. Die unabhängige Abschlussprüfung mit eigenen negativen Fällen wird separat vom Reviewer dokumentiert.
+
+Nur die Sessiondatei hat gegenüber dem ursprünglichen Freeze andere Bytes. Die vier weiteren Runtime-Dateien, drei eigenen Testdateien und bisherigen Fixtures bleiben unverändert. Der Ausgangshandoff hat SHA-256 `35bd199aa0e5660bd09f04eb77c9d1c2fc9a4e07708d59532a3dbc831fabadfa`. Der historische rote Beleg liegt unter `evidence/year-values-native-independent-2026-11-04/original-void-red-manifest.json`, SHA-256 `8c70dac8c55d688fdd9639364733a4d53dc85d0c93302fc8052ed653f1a9c48a`.
+
+Aktuelle Hashes, enger Zusatzpatch und erneut ausgeführte Logs: [Nachweisverzeichnis](evidence/year-values-native-review-fix-2026-11-04/README.md). Bei der Integration zuerst den ursprünglichen engen Anschluss und danach diesen Zusatzpatch anwenden; neuere fremde Sessionfunktionen erhalten. Keine Backendänderungen, Mainänderungen oder Commits.

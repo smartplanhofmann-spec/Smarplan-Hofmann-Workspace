@@ -1,0 +1,47 @@
+TAP version 13
+# Subtest: profile-void: actual backend evidence has prior block, original EÜR reversal and genuinely accepted void with no current start
+ok 1 - profile-void: actual backend evidence has prior block, original EÜR reversal and genuinely accepted void with no current start
+  ---
+  duration_ms: 27.582852
+  type: 'test'
+  ...
+# Subtest: profile-void: existing original can be explicitly voided through browser despite missing current profile, with exact old facts
+not ok 2 - profile-void: existing original can be explicitly voided through browser despite missing current profile, with exact old facts
+  ---
+  duration_ms: 42.775633
+  type: 'test'
+  location: '/workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-profile-void-independent.test.mjs:18:1'
+  failureType: 'testCodeFailure'
+  error: 'Button Fälschlichen Jahresvortrag aufheben absent in Belegter Jahresvortrag 2026'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: ~
+  operator: '=='
+  stack: |-
+    Object.button (file:///workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-independent-harness.mjs:48:456)
+    TestContext.<anonymous> (file:///workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-profile-void-independent.test.mjs:20:10)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: profile-void: missing-current-profile exception cannot bypass current write restriction
+ok 3 - profile-void: missing-current-profile exception cannot bypass current write restriction
+  ---
+  duration_ms: 7.083654
+  type: 'test'
+  ...
+# Subtest: profile-void: missing-current-profile exception cannot bypass current module restriction
+ok 4 - profile-void: missing-current-profile exception cannot bypass current module restriction
+  ---
+  duration_ms: 5.696175
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 3
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 168.591574

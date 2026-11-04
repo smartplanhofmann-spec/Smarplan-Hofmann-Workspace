@@ -1,0 +1,6 @@
+locator.click: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for locator('.card').filter({ has: getByRole('heading', { name: 'Unveränderliches Buchungsjournal', exact: true }) }).getByRole('button', { name: 'Gegenbuchen', exact: true })[22m
+
+    at Object.accountingYearValuesFlow (/workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-flow.cjs:22:198)
+    at async main (/workspace/smartplan-opening-year-values-20261104/web/office/tests/accounting-year-values-e2e.cjs:16:3)

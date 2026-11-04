@@ -1,0 +1,128 @@
+{
+  "date": "2026-11-04",
+  "scope": "Independent actual V2 backend yearly carryover archive review",
+  "reviewer": "finish_v6_backend",
+  "tests_passed": 9,
+  "seconds": 7.507,
+  "new_confirmed_product_findings": 0,
+  "original_owner_handoff": {
+    "path": "docs/evidence/year-package-v2-2026-11-04/manifest-before-pg.json",
+    "sha256": "60bcbacd9cfd542442cb2a373d5df6885ca2bee0265966da11d3533f2f946a67",
+    "bytes": 6601
+  },
+  "later_owner_pg_addendum": {
+    "path": "docs/evidence/year-package-v2-2026-11-04/manifest.json",
+    "sha256": "f3f61ddbca9e2aadfe4189cb21613a86ceb2bede9249700903c7e4e3b1873c02",
+    "bytes": 7321
+  },
+  "unchanged_owner_files": [
+    {
+      "path": "backend/accounting_year_package_v2.py",
+      "sha256": "e3d7928f2df77f51dd93c975445a32197c699d4917b057e8fa367e0d4b7ac638",
+      "bytes": 10329
+    },
+    {
+      "path": "backend/accounting_year_verify_v2.py",
+      "sha256": "7a3edfc97c501290962c71736203c1397215378fab3b91d93351e5ee2a6943ab",
+      "bytes": 30824
+    },
+    {
+      "path": "backend/test_accounting_year_package_v2.py",
+      "sha256": "a31f9530bc47cbd8135717e2613a6fc324cb71d2d616b1a3fefc8be2213a39e3",
+      "bytes": 9454
+    },
+    {
+      "path": "backend/test_accounting_year_package_v2_http.py",
+      "sha256": "4d463b702f3afa4c032c605981de495257a7bc3821d4ec21dbbc4cfc926b676a",
+      "bytes": 2330
+    },
+    {
+      "path": "backend/online/test_accounting_year_package_v2_pg.py",
+      "sha256": "1a09fa52d3bd23f8e417f82fe94763e764392fd30ee4ee3111fff7808b1ac3db",
+      "bytes": 3884
+    },
+    {
+      "path": "scripts/generate-accounting-year-package-v2-fixture.py",
+      "sha256": "bdec7fe7801d29675724565b481971fc31fcebe6ebc4eecad3a9c434090e556b",
+      "bytes": 2695
+    },
+    {
+      "path": "docs/fixtures/accounting_year_package_v2.json",
+      "sha256": "2f9a1664eb1bf1d2615c7f25de9673aba4dc8ee95acad32367588411ba9f64d5",
+      "bytes": 472173
+    },
+    {
+      "path": "app/test/fixtures/accounting_year_package_v2.json",
+      "sha256": "2f9a1664eb1bf1d2615c7f25de9673aba4dc8ee95acad32367588411ba9f64d5",
+      "bytes": 472173
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_VORTRAG_V2_2026-11-04.md",
+      "sha256": "b76cd66141062c1bc59356af87c423d411ad888a5c17a0de9cf32b74b1bfef2d",
+      "bytes": 5521
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "sha256": "5a98d2a7ef63f4244938048c85014724b79c9b572303e0b832fb27e628f2de67",
+      "bytes": 88654
+    },
+    {
+      "path": "scripts/native-release.py",
+      "sha256": "bebc8a20f91579b7e50e09d348af50f544babd6644c1847e0dde81b48ff8dfdb",
+      "bytes": 24149
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "sha256": "6a099fabfcfd53738a3cbd874bc5db1797f014399506f98f235c806d6f3dd954",
+      "bytes": 14785
+    },
+    {
+      "path": ".github/workflows/checks.yml",
+      "sha256": "965463560d1453ff6497dab840804429b19dc5d0baae0bd0a779c70e0463cfd2",
+      "bytes": 51575
+    },
+    {
+      "path": "backend/accounting_year_package_v1.py",
+      "sha256": "8e79534d2739e05f2b34141adf66399563c4cc07e076d2618125374701d77f42",
+      "bytes": 21781
+    },
+    {
+      "path": "backend/accounting_year_verify_v1.py",
+      "sha256": "77b032a6e19f27dfefd290106ecda73675e8e5a9c68afaedfdda9ddae0c60baa",
+      "bytes": 24982
+    }
+  ],
+  "owned_files": [
+    {
+      "path": "backend/test_accounting_year_package_v2_independent_review.py",
+      "sha256": "f12cd7266dffe462b178b0184d7bec208e2d0bcedccd2696629858129158b53a",
+      "bytes": 14953
+    },
+    {
+      "path": "docs/CRM_ERP_JAHRESPAKET_V2_UNABHAENGIGER_BACKENDREVIEW_2026-11-04.md",
+      "sha256": "03bc6dfc2ec4279ac33b42a549c44e0a18f447e8ac360b531de83d7cd2bf9222",
+      "bytes": 5556
+    }
+  ],
+  "logs": [
+    {
+      "path": "work/verification/year-package-v2-independent-first-2026-11-04.log",
+      "sha256": "818d2b6b9af2664cce0f8415333d10880df3d5788137458f11f84f6b57d95ad0",
+      "bytes": 4032
+    },
+    {
+      "path": "work/verification/year-package-v2-independent-final-backend-2026-11-04.log",
+      "sha256": "efb5178d0144d5d36d7984185b9f23ae4e97e206c0c082c265440236f18e2b86",
+      "bytes": 2215
+    }
+  ],
+  "external_anchor_required": true,
+  "intrinsic_dependency_closure": false,
+  "first_run": "8 green; test setup attempted to rename immutable existing invoice date. Replaced by a distinct genuine 2025 original through ordinary accepted domain commands. No product change.",
+  "limits": [
+    "No PostgreSQL use",
+    "No client review included in this backend manifest",
+    "No product edits or commits",
+    "No intrinsic full dependency closure claim"
+  ]
+}

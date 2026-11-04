@@ -1,0 +1,8 @@
+{
+  "workflow": "year-values",
+  "exit_code": 0,
+  "duration_seconds": 26.494,
+  "log": "docs/evidence/year-values-integrated-browser-year-values-mobile-table-final-2026-11-04.txt",
+  "log_sha256": "88a532a68d47ab04b9c84ed598ff58970ba2abf5c8ce3df8898f7339cd7426d1",
+  "recorded_at_utc": "2026-11-04T13:46:42.742795+00:00"
+}

@@ -1,0 +1,37 @@
+{
+  "recorded_at_utc": "2026-11-04T13:16:11.772538+00:00",
+  "files": {
+    "web/office/accounting-year-values-contract.js": {
+      "sha256": "ca5035e24120917fc501d214d0d4c3d3e8dce98c7bbdbc4b52fb7d15964dfa7a",
+      "bytes": 20667
+    },
+    "web/office/accounting-year-values.js": {
+      "sha256": "79d6dee5dd9c463b7155cefa639b8bde0c12bdf8b9491cdae2597b72e6f91538",
+      "bytes": 27626
+    },
+    "web/office/accounting-euer.js": {
+      "sha256": "025d7b69b0c92a1fe8ed9db23b2984dd0984a8962721f493772150a52bd3bced",
+      "bytes": 58707
+    },
+    "web/office/office.js": {
+      "sha256": "5f26dad2790f008752c2194fc29e3363afc5ecf471d7e8af9d96f174549678b8",
+      "bytes": 347584
+    },
+    "web/office/tests/accounting-year-values-profile-void-independent.test.mjs": {
+      "sha256": "62019ca50c0916660c8ae67f20c3bd330d7abc342536e55db41e4f109d03c265",
+      "bytes": 3500
+    },
+    "docs/fixtures/accounting_year_values_native_independent_v1.json": {
+      "sha256": "ded46003dda3e608fee62710c306a2134dd6a2ba61abe3d8203556d9628efcbc",
+      "bytes": 137367
+    },
+    "docs/evidence/year-values-browser-2026-11-04/manifest.json": {
+      "sha256": "7307bc17673de238bb8403b0772cfdd01ded47494843312eafea18edf96fe520",
+      "bytes": 25953
+    },
+    "docs/evidence/year-values-browser-independent-2026-11-04/manifest.json": {
+      "sha256": "d4a11801dd4d44bd615ae466dd152994f39a19d68f03ea7e7d097dc9fc637c62",
+      "bytes": 12177
+    }
+  }
+}

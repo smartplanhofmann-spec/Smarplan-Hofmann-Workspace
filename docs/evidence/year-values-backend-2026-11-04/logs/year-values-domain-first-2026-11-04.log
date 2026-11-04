@@ -1,0 +1,22 @@
+test_fully_paid_external_trade_is_supported_without_fake_open_remainder (test_accounting_year_opening_rules.YearOpeningRules.test_fully_paid_external_trade_is_supported_without_fake_open_remainder) ... ok
+test_known_old_half_and_old_full_vat_retain_distinct_actual_periods (test_accounting_year_opening_rules.YearOpeningRules.test_known_old_half_and_old_full_vat_retain_distinct_actual_periods) ... ok
+test_partial_coverage_is_not_full_and_cannot_move_original_vat_month (test_accounting_year_opening_rules.YearOpeningRules.test_partial_coverage_is_not_full_and_cannot_move_original_vat_month) ... ok
+test_wrong_year_start_day_duplicate_identity_and_control_cent_fail (test_accounting_year_opening_rules.YearOpeningRules.test_wrong_year_start_day_duplicate_identity_and_control_cent_fail) ... ok
+test_active_year_dependency_requires_exact_counterposting_and_preserves_old_receipts (test_accounting_year_openings.YearOpeningWorkflow.test_active_year_dependency_requires_exact_counterposting_and_preserves_old_receipts) ... ok
+test_old_half_plus_actual_new_half_yields_annual_119_with_only_59_50_cash (test_accounting_year_openings.YearOpeningWorkflow.test_old_half_plus_actual_new_half_yields_annual_119_with_only_59_50_cash) ... ERROR
+test_original_known_values_and_independent_journal_are_required (test_accounting_year_openings.YearOpeningWorkflow.test_original_known_values_and_independent_journal_are_required) ... ok
+test_partial_coverage_remains_partial_and_old_vat_stays_in_june (test_accounting_year_openings.YearOpeningWorkflow.test_partial_coverage_remains_partial_and_old_vat_stays_in_june) ... ok
+
+======================================================================
+ERROR: test_old_half_plus_actual_new_half_yields_annual_119_with_only_59_50_cash (test_accounting_year_openings.YearOpeningWorkflow.test_old_half_plus_actual_new_half_yields_annual_119_with_only_59_50_cash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-opening-year-values-20261104/backend/test_accounting_year_openings.py", line 48, in test_old_half_plus_actual_new_half_yields_annual_119_with_only_59_50_cash
+    november=self.f.euer.api.report(self.owner,2026,month='2026-11')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: EuerAccounting.report() got an unexpected keyword argument 'month'
+
+----------------------------------------------------------------------
+Ran 8 tests in 6.173s
+
+FAILED (errors=1)

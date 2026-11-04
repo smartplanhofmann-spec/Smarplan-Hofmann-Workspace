@@ -1,0 +1,8 @@
+{
+  "note": "Relevant unchanged modal lifecycle methods captured after red reproduction; owner is concurrently fixing separate profile handling. No assertion about unrelated whole-file runtime snapshot.",
+  "methods": {
+    "Future<void> smallEditor(": "  Future<void> smallEditor(\n    String title,\n    List<BusinessField> fs,\n    Future<void> Function(Map<String, dynamic>) apply,\n  ) async {\n    final stamp = epoch;\n    if (!await fresh(stamp, write: true) || !mounted) return;\n    await showDialog<bool>(\n      context: context,\n      builder: (_) => BusinessEditor(\n        session: session,\n        title: title,\n        fields: fs,\n        readAllowed: () =>\n            same(stamp) && mode != null && yearValuesWritable(session),\n        saveLabel: 'Geprüfte Angaben übernehmen',\n        onSave: (v) async {\n          if (!await fresh(stamp, write: true))\n            throw const ApiException(\n              409,\n              'Der Jahresvortragskontext wurde geändert.',\n            );\n          await apply(v);\n          if (same(stamp)) setState(() {});\n        },\n      ),\n    );\n  }\n\n",
+    "void didUpdateWidget(": "  void didUpdateWidget(covariant BusinessYearValuesPage old) {\n    super.didUpdateWidget(old);\n    if (!identical(old.session, session)) {\n      old.session.removeListener(changed);\n      session.addListener(changed);\n      clear();\n      bind();\n      load();\n    }\n  }\n\n",
+    "void dispose()": "  void dispose() {\n    epoch++;\n    WidgetsBinding.instance.removeObserver(this);\n    session.removeListener(changed);\n    for (final v in fields.values) {\n      v.dispose();\n    }\n    super.dispose();\n  }\n\n"
+  }
+}

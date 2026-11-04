@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-04",
+  "confirmed_red_cases": 2,
+  "product_changes_by_reviewer": false,
+  "files": {
+    "original-dialog-repros.dart": {
+      "source": "app/test/business_accounting_year_values_independent_review_test.dart",
+      "sha256": "bae281290f4766e7c150b6676d154b0cd1e0ac42af88978cb817ec8a408ff82c",
+      "bytes": 3663
+    },
+    "original-dialog-red.log": {
+      "source": "work/verification/year-values-native-independent-dialog-first-2026-11-04.log",
+      "sha256": "f7af7a4a993625bfdc030b6b48db6ad1ef66b6e50e011d1a60c7a985317219f6",
+      "bytes": 4670
+    }
+  },
+  "runtime_fragments_sha256": "d700fbc6a5168cf5de26fb4ff5d6319ff0e1a91d4446fd87e332a373751e9b6d"
+}

@@ -809,6 +809,129 @@ class BusinessSession extends ChangeNotifier {
     }
   }
 
+  List<String> get pendingYearValuesKeys => !allowed
+      ? const []
+      : List.unmodifiable(
+          _pending.entries
+              .where(
+                (e) =>
+                    e.key.startsWith('accounting-year-values-') &&
+                    const [
+                      '/accounting/year-values/originals',
+                      '/accounting/year-values/confirm',
+                    ].contains(e.value.path),
+              )
+              .map((e) => e.key),
+        );
+
+  void _requireYearValuesRights() {
+    if (projectId != null ||
+        !hasFeature('accounting_year_values') ||
+        !hasModule('accounting_year_openings') ||
+        !['accounting.read', 'finance.read'].every(can) ||
+        ![
+          'accounting.admin',
+          'accounting.prepare',
+          'finance.write',
+        ].every(canWrite)) {
+      throw const ApiException(
+        403,
+        'Aktuelle globale Rechte für Jahresvorträge fehlen.',
+      );
+    }
+    if (!sectionEnabled('finance'))
+      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+  }
+
+  Future<dynamic> yearValuesCommand(
+    String key,
+    String commandPath,
+    Map<String, dynamic> values, {
+    void Function(dynamic)? validateResult,
+    bool Function()? stillCurrent,
+    bool retry = false,
+  }) async {
+    final epoch = _epoch, originalGeneration = generation;
+    void check() {
+      _guard(epoch);
+      _requireYearValuesRights();
+      if (generation != originalGeneration || stillCurrent?.call() == false)
+        throw const ApiException(
+          409,
+          'Der Jahresvortragskontext wurde geändert. Bitte neu laden.',
+        );
+    }
+
+    if (!RegExp(r'^accounting-year-values-(original|confirm)-20[0-9]{2}$')
+            .hasMatch(key) ||
+        !const [
+          '/accounting/year-values/originals',
+          '/accounting/year-values/confirm',
+        ].contains(commandPath) ||
+        key !=
+            'accounting-year-values-${commandPath.endsWith('/originals') ? 'original' : 'confirm'}-${values['entity_key']}')
+      throw const ApiException(
+        409,
+        'Der ursprüngliche Jahresauftrag ist nicht eindeutig gebunden.',
+      );
+    check();
+    await load();
+    check();
+    if (error != null || loading)
+      throw const ApiException(
+        0,
+        'Aktuelle Jahresvortragsrechte konnten nicht bestätigt werden.',
+      );
+    final state = businessMap(await read('/accounting/year-values'));
+    check();
+    // A historical void retains the accepted source's original profile. The
+    // current profile only gates creation of new active sources and originals;
+    // current rights, module gates and the server's original binding still apply.
+    final historicalVoid =
+        commandPath == '/accounting/year-values/confirm' &&
+        values['operation'] == 'year_values' &&
+        businessMap(values['payload'])['status'] == 'void';
+    if (state['schema_version'] != 1 ||
+        state['rule_version'] != 'de_euer_same_year_carryover_v1' ||
+        (!retry && !historicalVoid && state['can_prepare'] != true))
+      throw const ApiException(
+        423,
+        'Jahresvorträge sind aktuell nicht zur Bearbeitung freigegeben.',
+      );
+    await load();
+    check();
+    if (error != null || loading)
+      throw const ApiException(
+        0,
+        'Aktuelle Jahresvortragsrechte konnten nicht bestätigt werden.',
+      );
+    return _command(
+      key,
+      commandPath,
+      values,
+      validateResult: validateResult,
+      documentaryRetry: retry,
+    );
+  }
+
+  Future<dynamic> repeatYearValuesCommand(
+    String key, {
+    bool Function()? stillCurrent,
+  }) async {
+    final saved = _pending[key];
+    if (saved == null)
+      throw const ApiException(409, 'Der ursprüngliche Jahresauftrag fehlt.');
+    return yearValuesCommand(
+      key,
+      saved.path,
+      Map<String, dynamic>.from(jsonDecode(saved.values)),
+      retry: true,
+      stillCurrent: () =>
+          _pending[key]?.body['request_id'] == saved.body['request_id'] &&
+          (stillCurrent?.call() ?? true),
+    );
+  }
+
   List<String> get pendingHistoricalAssetKeys => !allowed
       ? const []
       : List.unmodifiable(
@@ -2965,6 +3088,11 @@ class BusinessSession extends ChangeNotifier {
             const [
               '/accounting/open-items/originals',
               '/accounting/open-items/confirm',
+            ].contains(path)) ||
+        (key.startsWith('accounting-year-values-') &&
+            const [
+              '/accounting/year-values/originals',
+              '/accounting/year-values/confirm',
             ].contains(path)) ||
         (key.startsWith('historical-asset-') &&
             const [

@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-11-04T12:50:34.074121+00:00",
+  "working_owner_state_not_final_freeze": true,
+  "files": {
+    "web/office/accounting-year-values-contract.js": "120ff8c0ce08b9694f07533df53e52f89937156a66a5b2f0db6f1a0d4ad77f8f",
+    "web/office/accounting-year-values.js": "5235dc3f8db13a59ec418bab5edf3aa44e9417a971166a31170133347aab3f2c",
+    "web/office/accounting-euer.js": "88d3f085561aedeab398281f407526141f0e0fd45dff7b47ff84ebb23a39b05b",
+    "web/office/office.js": "1b3016a80b93d05a7d9f75cb233ed1cee8a7f80fa13ca345139fd6aa836fd8b2",
+    "docs/fixtures/accounting_year_values_v1.json": "441f0665a27dd304f229dbf604c09f5463013c636c222c47cf8f581e3b7eb5d5",
+    "web/office/tests/accounting-year-values-independent.test.mjs": "f0cf34715601a1315ef9e15ee3df31102da4ad16721319ec49f5900ea873f4f1"
+  }
+}

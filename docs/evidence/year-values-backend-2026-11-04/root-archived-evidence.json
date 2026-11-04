@@ -1,0 +1,77 @@
+[
+  {
+    "original_path": "work/verification/opening-items-backend-baseline.json",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/opening-items-backend-baseline.json",
+    "sha256": "0c708c3db89b549863c762208a4d411a81ca5d0e2f5a777dfd6149271099b0f9"
+  },
+  {
+    "original_path": "work/verification/year-values-baseline-2026-11-04.json",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-baseline-2026-11-04.json",
+    "sha256": "273cabe11dca97b03eb422dcd77db982500b6d4cca9e9c1737859e4eb64b151b"
+  },
+  {
+    "original_path": "work/verification/year-values-current-historical-finance-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-current-historical-finance-2026-11-04.log",
+    "sha256": "b9457f6818ebc89ee3d5a4b7242d183ff0329f3ab03a9ffe4e0aa0311008cceb"
+  },
+  {
+    "original_path": "work/verification/year-values-current-historical-finance-followup-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-current-historical-finance-followup-2026-11-04.log",
+    "sha256": "51cb62c27e9ecef87801a71d52743d06d1fc3f68507c40f62731a8256e95a4d5"
+  },
+  {
+    "original_path": "work/verification/year-values-domain-first-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-domain-first-2026-11-04.log",
+    "sha256": "019e66df3ea2c6f3c6d4a8a7d4ed57b7919181f161bbbeb584613b03074c53b8"
+  },
+  {
+    "original_path": "work/verification/year-values-domain-second-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-domain-second-2026-11-04.log",
+    "sha256": "33c766fae71fc81b7accdde09dc465dc582bb8d61fee0aa0a55a2fdfc1740269"
+  },
+  {
+    "original_path": "work/verification/year-values-domain-third-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-domain-third-2026-11-04.log",
+    "sha256": "0f6f221beae2b273cfd2524c3467a8e7091fcf5534ebd2ae34d055f360bb1d9b"
+  },
+  {
+    "original_path": "work/verification/year-values-financial-regression-first-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-financial-regression-first-2026-11-04.log",
+    "sha256": "4fe44262a066d4d2f93f2f5e9710ab6d1ad48d8661a3978240d001ee745bdd72"
+  },
+  {
+    "original_path": "work/verification/year-values-fixture-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-fixture-2026-11-04.log",
+    "sha256": "3eb080a9b2282842a2f922e75c6ae8c965d195e2da42eeed3cfeb8e37877a64d"
+  },
+  {
+    "original_path": "work/verification/year-values-historical-scopes-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-historical-scopes-2026-11-04.log",
+    "sha256": "7fc1d9a726c49c7c18389c7c5163f2f0a3111e3fb38b4afd276141e1b46de60b"
+  },
+  {
+    "original_path": "work/verification/year-values-local-http-first-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-local-http-first-2026-11-04.log",
+    "sha256": "380c7cca618ce847ceb9cec8e2953377d800c82b04f57f0b40aceaf873f96869"
+  },
+  {
+    "original_path": "work/verification/year-values-postgres-first-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-postgres-first-2026-11-04.log",
+    "sha256": "47c30fc70923edce2f7ec1998c2a106c3475f3ad023dad28686126797b94758c"
+  },
+  {
+    "original_path": "work/verification/year-values-rules-first-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-rules-first-2026-11-04.log",
+    "sha256": "37976915afe99b48c038e9283507073e8eb6ddf43675079149c788b713a411a2"
+  },
+  {
+    "original_path": "work/verification/year-values-runtime-review-snapshot.json",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-runtime-review-snapshot.json",
+    "sha256": "1d7034e5953b5790d1104add35a67af288fabdaa2cf9a5ba086e68158ef74fdf"
+  },
+  {
+    "original_path": "work/verification/year-values-zero-atomicity-2026-11-04.log",
+    "archived_path": "docs/evidence/year-values-backend-2026-11-04/logs/year-values-zero-atomicity-2026-11-04.log",
+    "sha256": "92b538a501cdc0db8556168e2af4fe813a1a2218c1591bf367fdbade8191de83"
+  }
+]

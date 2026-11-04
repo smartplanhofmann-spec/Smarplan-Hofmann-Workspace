@@ -1,0 +1,112 @@
+00:00 +0: loading /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart
+00:00 +0: independent actual missing_start preserves readable original history and receipt
+00:00 +1: independent actual missing_vat_timing preserves readable original history and receipt
+00:00 +2: independent historical void exception does not allow new_active
+00:00 +3: independent historical void exception does not allow void_without_write_rights
+00:00 +4: independent evidenced zero remains distinct from missing controls or missing journal
+00:00 +5: independent genuine original void after EÜR reverse remains possible with missing current start
+00:00 +6: independent rehashed cash_date cannot override unchanged actual original
+00:00 +7: independent rehashed cash_cent cannot override unchanged actual original
+00:00 +8: independent rehashed net_projection cannot override unchanged actual original
+00:00 +9: independent rehashed account_projection cannot override unchanged actual original
+00:00 +10: independent rehashed vat_date cannot override unchanged actual original
+00:00 +11: independent rehashed vat_deduction_date cannot override unchanged actual original
+00:00 +12: independent old 19 VAT and 59.50 expense retain exact distinct days without cash
+00:00 +13: independent missing controls is not converted to an implicit zero journal
+00:00 +14: independent missing journal is not converted to an implicit zero journal
+00:00 +15: independent actual private old-item history remains required for a valid yearly entry
+00:00 +16: independent yearly controls editor closes when page unmounts with retained navigator
+00:01 +17: independent yearly controls editor closes on allowed parent session replacement
+00:02 +18: independent private controls close on background without removing foreign route
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown while dispatching notifications for
+WidgetsBindingObserver.didChangeAppLifecycleState:
+Invalid state transition from AppLifecycleState.paused to AppLifecycleState.resumed
+'package:flutter/src/widgets/app_lifecycle_listener.dart':
+Failed assertion: line 225 pos 11: 'previousState == null ||
+              previousState == AppLifecycleState.inactive ||
+              previousState == AppLifecycleState.detached'
+
+Either the assertion indicates an error in the framework itself, or we should provide substantially
+more information in this error message to help you determine and fix the underlying cause.
+In either case, please report this assertion by filing a bug on GitHub:
+  https://github.com/flutter/flutter/issues/new?template=02_bug.yml
+
+When the exception was thrown, this was the stack:
+#2      AppLifecycleListener.didChangeAppLifecycleState (package:flutter/src/widgets/app_lifecycle_listener.dart:225:11)
+#3      WidgetsBinding.handleAppLifecycleStateChanged (package:flutter/src/widgets/binding.dart:1334:18)
+#4      main.<anonymous closure> (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart:418:23)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown while dispatching notifications for
+WidgetsBindingObserver.didChangeAppLifecycleState:
+Invalid state transition from AppLifecycleState.paused to AppLifecycleState.resumed
+'package:flutter/src/widgets/app_lifecycle_listener.dart':
+Failed assertion: line 225 pos 11: 'previousState == null ||
+              previousState == AppLifecycleState.inactive ||
+              previousState == AppLifecycleState.detached'
+
+Either the assertion indicates an error in the framework itself, or we should provide substantially
+more information in this error message to help you determine and fix the underlying cause.
+In either case, please report this assertion by filing a bug on GitHub:
+  https://github.com/flutter/flutter/issues/new?template=02_bug.yml
+
+When the exception was thrown, this was the stack:
+#2      AppLifecycleListener.didChangeAppLifecycleState (package:flutter/src/widgets/app_lifecycle_listener.dart:225:11)
+#3      WidgetsBinding.handleAppLifecycleStateChanged (package:flutter/src/widgets/binding.dart:1334:18)
+#4      main.<anonymous closure> (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart:418:23)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TypeWidgetFinder:<Found 1 widget with type "BusinessEditor": [
+            BusinessEditor(state: _BusinessEditorState#96bd5),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart:408:11)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart line 408
+The test description was:
+  independent private controls close on background without removing foreign route
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (3) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +18 -1: independent private controls close on background without removing foreign route [E]
+  Test failed. See exception logs above.
+  The test description was: independent private controls close on background without removing foreign route
+  
+00:02 +18 -1: independent private controls close on dispose_under_unrelated_dialog without removing foreign route
+00:03 +19 -1: independent actual original file chooser protects background boundary
+00:03 +20 -1: independent actual original file chooser protects session boundary
+00:03 +21 -1: independent actual original file chooser protects write_failure boundary
+00:04 +22 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-opening-year-values-20261104/app/test/business_accounting_year_values_independent_review_test.dart: independent private controls close on background without removing foreign route

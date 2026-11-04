@@ -15,6 +15,7 @@ import 'business_accounting_openings.dart';
 import 'business_accounting_historical_assets.dart';
 import 'business_accounting_open_items.dart';
 import 'business_accounting_year_evidence.dart';
+import 'business_accounting_year_values.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -32,6 +33,7 @@ const euerOperations = {
   'depreciation': 'Lineare Jahres-AfA',
   'opening_depreciation': 'Belegte historische Jahres-AfA',
   'opening_item_cash': 'Belegte Altposten-Restzahlung einordnen',
+  'opening_year_values': 'Belegte frühere Jahreswerte übernehmen',
   'reverse': 'Buchung gegenbuchen',
   'correct': 'Buchung berichtigen',
   'period': 'Monatsperiode prüfen',
@@ -146,6 +148,8 @@ Map<String, dynamic> euerPreview(
     historicalAssetEuerPreview(value, body);
   if (value['effect']?['operation'] == 'opening_item_cash')
     openItemEuerPreview(value, body);
+  if (value['effect']?['operation'] == 'opening_year_values')
+    yearValuesEuerPreview(value, body);
   return value;
 }
 
@@ -590,6 +594,14 @@ EuerForm euerForm(
         'life_months': v['life_months'],
         'account': _account(v['account']),
       };
+    case 'opening_year_values':
+      yearValuesSource(source);
+      build = (v) => {
+        'year': source['id'],
+        'revision': source['revision'],
+        'source_hash': source['source_hash'],
+      };
+      break;
     case 'opening_depreciation':
       historicalAssetSource(source);
       input('year', 'AfA-Jahr', type: BusinessInput.integer);
@@ -719,11 +731,13 @@ class BusinessEuerPage extends StatefulWidget {
     required this.session,
     this.initialHistoricalAssetId,
     this.initialOpeningPaymentId,
+    this.initialYearValuesYear,
     this.initialYear,
     this.initialTab = 'sources',
   });
   final BusinessSession session;
   final String? initialHistoricalAssetId, initialOpeningPaymentId;
+  final String? initialYearValuesYear;
   final int? initialYear;
   final String initialTab;
   @override
@@ -913,6 +927,10 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
           0,
           'Der EÜR-Stand konnte nicht eindeutig gelesen werden.',
         );
+      if (yearReport.containsKey('historical_year_values') ||
+          businessItems(sourcePage)
+              .any((r) => r['kind'] == 'opening_year_values'))
+        yearValuesReport(yearReport, businessItems(sourcePage));
       if (yearReport.containsKey('historical_assets'))
         historicalAssetReport(yearReport);
       for (final row in businessItems(sourcePage)) {
@@ -929,6 +947,13 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
             );
         }
 
+        if (row['kind'] == 'opening_year_values') {
+          await yearValuesVerifiedSource(
+            widget.session,
+            row['source'],
+            stillCurrent: () => mounted && current == epoch && readable,
+          );
+        }
         if (row['kind'] == 'opening_asset') {
           final source = historicalAssetSource(row['source']),
               entry = historicalAssetEvent(row['current']);
@@ -999,6 +1024,22 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
               ? null
               : businessMap(row['current']),
         );
+    }
+    if (mounted &&
+        current == epoch &&
+        writable &&
+        !initialHistoricalHandled &&
+        widget.initialYearValuesYear != null) {
+      initialHistoricalHandled = true;
+      final row = sources
+          .where(
+            (r) =>
+                r['kind'] == 'opening_year_values' &&
+                r['id'] == widget.initialYearValuesYear,
+          )
+          .firstOrNull;
+      if (row != null && businessMap(row['current']).isEmpty)
+        await edit('opening_year_values', businessMap(row['source']));
     }
     if (mounted &&
         current == epoch &&
@@ -1093,6 +1134,13 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
               session: widget.session,
               entityKey: proof['item_key'],
             ),
+          ),
+        );
+      } else if (kind == 'opening_year_values') {
+        await Navigator.push<void>(
+          context,
+          MaterialPageRoute(
+            builder: (_) => BusinessYearValuesPage(session: widget.session),
           ),
         );
       } else if (kind == 'opening_asset') {
@@ -1527,6 +1575,8 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
                   child: Text(
                     row['kind'] == 'opening_item_cash'
                         ? 'Altposten und Zahlungsoriginal öffnen'
+                        : row['kind'] == 'opening_year_values'
+                        ? 'Jahresvortrag und Originale öffnen'
                         : row['kind'] == 'opening_asset'
                         ? 'Historische Anlage und Original öffnen'
                         : row['kind'] == 'payroll_cash' ||
@@ -1553,6 +1603,15 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
                           ? 'Altpostenzahlung einordnen'
                           : 'Altpostenzahlungseinordnung berichtigen',
                     ),
+                  ),
+                if (row['kind'] == 'opening_year_values' &&
+                    source['status'] == 'active' &&
+                    current.isEmpty)
+                  FilledButton(
+                    onPressed: writable
+                        ? () => edit('opening_year_values', source)
+                        : null,
+                    child: const Text('Belegte frühere Jahreswerte übernehmen'),
                   ),
                 if (row['kind'] == 'opening_asset')
                   FilledButton(
@@ -1805,6 +1864,21 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
                     child: const Text(
                       'Historische offene Rechnungen und Restzahlungen öffnen',
                     ),
+                  ),
+                if (yearValuesReadable(widget.session))
+                  OutlinedButton.icon(
+                    onPressed: () async {
+                      await Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              BusinessYearValuesPage(session: widget.session),
+                        ),
+                      );
+                      if (mounted) await load(refreshRights: true);
+                    },
+                    icon: const Icon(Icons.history),
+                    label: const Text('Belegte Jahreswerte vor Softwarebeginn'),
                   ),
                 if (state?['historical_assets_path'] == historicalAssetPath &&
                     historicalAssetsReadable(widget.session))
@@ -2077,6 +2151,20 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
                           child: const Text('Prüfen'),
                         ),
                       ),
+                    if (report!.containsKey('historical_year_values')) ...[
+                      const Notice(yearValuesBoundary),
+                      ListTile(
+                        title: const Text('Gebundene frühere Jahreswerte'),
+                        subtitle: Text(
+                          'Belegter Zeitraum ${businessDate(report!['historical_year_values']['coverage']['from'])} bis ${businessDate(report!['historical_year_values']['coverage']['through'])} · Keine neue Geldbewegung oder Vorsteuerforderung',
+                        ),
+                        onTap: () => upstream(
+                          sources
+                              .where((r) => r['kind'] == 'opening_year_values')
+                              .firstOrNull,
+                        ),
+                      ),
+                    ],
                     if (report!.containsKey('historical_assets'))
                       for (final asset in historicalAssetReport(report!))
                         ListTile(

@@ -249,7 +249,7 @@ class PreparationProfilePostgres(unittest.TestCase):
         first, command = self.confirm()
         second, unused = self.confirm(declared_profile(vat_regime='small_business', vat_effective_from='2026-01-01'))
         horizon = business_schema.financial_accounting_horizon(self.office)
-        self.assertEqual(horizon['schema_version'], 14)
+        self.assertEqual(horizon['schema_version'], 15)
         self.assertEqual(horizon['profile']['table_counts'], self.counts())
         self.assertEqual(set(horizon['profile']['table_counts'].values()), {2})
         before = release.snapshot_fingerprint(journey.DSN); self.office.db.close()
@@ -273,7 +273,7 @@ class PreparationProfilePostgres(unittest.TestCase):
             operator = PostgresOffice(target)
             try:
                 evidence = components_fixture.evidence_for(operator, report)
-                self.assertEqual(evidence['schema'], 15)
+                self.assertEqual(evidence['schema'], 16)
                 old = {**evidence, 'schema': 7, 'accounting_horizon': dict(schema_version=6,
                     **{key: horizon[key] for key in H6_FIELDS})}
                 wrong = {**evidence, 'accounting_horizon': {**horizon, 'profile': {**horizon['profile'], 'sha256': '0' * 64}}}
@@ -297,7 +297,7 @@ class PreparationProfilePostgres(unittest.TestCase):
 class ProfileMigrationPostgres(unittest.TestCase):
     def test_real_r2_migration_preserves_all_old_bytes_and_schema7_receipt_cannot_release_new_restore(self):
         full = business_schema.registry()
-        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings', 'business_accounting_asset_openings', 'business_accounting_open_items'))
+        prior = tuple(spec for spec in full if spec.name not in ('business_accounting_profile', 'business_accounting_euer', 'business_payroll_cash', 'business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings', 'business_accounting_asset_openings', 'business_accounting_open_items','business_accounting_year_openings'))
         fixture = refunds_fixture.VersionedRefundsPostgres(methodName='runTest'); self.addCleanup(fixture.doCleanups)
         with patch.object(business_schema, 'registry', return_value=prior), \
                 patch.object(business_schema, 'MODULE_NAMES', tuple(spec.name for spec in prior)):
@@ -327,7 +327,7 @@ class ProfileMigrationPostgres(unittest.TestCase):
                         if table != 'business_schema_migrations': self.assertEqual(upgraded[table], value, table)
                     operator = PostgresOffice(target)
                     try:
-                        self.assertEqual(business_schema.financial_accounting_horizon(operator)['schema_version'], 14)
+                        self.assertEqual(business_schema.financial_accounting_horizon(operator)['schema_version'], 15)
                         self.assertEqual(components_fixture.approve(operator, evidence), approved)
                     finally: operator.db.close()
                     self.assertEqual(release.snapshot_fingerprint(target), upgraded)
@@ -361,7 +361,7 @@ class ProfileMigrationPostgres(unittest.TestCase):
                     with self.assertRaises((Problem, ValueError)): components_fixture.approve(operator, invalid)
                     self.assertEqual(release.snapshot_fingerprint(target), frozen)
                 latest = components_fixture.evidence_for(operator, report)
-                self.assertEqual(latest['schema'], 15)
+                self.assertEqual(latest['schema'], 16)
                 self.assertEqual(set(latest['accounting_horizon']['profile']['table_counts'].values()), {0})
                 components_fixture.approve(operator, latest)
             finally: operator.db.close()

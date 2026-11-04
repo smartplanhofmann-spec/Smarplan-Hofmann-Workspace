@@ -1,0 +1,38 @@
+{
+  "accessed_on": "2026-11-04",
+  "status": "official current text directly read",
+  "scope": "Narrow continuous E\u00dcR/Ist software migration, no tax-regime transition or new claim",
+  "records": [
+    {
+      "id": "Y01",
+      "url": "https://www.gesetze-im-internet.de/estg/__4.html",
+      "locator": "Abs. 3 S\u00e4tze 1\u20135; Abs. 4",
+      "read_via": "web open, turn848152view3",
+      "relevance": "E\u00dcR and business expenses; separate asset/depreciation exceptions remain."
+    },
+    {
+      "id": "Y02",
+      "url": "https://www.gesetze-im-internet.de/estg/__11.html",
+      "locator": "Abs. 1 und 2",
+      "read_via": "web open, turn848152view2",
+      "relevance": "Actual original receipt/payment year; no extension of statutory exceptions."
+    },
+    {
+      "id": "Y03",
+      "url": "https://www.gesetze-im-internet.de/ao_1977/__146.html",
+      "locator": "Abs. 1, 4, 5, 6",
+      "read_via": "web open, turn848152view0",
+      "relevance": "Complete ordered individual records; original and amendment remain distinguishable; continuing readability."
+    },
+    {
+      "id": "Y04",
+      "url": "https://www.gesetze-im-internet.de/ao_1977/__147.html",
+      "locator": "Abs. 1, 2, 6",
+      "read_via": "web open, turn848152view1",
+      "relevance": "Preserved source records and supporting documentation; readable evaluable records after software migration."
+    }
+  ],
+  "original_files_archived": false,
+  "retained": "URLs, exact provisions and reading record, not original official HTML/PDF",
+  "related_independent_sources": "../altposten-quellen-2026-11-04/sources.json"
+}

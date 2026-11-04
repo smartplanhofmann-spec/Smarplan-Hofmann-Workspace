@@ -1,0 +1,8 @@
+test_actual_connections_duplicate_ack_and_competing_period_revision (online.test_accounting_year_openings_pg.YearValuesPostgres.test_actual_connections_duplicate_ack_and_competing_period_revision) ... ok
+test_actual_immutable_acl_restart_and_original_receipts (online.test_accounting_year_openings_pg.YearValuesPostgres.test_actual_immutable_acl_restart_and_original_receipts) ... ok
+test_populated_actual_dump_restore_preserves_old_and_new_year_exports_and_cash (online.test_accounting_year_openings_pg.YearValuesPostgres.test_populated_actual_dump_restore_preserves_old_and_new_year_exports_and_cash) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 17.276s
+
+OK

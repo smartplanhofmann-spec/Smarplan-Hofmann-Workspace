@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "status": "Read-only static proposal; not applied; awaiting complete unchanged PostgreSQL matrix tracebacks",
+  "postgresql_used": false,
+  "runtime_or_test_source_writes": false,
+  "modules_file": "work/verification/year-values-financial-postgres-modules-2026-11-04.json",
+  "modules_scanned": 25,
+  "source_hashes": {
+    "backend/online/test_accounting_asset_openings_pg.py": "71203161ae95c219100e30e36e73b3fc28af0621af3b6f04a20cabdd797aaafb",
+    "backend/online/test_business_accounting_euer_pg.py": "3c85b2f662d16c7011de1552ee2591e23f28253102e8f410d10255439de5549e",
+    "backend/online/test_business_accounting_openings_pg.py": "3ba14e9f5380c900207c21733b11b2599613e106d4347ba14195edb1daff2bd0",
+    "backend/online/test_business_bank_reconciliation_pg.py": "1f015907e6b0b86c0e4a6da92b9c50ae4adea7e809c44822e3aa098e089247bc",
+    "backend/online/test_business_catalog_imports_pg.py": "071caf421a12bc94e303a3471fa05f2e93164e86bd1abd9c05cf0cec78ee70a1",
+    "backend/online/test_business_catalog_opening_restore_pg.py": "38af2b49e3c2408ff158dda88b1dd8f21cb84cc1e8834b4172a51e8eb558f2a9",
+    "backend/online/test_business_payroll_cash_pg.py": "f905efa1a8850721bd5340de67c107160fd2e60a7d5e09bea427397a8859452e",
+    "backend/online/test_business_payroll_multiple_pg.py": "12b7e1fb6984a25c582a33488235a3027a0f182940cd375bfc0528426b45bfe4",
+    "backend/online/test_business_travel_pg.py": "067df0a60c715ef6a82776c4ad7cfc94eb3ea77fb0934dd5aa36ad1c1a49fa5d",
+    "backend/online/test_postgres_accounting_allocations_integration.py": "b0cdaf132dde4f9642717fda2043ac99286d10dd827f465f811ce3cde33abd14",
+    "backend/online/test_postgres_accounting_capacity_integration.py": "b704424df585d0ee8779fe9ee91d5a1c491f4aa973bc646c2b5f1dd582b90f58",
+    "backend/online/test_postgres_accounting_components_integration.py": "de8c1b5850bfe13392087a010c9d6c1bf664963f01e9c776f6ce9ac093b650ab",
+    "backend/online/test_postgres_accounting_integration.py": "0d48ddea0751519e847972bf54aa23f1b2d5d6722885b25d9fe62b870e148a28",
+    "backend/online/test_postgres_accounting_profile_integration.py": "cba494760ee18cab8b1a7ea41741dd1d2d988232f845987957099849a064ca8d",
+    "backend/online/test_postgres_accounting_refunds_integration.py": "d3a4274888e29f3b773c5bbd6b1e3ed1976a3159fcd5ff62d47d4463b0dbf7c5",
+    "backend/online/test_postgres_accounting_refunds_v2_integration.py": "f1f6f62985e9da9eab2b0903751a6da95bb77de717fcd2821cf6fb97d4a9aa47",
+    "backend/online/test_assets_source5_catalog_restore_pg.py": "153f1001871179e89f681a3ac20ca3737a846e46cb90063dc41ea24f3ee1fb2f",
+    "backend/online/test_open_items_events_catalog_restore_pg.py": "97609a02a11d0dbbbfc2ce784b8b0809baeadd4bc3696dd39ea8c48db3822463",
+    "backend/online/test_accounting_year_openings_pg.py": "03b7c095a9cef9088e9211628b83543cbb822b8a17d7133ca442977c14ac9049",
+    "backend/online/test_accounting_year_package_pg.py": "213df653cc8fcc3e82116e1a5cbe1599f1f8b9aa7af67e75c8ed9783c2f6ee37",
+    "backend/online/test_accounting_year_package_v2_pg.py": "1a09fa52d3bd23f8e417f82fe94763e764392fd30ee4ee3111fff7808b1ac3db",
+    "backend/online/test_year_values_full_financial_restore_pg.py": "f3feaac56ea89a694365df9fe4f84177fcd48b27fa002d6268dabcbb5f6bce40",
+    "backend/online/test_catalog_v2_source5_assets_restore_pg.py": "f0efdb3cde1d2c4f408433d81ed613248d2660a60327f03dc77d2b59bc21f9e2",
+    "backend/online/test_events_catalog_assets_source5_restore_pg.py": "82ae02f37dc75171424389d3e7b2d1364bd04ca4271c80db79c1c595b401e777",
+    "backend/online/test_accounting_open_items_pg.py": "a5a85b76d4a73f6756b341366d6ba6ec1846f71ea01957dd6391098be45a3ac7"
+  },
+  "runtime_validator": {
+    "path": "backend/business_schema.py",
+    "sha256": "d358885df0a35e62a2312e255b0415484a3ed946f0de8426249fc2342b77edce",
+    "observation": "Existing report12,13,14 horizon validators use exact outer key sets; year_values is exclusively report16/horizon15. No validator change proposed."
+  },
+  "proposed_changes": [
+    {
+      "path": "backend/online/test_accounting_asset_openings_pg.py",
+      "test_method": "HistoricalAssetPostgres.test_populated_dump_restore_requires_new_scope_and_preserves_original_afa_and_exports",
+      "before_sha256": "71203161ae95c219100e30e36e73b3fc28af0621af3b6f04a20cabdd797aaafb",
+      "proposed_after_sha256": "912842deb9777bdf30e8a7d91e2ee78b566a3e2b0354c9f0c1825def01672b24",
+      "reason": "Intentionally historical report13/horizon12 must exclude the later year_values family; retain strict historical shape validation and all rejection/restoration assertions."
+    },
+    {
+      "path": "backend/online/test_business_accounting_openings_pg.py",
+      "test_method": "OpeningBalancesPostgres.test_dump_restore_binds_original_and_old_euer_export_to_explicit_report13",
+      "before_sha256": "3ba14e9f5380c900207c21733b11b2599613e106d4347ba14195edb1daff2bd0",
+      "proposed_after_sha256": "82be94b7963f0316b024334312758faf756192ff96db8dea0420fb3bf47f3b7d",
+      "reason": "Intentionally historical report12/horizon11 must exclude year_values before the existing exact shape validation; preserve original receipt/export and current reconciliation tests."
+    },
+    {
+      "path": "backend/online/test_business_travel_pg.py",
+      "test_method": "TravelPostgres.test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon",
+      "before_sha256": "067df0a60c715ef6a82776c4ad7cfc94eb3ea77fb0934dd5aa36ad1c1a49fa5d",
+      "proposed_after_sha256": "72033082c2aa640a92376e55ba9b9f1be6bcdfb80f82f29921080a1dab2a980e",
+      "reason": "Pre-travel registry must exclude the later year-values module along with travel/opening/assets/items. Existing migration then installs the complete current registry and still proves original bytes/replay/current restore."
+    },
+    {
+      "path": "backend/online/test_accounting_open_items_pg.py",
+      "test_method": "OpeningItemPostgres.test_populated_actual_dump_restore_keeps_old_exports_all_originals_and_no_repeated_input_vat",
+      "before_sha256": "a5a85b76d4a73f6756b341366d6ba6ec1846f71ea01957dd6391098be45a3ac7",
+      "proposed_after_sha256": "8104152b51d758ea5141088e02661e73862c7ee0e8f2595fd44bd538935001e4",
+      "reason": "An intentionally old report14/horizon13 must be structurally valid before proving it cannot release the current restore. Remove year_values and add explicit old-shape validation to prevent a false-green negative caused by an extra unknown family."
+    }
+  ],
+  "historical_construction_inventory": [
+    {
+      "path": "backend/online/test_accounting_asset_openings_pg.py",
+      "method": "HistoricalAssetPostgres.test_populated_dump_restore_requires_new_scope_and_preserves_original_afa_and_exports",
+      "line": 88,
+      "classification": "proposed correction",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_business_accounting_euer_pg.py",
+      "method": "EuerPostgres.test_pre_euer_migration_preserves_originals_and_real_restore_requires_schema10_horizon",
+      "line": 150,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": true,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_business_accounting_openings_pg.py",
+      "method": "OpeningBalancesPostgres.test_dump_restore_binds_original_and_old_euer_export_to_explicit_report13",
+      "line": 150,
+      "classification": "proposed correction",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_business_payroll_cash_pg.py",
+      "method": "PayrollCashPostgres.test_additive_migration_keeps_confirmed_schema9_receipt_and_requires11_for_new_restore",
+      "line": 101,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": true,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_business_travel_pg.py",
+      "method": "TravelPostgres.test_additive_old_personnel_migration_actual_dump_restore_and_payment_horizon",
+      "line": 122,
+      "classification": "proposed correction",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_allocations_integration.py",
+      "method": "AllocationPostgres.test_real_restore_preserves_assignments_and_requires_current_horizon",
+      "line": 267,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_capacity_integration.py",
+      "method": "ComponentCapacityPostgres.test_real_dump_restore_requires_current_horizon_and_preserves_exact_old_and_new_proofs",
+      "line": 455,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_capacity_integration.py",
+      "method": "CapacityMigrationPostgres.test_r1_migration_preserves_old_rows_and_schema5_replay_cannot_unlock_a_new_restore",
+      "line": 512,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": true,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_components_integration.py",
+      "method": "ComponentsPostgres.test_actual_restore_preserves_components_and_requires_current_horizon",
+      "line": 397,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_components_integration.py",
+      "method": "ComponentMigrationPostgres.test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore",
+      "line": 455,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": true,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_integration.py",
+      "method": "AccountingPostgres.test_normal_migration_retains_events_restore_requires_exact_independent_accounting_reconciliation",
+      "line": 351,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_profile_integration.py",
+      "method": "PreparationProfilePostgres.test_real_dump_restore_binds_profile_horizon_and_requires_schema10_even_for_old_replay",
+      "line": 248,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_profile_integration.py",
+      "method": "ProfileMigrationPostgres.test_real_r2_migration_preserves_all_old_bytes_and_schema7_receipt_cannot_release_new_restore",
+      "line": 298,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": true,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_refunds_integration.py",
+      "method": "RefundOriginsPostgres.test_real_restore_keeps_origins_and_requires_current_horizon_before_replay",
+      "line": 322,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_refunds_integration.py",
+      "method": "RefundMigrationPostgres.test_c1_migration_preserves_every_old_row_and_schema4_receipt_cannot_unlock_new_restore",
+      "line": 380,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": true,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_refunds_v2_integration.py",
+      "method": "VersionedRefundsPostgres.test_real_dump_restore_requires_current_horizon_and_binds_r2_releaseclaims",
+      "line": 437,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_refunds_v2_integration.py",
+      "method": "RefundsV2MigrationPostgres.test_c2_v1_migration_preserves_bytes_and_schema6_receipt_cannot_release_new_restore",
+      "line": 489,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": true,
+      "has_year_values_family_literal": false
+    },
+    {
+      "path": "backend/online/test_assets_source5_catalog_restore_pg.py",
+      "method": "AssetsSource5CatalogRestore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope",
+      "line": 25,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": true
+    },
+    {
+      "path": "backend/online/test_open_items_events_catalog_restore_pg.py",
+      "method": "OpenItemsEventsCatalogRestore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope",
+      "line": 41,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": true
+    },
+    {
+      "path": "backend/online/test_accounting_year_openings_pg.py",
+      "method": "YearValuesPostgres.test_populated_actual_dump_restore_preserves_old_and_new_year_exports_and_cash",
+      "line": 90,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": true
+    },
+    {
+      "path": "backend/online/test_year_values_full_financial_restore_pg.py",
+      "method": "YearValuesFullFinancialRestore.test_one_filled_restore_keeps_old_v1_new_v2_original_year_cents_and_existing_families",
+      "line": 44,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": true
+    },
+    {
+      "path": "backend/online/test_catalog_v2_source5_assets_restore_pg.py",
+      "method": "CatalogV2AssetsSource5Restore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope",
+      "line": 28,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": true
+    },
+    {
+      "path": "backend/online/test_events_catalog_assets_source5_restore_pg.py",
+      "method": "EventsCatalogAssetsSource5Restore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope",
+      "line": 36,
+      "classification": "already excludes year_values, builds historical explicit whitelist, or dynamically uses current scope",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": true
+    },
+    {
+      "path": "backend/online/test_accounting_open_items_pg.py",
+      "method": "OpeningItemPostgres.test_populated_actual_dump_restore_keeps_old_exports_all_originals_and_no_repeated_input_vat",
+      "line": 105,
+      "classification": "proposed correction",
+      "has_year_values_module_literal": false,
+      "has_year_values_family_literal": false
+    }
+  ],
+  "patch": {
+    "path": "work/verification/year-values-historical-pg-scope-review-2026-11-04/proposed-test-only.patch",
+    "sha256": "b90b4c3d18fffc794ce0e71bf8a85695e13270d62bf708f2aa6b393dc35d671a"
+  },
+  "required_followup": [
+    "Wait for complete original PostgreSQL matrix and compare actual tracebacks with these static candidates.",
+    "Apply only after original source hashes still match and Root approves the test-only scope.",
+    "Run changed actual PostgreSQL cases after the running matrix releases its exclusive cluster.",
+    "Retain original red matrix and exact before/after scope evidence."
+  ],
+  "validation": {
+    "proposed_sources_parse": true,
+    "exact_test_method_names_verified": true,
+    "git_apply_check_exit_code": 0,
+    "original_25_source_hashes_unchanged_after_review": true
+  }
+}

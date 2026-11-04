@@ -1,0 +1,25 @@
+{
+  "recorded_at_utc": "2026-11-04T13:43:33.739701+00:00",
+  "style": {
+    "path": "web/office/office.css",
+    "sha256": "011d4162cb71da7b80ee73b7e59dd9074a36ad67aea3532f732e0c7761142933"
+  },
+  "original_screenshot": {
+    "path": "work/verification/year-values-integrated-browser-year-values/year-values-mobile.png",
+    "sha256": "a2ac60db368b75c66f053cef81035f8d65133b8a251a8141ad6b4ad7e46a1d47"
+  },
+  "protected_files": {
+    "web/office/office.js": "a5811ca172cc649917d886e1f82299c99513cd00099b065c0fc2f5ed61689fb0",
+    "web/office/accounting-euer.js": "e9a792a3ecf40b7a790acc7a8cd245a53c64530d2a81453f12ad97c93a6b72b2",
+    "web/office/accounting-year-values.js": "daeb81263feb4b5e580638282d46811e47391efc6ee3ea65dac344e114517a4b",
+    "web/office/accounting-year-values-contract.js": "a701fdbd31e39454c97fa3da9cbf3ad292510b13f5fa537ad2d50e19c745b114",
+    "web/office/accounting-year-package-contract.js": "4459c3580c3da8ede338d33ec567901d8117620e99c6670c1c74e8b639cc4b73",
+    "backend/online/web.py": "9c678d2125f66e57f5a5c54afc425a7239730cac981fd1fc3d4d1ac4818e70dc",
+    "backend/business_accounting_year_openings.py": "a10e4d29642ed9a8655bfbe24abf7336ea9fb168a4c798c00db0996b398e89fd",
+    "app/lib/business_accounting_year_values.dart": "a31684ea07803994ab0485d4eaeec30790305086c9eef6f272a8e498d93f7c88",
+    "app/lib/business_session.dart": "7d437f2b441a4e6835e5dddfe7c9d4699b590496eed68583b4a9c3be441539b8",
+    ".github/workflows/checks.yml": "5be76c78e4e65bdfbbd9f9e2a9ff81b0d99a8952bfcba7deaca76893058e8ff2",
+    "scripts/native-release.py": "039e5dca2280619571be4d437ff169e5a695af19363b394f3784d7ece64db0bf",
+    "scripts/package-windows-support.py": "36c76af5bbca2d2b26b7e62fd586131d1d900ea2d5b207b311bf583c92496966"
+  }
+}

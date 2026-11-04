@@ -2140,3 +2140,15 @@ Entwicklungsfreigabe umfasst diese Veröffentlichung nicht ausdrücklich.
 [Zielbranch, Zweck und Umfang](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md)
 sind konkret dokumentiert. Kein Remote-Push, neuer Build, TestFlight-Upload oder
 Serverupdate ist erfolgt. Weitere externe Ausführung wartet auf Nutzerzustimmung.
+
+
+## 04.11.2026 – Veröffentlichungszustimmung erhalten; tatsächliche Builds gestartet
+
+Der Nutzer hat den Upload des geprüften Quellstands und der Prüfnachweise
+auf den benannten öffentlichen Testbranch ausdrücklich mit Ja bestätigt.
+Der Git-Push war erfolgreich; GitHub bestätigt exakt `8e320bd` auf
+`codex/testupdate-0.7-projects-20261104`. Development checks (41915157732)
+und iPhone-Prüfbuild (41915157953) sind tatsächlich gestartet; Ergebnisse
+und aktuelle Binärartefakte werden noch geprüft. Die frühere automatische
+Ablehnung wurde durch die ausdrückliche Zustimmung aufgelöst.
+Kein Defaultbranch-Update, Serverupdate oder TestFlight-Upload.

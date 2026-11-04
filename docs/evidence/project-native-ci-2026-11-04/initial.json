@@ -1,0 +1,616 @@
+{
+  "authorization": "User replied Ja to publication of source and evidence on the named public new branch and starting Windows/iPhone check builds.",
+  "pushed_commit": "8e320bd60671fb7e95c95a197ee34dd3e078bd66",
+  "branch": "refs/heads/codex/testupdate-0.7-projects-20261104",
+  "remote_confirmed": true,
+  "runs": [
+    {
+      "id": 41915157732,
+      "name": "Development checks",
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157732",
+      "head_sha": "8e320bd60671fb7e95c95a197ee34dd3e078bd66",
+      "run_number": 114
+    },
+    {
+      "id": 41915158028,
+      "name": "Local plan import worker",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915158028",
+      "head_sha": "8e320bd60671fb7e95c95a197ee34dd3e078bd66",
+      "run_number": 10
+    },
+    {
+      "id": 41915157955,
+      "name": "Mail bot connection",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157955",
+      "head_sha": "8e320bd60671fb7e95c95a197ee34dd3e078bd66",
+      "run_number": 20
+    },
+    {
+      "id": 41915157953,
+      "name": "iPhone TestFlight",
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157953",
+      "head_sha": "8e320bd60671fb7e95c95a197ee34dd3e078bd66",
+      "run_number": 30
+    }
+  ],
+  "jobs": {
+    "checks": {
+      "jobs": [
+        {
+          "id": 126872750140,
+          "name": "https-setup",
+          "status": "completed",
+          "conclusion": "success",
+          "run_id": 41915157732,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Check isolated HTTPS setup with real Caddy and verified TLS",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7
+            }
+          ]
+        },
+        {
+          "id": 126872750468,
+          "name": "online-api",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_id": 41915157732,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Run python -m pip install -r backend/online/requirements.lock",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Run python -m pip check",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "PostgreSQL-, Speicher- und OneDrive-Vertraege pruefen",
+              "status": "in_progress",
+              "conclusion": null,
+              "number": 7
+            },
+            {
+              "name": "Check online units, scripts and real HTTPS runtime",
+              "status": "pending",
+              "conclusion": null,
+              "number": 8
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "pending",
+              "conclusion": null,
+              "number": 14
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "pending",
+              "conclusion": null,
+              "number": 15
+            },
+            {
+              "name": "Stop containers",
+              "status": "pending",
+              "conclusion": null,
+              "number": 16
+            }
+          ]
+        },
+        {
+          "id": 126872750475,
+          "name": "update-flow",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_id": 41915157732,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Check update and recovery in an isolated container",
+              "status": "in_progress",
+              "conclusion": null,
+              "number": 3
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "pending",
+              "conclusion": null,
+              "number": 6
+            }
+          ]
+        },
+        {
+          "id": 126872750493,
+          "name": "backend",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_id": 41915157732,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Run python -m pip install -r backend/requirements.lock",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Run python -m pip check",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Run python -m unittest discover -s backend -v",
+              "status": "in_progress",
+              "conclusion": null,
+              "number": 6
+            },
+            {
+              "name": "Verify the deterministic source component inventory",
+              "status": "pending",
+              "conclusion": null,
+              "number": 7
+            },
+            {
+              "name": "Require synthetic Gmail bridge retry and scope contracts",
+              "status": "pending",
+              "conclusion": null,
+              "number": 8
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "pending",
+              "conclusion": null,
+              "number": 15
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "pending",
+              "conclusion": null,
+              "number": 16
+            }
+          ]
+        },
+        {
+          "id": 126872750653,
+          "name": "native-build (macos-latest, flutter build ios --simulator --debug --dart-define=API_URL=https://o...",
+          "status": "queued",
+          "conclusion": null,
+          "run_id": 41915157732,
+          "logs_url": null,
+          "steps": null
+        },
+        {
+          "id": 126872750658,
+          "name": "business-services",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_id": 41915157732,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Run actions/setup-node@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Install backend and actual local invoice validators",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Require all commercial, SMTP and official e-invoice tests",
+              "status": "in_progress",
+              "conclusion": null,
+              "number": 6
+            },
+            {
+              "name": "Test responsive browser client with actual auth and API",
+              "status": "pending",
+              "conclusion": null,
+              "number": 7
+            },
+            {
+              "name": "Upload synthetic browser acceptance screenshots",
+              "status": "pending",
+              "conclusion": null,
+              "number": 8
+            },
+            {
+              "name": "Post Run actions/setup-node@v4",
+              "status": "pending",
+              "conclusion": null,
+              "number": 14
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "pending",
+              "conclusion": null,
+              "number": 15
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "pending",
+              "conclusion": null,
+              "number": 16
+            }
+          ]
+        },
+        {
+          "id": 126872750684,
+          "name": "flutter",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_id": 41915157732,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Install real backend for client integration test",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Check private Linux pilot launcher and backup",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Run subosito/flutter-action@v2",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Run flutter pub get --enforce-lockfile",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7
+            },
+            {
+              "name": "Check native release configuration and package contracts",
+              "status": "in_progress",
+              "conclusion": null,
+              "number": 8
+            },
+            {
+              "name": "Run flutter analyze",
+              "status": "pending",
+              "conclusion": null,
+              "number": 9
+            },
+            {
+              "name": "Require bounded rendering with the real native PDF engine",
+              "status": "pending",
+              "conclusion": null,
+              "number": 10
+            },
+            {
+              "name": "Test app and retain bounded failure diagnostics",
+              "status": "pending",
+              "conclusion": null,
+              "number": 11
+            },
+            {
+              "name": "Upload real widget previews",
+              "status": "pending",
+              "conclusion": null,
+              "number": 12
+            },
+            {
+              "name": "Post Run subosito/flutter-action@v2",
+              "status": "pending",
+              "conclusion": null,
+              "number": 22
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "pending",
+              "conclusion": null,
+              "number": 23
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "pending",
+              "conclusion": null,
+              "number": 24
+            }
+          ]
+        },
+        {
+          "id": 126872750760,
+          "name": "native-build (windows-latest, flutter build windows --release)",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_id": 41915157732,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Check native release configuration",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Check Visual C++ ATL for protected device storage",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Install Windows backend for client integration test",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Build and test complete offline Windows Python dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7
+            },
+            {
+              "name": "Upload complete offline Windows support package",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8
+            },
+            {
+              "name": "Run subosito/flutter-action@v2",
+              "status": "in_progress",
+              "conclusion": null,
+              "number": 9
+            },
+            {
+              "name": "Run flutter pub get --enforce-lockfile",
+              "status": "pending",
+              "conclusion": null,
+              "number": 10
+            },
+            {
+              "name": "Require bounded rendering with the real Windows PDF engine",
+              "status": "pending",
+              "conclusion": null,
+              "number": 11
+            },
+            {
+              "name": "Test Windows client against real backend",
+              "status": "pending",
+              "conclusion": null,
+              "number": 12
+            },
+            {
+              "name": "Test Windows backup, restore and launcher lifecycle",
+              "status": "pending",
+              "conclusion": null,
+              "number": 13
+            },
+            {
+              "name": "Build Windows release with compiler diagnostics",
+              "status": "pending",
+              "conclusion": null,
+              "number": 14
+            },
+            {
+              "name": "Build iOS simulator",
+              "status": "pending",
+              "conclusion": null,
+              "number": 15
+            },
+            {
+              "name": "Prepare portable Windows package",
+              "status": "pending",
+              "conclusion": null,
+              "number": 16
+            },
+            {
+              "name": "Report Windows package diagnostics",
+              "status": "pending",
+              "conclusion": null,
+              "number": 17
+            },
+            {
+              "name": "Upload Windows package",
+              "status": "pending",
+              "conclusion": null,
+              "number": 18
+            },
+            {
+              "name": "Build separate online Windows pilot",
+              "status": "pending",
+              "conclusion": null,
+              "number": 19
+            },
+            {
+              "name": "Upload separate online Windows pilot",
+              "status": "pending",
+              "conclusion": null,
+              "number": 20
+            },
+            {
+              "name": "Post Run subosito/flutter-action@v2",
+              "status": "pending",
+              "conclusion": null,
+              "number": 38
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "pending",
+              "conclusion": null,
+              "number": 39
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "pending",
+              "conclusion": null,
+              "number": 40
+            }
+          ]
+        }
+      ]
+    },
+    "ios": {
+      "jobs": [
+        {
+          "id": 126872750625,
+          "name": "Online-Release ohne Apple-Zugang pruefen",
+          "status": "queued",
+          "conclusion": null,
+          "run_id": 41915157953,
+          "logs_url": null,
+          "steps": null
+        }
+      ]
+    }
+  }
+}

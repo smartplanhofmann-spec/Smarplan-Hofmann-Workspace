@@ -1,5 +1,15 @@
 # Aktueller Buildstatus: Veröffentlichung benötigt Freigabe
 
+**Aktuell nach ausdrücklicher Zustimmung:** Upload erfolgreich. Der neue
+Branch `codex/testupdate-0.7-projects-20261104` steht auf dem unveränderten
+Commit `8e320bd60671fb7e95c95a197ee34dd3e078bd66`. GitHub hat die
+[Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157732)
+und den [iPhone-Prüfbuild](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157953)
+automatisch gestartet. Die nachstehende Ablehnung ist der erhaltene Verlauf
+vor dieser Zustimmung. Fertige aktuelle Binärartefakte sind noch nicht belegt.
+
+## Verlauf vor der Zustimmung
+
 Der geprüfte lokale Produktstand ist **0.13.0+130**, Commit
 `35c572781731e93689628ad0b88c5d71e07ab012`, im Hauptprojekt
 `/workspace/Smarplan-Hofmann-Workspace`. Der [Integrationsbericht](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)

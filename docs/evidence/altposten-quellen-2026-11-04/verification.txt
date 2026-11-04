@@ -1,0 +1,5 @@
+Reference calculation: 10 numerical cases validated; 4 negative contract expectations recorded.
+JSON parsing: sources, expected cases, initial failed retrievals valid.
+All relative report links resolve.
+Product runtime/API changes: none by this review.
+Product tests: not executed by this legal-source task.

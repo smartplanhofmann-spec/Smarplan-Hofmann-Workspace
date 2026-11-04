@@ -1,0 +1,3 @@
+00:00 +0: loading /workspace/smartplan-opening-items-20261104/app/test/business_accounting_open_items_lifecycle_test.dart
+00:00 +0: removing a preceding old payment keeps visible values bound to the surviving evidence row
+00:02 +1: All tests passed!

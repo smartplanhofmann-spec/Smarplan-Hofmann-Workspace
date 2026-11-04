@@ -1,0 +1,8 @@
+test_existing_archived_invoice_remains_payable_after_cutover_without_reissue (test_accounting_opening_items_inventory.ExistingOpeningItemInventory.test_existing_archived_invoice_remains_payable_after_cutover_without_reissue) ... ok
+test_prestart_supplier_invoice_can_be_captured_paid_but_old_input_vat_cannot_be_shifted (test_accounting_opening_items_inventory.ExistingOpeningItemInventory.test_prestart_supplier_invoice_can_be_captured_paid_but_old_input_vat_cannot_be_shifted) ... ok
+test_unallocated_receipt_is_real_cash_but_not_an_external_invoice_tax_source (test_accounting_opening_items_inventory.ExistingOpeningItemInventory.test_unallocated_receipt_is_real_cash_but_not_an_external_invoice_tax_source) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.020s
+
+OK

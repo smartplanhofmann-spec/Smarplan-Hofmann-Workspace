@@ -1,0 +1,52 @@
+✔ rendered historical and remaining cents are exact and old VAT is not offered again (40.995425ms)
+✔ held original byte read success cannot cross other (6.237306ms)
+✔ held original byte read failure cannot cross other (4.612461ms)
+✔ held original byte read success cannot cross session (2.935578ms)
+✔ held original byte read failure cannot cross session (2.649887ms)
+✔ held original byte read success cannot cross background (2.334332ms)
+✔ held original byte read failure cannot cross background (2.244106ms)
+✔ held local original file before upload cannot cross other (5.444953ms)
+✔ held local original file before upload cannot cross session (3.586447ms)
+✔ held local original file before upload cannot cross background (3.412475ms)
+✔ download rejects altered original bytes and checks live read rights after correct bytes (6.065187ms)
+✔ three pending original/item/payment intents survive advancement and exact independent replays (9.333915ms)
+✖ EÜR held opening-item preview cannot restore a dismissed private editor after other (6.937539ms)
+✖ EÜR held opening-item preview cannot restore a dismissed private editor after close (7.20366ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 12
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 110.390259
+
+✖ failing tests:
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:110:43
+✖ EÜR held opening-item preview cannot restore a dismissed private editor after other (6.937539ms)
+  AssertionError [ERR_ASSERTION]: A detached opening-item EÜR preview must not replace or reopen a private dialog; visible title: EÜR-Buchung bestätigen
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:115:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:110:43
+✖ EÜR held opening-item preview cannot restore a dismissed private editor after close (7.20366ms)
+  AssertionError [ERR_ASSERTION]: A detached opening-item EÜR preview must not replace or reopen a private dialog; visible title: EÜR-Buchung bestätigen
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:115:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,120 @@
+--- before/app/lib/business_accounting_open_items.dart
++++ after/app/lib/business_accounting_open_items.dart
+@@ -626,11 +626,15 @@
+   Future<void> showSource(Map<String, dynamic> payment) => run((stamp) async {
+     await fresh();
+     if (!same(stamp)) return;
+-    final value = openItemSource(
+-      await session.read(
+-        '$openItemPath/payments/${payment['entity_key']}?revision=${payment['revision']}',
+-      ),
++    final raw = await session.read(
++      '$openItemPath/payments/${payment['entity_key']}?revision=${payment['revision']}',
++    );
++    if (!same(stamp)) return;
++    final value = await openItemVerifiedSource(
++      session,
++      raw,
+       payment: payment,
++      stillCurrent: () => same(stamp),
+     );
+     await fresh();
+     if (!same(stamp)) return;
+--- before/app/lib/business_accounting_open_items_contract.dart
++++ after/app/lib/business_accounting_open_items_contract.dart
+@@ -681,6 +681,7 @@
+ Map<String, dynamic> openItemSource(
+   dynamic raw, {
+   Map<String, dynamic>? payment,
++  Map<String, dynamic>? item,
+ }) {
+   final v = businessMap(raw);
+   _shape(v, [
+@@ -752,6 +753,10 @@
+         v['entry_hash'] != p['content_hash'] ||
+         v['revision'] != p['revision'] ||
+         v['status'] != p['payload']['status'] ||
++        v['item_key'] != p['payload']['item_key'] ||
++        (v['cash_movements'] as List).any(
++          (m) => !openingSame(m['account'], p['details']['account']),
++        ) ||
+         v['item_id'] != p['payload']['item_id'] ||
+         v['item_hash'] != p['payload']['item_hash'] ||
+         !openingSame(v['proof'], p['proofs'][0]) ||
+@@ -767,7 +772,76 @@
+         !openingSame(v['profile_ref'], p['profile_ref']))
+       _bad('Zahlungsquelle weicht von ihrer gebundenen Originalfassung ab.');
+   }
++  if (item != null) {
++    final original = openItemEvent(item),
++        payload = businessMap(original['payload']);
++    if (original['operation'] != 'item' ||
++        original['entity_key'] != v['item_key'] ||
++        original['id'] != v['item_id'] ||
++        original['content_hash'] != v['item_hash'] ||
++        payload['status'] != 'active' ||
++        v['direction'] !=
++            (payload['direction'] == 'receivable' ? 'in' : 'out') ||
++        v['category'] != payload['category'] ||
++        v['rate'] != payload['rate'] ||
++        !openingSame(v['prior_input_vat'], payload['prior_input_vat']))
++      _bad(
++        'Die Zahlungsquelle verändert die gebundene ursprüngliche Rechnung oder frühere Vorsteuer.',
++      );
++  }
+   return v;
++}
++
++/// An independently rehashed projection cannot replace immutable originals.
++/// Resolve the exact referenced revisions, including after a later profile-only
++/// revalidation. Never substitute the current item head for its original ID.
++Future<Map<String, dynamic>> openItemVerifiedSource(
++  BusinessSession session,
++  dynamic raw, {
++  Map<String, dynamic>? payment,
++  bool Function()? stillCurrent,
++}) async {
++  void guard() {
++    if (stillCurrent != null && !stillCurrent())
++      _bad('Der ursprüngliche Altpostenkontext wurde geschlossen.');
++  }
++
++  guard();
++  final source = openItemSource(raw, payment: payment);
++  var originalPayment = payment;
++  if (originalPayment == null) {
++    final history = openItemHistory(
++      await session.read(openItemHistoryPath(source['id'])),
++      source['id'],
++    );
++    guard();
++    originalPayment = businessItems(history)
++        .where(
++          (p) =>
++              p['id'] == source['entry_id'] &&
++              p['content_hash'] == source['entry_hash'] &&
++              p['revision'] == source['revision'],
++        )
++        .firstOrNull;
++    if (originalPayment == null)
++      _bad('Die ursprüngliche Zahlungsfassung fehlt.');
++    openItemSource(source, payment: originalPayment);
++  }
++  guard();
++  final history = openItemHistory(
++    await session.read(openItemHistoryPath(source['item_key'])),
++    source['item_key'],
++  );
++  guard();
++  final item = businessItems(history)
++      .where(
++        (p) =>
++            p['id'] == source['item_id'] &&
++            p['content_hash'] == source['item_hash'],
++      )
++      .firstOrNull;
++  if (item == null) _bad('Die ursprüngliche Rechnungsfassung fehlt.');
++  return openItemSource(source, payment: originalPayment, item: item);
+ }
+ 
+ /// Validates only the additive opening-item operation. Existing EÜR operations

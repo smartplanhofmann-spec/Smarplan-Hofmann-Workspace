@@ -556,6 +556,8 @@ class Finance:
                     image.verify()
             except Exception:raise Problem(400,'Begrenztes Fotooriginal erwartet') from None
         else:raise Problem(415,'PDF, JPEG, PNG oder unterstütztes UBL-XML erwartet')
+        from business_accounting_open_items import require_unreserved_original
+        require_unreserved_original(self.office,_hash(original))
         identifier=uuid.uuid4().hex;value={'status':'needs_review','suggestion':suggestion,'note':_text(data.get('note',''),'Notiz',2000,empty=True),'sha256':_hash(original)}
         self.db.execute('INSERT INTO business_incoming_receipts(id,project_id,filename,media_type,original,sha256,payload_json,created_by,created_at) VALUES(?,?,?,?,?,?,?,?,?)',
             (identifier,project_id,filename,mime,original,_hash(original),canonical(value),actor['id'],self._now()))

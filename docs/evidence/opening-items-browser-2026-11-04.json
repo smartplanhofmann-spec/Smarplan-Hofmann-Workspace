@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T11:28:49.761781+00:00",
+  "workspace": "/workspace/smartplan-opening-items-20261104",
+  "owner": "finish_v6_clients",
+  "status": "frozen_for_root_integration",
+  "overall_goal_complete": false,
+  "scope": "Actual original-bound opening items Browser UI, EÜR and bank integration; independently reproduced legacy cash EÜR context correction. No Backend/native ownership or production deployment claimed.",
+  "basis": {
+    "parent_commit": "8858db453f86327b85a8ef4a8927383bc65508dd",
+    "source_workspace": "/workspace/smartplan-assets-integration-20261104",
+    "original_manifest": {
+      "path": "work/verification/assets-candidate-baseline.json",
+      "bytes": 232708,
+      "sha256": "2215595901f1e126eed742c16fc3e0080b63b5bb0fae665e02ee4734d3e5b7e5"
+    },
+    "verified_shared_files": [
+      {
+        "path": "web/office/office.js",
+        "baseline_sha256": "c2bdb5a21ad7a1ffc3a48c288bdbbdf2e9781701cfff85b5418ca9b1cf015c92",
+        "current_sha256": "7845bceb2a92c2c69ad85eea3d3a022481482a8217c3f20ef2dfb3d2e91ae8b7"
+      },
+      {
+        "path": "web/office/office.css",
+        "baseline_sha256": "14218f6305e1f243bc397a8f4635b8f21666ff9e7d9f4a095877e06e32a70840",
+        "current_sha256": "57ce496a885a75b4a40f4ecec42cb4824599c1d72199e064f20ff0341c8288f0"
+      },
+      {
+        "path": "web/office/accounting-euer.js",
+        "baseline_sha256": "81a4e9899661bcef174ec9e1b4fd5b0d2ae91b0e6706c3028549677eb79fa0da",
+        "current_sha256": "f467b2725f6c207552627c8d94711c0dbe0d5d77341779749480382e22f3e0e5"
+      },
+      {
+        "path": "web/office/bank-reconciliation.js",
+        "baseline_sha256": "b47839ca8e8e05678e538075e1371f4f85ebbd391a3b46300a99cac9e9dfefbe",
+        "current_sha256": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647"
+      },
+      {
+        "path": "web/office/tests/e2e.cjs",
+        "baseline_sha256": "6afdcea3b5eceba633c013290d56f086eb3bb569430635875438e4dc56f3a6f3",
+        "current_sha256": "241a5a06da7f1047c6a0cb22be4de7677512feb3453f2203d1bdfe96b8bad6b3"
+      }
+    ]
+  },
+  "owned_files": [
+    {
+      "path": "web/office/accounting-open-items-contract.js",
+      "bytes": 23901,
+      "sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1"
+    },
+    {
+      "path": "web/office/accounting-open-items.js",
+      "bytes": 23790,
+      "sha256": "0724a14408e88e7cfbe60eefe756418ba8e7a196ed217e2839327ec90500598e"
+    },
+    {
+      "path": "web/office/office.js",
+      "bytes": 346892,
+      "sha256": "7845bceb2a92c2c69ad85eea3d3a022481482a8217c3f20ef2dfb3d2e91ae8b7"
+    },
+    {
+      "path": "web/office/office.css",
+      "bytes": 22012,
+      "sha256": "57ce496a885a75b4a40f4ecec42cb4824599c1d72199e064f20ff0341c8288f0"
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "bytes": 55292,
+      "sha256": "f467b2725f6c207552627c8d94711c0dbe0d5d77341779749480382e22f3e0e5"
+    },
+    {
+      "path": "web/office/bank-reconciliation.js",
+      "bytes": 32627,
+      "sha256": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "bytes": 47063,
+      "sha256": "241a5a06da7f1047c6a0cb22be4de7677512feb3453f2203d1bdfe96b8bad6b3"
+    },
+    {
+      "path": "web/office/tests/accounting-open-items-contract.test.mjs",
+      "bytes": 4080,
+      "sha256": "0b2cd07f111eccb87f2122ace6785e95885db3b499780c4f81cf0bc62b03876a"
+    },
+    {
+      "path": "web/office/tests/accounting-open-items-context.test.mjs",
+      "bytes": 8000,
+      "sha256": "c38130e349b89a0921e65358ef90d447ab6fb49e6d4eb352e4f67f15615f7680"
+    },
+    {
+      "path": "web/office/tests/accounting-open-items-flow.cjs",
+      "bytes": 25208,
+      "sha256": "8d88fe10af184b310eb15ec172360b310a7d3360f94b01f2d1a52d1d7a20367c"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_BROWSER_2026-11-04.md",
+      "bytes": 5516,
+      "sha256": "58d7bea038f179fabba38c46740f874cd2d540c082f09a04a534bd80dc21235c"
+    }
+  ],
+  "shared_registration_only": {
+    "backend/online/web.py": {
+      "static_modules": [
+        "accounting-open-items.js",
+        "accounting-open-items-contract.js"
+      ],
+      "other_changes_owned_by": "finish_v6_backend"
+    },
+    ".github/workflows/checks.yml": {
+      "browser_workflow": "accounting-open-items",
+      "other_changes_owned_by": "other owners"
+    }
+  },
+  "source_fixtures": [
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_API.md",
+      "bytes": 12004,
+      "sha256": "2083cc410c15e076f4cf66617d3bd2cdf12df18c89d72a032961634e0c8c036a"
+    },
+    {
+      "path": "docs/fixtures/accounting_open_items_v1.json",
+      "bytes": 281418,
+      "sha256": "121d22f4fbbc42521965ac6806d7d63049f29ca85365f98ad688d3beb48b5bce"
+    },
+    {
+      "path": "docs/fixtures/accounting_open_items_ui_v1.json",
+      "bytes": 323598,
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708"
+    }
+  ],
+  "independent_reviews": [
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "bytes": 3985,
+      "sha256": "7a1836612f366c88ce911b88b74f47732eba154934f938734b4bb864bcc0ea3d",
+      "all_owned_artifact_hashes_verified": true
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "bytes": 2974,
+      "sha256": "bce5642491b304a538af423dcd9d41e632f0204f473279bfa8c675ebb1fef163",
+      "all_owned_artifact_hashes_verified": true
+    }
+  ],
+  "verification": {
+    "node": {
+      "command": "node --test web/office/tests/*.test.mjs",
+      "execution": "require_escalated; actual named tests",
+      "tests": 644,
+      "passed": 644,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "log": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-node-final-2026-11-04.log"
+    },
+    "browser": [
+      {
+        "workflow": "accounting-open-items",
+        "passed": true,
+        "exit_code": 0,
+        "log": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-final-2026-11-04.log"
+      },
+      {
+        "workflow": "bank-reconciliation",
+        "passed": true,
+        "exit_code": 0,
+        "log": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-legacy-bank-final-2026-11-04.log"
+      }
+    ],
+    "browser_environment": {
+      "NODE_PATH": "/workspace/Smarplan-Hofmann-Workspace/web/office/node_modules",
+      "SMARTPLAN_BROWSER_NAMESPACE_SANDBOX": "1",
+      "SMARTPLAN_CHROMIUM_BINARY": "/usr/lib/chromium/chromium",
+      "SMARTPLAN_BROWSER_TEST_PYTHON": "/tmp/smartplan-backend-verified/bin/python",
+      "command": "SMARTPLAN_BROWSER_WORKFLOW=<workflow> node web/office/tests/e2e.cjs",
+      "sandbox_verified": [
+        "namespace",
+        "PID",
+        "network",
+        "seccomp"
+      ],
+      "sandbox_disabled": false
+    },
+    "own_new_node_cases": 21,
+    "independent_new_node_cases": 30,
+    "independent_legacy_node_cases": 15,
+    "independent_targeted_final_total": 88
+  },
+  "artifact_files": [
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/README.md",
+      "bytes": 5060,
+      "sha256": "574df690e5523785db08b8d176331f9a55d46f2e0cc6c79f6624b5f35bea278c"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-browser-final-2026-11-04/opening-items-mobile.png",
+      "bytes": 54342,
+      "sha256": "03d2cf166e2402874f2bde27a78b36f1dd234c78ac63b2948a3261114ee102f0"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-browser-final-2026-11-04/opening-items-payment-history.png",
+      "bytes": 168199,
+      "sha256": "1479847808061faa42163607ff43b820e106d87633cf8d17f831afadff4625b1"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-browser-final-2026-11-04/opening-items-synthetic-http.json",
+      "bytes": 1926845,
+      "sha256": "a7067f02878e4266263dc8e9c75741582da096169c7474b62dc90e66916074da"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-legacy-bank-final-2026-11-04/bank-report-desktop.png",
+      "bytes": 168393,
+      "sha256": "b98c6c48f24a6697df3e9f76fdb01265debf3328996cc68e08296dda8134f360"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-legacy-bank-final-2026-11-04/bank-report-mobile.png",
+      "bytes": 57790,
+      "sha256": "8fe89a4913fc34ec8b44971c69b323ebe5319b4d54c753d2d0dd0ad32e66baba"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-legacy-bank-final-2026-11-04/bank-synthetic-commands.json",
+      "bytes": 365284,
+      "sha256": "3cb759b8ec538f4799ced65785a51baf2d2e808a545a76b2d4f6c02b13183644"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/accounting-open-items-adapters-first-2026-11-04.log",
+      "bytes": 3092,
+      "sha256": "1827190c7800a298c0295e414f936e224d12329399b38675ed2d3247b6e7e9c5"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/accounting-open-items-contract-first-2026-11-04.log",
+      "bytes": 4303,
+      "sha256": "f175634bec5b90a494c800fdfa70e168534b93ce25ac3832ebd50090456ebbee"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/accounting-open-items-focused-first-2026-11-04.log",
+      "bytes": 1831,
+      "sha256": "f1ab2298e4c286dabeb7cf44220e7f2511f6421325759fcb1aee06f531309ad6"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-actual-preview-fixture-2026-11-04.log",
+      "bytes": 1928,
+      "sha256": "fc56df05144fa821fe05e63e018d530badc10a644d22352b1587ac4e1b6573e3"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-bank-context-first-2026-11-04.log",
+      "bytes": 2599,
+      "sha256": "fbe970cbe3dde5f405cb1b4277776e00424e6914f67d95a2582c476b153a4586"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-bank-context-second-2026-11-04.log",
+      "bytes": 570,
+      "sha256": "cf5b1e1372f7c17c122fe13728b8fca7a154f0758993ffd362fba03ac3ee818e"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-euer-context-2026-11-04.log",
+      "bytes": 2567,
+      "sha256": "1aa49ac31770b2d2f61635f4fb9897a103f60220e740aba9a56b42dc919d9f93"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-euer-reviewed-2026-11-04.log",
+      "bytes": 650,
+      "sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-euer-unicode-2026-11-04.log",
+      "bytes": 570,
+      "sha256": "cf5b1e1372f7c17c122fe13728b8fca7a154f0758993ffd362fba03ac3ee818e"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-final-2026-11-04.log",
+      "bytes": 650,
+      "sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-first-2026-11-04.log",
+      "bytes": 2779,
+      "sha256": "fa3be0b57426a3d8f6caa4de5c42336ab462e2d19e66f4a231ba07251104b7ff"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-fourth-2026-11-04.log",
+      "bytes": 453,
+      "sha256": "ebecf1398b58a2d4b48f648cbdea6a7876cf593cd120d68284e761562db43ea8"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-second-2026-11-04.log",
+      "bytes": 2327,
+      "sha256": "01f85a4374a85aaff83ed281a03bb53ffd3f93b8352362e98214aa5ca386f0cc"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-third-2026-11-04.log",
+      "bytes": 2621,
+      "sha256": "b31c2cda0100f732bdaf82cf8481a562338680c3121d2c00acf4b7ae8491cfee"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-auth-replay-fix-2026-11-04.log",
+      "bytes": 4155,
+      "sha256": "40036b7b988a8379e13b1ec307c17106a6b5ef2961143989c63b3f1256b0fa19"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-fresh-rights-final-2026-11-04.log",
+      "bytes": 5766,
+      "sha256": "5dc8482e60a80f9df67ead1ffcc55a4062dd6e5583e2d376bc42e849979b40d2"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-lifecycle-fix-first-2026-11-04.log",
+      "bytes": 5188,
+      "sha256": "2211a6db2c62fe81e944b1539f897eaa28c9f9b67e7c96137c42e697c25414c4"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-reviewed-current-2026-11-04.log",
+      "bytes": 14689,
+      "sha256": "ad692066b04f9664bfb0efeec17a79a2b1618da9b02cb74f6c136dd499a5dc10"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-source-proof-2026-11-04.log",
+      "bytes": 3115,
+      "sha256": "d6e6b69a06d3af4fb036f427d685bf46d4d902e5520d2a500dd4144c1122467a"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-full-node-candidate-2026-11-04.log",
+      "bytes": 62161,
+      "sha256": "88a064120a3adccae95fc5c00005e9623afe8ff165a8c9c3eee94c8406725919"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-legacy-bank-2026-11-04.log",
+      "bytes": 469,
+      "sha256": "7f41713fd0b827235a638045e9b8fcbfae4fbe6832d16c4e0a48e23f9bcb071b"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-legacy-bank-final-2026-11-04.log",
+      "bytes": 469,
+      "sha256": "7f41713fd0b827235a638045e9b8fcbfae4fbe6832d16c4e0a48e23f9bcb071b"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-legacy-euer-context-fixed-first-2026-11-04.log",
+      "bytes": 6598,
+      "sha256": "0784d1413518354aa23a9d217db6b11bf48f76fc1a8d82c4b320ceff63942fc9"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-node-final-2026-11-04.log",
+      "bytes": 66412,
+      "sha256": "669ed591b0bbfcd697a06d7160c5118660122bef160e2359a6ef6872edf5a66a"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-unicode-2026-11-04.log",
+      "bytes": 2143,
+      "sha256": "3cc334759a58c3f1c4cd9c940aaa0bd9716f5040ae0fd54ccb7abee5752545d4"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/opening-items-before-legacy-review-2026-11-04.json",
+      "bytes": 1445,
+      "sha256": "8deb41b7ee0b8b0d2107d03c2df025e1dd68648a230cb5c46d50ba9b7aaacef7"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/opening-items-browser-review-baseline.json",
+      "bytes": 1595,
+      "sha256": "9789826d124db80cc7b3c50a2f3122083319e60f3da2860893b38a35b5b183c6"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/shared-browser-hooks-from-assets.patch",
+      "bytes": 75813,
+      "sha256": "f3bcfed1be1a4fb3d0fe3ea1709840943973180de3f33c17f21e7ec55b873019"
+    }
+  ],
+  "limitations": [
+    "Supported historical accounting scope remains exactly the API contract; no inferred zero opening values, prior VAT entitlement, old year totals, refunds, credits or discounts.",
+    "Local synthetic sources only. No real external action, payment, mail or production service contacted.",
+    "Root must merge shared hooks into newer Company Events/Source5 base and run integrated regression.",
+    "Original historical review manifests intentionally retain the runtime hashes at their own review boundaries. Final owner hashes above bind the later targeted legacy correction."
+  ]
+}

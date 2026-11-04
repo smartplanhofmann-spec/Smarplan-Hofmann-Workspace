@@ -1,0 +1,9 @@
+test_actual_v14_old_acceptance_unchanged_after_additive_v15_install (test_accounting_open_items_registration.OpeningItemRegistration.test_actual_v14_old_acceptance_unchanged_after_additive_v15_install) ... ok
+test_catalog_original_bytes_and_explicit_strict_routes (test_accounting_open_items_registration.OpeningItemRegistration.test_catalog_original_bytes_and_explicit_strict_routes) ... ok
+test_exact_new_scope_and_reject_omitted_boolean_extra_old_horizon (test_accounting_open_items_registration.OpeningItemRegistration.test_exact_new_scope_and_reject_omitted_boolean_extra_old_horizon) ... ok
+test_finance_module_disabled_and_offline_commands_remain_blocked (test_accounting_open_items_registration.OpeningItemRegistration.test_finance_module_disabled_and_offline_commands_remain_blocked) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 2.190s
+
+OK

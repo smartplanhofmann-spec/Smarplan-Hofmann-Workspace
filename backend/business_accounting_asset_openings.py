@@ -221,7 +221,10 @@ class HistoricalAssets:
                 and entry['source_proof']['original']['sha256']==proof['original']['sha256']
                 and entry['source_proof']['position_key']==proof['position_key'] for entry in ledger['current'].values()):
             raise Problem(409,'Dieselbe ursprüngliche Anlagenposition ist bereits unter einer anderen Inventarkennung übernommen.')
-        if not historical:self._open(data,old)
+        if not historical:
+            from business_accounting_open_items import require_unreserved_original
+            require_unreserved_original(self.office,data['source']['sha256'])
+            self._open(data,old)
         value=dict({key:data[key] for key in INPUT},**FLAGS,profile=profile,source_proof=proof,previous_ref=event_reference(old) if old else None,
                    original_schedule=original_schedule(data['asset']),start_year=continuation(data['asset'],data['opening_date'],int(data['opening_date'][:4])))
         return dict(value,preview_hash=sha(value))

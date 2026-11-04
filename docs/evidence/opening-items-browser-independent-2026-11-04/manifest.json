@@ -1,0 +1,99 @@
+{
+  "reviewed_at_utc": "2026-11-04T11:14:23.500483+00:00",
+  "tree": "/workspace/smartplan-opening-items-20261104",
+  "new_independent_cases": 30,
+  "combined_cases": 73,
+  "failures": 0,
+  "reproduced_negative_variants": 11,
+  "runtime_changes_by_reviewer": [],
+  "command": "node --test --test-isolation=none web/office/tests/accounting-open-items-independent.test.mjs web/office/tests/accounting-open-items-contract.test.mjs web/office/tests/accounting-open-items-context.test.mjs web/office/tests/accounting-euer.test.mjs web/office/tests/bank-reconciliation.test.mjs",
+  "files": [
+    {
+      "path": "web/office/tests/accounting-open-items-independent.test.mjs",
+      "bytes": 20026,
+      "sha256": "071714b8b533efbac789853a38ed429f29fee9c01a5de6a43a59bdcc760efcad"
+    },
+    {
+      "path": "web/office/tests/accounting-open-items-independent-bank-fixture.py",
+      "bytes": 1841,
+      "sha256": "95f697f2843c85ea1a02c10aacc60f65ad3bc208057a2f54cd51e3c987f89544"
+    },
+    {
+      "path": "web/office/tests/fixtures/accounting-open-items-independent-bank.json",
+      "bytes": 9411,
+      "sha256": "71626323f37f98deb004d77596e59badc4b9148bc0997fa6b8b786aba1180f0f"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_BROWSER_GEGENPRUEFUNG_2026-11-04.md",
+      "bytes": 5603,
+      "sha256": "d39553503486d175430dad3b18c7a778cfcee25edad61549019d797611940350"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/bank-workflow.txt",
+      "bytes": 509,
+      "sha256": "341967cf27effdbacbbe81f2782b5e14ad6800aeb8c52ceee114fb1fd2487ada"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-authorization-replay-fix.txt",
+      "bytes": 5323,
+      "sha256": "e7168caa5348b1cc497f16a8f5a1cf7ba51b04c6ff23d436a5ec7379de3c76fd"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-euer-context-fix.txt",
+      "bytes": 2854,
+      "sha256": "4660f593fce38a76bac42c13a4558bebb67f288526ab1a7f977609f4160de910"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-fresh-read-fix.txt",
+      "bytes": 11585,
+      "sha256": "513fc17906e4a002f89bb713922d547abb4b1c7d79d2379b4d91331e599a65d6"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-initial-preview-confirm-fix.txt",
+      "bytes": 6599,
+      "sha256": "61d0784ddb38a9770302d7f80d703efd6400bac7585d2da9ab0fd9fd630c5526"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-runtime-hashes.json",
+      "bytes": 654,
+      "sha256": "a677b3f17a7dfe4a6ff6d9553d2e2fedbf34683e7bdf801d14f93bf5551e3227"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/final.txt",
+      "bytes": 6910,
+      "sha256": "faf955da95f9c96b61d2d2864db5440de5b741335398a16273206d18d04fe730"
+    }
+  ],
+  "runtime_and_fixture_read_only": [
+    {
+      "path": "web/office/accounting-open-items.js",
+      "bytes": 23790,
+      "sha256": "0724a14408e88e7cfbe60eefe756418ba8e7a196ed217e2839327ec90500598e"
+    },
+    {
+      "path": "web/office/accounting-open-items-contract.js",
+      "bytes": 23901,
+      "sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1"
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "bytes": 54763,
+      "sha256": "9b88ea2aa6ee76f564282101e12a68058eec0c0a99890652a225c0cea8316684"
+    },
+    {
+      "path": "web/office/office.js",
+      "bytes": 346892,
+      "sha256": "7845bceb2a92c2c69ad85eea3d3a022481482a8217c3f20ef2dfb3d2e91ae8b7"
+    },
+    {
+      "path": "web/office/bank-reconciliation.js",
+      "bytes": 32627,
+      "sha256": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647"
+    },
+    {
+      "path": "docs/fixtures/accounting_open_items_ui_v1.json",
+      "bytes": 323598,
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708"
+    }
+  ]
+}

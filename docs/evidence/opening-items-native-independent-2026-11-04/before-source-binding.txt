@@ -1,0 +1,134 @@
+Resolving dependencies...
+Downloading packages...
+  archive 4.5.2 (4.6.0 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  crypto 3.0.7 (3.0.8 available)
+  cupertino_ui 1.1.4 (1.1.5 available)
+  file_selector_ios 0.5.3+6 (0.5.3+7 available)
+  file_selector_macos 0.9.5+1 (0.9.5+2 available)
+  image_picker_ios 0.8.13+13 (0.8.13+14 available)
+  jni 1.1.0 (1.1.1 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.8.0 (1.9.0 available)
+  pdfium_dart 0.4.0 (0.4.1 available)
+  pdfium_flutter 0.4.0 (0.4.1 available)
+  pdfrx 2.10.1 (2.11.0 available)
+  pdfrx_engine 0.8.0 (0.9.0 available)
+  posix 6.5.2 (6.5.4 available)
+  qr 3.0.2 (4.0.1 available)
+  test_api 0.7.12 (0.7.15 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.4.3 (2.4.4 available)
+  vm_service 15.3.0 (15.4.0 available)
+  web 1.1.1 (1.1.2 available)
+Got dependencies!
+21 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-opening-items-20261104/app/test/business_accounting_open_items_independent_review_test.dart
+00:00 +0: reconstructed paid prefix contains exact original real fixture events
+00:00 +1: bound source cannot replace the actual payment bank with a different valid account
+00:00 +1 -1: bound source cannot replace the actual payment bank with a different valid account [E]
+  Expected: throws <Instance of 'ApiException'>
+    Actual: <Closure: () => Map<String, dynamic>>
+     Which: returned {
+                       'kind': 'opening_item_cash',
+                       'schema_version': 1,
+                       'rule_version': 'de_euer_ist_open_items_v1',
+                       'id': '3baa81c507b9427e9ec3f33f6dfee690',
+                       'revision': 1,
+                       'entry_id': '5443add9f19e4fc2b36926aa42427edf',
+                       'entry_hash': 'b14e3b9f283adf6b6a672ebcc65e0d51e0c1b554c802b3d91c8df57796af694c',
+                       'status': 'active',
+                       'date': '2026-02-15',
+                       'profile_ref': {
+                         'entry_sha256': 'b91be6554c40cbb3becf3d8275fbef606bc60757993bbc474b576109bf0fcc9d',
+                         'id': '8c45ffd13caf47fca6e6ad8878185f50',
+                         'revision': 2
+                       },
+                       'item_key': 'synthetic-receivable',
+                       'item_id': 'd561d40d8a784c12bbb4e720dd352911',
+                       'item_hash': '8f864873453d8e6b219aca5d3f7f5b23bbcfde8eed462c739bae5ea32c383c7e',
+                       'direction': 'in',
+                       'category': 'sales',
+                       'rate': '19',
+                       'net': '33.33',
+                       'tax': '6.34',
+                       'gross': '39.67',
+                       'prior_input_vat': null,
+                       'proof': {
+                         'created_at': '2026-12-31T12:00:00+00:00',
+                         'created_by': '229171268ce040deb3102b5375c82113',
+                         'entity_key': 'synthetic-receivable',
+                         'filename': 'synthetic.pdf',
+                         'id': '09faabd7a6cd454a8f4fb51eb63d9f48',
+                         'media_type': 'application/pdf',
+                         'path': '/accounting/open-items/originals/09faabd7a6cd454a8f4fb51eb63d9f48',
+                         'sha256': 'a7f0aa541a6ec5813c274421675ecf4b1241570ccce9e25194044930a253ce81',
+                         'size': 86
+                       },
+                       'cash_movements': [
+                         {
+                           'id': '3baa81c507b9427e9ec3f33f6dfee690',
+                           'account': {
+                             'active': true,
+                             'code': 'BANK',
+                             'created_at': '2026-11-02T12:00:00+00:00',
+                             'created_by': '229171268ce040deb3102b5375c82113',
+                             'currency': 'EUR',
+                             'id': 'ffffffffffffffffffffffffffffffff',
+                             'kind': 'bank',
+                             'name': 'Synthetic bank account',
+                             'revision': 1
+                           },
+                           'date': '2026-02-15',
+                           'direction': 'in',
+                           'amount': '39.67'
+                         }
+                       ],
+                       'source_path': '/accounting/open-items/payments/3baa81c507b9427e9ec3f33f6dfee690?revision=1',
+                       'source_hash': '3064f6ab8abb621a5c1867e61539986175bae0a9fa14d018bf0915b38a7bb7b8'
+                     }
+  
+  package:matcher                                                         expect
+  package:flutter_test/src/widget_tester.dart 473:18                      expect
+  test/business_accounting_open_items_independent_review_test.dart 110:5  main.<fn>
+  
+00:00 +1 -1: old payment cents and exercised VAT dates reject independently rehashed contradictions
+00:00 +2 -1: source display cannot replace the selected old VAT exercise date with a self-rehashed value
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: no matching candidates
+  Actual: _TextWidgetFinder:<Found 1 widget with text "Originalgebundene Geld-/EÜR-Quelle": [
+            Text("Originalgebundene Geld-/EÜR-Quelle", dependencies: [DefaultSelectionStyle,
+DefaultTextStyle, MediaQuery]),
+          ]>
+   Which: means one was found but none were expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-opening-items-20261104/app/test/business_accounting_open_items_independent_review_test.dart:139:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-opening-items-20261104/app/test/business_accounting_open_items_independent_review_test.dart line 139
+The test description was:
+  source display cannot replace the selected old VAT exercise date with a self-rehashed value
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +2 -2: source display cannot replace the selected old VAT exercise date with a self-rehashed value [E]
+  Test failed. See exception logs above.
+  The test description was: source display cannot replace the selected old VAT exercise date with a self-rehashed value
+  
+00:02 +2 -2: selected original of 0 bytes is rejected before upload
+00:02 +3 -2: selected original of 5242881 bytes is rejected before upload
+00:03 +4 -2: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-opening-items-20261104/app/test/business_accounting_open_items_independent_review_test.dart: bound source cannot replace the actual payment bank with a different valid account
+  /workspace/smartplan-opening-items-20261104/app/test/business_accounting_open_items_independent_review_test.dart: source display cannot replace the selected old VAT exercise date with a self-rehashed value

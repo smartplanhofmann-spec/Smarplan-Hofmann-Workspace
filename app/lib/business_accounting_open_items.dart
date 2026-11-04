@@ -1,0 +1,1316 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:file_selector/file_selector.dart';
+import 'package:flutter/material.dart';
+
+import 'api.dart';
+import 'business_accounting_open_items_contract.dart';
+import 'business_accounting_openings.dart';
+import 'business_accounting_euer.dart';
+import 'business_bank_reconciliation.dart';
+import 'business_session.dart';
+import 'business_widgets.dart';
+import 'design.dart';
+import 'mail_attachment_widgets.dart';
+import 'offline_vault.dart' show offlineId;
+
+export 'business_accounting_open_items_contract.dart';
+
+class BusinessOpenItemsPage extends StatefulWidget {
+  const BusinessOpenItemsPage({
+    super.key,
+    required this.session,
+    this.entityKey,
+    this.pickFile,
+    this.exportFile,
+  });
+  final BusinessSession session;
+  final String? entityKey;
+  final Future<XFile?> Function()? pickFile;
+  final Future<void> Function(VerifiedMailAttachment)? exportFile;
+  @override
+  State<BusinessOpenItemsPage> createState() => _BusinessOpenItemsPageState();
+}
+
+class _BusinessOpenItemsPageState extends State<BusinessOpenItemsPage>
+    with WidgetsBindingObserver {
+  final fields = <String, TextEditingController>{};
+  final scroll = ScrollController();
+  Map<String, dynamic>? state, preview, body, history, source, editingEntry;
+  List<Map<String, dynamic>> accounts = [], prior = [];
+  String? selectedKey,
+      mode,
+      draftPaymentKey,
+      historyKey,
+      direction,
+      rate,
+      category,
+      invoiceProof,
+      cutoverProof,
+      vatProof,
+      paymentProof,
+      accountId,
+      error,
+      message;
+  bool busy = false,
+      denied = false,
+      backgrounded = false,
+      scopeConfirmed = false,
+      historyConfirmed = false,
+      paymentConfirmed = false,
+      accepted = false;
+  int epoch = 0;
+  Object? generation;
+  String? token;
+  BusinessSession get session => widget.session;
+  bool get readable => openItemsReadable(session) && !denied && !backgrounded;
+  bool get writable =>
+      readable &&
+      openItemsWritable(session) &&
+      state?['can_prepare'] == true &&
+      !busy &&
+      session.error == null;
+  bool get pending => session.pendingOpenItemKeys.isNotEmpty;
+  Map<String, dynamic>? get current => state == null
+      ? null
+      : businessItems(state!['items'])
+            .where((v) => v['entity_key'] == selectedKey)
+            .firstOrNull;
+  List<Map<String, dynamic>> get originals => state == null
+      ? []
+      : businessItems(state!['originals'])
+            .where((v) => v['entity_key'] == selectedKey)
+            .toList();
+  TextEditingController c(String name) =>
+      fields.putIfAbsent(name, () => TextEditingController());
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    session.addListener(changed);
+    selectedKey = widget.entityKey;
+    token = session.api.token;
+    generation = session.generation;
+    load();
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessOpenItemsPage old) {
+    super.didUpdateWidget(old);
+    if (!identical(old.session, session) || old.entityKey != widget.entityKey) {
+      old.session.removeListener(changed);
+      session.addListener(changed);
+      clear();
+      selectedKey = widget.entityKey;
+      token = session.api.token;
+      generation = session.generation;
+      load();
+    }
+  }
+
+  void clearDraft() {
+    for (final value in fields.values) value.clear();
+    mode = null;
+    draftPaymentKey = null;
+    editingEntry = null;
+    direction = rate = category = invoiceProof = cutoverProof = vatProof =
+        paymentProof = accountId = null;
+    prior = [];
+    scopeConfirmed = historyConfirmed = paymentConfirmed = accepted = false;
+    preview = body = null;
+  }
+
+  void clear() {
+    epoch++;
+    state = history = source = null;
+    accounts = [];
+    selectedKey = historyKey = null;
+    error = message = null;
+    busy = false;
+    clearDraft();
+  }
+
+  void changed() {
+    if (!mounted) return;
+    setState(() {
+      if (!openItemsReadable(session) ||
+          token != session.api.token ||
+          generation != session.generation) {
+        clear();
+        token = session.api.token;
+        generation = session.generation;
+      } else if (mode != null && !openItemsWritable(session)) {
+        epoch++;
+        busy = false;
+        clearDraft();
+      }
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState value) {
+    if (!mounted) return;
+    if ([
+      AppLifecycleState.paused,
+      AppLifecycleState.hidden,
+      AppLifecycleState.detached,
+    ].contains(value)) {
+      setState(() {
+        clear();
+        backgrounded = denied = true;
+      });
+    } else if (value == AppLifecycleState.resumed)
+      setState(() => backgrounded = false);
+  }
+
+  @override
+  void dispose() {
+    epoch++;
+    WidgetsBinding.instance.removeObserver(this);
+    session.removeListener(changed);
+    for (final value in fields.values) value.dispose();
+    scroll.dispose();
+    super.dispose();
+  }
+
+  bool same(int stamp) =>
+      mounted &&
+      stamp == epoch &&
+      readable &&
+      token == session.api.token &&
+      generation == session.generation;
+  void fail(Object value) {
+    if (!mounted) return;
+    setState(() {
+      if (value is ApiException && [401, 403, 404].contains(value.status)) {
+        clear();
+        denied = true;
+      } else {
+        preview = body = null;
+        accepted = false;
+      }
+      error = value is ApiException
+          ? value.message
+          : value is FormatException
+          ? value.message
+          : 'Der ursprüngliche Altpostennachweis konnte nicht sicher geprüft werden.';
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && scroll.hasClients) scroll.jumpTo(0);
+    });
+  }
+
+  Future<Map<String, dynamic>> fresh({bool write = false}) async {
+    final stamp = epoch;
+    await session.load();
+    if (!same(stamp) || session.loading || session.error != null)
+      throw const ApiException(
+        403,
+        'Aktuelle globale Rechte für historische offene Posten fehlen.',
+      );
+    if (write && !openItemsWritable(session))
+      throw const ApiException(403, 'Aktuelle Bestätigungsrechte fehlen.');
+    final value = openItemState(await session.read(openItemPath));
+    if (!same(stamp))
+      throw const ApiException(0, 'Altpostenkontext wurde gewechselt.');
+    if (write && value['can_prepare'] != true)
+      throw const ApiException(
+        423,
+        'Neue Altpostenbestätigungen sind derzeit gesperrt.',
+      );
+    return value;
+  }
+
+  Future<void> run(Future<void> Function(int) task) async {
+    if (busy || !readable) return;
+    final stamp = epoch;
+    setState(() {
+      busy = true;
+      error = message = null;
+    });
+    try {
+      await task(stamp);
+    } catch (e) {
+      if (mounted && stamp == epoch) fail(e);
+    } finally {
+      if (mounted && stamp == epoch) setState(() => busy = false);
+    }
+  }
+
+  Future<void> load() async {
+    if (!openItemsReadable(session) || backgrounded) return;
+    final stamp = ++epoch;
+    setState(() {
+      denied = false;
+      busy = true;
+      error = message = null;
+      state = history = source = null;
+      accounts = [];
+      clearDraft();
+    });
+    try {
+      final next = await fresh();
+      if (!same(stamp)) return;
+      final rows = businessItems(await session.read('/accounting/accounts'))
+          .where(
+            (a) =>
+                a['active'] == true &&
+                a['currency'] == 'EUR' &&
+                ['bank', 'cash', 'payment_service'].contains(a['kind']),
+          )
+          .toList();
+      final latest = await fresh();
+      if (!same(stamp)) return;
+      if (next['state_hash'] != latest['state_hash'])
+        throw const ApiException(
+          409,
+          'Altpostenbestand wurde während des Ladens geändert; erneut laden.',
+        );
+      setState(() {
+        state = latest;
+        accounts = rows;
+      });
+    } catch (e) {
+      if (mounted && stamp == epoch) fail(e);
+    } finally {
+      if (mounted && stamp == epoch) setState(() => busy = false);
+    }
+  }
+
+  void select(String? key) {
+    if (busy) return;
+    setState(() {
+      epoch++;
+      clearDraft();
+      selectedKey = key;
+      history = source = null;
+      historyKey = null;
+      error = message = null;
+    });
+  }
+
+  void editItem({bool correction = false}) {
+    if (!writable || pending) return;
+    final old = correction ? current : null;
+    setState(() {
+      clearDraft();
+      mode = 'item';
+      selectedKey ??= offlineId();
+      editingEntry = old;
+      if (old != null) {
+        final p = businessMap(old['payload']);
+        for (final k in [
+          'external_system',
+          'external_id',
+          'counterparty_key',
+          'counterparty_name',
+          'invoice_number',
+          'invoice_date',
+          'service_date',
+          'invoice_received_date',
+          'net',
+          'tax',
+          'gross',
+          'history_through',
+        ])
+          c(k).text = '${p[k]}';
+        direction = p['direction'];
+        rate = p['rate'];
+        category = p['category'];
+        invoiceProof = p['invoice_proof']['original_id'];
+        cutoverProof = p['cutover_proof']['original_id'];
+        prior = [
+          for (final row in p['prior_payments'])
+            {...businessMap(row), 'proof_id': row['proof']['original_id']},
+        ];
+        if (p['prior_input_vat'] != null) {
+          final vat = p['prior_input_vat'];
+          for (final k in [
+            'amount',
+            'entitlement_date',
+            'declared_period',
+            'deducted_on',
+          ])
+            c('vat_$k').text = vat[k];
+          vatProof = vat['proof']['original_id'];
+        }
+      }
+    });
+  }
+
+  void editPayment([Map<String, dynamic>? old]) {
+    if (!writable || pending || current?['payload']['status'] != 'active')
+      return;
+    setState(() {
+      clearDraft();
+      mode = 'payment';
+      editingEntry = old;
+      draftPaymentKey = old?['entity_key'] ?? offlineId();
+      if (old != null) {
+        final p = old['payload'];
+        for (final k in ['date', 'amount', 'evidence_reference'])
+          c(k).text = p[k];
+        accountId = p['account_id'];
+        paymentProof = p['proof']['original_id'];
+      }
+    });
+  }
+
+  Map<String, dynamic> proof(String? id) {
+    final found = originals.where((v) => v['id'] == id).firstOrNull;
+    if (found == null)
+      throw const FormatException(
+        'Passendes gespeichertes Original ausdrücklich auswählen.',
+      );
+    return {'original_id': found['id'], 'sha256': found['sha256']};
+  }
+
+  Map<String, dynamic> itemPayload() {
+    if (!scopeConfirmed || !historyConfirmed)
+      throw const FormatException(
+        'Unterstützten Fall und vollständig belegte alte Zahlungshistorie ausdrücklich bestätigen.',
+      );
+    return {
+      'status': 'active',
+      'external_system': c('external_system').text.trim(),
+      'external_id': c('external_id').text.trim(),
+      'direction': direction,
+      'counterparty_key': c('counterparty_key').text.trim(),
+      'counterparty_name': c('counterparty_name').text.trim(),
+      'invoice_number': c('invoice_number').text.trim(),
+      'invoice_date': c('invoice_date').text.trim(),
+      'service_date': c('service_date').text.trim(),
+      'invoice_received_date': c('invoice_received_date').text.trim(),
+      'currency': 'EUR',
+      'rate': rate,
+      'category': category,
+      'net': openItemAmount(c('net').text),
+      'tax': openItemAmount(c('tax').text),
+      'gross': openItemAmount(c('gross').text),
+      'prior_payments': [
+        for (final row in prior)
+          {
+            'date': row['date'],
+            'reference': row['reference'],
+            'gross': openItemAmount(row['gross']),
+            'net': openItemAmount(row['net']),
+            'tax': openItemAmount(row['tax']),
+            'proof': proof(row['proof_id']),
+          },
+      ],
+      'invoice_proof': proof(invoiceProof),
+      'cutover_proof': proof(cutoverProof),
+      'history_through': c('history_through').text.trim(),
+      'prior_input_vat': direction == 'payable'
+          ? {
+              'amount': openItemAmount(c('vat_amount').text),
+              'entitlement_date': c('vat_entitlement_date').text.trim(),
+              'declared_period': c('vat_declared_period').text.trim(),
+              'deducted_on': c('vat_deducted_on').text.trim(),
+              'proof': proof(vatProof),
+            }
+          : null,
+      'scope_confirmed': true,
+    };
+  }
+
+  Map<String, dynamic> paymentPayload() {
+    if (!paymentConfirmed)
+      throw const FormatException(
+        'Die tatsächlich erfolgte Restzahlung ausdrücklich bestätigen.',
+      );
+    final item = current,
+        account = accounts.where((a) => a['id'] == accountId).firstOrNull;
+    if (item == null || account == null)
+      throw const FormatException(
+        'Aktiven ursprünglichen Altposten und tatsächliches Geldkonto auswählen.',
+      );
+    return {
+      'status': 'active',
+      'item_key': item['entity_key'],
+      'item_id': item['id'],
+      'item_hash': item['content_hash'],
+      'date': c('date').text.trim(),
+      'amount': openItemAmount(c('amount').text),
+      'account_id': account['id'],
+      'account_revision': account['revision'],
+      'evidence_reference': c('evidence_reference').text.trim(),
+      'proof': proof(paymentProof),
+    };
+  }
+
+  Future<void> upload() => run((stamp) async {
+    if (pending || selectedKey == null) return;
+    final key = selectedKey!;
+    await fresh(write: true);
+    if (!same(stamp)) return;
+    final file =
+        await (widget.pickFile?.call() ??
+            openFile(
+              acceptedTypeGroups: [
+                const XTypeGroup(
+                  label: 'Rechnungs-, Stichtags- oder Zahlungsoriginal',
+                  extensions: ['pdf', 'png', 'jpg', 'jpeg'],
+                ),
+              ],
+            ));
+    if (file == null || !same(stamp)) return;
+    final size = await file.length();
+    if (size < 1 || size > 5242880)
+      throw const FormatException(
+        'Unveränderte PDF-/PNG-/JPEG-Datei mit 1 Byte bis 5 MiB auswählen.',
+      );
+    final bytes = await file.readAsBytes(),
+        media = {
+          'pdf': 'application/pdf',
+          'png': 'image/png',
+          'jpg': 'image/jpeg',
+          'jpeg': 'image/jpeg',
+        }[file.name.split('.').last.toLowerCase()];
+    if (!same(stamp)) return;
+    if (media == null || bytes.length != size)
+      throw const FormatException(
+        'Unterstütztes unverändertes Original erforderlich.',
+      );
+    await fresh(write: true);
+    if (!same(stamp) || selectedKey != key) return;
+    final input = {
+      'entity_key': key,
+      'filename': file.name,
+      'media_type': media,
+      'content_base64': base64Encode(bytes),
+    };
+    await session.command(
+      'opening-item-original-${offlineId()}',
+      '$openItemPath/originals',
+      input,
+      validateResult: openItemOriginalReceipt(input, bytes),
+    );
+    if (!same(stamp)) return;
+    final next = await fresh(write: true);
+    if (!same(stamp)) return;
+    setState(() {
+      state = next;
+      message = 'Original unverändert gespeichert. Den passenden Nachweis in den Belegfeldern ausdrücklich auswählen.';
+    });
+  });
+  Future<void> prepare({Map<String, dynamic>? voidEntry}) => run((stamp) async {
+    if (pending || selectedKey == null) return;
+    final old = voidEntry ?? editingEntry;
+    final operation = voidEntry?['operation'] ?? mode;
+    if (operation == null) return;
+    final payload = voidEntry == null
+        ? (operation == 'item' ? itemPayload() : paymentPayload())
+        : {...businessMap(voidEntry['payload']), 'status': 'void'};
+    final reason = openItemText(c('reason').text.trim(), 'Prüfvermerk', 1000);
+    if (voidEntry != null && !paymentConfirmed)
+      throw const FormatException(
+        'Aufhebung eines falsch erfassten Nachweises ausdrücklich bestätigen.',
+      );
+    final next = await fresh(write: true);
+    if (!same(stamp)) return;
+    final input = {
+      'expected_revision': next['revision'],
+      'state_hash': next['state_hash'],
+      'entity_key':
+          voidEntry?['entity_key'] ??
+          (operation == 'item' ? selectedKey : draftPaymentKey),
+      'profile_ref': next['profile_ref'],
+      'operation': operation,
+      'payload': payload,
+      'reason': reason,
+    };
+    final value = openItemPreview(await session.previewOpenItem(input), input);
+    final latest = await fresh(write: true);
+    if (!same(stamp)) return;
+    if (next['state_hash'] != latest['state_hash'])
+      throw const ApiException(
+        409,
+        'Altpostenbestand wurde während der Vorschau geändert.',
+      );
+    final currentRef = old == null
+        ? null
+        : {
+            'id': old['id'],
+            'revision': old['revision'],
+            'content_hash': old['content_hash'],
+          };
+    if (!openingSame(value['previous_ref'], currentRef))
+      throw const ApiException(
+        409,
+        'Die ursprüngliche Fassung wurde geändert; neu laden.',
+      );
+    setState(() {
+      state = latest;
+      preview = value;
+      body = input;
+      accepted = false;
+    });
+  });
+  void startVoid(Map<String, dynamic> entry) {
+    if (!writable || pending) return;
+    setState(() {
+      clearDraft();
+      editingEntry = entry;
+      mode = 'void';
+    });
+  }
+
+  Future<void> confirm() => run((stamp) async {
+    if (preview == null || body == null || !accepted || pending) return;
+    final frozen = openItemCopy(preview), input = openItemCopy(body);
+    final next = await fresh(write: true);
+    if (!same(stamp)) return;
+    if (next['state_hash'] != input['state_hash'] ||
+        next['revision'] != input['expected_revision'])
+      throw const ApiException(
+        409,
+        'Bestand geändert; vor neuer Annahme erneut prüfen.',
+      );
+    await session.command(
+      'opening-item-confirm-${input['entity_key']}',
+      '$openItemPath/confirm',
+      {...input, 'preview_hash': frozen['preview_hash'], 'confirmation': true},
+      validateResult: openItemReceipt(frozen),
+    );
+    if (same(stamp)) await load();
+  });
+  Future<void> repeat(String key) => run((stamp) async {
+    await session.repeatOpenItemCommand(key, stillCurrent: () => same(stamp));
+    if (same(stamp)) await load();
+  });
+  Future<void> original(Map<String, dynamic> meta) => run((stamp) async {
+    await fresh();
+    if (!same(stamp)) return;
+    final bytes = await session.api.bytes(
+      session.path(meta['path']),
+      mediaType: meta['media_type'],
+      maxBytes: 5242880,
+    );
+    if (!same(stamp)) return;
+    if (bytes.length != meta['size'] || openingDigest(bytes) != meta['sha256'])
+      throw const ApiException(
+        0,
+        'Originalbytes stimmen nicht mit dem gespeicherten Nachweis überein.',
+      );
+    await fresh();
+    if (!same(stamp)) return;
+    final file = VerifiedMailAttachment(
+      bytes: Uint8List.fromList(bytes),
+      filename: meta['filename'],
+      mediaType: meta['media_type'],
+      sha256: meta['sha256'],
+    );
+    if (widget.exportFile != null) {
+      await widget.exportFile!(file);
+    } else {
+      await exportMailAttachment(context, file, () => same(stamp));
+    }
+  });
+  Future<void> showHistory(String key) => run((stamp) async {
+    await fresh();
+    if (!same(stamp)) return;
+    final value = openItemHistory(
+      await session.read(openItemHistoryPath(key)),
+      key,
+    );
+    await fresh();
+    if (!same(stamp)) return;
+    setState(() {
+      history = value;
+      historyKey = key;
+      source = null;
+    });
+  });
+  Future<void> showSource(Map<String, dynamic> payment) => run((stamp) async {
+    await fresh();
+    if (!same(stamp)) return;
+    final raw = await session.read(
+      '$openItemPath/payments/${payment['entity_key']}?revision=${payment['revision']}',
+    );
+    if (!same(stamp)) return;
+    final value = await openItemVerifiedSource(
+      session,
+      raw,
+      payment: payment,
+      stillCurrent: () => same(stamp),
+    );
+    await fresh();
+    if (!same(stamp)) return;
+    setState(() {
+      source = value;
+      history = null;
+    });
+  });
+  Future<void> navigate(Widget Function() page) async {
+    final stamp = epoch;
+    try {
+      await fresh();
+      if (!same(stamp)) return;
+      await Navigator.of(context)
+          .push<void>(MaterialPageRoute(builder: (_) => page()));
+      if (same(stamp)) await load();
+    } catch (e) {
+      if (mounted && stamp == epoch) fail(e);
+    }
+  }
+
+  Widget button(String label, VoidCallback? action) => Padding(
+    padding: const EdgeInsets.only(right: 8, bottom: 8),
+    child: OutlinedButton(onPressed: action, child: Text(label)),
+  );
+  Widget card(List<Widget> children) => Card(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children,
+      ),
+    ),
+  );
+  void edited() {
+    preview = body = null;
+    accepted = false;
+  }
+
+  Widget input(String key, String label, {bool locked = false}) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 6),
+    child: TextField(
+      key: ValueKey('opening-item-$key'),
+      controller: c(key),
+      enabled: writable && !pending && !locked,
+      decoration: InputDecoration(labelText: label),
+      onChanged: (_) => setState(edited),
+    ),
+  );
+  Widget choice(
+    String key,
+    String label,
+    String? selected,
+    Map<String, String> values,
+    void Function(String?) save, {
+    bool locked = false,
+  }) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 6),
+    child: DropdownButtonFormField<String>(
+      key: ValueKey('opening-item-$key-${selected ?? ''}'),
+      initialValue: values.containsKey(selected) ? selected : null,
+      isExpanded: true,
+      decoration: InputDecoration(labelText: label),
+      items: values.entries
+          .map((e) => DropdownMenuItem(value: e.key, child: Text(e.value)))
+          .toList(),
+      onChanged: writable && !pending && !locked
+          ? (v) => setState(() {
+              save(v);
+              edited();
+            })
+          : null,
+    ),
+  );
+  Widget originalChoice(
+    String key,
+    String label,
+    String? value,
+    void Function(String?) save,
+  ) => choice(key, label, value, {
+    for (final o in originals)
+      o['id']: '${o['filename']} · ${o['sha256'].substring(0, 12)}',
+  }, save);
+  Widget check(
+    String key,
+    String label,
+    bool value,
+    void Function(bool) save,
+  ) => CheckboxListTile(
+    key: ValueKey('opening-item-$key'),
+    contentPadding: EdgeInsets.zero,
+    title: Text(label),
+    value: value,
+    onChanged: writable && !pending
+        ? (v) => setState(() {
+            save(v == true);
+            edited();
+          })
+        : null,
+  );
+  Widget amounts(dynamic values, {bool remaining = false}) => Text(
+    remaining
+        ? 'Rest: ${businessMoney(values['remaining_net'])} netto + ${businessMoney(values['remaining_tax'])} Steuer = ${businessMoney(values['remaining'])} brutto'
+        : '${businessMoney(values['net'])} netto + ${businessMoney(values['tax'])} Steuer = ${businessMoney(values['gross'])} brutto',
+  );
+  Widget oldPaymentEditor(Map<String, dynamic> value, int index) => card([
+    Text('Belegte alte Teilzahlung ${index + 1}'),
+    for (final key in ['date', 'reference', 'net', 'tax', 'gross'])
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        child: TextFormField(
+          key: ValueKey('opening-item-prior-$index-$key'),
+          initialValue: '${value[key] ?? ''}',
+          enabled: writable && !pending,
+          decoration: InputDecoration(
+            labelText: {
+              'date': 'Tatsächlicher alter Zahlungstag (JJJJ-MM-TT)',
+              'reference': 'Ursprüngliche Zahlungsreferenz',
+              'net': 'Originalnetto (€)',
+              'tax': 'Originalsteuer (€)',
+              'gross': 'Originalbrutto (€)',
+            }[key],
+          ),
+          onChanged: (v) => setState(() {
+            value[key] = v;
+            edited();
+          }),
+        ),
+      ),
+    originalChoice(
+      'prior-proof-$index',
+      'Original dieser alten Zahlung',
+      value['proof_id'],
+      (v) => value['proof_id'] = v,
+    ),
+    button(
+      'Alte Teilzahlung entfernen',
+      writable && !pending
+          ? () => setState(() {
+              prior.removeAt(index);
+              edited();
+            })
+          : null,
+    ),
+  ]);
+  Widget editor() {
+    final immutable = editingEntry != null;
+    return card([
+      Text(
+        mode == 'item'
+            ? 'Belegte Altübernahme'
+            : mode == 'payment'
+            ? 'Tatsächliche Restzahlung'
+            : 'Falsch erfassten Nachweis aufheben',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      if (mode == 'item') ...[
+        const Notice(openItemScope),
+        choice(
+          'direction',
+          'Rechnungsrichtung',
+          direction,
+          {
+            'receivable': 'Offene Kundenforderung',
+            'payable': 'Offene Lieferantenverbindlichkeit',
+          },
+          (v) {
+            direction = v;
+            category = null;
+          },
+          locked: immutable,
+        ),
+        for (final key in [
+          'external_system',
+          'external_id',
+          'counterparty_key',
+          'counterparty_name',
+          'invoice_number',
+          'invoice_date',
+          'service_date',
+          'invoice_received_date',
+        ])
+          input(
+            key,
+            {
+              'external_system': 'Ursprüngliches Fremdsystem',
+              'external_id': 'Externe Dokumentkennung',
+              'counterparty_key': 'Ursprüngliche Gegenparteikennung',
+              'counterparty_name': 'Name der Gegenpartei',
+              'invoice_number': 'Originalrechnungsnummer',
+              'invoice_date': 'Originalrechnungsdatum (JJJJ-MM-TT)',
+              'service_date': 'Ursprünglicher Leistungstag (JJJJ-MM-TT)',
+              'invoice_received_date':
+                  'Ursprünglicher Rechnungseingang (JJJJ-MM-TT)',
+            }[key]!,
+            locked:
+                immutable &&
+                [
+                  'external_system',
+                  'external_id',
+                  'counterparty_key',
+                  'invoice_number',
+                  'invoice_date',
+                ].contains(key),
+          ),
+        choice('rate', 'Belegter einzelner Steuersatz', rate, {
+          '19': '19 %',
+          '7': '7 %',
+        }, (v) => rate = v),
+        choice('category', 'Gewöhnliche Erlös-/Aufwandsart', category, {
+          for (final e in openItemCategories.entries)
+            if (direction == 'receivable'
+                ? e.key == 'sales'
+                : direction == 'payable' && e.key != 'sales')
+              e.key: e.value,
+        }, (v) => category = v),
+        input('net', 'Originalnetto (€)'),
+        input('tax', 'Originalsteuer (€)'),
+        input('gross', 'Originalbrutto (€)'),
+        originalChoice(
+          'invoice-proof',
+          'Ursprüngliches Rechnungsoriginal',
+          invoiceProof,
+          (v) => invoiceProof = v,
+        ),
+        originalChoice(
+          'cutover-proof',
+          'Vollständige Stichtagsaufstellung',
+          cutoverProof,
+          (v) => cutoverProof = v,
+        ),
+        input(
+          'history_through',
+          'Belegte Historie bis unmittelbar vor Softwarebeginn (JJJJ-MM-TT)',
+        ),
+        for (var i = 0; i < prior.length; i++) oldPaymentEditor(prior[i], i),
+        button(
+          'Belegte alte Teilzahlung ergänzen',
+          writable && !pending && prior.length < 100
+              ? () => setState(() {
+                  prior.add({});
+                  historyConfirmed = false;
+                  edited();
+                })
+              : null,
+        ),
+        check(
+          'history-confirmed',
+          prior.isEmpty
+              ? 'Das Stichtagsoriginal belegt: Bis zum Start wurde keine Zahlung geleistet oder vereinnahmt.'
+              : 'Die angegebenen alten Teilzahlungen und Centwerte sind nach den Originalen vollständig.',
+          historyConfirmed,
+          (v) => historyConfirmed = v,
+        ),
+        if (direction == 'payable') ...[
+          const Notice(
+            'Der vollständige Vorsteuerabzug muss bereits tatsächlich vor Softwarebeginn in der richtigen Vorperiode ausgeübt sein. Eine spätere Zahlung begründet hier keinen neuen Abzug.',
+          ),
+          input(
+            'vat_amount',
+            'Bereits vollständig abgezogene Originalvorsteuer (€)',
+          ),
+          input(
+            'vat_entitlement_date',
+            'Ursprünglicher Anspruchstag (JJJJ-MM-TT)',
+          ),
+          input(
+            'vat_declared_period',
+            'Ursprünglicher Erklärungsmonat (JJJJ-MM)',
+          ),
+          input(
+            'vat_deducted_on',
+            'Tatsächlicher früherer Ausübungstag (JJJJ-MM-TT)',
+          ),
+          originalChoice(
+            'vat-proof',
+            'Originalnachweis des früheren Vorsteuerabzugs',
+            vatProof,
+            (v) => vatProof = v,
+          ),
+        ],
+        check(
+          'scope-confirmed',
+          openItemScope,
+          scopeConfirmed,
+          (v) => scopeConfirmed = v,
+        ),
+      ] else if (mode == 'payment') ...[
+        const Notice(
+          'Nur einen tatsächlich erfolgten Eingang/Abgang erfassen. Die Originalrechnung und ihre historische Steuerbasis bleiben erhalten. Der Server berechnet den neuen Restverbrauch.',
+        ),
+        input('date', 'Tatsächlicher Zahlungstag (JJJJ-MM-TT)'),
+        input('amount', 'Tatsächlich gezahlter Bruttobetrag (€)'),
+        choice('account', 'Tatsächliches Geldkonto', accountId, {
+          for (final a in accounts) a['id']: '${a['code']} · ${a['name']}',
+        }, (v) => accountId = v),
+        input('evidence_reference', 'Eindeutige Zahlungsreferenz'),
+        originalChoice(
+          'payment-proof',
+          'Eigenes Original der neuen Restzahlung',
+          paymentProof,
+          (v) => paymentProof = v,
+        ),
+        check(
+          'payment-confirmed',
+          'Diese Restzahlung ist tatsächlich erfolgt und durch das eigene Zahlungsoriginal belegt.',
+          paymentConfirmed,
+          (v) => paymentConfirmed = v,
+        ),
+      ] else ...[
+        const Notice(
+          'Aufhebung korrigiert ausschließlich einen falsch erfassten Nachweis. Sie dokumentiert keine wirtschaftliche Rückzahlung. Aktive EÜR-Buchungen und Bankzuordnungen müssen zuerst nachvollziehbar aufgehoben werden.',
+        ),
+        check(
+          'void-confirmed',
+          'Ich hebe genau diesen falsch erfassten Originalnachweis auf; es ist keine Erstattung.',
+          paymentConfirmed,
+          (v) => paymentConfirmed = v,
+        ),
+      ],
+      input('reason', 'Belegter Prüf-/Korrekturvermerk'),
+      button(
+        'Verbindliche Vorschau prüfen',
+        writable && !pending
+            ? () => prepare(voidEntry: mode == 'void' ? editingEntry : null)
+            : null,
+      ),
+      button('Entwurf schließen', !busy ? () => setState(clearDraft) : null),
+    ]);
+  }
+
+  Widget previewCard() => card([
+    Text(
+      'Unveränderte Servervorschau',
+      style: Theme.of(context).textTheme.titleLarge,
+    ),
+    Text(
+      'Vorgang: ${preview!['operation'] == 'item' ? 'Altübernahme ohne neue Rechnung/Geld-/Steuerbuchung' : 'Tatsächlicher Geldfluss'} · ${preview!['payload']['status'] == 'void' ? 'Aufhebung' : 'Aktiv'}',
+    ),
+    if (preview!['operation'] == 'item') ...[
+      Text(
+        'Ursprünglich ${businessMoney(preview!['details']['original_gross'])} · vorher bezahlt ${businessMoney(preview!['details']['settled_before_start'])}',
+      ),
+      Text(
+        'Belegter Anfangsrest: ${businessMoney(preview!['details']['opening_remaining_net'])} netto + ${businessMoney(preview!['details']['opening_remaining_tax'])} Steuer = ${businessMoney(preview!['details']['opening_remaining'])} brutto',
+      ),
+    ] else ...[
+      amounts(preview!['details']),
+      Text('Verbleibend: ${businessMoney(preview!['details']['remaining'])}'),
+    ],
+    Text('Prüfvermerk: ${preview!['reason']}'),
+    CheckboxListTile(
+      key: const ValueKey('opening-item-accept'),
+      contentPadding: EdgeInsets.zero,
+      title: const Text(
+        'Ich bestätige genau diese Originale, Beträge, historischen Angaben und Wirkung.',
+      ),
+      value: accepted,
+      onChanged: writable && !pending
+          ? (v) => setState(() => accepted = v == true)
+          : null,
+    ),
+    button(
+      'Unverändert verbindlich bestätigen',
+      writable && accepted && !pending ? confirm : null,
+    ),
+  ]);
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('Belegte historische offene Posten')),
+    body: !readable
+        ? Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Der Altpostenzugriff ist derzeit nicht freigegeben.',
+                ),
+                button(
+                  'Zugriff erneut prüfen',
+                  !busy && !backgrounded ? load : null,
+                ),
+              ],
+            ),
+          )
+        : ListView(
+            controller: scroll,
+            padding: const EdgeInsets.all(16),
+            children: [
+              if (error != null) Notice(error!, error: true),
+              if (message != null) Notice(message!),
+              if (busy) const LinearProgressIndicator(),
+              const Notice(
+                'Externe offene Rechnungen aus der Zeit vor dem Softwarebeginn. Vorhandene lokale Rechnungen und normale Finance-Originale über ihren bisherigen Weg weiterführen; keine zweite Übernahme.',
+              ),
+              Wrap(
+                children: [
+                  button('Bestand aktualisieren', !busy ? load : null),
+                  button(
+                    'EÜR-Journal und Gegenbuchungen',
+                    businessEuerReadable(session) && !busy
+                        ? () => navigate(
+                            () => BusinessEuerPage(
+                              session: session,
+                              initialTab: 'journal',
+                            ),
+                          )
+                        : null,
+                  ),
+                  if (openingReadable(session))
+                    button(
+                      'Anfangsbestände und Liquidität',
+                      !busy
+                          ? () => navigate(
+                              () =>
+                                  BusinessOpeningBalancesPage(session: session),
+                            )
+                          : null,
+                    ),
+                  if (session.can('bank.read'))
+                    button(
+                      'Bankabgleich',
+                      !busy
+                          ? () => navigate(
+                              () => BusinessBankReconciliationPage(
+                                session: session,
+                              ),
+                            )
+                          : null,
+                    ),
+                ],
+              ),
+              for (final key in session.pendingOpenItemKeys)
+                card([
+                  const Notice(
+                    'Eine ursprüngliche Antwort ist noch offen. Keine Ersatzbuchung anlegen; denselben Originalauftrag unverändert prüfen.',
+                  ),
+                  button(
+                    'Unveränderten Originalauftrag erneut senden',
+                    writable ? () => repeat(key) : null,
+                  ),
+                ]),
+              if (state != null) ...[
+                Text(
+                  'Softwarebeginn: ${businessDate(state!['profile']?['profile']?['bookkeeping_start'])} · bestätigter Stand ${state!['revision']}',
+                ),
+                if (state!['can_prepare'] != true)
+                  const Notice(
+                    'Bestand lesbar; neue Annahmen benötigen die aktuelle Finanz-, Profil- und Restorefreigabe.',
+                  ),
+                if (selectedKey == null) ...[
+                  button(
+                    'Neue externe Altübernahme vorbereiten',
+                    writable && !pending ? () => editItem() : null,
+                  ),
+                  for (final item in businessItems(state!['items']))
+                    card([
+                      Text(
+                        '${item['payload']['counterparty_name']} · ${item['payload']['invoice_number']}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        item['payload']['direction'] == 'receivable'
+                            ? 'Kundenforderung'
+                            : 'Lieferantenverbindlichkeit',
+                      ),
+                      if (item['payload']['status'] == 'active')
+                        amounts(item, remaining: true)
+                      else
+                        const Text('Übernahmenachweis aufgehoben'),
+                      button(
+                        'Originale, Zahlungen und Historie öffnen',
+                        !busy ? () => select(item['entity_key']) : null,
+                      ),
+                    ]),
+                  for (final key in businessItems(
+                    state!['originals'],
+                  ).map((v) => v['entity_key'] as String).toSet())
+                    if (!businessItems(state!['items'])
+                        .any((v) => v['entity_key'] == key))
+                      card([
+                        const Text(
+                          'Gespeicherte Originale ohne bestätigte Übernahme',
+                        ),
+                        Text(
+                          businessItems(state!['originals'])
+                              .where((v) => v['entity_key'] == key)
+                              .map((v) => v['filename'])
+                              .join(' · '),
+                        ),
+                        button(
+                          'Belegte Übernahme fortsetzen',
+                          !busy
+                              ? () {
+                                  select(key);
+                                  editItem();
+                                }
+                              : null,
+                        ),
+                      ]),
+                ] else ...[
+                  button(
+                    'Zur Altpostenübersicht',
+                    !busy ? () => select(null) : null,
+                  ),
+                  if (current != null)
+                    card([
+                      Text(
+                        '${current!['payload']['counterparty_name']} · ${current!['payload']['invoice_number']}',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      amounts(current!['payload']),
+                      Text(
+                        'Originalleistung: ${businessDate(current!['payload']['service_date'])} · Rechnungseingang: ${businessDate(current!['payload']['invoice_received_date'])}',
+                      ),
+                      if (current!['payload']['status'] == 'active')
+                        amounts(current, remaining: true)
+                      else
+                        const Text('Übernahmenachweis aufgehoben'),
+                      Wrap(
+                        children: [
+                          button(
+                            'Übernahme berichtigen / Profil erneut prüfen',
+                            writable && !pending
+                                ? () => editItem(correction: true)
+                                : null,
+                          ),
+                          button(
+                            'Fehlerhafte Übernahme aufheben',
+                            writable &&
+                                    !pending &&
+                                    current!['payload']['status'] == 'active'
+                                ? () => startVoid(current!)
+                                : null,
+                          ),
+                          button(
+                            'Übernahmehistorie',
+                            !busy ? () => showHistory(selectedKey!) : null,
+                          ),
+                          button(
+                            'Tatsächliche Restzahlung erfassen',
+                            writable &&
+                                    !pending &&
+                                    current!['payload']['status'] == 'active'
+                                ? () => editPayment()
+                                : null,
+                          ),
+                        ],
+                      ),
+                    ]),
+                  card([
+                    const Text('Unveränderte Originale'),
+                    button(
+                      'Originaldatei unverändert hochladen',
+                      writable && !pending ? upload : null,
+                    ),
+                    for (final originalValue in originals)
+                      ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(originalValue['filename']),
+                        subtitle: Text(
+                          '${originalValue['size']} Bytes · ${originalValue['sha256']}',
+                        ),
+                        onTap: !busy ? () => original(originalValue) : null,
+                      ),
+                  ]),
+                  if (mode != null) editor(),
+                  if (preview != null) previewCard(),
+                  for (final payment in businessItems(
+                    state!['payments'],
+                  ).where((p) => p['payload']['item_key'] == selectedKey))
+                    card([
+                      Text(
+                        '${businessDate(payment['payload']['date'])} · ${businessMoney(payment['payload']['amount'])} · ${payment['payload']['status'] == 'active' ? 'Tatsächlich erfasst' : 'Nachweis aufgehoben'}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(payment['payload']['evidence_reference']),
+                      amounts(payment['details']),
+                      Wrap(
+                        children: [
+                          button(
+                            'Zahlungsquelle und EÜR-Zuordnung',
+                            !busy ? () => showSource(payment) : null,
+                          ),
+                          button(
+                            'Zahlungshistorie',
+                            !busy
+                                ? () => showHistory(payment['entity_key'])
+                                : null,
+                          ),
+                          button(
+                            'Fehlerhafte Zahlung berichtigen',
+                            writable && !pending
+                                ? () => editPayment(payment)
+                                : null,
+                          ),
+                          button(
+                            'Fehlerhaften Zahlungsnachweis aufheben',
+                            writable &&
+                                    !pending &&
+                                    payment['payload']['status'] == 'active'
+                                ? () => startVoid(payment)
+                                : null,
+                          ),
+                        ],
+                      ),
+                    ]),
+                  if (source != null)
+                    card([
+                      const Text('Originalgebundene Geld-/EÜR-Quelle'),
+                      amounts(source),
+                      Text(
+                        'Tatsächlicher Geldfluss: ${source!['direction'] == 'in' ? 'Eingang' : 'Ausgang'} · ${businessDate(source!['date'])}',
+                      ),
+                      Text(
+                        'Aktive Geldbewegungen: ${(source!['cash_movements'] as List).length}',
+                      ),
+                      if (source!['prior_input_vat'] != null)
+                        Text(
+                          'Frühere Vorsteuer bereits ausgeübt am ${businessDate(source!['prior_input_vat']['deducted_on'])}; neuer Vorsteuerabzug: 0,00 €.',
+                        ),
+                      const Notice(
+                        'Der Geldfluss ist bereits erfasst. Die fachliche EÜR-Zuordnung erfolgt gesondert. Korrektur/Gegenbuchung erhält die ursprünglichen Fassungen.',
+                      ),
+                      button(
+                        'Zahlungsoriginal ansehen',
+                        !busy
+                            ? () => original(businessMap(source!['proof']))
+                            : null,
+                      ),
+                      button(
+                        'EÜR-Quelle einordnen oder gegenbuchen',
+                        businessEuerReadable(session) && !busy
+                            ? () => navigate(
+                                () => BusinessEuerPage(
+                                  session: session,
+                                  initialOpeningPaymentId: source!['id'],
+                                  initialYear: int.parse(
+                                    source!['date'].substring(0, 4),
+                                  ),
+                                ),
+                              )
+                            : null,
+                      ),
+                    ]),
+                  if (history != null)
+                    card([
+                      const Text('Unveränderliche Originalhistorie'),
+                      for (final entry in businessItems(history!['items']))
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Fassung ${entry['revision']} · ${entry['payload']['status'] == 'active' ? 'Aktiv' : 'Aufgehoben'} · ${businessDate(entry['created_at'])}',
+                              ),
+                              Text(entry['reason']),
+                              if (entry['operation'] == 'item')
+                                amounts(entry['payload'])
+                              else
+                                amounts(entry['details']),
+                              for (final originalValue in businessItems(
+                                entry['proofs'],
+                              ))
+                                button(
+                                  'Original ${originalValue['filename']}',
+                                  !busy ? () => original(originalValue) : null,
+                                ),
+                            ],
+                          ),
+                        ),
+                    ]),
+                ],
+              ],
+            ],
+          ),
+  );
+}

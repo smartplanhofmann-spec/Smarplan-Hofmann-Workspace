@@ -1,0 +1,34 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: /bank/accounts {"error":"Unvollst\u00e4ndige oder unbekannte Bankabgleichfelder."}
+
+    at api (/workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-flow.cjs:9:282)
+    at async Object.openingItemsFlow (/workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-flow.cjs:32:14)
+    at async main (/workspace/smartplan-opening-items-20261104/web/office/tests/e2e.cjs:127:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED'
+]
+Fixture log tail:
+:48] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:48] "GET /api/v1/business/accounting/euer HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:48] "POST /api/v1/business/accounting/euer/preview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/accounting/euer HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "[35m[1mPOST /api/v1/business/accounting/euer/confirm HTTP/1.1[0m" 201 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/accounting/euer HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/accounting/euer/sources HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/accounting/euer/journal?limit=25&offset=0 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/accounting/euer/report?year=2026 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "GET /api/v1/business/accounting/euer/report?year=2026 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:56:49] "[31m[1mPOST /api/v1/business/bank/accounts HTTP/1.1[0m" 400 -
+
+SMARTPLAN_BROWSER_FAILURE_END

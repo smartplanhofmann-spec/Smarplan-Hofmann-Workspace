@@ -1,0 +1,22 @@
+test_frozen_export_after_payment_survives_real_reverse_and_void (test_accounting_open_items_independent_review.OpeningItemsIndependentReview.test_frozen_export_after_payment_survives_real_reverse_and_void) ... ok
+test_missing_original_or_confirmation_acceptance_blocks_live_replay_and_money (test_accounting_open_items_independent_review.OpeningItemsIndependentReview.test_missing_original_or_confirmation_acceptance_blocks_live_replay_and_money) ... ok
+test_original_old_cent_allocation_is_not_rewritten_to_fit_supported_method (test_accounting_open_items_independent_review.OpeningItemsIndependentReview.test_original_old_cent_allocation_is_not_rewritten_to_fit_supported_method) ... ok
+test_partial_supplier_settlements_have_paid_vat_expense_but_no_second_deduction (test_accounting_open_items_independent_review.OpeningItemsIndependentReview.test_partial_supplier_settlements_have_paid_vat_expense_but_no_second_deduction) ... ok
+test_prior_declared_month_does_not_replace_actual_deduction_before_cutover (test_accounting_open_items_independent_review.OpeningItemsIndependentReview.test_prior_declared_month_does_not_replace_actual_deduction_before_cutover) ... ok
+test_unclassified_actual_cash_is_visible_without_fabricated_tax_or_income (test_accounting_open_items_independent_review.OpeningItemsIndependentReview.test_unclassified_actual_cash_is_visible_without_fabricated_tax_or_income) ... ERROR
+test_under_year_start_day_is_new_cash_but_open_items_do_not_complete_old_year (test_accounting_open_items_independent_review.OpeningItemsIndependentReview.test_under_year_start_day_is_new_cash_but_open_items_do_not_complete_old_year) ... ok
+test_void_requires_actual_bank_unlink_and_euer_reverse_and_keeps_original_history (test_accounting_open_items_independent_review.OpeningItemsIndependentReview.test_void_requires_actual_bank_unlink_and_euer_reverse_and_keeps_original_history) ... ok
+
+======================================================================
+ERROR: test_unclassified_actual_cash_is_visible_without_fabricated_tax_or_income (test_accounting_open_items_independent_review.OpeningItemsIndependentReview.test_unclassified_actual_cash_is_visible_without_fabricated_tax_or_income)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-opening-items-20261104/backend/test_accounting_open_items_independent_review.py", line 92, in test_unclassified_actual_cash_is_visible_without_fabricated_tax_or_income
+    self.assertEqual(liquidity['accounts'][0]['recorded_balance'],'1059.50')
+                     ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+KeyError: 'recorded_balance'
+
+----------------------------------------------------------------------
+Ran 8 tests in 4.870s
+
+FAILED (errors=1)

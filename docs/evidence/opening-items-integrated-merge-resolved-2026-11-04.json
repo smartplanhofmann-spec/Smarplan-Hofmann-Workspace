@@ -1,0 +1,1966 @@
+{
+  "base_commit": "80e051a28ad6ffe2b25818ed26d198f49ebb0c09",
+  "target_commit": "13af5bc1147170948c5de8fa9f831a7215974cb5",
+  "owner_manifests": [
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "sha256": "4fc7db209ebf5ce98799400d330182692f88ffdb5c9b9e1e924649385c6f3a88"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "sha256": "49878a9c7042d8025537e04f17ef23598dcf073d91c5400e376cf7c19433707b"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "sha256": "7a1836612f366c88ce911b88b74f47732eba154934f938734b4bb864bcc0ea3d"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "sha256": "bce5642491b304a538af423dcd9d41e632f0204f473279bfa8c675ebb1fef163"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "sha256": "f192a1a870505b3c4497e343df6e0c06f3e81f684466a0e703b5729b421dfed9"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "sha256": "5246bc7b4d10194fcfeec5484a54bf131afb1639a5cf64b217fb94ab162d6c69"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "sha256": "d225f57eefa3611b20c13b983ad83a1f798de8528b823ba8d89ea91d7c93afa7"
+    }
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "sha256": "a78708861d3bd54da8caeef17d3f573103d369a3ee83daa8f88bd474b9e3b1dc",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "conflict",
+      "base_sha256": "c14c1e266f5760131b5a61754cd71deb8022c14afca5b167bab8a7721e7f5d4e",
+      "current_sha256": "7cae0a485f383a35f71e4ce51a32b5c73be16494b871da86301ef2849c1cc318",
+      "candidate_sha256": "e0840d6c932767728d9696f59ffb567e26dc1e30212447d90e7baf783e5e863e",
+      "resolved_sha256": "29b358a10b036581d9f7ed93caaa5e53460a454f57d78c669ecbbfde76cdceda"
+    },
+    {
+      "path": "app/lib/business_accounting.dart",
+      "sha256": "28e4e555fe6491b523872f6f19c5c0eb64db349bee8e3a3e5463cd226d8cee46",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "c4b637e6b56ec069c94dff191cf05fa8aeef693eb501fd613ee62ce4f77e63b0",
+      "current_sha256": "c4b637e6b56ec069c94dff191cf05fa8aeef693eb501fd613ee62ce4f77e63b0",
+      "candidate_sha256": "28e4e555fe6491b523872f6f19c5c0eb64db349bee8e3a3e5463cd226d8cee46",
+      "resolved_sha256": "28e4e555fe6491b523872f6f19c5c0eb64db349bee8e3a3e5463cd226d8cee46"
+    },
+    {
+      "path": "app/lib/business_accounting_euer.dart",
+      "sha256": "1c5196a653a8ae5f7e64a716de2bf081fa2f5857ab7fcb5bab172bfa590f8457",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "39d07ad6e6700e382d017ad7f50890f07ff4b5603c295d4c29989a6c923751af",
+      "current_sha256": "39d07ad6e6700e382d017ad7f50890f07ff4b5603c295d4c29989a6c923751af",
+      "candidate_sha256": "1c5196a653a8ae5f7e64a716de2bf081fa2f5857ab7fcb5bab172bfa590f8457",
+      "resolved_sha256": "1c5196a653a8ae5f7e64a716de2bf081fa2f5857ab7fcb5bab172bfa590f8457"
+    },
+    {
+      "path": "app/lib/business_accounting_open_items.dart",
+      "sha256": "5891345f736e6bf81ae7f3f87d03c785e31e24611a0f6a6c8415950d934e050a",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5891345f736e6bf81ae7f3f87d03c785e31e24611a0f6a6c8415950d934e050a",
+      "resolved_sha256": "5891345f736e6bf81ae7f3f87d03c785e31e24611a0f6a6c8415950d934e050a"
+    },
+    {
+      "path": "app/lib/business_accounting_open_items_contract.dart",
+      "sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+      "resolved_sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "sha256": "264b9b773d25333a2034dc7509955e311bc9a72d27ce0a6505e35bf44f846429",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "clean merge",
+      "base_sha256": "f532a57836b1a2b3ba8afde115b64a02e4c04f2fe64a4a89b47941e88d64ba2c",
+      "current_sha256": "106dc7726f26785d8f443f3a023f7f5ac3fc5c005f608ff8921ce2d3978cdfea",
+      "candidate_sha256": "475a0a59cf64d468f488a77d6dd848a2806e88f0a47ccd29b0189e16fde8e1a8",
+      "resolved_sha256": "475a0a59cf64d468f488a77d6dd848a2806e88f0a47ccd29b0189e16fde8e1a8"
+    },
+    {
+      "path": "app/test/business_accounting_open_items_contract_test.dart",
+      "sha256": "264cd92354f403afdc478f819482bd43761712780b7db44235604d80ae3cb09b",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "264cd92354f403afdc478f819482bd43761712780b7db44235604d80ae3cb09b",
+      "resolved_sha256": "264cd92354f403afdc478f819482bd43761712780b7db44235604d80ae3cb09b"
+    },
+    {
+      "path": "app/test/business_accounting_open_items_http_widget_test.dart",
+      "sha256": "c039d7e13955cc25e3f74989812c26534f9d36528e92a52fbe32d1051479c2e5",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "c039d7e13955cc25e3f74989812c26534f9d36528e92a52fbe32d1051479c2e5",
+      "resolved_sha256": "c039d7e13955cc25e3f74989812c26534f9d36528e92a52fbe32d1051479c2e5"
+    },
+    {
+      "path": "app/test/business_accounting_open_items_independent_review_test.dart",
+      "sha256": "5faceec8e3d8047f91b0473c0939ae9e6210ab7b8e5cc7dc7fb65a09fb5b43f2",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5faceec8e3d8047f91b0473c0939ae9e6210ab7b8e5cc7dc7fb65a09fb5b43f2",
+      "resolved_sha256": "5faceec8e3d8047f91b0473c0939ae9e6210ab7b8e5cc7dc7fb65a09fb5b43f2"
+    },
+    {
+      "path": "app/test/business_accounting_open_items_lifecycle_test.dart",
+      "sha256": "a9cdb196f2a808a7be5300704378e1b374bfc41e64e13f846c86298e5c22a17d",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "a9cdb196f2a808a7be5300704378e1b374bfc41e64e13f846c86298e5c22a17d",
+      "resolved_sha256": "a9cdb196f2a808a7be5300704378e1b374bfc41e64e13f846c86298e5c22a17d"
+    },
+    {
+      "path": "app/test/fixtures/accounting_open_items_ui_v1.json",
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "resolved_sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708"
+    },
+    {
+      "path": "backend/accounting_open_item_rules.py",
+      "sha256": "d6fa590cd24b9dd765aea97cb6f10b684a3681430e6b839167576586935fd190",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "d6fa590cd24b9dd765aea97cb6f10b684a3681430e6b839167576586935fd190",
+      "resolved_sha256": "d6fa590cd24b9dd765aea97cb6f10b684a3681430e6b839167576586935fd190"
+    },
+    {
+      "path": "backend/accounting_open_item_sources.py",
+      "sha256": "f44e1ceda7ad682c6ee61033e154ec0380022dc8d12d9e82e0450870c0b0cfca",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "f44e1ceda7ad682c6ee61033e154ec0380022dc8d12d9e82e0450870c0b0cfca",
+      "resolved_sha256": "f44e1ceda7ad682c6ee61033e154ec0380022dc8d12d9e82e0450870c0b0cfca"
+    },
+    {
+      "path": "backend/business_accounting_asset_openings.py",
+      "sha256": "7d7d4d01051e9623b0990cabf8404679c86c87759c1fe755fec1745407a9f312",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "4a5c57621d8a5af701bf488f32fd82e48577473bc6fda400eebc12bb2002579b",
+      "current_sha256": "4a5c57621d8a5af701bf488f32fd82e48577473bc6fda400eebc12bb2002579b",
+      "candidate_sha256": "7d7d4d01051e9623b0990cabf8404679c86c87759c1fe755fec1745407a9f312",
+      "resolved_sha256": "7d7d4d01051e9623b0990cabf8404679c86c87759c1fe755fec1745407a9f312"
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "sha256": "906293f5da88ca10022054b2e555860e5d2dfca105358141090b7754a8ff1dfe",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "e0807590431553d48124692c135e37a4db05ff33e1a62be167216f7bb4778535",
+      "current_sha256": "e0807590431553d48124692c135e37a4db05ff33e1a62be167216f7bb4778535",
+      "candidate_sha256": "906293f5da88ca10022054b2e555860e5d2dfca105358141090b7754a8ff1dfe",
+      "resolved_sha256": "906293f5da88ca10022054b2e555860e5d2dfca105358141090b7754a8ff1dfe"
+    },
+    {
+      "path": "backend/business_accounting_open_items.py",
+      "sha256": "9077d748850e298e31187c63b71c256a8810582deb2acc5d5f302f39149671a6",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "9077d748850e298e31187c63b71c256a8810582deb2acc5d5f302f39149671a6",
+      "resolved_sha256": "9077d748850e298e31187c63b71c256a8810582deb2acc5d5f302f39149671a6"
+    },
+    {
+      "path": "backend/business_api.py",
+      "sha256": "8fd290c130fc82934bb86a16a4000da7f00ec404d6bb91622ff40df04dc09b6c",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "conflict",
+      "base_sha256": "f04393a05ddedaaaf827538cdda7de6c4476a43b0ca336f23564fcdc7a8be495",
+      "current_sha256": "0549d1e61bef358d9c105b0b078bb4cf910046d3a35dfe86ed36f269f490938a",
+      "candidate_sha256": "db4b89e8c30c61704d15d3e1483800b817e692b5a6a47d4908c4660c9e88f026",
+      "resolved_sha256": "122f6b7cd8acb9bd36b1c15c65f45d739177dc9d049c2f6f67d5bd17d5fa0771"
+    },
+    {
+      "path": "backend/business_bank_reconciliation.py",
+      "sha256": "1170b90d98dc8c82f2da1d8e9843d27b29466e4c0082e67626e1e98a2049422f",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "0e2bf972973aa5641efb793debbec390ec791e977f91f14b164b5ac79c997930",
+      "current_sha256": "0e2bf972973aa5641efb793debbec390ec791e977f91f14b164b5ac79c997930",
+      "candidate_sha256": "1170b90d98dc8c82f2da1d8e9843d27b29466e4c0082e67626e1e98a2049422f",
+      "resolved_sha256": "1170b90d98dc8c82f2da1d8e9843d27b29466e4c0082e67626e1e98a2049422f"
+    },
+    {
+      "path": "backend/business_finance.py",
+      "sha256": "62bd0103ecc806f78bc2792d99d99e51569a988360d3e8e2efe765f2c3e088d1",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "4b4dca73603b3491843bd1dec400af3aedf0bbc699903f49ba89d2906e21a7a5",
+      "current_sha256": "4b4dca73603b3491843bd1dec400af3aedf0bbc699903f49ba89d2906e21a7a5",
+      "candidate_sha256": "62bd0103ecc806f78bc2792d99d99e51569a988360d3e8e2efe765f2c3e088d1",
+      "resolved_sha256": "62bd0103ecc806f78bc2792d99d99e51569a988360d3e8e2efe765f2c3e088d1"
+    },
+    {
+      "path": "backend/business_organization.py",
+      "sha256": "a29f792f8c76a69870d1e03ef4d23c686fa9163cdeb89b9813b7d7473b2f8c48",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean merge",
+      "base_sha256": "f178d97dd94dbeea9dc50f93ac0956be9dfceac6973a4239caa289dbdffc670a",
+      "current_sha256": "cfa6340b99e2b67e6d17a1c199c8cc45554ee9ea817b0d08589bc3e01dcf470e",
+      "candidate_sha256": "3dc1ed72f626e33c2d9ea5406fbc6b545276c7edca97ab87371ed12b2b22f846",
+      "resolved_sha256": "3dc1ed72f626e33c2d9ea5406fbc6b545276c7edca97ab87371ed12b2b22f846"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "sha256": "a3e1de704fcc117b5e5785af7a1be53013830166cca3de27aec073ab5ca1044b",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "conflict",
+      "base_sha256": "9493127e100b219d57c7965fc507714ea2c5ee8af755087a489ef500b7ad9918",
+      "current_sha256": "65813c991df763b2df09d60bf77fa52cf80c28030404d298c7171b95a9c4fe47",
+      "candidate_sha256": "19098652f26bc87fd1b18efbd67cf38e2c958c1efefcb9c57d191c0296d6aa72",
+      "resolved_sha256": "5c47d6cd2b3151a36f94679c67cdcb088556f7db9aad32ae8d1209365d9a126a"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "sha256": "03fd20f2f63cde8d4dcbfd43f5f72f35b18957048735564c750c43ad135e5768",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean merge",
+      "base_sha256": "ed4c9f3430724193ce09b9c63c3f72b0d249b4635fe8525b14b9da37938b414c",
+      "current_sha256": "d2c52b1033e1395b895fdbd7b7b869596e18a0555c334fbf9cdf1e8c1e850c8b",
+      "candidate_sha256": "75684ad9c688ae2a9b217ae1832f0dedf3d82a1d48561ff7c577f0db4304cc75",
+      "resolved_sha256": "75684ad9c688ae2a9b217ae1832f0dedf3d82a1d48561ff7c577f0db4304cc75"
+    },
+    {
+      "path": "backend/online/test_accounting_allocations_http.py",
+      "sha256": "8292733ddd8e799c21663e6f97013660fc386eae29c988c9e03eef27610e3d3c",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "c53e8fa105c37c166758b04e17dd340f1918ff0b046d0b774a740e81df577ac1",
+      "current_sha256": "c53e8fa105c37c166758b04e17dd340f1918ff0b046d0b774a740e81df577ac1",
+      "candidate_sha256": "8292733ddd8e799c21663e6f97013660fc386eae29c988c9e03eef27610e3d3c",
+      "resolved_sha256": "8292733ddd8e799c21663e6f97013660fc386eae29c988c9e03eef27610e3d3c"
+    },
+    {
+      "path": "backend/online/test_accounting_asset_openings_pg.py",
+      "sha256": "47e2f0b6d8b4668110fc3c3fe0fdc1e377529fc2f543f1eed4873735b6af4853",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "ec7a25daca08ccd99ce4278bbb71cd2e42fe1e59ececb9fa8583f5ef705ce5fd",
+      "current_sha256": "ec7a25daca08ccd99ce4278bbb71cd2e42fe1e59ececb9fa8583f5ef705ce5fd",
+      "candidate_sha256": "47e2f0b6d8b4668110fc3c3fe0fdc1e377529fc2f543f1eed4873735b6af4853",
+      "resolved_sha256": "47e2f0b6d8b4668110fc3c3fe0fdc1e377529fc2f543f1eed4873735b6af4853"
+    },
+    {
+      "path": "backend/online/test_accounting_capacity_http.py",
+      "sha256": "91be5443cc80c0752c4e15d6c79c85451d920d8563f4ac5e498c8b1a225d0361",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "7bc8cecf1d4ac4f42ec2be3b903c41f99894d1163cb72e020644ef130bba5095",
+      "current_sha256": "7bc8cecf1d4ac4f42ec2be3b903c41f99894d1163cb72e020644ef130bba5095",
+      "candidate_sha256": "91be5443cc80c0752c4e15d6c79c85451d920d8563f4ac5e498c8b1a225d0361",
+      "resolved_sha256": "91be5443cc80c0752c4e15d6c79c85451d920d8563f4ac5e498c8b1a225d0361"
+    },
+    {
+      "path": "backend/online/test_accounting_components_http.py",
+      "sha256": "984d76a9915e84d0af79d30a1bff9e850ca97664c7cfe4dc9fc33618c04a32b0",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "b88d1969579bc2aa83528c52869b8b2ab1dbb8dec237e912ef24b9c1b29e6762",
+      "current_sha256": "b88d1969579bc2aa83528c52869b8b2ab1dbb8dec237e912ef24b9c1b29e6762",
+      "candidate_sha256": "984d76a9915e84d0af79d30a1bff9e850ca97664c7cfe4dc9fc33618c04a32b0",
+      "resolved_sha256": "984d76a9915e84d0af79d30a1bff9e850ca97664c7cfe4dc9fc33618c04a32b0"
+    },
+    {
+      "path": "backend/online/test_accounting_http.py",
+      "sha256": "ff46b1e66d4fbf6ff1abafcbd6f62a9d5913e148779c62e9ac32eeb07218ee52",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "11b111b0240adb787f449eff9105b3815aa525e544966a8d0b1d3e42395bc89d",
+      "current_sha256": "11b111b0240adb787f449eff9105b3815aa525e544966a8d0b1d3e42395bc89d",
+      "candidate_sha256": "ff46b1e66d4fbf6ff1abafcbd6f62a9d5913e148779c62e9ac32eeb07218ee52",
+      "resolved_sha256": "ff46b1e66d4fbf6ff1abafcbd6f62a9d5913e148779c62e9ac32eeb07218ee52"
+    },
+    {
+      "path": "backend/online/test_accounting_open_items_pg.py",
+      "sha256": "ce492df18d00763aca50ad2a0f968891894d2f2b094674850d5ccaa61473c7dc",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "ce492df18d00763aca50ad2a0f968891894d2f2b094674850d5ccaa61473c7dc",
+      "resolved_sha256": "ce492df18d00763aca50ad2a0f968891894d2f2b094674850d5ccaa61473c7dc"
+    },
+    {
+      "path": "backend/online/test_accounting_profile_http.py",
+      "sha256": "f1b93fd2fdfa7734a72511616e641c10080fca0b0eb37a754b22a212514a8c3b",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "5bd3060a5626717ee99a87e66d8d477fc003347203b2521ecbfe4f6617261a76",
+      "current_sha256": "5bd3060a5626717ee99a87e66d8d477fc003347203b2521ecbfe4f6617261a76",
+      "candidate_sha256": "f1b93fd2fdfa7734a72511616e641c10080fca0b0eb37a754b22a212514a8c3b",
+      "resolved_sha256": "f1b93fd2fdfa7734a72511616e641c10080fca0b0eb37a754b22a212514a8c3b"
+    },
+    {
+      "path": "backend/online/test_accounting_refunds_http.py",
+      "sha256": "bd77352b6d393cf13f3a8dda84e77766f6a733048f7ce1cc380522a4cbec91e4",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "cac7000d1db4bacb284e5171ac649a88060ac36232ee4ff0e3bb2bec518f3bd0",
+      "current_sha256": "cac7000d1db4bacb284e5171ac649a88060ac36232ee4ff0e3bb2bec518f3bd0",
+      "candidate_sha256": "bd77352b6d393cf13f3a8dda84e77766f6a733048f7ce1cc380522a4cbec91e4",
+      "resolved_sha256": "bd77352b6d393cf13f3a8dda84e77766f6a733048f7ce1cc380522a4cbec91e4"
+    },
+    {
+      "path": "backend/online/test_accounting_refunds_v2_http.py",
+      "sha256": "c5a3f6a1733170410d2b33e5201dee0718d36dd58e16329279a2daeb3cafae88",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "aeaa4653e8a8d504f9d4ecb40359a2b12cd048bed8ff1416f73bce6975100dd5",
+      "current_sha256": "aeaa4653e8a8d504f9d4ecb40359a2b12cd048bed8ff1416f73bce6975100dd5",
+      "candidate_sha256": "c5a3f6a1733170410d2b33e5201dee0718d36dd58e16329279a2daeb3cafae88",
+      "resolved_sha256": "c5a3f6a1733170410d2b33e5201dee0718d36dd58e16329279a2daeb3cafae88"
+    },
+    {
+      "path": "backend/online/test_assets_source5_catalog_restore_pg.py",
+      "sha256": "68592e3337519e02491fb4ba09777ab1d580e06009615e5557e26b4fa70d99a2",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "d457802f860748ed9111770a3957d47470d371847503014ed86b151925d44ee6",
+      "current_sha256": "d457802f860748ed9111770a3957d47470d371847503014ed86b151925d44ee6",
+      "candidate_sha256": "68592e3337519e02491fb4ba09777ab1d580e06009615e5557e26b4fa70d99a2",
+      "resolved_sha256": "68592e3337519e02491fb4ba09777ab1d580e06009615e5557e26b4fa70d99a2"
+    },
+    {
+      "path": "backend/online/test_business_accounting_euer_pg.py",
+      "sha256": "d7adf19d9c13ba9c0c54b3d35046fa67abadc2ca94f781401aee7858be3b201d",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "95f00a28fa1022bfcf303898f3a0f5bf270f862fc26f2a2af8a49827f793442e",
+      "current_sha256": "95f00a28fa1022bfcf303898f3a0f5bf270f862fc26f2a2af8a49827f793442e",
+      "candidate_sha256": "d7adf19d9c13ba9c0c54b3d35046fa67abadc2ca94f781401aee7858be3b201d",
+      "resolved_sha256": "d7adf19d9c13ba9c0c54b3d35046fa67abadc2ca94f781401aee7858be3b201d"
+    },
+    {
+      "path": "backend/online/test_business_accounting_openings_pg.py",
+      "sha256": "6672d442efd87fa09c72bdd5d323ac096f4fae41c2fc8024816f1e28e4b93ca5",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "41751b9c58150338bf7e962279ae33b3cb286fbc22f8e0c04e87e29b1630b068",
+      "current_sha256": "41751b9c58150338bf7e962279ae33b3cb286fbc22f8e0c04e87e29b1630b068",
+      "candidate_sha256": "6672d442efd87fa09c72bdd5d323ac096f4fae41c2fc8024816f1e28e4b93ca5",
+      "resolved_sha256": "6672d442efd87fa09c72bdd5d323ac096f4fae41c2fc8024816f1e28e4b93ca5"
+    },
+    {
+      "path": "backend/online/test_business_bank_reconciliation_pg.py",
+      "sha256": "d0db65d5406a32f9c2ecf750ca0138c01c13f0aee2df32a43578eede8742e9d2",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "990658ae1770d74d6d77eb22150d108468be68b8d36ef8e7476b0426535e087a",
+      "current_sha256": "990658ae1770d74d6d77eb22150d108468be68b8d36ef8e7476b0426535e087a",
+      "candidate_sha256": "d0db65d5406a32f9c2ecf750ca0138c01c13f0aee2df32a43578eede8742e9d2",
+      "resolved_sha256": "d0db65d5406a32f9c2ecf750ca0138c01c13f0aee2df32a43578eede8742e9d2"
+    },
+    {
+      "path": "backend/online/test_business_catalog_opening_restore_pg.py",
+      "sha256": "1a6240d0182c6cc94cdec4157a57c7b2e3ad7755376ef8b3797f6c53cf374147",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "dbec948b8f1bd1f972a24a89aa23630ba0a00c62036e40a599ad3cad8c5b536c",
+      "current_sha256": "dbec948b8f1bd1f972a24a89aa23630ba0a00c62036e40a599ad3cad8c5b536c",
+      "candidate_sha256": "1a6240d0182c6cc94cdec4157a57c7b2e3ad7755376ef8b3797f6c53cf374147",
+      "resolved_sha256": "1a6240d0182c6cc94cdec4157a57c7b2e3ad7755376ef8b3797f6c53cf374147"
+    },
+    {
+      "path": "backend/online/test_business_payroll_cash_pg.py",
+      "sha256": "fd3c5490b73181141c602f701558abbd3d06b8cd1b8ac70c2649224ecff20926",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "fd7777984371f5810fc8a5e27a00b773f3afd0c1c1da5de1d593d2883a22e3c5",
+      "current_sha256": "fd7777984371f5810fc8a5e27a00b773f3afd0c1c1da5de1d593d2883a22e3c5",
+      "candidate_sha256": "fd3c5490b73181141c602f701558abbd3d06b8cd1b8ac70c2649224ecff20926",
+      "resolved_sha256": "fd3c5490b73181141c602f701558abbd3d06b8cd1b8ac70c2649224ecff20926"
+    },
+    {
+      "path": "backend/online/test_business_travel_pg.py",
+      "sha256": "e1206a87d77503ba8c69e2006e7d3e6e26be64d5d69450a455f3655f9f0ead41",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "2fb95f2a24cd2ecc5f8e1225d9fe9df6b9573f334645c1c638ddab5e55b90580",
+      "current_sha256": "2fb95f2a24cd2ecc5f8e1225d9fe9df6b9573f334645c1c638ddab5e55b90580",
+      "candidate_sha256": "e1206a87d77503ba8c69e2006e7d3e6e26be64d5d69450a455f3655f9f0ead41",
+      "resolved_sha256": "e1206a87d77503ba8c69e2006e7d3e6e26be64d5d69450a455f3655f9f0ead41"
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_allocations_integration.py",
+      "sha256": "795f23ce56c44d3723105fd5ccac5344c7408f4413c506bfd29d38393e425d14",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "cdc9004d6a590348a7c95884529f0a5b18eeff32de4ee108425ab17fb5c76804",
+      "current_sha256": "cdc9004d6a590348a7c95884529f0a5b18eeff32de4ee108425ab17fb5c76804",
+      "candidate_sha256": "795f23ce56c44d3723105fd5ccac5344c7408f4413c506bfd29d38393e425d14",
+      "resolved_sha256": "795f23ce56c44d3723105fd5ccac5344c7408f4413c506bfd29d38393e425d14"
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_capacity_integration.py",
+      "sha256": "991f21d9368e3112432c1ce200f6dc24df71d5d6864c6136c3cab4f08471e6ba",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "21563a870dc3221729925bdb721f42f4ec3d13d66885f759e2e8470eedeb83ea",
+      "current_sha256": "21563a870dc3221729925bdb721f42f4ec3d13d66885f759e2e8470eedeb83ea",
+      "candidate_sha256": "991f21d9368e3112432c1ce200f6dc24df71d5d6864c6136c3cab4f08471e6ba",
+      "resolved_sha256": "991f21d9368e3112432c1ce200f6dc24df71d5d6864c6136c3cab4f08471e6ba"
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_components_integration.py",
+      "sha256": "5ec2ba1fbf3c32ab91b33ffbdef1d013ecd886be3c435e79ab5adb6dc414ced8",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "ea1413f8a7ec34949e3c7cdadbb45e58ba998e61457e6d06629898800a3e2d00",
+      "current_sha256": "ea1413f8a7ec34949e3c7cdadbb45e58ba998e61457e6d06629898800a3e2d00",
+      "candidate_sha256": "5ec2ba1fbf3c32ab91b33ffbdef1d013ecd886be3c435e79ab5adb6dc414ced8",
+      "resolved_sha256": "5ec2ba1fbf3c32ab91b33ffbdef1d013ecd886be3c435e79ab5adb6dc414ced8"
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_integration.py",
+      "sha256": "907e1dfa6846fec828b9a04da7b1472ba01bfb69853e81f803ad7662266e580a",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "039ea76e4e148f27048340630cf4262902c4a9a58c0a69a2bc49458f33580f10",
+      "current_sha256": "039ea76e4e148f27048340630cf4262902c4a9a58c0a69a2bc49458f33580f10",
+      "candidate_sha256": "907e1dfa6846fec828b9a04da7b1472ba01bfb69853e81f803ad7662266e580a",
+      "resolved_sha256": "907e1dfa6846fec828b9a04da7b1472ba01bfb69853e81f803ad7662266e580a"
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_profile_integration.py",
+      "sha256": "9cfc24dc5d5c8b7b4243b4c6964ffe72ce42d1531eb9e75294f0a36e1864bfca",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "8c4959fcef5c23899897fe99c46e9fbd7bfac71451de705becf31d17716eb6aa",
+      "current_sha256": "8c4959fcef5c23899897fe99c46e9fbd7bfac71451de705becf31d17716eb6aa",
+      "candidate_sha256": "9cfc24dc5d5c8b7b4243b4c6964ffe72ce42d1531eb9e75294f0a36e1864bfca",
+      "resolved_sha256": "9cfc24dc5d5c8b7b4243b4c6964ffe72ce42d1531eb9e75294f0a36e1864bfca"
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_refunds_integration.py",
+      "sha256": "2dbea12f06f33ecd8dd5f9932e09cfd5f99af0dd71dd1be973b86604a4d5b4a9",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "6557ecbdfbb8e1ca1237d8aed52995abd7d8cf08ed23163c5e4fb67543cdf16d",
+      "current_sha256": "6557ecbdfbb8e1ca1237d8aed52995abd7d8cf08ed23163c5e4fb67543cdf16d",
+      "candidate_sha256": "2dbea12f06f33ecd8dd5f9932e09cfd5f99af0dd71dd1be973b86604a4d5b4a9",
+      "resolved_sha256": "2dbea12f06f33ecd8dd5f9932e09cfd5f99af0dd71dd1be973b86604a4d5b4a9"
+    },
+    {
+      "path": "backend/online/test_postgres_accounting_refunds_v2_integration.py",
+      "sha256": "da0de48bafa942b15b1703d5e66a6d655a08a8ffa75aabf59e2dd675542fcf74",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "585720a980883a4bcc0f4adcd6add8034b44f3487e7babdd5a13501e53feef68",
+      "current_sha256": "585720a980883a4bcc0f4adcd6add8034b44f3487e7babdd5a13501e53feef68",
+      "candidate_sha256": "da0de48bafa942b15b1703d5e66a6d655a08a8ffa75aabf59e2dd675542fcf74",
+      "resolved_sha256": "da0de48bafa942b15b1703d5e66a6d655a08a8ffa75aabf59e2dd675542fcf74"
+    },
+    {
+      "path": "backend/online/web.py",
+      "sha256": "94c6a864de459aebe38744e68e49384e64fbea839fdf29e9e1b316d7f57988f0",
+      "origin": "verified transport patch and two static scripts",
+      "kind": "conflict",
+      "base_sha256": "36e24061272ca1f4105ee9089ed6442d0c53be2efec4874f27ee64f1631bd874",
+      "current_sha256": "4d01893f39483e8c44ceaeac8082bb54021e991d4ccc8777e1786f734ab6101f",
+      "candidate_sha256": "cf147fbd1a24543361bb2ea3ef8d4027275852a01cac94ebf813beb4aa746e03",
+      "resolved_sha256": "61811b2c672f2f173e124ba51228171c0b5eda0212ae5f415996c876c01133a9"
+    },
+    {
+      "path": "backend/server.py",
+      "sha256": "d00620343aa8266d9a360fe5b3dffb205e5e2b71208153da0aea4256e40b8ece",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "conflict",
+      "base_sha256": "70ca8782c65cca6b9966460263603912a7796d7eab7c63bd1910dbcd6f3eac9b",
+      "current_sha256": "ccd133614e20c8249718f5f5444434d304e54e9a0d00ba4832fe8babd4966a71",
+      "candidate_sha256": "bed0918a48c8b5e441c77ded16fe6cf435d8a313406d37f2e4ec652a6cf046c6",
+      "resolved_sha256": "6aced07895f002fb8682d473c966ac235fae99f6c859bddfa671acdc0861cefb"
+    },
+    {
+      "path": "backend/test_accounting_asset_openings_registration.py",
+      "sha256": "9896b44c05347a3ce8c372c6ce8dba001f50292af19eb10d2ff498c171a3dd22",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "68fbc40fddbc72902fc5967119204943883faafedf6828ada520d8fe3740edff",
+      "current_sha256": "68fbc40fddbc72902fc5967119204943883faafedf6828ada520d8fe3740edff",
+      "candidate_sha256": "9896b44c05347a3ce8c372c6ce8dba001f50292af19eb10d2ff498c171a3dd22",
+      "resolved_sha256": "9896b44c05347a3ce8c372c6ce8dba001f50292af19eb10d2ff498c171a3dd22"
+    },
+    {
+      "path": "backend/test_accounting_open_items_boundaries.py",
+      "sha256": "6448580ed60e52657eb58d642e74d6648df5b68329ecbe227d01c7a28b445bc5",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "6448580ed60e52657eb58d642e74d6648df5b68329ecbe227d01c7a28b445bc5",
+      "resolved_sha256": "6448580ed60e52657eb58d642e74d6648df5b68329ecbe227d01c7a28b445bc5"
+    },
+    {
+      "path": "backend/test_accounting_open_items_independent_review.py",
+      "sha256": "97472175253fbafc46604ec35f3683e70cd3056c1e7e282cc9c44514a69faf66",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "97472175253fbafc46604ec35f3683e70cd3056c1e7e282cc9c44514a69faf66",
+      "resolved_sha256": "97472175253fbafc46604ec35f3683e70cd3056c1e7e282cc9c44514a69faf66"
+    },
+    {
+      "path": "backend/test_accounting_open_items_registration.py",
+      "sha256": "2c733647baec9f21e28281c65831b17a01a7ff53b8e4d7032d9f4e7f7ef169a0",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "2c733647baec9f21e28281c65831b17a01a7ff53b8e4d7032d9f4e7f7ef169a0",
+      "resolved_sha256": "2c733647baec9f21e28281c65831b17a01a7ff53b8e4d7032d9f4e7f7ef169a0"
+    },
+    {
+      "path": "backend/test_accounting_open_items_transport.py",
+      "sha256": "82cce9b816cf1bcf438eb83dc528c8b089357aca63cd0d84ba3e7bf5e92dca3c",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "82cce9b816cf1bcf438eb83dc528c8b089357aca63cd0d84ba3e7bf5e92dca3c",
+      "resolved_sha256": "82cce9b816cf1bcf438eb83dc528c8b089357aca63cd0d84ba3e7bf5e92dca3c"
+    },
+    {
+      "path": "backend/test_accounting_opening_items_inventory.py",
+      "sha256": "3b544ca7b2c6e02beb4d5579391cc00ea7c8e4dd6d63c9a7c2496985abc5e969",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "3b544ca7b2c6e02beb4d5579391cc00ea7c8e4dd6d63c9a7c2496985abc5e969",
+      "resolved_sha256": "3b544ca7b2c6e02beb4d5579391cc00ea7c8e4dd6d63c9a7c2496985abc5e969"
+    },
+    {
+      "path": "backend/test_accounting_openings_registration.py",
+      "sha256": "1dce77713fe051dcc47d4eca8e086e833cb18da32b4a4f175697363eac4b6319",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "cf176634b9a797a49ff75b58f8f1d3fb3dc020e6a8224d5f9ec1e075b7bfabd5",
+      "current_sha256": "cf176634b9a797a49ff75b58f8f1d3fb3dc020e6a8224d5f9ec1e075b7bfabd5",
+      "candidate_sha256": "1dce77713fe051dcc47d4eca8e086e833cb18da32b4a4f175697363eac4b6319",
+      "resolved_sha256": "1dce77713fe051dcc47d4eca8e086e833cb18da32b4a4f175697363eac4b6319"
+    },
+    {
+      "path": "backend/test_business_accounting.py",
+      "sha256": "39549f0833c1a0fe57de84c761e7841ba3edea79bf247a8580be100efd67671c",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "2ae1367893b71eea74b4d7a4eef5241b9b6f37edeaeb1708fae355d61d90b050",
+      "current_sha256": "2ae1367893b71eea74b4d7a4eef5241b9b6f37edeaeb1708fae355d61d90b050",
+      "candidate_sha256": "39549f0833c1a0fe57de84c761e7841ba3edea79bf247a8580be100efd67671c",
+      "resolved_sha256": "39549f0833c1a0fe57de84c761e7841ba3edea79bf247a8580be100efd67671c"
+    },
+    {
+      "path": "backend/test_business_accounting_allocations.py",
+      "sha256": "564887d9cf1495e5828d30e171a6b9ad80616d5b092c656c165bfe734feaecbe",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "591464e51c39c29b60909608c85058647c161aa26a0f7a649977fc17bd46308a",
+      "current_sha256": "591464e51c39c29b60909608c85058647c161aa26a0f7a649977fc17bd46308a",
+      "candidate_sha256": "564887d9cf1495e5828d30e171a6b9ad80616d5b092c656c165bfe734feaecbe",
+      "resolved_sha256": "564887d9cf1495e5828d30e171a6b9ad80616d5b092c656c165bfe734feaecbe"
+    },
+    {
+      "path": "backend/test_business_accounting_open_items.py",
+      "sha256": "3a490c351c96907cdc329a2462496f4a38996633572aca93360bca071a3aef95",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "3a490c351c96907cdc329a2462496f4a38996633572aca93360bca071a3aef95",
+      "resolved_sha256": "3a490c351c96907cdc329a2462496f4a38996633572aca93360bca071a3aef95"
+    },
+    {
+      "path": "backend/test_business_accounting_refunds_v2.py",
+      "sha256": "45cbbc320a22d02332c1ccf354f940a799685e153db6bbc9e74ee493b1a8fe6d",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "28d0e7c7d61292e6e49b1fd6aeb4b7ff1808f284f4329427b088c1d401061ccc",
+      "current_sha256": "28d0e7c7d61292e6e49b1fd6aeb4b7ff1808f284f4329427b088c1d401061ccc",
+      "candidate_sha256": "45cbbc320a22d02332c1ccf354f940a799685e153db6bbc9e74ee493b1a8fe6d",
+      "resolved_sha256": "45cbbc320a22d02332c1ccf354f940a799685e153db6bbc9e74ee493b1a8fe6d"
+    },
+    {
+      "path": "backend/test_business_bank_euer_review.py",
+      "sha256": "f5534a31a46c929c34530ad502b0b59ac83c14f71ab718cb149a26c766fa47eb",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "092b726d7bf325ff6c570cca51b48aeb823f4a98d7d69b028551c22554cd5792",
+      "current_sha256": "092b726d7bf325ff6c570cca51b48aeb823f4a98d7d69b028551c22554cd5792",
+      "candidate_sha256": "f5534a31a46c929c34530ad502b0b59ac83c14f71ab718cb149a26c766fa47eb",
+      "resolved_sha256": "f5534a31a46c929c34530ad502b0b59ac83c14f71ab718cb149a26c766fa47eb"
+    },
+    {
+      "path": "backend/test_business_payroll_cash.py",
+      "sha256": "76fc76a8bd4599be490039d70f3ab94d33f50cf2ed7e94014d12bf2f92d74386",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "b01083281052b3bd4360704a294b2fab683c2ddae0ea4d05dfd3df450a834a39",
+      "current_sha256": "b01083281052b3bd4360704a294b2fab683c2ddae0ea4d05dfd3df450a834a39",
+      "candidate_sha256": "76fc76a8bd4599be490039d70f3ab94d33f50cf2ed7e94014d12bf2f92d74386",
+      "resolved_sha256": "76fc76a8bd4599be490039d70f3ab94d33f50cf2ed7e94014d12bf2f92d74386"
+    },
+    {
+      "path": "backend/test_business_travel_finance.py",
+      "sha256": "696553ee3b4187ee6057f9831025982bb6b15259229df6fb1c556651513c1948",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "clean replace",
+      "base_sha256": "923cbc4453b671dfc5cf2e501186002b88ca9738d0abeb829d8c22ac93a23c2b",
+      "current_sha256": "923cbc4453b671dfc5cf2e501186002b88ca9738d0abeb829d8c22ac93a23c2b",
+      "candidate_sha256": "696553ee3b4187ee6057f9831025982bb6b15259229df6fb1c556651513c1948",
+      "resolved_sha256": "696553ee3b4187ee6057f9831025982bb6b15259229df6fb1c556651513c1948"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_API.md",
+      "sha256": "2083cc410c15e076f4cf66617d3bd2cdf12df18c89d72a032961634e0c8c036a",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "2083cc410c15e076f4cf66617d3bd2cdf12df18c89d72a032961634e0c8c036a",
+      "resolved_sha256": "2083cc410c15e076f4cf66617d3bd2cdf12df18c89d72a032961634e0c8c036a"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_BACKEND_FORTSCHRITT_2026-11-04.md",
+      "sha256": "d1512a991f41a460df606405611131093b28c874ba535cf19875e0933e9eddc6",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "d1512a991f41a460df606405611131093b28c874ba535cf19875e0933e9eddc6",
+      "resolved_sha256": "d1512a991f41a460df606405611131093b28c874ba535cf19875e0933e9eddc6"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_BROWSER_2026-11-04.md",
+      "sha256": "58d7bea038f179fabba38c46740f874cd2d540c082f09a04a534bd80dc21235c",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "58d7bea038f179fabba38c46740f874cd2d540c082f09a04a534bd80dc21235c",
+      "resolved_sha256": "58d7bea038f179fabba38c46740f874cd2d540c082f09a04a534bd80dc21235c"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_BROWSER_GEGENPRUEFUNG_2026-11-04.md",
+      "sha256": "d39553503486d175430dad3b18c7a778cfcee25edad61549019d797611940350",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "d39553503486d175430dad3b18c7a778cfcee25edad61549019d797611940350",
+      "resolved_sha256": "d39553503486d175430dad3b18c7a778cfcee25edad61549019d797611940350"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_NATIVE_2026-11-04.md",
+      "sha256": "0c9382d21dddb1af1f09b5bcd9d275635df97d96d5012fd6f00b876e7926e998",
+      "origin": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "0c9382d21dddb1af1f09b5bcd9d275635df97d96d5012fd6f00b876e7926e998",
+      "resolved_sha256": "0c9382d21dddb1af1f09b5bcd9d275635df97d96d5012fd6f00b876e7926e998"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_NATIVE_REVIEWNACHTRAG_2026-11-04.md",
+      "sha256": "f10d658951ab05b1d401667d7d1cde5259201faf6c8145e62927603d8d4309de",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "f10d658951ab05b1d401667d7d1cde5259201faf6c8145e62927603d8d4309de",
+      "resolved_sha256": "f10d658951ab05b1d401667d7d1cde5259201faf6c8145e62927603d8d4309de"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_QUELLEN_GEGENPRUEFUNG_2026-11-04.md",
+      "sha256": "d768ba2d6d2bbfc0853467dc0ef74bf72c06917203b621eb49c9b0ae4642e95f",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "d768ba2d6d2bbfc0853467dc0ef74bf72c06917203b621eb49c9b0ae4642e95f",
+      "resolved_sha256": "d768ba2d6d2bbfc0853467dc0ef74bf72c06917203b621eb49c9b0ae4642e95f"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_UNABHAENGIGE_PRODUKTPRUEFUNG_2026-11-04.md",
+      "sha256": "24818f62fdd89889e16f9fe98a2fb36233cfcaa2323bfbdbbe629f39f4e7e10f",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "24818f62fdd89889e16f9fe98a2fb36233cfcaa2323bfbdbbe629f39f4e7e10f",
+      "resolved_sha256": "24818f62fdd89889e16f9fe98a2fb36233cfcaa2323bfbdbbe629f39f4e7e10f"
+    },
+    {
+      "path": "docs/CRM_ERP_EUER_BESTAND_BROWSER_GEGENPRUEFUNG_2026-11-04.md",
+      "sha256": "4a415fdb16159b1055c2570382c4d81ab390cf5eab71cbbb6558ba98b333c9a8",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "4a415fdb16159b1055c2570382c4d81ab390cf5eab71cbbb6558ba98b333c9a8",
+      "resolved_sha256": "4a415fdb16159b1055c2570382c4d81ab390cf5eab71cbbb6558ba98b333c9a8"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/calculate_expected.py",
+      "sha256": "5615e9bcaa116c9a118fba66f981a7197f21051735b2d4ed3e057a33fe5d29f6",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5615e9bcaa116c9a118fba66f981a7197f21051735b2d4ed3e057a33fe5d29f6",
+      "resolved_sha256": "5615e9bcaa116c9a118fba66f981a7197f21051735b2d4ed3e057a33fe5d29f6"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/expected-cases.json",
+      "sha256": "5faaaad6a55ab6f7bb79d0bc199eab328f15d2c266b5a40b3c78a5b2e7361514",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5faaaad6a55ab6f7bb79d0bc199eab328f15d2c266b5a40b3c78a5b2e7361514",
+      "resolved_sha256": "5faaaad6a55ab6f7bb79d0bc199eab328f15d2c266b5a40b3c78a5b2e7361514"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/manifest.json",
+      "sha256": "db3869f2c6d042aa863ce8ded5202890b0ed91bc4478380b4cbd7253987f629d",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "db3869f2c6d042aa863ce8ded5202890b0ed91bc4478380b4cbd7253987f629d",
+      "resolved_sha256": "db3869f2c6d042aa863ce8ded5202890b0ed91bc4478380b4cbd7253987f629d"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/retrieval.json",
+      "sha256": "3da7b7485b85a4a805874ae3e9d0fada9b72e1d3552d5e64e0a4e025a7bcecf0",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "3da7b7485b85a4a805874ae3e9d0fada9b72e1d3552d5e64e0a4e025a7bcecf0",
+      "resolved_sha256": "3da7b7485b85a4a805874ae3e9d0fada9b72e1d3552d5e64e0a4e025a7bcecf0"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/sources.json",
+      "sha256": "c173f8b4a58617d92edbd239b31e46e1d93de1b28527f5252d10c155ed085fc6",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "c173f8b4a58617d92edbd239b31e46e1d93de1b28527f5252d10c155ed085fc6",
+      "resolved_sha256": "c173f8b4a58617d92edbd239b31e46e1d93de1b28527f5252d10c155ed085fc6"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/verification.txt",
+      "sha256": "f7fc2c53cfc4aa6ee6c7a2273663cc64f01917886c1f80acae83a0c8ca3f9651",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "f7fc2c53cfc4aa6ee6c7a2273663cc64f01917886c1f80acae83a0c8ca3f9651",
+      "resolved_sha256": "f7fc2c53cfc4aa6ee6c7a2273663cc64f01917886c1f80acae83a0c8ca3f9651"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/before-hashes.json",
+      "sha256": "7c29e1ffce894fcc3fb47162c951778ff50f8c0902dd4aa59e76e7a2a02ad89f",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "7c29e1ffce894fcc3fb47162c951778ff50f8c0902dd4aa59e76e7a2a02ad89f",
+      "resolved_sha256": "7c29e1ffce894fcc3fb47162c951778ff50f8c0902dd4aa59e76e7a2a02ad89f"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/before.txt",
+      "sha256": "92d376934ec3d55641243f3fabb75e9baa8f5740b1a771522853dc051146acf0",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "92d376934ec3d55641243f3fabb75e9baa8f5740b1a771522853dc051146acf0",
+      "resolved_sha256": "92d376934ec3d55641243f3fabb75e9baa8f5740b1a771522853dc051146acf0"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/final.txt",
+      "sha256": "076cf309236634d0cde7cd5ff046ebd934c9a29f16582ab4c619d8f943070547",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "076cf309236634d0cde7cd5ff046ebd934c9a29f16582ab4c619d8f943070547",
+      "resolved_sha256": "076cf309236634d0cde7cd5ff046ebd934c9a29f16582ab4c619d8f943070547"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/followups-final.txt",
+      "sha256": "40dae07d934115c3d46a421d80490a4b281b64da4755009f689123556b3a56a8",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "40dae07d934115c3d46a421d80490a4b281b64da4755009f689123556b3a56a8",
+      "resolved_sha256": "40dae07d934115c3d46a421d80490a4b281b64da4755009f689123556b3a56a8"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "sha256": "bce5642491b304a538af423dcd9d41e632f0204f473279bfa8c675ebb1fef163",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "bce5642491b304a538af423dcd9d41e632f0204f473279bfa8c675ebb1fef163",
+      "resolved_sha256": "bce5642491b304a538af423dcd9d41e632f0204f473279bfa8c675ebb1fef163"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/backend.patch",
+      "sha256": "4ace4c324173e67abdb880e8f947079a2b603cc00aa3950a92daa05d6b5cb776",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "4ace4c324173e67abdb880e8f947079a2b603cc00aa3950a92daa05d6b5cb776",
+      "resolved_sha256": "4ace4c324173e67abdb880e8f947079a2b603cc00aa3950a92daa05d6b5cb776"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-bank-2026-11-04.log",
+      "sha256": "8fd31176403f48b36e3d16b6c6ed79355ae48c9967b63eaf247797ea3f3d5b8d",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "8fd31176403f48b36e3d16b6c6ed79355ae48c9967b63eaf247797ea3f3d5b8d",
+      "resolved_sha256": "8fd31176403f48b36e3d16b6c6ed79355ae48c9967b63eaf247797ea3f3d5b8d"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-boundaries-2026-11-04.log",
+      "sha256": "5112b43ce35af752ea53758eece9a64387955b38c706595b8b47440d8ed87f2e",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5112b43ce35af752ea53758eece9a64387955b38c706595b8b47440d8ed87f2e",
+      "resolved_sha256": "5112b43ce35af752ea53758eece9a64387955b38c706595b8b47440d8ed87f2e"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-combined-2026-11-04.log",
+      "sha256": "51e2434e7a6843272d2f5c1e947845db9cd4c14bb66b8931c188a25e49a7d29a",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "51e2434e7a6843272d2f5c1e947845db9cd4c14bb66b8931c188a25e49a7d29a",
+      "resolved_sha256": "51e2434e7a6843272d2f5c1e947845db9cd4c14bb66b8931c188a25e49a7d29a"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-current-scope-final-2026-11-04.log",
+      "sha256": "e289aa27bd2348b990565055dbe96678a6caa4861588ae47d5102006174eba87",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "e289aa27bd2348b990565055dbe96678a6caa4861588ae47d5102006174eba87",
+      "resolved_sha256": "e289aa27bd2348b990565055dbe96678a6caa4861588ae47d5102006174eba87"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-current-scope-regression-2026-11-04.log",
+      "sha256": "75185b7dd0ded6912c109ee4a244499d3dce0d6dddd832a45cbc25d7788d57d3",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "75185b7dd0ded6912c109ee4a244499d3dce0d6dddd832a45cbc25d7788d57d3",
+      "resolved_sha256": "75185b7dd0ded6912c109ee4a244499d3dce0d6dddd832a45cbc25d7788d57d3"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-domain-final-2026-11-04.log",
+      "sha256": "0e51ec0826e8cb54df6bb27e224f87ae7f41b85268a81ee1c6f723fe553d050a",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "0e51ec0826e8cb54df6bb27e224f87ae7f41b85268a81ee1c6f723fe553d050a",
+      "resolved_sha256": "0e51ec0826e8cb54df6bb27e224f87ae7f41b85268a81ee1c6f723fe553d050a"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-final-frozen-2026-11-04.log",
+      "sha256": "a55300ddfff65c67f0814c98a60fc5f3f16c125be540b048fb81b04240ece10d",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "a55300ddfff65c67f0814c98a60fc5f3f16c125be540b048fb81b04240ece10d",
+      "resolved_sha256": "a55300ddfff65c67f0814c98a60fc5f3f16c125be540b048fb81b04240ece10d"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-first-2026-11-04.log",
+      "sha256": "c891fce260d9482fab02ca93c99ada0c2e58775b9ca1bad188cc64650f2d5269",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "c891fce260d9482fab02ca93c99ada0c2e58775b9ca1bad188cc64650f2d5269",
+      "resolved_sha256": "c891fce260d9482fab02ca93c99ada0c2e58775b9ca1bad188cc64650f2d5269"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-fixture-final-2026-11-04.log",
+      "sha256": "7bbb3b1c5203691298111d96e364b309601e7a12b7b7e2b13f97929528f542cf",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "7bbb3b1c5203691298111d96e364b309601e7a12b7b7e2b13f97929528f542cf",
+      "resolved_sha256": "7bbb3b1c5203691298111d96e364b309601e7a12b7b7e2b13f97929528f542cf"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-historical-h6-final-2026-11-04.log",
+      "sha256": "0752183f009a8f0abefbb613a522f7b5a88d94100c9830c889c93cde8bc3cb49",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "0752183f009a8f0abefbb613a522f7b5a88d94100c9830c889c93cde8bc3cb49",
+      "resolved_sha256": "0752183f009a8f0abefbb613a522f7b5a88d94100c9830c889c93cde8bc3cb49"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-http-2026-11-04.log",
+      "sha256": "e6fcddf08c2d86f9475e6705494716ce7feffa8ad5d0a7ece779b2547c55c5a0",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "e6fcddf08c2d86f9475e6705494716ce7feffa8ad5d0a7ece779b2547c55c5a0",
+      "resolved_sha256": "e6fcddf08c2d86f9475e6705494716ce7feffa8ad5d0a7ece779b2547c55c5a0"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-inventory-2026-11-04.log",
+      "sha256": "45926ccf40435ab18706a782897b78c2d3e76b541fa3b5e46dce3536cb028fa2",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "45926ccf40435ab18706a782897b78c2d3e76b541fa3b5e46dce3536cb028fa2",
+      "resolved_sha256": "45926ccf40435ab18706a782897b78c2d3e76b541fa3b5e46dce3536cb028fa2"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-postgres-2026-11-04.log",
+      "sha256": "aa00eefb6e32a6aa587f6aa6fd28a89b49f1a3982680aaa398afd9550f07f12a",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "aa00eefb6e32a6aa587f6aa6fd28a89b49f1a3982680aaa398afd9550f07f12a",
+      "resolved_sha256": "aa00eefb6e32a6aa587f6aa6fd28a89b49f1a3982680aaa398afd9550f07f12a"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-postgres-final-2026-11-04.log",
+      "sha256": "e490e3f666d6829df2414990c6cf92d1534f5139b653ead4578e2e19dd957dab",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "e490e3f666d6829df2414990c6cf92d1534f5139b653ead4578e2e19dd957dab",
+      "resolved_sha256": "e490e3f666d6829df2414990c6cf92d1534f5139b653ead4578e2e19dd957dab"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-registered-2026-11-04.log",
+      "sha256": "70f9c85c49a12803f468e156dcb2605113331f5c2ac955a20d633d18bea85933",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "70f9c85c49a12803f468e156dcb2605113331f5c2ac955a20d633d18bea85933",
+      "resolved_sha256": "70f9c85c49a12803f468e156dcb2605113331f5c2ac955a20d633d18bea85933"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-second-2026-11-04.log",
+      "sha256": "22240b2dd5e5ea62aed70b1834762ef7fb8f9d94fdd8571c657fd2aff9aee1c2",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "22240b2dd5e5ea62aed70b1834762ef7fb8f9d94fdd8571c657fd2aff9aee1c2",
+      "resolved_sha256": "22240b2dd5e5ea62aed70b1834762ef7fb8f9d94fdd8571c657fd2aff9aee1c2"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-third-2026-11-04.log",
+      "sha256": "2369a729c8b05c335216a2d6a48dc78199d0424b31e45013f497e59f0abea6c9",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "2369a729c8b05c335216a2d6a48dc78199d0424b31e45013f497e59f0abea6c9",
+      "resolved_sha256": "2369a729c8b05c335216a2d6a48dc78199d0424b31e45013f497e59f0abea6c9"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/logs/opening-items-ui-fixture-2026-11-04.log",
+      "sha256": "588359b35e94d65b09673d0ecd5fd4d1b0fea3171e60765b0d69c8753429b1ef",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "588359b35e94d65b09673d0ecd5fd4d1b0fea3171e60765b0d69c8753429b1ef",
+      "resolved_sha256": "588359b35e94d65b09673d0ecd5fd4d1b0fea3171e60765b0d69c8753429b1ef"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "sha256": "4fc7db209ebf5ce98799400d330182692f88ffdb5c9b9e1e924649385c6f3a88",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "4fc7db209ebf5ce98799400d330182692f88ffdb5c9b9e1e924649385c6f3a88",
+      "resolved_sha256": "4fc7db209ebf5ce98799400d330182692f88ffdb5c9b9e1e924649385c6f3a88"
+    },
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/transport-shared.patch",
+      "sha256": "811af7f87f3f404a808504b21f589ef78e462fa2774318250531afc4d700c82f",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "811af7f87f3f404a808504b21f589ef78e462fa2774318250531afc4d700c82f",
+      "resolved_sha256": "811af7f87f3f404a808504b21f589ef78e462fa2774318250531afc4d700c82f"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "sha256": "49878a9c7042d8025537e04f17ef23598dcf073d91c5400e376cf7c19433707b",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "49878a9c7042d8025537e04f17ef23598dcf073d91c5400e376cf7c19433707b",
+      "resolved_sha256": "49878a9c7042d8025537e04f17ef23598dcf073d91c5400e376cf7c19433707b"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/README.md",
+      "sha256": "574df690e5523785db08b8d176331f9a55d46f2e0cc6c79f6624b5f35bea278c",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "574df690e5523785db08b8d176331f9a55d46f2e0cc6c79f6624b5f35bea278c",
+      "resolved_sha256": "574df690e5523785db08b8d176331f9a55d46f2e0cc6c79f6624b5f35bea278c"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-browser-final-2026-11-04/opening-items-mobile.png",
+      "sha256": "03d2cf166e2402874f2bde27a78b36f1dd234c78ac63b2948a3261114ee102f0",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "03d2cf166e2402874f2bde27a78b36f1dd234c78ac63b2948a3261114ee102f0",
+      "resolved_sha256": "03d2cf166e2402874f2bde27a78b36f1dd234c78ac63b2948a3261114ee102f0"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-browser-final-2026-11-04/opening-items-payment-history.png",
+      "sha256": "1479847808061faa42163607ff43b820e106d87633cf8d17f831afadff4625b1",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "1479847808061faa42163607ff43b820e106d87633cf8d17f831afadff4625b1",
+      "resolved_sha256": "1479847808061faa42163607ff43b820e106d87633cf8d17f831afadff4625b1"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-browser-final-2026-11-04/opening-items-synthetic-http.json",
+      "sha256": "a7067f02878e4266263dc8e9c75741582da096169c7474b62dc90e66916074da",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "a7067f02878e4266263dc8e9c75741582da096169c7474b62dc90e66916074da",
+      "resolved_sha256": "a7067f02878e4266263dc8e9c75741582da096169c7474b62dc90e66916074da"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-legacy-bank-final-2026-11-04/bank-report-desktop.png",
+      "sha256": "b98c6c48f24a6697df3e9f76fdb01265debf3328996cc68e08296dda8134f360",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "b98c6c48f24a6697df3e9f76fdb01265debf3328996cc68e08296dda8134f360",
+      "resolved_sha256": "b98c6c48f24a6697df3e9f76fdb01265debf3328996cc68e08296dda8134f360"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-legacy-bank-final-2026-11-04/bank-report-mobile.png",
+      "sha256": "8fe89a4913fc34ec8b44971c69b323ebe5319b4d54c753d2d0dd0ad32e66baba",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "8fe89a4913fc34ec8b44971c69b323ebe5319b4d54c753d2d0dd0ad32e66baba",
+      "resolved_sha256": "8fe89a4913fc34ec8b44971c69b323ebe5319b4d54c753d2d0dd0ad32e66baba"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/artifacts/opening-items-legacy-bank-final-2026-11-04/bank-synthetic-commands.json",
+      "sha256": "3cb759b8ec538f4799ced65785a51baf2d2e808a545a76b2d4f6c02b13183644",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "3cb759b8ec538f4799ced65785a51baf2d2e808a545a76b2d4f6c02b13183644",
+      "resolved_sha256": "3cb759b8ec538f4799ced65785a51baf2d2e808a545a76b2d4f6c02b13183644"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/accounting-open-items-adapters-first-2026-11-04.log",
+      "sha256": "1827190c7800a298c0295e414f936e224d12329399b38675ed2d3247b6e7e9c5",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "1827190c7800a298c0295e414f936e224d12329399b38675ed2d3247b6e7e9c5",
+      "resolved_sha256": "1827190c7800a298c0295e414f936e224d12329399b38675ed2d3247b6e7e9c5"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/accounting-open-items-contract-first-2026-11-04.log",
+      "sha256": "f175634bec5b90a494c800fdfa70e168534b93ce25ac3832ebd50090456ebbee",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "f175634bec5b90a494c800fdfa70e168534b93ce25ac3832ebd50090456ebbee",
+      "resolved_sha256": "f175634bec5b90a494c800fdfa70e168534b93ce25ac3832ebd50090456ebbee"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/accounting-open-items-focused-first-2026-11-04.log",
+      "sha256": "f1ab2298e4c286dabeb7cf44220e7f2511f6421325759fcb1aee06f531309ad6",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "f1ab2298e4c286dabeb7cf44220e7f2511f6421325759fcb1aee06f531309ad6",
+      "resolved_sha256": "f1ab2298e4c286dabeb7cf44220e7f2511f6421325759fcb1aee06f531309ad6"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-actual-preview-fixture-2026-11-04.log",
+      "sha256": "fc56df05144fa821fe05e63e018d530badc10a644d22352b1587ac4e1b6573e3",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "fc56df05144fa821fe05e63e018d530badc10a644d22352b1587ac4e1b6573e3",
+      "resolved_sha256": "fc56df05144fa821fe05e63e018d530badc10a644d22352b1587ac4e1b6573e3"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-bank-context-first-2026-11-04.log",
+      "sha256": "fbe970cbe3dde5f405cb1b4277776e00424e6914f67d95a2582c476b153a4586",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "fbe970cbe3dde5f405cb1b4277776e00424e6914f67d95a2582c476b153a4586",
+      "resolved_sha256": "fbe970cbe3dde5f405cb1b4277776e00424e6914f67d95a2582c476b153a4586"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-bank-context-second-2026-11-04.log",
+      "sha256": "cf5b1e1372f7c17c122fe13728b8fca7a154f0758993ffd362fba03ac3ee818e",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "cf5b1e1372f7c17c122fe13728b8fca7a154f0758993ffd362fba03ac3ee818e",
+      "resolved_sha256": "cf5b1e1372f7c17c122fe13728b8fca7a154f0758993ffd362fba03ac3ee818e"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-euer-context-2026-11-04.log",
+      "sha256": "1aa49ac31770b2d2f61635f4fb9897a103f60220e740aba9a56b42dc919d9f93",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "1aa49ac31770b2d2f61635f4fb9897a103f60220e740aba9a56b42dc919d9f93",
+      "resolved_sha256": "1aa49ac31770b2d2f61635f4fb9897a103f60220e740aba9a56b42dc919d9f93"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-euer-reviewed-2026-11-04.log",
+      "sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24",
+      "resolved_sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-euer-unicode-2026-11-04.log",
+      "sha256": "cf5b1e1372f7c17c122fe13728b8fca7a154f0758993ffd362fba03ac3ee818e",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "cf5b1e1372f7c17c122fe13728b8fca7a154f0758993ffd362fba03ac3ee818e",
+      "resolved_sha256": "cf5b1e1372f7c17c122fe13728b8fca7a154f0758993ffd362fba03ac3ee818e"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-final-2026-11-04.log",
+      "sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24",
+      "resolved_sha256": "52eac4c1aff49de6a303052ddd8404f986a3dcf2629f9e2cd575cb1f902e8e24"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-first-2026-11-04.log",
+      "sha256": "fa3be0b57426a3d8f6caa4de5c42336ab462e2d19e66f4a231ba07251104b7ff",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "fa3be0b57426a3d8f6caa4de5c42336ab462e2d19e66f4a231ba07251104b7ff",
+      "resolved_sha256": "fa3be0b57426a3d8f6caa4de5c42336ab462e2d19e66f4a231ba07251104b7ff"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-fourth-2026-11-04.log",
+      "sha256": "ebecf1398b58a2d4b48f648cbdea6a7876cf593cd120d68284e761562db43ea8",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "ebecf1398b58a2d4b48f648cbdea6a7876cf593cd120d68284e761562db43ea8",
+      "resolved_sha256": "ebecf1398b58a2d4b48f648cbdea6a7876cf593cd120d68284e761562db43ea8"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-second-2026-11-04.log",
+      "sha256": "01f85a4374a85aaff83ed281a03bb53ffd3f93b8352362e98214aa5ca386f0cc",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "01f85a4374a85aaff83ed281a03bb53ffd3f93b8352362e98214aa5ca386f0cc",
+      "resolved_sha256": "01f85a4374a85aaff83ed281a03bb53ffd3f93b8352362e98214aa5ca386f0cc"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-browser-third-2026-11-04.log",
+      "sha256": "b31c2cda0100f732bdaf82cf8481a562338680c3121d2c00acf4b7ae8491cfee",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "b31c2cda0100f732bdaf82cf8481a562338680c3121d2c00acf4b7ae8491cfee",
+      "resolved_sha256": "b31c2cda0100f732bdaf82cf8481a562338680c3121d2c00acf4b7ae8491cfee"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-auth-replay-fix-2026-11-04.log",
+      "sha256": "40036b7b988a8379e13b1ec307c17106a6b5ef2961143989c63b3f1256b0fa19",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "40036b7b988a8379e13b1ec307c17106a6b5ef2961143989c63b3f1256b0fa19",
+      "resolved_sha256": "40036b7b988a8379e13b1ec307c17106a6b5ef2961143989c63b3f1256b0fa19"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-fresh-rights-final-2026-11-04.log",
+      "sha256": "5dc8482e60a80f9df67ead1ffcc55a4062dd6e5583e2d376bc42e849979b40d2",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5dc8482e60a80f9df67ead1ffcc55a4062dd6e5583e2d376bc42e849979b40d2",
+      "resolved_sha256": "5dc8482e60a80f9df67ead1ffcc55a4062dd6e5583e2d376bc42e849979b40d2"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-lifecycle-fix-first-2026-11-04.log",
+      "sha256": "2211a6db2c62fe81e944b1539f897eaa28c9f9b67e7c96137c42e697c25414c4",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "2211a6db2c62fe81e944b1539f897eaa28c9f9b67e7c96137c42e697c25414c4",
+      "resolved_sha256": "2211a6db2c62fe81e944b1539f897eaa28c9f9b67e7c96137c42e697c25414c4"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-reviewed-current-2026-11-04.log",
+      "sha256": "ad692066b04f9664bfb0efeec17a79a2b1618da9b02cb74f6c136dd499a5dc10",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "ad692066b04f9664bfb0efeec17a79a2b1618da9b02cb74f6c136dd499a5dc10",
+      "resolved_sha256": "ad692066b04f9664bfb0efeec17a79a2b1618da9b02cb74f6c136dd499a5dc10"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-euer-source-proof-2026-11-04.log",
+      "sha256": "d6e6b69a06d3af4fb036f427d685bf46d4d902e5520d2a500dd4144c1122467a",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "d6e6b69a06d3af4fb036f427d685bf46d4d902e5520d2a500dd4144c1122467a",
+      "resolved_sha256": "d6e6b69a06d3af4fb036f427d685bf46d4d902e5520d2a500dd4144c1122467a"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-full-node-candidate-2026-11-04.log",
+      "sha256": "88a064120a3adccae95fc5c00005e9623afe8ff165a8c9c3eee94c8406725919",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "88a064120a3adccae95fc5c00005e9623afe8ff165a8c9c3eee94c8406725919",
+      "resolved_sha256": "88a064120a3adccae95fc5c00005e9623afe8ff165a8c9c3eee94c8406725919"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-legacy-bank-2026-11-04.log",
+      "sha256": "7f41713fd0b827235a638045e9b8fcbfae4fbe6832d16c4e0a48e23f9bcb071b",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "7f41713fd0b827235a638045e9b8fcbfae4fbe6832d16c4e0a48e23f9bcb071b",
+      "resolved_sha256": "7f41713fd0b827235a638045e9b8fcbfae4fbe6832d16c4e0a48e23f9bcb071b"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-legacy-bank-final-2026-11-04.log",
+      "sha256": "7f41713fd0b827235a638045e9b8fcbfae4fbe6832d16c4e0a48e23f9bcb071b",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "7f41713fd0b827235a638045e9b8fcbfae4fbe6832d16c4e0a48e23f9bcb071b",
+      "resolved_sha256": "7f41713fd0b827235a638045e9b8fcbfae4fbe6832d16c4e0a48e23f9bcb071b"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-legacy-euer-context-fixed-first-2026-11-04.log",
+      "sha256": "0784d1413518354aa23a9d217db6b11bf48f76fc1a8d82c4b320ceff63942fc9",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "0784d1413518354aa23a9d217db6b11bf48f76fc1a8d82c4b320ceff63942fc9",
+      "resolved_sha256": "0784d1413518354aa23a9d217db6b11bf48f76fc1a8d82c4b320ceff63942fc9"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-node-final-2026-11-04.log",
+      "sha256": "669ed591b0bbfcd697a06d7160c5118660122bef160e2359a6ef6872edf5a66a",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "669ed591b0bbfcd697a06d7160c5118660122bef160e2359a6ef6872edf5a66a",
+      "resolved_sha256": "669ed591b0bbfcd697a06d7160c5118660122bef160e2359a6ef6872edf5a66a"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/logs/opening-items-unicode-2026-11-04.log",
+      "sha256": "3cc334759a58c3f1c4cd9c940aaa0bd9716f5040ae0fd54ccb7abee5752545d4",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "3cc334759a58c3f1c4cd9c940aaa0bd9716f5040ae0fd54ccb7abee5752545d4",
+      "resolved_sha256": "3cc334759a58c3f1c4cd9c940aaa0bd9716f5040ae0fd54ccb7abee5752545d4"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/opening-items-before-legacy-review-2026-11-04.json",
+      "sha256": "8deb41b7ee0b8b0d2107d03c2df025e1dd68648a230cb5c46d50ba9b7aaacef7",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "8deb41b7ee0b8b0d2107d03c2df025e1dd68648a230cb5c46d50ba9b7aaacef7",
+      "resolved_sha256": "8deb41b7ee0b8b0d2107d03c2df025e1dd68648a230cb5c46d50ba9b7aaacef7"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/opening-items-browser-review-baseline.json",
+      "sha256": "9789826d124db80cc7b3c50a2f3122083319e60f3da2860893b38a35b5b183c6",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "9789826d124db80cc7b3c50a2f3122083319e60f3da2860893b38a35b5b183c6",
+      "resolved_sha256": "9789826d124db80cc7b3c50a2f3122083319e60f3da2860893b38a35b5b183c6"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04/shared-browser-hooks-from-assets.patch",
+      "sha256": "f3bcfed1be1a4fb3d0fe3ea1709840943973180de3f33c17f21e7ec55b873019",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "f3bcfed1be1a4fb3d0fe3ea1709840943973180de3f33c17f21e7ec55b873019",
+      "resolved_sha256": "f3bcfed1be1a4fb3d0fe3ea1709840943973180de3f33c17f21e7ec55b873019"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/bank-workflow.txt",
+      "sha256": "341967cf27effdbacbbe81f2782b5e14ad6800aeb8c52ceee114fb1fd2487ada",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "341967cf27effdbacbbe81f2782b5e14ad6800aeb8c52ceee114fb1fd2487ada",
+      "resolved_sha256": "341967cf27effdbacbbe81f2782b5e14ad6800aeb8c52ceee114fb1fd2487ada"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-authorization-replay-fix.txt",
+      "sha256": "e7168caa5348b1cc497f16a8f5a1cf7ba51b04c6ff23d436a5ec7379de3c76fd",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "e7168caa5348b1cc497f16a8f5a1cf7ba51b04c6ff23d436a5ec7379de3c76fd",
+      "resolved_sha256": "e7168caa5348b1cc497f16a8f5a1cf7ba51b04c6ff23d436a5ec7379de3c76fd"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-euer-context-fix.txt",
+      "sha256": "4660f593fce38a76bac42c13a4558bebb67f288526ab1a7f977609f4160de910",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "4660f593fce38a76bac42c13a4558bebb67f288526ab1a7f977609f4160de910",
+      "resolved_sha256": "4660f593fce38a76bac42c13a4558bebb67f288526ab1a7f977609f4160de910"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-fresh-read-fix.txt",
+      "sha256": "513fc17906e4a002f89bb713922d547abb4b1c7d79d2379b4d91331e599a65d6",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "513fc17906e4a002f89bb713922d547abb4b1c7d79d2379b4d91331e599a65d6",
+      "resolved_sha256": "513fc17906e4a002f89bb713922d547abb4b1c7d79d2379b4d91331e599a65d6"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-initial-preview-confirm-fix.txt",
+      "sha256": "61d0784ddb38a9770302d7f80d703efd6400bac7585d2da9ab0fd9fd630c5526",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "61d0784ddb38a9770302d7f80d703efd6400bac7585d2da9ab0fd9fd630c5526",
+      "resolved_sha256": "61d0784ddb38a9770302d7f80d703efd6400bac7585d2da9ab0fd9fd630c5526"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/before-runtime-hashes.json",
+      "sha256": "a677b3f17a7dfe4a6ff6d9553d2e2fedbf34683e7bdf801d14f93bf5551e3227",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "a677b3f17a7dfe4a6ff6d9553d2e2fedbf34683e7bdf801d14f93bf5551e3227",
+      "resolved_sha256": "a677b3f17a7dfe4a6ff6d9553d2e2fedbf34683e7bdf801d14f93bf5551e3227"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/final.txt",
+      "sha256": "faf955da95f9c96b61d2d2864db5440de5b741335398a16273206d18d04fe730",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "faf955da95f9c96b61d2d2864db5440de5b741335398a16273206d18d04fe730",
+      "resolved_sha256": "faf955da95f9c96b61d2d2864db5440de5b741335398a16273206d18d04fe730"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "sha256": "7a1836612f366c88ce911b88b74f47732eba154934f938734b4bb864bcc0ea3d",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "7a1836612f366c88ce911b88b74f47732eba154934f938734b4bb864bcc0ea3d",
+      "resolved_sha256": "7a1836612f366c88ce911b88b74f47732eba154934f938734b4bb864bcc0ea3d"
+    },
+    {
+      "path": "docs/evidence/opening-items-independent-2026-11-04/final.txt",
+      "sha256": "7773baa4e70c50dda03284ef87d7e7e4d011a9e4e72c7317503d397142b0e7b1",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "7773baa4e70c50dda03284ef87d7e7e4d011a9e4e72c7317503d397142b0e7b1",
+      "resolved_sha256": "7773baa4e70c50dda03284ef87d7e7e4d011a9e4e72c7317503d397142b0e7b1"
+    },
+    {
+      "path": "docs/evidence/opening-items-independent-2026-11-04/first-fixture-field.txt",
+      "sha256": "5caf4f0480dd1aa561a8b38f778ffb587e41b7885e1ca81838773fa4a9d38e1b",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5caf4f0480dd1aa561a8b38f778ffb587e41b7885e1ca81838773fa4a9d38e1b",
+      "resolved_sha256": "5caf4f0480dd1aa561a8b38f778ffb587e41b7885e1ca81838773fa4a9d38e1b"
+    },
+    {
+      "path": "docs/evidence/opening-items-independent-2026-11-04/manifest.json",
+      "sha256": "ddd2df8bf511d10b9985d1353ef5ce813625e43a22476e1ca0b64c05b8114441",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "ddd2df8bf511d10b9985d1353ef5ce813625e43a22476e1ca0b64c05b8114441",
+      "resolved_sha256": "ddd2df8bf511d10b9985d1353ef5ce813625e43a22476e1ca0b64c05b8114441"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-2026-11-04/acceptance.txt",
+      "sha256": "318660f208a84d3441ec9f98bff98608bf4af7c92f33812e89868f82896fead5",
+      "origin": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "318660f208a84d3441ec9f98bff98608bf4af7c92f33812e89868f82896fead5",
+      "resolved_sha256": "318660f208a84d3441ec9f98bff98608bf4af7c92f33812e89868f82896fead5"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-2026-11-04/analysis.txt",
+      "sha256": "a38f11acbe9e83aa14e161fc83f727a0127e57f324aaaa6c621ae5b1c064263d",
+      "origin": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "a38f11acbe9e83aa14e161fc83f727a0127e57f324aaaa6c621ae5b1c064263d",
+      "resolved_sha256": "a38f11acbe9e83aa14e161fc83f727a0127e57f324aaaa6c621ae5b1c064263d"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-2026-11-04/baseline.json",
+      "sha256": "8753c842a882ba2bd7f49e7e6cd1ee300d03530c374c6d607abfdc69ba6f0c6b",
+      "origin": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "8753c842a882ba2bd7f49e7e6cd1ee300d03530c374c6d607abfdc69ba6f0c6b",
+      "resolved_sha256": "8753c842a882ba2bd7f49e7e6cd1ee300d03530c374c6d607abfdc69ba6f0c6b"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-2026-11-04/integration.patch",
+      "sha256": "a428dba01f315a8f71587766a03b05ac0a628166dad776288bd5dc6d91927cf1",
+      "origin": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "a428dba01f315a8f71587766a03b05ac0a628166dad776288bd5dc6d91927cf1",
+      "resolved_sha256": "a428dba01f315a8f71587766a03b05ac0a628166dad776288bd5dc6d91927cf1"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "sha256": "f192a1a870505b3c4497e343df6e0c06f3e81f684466a0e703b5729b421dfed9",
+      "origin": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "f192a1a870505b3c4497e343df6e0c06f3e81f684466a0e703b5729b421dfed9",
+      "resolved_sha256": "f192a1a870505b3c4497e343df6e0c06f3e81f684466a0e703b5729b421dfed9"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-2026-11-04/prior-row-review.txt",
+      "sha256": "0ece689c77ed362c704e45b56c1d60a16908d5005338a3df657b744b540d0255",
+      "origin": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "0ece689c77ed362c704e45b56c1d60a16908d5005338a3df657b744b540d0255",
+      "resolved_sha256": "0ece689c77ed362c704e45b56c1d60a16908d5005338a3df657b744b540d0255"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-2026-11-04/regression.txt",
+      "sha256": "2582b8494c86281cb4b5cfd82a3b8bbcbbfa773deae84053c33d63f6cbd7d6e5",
+      "origin": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "2582b8494c86281cb4b5cfd82a3b8bbcbbfa773deae84053c33d63f6cbd7d6e5",
+      "resolved_sha256": "2582b8494c86281cb4b5cfd82a3b8bbcbbfa773deae84053c33d63f6cbd7d6e5"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/README.md",
+      "sha256": "9d3adf4c815ab3132542e5697802a4a5e7d72286a7267d30ace1ecacb259f682",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "9d3adf4c815ab3132542e5697802a4a5e7d72286a7267d30ace1ecacb259f682",
+      "resolved_sha256": "9d3adf4c815ab3132542e5697802a4a5e7d72286a7267d30ace1ecacb259f682"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/analysis.txt",
+      "sha256": "1d3354c3ee9116dfc54a7b3bda798cbd845d97c1cef15db4896a803a44999049",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "1d3354c3ee9116dfc54a7b3bda798cbd845d97c1cef15db4896a803a44999049",
+      "resolved_sha256": "1d3354c3ee9116dfc54a7b3bda798cbd845d97c1cef15db4896a803a44999049"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/before-business_accounting_open_items.dart.txt",
+      "sha256": "7200db4e7ebed40eb6ec93f766c8dae61250aa39750d1019838e6c4f3a2cf3ad",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "7200db4e7ebed40eb6ec93f766c8dae61250aa39750d1019838e6c4f3a2cf3ad",
+      "resolved_sha256": "7200db4e7ebed40eb6ec93f766c8dae61250aa39750d1019838e6c4f3a2cf3ad"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/before-business_accounting_open_items_contract.dart.txt",
+      "sha256": "3585faf0e19323b3119e61ffb4d5d4a1559d4ebc77209aa9679a1c84671008ed",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "3585faf0e19323b3119e61ffb4d5d4a1559d4ebc77209aa9679a1c84671008ed",
+      "resolved_sha256": "3585faf0e19323b3119e61ffb4d5d4a1559d4ebc77209aa9679a1c84671008ed"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/before-business_accounting_open_items_independent_review_test.dart.txt",
+      "sha256": "3ff2c3ae5ec5782c57f5b52394cd15990b5c43e1ccd9f064dfb9e86d6e8b42b0",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "3ff2c3ae5ec5782c57f5b52394cd15990b5c43e1ccd9f064dfb9e86d6e8b42b0",
+      "resolved_sha256": "3ff2c3ae5ec5782c57f5b52394cd15990b5c43e1ccd9f064dfb9e86d6e8b42b0"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/before-manifest.json",
+      "sha256": "5aa04c80bc9605b34ad57e97e142485da963d4639f65efeea005d2743054504f",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5aa04c80bc9605b34ad57e97e142485da963d4639f65efeea005d2743054504f",
+      "resolved_sha256": "5aa04c80bc9605b34ad57e97e142485da963d4639f65efeea005d2743054504f"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/before-source-binding.txt",
+      "sha256": "572c055be8b6d987a37bbaf70fa712f0c0783bb12187682923c8c8ea7abcb2c9",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "572c055be8b6d987a37bbaf70fa712f0c0783bb12187682923c8c8ea7abcb2c9",
+      "resolved_sha256": "572c055be8b6d987a37bbaf70fa712f0c0783bb12187682923c8c8ea7abcb2c9"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/combined-final.txt",
+      "sha256": "5c7d4436768f2a4e535b9c2b2d22b46b0fc87c19d0eecb8dd2fced744963e7f9",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5c7d4436768f2a4e535b9c2b2d22b46b0fc87c19d0eecb8dd2fced744963e7f9",
+      "resolved_sha256": "5c7d4436768f2a4e535b9c2b2d22b46b0fc87c19d0eecb8dd2fced744963e7f9"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/confirmed-owner-fix.patch",
+      "sha256": "e06dd4a1eeb57b16debd65f5ef285a2265286c7827490f30adb167468fbe46b4",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "e06dd4a1eeb57b16debd65f5ef285a2265286c7827490f30adb167468fbe46b4",
+      "resolved_sha256": "e06dd4a1eeb57b16debd65f5ef285a2265286c7827490f30adb167468fbe46b4"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "sha256": "d225f57eefa3611b20c13b983ad83a1f798de8528b823ba8d89ea91d7c93afa7",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "d225f57eefa3611b20c13b983ad83a1f798de8528b823ba8d89ea91d7c93afa7",
+      "resolved_sha256": "d225f57eefa3611b20c13b983ad83a1f798de8528b823ba8d89ea91d7c93afa7"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/own-final.txt",
+      "sha256": "3419a454e593de767f0495599b5539e9bbbb2190dc4d6f9c747a1a7a782f8dc8",
+      "origin": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "3419a454e593de767f0495599b5539e9bbbb2190dc4d6f9c747a1a7a782f8dc8",
+      "resolved_sha256": "3419a454e593de767f0495599b5539e9bbbb2190dc4d6f9c747a1a7a782f8dc8"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-review-fix-2026-11-04/acceptance.txt",
+      "sha256": "0b2df8ec17fa375b1c114ab7c8f724a0c6e67dc74e8caf69a16c3cd21e5fb1c2",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "0b2df8ec17fa375b1c114ab7c8f724a0c6e67dc74e8caf69a16c3cd21e5fb1c2",
+      "resolved_sha256": "0b2df8ec17fa375b1c114ab7c8f724a0c6e67dc74e8caf69a16c3cd21e5fb1c2"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-review-fix-2026-11-04/analysis.txt",
+      "sha256": "e25a9831ade941ebbd11b817718a6d259a5f54becf3892c35252fa854d0f6573",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "e25a9831ade941ebbd11b817718a6d259a5f54becf3892c35252fa854d0f6573",
+      "resolved_sha256": "e25a9831ade941ebbd11b817718a6d259a5f54becf3892c35252fa854d0f6573"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-review-fix-2026-11-04/integration.patch",
+      "sha256": "0b74138b4dab3836e1353f07dc441f8ca58c2acd0cb036d2c968fee54dbd3d7f",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "0b74138b4dab3836e1353f07dc441f8ca58c2acd0cb036d2c968fee54dbd3d7f",
+      "resolved_sha256": "0b74138b4dab3836e1353f07dc441f8ca58c2acd0cb036d2c968fee54dbd3d7f"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "sha256": "5246bc7b4d10194fcfeec5484a54bf131afb1639a5cf64b217fb94ab162d6c69",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5246bc7b4d10194fcfeec5484a54bf131afb1639a5cf64b217fb94ab162d6c69",
+      "resolved_sha256": "5246bc7b4d10194fcfeec5484a54bf131afb1639a5cf64b217fb94ab162d6c69"
+    },
+    {
+      "path": "docs/fixtures/accounting_open_items_ui_v1.json",
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "resolved_sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708"
+    },
+    {
+      "path": "docs/fixtures/accounting_open_items_v1.json",
+      "sha256": "121d22f4fbbc42521965ac6806d7d63049f29ca85365f98ad688d3beb48b5bce",
+      "origin": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "121d22f4fbbc42521965ac6806d7d63049f29ca85365f98ad688d3beb48b5bce",
+      "resolved_sha256": "121d22f4fbbc42521965ac6806d7d63049f29ca85365f98ad688d3beb48b5bce"
+    },
+    {
+      "path": "scripts/generate-accounting-open-items-fixture.py",
+      "sha256": "d389a49747071467d0662db6513164c4a14e9701d621bf541b84ba49015e5692",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "d389a49747071467d0662db6513164c4a14e9701d621bf541b84ba49015e5692",
+      "resolved_sha256": "d389a49747071467d0662db6513164c4a14e9701d621bf541b84ba49015e5692"
+    },
+    {
+      "path": "scripts/native-release.py",
+      "sha256": "827e7fb246abc31f7dc0e36cf6d2cbfa49e155ae2a55d6d6eb2cc7051cf054c4",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "conflict",
+      "base_sha256": "bf00b7b5c9472320ff23524e8c8e612f9ff114d0c0714bc93f5a417540e02cb1",
+      "current_sha256": "1b03315dbe1d0b6ce26397c3b059f0a3d37209c124a4ee0c8045e6587712c217",
+      "candidate_sha256": "e735e1404bc781cb9438e88a34a3b167b78f3c86392260eb5b4a596ae06caa93",
+      "resolved_sha256": "8b0a18731b7b46ec857ccfe4910c23b9739308ae471e5a22c61e51f4a4a3afee"
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "sha256": "17d845e4f6bd399384a5b7da4c97485bc73855931fb8ce92cbac4dcb88bb4313",
+      "origin": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "kind": "conflict",
+      "base_sha256": "e887da684f00e1990378d8ff23e38d4d3a2cf882b5cf433689705676235a3206",
+      "current_sha256": "58ab5bcaf69c69efc08d7a8a6cc3f9792aa6f0c55483e95523fe373eb5e88548",
+      "candidate_sha256": "dc95bd954870d02d3c81c1a518fa7cfc17132e30a3e3904603d6804071252f07",
+      "resolved_sha256": "096fa93d2c7dfbb71256690825d25ab3cbcec280e505695f1b9c84392e18d2e0"
+    },
+    {
+      "path": "web/office/accounting-euer.js",
+      "sha256": "f467b2725f6c207552627c8d94711c0dbe0d5d77341779749480382e22f3e0e5",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "clean replace",
+      "base_sha256": "81a4e9899661bcef174ec9e1b4fd5b0d2ae91b0e6706c3028549677eb79fa0da",
+      "current_sha256": "81a4e9899661bcef174ec9e1b4fd5b0d2ae91b0e6706c3028549677eb79fa0da",
+      "candidate_sha256": "f467b2725f6c207552627c8d94711c0dbe0d5d77341779749480382e22f3e0e5",
+      "resolved_sha256": "f467b2725f6c207552627c8d94711c0dbe0d5d77341779749480382e22f3e0e5"
+    },
+    {
+      "path": "web/office/accounting-open-items-contract.js",
+      "sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1",
+      "resolved_sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1"
+    },
+    {
+      "path": "web/office/accounting-open-items.js",
+      "sha256": "0724a14408e88e7cfbe60eefe756418ba8e7a196ed217e2839327ec90500598e",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "0724a14408e88e7cfbe60eefe756418ba8e7a196ed217e2839327ec90500598e",
+      "resolved_sha256": "0724a14408e88e7cfbe60eefe756418ba8e7a196ed217e2839327ec90500598e"
+    },
+    {
+      "path": "web/office/bank-reconciliation.js",
+      "sha256": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "clean replace",
+      "base_sha256": "b47839ca8e8e05678e538075e1371f4f85ebbd391a3b46300a99cac9e9dfefbe",
+      "current_sha256": "b47839ca8e8e05678e538075e1371f4f85ebbd391a3b46300a99cac9e9dfefbe",
+      "candidate_sha256": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647",
+      "resolved_sha256": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647"
+    },
+    {
+      "path": "web/office/office.css",
+      "sha256": "57ce496a885a75b4a40f4ecec42cb4824599c1d72199e064f20ff0341c8288f0",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "conflict",
+      "base_sha256": "14218f6305e1f243bc397a8f4635b8f21666ff9e7d9f4a095877e06e32a70840",
+      "current_sha256": "b783cda809bb19a52282afa2927d62de214cae9ea762d9b704160cec0c349685",
+      "candidate_sha256": "3488d55d3c4651e498bcbd0409ac44f272135a3f3fc7811c1d7bff7d9abc75ba",
+      "resolved_sha256": "011d4162cb71da7b80ee73b7e59dd9074a36ad67aea3532f732e0c7761142933"
+    },
+    {
+      "path": "web/office/office.js",
+      "sha256": "7845bceb2a92c2c69ad85eea3d3a022481482a8217c3f20ef2dfb3d2e91ae8b7",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "conflict",
+      "base_sha256": "c2bdb5a21ad7a1ffc3a48c288bdbbdf2e9781701cfff85b5418ca9b1cf015c92",
+      "current_sha256": "6a6ee89797f7c8a081b7de8d06ca04163723934cb7cf4629212cc2e019d1299b",
+      "candidate_sha256": "925e5ec728d208f9cf1561053fd417058a9637ac9d5d933afc4e0885389759e1",
+      "resolved_sha256": "1276e9c94777e01bc98edc6223f9b658bc8314bcafd6dad15519bb8e84623a33"
+    },
+    {
+      "path": "web/office/tests/accounting-euer-legacy-context-fixture.py",
+      "sha256": "74c1eb4476d0204c586336a7fdbb9dfeb929d88256a864fe8fc71b63625fe48f",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "74c1eb4476d0204c586336a7fdbb9dfeb929d88256a864fe8fc71b63625fe48f",
+      "resolved_sha256": "74c1eb4476d0204c586336a7fdbb9dfeb929d88256a864fe8fc71b63625fe48f"
+    },
+    {
+      "path": "web/office/tests/accounting-euer-legacy-context.test.mjs",
+      "sha256": "76869182b8e1dafb59388ef72884820f834e0c9a295bc1bd042c605cf4a4d1df",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "76869182b8e1dafb59388ef72884820f834e0c9a295bc1bd042c605cf4a4d1df",
+      "resolved_sha256": "76869182b8e1dafb59388ef72884820f834e0c9a295bc1bd042c605cf4a4d1df"
+    },
+    {
+      "path": "web/office/tests/accounting-open-items-context.test.mjs",
+      "sha256": "c38130e349b89a0921e65358ef90d447ab6fb49e6d4eb352e4f67f15615f7680",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "c38130e349b89a0921e65358ef90d447ab6fb49e6d4eb352e4f67f15615f7680",
+      "resolved_sha256": "c38130e349b89a0921e65358ef90d447ab6fb49e6d4eb352e4f67f15615f7680"
+    },
+    {
+      "path": "web/office/tests/accounting-open-items-contract.test.mjs",
+      "sha256": "0b2cd07f111eccb87f2122ace6785e95885db3b499780c4f81cf0bc62b03876a",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "0b2cd07f111eccb87f2122ace6785e95885db3b499780c4f81cf0bc62b03876a",
+      "resolved_sha256": "0b2cd07f111eccb87f2122ace6785e95885db3b499780c4f81cf0bc62b03876a"
+    },
+    {
+      "path": "web/office/tests/accounting-open-items-flow.cjs",
+      "sha256": "8d88fe10af184b310eb15ec172360b310a7d3360f94b01f2d1a52d1d7a20367c",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "8d88fe10af184b310eb15ec172360b310a7d3360f94b01f2d1a52d1d7a20367c",
+      "resolved_sha256": "8d88fe10af184b310eb15ec172360b310a7d3360f94b01f2d1a52d1d7a20367c"
+    },
+    {
+      "path": "web/office/tests/accounting-open-items-independent-bank-fixture.py",
+      "sha256": "95f697f2843c85ea1a02c10aacc60f65ad3bc208057a2f54cd51e3c987f89544",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "95f697f2843c85ea1a02c10aacc60f65ad3bc208057a2f54cd51e3c987f89544",
+      "resolved_sha256": "95f697f2843c85ea1a02c10aacc60f65ad3bc208057a2f54cd51e3c987f89544"
+    },
+    {
+      "path": "web/office/tests/accounting-open-items-independent.test.mjs",
+      "sha256": "071714b8b533efbac789853a38ed429f29fee9c01a5de6a43a59bdcc760efcad",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "071714b8b533efbac789853a38ed429f29fee9c01a5de6a43a59bdcc760efcad",
+      "resolved_sha256": "071714b8b533efbac789853a38ed429f29fee9c01a5de6a43a59bdcc760efcad"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "sha256": "241a5a06da7f1047c6a0cb22be4de7677512feb3453f2203d1bdfe96b8bad6b3",
+      "origin": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "kind": "conflict",
+      "base_sha256": "6afdcea3b5eceba633c013290d56f086eb3bb569430635875438e4dc56f3a6f3",
+      "current_sha256": "39181461958b87445cf823a5ba630e084762ff0184a18b2420ea500929df27ad",
+      "candidate_sha256": "5dba171d490bde6467a7825a3814ee6f3faacf2578ea4e9c583798ae046812a1",
+      "resolved_sha256": "cd91c7631b5f34aacfef69a5f7ee6a928de304b472fce5fbd633c4b7181e944f"
+    },
+    {
+      "path": "web/office/tests/fixtures/accounting-euer-legacy-context.json",
+      "sha256": "5f46a17678fbffb114edc9ab855eec73fd9e4c7bf78c43c4ed60d7237a5b3a70",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "5f46a17678fbffb114edc9ab855eec73fd9e4c7bf78c43c4ed60d7237a5b3a70",
+      "resolved_sha256": "5f46a17678fbffb114edc9ab855eec73fd9e4c7bf78c43c4ed60d7237a5b3a70"
+    },
+    {
+      "path": "web/office/tests/fixtures/accounting-euer-legacy-followups.json",
+      "sha256": "d3563bc37aa550653c45cbaeb74a4a7373d23e63ce1da772b88ae80aad0b7b81",
+      "origin": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "d3563bc37aa550653c45cbaeb74a4a7373d23e63ce1da772b88ae80aad0b7b81",
+      "resolved_sha256": "d3563bc37aa550653c45cbaeb74a4a7373d23e63ce1da772b88ae80aad0b7b81"
+    },
+    {
+      "path": "web/office/tests/fixtures/accounting-open-items-independent-bank.json",
+      "sha256": "71626323f37f98deb004d77596e59badc4b9148bc0997fa6b8b786aba1180f0f",
+      "origin": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_sha256": null,
+      "current_sha256": null,
+      "candidate_sha256": "71626323f37f98deb004d77596e59badc4b9148bc0997fa6b8b786aba1180f0f",
+      "resolved_sha256": "71626323f37f98deb004d77596e59badc4b9148bc0997fa6b8b786aba1180f0f"
+    }
+  ]
+}

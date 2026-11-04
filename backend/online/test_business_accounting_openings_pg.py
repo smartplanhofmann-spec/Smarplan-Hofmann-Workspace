@@ -95,7 +95,7 @@ class OpeningBalancesPostgres(unittest.TestCase):
         self.assertEqual(scope['table_counts'], dict(zip(TABLES, counts)))
         self.assertRegex(scope['sha256'], r'^[a-f0-9]{64}$')
         current = business_schema.financial_accounting_horizon(self.office)
-        self.assertEqual(current['schema_version'], 13)
+        self.assertEqual(current['schema_version'], 14)
         self.assertEqual(current['opening_balances'], scope)
         return scope
 
@@ -185,7 +185,7 @@ class OpeningBalancesPostgres(unittest.TestCase):
                 self.assertIsNone(pending['balance_total'])
                 self.assertIn('restore_reconciliation_pending', [item['code'] for item in pending['issues']])
                 evidence = evidence_for(restored, report)
-                self.assertEqual(evidence['schema'], 14)
+                self.assertEqual(evidence['schema'], 15)
                 self.assertEqual(evidence['accounting_horizon']['opening_balances'], opening_scope)
                 with self.assertRaises(Problem) as denied:
                     approve(restored, evidence)
@@ -197,7 +197,7 @@ class OpeningBalancesPostgres(unittest.TestCase):
                 old = deepcopy(evidence)
                 old['schema'] = 12
                 old['accounting_horizon'].pop('opening_balances')
-                old['accounting_horizon'].pop('historical_assets')
+                old['accounting_horizon'].pop('opening_items');old['accounting_horizon'].pop('historical_assets')
                 old['accounting_horizon']['schema_version'] = 11
                 business_schema._validate_financial_accounting_horizon(old['accounting_horizon'], 12)
                 before = release.snapshot_fingerprint(target)

@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-04",
+  "result": "4 passed, 2 failed: source bank account and original prior input VAT display binding",
+  "runtime": {
+    "app/lib/business_accounting_open_items.dart": {
+      "sha256": "7200db4e7ebed40eb6ec93f766c8dae61250aa39750d1019838e6c4f3a2cf3ad",
+      "bytes": 47412
+    },
+    "app/lib/business_accounting_open_items_contract.dart": {
+      "sha256": "3585faf0e19323b3119e61ffb4d5d4a1559d4ebc77209aa9679a1c84671008ed",
+      "bytes": 30430
+    },
+    "app/lib/business_accounting.dart": {
+      "sha256": "28e4e555fe6491b523872f6f19c5c0eb64db349bee8e3a3e5463cd226d8cee46",
+      "bytes": 38513
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "d182c258e9eb8da16d7ecc08c090759f00000b48690294416dc928b14f0af90c",
+      "bytes": 84502
+    },
+    "app/lib/business_session.dart": {
+      "sha256": "264b9b773d25333a2034dc7509955e311bc9a72d27ce0a6505e35bf44f846429",
+      "bytes": 98549
+    }
+  },
+  "files": {
+    "before-business_accounting_open_items.dart.txt": "7200db4e7ebed40eb6ec93f766c8dae61250aa39750d1019838e6c4f3a2cf3ad",
+    "before-business_accounting_open_items_contract.dart.txt": "3585faf0e19323b3119e61ffb4d5d4a1559d4ebc77209aa9679a1c84671008ed",
+    "before-business_accounting_open_items_independent_review_test.dart.txt": "3ff2c3ae5ec5782c57f5b52394cd15990b5c43e1ccd9f064dfb9e86d6e8b42b0",
+    "before-source-binding.txt": "572c055be8b6d987a37bbaf70fa712f0c0783bb12187682923c8c8ea7abcb2c9"
+  }
+}

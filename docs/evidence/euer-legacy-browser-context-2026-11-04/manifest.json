@@ -1,0 +1,72 @@
+{
+  "reviewed_at_utc": "2026-11-04T11:22:13.485425+00:00",
+  "tree": "/workspace/smartplan-opening-items-20261104",
+  "new_independent_cases": 15,
+  "original_positive_before": 1,
+  "reproduced_negative_variants": 8,
+  "combined_cases": 88,
+  "failures": 0,
+  "runtime_changes_by_reviewer": [],
+  "prior_independent_manifest_sha256": "7a1836612f366c88ce911b88b74f47732eba154934f938734b4bb864bcc0ea3d",
+  "prior_independent_artifacts_unchanged": true,
+  "command": "node --test --test-isolation=none web/office/tests/accounting-euer-legacy-context.test.mjs web/office/tests/accounting-open-items-independent.test.mjs web/office/tests/accounting-open-items-contract.test.mjs web/office/tests/accounting-open-items-context.test.mjs web/office/tests/accounting-euer.test.mjs web/office/tests/bank-reconciliation.test.mjs",
+  "files": [
+    {
+      "path": "web/office/tests/accounting-euer-legacy-context.test.mjs",
+      "bytes": 11295,
+      "sha256": "76869182b8e1dafb59388ef72884820f834e0c9a295bc1bd042c605cf4a4d1df"
+    },
+    {
+      "path": "web/office/tests/accounting-euer-legacy-context-fixture.py",
+      "bytes": 3120,
+      "sha256": "74c1eb4476d0204c586336a7fdbb9dfeb929d88256a864fe8fc71b63625fe48f"
+    },
+    {
+      "path": "web/office/tests/fixtures/accounting-euer-legacy-context.json",
+      "bytes": 31522,
+      "sha256": "5f46a17678fbffb114edc9ab855eec73fd9e4c7bf78c43c4ed60d7237a5b3a70"
+    },
+    {
+      "path": "web/office/tests/fixtures/accounting-euer-legacy-followups.json",
+      "bytes": 108513,
+      "sha256": "d3563bc37aa550653c45cbaeb74a4a7373d23e63ce1da772b88ae80aad0b7b81"
+    },
+    {
+      "path": "docs/CRM_ERP_EUER_BESTAND_BROWSER_GEGENPRUEFUNG_2026-11-04.md",
+      "bytes": 5698,
+      "sha256": "4a415fdb16159b1055c2570382c4d81ab390cf5eab71cbbb6558ba98b333c9a8"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/before-hashes.json",
+      "bytes": 597,
+      "sha256": "7c29e1ffce894fcc3fb47162c951778ff50f8c0902dd4aa59e76e7a2a02ad89f"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/before.txt",
+      "bytes": 22437,
+      "sha256": "92d376934ec3d55641243f3fabb75e9baa8f5740b1a771522853dc051146acf0"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/final.txt",
+      "bytes": 8285,
+      "sha256": "076cf309236634d0cde7cd5ff046ebd934c9a29f16582ab4c619d8f943070547"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/followups-final.txt",
+      "bytes": 1491,
+      "sha256": "40dae07d934115c3d46a421d80490a4b281b64da4755009f689123556b3a56a8"
+    }
+  ],
+  "runtime_read_only": [
+    {
+      "path": "web/office/accounting-euer.js",
+      "bytes": 55292,
+      "sha256": "f467b2725f6c207552627c8d94711c0dbe0d5d77341779749480382e22f3e0e5"
+    },
+    {
+      "path": "web/office/office.js",
+      "bytes": 346892,
+      "sha256": "7845bceb2a92c2c69ad85eea3d3a022481482a8217c3f20ef2dfb3d2e91ae8b7"
+    }
+  ]
+}

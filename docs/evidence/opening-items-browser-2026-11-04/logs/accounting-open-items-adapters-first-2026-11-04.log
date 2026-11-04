@@ -1,0 +1,37 @@
+✔ exact EUR cents reject rounding and retain explicit zero (1.16253ms)
+✔ global rights, finance activation and write gates remain distinct from read (0.441305ms)
+✔ cash editor preserves documentary units and never guesses deductible shares or SKR04 accounts (1.704986ms)
+✔ input VAT and linear asset forms have no invented start date or source amount percentage (0.381655ms)
+✔ preview and immutable ACK compare nested semantic fields including period control (0.819283ms)
+✔ unknown ACK, denied access and unmarked conflicts retain the exact original receipt until valid replay (29.142241ms)
+✔ confirmed not-accepted conflict releases only that pending command (0.596688ms)
+✔ fresh authorization reads global capabilities and current state before protected retry (0.384729ms)
+✔ open annual sources cannot masquerade as a complete taxable result (0.839133ms)
+✔ source identities and documentary cents cannot silently cross cash events (0.622878ms)
+✔ external EÜR payment evidence is not presented as a supplier liability or missing payout balance (14.547084ms)
+✔ actual opening item originals, state, preview, cash and correction: receivable_prior_parts (54.558284ms)
+✔ actual opening item originals, state, preview, cash and correction: payable_old_input_vat (17.148429ms)
+✔ actual opening item originals, state, preview, cash and correction: clerical_payment_correction (15.01601ms)
+✔ opening residual cents retain original historical split and later one cent difference (12.621887ms)
+✔ foreign real acceptance, altered proof and changed preview cannot confirm original (5.615422ms)
+✔ old input tax exercise date and exact original cents cannot be silently substituted (2.236326ms)
+✔ source cash cannot claim a new active movement after clerical void or switch original (1.247507ms)
+✔ cent input is exact and never rounds or invents zero; signs only when stated (2.007642ms)
+✔ bank data requires its own global grants and bindings add both administration permissions (1.175349ms)
+✔ original preview and receipt bind complete file metadata and each nested canonical bank transaction (1.832558ms)
+✔ lookalike transaction reasons cannot be silently injected into accepted original preview (0.178468ms)
+✔ match uses explicitly selected existing source and amount; differing dates need reason (0.961557ms)
+✔ match and report ACK validators freeze every source portion and state; source order may normalize (1.225675ms)
+✔ account binding ACK must preserve explicit bank identity and coverage dates (0.328855ms)
+✔ exact lost import ACK survives revoked bank grant and changed current revisions; no new body (31.306038ms)
+✔ retry binds actual transaction before sending and retains unmarked role conflict (4.781717ms)
+✔ verified exports require full bytes, size/hash and exact historical JSON envelope (30.901202ms)
+✔ fresh account preflight cannot authorize missing canonical account using only cached binding (0.574986ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 339.975733

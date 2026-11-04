@@ -5,6 +5,17 @@ Das [unveränderte Gesamtziel](../CRM_ERP_Gesamtziel.txt) bleibt maßgeblich.
 Einzelunternehmen, EÜR, Regelbesteuerung/Ist, SKR04, Nettopreise und reguläre
 Beschäftigte/Minijobs sind der vereinbarte Rahmen.
 
+## Nachvollziehbarer Orientierungswert
+
+Am Hauptstand `13af5bc` tragen 40 von 62 Anforderungspunkten den Status
+„implementiert“ oder „getestet“: rund 65 Prozent nach ungewichteter Punktzahl.
+Fünf Punkte sind teilweise umgesetzt, elf offen und sechs benötigen externe
+Zugänge oder Nachweise. Die unterschiedlichen Umfänge und noch offenen Abnahmen
+A–G erlauben daraus weder einen Prozentsatz der erledigten Arbeitszeit noch
+einen Fertigstellungstermin. Die Nachweise beziehen sich jeweils auf den in der
+Matrix ausdrücklich abgegrenzten Funktionsumfang.
+[Zählung und Bezugsstand](evidence/requirements-progress-count-2026-11-04.json).
+
 ## Bereits vorhandene und abgegrenzt geprüfte Funktionen
 
 - Kunden, Projekte, Angebote, Portalannahme, Aufträge und Projektkosten.
@@ -54,25 +65,33 @@ Betriebsfreigabe.
    Quellenbindung, Freigaben, Wiederholung und Restore sind einbezogen.
    Zwei unabhängig belegte Browserfehler und die fehlende vorbereitende
    V2-Preisgrenze wurden korrigiert und erneut geprüft.
-5. Historische offene Kunden-/Lieferantenposten erhalten einen eigenen
-   belegten Zahlungsweg zu EÜR, Bankabgleich und Liquidität. Backend, HTTP,
-   PostgreSQL und unabhängiger Fachreview sind separat geprüft; beide Clients
-   sind umgesetzt. Zwei bestätigte native Originalbindungsbefunde werden
-   korrigiert; danach folgt die gemeinsame Integration.
+5. Historische offene Kunden-/Lieferantenposten sind mit beiden Clients,
+   tatsächlichen Zahlungswegen zu EÜR, Bankabgleich und Liquidität
+   [gemeinsam geprüft](CRM_ERP_ALTPOSTEN_GESAMTPRUEFUNG_2026-11-04.md):
+   1.816 Backendfälle bei einem Windows-Skip, 1.434 App- und 713 Browsermodulfälle,
+   109 unterschiedliche PostgreSQLfälle und vier tatsächliche Browserabläufe
+   bestehen. Zwei native Originalbindungsfehler und verspätete Browserantworten
+   wurden unabhängig reproduziert, korrigiert und erneut geprüft.
 6. Eine getrennte SV-Gruppenkorrekturgrundlage ist isoliert und unabhängig
    geprüft, aber noch nicht integriert. Die Berechnung mehrerer Bonus-Steuergruppen bleibt
    gesperrt; diese Grundlage berechnet noch keine freigegebenen Nettobeträge.
-7. Belegte laufende Jahreswerte vor einem unterjährigen Softwarebeginn und
-   ein auf ein Jahr begrenztes Original-/Journalpaket sind in Entwicklung.
-   Erste tatsächliche Domain-/HTTP-/PostgreSQL-/Restoreabläufe bestehen;
-   beide Clientzugänge, unabhängige Prüfung und gemeinsame Integration fehlen
-   noch. Historische Werte erzeugen keinen neuen Geldfluss oder Vorsteueranspruch.
+7. Belegte laufende Jahreswerte vor einem unterjährigen Softwarebeginn sind
+   im Backend isoliert einschließlich eigener unabhängiger Fälle geprüft;
+   beide Oberflächen entstehen. Das ergänzende Original-/Journalpaket ist mit
+   beiden Clients separat geprüft und folgt zur gemeinsamen Integration.
+   Die ZIP-Prüfung benötigt den separat vertrauenswürdig gesicherten Hash;
+   sie beweist allein keine vollständige Menge aller ursprünglichen Belege.
+   Historische Werte erzeugen keinen neuen Geldfluss oder Vorsteueranspruch.
+8. Ein privater Vergleich einer bereits bezahlten Bonussteuer bei belegtem
+   ursprünglichem Vorarbeitgeberbetragsfehler ist isoliert und unabhängig geprüft.
+   Er ist noch nicht integriert und enthält keine Zulässigkeitsentscheidung,
+   Korrekturannahme, neue Zahlung oder Meldung.
 
 ## Noch offene Buchhaltungs- und Gesamtanforderungen
 
-Weitere Steuerfälle, historische offene Posten, geeignete Steuerberater-/DATEV-
-und Behördenwege sowie die vollständige fachliche Buchhaltungsprüfung bleiben
-offen. Ein automatischer Bankabruf benötigt zusätzlich einen ausgewählten
+Weitere Steuerfälle, die Integration der Jahresvorträge und Originalpakete,
+geeignete Steuerberater-/DATEV- und Behördenwege sowie die vollständige fachliche
+Buchhaltungsprüfung bleiben offen. Ein automatischer Bankabruf benötigt zusätzlich einen ausgewählten
 Anbieter und dessen echten Vertrag. Weitere Lohn-/Korrektur-/Versicherungsfälle,
 Meldeverfahren, durchgängige Gesamtabnahmen A–G und reale Windows-/iPhone-
 Betriebsnachweise sind weiterhin erforderlich.

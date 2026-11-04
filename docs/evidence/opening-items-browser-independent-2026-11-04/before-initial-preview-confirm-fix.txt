@@ -1,0 +1,125 @@
+✔ rendered historical and remaining cents are exact and old VAT is not offered again (38.159976ms)
+✔ held original byte read success cannot cross other (4.727905ms)
+✔ held original byte read failure cannot cross other (4.886043ms)
+✔ held original byte read success cannot cross session (2.579852ms)
+✔ held original byte read failure cannot cross session (2.428965ms)
+✔ held original byte read success cannot cross background (2.340472ms)
+✔ held original byte read failure cannot cross background (3.52141ms)
+✔ held local original file before upload cannot cross other (7.500027ms)
+✔ held local original file before upload cannot cross session (4.179429ms)
+✔ held local original file before upload cannot cross background (3.970586ms)
+✔ download rejects altered original bytes and checks live read rights after correct bytes (6.144908ms)
+✔ three pending original/item/payment intents survive advancement and exact independent replays (9.695652ms)
+✖ EÜR held opening-item preview cannot restore a dismissed private editor after other (7.757705ms)
+✖ EÜR held opening-item preview cannot restore a dismissed private editor after close (5.362821ms)
+✔ late original upload accepted receipt cannot change other (8.905572ms)
+✔ late original upload failure cannot change other (4.652332ms)
+✔ late original upload accepted receipt cannot change session (4.369074ms)
+✔ late original upload failure cannot change session (5.449491ms)
+✔ late original upload accepted receipt cannot change background (4.800545ms)
+✔ late original upload failure cannot change background (5.106275ms)
+✖ EÜR initial held source cannot open after other (2.005758ms)
+✖ EÜR initial held source cannot open after close (2.382876ms)
+✖ EÜR late accepted opening-item confirmation cannot close newer dialog or refresh after other (3.35577ms)
+✖ EÜR late accepted opening-item confirmation cannot close newer dialog or refresh after close (6.606272ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 18
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 159.181513
+
+✖ failing tests:
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:110:43
+✖ EÜR held opening-item preview cannot restore a dismissed private editor after other (7.757705ms)
+  AssertionError [ERR_ASSERTION]: A detached opening-item EÜR preview must not replace or reopen a private dialog; visible title: EÜR-Buchung bestätigen
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:115:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:110:43
+✖ EÜR held opening-item preview cannot restore a dismissed private editor after close (5.362821ms)
+  AssertionError [ERR_ASSERTION]: A detached opening-item EÜR preview must not replace or reopen a private dialog; visible title: EÜR-Buchung bestätigen
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:115:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:126:43
+✖ EÜR initial held source cannot open after other (2.005758ms)
+  AssertionError [ERR_ASSERTION]: Initial private EÜR source must not replace the changed dialog; visible title: Belegte Altpostenzahlung einordnen
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:130:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:126:43
+✖ EÜR initial held source cannot open after close (2.382876ms)
+  AssertionError [ERR_ASSERTION]: Initial private EÜR source must not replace the changed dialog; visible title: Belegte Altpostenzahlung einordnen
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:130:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:133:43
+✖ EÜR late accepted opening-item confirmation cannot close newer dialog or refresh after other (3.35577ms)
+  AssertionError [ERR_ASSERTION]: Late accepted command must not close another private dialog
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:138:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:133:43
+✖ EÜR late accepted opening-item confirmation cannot close newer dialog or refresh after close (6.606272ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'refresh'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:138:96)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Array],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

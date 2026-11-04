@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-04",
+  "scope": "Independent read-only opening-items merge review",
+  "workspace": "/workspace/smartplan-opening-items-integration-20261104",
+  "base_commit": "13af5bc1147170948c5de8fa9f831a7215974cb5",
+  "summary": {
+    "total": 193,
+    "owner_exact": 180,
+    "resolved_exact": 193,
+    "kinds": {
+      "conflict": 10,
+      "clean replace": 38,
+      "new": 142,
+      "clean merge": 3
+    },
+    "conflicts": [
+      ".github/workflows/checks.yml",
+      "backend/business_api.py",
+      "backend/business_schema.py",
+      "backend/online/web.py",
+      "backend/server.py",
+      "scripts/native-release.py",
+      "scripts/package-windows-support.py",
+      "web/office/office.css",
+      "web/office/office.js",
+      "web/office/tests/e2e.cjs"
+    ]
+  },
+  "results": {
+    "node_passed": 96,
+    "registration_passed": 4,
+    "package_passed": 16,
+    "failures": 0,
+    "remaining_confirmed_findings": 0
+  },
+  "reviewer_runtime_edits": [],
+  "owned_artifacts": [
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_MERGE_GEGENPRUEFUNG_2026-11-04.md",
+      "size": 7509,
+      "sha256": "6ef4dc15a5d0e95d563098cf9af895c9510e6a81e9ab147ac3fa99e27bc8f936"
+    },
+    {
+      "path": "docs/evidence/opening-items-merge-independent-2026-11-04/audit.json",
+      "size": 71453,
+      "sha256": "c3396accf0269cf1b6729210b053b15b66f0e80543818a93bc7fccc22aede7a1"
+    },
+    {
+      "path": "docs/evidence/opening-items-merge-independent-2026-11-04/audit.py",
+      "size": 8574,
+      "sha256": "4420da61bf93caa09ab38249d9f90a8e7cd1c658595189bf2fbbf97216c8be6c"
+    },
+    {
+      "path": "docs/evidence/opening-items-merge-independent-2026-11-04/node-96.txt",
+      "size": 8783,
+      "sha256": "2bc66a394fefd8f06168d4aa7da5e5fa84c60037ed849fa11f89a849750e926c"
+    },
+    {
+      "path": "docs/evidence/opening-items-merge-independent-2026-11-04/packages-16.txt",
+      "size": 3603,
+      "sha256": "559bc71e26783c9e82bfbaa7a5dd0f4abf91c6bd7001fa9b49c723b19b2a42eb"
+    },
+    {
+      "path": "docs/evidence/opening-items-merge-independent-2026-11-04/prepared.json",
+      "size": 91799,
+      "sha256": "19b8873a5c59c95d5bb7e67e259fd4e0ee9be4f29ac74106b9bf17b3d4dcb4a8"
+    },
+    {
+      "path": "docs/evidence/opening-items-merge-independent-2026-11-04/registration-4.txt",
+      "size": 898,
+      "sha256": "c8ea5109c7a59c4cb6be09261e795b0b72d11d9239421bac83f8cb3847fe27c2"
+    },
+    {
+      "path": "docs/evidence/opening-items-merge-independent-2026-11-04/resolved.json",
+      "size": 109748,
+      "sha256": "0dd7543458a910e38fb87a5042a6e0a28e224b00188d159c1d0016c5091c4148"
+    },
+    {
+      "path": "docs/evidence/opening-items-merge-independent-2026-11-04/reviewed-shared-runtime.patch",
+      "size": 43620,
+      "sha256": "31e3a452f457d4175ac618fa7a88d3de61c513a179cc1a95e7bbce78554b9961"
+    },
+    {
+      "path": "docs/evidence/opening-items-merge-independent-2026-11-04/root-current-horizon-tests.patch",
+      "size": 4048,
+      "sha256": "f3e107cf26412c59376926f8e4e6bde71047c80b7170a6421cf857fc5e9f5601"
+    }
+  ],
+  "owner_manifests": [
+    {
+      "path": "docs/evidence/opening-items-backend-2026-11-04/manifest.json",
+      "sha256": "4fc7db209ebf5ce98799400d330182692f88ffdb5c9b9e1e924649385c6f3a88"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-2026-11-04.json",
+      "sha256": "49878a9c7042d8025537e04f17ef23598dcf073d91c5400e376cf7c19433707b"
+    },
+    {
+      "path": "docs/evidence/opening-items-browser-independent-2026-11-04/manifest.json",
+      "sha256": "7a1836612f366c88ce911b88b74f47732eba154934f938734b4bb864bcc0ea3d"
+    },
+    {
+      "path": "docs/evidence/euer-legacy-browser-context-2026-11-04/manifest.json",
+      "sha256": "bce5642491b304a538af423dcd9d41e632f0204f473279bfa8c675ebb1fef163"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+      "sha256": "f192a1a870505b3c4497e343df6e0c06f3e81f684466a0e703b5729b421dfed9"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+      "sha256": "5246bc7b4d10194fcfeec5484a54bf131afb1639a5cf64b217fb94ab162d6c69"
+    },
+    {
+      "path": "docs/evidence/opening-items-native-independent-2026-11-04/manifest.json",
+      "sha256": "d225f57eefa3611b20c13b983ad83a1f798de8528b823ba8d89ea91d7c93afa7"
+    }
+  ],
+  "resolved_source_count": 193,
+  "protected_base_runtime_count": 23,
+  "notes": [
+    "Full integration/PG runs belong to the integrator and are not claimed as reviewer executions.",
+    "No commits, staging or production contacts."
+  ]
+}

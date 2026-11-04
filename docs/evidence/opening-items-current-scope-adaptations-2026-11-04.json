@@ -1,0 +1,14 @@
+[
+  {
+    "path": "backend/online/test_catalog_v2_source5_assets_restore_pg.py",
+    "before_sha256": "f2e04cc6b4ea0ca3933dc3e8864ea927bc5cccd7cabe97e8371919eabdd7e8c4",
+    "after_sha256": "47d6ce2cdc737e2d3650acd0beefaa72c171cbae44aac20a00d1def9fddd0691",
+    "reason": "Current financial scope includes opening items; old schema13/horizon12 fixture explicitly removes later families."
+  },
+  {
+    "path": "backend/online/test_events_catalog_assets_source5_restore_pg.py",
+    "before_sha256": "96f72edf8f245f88b8240db67c90e2bdf1f3f2d85fb4e0783128802225415ea3",
+    "after_sha256": "239517ae29d1c7d3557ed7cbf04ead0eacb2ad694c033868b732dc29a17ec917",
+    "reason": "Current financial scope includes opening items; old schema13/horizon12 fixture explicitly removes later families."
+  }
+]

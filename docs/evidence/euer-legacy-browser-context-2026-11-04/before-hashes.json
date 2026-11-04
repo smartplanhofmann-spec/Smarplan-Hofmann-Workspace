@@ -1,0 +1,7 @@
+{
+  "web/office/accounting-euer.js": "9b88ea2aa6ee76f564282101e12a68058eec0c0a99890652a225c0cea8316684",
+  "web/office/office.js": "7845bceb2a92c2c69ad85eea3d3a022481482a8217c3f20ef2dfb3d2e91ae8b7",
+  "web/office/tests/accounting-euer-legacy-context.test.mjs": "a9f2de247e28d6d8dc12185c163ba5e50dd91629920f90a942954892a04b8069",
+  "web/office/tests/accounting-euer-legacy-context-fixture.py": "010ff822643c6ec15d32f630a0d1ba4530ad46af4baaa71256a893d290e54e86",
+  "web/office/tests/fixtures/accounting-euer-legacy-context.json": "5f46a17678fbffb114edc9ab855eec73fd9e4c7bf78c43c4ed60d7237a5b3a70"
+}

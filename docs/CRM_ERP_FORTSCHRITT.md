@@ -1968,3 +1968,33 @@ vor Start abgewiesener falsch benannter Browserworkflow bleiben dokumentiert.
 Historische offene Posten, Jahresvorträge, Original-/Journalpakete und weitere
 Lohn-/Steuerkorrekturen laufen weiter. Kein Gesamtabschluss, produktiver
 Rollout oder unabhängiger Fachnachweis wird aus diesem Checkpoint abgeleitet.
+
+
+## 04.11.2026 – Historische offene Posten mit beiden Clients integriert
+
+Die [gemeinsame Altpostenprüfung](CRM_ERP_ALTPOSTEN_GESAMTPRUEFUNG_2026-11-04.md)
+auf Basis `13af5bc` besteht 1.816 Backendfälle bei einem vorhandenen Windows-Skip,
+1.434 Flutter- und 713 Nodefälle, vollständige Analyse ohne Befund, 16 Paket-
+und 49 bestehende Finanz-HTTP-Prüfungen. Alle 109 unterschiedlichen tatsächlichen
+PostgreSQL-Fälle sind grün. Vier echte Browserabläufe prüfen Altposten,
+Bankabgleich, bisherige EÜR und Unternehmensereignisse mit aktiver Sandbox.
+
+193 Owner-/Reviewdateien wurden unabhängig gegen die Zusammenführung geprüft.
+Zwei native Originalbindungsfehler und verspätete Browserantworten sind mit
+ursprünglichen Rotbelegen korrigiert. Der aktuelle Finanzhorizont 14 und Bericht
+15 schließen Altpostenoriginale, Ereignisse und Annahmen ein. Der gemeinsame
+gefüllte Restore erhält zugleich tatsächliche alte/neue Zahlungen, EÜR, Source5,
+Anfangssalden, Anlagen, datierte Katalogpreise und Ereignisse.
+
+Die reine Helperimportbereinigung eines neuen Online-PG-Tests änderte während
+der erfolgreichen Backendprüfung eine erfasste Testdatei. Sie wird von dieser
+Backenddiscovery nicht ausgeführt; der abschließende echte PG-Nachlauf bindet
+ihre letzte Fassung. Produktdateien blieben unverändert. Die zunächst neun
+PG-Ausführungen waren sechs eindeutige Fälle; die finale 109er-Matrix hat
+keine doppelt gesammelten Identitäten. Originalprotokolle bleiben erhalten.
+
+Auf Nachfrage ist der Fortschritt als ungewichteter Orientierungswert
+dokumentiert: 40 von 62 Anforderungspunkten implementiert/getestet, rund 65 %.
+Dies ist weder der Anteil erledigter Arbeitszeit noch eine vollständige
+Fachfreigabe. Jahresvorträge, ergänzende Originalpakete, weitere Lohn-/Steuerfälle,
+Abnahmen A–G und externe Betriebsnachweise bleiben im Gesamtplan offen.

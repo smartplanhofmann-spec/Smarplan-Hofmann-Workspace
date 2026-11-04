@@ -13,6 +13,7 @@ import 'business_project_receipts.dart';
 import 'business_accounting_profile.dart';
 import 'business_accounting_openings.dart';
 import 'business_accounting_historical_assets.dart';
+import 'business_accounting_open_items.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -29,6 +30,7 @@ const euerOperations = {
   'asset': 'Anlagegut erfassen',
   'depreciation': 'Lineare Jahres-AfA',
   'opening_depreciation': 'Belegte historische Jahres-AfA',
+  'opening_item_cash': 'Belegte Altposten-Restzahlung einordnen',
   'reverse': 'Buchung gegenbuchen',
   'correct': 'Buchung berichtigen',
   'period': 'Monatsperiode prüfen',
@@ -141,6 +143,8 @@ Map<String, dynamic> euerPreview(
   }
   if (value['effect']?['operation'] == 'opening_depreciation')
     historicalAssetEuerPreview(value, body);
+  if (value['effect']?['operation'] == 'opening_item_cash')
+    openItemEuerPreview(value, body);
   return value;
 }
 
@@ -153,6 +157,8 @@ void Function(dynamic) euerReceiptValidator(
     final value = businessMap(raw);
     if (proof['effect']?['operation'] == 'opening_depreciation')
       historicalAssetEuerReceipt(proof)(value);
+    if (proof['effect']?['operation'] == 'opening_item_cash')
+      openItemEuerReceipt(proof)(value);
     if (!RegExp(r'^[a-f0-9]{32}$').hasMatch('${value['id']}') ||
         !RegExp(r'^[a-f0-9]{64}$').hasMatch('${value['entry_hash']}') ||
         value['sequence'] != frozen['expected_revision'] + 1 ||
@@ -329,6 +335,21 @@ EuerForm euerForm(
   };
   late Map<String, dynamic> Function(Map<String, dynamic>) build;
   switch (operation) {
+    case 'opening_item_cash':
+      openItemSource(source);
+      account('net_account', 'Geprüftes SKR04-Nettoerlös-/Aufwandskonto');
+      account(
+        'tax_account',
+        'Geprüftes SKR04-Konto für vereinnahmte/gezahlte Steuer',
+      );
+      build = (v) => {
+        'payment_id': source['id'],
+        'revision': source['revision'],
+        'source_hash': source['source_hash'],
+        'net_account': _account(v['net_account']),
+        'tax_account': _account(v['tax_account']),
+      };
+      break;
     case 'travel_cash':
       final categories = travelCashCategoryKeys(source);
       for (final category in categories) {
@@ -654,6 +675,13 @@ const _issues = {
       'Lohnzahlungsnachweis geändert; Einordnung ausdrücklich berichtigen',
   'documentary_components_missing':
       'Belegte Netto-/Steueranteile im Geldflussvorjournal fehlen',
+  'opening_item_cash_classification_missing':
+      'Belegte Altposten-Restzahlung noch nicht fachlich eingeordnet.',
+  'opening_item_cash_source_changed': 'Ursprünglicher Altpostenzahlungsnachweis wurde berichtigt; Buchung prüfen.',
+  'opening_item_profile_changed':
+      'Altposten und aktuelles Buchführungsprofil erneut prüfen.',
+  'opening_item_review_missing':
+      'Gespeicherte Altpostenoriginale sind noch nicht vollständig übernommen.',
   'external_cash_classification_missing':
       'Sondergeldbewegung nach Gegenbuchung erneut einordnen',
   'cash_classification_missing': 'Geldfluss noch nicht fachlich gebucht',
@@ -689,11 +717,12 @@ class BusinessEuerPage extends StatefulWidget {
     super.key,
     required this.session,
     this.initialHistoricalAssetId,
+    this.initialOpeningPaymentId,
     this.initialYear,
     this.initialTab = 'sources',
   });
   final BusinessSession session;
-  final String? initialHistoricalAssetId;
+  final String? initialHistoricalAssetId, initialOpeningPaymentId;
   final int? initialYear;
   final String initialTab;
   @override
@@ -704,7 +733,9 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
     with WidgetsBindingObserver {
   final modalEpoch = ValueNotifier<int>(0);
   String? token;
-  bool backgrounded = false, initialHistoricalHandled = false;
+  bool backgrounded = false,
+      initialHistoricalHandled = false,
+      initialOpeningHandled = false;
   final year = TextEditingController(text: '${DateTime.now().year}');
   Map<String, dynamic>? state, report, preview, body, catalog;
   List<Map<String, dynamic>> sources = [], journal = [], accounts = [];
@@ -758,6 +789,7 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
       token = widget.session.api.token;
       generation = widget.session.generation;
       initialHistoricalHandled = false;
+      initialOpeningHandled = false;
       load(refreshRights: true);
     }
   }
@@ -883,6 +915,19 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
       if (yearReport.containsKey('historical_assets'))
         historicalAssetReport(yearReport);
       for (final row in businessItems(sourcePage)) {
+        if (row['kind'] == 'opening_item_cash') {
+          final proof = await openItemVerifiedSource(
+            widget.session,
+            row['source'],
+            stillCurrent: () => mounted && current == epoch && readable,
+          );
+          if (proof['id'] != row['id'] || proof['date'] != row['date'])
+            throw const ApiException(
+              0,
+              'Die Altposten-Zahlungsquelle gehört nicht zum angegebenen Original.',
+            );
+        }
+
         if (row['kind'] == 'opening_asset') {
           final source = historicalAssetSource(row['source']),
               entry = historicalAssetEvent(row['current']);
@@ -931,6 +976,28 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
       if (mounted && current == epoch) failure(e);
     } finally {
       if (mounted && current == epoch) setState(() => loading = false);
+    }
+    if (mounted &&
+        current == epoch &&
+        writable &&
+        !initialOpeningHandled &&
+        widget.initialOpeningPaymentId != null) {
+      initialOpeningHandled = true;
+      final row = sources
+          .where(
+            (r) =>
+                r['kind'] == 'opening_item_cash' &&
+                r['id'] == widget.initialOpeningPaymentId,
+          )
+          .firstOrNull;
+      if (row != null && row['source']['status'] == 'active')
+        await edit(
+          'opening_item_cash',
+          businessMap(row['source']),
+          correction: row['current'] == null
+              ? null
+              : businessMap(row['current']),
+        );
     }
     if (mounted &&
         current == epoch &&
@@ -1015,7 +1082,19 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
       await fresh();
       if (!mounted) return;
       final source = businessMap(row?['source']), kind = row?['kind'];
-      if (kind == 'opening_asset') {
+      if (kind == 'opening_item_cash') {
+        final proof = openItemSource(source);
+        if (!mounted || !readable) return;
+        await Navigator.push<void>(
+          context,
+          MaterialPageRoute(
+            builder: (_) => BusinessOpenItemsPage(
+              session: widget.session,
+              entityKey: proof['item_key'],
+            ),
+          ),
+        );
+      } else if (kind == 'opening_asset') {
         final proof = historicalAssetSource(source);
         if (!mounted || !readable) return;
         await Navigator.push<void>(
@@ -1403,7 +1482,9 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              row['kind'] == 'opening_asset'
+              row['kind'] == 'opening_item_cash'
+                  ? 'Belegte Altposten-Restzahlung · ${source['direction'] == 'in' ? 'Eingang' : 'Ausgang'} · Fassung ${source['revision']}'
+                  : row['kind'] == 'opening_asset'
                   ? 'Historische Anlage · ${source['asset']['inventory_number']} · ${source['asset']['description']}'
                   : row['kind'] == 'travel_cash'
                   ? 'Belegte Reiseerstattung · Fassung ${source['revision']}'
@@ -1417,6 +1498,10 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
             Text(
               '${businessDate(row['date'])} · ${event['evidence_reference'] ?? receipt['filename'] ?? row['id']}',
             ),
+            if (row['kind'] == 'opening_item_cash')
+              Text(
+                '${businessMoney(source['net'])} netto + ${businessMoney(source['tax'])} Steuer = ${businessMoney(source['gross'])} brutto${source['prior_input_vat'] != null ? ' · Früherer Vorsteuerabzug bleibt erhalten; kein neuer VAT-input-Abzug.' : ''}',
+              ),
             if (row['kind'] == 'payroll_cash' || row['kind'] == 'travel_cash')
               payrollFacts(source),
             if (row['kind'] == 'receipt')
@@ -1439,7 +1524,9 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
                 TextButton(
                   onPressed: () => upstream(row),
                   child: Text(
-                    row['kind'] == 'opening_asset'
+                    row['kind'] == 'opening_item_cash'
+                        ? 'Altposten und Zahlungsoriginal öffnen'
+                        : row['kind'] == 'opening_asset'
                         ? 'Historische Anlage und Original öffnen'
                         : row['kind'] == 'payroll_cash' ||
                               row['kind'] == 'travel_cash'
@@ -1450,6 +1537,22 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
                         : 'Geldfluss / Beleganteile',
                   ),
                 ),
+                if (row['kind'] == 'opening_item_cash' &&
+                    source['status'] == 'active')
+                  FilledButton(
+                    onPressed: writable
+                        ? () => edit(
+                            'opening_item_cash',
+                            source,
+                            correction: current.isEmpty ? null : current,
+                          )
+                        : null,
+                    child: Text(
+                      current.isEmpty
+                          ? 'Altpostenzahlung einordnen'
+                          : 'Altpostenzahlungseinordnung berichtigen',
+                    ),
+                  ),
                 if (row['kind'] == 'opening_asset')
                   FilledButton(
                     onPressed: writable
@@ -1676,6 +1779,18 @@ class _BusinessEuerPageState extends State<BusinessEuerPage>
                     ),
                   ],
                 ),
+                if (openItemsReadable(widget.session))
+                  OutlinedButton(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) =>
+                            BusinessOpenItemsPage(session: widget.session),
+                      ),
+                    ),
+                    child: const Text(
+                      'Historische offene Rechnungen und Restzahlungen öffnen',
+                    ),
+                  ),
                 if (state?['historical_assets_path'] == historicalAssetPath &&
                     historicalAssetsReadable(widget.session))
                   OutlinedButton.icon(

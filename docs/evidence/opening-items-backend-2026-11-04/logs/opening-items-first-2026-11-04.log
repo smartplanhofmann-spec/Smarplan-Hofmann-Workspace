@@ -1,0 +1,45 @@
+test_late_failure_is_atomic_and_financial_restore_gate_precedes_replay (test_business_accounting_open_items.OpeningItemWorkflow.test_late_failure_is_atomic_and_financial_restore_gate_precedes_replay) ... ok
+test_original_identity_and_payment_proof_cannot_be_renamed_or_reused (test_business_accounting_open_items.OpeningItemWorkflow.test_original_identity_and_payment_proof_cannot_be_renamed_or_reused) ... ERROR
+test_payable_full_old_vat_deduction_and_actual_new_cash_expense (test_business_accounting_open_items.OpeningItemWorkflow.test_payable_full_old_vat_deduction_and_actual_new_cash_expense) ... ERROR
+test_payment_void_requires_euer_counterposting_then_corrected_exact_source (test_business_accounting_open_items.OpeningItemWorkflow.test_payment_void_requires_euer_counterposting_then_corrected_exact_source) ... ok
+test_prior_cents_open_vat_unsupported_period_and_overpayment_are_blocked (test_business_accounting_open_items.OpeningItemWorkflow.test_prior_cents_open_vat_unsupported_period_and_overpayment_are_blocked) ... ok
+test_receivable_real_remainder_only_no_reissue_double_tax_or_changed_export (test_business_accounting_open_items.OpeningItemWorkflow.test_receivable_real_remainder_only_no_reissue_double_tax_or_changed_export) ... ok
+test_stale_profile_and_rights_block_new_work_but_keep_original_acceptance (test_business_accounting_open_items.OpeningItemWorkflow.test_stale_profile_and_rights_block_new_work_but_keep_original_acceptance) ... ERROR
+
+======================================================================
+ERROR: test_original_identity_and_payment_proof_cannot_be_renamed_or_reused (test_business_accounting_open_items.OpeningItemWorkflow.test_original_identity_and_payment_proof_cannot_be_renamed_or_reused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-opening-items-20261104/backend/test_business_accounting_open_items.py", line 114, in test_original_identity_and_payment_proof_cannot_be_renamed_or_reused
+    self.reject(409,self.payment,item,'59.50',proof=first['payload']['proof'])
+TypeError: OpeningItemWorkflow.reject() got an unexpected keyword argument 'proof'
+
+======================================================================
+ERROR: test_payable_full_old_vat_deduction_and_actual_new_cash_expense (test_business_accounting_open_items.OpeningItemWorkflow.test_payable_full_old_vat_deduction_and_actual_new_cash_expense)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-opening-items-20261104/backend/test_business_accounting_open_items.py", line 83, in test_payable_full_old_vat_deduction_and_actual_new_cash_expense
+    self.assertEqual([(p['section'],p['category'],p['amount']) for p in entry['postings']],[('euer','materials','-100.00'),('euer','paid_input_vat','-19.00')])
+                       ~^^^^^^^^^^^
+KeyError: 'section'
+
+======================================================================
+ERROR: test_stale_profile_and_rights_block_new_work_but_keep_original_acceptance (test_business_accounting_open_items.OpeningItemWorkflow.test_stale_profile_and_rights_block_new_work_but_keep_original_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-opening-items-20261104/backend/test_business_accounting_open_items.py", line 120, in test_stale_profile_and_rights_block_new_work_but_keep_original_acceptance
+    item,command=self.save('item','legacy-a',self.item());self.euer.configure(vat_effective_from='2025-01-01',standard_vat_rate='7')
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-opening-items-20261104/backend/test_business_accounting_euer.py", line 31, in configure
+    preview=self.profile.preview(self.owner,body)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-opening-items-20261104/backend/business_accounting_profile.py", line 222, in preview
+    self._inputs(data)
+  File "/workspace/smartplan-opening-items-20261104/backend/business_accounting_profile.py", line 136, in _inputs
+    raise Problem(400, 'Vollständige bekannte Vorbereitungsangaben erwartet')
+core.Problem: (400, 'Vollständige bekannte Vorbereitungsangaben erwartet')
+
+----------------------------------------------------------------------
+Ran 7 tests in 3.743s
+
+FAILED (errors=3)

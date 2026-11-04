@@ -1,0 +1,6 @@
+test_genuine_h6_rows_and_schema7_receipt_survive_migration_but_cannot_release_a_new_restore (online.test_accounting_profile_http.AccountingProfileHTTPTests.test_genuine_h6_rows_and_schema7_receipt_survive_migration_but_cannot_release_a_new_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 2.375s
+
+OK

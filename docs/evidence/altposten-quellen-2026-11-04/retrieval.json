@@ -1,0 +1,50 @@
+[
+  {
+    "id": "S01_EStG_4",
+    "url": "https://www.gesetze-im-internet.de/estg/__4.html",
+    "retrieved_at_utc": "2026-11-04T10:08:08.549036+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "id": "S02_EStG_11",
+    "url": "https://www.gesetze-im-internet.de/estg/__11.html",
+    "retrieved_at_utc": "2026-11-04T10:08:08.550258+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "id": "S03_UStG_13",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__13.html",
+    "retrieved_at_utc": "2026-11-04T10:08:08.550702+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "id": "S04_UStG_20",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__20.html",
+    "retrieved_at_utc": "2026-11-04T10:08:08.551100+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "id": "S05_UStG_15",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__15.html",
+    "retrieved_at_utc": "2026-11-04T10:08:08.568597+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "id": "S06_EStG_9b",
+    "url": "https://www.gesetze-im-internet.de/estg/__9b.html",
+    "retrieved_at_utc": "2026-11-04T10:08:08.570977+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "id": "S07_ELSTER_EUER_2026",
+    "url": "https://www.elster.de/eportal/helpGlobal?themaGlobal=help_euer_ufa_77_2026",
+    "retrieved_at_utc": "2026-11-04T10:08:08.578315+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+    "id": "S08_ELSTER_EUER_2025",
+    "url": "https://www.elster.de/eportal/helpGlobal?themaGlobal=help_euer_ufa_77_2025",
+    "retrieved_at_utc": "2026-11-04T10:08:08.580311+00:00",
+    "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  }
+]

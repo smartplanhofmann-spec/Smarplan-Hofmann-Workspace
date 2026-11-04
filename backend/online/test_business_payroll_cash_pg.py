@@ -74,7 +74,7 @@ class PayrollCashPostgres(unittest.TestCase):
             finally:restored.db.close()
             operator=PostgresOffice(target)
             try:
-                evidence=evidence_for(operator,restored_report);self.assertEqual(evidence['schema'],14)
+                evidence=evidence_for(operator,restored_report);self.assertEqual(evidence['schema'],15)
                 self.assertEqual(evidence['accounting_horizon']['payroll_cash']['table_counts']['business_payroll_cash_batches'],2)
                 approve(operator,evidence)
             finally:operator.db.close()
@@ -99,7 +99,7 @@ class PayrollCashPostgres(unittest.TestCase):
         self.assertTrue(validate_integrity(self.office))
 
     def test_additive_migration_keeps_confirmed_schema9_receipt_and_requires11_for_new_restore(self):
-        self.office.db.close();full=business_schema.registry();prior=tuple(spec for spec in full if spec.name not in ('business_payroll_cash','business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings', 'business_accounting_asset_openings'))
+        self.office.db.close();full=business_schema.registry();prior=tuple(spec for spec in full if spec.name not in ('business_payroll_cash','business_bank_reconciliation', 'business_travel_allowances', 'business_accounting_openings', 'business_accounting_asset_openings', 'business_accounting_open_items'))
         with patch.object(business_schema,'registry',return_value=prior),patch.object(business_schema,'MODULE_NAMES',tuple(spec.name for spec in prior)):
             self.setUp();data,paid=self.workflow();old_export,_=self.post('export',dict(year=2026))
             original=self.call('GET','/business/accounting/euer/exports/'+old_export['id']).json
@@ -116,7 +116,7 @@ class PayrollCashPostgres(unittest.TestCase):
                         if table not in ('business_schema_migrations','business_schema_state','business_schema_events'):self.assertEqual(changed[table],value,table)
                     operator=PostgresOffice(target)
                     try:
-                        self.assertEqual(business_schema.financial_accounting_horizon(operator)['schema_version'],13)
+                        self.assertEqual(business_schema.financial_accounting_horizon(operator)['schema_version'],14)
                         self.assertEqual(approve(operator,evidence),accepted)
                         self.assertEqual(EuerAccounting(operator).exported(self.owner,old_export['id']),original)
                     finally:operator.db.close()
@@ -130,7 +130,7 @@ class PayrollCashPostgres(unittest.TestCase):
             operator=PostgresOffice(target)
             try:
                 with self.assertRaises(Exception):approve(operator,dict(evidence,restore_id=report['restore_id']))
-                new=evidence_for(operator,report);self.assertEqual(new['schema'],14);approve(operator,new)
+                new=evidence_for(operator,report);self.assertEqual(new['schema'],15);approve(operator,new)
             finally:operator.db.close()
 
 

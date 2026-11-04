@@ -1,0 +1,42 @@
+{
+  "recorded_at_utc": "2026-11-04T11:04:43.932928+00:00",
+  "scope": "Owner runtime baseline during independent browser review; not final handoff",
+  "files": {
+    "web/office/accounting-open-items-contract.js": {
+      "size": 23901,
+      "sha256": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1"
+    },
+    "web/office/accounting-open-items.js": {
+      "size": 23790,
+      "sha256": "0724a14408e88e7cfbe60eefe756418ba8e7a196ed217e2839327ec90500598e"
+    },
+    "web/office/office.js": {
+      "size": 346817,
+      "sha256": "02e6a639f81b3f195cb5ec97314241ae3862735e955a3fd33d67a09e5ba8662f"
+    },
+    "web/office/accounting-euer.js": {
+      "size": 51691,
+      "sha256": "5c2c6bfceb463678f8892c292484e5ad7a79bcef929535b5c096496043d92605"
+    },
+    "web/office/bank-reconciliation.js": {
+      "size": 32627,
+      "sha256": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647"
+    },
+    "web/office/office.css": {
+      "size": 21706,
+      "sha256": "5f6573a8e3ff1e4a28f81e2887d61a13e7f010666cbd6232ba5f17fd7bfc4302"
+    },
+    "web/office/tests/accounting-open-items-contract.test.mjs": {
+      "size": 4080,
+      "sha256": "0b2cd07f111eccb87f2122ace6785e95885db3b499780c4f81cf0bc62b03876a"
+    },
+    "web/office/tests/accounting-open-items-context.test.mjs": {
+      "size": 8000,
+      "sha256": "c38130e349b89a0921e65358ef90d447ab6fb49e6d4eb352e4f67f15615f7680"
+    },
+    "web/office/tests/accounting-open-items-flow.cjs": {
+      "size": 23056,
+      "sha256": "e3a8435afc15f4c2142772412bb8c3e6c71fe36f2b366c79e085ccec2ca3f627"
+    }
+  }
+}

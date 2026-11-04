@@ -1,0 +1,94 @@
+✔ rendered historical and remaining cents are exact and old VAT is not offered again (36.233173ms)
+✔ held original byte read success cannot cross other (7.882169ms)
+✔ held original byte read failure cannot cross other (9.301265ms)
+✔ held original byte read success cannot cross session (4.889035ms)
+✔ held original byte read failure cannot cross session (5.01163ms)
+✔ held original byte read success cannot cross background (5.459068ms)
+✔ held original byte read failure cannot cross background (3.876503ms)
+✔ held local original file before upload cannot cross other (8.572362ms)
+✔ held local original file before upload cannot cross session (5.791864ms)
+✔ held local original file before upload cannot cross background (5.341176ms)
+✔ download rejects altered original bytes and checks live read rights after correct bytes (7.453203ms)
+✔ three pending original/item/payment intents survive advancement and exact independent replays (10.792878ms)
+✔ EÜR held opening-item preview cannot restore a dismissed private editor after other (5.328867ms)
+✔ EÜR held opening-item preview cannot restore a dismissed private editor after close (3.694848ms)
+✔ late original upload accepted receipt cannot change other (7.74345ms)
+✔ late original upload failure cannot change other (10.310402ms)
+✔ late original upload accepted receipt cannot change session (12.617293ms)
+✔ late original upload failure cannot change session (6.502924ms)
+✔ late original upload accepted receipt cannot change background (4.191897ms)
+✔ late original upload failure cannot change background (4.422785ms)
+✔ EÜR initial held source cannot open after other (1.649982ms)
+✔ EÜR initial held source cannot open after close (1.335529ms)
+✔ EÜR late accepted opening-item confirmation cannot close newer dialog or refresh after other (3.493676ms)
+✔ EÜR late accepted opening-item confirmation cannot close newer dialog or refresh after close (5.73262ms)
+✖ EÜR late authorization denial at initial cannot close a newer private dialog (4.855215ms)
+✖ EÜR late authorization denial at preview cannot close a newer private dialog (2.350166ms)
+✖ EÜR late authorization denial at confirm cannot close a newer private dialog (3.7692ms)
+✖ EÜR exact pending old-item replay ACK cannot close a newer dialog (3.406345ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 24
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 205.309387
+
+✖ failing tests:
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:141:52
+✖ EÜR late authorization denial at initial cannot close a newer private dialog (4.855215ms)
+  AssertionError [ERR_ASSERTION]: Stale authorization denial must not invoke onDenied for a newer private dialog
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:148:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:141:52
+✖ EÜR late authorization denial at preview cannot close a newer private dialog (2.350166ms)
+  AssertionError [ERR_ASSERTION]: Stale authorization denial must not invoke onDenied for a newer private dialog
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:148:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:141:52
+✖ EÜR late authorization denial at confirm cannot close a newer private dialog (3.7692ms)
+  AssertionError [ERR_ASSERTION]: Stale authorization denial must not invoke onDenied for a newer private dialog
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:148:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:151:1
+✖ EÜR exact pending old-item replay ACK cannot close a newer dialog (3.406345ms)
+  AssertionError [ERR_ASSERTION]: Accepted documentary replay must not close a newer dialog
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:156:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

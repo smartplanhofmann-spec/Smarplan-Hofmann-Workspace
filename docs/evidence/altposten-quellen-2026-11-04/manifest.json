@@ -1,0 +1,74 @@
+{
+  "assembled_at_utc": "2026-11-04T10:21:46.296975+00:00",
+  "task": "Independent official-source and reference-arithmetic review of historical open items",
+  "scope": "Documentation/evidence only; not a product implementation test or tax approval",
+  "artifacts": [
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_QUELLEN_GEGENPRUEFUNG_2026-11-04.md",
+      "bytes": 17868,
+      "sha256": "d768ba2d6d2bbfc0853467dc0ef74bf72c06917203b621eb49c9b0ae4642e95f"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/calculate_expected.py",
+      "bytes": 7451,
+      "sha256": "5615e9bcaa116c9a118fba66f981a7197f21051735b2d4ed3e057a33fe5d29f6"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/expected-cases.json",
+      "bytes": 5521,
+      "sha256": "5faaaad6a55ab6f7bb79d0bc199eab328f15d2c266b5a40b3c78a5b2e7361514"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/retrieval.json",
+      "bytes": 1916,
+      "sha256": "3da7b7485b85a4a805874ae3e9d0fada9b72e1d3552d5e64e0a4e025a7bcecf0"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/sources.json",
+      "bytes": 6508,
+      "sha256": "c173f8b4a58617d92edbd239b31e46e1d93de1b28527f5252d10c155ed085fc6"
+    },
+    {
+      "path": "docs/evidence/altposten-quellen-2026-11-04/verification.txt",
+      "bytes": 308,
+      "sha256": "f7fc2c53cfc4aa6ee6c7a2273663cc64f01917886c1f80acae83a0c8ca3f9651"
+    }
+  ],
+  "repository_contract_files_at_handoff": [
+    {
+      "path": "backend/business_accounting_euer.py",
+      "bytes": 84822,
+      "sha256": "906293f5da88ca10022054b2e555860e5d2dfca105358141090b7754a8ff1dfe"
+    },
+    {
+      "path": "backend/business_accounting_components.py",
+      "bytes": 45811,
+      "sha256": "57d44aa890af23d73f359ba30e874c9dcf97c6232162564d02965124ce109dcc"
+    },
+    {
+      "path": "docs/CRM_ERP_EUER_REGELQUELLEN_2026.md",
+      "bytes": 19294,
+      "sha256": "3a2f4e016efe1337e3bc0b1cd2bf55706e2357a0b4b8f07f73a5e840b2aa528b"
+    },
+    {
+      "path": "docs/CRM_ERP_EUER_E1A_API.md",
+      "bytes": 19182,
+      "sha256": "050b29abe8009f4da0c00333c8e918b972634fe896a88ff21812bf520ddd645a"
+    },
+    {
+      "path": "docs/CRM_ERP_EUER_WORKFLOW_API.md",
+      "bytes": 9671,
+      "sha256": "01045ab6bda1ddb0fb572ced7ea460f7dc45bb2d4af62a9ae88ad7392782a2f0"
+    },
+    {
+      "path": "docs/CRM_ERP_EUER_E1B4A1_API.md",
+      "bytes": 11160,
+      "sha256": "1eb0c2efc61d51e5590709d922bc191f2cde1014fa57801116dcea5fb9140d77"
+    },
+    {
+      "path": "docs/CRM_ERP_ANFANGSSALDEN_API.md",
+      "bytes": 13479,
+      "sha256": "f8ada285db24bd85e5b9958b918a1b773037420a60072847f4bf8be9aa08679c"
+    }
+  ]
+}

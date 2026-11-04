@@ -1,0 +1,23 @@
+✔ actual unchanged legacy cash source/preview/receipt works without opening-item feature (34.816799ms)
+✔ legacy cash held initial success cannot replace or close a newer dialog (1.800379ms)
+✔ legacy cash held preview success cannot replace or close a newer dialog (2.700364ms)
+✔ legacy cash held confirm success cannot replace or close a newer dialog (3.571365ms)
+✔ legacy cash late authorization denial at initial cannot close a newer dialog (1.29582ms)
+✔ legacy cash late authorization denial at preview cannot close a newer dialog (2.177206ms)
+✔ legacy cash late authorization denial at confirm cannot close a newer dialog (6.08306ms)
+✔ legacy cash held original source cannot display after live read revocation (2.170657ms)
+✔ legacy cash exact pending receipt cannot close another dialog after replay (4.628556ms)
+✔ actual legacy cash correction preview and original receipt remain valid (4.102033ms)
+✔ actual legacy cash correction late preview cannot cross dialog replacement (2.401664ms)
+✔ actual legacy cash correction keeps original pending scope after UI clear (3.671375ms)
+✔ actual legacy cash reversal preview and original receipt remain valid (4.240963ms)
+✔ actual legacy cash reversal late preview cannot cross dialog replacement (1.866749ms)
+✔ actual legacy cash reversal keeps original pending scope after UI clear (3.047407ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 155.166749

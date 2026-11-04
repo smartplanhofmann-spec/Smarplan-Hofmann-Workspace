@@ -1,0 +1,57 @@
+✔ exact EUR cents reject rounding and retain explicit zero (1.574693ms)
+✔ global rights, finance activation and write gates remain distinct from read (0.403273ms)
+✔ cash editor preserves documentary units and never guesses deductible shares or SKR04 accounts (1.621764ms)
+✔ input VAT and linear asset forms have no invented start date or source amount percentage (0.488302ms)
+✔ preview and immutable ACK compare nested semantic fields including period control (1.012148ms)
+✔ unknown ACK, denied access and unmarked conflicts retain the exact original receipt until valid replay (27.809796ms)
+✔ confirmed not-accepted conflict releases only that pending command (0.591528ms)
+✔ fresh authorization reads global capabilities and current state before protected retry (0.442202ms)
+✔ open annual sources cannot masquerade as a complete taxable result (0.666903ms)
+✔ source identities and documentary cents cannot silently cross cash events (0.637148ms)
+✔ external EÜR payment evidence is not presented as a supplier liability or missing payout balance (14.966962ms)
+✔ held initial success cannot cross other (34.844515ms)
+✔ held initial private failure cannot cross other (1.13875ms)
+✔ held initial success cannot cross session (1.129926ms)
+✔ held initial private failure cannot cross session (0.785614ms)
+✔ current financial read revocation after state response removes original title and content (8.355276ms)
+✔ lost accepted command retries exactly after unrelated journal advancement (9.425617ms)
+✔ valid foreign accepted receipt never clears original pending operation (4.526237ms)
+✔ pending replay requires fresh financial approval and keeps original after denial (0.889571ms)
+✔ genuine opening item source continues through existing EÜR editor/report: receivable_prior_parts (1.709157ms)
+✔ genuine opening item source continues through existing EÜR editor/report: payable_old_input_vat (0.511808ms)
+✔ genuine opening item source continues through existing EÜR editor/report: clerical_payment_correction (0.274838ms)
+✔ background invalidation before the first private dialog prevents a late view (2.64554ms)
+✔ actual opening item originals, state, preview, cash and correction: receivable_prior_parts (30.719546ms)
+✔ actual opening item originals, state, preview, cash and correction: payable_old_input_vat (21.154163ms)
+✔ actual opening item originals, state, preview, cash and correction: clerical_payment_correction (16.293247ms)
+✔ opening residual cents retain original historical split and later one cent difference (3.404242ms)
+✔ foreign real acceptance, altered proof and changed preview cannot confirm original (1.937264ms)
+✔ old input tax exercise date and exact original cents cannot be silently substituted (1.731421ms)
+✔ source cash cannot claim a new active movement after clerical void or switch original (0.858405ms)
+✔ genuine cash accounting preserves old VAT; foreign source or second input tax is rejected (1.156397ms)
+✔ external identifiers use Unicode NFKC full casefold rather than locale/context lowercase (0.641394ms)
+file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:8
+import {bankMatchInput,bankMatchPreview,bankValidator} from '../bank-reconciliation.js';
+                                        ^^^^^^^^^^^^^
+SyntaxError: The requested module '../bank-reconciliation.js' does not provide an export named 'bankValidator'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:327:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:431:5)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+✖ web/office/tests/accounting-open-items-independent.test.mjs (91.892292ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 32
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 265.991582
+
+✖ failing tests:
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:1:1
+✖ web/office/tests/accounting-open-items-independent.test.mjs (91.892292ms)
+  'test failed'

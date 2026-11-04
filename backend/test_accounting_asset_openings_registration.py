@@ -23,6 +23,10 @@ MODULE='business_accounting_asset_openings'
 class HistoricalAssetRegistration(unittest.TestCase):
     office=fixture.OpeningRegistrationTests.office
 
+    def setUp(self):
+        previous=tuple(spec for spec in business_schema.registry() if spec.name!='business_accounting_open_items')
+        guard=patch.object(business_schema,'registry',return_value=previous);guard.start();self.addCleanup(guard.stop)
+
     def test_current_scope_requires_exact_assets_and_old_scope_cannot_unlock_new_restore(self):
         office=self.office();fixture.require_review(office);evidence=fixture.report(office)
         self.assertEqual(evidence['schema'],14);self.assertEqual(evidence['accounting_horizon']['schema_version'],13)

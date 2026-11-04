@@ -1,0 +1,34 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: /accounting/profile/confirm {"created_at":"2026-11-04T10:50:53+00:00","created_by":"3d6481124721459aa8546f36c4202793","evidence_reference":"Synthetic unchanged old E\u00dcR regular cash taxation","id":"8755f882ac5546d0ab4c0ff3926c05e6","preview_hash":"7314a31dddce385d5cca921589080fda1e5f3ddfdedc681a6b30e5826098f3e0","previous_state_hash":"fc1324627004d99f47cb52e0354 [line truncated]
+
+
+201 !== 200
+
+    at api (/workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-flow.cjs:9:266)
+    at async Object.openingItemsFlow (/workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-flow.cjs:23:491)
+    at async main (/workspace/smartplan-opening-items-20261104/web/office/tests/e2e.cjs:127:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+ - [04/Nov/2026 11:50:53] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/overview/metrics HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/feed HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/finance/open-items HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/finance/payments HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/finance/outbox HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "GET /api/v1/business/accounting/profile HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "POST /api/v1/business/accounting/profile/preview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:50:53] "[35m[1mPOST /api/v1/business/accounting/profile/confirm HTTP/1.1[0m" 201 -
+
+SMARTPLAN_BROWSER_FAILURE_END

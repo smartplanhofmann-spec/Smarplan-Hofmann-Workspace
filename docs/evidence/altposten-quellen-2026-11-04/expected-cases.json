@@ -1,0 +1,241 @@
+{
+  "unit": "EUR cents",
+  "purpose": "independent_reference_arithmetic_not_product_execution",
+  "rounding": "Decimal cumulative ROUND_HALF_UP; explicit technical assumption",
+  "scope": "ordinary ongoing EÜR / regular cash VAT, lawful full old input VAT deduction",
+  "numerical_cases": [
+    {
+      "id": "F01",
+      "periods": [
+        "2026-11",
+        "2027-02"
+      ],
+      "payments": [
+        {
+          "cash": 59500,
+          "euer_net": 50000,
+          "euer_vat": 9500,
+          "new_output_vat": 9500,
+          "new_input_vat": 0
+        },
+        {
+          "cash": 59500,
+          "euer_net": 50000,
+          "euer_vat": 9500,
+          "new_output_vat": 9500,
+          "new_input_vat": 0
+        }
+      ],
+      "remaining": {
+        "net": 0,
+        "tax": 0,
+        "gross": 0
+      }
+    },
+    {
+      "id": "F02",
+      "historical_payment": {
+        "net": 5000,
+        "tax": 350,
+        "gross": 5350
+      },
+      "payments": [
+        {
+          "cash": 5350,
+          "euer_net": 5000,
+          "euer_vat": 350,
+          "new_output_vat": 350,
+          "new_input_vat": 0
+        }
+      ],
+      "remaining": {
+        "net": 0,
+        "tax": 0,
+        "gross": 0
+      }
+    },
+    {
+      "id": "F03",
+      "historical_input_vat": 1900,
+      "payments": [
+        {
+          "cash": -11900,
+          "euer_net": -10000,
+          "euer_vat": -1900,
+          "new_output_vat": 0,
+          "new_input_vat": 0
+        }
+      ],
+      "remaining": {
+        "net": 0,
+        "tax": 0,
+        "gross": 0
+      }
+    },
+    {
+      "id": "F04",
+      "historical_input_vat": 19000,
+      "historical_payment": {
+        "net": 20000,
+        "tax": 3800,
+        "gross": 23800
+      },
+      "payments": [
+        {
+          "cash": -35700,
+          "euer_net": -30000,
+          "euer_vat": -5700,
+          "new_output_vat": 0,
+          "new_input_vat": 0
+        },
+        {
+          "cash": -59500,
+          "euer_net": -50000,
+          "euer_vat": -9500,
+          "new_output_vat": 0,
+          "new_input_vat": 0
+        }
+      ],
+      "remaining": {
+        "net": 0,
+        "tax": 0,
+        "gross": 0
+      }
+    },
+    {
+      "id": "F05",
+      "historical_actual_fa_refund": 1900,
+      "new_actual_fa_refund": 0,
+      "new_supplier_payment": {
+        "cash": -11900,
+        "euer_net": -10000,
+        "euer_vat": -1900,
+        "new_output_vat": 0,
+        "new_input_vat": 0
+      },
+      "new_euer_surplus": -11900,
+      "combined_period_surplus": -10000
+    },
+    {
+      "id": "F06",
+      "historical_actual_fa_refund": 0,
+      "new_actual_fa_refund": 1900,
+      "new_supplier_payment": {
+        "cash": -11900,
+        "euer_net": -10000,
+        "euer_vat": -1900,
+        "new_output_vat": 0,
+        "new_input_vat": 0
+      },
+      "new_euer_surplus": -10000,
+      "combined_period_surplus": -10000
+    },
+    {
+      "id": "F07",
+      "historical_payment": {
+        "net": 3334,
+        "tax": 633,
+        "gross": 3967
+      },
+      "new_component_consumption": [
+        {
+          "net": 3333,
+          "tax": 634,
+          "gross": 3967
+        },
+        {
+          "net": 3333,
+          "tax": 633,
+          "gross": 3966
+        }
+      ],
+      "remaining": {
+        "net": 0,
+        "tax": 0,
+        "gross": 0
+      },
+      "independently_rounded_tax_cents": [
+        633,
+        633,
+        633
+      ],
+      "incorrect_independent_tax_total": 1899
+    },
+    {
+      "id": "F08",
+      "historical_year_payment": {
+        "net": 5000,
+        "tax": 950,
+        "gross": 5950
+      },
+      "new_payment": {
+        "cash": -5950,
+        "euer_net": -5000,
+        "euer_vat": -950,
+        "new_output_vat": 0,
+        "new_input_vat": 0
+      },
+      "new_period_expense": 5950,
+      "annual_expense_with_history": 11900,
+      "complete_year_without_history": false
+    },
+    {
+      "id": "F09",
+      "bookkeeping_start": "2026-11-01",
+      "actual_cash_on_start": {
+        "cash": 11900,
+        "euer_net": 10000,
+        "euer_vat": 1900,
+        "new_output_vat": 1900,
+        "new_input_vat": 0
+      },
+      "actual_cash_day_before_is_historical": true,
+      "import_date": "2026-11-04",
+      "import_changes_cash_date": false
+    },
+    {
+      "id": "F10",
+      "imported_open_receivable": 11900,
+      "opening_bank_balance": 50000,
+      "new_cash": 0,
+      "new_euer": 0,
+      "new_output_vat": 0,
+      "new_input_vat": 0
+    }
+  ],
+  "contractual_negative_expectations": [
+    {
+      "id": "C01",
+      "kind": "incompatible_historical_rounding",
+      "historical": {
+        "net": 3333,
+        "tax": 634,
+        "gross": 3967
+      },
+      "actual_remaining": {
+        "net": 6667,
+        "tax": 1266,
+        "gross": 7933
+      },
+      "outcome": "Preserve original amounts; block narrow cumulative-contract import for clarification."
+    },
+    {
+      "id": "C02",
+      "kind": "overconsumption",
+      "original_gross": 11900,
+      "historical_paid": 11900,
+      "attempted_new_payment": 1,
+      "outcome": "No residual capacity; no new effect."
+    },
+    {
+      "id": "C03",
+      "kind": "missing_historical_vat_entitlement_proof",
+      "outcome": "No supported prior-full-deduction import; do not create a new VAT claim as fallback."
+    },
+    {
+      "id": "C04",
+      "kind": "real_method_or_vat_regime_change",
+      "outcome": "Outside continuation scope; separate transition assessment required."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+test_actual_http_item_payment_euer_and_exact_lost_ack_replay (test_accounting_open_items_transport.OpeningItemLocalTransport.test_actual_http_item_payment_euer_and_exact_lost_ack_replay) ... ok
+test_original_limit_replay_and_download (test_accounting_open_items_transport.OpeningItemLocalTransport.test_original_limit_replay_and_download) ... ok
+test_strict_framing (test_accounting_open_items_transport.OpeningItemLocalTransport.test_strict_framing) ... ok
+test_actual_http_item_payment_euer_and_exact_lost_ack_replay (test_accounting_open_items_transport.OpeningItemMFATransport.test_actual_http_item_payment_euer_and_exact_lost_ack_replay) ... ok
+test_original_limit_replay_and_download (test_accounting_open_items_transport.OpeningItemMFATransport.test_original_limit_replay_and_download) ... ok
+test_strict_framing (test_accounting_open_items_transport.OpeningItemMFATransport.test_strict_framing) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 3.973s
+
+OK

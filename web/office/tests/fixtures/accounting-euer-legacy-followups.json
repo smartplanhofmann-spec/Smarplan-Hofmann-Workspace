@@ -1,0 +1,2779 @@
+{
+  "correction": {
+    "synthetic": true,
+    "generated_by": "web/office/tests/accounting-euer-legacy-context-fixture.py",
+    "operation": "correct",
+    "event": {
+      "id": "b31c50bd8eb444bda5a675f00737b2e2",
+      "sequence": 1,
+      "account": {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "currency": "EUR",
+        "id": "bff21546c6d24b6f9c62a47906b49df0",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      },
+      "direction": "in",
+      "amount": "119.00",
+      "currency": "EUR",
+      "cash_date": "2026-11-02",
+      "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+      "reference": "Synthetic payment",
+      "source": {
+        "kind": "payment",
+        "id": "50afd10f261040d0ac289c4656c6354b",
+        "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6",
+        "snapshot": {
+          "payment_id": "50afd10f261040d0ac289c4656c6354b",
+          "kind": "receipt",
+          "direction": "in",
+          "amount": "119.00",
+          "currency": "EUR",
+          "booking_date": "2026-11-01",
+          "reference": "Synthetic payment",
+          "source_id": "source-82f4b00e91134e409e50129060008192",
+          "allocations": [
+            {
+              "document_id": "f2f071075d4a4cb2816ccb599d854190",
+              "number": "RE-2026-000001",
+              "project_id": "743a0ac6b38b43ca9cb8dea428babed5",
+              "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+              "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+              "amount": "119.00"
+            }
+          ],
+          "unallocated": "0.00"
+        }
+      },
+      "classification_status": "unclassified",
+      "unresolved_reasons": [
+        "tax_profile_unconfigured"
+      ],
+      "created_by": "b238bb3348074ef3aed54a9781475829",
+      "created_at": "2026-11-02T12:00:00+00:00"
+    },
+    "payload": {
+      "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+      "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+      "euer_date": "2026-11-02",
+      "year_rule": {
+        "kind": "cash"
+      },
+      "lines": [
+        {
+          "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+          "category": "sales",
+          "business_net": "100.00",
+          "deductible_net": "0.00",
+          "business_tax": "19.00",
+          "deductible_input_tax": "0.00",
+          "deductible_tax_cost": "0.00",
+          "account": "4400",
+          "vat_account": "3806"
+        }
+      ]
+    },
+    "body": {
+      "operation": "correct",
+      "payload": {
+        "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+        "operation": "cash",
+        "payload": {
+          "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+          "euer_date": "2026-11-02",
+          "year_rule": {
+            "kind": "cash"
+          },
+          "lines": [
+            {
+              "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+              "category": "sales",
+              "business_net": "100.00",
+              "deductible_net": "0.00",
+              "business_tax": "19.00",
+              "deductible_input_tax": "0.00",
+              "deductible_tax_cost": "0.00",
+              "account": "4400",
+              "vat_account": "3806"
+            }
+          ]
+        }
+      },
+      "expected_revision": 1,
+      "state_hash": "1bd256f190a3c458551450654b4c080f1f10008a5fa5e48069309b936e2819b6",
+      "reason": "Explicit synthetic subject/tax/account review",
+      "evidence_reference": "Synthetic evidence and SKR04 mapping"
+    },
+    "state": {
+      "revision": 1,
+      "state_hash": "1bd256f190a3c458551450654b4c080f1f10008a5fa5e48069309b936e2819b6",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "ffda98a68aeb41aba8d99cec71cc8273",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ready": true,
+      "writes_allowed": true,
+      "rule_version": "de_euer_regular_cash_2026_v1",
+      "account_frame": "SKR04",
+      "categories": {
+        "income": [
+          "sales"
+        ],
+        "expense": [
+          "materials",
+          "external_services",
+          "rent",
+          "insurance",
+          "software",
+          "travel",
+          "other_expense",
+          "asset_acquisition"
+        ],
+        "external_cash": {
+          "vat_payment": "out",
+          "vat_refund": "in",
+          "owner_contribution": "in",
+          "owner_withdrawal": "out",
+          "loan_received": "in",
+          "loan_repayment": "out"
+        },
+        "payroll_cash": [
+          "payroll_net",
+          "payroll_employee_tax",
+          "payroll_employee_social",
+          "payroll_employer_social",
+          "payroll_employer_levies",
+          "payroll_employer_flat_tax"
+        ],
+        "travel_cash": [
+          "travel_allowance"
+        ]
+      },
+      "periods": [],
+      "limitations": [
+        "Domestic regular taxation with explicitly recorded cash VAT profile",
+        "Invoice chains require verified incremental documentary components; historical invoice proofs remain unchanged",
+        "No automatic reverse charge, cross-border VAT, VAT-free sales, private deemed supplies or partial advance input VAT",
+        "Linear depreciation for evidenced new assets and separately reviewed unchanged historical movable assets; no disposal, special/degressive depreciation or GWG automation",
+        "No automatic loan-interest limitation, home-office allowance or payroll tax determination; travel cash requires separately reviewed travel claims",
+        "Own adviser review format; no official tax return, ELSTER transmission or DATEV certification"
+      ],
+      "official_tax_return": false,
+      "opening_balances_path": "/accounting/opening-balances",
+      "historical_assets_path": "/accounting/historical-assets"
+    },
+    "sources": {
+      "items": [
+        {
+          "kind": "cash",
+          "id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "date": "2026-11-02",
+          "source": {
+            "kind": "cash",
+            "event": {
+              "id": "b31c50bd8eb444bda5a675f00737b2e2",
+              "sequence": 1,
+              "account": {
+                "active": true,
+                "code": "BANK",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "b238bb3348074ef3aed54a9781475829",
+                "currency": "EUR",
+                "id": "bff21546c6d24b6f9c62a47906b49df0",
+                "kind": "bank",
+                "name": "Synthetic bank account",
+                "revision": 1
+              },
+              "direction": "in",
+              "amount": "119.00",
+              "currency": "EUR",
+              "cash_date": "2026-11-02",
+              "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+              "reference": "Synthetic payment",
+              "source": {
+                "kind": "payment",
+                "id": "50afd10f261040d0ac289c4656c6354b",
+                "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6",
+                "snapshot": {
+                  "payment_id": "50afd10f261040d0ac289c4656c6354b",
+                  "kind": "receipt",
+                  "direction": "in",
+                  "amount": "119.00",
+                  "currency": "EUR",
+                  "booking_date": "2026-11-01",
+                  "reference": "Synthetic payment",
+                  "source_id": "source-82f4b00e91134e409e50129060008192",
+                  "allocations": [
+                    {
+                      "document_id": "f2f071075d4a4cb2816ccb599d854190",
+                      "number": "RE-2026-000001",
+                      "project_id": "743a0ac6b38b43ca9cb8dea428babed5",
+                      "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+                      "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+                      "amount": "119.00"
+                    }
+                  ],
+                  "unallocated": "0.00"
+                }
+              },
+              "classification_status": "unclassified",
+              "unresolved_reasons": [
+                "tax_profile_unconfigured"
+              ],
+              "created_by": "b238bb3348074ef3aed54a9781475829",
+              "created_at": "2026-11-02T12:00:00+00:00"
+            },
+            "units": [
+              {
+                "version": "c1",
+                "entry_id": "8e9fbbe040a14148a6d5ec8e084ca700",
+                "group_id": "32d87cd51e47c62c568c391636a632a9927da3fdc77f0a6aff88f8b8ad08ef5e",
+                "index": 0,
+                "net": "100.00",
+                "tax": "19.00",
+                "gross": "119.00",
+                "rate": "19",
+                "tax_category": "S",
+                "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5"
+              }
+            ],
+            "undocumented_amount": "0.00",
+            "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+            "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7"
+          },
+          "current": {
+            "artifact": null,
+            "control": null,
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "effect": {
+              "details": {
+                "cash_date": "2026-11-02",
+                "date": "2026-11-02",
+                "gross": "119.00"
+              },
+              "operation": "cash",
+              "payload": {
+                "euer_date": "2026-11-02",
+                "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+                "lines": [
+                  {
+                    "account": "4400",
+                    "business_net": "100.00",
+                    "business_tax": "19.00",
+                    "category": "sales",
+                    "deductible_input_tax": "0.00",
+                    "deductible_net": "0.00",
+                    "deductible_tax_cost": "0.00",
+                    "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                    "vat_account": "3806"
+                  }
+                ],
+                "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+                "year_rule": {
+                  "kind": "cash"
+                }
+              },
+              "postings": [
+                {
+                  "account": "4400",
+                  "amount": "100.00",
+                  "category": "sales",
+                  "date": "2026-11-02",
+                  "ledger": "euer",
+                  "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+                },
+                {
+                  "account": "3806",
+                  "amount": "19.00",
+                  "category": "vat_collected",
+                  "date": "2026-11-02",
+                  "ledger": "euer",
+                  "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+                },
+                {
+                  "account": "3806",
+                  "amount": "19.00",
+                  "category": "output_vat",
+                  "date": "2026-11-02",
+                  "ledger": "vat",
+                  "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+                }
+              ],
+              "source": {
+                "event": {
+                  "account": {
+                    "active": true,
+                    "code": "BANK",
+                    "created_at": "2026-11-02T12:00:00+00:00",
+                    "created_by": "b238bb3348074ef3aed54a9781475829",
+                    "currency": "EUR",
+                    "id": "bff21546c6d24b6f9c62a47906b49df0",
+                    "kind": "bank",
+                    "name": "Synthetic bank account",
+                    "revision": 1
+                  },
+                  "amount": "119.00",
+                  "cash_date": "2026-11-02",
+                  "classification_status": "unclassified",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "b238bb3348074ef3aed54a9781475829",
+                  "currency": "EUR",
+                  "direction": "in",
+                  "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+                  "id": "b31c50bd8eb444bda5a675f00737b2e2",
+                  "reference": "Synthetic payment",
+                  "sequence": 1,
+                  "source": {
+                    "id": "50afd10f261040d0ac289c4656c6354b",
+                    "kind": "payment",
+                    "snapshot": {
+                      "allocations": [
+                        {
+                          "amount": "119.00",
+                          "document_id": "f2f071075d4a4cb2816ccb599d854190",
+                          "number": "RE-2026-000001",
+                          "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+                          "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+                          "project_id": "743a0ac6b38b43ca9cb8dea428babed5"
+                        }
+                      ],
+                      "amount": "119.00",
+                      "booking_date": "2026-11-01",
+                      "currency": "EUR",
+                      "direction": "in",
+                      "kind": "receipt",
+                      "payment_id": "50afd10f261040d0ac289c4656c6354b",
+                      "reference": "Synthetic payment",
+                      "source_id": "source-82f4b00e91134e409e50129060008192",
+                      "unallocated": "0.00"
+                    },
+                    "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6"
+                  },
+                  "unresolved_reasons": [
+                    "tax_profile_unconfigured"
+                  ]
+                },
+                "kind": "cash",
+                "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+                "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+                "undocumented_amount": "0.00",
+                "units": [
+                  {
+                    "entry_id": "8e9fbbe040a14148a6d5ec8e084ca700",
+                    "gross": "119.00",
+                    "group_id": "32d87cd51e47c62c568c391636a632a9927da3fdc77f0a6aff88f8b8ad08ef5e",
+                    "index": 0,
+                    "net": "100.00",
+                    "rate": "19",
+                    "tax": "19.00",
+                    "tax_category": "S",
+                    "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                    "version": "c1"
+                  }
+                ]
+              },
+              "target": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            "evidence_reference": "Synthetic evidence and SKR04 mapping",
+            "id": "ef75a7b2108d4007a9e061341ade19fd",
+            "operation": "cash",
+            "payload": {
+              "euer_date": "2026-11-02",
+              "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+              "lines": [
+                {
+                  "account": "4400",
+                  "business_net": "100.00",
+                  "business_tax": "19.00",
+                  "category": "sales",
+                  "deductible_input_tax": "0.00",
+                  "deductible_net": "0.00",
+                  "deductible_tax_cost": "0.00",
+                  "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                  "vat_account": "3806"
+                }
+              ],
+              "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+              "year_rule": {
+                "kind": "cash"
+              }
+            },
+            "postings": [
+              {
+                "account": "4400",
+                "amount": "100.00",
+                "category": "sales",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "vat_collected",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "output_vat",
+                "date": "2026-11-02",
+                "ledger": "vat",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              }
+            ],
+            "preview_hash": "45e3a28c9e3d409f98a4849e72fabc284596946721e5d66014d740a07b090d2f",
+            "previous_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+            "profile": {
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "b238bb3348074ef3aed54a9781475829",
+              "evidence_reference": "Synthetic owner statement",
+              "id": "ffda98a68aeb41aba8d99cec71cc8273",
+              "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+              "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+              "profile": {
+                "accounting_method": "euer",
+                "bookkeeping_start": "2026-01-01",
+                "legal_form": "sole_proprietorship",
+                "vat_effective_from": "2026-01-01",
+                "vat_regime": "regular",
+                "vat_timing": "cash"
+              },
+              "reason": "Explicit synthetic accounting facts",
+              "revision": 1,
+              "scope": "organization_profile",
+              "tax_result_available": false,
+              "tax_status": "unconfigured"
+            },
+            "reason": "Explicit synthetic subject/tax/account review",
+            "reverses": null,
+            "rule_version": "de_euer_regular_cash_2026_v1",
+            "sequence": 1,
+            "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+            "entry_hash": "01b1d54c9a2028cb3c7b614b2d621861486d8ed93f9fad98a2b72d18d02d0b9f"
+          },
+          "reasons": []
+        }
+      ],
+      "issues": [],
+      "cash_movements": [
+        {
+          "source_kind": "cash_event",
+          "source_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "currency": "EUR",
+            "id": "bff21546c6d24b6f9c62a47906b49df0",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "date": "2026-11-02",
+          "direction": "in",
+          "amount": "119.00",
+          "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2"
+        }
+      ],
+      "account_movements": [
+        {
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "currency": "EUR",
+            "id": "bff21546c6d24b6f9c62a47906b49df0",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "inflows": "119.00",
+          "outflows": "0.00",
+          "movement_net": "119.00",
+          "opening_balance": null,
+          "balance": null
+        }
+      ],
+      "cash_scope": "existing_cash_events_and_reviewed_external_cash",
+      "opening_balances_available": false,
+      "opening_balances_path": "/accounting/opening-balances",
+      "historical_assets_path": "/accounting/historical-assets"
+    },
+    "report": {
+      "year": 2026,
+      "period": null,
+      "currency": "EUR",
+      "rule_version": "de_euer_regular_cash_2026_v1",
+      "account_frame": "SKR04",
+      "scope": "recorded_sources",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "ffda98a68aeb41aba8d99cec71cc8273",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "revision": 1,
+      "state_hash": "1bd256f190a3c458551450654b4c080f1f10008a5fa5e48069309b936e2819b6",
+      "coverage_start": "2026-01-01",
+      "complete_for_recorded_sources": true,
+      "official_tax_return": false,
+      "limitations": [
+        "Domestic regular taxation with explicitly recorded cash VAT profile",
+        "Invoice chains require verified incremental documentary components; historical invoice proofs remain unchanged",
+        "No automatic reverse charge, cross-border VAT, VAT-free sales, private deemed supplies or partial advance input VAT",
+        "Linear depreciation for evidenced new assets and separately reviewed unchanged historical movable assets; no disposal, special/degressive depreciation or GWG automation",
+        "No automatic loan-interest limitation, home-office allowance or payroll tax determination; travel cash requires separately reviewed travel claims",
+        "Own adviser review format; no official tax return, ELSTER transmission or DATEV certification"
+      ],
+      "totals": {
+        "confirmed_income": "119.00",
+        "confirmed_expenses": "0.00",
+        "confirmed_surplus": "119.00",
+        "euer_surplus": "119.00",
+        "confirmed_output_vat": "19.00",
+        "confirmed_input_vat": "0.00",
+        "vat_balance": "19.00"
+      },
+      "categories": [
+        {
+          "ledger": "euer",
+          "category": "sales",
+          "amount": "100.00"
+        },
+        {
+          "ledger": "euer",
+          "category": "vat_collected",
+          "amount": "19.00"
+        },
+        {
+          "ledger": "vat",
+          "category": "output_vat",
+          "amount": "19.00"
+        }
+      ],
+      "postings": [
+        {
+          "account": "4400",
+          "amount": "100.00",
+          "category": "sales",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+          "sequence": 1
+        },
+        {
+          "account": "3806",
+          "amount": "19.00",
+          "category": "vat_collected",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+          "sequence": 1
+        },
+        {
+          "account": "3806",
+          "amount": "19.00",
+          "category": "output_vat",
+          "date": "2026-11-02",
+          "ledger": "vat",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+          "sequence": 1
+        }
+      ],
+      "issues": [],
+      "assets": [],
+      "historical_assets": [],
+      "periods": [],
+      "sources": [
+        {
+          "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+          "entry_hash": "01b1d54c9a2028cb3c7b614b2d621861486d8ed93f9fad98a2b72d18d02d0b9f",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+          "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+          "kind": "cash"
+        }
+      ],
+      "cash_movements": [
+        {
+          "source_kind": "cash_event",
+          "source_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "currency": "EUR",
+            "id": "bff21546c6d24b6f9c62a47906b49df0",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "date": "2026-11-02",
+          "direction": "in",
+          "amount": "119.00",
+          "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2"
+        }
+      ],
+      "cash_scope": "existing_cash_events_and_reviewed_external_cash",
+      "opening_balances_available": false
+    },
+    "journal": {
+      "items": [
+        {
+          "artifact": null,
+          "control": null,
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "b238bb3348074ef3aed54a9781475829",
+          "effect": {
+            "details": {
+              "cash_date": "2026-11-02",
+              "date": "2026-11-02",
+              "gross": "119.00"
+            },
+            "operation": "cash",
+            "payload": {
+              "euer_date": "2026-11-02",
+              "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+              "lines": [
+                {
+                  "account": "4400",
+                  "business_net": "100.00",
+                  "business_tax": "19.00",
+                  "category": "sales",
+                  "deductible_input_tax": "0.00",
+                  "deductible_net": "0.00",
+                  "deductible_tax_cost": "0.00",
+                  "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                  "vat_account": "3806"
+                }
+              ],
+              "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+              "year_rule": {
+                "kind": "cash"
+              }
+            },
+            "postings": [
+              {
+                "account": "4400",
+                "amount": "100.00",
+                "category": "sales",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "vat_collected",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "output_vat",
+                "date": "2026-11-02",
+                "ledger": "vat",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              }
+            ],
+            "source": {
+              "event": {
+                "account": {
+                  "active": true,
+                  "code": "BANK",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "b238bb3348074ef3aed54a9781475829",
+                  "currency": "EUR",
+                  "id": "bff21546c6d24b6f9c62a47906b49df0",
+                  "kind": "bank",
+                  "name": "Synthetic bank account",
+                  "revision": 1
+                },
+                "amount": "119.00",
+                "cash_date": "2026-11-02",
+                "classification_status": "unclassified",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "b238bb3348074ef3aed54a9781475829",
+                "currency": "EUR",
+                "direction": "in",
+                "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+                "id": "b31c50bd8eb444bda5a675f00737b2e2",
+                "reference": "Synthetic payment",
+                "sequence": 1,
+                "source": {
+                  "id": "50afd10f261040d0ac289c4656c6354b",
+                  "kind": "payment",
+                  "snapshot": {
+                    "allocations": [
+                      {
+                        "amount": "119.00",
+                        "document_id": "f2f071075d4a4cb2816ccb599d854190",
+                        "number": "RE-2026-000001",
+                        "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+                        "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+                        "project_id": "743a0ac6b38b43ca9cb8dea428babed5"
+                      }
+                    ],
+                    "amount": "119.00",
+                    "booking_date": "2026-11-01",
+                    "currency": "EUR",
+                    "direction": "in",
+                    "kind": "receipt",
+                    "payment_id": "50afd10f261040d0ac289c4656c6354b",
+                    "reference": "Synthetic payment",
+                    "source_id": "source-82f4b00e91134e409e50129060008192",
+                    "unallocated": "0.00"
+                  },
+                  "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6"
+                },
+                "unresolved_reasons": [
+                  "tax_profile_unconfigured"
+                ]
+              },
+              "kind": "cash",
+              "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+              "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+              "undocumented_amount": "0.00",
+              "units": [
+                {
+                  "entry_id": "8e9fbbe040a14148a6d5ec8e084ca700",
+                  "gross": "119.00",
+                  "group_id": "32d87cd51e47c62c568c391636a632a9927da3fdc77f0a6aff88f8b8ad08ef5e",
+                  "index": 0,
+                  "net": "100.00",
+                  "rate": "19",
+                  "tax": "19.00",
+                  "tax_category": "S",
+                  "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                  "version": "c1"
+                }
+              ]
+            },
+            "target": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+          },
+          "evidence_reference": "Synthetic evidence and SKR04 mapping",
+          "id": "ef75a7b2108d4007a9e061341ade19fd",
+          "operation": "cash",
+          "payload": {
+            "euer_date": "2026-11-02",
+            "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+            "lines": [
+              {
+                "account": "4400",
+                "business_net": "100.00",
+                "business_tax": "19.00",
+                "category": "sales",
+                "deductible_input_tax": "0.00",
+                "deductible_net": "0.00",
+                "deductible_tax_cost": "0.00",
+                "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                "vat_account": "3806"
+              }
+            ],
+            "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+            "year_rule": {
+              "kind": "cash"
+            }
+          },
+          "postings": [
+            {
+              "account": "4400",
+              "amount": "100.00",
+              "category": "sales",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            {
+              "account": "3806",
+              "amount": "19.00",
+              "category": "vat_collected",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            {
+              "account": "3806",
+              "amount": "19.00",
+              "category": "output_vat",
+              "date": "2026-11-02",
+              "ledger": "vat",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            }
+          ],
+          "preview_hash": "45e3a28c9e3d409f98a4849e72fabc284596946721e5d66014d740a07b090d2f",
+          "previous_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "ffda98a68aeb41aba8d99cec71cc8273",
+            "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+            "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-01-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2026-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 1,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "reason": "Explicit synthetic subject/tax/account review",
+          "reverses": null,
+          "rule_version": "de_euer_regular_cash_2026_v1",
+          "sequence": 1,
+          "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_hash": "01b1d54c9a2028cb3c7b614b2d621861486d8ed93f9fad98a2b72d18d02d0b9f"
+        }
+      ],
+      "total": 1,
+      "next_offset": null,
+      "scope": "authorized_sources"
+    },
+    "accounts": {
+      "items": [
+        {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "b238bb3348074ef3aed54a9781475829",
+          "currency": "EUR",
+          "id": "bff21546c6d24b6f9c62a47906b49df0",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        }
+      ]
+    },
+    "preview": {
+      "expected_revision": 1,
+      "state_hash": "1bd256f190a3c458551450654b4c080f1f10008a5fa5e48069309b936e2819b6",
+      "payload": {
+        "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+        "operation": "cash",
+        "payload": {
+          "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+          "euer_date": "2026-11-02",
+          "year_rule": {
+            "kind": "cash"
+          },
+          "lines": [
+            {
+              "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+              "category": "sales",
+              "business_net": "100.00",
+              "deductible_net": "0.00",
+              "business_tax": "19.00",
+              "deductible_input_tax": "0.00",
+              "deductible_tax_cost": "0.00",
+              "account": "4400",
+              "vat_account": "3806"
+            }
+          ]
+        }
+      },
+      "evidence_reference": "Synthetic evidence and SKR04 mapping",
+      "operation": "correct",
+      "reason": "Explicit synthetic subject/tax/account review",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "ffda98a68aeb41aba8d99cec71cc8273",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "rule_version": "de_euer_regular_cash_2026_v1",
+      "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+      "effect": {
+        "operation": "cash",
+        "payload": {
+          "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+          "euer_date": "2026-11-02",
+          "year_rule": {
+            "kind": "cash"
+          },
+          "lines": [
+            {
+              "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+              "category": "sales",
+              "business_net": "100.00",
+              "deductible_net": "0.00",
+              "business_tax": "19.00",
+              "deductible_input_tax": "0.00",
+              "deductible_tax_cost": "0.00",
+              "account": "4400",
+              "vat_account": "3806"
+            }
+          ]
+        },
+        "source": {
+          "kind": "cash",
+          "event": {
+            "id": "b31c50bd8eb444bda5a675f00737b2e2",
+            "sequence": 1,
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "b238bb3348074ef3aed54a9781475829",
+              "currency": "EUR",
+              "id": "bff21546c6d24b6f9c62a47906b49df0",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "direction": "in",
+            "amount": "119.00",
+            "currency": "EUR",
+            "cash_date": "2026-11-02",
+            "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+            "reference": "Synthetic payment",
+            "source": {
+              "kind": "payment",
+              "id": "50afd10f261040d0ac289c4656c6354b",
+              "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6",
+              "snapshot": {
+                "payment_id": "50afd10f261040d0ac289c4656c6354b",
+                "kind": "receipt",
+                "direction": "in",
+                "amount": "119.00",
+                "currency": "EUR",
+                "booking_date": "2026-11-01",
+                "reference": "Synthetic payment",
+                "source_id": "source-82f4b00e91134e409e50129060008192",
+                "allocations": [
+                  {
+                    "document_id": "f2f071075d4a4cb2816ccb599d854190",
+                    "number": "RE-2026-000001",
+                    "project_id": "743a0ac6b38b43ca9cb8dea428babed5",
+                    "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+                    "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+                    "amount": "119.00"
+                  }
+                ],
+                "unallocated": "0.00"
+              }
+            },
+            "classification_status": "unclassified",
+            "unresolved_reasons": [
+              "tax_profile_unconfigured"
+            ],
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "created_at": "2026-11-02T12:00:00+00:00"
+          },
+          "units": [
+            {
+              "version": "c1",
+              "entry_id": "8e9fbbe040a14148a6d5ec8e084ca700",
+              "group_id": "32d87cd51e47c62c568c391636a632a9927da3fdc77f0a6aff88f8b8ad08ef5e",
+              "index": 0,
+              "net": "100.00",
+              "tax": "19.00",
+              "gross": "119.00",
+              "rate": "19",
+              "tax_category": "S",
+              "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5"
+            }
+          ],
+          "undocumented_amount": "0.00",
+          "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7"
+        },
+        "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+        "postings": [
+          {
+            "ledger": "euer",
+            "category": "sales",
+            "amount": "100.00",
+            "date": "2026-11-02",
+            "account": "4400",
+            "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+          },
+          {
+            "ledger": "euer",
+            "category": "vat_collected",
+            "amount": "19.00",
+            "date": "2026-11-02",
+            "account": "3806",
+            "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+          },
+          {
+            "ledger": "vat",
+            "category": "output_vat",
+            "amount": "19.00",
+            "date": "2026-11-02",
+            "account": "3806",
+            "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+          }
+        ],
+        "details": {
+          "date": "2026-11-02",
+          "cash_date": "2026-11-02",
+          "gross": "119.00"
+        }
+      },
+      "reverses": "ef75a7b2108d4007a9e061341ade19fd",
+      "postings": [
+        {
+          "account": "4400",
+          "amount": "-100.00",
+          "category": "sales",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "vat_collected",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "output_vat",
+          "date": "2026-11-02",
+          "ledger": "vat",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "ledger": "euer",
+          "category": "sales",
+          "amount": "100.00",
+          "date": "2026-11-02",
+          "account": "4400",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "ledger": "euer",
+          "category": "vat_collected",
+          "amount": "19.00",
+          "date": "2026-11-02",
+          "account": "3806",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "ledger": "vat",
+          "category": "output_vat",
+          "amount": "19.00",
+          "date": "2026-11-02",
+          "account": "3806",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        }
+      ],
+      "artifact": null,
+      "control": null,
+      "preview_hash": "e0df1e9952b9f6bfeda37587ce324b84ea35995de381d36883f573a97b522433"
+    },
+    "command": {
+      "operation": "correct",
+      "payload": {
+        "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+        "operation": "cash",
+        "payload": {
+          "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+          "euer_date": "2026-11-02",
+          "year_rule": {
+            "kind": "cash"
+          },
+          "lines": [
+            {
+              "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+              "category": "sales",
+              "business_net": "100.00",
+              "deductible_net": "0.00",
+              "business_tax": "19.00",
+              "deductible_input_tax": "0.00",
+              "deductible_tax_cost": "0.00",
+              "account": "4400",
+              "vat_account": "3806"
+            }
+          ]
+        }
+      },
+      "expected_revision": 1,
+      "state_hash": "1bd256f190a3c458551450654b4c080f1f10008a5fa5e48069309b936e2819b6",
+      "reason": "Explicit synthetic subject/tax/account review",
+      "evidence_reference": "Synthetic evidence and SKR04 mapping",
+      "request_id": "616d222a5bba4c4b9ef67da4769a110f",
+      "preview_hash": "e0df1e9952b9f6bfeda37587ce324b84ea35995de381d36883f573a97b522433",
+      "confirmation": true
+    },
+    "accepted": {
+      "payload": {
+        "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+        "operation": "cash",
+        "payload": {
+          "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+          "euer_date": "2026-11-02",
+          "year_rule": {
+            "kind": "cash"
+          },
+          "lines": [
+            {
+              "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+              "category": "sales",
+              "business_net": "100.00",
+              "deductible_net": "0.00",
+              "business_tax": "19.00",
+              "deductible_input_tax": "0.00",
+              "deductible_tax_cost": "0.00",
+              "account": "4400",
+              "vat_account": "3806"
+            }
+          ]
+        }
+      },
+      "evidence_reference": "Synthetic evidence and SKR04 mapping",
+      "operation": "correct",
+      "reason": "Explicit synthetic subject/tax/account review",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "ffda98a68aeb41aba8d99cec71cc8273",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "rule_version": "de_euer_regular_cash_2026_v1",
+      "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+      "effect": {
+        "operation": "cash",
+        "payload": {
+          "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+          "euer_date": "2026-11-02",
+          "year_rule": {
+            "kind": "cash"
+          },
+          "lines": [
+            {
+              "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+              "category": "sales",
+              "business_net": "100.00",
+              "deductible_net": "0.00",
+              "business_tax": "19.00",
+              "deductible_input_tax": "0.00",
+              "deductible_tax_cost": "0.00",
+              "account": "4400",
+              "vat_account": "3806"
+            }
+          ]
+        },
+        "source": {
+          "kind": "cash",
+          "event": {
+            "id": "b31c50bd8eb444bda5a675f00737b2e2",
+            "sequence": 1,
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "b238bb3348074ef3aed54a9781475829",
+              "currency": "EUR",
+              "id": "bff21546c6d24b6f9c62a47906b49df0",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "direction": "in",
+            "amount": "119.00",
+            "currency": "EUR",
+            "cash_date": "2026-11-02",
+            "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+            "reference": "Synthetic payment",
+            "source": {
+              "kind": "payment",
+              "id": "50afd10f261040d0ac289c4656c6354b",
+              "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6",
+              "snapshot": {
+                "payment_id": "50afd10f261040d0ac289c4656c6354b",
+                "kind": "receipt",
+                "direction": "in",
+                "amount": "119.00",
+                "currency": "EUR",
+                "booking_date": "2026-11-01",
+                "reference": "Synthetic payment",
+                "source_id": "source-82f4b00e91134e409e50129060008192",
+                "allocations": [
+                  {
+                    "document_id": "f2f071075d4a4cb2816ccb599d854190",
+                    "number": "RE-2026-000001",
+                    "project_id": "743a0ac6b38b43ca9cb8dea428babed5",
+                    "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+                    "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+                    "amount": "119.00"
+                  }
+                ],
+                "unallocated": "0.00"
+              }
+            },
+            "classification_status": "unclassified",
+            "unresolved_reasons": [
+              "tax_profile_unconfigured"
+            ],
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "created_at": "2026-11-02T12:00:00+00:00"
+          },
+          "units": [
+            {
+              "version": "c1",
+              "entry_id": "8e9fbbe040a14148a6d5ec8e084ca700",
+              "group_id": "32d87cd51e47c62c568c391636a632a9927da3fdc77f0a6aff88f8b8ad08ef5e",
+              "index": 0,
+              "net": "100.00",
+              "tax": "19.00",
+              "gross": "119.00",
+              "rate": "19",
+              "tax_category": "S",
+              "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5"
+            }
+          ],
+          "undocumented_amount": "0.00",
+          "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7"
+        },
+        "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+        "postings": [
+          {
+            "ledger": "euer",
+            "category": "sales",
+            "amount": "100.00",
+            "date": "2026-11-02",
+            "account": "4400",
+            "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+          },
+          {
+            "ledger": "euer",
+            "category": "vat_collected",
+            "amount": "19.00",
+            "date": "2026-11-02",
+            "account": "3806",
+            "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+          },
+          {
+            "ledger": "vat",
+            "category": "output_vat",
+            "amount": "19.00",
+            "date": "2026-11-02",
+            "account": "3806",
+            "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+          }
+        ],
+        "details": {
+          "date": "2026-11-02",
+          "cash_date": "2026-11-02",
+          "gross": "119.00"
+        }
+      },
+      "reverses": "ef75a7b2108d4007a9e061341ade19fd",
+      "postings": [
+        {
+          "account": "4400",
+          "amount": "-100.00",
+          "category": "sales",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "vat_collected",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "output_vat",
+          "date": "2026-11-02",
+          "ledger": "vat",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "ledger": "euer",
+          "category": "sales",
+          "amount": "100.00",
+          "date": "2026-11-02",
+          "account": "4400",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "ledger": "euer",
+          "category": "vat_collected",
+          "amount": "19.00",
+          "date": "2026-11-02",
+          "account": "3806",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "ledger": "vat",
+          "category": "output_vat",
+          "amount": "19.00",
+          "date": "2026-11-02",
+          "account": "3806",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        }
+      ],
+      "artifact": null,
+      "control": null,
+      "preview_hash": "e0df1e9952b9f6bfeda37587ce324b84ea35995de381d36883f573a97b522433",
+      "id": "1a0b2d12c5104b64b27ef11f936a57b0",
+      "sequence": 2,
+      "previous_hash": "1bd256f190a3c458551450654b4c080f1f10008a5fa5e48069309b936e2819b6",
+      "created_by": "b238bb3348074ef3aed54a9781475829",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "entry_hash": "a541de1aaa0697f2c5e6bf4ee4482dbf5b4828a25279b70a9b64a41bf288ab4d"
+    }
+  },
+  "reversal": {
+    "synthetic": true,
+    "generated_by": "web/office/tests/accounting-euer-legacy-context-fixture.py",
+    "operation": "reverse",
+    "event": {
+      "id": "b31c50bd8eb444bda5a675f00737b2e2",
+      "sequence": 1,
+      "account": {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "currency": "EUR",
+        "id": "bff21546c6d24b6f9c62a47906b49df0",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      },
+      "direction": "in",
+      "amount": "119.00",
+      "currency": "EUR",
+      "cash_date": "2026-11-02",
+      "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+      "reference": "Synthetic payment",
+      "source": {
+        "kind": "payment",
+        "id": "50afd10f261040d0ac289c4656c6354b",
+        "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6",
+        "snapshot": {
+          "payment_id": "50afd10f261040d0ac289c4656c6354b",
+          "kind": "receipt",
+          "direction": "in",
+          "amount": "119.00",
+          "currency": "EUR",
+          "booking_date": "2026-11-01",
+          "reference": "Synthetic payment",
+          "source_id": "source-82f4b00e91134e409e50129060008192",
+          "allocations": [
+            {
+              "document_id": "f2f071075d4a4cb2816ccb599d854190",
+              "number": "RE-2026-000001",
+              "project_id": "743a0ac6b38b43ca9cb8dea428babed5",
+              "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+              "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+              "amount": "119.00"
+            }
+          ],
+          "unallocated": "0.00"
+        }
+      },
+      "classification_status": "unclassified",
+      "unresolved_reasons": [
+        "tax_profile_unconfigured"
+      ],
+      "created_by": "b238bb3348074ef3aed54a9781475829",
+      "created_at": "2026-11-02T12:00:00+00:00"
+    },
+    "payload": {
+      "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+      "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+      "euer_date": "2026-11-02",
+      "year_rule": {
+        "kind": "cash"
+      },
+      "lines": [
+        {
+          "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+          "category": "sales",
+          "business_net": "100.00",
+          "deductible_net": "0.00",
+          "business_tax": "19.00",
+          "deductible_input_tax": "0.00",
+          "deductible_tax_cost": "0.00",
+          "account": "4400",
+          "vat_account": "3806"
+        }
+      ]
+    },
+    "body": {
+      "operation": "reverse",
+      "payload": {
+        "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0"
+      },
+      "expected_revision": 2,
+      "state_hash": "65bd5053ce94e8ee59dc4199a4f35b6f4ab618f8af34c99010146b5278f8179f",
+      "reason": "Explicit synthetic subject/tax/account review",
+      "evidence_reference": "Synthetic evidence and SKR04 mapping"
+    },
+    "state": {
+      "revision": 2,
+      "state_hash": "65bd5053ce94e8ee59dc4199a4f35b6f4ab618f8af34c99010146b5278f8179f",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "ffda98a68aeb41aba8d99cec71cc8273",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ready": true,
+      "writes_allowed": true,
+      "rule_version": "de_euer_regular_cash_2026_v1",
+      "account_frame": "SKR04",
+      "categories": {
+        "income": [
+          "sales"
+        ],
+        "expense": [
+          "materials",
+          "external_services",
+          "rent",
+          "insurance",
+          "software",
+          "travel",
+          "other_expense",
+          "asset_acquisition"
+        ],
+        "external_cash": {
+          "vat_payment": "out",
+          "vat_refund": "in",
+          "owner_contribution": "in",
+          "owner_withdrawal": "out",
+          "loan_received": "in",
+          "loan_repayment": "out"
+        },
+        "payroll_cash": [
+          "payroll_net",
+          "payroll_employee_tax",
+          "payroll_employee_social",
+          "payroll_employer_social",
+          "payroll_employer_levies",
+          "payroll_employer_flat_tax"
+        ],
+        "travel_cash": [
+          "travel_allowance"
+        ]
+      },
+      "periods": [],
+      "limitations": [
+        "Domestic regular taxation with explicitly recorded cash VAT profile",
+        "Invoice chains require verified incremental documentary components; historical invoice proofs remain unchanged",
+        "No automatic reverse charge, cross-border VAT, VAT-free sales, private deemed supplies or partial advance input VAT",
+        "Linear depreciation for evidenced new assets and separately reviewed unchanged historical movable assets; no disposal, special/degressive depreciation or GWG automation",
+        "No automatic loan-interest limitation, home-office allowance or payroll tax determination; travel cash requires separately reviewed travel claims",
+        "Own adviser review format; no official tax return, ELSTER transmission or DATEV certification"
+      ],
+      "official_tax_return": false,
+      "opening_balances_path": "/accounting/opening-balances",
+      "historical_assets_path": "/accounting/historical-assets"
+    },
+    "sources": {
+      "items": [
+        {
+          "kind": "cash",
+          "id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "date": "2026-11-02",
+          "source": {
+            "kind": "cash",
+            "event": {
+              "id": "b31c50bd8eb444bda5a675f00737b2e2",
+              "sequence": 1,
+              "account": {
+                "active": true,
+                "code": "BANK",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "b238bb3348074ef3aed54a9781475829",
+                "currency": "EUR",
+                "id": "bff21546c6d24b6f9c62a47906b49df0",
+                "kind": "bank",
+                "name": "Synthetic bank account",
+                "revision": 1
+              },
+              "direction": "in",
+              "amount": "119.00",
+              "currency": "EUR",
+              "cash_date": "2026-11-02",
+              "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+              "reference": "Synthetic payment",
+              "source": {
+                "kind": "payment",
+                "id": "50afd10f261040d0ac289c4656c6354b",
+                "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6",
+                "snapshot": {
+                  "payment_id": "50afd10f261040d0ac289c4656c6354b",
+                  "kind": "receipt",
+                  "direction": "in",
+                  "amount": "119.00",
+                  "currency": "EUR",
+                  "booking_date": "2026-11-01",
+                  "reference": "Synthetic payment",
+                  "source_id": "source-82f4b00e91134e409e50129060008192",
+                  "allocations": [
+                    {
+                      "document_id": "f2f071075d4a4cb2816ccb599d854190",
+                      "number": "RE-2026-000001",
+                      "project_id": "743a0ac6b38b43ca9cb8dea428babed5",
+                      "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+                      "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+                      "amount": "119.00"
+                    }
+                  ],
+                  "unallocated": "0.00"
+                }
+              },
+              "classification_status": "unclassified",
+              "unresolved_reasons": [
+                "tax_profile_unconfigured"
+              ],
+              "created_by": "b238bb3348074ef3aed54a9781475829",
+              "created_at": "2026-11-02T12:00:00+00:00"
+            },
+            "units": [
+              {
+                "version": "c1",
+                "entry_id": "8e9fbbe040a14148a6d5ec8e084ca700",
+                "group_id": "32d87cd51e47c62c568c391636a632a9927da3fdc77f0a6aff88f8b8ad08ef5e",
+                "index": 0,
+                "net": "100.00",
+                "tax": "19.00",
+                "gross": "119.00",
+                "rate": "19",
+                "tax_category": "S",
+                "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5"
+              }
+            ],
+            "undocumented_amount": "0.00",
+            "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+            "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7"
+          },
+          "current": {
+            "artifact": null,
+            "control": null,
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "effect": {
+              "details": {
+                "cash_date": "2026-11-02",
+                "date": "2026-11-02",
+                "gross": "119.00"
+              },
+              "operation": "cash",
+              "payload": {
+                "euer_date": "2026-11-02",
+                "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+                "lines": [
+                  {
+                    "account": "4400",
+                    "business_net": "100.00",
+                    "business_tax": "19.00",
+                    "category": "sales",
+                    "deductible_input_tax": "0.00",
+                    "deductible_net": "0.00",
+                    "deductible_tax_cost": "0.00",
+                    "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                    "vat_account": "3806"
+                  }
+                ],
+                "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+                "year_rule": {
+                  "kind": "cash"
+                }
+              },
+              "postings": [
+                {
+                  "account": "4400",
+                  "amount": "100.00",
+                  "category": "sales",
+                  "date": "2026-11-02",
+                  "ledger": "euer",
+                  "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+                },
+                {
+                  "account": "3806",
+                  "amount": "19.00",
+                  "category": "vat_collected",
+                  "date": "2026-11-02",
+                  "ledger": "euer",
+                  "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+                },
+                {
+                  "account": "3806",
+                  "amount": "19.00",
+                  "category": "output_vat",
+                  "date": "2026-11-02",
+                  "ledger": "vat",
+                  "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+                }
+              ],
+              "source": {
+                "event": {
+                  "account": {
+                    "active": true,
+                    "code": "BANK",
+                    "created_at": "2026-11-02T12:00:00+00:00",
+                    "created_by": "b238bb3348074ef3aed54a9781475829",
+                    "currency": "EUR",
+                    "id": "bff21546c6d24b6f9c62a47906b49df0",
+                    "kind": "bank",
+                    "name": "Synthetic bank account",
+                    "revision": 1
+                  },
+                  "amount": "119.00",
+                  "cash_date": "2026-11-02",
+                  "classification_status": "unclassified",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "b238bb3348074ef3aed54a9781475829",
+                  "currency": "EUR",
+                  "direction": "in",
+                  "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+                  "id": "b31c50bd8eb444bda5a675f00737b2e2",
+                  "reference": "Synthetic payment",
+                  "sequence": 1,
+                  "source": {
+                    "id": "50afd10f261040d0ac289c4656c6354b",
+                    "kind": "payment",
+                    "snapshot": {
+                      "allocations": [
+                        {
+                          "amount": "119.00",
+                          "document_id": "f2f071075d4a4cb2816ccb599d854190",
+                          "number": "RE-2026-000001",
+                          "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+                          "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+                          "project_id": "743a0ac6b38b43ca9cb8dea428babed5"
+                        }
+                      ],
+                      "amount": "119.00",
+                      "booking_date": "2026-11-01",
+                      "currency": "EUR",
+                      "direction": "in",
+                      "kind": "receipt",
+                      "payment_id": "50afd10f261040d0ac289c4656c6354b",
+                      "reference": "Synthetic payment",
+                      "source_id": "source-82f4b00e91134e409e50129060008192",
+                      "unallocated": "0.00"
+                    },
+                    "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6"
+                  },
+                  "unresolved_reasons": [
+                    "tax_profile_unconfigured"
+                  ]
+                },
+                "kind": "cash",
+                "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+                "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+                "undocumented_amount": "0.00",
+                "units": [
+                  {
+                    "entry_id": "8e9fbbe040a14148a6d5ec8e084ca700",
+                    "gross": "119.00",
+                    "group_id": "32d87cd51e47c62c568c391636a632a9927da3fdc77f0a6aff88f8b8ad08ef5e",
+                    "index": 0,
+                    "net": "100.00",
+                    "rate": "19",
+                    "tax": "19.00",
+                    "tax_category": "S",
+                    "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                    "version": "c1"
+                  }
+                ]
+              },
+              "target": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            "evidence_reference": "Synthetic evidence and SKR04 mapping",
+            "id": "1a0b2d12c5104b64b27ef11f936a57b0",
+            "operation": "correct",
+            "payload": {
+              "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+              "operation": "cash",
+              "payload": {
+                "euer_date": "2026-11-02",
+                "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+                "lines": [
+                  {
+                    "account": "4400",
+                    "business_net": "100.00",
+                    "business_tax": "19.00",
+                    "category": "sales",
+                    "deductible_input_tax": "0.00",
+                    "deductible_net": "0.00",
+                    "deductible_tax_cost": "0.00",
+                    "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                    "vat_account": "3806"
+                  }
+                ],
+                "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+                "year_rule": {
+                  "kind": "cash"
+                }
+              }
+            },
+            "postings": [
+              {
+                "account": "4400",
+                "amount": "-100.00",
+                "category": "sales",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "-19.00",
+                "category": "vat_collected",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "-19.00",
+                "category": "output_vat",
+                "date": "2026-11-02",
+                "ledger": "vat",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "4400",
+                "amount": "100.00",
+                "category": "sales",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "vat_collected",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "output_vat",
+                "date": "2026-11-02",
+                "ledger": "vat",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              }
+            ],
+            "preview_hash": "e0df1e9952b9f6bfeda37587ce324b84ea35995de381d36883f573a97b522433",
+            "previous_hash": "1bd256f190a3c458551450654b4c080f1f10008a5fa5e48069309b936e2819b6",
+            "profile": {
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "b238bb3348074ef3aed54a9781475829",
+              "evidence_reference": "Synthetic owner statement",
+              "id": "ffda98a68aeb41aba8d99cec71cc8273",
+              "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+              "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+              "profile": {
+                "accounting_method": "euer",
+                "bookkeeping_start": "2026-01-01",
+                "legal_form": "sole_proprietorship",
+                "vat_effective_from": "2026-01-01",
+                "vat_regime": "regular",
+                "vat_timing": "cash"
+              },
+              "reason": "Explicit synthetic accounting facts",
+              "revision": 1,
+              "scope": "organization_profile",
+              "tax_result_available": false,
+              "tax_status": "unconfigured"
+            },
+            "reason": "Explicit synthetic subject/tax/account review",
+            "reverses": "ef75a7b2108d4007a9e061341ade19fd",
+            "rule_version": "de_euer_regular_cash_2026_v1",
+            "sequence": 2,
+            "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+            "entry_hash": "a541de1aaa0697f2c5e6bf4ee4482dbf5b4828a25279b70a9b64a41bf288ab4d"
+          },
+          "reasons": []
+        }
+      ],
+      "issues": [],
+      "cash_movements": [
+        {
+          "source_kind": "cash_event",
+          "source_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "currency": "EUR",
+            "id": "bff21546c6d24b6f9c62a47906b49df0",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "date": "2026-11-02",
+          "direction": "in",
+          "amount": "119.00",
+          "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2"
+        }
+      ],
+      "account_movements": [
+        {
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "currency": "EUR",
+            "id": "bff21546c6d24b6f9c62a47906b49df0",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "inflows": "119.00",
+          "outflows": "0.00",
+          "movement_net": "119.00",
+          "opening_balance": null,
+          "balance": null
+        }
+      ],
+      "cash_scope": "existing_cash_events_and_reviewed_external_cash",
+      "opening_balances_available": false,
+      "opening_balances_path": "/accounting/opening-balances",
+      "historical_assets_path": "/accounting/historical-assets"
+    },
+    "report": {
+      "year": 2026,
+      "period": null,
+      "currency": "EUR",
+      "rule_version": "de_euer_regular_cash_2026_v1",
+      "account_frame": "SKR04",
+      "scope": "recorded_sources",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "ffda98a68aeb41aba8d99cec71cc8273",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "revision": 2,
+      "state_hash": "65bd5053ce94e8ee59dc4199a4f35b6f4ab618f8af34c99010146b5278f8179f",
+      "coverage_start": "2026-01-01",
+      "complete_for_recorded_sources": true,
+      "official_tax_return": false,
+      "limitations": [
+        "Domestic regular taxation with explicitly recorded cash VAT profile",
+        "Invoice chains require verified incremental documentary components; historical invoice proofs remain unchanged",
+        "No automatic reverse charge, cross-border VAT, VAT-free sales, private deemed supplies or partial advance input VAT",
+        "Linear depreciation for evidenced new assets and separately reviewed unchanged historical movable assets; no disposal, special/degressive depreciation or GWG automation",
+        "No automatic loan-interest limitation, home-office allowance or payroll tax determination; travel cash requires separately reviewed travel claims",
+        "Own adviser review format; no official tax return, ELSTER transmission or DATEV certification"
+      ],
+      "totals": {
+        "confirmed_income": "119.00",
+        "confirmed_expenses": "0.00",
+        "confirmed_surplus": "119.00",
+        "euer_surplus": "119.00",
+        "confirmed_output_vat": "19.00",
+        "confirmed_input_vat": "0.00",
+        "vat_balance": "19.00"
+      },
+      "categories": [
+        {
+          "ledger": "euer",
+          "category": "sales",
+          "amount": "100.00"
+        },
+        {
+          "ledger": "euer",
+          "category": "vat_collected",
+          "amount": "19.00"
+        },
+        {
+          "ledger": "vat",
+          "category": "output_vat",
+          "amount": "19.00"
+        }
+      ],
+      "postings": [
+        {
+          "account": "4400",
+          "amount": "100.00",
+          "category": "sales",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+          "sequence": 1
+        },
+        {
+          "account": "3806",
+          "amount": "19.00",
+          "category": "vat_collected",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+          "sequence": 1
+        },
+        {
+          "account": "3806",
+          "amount": "19.00",
+          "category": "output_vat",
+          "date": "2026-11-02",
+          "ledger": "vat",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+          "sequence": 1
+        },
+        {
+          "account": "4400",
+          "amount": "-100.00",
+          "category": "sales",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0",
+          "sequence": 2
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "vat_collected",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0",
+          "sequence": 2
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "output_vat",
+          "date": "2026-11-02",
+          "ledger": "vat",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0",
+          "sequence": 2
+        },
+        {
+          "account": "4400",
+          "amount": "100.00",
+          "category": "sales",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0",
+          "sequence": 2
+        },
+        {
+          "account": "3806",
+          "amount": "19.00",
+          "category": "vat_collected",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0",
+          "sequence": 2
+        },
+        {
+          "account": "3806",
+          "amount": "19.00",
+          "category": "output_vat",
+          "date": "2026-11-02",
+          "ledger": "vat",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0",
+          "sequence": 2
+        }
+      ],
+      "issues": [],
+      "assets": [],
+      "historical_assets": [],
+      "periods": [],
+      "sources": [
+        {
+          "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+          "entry_hash": "01b1d54c9a2028cb3c7b614b2d621861486d8ed93f9fad98a2b72d18d02d0b9f",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+          "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+          "kind": "cash"
+        },
+        {
+          "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0",
+          "entry_hash": "a541de1aaa0697f2c5e6bf4ee4482dbf5b4828a25279b70a9b64a41bf288ab4d",
+          "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+          "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+          "kind": "cash"
+        }
+      ],
+      "cash_movements": [
+        {
+          "source_kind": "cash_event",
+          "source_id": "b31c50bd8eb444bda5a675f00737b2e2",
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "currency": "EUR",
+            "id": "bff21546c6d24b6f9c62a47906b49df0",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "date": "2026-11-02",
+          "direction": "in",
+          "amount": "119.00",
+          "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2"
+        }
+      ],
+      "cash_scope": "existing_cash_events_and_reviewed_external_cash",
+      "opening_balances_available": false
+    },
+    "journal": {
+      "items": [
+        {
+          "artifact": null,
+          "control": null,
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "b238bb3348074ef3aed54a9781475829",
+          "effect": {
+            "details": {
+              "cash_date": "2026-11-02",
+              "date": "2026-11-02",
+              "gross": "119.00"
+            },
+            "operation": "cash",
+            "payload": {
+              "euer_date": "2026-11-02",
+              "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+              "lines": [
+                {
+                  "account": "4400",
+                  "business_net": "100.00",
+                  "business_tax": "19.00",
+                  "category": "sales",
+                  "deductible_input_tax": "0.00",
+                  "deductible_net": "0.00",
+                  "deductible_tax_cost": "0.00",
+                  "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                  "vat_account": "3806"
+                }
+              ],
+              "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+              "year_rule": {
+                "kind": "cash"
+              }
+            },
+            "postings": [
+              {
+                "account": "4400",
+                "amount": "100.00",
+                "category": "sales",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "vat_collected",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "output_vat",
+                "date": "2026-11-02",
+                "ledger": "vat",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              }
+            ],
+            "source": {
+              "event": {
+                "account": {
+                  "active": true,
+                  "code": "BANK",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "b238bb3348074ef3aed54a9781475829",
+                  "currency": "EUR",
+                  "id": "bff21546c6d24b6f9c62a47906b49df0",
+                  "kind": "bank",
+                  "name": "Synthetic bank account",
+                  "revision": 1
+                },
+                "amount": "119.00",
+                "cash_date": "2026-11-02",
+                "classification_status": "unclassified",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "b238bb3348074ef3aed54a9781475829",
+                "currency": "EUR",
+                "direction": "in",
+                "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+                "id": "b31c50bd8eb444bda5a675f00737b2e2",
+                "reference": "Synthetic payment",
+                "sequence": 1,
+                "source": {
+                  "id": "50afd10f261040d0ac289c4656c6354b",
+                  "kind": "payment",
+                  "snapshot": {
+                    "allocations": [
+                      {
+                        "amount": "119.00",
+                        "document_id": "f2f071075d4a4cb2816ccb599d854190",
+                        "number": "RE-2026-000001",
+                        "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+                        "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+                        "project_id": "743a0ac6b38b43ca9cb8dea428babed5"
+                      }
+                    ],
+                    "amount": "119.00",
+                    "booking_date": "2026-11-01",
+                    "currency": "EUR",
+                    "direction": "in",
+                    "kind": "receipt",
+                    "payment_id": "50afd10f261040d0ac289c4656c6354b",
+                    "reference": "Synthetic payment",
+                    "source_id": "source-82f4b00e91134e409e50129060008192",
+                    "unallocated": "0.00"
+                  },
+                  "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6"
+                },
+                "unresolved_reasons": [
+                  "tax_profile_unconfigured"
+                ]
+              },
+              "kind": "cash",
+              "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+              "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+              "undocumented_amount": "0.00",
+              "units": [
+                {
+                  "entry_id": "8e9fbbe040a14148a6d5ec8e084ca700",
+                  "gross": "119.00",
+                  "group_id": "32d87cd51e47c62c568c391636a632a9927da3fdc77f0a6aff88f8b8ad08ef5e",
+                  "index": 0,
+                  "net": "100.00",
+                  "rate": "19",
+                  "tax": "19.00",
+                  "tax_category": "S",
+                  "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                  "version": "c1"
+                }
+              ]
+            },
+            "target": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+          },
+          "evidence_reference": "Synthetic evidence and SKR04 mapping",
+          "id": "1a0b2d12c5104b64b27ef11f936a57b0",
+          "operation": "correct",
+          "payload": {
+            "entry_id": "ef75a7b2108d4007a9e061341ade19fd",
+            "operation": "cash",
+            "payload": {
+              "euer_date": "2026-11-02",
+              "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+              "lines": [
+                {
+                  "account": "4400",
+                  "business_net": "100.00",
+                  "business_tax": "19.00",
+                  "category": "sales",
+                  "deductible_input_tax": "0.00",
+                  "deductible_net": "0.00",
+                  "deductible_tax_cost": "0.00",
+                  "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                  "vat_account": "3806"
+                }
+              ],
+              "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+              "year_rule": {
+                "kind": "cash"
+              }
+            }
+          },
+          "postings": [
+            {
+              "account": "4400",
+              "amount": "-100.00",
+              "category": "sales",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            {
+              "account": "3806",
+              "amount": "-19.00",
+              "category": "vat_collected",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            {
+              "account": "3806",
+              "amount": "-19.00",
+              "category": "output_vat",
+              "date": "2026-11-02",
+              "ledger": "vat",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            {
+              "account": "4400",
+              "amount": "100.00",
+              "category": "sales",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            {
+              "account": "3806",
+              "amount": "19.00",
+              "category": "vat_collected",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            {
+              "account": "3806",
+              "amount": "19.00",
+              "category": "output_vat",
+              "date": "2026-11-02",
+              "ledger": "vat",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            }
+          ],
+          "preview_hash": "e0df1e9952b9f6bfeda37587ce324b84ea35995de381d36883f573a97b522433",
+          "previous_hash": "1bd256f190a3c458551450654b4c080f1f10008a5fa5e48069309b936e2819b6",
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "ffda98a68aeb41aba8d99cec71cc8273",
+            "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+            "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-01-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2026-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 1,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "reason": "Explicit synthetic subject/tax/account review",
+          "reverses": "ef75a7b2108d4007a9e061341ade19fd",
+          "rule_version": "de_euer_regular_cash_2026_v1",
+          "sequence": 2,
+          "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_hash": "a541de1aaa0697f2c5e6bf4ee4482dbf5b4828a25279b70a9b64a41bf288ab4d"
+        },
+        {
+          "artifact": null,
+          "control": null,
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "b238bb3348074ef3aed54a9781475829",
+          "effect": {
+            "details": {
+              "cash_date": "2026-11-02",
+              "date": "2026-11-02",
+              "gross": "119.00"
+            },
+            "operation": "cash",
+            "payload": {
+              "euer_date": "2026-11-02",
+              "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+              "lines": [
+                {
+                  "account": "4400",
+                  "business_net": "100.00",
+                  "business_tax": "19.00",
+                  "category": "sales",
+                  "deductible_input_tax": "0.00",
+                  "deductible_net": "0.00",
+                  "deductible_tax_cost": "0.00",
+                  "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                  "vat_account": "3806"
+                }
+              ],
+              "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+              "year_rule": {
+                "kind": "cash"
+              }
+            },
+            "postings": [
+              {
+                "account": "4400",
+                "amount": "100.00",
+                "category": "sales",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "vat_collected",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "output_vat",
+                "date": "2026-11-02",
+                "ledger": "vat",
+                "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+              }
+            ],
+            "source": {
+              "event": {
+                "account": {
+                  "active": true,
+                  "code": "BANK",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "b238bb3348074ef3aed54a9781475829",
+                  "currency": "EUR",
+                  "id": "bff21546c6d24b6f9c62a47906b49df0",
+                  "kind": "bank",
+                  "name": "Synthetic bank account",
+                  "revision": 1
+                },
+                "amount": "119.00",
+                "cash_date": "2026-11-02",
+                "classification_status": "unclassified",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "b238bb3348074ef3aed54a9781475829",
+                "currency": "EUR",
+                "direction": "in",
+                "evidence_reference": "Bank record 7c0ca87952c748f08a6aae7e1ef938cd",
+                "id": "b31c50bd8eb444bda5a675f00737b2e2",
+                "reference": "Synthetic payment",
+                "sequence": 1,
+                "source": {
+                  "id": "50afd10f261040d0ac289c4656c6354b",
+                  "kind": "payment",
+                  "snapshot": {
+                    "allocations": [
+                      {
+                        "amount": "119.00",
+                        "document_id": "f2f071075d4a4cb2816ccb599d854190",
+                        "number": "RE-2026-000001",
+                        "payload_sha256": "bad21b83b70b178d19f85decc791bddbdcac33faabc173b58377727d8399e5cf",
+                        "pdf_sha256": "8f02ef2f577ae6366d1391db5bf6f95b91b22f5c2d83cbc51023db540a655f43",
+                        "project_id": "743a0ac6b38b43ca9cb8dea428babed5"
+                      }
+                    ],
+                    "amount": "119.00",
+                    "booking_date": "2026-11-01",
+                    "currency": "EUR",
+                    "direction": "in",
+                    "kind": "receipt",
+                    "payment_id": "50afd10f261040d0ac289c4656c6354b",
+                    "reference": "Synthetic payment",
+                    "source_id": "source-82f4b00e91134e409e50129060008192",
+                    "unallocated": "0.00"
+                  },
+                  "source_hash": "0162f0caa1fe2c1722601724c5d44a795e95dfd85fc290576bfd397d76dacfc6"
+                },
+                "unresolved_reasons": [
+                  "tax_profile_unconfigured"
+                ]
+              },
+              "kind": "cash",
+              "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+              "source_path": "/accounting/events/b31c50bd8eb444bda5a675f00737b2e2",
+              "undocumented_amount": "0.00",
+              "units": [
+                {
+                  "entry_id": "8e9fbbe040a14148a6d5ec8e084ca700",
+                  "gross": "119.00",
+                  "group_id": "32d87cd51e47c62c568c391636a632a9927da3fdc77f0a6aff88f8b8ad08ef5e",
+                  "index": 0,
+                  "net": "100.00",
+                  "rate": "19",
+                  "tax": "19.00",
+                  "tax_category": "S",
+                  "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                  "version": "c1"
+                }
+              ]
+            },
+            "target": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+          },
+          "evidence_reference": "Synthetic evidence and SKR04 mapping",
+          "id": "ef75a7b2108d4007a9e061341ade19fd",
+          "operation": "cash",
+          "payload": {
+            "euer_date": "2026-11-02",
+            "event_id": "b31c50bd8eb444bda5a675f00737b2e2",
+            "lines": [
+              {
+                "account": "4400",
+                "business_net": "100.00",
+                "business_tax": "19.00",
+                "category": "sales",
+                "deductible_input_tax": "0.00",
+                "deductible_net": "0.00",
+                "deductible_tax_cost": "0.00",
+                "unit_id": "663166c0618b2d746c8af711d782798077ec00f2d670a76ad9d99b6f5f016cf5",
+                "vat_account": "3806"
+              }
+            ],
+            "source_hash": "9b8a3ea9511d0c219b441c99a433dab0ba23919a1340c864f65196ea4c6113c7",
+            "year_rule": {
+              "kind": "cash"
+            }
+          },
+          "postings": [
+            {
+              "account": "4400",
+              "amount": "100.00",
+              "category": "sales",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            {
+              "account": "3806",
+              "amount": "19.00",
+              "category": "vat_collected",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            },
+            {
+              "account": "3806",
+              "amount": "19.00",
+              "category": "output_vat",
+              "date": "2026-11-02",
+              "ledger": "vat",
+              "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+            }
+          ],
+          "preview_hash": "45e3a28c9e3d409f98a4849e72fabc284596946721e5d66014d740a07b090d2f",
+          "previous_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "b238bb3348074ef3aed54a9781475829",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "ffda98a68aeb41aba8d99cec71cc8273",
+            "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+            "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-01-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2026-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 1,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "reason": "Explicit synthetic subject/tax/account review",
+          "reverses": null,
+          "rule_version": "de_euer_regular_cash_2026_v1",
+          "sequence": 1,
+          "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+          "entry_hash": "01b1d54c9a2028cb3c7b614b2d621861486d8ed93f9fad98a2b72d18d02d0b9f"
+        }
+      ],
+      "total": 2,
+      "next_offset": null,
+      "scope": "authorized_sources"
+    },
+    "accounts": {
+      "items": [
+        {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "b238bb3348074ef3aed54a9781475829",
+          "currency": "EUR",
+          "id": "bff21546c6d24b6f9c62a47906b49df0",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        }
+      ]
+    },
+    "preview": {
+      "expected_revision": 2,
+      "state_hash": "65bd5053ce94e8ee59dc4199a4f35b6f4ab618f8af34c99010146b5278f8179f",
+      "payload": {
+        "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0"
+      },
+      "evidence_reference": "Synthetic evidence and SKR04 mapping",
+      "operation": "reverse",
+      "reason": "Explicit synthetic subject/tax/account review",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "ffda98a68aeb41aba8d99cec71cc8273",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "rule_version": "de_euer_regular_cash_2026_v1",
+      "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+      "effect": null,
+      "reverses": "1a0b2d12c5104b64b27ef11f936a57b0",
+      "postings": [
+        {
+          "account": "4400",
+          "amount": "-100.00",
+          "category": "sales",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "vat_collected",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "output_vat",
+          "date": "2026-11-02",
+          "ledger": "vat",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        }
+      ],
+      "artifact": null,
+      "control": null,
+      "preview_hash": "e521c732de4fafa527dc270da36b6a973c09d669678d60ef6f482a9b311baac1"
+    },
+    "command": {
+      "operation": "reverse",
+      "payload": {
+        "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0"
+      },
+      "expected_revision": 2,
+      "state_hash": "65bd5053ce94e8ee59dc4199a4f35b6f4ab618f8af34c99010146b5278f8179f",
+      "reason": "Explicit synthetic subject/tax/account review",
+      "evidence_reference": "Synthetic evidence and SKR04 mapping",
+      "request_id": "c2a4b0bd5bcc42dda5535d34f65a8312",
+      "preview_hash": "e521c732de4fafa527dc270da36b6a973c09d669678d60ef6f482a9b311baac1",
+      "confirmation": true
+    },
+    "accepted": {
+      "payload": {
+        "entry_id": "1a0b2d12c5104b64b27ef11f936a57b0"
+      },
+      "evidence_reference": "Synthetic evidence and SKR04 mapping",
+      "operation": "reverse",
+      "reason": "Explicit synthetic subject/tax/account review",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "b238bb3348074ef3aed54a9781475829",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "ffda98a68aeb41aba8d99cec71cc8273",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "rule_version": "de_euer_regular_cash_2026_v1",
+      "target": "cash:b31c50bd8eb444bda5a675f00737b2e2",
+      "effect": null,
+      "reverses": "1a0b2d12c5104b64b27ef11f936a57b0",
+      "postings": [
+        {
+          "account": "4400",
+          "amount": "-100.00",
+          "category": "sales",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "vat_collected",
+          "date": "2026-11-02",
+          "ledger": "euer",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        },
+        {
+          "account": "3806",
+          "amount": "-19.00",
+          "category": "output_vat",
+          "date": "2026-11-02",
+          "ledger": "vat",
+          "source_key": "cash:b31c50bd8eb444bda5a675f00737b2e2"
+        }
+      ],
+      "artifact": null,
+      "control": null,
+      "preview_hash": "e521c732de4fafa527dc270da36b6a973c09d669678d60ef6f482a9b311baac1",
+      "id": "9150682aaf564afc929cafa71607dc47",
+      "sequence": 3,
+      "previous_hash": "65bd5053ce94e8ee59dc4199a4f35b6f4ab618f8af34c99010146b5278f8179f",
+      "created_by": "b238bb3348074ef3aed54a9781475829",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "entry_hash": "c148166e9f6b602f3c34863fc8fb2d19f425c2118ddf4e0c806d8cc569ac771d"
+    }
+  }
+}

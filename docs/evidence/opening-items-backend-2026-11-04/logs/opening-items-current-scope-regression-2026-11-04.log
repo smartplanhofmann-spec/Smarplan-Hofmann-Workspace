@@ -1,0 +1,32 @@
+test_horizon11_exact_scope_rejects_bad_counts_hashes_and_retains_historical10 (test_business_bank_euer_review.BankEuerIntegrationReview.test_horizon11_exact_scope_rejects_bad_counts_hashes_and_retains_historical10) ... ok
+test_old_manual_close_is_exact_but_new_close_requires_current_configured_bank_proof (test_business_bank_euer_review.BankEuerIntegrationReview.test_old_manual_close_is_exact_but_new_close_requires_current_configured_bank_proof) ... ok
+test_atomic_failure_parallel_retry_and_fresh_permission_after_lost_ack (test_business_payroll_cash.PayrollCashTests.test_atomic_failure_parallel_retry_and_fresh_permission_after_lost_ack) ... ok
+test_calculation_correction_is_not_cash_and_only_evidenced_additional_part_is_imported (test_business_payroll_cash.PayrollCashTests.test_calculation_correction_is_not_cash_and_only_evidenced_additional_part_is_imported) ... ok
+test_duplicate_part_reference_and_remittance_capacity_are_not_reused (test_business_payroll_cash.PayrollCashTests.test_duplicate_part_reference_and_remittance_capacity_are_not_reused) ... ok
+test_evidenced_date_correction_and_void_preserve_old_euer_export_and_reservations (test_business_payroll_cash.PayrollCashTests.test_evidenced_date_correction_and_void_preserve_old_euer_export_and_reservations) ... ok
+test_finance_only_can_classify_and_read_aggregate_without_personal_sources (test_business_payroll_cash.PayrollCashTests.test_finance_only_can_classify_and_read_aggregate_without_personal_sources) ... ok
+test_minijob_actual_net_and_separately_evidenced_remittance_reach_euer_once (test_business_payroll_cash.PayrollCashTests.test_minijob_actual_net_and_separately_evidenced_remittance_reach_euer_once) ... ok
+test_negative_actual_employee_part_reduces_expense_without_an_invented_gross_payment (test_business_payroll_cash.PayrollCashTests.test_negative_actual_employee_part_reduces_expense_without_an_invented_gross_payment) ... ok
+test_new_restore_horizon_rejects_inconsistent_private_scope_and_keeps_schema9_readable (test_business_payroll_cash.PayrollCashTests.test_new_restore_horizon_rejects_inconsistent_private_scope_and_keeps_schema9_readable) ... ok
+test_period_lock_source_guards_and_explicit_not_accepted_resolution (test_business_payroll_cash.PayrollCashTests.test_period_lock_source_guards_and_explicit_not_accepted_resolution) ... ok
+test_closed_period_blocks_new_cash_old_date_correction_and_void_but_not_replay (test_business_travel_finance.TravelFinanceTests.test_closed_period_blocks_new_cash_old_date_correction_and_void_but_not_replay) ... ok
+test_finance_permissions_allow_aggregate_but_never_private_travel (test_business_travel_finance.TravelFinanceTests.test_finance_permissions_allow_aggregate_but_never_private_travel) ... ok
+test_reference_is_reserved_against_legacy_cash_in_both_directions (test_business_travel_finance.TravelFinanceTests.test_reference_is_reserved_against_legacy_cash_in_both_directions) ... ok
+test_restore_adds_exact_travel_scope_and_preserves_old_bank_evidence (test_business_travel_finance.TravelFinanceTests.test_restore_adds_exact_travel_scope_and_preserves_old_bank_evidence) ... ERROR
+test_two_actual_partial_payments_have_exact_expense_and_bank_evidence (test_business_travel_finance.TravelFinanceTests.test_two_actual_partial_payments_have_exact_expense_and_bank_evidence) ... ok
+test_void_preserves_originals_and_demands_explicit_financial_correction (test_business_travel_finance.TravelFinanceTests.test_void_preserves_originals_and_demands_explicit_financial_correction) ... ok
+
+======================================================================
+ERROR: test_restore_adds_exact_travel_scope_and_preserves_old_bank_evidence (test_business_travel_finance.TravelFinanceTests.test_restore_adds_exact_travel_scope_and_preserves_old_bank_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-opening-items-20261104/backend/test_business_travel_finance.py", line 173, in test_restore_adds_exact_travel_scope_and_preserves_old_bank_evidence
+    _validate_financial_accounting_horizon(current, 14)
+  File "/workspace/smartplan-opening-items-20261104/backend/business_schema.py", line 682, in _validate_financial_accounting_horizon
+    raise ValueError('Exact version-13 combined accounting horizon required')
+ValueError: Exact version-13 combined accounting horizon required
+
+----------------------------------------------------------------------
+Ran 17 tests in 11.079s
+
+FAILED (errors=1)

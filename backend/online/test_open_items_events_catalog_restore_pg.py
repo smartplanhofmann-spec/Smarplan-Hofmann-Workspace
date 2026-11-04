@@ -1,0 +1,229 @@
+"""Shared populated financial originals and event approvals survive one restore."""
+import base64
+from copy import deepcopy
+import unittest
+import uuid
+import tempfile
+from types import MethodType
+
+from online import test_accounting_open_items_pg as item_pg_fixture
+from business_accounting_open_items import OpeningItems, TABLES as OPEN_ITEM_TABLES
+
+from online.instance import bind
+from online.storage import Storage
+from online.web import create_app
+
+from business_company_events import CompanyEvents, TABLES as EVENT_TABLES
+
+import business_schema
+import business_catalog_imports as catalog
+import business_catalog_prices as prices
+from business_documents import Documents
+from test_business_catalog_prices import raw, row
+import business_accounting_asset_openings as assets
+import business_accounting_openings as openings
+import business_payroll_multiple_cases as multiple
+from business_accounting_euer import EuerAccounting
+from business_adapters import Adapters
+from business_payroll import Payroll, TABLES as PAYROLL_TABLES
+from core import Problem
+from online import release
+from online import test_accounting_asset_openings_pg as asset_fixture
+from online import test_business_accounting_openings_pg as opening_fixture
+from online import test_business_payroll_multiple_pg as payroll_fixture
+from online.store import PostgresOffice
+from online.test_postgres_accounting_components_integration import disposable_restore, evidence_for, approve
+
+
+@unittest.skipUnless(payroll_fixture.fixture.DSN, 'Guarded disposable PostgreSQL required')
+class OpenItemsEventsCatalogRestore(unittest.TestCase):
+    def test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope(self):
+        f = payroll_fixture.MultiplePayrollPostgres('runTest')
+        f.setUp()
+        self.addCleanup(f.doCleanups)
+        f.actor = f.owner
+        directory = tempfile.TemporaryDirectory(prefix='synthetic-shared-events-')
+        self.addCleanup(directory.cleanup)
+        storage_config = {'server': {'path': directory.name + '/company'}}
+        instance_id = uuid.uuid4().hex
+        operator = PostgresOffice(payroll_fixture.fixture.DSN)
+        try:
+            bind(operator, instance_id, 'office.example.test', f.key,
+                 Storage(operator, f.key, 'office.example.test', config=storage_config))
+        finally:
+            operator.db.close()
+        f.office.db.close()
+        f.office = PostgresOffice(f.runtime)
+        self.addCleanup(f.office.db.close)
+        f.app = create_app(office=f.office, key=f.key, host='office.example.test',
+                          instance_id=instance_id, storage_config=storage_config)
+        f.client = f.app.test_client()
+        data = f.workflow()
+        run = f.call('POST', '/business/payroll/runs', data['run_command']).json
+        payroll_pdf = Payroll(f.office).export(f.owner, run['id'], 'pdf')[0]
+        consumption = multiple._consumption_row(f.office, run)
+
+        f.year = int(f.today[:4])
+        state = f.call('GET', '/business/accounting/profile').json
+        profile = dict(expected_revision=state['revision'], state_hash=state['state_hash'],
+            reason='Synthetic shared historical original activity', evidence_reference='Synthetic old method originals',
+            profile=dict(legal_form='sole_proprietorship', accounting_method='euer', vat_regime='regular',
+                vat_timing='cash', vat_effective_from=str(f.year-1)+'-01-01', bookkeeping_start=str(f.year)+'-01-01'))
+        preview = f.call('POST', '/business/accounting/profile/preview', profile).json
+        f.call('POST', '/business/accounting/profile/confirm', payroll_fixture.req(**profile,
+            confirmation=True, preview_hash=preview['preview_hash']), status=201)
+        f.uploads = []
+        f.original = MethodType(item_pg_fixture.OpeningItemPostgres.original, f)
+        f.command = MethodType(item_pg_fixture.OpeningItemPostgres.command, f)
+        f.post = MethodType(asset_fixture.euer.EuerPostgres.post, f)
+        f.account = f.call('POST', '/business/accounting/accounts', payroll_fixture.req(
+            confirmation=True, code='SHARED', name='Synthetic shared opening', kind='bank'), status=201).json
+        opening_original, _, opening_bytes = opening_fixture.OpeningBalancesPostgres.original(f)
+        opening_command = opening_fixture.OpeningBalancesPostgres.command(f, opening_original)
+        opening = f.call('POST', opening_fixture.BASE + '/confirm', opening_command, status=201).json
+
+        asset_original, _, asset_bytes = asset_fixture.HistoricalAssetPostgres.original(f)
+        asset_command = asset_fixture.HistoricalAssetPostgres.command(f, asset_original)
+        asset = f.call('POST', asset_fixture.BASE + '/confirm', asset_command, status=201).json
+        source = assets.public_source(f.office, asset['id'])
+        depreciation, depreciation_command = asset_fixture.euer.EuerPostgres.post(f, 'opening_depreciation', dict(
+            asset_entry_id=asset['id'], source_hash=source['source_hash'], year=int(f.today[:4]), account='6220'))
+        old_item, old_item_command = item_pg_fixture.OpeningItemPostgres.item(f)
+        old_payment_command = item_pg_fixture.OpeningItemPostgres.payment_command(f, old_item)
+        old_payment = f.call('POST', '/business/accounting/open-items/confirm', old_payment_command, status=201).json
+        old_post, old_post_command = item_pg_fixture.OpeningItemPostgres.classify(f, old_payment)
+        export, export_command = asset_fixture.euer.EuerPostgres.post(f, 'export', dict(year=int(f.today[:4])))
+        artifact = EuerAccounting(f.office).exported(f.owner, export['id'])
+        self.assertEqual(artifact['report']['historical_assets'][0]['continuation']['amount'], '1200.00')
+        self.assertEqual(artifact['report']['totals']['confirmed_input_vat'], '0.00')
+        self.assertEqual(artifact['report']['totals']['confirmed_expenses'], '1319.00')
+
+        adapter = f.call('POST', '/business/adapters', payroll_fixture.req(
+            name='Synthetic shared catalog', profile='catalog_csv_v1', enabled=True), status=201).json
+        catalog_bytes = b'code;name;unit;cost_price_net;unit_price_net;tax_rate\nSHARED;Synthetic item;ST;10;15;19\n'
+        imported = f.call('POST', '/business/adapters/' + adapter['id'] + '/import', payroll_fixture.req(
+            filename='synthetic-shared.csv', content_base64=base64.b64encode(catalog_bytes).decode()), status=201).json
+        catalog_command = payroll_fixture.req(confirmed=True)
+        accepted = f.call('POST', '/business/adapters/imports/' + imported['id'] + '/apply', catalog_command).json
+        price_source = f.call('POST', '/business/catalog-prices/sources', payroll_fixture.req(
+            name='Synthetic shared dated source', reference='SYN-SHARED-V2')).json
+        price_bytes = raw(row(code='SHARED-V2'), row(code='SHARED-V2', price_id='dec', amount='12', start='2026-12-01', end=''))
+        staged = f.call('POST', '/business/catalog-prices/sources/' + price_source['id'] + '/imports', payroll_fixture.req(
+            catalog_revision='SYN-SHARED-1', filename='shared-dated.csv',
+            content_base64=base64.b64encode(price_bytes).decode())).json
+        decisions = dict(expected_source_version=prices.CatalogPrices(f.office).source(price_source['id'])['source_version'],
+            replacements={}, bindings={'SHARED-V2': dict(action='create', article_id=None,
+            article_revision=None, expected_binding_revision=0, confirm_name_difference=False)})
+        checked = f.call('POST', '/business/catalog-prices/imports/' + staged['id'] + '/preview', decisions).json
+        price_command = payroll_fixture.req(**decisions, preview_sha256=checked['preview_sha256'], confirmation=True)
+        price_accepted = f.call('POST', '/business/catalog-prices/imports/' + staged['id'] + '/apply', price_command).json
+        proof = price_accepted['prices'][0]
+        selection = dict(price_id=proof['price_id'], price_revision=proof['revision'], price_sha256=proof['sha256'], effective_on='2026-11-04')
+        project = f.call('POST', '/projects', dict(name='Synthetic shared dated offer', customer='Synthetic customer'), status=201).json['id']
+        document_command = payroll_fixture.req(project_id=project, kind='offer', title='Synthetic dated shared offer',
+            issue_date='2026-11-04', due_date='2026-11-30', buyer=dict(name='Synthetic Buyer', address_line='Testweg 1',
+            postal_code='10115', city='Berlin', country='DE', email='buyer@example.test'), positions=[dict(
+            article_id=price_accepted['bindings'][0]['article_id'], article_revision=1, quantity='3', catalog_price_selection=selection)])
+        document = f.call('POST', '/business/documents', document_command).json
+        self.assertEqual(document['totals']['net'], '30.00')
+        document_price = document['positions'][0]['catalog_price_snapshot']
+        for index in range(2):
+            f.call('POST', '/projects/' + project + '/tasks', payroll_fixture.req(
+                title='Synthetic shared overdue ' + str(index), details='Actual original task',
+                due_date='2026-11-01', priority='normal', status='todo', assignee_id=f.owner['id']), status=201)
+        event_api = CompanyEvents(f.office)
+        f.call('POST', '/business/company-events/rules', payroll_fixture.req(
+            id=uuid.uuid4().hex, revision=0, title='Synthetic shared event rule', enabled=True,
+            project_ids=[project], trigger='task.overdue', action='task.create', mode='approval',
+            conditions=[], template=dict(title='Synthetic reviewed follow-up', details='Fixed original',
+                priority='normal', due_days=None), responsible_id=f.owner['id'], confirmation=True))
+        event_run = event_api.scan(f.owner, payroll_fixture.req(limit=100, after=None))
+        event_plans = [event_api.plan(f.owner, key) for item in event_run['items'] for key in item['plan_ids']]
+        self.assertEqual(len(event_plans), 2)
+        completed, pending = event_plans
+        for plan in event_plans:
+            event_api.decide(f.owner, plan['id'], True, payroll_fixture.req(
+                plan_sha256=plan['sha256'], reason='Synthetic original reviewed', confirmation=True))
+        event_command = payroll_fixture.req(plan_sha256=completed['sha256'], confirmation=True)
+        event_accepted = event_api.execute(f.owner, completed['id'], event_command)
+        self.assertEqual(event_accepted['status'], 'succeeded')
+        task_count = f.office.db.execute('SELECT COUNT(*) FROM workspace_items').fetchone()[0]
+        horizon = business_schema.financial_accounting_horizon(f.office)
+        self.assertEqual(horizon['schema_version'], 14)
+        fingerprints = release.snapshot_fingerprint(payroll_fixture.fixture.DSN)
+        f.office.db.close()
+
+        with disposable_restore(f.runtime) as (target, runtime, report):
+            restored = PostgresOffice(runtime)
+            try:
+                self.assertTrue(business_schema.validate_integrity(restored))
+                event_api = CompanyEvents(restored)
+                self.assertEqual(event_api.execute(f.owner, completed['id'], event_command)['outcome'], event_accepted['outcome'])
+                self.assertEqual(event_api.plan(f.owner, pending['id'])['status'], 'suspended_after_restore')
+                with self.assertRaises(Problem) as blocked_event:
+                    event_api.scan(f.owner, payroll_fixture.req(limit=100, after=None))
+                self.assertEqual(blocked_event.exception.status, 409)
+                self.assertEqual(assets.HistoricalAssets(restored).original(f.owner, asset_original['id'])[0], asset_bytes)
+                for original, upload, raw_original in f.uploads:
+                    self.assertEqual(OpeningItems(restored).original(f.owner, original['id'])[0], raw_original)
+                self.assertEqual(openings.OpeningBalances(restored).original(f.owner, opening_original['id'])[0], opening_bytes)
+                self.assertEqual(catalog.CatalogImports(restored).original(f.owner, imported['id'])[0], catalog_bytes)
+                self.assertEqual(prices.CatalogPrices(restored).original(f.owner, staged['id'])[0], price_bytes)
+                self.assertEqual(prices.validate_snapshot(restored, document_price), document_price)
+                self.assertEqual(Documents(restored).get(f.owner, document['id']), document)
+                self.assertEqual(Payroll(restored).export(f.owner, run['id'], 'pdf')[0], payroll_pdf)
+                self.assertEqual(EuerAccounting(restored).exported(f.owner, export['id']), artifact)
+                evidence = evidence_for(restored, report)
+                self.assertEqual(evidence['schema'], 15)
+                self.assertEqual(evidence['accounting_horizon'], horizon)
+                for api, command in ((assets.HistoricalAssets(restored), asset_command),
+                                     (openings.OpeningBalances(restored), opening_command)):
+                    with self.assertRaises(Problem) as denied:
+                        api.confirm(f.owner, command)
+                    self.assertEqual(denied.exception.status, 409)
+            finally:
+                restored.db.close()
+            operator = PostgresOffice(target)
+            try:
+                old = deepcopy(evidence)
+                old['schema'] = 13
+                old['accounting_horizon'].pop('opening_items')
+                old['accounting_horizon'].pop('historical_assets')
+                old['accounting_horizon']['schema_version'] = 12
+                business_schema._validate_financial_accounting_horizon(old['accounting_horizon'], 13)
+                before = release.snapshot_fingerprint(target)
+                with self.assertRaises((Problem, ValueError)):
+                    approve(operator, old)
+                self.assertEqual(release.snapshot_fingerprint(target), before)
+                self.assertTrue(approve(operator, evidence)['reconciled'])
+            finally:
+                operator.db.close()
+            restored = PostgresOffice(runtime)
+            try:
+                self.assertEqual(assets.HistoricalAssets(restored).confirm(f.owner, asset_command), asset)
+                self.assertEqual(openings.OpeningBalances(restored).confirm(f.owner, opening_command), opening)
+                self.assertEqual(OpeningItems(restored).confirm(f.owner, old_item_command), old_item)
+                self.assertEqual(OpeningItems(restored).confirm(f.owner, old_payment_command), old_payment)
+                self.assertEqual(EuerAccounting(restored).confirm(f.owner, old_post_command), old_post)
+                self.assertEqual(Adapters(restored).apply_catalog(f.owner, imported['id'], catalog_command), accepted)
+                self.assertEqual(prices.CatalogPrices(restored).apply(f.owner, staged['id'], price_command), price_accepted)
+                self.assertEqual(Documents(restored).create(f.owner, document_command), document)
+                self.assertEqual(Payroll(restored).finalize(f.owner, data['run_command']), run)
+                self.assertEqual(multiple._consumption_row(restored, run), consumption)
+                self.assertEqual(EuerAccounting(restored).confirm(f.owner, depreciation_command), depreciation)
+                self.assertEqual(EuerAccounting(restored).confirm(f.owner, export_command), export)
+                self.assertEqual(EuerAccounting(restored).exported(f.owner, export['id']), artifact)
+                event_api = CompanyEvents(restored)
+                self.assertEqual(event_api.execute(f.owner, completed['id'], event_command)['outcome'], event_accepted['outcome'])
+                self.assertEqual(event_api.plan(f.owner, pending['id'])['status'], 'suspended_after_restore')
+                self.assertEqual(restored.db.execute('SELECT COUNT(*) FROM workspace_items').fetchone()[0], task_count)
+                actual = release.snapshot_fingerprint(target)
+                for table in EVENT_TABLES:
+                    if table != 'business_company_event_suspensions':
+                        self.assertEqual(actual[table], fingerprints[table], table)
+                for table in OPEN_ITEM_TABLES + prices.TABLES + assets.TABLES + openings.TABLES + catalog.TABLES + multiple.TABLES + PAYROLL_TABLES + (
+                        'business_euer_entries', 'business_euer_requests', 'business_articles', 'business_document_versions'):
+                    self.assertEqual(actual[table], fingerprints[table], table)
+                self.assertTrue(business_schema.validate_integrity(restored))
+            finally:
+                restored.db.close()

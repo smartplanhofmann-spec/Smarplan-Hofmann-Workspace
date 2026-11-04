@@ -1,0 +1,405 @@
+diff --git a/app/lib/business_session.dart b/app/lib/business_session.dart
+index 6add56b..5d424cd 100644
+--- a/app/lib/business_session.dart
++++ b/app/lib/business_session.dart
+@@ -717,6 +717,98 @@ class BusinessSession extends ChangeNotifier {
+     }
+   }
+ 
++  List<String> get pendingOpenItemKeys => !allowed
++      ? const []
++      : List.unmodifiable(
++          _pending.entries
++              .where(
++                (entry) =>
++                    entry.key.startsWith('opening-item-') &&
++                    const [
++                      '/accounting/open-items/originals',
++                      '/accounting/open-items/confirm',
++                    ].contains(entry.value.path),
++              )
++              .map((entry) => entry.key),
++        );
++
++  void _requireOpenItemRights() {
++    if (projectId != null ||
++        !hasFeature('accounting_open_items') ||
++        !hasModule('accounting_open_items') ||
++        !['accounting.read', 'finance.read'].every(can) ||
++        ![
++          'accounting.admin',
++          'accounting.prepare',
++          'finance.write',
++        ].every(canWrite)) {
++      throw const ApiException(
++        403,
++        'Aktuelle globale Rechte für historische offene Posten fehlen.',
++      );
++    }
++    if (!sectionEnabled('finance'))
++      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
++  }
++
++  Future<dynamic> repeatOpenItemCommand(
++    String key, {
++    bool Function()? stillCurrent,
++  }) => _repeatWorkflowCommand(
++    key,
++    matches: (path) =>
++        key.startsWith('opening-item-') &&
++        const [
++          '/accounting/open-items/originals',
++          '/accounting/open-items/confirm',
++        ].contains(path),
++    requireRights: () {
++      _requireOpenItemRights();
++      if (stillCurrent != null && !stillCurrent())
++        throw const ApiException(
++          0,
++          "Der Altpostenkontext wurde geschlossen. Der Originalauftrag bleibt offen.",
++        );
++    },
++    readPath: '/accounting/open-items',
++    verifyState: (state) {
++      if (state['schema_version'] != 1 ||
++          state['rule_version'] != 'de_euer_ist_open_items_v1' ||
++          state['can_prepare'] != true) {
++        throw const ApiException(
++          423,
++          'historische offene Posten sind derzeit nicht zur Bearbeitung freigegeben.',
++        );
++      }
++      // Do not replace the original asset/profile revisions or nonce. The
++      // server checks the saved receipt before evaluating a new journal effect.
++    },
++  );
++
++  Future<dynamic> previewOpenItem(Map<String, dynamic> values) async {
++    final epoch = _epoch;
++    _guard(epoch);
++    _requireOpenItemRights();
++    final capturedGeneration = generation;
++    try {
++      final result = await api.call(
++        path('/accounting/open-items/preview'),
++        Map<String, dynamic>.from(jsonDecode(jsonEncode(values))),
++      );
++      _guard(epoch);
++      _requireOpenItemRights();
++      if (generation != capturedGeneration)
++        throw const ApiException(
++          409,
++          'Der Funktionsstand wurde geändert. Bitte neu prüfen.',
++        );
++      return result;
++    } on ApiException catch (error) {
++      if (error.status == 401) revoke();
++      rethrow;
++    }
++  }
++
+   List<String> get pendingHistoricalAssetKeys => !allowed
+       ? const []
+       : List.unmodifiable(
+@@ -2869,6 +2961,11 @@ class BusinessSession extends ChangeNotifier {
+         _catalogPricesCommand(key, path) ||
+         _companyEventCommand(key, path, values) ||
+         _catalogCommand(key, path) ||
++        (key.startsWith('opening-item-') &&
++            const [
++              '/accounting/open-items/originals',
++              '/accounting/open-items/confirm',
++            ].contains(path)) ||
+         (key.startsWith('historical-asset-') &&
+             const [
+               '/accounting/historical-assets/originals',
+diff --git a/backend/business_api.py b/backend/business_api.py
+index 90a604c..4fd5a64 100644
+--- a/backend/business_api.py
++++ b/backend/business_api.py
+@@ -16,7 +16,7 @@ MODULES = (
+     'business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity',
+     'business_accounting_refunds_v2',
+     'business_accounting_profile',
+-    'business_project_economics', 'business_asset_provenance', 'business_customer_workspace', 'business_personnel_workflow', 'business_accounting_euer', 'business_assistant', 'business_payroll', 'business_inventory_counts', 'business_sales', 'business_payroll_accounts', 'business_assistant_speech', 'business_company_handover', 'business_migrations', 'business_custom_fields', 'business_privacy_cases', 'business_payroll_cash', 'business_service', 'business_bank_reconciliation', 'business_resource_custody', 'business_purchase_changes', 'business_payroll_facts', 'business_travel_allowances', 'business_payroll_entitlements', 'business_payroll_calculation_cases', 'business_payroll_annual_basis', 'business_payroll_wage_interruptions', 'business_payroll_oneoff_cases', 'business_payroll_multiple_cases', 'business_accounting_openings', 'business_accounting_asset_openings', 'business_company_events',
++    'business_project_economics', 'business_asset_provenance', 'business_customer_workspace', 'business_personnel_workflow', 'business_accounting_euer', 'business_assistant', 'business_payroll', 'business_inventory_counts', 'business_sales', 'business_payroll_accounts', 'business_assistant_speech', 'business_company_handover', 'business_migrations', 'business_custom_fields', 'business_privacy_cases', 'business_payroll_cash', 'business_service', 'business_bank_reconciliation', 'business_resource_custody', 'business_purchase_changes', 'business_payroll_facts', 'business_travel_allowances', 'business_payroll_entitlements', 'business_payroll_calculation_cases', 'business_payroll_annual_basis', 'business_payroll_wage_interruptions', 'business_payroll_oneoff_cases', 'business_payroll_multiple_cases', 'business_accounting_openings', 'business_accounting_asset_openings', 'business_accounting_open_items', 'business_company_events',
+ )
+ 
+ 
+@@ -104,7 +104,7 @@ def strict_workflow_path(path):
+     if not isinstance(path, str):
+         return False
+     return re.fullmatch(
+-        r'/business/(?:(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|assistant|company-events|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody|catalog-prices)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
++        r'/business/(?:(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|accounting/open-items|assistant|company-events|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody|catalog-prices)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
+         r'finance/receipts(?:/[a-f0-9]{32}(?:/original)?)?|adapters(?:/.*)?|'
+         r'assets/(?:from-delivery|origin-sources|[a-f0-9]{32}/origin)|'
+         r'purchasing/orders/[a-f0-9]{32}/(?:changes|change-files(?:/[a-f0-9]{32}/original)?|amendments(?:/preview)?|supplier-returns(?:/preview)?)|'
+diff --git a/backend/business_organization.py b/backend/business_organization.py
+index acbc6a2..ecbecc7 100644
+--- a/backend/business_organization.py
++++ b/backend/business_organization.py
+@@ -184,7 +184,7 @@ def command_module(path, module_name):
+             'business_accounting_allocations': 'finance', 'business_accounting_components': 'finance',
+             'business_accounting_refunds': 'finance', 'business_accounting_capacity': 'finance',
+             'business_accounting_refunds_v2': 'finance', 'business_accounting_profile': 'finance',
+-            'business_accounting_openings': 'finance', 'business_accounting_asset_openings': 'finance'}.get(module_name)
++            'business_accounting_openings': 'finance', 'business_accounting_asset_openings': 'finance', 'business_accounting_open_items': 'finance'}.get(module_name)
+ 
+ 
+ def require_active(office, actor, path, module_name, data=None):
+diff --git a/backend/business_schema.py b/backend/business_schema.py
+index 5d3d7b4..a7a17d3 100644
+--- a/backend/business_schema.py
++++ b/backend/business_schema.py
+@@ -30,7 +30,7 @@ MODULE_NAMES = tuple('business_' + name for name in (
+     'foundation', 'documents', 'finance', 'planning', 'time', 'operations',
+     'inventory', 'maintenance', 'adapters', 'catalog_imports', 'catalog_prices', 'organization', 'instance', 'purchasing', 'portal', 'accounting',
+     'accounting_allocations', 'accounting_components', 'accounting_refunds', 'accounting_capacity', 'accounting_refunds_v2', 'accounting_profile',
+-    'project_economics', 'asset_provenance', 'customer_workspace', 'personnel_workflow', 'accounting_euer', 'assistant', 'payroll', 'inventory_counts', 'sales', 'payroll_accounts', 'assistant_speech', 'company_handover', 'migrations', 'custom_fields', 'privacy_cases', 'payroll_cash', 'service', 'bank_reconciliation', 'resource_custody', 'purchase_changes', 'payroll_facts', 'travel_allowances', 'payroll_entitlements', 'payroll_calculation_cases', 'payroll_annual_basis', 'payroll_wage_interruptions', 'payroll_oneoff_cases', 'payroll_multiple_cases', 'accounting_openings', 'accounting_asset_openings', 'company_events')) + ('payroll_travel_recording',)
++    'project_economics', 'asset_provenance', 'customer_workspace', 'personnel_workflow', 'accounting_euer', 'assistant', 'payroll', 'inventory_counts', 'sales', 'payroll_accounts', 'assistant_speech', 'company_handover', 'migrations', 'custom_fields', 'privacy_cases', 'payroll_cash', 'service', 'bank_reconciliation', 'resource_custody', 'purchase_changes', 'payroll_facts', 'travel_allowances', 'payroll_entitlements', 'payroll_calculation_cases', 'payroll_annual_basis', 'payroll_wage_interruptions', 'payroll_oneoff_cases', 'payroll_multiple_cases', 'accounting_openings', 'accounting_asset_openings', 'accounting_open_items', 'company_events')) + ('payroll_travel_recording',)
+ CONTROL_TABLES = frozenset((
+     'business_schema_state', 'business_schema_migrations', 'business_schema_events',
+     'business_feature_flags', 'business_privacy_anchors', 'business_device_grants', 'business_restore_state',
+@@ -527,6 +527,8 @@ def financial_accounting_horizon(office):
+         travel_cash = 'business_travel_allowances' in installed
+         opening_balances = 'business_accounting_openings' in installed
+         historical_assets = 'business_accounting_asset_openings' in installed
++        opening_items = 'business_accounting_open_items' in installed
++        if opening_items and not historical_assets:raise ValueError('Opening items require the complete installed historical financial scope')
+         if historical_assets and not opening_balances:
+             raise ValueError('Historical assets require the complete installed opening financial scope')
+         if opening_balances and not travel_cash:
+@@ -642,7 +644,12 @@ def financial_accounting_horizon(office):
+         historical = historical_asset_horizon(office)
+         if historical is None:
+             raise ValueError('Installed historical asset horizon is missing')
+-        return dict(horizon,schema_version=13,historical_assets=historical)
++        horizon=dict(horizon,schema_version=13,historical_assets=historical)
++        if not opening_items:return horizon
++        from business_accounting_open_items import restore_horizon as opening_item_horizon
++        items=opening_item_horizon(office)
++        if items is None:raise ValueError('Installed opening item horizon is missing')
++        return dict(horizon,schema_version=14,opening_items=items)
+ 
+ 
+ def _validate_prejournal_horizon(horizon):
+@@ -658,6 +665,17 @@ def _validate_financial_accounting_horizon(horizon, report_schema):
+     if report_schema == 2:
+         _validate_prejournal_horizon(horizon)
+         return
++    if report_schema == 15:
++        if (not isinstance(horizon,dict) or set(horizon)!={'schema_version','prejournal','allocations','components','refunds','capacity','refunds_v2','profile','euer','payroll_cash','bank_reconciliation','travel_cash','opening_balances','historical_assets','opening_items'}
++                or type(horizon['schema_version']) is not int or horizon['schema_version']!=14):raise ValueError('Exact version-14 combined accounting horizon required')
++        previous={key:value for key,value in horizon.items() if key!='opening_items'};previous['schema_version']=13
++        _validate_financial_accounting_horizon(previous,14)
++        items=horizon['opening_items'];tables={'business_accounting_open_item_originals','business_accounting_open_item_events','business_accounting_open_item_requests'}
++        if (not isinstance(items,dict) or set(items)!={'schema_version','table_counts','sha256'} or type(items['schema_version']) is not int or items['schema_version']!=1
++                or not isinstance(items['table_counts'],dict) or set(items['table_counts'])!=tables
++                or any(type(value) is not int or value<0 for value in items['table_counts'].values())
++                or not isinstance(items['sha256'],str) or not re.fullmatch(r'[a-f0-9]{64}',items['sha256'])):raise ValueError('Exact version-1 opening item horizon required')
++        return
+     if report_schema == 14:
+         if (not isinstance(horizon,dict) or set(horizon)!={'schema_version','prejournal','allocations','components','refunds','capacity','refunds_v2','profile','euer','payroll_cash','bank_reconciliation','travel_cash','opening_balances','historical_assets'}
+                 or type(horizon['schema_version']) is not int or horizon['schema_version']!=13):
+@@ -891,6 +909,8 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
+     travel_installed = 'business_travel_allowances' in value.get('read_capabilities', [])
+     opening_installed = 'business_accounting_openings' in value.get('read_capabilities', [])
+     historical_assets_installed = 'business_accounting_asset_openings' in value.get('read_capabilities', [])
++    opening_items_installed = 'business_accounting_open_items' in value.get('read_capabilities', [])
++    if opening_items_installed and not historical_assets_installed:raise ValueError('Opening items require the complete installed historical financial scope')
+     if historical_assets_installed and not opening_installed:
+         raise ValueError('Historical assets require the complete installed opening financial scope')
+     if opening_installed and not travel_installed:
+@@ -915,9 +935,9 @@ def _reconcile_financial_report(office, evidence, evidence_sha256, operator_name
+         raise ValueError('Document components require the installed prejournal and payment allocations')
+     if allocations_installed and not accounting_installed:
+         raise ValueError('Payment allocations require the installed accounting prejournal')
+-    required_schema = 14 if historical_assets_installed else 13 if opening_installed else 12 if travel_installed else 11 if bank_installed else 10 if payroll_cash_installed else 9 if euer_installed else 8 if profile_installed else 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
++    required_schema = 15 if opening_items_installed else 14 if historical_assets_installed else 13 if opening_installed else 12 if travel_installed else 11 if bank_installed else 10 if payroll_cash_installed else 9 if euer_installed else 8 if profile_installed else 7 if refunds_v2_installed else 6 if capacity_installed else 5 if refunds_installed else 4 if components_installed else 3 if allocations_installed else 2 if accounting_installed else 1
+     declared_schema = evidence.get('schema') if isinstance(evidence, dict) else None
+-    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14):
++    if type(declared_schema) is not int or declared_schema not in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15):
+         raise ValueError('Known explicit financial report schema required')
+     fields = {'schema', 'restore_id', 'reviewed_by', 'reviewed_at', 'number_horizons', 'outbound_reconciled'}
+     if declared_schema >= 2:
+diff --git a/backend/company_export_catalog.py b/backend/company_export_catalog.py
+index 9fe11bf..b113a6e 100644
+--- a/backend/company_export_catalog.py
++++ b/backend/company_export_catalog.py
+@@ -8,6 +8,9 @@ legal/business decisions; this inventory never invents one universal duration.
+ CATALOG_VERSION = 1
+ # Every known table, including excluded security/receipt tables, is accounted for.
+ COLUMNS = {
++    'business_accounting_open_item_originals': 'id,entity_key,filename,media_type,size,sha256,original,created_by,created_at',
++    'business_accounting_open_item_events': 'id,sequence,entity_key,revision,previous_hash,payload_json,content_hash,created_by,created_at',
++    'business_accounting_open_item_requests': 'user_id,request_id,operation,request_json,request_hash,result_json',
+     'business_accounting_asset_opening_originals': 'id,asset_key,filename,media_type,size,sha256,original,created_by,created_at',
+     'business_accounting_asset_opening_events': 'id,sequence,asset_key,revision,previous_hash,payload_json,content_hash,created_by,created_at',
+     'business_accounting_asset_opening_requests': 'user_id,request_id,operation,request_json,request_hash,result_json',
+@@ -424,6 +427,11 @@ def policy(table):
+         result['sensitive']=True
+         result['purpose']='Original bank statements, account identity, counterparties/references and explicit reconciliation history of existing cash flows'
+         result['retention_basis']='Applicable financial evidence and original statement duties; source-specific review, no universal legal duration'
++    if table.startswith('business_accounting_open_item_'):
++        result['sensitive']=True
++        result['purpose']='Original historical receivables/payables, already settled portions and immutable actual subsequent payments; no recreated invoice or repeated historical input VAT deduction'
++        result['retention_basis']='Applicable original financial evidence duties; source-specific review, no universal legal duration'
++        result['source_access']='Current global accounting read and finance read access'
+     if table.startswith('business_accounting_asset_opening_'):
+         result['sensitive']=True
+         result['purpose']='Evidenced historical linear asset balances and immutable original depreciation carryover; no new acquisition, cash movement or input tax claim'
+diff --git a/backend/online/web.py b/backend/online/web.py
+index 331f4ae..f3d9cc7 100644
+--- a/backend/online/web.py
++++ b/backend/online/web.py
+@@ -190,7 +190,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
+                  'project-economics.js': 'text/javascript', 'asset-provenance.js': 'text/javascript',
+                  'customer-workspace.html': 'text/html', 'customer-workspace.js': 'text/javascript',
+                  'customer-workspace-staff.js': 'text/javascript',
+-                 'personnel-workflow.js': 'text/javascript', 'accounting-euer.js': 'text/javascript', 'accounting-openings.js': 'text/javascript', 'accounting-historical-assets.js': 'text/javascript', 'accounting-historical-assets-contract.js': 'text/javascript',
++                 'personnel-workflow.js': 'text/javascript', 'accounting-euer.js': 'text/javascript', 'accounting-openings.js': 'text/javascript', 'accounting-open-items.js': 'text/javascript', 'accounting-open-items-contract.js': 'text/javascript', 'accounting-historical-assets.js': 'text/javascript', 'accounting-historical-assets-contract.js': 'text/javascript',
+                  'assistant.js': 'text/javascript', 'company-events-contract.js': 'text/javascript', 'company-events.js': 'text/javascript',
+                  'payroll.js': 'text/javascript',
+                  'payroll-facts.js': 'text/javascript',
+@@ -406,7 +406,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
+             request.max_content_length = 2_600_000
+         if request.method == 'POST' and re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import|catalog-prices/sources/[a-f0-9]{32}/imports)', path):
+             request.max_content_length = 2_850_000
+-        if request.method == 'POST' and (path in ('/business/bank/import/preview', '/business/bank/statements', '/business/accounting/opening-balances/originals', '/business/accounting/historical-assets/originals') or re.fullmatch(r'/business/catalog-prices/imports/[a-f0-9]{32}/(?:preview|apply)',path)):
++        if request.method == 'POST' and (path in ('/business/bank/import/preview', '/business/bank/statements', '/business/accounting/opening-balances/originals', '/business/accounting/historical-assets/originals', '/business/accounting/open-items/originals') or re.fullmatch(r'/business/catalog-prices/imports/[a-f0-9]{32}/(?:preview|apply)',path)):
+             request.max_content_length = 7_100_000
+         methods = (METHODS.get(path) or
+                    next((allowed for pattern, allowed in PATTERNS if re.fullmatch(pattern, path)), None) or
+@@ -441,7 +441,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
+             data = business_api.decode_offline_report(request.get_data(cache=False),
+                 max_bytes=(2_600_000 if path == '/business/assistant/speech/transcribe' else
+                     2_850_000 if re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import|catalog-prices/sources/[a-f0-9]{32}/imports)', path) else
+-                    7_100_000 if path in ('/business/bank/import/preview', '/business/bank/statements', '/business/accounting/opening-balances/originals', '/business/accounting/historical-assets/originals') or re.fullmatch(r'/business/catalog-prices/imports/[a-f0-9]{32}/(?:preview|apply)',path) else 1_000_000))
++                    7_100_000 if path in ('/business/bank/import/preview', '/business/bank/statements', '/business/accounting/opening-balances/originals', '/business/accounting/historical-assets/originals', '/business/accounting/open-items/originals') or re.fullmatch(r'/business/catalog-prices/imports/[a-f0-9]{32}/(?:preview|apply)',path) else 1_000_000))
+         else:
+             data = body() if request.method == 'POST' else (
+                 business_api.query_data(request.args.items(multi=True)) if path.startswith('/business/') else {})
+diff --git a/backend/server.py b/backend/server.py
+index 21b1d0b..59f6ff5 100644
+--- a/backend/server.py
++++ b/backend/server.py
+@@ -86,7 +86,7 @@ def make_handler(office,drive,launch_id=""):
+                     maximum = 2_600_000 if path == '/api/business/assistant/speech/transcribe' else 1_000_000
+                     if re.fullmatch(r'/api/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import|catalog-prices/sources/[a-f0-9]{32}/imports)', path):
+                         maximum = 2_850_000
+-                    if path in ('/api/business/bank/import/preview', '/api/business/bank/statements', '/api/business/accounting/opening-balances/originals', '/api/business/accounting/historical-assets/originals') or re.fullmatch(r'/api/business/catalog-prices/imports/[a-f0-9]{32}/(?:preview|apply)',path):
++                    if path in ('/api/business/bank/import/preview', '/api/business/bank/statements', '/api/business/accounting/opening-balances/originals', '/api/business/accounting/historical-assets/originals', '/api/business/accounting/open-items/originals') or re.fullmatch(r'/api/business/catalog-prices/imports/[a-f0-9]{32}/(?:preview|apply)',path):
+                         maximum = 7_100_000
+                     if not 0<size<=maximum:
+                         raise Problem(413,"Anfrage zu groß oder leer")
+diff --git a/web/office/office.js b/web/office/office.js
+index d79ed25..e6670d2 100644
+--- a/web/office/office.js
++++ b/web/office/office.js
+@@ -1,4 +1,6 @@
+ import {datedCatalogUi,datedPendingAuthorize,datedPricePicker,priceSelection,datedConsumerCommand,datedConsumerPendingAuthorize} from './catalog-prices.js';
++import {accountingOpenItemsUi} from './accounting-open-items.js';
++import {oiPendingAuthorize} from './accounting-open-items-contract.js';
+ import {catalogImportsUi,catalogPendingAuthorize} from './catalog-imports.js';
+ import {payrollMultipleCasesPendingAuthorize} from './payroll-multiple-cases.js';
+ import {historicalAssetsUi} from './accounting-historical-assets.js';
+@@ -958,6 +960,7 @@ export class OfficeApi {
+       if(old&&path.startsWith('/business/company-events/'))await companyEventPendingAuthorize(this,{key,path});
+       if(old&&path.startsWith('/business/payroll/cash/'))await payrollCashPendingAuthorize(this,{key,path});
+       if(old&&key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))await purchaseChangePendingAuthorize(this,{key,path});
++      if(old&&path.startsWith('/business/accounting/open-items'))await oiPendingAuthorize(this,{key,path});
+       if(old&&path.startsWith('/business/accounting/historical-assets'))await assetPendingAuthorize(this,{key,path});
+       if(old&&path.startsWith('/business/accounting/opening-balances'))await openingPendingAuthorize(this,{key,path});
+       if(old&&path.startsWith('/business/bank/'))await bankPendingAuthorize(this,{key,path});
+@@ -984,7 +987,7 @@ export class OfficeApi {
+       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
+       this.#pending.delete(key); return result;
+     } catch (error) {
+-      const protectedAccounting=path.startsWith('/business/company-events/')||path.startsWith('/business/accounting/historical-assets')||datedConsumerCommand(key,path,operation.body)||path.startsWith('/business/catalog-prices/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
++      const protectedAccounting=path.startsWith('/business/accounting/open-items')||path.startsWith('/business/company-events/')||path.startsWith('/business/accounting/historical-assets')||datedConsumerCommand(key,path,operation.body)||path.startsWith('/business/catalog-prices/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
+       const uncertainAccounting=protectedAccounting&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted');
+       if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
+       throw error;
+@@ -1072,6 +1075,12 @@ const historicalWorkspace=historicalAssetsUi({el,button,field,form,dialog,panel,
+   stamp:()=>`${api.generation}/${state.render}/${dialogGeneration}`,
+   saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+ 
++const openItemWorkspace=accountingOpenItemsUi({el,button,field,form,dialog,panel,notice,table,api,biz,action,formatDate,formatMoney,updatePending,
++  available:()=>state.section==='finance',caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly,organization:state.organization}),
++  stamp:()=>`${api.generation}/${state.render}/${dialogGeneration}`,
++  openEuer:()=>{closeModal();state.financeTab='accounting';state.accounting.tab='euer';return refresh();},openBank:()=>bankWorkspace.open(),
++  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
++
+ const payrollWorkspace=payrollUi({el,button,field,form,dialog,panel,rows,row,notice,table,api,biz,query,mutation,action,refresh,formatDate,formatMoney,
+   available:()=>state.features.has('german_payroll_2026')&&state.section==='personnel',
+   caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly}),
+@@ -1210,7 +1219,7 @@ function form(title, fields, save, {description, submit='Speichern', after=()=>r
+   section.controls=controls; return section;
+ }
+ function dialog(title, content, description = '') {
+-  closeModal({keepWageInterruptions:content?.matches?.('[data-wage-interruptions]')===true,keepAnnualBasis:content?.matches?.('[data-payroll-annual-basis]')===true,keepOneOffCases:content?.matches?.('[data-payroll-oneoff-cases]')===true,keepMultipleCases:content?.matches?.('[data-payroll-multiple-cases]')===true,keepCompanyEvents:content?.matches?.('[data-company-events]')===true}); const previous=document.activeElement;
++  closeModal({keepOpenItems:content?.matches?.('[data-open-items]')===true,keepWageInterruptions:content?.matches?.('[data-wage-interruptions]')===true,keepAnnualBasis:content?.matches?.('[data-payroll-annual-basis]')===true,keepOneOffCases:content?.matches?.('[data-payroll-oneoff-cases]')===true,keepMultipleCases:content?.matches?.('[data-payroll-multiple-cases]')===true,keepCompanyEvents:content?.matches?.('[data-company-events]')===true}); const previous=document.activeElement;
+   const close=button('×',()=>closeModal(),'icon'); close.className='modal-close'; close.setAttribute('aria-label','Dialog schließen');
+   const box=el('section',{class:'modal',role:'dialog','aria-modal':'true','aria-label':title,tabIndex:-1},el('div',{class:'modal-head'},el('div',{},el('h2',{},title),description?el('p',{class:'muted'},description):null),close),content);
+   modal=el('div',{class:'modal-backdrop'},box); modal.previous=previous;
+@@ -1226,7 +1235,7 @@ function dialog(title, content, description = '') {
+   });
+   document.body.append(modal); box.focus(); return box;
+ }
+-function closeModal({keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false,keepCompanyEvents=false}={}) { dialogGeneration++; if(modal) { if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
++function closeModal({keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false,keepCompanyEvents=false,keepOpenItems=false}={}) { dialogGeneration++; if(modal) { if(!keepOpenItems&&modal.querySelector('[data-open-items]'))openItemWorkspace.clear();if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
+ async function download(path,filename) { const blob=await api.binary(path),url=objectUrl(blob),link=el('a',{href:url,download:filename,rel:'noopener'}); document.body.append(link); link.click(); link.remove(); }
+ function jsonDownload(value,filename) { const link=el('a',{href:objectUrl(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),download:filename}); document.body.append(link); link.click(); link.remove(); }
+ function mutation(key,path,data,options) {
+@@ -1258,7 +1267,7 @@ function mayOpenSection(section) {
+ }
+ 
+ function loginScreen(challenge = null, enrollment = null) {
+-  privacyCases.clear();travelWorkspace.clear();payrollWorkspace.clear();openingWorkspace.clear();catalogWorkspace.clear();historicalWorkspace.clear();datedWorkspace.clear();
++  privacyCases.clear();travelWorkspace.clear();payrollWorkspace.clear();openingWorkspace.clear();catalogWorkspace.clear();historicalWorkspace.clear();datedWorkspace.clear();openItemWorkspace.clear();
+   refundPendingSources.clear();
+   closeModal(); revokeUrls(); state.user=null; root.replaceChildren();
+   const card=el('section',{class:'login-card'},el('div',{class:'brand'},el('span',{class:'brand-mark'},'S'),el('div',{},el('strong',{},'smartplan'),el('small',{},'OFFICE'))),el('h1',{},challenge?'Anmeldung bestätigen':'Willkommen im Büro.'),el('p',{class:'muted'},challenge?'Authentifizierungscode oder Wiederherstellungscode eingeben.':'Projekte, Team und Unterlagen an einem Ort.'));
+@@ -1320,6 +1329,7 @@ function updateDrawer() {
+ function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
+ function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
+ function operationLabel(path) {
++  if(path.startsWith('/business/accounting/open-items/'))return 'Ursprünglichen Altpostenauftrag prüfen';
+   if(path===biz('/accounting/historical-assets/originals'))return 'Historisches Anlagenoriginal speichern';
+   if(path===biz('/accounting/historical-assets/confirm'))return 'Historischen Anlagenvortrag bestätigen';
+   if(path.startsWith('/business/company-events/'))return 'Unternehmensereignisauftrag unverändert prüfen';
+@@ -1419,6 +1429,7 @@ async function refresh() {
+     if(modal?.querySelector('[data-payroll-annual-basis]')){payrollWorkspace.clear();closeModal();}
+     if(modal?.querySelector('[data-payroll-oneoff-cases],[data-payroll-multiple-cases]')){payrollWorkspace.clear();closeModal();}
+     if(modal?.querySelector('[data-inventory-count]'))closeModal();
++    if(modal?.querySelector('[data-open-items]')){openItemWorkspace.clear();closeModal();}
+     if(modal?.querySelector('[data-historical-assets]')){historicalWorkspace.clear();closeModal();}
+     if(modal?.querySelector('[data-accounting-openings]')){openingWorkspace.clear();closeModal();}
+     if(modal?.querySelector('[data-privacy-cases]')){privacyCases.clear();closeModal();}
+@@ -1849,6 +1860,7 @@ async function accountingContent() {
+   if(!Array.isArray(accountResponse?.items))throw new ApiError('Geldkonten konnten nicht sicher geladen werden.',502);
+   const accounts=accountResponse.items;
+   content.append(notice(euerAvailable?'Das Vorjournal enthält unveränderte Geldflussnachweise und berechnet keine steuerlichen Summen. Die ausdrückliche fachliche Einordnung und Jahresauswertung stehen unter „Eigene EÜR“.':accountingProfileRights().available?'Steuerprofil: nicht eingerichtet. Ein separat gespeichertes Vorbereitungsprofil dokumentiert nur Angaben. Alle Geldflüsse bleiben steuerlich ungeklärt; es werden keine steuerlichen Summen oder Gewinne berechnet.':'Profil und Steuerstatus: nicht eingerichtet. Alle Geldflüsse bleiben steuerlich ungeklärt. Es werden keine steuerlichen Summen oder Gewinne berechnet.'));
++  if(openItemWorkspace.available())content.append(el('div',{class:'actions'},button('Offene Altposten',()=>action(()=>openItemWorkspace.open()),'small')));
+   if(historicalWorkspace.available())content.append(el('div',{class:'actions'},button('Historische Anlagen',()=>action(()=>historicalWorkspace.open()),'small')));
+   if(openingWorkspace.available())content.append(el('div',{class:'actions'},button('Anfangsbestände und Liquidität',()=>action(()=>openingWorkspace.open()),'small')));
+   if(accountingProfileRights().read)content.append(el('div',{class:'actions'},button('Vorbereitungsprofil',()=>accountingAction(()=>accountingProfileDialog()),'small')));
+@@ -2558,7 +2570,7 @@ function reservationDialog(projectId,locations,articles) {
+   dialog('Material reservieren',form('',[field('article_id','Artikel','select','',{options:options(articles),required:true}),field('location_id','Lagerort','select','',{options:options(locations),required:true}),field('quantity','Menge','decimal','1',{required:true})],
+     (data,key)=>mutation(key,'/inventory/reservations',{...data,project_id:projectId}),{key:'reserve-'+projectId}),'Reservierungen werden gegen den freien Bestand geprüft.');
+ }
+-const accountingEuer=createAccountingEuer({api,biz,el,button,panel,row,rows,notice,table,form,dialog,closeModal,formatMoney,formatDate,mutation,action,refresh,download,jsonDownload,updatePending,organization:()=>state.organization,context:()=>state.render,openEvent:accountingEventDialog,openProfile:accountingProfileDialog,historicalAvailable:()=>historicalWorkspace.available(),openHistoricalAssets:(identity)=>identity?historicalWorkspace.detail(identity):historicalWorkspace.open(),openingAvailable:()=>openingWorkspace.available(),openOpenings:()=>openingWorkspace.open(),openCash:tab=>{closeModal();state.accounting.tab=tab;refresh();},textDownload:(value,filename,type)=>{const link=el('a',{href:objectUrl(new Blob([value],{type})),download:filename});document.body.append(link);link.click();link.remove();},onDenied:()=>{closeModal();main?.querySelectorAll('.accounting-euer').forEach(node=>node.replaceChildren(notice('Die EÜR-Quellen sind aktuell nicht freigegeben. Offene Buchungsaufträge bleiben unverändert erhalten.','warn')));}});
++const accountingEuer=createAccountingEuer({api,biz,el,button,panel,row,rows,notice,table,form,dialog,closeModal,formatMoney,formatDate,mutation,action,refresh,download,jsonDownload,updatePending,organization:()=>state.organization,context:()=>state.render,privateContext:()=>`${api.generation}/${state.render}/${dialogGeneration}`,openEvent:accountingEventDialog,openProfile:accountingProfileDialog,openItemsAvailable:()=>openItemWorkspace.available(),openOpenItems:entity=>entity?openItemWorkspace.detail(entity):openItemWorkspace.open(),historicalAvailable:()=>historicalWorkspace.available(),openHistoricalAssets:(identity)=>identity?historicalWorkspace.detail(identity):historicalWorkspace.open(),openingAvailable:()=>openingWorkspace.available(),openOpenings:()=>openingWorkspace.open(),openCash:tab=>{closeModal();state.accounting.tab=tab;refresh();},textDownload:(value,filename,type)=>{const link=el('a',{href:objectUrl(new Blob([value],{type})),download:filename});document.body.append(link);link.click();link.remove();},onDenied:()=>{closeModal();main?.querySelectorAll('.accounting-euer').forEach(node=>node.replaceChildren(notice('Die EÜR-Quellen sind aktuell nicht freigegeben. Offene Buchungsaufträge bleiben unverändert erhalten.','warn')));}});
+ const projectEconomics=createProjectEconomics({api,biz,query,el,button,panel,row,rows,notice,empty,form,field,dialog,closeModal,table,formatMoney,formatDate,mutation,action,refresh,download,dateInput,bytesBase64,duration,canWrite,confirmDialog,documentDetail,projectId:()=>state.projectId,organization:()=>state.organization,actorId:()=>state.user?.id,onDenied:()=>{closeModal();main?.querySelectorAll('.project-economics').forEach(node=>node.replaceChildren(notice('Die Projektwirtschaftlichkeit ist aktuell nicht freigegeben. Offene Anfragen bleiben unverändert erhalten.','warn')));}});
+ async function costsPanel(projectId) {
+   if(state.features.has('project_economics'))return projectEconomics.render(projectId);
+@@ -2807,7 +2819,7 @@ if(typeof document!=='undefined') {
+     addEventListener('online',networkState);addEventListener('offline',networkState);
+     matchMedia('(max-width:760px)').addEventListener('change',updateDrawer);
+     addEventListener('beforeunload',event=>{if(api.pendingCount){event.preventDefault();event.returnValue='';}});
+-    document.addEventListener('visibilitychange',()=>{if(document.hidden){companyEvents.clear();if(modal?.querySelector('[data-accounting-openings], [data-historical-assets], [data-company-events]'))closeModal();}});
++    document.addEventListener('visibilitychange',()=>{if(document.hidden){companyEvents.clear();openItemWorkspace.clear();if(modal?.querySelector('[data-accounting-openings], [data-historical-assets], [data-company-events], [data-open-items]'))closeModal();}});
+     addEventListener('pagehide',()=>endSession());
+   }
+ }

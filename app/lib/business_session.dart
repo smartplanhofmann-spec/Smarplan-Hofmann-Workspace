@@ -717,6 +717,98 @@ class BusinessSession extends ChangeNotifier {
     }
   }
 
+  List<String> get pendingOpenItemKeys => !allowed
+      ? const []
+      : List.unmodifiable(
+          _pending.entries
+              .where(
+                (entry) =>
+                    entry.key.startsWith('opening-item-') &&
+                    const [
+                      '/accounting/open-items/originals',
+                      '/accounting/open-items/confirm',
+                    ].contains(entry.value.path),
+              )
+              .map((entry) => entry.key),
+        );
+
+  void _requireOpenItemRights() {
+    if (projectId != null ||
+        !hasFeature('accounting_open_items') ||
+        !hasModule('accounting_open_items') ||
+        !['accounting.read', 'finance.read'].every(can) ||
+        ![
+          'accounting.admin',
+          'accounting.prepare',
+          'finance.write',
+        ].every(canWrite)) {
+      throw const ApiException(
+        403,
+        'Aktuelle globale Rechte für historische offene Posten fehlen.',
+      );
+    }
+    if (!sectionEnabled('finance'))
+      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+  }
+
+  Future<dynamic> repeatOpenItemCommand(
+    String key, {
+    bool Function()? stillCurrent,
+  }) => _repeatWorkflowCommand(
+    key,
+    matches: (path) =>
+        key.startsWith('opening-item-') &&
+        const [
+          '/accounting/open-items/originals',
+          '/accounting/open-items/confirm',
+        ].contains(path),
+    requireRights: () {
+      _requireOpenItemRights();
+      if (stillCurrent != null && !stillCurrent())
+        throw const ApiException(
+          0,
+          "Der Altpostenkontext wurde geschlossen. Der Originalauftrag bleibt offen.",
+        );
+    },
+    readPath: '/accounting/open-items',
+    verifyState: (state) {
+      if (state['schema_version'] != 1 ||
+          state['rule_version'] != 'de_euer_ist_open_items_v1' ||
+          state['can_prepare'] != true) {
+        throw const ApiException(
+          423,
+          'historische offene Posten sind derzeit nicht zur Bearbeitung freigegeben.',
+        );
+      }
+      // Do not replace the original asset/profile revisions or nonce. The
+      // server checks the saved receipt before evaluating a new journal effect.
+    },
+  );
+
+  Future<dynamic> previewOpenItem(Map<String, dynamic> values) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    _requireOpenItemRights();
+    final capturedGeneration = generation;
+    try {
+      final result = await api.call(
+        path('/accounting/open-items/preview'),
+        Map<String, dynamic>.from(jsonDecode(jsonEncode(values))),
+      );
+      _guard(epoch);
+      _requireOpenItemRights();
+      if (generation != capturedGeneration)
+        throw const ApiException(
+          409,
+          'Der Funktionsstand wurde geändert. Bitte neu prüfen.',
+        );
+      return result;
+    } on ApiException catch (error) {
+      if (error.status == 401) revoke();
+      rethrow;
+    }
+  }
+
   List<String> get pendingHistoricalAssetKeys => !allowed
       ? const []
       : List.unmodifiable(
@@ -2869,6 +2961,11 @@ class BusinessSession extends ChangeNotifier {
         _catalogPricesCommand(key, path) ||
         _companyEventCommand(key, path, values) ||
         _catalogCommand(key, path) ||
+        (key.startsWith('opening-item-') &&
+            const [
+              '/accounting/open-items/originals',
+              '/accounting/open-items/confirm',
+            ].contains(path)) ||
         (key.startsWith('historical-asset-') &&
             const [
               '/accounting/historical-assets/originals',

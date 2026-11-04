@@ -49,7 +49,7 @@ async function ready(page){await page.locator('main .loading').waitFor({state:'d
 async function navigate(page,name){if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);}
 async function main(){
   const workflow=process.env.SMARTPLAN_BROWSER_WORKFLOW;
-  assert.ok(workflow===undefined||['company-events','catalog-prices','historical-assets','payroll-multiple-cases','catalog-imports','accounting-openings','payroll-oneoff-cases','payroll-zero-account','payroll-annual-basis','payroll-wage-interruptions','payroll-calculation-cases','travel-v3','payroll-travel-tax-policies','payroll-entitlements','travel-allowances','payroll-statements','payroll-periods','purchase-changes','payroll-transition','bank-reconciliation','resource-custody','accessibility','privacy-cases','service','custom-fields','migrations','payroll-cash','company-handover','speech','sales','company-overview','inventory-counts','invoice-chain','payroll','assistant','personnel-workflow','asset-provenance','project-economics','accounting-allocation','accounting-components','accounting-refunds','accounting-capacity','accounting-refunds-v2','accounting-profile'].includes(workflow),'Unsupported targeted browser workflow');
+  assert.ok(workflow===undefined||['accounting-open-items','company-events','catalog-prices','historical-assets','payroll-multiple-cases','catalog-imports','accounting-openings','payroll-oneoff-cases','payroll-zero-account','payroll-annual-basis','payroll-wage-interruptions','payroll-calculation-cases','travel-v3','payroll-travel-tax-policies','payroll-entitlements','travel-allowances','payroll-statements','payroll-periods','purchase-changes','payroll-transition','bank-reconciliation','resource-custody','accessibility','privacy-cases','service','custom-fields','migrations','payroll-cash','company-handover','speech','sales','company-overview','inventory-counts','invoice-chain','payroll','assistant','personnel-workflow','asset-provenance','project-economics','accounting-allocation','accounting-components','accounting-refunds','accounting-capacity','accounting-refunds-v2','accounting-profile'].includes(workflow),'Unsupported targeted browser workflow');
   const {chromium}=require('playwright');
   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'smartplan-browser-e2e-')),readyFile=path.join(directory,'ready.json');
   const screenshots=process.env.SMARTPLAN_BROWSER_SCREENSHOT_DIR||directory;
@@ -122,6 +122,10 @@ async function main(){
     if(workflow==='payroll-wage-interruptions'){
       await require('./payroll-wage-interruptions-flow.cjs').payrollWageInterruptionsFlow({page,context,navigate,ready,fixture,screenshots});
       assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted payroll wage interruptions workflow passed');return;
+    }
+    if(workflow==='accounting-open-items'){
+      await require('./accounting-open-items-flow.cjs').openingItemsFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);console.log('1 targeted accounting-open-items browser workflow passed');return;
     }
     if(workflow==='historical-assets'){
       await require('./accounting-historical-assets-flow.cjs').historicalAssetsFlow({page,context,navigate,ready,login,fixture,screenshots});

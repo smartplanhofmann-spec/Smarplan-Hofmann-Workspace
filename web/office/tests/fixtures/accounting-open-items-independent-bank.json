@@ -1,0 +1,259 @@
+{
+  "synthetic": true,
+  "generated_by": "web/office/tests/accounting-open-items-independent-bank-fixture.py",
+  "candidates": {
+    "transaction": {
+      "id": "cedbc6a9fe054d5ea5ac50aff458adb8",
+      "account_id": "c823b0f4d44c42baacff3e535b5af1a6",
+      "external_id": "SYN-OLD-1",
+      "created_by": "c8c9d42548dd454eb099710ff5497fcc",
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "payload": {
+        "amount": "119.00",
+        "booking_date": "2026-02-15",
+        "counterparty": "Synthetic payer",
+        "currency": "EUR",
+        "reference": "Actual old remainder",
+        "transaction_id": "SYN-OLD-1",
+        "value_date": "2026-02-15"
+      },
+      "content_hash": "2556a121837ef82a84a36a0709430c274ea8a6b2c5165b6234460f79c51cacec"
+    },
+    "current": {
+      "transaction_id": "cedbc6a9fe054d5ea5ac50aff458adb8",
+      "revision": 0,
+      "content_hash": null,
+      "previous_hash": null,
+      "payload": {
+        "links": [],
+        "reason": ""
+      }
+    },
+    "items": [
+      {
+        "source": {
+          "source_kind": "opening_item_cash",
+          "source_id": "fe964f86fe024d5cad67d67f9dc53422",
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "c8c9d42548dd454eb099710ff5497fcc",
+            "currency": "EUR",
+            "id": "c823b0f4d44c42baacff3e535b5af1a6",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "date": "2026-02-15",
+          "direction": "in",
+          "amount": "119.00",
+          "source_path": "/accounting/open-items/payments/fe964f86fe024d5cad67d67f9dc53422?revision=1",
+          "origin_hash": "a94ec5797ff179a90cfbb9ed722cfb92b7e9c7fc1ca94ea3c833ba4ff948553f",
+          "source_hash": "353cdd635b1b51f43e851c54df11f019163ba4a09a2f5aec962a9c4c46233ebd"
+        },
+        "remaining": "119.00",
+        "stale_existing_links": false
+      }
+    ]
+  },
+  "payment_source": {
+    "kind": "opening_item_cash",
+    "schema_version": 1,
+    "rule_version": "de_euer_ist_open_items_v1",
+    "id": "fe964f86fe024d5cad67d67f9dc53422",
+    "revision": 1,
+    "entry_id": "cd38179d67b54135b5d53437b9c093c1",
+    "entry_hash": "a9e0c30431fea7b6f62ac6b4f2a7ceab860eaea8c7abbe5dfeb9a79e0d847db4",
+    "status": "active",
+    "date": "2026-02-15",
+    "profile_ref": {
+      "entry_sha256": "796addc3e4f204295ba5dbbf9fd11335412c2349bd7ed51b37514bb06d9c10a0",
+      "id": "dad9ddcd1e664f4a921aee8a4109eefd",
+      "revision": 2
+    },
+    "item_key": "legacy-a",
+    "item_id": "3f56a6acc84649d7a77c6bc99d4a69eb",
+    "item_hash": "3a6cb162ccf36e298add58eacc56be90df5c8bb00b719d7aa0b82edbeab4dbac",
+    "direction": "in",
+    "category": "sales",
+    "rate": "19",
+    "net": "100.00",
+    "tax": "19.00",
+    "gross": "119.00",
+    "prior_input_vat": null,
+    "proof": {
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "created_by": "c8c9d42548dd454eb099710ff5497fcc",
+      "entity_key": "legacy-a",
+      "filename": "synthetic.pdf",
+      "id": "8ecdc1bad7f049a5a76289ebd55b6bc4",
+      "media_type": "application/pdf",
+      "path": "/accounting/open-items/originals/8ecdc1bad7f049a5a76289ebd55b6bc4",
+      "sha256": "7f3a6908b69c86335a3d698dd7d7dfb48bc4e868597b931dd83eb07064d60fb9",
+      "size": 86
+    },
+    "cash_movements": [
+      {
+        "id": "fe964f86fe024d5cad67d67f9dc53422",
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "c8c9d42548dd454eb099710ff5497fcc",
+          "currency": "EUR",
+          "id": "c823b0f4d44c42baacff3e535b5af1a6",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "date": "2026-02-15",
+        "direction": "in",
+        "amount": "119.00"
+      }
+    ],
+    "source_path": "/accounting/open-items/payments/fe964f86fe024d5cad67d67f9dc53422?revision=1",
+    "source_hash": "a94ec5797ff179a90cfbb9ed722cfb92b7e9c7fc1ca94ea3c833ba4ff948553f"
+  },
+  "preview_match": {
+    "transaction": {
+      "id": "cedbc6a9fe054d5ea5ac50aff458adb8",
+      "account_id": "c823b0f4d44c42baacff3e535b5af1a6",
+      "external_id": "SYN-OLD-1",
+      "created_by": "c8c9d42548dd454eb099710ff5497fcc",
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "payload": {
+        "amount": "119.00",
+        "booking_date": "2026-02-15",
+        "counterparty": "Synthetic payer",
+        "currency": "EUR",
+        "reference": "Actual old remainder",
+        "transaction_id": "SYN-OLD-1",
+        "value_date": "2026-02-15"
+      },
+      "content_hash": "2556a121837ef82a84a36a0709430c274ea8a6b2c5165b6234460f79c51cacec"
+    },
+    "revision": 1,
+    "previous_hash": null,
+    "links": [
+      {
+        "source": {
+          "source_kind": "opening_item_cash",
+          "source_id": "fe964f86fe024d5cad67d67f9dc53422",
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "c8c9d42548dd454eb099710ff5497fcc",
+            "currency": "EUR",
+            "id": "c823b0f4d44c42baacff3e535b5af1a6",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "date": "2026-02-15",
+          "direction": "in",
+          "amount": "119.00",
+          "source_path": "/accounting/open-items/payments/fe964f86fe024d5cad67d67f9dc53422?revision=1",
+          "origin_hash": "a94ec5797ff179a90cfbb9ed722cfb92b7e9c7fc1ca94ea3c833ba4ff948553f",
+          "source_hash": "353cdd635b1b51f43e851c54df11f019163ba4a09a2f5aec962a9c4c46233ebd"
+        },
+        "amount": "119.00",
+        "date_difference_reason": ""
+      }
+    ],
+    "reason": "Synthetic original amount and bank movement checked",
+    "matched_amount": "119.00",
+    "remaining": "0.00",
+    "complete": true,
+    "preview_hash": "a199dbe19c095017d8e569f5dcaea1104681b662767070cefff82c2bdcd48eb0"
+  },
+  "preview_match_command": {
+    "revision": 0,
+    "links": [
+      {
+        "source_kind": "opening_item_cash",
+        "source_id": "fe964f86fe024d5cad67d67f9dc53422",
+        "source_hash": "353cdd635b1b51f43e851c54df11f019163ba4a09a2f5aec962a9c4c46233ebd",
+        "amount": "119.00",
+        "date_difference_reason": ""
+      }
+    ],
+    "reason": "Synthetic original amount and bank movement checked"
+  },
+  "save_match": {
+    "transaction_id": "cedbc6a9fe054d5ea5ac50aff458adb8",
+    "revision": 1,
+    "previous_hash": null,
+    "created_by": "c8c9d42548dd454eb099710ff5497fcc",
+    "created_at": "2026-12-31T12:00:00+00:00",
+    "payload": {
+      "complete": true,
+      "links": [
+        {
+          "amount": "119.00",
+          "date_difference_reason": "",
+          "source": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "c8c9d42548dd454eb099710ff5497fcc",
+              "currency": "EUR",
+              "id": "c823b0f4d44c42baacff3e535b5af1a6",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "amount": "119.00",
+            "date": "2026-02-15",
+            "direction": "in",
+            "origin_hash": "a94ec5797ff179a90cfbb9ed722cfb92b7e9c7fc1ca94ea3c833ba4ff948553f",
+            "source_hash": "353cdd635b1b51f43e851c54df11f019163ba4a09a2f5aec962a9c4c46233ebd",
+            "source_id": "fe964f86fe024d5cad67d67f9dc53422",
+            "source_kind": "opening_item_cash",
+            "source_path": "/accounting/open-items/payments/fe964f86fe024d5cad67d67f9dc53422?revision=1"
+          }
+        }
+      ],
+      "matched_amount": "119.00",
+      "preview_hash": "a199dbe19c095017d8e569f5dcaea1104681b662767070cefff82c2bdcd48eb0",
+      "reason": "Synthetic original amount and bank movement checked",
+      "remaining": "0.00",
+      "transaction": {
+        "account_id": "c823b0f4d44c42baacff3e535b5af1a6",
+        "content_hash": "2556a121837ef82a84a36a0709430c274ea8a6b2c5165b6234460f79c51cacec",
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "created_by": "c8c9d42548dd454eb099710ff5497fcc",
+        "external_id": "SYN-OLD-1",
+        "id": "cedbc6a9fe054d5ea5ac50aff458adb8",
+        "payload": {
+          "amount": "119.00",
+          "booking_date": "2026-02-15",
+          "counterparty": "Synthetic payer",
+          "currency": "EUR",
+          "reference": "Actual old remainder",
+          "transaction_id": "SYN-OLD-1",
+          "value_date": "2026-02-15"
+        }
+      }
+    },
+    "content_hash": "e63e50ad7926114e8917801cc4943ce5032261232365a24febf2af48132f1481"
+  },
+  "save_match_command": {
+    "revision": 0,
+    "links": [
+      {
+        "source_kind": "opening_item_cash",
+        "source_id": "fe964f86fe024d5cad67d67f9dc53422",
+        "source_hash": "353cdd635b1b51f43e851c54df11f019163ba4a09a2f5aec962a9c4c46233ebd",
+        "amount": "119.00",
+        "date_difference_reason": ""
+      }
+    ],
+    "reason": "Synthetic original amount and bank movement checked",
+    "request_id": "ab8530b20f4d445d8c795cf546e8b37b",
+    "confirmation": true,
+    "preview_hash": "a199dbe19c095017d8e569f5dcaea1104681b662767070cefff82c2bdcd48eb0"
+  }
+}

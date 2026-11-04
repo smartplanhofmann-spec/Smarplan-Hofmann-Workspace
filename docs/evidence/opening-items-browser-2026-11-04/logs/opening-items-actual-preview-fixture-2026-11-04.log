@@ -1,0 +1,27 @@
+✔ held initial success cannot cross other (38.431775ms)
+✔ held initial private failure cannot cross other (1.530534ms)
+✔ held initial success cannot cross session (1.123301ms)
+✔ held initial private failure cannot cross session (0.837771ms)
+✔ current financial read revocation after state response removes original title and content (7.609265ms)
+✔ lost accepted command retries exactly after unrelated journal advancement (8.664243ms)
+✔ valid foreign accepted receipt never clears original pending operation (4.313513ms)
+✔ pending replay requires fresh financial approval and keeps original after denial (0.89665ms)
+✔ genuine opening item source continues through existing EÜR editor/report: receivable_prior_parts (1.968864ms)
+✔ genuine opening item source continues through existing EÜR editor/report: payable_old_input_vat (0.452441ms)
+✔ genuine opening item source continues through existing EÜR editor/report: clerical_payment_correction (0.308925ms)
+✔ background invalidation before the first private dialog prevents a late view (2.49065ms)
+✔ actual opening item originals, state, preview, cash and correction: receivable_prior_parts (28.165711ms)
+✔ actual opening item originals, state, preview, cash and correction: payable_old_input_vat (6.155547ms)
+✔ actual opening item originals, state, preview, cash and correction: clerical_payment_correction (11.302394ms)
+✔ opening residual cents retain original historical split and later one cent difference (7.370856ms)
+✔ foreign real acceptance, altered proof and changed preview cannot confirm original (1.644786ms)
+✔ old input tax exercise date and exact original cents cannot be silently substituted (1.733449ms)
+✔ source cash cannot claim a new active movement after clerical void or switch original (0.705381ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 175.128953

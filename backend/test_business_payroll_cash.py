@@ -188,9 +188,9 @@ class PayrollCashTests(unittest.TestCase):
     def test_new_restore_horizon_rejects_inconsistent_private_scope_and_keeps_schema9_readable(self):
         from business_schema import financial_accounting_horizon,_validate_financial_accounting_horizon
         data,run,identity,paid=self.case();self.import_cash(self.body(paid))
-        complete=financial_accounting_horizon(self.office);self.assertEqual(complete['schema_version'],13)
-        _validate_financial_accounting_horizon(complete,14)
-        horizon={key:value for key,value in complete.items() if key not in ('bank_reconciliation','travel_cash','opening_balances','historical_assets')};horizon['schema_version']=9
+        complete=financial_accounting_horizon(self.office);self.assertEqual(complete['schema_version'],14)
+        _validate_financial_accounting_horizon(complete,15)
+        horizon={key:value for key,value in complete.items() if key not in ('bank_reconciliation','travel_cash','opening_balances','historical_assets','opening_items')};horizon['schema_version']=9
         _validate_financial_accounting_horizon(horizon,10)
         old={k:v for k,v in horizon.items() if k!='payroll_cash'};old['schema_version']=8
         encoded=canonical(old);_validate_financial_accounting_horizon(old,9);self.assertEqual(canonical(old),encoded)

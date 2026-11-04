@@ -127,7 +127,7 @@ class EventsCatalogAssetsSource5Restore(unittest.TestCase):
         self.assertEqual(event_accepted['status'], 'succeeded')
         task_count = f.office.db.execute('SELECT COUNT(*) FROM workspace_items').fetchone()[0]
         horizon = business_schema.financial_accounting_horizon(f.office)
-        self.assertEqual(horizon['schema_version'], 13)
+        self.assertEqual(horizon['schema_version'], 14)
         fingerprints = release.snapshot_fingerprint(payroll_fixture.fixture.DSN)
         f.office.db.close()
 
@@ -150,7 +150,7 @@ class EventsCatalogAssetsSource5Restore(unittest.TestCase):
                 self.assertEqual(Payroll(restored).export(f.owner, run['id'], 'pdf')[0], payroll_pdf)
                 self.assertEqual(EuerAccounting(restored).exported(f.owner, export['id']), artifact)
                 evidence = evidence_for(restored, report)
-                self.assertEqual(evidence['schema'], 14)
+                self.assertEqual(evidence['schema'], 15)
                 self.assertEqual(evidence['accounting_horizon'], horizon)
                 for api, command in ((assets.HistoricalAssets(restored), asset_command),
                                      (openings.OpeningBalances(restored), opening_command)):
@@ -163,6 +163,7 @@ class EventsCatalogAssetsSource5Restore(unittest.TestCase):
             try:
                 old = deepcopy(evidence)
                 old['schema'] = 13
+                old['accounting_horizon'].pop('opening_items')
                 old['accounting_horizon'].pop('historical_assets')
                 old['accounting_horizon']['schema_version'] = 12
                 business_schema._validate_financial_accounting_horizon(old['accounting_horizon'], 13)

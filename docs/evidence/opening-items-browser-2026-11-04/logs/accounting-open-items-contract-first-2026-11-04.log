@@ -1,0 +1,68 @@
+✔ actual opening item originals, state, preview, cash and correction: receivable_prior_parts (60.606374ms)
+✔ actual opening item originals, state, preview, cash and correction: payable_old_input_vat (36.081085ms)
+✔ actual opening item originals, state, preview, cash and correction: clerical_payment_correction (7.596012ms)
+✔ opening residual cents retain original historical split and later one cent difference (9.365266ms)
+✖ foreign real acceptance, altered proof and changed preview cannot confirm original (5.413884ms)
+✔ old input tax exercise date and exact original cents cannot be silently substituted (3.743688ms)
+✖ source cash cannot claim a new active movement after clerical void or switch original (2.129678ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 423.712124
+
+✖ failing tests:
+
+test at web/office/tests/accounting-open-items-contract.test.mjs:9:1
+✖ foreign real acceptance, altered proof and changed preview cannot confirm original (5.413884ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Prüfsumme/. Input:
+  
+  'Error: Die angenommene Fassung besteht ihre Originalprüfsumme nicht.'
+  
+      at async TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-contract.test.mjs:9:351)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: Die angenommene Fassung besteht ihre Originalprüfsumme nicht.
+        at oiFail (file:///workspace/smartplan-opening-items-20261104/web/office/accounting-open-items-contract.js:7:55)
+        at requireValue (file:///workspace/smartplan-opening-items-20261104/web/office/accounting-open-items-contract.js:8:104)
+        at oiRecord (file:///workspace/smartplan-opening-items-20261104/web/office/accounting-open-items-contract.js:27:438)
+        at async file:///workspace/smartplan-opening-items-20261104/web/office/accounting-open-items-contract.js:30:280
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-contract.test.mjs:9:351)
+        at async Test.run (node:internal/test_runner/test:1389:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:960:7),
+    expected: /Prüfsumme/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-open-items-contract.test.mjs:11:1
+✖ source cash cannot claim a new active movement after clerical void or switch original (2.129678ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Prüfsumme/. Input:
+  
+  'Error: Die Zahlungsquelle besteht ihre Originalprüfsumme nicht.'
+  
+      at async TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-contract.test.mjs:11:306)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: Die Zahlungsquelle besteht ihre Originalprüfsumme nicht.
+        at oiFail (file:///workspace/smartplan-opening-items-20261104/web/office/accounting-open-items-contract.js:7:55)
+        at requireValue (file:///workspace/smartplan-opening-items-20261104/web/office/accounting-open-items-contract.js:8:104)
+        at oiVerifiedSource (file:///workspace/smartplan-opening-items-20261104/web/office/accounting-open-items-contract.js:33:84)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-contract.test.mjs:11:306)
+        at async Test.run (node:internal/test_runner/test:1389:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:960:7),
+    expected: /Prüfsumme/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

@@ -1,0 +1,32 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(account)
+
+    at Object.openingItemsFlow (/workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-flow.cjs:23:750)
+    at async main (/workspace/smartplan-opening-items-20261104/web/office/tests/e2e.cjs:127:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+/api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/overview/metrics HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/feed HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/finance/payments HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/finance/open-items HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/finance/outbox HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/accounting/profile HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "POST /api/v1/business/accounting/profile/preview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "[35m[1mPOST /api/v1/business/accounting/profile/confirm HTTP/1.1[0m" 201 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/accounting/euer/report?year=2026 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:51:29] "GET /api/v1/business/accounting/accounts HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

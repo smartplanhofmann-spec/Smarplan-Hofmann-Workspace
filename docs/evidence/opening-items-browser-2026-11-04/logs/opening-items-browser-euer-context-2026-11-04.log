@@ -1,0 +1,36 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+1 !== 0
+
+    at euer (/workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-flow.cjs:23:2624)
+    at async Object.openingItemsFlow (/workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-flow.cjs:28:170)
+    at async main (/workspace/smartplan-opening-items-20261104/web/office/tests/e2e.cjs:127:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED'
+]
+Fixture log tail:
+/2026 12:10:11] "GET /api/v1/business/accounting/euer/journal?limit=25&offset=0 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/accounting/euer/report?year=2026 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/accounting/euer HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/accounting/euer/sources HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/accounting/euer/journal?limit=25&offset=0 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/accounting/euer/report?year=2026 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/accounting/open-items HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:11] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:12] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:12] "GET /api/v1/business/accounting/open-items HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 12:10:12] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

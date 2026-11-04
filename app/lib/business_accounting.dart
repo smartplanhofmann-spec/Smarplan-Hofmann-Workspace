@@ -10,6 +10,7 @@ import 'business_accounting_euer.dart';
 import 'business_accounting_capacity.dart';
 import 'business_accounting_openings.dart';
 import 'business_accounting_historical_assets.dart';
+import 'business_accounting_open_items.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -829,6 +830,22 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
         : ListView(
             padding: const EdgeInsets.all(24),
             children: [
+              if (openItemsReadable(widget.session))
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) =>
+                            BusinessOpenItemsPage(session: widget.session),
+                      ),
+                    ),
+                    icon: const Icon(Icons.receipt_long_outlined),
+                    label: const Text(
+                      'Historische offene Rechnungen und Restzahlungen',
+                    ),
+                  ),
+                ),
               if (historicalAssetsReadable(widget.session))
                 Align(
                   alignment: Alignment.centerLeft,

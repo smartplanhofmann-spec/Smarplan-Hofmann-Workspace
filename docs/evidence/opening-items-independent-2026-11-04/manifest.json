@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "workspace": "/workspace/smartplan-opening-items-20261104",
+  "reviewer": "overall_completion_review",
+  "result": "10 independent actual SQLite workflow cases passed",
+  "tests": 10,
+  "seconds": 5.447,
+  "runtime_changes": false,
+  "postgres_contact": false,
+  "production_contact": false,
+  "open_reproduced_product_findings": [],
+  "first_run_note": "One reviewer assertion used nonexistent recorded_balance instead of actual calculated_balance; no product fix or changed expected amount.",
+  "files": [
+    {
+      "path": "backend/test_accounting_open_items_independent_review.py",
+      "bytes": 13956,
+      "sha256": "97472175253fbafc46604ec35f3683e70cd3056c1e7e282cc9c44514a69faf66"
+    },
+    {
+      "path": "backend/business_accounting_open_items.py",
+      "bytes": 38292,
+      "sha256": "9bfd580acdb215a9cf8db5d17d2b4aab6a3352fdc3fa4bbfabb516be5f7a494a"
+    },
+    {
+      "path": "backend/accounting_open_item_rules.py",
+      "bytes": 7138,
+      "sha256": "d6fa590cd24b9dd765aea97cb6f10b684a3681430e6b839167576586935fd190"
+    },
+    {
+      "path": "backend/accounting_open_item_sources.py",
+      "bytes": 5090,
+      "sha256": "f44e1ceda7ad682c6ee61033e154ec0380022dc8d12d9e82e0450870c0b0cfca"
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "bytes": 84822,
+      "sha256": "906293f5da88ca10022054b2e555860e5d2dfca105358141090b7754a8ff1dfe"
+    },
+    {
+      "path": "backend/business_accounting_openings.py",
+      "bytes": 43019,
+      "sha256": "daab353586aaa11bb9928da44ae55597df61e1d83dc0dfba4547cd0213f93691"
+    },
+    {
+      "path": "backend/business_bank_reconciliation.py",
+      "bytes": 69384,
+      "sha256": "1170b90d98dc8c82f2da1d8e9843d27b29466e4c0082e67626e1e98a2049422f"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_API.md",
+      "bytes": 11920,
+      "sha256": "76472ccc1d55155c2b2ecc6fc9275327f9a198a18bf50fd4f6e78c96b82632a6"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_QUELLEN_GEGENPRUEFUNG_2026-11-04.md",
+      "bytes": 17868,
+      "sha256": "d768ba2d6d2bbfc0853467dc0ef74bf72c06917203b621eb49c9b0ae4642e95f"
+    },
+    {
+      "path": "docs/CRM_ERP_ALTPOSTEN_UNABHAENGIGE_PRODUKTPRUEFUNG_2026-11-04.md",
+      "bytes": 4245,
+      "sha256": "24818f62fdd89889e16f9fe98a2fb36233cfcaa2323bfbdbbe629f39f4e7e10f"
+    },
+    {
+      "path": "docs/evidence/opening-items-independent-2026-11-04/first-fixture-field.txt",
+      "bytes": 2788,
+      "sha256": "5caf4f0480dd1aa561a8b38f778ffb587e41b7885e1ca81838773fa4a9d38e1b"
+    },
+    {
+      "path": "docs/evidence/opening-items-independent-2026-11-04/final.txt",
+      "bytes": 2463,
+      "sha256": "7773baa4e70c50dda03284ef87d7e7e4d011a9e4e72c7317503d397142b0e7b1"
+    }
+  ]
+}

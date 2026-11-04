@@ -1,0 +1,681 @@
+✔ actual unchanged legacy cash source/preview/receipt works without opening-item feature (33.825923ms)
+✖ legacy cash held initial success cannot replace or close a newer dialog (3.546488ms)
+✖ legacy cash held preview success cannot replace or close a newer dialog (2.842028ms)
+✖ legacy cash held confirm success cannot replace or close a newer dialog (2.649468ms)
+✖ legacy cash late authorization denial at initial cannot close a newer dialog (2.716128ms)
+✖ legacy cash late authorization denial at preview cannot close a newer dialog (1.93312ms)
+✖ legacy cash late authorization denial at confirm cannot close a newer dialog (2.184248ms)
+✖ legacy cash held original source cannot display after live read revocation (8.363799ms)
+✖ legacy cash exact pending receipt cannot close another dialog after replay (5.229571ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 1
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 134.901807
+
+✖ failing tests:
+
+test at web/office/tests/accounting-euer-legacy-context.test.mjs:45:52
+✖ legacy cash held initial success cannot replace or close a newer dialog (3.546488ms)
+  AssertionError [ERR_ASSERTION]: Actual legacy cash initial crossed dialog context: Geldfluss fachlich buchen
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-euer-legacy-context.test.mjs:51:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-euer-legacy-context.test.mjs:45:52
+✖ legacy cash held preview success cannot replace or close a newer dialog (2.842028ms)
+  AssertionError [ERR_ASSERTION]: Actual legacy cash preview crossed dialog context: EÜR-Buchung bestätigen
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-euer-legacy-context.test.mjs:51:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-euer-legacy-context.test.mjs:45:52
+✖ legacy cash held confirm success cannot replace or close a newer dialog (2.649468ms)
+  AssertionError [ERR_ASSERTION]: Actual legacy cash confirm crossed dialog context: 
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-euer-legacy-context.test.mjs:51:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-euer-legacy-context.test.mjs:55:52
+✖ legacy cash late authorization denial at initial cannot close a newer dialog (2.716128ms)
+  AssertionError [ERR_ASSERTION]: Actual legacy cash late authorization denial crossed initial context
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-euer-legacy-context.test.mjs:59:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-euer-legacy-context.test.mjs:55:52
+✖ legacy cash late authorization denial at preview cannot close a newer dialog (1.93312ms)
+  AssertionError [ERR_ASSERTION]: Actual legacy cash late authorization denial crossed preview context
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-euer-legacy-context.test.mjs:59:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-euer-legacy-context.test.mjs:55:52
+✖ legacy cash late authorization denial at confirm cannot close a newer dialog (2.184248ms)
+  AssertionError [ERR_ASSERTION]: Actual legacy cash late authorization denial crossed confirm context
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-euer-legacy-context.test.mjs:59:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-euer-legacy-context.test.mjs:62:1
+✖ legacy cash held original source cannot display after live read revocation (8.363799ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   append: [Function: append],
+  +   attrs: {},
+  +   children: [
+  +     {
+  +       append: [Function: append],
+  +       attrs: {
+  +         'data-euer-detail': 'true',
+  +         class: 'stack break-word'
+  +       },
+  +       children: [
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             '2026-11-02 · Zufluss 119.00 · Bank record a5b6633442764084bd2cd133ddb71589'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'p'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Nachgewiesener Anteil',
+  +             'Netto',
+  +             'Steuer',
+  +             'Brutto',
+  +             '1 · C1 · 19 %',
+  +             '100.00',
+  +             '19.00',
+  +             '119.00'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'table'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Noch ohne dokumentarische Aufteilung: 0.00'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'p'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Geldfluss und Originalnachweise'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           label: 'Geldfluss und Originalnachweise',
+  +           run: [Function (anonymous)],
+  +           tag: 'button'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {
+  +             class: 'caption'
+  +           },
+  +           children: [
+  +             'Quellenstand: 29aec8044ec58124b0c478f85d53d4257a710fbdb2f4dd1b8e707d0d0fad5b6e'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'p'
+  +         }
+  +       ],
+  +       dataset: {},
+  +       isConnected: true,
+  +       tag: 'div'
+  +     }
+  +   ],
+  +   controls: Map(15) {
+  +     'due_date' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'Nur Zehn-Tage-Ausnahme: belegte Fälligkeit',
+  +         name: 'due_date',
+  +         required: false,
+  +         type: 'date',
+  +         value: ''
+  +       }
+  +     },
+  +     'economic_year' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'Nur Zehn-Tage-Ausnahme: wirtschaftliches Jahr',
+  +         name: 'economic_year',
+  +         required: false,
+  +         type: 'integer',
+  +         value: ''
+  +       }
+  +     },
+  +     'euer_date' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'EÜR-Zuordnungsdatum',
+  +         name: 'euer_date',
+  +         required: true,
+  +         type: 'date',
+  +         value: ''
+  +       }
+  +     },
+  +     'evidence_reference' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'Nachweis / Prüfgrundlage',
+  +         name: 'evidence_reference',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     },
+  +     'reason' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'Fachliche Begründung',
+  +         name: 'reason',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     },
+  +     'recurring' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: false
+  +       },
+  +       spec: {
+  +         label: 'Nur Zehn-Tage-Ausnahme: regelmäßig wiederkehrender Vorgang ausdrücklich geprüft',
+  +         name: 'recurring',
+  +         type: 'checkbox',
+  +         value: false
+  +       }
+  +     },
+  +     'u0_account' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         help: 'Vier Ziffern; keine automatisch vorgeschlagene Zuordnung.',
+  +         label: 'Anteil 1: geprüftes SKR04-Sachkonto',
+  +         name: 'u0_account',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     },
+  +     'u0_business_net' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +         label: 'Anteil 1: Betrieblicher Nettoanteil (€)',
+  +         name: 'u0_business_net',
+  +         required: true,
+  +         type: 'decimal',
+  +         value: ''
+  +       }
+  +     },
+  +     'u0_business_tax' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +         label: 'Anteil 1: Betrieblicher Steueranteil (€)',
+  +         name: 'u0_business_tax',
+  +         required: true,
+  +         type: 'decimal',
+  +         value: ''
+  +       }
+  +     },
+  +     'u0_category' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'Anteil 1: Kosten-/Erlösart',
+  +         name: 'u0_category',
+  +         options: [
+  +           [
+  +             '',
+  +             'Bitte ausdrücklich wählen'
+  +           ],
+  +           [
+  +             'sales',
+  +             'Inländischer Erlös'
+  +           ]
+  +         ],
+  +         required: true,
+  +         type: 'select',
+  +         value: ''
+  +       }
+  +     },
+  +     'u0_deductible_input_tax' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +         label: 'Anteil 1: Davon bezahlte abziehbare Vorsteuer (€)',
+  +         name: 'u0_deductible_input_tax',
+  +         required: true,
+  +         type: 'decimal',
+  +         value: ''
+  +       }
+  +     },
+  +     'u0_deductible_net' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +         label: 'Anteil 1: Davon abziehbarer Nettoaufwand (€)',
+  +         name: 'u0_deductible_net',
+  +         required: true,
+  +         type: 'decimal',
+  +         value: ''
+  +       }
+  +     },
+  +     'u0_deductible_tax_cost' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +         label: 'Anteil 1: Davon als Kosten abziehbare Steuer (€)',
+  +         name: 'u0_deductible_tax_cost',
+  +         required: true,
+  +         type: 'decimal',
+  +         value: ''
+  +       }
+  +     },
+  +     'u0_vat_account' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         help: 'Vier Ziffern; keine automatisch vorgeschlagene Zuordnung.',
+  +         label: 'Anteil 1: geprüftes SKR04-Steuerkonto',
+  +         name: 'u0_vat_account',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     },
+  +     'year_kind' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: true,
+  +         value: 'cash'
+  +       },
+  +       spec: {
+  +         label: 'Jahreszuordnung',
+  +         name: 'year_kind',
+  +         options: [
+  +           [
+  +             '',
+  +             'Bitte ausdrücklich wählen'
+  +           ],
+  +           [
+  +             'cash',
+  +             'Tatsächlicher Geldflusstag'
+  +           ],
+  +           [
+  +             'ten_day',
+  +             'Geprüfte Zehn-Tage-Ausnahme'
+  +           ]
+  +         ],
+  +         required: true,
+  +         type: 'select',
+  +         value: 'cash'
+  +       }
+  +     }
+  +   },
+  +   dataset: {
+  +     euerDetail: 'true'
+  +   },
+  +   fields: [
+  +     {
+  +       label: 'EÜR-Zuordnungsdatum',
+  +       name: 'euer_date',
+  +       required: true,
+  +       type: 'date',
+  +       value: ''
+  +     },
+  +     {
+  +       label: 'Jahreszuordnung',
+  +       name: 'year_kind',
+  +       options: [
+  +         [
+  +           '',
+  +           'Bitte ausdrücklich wählen'
+  +         ],
+  +         [
+  +           'cash',
+  +           'Tatsächlicher Geldflusstag'
+  +         ],
+  +         [
+  +           'ten_day',
+  +           'Geprüfte Zehn-Tage-Ausnahme'
+  +         ]
+  +       ],
+  +       required: true,
+  +       type: 'select',
+  +       value: 'cash'
+  +     },
+  +     {
+  +       label: 'Nur Zehn-Tage-Ausnahme: wirtschaftliches Jahr',
+  +       name: 'economic_year',
+  +       required: false,
+  +       type: 'integer',
+  +       value: ''
+  +     },
+  +     {
+  +       label: 'Nur Zehn-Tage-Ausnahme: belegte Fälligkeit',
+  +       name: 'due_date',
+  +       required: false,
+  +       type: 'date',
+  +       value: ''
+  +     },
+  +     {
+  +       label: 'Nur Zehn-Tage-Ausnahme: regelmäßig wiederkehrender Vorgang ausdrücklich geprüft',
+  +       name: 'recurring',
+  +       type: 'checkbox',
+  +       value: false
+  +     },
+  +     {
+  +       label: 'Anteil 1: Kosten-/Erlösart',
+  +       name: 'u0_category',
+  +       options: [
+  +         [
+  +           '',
+  +           'Bitte ausdrücklich wählen'
+  +         ],
+  +         [
+  +           'sales',
+  +           'Inländischer Erlös'
+  +         ]
+  +       ],
+  +       required: true,
+  +       type: 'select',
+  +       value: ''
+  +     },
+  +     {
+  +       help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +       label: 'Anteil 1: Betrieblicher Nettoanteil (€)',
+  +       name: 'u0_business_net',
+  +       required: true,
+  +       type: 'decimal',
+  +       value: ''
+  +     },
+  +     {
+  +       help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +       label: 'Anteil 1: Davon abziehbarer Nettoaufwand (€)',
+  +       name: 'u0_deductible_net',
+  +       required: true,
+  +       type: 'decimal',
+  +       value: ''
+  +     },
+  +     {
+  +       help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +       label: 'Anteil 1: Betrieblicher Steueranteil (€)',
+  +       name: 'u0_business_tax',
+  +       required: true,
+  +       type: 'decimal',
+  +       value: ''
+  +     },
+  +     {
+  +       help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +       label: 'Anteil 1: Davon bezahlte abziehbare Vorsteuer (€)',
+  +       name: 'u0_deductible_input_tax',
+  +       required: true,
+  +       type: 'decimal',
+  +       value: ''
+  +     },
+  +     {
+  +       help: 'Belegt: 100.00 netto / 19.00 Steuer. Keine automatische Abzugsquote.',
+  +       label: 'Anteil 1: Davon als Kosten abziehbare Steuer (€)',
+  +       name: 'u0_deductible_tax_cost',
+  +       required: true,
+  +       type: 'decimal',
+  +       value: ''
+  +     },
+  +     {
+  +       help: 'Vier Ziffern; keine automatisch vorgeschlagene Zuordnung.',
+  +       label: 'Anteil 1: geprüftes SKR04-Sachkonto',
+  +       name: 'u0_account',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     },
+  +     {
+  +       help: 'Vier Ziffern; keine automatisch vorgeschlagene Zuordnung.',
+  +       label: 'Anteil 1: geprüftes SKR04-Steuerkonto',
+  +       name: 'u0_vat_account',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     },
+  +     {
+  +       label: 'Fachliche Begründung',
+  +       name: 'reason',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     },
+  +     {
+  +       label: 'Nachweis / Prüfgrundlage',
+  +       name: 'evidence_reference',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     }
+  +   ],
+  +   isConnected: true,
+  +   options: {
+  +     description: 'Eigene EÜR- und Umsatzsteuer-Arbeitsergebnisse für geprüfte erfasste Quellen. Keine amtliche Erklärung oder zertifizierte DATEV-Datei. Rechnung, Zahlung, Vorsteuerrecht und EÜR-Jahr werden getrennt beurteilt.',
+  +     extra: {
+  +       append: [Function: append],
+  +       attrs: {
+  +         'data-euer-detail': 'true',
+  +         class: 'stack break-word'
+  +       },
+  +       children: [
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             '2026-11-02 · Zufluss 119.00 · Bank record a5b6633442764084bd2cd133ddb71589'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'p'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Nachgewiesener Anteil',
+  +             'Netto',
+  +             'Steuer',
+  +             'Brutto',
+  +             '1 · C1 · 19 %',
+  +             '100.00',
+  +             '19.00',
+  +             '119.00'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'table'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Noch ohne dokumentarische Aufteilung: 0.00'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'p'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Geldfluss und Originalnachweise'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           label: 'Geldfluss und Originalnachweise',
+  +           run: [Function (anonymous)],
+  +           tag: 'button'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {
+  +             class: 'caption'
+  +           },
+  +           children: [
+  +             'Quellenstand: 29aec8044ec58124b0c478f85d53d4257a710fbdb2f4dd1b8e707d0d0fad5b6e'
+  +           ],
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'p'
+  +         }
+  +       ],
+  +       dataset: {},
+  +       isConnected: true,
+  +       tag: 'div'
+  +     },
+  +     initial: {
+  +       euer_date: '2026-11-02'
+  +     },
+  +     key: 'euer-edit-cash:33de4e41370f416d96392a7b6c671943:29aec8044ec58124b0c478f85d53d4257a710fbdb2f4dd1b8e707d0d0fad5b6e',
+  +     submit: 'Buchung unverbindlich prüfen'
+  +   },
+  +   save: [AsyncFunction (anonymous)],
+  +   submit: [AsyncFunction: submit],
+  +   tag: 'form'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-euer-legacy-context.test.mjs:64:182)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Object],
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at web/office/tests/accounting-euer-legacy-context.test.mjs:67:1
+✖ legacy cash exact pending receipt cannot close another dialog after replay (5.229571ms)
+  AssertionError [ERR_ASSERTION]: Legacy original replay must not close unrelated dialog
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-euer-legacy-context.test.mjs:72:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

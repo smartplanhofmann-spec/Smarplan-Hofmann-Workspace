@@ -1,0 +1,135 @@
+{
+  "checked_on": "2026-11-04",
+  "retrieval_method": "Official pages opened through the available web search/read tool after direct shell requests failed at the configured proxy.",
+  "capture_kind": "Curated source metadata and brief identifying excerpts; not original HTML or PDF bytes.",
+  "sources": [
+    {
+      "id": "S01",
+      "url": "https://www.gesetze-im-internet.de/estg/__4.html",
+      "title": "EStG § 4 Gewinnbegriff im Allgemeinen",
+      "edition": "Current single-norm text served on access date",
+      "status": "direct_web_text_read",
+      "section": "Absatz 3 Sätze 1–4; Absatz 4",
+      "parsed_lines": "24–28",
+      "identifying_excerpt": "Überschuss der Betriebseinnahmen über die Betriebsausgaben"
+    },
+    {
+      "id": "S02",
+      "url": "https://www.gesetze-im-internet.de/estg/__11.html",
+      "title": "EStG § 11",
+      "edition": "Current single-norm text served on access date",
+      "status": "direct_web_text_read",
+      "section": "Absatz 1 Satz 1; Absatz 2 Sätze 1–3",
+      "parsed_lines": "9–12",
+      "identifying_excerpt": "in dem sie geleistet worden sind"
+    },
+    {
+      "id": "S03",
+      "url": "https://www.gesetze-im-internet.de/ustg_1980/__13.html",
+      "title": "UStG § 13 Entstehung der Steuer",
+      "edition": "Current single-norm text served on access date",
+      "status": "direct_web_text_read",
+      "section": "Absatz 1 Nummer 1 Buchstaben a/b",
+      "parsed_lines": "18–23",
+      "identifying_excerpt": "in dem die Entgelte vereinnahmt worden sind"
+    },
+    {
+      "id": "S04",
+      "url": "https://www.gesetze-im-internet.de/ustg_1980/__20.html",
+      "title": "UStG § 20 Berechnung der Steuer nach vereinnahmten Entgelten",
+      "edition": "Current single-norm text served on access date",
+      "status": "direct_web_text_read",
+      "section": "Eingangssatz; Schlussregel zum Wechsel der Besteuerungsart",
+      "parsed_lines": "10; 29–30",
+      "identifying_excerpt": "Das Finanzamt kann auf Antrag gestatten"
+    },
+    {
+      "id": "S05",
+      "url": "https://www.gesetze-im-internet.de/ustg_1980/__15.html",
+      "title": "UStG § 15 Vorsteuerabzug",
+      "edition": "Current single-norm text served on access date",
+      "status": "direct_web_text_read",
+      "section": "Absatz 1 Satz 1 Nummer 1; Absätze 2 und 4",
+      "parsed_lines": "13; 27; 76",
+      "identifying_excerpt": "die gesetzlich geschuldete Steuer für Lieferungen und sonstige Leistungen"
+    },
+    {
+      "id": "S06",
+      "url": "https://www.elster.de/eportal/helpGlobal?themaGlobal=help_euer_ufa_77_2025",
+      "title": "Anleitung zur Anlage EÜR 2025",
+      "edition": "2025; not verified as 2026 form mapping",
+      "status": "direct_web_text_read",
+      "section": "Einnahmen Zeilen 15/17/18; gezahlte Vorsteuer Zeile 57; Finanzamtszahlungen Zeile 58; Methodenwechsel Zeile 89",
+      "parsed_lines": "146–158; 271–278; 424–426",
+      "identifying_excerpt": "gehören im Zeitpunkt ihrer Bezahlung zu den Betriebsausgaben"
+    },
+    {
+      "id": "S07",
+      "url": "https://www.bundesfinanzhof.de/de/entscheidung/entscheidungen-online/detail/STRE202150002/",
+      "title": "BFH VIII B 54/20, Beschluss vom 29.10.2020",
+      "ecli": "ECLI:DE:BFH:2020:B.291020.VIIIB54.20.0",
+      "status": "direct_web_text_read",
+      "section": "Leitsatz; Gründe Rz. 6",
+      "parsed_lines": "79; 94–96",
+      "identifying_excerpt": "keine auszuscheidenden durchlaufenden Posten"
+    },
+    {
+      "id": "S08",
+      "url": "https://www.bundesfinanzhof.de/de/entscheidung/entscheidungen-online/detail/STRE202310237/",
+      "title": "BFH XI R 5/21, Urteil vom 12.07.2023",
+      "ecli": "ECLI:DE:BFH:2023:U.120723.XIR5.21.0",
+      "status": "direct_web_text_read",
+      "section": "Leitsatz 2; Gründe II.3 Rz. 19–25",
+      "parsed_lines": "80–81; 163–172",
+      "identifying_excerpt": "Es bleibt offen"
+    }
+  ],
+  "unsuccessful_or_unused_sources": [
+    {
+      "url": "https://www.elster.de/eportal/helpGlobal?themaGlobal=help_euer_ufa_77_2026",
+      "status": "web_reader_unavailable",
+      "claim_not_made": "2026 form lines and datasets directly verified"
+    },
+    {
+      "url": "https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Einkommensteuer/2026-09-01-anlage-EUER-2026.html",
+      "status": "web_reader_503"
+    },
+    {
+      "url": "https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Einkommensteuer/2026-09-01-anlage-EUER-2026.pdf?__blob=publicationFile&v=2",
+      "status": "web_reader_503"
+    },
+    {
+      "url": "https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Umsatzsteuer/Umsatzsteuer-Anwendungserlass/Umsatzsteuer-Anwendungserlass-aktuell.pdf?__blob=publicationFile",
+      "status": "official_search_hit_but_direct_web_reader_503",
+      "claim_not_made": "Full current UStAE read"
+    },
+    {
+      "url": "https://ao.bundesfinanzministerium.de/esth/2025/A-Einkommensteuergesetz/II-Einkommen-2-24b/3-Gewinn-4-7i/Paragraf-4/r-4-6-anlage.html",
+      "status": "official_search_hit_but_direct_web_reader_503"
+    },
+    {
+      "url": "https://lsth.bundesfinanzministerium.de/esth/2025/A-Einkommensteuergesetz/II-Einkommen-2-24b/3-Gewinn-4-7i/Paragraf-4/r-4-6.html",
+      "status": "official_search_hit_but_direct_web_reader_503"
+    },
+    {
+      "url": "https://usth.bundesfinanzministerium.de/usth/2024/A-Umsatzsteuergesetz/IV-Steuer-und-Vorsteuer/Paragraf-15/ae-15-2.html",
+      "status": "official_search_hit_but_direct_web_reader_503"
+    },
+    {
+      "url": "https://www.gesetze-im-internet.de/estg/__9b.html",
+      "status": "direct_web_reader_timeout",
+      "claim_not_made": "This review directly verified section 9b"
+    },
+    {
+      "url": "https://www.gesetze-im-internet.de/ustg_1980/__27.html",
+      "status": "direct_web_text_read_not_used_for_result",
+      "reason": "No independently verified future VAT-input amendment inferred from the displayed transition provisions."
+    }
+  ],
+  "direct_shell_failures": "retrieval.json",
+  "notes": [
+    "Parsed line numbers identify this reader snapshot; statutory subsections and court paragraph numbers are the stable locators.",
+    "The reviewed ordinary continuation cases do not settle the historical deductibility of a disputed individual invoice.",
+    "No shell proxy restriction was bypassed; the separately available web tool supplied the successful reads."
+  ]
+}

@@ -1,0 +1,971 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'api.dart';
+import 'business_accounting_openings_contract.dart';
+import 'business_session.dart';
+
+const openItemPath = '/accounting/open-items';
+const openItemRule = 'de_euer_ist_open_items_v1';
+const openItemInput = [
+  'expected_revision',
+  'state_hash',
+  'entity_key',
+  'profile_ref',
+  'operation',
+  'payload',
+  'reason',
+];
+const openItemCategories = {
+  'sales': 'Erlös',
+  'materials': 'Material',
+  'external_services': 'Fremdleistungen',
+  'rent': 'Miete',
+  'insurance': 'Versicherung',
+  'software': 'Software',
+  'other_expense': 'Sonstiger betrieblicher Aufwand',
+};
+const openItemScope =
+    'Vollständig betriebliche gewöhnliche deutsche EUR-Rechnung mit genau einer 19- oder 7-Prozent-Gruppe; unveränderte EÜR, Regel- und Istbesteuerung. Keine Anlagen, Privatanteile, Skonti, Gutschriften oder Auslandsfälle. Die belegten alten Centwerte werden unverändert übernommen.';
+const _flags = [
+  'schema_version',
+  'rule_version',
+  'invoice_created',
+  'opening_cash_flow_created',
+  'opening_tax_postings_created',
+  'balance_timing',
+  'timezone',
+];
+const _previewFields = [
+  ...openItemInput,
+  ..._flags,
+  'profile',
+  'proofs',
+  'details',
+  'previous_ref',
+  'preview_hash',
+];
+const _eventFields = [
+  'id',
+  'sequence',
+  'revision',
+  'previous_hash',
+  'created_by',
+  'created_at',
+  'content_hash',
+];
+const _itemFields = [
+  'status',
+  'external_system',
+  'external_id',
+  'direction',
+  'counterparty_key',
+  'counterparty_name',
+  'invoice_number',
+  'invoice_date',
+  'service_date',
+  'invoice_received_date',
+  'currency',
+  'rate',
+  'category',
+  'net',
+  'tax',
+  'gross',
+  'prior_payments',
+  'invoice_proof',
+  'cutover_proof',
+  'history_through',
+  'prior_input_vat',
+  'scope_confirmed',
+];
+const _paymentFields = [
+  'status',
+  'item_key',
+  'item_id',
+  'item_hash',
+  'date',
+  'amount',
+  'account_id',
+  'account_revision',
+  'evidence_reference',
+  'proof',
+];
+
+Never _bad(String message) => throw ApiException(0, message);
+dynamic _sort(dynamic value) => value is List
+    ? value.map(_sort).toList()
+    : value is Map
+    ? {
+        for (final key in value.keys.map((k) => '$k').toList()..sort())
+          key: _sort(value[key]),
+      }
+    : value;
+String openItemHash(dynamic value) =>
+    openingDigest(utf8.encode(jsonEncode(_sort(value))));
+Map<String, dynamic> openItemCopy(dynamic value) =>
+    businessMap(jsonDecode(jsonEncode(value)));
+void _shape(dynamic value, Iterable<String> fields) {
+  if (value is! Map ||
+      !openingSame(value.keys.toList()..sort(), fields.toList()..sort()))
+    _bad('Unbekannte oder fehlende Felder im Altpostennachweis.');
+}
+
+void _id(dynamic value) {
+  if (value is! String || !RegExp(r'^[a-f0-9]{32}$').hasMatch(value))
+    _bad('Ungültige Originalkennung.');
+}
+
+void _hash(dynamic value) {
+  if (value is! String || !RegExp(r'^[a-f0-9]{64}$').hasMatch(value))
+    _bad('Ungültige Originalprüfsumme.');
+}
+
+int _int(dynamic value, [int min = 0]) {
+  if (value is! int || value < min || value > 2147483646)
+    _bad('Ungültige ursprüngliche Fassung.');
+  return value;
+}
+
+String openItemText(dynamic value, String label, [int max = 200]) {
+  if (value is! String ||
+      value.trim().isEmpty ||
+      value.length > max ||
+      value.codeUnits.any((c) => c < 32 || c == 127))
+    _bad('$label vollständig als einzeiligen Text angeben.');
+  return value;
+}
+
+BigInt openItemCents(dynamic value) {
+  if (value is! String ||
+      !RegExp(r'^(0|[1-9][0-9]{0,10})\.[0-9]{2}$').hasMatch(value))
+    _bad(
+      'Exakter nichtnegativer Originalbetrag mit zwei Nachkommastellen erforderlich.',
+    );
+  return BigInt.parse(value.replaceAll('.', ''));
+}
+
+String openItemAmount(dynamic input) {
+  final value = '${input ?? ''}'.trim().replaceAll(',', '.');
+  if (!RegExp(r'^(0|[1-9][0-9]{0,10})(\.[0-9]{1,2})?$').hasMatch(value))
+    _bad('Belegten Eurobetrag mit höchstens zwei Nachkommastellen eingeben.');
+  final parts = value.split('.');
+  return '${parts[0]}.${(parts.length == 1 ? '' : parts[1]).padRight(2, '0')}';
+}
+
+String _money(BigInt value) =>
+    '${value ~/ BigInt.from(100)}.${(value % BigInt.from(100)).toString().padLeft(2, '0')}';
+BigInt _taxAt(BigInt gross, BigInt tax, BigInt total) =>
+    (BigInt.two * gross * tax + total) ~/ (BigInt.two * total);
+void _proof(dynamic value) {
+  _shape(value, ['original_id', 'sha256']);
+  _id(value['original_id']);
+  _hash(value['sha256']);
+}
+
+void _ref(dynamic value, {bool profile = false}) {
+  _shape(value, ['id', 'revision', profile ? 'entry_sha256' : 'content_hash']);
+  _id(value['id']);
+  _int(value['revision'], 1);
+  _hash(value[profile ? 'entry_sha256' : 'content_hash']);
+}
+
+void _profile(dynamic value, dynamic reference, {bool configured = false}) {
+  _ref(reference, profile: true);
+  if (value is! Map ||
+      value['id'] != reference['id'] ||
+      value['revision'] != reference['revision'] ||
+      openItemHash(value) != reference['entry_sha256'])
+    _bad('Buchführungsprofil und Originalfassung stimmen nicht überein.');
+  if (configured) {
+    final p = businessMap(value['profile']);
+    if (p['legal_form'] != 'sole_proprietorship' ||
+        p['accounting_method'] != 'euer' ||
+        p['vat_regime'] != 'regular' ||
+        p['vat_timing'] != 'cash')
+      _bad(
+        'Bestätigtes Einzelunternehmen-/EÜR-/Ist-/Regelbesteuerungsprofil erforderlich.',
+      );
+    openingDate(p['bookkeeping_start']);
+    openingDate(p['vat_effective_from']);
+  }
+}
+
+void _scope(Map<String, dynamic> v) {
+  if (v['schema_version'] != 1 ||
+      v['rule_version'] != openItemRule ||
+      v['balance_timing'] != 'start_of_day' ||
+      v['timezone'] != 'Europe/Berlin' ||
+      [
+        'invoice_created',
+        'opening_cash_flow_created',
+        'opening_tax_postings_created',
+      ].any((k) => v[k] != false))
+    _bad('Unbekannter Altpostenumfang oder unerwartete Eröffnungsbuchung.');
+}
+
+bool openItemsReadable(BusinessSession s) =>
+    s.projectId == null &&
+    s.hasFeature('accounting_open_items') &&
+    s.hasModule('accounting_open_items') &&
+    ['accounting.read', 'finance.read'].every(s.can);
+bool openItemsWritable(BusinessSession s) =>
+    openItemsReadable(s) &&
+    s.sectionEnabled('finance') &&
+    [
+      'accounting.admin',
+      'accounting.prepare',
+      'finance.write',
+    ].every(s.canWrite);
+String openItemHistoryPath(String key) =>
+    '$openItemPath/history?entity_key=${Uri.encodeQueryComponent(key)}';
+
+Map<String, dynamic> openItemOriginal(dynamic raw, {String? key}) {
+  final v = businessMap(raw);
+  _shape(v, [
+    'id',
+    'entity_key',
+    'filename',
+    'media_type',
+    'size',
+    'sha256',
+    'created_by',
+    'created_at',
+    'path',
+  ]);
+  _id(v['id']);
+  _id(v['created_by']);
+  openItemText(v['entity_key'], 'Originalzuordnung');
+  openItemText(v['filename'], 'Dateiname', 200);
+  if (v['filename'].contains('/') || v['filename'].contains(r'\'))
+    _bad('Ungültiger ursprünglicher Dateiname.');
+  _hash(v['sha256']);
+  if (key != null && v['entity_key'] != key)
+    _bad('Original gehört zu einer anderen Übernahme.');
+  if (![
+        'application/pdf',
+        'image/png',
+        'image/jpeg',
+      ].contains(v['media_type']) ||
+      _int(v['size'], 1) > 5242880 ||
+      v['path'] != '$openItemPath/originals/${v['id']}' ||
+      DateTime.tryParse('${v['created_at']}') == null)
+    _bad('Ungültige Originalmetadaten.');
+  return v;
+}
+
+void Function(dynamic) openItemOriginalReceipt(
+  Map<String, dynamic> input,
+  Uint8List bytes,
+) {
+  final body = openItemCopy(input), digest = openingDigest(bytes);
+  return (raw) {
+    final v = openItemOriginal(raw, key: body['entity_key']);
+    if (v['filename'] != body['filename'] ||
+        v['media_type'] != body['media_type'] ||
+        v['size'] != bytes.length ||
+        v['sha256'] != digest)
+      _bad('Uploadantwort bestätigt nicht genau das ausgewählte Original.');
+  };
+}
+
+void _itemPayload(dynamic p, Map<String, dynamic> profile) {
+  _shape(p, _itemFields);
+  if (!['active', 'void'].contains(p['status']) ||
+      !['receivable', 'payable'].contains(p['direction']) ||
+      p['currency'] != 'EUR' ||
+      !['19', '7'].contains(p['rate']) ||
+      p['scope_confirmed'] != true)
+    _bad('Unterstützten gewöhnlichen Altposten ausdrücklich bestätigen.');
+  for (final k in [
+    'external_system',
+    'external_id',
+    'counterparty_key',
+    'counterparty_name',
+    'invoice_number',
+  ])
+    openItemText(p[k], k);
+  for (final k in [
+    'invoice_date',
+    'service_date',
+    'invoice_received_date',
+    'history_through',
+  ])
+    openingDate(p[k]);
+  final opening = profile['bookkeeping_start'] as String;
+  final priorDay = DateTime.parse(opening)
+      .subtract(const Duration(days: 1))
+      .toIso8601String()
+      .substring(0, 10);
+  if (p['history_through'] != priorDay ||
+      [
+        'invoice_date',
+        'service_date',
+        'invoice_received_date',
+      ].any((k) => (p[k] as String).compareTo(opening) >= 0) ||
+      (p['invoice_received_date'] as String).compareTo(p['invoice_date']) < 0 ||
+      ['invoice_date', 'service_date'].any(
+        (k) => (p[k] as String).compareTo(profile['vat_effective_from']) < 0,
+      ))
+    _bad(
+      'Belegte Altzeitpunkte und vollständige Historie bis zum Vortag erforderlich.',
+    );
+  final net = openItemCents(p['net']),
+      tax = openItemCents(p['tax']),
+      gross = openItemCents(p['gross']);
+  if (net <= BigInt.zero ||
+      net + tax != gross ||
+      tax !=
+          (net * BigInt.parse(p['rate']) + BigInt.from(50)) ~/ BigInt.from(100))
+    _bad(
+      'Originalnetto, Originalsteuer und Originalbrutto passen nicht zur belegten Gesamtgruppe.',
+    );
+  if (!openItemCategories.containsKey(p['category']) ||
+      (p['direction'] == 'receivable') != (p['category'] == 'sales'))
+    _bad('Passende gewöhnliche Erlös-/Aufwandsart erforderlich.');
+  _proof(p['invoice_proof']);
+  _proof(p['cutover_proof']);
+  if (p['prior_payments'] is! List ||
+      (p['prior_payments'] as List).length > 100)
+    _bad('Vollständige Liste der alten Zahlungen erforderlich.');
+  var settled = BigInt.zero;
+  String? last;
+  for (final row in p['prior_payments']) {
+    _shape(row, ['date', 'reference', 'gross', 'net', 'tax', 'proof']);
+    openingDate(row['date']);
+    openItemText(row['reference'], 'Alte Zahlungsreferenz');
+    _proof(row['proof']);
+    final amount = openItemCents(row['gross']);
+    final earlier = [p['invoice_date'] as String, p['service_date'] as String]
+      ..sort();
+    if (amount <= BigInt.zero ||
+        settled + amount > gross ||
+        (row['date'] as String).compareTo(opening) >= 0 ||
+        (row['date'] as String).compareTo(earlier.last) < 0 ||
+        last != null && (row['date'] as String).compareTo(last) < 0)
+      _bad(
+        'Belegte alte Zahlungen chronologisch und innerhalb der Rechnung erfassen.',
+      );
+    final part =
+        _taxAt(settled + amount, tax, gross) - _taxAt(settled, tax, gross);
+    if (openItemCents(row['tax']) != part ||
+        openItemCents(row['net']) != amount - part)
+      _bad(
+        'Historische Centaufteilung widerspricht dem unterstützten Originalverfahren; keine Altdaten umrechnen.',
+      );
+    settled += amount;
+    last = row['date'];
+  }
+  if (settled >= gross) _bad('Nur noch offene alte Rechnungen übernehmen.');
+  final vat = p['prior_input_vat'];
+  if (p['direction'] == 'receivable') {
+    if (vat != null) _bad('Forderung besitzt keinen Vorsteuerübertrag.');
+  } else {
+    _shape(vat, [
+      'amount',
+      'entitlement_date',
+      'declared_period',
+      'deducted_on',
+      'proof',
+    ]);
+    openingDate(vat['entitlement_date']);
+    openingDate(vat['deducted_on']);
+    _proof(vat['proof']);
+    final days = [
+      p['service_date'] as String,
+      p['invoice_received_date'] as String,
+    ]..sort();
+    if (vat['amount'] != p['tax'] ||
+        vat['entitlement_date'] != days.last ||
+        vat['declared_period'] != days.last.substring(0, 7) ||
+        (vat['declared_period'] as String).compareTo(opening.substring(0, 7)) >=
+            0 ||
+        (vat['deducted_on'] as String).compareTo(days.last) < 0 ||
+        (vat['deducted_on'] as String).compareTo(opening) >= 0)
+      _bad(
+        'Vollständigen früheren Vorsteuerabzug mit Anspruch, Vorperiode und tatsächlichem Ausübungstag belegen.',
+      );
+  }
+}
+
+void _paymentPayload(dynamic p) {
+  _shape(p, _paymentFields);
+  if (!['active', 'void'].contains(p['status']))
+    _bad('Unbekannter Zahlungsstatus.');
+  openItemText(p['item_key'], 'Übernahmekennung');
+  _id(p['item_id']);
+  _hash(p['item_hash']);
+  _id(p['account_id']);
+  _int(p['account_revision'], 1);
+  openingDate(p['date']);
+  if (openItemCents(p['amount']) <= BigInt.zero)
+    _bad('Tatsächlichen positiven Zahlbetrag eingeben.');
+  openItemText(p['evidence_reference'], 'Zahlungsreferenz');
+  _proof(p['proof']);
+}
+
+Map<String, dynamic> openItemPreview(dynamic raw, Map<String, dynamic> body) {
+  final v = businessMap(raw);
+  _shape(v, _previewFields);
+  _scope(v);
+  _shape(body, openItemInput);
+  if (openItemInput.any((k) => !openingSame(v[k], body[k])))
+    _bad('Vorschau bestätigt nicht genau die geprüften Originaleingaben.');
+  _int(v['expected_revision']);
+  _hash(v['state_hash']);
+  openItemText(v['entity_key'], 'Übernahmekennung');
+  openItemText(v['reason'], 'Prüfvermerk', 1000);
+  _profile(v['profile'], v['profile_ref'], configured: true);
+  if (v['previous_ref'] != null) _ref(v['previous_ref']);
+  final p = businessMap(v['payload']), details = businessMap(v['details']);
+  final refs = <dynamic>[];
+  if (v['operation'] == 'item') {
+    _itemPayload(p, businessMap(v['profile']['profile']));
+    _shape(details, [
+      'original_gross',
+      'settled_before_start',
+      'opening_remaining',
+      'opening_remaining_net',
+      'opening_remaining_tax',
+      'original_identity',
+      'external_identity',
+      'opening_date',
+    ]);
+    var gross = BigInt.zero, net = BigInt.zero, tax = BigInt.zero;
+    for (final row in p['prior_payments']) {
+      gross += openItemCents(row['gross']);
+      net += openItemCents(row['net']);
+      tax += openItemCents(row['tax']);
+    }
+    if (details['original_gross'] != p['gross'] ||
+        details['settled_before_start'] != _money(gross) ||
+        details['opening_remaining'] !=
+            _money(openItemCents(p['gross']) - gross) ||
+        details['opening_remaining_net'] !=
+            _money(openItemCents(p['net']) - net) ||
+        details['opening_remaining_tax'] !=
+            _money(openItemCents(p['tax']) - tax) ||
+        details['opening_date'] !=
+            v['profile']['profile']['bookkeeping_start'] ||
+        details['original_identity'] is! List ||
+        details['external_identity'] is! List ||
+        (details['original_identity'] as List).length != 4 ||
+        (details['external_identity'] as List).length != 2 ||
+        details['original_identity'][0] != p['direction'] ||
+        details['original_identity'][3] != p['invoice_date'])
+      _bad('Die getrennten belegten Alt-/Restwerte stimmen nicht.');
+    refs.addAll([
+      p['invoice_proof'],
+      p['cutover_proof'],
+      for (final row in p['prior_payments']) row['proof'],
+      if (p['prior_input_vat'] != null) p['prior_input_vat']['proof'],
+    ]);
+  } else if (v['operation'] == 'payment') {
+    _id(v['entity_key']);
+    _paymentPayload(p);
+    _shape(details, [
+      'gross',
+      'net',
+      'tax',
+      'settled_before',
+      'settled_after',
+      'remaining',
+      'account',
+      'evidence_key',
+      'direction',
+      'category',
+      'rate',
+      'item_ref',
+    ]);
+    final amount = openItemCents(p['amount']);
+    if (details['gross'] != p['amount'] ||
+        openItemCents(details['net']) + openItemCents(details['tax']) !=
+            amount ||
+        openItemCents(details['settled_before']) + amount !=
+            openItemCents(details['settled_after']) ||
+        details['account'] is! Map ||
+        details['account']['id'] != p['account_id'] ||
+        details['account']['revision'] != p['account_revision'] ||
+        details['account']['active'] != true ||
+        details['account']['currency'] != 'EUR' ||
+        ![
+          'bank',
+          'cash',
+          'payment_service',
+        ].contains(details['account']['kind']) ||
+        !['in', 'out'].contains(details['direction']) ||
+        !['19', '7'].contains(details['rate']) ||
+        !openItemCategories.containsKey(details['category']) ||
+        !openingSame(details['item_ref'], {
+          'id': p['item_id'],
+          'content_hash': p['item_hash'],
+        }))
+      _bad(
+        'Zahlungsnachweis, Geldkonto oder getrennte Centwerte stimmen nicht.',
+      );
+    openItemCents(details['remaining']);
+    refs.add(p['proof']);
+  } else {
+    _bad('Unbekannter Altpostenvorgang.');
+  }
+  if (v['proofs'] is! List || (v['proofs'] as List).length != refs.length)
+    _bad('Vollständige ursprüngliche Belege fehlen.');
+  for (var i = 0; i < refs.length; i++) {
+    final original = openItemOriginal(
+      v['proofs'][i],
+      key: v['operation'] == 'item' ? v['entity_key'] : p['item_key'],
+    );
+    if (original['id'] != refs[i]['original_id'] ||
+        original['sha256'] != refs[i]['sha256'])
+      _bad('Original und Belegreferenz stimmen nicht.');
+  }
+  if (openItemHash({...v}..remove('preview_hash')) != v['preview_hash'])
+    _bad('Prüfsumme der Altpostenvorschau stimmt nicht.');
+  return v;
+}
+
+Map<String, dynamic> openItemEvent(dynamic raw) {
+  final v = businessMap(raw);
+  _shape(v, [..._previewFields, ..._eventFields]);
+  _id(v['id']);
+  _id(v['created_by']);
+  _int(v['sequence'], 1);
+  _int(v['revision'], 1);
+  if (v['previous_hash'] != null) _hash(v['previous_hash']);
+  if (DateTime.tryParse('${v['created_at']}') == null ||
+      openItemHash({...v}..remove('content_hash')) != v['content_hash'])
+    _bad('Unveränderliche Altpostenfassung besteht die Hashprüfung nicht.');
+  final p = {...v};
+  for (final k in _eventFields) p.remove(k);
+  openItemPreview(p, {for (final k in openItemInput) k: v[k]});
+  if (v['sequence'] != v['expected_revision'] + 1 ||
+      v['revision'] !=
+          (v['previous_ref'] == null ? 1 : v['previous_ref']['revision'] + 1) ||
+      v['state_hash'] !=
+          openItemHash({
+            'schema_version': 1,
+            'revision': v['expected_revision'],
+            'head': v['previous_hash'],
+          }))
+    _bad('Quittung gehört nicht zur ursprünglichen Ereignisfolge.');
+  return v;
+}
+
+void Function(dynamic) openItemReceipt(Map<String, dynamic> preview) {
+  final frozen = openItemCopy(preview);
+  return (raw) {
+    final v = openItemEvent(raw);
+    if (frozen.keys.any((k) => !openingSame(v[k], frozen[k])))
+      _bad('Annahme bestätigt nicht genau die unveränderte geprüfte Vorschau.');
+  };
+}
+
+Map<String, dynamic> openItemState(dynamic raw) {
+  final v = businessMap(raw);
+  _shape(v, [
+    ..._flags,
+    'revision',
+    'state_hash',
+    'profile',
+    'profile_ref',
+    'items',
+    'payments',
+    'originals',
+    'can_prepare',
+    'max_original_bytes',
+  ]);
+  _scope(v);
+  _int(v['revision']);
+  _hash(v['state_hash']);
+  if (v['can_prepare'] is! bool ||
+      v['max_original_bytes'] != 5242880 ||
+      v['items'] is! List ||
+      v['payments'] is! List ||
+      v['originals'] is! List)
+    _bad('Ungültiger Altpostenbestand.');
+  if (v['profile'] == null) {
+    if (v['profile_ref'] != null || v['can_prepare'] != false)
+      _bad('Ohne Buchführungsprofil ist keine Übernahme möglich.');
+  } else {
+    _profile(v['profile'], v['profile_ref']);
+  }
+  final keys = <String>{}, originalIds = <String>{};
+  Map<String, dynamic>? latest;
+  for (final record in [...v['items'], ...v['payments']]) {
+    final row = businessMap(record), entry = {...row};
+    if (row['operation'] == 'item')
+      for (final k in ['remaining', 'remaining_net', 'remaining_tax'])
+        entry.remove(k);
+    openItemEvent(entry);
+    if (!keys.add(entry['entity_key']) || entry['sequence'] > v['revision'])
+      _bad('Doppelte oder fremde aktuelle Altpostenfassung.');
+    if (latest == null || entry['sequence'] > latest['sequence'])
+      latest = entry;
+  }
+  for (final row in v['originals']) {
+    final original = openItemOriginal(row);
+    if (!originalIds.add(original['id'])) _bad('Doppeltes Original.');
+  }
+  for (final row in v['items']) {
+    if (row['operation'] != 'item') _bad('Fremder Eintrag in Altpostenliste.');
+    if (row['payload']['status'] == 'void') {
+      if ([
+        'remaining',
+        'remaining_net',
+        'remaining_tax',
+      ].any((k) => row[k] != null))
+        _bad('Aufgehobene Übernahme besitzt keinen aktiven Restwert.');
+      continue;
+    }
+    var gross = BigInt.zero, net = BigInt.zero, tax = BigInt.zero;
+    for (final p in v['payments'])
+      if (p['payload']['status'] == 'active' &&
+          p['payload']['item_key'] == row['entity_key']) {
+        gross += openItemCents(p['payload']['amount']);
+        net += openItemCents(p['details']['net']);
+        tax += openItemCents(p['details']['tax']);
+      }
+    if (openItemCents(row['remaining']) !=
+            openItemCents(row['details']['opening_remaining']) - gross ||
+        openItemCents(row['remaining_net']) !=
+            openItemCents(row['details']['opening_remaining_net']) - net ||
+        openItemCents(row['remaining_tax']) !=
+            openItemCents(row['details']['opening_remaining_tax']) - tax)
+      _bad(
+        'Aktueller Rest stimmt nicht mit ursprünglicher Übernahme und tatsächlichen Zahlungen überein.',
+      );
+  }
+  for (final p in v['payments']) {
+    if (p['operation'] != 'payment' ||
+        !(v['items'] as List).any(
+          (item) => item['entity_key'] == p['payload']['item_key'],
+        ))
+      _bad('Zahlung besitzt keinen ursprünglichen Altposten.');
+  }
+  if ((v['revision'] == 0) != (latest == null) ||
+      v['state_hash'] !=
+          openItemHash({
+            'schema_version': 1,
+            'revision': v['revision'],
+            'head': latest?['content_hash'],
+          }))
+    _bad('Aktueller Journalstand stimmt nicht zur letzten Originalfassung.');
+  return v;
+}
+
+Map<String, dynamic> openItemHistory(dynamic raw, String key) {
+  final v = businessMap(raw);
+  _shape(v, ['schema_version', 'entity_key', 'items']);
+  if (v['schema_version'] != 1 || v['entity_key'] != key || v['items'] is! List)
+    _bad('Fremde Altpostenhistorie.');
+  Map<String, dynamic>? previous;
+  for (final raw in v['items']) {
+    final item = openItemEvent(raw);
+    if (item['entity_key'] != key ||
+        item['revision'] != (previous == null ? 1 : previous['revision'] + 1) ||
+        !openingSame(
+          item['previous_ref'],
+          previous == null
+              ? null
+              : {
+                  'id': previous['id'],
+                  'revision': previous['revision'],
+                  'content_hash': previous['content_hash'],
+                },
+        ))
+      _bad('Die unveränderliche Historie ist nicht lückenlos.');
+    previous = item;
+  }
+  return v;
+}
+
+Map<String, dynamic> openItemSource(
+  dynamic raw, {
+  Map<String, dynamic>? payment,
+  Map<String, dynamic>? item,
+}) {
+  final v = businessMap(raw);
+  _shape(v, [
+    'kind',
+    'schema_version',
+    'rule_version',
+    'id',
+    'revision',
+    'entry_id',
+    'entry_hash',
+    'status',
+    'date',
+    'profile_ref',
+    'item_key',
+    'item_id',
+    'item_hash',
+    'direction',
+    'category',
+    'rate',
+    'net',
+    'tax',
+    'gross',
+    'prior_input_vat',
+    'proof',
+    'cash_movements',
+    'source_path',
+    'source_hash',
+  ]);
+  _id(v['id']);
+  _id(v['entry_id']);
+  _id(v['item_id']);
+  _hash(v['entry_hash']);
+  _hash(v['item_hash']);
+  _int(v['revision'], 1);
+  _ref(v['profile_ref'], profile: true);
+  openingDate(v['date']);
+  openItemOriginal(v['proof'], key: v['item_key']);
+  if (v['kind'] != 'opening_item_cash' ||
+      v['schema_version'] != 1 ||
+      v['rule_version'] != openItemRule ||
+      !['active', 'void'].contains(v['status']) ||
+      !['in', 'out'].contains(v['direction']) ||
+      !openItemCategories.containsKey(v['category']) ||
+      !['19', '7'].contains(v['rate']) ||
+      openItemCents(v['net']) + openItemCents(v['tax']) !=
+          openItemCents(v['gross']) ||
+      v['source_path'] !=
+          '$openItemPath/payments/${v['id']}?revision=${v['revision']}' ||
+      openItemHash({...v}..remove('source_hash')) != v['source_hash'])
+    _bad('Ursprüngliche Altposten-Zahlungsquelle stimmt nicht.');
+  if (v['cash_movements'] is! List ||
+      (v['cash_movements'] as List).length != (v['status'] == 'active' ? 1 : 0))
+    _bad('Zahlungsquelle besitzt nicht die belegte Anzahl Geldbewegungen.');
+  for (final m in v['cash_movements']) {
+    _shape(m, ['id', 'account', 'date', 'direction', 'amount']);
+    if (m['id'] != v['id'] ||
+        m['date'] != v['date'] ||
+        m['direction'] != v['direction'] ||
+        m['amount'] != v['gross'] ||
+        m['account'] is! Map ||
+        !['bank', 'cash', 'payment_service'].contains(m['account']['kind']) ||
+        m['account']['currency'] != 'EUR')
+      _bad('Fremde Geldbewegung in Zahlungsquelle.');
+  }
+  if (payment != null) {
+    final p = openItemEvent(payment);
+    if (v['id'] != p['entity_key'] ||
+        v['entry_id'] != p['id'] ||
+        v['entry_hash'] != p['content_hash'] ||
+        v['revision'] != p['revision'] ||
+        v['status'] != p['payload']['status'] ||
+        v['item_key'] != p['payload']['item_key'] ||
+        (v['cash_movements'] as List).any(
+          (m) => !openingSame(m['account'], p['details']['account']),
+        ) ||
+        v['item_id'] != p['payload']['item_id'] ||
+        v['item_hash'] != p['payload']['item_hash'] ||
+        !openingSame(v['proof'], p['proofs'][0]) ||
+        [
+          'net',
+          'tax',
+          'gross',
+          'direction',
+          'category',
+          'rate',
+        ].any((k) => v[k] != p['details'][k]) ||
+        v['date'] != p['payload']['date'] ||
+        !openingSame(v['profile_ref'], p['profile_ref']))
+      _bad('Zahlungsquelle weicht von ihrer gebundenen Originalfassung ab.');
+  }
+  if (item != null) {
+    final original = openItemEvent(item),
+        payload = businessMap(original['payload']);
+    if (original['operation'] != 'item' ||
+        original['entity_key'] != v['item_key'] ||
+        original['id'] != v['item_id'] ||
+        original['content_hash'] != v['item_hash'] ||
+        payload['status'] != 'active' ||
+        v['direction'] !=
+            (payload['direction'] == 'receivable' ? 'in' : 'out') ||
+        v['category'] != payload['category'] ||
+        v['rate'] != payload['rate'] ||
+        !openingSame(v['prior_input_vat'], payload['prior_input_vat']))
+      _bad(
+        'Die Zahlungsquelle verändert die gebundene ursprüngliche Rechnung oder frühere Vorsteuer.',
+      );
+  }
+  return v;
+}
+
+/// An independently rehashed projection cannot replace immutable originals.
+/// Resolve the exact referenced revisions, including after a later profile-only
+/// revalidation. Never substitute the current item head for its original ID.
+Future<Map<String, dynamic>> openItemVerifiedSource(
+  BusinessSession session,
+  dynamic raw, {
+  Map<String, dynamic>? payment,
+  bool Function()? stillCurrent,
+}) async {
+  void guard() {
+    if (stillCurrent != null && !stillCurrent())
+      _bad('Der ursprüngliche Altpostenkontext wurde geschlossen.');
+  }
+
+  guard();
+  final source = openItemSource(raw, payment: payment);
+  var originalPayment = payment;
+  if (originalPayment == null) {
+    final history = openItemHistory(
+      await session.read(openItemHistoryPath(source['id'])),
+      source['id'],
+    );
+    guard();
+    originalPayment = businessItems(history)
+        .where(
+          (p) =>
+              p['id'] == source['entry_id'] &&
+              p['content_hash'] == source['entry_hash'] &&
+              p['revision'] == source['revision'],
+        )
+        .firstOrNull;
+    if (originalPayment == null)
+      _bad('Die ursprüngliche Zahlungsfassung fehlt.');
+    openItemSource(source, payment: originalPayment);
+  }
+  guard();
+  final history = openItemHistory(
+    await session.read(openItemHistoryPath(source['item_key'])),
+    source['item_key'],
+  );
+  guard();
+  final item = businessItems(history)
+      .where(
+        (p) =>
+            p['id'] == source['item_id'] &&
+            p['content_hash'] == source['item_hash'],
+      )
+      .firstOrNull;
+  if (item == null) _bad('Die ursprüngliche Rechnungsfassung fehlt.');
+  return openItemSource(source, payment: originalPayment, item: item);
+}
+
+/// Validates only the additive opening-item operation. Existing EÜR operations
+/// retain their historical contract and immutable exports.
+void openItemEuerEffect(dynamic raw) {
+  final e = businessMap(raw);
+  _shape(e, [
+    'operation',
+    'payload',
+    'source',
+    'target',
+    'postings',
+    'details',
+  ]);
+  final s = openItemSource(e['source']), p = businessMap(e['payload']);
+  _shape(p, [
+    'payment_id',
+    'revision',
+    'source_hash',
+    'net_account',
+    'tax_account',
+  ]);
+  for (final key in ['net_account', 'tax_account']) {
+    if (p[key] is! String || !RegExp(r'^[0-9]{4}$').hasMatch(p[key]))
+      _bad('Die ausdrücklich geprüfte Kontenzuordnung fehlt.');
+  }
+  final target = 'opening_item_cash:${s['id']}';
+  if (e['operation'] != 'opening_item_cash' ||
+      s['status'] != 'active' ||
+      p['payment_id'] != s['id'] ||
+      p['revision'] != s['revision'] ||
+      p['source_hash'] != s['source_hash'] ||
+      e['target'] != target)
+    _bad('Die EÜR-Wirkung gehört nicht zur ursprünglichen Restzahlung.');
+  final out = s['direction'] == 'out';
+  Map<String, dynamic> posting(
+    String ledger,
+    String category,
+    String amount,
+    String account,
+  ) => {
+    'ledger': ledger,
+    'category': category,
+    'amount': amount,
+    'date': s['date'],
+    'account': account,
+    'source_key': target,
+  };
+  String signed(String amount) =>
+      out && openItemCents(amount) != BigInt.zero ? '-$amount' : amount;
+  final expected = [
+    posting('euer', s['category'], signed(s['net']), p['net_account']),
+    posting(
+      'euer',
+      out ? 'paid_input_vat' : 'vat_collected',
+      signed(s['tax']),
+      p['tax_account'],
+    ),
+    if (!out) posting('vat', 'output_vat', s['tax'], p['tax_account']),
+  ];
+  if (!openingSame(e['postings'], expected) ||
+      !openingSame(e['details'], {
+        'date': s['date'],
+        'net': s['net'],
+        'tax': s['tax'],
+        'gross': s['gross'],
+        'prior_input_vat_preserved': out,
+      }))
+    _bad(
+      'Die Restzahlung darf nur ihre belegte EÜR-/Steuerwirkung erzeugen; alte Vorsteuer bleibt erhalten.',
+    );
+}
+
+void openItemEuerPreview(dynamic raw, Map<String, dynamic> body) {
+  final v = businessMap(raw);
+  if (body.entries.any((e) => !openingSame(v[e.key], e.value)) ||
+      openItemHash({...v}..remove('preview_hash')) != v['preview_hash'])
+    _bad(
+      'Die Restzahlungsbuchung ist nicht an die geprüfte Originalvorschau gebunden.',
+    );
+  openItemEuerEffect(v['effect']);
+  final e = businessMap(v['effect']);
+  if (v['target'] != e['target'] ||
+      v['artifact'] != null ||
+      v['control'] != null)
+    _bad('Unerwartete zusätzliche Wirkung der Restzahlungsbuchung.');
+  if (v['operation'] == 'opening_item_cash') {
+    if (!openingSame(v['payload'], e['payload']) ||
+        v['reverses'] != null ||
+        !openingSame(v['postings'], e['postings']))
+      _bad('Unerwartete Buchungen neben der ursprünglichen Restzahlung.');
+  } else if (v['operation'] == 'correct') {
+    final p = businessMap(v['payload']);
+    _shape(p, ['entry_id', 'operation', 'payload']);
+    _id(p['entry_id']);
+    final postings = businessItems(v['postings']),
+        expected = businessItems(e['postings']);
+    if (p['entry_id'] != v['reverses'] ||
+        p['operation'] != 'opening_item_cash' ||
+        !openingSame(p['payload'], e['payload']) ||
+        postings.length != expected.length * 2 ||
+        !openingSame(postings.skip(expected.length).toList(), expected))
+      _bad(
+        'Die Berichtigung ist nicht eindeutig an die ursprüngliche Restzahlung gebunden.',
+      );
+  } else {
+    _bad('Unerwarteter Vorgang für die Restzahlungsbuchung.');
+  }
+}
+
+void Function(dynamic) openItemEuerReceipt(Map<String, dynamic> preview) {
+  final proof = openItemCopy(preview);
+  return (raw) {
+    final value = businessMap(raw);
+    _id(value['id']);
+    _id(value['created_by']);
+    if (value['sequence'] != proof['expected_revision'] + 1 ||
+        value['previous_hash'] != proof['state_hash'] ||
+        proof.keys
+            .where((k) => !['expected_revision', 'state_hash'].contains(k))
+            .any((k) => !openingSame(value[k], proof[k])) ||
+        openItemHash({...value}..remove('entry_hash')) != value['entry_hash'])
+      _bad(
+        'Die Buchungsquittung bestätigt nicht exakt die geprüfte Restzahlung.',
+      );
+  };
+}

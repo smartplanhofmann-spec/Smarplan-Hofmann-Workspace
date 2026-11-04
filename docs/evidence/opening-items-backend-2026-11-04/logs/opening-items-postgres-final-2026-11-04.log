@@ -1,0 +1,8 @@
+test_originals_immutable_acl_and_current_payment_after_actual_restart (online.test_accounting_open_items_pg.OpeningItemPostgres.test_originals_immutable_acl_and_current_payment_after_actual_restart) ... ok
+test_populated_actual_dump_restore_keeps_old_exports_all_originals_and_no_repeated_input_vat (online.test_accounting_open_items_pg.OpeningItemPostgres.test_populated_actual_dump_restore_keeps_old_exports_all_originals_and_no_repeated_input_vat) ... ok
+test_real_connections_exact_lost_ack_and_competing_rest_consumption (online.test_accounting_open_items_pg.OpeningItemPostgres.test_real_connections_exact_lost_ack_and_competing_rest_consumption) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 34.393s
+
+OK

@@ -22,7 +22,7 @@ FEATURES = ('accounting_euer',)
 RULE_VERSION = 'de_euer_regular_cash_2026_v1'
 _TABLES = ('business_euer_entries', 'business_euer_requests')
 _INPUT = {'operation', 'expected_revision', 'state_hash', 'payload', 'reason', 'evidence_reference'}
-_ECONOMIC = {'cash', 'input_vat', 'external_cash', 'asset', 'depreciation', 'payroll_cash', 'travel_cash', 'opening_depreciation'}
+_ECONOMIC = {'cash', 'input_vat', 'external_cash', 'asset', 'depreciation', 'payroll_cash', 'travel_cash', 'opening_depreciation', 'opening_item_cash'}
 _OPERATIONS = _ECONOMIC | {'reverse', 'correct', 'period', 'export'}
 _EXPENSE = ('materials', 'external_services', 'rent', 'insurance', 'software', 'travel', 'other_expense', 'asset_acquisition')
 _EXTERNAL = {'vat_payment':'out', 'vat_refund':'in', 'owner_contribution':'in', 'owner_withdrawal':'out',
@@ -195,7 +195,10 @@ class EuerAccounting(Domain):
             return
         from accounting_joint_access import authorize_sources
         from business_finance import Finance
-        if source['kind'] == 'opening_asset':
+        if source['kind'] == 'opening_item_cash':
+            from business_accounting_open_items import financial_access
+            financial_access(self.office,actor,write)
+        elif source['kind'] == 'opening_asset':
             from business_accounting_asset_openings import financial_access
             financial_access(self.office,actor,write)
         elif source['kind'] == 'travel_cash':
@@ -257,7 +260,10 @@ class EuerAccounting(Domain):
         return dict(source, source_hash=_sha(canonical(source)))
 
     def _validate_source(self, source):
-        if source['kind'] == 'opening_asset':
+        if source['kind'] == 'opening_item_cash':
+            from business_accounting_open_items import public_source
+            current=public_source(self.office,source['id'],source['revision'])
+        elif source['kind'] == 'opening_asset':
             from business_accounting_asset_openings import public_source
             current=public_source(self.office,source['id'])
         elif source['kind'] == 'travel_cash':
@@ -697,6 +703,10 @@ class EuerAccounting(Domain):
             date=day,asset_entry_id=asset['id'],basis=setup['business_basis'],months=after-before,amount=_money(amount),
             opening_book_value=_money(basis-accrued(before)),closing_book_value=_money(basis-accrued(after)))
 
+    def _prepare_opening_item_cash(self,actor,payload,ledger,historical):
+        from accounting_open_item_sources import prepare
+        return prepare(self,actor,payload,ledger,historical)
+
     def _prepare_opening_depreciation(self,actor,payload,ledger,historical):
         from accounting_asset_opening_sources import prepare
         return prepare(self,actor,payload,ledger,historical)
@@ -822,6 +832,9 @@ class EuerAccounting(Domain):
         from accounting_asset_opening_sources import catalog as historical_asset_catalog
         asset_items,asset_issues=historical_asset_catalog(self,actor)
         items.extend(asset_items);issues.extend(asset_issues)
+        from accounting_open_item_sources import catalog as opening_item_catalog
+        opening_items,opening_issues,opening_movements=opening_item_catalog(self,actor,ledger)
+        items.extend(opening_items);issues.extend(opening_issues);movements.extend(opening_movements)
         totals={}
         for value in movements:
             key=value['account']['id']; total=totals.setdefault(key,dict(account=value['account'],inflows=0,outflows=0))
@@ -830,7 +843,7 @@ class EuerAccounting(Domain):
                        movement_net=_money(value['inflows']-value['outflows']),opening_balance=None,balance=None) for value in totals.values()]
         movements.sort(key=lambda value:(value['date'],value['source_kind'],value['source_id']))
         return dict(items=items,issues=issues,cash_movements=movements,account_movements=accounts,
-                    cash_scope='existing_cash_events_reviewed_external_payroll_and_travel_cash' if travel_items else 'existing_cash_events_reviewed_external_and_payroll_cash' if payroll_present else 'existing_cash_events_and_reviewed_external_cash',opening_balances_available=False)
+                    cash_scope='existing_cash_events_reviewed_external_payroll_travel_and_opening_item_cash' if opening_items else 'existing_cash_events_reviewed_external_payroll_and_travel_cash' if travel_items else 'existing_cash_events_reviewed_external_and_payroll_cash' if payroll_present else 'existing_cash_events_and_reviewed_external_cash',opening_balances_available=False)
 
     def _report(self, actor, year, ledger, *, month=None):
         _year(year); catalog=self._catalog(actor,ledger)
@@ -1043,7 +1056,7 @@ def installed(office):
     return True
 
 
-def ensure_cash_identity_available(office,account_id,evidence_key,original_sha256=None,*,payroll_batch_id=None,travel_payment_id=None):
+def ensure_cash_identity_available(office,account_id,evidence_key,original_sha256=None,*,payroll_batch_id=None,travel_payment_id=None,opening_payment_id=None):
     """Existing cash writer calls this under its own serialized transaction.
 
     These immutable original identities remain reserved after a counter-posting;
@@ -1053,6 +1066,8 @@ def ensure_cash_identity_available(office,account_id,evidence_key,original_sha25
     ensure_cash_available(office,account_id,evidence_key,original_sha256 if payroll_batch_id is None else None,own_batch=payroll_batch_id)
     from travel_allowance_cash import ensure_cash_available as travel_available
     travel_available(office,account_id,evidence_key,original_sha256,own_payment=travel_payment_id)
+    from business_accounting_open_items import ensure_cash_available as opening_available
+    opening_available(office,account_id,evidence_key,original_sha256,own_payment=opening_payment_id)
     if not installed(office):return
     for row in office.db.execute("SELECT entry_json,entry_sha256 FROM business_euer_entries WHERE operation IN ('external_cash','correct')").fetchall():
         if _sha(row['entry_json'])!=row['entry_sha256']:raise Problem(409,'EÜR-Zahlungsnachweis beschädigt')

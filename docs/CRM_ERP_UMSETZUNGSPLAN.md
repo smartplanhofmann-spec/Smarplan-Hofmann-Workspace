@@ -95,12 +95,14 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    sind unter `c7dbab0` und `4c2f008` integriert. Historische lineare Anlagen
    sind [gemeinsam geprüft](CRM_ERP_ANLAGEN_GESAMTPRUEFUNG_2026-11-04.md).
    Die zeitgebundenen Preise sind [gemeinsam geprüft](CRM_ERP_KATALOG_V2_GESAMTPRUEFUNG_2026-11-04.md). Belegte
-   historische offene Posten erhalten aktuell ihre tatsächlichen Zahlungswege
-   zu EÜR, Bankabgleich und Liquidität. Die unternehmensweiten Ereignisregeln sind mit beiden Clients,
+   historische offene Posten sind mit ihren tatsächlichen Zahlungswegen
+   zu EÜR, Bankabgleich und Liquidität [gemeinsam geprüft](CRM_ERP_ALTPOSTEN_GESAMTPRUEFUNG_2026-11-04.md). Die unternehmensweiten Ereignisregeln sind mit beiden Clients,
    Instanzworker und gemeinsamem Restore [geprüft](CRM_ERP_EREIGNISSE_GESAMTPRUEFUNG_2026-11-04.md).
-   Die folgende Altpostenintegration erhält diese Regeln und die datierten
-   Preise. Unterjährige Jahresvorträge und das ergänzende Original-/Journalpaket
-   entstehen danach auf dem jeweiligen nachgewiesenen Finanzhorizont.
+   Die gemeinsame Altpostenintegration erhält diese Regeln und die datierten
+   Preise: 1.816 Backendfälle bei einem Windows-Skip, 1.434 App-, 713 Node- und
+   109 eindeutige PostgreSQLfälle bestehen. Das ergänzende Original-/Journalpaket
+   folgt als nächster gemeinsamer Stand. Unterjährige Jahresvorträge erhalten
+   beide Oberflächen und anschließend ihren eigenen vollständigen Finanzhorizont.
 
 Die v5-Zusammenrechnung mehrerer belegter Entgelt-/SV-Abschnitte mit
 Anspruchsbausteinen und Reise-Lohnübergabe sowie der eigene v5-Mitarbeiterbeleg

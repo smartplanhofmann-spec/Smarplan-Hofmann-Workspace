@@ -1,0 +1,8 @@
+{
+  "web/office/accounting-open-items.js": "0724a14408e88e7cfbe60eefe756418ba8e7a196ed217e2839327ec90500598e",
+  "web/office/accounting-open-items-contract.js": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1",
+  "web/office/accounting-euer.js": "5c2c6bfceb463678f8892c292484e5ad7a79bcef929535b5c096496043d92605",
+  "web/office/office.js": "02e6a639f81b3f195cb5ec97314241ae3862735e955a3fd33d67a09e5ba8662f",
+  "web/office/bank-reconciliation.js": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647",
+  "docs/fixtures/accounting_open_items_ui_v1.json": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708"
+}

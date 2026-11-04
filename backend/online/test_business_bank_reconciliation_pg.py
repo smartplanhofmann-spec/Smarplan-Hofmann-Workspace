@@ -146,7 +146,7 @@ class BankReconciliationPostgres(unittest.TestCase):
     def test_real_dump_restore_binds_originals_reports_and_separate_operator_approval(self):
         account,event,binding=self.setup_bank();statement,import_command,original=self.statement(account,binding,['119.00']);identifier=statement['lines'][0]['transaction_id'];command=self.match_command(identifier,'119.00')
         BankReconciliation(self.office).save_match(self.actor,identifier,command);report,report_command=self.report(account,statement)
-        before=restore_horizon(self.office);self.assertEqual(business_schema.financial_accounting_horizon(self.office)['schema_version'],13)
+        before=restore_horizon(self.office);self.assertEqual(business_schema.financial_accounting_horizon(self.office)['schema_version'],14)
         fingerprints=release.snapshot_fingerprint(fixture.DSN);self.office.db.close()
         with disposable_restore(self.runtime) as (target,target_runtime,restored_report):
             restored=PostgresOffice(target_runtime)
@@ -154,7 +154,7 @@ class BankReconciliationPostgres(unittest.TestCase):
                 api=BankReconciliation(restored);self.assertEqual(restore_horizon(restored),before)
                 self.assertEqual(api.original(self.actor,statement['statement']['id'])[0],original)
                 self.assertEqual(api.reconciliation(self.actor,report['record']['id'])['record'],report['record'])
-                evidence=evidence_for(restored,restored_report);self.assertEqual(evidence['schema'],14)
+                evidence=evidence_for(restored,restored_report);self.assertEqual(evidence['schema'],15)
                 with self.assertRaises(Problem) as caught:api.import_statement(self.actor,import_command)
                 self.assertEqual(caught.exception.status,409)
                 with self.assertRaises(Problem) as caught:approve(restored,evidence)

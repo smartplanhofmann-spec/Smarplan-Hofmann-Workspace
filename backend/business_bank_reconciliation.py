@@ -292,6 +292,7 @@ class BankReconciliation:
             if kind=='cash_event':parent=next(item['source']['source_hash'] for item in catalog['items'] if item['kind']=='cash' and item['id']==source_id)
             elif kind=='reviewed_external_cash':parent=ledger['by_id'][source_id]['entry_hash']
             elif kind=='payroll_cash':parent=next(item['source']['source_hash'] for item in catalog['items'] if item['kind']=='payroll_cash' and any(part['id']==source_id for part in item['source']['cash_movements']))
+            elif kind=='opening_item_cash':parent=next(item['source']['source_hash'] for item in catalog['items'] if item['kind']=='opening_item_cash' and item['id']==source_id)
             elif kind=='travel_cash':parent=next(item['source']['source_hash'] for item in catalog['items'] if item['kind']=='travel_cash' and any(part['id']==source_id for part in item['source']['cash_movements']))
             else:raise Problem(409,'Unbekannte Geldquellenart muss vor dem Bankabgleich unterstützt werden.')
             value=dict(movement,origin_hash=parent,source_hash=_sha([movement,parent]));sources[kind+':'+source_id]=value
@@ -506,6 +507,9 @@ def _verify_source(office,source):
         event=public_source(office,reference[1],int(reference[2]));part=next((item for item in event['cash_movements'] if item['id']==source['source_id']),None)
         if not part or event['source_hash']!=source['origin_hash']:raise ValueError('Missing payroll bank cash snapshot')
         expected={key:part[key] for key in ('account','date','direction','amount')}
+    elif source['source_kind']=='opening_item_cash':
+        from accounting_open_item_sources import verify_bank_source
+        expected=verify_bank_source(office,source)
     elif source['source_kind']=='travel_cash':
         from accounting_travel_sources import verify_bank_source
         expected=verify_bank_source(office,source)

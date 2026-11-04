@@ -1,0 +1,20 @@
+{
+  "scope": "Actual integrated Chromium opening-items workflow, synthetic data, namespace sandbox enabled",
+  "artifacts": [
+    {
+      "path": "docs/evidence/opening-items-integrated-browser-2026-11-04/opening-items-mobile.png",
+      "size": 54342,
+      "sha256": "03d2cf166e2402874f2bde27a78b36f1dd234c78ac63b2948a3261114ee102f0"
+    },
+    {
+      "path": "docs/evidence/opening-items-integrated-browser-2026-11-04/opening-items-payment-history.png",
+      "size": 168734,
+      "sha256": "ff7c3ed89e5535d4f3a8dfcfcccddfde2c3c353bf584237c06c7e1732b9ab9ac"
+    },
+    {
+      "path": "docs/evidence/opening-items-integrated-browser-2026-11-04/opening-items-synthetic-http.json",
+      "size": 1926845,
+      "sha256": "74bac9bc54725e24c3c4eea81874ea2d583458d84a16f63f7f6c8fd5205c8c41"
+    }
+  ]
+}

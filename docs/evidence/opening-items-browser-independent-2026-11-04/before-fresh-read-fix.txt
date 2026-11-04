@@ -1,0 +1,332 @@
+✔ rendered historical and remaining cents are exact and old VAT is not offered again (32.336764ms)
+✔ held original byte read success cannot cross other (4.576171ms)
+✔ held original byte read failure cannot cross other (9.882694ms)
+✔ held original byte read success cannot cross session (2.615249ms)
+✔ held original byte read failure cannot cross session (2.268446ms)
+✔ held original byte read success cannot cross background (2.272442ms)
+✔ held original byte read failure cannot cross background (2.606635ms)
+✔ held local original file before upload cannot cross other (4.79406ms)
+✔ held local original file before upload cannot cross session (3.635966ms)
+✔ held local original file before upload cannot cross background (3.364638ms)
+✔ download rejects altered original bytes and checks live read rights after correct bytes (6.094238ms)
+✔ three pending original/item/payment intents survive advancement and exact independent replays (9.307147ms)
+✔ EÜR held opening-item preview cannot restore a dismissed private editor after other (4.914471ms)
+✔ EÜR held opening-item preview cannot restore a dismissed private editor after close (1.698338ms)
+✔ late original upload accepted receipt cannot change other (10.735317ms)
+✔ late original upload failure cannot change other (5.111338ms)
+✔ late original upload accepted receipt cannot change session (4.541779ms)
+✔ late original upload failure cannot change session (7.701759ms)
+✔ late original upload accepted receipt cannot change background (4.788882ms)
+✔ late original upload failure cannot change background (5.04643ms)
+✔ EÜR initial held source cannot open after other (1.63975ms)
+✔ EÜR initial held source cannot open after close (1.031293ms)
+✔ EÜR late accepted opening-item confirmation cannot close newer dialog or refresh after other (3.208502ms)
+✔ EÜR late accepted opening-item confirmation cannot close newer dialog or refresh after close (2.37019ms)
+✔ EÜR late authorization denial at initial cannot close a newer private dialog (1.177343ms)
+✔ EÜR late authorization denial at preview cannot close a newer private dialog (1.165135ms)
+✔ EÜR late authorization denial at confirm cannot close a newer private dialog (2.496229ms)
+✔ EÜR exact pending old-item replay ACK cannot close a newer dialog (3.128432ms)
+✖ EÜR opening-item source held across live read revocation cannot fill a private editor (4.484924ms)
+✔ real SQLite old-item bank match binds one existing money source and original payment (1.350544ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 29
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 212.069173
+
+✖ failing tests:
+
+test at web/office/tests/accounting-open-items-independent.test.mjs:162:1
+✖ EÜR opening-item source held across live read revocation cannot fill a private editor (4.484924ms)
+  AssertionError [ERR_ASSERTION]: A fresh read authorization after held source retrieval must prevent private editor display
+  + actual - expected
+  
+  + {
+  +   append: [Function: append],
+  +   attrs: {},
+  +   children: [
+  +     {
+  +       append: [Function: append],
+  +       attrs: {
+  +         'data-euer-detail': 'true',
+  +         class: 'stack break-word'
+  +       },
+  +       children: [
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Die volle alte Vorsteuer wurde vor dem Softwarebeginn ausgeübt. Diese Zahlung erzeugt EÜR-Aufwand einschließlich bezahlter Vorsteuer, keinen erneuten Vorsteuerabzug.'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'notice'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Ursprünglicher Zahlungsanteil',
+  +             'Wert',
+  +             'Zahltag',
+  +             '2026-02-15',
+  +             'Netto',
+  +             '100.00',
+  +             'Steuer',
+  +             '19.00',
+  +             'Brutto',
+  +             '119.00'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'table'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Altposten und Zahlungsoriginal öffnen'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           label: 'Altposten und Zahlungsoriginal öffnen',
+  +           run: [Function (anonymous)],
+  +           tag: 'button'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {
+  +             class: 'caption'
+  +           },
+  +           children: [
+  +             'Quellenstand: 4cdd1cd405f6757ed83afde1d303abe166c6da265e4de8eaa3408a0b6204e677'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'p'
+  +         }
+  +       ],
+  +       classList: {
+  +         add: [Function: add]
+  +       },
+  +       dataset: {},
+  +       isConnected: true,
+  +       tag: 'div'
+  +     }
+  +   ],
+  +   classList: {
+  +     add: [Function: add]
+  +   },
+  +   controls: Map(4) {
+  +     'evidence_reference' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'Nachweis / Prüfgrundlage',
+  +         name: 'evidence_reference',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     },
+  +     'net_account' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         help: 'Vier Ziffern; keine automatisch vorgeschlagene Zuordnung.',
+  +         label: 'Geprüftes SKR04-Nettoerlös-/Aufwandskonto',
+  +         name: 'net_account',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     },
+  +     'reason' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         label: 'Fachliche Begründung',
+  +         name: 'reason',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     },
+  +     'tax_account' => {
+  +       input: {
+  +         addEventListener: [Function: addEventListener],
+  +         checked: false,
+  +         value: ''
+  +       },
+  +       spec: {
+  +         help: 'Vier Ziffern; keine automatisch vorgeschlagene Zuordnung.',
+  +         label: 'Geprüftes SKR04-Konto für vereinnahmte bzw. gezahlte Steuer',
+  +         name: 'tax_account',
+  +         required: true,
+  +         type: 'text',
+  +         value: ''
+  +       }
+  +     }
+  +   },
+  +   dataset: {
+  +     euerDetail: 'true'
+  +   },
+  +   fields: [
+  +     {
+  +       help: 'Vier Ziffern; keine automatisch vorgeschlagene Zuordnung.',
+  +       label: 'Geprüftes SKR04-Nettoerlös-/Aufwandskonto',
+  +       name: 'net_account',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     },
+  +     {
+  +       help: 'Vier Ziffern; keine automatisch vorgeschlagene Zuordnung.',
+  +       label: 'Geprüftes SKR04-Konto für vereinnahmte bzw. gezahlte Steuer',
+  +       name: 'tax_account',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     },
+  +     {
+  +       label: 'Fachliche Begründung',
+  +       name: 'reason',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     },
+  +     {
+  +       label: 'Nachweis / Prüfgrundlage',
+  +       name: 'evidence_reference',
+  +       required: true,
+  +       type: 'text',
+  +       value: ''
+  +     }
+  +   ],
+  +   isConnected: true,
+  +   options: {
+  +     description: 'Eigene EÜR- und Umsatzsteuer-Arbeitsergebnisse für geprüfte erfasste Quellen. Keine amtliche Erklärung oder zertifizierte DATEV-Datei. Rechnung, Zahlung, Vorsteuerrecht und EÜR-Jahr werden getrennt beurteilt.',
+  +     extra: {
+  +       append: [Function: append],
+  +       attrs: {
+  +         'data-euer-detail': 'true',
+  +         class: 'stack break-word'
+  +       },
+  +       children: [
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Die volle alte Vorsteuer wurde vor dem Softwarebeginn ausgeübt. Diese Zahlung erzeugt EÜR-Aufwand einschließlich bezahlter Vorsteuer, keinen erneuten Vorsteuerabzug.'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'notice'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Ursprünglicher Zahlungsanteil',
+  +             'Wert',
+  +             'Zahltag',
+  +             '2026-02-15',
+  +             'Netto',
+  +             '100.00',
+  +             'Steuer',
+  +             '19.00',
+  +             'Brutto',
+  +             '119.00'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'table'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {},
+  +           children: [
+  +             'Altposten und Zahlungsoriginal öffnen'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           label: 'Altposten und Zahlungsoriginal öffnen',
+  +           run: [Function (anonymous)],
+  +           tag: 'button'
+  +         },
+  +         {
+  +           append: [Function: append],
+  +           attrs: {
+  +             class: 'caption'
+  +           },
+  +           children: [
+  +             'Quellenstand: 4cdd1cd405f6757ed83afde1d303abe166c6da265e4de8eaa3408a0b6204e677'
+  +           ],
+  +           classList: {
+  +             add: [Function: add]
+  +           },
+  +           dataset: {},
+  +           isConnected: true,
+  +           tag: 'p'
+  +         }
+  +       ],
+  +       classList: {
+  +         add: [Function: add]
+  +       },
+  +       dataset: {},
+  +       isConnected: true,
+  +       tag: 'div'
+  +     },
+  +     initial: {},
+  +     key: 'euer-edit-opening_item_cash:389b9f849dcb4ac6b5bda9cf41a3924e:4cdd1cd405f6757ed83afde1d303abe166c6da265e4de8eaa3408a0b6204e677',
+  +     submit: 'Buchung unverbindlich prüfen'
+  +   },
+  +   save: [AsyncFunction (anonymous)],
+  +   submit: [AsyncFunction: submit],
+  +   tag: 'form'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-opening-items-20261104/web/office/tests/accounting-open-items-independent.test.mjs:166:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Object],
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-04",
+  "status": "own review fixes complete; frozen for independent final review and Root integration",
+  "supersedes_native_handoff": {
+    "path": "docs/evidence/opening-items-native-2026-11-04/manifest.json",
+    "sha256": "f192a1a870505b3c4497e343df6e0c06f3e81f684466a0e703b5729b421dfed9"
+  },
+  "runtime": {
+    "app/lib/business_accounting_open_items.dart": {
+      "sha256": "5891345f736e6bf81ae7f3f87d03c785e31e24611a0f6a6c8415950d934e050a",
+      "bytes": 47527
+    },
+    "app/lib/business_accounting_open_items_contract.dart": {
+      "sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+      "bytes": 33097
+    },
+    "app/lib/business_accounting.dart": {
+      "sha256": "28e4e555fe6491b523872f6f19c5c0eb64db349bee8e3a3e5463cd226d8cee46",
+      "bytes": 38513
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "1c5196a653a8ae5f7e64a716de2bf081fa2f5857ab7fcb5bab172bfa590f8457",
+      "bytes": 84642
+    },
+    "app/lib/business_session.dart": {
+      "sha256": "264b9b773d25333a2034dc7509955e311bc9a72d27ce0a6505e35bf44f846429",
+      "bytes": 98549
+    }
+  },
+  "tests": {
+    "app/test/business_accounting_open_items_contract_test.dart": {
+      "sha256": "264cd92354f403afdc478f819482bd43761712780b7db44235604d80ae3cb09b",
+      "bytes": 5533
+    },
+    "app/test/business_accounting_open_items_lifecycle_test.dart": {
+      "sha256": "a9cdb196f2a808a7be5300704378e1b374bfc41e64e13f846c86298e5c22a17d",
+      "bytes": 16893
+    },
+    "app/test/business_accounting_open_items_http_widget_test.dart": {
+      "sha256": "c039d7e13955cc25e3f74989812c26534f9d36528e92a52fbe32d1051479c2e5",
+      "bytes": 28429
+    }
+  },
+  "fixtures": {
+    "docs/fixtures/accounting_open_items_v1.json": {
+      "sha256": "121d22f4fbbc42521965ac6806d7d63049f29ca85365f98ad688d3beb48b5bce",
+      "bytes": 281418
+    },
+    "docs/fixtures/accounting_open_items_ui_v1.json": {
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "bytes": 323598
+    },
+    "app/test/fixtures/accounting_open_items_ui_v1.json": {
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "bytes": 323598
+    }
+  },
+  "evidence": {
+    "analysis.txt": {
+      "sha256": "e25a9831ade941ebbd11b817718a6d259a5f54becf3892c35252fa854d0f6573",
+      "bytes": 143
+    },
+    "acceptance.txt": {
+      "sha256": "0b2df8ec17fa375b1c114ab7c8f724a0c6e67dc74e8caf69a16c3cd21e5fb1c2",
+      "bytes": 9897
+    },
+    "integration.patch": {
+      "sha256": "0b74138b4dab3836e1353f07dc441f8ca58c2acd0cb036d2c968fee54dbd3d7f",
+      "bytes": 15445
+    }
+  },
+  "documentation": {
+    "docs/CRM_ERP_ALTPOSTEN_NATIVE_REVIEWNACHTRAG_2026-11-04.md": {
+      "sha256": "f10d658951ab05b1d401667d7d1cde5259201faf6c8145e62927603d8d4309de",
+      "bytes": 3196
+    }
+  },
+  "checks": {
+    "own_new": 23,
+    "targeted_existing_euer_and_assets": 19,
+    "combined_passed": 42,
+    "analyzer_issues": 0,
+    "earlier_broad_regression_preserved": 106
+  },
+  "fixes": [
+    "Complete original money-account snapshot and item identity binding.",
+    "Exact immutable payment/item history lookup and original prior-input-VAT equality in native source view and EÜR source catalog.",
+    "Context guards between added read-only history lookups."
+  ],
+  "integration": {
+    "baseline": "../opening-items-native-2026-11-04/baseline.json",
+    "patch": "integration.patch",
+    "note": "Use this updated narrow patch, preserve newer integrated Session hooks. No backend or schema changes."
+  },
+  "independent_review": "../opening-items-native-independent-2026-11-04/ (reviewer owns final manifest and run)"
+}

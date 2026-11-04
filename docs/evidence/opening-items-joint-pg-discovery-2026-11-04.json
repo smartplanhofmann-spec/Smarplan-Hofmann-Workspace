@@ -1,0 +1,9 @@
+{
+  "path": "backend/online/test_open_items_events_catalog_restore_pg.py",
+  "before_sha256": "ccfc5947c534e27627654904aed686428923663c729f283836b9849a75e96ed0",
+  "after_sha256": "0cc5f8349fca1e224d698c7f62ea60e890a7048563bdbf6cc3e7adc034a0ec85",
+  "first_executions": 9,
+  "unique_cases": 6,
+  "first_all_passed": true,
+  "reason": "Import helper module rather than TestCase class to avoid automatically collecting the same three imported tests twice. No product source change; this online-only test is not used by backend discovery or Flutter. Final joint case reruns in financial PG matrix."
+}

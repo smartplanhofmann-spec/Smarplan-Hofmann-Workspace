@@ -1,0 +1,114 @@
+{
+  "date": "2026-11-04",
+  "scope": "native historical opening items v1; isolated implementation, not whole-product completion",
+  "status": "own acceptance complete; frozen for independent review and Root integration",
+  "runtime": {
+    "app/lib/business_accounting_open_items.dart": {
+      "sha256": "7200db4e7ebed40eb6ec93f766c8dae61250aa39750d1019838e6c4f3a2cf3ad",
+      "bytes": 47412
+    },
+    "app/lib/business_accounting_open_items_contract.dart": {
+      "sha256": "3585faf0e19323b3119e61ffb4d5d4a1559d4ebc77209aa9679a1c84671008ed",
+      "bytes": 30430
+    },
+    "app/lib/business_accounting.dart": {
+      "sha256": "28e4e555fe6491b523872f6f19c5c0eb64db349bee8e3a3e5463cd226d8cee46",
+      "bytes": 38513
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "d182c258e9eb8da16d7ecc08c090759f00000b48690294416dc928b14f0af90c",
+      "bytes": 84502
+    },
+    "app/lib/business_session.dart": {
+      "sha256": "264b9b773d25333a2034dc7509955e311bc9a72d27ce0a6505e35bf44f846429",
+      "bytes": 98549
+    }
+  },
+  "tests": {
+    "app/test/business_accounting_open_items_contract_test.dart": {
+      "sha256": "003484cfffd0629c9e20dc183d8e94d455315a83bf252eef01adc02f0a2f8a9e",
+      "bytes": 5516
+    },
+    "app/test/business_accounting_open_items_lifecycle_test.dart": {
+      "sha256": "a9cdb196f2a808a7be5300704378e1b374bfc41e64e13f846c86298e5c22a17d",
+      "bytes": 16893
+    },
+    "app/test/business_accounting_open_items_http_widget_test.dart": {
+      "sha256": "23768107de0557f1d59fd125576abf430cf144c5766919d3907e32d3d7a5f7aa",
+      "bytes": 26937
+    }
+  },
+  "fixtures": {
+    "docs/fixtures/accounting_open_items_v1.json": {
+      "sha256": "121d22f4fbbc42521965ac6806d7d63049f29ca85365f98ad688d3beb48b5bce",
+      "bytes": 281418
+    },
+    "docs/fixtures/accounting_open_items_ui_v1.json": {
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "bytes": 323598
+    },
+    "app/test/fixtures/accounting_open_items_ui_v1.json": {
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "bytes": 323598
+    }
+  },
+  "unchanged_dependency_files": {
+    "app/lib/business_widgets.dart": {
+      "sha256": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+      "bytes": 27927
+    },
+    "app/lib/business_accounting_openings.dart": {
+      "sha256": "2ec19d04d768ca2adff3af7b6169bf8038bbfb77a384c34305268a3a2e6cd5b8",
+      "bytes": 31452
+    },
+    "app/lib/business_accounting_historical_assets.dart": {
+      "sha256": "6fd8a3fe3992dd3b397eebde924f4e2016b3e396ad85c63d903a9b718535aaee",
+      "bytes": 36219
+    }
+  },
+  "documentation": {
+    "docs/CRM_ERP_ALTPOSTEN_NATIVE_2026-11-04.md": {
+      "sha256": "0c9382d21dddb1af1f09b5bcd9d275635df97d96d5012fd6f00b876e7926e998",
+      "bytes": 6562
+    }
+  },
+  "evidence": {
+    "analysis.txt": {
+      "sha256": "a38f11acbe9e83aa14e161fc83f727a0127e57f324aaaa6c621ae5b1c064263d",
+      "bytes": 349
+    },
+    "regression.txt": {
+      "sha256": "2582b8494c86281cb4b5cfd82a3b8bbcbbfa773deae84053c33d63f6cbd7d6e5",
+      "bytes": 25722
+    },
+    "acceptance.txt": {
+      "sha256": "318660f208a84d3441ec9f98bff98608bf4af7c92f33812e89868f82896fead5",
+      "bytes": 5378
+    },
+    "integration.patch": {
+      "sha256": "a428dba01f315a8f71587766a03b05ac0a628166dad776288bd5dc6d91927cf1",
+      "bytes": 15301
+    },
+    "prior-row-review.txt": {
+      "sha256": "0ece689c77ed362c704e45b56c1d60a16908d5005338a3df657b744b540d0255",
+      "bytes": 250
+    }
+  },
+  "checks": {
+    "new_contract": 12,
+    "new_lifecycle_session_and_form": 10,
+    "new_actual_http_widget_390px": 1,
+    "existing_regression": 106,
+    "analyzer_issues": 0
+  },
+  "integration": {
+    "existing_file_baseline": "baseline.json",
+    "patch": "integration.patch",
+    "note": "Apply only the narrow three-file patch over current integrated sources. Preserve newer Company-Events session hooks; add two new runtime files, three new tests, exact UI fixture and evidence."
+  },
+  "limits": [
+    "No backend changes, production contacts, commits or main-tree edits.",
+    "Existing bank matching is reused; new native acceptance proves entry/navigation and exact liquidity movement. Actual full new-source bank matching is covered by the backend/browser owner.",
+    "Independent reviewer and Root integration remain separate acceptance steps."
+  ]
+}

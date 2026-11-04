@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-04",
+  "scope": "independent native opening-items review",
+  "product_edits_by_reviewer": false,
+  "commits_by_reviewer": false,
+  "open_confirmed_findings": 0,
+  "checks": {
+    "independent_passed": 25,
+    "combined_independent_and_owner_passed": 48,
+    "combined_contains_actual_http_390px": true,
+    "analyzer_issues": 0
+  },
+  "owner_handoff": {
+    "path": "docs/evidence/opening-items-native-review-fix-2026-11-04/manifest.json",
+    "sha256": "5246bc7b4d10194fcfeec5484a54bf131afb1639a5cf64b217fb94ab162d6c69"
+  },
+  "runtime": {
+    "app/lib/business_accounting_open_items.dart": {
+      "sha256": "5891345f736e6bf81ae7f3f87d03c785e31e24611a0f6a6c8415950d934e050a",
+      "bytes": 47527
+    },
+    "app/lib/business_accounting_open_items_contract.dart": {
+      "sha256": "f07acfd9db354f5f7eabcce222b5d1a5b993209420b07c7c75ba83f28c6a9b9d",
+      "bytes": 33097
+    },
+    "app/lib/business_accounting.dart": {
+      "sha256": "28e4e555fe6491b523872f6f19c5c0eb64db349bee8e3a3e5463cd226d8cee46",
+      "bytes": 38513
+    },
+    "app/lib/business_accounting_euer.dart": {
+      "sha256": "1c5196a653a8ae5f7e64a716de2bf081fa2f5857ab7fcb5bab172bfa590f8457",
+      "bytes": 84642
+    },
+    "app/lib/business_session.dart": {
+      "sha256": "264b9b773d25333a2034dc7509955e311bc9a72d27ce0a6505e35bf44f846429",
+      "bytes": 98549
+    }
+  },
+  "owner_tests": {
+    "app/test/business_accounting_open_items_contract_test.dart": {
+      "sha256": "264cd92354f403afdc478f819482bd43761712780b7db44235604d80ae3cb09b",
+      "bytes": 5533
+    },
+    "app/test/business_accounting_open_items_lifecycle_test.dart": {
+      "sha256": "a9cdb196f2a808a7be5300704378e1b374bfc41e64e13f846c86298e5c22a17d",
+      "bytes": 16893
+    },
+    "app/test/business_accounting_open_items_http_widget_test.dart": {
+      "sha256": "c039d7e13955cc25e3f74989812c26534f9d36528e92a52fbe32d1051479c2e5",
+      "bytes": 28429
+    }
+  },
+  "fixtures": {
+    "docs/fixtures/accounting_open_items_v1.json": {
+      "sha256": "121d22f4fbbc42521965ac6806d7d63049f29ca85365f98ad688d3beb48b5bce",
+      "bytes": 281418
+    },
+    "docs/fixtures/accounting_open_items_ui_v1.json": {
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "bytes": 323598
+    },
+    "app/test/fixtures/accounting_open_items_ui_v1.json": {
+      "sha256": "24fac53baf96261bdfa42c837c1a498e2e2f87436438438e4113046fea98a708",
+      "bytes": 323598
+    }
+  },
+  "files": {
+    "app/test/business_accounting_open_items_independent_review_test.dart": {
+      "sha256": "5faceec8e3d8047f91b0473c0939ae9e6210ab7b8e5cc7dc7fb65a09fb5b43f2",
+      "bytes": 18231
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/README.md": {
+      "sha256": "9d3adf4c815ab3132542e5697802a4a5e7d72286a7267d30ace1ecacb259f682",
+      "bytes": 5982
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/analysis.txt": {
+      "sha256": "1d3354c3ee9116dfc54a7b3bda798cbd845d97c1cef15db4896a803a44999049",
+      "bytes": 109
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/before-business_accounting_open_items.dart.txt": {
+      "sha256": "7200db4e7ebed40eb6ec93f766c8dae61250aa39750d1019838e6c4f3a2cf3ad",
+      "bytes": 47412
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/before-business_accounting_open_items_contract.dart.txt": {
+      "sha256": "3585faf0e19323b3119e61ffb4d5d4a1559d4ebc77209aa9679a1c84671008ed",
+      "bytes": 30430
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/before-business_accounting_open_items_independent_review_test.dart.txt": {
+      "sha256": "3ff2c3ae5ec5782c57f5b52394cd15990b5c43e1ccd9f064dfb9e86d6e8b42b0",
+      "bytes": 7286
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/before-manifest.json": {
+      "sha256": "5aa04c80bc9605b34ad57e97e142485da963d4639f65efeea005d2743054504f",
+      "bytes": 1466
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/before-source-binding.txt": {
+      "sha256": "572c055be8b6d987a37bbaf70fa712f0c0783bb12187682923c8c8ea7abcb2c9",
+      "bytes": 7919
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/combined-final.txt": {
+      "sha256": "5c7d4436768f2a4e535b9c2b2d22b46b0fc87c19d0eecb8dd2fced744963e7f9",
+      "bytes": 10120
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/confirmed-owner-fix.patch": {
+      "sha256": "e06dd4a1eeb57b16debd65f5ef285a2265286c7827490f30adb167468fbe46b4",
+      "bytes": 4411
+    },
+    "docs/evidence/opening-items-native-independent-2026-11-04/own-final.txt": {
+      "sha256": "3419a454e593de767f0495599b5539e9bbbb2190dc4d6f9c747a1a7a782f8dc8",
+      "bytes": 3242
+    }
+  }
+}

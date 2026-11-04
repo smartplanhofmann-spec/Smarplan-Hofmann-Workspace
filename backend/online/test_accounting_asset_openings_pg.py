@@ -107,13 +107,13 @@ class HistoricalAssetPostgres(unittest.TestCase):
                     with self.assertRaises(Problem) as blocked:call(*args)
                     self.assertEqual(blocked.exception.status,409)
                 evidence=evidence_for(restored,restored_report)
-                self.assertEqual(evidence['schema'],14);self.assertEqual(evidence['accounting_horizon']['historical_assets'],scope)
+                self.assertEqual(evidence['schema'],15);self.assertEqual(evidence['accounting_horizon']['historical_assets'],scope)
                 with self.assertRaises(Problem) as denied:approve(restored,evidence)
                 self.assertEqual(denied.exception.status,403)
             finally:restored.db.close()
             operator=PostgresOffice(target)
             try:
-                old=deepcopy(evidence);old['schema']=13;old['accounting_horizon'].pop('historical_assets');old['accounting_horizon']['schema_version']=12
+                old=deepcopy(evidence);old['schema']=13;old['accounting_horizon'].pop('opening_items');old['accounting_horizon'].pop('historical_assets');old['accounting_horizon']['schema_version']=12
                 business_schema._validate_financial_accounting_horizon(old['accounting_horizon'],13)
                 bad=deepcopy(evidence);bad['accounting_horizon']['historical_assets']['sha256']='0'*64
                 before=release.snapshot_fingerprint(target)

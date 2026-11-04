@@ -1,0 +1,421 @@
+﻿2026-11-04T22:36:16.3440200Z Current runner version: '2.338.2'
+2026-11-04T22:36:16.3469840Z ##[group]Runner Image Provisioner
+2026-11-04T22:36:16.3470810Z Hosted Compute Agent
+2026-11-04T22:36:16.3471470Z Version: 20260819.586
+2026-11-04T22:36:16.3472170Z Commit: 3cc4a88dfa507ef76119ad1bb3eccc6378bb2b76
+2026-11-04T22:36:16.3473010Z Build Date: 2026-08-18T23:20:18Z
+2026-11-04T22:36:16.3473770Z Worker ID: {064dcb58-6cf6-43e9-b000-e71f5c8c8e70}
+2026-11-04T22:36:16.3475250Z Azure Region: westus
+2026-11-04T22:36:16.3475900Z ##[endgroup]
+2026-11-04T22:36:16.3477830Z ##[group]Operating System
+2026-11-04T22:36:16.3478520Z macOS
+2026-11-04T22:36:16.3479060Z 26.6.1
+2026-11-04T22:36:16.3479600Z 25G76
+2026-11-04T22:36:16.3480150Z ##[endgroup]
+2026-11-04T22:36:16.3480740Z ##[group]Runner Image
+2026-11-04T22:36:16.3481380Z Image: macos-26
+2026-11-04T22:36:16.3481980Z Version: 20260824.0517.1
+2026-11-04T22:36:16.3483770Z Included Software: https://github.com/actions/runner-images/blob/macos-26/20260824.0517/images/macos/macos-26-Readme.md
+2026-11-04T22:36:16.3485820Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26%2F20260824.0517
+2026-11-04T22:36:16.3487070Z ##[endgroup]
+2026-11-04T22:36:16.3488420Z ##[group]GITHUB_TOKEN Permissions
+2026-11-04T22:36:16.3491300Z Contents: read
+2026-11-04T22:36:16.3492190Z Metadata: read
+2026-11-04T22:36:16.3492810Z ##[endgroup]
+2026-11-04T22:36:16.3495220Z Secret source: Actions
+2026-11-04T22:36:16.3496310Z Cache mode: write
+2026-11-04T22:36:16.3497590Z Prepare workflow directory
+2026-11-04T22:36:16.4053030Z Prepare all required actions
+2026-11-04T22:36:16.4128670Z Getting action download info
+2026-11-04T22:36:16.6099280Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-04T22:36:17.0635170Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-04T22:36:17.2732150Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-04T22:36:17.6652850Z Download action repository 'subosito/flutter-action@v2' (SHA:1a449444c387b1966244ae4d4f8c696479add0b2)
+2026-11-04T22:36:18.5001010Z Getting action download info
+2026-11-04T22:36:18.5750430Z Download action repository 'actions/cache@v5' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+2026-11-04T22:36:18.8133140Z Complete job name: native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...
+2026-11-04T22:36:18.9529780Z ##[group]Run actions/checkout@v4
+2026-11-04T22:36:18.9531400Z with:
+2026-11-04T22:36:18.9532450Z   repository: smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T22:36:18.9539770Z   token: ***
+2026-11-04T22:36:18.9540530Z   ssh-strict: true
+2026-11-04T22:36:18.9541340Z   ssh-user: git
+2026-11-04T22:36:18.9542150Z   persist-credentials: true
+2026-11-04T22:36:18.9543040Z   clean: true
+2026-11-04T22:36:18.9543860Z   sparse-checkout-cone-mode: true
+2026-11-04T22:36:18.9544840Z   fetch-depth: 1
+2026-11-04T22:36:18.9545630Z   fetch-tags: false
+2026-11-04T22:36:18.9546500Z   show-progress: true
+2026-11-04T22:36:18.9547330Z   lfs: false
+2026-11-04T22:36:18.9548090Z   submodules: false
+2026-11-04T22:36:18.9548890Z   set-safe-directory: true
+2026-11-04T22:36:18.9549840Z   allow-unsafe-pr-checkout: false
+2026-11-04T22:36:18.9551370Z ##[endgroup]
+2026-11-04T22:36:19.4376030Z Syncing repository: smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T22:36:19.4381380Z ##[group]Getting Git version info
+2026-11-04T22:36:19.4384000Z Working directory is '/Users/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace'
+2026-11-04T22:36:19.4387220Z [command]/usr/local/bin/git version
+2026-11-04T22:36:19.4725340Z git version 2.55.0
+2026-11-04T22:36:19.4757020Z ##[endgroup]
+2026-11-04T22:36:19.4777290Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/b4a8fe9f-bf8d-4870-a0d7-b3ea0cdfe473/.gitconfig'
+2026-11-04T22:36:19.4798170Z Temporarily overriding HOME='/Users/runner/work/_temp/b4a8fe9f-bf8d-4870-a0d7-b3ea0cdfe473' before making global git config changes
+2026-11-04T22:36:19.4802750Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T22:36:19.4807010Z [command]/usr/local/bin/git config --global --add safe.directory /Users/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-04T22:36:19.4975920Z Deleting the contents of '/Users/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace'
+2026-11-04T22:36:19.4981330Z ##[group]Initializing the repository
+2026-11-04T22:36:19.4989740Z [command]/usr/local/bin/git init /Users/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-04T22:36:19.5401000Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-04T22:36:19.5403860Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-04T22:36:19.5406060Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-04T22:36:19.5407650Z hint: call:
+2026-11-04T22:36:19.5408530Z hint:
+2026-11-04T22:36:19.5409530Z hint: 	git config --global init.defaultBranch <name>
+2026-11-04T22:36:19.5410860Z hint:
+2026-11-04T22:36:19.5412090Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-04T22:36:19.5414050Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-04T22:36:19.5415510Z hint:
+2026-11-04T22:36:19.5416310Z hint: 	git branch -m <name>
+2026-11-04T22:36:19.5417290Z hint:
+2026-11-04T22:36:19.5418480Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-04T22:36:19.5420880Z Initialized empty Git repository in /Users/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/.git/
+2026-11-04T22:36:19.5424980Z [command]/usr/local/bin/git remote add origin https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T22:36:19.5557870Z ##[endgroup]
+2026-11-04T22:36:19.5559440Z ##[group]Disabling automatic garbage collection
+2026-11-04T22:36:19.5562490Z [command]/usr/local/bin/git config --local gc.auto 0
+2026-11-04T22:36:19.5679100Z ##[endgroup]
+2026-11-04T22:36:19.5680560Z ##[group]Setting up auth
+2026-11-04T22:36:19.5688330Z [command]/usr/local/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T22:36:19.5816230Z [command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T22:36:19.7546650Z [command]/usr/local/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T22:36:19.7665950Z [command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T22:36:20.0139470Z [command]/usr/local/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T22:36:20.0182550Z [command]/usr/local/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T22:36:20.1992650Z [command]/usr/local/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-04T22:36:20.2002170Z ##[endgroup]
+2026-11-04T22:36:20.2005680Z ##[group]Fetching the repository
+2026-11-04T22:36:20.2011830Z [command]/usr/local/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +112bc9128c405d04b1c021b52bb75ea7499a5a9b:refs/remotes/origin/codex/testupdate-0.7-projects-20261104
+2026-11-04T22:36:22.7876680Z From https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T22:36:22.7882280Z  * [new ref]         112bc9128c405d04b1c021b52bb75ea7499a5a9b -> origin/codex/testupdate-0.7-projects-20261104
+2026-11-04T22:36:22.7888070Z ##[endgroup]
+2026-11-04T22:36:22.7889700Z ##[group]Determining the checkout info
+2026-11-04T22:36:22.7890880Z ##[endgroup]
+2026-11-04T22:36:22.7892550Z [command]/usr/local/bin/git sparse-checkout disable
+2026-11-04T22:36:22.8034660Z [command]/usr/local/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-04T22:36:22.8165760Z ##[group]Checking out the ref
+2026-11-04T22:36:22.8179510Z [command]/usr/local/bin/git checkout --progress --force -B codex/testupdate-0.7-projects-20261104 refs/remotes/origin/codex/testupdate-0.7-projects-20261104
+2026-11-04T22:36:23.9144080Z Updating files:  59% (2099/3509)
+2026-11-04T22:36:24.0148270Z Updating files:  60% (2106/3509)
+2026-11-04T22:36:24.0272190Z Updating files:  61% (2141/3509)
+2026-11-04T22:36:24.0310790Z Updating files:  62% (2176/3509)
+2026-11-04T22:36:24.0322430Z Updating files:  63% (2211/3509)
+2026-11-04T22:36:24.0538550Z Updating files:  64% (2246/3509)
+2026-11-04T22:36:24.0701090Z Updating files:  65% (2281/3509)
+2026-11-04T22:36:24.0847810Z Updating files:  66% (2316/3509)
+2026-11-04T22:36:24.1036500Z Updating files:  67% (2352/3509)
+2026-11-04T22:36:24.1381770Z Updating files:  68% (2387/3509)
+2026-11-04T22:36:24.2478530Z Updating files:  69% (2422/3509)
+2026-11-04T22:36:24.2567740Z Updating files:  70% (2457/3509)
+2026-11-04T22:36:24.2611640Z Updating files:  71% (2492/3509)
+2026-11-04T22:36:24.2624770Z Updating files:  72% (2527/3509)
+2026-11-04T22:36:24.2649560Z Updating files:  73% (2562/3509)
+2026-11-04T22:36:24.2656160Z Updating files:  74% (2597/3509)
+2026-11-04T22:36:24.3095880Z Updating files:  75% (2632/3509)
+2026-11-04T22:36:24.3223200Z Updating files:  76% (2667/3509)
+2026-11-04T22:36:24.3364410Z Updating files:  77% (2702/3509)
+2026-11-04T22:36:24.3528070Z Updating files:  78% (2738/3509)
+2026-11-04T22:36:24.3682910Z Updating files:  79% (2773/3509)
+2026-11-04T22:36:24.3833200Z Updating files:  80% (2808/3509)
+2026-11-04T22:36:24.3943080Z Updating files:  81% (2843/3509)
+2026-11-04T22:36:24.4202680Z Updating files:  82% (2878/3509)
+2026-11-04T22:36:24.4608380Z Updating files:  83% (2913/3509)
+2026-11-04T22:36:24.4899330Z Updating files:  84% (2948/3509)
+2026-11-04T22:36:24.5051010Z Updating files:  85% (2983/3509)
+2026-11-04T22:36:24.5892750Z Updating files:  86% (3018/3509)
+2026-11-04T22:36:24.6069580Z Updating files:  87% (3053/3509)
+2026-11-04T22:36:26.5103270Z Updating files:  88% (3088/3509)
+2026-11-04T22:36:26.6107360Z Updating files:  88% (3102/3509)
+2026-11-04T22:36:26.8237460Z Updating files:  89% (3124/3509)
+2026-11-04T22:36:26.9275930Z Updating files:  90% (3159/3509)
+2026-11-04T22:36:26.9426140Z Updating files:  90% (3169/3509)
+2026-11-04T22:36:26.9560340Z Updating files:  91% (3194/3509)
+2026-11-04T22:36:26.9786700Z Updating files:  92% (3229/3509)
+2026-11-04T22:36:26.9968310Z Updating files:  93% (3264/3509)
+2026-11-04T22:36:27.0168480Z Updating files:  94% (3299/3509)
+2026-11-04T22:36:27.0436310Z Updating files:  95% (3334/3509)
+2026-11-04T22:36:27.0600220Z Updating files:  96% (3369/3509)
+2026-11-04T22:36:27.0820040Z Updating files:  97% (3404/3509)
+2026-11-04T22:36:27.1000830Z Updating files:  98% (3439/3509)
+2026-11-04T22:36:27.1200150Z Updating files:  99% (3474/3509)
+2026-11-04T22:36:27.1202060Z Updating files: 100% (3509/3509)
+2026-11-04T22:36:27.1214620Z Updating files: 100% (3509/3509), done.
+2026-11-04T22:36:27.1407720Z Switched to a new branch 'codex/testupdate-0.7-projects-20261104'
+2026-11-04T22:36:27.1433940Z branch 'codex/testupdate-0.7-projects-20261104' set up to track 'origin/codex/testupdate-0.7-projects-20261104'.
+2026-11-04T22:36:27.1515320Z ##[endgroup]
+2026-11-04T22:36:27.1710460Z [command]/usr/local/bin/git log -1 --format=%H
+2026-11-04T22:36:27.1875220Z 112bc9128c405d04b1c021b52bb75ea7499a5a9b
+2026-11-04T22:36:27.2354820Z ##[group]Run actions/setup-python@v5
+2026-11-04T22:36:27.2355410Z with:
+2026-11-04T22:36:27.2355760Z   python-version: 3.12
+2026-11-04T22:36:27.2356190Z   check-latest: false
+2026-11-04T22:36:27.2361590Z   token: ***
+2026-11-04T22:36:27.2362240Z   update-environment: true
+2026-11-04T22:36:27.2362710Z   allow-prereleases: false
+2026-11-04T22:36:27.2363130Z   freethreaded: false
+2026-11-04T22:36:27.2363650Z ##[endgroup]
+2026-11-04T22:36:27.5759700Z (node:7544) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T22:36:27.5761570Z ##[group]Installed versions
+2026-11-04T22:36:27.6139550Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T22:36:27.6976510Z Successfully set up CPython (3.12.10)
+2026-11-04T22:36:27.6980810Z ##[endgroup]
+2026-11-04T22:36:27.7135460Z ##[group]Run python ../scripts/native-release.py source
+2026-11-04T22:36:27.7136520Z [36;1mpython ../scripts/native-release.py source[0m
+2026-11-04T22:36:27.7138590Z [36;1mpython -m unittest discover -s ../scripts -p test_flutter_failure_reporter.py -v[0m
+2026-11-04T22:36:27.7258200Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-04T22:36:27.7258920Z env:
+2026-11-04T22:36:27.7259750Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:27.7260840Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/x64/lib/pkgconfig
+2026-11-04T22:36:27.7262040Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:27.7263030Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:27.7263970Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:27.7264900Z ##[endgroup]
+2026-11-04T22:36:28.2130310Z {"version": "0.13.0", "visible_app_version": "0.13.0", "default_build_number": "130", "supported_devices": ["iPhone", "iPad", "Windows x64"]}
+2026-11-04T22:36:28.7196800Z test_encoded_annotation_is_bounded_and_cannot_inject_workflow_commands (test_flutter_failure_reporter.FlutterFailureReporterTests.test_encoded_annotation_is_bounded_and_cannot_inject_workflow_commands) ... ok
+2026-11-04T22:36:28.7350910Z test_flutter_widget_print_exception_precedes_generic_error_for_the_same_test (test_flutter_failure_reporter.FlutterFailureReporterTests.test_flutter_widget_print_exception_precedes_generic_error_for_the_same_test) ... ok
+2026-11-04T22:36:28.7408710Z test_interleaved_tests_map_actual_failure_and_never_include_unrelated_progress (test_flutter_failure_reporter.FlutterFailureReporterTests.test_interleaved_tests_map_actual_failure_and_never_include_unrelated_progress) ... ok
+2026-11-04T22:36:28.7442180Z test_malformed_and_oversized_lines_do_not_hide_a_later_real_failure (test_flutter_failure_reporter.FlutterFailureReporterTests.test_malformed_and_oversized_lines_do_not_hide_a_later_real_failure) ... ok
+2026-11-04T22:36:28.7481210Z test_maximum_ten_distinct_failures_and_duplicate_error_done_is_one_annotation (test_flutter_failure_reporter.FlutterFailureReporterTests.test_maximum_ten_distinct_failures_and_duplicate_error_done_is_one_annotation) ... ok
+2026-11-04T22:36:28.9335910Z test_missing_report_uses_only_a_bounded_log_tail_and_creates_summary (test_flutter_failure_reporter.FlutterFailureReporterTests.test_missing_report_uses_only_a_bounded_log_tail_and_creates_summary) ... ok
+2026-11-04T22:36:29.1256270Z test_print_context_remains_bounded_and_follows_a_specific_error (test_flutter_failure_reporter.FlutterFailureReporterTests.test_print_context_remains_bounded_and_follows_a_specific_error) ... ok
+2026-11-04T22:36:29.1286020Z test_successful_machine_report_never_reads_fallback_or_emits_failure (test_flutter_failure_reporter.FlutterFailureReporterTests.test_successful_machine_report_never_reads_fallback_or_emits_failure) ... ok
+2026-11-04T22:36:29.1317330Z test_test_done_failure_without_error_and_error_before_start_keep_test_names (test_flutter_failure_reporter.FlutterFailureReporterTests.test_test_done_failure_without_error_and_error_before_start_keep_test_names) ... ok
+2026-11-04T22:36:29.1346870Z 
+2026-11-04T22:36:29.1362490Z ----------------------------------------------------------------------
+2026-11-04T22:36:29.1382220Z Ran 9 tests in 0.474s
+2026-11-04T22:36:29.1403090Z 
+2026-11-04T22:36:29.1423880Z OK
+2026-11-04T22:36:29.1991370Z ##[group]Run subosito/flutter-action@v2
+2026-11-04T22:36:29.1991980Z with:
+2026-11-04T22:36:29.1992600Z   flutter-version: 3.47.7
+2026-11-04T22:36:29.1993570Z   channel: stable
+2026-11-04T22:36:29.1993990Z   architecture: X64
+2026-11-04T22:36:29.1994400Z   cache: false
+2026-11-04T22:36:29.1994790Z   pub-cache-path: default
+2026-11-04T22:36:29.1995260Z   dry-run: false
+2026-11-04T22:36:29.1995810Z   git-source: https://github.com/flutter/flutter.git
+2026-11-04T22:36:29.1996450Z env:
+2026-11-04T22:36:29.1997050Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.1998230Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/x64/lib/pkgconfig
+2026-11-04T22:36:29.1999270Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2000150Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2001040Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2001800Z ##[endgroup]
+2026-11-04T22:36:29.2113780Z ##[start-action display=Make yq tool available on Windows runners;id=__subosito_flutter-action.__run]
+2026-11-04T22:36:29.2132870Z ##[end-action id=__subosito_flutter-action.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-04T22:36:29.2137280Z ##[start-action display=Make setup script executable;id=__subosito_flutter-action.__run_2]
+2026-11-04T22:36:29.2191710Z ##[group]Run chmod +x "$GITHUB_ACTION_PATH/setup.sh"
+2026-11-04T22:36:29.2192420Z [36;1mchmod +x "$GITHUB_ACTION_PATH/setup.sh"[0m
+2026-11-04T22:36:29.2268750Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-04T22:36:29.2269360Z env:
+2026-11-04T22:36:29.2269910Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2270900Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/x64/lib/pkgconfig
+2026-11-04T22:36:29.2271890Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2272780Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2273660Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2274390Z ##[endgroup]
+2026-11-04T22:36:29.2618510Z ##[end-action id=__subosito_flutter-action.__run_2;outcome=success;conclusion=success;duration_ms=47]
+2026-11-04T22:36:29.2623900Z ##[start-action display=Set action inputs;id=__subosito_flutter-action.flutter-action]
+2026-11-04T22:36:29.2713790Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh -p \
+2026-11-04T22:36:29.2714530Z [36;1m$GITHUB_ACTION_PATH/setup.sh -p \[0m
+2026-11-04T22:36:29.2715150Z [36;1m  -n '3.47.7' \[0m
+2026-11-04T22:36:29.2715590Z [36;1m  -f '' \[0m
+2026-11-04T22:36:29.2715970Z [36;1m  -a 'X64' \[0m
+2026-11-04T22:36:29.2716350Z [36;1m  -k '' \[0m
+2026-11-04T22:36:29.2716720Z [36;1m  -c '' \[0m
+2026-11-04T22:36:29.2717070Z [36;1m  -l '' \[0m
+2026-11-04T22:36:29.2717440Z [36;1m  -d 'default' \[0m
+2026-11-04T22:36:29.2718000Z [36;1m  -g 'https://github.com/flutter/flutter.git' \[0m
+2026-11-04T22:36:29.2718640Z [36;1m  stable[0m
+2026-11-04T22:36:29.2789580Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-04T22:36:29.2790320Z env:
+2026-11-04T22:36:29.2790880Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2791910Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/x64/lib/pkgconfig
+2026-11-04T22:36:29.2792930Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2793860Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2794840Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:29.2795580Z ##[endgroup]
+2026-11-04T22:36:31.0216250Z ##[end-action id=__subosito_flutter-action.flutter-action;outcome=success;conclusion=success;duration_ms=1758]
+2026-11-04T22:36:31.0229550Z ##[start-action display=Cache Flutter;id=__subosito_flutter-action.cache-flutter]
+2026-11-04T22:36:31.0242160Z ##[end-action id=__subosito_flutter-action.cache-flutter;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-04T22:36:31.0247860Z ##[start-action display=Cache pub dependencies;id=__subosito_flutter-action.cache-pub]
+2026-11-04T22:36:31.0264890Z ##[end-action id=__subosito_flutter-action.cache-pub;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-04T22:36:31.0270330Z ##[start-action display=Run setup script;id=__subosito_flutter-action.__run_3]
+2026-11-04T22:36:31.0340490Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh \
+2026-11-04T22:36:31.0341180Z [36;1m$GITHUB_ACTION_PATH/setup.sh \[0m
+2026-11-04T22:36:31.0341750Z [36;1m  -n '3.47.7' \[0m
+2026-11-04T22:36:31.0342210Z [36;1m  -a 'x64' \[0m
+2026-11-04T22:36:31.0342860Z [36;1m  -c '/Users/runner/hostedtoolcache/flutter/stable-3.47.7-x64' \[0m
+2026-11-04T22:36:31.0343710Z [36;1m  -d '/Users/runner/.pub-cache' \[0m
+2026-11-04T22:36:31.0344280Z [36;1m  stable[0m
+2026-11-04T22:36:31.0415020Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-04T22:36:31.0415690Z env:
+2026-11-04T22:36:31.0416280Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:31.0417330Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/x64/lib/pkgconfig
+2026-11-04T22:36:31.0418390Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:31.0419310Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:31.0420240Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:36:31.0420980Z ##[endgroup]
+2026-11-04T22:36:32.6024020Z   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+2026-11-04T22:36:32.6027270Z                                  Dload  Upload  Total   Spent   Left   Speed
+2026-11-04T22:36:32.6030560Z 
+2026-11-04T22:36:33.6024120Z   0      0   0      0   0      0      0      0                              0
+2026-11-04T22:36:34.6032720Z   5  2.10G   5 116.8M   0      0 113.2M      0   00:19   00:01   00:18 116.9M
+2026-11-04T22:36:35.6033250Z   9  2.10G   9 206.2M   0      0 101.4M      0   00:21   00:02   00:19 103.1M
+2026-11-04T22:36:36.6788640Z  13  2.10G  13 300.9M   0      0 99.26M      0   00:21   00:03   00:18 100.3M
+2026-11-04T22:36:37.6357150Z  17  2.10G  17 374.4M   0      0 92.88M      0   00:23   00:04   00:19 93.64M
+2026-11-04T22:36:38.6157940Z  21  2.10G  21 458.0M   0      0 91.04M      0   00:23   00:05   00:18 91.63M
+2026-11-04T22:36:39.6124390Z  24  2.10G  24 532.0M   0      0 88.21M      0   00:24   00:06   00:18 83.04M
+2026-11-04T22:36:40.6132910Z  29  2.10G  29 644.1M   0      0 91.52M      0   00:23   00:07   00:16 87.48M
+2026-11-04T22:36:41.6120730Z  35  2.10G  35 773.0M   0      0 96.17M      0   00:22   00:08   00:14 94.31M
+2026-11-04T22:36:42.7086870Z  42  2.10G  42 923.9M   0      0 102.2M      0   00:21   00:09   00:12 109.7M
+2026-11-04T22:36:43.6117350Z  50  2.10G  50  1.05G   0      0 107.8M      0   00:20   00:10   00:10 124.7M
+2026-11-04T22:36:45.1064020Z  57  2.10G  57  1.21G   0      0 112.9M      0   00:19   00:11   00:08 142.6M
+2026-11-04T22:36:46.1292900Z  60  2.10G  60  1.28G   0      0 105.0M      0   00:20   00:12   00:08 122.3M
+2026-11-04T22:36:47.1064970Z  67  2.10G  67  1.42G   0      0 107.9M      0   00:19   00:13   00:06 125.0M
+2026-11-04T22:36:48.1969230Z  73  2.10G  73  1.55G   0      0 109.5M      0   00:19   00:14   00:05 121.6M
+2026-11-04T22:36:49.1828900Z  81  2.10G  81  1.71G   0      0 113.0M      0   00:19   00:15   00:04 122.6M
+2026-11-04T22:36:50.1794400Z  88  2.10G  88  1.86G   0      0 115.1M      0   00:18   00:16   00:02 119.6M
+2026-11-04T22:36:51.1959890Z  90  2.10G  90  1.89G   0      0 110.4M      0   00:19   00:17   00:02 123.7M
+2026-11-04T22:36:51.6595840Z  97  2.10G  97  2.04G   0      0 112.6M      0   00:19   00:18   00:01 125.3M
+2026-11-04T22:36:51.6668170Z 100  2.10G 100  2.10G   0      0 113.4M      0   00:19   00:19         125.3M
+2026-11-04T22:36:51.6785670Z 100  2.10G 100  2.10G   0      0 113.4M      0   00:19   00:19         125.3M
+2026-11-04T22:36:51.7129420Z 100  2.10G 100  2.10G   0      0 113.4M      0   00:19   00:19         125.3M
+2026-11-04T22:38:03.5904410Z ##[end-action id=__subosito_flutter-action.__run_3;outcome=success;conclusion=success;duration_ms=92516]
+2026-11-04T22:38:03.7750080Z ##[group]Run flutter pub get --enforce-lockfile
+2026-11-04T22:38:03.7751440Z [36;1mflutter pub get --enforce-lockfile[0m
+2026-11-04T22:38:03.7883730Z shell: /bin/bash -e {0}
+2026-11-04T22:38:03.7884280Z env:
+2026-11-04T22:38:03.7885520Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:38:03.7886780Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/x64/lib/pkgconfig
+2026-11-04T22:38:03.7888250Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:38:03.7889320Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:38:03.7890530Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:38:03.7892170Z   FLUTTER_ROOT: /Users/runner/hostedtoolcache/flutter/stable-3.47.7-x64/flutter
+2026-11-04T22:38:03.7893660Z   PUB_CACHE: /Users/runner/.pub-cache
+2026-11-04T22:38:03.7894460Z ##[endgroup]
+2026-11-04T22:38:04.7856670Z Flutter is deprecating support for Intel-based Macs. A future version of Flutter will require an Apple Silicon Mac to build applications.
+2026-11-04T22:38:13.6897240Z Resolving dependencies...
+2026-11-04T22:38:14.3709360Z Downloading packages...
+2026-11-04T22:38:23.5372080Z   archive 4.5.2 (4.6.0 available)
+2026-11-04T22:38:23.5473400Z   cross_file 0.3.5+5 (0.4.0 available)
+2026-11-04T22:38:23.5613190Z   crypto 3.0.7 (3.0.8 available)
+2026-11-04T22:38:23.5616260Z   cupertino_ui 1.1.4 (1.1.6 available)
+2026-11-04T22:38:23.5619660Z   file_selector_ios 0.5.3+6 (0.5.3+7 available)
+2026-11-04T22:38:23.5622260Z   file_selector_macos 0.9.5+1 (0.9.5+2 available)
+2026-11-04T22:38:23.5624590Z   image_picker_ios 0.8.13+13 (0.8.13+14 available)
+2026-11-04T22:38:23.5626330Z   jni 1.1.0 (1.1.2 available)
+2026-11-04T22:38:23.5628780Z   material_color_utilities 0.13.0 (0.13.1 available)
+2026-11-04T22:38:23.5631810Z   material_ui 1.8.0 (1.10.0 available)
+2026-11-04T22:38:23.5633910Z   objective_c 9.6.2 (9.6.3 available)
+2026-11-04T22:38:23.5636130Z   pdfium_dart 0.4.0 (0.4.1 available)
+2026-11-04T22:38:23.5637920Z   pdfium_flutter 0.4.0 (0.4.1 available)
+2026-11-04T22:38:23.5641520Z   pdfrx 2.10.1 (2.11.0 available)
+2026-11-04T22:38:23.5644260Z   pdfrx_engine 0.8.0 (0.9.0 available)
+2026-11-04T22:38:23.5647050Z   posix 6.5.2 (6.5.4 available)
+2026-11-04T22:38:23.5649050Z   qr 3.0.2 (4.0.1 available)
+2026-11-04T22:38:23.5650670Z   test_api 0.7.12 (0.7.15 available)
+2026-11-04T22:38:23.5653910Z   url_launcher 6.3.2 (6.3.3 available)
+2026-11-04T22:38:23.5658550Z   vector_math 2.4.3 (2.4.4 available)
+2026-11-04T22:38:23.5661460Z   vm_service 15.3.0 (15.4.0 available)
+2026-11-04T22:38:23.5664000Z   web 1.1.1 (1.1.2 available)
+2026-11-04T22:38:23.5667730Z Got dependencies!
+2026-11-04T22:38:23.5668870Z 22 packages have newer versions incompatible with dependency constraints.
+2026-11-04T22:38:23.5669830Z Try `flutter pub outdated` for more information.
+2026-11-04T22:38:24.8756150Z ##[group]Run set +e
+2026-11-04T22:38:24.8756770Z [36;1mset +e[0m
+2026-11-04T22:38:24.8758400Z [36;1mflutter build ios --simulator --debug --dart-define=API_URL=https://office.smartplan-hofmann.de --dart-define=API_VERSION=v1 2>&1 | tee "$RUNNER_TEMP/smartplan-ios-simulator-build.log"[0m
+2026-11-04T22:38:24.8761010Z [36;1mresult=${PIPESTATUS[0]}[0m
+2026-11-04T22:38:24.8761830Z [36;1mset -e[0m
+2026-11-04T22:38:24.8762510Z [36;1mif [ "$result" -ne 0 ]; then[0m
+2026-11-04T22:38:24.8763320Z [36;1m  {[0m
+2026-11-04T22:38:24.8764210Z [36;1m    echo '### iOS simulator native build failed'[0m
+2026-11-04T22:38:24.8765130Z [36;1m    echo '```text'[0m
+2026-11-04T22:38:24.8766150Z [36;1m    tail -n 120 "$RUNNER_TEMP/smartplan-ios-simulator-build.log"[0m
+2026-11-04T22:38:24.8767300Z [36;1m    echo '```'[0m
+2026-11-04T22:38:24.8768040Z [36;1m  } >> "$GITHUB_STEP_SUMMARY"[0m
+2026-11-04T22:38:24.8768830Z [36;1m  python - <<'PY'[0m
+2026-11-04T22:38:24.8769810Z [36;1mimport os[0m
+2026-11-04T22:38:24.8770580Z [36;1mfrom pathlib import Path[0m
+2026-11-04T22:38:24.8772800Z [36;1mlog = Path(os.environ['RUNNER_TEMP']) / 'smartplan-ios-simulator-build.log'[0m
+2026-11-04T22:38:24.8774570Z [36;1mdetail = '\n'.join(log.read_text(errors='replace').splitlines()[-120:])[-25000:][0m
+2026-11-04T22:38:24.8776230Z [36;1mdetail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')[0m
+2026-11-04T22:38:24.8777720Z [36;1mprint(f'::error title=iOS simulator native build::{detail}')[0m
+2026-11-04T22:38:24.8778860Z [36;1mPY[0m
+2026-11-04T22:38:24.8779460Z [36;1m  exit "$result"[0m
+2026-11-04T22:38:24.8780180Z [36;1mfi[0m
+2026-11-04T22:38:24.8875340Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-04T22:38:24.8876060Z env:
+2026-11-04T22:38:24.8876820Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:38:24.8878370Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/x64/lib/pkgconfig
+2026-11-04T22:38:24.8879930Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:38:24.8881350Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:38:24.8882670Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/x64
+2026-11-04T22:38:24.8883980Z   FLUTTER_ROOT: /Users/runner/hostedtoolcache/flutter/stable-3.47.7-x64/flutter
+2026-11-04T22:38:24.8884930Z   PUB_CACHE: /Users/runner/.pub-cache
+2026-11-04T22:38:24.8885530Z ##[endgroup]
+2026-11-04T22:38:25.6100510Z Resolving dependencies...
+2026-11-04T22:38:25.7327370Z Downloading packages...
+2026-11-04T22:38:25.8461190Z   archive 4.5.2 (4.6.0 available)
+2026-11-04T22:38:25.8499360Z   cross_file 0.3.5+5 (0.4.0 available)
+2026-11-04T22:38:25.8518750Z   crypto 3.0.7 (3.0.8 available)
+2026-11-04T22:38:25.8539080Z   cupertino_ui 1.1.4 (1.1.6 available)
+2026-11-04T22:38:25.8560210Z   file_selector_ios 0.5.3+6 (0.5.3+7 available)
+2026-11-04T22:38:25.8583790Z   file_selector_macos 0.9.5+1 (0.9.5+2 available)
+2026-11-04T22:38:25.8590100Z   image_picker_ios 0.8.13+13 (0.8.13+14 available)
+2026-11-04T22:38:25.8597050Z   jni 1.1.0 (1.1.2 available)
+2026-11-04T22:38:25.8618350Z   material_color_utilities 0.13.0 (0.13.1 available)
+2026-11-04T22:38:25.8716840Z   material_ui 1.8.0 (1.10.0 available)
+2026-11-04T22:38:25.8756780Z   objective_c 9.6.2 (9.6.3 available)
+2026-11-04T22:38:25.8833290Z   pdfium_dart 0.4.0 (0.4.1 available)
+2026-11-04T22:38:25.8891830Z   pdfium_flutter 0.4.0 (0.4.1 available)
+2026-11-04T22:38:25.8919810Z   pdfrx 2.10.1 (2.11.0 available)
+2026-11-04T22:38:25.8930660Z   pdfrx_engine 0.8.0 (0.9.0 available)
+2026-11-04T22:38:25.8977550Z   posix 6.5.2 (6.5.4 available)
+2026-11-04T22:38:25.9020380Z   qr 3.0.2 (4.0.1 available)
+2026-11-04T22:38:25.9021010Z   test_api 0.7.12 (0.7.15 available)
+2026-11-04T22:38:25.9021930Z   url_launcher 6.3.2 (6.3.3 available)
+2026-11-04T22:38:25.9023130Z   vector_math 2.4.3 (2.4.4 available)
+2026-11-04T22:38:25.9024110Z   vm_service 15.3.0 (15.4.0 available)
+2026-11-04T22:38:25.9026720Z   web 1.1.1 (1.1.2 available)
+2026-11-04T22:38:25.9027450Z Got dependencies!
+2026-11-04T22:38:25.9028260Z 22 packages have newer versions incompatible with dependency constraints.
+2026-11-04T22:38:25.9029550Z Try `flutter pub outdated` for more information.
+2026-11-04T22:39:56.1861050Z Building de.smartplanhofmann.office for simulator (ios)...
+2026-11-04T22:43:22.9636550Z Running Xcode build...                                          
+2026-11-04T22:43:22.9668420Z Xcode build done.                                           202.0s
+2026-11-04T22:43:28.9263470Z ✓ Built build/ios/iphonesimulator/Runner.app
+2026-11-04T22:43:29.0553370Z Post job cleanup.
+2026-11-04T22:43:29.0693990Z Post job cleanup.
+2026-11-04T22:43:29.5933260Z (node:17075) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T22:43:29.5934920Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T22:43:29.6192570Z Post job cleanup.
+2026-11-04T22:43:29.7898100Z [command]/usr/local/bin/git version
+2026-11-04T22:43:30.2170540Z git version 2.55.0
+2026-11-04T22:43:30.2263220Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/7fab6140-0943-4c75-a896-53fc7bf438ef/.gitconfig'
+2026-11-04T22:43:30.2291070Z Temporarily overriding HOME='/Users/runner/work/_temp/7fab6140-0943-4c75-a896-53fc7bf438ef' before making global git config changes
+2026-11-04T22:43:30.2294400Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T22:43:30.2306570Z [command]/usr/local/bin/git config --global --add safe.directory /Users/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-04T22:43:30.2651910Z [command]/usr/local/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T22:43:30.2950330Z [command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T22:43:30.4769420Z [command]/usr/local/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T22:43:30.4889770Z http.https://github.com/.extraheader
+2026-11-04T22:43:30.4906270Z [command]/usr/local/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-04T22:43:30.5049510Z [command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T22:43:30.7105210Z [command]/usr/local/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T22:43:30.7107560Z [command]/usr/local/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T22:43:31.2457480Z Cleaning up orphan processes
+2026-11-04T22:43:31.9050800Z Terminate orphan process: pid (15332) (ibtoold)
+2026-11-04T22:43:31.9445010Z Terminate orphan process: pid (15331) (ibtoold)
+2026-11-04T22:43:31.9783100Z Terminate orphan process: pid (15325) (ibtoold)
+2026-11-04T22:43:32.0131500Z Terminate orphan process: pid (15324) (ibtoold)
+2026-11-04T22:43:32.8664750Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

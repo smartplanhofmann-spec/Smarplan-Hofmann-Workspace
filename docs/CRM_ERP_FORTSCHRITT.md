@@ -2213,3 +2213,21 @@ macOS-Prüfjobs verwenden nun den offiziell verfügbaren macos-26-intel-Runner;
 der signierte Upload bleibt unverändert. Zwei indirekt eingebundene POSIX-
 HTTP-Fixtures sind ebenfalls markiert und mit beiden echten Abläufen positiv
 nachgeprüft. Die tatsächlichen Builds bleiben bis zum CI-Ergebnis offen.
+
+
+## 04.11.2026 – Tatsächlicher iOS-Simulatorbuild und erneuter Linux-Gesamtlauf erfolgreich
+
+Auf 112bc91 ist der echte iOS-Simulatorbuild auf macos-26-intel erfolgreich.
+Die Linux-App-Prüfung besteht erneut mit 1.621 Fällen und separatem echtem PDF-
+Engine-Test; Analyse ohne Befunde. Zwei vollständige geschützte PG16-Kunden-
+abläufe mit tatsächlicher Rechnung, Zahlung, Neustart und Dump/Restore bestehen
+am selben Stand; der eigene Testcontainer wurde entfernt. Windows-App-Tests
+sind erfolgreich, aktuelle EXE-/installierbare iPhone-Pakete stehen noch aus.
+
+Der anschließende Python-Start-/Sicherungsschritt verwendet auf Windows jetzt
+ausdrücklich das unterstützte lokale SQLite-Profil. 79 vorhandene Fälle lokal:
+78 bestanden, ein ausschließlich auf Windows ausführbarer Jobobjektfall
+erwartungsgemäß übersprungen und dort weiter ausgewählt. Der vollständige Linux-
+Backendlauf bleibt unverändert. App-/Backend-Fachquellen wurden nicht geändert.
+Für die tatsächliche Geräteabnahme ist eine CSV mit 20 ungeprüften Fällen
+vorbereitet. Weitere Server-/TestFlight-Bereitstellung steht weiterhin aus.

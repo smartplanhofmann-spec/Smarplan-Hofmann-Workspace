@@ -1,0 +1,21 @@
+﻿Testdatum;Client;App-/Browserversion;Quellstand/Build;Serverquellstand;Gerät/OS;Benutzerrolle;Testprojekt-ID;Schritt;Erwartetes Ergebnis;Status;Tatsächliches Ergebnis;Uhrzeit;Nachweis/Fehler
+;Browser;;;;;;;Kunde und Projekt;"Bestehender Kundenbezug und vollständige Rechnungsadresse; keine Dublette";ungeprüft;;;
+;Browser;;;;;;;Angebot und Auftrag;"100,00 EUR netto + 19,00 EUR USt = 119,00 EUR brutto; gespeicherte Fassung im selben Projekt";ungeprüft;;;
+;Browser;;;;;;;Projektmappe;"Aufgabe, Termin, Plan und Foto im zweiten Zugang sichtbar; ungespeicherte Planänderung geschützt";ungeprüft;;;
+;Browser;;;;;;;Arbeitszeit;Start/Pause/Fortsetzen/Stoppen, Freigabe und begründete Korrektur mit unveränderter Historie;ungeprüft;;;
+;Browser;;;;;;;Bericht;Testunterschrift und Foto im erneut geöffneten Original erhalten;ungeprüft;;;
+;Browser;;;;;;;Rechnung;"Im freigegebenen Testbetrieb tatsächlich ausgestellt; Nummer, Anschrift, 119,00 EUR und Original im zweiten Zugang erhalten";ungeprüft;;;
+;Windows;;;;;;;Kunde und Projekt;"Bestehender Kundenbezug und vollständige Rechnungsadresse; keine Dublette";ungeprüft;;;
+;Windows;;;;;;;Angebot und Auftrag;"100,00 EUR netto + 19,00 EUR USt = 119,00 EUR brutto; gespeicherte Fassung im selben Projekt";ungeprüft;;;
+;Windows;;;;;;;Projektmappe;"Aufgabe, Termin, Plan und Foto im zweiten Zugang sichtbar; ungespeicherte Planänderung geschützt";ungeprüft;;;
+;Windows;;;;;;;Arbeitszeit;Start/Pause/Fortsetzen/Stoppen, Freigabe und begründete Korrektur mit unveränderter Historie;ungeprüft;;;
+;Windows;;;;;;;Offline-Zeit;Nach Verbindungsabbruch und App-Neustart genau einmal zum Server übertragen;ungeprüft;;;
+;Windows;;;;;;;Bericht;Testunterschrift und Foto im erneut geöffneten Original erhalten;ungeprüft;;;
+;Windows;;;;;;;Rechnung;"Im freigegebenen Testbetrieb tatsächlich ausgestellt; Nummer, Anschrift, 119,00 EUR und Original im zweiten Zugang erhalten";ungeprüft;;;
+;iPhone;;;;;;;Kunde und Projekt;"Bestehender Kundenbezug und vollständige Rechnungsadresse; keine Dublette";ungeprüft;;;
+;iPhone;;;;;;;Angebot und Auftrag;"100,00 EUR netto + 19,00 EUR USt = 119,00 EUR brutto; gespeicherte Fassung im selben Projekt";ungeprüft;;;
+;iPhone;;;;;;;Projektmappe;"Aufgabe, Termin, Plan und Foto im zweiten Zugang sichtbar; ungespeicherte Planänderung geschützt";ungeprüft;;;
+;iPhone;;;;;;;Arbeitszeit;Start/Pause/Fortsetzen/Stoppen, Freigabe und begründete Korrektur mit unveränderter Historie;ungeprüft;;;
+;iPhone;;;;;;;Offline-Zeit;Nach Verbindungsabbruch und App-Neustart genau einmal zum Server übertragen;ungeprüft;;;
+;iPhone;;;;;;;Bericht;Testunterschrift und Foto im erneut geöffneten Original erhalten;ungeprüft;;;
+;iPhone;;;;;;;Rechnung;"Im freigegebenen Testbetrieb tatsächlich ausgestellt; Nummer, Anschrift, 119,00 EUR und Original im zweiten Zugang erhalten";ungeprüft;;;

@@ -1,0 +1,40 @@
+{
+  "base_commit": "112bc9128c405d04b1c021b52bb75ea7499a5a9b",
+  "scope": "Windows portable local SQLite backend; Linux complete discovery unchanged",
+  "patterns": [
+    "test_office.py",
+    "test_admin_api.py",
+    "test_backup.py",
+    "test_windows_office.py",
+    "test_report_integrity.py",
+    "test_customers.py",
+    "test_plans.py",
+    "test_plan_access.py",
+    "test_workspace_access.py",
+    "test_project_workspace.py"
+  ],
+  "local_result": {
+    "run": 79,
+    "passed": 78,
+    "skipped": 1,
+    "skip_reason": "Windows job-object test requires Windows; selected on Windows"
+  },
+  "sources": {
+    "scripts/test-backend-ci.py": "9fba33b231a1bb96f387127158d6d2220e5519e6a748e7d8bd749b77fe548bcb",
+    "backend/test_office.py": "fd74ea5ed18197760add881572163c67cf283ebb53a4cc1ccc0d468d5b90abdf",
+    "backend/test_admin_api.py": "6210bdef0524c15b64e51e1a470d4075cd4a358e58af67bde2b7dafdaef7715b",
+    "backend/test_backup.py": "927d219de5b4cd3337a4bc232dcfc919eea1ddb146f2bec3af571ab1017fd299",
+    "backend/test_windows_office.py": "a30aac63ac5084bcf859c3816316fa5beb10dec4368d2fe06c57069dcb0bc140",
+    "backend/test_report_integrity.py": "9c39d15898de1ff4e66ad29dcbec5f89f4eb11fb401e7968c3aa2dd434d38f68",
+    "backend/test_customers.py": "559333ac9ab7ab3794100168ffa4ba685c01aa1623c371bfe4703f204ff86a39",
+    "backend/test_plans.py": "d4d022933b59cae782889e379bfbb44f89ec0db2aee81c67752241f684871784",
+    "backend/test_plan_access.py": "fcec0128c823bffa61761472543a485b6b05d4140c6cd8b18492e549ea27befa",
+    "backend/test_workspace_access.py": "6caa1ca3a2c8464644bb5478018ddc447715d6399a67a22b667725737f97796c",
+    "backend/test_project_workspace.py": "a0b80296c27c116f24e7743c5a037d4578fa3a8ca71971b63a8da9ec1a6a1b0a"
+  },
+  "evidence": {
+    "before.py": "73b9ecae36c205f33e7d1ffa7474f54a9375c17a705624635ff1339a6fc8019f",
+    "selected-tests.txt": "a431fcc60bfb328b3b7c0667c043f04060a8ebb32bf2efed33c92666825587ee"
+  },
+  "iPhone_workflow_retriggered_by_script_path": false
+}

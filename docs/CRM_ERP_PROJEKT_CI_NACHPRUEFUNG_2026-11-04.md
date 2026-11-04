@@ -115,3 +115,39 @@ HTTP-Bibliotheken für Altposten und Altanlagen, die die POSIX-Fixture lediglich
 importieren. Auch sie tragen nun denselben Tag: insgesamt 25 Bibliotheken plus
 ein Einzelfall. Ihre beiden unveränderten echten HTTP-Abläufe bestehen unter
 Linux; portable lokale Backendtests bleiben ausdrücklich unmarkiert.
+
+## Gemeinsame PostgreSQL-Projektkette am aktuellen Quellstand
+
+Auf `112bc91` bestehen beide vorhandenen vollständigen Kundenabläufe erneut
+gegen PostgreSQL 16.15: Anfrage/Katalog/Portal, Projektdurchführung mit Zeit und
+Bericht, tatsächliche Rechnungsausstellung und Zahlung über Dienstneustart;
+außerdem derselbe Auftrag mit Liefer-/Geräte-/Servicebezug und erhaltenen
+Originalen über echten Dump/Restore. Die bestehende Finanzzuordnung wird hier
+als Regression mitgeprüft; das hebt die zurückgestellte Buchhaltungsabnahme
+nicht auf. Die Fälle laufen unter der geschützten Laufzeitrolle und mit MFA.
+
+Der eigene lokale Testcontainer ist anschließend entfernt. Gebundene
+Backendquellen blieben über den Lauf unverändert. [Treiber, vollständiges Log,
+Quellhashes und Bereinigung](evidence/project-native-ci-2026-11-04/current-project-journeys/postgres-result.json)
+sind erhalten. Diese Server-/HTTP-Nachweise ersetzen weiterhin keine
+Offline-Neustart- oder Geräteabnahme und keine Bereitstellung auf dem Kundensystem.
+
+## Python-Prüfprofil des portablen Windows-Dienstes
+
+Nach den erfolgreichen Windows-App-Tests lädt der bisher als Start-/Sicherungs-
+prüfung benannte Python-Helfer tatsächlich die gesamte Backend-Discovery.
+Diese enthält inzwischen zahlreiche POSIX-Online-Fixtures. Der Helfer wählt
+auf Windows nun ausdrücklich zehn vorhandene lokale Testmodule: Office,
+Administration, Sicherung, Windows-Launcher, Berichtsoriginale, Kunden, Pläne,
+Gerätefreigaben, Arbeitsbereichsrechte und Projektmappe. Jede Auswahl muss
+tatsächlich Fälle enthalten. Die vorhandenen Assertions bleiben unverändert.
+Unter Linux bleibt die vollständige Discovery erhalten; beide Profile sind
+zusätzlich über --scope ausdrücklich auswählbar.
+
+Der lokale portable Lauf umfasst 79 Fälle: 78 bestanden, eine reine Windows-
+Jobobjektprüfung auf Linux erwartungsgemäß übersprungen. Diese bleibt für den
+echten Windows-Lauf ausgewählt. [Ursprung, Profil, Quellen und vollständiger Lauf](evidence/project-native-ci-2026-11-04/portable-local-backend/result.json)
+sind erhalten. Die bereits erfolgreichen 1.621 Linux-App-Tests und der echte
+iOS-Simulatorbuild auf `112bc91` bleiben getrennt nachgewiesen. App-/Backend-
+Fachruntime ist durch diese reine CI-Helferänderung unverändert; der laufende
+iPhone-Prüfjob wird von diesem geänderten Skriptpfad nicht neu ausgelöst.

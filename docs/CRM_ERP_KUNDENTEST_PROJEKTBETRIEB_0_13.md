@@ -60,6 +60,12 @@ angezeigte Meldung sichern. Eine unklare Antwort über den angebotenen
 unveränderten Wiederholungsweg prüfen. Offene lokale Daten durch Entfernen der
 App oder Löschen ihrer Daten nicht verlieren.
 
+Die [ausfüllbare CSV-Vorlage](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) enthält
+20 noch ungeprüfte Gerätefälle für Browser, Windows und iPhone. Sie nutzt
+Semikolonspalten und UTF-8 mit BOM zum Öffnen in deutschem Excel. Build und
+Serverquellstand bleiben bis zum tatsächlichen Test leer; lokale/CI-Ergebnisse
+werden dort nicht als Geräteabnahme eingetragen.
+
 Die endgültige Abnahme erfolgt anhand dieser tatsächlichen Gerätefolge. Die
 [lokalen Integrationsnachweise](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)
 und [aktuellen Buildnachweise](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md)

@@ -2,10 +2,13 @@
 
 **Aktuell nach ausdrücklicher Zustimmung:** Upload erfolgreich. Der neue
 Branch `codex/testupdate-0.7-projects-20261104` enthält den Quellstand 0.13.0
-und nachfolgende gezielte CI-Korrekturen. Auf `c437ddc` ist der vollständige
-Linux-App-Testlauf grün; Windows-/Browser-Testvorbereitung wird nachgeprüft.
-Aktuelle native Binärartefakte sind noch nicht belegt; macOS-/iPhone-Jobs
-brachen vor Runner-Zuteilung ab. [Fortlaufender CI-Nachweis](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md).
+und nachfolgende gezielte CI-Korrekturen. Auf `112bc91` bestehen erneut
+1.621 Linux-App-Tests und der tatsächliche iOS-Simulatorbuild; Windows-App-Tests
+sind erfolgreich. Der anschließende lokale Python-Prüfschritt wird dem
+unterstützten Windows-Profil zugeordnet. Aktuelle EXE-/installierbare iPhone-
+Pakete sind noch nicht belegt. Die vorherigen ARM64-Runnerabbrüche sind durch
+den tatsächlich gestarteten Intel-Runner behoben.
+[Fortlaufender CI-Nachweis](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md).
 
 **Erste Veröffentlichung:** GitHub hat für `8e320bd` die
 [Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157732)

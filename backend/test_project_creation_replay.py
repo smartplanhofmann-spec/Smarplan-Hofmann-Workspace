@@ -1,0 +1,120 @@
+"""Actual project receipts, rollback and HTTP retry without customer duplicates."""
+from pathlib import Path
+import importlib.util
+import tempfile
+import unittest
+from unittest.mock import patch
+import uuid
+
+from core import Office, Problem
+from business_foundation import BusinessFoundation
+from inquiries import _transaction
+import test_admin_api as admin_api
+
+
+class ProjectCreationReplayTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.path = Path(self.temp.name) / 'project.sqlite3'
+        self.office = Office(self.path)
+        identifier = self.office.add_user('owner@example.test', 'Synthetic-password-123', 'owner')
+        self.actor = dict(id=identifier, role='owner', email='owner@example.test')
+        self.command = dict(name='Synthetic project', customer='Synthetic customer', request_id=uuid.uuid4().hex)
+
+    def tearDown(self):
+        self.office.db.close()
+        self.temp.cleanup()
+
+    def create(self, **changes):
+        return self.office.add_project(self.actor, **(self.command | changes))
+
+    def test_retry_after_restart_returns_original_without_second_customer_or_audit(self):
+        identifier = self.create()
+        self.office.db.close()
+        self.office = Office(self.path)
+        self.assertEqual(self.create(), identifier)
+        for table in ('projects', 'customers', 'business_foundation_requests'):
+            self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM ' + table).fetchone()[0], 1)
+        self.assertEqual(self.office.db.execute("SELECT COUNT(*) FROM audit WHERE action='project.created'").fetchone()[0], 1)
+
+    def test_changed_command_rejected_and_receipt_unchanged(self):
+        identifier = self.create()
+        for change in (dict(name='Changed'), dict(customer='Other'), dict(customer_id=uuid.uuid4().hex)):
+            with self.assertRaises(Problem) as failure:
+                self.create(**change)
+            self.assertEqual(failure.exception.status, 409)
+        self.assertEqual(self.create(), identifier)
+        self.assertEqual(len(self.office.projects(self.actor)), 1)
+
+    def test_retry_observes_revoked_owner_role(self):
+        self.create()
+        with self.office.db:
+            self.office.db.execute("UPDATE users SET role='technician' WHERE id=?", (self.actor['id'],))
+        with self.assertRaises(Problem) as failure:
+            self.create()
+        self.assertEqual(failure.exception.status, 403)
+
+    def test_receipt_failure_rolls_back_project_new_customer_and_audit(self):
+        before = self.office.db.execute('SELECT COUNT(*) FROM audit').fetchone()[0]
+        with patch.object(BusinessFoundation, '_remember', side_effect=RuntimeError('Synthetic write failure')):
+            with self.assertRaises(RuntimeError):
+                self.create()
+        for table in ('projects', 'customers', 'business_foundation_requests'):
+            self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM ' + table).fetchone()[0], 0)
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM audit').fetchone()[0], before)
+        self.assertTrue(self.create())
+
+    def test_project_creation_preserves_enclosing_transaction(self):
+        with self.assertRaises(RuntimeError):
+            with _transaction(self.office):
+                self.create()
+                raise RuntimeError('Synthetic outer failure')
+        for table in ('projects', 'customers', 'business_foundation_requests'):
+            self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM ' + table).fetchone()[0], 0)
+
+    def test_legacy_without_receipt_remains_explicit_new_creation(self):
+        first = self.create(request_id=None)
+        second = self.create(request_id=None)
+        self.assertNotEqual(first, second)
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM customers').fetchone()[0], 1)
+
+    def test_invalid_request_id_does_not_create_anything(self):
+        for value in ('', 'not-a-command', 42, [], 'A' * 32):
+            with self.assertRaises(Problem) as failure:
+                self.create(request_id=value)
+            self.assertEqual(failure.exception.status, 400)
+        self.assertEqual(self.office.projects(self.actor), [])
+
+    @unittest.skipUnless(importlib.util.find_spec('flask'), 'Online extras required; exercised by online CI')
+    def test_online_dispatch_keeps_original_request_identifier(self):
+        from flask import Flask
+        from online.web import dispatch
+        with Flask(__name__).app_context():
+            first, status = dispatch(self.office, self.actor, '/projects', 'POST', self.command, None)
+            second, repeated_status = dispatch(self.office, self.actor, '/projects', 'POST', self.command, None)
+        self.assertEqual((status, repeated_status), (201, 201))
+        self.assertEqual(first, second)
+        self.assertEqual(len(self.office.projects(self.actor)), 1)
+
+
+class ProjectCreationHttpReplayTests(unittest.TestCase):
+    setUp = admin_api.AdminApiTests.setUp
+    tearDown = admin_api.AdminApiTests.tearDown
+    request = admin_api.AdminApiTests.request
+    login = admin_api.AdminApiTests.login
+
+    def test_actual_http_replays_original_existing_customer_project(self):
+        customer = self.request('/api/customers', self.owner,
+            dict(name='Existing buyer', address='Synthetic Street 7'), status=201)
+        command = dict(name='Synthetic site', customer_id=customer['id'], request_id=uuid.uuid4().hex)
+        first = self.request('/api/projects', self.owner, command, status=201)
+        self.assertEqual(self.request('/api/projects', self.owner, command, status=201), first)
+        self.request('/api/projects', self.owner, command | dict(name='Other site'), status=409)
+        projects = self.request('/api/projects', self.owner)
+        self.assertEqual(len(projects), 1)
+        self.assertEqual(projects[0]['customer_id'], customer['id'])
+        self.assertEqual(len(self.request('/api/customers', self.owner)), 1)
+
+
+if __name__ == '__main__':
+    unittest.main()

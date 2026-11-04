@@ -1,0 +1,33 @@
+Read-only git apply --check against c875ea5. No patch applied.
+Binary PNGs omitted; original JSON records null patch values.
+
+error: patch failed: .github/workflows/checks.yml:431
+error: .github/workflows/checks.yml: patch does not apply
+error: patch failed: README.md:1
+error: README.md: patch does not apply
+error: patch failed: app/lib/app_version.dart:1
+error: app/lib/app_version.dart: patch does not apply
+error: patch failed: app/lib/business_documents.dart:88
+error: app/lib/business_documents.dart: patch does not apply
+error: patch failed: app/lib/business_finance.dart:1
+error: app/lib/business_finance.dart: patch does not apply
+error: patch failed: app/lib/business_operations.dart:1
+error: app/lib/business_operations.dart: patch does not apply
+error: patch failed: app/lib/business_widgets.dart:123
+error: app/lib/business_widgets.dart: patch does not apply
+error: dev/null: No such file or directory
+error: patch failed: app/pubspec.yaml:1
+error: app/pubspec.yaml: patch does not apply
+error: dev/null: No such file or directory
+error: dev/null: No such file or directory
+error: dev/null: No such file or directory
+error: dev/null: No such file or directory
+error: dev/null: No such file or directory
+error: dev/null: No such file or directory
+error: dev/null: No such file or directory
+error: dev/null: No such file or directory
+error: patch failed: docs/BERICHT_HERO_UMSETZUNG.md:14
+error: docs/BERICHT_HERO_UMSETZUNG.md: patch does not apply
+error: dev/null: No such file or directory
+
+exit_code: 1

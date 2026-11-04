@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+time-tracking: project-bound browser start/stop, day approval, append-only correction, lost ACK exact replay, unchanged originals, corrected day total, mobile layout and denied technician correction passed
+1 targeted time-tracking workflow passed (real MFA/HTTP, original time events, approved correction and exact retry)

@@ -1,0 +1,46 @@
+{
+  "executed_actual_workflow_python": true,
+  "cases": [
+    {
+      "case": "auto_first",
+      "exit_code": 0,
+      "number": 131,
+      "stderr": ""
+    },
+    {
+      "case": "auto_next",
+      "exit_code": 0,
+      "number": 132,
+      "stderr": ""
+    },
+    {
+      "case": "manual",
+      "exit_code": 0,
+      "number": 250,
+      "stderr": ""
+    },
+    {
+      "case": "below_source",
+      "exit_code": 1,
+      "number": null,
+      "stderr": "Build-Nummer muss numerisch und mindestens so hoch wie die Quell-Buildnummer sein"
+    },
+    {
+      "case": "non_ascii",
+      "exit_code": 1,
+      "number": null,
+      "stderr": "Build-Nummer muss numerisch und mindestens so hoch wie die Quell-Buildnummer sein"
+    },
+    {
+      "case": "too_large",
+      "exit_code": 1,
+      "number": null,
+      "stderr": "Build-Nummer muss numerisch und mindestens so hoch wie die Quell-Buildnummer sein"
+    }
+  ],
+  "source_sha256": {
+    "app/pubspec.yaml": "75ac2d66cb825b88b8bd6a15c599a8c96d292f8355734527258361e39db7478c",
+    "app/lib/app_version.dart": "963e51b923bed8635de1388dc0cd29d74740051a48ed1404b69f16901bef6366",
+    ".github/workflows/ios-testflight.yml": "ea2aeb9b61418c65aa8f01aa3f6c2bf8d39222f6bbb2f644c92ad7018bb6a7c7"
+  }
+}

@@ -1,0 +1,14 @@
+00:00 +0: loading /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart
+00:00 +0: (setUpAll)
+00:00 +0: Uncertain create retains the exact original body and retries its request id
+00:02 +1: Closing and reopening an uncertain create keeps its body and selected customer
+00:02 +2: A token change drops an in-flight create result without refreshing the new context
+00:03 +3: A server change drops an in-flight create result without refreshing the new context
+00:03 +4: A version change drops an in-flight create result without refreshing the new context
+00:03 +5: Quiet context change cannot reuse an old retry callback
+00:04 +6: API replacement closes only the stale project dialog and sends nothing to either server
+00:04 +7: A late customer list cannot open a form after a server switch
+00:04 +8: An old server permits first creation but no uncertain repeat and local resolution makes no POST
+00:05 +9: A definite rejection preserves editable input and a corrected command receives a new request id
+00:05 +10: (tearDownAll)
+00:05 +10: All tests passed!

@@ -252,9 +252,13 @@ class TimeTracking:
         segments = self._segments(row)
         result['worked_seconds'] = sum(item['worked_seconds'] for item in segments.values())
         result['break_seconds'] = sum(item['break_seconds'] for item in segments.values())
+        result['work_dates'] = sorted(segments)
+        result['approved_work_dates'] = [day for day in result['work_dates'] if self.db.execute(
+            "SELECT 1 FROM business_time_days WHERE employee_id=? AND work_date=? AND status='approved'",
+            (row['employee_id'], day)).fetchone()]
         result['corrections'] = [dict(r) for r in self.db.execute('SELECT id,work_date,delta_seconds,reason,created_by,created_at FROM business_time_corrections WHERE entry_id=? ORDER BY created_at,id', (row['id'],)).fetchall()]
         if row['status'] == 'stopped' and segments:
-            approved = sum(bool(self.db.execute("SELECT 1 FROM business_time_days WHERE employee_id=? AND work_date=? AND status='approved'", (row['employee_id'], day)).fetchone()) for day in segments)
+            approved = len(result['approved_work_dates'])
             if approved:
                 result['status'] = 'approved' if approved == len(segments) else 'partially_approved'
         if _has(self.office, actor, 'personnel.read', row['project_id']):
@@ -379,8 +383,14 @@ class TimeTracking:
                 if error.status in (403, 404):
                     continue
                 raise
-            local_day = _instant(row['started_at']).astimezone(_zone(row['timezone'])).date().isoformat()
-            if query.get('from') and local_day < _date(query['from']).isoformat() or query.get('to') and local_day > _date(query['to']).isoformat():
+            zone = _zone(row['timezone'])
+            local_day = _instant(row['started_at']).astimezone(zone).date().isoformat()
+            # A shift belongs to every recorded workday it overlaps, including
+            # the first day of a new month. Do not hide its original from the
+            # time account merely because it started the evening before.
+            last_instant = _instant(row['ended_at']) - timedelta(microseconds=1) if row['ended_at'] else self.clock()
+            local_last_day = last_instant.astimezone(zone).date().isoformat()
+            if query.get('from') and local_last_day < _date(query['from']).isoformat() or query.get('to') and local_day > _date(query['to']).isoformat():
                 continue
             result.append(self._entry(actor, row))
         return {'items': result}

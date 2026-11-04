@@ -1,0 +1,24 @@
+{
+  "owner": "Root recovered completed raw Node log after model-change interruption; package checks executed by Root",
+  "node": {
+    "executed": 856,
+    "passed": 856,
+    "source_changes": []
+  },
+  "package": {
+    "executed": 16,
+    "passed": 16
+  },
+  "static_registration": {
+    "time_tracking_asset": true,
+    "inventory_article_refs_feature": true,
+    "inventory_http_ci": true,
+    "postgres_project_counterreview_ci": true
+  },
+  "artifacts": {
+    "package.txt": "61edc8b7c8a13d16fe535a6b8052fc9d40cd779140e09bdd7de410e3f7b95384",
+    "native-source.json": "6ae5287c56407ce8eb48e81d51a3cd55d99322523896a10adcab415a6f3991cc",
+    "node-before.json": "de55b58ec0b9f0b5dba79481f84f2810f310e7c6250710c55df7dc09eb67f966",
+    "node-full.tap": "cadaa53566b19b3a0b55761b457e360cc4b3e104ecf0f1773e0dfab3eb7097d1"
+  }
+}

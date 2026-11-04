@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "scope": "Browser customer/project/document continuity and price-free warehouse selection",
+  "base_commit": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "owned_product_files": [
+    "web/office/office.js"
+  ],
+  "owned_paths": [
+    "web/office/office.js",
+    "web/office/tests/e2e.cjs",
+    "web/office/tests/project-customer-flow.cjs",
+    "web/office/tests/inventory-article-refs-flow.cjs",
+    "web/office/tests/inventory-article-refs.test.mjs",
+    "docs/CRM_ERP_PROJEKT_KUNDENFLUSS_2026-11-04.md",
+    "docs/CRM_ERP_MATERIAL_ARTIKELAUSWAHL_BROWSER_2026-11-04.md"
+  ],
+  "dependency": {
+    "path": "backend/business_inventory.py",
+    "sha256": "b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b",
+    "owner_worktree": "/workspace/smartplan-project-release-readiness-20261104",
+    "purpose": "Unmodified dependency for inventory_article_refs integration tests; integrate using its owner handoff"
+  },
+  "draft_not_for_integration": {
+    "path": "backend/online/test_project_customer_journey_pg.py",
+    "sha256": "ddb071028ccdc83938dd70e3bfb8d1da55333701f5cf60d0229d5182569826f5",
+    "status": "Not executed; do not count as a passed test"
+  },
+  "original_requirements_sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5",
+  "validation": {
+    "browser_journeys": 2,
+    "browser_exit_codes": [
+      0,
+      0
+    ],
+    "browser_sources_unchanged": true,
+    "node_cases": 44,
+    "node_failed": 0,
+    "existing_billing_backend_cases": 12,
+    "postgres_existing_main_cases": 2,
+    "postgres_test_seconds": 220.563,
+    "postgres_sources": "main-backend-bindings.json",
+    "postgres_reservation_released": true,
+    "git_diff_check_exit_code": 0
+  },
+  "limits": [
+    "No production deployment or native app/device acceptance claimed",
+    "Direct project-create idempotency handled separately by root",
+    "More than 20000 inventory references fail explicitly instead of truncation"
+  ],
+  "files": [
+    {
+      "path": "web/office/office.js",
+      "sha256": "cc50569a2181e89450d1df69025387f693ae59a6a41e7c9566006f3971aa265b",
+      "bytes": 366316
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "sha256": "22ca47bc67e32317c5c982314d79cc54ca20c14283443d37c3c07869193a4186",
+      "bytes": 48277
+    },
+    {
+      "path": "web/office/tests/project-customer-flow.cjs",
+      "sha256": "8f5f5f099ba3b7073578e0e61c3734d6b5f43b7d5d1129f6c83f129631009e71",
+      "bytes": 8078
+    },
+    {
+      "path": "web/office/tests/inventory-article-refs-flow.cjs",
+      "sha256": "cd406ae7d1ecc3a1c5afb96bd1aee7807932c34730d29c95d50eaec6c58277e8",
+      "bytes": 4298
+    },
+    {
+      "path": "web/office/tests/inventory-article-refs.test.mjs",
+      "sha256": "05ad35acc7411f46227ce85609aa281bebad973b31c193ae067a68ffc865c775",
+      "bytes": 1951
+    },
+    {
+      "path": "docs/CRM_ERP_PROJEKT_KUNDENFLUSS_2026-11-04.md",
+      "sha256": "6ccf696724fa0da38d84903848fe02387bedc947dc0721fd1e726f4b35840772",
+      "bytes": 6118
+    },
+    {
+      "path": "docs/CRM_ERP_MATERIAL_ARTIKELAUSWAHL_BROWSER_2026-11-04.md",
+      "sha256": "b167d636199c745bb60aed9be42ef58bf8f3ff6bef37121b8bcbec95e0b4827c",
+      "bytes": 3863
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/address-display-first.txt",
+      "sha256": "17ac548076d2639f1066b48c65b5a67b2de57afa03a83f39f7a1038e888f468c",
+      "bytes": 2395
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/before/office.js",
+      "sha256": "a5811ca172cc649917d886e1f82299c99513cd00099b065c0fc2f5ed61689fb0",
+      "bytes": 360092
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/before-animation-browser-runs.json",
+      "sha256": "2f6af19a4d0e26c7c390032f9519175d87fd29d624df9f0365744d6eecfca9bb",
+      "bytes": 2327
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-final-wait.txt",
+      "sha256": "8b4f2ab5db404560d2dd034624fc7d2d4aafbd8cc63ca38a4c58ade7b6d93bae",
+      "bytes": 285
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-final.txt",
+      "sha256": "4d96456481fd5325967a52f36bb3658c999c48e666b9cb75be4dfcb2875b0814",
+      "bytes": 2301
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-first.txt",
+      "sha256": "4ceacad24c489d063b90841149b1c45fe8fd991c18d25a2b563ab1859ae7099c",
+      "bytes": 2636
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-fixed-test.txt",
+      "sha256": "8b4f2ab5db404560d2dd034624fc7d2d4aafbd8cc63ca38a4c58ade7b6d93bae",
+      "bytes": 285
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-followup.txt",
+      "sha256": "6259502391e60567938418319e15fc4905e36c90b111bac1d4bf9f26538cc56f",
+      "bytes": 2708
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-native-sandbox.txt",
+      "sha256": "09b9f949d0a2bd51a1e39c5ab265c335e3a89aceb696467168aba89ff9097186",
+      "bytes": 2301
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-network.txt",
+      "sha256": "101048c513ac4a94a23f399a92b044a0be3641cb031d620047645bf391795cb0",
+      "bytes": 2523
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-red.txt",
+      "sha256": "4ceacad24c489d063b90841149b1c45fe8fd991c18d25a2b563ab1859ae7099c",
+      "bytes": 2636
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-unit-final.txt",
+      "sha256": "d27a65fa030e45cdd8c751decec25d71e8f4d9ec3952b5c0c9fb823724daaca8",
+      "bytes": 4408
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-unit-inprocess.txt",
+      "sha256": "f1969d8940d855ecff6e01e5ce08434f9195e2b2bef3eff3a11c1bd1e7c969fd",
+      "bytes": 2657
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-unit.txt",
+      "sha256": "eeab6ad45a2c69677062b79bdb261d684ecbff74c4fd462f0b874248713f0ede",
+      "bytes": 276
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/contact-regression.txt",
+      "sha256": "56d5c675c880767ad254c3c54c26c9ac6e0d0fcecbd40872e7d7572f40190839",
+      "bytes": 2723
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/existing-customer-repro.json",
+      "sha256": "03b396cf9b10ae80fb10c3b40c688df5d1266ed68e5c7280e3ce8bdddb25d036",
+      "bytes": 405
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-browser/project-customer-http.json",
+      "sha256": "eb0e7f57d915cca5dd98f26dc84f63f78bfee9058c5230f63aa1ddefb8de70fd",
+      "bytes": 12942
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-browser/project-customer-invoice-draft-desktop.png",
+      "sha256": "6889a74805eadd4199e0b68283e2ded9138b4cb64fcac63ae3cb1487dc4e076c",
+      "bytes": 213895
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-browser/project-customer-invoice-draft-mobile.png",
+      "sha256": "03bd5f69c156ab202c9daf3020f86ba20734c472e908f05b4009c948206b0ba4",
+      "bytes": 122344
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-browser-runs.json",
+      "sha256": "5bd03c092eb0f13ec74123394de06740fff6d9ef4481c2033a6cf8cf6240cd92",
+      "bytes": 2327
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-customer/project-customer-http.json",
+      "sha256": "3b6724464046c534666426f5af0d67b67c7ff734e61786dc80b6260e84830519",
+      "bytes": 12942
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-customer/project-customer-invoice-draft-desktop.png",
+      "sha256": "08fd6949cc7038cdbf84126a18a46d369954e4674d187e6521b75d3e597b583c",
+      "bytes": 205585
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-customer/project-customer-invoice-draft-mobile.png",
+      "sha256": "18e2add7343886388dd0398c5d63ed5f53dbfe19e5f5519bb7b0ce9ad76da249",
+      "bytes": 110892
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-customer.txt",
+      "sha256": "8b4f2ab5db404560d2dd034624fc7d2d4aafbd8cc63ca38a4c58ade7b6d93bae",
+      "bytes": 285
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-warehouse/warehouse-article-refs-desktop.png",
+      "sha256": "5c32c9c97f145fd7e0271b83d0de0c1693132912f01da34a5308ab52e91d9baf",
+      "bytes": 122208
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-warehouse/warehouse-article-refs-http.json",
+      "sha256": "66d1f6be705444b53feefeeb3e7f1d9a45f6079c97a51da18267ca2dfea75bd1",
+      "bytes": 81720
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-warehouse/warehouse-article-refs-mobile.png",
+      "sha256": "f8606b033c0c44baa6417eb227cffbfee9bfc2b4666f222ed2c34f52631fec75",
+      "bytes": 93446
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-warehouse.txt",
+      "sha256": "a1f0e179724cb136c47ceec4bde647c18597d1ab3fa92174012759453cde9c91",
+      "bytes": 238
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/green/project-customer-http.json",
+      "sha256": "3b30d8da4f7d5cf78507d076851b39b7c628d1eefcba2dd190dca36f86745b07",
+      "bytes": 10579
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/green/project-customer-invoice-draft-desktop.png",
+      "sha256": "6889a74805eadd4199e0b68283e2ded9138b4cb64fcac63ae3cb1487dc4e076c",
+      "bytes": 213895
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/green/project-customer-invoice-draft-mobile.png",
+      "sha256": "03bd5f69c156ab202c9daf3020f86ba20734c472e908f05b4009c948206b0ba4",
+      "bytes": 122344
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/inventory-refs-unit.txt",
+      "sha256": "2b97499bfd272616895a0e3c384047cd2ae90148ec86ed07343f94e165823e72",
+      "bytes": 183
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/invoice-chain-main-pg.txt",
+      "sha256": "f29f3891f0f65c014a6f4658c23c2551f5a6f08826737fb9732a96442f209d91",
+      "bytes": 546
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/main-backend-bindings.json",
+      "sha256": "81278bbfdac6c201b61302bced818d20aa0fc145b6f984e77a1ce5953543e39c",
+      "bytes": 1746
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/run_browser_proof.py",
+      "sha256": "49f1f759fb2e2ee23986363095c56f3a3768db52476caf3736cfa5ac99c94858",
+      "bytes": 1944
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser/warehouse-article-refs-desktop.png",
+      "sha256": "5c32c9c97f145fd7e0271b83d0de0c1693132912f01da34a5308ab52e91d9baf",
+      "bytes": 122208
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser/warehouse-article-refs-http.json",
+      "sha256": "6dacaa39b96efd565d8a74adb47a67ceed8f09f38d8ca9b08284558917c4db34",
+      "bytes": 81720
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser/warehouse-article-refs-mobile.png",
+      "sha256": "6c4c9ed02f597dd5082953a0308744d89d40cc7bebf2a942fe4a027c2f64954d",
+      "bytes": 78136
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser-final.txt",
+      "sha256": "a1f0e179724cb136c47ceec4bde647c18597d1ab3fa92174012759453cde9c91",
+      "bytes": 238
+    },
+    {
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser.txt",
+      "sha256": "f9a824fc16053edddc00c58d7a14fd9e05afa043e57fd9de37ad2e0a086a28f6",
+      "bytes": 2368
+    }
+  ]
+}

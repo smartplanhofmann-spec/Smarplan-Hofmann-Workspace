@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'api.dart';
 import 'business_session.dart';
 import 'business_catalog_prices.dart';
 import 'business_custom_fields.dart';
@@ -331,7 +332,13 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
   }
 
   void changed() {
-    if (mounted) setState(() {});
+    if (mounted)
+      setState(() {
+        if (!widget.session.can('inventory.read')) {
+          references.remove('articles');
+          references.remove('inventory/locations');
+        }
+      });
   }
 
   @override
@@ -363,11 +370,97 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
     super.dispose();
   }
 
+  Future<List<Map<String, dynamic>>> inventoryArticles(int requestEpoch) async {
+    final owner = widget.session, project = owner.projectId;
+    final generation = owner.generation, section = selected;
+    void check() {
+      if (!mounted ||
+          requestEpoch != epoch ||
+          !identical(owner, widget.session) ||
+          project != owner.projectId ||
+          generation != owner.generation ||
+          section != selected ||
+          !owner.can('inventory.read')) {
+        throw const ApiException(
+          403,
+          'Die Materialauswahl ist nicht mehr freigegeben.',
+        );
+      }
+    }
+
+    check();
+    if (!owner.hasFeature('inventory_article_refs')) {
+      await owner.load();
+      check();
+    }
+    if (!owner.hasFeature('inventory_article_refs')) {
+      throw const ApiException(
+        409,
+        'Der Server unterstützt die preisfreie Materialauswahl noch nicht. Bitte aktualisieren und neu laden.',
+      );
+    }
+    final items = <Map<String, dynamic>>[];
+    final ids = <String>{};
+    String? after;
+    for (var page = 0; page < 100; page++) {
+      check();
+      final result = businessMap(
+        await owner.read(
+          owner.query('/inventory/articles', {
+            'limit': '200',
+            if (after != null) 'after': after,
+          }),
+        ),
+      );
+      check();
+      final values = result['items'];
+      if (values is! List ||
+          values.length > 200 ||
+          result['has_more'] is! bool) {
+        throw const FormatException(
+          'Die Materialauswahl ist unvollständig. Bitte neu laden.',
+        );
+      }
+      for (final raw in values) {
+        final item = businessMap(raw), id = item['id'];
+        if (id is! String ||
+            !RegExp(r'^[0-9a-f]{32}$').hasMatch(id) ||
+            item['active'] != true ||
+            item['name'] is! String ||
+            (after != null && id.compareTo(after) <= 0) ||
+            !ids.add(id)) {
+          throw const FormatException(
+            'Die Materialauswahl ist widersprüchlich. Bitte neu laden.',
+          );
+        }
+        items.add({'id': id, 'name': item['name']});
+        after = id;
+      }
+      if (result['has_more'] == false) {
+        if (result['next_after'] != null) {
+          throw const FormatException(
+            'Die Materialauswahl ist widersprüchlich. Bitte neu laden.',
+          );
+        }
+        return items;
+      }
+      if (values.isEmpty || result['next_after'] != after) {
+        throw const FormatException(
+          'Die Materialauswahl ist unvollständig. Bitte neu laden.',
+        );
+      }
+    }
+    throw const FormatException(
+      'Die Materialauswahl ist zu groß. Bitte die Artikelstammdaten prüfen.',
+    );
+  }
+
   Future<void> loadReferences() async {
     final current = ++epoch;
     setState(() {
       loading = true;
       error = null;
+      references.clear();
     });
     final paths = switch (selected) {
       'inventory/movements' ||
@@ -379,6 +472,14 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
     };
     try {
       for (final path in paths) {
+        if (path == 'articles') {
+          final items = await inventoryArticles(current);
+          references[path] = {
+            for (final item in items)
+              item['id'] as String: item['name'] as String,
+          };
+          continue;
+        }
         final response = path == 'users'
             ? await widget.session.api.call('/api/users')
             : await widget.session.read(widget.session.query('/$path'));

@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       build_number:
-        description: 'Build-Nummer (leer = automatisch, run_number + 100)'
+        description: 'Build-Nummer (leer = automatisch, Quellbuild + Laufnummer)'
         required: false
         default: ''
       upload_to_testflight:
@@ -69,7 +69,7 @@ jobs:
           import re
           from pathlib import Path
           default = int(re.search(r'^version:.*\+(\d+)\s*$', Path('pubspec.yaml').read_text(), re.MULTILINE).group(1))
-          raw = os.environ['INPUT_BUILD'] or str(int(os.environ['RUN_NUMBER']) + 100)
+          raw = os.environ['INPUT_BUILD'] or str(max(100, default) + int(os.environ['RUN_NUMBER']))
           if not raw.isascii() or not raw.isdecimal() or not default <= int(raw) <= 999999999:
               raise SystemExit('Build-Nummer muss numerisch und mindestens so hoch wie die Quell-Buildnummer sein')
           number = str(int(raw))

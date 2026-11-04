@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_time_details.dart';
 import 'business_widgets.dart';
 import 'business_documentation.dart';
 import 'design.dart';
@@ -27,6 +28,7 @@ class BusinessTimeAccountsPage extends StatefulWidget {
 class _BusinessTimeAccountsPageState extends State<BusinessTimeAccountsPage> {
   Map<String, dynamic>? account;
   List<Map<String, dynamic>> employees = [];
+  List<Map<String, dynamic>> entries = [];
   String? employee, error;
   bool busy = false;
   int epoch = 0;
@@ -46,10 +48,18 @@ class _BusinessTimeAccountsPageState extends State<BusinessTimeAccountsPage> {
 
   void changed() {
     if (mounted) {
+      if (employee != null && !widget.session.can('personnel.read')) {
+        epoch++;
+        employee = null;
+        account = null;
+        employees = [];
+        entries = [];
+      }
       if (!widget.session.can('time.own')) {
         epoch++;
         account = null;
         employees = [];
+        entries = [];
       }
       setState(() {});
     }
@@ -64,19 +74,32 @@ class _BusinessTimeAccountsPageState extends State<BusinessTimeAccountsPage> {
 
   Future<void> load() async {
     final current = ++epoch;
-    setState(() => busy = true);
+    setState(() {
+      busy = true;
+      error = null;
+      account = null;
+      entries = [];
+    });
     try {
-      final values = businessMap(
-        await widget.session.read(
+      final responses = await Future.wait([
+        widget.session.read(
           '/time/accounts?${Uri(queryParameters: query).query}',
         ),
-      );
+        widget.session.read(
+          '/time/entries?${Uri(queryParameters: query).query}',
+        ),
+      ]);
+      final values = businessMap(responses[0]);
+      final records = businessItems(responses[1]);
       if (!mounted || current != epoch || !widget.session.can('time.own'))
         return;
-      setState(() => account = values);
+      setState(() {
+        account = values;
+        entries = records;
+      });
       if (widget.session.can('personnel.read')) {
         final team = businessItems(await widget.session.read('/employees'));
-        if (mounted && current == epoch && widget.session.allowed)
+        if (mounted && current == epoch && widget.session.can('personnel.read'))
           setState(() => employees = team);
       }
     } catch (e) {
@@ -114,7 +137,7 @@ class _BusinessTimeAccountsPageState extends State<BusinessTimeAccountsPage> {
   }
 
   Future<void> export() async {
-    if (busy || !widget.session.can('time.own')) return;
+    if (busy || !widget.session.can('personnel.read')) return;
     setState(() => busy = true);
     try {
       final bytes = await widget.session.api.bytes(
@@ -123,7 +146,7 @@ class _BusinessTimeAccountsPageState extends State<BusinessTimeAccountsPage> {
         ),
         mediaType: 'text/csv',
       );
-      if (!mounted || !widget.session.can('time.own')) return;
+      if (!mounted || !widget.session.can('personnel.read')) return;
       final digest = (await Sha256().hash(bytes)).bytes
           .map((v) => v.toRadixString(16).padLeft(2, '0'))
           .join();
@@ -136,7 +159,7 @@ class _BusinessTimeAccountsPageState extends State<BusinessTimeAccountsPage> {
           mediaType: 'text/csv',
           sha256: digest,
         ),
-        () => mounted && widget.session.can('time.own'),
+        () => mounted && widget.session.can('personnel.read'),
       );
     } catch (e) {
       if (mounted) setState(() => error = '$e');
@@ -165,11 +188,12 @@ class _BusinessTimeAccountsPageState extends State<BusinessTimeAccountsPage> {
               'Zeitkonto',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            OutlinedButton.icon(
-              onPressed: busy ? null : export,
-              icon: const Icon(Icons.download_outlined),
-              label: const Text('Freigegebene Stunden exportieren'),
-            ),
+            if (widget.session.can('personnel.read'))
+              OutlinedButton.icon(
+                onPressed: busy ? null : export,
+                icon: const Icon(Icons.download_outlined),
+                label: const Text('Freigegebene Stunden exportieren'),
+              ),
           ],
         ),
         const SizedBox(height: 16),
@@ -251,6 +275,34 @@ class _BusinessTimeAccountsPageState extends State<BusinessTimeAccountsPage> {
               ),
             ),
           ),
+          const SizedBox(height: 16),
+          Text(
+            'Einzelne Zeitnachweise',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          for (final entry in entries.reversed)
+            Card(
+              child: ListTile(
+                title: Text(
+                  '${businessDate(entry['started_at'], time: true)} · ${timeHours(entry['worked_seconds'] as int? ?? 0)}',
+                ),
+                subtitle: Text(
+                  '${timeProjectName(widget.session, entry)} · ${(entry['corrections'] as List? ?? []).isEmpty ? 'Originalereignisse und Freigabe prüfen' : '${(entry['corrections'] as List).length} begründete Korrektur(en)'}',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () async {
+                  await showBusinessTimeDetails(
+                    context,
+                    widget.session,
+                    entry['id'] as String,
+                    readPermission: employee == null
+                        ? 'time.own'
+                        : 'personnel.read',
+                  );
+                  if (mounted) await load();
+                },
+              ),
+            ),
           for (final day in (data['days'] as List? ?? []).map(businessMap))
             Card(
               child: Padding(

@@ -1,0 +1,10 @@
+{
+  "app/lib/main.dart": "59bd3c354d06377420d2d1d9fff5942b62ee116dd037e695b14d0dbd2f08ef25",
+  "app/test/project_create_replay_test.dart": "1efb2108bfe900ceac359a5bec69b329f354ac5d96ef79e186c4082293ec1959",
+  "app/test/administration_return_navigation_test.dart": "2c60dadd926048caea8fb2268aebaff1b3454d335e34c636ee9f5bb351695269",
+  "app/test/workflow_test.dart": "8c81919e24939c96a66bf078a53e6faacbe352a876af7902ce09d14b8f50c3ab",
+  "app/test/workspace_shell_test.dart": "379ea6afcdbefcb4882c7597255c2d27f4f576960d18884367739bdf964dbb6c",
+  "app/lib/api.dart": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+  "app/lib/business_session.dart": "242dfacd6ee75191d227c8d863678c056dfbf35a9ea480ec5fd784bfbf7b1654",
+  "app/lib/offline_vault.dart": "9653cfbe06dbaf7912a5505b7305d3ef68c4b7cdb516fb4b7c797b4906aab649"
+}

@@ -32,6 +32,7 @@ import {renderCustomerWorkspace,customerWorkspaceRights} from './customer-worksp
 /* Smartplan Office online browser client. No providers, persistent credentials or service worker. */
 import {assetProvenanceUi} from './asset-provenance.js';
 import {personnelWorkflowUi} from './personnel-workflow.js';
+import {timeTrackingUi} from './time-tracking.js';
 import {travelAllowancesUi} from './travel-allowances.js';
 import {assistantUi} from './assistant.js';
 import {companyEventsUi,companyEventRights,companyEventPendingAuthorize} from './company-events.js';
@@ -1492,16 +1493,26 @@ async function projectsView() {
   if(state.projectId)return projectView();
   const data=await api.get(biz('/overview')),projects=data.projects||[],statuses=data.statuses||[];
   const group=[{id:'',name:'Noch ohne Status'},...statuses];
-  const headerActions=data.can_create_project&&has('projects.manage')?[button('Neues Projekt',()=>newProjectDialog(),'primary')]:[];
+  const headerActions=data.can_create_project&&has('projects.manage')?[button('Neues Projekt',()=>action(()=>newProjectDialog()),'primary')]:[];
   const board=el('div',{class:'pipeline'},group.filter(status=>!status.id||status.active).map(status=>el('section',{class:'pipeline-column'},el('h3',{},status.name),
     ...projects.filter(project=>(project.status_id||'')===status.id).map(project=>el('button',{type:'button',class:'pipeline-card',onClick:()=>openProject(project.id)},el('strong',{},project.name),el('small',{},project.customer),el('p',{class:'caption'},project.site_address||'Objektadresse noch offen'))))));
   return el('div',{class:'stack'},heading('Projekte','Eine gemeinsame Projektmappe. Frei planbar, ohne starre Reihenfolge.',headerActions),
     projects.length?board:empty('Noch keine freigegebenen Projekte. Ein Projekt kann aus einer geprüften Anfrage oder direkt angelegt werden.'));
 }
-function newProjectDialog() {
-  const content=form('',[field('name','Projektname','text','',{required:true}),field('customer','Kunde / Auftraggeber','text','',{required:true})],data=>api.mutate('new-project','/projects',data),
-    {submit:'Projekt anlegen',after:async result=>{state.projects=collection(await api.get('/projects'));buildShell();openProject(result.id||result);}});
-  dialog('Neues Projekt',content,'Eine Projektanlage ist noch keine Auftragszusage.');
+async function newProjectDialog(customerId='') {
+  const generation=api.generation;
+  const customers=collection(await api.get(biz('/contacts'))).filter(item=>item.active&&(item.kinds||[]).includes('customer'));
+  if(generation!==api.generation)return;
+  if(customerId&&!customers.some(item=>item.id===customerId))throw new Error('Der gewählte Kunde ist nicht mehr verfügbar. Bitte Kontakte neu laden.');
+  const content=form('',[field('name','Projektname','text','',{required:true}),
+    field('customer_id','Kunde auswählen','select',customerId,{options:[['','Neuen Kunden anlegen'],...options(customers,item=>[item.name,contactAddressSummary(item),item.email].filter(Boolean).join(' · '))],keepEmpty:true}),
+    field('customer','Neuer Kunde / Auftraggeber','text','',{required:true})],
+    data=>api.mutate('new-project','/projects',{name:data.name,...(data.customer_id?{customer_id:data.customer_id}:{customer:data.customer})}),
+    {key:'new-project',submit:'Projekt anlegen',after:async result=>{state.projects=collection(await api.get('/projects'));buildShell();openProject(result.id||result);}});
+  const selection=content.controls.get('customer_id').input,newName=content.controls.get('customer').input;
+  const toggle=()=>{const existing=!!selection.value;newName.closest('label').hidden=existing;newName.closest('label').style.display=existing?'none':'';newName.required=!existing;newName.disabled=existing;};
+  selection.addEventListener('change',toggle);toggle();
+  dialog('Neues Projekt',content,'Wählen Sie einen vorhandenen Kunden, um Anschrift und Kontaktdaten weiterzuverwenden. Eine Projektanlage ist noch keine Auftragszusage.');
 }
 async function projectView() {
   const id=state.projectId,profile=await api.get(biz(`/projects/${id}/profile`));
@@ -1570,17 +1581,41 @@ async function convertInquiryDialog(item) {
     (data,key)=>api.mutate(key,`/inquiries/${item.id}/convert`,{request_id:undefined,revision:item.revision,project_name:data.project_name,...(data.customer_id?{customer_id:data.customer_id}:{customer:{name:data.customer_name,email:data.customer_email||''}})}),
     {key:'convert-'+item.id,submit:'Kunde & Projekt verknüpfen',after:async result=>{state.projects=collection(await api.get('/projects'));buildShell();openProject(result.project.id);}}),'Die Quelle und Originalunterlagen bleiben mit dem neuen Projekt verknüpft.');
 }
+function contactAddressSummary(contact) {
+  return contact.address||(contact.addresses||[]).map(address=>[address.street,[address.postal_code,address.city].filter(Boolean).join(' ')].filter(Boolean).join(', ')).filter(Boolean).join(' / ');
+}
 async function contactsView() {
   const response=await api.get(biz('/contacts')),contacts=collection(response);
   return el('div',{class:'stack contacts-workspace'},heading('Kontakte','Kunden, Lieferanten und Partner mit nachvollziehbaren Projektbezügen.',[...(response.can_create&&has('contacts.write')?[button('Kontakt anlegen',()=>contactDialog(),'primary')]:[]),...(state.features.has('sales_pipeline')&&has('contacts.read')?[button('Vertriebspipeline',()=>action(()=>sales.open()))]:[])]),
     has('privacy.manage')&&state.features.has('privacy_cases')?panel('Datenschutzfälle',button('Datenschutzfälle öffnen',()=>action(()=>privacyCases.open()),'small')):null,
-    panel('Kontaktkartei',rows(contacts,item=>row(item.name,[item.email,item.phone,item.address].filter(Boolean).join(' · '),[state.features.has('custom_fields')?button('Zusatzfelder',()=>action(()=>customFields.open('contact',item.id)),'small'):null,...(item.kinds||[]).map(kind=>badge(({customer:'Kunde',supplier:'Lieferant',partner:'Partner'})[kind])),has('contacts.write')?button('Bearbeiten',()=>action(async()=>contactDialog(await api.get(biz('/contacts/'+item.id)))),'small'):null,state.features.has('sales_pipeline')&&has('contacts.read')?button('Verkaufschancen',()=>action(()=>sales.open(item.id)),'small'):null,state.features.has('service_cases')&&has('contacts.read')?button('Servicefälle',()=>action(()=>customerService.open({customer_id:item.id})),'small'):null]))));
+    panel('Kontaktkartei',rows(contacts,item=>row(item.name,[item.email,item.phone,contactAddressSummary(item)].filter(Boolean).join(' · '),[has('projects.manage')&&item.active&&(item.kinds||[]).includes('customer')?button('Projekt anlegen',()=>action(()=>newProjectDialog(item.id)),'small'):null,state.features.has('custom_fields')?button('Zusatzfelder',()=>action(()=>customFields.open('contact',item.id)),'small'):null,...(item.kinds||[]).map(kind=>badge(({customer:'Kunde',supplier:'Lieferant',partner:'Partner'})[kind])),has('contacts.write')?button('Bearbeiten',()=>action(async()=>contactDialog(await api.get(biz('/contacts/'+item.id)))),'small'):null,state.features.has('sales_pipeline')&&has('contacts.read')?button('Verkaufschancen',()=>action(()=>sales.open(item.id)),'small'):null,state.features.has('service_cases')&&has('contacts.read')?button('Servicefälle',()=>action(()=>customerService.open({customer_id:item.id})),'small'):null]))));
 }
 const sales=createSales({api,biz,el,button,pricePicker,panel,row,rows,notice,empty,form,field,dialog,table,formatDate,action,mutation,refresh,openProject,documentDetail,actorId:()=>state.user?.id,permission:has,allowed:()=>state.features.has('sales_pipeline')&&has('contacts.read'),writable:()=>!state.readonly&&has('contacts.write')});
 const customFields=customFieldsUi({api,biz,el,button,field,form,dialog,panel,rows,row,notice,table,mutation,action,enabled:()=>!!state.user&&state.features.has('custom_fields'),admin:()=>has('settings.manage'),writable:()=>!state.readonly,stamp:()=>JSON.stringify([state.user?.id,state.generation,[...state.globalPermissions],[...state.permissions],state.projectId])});
+function contactAddressEditor(initial=[]) {
+  const container=el('div',{class:'stack'}),list=el('div',{class:'stack'}),records=[];
+  function add(value={}) {
+    if(records.length>=20)return;
+    const node=el('fieldset',{class:'panel stack'}),inputs={},record={node,inputs,id:value.id};
+    node.append(el('legend',{},'Kontaktadresse'));
+    const purpose=el('select',{'aria-label':'Adresszweck'},[['billing','Rechnungsadresse'],['site','Objektadresse'],['delivery','Lieferadresse'],['other','Weitere Adresse']].map(([id,label])=>el('option',{value:id,selected:id===(value.purpose||'billing')},label)));
+    inputs.purpose=purpose;node.append(el('label',{class:'field'},'Adresszweck',purpose));
+    const grid=el('div',{class:'form-grid'});
+    for(const [name,label,maxLength]of [['label','Adressbezeichnung',200],['street','Straße / Hausnummer',1000],['postal_code','Postleitzahl',30],['city','Ort',200],['country','Land (Ländercode)',2]]){
+      const input=el('input',{'aria-label':label,value:value[name]??(name==='country'?'DE':''),maxLength,required:name==='country'});
+      inputs[name]=input;grid.append(el('label',{class:'field'},label,input));
+    }
+    node.append(grid,button('Adresse entfernen',()=>{node.remove();records.splice(records.indexOf(record),1);},'small'));records.push(record);list.append(node);
+  }
+  for(const address of initial)add(address);
+  container.append(el('h3',{},'Strukturierte Adressen'),el('p',{class:'caption'},'Für die Rechnungsadresse Straße, Postleitzahl, Ort und Land getrennt erfassen. Vorhandene weitere Adressen bleiben erhalten.'),list,button('Rechnungsadresse hinzufügen',()=>add(),'small'));
+  container.values=()=>records.map(record=>({...record.id?{id:record.id}:{},...Object.fromEntries(Object.entries(record.inputs).map(([name,input])=>[name,name==='country'?input.value.trim().toUpperCase():input.value.trim()]))}));
+  return container;
+}
 function contactDialog(contact=null) {
   const fields=[field('name','Name / Firma','text',contact?.name||'',{required:true}),field('entity_type','Kontakttyp','select',contact?.entity_type||'company',{options:[['company','Unternehmen'],['person','Person']]}),field('kinds','Beziehungen','multi',contact?.kinds||['customer'],{options:[['customer','Kunde'],['supplier','Lieferant'],['partner','Partner']],required:true}),field('contact','Ansprechpartner','text',contact?.contact||''),field('email','E-Mail','email',contact?.email||''),field('phone','Telefon','tel',contact?.phone||''),field('address','Adresse','textarea',contact?.address||''),field('notes','Interne Notizen','textarea',contact?.notes||'')];
-  dialog(contact?'Kontakt bearbeiten':'Neuer Kontakt',form('',fields,(data,key)=>mutation(key,'/contacts'+(contact?'/'+contact.id:''),{...data,...(contact?{revision:contact.revision}:{})}),{key:'contact-'+(contact?.id||'new')}));
+  const addresses=contactAddressEditor(contact?.addresses||[]);
+  dialog(contact?'Kontakt bearbeiten':'Neuer Kontakt',form('',fields,(data,key)=>mutation(key,'/contacts'+(contact?'/'+contact.id:''),{...data,addresses:addresses.values(),...(contact?{revision:contact.revision}:{})}),{key:'contact-'+(contact?.id||'new'),extra:addresses}));
 }
 
 async function planningView() { return el('div',{class:'stack'},heading('Einsatzplanung','Ein gemeinsamer Kalender für Projekte, Team und Ressourcen.'),await planningContent(state.projectId)); }
@@ -1740,7 +1775,7 @@ async function documentDetail(id) {
       if(portalAccess(item,capabilities,state.organization).read)portal=panel('Kundenportal',button('Kundenportal verwalten',()=>action(()=>portalOfferDialog(item)),'primary'),el('p',{class:'muted'},'Die geprüfte Angebotsfassung gezielt freigeben, Kundenerklärungen einsehen oder Zugänge widerrufen.'));}
     else portal=notice('Dieser Server bietet derzeit keinen erreichbaren Angebotsportalzugang.');
   }
-  dialog(item.number||item.title,el('div',{class:'stack'},el('div',{class:'actions'},badge(item.status),...controls),portal,panel('Empfänger',el('h3',{},item.buyer?.name),el('p',{class:'muted'},item.buyer?.address_line||'')),
+  dialog(item.number||item.title,el('div',{class:'stack'},el('div',{class:'actions'},badge(item.status),...controls),portal,panel('Empfänger',el('h3',{},item.buyer?.name),el('p',{class:'muted'},[item.buyer?.address_line,[item.buyer?.postal_code,item.buyer?.city].filter(Boolean).join(' '),item.buyer?.country].filter(Boolean).flatMap((line,index)=>[index?el('br'):null,line]))),
     panel('Positionen',table(['Beschreibung','Menge','Einheit','Netto'],(item.positions||[]).map(line=>[line.catalog_price_snapshot?`${line.description} · ${line.catalog_price_snapshot.source_name} · ${line.catalog_price_snapshot.price.price_net} EUR / ${line.catalog_price_snapshot.price.price_base_quantity} ${line.unit} · Preisstand ${line.catalog_price_snapshot.effective_on}`:line.description,formatQuantity(line.quantity),line.unit,formatMoney(line.net)]))),
     item.contract_totals?panel('Rechnungskette',el('p',{},'Gesamte Vertragsleistung brutto: '+formatMoney(item.contract_totals.gross)),el('p',{},'Bereits berechnete Vertragsbasis brutto: '+formatMoney(item.previous_issued_gross)),...(item.previous_documents||[]).map(previous=>el('p',{},`Vorbeleg ${previous.number}: ${formatMoney(previous.gross)}`))):null,
     panel(item.contract_totals?'Zusätzlich berechneter Rechnungsbetrag':'Belegsumme',el('p',{},'Netto: '+formatMoney(item.totals?.net)),el('p',{},'Steuer: '+formatMoney(item.totals?.tax)),el('h2',{},'Brutto: '+formatMoney(item.totals?.gross)))));
@@ -2443,23 +2478,57 @@ function refundV2Confirm(source,body,preview,choices) {
   editor.dataset.accountingDetail='true';editor.dataset.refundDetail='true';editor.dataset.refundV2Detail='true';dialog('Erstattungsursprung prüfen',editor);
 }
 
+/* Price-free article identities for stock operations, scoped to the open project. */
+export async function loadInventoryArticleRefs(read,{projectId='',isCurrent=()=>true}={}) {
+  const identifier=value=>typeof value==='string'&&/^[a-f0-9]{32}$/.test(value);
+  if(projectId&&!identifier(projectId))throw new Error('Gültigen Projektbezug für die Artikelauswahl laden.');
+  const result=[];let after=null;
+  for(let page=0;page<100;page++) {
+    if(!isCurrent())throw new Error('Die Artikelauswahl gehört nicht mehr zum aktuellen Arbeitsbereich.');
+    const query=new URLSearchParams({limit:'200'});
+    if(projectId)query.set('project_id',projectId);
+    if(after)query.set('after',after);
+    const value=await read('/inventory/articles?'+query);
+    if(!isCurrent())throw new Error('Die Artikelauswahl gehört nicht mehr zum aktuellen Arbeitsbereich.');
+    if(!value||Object.keys(value).sort().join(',')!=='has_more,items,next_after'||!Array.isArray(value.items)||value.items.length>200||typeof value.has_more!=='boolean')throw new Error('Die Artikelauswahl ist unvollständig. Bitte neu laden.');
+    let last=after;
+    for(const item of value.items) {
+      if(!item||Object.keys(item).sort().join(',')!=='active,code,id,name,revision,unit'||!identifier(item.id)||
+          !Number.isSafeInteger(item.revision)||item.revision<1||item.active!==true||
+          !['code','name','unit'].every(key=>typeof item[key]==='string')||!item.name.trim()||!item.unit.trim()||last&&item.id<=last)throw new Error('Die Artikelauswahl ist widersprüchlich. Bitte neu laden.');
+      result.push(item);last=item.id;
+    }
+    if(value.has_more) {
+      if(!value.items.length||value.next_after!==last)throw new Error('Die Fortsetzung der Artikelauswahl fehlt. Bitte neu laden.');
+      after=last;
+    } else {
+      if(value.next_after!==null)throw new Error('Die Artikelauswahl enthält eine unerwartete Fortsetzung. Bitte neu laden.');
+      return result;
+    }
+  }
+  throw new Error('Die Artikelauswahl überschreitet 20.000 Einträge und benötigt eine eingegrenzte Suche.');
+}
+
 async function materialView() { return el('div',{class:'stack'},heading('Material','Bestellungen, Lieferungen, Bestände und nachvollziehbare Entnahmen.'),await materialContent(state.projectId)); }
 async function materialContent(projectId='') {
+  const generation=api.generation,render=state.render;
   const [locations,stock]=await Promise.all([api.get(biz('/inventory/locations')),api.get(biz('/inventory/stock'))]);
   const articles=has('finance.read')?collection(await api.get(biz('/articles'))):[];
+  const operationalArticles=state.features.has('inventory_article_refs')?await loadInventoryArticleRefs(path=>api.get(biz(path)),{projectId,
+    isCurrent:()=>generation===api.generation&&render===state.render&&has('inventory.read')}):articles;
   const reserved=projectId?collection(await api.get(query(biz('/inventory/reservations'),{project_id:projectId}))):[];
   const controls=[];
   if(state.features.has('inventory_counts')&&state.globalPermissions.has('inventory.read'))controls.push(button('Inventur öffnen',()=>action(()=>inventoryCounts.list()),'small'));
   if(canWrite('inventory.write','material'))controls.push(button('Lagerort anlegen',()=>dialog('Lagerort',form('',[field('name','Name','text','',{required:true})],(data,key)=>mutation(key,'/inventory/locations',data),{key:'location-new'})),'small'),
-    button('Bewegung buchen',()=>stockMovementDialog(collection(locations),articles,projectId),'primary'));
+    button('Bewegung buchen',()=>stockMovementDialog(collection(locations),operationalArticles,projectId),'primary'));
   if(canWrite('finance.write','documents'))controls.push(button('Artikel / Leistung anlegen',()=>articleDialog(),'small'));
   const content=el('div',{class:'stack'},panel('Lagerbestand',el('div',{class:'actions'},controls),table(['Lagerort','Artikel','Bestand','Reserviert','Verfügbar',...(has('finance.read')?['Wert netto']:[])],collection(stock).map(item=>[
     collection(locations).find(location=>location.id===item.location_id)?.name||'Lagerort',item.article_name||articles.find(article=>article.id===item.article_id)?.name||item.article_code||'Artikel',formatQuantity(item.on_hand,item.unit),formatQuantity(item.reserved),formatQuantity(item.available),...(has('finance.read')?[formatMoney(item.stock_value_net)]:[])]))),
     form('Artikel per Code finden',[field('code','Artikelnummer / Barcode','text','',{required:true})],async data=>{const found=await api.get(query(biz('/inventory/scan'),{code:data.code}));dialog('Artikel gefunden',panel(found.name,el('p',{},`${found.code} · ${found.unit}`),found.price_policy==='dated_catalog'?notice('Datierte Preisquelle mit Gültigkeitstag ausdrücklich wählen.'):found.cost_price_net?el('p',{},'EK netto: '+formatMoney(found.cost_price_net)):null));return undefined;},{submit:'Suchen',key:'scan',description:'Die Suche liest nur Stammdaten. Sie löst keine Entnahme aus.'}));
-  if(projectId)content.append(panel('Kommissionierung',canWrite('inventory.write','material')?button('Material reservieren',()=>reservationDialog(projectId,collection(locations),articles),'small'):null,
+  if(projectId)content.append(panel('Kommissionierung',canWrite('inventory.write','material')?button('Material reservieren',()=>reservationDialog(projectId,collection(locations),operationalArticles),'small'):null,
     rows(reserved,item=>row(item.article_snapshot?.name||item.article_id,`Reserviert ${formatQuantity(item.quantity)} · Entnommen ${formatQuantity(item.picked_quantity)} · Rest ${formatQuantity(item.remaining_quantity)}`,[badge(item.status),canWrite('inventory.write','material')&&['reserved','partial'].includes(item.status)?button('Entnehmen',()=>dialog('Material entnehmen',form('',[field('quantity','Entnahmemenge','decimal',item.remaining_quantity,{required:true})],(data,key)=>mutation(key,'/inventory/pick',{project_id:projectId,items:[{reservation_id:item.id,quantity:data.quantity}]}),{key:'pick-'+item.id,submit:'Entnahme verbindlich buchen'})),'small'):null]))));
   if(state.features.has('purchasing_receipts')&&state.capabilities.has('business_purchasing')&&has('inventory.read')) {
-    const availableArticles=articles.length?articles:Array.from(new Map(collection(stock).map(item=>[item.article_id,
+    const availableArticles=articles.length?articles:operationalArticles.length?operationalArticles:Array.from(new Map(collection(stock).map(item=>[item.article_id,
       {id:item.article_id,name:item.article_name||item.article_code,code:item.article_code,unit:item.unit}])).values());
     content.prepend(await purchasingContent(projectId,collection(locations),availableArticles));
   }
@@ -2732,6 +2801,12 @@ function checklistRunDialog(run) {
     {key:'answers-'+run.id,submit:'Prüfergebnis in Servicebericht übernehmen'}),'Diese Prüfung verwendet die eingefrorene Vorlagenfassung '+run.template_revision+'.');
 }
 
+const timeTracking=timeTrackingUi({api,biz,query,el,button,panel,notice,table,field,form,dialog,action,mutation,formatDate,duration,
+  allowed:()=>state.section==='personnel'&&(has('time.own')||has('personnel.read')),
+  writable:()=>canWrite('time.approve','personnel'),userId:()=>state.user?.id,
+  projectName:id=>state.projects.find(project=>project.id===id)?.name||'Zugeordnetes Projekt',
+  stamp:()=>`${api.generation}/${state.render}/${dialogGeneration}`});
+
 async function personnelView() {
   const employees=collection(await api.get(biz('/employees'))),own=employees.find(employee=>employee.user_id===state.user.id);
   const selected=employees.find(employee=>employee.id===state.employeeId)||own||(has('personnel.read')?employees[0]:null);
@@ -2747,8 +2822,8 @@ async function personnelView() {
   if(selected&&personnelWorkflow.allowed(selected))buttons.push(button('Personalakte, Reisen und Lohnvorbereitung',()=>action(()=>personnelWorkflow.open(selected)),'primary'));
   const content=el('div',{class:'stack'},heading('Personal & Zeiten','Eigene Zeiten und bestätigte Tagesnachweise. Keine Hintergrundortung.',buttons),
     selected?select('Mitarbeiter',options(has('personnel.read')?employees:employees.filter(employee=>employee.user_id===state.user.id)),selected.id,value=>{state.employeeId=value;refresh();}):notice('Für diesen Zugang ist noch kein Mitarbeiterprofil eingerichtet. Die Geschäftsführung kann es mit dem vorhandenen Benutzer verknüpfen.','warn'));
-  if(summary)content.append(el('div',{class:'grid'},panel('Arbeitszeit im Monat',el('div',{class:'metric'},duration(summary.worked_seconds)),el('p',{class:'metric-sub'},formatDate(dateInput(from))+' bis '+formatDate(dateInput(to))))),
-    panel('Arbeitszeiteinträge',rows(entries,item=>row(state.projects.find(project=>project.id===item.project_id)?.name||'Projekt',`${formatDate(item.started_at,true)}${item.ended_at?' – '+formatDate(item.ended_at,true):''}`,[badge(item.status),el('span',{class:'caption'},duration(item.worked_seconds)),canWrite('time.own','personnel')&&item.employee_id===own?.id&&['working','paused'].includes(item.status)?button('Fortsetzen / beenden',()=>timeDialog(item),'small'):null]))),
+  if(summary)content.append(el('div',{class:'grid'},panel('Nettoarbeitszeit im Monat',el('div',{class:'metric'},duration(summary.net_seconds)),el('p',{class:'metric-sub'},formatDate(dateInput(from))+' bis '+formatDate(dateInput(to))+' · Nach Pausen und Korrekturen.'))),
+    panel('Arbeitszeiteinträge',rows(entries,item=>row(state.projects.find(project=>project.id===item.project_id)?.name||'Projekt',`${formatDate(item.started_at,true)}${item.ended_at?' – '+formatDate(item.ended_at,true):''}`,[badge(item.status),el('span',{class:'caption'},duration(item.worked_seconds)),button('Zeiteintrag prüfen',()=>action(()=>timeTracking.open(item)),'small'),canWrite('time.own','personnel')&&item.employee_id===own?.id&&['working','paused'].includes(item.status)?button('Fortsetzen / beenden',()=>timeDialog(item),'small'):null]))),
     panel('Tagesfreigaben',rows(summary.days||[],day=>row(formatDate(day.date),`Netto ${duration(day.net_seconds)} · Pause ${duration(day.break_seconds||0)}`,[badge(day.status),canWrite('time.approve','personnel')&&day.status!=='approved'?button('Tag freigeben',()=>confirmDialog('Arbeitstag freigeben','Die geprüfte Zeit wird eingefroren. Optionale Ortsdaten werden aus den aktiven Daten und Wiederholungsquittungen entfernt.',async()=>{await mutation('approve-day-'+selected.id+'-'+day.date,`/time/days/${day.date}/approve`,{employee_id:selected.id,revision:day.revision});refresh();}),'small'):null]))));
   if(has('personnel.read'))content.append(panel('Mitarbeiterprofile',rows(employees,employee=>row(employee.name,`${employee.weekly_minutes??'—'} Sollminuten / Woche`,[badge(employee.active?'Aktiv':'Inaktiv'),canWrite('personnel.manage','personnel')?button('Bearbeiten',()=>action(()=>employeeDialog(employee)),'small'):null]))));
   return content;

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "scope": "project_creation_idempotency_counterreview",
+  "sqlite_http_tests_passed": 12,
+  "new_sqlite_tests": 3,
+  "postgres_tests_passed": 2,
+  "postgres_cleanup_exit_code": 0,
+  "source_sha256": {
+    "backend/core.py": "f71855f8bae85fe42c5db7ec59ae65ee747514fe497981f5911dc234e59966dd",
+    "backend/server.py": "85da9010277fb2c609994a98164699c0da4997ce7d8358a7beee2c380cf05916",
+    "backend/online/web.py": "e839c9b374efb43234580769e60b332516749f25d57ff85da9131cace71e5618",
+    "backend/business_foundation.py": "fc71d1c6014e1fcf267921365ec62611688cbb48377df73f4025577dd2bc9585",
+    "backend/inquiries.py": "9bb849103a4b1084c6fcc7720b194f70d65edeb0cb65e57ba99689abbc8211a7",
+    "backend/online/store.py": "7964282716f397902c7c988e360b57952fbfa2b2f0040828211e5d8d3ddd39d4",
+    "backend/test_project_creation_replay.py": "cc424ca076b7c3b756f27f07d032b2fae92ec636d133e6b014a4590fcbc2c2a9",
+    "backend/test_project_creation_counterreview.py": "2624f79b0d4d2ecce1db00b68acbd659ebffd26784134e664e948e43cc26d10a",
+    "backend/online/test_online.py": "588c479c700cd7b2c2fe6b67bc44cea94d75851d6af3d0821bfcacb5c360a5b9"
+  },
+  "source_stable_during_pg": true,
+  "reviewer_product_files_changed": false,
+  "artifacts_sha256": {
+    "docs/CRM_ERP_PROJEKTANLAGE_GEGENPRUEFUNG_2026-11-04.md": "ba1a8a815ce4e0769a8f5b85dfe62b263622a67a31a38bd0a7ba2a8031c7a39a",
+    "docs/evidence/project-creation-counterreview-2026-11-04/postgres-result.json": "972f080aeb39bdf47186f829594b5c90d0f8464934d05bf6071c5a90ef60edda",
+    "docs/evidence/project-creation-counterreview-2026-11-04/postgres-tests.txt": "249f8bc9663f4cebd60192fc0e142451b792f8170199c22abe8309a968930e3a",
+    "docs/evidence/project-creation-counterreview-2026-11-04/run_pg_counterreview.py": "7629a71d921446bdf93ee687146027b8410152775c1228a754c56ce3befa9884",
+    "docs/evidence/project-creation-counterreview-2026-11-04/sqlite-combined.txt": "7132494df05ebbd8052fb24b316b660fd872b15e27a6bc3db58a119c91435a16",
+    "docs/evidence/project-creation-counterreview-2026-11-04/sqlite-tests.txt": "bfd627f14688caa8a78bd53a131b887623b5f116daf4c9f18ea4a2cf8430c11d"
+  },
+  "limitations": [
+    "PG runtime role privileges not independently tested",
+    "schema 6 new receipt contract not supported by advertised feature",
+    "native client verified separately"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "exit_code": 0,
+  "postgres_version": "16.15 (Debian 16.15-1.pgdg13+2)",
+  "port": 55435,
+  "image_id": "sha256:74d436cb49d3398cf7b5d7b33635d43623d9e4da4b93c22db453f7d5d81181b1",
+  "duration_seconds": 8.273,
+  "before_sha256": {
+    "backend/core.py": "f71855f8bae85fe42c5db7ec59ae65ee747514fe497981f5911dc234e59966dd",
+    "backend/server.py": "85da9010277fb2c609994a98164699c0da4997ce7d8358a7beee2c380cf05916",
+    "backend/online/web.py": "e839c9b374efb43234580769e60b332516749f25d57ff85da9131cace71e5618",
+    "backend/business_foundation.py": "fc71d1c6014e1fcf267921365ec62611688cbb48377df73f4025577dd2bc9585",
+    "backend/inquiries.py": "9bb849103a4b1084c6fcc7720b194f70d65edeb0cb65e57ba99689abbc8211a7",
+    "backend/online/store.py": "7964282716f397902c7c988e360b57952fbfa2b2f0040828211e5d8d3ddd39d4",
+    "backend/test_project_creation_replay.py": "cc424ca076b7c3b756f27f07d032b2fae92ec636d133e6b014a4590fcbc2c2a9",
+    "backend/test_project_creation_counterreview.py": "2624f79b0d4d2ecce1db00b68acbd659ebffd26784134e664e948e43cc26d10a",
+    "backend/online/test_online.py": "588c479c700cd7b2c2fe6b67bc44cea94d75851d6af3d0821bfcacb5c360a5b9"
+  },
+  "after_sha256": {
+    "backend/core.py": "f71855f8bae85fe42c5db7ec59ae65ee747514fe497981f5911dc234e59966dd",
+    "backend/server.py": "85da9010277fb2c609994a98164699c0da4997ce7d8358a7beee2c380cf05916",
+    "backend/online/web.py": "e839c9b374efb43234580769e60b332516749f25d57ff85da9131cace71e5618",
+    "backend/business_foundation.py": "fc71d1c6014e1fcf267921365ec62611688cbb48377df73f4025577dd2bc9585",
+    "backend/inquiries.py": "9bb849103a4b1084c6fcc7720b194f70d65edeb0cb65e57ba99689abbc8211a7",
+    "backend/online/store.py": "7964282716f397902c7c988e360b57952fbfa2b2f0040828211e5d8d3ddd39d4",
+    "backend/test_project_creation_replay.py": "cc424ca076b7c3b756f27f07d032b2fae92ec636d133e6b014a4590fcbc2c2a9",
+    "backend/test_project_creation_counterreview.py": "2624f79b0d4d2ecce1db00b68acbd659ebffd26784134e664e948e43cc26d10a",
+    "backend/online/test_online.py": "588c479c700cd7b2c2fe6b67bc44cea94d75851d6af3d0821bfcacb5c360a5b9"
+  },
+  "cleanup_exit_code": 0,
+  "credentials_saved": false
+}

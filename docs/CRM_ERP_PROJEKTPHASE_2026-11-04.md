@@ -32,7 +32,7 @@ nicht aus der Appfunktion abgeleitet. Ein Windows-Quell-/Support-ZIP ersetzt
 kein startbares Windows-Programm. Ein Simulator oder ein unsignierter iOS-Build
 ersetzt keine installierbare iPhone-App.
 
-## Aktive Arbeit und bekannte Lücken
+## Zu Beginn bestätigte Lücken und ihre Bearbeitung
 
 1. **Projekt- und Belegkette:** Browser-Projektanlage übernimmt vorhandene
    Kunden bisher nur über Freitext und kann dadurch eine Dublette ohne Adresse
@@ -56,6 +56,12 @@ Anforderungen bereits abgenommen sind. Der frühere Orientierungswert von rund
 65 % zählt ungewichtete Zeilen des Gesamtziels und ist weder der Fortschritt
 dieser Phase noch ein Zeitversprechen. Der gewünschte Kundentest am 05.11.2026
 bleibt ein Ziel; die vollständige Fertigstellung wird nicht ungeprüft zugesagt.
+
+## Aktueller Abschluss des Quellblocks
+
+Die genannten Korrekturen sind im [gemeinsamen Stand 0.13.0](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)
+integriert und mit abgegrenzten gemeinsamen Läufen nachgeprüft. Aktuelle native
+Builds, Serverabgleich und reale Gerätebedienung stehen als nächste Schritte aus.
 
 ## Zurückgestellte Arbeit erhalten
 

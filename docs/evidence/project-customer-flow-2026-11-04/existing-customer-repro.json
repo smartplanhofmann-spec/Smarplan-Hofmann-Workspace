@@ -1,0 +1,9 @@
+{
+  "original_browser_source_sha256": "a5811ca172cc649917d886e1f82299c99513cd00099b065c0fc2f5ed61689fb0",
+  "existing_customer": "f79bca24b16f470ba873ad4a16250eab",
+  "old_free_name_customer": "095327d415b140b9a5b980874eaefbb3",
+  "explicit_customer": "f79bca24b16f470ba873ad4a16250eab",
+  "old_ready_for_invoice": false,
+  "new_ready_for_invoice": true,
+  "explicit_link_created_no_new_customer": true
+}

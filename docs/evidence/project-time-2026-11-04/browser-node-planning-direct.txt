@@ -1,0 +1,44 @@
+✔ calendar selection covers December, the following January, leap February and whole years (2.042134ms)
+✔ weeks and navigation remain calendar days across year and daylight-saving boundaries (0.371219ms)
+✔ multiple years stay within the server calendar limit and reject impossible dates (0.745062ms)
+✔ project bars include both bounds, retain one-day projects, and clip only the visible part (0.91686ms)
+✔ missing or invalid project bounds and projects outside the window never produce bars (0.917411ms)
+✔ timeline headers expose actual days and all months across the year boundary (19.556191ms)
+✖ calendar math and project clipping are identical in Berlin, Los Angeles and Auckland (218.308911ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 250.784651
+
+✖ failing tests:
+
+test at web/office/tests/planning.test.mjs:60:1
+✖ calendar math and project clipping are identical in Berlin, Los Angeles and Auckland (218.308911ms)
+  <ref *1> Error: spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node EPERM
+      at Object.spawnSync (node:internal/child_process:1160:20)
+      at spawnSync (node:child_process:928:24)
+      at execFileSync (node:child_process:971:15)
+      at file:///workspace/smartplan-project-time-20261104/web/office/tests/planning.test.mjs:63:84
+      at Array.map (<anonymous>)
+      at TestContext.<anonymous> (file:///workspace/smartplan-project-time-20261104/web/office/tests/planning.test.mjs:63:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19) {
+    errno: -1,
+    code: 'EPERM',
+    syscall: 'spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node',
+    path: '/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node',
+    spawnargs: [ '--input-type=module', '-e', `import {planningRange,timelinePlacement,planningTicks} from "file:///workspace/smartplan-project-time-20261104/web/office/office.js";const range=planningRange('multi','2027-12-31',3);console.log(JSON.stringify({range,bar:timelinePlacement({start_date:'2027-12-31',end_date:'2028-01-01'},range),ticks:planningTicks('multi',range)}));` ],
+    error: [Circular *1],
+    status: 0,
+    signal: null,
+    output: [ null, '', '' ],
+    pid: 2581243,
+    stdout: '',
+    stderr: ''
+  }

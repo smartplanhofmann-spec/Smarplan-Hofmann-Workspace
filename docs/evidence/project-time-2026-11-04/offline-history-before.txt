@@ -1,0 +1,19 @@
+00:00 +0: loading /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart
+00:00 +0: Server-started time preserves its full history when continued offline and reopened
+00:00 +0 -1: Server-started time preserves its full history when continued offline and reopened [E]
+  Expected: [
+              {'action': 'start', 'occurred_at': '2026-10-26T06:00:00.000Z'},
+              {'action': 'pause', 'occurred_at': '2026-10-26T08:00:00.000Z'}
+            ]
+    Actual: [{'action': 'pause', 'occurred_at': '2026-10-26T08:00:00.000Z'}]
+     Which: at location [0]['action'] is 'pause' instead of 'start'
+  Previously confirmed work must remain in the local duration.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/business_offline_time_test.dart 122:5          main.<fn>
+  
+00:00 +0 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: Server-started time preserves its full history when continued offline and reopened

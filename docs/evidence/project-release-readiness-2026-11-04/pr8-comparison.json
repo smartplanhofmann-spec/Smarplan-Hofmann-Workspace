@@ -1,0 +1,93 @@
+{
+  "checked_at_utc": "2026-11-04T19:31:25.551670+00:00",
+  "inspected_commit": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "pr8_head": "6371da1ec3641818b158ce3d3e132be674bc397e",
+  "pr8_base": "6e27f9dad2d04281cd1e3e692c4c4804a65edaf8",
+  "method": "Read-only source and original GitHub patch comparison. No product test, build, merge, push, remote object or workflow created.",
+  "base_sections": [
+    "\u00dcbersicht",
+    "Aufgaben",
+    "Termine",
+    "Bautagebuch",
+    "Pl\u00e4ne",
+    "Dokumente",
+    "Berichte"
+  ],
+  "business_sections": [
+    "Zusatzfelder",
+    "Kundenservice",
+    "Assistent",
+    "Unterlagenfreigabe",
+    "Belege",
+    "Kundenportal",
+    "Arbeitszeit",
+    "Einsatzplanung",
+    "Material",
+    "Kalkulation",
+    "Finanzen",
+    "Dokumentation",
+    "Fotos",
+    "Wartung"
+  ],
+  "critical_static_markers": {
+    "index_into_seven_element_base_sections_remains": 2,
+    "all_item_sections_built_in_indexed_stack": true,
+    "project_exit_guard_missing": true,
+    "stable_selected_business_feature_missing": true,
+    "visible_admin_return_callback_missing": true,
+    "operational_inventory_article_refs_missing": true,
+    "current_native_credit_note_label_missing": true
+  },
+  "current_extensions_to_preserve": [
+    "four additional business tabs",
+    "BusinessEditor pendingKey/pendingSession/readAllowed/context invalidation",
+    "CatalogPriceFlow and source snapshots",
+    "generation-bound current commands",
+    "offline time/photo/service-report feature access",
+    "current invoice chain conversions"
+  ],
+  "original_navigation_tests_absent": [
+    "project_business_tabs_navigation_test.dart",
+    "project_unsaved_return_test.dart",
+    "business_home_navigation_audit_test.dart",
+    "feature_actions_navigation_test.dart",
+    "financial_dialog_navigation_test.dart",
+    "workspace_return_navigation_test.dart"
+  ],
+  "source_sha256": {
+    "app/lib/project_workspace_page.dart": "b2e9a6667099931ec2f93306b689fc971977b068fcc42c153b0c4c46210074d2",
+    "app/lib/plan_pages.dart": "860357f02a7f9d16ed0a7132c4b7e1cb12b253bdf066fa2f44a26926b0af1789",
+    "app/lib/main.dart": "da3396126ed6143aa870f00df8c7ac422b92a2b83afc9ae8928f2734b47324c7",
+    "app/lib/home_views.dart": "dc531301779faf4c4907454d238b58d6c84510a55296252ca39ca6c5ff7a6256",
+    "app/lib/business_widgets.dart": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+    "app/lib/business_documents.dart": "be5ae6c8503ed0ae4b895f2f5aafcfc58e5c5d61ab2f141be6c9e50e3a8a6f77",
+    "app/lib/business_document_access.dart": "92c7412a5a16df5ff6dc3a578e98a2acf7cc69332e9db21f498faeae8f2fca16",
+    "app/lib/business_finance.dart": "94b200516cb624009185be53783d2c5b512b7ffc42bb06e341364cbc6b3afdf6",
+    "app/lib/business_operations.dart": "21388ecf9bfbbadd5cb6fc7448e30d51431b70b1849b19e895c1f65271ba2e7e",
+    "backend/business_inventory.py": "96d97bc9d5893d1fc0106b5eaae8378fe85460ac7842d94d72bdfccacaaa99d6",
+    "backend/business_documents.py": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+    ".github/workflows/checks.yml": "b403e1117dfe2c0e53e5e836d2ced919338ffc9747c520f9824992492a96a976",
+    ".github/workflows/ios-testflight.yml": "6cf1228338f9749a100e17927342385efe6d962d0a7c71e6a270503bfe759636"
+  },
+  "evidence_sha256": {
+    "docs/CRM_ERP_PROJEKT_NAVIGATION_PR8_ABGLEICH_2026-11-04.md": "bfbb1d8a17e0513e77ca7c6820ce860e641c2cb329bec0a9903a4845a1d6c83d",
+    "docs/evidence/project-release-readiness-2026-11-04/pr8-original-patches.json": "9e9267717d89885d7607674330866ffc2444e198d9c4250f4a3106887e1189b9",
+    "docs/evidence/project-release-readiness-2026-11-04/pr8-text-hunks.patch": "14bc152f77fcf59e9c307aa571c95071f8fc6afbc945ba2a436fdcf4b8972ae8",
+    "docs/evidence/project-release-readiness-2026-11-04/pr8-apply-check-initial.txt": "1035b7379b2efbf4c834a7d8d338c596f7cbfee754be9a721d6ebf20190332d4",
+    "docs/evidence/project-release-readiness-2026-11-04/pr8-apply-check.txt": "6eb3892d7b31ca409c82af08dd451a2247175ad07a4b2949081bd39bdcc66ab6",
+    "docs/evidence/project-release-readiness-2026-11-04/pr7-parent-original-patches.json": "e903ee637f372fd0ec9778ba7ebe5e21246b25ad81473349b219e85742a1a3db",
+    "docs/evidence/project-release-readiness-2026-11-04/ci-branch-route.json": "c1bef15fedc2668b2ac9fb68c5a5a9a6abb6b071f1faec4592ac77729c681179"
+  },
+  "apply_check": {
+    "command": [
+      "git",
+      "apply",
+      "--check",
+      "docs/evidence/project-release-readiness-2026-11-04/pr8-text-hunks.patch"
+    ],
+    "exit_code": 1,
+    "applied": false,
+    "meaning": "Existing text contexts conflict in current code. Applyability alone does not prove semantics safe. New tab slots would require adaptation even if a hunk applies."
+  },
+  "report_links_existing": 5
+}

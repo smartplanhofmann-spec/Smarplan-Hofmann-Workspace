@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_time_details.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 import 'offline_plans.dart';
@@ -309,6 +310,23 @@ class _BusinessTimePageState extends State<BusinessTimePage> {
         for (final entry in entries.reversed)
           Card(
             child: ListTile(
+              onTap:
+                  entry['sync_status'] != null &&
+                      entry['sync_status'] != 'Synchronisiert'
+                  ? null
+                  : () async {
+                      await showBusinessTimeDetails(
+                        context,
+                        widget.session,
+                        entry['id'] as String,
+                      );
+                      if (mounted) await load();
+                    },
+              trailing:
+                  entry['sync_status'] == null ||
+                      entry['sync_status'] == 'Synchronisiert'
+                  ? const Icon(Icons.chevron_right)
+                  : null,
               leading: Icon(
                 entry['sync_status'] == 'Konflikt'
                     ? Icons.warning_amber_rounded

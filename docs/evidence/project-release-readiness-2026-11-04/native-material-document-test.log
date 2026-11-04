@@ -1,0 +1,64 @@
+00:00 +0: loading /workspace/smartplan-project-release-readiness-20261104/app/test/business_material_document_access_test.dart
+00:00 +0: /workspace/smartplan-project-release-readiness-20261104/app/test/business_material_document_access_test.dart: Warehouse role selects a paginated price-free article in the actual reservation dialog
+00:04 +1: /workspace/smartplan-project-release-readiness-20261104/app/test/business_material_document_access_test.dart: Warehouse role selects a paginated price-free article in the actual reservation dialog
+00:05 +2: /workspace/smartplan-project-release-readiness-20261104/app/test/business_documents_widget_test.dart: A real document form creates typed positions and omits an empty optional due date
+00:06 +3: /workspace/smartplan-project-release-readiness-20261104/app/test/business_documents_widget_test.dart: A real document form creates typed positions and omits an empty optional due date
+00:06 +4: /workspace/smartplan-project-release-readiness-20261104/app/test/business_documents_widget_test.dart: A real document form creates typed positions and omits an empty optional due date
+00:07 +5: /workspace/smartplan-project-release-readiness-20261104/app/test/business_material_document_access_test.dart: Broken pagination never exposes partial material choices
+00:07 +6: /workspace/smartplan-project-release-readiness-20261104/app/test/business_material_document_access_test.dart: Open document position dialog enforces its current write permission
+00:08 +7: /workspace/smartplan-project-release-readiness-20261104/app/test/business_material_document_access_test.dart: Open template position dialog enforces its current write permission
+00:09 +8: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Legacy servers keep the manual editor without new feature requests
+00:09 +9: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Legacy servers keep the manual editor without new feature requests
+00:10 +10: /workspace/smartplan-project-release-readiness-20261104/app/test/business_material_document_access_test.dart: An existing credit note edits metadata only and restores the exact pending command after reopening
+00:10 +11: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Calculated prices are only added after explicit adoption and keep their proof
+00:14 +12: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:16 +13: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:16 +14: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: A late calculation after logout cannot reveal prices or adopt a position
+00:17 +15: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: pricing BOM sends explicit purchase source without rounding one euro per three units
+00:17 +16: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: BOM article quantities preserve selected article revisions in the server calculation
+00:18 +17: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: bound root cost skips manual required zero and sends only authoritative source
+00:18 +18: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Measured quantities require price selection, preview and explicit commit confirmation
+00:18 +19: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after background
+00:18 +20: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: A stale measurement keeps selections and explains why import was refused
+00:19 +21: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after generation
+00:19 +22: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: New drafts use the structured billing contact without overwriting manual input on reload
+00:19 +23: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after read
+00:19 +24: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Existing draft buyer snapshots are not fetched or overwritten automatically
+00:19 +25: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after write
+00:20 +26: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after write
+00:20 +27: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: A billing response arriving after manual input preserves the entered recipient
+00:20 +28: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after module
+00:20 +29: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: A late response for the previous project cannot populate a different project
+00:20 +30: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after background
+00:20 +31: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after background
+00:20 +32: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after background
+00:20 +33: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Fresh pricing denial clears its proposal and the underlying financial editor
+00:21 +34: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Fresh pricing denial clears its proposal and the underlying financial editor
+00:21 +35: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after read
+00:21 +36: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after read
+00:21 +37: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: A fresh archive PDF 404 clears previously displayed document data
+00:21 +38: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after write
+00:21 +39: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after write
+00:22 +40: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Project finance grants can calculate manually when global catalogs are forbidden
+00:22 +41: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Project finance grants can calculate manually when global catalogs are forbidden
+00:22 +42: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Denied live article pricing does not remove an independently authorized financial draft
+00:23 +43: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Losing live measurement permission removes pending transfers while keeping frozen document positions
+00:23 +44: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Losing live measurement permission removes pending transfers while keeping frozen document positions
+00:23 +45: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Losing live measurement permission removes pending transfers while keeping frozen document positions
+00:23 +46: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Losing live measurement permission removes pending transfers while keeping frozen document positions
+00:23 +47: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Losing live measurement permission removes pending transfers while keeping frozen document positions
+00:23 +48: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Losing live measurement permission removes pending transfers while keeping frozen document positions
+00:23 +49: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Losing live measurement permission removes pending transfers while keeping frozen document positions
+00:23 +50: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_workflows_test.dart: narrow dated document replay 409 preserves nonce after generation and requires fresh rights
+00:23 +51: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Calculation proposal is usable at desktop width
+00:23 +52: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Calculation proposal is usable at desktop width
+00:23 +53: /workspace/smartplan-project-release-readiness-20261104/app/test/business_document_completion_test.dart: Calculation proposal is usable at desktop width
+00:23 +54: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_workflows_test.dart: dated document lost ACK survives close reopen with original source and nonce
+00:24 +55: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_workflows_test.dart: dated document lost ACK survives close reopen with original source and nonce
+00:25 +56: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_workflows_test.dart: purchasing uses explicit price without finance write and preserves it through approval
+00:26 +57: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_workflows_test.dart: sales adoption keeps explicit dated article identity and quantity
+00:27 +58: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_workflows_test.dart: managed article editor hides technical zero price fields
+00:27 +59: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save false cannot navigate or reveal error after background
+00:28 +60: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save true cannot navigate or reveal error after background
+00:28 +61: /workspace/smartplan-project-release-readiness-20261104/app/test/business_catalog_price_workflows_test.dart: global editor recovers exact dated pending document after explicit project selection
+00:28 +62: All tests passed!

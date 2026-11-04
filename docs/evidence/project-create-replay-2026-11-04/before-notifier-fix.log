@@ -1,0 +1,30 @@
+00:00 +0: loading /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart
+00:00 +0: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: (setUpAll)
+00:00 +0: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: Uncertain create retains the exact original body and retries its request id
+00:02 +1: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: Uncertain create retains the exact original body and retries its request id
+00:02 +2: /workspace/smartplan-project-navigation-20261104/app/test/administration_return_navigation_test.dart: Administration returns to the same workspace at 390.0
+00:03 +3: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: Closing and reopening an uncertain create keeps its body and selected customer
+00:03 +4: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: A token change drops an in-flight create result without refreshing the new context
+00:04 +5: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: A server change drops an in-flight create result without refreshing the new context
+00:04 +6: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Owner can log in, open administration and create a validated user
+00:05 +7: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Owner can log in, open administration and create a validated user
+00:05 +8: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Owner can log in, open administration and create a validated user
+00:06 +9: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Owner can log in, open administration and create a validated user
+00:06 +10: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: A late customer list cannot open a form after a server switch
+00:06 +11: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: A late customer list cannot open a form after a server switch
+00:06 +12: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Accountant can reopen reports but has no writing controls
+00:07 +13: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: An old server permits first creation but no uncertain repeat and local resolution makes no POST
+00:07 +14: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: A report needs name, drawn signature and confirmation before signing (variant: TargetPlatform.windows)
+00:07 +15: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: A definite rejection preserves editable input and a corrected command receives a new request id
+00:07 +16: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Repeated taps while rotating open only one signature editor (variant: TargetPlatform.iOS)
+00:08 +17: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Repeated taps while rotating open only one signature editor (variant: TargetPlatform.iOS)
+00:08 +18: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: A context switch during retry preflight prevents its POST
+00:08 +19: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Expired session closes administration and returns to login
+00:08 +20: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: Returning to the same token cannot revive an older create operation
+00:09 +21: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: Returning to the same token cannot revive an older create operation
+00:09 +22: /workspace/smartplan-project-navigation-20261104/app/test/project_create_replay_test.dart: A denied retry does not discard an originally uncertain command
+00:10 +23: /workspace/smartplan-project-navigation-20261104/app/test/workspace_shell_test.dart: Phone exposes named work areas and returns from storage to search
+00:11 +24: /workspace/smartplan-project-navigation-20261104/app/test/workspace_shell_test.dart: Whole project row opens its actual project and customer search stays local
+00:11 +25: /workspace/smartplan-project-navigation-20261104/app/test/workspace_shell_test.dart: Large text and short desktop preserve navigation without owner-only actions
+00:12 +26: /workspace/smartplan-project-navigation-20261104/app/test/workspace_shell_test.dart: (tearDownAll)
+00:12 +26: All tests passed!

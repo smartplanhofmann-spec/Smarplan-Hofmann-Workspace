@@ -49,7 +49,7 @@ async function ready(page){await page.locator('main .loading').waitFor({state:'d
 async function navigate(page,name){if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);}
 async function main(){
   const workflow=process.env.SMARTPLAN_BROWSER_WORKFLOW;
-  assert.ok(workflow===undefined||['accounting-open-items','company-events','catalog-prices','historical-assets','payroll-multiple-cases','catalog-imports','accounting-openings','payroll-oneoff-cases','payroll-zero-account','payroll-annual-basis','payroll-wage-interruptions','payroll-calculation-cases','travel-v3','payroll-travel-tax-policies','payroll-entitlements','travel-allowances','payroll-statements','payroll-periods','purchase-changes','payroll-transition','bank-reconciliation','resource-custody','accessibility','privacy-cases','service','custom-fields','migrations','payroll-cash','company-handover','speech','sales','company-overview','inventory-counts','invoice-chain','payroll','assistant','personnel-workflow','asset-provenance','project-economics','accounting-allocation','accounting-components','accounting-refunds','accounting-capacity','accounting-refunds-v2','accounting-profile'].includes(workflow),'Unsupported targeted browser workflow');
+  assert.ok(workflow===undefined||['time-tracking', 'accounting-open-items', 'company-events', 'catalog-prices', 'historical-assets', 'payroll-multiple-cases', 'catalog-imports', 'accounting-openings', 'payroll-oneoff-cases', 'payroll-zero-account', 'payroll-annual-basis', 'payroll-wage-interruptions', 'payroll-calculation-cases', 'travel-v3', 'payroll-travel-tax-policies', 'payroll-entitlements', 'travel-allowances', 'payroll-statements', 'payroll-periods', 'purchase-changes', 'payroll-transition', 'bank-reconciliation', 'resource-custody', 'accessibility', 'privacy-cases', 'service', 'custom-fields', 'migrations', 'payroll-cash', 'company-handover', 'speech', 'sales', 'company-overview', 'inventory-counts', 'invoice-chain', 'payroll', 'assistant', 'personnel-workflow', 'asset-provenance', 'project-economics', 'accounting-allocation', 'accounting-components', 'accounting-refunds', 'accounting-capacity', 'accounting-refunds-v2', 'accounting-profile', 'inventory-article-refs', 'project-customer'].includes(workflow),'Unsupported targeted browser workflow');
   const {chromium}=require('playwright');
   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'smartplan-browser-e2e-')),readyFile=path.join(directory,'ready.json');
   const screenshots=process.env.SMARTPLAN_BROWSER_SCREENSHOT_DIR||directory;
@@ -87,6 +87,14 @@ async function main(){
     await page.goto(fixture.base_url+'/office/');
     if(workflow==='accessibility')await require('./accessibility-flow.cjs').audit(page,'login');
     const recovery=await login(page,'owner@browser.example.test');
+    if(workflow==='inventory-article-refs'){
+      await require('./inventory-article-refs-flow.cjs').inventoryArticleRefsFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();return;
+    }
+    if(workflow==='project-customer'){
+      await require('./project-customer-flow.cjs').projectCustomerFlow({page,context,navigate,ready,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();return;
+    }
     if(workflow==='accessibility'){
       await require('./accessibility-flow.cjs').accessibilityFlow({page,context,navigate,ready,fixture,screenshots});
       assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted accessibility workflow passed (real rendered WCAG scans, keyboard and mobile views)');return;
@@ -170,6 +178,10 @@ async function main(){
     if(workflow==='resource-custody'){
       await require('./resource-custody-flow.cjs').resourceCustodyFlow({page,context,navigate,ready,fixture,screenshots});
       assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted resource custody workflow passed (real MFA/HTTP, native resource, inspection, custody and planning)');return;
+    }
+    if(workflow==='time-tracking'){
+      await require('./time-tracking-flow.cjs').timeTrackingFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted time-tracking workflow passed (real MFA/HTTP, original time events, approved correction and exact retry)');return;
     }
     if(workflow==='service'){
       await require('./service-flow.cjs').serviceFlow({page,context,navigate,ready,fixture,screenshots});

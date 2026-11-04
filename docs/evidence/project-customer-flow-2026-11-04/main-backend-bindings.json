@@ -1,0 +1,33 @@
+{
+  "main_commit": "cf5e50bb4180b97658d66bba43096df616183ab0",
+  "main_status": "",
+  "bindings": {
+    "backend/core.py": {
+      "main": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7",
+      "candidate": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7",
+      "main_after_run": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7"
+    },
+    "backend/business_foundation.py": {
+      "main": "0bb453dc36da531e7222b426ed5d6bf5f80792da5e380905b833094d1ea9bd57",
+      "candidate": "0bb453dc36da531e7222b426ed5d6bf5f80792da5e380905b833094d1ea9bd57",
+      "main_after_run": "0bb453dc36da531e7222b426ed5d6bf5f80792da5e380905b833094d1ea9bd57"
+    },
+    "backend/business_documents.py": {
+      "main": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+      "candidate": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+      "main_after_run": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc"
+    },
+    "backend/online/web.py": {
+      "main": "9c678d2125f66e57f5a5c54afc425a7239730cac981fd1fc3d4d1ac4818e70dc",
+      "candidate": "9c678d2125f66e57f5a5c54afc425a7239730cac981fd1fc3d4d1ac4818e70dc",
+      "main_after_run": "9c678d2125f66e57f5a5c54afc425a7239730cac981fd1fc3d4d1ac4818e70dc"
+    },
+    "backend/online/test_business_accounting_invoice_chain_pg.py": {
+      "main": "1978987d21cdaa59e1ece6be3e056953938a88daadf3cb2a40bdf1fcf613ab33",
+      "candidate": "1978987d21cdaa59e1ece6be3e056953938a88daadf3cb2a40bdf1fcf613ab33",
+      "main_after_run": "1978987d21cdaa59e1ece6be3e056953938a88daadf3cb2a40bdf1fcf613ab33"
+    }
+  },
+  "main_commit_after_run": "cf5e50bb4180b97658d66bba43096df616183ab0",
+  "main_status_after_run": ""
+}

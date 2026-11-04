@@ -1,0 +1,19 @@
+{
+  "captured_at": "2026-11-04T19:35:59.921081+00:00",
+  "head": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "source_sha256": {
+    "app/lib/project_workspace_page.dart": "897f6facdf13cecc387a937e6d931ee1355ec2ee9e86b0382c72e2fefa7a77b6",
+    "app/lib/project_exit_guard.dart": "e587a9678c88afd41ab504922d39e573aa081357a7a2ebe27d81e698aa816d4f",
+    "app/lib/plan_pages.dart": "c28353e0ddcd03ef4819b0ed8450f1e98cb90e7a7135f390e4ef3e991a29775b",
+    "app/lib/main.dart": "4a06fd460b96244b9ecdef06e08cbe65343e8d88f73fc15c7e1f5f54e2618e1a",
+    "app/lib/home_views.dart": "5edb1331926a70c2249bc06a41960cb4f26edd6679a7b2d00ded872e0db1111d",
+    "app/test/project_business_tabs_navigation_test.dart": "a91c249e72bc00ea77b091f19d6977154421115fe1f729c13719096ce9228119",
+    "app/test/project_unsaved_return_test.dart": "042ec54154cab40c5744d286cba26b878484d0ddd5db08a06f9eb284e1ea6092",
+    "app/test/administration_return_navigation_test.dart": "2c60dadd926048caea8fb2268aebaff1b3454d335e34c636ee9f5bb351695269",
+    "app/test/project_workspace_widget_test.dart": "ad74a44992a26f60f8f5b3330137ffa74f5370d0fae48a0942958d2722811d40",
+    "app/test/workflow_test.dart": "8c81919e24939c96a66bf078a53e6faacbe352a876af7902ce09d14b8f50c3ab",
+    "app/test/offline_plans_test.dart": "435129c96ffc53fe316fc185e3c5107cca74ea30e84f2325d4a395e155fbacbf",
+    "app/pubspec.yaml": "c121514cfaa41deacbdd96fe69128ad8dcec33672a7d6615bc06808a2fca1bd8",
+    "app/pubspec.lock": "abad959ff01e9b03eb345bee3f08c8b5c8189aefb78c88b4ac5be0bddcb682ad"
+  }
+}

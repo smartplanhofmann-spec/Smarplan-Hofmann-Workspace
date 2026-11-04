@@ -45,6 +45,9 @@ jobs:
           python -m unittest discover -s backend/online -p test_instance_isolation.py -v
           python -m unittest discover -s backend/online -p 'test_company*isolation*.py' -v
           python -m unittest discover -s backend/online -p test_organization_http.py -v
+          python -m unittest discover -s backend/online -p test_inventory_article_references_api.py -v
+          PYTHONPATH=backend python -m unittest test_project_creation_replay -v
+          PYTHONPATH=backend python -m unittest test_project_creation_counterreview.ProjectCreationPostgresCounterreview -v
           python -m unittest discover -s backend/online -p test_organization_pg.py -v
           python -m unittest discover -s backend/online -p test_purchasing_journey.py -v
           python -m unittest discover -s backend/online -p test_purchasing_catalog_http.py -v
@@ -193,6 +196,9 @@ jobs:
             SMARTPLAN_BROWSER_WORKFLOW=travel-allowances node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=travel-v3 node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=sales node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=project-customer node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=inventory-article-refs node tests/e2e.cjs &&
+            SMARTPLAN_BROWSER_WORKFLOW=time-tracking node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-transition node tests/e2e.cjs &&
             SMARTPLAN_BROWSER_WORKFLOW=payroll-periods node tests/e2e.cjs &&

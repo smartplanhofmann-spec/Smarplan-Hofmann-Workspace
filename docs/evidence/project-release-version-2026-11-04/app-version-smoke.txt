@@ -1,0 +1,14 @@
+00:00 +0: loading /workspace/smartplan-project-completion-integration-20261104/app/test/workspace_shell_test.dart
+00:00 +0: /workspace/smartplan-project-completion-integration-20261104/app/test/workspace_shell_test.dart: (setUpAll)
+00:00 +0: /workspace/smartplan-project-completion-integration-20261104/app/test/workspace_shell_test.dart: Phone exposes named work areas and returns from storage to search
+00:01 +1: /workspace/smartplan-project-completion-integration-20261104/app/test/workspace_shell_test.dart: Whole project row opens its actual project and customer search stays local
+00:01 +2: /workspace/smartplan-project-completion-integration-20261104/app/test/workspace_shell_test.dart: Large text and short desktop preserve navigation without owner-only actions
+00:02 +3: /workspace/smartplan-project-completion-integration-20261104/app/test/workspace_shell_test.dart: (tearDownAll)
+00:19 +3: /workspace/smartplan-project-completion-integration-20261104/app/test/workflow_test.dart: Owner can log in, open administration and create a validated user
+00:21 +4: /workspace/smartplan-project-completion-integration-20261104/app/test/workflow_test.dart: Project access can be granted and removed
+00:21 +5: /workspace/smartplan-project-completion-integration-20261104/app/test/workflow_test.dart: Accountant can reopen reports but has no writing controls
+00:21 +6: /workspace/smartplan-project-completion-integration-20261104/app/test/workflow_test.dart: A report needs name, drawn signature and confirmation before signing (variant: TargetPlatform.windows)
+00:22 +7: /workspace/smartplan-project-completion-integration-20261104/app/test/workflow_test.dart: Repeated taps while rotating open only one signature editor (variant: TargetPlatform.iOS)
+00:23 +8: /workspace/smartplan-project-completion-integration-20261104/app/test/workflow_test.dart: Expired session closes administration and returns to login
+00:23 +9: /workspace/smartplan-project-completion-integration-20261104/app/test/workflow_test.dart: Technician home has no owner administration or OneDrive setup
+00:23 +10: All tests passed!

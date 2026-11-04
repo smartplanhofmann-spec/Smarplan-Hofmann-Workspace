@@ -2113,3 +2113,19 @@ laufen in getrennten Arbeitskopien; hiermit werden keine neuen erfolgreichen
 Produktprüfungen und keine abgeschlossene Geräteauslieferung behauptet.
 Das Gesamtziel bleibt unverändert; die privaten Lohnpakete bleiben erhalten
 und werden nicht für diese Phase integriert.
+
+
+## 04.11.2026 – Projektbetrieb 0.13.0 gemeinsam geprüft
+
+Kunden-/Adressübernahme, Projektregister/Rückwege, begründete Zeitkorrekturen,
+Offline-Ereignisse, preisfreie Materialauswahl, Belegrechte und wiederholbare
+Projektanlage sind zusammengeführt. [Bericht und Nachläufe](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)
+halten die tatsächlichen Ergebnisse einschließlich der ersten Fehler fest.
+1.621 unterschiedliche Flutterfälle besitzen nach gezielter Nachprüfung
+erfolgreiche Ergebnisse; 856 Node- und 16 Paketfälle sowie drei tatsächliche
+Browserabläufe bestehen. Backend-Gesamtlauf, enger Importnachlauf, sechs neue
+MFA-/HTTP-Fälle und zwei tatsächliche PG-Gegenproben sind getrennt dokumentiert.
+Version 0.13.0+130 und automatische iPhone-Buildnummer sind geprüft.
+Der lokale Quellblock ist abgeschlossen; aktuelle native Auslieferung,
+Serverabgleich und reale Geräteabnahme sind noch offen. Lohn und Buchhaltung
+bleiben gemäß Nutzerpriorität zurückgestellt.

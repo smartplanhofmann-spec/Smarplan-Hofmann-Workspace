@@ -1,0 +1,118 @@
+{
+  "at_utc": "2026-11-04T19:34:44.509288+00:00",
+  "base_commit": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "scope": "Only business_inventory.py plus new tests and these evidence files. No schema/API-registry/right changes, existing endpoint changes, PostgreSQL service, native build or deployment.",
+  "feature": "inventory_article_refs",
+  "feature_publication": "Existing business_api.capabilities aggregates the inventory module FEATURES only when that module is supported; checked through real authenticated Flask requests.",
+  "route": "GET /api/v1/business/inventory/articles",
+  "query": {
+    "allowed": [
+      "project_id",
+      "after",
+      "limit"
+    ],
+    "project_id": "Optional nonempty 32 lowercase hexadecimal ID; omitted means existing global inventory.read scope.",
+    "after": "Optional nonempty 32 lowercase hexadecimal keyset boundary, exclusive. No existence requirement; it is not an authorization token.",
+    "limit": "Optional canonical decimal string 1..200; default100. Domain also accepts exact int, not bool/float.",
+    "validation": "Unknown, duplicate, multivalued, empty or malformed query values are rejected. Normal transport query_data rejects duplicate keys."
+  },
+  "response": {
+    "items": [
+      {
+        "id": "32 lowercase hexadecimal ID",
+        "revision": "integer",
+        "code": "string",
+        "name": "string",
+        "unit": "string",
+        "active": true
+      }
+    ],
+    "has_more": "boolean",
+    "next_after": "Last emitted id only when another eligible row exists; otherwise null"
+  },
+  "selection": "Active JSON boolean true and kind material/machine only, ascending id. Filter before LIMIT limit+1. Only explicit safe JSON keys selected, no raw payload or pricing/BOM JSON returned even for owner.",
+  "authorization": "Fresh inventory.read via existing Domain.access before and after selection; supplied project also requires current project visibility/assignment. Existing global denials override scoped allows. No new grants or role defaults.",
+  "errors": {
+    "400": "Malformed or unrecognized query and invalid direct dispatch input.",
+    "401": "Missing/invalid session or missing/deactivated current user.",
+    "403": "Missing or withdrawn inventory.read. Finance endpoints remain403 for technician warehouse user.",
+    "404": "Supplied project missing or not currently assigned/visible.",
+    "405": "Method other than GET. HTTP Allow is GET.",
+    "500": "Invalid non-string safe catalogue fields; no raw payload is returned."
+  },
+  "transport_boundary": "GET request bodies follow the pre-existing generic transport behavior; inventory/articles is not added to business_api.strict_workflow_path in this owner scope. Direct dispatch rejects extra body keys, but HTTP body rejection would need a separate central transport change.",
+  "validation": {
+    "new_domain_tests": 9,
+    "new_actual_mfa_flask_tests": 6,
+    "targeted_total": 15,
+    "targeted_passed": 15,
+    "targeted_skipped": 0,
+    "existing_regression_total": 40,
+    "existing_regression_passed": 40,
+    "existing_regression_skipped": 0,
+    "python": "/tmp/smartplan-backend-verified/bin/python",
+    "test_environment": "Fresh temporary SQLite fixtures, actual password/MFA/auth/domain code. No production DB, provider, message or external call.",
+    "not_executed": [
+      "PostgreSQL runtime acceptance",
+      "TLS acceptance",
+      "native UI/build",
+      "browser acceptance"
+    ]
+  },
+  "initial_test_fixture_correction": "First setup lacked required synthetic customer names (15 setup errors); fixed only new tests, retained original log. Then missing-route/method regression was recorded before product implementation.",
+  "provenance": {
+    "source": "PR8 reference endpoint idea inspected; current implementation adds strict direct query channel validation and safe field type checks.",
+    "original_patch_path": "docs/evidence/project-release-readiness-2026-11-04/pr8-original-patches.json",
+    "original_patch_sha256": "9e9267717d89885d7607674330866ffc2444e198d9c4250f4a3106887e1189b9"
+  },
+  "files": {
+    "backend/business_inventory.py": {
+      "before_sha256": "96d97bc9d5893d1fc0106b5eaae8378fe85460ac7842d94d72bdfccacaaa99d6",
+      "after_sha256": "b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b"
+    },
+    "backend/test_inventory_article_references.py": {
+      "sha256": "aad2d34cfe023e3f781854369eda3b8cb5a49f8eb0aee7e90cc213dde1fabcc5"
+    },
+    "backend/online/test_inventory_article_references_api.py": {
+      "sha256": "611627935de9c11a025e6a8619667c449c62f94cb830de581c3433183620802d"
+    }
+  },
+  "logs": {
+    "fixture-initial": {
+      "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-fixture-initial.txt",
+      "sha256": "125c6c60f9b603f1b396a312cc170fe30e9acbf2d03ff424c4992fe0684945e8",
+      "summary": [
+        "Ran 15 tests in 5.010s",
+        "FAILED (errors=15)",
+        "exit_code: 1"
+      ]
+    },
+    "before": {
+      "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-before.txt",
+      "sha256": "696fc47bfe8500e9ea0c81832539c7229b79ec2648523347654baefb912a90e6",
+      "summary": [
+        "Ran 15 tests in 8.979s",
+        "FAILED (failures=27, errors=38)",
+        "exit_code: 1"
+      ]
+    },
+    "after": {
+      "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-after.txt",
+      "sha256": "c5e4be6e0c765935f10561fa730ebd835f6b2606cdfb8633a483730b2ea741c3",
+      "summary": [
+        "Ran 15 tests in 8.137s",
+        "OK",
+        "exit_code: 0"
+      ]
+    },
+    "regression": {
+      "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-regression.txt",
+      "sha256": "4016d25f4f00843ec5fd3c659a55457f407c52eca04bc7ff3bc5c4c50cdedf0f",
+      "summary": [
+        "Ran 40 tests in 10.169s",
+        "OK",
+        "exit_code: 0"
+      ]
+    }
+  }
+}

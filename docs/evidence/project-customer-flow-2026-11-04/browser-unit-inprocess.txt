@@ -1,0 +1,35 @@
+✔ money and quantities preserve server decimal strings in German display (3.059004ms)
+✔ requests stay on same origin, omit cookies, refuse redirects and carry memory bearer (25.429036ms)
+✔ the browser native fetch receiver stays bound to the global object (0.584891ms)
+✔ login has no stale bearer and logout erases memory authorization (0.638601ms)
+✔ clear aborts outstanding requests and refuses a response from the previous session (0.526132ms)
+✔ a lost mutation response retries the exact request id and body (2.720896ms)
+✔ uncertain operation cannot silently change its target or payload (0.536167ms)
+✔ an uncertain saved form can be explicitly retried after its dialog closes (0.772212ms)
+✔ a definite validation failure allows a corrected fresh operation (0.879865ms)
+✔ streaming and advertised response bounds protect memory (1.338064ms)
+✔ an oversized accepted response retains the original nonce instead of claiming request rejection (0.853655ms)
+✔ bounded large bank DTOs leave ordinary JSON and original downloads at their own limits (49.552075ms)
+✔ HTML proxy errors never enter the user-facing error message (0.39178ms)
+✔ binary downloads retain bytes and do not put bearer into a URL (0.5983ms)
+✔ browser source has eleven real navigation sections including the assistant and no persistent credential or unsafe HTML writer (7.01561ms)
+✔ all price-free pages retain project scope and advancing cursors (0.854737ms)
+✔ unknown price fields, unordered pages and broken continuation are not used as an article list (0.363077ms)
+✔ revoked or changed workspace rejects a pending page before another request (0.337899ms)
+✔ online feature and source-scoped rights govern portal actions; paused modules still allow revoke (0.462967ms)
+✔ grant and adoption require explicit confirmation of the exact source (0.837751ms)
+✔ only a real first-create result may display a matching HTTPS fragment link (0.740715ms)
+✔ lost grant creation retries the same request and handles an unavailable one-time link without a second grant (0.759474ms)
+✔ forecast values preserve cents and closing probabilities require explicit reasons (0.44499ms)
+✔ offer transfers only catalogue identity, revision and deliberate quantity (0.532251ms)
+✔ pending create verifies fresh rights and original contact identity (0.589748ms)
+✔ offer retry rejects a paused document module and revoked project rights (0.339401ms)
+✔ lost create acknowledgement survives rights revocation and reuses exact request (1.050982ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 191.573776

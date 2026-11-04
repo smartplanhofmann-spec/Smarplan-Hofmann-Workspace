@@ -1,0 +1,32 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.fill: Error: strict mode violation: getByRole('dialog').getByLabel('Beschreibung', { exact: true }) resolved to 2 elements:
+    1) <input required="" maxlength="10000" aria-label="Beschreibung"/> aka getByRole('textbox', { name: 'Beschreibung' }).first()
+    2) <input required="" maxlength="10000" aria-label="Beschreibung"/> aka getByRole('textbox', { name: 'Beschreibung' }).nth(1)
+
+Call log:
+[2m  - waiting for getByRole('dialog').getByLabel('Beschreibung', { exact: true })[22m
+
+    at Object.projectCustomerFlow (/workspace/smartplan-project-flow-20261104/web/office/tests/project-customer-flow.cjs:44:59)
+    at async main (/workspace/smartplan-project-flow-20261104/web/office/tests/e2e.cjs:91:7)
+Browser launch context: {"browser":"/usr/bin/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+ HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/projects/7f1f478e0da94cf09f626519abf2c8b0/profile HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/projects/7f1f478e0da94cf09f626519abf2c8b0/profile HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/projects/7f1f478e0da94cf09f626519abf2c8b0/workspace HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/projects/7f1f478e0da94cf09f626519abf2c8b0/profile HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/projects/7f1f478e0da94cf09f626519abf2c8b0/profile HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/capabilities?project_id=7f1f478e0da94cf09f626519abf2c8b0 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/customer-workspace?project_id=7f1f478e0da94cf09f626519abf2c8b0 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/documents?project_id=7f1f478e0da94cf09f626519abf2c8b0 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/service-reports?project_id=7f1f478e0da94cf09f626519abf2c8b0 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:41] "GET /api/v1/business/articles HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

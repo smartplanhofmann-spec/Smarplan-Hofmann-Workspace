@@ -1,0 +1,280 @@
+Command: /tmp/smartplan-backend-verified/bin/python -m unittest -v test_inventory_article_references online.test_inventory_article_references_api
+
+test_assignment_and_user_revocation_are_checked_fresh (test_inventory_article_references.InventoryArticleReferenceTests.test_assignment_and_user_revocation_are_checked_fresh) ... ERROR
+test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) ... ERROR
+test_fresh_global_and_project_denials_block_an_already_issued_cursor (test_inventory_article_references.InventoryArticleReferenceTests.test_fresh_global_and_project_denials_block_an_already_issued_cursor) ... ERROR
+test_future_nested_financial_fields_never_escape_even_for_owner (test_inventory_article_references.InventoryArticleReferenceTests.test_future_nested_financial_fields_never_escape_even_for_owner) ... ERROR
+test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) ... ERROR
+test_keyset_pages_include_every_eligible_item_once_and_skip_hidden_rows (test_inventory_article_references.InventoryArticleReferenceTests.test_keyset_pages_include_every_eligible_item_once_and_skip_hidden_rows) ... ERROR
+test_owner_and_warehouse_receive_only_active_physical_identities (test_inventory_article_references.InventoryArticleReferenceTests.test_owner_and_warehouse_receive_only_active_physical_identities) ... ERROR
+test_scoped_grant_does_not_enable_global_catalogue_or_another_project (test_inventory_article_references.InventoryArticleReferenceTests.test_scoped_grant_does_not_enable_global_catalogue_or_another_project) ... ERROR
+test_separate_company_catalogues_do_not_share_article_identity_rows (test_inventory_article_references.InventoryArticleReferenceTests.test_separate_company_catalogues_do_not_share_article_identity_rows) ... ERROR
+test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads) ... ERROR
+test_company_session_isolation_rejects_a_foreign_real_login (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_company_session_isolation_rejects_a_foreign_real_login) ... ERROR
+test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission) ... ERROR
+test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed) ... ERROR
+test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) ... ERROR
+test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access) ... ERROR
+
+======================================================================
+ERROR: test_assignment_and_user_revocation_are_checked_fresh (test_inventory_article_references.InventoryArticleReferenceTests.test_assignment_and_user_revocation_are_checked_fresh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 27, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic assigned project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 27, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic assigned project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_fresh_global_and_project_denials_block_an_already_issued_cursor (test_inventory_article_references.InventoryArticleReferenceTests.test_fresh_global_and_project_denials_block_an_already_issued_cursor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 27, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic assigned project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_future_nested_financial_fields_never_escape_even_for_owner (test_inventory_article_references.InventoryArticleReferenceTests.test_future_nested_financial_fields_never_escape_even_for_owner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 27, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic assigned project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 27, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic assigned project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_keyset_pages_include_every_eligible_item_once_and_skip_hidden_rows (test_inventory_article_references.InventoryArticleReferenceTests.test_keyset_pages_include_every_eligible_item_once_and_skip_hidden_rows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 27, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic assigned project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_owner_and_warehouse_receive_only_active_physical_identities (test_inventory_article_references.InventoryArticleReferenceTests.test_owner_and_warehouse_receive_only_active_physical_identities)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 27, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic assigned project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_scoped_grant_does_not_enable_global_catalogue_or_another_project (test_inventory_article_references.InventoryArticleReferenceTests.test_scoped_grant_does_not_enable_global_catalogue_or_another_project)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 27, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic assigned project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_separate_company_catalogues_do_not_share_article_identity_rows (test_inventory_article_references.InventoryArticleReferenceTests.test_separate_company_catalogues_do_not_share_article_identity_rows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 27, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic assigned project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 39, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic warehouse project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_company_session_isolation_rejects_a_foreign_real_login (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_company_session_isolation_rejects_a_foreign_real_login)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 39, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic warehouse project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 39, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic warehouse project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 39, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic warehouse project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 39, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic warehouse project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+======================================================================
+ERROR: test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 39, in setUp
+    self.project = self.office.add_project(self.owner, 'Synthetic warehouse project')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 493, in add_project
+    value = customer_values({"name": customer})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 176, in customer_values
+    value["name"] = text_field(value["name"], "Kundenname")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/core.py", line 46, in text_field
+    raise Problem(400, f"Ungültiges Feld: {name}")
+core.Problem: (400, 'Ungültiges Feld: Kundenname')
+
+----------------------------------------------------------------------
+Ran 15 tests in 5.010s
+
+FAILED (errors=15)
+
+exit_code: 1
+duration_seconds: 5.525

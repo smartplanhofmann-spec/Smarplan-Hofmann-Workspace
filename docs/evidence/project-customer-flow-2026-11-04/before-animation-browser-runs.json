@@ -1,0 +1,39 @@
+{
+  "before_sha256": {
+    "web/office/office.js": "f8542e44660a52bc9c83704461881d07b8595839731fa07ec008b3115e9da063",
+    "web/office/tests/e2e.cjs": "22ca47bc67e32317c5c982314d79cc54ca20c14283443d37c3c07869193a4186",
+    "web/office/tests/project-customer-flow.cjs": "84410c086a4889df8150dd3b748d9b419f7e4777df2b900fbbb82be4bdf93899",
+    "web/office/tests/inventory-article-refs-flow.cjs": "b49e44b044b6abd4c1f5c57b6961a03e8a58dc7a966a762d0b2a0198f953a96d",
+    "web/office/tests/inventory-article-refs.test.mjs": "05ad35acc7411f46227ce85609aa281bebad973b31c193ae067a68ffc865c775",
+    "backend/business_inventory.py": "b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b",
+    "backend/business_foundation.py": "0bb453dc36da531e7222b426ed5d6bf5f80792da5e380905b833094d1ea9bd57",
+    "backend/business_documents.py": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+    "backend/core.py": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7"
+  },
+  "after_sha256": {
+    "web/office/office.js": "f8542e44660a52bc9c83704461881d07b8595839731fa07ec008b3115e9da063",
+    "web/office/tests/e2e.cjs": "22ca47bc67e32317c5c982314d79cc54ca20c14283443d37c3c07869193a4186",
+    "web/office/tests/project-customer-flow.cjs": "84410c086a4889df8150dd3b748d9b419f7e4777df2b900fbbb82be4bdf93899",
+    "web/office/tests/inventory-article-refs-flow.cjs": "b49e44b044b6abd4c1f5c57b6961a03e8a58dc7a966a762d0b2a0198f953a96d",
+    "web/office/tests/inventory-article-refs.test.mjs": "05ad35acc7411f46227ce85609aa281bebad973b31c193ae067a68ffc865c775",
+    "backend/business_inventory.py": "b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b",
+    "backend/business_foundation.py": "0bb453dc36da531e7222b426ed5d6bf5f80792da5e380905b833094d1ea9bd57",
+    "backend/business_documents.py": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+    "backend/core.py": "021770f750706435e9c0ead2d49b041429fe25d56e6c83bc02ec7acc3189d2e7"
+  },
+  "sources_unchanged": true,
+  "results": [
+    {
+      "workflow": "project-customer",
+      "exit_code": 0,
+      "duration_seconds": 21.359,
+      "log": "final-customer.txt"
+    },
+    {
+      "workflow": "inventory-article-refs",
+      "exit_code": 0,
+      "duration_seconds": 19.842,
+      "log": "final-warehouse.txt"
+    }
+  ]
+}

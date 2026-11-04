@@ -1,0 +1,13 @@
+✔ correction binds exact approved server day, signed integer minutes and reason (2.692332ms)
+✔ clock result and correction receipt must refer to actual selected originals and actor (0.570409ms)
+✔ correction requires current permission, time capability and active write mode (0.196706ms)
+✔ history retains exact signed seconds for corrections smaller than a minute (0.282605ms)
+✔ late original read cannot reopen a dialog after the context changes (0.295175ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37.417776

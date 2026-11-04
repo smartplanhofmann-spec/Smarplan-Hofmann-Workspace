@@ -1,0 +1,24 @@
+00:00 +0: loading /workspace/smartplan-project-navigation-20261104/app/test/plan_test.dart
+00:00 +0: /workspace/smartplan-project-navigation-20261104/app/test/plan_test.dart: Draw, undo, save and reopen a project plan
+00:02 +1: /workspace/smartplan-project-navigation-20261104/app/test/plan_test.dart: Draw, undo, save and reopen a project plan
+00:02 +2: /workspace/smartplan-project-navigation-20261104/app/test/plan_test.dart: Conflict retains draft; reader cannot draw or save
+00:03 +3: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+00:06 +4: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+00:06 +5: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+00:07 +6: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+00:12 +7: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+00:12 +8: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: A connected workday starts in the overview and records tasks, diary, appointments and document links in any order
+00:13 +9: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Accountant can reopen reports but has no writing controls
+00:13 +10: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: A lost acknowledgement retries the same request without duplicating a task
+00:14 +11: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: A report needs name, drawn signature and confirmation before signing (variant: TargetPlatform.windows)
+00:15 +12: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: A conflict keeps edits, requires comparison and uses the newly confirmed revision
+00:15 +13: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Repeated taps while rotating open only one signature editor (variant: TargetPlatform.iOS)
+00:16 +14: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: Old server fallback retains real reports, while project withdrawal hides the workspace
+00:16 +15: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Expired session closes administration and returns to login
+00:18 +16: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: Narrow read-only projects expose all named registers without creating data
+00:18 +17: /workspace/smartplan-project-navigation-20261104/app/test/workflow_test.dart: Technician home has no owner administration or OneDrive setup
+00:19 +18: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: Phone overview keeps equal compact counters, primary actions and the first task above the fold
+00:19 +19: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: Cached offline workspace queues a task through encrypted storage and keeps reports online only
+00:26 +20: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: Expired project access hides an open task form including its team dropdown
+00:27 +21: /workspace/smartplan-project-navigation-20261104/app/test/project_workspace_widget_test.dart: Calendar and external-link handoffs only run after explicit clicks
+00:29 +22: All tests passed!

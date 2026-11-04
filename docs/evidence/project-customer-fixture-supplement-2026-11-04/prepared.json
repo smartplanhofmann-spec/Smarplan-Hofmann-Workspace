@@ -1,0 +1,22 @@
+{
+  "captured_at": "2026-11-04T19:47:15.499749+00:00",
+  "fixture_before_sha256": "9868d9b589a0d049b034eeffa3b0bfe92644e4f3c781229ca2032fe4e9d0e695",
+  "fixture_after_sha256": "c0acfbf3eb134b3df1e11e786dc5531107826994f72a11c7429d40a5ee5f282e",
+  "assertions_and_test_bodies_unchanged": true,
+  "replacements": 2,
+  "failure_excerpt": {
+    "source": "docs/evidence/project-integrated-2026-11-04/flutter-full.txt",
+    "line_start": 233,
+    "line_end": 268,
+    "source_snapshot_bytes": 167111,
+    "source_snapshot_sha256": "11f141fea6376de0073f70369d1d5457cdc8f3826f28dfd068c527370744a751",
+    "full_suite_still_running": true
+  },
+  "sources_before": {
+    "app/test/customer_test.dart": "c0acfbf3eb134b3df1e11e786dc5531107826994f72a11c7429d40a5ee5f282e",
+    "app/lib/main.dart": "59bd3c354d06377420d2d1d9fff5942b62ee116dd037e695b14d0dbd2f08ef25",
+    "app/test/project_create_replay_test.dart": "1efb2108bfe900ceac359a5bec69b329f354ac5d96ef79e186c4082293ec1959",
+    "app/test/administration_return_navigation_test.dart": "2c60dadd926048caea8fb2268aebaff1b3454d335e34c636ee9f5bb351695269",
+    "app/test/workflow_test.dart": "8c81919e24939c96a66bf078a53e6faacbe352a876af7902ce09d14b8f50c3ab"
+  }
+}

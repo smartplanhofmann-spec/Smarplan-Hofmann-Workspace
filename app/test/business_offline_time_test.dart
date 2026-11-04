@@ -95,6 +95,47 @@ void main() {
     server.dispose();
     await folder.delete(recursive: true);
   });
+  test('Server-started time preserves its full history when continued offline and reopened', () async {
+    final start = now.subtract(const Duration(hours: 2));
+    final id = 'b' * 32;
+    await repo.cacheTimeEntries('p', [
+      {
+        'id': id,
+        'project_id': 'p',
+        'revision': 1,
+        'sequence': 1,
+        'status': 'working',
+        'started_at': start.toIso8601String(),
+        'last_at': start.toIso8601String(),
+        'events': [
+          {'action': 'start', 'occurred_at': start.toIso8601String()},
+        ],
+      },
+    ]);
+    server.online = false;
+    await repo.saveTimeEvent('p', 'pause', entryId: id);
+    await idle(repo);
+    await repo.leave();
+    await repo.resume();
+    await idle(repo);
+    final paused = repo.timeEntries('p').single;
+    expect(paused['local_events'], [
+      {'action': 'start', 'occurred_at': start.toIso8601String()},
+      {'action': 'pause', 'occurred_at': now.toIso8601String()},
+    ], reason: 'Previously confirmed work must remain in the local duration.');
+    now = now.add(const Duration(minutes: 30));
+    await repo.saveTimeEvent('p', 'resume', entryId: id);
+    now = now.add(const Duration(hours: 1));
+    await repo.saveTimeEvent('p', 'stop', entryId: id);
+    await idle(repo);
+    server.online = true;
+    await repo.sync();
+    final synced = repo.timeEntries('p').single;
+    expect(synced['local_events'], hasLength(4));
+    expect(synced['sync_status'], 'Synchronisiert');
+    expect(server.timeBodies.map((body) => body['sequence']), [2, 3, 4]);
+    expect(repo.pending, 0);
+  });
   test('Offline start pause stop survives reopening and lost ACK without a duplicate', () async {
     server.online = false;
     final entry = await repo.saveTimeEvent('p', 'start');

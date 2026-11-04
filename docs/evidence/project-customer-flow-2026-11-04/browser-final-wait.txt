@@ -1,0 +1,2 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+Actual contact forms → existing customer project → offer → order → invoice draft: stable customer/project, full billing address and exact 119.00 EUR passed. Invoice not issued by SQLite.

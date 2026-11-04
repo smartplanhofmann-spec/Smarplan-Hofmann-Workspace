@@ -1,0 +1,8 @@
+{
+  "operation": "git push --dry-run origin HEAD:refs/heads/codex/testupdate-0.7-projects-20261104",
+  "result": "success",
+  "remote_branch_created": false,
+  "files_uploaded": false,
+  "head_at_check": "cf5e50bb4180b97658d66bba43096df616183ab0",
+  "meaning": "The normal git transport accepted the proposed new ref in dry-run mode. No claim that newer source or builds exist remotely."
+}

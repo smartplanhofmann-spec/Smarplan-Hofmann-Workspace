@@ -1,0 +1,122 @@
+"""Independent original-body, restore and cross-process project replay checks."""
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+import hashlib
+import tempfile
+import threading
+import unittest
+from unittest.mock import patch
+import uuid
+
+from backup import backup
+from core import Office, Problem
+from restore import restore
+from business_foundation import BusinessFoundation, validate_integrity
+import test_online as pg_fixture
+
+
+def command():
+    return dict(name='Independent synthetic project', customer='Independent synthetic customer',
+                request_id=uuid.uuid4().hex)
+
+
+class ProjectCreationCounterreview(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.path = Path(self.temp.name) / 'source.sqlite3'
+        self.office = Office(self.path)
+        self.addCleanup(self.office.db.close)
+        identifier = self.office.add_user('review@example.test', 'Synthetic-review-password-123', 'owner')
+        self.actor = dict(id=identifier, role='owner', email='review@example.test')
+        self.body = command()
+
+    def fingerprint(self):
+        return hashlib.sha256('\n'.join(self.office.db.iterdump()).encode()).hexdigest()
+
+    def test_original_effective_fields_remain_bound_before_whitespace_normalization(self):
+        original = self.office.add_project(self.actor, **self.body)
+        for change in ({'name': ' ' + self.body['name']}, {'customer': self.body['customer'] + ' '}):
+            before = self.fingerprint()
+            with self.subTest(change=change), self.assertRaises(Problem) as caught:
+                self.office.add_project(self.actor, **(self.body | change))
+            self.assertEqual(caught.exception.status, 409)
+            self.assertEqual(self.fingerprint(), before)
+        self.assertEqual(self.office.add_project(self.actor, **self.body), original)
+
+    def test_inactive_original_owner_cannot_replay_with_stale_owner_dictionary(self):
+        self.office.add_project(self.actor, **self.body)
+        with self.office.db:
+            self.office.db.execute('UPDATE users SET active=0 WHERE id=?', (self.actor['id'],))
+        before = self.fingerprint()
+        with self.assertRaises(Problem) as caught:
+            self.office.add_project(self.actor, **self.body)
+        self.assertEqual(caught.exception.status, 401)
+        self.assertEqual(self.fingerprint(), before)
+
+    def test_actual_backup_restore_preserves_receipt_despite_later_customer_changes(self):
+        old_token = self.office.login('review@example.test', 'Synthetic-review-password-123')
+        original = self.office.add_project(self.actor, **self.body)
+        customer = self.office.project(self.actor, original)['customer_id']
+        self.office.update_customer(self.actor, customer, {'name': 'Renamed synthetic customer', 'active': False})
+        saved = backup(self.path, Path(self.temp.name) / 'backup.sqlite3')
+        restored = Office(restore(saved, Path(self.temp.name) / 'restored.sqlite3'))
+        self.addCleanup(restored.db.close)
+        with self.assertRaises(Problem) as caught:
+            restored.user(old_token)
+        self.assertEqual(caught.exception.status, 401)
+        actor = restored.user(restored.login('review@example.test', 'Synthetic-review-password-123'))
+        before = '\n'.join(restored.db.iterdump())
+        self.assertEqual(restored.add_project(actor, **self.body), original)
+        self.assertEqual('\n'.join(restored.db.iterdump()), before)
+        for table in ('projects', 'customers', 'business_foundation_requests'):
+            self.assertEqual(restored.db.execute('SELECT COUNT(*) FROM '+table).fetchone()[0], 1)
+        self.assertTrue(validate_integrity(restored))
+
+
+@unittest.skipUnless(pg_fixture.DSN, 'Disposable loopback SMARTPLAN_TEST_DSN required')
+class ProjectCreationPostgresCounterreview(unittest.TestCase):
+    def setUp(self):
+        from psycopg.conninfo import conninfo_to_dict
+        from online.store import PostgresOffice
+        config = conninfo_to_dict(pg_fixture.DSN)
+        if config.get('dbname') != 'smartplan_check' or config.get('host') not in ('127.0.0.1', 'localhost'):
+            raise RuntimeError('Only disposable loopback smartplan_check is allowed.')
+        pg_fixture.reset()
+        self.office = PostgresOffice(pg_fixture.DSN)
+        self.other = PostgresOffice(pg_fixture.DSN)
+        self.addCleanup(self.office.db.close)
+        self.addCleanup(self.other.db.close)
+        identifier = self.office.add_user('review@example.test', 'Synthetic-review-password-123', 'owner')
+        self.actor = dict(id=identifier, role='owner', email='review@example.test')
+        self.body = command()
+
+    def test_independent_connections_replay_one_customer_project_and_receipt(self):
+        barrier = threading.Barrier(2)
+        def create(office):
+            barrier.wait(timeout=5)
+            return office.add_project(self.actor, **self.body)
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            results = list(pool.map(create, [self.office, self.other]))
+        self.assertEqual(results[0], results[1])
+        for table in ('projects', 'customers', 'business_foundation_requests'):
+            self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM '+table).fetchone()[0], 1)
+        self.assertEqual(self.office.db.execute("SELECT COUNT(*) FROM audit WHERE action='project.created'").fetchone()[0], 1)
+
+    def test_receipt_failure_and_outer_rollback_leave_no_partial_project(self):
+        before = self.office.db.execute('SELECT COUNT(*) FROM audit').fetchone()[0]
+        with patch.object(BusinessFoundation, '_remember', side_effect=RuntimeError('Synthetic receipt failure')):
+            with self.assertRaises(RuntimeError):
+                self.office.add_project(self.actor, **self.body)
+        with self.assertRaises(RuntimeError):
+            with self.office.db:
+                self.office.add_project(self.actor, **self.body)
+                raise RuntimeError('Synthetic outer rollback')
+        for table in ('projects', 'customers', 'business_foundation_requests'):
+            self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM '+table).fetchone()[0], 0)
+        self.assertEqual(self.office.db.execute('SELECT COUNT(*) FROM audit').fetchone()[0], before)
+        self.assertTrue(self.office.add_project(self.actor, **self.body))
+
+
+if __name__ == '__main__':
+    unittest.main()

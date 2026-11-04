@@ -1,0 +1,694 @@
+Command: /tmp/smartplan-backend-verified/bin/python -m unittest -v test_inventory_article_references online.test_inventory_article_references_api
+
+test_assignment_and_user_revocation_are_checked_fresh (test_inventory_article_references.InventoryArticleReferenceTests.test_assignment_and_user_revocation_are_checked_fresh) ... ERROR
+test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) ... 
+  test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'_query': {'search': 'x'}}) ... FAIL
+  test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'_query': {'limit': ['1']}}) ... FAIL
+  test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'_query': {'after': None}}) ... FAIL
+  test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'_query': []}) ... FAIL
+  test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'extra': 'ignored'}) ... FAIL
+  test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data=[]) ... FAIL
+test_fresh_global_and_project_denials_block_an_already_issued_cursor (test_inventory_article_references.InventoryArticleReferenceTests.test_fresh_global_and_project_denials_block_an_already_issued_cursor) ... ERROR
+test_future_nested_financial_fields_never_escape_even_for_owner (test_inventory_article_references.InventoryArticleReferenceTests.test_future_nested_financial_fields_never_escape_even_for_owner) ... ERROR
+test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) ... 
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value='') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value='') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value='XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value='XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value=' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value=' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value=['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa']) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value=['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa']) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value=1) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value=1) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value=True) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value=True) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=0) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=201) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=-1) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=True) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=1.0) ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='01') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='+1') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=' 1') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='1 ') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='1.0') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='201') ... ERROR
+  test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=['1']) ... ERROR
+test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) ... ERROR
+test_keyset_pages_include_every_eligible_item_once_and_skip_hidden_rows (test_inventory_article_references.InventoryArticleReferenceTests.test_keyset_pages_include_every_eligible_item_once_and_skip_hidden_rows) ... ERROR
+test_owner_and_warehouse_receive_only_active_physical_identities (test_inventory_article_references.InventoryArticleReferenceTests.test_owner_and_warehouse_receive_only_active_physical_identities) ... 
+  test_owner_and_warehouse_receive_only_active_physical_identities (test_inventory_article_references.InventoryArticleReferenceTests.test_owner_and_warehouse_receive_only_active_physical_identities) (role='owner') ... ERROR
+  test_owner_and_warehouse_receive_only_active_physical_identities (test_inventory_article_references.InventoryArticleReferenceTests.test_owner_and_warehouse_receive_only_active_physical_identities) (role='technician') ... ERROR
+test_scoped_grant_does_not_enable_global_catalogue_or_another_project (test_inventory_article_references.InventoryArticleReferenceTests.test_scoped_grant_does_not_enable_global_catalogue_or_another_project) ... ERROR
+test_separate_company_catalogues_do_not_share_article_identity_rows (test_inventory_article_references.InventoryArticleReferenceTests.test_separate_company_catalogues_do_not_share_article_identity_rows) ... ERROR
+test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads) ... FAIL
+test_company_session_isolation_rejects_a_foreign_real_login (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_company_session_isolation_rejects_a_foreign_real_login) ... FAIL
+test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission) ... FAIL
+test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed) ... FAIL
+test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) ... 
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='unexpected=1') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=1&limit=2') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='after=a&after=b') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='project_id=01bbd27ec650467096781721a7a89daf&project_id=01bbd27ec650467096781721a7a89daf') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=0') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=201') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=01') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=-1') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=1.0') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=true') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=%201') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=%2B1') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='after=') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='after=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') ... FAIL
+  test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='project_id=none') ... FAIL
+test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access) ... FAIL
+
+======================================================================
+ERROR: test_assignment_and_user_revocation_are_checked_fresh (test_inventory_article_references.InventoryArticleReferenceTests.test_assignment_and_user_revocation_are_checked_fresh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 124, in test_assignment_and_user_revocation_are_checked_fresh
+    self.api.article_references(self.warehouse, project_id=self.project)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_fresh_global_and_project_denials_block_an_already_issued_cursor (test_inventory_article_references.InventoryArticleReferenceTests.test_fresh_global_and_project_denials_block_an_already_issued_cursor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 114, in test_fresh_global_and_project_denials_block_an_already_issued_cursor
+    first = self.api.article_references(self.warehouse, project_id=self.project, limit=1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_future_nested_financial_fields_never_escape_even_for_owner (test_inventory_article_references.InventoryArticleReferenceTests.test_future_nested_financial_fields_never_escape_even_for_owner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 80, in test_future_nested_financial_fields_never_escape_even_for_owner
+    result = self.api.article_references(self.owner)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value='XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value='XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value=' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value=' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value=['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value=['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='after', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (field='project_id', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 137, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, **{name: value})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=201)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=-1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='01')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='+1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=' 1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='1 ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='1.0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit='201')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion) (limit=['1'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 140, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.denied(400, self.api.article_references, self.owner, limit=value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_invalid_cursor_scope_and_limit_are_rejected_without_coercion (test_inventory_article_references.InventoryArticleReferenceTests.test_invalid_cursor_scope_and_limit_are_rejected_without_coercion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 141, in test_invalid_cursor_scope_and_limit_are_rejected_without_coercion
+    self.assertEqual(len(self.api.article_references(self.owner, limit='1')['items']), 1)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_keyset_pages_include_every_eligible_item_once_and_skip_hidden_rows (test_inventory_article_references.InventoryArticleReferenceTests.test_keyset_pages_include_every_eligible_item_once_and_skip_hidden_rows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 91, in test_keyset_pages_include_every_eligible_item_once_and_skip_hidden_rows
+    page = self.api.article_references(self.warehouse, project_id=self.project, after=after, limit=2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_owner_and_warehouse_receive_only_active_physical_identities (test_inventory_article_references.InventoryArticleReferenceTests.test_owner_and_warehouse_receive_only_active_physical_identities) (role='owner')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 66, in test_owner_and_warehouse_receive_only_active_physical_identities
+    result = self.api.article_references(actor, project_id=self.project)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_owner_and_warehouse_receive_only_active_physical_identities (test_inventory_article_references.InventoryArticleReferenceTests.test_owner_and_warehouse_receive_only_active_physical_identities) (role='technician')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 66, in test_owner_and_warehouse_receive_only_active_physical_identities
+    result = self.api.article_references(actor, project_id=self.project)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_scoped_grant_does_not_enable_global_catalogue_or_another_project (test_inventory_article_references.InventoryArticleReferenceTests.test_scoped_grant_does_not_enable_global_catalogue_or_another_project)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 107, in test_scoped_grant_does_not_enable_global_catalogue_or_another_project
+    self.denied(403, self.api.article_references, self.scoped)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+ERROR: test_separate_company_catalogues_do_not_share_article_identity_rows (test_inventory_article_references.InventoryArticleReferenceTests.test_separate_company_catalogues_do_not_share_article_identity_rows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 155, in test_separate_company_catalogues_do_not_share_article_identity_rows
+    self.assertEqual(BusinessInventory(other).article_references(owner),
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BusinessInventory' object has no attribute 'article_references'
+
+======================================================================
+FAIL: test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'_query': {'search': 'x'}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 147, in test_dispatch_rejects_unrecognized_or_multivalued_query_channels
+    self.denied(400, dispatch, self.office, self.owner, '/inventory/articles', 'GET', data)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 55, in denied
+    with self.assertRaises(Problem) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'_query': {'limit': ['1']}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 147, in test_dispatch_rejects_unrecognized_or_multivalued_query_channels
+    self.denied(400, dispatch, self.office, self.owner, '/inventory/articles', 'GET', data)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 55, in denied
+    with self.assertRaises(Problem) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'_query': {'after': None}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 147, in test_dispatch_rejects_unrecognized_or_multivalued_query_channels
+    self.denied(400, dispatch, self.office, self.owner, '/inventory/articles', 'GET', data)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 55, in denied
+    with self.assertRaises(Problem) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'_query': []})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 147, in test_dispatch_rejects_unrecognized_or_multivalued_query_channels
+    self.denied(400, dispatch, self.office, self.owner, '/inventory/articles', 'GET', data)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 55, in denied
+    with self.assertRaises(Problem) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data={'extra': 'ignored'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 147, in test_dispatch_rejects_unrecognized_or_multivalued_query_channels
+    self.denied(400, dispatch, self.office, self.owner, '/inventory/articles', 'GET', data)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 55, in denied
+    with self.assertRaises(Problem) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_dispatch_rejects_unrecognized_or_multivalued_query_channels (test_inventory_article_references.InventoryArticleReferenceTests.test_dispatch_rejects_unrecognized_or_multivalued_query_channels) (data=[])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 147, in test_dispatch_rejects_unrecognized_or_multivalued_query_channels
+    self.denied(400, dispatch, self.office, self.owner, '/inventory/articles', 'GET', data)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/test_inventory_article_references.py", line 55, in denied
+    with self.assertRaises(Problem) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 84, in test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads
+    self.assertIn('inventory_article_refs', capabilities['features'])
+AssertionError: 'inventory_article_refs' not found in ['accounting_document_component_reuse', 'accounting_document_components', 'accounting_euer', 'accounting_historical_assets', 'accounting_open_items', 'accounting_opening_balances', 'accounting_payment_allocation', 'accounting_prejournal', 'accounting_preparation_profile', 'accounting_refund_origins', 'accounting_refund_origins_v2', 'accounting_year_evidence_v1', 'accounting_year_evidence_v2', 'accounting_year_values', 'asset_delivery_provenance', 'assistant_speech', 'assistant_workflow', 'bank_reconciliation', 'billing_contact', 'catalog_import_history', 'catalog_prices_v2', 'company_event_rules', 'company_handover', 'company_overview', 'custom_fields', 'customer_workspace_portal', 'file_migrations', 'german_payroll_2026', 'inventory_counts', 'measurement_transfer', 'offer_portal', 'organization_modules', 'payroll_actual_cash', 'payroll_annual_basis', 'payroll_calculation_cases', 'payroll_employee_statements', 'payroll_entitlements', 'payroll_multiple_cases', 'payroll_oneoff_cases', 'payroll_period_facts', 'payroll_wage_account', 'payroll_wage_interruptions', 'personnel_preparation', 'privacy_cases', 'project_economics', 'project_timeline', 'purchase_changes', 'purchasing_catalog', 'purchasing_receipts', 'quote_pricing', 'resource_custody', 'sales_pipeline', 'service_cases', 'travel_allowances']
+
+======================================================================
+FAIL: test_company_session_isolation_rejects_a_foreign_real_login (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_company_session_isolation_rejects_a_foreign_real_login)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 143, in test_company_session_isolation_rejects_a_foreign_real_login
+    self.assertEqual(result.status_code, 401)
+AssertionError: 404 != 401
+
+======================================================================
+FAIL: test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 107, in test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission
+    first = self.call(self.path('project_id=' + self.project + '&limit=1'),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 200 : ('/business/inventory/articles?project_id=3128651475d640d6895dcc316a0e7182&limit=1', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 92, in test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed
+    self.call(self.path(), status=401)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 401 : ('/business/inventory/articles', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='unexpected=1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?unexpected=1', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=1&limit=2')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=1&limit=2', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='after=a&after=b')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?after=a&after=b', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='project_id=01bbd27ec650467096781721a7a89daf&project_id=01bbd27ec650467096781721a7a89daf')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?project_id=01bbd27ec650467096781721a7a89daf&project_id=01bbd27ec650467096781721a7a89daf', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=0', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=201')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=201', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=01')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=01', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=-1', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=1.0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=1.0', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=true', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=%201')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=%201', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='limit=%2B1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?limit=%2B1', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='after=')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?after=', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='after=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?after=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) (query='project_id=none')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 104, in test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values
+    self.call(self.path(query), token=self.owner_token, status=400)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 400 : ('/business/inventory/articles?project_id=none', b'{"error":"Funktion nicht gefunden"}\n')
+
+======================================================================
+FAIL: test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access (online.test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 125, in test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access
+    self.call(self.path('project_id=' + self.project), token=self.warehouse_token)
+  File "/workspace/smartplan-project-release-readiness-20261104/backend/online/test_inventory_article_references_api.py", line 63, in call
+    self.assertEqual(result.status_code, status, (path, result.data[:350]))
+AssertionError: 404 != 200 : ('/business/inventory/articles?project_id=103be757564444f39b096183bc044c36', b'{"error":"Funktion nicht gefunden"}\n')
+
+----------------------------------------------------------------------
+Ran 15 tests in 8.979s
+
+FAILED (failures=27, errors=38)
+
+exit_code: 1
+duration_seconds: 10.06

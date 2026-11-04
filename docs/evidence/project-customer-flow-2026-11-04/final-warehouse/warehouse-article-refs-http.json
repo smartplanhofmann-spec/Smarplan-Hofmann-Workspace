@@ -1,0 +1,2859 @@
+[
+  {
+    "path": "/api/v1/business/inventory/locations",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "items": [
+        {
+          "active": true,
+          "id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+          "name": "Synthetic main store",
+          "revision": 1,
+          "updated_at": "2026-11-04T19:38:51+00:00",
+          "updated_by": "523c553796224ed094ff596957570938"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/stock",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "items": [
+        {
+          "article_code": "SYN-CABLE",
+          "article_id": "05af580966234a5180b3d86f82b0d3e4",
+          "article_name": "Synthetic cable",
+          "available": "10.0000",
+          "currency": "EUR",
+          "location_id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+          "on_hand": "10.0000",
+          "reserved": "0.0000",
+          "unit": "m"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/articles",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "has_more": false,
+      "items": [
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-040",
+          "id": "02b16f66c1e94deaa3e725bf2812febc",
+          "name": "Synthetic unstocked 040",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-CABLE",
+          "id": "05af580966234a5180b3d86f82b0d3e4",
+          "name": "Synthetic cable",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-027",
+          "id": "067b1c7b4df44bcb810da394fbd3149d",
+          "name": "Synthetic unstocked 027",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-102",
+          "id": "068b33f1e02d454fb58035bbd5b369bf",
+          "name": "Synthetic unstocked 102",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-041",
+          "id": "0885635b01f9461fb2baa1aa9a3507af",
+          "name": "Synthetic unstocked 041",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-020",
+          "id": "12496c7de5f04453bca48188e823162e",
+          "name": "Synthetic unstocked 020",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-030",
+          "id": "13cb245296b14521bbba726aff7a4d02",
+          "name": "Synthetic unstocked 030",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-032",
+          "id": "1948a0b949a74f45ab5aae1be3479e64",
+          "name": "Synthetic unstocked 032",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-067",
+          "id": "1b5140b289964762b844a6a7dc6f8b01",
+          "name": "Synthetic unstocked 067",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-087",
+          "id": "1caeac66b1a449a7be0befe589346ed9",
+          "name": "Synthetic unstocked 087",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-082",
+          "id": "1ece63ef398f4a2ca2f9e4c78779b935",
+          "name": "Synthetic unstocked 082",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-079",
+          "id": "1fb730b43ecf43a8a26c83afd30d2e37",
+          "name": "Synthetic unstocked 079",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-085",
+          "id": "23a9e2e01d774b6abf385f0372d1a222",
+          "name": "Synthetic unstocked 085",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-097",
+          "id": "241b8eae7708493296addb209206d6ad",
+          "name": "Synthetic unstocked 097",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-039",
+          "id": "28a10ad534604f8ca2e60eddb7fef15d",
+          "name": "Synthetic unstocked 039",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-066",
+          "id": "29ac3464fd0e43dab96ab593a33da1ca",
+          "name": "Synthetic unstocked 066",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-100",
+          "id": "2b7879e6a5274f5193221be428222f24",
+          "name": "Synthetic unstocked 100",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-098",
+          "id": "2b8bf4872a3a4b76b6022d9f8734a2e5",
+          "name": "Synthetic unstocked 098",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-045",
+          "id": "2ee6784dbc99458199654498f154a92a",
+          "name": "Synthetic unstocked 045",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-081",
+          "id": "31c988c99d9c475e9c0a22f7862cf388",
+          "name": "Synthetic unstocked 081",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-044",
+          "id": "333e0da459a749b2b90db6af00ee5a54",
+          "name": "Synthetic unstocked 044",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-016",
+          "id": "36594afdb2cb4812a0bee082ec11a93c",
+          "name": "Synthetic unstocked 016",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-028",
+          "id": "37819ef4c1064c1a93deca9b5413f041",
+          "name": "Synthetic unstocked 028",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-037",
+          "id": "37ae585448d64bfeb1c157a2746ba4bd",
+          "name": "Synthetic unstocked 037",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-061",
+          "id": "3b46c8c3a42a47758f399ba7b4e7824d",
+          "name": "Synthetic unstocked 061",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-064",
+          "id": "3e892fe09eea425db27617cff8507c89",
+          "name": "Synthetic unstocked 064",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-026",
+          "id": "3fceb2547fe148c9ad42929200e80b50",
+          "name": "Synthetic unstocked 026",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-022",
+          "id": "3fe3ef6918e84db69091784cc572f1b1",
+          "name": "Synthetic unstocked 022",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-073",
+          "id": "41d9c7882ed54d19b97a4d200b408c9c",
+          "name": "Synthetic unstocked 073",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-053",
+          "id": "43aa7d983f234febba5f19d5636fff91",
+          "name": "Synthetic unstocked 053",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-059",
+          "id": "43f6e0edad124e459192f9e654f82f67",
+          "name": "Synthetic unstocked 059",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-010",
+          "id": "4f57111da015460e93c7f2cf0989a9f0",
+          "name": "Synthetic unstocked 010",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-029",
+          "id": "4fd40d1b66e548c9930b7b493587d974",
+          "name": "Synthetic unstocked 029",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-093",
+          "id": "50fb54cefa52411290ba60cc9bb429b6",
+          "name": "Synthetic unstocked 093",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-033",
+          "id": "521dd2e065774188b34c5cbc263f669d",
+          "name": "Synthetic unstocked 033",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-055",
+          "id": "56572d38f2c8473b997f14ce797ac6fb",
+          "name": "Synthetic unstocked 055",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-090",
+          "id": "5ab8cf0ac34f4d8294db9acf63d63479",
+          "name": "Synthetic unstocked 090",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-094",
+          "id": "5ace59fff3144575a1277020df538676",
+          "name": "Synthetic unstocked 094",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-072",
+          "id": "5d7fd111172d4ccd848b65f3a7bbf5a3",
+          "name": "Synthetic unstocked 072",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-075",
+          "id": "61baf0a59a3b4927a7f2b6202f4b54bd",
+          "name": "Synthetic unstocked 075",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-062",
+          "id": "61fcc8c2ea18453fb3db225346960928",
+          "name": "Synthetic unstocked 062",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-013",
+          "id": "62c8eb229d4342ca844e3018a96aaee5",
+          "name": "Synthetic unstocked 013",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-017",
+          "id": "63895ac32f264557aa1cebc83abcbb68",
+          "name": "Synthetic unstocked 017",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-035",
+          "id": "64b0a1333efa4593af552079b6e29279",
+          "name": "Synthetic unstocked 035",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-063",
+          "id": "66fd0019316d495c9deeda75c09dc2cf",
+          "name": "Synthetic unstocked 063",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-070",
+          "id": "67038b6d966349788d9b39664ec58997",
+          "name": "Synthetic unstocked 070",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-089",
+          "id": "69390dee7551416699b775670a5e8de2",
+          "name": "Synthetic unstocked 089",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-004",
+          "id": "6b8d67c4792f43c981c21d5c3bf39d17",
+          "name": "Synthetic unstocked 004",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-101",
+          "id": "72e8f17b9b2e4a35b5daa0305130fc19",
+          "name": "Synthetic unstocked 101",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-083",
+          "id": "73ba113baa61406aae62a61fd3541a27",
+          "name": "Synthetic unstocked 083",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-065",
+          "id": "7514c0af5b5f4cf189545f03144698a0",
+          "name": "Synthetic unstocked 065",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-057",
+          "id": "76029438b55f45719179b94a03096344",
+          "name": "Synthetic unstocked 057",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-091",
+          "id": "803a28240d3b49f68a6433c93ea0afa7",
+          "name": "Synthetic unstocked 091",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-001",
+          "id": "8239c4cb6efe471eaefce15b966d64c7",
+          "name": "Synthetic unstocked 001",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-092",
+          "id": "82f3133685b74ccba388e5235d72f286",
+          "name": "Synthetic unstocked 092",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-011",
+          "id": "8814eaa6626048039c27c20242264c2d",
+          "name": "Synthetic unstocked 011",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-095",
+          "id": "8a20345da3cb4335b9d4ab03229f27de",
+          "name": "Synthetic unstocked 095",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-052",
+          "id": "8afdb7d1679b4a89ac1f6620fd2b5e18",
+          "name": "Synthetic unstocked 052",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-008",
+          "id": "8c3d165fc7484d98a4d2c5087bea8942",
+          "name": "Synthetic unstocked 008",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-069",
+          "id": "953fa709e6e843649edaa6092cea28b5",
+          "name": "Synthetic unstocked 069",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-046",
+          "id": "9673103531f449fb9e7e27d6ba2e91eb",
+          "name": "Synthetic unstocked 046",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-099",
+          "id": "975a78eb51f54043ba300c4b5420222c",
+          "name": "Synthetic unstocked 099",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-000",
+          "id": "98dd277f7d0c46f4942753978f64b9e6",
+          "name": "Synthetic unstocked 000",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-019",
+          "id": "9b18d55351454858a14f3b3415290cd0",
+          "name": "Synthetic unstocked 019",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-080",
+          "id": "9d3b2c7f44cf4a06aede26b3f8e4bd9c",
+          "name": "Synthetic unstocked 080",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-096",
+          "id": "9db1466debef4df3a02fe175f71864ad",
+          "name": "Synthetic unstocked 096",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-049",
+          "id": "9fc08f2b3e6b49248f72eee150789f32",
+          "name": "Synthetic unstocked 049",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-023",
+          "id": "9ffd739032ba4eaf8a31520b7241c2bc",
+          "name": "Synthetic unstocked 023",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-031",
+          "id": "a07fff40ebce4c9c823fbdb8447f88fc",
+          "name": "Synthetic unstocked 031",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-014",
+          "id": "a5c31c24e99247cb8d04122a9e5190cf",
+          "name": "Synthetic unstocked 014",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-021",
+          "id": "a63f3b9284504900be2e34e2872fd4c4",
+          "name": "Synthetic unstocked 021",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-077",
+          "id": "a80050023ede4ea5bf4ee989714b8bf2",
+          "name": "Synthetic unstocked 077",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-078",
+          "id": "aa3f743f46cd41d58104b5e63ae74cf6",
+          "name": "Synthetic unstocked 078",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-034",
+          "id": "ae31a9667e634468b4aa566771e3c517",
+          "name": "Synthetic unstocked 034",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-050",
+          "id": "ae68d033241f4db9b74e00d6048ce141",
+          "name": "Synthetic unstocked 050",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-006",
+          "id": "b1f75bc5c99f4bc991b9931dba8413c2",
+          "name": "Synthetic unstocked 006",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-038",
+          "id": "b2dcc1217aa24030af9f300efc9e77e3",
+          "name": "Synthetic unstocked 038",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-048",
+          "id": "b362c141e592411184157f63aa82c901",
+          "name": "Synthetic unstocked 048",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-056",
+          "id": "b5a4b46cd35a4d678165949f0564e0fa",
+          "name": "Synthetic unstocked 056",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-025",
+          "id": "b8b423d50c8f4c54b29a39c2e89b7784",
+          "name": "Synthetic unstocked 025",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-002",
+          "id": "c0576a4a1b264c5081271089f3f3daa2",
+          "name": "Synthetic unstocked 002",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-058",
+          "id": "c0e6ba9dec884e5fa3d71025dd879c61",
+          "name": "Synthetic unstocked 058",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-088",
+          "id": "c0e88ea662c8400a814ce3293ad8d1bb",
+          "name": "Synthetic unstocked 088",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-068",
+          "id": "c183a5811006496b8e4b65989aa86929",
+          "name": "Synthetic unstocked 068",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-047",
+          "id": "c1e159a0fc66479a85258e0b6ba50edd",
+          "name": "Synthetic unstocked 047",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-024",
+          "id": "c1f2864756d342ac81a571abaee018e8",
+          "name": "Synthetic unstocked 024",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-042",
+          "id": "c307b681010240fc86b33f287f53da25",
+          "name": "Synthetic unstocked 042",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-060",
+          "id": "cba0f3908fd24c4d87c3cde04c1c2653",
+          "name": "Synthetic unstocked 060",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-007",
+          "id": "cca33fc9fca94f5b82e37ea84bb8dd0e",
+          "name": "Synthetic unstocked 007",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-018",
+          "id": "cca75f7419c34312916fef2df2baa785",
+          "name": "Synthetic unstocked 018",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-005",
+          "id": "d0ad4ebe9ddf4f16876a60121ee281c1",
+          "name": "Synthetic unstocked 005",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-054",
+          "id": "d643769eb4e949e782b0bb8d7934926e",
+          "name": "Synthetic unstocked 054",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-076",
+          "id": "d8d9b66ed0344c23960020299a87f3c7",
+          "name": "Synthetic unstocked 076",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-051",
+          "id": "d90cfcf272b84df4ac33d8bf5271400f",
+          "name": "Synthetic unstocked 051",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-104",
+          "id": "db59c7199d9a49ccbd53f1785bcd69c4",
+          "name": "Synthetic unstocked 104",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-009",
+          "id": "dc0d980eb9df4bb2adb9f4399d7be60b",
+          "name": "Synthetic unstocked 009",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-084",
+          "id": "e05deb25b39b4165a246827a5e63b486",
+          "name": "Synthetic unstocked 084",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-043",
+          "id": "e08b861d485a4e9f80f389d80d7c4fe5",
+          "name": "Synthetic unstocked 043",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-015",
+          "id": "e127a6ffe64e4a2a866cb48f798614ca",
+          "name": "Synthetic unstocked 015",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-103",
+          "id": "e365db7bd1d542e2915ac6eac40ffb48",
+          "name": "Synthetic unstocked 103",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-086",
+          "id": "e62a1ad6b04e4d2fbcc883eb633b696d",
+          "name": "Synthetic unstocked 086",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-071",
+          "id": "e63dd0e71cc94b7ea948e398f3ec74b5",
+          "name": "Synthetic unstocked 071",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-036",
+          "id": "ee74e3e6f6b149b28d51928cb08a9397",
+          "name": "Synthetic unstocked 036",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-012",
+          "id": "f85c94f262334330b2ca8c99e22c2b08",
+          "name": "Synthetic unstocked 012",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-003",
+          "id": "f8e3e77b90b14fc2b57cecb1288c437b",
+          "name": "Synthetic unstocked 003",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-074",
+          "id": "ff1fa6ef4f814106bfabe614f3ccffe1",
+          "name": "Synthetic unstocked 074",
+          "revision": 1,
+          "unit": "m"
+        }
+      ],
+      "next_after": null
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/reservations",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "items": []
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/reservations",
+    "method": "POST",
+    "status": 201,
+    "body": {
+      "article_id": "05af580966234a5180b3d86f82b0d3e4",
+      "location_id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+      "quantity": "2",
+      "project_id": "c9c956b5f5f34c86a8d25fbcd096fdde",
+      "request_id": "c2eaa1224e49467888c2c255b61aa368"
+    },
+    "value": {
+      "article_id": "05af580966234a5180b3d86f82b0d3e4",
+      "article_snapshot": {
+        "active": true,
+        "code": "SYN-CABLE",
+        "id": "05af580966234a5180b3d86f82b0d3e4",
+        "kind": "material",
+        "name": "Synthetic cable",
+        "revision": 1,
+        "unit": "m"
+      },
+      "created_at": "2026-11-04T19:38:54+00:00",
+      "created_by": "755da9696f4d47498fb22ca1e13c849a",
+      "id": "961249e024914235a6ab9e1bda621fde",
+      "location_id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+      "picked_quantity": "0.0000",
+      "project_id": "c9c956b5f5f34c86a8d25fbcd096fdde",
+      "quantity": "2.0000",
+      "remaining_quantity": "2.0000",
+      "revision": 1,
+      "status": "reserved",
+      "updated_at": "2026-11-04T19:38:54+00:00",
+      "updated_by": "755da9696f4d47498fb22ca1e13c849a"
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/locations",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "items": [
+        {
+          "active": true,
+          "id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+          "name": "Synthetic main store",
+          "revision": 1,
+          "updated_at": "2026-11-04T19:38:51+00:00",
+          "updated_by": "523c553796224ed094ff596957570938"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/stock",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "items": [
+        {
+          "article_code": "SYN-CABLE",
+          "article_id": "05af580966234a5180b3d86f82b0d3e4",
+          "article_name": "Synthetic cable",
+          "available": "8.0000",
+          "currency": "EUR",
+          "location_id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+          "on_hand": "10.0000",
+          "reserved": "2.0000",
+          "unit": "m"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/articles",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "has_more": false,
+      "items": [
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-040",
+          "id": "02b16f66c1e94deaa3e725bf2812febc",
+          "name": "Synthetic unstocked 040",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-CABLE",
+          "id": "05af580966234a5180b3d86f82b0d3e4",
+          "name": "Synthetic cable",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-027",
+          "id": "067b1c7b4df44bcb810da394fbd3149d",
+          "name": "Synthetic unstocked 027",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-102",
+          "id": "068b33f1e02d454fb58035bbd5b369bf",
+          "name": "Synthetic unstocked 102",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-041",
+          "id": "0885635b01f9461fb2baa1aa9a3507af",
+          "name": "Synthetic unstocked 041",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-020",
+          "id": "12496c7de5f04453bca48188e823162e",
+          "name": "Synthetic unstocked 020",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-030",
+          "id": "13cb245296b14521bbba726aff7a4d02",
+          "name": "Synthetic unstocked 030",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-032",
+          "id": "1948a0b949a74f45ab5aae1be3479e64",
+          "name": "Synthetic unstocked 032",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-067",
+          "id": "1b5140b289964762b844a6a7dc6f8b01",
+          "name": "Synthetic unstocked 067",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-087",
+          "id": "1caeac66b1a449a7be0befe589346ed9",
+          "name": "Synthetic unstocked 087",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-082",
+          "id": "1ece63ef398f4a2ca2f9e4c78779b935",
+          "name": "Synthetic unstocked 082",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-079",
+          "id": "1fb730b43ecf43a8a26c83afd30d2e37",
+          "name": "Synthetic unstocked 079",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-085",
+          "id": "23a9e2e01d774b6abf385f0372d1a222",
+          "name": "Synthetic unstocked 085",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-097",
+          "id": "241b8eae7708493296addb209206d6ad",
+          "name": "Synthetic unstocked 097",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-039",
+          "id": "28a10ad534604f8ca2e60eddb7fef15d",
+          "name": "Synthetic unstocked 039",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-066",
+          "id": "29ac3464fd0e43dab96ab593a33da1ca",
+          "name": "Synthetic unstocked 066",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-100",
+          "id": "2b7879e6a5274f5193221be428222f24",
+          "name": "Synthetic unstocked 100",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-098",
+          "id": "2b8bf4872a3a4b76b6022d9f8734a2e5",
+          "name": "Synthetic unstocked 098",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-045",
+          "id": "2ee6784dbc99458199654498f154a92a",
+          "name": "Synthetic unstocked 045",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-081",
+          "id": "31c988c99d9c475e9c0a22f7862cf388",
+          "name": "Synthetic unstocked 081",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-044",
+          "id": "333e0da459a749b2b90db6af00ee5a54",
+          "name": "Synthetic unstocked 044",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-016",
+          "id": "36594afdb2cb4812a0bee082ec11a93c",
+          "name": "Synthetic unstocked 016",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-028",
+          "id": "37819ef4c1064c1a93deca9b5413f041",
+          "name": "Synthetic unstocked 028",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-037",
+          "id": "37ae585448d64bfeb1c157a2746ba4bd",
+          "name": "Synthetic unstocked 037",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-061",
+          "id": "3b46c8c3a42a47758f399ba7b4e7824d",
+          "name": "Synthetic unstocked 061",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-064",
+          "id": "3e892fe09eea425db27617cff8507c89",
+          "name": "Synthetic unstocked 064",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-026",
+          "id": "3fceb2547fe148c9ad42929200e80b50",
+          "name": "Synthetic unstocked 026",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-022",
+          "id": "3fe3ef6918e84db69091784cc572f1b1",
+          "name": "Synthetic unstocked 022",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-073",
+          "id": "41d9c7882ed54d19b97a4d200b408c9c",
+          "name": "Synthetic unstocked 073",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-053",
+          "id": "43aa7d983f234febba5f19d5636fff91",
+          "name": "Synthetic unstocked 053",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-059",
+          "id": "43f6e0edad124e459192f9e654f82f67",
+          "name": "Synthetic unstocked 059",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-010",
+          "id": "4f57111da015460e93c7f2cf0989a9f0",
+          "name": "Synthetic unstocked 010",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-029",
+          "id": "4fd40d1b66e548c9930b7b493587d974",
+          "name": "Synthetic unstocked 029",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-093",
+          "id": "50fb54cefa52411290ba60cc9bb429b6",
+          "name": "Synthetic unstocked 093",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-033",
+          "id": "521dd2e065774188b34c5cbc263f669d",
+          "name": "Synthetic unstocked 033",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-055",
+          "id": "56572d38f2c8473b997f14ce797ac6fb",
+          "name": "Synthetic unstocked 055",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-090",
+          "id": "5ab8cf0ac34f4d8294db9acf63d63479",
+          "name": "Synthetic unstocked 090",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-094",
+          "id": "5ace59fff3144575a1277020df538676",
+          "name": "Synthetic unstocked 094",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-072",
+          "id": "5d7fd111172d4ccd848b65f3a7bbf5a3",
+          "name": "Synthetic unstocked 072",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-075",
+          "id": "61baf0a59a3b4927a7f2b6202f4b54bd",
+          "name": "Synthetic unstocked 075",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-062",
+          "id": "61fcc8c2ea18453fb3db225346960928",
+          "name": "Synthetic unstocked 062",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-013",
+          "id": "62c8eb229d4342ca844e3018a96aaee5",
+          "name": "Synthetic unstocked 013",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-017",
+          "id": "63895ac32f264557aa1cebc83abcbb68",
+          "name": "Synthetic unstocked 017",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-035",
+          "id": "64b0a1333efa4593af552079b6e29279",
+          "name": "Synthetic unstocked 035",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-063",
+          "id": "66fd0019316d495c9deeda75c09dc2cf",
+          "name": "Synthetic unstocked 063",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-070",
+          "id": "67038b6d966349788d9b39664ec58997",
+          "name": "Synthetic unstocked 070",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-089",
+          "id": "69390dee7551416699b775670a5e8de2",
+          "name": "Synthetic unstocked 089",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-004",
+          "id": "6b8d67c4792f43c981c21d5c3bf39d17",
+          "name": "Synthetic unstocked 004",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-101",
+          "id": "72e8f17b9b2e4a35b5daa0305130fc19",
+          "name": "Synthetic unstocked 101",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-083",
+          "id": "73ba113baa61406aae62a61fd3541a27",
+          "name": "Synthetic unstocked 083",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-065",
+          "id": "7514c0af5b5f4cf189545f03144698a0",
+          "name": "Synthetic unstocked 065",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-057",
+          "id": "76029438b55f45719179b94a03096344",
+          "name": "Synthetic unstocked 057",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-091",
+          "id": "803a28240d3b49f68a6433c93ea0afa7",
+          "name": "Synthetic unstocked 091",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-001",
+          "id": "8239c4cb6efe471eaefce15b966d64c7",
+          "name": "Synthetic unstocked 001",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-092",
+          "id": "82f3133685b74ccba388e5235d72f286",
+          "name": "Synthetic unstocked 092",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-011",
+          "id": "8814eaa6626048039c27c20242264c2d",
+          "name": "Synthetic unstocked 011",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-095",
+          "id": "8a20345da3cb4335b9d4ab03229f27de",
+          "name": "Synthetic unstocked 095",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-052",
+          "id": "8afdb7d1679b4a89ac1f6620fd2b5e18",
+          "name": "Synthetic unstocked 052",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-008",
+          "id": "8c3d165fc7484d98a4d2c5087bea8942",
+          "name": "Synthetic unstocked 008",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-069",
+          "id": "953fa709e6e843649edaa6092cea28b5",
+          "name": "Synthetic unstocked 069",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-046",
+          "id": "9673103531f449fb9e7e27d6ba2e91eb",
+          "name": "Synthetic unstocked 046",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-099",
+          "id": "975a78eb51f54043ba300c4b5420222c",
+          "name": "Synthetic unstocked 099",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-000",
+          "id": "98dd277f7d0c46f4942753978f64b9e6",
+          "name": "Synthetic unstocked 000",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-019",
+          "id": "9b18d55351454858a14f3b3415290cd0",
+          "name": "Synthetic unstocked 019",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-080",
+          "id": "9d3b2c7f44cf4a06aede26b3f8e4bd9c",
+          "name": "Synthetic unstocked 080",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-096",
+          "id": "9db1466debef4df3a02fe175f71864ad",
+          "name": "Synthetic unstocked 096",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-049",
+          "id": "9fc08f2b3e6b49248f72eee150789f32",
+          "name": "Synthetic unstocked 049",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-023",
+          "id": "9ffd739032ba4eaf8a31520b7241c2bc",
+          "name": "Synthetic unstocked 023",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-031",
+          "id": "a07fff40ebce4c9c823fbdb8447f88fc",
+          "name": "Synthetic unstocked 031",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-014",
+          "id": "a5c31c24e99247cb8d04122a9e5190cf",
+          "name": "Synthetic unstocked 014",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-021",
+          "id": "a63f3b9284504900be2e34e2872fd4c4",
+          "name": "Synthetic unstocked 021",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-077",
+          "id": "a80050023ede4ea5bf4ee989714b8bf2",
+          "name": "Synthetic unstocked 077",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-078",
+          "id": "aa3f743f46cd41d58104b5e63ae74cf6",
+          "name": "Synthetic unstocked 078",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-034",
+          "id": "ae31a9667e634468b4aa566771e3c517",
+          "name": "Synthetic unstocked 034",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-050",
+          "id": "ae68d033241f4db9b74e00d6048ce141",
+          "name": "Synthetic unstocked 050",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-006",
+          "id": "b1f75bc5c99f4bc991b9931dba8413c2",
+          "name": "Synthetic unstocked 006",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-038",
+          "id": "b2dcc1217aa24030af9f300efc9e77e3",
+          "name": "Synthetic unstocked 038",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-048",
+          "id": "b362c141e592411184157f63aa82c901",
+          "name": "Synthetic unstocked 048",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-056",
+          "id": "b5a4b46cd35a4d678165949f0564e0fa",
+          "name": "Synthetic unstocked 056",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-025",
+          "id": "b8b423d50c8f4c54b29a39c2e89b7784",
+          "name": "Synthetic unstocked 025",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-002",
+          "id": "c0576a4a1b264c5081271089f3f3daa2",
+          "name": "Synthetic unstocked 002",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-058",
+          "id": "c0e6ba9dec884e5fa3d71025dd879c61",
+          "name": "Synthetic unstocked 058",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-088",
+          "id": "c0e88ea662c8400a814ce3293ad8d1bb",
+          "name": "Synthetic unstocked 088",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-068",
+          "id": "c183a5811006496b8e4b65989aa86929",
+          "name": "Synthetic unstocked 068",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-047",
+          "id": "c1e159a0fc66479a85258e0b6ba50edd",
+          "name": "Synthetic unstocked 047",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-024",
+          "id": "c1f2864756d342ac81a571abaee018e8",
+          "name": "Synthetic unstocked 024",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-042",
+          "id": "c307b681010240fc86b33f287f53da25",
+          "name": "Synthetic unstocked 042",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-060",
+          "id": "cba0f3908fd24c4d87c3cde04c1c2653",
+          "name": "Synthetic unstocked 060",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-007",
+          "id": "cca33fc9fca94f5b82e37ea84bb8dd0e",
+          "name": "Synthetic unstocked 007",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-018",
+          "id": "cca75f7419c34312916fef2df2baa785",
+          "name": "Synthetic unstocked 018",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-005",
+          "id": "d0ad4ebe9ddf4f16876a60121ee281c1",
+          "name": "Synthetic unstocked 005",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-054",
+          "id": "d643769eb4e949e782b0bb8d7934926e",
+          "name": "Synthetic unstocked 054",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-076",
+          "id": "d8d9b66ed0344c23960020299a87f3c7",
+          "name": "Synthetic unstocked 076",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-051",
+          "id": "d90cfcf272b84df4ac33d8bf5271400f",
+          "name": "Synthetic unstocked 051",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-104",
+          "id": "db59c7199d9a49ccbd53f1785bcd69c4",
+          "name": "Synthetic unstocked 104",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-009",
+          "id": "dc0d980eb9df4bb2adb9f4399d7be60b",
+          "name": "Synthetic unstocked 009",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-084",
+          "id": "e05deb25b39b4165a246827a5e63b486",
+          "name": "Synthetic unstocked 084",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-043",
+          "id": "e08b861d485a4e9f80f389d80d7c4fe5",
+          "name": "Synthetic unstocked 043",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-015",
+          "id": "e127a6ffe64e4a2a866cb48f798614ca",
+          "name": "Synthetic unstocked 015",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-103",
+          "id": "e365db7bd1d542e2915ac6eac40ffb48",
+          "name": "Synthetic unstocked 103",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-086",
+          "id": "e62a1ad6b04e4d2fbcc883eb633b696d",
+          "name": "Synthetic unstocked 086",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-071",
+          "id": "e63dd0e71cc94b7ea948e398f3ec74b5",
+          "name": "Synthetic unstocked 071",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-036",
+          "id": "ee74e3e6f6b149b28d51928cb08a9397",
+          "name": "Synthetic unstocked 036",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-012",
+          "id": "f85c94f262334330b2ca8c99e22c2b08",
+          "name": "Synthetic unstocked 012",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-003",
+          "id": "f8e3e77b90b14fc2b57cecb1288c437b",
+          "name": "Synthetic unstocked 003",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-074",
+          "id": "ff1fa6ef4f814106bfabe614f3ccffe1",
+          "name": "Synthetic unstocked 074",
+          "revision": 1,
+          "unit": "m"
+        }
+      ],
+      "next_after": null
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/reservations",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "items": [
+        {
+          "article_id": "05af580966234a5180b3d86f82b0d3e4",
+          "article_snapshot": {
+            "active": true,
+            "code": "SYN-CABLE",
+            "id": "05af580966234a5180b3d86f82b0d3e4",
+            "kind": "material",
+            "name": "Synthetic cable",
+            "revision": 1,
+            "unit": "m"
+          },
+          "created_at": "2026-11-04T19:38:54+00:00",
+          "created_by": "755da9696f4d47498fb22ca1e13c849a",
+          "id": "961249e024914235a6ab9e1bda621fde",
+          "location_id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+          "picked_quantity": "0.0000",
+          "project_id": "c9c956b5f5f34c86a8d25fbcd096fdde",
+          "quantity": "2.0000",
+          "remaining_quantity": "2.0000",
+          "revision": 1,
+          "status": "reserved",
+          "updated_at": "2026-11-04T19:38:54+00:00",
+          "updated_by": "755da9696f4d47498fb22ca1e13c849a"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/pick",
+    "method": "POST",
+    "status": 200,
+    "body": {
+      "project_id": "c9c956b5f5f34c86a8d25fbcd096fdde",
+      "items": [
+        {
+          "reservation_id": "961249e024914235a6ab9e1bda621fde",
+          "quantity": "1"
+        }
+      ],
+      "request_id": "e3437a0daee54f37b70f6c6801d19e3f"
+    },
+    "value": {
+      "created_at": "2026-11-04T19:38:55+00:00",
+      "id": "70c11922bef54cca88d068521b142c4f",
+      "items": [
+        {
+          "article_id": "05af580966234a5180b3d86f82b0d3e4",
+          "article_snapshot": {
+            "active": true,
+            "code": "SYN-CABLE",
+            "id": "05af580966234a5180b3d86f82b0d3e4",
+            "kind": "material",
+            "name": "Synthetic cable",
+            "revision": 1,
+            "unit": "m"
+          },
+          "created_at": "2026-11-04T19:38:55+00:00",
+          "created_by": "755da9696f4d47498fb22ca1e13c849a",
+          "from_location_id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+          "id": "c5bc452640724d239b3c7988df16a2f4",
+          "kind": "issue",
+          "note": "",
+          "project_id": "c9c956b5f5f34c86a8d25fbcd096fdde",
+          "quantity": "1.0000",
+          "reservation_id": "961249e024914235a6ab9e1bda621fde",
+          "reversal_of": null,
+          "sequence_number": 2,
+          "to_location_id": null
+        }
+      ],
+      "project_id": "c9c956b5f5f34c86a8d25fbcd096fdde",
+      "status": "picked"
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/locations",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "items": [
+        {
+          "active": true,
+          "id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+          "name": "Synthetic main store",
+          "revision": 1,
+          "updated_at": "2026-11-04T19:38:51+00:00",
+          "updated_by": "523c553796224ed094ff596957570938"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/stock",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "items": [
+        {
+          "article_code": "SYN-CABLE",
+          "article_id": "05af580966234a5180b3d86f82b0d3e4",
+          "article_name": "Synthetic cable",
+          "available": "8.0000",
+          "currency": "EUR",
+          "location_id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+          "on_hand": "9.0000",
+          "reserved": "1.0000",
+          "unit": "m"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/articles",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "has_more": false,
+      "items": [
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-040",
+          "id": "02b16f66c1e94deaa3e725bf2812febc",
+          "name": "Synthetic unstocked 040",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-CABLE",
+          "id": "05af580966234a5180b3d86f82b0d3e4",
+          "name": "Synthetic cable",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-027",
+          "id": "067b1c7b4df44bcb810da394fbd3149d",
+          "name": "Synthetic unstocked 027",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-102",
+          "id": "068b33f1e02d454fb58035bbd5b369bf",
+          "name": "Synthetic unstocked 102",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-041",
+          "id": "0885635b01f9461fb2baa1aa9a3507af",
+          "name": "Synthetic unstocked 041",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-020",
+          "id": "12496c7de5f04453bca48188e823162e",
+          "name": "Synthetic unstocked 020",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-030",
+          "id": "13cb245296b14521bbba726aff7a4d02",
+          "name": "Synthetic unstocked 030",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-032",
+          "id": "1948a0b949a74f45ab5aae1be3479e64",
+          "name": "Synthetic unstocked 032",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-067",
+          "id": "1b5140b289964762b844a6a7dc6f8b01",
+          "name": "Synthetic unstocked 067",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-087",
+          "id": "1caeac66b1a449a7be0befe589346ed9",
+          "name": "Synthetic unstocked 087",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-082",
+          "id": "1ece63ef398f4a2ca2f9e4c78779b935",
+          "name": "Synthetic unstocked 082",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-079",
+          "id": "1fb730b43ecf43a8a26c83afd30d2e37",
+          "name": "Synthetic unstocked 079",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-085",
+          "id": "23a9e2e01d774b6abf385f0372d1a222",
+          "name": "Synthetic unstocked 085",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-097",
+          "id": "241b8eae7708493296addb209206d6ad",
+          "name": "Synthetic unstocked 097",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-039",
+          "id": "28a10ad534604f8ca2e60eddb7fef15d",
+          "name": "Synthetic unstocked 039",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-066",
+          "id": "29ac3464fd0e43dab96ab593a33da1ca",
+          "name": "Synthetic unstocked 066",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-100",
+          "id": "2b7879e6a5274f5193221be428222f24",
+          "name": "Synthetic unstocked 100",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-098",
+          "id": "2b8bf4872a3a4b76b6022d9f8734a2e5",
+          "name": "Synthetic unstocked 098",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-045",
+          "id": "2ee6784dbc99458199654498f154a92a",
+          "name": "Synthetic unstocked 045",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-081",
+          "id": "31c988c99d9c475e9c0a22f7862cf388",
+          "name": "Synthetic unstocked 081",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-044",
+          "id": "333e0da459a749b2b90db6af00ee5a54",
+          "name": "Synthetic unstocked 044",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-016",
+          "id": "36594afdb2cb4812a0bee082ec11a93c",
+          "name": "Synthetic unstocked 016",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-028",
+          "id": "37819ef4c1064c1a93deca9b5413f041",
+          "name": "Synthetic unstocked 028",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-037",
+          "id": "37ae585448d64bfeb1c157a2746ba4bd",
+          "name": "Synthetic unstocked 037",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-061",
+          "id": "3b46c8c3a42a47758f399ba7b4e7824d",
+          "name": "Synthetic unstocked 061",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-064",
+          "id": "3e892fe09eea425db27617cff8507c89",
+          "name": "Synthetic unstocked 064",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-026",
+          "id": "3fceb2547fe148c9ad42929200e80b50",
+          "name": "Synthetic unstocked 026",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-022",
+          "id": "3fe3ef6918e84db69091784cc572f1b1",
+          "name": "Synthetic unstocked 022",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-073",
+          "id": "41d9c7882ed54d19b97a4d200b408c9c",
+          "name": "Synthetic unstocked 073",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-053",
+          "id": "43aa7d983f234febba5f19d5636fff91",
+          "name": "Synthetic unstocked 053",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-059",
+          "id": "43f6e0edad124e459192f9e654f82f67",
+          "name": "Synthetic unstocked 059",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-010",
+          "id": "4f57111da015460e93c7f2cf0989a9f0",
+          "name": "Synthetic unstocked 010",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-029",
+          "id": "4fd40d1b66e548c9930b7b493587d974",
+          "name": "Synthetic unstocked 029",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-093",
+          "id": "50fb54cefa52411290ba60cc9bb429b6",
+          "name": "Synthetic unstocked 093",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-033",
+          "id": "521dd2e065774188b34c5cbc263f669d",
+          "name": "Synthetic unstocked 033",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-055",
+          "id": "56572d38f2c8473b997f14ce797ac6fb",
+          "name": "Synthetic unstocked 055",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-090",
+          "id": "5ab8cf0ac34f4d8294db9acf63d63479",
+          "name": "Synthetic unstocked 090",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-094",
+          "id": "5ace59fff3144575a1277020df538676",
+          "name": "Synthetic unstocked 094",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-072",
+          "id": "5d7fd111172d4ccd848b65f3a7bbf5a3",
+          "name": "Synthetic unstocked 072",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-075",
+          "id": "61baf0a59a3b4927a7f2b6202f4b54bd",
+          "name": "Synthetic unstocked 075",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-062",
+          "id": "61fcc8c2ea18453fb3db225346960928",
+          "name": "Synthetic unstocked 062",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-013",
+          "id": "62c8eb229d4342ca844e3018a96aaee5",
+          "name": "Synthetic unstocked 013",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-017",
+          "id": "63895ac32f264557aa1cebc83abcbb68",
+          "name": "Synthetic unstocked 017",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-035",
+          "id": "64b0a1333efa4593af552079b6e29279",
+          "name": "Synthetic unstocked 035",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-063",
+          "id": "66fd0019316d495c9deeda75c09dc2cf",
+          "name": "Synthetic unstocked 063",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-070",
+          "id": "67038b6d966349788d9b39664ec58997",
+          "name": "Synthetic unstocked 070",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-089",
+          "id": "69390dee7551416699b775670a5e8de2",
+          "name": "Synthetic unstocked 089",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-004",
+          "id": "6b8d67c4792f43c981c21d5c3bf39d17",
+          "name": "Synthetic unstocked 004",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-101",
+          "id": "72e8f17b9b2e4a35b5daa0305130fc19",
+          "name": "Synthetic unstocked 101",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-083",
+          "id": "73ba113baa61406aae62a61fd3541a27",
+          "name": "Synthetic unstocked 083",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-065",
+          "id": "7514c0af5b5f4cf189545f03144698a0",
+          "name": "Synthetic unstocked 065",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-057",
+          "id": "76029438b55f45719179b94a03096344",
+          "name": "Synthetic unstocked 057",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-091",
+          "id": "803a28240d3b49f68a6433c93ea0afa7",
+          "name": "Synthetic unstocked 091",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-001",
+          "id": "8239c4cb6efe471eaefce15b966d64c7",
+          "name": "Synthetic unstocked 001",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-092",
+          "id": "82f3133685b74ccba388e5235d72f286",
+          "name": "Synthetic unstocked 092",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-011",
+          "id": "8814eaa6626048039c27c20242264c2d",
+          "name": "Synthetic unstocked 011",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-095",
+          "id": "8a20345da3cb4335b9d4ab03229f27de",
+          "name": "Synthetic unstocked 095",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-052",
+          "id": "8afdb7d1679b4a89ac1f6620fd2b5e18",
+          "name": "Synthetic unstocked 052",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-008",
+          "id": "8c3d165fc7484d98a4d2c5087bea8942",
+          "name": "Synthetic unstocked 008",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-069",
+          "id": "953fa709e6e843649edaa6092cea28b5",
+          "name": "Synthetic unstocked 069",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-046",
+          "id": "9673103531f449fb9e7e27d6ba2e91eb",
+          "name": "Synthetic unstocked 046",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-099",
+          "id": "975a78eb51f54043ba300c4b5420222c",
+          "name": "Synthetic unstocked 099",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-000",
+          "id": "98dd277f7d0c46f4942753978f64b9e6",
+          "name": "Synthetic unstocked 000",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-019",
+          "id": "9b18d55351454858a14f3b3415290cd0",
+          "name": "Synthetic unstocked 019",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-080",
+          "id": "9d3b2c7f44cf4a06aede26b3f8e4bd9c",
+          "name": "Synthetic unstocked 080",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-096",
+          "id": "9db1466debef4df3a02fe175f71864ad",
+          "name": "Synthetic unstocked 096",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-049",
+          "id": "9fc08f2b3e6b49248f72eee150789f32",
+          "name": "Synthetic unstocked 049",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-023",
+          "id": "9ffd739032ba4eaf8a31520b7241c2bc",
+          "name": "Synthetic unstocked 023",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-031",
+          "id": "a07fff40ebce4c9c823fbdb8447f88fc",
+          "name": "Synthetic unstocked 031",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-014",
+          "id": "a5c31c24e99247cb8d04122a9e5190cf",
+          "name": "Synthetic unstocked 014",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-021",
+          "id": "a63f3b9284504900be2e34e2872fd4c4",
+          "name": "Synthetic unstocked 021",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-077",
+          "id": "a80050023ede4ea5bf4ee989714b8bf2",
+          "name": "Synthetic unstocked 077",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-078",
+          "id": "aa3f743f46cd41d58104b5e63ae74cf6",
+          "name": "Synthetic unstocked 078",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-034",
+          "id": "ae31a9667e634468b4aa566771e3c517",
+          "name": "Synthetic unstocked 034",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-050",
+          "id": "ae68d033241f4db9b74e00d6048ce141",
+          "name": "Synthetic unstocked 050",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-006",
+          "id": "b1f75bc5c99f4bc991b9931dba8413c2",
+          "name": "Synthetic unstocked 006",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-038",
+          "id": "b2dcc1217aa24030af9f300efc9e77e3",
+          "name": "Synthetic unstocked 038",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-048",
+          "id": "b362c141e592411184157f63aa82c901",
+          "name": "Synthetic unstocked 048",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-056",
+          "id": "b5a4b46cd35a4d678165949f0564e0fa",
+          "name": "Synthetic unstocked 056",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-025",
+          "id": "b8b423d50c8f4c54b29a39c2e89b7784",
+          "name": "Synthetic unstocked 025",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-002",
+          "id": "c0576a4a1b264c5081271089f3f3daa2",
+          "name": "Synthetic unstocked 002",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-058",
+          "id": "c0e6ba9dec884e5fa3d71025dd879c61",
+          "name": "Synthetic unstocked 058",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-088",
+          "id": "c0e88ea662c8400a814ce3293ad8d1bb",
+          "name": "Synthetic unstocked 088",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-068",
+          "id": "c183a5811006496b8e4b65989aa86929",
+          "name": "Synthetic unstocked 068",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-047",
+          "id": "c1e159a0fc66479a85258e0b6ba50edd",
+          "name": "Synthetic unstocked 047",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-024",
+          "id": "c1f2864756d342ac81a571abaee018e8",
+          "name": "Synthetic unstocked 024",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-042",
+          "id": "c307b681010240fc86b33f287f53da25",
+          "name": "Synthetic unstocked 042",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-060",
+          "id": "cba0f3908fd24c4d87c3cde04c1c2653",
+          "name": "Synthetic unstocked 060",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-007",
+          "id": "cca33fc9fca94f5b82e37ea84bb8dd0e",
+          "name": "Synthetic unstocked 007",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-018",
+          "id": "cca75f7419c34312916fef2df2baa785",
+          "name": "Synthetic unstocked 018",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-005",
+          "id": "d0ad4ebe9ddf4f16876a60121ee281c1",
+          "name": "Synthetic unstocked 005",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-054",
+          "id": "d643769eb4e949e782b0bb8d7934926e",
+          "name": "Synthetic unstocked 054",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-076",
+          "id": "d8d9b66ed0344c23960020299a87f3c7",
+          "name": "Synthetic unstocked 076",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-051",
+          "id": "d90cfcf272b84df4ac33d8bf5271400f",
+          "name": "Synthetic unstocked 051",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-104",
+          "id": "db59c7199d9a49ccbd53f1785bcd69c4",
+          "name": "Synthetic unstocked 104",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-009",
+          "id": "dc0d980eb9df4bb2adb9f4399d7be60b",
+          "name": "Synthetic unstocked 009",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-084",
+          "id": "e05deb25b39b4165a246827a5e63b486",
+          "name": "Synthetic unstocked 084",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-043",
+          "id": "e08b861d485a4e9f80f389d80d7c4fe5",
+          "name": "Synthetic unstocked 043",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-015",
+          "id": "e127a6ffe64e4a2a866cb48f798614ca",
+          "name": "Synthetic unstocked 015",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-103",
+          "id": "e365db7bd1d542e2915ac6eac40ffb48",
+          "name": "Synthetic unstocked 103",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-086",
+          "id": "e62a1ad6b04e4d2fbcc883eb633b696d",
+          "name": "Synthetic unstocked 086",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-071",
+          "id": "e63dd0e71cc94b7ea948e398f3ec74b5",
+          "name": "Synthetic unstocked 071",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-036",
+          "id": "ee74e3e6f6b149b28d51928cb08a9397",
+          "name": "Synthetic unstocked 036",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-012",
+          "id": "f85c94f262334330b2ca8c99e22c2b08",
+          "name": "Synthetic unstocked 012",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-003",
+          "id": "f8e3e77b90b14fc2b57cecb1288c437b",
+          "name": "Synthetic unstocked 003",
+          "revision": 1,
+          "unit": "m"
+        },
+        {
+          "active": true,
+          "code": "SYN-UNSTOCKED-074",
+          "id": "ff1fa6ef4f814106bfabe614f3ccffe1",
+          "name": "Synthetic unstocked 074",
+          "revision": 1,
+          "unit": "m"
+        }
+      ],
+      "next_after": null
+    }
+  },
+  {
+    "path": "/api/v1/business/inventory/reservations",
+    "method": "GET",
+    "status": 200,
+    "body": null,
+    "value": {
+      "items": [
+        {
+          "article_id": "05af580966234a5180b3d86f82b0d3e4",
+          "article_snapshot": {
+            "active": true,
+            "code": "SYN-CABLE",
+            "id": "05af580966234a5180b3d86f82b0d3e4",
+            "kind": "material",
+            "name": "Synthetic cable",
+            "revision": 1,
+            "unit": "m"
+          },
+          "created_at": "2026-11-04T19:38:54+00:00",
+          "created_by": "755da9696f4d47498fb22ca1e13c849a",
+          "id": "961249e024914235a6ab9e1bda621fde",
+          "location_id": "8f14ead4be4f4ff1a9187750c2d1c9cd",
+          "picked_quantity": "1.0000",
+          "project_id": "c9c956b5f5f34c86a8d25fbcd096fdde",
+          "quantity": "2.0000",
+          "remaining_quantity": "1.0000",
+          "revision": 2,
+          "status": "partial",
+          "updated_at": "2026-11-04T19:38:55+00:00",
+          "updated_by": "755da9696f4d47498fb22ca1e13c849a"
+        }
+      ]
+    }
+  }
+]

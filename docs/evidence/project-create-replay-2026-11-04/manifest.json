@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-04T19:41:56.645088+00:00",
+  "base_commit": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "supersedes_only": {
+    "file": "app/lib/main.dart",
+    "previous_sha256": "4a06fd460b96244b9ecdef06e08cbe65343e8d88f73fc15c7e1f5f54e2618e1a",
+    "previous_manifest": "docs/evidence/project-navigation-2026-11-04/manifest.json",
+    "previous_manifest_sha256": "d70d9278d7d4ed11cc37d5ec99b5ba9270279306ad67487791fd923311fdd8fe",
+    "archived_previous_file": "docs/evidence/project-create-replay-2026-11-04/navigation-main-before.dart.txt"
+  },
+  "runtime_files": [
+    "app/lib/main.dart"
+  ],
+  "new_tests": [
+    "app/test/project_create_replay_test.dart"
+  ],
+  "source_sha256": {
+    "app/lib/main.dart": "59bd3c354d06377420d2d1d9fff5942b62ee116dd037e695b14d0dbd2f08ef25",
+    "app/test/project_create_replay_test.dart": "1efb2108bfe900ceac359a5bec69b329f354ac5d96ef79e186c4082293ec1959",
+    "app/test/administration_return_navigation_test.dart": "2c60dadd926048caea8fb2268aebaff1b3454d335e34c636ee9f5bb351695269",
+    "app/test/workflow_test.dart": "8c81919e24939c96a66bf078a53e6faacbe352a876af7902ce09d14b8f50c3ab",
+    "app/test/workspace_shell_test.dart": "379ea6afcdbefcb4882c7597255c2d27f4f576960d18884367739bdf964dbb6c",
+    "app/lib/api.dart": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+    "app/lib/business_session.dart": "242dfacd6ee75191d227c8d863678c056dfbf35a9ea480ec5fd784bfbf7b1654",
+    "app/lib/offline_vault.dart": "9653cfbe06dbaf7912a5505b7305d3ef68c4b7cdb516fb4b7c797b4906aab649"
+  },
+  "source_hashes_unchanged_after_tests": true,
+  "tests": {
+    "new_widget_cases": 15,
+    "existing_regression_cases": 12,
+    "passed": 27,
+    "failed": 0,
+    "log": "final.log",
+    "analyzer_issues": 0,
+    "analyzer_log": "analyze-final.log"
+  },
+  "command": {
+    "cwd": "/workspace/smartplan-project-navigation-20261104/app",
+    "environment": {
+      "PATH_prefix": "/workspace/toolchains/clang-19/bin",
+      "PUB_CACHE": "/workspace/toolchains/pub-cache"
+    },
+    "tests": "/workspace/toolchains/flutter/bin/flutter test --no-pub test/project_create_replay_test.dart test/administration_return_navigation_test.dart test/workflow_test.dart test/workspace_shell_test.dart --reporter expanded",
+    "analyze": "/workspace/toolchains/flutter/bin/flutter analyze --no-pub"
+  },
+  "limits": [
+    "Synthetic API replies; no server deduplication or HTTP integration claim",
+    "In-memory pending commands; process restart not covered",
+    "No actual Windows/iPhone build or device acceptance"
+  ],
+  "report_sha256": "4a23170ca6ed4e3f74a2afe593352f645ac61eee0153e8724c78c1b2d10974ed",
+  "files": {
+    "docs/evidence/project-create-replay-2026-11-04/analyze-before-notifier-fix.log": "173a8610c15728a0fd2dece3d8ccdc3bc9498ddb73ae798136781d0329a5edbd",
+    "docs/evidence/project-create-replay-2026-11-04/analyze-final.log": "19222b0bc7e7c3605675574f212d7fe63fc2e85aef3d1c8f3e0d3ea388ffd1f1",
+    "docs/evidence/project-create-replay-2026-11-04/analyze-first.log": "19222b0bc7e7c3605675574f212d7fe63fc2e85aef3d1c8f3e0d3ea388ffd1f1",
+    "docs/evidence/project-create-replay-2026-11-04/before-notifier-fix.log": "1ae96674d1491f7d3a337c16571034ca04793f71ee1b83e763c2e163945a939e",
+    "docs/evidence/project-create-replay-2026-11-04/final-candidate.log": "6f01038bfec9416589b315fb92cdb1e97155355b6c5d91ae18648c26410b17ad",
+    "docs/evidence/project-create-replay-2026-11-04/final-sources-before.json": "a504234a0cd9f1fe6364285f17edb76f2225712cbaea64e90090bb7875f6c6ce",
+    "docs/evidence/project-create-replay-2026-11-04/final.log": "f6385677e695364778d536259424b38ed844fd0c7bc80a9bd103ab629da566e3",
+    "docs/evidence/project-create-replay-2026-11-04/first-green-main.dart.txt": "40d1b82afc764bf1e5ede94916c67fcf2d2701dc52d4ac2b3a69a6d8f690ef94",
+    "docs/evidence/project-create-replay-2026-11-04/first-green-test.dart.txt": "3fb1493bca14f9baacadb6134ab45e5dbd1de42495fc7507739da028f1f1ee2d",
+    "docs/evidence/project-create-replay-2026-11-04/first.log": "25cd547ff29a132d410184043d98c26e8b1ff4c93288271352edcd6a59af853d",
+    "docs/evidence/project-create-replay-2026-11-04/main-before-notifier-fix.dart.txt": "6b1806c336b677e2c5b46edd50b62fbbbac7dbb23a576e103b339f5be0d10710",
+    "docs/evidence/project-create-replay-2026-11-04/navigation-main-before.dart.txt": "4a06fd460b96244b9ecdef06e08cbe65343e8d88f73fc15c7e1f5f54e2618e1a",
+    "docs/evidence/project-create-replay-2026-11-04/second-green-main.dart.txt": "72c8812712cccbc8a1f36c18f8656ed4938059e1aadfb2ab219dcaaf83bdd2c0",
+    "docs/evidence/project-create-replay-2026-11-04/second-green-test.dart.txt": "46b0b60c24a6a6a572c3ac9a21f637eb1e2da87e8024fb74414a460a7dfb81f3",
+    "docs/evidence/project-create-replay-2026-11-04/sources-before-notifier-fix.json": "21d1f5646a9e18e0792bc033353108b755dec8c71eba4ea01937a920e7a855c2"
+  },
+  "handoff_paths": [
+    "app/lib/main.dart",
+    "app/test/project_create_replay_test.dart",
+    "docs/CRM_ERP_PROJEKTANLAGE_NATIVE_WIEDERHOLUNG_2026-11-04.md",
+    "docs/evidence/project-create-replay-2026-11-04/analyze-before-notifier-fix.log",
+    "docs/evidence/project-create-replay-2026-11-04/analyze-final.log",
+    "docs/evidence/project-create-replay-2026-11-04/analyze-first.log",
+    "docs/evidence/project-create-replay-2026-11-04/before-notifier-fix.log",
+    "docs/evidence/project-create-replay-2026-11-04/final-candidate.log",
+    "docs/evidence/project-create-replay-2026-11-04/final-sources-before.json",
+    "docs/evidence/project-create-replay-2026-11-04/final.log",
+    "docs/evidence/project-create-replay-2026-11-04/first-green-main.dart.txt",
+    "docs/evidence/project-create-replay-2026-11-04/first-green-test.dart.txt",
+    "docs/evidence/project-create-replay-2026-11-04/first.log",
+    "docs/evidence/project-create-replay-2026-11-04/main-before-notifier-fix.dart.txt",
+    "docs/evidence/project-create-replay-2026-11-04/navigation-main-before.dart.txt",
+    "docs/evidence/project-create-replay-2026-11-04/second-green-main.dart.txt",
+    "docs/evidence/project-create-replay-2026-11-04/second-green-test.dart.txt",
+    "docs/evidence/project-create-replay-2026-11-04/sources-before-notifier-fix.json",
+    "docs/evidence/project-create-replay-2026-11-04/manifest.json"
+  ]
+}

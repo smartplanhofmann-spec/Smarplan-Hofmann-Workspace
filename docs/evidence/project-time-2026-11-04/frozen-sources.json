@@ -1,0 +1,17 @@
+{
+  "backend/business_time.py": "b1a17a7b60c0500b299cf1d0dd201bb0b1cc64077f632f5c7e527cf77b8212cd",
+  "backend/online/web.py": "efe9c4ccf5349b8275fd8b354b472169f20028d668d6a2cc7444a6527d3f25d6",
+  "backend/test_business_time.py": "a8451e3a6ce0cb8a7c4a8060327c074acbacb2561950dfe79d0307fb36ba090e",
+  "app/lib/business_offline.dart": "6797a004d67934b7c833d4e9827378b881d9ea3dd14e89adffb4139b7a8b751c",
+  "app/lib/business_time.dart": "c8b86465ef4d00c800726f230098fc7ffb78bddc5b6c74c5e5a97596d216cb6e",
+  "app/lib/business_time_details.dart": "4c2f8af0761bd09be37b6526bb79c53d61c526bdadba01363b71e407c86e32d4",
+  "app/lib/business_workflows.dart": "86fad94a8e7560e884cb25dd06f0dc0e3784f72f1020e9531185c1664d374a42",
+  "app/test/business_offline_time_test.dart": "4bebcd7d4dc7112ebbdc8835e0d7386561faab958ffe625190baa14929c05f14",
+  "app/test/business_time_details_test.dart": "ca9721e67c402f2d4855fade0cd3f4874aaa1d0d7b66be1b52bdff02edcdf8cc",
+  "app/test/business_backend_integration_test.dart": "fe2dde3ccd1a8fe4c2f19ad1adde8eae7478e917c0a62f623e0dcce274521fbe",
+  "web/office/office.js": "cd2a09605f9cbecfc43d7de75bb75158d2794cb55904be9c3381ff2c4f83b7af",
+  "web/office/time-tracking.js": "661664a91038c9fa6c55f68a680a299c933935b035b3ae3a3f434072b895d316",
+  "web/office/tests/e2e.cjs": "6523af22acbdec0b1b2604e9e1e4f6767bb806a42fbce5a121c9cde3fe43e5e2",
+  "web/office/tests/time-tracking.test.mjs": "75b07bd3e6015e59259f2d43f8b25efbb0bca6a01b21c8823fc7c670aa17189b",
+  "web/office/tests/time-tracking-flow.cjs": "31e7a6ec40ac099315ab3cccec350a08ead1ff9e2ea1a00a29823d6a99ca42a0"
+}

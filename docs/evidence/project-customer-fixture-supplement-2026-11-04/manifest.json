@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-04T19:48:25.700710+00:00",
+  "scope": "Only two obsolete project-create mock ID literals; no runtime change",
+  "changed_test": "app/test/customer_test.dart",
+  "fixture_before_sha256": "9868d9b589a0d049b034eeffa3b0bfe92644e4f3c781229ca2032fe4e9d0e695",
+  "fixture_after_sha256": "c0acfbf3eb134b3df1e11e786dc5531107826994f72a11c7429d40a5ee5f282e",
+  "assertions_and_test_bodies_byte_identical": true,
+  "source_sha256": {
+    "app/test/customer_test.dart": "c0acfbf3eb134b3df1e11e786dc5531107826994f72a11c7429d40a5ee5f282e",
+    "app/lib/main.dart": "59bd3c354d06377420d2d1d9fff5942b62ee116dd037e695b14d0dbd2f08ef25",
+    "app/test/project_create_replay_test.dart": "1efb2108bfe900ceac359a5bec69b329f354ac5d96ef79e186c4082293ec1959",
+    "app/test/administration_return_navigation_test.dart": "2c60dadd926048caea8fb2268aebaff1b3454d335e34c636ee9f5bb351695269",
+    "app/test/workflow_test.dart": "8c81919e24939c96a66bf078a53e6faacbe352a876af7902ce09d14b8f50c3ab"
+  },
+  "source_hashes_unchanged_after_test": true,
+  "tests": {
+    "passed": 20,
+    "failed": 0,
+    "customer_cases": 5,
+    "project_create_cases": 15,
+    "log": "targeted.log"
+  },
+  "command": {
+    "cwd": "/workspace/smartplan-project-completion-integration-20261104/app",
+    "environment": {
+      "SMARTPLAN_TEST_PYTHON": "/tmp/smartplan-backend-verified/bin/python",
+      "PUB_CACHE": "/workspace/toolchains/pub-cache",
+      "PATH_prefix": "/workspace/toolchains/clang-19/bin"
+    },
+    "argv": [
+      "/workspace/toolchains/flutter/bin/flutter",
+      "test",
+      "--no-pub",
+      "test/customer_test.dart",
+      "test/project_create_replay_test.dart",
+      "--reporter",
+      "expanded"
+    ]
+  },
+  "prior_failure": {
+    "source": "docs/evidence/project-integrated-2026-11-04/flutter-full.txt",
+    "line_start": 233,
+    "line_end": 268,
+    "source_snapshot_bytes": 167111,
+    "source_snapshot_sha256": "11f141fea6376de0073f70369d1d5457cdc8f3826f28dfd068c527370744a751",
+    "full_suite_still_running": true
+  },
+  "files": {
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/customer_test.before.dart.txt": "9868d9b589a0d049b034eeffa3b0bfe92644e4f3c781229ca2032fe4e9d0e695",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/full-suite-customer-failure-excerpt.txt": "3b8782c6363eb0b2218025e95e850f0c580825c68f373e1d5e7ba6f0a03a4f75",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/prepared.json": "ad32f404e1b9339cde03599a965366c8c4c346dd232081d1961b58407cd7ca15",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/project-create-fixture-search.txt": "80ca06946e52be343413d27a243269d9fb87f86eb69e27176081724f39321374",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/targeted.log": "b902f54a402f89ea3b14d080b4951a6036cc55531ad8a10eefdb9f09f01eb392"
+  },
+  "report_sha256": "242582496116584195a9c72c680faaefb30a47b6a361f28f2d3235e842716704",
+  "limits": [
+    "Targeted synthetic widget cases only; not an entire suite or server/device acceptance",
+    "Other integration changes are owned by Root and concurrent agents"
+  ],
+  "handoff_paths": [
+    "app/test/customer_test.dart",
+    "docs/CRM_ERP_PROJEKTANLAGE_TESTFIXTURE_2026-11-04.md",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/customer_test.before.dart.txt",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/full-suite-customer-failure-excerpt.txt",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/prepared.json",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/project-create-fixture-search.txt",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/targeted.log",
+    "docs/evidence/project-customer-fixture-supplement-2026-11-04/manifest.json"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "head": "cf5e50bb4180b97658d66bba43096df616183ab0",
+  "base_runtime": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "worktree": "/workspace/smartplan-project-completion-integration-20261104",
+  "started_utc": "2026-11-04T19:43:01Z",
+  "workflows": [
+    {
+      "workflow": "project-customer",
+      "command": [
+        "node",
+        "web/office/tests/e2e.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 12.028
+    },
+    {
+      "workflow": "inventory-article-refs",
+      "command": [
+        "node",
+        "web/office/tests/e2e.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 10.784
+    },
+    {
+      "workflow": "time-tracking",
+      "command": [
+        "node",
+        "web/office/tests/e2e.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 12.186
+    }
+  ],
+  "scope": "Actual sandboxed Chromium, MFA and loopback Flask/SQLite; no PostgreSQL or deployment.",
+  "source_changes": [],
+  "source_count": 783,
+  "finished_utc": "2026-11-04T19:43:36Z",
+  "passed": true
+}

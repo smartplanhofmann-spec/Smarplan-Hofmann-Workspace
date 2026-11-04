@@ -1,0 +1,17 @@
+test_actual_http_replays_original_existing_customer_project (test_project_creation_replay.ProjectCreationHttpReplayTests.test_actual_http_replays_original_existing_customer_project) ... ok
+test_changed_command_rejected_and_receipt_unchanged (test_project_creation_replay.ProjectCreationReplayTests.test_changed_command_rejected_and_receipt_unchanged) ... ok
+test_invalid_request_id_does_not_create_anything (test_project_creation_replay.ProjectCreationReplayTests.test_invalid_request_id_does_not_create_anything) ... ok
+test_legacy_without_receipt_remains_explicit_new_creation (test_project_creation_replay.ProjectCreationReplayTests.test_legacy_without_receipt_remains_explicit_new_creation) ... ok
+test_online_dispatch_keeps_original_request_identifier (test_project_creation_replay.ProjectCreationReplayTests.test_online_dispatch_keeps_original_request_identifier) ... ok
+test_project_creation_preserves_enclosing_transaction (test_project_creation_replay.ProjectCreationReplayTests.test_project_creation_preserves_enclosing_transaction) ... ok
+test_receipt_failure_rolls_back_project_new_customer_and_audit (test_project_creation_replay.ProjectCreationReplayTests.test_receipt_failure_rolls_back_project_new_customer_and_audit) ... ok
+test_retry_after_restart_returns_original_without_second_customer_or_audit (test_project_creation_replay.ProjectCreationReplayTests.test_retry_after_restart_returns_original_without_second_customer_or_audit) ... ok
+test_retry_observes_revoked_owner_role (test_project_creation_replay.ProjectCreationReplayTests.test_retry_observes_revoked_owner_role) ... ok
+test_actual_backup_restore_preserves_receipt_despite_later_customer_changes (test_project_creation_counterreview.ProjectCreationCounterreview.test_actual_backup_restore_preserves_receipt_despite_later_customer_changes) ... ok
+test_inactive_original_owner_cannot_replay_with_stale_owner_dictionary (test_project_creation_counterreview.ProjectCreationCounterreview.test_inactive_original_owner_cannot_replay_with_stale_owner_dictionary) ... ok
+test_original_effective_fields_remain_bound_before_whitespace_normalization (test_project_creation_counterreview.ProjectCreationCounterreview.test_original_effective_fields_remain_bound_before_whitespace_normalization) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.863s
+
+OK

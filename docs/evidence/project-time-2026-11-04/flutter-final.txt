@@ -1,0 +1,16 @@
+00:00 +0: loading /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart
+00:00 +0: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Mobile correction uses approved server date and reopens the exact lost acknowledgement
+00:03 +1: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Mobile correction uses approved server date and reopens the exact lost acknowledgement
+00:03 +2: /workspace/smartplan-project-time-20261104/app/test/business_time_widget_test.dart: Lost online clock acknowledgement retries the same exact operation
+00:04 +3: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Read-only and non-approver can inspect seconds but cannot correct
+00:04 +4: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Revoked time access clears the already open original and history
+00:04 +5: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Own time account exposes originals without the staff-only CSV export
+00:04 +6: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: Server-started time preserves its full history when continued offline and reopened
+00:05 +7: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: Offline start pause stop survives reopening and lost ACK without a duplicate
+00:05 +8: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: Conflict preserves the durable event and stops automatic replay
+00:05 +9: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: A committed event is acknowledged while disabled and pending events resume once reactivated
+00:05 +10: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: New offline events wait during deactivation and remain editable until upload resumes
+00:05 +11: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: An old grant is never silently expanded to time recording
+00:05 +12: /workspace/smartplan-project-time-20261104/app/test/business_backend_integration_test.dart: Real business HTTP preserves draft values and durable own time through the scoped grant
+00:08 +13: /workspace/smartplan-project-time-20261104/app/test/business_module_pause_integration_test.dart: Real HTTP retains time events across lost response, module deactivation, restart and reactivation
+00:09 +14: All tests passed!

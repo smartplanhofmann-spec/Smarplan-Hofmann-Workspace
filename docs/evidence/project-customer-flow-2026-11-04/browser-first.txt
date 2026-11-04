@@ -1,0 +1,40 @@
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+Error: Fixture exited: Traceback (most recent call last):
+  File "/workspace/smartplan-project-flow-20261104/web/office/tests/serve_fixture.py", line 444, in <module>
+    main()
+  File "/workspace/smartplan-project-flow-20261104/web/office/tests/serve_fixture.py", line 432, in main
+    server = make_server('127.0.0.1', args.port, LoopbackProxyContract(app), threaded=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/smartplan-backend-verified/lib/python3.12/site-packages/werkzeug/serving.py", line 934, in make_server
+    return ThreadedWSGIServer(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/smartplan-backend-verified/lib/python3.12/site-packages/werkzeug/serving.py", line 754, in __init__
+    super().__init__(
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 453, in __init__
+    self.socket = socket.socket(self.address_family,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socket.py", line 233, in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+PermissionError: [Errno 1] Operation not permitted
+
+    at main (/workspace/smartplan-project-flow-20261104/web/office/tests/e2e.cjs:63:189)
+Fixture log tail:
+Traceback (most recent call last):
+  File "/workspace/smartplan-project-flow-20261104/web/office/tests/serve_fixture.py", line 444, in <module>
+    main()
+  File "/workspace/smartplan-project-flow-20261104/web/office/tests/serve_fixture.py", line 432, in main
+    server = make_server('127.0.0.1', args.port, LoopbackProxyContract(app), threaded=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/smartplan-backend-verified/lib/python3.12/site-packages/werkzeug/serving.py", line 934, in make_server
+    return ThreadedWSGIServer(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/tmp/smartplan-backend-verified/lib/python3.12/site-packages/werkzeug/serving.py", line 754, in __init__
+    super().__init__(
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 453, in __init__
+    self.socket = socket.socket(self.address_family,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socket.py", line 233, in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+PermissionError: [Errno 1] Operation not permitted
+
+SMARTPLAN_BROWSER_FAILURE_END

@@ -1,0 +1,36 @@
+00:39 +137 -3: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: Customer search, edit, archive and reactivation preserve entered data
+00:39 +138 -3: /workspace/smartplan-project-completion-integration-20261104/app/test/business_accounting_year_values_independent_review_test.dart: independent yearly controls editor closes when page unmounts with retained navigator
+00:40 +139 -3: /workspace/smartplan-project-completion-integration-20261104/app/test/business_accounting_year_values_independent_review_test.dart: independent yearly controls editor closes when page unmounts with retained navigator
+00:41 +140 -3: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: A customer project starts with the chosen customer and returns to the list
+00:41 +141 -3: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: A customer project starts with the chosen customer and returns to the list
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextWidgetFinder:<Found 0 widgets with text "2 Projekte": []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart:244:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart line 244
+The test description was:
+  A customer project starts with the chosen customer and returns to the list
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:41 +141 -4: /workspace/smartplan-project-completion-integration-20261104/app/test/business_accounting_year_values_independent_review_test.dart: independent private controls close on background without removing foreign route
+00:41 +141 -4: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: A customer project starts with the chosen customer and returns to the list [E]
+  Test failed. See exception logs above.
+  The test description was: A customer project starts with the chosen customer and returns to the list
+  
+00:42 +142 -4: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: Existing projects can be assigned to another active customer
+00:42 +143 -4: /workspace/smartplan-project-completion-integration-20261104/app/test/business_accounting_year_values_independent_review_test.dart: independent private controls close on dispose_under_unrelated_dialog without removing foreign route
+00:42 +144 -4: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: Customer editor works in a narrow phone-sized window
+00:43 +145 -4: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: Customer editor works in a narrow phone-sized window
+00:43 +146 -4: /workspace/smartplan-project-completion-integration-20261104/app/test/business_accounting_year_values_independent_review_test.dart: independent actual original file chooser protects session boundary

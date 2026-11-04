@@ -79,7 +79,7 @@ def dispatch(office, user, path, method, data, token):
         return (office.customers(user), 200) if method == 'GET' else (office.create_customer(user, data), 201)
     if path == '/projects':
         return (office.projects(user), 200) if method == 'GET' else (
-            {'id': office.add_project(user, data.get('name'), data.get('customer'), data.get('customer_id'))}, 201)
+            {'id': office.add_project(user, data.get('name'), data.get('customer'), data.get('customer_id'), data.get('request_id'))}, 201)
     if path == '/assignments':
         office.assign(user, data.get('project_id'), data.get('user_id'), data.get('remove', False))
         return {'ok': True}, 200
@@ -187,6 +187,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
     @app.get('/office/<asset>')
     def office_browser(asset='index.html'):
         types = {'index.html': 'text/html', 'office.js': 'text/javascript', 'office.css': 'text/css',
+                 'time-tracking.js': 'text/javascript',
                  'project-economics.js': 'text/javascript', 'asset-provenance.js': 'text/javascript',
                  'customer-workspace.html': 'text/html', 'customer-workspace.js': 'text/javascript',
                  'customer-workspace-staff.js': 'text/javascript',

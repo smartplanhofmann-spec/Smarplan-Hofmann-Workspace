@@ -1,0 +1,7 @@
+test_independent_connections_compete_once_and_revoked_reader_cannot_replay (online.test_business_accounting_invoice_chain_pg.InvoiceChainPostgres.test_independent_connections_compete_once_and_revoked_reader_cannot_replay) ... ok
+test_real_chain_refund_reuse_euer_migration_restart_and_dump_restore (online.test_business_accounting_invoice_chain_pg.InvoiceChainPostgres.test_real_chain_refund_reuse_euer_migration_restart_and_dump_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 220.563s
+
+OK

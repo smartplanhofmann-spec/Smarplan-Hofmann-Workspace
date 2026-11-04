@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "base_commit": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "scope": "browser_project_time_correction",
+  "node_tests_passed": 5,
+  "real_browser_workflows_passed": 1,
+  "exit_code": 0,
+  "final_source_sha256": {
+    "web/office/time-tracking.js": "661664a91038c9fa6c55f68a680a299c933935b035b3ae3a3f434072b895d316",
+    "web/office/office.js": "cd2a09605f9cbecfc43d7de75bb75158d2794cb55904be9c3381ff2c4f83b7af",
+    "backend/online/web.py": "efe9c4ccf5349b8275fd8b354b472169f20028d668d6a2cc7444a6527d3f25d6",
+    "web/office/tests/time-tracking.test.mjs": "75b07bd3e6015e59259f2d43f8b25efbb0bca6a01b21c8823fc7c670aa17189b",
+    "web/office/tests/time-tracking-flow.cjs": "31e7a6ec40ac099315ab3cccec350a08ead1ff9e2ea1a00a29823d6a99ca42a0",
+    "web/office/tests/e2e.cjs": "6523af22acbdec0b1b2604e9e1e4f6767bb806a42fbce5a121c9cde3fe43e5e2"
+  },
+  "after_run_dependency_sha256": {
+    "backend/business_time.py": "8fc55dc1e3b7eba29cc2b02edee1271585f02c8dedaca333f1d28ebb00bc10a5"
+  },
+  "artifact_sha256": {
+    "docs/evidence/project-time-browser-2026-11-04/README.md": "2f675a8554b8a08283ed15e1763309d69528109ea3d3ce83d77606fb6843d1d7",
+    "docs/evidence/project-time-browser-2026-11-04/e2e-browser.txt": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+    "docs/evidence/project-time-browser-2026-11-04/e2e-final-net-total.txt": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+    "docs/evidence/project-time-browser-2026-11-04/e2e-final.txt": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+    "docs/evidence/project-time-browser-2026-11-04/e2e-network.txt": "bc6f2caa4e4cac214d4aebf27e962787dfcfb646cefb6cff169cad383fdadaff",
+    "docs/evidence/project-time-browser-2026-11-04/initial-e2e.txt": "06ff3ca7b93bcecf72dfa10a2bc8bb7c01d45ba6f28445bad9143a60443febdb",
+    "docs/evidence/project-time-browser-2026-11-04/node-tests.txt": "603aeaba5cdcae8cc1a105eac3fa207a39981a98fe3c8768e81f49b7132bc4fe",
+    "docs/evidence/project-time-browser-2026-11-04/time-correction-desktop.png": "2310992b044acfdf549c75ce9a54713585b34717157ebb709245f455b6e9d7a9",
+    "docs/evidence/project-time-browser-2026-11-04/time-correction-mobile.png": "4b06db13b3768f464fd6df5365e32e2506175797c2859462cdc69c8ce8b73479",
+    "docs/evidence/project-time-browser-2026-11-04/time-correction-result.json": "263b1aeca1e2a40455b4d8de09e4c44ca26d95e02324f1aa93920b515f0d419a"
+  },
+  "main_changed": false,
+  "deployed": false,
+  "postgresql_tested": false,
+  "external_service_used": false
+}

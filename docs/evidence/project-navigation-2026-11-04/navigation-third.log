@@ -1,0 +1,24 @@
+00:00 +0: loading /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart
+00:00 +0: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: (setUpAll)
+00:00 +0: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:03 +1: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Offstage dirty plan survives project appbar back until explicit discard
+00:08 +2: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:11 +3: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:13 +4: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:14 +5: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:15 +6: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:17 +7: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:19 +8: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:20 +9: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:22 +10: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:28 +11: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+00:29 +12: /workspace/smartplan-project-navigation-20261104/app/test/administration_return_navigation_test.dart: Administration returns to the same workspace at 390.0
+00:30 +13: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 390.0
+00:59 +14: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Changing project permissions keeps an allowed active register and its state when earlier registers disappear
+01:00 +15: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 1200.0
+01:00 +16: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 390.0
+01:01 +17: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Pending and failed register reads preserve overview and project back navigation
+01:02 +18: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Project Arbeitszeit performs start pause resume stop on the same scoped entry and still returns
+01:03 +19: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Removing and restoring newer modules preserves the selected time page
+01:04 +20: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: (tearDownAll)
+01:04 +20: All tests passed!

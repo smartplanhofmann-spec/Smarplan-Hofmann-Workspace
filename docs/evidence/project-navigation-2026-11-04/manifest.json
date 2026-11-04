@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-04T19:36:51.476378+00:00",
+  "base_commit": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "worktree": "/workspace/smartplan-project-navigation-20261104",
+  "scope": "Native project navigation and protected plan return; payroll/bookkeeping deferred",
+  "runtime_files": [
+    "app/lib/project_workspace_page.dart",
+    "app/lib/project_exit_guard.dart",
+    "app/lib/plan_pages.dart",
+    "app/lib/main.dart",
+    "app/lib/home_views.dart"
+  ],
+  "source_sha256": {
+    "app/lib/project_workspace_page.dart": "897f6facdf13cecc387a937e6d931ee1355ec2ee9e86b0382c72e2fefa7a77b6",
+    "app/lib/project_exit_guard.dart": "e587a9678c88afd41ab504922d39e573aa081357a7a2ebe27d81e698aa816d4f",
+    "app/lib/plan_pages.dart": "c28353e0ddcd03ef4819b0ed8450f1e98cb90e7a7135f390e4ef3e991a29775b",
+    "app/lib/main.dart": "4a06fd460b96244b9ecdef06e08cbe65343e8d88f73fc15c7e1f5f54e2618e1a",
+    "app/lib/home_views.dart": "5edb1331926a70c2249bc06a41960cb4f26edd6679a7b2d00ded872e0db1111d",
+    "app/test/project_business_tabs_navigation_test.dart": "a91c249e72bc00ea77b091f19d6977154421115fe1f729c13719096ce9228119",
+    "app/test/project_unsaved_return_test.dart": "042ec54154cab40c5744d286cba26b878484d0ddd5db08a06f9eb284e1ea6092",
+    "app/test/administration_return_navigation_test.dart": "2c60dadd926048caea8fb2268aebaff1b3454d335e34c636ee9f5bb351695269",
+    "app/test/project_workspace_widget_test.dart": "ad74a44992a26f60f8f5b3330137ffa74f5370d0fae48a0942958d2722811d40",
+    "app/test/workflow_test.dart": "8c81919e24939c96a66bf078a53e6faacbe352a876af7902ce09d14b8f50c3ab",
+    "app/test/offline_plans_test.dart": "435129c96ffc53fe316fc185e3c5107cca74ea30e84f2325d4a395e155fbacbf",
+    "app/pubspec.yaml": "c121514cfaa41deacbdd96fe69128ad8dcec33672a7d6615bc06808a2fca1bd8",
+    "app/pubspec.lock": "abad959ff01e9b03eb345bee3f08c8b5c8189aefb78c88b4ac5be0bddcb682ad"
+  },
+  "source_hashes_unchanged_after_tests": true,
+  "tests": {
+    "navigation": {
+      "passed": 20,
+      "failed": 0,
+      "log": "navigation-third.log",
+      "reported_duration_seconds": 64
+    },
+    "existing_regression": {
+      "passed": 22,
+      "failed": 0,
+      "log": "existing-navigation-regression.log",
+      "reported_duration_seconds": 29
+    },
+    "analyze": {
+      "issues": 0,
+      "log": "analyze-final.log",
+      "reported_duration_seconds": 28.8
+    },
+    "baseline_range_error": {
+      "expected_failure": true,
+      "log": "baseline-range-error.log",
+      "project_workspace_sha256": "b2e9a6667099931ec2f93306b689fc971977b068fcc42c153b0c4c46210074d2",
+      "fixture": "baseline-range-error-fixture.dart.txt"
+    }
+  },
+  "previous_runs": {
+    "navigation-first.log": "16 pass, 4 fail: noncanonical fixture project ID, widget finder and unloaded test font",
+    "navigation-second.log": "1 pass, 19 fail: explicit canonical fixture needed instead of constant duplicate-key spread; unloaded test font",
+    "administration-mobile-diagnostic.log": "Login overflow reproduced before administration with Ahem fallback font; no production layout change needed"
+  },
+  "environment_failures": [
+    "baseline-pub-environment-failure.log",
+    "baseline-socket-environment-failure.log",
+    "baseline-compiler-environment-failure.log",
+    "baseline-pdfium-cache-environment-failure.log"
+  ],
+  "limits": [
+    "Linux widget checks only; no current Windows/iPhone build or device acceptance",
+    "Synthetic API and controlled final device-write boundary; no production migration or network service change"
+  ],
+  "report_sha256": "3df5dabd5092a67ad8caec396dc37fa6adb6441261e2866ec2e12a1a6be2f1b9",
+  "files": {
+    "docs/evidence/project-navigation-2026-11-04/administration-mobile-diagnostic.log": "8f7c91e4dbf334b9896db4ecb145aa81c88723db8742008b8b5a370e57f9c6ff",
+    "docs/evidence/project-navigation-2026-11-04/analyze-final.log": "fdae62e3bf9c64b95acd5850434052e33325023b627d968ccaf0e149aafc16a1",
+    "docs/evidence/project-navigation-2026-11-04/analyze.log": "7287e837f4fa8344685818c99ba56b000515fdd5a2952ab4bc9836f421421615",
+    "docs/evidence/project-navigation-2026-11-04/baseline-compiler-environment-failure.log": "e51d8c9dbfc203a9d7590e1900612079242f63ba73a9864c80e0b28bb9423235",
+    "docs/evidence/project-navigation-2026-11-04/baseline-pdfium-cache-environment-failure.log": "4306634c8dc599b0bfc2fa718bde1e669116b1e1b311957f59a52c41bea06530",
+    "docs/evidence/project-navigation-2026-11-04/baseline-pub-environment-failure.log": "02b4fb6cc75873a2f0f6c01ac9de32bbff79b33551122847320afad1a948b1ed",
+    "docs/evidence/project-navigation-2026-11-04/baseline-range-error-fixture.dart.txt": "1f446ff7040c3e8782010e792f1311fd43ac14c5490f170b27da90b6c3aa1299",
+    "docs/evidence/project-navigation-2026-11-04/baseline-range-error.log": "93f608eb868906eed1ad12af0e0f5b01f7126dbf4fe25cbd136724333b74fbd1",
+    "docs/evidence/project-navigation-2026-11-04/baseline-socket-environment-failure.log": "0c71087edb1e418694f4930274957aa68faa44a1090ad9e6aa874e402228de12",
+    "docs/evidence/project-navigation-2026-11-04/existing-navigation-regression.log": "62d549bd543e12285e6d518e5fe168a682d895d0266bbece851d6d954acb1a41",
+    "docs/evidence/project-navigation-2026-11-04/first-fixture-before-canonical-ids.dart.txt": "1aa0cc00438988e6dc7e7f282a7e15c4ea84f2e98ecd0fda676e9650d547713c",
+    "docs/evidence/project-navigation-2026-11-04/navigation-first.log": "0f4784301ebc9190cfae0cb2edbe453dbb39d7ce36df91c6c9c67c44305a899b",
+    "docs/evidence/project-navigation-2026-11-04/navigation-second.log": "7993674237eb8b46d042eb6b2944604313bfa74f505b862bebe9e3bb9fd9481d",
+    "docs/evidence/project-navigation-2026-11-04/navigation-third.log": "48c65803cf342e471d473942bb81bd976c728e42017cbbf70d31db539785cd78",
+    "docs/evidence/project-navigation-2026-11-04/pre-final-source-hashes.json": "a21c251cd4452336185ceaa2b0893329c930577196d3686dbe675b1c135b03f1"
+  },
+  "commands": {
+    "cwd": "/workspace/smartplan-project-navigation-20261104/app",
+    "navigation": "PATH=/workspace/toolchains/clang-19/bin:$PATH PUB_CACHE=/workspace/toolchains/pub-cache /workspace/toolchains/flutter/bin/flutter test --no-pub test/project_business_tabs_navigation_test.dart test/project_unsaved_return_test.dart test/administration_return_navigation_test.dart --reporter expanded",
+    "existing_regression": "PATH=/workspace/toolchains/clang-19/bin:$PATH PUB_CACHE=/workspace/toolchains/pub-cache /workspace/toolchains/flutter/bin/flutter test --no-pub test/plan_test.dart test/offline_plan_widget_test.dart test/project_workspace_widget_test.dart test/workspace_shell_test.dart test/workflow_test.dart --reporter expanded",
+    "analyze": "PATH=/workspace/toolchains/clang-19/bin:$PATH PUB_CACHE=/workspace/toolchains/pub-cache /workspace/toolchains/flutter/bin/flutter analyze --no-pub"
+  },
+  "handoff_paths": [
+    "app/lib/project_workspace_page.dart",
+    "app/lib/project_exit_guard.dart",
+    "app/lib/plan_pages.dart",
+    "app/lib/main.dart",
+    "app/lib/home_views.dart",
+    "app/test/project_business_tabs_navigation_test.dart",
+    "app/test/project_unsaved_return_test.dart",
+    "app/test/administration_return_navigation_test.dart",
+    "docs/CRM_ERP_PROJEKT_NAVIGATION_2026-11-04.md",
+    "docs/evidence/project-navigation-2026-11-04/administration-mobile-diagnostic.log",
+    "docs/evidence/project-navigation-2026-11-04/analyze-final.log",
+    "docs/evidence/project-navigation-2026-11-04/analyze.log",
+    "docs/evidence/project-navigation-2026-11-04/baseline-compiler-environment-failure.log",
+    "docs/evidence/project-navigation-2026-11-04/baseline-pdfium-cache-environment-failure.log",
+    "docs/evidence/project-navigation-2026-11-04/baseline-pub-environment-failure.log",
+    "docs/evidence/project-navigation-2026-11-04/baseline-range-error-fixture.dart.txt",
+    "docs/evidence/project-navigation-2026-11-04/baseline-range-error.log",
+    "docs/evidence/project-navigation-2026-11-04/baseline-socket-environment-failure.log",
+    "docs/evidence/project-navigation-2026-11-04/existing-navigation-regression.log",
+    "docs/evidence/project-navigation-2026-11-04/first-fixture-before-canonical-ids.dart.txt",
+    "docs/evidence/project-navigation-2026-11-04/manifest.json",
+    "docs/evidence/project-navigation-2026-11-04/navigation-first.log",
+    "docs/evidence/project-navigation-2026-11-04/navigation-second.log",
+    "docs/evidence/project-navigation-2026-11-04/navigation-third.log",
+    "docs/evidence/project-navigation-2026-11-04/pre-final-source-hashes.json"
+  ]
+}

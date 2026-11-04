@@ -1,0 +1,101 @@
+{
+  "at_utc": "2026-11-04T19:37:28.450715+00:00",
+  "base_commit": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "worktree": "/workspace/smartplan-project-release-readiness-20261104",
+  "scope": "Price-free inventory article references, native material selectors, current document/template position rights and supported credit-note metadata editing. No Main change, commit, push, CI trigger, deployment, public endpoint or customer data.",
+  "files": {
+    "app/lib/business_documents.dart": {
+      "before_sha256": "be5ae6c8503ed0ae4b895f2f5aafcfc58e5c5d61ab2f141be6c9e50e3a8a6f77",
+      "after_sha256": "8ef44ee91282862dd0318aa6c74c907750096e4a789105d7ea915ae7f122acf0"
+    },
+    "app/lib/business_operations.dart": {
+      "before_sha256": "21388ecf9bfbbadd5cb6fc7448e30d51431b70b1849b19e895c1f65271ba2e7e",
+      "after_sha256": "cc4efbc13b1e4e626fe34ed1bb9fd82508a7ffc40e63eac470d7b7c9178cdefa"
+    },
+    "backend/business_inventory.py": {
+      "before_sha256": "96d97bc9d5893d1fc0106b5eaae8378fe85460ac7842d94d72bdfccacaaa99d6",
+      "after_sha256": "b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b"
+    },
+    "app/test/business_material_document_access_test.dart": {
+      "new": true,
+      "sha256": "5d4b60c5b772d1473ff337c3cdb73cc46612a6c2e1d1f9be584fc15e6eef360e"
+    },
+    "backend/test_inventory_article_references.py": {
+      "new": true,
+      "sha256": "aad2d34cfe023e3f781854369eda3b8cb5a49f8eb0aee7e90cc213dde1fabcc5"
+    },
+    "backend/online/test_inventory_article_references_api.py": {
+      "new": true,
+      "sha256": "611627935de9c11a025e6a8619667c449c62f94cb830de581c3433183620802d"
+    },
+    "docs/CRM_ERP_PROJEKT_MATERIAL_BELEGRECHTE_2026-11-04.md": {
+      "new": true,
+      "sha256": "5521d3b5a0e219bfffadc00525e6f281f95b30a5c8bd4531cc66b02ab99f3ea3"
+    }
+  },
+  "validation": {
+    "new_backend_domain": 9,
+    "new_backend_actual_mfa_http": 6,
+    "existing_backend_regression": 40,
+    "combined_flutter": 62,
+    "new_flutter_cases": 8,
+    "existing_flutter_regression": 54,
+    "final_new_flutter_rerun": 8,
+    "skips": 0,
+    "dart_analyze": "No issues found",
+    "git_diff_check": "passed",
+    "not_executed": [
+      "PostgreSQL runtime",
+      "Windows/iOS native build or physical-device acceptance",
+      "public/customer-data trial"
+    ]
+  },
+  "backend_contract": {
+    "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-contract.json",
+    "sha256": "8c6e8a0a85f04fe7f590fda1a06e80caa440ad9f736ca6db41af0b5924ea09d9"
+  },
+  "logs": {
+    "native-material-document-analyze.log": {
+      "sha256": "2fc0c68a0bbb670b67533ff69f413cfa7312e3de03f1c3da2ca1296e5802fc85",
+      "size": 125
+    },
+    "native-material-document-cache-miss.log": {
+      "sha256": "4318d0e11bc77f9f0e44803812027ffd4f614f02672e1e49d95a8ea837723616",
+      "size": 5550
+    },
+    "native-material-document-final.log": {
+      "sha256": "dc3cd052836c96d42923149702b09549a2ea17dc31228938aa5bb797bbde7653",
+      "size": 794
+    },
+    "native-material-document-first-dialog-run.log": {
+      "sha256": "d403c63d64a4a1ea0746e8798b59229b49c82885488bef881873725cc8c0001a",
+      "size": 2922
+    },
+    "native-material-document-loopback.log": {
+      "sha256": "335c638486518637e48813463cf306dcea120ea4ca59bbd0716dbc23d8631370",
+      "size": 1853
+    },
+    "native-material-document-missing-clang.log": {
+      "sha256": "b3d90671d45e41ad7d0856cf37b20f9c3c86e775598cf71cd7b84bd9bbcf92d9",
+      "size": 3114
+    },
+    "native-material-document-test.log": {
+      "sha256": "2e36de82bbe6150d77fca191cb5d2769ab3700d535a3f5b68cbd9c4cb54b6b83",
+      "size": 12097
+    }
+  },
+  "review": {
+    "reviewer": "/root/customer_trial_readiness/release_branch_route",
+    "read_only": true,
+    "findings_fixed": [
+      "Stable credit-note pending key and restore from original immutable source plus pending metadata; reopen keeps original request ID",
+      "Terminal pagination cursor must be null",
+      "Existing templates retain kind editing and settings.manage save rights"
+    ],
+    "regression": "Original catalog pricing/pending lifecycle suite passes",
+    "follow_up": "Read-only reviewer confirmed all four concrete findings fixed and no remaining error in those points; git diff --check clean."
+  },
+  "initial_attempts": "Initial Flutter setup required existing clang wrapper, copying existing PDFium artifact cache, and allowing local loopback sockets. First actual widget run was 7/8 due to a selector-test key absent from existing dropdown widget; fixed test finder. These logs retained. No product dependency or shared Main file changed.",
+  "browser_dependency": "Separate /workspace/smartplan-project-flow-20261104 agent integrates materialContent against backend SHA b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b; its real warehouse/MFA/reserve/pick browser evidence stays with that change.",
+  "known_boundary": "Existing generic HTTP transport ignores GET bodies; query/direct dispatch validation remains strict. Article selector rejects more than 20,000 loaded items instead of showing partial results."
+}

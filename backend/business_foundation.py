@@ -15,7 +15,7 @@ from core import Problem, canonical, customer_key, customer_values, now_iso
 from inquiries import _transaction
 
 
-FEATURES = ('billing_contact', 'company_overview')
+FEATURES = ('billing_contact', 'company_overview', 'project_creation_receipts')
 BILLING_ROLES = frozenset(('billing', 'invoice', 'accounts payable', 'rechnung', 'rechnungen', 'buchhaltung', 'rechnungswesen'))
 PERMISSIONS = frozenset(('contacts.read', 'contacts.write', 'projects.manage',
     'documents.read', 'documents.write', 'documents.classify', 'finance.read',

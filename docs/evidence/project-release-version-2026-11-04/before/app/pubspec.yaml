@@ -1,0 +1,40 @@
+name: smartplan_office
+description: Smartplan Hofmann - Windows and iPhone development foundation
+publish_to: none
+version: 0.12.0+120
+environment:
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.47.7'
+dependencies:
+  flutter:
+    sdk: flutter
+  printing: ^5.14.2
+  pdfrx: 2.10.1
+  file_selector: ^1.0.4
+  image_picker: 1.2.4
+  qr_flutter: 4.1.0
+  path_provider: 2.1.6
+  cryptography: 2.9.0
+  flutter_secure_storage: 11.2.0
+  local_auth: 3.0.2
+  url_launcher: 6.3.2
+  share_plus: 13.3.1
+  record: 7.1.2
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/fonts/OFL.txt
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter.ttf
+          weight: 400
+        - asset: assets/fonts/Inter.ttf
+          weight: 500
+        - asset: assets/fonts/Inter.ttf
+          weight: 600
+        - asset: assets/fonts/Inter.ttf
+          weight: 700

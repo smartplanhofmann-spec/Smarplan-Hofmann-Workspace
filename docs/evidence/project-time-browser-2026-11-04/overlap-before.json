@@ -1,0 +1,8 @@
+{
+  "backend/business_time.py": "b1a17a7b60c0500b299cf1d0dd201bb0b1cc64077f632f5c7e527cf77b8212cd",
+  "backend/online/web.py": "efe9c4ccf5349b8275fd8b354b472169f20028d668d6a2cc7444a6527d3f25d6",
+  "web/office/time-tracking.js": "661664a91038c9fa6c55f68a680a299c933935b035b3ae3a3f434072b895d316",
+  "web/office/office.js": "cd2a09605f9cbecfc43d7de75bb75158d2794cb55904be9c3381ff2c4f83b7af",
+  "web/office/tests/time-tracking-flow.cjs": "31e7a6ec40ac099315ab3cccec350a08ead1ff9e2ea1a00a29823d6a99ca42a0",
+  "web/office/tests/e2e.cjs": "6523af22acbdec0b1b2604e9e1e4f6767bb806a42fbce5a121c9cde3fe43e5e2"
+}

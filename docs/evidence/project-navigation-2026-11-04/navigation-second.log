@@ -1,0 +1,1623 @@
+00:00 +0: loading /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart
+00:00 +0: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: (setUpAll)
+00:00 +0: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Offstage dirty plan survives project appbar back until explicit discard
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      new UnsavedProjectApi (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:24:41)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:225:21)
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Offstage dirty plan survives project appbar back until explicit discard
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -1: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0 -1: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Offstage dirty plan survives project appbar back until explicit discard [E]
+  Test failed. See exception logs above.
+  The test description was: Offstage dirty plan survives project appbar back until explicit discard
+  
+00:00 +0 -1: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Offstage dirty plan survives system back until explicit discard
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      new UnsavedProjectApi (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:24:41)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:225:21)
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Offstage dirty plan survives system back until explicit discard
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -2: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0 -2: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Offstage dirty plan survives system back until explicit discard [E]
+  Test failed. See exception logs above.
+  The test description was: Offstage dirty plan survives system back until explicit discard
+  
+00:00 +0 -2: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Active inner plan back also honors its dirty confirmation once
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      new UnsavedProjectApi (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:24:41)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:268:19)
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Active inner plan back also honors its dirty confirmation once
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -3: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0 -3: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Active inner plan back also honors its dirty confirmation once [E]
+  Test failed. See exception logs above.
+  The test description was: Active inner plan back also honors its dirty confirmation once
+  
+00:00 +0 -3: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Clean offstage plan does not add another project-back click
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      new UnsavedProjectApi (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:24:41)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:297:17)
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Clean offstage plan does not add another project-back click
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -4: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0 -4: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Clean offstage plan does not add another project-back click [E]
+  Test failed. See exception logs above.
+  The test description was: Clean offstage plan does not add another project-back click
+  
+00:00 +0 -4: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Two queued clean editor-back callbacks cannot remove its plan list
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      new UnsavedProjectApi (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:24:41)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:315:19)
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Two queued clean editor-back callbacks cannot remove its plan list
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -5: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0 -5: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Two queued clean editor-back callbacks cannot remove its plan list [E]
+  Test failed. See exception logs above.
+  The test description was: Two queued clean editor-back callbacks cannot remove its plan list
+  
+00:00 +0 -5: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Offstage online save cannot be disposed before its real ACK
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      new UnsavedProjectApi (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:24:41)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:346:17)
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Offstage online save cannot be disposed before its real ACK
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -6: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0 -6: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Offstage online save cannot be disposed before its real ACK [E]
+  Test failed. See exception logs above.
+  The test description was: Offstage online save cannot be disposed before its real ACK
+  
+00:00 +0 -6: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Real local plan transaction retains draft during pending device write
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      new UnsavedProjectApi (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:24:41)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:381:21)
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Real local plan transaction retains draft during pending device write
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -7: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0 -7: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Real local plan transaction retains draft during pending device write [E]
+  Test failed. See exception logs above.
+  The test description was: Real local plan transaction retains draft during pending device write
+  
+00:00 +0 -7: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Real local plan transaction retains draft during device-write failure
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      new UnsavedProjectApi (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:24:41)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:381:21)
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Real local plan transaction retains draft during device-write failure
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -8: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0 -8: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Real local plan transaction retains draft during device-write failure [E]
+  Test failed. See exception logs above.
+  The test description was: Real local plan transaction retains draft during device-write failure
+  
+00:00 +0 -8: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Mail plan-import navigation cannot reset an unsaved offstage plan
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      new UnsavedProjectApi (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:24:41)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart:455:19)
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Mail plan-import navigation cannot reset an unsaved offstage plan
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -9: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+00:00 +0 -9: /workspace/smartplan-project-navigation-20261104/app/test/project_unsaved_return_test.dart: Mail plan-import navigation cannot reset an unsaved offstage plan [E]
+  Test failed. See exception logs above.
+  The test description was: Mail plan-import navigation cannot reset an unsaved offstage plan
+  
+00:00 +0 -9: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building ProjectPage:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      _ProjectWorkspacePageState.initState (package:smartplan_office/project_workspace_page.dart:230:32)
+#5      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5963:55)
+#6      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5806:5)
+...     Normal element mounting (266 frames)
+#272    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4600:20)
+#273    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7277:36)
+#274    Element.updateChild (package:flutter/src/widgets/framework.dart:4072:18)
+#275    Element.updateChildren (package:flutter/src/widgets/framework.dart:4268:32)
+#276    MultiChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7308:17)
+#277    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#278    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#279    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#280    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#281    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#282    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#283    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#284    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#285    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#286    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#287    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#288    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#289    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#290    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#291    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#292    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#293    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#294    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#295    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#296    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#297    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#298    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#299    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#300    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#301    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#302    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#303    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#304    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#305    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#306    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#307    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#308    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#309    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#310    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#311    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#312    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#313    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#314    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#315    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#316    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#317    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#318    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#319    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#320    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#321    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#322    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#323    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#324    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#325    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#326    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#327    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2763:15)
+#328    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2820:11)
+#329    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3124:18)
+#330    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2432:19)
+#331    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#332    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#333    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#334    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#337    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#338    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#339    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#342    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#343    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#344    enterProject (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:416:16)
+<asynchronous suspension>
+#345    mount (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:411:3)
+<asynchronous suspension>
+#346    main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:498:9)
+<asynchronous suspension>
+#347    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#348    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.first (dart:core/iterable.dart:663:7)
+#1      _FirstFinderMixin.filter (package:flutter_test/src/finders.dart:1383:28)
+#3      Iterable.single (dart:core/iterable.dart:694:13)
+#4      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#5      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#6      selectTab (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:439:18)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:499:9)
+<asynchronous suspension>
+#8      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#9      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 2 frames from dart:async-patch and package:stack_trace)
+
+The test description was:
+  The real project page can open Arbeitszeit without losing its scaffold or return path
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -10: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: The real project page can open Arbeitszeit without losing its scaffold or return path [E]
+  Test failed. See exception logs above.
+  The test description was: The real project page can open Arbeitszeit without losing its scaffold or return path
+  
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.emptyBodyDescription (package:flutter/src/foundation/diagnostics.dart:2939:45)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1307:14)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     TestWidgetsFlutterBinding._runTest.handleUncaughtError (package:flutter_test/src/binding.dart:1879:20)
+#14     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1921:13)
+<asynchronous suspension>
+(elided 5 frames from dart:async)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -10: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building ProjectPage:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      _ProjectWorkspacePageState.initState (package:smartplan_office/project_workspace_page.dart:230:32)
+#5      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5963:55)
+#6      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5806:5)
+...     Normal element mounting (266 frames)
+#272    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4600:20)
+#273    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7277:36)
+#274    Element.updateChild (package:flutter/src/widgets/framework.dart:4072:18)
+#275    Element.updateChildren (package:flutter/src/widgets/framework.dart:4268:32)
+#276    MultiChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7308:17)
+#277    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#278    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#279    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#280    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#281    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#282    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#283    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#284    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#285    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#286    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#287    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#288    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#289    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#290    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#291    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#292    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#293    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#294    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#295    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#296    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#297    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#298    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#299    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#300    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#301    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#302    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#303    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#304    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#305    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#306    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#307    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#308    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#309    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#310    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#311    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#312    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#313    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#314    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#315    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#316    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#317    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#318    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#319    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#320    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#321    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#322    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#323    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#324    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#325    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#326    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#327    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2763:15)
+#328    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2820:11)
+#329    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3124:18)
+#330    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2432:19)
+#331    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#332    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#333    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#334    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#337    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#338    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#339    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#342    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#343    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#344    enterProject (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:416:16)
+<asynchronous suspension>
+#345    mount (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:411:3)
+<asynchronous suspension>
+#346    main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:539:11)
+<asynchronous suspension>
+#347    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#348    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.first (dart:core/iterable.dart:663:7)
+#1      _FirstFinderMixin.filter (package:flutter_test/src/finders.dart:1383:28)
+#3      Iterable.single (dart:core/iterable.dart:694:13)
+#4      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#5      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#6      selectTab (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:439:18)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:541:13)
+<asynchronous suspension>
+#8      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#9      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 2 frames from dart:async-patch and package:stack_trace)
+
+The test description was:
+  All twenty-one current project registers render and return through the real project route at
+  1200.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -11: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0 [E]
+  Test failed. See exception logs above.
+  The test description was: All twenty-one current project registers render and return through the real project route at 1200.0
+  
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.emptyBodyDescription (package:flutter/src/foundation/diagnostics.dart:2939:45)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1307:14)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     TestWidgetsFlutterBinding._runTest.handleUncaughtError (package:flutter_test/src/binding.dart:1879:20)
+#14     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1921:13)
+<asynchronous suspension>
+(elided 5 frames from dart:async)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -11: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 390.0
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building ProjectPage:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      _ProjectWorkspacePageState.initState (package:smartplan_office/project_workspace_page.dart:230:32)
+#5      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5963:55)
+#6      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5806:5)
+...     Normal element mounting (266 frames)
+#272    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4600:20)
+#273    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7277:36)
+#274    Element.updateChild (package:flutter/src/widgets/framework.dart:4072:18)
+#275    Element.updateChildren (package:flutter/src/widgets/framework.dart:4268:32)
+#276    MultiChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7308:17)
+#277    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#278    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#279    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#280    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#281    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#282    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#283    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#284    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#285    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#286    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#287    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#288    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#289    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#290    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#291    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#292    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#293    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#294    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#295    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#296    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#297    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#298    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#299    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#300    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#301    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#302    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#303    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#304    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#305    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#306    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#307    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#308    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#309    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#310    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#311    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#312    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#313    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#314    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#315    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#316    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#317    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#318    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#319    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#320    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#321    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#322    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#323    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#324    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#325    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#326    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#327    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2763:15)
+#328    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2820:11)
+#329    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3124:18)
+#330    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2432:19)
+#331    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#332    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#333    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#334    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#337    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#338    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#339    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#342    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#343    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#344    enterProject (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:416:16)
+<asynchronous suspension>
+#345    mount (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:411:3)
+<asynchronous suspension>
+#346    main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:539:11)
+<asynchronous suspension>
+#347    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#348    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.first (dart:core/iterable.dart:663:7)
+#1      _FirstFinderMixin.filter (package:flutter_test/src/finders.dart:1383:28)
+#3      Iterable.single (dart:core/iterable.dart:694:13)
+#4      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#5      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#6      selectTab (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:439:18)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:541:13)
+<asynchronous suspension>
+#8      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#9      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 2 frames from dart:async-patch and package:stack_trace)
+
+The test description was:
+  All twenty-one current project registers render and return through the real project route at 390.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -12: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 390.0 [E]
+  Test failed. See exception logs above.
+  The test description was: All twenty-one current project registers render and return through the real project route at 390.0
+  
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.emptyBodyDescription (package:flutter/src/foundation/diagnostics.dart:2939:45)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1307:14)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     TestWidgetsFlutterBinding._runTest.handleUncaughtError (package:flutter_test/src/binding.dart:1879:20)
+#14     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1921:13)
+<asynchronous suspension>
+(elided 5 frames from dart:async)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -12: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Changing project permissions keeps an allowed active register and its state when earlier registers disappear
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building ProjectPage:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      _ProjectWorkspacePageState.initState (package:smartplan_office/project_workspace_page.dart:230:32)
+#5      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5963:55)
+#6      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5806:5)
+...     Normal element mounting (266 frames)
+#272    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4600:20)
+#273    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7277:36)
+#274    Element.updateChild (package:flutter/src/widgets/framework.dart:4072:18)
+#275    Element.updateChildren (package:flutter/src/widgets/framework.dart:4268:32)
+#276    MultiChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7308:17)
+#277    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#278    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#279    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#280    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#281    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#282    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#283    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#284    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#285    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#286    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#287    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#288    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#289    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#290    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#291    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#292    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#293    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#294    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#295    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#296    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#297    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#298    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#299    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#300    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#301    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#302    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#303    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#304    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#305    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#306    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#307    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#308    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#309    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#310    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#311    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#312    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#313    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#314    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#315    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#316    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#317    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#318    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#319    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#320    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#321    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#322    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#323    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#324    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#325    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#326    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#327    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2763:15)
+#328    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2820:11)
+#329    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3124:18)
+#330    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2432:19)
+#331    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#332    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#333    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#334    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#337    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#338    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#339    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#342    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#343    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#344    enterProject (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:416:16)
+<asynchronous suspension>
+#345    mount (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:411:3)
+<asynchronous suspension>
+#346    main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:578:9)
+<asynchronous suspension>
+#347    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#348    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.first (dart:core/iterable.dart:663:7)
+#1      _FirstFinderMixin.filter (package:flutter_test/src/finders.dart:1383:28)
+#3      Iterable.single (dart:core/iterable.dart:694:13)
+#4      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#5      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#6      selectTab (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:439:18)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:579:9)
+<asynchronous suspension>
+#8      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#9      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 2 frames from dart:async-patch and package:stack_trace)
+
+The test description was:
+  Changing project permissions keeps an allowed active register and its state when earlier registers
+  disappear
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -13: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Changing project permissions keeps an allowed active register and its state when earlier registers disappear [E]
+  Test failed. See exception logs above.
+  The test description was: Changing project permissions keeps an allowed active register and its state when earlier registers disappear
+  
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.emptyBodyDescription (package:flutter/src/foundation/diagnostics.dart:2939:45)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1307:14)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     TestWidgetsFlutterBinding._runTest.handleUncaughtError (package:flutter_test/src/binding.dart:1879:20)
+#14     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1921:13)
+<asynchronous suspension>
+(elided 5 frames from dart:async)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -13: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 1200.0
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building ProjectPage:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      _ProjectWorkspacePageState.initState (package:smartplan_office/project_workspace_page.dart:230:32)
+#5      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5963:55)
+#6      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5806:5)
+...     Normal element mounting (266 frames)
+#272    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4600:20)
+#273    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7277:36)
+#274    Element.updateChild (package:flutter/src/widgets/framework.dart:4072:18)
+#275    Element.updateChildren (package:flutter/src/widgets/framework.dart:4268:32)
+#276    MultiChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7308:17)
+#277    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#278    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#279    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#280    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#281    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#282    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#283    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#284    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#285    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#286    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#287    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#288    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#289    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#290    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#291    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#292    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#293    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#294    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#295    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#296    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#297    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#298    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#299    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#300    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#301    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#302    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#303    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#304    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#305    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#306    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#307    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#308    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#309    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#310    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#311    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#312    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#313    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#314    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#315    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#316    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#317    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#318    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#319    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#320    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#321    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#322    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#323    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#324    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#325    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#326    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#327    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2763:15)
+#328    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2820:11)
+#329    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3124:18)
+#330    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2432:19)
+#331    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#332    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#333    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#334    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#337    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#338    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#339    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#342    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#343    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#344    enterProject (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:416:16)
+<asynchronous suspension>
+#345    mount (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:411:3)
+<asynchronous suspension>
+#346    main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:603:11)
+<asynchronous suspension>
+#347    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#348    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.widget (package:flutter_test/src/controller.dart:828:30)
+#2      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:614:18)
+<asynchronous suspension>
+#3      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#4      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  Old register callbacks follow the same permitted identity and reject removed destinations at
+  1200.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -14: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 1200.0 [E]
+  Test failed. See exception logs above.
+  The test description was: Old register callbacks follow the same permitted identity and reject removed destinations at 1200.0
+  
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.emptyBodyDescription (package:flutter/src/foundation/diagnostics.dart:2939:45)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1307:14)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     TestWidgetsFlutterBinding._runTest.handleUncaughtError (package:flutter_test/src/binding.dart:1879:20)
+#14     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1921:13)
+<asynchronous suspension>
+(elided 5 frames from dart:async)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -14: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 390.0
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building ProjectPage:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      _ProjectWorkspacePageState.initState (package:smartplan_office/project_workspace_page.dart:230:32)
+#5      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5963:55)
+#6      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5806:5)
+...     Normal element mounting (266 frames)
+#272    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4600:20)
+#273    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7277:36)
+#274    Element.updateChild (package:flutter/src/widgets/framework.dart:4072:18)
+#275    Element.updateChildren (package:flutter/src/widgets/framework.dart:4268:32)
+#276    MultiChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7308:17)
+#277    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#278    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#279    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#280    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#281    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#282    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#283    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#284    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#285    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#286    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#287    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#288    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#289    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#290    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#291    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#292    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#293    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#294    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#295    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#296    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#297    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#298    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#299    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#300    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#301    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#302    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#303    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#304    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#305    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#306    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#307    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#308    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#309    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#310    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#311    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#312    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#313    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#314    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#315    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#316    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#317    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#318    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#319    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#320    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#321    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#322    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#323    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#324    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#325    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#326    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#327    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2763:15)
+#328    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2820:11)
+#329    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3124:18)
+#330    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2432:19)
+#331    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#332    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#333    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#334    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#337    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#338    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#339    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#342    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#343    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#344    enterProject (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:416:16)
+<asynchronous suspension>
+#345    mount (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:411:3)
+<asynchronous suspension>
+#346    main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:603:11)
+<asynchronous suspension>
+#347    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#348    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.widget (package:flutter_test/src/controller.dart:828:30)
+#2      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:607:18)
+<asynchronous suspension>
+#3      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#4      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  Old register callbacks follow the same permitted identity and reject removed destinations at 390.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -15: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Old register callbacks follow the same permitted identity and reject removed destinations at 390.0 [E]
+  Test failed. See exception logs above.
+  The test description was: Old register callbacks follow the same permitted identity and reject removed destinations at 390.0
+  
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.emptyBodyDescription (package:flutter/src/foundation/diagnostics.dart:2939:45)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1307:14)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     TestWidgetsFlutterBinding._runTest.handleUncaughtError (package:flutter_test/src/binding.dart:1879:20)
+#14     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1921:13)
+<asynchronous suspension>
+(elided 5 frames from dart:async)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -15: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Pending and failed register reads preserve overview and project back navigation
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building ProjectPage:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+The relevant error-causing widget was:
+  ProjectPage
+  ProjectPage:file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:396:37
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      _ProjectWorkspacePageState.initState (package:smartplan_office/project_workspace_page.dart:230:32)
+#5      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5963:55)
+#6      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5806:5)
+...     Normal element mounting (266 frames)
+#272    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4600:20)
+#273    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7277:36)
+#274    Element.updateChild (package:flutter/src/widgets/framework.dart:4072:18)
+#275    Element.updateChildren (package:flutter/src/widgets/framework.dart:4268:32)
+#276    MultiChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7308:17)
+#277    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#278    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#279    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#280    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#281    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#282    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#283    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#284    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#285    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#286    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#287    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#288    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#289    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#290    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#291    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#292    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#293    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#294    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#295    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#296    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#297    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#298    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#299    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#300    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#301    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#302    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#303    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#304    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#305    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#306    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#307    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#308    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#309    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#310    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#311    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#312    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#313    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#314    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#315    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#316    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#317    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#318    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#319    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#320    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#321    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#322    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#323    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#324    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#325    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#326    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#327    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2763:15)
+#328    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2820:11)
+#329    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3124:18)
+#330    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2432:19)
+#331    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#332    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#333    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#334    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#337    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#338    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#339    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#342    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#343    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#344    enterProject (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:416:16)
+<asynchronous suspension>
+#345    mount (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:411:3)
+<asynchronous suspension>
+#346    main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:650:9)
+<asynchronous suspension>
+#347    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#348    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      ProjectTabsApi.documents (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:117:43)
+#5      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:681:56)
+<asynchronous suspension>
+#6      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#7      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Pending and failed register reads preserve overview and project back navigation
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -16: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Pending and failed register reads preserve overview and project back navigation [E]
+  Test failed. See exception logs above.
+  The test description was: Pending and failed register reads preserve overview and project back navigation
+  
+00:01 +0 -16: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Project Arbeitszeit performs start pause resume stop on the same scoped entry and still returns
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building ProjectPage:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      _ProjectWorkspacePageState.initState (package:smartplan_office/project_workspace_page.dart:230:32)
+#5      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5963:55)
+#6      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5806:5)
+...     Normal element mounting (266 frames)
+#272    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4600:20)
+#273    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7277:36)
+#274    Element.updateChild (package:flutter/src/widgets/framework.dart:4072:18)
+#275    Element.updateChildren (package:flutter/src/widgets/framework.dart:4268:32)
+#276    MultiChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7308:17)
+#277    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#278    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#279    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#280    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#281    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#282    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#283    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#284    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#285    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#286    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#287    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#288    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#289    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#290    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#291    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#292    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#293    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#294    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#295    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#296    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#297    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#298    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#299    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#300    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#301    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#302    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#303    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#304    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#305    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#306    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#307    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#308    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#309    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#310    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#311    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#312    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#313    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#314    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#315    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#316    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#317    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#318    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#319    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#320    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#321    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#322    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#323    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#324    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#325    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#326    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#327    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2763:15)
+#328    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2820:11)
+#329    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3124:18)
+#330    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2432:19)
+#331    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#332    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#333    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#334    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#337    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#338    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#339    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#342    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#343    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#344    enterProject (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:416:16)
+<asynchronous suspension>
+#345    mount (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:411:3)
+<asynchronous suspension>
+#346    main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:693:9)
+<asynchronous suspension>
+#347    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#348    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.first (dart:core/iterable.dart:663:7)
+#1      _FirstFinderMixin.filter (package:flutter_test/src/finders.dart:1383:28)
+#3      Iterable.single (dart:core/iterable.dart:694:13)
+#4      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#5      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#6      selectTab (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:439:18)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:694:9)
+<asynchronous suspension>
+#8      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#9      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 2 frames from dart:async-patch and package:stack_trace)
+
+The test description was:
+  Project Arbeitszeit performs start pause resume stop on the same scoped entry and still returns
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -17: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Project Arbeitszeit performs start pause resume stop on the same scoped entry and still returns [E]
+  Test failed. See exception logs above.
+  The test description was: Project Arbeitszeit performs start pause resume stop on the same scoped entry and still returns
+  
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.emptyBodyDescription (package:flutter/src/foundation/diagnostics.dart:2939:45)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1307:14)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     TestWidgetsFlutterBinding._runTest.handleUncaughtError (package:flutter_test/src/binding.dart:1879:20)
+#14     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1921:13)
+<asynchronous suspension>
+(elided 5 frames from dart:async)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -17: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Removing and restoring newer modules preserves the selected time page
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building ProjectPage:
+'dart:_compact_hash': Failed assertion: line 418 pos 14: '<optimized out>': is not true.
+
+When the exception was thrown, this was the stack:
+#2      _ImmutableLinkedHashMapMixin._createIndex (dart:_compact_hash:418:14)
+#3      _ImmutableLinkedHashMapMixin.[] (dart:_compact_hash:392:7)
+#4      _ProjectWorkspacePageState.initState (package:smartplan_office/project_workspace_page.dart:230:32)
+#5      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5963:55)
+#6      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5806:5)
+...     Normal element mounting (266 frames)
+#272    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4600:20)
+#273    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7277:36)
+#274    Element.updateChild (package:flutter/src/widgets/framework.dart:4072:18)
+#275    Element.updateChildren (package:flutter/src/widgets/framework.dart:4268:32)
+#276    MultiChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7308:17)
+#277    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#278    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#279    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#280    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#281    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#282    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#283    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#284    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#285    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#286    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#287    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#288    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#289    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#290    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#291    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#292    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#293    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#294    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#295    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#296    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#297    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#298    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#299    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#300    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#301    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#302    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#303    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#304    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#305    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#306    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#307    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#308    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#309    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#310    StatefulElement.update (package:flutter/src/widgets/framework.dart:6020:5)
+#311    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#312    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#313    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#314    SingleChildRenderObjectElement.update (package:flutter/src/widgets/framework.dart:7135:14)
+#315    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#316    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#317    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#318    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#319    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#320    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#321    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#322    ProxyElement.update (package:flutter/src/widgets/framework.dart:6162:5)
+#323    Element.updateChild (package:flutter/src/widgets/framework.dart:4050:15)
+#324    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5854:16)
+#325    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5995:11)
+#326    Element.rebuild (package:flutter/src/widgets/framework.dart:5542:7)
+#327    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2763:15)
+#328    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2820:11)
+#329    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3124:18)
+#330    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2432:19)
+#331    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#332    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#333    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#334    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#337    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#338    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#339    WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:719:23)
+#342    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#343    WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:712:27)
+#344    enterProject (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:416:16)
+<asynchronous suspension>
+#345    mount (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:411:3)
+<asynchronous suspension>
+#346    main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:731:9)
+<asynchronous suspension>
+#347    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#348    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 7 frames from class _AssertionError, dart:async, and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.first (dart:core/iterable.dart:663:7)
+#1      _FirstFinderMixin.filter (package:flutter_test/src/finders.dart:1383:28)
+#3      Iterable.single (dart:core/iterable.dart:694:13)
+#4      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#5      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#6      selectTab (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:439:18)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart:732:9)
+<asynchronous suspension>
+#8      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#9      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 2 frames from dart:async-patch and package:stack_trace)
+
+The test description was:
+  Removing and restoring newer modules preserves the selected time page
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -18: /workspace/smartplan-project-navigation-20261104/app/test/administration_return_navigation_test.dart: Administration returns to the same workspace at 1200.0
+00:01 +0 -18: /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Removing and restoring newer modules preserves the selected time page [E]
+  Test failed. See exception logs above.
+  The test description was: Removing and restoring newer modules preserves the selected time page
+  
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.emptyBodyDescription (package:flutter/src/foundation/diagnostics.dart:2939:45)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1307:14)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     TestWidgetsFlutterBinding._runTest.handleUncaughtError (package:flutter_test/src/binding.dart:1879:20)
+#14     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1921:13)
+<asynchronous suspension>
+(elided 5 frames from dart:async)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -18: /workspace/smartplan-project-navigation-20261104/app/test/administration_return_navigation_test.dart: Administration returns to the same workspace at 1200.0
+00:03 +1 -18: /workspace/smartplan-project-navigation-20261104/app/test/administration_return_navigation_test.dart: Administration returns to the same workspace at 390.0
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: null
+  Actual: FlutterError:<A RenderFlex overflowed by 48 pixels on the right.>
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-project-navigation-20261104/app/test/administration_return_navigation_test.dart:94:11)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-project-navigation-20261104/app/test/administration_return_navigation_test.dart line 94
+The test description was:
+  Administration returns to the same workspace at 390.0
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:05 +1 -19: /workspace/smartplan-project-navigation-20261104/app/test/administration_return_navigation_test.dart: Administration returns to the same workspace at 390.0 [E]
+  Test failed. See exception logs above.
+  The test description was: Administration returns to the same workspace at 390.0
+  
+00:05 +1 -19: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-project-navigation-20261104/app/test/administration_return_navigation_test.dart: Administration returns to the same workspace at 390.0
+  /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 1200.0
+  /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: All twenty-one current project registers render and return through the real project route at 390.0
+  /workspace/smartplan-project-navigation-20261104/app/test/project_business_tabs_navigation_test.dart: Changing project permissions keeps an allowed active register and its state when earlier registers disappear
+  ... and 15 more

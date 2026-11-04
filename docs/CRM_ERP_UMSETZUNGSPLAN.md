@@ -1,5 +1,9 @@
 # CRM/ERP – laufender Umsetzungsplan
 
+Der aktuelle [Projekt-Integrationsstand 0.13.0](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)
+verbindet Kunden, Belege, Material, Zeiten und Navigation mit eigenen Prüfnachweisen.
+Aktuelle App-Builds, Serverabgleich und Geräteabnahme folgen als Auslieferungsschritt.
+
 **Aktuelle Nutzerpriorität vom 04.11.2026:** Zuerst Projektbetrieb, Angebote,
 Rechnungen und Stunden in Browser, mobiler App und Windows-App fertigstellen.
 Lohnabrechnung und Buchhaltung sind zurückgestellt. Maßgeblich für die

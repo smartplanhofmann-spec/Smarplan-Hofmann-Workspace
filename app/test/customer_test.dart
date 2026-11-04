@@ -72,14 +72,14 @@ class CustomerTestApi extends TestApi {
         if (body == null) return projects;
         final c = customers.firstWhere((c) => c['id'] == body['customer_id']);
         final p = {
-          'id': 'new-project',
+          'id': 'cccccccccccccccccccccccccccccccc',
           'name': body['name'],
           'customer': c['name'],
           'customer_id': c['id'],
         };
         projects.add(p);
         c['project_count'] = (c['project_count'] as int) + 1;
-        return {'id': 'new-project'};
+        return {'id': 'cccccccccccccccccccccccccccccccc'};
       }
       if (path == '/api/projects/project-1/customer') {
         final c = customers.firstWhere((c) => c['id'] == body!['customer_id']);

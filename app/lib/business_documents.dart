@@ -23,7 +23,7 @@ const businessDocumentKinds = {
   'advance_invoice': 'Abschlagsrechnung',
   'cumulative_invoice': 'Kumulierte Rechnung',
   'final_invoice': 'Schlussrechnung',
-  'cancellation': 'Storno',
+  'credit_note': 'Stornogutschrift',
 };
 const businessPositionKinds = {
   'labor': 'Lohn',
@@ -118,6 +118,9 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
   final form = GlobalKey<FormState>();
   late final TextEditingController title, notes, issue, due, buyerReference;
   final templateName = TextEditingController(), intro = TextEditingController();
+  final cancelReason = TextEditingController();
+  bool get metadataOnly =>
+      !widget.templateMode && widget.document?['kind'] == 'credit_note';
   bool get mayView => !financialDenied && widget.session.can('finance.read');
   bool get canEdit =>
       mayView &&
@@ -180,6 +183,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
         due,
         buyerReference,
         intro,
+        cancelReason,
         hourlyRate,
         timeTax,
         ...buyerFields.values,
@@ -205,18 +209,23 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
     final target = widget.document?['id'] ?? widget.session.projectId;
     final pendingBody = !widget.templateMode && target != null
         ? widget.session.pendingCommandValues(
-            'catalog-v2-document-$target',
+            metadataOnly
+                ? 'credit-note-document-$target'
+                : 'catalog-v2-document-$target',
             path:
                 '/documents${widget.document == null ? '' : '/${widget.document!['id']}'}',
           )
         : null;
-    final d = pendingBody ?? widget.document ?? {};
+    final d = metadataOnly
+        ? <String, dynamic>{...widget.document!, ...?pendingBody}
+        : pendingBody ?? widget.document ?? {};
     if (pendingBody != null) {
       frozen = pendingBody;
       uncertain = true;
     }
     templateName.text = d['name'] ?? '';
     intro.text = d['intro'] ?? '';
+    cancelReason.text = d['cancel_reason'] ?? '';
     title = TextEditingController(text: d['title'] ?? '');
     notes = TextEditingController(text: d['notes'] ?? '');
     issue = TextEditingController(
@@ -253,7 +262,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
       List<String>.from(d['previous_document_ids'] as List? ?? []),
     );
     widget.session.addListener(changed);
-    if (!widget.templateMode) {
+    if (!widget.templateMode && !metadataOnly) {
       loadInputs();
       if (widget.document == null) loadBillingContact(automatically: true);
     }
@@ -912,6 +921,8 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
     templateName.dispose();
     intro.clear();
     intro.dispose();
+    cancelReason.clear();
+    cancelReason.dispose();
     hourlyRate.clear();
     hourlyRate.dispose();
     timeTax.clear();
@@ -924,6 +935,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
   }
 
   Future<void> position([int? index]) async {
+    if (!canEdit || busy || uncertain || metadataOnly) return;
     if (index != null &&
         (positions[index]['catalog_price_snapshot'] != null ||
             positions[index]['catalog_price_selection'] != null)) {
@@ -1009,6 +1021,11 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
       builder: (_) => BusinessEditor(
         session: widget.session,
         title: index == null ? 'Position hinzufügen' : 'Position bearbeiten',
+        readPermission: 'finance.read',
+        writePermission: widget.templateMode
+            ? 'settings.manage'
+            : 'finance.write',
+        readAllowed: () => mounted && mayView,
         initial: initial,
         fields: const [
           BusinessField(
@@ -1050,7 +1067,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
           ),
         ],
         onSave: (values) async {
-          if (!mounted) return;
+          if (!mounted || !canEdit || busy || uncertain || metadataOnly) return;
           setState(() {
             if (index == null)
               positions.add(values);
@@ -1108,6 +1125,17 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
           if (widget.document != null) 'revision': widget.document!['revision'],
         };
       }
+      if (metadataOnly) {
+        frozen ??= {
+          'revision': widget.document!['revision'],
+          'title': title.text.trim(),
+          'issue_date': issue.text.trim(),
+          if (due.text.trim().isNotEmpty) 'due_date': due.text.trim(),
+          'notes': notes.text.trim(),
+          'intro': intro.text,
+          'cancel_reason': cancelReason.text.trim(),
+        };
+      }
       frozen ??= {
         'project_id': project,
         'kind': kind,
@@ -1146,17 +1174,20 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
           'time_tax_rate': businessDecimal(timeTax.text),
         if (widget.document != null) 'revision': widget.document!['revision'],
       };
-      final dated = positions.any(
-        (position) =>
-            position['catalog_price_selection'] != null ||
-            position['catalog_price_snapshot'] != null ||
-            businessMap(position['pricing'])['source_price_selection'] !=
-                null ||
-            (businessMap(position['pricing'])['components'] as List? ?? []).any(
-              (part) => part['price_selection'] != null,
-            ),
-      );
-      final commandKey = !widget.templateMode && dated
+      final dated =
+          !metadataOnly &&
+          positions.any(
+            (position) =>
+                position['catalog_price_selection'] != null ||
+                position['catalog_price_snapshot'] != null ||
+                businessMap(position['pricing'])['source_price_selection'] !=
+                    null ||
+                (businessMap(position['pricing'])['components'] as List? ?? [])
+                    .any((part) => part['price_selection'] != null),
+          );
+      final commandKey = metadataOnly
+          ? 'credit-note-document-${widget.document!['id']}'
+          : !widget.templateMode && dated
           ? 'catalog-v2-document-${widget.document?['id'] ?? project}'
           : key;
       final result = businessMap(
@@ -1201,15 +1232,155 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
     }
   }
 
+  Widget creditNoteEditor(bool enabled) {
+    final source = widget.document!,
+        buyer = businessMap(widget.document!['buyer']);
+    final totals = businessMap(source['totals']);
+    String decimalComma(Object? value) => '$value'.replaceAll('.', ',');
+    return Scaffold(
+      appBar: AppBar(title: const Text('Stornogutschrift bearbeiten')),
+      body: !mayView
+          ? const Center(child: Text('Der Zugang ist nicht mehr verfügbar.'))
+          : ListView(
+              padding: const EdgeInsets.all(24),
+              children: [
+                const Notice(
+                  'Empfänger, Positionen und Beträge stammen aus der Originalrechnung und bleiben unverändert. Sie können Titel, Datum und Begleittexte anpassen.',
+                ),
+                if (error != null) Notice(error!, error: true),
+                Form(
+                  key: form,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      TextFormField(
+                        key: const ValueKey('business-document-title'),
+                        controller: title,
+                        enabled: enabled,
+                        decoration: const InputDecoration(labelText: 'Titel'),
+                        validator: (value) => (value ?? '').trim().isEmpty
+                            ? 'Bitte Titel eingeben.'
+                            : null,
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: issue,
+                        enabled: enabled,
+                        decoration: const InputDecoration(
+                          labelText: 'Belegdatum (JJJJ-MM-TT)',
+                        ),
+                        validator: (value) =>
+                            DateTime.tryParse(value ?? '') == null
+                            ? 'Bitte gültiges Datum eingeben.'
+                            : null,
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: due,
+                        enabled: enabled,
+                        decoration: const InputDecoration(
+                          labelText: 'Zahlungsziel (JJJJ-MM-TT, optional)',
+                        ),
+                        validator: (value) =>
+                            (value ?? '').isNotEmpty &&
+                                DateTime.tryParse(value!) == null
+                            ? 'Bitte gültiges Datum eingeben.'
+                            : null,
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        key: const ValueKey('business-document-cancel-reason'),
+                        controller: cancelReason,
+                        enabled: enabled,
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          labelText: 'Stornogrund',
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: intro,
+                        enabled: enabled,
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          labelText: 'Einleitung / Textbaustein',
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: notes,
+                        enabled: enabled,
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          labelText: 'Hinweise / Fußtext',
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      FilledButton.icon(
+                        onPressed: busy || !canEdit ? null : save,
+                        icon: Icon(
+                          busy ? Icons.hourglass_top : Icons.save_outlined,
+                        ),
+                        label: Text(
+                          uncertain
+                              ? 'Dieselben Eingaben erneut senden'
+                              : 'Entwurf speichern',
+                        ),
+                      ),
+                      if (uncertain)
+                        const Notice(
+                          'Die letzte Speicherung ist unbestätigt. Ihre Eingaben bleiben unverändert; erneutes Senden verwendet denselben Vorgang.',
+                        ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Originalrechnung: ${source['cancelled_number'] ?? 'Zugeordnete Rechnung'}',
+                        ),
+                        const SizedBox(height: 8),
+                        Text('${buyer['name'] ?? ''}'),
+                        if (buyer['address_line'] != null)
+                          Text('${buyer['address_line']}'),
+                        Text(
+                          '${buyer['postal_code'] ?? ''} ${buyer['city'] ?? ''}'
+                              .trim(),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Netto: ${businessMoney(totals['net'])} · Brutto: ${businessMoney(totals['gross'])}',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                for (final position in positions)
+                  Card(
+                    child: ListTile(
+                      title: Text('${position['description']}'),
+                      subtitle: Text(
+                        '${decimalComma(position['quantity'])} ${position['unit']} · ${businessMoney(position['unit_price_net'])} netto · ${decimalComma(position['tax_rate'])} % Umsatzsteuer',
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final enabled = !busy && !uncertain && canEdit;
+    if (metadataOnly) return creditNoteEditor(enabled);
     final choices = {
       for (final e in businessDocumentKinds.entries)
-        if (widget.templateMode ||
-            !e.key.contains('invoice') ||
-            widget.session.canWrite('finance.write'))
-          e.key: e.value,
+        if (e.key != 'credit_note') e.key: e.value,
     };
     return Scaffold(
       appBar: AppBar(
@@ -1253,7 +1424,10 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
                                   child: Text('${p['name']}'),
                                 ),
                             ],
-                            onChanged: enabled && widget.document == null
+                            onChanged:
+                                enabled &&
+                                    (widget.templateMode ||
+                                        widget.document == null)
                                 ? (v) {
                                     setState(() {
                                       project = v;
@@ -1313,7 +1487,10 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
                                 child: Text(e.value),
                               ),
                           ],
-                          onChanged: enabled
+                          onChanged:
+                              enabled &&
+                                  (widget.templateMode ||
+                                      widget.document == null)
                               ? (v) => setState(() => kind = v!)
                               : null,
                         ),
@@ -1714,10 +1891,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
                           calculationPanel(enabled),
                         const SizedBox(height: 20),
                         FilledButton.icon(
-                          onPressed:
-                              busy || !widget.session.canWrite('finance.write')
-                              ? null
-                              : save,
+                          onPressed: busy || !canEdit ? null : save,
                           icon: Icon(
                             busy ? Icons.hourglass_top : Icons.save_outlined,
                           ),
@@ -1993,6 +2167,9 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
       builder: (_) => BusinessEditor(
         session: widget.session,
         title: 'Stornoentwurf erstellen',
+        readPermission: 'finance.read',
+        writePermission: 'finance.issue',
+        readAllowed: () => mounted && allowed,
         fields: const [
           BusinessField(
             'reason',
@@ -2129,8 +2306,13 @@ class _BusinessDocumentPageState extends State<BusinessDocumentPage> {
                         icon: const Icon(Icons.mail_outline),
                         label: const Text('E-Mail prüfen'),
                       ),
-                    if (!draft &&
-                        d['kind'] != 'cancellation' &&
+                    if (d['status'] == 'final' &&
+                        const [
+                          'invoice',
+                          'advance_invoice',
+                          'cumulative_invoice',
+                          'final_invoice',
+                        ].contains(d['kind']) &&
                         widget.session.canWrite('finance.issue'))
                       TextButton(
                         onPressed: busy ? null : cancel,

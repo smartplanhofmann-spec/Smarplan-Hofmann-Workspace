@@ -1,0 +1,61 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+PDFium download failed (ClientException with SocketException: Connection failed (OS Error: Operation not permitted, errno = 1), address = proxy, port = 8080, uri=https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-linux-x64.tgz); retrying in 1s.
+
+PDFium download failed (ClientException with SocketException: Connection failed (OS Error: Operation not permitted, errno = 1), address = proxy, port = 8080, uri=https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-linux-x64.tgz); retrying in 2s.
+
+PDFium download failed (ClientException with SocketException: Connection failed (OS Error: Operation not permitted, errno = 1), address = proxy, port = 8080, uri=https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-linux-x64.tgz); retrying in 4s.
+
+Unhandled exception:
+ClientException with SocketException: Connection failed (OS Error: Operation not permitted, errno = 1), address = proxy, port = 8080, uri=https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-linux-x64.tgz
+#0      IOClient.send (package:http/src/io_client.dart:227:7)
+<asynchronous suspension>
+#1      BaseClient._sendUnstreamed (package:http/src/base_client.dart:93:32)
+<asynchronous suspension>
+#2      getWithRetries (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/lib/src/proxy_http_client.dart:72:24)
+<asynchronous suspension>
+#3      _downloadPdfium (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:65:20)
+<asynchronous suspension>
+#4      main.<anonymous closure> (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:35:5)
+<asynchronous suspension>
+#5      build (package:hooks/src/api/build_and_link.dart:250:5)
+<asynchronous suspension>
+#6      main (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:14:3)
+<asynchronous suspension>
+
+  Building assets for package:pdfium_dart failed.
+  build.dart returned with exit code: 255.
+  To reproduce run:
+  (cd /workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/; /workspace/toolchains/flutter/bin/cache/dart-sdk/bin/dart --packages=/workspace/smartplan-project-time-20261104/app/.dart_tool/package_config.json /workspace/smartplan-project-time-20261104/app/.dart_tool/hooks_runner/pdfium_dart/6b4ebf10e7/hook.dill --config=/workspace/smartplan-project-time-20261104/app/.dart_tool/hooks_runner/pdfium_dart/6b4ebf10e7/input.json )
+  stderr:
+  No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+PDFium download failed (ClientException with SocketException: Connection failed (OS Error: Operation not permitted, errno = 1), address = proxy, port = 8080, uri=https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-linux-x64.tgz); retrying in 1s.
+PDFium download failed (ClientException with SocketException: Connection failed (OS Error: Operation not permitted, errno = 1), address = proxy, port = 8080, uri=https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-linux-x64.tgz); retrying in 2s.
+PDFium download failed (ClientException with SocketException: Connection failed (OS Error: Operation not permitted, errno = 1), address = proxy, port = 8080, uri=https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-linux-x64.tgz); retrying in 4s.
+Unhandled exception:
+ClientException with SocketException: Connection failed (OS Error: Operation not permitted, errno = 1), address = proxy, port = 8080, uri=https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7811/pdfium-linux-x64.tgz
+#0      IOClient.send (package:http/src/io_client.dart:227:7)
+<asynchronous suspension>
+#1      BaseClient._sendUnstreamed (package:http/src/base_client.dart:93:32)
+<asynchronous suspension>
+#2      getWithRetries (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/lib/src/proxy_http_client.dart:72:24)
+<asynchronous suspension>
+#3      _downloadPdfium (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:65:20)
+<asynchronous suspension>
+#4      main.<anonymous closure> (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:35:5)
+<asynchronous suspension>
+#5      build (package:hooks/src/api/build_and_link.dart:250:5)
+<asynchronous suspension>
+#6      main (file:///workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/hook/build.dart:14:3)
+<asynchronous suspension>
+
+  stdout:
+  Running `which clang`.
+Running `which vswhere.exe`.
+You can install the missing package via
+Running `/workspace/toolchains/clang-19/bin/clang --version`.
+Running `/workspace/toolchains/clang-19/bin/clang --version`.
+Running `/workspace/toolchains/clang-19/bin/clang -fPIC -O3 -DRELEASE -DNDEBUG /workspace/toolchains/pub-cache/hosted/pub.dev/pdfium_dart-0.4.0/src/pdfrx_pdfium_gate.c --shared -o /workspace/smartplan-project-time-20261104/app/.dart_tool/hooks_runner/shared/pdfium_dart/build/6b4ebf10e7/libpdfrx_pdfium_gate.so -Wl,-rpath,$ORIGIN -L/workspace/smartplan-project-time-20261104/app/.dart_tool/hooks_runner/shared/pdfium_dart/build/6b4ebf10e7/`.
+
+
+Building native assets failed. See the logs for more details.

@@ -480,11 +480,24 @@ class Office:
             return [dict(r) for r in self.db.execute("SELECT p.* FROM projects p JOIN assignments a "
                     "ON p.id=a.project_id WHERE a.user_id=? ORDER BY name",(user["id"],))]
 
-    def add_project(self, user, name, customer=None, customer_id=None):
+    def add_project(self, user, name, customer=None, customer_id=None, request_id=None):
+        from business_foundation import BusinessFoundation, _fresh
+        from inquiries import _transaction
+        original = dict(request_id=request_id, name=name, customer=customer, customer_id=customer_id)
         self.require(user,("owner",))
         name = text_field(name,"Projekt")
         project_id = uuid.uuid4().hex
-        with self.lock, self.db:
+        with _transaction(self):
+            # Replays must observe current rights, even for an already accepted
+            # command. Keep old clients without request IDs compatible.
+            user = _fresh(self, user)
+            self.require(user, ("owner",))
+            foundation = BusinessFoundation(self)
+            if request_id is not None:
+                request, fingerprint, previous = foundation._request(user, 'core.project.create:v1', original)
+                if previous is not None:
+                    self.project(user, previous['id'])
+                    return previous['id']
             if customer_id is not None:
                 record = self.customer(user, text_field(customer_id, "Kunde", 32))
                 if not record["active"]:
@@ -501,6 +514,8 @@ class Office:
             self.db.execute("INSERT INTO projects(id,name,customer,customer_id) VALUES(?,?,?,?)",
                             (project_id,name,record["name"],customer_id))
             self.audit(user,"project.created",project_id)
+            if request_id is not None:
+                foundation._remember(user, request, fingerprint, {'id': project_id})
         return project_id
 
     def plans(self, user, project_id):

@@ -1,0 +1,24 @@
+00:00 +0: loading /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart
+00:00 +0: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: (setUpAll)
+00:00 +0: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: Customer search, edit, archive and reactivation preserve entered data
+00:03 +1: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: Uncertain create retains the exact original body and retries its request id
+00:04 +2: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: Invalid customer fields are checked and a server error retains the form
+00:05 +3: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: Closing and reopening an uncertain create keeps its body and selected customer
+00:05 +4: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: A customer project starts with the chosen customer and returns to the list
+00:06 +5: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: A token change drops an in-flight create result without refreshing the new context
+00:06 +6: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: Existing projects can be assigned to another active customer
+00:07 +7: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: A server change drops an in-flight create result without refreshing the new context
+00:08 +8: /workspace/smartplan-project-completion-integration-20261104/app/test/customer_test.dart: Customer editor works in a narrow phone-sized window
+00:08 +9: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: A version change drops an in-flight create result without refreshing the new context
+00:08 +10: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: Quiet context change cannot reuse an old retry callback
+00:09 +11: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: API replacement closes only the stale project dialog and sends nothing to either server
+00:10 +12: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: A late customer list cannot open a form after a server switch
+00:10 +13: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: An old server permits first creation but no uncertain repeat and local resolution makes no POST
+00:11 +14: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: A definite rejection preserves editable input and a corrected command receives a new request id
+00:12 +15: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: Removing the receipt feature before retry prevents a second POST
+00:12 +16: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: A context switch during retry preflight prevents its POST
+00:13 +17: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: Returning to the same token cannot revive an older create operation
+00:14 +18: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: A denied retry does not discard an originally uncertain command
+00:14 +19: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: A detached workspace create callback performs no read or write
+00:15 +20: /workspace/smartplan-project-completion-integration-20261104/app/test/project_create_replay_test.dart: (tearDownAll)
+00:15 +20: All tests passed!

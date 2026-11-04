@@ -1,0 +1,35 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.fill: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for getByLabel('E-Mail', { exact: true })[22m
+
+    at login (/workspace/smartplan-project-flow-20261104/web/office/tests/e2e.cjs:40:48)
+    at main (/workspace/smartplan-project-flow-20261104/web/office/tests/e2e.cjs:89:26)
+Browser launch context: {"browser":"/usr/bin/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: the server responded with a status of 404 (NOT FOUND)'
+]
+Fixture log tail:
+4/Nov/2026 20:35:06] "GET /office/service.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/company-handover.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/custom-fields.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/privacy-cases.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/accounting-euer.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/accounting-year-package.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/project-economics.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/customer-workspace-staff.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/asset-provenance.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/personnel-workflow.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/travel-allowances.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/assistant.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/company-events.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/payroll.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/inventory-counts.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/company-overview.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/migrations.js HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:35:06] "GET /office/sales.js HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

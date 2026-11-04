@@ -139,7 +139,13 @@ app = create_app(""",
             occurredAt: now,
           );
           await idle(repo);
-          final photo=await repo.captureFieldPhoto(hello['project_id'],fieldPng,filename:'synthetic-site.png',mediaType:'image/png',caption:'Synthetische Baustellennotiz');
+          final photo = await repo.captureFieldPhoto(
+            hello['project_id'],
+            fieldPng,
+            filename: 'synthetic-site.png',
+            mediaType: 'image/png',
+            caption: 'Synthetische Baustellennotiz',
+          );
           await idle(repo);
           expect(repo.pending, 4);
           await repo.leave();
@@ -157,12 +163,61 @@ app = create_app(""",
           );
           expect(entry['revision'], 3);
           expect(entry['events'], hasLength(3));
-          final uploaded=repo.fieldPhotos(hello['project_id']).single;
-          expect(uploaded['local_id'],photo['local_id']);
-          expect(uploaded['sync_status'],'Synchronisiert');
-          final verified=await api.bytes('/api/business/media/${uploaded['server_id']}/content',mediaType:'image/png');
-          expect(verified,fieldPng);
-          expect(uploaded['caption'],'Synthetische Baustellennotiz');
+          // A shift started elsewhere can be continued from its cached server
+          // history. Offline replay must neither lose its first interval nor
+          // submit the already accepted start a second time.
+          final remoteId = offlineId();
+          await session.command('remote-clock', '/time/events', {
+            'entry_id': remoteId,
+            'device_id': 'synthetic-other-device',
+            'sequence': 1,
+            'revision': 0,
+            'project_id': hello['project_id'],
+            'action': 'start',
+            'occurred_at': now
+                .subtract(const Duration(hours: 7))
+                .toIso8601String(),
+          });
+          await repo.cacheTimeEntries(hello['project_id'], [
+            businessMap(await session.read('/time/entries/$remoteId')),
+          ]);
+          connection.connected = false;
+          for (final event in [('pause', 6), ('resume', 5), ('stop', 4)]) {
+            await repo.saveTimeEvent(
+              hello['project_id'],
+              event.$1,
+              entryId: remoteId,
+              occurredAt: now.subtract(Duration(hours: event.$2)),
+            );
+          }
+          await idle(repo);
+          await repo.leave();
+          await repo.resume();
+          await idle(repo);
+          final cached = repo
+              .timeEntries(hello['project_id'])
+              .singleWhere((r) => r['id'] == remoteId);
+          expect(cached['local_events'], hasLength(4));
+          expect(repo.pending, 3);
+          connection.connected = true;
+          await repo.sync();
+          await repo.sync();
+          final remote = businessMap(
+            await session.read('/time/entries/$remoteId'),
+          );
+          expect(remote['events'], hasLength(4));
+          expect(remote['worked_seconds'], 7200);
+          expect(remote['break_seconds'], 3600);
+          expect(repo.pending, 0);
+          final uploaded = repo.fieldPhotos(hello['project_id']).single;
+          expect(uploaded['local_id'], photo['local_id']);
+          expect(uploaded['sync_status'], 'Synchronisiert');
+          final verified = await api.bytes(
+            '/api/business/media/${uploaded['server_id']}/content',
+            mediaType: 'image/png',
+          );
+          expect(verified, fieldPng);
+          expect(uploaded['caption'], 'Synthetische Baustellennotiz');
           await expectLater(
             connection.call('/api/business/finance/open-items'),
             throwsA(isA<ApiException>().having((e) => e.status, 'status', 403)),

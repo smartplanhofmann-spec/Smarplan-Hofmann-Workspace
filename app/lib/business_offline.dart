@@ -87,6 +87,9 @@ extension OfflineBusinessTime on OfflinePlans {
           'events',
           'worked_seconds',
           'break_seconds',
+          'work_dates',
+          'approved_work_dates',
+          'corrections',
           'updated_at',
         ])
           if (entry.containsKey(field)) field: entry[field],
@@ -183,7 +186,11 @@ extension OfflineBusinessTime on OfflinePlans {
         if (categoryId != null) 'category_id': categoryId,
       };
       final events = [
-        ...(previous?['local_events'] as List? ?? []),
+        // A timer may have been started on another device and cached here.
+        // Its confirmed intervals remain part of the local continuation.
+        ...(previous?['local_events'] as List? ??
+            previous?['events'] as List? ??
+            []),
         {'action': action, 'occurred_at': instant},
       ];
       final record = <String, dynamic>{

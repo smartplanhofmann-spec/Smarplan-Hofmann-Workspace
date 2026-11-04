@@ -1,0 +1,11 @@
+test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_authenticated_reference_feature_and_price_free_owner_and_warehouse_reads) ... ok
+test_company_session_isolation_rejects_a_foreign_real_login (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_company_session_isolation_rejects_a_foreign_real_login) ... ok
+test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_cursor_cannot_reuse_withdrawn_project_or_global_inventory_permission) ... ok
+test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_mfa_sessions_are_required_and_other_http_methods_are_not_allowed) ... ok
+test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_real_query_parser_rejects_unknown_duplicates_blank_and_noncanonical_page_values) ... ok
+test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access (test_inventory_article_references_api.InventoryArticleReferenceApiTests.test_revoked_assignment_and_disabled_login_do_not_keep_catalogue_access) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.339s
+
+OK

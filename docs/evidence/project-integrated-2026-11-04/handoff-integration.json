@@ -1,0 +1,1080 @@
+{
+  "base_commit": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "files": [
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "backend/business_time.py",
+      "source_sha256": "b1a17a7b60c0500b299cf1d0dd201bb0b1cc64077f632f5c7e527cf77b8212cd",
+      "merged_sha256": "b1a17a7b60c0500b299cf1d0dd201bb0b1cc64077f632f5c7e527cf77b8212cd",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "backend/online/web.py",
+      "source_sha256": "efe9c4ccf5349b8275fd8b354b472169f20028d668d6a2cc7444a6527d3f25d6",
+      "merged_sha256": "e839c9b374efb43234580769e60b332516749f25d57ff85da9131cace71e5618",
+      "strategy": "three-way merge"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "backend/test_business_time.py",
+      "source_sha256": "a8451e3a6ce0cb8a7c4a8060327c074acbacb2561950dfe79d0307fb36ba090e",
+      "merged_sha256": "a8451e3a6ce0cb8a7c4a8060327c074acbacb2561950dfe79d0307fb36ba090e",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "app/lib/business_offline.dart",
+      "source_sha256": "6797a004d67934b7c833d4e9827378b881d9ea3dd14e89adffb4139b7a8b751c",
+      "merged_sha256": "6797a004d67934b7c833d4e9827378b881d9ea3dd14e89adffb4139b7a8b751c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "app/lib/business_time.dart",
+      "source_sha256": "c8b86465ef4d00c800726f230098fc7ffb78bddc5b6c74c5e5a97596d216cb6e",
+      "merged_sha256": "c8b86465ef4d00c800726f230098fc7ffb78bddc5b6c74c5e5a97596d216cb6e",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "app/lib/business_time_details.dart",
+      "source_sha256": "4c2f8af0761bd09be37b6526bb79c53d61c526bdadba01363b71e407c86e32d4",
+      "merged_sha256": "4c2f8af0761bd09be37b6526bb79c53d61c526bdadba01363b71e407c86e32d4",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "app/lib/business_workflows.dart",
+      "source_sha256": "86fad94a8e7560e884cb25dd06f0dc0e3784f72f1020e9531185c1664d374a42",
+      "merged_sha256": "86fad94a8e7560e884cb25dd06f0dc0e3784f72f1020e9531185c1664d374a42",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "app/test/business_offline_time_test.dart",
+      "source_sha256": "4bebcd7d4dc7112ebbdc8835e0d7386561faab958ffe625190baa14929c05f14",
+      "merged_sha256": "4bebcd7d4dc7112ebbdc8835e0d7386561faab958ffe625190baa14929c05f14",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "app/test/business_time_details_test.dart",
+      "source_sha256": "ca9721e67c402f2d4855fade0cd3f4874aaa1d0d7b66be1b52bdff02edcdf8cc",
+      "merged_sha256": "ca9721e67c402f2d4855fade0cd3f4874aaa1d0d7b66be1b52bdff02edcdf8cc",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "app/test/business_backend_integration_test.dart",
+      "source_sha256": "fe2dde3ccd1a8fe4c2f19ad1adde8eae7478e917c0a62f623e0dcce274521fbe",
+      "merged_sha256": "fe2dde3ccd1a8fe4c2f19ad1adde8eae7478e917c0a62f623e0dcce274521fbe",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "web/office/office.js",
+      "source_sha256": "cd2a09605f9cbecfc43d7de75bb75158d2794cb55904be9c3381ff2c4f83b7af",
+      "merged_sha256": "74214ce23be56e72d0bb5e8426b478dc29e6eb5854c87b4a54fa863bf12c89c4",
+      "strategy": "three-way merge"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "web/office/time-tracking.js",
+      "source_sha256": "661664a91038c9fa6c55f68a680a299c933935b035b3ae3a3f434072b895d316",
+      "merged_sha256": "661664a91038c9fa6c55f68a680a299c933935b035b3ae3a3f434072b895d316",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "web/office/tests/e2e.cjs",
+      "source_sha256": "6523af22acbdec0b1b2604e9e1e4f6767bb806a42fbce5a121c9cde3fe43e5e2",
+      "merged_sha256": "6523af22acbdec0b1b2604e9e1e4f6767bb806a42fbce5a121c9cde3fe43e5e2",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "web/office/tests/time-tracking.test.mjs",
+      "source_sha256": "75b07bd3e6015e59259f2d43f8b25efbb0bca6a01b21c8823fc7c670aa17189b",
+      "merged_sha256": "75b07bd3e6015e59259f2d43f8b25efbb0bca6a01b21c8823fc7c670aa17189b",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "web/office/tests/time-tracking-flow.cjs",
+      "source_sha256": "31e7a6ec40ac099315ab3cccec350a08ead1ff9e2ea1a00a29823d6a99ca42a0",
+      "merged_sha256": "31e7a6ec40ac099315ab3cccec350a08ead1ff9e2ea1a00a29823d6a99ca42a0",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/CRM_ERP_PROJEKTZEITEN_2026-11-04.md",
+      "source_sha256": "cccaee4bfae671deabc2c7ada55e95fb7a7d332129c381ea2420893aa8410040",
+      "merged_sha256": "cccaee4bfae671deabc2c7ada55e95fb7a7d332129c381ea2420893aa8410040",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/backend-final.txt",
+      "source_sha256": "f004ee115482d54acfb402bb4e723f4d25cdea1c8e35e45ff308b356f4c6c958",
+      "merged_sha256": "f004ee115482d54acfb402bb4e723f4d25cdea1c8e35e45ff308b356f4c6c958",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/backend-time.txt",
+      "source_sha256": "19ffd63a5dadcb559bc5dda6c95610390577c7240d7cec15f0d11918bb6a7308",
+      "merged_sha256": "19ffd63a5dadcb559bc5dda6c95610390577c7240d7cec15f0d11918bb6a7308",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/browser-node-all.txt",
+      "source_sha256": "853966a982acafe36ad619586c1af3f5a0bbfe83f7aacf6b191fe594bfa97acb",
+      "merged_sha256": "853966a982acafe36ad619586c1af3f5a0bbfe83f7aacf6b191fe594bfa97acb",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/browser-node-final.txt",
+      "source_sha256": "43644ac634da54b01d7ac4b4ae647792ef30721d9b42888c8a24be02c9f71e6c",
+      "merged_sha256": "43644ac634da54b01d7ac4b4ae647792ef30721d9b42888c8a24be02c9f71e6c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/browser-node-planning-diagnosis.txt",
+      "source_sha256": "9b7e821eca3ba7d8dc9aaa4e354b7c9ab38ae064d227d59dab0676f9788afdbd",
+      "merged_sha256": "9b7e821eca3ba7d8dc9aaa4e354b7c9ab38ae064d227d59dab0676f9788afdbd",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/browser-node-planning-direct.txt",
+      "source_sha256": "08a413e5fd3706eb0acdd2b9ad7d4d8758c1925eb2a6973d65c6b26248b4fd46",
+      "merged_sha256": "08a413e5fd3706eb0acdd2b9ad7d4d8758c1925eb2a6973d65c6b26248b4fd46",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/dart-analyze.txt",
+      "source_sha256": "88fe434bb5b2541cb1141886439871214beb6659900d6b45f56af2b1aadfe1d3",
+      "merged_sha256": "88fe434bb5b2541cb1141886439871214beb6659900d6b45f56af2b1aadfe1d3",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/flutter-final.txt",
+      "source_sha256": "2cfc609a38a5458b5612d05362a606f244f4d2147326367405a601a50dfc1708",
+      "merged_sha256": "2cfc609a38a5458b5612d05362a606f244f4d2147326367405a601a50dfc1708",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/flutter-first-test-harness-errors.txt",
+      "source_sha256": "ec1dd02465d2ce5d1e02b53ef736fd6060ac29f24ba6510e922605db8585396d",
+      "merged_sha256": "ec1dd02465d2ce5d1e02b53ef736fd6060ac29f24ba6510e922605db8585396d",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/flutter-targeted.txt",
+      "source_sha256": "50d80a40ee2f19447a5b2e21d62b549146d4953b8ba4d1295bd33804f349c0a3",
+      "merged_sha256": "50d80a40ee2f19447a5b2e21d62b549146d4953b8ba4d1295bd33804f349c0a3",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/frozen-sources.json",
+      "source_sha256": "915e25a561c6d0860cd069f5d9ae49d7026707ebff7e081941a6295c764e1dc2",
+      "merged_sha256": "915e25a561c6d0860cd069f5d9ae49d7026707ebff7e081941a6295c764e1dc2",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/offline-history-after.txt",
+      "source_sha256": "753b26ed19fcba7c5750535c0043e8b49b7f6b1116ea36678eb75a4a549ba2a2",
+      "merged_sha256": "753b26ed19fcba7c5750535c0043e8b49b7f6b1116ea36678eb75a4a549ba2a2",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/offline-history-before.txt",
+      "source_sha256": "2a0566831437004a4bc68c8814e1639d0e5dbab9fc0bf35cf3b50650f6edc0dc",
+      "merged_sha256": "2a0566831437004a4bc68c8814e1639d0e5dbab9fc0bf35cf3b50650f6edc0dc",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/offline-history-environment.txt",
+      "source_sha256": "50a4d671ee16a01b6475939c2d3bf5b64fa1a5257cb91c3bb229d33afeb0402f",
+      "merged_sha256": "50a4d671ee16a01b6475939c2d3bf5b64fa1a5257cb91c3bb229d33afeb0402f",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/offline-history-initial-environment.txt",
+      "source_sha256": "b9aeabbbb28df4018af74b318441e4eef306890f9b581dbd1abb69e4bb66c994",
+      "merged_sha256": "b9aeabbbb28df4018af74b318441e4eef306890f9b581dbd1abb69e4bb66c994",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/time-details-first-test.dart.txt",
+      "source_sha256": "6257c708b146ba09cda58862ae7d05db9f3761513a3dcc674e66e7f133d48254",
+      "merged_sha256": "6257c708b146ba09cda58862ae7d05db9f3761513a3dcc674e66e7f133d48254",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/README.md",
+      "source_sha256": "f5f5d1b7f79a1ea2e2dcbbe5efdfeb5a46c8d2050f0979bd815d21dce793e8fe",
+      "merged_sha256": "f5f5d1b7f79a1ea2e2dcbbe5efdfeb5a46c8d2050f0979bd815d21dce793e8fe",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/e2e-browser.txt",
+      "source_sha256": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+      "merged_sha256": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/e2e-final-net-total.txt",
+      "source_sha256": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+      "merged_sha256": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/e2e-final-overlap.txt",
+      "source_sha256": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+      "merged_sha256": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/e2e-final.txt",
+      "source_sha256": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+      "merged_sha256": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/e2e-network.txt",
+      "source_sha256": "bc6f2caa4e4cac214d4aebf27e962787dfcfb646cefb6cff169cad383fdadaff",
+      "merged_sha256": "bc6f2caa4e4cac214d4aebf27e962787dfcfb646cefb6cff169cad383fdadaff",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/initial-e2e.txt",
+      "source_sha256": "06ff3ca7b93bcecf72dfa10a2bc8bb7c01d45ba6f28445bad9143a60443febdb",
+      "merged_sha256": "06ff3ca7b93bcecf72dfa10a2bc8bb7c01d45ba6f28445bad9143a60443febdb",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/manifest-before-overlap.json",
+      "source_sha256": "803fc83fe9b0dec75ccde8973f4dbb2065c7b462ea6853b32eafd0c5a20de17a",
+      "merged_sha256": "803fc83fe9b0dec75ccde8973f4dbb2065c7b462ea6853b32eafd0c5a20de17a",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/manifest.json",
+      "source_sha256": "95bce2494719a27efa071a2c078f64e01a51570e526af7fa3c0ee5917b7e018f",
+      "merged_sha256": "95bce2494719a27efa071a2c078f64e01a51570e526af7fa3c0ee5917b7e018f",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/node-tests.txt",
+      "source_sha256": "603aeaba5cdcae8cc1a105eac3fa207a39981a98fe3c8768e81f49b7132bc4fe",
+      "merged_sha256": "603aeaba5cdcae8cc1a105eac3fa207a39981a98fe3c8768e81f49b7132bc4fe",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/overlap/time-correction-desktop.png",
+      "source_sha256": "713253ab848db270ab8874b681d4b2143712aae3eb6adfffaa4a6806c0a51064",
+      "merged_sha256": "713253ab848db270ab8874b681d4b2143712aae3eb6adfffaa4a6806c0a51064",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/overlap/time-correction-mobile.png",
+      "source_sha256": "a275f2e43b9e1cb858b1f4dd60681f69edea5a2ef1b798651a60345d17303c32",
+      "merged_sha256": "a275f2e43b9e1cb858b1f4dd60681f69edea5a2ef1b798651a60345d17303c32",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/overlap/time-correction-result.json",
+      "source_sha256": "7c5fe1630d41ebfb63ac08a59384196daa796b4e358317816484fdb9eadcfa93",
+      "merged_sha256": "7c5fe1630d41ebfb63ac08a59384196daa796b4e358317816484fdb9eadcfa93",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/overlap-before.json",
+      "source_sha256": "5d3b0f3cb40a710834387715c6ac776a27aaf5d92165e09b9c6515083bff9c95",
+      "merged_sha256": "5d3b0f3cb40a710834387715c6ac776a27aaf5d92165e09b9c6515083bff9c95",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/overlap-result.json",
+      "source_sha256": "f5cedae6163598c29e2e7671e8ec64062646768b6cba3f9c0080e8d1c3dda23f",
+      "merged_sha256": "f5cedae6163598c29e2e7671e8ec64062646768b6cba3f9c0080e8d1c3dda23f",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/time-correction-desktop.png",
+      "source_sha256": "2310992b044acfdf549c75ce9a54713585b34717157ebb709245f455b6e9d7a9",
+      "merged_sha256": "2310992b044acfdf549c75ce9a54713585b34717157ebb709245f455b6e9d7a9",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/time-correction-mobile.png",
+      "source_sha256": "4b06db13b3768f464fd6df5365e32e2506175797c2859462cdc69c8ce8b73479",
+      "merged_sha256": "4b06db13b3768f464fd6df5365e32e2506175797c2859462cdc69c8ce8b73479",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-browser-2026-11-04/time-correction-result.json",
+      "source_sha256": "263b1aeca1e2a40455b4d8de09e4c44ca26d95e02324f1aa93920b515f0d419a",
+      "merged_sha256": "263b1aeca1e2a40455b4d8de09e4c44ca26d95e02324f1aa93920b515f0d419a",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-time-20261104",
+      "path": "docs/evidence/project-time-2026-11-04/manifest.json",
+      "source_sha256": "99d4e563f69bd91826788a3f739ab4486d3478705374d1568c7399952d28c51c",
+      "merged_sha256": "99d4e563f69bd91826788a3f739ab4486d3478705374d1568c7399952d28c51c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "app/lib/project_workspace_page.dart",
+      "source_sha256": "897f6facdf13cecc387a937e6d931ee1355ec2ee9e86b0382c72e2fefa7a77b6",
+      "merged_sha256": "897f6facdf13cecc387a937e6d931ee1355ec2ee9e86b0382c72e2fefa7a77b6",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "app/lib/project_exit_guard.dart",
+      "source_sha256": "e587a9678c88afd41ab504922d39e573aa081357a7a2ebe27d81e698aa816d4f",
+      "merged_sha256": "e587a9678c88afd41ab504922d39e573aa081357a7a2ebe27d81e698aa816d4f",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "app/lib/plan_pages.dart",
+      "source_sha256": "c28353e0ddcd03ef4819b0ed8450f1e98cb90e7a7135f390e4ef3e991a29775b",
+      "merged_sha256": "c28353e0ddcd03ef4819b0ed8450f1e98cb90e7a7135f390e4ef3e991a29775b",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "app/lib/home_views.dart",
+      "source_sha256": "5edb1331926a70c2249bc06a41960cb4f26edd6679a7b2d00ded872e0db1111d",
+      "merged_sha256": "5edb1331926a70c2249bc06a41960cb4f26edd6679a7b2d00ded872e0db1111d",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "app/test/project_business_tabs_navigation_test.dart",
+      "source_sha256": "a91c249e72bc00ea77b091f19d6977154421115fe1f729c13719096ce9228119",
+      "merged_sha256": "a91c249e72bc00ea77b091f19d6977154421115fe1f729c13719096ce9228119",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "app/test/project_unsaved_return_test.dart",
+      "source_sha256": "042ec54154cab40c5744d286cba26b878484d0ddd5db08a06f9eb284e1ea6092",
+      "merged_sha256": "042ec54154cab40c5744d286cba26b878484d0ddd5db08a06f9eb284e1ea6092",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "app/test/administration_return_navigation_test.dart",
+      "source_sha256": "2c60dadd926048caea8fb2268aebaff1b3454d335e34c636ee9f5bb351695269",
+      "merged_sha256": "2c60dadd926048caea8fb2268aebaff1b3454d335e34c636ee9f5bb351695269",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/CRM_ERP_PROJEKT_NAVIGATION_2026-11-04.md",
+      "source_sha256": "3df5dabd5092a67ad8caec396dc37fa6adb6441261e2866ec2e12a1a6be2f1b9",
+      "merged_sha256": "3df5dabd5092a67ad8caec396dc37fa6adb6441261e2866ec2e12a1a6be2f1b9",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/administration-mobile-diagnostic.log",
+      "source_sha256": "8f7c91e4dbf334b9896db4ecb145aa81c88723db8742008b8b5a370e57f9c6ff",
+      "merged_sha256": "8f7c91e4dbf334b9896db4ecb145aa81c88723db8742008b8b5a370e57f9c6ff",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/analyze-final.log",
+      "source_sha256": "fdae62e3bf9c64b95acd5850434052e33325023b627d968ccaf0e149aafc16a1",
+      "merged_sha256": "fdae62e3bf9c64b95acd5850434052e33325023b627d968ccaf0e149aafc16a1",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/analyze.log",
+      "source_sha256": "7287e837f4fa8344685818c99ba56b000515fdd5a2952ab4bc9836f421421615",
+      "merged_sha256": "7287e837f4fa8344685818c99ba56b000515fdd5a2952ab4bc9836f421421615",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/baseline-compiler-environment-failure.log",
+      "source_sha256": "e51d8c9dbfc203a9d7590e1900612079242f63ba73a9864c80e0b28bb9423235",
+      "merged_sha256": "e51d8c9dbfc203a9d7590e1900612079242f63ba73a9864c80e0b28bb9423235",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/baseline-pdfium-cache-environment-failure.log",
+      "source_sha256": "4306634c8dc599b0bfc2fa718bde1e669116b1e1b311957f59a52c41bea06530",
+      "merged_sha256": "4306634c8dc599b0bfc2fa718bde1e669116b1e1b311957f59a52c41bea06530",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/baseline-pub-environment-failure.log",
+      "source_sha256": "02b4fb6cc75873a2f0f6c01ac9de32bbff79b33551122847320afad1a948b1ed",
+      "merged_sha256": "02b4fb6cc75873a2f0f6c01ac9de32bbff79b33551122847320afad1a948b1ed",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/baseline-range-error-fixture.dart.txt",
+      "source_sha256": "1f446ff7040c3e8782010e792f1311fd43ac14c5490f170b27da90b6c3aa1299",
+      "merged_sha256": "1f446ff7040c3e8782010e792f1311fd43ac14c5490f170b27da90b6c3aa1299",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/baseline-range-error.log",
+      "source_sha256": "93f608eb868906eed1ad12af0e0f5b01f7126dbf4fe25cbd136724333b74fbd1",
+      "merged_sha256": "93f608eb868906eed1ad12af0e0f5b01f7126dbf4fe25cbd136724333b74fbd1",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/baseline-socket-environment-failure.log",
+      "source_sha256": "0c71087edb1e418694f4930274957aa68faa44a1090ad9e6aa874e402228de12",
+      "merged_sha256": "0c71087edb1e418694f4930274957aa68faa44a1090ad9e6aa874e402228de12",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/existing-navigation-regression.log",
+      "source_sha256": "62d549bd543e12285e6d518e5fe168a682d895d0266bbece851d6d954acb1a41",
+      "merged_sha256": "62d549bd543e12285e6d518e5fe168a682d895d0266bbece851d6d954acb1a41",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/first-fixture-before-canonical-ids.dart.txt",
+      "source_sha256": "1aa0cc00438988e6dc7e7f282a7e15c4ea84f2e98ecd0fda676e9650d547713c",
+      "merged_sha256": "1aa0cc00438988e6dc7e7f282a7e15c4ea84f2e98ecd0fda676e9650d547713c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/manifest.json",
+      "source_sha256": "d70d9278d7d4ed11cc37d5ec99b5ba9270279306ad67487791fd923311fdd8fe",
+      "merged_sha256": "d70d9278d7d4ed11cc37d5ec99b5ba9270279306ad67487791fd923311fdd8fe",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/navigation-first.log",
+      "source_sha256": "0f4784301ebc9190cfae0cb2edbe453dbb39d7ce36df91c6c9c67c44305a899b",
+      "merged_sha256": "0f4784301ebc9190cfae0cb2edbe453dbb39d7ce36df91c6c9c67c44305a899b",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/navigation-second.log",
+      "source_sha256": "7993674237eb8b46d042eb6b2944604313bfa74f505b862bebe9e3bb9fd9481d",
+      "merged_sha256": "7993674237eb8b46d042eb6b2944604313bfa74f505b862bebe9e3bb9fd9481d",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/navigation-third.log",
+      "source_sha256": "48c65803cf342e471d473942bb81bd976c728e42017cbbf70d31db539785cd78",
+      "merged_sha256": "48c65803cf342e471d473942bb81bd976c728e42017cbbf70d31db539785cd78",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-navigation-20261104",
+      "path": "docs/evidence/project-navigation-2026-11-04/pre-final-source-hashes.json",
+      "source_sha256": "a21c251cd4452336185ceaa2b0893329c930577196d3686dbe675b1c135b03f1",
+      "merged_sha256": "a21c251cd4452336185ceaa2b0893329c930577196d3686dbe675b1c135b03f1",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "app/lib/business_documents.dart",
+      "source_sha256": "8ef44ee91282862dd0318aa6c74c907750096e4a789105d7ea915ae7f122acf0",
+      "merged_sha256": "8ef44ee91282862dd0318aa6c74c907750096e4a789105d7ea915ae7f122acf0",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "app/lib/business_operations.dart",
+      "source_sha256": "cc4efbc13b1e4e626fe34ed1bb9fd82508a7ffc40e63eac470d7b7c9178cdefa",
+      "merged_sha256": "cc4efbc13b1e4e626fe34ed1bb9fd82508a7ffc40e63eac470d7b7c9178cdefa",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "backend/business_inventory.py",
+      "source_sha256": "b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b",
+      "merged_sha256": "b8353c608e207d7b260af44ea16624b95919ce7c6a4e694270df04a6510aef9b",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "app/test/business_material_document_access_test.dart",
+      "source_sha256": "5d4b60c5b772d1473ff337c3cdb73cc46612a6c2e1d1f9be584fc15e6eef360e",
+      "merged_sha256": "5d4b60c5b772d1473ff337c3cdb73cc46612a6c2e1d1f9be584fc15e6eef360e",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "backend/test_inventory_article_references.py",
+      "source_sha256": "aad2d34cfe023e3f781854369eda3b8cb5a49f8eb0aee7e90cc213dde1fabcc5",
+      "merged_sha256": "aad2d34cfe023e3f781854369eda3b8cb5a49f8eb0aee7e90cc213dde1fabcc5",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "backend/online/test_inventory_article_references_api.py",
+      "source_sha256": "611627935de9c11a025e6a8619667c449c62f94cb830de581c3433183620802d",
+      "merged_sha256": "611627935de9c11a025e6a8619667c449c62f94cb830de581c3433183620802d",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/CRM_ERP_PROJEKT_MATERIAL_BELEGRECHTE_2026-11-04.md",
+      "source_sha256": "5521d3b5a0e219bfffadc00525e6f281f95b30a5c8bd4531cc66b02ab99f3ea3",
+      "merged_sha256": "5521d3b5a0e219bfffadc00525e6f281f95b30a5c8bd4531cc66b02ab99f3ea3",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/ci-branch-route.json",
+      "source_sha256": "c1bef15fedc2668b2ac9fb68c5a5a9a6abb6b071f1faec4592ac77729c681179",
+      "merged_sha256": "c1bef15fedc2668b2ac9fb68c5a5a9a6abb6b071f1faec4592ac77729c681179",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-after.txt",
+      "source_sha256": "c5e4be6e0c765935f10561fa730ebd835f6b2606cdfb8633a483730b2ea741c3",
+      "merged_sha256": "c5e4be6e0c765935f10561fa730ebd835f6b2606cdfb8633a483730b2ea741c3",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-before.txt",
+      "source_sha256": "696fc47bfe8500e9ea0c81832539c7229b79ec2648523347654baefb912a90e6",
+      "merged_sha256": "696fc47bfe8500e9ea0c81832539c7229b79ec2648523347654baefb912a90e6",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-contract.json",
+      "source_sha256": "8c6e8a0a85f04fe7f590fda1a06e80caa440ad9f736ca6db41af0b5924ea09d9",
+      "merged_sha256": "8c6e8a0a85f04fe7f590fda1a06e80caa440ad9f736ca6db41af0b5924ea09d9",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-fixture-initial.txt",
+      "source_sha256": "125c6c60f9b603f1b396a312cc170fe30e9acbf2d03ff424c4992fe0684945e8",
+      "merged_sha256": "125c6c60f9b603f1b396a312cc170fe30e9acbf2d03ff424c4992fe0684945e8",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/inventory-article-references-regression.txt",
+      "source_sha256": "4016d25f4f00843ec5fd3c659a55457f407c52eca04bc7ff3bc5c4c50cdedf0f",
+      "merged_sha256": "4016d25f4f00843ec5fd3c659a55457f407c52eca04bc7ff3bc5c4c50cdedf0f",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/manifest.json",
+      "source_sha256": "72c84635daf0f081ad55221487d68fba205040a4e18e9d40897c33fd209b7726",
+      "merged_sha256": "72c84635daf0f081ad55221487d68fba205040a4e18e9d40897c33fd209b7726",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/material-document-completion.json",
+      "source_sha256": "58e4c1af2f8d1edd84d8621f83693c0828e0333b5fb16afca40d3581a3ca0129",
+      "merged_sha256": "58e4c1af2f8d1edd84d8621f83693c0828e0333b5fb16afca40d3581a3ca0129",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/native-material-document-analyze.log",
+      "source_sha256": "2fc0c68a0bbb670b67533ff69f413cfa7312e3de03f1c3da2ca1296e5802fc85",
+      "merged_sha256": "2fc0c68a0bbb670b67533ff69f413cfa7312e3de03f1c3da2ca1296e5802fc85",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/native-material-document-cache-miss.log",
+      "source_sha256": "4318d0e11bc77f9f0e44803812027ffd4f614f02672e1e49d95a8ea837723616",
+      "merged_sha256": "4318d0e11bc77f9f0e44803812027ffd4f614f02672e1e49d95a8ea837723616",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/native-material-document-final.log",
+      "source_sha256": "dc3cd052836c96d42923149702b09549a2ea17dc31228938aa5bb797bbde7653",
+      "merged_sha256": "dc3cd052836c96d42923149702b09549a2ea17dc31228938aa5bb797bbde7653",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/native-material-document-first-dialog-run.log",
+      "source_sha256": "d403c63d64a4a1ea0746e8798b59229b49c82885488bef881873725cc8c0001a",
+      "merged_sha256": "d403c63d64a4a1ea0746e8798b59229b49c82885488bef881873725cc8c0001a",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/native-material-document-loopback.log",
+      "source_sha256": "335c638486518637e48813463cf306dcea120ea4ca59bbd0716dbc23d8631370",
+      "merged_sha256": "335c638486518637e48813463cf306dcea120ea4ca59bbd0716dbc23d8631370",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/native-material-document-missing-clang.log",
+      "source_sha256": "b3d90671d45e41ad7d0856cf37b20f9c3c86e775598cf71cd7b84bd9bbcf92d9",
+      "merged_sha256": "b3d90671d45e41ad7d0856cf37b20f9c3c86e775598cf71cd7b84bd9bbcf92d9",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/native-material-document-test.log",
+      "source_sha256": "2e36de82bbe6150d77fca191cb5d2769ab3700d535a3f5b68cbd9c4cb54b6b83",
+      "merged_sha256": "2e36de82bbe6150d77fca191cb5d2769ab3700d535a3f5b68cbd9c4cb54b6b83",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/pr7-parent-original-patches.json",
+      "source_sha256": "e903ee637f372fd0ec9778ba7ebe5e21246b25ad81473349b219e85742a1a3db",
+      "merged_sha256": "e903ee637f372fd0ec9778ba7ebe5e21246b25ad81473349b219e85742a1a3db",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/pr8-apply-check-initial.txt",
+      "source_sha256": "1035b7379b2efbf4c834a7d8d338c596f7cbfee754be9a721d6ebf20190332d4",
+      "merged_sha256": "1035b7379b2efbf4c834a7d8d338c596f7cbfee754be9a721d6ebf20190332d4",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/pr8-apply-check.txt",
+      "source_sha256": "6eb3892d7b31ca409c82af08dd451a2247175ad07a4b2949081bd39bdcc66ab6",
+      "merged_sha256": "6eb3892d7b31ca409c82af08dd451a2247175ad07a4b2949081bd39bdcc66ab6",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/pr8-comparison.json",
+      "source_sha256": "164f11f41660e0855f1fcf9b225eddb55a161ba5abd23e96da38354434644ef7",
+      "merged_sha256": "164f11f41660e0855f1fcf9b225eddb55a161ba5abd23e96da38354434644ef7",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/pr8-original-patches.json",
+      "source_sha256": "9e9267717d89885d7607674330866ffc2444e198d9c4250f4a3106887e1189b9",
+      "merged_sha256": "9e9267717d89885d7607674330866ffc2444e198d9c4250f4a3106887e1189b9",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/evidence/project-release-readiness-2026-11-04/pr8-text-hunks.patch",
+      "source_sha256": "14bc152f77fcf59e9c307aa571c95071f8fc6afbc945ba2a436fdcf4b8972ae8",
+      "merged_sha256": "14bc152f77fcf59e9c307aa571c95071f8fc6afbc945ba2a436fdcf4b8972ae8",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/CRM_ERP_PROJEKT_AUSLIEFERUNG_2026-11-04.md",
+      "source_sha256": "ee7a3fa2a3912706f798936759b6061dec10cfa970ee90628bae6a37f76044e4",
+      "merged_sha256": "ee7a3fa2a3912706f798936759b6061dec10cfa970ee90628bae6a37f76044e4",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-release-readiness-20261104",
+      "path": "docs/CRM_ERP_PROJEKT_NAVIGATION_PR8_ABGLEICH_2026-11-04.md",
+      "source_sha256": "bfbb1d8a17e0513e77ca7c6820ce860e641c2cb329bec0a9903a4845a1d6c83d",
+      "merged_sha256": "bfbb1d8a17e0513e77ca7c6820ce860e641c2cb329bec0a9903a4845a1d6c83d",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "web/office/office.js",
+      "source_sha256": "cc50569a2181e89450d1df69025387f693ae59a6a41e7c9566006f3971aa265b",
+      "merged_sha256": "74214ce23be56e72d0bb5e8426b478dc29e6eb5854c87b4a54fa863bf12c89c4",
+      "strategy": "three-way merge"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "web/office/tests/e2e.cjs",
+      "source_sha256": "22ca47bc67e32317c5c982314d79cc54ca20c14283443d37c3c07869193a4186",
+      "merged_sha256": "5a508e3a8494955fe71bd46de6b4e672cac42e3d9531261e444942dc194d78b1",
+      "strategy": "three-way merge"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "web/office/tests/project-customer-flow.cjs",
+      "source_sha256": "8f5f5f099ba3b7073578e0e61c3734d6b5f43b7d5d1129f6c83f129631009e71",
+      "merged_sha256": "8f5f5f099ba3b7073578e0e61c3734d6b5f43b7d5d1129f6c83f129631009e71",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "web/office/tests/inventory-article-refs-flow.cjs",
+      "source_sha256": "cd406ae7d1ecc3a1c5afb96bd1aee7807932c34730d29c95d50eaec6c58277e8",
+      "merged_sha256": "cd406ae7d1ecc3a1c5afb96bd1aee7807932c34730d29c95d50eaec6c58277e8",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "web/office/tests/inventory-article-refs.test.mjs",
+      "source_sha256": "05ad35acc7411f46227ce85609aa281bebad973b31c193ae067a68ffc865c775",
+      "merged_sha256": "05ad35acc7411f46227ce85609aa281bebad973b31c193ae067a68ffc865c775",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/CRM_ERP_PROJEKT_KUNDENFLUSS_2026-11-04.md",
+      "source_sha256": "6ccf696724fa0da38d84903848fe02387bedc947dc0721fd1e726f4b35840772",
+      "merged_sha256": "6ccf696724fa0da38d84903848fe02387bedc947dc0721fd1e726f4b35840772",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/CRM_ERP_MATERIAL_ARTIKELAUSWAHL_BROWSER_2026-11-04.md",
+      "source_sha256": "b167d636199c745bb60aed9be42ef58bf8f3ff6bef37121b8bcbec95e0b4827c",
+      "merged_sha256": "b167d636199c745bb60aed9be42ef58bf8f3ff6bef37121b8bcbec95e0b4827c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/address-display-first.txt",
+      "source_sha256": "17ac548076d2639f1066b48c65b5a67b2de57afa03a83f39f7a1038e888f468c",
+      "merged_sha256": "17ac548076d2639f1066b48c65b5a67b2de57afa03a83f39f7a1038e888f468c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/before/office.js",
+      "source_sha256": "a5811ca172cc649917d886e1f82299c99513cd00099b065c0fc2f5ed61689fb0",
+      "merged_sha256": "a5811ca172cc649917d886e1f82299c99513cd00099b065c0fc2f5ed61689fb0",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/before-animation-browser-runs.json",
+      "source_sha256": "2f6af19a4d0e26c7c390032f9519175d87fd29d624df9f0365744d6eecfca9bb",
+      "merged_sha256": "2f6af19a4d0e26c7c390032f9519175d87fd29d624df9f0365744d6eecfca9bb",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-final-wait.txt",
+      "source_sha256": "8b4f2ab5db404560d2dd034624fc7d2d4aafbd8cc63ca38a4c58ade7b6d93bae",
+      "merged_sha256": "8b4f2ab5db404560d2dd034624fc7d2d4aafbd8cc63ca38a4c58ade7b6d93bae",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-final.txt",
+      "source_sha256": "4d96456481fd5325967a52f36bb3658c999c48e666b9cb75be4dfcb2875b0814",
+      "merged_sha256": "4d96456481fd5325967a52f36bb3658c999c48e666b9cb75be4dfcb2875b0814",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-first.txt",
+      "source_sha256": "4ceacad24c489d063b90841149b1c45fe8fd991c18d25a2b563ab1859ae7099c",
+      "merged_sha256": "4ceacad24c489d063b90841149b1c45fe8fd991c18d25a2b563ab1859ae7099c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-fixed-test.txt",
+      "source_sha256": "8b4f2ab5db404560d2dd034624fc7d2d4aafbd8cc63ca38a4c58ade7b6d93bae",
+      "merged_sha256": "8b4f2ab5db404560d2dd034624fc7d2d4aafbd8cc63ca38a4c58ade7b6d93bae",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-followup.txt",
+      "source_sha256": "6259502391e60567938418319e15fc4905e36c90b111bac1d4bf9f26538cc56f",
+      "merged_sha256": "6259502391e60567938418319e15fc4905e36c90b111bac1d4bf9f26538cc56f",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-native-sandbox.txt",
+      "source_sha256": "09b9f949d0a2bd51a1e39c5ab265c335e3a89aceb696467168aba89ff9097186",
+      "merged_sha256": "09b9f949d0a2bd51a1e39c5ab265c335e3a89aceb696467168aba89ff9097186",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-network.txt",
+      "source_sha256": "101048c513ac4a94a23f399a92b044a0be3641cb031d620047645bf391795cb0",
+      "merged_sha256": "101048c513ac4a94a23f399a92b044a0be3641cb031d620047645bf391795cb0",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-red.txt",
+      "source_sha256": "4ceacad24c489d063b90841149b1c45fe8fd991c18d25a2b563ab1859ae7099c",
+      "merged_sha256": "4ceacad24c489d063b90841149b1c45fe8fd991c18d25a2b563ab1859ae7099c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-unit-final.txt",
+      "source_sha256": "d27a65fa030e45cdd8c751decec25d71e8f4d9ec3952b5c0c9fb823724daaca8",
+      "merged_sha256": "d27a65fa030e45cdd8c751decec25d71e8f4d9ec3952b5c0c9fb823724daaca8",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-unit-inprocess.txt",
+      "source_sha256": "f1969d8940d855ecff6e01e5ce08434f9195e2b2bef3eff3a11c1bd1e7c969fd",
+      "merged_sha256": "f1969d8940d855ecff6e01e5ce08434f9195e2b2bef3eff3a11c1bd1e7c969fd",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/browser-unit.txt",
+      "source_sha256": "eeab6ad45a2c69677062b79bdb261d684ecbff74c4fd462f0b874248713f0ede",
+      "merged_sha256": "eeab6ad45a2c69677062b79bdb261d684ecbff74c4fd462f0b874248713f0ede",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/contact-regression.txt",
+      "source_sha256": "56d5c675c880767ad254c3c54c26c9ac6e0d0fcecbd40872e7d7572f40190839",
+      "merged_sha256": "56d5c675c880767ad254c3c54c26c9ac6e0d0fcecbd40872e7d7572f40190839",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/existing-customer-repro.json",
+      "source_sha256": "03b396cf9b10ae80fb10c3b40c688df5d1266ed68e5c7280e3ce8bdddb25d036",
+      "merged_sha256": "03b396cf9b10ae80fb10c3b40c688df5d1266ed68e5c7280e3ce8bdddb25d036",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-browser/project-customer-http.json",
+      "source_sha256": "eb0e7f57d915cca5dd98f26dc84f63f78bfee9058c5230f63aa1ddefb8de70fd",
+      "merged_sha256": "eb0e7f57d915cca5dd98f26dc84f63f78bfee9058c5230f63aa1ddefb8de70fd",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-browser/project-customer-invoice-draft-desktop.png",
+      "source_sha256": "6889a74805eadd4199e0b68283e2ded9138b4cb64fcac63ae3cb1487dc4e076c",
+      "merged_sha256": "6889a74805eadd4199e0b68283e2ded9138b4cb64fcac63ae3cb1487dc4e076c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-browser/project-customer-invoice-draft-mobile.png",
+      "source_sha256": "03bd5f69c156ab202c9daf3020f86ba20734c472e908f05b4009c948206b0ba4",
+      "merged_sha256": "03bd5f69c156ab202c9daf3020f86ba20734c472e908f05b4009c948206b0ba4",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-browser-runs.json",
+      "source_sha256": "5bd03c092eb0f13ec74123394de06740fff6d9ef4481c2033a6cf8cf6240cd92",
+      "merged_sha256": "5bd03c092eb0f13ec74123394de06740fff6d9ef4481c2033a6cf8cf6240cd92",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-customer/project-customer-http.json",
+      "source_sha256": "3b6724464046c534666426f5af0d67b67c7ff734e61786dc80b6260e84830519",
+      "merged_sha256": "3b6724464046c534666426f5af0d67b67c7ff734e61786dc80b6260e84830519",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-customer/project-customer-invoice-draft-desktop.png",
+      "source_sha256": "08fd6949cc7038cdbf84126a18a46d369954e4674d187e6521b75d3e597b583c",
+      "merged_sha256": "08fd6949cc7038cdbf84126a18a46d369954e4674d187e6521b75d3e597b583c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-customer/project-customer-invoice-draft-mobile.png",
+      "source_sha256": "18e2add7343886388dd0398c5d63ed5f53dbfe19e5f5519bb7b0ce9ad76da249",
+      "merged_sha256": "18e2add7343886388dd0398c5d63ed5f53dbfe19e5f5519bb7b0ce9ad76da249",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-customer.txt",
+      "source_sha256": "8b4f2ab5db404560d2dd034624fc7d2d4aafbd8cc63ca38a4c58ade7b6d93bae",
+      "merged_sha256": "8b4f2ab5db404560d2dd034624fc7d2d4aafbd8cc63ca38a4c58ade7b6d93bae",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-warehouse/warehouse-article-refs-desktop.png",
+      "source_sha256": "5c32c9c97f145fd7e0271b83d0de0c1693132912f01da34a5308ab52e91d9baf",
+      "merged_sha256": "5c32c9c97f145fd7e0271b83d0de0c1693132912f01da34a5308ab52e91d9baf",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-warehouse/warehouse-article-refs-http.json",
+      "source_sha256": "66d1f6be705444b53feefeeb3e7f1d9a45f6079c97a51da18267ca2dfea75bd1",
+      "merged_sha256": "66d1f6be705444b53feefeeb3e7f1d9a45f6079c97a51da18267ca2dfea75bd1",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-warehouse/warehouse-article-refs-mobile.png",
+      "source_sha256": "f8606b033c0c44baa6417eb227cffbfee9bfc2b4666f222ed2c34f52631fec75",
+      "merged_sha256": "f8606b033c0c44baa6417eb227cffbfee9bfc2b4666f222ed2c34f52631fec75",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/final-warehouse.txt",
+      "source_sha256": "a1f0e179724cb136c47ceec4bde647c18597d1ab3fa92174012759453cde9c91",
+      "merged_sha256": "a1f0e179724cb136c47ceec4bde647c18597d1ab3fa92174012759453cde9c91",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/green/project-customer-http.json",
+      "source_sha256": "3b30d8da4f7d5cf78507d076851b39b7c628d1eefcba2dd190dca36f86745b07",
+      "merged_sha256": "3b30d8da4f7d5cf78507d076851b39b7c628d1eefcba2dd190dca36f86745b07",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/green/project-customer-invoice-draft-desktop.png",
+      "source_sha256": "6889a74805eadd4199e0b68283e2ded9138b4cb64fcac63ae3cb1487dc4e076c",
+      "merged_sha256": "6889a74805eadd4199e0b68283e2ded9138b4cb64fcac63ae3cb1487dc4e076c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/green/project-customer-invoice-draft-mobile.png",
+      "source_sha256": "03bd5f69c156ab202c9daf3020f86ba20734c472e908f05b4009c948206b0ba4",
+      "merged_sha256": "03bd5f69c156ab202c9daf3020f86ba20734c472e908f05b4009c948206b0ba4",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/inventory-refs-unit.txt",
+      "source_sha256": "2b97499bfd272616895a0e3c384047cd2ae90148ec86ed07343f94e165823e72",
+      "merged_sha256": "2b97499bfd272616895a0e3c384047cd2ae90148ec86ed07343f94e165823e72",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/invoice-chain-main-pg.txt",
+      "source_sha256": "f29f3891f0f65c014a6f4658c23c2551f5a6f08826737fb9732a96442f209d91",
+      "merged_sha256": "f29f3891f0f65c014a6f4658c23c2551f5a6f08826737fb9732a96442f209d91",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/main-backend-bindings.json",
+      "source_sha256": "81278bbfdac6c201b61302bced818d20aa0fc145b6f984e77a1ce5953543e39c",
+      "merged_sha256": "81278bbfdac6c201b61302bced818d20aa0fc145b6f984e77a1ce5953543e39c",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/run_browser_proof.py",
+      "source_sha256": "49f1f759fb2e2ee23986363095c56f3a3768db52476caf3736cfa5ac99c94858",
+      "merged_sha256": "49f1f759fb2e2ee23986363095c56f3a3768db52476caf3736cfa5ac99c94858",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser/warehouse-article-refs-desktop.png",
+      "source_sha256": "5c32c9c97f145fd7e0271b83d0de0c1693132912f01da34a5308ab52e91d9baf",
+      "merged_sha256": "5c32c9c97f145fd7e0271b83d0de0c1693132912f01da34a5308ab52e91d9baf",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser/warehouse-article-refs-http.json",
+      "source_sha256": "6dacaa39b96efd565d8a74adb47a67ceed8f09f38d8ca9b08284558917c4db34",
+      "merged_sha256": "6dacaa39b96efd565d8a74adb47a67ceed8f09f38d8ca9b08284558917c4db34",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser/warehouse-article-refs-mobile.png",
+      "source_sha256": "6c4c9ed02f597dd5082953a0308744d89d40cc7bebf2a942fe4a027c2f64954d",
+      "merged_sha256": "6c4c9ed02f597dd5082953a0308744d89d40cc7bebf2a942fe4a027c2f64954d",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser-final.txt",
+      "source_sha256": "a1f0e179724cb136c47ceec4bde647c18597d1ab3fa92174012759453cde9c91",
+      "merged_sha256": "a1f0e179724cb136c47ceec4bde647c18597d1ab3fa92174012759453cde9c91",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/warehouse-browser.txt",
+      "source_sha256": "f9a824fc16053edddc00c58d7a14fd9e05afa043e57fd9de37ad2e0a086a28f6",
+      "merged_sha256": "f9a824fc16053edddc00c58d7a14fd9e05afa043e57fd9de37ad2e0a086a28f6",
+      "strategy": "identical or new"
+    },
+    {
+      "source": "/workspace/smartplan-project-flow-20261104",
+      "path": "docs/evidence/project-customer-flow-2026-11-04/manifest.json",
+      "source_sha256": "2b8be32535ee28eb22d8916e832fa864d9f1edf62ea01911cfe0577b6355a2a5",
+      "merged_sha256": "2b8be32535ee28eb22d8916e832fa864d9f1edf62ea01911cfe0577b6355a2a5",
+      "strategy": "identical or new"
+    }
+  ],
+  "withheld": [
+    "app/lib/main.dart: awaiting project-creation supplement",
+    "backend/online/test_project_customer_journey_pg.py: unexecuted draft"
+  ]
+}

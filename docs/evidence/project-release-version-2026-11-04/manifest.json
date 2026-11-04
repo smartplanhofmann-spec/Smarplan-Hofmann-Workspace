@@ -1,0 +1,26 @@
+{
+  "version": "0.13.0",
+  "source_build": 130,
+  "reason": "Supersedes available remote Windows 0.12.2 and historical iOS 0.5.1 without reusing their version identifiers.",
+  "changes": [
+    "app/pubspec.yaml",
+    "app/lib/app_version.dart",
+    ".github/workflows/ios-testflight.yml"
+  ],
+  "verification": {
+    "native_source_check": true,
+    "package_cases_passed": 16,
+    "actual_build_number_cases_passed": 6,
+    "final_version_app_smoke_passed": 10
+  },
+  "signed_upload_gate_unchanged": true,
+  "artifacts": {
+    "docs/evidence/project-release-version-2026-11-04/package.txt": "ff8e78fb1ba4c9ca5e5e6461e69fb302d1a535a97420fec6081147571d545c90",
+    "docs/evidence/project-release-version-2026-11-04/build-number-cases.json": "2b8e452d2f6f21815c91c3351d77080c58a6b764fd6680282cf180193fd8b946",
+    "docs/evidence/project-release-version-2026-11-04/source.json": "3b1bc95c2984ddeddb3237e81991aee79959608a3ae88001cdd4783416f47e83",
+    "docs/evidence/project-release-version-2026-11-04/app-version-smoke.txt": "931ccc7ca9db6a414f335554e1d76875c4ada7e8e867a9071f2253587aa3ed8d",
+    "docs/evidence/project-release-version-2026-11-04/before/app/pubspec.yaml": "c121514cfaa41deacbdd96fe69128ad8dcec33672a7d6615bc06808a2fca1bd8",
+    "docs/evidence/project-release-version-2026-11-04/before/app/lib/app_version.dart": "1467eae4d94c6afa840f9d8a9b8ecde595ffd34aa144bde6f5c03f2c07fedea8",
+    "docs/evidence/project-release-version-2026-11-04/before/.github/workflows/ios-testflight.yml": "6cf1228338f9749a100e17927342385efe6d962d0a7c71e6a270503bfe759636"
+  }
+}

@@ -183,7 +183,7 @@ def make_handler(office,drive,launch_id=""):
                 if path=="/api/projects":
                     if self.command=="GET":
                         return self.send(200,office.projects(user))
-                    return self.send(201,{"id":office.add_project(user,data.get("name"),data.get("customer"),data.get("customer_id"))})
+                    return self.send(201,{"id":office.add_project(user,data.get("name"),data.get("customer"),data.get("customer_id"),data.get("request_id"))})
                 match=re.fullmatch(r"/api/projects/([a-f0-9]{32})/plans(?:/([a-f0-9]{32}))?",path)
                 if match:
                     project_id, plan_id = match.groups()

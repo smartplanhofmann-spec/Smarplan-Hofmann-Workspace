@@ -403,7 +403,7 @@ class WorkspaceView extends StatefulWidget {
       onUsers,
       onCustomers;
   final void Function(Map<String, dynamic>) onProject;
-  final VoidCallback? onInquiries, onIntegrations;
+  final VoidCallback? onInquiries, onIntegrations, onBackToWorkspace;
   final ValueChanged<String> onSelectStorage;
   const WorkspaceView({
     super.key,
@@ -422,6 +422,7 @@ class WorkspaceView extends StatefulWidget {
     required this.onProject,
     this.onInquiries,
     this.onIntegrations,
+    this.onBackToWorkspace,
   });
   @override
   State<WorkspaceView> createState() => _WorkspaceViewState();
@@ -706,6 +707,12 @@ class _WorkspaceViewState extends State<WorkspaceView> {
                 ),
                 child: Row(
                   children: [
+                    if (widget.onBackToWorkspace != null)
+                      IconButton(
+                        tooltip: 'Zum Arbeitsbereich',
+                        onPressed: widget.onBackToWorkspace,
+                        icon: const Icon(Icons.arrow_back_rounded),
+                      ),
                     if (!desktop)
                       Builder(
                         builder: (context) => IconButton(

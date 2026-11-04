@@ -1,0 +1,176 @@
+{
+  "checked_at_utc": "2026-11-04 19:30:05 UTC",
+  "inspected_commit": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+  "scope": "Read-only CI/release-route assessment; no remote writes, workflow starts, installations or secret inspection.",
+  "recommended_new_candidate_branch_example": "codex/testupdate-0.7-projects-20261104",
+  "branch_name_note": "The 0.7 fragment is an existing workflow routing prefix, not a requirement to downgrade the app version.",
+  "current_routing": [
+    {
+      "branch": "codex/testupdate-0.7-projects-20261104",
+      "windows_on_push_or_pr": true,
+      "ios_simulator_on_push_or_pr": true,
+      "unsigned_ios_on_matching_push_paths": true,
+      "unsigned_ios_on_manual_dispatch": true,
+      "signed_ios_on_manual_dispatch": false
+    },
+    {
+      "branch": "codex/project-release-20261104",
+      "windows_on_push_or_pr": true,
+      "ios_simulator_on_push_or_pr": true,
+      "unsigned_ios_on_matching_push_paths": false,
+      "unsigned_ios_on_manual_dispatch": false,
+      "signed_ios_on_manual_dispatch": false
+    },
+    {
+      "branch": "codex/smartplan-office-0.2",
+      "windows_on_push_or_pr": true,
+      "ios_simulator_on_push_or_pr": true,
+      "unsigned_ios_on_matching_push_paths": true,
+      "unsigned_ios_on_manual_dispatch": true,
+      "signed_ios_on_manual_dispatch": true,
+      "signed_additional_requirements": [
+        "upload_to_testflight=true",
+        "unsigned job succeeded",
+        "existing Apple signing configuration valid"
+      ]
+    }
+  ],
+  "matching_push_paths": [
+    ".github/workflows/ios-testflight.yml",
+    ".github/workflows/checks.yml",
+    "app/**",
+    "backend/**",
+    "scripts/native-release.py",
+    "scripts/test_native_release.py"
+  ],
+  "unchanged_workflow_release_route": [
+    "Publish the reviewed candidate source as a new testupdate-prefix branch and verify exact workflow head SHA.",
+    "Require current Development checks, Windows artifacts and unsigned iPhone release proof for that candidate.",
+    "After release integration is concrete and reviewed, put that source in codex/smartplan-office-0.2; rerun checks if the integration commit differs.",
+    "Dispatch iPhone TestFlight on codex/smartplan-office-0.2 with upload_to_testflight=true and an admissible build number.",
+    "Validate matching release manifests and install through the existing TestFlight group; perform real target-device checks."
+  ],
+  "signed_candidate_branch_alternative": {
+    "implemented": false,
+    "minimum_for_recommended_prefix_branch": "Extend only the testflight job's exact-branch condition to additionally allow the one explicit reviewed candidate branch, preserving workflow_dispatch, upload_to_testflight and needs: unsigned. The unsigned routing already allows the recommended prefix.",
+    "limitation": "This is a workflow authorization change for the Apple-secret-bearing job and must be included in the concrete reviewed candidate; do not replace the exact branch gate with unrestricted all-branch signing.",
+    "not_needed_for_windows_or_unsigned_ios": true
+  },
+  "trigger_capabilities": {
+    "currently_callable_connector": [
+      "github_create_branch",
+      "github_create_blob",
+      "github_create_tree",
+      "github_create_commit",
+      "github_update_ref",
+      "github_create_pull_request",
+      "workflow/run/job/artifact read helpers",
+      "existing workflow/job rerun helpers"
+    ],
+    "no_workflow_dispatch_connector_discovered": true,
+    "connector_readiness": "Parent verified authenticated repository read/write metadata. No mutation was attempted here.",
+    "cli_readiness": "Parent's ordinary gh auth status reported invalid GH_TOKEN; no usable CLI dispatch authentication has been demonstrated.",
+    "important_limits": [
+      "create_branch requires an existing remote commit SHA/ref; a local-only SHA cannot be used.",
+      "Git Data API-created commits can have different identities from local commits; compare exact tree/content and retest the actual remote candidate SHA.",
+      "After a real candidate push/ref publication, verify actual triggered runs and head SHA; merely creating a ref or rerunning an old job is not proof of a new candidate build.",
+      "Generic GitHub fetch is GET-only and cannot perform workflow dispatch.",
+      "Existing rerun tools rerun their original workflow commit and do not select a new candidate.",
+      "Normal manual dispatch remains available through GitHub Actions UI; authenticated gh workflow run can be used once ordinary authentication works."
+    ],
+    "not_executed_cli_examples": [
+      "gh workflow run checks.yml --repo smartplanhofmann-spec/Smarplan-Hofmann-Workspace --ref codex/testupdate-0.7-projects-20261104",
+      "gh workflow run ios-testflight.yml --repo smartplanhofmann-spec/Smarplan-Hofmann-Workspace --ref codex/testupdate-0.7-projects-20261104 -F upload_to_testflight=false",
+      "gh workflow run ios-testflight.yml --repo smartplanhofmann-spec/Smarplan-Hofmann-Workspace --ref codex/smartplan-office-0.2 -F upload_to_testflight=true"
+    ]
+  },
+  "build_number": {
+    "rule": "Explicit build_number, otherwise github.run_number+100; numeric and >= app/pubspec.yaml source build number.",
+    "source_build_number": 120,
+    "latest_observed_push_ios_runs": [
+      {
+        "id": 40172013365,
+        "run_number": 29,
+        "head_branch": "codex/testupdate-0.7-20261023",
+        "head_sha": "c0f7a4177b8f101147d656845fbbf48f62b1c81e",
+        "conclusion": "success",
+        "created_at": "2026-10-25T07:14:13Z"
+      },
+      {
+        "id": 40139440416,
+        "run_number": 28,
+        "head_branch": "codex/testupdate-0.7-20261023",
+        "head_sha": "f69d1834c83971f92b27590dcd9ae1a0a0921ef8",
+        "conclusion": "success",
+        "created_at": "2026-10-24T22:38:41Z"
+      },
+      {
+        "id": 40134178132,
+        "run_number": 27,
+        "head_branch": "codex/testupdate-0.7-20261023",
+        "head_sha": "81aeff1d7db9d83f9b1c043df9110184b16bb6ee",
+        "conclusion": "success",
+        "created_at": "2026-10-24T21:25:52Z"
+      },
+      {
+        "id": 40133777323,
+        "run_number": 26,
+        "head_branch": "codex/testupdate-0.7-20261023",
+        "head_sha": "4e0ac591ec873e9940ad1af41e4d6b17f0c60398",
+        "conclusion": "failure",
+        "created_at": "2026-10-24T21:20:24Z"
+      }
+    ],
+    "latest_observed_run_number": 29,
+    "default_number_implication": "The next run at 30 would produce 130 and satisfy current minimum 120. Re-evaluate against the actual final source build number and already uploaded TestFlight builds; concurrent runs can advance numbering.",
+    "query": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs?event=push&per_page=50"
+  },
+  "sources": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "lines": [
+        2,
+        334,
+        575,
+        583,
+        646
+      ]
+    },
+    {
+      "path": ".github/workflows/ios-testflight.yml",
+      "lines": [
+        4,
+        14,
+        31,
+        70,
+        172,
+        181,
+        240,
+        257,
+        263,
+        287
+      ]
+    },
+    {
+      "path": "TESTUPDATE_0_7.md",
+      "lines": [
+        10,
+        13,
+        27,
+        41
+      ]
+    },
+    {
+      "path": "IPHONE_TESTFLIGHT.md",
+      "lines": [
+        117,
+        125
+      ]
+    }
+  ],
+  "remaining_boundaries": [
+    "Current candidate is not yet remote or built.",
+    "No current Apple key validity, App Store Connect state, target-device installation, or server deployment verified.",
+    "A signed IPA artifact requires the existing signed job; Windows plus unsigned iOS checks alone do not finish iPhone delivery."
+  ]
+}

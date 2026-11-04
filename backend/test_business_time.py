@@ -229,6 +229,36 @@ class TimeTrackingTests(BusinessFixture, unittest.TestCase):
         from business_time import validate_integrity
         self.assertTrue(validate_integrity(self.office))
 
+    def test_entry_exposes_exact_record_timezone_days_and_partial_approval_for_correction(self):
+        # These two instants share one UTC date but cross midnight in the
+        # entry's Europe/Berlin timezone. Clients must not infer device dates.
+        self.stamp(self.event('start', '2026-10-25T22:30:00Z'))
+        self.stamp(self.event('stop', '2026-10-25T23:30:00Z', revision=1, sequence=2))
+        entry = self.call(self.time, 'get_entry', self.technician, self.entry_id)
+        self.assertEqual(entry['work_dates'], ['2026-10-25', '2026-10-26'])
+        self.assertEqual(entry['approved_work_dates'], [])
+        next_day_entries = self.call(self.time, 'entries', self.technician,
+            {'from': '2026-10-26', 'to': '2026-10-26'})['items']
+        self.assertEqual([value['id'] for value in next_day_entries], [self.entry_id])
+        self.assertEqual(self.call(self.time, 'entries', self.technician,
+            {'from': '2026-10-27', 'to': '2026-10-27'})['items'], [])
+        query = {'employee_id': self.employee['id'], 'from': '2026-10-25', 'to': '2026-10-26'}
+        days = self.call(self.time, 'summary', self.owner, query)['days']
+        self.call(self.time, 'approve_day', self.owner, '2026-10-25', {
+            'request_id': rid(), 'employee_id': self.employee['id'], 'revision': days[0]['revision']})
+        partial = self.call(self.time, 'get_entry', self.technician, self.entry_id)
+        self.assertEqual(partial['status'], 'partially_approved')
+        self.assertEqual(partial['approved_work_dates'], ['2026-10-25'])
+        self.problem(409, lambda: self.call(self.time, 'correct_entry', self.owner, self.entry_id, {
+            'request_id': rid(), 'work_date': '2026-10-26', 'delta_seconds': -60, 'reason': 'Not yet approved'}))
+        self.call(self.time, 'approve_day', self.owner, '2026-10-26', {
+            'request_id': rid(), 'employee_id': self.employee['id'], 'revision': days[1]['revision']})
+        final = self.call(self.time, 'get_entry', self.technician, self.entry_id)
+        self.assertEqual(final['status'], 'approved')
+        self.assertEqual(final['approved_work_dates'], final['work_dates'])
+        self.assertEqual(final['events'], entry['events'])
+        self.assertEqual(final['worked_seconds'], 3600)
+
     def test_actual_reopen_preserves_event_receipts_and_corruption_is_detected(self):
         from business_time import TimeTracking, validate_integrity
         from core import Office

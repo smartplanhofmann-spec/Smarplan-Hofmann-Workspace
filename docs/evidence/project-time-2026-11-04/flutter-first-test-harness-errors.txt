@@ -1,0 +1,139 @@
+00:00 +0: loading /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart
+00:00 +0: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Mobile correction uses approved server date and reopens the exact lost acknowledgement
+00:01 +1: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Mobile correction uses approved server date and reopens the exact lost acknowledgement
+00:01 +2: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Mobile correction uses approved server date and reopens the exact lost acknowledgement
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#2      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#3      main.<anonymous closure> (file:///workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart:130:20)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  Mobile correction uses approved server date and reopens the exact lost acknowledgement
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +2 -1: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Mobile correction uses approved server date and reopens the exact lost acknowledgement [E]
+  Test failed. See exception logs above.
+  The test description was: Mobile correction uses approved server date and reopens the exact lost acknowledgement
+  
+00:01 +2 -1: loading /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart
+00:01 +2 -1: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Read-only and non-approver can inspect seconds but cannot correct
+Pending timers:
+Timer (duration: 0:00:30.000000, periodic: true), created:
+#0      new FakeTimer._ (package:fake_async/fake_async.dart:342:62)
+#1      FakeAsync._createTimer (package:fake_async/fake_async.dart:260:29)
+#2      FakeAsync.run.<anonymous closure> (package:fake_async/fake_async.dart:187:15)
+#5      BusinessSession._loadCapabilities (package:smartplan_office/business_session.dart:3019:30)
+<asynchronous suspension>
+#6      BusinessSession.load.<anonymous closure> (package:smartplan_office/business_session.dart:2944:7)
+<asynchronous suspension>
+(elided 2 frames from dart:async)
+
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+A Timer is still pending even after the widget tree was disposed.
+'package:flutter_test/src/binding.dart':
+Failed assertion: line 2543 pos 12: '!timersPending'
+
+When the exception was thrown, this was the stack:
+#2      AutomatedTestWidgetsFlutterBinding._verifyInvariants (package:flutter_test/src/binding.dart:2543:12)
+#3      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1974:7)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Read-only and non-approver can inspect seconds but cannot correct
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +2 -2: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Read-only and non-approver can inspect seconds but cannot correct [E]
+  Test failed. See exception logs above.
+  The test description was: Read-only and non-approver can inspect seconds but cannot correct
+  
+00:01 +2 -2: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Revoked time access clears the already open original and history
+Pending timers:
+Timer (duration: 0:00:30.000000, periodic: true), created:
+#0      new FakeTimer._ (package:fake_async/fake_async.dart:342:62)
+#1      FakeAsync._createTimer (package:fake_async/fake_async.dart:260:29)
+#2      FakeAsync.run.<anonymous closure> (package:fake_async/fake_async.dart:187:15)
+#5      BusinessSession._loadCapabilities (package:smartplan_office/business_session.dart:3019:30)
+<asynchronous suspension>
+#6      BusinessSession.load.<anonymous closure> (package:smartplan_office/business_session.dart:2944:7)
+<asynchronous suspension>
+(elided 2 frames from dart:async)
+
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+A Timer is still pending even after the widget tree was disposed.
+'package:flutter_test/src/binding.dart':
+Failed assertion: line 2543 pos 12: '!timersPending'
+
+When the exception was thrown, this was the stack:
+#2      AutomatedTestWidgetsFlutterBinding._verifyInvariants (package:flutter_test/src/binding.dart:2543:12)
+#3      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1974:7)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Revoked time access clears the already open original and history
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +2 -3: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Revoked time access clears the already open original and history [E]
+  Test failed. See exception logs above.
+  The test description was: Revoked time access clears the already open original and history
+  
+00:01 +2 -3: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Own time account exposes originals without the staff-only CSV export
+Pending timers:
+Timer (duration: 0:00:30.000000, periodic: true), created:
+#0      new FakeTimer._ (package:fake_async/fake_async.dart:342:62)
+#1      FakeAsync._createTimer (package:fake_async/fake_async.dart:260:29)
+#2      FakeAsync.run.<anonymous closure> (package:fake_async/fake_async.dart:187:15)
+#5      BusinessSession._loadCapabilities (package:smartplan_office/business_session.dart:3019:30)
+<asynchronous suspension>
+#6      BusinessSession.load.<anonymous closure> (package:smartplan_office/business_session.dart:2944:7)
+<asynchronous suspension>
+(elided 2 frames from dart:async)
+
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+A Timer is still pending even after the widget tree was disposed.
+'package:flutter_test/src/binding.dart':
+Failed assertion: line 2543 pos 12: '!timersPending'
+
+When the exception was thrown, this was the stack:
+#2      AutomatedTestWidgetsFlutterBinding._verifyInvariants (package:flutter_test/src/binding.dart:2543:12)
+#3      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1974:7)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 3 frames from class _AssertionError and package:stack_trace)
+
+The test description was:
+  Own time account exposes originals without the staff-only CSV export
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +2 -4: /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Own time account exposes originals without the staff-only CSV export [E]
+  Test failed. See exception logs above.
+  The test description was: Own time account exposes originals without the staff-only CSV export
+  
+00:02 +2 -4: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: Server-started time preserves its full history when continued offline and reopened
+00:02 +3 -4: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: Offline start pause stop survives reopening and lost ACK without a duplicate
+00:02 +4 -4: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: Conflict preserves the durable event and stops automatic replay
+00:02 +5 -4: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: A committed event is acknowledged while disabled and pending events resume once reactivated
+00:02 +6 -4: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: New offline events wait during deactivation and remain editable until upload resumes
+00:02 +7 -4: /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart: An old grant is never silently expanded to time recording
+00:02 +8 -4: /workspace/smartplan-project-time-20261104/app/test/business_backend_integration_test.dart: Real business HTTP preserves draft values and durable own time through the scoped grant
+00:04 +9 -4: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Mobile correction uses approved server date and reopens the exact lost acknowledgement
+  /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Own time account exposes originals without the staff-only CSV export
+  /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Read-only and non-approver can inspect seconds but cannot correct
+  /workspace/smartplan-project-time-20261104/app/test/business_time_details_test.dart: Revoked time access clears the already open original and history

@@ -1,0 +1,8 @@
+00:00 +0: loading /workspace/smartplan-project-time-20261104/app/test/business_offline_time_test.dart
+00:00 +0: Server-started time preserves its full history when continued offline and reopened
+00:00 +1: Offline start pause stop survives reopening and lost ACK without a duplicate
+00:00 +2: Conflict preserves the durable event and stops automatic replay
+00:00 +3: A committed event is acknowledged while disabled and pending events resume once reactivated
+00:00 +4: New offline events wait during deactivation and remain editable until upload resumes
+00:00 +5: An old grant is never silently expanded to time recording
+00:00 +6: All tests passed!

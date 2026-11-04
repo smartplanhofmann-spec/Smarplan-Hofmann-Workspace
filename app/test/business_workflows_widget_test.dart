@@ -91,6 +91,7 @@ class WorkflowApi extends BusinessTestApi {
       return {'items': templates};
     }
     if (path == '/api/business/text-blocks') return {'items': []};
+    if (path.startsWith('/api/business/time/entries')) return {'items': []};
     if (path.startsWith('/api/business/time/accounts'))
       return {
         'employee_id': 'd' * 32,

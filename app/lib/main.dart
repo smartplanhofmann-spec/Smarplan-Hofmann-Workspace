@@ -12,6 +12,7 @@ import 'home_views.dart';
 import 'customer_pages.dart';
 import 'mfa_dialog.dart';
 import 'offline_plans.dart';
+import 'offline_vault.dart' show offlineId;
 import 'plan_pages.dart';
 import 'inquiry_pages.dart';
 import 'app_version.dart';
@@ -48,11 +49,79 @@ class OfficeHome extends StatefulWidget {
   State<OfficeHome> createState() => _OfficeHomeState();
 }
 
+class _ProjectCreationContext {
+  _ProjectCreationContext(this.api, this.account)
+    : token = api.token,
+      server = api.base,
+      version = api.version;
+  final OfficeApi api;
+  final Object? account;
+  final String? token;
+  final String server, version;
+}
+
+class _PendingProjectCreation {
+  const _PendingProjectCreation(
+    this.context,
+    this.body,
+    this.customers,
+    this.receiptsSupported,
+  );
+  final bool receiptsSupported;
+  final _ProjectCreationContext context;
+  final Map<String, dynamic> body;
+  final List<Map<String, dynamic>> customers;
+}
+
+bool _projectDefinitelyRejected(Object error, {bool retry = false}) =>
+    error is ApiException &&
+    ((!retry && const [400, 403, 404, 422].contains(error.status)) ||
+        error.requestResolution == 'not_accepted');
+
 class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
   late final OfficeApi api;
   OfflinePlans? offline;
   BusinessSession? business;
   bool offlineMode = false;
+  bool _openingProject = false;
+  final _administrationChanges = ValueNotifier<int>(0);
+  _ProjectCreationContext? _projectCreationContext;
+  _PendingProjectCreation? _pendingProjectCreation;
+  DialogRoute<bool>? _projectCreationRoute;
+
+  bool _projectContextCurrent(_ProjectCreationContext captured) =>
+      mounted &&
+      identical(_projectCreationContext, captured) &&
+      identical(api, captured.api) &&
+      (widget.api == null || identical(widget.api, captured.api)) &&
+      user?['id'] == captured.account &&
+      captured.account != null &&
+      api.token == captured.token &&
+      captured.token != null &&
+      api.base == captured.server &&
+      api.version == captured.version;
+
+  void _dropChangedProjectContext() {
+    final captured = _projectCreationContext;
+    if (captured == null || _projectContextCurrent(captured)) return;
+    _pendingProjectCreation = null;
+    final route = _projectCreationRoute;
+    _projectCreationRoute = null;
+    _projectCreationContext = null;
+    _openingProject = false;
+    if (route?.isActive == true) {
+      scheduleMicrotask(() {
+        if (route?.isActive == true) route!.navigator?.removeRoute(route);
+      });
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant OfficeHome oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _dropChangedProjectContext();
+  }
+
   final email = TextEditingController(), password = TextEditingController();
   final loginForm = GlobalKey<FormState>();
   Map<String, dynamic>? user, storage;
@@ -73,6 +142,7 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _administrationChanges.dispose();
     offline?.removeListener(offlineChanged);
     offline?.dispose();
     business?.dispose();
@@ -129,6 +199,7 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
   }
 
   void sessionChanged() {
+    _dropChangedProjectContext();
     if (api.token != null || !mounted) return;
     Navigator.of(context).popUntil((route) => route.isFirst);
     setState(() {
@@ -155,17 +226,26 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
     }
   }
 
-  Future<void> loadProjects() async {
+  Future<void> loadProjects({bool Function()? stillCurrent}) async {
     final session = api.token;
     final account = user?['id'];
+    final server = api.base, version = api.version;
+    bool current() =>
+        mounted &&
+        (stillCurrent?.call() ?? true) &&
+        api.token == session &&
+        user?['id'] == account &&
+        api.base == server &&
+        api.version == version &&
+        (widget.api == null || identical(widget.api, api));
     final items = List<dynamic>.from(await api.call('/api/projects'));
-    if (api.token != session || user?['id'] != account) return;
+    if (!current()) return;
     Map<String, dynamic>? state;
     if (user?['role'] == 'owner')
       state = Map<String, dynamic>.from(await api.call('/api/storage/status'));
-    if (api.token != session || user?['id'] != account) return;
+    if (!current()) return;
     if (offline?.active == true) await offline!.refreshProjects(items);
-    if (api.token != session || user?['id'] != account) return;
+    if (!current()) return;
     if (api.version == 'v1' && user != null) {
       if (business == null || !business!.allowed) {
         business?.dispose();
@@ -173,13 +253,15 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
       }
       business!.projects = items.map(businessMap).toList();
       await business!.load();
-      if (api.token != session || user?['id'] != account) return;
+      if (!current()) return;
     }
-    if (mounted)
+    if (current()) {
       setState(() {
         projects = items;
         storage = state;
       });
+      _administrationChanges.value++;
+    }
   }
 
   Future<void> login() async {
@@ -301,25 +383,137 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
     }
   });
   Future<void> newProject({String? customerId}) async {
-    if (busy) return;
-    List<Map<String, dynamic>> choices = [];
-    await run(() async {
-      final result = await api.call('/api/customers');
-      choices = [
-        for (final c in result)
-          if (c['active'] == 1) Map<String, dynamic>.from(c),
-      ];
-    });
-    if (!mounted || user == null || error != null) return;
-    final values = await showDialog<Map<String, dynamic>>(
-      context: context,
-      builder: (_) => ProjectDialog(customers: choices, customerId: customerId),
-    );
-    if (!mounted || values == null) return;
-    await run(() async {
-      await api.call('/api/projects', values);
-      await loadProjects();
-    });
+    if (!mounted ||
+        busy ||
+        _openingProject ||
+        user == null ||
+        api.token == null)
+      return;
+    _dropChangedProjectContext();
+    final captured = _ProjectCreationContext(api, user!['id']);
+    _projectCreationContext = captured;
+    _openingProject = true;
+    setState(() => error = null);
+    _administrationChanges.value++;
+    try {
+      final pending = _pendingProjectCreation;
+      bool receiptsSupported() =>
+          business?.hasFeature('project_creation_receipts') == true;
+      final canReplay =
+          receiptsSupported() && (pending?.receiptsSupported ?? true);
+      List<Map<String, dynamic>> choices;
+      if (pending != null) {
+        choices = pending.customers;
+      } else {
+        final result = await api.call('/api/customers');
+        if (!_projectContextCurrent(captured)) return;
+        choices = [
+          for (final c in result)
+            if (c['active'] == 1) Map<String, dynamic>.from(c),
+        ];
+      }
+      if (!_projectContextCurrent(captured)) return;
+      final route = DialogRoute<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => ProjectDialog(
+          customers: choices,
+          customerId: customerId,
+          originalCommand: pending?.body,
+          supportsReplay: canReplay,
+          replayAvailable: () =>
+              receiptsSupported() &&
+              (_pendingProjectCreation?.receiptsSupported ?? true),
+          onResolveUnknown: () {
+            if (_projectContextCurrent(captured))
+              _pendingProjectCreation = null;
+          },
+          onSubmit: (body) async {
+            if (!_projectContextCurrent(captured)) {
+              _dropChangedProjectContext();
+              return false;
+            }
+            final previous = _pendingProjectCreation;
+            if (previous != null && previous.receiptsSupported) {
+              await business?.load();
+              if (!_projectContextCurrent(captured)) {
+                _dropChangedProjectContext();
+                return false;
+              }
+              if (business?.error != null) {
+                throw const ApiException(
+                  0,
+                  'Die sichere Wiederholung konnte noch nicht geprüft werden. Bitte erneut versuchen.',
+                );
+              }
+            }
+            if (previous != null &&
+                (!previous.receiptsSupported ||
+                    !receiptsSupported() ||
+                    !mapEquals(previous.body, body))) {
+              throw const ApiException(
+                409,
+                'Dieser offene Vorgang kann auf diesem Server nicht sicher wiederholt werden. Bitte zuerst die Projektliste prüfen.',
+              );
+            }
+            final original = Map<String, dynamic>.unmodifiable(body);
+            _pendingProjectCreation = _PendingProjectCreation(
+              captured,
+              original,
+              choices,
+              receiptsSupported(),
+            );
+            try {
+              final result = await api.call('/api/projects', Map.of(original));
+              if (!_projectContextCurrent(captured)) {
+                _dropChangedProjectContext();
+                return false;
+              }
+              if (result is! Map ||
+                  !RegExp(r'^[a-f0-9]{32}$').hasMatch('${result['id']}')) {
+                throw const ApiException(
+                  0,
+                  'Die Projektanlage wurde noch nicht bestätigt.',
+                );
+              }
+              _pendingProjectCreation = null;
+              return true;
+            } catch (error) {
+              if (!_projectContextCurrent(captured)) {
+                _dropChangedProjectContext();
+                return false;
+              }
+              if (_projectDefinitelyRejected(error, retry: previous != null))
+                _pendingProjectCreation = null;
+              rethrow;
+            }
+          },
+        ),
+      );
+      _projectCreationRoute = route;
+      final created = await Navigator.of(context).push(route);
+      if (_projectContextCurrent(captured) &&
+          (created == true ||
+              (!canReplay && pending != null) ||
+              (_pendingProjectCreation != null &&
+                  (!_pendingProjectCreation!.receiptsSupported ||
+                      !receiptsSupported())))) {
+        await loadProjects(
+          stillCurrent: () => _projectContextCurrent(captured),
+        );
+      }
+    } catch (failure) {
+      if (_projectContextCurrent(captured)) {
+        setState(() => error = '$failure');
+        _administrationChanges.value++;
+      }
+    } finally {
+      if (identical(_projectCreationContext, captured)) {
+        _openingProject = false;
+        _projectCreationRoute = null;
+        if (_pendingProjectCreation == null) _projectCreationContext = null;
+      }
+    }
   }
 
   Future<void> connectDrive() => run(() async {
@@ -420,7 +614,8 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         ),
       );
     }
-    final legacy = WorkspaceView(
+    WorkspaceView legacyView([VoidCallback? onBack]) => WorkspaceView(
+      onBackToWorkspace: onBack,
       user: user!,
       projects: projects,
       storage: storage,
@@ -520,6 +715,7 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         if (mounted && user != null) await run(loadProjects);
       },
     );
+    final legacy = legacyView();
     if (business?.supported == true && business!.allowed) {
       return BusinessHome(
         session: business!,
@@ -528,10 +724,20 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
         onInquiries: legacy.onInquiries,
         onIntegrations: legacy.onIntegrations,
         onLogout: logout,
-        onLegacy: () => Navigator.push<void>(
-          context,
-          MaterialPageRoute(builder: (_) => legacy),
-        ),
+        onLegacy: () {
+          if (!mounted || user == null || business?.allowed != true) return;
+          final navigator = Navigator.of(context);
+          late final MaterialPageRoute<void> administration;
+          administration = MaterialPageRoute(
+            builder: (_) => ListenableBuilder(
+              listenable: _administrationChanges,
+              builder: (_, _) => legacyView(() {
+                if (administration.isCurrent) navigator.pop();
+              }),
+            ),
+          );
+          navigator.push<void>(administration);
+        },
       );
     }
     return legacy;
@@ -541,7 +747,21 @@ class _OfficeHomeState extends State<OfficeHome> with WidgetsBindingObserver {
 class ProjectDialog extends StatefulWidget {
   final List<Map<String, dynamic>> customers;
   final String? customerId;
-  const ProjectDialog({super.key, this.customers = const [], this.customerId});
+  final Map<String, dynamic>? originalCommand;
+  final Future<bool> Function(Map<String, dynamic>) onSubmit;
+  final bool supportsReplay;
+  final bool Function()? replayAvailable;
+  final VoidCallback onResolveUnknown;
+  const ProjectDialog({
+    super.key,
+    this.customers = const [],
+    this.customerId,
+    this.originalCommand,
+    required this.onSubmit,
+    required this.supportsReplay,
+    this.replayAvailable,
+    required this.onResolveUnknown,
+  });
   @override
   State<ProjectDialog> createState() => _ProjectDialogState();
 }
@@ -550,12 +770,22 @@ class _ProjectDialogState extends State<ProjectDialog> {
   final form = GlobalKey<FormState>();
   final name = TextEditingController(), customer = TextEditingController();
   late String selectedCustomer;
+  Map<String, dynamic>? originalCommand;
+  bool saving = false, confirmingResolution = false;
+  String? error;
+  bool get supportsReplay =>
+      widget.supportsReplay && (widget.replayAvailable?.call() ?? true);
   @override
   void initState() {
     super.initState();
-    selectedCustomer = widget.customers.any((c) => c['id'] == widget.customerId)
-        ? widget.customerId!
-        : '';
+    originalCommand = widget.originalCommand;
+    name.text = originalCommand?['name'] as String? ?? '';
+    customer.text = originalCommand?['customer'] as String? ?? '';
+    selectedCustomer =
+        originalCommand?['customer_id'] as String? ??
+        (widget.customers.any((c) => c['id'] == widget.customerId)
+            ? widget.customerId!
+            : '');
   }
 
   @override
@@ -565,82 +795,157 @@ class _ProjectDialogState extends State<ProjectDialog> {
     super.dispose();
   }
 
+  Future<void> submit() async {
+    if (!mounted ||
+        (originalCommand != null && !supportsReplay) ||
+        saving ||
+        (originalCommand == null && !form.currentState!.validate()))
+      return;
+    final retry = originalCommand != null;
+    final body =
+        originalCommand ??
+        Map<String, dynamic>.unmodifiable({
+          'request_id': offlineId(),
+          'name': name.text.trim(),
+          if (selectedCustomer.isEmpty)
+            'customer': customer.text.trim()
+          else
+            'customer_id': selectedCustomer,
+        });
+    setState(() {
+      originalCommand = body;
+      saving = true;
+      error = null;
+    });
+    try {
+      final accepted = await widget.onSubmit(body);
+      if (mounted && accepted) Navigator.pop(context, true);
+    } catch (failure) {
+      if (mounted)
+        setState(() {
+          if (_projectDefinitelyRejected(failure, retry: retry))
+            originalCommand = null;
+          error = '$failure';
+        });
+    } finally {
+      if (mounted) setState(() => saving = false);
+    }
+  }
+
   String? requiredText(String? v) =>
       (v ?? '').trim().isEmpty ? 'Bitte ausfüllen.' : null;
   @override
-  Widget build(BuildContext context) => AlertDialog(
-    title: const Text('Projekt anlegen'),
-    content: SizedBox(
-      width: 460,
-      child: Form(
-        key: form,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                controller: name,
-                maxLength: 500,
-                validator: requiredText,
-                decoration: const InputDecoration(labelText: 'Projektname'),
-              ),
-              const SizedBox(height: 12),
-              if (widget.customers.isNotEmpty) ...[
-                DropdownButtonFormField<String>(
-                  initialValue: selectedCustomer,
-                  isExpanded: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Kunde auswählen',
+  Widget build(BuildContext context) => PopScope<bool>(
+    canPop: !saving,
+    child: AlertDialog(
+      title: const Text('Projekt anlegen'),
+      content: SizedBox(
+        width: 460,
+        child: Form(
+          key: form,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (originalCommand != null && !saving)
+                  Notice(
+                    supportsReplay
+                        ? 'Die Projektanlage ist noch nicht bestätigt. Erneut versuchen wiederholt genau diesen Vorgang. Ihre Eingaben bleiben bis zur Bestätigung erhalten.'
+                        : 'Die Projektanlage ist noch nicht bestätigt. Dieser Server unterstützt noch keine sichere Wiederholung. Bitte zuerst die Projektliste prüfen und den Server aktualisieren.',
+                    error: false,
                   ),
-                  items: [
-                    const DropdownMenuItem(
-                      value: '',
-                      child: Text('Neuen Kunden anlegen'),
-                    ),
-                    for (final c in widget.customers)
-                      DropdownMenuItem(
-                        value: c['id'] as String,
-                        child: Text(
-                          customerChoiceLabel(c),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                  ],
-                  onChanged: (v) => setState(() => selectedCustomer = v!),
-                ),
-                const SizedBox(height: 16),
-              ],
-              if (selectedCustomer.isEmpty)
+                if (confirmingResolution)
+                  const Notice(
+                    'Schließen Sie diesen Vorgang erst ab, nachdem Sie in der Projektliste geprüft haben, ob das Projekt bereits angelegt wurde. Eine neue Anlage könnte sonst ein Duplikat erzeugen.',
+                  ),
+                if (error != null) Notice(error!),
+                if (saving) const LinearProgressIndicator(),
                 TextFormField(
-                  controller: customer,
+                  controller: name,
+                  enabled: originalCommand == null && !saving,
                   maxLength: 500,
                   validator: requiredText,
-                  decoration: const InputDecoration(labelText: 'Kunde'),
+                  decoration: const InputDecoration(labelText: 'Projektname'),
                 ),
-            ],
+                const SizedBox(height: 12),
+                if (widget.customers.isNotEmpty) ...[
+                  DropdownButtonFormField<String>(
+                    initialValue: selectedCustomer,
+                    isExpanded: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Kunde auswählen',
+                    ),
+                    items: [
+                      const DropdownMenuItem(
+                        value: '',
+                        child: Text('Neuen Kunden anlegen'),
+                      ),
+                      for (final c in widget.customers)
+                        DropdownMenuItem(
+                          value: c['id'] as String,
+                          child: Text(
+                            customerChoiceLabel(c),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                    ],
+                    onChanged: originalCommand != null || saving
+                        ? null
+                        : (v) => setState(() => selectedCustomer = v!),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+                if (selectedCustomer.isEmpty)
+                  TextFormField(
+                    controller: customer,
+                    enabled: originalCommand == null && !saving,
+                    maxLength: 500,
+                    validator: requiredText,
+                    decoration: const InputDecoration(labelText: 'Kunde'),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
+      actions: [
+        TextButton(
+          onPressed: saving ? null : () => Navigator.pop(context, false),
+          child: Text(
+            originalCommand == null
+                ? 'Abbrechen'
+                : supportsReplay
+                ? 'Später fortsetzen'
+                : 'Projektliste prüfen',
+          ),
+        ),
+        if (originalCommand != null && !supportsReplay)
+          TextButton(
+            onPressed: saving
+                ? null
+                : () {
+                    if (!mounted) return;
+                    if (!confirmingResolution) {
+                      setState(() => confirmingResolution = true);
+                      return;
+                    }
+                    widget.onResolveUnknown();
+                    Navigator.pop(context, false);
+                  },
+            child: Text(
+              confirmingResolution
+                  ? 'Vorgang als geprüft schließen'
+                  : 'Als geprüft abschließen',
+            ),
+          ),
+        FilledButton(
+          onPressed: saving || (originalCommand != null && !supportsReplay)
+              ? null
+              : submit,
+          child: Text(originalCommand == null ? 'Anlegen' : 'Erneut versuchen'),
+        ),
+      ],
     ),
-    actions: [
-      TextButton(
-        onPressed: () => Navigator.pop(context),
-        child: const Text('Abbrechen'),
-      ),
-      FilledButton(
-        onPressed: () {
-          if (form.currentState!.validate())
-            Navigator.pop(context, <String, dynamic>{
-              'name': name.text.trim(),
-              if (selectedCustomer.isEmpty)
-                'customer': customer.text.trim()
-              else
-                'customer_id': selectedCustomer,
-            });
-        },
-        child: const Text('Anlegen'),
-      ),
-    ],
   );
 }

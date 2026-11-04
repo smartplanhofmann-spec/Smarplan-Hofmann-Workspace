@@ -1,0 +1,66 @@
+{
+  "owner": "Agent-executed completed three-workflow runner; summary recovered and archived by Root after model change",
+  "summary": {
+    "head": "cf5e50bb4180b97658d66bba43096df616183ab0",
+    "base_runtime": "c875ea5a221e5d38533bb7d50a1d96b9c455d22f",
+    "worktree": "/workspace/smartplan-project-completion-integration-20261104",
+    "started_utc": "2026-11-04T19:43:01Z",
+    "workflows": [
+      {
+        "workflow": "project-customer",
+        "command": [
+          "node",
+          "web/office/tests/e2e.cjs"
+        ],
+        "exit_code": 0,
+        "seconds": 12.028
+      },
+      {
+        "workflow": "inventory-article-refs",
+        "command": [
+          "node",
+          "web/office/tests/e2e.cjs"
+        ],
+        "exit_code": 0,
+        "seconds": 10.784
+      },
+      {
+        "workflow": "time-tracking",
+        "command": [
+          "node",
+          "web/office/tests/e2e.cjs"
+        ],
+        "exit_code": 0,
+        "seconds": 12.186
+      }
+    ],
+    "scope": "Actual sandboxed Chromium, MFA and loopback Flask/SQLite; no PostgreSQL or deployment.",
+    "source_changes": [],
+    "source_count": 783,
+    "finished_utc": "2026-11-04T19:43:36Z",
+    "passed": true
+  },
+  "files": {
+    "docs/evidence/project-integrated-2026-11-04/browser/before.sha256": "28d51dfed039b5bae51cc2d2f8d14c1195c30aab634bf476aebce32910d24fba",
+    "docs/evidence/project-integrated-2026-11-04/browser/run_integrated.py": "c3ff3166fe3a0ebfd1cd7e9f9fce448c3e9b75c5ecb631c2938019aa0533b6fc",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/time-tracking.log": "13e01a719a9e3c95e3bcf6890f5bcebe45d19d3c6042aafccb34fcb439c5cb8b",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/source-after.json": "93bb9bf8dc6f8102201f62d01381d337a5894661e39b9cd3a2b60eb11b65c4de",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/source-before.json": "93bb9bf8dc6f8102201f62d01381d337a5894661e39b9cd3a2b60eb11b65c4de",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/project-customer.log": "bd380f2f498588f9af83086c9e547dc7cfacc8be916de4b22a38b5b8ea6c8597",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/inventory-article-refs.log": "a1f0e179724cb136c47ceec4bde647c18597d1ab3fa92174012759453cde9c91",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/summary.json": "f691f7c2c6e51c766db7d7d442c8e90b4fb125524e0e207d7bd6a78b733c7ccc",
+    "docs/evidence/project-integrated-2026-11-04/browser/before/project-customer-flow.cjs": "8f5f5f099ba3b7073578e0e61c3734d6b5f43b7d5d1129f6c83f129631009e71",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/inventory-article-refs/warehouse-article-refs-mobile.png": "f8606b033c0c44baa6417eb227cffbfee9bfc2b4666f222ed2c34f52631fec75",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/inventory-article-refs/warehouse-article-refs-desktop.png": "5c32c9c97f145fd7e0271b83d0de0c1693132912f01da34a5308ab52e91d9baf",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/inventory-article-refs/warehouse-article-refs-http.json": "0692391a1799861af47f39a3ce91cf81790aedc036209fa443d8e5962aaa0390",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/time-tracking/time-correction-mobile.png": "f02e4af4dabb71e87c1105b8202f3106bd83cd5cafb3f2ff1ed0c13accc55002",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/time-tracking/time-correction-desktop.png": "171f4eae840b1b96e168fd1b5be3cc2f516f02c08e3b27e02ae44bc7fc661e6c",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/time-tracking/time-correction-result.json": "89b30f1ee3cd5d15d164a535647fb9f6f04131e2fd6858c5406b78c2aa1cc0c8",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/project-customer/project-create-retry-confirmed.png": "dae7cc6c30d48a8860c1309c04f2290c7de4f8b8f9939748291198b45b59c387",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/project-customer/project-customer-invoice-draft-desktop.png": "08fd6949cc7038cdbf84126a18a46d369954e4674d187e6521b75d3e597b583c",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/project-customer/project-customer-invoice-draft-mobile.png": "18e2add7343886388dd0398c5d63ed5f53dbfe19e5f5519bb7b0ce9ad76da249",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/project-customer/project-customer-retry.json": "9591ef0c160604e1d7c92041c973ed935b6d1d54bdbb2ac02cb3d3d9f6ad12d7",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/project-customer/project-customer-http.json": "3fb008bcb67911768b5a97eb08719460d5325f5668ac0001f54a1fb98a936f52",
+    "docs/evidence/project-integrated-2026-11-04/browser/run-01/project-customer/project-create-lost-response.png": "cb9a276d96c090f867c473d2126319248be873c045c8a60e534dfb25163395b3"
+  }
+}

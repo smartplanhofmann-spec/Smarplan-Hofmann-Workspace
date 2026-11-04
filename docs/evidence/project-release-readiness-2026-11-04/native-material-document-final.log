@@ -1,0 +1,10 @@
+00:00 +0: loading /workspace/smartplan-project-release-readiness-20261104/app/test/business_material_document_access_test.dart
+00:00 +0: Warehouse role selects a paginated price-free article in the actual reservation dialog
+00:01 +1: Late reference pages cannot restore a revoked inventory view
+00:01 +2: Old server reports unavailable references without requesting catalog prices
+00:02 +3: Broken pagination never exposes partial material choices
+00:02 +4: Open document position dialog enforces its current write permission
+00:02 +5: Open template position dialog enforces its current write permission
+00:03 +6: A new document offers only creatable kinds
+00:03 +7: An existing credit note edits metadata only and restores the exact pending command after reopening
+00:04 +8: All tests passed!

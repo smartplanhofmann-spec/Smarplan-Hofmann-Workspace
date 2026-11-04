@@ -1,0 +1,246 @@
+{
+  "original": {
+    "approved_work_dates": [],
+    "break_seconds": 0,
+    "category_id": null,
+    "corrections": [],
+    "employee_id": "01a7266abf4c46e4ad2df947781c9fdb",
+    "ended_at": "2026-11-04T18:35:00+00:00",
+    "events": [
+      {
+        "action": "start",
+        "device_id": "browser-09303bafae244645b9c7d6228b8488cd",
+        "id": "f9d4e9322227462691067ebfaebfceb3",
+        "occurred_at": "2026-11-04T16:35:00+00:00",
+        "received_at": "2026-11-04T19:35:04+00:00",
+        "sequence": 1
+      },
+      {
+        "action": "stop",
+        "device_id": "browser-09303bafae244645b9c7d6228b8488cd",
+        "id": "8e7400f010ed4d5d93646eed54a8409b",
+        "occurred_at": "2026-11-04T18:35:00+00:00",
+        "received_at": "2026-11-04T19:35:04+00:00",
+        "sequence": 2
+      }
+    ],
+    "hourly_cost_minor": 3500,
+    "id": "feea8723e3ee4160b68bd125bf70cc0e",
+    "last_at": "2026-11-04T18:35:00+00:00",
+    "last_sequence": 2,
+    "project_id": "59fe3f696c3d4fa08b93c88eb3acd70a",
+    "revision": 2,
+    "sequence": 2,
+    "start_at": "2026-11-04T16:35:00+00:00",
+    "started_at": "2026-11-04T16:35:00+00:00",
+    "status": "stopped",
+    "supplement_percent": "0",
+    "timezone": "Europe/Berlin",
+    "updated_at": "2026-11-04T19:35:04+00:00",
+    "work_dates": [
+      "2026-11-04"
+    ],
+    "worked_seconds": 7200
+  },
+  "approved": {
+    "approved_work_dates": [
+      "2026-11-04"
+    ],
+    "break_seconds": 0,
+    "category_id": null,
+    "corrections": [],
+    "employee_id": "01a7266abf4c46e4ad2df947781c9fdb",
+    "ended_at": "2026-11-04T18:35:00+00:00",
+    "events": [
+      {
+        "action": "start",
+        "device_id": "browser-09303bafae244645b9c7d6228b8488cd",
+        "id": "f9d4e9322227462691067ebfaebfceb3",
+        "occurred_at": "2026-11-04T16:35:00+00:00",
+        "received_at": "2026-11-04T19:35:04+00:00",
+        "sequence": 1
+      },
+      {
+        "action": "stop",
+        "device_id": "browser-09303bafae244645b9c7d6228b8488cd",
+        "id": "8e7400f010ed4d5d93646eed54a8409b",
+        "occurred_at": "2026-11-04T18:35:00+00:00",
+        "received_at": "2026-11-04T19:35:04+00:00",
+        "sequence": 2
+      }
+    ],
+    "hourly_cost_minor": 3500,
+    "id": "feea8723e3ee4160b68bd125bf70cc0e",
+    "last_at": "2026-11-04T18:35:00+00:00",
+    "last_sequence": 2,
+    "project_id": "59fe3f696c3d4fa08b93c88eb3acd70a",
+    "revision": 2,
+    "sequence": 2,
+    "start_at": "2026-11-04T16:35:00+00:00",
+    "started_at": "2026-11-04T16:35:00+00:00",
+    "status": "approved",
+    "supplement_percent": "0",
+    "timezone": "Europe/Berlin",
+    "updated_at": "2026-11-04T19:35:04+00:00",
+    "work_dates": [
+      "2026-11-04"
+    ],
+    "worked_seconds": 7200
+  },
+  "corrected": {
+    "approved_work_dates": [
+      "2026-11-04"
+    ],
+    "break_seconds": 0,
+    "category_id": null,
+    "corrections": [
+      {
+        "created_at": "2026-11-04T19:35:07+00:00",
+        "created_by": "5aa298a6f1a84c5882b31b47225b8029",
+        "delta_seconds": -1800,
+        "id": "1139723767c54ebc877351a7ed06b407",
+        "reason": "Synthetisch belegte Pause von 30 Minuten nachgetragen.",
+        "work_date": "2026-11-04"
+      }
+    ],
+    "employee_id": "01a7266abf4c46e4ad2df947781c9fdb",
+    "ended_at": "2026-11-04T18:35:00+00:00",
+    "events": [
+      {
+        "action": "start",
+        "device_id": "browser-09303bafae244645b9c7d6228b8488cd",
+        "id": "f9d4e9322227462691067ebfaebfceb3",
+        "occurred_at": "2026-11-04T16:35:00+00:00",
+        "received_at": "2026-11-04T19:35:04+00:00",
+        "sequence": 1
+      },
+      {
+        "action": "stop",
+        "device_id": "browser-09303bafae244645b9c7d6228b8488cd",
+        "id": "8e7400f010ed4d5d93646eed54a8409b",
+        "occurred_at": "2026-11-04T18:35:00+00:00",
+        "received_at": "2026-11-04T19:35:04+00:00",
+        "sequence": 2
+      }
+    ],
+    "hourly_cost_minor": 3500,
+    "id": "feea8723e3ee4160b68bd125bf70cc0e",
+    "last_at": "2026-11-04T18:35:00+00:00",
+    "last_sequence": 2,
+    "project_id": "59fe3f696c3d4fa08b93c88eb3acd70a",
+    "revision": 2,
+    "sequence": 2,
+    "start_at": "2026-11-04T16:35:00+00:00",
+    "started_at": "2026-11-04T16:35:00+00:00",
+    "status": "approved",
+    "supplement_percent": "0",
+    "timezone": "Europe/Berlin",
+    "updated_at": "2026-11-04T19:35:04+00:00",
+    "work_dates": [
+      "2026-11-04"
+    ],
+    "worked_seconds": 7200
+  },
+  "before": {
+    "absence_seconds": 0,
+    "adjustment_seconds": 0,
+    "auto_pause_seconds": 0,
+    "balance_seconds": -21600,
+    "break_seconds": 0,
+    "correction_seconds": 0,
+    "days": [
+      {
+        "absence_seconds": 0,
+        "approved_at": "2026-11-04T19:35:05+00:00",
+        "approved_by": "5aa298a6f1a84c5882b31b47225b8029",
+        "approved_net_seconds": 7200,
+        "auto_pause_seconds": 0,
+        "break_seconds": 0,
+        "correction_seconds": 0,
+        "date": "2026-11-04",
+        "employee_id": "01a7266abf4c46e4ad2df947781c9fdb",
+        "net_seconds": 7200,
+        "revision": 3,
+        "rule_id": null,
+        "status": "approved",
+        "target_seconds": 28800,
+        "work_date": "2026-11-04",
+        "worked_seconds": 7200
+      }
+    ],
+    "employee_id": "01a7266abf4c46e4ad2df947781c9fdb",
+    "net_seconds": 7200,
+    "target_seconds": 28800,
+    "worked_seconds": 7200
+  },
+  "after": {
+    "absence_seconds": 0,
+    "adjustment_seconds": 0,
+    "auto_pause_seconds": 0,
+    "balance_seconds": -23400,
+    "break_seconds": 0,
+    "correction_seconds": -1800,
+    "days": [
+      {
+        "absence_seconds": 0,
+        "approved_at": "2026-11-04T19:35:05+00:00",
+        "approved_by": "5aa298a6f1a84c5882b31b47225b8029",
+        "approved_net_seconds": 7200,
+        "auto_pause_seconds": 0,
+        "break_seconds": 0,
+        "correction_seconds": -1800,
+        "date": "2026-11-04",
+        "employee_id": "01a7266abf4c46e4ad2df947781c9fdb",
+        "net_seconds": 5400,
+        "revision": 3,
+        "rule_id": null,
+        "status": "approved",
+        "target_seconds": 28800,
+        "work_date": "2026-11-04",
+        "worked_seconds": 7200
+      }
+    ],
+    "employee_id": "01a7266abf4c46e4ad2df947781c9fdb",
+    "net_seconds": 5400,
+    "target_seconds": 28800,
+    "worked_seconds": 7200
+  },
+  "receipts": [
+    {
+      "body": {
+        "work_date": "2026-11-04",
+        "delta_seconds": -1800,
+        "reason": "Synthetisch belegte Pause von 30 Minuten nachgetragen.",
+        "request_id": "dbb662e5224d413998be5f03b4c8b3c7"
+      },
+      "status": 201,
+      "value": {
+        "created_at": "2026-11-04T19:35:07+00:00",
+        "created_by": "5aa298a6f1a84c5882b31b47225b8029",
+        "delta_seconds": -1800,
+        "entry_id": "feea8723e3ee4160b68bd125bf70cc0e",
+        "id": "1139723767c54ebc877351a7ed06b407",
+        "reason": "Synthetisch belegte Pause von 30 Minuten nachgetragen.",
+        "work_date": "2026-11-04"
+      }
+    },
+    {
+      "body": {
+        "work_date": "2026-11-04",
+        "delta_seconds": -1800,
+        "reason": "Synthetisch belegte Pause von 30 Minuten nachgetragen.",
+        "request_id": "dbb662e5224d413998be5f03b4c8b3c7"
+      },
+      "status": 201,
+      "value": {
+        "created_at": "2026-11-04T19:35:07+00:00",
+        "created_by": "5aa298a6f1a84c5882b31b47225b8029",
+        "delta_seconds": -1800,
+        "entry_id": "feea8723e3ee4160b68bd125bf70cc0e",
+        "id": "1139723767c54ebc877351a7ed06b407",
+        "reason": "Synthetisch belegte Pause von 30 Minuten nachgetragen.",
+        "work_date": "2026-11-04"
+      }
+    }
+  ]
+}

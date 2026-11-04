@@ -1,0 +1,33 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+true !== false
+
+    at Object.projectCustomerFlow (/workspace/smartplan-project-flow-20261104/web/office/tests/project-customer-flow.cjs:33:12)
+    at async main (/workspace/smartplan-project-flow-20261104/web/office/tests/e2e.cjs:91:7)
+Browser launch context: {"browser":"/usr/bin/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/business/overview/metrics HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/business/feed HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:10] "GET /api/v1/business/contacts HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:11] "[35m[1mPOST /api/v1/business/contacts HTTP/1.1[0m" 201 -
+127.0.0.1 - - [04/Nov/2026 20:31:11] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:11] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:11] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:11] "GET /api/v1/business/contacts HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 20:31:11] "GET /api/v1/business/contacts HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

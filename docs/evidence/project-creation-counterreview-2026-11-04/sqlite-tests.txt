@@ -1,0 +1,8 @@
+test_actual_backup_restore_preserves_receipt_despite_later_customer_changes (test_project_creation_counterreview.ProjectCreationCounterreview.test_actual_backup_restore_preserves_receipt_despite_later_customer_changes) ... ok
+test_inactive_original_owner_cannot_replay_with_stale_owner_dictionary (test_project_creation_counterreview.ProjectCreationCounterreview.test_inactive_original_owner_cannot_replay_with_stale_owner_dictionary) ... ok
+test_original_effective_fields_remain_bound_before_whitespace_normalization (test_project_creation_counterreview.ProjectCreationCounterreview.test_original_effective_fields_remain_bound_before_whitespace_normalization) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.857s
+
+OK

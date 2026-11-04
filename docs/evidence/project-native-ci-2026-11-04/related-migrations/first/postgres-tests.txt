@@ -1,0 +1,55 @@
+test_additive_migration_preserves_prior_schema_final_offer_pdf_numbers_and_audit (test_postgres_portal_integration.PortalMigrationPostgres.test_additive_migration_preserves_prior_schema_final_offer_pdf_numbers_and_audit) ... ERROR
+test_additive_migration_preserves_prior_final_invoice_payment_original_and_signed_report (test_postgres_accounting_integration.AccountingMigrationPostgres.test_additive_migration_preserves_prior_final_invoice_payment_original_and_signed_report) ... ok
+test_additive_migration_retains_existing_e1a_proofs_invoice_and_payment_bytes (test_postgres_accounting_allocations_integration.AllocationMigrationPostgres.test_additive_migration_retains_existing_e1a_proofs_invoice_and_payment_bytes) ... ok
+test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore (test_postgres_accounting_components_integration.ComponentMigrationPostgres.test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore) ... ERROR
+
+======================================================================
+ERROR: test_additive_migration_preserves_prior_schema_final_offer_pdf_numbers_and_audit (test_postgres_portal_integration.PortalMigrationPostgres.test_additive_migration_preserves_prior_schema_final_offer_pdf_numbers_and_audit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_postgres_portal_integration.py", line 375, in test_additive_migration_preserves_prior_schema_final_offer_pdf_numbers_and_audit
+    base.reset()
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_online.py", line 34, in reset
+    migrate(DSN)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/store.py", line 227, in migrate
+    _migrate_business(connection, dsn, compatibility_mode, require_business_modules, roles)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/store.py", line 243, in _migrate_business
+    ensure_schema(office, activate=desired == 'business')
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/business_schema.py", line 276, in ensure_schema
+    office.db.execute(statement)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/store.py", line 49, in execute
+    return self.connection.execute(query.replace('?', '%s'), parameters)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/smartplan-backend-verified/lib/python3.12/site-packages/psycopg/connection.py", line 304, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "business_portal_principals" does not exist
+
+======================================================================
+ERROR: test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore (test_postgres_accounting_components_integration.ComponentMigrationPostgres.test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_postgres_accounting_components_integration.py", line 468, in test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore
+    with disposable_restore(fixture.runtime) as (target, runtime, report):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_postgres_accounting_components_integration.py", line 67, in disposable_restore
+    report = restore(backup(journey.DSN, directory), journey.DSN, target,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/backup.py", line 17, in backup
+    result = subprocess.run(['pg_dump', '--format=custom', '--no-owner', '--no-acl', '--dbname', dsn],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+
+----------------------------------------------------------------------
+Ran 4 tests in 12.560s
+
+FAILED (errors=2)

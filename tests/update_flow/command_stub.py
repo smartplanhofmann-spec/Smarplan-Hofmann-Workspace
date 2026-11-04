@@ -97,10 +97,13 @@ def installer_dsn_preflight(script):
             setattr(module, attribute, forbidden_database)
         module.SCHEMA_VERSION = 7
         sys.modules[module.__name__] = module
-    spec = importlib.util.spec_from_file_location('online.release', '/source/backend/online/release.py')
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
+    # Role selection is a real, stdlib-only guard used by release.validate_dsns.
+    # Keep it real alongside release.py; database/service boundaries stay mocked.
+    for name in ('instance_roles', 'release'):
+        spec = importlib.util.spec_from_file_location('online.' + name, '/source/backend/online/' + name + '.py')
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = module
+        spec.loader.exec_module(module)
     event('installer_dsn_preflight')
     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
 

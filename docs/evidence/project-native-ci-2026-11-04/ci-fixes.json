@@ -1,0 +1,39 @@
+{
+  "base_commit": "d1060ba05d18d9bb30187b05f1ce4d1a133e81c7",
+  "changes": {
+    "update_fixture": "Load actual stdlib-only instance_roles guard alongside real release guard.",
+    "purchasing_and_portal_fixtures": "Use closed registry prefix and matching MODULE_NAMES before adding module and dependents. Existing original/PDF/number/audit assertions remain.",
+    "ios_concurrency": "Supersede check runs only on testupdate prefix. Release branch retains non-cancelling behavior and signed upload gate."
+  },
+  "validation": {
+    "update_container": 60,
+    "actual_postgres_migration_cases": 5,
+    "postgres_containers_removed": true,
+    "new_domain_runtime_changes": false
+  },
+  "sources": {
+    "tests/update_flow/command_stub.py": "d0049a900db41780990c23b765b28bd99c1831b758515e4c80a659a82042633e",
+    "backend/online/test_postgres_purchasing_integration.py": "2dd38b62397483a32aedf410f97a734d7329a48ceac2c580626a7a207fa88328",
+    "backend/online/test_postgres_portal_integration.py": "691c6b5b0fd88618aeed9a55c7f9e15e6e3058e3710fd1a10fdca0ba963693ad",
+    ".github/workflows/ios-testflight.yml": "25b6a6fa34568b4a44bd915bc22caca7235f0fd886002edd6dd19879b932bdc2"
+  },
+  "artifacts": {
+    "docs/evidence/project-native-ci-2026-11-04/update-flow-recheck.txt": "9116641d64afbece55c382d614113f6ad466b400fe87a59f41033f4a63efe37c",
+    "docs/evidence/project-native-ci-2026-11-04/initial.json": "039bf6864fbf0905182565a34d5080c71a1ee7fd3a8c314223843a232f03e26e",
+    "docs/evidence/project-native-ci-2026-11-04/first-run-126872750475.log": "fcd70be857dc4743cf0213a17f3970af98e07a3757f8ddd31c93fe0e401ffbb4",
+    "docs/evidence/project-native-ci-2026-11-04/postgres-tests.txt": "79f4b8aed7b2201c0c36b119be5c6b4cda7e75e8bb3ed6c1b3f993a98ab5220b",
+    "docs/evidence/project-native-ci-2026-11-04/first-run-126872750468.log": "a92e1fbb098477d1d1a64958e8045d15fcda5e8f7a8824c98d2568493a4060d9",
+    "docs/evidence/project-native-ci-2026-11-04/package-label.json": "e6c36a6f20397fd844fb1cdc60a26672a6e12bbac92a271491265d43a31e4cb8",
+    "docs/evidence/project-native-ci-2026-11-04/run_pg_fix.py": "7a7bb22f9783cd1cbfd0aa675a6ce82091267e263594c08b319e830c6c7e482f",
+    "docs/evidence/project-native-ci-2026-11-04/postgres-result.json": "2085381fa31a89764d04d16fd3939d7f943823aee979abdc0dc9bee86048ab64",
+    "docs/evidence/project-native-ci-2026-11-04/related-migrations/run.py": "6474d1d8af08033d0199137f5fd8863b917a4c81426d36d5e35de2a3003813a4",
+    "docs/evidence/project-native-ci-2026-11-04/related-migrations/postgres-tests.txt": "0c30e3a920e9fc9ee29226ef66ee0aab6b33deb5c64fd02d3c3865d90f8a828f",
+    "docs/evidence/project-native-ci-2026-11-04/related-migrations/postgres-result.json": "447913fb655285a5993bd783089f878a0f8526abc35141a2ba96afeeca850fef",
+    "docs/evidence/project-native-ci-2026-11-04/related-migrations/first/postgres-tests.txt": "708537e59b0f875f1faf0b23f72e4b57fb2e899b456f0b163725da5816664fa0",
+    "docs/evidence/project-native-ci-2026-11-04/related-migrations/first/postgres-result.json": "d2fb00d2814c2e79935e3f28d152cf82c8660283dd9b69c2033aa59d097676f4",
+    "docs/evidence/project-native-ci-2026-11-04/before/backend/online/test_postgres_purchasing_integration.py": "c0a51fd25de07a52752eb2121109f2ff1d6400c2079712121e7e716f6d7043b5",
+    "docs/evidence/project-native-ci-2026-11-04/before/backend/online/test_postgres_portal_integration.py": "841c2bcfdd92c796c053c759d5f98b86a4057cdb92d1be3f4c8d74c092240ef2",
+    "docs/evidence/project-native-ci-2026-11-04/before/.github/workflows/ios-testflight.yml": "ea2aeb9b61418c65aa8f01aa3f6c2bf8d39222f6bbb2f644c92ad7018bb6a7c7",
+    "docs/evidence/project-native-ci-2026-11-04/before/tests/update_flow/command_stub.py": "11a716f5a8fab3a17ec7a0bab285c8b7abbeae8c0705683d8c5fbf102069ca62"
+  }
+}

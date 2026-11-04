@@ -243,8 +243,11 @@ class PurchasingPostgres(unittest.TestCase):
 @unittest.skipUnless(journey.DSN, 'Disposable loopback SMARTPLAN_TEST_DSN required')
 class PurchasingMigrationPostgres(unittest.TestCase):
     def test_additive_migration_preserves_real_issued_invoice_pdf_numbers_and_audit(self):
-        prior = tuple(spec for spec in business_schema.registry() if spec.name != 'business_purchasing')
-        with patch.object(business_schema, 'registry', return_value=prior):
+        full = business_schema.registry()
+        boundary = next(index for index, spec in enumerate(full) if spec.name == 'business_purchasing')
+        prior = tuple(full[:boundary])
+        with patch.object(business_schema, 'registry', return_value=prior), \
+             patch.object(business_schema, 'MODULE_NAMES', tuple(spec.name for spec in prior)):
             base.reset()
             bootstrap = PostgresOffice(journey.DSN)
             try:

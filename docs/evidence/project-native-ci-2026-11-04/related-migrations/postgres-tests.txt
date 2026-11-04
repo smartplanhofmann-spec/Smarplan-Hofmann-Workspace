@@ -1,0 +1,9 @@
+test_additive_migration_preserves_prior_schema_final_offer_pdf_numbers_and_audit (test_postgres_portal_integration.PortalMigrationPostgres.test_additive_migration_preserves_prior_schema_final_offer_pdf_numbers_and_audit) ... ok
+test_additive_migration_preserves_prior_final_invoice_payment_original_and_signed_report (test_postgres_accounting_integration.AccountingMigrationPostgres.test_additive_migration_preserves_prior_final_invoice_payment_original_and_signed_report) ... ok
+test_additive_migration_retains_existing_e1a_proofs_invoice_and_payment_bytes (test_postgres_accounting_allocations_integration.AllocationMigrationPostgres.test_additive_migration_retains_existing_e1a_proofs_invoice_and_payment_bytes) ... ok
+test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore (test_postgres_accounting_components_integration.ComponentMigrationPostgres.test_prior_e1b1_migration_preserves_all_bytes_and_schema3_receipt_cannot_unlock_new_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 23.943s
+
+OK

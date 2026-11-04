@@ -1,0 +1,299 @@
+name: iPhone TestFlight
+# Pushes und normale manuelle Starts pruefen nur den unsignierten Online-Build.
+# Signierung/Upload erst nach Apple-Freischaltung ausdruecklich auswaehlen.
+on:
+  push:
+    branches: [codex/smartplan-office-0.2, 'codex/testupdate-0.7-*']
+    paths:
+      - '.github/workflows/ios-testflight.yml'
+      - '.github/workflows/checks.yml'
+      - 'app/**'
+      - 'backend/**'
+      - 'scripts/native-release.py'
+      - 'scripts/test_native_release.py'
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: 'Build-Nummer (leer = automatisch, Quellbuild + Laufnummer)'
+        required: false
+        default: ''
+      upload_to_testflight:
+        description: 'Nach Apple-Freischaltung signieren und zu TestFlight hochladen'
+        type: boolean
+        required: false
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: ios-testflight-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  unsigned:
+    name: Online-Release ohne Apple-Zugang pruefen
+    if: github.ref == 'refs/heads/codex/smartplan-office-0.2' || startsWith(github.ref, 'refs/heads/codex/testupdate-0.7-')
+    runs-on: macos-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: app
+    outputs:
+      build_number: ${{ steps.build.outputs.number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Echtes Backend fuer Client-Integrationstest installieren
+        run: |
+          python -m venv ../backend/.venv
+          ../backend/.venv/bin/python -m pip install -r ../backend/requirements.lock -r ../backend/online/requirements.lock
+          ../backend/.venv/bin/python -m pip check
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+      - name: Native Offline-Voraussetzungen pruefen
+        run: |
+          python ../scripts/native-release.py source
+          python -m unittest discover -s ../scripts -p test_native_release.py -v
+      - name: Build-Nummer bestimmen
+        id: build
+        env:
+          INPUT_BUILD: ${{ inputs.build_number }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          python - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+          default = int(re.search(r'^version:.*\+(\d+)\s*$', Path('pubspec.yaml').read_text(), re.MULTILINE).group(1))
+          raw = os.environ['INPUT_BUILD'] or str(max(100, default) + int(os.environ['RUN_NUMBER']))
+          if not raw.isascii() or not raw.isdecimal() or not default <= int(raw) <= 999999999:
+              raise SystemExit('Build-Nummer muss numerisch und mindestens so hoch wie die Quell-Buildnummer sein')
+          number = str(int(raw))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              print(f'number={number}', file=output)
+          print(f'Build-Nummer: {number}')
+          PY
+      - run: flutter pub get --enforce-lockfile
+      - run: flutter analyze
+      - name: Echtes natives PDF mit begrenztem Raster pruefen
+        shell: bash
+        run: |
+          umask 0077
+          clang --version
+          smartplan_pdf_log="$RUNNER_TEMP/smartplan-native-pdf.log"
+          set +e
+          flutter test --no-pub test/mail_attachment_preview_widget_test.dart --tags native_pdf --reporter expanded 2>&1 | tee "$smartplan_pdf_log"
+          smartplan_pdf_exit=${PIPESTATUS[0]}
+          set -e
+          if [ "$smartplan_pdf_exit" -ne 0 ]; then
+            python - "$smartplan_pdf_log" <<'PY'
+          import pathlib, sys
+          detail = '\n'.join(pathlib.Path(sys.argv[1]).read_text(errors='replace').splitlines()[-100:])[-25000:]
+          print('::error title=macOS native PDF smoke::' + detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+          PY
+          fi
+          exit "$smartplan_pdf_exit"
+      - name: App-Tests mit Fehlerdetails ausfuehren
+        run: |
+          umask 0077
+          set +e
+          flutter test --exclude-tags native_pdf --reporter expanded 2>&1 | tee "$RUNNER_TEMP/flutter-test.log"
+          result=${PIPESTATUS[0]}
+          set -e
+          if [ "$result" -ne 0 ]; then
+            {
+              echo '### App-Test fehlgeschlagen'
+              echo '```text'
+              tail -n 160 "$RUNNER_TEMP/flutter-test.log"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            python - <<'PY'
+          import os
+          from pathlib import Path
+          log = Path(os.environ['RUNNER_TEMP']) / 'flutter-test.log'
+          detail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])[-25000:]
+          detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print(f'::error title=macOS App-Test::{detail}')
+          PY
+            exit "$result"
+          fi
+      - name: Flutter iOS Release bauen (Online-Server, ohne Signierung)
+        shell: bash
+        run: |
+          set +e
+          flutter build ios --release --no-codesign \
+            --build-number=${{ steps.build.outputs.number }} \
+            --dart-define=API_URL=https://office.smartplan-hofmann.de \
+            --dart-define=API_VERSION=v1 2>&1 | tee "$RUNNER_TEMP/smartplan-ios-unsigned-build.log"
+          result=${PIPESTATUS[0]}
+          set -e
+          if [ "$result" -ne 0 ]; then
+            {
+              echo '### iOS unsigned native build failed'
+              echo '```text'
+              tail -n 120 "$RUNNER_TEMP/smartplan-ios-unsigned-build.log"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            python - <<'PY'
+          import os
+          from pathlib import Path
+          log = Path(os.environ['RUNNER_TEMP']) / 'smartplan-ios-unsigned-build.log'
+          detail = '\n'.join(log.read_text(errors='replace').splitlines()[-120:])[-25000:]
+          detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print(f'::error title=iOS unsigned native build::{detail}')
+          PY
+            exit "$result"
+          fi
+      - name: iPhone-/iPad-Konfiguration und Buildmanifest pruefen
+        run: >-
+          python ../scripts/native-release.py ios
+          --plist build/ios/iphoneos/Runner.app/Info.plist
+          --config ios/Flutter/Generated.xcconfig
+          --build-number=${{ steps.build.outputs.number }}
+          --commit "$GITHUB_SHA"
+          --output "$RUNNER_TEMP/RELEASE_MANIFEST.json"
+      - name: Unsigniertes Pruefartefakt packen
+        run: |
+          ditto -c -k --keepParent build/ios/iphoneos/Runner.app "$RUNNER_TEMP/Smartplan-iOS-UNSIGNED.zip"
+          echo 'Unsignierter Online-Pruefbuild erfolgreich. Dieses Artefakt ist nicht auf einem iPhone installierbar.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Office-iOS-UNSIGNED-${{ steps.build.outputs.number }}
+          path: |
+            ${{ runner.temp }}/Smartplan-iOS-UNSIGNED.zip
+            ${{ runner.temp }}/RELEASE_MANIFEST.json
+          if-no-files-found: error
+          retention-days: 14
+
+  testflight:
+    name: Ausdruecklich angeforderten TestFlight-Upload ausfuehren
+    needs: unsigned
+    if: github.event_name == 'workflow_dispatch' && inputs.upload_to_testflight && github.ref == 'refs/heads/codex/smartplan-office-0.2'
+    runs-on: macos-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: app
+    env:
+      ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+      ASC_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apple-Secrets pruefen
+        working-directory: .
+        run: |
+          missing=""
+          [ -n "$ASC_KEY_ID" ] || missing="$missing APP_STORE_CONNECT_KEY_ID"
+          [ -n "$ASC_ISSUER_ID" ] || missing="$missing APP_STORE_CONNECT_ISSUER_ID"
+          [ -n "$ASC_PRIVATE_KEY" ] || missing="$missing APP_STORE_CONNECT_PRIVATE_KEY"
+          [ -n "$APPLE_TEAM_ID" ] || missing="$missing APPLE_TEAM_ID"
+          if [ -n "$missing" ]; then
+            echo "::error title=Fehlende GitHub Secrets::Bitte unter Settings > Secrets and variables > Actions anlegen:$missing (siehe IPHONE_TESTFLIGHT.md)"
+            exit 1
+          fi
+          python - <<'PY'
+          import os
+          import re
+          import uuid
+          for name in ('ASC_KEY_ID', 'APPLE_TEAM_ID'):
+              if not re.fullmatch(r'[A-Z0-9]{10}', os.environ[name]):
+                  raise SystemExit(f'{name} muss eine gueltige Apple-Kennung mit 10 Zeichen sein')
+          try:
+              uuid.UUID(os.environ['ASC_ISSUER_ID'])
+          except ValueError:
+              raise SystemExit('ASC_ISSUER_ID muss eine gueltige Issuer-UUID sein')
+          PY
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+      - run: flutter pub get --enforce-lockfile
+      - name: API-Schluessel und Exportoptionen bereitstellen
+        run: |
+          umask 077
+          mkdir -p "$RUNNER_TEMP/smartplan-asc/private_keys"
+          key="$RUNNER_TEMP/smartplan-asc/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          printf '%s\n' "$ASC_PRIVATE_KEY" > "$key"
+          echo "ASC_KEY_PATH=$key" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          import plistlib
+          with Path('ios/ci/ExportOptions.plist').open('rb') as source:
+              options = plistlib.load(source)
+          options['teamID'] = os.environ['APPLE_TEAM_ID']
+          destination = Path(os.environ['RUNNER_TEMP']) / 'smartplan-asc' / 'ExportOptions.plist'
+          with destination.open('wb') as output:
+              plistlib.dump(options, output)
+          PY
+      - name: Flutter Release fuer Archivierung vorbereiten
+        run: >-
+          flutter build ios --release --no-codesign
+          --build-number=${{ needs.unsigned.outputs.build_number }}
+          --dart-define=API_URL=https://office.smartplan-hofmann.de
+          --dart-define=API_VERSION=v1
+      - name: Archivieren (unsigniert, Signierung erst beim Export)
+        working-directory: app/ios
+        # Ohne registriertes Geraet kann Xcode kein Entwicklungsprofil erzeugen.
+        # Fuer TestFlight genuegt die Distributionssignierung beim IPA-Export.
+        run: |
+          xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release \
+            -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/Runner.xcarchive" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" CODE_SIGN_STYLE=Automatic \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            archive
+          test -d "$RUNNER_TEMP/Runner.xcarchive/Products/Applications/Runner.app"
+      - name: IPA exportieren
+        run: |
+          xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/Runner.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/smartplan-asc/ExportOptions.plist" -exportPath build/ipa \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$ASC_KEY_PATH" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+      - name: Signiertes iPhone-/iPad-Paket pruefen
+        run: |
+          shopt -s nullglob
+          files=("$GITHUB_WORKSPACE"/app/build/ipa/*.ipa)
+          [ "${#files[@]}" -eq 1 ] || { echo 'Genau eine IPA erwartet'; exit 1; }
+          unzip -q "${files[0]}" -d "$RUNNER_TEMP/smartplan-signed-app"
+          smartplan_app="$RUNNER_TEMP/smartplan-signed-app/Payload/Runner.app"
+          codesign --verify --deep --strict "$smartplan_app"
+          codesign -d --entitlements :- "$smartplan_app" > "$RUNNER_TEMP/smartplan-signed-entitlements.plist"
+          python ../scripts/native-release.py ios \
+            --plist "$smartplan_app/Info.plist" --config ios/Flutter/Generated.xcconfig \
+            --build-number=${{ needs.unsigned.outputs.build_number }} --commit "$GITHUB_SHA" \
+            --signed-entitlements "$RUNNER_TEMP/smartplan-signed-entitlements.plist" --team "$APPLE_TEAM_ID" \
+            --output build/ipa/RELEASE_MANIFEST.json
+          (cd build/ipa && shasum -a 256 "$(basename -- "${files[0]}")") > build/ipa/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Smartplan-Office-iOS-${{ needs.unsigned.outputs.build_number }}
+          path: |
+            app/build/ipa/*.ipa
+            app/build/ipa/RELEASE_MANIFEST.json
+            app/build/ipa/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14
+      - name: Zu TestFlight hochladen
+        run: |
+          shopt -s nullglob
+          files=("$GITHUB_WORKSPACE"/app/build/ipa/*.ipa)
+          if [ "${#files[@]}" -ne 1 ]; then echo '::error::Genau eine exportierte IPA erwartet'; exit 1; fi
+          # altool sucht den Schluessel im Unterordner private_keys des Arbeitsverzeichnisses.
+          cd "$RUNNER_TEMP/smartplan-asc"
+          xcrun altool --upload-app --type ios --file "${files[0]}" \
+            --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+      - name: API-Schluessel loeschen
+        if: always()
+        working-directory: .
+        run: rm -rf -- "$RUNNER_TEMP/smartplan-asc"

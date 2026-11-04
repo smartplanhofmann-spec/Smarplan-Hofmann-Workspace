@@ -26,7 +26,7 @@ permissions:
   contents: read
 concurrency:
   group: ios-testflight-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/heads/codex/testupdate-0.7-') }}
 jobs:
   unsigned:
     name: Online-Release ohne Apple-Zugang pruefen

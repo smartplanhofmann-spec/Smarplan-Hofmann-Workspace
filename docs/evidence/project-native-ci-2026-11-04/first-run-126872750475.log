@@ -1,0 +1,700 @@
+﻿2026-11-04T21:20:25.6278679Z Current runner version: '2.338.2'
+2026-11-04T21:20:25.6306094Z ##[group]Runner Image Provisioner
+2026-11-04T21:20:25.6307033Z Hosted Compute Agent
+2026-11-04T21:20:25.6307757Z Version: 20261021.618
+2026-11-04T21:20:25.6308470Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-11-04T21:20:25.6309246Z Build Date: 2026-10-21T00:45:21Z
+2026-11-04T21:20:25.6309996Z Worker ID: {a125a1a4-a424-40cb-9135-e0bd9a1a1a54}
+2026-11-04T21:20:25.6310719Z Region: eastus
+2026-11-04T21:20:25.6311340Z Cloud: Azure
+2026-11-04T21:20:25.6311881Z ##[endgroup]
+2026-11-04T21:20:25.6314330Z ##[group]Operating System
+2026-11-04T21:20:25.6315136Z Ubuntu
+2026-11-04T21:20:25.6315701Z 24.04.5
+2026-11-04T21:20:25.6316305Z LTS
+2026-11-04T21:20:25.6316882Z ##[endgroup]
+2026-11-04T21:20:25.6317469Z ##[group]Runner Image
+2026-11-04T21:20:25.6318123Z Image: ubuntu-24.04
+2026-11-04T21:20:25.6318700Z Version: 20261025.353.1
+2026-11-04T21:20:25.6320000Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-04T21:20:25.6321605Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+2026-11-04T21:20:25.6322615Z ##[endgroup]
+2026-11-04T21:20:25.6324330Z ##[group]GITHUB_TOKEN Permissions
+2026-11-04T21:20:25.6326597Z Contents: read
+2026-11-04T21:20:25.6327219Z Metadata: read
+2026-11-04T21:20:25.6327893Z ##[endgroup]
+2026-11-04T21:20:25.6330056Z Secret source: Actions
+2026-11-04T21:20:25.6331156Z Cache mode: write
+2026-11-04T21:20:25.6332156Z Prepare workflow directory
+2026-11-04T21:20:25.6674008Z Prepare all required actions
+2026-11-04T21:20:25.6723977Z Getting action download info
+2026-11-04T21:20:25.8721486Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-04T21:20:26.0728166Z Complete job name: update-flow
+2026-11-04T21:20:26.1789811Z ##[group]Run actions/checkout@v4
+2026-11-04T21:20:26.1790712Z with:
+2026-11-04T21:20:26.1791321Z   repository: smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T21:20:26.1795591Z   token: ***
+2026-11-04T21:20:26.1796043Z   ssh-strict: true
+2026-11-04T21:20:26.1796489Z   ssh-user: git
+2026-11-04T21:20:26.1796948Z   persist-credentials: true
+2026-11-04T21:20:26.1797445Z   clean: true
+2026-11-04T21:20:26.1797900Z   sparse-checkout-cone-mode: true
+2026-11-04T21:20:26.1798432Z   fetch-depth: 1
+2026-11-04T21:20:26.1798859Z   fetch-tags: false
+2026-11-04T21:20:26.1799315Z   show-progress: true
+2026-11-04T21:20:26.1799770Z   lfs: false
+2026-11-04T21:20:26.1800186Z   submodules: false
+2026-11-04T21:20:26.1800639Z   set-safe-directory: true
+2026-11-04T21:20:26.1801145Z   allow-unsafe-pr-checkout: false
+2026-11-04T21:20:26.1801936Z ##[endgroup]
+2026-11-04T21:20:26.4354806Z Syncing repository: smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T21:20:26.4357529Z ##[group]Getting Git version info
+2026-11-04T21:20:26.4358653Z Working directory is '/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace'
+2026-11-04T21:20:26.4360525Z [command]/usr/bin/git version
+2026-11-04T21:20:26.4440264Z git version 2.56.0
+2026-11-04T21:20:26.4465697Z ##[endgroup]
+2026-11-04T21:20:26.4481591Z Temporarily overriding HOME='/home/runner/work/_temp/4a535957-017c-42ff-922c-4f152eaa9298' before making global git config changes
+2026-11-04T21:20:26.4484697Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T21:20:26.4488108Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-04T21:20:26.4554695Z Deleting the contents of '/home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace'
+2026-11-04T21:20:26.4562622Z ##[group]Initializing the repository
+2026-11-04T21:20:26.4568615Z [command]/usr/bin/git init /home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-04T21:20:26.4675031Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-04T21:20:26.4676970Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-04T21:20:26.4679433Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-04T21:20:26.4680817Z hint: call:
+2026-11-04T21:20:26.4681587Z hint:
+2026-11-04T21:20:26.4682903Z hint: 	git config --global init.defaultBranch <name>
+2026-11-04T21:20:26.4684246Z hint:
+2026-11-04T21:20:26.4685439Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-04T21:20:26.4687211Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-04T21:20:26.4688640Z hint:
+2026-11-04T21:20:26.4689375Z hint: 	git branch -m <name>
+2026-11-04T21:20:26.4690210Z hint:
+2026-11-04T21:20:26.4691495Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-04T21:20:26.4694015Z Initialized empty Git repository in /home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace/.git/
+2026-11-04T21:20:26.4698908Z [command]/usr/bin/git remote add origin https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T21:20:26.4754123Z ##[endgroup]
+2026-11-04T21:20:26.4755580Z ##[group]Disabling automatic garbage collection
+2026-11-04T21:20:26.4758895Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-04T21:20:26.4797246Z ##[endgroup]
+2026-11-04T21:20:26.4798531Z ##[group]Setting up auth
+2026-11-04T21:20:26.4806281Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T21:20:26.4849284Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T21:20:26.5245250Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T21:20:26.5296058Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T21:20:26.5545351Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T21:20:26.5592215Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T21:20:26.5837525Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-04T21:20:26.5896384Z ##[endgroup]
+2026-11-04T21:20:26.5898144Z ##[group]Fetching the repository
+2026-11-04T21:20:26.5912243Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8e320bd60671fb7e95c95a197ee34dd3e078bd66:refs/remotes/origin/codex/testupdate-0.7-projects-20261104
+2026-11-04T21:20:28.5676928Z From https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace
+2026-11-04T21:20:28.5680855Z  * [new ref]         8e320bd60671fb7e95c95a197ee34dd3e078bd66 -> origin/codex/testupdate-0.7-projects-20261104
+2026-11-04T21:20:28.5686754Z ##[endgroup]
+2026-11-04T21:20:28.5688994Z ##[group]Determining the checkout info
+2026-11-04T21:20:28.5691586Z ##[endgroup]
+2026-11-04T21:20:28.5697135Z [command]/usr/bin/git sparse-checkout disable
+2026-11-04T21:20:28.5758861Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-04T21:20:28.5806567Z ##[group]Checking out the ref
+2026-11-04T21:20:28.5810397Z [command]/usr/bin/git checkout --progress --force -B codex/testupdate-0.7-projects-20261104 refs/remotes/origin/codex/testupdate-0.7-projects-20261104
+2026-11-04T21:20:29.2077004Z Switched to a new branch 'codex/testupdate-0.7-projects-20261104'
+2026-11-04T21:20:29.2084355Z branch 'codex/testupdate-0.7-projects-20261104' set up to track 'origin/codex/testupdate-0.7-projects-20261104'.
+2026-11-04T21:20:29.2129834Z ##[endgroup]
+2026-11-04T21:20:29.2206941Z [command]/usr/bin/git log -1 --format=%H
+2026-11-04T21:20:29.2238713Z 8e320bd60671fb7e95c95a197ee34dd3e078bd66
+2026-11-04T21:20:29.2517448Z ##[group]Run bash scripts/test-update-flow.sh
+2026-11-04T21:20:29.2518228Z [36;1mbash scripts/test-update-flow.sh[0m
+2026-11-04T21:20:29.2544479Z shell: /usr/bin/bash -e {0}
+2026-11-04T21:20:29.2544826Z ##[endgroup]
+2026-11-04T21:20:29.3762895Z Unable to find image 'python:3.12-slim' locally
+2026-11-04T21:20:29.6526666Z 3.12-slim: Pulling from library/python
+2026-11-04T21:20:29.7388816Z 6fc242d221a6: Pulling fs layer
+2026-11-04T21:20:29.7389502Z 3eb771151506: Pulling fs layer
+2026-11-04T21:20:29.7390034Z f574edac59d9: Pulling fs layer
+2026-11-04T21:20:29.7390535Z acca7542dfc7: Pulling fs layer
+2026-11-04T21:20:29.7391027Z acca7542dfc7: Waiting
+2026-11-04T21:20:29.7799386Z 3eb771151506: Verifying Checksum
+2026-11-04T21:20:29.7800147Z 3eb771151506: Download complete
+2026-11-04T21:20:29.8076963Z acca7542dfc7: Verifying Checksum
+2026-11-04T21:20:29.8077531Z acca7542dfc7: Download complete
+2026-11-04T21:20:29.8119562Z f574edac59d9: Verifying Checksum
+2026-11-04T21:20:29.8121331Z f574edac59d9: Download complete
+2026-11-04T21:20:29.8646671Z 6fc242d221a6: Verifying Checksum
+2026-11-04T21:20:29.8647292Z 6fc242d221a6: Download complete
+2026-11-04T21:20:30.8301565Z 6fc242d221a6: Pull complete
+2026-11-04T21:20:31.5425993Z 3eb771151506: Pull complete
+2026-11-04T21:20:32.1322980Z f574edac59d9: Pull complete
+2026-11-04T21:20:32.1419582Z acca7542dfc7: Pull complete
+2026-11-04T21:20:32.1460422Z Digest: sha256:b18b261e1b4974b4f321451ad5251ded85abb22c2b8b262da527dda1d031ab30
+2026-11-04T21:20:32.1472365Z Status: Downloaded newer image for python:3.12-slim
+2026-11-04T21:20:35.5021968Z test_every_active_or_restarting_writer_blocks_before_operator_or_database_action (test_business_security.BusinessSecurityFlow.test_every_active_or_restarting_writer_blocks_before_operator_or_database_action) ... ok
+2026-11-04T21:20:35.7535950Z test_inherited_actual_update_lock_is_accepted_without_reopening_or_unlocking_it (test_business_security.BusinessSecurityFlow.test_inherited_actual_update_lock_is_accepted_without_reopening_or_unlocking_it) ... ok
+2026-11-04T21:20:36.0345697Z test_pending_unknown_update_blocks_standalone_and_operator_failure_preserves_everything (test_business_security.BusinessSecurityFlow.test_pending_unknown_update_blocks_standalone_and_operator_failure_preserves_everything) ... ok
+2026-11-04T21:20:36.1055847Z test_shared_lock_refusal_and_missing_inherited_descriptor_never_run_operator (test_business_security.BusinessSecurityFlow.test_shared_lock_refusal_and_missing_inherited_descriptor_never_run_operator) ... ok
+2026-11-04T21:20:36.3549004Z test_stopped_installation_runs_real_operator_uid_and_preserves_data_and_configuration (test_business_security.BusinessSecurityFlow.test_stopped_installation_runs_real_operator_uid_and_preserves_data_and_configuration) ... ok
+2026-11-04T21:20:36.3860940Z test_untrusted_or_group_writable_staged_code_is_refused_without_operator (test_business_security.BusinessSecurityFlow.test_untrusted_or_group_writable_staged_code_is_refused_without_operator) ... ok
+2026-11-04T21:20:41.0491117Z test_active_or_restarting_worker_stops_before_roles_and_clone_only_prior_timer_resumes (test_lead_replies.LeadReplyUpdateFlowTests.test_active_or_restarting_worker_stops_before_roles_and_clone_only_prior_timer_resumes) ... FAIL
+2026-11-04T21:20:50.4857477Z test_failed_or_unconfirmed_stop_cannot_clone_or_change_configuration (test_lead_replies.LeadReplyUpdateFlowTests.test_failed_or_unconfirmed_stop_cannot_clone_or_change_configuration) ... ok
+2026-11-04T21:20:55.1330250Z test_failed_timer_resume_after_publication_never_rewinds_new_database (test_lead_replies.LeadReplyUpdateFlowTests.test_failed_timer_resume_after_publication_never_rewinds_new_database) ... FAIL
+2026-11-04T21:20:59.8061185Z test_inactive_prior_timer_stays_inactive_even_if_manual_worker_had_been_running (test_lead_replies.LeadReplyUpdateFlowTests.test_inactive_prior_timer_stays_inactive_even_if_manual_worker_had_been_running) ... FAIL
+2026-11-04T21:21:03.9977965Z test_missing_optional_units_are_never_installed_enabled_or_started (test_lead_replies.LeadReplyUpdateFlowTests.test_missing_optional_units_are_never_installed_enabled_or_started) ... FAIL
+2026-11-04T21:21:08.7002343Z test_prepublication_rollback_restores_old_release_and_prior_timer_without_replaying_oneshot (test_lead_replies.LeadReplyUpdateFlowTests.test_prepublication_rollback_restores_old_release_and_prior_timer_without_replaying_oneshot) ... ok
+2026-11-04T21:21:14.0934460Z test_unknown_effective_units_missing_half_or_active_orphan_abort_before_gate (test_lead_replies.LeadReplyUpdateFlowTests.test_unknown_effective_units_missing_half_or_active_orphan_abort_before_gate) ... ok
+2026-11-04T21:21:14.5579940Z test_existing_persistent_or_runtime_activation_link_is_preserved_and_blocks_packages (test_update_flow.InstallImportFlowTests.test_existing_persistent_or_runtime_activation_link_is_preserved_and_blocks_packages) ... ok
+2026-11-04T21:21:15.6973689Z test_existing_runtime_unit_symlink_or_dropin_is_never_overwritten (test_update_flow.InstallImportFlowTests.test_existing_runtime_unit_symlink_or_dropin_is_never_overwritten) ... ok
+2026-11-04T21:21:15.9220463Z test_missing_fragment_with_still_active_worker_is_not_treated_as_empty_installation (test_update_flow.InstallImportFlowTests.test_missing_fragment_with_still_active_worker_is_not_treated_as_empty_installation) ... ok
+2026-11-04T21:21:16.1609231Z test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired (test_update_flow.InstallImportFlowTests.test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired) ... 
+2026-11-04T21:21:16.1614667Z   test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired (test_update_flow.InstallImportFlowTests.test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired) (fault='install_foreign_runtime') ... ERROR
+2026-11-04T21:21:16.3853503Z   test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired (test_update_flow.InstallImportFlowTests.test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired) (fault='install_foreign_unit') ... ERROR
+2026-11-04T21:21:16.9087933Z test_old_dirty_mismatched_or_inactive_api_blocks_before_package_changes (test_update_flow.InstallImportFlowTests.test_old_dirty_mismatched_or_inactive_api_blocks_before_package_changes) ... ok
+2026-11-04T21:21:17.3769283Z test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) ... 
+2026-11-04T21:21:17.3770778Z   test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_apt_install') ... FAIL
+2026-11-04T21:21:17.6082542Z   test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_venv') ... FAIL
+2026-11-04T21:21:17.8454062Z   test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_pip_install') ... FAIL
+2026-11-04T21:21:18.0899862Z   test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_pip_check') ... FAIL
+2026-11-04T21:21:18.3145136Z   test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_doctor') ... FAIL
+2026-11-04T21:21:18.5557591Z   test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_verify') ... FAIL
+2026-11-04T21:21:18.7864889Z   test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_partial_unit') ... FAIL
+2026-11-04T21:21:18.9337705Z test_pending_update_regular_or_dangling_journal_blocks_installation (test_update_flow.InstallImportFlowTests.test_pending_update_regular_or_dangling_journal_blocks_installation) ... ok
+2026-11-04T21:21:19.6266993Z test_real_configuration_guards_reject_duplicate_nonpeer_or_public_dsn_before_packages (test_update_flow.InstallImportFlowTests.test_real_configuration_guards_reject_duplicate_nonpeer_or_public_dsn_before_packages) ... ok
+2026-11-04T21:21:19.6928967Z test_shared_operator_lock_blocks_before_any_installer_mutation (test_update_flow.InstallImportFlowTests.test_shared_operator_lock_blocks_before_any_installer_mutation) ... ok
+2026-11-04T21:21:19.9342623Z test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts (test_update_flow.InstallImportFlowTests.test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts) ... 
+2026-11-04T21:21:19.9346238Z   test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts (test_update_flow.InstallImportFlowTests.test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts) (fault='install_terminate_after_mkdir') ... FAIL
+2026-11-04T21:21:20.1607759Z   test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts (test_update_flow.InstallImportFlowTests.test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts) (fault='install_terminate_after_unit') ... FAIL
+2026-11-04T21:21:20.3858962Z test_success_prepares_inactive_unit_after_real_uid_nnp_doctor_without_database_access (test_update_flow.InstallImportFlowTests.test_success_prepares_inactive_unit_after_real_uid_nnp_doctor_without_database_access) ... FAIL
+2026-11-04T21:21:24.4500886Z test_active_importworker_stops_before_clone_and_restarts_after_durable_activation (test_update_flow.UpdateFlowTests.test_active_importworker_stops_before_clone_and_restarts_after_durable_activation) ... FAIL
+2026-11-04T21:21:28.5351464Z test_checkpoint_failure_restores_original_env_without_replacing_or_exposing_private_key (test_update_flow.UpdateFlowTests.test_checkpoint_failure_restores_original_env_without_replacing_or_exposing_private_key) ... ERROR
+2026-11-04T21:21:32.5824581Z test_exact_legacy_caddy_is_migrated_only_after_candidate_verification (test_update_flow.UpdateFlowTests.test_exact_legacy_caddy_is_migrated_only_after_candidate_verification) ... FAIL
+2026-11-04T21:21:32.6464277Z test_existing_unknown_journal_blocks_before_any_service_or_database_changes (test_update_flow.UpdateFlowTests.test_existing_unknown_journal_blocks_before_any_service_or_database_changes) ... ok
+2026-11-04T21:21:36.5664860Z test_failed_legacy_directory_moves_restore_both_original_directories (test_update_flow.UpdateFlowTests.test_failed_legacy_directory_moves_restore_both_original_directories) ... 
+2026-11-04T21:21:36.5667673Z   test_failed_legacy_directory_moves_restore_both_original_directories (test_update_flow.UpdateFlowTests.test_failed_legacy_directory_moves_restore_both_original_directories) (fault='move_app') ... FAIL
+2026-11-04T21:21:40.4758184Z   test_failed_legacy_directory_moves_restore_both_original_directories (test_update_flow.UpdateFlowTests.test_failed_legacy_directory_moves_restore_both_original_directories) (fault='move_venv') ... FAIL
+2026-11-04T21:21:44.5204753Z test_failed_new_importworker_resume_preserves_activated_candidate (test_update_flow.UpdateFlowTests.test_failed_new_importworker_resume_preserves_activated_candidate) ... FAIL
+2026-11-04T21:21:48.3462367Z test_failed_old_importworker_resume_keeps_maintenance_and_journal (test_update_flow.UpdateFlowTests.test_failed_old_importworker_resume_keeps_maintenance_and_journal) ... ok
+2026-11-04T21:21:52.3784526Z test_failed_role_preparation_cannot_create_candidate_or_publish (test_update_flow.UpdateFlowTests.test_failed_role_preparation_cannot_create_candidate_or_publish) ... ok
+2026-11-04T21:21:55.9988688Z test_failed_symlink_switch_cleans_its_temporary_link_and_restores_old_release (test_update_flow.UpdateFlowTests.test_failed_symlink_switch_cleans_its_temporary_link_and_restores_old_release) ... FAIL
+2026-11-04T21:21:59.4129336Z test_gate_probe_failure_never_creates_or_prepares_a_database (test_update_flow.UpdateFlowTests.test_gate_probe_failure_never_creates_or_prepares_a_database) ... ok
+2026-11-04T21:22:03.4600651Z test_inactive_importworker_is_never_automatically_started_on_success (test_update_flow.UpdateFlowTests.test_inactive_importworker_is_never_automatically_started_on_success) ... FAIL
+2026-11-04T21:22:07.4638893Z test_initially_inactive_backup_timer_remains_inactive_after_success_or_rollback (test_update_flow.UpdateFlowTests.test_initially_inactive_backup_timer_remains_inactive_after_success_or_rollback) ... 
+2026-11-04T21:22:07.4641432Z   test_initially_inactive_backup_timer_remains_inactive_after_success_or_rollback (test_update_flow.UpdateFlowTests.test_initially_inactive_backup_timer_remains_inactive_after_success_or_rollback) (fault='none') ... FAIL
+2026-11-04T21:22:15.1579912Z test_installation_without_importworker_does_not_create_or_start_one (test_update_flow.UpdateFlowTests.test_installation_without_importworker_does_not_create_or_start_one) ... FAIL
+2026-11-04T21:22:16.9691870Z test_insufficient_capacity_aborts_before_gate_or_service_stop (test_update_flow.UpdateFlowTests.test_insufficient_capacity_aborts_before_gate_or_service_stop) ... ok
+2026-11-04T21:22:21.2850562Z test_legacy_caddy_is_restored_on_prepublication_failure_and_unknown_config_is_refused (test_update_flow.UpdateFlowTests.test_legacy_caddy_is_restored_on_prepublication_failure_and_unknown_config_is_refused) ... ok
+2026-11-04T21:22:25.3936256Z test_missing_attachment_capability_cannot_open_public_gate (test_update_flow.UpdateFlowTests.test_missing_attachment_capability_cannot_open_public_gate) ... ok
+2026-11-04T21:22:29.4470584Z test_missing_business_suite_capability_cannot_open_public_gate (test_update_flow.UpdateFlowTests.test_missing_business_suite_capability_cannot_open_public_gate) ... ok
+2026-11-04T21:22:33.5187131Z test_missing_integration_capability_cannot_open_public_gate (test_update_flow.UpdateFlowTests.test_missing_integration_capability_cannot_open_public_gate) ... ok
+2026-11-04T21:22:37.7030081Z test_obsolete_schema_cannot_open_public_gate (test_update_flow.UpdateFlowTests.test_obsolete_schema_cannot_open_public_gate) ... ok
+2026-11-04T21:22:41.9502197Z test_old_release_version_cannot_open_public_gate_even_with_current_schema (test_update_flow.UpdateFlowTests.test_old_release_version_cannot_open_public_gate_even_with_current_schema) ... ok
+2026-11-04T21:22:43.4586701Z test_operator_path_symlink_is_refused_without_widening_runtime_private_directory (test_update_flow.UpdateFlowTests.test_operator_path_symlink_is_refused_without_widening_runtime_private_directory) ... ok
+2026-11-04T21:22:47.6784281Z test_post_publication_failure_preserves_new_database_and_accepted_write (test_update_flow.UpdateFlowTests.test_post_publication_failure_preserves_new_database_and_accepted_write) ... 
+2026-11-04T21:22:47.6787025Z   test_post_publication_failure_preserves_new_database_and_accepted_write (test_update_flow.UpdateFlowTests.test_post_publication_failure_preserves_new_database_and_accepted_write) (fault='reload_after_activation') ... FAIL
+2026-11-04T21:22:51.9054727Z   test_post_publication_failure_preserves_new_database_and_accepted_write (test_update_flow.UpdateFlowTests.test_post_publication_failure_preserves_new_database_and_accepted_write) (fault='public_probe') ... FAIL
+2026-11-04T21:23:00.3142426Z test_preactivation_rollback_restarts_only_the_previously_active_importworker (test_update_flow.UpdateFlowTests.test_preactivation_rollback_restarts_only_the_previously_active_importworker) ... ok
+2026-11-04T21:23:04.4211216Z test_readiness_failure_restores_original_physical_directories (test_update_flow.UpdateFlowTests.test_readiness_failure_restores_original_physical_directories) ... ok
+2026-11-04T21:23:08.7448476Z test_readiness_failure_rolls_back_symlink_installation_before_publication (test_update_flow.UpdateFlowTests.test_readiness_failure_rolls_back_symlink_installation_before_publication) ... ok
+2026-11-04T21:23:13.0418014Z test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume (test_update_flow.UpdateFlowTests.test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume) ... 
+2026-11-04T21:23:13.0420988Z   test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume (test_update_flow.UpdateFlowTests.test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume) (fault='none', restarting=True) ... FAIL
+2026-11-04T21:23:17.2511003Z   test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume (test_update_flow.UpdateFlowTests.test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume) (fault='import_worker_late_start', restarting=False) ... FAIL
+2026-11-04T21:23:20.8514391Z test_sigterm_after_importworker_stop_restores_only_the_previously_active_worker (test_update_flow.UpdateFlowTests.test_sigterm_after_importworker_stop_restores_only_the_previously_active_worker) ... ok
+2026-11-04T21:23:25.1841667Z test_success_preserves_original_and_reopens_candidate_only_after_verification (test_update_flow.UpdateFlowTests.test_success_preserves_original_and_reopens_candidate_only_after_verification) ... FAIL
+2026-11-04T21:23:28.2277298Z test_successful_stop_exit_with_still_active_importworker_cannot_prepare_a_database (test_update_flow.UpdateFlowTests.test_successful_stop_exit_with_still_active_importworker_cannot_prepare_a_database) ... ok
+2026-11-04T21:23:32.6580827Z test_unconfirmed_activation_marker_does_not_resume_importworker_or_publish_http (test_update_flow.UpdateFlowTests.test_unconfirmed_activation_marker_does_not_resume_importworker_or_publish_http) ... FAIL
+2026-11-04T21:23:35.5929337Z test_unconfirmed_importworker_stop_keeps_gate_and_original_without_database_switch (test_update_flow.UpdateFlowTests.test_unconfirmed_importworker_stop_keeps_gate_and_original_without_database_switch) ... ok
+2026-11-04T21:23:38.5796669Z test_unconfirmed_service_stop_keeps_gate_and_journal_without_database_or_code_switch (test_update_flow.UpdateFlowTests.test_unconfirmed_service_stop_keeps_gate_and_journal_without_database_or_code_switch) ... ok
+2026-11-04T21:23:41.2169928Z test_unknown_units_or_overrides_abort_before_gate_or_database_mutation (test_update_flow.UpdateFlowTests.test_unknown_units_or_overrides_abort_before_gate_or_database_mutation) ... ok
+2026-11-04T21:23:47.8557262Z test_unknown_worker_units_or_unsafe_effective_settings_abort_before_maintenance (test_update_flow.UpdateFlowTests.test_unknown_worker_units_or_unsafe_effective_settings_abort_before_maintenance) ... ok
+2026-11-04T21:23:51.9417643Z test_update_preserves_explicit_legacy_mode_instead_of_reenabling_business_writes (test_update_flow.UpdateFlowTests.test_update_preserves_explicit_legacy_mode_instead_of_reenabling_business_writes) ... FAIL
+2026-11-04T21:23:56.1244533Z test_worker_write_after_durable_activation_survives_a_later_timer_failure (test_update_flow.UpdateFlowTests.test_worker_write_after_durable_activation_survives_a_later_timer_failure) ... FAIL
+2026-11-04T21:23:56.1246305Z 
+2026-11-04T21:23:56.1246610Z ======================================================================
+2026-11-04T21:23:56.1249573Z ERROR: test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired (test_update_flow.InstallImportFlowTests.test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired) (fault='install_foreign_runtime')
+2026-11-04T21:23:56.1252034Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1252879Z Traceback (most recent call last):
+2026-11-04T21:23:56.1254710Z   File "/source/tests/update_flow/test_update_flow.py", line 871, in test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired
+2026-11-04T21:23:56.1256242Z     self.assertEqual((IMPORT_RUNTIME / 'keep.txt').read_text(), 'Foreign operator object.\n')
+2026-11-04T21:23:56.1257443Z                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-04T21:23:56.1258163Z   File "/usr/local/lib/python3.12/pathlib.py", line 1027, in read_text
+2026-11-04T21:23:56.1259000Z     with self.open(mode='r', encoding=encoding, errors=errors) as f:
+2026-11-04T21:23:56.1259692Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-04T21:23:56.1260367Z   File "/usr/local/lib/python3.12/pathlib.py", line 1013, in open
+2026-11-04T21:23:56.1261186Z     return io.open(self, mode, buffering, encoding, errors, newline)
+2026-11-04T21:23:56.1261885Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-04T21:23:56.1262992Z FileNotFoundError: [Errno 2] No such file or directory: '/opt/smartplan-plan-import/keep.txt'
+2026-11-04T21:23:56.1263704Z 
+2026-11-04T21:23:56.1263945Z ======================================================================
+2026-11-04T21:23:56.1266020Z ERROR: test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired (test_update_flow.InstallImportFlowTests.test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired) (fault='install_foreign_unit')
+2026-11-04T21:23:56.1268004Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1268633Z Traceback (most recent call last):
+2026-11-04T21:23:56.1269828Z   File "/source/tests/update_flow/test_update_flow.py", line 874, in test_objects_appearing_during_preparation_are_preserved_when_ownership_was_not_acquired
+2026-11-04T21:23:56.1271225Z     self.assertEqual(IMPORT_UNIT.read_text(), 'Foreign operator object.\n')
+2026-11-04T21:23:56.1271923Z                      ^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-04T21:23:56.1272460Z   File "/usr/local/lib/python3.12/pathlib.py", line 1027, in read_text
+2026-11-04T21:23:56.1273264Z     with self.open(mode='r', encoding=encoding, errors=errors) as f:
+2026-11-04T21:23:56.1273659Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-04T21:23:56.1274039Z   File "/usr/local/lib/python3.12/pathlib.py", line 1013, in open
+2026-11-04T21:23:56.1274467Z     return io.open(self, mode, buffering, encoding, errors, newline)
+2026-11-04T21:23:56.1274845Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-04T21:23:56.1275361Z FileNotFoundError: [Errno 2] No such file or directory: '/etc/systemd/system/smartplan-plan-import.service'
+2026-11-04T21:23:56.1275781Z 
+2026-11-04T21:23:56.1275903Z ======================================================================
+2026-11-04T21:23:56.1276817Z ERROR: test_checkpoint_failure_restores_original_env_without_replacing_or_exposing_private_key (test_update_flow.UpdateFlowTests.test_checkpoint_failure_restores_original_env_without_replacing_or_exposing_private_key)
+2026-11-04T21:23:56.1277748Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1278096Z Traceback (most recent call last):
+2026-11-04T21:23:56.1278744Z   File "/source/tests/update_flow/test_update_flow.py", line 265, in test_checkpoint_failure_restores_original_env_without_replacing_or_exposing_private_key
+2026-11-04T21:23:56.1279417Z     self.assertEqual(key.stat().st_uid, 2001)
+2026-11-04T21:23:56.1279699Z                      ^^^^^^^^^^
+2026-11-04T21:23:56.1280012Z   File "/usr/local/lib/python3.12/pathlib.py", line 840, in stat
+2026-11-04T21:23:56.1280396Z     return os.stat(self, follow_symlinks=follow_symlinks)
+2026-11-04T21:23:56.1280717Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-04T21:23:56.1281179Z FileNotFoundError: [Errno 2] No such file or directory: '/var/lib/smartplan-online/privacy/key'
+2026-11-04T21:23:56.1281548Z 
+2026-11-04T21:23:56.1281694Z ======================================================================
+2026-11-04T21:23:56.1283068Z FAIL: test_active_or_restarting_worker_stops_before_roles_and_clone_only_prior_timer_resumes (test_lead_replies.LeadReplyUpdateFlowTests.test_active_or_restarting_worker_stops_before_roles_and_clone_only_prior_timer_resumes)
+2026-11-04T21:23:56.1284221Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1284562Z Traceback (most recent call last):
+2026-11-04T21:23:56.1285182Z   File "/source/tests/update_flow/test_lead_replies.py", line 21, in test_active_or_restarting_worker_stops_before_roles_and_clone_only_prior_timer_resumes
+2026-11-04T21:23:56.1285938Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1286396Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1286972Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212037-859/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1287503Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1288094Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212037-859/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1288863Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1289383Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1289809Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1290206Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1290582Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1290955Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1291958Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1292603Z 
+2026-11-04T21:23:56.1292606Z 
+2026-11-04T21:23:56.1293015Z ======================================================================
+2026-11-04T21:23:56.1293895Z FAIL: test_failed_timer_resume_after_publication_never_rewinds_new_database (test_lead_replies.LeadReplyUpdateFlowTests.test_failed_timer_resume_after_publication_never_rewinds_new_database)
+2026-11-04T21:23:56.1294745Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1295075Z Traceback (most recent call last):
+2026-11-04T21:23:56.1295644Z   File "/source/tests/update_flow/test_lead_replies.py", line 86, in test_failed_timer_resume_after_publication_never_rewinds_new_database
+2026-11-04T21:23:56.1296345Z     self.assertEqual((APP / 'app/backend/generation').read_text().strip(), 'new')
+2026-11-04T21:23:56.1296746Z AssertionError: 'old' != 'new'
+2026-11-04T21:23:56.1296985Z - old
+2026-11-04T21:23:56.1297181Z + new
+2026-11-04T21:23:56.1297346Z 
+2026-11-04T21:23:56.1297357Z 
+2026-11-04T21:23:56.1297468Z ======================================================================
+2026-11-04T21:23:56.1298358Z FAIL: test_inactive_prior_timer_stays_inactive_even_if_manual_worker_had_been_running (test_lead_replies.LeadReplyUpdateFlowTests.test_inactive_prior_timer_stays_inactive_even_if_manual_worker_had_been_running)
+2026-11-04T21:23:56.1299257Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1299597Z Traceback (most recent call last):
+2026-11-04T21:23:56.1300185Z   File "/source/tests/update_flow/test_lead_replies.py", line 42, in test_inactive_prior_timer_stays_inactive_even_if_manual_worker_had_been_running
+2026-11-04T21:23:56.1300897Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1301339Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1301910Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212056-1476/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1302440Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1303293Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212056-1476/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1304276Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1304788Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1305446Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1305836Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1306293Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1306669Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1307392Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1307838Z 
+2026-11-04T21:23:56.1307842Z 
+2026-11-04T21:23:56.1307951Z ======================================================================
+2026-11-04T21:23:56.1308763Z FAIL: test_missing_optional_units_are_never_installed_enabled_or_started (test_lead_replies.LeadReplyUpdateFlowTests.test_missing_optional_units_are_never_installed_enabled_or_started)
+2026-11-04T21:23:56.1309596Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1309937Z Traceback (most recent call last):
+2026-11-04T21:23:56.1310491Z   File "/source/tests/update_flow/test_lead_replies.py", line 12, in test_missing_optional_units_are_never_installed_enabled_or_started
+2026-11-04T21:23:56.1311167Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1311609Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1312191Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212100-1639/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1313031Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1313667Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212100-1639/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1314404Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1314902Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1315311Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1315695Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1316058Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1316430Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1317171Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1317617Z 
+2026-11-04T21:23:56.1317621Z 
+2026-11-04T21:23:56.1317734Z ======================================================================
+2026-11-04T21:23:56.1318611Z FAIL: test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_apt_install')
+2026-11-04T21:23:56.1319511Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1319844Z Traceback (most recent call last):
+2026-11-04T21:23:56.1320445Z   File "/source/tests/update_flow/test_update_flow.py", line 845, in test_package_runtime_and_doctor_failures_remove_only_new_artifacts
+2026-11-04T21:23:56.1321267Z     self.assertTrue((STATE / 'installed-system-packages').is_file(), 'Shared packages are retained after failure.')
+2026-11-04T21:23:56.1321915Z AssertionError: False is not true : Shared packages are retained after failure.
+2026-11-04T21:23:56.1322218Z 
+2026-11-04T21:23:56.1322328Z ======================================================================
+2026-11-04T21:23:56.1323743Z FAIL: test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_venv')
+2026-11-04T21:23:56.1324636Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1324976Z Traceback (most recent call last):
+2026-11-04T21:23:56.1325846Z   File "/source/tests/update_flow/test_update_flow.py", line 845, in test_package_runtime_and_doctor_failures_remove_only_new_artifacts
+2026-11-04T21:23:56.1326789Z     self.assertTrue((STATE / 'installed-system-packages').is_file(), 'Shared packages are retained after failure.')
+2026-11-04T21:23:56.1327430Z AssertionError: False is not true : Shared packages are retained after failure.
+2026-11-04T21:23:56.1327736Z 
+2026-11-04T21:23:56.1327849Z ======================================================================
+2026-11-04T21:23:56.1328719Z FAIL: test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_pip_install')
+2026-11-04T21:23:56.1329613Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1329944Z Traceback (most recent call last):
+2026-11-04T21:23:56.1330491Z   File "/source/tests/update_flow/test_update_flow.py", line 845, in test_package_runtime_and_doctor_failures_remove_only_new_artifacts
+2026-11-04T21:23:56.1331304Z     self.assertTrue((STATE / 'installed-system-packages').is_file(), 'Shared packages are retained after failure.')
+2026-11-04T21:23:56.1331931Z AssertionError: False is not true : Shared packages are retained after failure.
+2026-11-04T21:23:56.1332230Z 
+2026-11-04T21:23:56.1332336Z ======================================================================
+2026-11-04T21:23:56.1333595Z FAIL: test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_pip_check')
+2026-11-04T21:23:56.1334479Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1334799Z Traceback (most recent call last):
+2026-11-04T21:23:56.1335332Z   File "/source/tests/update_flow/test_update_flow.py", line 845, in test_package_runtime_and_doctor_failures_remove_only_new_artifacts
+2026-11-04T21:23:56.1336138Z     self.assertTrue((STATE / 'installed-system-packages').is_file(), 'Shared packages are retained after failure.')
+2026-11-04T21:23:56.1336767Z AssertionError: False is not true : Shared packages are retained after failure.
+2026-11-04T21:23:56.1337072Z 
+2026-11-04T21:23:56.1337181Z ======================================================================
+2026-11-04T21:23:56.1338031Z FAIL: test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_doctor')
+2026-11-04T21:23:56.1338897Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1339215Z Traceback (most recent call last):
+2026-11-04T21:23:56.1339752Z   File "/source/tests/update_flow/test_update_flow.py", line 845, in test_package_runtime_and_doctor_failures_remove_only_new_artifacts
+2026-11-04T21:23:56.1340549Z     self.assertTrue((STATE / 'installed-system-packages').is_file(), 'Shared packages are retained after failure.')
+2026-11-04T21:23:56.1341185Z AssertionError: False is not true : Shared packages are retained after failure.
+2026-11-04T21:23:56.1341481Z 
+2026-11-04T21:23:56.1341588Z ======================================================================
+2026-11-04T21:23:56.1342429Z FAIL: test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_verify')
+2026-11-04T21:23:56.1343594Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1343917Z Traceback (most recent call last):
+2026-11-04T21:23:56.1344464Z   File "/source/tests/update_flow/test_update_flow.py", line 845, in test_package_runtime_and_doctor_failures_remove_only_new_artifacts
+2026-11-04T21:23:56.1345255Z     self.assertTrue((STATE / 'installed-system-packages').is_file(), 'Shared packages are retained after failure.')
+2026-11-04T21:23:56.1346436Z AssertionError: False is not true : Shared packages are retained after failure.
+2026-11-04T21:23:56.1346870Z 
+2026-11-04T21:23:56.1346983Z ======================================================================
+2026-11-04T21:23:56.1347852Z FAIL: test_package_runtime_and_doctor_failures_remove_only_new_artifacts (test_update_flow.InstallImportFlowTests.test_package_runtime_and_doctor_failures_remove_only_new_artifacts) (fault='install_partial_unit')
+2026-11-04T21:23:56.1348745Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1349080Z Traceback (most recent call last):
+2026-11-04T21:23:56.1349640Z   File "/source/tests/update_flow/test_update_flow.py", line 845, in test_package_runtime_and_doctor_failures_remove_only_new_artifacts
+2026-11-04T21:23:56.1350450Z     self.assertTrue((STATE / 'installed-system-packages').is_file(), 'Shared packages are retained after failure.')
+2026-11-04T21:23:56.1351085Z AssertionError: False is not true : Shared packages are retained after failure.
+2026-11-04T21:23:56.1351401Z 
+2026-11-04T21:23:56.1351509Z ======================================================================
+2026-11-04T21:23:56.1352519Z FAIL: test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts (test_update_flow.InstallImportFlowTests.test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts) (fault='install_terminate_after_mkdir')
+2026-11-04T21:23:56.1353915Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1354260Z Traceback (most recent call last):
+2026-11-04T21:23:56.1354857Z   File "/source/tests/update_flow/test_update_flow.py", line 855, in test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts
+2026-11-04T21:23:56.1355589Z     self.assertEqual(result.returncode, 143, result.stdout + result.stderr)
+2026-11-04T21:23:56.1356042Z AssertionError: 1 != 143 : Traceback (most recent call last):
+2026-11-04T21:23:56.1356467Z   File "/opt/smartplan-online/venv/bin/python", line 446, in <module>
+2026-11-04T21:23:56.1356835Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1357223Z   File "/opt/smartplan-online/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1357790Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1358284Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1358682Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1359059Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1359422Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1359674Z 
+2026-11-04T21:23:56.1359684Z 
+2026-11-04T21:23:56.1359788Z ======================================================================
+2026-11-04T21:23:56.1360793Z FAIL: test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts (test_update_flow.InstallImportFlowTests.test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts) (fault='install_terminate_after_unit')
+2026-11-04T21:23:56.1361831Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1362160Z Traceback (most recent call last):
+2026-11-04T21:23:56.1363061Z   File "/source/tests/update_flow/test_update_flow.py", line 855, in test_sigterm_between_creation_and_next_shell_statement_cleans_only_owned_artifacts
+2026-11-04T21:23:56.1363806Z     self.assertEqual(result.returncode, 143, result.stdout + result.stderr)
+2026-11-04T21:23:56.1364255Z AssertionError: 1 != 143 : Traceback (most recent call last):
+2026-11-04T21:23:56.1364667Z   File "/opt/smartplan-online/venv/bin/python", line 446, in <module>
+2026-11-04T21:23:56.1365024Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1365407Z   File "/opt/smartplan-online/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1366106Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1366704Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1367099Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1367478Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1367838Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1368092Z 
+2026-11-04T21:23:56.1368096Z 
+2026-11-04T21:23:56.1368201Z ======================================================================
+2026-11-04T21:23:56.1369095Z FAIL: test_success_prepares_inactive_unit_after_real_uid_nnp_doctor_without_database_access (test_update_flow.InstallImportFlowTests.test_success_prepares_inactive_unit_after_real_uid_nnp_doctor_without_database_access)
+2026-11-04T21:23:56.1370011Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1370338Z Traceback (most recent call last):
+2026-11-04T21:23:56.1370956Z   File "/source/tests/update_flow/test_update_flow.py", line 676, in test_success_prepares_inactive_unit_after_real_uid_nnp_doctor_without_database_access
+2026-11-04T21:23:56.1371767Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1372200Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1372605Z   File "/opt/smartplan-online/venv/bin/python", line 446, in <module>
+2026-11-04T21:23:56.1373232Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1373617Z   File "/opt/smartplan-online/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1374175Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1374658Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1375051Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1375426Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1375842Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1376110Z 
+2026-11-04T21:23:56.1376113Z 
+2026-11-04T21:23:56.1376224Z ======================================================================
+2026-11-04T21:23:56.1377075Z FAIL: test_active_importworker_stops_before_clone_and_restarts_after_durable_activation (test_update_flow.UpdateFlowTests.test_active_importworker_stops_before_clone_and_restarts_after_durable_activation)
+2026-11-04T21:23:56.1377947Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1378273Z Traceback (most recent call last):
+2026-11-04T21:23:56.1378872Z   File "/source/tests/update_flow/test_update_flow.py", line 314, in test_active_importworker_stops_before_clone_and_restarts_after_durable_activation
+2026-11-04T21:23:56.1379597Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1380033Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1380617Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212121-2691/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1381147Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1381693Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212121-2691/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1382624Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1383330Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1383735Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1384113Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1384477Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1385049Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1386421Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1387413Z 
+2026-11-04T21:23:56.1387522Z 
+2026-11-04T21:23:56.1387669Z ======================================================================
+2026-11-04T21:23:56.1388849Z FAIL: test_exact_legacy_caddy_is_migrated_only_after_candidate_verification (test_update_flow.UpdateFlowTests.test_exact_legacy_caddy_is_migrated_only_after_candidate_verification)
+2026-11-04T21:23:56.1389979Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1390535Z Traceback (most recent call last):
+2026-11-04T21:23:56.1391324Z   File "/source/tests/update_flow/test_update_flow.py", line 208, in test_exact_legacy_caddy_is_migrated_only_after_candidate_verification
+2026-11-04T21:23:56.1392036Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1393038Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1394044Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212129-2983/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1394587Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1395349Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212129-2983/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1396234Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1396733Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1397323Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1397944Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1398383Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1398900Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1399751Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1400246Z 
+2026-11-04T21:23:56.1400251Z 
+2026-11-04T21:23:56.1400385Z ======================================================================
+2026-11-04T21:23:56.1401445Z FAIL: test_failed_legacy_directory_moves_restore_both_original_directories (test_update_flow.UpdateFlowTests.test_failed_legacy_directory_moves_restore_both_original_directories) (fault='move_app')
+2026-11-04T21:23:56.1402453Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1402947Z Traceback (most recent call last):
+2026-11-04T21:23:56.1403805Z   File "/source/tests/update_flow/test_update_flow.py", line 480, in test_failed_legacy_directory_moves_restore_both_original_directories
+2026-11-04T21:23:56.1404655Z     self.assertTrue(any(e['event'] == 'failed_mv' for e in self.events()))
+2026-11-04T21:23:56.1405072Z AssertionError: False is not true
+2026-11-04T21:23:56.1405248Z 
+2026-11-04T21:23:56.1405361Z ======================================================================
+2026-11-04T21:23:56.1406778Z FAIL: test_failed_legacy_directory_moves_restore_both_original_directories (test_update_flow.UpdateFlowTests.test_failed_legacy_directory_moves_restore_both_original_directories) (fault='move_venv')
+2026-11-04T21:23:56.1407816Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1408170Z Traceback (most recent call last):
+2026-11-04T21:23:56.1408970Z   File "/source/tests/update_flow/test_update_flow.py", line 480, in test_failed_legacy_directory_moves_restore_both_original_directories
+2026-11-04T21:23:56.1409701Z     self.assertTrue(any(e['event'] == 'failed_mv' for e in self.events()))
+2026-11-04T21:23:56.1410219Z AssertionError: False is not true
+2026-11-04T21:23:56.1410403Z 
+2026-11-04T21:23:56.1410516Z ======================================================================
+2026-11-04T21:23:56.1411534Z FAIL: test_failed_new_importworker_resume_preserves_activated_candidate (test_update_flow.UpdateFlowTests.test_failed_new_importworker_resume_preserves_activated_candidate)
+2026-11-04T21:23:56.1412592Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1413418Z Traceback (most recent call last):
+2026-11-04T21:23:56.1414208Z   File "/source/tests/update_flow/test_update_flow.py", line 398, in test_failed_new_importworker_resume_preserves_activated_candidate
+2026-11-04T21:23:56.1414991Z     self.assertEqual((APP / 'SOURCE_COMMIT').read_text().strip(), NEW)
+2026-11-04T21:23:56.1415647Z AssertionError: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb' != 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+2026-11-04T21:23:56.1416374Z - bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+2026-11-04T21:23:56.1416696Z + aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+2026-11-04T21:23:56.1416895Z 
+2026-11-04T21:23:56.1416899Z 
+2026-11-04T21:23:56.1417008Z ======================================================================
+2026-11-04T21:23:56.1417982Z FAIL: test_failed_symlink_switch_cleans_its_temporary_link_and_restores_old_release (test_update_flow.UpdateFlowTests.test_failed_symlink_switch_cleans_its_temporary_link_and_restores_old_release)
+2026-11-04T21:23:56.1418995Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1419334Z Traceback (most recent call last):
+2026-11-04T21:23:56.1420129Z   File "/source/tests/update_flow/test_update_flow.py", line 486, in test_failed_symlink_switch_cleans_its_temporary_link_and_restores_old_release
+2026-11-04T21:23:56.1420835Z     self.assert_old_release()
+2026-11-04T21:23:56.1421279Z   File "/source/tests/update_flow/test_update_flow.py", line 155, in assert_old_release
+2026-11-04T21:23:56.1421809Z     self.assertEqual((HTTPS / 'Caddyfile').read_bytes(), self.original_caddy)
+2026-11-04T21:23:56.1422956Z AssertionError: b'# FLOW_TEST_MAINTENANCE\n{\n\tadmin unix/[1682 chars]n}\n' != b'{\n\tadmin unix//run/smartplan-https/admi[1657 chars]n}\n'
+2026-11-04T21:23:56.1423830Z 
+2026-11-04T21:23:56.1423948Z ======================================================================
+2026-11-04T21:23:56.1424736Z FAIL: test_inactive_importworker_is_never_automatically_started_on_success (test_update_flow.UpdateFlowTests.test_inactive_importworker_is_never_automatically_started_on_success)
+2026-11-04T21:23:56.1425543Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1425911Z Traceback (most recent call last):
+2026-11-04T21:23:56.1426484Z   File "/source/tests/update_flow/test_update_flow.py", line 432, in test_inactive_importworker_is_never_automatically_started_on_success
+2026-11-04T21:23:56.1427173Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1427613Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1428190Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212200-4083/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1428719Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1429487Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212200-4083/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1430585Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1431192Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1431668Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1432055Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1432556Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1433288Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1434272Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1434870Z 
+2026-11-04T21:23:56.1434875Z 
+2026-11-04T21:23:56.1435001Z ======================================================================
+2026-11-04T21:23:56.1436536Z FAIL: test_initially_inactive_backup_timer_remains_inactive_after_success_or_rollback (test_update_flow.UpdateFlowTests.test_initially_inactive_backup_timer_remains_inactive_after_success_or_rollback) (fault='none')
+2026-11-04T21:23:56.1438086Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1438608Z Traceback (most recent call last):
+2026-11-04T21:23:56.1439538Z   File "/source/tests/update_flow/test_update_flow.py", line 603, in test_initially_inactive_backup_timer_remains_inactive_after_success_or_rollback
+2026-11-04T21:23:56.1440830Z     self.assertEqual(result.returncode, 0 if fault == 'none' else 1, result.stdout + result.stderr)
+2026-11-04T21:23:56.1441812Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1442954Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212204-4228/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1443856Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1444731Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212204-4228/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1446051Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1446660Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1447087Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1447846Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1448559Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1449005Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1450182Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1451013Z 
+2026-11-04T21:23:56.1451020Z 
+2026-11-04T21:23:56.1451232Z ======================================================================
+2026-11-04T21:23:56.1452595Z FAIL: test_installation_without_importworker_does_not_create_or_start_one (test_update_flow.UpdateFlowTests.test_installation_without_importworker_does_not_create_or_start_one)
+2026-11-04T21:23:56.1454267Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1454920Z Traceback (most recent call last):
+2026-11-04T21:23:56.1455718Z   File "/source/tests/update_flow/test_update_flow.py", line 441, in test_installation_without_importworker_does_not_create_or_start_one
+2026-11-04T21:23:56.1456717Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1457299Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1458490Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212212-4516/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1459158Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1460037Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212212-4516/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1461090Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1461604Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1462142Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1462531Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1463180Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1463570Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1464463Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1464909Z 
+2026-11-04T21:23:56.1464913Z 
+2026-11-04T21:23:56.1465100Z ======================================================================
+2026-11-04T21:23:56.1466399Z FAIL: test_post_publication_failure_preserves_new_database_and_accepted_write (test_update_flow.UpdateFlowTests.test_post_publication_failure_preserves_new_database_and_accepted_write) (fault='reload_after_activation')
+2026-11-04T21:23:56.1467527Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1467985Z Traceback (most recent call last):
+2026-11-04T21:23:56.1468574Z   File "/source/tests/update_flow/test_update_flow.py", line 577, in test_post_publication_failure_preserves_new_database_and_accepted_write
+2026-11-04T21:23:56.1469251Z     self.assertEqual((APP / 'SOURCE_COMMIT').read_text().strip(), NEW)
+2026-11-04T21:23:56.1469853Z AssertionError: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb' != 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+2026-11-04T21:23:56.1470419Z - bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+2026-11-04T21:23:56.1470740Z + aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+2026-11-04T21:23:56.1470942Z 
+2026-11-04T21:23:56.1470945Z 
+2026-11-04T21:23:56.1471050Z ======================================================================
+2026-11-04T21:23:56.1471920Z FAIL: test_post_publication_failure_preserves_new_database_and_accepted_write (test_update_flow.UpdateFlowTests.test_post_publication_failure_preserves_new_database_and_accepted_write) (fault='public_probe')
+2026-11-04T21:23:56.1473143Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1473488Z Traceback (most recent call last):
+2026-11-04T21:23:56.1474047Z   File "/source/tests/update_flow/test_update_flow.py", line 577, in test_post_publication_failure_preserves_new_database_and_accepted_write
+2026-11-04T21:23:56.1474982Z     self.assertEqual((APP / 'SOURCE_COMMIT').read_text().strip(), NEW)
+2026-11-04T21:23:56.1475589Z AssertionError: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb' != 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+2026-11-04T21:23:56.1476141Z - bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+2026-11-04T21:23:56.1476458Z + aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+2026-11-04T21:23:56.1476659Z 
+2026-11-04T21:23:56.1476663Z 
+2026-11-04T21:23:56.1476769Z ======================================================================
+2026-11-04T21:23:56.1477717Z FAIL: test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume (test_update_flow.UpdateFlowTests.test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume) (fault='none', restarting=True)
+2026-11-04T21:23:56.1478707Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1479037Z Traceback (most recent call last):
+2026-11-04T21:23:56.1479636Z   File "/source/tests/update_flow/test_update_flow.py", line 359, in test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume
+2026-11-04T21:23:56.1480753Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1481482Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1482064Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212309-6511/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1482586Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1483557Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212309-6511/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1484293Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1484786Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1485189Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1485571Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1485934Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1486315Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1487002Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1487439Z 
+2026-11-04T21:23:56.1487442Z 
+2026-11-04T21:23:56.1487556Z ======================================================================
+2026-11-04T21:23:56.1488817Z FAIL: test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume (test_update_flow.UpdateFlowTests.test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume) (fault='import_worker_late_start', restarting=False)
+2026-11-04T21:23:56.1490171Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1490835Z Traceback (most recent call last):
+2026-11-04T21:23:56.1492007Z   File "/source/tests/update_flow/test_update_flow.py", line 359, in test_restarting_or_late_started_importworker_is_stopped_without_automatic_resume
+2026-11-04T21:23:56.1493525Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1494002Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1494882Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212314-6656/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1495555Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1496285Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212314-6656/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1497286Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1497933Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1498419Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1498806Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1499322Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1499708Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1500638Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1501144Z 
+2026-11-04T21:23:56.1501148Z 
+2026-11-04T21:23:56.1501259Z ======================================================================
+2026-11-04T21:23:56.1502401Z FAIL: test_success_preserves_original_and_reopens_candidate_only_after_verification (test_update_flow.UpdateFlowTests.test_success_preserves_original_and_reopens_candidate_only_after_verification)
+2026-11-04T21:23:56.1503528Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1504092Z Traceback (most recent call last):
+2026-11-04T21:23:56.1504760Z   File "/source/tests/update_flow/test_update_flow.py", line 168, in test_success_preserves_original_and_reopens_candidate_only_after_verification
+2026-11-04T21:23:56.1505629Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1506144Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1506807Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212321-6909/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1507467Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1508044Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212321-6909/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1508931Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1509424Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1509988Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1510388Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1510753Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1511296Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1512000Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1512556Z 
+2026-11-04T21:23:56.1512560Z 
+2026-11-04T21:23:56.1512787Z ======================================================================
+2026-11-04T21:23:56.1513966Z FAIL: test_unconfirmed_activation_marker_does_not_resume_importworker_or_publish_http (test_update_flow.UpdateFlowTests.test_unconfirmed_activation_marker_does_not_resume_importworker_or_publish_http)
+2026-11-04T21:23:56.1515346Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1516002Z Traceback (most recent call last):
+2026-11-04T21:23:56.1516983Z   File "/source/tests/update_flow/test_update_flow.py", line 410, in test_unconfirmed_activation_marker_does_not_resume_importworker_or_publish_http
+2026-11-04T21:23:56.1517716Z     self.assertEqual((APP / 'SOURCE_COMMIT').read_text().strip(), NEW)
+2026-11-04T21:23:56.1518541Z AssertionError: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb' != 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+2026-11-04T21:23:56.1519204Z - bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+2026-11-04T21:23:56.1519800Z + aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+2026-11-04T21:23:56.1520137Z 
+2026-11-04T21:23:56.1520142Z 
+2026-11-04T21:23:56.1520336Z ======================================================================
+2026-11-04T21:23:56.1521600Z FAIL: test_update_preserves_explicit_legacy_mode_instead_of_reenabling_business_writes (test_update_flow.UpdateFlowTests.test_update_preserves_explicit_legacy_mode_instead_of_reenabling_business_writes)
+2026-11-04T21:23:56.1523527Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1524130Z Traceback (most recent call last):
+2026-11-04T21:23:56.1525119Z   File "/source/tests/update_flow/test_update_flow.py", line 254, in test_update_preserves_explicit_legacy_mode_instead_of_reenabling_business_writes
+2026-11-04T21:23:56.1526025Z     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+2026-11-04T21:23:56.1526718Z AssertionError: 1 != 0 : Traceback (most recent call last):
+2026-11-04T21:23:56.1527483Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212348-7811/venv/bin/python", line 449, in <module>
+2026-11-04T21:23:56.1528196Z     installer_dsn_preflight(script)
+2026-11-04T21:23:56.1528936Z   File "/opt/smartplan-online/releases/aaaaaaaaaaaa-20261104T212348-7811/venv/bin/python", line 105, in installer_dsn_preflight
+2026-11-04T21:23:56.1529878Z     exec(compile(script, '<actual-installer-preflight>', 'exec'), {'__name__': '__main__'})
+2026-11-04T21:23:56.1530532Z   File "<actual-installer-preflight>", line 4, in <module>
+2026-11-04T21:23:56.1531154Z   File "/source/backend/online/release.py", line 31, in validate_dsns
+2026-11-04T21:23:56.1531548Z     from online.instance_roles import for_office
+2026-11-04T21:23:56.1531910Z ModuleNotFoundError: No module named 'online.instance_roles'
+2026-11-04T21:23:56.1532541Z Dienstkonfiguration ist nicht eindeutig und lokal.
+2026-11-04T21:23:56.1534033Z Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+2026-11-04T21:23:56.1534669Z 
+2026-11-04T21:23:56.1534673Z 
+2026-11-04T21:23:56.1534877Z ======================================================================
+2026-11-04T21:23:56.1535981Z FAIL: test_worker_write_after_durable_activation_survives_a_later_timer_failure (test_update_flow.UpdateFlowTests.test_worker_write_after_durable_activation_survives_a_later_timer_failure)
+2026-11-04T21:23:56.1537246Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1537604Z Traceback (most recent call last):
+2026-11-04T21:23:56.1538346Z   File "/source/tests/update_flow/test_update_flow.py", line 450, in test_worker_write_after_durable_activation_survives_a_later_timer_failure
+2026-11-04T21:23:56.1539034Z     self.assertEqual((APP / 'SOURCE_COMMIT').read_text().strip(), NEW)
+2026-11-04T21:23:56.1540167Z AssertionError: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb' != 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+2026-11-04T21:23:56.1541241Z - bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+2026-11-04T21:23:56.1541734Z + aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+2026-11-04T21:23:56.1541945Z 
+2026-11-04T21:23:56.1541949Z 
+2026-11-04T21:23:56.1542086Z ----------------------------------------------------------------------
+2026-11-04T21:23:56.1542453Z Ran 60 tests in 203.550s
+2026-11-04T21:23:56.1542898Z 
+2026-11-04T21:23:56.1543076Z FAILED (failures=31, errors=3)
+2026-11-04T21:23:56.1963311Z ##[error]Process completed with exit code 1.
+2026-11-04T21:23:56.2109724Z Post job cleanup.
+2026-11-04T21:23:56.3000869Z [command]/usr/bin/git version
+2026-11-04T21:23:56.3055742Z git version 2.56.0
+2026-11-04T21:23:56.3097491Z Temporarily overriding HOME='/home/runner/work/_temp/ea4eedef-4f49-4ac4-b47e-5471131d6ed9' before making global git config changes
+2026-11-04T21:23:56.3098835Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T21:23:56.3104250Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Smarplan-Hofmann-Workspace/Smarplan-Hofmann-Workspace
+2026-11-04T21:23:56.3165454Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T21:23:56.3207648Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T21:23:56.3494993Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T21:23:56.3530055Z http.https://github.com/.extraheader
+2026-11-04T21:23:56.3543169Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-04T21:23:56.3584089Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T21:23:56.3908121Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T21:23:56.3954948Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T21:23:56.4382235Z Cleaning up orphan processes
+2026-11-04T21:23:56.4779924Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

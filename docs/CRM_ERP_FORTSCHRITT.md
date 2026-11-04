@@ -2161,3 +2161,15 @@ im Windows-Beipacktext gefunden. Beide Paketvarianten übernehmen jetzt 0.13.0
 aus derselben vorhandenen Quellprüfung wie das Manifest. App-/Backendruntime
 bleibt unverändert. Der neue autorisierte Buildcommit ersetzt die erste
 Buildrunde; tatsächliche Windowsausführung dieser Verbindung wird in CI geprüft.
+
+
+## 04.11.2026 – Tatsächliche CI-Fehler an Update-/Migrationsfixtures geschlossen
+
+Die erste Remoteprüfung offenbarte einen fehlenden realen Rollenhelfer im
+Update-Simulator und einen nicht geschlossenen historischen Modulaufbau.
+Einkaufs- und Portalfixtures sind korrigiert; ursprüngliche fachliche Assertions
+bleiben erhalten. 60 Container-Updatefälle und fünf tatsächliche PG-Migrationsfälle
+bestehen. [Nachweis](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md).
+Überholte unsignierte iPhone-Prüfungen werden ausschließlich auf Testbranches
+abgelöst; der Releasebranch und dessen ausdrückliche Signierschranke bleiben
+erhalten. Eine gemeinsame Testfolge für den Kundentermin ist vorbereitet.

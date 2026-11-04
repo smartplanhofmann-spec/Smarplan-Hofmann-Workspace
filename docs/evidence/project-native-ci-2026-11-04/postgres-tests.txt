@@ -1,0 +1,6 @@
+test_additive_migration_preserves_real_issued_invoice_pdf_numbers_and_audit (test_postgres_purchasing_integration.PurchasingMigrationPostgres.test_additive_migration_preserves_real_issued_invoice_pdf_numbers_and_audit) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 3.081s
+
+OK

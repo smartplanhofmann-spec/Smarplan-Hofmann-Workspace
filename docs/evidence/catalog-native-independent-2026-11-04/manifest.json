@@ -1,0 +1,143 @@
+{
+  "recorded_at_utc": "2026-11-04T10:19:59.304485+00:00",
+  "workspace": "/workspace/smartplan-catalog-prices-v2-20261104",
+  "scope": "Independent native lifecycle review plus narrow intrinsic purchasing addendum; no product edits",
+  "product_changes": [],
+  "reference_handoff": {
+    "path": "docs/evidence/catalog-prices-native-2026-11-04-handoff.json",
+    "size": 9854,
+    "sha256": "c66b5c03bf9f0d64d9480dff49546ec80bbae40ecf554187d90799ecd097b344"
+  },
+  "validation": {
+    "native": {
+      "passed": 87,
+      "failed": 0,
+      "new_independent": 17,
+      "owner_targeted": 70,
+      "includes_actual_local_http": true,
+      "log": "docs/evidence/catalog-native-independent-2026-11-04/native-final-87.txt"
+    },
+    "analyzer": {
+      "issues": 0,
+      "log": "docs/evidence/catalog-native-independent-2026-11-04/native-analyze.txt"
+    },
+    "backend_addendum": {
+      "passed": 17,
+      "failed": 0,
+      "independent": 12,
+      "purchasing": 5,
+      "seconds": 2.15,
+      "log": "docs/evidence/catalog-native-independent-2026-11-04/backend-purchasing-addendum-17.txt"
+    }
+  },
+  "native_handoff_verified": {
+    "app/lib/api.dart": {
+      "size": 7537,
+      "sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb"
+    },
+    "app/lib/business_adapters.dart": {
+      "size": 24022,
+      "sha256": "dcbb7a70a73c7454a6a688652b7c5db1aa6df7ff0c4679d5ee36127f6a02525d"
+    },
+    "app/lib/business_catalog_prices.dart": {
+      "size": 50542,
+      "sha256": "69a6db02697db31d4430cccb32480c946be5d240f977a1108657c1de9a259f04"
+    },
+    "app/lib/business_document_pricing.dart": {
+      "size": 48596,
+      "sha256": "abc0ff95d6319865a642495eb78fcf7b68b70dfb96b17811990da567258d6a0e"
+    },
+    "app/lib/business_documents.dart": {
+      "size": 87998,
+      "sha256": "be5ae6c8503ed0ae4b895f2f5aafcfc58e5c5d61ab2f141be6c9e50e3a8a6f77"
+    },
+    "app/lib/business_operations.dart": {
+      "size": 37751,
+      "sha256": "21388ecf9bfbbadd5cb6fc7448e30d51431b70b1849b19e895c1f65271ba2e7e"
+    },
+    "app/lib/business_purchasing.dart": {
+      "size": 42651,
+      "sha256": "034b0c9c2dbbe607bab7ed4668691d89039b93ff1a1b674b1f7c12a6132ec023"
+    },
+    "app/lib/business_sales.dart": {
+      "size": 32042,
+      "sha256": "75549d29a9ae00d34c5fcd3fd537a346ab7f6d46d42d41147bd480dcb359c733"
+    },
+    "app/lib/business_session.dart": {
+      "size": 94680,
+      "sha256": "b502efd74899f8235e25c25ddb62cb175194e94c89d4a3cb3dd563cae0b2c45c"
+    },
+    "app/test/business_catalog_prices_test.dart": {
+      "size": 17517,
+      "sha256": "816d9b9d4b1c4962643c8db12510a96b98abe6eef4d642434f23d8bba2de5eba"
+    },
+    "app/test/business_catalog_prices_lifecycle_test.dart": {
+      "size": 12011,
+      "sha256": "bcfedf12bf8979106dae53ab93faf043ac04f53e4b457ddaccd1304ad4502dc5"
+    },
+    "app/test/business_catalog_price_consumers_test.dart": {
+      "size": 8260,
+      "sha256": "7747fbefcb3e238456aa4c2b674852f2ce5f094624b6cb6a4019a1299aac2376"
+    },
+    "app/test/business_catalog_price_workflows_test.dart": {
+      "size": 16154,
+      "sha256": "f1362e891270ab621026095fdd786dedbd9fa2fc66e196f13d8381e36b10307a"
+    },
+    "app/test/business_catalog_prices_http_test.dart": {
+      "size": 11830,
+      "sha256": "07287377d88f73aeaa64add5529de6048972d94036e6bdcc21d90f38fbce23cb"
+    },
+    "app/test/fixtures/catalog_prices_v2.json": {
+      "size": 50308,
+      "sha256": "1c20e3ba5fb2e0d63e1bf62170a29be28bef5c458fac401813de5a8307b67b62"
+    }
+  },
+  "reviewed_files": {
+    "app/test/business_catalog_prices_independent_lifecycle_test.dart": {
+      "size": 16046,
+      "sha256": "2953933f6a8e45f491869ab5ba9973a37514b26294970c7c41024a7579b409a3"
+    },
+    "backend/business_catalog_prices.py": {
+      "size": 59712,
+      "sha256": "7c5e5fe1a5cad1f4629368b461ec0be55a111a4ecde075a2ca7123037289c1f7"
+    },
+    "backend/business_documents.py": {
+      "size": 132432,
+      "sha256": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc"
+    },
+    "backend/business_purchasing.py": {
+      "size": 35221,
+      "sha256": "b2f513a536412c8104fff4271e1b61501069431e481a6354b70a407c787f2752"
+    },
+    "backend/test_catalog_prices_independent_review.py": {
+      "size": 18083,
+      "sha256": "1019eb268c44168e984273c9d0226b97b7037b777200134a6e8fcab33d119e22"
+    },
+    "backend/test_business_catalog_prices_purchasing.py": {
+      "size": 6569,
+      "sha256": "ba508d09ea1378c5c2826feb26c37d6fe5e940271e88bccb7eaa58358a861864"
+    }
+  },
+  "evidence_files": {
+    "docs/evidence/catalog-native-independent-2026-11-04/README.md": {
+      "size": 5081,
+      "sha256": "3cb1728f2dca9c9b34b18203e48f3f642348462a4d1b266e73249b30b5e54334"
+    },
+    "docs/evidence/catalog-native-independent-2026-11-04/backend-purchasing-addendum-17.txt": {
+      "size": 4366,
+      "sha256": "d71ba747bea506442d179c538b78c993f1d74a5e095ef161323f45d1d6af73bb"
+    },
+    "docs/evidence/catalog-native-independent-2026-11-04/native-analyze.txt": {
+      "size": 86,
+      "sha256": "3e9de4f8fcfa8e20e614d9b33b569d8eb2e243116083a2e9e8da6f2506f2d7a4"
+    },
+    "docs/evidence/catalog-native-independent-2026-11-04/native-final-87.txt": {
+      "size": 16442,
+      "sha256": "f410f605cd697ecf9d82f87854900a0769a808da89a045d0562f18e44208424e"
+    },
+    "docs/evidence/catalog-native-independent-2026-11-04/test-harness-initial.txt": {
+      "size": 10781,
+      "sha256": "77ff7df0a42e9e34cd182081de2697521fe1ebb477f0626f97c4c0461034b2a9"
+    }
+  }
+}

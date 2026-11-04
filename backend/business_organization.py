@@ -179,7 +179,7 @@ def command_module(path, module_name):
         return 'documents'
     if module_name == 'business_adapters' and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/(apply|offer)', path):
         return 'documents'
-    return {'business_inventory': 'material', 'business_documents': 'documents', 'business_portal': 'documents',
+    return {'business_catalog_prices': 'documents', 'business_inventory': 'material', 'business_documents': 'documents', 'business_portal': 'documents',
             'business_finance': 'finance', 'business_accounting': 'finance',
             'business_accounting_allocations': 'finance', 'business_accounting_components': 'finance',
             'business_accounting_refunds': 'finance', 'business_accounting_capacity': 'finance',

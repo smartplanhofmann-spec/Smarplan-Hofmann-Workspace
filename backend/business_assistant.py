@@ -814,7 +814,8 @@ def validate_integrity(office):
                     expected = dict(overdue_task=overdue>0, task_overdue_days=overdue)
                     if proof['permission'] != 'documents.read': raise ValueError('Wrong task policy scope')
                 elif proof['kind'] == 'costs':
-                    expected = dict(total_cost_minor=sum(_minor(item) for item in source['costs'].values()), costs_complete=source['result']['complete_for_recorded_sources'])
+                    from business_assistant_sources import cost_total_minor
+                    expected = dict(total_cost_minor=cost_total_minor(source), costs_complete=source['result']['complete_for_recorded_sources'])
                     if proof['permission'] != 'finance.read' or source['project_id'] != row['project_id']: raise ValueError('Wrong cost policy scope')
                 else: raise ValueError('Unknown independent policy source')
                 if expected != proof['facts']: raise ValueError('Policy facts differ from their original evidence')

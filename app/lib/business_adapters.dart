@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'api.dart';
 import 'business_session.dart';
 import 'business_catalog_imports.dart';
+import 'business_catalog_prices.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 import 'mail_attachment_preview.dart';
@@ -184,6 +185,19 @@ class _BusinessAdaptersPageState extends State<BusinessAdaptersPage> {
             'Lokale Import- und Prüfprofile sind keine bestätigten Liveverbindungen. Bestehender Gmail-Empfang und die Bot-Verbindungen bleiben unabhängig davon erhalten.',
           ),
           if (error != null) Notice(error!, error: true),
+          if (catalogPricesManageable(widget.session))
+            OutlinedButton(
+              onPressed: () async {
+                final route = MaterialPageRoute<void>(
+                  builder: (_) =>
+                      BusinessCatalogPricesPage(session: widget.session),
+                );
+                adapterRoute = route;
+                await Navigator.of(context).push(route);
+                if (identical(adapterRoute, route)) adapterRoute = null;
+              },
+              child: const Text('Datierte Katalogpreise (CSV-v2)'),
+            ),
           if (widget.session.canWrite('settings.manage'))
             FilledButton.icon(
               onPressed: () => configure(),

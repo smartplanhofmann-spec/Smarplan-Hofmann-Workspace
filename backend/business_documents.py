@@ -220,7 +220,7 @@ def calculate_positions(values,*,credit=False):
             price_base_quantity=format(base_quantity,'f'),
             tax_rate=format(rate,'f'),tax_category=category,tax_exemption_reason=reason,kind=kind,
             discount_percent=format(discount,'f'),net=money(net))
-        for field in ('article_id','article_revision','cost_price_net','cost_price_base_quantity','code','source_type','source_id','source_revision','source_hash','source_seconds','components','pricing_snapshot','measurement_snapshot'):
+        for field in ('article_id','article_revision','cost_price_net','cost_price_base_quantity','code','source_type','source_id','source_revision','source_hash','source_seconds','components','pricing_snapshot','measurement_snapshot','catalog_price_snapshot'):
             if field in value:position[field]=value[field]
         if 'article_id' in position:_id(position['article_id'])
         if 'cost_price_net' in position:decimal_value(position['cost_price_net'])
@@ -241,6 +241,66 @@ def calculate_positions(values,*,credit=False):
         labor_net=by_kind['labor']['net'],labor_tax=by_kind['labor']['tax'],labor_gross=by_kind['labor']['gross'],
         material_net=by_kind['material']['net'],material_tax=by_kind['material']['tax'],material_gross=by_kind['material']['gross'],
         by_kind=by_kind,tax_breakdown=breakdown))
+
+
+
+
+def _catalog_selections(value):
+    """Collect only explicit pending choices, never frozen historical proofs."""
+    if isinstance(value,list):
+        return [selection for item in value for selection in _catalog_selections(item)]
+    if not isinstance(value,dict):return []
+    result=[value[key] for key in ('catalog_price_selection','source_price_selection','price_selection')
+            if isinstance(value.get(key),dict)]
+    for key in ('positions','components','pricing'):
+        if key in value:result.extend(_catalog_selections(value[key]))
+    return result
+
+
+def _catalog_article_snapshot(office,value):
+    """Check the named original article version, never today's article head."""
+    identifier=value.get('article_id');revision=value.get('article_revision')
+    if not isinstance(identifier,str) or type(revision) is not int or revision<1:
+        raise Problem(409,'Ursprüngliche Artikelfassung des datierten Preisnachweises fehlt')
+    row=office.db.execute('SELECT payload_json,payload_sha256 FROM business_article_versions WHERE article_id=? AND revision=?',
+        (identifier,revision)).fetchone()
+    if not row or _hash(row['payload_json'])!=row['payload_sha256']:
+        raise Problem(409,'Ursprüngliche Artikelfassung des datierten Preisnachweises ist nicht belegt')
+    article=json.loads(row['payload_json'])
+    if article.get('active') is not True or article.get('unit')!=value.get('unit'):
+        raise Problem(409,'Datierten Preisnachweis mit seiner ursprünglichen Artikelfassung erhalten')
+    return article
+
+
+def _catalog_position_snapshot(office,position):
+    """A price source fixes amount/basis/unit; document taxation stays explicit."""
+    snapshot=position.get('catalog_price_snapshot')
+    if snapshot is None:return
+    from business_catalog_prices import validate_snapshot
+    if not position.get('article_id'):raise Problem(409,'Artikelbindung des datierten Preisnachweises fehlt')
+    validate_snapshot(office,snapshot,position['article_id'],'sales_net')
+    _catalog_article_snapshot(office,position)
+    price=snapshot['price']
+    if (decimal_value(position.get('unit_price_net'))!=Decimal(price['price_net'])
+            or decimal_value(position.get('price_base_quantity','1'))!=Decimal(price['price_base_quantity'])
+            or position.get('unit')!=price['unit']):
+        raise Problem(409,'Positionspreis, Bezugsmenge oder Einheit weicht vom gewählten Preisstand ab')
+
+
+
+def _catalog_component_snapshot(office,component):
+    proof=component.get('catalog_price_snapshot')
+    if proof is None:return
+    from business_catalog_prices import validate_snapshot
+    validate_snapshot(office,proof,component.get('article_id'),'purchase_net')
+    article=_catalog_article_snapshot(office,component)
+    price=proof['price']
+    if (not component.get('article_id') or component.get('unit')!=price['unit']
+            or any(component.get(key)!=article.get(key) for key in ('name','kind'))
+            or decimal_value(component.get('cost_price_net'))!=Decimal(price['price_net'])
+            or decimal_value(component.get('cost_price_base_quantity'))!=Decimal(price['price_base_quantity'])
+            or component.get('cost_net')!=money(decimal_value(component.get('quantity'))*Decimal(price['price_net'])/Decimal(price['price_base_quantity']))):
+        raise Problem(409,'Stückliste stimmt nicht mit ihrem datierten Originalpreis überein')
 
 
 def _buyer(value):
@@ -349,9 +409,12 @@ class Documents:
     def articles(self,actor,query='',*,services=False):
         require(self.office,actor,'finance.read')
         if not isinstance(query,str) or len(query)>200:raise Problem(400,'Ungültige Suche')
+        from business_catalog_prices import installed
+        managed={row['article_id'] for row in self.db.execute('SELECT DISTINCT article_id FROM business_catalog_price_bindings')} if installed(self.office) else set()
         result=[]
         for row in self.db.execute('SELECT * FROM business_articles ORDER BY created_at,id').fetchall():
             item=dict(id=row['id'],revision=row['revision'],updated_at=row['updated_at'],**json.loads(row['payload_json']))
+            if row['id'] in managed:item['price_policy']='dated_catalog'
             if (not services or item['kind'] in ('labor','service')) and (not query or query.casefold() in (item['name']+' '+item['code']).casefold()):result.append(item)
         return {'items':result}
 
@@ -361,6 +424,9 @@ class Documents:
         row=self.db.execute('SELECT * FROM '+table+' WHERE id=?',(_id(identifier),)).fetchone()
         if not row:raise Problem(404,'Katalogeintrag nicht verfügbar')
         value=json.loads(row['payload_json'])
+        if table=='business_articles':
+            from business_catalog_prices import article_managed
+            if article_managed(self.office,identifier):value['price_policy']='dated_catalog'
         if services and value.get('kind') not in ('labor','service'):raise Problem(404,'Leistung nicht verfügbar')
         return dict(id=row['id'],revision=row['revision'],updated_at=row['updated_at'],**value)
 
@@ -373,7 +439,8 @@ class Documents:
         value=dict(value)
         if 'pricing' not in value:return value
         if not isinstance(value['pricing'],dict):raise Problem(400,'Preiskalkulation erwartet')
-        preview=self.pricing_preview(actor,value['pricing']);inputs=preview['inputs']
+        from business_pricing import preview as calculate_price
+        preview=calculate_price(self.office,actor,value['pricing'],lock=confirmation);inputs=preview['inputs']
         if project_id is not None and inputs.get('project_id') not in (None,project_id):raise Problem(400,'Preiskalkulation gehört zu einem anderen Projekt')
         if value.get('pricing_hash')!=preview['preview_hash']:raise Problem(409,'Preiskalkulation oder Artikelquelle wurde geändert; erneut prüfen')
         if confirmation and value.get('price_confirmation') is not True:raise Problem(400,'Kalkulierten Preis ausdrücklich übernehmen')
@@ -521,6 +588,8 @@ class Documents:
         replay,fingerprint=self._replay(actor,request,operation,data)
         if replay:return replay
         if old and data.get('revision')!=old['revision']:raise Problem(409,'Artikel wurde geändert')
+        from business_catalog_prices import lock_selections
+        lock_selections(self.office,_catalog_selections(data))
         if 'pricing' in data:
             priced=self._price_values(actor,{**payload,'pricing':data['pricing'],'pricing_hash':data.get('pricing_hash'),'price_confirmation':data.get('price_confirmation')})
             payload.update({key:priced[key] for key in ('unit_price_net','cost_price_net','unit','kind','tax_rate','pricing_snapshot')})
@@ -546,18 +615,35 @@ class Documents:
         components=value.get('components',[])
         if not isinstance(components,list) or len(components)>100 or components and value['kind'] not in ('service','labor'):raise Problem(400,'Stückliste nur für eine Leistung erwartet')
         snapshots=[]
+        previous=list(json.loads(old['payload_json']).get('components',[])) if old else []
         for component in components:
             if not isinstance(component,dict):raise Problem(400,'Stücklistenposition erwartet')
+            if 'price_selection' in component and not isinstance(component['price_selection'],dict):raise Problem(400,'Vollständige ausdrückliche Stücklistenpreiswahl erforderlich')
             component_id=_id(component.get('article_id'))
             if component_id==article_id:raise Problem(400,'Leistung darf sich nicht selbst enthalten')
+            if component.get('catalog_price_snapshot') and component in previous:
+                previous.remove(component)
+                _catalog_component_snapshot(self.office,component)
+                snapshots.append(dict(component))
+                continue
             source=self.db.execute('SELECT * FROM business_articles WHERE id=?',(component_id,)).fetchone()
             if not source:raise Problem(404,'Stücklistenartikel nicht verfügbar')
             article=json.loads(source['payload_json'])
             if component.get('article_revision')!=source['revision'] or not article['active']:raise Problem(409,'Stücklistenartikel wurde geändert')
             quantity=decimal_value(component.get('quantity'))
             if quantity<=0 or quantity>100000:raise Problem(400,'Begrenzte positive Stücklistenmenge erwartet')
-            snapshots.append(dict(article_id=component_id,article_revision=source['revision'],quantity=str(quantity),unit=article['unit'],name=article['name'],
-                kind=article['kind'],cost_price_net=article['cost_price_net'],cost_net=money(quantity*Decimal(article['cost_price_net']))))
+            from business_catalog_prices import article_managed,resolve_selection
+            proof=None
+            if component.get('price_selection') is not None:
+                proof=resolve_selection(self.office,actor,component_id,component['price_selection'],'purchase_net',lock=True)
+            elif article_managed(self.office,component_id):
+                raise Problem(409,'Datierten Einkaufspreis der Stücklistenposition ausdrücklich auswählen')
+            cost=Decimal(proof['price']['price_net'] if proof else article['cost_price_net'])
+            basis=Decimal(proof['price']['price_base_quantity']) if proof else Decimal(1)
+            snapshot=dict(article_id=component_id,article_revision=source['revision'],quantity=str(quantity),unit=article['unit'],name=article['name'],
+                kind=article['kind'],cost_price_net=format(cost,'f'),cost_net=money(quantity*cost/basis))
+            if proof:snapshot.update(cost_price_base_quantity=format(basis,'f'),catalog_price_snapshot=proof)
+            snapshots.append(snapshot)
         value['components']=snapshots
         calculate_positions([{**value,'description':value['name'],'quantity':'1'}])
         identifier=article_id or uuid.uuid4().hex;revision=old['revision']+1 if old else 1;now=self._now()
@@ -607,6 +693,9 @@ class Documents:
         # of another project's physical measurement or calculation provenance.
         for position in values['positions']:
             position.pop('pricing_snapshot',None)
+            from business_catalog_prices import article_managed
+            if position.get('catalog_price_snapshot') or position.get('article_id') and article_managed(self.office,position['article_id']):
+                raise Problem(409,'Datierte Katalogpreise je Beleg ausdrücklich auswählen; keine wiederverwendbare Preisfreigabe in Vorlagen')
             if position.get('source_type')=='measurement':
                 for key in ('measurement_snapshot','source_type','source_id','source_revision','source_hash'):position.pop(key,None)
         identifier=template_id or uuid.uuid4().hex;revision=old['revision']+1 if old else 1;now=self._now()
@@ -647,20 +736,61 @@ class Documents:
 
     def _positions(self,values,*,actor=None,project_id=None,old_positions=None,verified_measurements=None,persist=True):
         if not isinstance(values,list):raise Problem(400,'Positionen erwartet')
+        if persist:
+            from business_catalog_prices import lock_selections
+            selections=_catalog_selections(values)
+            if selections:
+                require(self.office,actor,'finance.read')
+                lock_selections(self.office,selections)
         result=[];old_by_id={p['id']:p for p in old_positions or []};verified_measurements=verified_measurements or {};seen=set()
         for value in values:
             if not isinstance(value,dict):raise Problem(400,'Position erwartet')
             value=dict(value);original=old_by_id.get(value.get('id'));article_snapshot=False
-            if value.get('article_id') and not value.get('id'):
+            from business_catalog_prices import article_managed,resolve_selection
+            selection_supplied='catalog_price_selection' in value
+            selection=value.pop('catalog_price_selection',None)
+            if selection_supplied and not isinstance(selection,dict):
+                raise Problem(400,'Vollständige ausdrückliche Katalogpreiswahl erforderlich')
+            if (original and original.get('article_id') and selection is None
+                    and (original.get('catalog_price_snapshot') or article_managed(self.office,original['article_id']))
+                    and value.get('article_id')!=original['article_id']):
+                raise Problem(409,'Gebundene Position nicht durch Entfernen der Artikel-/Preisquelle als manuelle Position umdeuten')
+            managed=bool(value.get('article_id') and article_managed(self.office,value['article_id']))
+            historical=bool(original and original.get('article_id')==value.get('article_id')
+                and original.get('article_revision')==value.get('article_revision')
+                and original.get('catalog_price_snapshot')==value.get('catalog_price_snapshot'))
+            if managed and selection is None:
+                if not historical:raise Problem(409,'Verkaufspreis mit ausdrücklichem Gültigkeitstag auswählen')
+                if not value.get('catalog_price_snapshot') and any(value.get(key)!=original.get(key) for key in ('unit_price_net','price_base_quantity','unit')):
+                    raise Problem(409,'Historischen undatierten Artikelpreis nicht als neue Preisfreigabe ändern')
+            if selection is not None and not value.get('article_id'):
+                raise Problem(400,'Artikel zur datierten Preiswahl erforderlich')
+            if value.get('catalog_price_snapshot') and not historical and selection is None:
+                raise Problem(409,'Datierten Preisnachweis nur durch ausdrückliche Auswahl übernehmen')
+            if value.get('article_id') and (not value.get('id') or selection is not None or managed and not historical):
                 require(self.office,actor,'finance.read')
                 explicit_cost='cost_price_net' in value
+                supplied=dict(value)
                 row=self.db.execute('SELECT * FROM business_articles WHERE id=?',(_id(value['article_id']),)).fetchone()
                 if not row:raise Problem(404,'Artikel nicht verfügbar')
                 article=json.loads(row['payload_json'])
                 if not article['active'] or value.get('article_revision')!=row['revision']:raise Problem(409,'Artikel wurde geändert oder deaktiviert')
                 value={**article,'description':article['name'],**value,'article_revision':row['revision']}
                 from business_pricing import cost_known
-                if not cost_known(article) and not explicit_cost:value.pop('cost_price_net',None)
+                if (managed or not cost_known(article)) and not explicit_cost:value.pop('cost_price_net',None)
+                if selection is not None:
+                    proof=resolve_selection(self.office,actor,value['article_id'],selection,'sales_net',lock=persist)
+                    price=proof['price']
+                    for key,expected in (('unit_price_net',price['price_net']),('price_base_quantity',price['price_base_quantity'])):
+                        if key in supplied and decimal_value(supplied[key])!=Decimal(expected):
+                            raise Problem(409,'Position stimmt nicht mit der ausdrücklich ausgewählten Preisquelle überein')
+                    if 'unit' in supplied and supplied['unit']!=price['unit']:raise Problem(409,'Gewählte Preiseinheit stimmt nicht mit der Position überein')
+                    value.update(unit_price_net=price['price_net'],price_base_quantity=price['price_base_quantity'],unit=price['unit'],catalog_price_snapshot=proof)
+                    if 'tax_rate' not in supplied:
+                        value.update(tax_rate=price['tax_rate'],tax_category='S' if Decimal(price['tax_rate']) else 'Z',tax_exemption_reason='')
+                    elif 'tax_category' not in supplied:
+                        value.update(tax_category='S' if Decimal(value['tax_rate']) else 'Z',tax_exemption_reason='')
+                    value.pop('pricing_snapshot',None)
                 article_snapshot=True
             if value.get('cost_price_net') in (None,''):value.pop('cost_price_net',None)
             if 'pricing' in value:
@@ -671,7 +801,8 @@ class Documents:
                 if persist and not article_snapshot and (not original or original.get('pricing_snapshot')!=snapshot) and value.get('id') not in verified_measurements:
                     raise Problem(400,'Preiskalkulation über die geprüfte Übernahme bestätigen')
                 from business_pricing import snapshot_matches
-                if not snapshot_matches(value,snapshot):value.pop('pricing_snapshot',None)
+                if not snapshot_matches(value,snapshot,office=self.office):value.pop('pricing_snapshot',None)
+            _catalog_position_snapshot(self.office,value)
             if value.get('measurement_snapshot') or value.get('source_type')=='measurement':
                 snapshot=value.get('measurement_snapshot');reference=verified_measurements.get(value.get('id')) or (original.get('measurement_snapshot') if original else None)
                 if persist and (not reference or snapshot!=reference):raise Problem(400,'Aufmaß nur über die bestätigte Projektübernahme verwenden')
@@ -1308,10 +1439,11 @@ def validate_integrity(office):
             if _hash(canonical(template['snapshot']))!=template['sha256']:raise ValueError('Invalid template source snapshot')
         calculated=calculate_positions(value['positions'])
         for position in value['positions']:
+            _catalog_position_snapshot(office,position)
             if position.get('measurement_snapshot'):Documents(office)._validate_measurement_snapshot(position,row['project_id'])
             if 'pricing_snapshot' in position:
                 from business_pricing import snapshot_matches
-                if not snapshot_matches(position,position['pricing_snapshot']):raise ValueError('Commercial pricing proof does not match its position')
+                if not snapshot_matches(position,position['pricing_snapshot'],office=office):raise ValueError('Commercial pricing proof does not match its position')
         if canonical(calculated['positions'])!=canonical(value['positions']) or canonical(calculated['totals'])!=canonical(value.get('contract_totals',value['totals'])):raise ValueError('Commercial monetary snapshot is inconsistent')
         versions=db.execute('SELECT revision,payload_sha256 FROM business_document_versions WHERE document_id=? ORDER BY revision',(row['id'],)).fetchall()
         if [v['revision'] for v in versions]!=list(range(1,row['revision']+1)) or versions[-1]['payload_sha256']!=row['payload_sha256']:raise ValueError('Incomplete commercial revision journal')
@@ -1329,6 +1461,18 @@ def validate_integrity(office):
     for table in ('business_document_versions','business_article_versions'):
         for row in db.execute('SELECT * FROM '+table).fetchall():
             if _hash(row['payload_json'])!=row['payload_sha256']:raise ValueError('Invalid document/article version digest')
+            archived=json.loads(row['payload_json'])
+            if table=='business_document_versions':
+                for position in archived.get('positions',[]):
+                    _catalog_position_snapshot(office,position)
+                    if position.get('pricing_snapshot'):
+                        from business_pricing import snapshot_matches
+                        if not snapshot_matches(position,position['pricing_snapshot'],office=office):raise ValueError('Historical calculation proof mismatch')
+            else:
+                for component in archived.get('components',[]):_catalog_component_snapshot(office,component)
+                if archived.get('pricing_snapshot'):
+                    from business_pricing import validate_catalog_sources
+                    validate_catalog_sources(office,archived['pricing_snapshot'])
     for counter in db.execute('SELECT * FROM business_document_counters').fetchall():
         numbers=db.execute('SELECT value FROM business_document_numbers WHERE company_id=? AND series=? AND year=? ORDER BY value',
             (counter['company_id'],counter['series'],counter['year'])).fetchall()

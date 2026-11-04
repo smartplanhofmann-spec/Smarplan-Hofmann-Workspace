@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_catalog_prices.dart';
 import 'business_widgets.dart';
 import 'design.dart';
 
@@ -39,7 +40,8 @@ class BusinessPricingEditor extends StatefulWidget {
   State<BusinessPricingEditor> createState() => _BusinessPricingEditorState();
 }
 
-class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
+class _BusinessPricingEditorState extends State<BusinessPricingEditor>
+    with WidgetsBindingObserver {
   final form = GlobalKey<FormState>();
   final fields = <String, TextEditingController>{};
   final components = <Map<String, dynamic>>[];
@@ -49,21 +51,37 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
   String? error, articleError;
   bool busy = false, accessDenied = false;
   int version = 0;
+  CatalogPriceFlow? catalogFlow;
+  Map<String, dynamic>? catalogSource, sourcePriceSelection;
+  String? sourcePriceLabel;
+  Object? catalogGeneration;
 
   bool get mayView =>
       !accessDenied &&
       widget.session.can('finance.read') &&
       widget.session.hasFeature('quote_pricing');
-  bool get mayEdit => mayView && widget.session.canWrite('finance.write');
+  bool get mayEdit =>
+      mayView &&
+      widget.session.canWrite('finance.write') &&
+      widget.session.sectionEnabled('documents');
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    catalogGeneration = widget.session.generation;
     final initial = widget.initial ?? <String, dynamic>{};
     final pricing = businessMap(
       initial['pricing'] ?? businessMap(initial['pricing_snapshot'])['inputs'],
     );
     kind = initial['kind'] ?? pricing['kind'] ?? 'service';
+    if (pricing['source_article_id'] != null)
+      catalogSource = {
+        'id': pricing['source_article_id'],
+        'revision': pricing['source_article_revision'],
+      };
+    if (pricing['source_price_selection'] is Map)
+      sourcePriceSelection = businessMap(pricing['source_price_selection']);
     for (final name in const [
       'description',
       'quantity',
@@ -95,6 +113,38 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
       fields[name]!.addListener(edited);
     }
     components.addAll((pricing['components'] as List? ?? []).map(businessMap));
+    final historicalSources =
+        (businessMap(initial['pricing_snapshot'])['source_articles'] as List? ??
+                [])
+            .map(businessMap)
+            .toList();
+    String? historicalLabel(Object? articleId, Map<String, dynamic> selection) {
+      final snapshot = historicalSources
+          .where((item) => item['id'] == articleId)
+          .map((item) => businessMap(item['catalog_price_snapshot']))
+          .where(
+            (value) =>
+                value['price_id'] == selection['price_id'] &&
+                value['price_revision'] == selection['price_revision'],
+          )
+          .firstOrNull;
+      return snapshot == null
+          ? null
+          : '${snapshot['source_name']} · ${catalogPriceLabel(businessMap(snapshot['price']))} · Preisstand ${snapshot['effective_on']}';
+    }
+
+    if (sourcePriceSelection != null)
+      sourcePriceLabel = historicalLabel(
+        catalogSource?['id'],
+        sourcePriceSelection!,
+      );
+    for (final component in components) {
+      final label = historicalLabel(
+        component['article_id'],
+        businessMap(component['price_selection']),
+      );
+      if (label != null) component['price_label'] = label;
+    }
     widget.session.addListener(accessChanged);
     loadArticles();
   }
@@ -106,7 +156,20 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
 
   void accessChanged() {
     if (!mounted) return;
-    if (!mayView) {
+    if (catalogGeneration != widget.session.generation) {
+      accessDenied = true;
+      catalogGeneration = widget.session.generation;
+    }
+    if (!mayView ||
+        !mayEdit &&
+            (sourcePriceSelection != null ||
+                components.any((item) => item['price_selection'] != null))) {
+      version++;
+      catalogFlow?.dispose();
+      catalogFlow = null;
+      catalogSource = null;
+      sourcePriceSelection = null;
+      sourcePriceLabel = null;
       proposal = null;
       articles = [];
       components.clear();
@@ -138,6 +201,27 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
     }
   }
 
+  @override
+  void didUpdateWidget(covariant BusinessPricingEditor oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.session != widget.session ||
+        oldWidget.projectId != widget.projectId) {
+      oldWidget.session.removeListener(accessChanged);
+      widget.session.addListener(accessChanged);
+      catalogFlow?.dispose();
+      accessDenied = true;
+      accessChanged();
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed && mounted) {
+      accessDenied = true;
+      accessChanged();
+    }
+  }
+
   void denyAccess() {
     if (!mounted) return;
     accessDenied = true;
@@ -147,6 +231,8 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
 
   @override
   void dispose() {
+    catalogFlow?.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     widget.session.removeListener(accessChanged);
     for (final field in fields.values) {
       field.removeListener(edited);
@@ -163,13 +249,11 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
 
   Map<String, dynamic> inputs() => {
     if (widget.projectId != null) 'project_id': widget.projectId,
-    for (final entry in businessMap(
-      widget.initial?['pricing'] ??
-          businessMap(widget.initial?['pricing_snapshot'])['inputs'],
-    ).entries)
-      if (entry.key == 'source_article_id' ||
-          entry.key == 'source_article_revision')
-        entry.key: entry.value,
+    if (catalogSource != null) 'source_article_id': catalogSource!['id'],
+    if (catalogSource != null)
+      'source_article_revision': catalogSource!['revision'],
+    if (sourcePriceSelection != null)
+      'source_price_selection': sourcePriceSelection,
     for (final name in const [
       'base_cost_net',
       'labor_hours',
@@ -183,7 +267,8 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
       'tax_rate',
       'quantity',
     ])
-      name: decimal(name),
+      if (name != 'base_cost_net' || sourcePriceSelection == null)
+        name: decimal(name),
     'unit': fields['unit']!.text.trim(),
     'kind': kind,
     'components': [
@@ -192,6 +277,8 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
           'article_id': component['article_id'],
           'article_revision': component['article_revision'],
           'quantity': component['quantity'],
+          if (component['price_selection'] != null)
+            'price_selection': component['price_selection'],
         },
     ],
   };
@@ -232,6 +319,7 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
       }
       setState(() => proposal = result);
     } on ApiException catch (e) {
+      if (!mounted || current != version || !mayView) return;
       if ([401, 403, 404].contains(e.status)) {
         denyAccess();
         return;
@@ -239,62 +327,101 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
       if (mounted && mayView && current == version)
         setState(() => error = e.message);
     } on FormatException catch (e) {
-      if (mounted) setState(() => error = e.message);
+      if (mounted && current == version && mayView)
+        setState(() => error = e.message);
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (mounted && current == version && mayView)
+        setState(() => busy = false);
     }
   }
 
-  Future<void> addComponent() async {
-    await showDialog<void>(
-      context: context,
-      builder: (dialogContext) => BusinessEditor(
-        session: widget.session,
-        title: 'Artikel zur Stückliste hinzufügen',
-        readPermission: 'finance.read',
-        writePermission: 'finance.write',
-        fields: [
-          BusinessField(
-            'article_id',
-            'Artikel',
-            type: BusinessInput.choice,
-            required: true,
-            choices: {
-              for (final a in articles)
-                '${a['id']}':
-                    '${a['name']} · ${businessMoney(a['cost_known'] == false ? null : a['cost_price_net'])} EK / ${a['unit']}',
-            },
-          ),
-          const BusinessField(
-            'quantity',
-            'Menge je Positionseinheit',
-            type: BusinessInput.decimal,
-            required: true,
-          ),
-        ],
-        onSave: (values) async {
-          if (!mounted || !mayEdit)
-            throw const ApiException(
-              403,
-              'Die Bearbeitung ist nicht mehr freigegeben.',
-            );
-          final article = articles.firstWhere(
-            (a) => a['id'] == values['article_id'],
-          );
-          setState(() {
-            components.add({
-              'article_id': article['id'],
-              'article_revision': article['revision'],
-              'quantity': values['quantity'],
-              'name': article['name'],
-            });
-            version++;
-            proposal = null;
-          });
-        },
-      ),
+  Future<void> chooseCatalogCost({bool component = false}) async {
+    if (!mayEdit) return;
+    final owner = widget.session;
+    catalogFlow?.dispose();
+    final flow = CatalogPriceFlow(
+      context,
+      owner,
+      () => mounted && identical(owner, widget.session) && mayEdit,
     );
+    catalogFlow = flow;
+    try {
+      await flow.fresh();
+      Map<String, dynamic>? chosen;
+      await flow.dialog<void>(
+        (_) => BusinessEditor(
+          session: owner,
+          readPermission: 'finance.read',
+          writePermission: 'finance.write',
+          title: component
+              ? 'Artikel zur Stückliste hinzufügen'
+              : 'Basiskostenquelle wählen',
+          fields: [
+            BusinessField(
+              'article_id',
+              'Artikel',
+              type: BusinessInput.choice,
+              required: true,
+              choices: {
+                for (final a in articles)
+                  '${a['id']}':
+                      '${a['name']} · ${catalogPriceManaged(a) ? 'Datierten Einkaufspreis wählen' : businessMoney(a['cost_known'] == false ? null : a['cost_price_net']) + ' EK / ' + a['unit']}',
+              },
+            ),
+            if (component)
+              const BusinessField(
+                'quantity',
+                'Menge je Positionseinheit',
+                type: BusinessInput.decimal,
+                required: true,
+              ),
+          ],
+          onSave: (values) async {
+            chosen = values;
+          },
+        ),
+      );
+      if (!flow.valid || chosen == null) return;
+      final article = articles.firstWhere(
+        (item) => item['id'] == chosen!['article_id'],
+      );
+      CatalogPriceChoice? choice;
+      if (catalogPriceManaged(article)) {
+        choice = await flow.choose(article, 'purchase_net');
+        if (choice == null) return;
+      }
+      await flow.fresh();
+      if (!flow.valid) return;
+      setState(() {
+        if (component) {
+          components.add({
+            'article_id': article['id'],
+            'article_revision': article['revision'],
+            'quantity': chosen!['quantity'],
+            'name': article['name'],
+            if (choice != null) 'price_selection': choice.selection,
+            if (choice != null) 'price_label': choice.label,
+          });
+        } else {
+          catalogSource = article;
+          sourcePriceSelection = choice?.selection;
+          sourcePriceLabel = choice?.label;
+          fields['base_cost_net']!.text = choice == null
+              ? '${article['cost_price_net'] ?? ''}'
+              : '';
+        }
+        version++;
+        proposal = null;
+      });
+    } catch (e) {
+      if (flow.valid) setState(() => error = '$e');
+    } finally {
+      flow.dispose();
+      if (identical(catalogFlow, flow)) catalogFlow = null;
+    }
   }
+
+  Future<void> addComponent() => chooseCatalogCost(component: true);
 
   Widget input(
     String name,
@@ -307,7 +434,10 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
     child: TextFormField(
       key: ValueKey('pricing-$name'),
       controller: fields[name],
-      enabled: mayEdit && !busy,
+      enabled:
+          mayEdit &&
+          !busy &&
+          (name != 'base_cost_net' || sourcePriceSelection == null),
       keyboardType: text
           ? null
           : const TextInputType.numberWithOptions(decimal: true),
@@ -454,7 +584,7 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
                             input(
                               'base_cost_net',
                               'Weitere Basis-EK netto (€)',
-                              required: true,
+                              required: sourcePriceSelection == null,
                               hint: 'Ohne die unten gewählten Artikel und Lohnkosten. Wenn keine weiteren Kosten anfallen, ausdrücklich 0 eingeben.',
                             ),
                             input(
@@ -470,6 +600,26 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
                               'Stückliste / Material',
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
+                            if (catalogPricesReadable(widget.session)) ...[
+                              OutlinedButton(
+                                onPressed:
+                                    mayEdit && !busy && articles.isNotEmpty
+                                    ? () => chooseCatalogCost()
+                                    : null,
+                                child: const Text(
+                                  'Datierte Basiskostenquelle wählen',
+                                ),
+                              ),
+                              if (sourcePriceSelection != null)
+                                Text(
+                                  sourcePriceLabel ??
+                                      'Gewählter Einkaufspreis · Preisstand ${sourcePriceSelection!['effective_on']}',
+                                ),
+                              if (sourcePriceSelection != null)
+                                const Text(
+                                  'Basiskosten werden aus Rohbetrag und Bezugsmenge serverseitig berechnet.',
+                                ),
+                            ],
                             if (articleError != null)
                               Notice(
                                 'Artikel konnten nicht geladen werden: $articleError',
@@ -485,7 +635,11 @@ class _BusinessPricingEditorState extends State<BusinessPricingEditor> {
                                   '${components[index]['name'] ?? articles.where((a) => a['id'] == components[index]['article_id']).firstOrNull?['name'] ?? 'Hinterlegter Artikel'}',
                                 ),
                                 subtitle: Text(
-                                  '${components[index]['quantity']} · Artikelstand ${components[index]['article_revision']}',
+                                  '${components[index]['quantity']} · Artikelstand ${components[index]['article_revision']}${components[index]['price_label'] != null
+                                      ? '\n${components[index]['price_label']}'
+                                      : components[index]['price_selection'] != null
+                                      ? '\nPreisstand ${components[index]['price_selection']['effective_on']}'
+                                      : ''}',
                                 ),
                                 trailing: IconButton(
                                   tooltip: 'Stücklistenartikel entfernen',
@@ -693,7 +847,10 @@ class _BusinessMeasurementTransferEditorState
       widget.session.can('finance.read') &&
       widget.session.can('documents.read') &&
       widget.session.hasFeature('measurement_transfer');
-  bool get mayEdit => mayView && widget.session.canWrite('finance.write');
+  bool get mayEdit =>
+      mayView &&
+      widget.session.canWrite('finance.write') &&
+      widget.session.sectionEnabled('documents');
 
   @override
   void initState() {

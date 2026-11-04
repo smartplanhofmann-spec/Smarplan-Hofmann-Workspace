@@ -1,0 +1,66 @@
+{
+  "previous_ci_count": 98,
+  "final_ci_count": 138,
+  "added_ci_documents": [
+    "docs/CRM_ERP_ANFANGSSALDEN_API.md",
+    "docs/CRM_ERP_ANFANGSSALDEN_CLIENTS.md",
+    "docs/CRM_ERP_ASSISTENT_KOSTENSUMME_V2_2026-11-04.md",
+    "docs/CRM_ERP_HISTORISCHE_ANLAGEN_NATIVE.md",
+    "docs/CRM_ERP_KATALOG_BROWSER_2026-11-04.md",
+    "docs/CRM_ERP_KATALOG_PREISE_V2_API_2026-11-04.md",
+    "docs/CRM_ERP_KATALOG_PREISE_V2_NATIVE_2026-11-04.md",
+    "docs/CRM_ERP_KATALOG_PREISGUELTIGKEIT_V2_VERTRAG_2026-11-04.md",
+    "docs/CRM_ERP_KATALOG_V2_VERBRAUCHER_2026-11-04.md",
+    "docs/CRM_ERP_LOHN_ANSPRUECHE_CLIENTS.md",
+    "docs/CRM_ERP_LOHN_ANSPRUECHE_CLIENTS_PRUEFUNG_2026-11-03.json",
+    "docs/CRM_ERP_LOHN_EINMALBEZUG_CLIENTS.md",
+    "docs/CRM_ERP_LOHN_EINMALBEZUG_PG_PRUEFUNG_2026-11-04.md",
+    "docs/CRM_ERP_LOHN_EINMALBEZUG_V6_VERTRAG_2026.md",
+    "docs/CRM_ERP_LOHN_GESAMTFALL_KERNEL_PRUEFUNG_2026-11-03.json",
+    "docs/CRM_ERP_LOHN_KRANKHEIT_VERSIONEN_2026.md",
+    "docs/CRM_ERP_LOHN_MEHRFACHBEZUEGE_QUELLEN_2026.md",
+    "docs/CRM_ERP_LOHN_MEHRFACHBEZUEGE_V7_VERTRAG_2026.md",
+    "docs/CRM_ERP_LOHN_NULLNETTO_BROWSERPRUEFUNG_2026-11-04.md",
+    "docs/CRM_ERP_REISE_PAUSCHALSTEUER_CLIENTS.md",
+    "docs/CRM_ERP_REISE_V3_PRUEFUNG_2026-11-03.json",
+    "docs/CRM_ERP_REISE_V3_VERTRAG_2026.md",
+    "docs/CRM_ERP_SOURCE5_CLIENTS_2026-11-04.md",
+    "docs/CRM_ERP_SOURCE5_MITARBEITERBELEGE_2026-11-04.md",
+    "docs/CRM_ERP_SOURCE5_NATIVE_2026-11-04.md",
+    "docs/CRM_ERP_SOURCE5_NATIVE_KONTEXTNACHTRAG_2026-11-04.md",
+    "docs/evidence/accounting-openings-domain-2026-11-04.json",
+    "docs/evidence/accounting-openings-postgres-first-2026-11-04.json",
+    "docs/evidence/historical-assets-browser-independent-review-2026-11-04.json",
+    "docs/evidence/historical-assets-native-2026-11-04/manifest.json",
+    "docs/evidence/payroll-oneoff-clients-2026-11-04.json",
+    "docs/evidence/payroll-oneoff-pg-annual-final-2026-11-04.json",
+    "docs/evidence/payroll-oneoff-pg-annual-integration-2026-11-04.json",
+    "docs/evidence/payroll-travel-policy-clients-2026-11-03.json",
+    "docs/evidence/source5-browser-format-followup-2026-11-04.json",
+    "docs/evidence/source5-native-clients-2026-11-04.json",
+    "docs/evidence/source5-native-independent-review-2026-11-04.json",
+    "docs/evidence/source5-own-statements-2026-11-04.json",
+    "docs/evidence/source5-private-clients-2026-11-04.json",
+    "docs/payroll-oneoff-own-statements-2026-11-04.md"
+  ],
+  "files": [
+    {
+      "path": "scripts/native-release.py",
+      "before_sha256": "af2640c61905bd04e50bdf080bed5788e496095ad06ba9d2e039a7769b9cbff8",
+      "after_sha256": "25f4b952b8405684008289aad1657361b94208bbd98c34a2a3c028c2b2677cf9"
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "before_sha256": "cdda43cd0797644f32e3901a6de38a183ad26bb19682045f760cbc4f697fe433",
+      "after_sha256": "56782ec3d54b9835fa391a65c19c0e0b9ece3ae057160d44f5d61f4a5641f072"
+    },
+    {
+      "path": ".github/workflows/checks.yml",
+      "before_sha256": "ee54c31ff8dd24106832f17d643d8a38c527bd570ec2fde7a37f4534c2904504",
+      "after_sha256": "db6990a74755175383185efc6a36ad48b4e0429c168266e10a640e62b65504cf"
+    }
+  ],
+  "all_registered_documents_exist": true,
+  "both_package_and_ci_file_sets_equal": true,
+  "note": "Package script ordering differs intentionally; file-set equality is verified. Initial preparation assertion compared tuple order and stopped before CI update; no product runtime changed."
+}

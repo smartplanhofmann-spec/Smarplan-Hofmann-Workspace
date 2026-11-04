@@ -146,7 +146,7 @@ class BusinessInventory(Domain):
     def _operational_article(value):
         # Commercial articles may contain arbitrarily nested calculation/BOM
         # proofs. Only these metadata fields belong in an operational response.
-        return {key:value[key] for key in ('id','revision','code','name','kind','unit','active') if key in value}
+        return {key:value[key] for key in ('id','revision','code','name','kind','unit','active','price_policy') if key in value}
 
     def _movement(self,row,*,financial=True):
         value=dict(row); value['article_snapshot']=json.loads(value.pop('article_snapshot_json'))
@@ -165,7 +165,7 @@ class BusinessInventory(Domain):
             if error.status!=403: raise
         if article:
             return self._operational_article(value)
-        hidden={'unit_cost_net','cost_net','cost_price_net','unit_price_net','stock_value_net'}
+        hidden={'unit_cost_net','cost_net','cost_price_net','unit_price_net','stock_value_net','catalog_price_snapshot','catalog_price_selection'}
         def redact(item):
             if isinstance(item,dict):
                 return {key:self._operational_article(child) if key=='article_snapshot' else redact(child)
@@ -201,6 +201,9 @@ class BusinessInventory(Domain):
             ensure_return_available(self.office, original['id'], amount)
             unit_cost=Decimal(original['cost_net'])/Decimal(original['quantity'])
         elif kind=='receive':
+            from business_catalog_prices import article_managed
+            if article_managed(self.office, article['id']) and 'unit_cost_net' not in body:
+                raise Problem(409,'Datierter Katalogartikel benötigt einen ausdrücklich dokumentierten tatsächlichen Einstandspreis.')
             if 'unit_cost_net' in body: self.access(fresh,'finance.write',project_id)
             unit_cost=decimal(body.get('unit_cost_net',article.get('cost_price_net','0')),'Einstandspreis')
             if unit_cost<0: raise Problem(400,'Einstandspreis darf nicht negativ sein')
@@ -286,6 +289,8 @@ class BusinessInventory(Domain):
                     matches.append(dict(value,id=row['id'],revision=row['revision']))
             if not matches: raise Problem(404,'Code nicht gefunden')
             if len(matches)!=1: raise Problem(409,'Code ist mehreren Artikeln zugeordnet')
+            from business_catalog_prices import article_managed
+            if article_managed(self.office,matches[0]['id']):matches[0]['price_policy']='dated_catalog'
             return self._public(fresh,matches[0],article=True)
 
     def set_reorder_rule(self,actor,data):
@@ -406,11 +411,19 @@ class BusinessInventory(Domain):
             if status=='approved': self.access(fresh,'finance.approve',project_id)
             items=body.get('items')
             if not isinstance(items,list) or not 1<=len(items)<=200: raise Problem(400,'Bestellvorschlag benötigt Positionen')
+            from business_catalog_prices import lock_selections
+            lock_selections(self.office,[item.get('catalog_price_selection') for item in items if isinstance(item,dict)])
             normalized=[]
             for item in items:
-                if not isinstance(item,dict) or set(item)!={'article_id','quantity'}: raise Problem(400,'Ungültige Bestellposition')
+                if not isinstance(item,dict) or not {'article_id','quantity'} <= set(item) or set(item)-{'article_id','quantity','catalog_price_selection'}: raise Problem(400,'Ungültige Bestellposition')
                 article=self._article(item['article_id']); amount=decimal(item['quantity'],positive=True)
-                normalized.append(dict(article_id=article['id'],article_snapshot=article,quantity=quantity(amount)))
+                from business_catalog_prices import article_managed, resolve_selection
+                value=dict(article_id=article['id'],article_snapshot=article,quantity=quantity(amount))
+                if article_managed(self.office,article['id']) or 'catalog_price_selection' in item:
+                    if 'catalog_price_selection' not in item:
+                        raise Problem(409,'Datierte Einkaufspreisquelle und Gültigkeitstag ausdrücklich auswählen.')
+                    value['catalog_price_snapshot']=resolve_selection(self.office,fresh,article['id'],item['catalog_price_selection'],'purchase_net',lock=True)
+                normalized.append(value)
             supplier=text(body.get('supplier_name'),'Lieferant',300,required=True)
             identifier_,now=order_id or uuid.uuid4().hex,self.now()
             if old:

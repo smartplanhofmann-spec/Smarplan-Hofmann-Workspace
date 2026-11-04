@@ -1,3 +1,4 @@
+import {datedCatalogUi,datedPendingAuthorize,datedPricePicker,priceSelection,datedConsumerCommand,datedConsumerPendingAuthorize} from './catalog-prices.js';
 import {catalogImportsUi,catalogPendingAuthorize} from './catalog-imports.js';
 import {payrollMultipleCasesPendingAuthorize} from './payroll-multiple-cases.js';
 import {historicalAssetsUi} from './accounting-historical-assets.js';
@@ -741,7 +742,7 @@ export function portalIssuedLink(result,hostname){
 function purchaseArticle(item) {
   if(!item||typeof item.id!=='string'||typeof item.name!=='string'||typeof item.unit!=='string')
     throw new ApiError('Die Einkaufsartikel konnten nicht gelesen werden.',502);
-  return {id:item.id,revision:item.revision,code:item.code||'',name:item.name,kind:item.kind,unit:item.unit,active:item.active};
+  return {id:item.id,revision:item.revision,code:item.code||'',name:item.name,kind:item.kind,unit:item.unit,active:item.active,...(item.price_policy==='dated_catalog'?{price_policy:item.price_policy}:{}),...(item.catalog_price_required?{catalog_price_required:true}:{})};
 }
 export class PurchaseCatalog {
   constructor({fetcher,enabled=false,projectId=null,items=[],selected=[]}) {
@@ -781,6 +782,7 @@ export class PurchaseCatalog {
 export function purchaseConfirmationData(order,values) {
   if(order.status!=='approved'||order.confirmation)throw new Error('Zuerst den Bestellvorschlag freigeben und die Bestellung neu laden.');
   if(values.confirmation!==true)throw new Error('Bitte die bereits extern erteilte Bestellung ausdrücklich bestätigen.');
+  if((order.items||[]).some(item=>item.catalog_price_snapshot&&item.catalog_price_snapshot.effective_on!==values.ordered_on))throw new Error('Tatsächliches Bestelldatum muss zum ausdrücklich gewählten Katalogpreisstand passen.');
   const order_reference=String(values.order_reference||'').trim();
   if(!order_reference)throw new Error('Bitte eine Bestellreferenz angeben.');
   calendarDay(values.ordered_on);
@@ -890,8 +892,9 @@ export class OfficeApi {
   async request(path, {method = 'GET', body, publicRequest = false, binary = false, maxBytes} = {}) {
     if (typeof path !== 'string' || !path.startsWith('/') || path.startsWith('//') || path.includes('#') || /[\r\n]/.test(path)) throw new Error('Ungültiger API-Pfad.');
     const bankJson = /^\/business\/bank\/(?:accounts|import\/preview|statements(?:\/[a-f0-9]{32})?|transactions\/[a-f0-9]{32}\/(?:candidates|history|preview|matches)|reconciliations(?:\/preview|\/[a-f0-9]{32})?)$/.test(path.split('?')[0]);
+    const datedJson=/^\/business\/catalog-prices\/(?:sources\/[a-f0-9]{32}\/imports|imports\/[a-f0-9]{32}(?:\/(?:apply|preview))?|prices\/[a-f0-9]{32}\/history|candidates)$/.test(path.split('?')[0]);
     const catalogJson=/^\/business\/adapters\/(?:[a-f0-9]{32}\/import|imports\/[a-f0-9]{32}(?:\/(?:apply|catalog-preview))?)$/.test(path.split('?')[0]);
-    maxBytes ??= binary ? 21 * 1024 * 1024 : (bankJson ? 128 : catalogJson ? 32 : 4) * 1024 * 1024;
+    maxBytes ??= binary ? 21 * 1024 * 1024 : (bankJson ? 128 : catalogJson||datedJson ? 32 : 4) * 1024 * 1024;
     if (!publicRequest && !this.#token) throw new ApiError('Bitte anmelden.', 401);
     const generation = this.#generation, controller = new AbortController();
     this.#controllers.add(controller);
@@ -947,6 +950,8 @@ export class OfficeApi {
     const operation = old || {path, fingerprint, body: {...JSON.parse(fingerprint), request_id: requestId()}, validate};
     this.#pending.set(key, operation);
     try {
+      if(old&&path.startsWith('/business/catalog-prices/'))await datedPendingAuthorize(this,{key,path});
+      if(old&&datedConsumerCommand(key,path,operation.body))await datedConsumerPendingAuthorize(this,{key,path});
       if(old&&key.startsWith('catalog-'))await catalogPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/assistant/'))await assistantPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/payroll/cash/'))await payrollCashPendingAuthorize(this,{key,path});
@@ -977,7 +982,7 @@ export class OfficeApi {
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
       this.#pending.delete(key); return result;
     } catch (error) {
-      const protectedAccounting=path.startsWith('/business/accounting/historical-assets')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
+      const protectedAccounting=path.startsWith('/business/accounting/historical-assets')||datedConsumerCommand(key,path,operation.body)||path.startsWith('/business/catalog-prices/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
       const uncertainAccounting=protectedAccounting&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted');
       if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
       throw error;
@@ -1043,6 +1048,12 @@ const catalogWorkspace=catalogImportsUi({el,button,dialog,closeModal,panel,notic
   available:()=>state.section==='settings',caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly,organization:state.organization}),
   stamp:()=>`${api.generation}/${state.render}`,
   saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+
+const datedWorkspace=datedCatalogUi({el,button,dialog,closeModal,panel,notice,table,api,formatDate,
+  available:()=>state.section==='settings',caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly,organization:state.organization}),
+  stamp:()=>`${api.generation}/${state.render}`,
+  saveBlob:(blob,filename)=>{const link=el('a',{href:objectUrl(blob),download:filename,rel:'noopener'});document.body.append(link);link.click();link.remove();}});
+function pricePicker(options){return datedPricePicker({api,el,button,notice,stamp:()=>`${api.generation}/${state.render}`,canSelect:()=>has('finance.read')&&state.capabilities.has('business_catalog_prices'),deny:closeModal},options);}
 
 const bankWorkspace=bankReconciliationUi({el,button,field,form,dialog,panel,notice,table,api,biz,action,formatDate,formatMoney,
   available:()=>state.section==='finance',caps:()=>({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly,organization:state.organization}),
@@ -1216,7 +1227,11 @@ function mutation(key,path,data,options) {
   if(state.readonly)throw new ApiError('Der aktuelle Betriebsmodus erlaubt nur das Lesen vorhandener Daten.',409);
   if(!organizationModuleEnabled(organizationCommandArea(path),state.organization))
     throw new ApiError('Dieser Bereich ist fachlich deaktiviert. Neue Vorgänge benötigen die Aktivierung in den Unternehmenseinstellungen.',423);
-  return api.mutate(key,biz(path),data,options);
+  const dated=datedConsumerCommand(key,biz(path),data),owner=modal,generation=api.generation,render=state.render;
+  const current=()=>owner===modal&&(!owner||owner.isConnected)&&generation===api.generation&&render===state.render&&document.visibilityState!=='hidden';
+  const response=api.mutate(key,biz(path),data,options);
+  if(!dated)return response;
+  return response.then(value=>current()?value:undefined,error=>{if(current())throw error;return undefined;});
 }
 function accountingRights(status=null) { return accountingAccess({permissions:[...state.globalPermissions],capabilities:[...state.capabilities],features:[...state.features],readonly:state.readonly},state.organization,status); }
 function sectionAuthorized(section) {
@@ -1237,7 +1252,7 @@ function mayOpenSection(section) {
 }
 
 function loginScreen(challenge = null, enrollment = null) {
-  privacyCases.clear();travelWorkspace.clear();payrollWorkspace.clear();openingWorkspace.clear();catalogWorkspace.clear();historicalWorkspace.clear();
+  privacyCases.clear();travelWorkspace.clear();payrollWorkspace.clear();openingWorkspace.clear();catalogWorkspace.clear();historicalWorkspace.clear();datedWorkspace.clear();
   refundPendingSources.clear();
   closeModal(); revokeUrls(); state.user=null; root.replaceChildren();
   const card=el('section',{class:'login-card'},el('div',{class:'brand'},el('span',{class:'brand-mark'},'S'),el('div',{},el('strong',{},'smartplan'),el('small',{},'OFFICE'))),el('h1',{},challenge?'Anmeldung bestätigen':'Willkommen im Büro.'),el('p',{class:'muted'},challenge?'Authentifizierungscode oder Wiederherstellungscode eingeben.':'Projekte, Team und Unterlagen an einem Ort.'));
@@ -1370,7 +1385,7 @@ function navigate(section,{includeHidden=false}={}) {
 }
 async function refresh() {
   if(!state.user)return;
-  catalogWorkspace.clear();
+  catalogWorkspace.clear();datedWorkspace.clear();
   const version=++state.render,generation=api.generation;revokeUrls();main.replaceChildren(el('div',{class:'loading',role:'status'},'Daten werden geladen …'));
   try {
     const [caps,projects,metadata]=await Promise.all([api.get(biz('/capabilities')),api.get('/projects'),api.get(biz('/overview'))]);
@@ -1522,7 +1537,7 @@ async function contactsView() {
     has('privacy.manage')&&state.features.has('privacy_cases')?panel('Datenschutzfälle',button('Datenschutzfälle öffnen',()=>action(()=>privacyCases.open()),'small')):null,
     panel('Kontaktkartei',rows(contacts,item=>row(item.name,[item.email,item.phone,item.address].filter(Boolean).join(' · '),[state.features.has('custom_fields')?button('Zusatzfelder',()=>action(()=>customFields.open('contact',item.id)),'small'):null,...(item.kinds||[]).map(kind=>badge(({customer:'Kunde',supplier:'Lieferant',partner:'Partner'})[kind])),has('contacts.write')?button('Bearbeiten',()=>action(async()=>contactDialog(await api.get(biz('/contacts/'+item.id)))),'small'):null,state.features.has('sales_pipeline')&&has('contacts.read')?button('Verkaufschancen',()=>action(()=>sales.open(item.id)),'small'):null,state.features.has('service_cases')&&has('contacts.read')?button('Servicefälle',()=>action(()=>customerService.open({customer_id:item.id})),'small'):null]))));
 }
-const sales=createSales({api,biz,el,button,panel,row,rows,notice,empty,form,field,dialog,table,formatDate,action,mutation,refresh,openProject,documentDetail,actorId:()=>state.user?.id,permission:has,allowed:()=>state.features.has('sales_pipeline')&&has('contacts.read'),writable:()=>!state.readonly&&has('contacts.write')});
+const sales=createSales({api,biz,el,button,pricePicker,panel,row,rows,notice,empty,form,field,dialog,table,formatDate,action,mutation,refresh,openProject,documentDetail,actorId:()=>state.user?.id,permission:has,allowed:()=>state.features.has('sales_pipeline')&&has('contacts.read'),writable:()=>!state.readonly&&has('contacts.write')});
 const customFields=customFieldsUi({api,biz,el,button,field,form,dialog,panel,rows,row,notice,table,mutation,action,enabled:()=>!!state.user&&state.features.has('custom_fields'),admin:()=>has('settings.manage'),writable:()=>!state.readonly,stamp:()=>JSON.stringify([state.user?.id,state.generation,[...state.globalPermissions],[...state.permissions],state.projectId])});
 function contactDialog(contact=null) {
   const fields=[field('name','Name / Firma','text',contact?.name||'',{required:true}),field('entity_type','Kontakttyp','select',contact?.entity_type||'company',{options:[['company','Unternehmen'],['person','Person']]}),field('kinds','Beziehungen','multi',contact?.kinds||['customer'],{options:[['customer','Kunde'],['supplier','Lieferant'],['partner','Partner']],required:true}),field('contact','Ansprechpartner','text',contact?.contact||''),field('email','E-Mail','email',contact?.email||''),field('phone','Telefon','tel',contact?.phone||''),field('address','Adresse','textarea',contact?.address||''),field('notes','Interne Notizen','textarea',contact?.notes||'')];
@@ -1635,17 +1650,33 @@ async function documentsContent(projectId='') {
     projectId?panel('Serviceberichte',rows(signed,item=>row(item.title,item.offline_capture?`Offline unterzeichnet: ${formatDate(item.offline_capture.signed_at,true)} (Geräteangabe) · Empfangen: ${formatDate(item.offline_capture.received_at,true)}`:formatDate(item.created_at,true),[badge(item.status),item.status==='signed'?button('PDF',()=>action(()=>download(biz('/service-reports/'+item.id+'/pdf'),'Servicebericht.pdf')),'small'):has('documents.write')?button('Unterzeichnen',()=>signatureDialog(item,'service-reports'),'small'):null]))):empty('Ein Projekt auswählen, um operative Serviceberichte anzuzeigen.'),customerWorkspace);
 }
 function positionEditor(initial=[]) {
-  const container=el('div',{class:'table-scroll'}),list=el('div',{}),records=[];
+  const container=el('div',{class:'stack'}),list=el('div',{class:'stack'}),records=[],stamp=`${api.generation}/${state.render}`;let catalog=[];
+  function current(){return container.isConnected&&stamp===`${api.generation}/${state.render}`&&document.visibilityState!=='hidden'&&has('finance.read');}
+  function choices(record){const selected=record.articleSelect.value;record.articleSelect.replaceChildren(el('option',{value:''},'Eigene manuelle Position'),...catalog.map(article=>el('option',{value:article.id,selected:article.id===selected},`${article.code||''} · ${article.name} (${article.unit})${article.price_policy==='dated_catalog'?' · datierter Preis':''}`)));if(selected&&!catalog.some(item=>item.id===selected))record.articleSelect.append(el('option',{value:selected,selected:true},record.original.description||'Gespeicherte Artikelposition'));}
   function add(value={}) {
-    const controls={};const node=el('div',{class:'row-fields'});
-    for(const [name,label,defaultValue]of [['description','Beschreibung',''],['quantity','Menge','1'],['unit','Einheit','Stk.'],['unit_price_net','Netto / Einheit','0.00'],['tax_rate','MwSt. %','19']]) {
-      const input=el('input',{value:value[name]??defaultValue,required:true,'aria-label':label,inputMode:['quantity','unit_price_net','tax_rate'].includes(name)?'decimal':undefined,maxLength:name==='description'?10000:100});controls[name]=input;node.append(el('label',{},label,input));
+    if(records.length>=200)return;
+    const controls={},node=el('fieldset',{class:'panel stack'}),record={controls,original:structuredClone(value),article:value.article_id?{id:value.article_id,revision:value.article_revision,unit:value.unit,name:value.description,...(value.catalog_price_snapshot?{price_policy:'dated_catalog'}:{})}:null,changed:false},articleSelect=el('select',{'aria-label':'Preisquelle der Belegposition'});record.articleSelect=articleSelect;
+    articleSelect.append(el('option',{value:''},'Eigene manuelle Position'));if(value.article_id)articleSelect.append(el('option',{value:value.article_id,selected:true},value.description));
+    node.append(el('legend',{},'Belegposition'),el('label',{class:'field'},'Artikel oder eigene Position',articleSelect));
+    const grid=el('div',{class:'form-grid'});
+    for(const [name,label,defaultValue]of [['description','Beschreibung',''],['quantity','Menge','1'],['unit','Einheit','Stk.'],['unit_price_net','Netto / Einheit','0.00'],['price_base_quantity','Preisbasis / Bezugsmenge','1'],['tax_rate','MwSt. %','19']]){
+      const input=el('input',{value:value[name]??defaultValue,required:true,'aria-label':label,inputMode:['quantity','unit_price_net','price_base_quantity','tax_rate'].includes(name)?'decimal':undefined,maxLength:name==='description'?10000:100});controls[name]=input;grid.append(el('label',{class:'field'},label,input));
     }
-    const kind=el('select',{'aria-label':'Positionsart'},['material','labor','service','machine'].map(type=>el('option',{value:type,selected:type===(value.kind||'service')},LABELS[type])));controls.kind=kind;node.append(el('label',{},'Art',kind));
-    const remove=button('×',()=>{node.remove();records.splice(records.indexOf(controls),1);},'small');remove.setAttribute('aria-label','Position entfernen');node.append(remove);records.push(controls);list.append(node);
+    controls.kind=el('select',{'aria-label':'Positionsart'},['material','labor','service','machine'].map(type=>el('option',{value:type,selected:type===(value.kind||'service')},LABELS[type])));grid.append(el('label',{class:'field'},'Art',controls.kind));node.append(grid);
+    const picker=pricePicker({article:()=>record.article,priceRole:'sales_net',initial:value.catalog_price_snapshot||null,onSelected:item=>{if(item){controls.unit_price_net.value=item.price.price_net;controls.price_base_quantity.value=item.price.price_base_quantity;controls.unit.value=item.price.unit;controls.tax_rate.value=item.price.tax_rate;}}});record.picker=picker;node.append(picker);
+    function lockPrice(){const managed=record.article?.price_policy==='dated_catalog';for(const key of ['unit_price_net','price_base_quantity','unit'])controls[key].readOnly=managed;}
+    articleSelect.addEventListener('change',()=>{record.changed=true;record.article=catalog.find(item=>item.id===articleSelect.value)||null;picker.reset();if(record.article){const article=record.article;controls.description.value=article.name;controls.unit.value=article.unit;controls.kind.value=article.kind;controls.tax_rate.value=article.tax_rate;controls.price_base_quantity.value=article.price_base_quantity||'1';controls.unit_price_net.value=article.price_policy==='dated_catalog'?'':article.unit_price_net;}else{controls.unit_price_net.value='';controls.price_base_quantity.value='1';}lockPrice();});lockPrice();
+    node.append(button('Position entfernen',()=>{node.remove();records.splice(records.indexOf(record),1);},'small'));records.push(record);list.append(node);choices(record);
   }
   initial.forEach(add);if(!initial.length)add();container.append(list,button('Position hinzufügen',()=>add(),'small'));
-  container.values=()=>records.map(controls=>({description:controls.description.value,quantity:decimalText(controls.quantity.value),unit:controls.unit.value,unit_price_net:decimalText(controls.unit_price_net.value),tax_rate:decimalText(controls.tax_rate.value),kind:controls.kind.value}));return container;
+  container.values=()=>records.map(record=>{
+    const controls=record.controls,result={...(record.changed?{}:record.original),description:controls.description.value,quantity:decimalText(controls.quantity.value),unit:controls.unit.value,unit_price_net:decimalText(controls.unit_price_net.value),price_base_quantity:decimalText(controls.price_base_quantity.value),tax_rate:decimalText(controls.tax_rate.value),kind:controls.kind.value};
+    if(record.changed&&record.original.id)result.id=record.original.id;
+    if(record.article){result.article_id=record.article.id;result.article_revision=record.article.revision;if(record.article.price_policy==='dated_catalog'&&(!record.original.id||record.changed||record.picker.dirty)){result.catalog_price_selection=record.picker.selection();delete result.catalog_price_snapshot;}}
+    return result;
+  });
+  if(has('finance.read'))api.get(biz('/articles')).then(response=>{if(!current())return;catalog=collection(response).filter(article=>article.active);for(const record of records){choices(record);if(!record.original.catalog_price_snapshot&&record.article){const found=catalog.find(item=>item.id===record.article.id);if(found?.price_policy==='dated_catalog'){record.article.price_policy='dated_catalog';record.picker.hidden=false;}}}}).catch(error=>{if(current())container.prepend(notice(error.message,'error'));});
+  return container;
 }
 export function documentConversionTargets(item) {
   if(['advance_invoice','cumulative_invoice'].includes(item.kind)&&item.status!=='final')return [];
@@ -1671,7 +1702,7 @@ async function documentDetail(id) {
     else portal=notice('Dieser Server bietet derzeit keinen erreichbaren Angebotsportalzugang.');
   }
   dialog(item.number||item.title,el('div',{class:'stack'},el('div',{class:'actions'},badge(item.status),...controls),portal,panel('Empfänger',el('h3',{},item.buyer?.name),el('p',{class:'muted'},item.buyer?.address_line||'')),
-    panel('Positionen',table(['Beschreibung','Menge','Einheit','Netto'],(item.positions||[]).map(line=>[line.description,formatQuantity(line.quantity),line.unit,formatMoney(line.net)]))),
+    panel('Positionen',table(['Beschreibung','Menge','Einheit','Netto'],(item.positions||[]).map(line=>[line.catalog_price_snapshot?`${line.description} · ${line.catalog_price_snapshot.source_name} · ${line.catalog_price_snapshot.price.price_net} EUR / ${line.catalog_price_snapshot.price.price_base_quantity} ${line.unit} · Preisstand ${line.catalog_price_snapshot.effective_on}`:line.description,formatQuantity(line.quantity),line.unit,formatMoney(line.net)]))),
     item.contract_totals?panel('Rechnungskette',el('p',{},'Gesamte Vertragsleistung brutto: '+formatMoney(item.contract_totals.gross)),el('p',{},'Bereits berechnete Vertragsbasis brutto: '+formatMoney(item.previous_issued_gross)),...(item.previous_documents||[]).map(previous=>el('p',{},`Vorbeleg ${previous.number}: ${formatMoney(previous.gross)}`))):null,
     panel(item.contract_totals?'Zusätzlich berechneter Rechnungsbetrag':'Belegsumme',el('p',{},'Netto: '+formatMoney(item.totals?.net)),el('p',{},'Steuer: '+formatMoney(item.totals?.tax)),el('h2',{},'Brutto: '+formatMoney(item.totals?.gross)))));
 }
@@ -2383,7 +2414,7 @@ async function materialContent(projectId='') {
   if(canWrite('finance.write','documents'))controls.push(button('Artikel / Leistung anlegen',()=>articleDialog(),'small'));
   const content=el('div',{class:'stack'},panel('Lagerbestand',el('div',{class:'actions'},controls),table(['Lagerort','Artikel','Bestand','Reserviert','Verfügbar',...(has('finance.read')?['Wert netto']:[])],collection(stock).map(item=>[
     collection(locations).find(location=>location.id===item.location_id)?.name||'Lagerort',item.article_name||articles.find(article=>article.id===item.article_id)?.name||item.article_code||'Artikel',formatQuantity(item.on_hand,item.unit),formatQuantity(item.reserved),formatQuantity(item.available),...(has('finance.read')?[formatMoney(item.stock_value_net)]:[])]))),
-    form('Artikel per Code finden',[field('code','Artikelnummer / Barcode','text','',{required:true})],async data=>{const found=await api.get(query(biz('/inventory/scan'),{code:data.code}));dialog('Artikel gefunden',panel(found.name,el('p',{},`${found.code} · ${found.unit}`),found.cost_price_net?el('p',{},'EK netto: '+formatMoney(found.cost_price_net)):null));return undefined;},{submit:'Suchen',key:'scan',description:'Die Suche liest nur Stammdaten. Sie löst keine Entnahme aus.'}));
+    form('Artikel per Code finden',[field('code','Artikelnummer / Barcode','text','',{required:true})],async data=>{const found=await api.get(query(biz('/inventory/scan'),{code:data.code}));dialog('Artikel gefunden',panel(found.name,el('p',{},`${found.code} · ${found.unit}`),found.price_policy==='dated_catalog'?notice('Datierte Preisquelle mit Gültigkeitstag ausdrücklich wählen.'):found.cost_price_net?el('p',{},'EK netto: '+formatMoney(found.cost_price_net)):null));return undefined;},{submit:'Suchen',key:'scan',description:'Die Suche liest nur Stammdaten. Sie löst keine Entnahme aus.'}));
   if(projectId)content.append(panel('Kommissionierung',canWrite('inventory.write','material')?button('Material reservieren',()=>reservationDialog(projectId,collection(locations),articles),'small'):null,
     rows(reserved,item=>row(item.article_snapshot?.name||item.article_id,`Reserviert ${formatQuantity(item.quantity)} · Entnommen ${formatQuantity(item.picked_quantity)} · Rest ${formatQuantity(item.remaining_quantity)}`,[badge(item.status),canWrite('inventory.write','material')&&['reserved','partial'].includes(item.status)?button('Entnehmen',()=>dialog('Material entnehmen',form('',[field('quantity','Entnahmemenge','decimal',item.remaining_quantity,{required:true})],(data,key)=>mutation(key,'/inventory/pick',{project_id:projectId,items:[{reservation_id:item.id,quantity:data.quantity}]}),{key:'pick-'+item.id,submit:'Entnahme verbindlich buchen'})),'small'):null]))));
   if(state.features.has('purchasing_receipts')&&state.capabilities.has('business_purchasing')&&has('inventory.read')) {
@@ -2391,7 +2422,7 @@ async function materialContent(projectId='') {
       {id:item.article_id,name:item.article_name||item.article_code,code:item.article_code,unit:item.unit}])).values());
     content.prepend(await purchasingContent(projectId,collection(locations),availableArticles));
   }
-  if(has('finance.read'))content.append(panel('Artikel & Leistungen',rows(articles,item=>row(item.name,`${item.code||'Ohne Artikelnummer'} · ${item.unit} · VK ${formatMoney(item.unit_price_net)} · EK ${formatMoney(item.cost_price_net)}`,[badge(item.kind),canWrite('finance.write','documents')?button('Bearbeiten',()=>articleDialog(item),'small'):null]))));
+  if(has('finance.read'))content.append(panel('Artikel & Leistungen',rows(articles,item=>row(item.name,`${item.code||'Ohne Artikelnummer'} · ${item.unit} · ${item.price_policy==='dated_catalog'?'Datierte Preisquelle ausdrücklich wählen':`VK ${formatMoney(item.unit_price_net)} · EK ${formatMoney(item.cost_price_net)}`}`,[badge(item.kind),canWrite('finance.write','documents')?button('Bearbeiten',()=>articleDialog(item),'small'):null]))));
   return content;
 }
 async function purchasingContent(projectId,locations,articles) {
@@ -2405,7 +2436,7 @@ async function purchasingContent(projectId,locations,articles) {
 function purchaseProposalDialog(projectId,articles,order=null) {
   const catalog=new PurchaseCatalog({fetcher:path=>api.get(path),enabled:state.features.has('purchasing_catalog'),projectId,
       items:state.features.has('purchasing_catalog')?[]:articles,
-      selected:(order?.items||[]).map(item=>({id:item.article_id,name:item.article_name,code:item.article_code,unit:item.unit}))}),
+      selected:(order?.items||[]).map(item=>({id:item.article_id,name:item.article_name,code:item.article_code,unit:item.unit,catalog_price_required:item.catalog_price_required}))}),
     lines=[],lineArea=el('div',{class:'stack'}),title=order?'Bestellvorschlag bearbeiten':'Bestellvorschlag anlegen';
   const search=el('input',{type:'search','aria-label':'Artikelnummer oder Artikelname',maxLength:200}),
     status=el('p',{class:'muted',role:'status','aria-live':'polite'}),errors=el('div',{}),
@@ -2432,7 +2463,7 @@ function purchaseProposalDialog(projectId,articles,order=null) {
       node=el('div',{class:'panel soft'},el('div',{class:'form-grid'},
         el('label',{class:'field'},'Artikel',article),el('label',{class:'field'},'Bestellmenge',amount)),
         button('Position entfernen',()=>{node.remove();const index=lines.findIndex(item=>item.id===identifier);if(index>=0)lines.splice(index,1);},'small'));
-    lines.push({id:identifier,article,amount});lineArea.append(node);
+    const picker=pricePicker({article:()=>catalog.choices(article.value).find(item=>item.id===article.value),priceRole:'purchase_net',initial:existing?.catalog_price_snapshot||null});article.addEventListener('change',()=>picker.reset());node.append(picker);lines.push({id:identifier,article,amount,picker});lineArea.append(node);
   }
   if(order)order.items.forEach(addLine);else addLine();
   const editor=el('div',{class:'stack'},panel('Einkaufsartikel',el('label',{class:'field'},'Artikelnummer oder Artikelname',search),
@@ -2441,7 +2472,7 @@ function purchaseProposalDialog(projectId,articles,order=null) {
     lineArea,button('Position hinzufügen',()=>addLine(),'small'));
   const draft=form('',[...(order?[]:[field('project_id','Projekt (optional)','select',projectId,{options:[['','Ohne Projekt'],...options(state.projects)]})]),field('supplier_name','Lieferant','text',order?.supplier_name||'',{required:true,maxLength:300})],(data,key)=>{
     if(!lines.length)throw new Error('Bitte mindestens eine Bestellposition angeben.');
-    const items=lines.map(line=>{const quantity=purchaseDecimal(line.amount.value);if(!line.article.value||quantity.scaled<=0n)throw new Error('Bitte Artikel und positive Bestellmenge für jede Position angeben.');return {article_id:line.article.value,quantity:quantity.text};});
+    const items=lines.map(line=>{const quantity=purchaseDecimal(line.amount.value);if(!line.article.value||quantity.scaled<=0n)throw new Error('Bitte Artikel und positive Bestellmenge für jede Position angeben.');const selected=catalog.choices(line.article.value).find(item=>item.id===line.article.value);return {article_id:line.article.value,quantity:quantity.text,...(selected?.price_policy==='dated_catalog'||selected?.catalog_price_required?{catalog_price_selection:line.picker.selection()}: {})};});
     return mutation(key,'/inventory/orders'+(order?'/'+order.id:''),{...data,project_id:data.project_id||null,items,status:'draft',...(order?{project_id:order.project_id,revision:order.source_revision}:{})});
   },{key:'purchase-proposal-'+(order?.id||'new'),extra:editor,submit:'Vorschlag speichern',after:async saved=>{await refresh();await purchaseOrderDialog(saved.id);}});
   draft.controls.get('project_id')?.input.addEventListener('change',event=>{catalog.setProject(event.target.value);loadCatalog();});
@@ -2462,7 +2493,7 @@ async function purchaseOrderDialog(id,knownLocations=null) {
   if(access.approve)
     controls.push(button('Vorschlag freigeben',()=>dialog('Bestellvorschlag freigeben',form('',[],(_,key)=>
       mutation(key,'/inventory/orders/'+id,{project_id:order.project_id,supplier_name:order.supplier_name,revision:order.source_revision,
-        status:'approved',items:order.items.map(item=>({article_id:item.article_id,quantity:item.ordered_quantity}))}),
+        status:'approved',items:order.items.map(item=>({article_id:item.article_id,quantity:item.ordered_quantity,...(item.catalog_price_required?{catalog_price_selection:priceSelection(item.catalog_price_snapshot)}:{})}))}),
       {key:'purchase-approve-'+id,submit:'Vorschlag verbindlich freigeben',after:async()=>{await refresh();await purchaseOrderDialog(id);}}),
       'Die Positionen werden intern freigegeben und anschließend nicht mehr verändert. Eine Bestellung beim Lieferanten erfolgt dadurch nicht.'),'primary'));
   if(access.confirm)
@@ -2472,9 +2503,9 @@ async function purchaseOrderDialog(id,knownLocations=null) {
   const body=el('div',{class:'stack'},el('div',{class:'actions'},badge(order.status),controls),
     order.confirmation?notice(`Extern bestellt am ${formatDate(order.confirmation.ordered_on)} · Referenz ${order.confirmation.order_reference}.`):
       el('p',{class:'muted'},'Die Bestellung ist noch nicht als extern erteilt dokumentiert.'),
-    panel('Positionen',table(['Pos.','Artikel','Bestellt','Geliefert','Offen'],order.items.map(item=>[
+    panel('Positionen',table(['Pos.','Artikel','Bestellt','Geliefert','Offen',...(costs?['Gewählte datierte Quelle']:[])],order.items.map(item=>[
       String(item.line_index+1),`${item.article_code?item.article_code+' · ':''}${item.article_name}`,formatQuantity(item.ordered_quantity,item.unit),
-      formatQuantity(item.received_quantity,item.unit),formatQuantity(item.remaining_quantity,item.unit)]))),
+      formatQuantity(item.received_quantity,item.unit),formatQuantity(item.remaining_quantity,item.unit),...(costs?[item.catalog_price_snapshot?`${item.catalog_price_snapshot.source_name} · ${item.catalog_price_snapshot.price.price_net} EUR / ${item.catalog_price_snapshot.price.price_base_quantity} ${item.unit} · Preisstand ${item.catalog_price_snapshot.effective_on}`:'Undatierter Bestellstand']:[])]))),
     panel('Lieferhistorie',rows(collection(history),receipt=>el('section',{class:'panel soft'},el('h3',{},receipt.receipt_reference),
       el('p',{class:'muted'},`${formatDate(receipt.received_on)} · ${locations.find(location=>location.id===receipt.location_id)?.name||'Lagerort'} · erfasst ${formatDate(receipt.created_at,true)}`),
       table(['Pos.','Artikel','Geliefert',...(costs?['Einstand je Einheit','Kosten netto']:[])],receipt.lines.map(line=>[
@@ -2486,7 +2517,7 @@ async function purchaseOrderDialog(id,knownLocations=null) {
 }
 function purchaseConfirmDialog(order) {
   dialog('Extern erteilte Bestellung dokumentieren',form('',[
-    field('order_reference','Bestellreferenz','text','',{required:true,maxLength:300}),field('ordered_on','Tatsächliches Bestelldatum','date',dateInput(),{required:true}),
+    field('order_reference','Bestellreferenz','text','',{required:true,maxLength:300}),field('ordered_on','Tatsächliches Bestelldatum','date',order.items.some(item=>item.catalog_price_required)?'':dateInput(),{required:true,help:order.items.some(item=>item.catalog_price_snapshot)?'Gewählter Preisstand: '+[...new Set(order.items.map(item=>item.catalog_price_snapshot?.effective_on).filter(Boolean))].join(', '):''}),
     field('confirmation','Ich bestätige, dass diese Bestellung bereits extern erteilt wurde.','checkbox',false,{required:true,wide:true})],
     (data,key)=>mutation(key,'/purchasing/orders/'+order.id+'/confirm',purchaseConfirmationData(order,data)),
     {key:'purchase-confirm-'+order.id,submit:'Bestellung dokumentieren',after:async()=>{await refresh();await purchaseOrderDialog(order.id);}}),
@@ -2508,11 +2539,11 @@ function purchaseReceiptDialog(order,locations) {
   dialog('Lieferung erfassen',editor,'Nur tatsächlich erhaltene Mengen eintragen. Nicht gelieferte Positionen leer lassen. Die Buchung erhöht den Lagerbestand; Teilmengen bleiben offen.');
 }
 function articleDialog(item=null) {
-  dialog(item?'Artikel bearbeiten':'Artikel / Leistung',form('',[field('code','Artikelnummer','text',item?.code||''),field('name','Bezeichnung','text',item?.name||'',{required:true}),field('kind','Art','select',item?.kind||'material',{options:['material','labor','service','machine'].map(kind=>[kind,LABELS[kind]])}),field('unit','Einheit','text',item?.unit||'Stk.',{required:true}),field('unit_price_net','Verkauf netto EUR','decimal',item?.unit_price_net||'0.00',{required:true}),field('cost_price_net','Einstand netto EUR','decimal',item?.cost_price_net||'0.00',{required:true}),field('tax_rate','MwSt. %','select',item?.tax_rate||'19',{options:[['19','19 %'],['7','7 %'],['0','0 %']]}),field('active','Aktiv','checkbox',item?.active??true)],
+  dialog(item?'Artikel bearbeiten':'Artikel / Leistung',form('',[field('code','Artikelnummer','text',item?.code||''),field('name','Bezeichnung','text',item?.name||'',{required:true}),field('kind','Art','select',item?.kind||'material',{options:['material','labor','service','machine'].map(kind=>[kind,LABELS[kind]])}),field('unit','Einheit','text',item?.unit||'Stk.',{required:true}),field('unit_price_net','Verkauf netto EUR','decimal',item?.unit_price_net||'0.00',{required:true}),field('cost_price_net','Einstand netto EUR','decimal',item?.cost_price_net||'0.00',{required:true}),field('tax_rate','MwSt. %','select',item?.tax_rate||'19',{options:[['19','19 %'],['7','7 %'],['0','0 %']]}),field('active','Aktiv','checkbox',item?.active??true)].filter(value=>item?.price_policy!=='dated_catalog'||!['unit_price_net','cost_price_net'].includes(value.name)),
     (data,key)=>mutation(key,'/articles'+(item?'/'+item.id:''),{...data,currency:'EUR',tax_category:data.tax_rate==='0'?'Z':'S',...(item?{revision:item.revision}:{})}),{key:'article-'+(item?.id||'new')}));
 }
 function stockMovementDialog(locations,articles,projectId) {
-  const fields=[field('kind','Bewegung','select','receive',{options:[['receive','Zugang'],['issue','Entnahme'],['transfer','Umbuchung']]}),field('article_id','Artikel','select','',{options:options(articles),required:true}),field('quantity','Menge','decimal','1',{required:true}),...(canWrite('finance.write','material')?[field('unit_cost_net','Bestätigter Einstand netto EUR / Einheit','decimal','',{help:'Optional für Zugang. Ein tatsächlicher Nullpreis muss ausdrücklich als 0 eingegeben werden.'})]:[]),field('from_location_id','Quelllager','select','',{options:[['','Kein Quelllager'],...options(locations)]}),field('to_location_id','Ziellager','select','',{options:[['','Kein Ziellager'],...options(locations)]}),field('project_id','Projekt für Entnahme','select',projectId,{options:[['','Kein Projekt'],...options(state.projects)]}),field('note','Buchungsnotiz','textarea')];
+  const fields=[field('kind','Bewegung','select','receive',{options:[['receive','Zugang'],['issue','Entnahme'],['transfer','Umbuchung']]}),field('article_id','Artikel','select','',{options:options(articles),required:true}),field('quantity','Menge','decimal','1',{required:true}),...(canWrite('finance.write','material')?[field('unit_cost_net','Bestätigter Einstand netto EUR / Einheit','decimal','',{help:'Für datierte Katalogartikel bei Zugang erforderlich. Ein tatsächlicher Nullpreis muss ausdrücklich als 0 eingegeben werden.'})]:[]),field('from_location_id','Quelllager','select','',{options:[['','Kein Quelllager'],...options(locations)]}),field('to_location_id','Ziellager','select','',{options:[['','Kein Ziellager'],...options(locations)]}),field('project_id','Projekt für Entnahme','select',projectId,{options:[['','Kein Projekt'],...options(state.projects)]}),field('note','Buchungsnotiz','textarea')];
   dialog('Lagerbewegung',form('',fields,(data,key)=>{if(data.kind!=='receive')delete data.unit_cost_net;return mutation(key,'/inventory/movements',data);},{key:'stock-move',submit:'Bewegung buchen'}),'Zugang: nur Ziellager. Entnahme: nur Quelllager und Projekt. Umbuchung: Quell- und Ziellager. Historische Einstandskosten entstehen aus dem Journal.');
 }
 function reservationDialog(projectId,locations,articles) {
@@ -2746,7 +2777,7 @@ async function settingsView() {
       (data,key)=>mutation(key,'/settings/branding',{...data,revision:branding.revision}),{key:'branding',description:'Die vorhandene Ausstellerfreigabe wird hier nicht still aktiviert. Historisch finale Dokumente behalten ihre eigene Fassung.'}),
     panel('Projektstatus',button('Status hinzufügen',()=>dialog('Projektstatus',form('',[field('name','Bezeichnung','text','',{required:true}),field('color','Farbe','color','#2864da'),field('position','Reihenfolge','integer',collection(statuses).length,{min:0}),field('terminal','Abschlussstatus','checkbox',false)],(data,key)=>mutation(key,'/project-statuses',{...data,active:true}),{key:'status-new'})),'small'),rows(collection(statuses),status=>row(status.name,`Position ${status.position}`,[badge(status.terminal?'Abschluss':'Laufend')]))),
     panel('Benutzerrechte',button('Freigaben ansehen / ändern',()=>action(()=>permissionsDialog()),'small'),el('p',{class:'caption'},'Berechtigungen werden bei jeder Serveroperation erneut geprüft. Projektzuweisung und Fachrecht sind getrennt.')),
-    panel('Externe Verbindungen',el('p',{class:'muted'},'Diese Oberfläche erzeugt keine externen Sendungen, Bestellungen oder Appregistrierungen.'),button('Lieferantenkataloge und Adapter',()=>action(()=>adapterDialog()),'small')));
+    panel('Externe Verbindungen',el('p',{class:'muted'},'Diese Oberfläche erzeugt keine externen Sendungen, Bestellungen oder Appregistrierungen.'),button('Lieferantenkataloge und Adapter',()=>action(()=>adapterDialog()),'small'),state.capabilities.has('business_catalog_prices')&&has('finance.read')?button('Datierte Katalogpreise',()=>action(()=>datedWorkspace.open()),'small'):null));
   return content;
 }
 async function permissionsDialog() {

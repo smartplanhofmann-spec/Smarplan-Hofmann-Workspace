@@ -1,0 +1,8 @@
+test_actual_two_mib_original_and_import_replay_are_byte_exact (test_business_catalog_prices_transport.DatedCatalogHTTP.test_actual_two_mib_original_and_import_replay_are_byte_exact) ... ok
+test_strict_channels_and_readonly_preview_do_not_write (test_business_catalog_prices_transport.DatedCatalogHTTP.test_strict_channels_and_readonly_preview_do_not_write) ... ok
+test_unicode_binding_envelope_larger_than_default_json_limit_remains_bounded (test_business_catalog_prices_transport.DatedCatalogHTTP.test_unicode_binding_envelope_larger_than_default_json_limit_remains_bounded) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 9.067s
+
+OK

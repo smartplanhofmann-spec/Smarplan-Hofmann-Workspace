@@ -49,10 +49,60 @@ bool _catalogCommand(String key, String path) {
           : '/adapters/imports/${match.group(2)}/apply');
 }
 
+bool _catalogPricesCommand(String key, String path) {
+  if (key == 'catalog-v2-source') return path == '/catalog-prices/sources';
+  final match = RegExp(r'^catalog-v2-(import|apply|withdraw)-([a-f0-9]{32})$')
+      .firstMatch(key);
+  if (match == null) return false;
+  final id = match.group(2);
+  return path ==
+      switch (match.group(1)) {
+        'import' => '/catalog-prices/sources/$id/imports',
+        'apply' => '/catalog-prices/imports/$id/apply',
+        _ => '/catalog-prices/prices/$id/withdraw',
+      };
+}
+
+bool _datedCatalogConsumer(
+  String key,
+  String path,
+  Map<String, dynamic> values,
+) {
+  bool bound(dynamic raw) {
+    if (raw is! Map) return false;
+    if (raw['catalog_price_selection'] is Map ||
+        raw['catalog_price_snapshot'] is Map)
+      return true;
+    final pricing = raw['pricing'];
+    return pricing is Map &&
+        (pricing['source_price_selection'] is Map ||
+            (pricing['components'] is List &&
+                (pricing['components'] as List).any(
+                  (part) => part is Map && part['price_selection'] is Map,
+                )));
+  }
+
+  final document =
+      RegExp(r'^catalog-v2-document-[a-f0-9]{32}$').hasMatch(key) &&
+      RegExp(r'^/documents(?:/[a-f0-9]{32})?$').hasMatch(path) &&
+      values['positions'] is List &&
+      (values['positions'] as List).any(bound);
+  final order =
+      (RegExp(
+            r'^purchase-proposal-(?:all|[a-f0-9]{32})-(?:new|[a-f0-9]{32})-[0-9]+-[0-9]+$',
+          ).hasMatch(key) ||
+          RegExp(r'^purchase-approve-[a-f0-9]{32}-[0-9]+$').hasMatch(key)) &&
+      RegExp(r'^/inventory/orders(?:/[a-f0-9]{32})?$').hasMatch(path) &&
+      values['items'] is List &&
+      (values['items'] as List).any(bound);
+  return document || order;
+}
+
 /// An early client hint only; the server checks the same module on every write.
 String? organizationCommandSection(String path) {
   final route = path.split('?').first;
   final first = route.split('/').where((part) => part.isNotEmpty).firstOrNull;
+  if (first == 'catalog-prices') return 'documents';
   if (first == 'organization' ||
       first == 'settings' ||
       route == '/commercial/settings')
@@ -684,6 +734,107 @@ class BusinessSession extends ChangeNotifier {
 
   /// Catalog replay keeps the original file/mapping, nonce and validator.
   /// Only the two explicit catalog command paths may use this retry policy.
+  Future<dynamic> catalogConsumerCommand(
+    String key,
+    String path,
+    Map<String, dynamic> values,
+  ) {
+    final operation = _pending[key];
+    if (operation == null ||
+        !_datedCatalogConsumer(
+          key,
+          operation.path,
+          Map<String, dynamic>.from(jsonDecode(operation.values)),
+        )) {
+      return command(key, path, values);
+    }
+    if (operation.path != path || operation.values != jsonEncode(values)) {
+      throw const ApiException(
+        409,
+        'Die offene datierte Preisübernahme muss unverändert wiederholt werden.',
+      );
+    }
+    final purchasing = path.startsWith('/inventory/orders');
+    return _repeatWorkflowCommand(
+      key,
+      matches: (route) =>
+          route == path && _datedCatalogConsumer(key, route, values),
+      requireRights: () {
+        if (!hasFeature('catalog_prices_v2') ||
+            !hasModule('catalog_prices') ||
+            !can('finance.read') ||
+            !canWrite(
+              purchasing
+                  ? (key.startsWith('purchase-approve-')
+                        ? 'finance.approve'
+                        : 'inventory.write')
+                  : 'finance.write',
+            ) ||
+            (purchasing && !can('inventory.read')) ||
+            (projectId != null && values['project_id'] != projectId)) {
+          throw const ApiException(
+            403,
+            'Aktuelle Rechte für die datierte Preisübernahme fehlen.',
+          );
+        }
+        if (!sectionEnabled(purchasing ? 'material' : 'documents'))
+          throw const ApiException(
+            423,
+            'Der zugehörige Bereich ist fachlich deaktiviert.',
+          );
+      },
+    );
+  }
+
+  Future<dynamic> repeatCatalogPricesCommand(String key) {
+    final operation = _pending[key];
+    final match = RegExp(r'^catalog-v2-(import|apply|withdraw)-([a-f0-9]{32})$')
+        .firstMatch(key);
+    final kind = match?.group(1), id = match?.group(2);
+    return _repeatWorkflowCommand(
+      key,
+      matches: (path) => _catalogPricesCommand(key, path),
+      readPath: kind == 'apply'
+          ? '/catalog-prices/imports/$id'
+          : kind == 'withdraw'
+          ? '/catalog-prices/prices/$id/history'
+          : '/catalog-prices/sources',
+      requireRights: () {
+        if (projectId != null ||
+            !hasFeature('catalog_prices_v2') ||
+            !hasModule('catalog_prices') ||
+            !can('settings.manage') ||
+            !can('finance.read') ||
+            !canWrite('finance.write')) {
+          throw const ApiException(
+            403,
+            'Aktuelle globale Katalog- und Finanzrechte fehlen.',
+          );
+        }
+        if (!sectionEnabled('documents'))
+          throw const ApiException(
+            423,
+            'Kaufmännische Belege sind fachlich deaktiviert.',
+          );
+      },
+      verifyState: (state) {
+        if (operation == null ||
+            !_catalogPricesCommand(key, operation.path) ||
+            kind == 'apply' && state['id'] != id ||
+            kind == 'import' &&
+                !businessItems(state).any((item) => item['id'] == id) ||
+            kind == 'withdraw' &&
+                (businessItems(state).isEmpty ||
+                    businessItems(state).any((item) => item['id'] != id))) {
+          throw const ApiException(
+            409,
+            'Die ursprüngliche datierte Katalogquelle ist nicht sicher freigegeben.',
+          );
+        }
+      },
+    );
+  }
+
   Future<dynamic> repeatCatalogCommand(String key) {
     final operation = _pending[key];
     final match = RegExp(r'^catalog-(import|apply)-([a-f0-9]{32})$')
@@ -2377,6 +2528,8 @@ class BusinessSession extends ChangeNotifier {
       r'^/accounting/(components|refunds)/(?:v2/)?events/([a-f0-9]{32})/confirm$',
     ).firstMatch(path);
     final documentaryCommand =
+        _datedCatalogConsumer(key, path, values) ||
+        _catalogPricesCommand(key, path) ||
         _catalogCommand(key, path) ||
         (key.startsWith('historical-asset-') &&
             const [

@@ -1,0 +1,7 @@
+{
+  "review_date": "2026-11-04",
+  "path": "backend/business_documents.py",
+  "sha256": "9c35c67a3b57d56ed68031d8500c0690c044383fea96c1f2b03bb642cfa49704",
+  "finding": "save_article preserves any occurrence satisfying component in previous, allowing duplicated withdrawn price snapshots without new selection",
+  "reproducer": "backend/test_catalog_prices_independent_review.py::CatalogIndependentReview.test_copying_old_component_twice_cannot_mint_an_additional_withdrawn_price_use"
+}

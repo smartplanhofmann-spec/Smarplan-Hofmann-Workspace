@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "path": "backend/business_assistant.py",
+      "current_sha256": "7179ffa3867b991c6f162f647593ef903f552d074ea731717fa70bf7ac2c8232",
+      "candidate_sha256": "7700d542e9ea7cc8aa9dcd97abcdb0c04454b1f543c32eb6b9ee6703e283d821"
+    },
+    {
+      "path": "backend/business_assistant_sources.py",
+      "current_sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "candidate_sha256": "74dbc22004f041dc4b3e47928c1ae3f72e0b4defe9a29432bbf48811d0aee9df"
+    },
+    {
+      "path": "backend/test_assistant_cost_total_v2.py",
+      "current_sha256": null,
+      "candidate_sha256": "09bf4268022996249c807e3edde4e188746da1febcf2f1961b4d7060b427b0f1"
+    },
+    {
+      "path": "docs/CRM_ERP_ASSISTENT_KOSTENSUMME_V2_2026-11-04.md",
+      "current_sha256": null,
+      "candidate_sha256": "5861668dc4aeca24cd824fc6d47dc9ac363c0497555d071afccbe6a335172ba9"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/actual-cost-counterexample-first.txt",
+      "current_sha256": null,
+      "candidate_sha256": "aa28b8e1995dfee97c94c525718f918fa44ee0bcbfd6a423e693219c731e5249"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/legacy-assistant-sources-4c2f008.txt",
+      "current_sha256": null,
+      "candidate_sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/manifest.json",
+      "current_sha256": null,
+      "candidate_sha256": "ef342164e98948829c94bb2fcccec30c7a8c77ed92ab24b112e818eace8279f8"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/runtime.patch",
+      "current_sha256": null,
+      "candidate_sha256": "4a0b14563b1b5142d5d8aed273682cc9147d761d01c562b0abe65b0d2b5c0ec0"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/standalone-and-existing-final.txt",
+      "current_sha256": null,
+      "candidate_sha256": "720acca1d5780f5b87331557015bb4f333c368400f239fb7cf855932fd8e6ac7"
+    }
+  ],
+  "standalone_runtime_only": true
+}

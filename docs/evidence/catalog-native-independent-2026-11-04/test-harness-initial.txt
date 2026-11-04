@@ -1,0 +1,147 @@
+No Visual Studio installation found with the requested Microsoft.VisualStudio.Component.VC.Tools.x86.x64 component.
+
+00:00 +0: loading /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart
+00:00 +0: independent role replacement rejects late candidate false
+00:01 +1: independent role replacement rejects late candidate true
+00:01 +2: independent selected price rechecks read after unnotified revoke
+00:02 +3: independent selected price rechecks write after unnotified revoke
+00:02 +4: independent revoked source between listing and choice never becomes a document position
+00:03 +5: independent original export rechecks read after correct delayed bytes
+00:03 +6: independent delayed document save false cannot cross session at 390px
+00:03 +7: independent delayed document save false cannot cross generation at 390px
+00:04 +8: independent delayed document save false cannot cross read at 390px
+00:05 +9: independent delayed document save true cannot cross session at 390px
+00:05 +10: independent delayed document save true cannot cross generation at 390px
+00:06 +11: independent delayed document save true cannot cross read at 390px
+00:06 +12: independent global project choice resolves only its exact original pending command
+00:07 +13: independent priced calculation false cannot cross project replacement
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#2      WidgetController.dragUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2489:38)
+<asynchronous suspension>
+#3      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#4      WidgetController.scrollUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2439:7)
+<asynchronous suspension>
+#5      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#6      priceTap (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart:235:5)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart:321:9)
+<asynchronous suspension>
+#8      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#9      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  independent priced calculation false cannot cross project replacement
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:07 +13 -1: independent priced calculation false cannot cross project replacement [E]
+  Test failed. See exception logs above.
+  The test description was: independent priced calculation false cannot cross project replacement
+  
+00:07 +13 -1: independent priced calculation true cannot cross project replacement
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#2      WidgetController.dragUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2489:38)
+<asynchronous suspension>
+#3      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#4      WidgetController.scrollUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2439:7)
+<asynchronous suspension>
+#5      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#6      priceTap (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart:235:5)
+<asynchronous suspension>
+#7      main.<anonymous closure> (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart:321:9)
+<asynchronous suspension>
+#8      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#9      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  independent priced calculation true cannot cross project replacement
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:08 +13 -2: independent priced calculation true cannot cross project replacement [E]
+  Test failed. See exception logs above.
+  The test description was: independent priced calculation true cannot cross project replacement
+  
+00:08 +13 -2: independent dated order reply false stays outside resumed editor
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+pumpAndSettle timed out
+
+When the exception was thrown, this was the stack:
+#0      WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:717:11)
+<asynchronous suspension>
+#1      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#2      priceTap (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart:241:3)
+<asynchronous suspension>
+#3      main.<anonymous closure> (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart:384:9)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  independent dated order reply false stays outside resumed editor
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:13 +13 -3: independent dated order reply false stays outside resumed editor [E]
+  Test failed. See exception logs above.
+  The test description was: independent dated order reply false stays outside resumed editor
+  
+00:13 +13 -3: independent dated order reply true stays outside resumed editor
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+pumpAndSettle timed out
+
+When the exception was thrown, this was the stack:
+#0      WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:717:11)
+<asynchronous suspension>
+#1      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#2      priceTap (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart:241:3)
+<asynchronous suspension>
+#3      main.<anonymous closure> (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart:384:9)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  independent dated order reply true stays outside resumed editor
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:16 +13 -4: independent dated order reply true stays outside resumed editor [E]
+  Test failed. See exception logs above.
+  The test description was: independent dated order reply true stays outside resumed editor
+  
+00:16 +13 -4: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent dated order reply false stays outside resumed editor
+  /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent dated order reply true stays outside resumed editor
+  /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent priced calculation false cannot cross project replacement
+  /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent priced calculation true cannot cross project replacement

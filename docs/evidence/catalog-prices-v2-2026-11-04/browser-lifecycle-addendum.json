@@ -1,0 +1,22 @@
+{
+  "recorded_at_utc": "2026-11-04T10:09:54.353252+00:00",
+  "files": [
+    {
+      "path": "web/office/office.js",
+      "before_sha256": "a405c8047355313ffc626c438d4754f487cfafd07367d1aee9718992ec8fb67f",
+      "after_sha256": "85d7a089ce25ad68e55bc32fa3076dbb4d0189d6c49e995a62a78bbd0b5887a3"
+    },
+    {
+      "path": "web/office/catalog-prices.js",
+      "before_sha256": "54a012d08657cab17b48661ef4f7bd7cc04604fdc163d7d15a88dff18805d0f8",
+      "after_sha256": "4588b266cb8728a9ad67378215ffe4040ccabb3d0b8210299ef67b17512c4935"
+    }
+  ],
+  "tests": {
+    "node_targeted": 32,
+    "node_regression": 554,
+    "actual_chromium_dated": "passed same formerly red case plus entire flow",
+    "actual_chromium_legacy_invoice_chain": "passed"
+  },
+  "scope": "Only datedConsumerCommand mutation return path and connected visible dated picker background; shared form unchanged"
+}

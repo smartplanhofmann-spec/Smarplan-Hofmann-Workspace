@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_catalog_prices.dart';
 import 'business_purchase_changes.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -259,6 +260,7 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
   String? selectedId, error;
   bool busy = false;
   int epoch = 0;
+  CatalogPriceFlow? catalogFlow;
   BusinessSession? detailSession;
   BusinessSession get access => detailSession ?? widget.session;
   bool get detailReadable =>
@@ -290,10 +292,29 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
 
   @override
   void dispose() {
+    catalogFlow?.dispose();
     epoch++;
     widget.session.removeListener(changed);
     clearDetailSession();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessPurchasingPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.session != widget.session) {
+      catalogFlow?.dispose();
+      oldWidget.session.removeListener(changed);
+      widget.session.addListener(changed);
+      epoch++;
+      orders = [];
+      receipts = [];
+      order = null;
+      selectedId = null;
+      error = null;
+      clearDetailSession();
+      load();
+    }
   }
 
   void clearDetailSession() {
@@ -412,6 +433,19 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
 
   Future<void> editProposal({bool addLine = false}) async {
     if (!write('') || !mayChooseArticles) return;
+    final owner = widget.session;
+    var orderAtOpen = selectedId;
+    catalogFlow?.dispose();
+    final flow = CatalogPriceFlow(
+      context,
+      owner,
+      () =>
+          mounted &&
+          identical(owner, widget.session) &&
+          selectedId == orderAtOpen &&
+          write(''),
+    );
+    catalogFlow = flow;
     try {
       final source = order;
       final requestSession = widget.session;
@@ -423,6 +457,15 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
       final pendingKey =
           'purchase-proposal-${projectAtOpen ?? 'all'}-${source?['id'] ?? 'new'}-${source?['source_revision'] ?? 0}-${lines.length}';
       final pending = requestSession.pendingEditorValues(pendingKey);
+      final records = <String, Map<String, dynamic>>{
+        for (final item in lines.where((value) => value['article_id'] != null))
+          '${item['article_id']}': {
+            'id': item['article_id'],
+            'name': item['article_name'],
+            'unit': item['unit'],
+            'catalog_price_required': item['catalog_price_required'],
+          },
+      };
       final choices = <String, String>{
         for (final line in lines.where((line) => line['article_id'] != null))
           '${line['article_id']}':
@@ -441,9 +484,8 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
           );
         }
       } else if (catalogAvailable) {
-        final selected = await showDialog<Map<String, dynamic>>(
-          context: context,
-          builder: (_) => _PurchaseCatalogPicker(
+        final selected = await flow.dialog<Map<String, dynamic>>(
+          (_) => _PurchaseCatalogPicker(
             session: access,
             allowExisting: source != null && !addLine,
           ),
@@ -454,6 +496,7 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
           final label =
               '${selected['code']} ${selected['name']} · ${selected['unit']}'
                   .trim();
+          records[id] = selected;
           choices[id] = label;
           articleLabels[id] = label;
           if (source == null || addLine) lines.last['article_id'] = id;
@@ -467,6 +510,7 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
               (item['active'] == true || item['active'] == 1) &&
               const ['material', 'machine'].contains(item['kind']),
         )) {
+          records['${item['id']}'] = item;
           choices['${item['id']}'] =
               '${item['code'] ?? ''} ${item['name']} · ${item['unit']}'.trim();
         }
@@ -512,12 +556,19 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
             type: BusinessInput.decimal,
             required: true,
           ),
+          if (lines[i]['catalog_price_snapshot'] is Map)
+            BusinessField(
+              'reselect_price_$i',
+              'Andere datierte Preisquelle wählen · Position ${i + 1}',
+              type: BusinessInput.toggle,
+              hint:
+                  '${lines[i]['catalog_price_snapshot']['source_name']} · ${catalogPriceLabel(businessMap(lines[i]['catalog_price_snapshot']['price']))} · Preisstand ${lines[i]['catalog_price_snapshot']['effective_on']}',
+            ),
         ],
       ];
 
-      final saved = await showDialog<bool>(
-        context: context,
-        builder: (_) => BusinessEditor(
+      final saved = await flow.dialog<bool>(
+        (_) => BusinessEditor(
           session: access,
           pendingSession: requestSession,
           pendingKey: pendingKey,
@@ -537,6 +588,13 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
                 403,
                 'Artikeldaten sind nicht freigegeben.',
               );
+            await flow.fresh();
+            final proposalPath =
+                '/inventory/orders${source == null ? '' : '/${source['id']}'}';
+            final exactPending = requestSession.pendingCommandValues(
+              pendingKey,
+              path: proposalPath,
+            );
             final items = <Map<String, dynamic>>[];
             for (var i = 0; i < lines.length; i++) {
               final quantity = '${values['quantity_$i']}';
@@ -545,33 +603,100 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
                 throw const FormatException(
                   'Bestellmengen müssen größer als null sein.',
                 );
+              final articleId = '${values['article_$i']}',
+                  article =
+                      records[articleId] ??
+                      {'id': articleId, 'name': choices[articleId]};
+              Map<String, dynamic>? selection;
+              final saved = lines[i]['article_id'] == articleId
+                  ? businessMap(lines[i]['catalog_price_snapshot'])
+                  : <String, dynamic>{};
+              if (exactPending == null &&
+                  (catalogPriceManaged(article) || saved.isNotEmpty)) {
+                if (saved.isNotEmpty && values['reselect_price_$i'] != true) {
+                  selection = catalogSelectionFromSnapshot(saved);
+                } else {
+                  final chosen = await flow.choose(
+                    article,
+                    'purchase_net',
+                    writePermission: 'inventory.write',
+                    section: 'material',
+                  );
+                  if (chosen == null)
+                    throw const FormatException(
+                      'Eine ausdrückliche Einkaufspreiswahl ist erforderlich.',
+                    );
+                  selection = chosen.selection;
+                }
+              }
+              await flow.fresh();
               items.add({
-                'article_id': values['article_$i'],
+                'article_id': articleId,
                 'quantity': quantity,
+                if (selection != null) 'catalog_price_selection': selection,
               });
             }
             final result = businessMap(
-              await requestSession.command(
+              await requestSession.catalogConsumerCommand(
                 pendingKey,
                 '/inventory/orders${source == null ? '' : '/${source['id']}'}',
-                {
-                  'supplier_name': values['supplier_name'],
-                  'items': items,
-                  'status': 'draft',
-                  'project_id': source == null
-                      ? projectAtOpen ?? values['project_id']
-                      : source['project_id'],
-                  if (source != null) 'revision': source['source_revision'],
-                },
+                exactPending ??
+                    {
+                      'supplier_name': values['supplier_name'],
+                      'items': items,
+                      'status': 'draft',
+                      'project_id': source == null
+                          ? projectAtOpen ?? values['project_id']
+                          : source['project_id'],
+                      if (source != null) 'revision': source['source_revision'],
+                    },
               ),
             );
-            if (mounted && mayRead) selectedId = '${result['id']}';
+            if (flow.valid) {
+              selectedId = '${result['id']}';
+              orderAtOpen = selectedId;
+            }
           },
         ),
       );
-      if (mounted && saved == true) await load();
+      if (flow.valid && saved == true) await load();
     } catch (e) {
-      if (mounted && mayRead) setState(() => error = '$e');
+      if (flow.valid) setState(() => error = '$e');
+    } finally {
+      flow.dispose();
+      if (identical(catalogFlow, flow)) catalogFlow = null;
+    }
+  }
+
+  Future<void> guardedPriceOrderDialog(WidgetBuilder builder) async {
+    final dated = (order?['items'] as List? ?? []).any(
+      (item) =>
+          item['catalog_price_required'] == true ||
+          item['catalog_price_snapshot'] != null,
+    );
+    if (!dated) {
+      await showDialog<bool>(context: context, builder: builder);
+      if (mounted) await load();
+      return;
+    }
+    final owner = widget.session, orderAtOpen = selectedId;
+    catalogFlow?.dispose();
+    final flow = CatalogPriceFlow(
+      context,
+      owner,
+      () =>
+          mounted &&
+          identical(owner, widget.session) &&
+          selectedId == orderAtOpen &&
+          write('finance.approve'),
+    );
+    catalogFlow = flow;
+    try {
+      await flow.dialog<bool>(builder);
+      if (flow.valid) await load();
+    } finally {
+      flow.dispose();
+      if (identical(catalogFlow, flow)) catalogFlow = null;
     }
   }
 
@@ -581,9 +706,8 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
     if (source == null || !write('finance.approve')) return;
     final pendingKey =
         'purchase-approve-${source['id']}-${source['source_revision']}';
-    await showDialog<bool>(
-      context: context,
-      builder: (_) => BusinessEditor(
+    await guardedPriceOrderDialog(
+      (_) => BusinessEditor(
         session: access,
         pendingSession: requestSession,
         pendingKey: pendingKey,
@@ -604,7 +728,7 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
             throw const FormatException(
               'Bitte die Prüfung der Positionen bestätigen.',
             );
-          await requestSession.command(
+          await requestSession.catalogConsumerCommand(
             pendingKey,
             '/inventory/orders/${source['id']}',
             {
@@ -617,6 +741,10 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
                   {
                     'article_id': item['article_id'],
                     'quantity': item['ordered_quantity'],
+                    if (item['catalog_price_snapshot'] is Map)
+                      'catalog_price_selection': catalogSelectionFromSnapshot(
+                        businessMap(item['catalog_price_snapshot']),
+                      ),
                   },
               ],
             },
@@ -624,7 +752,6 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
         },
       ),
     );
-    if (mounted) await load();
   }
 
   Future<void> confirmOrder() async {
@@ -633,9 +760,8 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
     if (source == null || !write('finance.approve')) return;
     final pendingKey =
         'purchase-confirm-${source['id']}-${source['source_revision']}';
-    await showDialog<bool>(
-      context: context,
-      builder: (_) => BusinessEditor(
+    await guardedPriceOrderDialog(
+      (_) => BusinessEditor(
         session: access,
         pendingSession: requestSession,
         pendingKey: pendingKey,
@@ -658,7 +784,14 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
             type: BusinessInput.toggle,
           ),
         ],
-        initial: {'ordered_on': _today()},
+        initial:
+            (source['items'] as List).any(
+              (item) =>
+                  item['catalog_price_required'] == true ||
+                  item['catalog_price_snapshot'] != null,
+            )
+            ? {}
+            : {'ordered_on': _today()},
         readPermission: 'inventory.read',
         writePermission: 'finance.approve',
         saveLabel: 'Bestellung dokumentieren',
@@ -668,6 +801,14 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
             throw const FormatException(
               'Bitte bestätigen, dass die Bestellung bereits erfolgt ist.',
             );
+          for (final item in (source['items'] as List).map(businessMap)) {
+            final snapshot = businessMap(item['catalog_price_snapshot']);
+            if (snapshot.isNotEmpty &&
+                snapshot['effective_on'] != values['ordered_on'])
+              throw const FormatException(
+                'Tatsächliches Bestelldatum und ausdrücklich gewählter Preisstand müssen übereinstimmen; Vorschlag andernfalls neu prüfen.',
+              );
+          }
           await requestSession.command(
             pendingKey,
             '/purchasing/orders/${source['id']}/confirm',
@@ -680,7 +821,6 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
         },
       ),
     );
-    if (mounted) await load();
   }
 
   Future<void> receive() async {
@@ -889,7 +1029,11 @@ class _BusinessPurchasingPageState extends State<BusinessPurchasingPage> {
               '${(line['line_index'] as int) + 1}. ${line['article_name']}',
             ),
             subtitle: Text(
-              '${line['article_code'] ?? ''}\nBestellt: ${purchaseQuantity(line['ordered_quantity'], line['unit'])}\n'
+              '${line['article_code'] ?? ''}${line['catalog_price_snapshot'] is Map
+                  ? '\n${line['catalog_price_snapshot']['source_name']} · ${catalogPriceLabel(businessMap(line['catalog_price_snapshot']['price']))} · Preisstand ${line['catalog_price_snapshot']['effective_on']}'
+                  : line['catalog_price_required'] == true
+                  ? '\nDatierte Preisquelle erforderlich'
+                  : ''}\nBestellt: ${purchaseQuantity(line['ordered_quantity'], line['unit'])}\n'
               'Eingegangen: ${purchaseQuantity(line['received_quantity'], line['unit'])} · Offen: ${purchaseQuantity(line['remaining_quantity'], line['unit'])}',
             ),
           ),

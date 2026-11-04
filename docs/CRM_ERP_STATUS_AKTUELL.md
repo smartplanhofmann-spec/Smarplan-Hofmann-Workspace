@@ -43,16 +43,22 @@ Betriebsfreigabe.
    107 PostgreSQL-Fälle und ein zusätzlicher gemeinsamer Restore bestanden.
 3. Katalogpreise erhalten Gültigkeitszeiträume, Einkaufs-/Verkaufsrollen und
    exakte Preisbasen. Alte Angebote bleiben an ihrer ursprünglichen Fassung.
-   Backend, Browser und App sind separat geprüft; die gemeinsame Integration
-   einschließlich eines gefundenen Assistenten-Kostensummenfehlers folgt.
+   Beide Clients, Beleg-/Bestellverbraucher und die Korrektur doppelt gezählter
+   Assistentenkosten sind [gemeinsam geprüft](CRM_ERP_KATALOG_V2_GESAMTPRUEFUNG_2026-11-04.md):
+   1.737 Backendfälle bei einem Windows-Skip, 1.312 App- und 610 Browsermodulfälle
+   sowie vier echte PostgreSQL- und vier Browserabläufe bestanden.
 4. Unternehmensweite Ereignisregeln werden zusätzlich zur vorhandenen
    projektbezogenen Planautomatik implementiert.
 5. Historische offene Kunden-/Lieferantenposten erhalten einen eigenen
-   belegten Zahlungsweg zu EÜR, Bankabgleich und Liquidität. Erste tatsächliche
-   Fachfälle bestehen; unabhängiger Review und Clients bleiben in Arbeit.
+   belegten Zahlungsweg zu EÜR, Bankabgleich und Liquidität. Backend, HTTP,
+   PostgreSQL und unabhängiger Fachreview sind separat geprüft; beide Clients
+   und die gemeinsame Integration sind in Arbeit.
 6. Eine getrennte SV-Gruppenkorrekturgrundlage befindet sich im unabhängigen
    Review. Die tatsächliche Berechnung mehrerer Bonus-Steuergruppen bleibt
    gesperrt; diese Grundlage berechnet noch keine freigegebenen Nettobeträge.
+7. Belegte laufende Jahreswerte vor einem unterjährigen Softwarebeginn und
+   ein auf ein Jahr begrenztes Original-/Journalpaket sind die nächsten
+   konkret am Code nachgewiesenen Buchhaltungsaufgaben.
 
 ## Noch offene Buchhaltungs- und Gesamtanforderungen
 

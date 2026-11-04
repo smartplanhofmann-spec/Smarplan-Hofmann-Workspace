@@ -1,0 +1,31 @@
+======================================================================
+FAIL: test_unconfirmed_dated_order_requires_its_actual_original_article_version_on_read_and_restore (test_business_catalog_prices_purchasing.DatedCatalogPurchasingTests.test_unconfirmed_dated_order_requires_its_actual_original_article_version_on_read_and_restore) (field='revision')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-catalog-prices-v2-20261104/backend/test_business_catalog_prices_purchasing.py", line 83, in test_unconfirmed_dated_order_requires_its_actual_original_article_version_on_read_and_restore
+    with self.assertRaises(Problem):self.purchasing.get(self.owner,order['id'])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_unconfirmed_dated_order_requires_its_actual_original_article_version_on_read_and_restore (test_business_catalog_prices_purchasing.DatedCatalogPurchasingTests.test_unconfirmed_dated_order_requires_its_actual_original_article_version_on_read_and_restore) (field='name')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-catalog-prices-v2-20261104/backend/test_business_catalog_prices_purchasing.py", line 83, in test_unconfirmed_dated_order_requires_its_actual_original_article_version_on_read_and_restore
+    with self.assertRaises(Problem):self.purchasing.get(self.owner,order['id'])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_unconfirmed_dated_order_requires_its_actual_original_article_version_on_read_and_restore (test_business_catalog_prices_purchasing.DatedCatalogPurchasingTests.test_unconfirmed_dated_order_requires_its_actual_original_article_version_on_read_and_restore) (field='cost_price_net')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-catalog-prices-v2-20261104/backend/test_business_catalog_prices_purchasing.py", line 83, in test_unconfirmed_dated_order_requires_its_actual_original_article_version_on_read_and_restore
+    with self.assertRaises(Problem):self.purchasing.get(self.owner,order['id'])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.174s
+
+FAILED (failures=3)

@@ -129,7 +129,7 @@ class Purchasing(Domain):
         if not isinstance(items, list) or not 1 <= len(items) <= 200:
             raise Problem(500, 'Bestellquelle ist nicht konsistent')
         for item in items:
-            if (not isinstance(item, dict) or set(item) != {'article_id', 'article_snapshot', 'quantity'}
+            if (not isinstance(item, dict) or not {'article_id', 'article_snapshot', 'quantity'} <= set(item) or set(item) - {'article_id', 'article_snapshot', 'quantity', 'catalog_price_snapshot'}
                     or not isinstance(item['article_snapshot'], dict)
                     or item['article_snapshot'].get('id') != item['article_id']
                     or not isinstance(item['article_snapshot'].get('unit'), str)
@@ -137,6 +137,17 @@ class Purchasing(Domain):
                 raise Problem(500, 'Bestellposition ist nicht konsistent')
             identifier(item['article_id'], 'Artikel-ID')
             decimal(item['quantity'], positive=True)
+            if 'catalog_price_snapshot' in item:
+                from business_catalog_prices import validate_snapshot
+                from business_documents import _catalog_article_snapshot
+                original=item['article_snapshot']
+                article=_catalog_article_snapshot(self.office,dict(article_id=item['article_id'],
+                    article_revision=original.get('revision'),unit=original.get('unit')))
+                if article!={key:value for key,value in original.items() if key not in ('id','revision')}:
+                    raise Problem(500,'Bestellartikel weicht von seiner ursprünglichen Artikelfassung ab.')
+                snapshot=validate_snapshot(self.office,item['catalog_price_snapshot'],item['article_id'],'purchase_net')
+                if snapshot['price']['unit'] != item['article_snapshot']['unit']:
+                    raise Problem(500,'Bestellpreis und eingefrorene Artikeleinheit sind widersprüchlich.')
         return dict(id=row['id'], project_id=row['project_id'], supplier_name=row['supplier_name'],
                     source_revision=row['revision'], items=items)
 
@@ -189,11 +200,24 @@ class Purchasing(Domain):
             confirmation=None if confirmation is None else {key: confirmation[key] for key in
                 ('order_reference', 'ordered_on', 'confirmed_by', 'confirmed_at')}, items=items)
 
+    def _price_evidence(self,actor,result,row):
+        from business_catalog_prices import article_managed
+        financial=True
+        try:self.access(actor,'finance.read',row['project_id'])
+        except Problem as error:
+            if error.status!=403:raise
+            financial=False
+        for item,source in zip(result['items'],self._source(row)['items']):
+            if article_managed(self.office,item['article_id']):item['catalog_price_required']=True
+            if financial and source.get('catalog_price_snapshot') is not None:
+                item['catalog_price_snapshot']=source['catalog_price_snapshot']
+        return result
+
     def get(self, actor, order_id):
         with transaction(self.office):
             row = self._row(order_id)
             self.access(actor, 'inventory.read', row['project_id'])
-            result = self._order(row)
+            result = self._price_evidence(actor,self._order(row),row)
             from business_purchase_changes import amendments
             result['amendment_revision'] = len(amendments(self.office, order_id))
             return result
@@ -218,6 +242,8 @@ class Purchasing(Domain):
         with transaction(self.office):
             self.access(actor, 'inventory.read', project_id)
             total = 0
+            from business_catalog_prices import installed
+            managed={row['article_id'] for row in self.office.db.execute('SELECT DISTINCT article_id FROM business_catalog_price_bindings')} if installed(self.office) else set()
 
             def candidates():
                 nonlocal total
@@ -239,7 +265,7 @@ class Purchasing(Domain):
                         # Never reuse the commercial snapshot or a price-key
                         # denylist: future financial fields stay private too.
                         yield dict(id=row['id'], revision=row['revision'], code=value['code'], name=value['name'],
-                            kind=value['kind'], unit=value['unit'], active=True)
+                            kind=value['kind'], unit=value['unit'], active=True, **({'price_policy':'dated_catalog'} if row['id'] in managed else {}))
                     if len(rows) < 256:
                         return
                     after = rows[-1]['id']
@@ -267,7 +293,7 @@ class Purchasing(Domain):
                     if error.status in (403, 404):
                         continue
                     raise
-                items.append(self._order(row))
+                items.append(self._price_evidence(actor,self._order(row),row))
             return {'items': items}
 
     def _expected(self, row, body):
@@ -301,7 +327,18 @@ class Purchasing(Domain):
                     raise Problem(400, 'Bereits extern erteilte Bestellung ausdrücklich bestätigen')
                 reference, _ = _reference(body['order_reference'], 'Bestellreferenz')
                 ordered_on = iso_date(body['ordered_on'], 'Bestelldatum')
-                source = canonical(self._source(row))
+                source_value = self._source(row)
+                from business_catalog_prices import validate_snapshot, resolve_selection, lock_selections
+                lock_selections(self.office,[item.get('catalog_price_snapshot') for item in source_value['items']])
+                for item in source_value['items']:
+                    snapshot = item.get('catalog_price_snapshot')
+                    if snapshot is not None:
+                        validate_snapshot(self.office,snapshot,item['article_id'],'purchase_net')
+                        if snapshot['effective_on'] != ordered_on:
+                            raise Problem(409,'Gewählter Katalogpreisstand muss dem dokumentierten Bestelldatum entsprechen.')
+                        selection={key:snapshot[key] for key in ('price_id','price_revision','price_sha256','effective_on')}
+                        resolve_selection(self.office,fresh,item['article_id'],selection,'purchase_net',lock=True)
+                source = canonical(source_value)
                 self.office.db.execute('INSERT INTO business_purchase_confirmations(order_id,source_revision,source_json,'
                     'source_sha256,order_reference,ordered_on,confirmed_by,confirmed_at) VALUES(?,?,?,?,?,?,?,?)',
                     (order_id, row['revision'], source, _sha(source), reference, ordered_on, fresh['id'], self.now()))
@@ -413,6 +450,9 @@ class Purchasing(Domain):
 def _validate_integrity(office):
     api = Purchasing(office)
     expected_results = set()
+    for row in office.db.execute('SELECT * FROM business_purchase_orders').fetchall():
+        if any(isinstance(item,dict) and 'catalog_price_snapshot' in item for item in json.loads(row['payload_json'])):
+            api._source(row)
     for confirmation in office.db.execute('SELECT * FROM business_purchase_confirmations').fetchall():
         row = api._row(confirmation['order_id'])
         api._confirmation(row)

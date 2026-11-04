@@ -1920,3 +1920,29 @@ historische offene Posten und die getrennte SV-Gruppenkorrekturgrundlage bleiben
 in ihren eigenen Entwicklungs-/Reviewständen; vollständige Buchhaltung und
 Gesamtsoftware sind weiterhin offen. Die genannte Spanne von zwei bis vier
 Stunden ist kein Fertigstellungstermin für dieses Gesamtziel.
+
+
+## 04.11.2026 – Datierte Preise und Assistentenkosten gemeinsam geprüft
+
+Auf `80e051a` sind die CSV-v2-Originale, ausdrückliche Preisgültigkeit/-rolle,
+exakte Preisbasis, beide Clients und unveränderte historische Angebots-/
+Bestellquellen zusammengeführt. Ein getrennt geprüfter Fehler im Assistenten
+zählte die vorhandene Projektkostensumme doppelt; neue Quellen verwenden den
+richtigen Gesamtwert, alte Quittungen bleiben unverändert prüfbar.
+
+1.737/1.738 Backendfälle (ein vorhandener Windows-Skip), 1.312 Flutter- und
+610 Nodefälle, Analyse ohne Befund, 16 Paketprüfungen, vier tatsächliche PG-Fälle
+und vier echte Browserabläufe bestehen. Der befüllte gemeinsame Restore erhält
+datierte Angebotsquelle, v1-Katalog, Anlagen, Anfangssalden, Source5 und EÜR.
+Alle 1.206 gebundenen Eingabedateien wurden abschließend verglichen. Der
+unabhängige Mergecheck meldet keinen Befund. Eine reine CDP-Testbeobachtung
+wurde nach erhaltenem HTTP200 stabilisiert und der ganze Ablauf wiederholt.
+[Gesamtprüfung](CRM_ERP_KATALOG_V2_GESAMTPRUEFUNG_2026-11-04.md).
+
+Unternehmensereignisse und historische offene Posten folgen mit ihren eigenen
+Client-/Gesamtnachweisen. Der aktuelle R08-Abgleich hat zwei konkrete weitere
+Aufgaben belegt: laufende Jahreswerte vor unterjährigem Softwarebeginn und ein
+auf ein Jahr begrenztes Original-/Journalpaket. Die getrennte SV-Gruppengrundlage
+hat einen korrigierten unabhängigen Gegenfall, bleibt aber ohne freigegebene
+Mehrfachbonus-Steuer-/Nettoberechnung. Kein vollständiger Buchhaltungsabschluss,
+keine Produktivfreigabe und kein belastbarer Gesamt-Endtermin werden behauptet.

@@ -1,0 +1,44 @@
+{
+  "worktree": "/workspace/smartplan-catalog-prices-v2-20261104",
+  "base_commit": null,
+  "scope": "CSV-v2 Documents/Pricing/Sales consumers; domain module owned by parent",
+  "new_tests": 19,
+  "combined_tests": 68,
+  "py_compile": "passed",
+  "diff_check": "passed",
+  "files": [
+    {
+      "path": "backend/business_documents.py",
+      "baseline_sha256": "0f7cd80bd18f7c35cadfc85ab9c396bfda7592e27ae4d88098e642dfdd865e50",
+      "current_sha256": "22487643cccb8a39a922c5a035470ab9af01138b2532510b589e61cdd5e6d0b5"
+    },
+    {
+      "path": "backend/business_pricing.py",
+      "baseline_sha256": "d0e109c32ec052a6863d1ebcd82e678fa6e5763bbc9f4767a283a4e47aafc0a6",
+      "current_sha256": "4970e0d916a05b3c4559b6fd1385c1da88ea08b6b89f25b01b4020c40f14aaf9"
+    },
+    {
+      "path": "backend/business_sales.py",
+      "baseline_sha256": "d5b30792c733e7e27df7a8471cb6722e2804ac422749a0e32e77850c0a6ca637",
+      "current_sha256": "aee82f64ffe6b0c3974512852f158cdb61e76b1a07f72c7817beed2a8866f25d"
+    },
+    {
+      "path": "backend/test_business_catalog_price_consumers.py",
+      "baseline_sha256": null,
+      "current_sha256": "82d8325697d0451ea0592289f9be4223bb8bf944a82bbb476bf4e9f614a824f2"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_V2_VERBRAUCHER_2026-11-04.md",
+      "baseline_sha256": null,
+      "current_sha256": "47e18629376953192c58ffa05f407d6d02ff4331701b6bb950479b2d7db96785"
+    },
+    {
+      "path": "docs/evidence/catalog-price-consumers-2026-11-04-tests.txt",
+      "baseline_sha256": null,
+      "current_sha256": "c467bcc131bd9222745ed59870082dfc80c5120cab5cd0d069395c5451333fcb"
+    }
+  ],
+  "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json",
+  "baseline_manifest_sha256": "114b964659606dbf8206745d15f0e8ff2fc511688f62b0350e903f62a319e521",
+  "baseline_scope": "Source4 checkpoint plus fully integrated Opening backend/browser/native and catalog backend/browser; Source5 and historical assets/native catalog future work excluded"
+}

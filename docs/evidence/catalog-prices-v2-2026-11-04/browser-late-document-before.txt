@@ -1,0 +1,34 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: Late accepted dated document must not close another dialog
+
+false !== true
+
+    at Object.catalogPricesFlow (/workspace/smartplan-catalog-prices-v2-20261104/web/office/tests/catalog-prices-flow.cjs:24:1881)
+    at async main (/workspace/smartplan-catalog-prices-v2-20261104/web/office/tests/e2e.cjs:143:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: the server responded with a status of 400 (Bad Request)',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED'
+]
+Fixture log tail:
+s?project_id=85cd47ab6d4442e8b7f89856fa57f3c1 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:23] "GET /api/v1/business/customer-workspace?project_id=85cd47ab6d4442e8b7f89856fa57f3c1 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:23] "GET /api/v1/business/documents?project_id=85cd47ab6d4442e8b7f89856fa57f3c1 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:23] "GET /api/v1/business/service-reports?project_id=85cd47ab6d4442e8b7f89856fa57f3c1 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:23] "GET /api/v1/business/articles HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "POST /api/v1/business/catalog-prices/candidates HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "POST /api/v1/business/documents HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "GET /api/v1/business/articles HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "GET /api/v1/projects HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "GET /api/v1/business/projects/85cd47ab6d4442e8b7f89856fa57f3c1/profile HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:03:24] "GET /api/v1/business/capabilities?project_id=85cd47ab6d4442e8b7f89856fa57f3c1 HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

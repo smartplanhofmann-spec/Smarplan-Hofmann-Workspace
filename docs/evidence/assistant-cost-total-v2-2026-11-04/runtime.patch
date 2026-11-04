@@ -1,0 +1,52 @@
+--- a/backend/business_assistant_sources.py
++++ b/backend/business_assistant_sources.py
+@@ -29,6 +29,18 @@
+     if not amount.is_finite() or amount != amount.to_integral_value():
+         raise Problem(500, 'Fachquelle enthält keinen eindeutigen Centbetrag.')
+     return int(amount)
++
++
++def cost_total_minor(value):
++    """Version current totals without rewriting retained legacy observations."""
++    basis=value.get('cost_total_basis')
++    if basis=='project_economics_total_net_v2':
++        return _minor(value['costs']['total_net'])
++    if basis is None:
++        # Historical assistant snapshots included the subtotal a second time.
++        # Their exact original receipts remain verifiable, never re-valued.
++        return sum(_minor(item) for item in value['costs'].values())
++    raise Problem(409,'Unbekannte Herkunft der erfassten Projektkostensumme.')
+ 
+ 
+ def action_access(office, actor, project, action):
+@@ -75,7 +87,8 @@
+         value = {key: raw[key] for key in ('project_id', 'currency', 'valuation_basis', 'tax_result_available', 'budget', 'costs', 'revenue', 'payments', 'result')}
+         # No employee names, individual rates, approved-time or personnel rows.
+         value['issues'] = [dict(code=item['code'], message=item['message']) for item in raw['issues']]
+-        value['total_cost_minor'] = sum(_minor(item) for item in raw['costs'].values())
++        value['cost_total_basis'] = 'project_economics_total_net_v2'
++        value['total_cost_minor'] = cost_total_minor(value)
+     elif kind == 'communication':
+         from inquiries import Inquiries
+         raw = Inquiries(office).get(actor, object_id)
+@@ -129,6 +142,8 @@
+             result['task_overdue_days'] = max(result['task_overdue_days'], data['overdue_days'])
+             result['overdue_task'] |= data['overdue_days'] > 0
+         elif kind == 'costs':
++            if data['total_cost_minor']!=cost_total_minor(data):
++                raise Problem(409,'Kostenfakt stimmt nicht mit seiner belegten Summenherkunft überein.')
+             result['total_cost_minor'] = data['total_cost_minor']
+             result['costs_complete'] = data['result']['complete_for_recorded_sources']
+     return result
+--- a/backend/business_assistant.py
++++ b/backend/business_assistant.py
+@@ -814,7 +814,8 @@
+                     expected = dict(overdue_task=overdue>0, task_overdue_days=overdue)
+                     if proof['permission'] != 'documents.read': raise ValueError('Wrong task policy scope')
+                 elif proof['kind'] == 'costs':
+-                    expected = dict(total_cost_minor=sum(_minor(item) for item in source['costs'].values()), costs_complete=source['result']['complete_for_recorded_sources'])
++                    from business_assistant_sources import cost_total_minor
++                    expected = dict(total_cost_minor=cost_total_minor(source), costs_complete=source['result']['complete_for_recorded_sources'])
+                     if proof['permission'] != 'finance.read' or source['project_id'] != row['project_id']: raise ValueError('Wrong cost policy scope')
+                 else: raise ValueError('Unknown independent policy source')
+                 if expected != proof['facts']: raise ValueError('Policy facts differ from their original evidence')

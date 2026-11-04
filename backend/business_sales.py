@@ -297,10 +297,10 @@ class Sales:
                 if not isinstance(data['positions'],list) or not 1<=len(data['positions'])<=50: raise Problem(400,'Ein bis 50 bestätigte Katalogpositionen auswählen.')
                 positions=[]
                 for selected in data['positions']:
-                    shape(selected,('article_id','article_revision','quantity'))
+                    shape(selected,('article_id','article_revision','quantity'),('catalog_price_selection',))
                     article=documents.catalog_item(actor,'business_articles',identifier(selected['article_id']))
                     if not article['active'] or integer(selected['article_revision'],1,10**9)!=article['revision']: raise Problem(409,'Katalogposition wurde geändert oder deaktiviert.')
-                    positions.append(dict(description=article['name'],quantity=selected['quantity'],unit=article['unit'],unit_price_net=article['unit_price_net'],tax_rate=article['tax_rate'],kind=article['kind']))
+                    positions.append(dict(selected))
                 document=documents.create(actor,dict(request_id=uuid.uuid5(uuid.NAMESPACE_URL,'sales-offer:'+object_id).hex,project_id=project_id,kind='offer',
                     title=data['title'],issue_date=data['issue_date'],due_date=data['due_date'],positions=positions))
                 document_id=document['id']

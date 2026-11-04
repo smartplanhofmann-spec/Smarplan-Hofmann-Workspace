@@ -31,6 +31,18 @@ def _minor(value):
     return int(amount)
 
 
+def cost_total_minor(value):
+    """Version current totals without rewriting retained legacy observations."""
+    basis=value.get('cost_total_basis')
+    if basis=='project_economics_total_net_v2':
+        return _minor(value['costs']['total_net'])
+    if basis is None:
+        # Historical assistant snapshots included the subtotal a second time.
+        # Their exact original receipts remain verifiable, never re-valued.
+        return sum(_minor(item) for item in value['costs'].values())
+    raise Problem(409,'Unbekannte Herkunft der erfassten Projektkostensumme.')
+
+
 def action_access(office, actor, project, action):
     if action not in ACTIONS:
         raise Problem(400, 'Diese Assistentenaktion ist nicht vorgesehen.')
@@ -75,7 +87,8 @@ def resolve(office, actor, project, descriptor, today):
         value = {key: raw[key] for key in ('project_id', 'currency', 'valuation_basis', 'tax_result_available', 'budget', 'costs', 'revenue', 'payments', 'result')}
         # No employee names, individual rates, approved-time or personnel rows.
         value['issues'] = [dict(code=item['code'], message=item['message']) for item in raw['issues']]
-        value['total_cost_minor'] = sum(_minor(item) for item in raw['costs'].values())
+        value['cost_total_basis'] = 'project_economics_total_net_v2'
+        value['total_cost_minor'] = cost_total_minor(value)
     elif kind == 'communication':
         from inquiries import Inquiries
         raw = Inquiries(office).get(actor, object_id)
@@ -129,6 +142,8 @@ def facts(sources):
             result['task_overdue_days'] = max(result['task_overdue_days'], data['overdue_days'])
             result['overdue_task'] |= data['overdue_days'] > 0
         elif kind == 'costs':
+            if data['total_cost_minor']!=cost_total_minor(data):
+                raise Problem(409,'Kostenfakt stimmt nicht mit seiner belegten Summenherkunft überein.')
             result['total_cost_minor'] = data['total_cost_minor']
             result['costs_complete'] = data['result']['complete_for_recorded_sources']
     return result

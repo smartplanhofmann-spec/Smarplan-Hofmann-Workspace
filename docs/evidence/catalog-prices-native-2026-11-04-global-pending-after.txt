@@ -1,0 +1,3 @@
+00:00 +0: loading /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart
+00:00 +0: global editor recovers exact dated pending document after explicit project selection
+00:02 +1: All tests passed!

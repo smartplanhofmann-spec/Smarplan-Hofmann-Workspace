@@ -1,0 +1,753 @@
+{
+  "recorded_at_utc": "2026-11-04T10:21:30.293082+00:00",
+  "scope": "Final reviewed CSV-v2 package; all actual deltas against exact initial freeze plus verified native V1 import; no overall CRM/ERP completion claim",
+  "runtime_frozen": true,
+  "independent_native_review": "passed 87/87, new review file analyze0, runtime and owner fixtures byte-identical",
+  "worktree": "/workspace/smartplan-catalog-prices-v2-20261104",
+  "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json",
+  "baseline_manifest_sha256": "114b964659606dbf8206745d15f0e8ff2fc511688f62b0350e903f62a319e521",
+  "native_override_manifest": "work/verification/catalog-prices-v2-native-v1-baseline.json",
+  "native_override_sha256": "19255485fc715975de85e84a8fa86f685c6b9318e0a2ce0e1a37e03b7be1905c",
+  "component_handoffs": [
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-browser-handoff.json",
+      "sha256": "cf1c9da5521f832c868906ca3b60fa713891197bd44b6cea9fa5b4a898c3360a"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-handoff.json",
+      "sha256": "c66b5c03bf9f0d64d9480dff49546ec80bbae40ecf554187d90799ecd097b344"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/manifest.json",
+      "sha256": "c5ef8e53af88cc711118acb7ab679d7ab0b5d1001ff0f6788757c33104a42c4b"
+    }
+  ],
+  "verification": {
+    "backend_final_targeted_passed": 57,
+    "independent_backend_initial_passed": 103,
+    "independent_purchasing_addendum_passed": 17,
+    "http_final_passed": 3,
+    "node_final_passed": 554,
+    "node_targeted_passed": 32,
+    "native_owner_combined_passed": 182,
+    "native_owner_new_tests": 70,
+    "native_owner_analyze_issues": 0,
+    "native_independent_combined_passed": 87,
+    "native_independent_new_tests": 17,
+    "native_independent_analyze_issues": 0,
+    "actual_chromium_dated": "passed including late accepted response preserving next dialog, MFA/HTTP, LostACK, original download, November/December, source reference, purchase approval and390px",
+    "actual_chromium_legacy_invoice_chain": "passed",
+    "postgresql_before_identity_review": "3/3 passed; later integrated Root PostgreSQL check remains required",
+    "full_backend_before_identity_review": "1608 tests,1 platform skip, rest passed; final integrated Root full regression separate"
+  },
+  "deleted_files": [],
+  "files": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "baseline_sha256": "16e822b67a0b20977a6ec34a9d5913a6335e770e498a65cb07f47bd3a930a7aa",
+      "sha256": "511d12a484d094c8430ef82710751cbaa1bcac3aa63a53d20d4851fea8119edb",
+      "bytes": 47730,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/lib/api.dart",
+      "baseline_sha256": "d1241f02b7f7163bae00ec1c6a5cfa2ae42c5a1b5ca505218fe25c1efac501b8",
+      "sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+      "bytes": 7537,
+      "baseline_manifest": "work/verification/catalog-prices-v2-native-v1-baseline.json"
+    },
+    {
+      "path": "app/lib/business_adapters.dart",
+      "baseline_sha256": "0761a477009083039efbc43a46299030576f281c53a682c7c4bb414589bbcefd",
+      "sha256": "dcbb7a70a73c7454a6a688652b7c5db1aa6df7ff0c4679d5ee36127f6a02525d",
+      "bytes": 24022,
+      "baseline_manifest": "work/verification/catalog-prices-v2-native-v1-baseline.json"
+    },
+    {
+      "path": "app/lib/business_catalog_prices.dart",
+      "baseline_sha256": null,
+      "sha256": "69a6db02697db31d4430cccb32480c946be5d240f977a1108657c1de9a259f04",
+      "bytes": 50542,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/lib/business_document_pricing.dart",
+      "baseline_sha256": "bf143fc75c8abfe5cc8d1e2a4b860db5fae0aede7f8f427762389eef02b3052d",
+      "sha256": "abc0ff95d6319865a642495eb78fcf7b68b70dfb96b17811990da567258d6a0e",
+      "bytes": 48596,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/lib/business_documents.dart",
+      "baseline_sha256": "4ed65a95c444da77e41ffea6b63146fd9afe5cbc2ecb5bd802c545084507a8dc",
+      "sha256": "be5ae6c8503ed0ae4b895f2f5aafcfc58e5c5d61ab2f141be6c9e50e3a8a6f77",
+      "bytes": 87998,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/lib/business_operations.dart",
+      "baseline_sha256": "e6ba1e17cd80d065bdf4fdf8291094d6fc9f6fecd3455498535c5f0709cc9256",
+      "sha256": "21388ecf9bfbbadd5cb6fc7448e30d51431b70b1849b19e895c1f65271ba2e7e",
+      "bytes": 37751,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/lib/business_purchasing.dart",
+      "baseline_sha256": "57bcf2d0ed64d33e64ef9ef12381ddf287b93edda92a6653d894bfd4bdd60781",
+      "sha256": "034b0c9c2dbbe607bab7ed4668691d89039b93ff1a1b674b1f7c12a6132ec023",
+      "bytes": 42651,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/lib/business_sales.dart",
+      "baseline_sha256": "35f47d640ebebb229218287e68bdfe32e64213dc01d26fedba6b26d582e71d9f",
+      "sha256": "75549d29a9ae00d34c5fcd3fd537a346ab7f6d46d42d41147bd480dcb359c733",
+      "bytes": 32042,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "baseline_sha256": "7c2252942c2f90a4b949138b209f7f4675e0a0af60a2c36c9ba3a9d3d3c5f5e6",
+      "sha256": "b502efd74899f8235e25c25ddb62cb175194e94c89d4a3cb3dd563cae0b2c45c",
+      "bytes": 94680,
+      "baseline_manifest": "work/verification/catalog-prices-v2-native-v1-baseline.json"
+    },
+    {
+      "path": "app/test/business_catalog_price_consumers_test.dart",
+      "baseline_sha256": null,
+      "sha256": "7747fbefcb3e238456aa4c2b674852f2ce5f094624b6cb6a4019a1299aac2376",
+      "bytes": 8260,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/test/business_catalog_price_workflows_test.dart",
+      "baseline_sha256": null,
+      "sha256": "f1362e891270ab621026095fdd786dedbd9fa2fc66e196f13d8381e36b10307a",
+      "bytes": 16154,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/test/business_catalog_prices_http_test.dart",
+      "baseline_sha256": null,
+      "sha256": "07287377d88f73aeaa64add5529de6048972d94036e6bdcc21d90f38fbce23cb",
+      "bytes": 11830,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/test/business_catalog_prices_independent_lifecycle_test.dart",
+      "baseline_sha256": null,
+      "sha256": "2953933f6a8e45f491869ab5ba9973a37514b26294970c7c41024a7579b409a3",
+      "bytes": 16046,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/test/business_catalog_prices_lifecycle_test.dart",
+      "baseline_sha256": null,
+      "sha256": "bcfedf12bf8979106dae53ab93faf043ac04f53e4b457ddaccd1304ad4502dc5",
+      "bytes": 12011,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/test/business_catalog_prices_test.dart",
+      "baseline_sha256": null,
+      "sha256": "816d9b9d4b1c4962643c8db12510a96b98abe6eef4d642434f23d8bba2de5eba",
+      "bytes": 17517,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/test/fixtures/catalog_prices_v2.json",
+      "baseline_sha256": null,
+      "sha256": "1c20e3ba5fb2e0d63e1bf62170a29be28bef5c458fac401813de5a8307b67b62",
+      "bytes": 50308,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "app/test/fixtures/generate_catalog_prices_v2.py",
+      "baseline_sha256": null,
+      "sha256": "490e75df5720a8f046181de6db7c7faff0805c1463aee1dd804ac162931bbfdc",
+      "bytes": 4607,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/business_api.py",
+      "baseline_sha256": "5cd6570e586ae34fcb20df53910ca9280eca9ec24acaf715bbfa7696b8a5c626",
+      "sha256": "9daed94d4b11b040a832c3160b77eece1ece442b175252bc36bbe616beee39b5",
+      "bytes": 22661,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/business_catalog_prices.py",
+      "baseline_sha256": null,
+      "sha256": "7c5e5fe1a5cad1f4629368b461ec0be55a111a4ecde075a2ca7123037289c1f7",
+      "bytes": 59712,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/business_documents.py",
+      "baseline_sha256": "0f7cd80bd18f7c35cadfc85ab9c396bfda7592e27ae4d88098e642dfdd865e50",
+      "sha256": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+      "bytes": 132432,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/business_inventory.py",
+      "baseline_sha256": "8a40b304594cb81a34eca30d88cc03d9940bfd6589ec47675d800c54f49f5a33",
+      "sha256": "96d97bc9d5893d1fc0106b5eaae8378fe85460ac7842d94d72bdfccacaaa99d6",
+      "bytes": 49682,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/business_organization.py",
+      "baseline_sha256": "6ef7e4e3fbbfc7556913405c8b259e795d3147e139a50d7262beba42229c3fc3",
+      "sha256": "a09b1f71a0338a0945913d9581476433de69ff62848fa6cab118b2bcb788ccac",
+      "bytes": 14092,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/business_pricing.py",
+      "baseline_sha256": "d0e109c32ec052a6863d1ebcd82e678fa6e5763bbc9f4767a283a4e47aafc0a6",
+      "sha256": "4970e0d916a05b3c4559b6fd1385c1da88ea08b6b89f25b01b4020c40f14aaf9",
+      "bytes": 15141,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/business_purchasing.py",
+      "baseline_sha256": "75338ed59ea9c1ff5b4bd35a452c19e02d9651df7ed722aa95faaed984b403ed",
+      "sha256": "b2f513a536412c8104fff4271e1b61501069431e481a6354b70a407c787f2752",
+      "bytes": 35221,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/business_sales.py",
+      "baseline_sha256": "d5b30792c733e7e27df7a8471cb6722e2804ac422749a0e32e77850c0a6ca637",
+      "sha256": "aee82f64ffe6b0c3974512852f158cdb61e76b1a07f72c7817beed2a8866f25d",
+      "bytes": 33231,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "baseline_sha256": "2ec66dd6c8299f17fa8abddc1bd0e5e987adb7d943b79b0f52f34093ab3699c4",
+      "sha256": "8b58a47ddbd5a678b568b6366a19e26938fda025c76ac6d750a491a198c14d24",
+      "bytes": 81311,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "baseline_sha256": "290089235d06378ed2fc9172efb54123cbba3d16a215868070d2bcc644a1e90b",
+      "sha256": "fc6b95477e6778919859337c96e6a3400fee3e0f2f36c4d92e63272b9fd64b9a",
+      "bytes": 45292,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/online/test_business_catalog_prices_pg.py",
+      "baseline_sha256": null,
+      "sha256": "7c4439f356fce58d1fa8b873f2d678af1f06ff87c46fe3fb12963b47aa3e182a",
+      "bytes": 7382,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/online/web.py",
+      "baseline_sha256": "612ea3d8bce51d0d83910e9b6c553a22a32e223ddf287f77153dd62e9272e856",
+      "sha256": "73d8ac49cc11c04c808b0ec7832c09a19731d939287d9a7f2c196509165dd7ff",
+      "bytes": 29136,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/server.py",
+      "baseline_sha256": "f31106c8695b33028f83c174b09bcf9389717a60a93915b93599c8dc3d32e789",
+      "sha256": "59021c987087033da74befa834670a35a2f5d7e1824251cc423048c2562c4e27",
+      "bytes": 16577,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/test_business_catalog_price_consumers.py",
+      "baseline_sha256": null,
+      "sha256": "82d8325697d0451ea0592289f9be4223bb8bf944a82bbb476bf4e9f614a824f2",
+      "bytes": 23418,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/test_business_catalog_prices.py",
+      "baseline_sha256": null,
+      "sha256": "e7881d3b2a668c6fb6800ffa8b9f7f86224840cd6476d1d23e9688bc62f1c4f8",
+      "bytes": 17982,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_evidence.py",
+      "baseline_sha256": null,
+      "sha256": "3e5de8ec5307d5ff52829066d1e4877bfd3cfde1e1972140df1a4d3bb4fe5355",
+      "bytes": 8229,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_purchasing.py",
+      "baseline_sha256": null,
+      "sha256": "ba508d09ea1378c5c2826feb26c37d6fe5e940271e88bccb7eaa58358a861864",
+      "bytes": 6569,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_transport.py",
+      "baseline_sha256": null,
+      "sha256": "987d1a6ad885e8b2406db046c49c926e7d5164a2daf8f23dcb8deb23f62238cd",
+      "bytes": 4324,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "backend/test_catalog_prices_independent_review.py",
+      "baseline_sha256": null,
+      "sha256": "1019eb268c44168e984273c9d0226b97b7037b777200134a6e8fcab33d119e22",
+      "bytes": 18083,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_PREISE_V2_API_2026-11-04.md",
+      "baseline_sha256": null,
+      "sha256": "f5f70254755217d5e20f6a99549d844d4b0fbc9f86516567b85239b499383b54",
+      "bytes": 12552,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_PREISE_V2_NATIVE_2026-11-04.md",
+      "baseline_sha256": null,
+      "sha256": "9ea1cde050398d1cdd1178fc39eb491c74862b0c3ee6c890561d56f05a10af5d",
+      "bytes": 6801,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_PREISGUELTIGKEIT_V2_VERTRAG_2026-11-04.md",
+      "baseline_sha256": null,
+      "sha256": "7f78017ae4b3a2ca37ac1879cdb64168311b74e7561f32bb5d451bfb7f8de7db",
+      "bytes": 15480,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_V2_VERBRAUCHER_2026-11-04.md",
+      "baseline_sha256": null,
+      "sha256": "47e18629376953192c58ffa05f407d6d02ff4331701b6bb950479b2d7db96785",
+      "bytes": 7064,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/README.md",
+      "baseline_sha256": null,
+      "sha256": "4e3403d20463130dbf7c50ff0a28c1082b92b8011af32cb90ddb9e940fd97329",
+      "bytes": 4806,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-identity-fix.txt",
+      "baseline_sha256": null,
+      "sha256": "1e9ab6d50258bfe175b06733515972794bad739ede09741839632a3cb2a48b38",
+      "bytes": 1239,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-identity-source.json",
+      "baseline_sha256": null,
+      "sha256": "151435e1133a805d5132603f9f6433705ca61b9d8170b354d67b4fbe1f899953",
+      "bytes": 312,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-occurrence-fix.txt",
+      "baseline_sha256": null,
+      "sha256": "170ef81468a3f97bcd067369e9548db9f8776547b15b4c5953f3a0189ae21762",
+      "bytes": 3369,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-occurrence-source.json",
+      "baseline_sha256": null,
+      "sha256": "90876f229d9802855f350fddfff43c1285500ba867abe4163da6bef3a029669e",
+      "bytes": 487,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-document-position-identity-fix.txt",
+      "baseline_sha256": null,
+      "sha256": "68a796f0c9d60791e991e0d5cb6ceea308f92aed69ce72d0c2bd6d107eba226e",
+      "bytes": 1224,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/integrated-final.txt",
+      "baseline_sha256": null,
+      "sha256": "5aa6ca29a130392021c48ee94decbf467c7da32e538bb6eefcadbba1a101a870",
+      "bytes": 22082,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/manifest.json",
+      "baseline_sha256": null,
+      "sha256": "027ce9d2bb9222aac8af793236e776010f67a3083c9658cb89c4b7e2543cb440",
+      "bytes": 7092,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/README.md",
+      "baseline_sha256": null,
+      "sha256": "3cb1728f2dca9c9b34b18203e48f3f642348462a4d1b266e73249b30b5e54334",
+      "bytes": 5081,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/backend-purchasing-addendum-17.txt",
+      "baseline_sha256": null,
+      "sha256": "d71ba747bea506442d179c538b78c993f1d74a5e095ef161323f45d1d6af73bb",
+      "bytes": 4366,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/manifest.json",
+      "baseline_sha256": null,
+      "sha256": "c5ef8e53af88cc711118acb7ab679d7ab0b5d1001ff0f6788757c33104a42c4b",
+      "bytes": 5510,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/native-analyze.txt",
+      "baseline_sha256": null,
+      "sha256": "3e9de4f8fcfa8e20e614d9b33b569d8eb2e243116083a2e9e8da6f2506f2d7a4",
+      "bytes": 86,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/native-final-87.txt",
+      "baseline_sha256": null,
+      "sha256": "f410f605cd697ecf9d82f87854900a0769a808da89a045d0562f18e44208424e",
+      "bytes": 16442,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/test-harness-initial.txt",
+      "baseline_sha256": null,
+      "sha256": "77ff7df0a42e9e34cd182081de2697521fe1ebb477f0626f97c4c0461034b2a9",
+      "bytes": 10781,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-price-consumers-2026-11-04-handoff.json",
+      "baseline_sha256": null,
+      "sha256": "ca39388a21c503b9bb8a03eaf5126ff328cfb53f74b99dbbfb8c0ebc3d1a2513",
+      "bytes": 1993,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-price-consumers-2026-11-04-tests.txt",
+      "baseline_sha256": null,
+      "sha256": "c467bcc131bd9222745ed59870082dfc80c5120cab5cd0d069395c5451333fcb",
+      "bytes": 14020,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-analyze-final.txt",
+      "baseline_sha256": null,
+      "sha256": "8b945e8129b9c8a6df21f77dc889e2cf6fecbb25f647969122e1f2d22d09c6c4",
+      "bytes": 97,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-global-pending-after.txt",
+      "baseline_sha256": null,
+      "sha256": "c81a1bf959a0b135e1f4c57b3d122fd69df448434e92846f6ff4c3a59b426b20",
+      "bytes": 241,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-global-pending-before.txt",
+      "baseline_sha256": null,
+      "sha256": "d6a69a6a347374b94eecb7b06f8f6ce2289d92fa12844ed64518011d4557813d",
+      "bytes": 2315,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-handoff.json",
+      "baseline_sha256": null,
+      "sha256": "c66b5c03bf9f0d64d9480dff49546ec80bbae40ecf554187d90799ecd097b344",
+      "bytes": 9854,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-purchasing-final.txt",
+      "baseline_sha256": null,
+      "sha256": "679366678827fa6162c542256845677e65da7ea483166e2783036d50af7e6b12",
+      "bytes": 6632,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-regression-before.txt",
+      "baseline_sha256": null,
+      "sha256": "a25b55251a375fb75442907d5ad18c761176e06d3d6ce0add619219c2971f123",
+      "bytes": 34959,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-regression-final.txt",
+      "baseline_sha256": null,
+      "sha256": "089e2e2010006c5c50c2a58996e714472e41da6ad61ccbf664b264fda48b32aa",
+      "bytes": 33638,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-root-cost-before.txt",
+      "baseline_sha256": null,
+      "sha256": "d66c33fef4528a51a135aa2a9f9d0d1912ed1f30e79b65c8d36e791cd7879c8b",
+      "bytes": 2917,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/README.md",
+      "baseline_sha256": null,
+      "sha256": "89cbf14614847fec48565e22ab083cbb416bac0bb7aefb3f80a99184f7b5e511",
+      "bytes": 6684,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-browser-handoff-before-lifecycle-review.json",
+      "baseline_sha256": null,
+      "sha256": "e928a32233ad2bf1cd97236c9b48f7fa69eba42e363e111545d2252e10f78bc0",
+      "bytes": 9355,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-browser-handoff.json",
+      "baseline_sha256": null,
+      "sha256": "cf1c9da5521f832c868906ca3b60fa713891197bd44b6cea9fa5b4a898c3360a",
+      "bytes": 9595,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-regression-before-final-review.txt",
+      "baseline_sha256": null,
+      "sha256": "419912566adb96f5b4c14cc10558d2bc581e4499042151b6655c3ce99eabdb8b",
+      "bytes": 2351,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-targeted-before-independent-review.txt",
+      "baseline_sha256": null,
+      "sha256": "1ef4fd0577272a816a80298f181f262ededdc824f43134eb747992e13d6781ee",
+      "bytes": 98,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-targeted-final.txt",
+      "baseline_sha256": null,
+      "sha256": "4467e738320e237e72f53746a8e9eb0c3a1ef7fd127b4897de63a1c66e99f129",
+      "bytes": 98,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-late-document-before.txt",
+      "baseline_sha256": null,
+      "sha256": "1923f0ae28192885b7061a336d37c528fa1257c513781ea490110c43b236170a",
+      "bytes": 2518,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-lifecycle-addendum.json",
+      "baseline_sha256": null,
+      "sha256": "c8015dbd3a62f47a965e278ba9ac886b15de699443a38b986c75675df277f6bd",
+      "bytes": 880,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-lifecycle-fix.diff",
+      "baseline_sha256": null,
+      "sha256": "cffc93b0644dd924c00f42db68efb631bad6b2ed8327149297bee65d3b5d5975",
+      "bytes": 3066,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-picker-background-before.txt",
+      "baseline_sha256": null,
+      "sha256": "4240930d7917972a63bde1c94924d44216015e3ebbd0a6b76aec852dc2de45e1",
+      "bytes": 2235,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-targeted-final.txt",
+      "baseline_sha256": null,
+      "sha256": "136104e1b4d8e93ffb8e170fdd42e8b6bbaa299d1d4b466aa4872b59d5a7dbec",
+      "bytes": 3441,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-prices-v2-baseline.json",
+      "baseline_sha256": null,
+      "sha256": "114b964659606dbf8206745d15f0e8ff2fc511688f62b0350e903f62a319e521",
+      "bytes": 195332,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-prices-v2-native-v1-baseline.json",
+      "baseline_sha256": null,
+      "sha256": "19255485fc715975de85e84a8fa86f685c6b9318e0a2ce0e1a37e03b7be1905c",
+      "bytes": 1137,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-v2-evidence.json",
+      "baseline_sha256": null,
+      "sha256": "832a442ce59af75b89fdb32e180aa74f6a10b0971dd8f1c7c4f6177f2057dd1f",
+      "bytes": 12587,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-v2-preview-390px.png",
+      "baseline_sha256": null,
+      "sha256": "56873b7d35601dc2045e605d2a1cfe9f1ac0fea8c1b66ace29260e6c011c9049",
+      "bytes": 64457,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-v2-preview-desktop.png",
+      "baseline_sha256": null,
+      "sha256": "c9f2c3f05e74d5b64a42d9b7beacc0eee6d3d14868665330ce6a7ec277fb8342",
+      "bytes": 161747,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/chromium-http-final.txt",
+      "baseline_sha256": null,
+      "sha256": "ee7d0d20626794b9e457936c51a4f9bc5f1af30243e6cbce4b8e5a6bd2535b9e",
+      "bytes": 335,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/chromium-invoice-chain-regression.txt",
+      "baseline_sha256": null,
+      "sha256": "57dc372c3df55c48984b71c829a4401d3b75685c534d38cddd77c52dd7b69abe",
+      "bytes": 354,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/http-transport-final.txt",
+      "baseline_sha256": null,
+      "sha256": "cead8c811d1718f0d2f70f55f640f1d3d560687018e52ab968a76f6515e97267",
+      "bytes": 681,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/node-regression-final.txt",
+      "baseline_sha256": null,
+      "sha256": "61bd7d8fec9d852c3baa946038159a1f042427eb20e120a911452f3f5fbe5241",
+      "bytes": 57621,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/package-files-before-native-review.json",
+      "baseline_sha256": null,
+      "sha256": "311d020fa1abb89279be3cbc945cc275addf46f22f69721f6febb2274c839e55",
+      "bytes": 22779,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/packages-sixteen.txt",
+      "baseline_sha256": null,
+      "sha256": "32265856286fb4f492e9b8073f984baf33eb95587cf34390471ce73e9f3dd97c",
+      "bytes": 482,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/postgresql-three-before-identity-review.txt",
+      "baseline_sha256": null,
+      "sha256": "dbe2acf2fee850a5ad22f1738a261f70e502bb083f66d9e2411399234f402a18",
+      "bytes": 794,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/purchase-original-identity-after.txt",
+      "baseline_sha256": null,
+      "sha256": "ef4d533a6dcfeec875c0b4a70b03c618254fc247613f0dc747a8b3fcafc3a192",
+      "bytes": 99,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/purchase-original-identity-before.txt",
+      "baseline_sha256": null,
+      "sha256": "dd9849742e50a3af5d7c18844d35e56f0082aacbd6bf845ea8670cf4dfa844ed",
+      "bytes": 2596,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/source-reference-domain-final.txt",
+      "baseline_sha256": null,
+      "sha256": "fbf46cfbba26a0fa9018aaf0a89e2083c8f8d47f19d7710dabb6b62550aee669",
+      "bytes": 98,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "scripts/native-release.py",
+      "baseline_sha256": "4f6893b843cbaf279ea3f7c293d749f809f32a2f6c5a167c6bf99a1fec077fcb",
+      "sha256": "adf3c93995fdd6c756114ddf2b1d3852cca4bb6151872e7c3c293f9a955b8116",
+      "bytes": 21956,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "baseline_sha256": "a779bfa302010f033701ce90f971b7ccf19ba16b7f5c784ec3b734c0e53e89f3",
+      "sha256": "17d6afb7fc18fff58938810a894fe164a08f853acde8e7f2b56b26cea20ccc39",
+      "bytes": 12592,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "web/office/catalog-prices.js",
+      "baseline_sha256": null,
+      "sha256": "4588b266cb8728a9ad67378215ffe4040ccabb3d0b8210299ef67b17512c4935",
+      "bytes": 26481,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "web/office/office.js",
+      "baseline_sha256": "b8a7a3859d3ac778071729bbc9ea15de1f2fb3911cb6ff9d03e9698dcb8c146d",
+      "sha256": "85d7a089ce25ad68e55bc32fa3076dbb4d0189d6c49e995a62a78bbd0b5887a3",
+      "bytes": 350734,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "web/office/sales.js",
+      "baseline_sha256": "f2615b8241c137e36eb66f93701d6e11dd9529ffc3369c8249a7e2a42c39749f",
+      "sha256": "9ccfe223743ab70771542db34b86e3ee02f7c6abdfbcf4b2939cfe81c5ecb462",
+      "bytes": 17215,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "web/office/tests/catalog-prices-flow.cjs",
+      "baseline_sha256": null,
+      "sha256": "1cac801c493efb1129a5d7d2133408c4d99352d3bb5b5e5406f54779f46b23bf",
+      "bytes": 13504,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "web/office/tests/catalog-prices-lifecycle.test.mjs",
+      "baseline_sha256": null,
+      "sha256": "446075ad66d030c01b0eee727d074ef30a69de01902c7e5b4d264d8f7d3b297f",
+      "bytes": 11152,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "web/office/tests/catalog-prices.test.mjs",
+      "baseline_sha256": null,
+      "sha256": "0c17615876becce0f3aaa76d0f0c1bea378fdc875b64d3ffb970ec525781e05d",
+      "bytes": 9946,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "baseline_sha256": "2683a02c519cb098fe4cec47d844f934698eeff35d7473421b6c3a53380f3ff0",
+      "sha256": "fe0d6fa40d54a22e71e38daca548000bc7def02ad5cc8cff2b5ddbe736d1eb6a",
+      "bytes": 46274,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    },
+    {
+      "path": "web/office/tests/fixtures/catalog-prices-v2.json",
+      "baseline_sha256": null,
+      "sha256": "b1a173038ddebe152da4b5d570c38bb58538746b6074888c16fc28a54f2ddf27",
+      "bytes": 10793,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json"
+    }
+  ]
+}

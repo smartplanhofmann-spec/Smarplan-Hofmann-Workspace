@@ -1,0 +1,924 @@
+{
+  "source_manifest": "/workspace/smartplan-catalog-prices-v2-20261104/docs/evidence/catalog-prices-v2-2026-11-04/package-files.json",
+  "source_manifest_sha256": "ca4c8800b2ddbfbc1180322fad196d2fee58c19c19e06bac0d34a075bfd11025",
+  "files": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "kind": "conflict",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "16e822b67a0b20977a6ec34a9d5913a6335e770e498a65cb07f47bd3a930a7aa",
+      "current_sha256": "c14c1e266f5760131b5a61754cd71deb8022c14afca5b167bab8a7721e7f5d4e",
+      "incoming_sha256": "511d12a484d094c8430ef82710751cbaa1bcac3aa63a53d20d4851fea8119edb",
+      "candidate_sha256": "ee54c31ff8dd24106832f17d643d8a38c527bd570ec2fde7a37f4534c2904504",
+      "resolution": "explicit additive union preserving Source5 and historical assets"
+    },
+    {
+      "path": "app/lib/api.dart",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "d1241f02b7f7163bae00ec1c6a5cfa2ae42c5a1b5ca505218fe25c1efac501b8",
+      "current_sha256": "d1241f02b7f7163bae00ec1c6a5cfa2ae42c5a1b5ca505218fe25c1efac501b8",
+      "incoming_sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+      "candidate_sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb"
+    },
+    {
+      "path": "app/lib/business_adapters.dart",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "0761a477009083039efbc43a46299030576f281c53a682c7c4bb414589bbcefd",
+      "current_sha256": "0761a477009083039efbc43a46299030576f281c53a682c7c4bb414589bbcefd",
+      "incoming_sha256": "dcbb7a70a73c7454a6a688652b7c5db1aa6df7ff0c4679d5ee36127f6a02525d",
+      "candidate_sha256": "dcbb7a70a73c7454a6a688652b7c5db1aa6df7ff0c4679d5ee36127f6a02525d"
+    },
+    {
+      "path": "app/lib/business_catalog_prices.dart",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "69a6db02697db31d4430cccb32480c946be5d240f977a1108657c1de9a259f04",
+      "candidate_sha256": "69a6db02697db31d4430cccb32480c946be5d240f977a1108657c1de9a259f04"
+    },
+    {
+      "path": "app/lib/business_document_pricing.dart",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "bf143fc75c8abfe5cc8d1e2a4b860db5fae0aede7f8f427762389eef02b3052d",
+      "current_sha256": "bf143fc75c8abfe5cc8d1e2a4b860db5fae0aede7f8f427762389eef02b3052d",
+      "incoming_sha256": "abc0ff95d6319865a642495eb78fcf7b68b70dfb96b17811990da567258d6a0e",
+      "candidate_sha256": "abc0ff95d6319865a642495eb78fcf7b68b70dfb96b17811990da567258d6a0e"
+    },
+    {
+      "path": "app/lib/business_documents.dart",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "4ed65a95c444da77e41ffea6b63146fd9afe5cbc2ecb5bd802c545084507a8dc",
+      "current_sha256": "4ed65a95c444da77e41ffea6b63146fd9afe5cbc2ecb5bd802c545084507a8dc",
+      "incoming_sha256": "be5ae6c8503ed0ae4b895f2f5aafcfc58e5c5d61ab2f141be6c9e50e3a8a6f77",
+      "candidate_sha256": "be5ae6c8503ed0ae4b895f2f5aafcfc58e5c5d61ab2f141be6c9e50e3a8a6f77"
+    },
+    {
+      "path": "app/lib/business_operations.dart",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "e6ba1e17cd80d065bdf4fdf8291094d6fc9f6fecd3455498535c5f0709cc9256",
+      "current_sha256": "e6ba1e17cd80d065bdf4fdf8291094d6fc9f6fecd3455498535c5f0709cc9256",
+      "incoming_sha256": "21388ecf9bfbbadd5cb6fc7448e30d51431b70b1849b19e895c1f65271ba2e7e",
+      "candidate_sha256": "21388ecf9bfbbadd5cb6fc7448e30d51431b70b1849b19e895c1f65271ba2e7e"
+    },
+    {
+      "path": "app/lib/business_purchasing.dart",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "57bcf2d0ed64d33e64ef9ef12381ddf287b93edda92a6653d894bfd4bdd60781",
+      "current_sha256": "57bcf2d0ed64d33e64ef9ef12381ddf287b93edda92a6653d894bfd4bdd60781",
+      "incoming_sha256": "034b0c9c2dbbe607bab7ed4668691d89039b93ff1a1b674b1f7c12a6132ec023",
+      "candidate_sha256": "034b0c9c2dbbe607bab7ed4668691d89039b93ff1a1b674b1f7c12a6132ec023"
+    },
+    {
+      "path": "app/lib/business_sales.dart",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "35f47d640ebebb229218287e68bdfe32e64213dc01d26fedba6b26d582e71d9f",
+      "current_sha256": "35f47d640ebebb229218287e68bdfe32e64213dc01d26fedba6b26d582e71d9f",
+      "incoming_sha256": "75549d29a9ae00d34c5fcd3fd537a346ab7f6d46d42d41147bd480dcb359c733",
+      "candidate_sha256": "75549d29a9ae00d34c5fcd3fd537a346ab7f6d46d42d41147bd480dcb359c733"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "kind": "clean merge",
+      "base_origin": "4c2f0086b4a9979b7cbe9d261fc22a97cd046913",
+      "base_sha256": "7c2252942c2f90a4b949138b209f7f4675e0a0af60a2c36c9ba3a9d3d3c5f5e6",
+      "current_sha256": "f532a57836b1a2b3ba8afde115b64a02e4c04f2fe64a4a89b47941e88d64ba2c",
+      "incoming_sha256": "b502efd74899f8235e25c25ddb62cb175194e94c89d4a3cb3dd563cae0b2c45c",
+      "candidate_sha256": "2adfa90857ce50702d691728400605d7859e413c18acdf024aede1d1f0a5e60f"
+    },
+    {
+      "path": "app/test/business_catalog_price_consumers_test.dart",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "7747fbefcb3e238456aa4c2b674852f2ce5f094624b6cb6a4019a1299aac2376",
+      "candidate_sha256": "7747fbefcb3e238456aa4c2b674852f2ce5f094624b6cb6a4019a1299aac2376"
+    },
+    {
+      "path": "app/test/business_catalog_price_workflows_test.dart",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "f1362e891270ab621026095fdd786dedbd9fa2fc66e196f13d8381e36b10307a",
+      "candidate_sha256": "f1362e891270ab621026095fdd786dedbd9fa2fc66e196f13d8381e36b10307a"
+    },
+    {
+      "path": "app/test/business_catalog_prices_http_test.dart",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "07287377d88f73aeaa64add5529de6048972d94036e6bdcc21d90f38fbce23cb",
+      "candidate_sha256": "07287377d88f73aeaa64add5529de6048972d94036e6bdcc21d90f38fbce23cb"
+    },
+    {
+      "path": "app/test/business_catalog_prices_independent_lifecycle_test.dart",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "2953933f6a8e45f491869ab5ba9973a37514b26294970c7c41024a7579b409a3",
+      "candidate_sha256": "2953933f6a8e45f491869ab5ba9973a37514b26294970c7c41024a7579b409a3"
+    },
+    {
+      "path": "app/test/business_catalog_prices_lifecycle_test.dart",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "bcfedf12bf8979106dae53ab93faf043ac04f53e4b457ddaccd1304ad4502dc5",
+      "candidate_sha256": "bcfedf12bf8979106dae53ab93faf043ac04f53e4b457ddaccd1304ad4502dc5"
+    },
+    {
+      "path": "app/test/business_catalog_prices_test.dart",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "816d9b9d4b1c4962643c8db12510a96b98abe6eef4d642434f23d8bba2de5eba",
+      "candidate_sha256": "816d9b9d4b1c4962643c8db12510a96b98abe6eef4d642434f23d8bba2de5eba"
+    },
+    {
+      "path": "app/test/fixtures/catalog_prices_v2.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "1c20e3ba5fb2e0d63e1bf62170a29be28bef5c458fac401813de5a8307b67b62",
+      "candidate_sha256": "1c20e3ba5fb2e0d63e1bf62170a29be28bef5c458fac401813de5a8307b67b62"
+    },
+    {
+      "path": "app/test/fixtures/generate_catalog_prices_v2.py",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "490e75df5720a8f046181de6db7c7faff0805c1463aee1dd804ac162931bbfdc",
+      "candidate_sha256": "490e75df5720a8f046181de6db7c7faff0805c1463aee1dd804ac162931bbfdc"
+    },
+    {
+      "path": "backend/business_api.py",
+      "kind": "conflict",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "5cd6570e586ae34fcb20df53910ca9280eca9ec24acaf715bbfa7696b8a5c626",
+      "current_sha256": "f04393a05ddedaaaf827538cdda7de6c4476a43b0ca336f23564fcdc7a8be495",
+      "incoming_sha256": "9daed94d4b11b040a832c3160b77eece1ece442b175252bc36bbe616beee39b5",
+      "candidate_sha256": "db62f5cddde7746f2203abf249ea63ca53e38edc02acaebf958b5176ed05a5dd",
+      "resolution": "explicit additive union preserving Source5 and historical assets"
+    },
+    {
+      "path": "backend/business_catalog_prices.py",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "7c5e5fe1a5cad1f4629368b461ec0be55a111a4ecde075a2ca7123037289c1f7",
+      "candidate_sha256": "7c5e5fe1a5cad1f4629368b461ec0be55a111a4ecde075a2ca7123037289c1f7"
+    },
+    {
+      "path": "backend/business_documents.py",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "0f7cd80bd18f7c35cadfc85ab9c396bfda7592e27ae4d88098e642dfdd865e50",
+      "current_sha256": "0f7cd80bd18f7c35cadfc85ab9c396bfda7592e27ae4d88098e642dfdd865e50",
+      "incoming_sha256": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+      "candidate_sha256": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc"
+    },
+    {
+      "path": "backend/business_inventory.py",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "8a40b304594cb81a34eca30d88cc03d9940bfd6589ec47675d800c54f49f5a33",
+      "current_sha256": "8a40b304594cb81a34eca30d88cc03d9940bfd6589ec47675d800c54f49f5a33",
+      "incoming_sha256": "96d97bc9d5893d1fc0106b5eaae8378fe85460ac7842d94d72bdfccacaaa99d6",
+      "candidate_sha256": "96d97bc9d5893d1fc0106b5eaae8378fe85460ac7842d94d72bdfccacaaa99d6"
+    },
+    {
+      "path": "backend/business_organization.py",
+      "kind": "clean merge",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "6ef7e4e3fbbfc7556913405c8b259e795d3147e139a50d7262beba42229c3fc3",
+      "current_sha256": "f178d97dd94dbeea9dc50f93ac0956be9dfceac6973a4239caa289dbdffc670a",
+      "incoming_sha256": "a09b1f71a0338a0945913d9581476433de69ff62848fa6cab118b2bcb788ccac",
+      "candidate_sha256": "cfa6340b99e2b67e6d17a1c199c8cc45554ee9ea817b0d08589bc3e01dcf470e"
+    },
+    {
+      "path": "backend/business_pricing.py",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "d0e109c32ec052a6863d1ebcd82e678fa6e5763bbc9f4767a283a4e47aafc0a6",
+      "current_sha256": "d0e109c32ec052a6863d1ebcd82e678fa6e5763bbc9f4767a283a4e47aafc0a6",
+      "incoming_sha256": "4970e0d916a05b3c4559b6fd1385c1da88ea08b6b89f25b01b4020c40f14aaf9",
+      "candidate_sha256": "4970e0d916a05b3c4559b6fd1385c1da88ea08b6b89f25b01b4020c40f14aaf9"
+    },
+    {
+      "path": "backend/business_purchasing.py",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "75338ed59ea9c1ff5b4bd35a452c19e02d9651df7ed722aa95faaed984b403ed",
+      "current_sha256": "75338ed59ea9c1ff5b4bd35a452c19e02d9651df7ed722aa95faaed984b403ed",
+      "incoming_sha256": "b2f513a536412c8104fff4271e1b61501069431e481a6354b70a407c787f2752",
+      "candidate_sha256": "b2f513a536412c8104fff4271e1b61501069431e481a6354b70a407c787f2752"
+    },
+    {
+      "path": "backend/business_sales.py",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "d5b30792c733e7e27df7a8471cb6722e2804ac422749a0e32e77850c0a6ca637",
+      "current_sha256": "d5b30792c733e7e27df7a8471cb6722e2804ac422749a0e32e77850c0a6ca637",
+      "incoming_sha256": "aee82f64ffe6b0c3974512852f158cdb61e76b1a07f72c7817beed2a8866f25d",
+      "candidate_sha256": "aee82f64ffe6b0c3974512852f158cdb61e76b1a07f72c7817beed2a8866f25d"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "kind": "clean merge",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "2ec66dd6c8299f17fa8abddc1bd0e5e987adb7d943b79b0f52f34093ab3699c4",
+      "current_sha256": "9493127e100b219d57c7965fc507714ea2c5ee8af755087a489ef500b7ad9918",
+      "incoming_sha256": "8b58a47ddbd5a678b568b6366a19e26938fda025c76ac6d750a491a198c14d24",
+      "candidate_sha256": "6987579977e4f0c7e0c41a3df2a83387e4181339b2ad75a2c53acf52854db135"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "kind": "conflict",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "290089235d06378ed2fc9172efb54123cbba3d16a215868070d2bcc644a1e90b",
+      "current_sha256": "ed4c9f3430724193ce09b9c63c3f72b0d249b4635fe8525b14b9da37938b414c",
+      "incoming_sha256": "fc6b95477e6778919859337c96e6a3400fee3e0f2f36c4d92e63272b9fd64b9a",
+      "candidate_sha256": "4ccb7180bfb44691b239974840d4361150680ada77612ceb5127ee3cfdecd16a",
+      "resolution": "explicit additive union preserving Source5 and historical assets"
+    },
+    {
+      "path": "backend/online/test_business_catalog_prices_pg.py",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "7c4439f356fce58d1fa8b873f2d678af1f06ff87c46fe3fb12963b47aa3e182a",
+      "candidate_sha256": "7c4439f356fce58d1fa8b873f2d678af1f06ff87c46fe3fb12963b47aa3e182a"
+    },
+    {
+      "path": "backend/online/web.py",
+      "kind": "conflict",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "612ea3d8bce51d0d83910e9b6c553a22a32e223ddf287f77153dd62e9272e856",
+      "current_sha256": "36e24061272ca1f4105ee9089ed6442d0c53be2efec4874f27ee64f1631bd874",
+      "incoming_sha256": "73d8ac49cc11c04c808b0ec7832c09a19731d939287d9a7f2c196509165dd7ff",
+      "candidate_sha256": "2be74f1e9c655a582298d0f5d0d155a1455ffca339aeca41a8a9ca95f5540a54",
+      "resolution": "explicit additive union preserving Source5 and historical assets"
+    },
+    {
+      "path": "backend/server.py",
+      "kind": "conflict",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "f31106c8695b33028f83c174b09bcf9389717a60a93915b93599c8dc3d32e789",
+      "current_sha256": "70ca8782c65cca6b9966460263603912a7796d7eab7c63bd1910dbcd6f3eac9b",
+      "incoming_sha256": "59021c987087033da74befa834670a35a2f5d7e1824251cc423048c2562c4e27",
+      "candidate_sha256": "ccd133614e20c8249718f5f5444434d304e54e9a0d00ba4832fe8babd4966a71",
+      "resolution": "explicit additive union preserving Source5 and historical assets"
+    },
+    {
+      "path": "backend/test_business_catalog_price_consumers.py",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "82d8325697d0451ea0592289f9be4223bb8bf944a82bbb476bf4e9f614a824f2",
+      "candidate_sha256": "82d8325697d0451ea0592289f9be4223bb8bf944a82bbb476bf4e9f614a824f2"
+    },
+    {
+      "path": "backend/test_business_catalog_prices.py",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "e7881d3b2a668c6fb6800ffa8b9f7f86224840cd6476d1d23e9688bc62f1c4f8",
+      "candidate_sha256": "e7881d3b2a668c6fb6800ffa8b9f7f86224840cd6476d1d23e9688bc62f1c4f8"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_evidence.py",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "3e5de8ec5307d5ff52829066d1e4877bfd3cfde1e1972140df1a4d3bb4fe5355",
+      "candidate_sha256": "3e5de8ec5307d5ff52829066d1e4877bfd3cfde1e1972140df1a4d3bb4fe5355"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_purchasing.py",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "ba508d09ea1378c5c2826feb26c37d6fe5e940271e88bccb7eaa58358a861864",
+      "candidate_sha256": "ba508d09ea1378c5c2826feb26c37d6fe5e940271e88bccb7eaa58358a861864"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_transport.py",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "987d1a6ad885e8b2406db046c49c926e7d5164a2daf8f23dcb8deb23f62238cd",
+      "candidate_sha256": "987d1a6ad885e8b2406db046c49c926e7d5164a2daf8f23dcb8deb23f62238cd"
+    },
+    {
+      "path": "backend/test_catalog_prices_independent_review.py",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "1019eb268c44168e984273c9d0226b97b7037b777200134a6e8fcab33d119e22",
+      "candidate_sha256": "1019eb268c44168e984273c9d0226b97b7037b777200134a6e8fcab33d119e22"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_PREISE_V2_API_2026-11-04.md",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "f5f70254755217d5e20f6a99549d844d4b0fbc9f86516567b85239b499383b54",
+      "candidate_sha256": "f5f70254755217d5e20f6a99549d844d4b0fbc9f86516567b85239b499383b54"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_PREISE_V2_NATIVE_2026-11-04.md",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "9ea1cde050398d1cdd1178fc39eb491c74862b0c3ee6c890561d56f05a10af5d",
+      "candidate_sha256": "9ea1cde050398d1cdd1178fc39eb491c74862b0c3ee6c890561d56f05a10af5d"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_PREISGUELTIGKEIT_V2_VERTRAG_2026-11-04.md",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "7f78017ae4b3a2ca37ac1879cdb64168311b74e7561f32bb5d451bfb7f8de7db",
+      "candidate_sha256": "7f78017ae4b3a2ca37ac1879cdb64168311b74e7561f32bb5d451bfb7f8de7db"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_V2_VERBRAUCHER_2026-11-04.md",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "47e18629376953192c58ffa05f407d6d02ff4331701b6bb950479b2d7db96785",
+      "candidate_sha256": "47e18629376953192c58ffa05f407d6d02ff4331701b6bb950479b2d7db96785"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/README.md",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "4e3403d20463130dbf7c50ff0a28c1082b92b8011af32cb90ddb9e940fd97329",
+      "candidate_sha256": "4e3403d20463130dbf7c50ff0a28c1082b92b8011af32cb90ddb9e940fd97329"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-identity-fix.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "1e9ab6d50258bfe175b06733515972794bad739ede09741839632a3cb2a48b38",
+      "candidate_sha256": "1e9ab6d50258bfe175b06733515972794bad739ede09741839632a3cb2a48b38"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-identity-source.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "151435e1133a805d5132603f9f6433705ca61b9d8170b354d67b4fbe1f899953",
+      "candidate_sha256": "151435e1133a805d5132603f9f6433705ca61b9d8170b354d67b4fbe1f899953"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-occurrence-fix.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "170ef81468a3f97bcd067369e9548db9f8776547b15b4c5953f3a0189ae21762",
+      "candidate_sha256": "170ef81468a3f97bcd067369e9548db9f8776547b15b4c5953f3a0189ae21762"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-occurrence-source.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "90876f229d9802855f350fddfff43c1285500ba867abe4163da6bef3a029669e",
+      "candidate_sha256": "90876f229d9802855f350fddfff43c1285500ba867abe4163da6bef3a029669e"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-document-position-identity-fix.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "68a796f0c9d60791e991e0d5cb6ceea308f92aed69ce72d0c2bd6d107eba226e",
+      "candidate_sha256": "68a796f0c9d60791e991e0d5cb6ceea308f92aed69ce72d0c2bd6d107eba226e"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/integrated-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "5aa6ca29a130392021c48ee94decbf467c7da32e538bb6eefcadbba1a101a870",
+      "candidate_sha256": "5aa6ca29a130392021c48ee94decbf467c7da32e538bb6eefcadbba1a101a870"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "027ce9d2bb9222aac8af793236e776010f67a3083c9658cb89c4b7e2543cb440",
+      "candidate_sha256": "027ce9d2bb9222aac8af793236e776010f67a3083c9658cb89c4b7e2543cb440"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/README.md",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "3cb1728f2dca9c9b34b18203e48f3f642348462a4d1b266e73249b30b5e54334",
+      "candidate_sha256": "3cb1728f2dca9c9b34b18203e48f3f642348462a4d1b266e73249b30b5e54334"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/backend-purchasing-addendum-17.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "d71ba747bea506442d179c538b78c993f1d74a5e095ef161323f45d1d6af73bb",
+      "candidate_sha256": "d71ba747bea506442d179c538b78c993f1d74a5e095ef161323f45d1d6af73bb"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/manifest.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "c5ef8e53af88cc711118acb7ab679d7ab0b5d1001ff0f6788757c33104a42c4b",
+      "candidate_sha256": "c5ef8e53af88cc711118acb7ab679d7ab0b5d1001ff0f6788757c33104a42c4b"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/native-analyze.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "3e9de4f8fcfa8e20e614d9b33b569d8eb2e243116083a2e9e8da6f2506f2d7a4",
+      "candidate_sha256": "3e9de4f8fcfa8e20e614d9b33b569d8eb2e243116083a2e9e8da6f2506f2d7a4"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/native-final-87.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "f410f605cd697ecf9d82f87854900a0769a808da89a045d0562f18e44208424e",
+      "candidate_sha256": "f410f605cd697ecf9d82f87854900a0769a808da89a045d0562f18e44208424e"
+    },
+    {
+      "path": "docs/evidence/catalog-native-independent-2026-11-04/test-harness-initial.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "77ff7df0a42e9e34cd182081de2697521fe1ebb477f0626f97c4c0461034b2a9",
+      "candidate_sha256": "77ff7df0a42e9e34cd182081de2697521fe1ebb477f0626f97c4c0461034b2a9"
+    },
+    {
+      "path": "docs/evidence/catalog-price-consumers-2026-11-04-handoff.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "ca39388a21c503b9bb8a03eaf5126ff328cfb53f74b99dbbfb8c0ebc3d1a2513",
+      "candidate_sha256": "ca39388a21c503b9bb8a03eaf5126ff328cfb53f74b99dbbfb8c0ebc3d1a2513"
+    },
+    {
+      "path": "docs/evidence/catalog-price-consumers-2026-11-04-tests.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "c467bcc131bd9222745ed59870082dfc80c5120cab5cd0d069395c5451333fcb",
+      "candidate_sha256": "c467bcc131bd9222745ed59870082dfc80c5120cab5cd0d069395c5451333fcb"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-analyze-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "8b945e8129b9c8a6df21f77dc889e2cf6fecbb25f647969122e1f2d22d09c6c4",
+      "candidate_sha256": "8b945e8129b9c8a6df21f77dc889e2cf6fecbb25f647969122e1f2d22d09c6c4"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-global-pending-after.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "c81a1bf959a0b135e1f4c57b3d122fd69df448434e92846f6ff4c3a59b426b20",
+      "candidate_sha256": "c81a1bf959a0b135e1f4c57b3d122fd69df448434e92846f6ff4c3a59b426b20"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-global-pending-before.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "d6a69a6a347374b94eecb7b06f8f6ce2289d92fa12844ed64518011d4557813d",
+      "candidate_sha256": "d6a69a6a347374b94eecb7b06f8f6ce2289d92fa12844ed64518011d4557813d"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-handoff.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "c66b5c03bf9f0d64d9480dff49546ec80bbae40ecf554187d90799ecd097b344",
+      "candidate_sha256": "c66b5c03bf9f0d64d9480dff49546ec80bbae40ecf554187d90799ecd097b344"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-purchasing-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "679366678827fa6162c542256845677e65da7ea483166e2783036d50af7e6b12",
+      "candidate_sha256": "679366678827fa6162c542256845677e65da7ea483166e2783036d50af7e6b12"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-regression-before.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "a25b55251a375fb75442907d5ad18c761176e06d3d6ce0add619219c2971f123",
+      "candidate_sha256": "a25b55251a375fb75442907d5ad18c761176e06d3d6ce0add619219c2971f123"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-regression-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "089e2e2010006c5c50c2a58996e714472e41da6ad61ccbf664b264fda48b32aa",
+      "candidate_sha256": "089e2e2010006c5c50c2a58996e714472e41da6ad61ccbf664b264fda48b32aa"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-native-2026-11-04-root-cost-before.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "d66c33fef4528a51a135aa2a9f9d0d1912ed1f30e79b65c8d36e791cd7879c8b",
+      "candidate_sha256": "d66c33fef4528a51a135aa2a9f9d0d1912ed1f30e79b65c8d36e791cd7879c8b"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/README.md",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "89cbf14614847fec48565e22ab083cbb416bac0bb7aefb3f80a99184f7b5e511",
+      "candidate_sha256": "89cbf14614847fec48565e22ab083cbb416bac0bb7aefb3f80a99184f7b5e511"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-browser-handoff-before-lifecycle-review.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "e928a32233ad2bf1cd97236c9b48f7fa69eba42e363e111545d2252e10f78bc0",
+      "candidate_sha256": "e928a32233ad2bf1cd97236c9b48f7fa69eba42e363e111545d2252e10f78bc0"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-browser-handoff.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "cf1c9da5521f832c868906ca3b60fa713891197bd44b6cea9fa5b4a898c3360a",
+      "candidate_sha256": "cf1c9da5521f832c868906ca3b60fa713891197bd44b6cea9fa5b4a898c3360a"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-regression-before-final-review.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "419912566adb96f5b4c14cc10558d2bc581e4499042151b6655c3ce99eabdb8b",
+      "candidate_sha256": "419912566adb96f5b4c14cc10558d2bc581e4499042151b6655c3ce99eabdb8b"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-targeted-before-independent-review.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "1ef4fd0577272a816a80298f181f262ededdc824f43134eb747992e13d6781ee",
+      "candidate_sha256": "1ef4fd0577272a816a80298f181f262ededdc824f43134eb747992e13d6781ee"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/backend-targeted-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "4467e738320e237e72f53746a8e9eb0c3a1ef7fd127b4897de63a1c66e99f129",
+      "candidate_sha256": "4467e738320e237e72f53746a8e9eb0c3a1ef7fd127b4897de63a1c66e99f129"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-late-document-before.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "1923f0ae28192885b7061a336d37c528fa1257c513781ea490110c43b236170a",
+      "candidate_sha256": "1923f0ae28192885b7061a336d37c528fa1257c513781ea490110c43b236170a"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-lifecycle-addendum.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "c8015dbd3a62f47a965e278ba9ac886b15de699443a38b986c75675df277f6bd",
+      "candidate_sha256": "c8015dbd3a62f47a965e278ba9ac886b15de699443a38b986c75675df277f6bd"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-lifecycle-fix.diff",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "cffc93b0644dd924c00f42db68efb631bad6b2ed8327149297bee65d3b5d5975",
+      "candidate_sha256": "cffc93b0644dd924c00f42db68efb631bad6b2ed8327149297bee65d3b5d5975"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-picker-background-before.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "4240930d7917972a63bde1c94924d44216015e3ebbd0a6b76aec852dc2de45e1",
+      "candidate_sha256": "4240930d7917972a63bde1c94924d44216015e3ebbd0a6b76aec852dc2de45e1"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/browser-targeted-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "136104e1b4d8e93ffb8e170fdd42e8b6bbaa299d1d4b466aa4872b59d5a7dbec",
+      "candidate_sha256": "136104e1b4d8e93ffb8e170fdd42e8b6bbaa299d1d4b466aa4872b59d5a7dbec"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-prices-v2-baseline.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "114b964659606dbf8206745d15f0e8ff2fc511688f62b0350e903f62a319e521",
+      "candidate_sha256": "114b964659606dbf8206745d15f0e8ff2fc511688f62b0350e903f62a319e521"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-prices-v2-native-v1-baseline.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "19255485fc715975de85e84a8fa86f685c6b9318e0a2ce0e1a37e03b7be1905c",
+      "candidate_sha256": "19255485fc715975de85e84a8fa86f685c6b9318e0a2ce0e1a37e03b7be1905c"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-v2-evidence.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "832a442ce59af75b89fdb32e180aa74f6a10b0971dd8f1c7c4f6177f2057dd1f",
+      "candidate_sha256": "832a442ce59af75b89fdb32e180aa74f6a10b0971dd8f1c7c4f6177f2057dd1f"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-v2-preview-390px.png",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "56873b7d35601dc2045e605d2a1cfe9f1ac0fea8c1b66ace29260e6c011c9049",
+      "candidate_sha256": "56873b7d35601dc2045e605d2a1cfe9f1ac0fea8c1b66ace29260e6c011c9049"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/catalog-v2-preview-desktop.png",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "c9f2c3f05e74d5b64a42d9b7beacc0eee6d3d14868665330ce6a7ec277fb8342",
+      "candidate_sha256": "c9f2c3f05e74d5b64a42d9b7beacc0eee6d3d14868665330ce6a7ec277fb8342"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/chromium-http-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "ee7d0d20626794b9e457936c51a4f9bc5f1af30243e6cbce4b8e5a6bd2535b9e",
+      "candidate_sha256": "ee7d0d20626794b9e457936c51a4f9bc5f1af30243e6cbce4b8e5a6bd2535b9e"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/chromium-invoice-chain-regression.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "57dc372c3df55c48984b71c829a4401d3b75685c534d38cddd77c52dd7b69abe",
+      "candidate_sha256": "57dc372c3df55c48984b71c829a4401d3b75685c534d38cddd77c52dd7b69abe"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/http-transport-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "cead8c811d1718f0d2f70f55f640f1d3d560687018e52ab968a76f6515e97267",
+      "candidate_sha256": "cead8c811d1718f0d2f70f55f640f1d3d560687018e52ab968a76f6515e97267"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/node-regression-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "61bd7d8fec9d852c3baa946038159a1f042427eb20e120a911452f3f5fbe5241",
+      "candidate_sha256": "61bd7d8fec9d852c3baa946038159a1f042427eb20e120a911452f3f5fbe5241"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/package-files-before-native-review.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "311d020fa1abb89279be3cbc945cc275addf46f22f69721f6febb2274c839e55",
+      "candidate_sha256": "311d020fa1abb89279be3cbc945cc275addf46f22f69721f6febb2274c839e55"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/packages-sixteen.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "32265856286fb4f492e9b8073f984baf33eb95587cf34390471ce73e9f3dd97c",
+      "candidate_sha256": "32265856286fb4f492e9b8073f984baf33eb95587cf34390471ce73e9f3dd97c"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/postgresql-three-before-identity-review.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "dbe2acf2fee850a5ad22f1738a261f70e502bb083f66d9e2411399234f402a18",
+      "candidate_sha256": "dbe2acf2fee850a5ad22f1738a261f70e502bb083f66d9e2411399234f402a18"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/purchase-original-identity-after.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "ef4d533a6dcfeec875c0b4a70b03c618254fc247613f0dc747a8b3fcafc3a192",
+      "candidate_sha256": "ef4d533a6dcfeec875c0b4a70b03c618254fc247613f0dc747a8b3fcafc3a192"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/purchase-original-identity-before.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "dd9849742e50a3af5d7c18844d35e56f0082aacbd6bf845ea8670cf4dfa844ed",
+      "candidate_sha256": "dd9849742e50a3af5d7c18844d35e56f0082aacbd6bf845ea8670cf4dfa844ed"
+    },
+    {
+      "path": "docs/evidence/catalog-prices-v2-2026-11-04/source-reference-domain-final.txt",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "fbf46cfbba26a0fa9018aaf0a89e2083c8f8d47f19d7710dabb6b62550aee669",
+      "candidate_sha256": "fbf46cfbba26a0fa9018aaf0a89e2083c8f8d47f19d7710dabb6b62550aee669"
+    },
+    {
+      "path": "scripts/native-release.py",
+      "kind": "conflict",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "4f6893b843cbaf279ea3f7c293d749f809f32a2f6c5a167c6bf99a1fec077fcb",
+      "current_sha256": "bf00b7b5c9472320ff23524e8c8e612f9ff114d0c0714bc93f5a417540e02cb1",
+      "incoming_sha256": "adf3c93995fdd6c756114ddf2b1d3852cca4bb6151872e7c3c293f9a955b8116",
+      "candidate_sha256": "af2640c61905bd04e50bdf080bed5788e496095ad06ba9d2e039a7769b9cbff8",
+      "resolution": "explicit additive union preserving Source5 and historical assets"
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "kind": "conflict",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "a779bfa302010f033701ce90f971b7ccf19ba16b7f5c784ec3b734c0e53e89f3",
+      "current_sha256": "e887da684f00e1990378d8ff23e38d4d3a2cf882b5cf433689705676235a3206",
+      "incoming_sha256": "17d6afb7fc18fff58938810a894fe164a08f853acde8e7f2b56b26cea20ccc39",
+      "candidate_sha256": "cdda43cd0797644f32e3901a6de38a183ad26bb19682045f760cbc4f697fe433",
+      "resolution": "explicit additive union preserving Source5 and historical assets"
+    },
+    {
+      "path": "web/office/catalog-prices.js",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "4588b266cb8728a9ad67378215ffe4040ccabb3d0b8210299ef67b17512c4935",
+      "candidate_sha256": "4588b266cb8728a9ad67378215ffe4040ccabb3d0b8210299ef67b17512c4935"
+    },
+    {
+      "path": "web/office/office.js",
+      "kind": "conflict",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "b8a7a3859d3ac778071729bbc9ea15de1f2fb3911cb6ff9d03e9698dcb8c146d",
+      "current_sha256": "c2bdb5a21ad7a1ffc3a48c288bdbbdf2e9781701cfff85b5418ca9b1cf015c92",
+      "incoming_sha256": "85d7a089ce25ad68e55bc32fa3076dbb4d0189d6c49e995a62a78bbd0b5887a3",
+      "candidate_sha256": "d97e213ba9a2e8c409a4a6f2eb3be7dfdcaaaebb9254830fdc72386ec0d108d3",
+      "resolution": "explicit additive union preserving Source5 and historical assets"
+    },
+    {
+      "path": "web/office/sales.js",
+      "kind": "clean replace",
+      "base_origin": "current",
+      "base_sha256": "f2615b8241c137e36eb66f93701d6e11dd9529ffc3369c8249a7e2a42c39749f",
+      "current_sha256": "f2615b8241c137e36eb66f93701d6e11dd9529ffc3369c8249a7e2a42c39749f",
+      "incoming_sha256": "9ccfe223743ab70771542db34b86e3ee02f7c6abdfbcf4b2939cfe81c5ecb462",
+      "candidate_sha256": "9ccfe223743ab70771542db34b86e3ee02f7c6abdfbcf4b2939cfe81c5ecb462"
+    },
+    {
+      "path": "web/office/tests/catalog-prices-flow.cjs",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "1cac801c493efb1129a5d7d2133408c4d99352d3bb5b5e5406f54779f46b23bf",
+      "candidate_sha256": "1cac801c493efb1129a5d7d2133408c4d99352d3bb5b5e5406f54779f46b23bf"
+    },
+    {
+      "path": "web/office/tests/catalog-prices-lifecycle.test.mjs",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "446075ad66d030c01b0eee727d074ef30a69de01902c7e5b4d264d8f7d3b297f",
+      "candidate_sha256": "446075ad66d030c01b0eee727d074ef30a69de01902c7e5b4d264d8f7d3b297f"
+    },
+    {
+      "path": "web/office/tests/catalog-prices.test.mjs",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "0c17615876becce0f3aaa76d0f0c1bea378fdc875b64d3ffb970ec525781e05d",
+      "candidate_sha256": "0c17615876becce0f3aaa76d0f0c1bea378fdc875b64d3ffb970ec525781e05d"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "kind": "conflict",
+      "base_origin": "c7dbab0cc1ad2a5e64b864a88d42ac6c9f79efeb",
+      "base_sha256": "2683a02c519cb098fe4cec47d844f934698eeff35d7473421b6c3a53380f3ff0",
+      "current_sha256": "6afdcea3b5eceba633c013290d56f086eb3bb569430635875438e4dc56f3a6f3",
+      "incoming_sha256": "fe0d6fa40d54a22e71e38daca548000bc7def02ad5cc8cff2b5ddbe736d1eb6a",
+      "candidate_sha256": "4e13a7ab28c5acef41d66d085f86b5f035e1f3c54d761fd622f7e42401139e1d",
+      "resolution": "explicit additive union preserving Source5 and historical assets"
+    },
+    {
+      "path": "web/office/tests/fixtures/catalog-prices-v2.json",
+      "kind": "new",
+      "base_origin": null,
+      "base_sha256": null,
+      "current_sha256": null,
+      "incoming_sha256": "b1a173038ddebe152da4b5d570c38bb58538746b6074888c16fc28a54f2ddf27",
+      "candidate_sha256": "b1a173038ddebe152da4b5d570c38bb58538746b6074888c16fc28a54f2ddf27"
+    }
+  ]
+}

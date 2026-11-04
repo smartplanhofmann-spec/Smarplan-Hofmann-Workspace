@@ -1,0 +1,40 @@
+✔ late private file bytes cannot reappear after background (28.16678ms)
+✔ late private file error cannot reappear after background (2.093949ms)
+✔ late readonly preview success cannot replace next dialog (5.712798ms)
+✔ late readonly preview error cannot replace next dialog (2.648976ms)
+✔ read withdrawal during readonly preview closes actual editor while next result is withheld (3.108048ms)
+✔ write withdrawal during readonly preview closes actual editor while next result is withheld (2.447983ms)
+✔ module withdrawal during readonly preview closes actual editor while next result is withheld (4.064231ms)
+✔ same-state session stamp replacement rejects previous preview and late private failure (2.349214ms)
+✔ actual price picker has no default date or selected result; date changes invalidate the exact selection (1.94266ms)
+✔ price-picker late candidates after background do not retain private price choices (0.604512ms)
+✔ price-picker late candidates after read do not retain private price choices (0.411541ms)
+✔ background closes the actual dated consumer editor including already copied private fields (0.294955ms)
+✔ inactive legacy picker never closes an undated editor on background (0.155344ms)
+✔ detached dated picker cannot close a subsequent independent dialog on background (0.25849ms)
+✔ source management and selection authority are distinct and module suspension preserves reads (0.74267ms)
+✔ actual server original, ready preview, required corrections and acceptance validate without price arithmetic (0.798084ms)
+✔ rehashed wrong preview cannot change price row, role, amount or source decision (2.065947ms)
+✔ selection requires concrete revision/hash/date and sales carries it unchanged (0.445081ms)
+✔ operational purchase search retains managed-price hint without carrying confidential prices (0.485672ms)
+✔ LostACK sources retries identical nonce only after fresh finance/source rights (1.527704ms)
+✔ LostACK sources/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/imports retries identical nonce only after fresh finance/source rights (0.450249ms)
+✔ LostACK imports/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/apply retries identical nonce only after fresh finance/source rights (0.413664ms)
+✔ LostACK prices/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/withdraw retries identical nonce only after fresh finance/source rights (0.620465ms)
+✔ uncertain 403 keeps the v2 command instead of a new request id (0.294955ms)
+✔ uncertain 404 keeps the v2 command instead of a new request id (0.16603ms)
+✔ uncertain 409 keeps the v2 command instead of a new request id (0.212921ms)
+✔ async receipt hash validation is followed by operation/session identity checks (0.466945ms)
+✔ JSON expansion ceiling is scoped to dated catalog routes (1.511881ms)
+✔ dated document-new keeps uncertain receipt and retries original project and nonce after current rights return (1.85594ms)
+✔ dated purchase-proposal-new keeps uncertain receipt and retries original project and nonce after current rights return (1.159429ms)
+✔ dated purchase-approve-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa keeps uncertain receipt and retries original project and nonce after current rights return (1.193059ms)
+✔ dated consumer replay never weakens unrelated commands or uses a new session during fresh authorization (1.012297ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 137.191724

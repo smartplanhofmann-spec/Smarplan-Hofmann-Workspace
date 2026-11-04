@@ -1,0 +1,8 @@
+test_actual_dump_restore_preserves_original_frozen_document_price_and_exact_receipts (online.test_business_catalog_prices_pg.DatedCatalogPostgres.test_actual_dump_restore_preserves_original_frozen_document_price_and_exact_receipts) ... ok
+test_actual_original_readonly_preview_acceptance_revision_and_runtime_guards (online.test_business_catalog_prices_pg.DatedCatalogPostgres.test_actual_original_readonly_preview_acceptance_revision_and_runtime_guards) ... ok
+test_two_independent_runtime_connections_serialize_same_nonce_and_source_revision (online.test_business_catalog_prices_pg.DatedCatalogPostgres.test_two_independent_runtime_connections_serialize_same_nonce_and_source_revision) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 12.330s
+
+OK

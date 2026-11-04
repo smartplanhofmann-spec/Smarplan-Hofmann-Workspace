@@ -1,0 +1,25 @@
+test_confirmed_purchase_and_actual_receiving_cost_survive_source_withdrawal_without_repricing_stock (test_catalog_prices_independent_review.CatalogIndependentReview.test_confirmed_purchase_and_actual_receiving_cost_survive_source_withdrawal_without_repricing_stock) ... ok
+test_copying_old_component_twice_cannot_mint_an_additional_withdrawn_price_use (test_catalog_prices_independent_review.CatalogIndependentReview.test_copying_old_component_twice_cannot_mint_an_additional_withdrawn_price_use) ... FAIL
+test_each_source_role_has_exact_calendar_boundaries_without_cross_role_fallback (test_catalog_prices_independent_review.CatalogIndependentReview.test_each_source_role_has_exact_calendar_boundaries_without_cross_role_fallback) ... ok
+test_multi_position_crm_adoption_is_atomic_if_second_selected_source_was_withdrawn (test_catalog_prices_independent_review.CatalogIndependentReview.test_multi_position_crm_adoption_is_atomic_if_second_selected_source_was_withdrawn) ... ok
+test_rebinding_source_code_retires_old_selection_but_never_invalidates_original_snapshots (test_catalog_prices_independent_review.CatalogIndependentReview.test_rebinding_source_code_retires_old_selection_but_never_invalidates_original_snapshots) ... ok
+test_rehashed_snapshot_date_is_bound_to_existing_position_not_just_valid_price_window (test_catalog_prices_independent_review.CatalogIndependentReview.test_rehashed_snapshot_date_is_bound_to_existing_position_not_just_valid_price_window) ... ok
+test_same_position_id_cannot_switch_to_foreign_article_or_erase_bound_identity (test_catalog_prices_independent_review.CatalogIndependentReview.test_same_position_id_cannot_switch_to_foreign_article_or_erase_bound_identity) ... ok
+test_stale_calculation_or_foreign_role_cannot_create_service_but_old_service_keeps_its_source (test_catalog_prices_independent_review.CatalogIndependentReview.test_stale_calculation_or_foreign_role_cannot_create_service_but_old_service_keeps_its_source) ... ok
+test_withdrawal_preserves_frozen_document_bytes_and_rejects_new_price_or_forged_position_identity (test_catalog_prices_independent_review.CatalogIndependentReview.test_withdrawal_preserves_frozen_document_bytes_and_rejects_new_price_or_forged_position_identity) ... ok
+
+======================================================================
+FAIL: test_copying_old_component_twice_cannot_mint_an_additional_withdrawn_price_use (test_catalog_prices_independent_review.CatalogIndependentReview.test_copying_old_component_twice_cannot_mint_an_additional_withdrawn_price_use)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-catalog-prices-v2-20261104/backend/test_catalog_prices_independent_review.py", line 157, in test_copying_old_component_twice_cannot_mint_an_additional_withdrawn_price_use
+    self.rejected(self.f.api.save_article,self.actor,fixtures.request(revision=2,components=service['components']+deepcopy(service['components'])),service['id'])
+  File "/workspace/smartplan-catalog-prices-v2-20261104/backend/test_catalog_prices_independent_review.py", line 24, in rejected
+    with self.assertRaises(Problem) as caught:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.613s
+
+FAILED (failures=1)

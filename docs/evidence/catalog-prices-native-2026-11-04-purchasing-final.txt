@@ -1,0 +1,38 @@
+00:00 +0: loading /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart
+00:00 +0: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: (setUpAll)
+00:00 +0: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:01 +1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +2: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +3: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +4: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +5: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +6: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +7: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +8: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +9: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +10: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:02 +11: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: dated document lost ACK survives close reopen with original source and nonce
+00:03 +12: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: dated document lost ACK survives close reopen with original source and nonce
+00:04 +13: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Draft creation and extra source position precede approval without confirming external order
+00:04 +14: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: purchasing uses explicit price without finance write and preserves it through approval
+00:05 +15: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: purchasing uses explicit price without finance write and preserves it through approval
+00:05 +16: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Read rights retain inactive history while finance revocation hides prices immediately
+00:05 +17: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: sales adoption keeps explicit dated article identity and quantity
+00:05 +18: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: sales adoption keeps explicit dated article identity and quantity
+00:06 +19: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Global detail honors project grants and denies without changing global capabilities
+00:06 +20: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Global detail honors project grants and denies without changing global capabilities
+00:07 +21: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save false cannot navigate or reveal error after background
+00:08 +22: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Purchase decimal precision is rejected before sending without rounding
+00:08 +23: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save true cannot navigate or reveal error after background
+00:09 +24: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save true cannot navigate or reveal error after background
+00:09 +25: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Paused receipt can close for activation, reopen unchanged, and clears on user switch
+00:11 +26: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Dismiss during in-flight proposal preserves original retry after lost reply
+00:11 +27: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Known project read denial clears previously loaded receipt history immediately
+00:12 +28: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Inventory role searches and pages price-free articles while retaining the selected position
+00:12 +29: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Catalog pending proposal reopens directly without reselecting unavailable articles
+00:13 +30: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Project-specific catalog denial clears the selection without leaking financial data
+00:13 +31: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Catalog adds a position without replacing existing source positions
+00:13 +32: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Older receipt server without price-free catalog explains restricted creation and never calls missing route
+00:13 +33: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Older server without purchasing feature does not expose or fetch purchase flow
+00:13 +34: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: (tearDownAll)
+00:14 +34: All tests passed!

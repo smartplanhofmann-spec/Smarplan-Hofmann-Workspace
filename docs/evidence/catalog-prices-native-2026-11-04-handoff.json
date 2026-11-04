@@ -1,0 +1,234 @@
+{
+  "recorded_at_utc": "2026-11-04T10:04:40.141055+00:00",
+  "workspace": "/workspace/smartplan-catalog-prices-v2-20261104",
+  "scope": "Native CSV-v2 catalog management and explicit dated consumer selections; no overall CRM/ERP completion claim",
+  "runtime_frozen": true,
+  "baseline": {
+    "exact_freeze_manifest": "work/verification/catalog-prices-v2-baseline.json",
+    "native_v1_import_manifest": "work/verification/catalog-prices-v2-native-v1-baseline.json",
+    "native_v1_import_commit": "4c2f0086b4a9979b7cbe9d261fc22a97cd046913",
+    "do_not_use_git_head_as_complete_baseline": true
+  },
+  "validation": {
+    "new_targeted_tests": 70,
+    "combined_regression": {
+      "passed": 182,
+      "failed": 0,
+      "log": "docs/evidence/catalog-prices-native-2026-11-04-regression-final.txt"
+    },
+    "analyze": {
+      "files": 14,
+      "issues": 0,
+      "log": "docs/evidence/catalog-prices-native-2026-11-04-analyze-final.txt"
+    },
+    "actual_http": [
+      "2 MiB original and 2000 unique dated prices",
+      "original bytes roundtrip",
+      "canonical server preview",
+      "lost stage/apply/document ACK same nonce",
+      "actual November document 30.00 EUR net",
+      "exact 32 MiB catalog JSON; 32 MiB plus 1 rejected; ordinary 20 MiB unchanged"
+    ]
+  },
+  "integration_notes": [
+    "Merge api.dart and business_session.dart against the stated 4c2 baseline; preserve newer Opening/Source5 changes.",
+    "No V1 catalog or shared editor files included as changed.",
+    "No native Article calculation save path added; existing native price calculations are document consumers.",
+    "Backend/browser/registries/packaging/CI are owned by parent/root and excluded from this native handoff.",
+    "Independent review tests and findings are provided separately by own_v6_projection.",
+    "No commits, staging or external supplier contacts."
+  ],
+  "product_files": [
+    "app/lib/api.dart",
+    "app/lib/business_adapters.dart",
+    "app/lib/business_catalog_prices.dart",
+    "app/lib/business_document_pricing.dart",
+    "app/lib/business_documents.dart",
+    "app/lib/business_operations.dart",
+    "app/lib/business_purchasing.dart",
+    "app/lib/business_sales.dart",
+    "app/lib/business_session.dart"
+  ],
+  "test_files": [
+    "app/test/business_catalog_prices_test.dart",
+    "app/test/business_catalog_prices_lifecycle_test.dart",
+    "app/test/business_catalog_price_consumers_test.dart",
+    "app/test/business_catalog_price_workflows_test.dart",
+    "app/test/business_catalog_prices_http_test.dart"
+  ],
+  "unchanged_verified": {
+    "app/lib/business_catalog_imports.dart": "892f4b639ba054788612159eab4dcfdf6f7b20f077be2630342507a09a5acf10",
+    "app/test/business_catalog_imports_test.dart": "6d8c7cf1e1e560e4b530102efe0eae97017cc5966fc620312e7949c6fe21a6fc",
+    "app/lib/business_widgets.dart": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6"
+  },
+  "files": {
+    "app/lib/api.dart": {
+      "baseline_sha256": "d1241f02b7f7163bae00ec1c6a5cfa2ae42c5a1b5ca505218fe25c1efac501b8",
+      "sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+      "size": 7537,
+      "baseline_manifest": "work/verification/catalog-prices-v2-native-v1-baseline.json",
+      "new": false
+    },
+    "app/lib/business_adapters.dart": {
+      "baseline_sha256": "0761a477009083039efbc43a46299030576f281c53a682c7c4bb414589bbcefd",
+      "sha256": "dcbb7a70a73c7454a6a688652b7c5db1aa6df7ff0c4679d5ee36127f6a02525d",
+      "size": 24022,
+      "baseline_manifest": "work/verification/catalog-prices-v2-native-v1-baseline.json",
+      "new": false
+    },
+    "app/lib/business_catalog_prices.dart": {
+      "baseline_sha256": null,
+      "sha256": "69a6db02697db31d4430cccb32480c946be5d240f977a1108657c1de9a259f04",
+      "size": 50542,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "app/lib/business_document_pricing.dart": {
+      "baseline_sha256": "bf143fc75c8abfe5cc8d1e2a4b860db5fae0aede7f8f427762389eef02b3052d",
+      "sha256": "abc0ff95d6319865a642495eb78fcf7b68b70dfb96b17811990da567258d6a0e",
+      "size": 48596,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json",
+      "new": false
+    },
+    "app/lib/business_documents.dart": {
+      "baseline_sha256": "4ed65a95c444da77e41ffea6b63146fd9afe5cbc2ecb5bd802c545084507a8dc",
+      "sha256": "be5ae6c8503ed0ae4b895f2f5aafcfc58e5c5d61ab2f141be6c9e50e3a8a6f77",
+      "size": 87998,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json",
+      "new": false
+    },
+    "app/lib/business_operations.dart": {
+      "baseline_sha256": "e6ba1e17cd80d065bdf4fdf8291094d6fc9f6fecd3455498535c5f0709cc9256",
+      "sha256": "21388ecf9bfbbadd5cb6fc7448e30d51431b70b1849b19e895c1f65271ba2e7e",
+      "size": 37751,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json",
+      "new": false
+    },
+    "app/lib/business_purchasing.dart": {
+      "baseline_sha256": "57bcf2d0ed64d33e64ef9ef12381ddf287b93edda92a6653d894bfd4bdd60781",
+      "sha256": "034b0c9c2dbbe607bab7ed4668691d89039b93ff1a1b674b1f7c12a6132ec023",
+      "size": 42651,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json",
+      "new": false
+    },
+    "app/lib/business_sales.dart": {
+      "baseline_sha256": "35f47d640ebebb229218287e68bdfe32e64213dc01d26fedba6b26d582e71d9f",
+      "sha256": "75549d29a9ae00d34c5fcd3fd537a346ab7f6d46d42d41147bd480dcb359c733",
+      "size": 32042,
+      "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json",
+      "new": false
+    },
+    "app/lib/business_session.dart": {
+      "baseline_sha256": "7c2252942c2f90a4b949138b209f7f4675e0a0af60a2c36c9ba3a9d3d3c5f5e6",
+      "sha256": "b502efd74899f8235e25c25ddb62cb175194e94c89d4a3cb3dd563cae0b2c45c",
+      "size": 94680,
+      "baseline_manifest": "work/verification/catalog-prices-v2-native-v1-baseline.json",
+      "new": false
+    },
+    "app/test/business_catalog_prices_test.dart": {
+      "baseline_sha256": null,
+      "sha256": "816d9b9d4b1c4962643c8db12510a96b98abe6eef4d642434f23d8bba2de5eba",
+      "size": 17517,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "app/test/business_catalog_prices_lifecycle_test.dart": {
+      "baseline_sha256": null,
+      "sha256": "bcfedf12bf8979106dae53ab93faf043ac04f53e4b457ddaccd1304ad4502dc5",
+      "size": 12011,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "app/test/business_catalog_price_consumers_test.dart": {
+      "baseline_sha256": null,
+      "sha256": "7747fbefcb3e238456aa4c2b674852f2ce5f094624b6cb6a4019a1299aac2376",
+      "size": 8260,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "app/test/business_catalog_price_workflows_test.dart": {
+      "baseline_sha256": null,
+      "sha256": "f1362e891270ab621026095fdd786dedbd9fa2fc66e196f13d8381e36b10307a",
+      "size": 16154,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "app/test/business_catalog_prices_http_test.dart": {
+      "baseline_sha256": null,
+      "sha256": "07287377d88f73aeaa64add5529de6048972d94036e6bdcc21d90f38fbce23cb",
+      "size": 11830,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "app/test/fixtures/catalog_prices_v2.json": {
+      "baseline_sha256": null,
+      "sha256": "1c20e3ba5fb2e0d63e1bf62170a29be28bef5c458fac401813de5a8307b67b62",
+      "size": 50308,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "app/test/fixtures/generate_catalog_prices_v2.py": {
+      "baseline_sha256": null,
+      "sha256": "490e75df5720a8f046181de6db7c7faff0805c1463aee1dd804ac162931bbfdc",
+      "size": 4607,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "docs/CRM_ERP_KATALOG_PREISE_V2_NATIVE_2026-11-04.md": {
+      "baseline_sha256": null,
+      "sha256": "9ea1cde050398d1cdd1178fc39eb491c74862b0c3ee6c890561d56f05a10af5d",
+      "size": 6801,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "docs/evidence/catalog-prices-native-2026-11-04-analyze-final.txt": {
+      "baseline_sha256": null,
+      "sha256": "8b945e8129b9c8a6df21f77dc889e2cf6fecbb25f647969122e1f2d22d09c6c4",
+      "size": 97,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "docs/evidence/catalog-prices-native-2026-11-04-global-pending-after.txt": {
+      "baseline_sha256": null,
+      "sha256": "c81a1bf959a0b135e1f4c57b3d122fd69df448434e92846f6ff4c3a59b426b20",
+      "size": 241,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "docs/evidence/catalog-prices-native-2026-11-04-global-pending-before.txt": {
+      "baseline_sha256": null,
+      "sha256": "d6a69a6a347374b94eecb7b06f8f6ce2289d92fa12844ed64518011d4557813d",
+      "size": 2315,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "docs/evidence/catalog-prices-native-2026-11-04-purchasing-final.txt": {
+      "baseline_sha256": null,
+      "sha256": "679366678827fa6162c542256845677e65da7ea483166e2783036d50af7e6b12",
+      "size": 6632,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "docs/evidence/catalog-prices-native-2026-11-04-regression-before.txt": {
+      "baseline_sha256": null,
+      "sha256": "a25b55251a375fb75442907d5ad18c761176e06d3d6ce0add619219c2971f123",
+      "size": 34959,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "docs/evidence/catalog-prices-native-2026-11-04-regression-final.txt": {
+      "baseline_sha256": null,
+      "sha256": "089e2e2010006c5c50c2a58996e714472e41da6ad61ccbf664b264fda48b32aa",
+      "size": 33638,
+      "baseline_manifest": null,
+      "new": true
+    },
+    "docs/evidence/catalog-prices-native-2026-11-04-root-cost-before.txt": {
+      "baseline_sha256": null,
+      "sha256": "d66c33fef4528a51a135aa2a9f9d0d1912ed1f30e79b65c8d36e791cd7879c8b",
+      "size": 2917,
+      "baseline_manifest": null,
+      "new": true
+    }
+  }
+}

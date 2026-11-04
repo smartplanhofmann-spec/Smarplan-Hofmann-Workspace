@@ -1,0 +1,7 @@
+{
+  "path": "web/office/tests/payroll-multiple-own-flow.cjs",
+  "before_sha256": "53035247316f34bfd6a636d4f89037e4dc58cfae469e2053d3a171f416b5ac87",
+  "after_sha256": "1623d635a3eb1f8d9cfba3fbd70da715dee9d9a6538b96e7c84f8429f989096c",
+  "product_runtime_changed": false,
+  "reason": "Actual employee response was200 but CDP body retrieval failed. Observer now reads real upstream bytes before pass-through fulfillment; original employee schema/PDF/JSON/privacy/history assertions remain unchanged."
+}

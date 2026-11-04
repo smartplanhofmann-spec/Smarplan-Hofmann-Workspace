@@ -1,0 +1,213 @@
+00:00 +0: loading /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart
+00:00 +0: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: actual original fixture keeps dated rows and canonical bound previews
+00:00 +1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: November and December candidates retain raw amount and explicit date without a default
+00:00 +2: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: catalog v2 lost ACK 0 retains exact request through generation refresh
+00:00 +3: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: catalog v2 lost ACK 403 retains exact request through generation refresh
+00:00 +4: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: catalog v2 lost ACK 404 retains exact request through generation refresh
+00:00 +5: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: catalog v2 lost ACK 409 retains exact request through generation refresh
+00:00 +6: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: selector starts with blank date, shows exact source and never chooses automatically
+00:00 +7: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: selector starts with blank date, shows exact source and never chooses automatically
+00:02 +8: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: correction requires explicit acknowledgement before server re-preview
+00:02 +9: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: server-bound native preview requires explicit acceptance and exports original bytes
+00:03 +10: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: server-bound native preview requires explicit acceptance and exports original bytes
+00:03 +11: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: late selected original is discarded after background
+00:04 +12: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: late catalog preview cannot refill after read loss
+00:04 +13: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: late selected original is discarded after session
+00:04 +14: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: late catalog preview cannot refill after write loss
+00:05 +15: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: late catalog preview cannot refill after write loss
+00:05 +16: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: late selected original is discarded after write
+00:05 +17: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: late catalog preview cannot refill after module loss
+00:05 +18: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: late selected original is discarded after module
+00:05 +19: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: late catalog preview cannot refill after generation loss
+00:05 +20: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: late selected original is discarded after generation
+00:05 +21: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: late catalog preview cannot refill after background loss
+00:05 +22: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate false response cannot reopen stale session context
+00:06 +23: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: lost apply ACK reopens applied original and repeats exact old command
+00:06 +24: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: lost apply ACK reopens applied original and repeats exact old command
+00:06 +25: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: lost apply ACK reopens applied original and repeats exact old command
+00:06 +26: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate false response cannot reopen stale generation context
+00:06 +27: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: native catalog layout fits 390 pixels
+00:06 +28: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: native catalog layout fits 390 pixels
+00:06 +29: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate false response cannot reopen stale write context
+00:06 +30: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate true response cannot reopen stale session context
+00:07 +31: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate true response cannot reopen stale article context
+00:07 +32: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate true response cannot reopen stale background context
+00:07 +33: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate true response cannot reopen stale generation context
+00:08 +34: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate true response cannot reopen stale read context
+00:08 +35: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate true response cannot reopen stale write context
+00:08 +36: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: tampered original cannot export bytes
+00:09 +37: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: withdrawal keeps exact original revision on replay of lost ACK
+00:10 +38: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:13 +39: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:13 +40: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:13 +41: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:13 +42: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:13 +43: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:13 +44: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:13 +45: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:13 +46: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:13 +47: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:19 +48: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: dated document lost ACK survives close reopen with original source and nonce
+00:21 +49: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: pricing BOM sends explicit purchase source without rounding one euro per three units
+00:22 +50: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: purchasing uses explicit price without finance write and preserves it through approval
+00:23 +51: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: bound root cost skips manual required zero and sends only authoritative source
+00:23 +52: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: sales adoption keeps explicit dated article identity and quantity
+00:24 +53: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: sales adoption keeps explicit dated article identity and quantity
+00:24 +54: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after generation
+00:25 +55: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after generation
+00:25 +56: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save false cannot navigate or reveal error after background
+00:26 +57: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save false cannot navigate or reveal error after background
+00:26 +58: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after write
+00:27 +59: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save true cannot navigate or reveal error after background
+00:28 +60: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save true cannot navigate or reveal error after background
+00:28 +61: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after background
+00:28 +62: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after generation
+00:29 +63: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:30 +64: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:30 +65: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:31 +66: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +67: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +68: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +69: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +70: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +71: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +72: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +73: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +74: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +75: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +76: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +77: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:32 +78: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:33 +79: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:33 +80: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:33 +81: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:34 +82: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: real file bytes, bound CSV preview, explicit confirmation, history and original export
+00:35 +83: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP enforces exact 32 MiB v2 JSON and unchanged ordinary bound
+00:35 +84: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP enforces exact 32 MiB v2 JSON and unchanged ordinary bound
+00:35 +85: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: lost acceptance ACK reopens applied history and repeats the identical confirmation
+00:36 +86: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: existing no-op keeps unknown cost and does not promise a new article revision
+00:36 +87: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: readonly and module-off retain genuine inspection without acceptance controls
+00:36 +88: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after write changes
+00:36 +89: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after module changes
+00:36 +90: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after module changes
+00:36 +91: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after module changes
+00:36 +92: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after module changes
+00:36 +93: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after module changes
+00:36 +94: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after module changes
+00:36 +95: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after module changes
+00:36 +96: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after read changes
+00:37 +97: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after generation changes
+00:37 +98: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: session replacement detaches old listener and suppresses its late private error
+00:37 +99: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: background invalidates a late file picker result before upload
+00:37 +100: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: background invalidates a late file picker error before upload
+00:37 +101: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: withdrawn original download cannot reach the native exporter
+00:37 +102: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: native catalog preview fits a 390-pixel viewport
+00:37 +103: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:38 +104: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:38 +105: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:38 +106: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:38 +107: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:38 +108: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:38 +109: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:39 +110: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:39 +111: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:39 +112: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:39 +113: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: Final invoice is a readable archive without edit action
+00:39 +114: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: DATANORM native mapping starts empty and requires a new preview after edits
+00:40 +115: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: A real document form creates typed positions and omits an empty optional due date
+00:40 +116: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_documents_widget_test.dart: A real document form creates typed positions and omits an empty optional due date
+00:40 +117: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: list navigation closes catalog when the parent session is replaced
+00:40 +118: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: detail navigation closes catalog when the parent session is replaced
+00:41 +119: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: actual HTTP enforces exact 32 MiB catalog and unchanged 20 MiB ordinary JSON boundaries
+00:42 +120: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: Legacy servers keep the manual editor without new feature requests
+00:42 +121: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: actual native HTTP imports original bytes, binds preview, replays both lost ACKs and reads 2 MiB Unicode catalog
+00:44 +122: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_imports_test.dart: actual native HTTP imports original bytes, binds preview, replays both lost ACKs and reads 2 MiB Unicode catalog
+00:45 +123: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: Changing a cost invalidates a previous price proposal
+00:45 +124: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: A late calculation after logout cannot reveal prices or adopt a position
+00:46 +125: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_access_widget_test.dart: An explicit release binds the exact reviewed source fingerprint
+00:47 +126: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: BOM article quantities preserve selected article revisions in the server calculation
+00:47 +127: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: BOM article quantities preserve selected article revisions in the server calculation
+00:48 +128: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: Measured quantities require price selection, preview and explicit commit confirmation
+00:48 +129: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:49 +130: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:49 +131: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:49 +132: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:49 +133: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:50 +134: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:50 +135: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:50 +136: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:50 +137: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:51 +138: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 390.0
+00:51 +139: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: A denied measurement read drops only the measurement sources and selections
+00:51 +140: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 1200.0
+00:52 +141: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 1200.0
+00:52 +142: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Explicit order confirmation and position-bound partial/final receipts at width 1200.0
+00:52 +143: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: Project finance grants can calculate manually when global catalogs are forbidden
+00:52 +144: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Draft creation and extra source position precede approval without confirming external order
+00:53 +145: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: Denied live article pricing does not remove an independently authorized financial draft
+00:53 +146: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: A 423 receipt pause freezes inputs and retries exactly after activation
+00:53 +147: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: Losing live measurement permission removes pending transfers while keeping frozen document positions
+00:53 +148: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Read rights retain inactive history while finance revocation hides prices immediately
+00:54 +149: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: Calculation proposal is usable at desktop width
+00:54 +149: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Confirmation needs approval without finance write and rechecks inventory rights while open
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#2      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2389:32)
+#3      main.tap (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart:379:18)
+#4      main.<anonymous closure> (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart:602:15)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  Confirmation needs approval without finance write and rechecks inventory rights while open
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:54 +149 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: Calculation proposal is usable at desktop width
+00:54 +149 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Confirmation needs approval without finance write and rechecks inventory rights while open [E]
+  Test failed. See exception logs above.
+  The test description was: Confirmation needs approval without finance write and rechecks inventory rights while open
+  
+00:54 +150 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Global detail honors project grants and denies without changing global capabilities
+00:55 +151 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_document_completion_test.dart: Calculation proposal is usable at 390px width
+00:55 +152 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Purchase decimal precision is rejected before sending without rounding
+00:55 +153 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Unconfirmed new proposal restores frozen values and the same request after closing
+00:56 +154 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_http_test.dart: Actual HTTP purchase source, confirmation and receipt retry preserve exact stock and source indices
+00:57 +155 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_http_test.dart: Actual HTTP purchase source, confirmation and receipt retry preserve exact stock and source indices
+00:57 +156 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Dismiss during in-flight proposal preserves original retry after lost reply
+00:57 +157 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Known project read denial clears previously loaded receipt history immediately
+00:57 +158 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Inventory role searches and pages price-free articles while retaining the selected position
+00:58 +159 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+00:58 +160 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+00:58 +161 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+00:59 +162 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+00:59 +163 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+00:59 +164 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: project adoption opens only the fresh canonical collection member
+00:59 +165 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: forecast cents and closure evidence are explicit
+00:59 +166 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: lost create ACK is retained during revoked rights and exact original survives metadata reload
+00:59 +167 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: pipeline distinguishes forecast and editing preserves canonical customer
+01:00 +168 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: current read-only rights leave history readable and hide mutation actions
+01:00 +169 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_sales_test.dart: late list response cannot redisplay source data after rights revocation
+01:00 +170 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: (setUpAll)
+01:00 +170 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: Company choices preserve permission and legacy server boundaries
+01:00 +171 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: Inactive modules block new commands, retain reads and remain configurable
+01:00 +172 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: Adding an employee refreshes the automatic navigation immediately
+01:00 +173 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: Unconfirmed commands retain their exact identity through a module pause
+01:00 +174 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: Navigation follows company suggestions without granting finance access
+01:01 +175 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: Authorized hidden history remains reachable without settings permission
+01:02 +176 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+01:02 +177 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 1200.0
+01:03 +178 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: Read-only configuration exposes authorized hidden history without saving
+01:03 +179 -1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_organization_test.dart: (tearDownAll)
+01:03 +179 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_purchasing_test.dart: Confirmation needs approval without finance write and rechecks inventory rights while open

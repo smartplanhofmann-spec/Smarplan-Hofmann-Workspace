@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict'),crypto=require('node:crypto'),fs=require('node:fs/promises'),path=require('node:path');
 
 async function payrollMultipleOwnFlow(h,employee,run){
-  const {page,navigate,fixture,screenshots}=h;
+  const {page,context,navigate,fixture,screenshots}=h;
   const close=async()=>{const dialog=page.getByRole('dialog');if(await dialog.count())await dialog.getByRole('button',{name:'Dialog schließen',exact:true}).click();};
   await close();await navigate(page,'Personal');
   await page.getByRole('button',{name:'Personalakte, Reisen und Lohnvorbereitung',exact:true}).click();
@@ -16,9 +16,23 @@ async function payrollMultipleOwnFlow(h,employee,run){
   try{
     await page.getByRole('dialog').getByRole('button',{name:'Mitarbeiter-Lohnnachweise ansehen',exact:true}).click();
     const list=page.getByRole('dialog',{name:'Meine Lohnnachweise · '+employee.name,exact:true});await list.waitFor();
-    const response=page.waitForResponse(r=>new URL(r.url()).pathname.endsWith('/payroll/employee-statements/'+run.id)&&r.request().method()==='GET').then(r=>r.json());
-    await list.getByRole('button',{name:'Lohnnachweis ansehen',exact:true}).click();
-    const statement=(await response).statement;
+    // Read the actual upstream body before fulfilling this browser request.
+    // Chromium may discard a CDP response body after large payroll traffic;
+    // this observer preserves the exact server response and performs no write.
+    let observed,failed;
+    const response=new Promise((resolve,reject)=>{observed=resolve;failed=reject;});
+    response.catch(()=>{}); // Keep early observer failures handled until awaited.
+    const statementRoute=url=>url.origin===fixture.base_url&&url.pathname==='/api/v1/business/payroll/employee-statements/'+run.id;
+    const captureStatement=async route=>{
+      try{const upstream=await route.fetch({maxRedirects:0}),value=await upstream.json();await route.fulfill({response:upstream});observed(value);}
+      catch(error){failed(error);await route.abort('failed').catch(()=>{});}
+    };
+    await context.route(statementRoute,captureStatement);
+    let statement;
+    try{
+      await list.getByRole('button',{name:'Lohnnachweis ansehen',exact:true}).click();
+      statement=(await response).statement;
+    }finally{await context.unroute(statementRoute,captureStatement);}
     assert.equal(statement.schema_version,4);assert.deepEqual(statement.run_ref,{id:run.id,revision:run.revision,content_hash:run.content_hash});
     assert.equal(statement.one_off_summary.amount_minor,run.calculation.multiple_one_off_details.single_original_calculation.one_off_details.amount_minor);
     assert.equal(statement.one_off_summary.employee_social_total_minor,run.calculation.multiple_one_off_details.single_original_calculation.one_off_details.social.employee_total_minor);

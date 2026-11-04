@@ -12,7 +12,7 @@ from core import Problem
 MODULES = (
     'business_foundation', 'business_documents', 'business_finance',
     'business_planning', 'business_time', 'business_operations',
-    'business_inventory', 'business_maintenance', 'business_adapters', 'business_catalog_imports', 'business_organization', 'business_purchasing', 'business_portal',
+    'business_inventory', 'business_maintenance', 'business_adapters', 'business_catalog_imports', 'business_catalog_prices', 'business_organization', 'business_purchasing', 'business_portal',
     'business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity',
     'business_accounting_refunds_v2',
     'business_accounting_profile',
@@ -104,7 +104,7 @@ def strict_workflow_path(path):
     if not isinstance(path, str):
         return False
     return re.fullmatch(
-        r'/business/(?:(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|assistant|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
+        r'/business/(?:(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|accounting/historical-assets|assistant|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody|catalog-prices)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
         r'finance/receipts(?:/[a-f0-9]{32}(?:/original)?)?|adapters(?:/.*)?|'
         r'assets/(?:from-delivery|origin-sources|[a-f0-9]{32}/origin)|'
         r'purchasing/orders/[a-f0-9]{32}/(?:changes|change-files(?:/[a-f0-9]{32}/original)?|amendments(?:/preview)?|supplier-returns(?:/preview)?)|'
@@ -274,7 +274,9 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
             or module.__name__ == 'business_customer_workspace'
             and re.fullmatch(r'/customer-workspace/(?:grants|files)/[a-f0-9]{32}/revoke', relative) is not None))
         catalog_preview = (method == 'POST' and module.__name__ == 'business_catalog_imports'
-                           and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/catalog-preview', relative) is not None)
+                           and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/catalog-preview', relative) is not None
+                           or method == 'POST' and module.__name__ == 'business_catalog_prices'
+                           and re.fullmatch(r'/catalog-prices/(?:candidates|imports/[a-f0-9]{32}/preview)', relative) is not None)
         if module.__name__ not in active and not ((method == 'GET' or security_revoke or catalog_preview) and module.__name__ in readable):
             raise Problem(409, 'Dieses Modul ist im aktuellen Betriebsmodus nicht schreibend freigegeben.')
         if method != 'GET' and not catalog_preview and 'business_organization' in readable:

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "scope": "Independent narrow existing-assistant cost correction; no company-event runtime registration",
+  "base_commit": "4c2f0086b4a9979b7cbe9d261fc22a97cd046913",
+  "runtime_changes": [
+    {
+      "path": "backend/business_assistant_sources.py",
+      "base_sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "standalone_after_sha256": "74dbc22004f041dc4b3e47928c1ae3f72e0b4defe9a29432bbf48811d0aee9df"
+    },
+    {
+      "path": "backend/business_assistant.py",
+      "base_sha256": "7179ffa3867b991c6f162f647593ef903f552d074ea731717fa70bf7ac2c8232",
+      "standalone_after_sha256": "7700d542e9ea7cc8aa9dcd97abcdb0c04454b1f543c32eb6b9ee6703e283d821"
+    }
+  ],
+  "tests": {
+    "new": 3,
+    "existing_assistant": 17,
+    "total": 20,
+    "seconds": 4.946
+  },
+  "files": [
+    {
+      "path": "backend/test_assistant_cost_total_v2.py",
+      "sha256": "09bf4268022996249c807e3edde4e188746da1febcf2f1961b4d7060b427b0f1",
+      "bytes": 5447
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/actual-cost-counterexample-first.txt",
+      "sha256": "aa28b8e1995dfee97c94c525718f918fa44ee0bcbfd6a423e693219c731e5249",
+      "bytes": 1013
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/legacy-assistant-sources-4c2f008.txt",
+      "sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "bytes": 15585
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/runtime.patch",
+      "sha256": "4a0b14563b1b5142d5d8aed273682cc9147d761d01c562b0abe65b0d2b5c0ec0",
+      "bytes": 3290
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/standalone-and-existing-final.txt",
+      "sha256": "720acca1d5780f5b87331557015bb4f333c368400f239fb7cf855932fd8e6ac7",
+      "bytes": 4013
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-11-04",
+  "status": "backend_consumer_review_passed_after_owner_fixes",
+  "workspace": "/workspace/smartplan-catalog-prices-v2-20261104",
+  "baseline": {
+    "path": "work/verification/catalog-prices-v2-baseline.json",
+    "bytes": 195332,
+    "sha256": "114b964659606dbf8206745d15f0e8ff2fc511688f62b0350e903f62a319e521"
+  },
+  "own_test": {
+    "path": "backend/test_catalog_prices_independent_review.py",
+    "bytes": 18083,
+    "sha256": "1019eb268c44168e984273c9d0226b97b7037b777200134a6e8fcab33d119e22"
+  },
+  "reviewed_product": [
+    {
+      "path": "backend/business_catalog_prices.py",
+      "bytes": 59644,
+      "sha256": "a3d61e8f25c09fea1f71e98b087f238b3e0af9c317f190119aa10deeaadcf580"
+    },
+    {
+      "path": "backend/business_documents.py",
+      "bytes": 132432,
+      "sha256": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc"
+    },
+    {
+      "path": "backend/business_pricing.py",
+      "bytes": 15141,
+      "sha256": "4970e0d916a05b3c4559b6fd1385c1da88ea08b6b89f25b01b4020c40f14aaf9"
+    },
+    {
+      "path": "backend/business_inventory.py",
+      "bytes": 49682,
+      "sha256": "96d97bc9d5893d1fc0106b5eaae8378fe85460ac7842d94d72bdfccacaaa99d6"
+    },
+    {
+      "path": "backend/business_purchasing.py",
+      "bytes": 34458,
+      "sha256": "140cc2570799e63a1615f32cfc2bcb66c8fa39af26d77799e0c65616a32a04ac"
+    },
+    {
+      "path": "backend/business_sales.py",
+      "bytes": 33231,
+      "sha256": "aee82f64ffe6b0c3974512852f158cdb61e76b1a07f72c7817beed2a8866f25d"
+    },
+    {
+      "path": "backend/business_adapters.py",
+      "bytes": 85419,
+      "sha256": "75ea51c08b84752f0fe3f932b571b23b239f0a9b1e1b56183af8f82b0bf6144f"
+    }
+  ],
+  "validation_test_sources": [
+    {
+      "path": "backend/test_catalog_prices_independent_review.py",
+      "bytes": 18083,
+      "sha256": "1019eb268c44168e984273c9d0226b97b7037b777200134a6e8fcab33d119e22"
+    },
+    {
+      "path": "backend/test_business_catalog_prices.py",
+      "bytes": 16865,
+      "sha256": "7f8eb28b4ada44922b89cde3fe0355ff12e3de926c3edf0faf8e4ad8ce368dd7"
+    },
+    {
+      "path": "backend/test_business_catalog_price_consumers.py",
+      "bytes": 23418,
+      "sha256": "82d8325697d0451ea0592289f9be4223bb8bf944a82bbb476bf4e9f614a824f2"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_purchasing.py",
+      "bytes": 4912,
+      "sha256": "5ec9f55f62d78eab610eff78a714faaab9ecad3db3a258d4933262428b69143e"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_evidence.py",
+      "bytes": 8229,
+      "sha256": "3e5de8ec5307d5ff52829066d1e4877bfd3cfde1e1972140df1a4d3bb4fe5355"
+    },
+    {
+      "path": "backend/business_tests/test_documents.py",
+      "bytes": 17857,
+      "sha256": "3575891a66a72a7cd0ec5462dfe8dcf7cdb5db92a2fc57afb4539e3ee1fc7c91"
+    },
+    {
+      "path": "backend/business_tests/test_pricing_measurements.py",
+      "bytes": 23258,
+      "sha256": "b51f038c0caf77cb85fcbc2670261180959158a9e5e084ca44149f4df6151a34"
+    },
+    {
+      "path": "backend/test_business_sales.py",
+      "bytes": 13085,
+      "sha256": "7e87bfff1f2b73aaa9a72e664ff0d912043794fcf1afcbdbedab82de214e0dc7"
+    }
+  ],
+  "results": {
+    "independent_passed": 12,
+    "combined_passed": 103,
+    "failed": 0,
+    "elapsed_seconds": 17.557,
+    "py_compile": "passed",
+    "diff_check": "passed"
+  },
+  "findings": [
+    {
+      "id": "historical_component_occurrence",
+      "status": "fixed_by_owner_and_independently_verified",
+      "red_log": "before-component-occurrence-fix.txt",
+      "scope": "Each original occurrence may be preserved once; newly copied withdrawn uses require current explicit selection."
+    },
+    {
+      "id": "historical_article_identity",
+      "status": "fixed_by_owner_and_independently_verified",
+      "red_logs": [
+        "before-component-identity-fix.txt",
+        "before-document-position-identity-fix.txt"
+      ],
+      "scope": "Named source article revision, stored hash and original metadata checked in old components and document positions. SQL guards fully restored before semantic test."
+    }
+  ],
+  "commands": {
+    "cwd": "/workspace/smartplan-catalog-prices-v2-20261104/backend",
+    "combined": "PYTHONPATH=.:online:business_tests /tmp/smartplan-backend-verified/bin/python -m unittest -v test_catalog_prices_independent_review test_business_catalog_prices test_business_catalog_price_consumers test_business_catalog_prices_purchasing test_business_catalog_prices_evidence business_tests.test_documents business_tests.test_pricing_measurements test_business_sales",
+    "syntax": "/tmp/smartplan-backend-verified/bin/python -m py_compile backend/test_catalog_prices_independent_review.py",
+    "syntax_cwd": "/workspace/smartplan-catalog-prices-v2-20261104"
+  },
+  "ownership": {
+    "reviewer_changed_product": false,
+    "reviewer_owns": [
+      "backend/test_catalog_prices_independent_review.py",
+      "docs/evidence/catalog-independent-review-2026-11-04/"
+    ],
+    "product_fixes_by": "/root/privacy_regression/v6_privacy_review",
+    "commits_created": false
+  },
+  "limits": [
+    "Local actual SQLite/domain review; existing authenticated HTTP regression cases are included through the old pricing/sales suites.",
+    "No productive services, supplier connections, PostgreSQL restore or independent browser/native acceptance claimed here.",
+    "Native lifecycle review remains separately coordinated after native owner freeze.",
+    "Does not claim full CRM/ERP completion."
+  ],
+  "evidence": [
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/README.md",
+      "bytes": 4806,
+      "sha256": "4e3403d20463130dbf7c50ff0a28c1082b92b8011af32cb90ddb9e940fd97329"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-identity-fix.txt",
+      "bytes": 1239,
+      "sha256": "1e9ab6d50258bfe175b06733515972794bad739ede09741839632a3cb2a48b38"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-identity-source.json",
+      "bytes": 312,
+      "sha256": "151435e1133a805d5132603f9f6433705ca61b9d8170b354d67b4fbe1f899953"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-occurrence-fix.txt",
+      "bytes": 3369,
+      "sha256": "170ef81468a3f97bcd067369e9548db9f8776547b15b4c5953f3a0189ae21762"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-component-occurrence-source.json",
+      "bytes": 487,
+      "sha256": "90876f229d9802855f350fddfff43c1285500ba867abe4163da6bef3a029669e"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/before-document-position-identity-fix.txt",
+      "bytes": 1224,
+      "sha256": "68a796f0c9d60791e991e0d5cb6ceea308f92aed69ce72d0c2bd6d107eba226e"
+    },
+    {
+      "path": "docs/evidence/catalog-independent-review-2026-11-04/integrated-final.txt",
+      "bytes": 22082,
+      "sha256": "5aa6ca29a130392021c48ee94decbf467c7da32e538bb6eefcadbba1a101a870"
+    }
+  ]
+}

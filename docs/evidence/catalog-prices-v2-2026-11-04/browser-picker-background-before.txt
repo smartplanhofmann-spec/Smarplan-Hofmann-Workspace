@@ -1,0 +1,43 @@
+✔ late private file bytes cannot reappear after background (33.953329ms)
+✔ late private file error cannot reappear after background (2.109081ms)
+✔ late readonly preview success cannot replace next dialog (8.236355ms)
+✔ late readonly preview error cannot replace next dialog (2.734986ms)
+✔ read withdrawal during readonly preview closes actual editor while next result is withheld (3.044263ms)
+✔ write withdrawal during readonly preview closes actual editor while next result is withheld (2.473852ms)
+✔ module withdrawal during readonly preview closes actual editor while next result is withheld (2.796959ms)
+✔ same-state session stamp replacement rejects previous preview and late private failure (2.546832ms)
+✔ actual price picker has no default date or selected result; date changes invalidate the exact selection (1.931885ms)
+✔ price-picker late candidates after background do not retain private price choices (0.628679ms)
+✔ price-picker late candidates after read do not retain private price choices (0.468467ms)
+✖ background closes the actual dated consumer editor including already copied private fields (1.204457ms)
+✔ inactive legacy picker never closes an undated editor on background (0.202806ms)
+✔ detached dated picker cannot close a subsequent independent dialog on background (0.153001ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 140.127313
+
+✖ failing tests:
+
+test at web/office/tests/catalog-prices-lifecycle.test.mjs:31:1
+✖ background closes the actual dated consumer editor including already copied private fields (1.204457ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Private dated document'
+  - ''
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-catalog-prices-v2-20261104/web/office/tests/catalog-prices-lifecycle.test.mjs:31:287)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Private dated document',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

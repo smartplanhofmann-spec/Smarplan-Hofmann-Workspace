@@ -1,0 +1,32 @@
+00:00 +0: loading /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart
+00:00 +0: global editor recovers exact dated pending document after explicit project selection
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: 'Original global pending title'
+  Actual: ''
+   Which: is different. Both strings start the same, but the actual value is missing the following
+trailing characters: Original g ...
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart:458:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart line 458
+The test description was:
+  global editor recovers exact dated pending document after explicit project selection
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:03 +0 -1: global editor recovers exact dated pending document after explicit project selection [E]
+  Test failed. See exception logs above.
+  The test description was: global editor recovers exact dated pending document after explicit project selection
+  
+00:03 +0 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: global editor recovers exact dated pending document after explicit project selection

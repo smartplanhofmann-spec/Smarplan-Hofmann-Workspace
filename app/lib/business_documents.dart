@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'api.dart';
 import 'business_session.dart';
 import 'business_document_pricing.dart';
+import 'business_catalog_prices.dart';
 import 'business_widgets.dart';
 import 'business_documentation.dart';
 import 'business_portal.dart';
@@ -112,13 +113,15 @@ class BusinessDocumentEditor extends StatefulWidget {
   State<BusinessDocumentEditor> createState() => _BusinessDocumentEditorState();
 }
 
-class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
+class _BusinessDocumentEditorState extends State<BusinessDocumentEditor>
+    with WidgetsBindingObserver {
   final form = GlobalKey<FormState>();
   late final TextEditingController title, notes, issue, due, buyerReference;
   final templateName = TextEditingController(), intro = TextEditingController();
   bool get mayView => !financialDenied && widget.session.can('finance.read');
   bool get canEdit =>
       mayView &&
+      widget.session.sectionEnabled('documents') &&
       (widget.templateMode
           ? widget.session.canWrite('settings.manage')
           : widget.session.canWrite('finance.write'));
@@ -146,6 +149,8 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
       settingBuyer = false,
       financialDenied = false;
   int billingVersion = 0, calculationVersion = 0;
+  CatalogPriceFlow? catalogFlow;
+  Object? catalogGeneration;
   final touchedBuyer = <String>{};
   final autoBuyer = <String, String>{};
   bool get supportsPricing => widget.session.hasFeature('quote_pricing');
@@ -195,7 +200,21 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   @override
   void initState() {
     super.initState();
-    final d = widget.document ?? {};
+    WidgetsBinding.instance.addObserver(this);
+    catalogGeneration = widget.session.generation;
+    final target = widget.document?['id'] ?? widget.session.projectId;
+    final pendingBody = !widget.templateMode && target != null
+        ? widget.session.pendingCommandValues(
+            'catalog-v2-document-$target',
+            path:
+                '/documents${widget.document == null ? '' : '/${widget.document!['id']}'}',
+          )
+        : null;
+    final d = pendingBody ?? widget.document ?? {};
+    if (pendingBody != null) {
+      frozen = pendingBody;
+      uncertain = true;
+    }
     templateName.text = d['name'] ?? '';
     intro.text = d['intro'] ?? '';
     title = TextEditingController(text: d['title'] ?? '');
@@ -305,7 +324,16 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
 
   void changed() {
     if (!mounted) return;
-    if (!widget.session.can('finance.read')) {
+    if (!widget.session.can('finance.read') ||
+        catalogGeneration != widget.session.generation ||
+        !canEdit &&
+            positions.any(
+              (p) =>
+                  p['catalog_price_snapshot'] != null ||
+                  p['catalog_price_selection'] != null,
+            )) {
+      catalogFlow?.dispose();
+      catalogGeneration = widget.session.generation;
       denyFinancialView();
       return;
     }
@@ -405,6 +433,141 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
     setState(() => applyBillingContact(source));
   }
 
+  @override
+  void didUpdateWidget(covariant BusinessDocumentEditor oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.session != widget.session ||
+        oldWidget.document?['id'] != widget.document?['id']) {
+      catalogFlow?.dispose();
+      catalogFlow = null;
+      oldWidget.session.removeListener(changed);
+      widget.session.addListener(changed);
+      denyFinancialView();
+    }
+  }
+
+  void restoreCatalogPendingProject() {
+    if (widget.templateMode || widget.document != null || project == null)
+      return;
+    final pending = widget.session.pendingCommandValues(
+      'catalog-v2-document-$project',
+      path: '/documents',
+    );
+    if (pending == null) return;
+    // The selection is explicit; restore the original frozen command, never
+    // recalculate or replace its price selection when the editor reopens globally.
+    frozen = pending;
+    uncertain = true;
+    error = null;
+    kind = '${pending['kind']}';
+    title.text = '${pending['title'] ?? ''}';
+    notes.text = '${pending['notes'] ?? ''}';
+    intro.text = '${pending['intro'] ?? ''}';
+    issue.text = '${pending['issue_date'] ?? ''}';
+    due.text = '${pending['due_date'] ?? ''}';
+    buyerReference.text = '${pending['buyer_reference'] ?? ''}';
+    for (final entry in buyerFields.entries)
+      entry.value.text = '${businessMap(pending['buyer'])[entry.key] ?? ''}';
+    positions = (pending['positions'] as List? ?? []).map(businessMap).toList();
+    selectedTimeIds.addAll(
+      (pending['time_entry_ids'] as List? ?? []).cast<String>(),
+    );
+    previousIds.addAll(
+      (pending['previous_document_ids'] as List? ?? []).cast<String>(),
+    );
+    hourlyRate.text = '${pending['hourly_rate_net'] ?? ''}';
+    timeTax.text = '${pending['time_tax_rate'] ?? ''}';
+    selectedTemplateId = pending['template_id'];
+    selectedTemplateRevision = pending['template_revision'];
+  }
+
+  Future<void> catalogPosition() async {
+    if (!canEdit || widget.templateMode) return;
+    final owner = widget.session, selectedProject = project;
+    catalogFlow?.dispose();
+    final flow = CatalogPriceFlow(
+      context,
+      owner,
+      () =>
+          mounted &&
+          identical(widget.session, owner) &&
+          project == selectedProject &&
+          canEdit,
+    );
+    catalogFlow = flow;
+    try {
+      await flow.fresh();
+      final articles = businessItems(await owner.read('/articles'))
+          .where((item) => item['active'] == true)
+          .toList();
+      if (!flow.valid) return;
+      Map<String, dynamic>? values;
+      await flow.dialog<void>(
+        (_) => BusinessEditor(
+          session: owner,
+          readPermission: 'finance.read',
+          writePermission: 'finance.write',
+          title: 'Katalogartikel für den Beleg wählen',
+          fields: [
+            BusinessField(
+              'article_id',
+              'Artikel',
+              type: BusinessInput.choice,
+              required: true,
+              choices: {
+                for (final item in articles)
+                  item['id']:
+                      '${item['name']} · ${catalogPriceManaged(item) ? 'Datierter Preis erforderlich' : 'Gültigkeit nicht angegeben (V1)'}',
+              },
+            ),
+            const BusinessField(
+              'quantity',
+              'Menge',
+              required: true,
+              type: BusinessInput.decimal,
+            ),
+          ],
+          onSave: (value) async {
+            values = value;
+          },
+        ),
+      );
+      if (!flow.valid || values == null) return;
+      final article = articles.firstWhere(
+        (item) => item['id'] == values!['article_id'],
+      );
+      CatalogPriceChoice? choice;
+      if (catalogPriceManaged(article)) {
+        choice = await flow.choose(article, 'sales_net');
+        if (choice == null) return;
+      }
+      await flow.fresh();
+      if (!flow.valid) return;
+      final price = choice?.price;
+      setState(() {
+        positions.add({
+          'article_id': article['id'],
+          'article_revision': article['revision'],
+          'description': article['name'],
+          'quantity': values!['quantity'],
+          'unit': price?['unit'] ?? article['unit'],
+          'kind': article['kind'],
+          'unit_price_net': price?['price_net'] ?? article['unit_price_net'],
+          'price_base_quantity': price?['price_base_quantity'] ?? '1',
+          'tax_rate': price?['tax_rate'] ?? article['tax_rate'],
+          if (choice != null) 'catalog_price_selection': choice.selection,
+          if (choice != null) 'catalog_price_label': choice.label,
+        });
+        positionsChanged();
+      });
+    } catch (e) {
+      if (flow.valid) setState(() => error = '$e');
+    } finally {
+      flow.dispose();
+      if (identical(catalogFlow, flow)) catalogFlow = null;
+    }
+  }
+
   Future<void> calculatePosition([int? index]) async {
     final current = project;
     final result = await showDialog<Map<String, dynamic>>(
@@ -476,7 +639,9 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
           {
             'project_id': current,
             'positions': [
-              ...positions,
+              ...positions.map(
+                (value) => {...value}..remove('catalog_price_label'),
+              ),
               for (final item in measurementTransfers)
                 ...((item['positions'] as List).map(businessMap)),
             ],
@@ -720,7 +885,24 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed &&
+        mounted &&
+        (catalogFlow != null ||
+            positions.any(
+              (p) =>
+                  p['catalog_price_selection'] != null ||
+                  p['catalog_price_snapshot'] != null,
+            ))) {
+      catalogFlow?.dispose();
+      denyFinancialView();
+    }
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    catalogFlow?.dispose();
     widget.session.removeListener(changed);
     for (final c in [title, notes, issue, due, buyerReference]) {
       c.clear();
@@ -742,6 +924,61 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
   }
 
   Future<void> position([int? index]) async {
+    if (index != null &&
+        (positions[index]['catalog_price_snapshot'] != null ||
+            positions[index]['catalog_price_selection'] != null)) {
+      final original = positions[index], owner = widget.session;
+      catalogFlow?.dispose();
+      final flow = CatalogPriceFlow(
+        context,
+        owner,
+        () =>
+            mounted &&
+            identical(owner, widget.session) &&
+            canEdit &&
+            index < positions.length &&
+            identical(positions[index], original),
+      );
+      catalogFlow = flow;
+      try {
+        await flow.dialog<void>(
+          (_) => BusinessEditor(
+            session: owner,
+            title: 'Gebundene Belegposition · Menge und Steuerentscheidung',
+            initial: original,
+            readPermission: 'finance.read',
+            writePermission: 'finance.write',
+            fields: const [
+              BusinessField(
+                'quantity',
+                'Menge',
+                type: BusinessInput.decimal,
+                required: true,
+              ),
+              BusinessField(
+                'tax_rate',
+                'Beleg-Umsatzsteuer (%)',
+                type: BusinessInput.decimal,
+                required: true,
+                hint: 'Eigene steuerliche Belegentscheidung; der belegte Quellsteuersatz bleibt erhalten.',
+              ),
+            ],
+            onSave: (values) async {
+              await flow.fresh();
+              if (!flow.valid) return;
+              setState(() {
+                positions[index] = {...original, ...values};
+                positionsChanged();
+              });
+            },
+          ),
+        );
+      } finally {
+        flow.dispose();
+        if (identical(catalogFlow, flow)) catalogFlow = null;
+      }
+      return;
+    }
     if (index != null && positions[index]['source_type'] != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -841,6 +1078,17 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
       setState(() => error = 'Bitte den Vorlagennamen eingeben.');
       return;
     }
+    final requestOwner = widget.session,
+        requestProject = project,
+        requestVersion = calculationVersion,
+        requestGeneration = widget.session.generation;
+    bool current() =>
+        mounted &&
+        identical(requestOwner, widget.session) &&
+        requestProject == project &&
+        requestVersion == calculationVersion &&
+        requestGeneration == requestOwner.generation &&
+        canEdit;
     setState(() {
       busy = true;
       error = null;
@@ -853,7 +1101,10 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
           'title': title.text.trim(),
           'intro': intro.text,
           'notes': notes.text,
-          'positions': positions,
+          'positions': [
+            for (final value in positions)
+              {...value}..remove('catalog_price_label'),
+          ],
           if (widget.document != null) 'revision': widget.document!['revision'],
         };
       }
@@ -877,6 +1128,7 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                   p['source_type'] != 'time' ||
                   !selectedTimeIds.contains(p['source_id']),
             )
+            .map((value) => {...value}..remove('catalog_price_label'))
             .toList(),
         'previous_document_ids': previousIds.toList(),
         if (measurementTransfers.isNotEmpty)
@@ -894,18 +1146,32 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
           'time_tax_rate': businessDecimal(timeTax.text),
         if (widget.document != null) 'revision': widget.document!['revision'],
       };
+      final dated = positions.any(
+        (position) =>
+            position['catalog_price_selection'] != null ||
+            position['catalog_price_snapshot'] != null ||
+            businessMap(position['pricing'])['source_price_selection'] !=
+                null ||
+            (businessMap(position['pricing'])['components'] as List? ?? []).any(
+              (part) => part['price_selection'] != null,
+            ),
+      );
+      final commandKey = !widget.templateMode && dated
+          ? 'catalog-v2-document-${widget.document?['id'] ?? project}'
+          : key;
       final result = businessMap(
-        await widget.session.command(
-          key,
+        await requestOwner.catalogConsumerCommand(
+          commandKey,
           '${widget.templateMode ? '/templates' : '/documents'}${widget.document == null ? '' : '/${widget.document!['id']}'}',
           frozen!,
         ),
       );
-      if (mounted && widget.session.allowed && widget.templateMode) {
+      if (!current()) return;
+      if (widget.templateMode) {
         Navigator.pop(context);
         return;
       }
-      if (mounted && widget.session.allowed)
+      if (current())
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute(
@@ -914,24 +1180,24 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
           ),
         );
     } on ApiException catch (e) {
-      if (mounted && deniedResponse(e)) {
+      if (current() && deniedResponse(e)) {
         denyFinancialView();
         return;
       }
-      if (mounted)
+      if (current())
         setState(() {
           error = e.message;
           uncertain = e.status == 0 || e.status >= 500 || e.status == 429;
           if (!uncertain) frozen = null;
         });
     } on FormatException catch (e) {
-      if (mounted)
+      if (current())
         setState(() {
           error = e.message;
           frozen = null;
         });
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (current()) setState(() => busy = false);
     }
   }
 
@@ -1011,9 +1277,11 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                                       previousIds.clear();
                                       timeSources = [];
                                       priorDocuments = [];
+                                      restoreCatalogPendingProject();
                                     });
                                     loadInputs();
-                                    loadBillingContact(automatically: true);
+                                    if (!uncertain)
+                                      loadBillingContact(automatically: true);
                                   }
                                 : null,
                             validator: (v) =>
@@ -1310,6 +1578,13 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                               'Positionen',
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
+                            if (!widget.templateMode &&
+                                catalogPricesReadable(widget.session))
+                              OutlinedButton.icon(
+                                onPressed: enabled ? catalogPosition : null,
+                                icon: const Icon(Icons.price_change_outlined),
+                                label: const Text('Katalogpreis auswählen'),
+                              ),
                             if (supportsPricing)
                               OutlinedButton.icon(
                                 onPressed: enabled
@@ -1360,7 +1635,13 @@ class _BusinessDocumentEditorState extends State<BusinessDocumentEditor> {
                               child: ListTile(
                                 title: Text('${p['description']}'),
                                 subtitle: Text(
-                                  '${p['quantity']} ${p['unit']} · ${businessMoney(p['unit_price_net'])} je ${p['price_base_quantity'] ?? '1'} ${p['unit']} netto · ${p['tax_rate']} %',
+                                  '${p['quantity']} ${p['unit']} · ${businessMoney(p['unit_price_net'])} je ${p['price_base_quantity'] ?? '1'} ${p['unit']} netto · ${p['tax_rate']} %${p['catalog_price_label'] != null
+                                      ? '\n${p['catalog_price_label']}'
+                                      : p['catalog_price_snapshot'] != null
+                                      ? '\n${p['catalog_price_snapshot']['source_name']} · Preisstand ${p['catalog_price_snapshot']['effective_on']}'
+                                      : p['catalog_price_selection'] != null
+                                      ? '\nAusdrücklich gewählter Preisstand ${p['catalog_price_selection']['effective_on']}'
+                                      : ''}',
                                 ),
                                 onTap: enabled ? () => position(index) : null,
                                 trailing: Padding(

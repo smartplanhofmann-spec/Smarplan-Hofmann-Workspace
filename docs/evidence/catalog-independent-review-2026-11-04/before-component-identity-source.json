@@ -1,0 +1,5 @@
+{
+  "path": "backend/business_documents.py",
+  "sha256": "9c35c67a3b57d56ed68031d8500c0690c044383fea96c1f2b03bb642cfa49704",
+  "finding": "Historical article components do not verify their claimed source article revision; old version rehashed and SQL guards restored still passes documents.validate_integrity"
+}

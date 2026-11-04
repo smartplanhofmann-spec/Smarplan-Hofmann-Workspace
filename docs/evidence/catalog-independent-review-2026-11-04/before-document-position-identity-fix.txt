@@ -1,0 +1,15 @@
+test_restore_rejects_nonexistent_article_revision_in_historical_document_position_with_restored_guards (test_catalog_prices_independent_review.CatalogIndependentReview.test_restore_rejects_nonexistent_article_revision_in_historical_document_position_with_restored_guards) ... FAIL
+
+======================================================================
+FAIL: test_restore_rejects_nonexistent_article_revision_in_historical_document_position_with_restored_guards (test_catalog_prices_independent_review.CatalogIndependentReview.test_restore_rejects_nonexistent_article_revision_in_historical_document_position_with_restored_guards)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-catalog-prices-v2-20261104/backend/test_catalog_prices_independent_review.py", line 204, in test_restore_rejects_nonexistent_article_revision_in_historical_document_position_with_restored_guards
+    with self.assertRaises(ValueError):documents_integrity(self.office)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.159s
+
+FAILED (failures=1)

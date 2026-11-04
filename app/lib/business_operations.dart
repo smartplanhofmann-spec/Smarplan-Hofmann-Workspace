@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'business_session.dart';
+import 'business_catalog_prices.dart';
 import 'business_custom_fields.dart';
 import 'business_widgets.dart';
 import 'business_documents.dart' show businessPositionKinds;
@@ -298,6 +299,7 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
   String? selected, error;
   bool loading = false;
   int epoch = 0, refreshSerial = 0;
+  CatalogPriceFlow? catalogFlow;
   final references = <String, Map<String, String>>{};
   List<_Section> get sections => (_sections[widget.area] ?? [])
       .where(
@@ -333,7 +335,28 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
   }
 
   @override
+  void didUpdateWidget(covariant BusinessAreaPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.session != widget.session || oldWidget.area != widget.area) {
+      catalogFlow?.dispose();
+      catalogFlow = null;
+      oldWidget.session.removeListener(changed);
+      widget.session.addListener(changed);
+      epoch++;
+      references.clear();
+      refreshSerial++;
+      selected = sections.firstOrNull?.id ?? '';
+      loadReferences();
+    }
+    if (oldWidget.repository != widget.repository) {
+      oldWidget.repository?.removeListener(changed);
+      widget.repository?.addListener(changed);
+    }
+  }
+
+  @override
   void dispose() {
+    catalogFlow?.dispose();
     epoch++;
     widget.session.removeListener(changed);
     widget.repository?.removeListener(changed);
@@ -372,6 +395,58 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
       if (mounted && current == epoch) setState(() => error = '$e');
     } finally {
       if (mounted && current == epoch) setState(() => loading = false);
+    }
+  }
+
+  Future<void> openCatalogArticle(Map<String, dynamic> record) async {
+    final owner = widget.session;
+    final editing = owner.canWrite('finance.write');
+    catalogFlow?.dispose();
+    final flow = CatalogPriceFlow(
+      context,
+      owner,
+      () =>
+          mounted &&
+          identical(owner, widget.session) &&
+          selected == 'articles' &&
+          owner.can('finance.read') &&
+          (!editing ||
+              owner.canWrite('finance.write') &&
+                  owner.sectionEnabled('documents')),
+    );
+    catalogFlow = flow;
+    final managed = catalogPriceManaged(record);
+    try {
+      await flow.fresh();
+      await flow.dialog<void>(
+        (_) => BusinessEditor(
+          session: owner,
+          title: managed
+              ? 'Artikelstamm · datierte Preise separat'
+              : 'Artikel bearbeiten',
+          fields: fields('articles')
+              .where(
+                (field) =>
+                    !managed ||
+                    !['unit_price_net', 'cost_price_net'].contains(field.name),
+              )
+              .toList(),
+          initial: record,
+          readPermission: 'finance.read',
+          writePermission: 'finance.write',
+          onSave: (values) async {
+            await flow.fresh();
+            await owner.command(
+              'catalog-article-${record['id']}-${record['revision']}',
+              '/articles/${record['id']}',
+              {...values, 'currency': 'EUR', 'revision': record['revision']},
+            );
+          },
+        ),
+      );
+    } finally {
+      flow.dispose();
+      if (identical(catalogFlow, flow)) catalogFlow = null;
     }
   }
 
@@ -519,9 +594,10 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
       if (widget.session.can('finance.read'))
         const BusinessField(
           'unit_cost_net',
-          'Einstandspreis netto je Einheit (€; optional)',
+          'Tatsächlicher Einstand netto je Einheit (€)',
           type: BusinessInput.decimal,
           omitIfEmpty: true,
+          hint: 'Bei Zugang eines Artikels mit datierten Katalogpreisen Pflicht. Einen tatsächlichen Nullpreis ausdrücklich als 0 eingeben; Katalogpreise ersetzen keine Zugangskosten.',
         ),
       const BusinessField(
         'note',
@@ -1083,9 +1159,10 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
                             );
                           }
                         : null,
-                    onOpen:
-                        section.id == 'assets' &&
-                            widget.session.hasFeature('custom_fields')
+                    onOpen: section.id == 'articles'
+                        ? openCatalogArticle
+                        : section.id == 'assets' &&
+                              widget.session.hasFeature('custom_fields')
                         ? (record) => openAssetFields(record)
                         : section.id == 'assets' && assetOriginsAvailable
                         ? (record) => openAssetOrigins(record)
@@ -1144,7 +1221,10 @@ class _BusinessAreaPageState extends State<BusinessAreaPage> {
                     fixed: {if (section.id == 'articles') 'currency': 'EUR'},
                     titleOf: (r) =>
                         '${r['name'] ?? r['title'] ?? r['article_name'] ?? r['article_snapshot']?['name'] ?? r['article_id'] ?? section.label}',
-                    subtitleOf: (r) => section.id == 'inventory/stock'
+                    subtitleOf: (r) =>
+                        section.id == 'articles' && catalogPriceManaged(r)
+                        ? 'Datierte Preisquelle ausdrücklich wählen'
+                        : section.id == 'inventory/stock'
                         ? 'Bestand: ${r['on_hand']} · Reserviert: ${r['reserved']} · Verfügbar: ${r['available']}'
                         : section.id == 'inventory/movements'
                         ? '${r['quantity']} · ${r['kind']} · ${businessDate(r['created_at'], time: true)}'

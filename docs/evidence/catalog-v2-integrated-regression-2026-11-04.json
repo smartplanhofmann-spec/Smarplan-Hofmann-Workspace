@@ -1,0 +1,346 @@
+{
+  "recorded_at_utc": "2026-11-04T10:56:22.565122+00:00",
+  "base_commit": "80e051a28ad6ffe2b25818ed26d198f49ebb0c09",
+  "workspace": "/workspace/smartplan-catalog-v2-integration-20261104",
+  "scope": "Explicit dated sales/purchase catalog sources and exact price bases, immutable historical consumers, browser/native integration and separately reviewed Assistant cost total correction",
+  "checks": [
+    {
+      "name": "backend",
+      "started_at_utc": "2026-11-04T10:39:02.020468+00:00",
+      "command": [
+        "/tmp/smartplan-backend-verified/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "backend",
+        "-v"
+      ],
+      "cwd": "/workspace/smartplan-catalog-v2-integration-20261104",
+      "exit_code": 0,
+      "duration_seconds": 801.497,
+      "source_changed_during_check": [],
+      "log": "docs/evidence/catalog-v2-integrated-backend-2026-11-04.txt",
+      "log_sha256": "9e4038ea48910fb293d4ccdec1952e9ccd0c06026dd40c2902b5c62a7dc1c7a8",
+      "tests_run": 1738,
+      "passed": 1737,
+      "skipped": 1,
+      "failed": 0,
+      "verified_input_files": 485
+    },
+    {
+      "name": "node",
+      "started_at_utc": "2026-11-04T10:53:09.396007+00:00",
+      "command": [
+        "node",
+        "--test",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/accounting-allocation.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/accounting-euer.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/accounting-historical-assets-context.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/accounting-historical-assets-independent-review.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/accounting-historical-assets.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/accounting-openings-context-review.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/accounting-openings.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/accounting.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/asset-provenance.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/assistant.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/bank-reconciliation.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/capacity.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/catalog-imports-review.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/catalog-imports.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/catalog-prices-lifecycle.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/catalog-prices.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/client.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/company-handover.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/company-overview.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/component.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/contact.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/custom-fields.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/customer-workspace-staff.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/customer-workspace.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/e2e-diagnostics.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/inventory-counts.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/migrations.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/organization.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-accounts.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-annual-basis-session-review.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-annual-basis.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-calculation-cases-session-retry.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-calculation-cases.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-cash.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-entitlements-session-retry.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-entitlements.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-facts-session-retry.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-facts.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-multiple-cases.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-multiple-context.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-multiple-format-review.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-multiple-runs.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-multiple-session.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-oneoff-cases-session-review.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-oneoff-cases.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-oneoff-runs.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-protected-session-review.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-sickness-phases.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-statements-v5.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-statements-v6.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-statements-v7.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-statements.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-transition.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-travel-tax-policies.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-travel-tax-policy-session-retry.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-wage-interruptions-session-review.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-wage-interruptions.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll-zero-account.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/payroll.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/personnel-workflow.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/planning.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/portal-staff.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/portal.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/privacy-cases.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/profile.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/project-economics.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/purchase-changes.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/purchasing-catalog.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/purchasing.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/refund-v2.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/refund.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/resource-custody.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/sales.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/service.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/speech.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/travel-allowances.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/travel-cash.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/travel-v3.test.mjs",
+        "/workspace/smartplan-catalog-v2-integration-20261104/web/office/tests/workflow-retry.test.mjs"
+      ],
+      "cwd": "/workspace/smartplan-catalog-v2-integration-20261104/web/office",
+      "exit_code": 0,
+      "duration_seconds": 5.883,
+      "source_changed_during_check": [],
+      "log": "docs/evidence/catalog-v2-integrated-node-2026-11-04.txt",
+      "log_sha256": "a2df233ed606a4d5a078859f687e2b03749e9860415cb6456ae9be677fca8a8a",
+      "tests_run": 610,
+      "passed": 610,
+      "skipped": 0,
+      "failed": 0,
+      "verified_input_files": 227
+    },
+    {
+      "name": "flutter",
+      "started_at_utc": "2026-11-04T10:40:38.769035+00:00",
+      "command": [
+        "/workspace/toolchains/flutter/bin/flutter",
+        "test",
+        "--no-pub",
+        "--reporter",
+        "expanded",
+        "test"
+      ],
+      "cwd": "/workspace/smartplan-catalog-v2-integration-20261104/app",
+      "exit_code": 0,
+      "duration_seconds": 521.252,
+      "source_changed_during_check": [],
+      "log": "docs/evidence/catalog-v2-integrated-flutter-2026-11-04.txt",
+      "log_sha256": "735fd071349e0bd45251a2f725293c07db644692c0cf496afaecc6a3d1fb72b3",
+      "tests_run": 1312,
+      "passed": 1312,
+      "skipped": 0,
+      "failed": 0,
+      "verified_input_files": 837
+    },
+    {
+      "name": "analyze",
+      "started_at_utc": "2026-11-04T10:38:58.753641+00:00",
+      "command": [
+        "/workspace/toolchains/flutter/bin/flutter",
+        "analyze",
+        "--no-pub"
+      ],
+      "cwd": "/workspace/smartplan-catalog-v2-integration-20261104/app",
+      "exit_code": 0,
+      "duration_seconds": 9.785,
+      "source_changed_during_check": [],
+      "log": "docs/evidence/catalog-v2-integrated-analyze-2026-11-04.txt",
+      "log_sha256": "8a4da4645d2f683a9e41a51890fcba909d154e89a30113ac2e32ba1c4f641bf6",
+      "tests_run": 0,
+      "passed": 0,
+      "skipped": 0,
+      "failed": 0,
+      "verified_input_files": 352
+    },
+    {
+      "name": "packages",
+      "started_at_utc": "2026-11-04T10:48:20.442091+00:00",
+      "command": [
+        "/tmp/smartplan-backend-verified/bin/python",
+        "-m",
+        "unittest",
+        "-v",
+        "scripts/test_native_release.py"
+      ],
+      "cwd": "/workspace/smartplan-catalog-v2-integration-20261104",
+      "exit_code": 0,
+      "duration_seconds": 9.294,
+      "source_changed_during_check": [],
+      "log": "docs/evidence/catalog-v2-integrated-packages-2026-11-04.txt",
+      "log_sha256": "9028fc17a184f56cea6135538f18584cfa5f40d6144df0fad89ba7ecce3724f7",
+      "tests_run": 16,
+      "passed": 16,
+      "skipped": 0,
+      "failed": 0,
+      "verified_input_files": 515
+    },
+    {
+      "name": "targeted",
+      "started_at_utc": "2026-11-04T10:38:09.762586+00:00",
+      "command": [
+        "/tmp/smartplan-backend-verified/bin/python",
+        "-m",
+        "unittest",
+        "-v",
+        "test_business_catalog_prices",
+        "test_business_catalog_prices_evidence",
+        "test_business_catalog_prices_purchasing",
+        "test_business_catalog_price_consumers",
+        "test_business_catalog_prices_transport",
+        "test_catalog_prices_independent_review",
+        "test_assistant_cost_total_v2",
+        "test_business_assistant"
+      ],
+      "cwd": "/workspace/smartplan-catalog-v2-integration-20261104",
+      "exit_code": 0,
+      "duration_seconds": 19.366,
+      "source_changed_during_check": [],
+      "log": "docs/evidence/catalog-v2-integrated-targeted-2026-11-04.txt",
+      "log_sha256": "5e7ea27a906bf89c07323081e41cbfe00ccb1096b855cb19e4a47bbb0dbff740",
+      "tests_run": 80,
+      "passed": 80,
+      "skipped": 0,
+      "failed": 0,
+      "verified_input_files": 490
+    }
+  ],
+  "actual_browser_workflows": [
+    {
+      "workflow": "catalog-prices",
+      "exit_code": 0,
+      "duration_seconds": 18.68,
+      "log": "docs/evidence/catalog-v2-integrated-browser-catalog-prices-2026-11-04.txt",
+      "log_sha256": "ee7d0d20626794b9e457936c51a4f9bc5f1af30243e6cbce4b8e5a6bd2535b9e",
+      "recorded_at_utc": "2026-11-04T10:40:55.599947+00:00"
+    },
+    {
+      "workflow": "invoice-chain",
+      "exit_code": 0,
+      "duration_seconds": 17.883,
+      "log": "docs/evidence/catalog-v2-integrated-browser-invoice-chain-2026-11-04.txt",
+      "log_sha256": "57dc372c3df55c48984b71c829a4401d3b75685c534d38cddd77c52dd7b69abe",
+      "recorded_at_utc": "2026-11-04T10:44:29.240286+00:00"
+    },
+    {
+      "workflow": "historical-assets",
+      "exit_code": 0,
+      "duration_seconds": 40.967,
+      "log": "docs/evidence/catalog-v2-integrated-browser-historical-assets-2026-11-04.txt",
+      "log_sha256": "fbba09ed7a29c020458c1141e28c7d9c9ed147a89f249fe7626491ac2813388c",
+      "recorded_at_utc": "2026-11-04T10:44:50.382988+00:00"
+    },
+    {
+      "workflow": "payroll-multiple-cases",
+      "exit_code": 0,
+      "duration_seconds": 38.917,
+      "log": "docs/evidence/catalog-v2-integrated-browser-multiple-cases-2026-11-04.txt",
+      "log_sha256": "90f1dfa8c31e73599543ed95641e6d7baec1d19c9cb1e0b967c2a341cb1ccb81",
+      "recorded_at_utc": "2026-11-04T10:53:48.328251+00:00"
+    }
+  ],
+  "postgres": {
+    "modules": [
+      "online.test_business_catalog_prices_pg",
+      "online.test_catalog_v2_source5_assets_restore_pg"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 56.389,
+    "recorded_at_utc": "2026-11-04T10:43:49.068721+00:00",
+    "log": "docs/evidence/catalog-v2-integrated-postgres-final-2026-11-04.txt",
+    "log_sha256": "4835b11f8483c9fd5efa1c35ecae342df506504e528281bf3323e683d421385d",
+    "source_changed_during_check": [],
+    "tests_run": 4,
+    "passed": 4,
+    "failed": 0,
+    "financial_horizon": 13,
+    "financial_restore_schema": 14,
+    "actual_populated_shared_restore": true
+  },
+  "source_manifest": "docs/evidence/catalog-v2-integrated-source-snapshot-2026-11-04.json",
+  "source_manifest_sha256": "b92f1b331bf5121dac247dba013d6176eb3dc53c4aac5c29b861174d37d3de26",
+  "verified_input_count": 1206,
+  "integration_archives": [
+    {
+      "path": "docs/evidence/catalog-v2-applied-merge-2026-11-04.json",
+      "sha256": "7d4525c0ecfa5e46a6ea1e6059cb602ab91fe8a7a031482b3aa767aea229e0fe"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-v2-applied-2026-11-04.json",
+      "sha256": "59b8d260d0e11e3a3b03e660abd9161524333395a284cd4907959a6f40ca4493"
+    },
+    {
+      "path": "docs/evidence/catalog-v2-operator-docs-followup-2026-11-04.json",
+      "sha256": "20f6e1c446c179dd33d532ae49f8b8fcf78f580f6ddbfdf442dd6ce099479493"
+    },
+    {
+      "path": "docs/evidence/catalog-v2-source5-observer-followup-2026-11-04.json",
+      "sha256": "62be78000a154b302b89a9be263a4b65fa97f7f179b1b4e395888ef0ca051786"
+    }
+  ],
+  "owner_package": "docs/evidence/catalog-prices-v2-2026-11-04/package-files.json",
+  "owner_package_sha256": "ca4c8800b2ddbfbc1180322fad196d2fee58c19c19e06bac0d34a075bfd11025",
+  "cost_fix": "docs/CRM_ERP_ASSISTENT_KOSTENSUMME_V2_2026-11-04.md",
+  "historical_attempts": [
+    {
+      "log": "docs/evidence/catalog-v2-integrated-postgres-first-2026-11-04.txt",
+      "result": "Wrong copied wrapper root caused two import-loader errors; no PostgreSQL test case ran. Final guarded four-test run uses actual integration tree."
+    },
+    {
+      "log": "docs/evidence/catalog-v2-integrated-browser-multiple-cases-2026-11-04-before-source5-observer.txt",
+      "result": "Actual employee response returned200, but CDP body retrieval failed. Test observer now reads unchanged real upstream response before pass-through; product code and assertions unchanged. Final whole Source5 flow passed."
+    },
+    {
+      "log": "docs/evidence/catalog-v2-integrated-node-2026-11-04-before-source5-observer.txt",
+      "result": "610 passing browser tests before test-only observer fix; full610 rerun after fix."
+    }
+  ],
+  "operator_packaging": {
+    "registered_documents": 138,
+    "windows_ci_backend_files": 131,
+    "existing_ci_operator_omissions_fixed": 35,
+    "new_v2_and_cost_documents": 5,
+    "actual_windows_build": false
+  },
+  "remaining": [
+    "Actual supplier-specific formats, discounts, quantity tiers, foreign currencies and provider acceptance remain separate",
+    "Historical open items and company events are separately tested/in-progress client integration packages",
+    "Annual values before a midyear software switch and year-specific original/journal exports remain implementation work",
+    "SV group-correction foundation remains unregistered; actual multiple tax groups and paid Source5 financial correction are not enabled",
+    "No whole CRM/ERP/accounting completion, production deployment, real transfers/messages/filings or device acceptance"
+  ],
+  "diff_check": {
+    "runtime_and_docs": "Check excluding byte-identical raw logs/historical diff artifacts",
+    "raw_evidence": "Preserve original .txt/.log/.patch bytes"
+  },
+  "independent_merge_review": {
+    "reviewer": "privacy_regression/v6_privacy_review",
+    "owner_package_files": 101,
+    "byte_identical": 89,
+    "reviewed_additive_global_differences": 12,
+    "findings": [],
+    "shared_sha256": {
+      "app/lib/business_session.dart": "2adfa90857ce50702d691728400605d7859e413c18acdf024aede1d1f0a5e60f",
+      "web/office/office.js": "d97e213ba9a2e8c409a4a6f2eb3be7dfdcaaaebb9254830fdc72386ec0d108d3"
+    },
+    "backend_file_sets_equal": 131,
+    "operator_file_sets_equal": 138,
+    "assistant_cost_fix_reviewed": true
+  }
+}

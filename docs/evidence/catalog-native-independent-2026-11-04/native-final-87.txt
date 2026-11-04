@@ -1,0 +1,89 @@
+00:00 +0: loading /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart
+00:00 +0: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent role replacement rejects late candidate false
+00:00 +1: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent role replacement rejects late candidate false
+00:00 +2: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent role replacement rejects late candidate false
+00:00 +3: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent role replacement rejects late candidate false
+00:00 +4: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent role replacement rejects late candidate false
+00:00 +5: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent role replacement rejects late candidate false
+00:00 +6: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent role replacement rejects late candidate false
+00:01 +7: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: selector starts with blank date, shows exact source and never chooses automatically
+00:01 +8: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent role replacement rejects late candidate true
+00:01 +9: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: server-bound native preview requires explicit acceptance and exports original bytes
+00:02 +10: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent selected price rechecks read after unnotified revoke
+00:02 +11: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent selected price rechecks read after unnotified revoke
+00:02 +12: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: late catalog preview cannot refill after write loss
+00:02 +13: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent selected price rechecks write after unnotified revoke
+00:03 +14: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent selected price rechecks write after unnotified revoke
+00:03 +15: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent selected price rechecks write after unnotified revoke
+00:03 +16: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: late catalog preview cannot refill after background loss
+00:03 +17: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent revoked source between listing and choice never becomes a document position
+00:04 +18: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent revoked source between listing and choice never becomes a document position
+00:04 +19: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_test.dart: native catalog layout fits 390 pixels
+00:04 +20: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent original export rechecks read after correct delayed bytes
+00:04 +21: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save false cannot cross session at 390px
+00:05 +22: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: real equal-named sources remain distinguishable by evidence reference at 390 pixels
+00:06 +23: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: real equal-named sources remain distinguishable by evidence reference at 390 pixels
+00:06 +24: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save false cannot cross read at 390px
+00:06 +25: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save false cannot cross read at 390px
+00:07 +26: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save false cannot cross read at 390px
+00:07 +27: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: real file picker import retries identical original after lost ACK and reopening
+00:07 +28: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross session at 390px
+00:07 +29: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross session at 390px
+00:07 +30: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross session at 390px
+00:07 +31: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: late selected original is discarded after read
+00:08 +32: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross generation at 390px
+00:08 +33: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross generation at 390px
+00:08 +34: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross generation at 390px
+00:08 +35: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: late selected original is discarded after generation
+00:08 +36: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross read at 390px
+00:08 +37: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross read at 390px
+00:08 +38: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross read at 390px
+00:08 +39: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross read at 390px
+00:09 +40: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent delayed document save true cannot cross read at 390px
+00:09 +41: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate false response cannot reopen stale read context
+00:09 +42: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent global project choice resolves only its exact original pending command
+00:09 +43: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent global project choice resolves only its exact original pending command
+00:09 +44: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent global project choice resolves only its exact original pending command
+00:09 +45: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent global project choice resolves only its exact original pending command
+00:09 +46: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: candidate true response cannot reopen stale background context
+00:09 +47: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent priced calculation false cannot cross project replacement
+00:09 +48: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent priced calculation false cannot cross project replacement
+00:09 +49: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent priced calculation false cannot cross project replacement
+00:09 +50: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent priced calculation false cannot cross project replacement
+00:10 +51: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent priced calculation false cannot cross project replacement
+00:10 +52: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_lifecycle_test.dart: withdrawal keeps exact original revision on replay of lost ACK
+00:10 +53: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent priced calculation true cannot cross project replacement
+00:10 +54: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent dated order reply false stays outside resumed editor
+00:11 +55: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_independent_lifecycle_test.dart: independent dated order reply true stays outside resumed editor
+00:11 +56: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:12 +57: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:12 +58: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:12 +59: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:12 +60: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:12 +61: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:12 +62: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:12 +63: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:12 +64: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:12 +65: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document creates explicit dated position with original raw price and identity
+00:14 +66: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: dated document lost ACK survives close reopen with original source and nonce
+00:14 +67: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: dated document lost ACK survives close reopen with original source and nonce
+00:15 +68: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: bound root cost skips manual required zero and sends only authoritative source
+00:15 +69: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: purchasing uses explicit price without finance write and preserves it through approval
+00:16 +70: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: purchasing uses explicit price without finance write and preserves it through approval
+00:16 +71: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after generation
+00:16 +72: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: sales adoption keeps explicit dated article identity and quantity
+00:17 +73: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after read
+00:17 +74: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: managed article editor hides technical zero price fields
+00:17 +75: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: document delayed source error is discarded after write
+00:17 +76: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save false cannot navigate or reveal error after background
+00:18 +77: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save false cannot navigate or reveal error after background
+00:18 +78: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after background
+00:18 +79: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: late dated document save true cannot navigate or reveal error after background
+00:19 +80: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after generation
+00:19 +81: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_workflows_test.dart: global editor recovers exact dated pending document after explicit project selection
+00:19 +82: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after read
+00:19 +83: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after write
+00:20 +84: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_price_consumers_test.dart: pricing delayed source error is discarded after module
+00:20 +85: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP v2 original, bound preview, consumer and lost ACK roundtrip with 2 MiB original
+00:24 +86: /workspace/smartplan-catalog-prices-v2-20261104/app/test/business_catalog_prices_http_test.dart: actual HTTP enforces exact 32 MiB v2 JSON and unchanged ordinary bound
+00:25 +87: All tests passed!

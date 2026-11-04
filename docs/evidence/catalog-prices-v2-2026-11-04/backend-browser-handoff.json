@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "scope": "catalog CSV-v2 frozen backend and browser only; native handoff pending",
+  "recorded_at_utc": "2026-11-04T10:09:54.355895+00:00",
+  "worktree": "/workspace/smartplan-catalog-prices-v2-20261104",
+  "baseline_manifest": "work/verification/catalog-prices-v2-baseline.json",
+  "baseline_manifest_sha256": "114b964659606dbf8206745d15f0e8ff2fc511688f62b0350e903f62a319e521",
+  "files": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "baseline_sha256": "16e822b67a0b20977a6ec34a9d5913a6335e770e498a65cb07f47bd3a930a7aa",
+      "sha256": "511d12a484d094c8430ef82710751cbaa1bcac3aa63a53d20d4851fea8119edb",
+      "bytes": 47730,
+      "integration": "merge_global"
+    },
+    {
+      "path": "backend/business_api.py",
+      "baseline_sha256": "5cd6570e586ae34fcb20df53910ca9280eca9ec24acaf715bbfa7696b8a5c626",
+      "sha256": "9daed94d4b11b040a832c3160b77eece1ece442b175252bc36bbe616beee39b5",
+      "bytes": 22661,
+      "integration": "merge_global"
+    },
+    {
+      "path": "backend/business_catalog_prices.py",
+      "baseline_sha256": null,
+      "sha256": "7c5e5fe1a5cad1f4629368b461ec0be55a111a4ecde075a2ca7123037289c1f7",
+      "bytes": 59712,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/business_documents.py",
+      "baseline_sha256": "0f7cd80bd18f7c35cadfc85ab9c396bfda7592e27ae4d88098e642dfdd865e50",
+      "sha256": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+      "bytes": 132432,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/business_inventory.py",
+      "baseline_sha256": "8a40b304594cb81a34eca30d88cc03d9940bfd6589ec47675d800c54f49f5a33",
+      "sha256": "96d97bc9d5893d1fc0106b5eaae8378fe85460ac7842d94d72bdfccacaaa99d6",
+      "bytes": 49682,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/business_organization.py",
+      "baseline_sha256": "6ef7e4e3fbbfc7556913405c8b259e795d3147e139a50d7262beba42229c3fc3",
+      "sha256": "a09b1f71a0338a0945913d9581476433de69ff62848fa6cab118b2bcb788ccac",
+      "bytes": 14092,
+      "integration": "merge_global"
+    },
+    {
+      "path": "backend/business_pricing.py",
+      "baseline_sha256": "d0e109c32ec052a6863d1ebcd82e678fa6e5763bbc9f4767a283a4e47aafc0a6",
+      "sha256": "4970e0d916a05b3c4559b6fd1385c1da88ea08b6b89f25b01b4020c40f14aaf9",
+      "bytes": 15141,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/business_purchasing.py",
+      "baseline_sha256": "75338ed59ea9c1ff5b4bd35a452c19e02d9651df7ed722aa95faaed984b403ed",
+      "sha256": "b2f513a536412c8104fff4271e1b61501069431e481a6354b70a407c787f2752",
+      "bytes": 35221,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/business_sales.py",
+      "baseline_sha256": "d5b30792c733e7e27df7a8471cb6722e2804ac422749a0e32e77850c0a6ca637",
+      "sha256": "aee82f64ffe6b0c3974512852f158cdb61e76b1a07f72c7817beed2a8866f25d",
+      "bytes": 33231,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "baseline_sha256": "2ec66dd6c8299f17fa8abddc1bd0e5e987adb7d943b79b0f52f34093ab3699c4",
+      "sha256": "8b58a47ddbd5a678b568b6366a19e26938fda025c76ac6d750a491a198c14d24",
+      "bytes": 81311,
+      "integration": "merge_global"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "baseline_sha256": "290089235d06378ed2fc9172efb54123cbba3d16a215868070d2bcc644a1e90b",
+      "sha256": "fc6b95477e6778919859337c96e6a3400fee3e0f2f36c4d92e63272b9fd64b9a",
+      "bytes": 45292,
+      "integration": "merge_global"
+    },
+    {
+      "path": "backend/online/test_business_catalog_prices_pg.py",
+      "baseline_sha256": null,
+      "sha256": "7c4439f356fce58d1fa8b873f2d678af1f06ff87c46fe3fb12963b47aa3e182a",
+      "bytes": 7382,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/online/web.py",
+      "baseline_sha256": "612ea3d8bce51d0d83910e9b6c553a22a32e223ddf287f77153dd62e9272e856",
+      "sha256": "73d8ac49cc11c04c808b0ec7832c09a19731d939287d9a7f2c196509165dd7ff",
+      "bytes": 29136,
+      "integration": "merge_global"
+    },
+    {
+      "path": "backend/server.py",
+      "baseline_sha256": "f31106c8695b33028f83c174b09bcf9389717a60a93915b93599c8dc3d32e789",
+      "sha256": "59021c987087033da74befa834670a35a2f5d7e1824251cc423048c2562c4e27",
+      "bytes": 16577,
+      "integration": "merge_global"
+    },
+    {
+      "path": "backend/test_business_catalog_price_consumers.py",
+      "baseline_sha256": null,
+      "sha256": "82d8325697d0451ea0592289f9be4223bb8bf944a82bbb476bf4e9f614a824f2",
+      "bytes": 23418,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/test_business_catalog_prices.py",
+      "baseline_sha256": null,
+      "sha256": "e7881d3b2a668c6fb6800ffa8b9f7f86224840cd6476d1d23e9688bc62f1c4f8",
+      "bytes": 17982,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_evidence.py",
+      "baseline_sha256": null,
+      "sha256": "3e5de8ec5307d5ff52829066d1e4877bfd3cfde1e1972140df1a4d3bb4fe5355",
+      "bytes": 8229,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_purchasing.py",
+      "baseline_sha256": null,
+      "sha256": "ba508d09ea1378c5c2826feb26c37d6fe5e940271e88bccb7eaa58358a861864",
+      "bytes": 6569,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/test_business_catalog_prices_transport.py",
+      "baseline_sha256": null,
+      "sha256": "987d1a6ad885e8b2406db046c49c926e7d5164a2daf8f23dcb8deb23f62238cd",
+      "bytes": 4324,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "backend/test_catalog_prices_independent_review.py",
+      "baseline_sha256": null,
+      "sha256": "1019eb268c44168e984273c9d0226b97b7037b777200134a6e8fcab33d119e22",
+      "bytes": 18083,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "scripts/native-release.py",
+      "baseline_sha256": "4f6893b843cbaf279ea3f7c293d749f809f32a2f6c5a167c6bf99a1fec077fcb",
+      "sha256": "adf3c93995fdd6c756114ddf2b1d3852cca4bb6151872e7c3c293f9a955b8116",
+      "bytes": 21956,
+      "integration": "merge_global"
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "baseline_sha256": "a779bfa302010f033701ce90f971b7ccf19ba16b7f5c784ec3b734c0e53e89f3",
+      "sha256": "17d6afb7fc18fff58938810a894fe164a08f853acde8e7f2b56b26cea20ccc39",
+      "bytes": 12592,
+      "integration": "merge_global"
+    },
+    {
+      "path": "web/office/catalog-prices.js",
+      "baseline_sha256": null,
+      "sha256": "4588b266cb8728a9ad67378215ffe4040ccabb3d0b8210299ef67b17512c4935",
+      "bytes": 26481,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "web/office/office.js",
+      "baseline_sha256": "b8a7a3859d3ac778071729bbc9ea15de1f2fb3911cb6ff9d03e9698dcb8c146d",
+      "sha256": "85d7a089ce25ad68e55bc32fa3076dbb4d0189d6c49e995a62a78bbd0b5887a3",
+      "bytes": 350734,
+      "integration": "merge_global"
+    },
+    {
+      "path": "web/office/sales.js",
+      "baseline_sha256": "f2615b8241c137e36eb66f93701d6e11dd9529ffc3369c8249a7e2a42c39749f",
+      "sha256": "9ccfe223743ab70771542db34b86e3ee02f7c6abdfbcf4b2939cfe81c5ecb462",
+      "bytes": 17215,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "web/office/tests/catalog-prices-flow.cjs",
+      "baseline_sha256": null,
+      "sha256": "1cac801c493efb1129a5d7d2133408c4d99352d3bb5b5e5406f54779f46b23bf",
+      "bytes": 13504,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "web/office/tests/catalog-prices-lifecycle.test.mjs",
+      "baseline_sha256": null,
+      "sha256": "446075ad66d030c01b0eee727d074ef30a69de01902c7e5b4d264d8f7d3b297f",
+      "bytes": 11152,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "web/office/tests/catalog-prices.test.mjs",
+      "baseline_sha256": null,
+      "sha256": "0c17615876becce0f3aaa76d0f0c1bea378fdc875b64d3ffb970ec525781e05d",
+      "bytes": 9946,
+      "integration": "own_v2_delta"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "baseline_sha256": "2683a02c519cb098fe4cec47d844f934698eeff35d7473421b6c3a53380f3ff0",
+      "sha256": "fe0d6fa40d54a22e71e38daca548000bc7def02ad5cc8cff2b5ddbe736d1eb6a",
+      "bytes": 46274,
+      "integration": "merge_global"
+    },
+    {
+      "path": "web/office/tests/fixtures/catalog-prices-v2.json",
+      "baseline_sha256": null,
+      "sha256": "b1a173038ddebe152da4b5d570c38bb58538746b6074888c16fc28a54f2ddf27",
+      "bytes": 10793,
+      "integration": "own_v2_delta"
+    }
+  ],
+  "checks": {
+    "node": {
+      "passed": 554
+    },
+    "chromium_mfa_http": "passed after final original-identity/source-reference/delayed-modal fixes",
+    "local_http_transport": {
+      "passed": 3
+    },
+    "independent_backend": {
+      "passed": 103,
+      "scope": "before last narrow Purchasing/source-reference addenda; independent addendum pending"
+    },
+    "purchasing_original_addendum": {
+      "passed": 66
+    },
+    "domain_final": {
+      "passed": 15
+    },
+    "postgresql": {
+      "passed": 3,
+      "scope": "before historical identity review; migration unchanged"
+    },
+    "full_backend": {
+      "tests": 1608,
+      "skipped": 1,
+      "scope": "before final historical identity review; see evidence README"
+    },
+    "node_targeted": {
+      "passed": 32
+    },
+    "legacy_chromium_invoice_chain": "passed after dated-only modal fix"
+  },
+  "browser_lifecycle_addendum": "docs/evidence/catalog-prices-v2-2026-11-04/browser-lifecycle-addendum.json"
+}

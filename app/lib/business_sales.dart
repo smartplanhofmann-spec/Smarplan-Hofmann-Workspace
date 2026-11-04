@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_documents.dart';
+import 'business_catalog_prices.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -98,6 +99,7 @@ class _BusinessSalesPageState extends State<BusinessSalesPage> {
   String? selectedId, error, stage;
   final query = TextEditingController();
   int epoch = 0;
+  CatalogPriceFlow? catalogFlow;
   bool loading = false;
   @override
   void initState() {
@@ -108,10 +110,29 @@ class _BusinessSalesPageState extends State<BusinessSalesPage> {
 
   @override
   void dispose() {
+    catalogFlow?.dispose();
     epoch++;
     session.removeListener(changed);
     query.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant BusinessSalesPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.session != session ||
+        oldWidget.customerId != widget.customerId) {
+      catalogFlow?.dispose();
+      oldWidget.session.removeListener(changed);
+      session.addListener(changed);
+      epoch++;
+      listing = null;
+      selected = null;
+      selectedId = null;
+      activities = [];
+      error = null;
+      load();
+    }
   }
 
   void changed() {
@@ -189,9 +210,12 @@ class _BusinessSalesPageState extends State<BusinessSalesPage> {
     Map<String, dynamic> body,
   ) async {
     check(true);
-    await session.load();
+    final owner = session;
+    await owner.load();
+    if (!mounted || !identical(owner, session))
+      throw const ApiException(0, 'Verkaufskontext gewechselt.');
     check(true);
-    final result = session.pending(key)
+    final result = owner.pending(key)
         ? await session.repeatSalesCommand(key)
         : await session.command(
             key,
@@ -229,23 +253,25 @@ class _BusinessSalesPageState extends State<BusinessSalesPage> {
   }) async {
     check(true);
     if (!mounted) return;
-    await showDialog<bool>(
-      context: context,
-      builder: (_) => BusinessEditor(
-        session: session,
-        title: title,
-        fields: fields,
-        initial: initial,
-        readPermission: 'contacts.read',
-        writePermission: 'contacts.write',
-        readAllowed: () => allowed,
-        pendingKey: key,
-        saveLabel: session.pending(key)
-            ? 'Ursprünglichen Vorgang prüfen'
-            : 'Speichern',
-        onSave: save,
-      ),
+    final builder = (BuildContext _) => BusinessEditor(
+      session: session,
+      title: title,
+      fields: fields,
+      initial: initial,
+      readPermission: 'contacts.read',
+      writePermission: 'contacts.write',
+      readAllowed: () => allowed,
+      pendingKey: key,
+      saveLabel: session.pending(key)
+          ? 'Ursprünglichen Vorgang prüfen'
+          : 'Speichern',
+      onSave: save,
     );
+    if (catalogFlow != null) {
+      await catalogFlow!.dialog<bool>(builder);
+    } else {
+      await showDialog<bool>(context: context, builder: builder);
+    }
   }
 
   Future<void> choose() async {
@@ -508,103 +534,162 @@ class _BusinessSalesPageState extends State<BusinessSalesPage> {
 
   Future<void> offer() async {
     check(true);
-    final item = selected!;
-    final articles = businessItems(await session.read('/articles'))
-        .where((a) => a['active'] == true)
-        .toList();
-    check(true);
-    if (articles.isEmpty)
-      throw const FormatException(
-        'Zuerst eine aktive Katalogleistung oder einen Artikel anlegen.',
-      );
-    Map<String, dynamic>? chosen;
-    await editor(
-      'Katalogpositionen auswählen',
-      'sales-offer-choice-${item['id']}',
-      [
-        BusinessField(
-          'articles',
-          'Leistungen und Artikel',
-          type: BusinessInput.multiple,
-          required: true,
-          choices: {
-            for (final a in articles)
-              a['id']:
-                  '${a['name']} · ${a['unit_price_net']} EUR / ${a['unit']}',
-          },
-        ),
-      ],
-      (values) async {
-        chosen = values;
-      },
-    );
-    if (chosen == null || !mounted) return;
-    final ids = (chosen!['articles'] as List).cast<String>();
-    if (ids.isEmpty || ids.length > 50)
-      throw const FormatException('Ein bis 50 Katalogpositionen auswählen.');
-    final selectedArticles = articles
-        .where((a) => ids.contains(a['id']))
-        .toList();
+    final item = selected!, owner = session;
     final key = 'sales-offer-${item['id']}';
-    await editor(
-      'Angebotsentwurf aus Katalog erstellen',
-      key,
-      [
-        BusinessField(
-          'title',
-          'Angebotstitel',
-          required: true,
-          initial: item['title'],
-        ),
-        BusinessField(
-          'issue_date',
-          'Angebotsdatum',
-          type: BusinessInput.date,
-          required: true,
-          initial: DateTime.now().toUtc().toIso8601String().substring(0, 10),
-        ),
-        const BusinessField(
-          'due_date',
-          'Gültig bis',
-          type: BusinessInput.date,
-          required: true,
-        ),
-        for (final a in selectedArticles)
-          BusinessField(
-            'quantity_${a['id']}',
-            'Menge · ${a['name']}',
-            type: BusinessInput.decimal,
-            required: true,
-            initial: '1',
-          ),
-        const BusinessField(
-          'confirmation',
-          'Ich bestätige Positionen, Katalogpreise und Angebotsentwurf.',
-          type: BusinessInput.toggle,
-          required: true,
-        ),
-      ],
-      (values) async {
-        final positions = [
-          for (final a in selectedArticles)
-            {
-              'article_id': a['id'],
-              'article_revision': a['revision'],
-              'quantity': values['quantity_${a['id']}'],
-            },
-        ];
-        await write(key, '/sales/opportunities/${item['id']}/offer', {
-          'revision': item['revision'],
-          'source_sha256': item['source_sha256'],
-          'title': values['title'],
-          'issue_date': values['issue_date'],
-          'due_date': values['due_date'],
-          'confirmation': values['confirmation'],
-          'positions': positions,
-        });
-      },
+    catalogFlow?.dispose();
+    final flow = CatalogPriceFlow(
+      context,
+      owner,
+      () =>
+          mounted &&
+          identical(owner, session) &&
+          selected?['id'] == item['id'] &&
+          writable &&
+          session.canWrite('finance.write') &&
+          session.sectionEnabled('documents'),
     );
-    if (mounted) await load();
+    catalogFlow = flow;
+    try {
+      final pending = owner.pendingCommandValues(
+        key,
+        path: '/sales/opportunities/${item['id']}/offer',
+      );
+      if (pending != null) {
+        await editor(
+          'Ursprüngliche Angebotsübernahme prüfen',
+          key,
+          const [
+            BusinessField(
+              'confirmation',
+              'Exakt den ursprünglichen unbestätigten Auftrag prüfen',
+              type: BusinessInput.toggle,
+            ),
+          ],
+          (values) async {
+            await flow.fresh();
+            if (values['confirmation'] != true)
+              throw const FormatException('Prüfung ausdrücklich bestätigen.');
+            await write(
+              key,
+              '/sales/opportunities/${item['id']}/offer',
+              pending,
+            );
+          },
+        );
+        if (flow.valid) await load();
+        return;
+      }
+      final articles = businessItems(await session.read('/articles'))
+          .where((a) => a['active'] == true)
+          .toList();
+      check(true);
+      if (articles.isEmpty)
+        throw const FormatException(
+          'Zuerst eine aktive Katalogleistung oder einen Artikel anlegen.',
+        );
+      Map<String, dynamic>? chosen;
+      await editor(
+        'Katalogpositionen auswählen',
+        'sales-offer-choice-${item['id']}',
+        [
+          BusinessField(
+            'articles',
+            'Leistungen und Artikel',
+            type: BusinessInput.multiple,
+            required: true,
+            choices: {
+              for (final a in articles)
+                a['id']:
+                    '${a['name']} · ${catalogPriceManaged(a) ? 'Datierter Verkaufspreis erforderlich' : '${a['unit_price_net']} EUR / ${a['unit']} · undatiert (V1)'}',
+            },
+          ),
+        ],
+        (values) async {
+          chosen = values;
+        },
+      );
+      if (chosen == null || !mounted) return;
+      final ids = (chosen!['articles'] as List).cast<String>();
+      if (ids.isEmpty || ids.length > 50)
+        throw const FormatException('Ein bis 50 Katalogpositionen auswählen.');
+      final selectedArticles = articles
+          .where((a) => ids.contains(a['id']))
+          .toList();
+      final priceChoices = <String, CatalogPriceChoice>{};
+      for (final article in selectedArticles.where(catalogPriceManaged)) {
+        final choice = await flow.choose(article, 'sales_net');
+        if (choice == null || !flow.valid) return;
+        priceChoices[article['id']] = choice;
+      }
+      await flow.fresh();
+      await editor(
+        'Angebotsentwurf aus Katalog erstellen',
+        key,
+        [
+          BusinessField(
+            'title',
+            'Angebotstitel',
+            required: true,
+            initial: item['title'],
+          ),
+          BusinessField(
+            'issue_date',
+            'Angebotsdatum',
+            type: BusinessInput.date,
+            required: true,
+            initial: DateTime.now().toUtc().toIso8601String().substring(0, 10),
+          ),
+          const BusinessField(
+            'due_date',
+            'Gültig bis',
+            type: BusinessInput.date,
+            required: true,
+          ),
+          for (final a in selectedArticles)
+            BusinessField(
+              'quantity_${a['id']}',
+              'Menge · ${a['name']}${priceChoices[a['id']] != null ? ' · ${priceChoices[a['id']]!.label}' : ''}',
+              type: BusinessInput.decimal,
+              required: true,
+              initial: '1',
+            ),
+          const BusinessField(
+            'confirmation',
+            'Ich bestätige Positionen, Katalogpreise und Angebotsentwurf.',
+            type: BusinessInput.toggle,
+            required: true,
+          ),
+        ],
+        (values) async {
+          await flow.fresh();
+          final positions = [
+            for (final a in selectedArticles)
+              {
+                'article_id': a['id'],
+                'article_revision': a['revision'],
+                'quantity': values['quantity_${a['id']}'],
+                if (priceChoices[a['id']] != null)
+                  'catalog_price_selection': priceChoices[a['id']]!.selection,
+              },
+          ];
+          await write(key, '/sales/opportunities/${item['id']}/offer', {
+            'revision': item['revision'],
+            'source_sha256': item['source_sha256'],
+            'title': values['title'],
+            'issue_date': values['issue_date'],
+            'due_date': values['due_date'],
+            'confirmation': values['confirmation'],
+            'positions': positions,
+          });
+        },
+      );
+      if (flow.valid) await load();
+    } catch (e) {
+      if (flow.valid) rethrow;
+    } finally {
+      flow.dispose();
+      if (identical(catalogFlow, flow)) catalogFlow = null;
+    }
   }
 
   Future<void> history() async {

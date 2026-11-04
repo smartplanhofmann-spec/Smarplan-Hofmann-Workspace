@@ -1,0 +1,1526 @@
+{
+  "twin_source": {
+    "id": "b8f90c80d6cc4e4390d7218688c4aff9",
+    "name": "Synthetic source",
+    "reference": "SYNTHETIC-DISTINCT-REFERENCE",
+    "profile": "catalog_csv_v2",
+    "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+    "created_at": "2026-11-04T00:00:00+00:00",
+    "source_version": 0
+  },
+  "twin_candidates": {
+    "article_id": "3725413c8b564a09badf334bd24e03c9",
+    "effective_on": "2026-11-30",
+    "price_role": "sales_net",
+    "items": [
+      {
+        "price_id": "3512677d8bc1504c9bf685fb98a0dc5f",
+        "price_revision": 1,
+        "price_sha256": "13a8d0322d049737442aa849b615bc61abe73cd564833349786800ec1e544254",
+        "effective_on": "2026-11-30",
+        "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+        "source_name": "Synthetic source",
+        "source_reference": "SYNTHETIC",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "dec",
+          "price_net": "12.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-12-01",
+          "valid_until": null
+        },
+        "status": "not_yet_valid"
+      },
+      {
+        "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "price_revision": 1,
+        "price_sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+        "effective_on": "2026-11-30",
+        "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+        "source_name": "Synthetic source",
+        "source_reference": "SYNTHETIC",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "10.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30"
+        },
+        "status": "eligible"
+      },
+      {
+        "price_id": "6c55c029fc4b56b5b92fb63079d37164",
+        "price_revision": 1,
+        "price_sha256": "aeda28687e17aa1dc33de00acee7541de13877f9a7281cee3c8a524ad58e8ff8",
+        "effective_on": "2026-11-30",
+        "source_id": "b8f90c80d6cc4e4390d7218688c4aff9",
+        "source_name": "Synthetic source",
+        "source_reference": "SYNTHETIC-DISTINCT-REFERENCE",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "10.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30"
+        },
+        "status": "eligible"
+      }
+    ],
+    "managed": true
+  },
+  "source": {
+    "id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "name": "Synthetic source",
+    "reference": "SYNTHETIC",
+    "profile": "catalog_csv_v2",
+    "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+    "created_at": "2026-11-04T00:00:00+00:00",
+    "source_version": 0
+  },
+  "original_base64": "cHJpY2VfaWQ7Y29kZTtuYW1lO3VuaXQ7cHJpY2Vfcm9sZTtwcmljZV9uZXQ7cHJpY2VfYmFzZV9xdWFudGl0eTtjdXJyZW5jeTt0YXhfcmF0ZTt2YWxpZF9mcm9tO3ZhbGlkX3VudGlsCm5vdjtTWU4tUFJJQ0U7U3ludGhldGljIGRhdGVkIGl0ZW07U1Q7c2FsZXNfbmV0OzEwLjAwOzE7RVVSOzE5OzIwMjYtMTEtMDE7MjAyNi0xMS0zMApkZWM7U1lOLVBSSUNFO1N5bnRoZXRpYyBkYXRlZCBpdGVtO1NUO3NhbGVzX25ldDsxMi4wMDsxO0VVUjsxOTsyMDI2LTEyLTAxOwpidXk7U1lOLVBSSUNFO1N5bnRoZXRpYyBkYXRlZCBpdGVtO1NUO3B1cmNoYXNlX25ldDsxLjAwOzM7RVVSOzE5OzIwMjYtMTEtMDE7Cg==",
+  "staged": {
+    "id": "d0a923e1f0ed4570afdd7eb72c450889",
+    "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "catalog_revision": "SYN-1",
+    "source_version": 0,
+    "profile": "catalog_csv_v2",
+    "rows": [
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "1",
+        "price_id": "nov",
+        "price_net": "10.00",
+        "price_role": "sales_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-11-01",
+        "valid_until": "2026-11-30"
+      },
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "1",
+        "price_id": "dec",
+        "price_net": "12.00",
+        "price_role": "sales_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-12-01",
+        "valid_until": null
+      },
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "3",
+        "price_id": "buy",
+        "price_net": "1.00",
+        "price_role": "purchase_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-11-01",
+        "valid_until": null
+      }
+    ],
+    "rows_sha256": "2ed71fcf8902b36398262a1dd04834a572159378edc70c6b078defb1376edb98",
+    "original": {
+      "filename": "synthetic-v2.csv",
+      "size": 343,
+      "sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361"
+    },
+    "status": "staged",
+    "application": null,
+    "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+    "created_at": "2026-11-04T00:00:00+00:00"
+  },
+  "detail": {
+    "id": "d0a923e1f0ed4570afdd7eb72c450889",
+    "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "catalog_revision": "SYN-1",
+    "source_version": 0,
+    "profile": "catalog_csv_v2",
+    "rows": [
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "1",
+        "price_id": "nov",
+        "price_net": "10.00",
+        "price_role": "sales_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-11-01",
+        "valid_until": "2026-11-30"
+      },
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "1",
+        "price_id": "dec",
+        "price_net": "12.00",
+        "price_role": "sales_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-12-01",
+        "valid_until": null
+      },
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "3",
+        "price_id": "buy",
+        "price_net": "1.00",
+        "price_role": "purchase_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-11-01",
+        "valid_until": null
+      }
+    ],
+    "rows_sha256": "2ed71fcf8902b36398262a1dd04834a572159378edc70c6b078defb1376edb98",
+    "original": {
+      "filename": "synthetic-v2.csv",
+      "size": 343,
+      "sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361"
+    },
+    "status": "staged",
+    "application": null,
+    "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+    "created_at": "2026-11-04T00:00:00+00:00",
+    "bindings": {},
+    "price_heads": {},
+    "current_source_version": 0
+  },
+  "decisions": {
+    "expected_source_version": 0,
+    "bindings": {
+      "SYN-PRICE": {
+        "action": "create",
+        "article_id": null,
+        "article_revision": null,
+        "expected_binding_revision": 0,
+        "confirm_name_difference": false
+      }
+    },
+    "replacements": {}
+  },
+  "preview": {
+    "import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+    "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "source_version": 0,
+    "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+    "rows_sha256": "2ed71fcf8902b36398262a1dd04834a572159378edc70c6b078defb1376edb98",
+    "decisions": {
+      "expected_source_version": 0,
+      "bindings": {
+        "SYN-PRICE": {
+          "action": "create",
+          "article_id": null,
+          "article_revision": null,
+          "expected_binding_revision": 0,
+          "confirm_name_difference": false
+        }
+      },
+      "replacements": {}
+    },
+    "bindings": [
+      {
+        "code": "SYN-PRICE",
+        "action": "create",
+        "article_id": null,
+        "article_revision": null,
+        "binding_revision": 1,
+        "binding_changed": true,
+        "before_article": null,
+        "name": "Synthetic dated item",
+        "unit": "ST"
+      }
+    ],
+    "rows": [
+      {
+        "line_number": 1,
+        "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "external_price_id": "nov",
+        "action": "create",
+        "revision": 1,
+        "previous_hash": "",
+        "before": null,
+        "price": {
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "10.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30",
+          "article_id": null,
+          "binding_revision": 1
+        }
+      },
+      {
+        "line_number": 2,
+        "price_id": "3512677d8bc1504c9bf685fb98a0dc5f",
+        "external_price_id": "dec",
+        "action": "create",
+        "revision": 1,
+        "previous_hash": "",
+        "before": null,
+        "price": {
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "dec",
+          "price_net": "12.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-12-01",
+          "valid_until": null,
+          "article_id": null,
+          "binding_revision": 1
+        }
+      },
+      {
+        "line_number": 3,
+        "price_id": "a42f47c18436532fb0b9e8f2a926c7c9",
+        "external_price_id": "buy",
+        "action": "create",
+        "revision": 1,
+        "previous_hash": "",
+        "before": null,
+        "price": {
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "3",
+          "price_id": "buy",
+          "price_net": "1.00",
+          "price_role": "purchase_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": null,
+          "article_id": null,
+          "binding_revision": 1
+        }
+      }
+    ],
+    "required_replacements": [],
+    "ready": true,
+    "preview_sha256": "b40d0df56bc3d0ec815ff9036a7d9d0a84480d5948e14c3443825cc5b8801a91"
+  },
+  "application": {
+    "import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+    "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "source_version": 4,
+    "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+    "preview_sha256": "b40d0df56bc3d0ec815ff9036a7d9d0a84480d5948e14c3443825cc5b8801a91",
+    "bindings": [
+      {
+        "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+        "code": "SYN-PRICE",
+        "revision": 1,
+        "article_id": "3725413c8b564a09badf334bd24e03c9",
+        "article_revision": 1,
+        "unit": "ST"
+      }
+    ],
+    "prices": [
+      {
+        "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "revision": 1,
+        "sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12"
+      },
+      {
+        "price_id": "3512677d8bc1504c9bf685fb98a0dc5f",
+        "revision": 1,
+        "sha256": "13a8d0322d049737442aa849b615bc61abe73cd564833349786800ec1e544254"
+      },
+      {
+        "price_id": "a42f47c18436532fb0b9e8f2a926c7c9",
+        "revision": 1,
+        "sha256": "c836c133d6ca8dd7d126b35a6ea2d12f1ab92d0da74fd3b1af6e8d7a83ab69be"
+      }
+    ],
+    "request_id": "ee0ba1832de645999760ed6860758f2f",
+    "request_sha256": "0953a9fb449e481bacfad027662bfbc2d9c5b19ec9c8dd2a43a27e4c1e9a3fdb",
+    "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+    "created_at": "2026-11-04T00:00:00+00:00"
+  },
+  "command": {
+    "request_id": "ee0ba1832de645999760ed6860758f2f",
+    "expected_source_version": 0,
+    "bindings": {
+      "SYN-PRICE": {
+        "action": "create",
+        "article_id": null,
+        "article_revision": null,
+        "expected_binding_revision": 0,
+        "confirm_name_difference": false
+      }
+    },
+    "replacements": {},
+    "preview_sha256": "b40d0df56bc3d0ec815ff9036a7d9d0a84480d5948e14c3443825cc5b8801a91",
+    "confirmation": true
+  },
+  "article": {
+    "id": "3725413c8b564a09badf334bd24e03c9",
+    "revision": 1,
+    "updated_at": "2026-11-04T09:56:32+00:00",
+    "active": true,
+    "code": "SYN-PRICE",
+    "components": [],
+    "cost_known": false,
+    "cost_price_net": "0",
+    "currency": "EUR",
+    "kind": "material",
+    "name": "Synthetic dated item",
+    "tax_category": "S",
+    "tax_exemption_reason": "",
+    "tax_rate": "19",
+    "unit": "ST",
+    "unit_price_net": "0",
+    "price_policy": "dated_catalog"
+  },
+  "applied_detail": {
+    "id": "d0a923e1f0ed4570afdd7eb72c450889",
+    "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "catalog_revision": "SYN-1",
+    "source_version": 0,
+    "profile": "catalog_csv_v2",
+    "rows": [
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "1",
+        "price_id": "nov",
+        "price_net": "10.00",
+        "price_role": "sales_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-11-01",
+        "valid_until": "2026-11-30"
+      },
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "1",
+        "price_id": "dec",
+        "price_net": "12.00",
+        "price_role": "sales_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-12-01",
+        "valid_until": null
+      },
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "3",
+        "price_id": "buy",
+        "price_net": "1.00",
+        "price_role": "purchase_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-11-01",
+        "valid_until": null
+      }
+    ],
+    "rows_sha256": "2ed71fcf8902b36398262a1dd04834a572159378edc70c6b078defb1376edb98",
+    "original": {
+      "filename": "synthetic-v2.csv",
+      "size": 343,
+      "sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361"
+    },
+    "status": "applied",
+    "application": {
+      "bindings": [
+        {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "article_revision": 1,
+          "code": "SYN-PRICE",
+          "revision": 1,
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "unit": "ST"
+        }
+      ],
+      "created_at": "2026-11-04T00:00:00+00:00",
+      "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+      "import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+      "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+      "preview_sha256": "b40d0df56bc3d0ec815ff9036a7d9d0a84480d5948e14c3443825cc5b8801a91",
+      "prices": [
+        {
+          "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+          "revision": 1,
+          "sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12"
+        },
+        {
+          "price_id": "3512677d8bc1504c9bf685fb98a0dc5f",
+          "revision": 1,
+          "sha256": "13a8d0322d049737442aa849b615bc61abe73cd564833349786800ec1e544254"
+        },
+        {
+          "price_id": "a42f47c18436532fb0b9e8f2a926c7c9",
+          "revision": 1,
+          "sha256": "c836c133d6ca8dd7d126b35a6ea2d12f1ab92d0da74fd3b1af6e8d7a83ab69be"
+        }
+      ],
+      "request_id": "ee0ba1832de645999760ed6860758f2f",
+      "request_sha256": "0953a9fb449e481bacfad027662bfbc2d9c5b19ec9c8dd2a43a27e4c1e9a3fdb",
+      "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+      "source_version": 4
+    },
+    "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+    "created_at": "2026-11-04T00:00:00+00:00",
+    "bindings": {
+      "SYN-PRICE": {
+        "binding_revision": 1,
+        "binding_sha256": "820e30b25b98e8ae251fe2f65e2db9a6bca395f2b629eb298d777b6eb7ba3525",
+        "article": {
+          "id": "3725413c8b564a09badf334bd24e03c9",
+          "revision": 1,
+          "updated_at": "2026-11-04T09:56:32+00:00",
+          "active": true,
+          "code": "SYN-PRICE",
+          "components": [],
+          "cost_known": false,
+          "cost_price_net": "0",
+          "currency": "EUR",
+          "kind": "material",
+          "name": "Synthetic dated item",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "ST",
+          "unit_price_net": "0",
+          "price_policy": "dated_catalog"
+        }
+      }
+    },
+    "price_heads": {
+      "dec": {
+        "price_id": "3512677d8bc1504c9bf685fb98a0dc5f",
+        "revision": 1,
+        "sha256": "13a8d0322d049737442aa849b615bc61abe73cd564833349786800ec1e544254",
+        "status": "active",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "dec",
+          "price_net": "12.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-12-01",
+          "valid_until": null
+        }
+      },
+      "nov": {
+        "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "revision": 1,
+        "sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+        "status": "active",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "10.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30"
+        }
+      },
+      "buy": {
+        "price_id": "a42f47c18436532fb0b9e8f2a926c7c9",
+        "revision": 1,
+        "sha256": "c836c133d6ca8dd7d126b35a6ea2d12f1ab92d0da74fd3b1af6e8d7a83ab69be",
+        "status": "active",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "3",
+          "price_id": "buy",
+          "price_net": "1.00",
+          "price_role": "purchase_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": null
+        }
+      }
+    },
+    "current_source_version": 4
+  },
+  "history": {
+    "items": [
+      {
+        "id": "d0a923e1f0ed4570afdd7eb72c450889",
+        "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+        "catalog_revision": "SYN-1",
+        "original": {
+          "filename": "synthetic-v2.csv",
+          "size": 343,
+          "sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361"
+        },
+        "status": "applied",
+        "created_at": "2026-11-04T00:00:00+00:00",
+        "row_count": 3
+      }
+    ],
+    "total": 1,
+    "offset": 0,
+    "limit": 20
+  },
+  "candidates": {
+    "2026-11-30": {
+      "article_id": "3725413c8b564a09badf334bd24e03c9",
+      "effective_on": "2026-11-30",
+      "price_role": "sales_net",
+      "items": [
+        {
+          "price_id": "3512677d8bc1504c9bf685fb98a0dc5f",
+          "price_revision": 1,
+          "price_sha256": "13a8d0322d049737442aa849b615bc61abe73cd564833349786800ec1e544254",
+          "effective_on": "2026-11-30",
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "source_name": "Synthetic source",
+          "source_reference": "SYNTHETIC",
+          "price": {
+            "article_id": "3725413c8b564a09badf334bd24e03c9",
+            "binding_revision": 1,
+            "code": "SYN-PRICE",
+            "currency": "EUR",
+            "name": "Synthetic dated item",
+            "price_base_quantity": "1",
+            "price_id": "dec",
+            "price_net": "12.00",
+            "price_role": "sales_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-12-01",
+            "valid_until": null
+          },
+          "status": "not_yet_valid"
+        },
+        {
+          "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+          "price_revision": 1,
+          "price_sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+          "effective_on": "2026-11-30",
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "source_name": "Synthetic source",
+          "source_reference": "SYNTHETIC",
+          "price": {
+            "article_id": "3725413c8b564a09badf334bd24e03c9",
+            "binding_revision": 1,
+            "code": "SYN-PRICE",
+            "currency": "EUR",
+            "name": "Synthetic dated item",
+            "price_base_quantity": "1",
+            "price_id": "nov",
+            "price_net": "10.00",
+            "price_role": "sales_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-11-01",
+            "valid_until": "2026-11-30"
+          },
+          "status": "eligible"
+        }
+      ],
+      "managed": true
+    },
+    "2026-12-01": {
+      "article_id": "3725413c8b564a09badf334bd24e03c9",
+      "effective_on": "2026-12-01",
+      "price_role": "sales_net",
+      "items": [
+        {
+          "price_id": "3512677d8bc1504c9bf685fb98a0dc5f",
+          "price_revision": 1,
+          "price_sha256": "13a8d0322d049737442aa849b615bc61abe73cd564833349786800ec1e544254",
+          "effective_on": "2026-12-01",
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "source_name": "Synthetic source",
+          "source_reference": "SYNTHETIC",
+          "price": {
+            "article_id": "3725413c8b564a09badf334bd24e03c9",
+            "binding_revision": 1,
+            "code": "SYN-PRICE",
+            "currency": "EUR",
+            "name": "Synthetic dated item",
+            "price_base_quantity": "1",
+            "price_id": "dec",
+            "price_net": "12.00",
+            "price_role": "sales_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-12-01",
+            "valid_until": null
+          },
+          "status": "eligible"
+        },
+        {
+          "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+          "price_revision": 1,
+          "price_sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+          "effective_on": "2026-12-01",
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "source_name": "Synthetic source",
+          "source_reference": "SYNTHETIC",
+          "price": {
+            "article_id": "3725413c8b564a09badf334bd24e03c9",
+            "binding_revision": 1,
+            "code": "SYN-PRICE",
+            "currency": "EUR",
+            "name": "Synthetic dated item",
+            "price_base_quantity": "1",
+            "price_id": "nov",
+            "price_net": "10.00",
+            "price_role": "sales_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-11-01",
+            "valid_until": "2026-11-30"
+          },
+          "status": "expired"
+        }
+      ],
+      "managed": true
+    }
+  },
+  "purchase_candidates": {
+    "article_id": "3725413c8b564a09badf334bd24e03c9",
+    "effective_on": "2026-11-30",
+    "price_role": "purchase_net",
+    "items": [
+      {
+        "price_id": "a42f47c18436532fb0b9e8f2a926c7c9",
+        "price_revision": 1,
+        "price_sha256": "c836c133d6ca8dd7d126b35a6ea2d12f1ab92d0da74fd3b1af6e8d7a83ab69be",
+        "effective_on": "2026-11-30",
+        "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+        "source_name": "Synthetic source",
+        "source_reference": "SYNTHETIC",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "3",
+          "price_id": "buy",
+          "price_net": "1.00",
+          "price_role": "purchase_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": null
+        },
+        "status": "eligible"
+      }
+    ],
+    "managed": true
+  },
+  "pricing": {
+    "schema_version": 1,
+    "currency": "EUR",
+    "inputs": {
+      "base_cost_net": "0",
+      "labor_hours": "0",
+      "hourly_cost_net": "0",
+      "overhead_percent": "0",
+      "overhead_amount": "0",
+      "markup_percent": "0",
+      "markup_amount": "0",
+      "surcharge_percent": "0",
+      "surcharge_amount": "0",
+      "quantity": "1",
+      "tax_rate": "19",
+      "unit": "C62",
+      "kind": "service",
+      "components": [
+        {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "article_revision": 1,
+          "quantity": "3",
+          "price_selection": {
+            "price_id": "a42f47c18436532fb0b9e8f2a926c7c9",
+            "price_revision": 1,
+            "price_sha256": "c836c133d6ca8dd7d126b35a6ea2d12f1ab92d0da74fd3b1af6e8d7a83ab69be",
+            "effective_on": "2026-11-30"
+          }
+        }
+      ]
+    },
+    "source_articles": [
+      {
+        "id": "3725413c8b564a09badf334bd24e03c9",
+        "revision": 1,
+        "payload_sha256": "e345d5b4f8428cea78242c1b81339bcc0c05195e4700e8181965d402cc5993fb",
+        "name": "Synthetic dated item",
+        "unit": "ST",
+        "kind": "material",
+        "cost_price_net": "1.00",
+        "catalog_price_snapshot": {
+          "contract": "catalog_csv_v2",
+          "price_id": "a42f47c18436532fb0b9e8f2a926c7c9",
+          "price_revision": 1,
+          "price_sha256": "c836c133d6ca8dd7d126b35a6ea2d12f1ab92d0da74fd3b1af6e8d7a83ab69be",
+          "effective_on": "2026-11-30",
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "source_name": "Synthetic source",
+          "price": {
+            "article_id": "3725413c8b564a09badf334bd24e03c9",
+            "binding_revision": 1,
+            "code": "SYN-PRICE",
+            "currency": "EUR",
+            "name": "Synthetic dated item",
+            "price_base_quantity": "3",
+            "price_id": "buy",
+            "price_net": "1.00",
+            "price_role": "purchase_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-11-01",
+            "valid_until": null
+          },
+          "original_import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+          "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+          "line_number": 3,
+          "binding_sha256": "820e30b25b98e8ae251fe2f65e2db9a6bca395f2b629eb298d777b6eb7ba3525",
+          "snapshot_sha256": "63323a4cd92b5710fbbe5284a92189189f8d284965577d0de4ed6be8345a6c03"
+        },
+        "cost_price_base_quantity": "3"
+      }
+    ],
+    "components": [
+      {
+        "id": "3725413c8b564a09badf334bd24e03c9",
+        "revision": 1,
+        "payload_sha256": "e345d5b4f8428cea78242c1b81339bcc0c05195e4700e8181965d402cc5993fb",
+        "name": "Synthetic dated item",
+        "unit": "ST",
+        "kind": "material",
+        "cost_price_net": "1.00",
+        "catalog_price_snapshot": {
+          "contract": "catalog_csv_v2",
+          "price_id": "a42f47c18436532fb0b9e8f2a926c7c9",
+          "price_revision": 1,
+          "price_sha256": "c836c133d6ca8dd7d126b35a6ea2d12f1ab92d0da74fd3b1af6e8d7a83ab69be",
+          "effective_on": "2026-11-30",
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "source_name": "Synthetic source",
+          "price": {
+            "article_id": "3725413c8b564a09badf334bd24e03c9",
+            "binding_revision": 1,
+            "code": "SYN-PRICE",
+            "currency": "EUR",
+            "name": "Synthetic dated item",
+            "price_base_quantity": "3",
+            "price_id": "buy",
+            "price_net": "1.00",
+            "price_role": "purchase_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-11-01",
+            "valid_until": null
+          },
+          "original_import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+          "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+          "line_number": 3,
+          "binding_sha256": "820e30b25b98e8ae251fe2f65e2db9a6bca395f2b629eb298d777b6eb7ba3525",
+          "snapshot_sha256": "63323a4cd92b5710fbbe5284a92189189f8d284965577d0de4ed6be8345a6c03"
+        },
+        "cost_price_base_quantity": "3",
+        "quantity": "3",
+        "cost_net": "1.00"
+      }
+    ],
+    "unit_price_net": "1.00",
+    "unit_cost_net": "1.00",
+    "breakdown": {
+      "base_cost_net": "0.00",
+      "labor_cost_net": "0.00",
+      "component_cost_net": "1.00",
+      "direct_cost_net": "1.00",
+      "overhead_net": "0.00",
+      "markup_net": "0.00",
+      "surcharge_net": "0.00",
+      "profit_net": "0.00"
+    },
+    "totals": {
+      "net": "1.00",
+      "tax": "0.19",
+      "gross": "1.19",
+      "payable": "1.19",
+      "labor_net": "0.00",
+      "labor_tax": "0.00",
+      "labor_gross": "0.00",
+      "material_net": "0.00",
+      "material_tax": "0.00",
+      "material_gross": "0.00",
+      "by_kind": {
+        "labor": {
+          "net": "0.00",
+          "tax": "0.00",
+          "gross": "0.00"
+        },
+        "material": {
+          "net": "0.00",
+          "tax": "0.00",
+          "gross": "0.00"
+        },
+        "service": {
+          "net": "1.00",
+          "tax": "0.19",
+          "gross": "1.19"
+        },
+        "machine": {
+          "net": "0.00",
+          "tax": "0.00",
+          "gross": "0.00"
+        }
+      },
+      "tax_breakdown": [
+        {
+          "rate": "19",
+          "category": "S",
+          "reason": "",
+          "net": "1.00",
+          "tax": "0.19"
+        }
+      ],
+      "cost_net": "1.00",
+      "profit_net": "0.00",
+      "margin_percent": "0.00",
+      "markup_percent": "0.00"
+    },
+    "formula": "base + labour + components; overhead on direct cost; markup and surcharge independently on cost including overhead",
+    "requires_confirmation": true,
+    "preview_hash": "193c23d768245fff1dca383c9614f693f809329c18b77d2acc1439b5a8b2c371"
+  },
+  "document": {
+    "buyer": {
+      "address_line": "Testweg 2",
+      "city": "Berlin",
+      "country": "DE",
+      "email": "buyer@example.test",
+      "endpoint_id": "",
+      "endpoint_scheme": "",
+      "name": "Synthetic Buyer",
+      "postal_code": "10117",
+      "vat_id": ""
+    },
+    "buyer_reference": "TEST-BUYER",
+    "currency": "EUR",
+    "due_date": "2030-01-24",
+    "intro": "",
+    "issue_date": "2030-01-10",
+    "kind": "offer",
+    "notes": "",
+    "positions": [
+      {
+        "article_id": "3725413c8b564a09badf334bd24e03c9",
+        "article_revision": 1,
+        "catalog_price_snapshot": {
+          "binding_sha256": "820e30b25b98e8ae251fe2f65e2db9a6bca395f2b629eb298d777b6eb7ba3525",
+          "contract": "catalog_csv_v2",
+          "effective_on": "2026-11-30",
+          "line_number": 1,
+          "original_import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+          "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+          "price": {
+            "article_id": "3725413c8b564a09badf334bd24e03c9",
+            "binding_revision": 1,
+            "code": "SYN-PRICE",
+            "currency": "EUR",
+            "name": "Synthetic dated item",
+            "price_base_quantity": "1",
+            "price_id": "nov",
+            "price_net": "10.00",
+            "price_role": "sales_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-11-01",
+            "valid_until": "2026-11-30"
+          },
+          "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+          "price_revision": 1,
+          "price_sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+          "snapshot_sha256": "d5fa137a10ce95735413636d7809e67cabd35de85c43770c281d54757b272f8a",
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "source_name": "Synthetic source"
+        },
+        "code": "SYN-PRICE",
+        "components": [],
+        "description": "Synthetic dated item",
+        "discount_percent": "0",
+        "id": "1d16b56444b2491e8868757497a70560",
+        "index": 1,
+        "kind": "material",
+        "net": "30.00",
+        "price_base_quantity": "1",
+        "quantity": "3",
+        "tax_category": "S",
+        "tax_exemption_reason": "",
+        "tax_rate": "19",
+        "unit": "ST",
+        "unit_price_net": "10.00"
+      }
+    ],
+    "previous_document_ids": [],
+    "project_id": "9665310f10344fdb9ba04c3bc6e31731",
+    "title": "Synthetisches Angebot",
+    "totals": {
+      "by_kind": {
+        "labor": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "machine": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        },
+        "material": {
+          "gross": "35.70",
+          "net": "30.00",
+          "tax": "5.70"
+        },
+        "service": {
+          "gross": "0.00",
+          "net": "0.00",
+          "tax": "0.00"
+        }
+      },
+      "gross": "35.70",
+      "labor_gross": "0.00",
+      "labor_net": "0.00",
+      "labor_tax": "0.00",
+      "material_gross": "35.70",
+      "material_net": "30.00",
+      "material_tax": "5.70",
+      "net": "30.00",
+      "payable": "35.70",
+      "tax": "5.70",
+      "tax_breakdown": [
+        {
+          "category": "S",
+          "net": "30.00",
+          "rate": "19",
+          "reason": "",
+          "tax": "5.70"
+        }
+      ]
+    },
+    "id": "60daf9b2584b44c6bc69d58707651d52",
+    "customer_id": "f7276609ef4a408c8a0fd3a316a117fa",
+    "status": "draft",
+    "revision": 1,
+    "number": null,
+    "updated_at": "2030-01-10T12:00:00+00:00",
+    "finalized_at": null,
+    "payload_sha256": "8037aa383252eafc03cf1df75e410ed1ac2524f437fd1e15202686955cf906df"
+  },
+  "correction_detail": {
+    "id": "908071d99e0941a0b0b0799801ced9a5",
+    "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "catalog_revision": "SYN-2",
+    "source_version": 4,
+    "profile": "catalog_csv_v2",
+    "rows": [
+      {
+        "code": "SYN-PRICE",
+        "currency": "EUR",
+        "name": "Synthetic dated item",
+        "price_base_quantity": "1",
+        "price_id": "nov",
+        "price_net": "11.00",
+        "price_role": "sales_net",
+        "tax_rate": "19",
+        "unit": "ST",
+        "valid_from": "2026-11-01",
+        "valid_until": "2026-11-30"
+      }
+    ],
+    "rows_sha256": "bd08b93e6dfd0a776db98136bf618e9039e143603bbb33465a17589553072bee",
+    "original": {
+      "filename": "synthetic-v2.csv",
+      "size": 191,
+      "sha256": "c6b2b5b1aaa4f7b2e5908070a541e30619fa792939fb51a668dd30c2b37c21e1"
+    },
+    "status": "staged",
+    "application": null,
+    "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+    "created_at": "2026-11-04T00:00:00+00:00",
+    "bindings": {
+      "SYN-PRICE": {
+        "binding_revision": 1,
+        "binding_sha256": "820e30b25b98e8ae251fe2f65e2db9a6bca395f2b629eb298d777b6eb7ba3525",
+        "article": {
+          "id": "3725413c8b564a09badf334bd24e03c9",
+          "revision": 1,
+          "updated_at": "2026-11-04T09:56:32+00:00",
+          "active": true,
+          "code": "SYN-PRICE",
+          "components": [],
+          "cost_known": false,
+          "cost_price_net": "0",
+          "currency": "EUR",
+          "kind": "material",
+          "name": "Synthetic dated item",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "ST",
+          "unit_price_net": "0",
+          "price_policy": "dated_catalog"
+        }
+      }
+    },
+    "price_heads": {
+      "nov": {
+        "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "revision": 1,
+        "sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+        "status": "active",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "10.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30"
+        }
+      }
+    },
+    "current_source_version": 4
+  },
+  "correction_decisions": {
+    "expected_source_version": 4,
+    "bindings": {
+      "SYN-PRICE": {
+        "action": "bind",
+        "article_id": "3725413c8b564a09badf334bd24e03c9",
+        "article_revision": 1,
+        "expected_binding_revision": 1,
+        "confirm_name_difference": false
+      }
+    },
+    "replacements": {
+      "nov": {
+        "revision": 1,
+        "sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12"
+      }
+    }
+  },
+  "correction_required": {
+    "import_id": "908071d99e0941a0b0b0799801ced9a5",
+    "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "source_version": 4,
+    "original_sha256": "c6b2b5b1aaa4f7b2e5908070a541e30619fa792939fb51a668dd30c2b37c21e1",
+    "rows_sha256": "bd08b93e6dfd0a776db98136bf618e9039e143603bbb33465a17589553072bee",
+    "decisions": {
+      "expected_source_version": 4,
+      "bindings": {
+        "SYN-PRICE": {
+          "action": "bind",
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "article_revision": 1,
+          "expected_binding_revision": 1,
+          "confirm_name_difference": false
+        }
+      },
+      "replacements": {}
+    },
+    "bindings": [
+      {
+        "code": "SYN-PRICE",
+        "action": "bind",
+        "article_id": "3725413c8b564a09badf334bd24e03c9",
+        "article_revision": 1,
+        "binding_revision": 1,
+        "binding_changed": false,
+        "before_article": {
+          "id": "3725413c8b564a09badf334bd24e03c9",
+          "revision": 1,
+          "updated_at": "2026-11-04T09:56:32+00:00",
+          "active": true,
+          "code": "SYN-PRICE",
+          "components": [],
+          "cost_known": false,
+          "cost_price_net": "0",
+          "currency": "EUR",
+          "kind": "material",
+          "name": "Synthetic dated item",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "ST",
+          "unit_price_net": "0",
+          "price_policy": "dated_catalog"
+        },
+        "name": "Synthetic dated item",
+        "unit": "ST"
+      }
+    ],
+    "rows": [
+      {
+        "line_number": 1,
+        "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "external_price_id": "nov",
+        "action": "correct",
+        "revision": 2,
+        "previous_hash": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+        "before": {
+          "created_at": "2026-11-04T00:00:00+00:00",
+          "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+          "id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+          "line_number": 1,
+          "original_import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+          "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+          "previous_hash": "",
+          "price": {
+            "article_id": "3725413c8b564a09badf334bd24e03c9",
+            "binding_revision": 1,
+            "code": "SYN-PRICE",
+            "currency": "EUR",
+            "name": "Synthetic dated item",
+            "price_base_quantity": "1",
+            "price_id": "nov",
+            "price_net": "10.00",
+            "price_role": "sales_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-11-01",
+            "valid_until": "2026-11-30"
+          },
+          "revision": 1,
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "status": "active"
+        },
+        "price": {
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "11.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30",
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1
+        }
+      }
+    ],
+    "required_replacements": [
+      {
+        "external_price_id": "nov",
+        "revision": 1,
+        "sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12"
+      }
+    ],
+    "ready": false,
+    "preview_sha256": "49763139cfea3e6d934945cc34df9f14597175374eb8151b6f780400c41b830d"
+  },
+  "correction_preview": {
+    "import_id": "908071d99e0941a0b0b0799801ced9a5",
+    "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "source_version": 4,
+    "original_sha256": "c6b2b5b1aaa4f7b2e5908070a541e30619fa792939fb51a668dd30c2b37c21e1",
+    "rows_sha256": "bd08b93e6dfd0a776db98136bf618e9039e143603bbb33465a17589553072bee",
+    "decisions": {
+      "expected_source_version": 4,
+      "bindings": {
+        "SYN-PRICE": {
+          "action": "bind",
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "article_revision": 1,
+          "expected_binding_revision": 1,
+          "confirm_name_difference": false
+        }
+      },
+      "replacements": {
+        "nov": {
+          "revision": 1,
+          "sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12"
+        }
+      }
+    },
+    "bindings": [
+      {
+        "code": "SYN-PRICE",
+        "action": "bind",
+        "article_id": "3725413c8b564a09badf334bd24e03c9",
+        "article_revision": 1,
+        "binding_revision": 1,
+        "binding_changed": false,
+        "before_article": {
+          "id": "3725413c8b564a09badf334bd24e03c9",
+          "revision": 1,
+          "updated_at": "2026-11-04T09:56:32+00:00",
+          "active": true,
+          "code": "SYN-PRICE",
+          "components": [],
+          "cost_known": false,
+          "cost_price_net": "0",
+          "currency": "EUR",
+          "kind": "material",
+          "name": "Synthetic dated item",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "ST",
+          "unit_price_net": "0",
+          "price_policy": "dated_catalog"
+        },
+        "name": "Synthetic dated item",
+        "unit": "ST"
+      }
+    ],
+    "rows": [
+      {
+        "line_number": 1,
+        "price_id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "external_price_id": "nov",
+        "action": "correct",
+        "revision": 2,
+        "previous_hash": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+        "before": {
+          "created_at": "2026-11-04T00:00:00+00:00",
+          "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+          "id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+          "line_number": 1,
+          "original_import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+          "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+          "previous_hash": "",
+          "price": {
+            "article_id": "3725413c8b564a09badf334bd24e03c9",
+            "binding_revision": 1,
+            "code": "SYN-PRICE",
+            "currency": "EUR",
+            "name": "Synthetic dated item",
+            "price_base_quantity": "1",
+            "price_id": "nov",
+            "price_net": "10.00",
+            "price_role": "sales_net",
+            "tax_rate": "19",
+            "unit": "ST",
+            "valid_from": "2026-11-01",
+            "valid_until": "2026-11-30"
+          },
+          "revision": 1,
+          "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+          "status": "active"
+        },
+        "price": {
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "11.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30",
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1
+        }
+      }
+    ],
+    "required_replacements": [],
+    "ready": true,
+    "preview_sha256": "8b610e71bef07c18d26c58f7f0f51bd8adc0fa964aa6e61b4429bcb8c5db0d14"
+  },
+  "price_history": {
+    "items": [
+      {
+        "created_at": "2026-11-04T00:00:00+00:00",
+        "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+        "id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "line_number": 1,
+        "original_import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+        "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+        "previous_hash": "",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "10.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30"
+        },
+        "revision": 1,
+        "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+        "status": "active",
+        "sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12"
+      }
+    ]
+  },
+  "withdrawn": {
+    "created_at": "2026-11-04T00:00:00+00:00",
+    "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+    "id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+    "line_number": 1,
+    "original_import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+    "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+    "previous_hash": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+    "price": {
+      "article_id": "3725413c8b564a09badf334bd24e03c9",
+      "binding_revision": 1,
+      "code": "SYN-PRICE",
+      "currency": "EUR",
+      "name": "Synthetic dated item",
+      "price_base_quantity": "1",
+      "price_id": "nov",
+      "price_net": "10.00",
+      "price_role": "sales_net",
+      "tax_rate": "19",
+      "unit": "ST",
+      "valid_from": "2026-11-01",
+      "valid_until": "2026-11-30"
+    },
+    "revision": 2,
+    "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+    "status": "withdrawn",
+    "reason": "Synthetic native withdrawal",
+    "request_id": "1434b91051f3438d9847e16f0d352d11",
+    "request_sha256": "5d6ee593754dc54d798ef2a08d1a04616363f804a708cc479a20c6d28cf27969",
+    "sha256": "67fa2f59ae3b88ddfc37ff3d7107d950eaddd04d6e613776b01f8bdc0c6aff83"
+  },
+  "withdrawn_history": {
+    "items": [
+      {
+        "created_at": "2026-11-04T00:00:00+00:00",
+        "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+        "id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "line_number": 1,
+        "original_import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+        "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+        "previous_hash": "",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "10.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30"
+        },
+        "revision": 1,
+        "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+        "status": "active",
+        "sha256": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12"
+      },
+      {
+        "created_at": "2026-11-04T00:00:00+00:00",
+        "created_by": "980b1f7fbaa14577997868a6d7d24fea",
+        "id": "63e30aa9ca535fb7af1e1d3b8c443fb1",
+        "line_number": 1,
+        "original_import_id": "d0a923e1f0ed4570afdd7eb72c450889",
+        "original_sha256": "968b99ab0ee285e8b3823c779bf2a3a8c50651a737dfba591bf8bee57ebbf361",
+        "previous_hash": "333cc859cc62760da8371c185a85b1ca9c62d219a4a42e462c6dcc1b928b3d12",
+        "price": {
+          "article_id": "3725413c8b564a09badf334bd24e03c9",
+          "binding_revision": 1,
+          "code": "SYN-PRICE",
+          "currency": "EUR",
+          "name": "Synthetic dated item",
+          "price_base_quantity": "1",
+          "price_id": "nov",
+          "price_net": "10.00",
+          "price_role": "sales_net",
+          "tax_rate": "19",
+          "unit": "ST",
+          "valid_from": "2026-11-01",
+          "valid_until": "2026-11-30"
+        },
+        "reason": "Synthetic native withdrawal",
+        "request_id": "1434b91051f3438d9847e16f0d352d11",
+        "request_sha256": "5d6ee593754dc54d798ef2a08d1a04616363f804a708cc479a20c6d28cf27969",
+        "revision": 2,
+        "source_id": "cf0fe71055c94da4a3aed9f149a5508c",
+        "status": "withdrawn",
+        "sha256": "67fa2f59ae3b88ddfc37ff3d7107d950eaddd04d6e613776b01f8bdc0c6aff83"
+      }
+    ]
+  }
+}

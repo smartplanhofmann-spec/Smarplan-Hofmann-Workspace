@@ -1,0 +1,20 @@
+test_bank_connection_added_after_confirmation_cannot_hide_conflicting_first_balance (test_business_accounting_openings_review.OpeningIndependentReview.test_bank_connection_added_after_confirmation_cannot_hide_conflicting_first_balance) ... ok
+test_closed_period_blocks_new_opening_revision_but_preserves_original_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_closed_period_blocks_new_opening_revision_but_preserves_original_replay) ... ok
+test_current_bank_rights_apply_to_original_history_liquidity_and_accepted_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_current_bank_rights_apply_to_original_history_liquidity_and_accepted_replay) ... ok
+test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay) ... ok
+test_new_profile_does_not_relabel_old_opening_or_mutate_original_receipt (test_business_accounting_openings_review.OpeningIndependentReview.test_new_profile_does_not_relabel_old_opening_or_mutate_original_receipt) ... ok
+test_pending_financial_restore_does_not_advertise_reconciled_liquidity (test_business_accounting_openings_review.OpeningIndependentReview.test_pending_financial_restore_does_not_advertise_reconciled_liquidity) ... FAIL
+test_start_day_is_included_prior_cash_not_counted_twice_and_euer_stays_identical (test_business_accounting_openings_review.OpeningIndependentReview.test_start_day_is_included_prior_cash_not_counted_twice_and_euer_stays_identical) ... ok
+
+======================================================================
+FAIL: test_pending_financial_restore_does_not_advertise_reconciled_liquidity (test_business_accounting_openings_review.OpeningIndependentReview.test_pending_financial_restore_does_not_advertise_reconciled_liquidity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-financial-opening-20261104/backend/test_business_accounting_openings_review.py", line 106, in test_pending_financial_restore_does_not_advertise_reconciled_liquidity
+    self.assertIn('restore_reconciliation_pending',[value['code'] for value in self.account(report)['issues']])
+AssertionError: 'restore_reconciliation_pending' not found in []
+
+----------------------------------------------------------------------
+Ran 7 tests in 3.699s
+
+FAILED (failures=1)

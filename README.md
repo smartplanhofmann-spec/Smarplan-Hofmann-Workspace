@@ -25,8 +25,8 @@ Sprachentwürfe, Dateiimport, Unternehmensarchiv, freie Zusatzfelder,
 Datenschutzfälle, belegte Lohnzahlungen zur EÜR, Bankabgleich, Kundenservice und
 Betriebsmittel. Midijob-Vollmonate sind in beiden Oberflächen geprüft;
 Lieferantenretouren und die zusätzliche Unternehmensprovisionierung haben ihre
-Fach-/Gegenprüfungen bestanden. Der zuletzt vollständig eingefrorene und
-breit geprüfte Integrationsstand ist lokal als `2fdfa9f` gesichert.
+Fach-/Gegenprüfungen bestanden. Der Source4-Integrationsstand ist lokal als `5d9e7fd` gesichert;
+der nachfolgende geprüfte Checkpoint ergänzt Anfangssalden und Katalogoriginale.
 Belegte Lohnzeitachsen und einfache Teilmonate sind
 inzwischen im Backend, PostgreSQL und beiden Clients geprüft
 ([Teilmonate](docs/CRM_ERP_LOHN_TEILMONATE_2026.md),
@@ -35,9 +35,17 @@ inzwischen im Backend, PostgreSQL und beiden Clients geprüft
 für v1–v5 geprüft. Reisepauschalen besitzen eine tatsächliche
 Zahlungs-/EÜR-/Bankkette. Die v5 verbindet mehrteilige Lohnfälle, belegte
 Ansprüche und Reise-Lohnwerte; Reise-v3 ergänzt Mischreisen und Boden-Zeitzonen.
-Aktuell werden Jahresquellen, Unterbrechungen, Nullnetto und die neue
-Source4-Kette für Einmalbezüge zusammengeführt. Deren laufende Änderungen
-liegen außerhalb des genannten eingefrorenen Nachweises.
+Jahresquellen, Unterbrechungen, Nullnetto und die reguläre Source4-Kette für
+Einmalbezüge sind inzwischen gemeinsam geprüft:
+[1.508 Backend-, 473 JavaScript- und 1.103 Fluttertests sowie 16 Paketprüfungen](docs/CRM_ERP_SOURCE4_GESAMTPRUEFUNG_2026-11-04.md).
+Ein Windows-spezifischer Backendtest blieb unter Linux ausgelassen.
+Belegte Konto-Anfangssalden in beiden Oberflächen und der vollständige Browser-
+Katalogimport sind jetzt gemeinsam geprüft: [1.565 bestandene Backendtests,
+522 Node- und 1.118 Fluttertests, 16 Paketprüfungen sowie tatsächliche
+PostgreSQL-/Restore- und Browserabläufe](docs/CRM_ERP_ANFANGSSALDEN_KATALOG_GESAMTPRUEFUNG_2026-11-04.md).
+Aktiv entstehen Source5-Lohn-/Zahlungsfälle, historische Anlagen, datierte
+Katalogpreise und die native Kataloghistorie. Diese weiteren Änderungen
+liegen außerhalb des neuen eingefrorenen Gesamtnachweises.
 Das Gesamtziel ist noch nicht erreicht.
 
 Verbindlicher Unternehmensrahmen: Einzelunternehmen mit EÜR, Regelbesteuerung,

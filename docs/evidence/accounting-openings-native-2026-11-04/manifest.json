@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "workspace": "/workspace/smartplan-financial-opening-20261104",
+  "scope": "Native Flutter evidenced opening balances, exact liquidity and immutable history; no deployment or full CRM/ERP completion claim",
+  "status": "passed",
+  "focused_runner": "PATH=/workspace/toolchains/clang-19/bin:$PATH PUB_CACHE=/workspace/toolchains/pub-cache SMARTPLAN_TEST_PYTHON=/tmp/smartplan-backend-verified/bin/python /workspace/toolchains/flutter/bin/flutter test --no-pub --concurrency=1 test/business_accounting_openings_test.dart test/business_accounting_openings_lifecycle_test.dart test/business_accounting_openings_http_widget_test.dart",
+  "checks": [
+    {
+      "name": "Native actual fixture, receipt, large aggregate and retry contracts",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "path": "app/test/business_accounting_openings_test.dart",
+      "log": "docs/evidence/accounting-openings-native-2026-11-04/focused-final.txt"
+    },
+    {
+      "name": "Native widget lifecycle and immutable bank source tests",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "path": "app/test/business_accounting_openings_lifecycle_test.dart",
+      "log": "docs/evidence/accounting-openings-native-2026-11-04/focused-final.txt"
+    },
+    {
+      "name": "Actual native HTTP workflow at 390x844",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "path": "app/test/business_accounting_openings_http_widget_test.dart",
+      "log": "docs/evidence/accounting-openings-native-2026-11-04/focused-final.txt"
+    },
+    {
+      "name": "Existing accounting, EÜR, bank reconciliation, BusinessSession and profile-session regressions",
+      "passed": 73,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/evidence/accounting-openings-native-2026-11-04/regressions.txt",
+      "runner": "flutter test --no-pub test/business_accounting_test.dart test/business_accounting_euer_test.dart test/business_bank_reconciliation_test.dart test/business_session_test.dart test/business_accounting_profile_session_test.dart",
+      "timing": "After native lifecycle/rights fixes and before isolated aggregate arithmetic adjustment; final focused suite rerun after aggregate adjustment"
+    },
+    {
+      "name": "Dart analyzer for all five owned runtime/integration files and three new test files",
+      "issues": 0,
+      "log": "docs/evidence/accounting-openings-native-2026-11-04/analyze-final.txt"
+    }
+  ],
+  "source_sha256": {
+    "app/lib/business_accounting_openings.dart": "2ec19d04d768ca2adff3af7b6169bf8038bbfb77a384c34305268a3a2e6cd5b8",
+    "app/lib/business_accounting_openings_contract.dart": "cf5b83d5de3844e4747c3db5b63325a7d3a94c3f6b1fd5b011ca20bb68a75b0a",
+    "app/lib/business_session.dart": "ab9400d0ec005fe6f83c147dcaf6e14625318051dc2f2b73f2830a41cc7306fa",
+    "app/lib/business_accounting.dart": "18cac53771021f9a27017f99b1d39f55bc4729002c611bf3f472e8aff5925520",
+    "app/lib/business_accounting_euer.dart": "1d4d9db902a5e699eecda9a0f01cc1fcaae16ea462c523502c8fde33a7825ff0",
+    "app/test/business_accounting_openings_test.dart": "978a698f289f750b4ab40327470146203b44f509fc6409f8d0ed6eb2e3b9f906",
+    "app/test/business_accounting_openings_lifecycle_test.dart": "df25cde1ac46c75130ad39500cab4f707be8b5ada7617764434428381d269a8e",
+    "app/test/business_accounting_openings_http_widget_test.dart": "43eb71112a1eb7f37a2702e703d3f6c4218147aa64e07c509544a8dd124e1a0b",
+    "app/test/fixtures/accounting_openings_2026.json": "ac3f212b8503b9449973a623bbe33fd36c2ff5ac25f9365da0bb802e3473009d",
+    "app/test/fixtures/accounting_openings_large_balances_2026.json": "aefbb0e3af79baa1a62a759f2a9108b30204304fd883728680c74b2c4ead70b5"
+  },
+  "limits": [
+    "Synthetic loopback WSGI create_app using trusted host/HTTPS proxy envelope, actual API/database operations and permission withdrawal; does not claim independent native MFA-enrolment testing",
+    "Actual temporary PDF bytes, injected picker and export target; no real OS document picker or export location was exercised",
+    "Only recorded movements and evidenced opening balances are represented; no actual company figures assumed",
+    "Main repository is frozen and unmodified by this task; root must integrate and run combined checks"
+  ],
+  "review_fixes": [
+    "Selected bank statement amount automatically retained as immutable exact source value",
+    "Final current rights and state check after held source and preview responses",
+    "Background lifecycle clears private state and requires explicit reload; late response cannot restore it",
+    "Single inputs, individual movements and statement balances retain 11 integer digits; derived aggregates use canonical exact BigInt"
+  ],
+  "confirmed_large_balances": [
+    "100000000118.99",
+    "-100000000059.49"
+  ],
+  "production_contacts": false,
+  "assumed_business_balances": false,
+  "evidence_sha256": {
+    "docs/evidence/accounting-openings-native-2026-11-04/analyze-final.txt": "867b0a0f7c4ba3432a04046f4eb0b2f43376b8d193f69b11db293f4fefe86d3a",
+    "docs/evidence/accounting-openings-native-2026-11-04/focused-final.txt": "84651ccafaa5cb7d97554576333a0b8a2fcb683f0fab96900a19f6709dce799a",
+    "docs/evidence/accounting-openings-native-2026-11-04/focused-before-aggregate-review.txt": "98837f442ff99fca134554c887c7b1a65a4982fb81abbc17249f1b9bcbf8e157",
+    "docs/evidence/accounting-openings-native-2026-11-04/regressions.txt": "bc82f14648dd55484abacf59a3cd20041cd9b88f775fc3d14f79b6925f1d9367",
+    "docs/evidence/accounting-openings-native-2026-11-04/analyze-before-aggregate-review.txt": "867b0a0f7c4ba3432a04046f4eb0b2f43376b8d193f69b11db293f4fefe86d3a"
+  }
+}

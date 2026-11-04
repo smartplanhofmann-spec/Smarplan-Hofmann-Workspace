@@ -169,7 +169,10 @@ class TravelFinanceTests(unittest.TestCase):
     def test_restore_adds_exact_travel_scope_and_preserves_old_bank_evidence(self):
         self.paid()
         current = financial_accounting_horizon(self.office)
-        self.assertEqual(current['schema_version'], 11)
+        self.assertEqual(current['schema_version'], 12)
+        _validate_financial_accounting_horizon(current, 13)
+        current = {key: value for key, value in current.items() if key != 'opening_balances'}
+        current['schema_version'] = 11
         self.assertEqual(set(current['travel_cash']['table_counts']), set(TABLES))
         _validate_financial_accounting_horizon(current, 12)
         old = {key: value for key, value in current.items() if key != 'travel_cash'}

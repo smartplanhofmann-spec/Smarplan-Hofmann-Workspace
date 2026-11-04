@@ -238,6 +238,88 @@ class BusinessSession extends ChangeNotifier {
               .map((entry) => entry.key),
         );
 
+  List<String> get pendingOpeningKeys => !allowed
+      ? const []
+      : List.unmodifiable(
+          _pending.entries
+              .where(
+                (entry) =>
+                    entry.key.startsWith('accounting-opening-') &&
+                    const [
+                      '/accounting/opening-balances/originals',
+                      '/accounting/opening-balances/confirm',
+                    ].contains(entry.value.path),
+              )
+              .map((entry) => entry.key),
+        );
+
+  void _requireOpeningRights() {
+    if (projectId != null ||
+        !hasFeature('accounting_opening_balances') ||
+        !hasModule('accounting_openings') ||
+        !['accounting.read', 'finance.read', 'bank.read'].every(can) ||
+        ![
+          'accounting.admin',
+          'accounting.prepare',
+          'finance.write',
+        ].every(canWrite)) {
+      throw const ApiException(
+        403,
+        'Aktuelle globale Rechte für Anfangsbestände fehlen.',
+      );
+    }
+    if (!sectionEnabled('finance'))
+      throw const ApiException(423, 'Finanzen ist fachlich deaktiviert.');
+  }
+
+  Future<dynamic> repeatOpeningCommand(String key) => _repeatWorkflowCommand(
+    key,
+    matches: (path) =>
+        key.startsWith('accounting-opening-') &&
+        const [
+          '/accounting/opening-balances/originals',
+          '/accounting/opening-balances/confirm',
+        ].contains(path),
+    requireRights: _requireOpeningRights,
+    readPath: '/accounting/opening-balances',
+    verifyState: (state) {
+      if (state['schema_version'] != 1 ||
+          state['rule_version'] != 'account_opening_balances_v1' ||
+          state['can_prepare'] != true) {
+        throw const ApiException(
+          423,
+          'Anfangsbestände sind derzeit nicht zur Bearbeitung freigegeben.',
+        );
+      }
+      // Do not replace the original account/profile revisions or nonce. The
+      // server checks the saved receipt before evaluating a new journal effect.
+    },
+  );
+
+  Future<dynamic> previewOpeningBalance(Map<String, dynamic> values) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    _requireOpeningRights();
+    final capturedGeneration = generation;
+    try {
+      final result = await api.call(
+        path('/accounting/opening-balances/preview'),
+        Map<String, dynamic>.from(jsonDecode(jsonEncode(values))),
+      );
+      _guard(epoch);
+      _requireOpeningRights();
+      if (generation != capturedGeneration)
+        throw const ApiException(
+          409,
+          'Der Funktionsstand wurde geändert. Bitte neu prüfen.',
+        );
+      return result;
+    } on ApiException catch (error) {
+      if (error.status == 401) revoke();
+      rethrow;
+    }
+  }
+
   /// A detached copy of the exact unacknowledged input, held only in this
   /// authenticated session. Source/account versions must survive editor reopen.
   Map<String, dynamic>? pendingCommandValues(
@@ -2069,6 +2151,11 @@ class BusinessSession extends ChangeNotifier {
       r'^/accounting/(components|refunds)/(?:v2/)?events/([a-f0-9]{32})/confirm$',
     ).firstMatch(path);
     final documentaryCommand =
+        (key.startsWith('accounting-opening-') &&
+            const [
+              '/accounting/opening-balances/originals',
+              '/accounting/opening-balances/confirm',
+            ].contains(path)) ||
         _projectReceiptCommand(key, path) ||
         path.startsWith('/customer-workspace/') ||
         path.startsWith('/personnel/') ||

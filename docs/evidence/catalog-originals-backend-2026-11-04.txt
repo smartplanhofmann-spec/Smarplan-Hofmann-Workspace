@@ -1,0 +1,99 @@
+Lieferantenkatalog: additive Originale, Historie und Annahmenachweise
+Prüfdatum: 2026-11-04 (UTC)
+Arbeitsbaum: /workspace/smartplan-catalog-browser-20261104
+Ausgangsbasis: 2fdfa9f
+
+Neue, additive Migration: business_catalog_imports, Version 1.
+Die bestehenden business_adapters-Schemadefinitionen, Runzeilen und
+Idempotenzquittungen werden durch die Migration nicht verändert.
+Bereits vorhandene Importvorgänge erhalten ausschließlich einen separaten
+Altbestandsmarker. Ihre Originaldateien gelten ausdrücklich als nicht gespeichert.
+
+Neue CSV-v1-/DATANORM-A14-Importe speichern die tatsächlichen Uploadbytes,
+Dateiname, Original-/Positionshash und die exakt angenommene Importanfrage.
+Die bestehenden Größen-/Formatgrenzen bleiben bestehen (maximal 2 MiB).
+Annahmen erhalten einen separaten unveränderlichen Beleg mit Originalhash,
+Anfragehash, expliziter DATANORM-Preiszuordnung und erzeugten Artikelversionen.
+Der Integritätsabgleich prüft auch die tatsächlich angenommenen Artikelwerte.
+Ein fehlendes neues Original oder ein fehlender neuer Annahmenachweis sperrt
+Detail, Originalabruf und erneute Verarbeitung; es erfolgt keine Altbestandannahme.
+
+Neue GET-Verträge:
+  /business/adapters/{adapter_id}/imports?offset=0&limit=20
+  /business/adapters/imports/{run_id}
+  /business/adapters/imports/{run_id}/original
+Historie: maximal 50 Zusammenfassungen pro Seite; keine Originalbytes im JSON.
+Alle drei Abrufe verlangen aktuelle globale settings.manage und finance.read.
+Downloads verwenden application/octet-stream mit Attachment-Dateinamen.
+Der vorhandene Unternehmensexport übernimmt die echten Original-BLOBs.
+
+Zusätzlicher nur lesender POST-Vertrag:
+  /business/adapters/imports/{run_id}/catalog-preview
+CSV: leerer JSON-Auftrag. DATANORM: genau price_scale, target_price, tax_rate.
+Kein request_id, keine Quittung, keine Artikel-/Audit-/temporären Datenbankwrites.
+Antwort: run_id, source_sha256, profile, price_mapping, rows und preview_sha256.
+Je Position: code, action=create/update/noop, article_id/revision der gebundenen
+Basis oder null, before und after als vollständige fachliche Artikelpayloads.
+Auch bei deaktiviertem Fachmodul oder globalem Kompatibilitäts-Lesemodus erlaubt;
+settings.manage und finance.read bleiben erforderlich. Annahmerechte bleiben separat.
+
+Konkreter unabhängiger Befund und Korrektur der Vorschau:
+CSV annehmen, am Artikel cost_known=false setzen, identische CSV erneut prüfen.
+Das bestehende V1 überspringt eine Artikeländerung bei identischem Quellwertehash;
+cost_known bleibt false. Eine allein aus save_article abgeleitete Browservorschau
+hatte dagegen true angezeigt. Der neue Endpunkt verwendet die unveränderte
+V1-Zeilenentscheidung über den gemeinsam extrahierten _catalog_line-Helper.
+Bei noop sind before und after identisch; nur tatsächliche Updates normalisieren
+cost_known, entfernen pricing_snapshot und prüfen Material-/Lager-/Steuervorgaben.
+
+Prüfung:
+  cd backend
+  /tmp/smartplan-backend-verified/bin/python -m unittest -q \
+    test_business_catalog_imports test_business_adapters test_business_schema \
+    test_business_company_handover test_business_organization test_business_api
+Finales Ergebnis nach Vorschauergänzung: 99 Tests, 15.161 Sekunden, OK.
+Davon 17 neue gezielte Original-/Historien-/Migrations-/Vorschaufälle.
+Die bestehende Archiv-Negativprüfung erzeugt erwartungsgemäß die Warnung
+"Duplicate name: README.txt"; kein Testfehler.
+
+Neue Gegenfälle prüfen insbesondere tatsächliche CSV-/CP850-Bytes, exaktes Replay
+nach Datenbankneustart, alte Vorgänge ohne erfundene Originale, frischen Rechteentzug,
+unbekannte Filter, Dateipfade, Übergröße, atomaren Rollback nach Original-/Annahme-
+Speicherung, unveränderliche Speicherung, fehlende/veränderte Originale, umgebundene
+Artikelversionen, fehlende Annahmen, weiter gültige historische Artikel nach späterer
+Preisänderung, identische Bytes bei äquivalenter Base64-Schreibweise und unveränderte
+Checksummen bereits installierter Module bei additiver Installation.
+Zusätzlich wurden tatsächliche Artikelpayloads nach create/update/noop und
+DATANORM-Übernahme unabhängig mit den Vorschaupayloads verglichen; db.total_changes
+bleibt bei Vorschau unverändert. Schreibrechteentzug, Fachmodul-Deaktivierung und
+globaler Lesemodus wurden getrennt geprüft.
+
+Fünf echte synthetische SQLite-Vorschauen für unabhängige Browservertragsprüfungen:
+  web/office/tests/fixtures/catalog-import-previews.json
+  CSV create/update/noop(cost_known=false), DATANORM Half-up/create und
+  DATANORM update mit erhaltenem Verkaufspreis.
+
+Unabhängige UI-Callback-/OfficeApi-Prüfung:
+  cd web/office
+  node --test-isolation=none --test tests/catalog-imports-review.test.mjs
+Ergebnis: 10 Tests, 10 grün. Geprüft werden verspätete Dateibytes/Dateifehler,
+Importantworten/Importfehler, readonly-Vorschau nach Background und anschließend
+neu geöffnetem Dialog, echter Pending-Auftrag nach verlorenem Import-/Annahme-ACK,
+gleichbleibende request_id nach Wiederöffnung und aktueller Schreibrechteentzug.
+Zwei ergänzte Fälle halten die readonly-Servervorschau an, entziehen anschließend
+nur finance.write beziehungsweise deaktivieren documents.enabled bei erhaltenem
+Leserecht und geben die verspätete Antwort frei. Beide alten Editoren schließen;
+keine Annahmeschaltfläche und kein Annahme-POST bleiben zurück.
+Gezielte Negativkontrolle: In einer ausschließlich unter /tmp angelegten Kopie
+des Browsermoduls wurde nur die neu ergänzte editing/write-Prüfung aus fresh()
+entfernt. Beide Fälle wurden rot: Der alte Dialogtitel blieb sichtbar. Die
+Produktdatei wurde für diese Gegenprobe nicht verändert. Mit dem tatsächlichen
+Produktmodul sind beide Fälle und die acht übrigen Lifecyclefälle grün.
+Der kleine DOM-Harness ersetzt keine tatsächliche Chromium-/Layoutprüfung.
+
+Zusätzlich: git diff --check und Python compileall für neue/geänderte Fachmodule
+und neue Tests erfolgreich.
+
+Grenze: Diese Prüfung umfasst lokale echte SQLite-Datenbanken. Die tatsächliche
+Browser-/MFA-/HTTP-Prüfung erfolgt separat durch den Browserbaustein. Kein Lieferant
+wurde kontaktiert, keine Preisgültigkeit und kein erweitertes DATANORM-Profil erfunden.

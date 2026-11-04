@@ -1,0 +1,151 @@
+{
+  "baseline_commit": "2fdfa9f37bbbaf9e8b6fe4070be6809fe15b69c3",
+  "worktree": "/workspace/smartplan-catalog-browser-20261104",
+  "scope": "browser/catalog backend package; before native continuation",
+  "excluded_root_fixture_fixes": [
+    "backend/test_business_assistant.py",
+    "backend/test_business_assistant_speech_transport.py"
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "baseline_sha256": "81675c5e9b09ce16f43f98838189d6a4f042d967869cf8c1010e16ea227e0f0b",
+      "current_sha256": "e258af0c54d8ca5be4ba5ea060a81f3770aeb73830db2934437afab0a581525b"
+    },
+    {
+      "path": "backend/business_adapters.py",
+      "baseline_sha256": "ee8a4c433e4b2153f9c093f821845e30ad3212584a40fbc891510d17397f8cfd",
+      "current_sha256": "75ea51c08b84752f0fe3f932b571b23b239f0a9b1e1b56183af8f82b0bf6144f"
+    },
+    {
+      "path": "backend/business_api.py",
+      "baseline_sha256": "8cade52a98327a36c6d72cbbf59da2beaa1f0d724f8e1b2448c25d8efb3ee7b0",
+      "current_sha256": "be180a8b3f5eb094891f10b386de9983dc5ebbe1b60091e6bd5ffe4b67905fef"
+    },
+    {
+      "path": "backend/business_catalog_imports.py",
+      "baseline_sha256": null,
+      "current_sha256": "e9e7e17fc174b0cc63a07cb557b2d82d3147fdb30bda5390c0a3dc6626e4a555"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "baseline_sha256": "a29716dd724e68464b4706879cc09408de9e60fbd3846b3ab79673b9bde1d56a",
+      "current_sha256": "ae8f46eccbdd3fa66465042873bf89251b06a714b76b41a43f6502b6ccb0fcea"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "baseline_sha256": "66e0e09e744eb77c0330cd6911e10eacfe4af59532837fcff8c50ca494fcaee7",
+      "current_sha256": "16cb9ca93fbc13b188cdd89c2709f3ad94a26a9faf070f4f2e2777aa425e7314"
+    },
+    {
+      "path": "backend/online/test_business_catalog_imports_pg.py",
+      "baseline_sha256": null,
+      "current_sha256": "071caf421a12bc94e303a3471fa05f2e93164e86bd1abd9c05cf0cec78ee70a1"
+    },
+    {
+      "path": "backend/online/web.py",
+      "baseline_sha256": "3037595a67df7730d7e032f1a6d6f70af43402b3b7661a69b19b1c53f9688ce1",
+      "current_sha256": "2b0f8bce58a2c0d8034edf8c537c0d3d5e3d764d2cc6f627cf7f621337fa8d24"
+    },
+    {
+      "path": "backend/server.py",
+      "baseline_sha256": "f831e5b139f02354e48739b0ab306b7b59ebbca0c45c4a540458af18b0b20643",
+      "current_sha256": "a7c2dfe9e3d33b07dd41a9fd6052738a731fc37b26cea01eefc4c4f136ab5e66"
+    },
+    {
+      "path": "backend/test_business_catalog_imports.py",
+      "baseline_sha256": null,
+      "current_sha256": "e3b7339070dc2ecd189b3b4017a33d39cd04b80a2de82a131a3707797a4d208a"
+    },
+    {
+      "path": "backend/test_business_catalog_imports_transport.py",
+      "baseline_sha256": null,
+      "current_sha256": "3a6bfcae769eb7f50ef46a08007f68c5691e79629cc1a75cb535b47582354bbe"
+    },
+    {
+      "path": "docs/CRM_ERP_KATALOG_BROWSER_2026-11-04.md",
+      "baseline_sha256": null,
+      "current_sha256": "af8b3bcbb1308453e3ee0f76d76cda9e0e2dbd052279eac2016f13ebdf4348e5"
+    },
+    {
+      "path": "docs/evidence/catalog-browser-2026-11-04/README.md",
+      "baseline_sha256": null,
+      "current_sha256": "8c4355628402342e23e5fb5bda31bc7abbf94e99fd3bf73975369dbeeb6eb5c9"
+    },
+    {
+      "path": "docs/evidence/catalog-browser-2026-11-04/catalog-imports-receipts.json",
+      "baseline_sha256": null,
+      "current_sha256": "605aafeddd54e5001a84be42835c2c6aa0cadf6c9da32ab9f4ab157e6a029635"
+    },
+    {
+      "path": "docs/evidence/catalog-browser-2026-11-04/catalog-preview-390px.png",
+      "baseline_sha256": null,
+      "current_sha256": "23e57038bb35415ac79d23104dad94312a6b5533d210c614bee9ab3df430e6ff"
+    },
+    {
+      "path": "docs/evidence/catalog-browser-2026-11-04/catalog-preview-desktop.png",
+      "baseline_sha256": null,
+      "current_sha256": "b69b174f2afc891cea3675ba6e8e579dc3c1ed9bb90a000db9c26a2220ce4810"
+    },
+    {
+      "path": "docs/evidence/catalog-browser-2026-11-04/chromium.txt",
+      "baseline_sha256": null,
+      "current_sha256": "2a063cb0b62bad0c90c3625ac1bfc69ca7ad99f6830d6b5a719ce7ee4980d328"
+    },
+    {
+      "path": "docs/evidence/catalog-browser-2026-11-04/local-http.txt",
+      "baseline_sha256": null,
+      "current_sha256": "b0507e5a6a6e91129a7ec652122840c85ff44c55c99898c2720d38475eba4a40"
+    },
+    {
+      "path": "docs/evidence/catalog-browser-2026-11-04/node.txt",
+      "baseline_sha256": null,
+      "current_sha256": "a753d01abbf07464637b3b04a0b7171e3da684b33caa3479fa03c83957e5bfce"
+    },
+    {
+      "path": "docs/evidence/catalog-browser-2026-11-04/postgresql.txt",
+      "baseline_sha256": null,
+      "current_sha256": "886f0c3dcc54267db8aa78e4900056970196b4a3cf1a66256b3930b9d8b67992"
+    },
+    {
+      "path": "docs/evidence/catalog-originals-backend-2026-11-04.txt",
+      "baseline_sha256": null,
+      "current_sha256": "373a151d5b01f8ce0436b5d5ea739b71cb2f0abf5538fc14a776885a722295fd"
+    },
+    {
+      "path": "web/office/catalog-imports.js",
+      "baseline_sha256": null,
+      "current_sha256": "813ee87aec7a50ce4eccade41727156e4f140cf085bad6268056b3402f063cdf"
+    },
+    {
+      "path": "web/office/office.js",
+      "baseline_sha256": "4576704e4a2b4f347093d22135ef002449fc05df1474094db892aa50564ede3f",
+      "current_sha256": "386890158bb60d0fe7be898736a1a7523f33b578e3419064c7440d0f00150c92"
+    },
+    {
+      "path": "web/office/tests/catalog-imports-flow.cjs",
+      "baseline_sha256": null,
+      "current_sha256": "33a71ee95808b9878344088823abda9f9a8c0477ae33e089c0ec34a545a6bc58"
+    },
+    {
+      "path": "web/office/tests/catalog-imports-review.test.mjs",
+      "baseline_sha256": null,
+      "current_sha256": "803f1c8df64587b37f89765b32927f63045d2df8def34bc000299db94383553f"
+    },
+    {
+      "path": "web/office/tests/catalog-imports.test.mjs",
+      "baseline_sha256": null,
+      "current_sha256": "4715d83b904d1746a46855d95bc12a5497ff6122acd3effcaa43b96c6d3cb948"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "baseline_sha256": "589b4dd46af034d4c5a8caf693f800e3d4596b38501b04d83ba81d02762576a7",
+      "current_sha256": "e905e7ed32390fccb5607f9b60add998e96934dea8144408f3ab6223ed93f601"
+    },
+    {
+      "path": "web/office/tests/fixtures/catalog-import-previews.json",
+      "baseline_sha256": null,
+      "current_sha256": "d4aefd5f323343f5f38ee39478898f87617eddbd1adeae84ca701e33bbedd6de"
+    }
+  ]
+}

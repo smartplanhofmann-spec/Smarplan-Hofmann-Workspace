@@ -1803,3 +1803,48 @@ bei erhaltenem Navigator. Der Clientowner korrigierte Kontextbindung und
 Unterfensterabbau; unveränderte rote und grüne Protokolle bleiben erhalten.
 Backend und Clients sind nun für eine neue eingefrorene Gesamtregression
 stabil. Deren Ergebnis ist zu diesem Eintrag noch nicht vorweggenommen.
+
+## Geprüfter gemeinsamer Commit 5d9e7fd – 04.11.2026
+
+`5d9e7fd2cc0f04ef46d25d112549408454c6519a` sichert den gemeinsam geprüften
+Source4-Stand. Ergebnis: 1.508 bestandene Backendtests und eine
+plattformspezifische Auslassung, 473 JavaScript- und 1.103 Fluttertests,
+16 Paketprüfungen und vollständige Flutteranalyse ohne Befund.
+Nachweis und Grenzen: [Source4-Gesamtprüfung](CRM_ERP_SOURCE4_GESAMTPRUEFUNG_2026-11-04.md).
+
+Vier Fehler des ersten Backendlaufs waren auf unterschiedliche Testuhren
+zurückzuführen; zwei Testdateien wurden berichtigt und ein echter
+Tageswechsel-Gegenfall ergänzt. Der Produktcode blieb dabei unverändert.
+Der erste Paketlauf benötigte den fehlenden lokalen Testinterpreter-Pfad.
+Alle Erst-/Folgelogs und beide Quellmanifestfassungen bleiben erhalten.
+Beim Fortschreiben des Hauptbranchs wurden die Inhalte sämtlicher 1.531
+vorhandenen Arbeitsdateien per SHA-256 unverändert nachgewiesen; laufende
+V7-Arbeit blieb erhalten. Kein Remote-Push oder Produktivrollout erfolgte.
+
+Die Entwicklung geht mit Anfangssalden, Katalogimport und weiteren
+Lohn-/Zahlungsfällen weiter. Die hierfür entstehenden separaten Arbeitsstände
+sind noch kein Teil dieses überprüften Commits und kein Gesamtabschluss.
+
+## Gemeinsamer Checkpoint am 04.11.2026: Anfangssalden und Katalogoriginale
+
+Die Zusammenführung auf Basis `5d9e7fd` besteht 1.565 von 1.566 Backendtests
+(ein Windows-spezifischer Skip), 522 Node- und 1.118 Fluttertests. Analyse ohne
+Befund, 16 Paketprüfungen und beide tatsächlichen Browserabläufe sind grün.
+Zehn gemeinsame PostgreSQL-Fälle und ein zusätzlicher befüllter Katalog-/Opening-
+Restore bestehen. Alle 1.626 eingefrorenen Dateihashes waren nach den Prüfungen
+unverändert; Original-Gesamtziel und bestehende Source4-Verträge bleiben erhalten.
+[Ergebnisse und Grenzen](CRM_ERP_ANFANGSSALDEN_KATALOG_GESAMTPRUEFUNG_2026-11-04.md).
+
+Behoben wurden ein verbliebener privater Kontoname im Dialogtitel nach
+Rechteentzug, späte private Quellen nach Kontextwechsel und die erneute Anwendung
+der Einzeleingabegrenze auf bereits berechnete große Kontensummen. Browser und
+Flutter prüfen dieselben tatsächlich angenommenen positiven/negativen Grenzfälle.
+Der Katalogbaustein erhält unveränderte Originale, serverseitige Vorschau,
+Annahmehistorie, begrenzte große Antworten und vollständige Paketregistrierung.
+
+Source5-Backend und dessen sichere Mitarbeiterbelege/Clients, historische lineare
+Anlagen, datierte Katalogpreise v2 und die native Kataloghistorie laufen separat
+weiter. Ihre Teilnachweise gehören nicht zum neuen eingefrorenen Gesamtstand.
+Unternehmensweite Ereignisregeln und verbleibende Lohn-/Steuerfälle sind weiterhin
+Implementierungsarbeit. Es wurde keine Produktivmigration oder Gesamtabnahme
+behauptet.

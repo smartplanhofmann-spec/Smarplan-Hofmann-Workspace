@@ -1,0 +1,6 @@
+test_closed_period_blocks_new_opening_revision_but_preserves_original_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_closed_period_blocks_new_opening_revision_but_preserves_original_replay) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.491s
+
+OK

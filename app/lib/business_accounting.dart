@@ -8,6 +8,7 @@ import 'business_accounting_refunds_v2.dart';
 import 'business_accounting_profile.dart';
 import 'business_accounting_euer.dart';
 import 'business_accounting_capacity.dart';
+import 'business_accounting_openings.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -827,6 +828,21 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
         : ListView(
             padding: const EdgeInsets.all(24),
             children: [
+              if (openingReadable(widget.session))
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => BusinessOpeningBalancesPage(
+                          session: widget.session,
+                        ),
+                      ),
+                    ),
+                    icon: const Icon(Icons.savings_outlined),
+                    label: const Text('Anfangsbestände und Liquidität'),
+                  ),
+                ),
               if (businessEuerReadable(widget.session))
                 Align(
                   alignment: Alignment.centerLeft,
@@ -932,6 +948,18 @@ class _BusinessAccountingPageState extends State<BusinessAccountingPage> {
                         TextButton(
                           onPressed: () => editAccount(account),
                           child: const Text('Konto ändern'),
+                        ),
+                      if (openingReadable(widget.session))
+                        TextButton(
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => BusinessOpeningBalancesPage(
+                                session: widget.session,
+                                accountId: '${account['id']}',
+                              ),
+                            ),
+                          ),
+                          child: const Text('Anfangsbestand prüfen'),
                         ),
                     ]),
                 ] else ...[

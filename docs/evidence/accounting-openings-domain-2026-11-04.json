@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "worktree": "/workspace/smartplan-financial-opening-20261104",
+  "baseline": "2fdfa9f37bbbaf9e8b6fe4070be6809fe15b69c3",
+  "synthetic_only": true,
+  "production_contacts": false,
+  "files": [
+    {
+      "path": "docs/evidence/accounting-openings-domain-first-2026-11-04.txt",
+      "sha256": "6dc49632c2363553b7237a869adf911f5ac2f5b371c9ecbcc52ed258d00e3a57",
+      "bytes": 8395
+    },
+    {
+      "path": "docs/evidence/accounting-openings-domain-second-2026-11-04.txt",
+      "sha256": "04faa7442fdc050871daa534dcdd90d0bee7d71d147bc039134db7195d639908",
+      "bytes": 3362
+    },
+    {
+      "path": "docs/evidence/accounting-openings-domain-integrated-2026-11-04.txt",
+      "sha256": "c20c9abf3e37ae8b959103e9d4ffa86b6eaa385306887aad000af4d7f2e6ee99",
+      "bytes": 11226
+    },
+    {
+      "path": "docs/evidence/accounting-openings-domain-integrated-final-2026-11-04.txt",
+      "sha256": "3923b219ffa6efcd9688a9f701dd5ae348deed279e6bda100b9c1e8e3d75c0de",
+      "bytes": 8985
+    }
+  ],
+  "sources": [
+    {
+      "path": "backend/business_accounting_openings.py",
+      "sha256": "a69047139f038aca87223b15436d8fc092b9a3950961163490cf152db60656ed"
+    },
+    {
+      "path": "backend/business_accounting_euer.py",
+      "sha256": "18ad7133bd8150fee765fd25b27083c011860b79c95468a4d274fa338faddd1b"
+    },
+    {
+      "path": "backend/test_business_accounting_openings.py",
+      "sha256": "e864de7c96d0eecb8e2d9f666c361fdd36211955ea6a7df6834a5614109e8c76"
+    },
+    {
+      "path": "backend/test_business_accounting_openings_review.py",
+      "sha256": "067ff31a8f77bfb6b7503a1fab0c06aae9ecce6737a672c8af2a381234064653"
+    },
+    {
+      "path": "scripts/generate-accounting-opening-fixture.py",
+      "sha256": "665387773e754fc1914c9a979dcd688aef0169a517e8d6df8f3252093535a59c"
+    },
+    {
+      "path": "docs/fixtures/accounting_openings_2026.json",
+      "sha256": "ac3f212b8503b9449973a623bbe33fd36c2ff5ac25f9365da0bb802e3473009d"
+    },
+    {
+      "path": "app/test/fixtures/accounting_openings_2026.json",
+      "sha256": "ac3f212b8503b9449973a623bbe33fd36c2ff5ac25f9365da0bb802e3473009d"
+    }
+  ],
+  "final_command": "PYTHONPATH=backend:backend/online /tmp/smartplan-backend-verified/bin/python -m unittest test_business_accounting_openings test_business_accounting_openings_review test_business_accounting_euer -v",
+  "final_result": {
+    "passed": 43,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 19.374,
+    "own_opening_cases": 18,
+    "independent_review_cases": 7,
+    "existing_euer_cases": 18
+  },
+  "earlier_results": [
+    {
+      "run": "first",
+      "tests": 34,
+      "failures": 0,
+      "reason": "Invalid test assumption about denying owner permissions; fixed test uses a real delegated user. Imported EÜR test class also collected 18 existing passing tests.",
+      "errors": 1,
+      "seconds": 20.014
+    },
+    {
+      "run": "second",
+      "tests": 16,
+      "failures": 0,
+      "seconds": 10.947
+    },
+    {
+      "run": "integrated",
+      "tests": 43,
+      "errors": 1,
+      "reason": "Synthetic owner-draw proof carried VAT; fixture changed to tax-neutral net/gross59.50 with tax0.00. No product change for this failure."
+    }
+  ],
+  "additional_evidence": [
+    "docs/evidence/accounting-openings-independent-review-2026-11-04.json",
+    "docs/evidence/accounting-openings-integration-2026-11-04.json",
+    "docs/evidence/accounting-openings-postgres-first-2026-11-04.json"
+  ],
+  "limitations": [
+    "Client and combined application regression are maintained independently.",
+    "Historic fixed assets and other overall-goal gaps are not delivered by this opening-cash package."
+  ]
+}

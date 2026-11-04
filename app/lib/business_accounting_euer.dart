@@ -11,6 +11,7 @@ import 'business_accounting.dart'
     show businessAccountingReadable, BusinessAccountingPage;
 import 'business_project_receipts.dart';
 import 'business_accounting_profile.dart';
+import 'business_accounting_openings.dart';
 import 'business_session.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -1597,6 +1598,21 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                   ],
                 ),
                 if (tab == 'sources') ...[
+                  if (catalog?['opening_balances_path'] == openingPath &&
+                      openingReadable(widget.session))
+                    OutlinedButton.icon(
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => BusinessOpeningBalancesPage(
+                            session: widget.session,
+                          ),
+                        ),
+                      ),
+                      icon: const Icon(Icons.savings_outlined),
+                      label: const Text(
+                        'Bestätigte Anfangsbestände und Liquidität öffnen',
+                      ),
+                    ),
                   for (final row in sources) sourceCard(row),
                   if (sources.isEmpty && !loading)
                     const BusinessEmpty(
@@ -1611,7 +1627,7 @@ class _BusinessEuerPageState extends State<BusinessEuerPage> {
                         '${a['account']?['code']} · ${a['account']?['name']}',
                       ),
                       subtitle: Text(
-                        'Zufluss ${businessMoney(a['inflows'])} · Abfluss ${businessMoney(a['outflows'])} · Bewegungssaldo ${businessMoney(a['movement_net'])}\nAnfangs- und Endbestand nicht festgestellt.',
+                        'Zufluss ${businessMoney(a['inflows'])} · Abfluss ${businessMoney(a['outflows'])} · Bewegungssaldo ${businessMoney(a['movement_net'])}\n${catalog?['opening_balances_path'] == openingPath ? 'Diese Ansicht zeigt Bewegungen. Bestätigte Anfangsbestände und Liquidität werden gesondert geprüft.' : 'Anfangs- und Endbestand nicht festgestellt.'}',
                       ),
                     ),
                 ],

@@ -28,7 +28,7 @@ def make_handler(office,drive,launch_id=""):
             self.send_header("X-Content-Type-Options","nosniff")
             if status == 405:
                 self.send_header("Allow", self.allowed_methods)
-            if kind == "application/pdf":
+            if kind == "application/pdf" and not isinstance(data, workspace_api.BinaryAttachment):
                 self.send_header("Content-Disposition", 'inline; filename="smartplan-report.pdf"')
             if isinstance(data, workspace_api.BinaryAttachment):
                 self.send_header("Content-Disposition", workspace_api.attachment_disposition(data.filename))
@@ -84,9 +84,9 @@ def make_handler(office,drive,launch_id=""):
                 if self.command=="POST":
                     size=int(self.headers.get("Content-Length","0"))
                     maximum = 2_600_000 if path == '/api/business/assistant/speech/transcribe' else 1_000_000
-                    if re.fullmatch(r'/api/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files)', path):
+                    if re.fullmatch(r'/api/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import)', path):
                         maximum = 2_850_000
-                    if path in ('/api/business/bank/import/preview', '/api/business/bank/statements'):
+                    if path in ('/api/business/bank/import/preview', '/api/business/bank/statements', '/api/business/accounting/opening-balances/originals'):
                         maximum = 7_100_000
                     if not 0<size<=maximum:
                         raise Problem(413,"Anfrage zu groß oder leer")

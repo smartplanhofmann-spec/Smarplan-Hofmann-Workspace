@@ -1,0 +1,41 @@
+test_maximum_opening_plus_real_cash_preserves_exact_larger_derived_balance (test_business_accounting_openings_large_balances.LargeDerivedOpeningBalances.test_maximum_opening_plus_real_cash_preserves_exact_larger_derived_balance) ... ERROR
+test_minimum_bank_opening_minus_real_cash_preserves_exact_larger_negative_balance (test_business_accounting_openings_large_balances.LargeDerivedOpeningBalances.test_minimum_bank_opening_minus_real_cash_preserves_exact_larger_negative_balance) ... ERROR
+
+======================================================================
+ERROR: test_maximum_opening_plus_real_cash_preserves_exact_larger_derived_balance (test_business_accounting_openings_large_balances.LargeDerivedOpeningBalances.test_maximum_opening_plus_real_cash_preserves_exact_larger_derived_balance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-financial-opening-20261104/backend/test_business_accounting_openings_large_balances.py", line 14, in test_maximum_opening_plus_real_cash_preserves_exact_larger_derived_balance
+    view=f.api.liquidity(f.owner,'2026-11-02');row=view['accounts'][0]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-financial-opening-20261104/backend/business_accounting_openings.py", line 563, in liquidity
+    known = sum(cents(item['balance']) for item in result if item['balance'] is not None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-financial-opening-20261104/backend/business_accounting_openings.py", line 563, in <genexpr>
+    known = sum(cents(item['balance']) for item in result if item['balance'] is not None)
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-financial-opening-20261104/backend/business_accounting_openings.py", line 110, in cents
+    raise Problem(400, 'Exakten EUR-Centbetrag ohne Tausendertrennzeichen angeben.')
+core.Problem: (400, 'Exakten EUR-Centbetrag ohne Tausendertrennzeichen angeben.')
+
+======================================================================
+ERROR: test_minimum_bank_opening_minus_real_cash_preserves_exact_larger_negative_balance (test_business_accounting_openings_large_balances.LargeDerivedOpeningBalances.test_minimum_bank_opening_minus_real_cash_preserves_exact_larger_negative_balance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-financial-opening-20261104/backend/test_business_accounting_openings_large_balances.py", line 24, in test_minimum_bank_opening_minus_real_cash_preserves_exact_larger_negative_balance
+    view=f.api.liquidity(f.owner,'2026-11-02');row=view['accounts'][0]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-financial-opening-20261104/backend/business_accounting_openings.py", line 563, in liquidity
+    known = sum(cents(item['balance']) for item in result if item['balance'] is not None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-financial-opening-20261104/backend/business_accounting_openings.py", line 563, in <genexpr>
+    known = sum(cents(item['balance']) for item in result if item['balance'] is not None)
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-financial-opening-20261104/backend/business_accounting_openings.py", line 110, in cents
+    raise Problem(400, 'Exakten EUR-Centbetrag ohne Tausendertrennzeichen angeben.')
+core.Problem: (400, 'Exakten EUR-Centbetrag ohne Tausendertrennzeichen angeben.')
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.888s
+
+FAILED (errors=2)

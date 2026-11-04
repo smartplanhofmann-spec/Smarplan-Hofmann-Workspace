@@ -1,0 +1,39 @@
+test_bank_connection_added_after_confirmation_cannot_hide_conflicting_first_balance (test_business_accounting_openings_review.OpeningIndependentReview.test_bank_connection_added_after_confirmation_cannot_hide_conflicting_first_balance) ... ok
+test_current_bank_rights_apply_to_original_history_liquidity_and_accepted_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_current_bank_rights_apply_to_original_history_liquidity_and_accepted_replay) ... ok
+test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay) ... 
+  test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay) (operation=<function OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay.<locals>.<lambda> at 0x7faac062bb00>) ... FAIL
+  test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay) (operation=<function OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay.<locals>.<lambda> at 0x7faac062ac00>) ... FAIL
+test_new_profile_does_not_relabel_old_opening_or_mutate_original_receipt (test_business_accounting_openings_review.OpeningIndependentReview.test_new_profile_does_not_relabel_old_opening_or_mutate_original_receipt) ... ok
+test_pending_financial_restore_does_not_advertise_reconciled_liquidity (test_business_accounting_openings_review.OpeningIndependentReview.test_pending_financial_restore_does_not_advertise_reconciled_liquidity) ... FAIL
+test_start_day_is_included_prior_cash_not_counted_twice_and_euer_stays_identical (test_business_accounting_openings_review.OpeningIndependentReview.test_start_day_is_included_prior_cash_not_counted_twice_and_euer_stays_identical) ... ok
+
+======================================================================
+FAIL: test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay) (operation=<function OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay.<locals>.<lambda> at 0x7faac062bb00>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-financial-opening-20261104/backend/test_business_accounting_openings_review.py", line 101, in test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay
+    with self.assertRaises(Problem) as rejected:operation()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay (test_business_accounting_openings_review.OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay) (operation=<function OpeningIndependentReview.test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay.<locals>.<lambda> at 0x7faac062ac00>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-financial-opening-20261104/backend/test_business_accounting_openings_review.py", line 101, in test_missing_original_acceptance_receipt_blocks_fresh_liquidity_and_replay
+    with self.assertRaises(Problem) as rejected:operation()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+======================================================================
+FAIL: test_pending_financial_restore_does_not_advertise_reconciled_liquidity (test_business_accounting_openings_review.OpeningIndependentReview.test_pending_financial_restore_does_not_advertise_reconciled_liquidity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-financial-opening-20261104/backend/test_business_accounting_openings_review.py", line 89, in test_pending_financial_restore_does_not_advertise_reconciled_liquidity
+    self.assertFalse(report['complete_for_recorded_accounts'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.280s
+
+FAILED (failures=3)

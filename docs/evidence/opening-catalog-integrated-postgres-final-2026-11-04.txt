@@ -1,0 +1,6 @@
+test_actual_catalog_original_acceptance_and_opening_survive_dump_restore (online.test_business_catalog_opening_restore_pg.CatalogAndOpeningRestore.test_actual_catalog_original_acceptance_and_opening_survive_dump_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 6.813s
+
+OK

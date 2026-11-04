@@ -1,0 +1,47 @@
+{
+  "exit_code": 0,
+  "elapsed_seconds": 19.824,
+  "log": "docs/evidence/accounting-openings-postgres-first-2026-11-04.txt",
+  "test_module": "online.test_business_accounting_openings_pg",
+  "synthetic_only": true,
+  "loopback_port": 55433,
+  "disposable_database": "smartplan_check",
+  "separate_restore_target": "smartplan_release_check",
+  "production_contact": false,
+  "source_sha256": {
+    "backend/business_accounting_openings.py": "a69047139f038aca87223b15436d8fc092b9a3950961163490cf152db60656ed",
+    "backend/business_schema.py": "4d38d4ae669a2eac630a8f44999c4607d48781e4570f3e5b806ea2f0de1b059e",
+    "backend/online/test_business_accounting_openings_pg.py": "b4b942718a34754dc1e189273db0beeac956bef2150271f3b172ffe373066e1c"
+  },
+  "tests_run": 4,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "test_runtime_seconds": 19.304,
+  "source_hash_timing": "At completed test run; verified unchanged immediately afterward",
+  "routes": "Actual Flask API routes with password/TOTP MFA against restricted PostgreSQL runtime role",
+  "concurrency": "Two separate PostgreSQL backend PIDs, barrier-coordinated commands",
+  "restore": "Real pg_dump/pg_restore into an initially absent separate disposable target; target removed after verification",
+  "report_contract": {
+    "combined_horizon": 12,
+    "financial_report": 13,
+    "opening_horizon": 1,
+    "exact_opening_table_counts": {
+      "business_accounting_opening_originals": 1,
+      "business_accounting_opening_events": 1,
+      "business_accounting_opening_requests": 2
+    }
+  },
+  "outcomes": [
+    "Identical competing requests return same original event and exactly one confirmation receipt",
+    "Different requests on same state accept one and reject the other with stale409/not_accepted",
+    "Changed original/request content rejected; UPDATE DELETE TRUNCATE denied for all three tables",
+    "Original bytes and historical E\u00dcR export unchanged through backup/restore",
+    "Financial restore blocks original and confirmation replay and reports incomplete liquidity until separate operator approval",
+    "Old report12 and changed opening hash reject without database changes; valid report13 permits original replay"
+  ],
+  "exclusions": [
+    "No production, external provider, bank or authority contact",
+    "No claim of native device or live browser execution"
+  ]
+}

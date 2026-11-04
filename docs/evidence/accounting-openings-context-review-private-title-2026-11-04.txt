@@ -1,0 +1,80 @@
+TAP version 13
+# Subtest: independent: a deferred file read cannot upload or reopen after dialog replacement
+ok 1 - independent: a deferred file read cannot upload or reopen after dialog replacement
+  ---
+  duration_ms: 36.89283
+  type: 'test'
+  ...
+# Subtest: independent: upload digest completion after session replacement performs no POST
+ok 2 - independent: upload digest completion after session replacement performs no POST
+  ---
+  duration_ms: 6.558141
+  type: 'test'
+  ...
+# Subtest: independent: a genuine accepted preview DTO delivered after close cannot replace another dialog
+ok 3 - independent: a genuine accepted preview DTO delivered after close cannot replace another dialog
+  ---
+  duration_ms: 6.592503
+  type: 'test'
+  ...
+# Subtest: independent: read revocation during original download discards bytes and removes private content
+not ok 4 - independent: read revocation during original download discards bytes and removes private content
+  ---
+  duration_ms: 6.093082
+  type: 'test'
+  location: '/workspace/smartplan-financial-opening-20261104/web/office/tests/accounting-openings-context-review.test.mjs:67:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The private account name must not remain in the dialog title after read revocation.
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/smartplan-financial-opening-20261104/web/office/tests/accounting-openings-context-review.test.mjs:72:9)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: independent: original hash completion after close does not trigger a download
+ok 5 - independent: original hash completion after close does not trigger a download
+  ---
+  duration_ms: 8.682589
+  type: 'test'
+  ...
+# Subtest: independent: upload lost ACK repeats exact original bytes and keeps hidden command payload private
+ok 6 - independent: upload lost ACK repeats exact original bytes and keeps hidden command payload private
+  ---
+  duration_ms: 8.156427
+  type: 'test'
+  ...
+# Subtest: independent: an actual valid later receipt cannot acknowledge an earlier pending command
+ok 7 - independent: an actual valid later receipt cannot acknowledge an earlier pending command
+  ---
+  duration_ms: 3.030863
+  type: 'test'
+  ...
+# Subtest: independent: real cryptographic receipt validation after session change cannot consume a new pending request
+ok 8 - independent: real cryptographic receipt validation after session change cannot consume a new pending request
+  ---
+  duration_ms: 1.918969
+  type: 'test'
+  ...
+# Subtest: independent: self-consistent actual account source from another fixture is not a current selection
+ok 9 - independent: self-consistent actual account source from another fixture is not a current selection
+  ---
+  duration_ms: 0.532621
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 8
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 188.836902

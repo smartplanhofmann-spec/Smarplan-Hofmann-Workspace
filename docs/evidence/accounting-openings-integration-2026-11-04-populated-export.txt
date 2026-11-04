@@ -1,0 +1,6 @@
+test_actual_company_archive_contains_original_binding_and_excludes_technical_receipts (test_accounting_openings_registration.OpeningRegistrationTests.test_actual_company_archive_contains_original_binding_and_excludes_technical_receipts) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.589s
+
+OK

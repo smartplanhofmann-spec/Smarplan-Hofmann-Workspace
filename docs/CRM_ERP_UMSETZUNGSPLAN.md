@@ -49,27 +49,30 @@ ist allein eine Produktivfreigabe oder eine abgeschlossene Gesamtabnahme A–G.
 
 ## Aktive Arbeitspakete
 
-1. **Einmalbezüge durchgängig fertigstellen.** Die private Jahresquellen-API
+1. **Weitere Einmalbezugsfälle fertigstellen.** Die private Jahresquellen-API
    besitzt Browser- und App-Formulare. Source4/v6 verbindet einen belegten
    Anspruch mit laufender v5-Rechnung, Steuerprognose, SV-Jahresbasis,
    Anspruchsverbrauch, Lohnlauf, Lohnkonto und tatsächlich belegter Zahlung.
-   PostgreSQL-/Restore- und gezielte Fachprüfungen bestehen. Aktiv abgeschlossen
-   werden die Clientabläufe, der reduzierte Mitarbeiterbeleg und die Übernahme
-   bereits gezahlter Boni in spätere Jahresbasen. Mehrere Boni desselben Monats
-   und unterschiedliche Zahlungstage bleiben eigene, noch offene Erweiterungen.
+   PostgreSQL-/Restore-, Client- und gemeinsame Prüfungen bestehen. Auch der
+   reduzierte Mitarbeiterbeleg und die Übernahme bereits gezahlter Boni in
+   spätere Jahresbasen sind integriert. Mehrere Boni desselben Monats und
+   unterschiedliche Zahlungstage werden als additive V7-/Source5-Verträge
+   entwickelt; ungeklärte Steuergruppen liefern ausdrücklich kein Endnetto.
 2. **Unterbrechungen und Nullnetto vervollständigen.** Das belegte U-Merkmal und
    ein Zahlungsnachweis ohne geschuldete Nettozahlung sind implementiert und
    gezielt geprüft. Tatsächliche Leistungsbeträge, Jahresüberträge und weitere
    Versicherungsfälle bleiben im [Lückenplan](CRM_ERP_LOHN_LUECKENPLAN_2026.md).
    Eine leere Nettozahlung erzeugt keinen Geldfluss; geschuldete Abführungen
    bleiben gesondert nachzuweisen.
-3. **Gemeinsame Integration erneut prüfen.** Der letzte vollständig eingefrorene
-   Quellstand ist `2fdfa9f`: 1.484 bestandene Backendtests bei einer
-   plattformspezifischen Auslassung, 398 Node- und 932 Flutter-Tests,
-   vollständige Flutter-Analyse ohne Befund. Dieser Stand enthält die
-   v5-Zusammenrechnung und Reise-v3, aber nicht alle späteren Jahres-/U-/v6-
-   Änderungen. Nach deren gezielter Abnahme folgt eine neue eingefrorene
-   Gesamtregression mit Quellenmanifest und lokalem Commit.
+3. **Gemeinsame Integration weiter absichern.** Auf `5d9e7fd` sind Anfangssalden
+   in beiden Clients sowie Katalogoriginale/Browserimport zusammengeführt.
+   Die neue vollständige Prüfung besteht 1.565 Backendtests bei einer
+   plattformspezifischen Auslassung, 522 Node- und 1.118 Fluttertests,
+   vollständige Flutter-Analyse und 16 Paketprüfungen. Tatsächliche gemeinsame
+   PostgreSQL-/Restore- und Browserabläufe sind geprüft; siehe
+   [Gesamtnachweis](CRM_ERP_ANFANGSSALDEN_KATALOG_GESAMTPRUEFUNG_2026-11-04.md).
+   Die laufenden Source5-, Anlagen- und Preis-v2-Erweiterungen erhalten eigene
+   Abnahmen und werden danach in den nächsten gemeinsamen Stand übernommen.
 4. **Verbleibende Gesamtanforderungen am Code prüfen und schließen.** Die
    Abnahmefälle A–G bleiben der Maßstab. Parallel zur Lohnintegration werden
    konkrete Lücken der übrigen Module mit tatsächlichem Code und vorhandenen

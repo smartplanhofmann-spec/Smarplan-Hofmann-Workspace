@@ -1,0 +1,18 @@
+✔ actual original state, exact preview and accepted receipt remain bound to original account and profile (11.648205ms)
+✔ actual correction and void preserve original history and never create money or tax entries (6.554999ms)
+✔ bank statement source uses its exact original balance and beginning-of-day boundary (5.053226ms)
+✔ empty is not zero and fractional cents are rejected; explicit zero and signed bank balances are supported (0.773135ms)
+✔ exact original hashes, substituted account, profile, source and fabricated flags fail closed (3.200664ms)
+✔ actual liquidity is original beginning plus actual movements; missing values never become zero or a complete total (1.30756ms)
+✔ original receipt remains frozen and asynchronous hash validation cannot silently accept a changed result (21.288664ms)
+✔ accepted lost response keeps exact request, original validator and fresh permission/module gates (6.58168ms)
+✔ asynchronous receipt completion after session replacement cannot clear the new pending operation (1.080038ms)
+✔ asynchronous receipt completion cannot clear a replacement operation in the same session (3.205701ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 167.376162

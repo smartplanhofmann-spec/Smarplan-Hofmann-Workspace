@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+accounting openings: real MFA/HTTP account + original upload, original and confirmation accepted lost-ACK, module pause blocks replay without new POST, exact original SHA256, explicit blank amount/zero correction/void, unchanged EÜR totals, recorded liquidity and mobile390, late preview after close discarded, actual bank.read revocation hides history/editor and blocks original/preview fetch passed
+1 targeted accounting openings workflow passed

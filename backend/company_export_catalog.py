@@ -8,6 +8,9 @@ legal/business decisions; this inventory never invents one universal duration.
 CATALOG_VERSION = 1
 # Every known table, including excluded security/receipt tables, is accounted for.
 COLUMNS = {
+    'business_accounting_opening_originals': 'id,account_id,filename,media_type,size,sha256,original,created_by,created_at',
+    'business_accounting_opening_events': 'id,sequence,account_id,revision,previous_hash,payload_json,content_hash,created_by,created_at',
+    'business_accounting_opening_requests': 'user_id,request_id,operation,request_json,request_hash,result_json',
     'business_purchase_amendments': 'id,order_id,revision,receipt_revision,reference_key,evidence_id,payload_json,sha256,created_by,created_at',
     'business_purchase_receipt_terms': 'receipt_id,amendment_id,amendment_sha256',
     'business_supplier_returns': 'id,order_id,revision,reference_key,evidence_id,payload_json,sha256,created_by,created_at',
@@ -113,6 +116,9 @@ COLUMNS = {
     'business_accounting_requests': 'user_id,request_id,operation,request_hash,result_json',
     'business_accounting_source_links': 'event_id,kind,source_id,source_hash,proof_json,snapshot_json,payment_id,receipt_id,review_revision,cash_revision,original_sha256',
     'business_adapter_articles': 'adapter_id,source_code,article_id,source_sha256',
+    'business_catalog_legacy_imports': 'run_id,source_sha256,rows_sha256,baseline_status',
+    'business_catalog_originals': 'run_id,filename,content,sha256,rows_sha256,request_json,request_hash,targets_json,targets_sha256,created_by,created_at',
+    'business_catalog_acceptances': 'run_id,request_json,payload_json,sha256',
     'business_adapter_requests': 'user_id,request_id,request_hash,result_json',
     'business_adapter_runs': 'id,adapter_id,profile,status,source_sha256,rows_json,rows_sha256,result_json,created_by,created_at',
     'business_adapter_suppliers': 'adapter_id,supplier',
@@ -391,6 +397,11 @@ def policy(table):
         result['sensitive']=True
         result['purpose']='Original bank statements, account identity, counterparties/references and explicit reconciliation history of existing cash flows'
         result['retention_basis']='Applicable financial evidence and original statement duties; source-specific review, no universal legal duration'
+    if table.startswith('business_accounting_opening_'):
+        result['sensitive']=True
+        result['purpose']='Evidenced opening account balances and immutable correction history; original financial documents, no new cash or tax transaction'
+        result['retention_basis']='Applicable original financial evidence and transfer duties; source-specific review, no universal legal duration'
+        result['source_access']='Current global accounting read, finance read and bank read access'
     if table.startswith('business_resource_') and table in COLUMNS:
         result['sensitive']=True
         result['purpose']='Resource custody, employee/project handoffs and returns, inspection evidence and immutable corrections with personal original documents'

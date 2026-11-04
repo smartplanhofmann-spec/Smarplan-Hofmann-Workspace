@@ -934,17 +934,20 @@ class EuerAccounting(Domain):
                 if error.status not in (403,409,423): raise
                 writes=False
             profile=self._profile()
+            from business_accounting_openings import entrypoint as opening_entrypoint
             return dict(revision=len(ledger['entries']),state_hash=_state_hash(ledger['entries']),profile=profile,
                         profile_ready=self._configured(profile),writes_allowed=writes,rule_version=RULE_VERSION,account_frame='SKR04',
                         categories=dict(income=['sales'],expense=list(_EXPENSE),external_cash=dict(_EXTERNAL),
                             payroll_cash=['payroll_net','payroll_employee_tax','payroll_employee_social','payroll_employer_social','payroll_employer_levies','payroll_employer_flat_tax'],
                             travel_cash=['travel_allowance']),
-                        periods=list(ledger['periods'].values()),limitations=list(_LIMITATIONS),official_tax_return=False)
+                        periods=list(ledger['periods'].values()),limitations=list(_LIMITATIONS),official_tax_return=False,
+                        opening_balances_path=opening_entrypoint(self.office,fresh))
 
     def sources(self,actor):
         with transaction(self.office):
             fresh=self._access(actor); ledger=self._ledger(); self._authorized_ledger(fresh,ledger)
-            return self._catalog(fresh,ledger)
+            from business_accounting_openings import entrypoint as opening_entrypoint
+            return dict(self._catalog(fresh,ledger),opening_balances_path=opening_entrypoint(self.office,fresh))
 
     def journal(self,actor,limit=50,offset=0):
         _page(limit,offset)

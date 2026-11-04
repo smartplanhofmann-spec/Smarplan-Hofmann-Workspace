@@ -183,7 +183,8 @@ def command_module(path, module_name):
             'business_finance': 'finance', 'business_accounting': 'finance',
             'business_accounting_allocations': 'finance', 'business_accounting_components': 'finance',
             'business_accounting_refunds': 'finance', 'business_accounting_capacity': 'finance',
-            'business_accounting_refunds_v2': 'finance', 'business_accounting_profile': 'finance'}.get(module_name)
+            'business_accounting_refunds_v2': 'finance', 'business_accounting_profile': 'finance',
+            'business_accounting_openings': 'finance'}.get(module_name)
 
 
 def require_active(office, actor, path, module_name, data=None):

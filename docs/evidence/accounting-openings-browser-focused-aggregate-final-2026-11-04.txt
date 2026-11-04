@@ -1,0 +1,43 @@
+✔ independent: a deferred file read cannot upload or reopen after dialog replacement (38.25031ms)
+✔ independent: upload digest completion after session replacement performs no POST (7.207658ms)
+✔ independent: a genuine accepted preview DTO delivered after close cannot replace another dialog (8.567845ms)
+✔ independent: read revocation during original download discards bytes and removes private content (9.704827ms)
+✔ independent: original hash completion after close does not trigger a download (10.413493ms)
+✔ independent: upload lost ACK repeats exact original bytes and keeps hidden command payload private (10.449036ms)
+✔ independent: an actual valid later receipt cannot acknowledge an earlier pending command (4.726214ms)
+✔ independent: real cryptographic receipt validation after session change cannot consume a new pending request (2.373573ms)
+✔ independent: self-consistent actual account source from another fixture is not a current selection (0.782788ms)
+✔ actual original state, exact preview and accepted receipt remain bound to original account and profile (17.223283ms)
+✔ actual correction and void preserve original history and never create money or tax entries (15.489623ms)
+✔ bank statement source uses its exact original balance and beginning-of-day boundary (3.583584ms)
+✔ empty is not zero and fractional cents are rejected; explicit zero and signed bank balances are supported (0.662977ms)
+✔ exact original hashes, substituted account, profile, source and fabricated flags fail closed (5.923966ms)
+✔ actual liquidity is original beginning plus actual movements; missing values never become zero or a complete total (2.793104ms)
+✔ original receipt remains frozen and asynchronous hash validation cannot silently accept a changed result (33.158065ms)
+✔ accepted lost response keeps exact request, original validator and fresh permission/module gates (8.864402ms)
+✔ asynchronous receipt completion after session replacement cannot clear the new pending operation (1.298455ms)
+✔ asynchronous receipt completion cannot clear a replacement operation in the same session (5.563093ms)
+✔ actual accepted maximum individual beginnings retain exact larger positive and negative recorded balances (5.868563ms)
+✔ money and quantities preserve server decimal strings in German display (2.220242ms)
+✔ requests stay on same origin, omit cookies, refuse redirects and carry memory bearer (31.545769ms)
+✔ the browser native fetch receiver stays bound to the global object (0.5915ms)
+✔ login has no stale bearer and logout erases memory authorization (0.742117ms)
+✔ clear aborts outstanding requests and refuses a response from the previous session (0.772202ms)
+✔ a lost mutation response retries the exact request id and body (1.241288ms)
+✔ uncertain operation cannot silently change its target or payload (0.939073ms)
+✔ an uncertain saved form can be explicitly retried after its dialog closes (0.711461ms)
+✔ a definite validation failure allows a corrected fresh operation (0.772843ms)
+✔ streaming and advertised response bounds protect memory (1.048047ms)
+✔ an oversized accepted response retains the original nonce instead of claiming request rejection (0.710299ms)
+✔ bounded large bank DTOs leave ordinary JSON and original downloads at their own limits (40.479355ms)
+✔ HTML proxy errors never enter the user-facing error message (0.421254ms)
+✔ binary downloads retain bytes and do not put bearer into a URL (0.594535ms)
+✔ browser source has eleven real navigation sections including the assistant and no persistent credential or unsafe HTML writer (12.083988ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 221.623282

@@ -1,0 +1,7 @@
+test_decoded_size_envelope_other_route_and_strict_framing_reject_without_runs (test_business_catalog_imports_transport.CatalogImportLocalHTTP.test_decoded_size_envelope_other_route_and_strict_framing_reject_without_runs) ... ok
+test_two_mib_original_uses_bounded_envelope_downloads_exactly_and_replays_once (test_business_catalog_imports_transport.CatalogImportLocalHTTP.test_two_mib_original_uses_bounded_envelope_downloads_exactly_and_replays_once) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.163s
+
+OK

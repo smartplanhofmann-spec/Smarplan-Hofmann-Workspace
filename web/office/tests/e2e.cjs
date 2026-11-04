@@ -49,7 +49,7 @@ async function ready(page){await page.locator('main .loading').waitFor({state:'d
 async function navigate(page,name){if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);}
 async function main(){
   const workflow=process.env.SMARTPLAN_BROWSER_WORKFLOW;
-  assert.ok(workflow===undefined||['payroll-oneoff-cases','payroll-zero-account','payroll-annual-basis','payroll-wage-interruptions','payroll-calculation-cases','travel-v3','payroll-travel-tax-policies','payroll-entitlements','travel-allowances','payroll-statements','payroll-periods','purchase-changes','payroll-transition','bank-reconciliation','resource-custody','accessibility','privacy-cases','service','custom-fields','migrations','payroll-cash','company-handover','speech','sales','company-overview','inventory-counts','invoice-chain','payroll','assistant','personnel-workflow','asset-provenance','project-economics','accounting-allocation','accounting-components','accounting-refunds','accounting-capacity','accounting-refunds-v2','accounting-profile'].includes(workflow),'Unsupported targeted browser workflow');
+  assert.ok(workflow===undefined||['catalog-imports','accounting-openings','payroll-oneoff-cases','payroll-zero-account','payroll-annual-basis','payroll-wage-interruptions','payroll-calculation-cases','travel-v3','payroll-travel-tax-policies','payroll-entitlements','travel-allowances','payroll-statements','payroll-periods','purchase-changes','payroll-transition','bank-reconciliation','resource-custody','accessibility','privacy-cases','service','custom-fields','migrations','payroll-cash','company-handover','speech','sales','company-overview','inventory-counts','invoice-chain','payroll','assistant','personnel-workflow','asset-provenance','project-economics','accounting-allocation','accounting-components','accounting-refunds','accounting-capacity','accounting-refunds-v2','accounting-profile'].includes(workflow),'Unsupported targeted browser workflow');
   const {chromium}=require('playwright');
   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'smartplan-browser-e2e-')),readyFile=path.join(directory,'ready.json');
   const screenshots=process.env.SMARTPLAN_BROWSER_SCREENSHOT_DIR||directory;
@@ -119,6 +119,10 @@ async function main(){
       await require('./payroll-wage-interruptions-flow.cjs').payrollWageInterruptionsFlow({page,context,navigate,ready,fixture,screenshots});
       assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted payroll wage interruptions workflow passed');return;
     }
+    if(workflow==='accounting-openings'){
+      await require('./accounting-openings-flow.cjs').accountingOpeningsFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[]);await context.close();console.log('1 targeted accounting openings workflow passed');return;
+    }
     if(workflow==='payroll-calculation-cases'){
       await require('./payroll-calculation-cases-flow.cjs').payrollCalculationCasesFlow({page,context,navigate,ready,fixture,screenshots});
       assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted payroll calculation cases workflow passed');return;
@@ -134,6 +138,10 @@ async function main(){
     if(workflow==='travel-allowances'){
       await require('./travel-allowances-flow.cjs').travelAllowancesFlow({page,context,navigate,ready,login,fixture,screenshots});
       assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted travel allowances workflow passed (actual private journeys, foreign approval and public cash)');return;
+    }
+    if(workflow==='catalog-imports'){
+      await require('./catalog-imports-flow.cjs').catalogImportsFlow({page,context,navigate,ready,login,fixture,screenshots});
+      assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted catalog imports workflow passed (real MFA/HTTP, original bytes, explicit acceptance and exact replay)');return;
     }
     if(workflow==='purchase-changes'){
       await require('./purchase-changes-flow.cjs').purchaseChangesFlow({page,context,navigate,ready,fixture,screenshots});

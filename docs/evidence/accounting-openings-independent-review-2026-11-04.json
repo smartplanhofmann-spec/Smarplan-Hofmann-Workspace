@@ -1,0 +1,90 @@
+{
+  "date": "2026-11-04",
+  "workspace": "/workspace/smartplan-financial-opening-20261104",
+  "scope": "Independent actual-domain opening balance review; no product edits by reviewer",
+  "final": {
+    "path": "docs/evidence/accounting-openings-independent-final-2026-11-04.txt",
+    "sha256": "04b97db111681cf7fdb78efc137362f2ecc345fbf60f224f1c87bccc956be32e",
+    "tests": 7,
+    "seconds": 3.3,
+    "passed": true,
+    "note": "Final independent checks with exact global restore-issue contract"
+  },
+  "findings": [
+    {
+      "id": "restore_liquidity",
+      "status": "fixed_by_owner",
+      "before": "Financial restore required but liquidity complete=true and total=100.00",
+      "after": "Global restore_reconciliation_pending, complete=false, balance_total=null; protected writes remain blocked"
+    },
+    {
+      "id": "missing_original_acceptance",
+      "status": "fixed_by_owner",
+      "before": "Missing actual upload-acceptance receipt did not block direct liquidity or accepted confirm replay",
+      "after": "Original uploader acceptance command, hash and receipt are verified on original use and replay"
+    }
+  ],
+  "checks": [
+    "Start-day actual cash included; pre-start cash not counted twice; no EÜR change from opening acceptance",
+    "Bank statement imported later with conflicting first balance blocks confirmed liquidity",
+    "Changed accounting profile invalidates current opening projection while exact accepted replay survives",
+    "Closed EÜR period blocks new opening revision and preserves original receipt replay",
+    "Fresh bank.read revocation blocks originals/history/liquidity/replay",
+    "Restore financial gate controls aggregate liquidity completeness",
+    "Missing original upload receipt blocks direct reads and replay"
+  ],
+  "test_command": "PYTHONPATH=backend:backend/online /tmp/smartplan-backend-verified/bin/python -m unittest test_business_accounting_openings_review -v",
+  "limitations": [
+    "This evidence is actual SQLite domain execution, not PostgreSQL backup/restore",
+    "No external bank authentication or official fiscal approval",
+    "Seven review cases do not count repeated runs as additional unique cases"
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/accounting-openings-independent-first-2026-11-04.txt",
+      "sha256": "99ce5190e10d19f06296e9075557a041425cc9c0f073a2523e49b8513d97d5fa",
+      "tests": 6,
+      "seconds": 2.141,
+      "passed": false,
+      "note": "Two product failures plus test-loop follow-up AttributeError after missing exception"
+    },
+    {
+      "path": "docs/evidence/accounting-openings-independent-confirmed-2026-11-04.txt",
+      "sha256": "3d42a4007f0f65f567a90d62d92be647f67ad96a2efbfb73aa48055c69962ade",
+      "tests": 6,
+      "seconds": 2.28,
+      "passed": false,
+      "note": "Both product findings confirmed; clean test loop"
+    },
+    {
+      "path": "docs/evidence/accounting-openings-period-review-2026-11-04.txt",
+      "sha256": "7a0e428ee367db7216ec3d042c71615f9a4eb6b4a64e22930d94916c8f60bc35",
+      "tests": 1,
+      "seconds": 0.491,
+      "passed": true,
+      "note": "Actual closed-period check and exact historical replay passed"
+    },
+    {
+      "path": "docs/evidence/accounting-openings-independent-after-fix-2026-11-04.txt",
+      "sha256": "9ced77ad99d12ec88838327d43d4d1ff881a32516a354d12b03810d42d6ffde0",
+      "tests": 7,
+      "seconds": 3.699,
+      "passed": false,
+      "note": "Both product fixes worked; restore finding is reported globally, while initial review assertion expected per-account issue"
+    },
+    {
+      "path": "docs/evidence/accounting-openings-independent-final-2026-11-04.txt",
+      "sha256": "04b97db111681cf7fdb78efc137362f2ecc345fbf60f224f1c87bccc956be32e",
+      "tests": 7,
+      "seconds": 3.3,
+      "passed": true,
+      "note": "Final independent checks with exact global restore-issue contract"
+    }
+  ],
+  "source_hashes": {
+    "backend/business_accounting_openings.py": "1b22415aff52a5dfc174b92f1c49ea24630e3ff997abd08c9af3ff2242ad7de7",
+    "backend/test_business_accounting_openings_review.py": "067ff31a8f77bfb6b7503a1fab0c06aae9ecce6737a672c8af2a381234064653",
+    "backend/business_accounting_euer.py": "8b7de3d9ea21083160af66cad5e9dcd42ce42d1776b9473b3e20b0207b9b4322",
+    "backend/business_schema.py": "4d38d4ae669a2eac630a8f44999c4607d48781e4570f3e5b806ea2f0de1b059e"
+  }
+}

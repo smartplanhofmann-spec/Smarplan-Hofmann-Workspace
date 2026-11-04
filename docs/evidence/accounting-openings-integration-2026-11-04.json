@@ -1,0 +1,141 @@
+{
+  "scope": "Opening balance global integration only; synthetic SQLite and loopback HTTP, no external providers",
+  "baseline": "2fdfa9f37bbbaf9e8b6fe4070be6809fe15b69c3",
+  "report_contract": {
+    "combined_horizon": 12,
+    "financial_restore_report": 13,
+    "opening_subhorizon": 1
+  },
+  "passed": [
+    {
+      "log": "docs/evidence/accounting-openings-integration-2026-11-04-registration-first.txt",
+      "tests": 46,
+      "note": "First 4 new registration cases plus schema, company handover and accounting registration",
+      "sha256": "99b724eece2ae26094d88de7ad7250d1e132ed32ff8c9f1cb43467140e9f6116",
+      "bytes": 9697,
+      "original_ignored_log": "work/verification/opening-registration-first.log"
+    },
+    {
+      "log": "docs/evidence/accounting-openings-integration-2026-11-04-financial-regression.txt",
+      "tests": 77,
+      "sha256": "dec92fd29ceaad24e17f4678a8163f31eb159f46837d5af8c51964fdef6d033f",
+      "bytes": 16105,
+      "original_ignored_log": "work/verification/opening-financial-regression.log"
+    },
+    {
+      "log": "docs/evidence/accounting-openings-integration-2026-11-04-native-package.txt",
+      "tests": 16,
+      "note": "Includes actual explicit source ZIP import and restore CLI help",
+      "sha256": "7dc213b072d1461d731e2025bfb213af6330496a3adf53c092da5e4ae81d375f",
+      "bytes": 3604,
+      "original_ignored_log": "work/verification/opening-native-package.log"
+    },
+    {
+      "log": "docs/evidence/accounting-openings-integration-2026-11-04-transport-loopback.txt",
+      "tests": 5,
+      "note": "Local HTTP socket and MFA Flask routes; exact 5 MiB, oversize, replay, strict framing",
+      "sha256": "3e3e7e870905144a5e3d1a04d76eed934691a978ffc0ab60e370152589b9f51f",
+      "bytes": 1105,
+      "original_ignored_log": "work/verification/opening-transport-loopback.log"
+    },
+    {
+      "log": "docs/evidence/accounting-openings-integration-2026-11-04-restore-cli-final.txt",
+      "tests": 9,
+      "note": "Four CLI report expectation corrections plus five new registration cases",
+      "sha256": "ac91daa82220b8eda7ecc3d9bf782054c28fde046c19ba543de133ca97d5b58d",
+      "bytes": 2333,
+      "original_ignored_log": "work/verification/opening-restore-cli-final.log"
+    },
+    {
+      "log": "docs/evidence/accounting-openings-integration-2026-11-04-populated-export.txt",
+      "tests": 1,
+      "note": "Actual original bytes/account/hash export, technical receipts excluded",
+      "sha256": "90c481a565d33af5843f8416ffb1887568a0eb5b2d9df8b7bc4438ccd57c78e3",
+      "bytes": 341,
+      "original_ignored_log": "work/verification/opening-populated-export.log"
+    }
+  ],
+  "partial_initial_runs": [
+    {
+      "log": "docs/evidence/accounting-openings-integration-2026-11-04-http-regression.txt",
+      "tests": 49,
+      "passed": 45,
+      "failed": 4,
+      "resolution": "Four legacy evidence_schema=12 assertions updated to13 and all four passed in docs/evidence/accounting-openings-integration-2026-11-04-restore-cli-final.txt",
+      "sha256": "9b4d0007fbca3aa1ef56e7792edd25e45411107f08530d3c9da19d9c7cdac505",
+      "bytes": 14862,
+      "original_ignored_log": "work/verification/opening-http-regression.log"
+    },
+    {
+      "log": "docs/evidence/accounting-openings-integration-2026-11-04-transport.txt",
+      "tests": 5,
+      "passed": 3,
+      "errors": 2,
+      "resolution": "Sandbox disallowed local socket; entire five-test suite subsequently passed with authorized loopback execution",
+      "sha256": "b7810019cad240d82812e7a8be7077f65c9193be72132f1de397f7137e02f726",
+      "bytes": 3484,
+      "original_ignored_log": "work/verification/opening-transport.log"
+    }
+  ],
+  "changed_integration_paths": [
+    ".github/workflows/checks.yml",
+    "app/lib/business_session.dart",
+    "app/lib/business_widgets.dart",
+    "backend/business_accounting_euer.py",
+    "backend/business_api.py",
+    "backend/business_organization.py",
+    "backend/business_schema.py",
+    "backend/company_export_catalog.py",
+    "backend/online/test_accounting_allocations_http.py",
+    "backend/online/test_accounting_capacity_http.py",
+    "backend/online/test_accounting_components_http.py",
+    "backend/online/test_accounting_http.py",
+    "backend/online/test_accounting_profile_http.py",
+    "backend/online/test_accounting_refunds_http.py",
+    "backend/online/test_accounting_refunds_v2_http.py",
+    "backend/online/test_business_accounting_euer_pg.py",
+    "backend/online/test_business_bank_reconciliation_pg.py",
+    "backend/online/test_business_payroll_cash_pg.py",
+    "backend/online/test_business_travel_pg.py",
+    "backend/online/test_postgres_accounting_allocations_integration.py",
+    "backend/online/test_postgres_accounting_capacity_integration.py",
+    "backend/online/test_postgres_accounting_components_integration.py",
+    "backend/online/test_postgres_accounting_integration.py",
+    "backend/online/test_postgres_accounting_profile_integration.py",
+    "backend/online/test_postgres_accounting_refunds_integration.py",
+    "backend/online/test_postgres_accounting_refunds_v2_integration.py",
+    "backend/online/web.py",
+    "backend/server.py",
+    "backend/test_business_accounting.py",
+    "backend/test_business_accounting_allocations.py",
+    "backend/test_business_accounting_refunds_v2.py",
+    "backend/test_business_bank_euer_review.py",
+    "backend/test_business_payroll_cash.py",
+    "backend/test_business_travel_finance.py",
+    "scripts/native-release.py",
+    "scripts/package-windows-support.py"
+  ],
+  "new_integration_tests": [
+    "backend/test_accounting_openings_registration.py",
+    "backend/test_accounting_openings_transport.py"
+  ],
+  "isolated_local_environment": "Ignored backend/.venv symlink points to existing /tmp/smartplan-backend-verified for package import tests; not part of source changes",
+  "source_summary_sha256": "eca878977d34f1171c107b56ed76de265de85c11ca1d0a5d27133eaf0cd91cda",
+  "source_summary_path": "work/verification/opening-integration-summary.json",
+  "preservation": "Referenced successful and failed logs copied byte-for-byte; hashes bind the retained bytes. No tests rerun during evidence preservation.",
+  "not_run_at_original_summary": [
+    "PostgreSQL tests; global prior-scope exclusions and current horizon expectations updated only"
+  ],
+  "subsequent_postgresql_evidence": {
+    "docs/evidence/accounting-openings-postgres-first-2026-11-04.json": {
+      "sha256": "a34a5cc22c1111adb2b4499bb38a504e4bb970cc3dd2dbf5ed44cfb7e5f8072f",
+      "bytes": 2354
+    },
+    "docs/evidence/accounting-openings-postgres-first-2026-11-04.txt": {
+      "sha256": "921959ccb47919f99f11965f20473882b9eed3c9062e307fdf9ff990764bad59",
+      "bytes": 1027
+    }
+  },
+  "changed_integration_paths_note": "Observed worktree diff at the original summary time. Concurrent parent/client edits are also present; this is not an authorship claim.",
+  "counts_note": "Test counts describe individual runs. Reruns overlap and must not be added as distinct tests."
+}

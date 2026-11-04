@@ -1,0 +1,3317 @@
+{
+  "schema_version": 1,
+  "original_upload": {
+    "request_id": "f60130f1d39a44769171a46474dcddd1",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "filename": "synthetic-opening.pdf",
+    "media_type": "application/pdf",
+    "content_base64": "JVBERi0xLjQKU3ludGhldGljIG9yaWdpbmFsIG9wZW5pbmcKJSVFT0YK"
+  },
+  "original": {
+    "id": "4c44ca9152294daab6be9557609e2e35",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "filename": "synthetic-opening.pdf",
+    "media_type": "application/pdf",
+    "size": 42,
+    "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+    "created_by": "961aff271ff1439989f79257b6b19041",
+    "created_at": "2026-12-31T12:00:00+00:00",
+    "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+  },
+  "state_before": {
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "revision": 0,
+    "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "accounts": [
+      {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "currency": "EUR",
+        "id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      }
+    ],
+    "items": [],
+    "can_prepare": true,
+    "max_original_bytes": 5242880,
+    "liquidity_path": "/accounting/opening-balances/liquidity",
+    "cash_flow_created": false,
+    "tax_postings_created": false
+  },
+  "sources_before_original_upload": {
+    "schema_version": 1,
+    "account": {
+      "active": true,
+      "code": "BANK",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "currency": "EUR",
+      "id": "766e6022b8794ca8be7c67a773d1e5a8",
+      "kind": "bank",
+      "name": "Synthetic bank account",
+      "revision": 1
+    },
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "opening_date": "2026-01-01",
+    "bank_statements": [],
+    "originals": [],
+    "original_evidence_type": "account_statement"
+  },
+  "liquidity_before": {
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "as_of": "2026-11-02",
+    "currency": "EUR",
+    "scope": "recorded_movements",
+    "revision": 0,
+    "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+    "accounts": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "opening_ref": null,
+        "opening_date": null,
+        "opening_balance": null,
+        "inflows": "0.00",
+        "outflows": "0.00",
+        "calculated_balance": null,
+        "balance": null,
+        "movements": [],
+        "bank_connections": [],
+        "issues": [
+          {
+            "code": "opening_balance_missing"
+          }
+        ]
+      }
+    ],
+    "unresolved_cash_sources": [],
+    "issues": [],
+    "complete_for_recorded_accounts": false,
+    "known_balance_sum": null,
+    "known_account_count": 0,
+    "account_count": 1,
+    "balance_total": null,
+    "euer_result_unchanged": true,
+    "cash_flow_created": false,
+    "tax_postings_created": false,
+    "balance_timing": "start_of_day",
+    "timezone": "Europe/Berlin"
+  },
+  "sources": {
+    "schema_version": 1,
+    "account": {
+      "active": true,
+      "code": "BANK",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "currency": "EUR",
+      "id": "766e6022b8794ca8be7c67a773d1e5a8",
+      "kind": "bank",
+      "name": "Synthetic bank account",
+      "revision": 1
+    },
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "opening_date": "2026-01-01",
+    "bank_statements": [],
+    "originals": [
+      {
+        "id": "4c44ca9152294daab6be9557609e2e35",
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "filename": "synthetic-opening.pdf",
+        "media_type": "application/pdf",
+        "size": 42,
+        "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+      }
+    ],
+    "original_evidence_type": "account_statement"
+  },
+  "preview_request": {
+    "expected_revision": 0,
+    "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "account_revision": 1,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "status": "active",
+    "opening_date": "2026-01-01",
+    "amount": "1000.00",
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "reason": "Synthetic original and exact opening balance reviewed"
+  },
+  "preview": {
+    "reason": "Synthetic original and exact opening balance reviewed",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "expected_revision": 0,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "opening_date": "2026-01-01",
+    "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+    "account_revision": 1,
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "status": "active",
+    "amount": "1000.00",
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "cash_flow_created": false,
+    "tax_postings_created": false,
+    "balance_timing": "start_of_day",
+    "timezone": "Europe/Berlin",
+    "account": {
+      "active": true,
+      "code": "BANK",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "currency": "EUR",
+      "id": "766e6022b8794ca8be7c67a773d1e5a8",
+      "kind": "bank",
+      "name": "Synthetic bank account",
+      "revision": 1
+    },
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "source_proof": {
+      "kind": "original",
+      "original": {
+        "id": "4c44ca9152294daab6be9557609e2e35",
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "filename": "synthetic-opening.pdf",
+        "media_type": "application/pdf",
+        "size": 42,
+        "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+      },
+      "evidence_type": "account_statement",
+      "opening_date": "2026-01-01",
+      "amount": "1000.00",
+      "at_start_of_day": true,
+      "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+    },
+    "previous_ref": null,
+    "preview_hash": "c6c3c2582ce75647b97c70d0e6d5abd8f97b3737f3196869fba7c089a8d51d24"
+  },
+  "command": {
+    "request_id": "c0b61050b6bb42bb904f076f6a0fe4f3",
+    "expected_revision": 0,
+    "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "account_revision": 1,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "status": "active",
+    "opening_date": "2026-01-01",
+    "amount": "1000.00",
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "reason": "Synthetic original and exact opening balance reviewed",
+    "confirmation": true,
+    "preview_hash": "c6c3c2582ce75647b97c70d0e6d5abd8f97b3737f3196869fba7c089a8d51d24"
+  },
+  "saved": {
+    "reason": "Synthetic original and exact opening balance reviewed",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "expected_revision": 0,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "opening_date": "2026-01-01",
+    "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+    "account_revision": 1,
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "status": "active",
+    "amount": "1000.00",
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "cash_flow_created": false,
+    "tax_postings_created": false,
+    "balance_timing": "start_of_day",
+    "timezone": "Europe/Berlin",
+    "account": {
+      "active": true,
+      "code": "BANK",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "currency": "EUR",
+      "id": "766e6022b8794ca8be7c67a773d1e5a8",
+      "kind": "bank",
+      "name": "Synthetic bank account",
+      "revision": 1
+    },
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "source_proof": {
+      "kind": "original",
+      "original": {
+        "id": "4c44ca9152294daab6be9557609e2e35",
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "filename": "synthetic-opening.pdf",
+        "media_type": "application/pdf",
+        "size": 42,
+        "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+      },
+      "evidence_type": "account_statement",
+      "opening_date": "2026-01-01",
+      "amount": "1000.00",
+      "at_start_of_day": true,
+      "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+    },
+    "previous_ref": null,
+    "preview_hash": "c6c3c2582ce75647b97c70d0e6d5abd8f97b3737f3196869fba7c089a8d51d24",
+    "id": "df3109fd1148441285833295dd1cdbc8",
+    "sequence": 1,
+    "revision": 1,
+    "previous_hash": null,
+    "created_by": "961aff271ff1439989f79257b6b19041",
+    "created_at": "2026-12-31T12:00:00+00:00",
+    "content_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3"
+  },
+  "state_after": {
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "revision": 1,
+    "state_hash": "4ce1bc4e5a766181be8cc8fd5c220910e97cbdea1eb639b1b5bce482980073c6",
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "accounts": [
+      {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "currency": "EUR",
+        "id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      }
+    ],
+    "items": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "account_revision": 1,
+        "amount": "1000.00",
+        "balance_timing": "start_of_day",
+        "cash_flow_created": false,
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "expected_revision": 0,
+        "id": "df3109fd1148441285833295dd1cdbc8",
+        "opening_date": "2026-01-01",
+        "preview_hash": "c6c3c2582ce75647b97c70d0e6d5abd8f97b3737f3196869fba7c089a8d51d24",
+        "previous_hash": null,
+        "previous_ref": null,
+        "profile": {
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "evidence_reference": "Synthetic owner statement",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+          "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "accounting_method": "euer",
+            "bookkeeping_start": "2026-01-01",
+            "legal_form": "sole_proprietorship",
+            "vat_effective_from": "2026-01-01",
+            "vat_regime": "regular",
+            "vat_timing": "cash"
+          },
+          "reason": "Explicit synthetic accounting facts",
+          "revision": 1,
+          "scope": "organization_profile",
+          "tax_result_available": false,
+          "tax_status": "unconfigured"
+        },
+        "profile_ref": {
+          "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "revision": 1
+        },
+        "reason": "Synthetic original and exact opening balance reviewed",
+        "revision": 1,
+        "rule_version": "account_opening_balances_v1",
+        "schema_version": 1,
+        "sequence": 1,
+        "source": {
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "original_id": "4c44ca9152294daab6be9557609e2e35",
+          "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27"
+        },
+        "source_proof": {
+          "amount": "1000.00",
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "opening_date": "2026-01-01",
+          "original": {
+            "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+            "created_at": "2026-12-31T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "filename": "synthetic-opening.pdf",
+            "id": "4c44ca9152294daab6be9557609e2e35",
+            "media_type": "application/pdf",
+            "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35",
+            "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+            "size": 42
+          },
+          "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+        },
+        "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "status": "active",
+        "tax_postings_created": false,
+        "timezone": "Europe/Berlin",
+        "content_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3"
+      }
+    ],
+    "can_prepare": true,
+    "max_original_bytes": 5242880,
+    "liquidity_path": "/accounting/opening-balances/liquidity",
+    "cash_flow_created": false,
+    "tax_postings_created": false
+  },
+  "history": {
+    "schema_version": 1,
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "items": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "account_revision": 1,
+        "amount": "1000.00",
+        "balance_timing": "start_of_day",
+        "cash_flow_created": false,
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "expected_revision": 0,
+        "id": "df3109fd1148441285833295dd1cdbc8",
+        "opening_date": "2026-01-01",
+        "preview_hash": "c6c3c2582ce75647b97c70d0e6d5abd8f97b3737f3196869fba7c089a8d51d24",
+        "previous_hash": null,
+        "previous_ref": null,
+        "profile": {
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "evidence_reference": "Synthetic owner statement",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+          "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "accounting_method": "euer",
+            "bookkeeping_start": "2026-01-01",
+            "legal_form": "sole_proprietorship",
+            "vat_effective_from": "2026-01-01",
+            "vat_regime": "regular",
+            "vat_timing": "cash"
+          },
+          "reason": "Explicit synthetic accounting facts",
+          "revision": 1,
+          "scope": "organization_profile",
+          "tax_result_available": false,
+          "tax_status": "unconfigured"
+        },
+        "profile_ref": {
+          "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "revision": 1
+        },
+        "reason": "Synthetic original and exact opening balance reviewed",
+        "revision": 1,
+        "rule_version": "account_opening_balances_v1",
+        "schema_version": 1,
+        "sequence": 1,
+        "source": {
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "original_id": "4c44ca9152294daab6be9557609e2e35",
+          "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27"
+        },
+        "source_proof": {
+          "amount": "1000.00",
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "opening_date": "2026-01-01",
+          "original": {
+            "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+            "created_at": "2026-12-31T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "filename": "synthetic-opening.pdf",
+            "id": "4c44ca9152294daab6be9557609e2e35",
+            "media_type": "application/pdf",
+            "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35",
+            "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+            "size": 42
+          },
+          "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+        },
+        "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "status": "active",
+        "tax_postings_created": false,
+        "timezone": "Europe/Berlin",
+        "content_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3"
+      }
+    ]
+  },
+  "liquidity": {
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "as_of": "2026-11-02",
+    "currency": "EUR",
+    "scope": "recorded_movements",
+    "revision": 1,
+    "state_hash": "4ce1bc4e5a766181be8cc8fd5c220910e97cbdea1eb639b1b5bce482980073c6",
+    "accounts": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "opening_ref": {
+          "id": "df3109fd1148441285833295dd1cdbc8",
+          "revision": 1,
+          "content_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3"
+        },
+        "opening_date": "2026-01-01",
+        "opening_balance": "1000.00",
+        "inflows": "119.00",
+        "outflows": "59.50",
+        "calculated_balance": "1059.50",
+        "balance": "1059.50",
+        "movements": [
+          {
+            "source_kind": "cash_event",
+            "source_id": "aaac7fdbe7e94dbda1f651cc395c7f3d",
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "961aff271ff1439989f79257b6b19041",
+              "currency": "EUR",
+              "id": "766e6022b8794ca8be7c67a773d1e5a8",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "date": "2026-11-02",
+            "direction": "in",
+            "amount": "119.00",
+            "source_path": "/accounting/events/aaac7fdbe7e94dbda1f651cc395c7f3d"
+          },
+          {
+            "source_kind": "cash_event",
+            "source_id": "d5b3183549c743edb17b762143c9a2b8",
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "961aff271ff1439989f79257b6b19041",
+              "currency": "EUR",
+              "id": "766e6022b8794ca8be7c67a773d1e5a8",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "date": "2026-11-02",
+            "direction": "out",
+            "amount": "59.50",
+            "source_path": "/accounting/events/d5b3183549c743edb17b762143c9a2b8"
+          }
+        ],
+        "bank_connections": [],
+        "issues": []
+      }
+    ],
+    "unresolved_cash_sources": [],
+    "issues": [],
+    "complete_for_recorded_accounts": true,
+    "known_balance_sum": "1059.50",
+    "known_account_count": 1,
+    "account_count": 1,
+    "balance_total": "1059.50",
+    "euer_result_unchanged": true,
+    "cash_flow_created": false,
+    "tax_postings_created": false,
+    "balance_timing": "start_of_day",
+    "timezone": "Europe/Berlin"
+  },
+  "euer_state": {
+    "revision": 3,
+    "state_hash": "f5b1d00f1f52b85a5c4618539bf432004b2d68feae27a88f9d6eacaf8b404824",
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "profile_ready": true,
+    "writes_allowed": true,
+    "rule_version": "de_euer_regular_cash_2026_v1",
+    "account_frame": "SKR04",
+    "categories": {
+      "income": [
+        "sales"
+      ],
+      "expense": [
+        "materials",
+        "external_services",
+        "rent",
+        "insurance",
+        "software",
+        "travel",
+        "other_expense",
+        "asset_acquisition"
+      ],
+      "external_cash": {
+        "vat_payment": "out",
+        "vat_refund": "in",
+        "owner_contribution": "in",
+        "owner_withdrawal": "out",
+        "loan_received": "in",
+        "loan_repayment": "out"
+      },
+      "payroll_cash": [
+        "payroll_net",
+        "payroll_employee_tax",
+        "payroll_employee_social",
+        "payroll_employer_social",
+        "payroll_employer_levies",
+        "payroll_employer_flat_tax"
+      ],
+      "travel_cash": [
+        "travel_allowance"
+      ]
+    },
+    "periods": [],
+    "limitations": [
+      "Domestic regular taxation with explicitly recorded cash VAT profile",
+      "Invoice chains require verified incremental documentary components; historical invoice proofs remain unchanged",
+      "No automatic reverse charge, cross-border VAT, VAT-free sales, private deemed supplies or partial advance input VAT",
+      "Linear depreciation for evidenced new assets only; no opening assets, disposal, special/degressive depreciation or GWG automation",
+      "No automatic loan-interest limitation, home-office allowance or payroll tax determination; travel cash requires separately reviewed travel claims",
+      "Own adviser review format; no official tax return, ELSTER transmission or DATEV certification"
+    ],
+    "official_tax_return": false,
+    "opening_balances_path": "/accounting/opening-balances"
+  },
+  "euer_sources": {
+    "items": [
+      {
+        "kind": "cash",
+        "id": "aaac7fdbe7e94dbda1f651cc395c7f3d",
+        "date": "2026-11-02",
+        "source": {
+          "kind": "cash",
+          "event": {
+            "id": "aaac7fdbe7e94dbda1f651cc395c7f3d",
+            "sequence": 1,
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "961aff271ff1439989f79257b6b19041",
+              "currency": "EUR",
+              "id": "766e6022b8794ca8be7c67a773d1e5a8",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "direction": "in",
+            "amount": "119.00",
+            "currency": "EUR",
+            "cash_date": "2026-11-02",
+            "evidence_reference": "Bank record 09eb81ccd9274482add605d5830d772f",
+            "reference": "Synthetic payment",
+            "source": {
+              "kind": "payment",
+              "id": "8a1c5727b75b4649be76d03c1cd32c7b",
+              "source_hash": "59635042cbdf708794cf16c361baa01e2b7713478460e57534dcd462b2c746e1",
+              "snapshot": {
+                "payment_id": "8a1c5727b75b4649be76d03c1cd32c7b",
+                "kind": "receipt",
+                "direction": "in",
+                "amount": "119.00",
+                "currency": "EUR",
+                "booking_date": "2026-11-01",
+                "reference": "Synthetic payment",
+                "source_id": "source-9f35c646c41e44838fd8357185db548c",
+                "allocations": [
+                  {
+                    "document_id": "633ef46d6a194c43b03175ff10b72643",
+                    "number": "RE-2026-000001",
+                    "project_id": "559f6ea88b22426eba597795da2faf23",
+                    "payload_sha256": "d461540efce801e925cf393243f571852281f60473bc343735ca35098a4730e0",
+                    "pdf_sha256": "8f89800e9ea450cc71e322d07617e1fb2593fde0c97f214eaab8a52d976cbe35",
+                    "amount": "119.00"
+                  }
+                ],
+                "unallocated": "0.00"
+              }
+            },
+            "classification_status": "unclassified",
+            "unresolved_reasons": [
+              "tax_profile_unconfigured"
+            ],
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "created_at": "2026-11-02T12:00:00+00:00"
+          },
+          "units": [
+            {
+              "version": "c1",
+              "entry_id": "16334562d661434facee262ebccbacc2",
+              "group_id": "5f662328d9b8bded830b9a6f8964e8a7dd0f25d8eac590175bed00440a55ee56",
+              "index": 0,
+              "net": "100.00",
+              "tax": "19.00",
+              "gross": "119.00",
+              "rate": "19",
+              "tax_category": "S",
+              "unit_id": "0326f1936e0d962c4cdc0bed27460a86194b2af124dd5ea705e66f5a5636457f"
+            }
+          ],
+          "undocumented_amount": "0.00",
+          "source_path": "/accounting/events/aaac7fdbe7e94dbda1f651cc395c7f3d",
+          "source_hash": "3b76c9d7a7f62438e400b8d694dc6df182201a34b0d0fe860f0aa30a1205c6b0"
+        },
+        "current": {
+          "artifact": null,
+          "control": null,
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "effect": {
+            "details": {
+              "cash_date": "2026-11-02",
+              "date": "2026-11-02",
+              "gross": "119.00"
+            },
+            "operation": "cash",
+            "payload": {
+              "euer_date": "2026-11-02",
+              "event_id": "aaac7fdbe7e94dbda1f651cc395c7f3d",
+              "lines": [
+                {
+                  "account": "4400",
+                  "business_net": "100.00",
+                  "business_tax": "19.00",
+                  "category": "sales",
+                  "deductible_input_tax": "0.00",
+                  "deductible_net": "0.00",
+                  "deductible_tax_cost": "0.00",
+                  "unit_id": "0326f1936e0d962c4cdc0bed27460a86194b2af124dd5ea705e66f5a5636457f",
+                  "vat_account": "3806"
+                }
+              ],
+              "source_hash": "3b76c9d7a7f62438e400b8d694dc6df182201a34b0d0fe860f0aa30a1205c6b0",
+              "year_rule": {
+                "kind": "cash"
+              }
+            },
+            "postings": [
+              {
+                "account": "4400",
+                "amount": "100.00",
+                "category": "sales",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "vat_collected",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d"
+              },
+              {
+                "account": "3806",
+                "amount": "19.00",
+                "category": "output_vat",
+                "date": "2026-11-02",
+                "ledger": "vat",
+                "source_key": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d"
+              }
+            ],
+            "source": {
+              "event": {
+                "account": {
+                  "active": true,
+                  "code": "BANK",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "961aff271ff1439989f79257b6b19041",
+                  "currency": "EUR",
+                  "id": "766e6022b8794ca8be7c67a773d1e5a8",
+                  "kind": "bank",
+                  "name": "Synthetic bank account",
+                  "revision": 1
+                },
+                "amount": "119.00",
+                "cash_date": "2026-11-02",
+                "classification_status": "unclassified",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "961aff271ff1439989f79257b6b19041",
+                "currency": "EUR",
+                "direction": "in",
+                "evidence_reference": "Bank record 09eb81ccd9274482add605d5830d772f",
+                "id": "aaac7fdbe7e94dbda1f651cc395c7f3d",
+                "reference": "Synthetic payment",
+                "sequence": 1,
+                "source": {
+                  "id": "8a1c5727b75b4649be76d03c1cd32c7b",
+                  "kind": "payment",
+                  "snapshot": {
+                    "allocations": [
+                      {
+                        "amount": "119.00",
+                        "document_id": "633ef46d6a194c43b03175ff10b72643",
+                        "number": "RE-2026-000001",
+                        "payload_sha256": "d461540efce801e925cf393243f571852281f60473bc343735ca35098a4730e0",
+                        "pdf_sha256": "8f89800e9ea450cc71e322d07617e1fb2593fde0c97f214eaab8a52d976cbe35",
+                        "project_id": "559f6ea88b22426eba597795da2faf23"
+                      }
+                    ],
+                    "amount": "119.00",
+                    "booking_date": "2026-11-01",
+                    "currency": "EUR",
+                    "direction": "in",
+                    "kind": "receipt",
+                    "payment_id": "8a1c5727b75b4649be76d03c1cd32c7b",
+                    "reference": "Synthetic payment",
+                    "source_id": "source-9f35c646c41e44838fd8357185db548c",
+                    "unallocated": "0.00"
+                  },
+                  "source_hash": "59635042cbdf708794cf16c361baa01e2b7713478460e57534dcd462b2c746e1"
+                },
+                "unresolved_reasons": [
+                  "tax_profile_unconfigured"
+                ]
+              },
+              "kind": "cash",
+              "source_hash": "3b76c9d7a7f62438e400b8d694dc6df182201a34b0d0fe860f0aa30a1205c6b0",
+              "source_path": "/accounting/events/aaac7fdbe7e94dbda1f651cc395c7f3d",
+              "undocumented_amount": "0.00",
+              "units": [
+                {
+                  "entry_id": "16334562d661434facee262ebccbacc2",
+                  "gross": "119.00",
+                  "group_id": "5f662328d9b8bded830b9a6f8964e8a7dd0f25d8eac590175bed00440a55ee56",
+                  "index": 0,
+                  "net": "100.00",
+                  "rate": "19",
+                  "tax": "19.00",
+                  "tax_category": "S",
+                  "unit_id": "0326f1936e0d962c4cdc0bed27460a86194b2af124dd5ea705e66f5a5636457f",
+                  "version": "c1"
+                }
+              ]
+            },
+            "target": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d"
+          },
+          "evidence_reference": "Synthetic evidence and SKR04 mapping",
+          "id": "134723e161bd4bfda323be6c7aa31963",
+          "operation": "cash",
+          "payload": {
+            "euer_date": "2026-11-02",
+            "event_id": "aaac7fdbe7e94dbda1f651cc395c7f3d",
+            "lines": [
+              {
+                "account": "4400",
+                "business_net": "100.00",
+                "business_tax": "19.00",
+                "category": "sales",
+                "deductible_input_tax": "0.00",
+                "deductible_net": "0.00",
+                "deductible_tax_cost": "0.00",
+                "unit_id": "0326f1936e0d962c4cdc0bed27460a86194b2af124dd5ea705e66f5a5636457f",
+                "vat_account": "3806"
+              }
+            ],
+            "source_hash": "3b76c9d7a7f62438e400b8d694dc6df182201a34b0d0fe860f0aa30a1205c6b0",
+            "year_rule": {
+              "kind": "cash"
+            }
+          },
+          "postings": [
+            {
+              "account": "4400",
+              "amount": "100.00",
+              "category": "sales",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d"
+            },
+            {
+              "account": "3806",
+              "amount": "19.00",
+              "category": "vat_collected",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d"
+            },
+            {
+              "account": "3806",
+              "amount": "19.00",
+              "category": "output_vat",
+              "date": "2026-11-02",
+              "ledger": "vat",
+              "source_key": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d"
+            }
+          ],
+          "preview_hash": "6d529e689db0ecef990812d8c1fd9267894bd50d85fbc060d2e23734f76b8364",
+          "previous_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "dc78a12aa189480495d4305bcb02f6da",
+            "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+            "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-01-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2026-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 1,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "reason": "Explicit synthetic subject/tax/account review",
+          "reverses": null,
+          "rule_version": "de_euer_regular_cash_2026_v1",
+          "sequence": 1,
+          "target": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d",
+          "entry_hash": "b7ea0ed001f32b104cb0a74e67810a14119a1dd2a60b24c8f81466ebc8dd21e6"
+        },
+        "reasons": []
+      },
+      {
+        "kind": "cash",
+        "id": "d5b3183549c743edb17b762143c9a2b8",
+        "date": "2026-11-02",
+        "source": {
+          "kind": "cash",
+          "event": {
+            "id": "d5b3183549c743edb17b762143c9a2b8",
+            "sequence": 2,
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "961aff271ff1439989f79257b6b19041",
+              "currency": "EUR",
+              "id": "766e6022b8794ca8be7c67a773d1e5a8",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "direction": "out",
+            "amount": "59.50",
+            "currency": "EUR",
+            "cash_date": "2026-11-02",
+            "evidence_reference": "Supplier transfer 0ea5d3279d2d4aaf8b3876ba21ce78d3",
+            "reference": "Synthetic partial payment",
+            "source": {
+              "kind": "receipt",
+              "id": "ed058192b2b242428e6b55c6ba6bf0e5",
+              "source_hash": "f0e887ec6b4104f0faf934ea4de771c0a1d621567038e2356d8f0e1f381dfcbc",
+              "snapshot": {
+                "receipt_id": "ed058192b2b242428e6b55c6ba6bf0e5",
+                "project_id": "559f6ea88b22426eba597795da2faf23",
+                "filename": "synthetic-incoming.pdf",
+                "media_type": "application/pdf",
+                "original_sha256": "e5dcf2ce58befb866867c7dcd96176d6a43ef364b81fd155b2391dca7d04df0d",
+                "review_revision": 2,
+                "review_sha256": "c55b6024e2d2f56f32840113324ab2e376336ae9739671339fed0eb4e18376c1",
+                "vendor": "Synthetic supplier",
+                "invoice_number": "SYN-1",
+                "issue_date": "2026-11-01",
+                "net": "50.00",
+                "tax": "9.50",
+                "gross": "59.50",
+                "currency": "EUR"
+              }
+            },
+            "classification_status": "unclassified",
+            "unresolved_reasons": [
+              "tax_profile_unconfigured"
+            ],
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "created_at": "2026-11-02T12:00:00+00:00"
+          },
+          "units": [
+            {
+              "version": "c1",
+              "entry_id": "307ff74084f94c1986c7f288d59be36a",
+              "group_id": "3df8b9324d0618348fff32ed1baf7cd97b720e4178afc4841a40c4817527690c",
+              "index": 0,
+              "net": "50.00",
+              "tax": "9.50",
+              "gross": "59.50",
+              "rate": null,
+              "tax_category": null,
+              "unit_id": "ddfec9d4f5922ab5ce02e7c90cd725a7455a8a9f03098fb89d37c9a91c4d427c"
+            }
+          ],
+          "undocumented_amount": "0.00",
+          "source_path": "/accounting/events/d5b3183549c743edb17b762143c9a2b8",
+          "source_hash": "51359e4f128664aa867714b62746025cff3004110e2390dd3b2a555593fb4a30"
+        },
+        "current": {
+          "artifact": null,
+          "control": null,
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "effect": {
+            "details": {
+              "cash_date": "2026-11-02",
+              "date": "2026-11-02",
+              "gross": "59.50"
+            },
+            "operation": "cash",
+            "payload": {
+              "euer_date": "2026-11-02",
+              "event_id": "d5b3183549c743edb17b762143c9a2b8",
+              "lines": [
+                {
+                  "account": "5400",
+                  "business_net": "50.00",
+                  "business_tax": "9.50",
+                  "category": "materials",
+                  "deductible_input_tax": "9.50",
+                  "deductible_net": "50.00",
+                  "deductible_tax_cost": "0.00",
+                  "unit_id": "ddfec9d4f5922ab5ce02e7c90cd725a7455a8a9f03098fb89d37c9a91c4d427c",
+                  "vat_account": "1406"
+                }
+              ],
+              "source_hash": "51359e4f128664aa867714b62746025cff3004110e2390dd3b2a555593fb4a30",
+              "year_rule": {
+                "kind": "cash"
+              }
+            },
+            "postings": [
+              {
+                "account": "5400",
+                "amount": "-50.00",
+                "category": "materials",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:d5b3183549c743edb17b762143c9a2b8"
+              },
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "paid_input_vat",
+                "date": "2026-11-02",
+                "ledger": "euer",
+                "source_key": "cash:d5b3183549c743edb17b762143c9a2b8"
+              }
+            ],
+            "source": {
+              "event": {
+                "account": {
+                  "active": true,
+                  "code": "BANK",
+                  "created_at": "2026-11-02T12:00:00+00:00",
+                  "created_by": "961aff271ff1439989f79257b6b19041",
+                  "currency": "EUR",
+                  "id": "766e6022b8794ca8be7c67a773d1e5a8",
+                  "kind": "bank",
+                  "name": "Synthetic bank account",
+                  "revision": 1
+                },
+                "amount": "59.50",
+                "cash_date": "2026-11-02",
+                "classification_status": "unclassified",
+                "created_at": "2026-11-02T12:00:00+00:00",
+                "created_by": "961aff271ff1439989f79257b6b19041",
+                "currency": "EUR",
+                "direction": "out",
+                "evidence_reference": "Supplier transfer 0ea5d3279d2d4aaf8b3876ba21ce78d3",
+                "id": "d5b3183549c743edb17b762143c9a2b8",
+                "reference": "Synthetic partial payment",
+                "sequence": 2,
+                "source": {
+                  "id": "ed058192b2b242428e6b55c6ba6bf0e5",
+                  "kind": "receipt",
+                  "snapshot": {
+                    "currency": "EUR",
+                    "filename": "synthetic-incoming.pdf",
+                    "gross": "59.50",
+                    "invoice_number": "SYN-1",
+                    "issue_date": "2026-11-01",
+                    "media_type": "application/pdf",
+                    "net": "50.00",
+                    "original_sha256": "e5dcf2ce58befb866867c7dcd96176d6a43ef364b81fd155b2391dca7d04df0d",
+                    "project_id": "559f6ea88b22426eba597795da2faf23",
+                    "receipt_id": "ed058192b2b242428e6b55c6ba6bf0e5",
+                    "review_revision": 2,
+                    "review_sha256": "c55b6024e2d2f56f32840113324ab2e376336ae9739671339fed0eb4e18376c1",
+                    "tax": "9.50",
+                    "vendor": "Synthetic supplier"
+                  },
+                  "source_hash": "f0e887ec6b4104f0faf934ea4de771c0a1d621567038e2356d8f0e1f381dfcbc"
+                },
+                "unresolved_reasons": [
+                  "tax_profile_unconfigured"
+                ]
+              },
+              "kind": "cash",
+              "source_hash": "51359e4f128664aa867714b62746025cff3004110e2390dd3b2a555593fb4a30",
+              "source_path": "/accounting/events/d5b3183549c743edb17b762143c9a2b8",
+              "undocumented_amount": "0.00",
+              "units": [
+                {
+                  "entry_id": "307ff74084f94c1986c7f288d59be36a",
+                  "gross": "59.50",
+                  "group_id": "3df8b9324d0618348fff32ed1baf7cd97b720e4178afc4841a40c4817527690c",
+                  "index": 0,
+                  "net": "50.00",
+                  "rate": null,
+                  "tax": "9.50",
+                  "tax_category": null,
+                  "unit_id": "ddfec9d4f5922ab5ce02e7c90cd725a7455a8a9f03098fb89d37c9a91c4d427c",
+                  "version": "c1"
+                }
+              ]
+            },
+            "target": "cash:d5b3183549c743edb17b762143c9a2b8"
+          },
+          "evidence_reference": "Synthetic evidence and SKR04 mapping",
+          "id": "1468e698f37646c49846f945d9c3078f",
+          "operation": "cash",
+          "payload": {
+            "euer_date": "2026-11-02",
+            "event_id": "d5b3183549c743edb17b762143c9a2b8",
+            "lines": [
+              {
+                "account": "5400",
+                "business_net": "50.00",
+                "business_tax": "9.50",
+                "category": "materials",
+                "deductible_input_tax": "9.50",
+                "deductible_net": "50.00",
+                "deductible_tax_cost": "0.00",
+                "unit_id": "ddfec9d4f5922ab5ce02e7c90cd725a7455a8a9f03098fb89d37c9a91c4d427c",
+                "vat_account": "1406"
+              }
+            ],
+            "source_hash": "51359e4f128664aa867714b62746025cff3004110e2390dd3b2a555593fb4a30",
+            "year_rule": {
+              "kind": "cash"
+            }
+          },
+          "postings": [
+            {
+              "account": "5400",
+              "amount": "-50.00",
+              "category": "materials",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:d5b3183549c743edb17b762143c9a2b8"
+            },
+            {
+              "account": "1406",
+              "amount": "-9.50",
+              "category": "paid_input_vat",
+              "date": "2026-11-02",
+              "ledger": "euer",
+              "source_key": "cash:d5b3183549c743edb17b762143c9a2b8"
+            }
+          ],
+          "preview_hash": "1f9aa620391245661c4adf2996d89e3e252886c0da06854e0f949ae44f5e0a93",
+          "previous_hash": "ef702a12ed52a815abbd2bd42cde31d142744430d7fa0b5737e18ce6f10500c4",
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "dc78a12aa189480495d4305bcb02f6da",
+            "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+            "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-01-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2026-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 1,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "reason": "Explicit synthetic subject/tax/account review",
+          "reverses": null,
+          "rule_version": "de_euer_regular_cash_2026_v1",
+          "sequence": 3,
+          "target": "cash:d5b3183549c743edb17b762143c9a2b8",
+          "entry_hash": "1a7ef276670048209128a9cd5c1d39c0caa7887db71f1bd2c947fdff8f6f2ed0"
+        },
+        "reasons": []
+      },
+      {
+        "kind": "receipt",
+        "id": "ed058192b2b242428e6b55c6ba6bf0e5",
+        "date": "2026-11-01",
+        "source": {
+          "kind": "receipt",
+          "receipt": {
+            "receipt_id": "ed058192b2b242428e6b55c6ba6bf0e5",
+            "project_id": "559f6ea88b22426eba597795da2faf23",
+            "filename": "synthetic-incoming.pdf",
+            "media_type": "application/pdf",
+            "original_sha256": "e5dcf2ce58befb866867c7dcd96176d6a43ef364b81fd155b2391dca7d04df0d",
+            "review_revision": 2,
+            "review_sha256": "c55b6024e2d2f56f32840113324ab2e376336ae9739671339fed0eb4e18376c1",
+            "source_hash": "f0e887ec6b4104f0faf934ea4de771c0a1d621567038e2356d8f0e1f381dfcbc",
+            "vendor": "Synthetic supplier",
+            "invoice_number": "SYN-1",
+            "issue_date": "2026-11-01",
+            "net": "50.00",
+            "tax": "9.50",
+            "gross": "59.50",
+            "currency": "EUR"
+          },
+          "source_path": "/finance/receipts/ed058192b2b242428e6b55c6ba6bf0e5",
+          "source_hash": "61945dc63f022d8437a624724f9587a6d7fd26242590c36202fc0f6c7bb6f448"
+        },
+        "current": {
+          "artifact": null,
+          "control": null,
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "effect": {
+            "details": {
+              "date": "2026-11-01",
+              "deductible_tax": "9.50",
+              "reviewed_tax": "9.50"
+            },
+            "operation": "input_vat",
+            "payload": {
+              "account": "1406",
+              "conditions_confirmed": true,
+              "deductible_tax": "9.50",
+              "entitlement_date": "2026-11-01",
+              "invoice_received_date": "2026-11-01",
+              "payment_event_id": null,
+              "prepayment": false,
+              "receipt_id": "ed058192b2b242428e6b55c6ba6bf0e5",
+              "service_date": "2026-11-01",
+              "source_hash": "61945dc63f022d8437a624724f9587a6d7fd26242590c36202fc0f6c7bb6f448"
+            },
+            "postings": [
+              {
+                "account": "1406",
+                "amount": "-9.50",
+                "category": "input_vat",
+                "date": "2026-11-01",
+                "ledger": "vat",
+                "source_key": "input_vat:e5dcf2ce58befb866867c7dcd96176d6a43ef364b81fd155b2391dca7d04df0d"
+              }
+            ],
+            "source": {
+              "kind": "receipt",
+              "receipt": {
+                "currency": "EUR",
+                "filename": "synthetic-incoming.pdf",
+                "gross": "59.50",
+                "invoice_number": "SYN-1",
+                "issue_date": "2026-11-01",
+                "media_type": "application/pdf",
+                "net": "50.00",
+                "original_sha256": "e5dcf2ce58befb866867c7dcd96176d6a43ef364b81fd155b2391dca7d04df0d",
+                "project_id": "559f6ea88b22426eba597795da2faf23",
+                "receipt_id": "ed058192b2b242428e6b55c6ba6bf0e5",
+                "review_revision": 2,
+                "review_sha256": "c55b6024e2d2f56f32840113324ab2e376336ae9739671339fed0eb4e18376c1",
+                "source_hash": "f0e887ec6b4104f0faf934ea4de771c0a1d621567038e2356d8f0e1f381dfcbc",
+                "tax": "9.50",
+                "vendor": "Synthetic supplier"
+              },
+              "source_hash": "61945dc63f022d8437a624724f9587a6d7fd26242590c36202fc0f6c7bb6f448",
+              "source_path": "/finance/receipts/ed058192b2b242428e6b55c6ba6bf0e5"
+            },
+            "target": "input_vat:e5dcf2ce58befb866867c7dcd96176d6a43ef364b81fd155b2391dca7d04df0d"
+          },
+          "evidence_reference": "Synthetic evidence and SKR04 mapping",
+          "id": "f9b5f726a3c34679b11523a4daada1eb",
+          "operation": "input_vat",
+          "payload": {
+            "account": "1406",
+            "conditions_confirmed": true,
+            "deductible_tax": "9.50",
+            "entitlement_date": "2026-11-01",
+            "invoice_received_date": "2026-11-01",
+            "payment_event_id": null,
+            "prepayment": false,
+            "receipt_id": "ed058192b2b242428e6b55c6ba6bf0e5",
+            "service_date": "2026-11-01",
+            "source_hash": "61945dc63f022d8437a624724f9587a6d7fd26242590c36202fc0f6c7bb6f448"
+          },
+          "postings": [
+            {
+              "account": "1406",
+              "amount": "-9.50",
+              "category": "input_vat",
+              "date": "2026-11-01",
+              "ledger": "vat",
+              "source_key": "input_vat:e5dcf2ce58befb866867c7dcd96176d6a43ef364b81fd155b2391dca7d04df0d"
+            }
+          ],
+          "preview_hash": "ce6e576029188df2e9751cbfbfda7f3ad0bd0168eaf9827414ce26ba312db1de",
+          "previous_hash": "2d0536f7571c7de017f48d101e6ff0baa4f584bc28c64e290854e943e0f33bb6",
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "dc78a12aa189480495d4305bcb02f6da",
+            "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+            "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-01-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2026-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 1,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "reason": "Explicit synthetic subject/tax/account review",
+          "reverses": null,
+          "rule_version": "de_euer_regular_cash_2026_v1",
+          "sequence": 2,
+          "target": "input_vat:e5dcf2ce58befb866867c7dcd96176d6a43ef364b81fd155b2391dca7d04df0d",
+          "entry_hash": "a334c178258b1b6a80298b2d91389580e665734eaa621ca53102707061e55126"
+        },
+        "external_cash": null,
+        "asset": null,
+        "reasons": [],
+        "source_role": "trade_receipt"
+      }
+    ],
+    "issues": [],
+    "cash_movements": [
+      {
+        "source_kind": "cash_event",
+        "source_id": "aaac7fdbe7e94dbda1f651cc395c7f3d",
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "date": "2026-11-02",
+        "direction": "in",
+        "amount": "119.00",
+        "source_path": "/accounting/events/aaac7fdbe7e94dbda1f651cc395c7f3d"
+      },
+      {
+        "source_kind": "cash_event",
+        "source_id": "d5b3183549c743edb17b762143c9a2b8",
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "date": "2026-11-02",
+        "direction": "out",
+        "amount": "59.50",
+        "source_path": "/accounting/events/d5b3183549c743edb17b762143c9a2b8"
+      }
+    ],
+    "account_movements": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "inflows": "119.00",
+        "outflows": "59.50",
+        "movement_net": "59.50",
+        "opening_balance": null,
+        "balance": null
+      }
+    ],
+    "cash_scope": "existing_cash_events_and_reviewed_external_cash",
+    "opening_balances_available": false,
+    "opening_balances_path": "/accounting/opening-balances"
+  },
+  "euer_report": {
+    "year": 2026,
+    "period": null,
+    "currency": "EUR",
+    "rule_version": "de_euer_regular_cash_2026_v1",
+    "account_frame": "SKR04",
+    "scope": "recorded_sources",
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "revision": 3,
+    "state_hash": "f5b1d00f1f52b85a5c4618539bf432004b2d68feae27a88f9d6eacaf8b404824",
+    "coverage_start": "2026-01-01",
+    "complete_for_recorded_sources": true,
+    "official_tax_return": false,
+    "limitations": [
+      "Domestic regular taxation with explicitly recorded cash VAT profile",
+      "Invoice chains require verified incremental documentary components; historical invoice proofs remain unchanged",
+      "No automatic reverse charge, cross-border VAT, VAT-free sales, private deemed supplies or partial advance input VAT",
+      "Linear depreciation for evidenced new assets only; no opening assets, disposal, special/degressive depreciation or GWG automation",
+      "No automatic loan-interest limitation, home-office allowance or payroll tax determination; travel cash requires separately reviewed travel claims",
+      "Own adviser review format; no official tax return, ELSTER transmission or DATEV certification"
+    ],
+    "totals": {
+      "confirmed_income": "119.00",
+      "confirmed_expenses": "59.50",
+      "confirmed_surplus": "59.50",
+      "euer_surplus": "59.50",
+      "confirmed_output_vat": "19.00",
+      "confirmed_input_vat": "9.50",
+      "vat_balance": "9.50"
+    },
+    "categories": [
+      {
+        "ledger": "euer",
+        "category": "materials",
+        "amount": "-50.00"
+      },
+      {
+        "ledger": "euer",
+        "category": "paid_input_vat",
+        "amount": "-9.50"
+      },
+      {
+        "ledger": "euer",
+        "category": "sales",
+        "amount": "100.00"
+      },
+      {
+        "ledger": "euer",
+        "category": "vat_collected",
+        "amount": "19.00"
+      },
+      {
+        "ledger": "vat",
+        "category": "input_vat",
+        "amount": "-9.50"
+      },
+      {
+        "ledger": "vat",
+        "category": "output_vat",
+        "amount": "19.00"
+      }
+    ],
+    "postings": [
+      {
+        "account": "4400",
+        "amount": "100.00",
+        "category": "sales",
+        "date": "2026-11-02",
+        "ledger": "euer",
+        "source_key": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d",
+        "entry_id": "134723e161bd4bfda323be6c7aa31963",
+        "sequence": 1
+      },
+      {
+        "account": "3806",
+        "amount": "19.00",
+        "category": "vat_collected",
+        "date": "2026-11-02",
+        "ledger": "euer",
+        "source_key": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d",
+        "entry_id": "134723e161bd4bfda323be6c7aa31963",
+        "sequence": 1
+      },
+      {
+        "account": "3806",
+        "amount": "19.00",
+        "category": "output_vat",
+        "date": "2026-11-02",
+        "ledger": "vat",
+        "source_key": "cash:aaac7fdbe7e94dbda1f651cc395c7f3d",
+        "entry_id": "134723e161bd4bfda323be6c7aa31963",
+        "sequence": 1
+      },
+      {
+        "account": "1406",
+        "amount": "-9.50",
+        "category": "input_vat",
+        "date": "2026-11-01",
+        "ledger": "vat",
+        "source_key": "input_vat:e5dcf2ce58befb866867c7dcd96176d6a43ef364b81fd155b2391dca7d04df0d",
+        "entry_id": "f9b5f726a3c34679b11523a4daada1eb",
+        "sequence": 2
+      },
+      {
+        "account": "5400",
+        "amount": "-50.00",
+        "category": "materials",
+        "date": "2026-11-02",
+        "ledger": "euer",
+        "source_key": "cash:d5b3183549c743edb17b762143c9a2b8",
+        "entry_id": "1468e698f37646c49846f945d9c3078f",
+        "sequence": 3
+      },
+      {
+        "account": "1406",
+        "amount": "-9.50",
+        "category": "paid_input_vat",
+        "date": "2026-11-02",
+        "ledger": "euer",
+        "source_key": "cash:d5b3183549c743edb17b762143c9a2b8",
+        "entry_id": "1468e698f37646c49846f945d9c3078f",
+        "sequence": 3
+      }
+    ],
+    "issues": [],
+    "assets": [],
+    "periods": [],
+    "sources": [
+      {
+        "entry_id": "134723e161bd4bfda323be6c7aa31963",
+        "entry_hash": "b7ea0ed001f32b104cb0a74e67810a14119a1dd2a60b24c8f81466ebc8dd21e6",
+        "source_hash": "3b76c9d7a7f62438e400b8d694dc6df182201a34b0d0fe860f0aa30a1205c6b0",
+        "source_path": "/accounting/events/aaac7fdbe7e94dbda1f651cc395c7f3d",
+        "kind": "cash"
+      },
+      {
+        "entry_id": "f9b5f726a3c34679b11523a4daada1eb",
+        "entry_hash": "a334c178258b1b6a80298b2d91389580e665734eaa621ca53102707061e55126",
+        "source_hash": "61945dc63f022d8437a624724f9587a6d7fd26242590c36202fc0f6c7bb6f448",
+        "source_path": "/finance/receipts/ed058192b2b242428e6b55c6ba6bf0e5",
+        "kind": "receipt"
+      },
+      {
+        "entry_id": "1468e698f37646c49846f945d9c3078f",
+        "entry_hash": "1a7ef276670048209128a9cd5c1d39c0caa7887db71f1bd2c947fdff8f6f2ed0",
+        "source_hash": "51359e4f128664aa867714b62746025cff3004110e2390dd3b2a555593fb4a30",
+        "source_path": "/accounting/events/d5b3183549c743edb17b762143c9a2b8",
+        "kind": "cash"
+      }
+    ],
+    "cash_movements": [
+      {
+        "source_kind": "cash_event",
+        "source_id": "aaac7fdbe7e94dbda1f651cc395c7f3d",
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "date": "2026-11-02",
+        "direction": "in",
+        "amount": "119.00",
+        "source_path": "/accounting/events/aaac7fdbe7e94dbda1f651cc395c7f3d"
+      },
+      {
+        "source_kind": "cash_event",
+        "source_id": "d5b3183549c743edb17b762143c9a2b8",
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "date": "2026-11-02",
+        "direction": "out",
+        "amount": "59.50",
+        "source_path": "/accounting/events/d5b3183549c743edb17b762143c9a2b8"
+      }
+    ],
+    "cash_scope": "existing_cash_events_and_reviewed_external_cash",
+    "opening_balances_available": false
+  },
+  "correction_preview_request": {
+    "expected_revision": 1,
+    "state_hash": "4ce1bc4e5a766181be8cc8fd5c220910e97cbdea1eb639b1b5bce482980073c6",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "account_revision": 1,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "status": "active",
+    "opening_date": "2026-01-01",
+    "amount": "1001.00",
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "reason": "Synthetic original and exact opening balance reviewed"
+  },
+  "correction_command": {
+    "request_id": "9b54f51a8bf44ad995c1e53608ec4644",
+    "expected_revision": 1,
+    "state_hash": "4ce1bc4e5a766181be8cc8fd5c220910e97cbdea1eb639b1b5bce482980073c6",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "account_revision": 1,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "status": "active",
+    "opening_date": "2026-01-01",
+    "amount": "1001.00",
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "reason": "Synthetic original and exact opening balance reviewed",
+    "confirmation": true,
+    "preview_hash": "ad57ebe7c264c1d2633549ac6f397a01d091762f61b890a59b873c4448efa402"
+  },
+  "correction": {
+    "reason": "Synthetic original and exact opening balance reviewed",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "expected_revision": 1,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "opening_date": "2026-01-01",
+    "state_hash": "4ce1bc4e5a766181be8cc8fd5c220910e97cbdea1eb639b1b5bce482980073c6",
+    "account_revision": 1,
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "status": "active",
+    "amount": "1001.00",
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "cash_flow_created": false,
+    "tax_postings_created": false,
+    "balance_timing": "start_of_day",
+    "timezone": "Europe/Berlin",
+    "account": {
+      "active": true,
+      "code": "BANK",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "currency": "EUR",
+      "id": "766e6022b8794ca8be7c67a773d1e5a8",
+      "kind": "bank",
+      "name": "Synthetic bank account",
+      "revision": 1
+    },
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "source_proof": {
+      "kind": "original",
+      "original": {
+        "id": "4c44ca9152294daab6be9557609e2e35",
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "filename": "synthetic-opening.pdf",
+        "media_type": "application/pdf",
+        "size": 42,
+        "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+      },
+      "evidence_type": "account_statement",
+      "opening_date": "2026-01-01",
+      "amount": "1001.00",
+      "at_start_of_day": true,
+      "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+    },
+    "previous_ref": {
+      "id": "df3109fd1148441285833295dd1cdbc8",
+      "revision": 1,
+      "content_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3"
+    },
+    "preview_hash": "ad57ebe7c264c1d2633549ac6f397a01d091762f61b890a59b873c4448efa402",
+    "id": "de81c336c33a4ae68ab9d5d74ddc8d50",
+    "sequence": 2,
+    "revision": 2,
+    "previous_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3",
+    "created_by": "961aff271ff1439989f79257b6b19041",
+    "created_at": "2026-12-31T12:00:00+00:00",
+    "content_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16"
+  },
+  "state_after_correction": {
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "revision": 2,
+    "state_hash": "143f48ec778d934e1e1f360e79f8aa2778e67ab090a496b77c880f19fda4f52b",
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "accounts": [
+      {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "currency": "EUR",
+        "id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      }
+    ],
+    "items": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "account_revision": 1,
+        "amount": "1001.00",
+        "balance_timing": "start_of_day",
+        "cash_flow_created": false,
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "expected_revision": 1,
+        "id": "de81c336c33a4ae68ab9d5d74ddc8d50",
+        "opening_date": "2026-01-01",
+        "preview_hash": "ad57ebe7c264c1d2633549ac6f397a01d091762f61b890a59b873c4448efa402",
+        "previous_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3",
+        "previous_ref": {
+          "content_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3",
+          "id": "df3109fd1148441285833295dd1cdbc8",
+          "revision": 1
+        },
+        "profile": {
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "evidence_reference": "Synthetic owner statement",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+          "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "accounting_method": "euer",
+            "bookkeeping_start": "2026-01-01",
+            "legal_form": "sole_proprietorship",
+            "vat_effective_from": "2026-01-01",
+            "vat_regime": "regular",
+            "vat_timing": "cash"
+          },
+          "reason": "Explicit synthetic accounting facts",
+          "revision": 1,
+          "scope": "organization_profile",
+          "tax_result_available": false,
+          "tax_status": "unconfigured"
+        },
+        "profile_ref": {
+          "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "revision": 1
+        },
+        "reason": "Synthetic original and exact opening balance reviewed",
+        "revision": 2,
+        "rule_version": "account_opening_balances_v1",
+        "schema_version": 1,
+        "sequence": 2,
+        "source": {
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "original_id": "4c44ca9152294daab6be9557609e2e35",
+          "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27"
+        },
+        "source_proof": {
+          "amount": "1001.00",
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "opening_date": "2026-01-01",
+          "original": {
+            "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+            "created_at": "2026-12-31T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "filename": "synthetic-opening.pdf",
+            "id": "4c44ca9152294daab6be9557609e2e35",
+            "media_type": "application/pdf",
+            "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35",
+            "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+            "size": 42
+          },
+          "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+        },
+        "state_hash": "4ce1bc4e5a766181be8cc8fd5c220910e97cbdea1eb639b1b5bce482980073c6",
+        "status": "active",
+        "tax_postings_created": false,
+        "timezone": "Europe/Berlin",
+        "content_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16"
+      }
+    ],
+    "can_prepare": true,
+    "max_original_bytes": 5242880,
+    "liquidity_path": "/accounting/opening-balances/liquidity",
+    "cash_flow_created": false,
+    "tax_postings_created": false
+  },
+  "corrected_liquidity": {
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "as_of": "2026-11-02",
+    "currency": "EUR",
+    "scope": "recorded_movements",
+    "revision": 2,
+    "state_hash": "143f48ec778d934e1e1f360e79f8aa2778e67ab090a496b77c880f19fda4f52b",
+    "accounts": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "opening_ref": {
+          "id": "de81c336c33a4ae68ab9d5d74ddc8d50",
+          "revision": 2,
+          "content_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16"
+        },
+        "opening_date": "2026-01-01",
+        "opening_balance": "1001.00",
+        "inflows": "119.00",
+        "outflows": "59.50",
+        "calculated_balance": "1060.50",
+        "balance": "1060.50",
+        "movements": [
+          {
+            "source_kind": "cash_event",
+            "source_id": "aaac7fdbe7e94dbda1f651cc395c7f3d",
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "961aff271ff1439989f79257b6b19041",
+              "currency": "EUR",
+              "id": "766e6022b8794ca8be7c67a773d1e5a8",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "date": "2026-11-02",
+            "direction": "in",
+            "amount": "119.00",
+            "source_path": "/accounting/events/aaac7fdbe7e94dbda1f651cc395c7f3d"
+          },
+          {
+            "source_kind": "cash_event",
+            "source_id": "d5b3183549c743edb17b762143c9a2b8",
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "961aff271ff1439989f79257b6b19041",
+              "currency": "EUR",
+              "id": "766e6022b8794ca8be7c67a773d1e5a8",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "date": "2026-11-02",
+            "direction": "out",
+            "amount": "59.50",
+            "source_path": "/accounting/events/d5b3183549c743edb17b762143c9a2b8"
+          }
+        ],
+        "bank_connections": [],
+        "issues": []
+      }
+    ],
+    "unresolved_cash_sources": [],
+    "issues": [],
+    "complete_for_recorded_accounts": true,
+    "known_balance_sum": "1060.50",
+    "known_account_count": 1,
+    "account_count": 1,
+    "balance_total": "1060.50",
+    "euer_result_unchanged": true,
+    "cash_flow_created": false,
+    "tax_postings_created": false,
+    "balance_timing": "start_of_day",
+    "timezone": "Europe/Berlin"
+  },
+  "void_preview_request": {
+    "reason": "Synthetic original reviewed; opening explicitly voided",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "expected_revision": 2,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "opening_date": "2026-01-01",
+    "state_hash": "143f48ec778d934e1e1f360e79f8aa2778e67ab090a496b77c880f19fda4f52b",
+    "account_revision": 1,
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "status": "void",
+    "amount": "1001.00"
+  },
+  "void_command": {
+    "request_id": "54bf7ad2f24f4a9cba8343984f8d4795",
+    "reason": "Synthetic original reviewed; opening explicitly voided",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "expected_revision": 2,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "opening_date": "2026-01-01",
+    "state_hash": "143f48ec778d934e1e1f360e79f8aa2778e67ab090a496b77c880f19fda4f52b",
+    "account_revision": 1,
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "status": "void",
+    "amount": "1001.00",
+    "confirmation": true,
+    "preview_hash": "771b7a92a6d877f894e4e663f3aeab66ff5df673c60cafbc13d6800f30a88230"
+  },
+  "void": {
+    "reason": "Synthetic original reviewed; opening explicitly voided",
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "expected_revision": 2,
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "opening_date": "2026-01-01",
+    "state_hash": "143f48ec778d934e1e1f360e79f8aa2778e67ab090a496b77c880f19fda4f52b",
+    "account_revision": 1,
+    "source": {
+      "kind": "original",
+      "original_id": "4c44ca9152294daab6be9557609e2e35",
+      "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+      "evidence_type": "account_statement",
+      "at_start_of_day": true
+    },
+    "status": "void",
+    "amount": "1001.00",
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "cash_flow_created": false,
+    "tax_postings_created": false,
+    "balance_timing": "start_of_day",
+    "timezone": "Europe/Berlin",
+    "account": {
+      "active": true,
+      "code": "BANK",
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "currency": "EUR",
+      "id": "766e6022b8794ca8be7c67a773d1e5a8",
+      "kind": "bank",
+      "name": "Synthetic bank account",
+      "revision": 1
+    },
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "source_proof": {
+      "kind": "original",
+      "original": {
+        "id": "4c44ca9152294daab6be9557609e2e35",
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "filename": "synthetic-opening.pdf",
+        "media_type": "application/pdf",
+        "size": 42,
+        "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+      },
+      "evidence_type": "account_statement",
+      "opening_date": "2026-01-01",
+      "amount": "1001.00",
+      "at_start_of_day": true,
+      "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+    },
+    "previous_ref": {
+      "id": "de81c336c33a4ae68ab9d5d74ddc8d50",
+      "revision": 2,
+      "content_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16"
+    },
+    "preview_hash": "771b7a92a6d877f894e4e663f3aeab66ff5df673c60cafbc13d6800f30a88230",
+    "id": "e187c055981548f0836913363060b811",
+    "sequence": 3,
+    "revision": 3,
+    "previous_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16",
+    "created_by": "961aff271ff1439989f79257b6b19041",
+    "created_at": "2026-12-31T12:00:00+00:00",
+    "content_hash": "c4fce8a957068c61072a4ea78f0373ed96537c31ef07fd517c4523c0b82f7aae"
+  },
+  "state_after_void": {
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "revision": 3,
+    "state_hash": "5002a7430f1d354666b7d71eb584bd92b4ca98c89a420ebfbe5240ac77e9af14",
+    "profile": {
+      "created_at": "2026-11-02T12:00:00+00:00",
+      "created_by": "961aff271ff1439989f79257b6b19041",
+      "evidence_reference": "Synthetic owner statement",
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+      "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "accounting_method": "euer",
+        "bookkeeping_start": "2026-01-01",
+        "legal_form": "sole_proprietorship",
+        "vat_effective_from": "2026-01-01",
+        "vat_regime": "regular",
+        "vat_timing": "cash"
+      },
+      "reason": "Explicit synthetic accounting facts",
+      "revision": 1,
+      "scope": "organization_profile",
+      "tax_result_available": false,
+      "tax_status": "unconfigured"
+    },
+    "profile_ref": {
+      "id": "dc78a12aa189480495d4305bcb02f6da",
+      "revision": 1,
+      "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe"
+    },
+    "accounts": [
+      {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "currency": "EUR",
+        "id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      }
+    ],
+    "items": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "account_revision": 1,
+        "amount": "1001.00",
+        "balance_timing": "start_of_day",
+        "cash_flow_created": false,
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "expected_revision": 2,
+        "id": "e187c055981548f0836913363060b811",
+        "opening_date": "2026-01-01",
+        "preview_hash": "771b7a92a6d877f894e4e663f3aeab66ff5df673c60cafbc13d6800f30a88230",
+        "previous_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16",
+        "previous_ref": {
+          "content_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16",
+          "id": "de81c336c33a4ae68ab9d5d74ddc8d50",
+          "revision": 2
+        },
+        "profile": {
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "evidence_reference": "Synthetic owner statement",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+          "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "accounting_method": "euer",
+            "bookkeeping_start": "2026-01-01",
+            "legal_form": "sole_proprietorship",
+            "vat_effective_from": "2026-01-01",
+            "vat_regime": "regular",
+            "vat_timing": "cash"
+          },
+          "reason": "Explicit synthetic accounting facts",
+          "revision": 1,
+          "scope": "organization_profile",
+          "tax_result_available": false,
+          "tax_status": "unconfigured"
+        },
+        "profile_ref": {
+          "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "revision": 1
+        },
+        "reason": "Synthetic original reviewed; opening explicitly voided",
+        "revision": 3,
+        "rule_version": "account_opening_balances_v1",
+        "schema_version": 1,
+        "sequence": 3,
+        "source": {
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "original_id": "4c44ca9152294daab6be9557609e2e35",
+          "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27"
+        },
+        "source_proof": {
+          "amount": "1001.00",
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "opening_date": "2026-01-01",
+          "original": {
+            "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+            "created_at": "2026-12-31T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "filename": "synthetic-opening.pdf",
+            "id": "4c44ca9152294daab6be9557609e2e35",
+            "media_type": "application/pdf",
+            "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35",
+            "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+            "size": 42
+          },
+          "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+        },
+        "state_hash": "143f48ec778d934e1e1f360e79f8aa2778e67ab090a496b77c880f19fda4f52b",
+        "status": "void",
+        "tax_postings_created": false,
+        "timezone": "Europe/Berlin",
+        "content_hash": "c4fce8a957068c61072a4ea78f0373ed96537c31ef07fd517c4523c0b82f7aae"
+      }
+    ],
+    "can_prepare": true,
+    "max_original_bytes": 5242880,
+    "liquidity_path": "/accounting/opening-balances/liquidity",
+    "cash_flow_created": false,
+    "tax_postings_created": false
+  },
+  "void_liquidity": {
+    "schema_version": 1,
+    "rule_version": "account_opening_balances_v1",
+    "as_of": "2026-11-02",
+    "currency": "EUR",
+    "scope": "recorded_movements",
+    "revision": 3,
+    "state_hash": "5002a7430f1d354666b7d71eb584bd92b4ca98c89a420ebfbe5240ac77e9af14",
+    "accounts": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "opening_ref": {
+          "id": "e187c055981548f0836913363060b811",
+          "revision": 3,
+          "content_hash": "c4fce8a957068c61072a4ea78f0373ed96537c31ef07fd517c4523c0b82f7aae"
+        },
+        "opening_date": null,
+        "opening_balance": null,
+        "inflows": "0.00",
+        "outflows": "0.00",
+        "calculated_balance": null,
+        "balance": null,
+        "movements": [],
+        "bank_connections": [],
+        "issues": [
+          {
+            "code": "opening_balance_missing"
+          }
+        ]
+      }
+    ],
+    "unresolved_cash_sources": [],
+    "issues": [],
+    "complete_for_recorded_accounts": false,
+    "known_balance_sum": null,
+    "known_account_count": 0,
+    "account_count": 1,
+    "balance_total": null,
+    "euer_result_unchanged": true,
+    "cash_flow_created": false,
+    "tax_postings_created": false,
+    "balance_timing": "start_of_day",
+    "timezone": "Europe/Berlin"
+  },
+  "history_after_void": {
+    "schema_version": 1,
+    "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+    "items": [
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "account_revision": 1,
+        "amount": "1000.00",
+        "balance_timing": "start_of_day",
+        "cash_flow_created": false,
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "expected_revision": 0,
+        "id": "df3109fd1148441285833295dd1cdbc8",
+        "opening_date": "2026-01-01",
+        "preview_hash": "c6c3c2582ce75647b97c70d0e6d5abd8f97b3737f3196869fba7c089a8d51d24",
+        "previous_hash": null,
+        "previous_ref": null,
+        "profile": {
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "evidence_reference": "Synthetic owner statement",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+          "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "accounting_method": "euer",
+            "bookkeeping_start": "2026-01-01",
+            "legal_form": "sole_proprietorship",
+            "vat_effective_from": "2026-01-01",
+            "vat_regime": "regular",
+            "vat_timing": "cash"
+          },
+          "reason": "Explicit synthetic accounting facts",
+          "revision": 1,
+          "scope": "organization_profile",
+          "tax_result_available": false,
+          "tax_status": "unconfigured"
+        },
+        "profile_ref": {
+          "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "revision": 1
+        },
+        "reason": "Synthetic original and exact opening balance reviewed",
+        "revision": 1,
+        "rule_version": "account_opening_balances_v1",
+        "schema_version": 1,
+        "sequence": 1,
+        "source": {
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "original_id": "4c44ca9152294daab6be9557609e2e35",
+          "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27"
+        },
+        "source_proof": {
+          "amount": "1000.00",
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "opening_date": "2026-01-01",
+          "original": {
+            "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+            "created_at": "2026-12-31T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "filename": "synthetic-opening.pdf",
+            "id": "4c44ca9152294daab6be9557609e2e35",
+            "media_type": "application/pdf",
+            "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35",
+            "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+            "size": 42
+          },
+          "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+        },
+        "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "status": "active",
+        "tax_postings_created": false,
+        "timezone": "Europe/Berlin",
+        "content_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3"
+      },
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "account_revision": 1,
+        "amount": "1001.00",
+        "balance_timing": "start_of_day",
+        "cash_flow_created": false,
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "expected_revision": 1,
+        "id": "de81c336c33a4ae68ab9d5d74ddc8d50",
+        "opening_date": "2026-01-01",
+        "preview_hash": "ad57ebe7c264c1d2633549ac6f397a01d091762f61b890a59b873c4448efa402",
+        "previous_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3",
+        "previous_ref": {
+          "content_hash": "057d7b2225096120c2fb8e93fb161cb5edf54218cacd54cfb47990bf6927f2e3",
+          "id": "df3109fd1148441285833295dd1cdbc8",
+          "revision": 1
+        },
+        "profile": {
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "evidence_reference": "Synthetic owner statement",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+          "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "accounting_method": "euer",
+            "bookkeeping_start": "2026-01-01",
+            "legal_form": "sole_proprietorship",
+            "vat_effective_from": "2026-01-01",
+            "vat_regime": "regular",
+            "vat_timing": "cash"
+          },
+          "reason": "Explicit synthetic accounting facts",
+          "revision": 1,
+          "scope": "organization_profile",
+          "tax_result_available": false,
+          "tax_status": "unconfigured"
+        },
+        "profile_ref": {
+          "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "revision": 1
+        },
+        "reason": "Synthetic original and exact opening balance reviewed",
+        "revision": 2,
+        "rule_version": "account_opening_balances_v1",
+        "schema_version": 1,
+        "sequence": 2,
+        "source": {
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "original_id": "4c44ca9152294daab6be9557609e2e35",
+          "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27"
+        },
+        "source_proof": {
+          "amount": "1001.00",
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "opening_date": "2026-01-01",
+          "original": {
+            "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+            "created_at": "2026-12-31T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "filename": "synthetic-opening.pdf",
+            "id": "4c44ca9152294daab6be9557609e2e35",
+            "media_type": "application/pdf",
+            "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35",
+            "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+            "size": 42
+          },
+          "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+        },
+        "state_hash": "4ce1bc4e5a766181be8cc8fd5c220910e97cbdea1eb639b1b5bce482980073c6",
+        "status": "active",
+        "tax_postings_created": false,
+        "timezone": "Europe/Berlin",
+        "content_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16"
+      },
+      {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "currency": "EUR",
+          "id": "766e6022b8794ca8be7c67a773d1e5a8",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+        "account_revision": 1,
+        "amount": "1001.00",
+        "balance_timing": "start_of_day",
+        "cash_flow_created": false,
+        "created_at": "2026-12-31T12:00:00+00:00",
+        "created_by": "961aff271ff1439989f79257b6b19041",
+        "expected_revision": 2,
+        "id": "e187c055981548f0836913363060b811",
+        "opening_date": "2026-01-01",
+        "preview_hash": "771b7a92a6d877f894e4e663f3aeab66ff5df673c60cafbc13d6800f30a88230",
+        "previous_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16",
+        "previous_ref": {
+          "content_hash": "a8da76c6a188779ded77adc28f918d8bad32a7bc4cb7129e6c8bb7ee36ee4a16",
+          "id": "de81c336c33a4ae68ab9d5d74ddc8d50",
+          "revision": 2
+        },
+        "profile": {
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "961aff271ff1439989f79257b6b19041",
+          "evidence_reference": "Synthetic owner statement",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+          "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "profile": {
+            "accounting_method": "euer",
+            "bookkeeping_start": "2026-01-01",
+            "legal_form": "sole_proprietorship",
+            "vat_effective_from": "2026-01-01",
+            "vat_regime": "regular",
+            "vat_timing": "cash"
+          },
+          "reason": "Explicit synthetic accounting facts",
+          "revision": 1,
+          "scope": "organization_profile",
+          "tax_result_available": false,
+          "tax_status": "unconfigured"
+        },
+        "profile_ref": {
+          "entry_sha256": "8c5daa725814fe25d4f5b198d61247828d9b8957f56d0f77140ef81b28adb9fe",
+          "id": "dc78a12aa189480495d4305bcb02f6da",
+          "revision": 1
+        },
+        "reason": "Synthetic original reviewed; opening explicitly voided",
+        "revision": 3,
+        "rule_version": "account_opening_balances_v1",
+        "schema_version": 1,
+        "sequence": 3,
+        "source": {
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "original_id": "4c44ca9152294daab6be9557609e2e35",
+          "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27"
+        },
+        "source_proof": {
+          "amount": "1001.00",
+          "at_start_of_day": true,
+          "evidence_type": "account_statement",
+          "kind": "original",
+          "opening_date": "2026-01-01",
+          "original": {
+            "account_id": "766e6022b8794ca8be7c67a773d1e5a8",
+            "created_at": "2026-12-31T12:00:00+00:00",
+            "created_by": "961aff271ff1439989f79257b6b19041",
+            "filename": "synthetic-opening.pdf",
+            "id": "4c44ca9152294daab6be9557609e2e35",
+            "media_type": "application/pdf",
+            "path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35",
+            "sha256": "e0abaa9531245ddba5a7f7ca1dc0d59d9467435d5b9f4f14952b66c0f4b0ac27",
+            "size": 42
+          },
+          "source_path": "/accounting/opening-balances/originals/4c44ca9152294daab6be9557609e2e35"
+        },
+        "state_hash": "143f48ec778d934e1e1f360e79f8aa2778e67ab090a496b77c880f19fda4f52b",
+        "status": "void",
+        "tax_postings_created": false,
+        "timezone": "Europe/Berlin",
+        "content_hash": "c4fce8a957068c61072a4ea78f0373ed96537c31ef07fd517c4523c0b82f7aae"
+      }
+    ]
+  },
+  "bank": {
+    "statement": {
+      "id": "66939897e6df41c19910554ea050cc40",
+      "account_id": "77d451ab4c2e46acb00d9716860b592d",
+      "reference_key": "synthetic-b39a9e6182874217bb1eea2d0950c4e4",
+      "file_sha256": "b11ab2e055e785f03189478346d6689b322610d2428dd57ba38af387c55214da",
+      "created_by": "8ad82c805cf240c59942efd395f1064e",
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "payload": {
+        "account": {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "8ad82c805cf240c59942efd395f1064e",
+          "currency": "EUR",
+          "id": "77d451ab4c2e46acb00d9716860b592d",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        },
+        "bank": {
+          "account_id": "77d451ab4c2e46acb00d9716860b592d",
+          "content_hash": "aaa0620baf2c29c63b307b501b98edcf981fe7e04bb29fe378538c48423b4005",
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "8ad82c805cf240c59942efd395f1064e",
+          "payload": {
+            "account": {
+              "active": true,
+              "code": "BANK",
+              "created_at": "2026-11-02T12:00:00+00:00",
+              "created_by": "8ad82c805cf240c59942efd395f1064e",
+              "currency": "EUR",
+              "id": "77d451ab4c2e46acb00d9716860b592d",
+              "kind": "bank",
+              "name": "Synthetic bank account",
+              "revision": 1
+            },
+            "active": true,
+            "coverage_from": "2025-01-01",
+            "coverage_to": null,
+            "iban": "DE89370400440532013000",
+            "label": "Synthetic bank evidence",
+            "reason": ""
+          },
+          "previous_hash": null,
+          "revision": 1
+        },
+        "closing_balance": "-100.00",
+        "complete_statement_confirmed": true,
+        "contract": "smartplan_bank_csv_v1",
+        "delimiter": ";",
+        "distinct_transaction_confirmations": {},
+        "file_sha256": "b11ab2e055e785f03189478346d6689b322610d2428dd57ba38af387c55214da",
+        "filename": "synthetic.csv",
+        "opening_balance": "-100.00",
+        "period_from": "2026-01-01",
+        "period_to": "2026-01-31",
+        "rows": [],
+        "statement_reference": "Synthetic-b39a9e6182874217bb1eea2d0950c4e4"
+      },
+      "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb"
+    },
+    "state_before": {
+      "schema_version": 1,
+      "rule_version": "account_opening_balances_v1",
+      "revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "8ad82c805cf240c59942efd395f1064e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "revision": 1,
+        "entry_sha256": "5b40ee74bdba59ada6afae056cdef6488977995a0c02bd5b31f53a9f81ff6ddb"
+      },
+      "accounts": [
+        {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "8ad82c805cf240c59942efd395f1064e",
+          "currency": "EUR",
+          "id": "77d451ab4c2e46acb00d9716860b592d",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        }
+      ],
+      "items": [],
+      "can_prepare": true,
+      "max_original_bytes": 5242880,
+      "liquidity_path": "/accounting/opening-balances/liquidity",
+      "cash_flow_created": false,
+      "tax_postings_created": false
+    },
+    "sources": {
+      "schema_version": 1,
+      "account": {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "8ad82c805cf240c59942efd395f1064e",
+        "currency": "EUR",
+        "id": "77d451ab4c2e46acb00d9716860b592d",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      },
+      "profile_ref": {
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "revision": 1,
+        "entry_sha256": "5b40ee74bdba59ada6afae056cdef6488977995a0c02bd5b31f53a9f81ff6ddb"
+      },
+      "opening_date": "2026-01-01",
+      "bank_statements": [
+        {
+          "source": {
+            "kind": "bank_statement",
+            "statement_id": "66939897e6df41c19910554ea050cc40",
+            "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+            "balance_side": "opening"
+          },
+          "amount": "-100.00",
+          "statement_reference": "Synthetic-b39a9e6182874217bb1eea2d0950c4e4",
+          "period_from": "2026-01-01",
+          "period_to": "2026-01-31"
+        }
+      ],
+      "originals": [],
+      "original_evidence_type": "account_statement"
+    },
+    "preview_request": {
+      "expected_revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "account_id": "77d451ab4c2e46acb00d9716860b592d",
+      "account_revision": 1,
+      "profile_ref": {
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "revision": 1,
+        "entry_sha256": "5b40ee74bdba59ada6afae056cdef6488977995a0c02bd5b31f53a9f81ff6ddb"
+      },
+      "status": "active",
+      "opening_date": "2026-01-01",
+      "amount": "-100.00",
+      "source": {
+        "kind": "bank_statement",
+        "statement_id": "66939897e6df41c19910554ea050cc40",
+        "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+        "balance_side": "opening"
+      },
+      "reason": "Synthetic original and exact opening balance reviewed"
+    },
+    "preview": {
+      "reason": "Synthetic original and exact opening balance reviewed",
+      "account_id": "77d451ab4c2e46acb00d9716860b592d",
+      "expected_revision": 0,
+      "profile_ref": {
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "revision": 1,
+        "entry_sha256": "5b40ee74bdba59ada6afae056cdef6488977995a0c02bd5b31f53a9f81ff6ddb"
+      },
+      "opening_date": "2026-01-01",
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "account_revision": 1,
+      "source": {
+        "kind": "bank_statement",
+        "statement_id": "66939897e6df41c19910554ea050cc40",
+        "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+        "balance_side": "opening"
+      },
+      "status": "active",
+      "amount": "-100.00",
+      "schema_version": 1,
+      "rule_version": "account_opening_balances_v1",
+      "cash_flow_created": false,
+      "tax_postings_created": false,
+      "balance_timing": "start_of_day",
+      "timezone": "Europe/Berlin",
+      "account": {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "8ad82c805cf240c59942efd395f1064e",
+        "currency": "EUR",
+        "id": "77d451ab4c2e46acb00d9716860b592d",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      },
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "8ad82c805cf240c59942efd395f1064e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "source_proof": {
+        "kind": "bank_statement",
+        "statement_id": "66939897e6df41c19910554ea050cc40",
+        "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+        "file_sha256": "b11ab2e055e785f03189478346d6689b322610d2428dd57ba38af387c55214da",
+        "account_id": "77d451ab4c2e46acb00d9716860b592d",
+        "balance_side": "opening",
+        "period_from": "2026-01-01",
+        "period_to": "2026-01-31",
+        "amount": "-100.00",
+        "statement_reference": "Synthetic-b39a9e6182874217bb1eea2d0950c4e4",
+        "source_path": "/bank/statements/66939897e6df41c19910554ea050cc40/original"
+      },
+      "previous_ref": null,
+      "preview_hash": "d6fec6f85048ae317cd4aed16a6581661988f84286c549c81b4613fb8ee7f67a"
+    },
+    "command": {
+      "request_id": "e38c9a8eae0d4efc98ace2cc49296590",
+      "expected_revision": 0,
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "account_id": "77d451ab4c2e46acb00d9716860b592d",
+      "account_revision": 1,
+      "profile_ref": {
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "revision": 1,
+        "entry_sha256": "5b40ee74bdba59ada6afae056cdef6488977995a0c02bd5b31f53a9f81ff6ddb"
+      },
+      "status": "active",
+      "opening_date": "2026-01-01",
+      "amount": "-100.00",
+      "source": {
+        "kind": "bank_statement",
+        "statement_id": "66939897e6df41c19910554ea050cc40",
+        "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+        "balance_side": "opening"
+      },
+      "reason": "Synthetic original and exact opening balance reviewed",
+      "confirmation": true,
+      "preview_hash": "d6fec6f85048ae317cd4aed16a6581661988f84286c549c81b4613fb8ee7f67a"
+    },
+    "saved": {
+      "reason": "Synthetic original and exact opening balance reviewed",
+      "account_id": "77d451ab4c2e46acb00d9716860b592d",
+      "expected_revision": 0,
+      "profile_ref": {
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "revision": 1,
+        "entry_sha256": "5b40ee74bdba59ada6afae056cdef6488977995a0c02bd5b31f53a9f81ff6ddb"
+      },
+      "opening_date": "2026-01-01",
+      "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+      "account_revision": 1,
+      "source": {
+        "kind": "bank_statement",
+        "statement_id": "66939897e6df41c19910554ea050cc40",
+        "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+        "balance_side": "opening"
+      },
+      "status": "active",
+      "amount": "-100.00",
+      "schema_version": 1,
+      "rule_version": "account_opening_balances_v1",
+      "cash_flow_created": false,
+      "tax_postings_created": false,
+      "balance_timing": "start_of_day",
+      "timezone": "Europe/Berlin",
+      "account": {
+        "active": true,
+        "code": "BANK",
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "8ad82c805cf240c59942efd395f1064e",
+        "currency": "EUR",
+        "id": "77d451ab4c2e46acb00d9716860b592d",
+        "kind": "bank",
+        "name": "Synthetic bank account",
+        "revision": 1
+      },
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "8ad82c805cf240c59942efd395f1064e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "source_proof": {
+        "kind": "bank_statement",
+        "statement_id": "66939897e6df41c19910554ea050cc40",
+        "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+        "file_sha256": "b11ab2e055e785f03189478346d6689b322610d2428dd57ba38af387c55214da",
+        "account_id": "77d451ab4c2e46acb00d9716860b592d",
+        "balance_side": "opening",
+        "period_from": "2026-01-01",
+        "period_to": "2026-01-31",
+        "amount": "-100.00",
+        "statement_reference": "Synthetic-b39a9e6182874217bb1eea2d0950c4e4",
+        "source_path": "/bank/statements/66939897e6df41c19910554ea050cc40/original"
+      },
+      "previous_ref": null,
+      "preview_hash": "d6fec6f85048ae317cd4aed16a6581661988f84286c549c81b4613fb8ee7f67a",
+      "id": "914556d835b54baea8db939c8c0c3bf6",
+      "sequence": 1,
+      "revision": 1,
+      "previous_hash": null,
+      "created_by": "8ad82c805cf240c59942efd395f1064e",
+      "created_at": "2026-12-31T12:00:00+00:00",
+      "content_hash": "8e2f99f7aacb8ac6b4d0f231cf41712931609699707cd3f1cdc3cacc16bc1b9d"
+    },
+    "state_after": {
+      "schema_version": 1,
+      "rule_version": "account_opening_balances_v1",
+      "revision": 1,
+      "state_hash": "a8dba030447eea608c922772f5caf37fb790694a5c696e3eadfd4c0c82c1230c",
+      "profile": {
+        "created_at": "2026-11-02T12:00:00+00:00",
+        "created_by": "8ad82c805cf240c59942efd395f1064e",
+        "evidence_reference": "Synthetic owner statement",
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+        "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+        "profile": {
+          "accounting_method": "euer",
+          "bookkeeping_start": "2026-01-01",
+          "legal_form": "sole_proprietorship",
+          "vat_effective_from": "2026-01-01",
+          "vat_regime": "regular",
+          "vat_timing": "cash"
+        },
+        "reason": "Explicit synthetic accounting facts",
+        "revision": 1,
+        "scope": "organization_profile",
+        "tax_result_available": false,
+        "tax_status": "unconfigured"
+      },
+      "profile_ref": {
+        "id": "e624c1cbe3234665b22a28848dc2794a",
+        "revision": 1,
+        "entry_sha256": "5b40ee74bdba59ada6afae056cdef6488977995a0c02bd5b31f53a9f81ff6ddb"
+      },
+      "accounts": [
+        {
+          "active": true,
+          "code": "BANK",
+          "created_at": "2026-11-02T12:00:00+00:00",
+          "created_by": "8ad82c805cf240c59942efd395f1064e",
+          "currency": "EUR",
+          "id": "77d451ab4c2e46acb00d9716860b592d",
+          "kind": "bank",
+          "name": "Synthetic bank account",
+          "revision": 1
+        }
+      ],
+      "items": [
+        {
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "8ad82c805cf240c59942efd395f1064e",
+            "currency": "EUR",
+            "id": "77d451ab4c2e46acb00d9716860b592d",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "account_id": "77d451ab4c2e46acb00d9716860b592d",
+          "account_revision": 1,
+          "amount": "-100.00",
+          "balance_timing": "start_of_day",
+          "cash_flow_created": false,
+          "created_at": "2026-12-31T12:00:00+00:00",
+          "created_by": "8ad82c805cf240c59942efd395f1064e",
+          "expected_revision": 0,
+          "id": "914556d835b54baea8db939c8c0c3bf6",
+          "opening_date": "2026-01-01",
+          "preview_hash": "d6fec6f85048ae317cd4aed16a6581661988f84286c549c81b4613fb8ee7f67a",
+          "previous_hash": null,
+          "previous_ref": null,
+          "profile": {
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "8ad82c805cf240c59942efd395f1064e",
+            "evidence_reference": "Synthetic owner statement",
+            "id": "e624c1cbe3234665b22a28848dc2794a",
+            "preview_hash": "c69d4da199fb429785a6cc956793193e2bcb4b456ad92b91f383e277addce81a",
+            "previous_state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+            "profile": {
+              "accounting_method": "euer",
+              "bookkeeping_start": "2026-01-01",
+              "legal_form": "sole_proprietorship",
+              "vat_effective_from": "2026-01-01",
+              "vat_regime": "regular",
+              "vat_timing": "cash"
+            },
+            "reason": "Explicit synthetic accounting facts",
+            "revision": 1,
+            "scope": "organization_profile",
+            "tax_result_available": false,
+            "tax_status": "unconfigured"
+          },
+          "profile_ref": {
+            "entry_sha256": "5b40ee74bdba59ada6afae056cdef6488977995a0c02bd5b31f53a9f81ff6ddb",
+            "id": "e624c1cbe3234665b22a28848dc2794a",
+            "revision": 1
+          },
+          "reason": "Synthetic original and exact opening balance reviewed",
+          "revision": 1,
+          "rule_version": "account_opening_balances_v1",
+          "schema_version": 1,
+          "sequence": 1,
+          "source": {
+            "balance_side": "opening",
+            "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+            "kind": "bank_statement",
+            "statement_id": "66939897e6df41c19910554ea050cc40"
+          },
+          "source_proof": {
+            "account_id": "77d451ab4c2e46acb00d9716860b592d",
+            "amount": "-100.00",
+            "balance_side": "opening",
+            "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+            "file_sha256": "b11ab2e055e785f03189478346d6689b322610d2428dd57ba38af387c55214da",
+            "kind": "bank_statement",
+            "period_from": "2026-01-01",
+            "period_to": "2026-01-31",
+            "source_path": "/bank/statements/66939897e6df41c19910554ea050cc40/original",
+            "statement_id": "66939897e6df41c19910554ea050cc40",
+            "statement_reference": "Synthetic-b39a9e6182874217bb1eea2d0950c4e4"
+          },
+          "state_hash": "fc1324627004d99f47cb52e0354f829321d6e60505518fe72886b3087b54317d",
+          "status": "active",
+          "tax_postings_created": false,
+          "timezone": "Europe/Berlin",
+          "content_hash": "8e2f99f7aacb8ac6b4d0f231cf41712931609699707cd3f1cdc3cacc16bc1b9d"
+        }
+      ],
+      "can_prepare": true,
+      "max_original_bytes": 5242880,
+      "liquidity_path": "/accounting/opening-balances/liquidity",
+      "cash_flow_created": false,
+      "tax_postings_created": false
+    },
+    "liquidity": {
+      "schema_version": 1,
+      "rule_version": "account_opening_balances_v1",
+      "as_of": "2026-01-31",
+      "currency": "EUR",
+      "scope": "recorded_movements",
+      "revision": 1,
+      "state_hash": "a8dba030447eea608c922772f5caf37fb790694a5c696e3eadfd4c0c82c1230c",
+      "accounts": [
+        {
+          "account": {
+            "active": true,
+            "code": "BANK",
+            "created_at": "2026-11-02T12:00:00+00:00",
+            "created_by": "8ad82c805cf240c59942efd395f1064e",
+            "currency": "EUR",
+            "id": "77d451ab4c2e46acb00d9716860b592d",
+            "kind": "bank",
+            "name": "Synthetic bank account",
+            "revision": 1
+          },
+          "opening_ref": {
+            "id": "914556d835b54baea8db939c8c0c3bf6",
+            "revision": 1,
+            "content_hash": "8e2f99f7aacb8ac6b4d0f231cf41712931609699707cd3f1cdc3cacc16bc1b9d"
+          },
+          "opening_date": "2026-01-01",
+          "opening_balance": "-100.00",
+          "inflows": "0.00",
+          "outflows": "0.00",
+          "calculated_balance": "-100.00",
+          "balance": "-100.00",
+          "movements": [],
+          "bank_connections": [
+            {
+              "statement_id": "66939897e6df41c19910554ea050cc40",
+              "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+              "balance_side": "opening",
+              "date": "2026-01-01",
+              "recorded_balance": "-100.00",
+              "statement_balance": "-100.00",
+              "matches": true
+            },
+            {
+              "statement_id": "66939897e6df41c19910554ea050cc40",
+              "content_hash": "f05759399e5bd599c844a9f5e3a4d1617fa839a00154e0883823db49d9c8f6fb",
+              "balance_side": "closing",
+              "date": "2026-01-31",
+              "recorded_balance": "-100.00",
+              "statement_balance": "-100.00",
+              "matches": true
+            }
+          ],
+          "issues": []
+        }
+      ],
+      "unresolved_cash_sources": [],
+      "issues": [],
+      "complete_for_recorded_accounts": true,
+      "known_balance_sum": "-100.00",
+      "known_account_count": 1,
+      "account_count": 1,
+      "balance_total": "-100.00",
+      "euer_result_unchanged": true,
+      "cash_flow_created": false,
+      "tax_postings_created": false,
+      "balance_timing": "start_of_day",
+      "timezone": "Europe/Berlin"
+    }
+  }
+}

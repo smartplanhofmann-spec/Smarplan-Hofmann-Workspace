@@ -750,10 +750,11 @@ class Adapters:
             if actor is None:
                 raise Problem(403, 'Exportzugriff benötigt aktuelle Quellenrechte')
             self._require_export_access(actor, value)
-        return value
+        from business_catalog_imports import enrich
+        return enrich(self.office, value)
 
     def import_data(self, actor, identifier, data):
-        if not isinstance(data, dict) or set(data) != {'request_id', 'content_base64'}:
+        if not isinstance(data, dict) or set(data) - {'request_id', 'content_base64', 'filename'} or not {'request_id', 'content_base64'} <= set(data):
             raise Problem(400, 'Vorgangs-ID und Importdatei erwartet')
         with _transaction(self.office):
             actor = require_permission(self.office, actor, 'finance.write')
@@ -764,6 +765,9 @@ class Adapters:
             if previous:
                 return self._run(previous['id'], actor)
             raw = _decode64(data['content_base64'])
+            if 'filename' in data:
+                from business_catalog_imports import filename
+                filename(data['filename'], adapter['profile'])
             if adapter['profile'] == 'gaeb_x83_inspect_v1':
                 result = inspect_gaeb(raw)
                 rows = result['items']
@@ -782,9 +786,51 @@ class Adapters:
             run = uuid.uuid4().hex
             self.db.execute('INSERT INTO business_adapter_runs(id,adapter_id,profile,status,source_sha256,rows_json,rows_sha256,result_json,created_by,created_at) VALUES(?,?,?,?,?,?,?,?,?,?)',
                 (run, identifier, adapter['profile'], 'staged', _hash(raw), canonical(rows), _hash(rows), canonical(result), actor['id'], self._now()))
+            if adapter['profile'] in ('catalog_csv_v1', 'datanorm_a14_cp850_v1'):
+                from business_catalog_imports import save_original
+                stored = self.db.execute('SELECT created_at FROM business_adapter_runs WHERE id=?', (run,)).fetchone()
+                save_original(self.office, actor, dict(id=run, profile=adapter['profile'], source_sha256=_hash(raw),
+                    rows=rows, result=result, created_at=stored['created_at']), raw, data, fingerprint)
             self.office.audit(actor, 'business.adapter.import_staged', run)
             self._remember(actor, request, fingerprint, {'id': run})
             return self._run(run, actor)
+
+    def _catalog_line(self, run, adapter, item, data):
+        """Unchanged v1 decision, shared with its additive read-only preview."""
+        values = {key: item[key] for key in ('code', 'name', 'unit')}
+        if run['profile'] == 'catalog_csv_v1':
+            values.update({key: item[key] for key in ('cost_price_net', 'unit_price_net', 'tax_rate')})
+        else:
+            if item['discount_group'] or item['long_text_key']:
+                raise Problem(409, 'Rabatt-/Langtextverweise benötigen vollständiges Lieferantenprofil')
+            if data.get('target_price') not in ('purchase_net', 'sales_net') or 'price_scale' not in data or 'tax_rate' not in data:
+                raise Problem(400, 'Rohpreisskalierung, Nettopreisziel und Steuersatz ausdrücklich zuordnen')
+            if _decimal(data['price_scale']) <= 0 or _decimal(data['tax_rate']) > 100:
+                raise Problem(400, 'Positive Skalierung und Steuersatz bis 100 erforderlich')
+            amount = Decimal(item['source_price_integer']) * _decimal(data['price_scale']) / Decimal(item['price_basis'])
+            price = format(amount.quantize(Decimal('0.0001'), rounding=ROUND_HALF_UP), 'f')
+            values.update(cost_price_net=price if data['target_price'] == 'purchase_net' else '0',
+                          unit_price_net=price if data['target_price'] == 'sales_net' else '0', tax_rate=str(_decimal(data['tax_rate'])))
+        values.update(kind='material', currency='EUR', active=True)
+        old = self.db.execute('SELECT * FROM business_adapter_articles WHERE adapter_id=? AND source_code=?',
+                              (adapter['id'], item['code'])).fetchone()
+        expected = run['result'].get('target_revisions', {}).get(item['code'])
+        if bool(old) != bool(expected) or old and old['article_id'] != expected['article_id']:
+            raise Problem(409, 'Artikelzuordnung hat sich seit der Importvorschau geändert; neu prüfen')
+        prior_row = self.db.execute('SELECT revision,payload_json FROM business_articles WHERE id=?', (old['article_id'],)).fetchone() if old else None
+        if old and (not prior_row or prior_row['revision'] != expected['revision']):
+            raise Problem(409, 'Artikel hat sich seit der Importvorschau geändert; neu prüfen')
+        if old and run['profile'] == 'datanorm_a14_cp850_v1':
+            preserved = 'unit_price_net' if data['target_price'] == 'purchase_net' else 'cost_price_net'
+            values[preserved] = json.loads(prior_row['payload_json'])[preserved]
+        source_hash = _hash(values)
+        if old and old['source_sha256'] == source_hash:
+            if any(json.loads(prior_row['payload_json']).get(field) != value for field, value in values.items()):
+                raise Problem(409, 'Artikel wurde nach dem früheren Import manuell geändert; bewusste Preisprüfung erforderlich')
+            action = 'noop'
+        else:
+            action = 'update' if old else 'create'
+        return values, old, prior_row, source_hash, action
 
     def apply_catalog(self, actor, run_id, data):
         if not isinstance(data, dict) or set(data) - {'request_id', 'confirmed', 'price_scale', 'target_price', 'tax_rate'} or data.get('confirmed') is not True:
@@ -802,36 +848,8 @@ class Adapters:
             articles = Documents(self.office)
             applied = []
             for item in run['rows']:
-                values = {key: item[key] for key in ('code', 'name', 'unit')}
-                if run['profile'] == 'catalog_csv_v1':
-                    values.update({key: item[key] for key in ('cost_price_net', 'unit_price_net', 'tax_rate')})
-                else:
-                    if item['discount_group'] or item['long_text_key']:
-                        raise Problem(409, 'Rabatt-/Langtextverweise benötigen vollständiges Lieferantenprofil')
-                    if data.get('target_price') not in ('purchase_net', 'sales_net') or 'price_scale' not in data or 'tax_rate' not in data:
-                        raise Problem(400, 'Rohpreisskalierung, Nettopreisziel und Steuersatz ausdrücklich zuordnen')
-                    if _decimal(data['price_scale']) <= 0 or _decimal(data['tax_rate']) > 100:
-                        raise Problem(400, 'Positive Skalierung und Steuersatz bis 100 erforderlich')
-                    amount = Decimal(item['source_price_integer']) * _decimal(data['price_scale']) / Decimal(item['price_basis'])
-                    price = format(amount.quantize(Decimal('0.0001'), rounding=ROUND_HALF_UP), 'f')
-                    values.update(cost_price_net=price if data['target_price'] == 'purchase_net' else '0',
-                                  unit_price_net=price if data['target_price'] == 'sales_net' else '0', tax_rate=str(_decimal(data['tax_rate'])))
-                values.update(kind='material', currency='EUR', active=True)
-                old = self.db.execute('SELECT * FROM business_adapter_articles WHERE adapter_id=? AND source_code=?',
-                                      (adapter['id'], item['code'])).fetchone()
-                expected = run['result'].get('target_revisions', {}).get(item['code'])
-                if bool(old) != bool(expected) or old and old['article_id'] != expected['article_id']:
-                    raise Problem(409, 'Artikelzuordnung hat sich seit der Importvorschau geändert; neu prüfen')
-                prior_row = self.db.execute('SELECT revision,payload_json FROM business_articles WHERE id=?', (old['article_id'],)).fetchone() if old else None
-                if old and (not prior_row or prior_row['revision'] != expected['revision']):
-                    raise Problem(409, 'Artikel hat sich seit der Importvorschau geändert; neu prüfen')
-                if old and run['profile'] == 'datanorm_a14_cp850_v1':
-                    preserved = 'unit_price_net' if data['target_price'] == 'purchase_net' else 'cost_price_net'
-                    values[preserved] = json.loads(prior_row['payload_json'])[preserved]
-                source_hash = _hash(values)
-                if old and old['source_sha256'] == source_hash:
-                    if any(json.loads(prior_row['payload_json']).get(field) != value for field, value in values.items()):
-                        raise Problem(409, 'Artikel wurde nach dem früheren Import manuell geändert; bewusste Preisprüfung erforderlich')
+                values, old, prior_row, source_hash, action = self._catalog_line(run, adapter, item, data)
+                if action == 'noop':
                     applied.append(old['article_id'])
                     continue
                 if old:
@@ -846,6 +864,8 @@ class Adapters:
                     (adapter['id'], item['code'], saved['id'], source_hash))
                 applied.append(saved['id'])
             self.db.execute('UPDATE business_adapter_runs SET status=?,result_json=? WHERE id=?', ('applied', canonical({'article_ids': applied}), run_id))
+            from business_catalog_imports import save_acceptance
+            save_acceptance(self.office, actor, run_id, data, fingerprint, self._now())
             self.office.audit(actor, 'business.adapter.catalog_applied', run_id)
             self._remember(actor, request, fingerprint, {'id': run_id})
             return self._run(run_id, actor)

@@ -1,0 +1,10 @@
+test_maximum_original_roundtrips_once_and_oversize_is_rejected (test_accounting_openings_transport.OpeningLocalTransportTests.test_maximum_original_roundtrips_once_and_oversize_is_rejected) ... ok
+test_strict_framing_is_rejected_before_any_opening_original_is_saved (test_accounting_openings_transport.OpeningLocalTransportTests.test_strict_framing_is_rejected_before_any_opening_original_is_saved) ... ok
+test_maximum_original_roundtrips_once_and_oversize_is_rejected (test_accounting_openings_transport.OpeningMFATransportTests.test_maximum_original_roundtrips_once_and_oversize_is_rejected) ... ok
+test_mfa_api_requires_json_media_type_before_original_acceptance (test_accounting_openings_transport.OpeningMFATransportTests.test_mfa_api_requires_json_media_type_before_original_acceptance) ... ok
+test_strict_framing_is_rejected_before_any_opening_original_is_saved (test_accounting_openings_transport.OpeningMFATransportTests.test_strict_framing_is_rejected_before_any_opening_original_is_saved) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 4.863s
+
+OK

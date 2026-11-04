@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "synthetic_only": true,
+  "production_contacts": false,
+  "baseline_kernel_sha256": "a69047139f038aca87223b15436d8fc092b9a3950961163490cf152db60656ed",
+  "source_sha256": {
+    "backend/business_accounting_openings.py": "daab353586aaa11bb9928da44ae55597df61e1d83dc0dfba4547cd0213f93691",
+    "backend/test_business_accounting_openings_large_balances.py": "622f3002dc2d35f72dd240a568863a746129147886daf7d6edece6a851b4f550",
+    "scripts/generate-accounting-opening-large-balance-fixture.py": "05ffcad220b28a41829da7c9305888d1fb072b6733c2dae1894a1c341c2bcfad",
+    "docs/fixtures/accounting_openings_large_balances_2026.json": "aefbb0e3af79baa1a62a759f2a9108b30204304fd883728680c74b2c4ead70b5",
+    "app/test/fixtures/accounting_openings_large_balances_2026.json": "aefbb0e3af79baa1a62a759f2a9108b30204304fd883728680c74b2c4ead70b5",
+    "docs/CRM_ERP_ANFANGSSALDEN_API.md": "f8ada285db24bd85e5b9958b918a1b773037420a60072847f4bf8be9aa08679c"
+  },
+  "logs": [
+    {
+      "path": "docs/evidence/accounting-openings-large-balances-before-2026-11-04.txt",
+      "sha256": "cd2134ac25e0888cb15a6e6e30d283c2bc7290747e1be9b227de3b801b11a28a"
+    },
+    {
+      "path": "docs/evidence/accounting-openings-large-balances-after-2026-11-04.txt",
+      "sha256": "878b7865fe1c1e4c25072a5790a61305a41178656bd0fddb380689f0effa55c2"
+    }
+  ],
+  "before": {
+    "tests": 2,
+    "errors": 2,
+    "seconds": 0.888
+  },
+  "after": {
+    "tests": 27,
+    "passed": 27,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 12.234
+  },
+  "command": "PYTHONPATH=backend:backend/online /tmp/smartplan-backend-verified/bin/python -m unittest test_business_accounting_openings_large_balances test_business_accounting_openings test_business_accounting_openings_review -v",
+  "finding": "A valid11digit opening plus an actual cash movement produced a12digit derived account balance. Summing it reparsed output through the bounded input parser and failed400.",
+  "fix": "Accumulate only already calculated integer-cent balances before formatting, without reparsing generated output. Input/original/receipt validators remain unchanged.",
+  "verified": [
+    "Positive actual99999999999.99+119.00=100000000118.99 including known/total balances.",
+    "Negative actual-99999999999.99-59.50=-100000000059.49 including known/total balances.",
+    "Both12digit positive and negative opening inputs still reject400.",
+    "Existing18domain and7independent review cases remain green."
+  ],
+  "limitations": [
+    "Client derived-value parsing is maintained separately by finish_v6_clients.",
+    "No new PostgreSQL run claimed for this local integer aggregation correction; schema, restorehorizon and receipt format are unchanged."
+  ]
+}

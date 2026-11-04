@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "reviewer": "overall_completion_review",
+  "worktree": "/workspace/smartplan-financial-opening-20261104",
+  "synthetic_only": true,
+  "production_contacts": false,
+  "reviewer_runtime_changes": false,
+  "command": "node --test --test-reporter=tap tests/accounting-openings-context-review.test.mjs tests/accounting-openings.test.mjs tests/client.test.mjs",
+  "result": {
+    "tests": 34,
+    "passed": 34,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "duration_ms": 505.3758,
+    "independent_context_cases": 9,
+    "existing_opening_cases": 10,
+    "existing_office_api_cases": 15
+  },
+  "logs": [
+    {
+      "stage": "first",
+      "path": "docs/evidence/accounting-openings-context-review-first-2026-11-04.txt",
+      "sha256": "2dcaad40811d7e0ebfcdad4abc1ab1be55bfd6c8de559608539c0137de10aa74",
+      "bytes": 184
+    },
+    {
+      "stage": "executed",
+      "path": "docs/evidence/accounting-openings-context-review-executed-2026-11-04.txt",
+      "sha256": "45e64e3991f8d9578f542dc7f452ec8878bca5df0b12b76bb4234f772e011721",
+      "bytes": 2403
+    },
+    {
+      "stage": "private-title",
+      "path": "docs/evidence/accounting-openings-context-review-private-title-2026-11-04.txt",
+      "sha256": "11fdcff7aeb7b35766699c8082e85b3a0d955df29e24ee172effbebd5c6de508",
+      "bytes": 3103
+    },
+    {
+      "stage": "final",
+      "path": "docs/evidence/accounting-openings-context-review-final-2026-11-04.txt",
+      "sha256": "1bdd4b2d462c83239a5363161203ed4f9d66ca02268101b20e04b31a567f8f93",
+      "bytes": 8371
+    }
+  ],
+  "source_sha256": {
+    "web/office/accounting-openings.js": "a7f70ddf78cb6835c89d53fdc74bd55c69a849d4da9856a94437385a4290c3f9",
+    "web/office/office.js": "159cd8c74bb2d96c720caf6a598fec1f7f470d1784c626cfb557f82375ad46a6",
+    "web/office/tests/accounting-openings-context-review.test.mjs": "6ae41a0bdeb70b4ba4c50234eb777428f8b37c20224f3ef27494953a8afa179e",
+    "web/office/tests/accounting-openings.test.mjs": "3899bd0672e17005d4e032ef0a4b66b39ec5e0783be42c1042e0bd91becb8fdf",
+    "web/office/tests/client.test.mjs": "05c2923db87abc3bd3e3a6909208b08fc453fdf1ae79a5b6219516d6319ab306",
+    "docs/fixtures/accounting_openings_2026.json": "ac3f212b8503b9449973a623bbe33fd36c2ff5ac25f9365da0bb802e3473009d"
+  },
+  "earlier_runs": [
+    {
+      "stage": "first",
+      "individual_tests_executed": 0,
+      "reason": "Restricted Node invocation reported only one file-level success. Not counted as product-test evidence; rerun with full process execution."
+    },
+    {
+      "stage": "executed",
+      "tests": 9,
+      "passed": 9,
+      "note": "Before adding a specific assertion for the account name in the dialog title."
+    },
+    {
+      "stage": "private-title",
+      "tests": 9,
+      "passed": 8,
+      "failed": 1,
+      "note": "Confirmed residual private account title after bank.read revocation during download."
+    }
+  ],
+  "findings": [
+    {
+      "id": "opening-private-dialog-title",
+      "status": "fixed_by_product_owner",
+      "reproduction": "Open accepted account view, hold original download, revoke bank.read, deliver original. Download is discarded and body cleared, but account code/name remained in dialog title.",
+      "fix": "Central hidePrivate replaces the entire dialog with neutral title and content through the existing dialog host, invalidating the previous context.",
+      "verification": "Independent case now passes in final34; actual MFA/HTTP browser corroboration is maintained separately by finish_v6_clients."
+    }
+  ],
+  "verified": [
+    "Deferred original file read and digest after dialog/session replacement do not POST or reopen.",
+    "A delayed genuine preview DTO cannot overwrite a replacement dialog.",
+    "Read revocation during original download prevents save and removes private body/title.",
+    "Original digest completion after close cannot trigger a download.",
+    "Original upload lost-ACK retries identical request body, nonce and original bytes; pending overview contains no payload.",
+    "A valid later accepted backend correction cannot acknowledge the earlier pending command.",
+    "Actual asynchronous cryptographic receipt validation after session replacement cannot consume the new pending request.",
+    "Different account fixture, changed profile revision and mismatched upload size are rejected."
+  ],
+  "limitations": [
+    "Controlled Node tests execute the actual UI module and OfficeApi with accepted synthetic backend DTOs and a deterministic DOM host. They are not browser/HTTP execution claims.",
+    "The actual browser workflow and background visibility-handler evidence remain separately owned and recorded by finish_v6_clients.",
+    "No native-client review is claimed by this report."
+  ]
+}

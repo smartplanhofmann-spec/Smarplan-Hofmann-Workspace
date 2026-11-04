@@ -1,0 +1,75 @@
+00:00 +0: loading /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart
+00:00 +0: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: EUR cents reject rounding and canonicalize positive amounts
+00:00 +1: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+00:00 +2: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+00:00 +3: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: global reader opens unconfigured preparation at 390.0 without owner or write rights
+00:01 +4: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:01 +5: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:01 +6: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:02 +7: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:03 +8: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:03 +9: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_euer_test.dart: Full cash review shows postings, requires confirmation, retains lost response across page close and allows correction (variant: TargetPlatform.windows)
+00:04 +10: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: lost payout resumes exact id after review and inactive renamed account
+00:04 +11: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: lost payout resumes exact id after review and inactive renamed account
+00:04 +12: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_euer_test.dart: Receipt source opens scoped original review and preserves child pending command across return; parent revoke clears it (variant: TargetPlatform.windows)
+00:04 +13: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: import links original payment and resumes after link exists
+00:05 +14: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: import links original payment and resumes after link exists
+00:05 +15: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance read loss clears editor data
+00:05 +16: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: known server denial clears loaded sources
+00:05 +17: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: source pages append without project filter
+00:05 +18: /workspace/smartplan-financial-opening-20261104/app/test/business_bank_reconciliation_test.dart: exact bank cents reject rounding, implicit zeros and unrequested signs
+00:05 +19: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:05 +20: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:05 +21: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:05 +22: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:05 +23: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:05 +24: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:05 +25: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:05 +26: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:05 +27: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: finance pause and restore preserve readable sources without writes
+00:05 +28: /workspace/smartplan-financial-opening-20261104/app/test/business_bank_reconciliation_test.dart: 390px private bank view clears IBAN and pending content when bank read is revoked
+00:06 +29: /workspace/smartplan-financial-opening-20261104/app/test/business_bank_reconciliation_test.dart: 390px private bank view clears IBAN and pending content when bank read is revoked
+00:06 +30: /workspace/smartplan-financial-opening-20261104/app/test/business_bank_reconciliation_test.dart: 390px private bank view clears IBAN and pending content when bank read is revoked
+00:06 +31: /workspace/smartplan-financial-opening-20261104/app/test/business_bank_reconciliation_test.dart: 390px private bank view clears IBAN and pending content when bank read is revoked
+00:06 +32: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: reopen during an in-flight payout restores frozen original fields before any error
+00:07 +33: /workspace/smartplan-financial-opening-20261104/app/test/business_bank_reconciliation_test.dart: bank binding defaults all factual choices empty and activation unconfirmed
+00:07 +34: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: late successful acknowledgement cannot turn an open retry into a second payout
+00:07 +35: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: cash date validates real calendar days without normalization
+00:07 +36: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_test.dart: invalid ISO date and multiline reference are explained before a cash request
+00:08 +37: /workspace/smartplan-financial-opening-20261104/app/test/business_session_test.dart: Additive feature support neither grants rights nor survives logout or removal
+00:08 +38: /workspace/smartplan-financial-opening-20261104/app/test/business_session_test.dart: Permissions come from server and unsupported modules remain absent
+00:08 +39: /workspace/smartplan-financial-opening-20261104/app/test/business_session_test.dart: Old server remains unsupported and offline grant makes no business request
+00:08 +40: /workspace/smartplan-financial-opening-20261104/app/test/business_session_test.dart: Logout during a real asynchronous read drops its late result
+00:08 +41: /workspace/smartplan-financial-opening-20261104/app/test/business_session_test.dart: Uncertain retries keep exact body and request ID, changed edits are refused
+00:08 +42: /workspace/smartplan-financial-opening-20261104/app/test/business_session_test.dart: Read-only return mode keeps archives visible and refuses every command
+00:08 +43: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: profile replay reads only its own fresh state and returns old result after new revision and generation
+00:08 +44: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: first profile status 0 retains exact original body and ID
+00:08 +45: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: accepted original profile remains retryable after gate status 0
+00:08 +46: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: first profile status 403 retains exact original body and ID
+00:08 +47: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: accepted original profile remains retryable after gate status 403
+00:08 +48: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: first profile status 404 retains exact original body and ID
+00:08 +49: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: accepted original profile remains retryable after gate status 404
+00:08 +50: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: first profile status 409 retains exact original body and ID
+00:08 +51: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: accepted original profile remains retryable after gate status 409
+00:08 +52: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: first profile status 423 retains exact original body and ID
+00:08 +53: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: accepted original profile remains retryable after gate status 423
+00:08 +54: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: first profile status 429 retains exact original body and ID
+00:08 +55: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: accepted original profile remains retryable after gate status 429
+00:08 +56: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: first profile status 500 retains exact original body and ID
+00:08 +57: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: accepted original profile remains retryable after gate status 500
+00:08 +58: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: only marked not accepted conflict releases the profile key for a new version
+00:08 +59: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: different body and generation cannot replace the unresolved original locally
+00:08 +60: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: fresh admin blocks replay without losing original or sending confirm
+00:08 +61: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: fresh read blocks replay without losing original or sending confirm
+00:08 +62: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: fresh feature blocks replay without losing original or sending confirm
+00:08 +63: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: fresh module blocks replay without losing original or sending confirm
+00:08 +64: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: fresh readonly blocks replay without losing original or sending confirm
+00:08 +65: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: fresh disabled blocks replay without losing original or sending confirm
+00:08 +66: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: fresh state blocks replay without losing original or sending confirm
+00:08 +67: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: fresh writes blocks replay without losing original or sending confirm
+00:08 +68: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: profile exception is restricted to exact path and logical key
+00:08 +69: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: generation change during accepted confirmation preserves exact request for replay
+00:08 +70: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: original ACK during retry state read cannot send a replacement request
+00:08 +71: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: logout discards pending and late acknowledgement cannot restore session
+00:08 +72: /workspace/smartplan-financial-opening-20261104/app/test/business_accounting_profile_session_test.dart: preview is side effect free and needs admin, not finance write
+00:08 +73: All tests passed!

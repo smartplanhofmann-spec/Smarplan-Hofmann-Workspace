@@ -1,0 +1,13 @@
+test_actual_backup_restore_retains_original_run_receipts_consumption_and_pdf (online.test_business_payroll_oneoff_pg.OneoffPayrollPostgres.test_actual_backup_restore_retains_original_run_receipts_consumption_and_pdf) ... ok
+test_actual_paid_source4_annual_projection_survives_backup_restore (online.test_business_payroll_oneoff_pg.OneoffPayrollPostgres.test_actual_paid_source4_annual_projection_survives_backup_restore) ... ok
+test_distinct_parallel_first_commands_cannot_reserve_same_claim_twice (online.test_business_payroll_oneoff_pg.OneoffPayrollPostgres.test_distinct_parallel_first_commands_cannot_reserve_same_claim_twice) ... ok
+test_two_real_finalize_writers_create_one_claim_consumption_with_private_mfa_acl (online.test_business_payroll_oneoff_pg.OneoffPayrollPostgres.test_two_real_finalize_writers_create_one_claim_consumption_with_private_mfa_acl) ... ok
+test_distinct_commands_on_same_state_accept_one_and_reject_stale_competitor (online.test_business_accounting_openings_pg.OpeningBalancesPostgres.test_distinct_commands_on_same_state_accept_one_and_reject_stale_competitor) ... ok
+test_dump_restore_binds_original_and_old_euer_export_to_explicit_report13 (online.test_business_accounting_openings_pg.OpeningBalancesPostgres.test_dump_restore_binds_original_and_old_euer_export_to_explicit_report13) ... ok
+test_identical_commands_on_distinct_connections_keep_one_event_and_one_receipt (online.test_business_accounting_openings_pg.OpeningBalancesPostgres.test_identical_commands_on_distinct_connections_keep_one_event_and_one_receipt) ... ok
+test_original_request_binding_and_all_three_tables_are_append_only_under_runtime (online.test_business_accounting_openings_pg.OpeningBalancesPostgres.test_original_request_binding_and_all_three_tables_are_append_only_under_runtime) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 60.687s
+
+OK

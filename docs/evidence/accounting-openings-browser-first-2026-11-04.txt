@@ -1,0 +1,32 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: /settings/permissions {"error":"Gesch\u00e4ftsf\u00fchrung beh\u00e4lt vollst\u00e4ndige Fachrechte"}
+
+    at api (/workspace/smartplan-financial-opening-20261104/web/office/tests/accounting-openings-flow.cjs:9:289)
+    at async Object.accountingOpeningsFlow (/workspace/smartplan-financial-opening-20261104/web/office/tests/accounting-openings-flow.cjs:40:368)
+    at async main (/workspace/smartplan-financial-opening-20261104/web/office/tests/e2e.cjs:107:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED'
+]
+Fixture log tail:
+ -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/accounting/opening-balances/sources?account_id=53d4e16f1cef42e38d087d20ad516cc3 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/accounting/opening-balances HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/accounting/opening-balances HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/accounting/opening-balances/liquidity?as_of=2026-11-02 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/accounting/euer/report?year=2026 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/accounting/opening-balances HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/accounting/opening-balances/accounts/53d4e16f1cef42e38d087d20ad516cc3/history HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/accounting/opening-balances HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "GET /api/v1/business/settings/permissions HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 08:39:40] "[31m[1mPOST /api/v1/business/settings/permissions HTTP/1.1[0m" 400 -
+
+SMARTPLAN_BROWSER_FAILURE_END

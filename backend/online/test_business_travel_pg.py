@@ -135,7 +135,7 @@ class TravelPostgres(unittest.TestCase):
         with disposable_restore(self.runtime) as (target,runtime,report):
             operator=PostgresOffice(target)
             try:
-                evidence=evidence_for(operator,report);self.assertEqual(evidence['schema'],12)
+                evidence=evidence_for(operator,report);self.assertEqual(evidence['schema'],13)
                 self.assertEqual(evidence['accounting_horizon']['travel_cash']['table_counts']['business_travel_payments'],1)
                 approve(operator,evidence)
             finally:operator.db.close()

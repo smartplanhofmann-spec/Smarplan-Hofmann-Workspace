@@ -1,0 +1,9 @@
+test_distinct_commands_on_same_state_accept_one_and_reject_stale_competitor (online.test_business_accounting_openings_pg.OpeningBalancesPostgres.test_distinct_commands_on_same_state_accept_one_and_reject_stale_competitor) ... ok
+test_dump_restore_binds_original_and_old_euer_export_to_explicit_report13 (online.test_business_accounting_openings_pg.OpeningBalancesPostgres.test_dump_restore_binds_original_and_old_euer_export_to_explicit_report13) ... ok
+test_identical_commands_on_distinct_connections_keep_one_event_and_one_receipt (online.test_business_accounting_openings_pg.OpeningBalancesPostgres.test_identical_commands_on_distinct_connections_keep_one_event_and_one_receipt) ... ok
+test_original_request_binding_and_all_three_tables_are_append_only_under_runtime (online.test_business_accounting_openings_pg.OpeningBalancesPostgres.test_original_request_binding_and_all_three_tables_are_append_only_under_runtime) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 19.304s
+
+OK

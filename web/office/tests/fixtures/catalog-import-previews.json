@@ -1,0 +1,405 @@
+{
+  "synthetic": true,
+  "generated_by": "business_catalog_imports.CatalogImports.preview; real isolated SQLite",
+  "cases": [
+    {
+      "name": "csv_create",
+      "run": {
+        "id": "c8eef57700904962b330f788d2439f07",
+        "adapter_id": "7e2528a0d1254c40955712899d635f92",
+        "profile": "catalog_csv_v1",
+        "status": "staged",
+        "source_sha256": "bca854edf842f878befc598011cc148d5a6bd3abb8ae52eef0a5eec67b48eb74",
+        "rows": [
+          {
+            "code": "SYN-17",
+            "cost_price_net": "12.50",
+            "name": "Synthetic valve",
+            "tax_rate": "19",
+            "unit": "ST",
+            "unit_price_net": "20.00"
+          }
+        ],
+        "result": {
+          "review_required": true,
+          "target_revisions": {}
+        },
+        "created_at": "2026-11-04T07:55:11+00:00",
+        "original": {
+          "available": true,
+          "filename": "synthetic.csv",
+          "size": 97,
+          "sha256": "bca854edf842f878befc598011cc148d5a6bd3abb8ae52eef0a5eec67b48eb74"
+        },
+        "acceptance": null
+      },
+      "mapping": {},
+      "preview": {
+        "run_id": "c8eef57700904962b330f788d2439f07",
+        "source_sha256": "bca854edf842f878befc598011cc148d5a6bd3abb8ae52eef0a5eec67b48eb74",
+        "profile": "catalog_csv_v1",
+        "price_mapping": {},
+        "rows": [
+          {
+            "code": "SYN-17",
+            "action": "create",
+            "article_id": null,
+            "revision": null,
+            "before": null,
+            "after": {
+              "code": "SYN-17",
+              "currency": "EUR",
+              "active": true,
+              "cost_price_net": "12.50",
+              "cost_known": true,
+              "tax_rate": "19",
+              "name": "Synthetic valve",
+              "unit": "ST",
+              "unit_price_net": "20.00",
+              "kind": "material",
+              "tax_category": "S",
+              "tax_exemption_reason": "",
+              "components": []
+            }
+          }
+        ],
+        "preview_sha256": "3f32f6bc3f4146d7a528c591818470a56cecbbe3333aa1554981768e9a9fe85b"
+      }
+    },
+    {
+      "name": "csv_update",
+      "run": {
+        "id": "a36d734a60dd4e61ba83e7dfdf63214b",
+        "adapter_id": "7e2528a0d1254c40955712899d635f92",
+        "profile": "catalog_csv_v1",
+        "status": "staged",
+        "source_sha256": "e0d9e17394326ebed2ec1f5d36e84f3d9fb16d2b922050e156afc33f238a9ed8",
+        "rows": [
+          {
+            "code": "SYN-17",
+            "cost_price_net": "13.00",
+            "name": "Synthetic valve",
+            "tax_rate": "19",
+            "unit": "ST",
+            "unit_price_net": "20.00"
+          }
+        ],
+        "result": {
+          "review_required": true,
+          "target_revisions": {
+            "SYN-17": {
+              "article_id": "a511e3cf9eef4b81874fbfa1e7a8fa37",
+              "revision": 1
+            }
+          }
+        },
+        "created_at": "2026-11-04T07:55:11+00:00",
+        "original": {
+          "available": true,
+          "filename": "synthetic.csv",
+          "size": 97,
+          "sha256": "e0d9e17394326ebed2ec1f5d36e84f3d9fb16d2b922050e156afc33f238a9ed8"
+        },
+        "acceptance": null
+      },
+      "mapping": {},
+      "preview": {
+        "run_id": "a36d734a60dd4e61ba83e7dfdf63214b",
+        "source_sha256": "e0d9e17394326ebed2ec1f5d36e84f3d9fb16d2b922050e156afc33f238a9ed8",
+        "profile": "catalog_csv_v1",
+        "price_mapping": {},
+        "rows": [
+          {
+            "code": "SYN-17",
+            "action": "update",
+            "article_id": "a511e3cf9eef4b81874fbfa1e7a8fa37",
+            "revision": 1,
+            "before": {
+              "active": true,
+              "code": "SYN-17",
+              "components": [],
+              "cost_known": true,
+              "cost_price_net": "12.50",
+              "currency": "EUR",
+              "kind": "material",
+              "name": "Synthetic valve",
+              "tax_category": "S",
+              "tax_exemption_reason": "",
+              "tax_rate": "19",
+              "unit": "ST",
+              "unit_price_net": "20.00"
+            },
+            "after": {
+              "active": true,
+              "code": "SYN-17",
+              "components": [],
+              "cost_known": true,
+              "cost_price_net": "13.00",
+              "currency": "EUR",
+              "kind": "material",
+              "name": "Synthetic valve",
+              "tax_category": "S",
+              "tax_exemption_reason": "",
+              "tax_rate": "19",
+              "unit": "ST",
+              "unit_price_net": "20.00"
+            }
+          }
+        ],
+        "preview_sha256": "15d4b26be6b9409cf0975756c2a1fa1286be9475d98896897eeb5a08ea973197"
+      }
+    },
+    {
+      "name": "csv_noop_preserves_unknown_cost",
+      "run": {
+        "id": "8d3852ab4e3c4ef9830bceb8ae509e4b",
+        "adapter_id": "7e2528a0d1254c40955712899d635f92",
+        "profile": "catalog_csv_v1",
+        "status": "staged",
+        "source_sha256": "e0d9e17394326ebed2ec1f5d36e84f3d9fb16d2b922050e156afc33f238a9ed8",
+        "rows": [
+          {
+            "code": "SYN-17",
+            "cost_price_net": "13.00",
+            "name": "Synthetic valve",
+            "tax_rate": "19",
+            "unit": "ST",
+            "unit_price_net": "20.00"
+          }
+        ],
+        "result": {
+          "review_required": true,
+          "target_revisions": {
+            "SYN-17": {
+              "article_id": "a511e3cf9eef4b81874fbfa1e7a8fa37",
+              "revision": 3
+            }
+          }
+        },
+        "created_at": "2026-11-04T07:55:11+00:00",
+        "original": {
+          "available": true,
+          "filename": "synthetic.csv",
+          "size": 97,
+          "sha256": "e0d9e17394326ebed2ec1f5d36e84f3d9fb16d2b922050e156afc33f238a9ed8"
+        },
+        "acceptance": null
+      },
+      "mapping": {},
+      "preview": {
+        "run_id": "8d3852ab4e3c4ef9830bceb8ae509e4b",
+        "source_sha256": "e0d9e17394326ebed2ec1f5d36e84f3d9fb16d2b922050e156afc33f238a9ed8",
+        "profile": "catalog_csv_v1",
+        "price_mapping": {},
+        "rows": [
+          {
+            "code": "SYN-17",
+            "action": "noop",
+            "article_id": "a511e3cf9eef4b81874fbfa1e7a8fa37",
+            "revision": 3,
+            "before": {
+              "active": true,
+              "code": "SYN-17",
+              "components": [],
+              "cost_known": false,
+              "cost_price_net": "13.00",
+              "currency": "EUR",
+              "kind": "material",
+              "name": "Synthetic valve",
+              "tax_category": "S",
+              "tax_exemption_reason": "",
+              "tax_rate": "19",
+              "unit": "ST",
+              "unit_price_net": "20.00"
+            },
+            "after": {
+              "active": true,
+              "code": "SYN-17",
+              "components": [],
+              "cost_known": false,
+              "cost_price_net": "13.00",
+              "currency": "EUR",
+              "kind": "material",
+              "name": "Synthetic valve",
+              "tax_category": "S",
+              "tax_exemption_reason": "",
+              "tax_rate": "19",
+              "unit": "ST",
+              "unit_price_net": "20.00"
+            }
+          }
+        ],
+        "preview_sha256": "c65874a3d931d77ce2ee997b60e732324bf1cef2a2a0e6dcafc1d1f2cefab894"
+      }
+    },
+    {
+      "name": "datanorm_create_half_up",
+      "run": {
+        "id": "8fa97237570e4eb498e9132e2a86f1d1",
+        "adapter_id": "35500aa1973a4a13b2618d53b381a1e6",
+        "profile": "datanorm_a14_cp850_v1",
+        "status": "staged",
+        "source_sha256": "0cadbee47fab3f9d44425781bc1b1fd2e939052f8ad0580133a6ed826d63ef1d",
+        "rows": [
+          {
+            "article_group": "",
+            "code": "SYN-D",
+            "discount_group": "",
+            "long_text_key": "",
+            "name": "Überwurf synthetisch",
+            "price_basis": "10",
+            "price_flag": "2",
+            "source_price_integer": "15",
+            "unit": "ST"
+          }
+        ],
+        "result": {
+          "review_required": true,
+          "target_revisions": {}
+        },
+        "created_at": "2026-11-04T07:55:11+00:00",
+        "original": {
+          "available": true,
+          "filename": "synthetic.csv",
+          "size": 47,
+          "sha256": "0cadbee47fab3f9d44425781bc1b1fd2e939052f8ad0580133a6ed826d63ef1d"
+        },
+        "acceptance": null
+      },
+      "mapping": {
+        "price_scale": "0.0001",
+        "target_price": "purchase_net",
+        "tax_rate": "19"
+      },
+      "preview": {
+        "run_id": "8fa97237570e4eb498e9132e2a86f1d1",
+        "source_sha256": "0cadbee47fab3f9d44425781bc1b1fd2e939052f8ad0580133a6ed826d63ef1d",
+        "profile": "datanorm_a14_cp850_v1",
+        "price_mapping": {
+          "price_scale": "0.0001",
+          "target_price": "purchase_net",
+          "tax_rate": "19"
+        },
+        "rows": [
+          {
+            "code": "SYN-D",
+            "action": "create",
+            "article_id": null,
+            "revision": null,
+            "before": null,
+            "after": {
+              "code": "SYN-D",
+              "currency": "EUR",
+              "active": true,
+              "cost_price_net": "0.0002",
+              "cost_known": true,
+              "tax_rate": "19",
+              "name": "Überwurf synthetisch",
+              "unit": "ST",
+              "unit_price_net": "0",
+              "kind": "material",
+              "tax_category": "S",
+              "tax_exemption_reason": "",
+              "components": []
+            }
+          }
+        ],
+        "preview_sha256": "fb15f0e5cfbbb90fc6308dc90c34bd9f577b33f5d88461d285cbb6ef30ea0478"
+      }
+    },
+    {
+      "name": "datanorm_update_preserves_sales_price",
+      "run": {
+        "id": "66772fa897214b50a6084078e8a13b88",
+        "adapter_id": "35500aa1973a4a13b2618d53b381a1e6",
+        "profile": "datanorm_a14_cp850_v1",
+        "status": "staged",
+        "source_sha256": "0cadbee47fab3f9d44425781bc1b1fd2e939052f8ad0580133a6ed826d63ef1d",
+        "rows": [
+          {
+            "article_group": "",
+            "code": "SYN-D",
+            "discount_group": "",
+            "long_text_key": "",
+            "name": "Überwurf synthetisch",
+            "price_basis": "10",
+            "price_flag": "2",
+            "source_price_integer": "15",
+            "unit": "ST"
+          }
+        ],
+        "result": {
+          "review_required": true,
+          "target_revisions": {
+            "SYN-D": {
+              "article_id": "48864d4175c84deab3b5000995bc1efd",
+              "revision": 2
+            }
+          }
+        },
+        "created_at": "2026-11-04T07:55:11+00:00",
+        "original": {
+          "available": true,
+          "filename": "synthetic.csv",
+          "size": 47,
+          "sha256": "0cadbee47fab3f9d44425781bc1b1fd2e939052f8ad0580133a6ed826d63ef1d"
+        },
+        "acceptance": null
+      },
+      "mapping": {
+        "price_scale": "0.0001",
+        "target_price": "purchase_net",
+        "tax_rate": "19"
+      },
+      "preview": {
+        "run_id": "66772fa897214b50a6084078e8a13b88",
+        "source_sha256": "0cadbee47fab3f9d44425781bc1b1fd2e939052f8ad0580133a6ed826d63ef1d",
+        "profile": "datanorm_a14_cp850_v1",
+        "price_mapping": {
+          "price_scale": "0.0001",
+          "target_price": "purchase_net",
+          "tax_rate": "19"
+        },
+        "rows": [
+          {
+            "code": "SYN-D",
+            "action": "update",
+            "article_id": "48864d4175c84deab3b5000995bc1efd",
+            "revision": 2,
+            "before": {
+              "active": true,
+              "code": "SYN-D",
+              "components": [],
+              "cost_known": true,
+              "cost_price_net": "0.0002",
+              "currency": "EUR",
+              "kind": "material",
+              "name": "Überwurf synthetisch",
+              "tax_category": "S",
+              "tax_exemption_reason": "",
+              "tax_rate": "19",
+              "unit": "ST",
+              "unit_price_net": "73.50"
+            },
+            "after": {
+              "active": true,
+              "code": "SYN-D",
+              "components": [],
+              "cost_known": true,
+              "cost_price_net": "0.0002",
+              "currency": "EUR",
+              "kind": "material",
+              "name": "Überwurf synthetisch",
+              "tax_category": "S",
+              "tax_exemption_reason": "",
+              "tax_rate": "19",
+              "unit": "ST",
+              "unit_price_net": "73.50"
+            }
+          }
+        ],
+        "preview_sha256": "f1c27392e52631398867fd8500258f6afc52ab1e8f2869c1bc537d5f4e273502"
+      }
+    }
+  ]
+}

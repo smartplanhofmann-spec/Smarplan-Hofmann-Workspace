@@ -1,0 +1,342 @@
+{
+  "imports": [
+    {
+      "status": 400,
+      "command": {
+        "request_id": "5294d6e74f964a508bbffc36d0c1db32",
+        "filename": "Doppelte-Artikel.csv",
+        "content_base64_sha256": "935e8df795e11101724d4016f5f91413ed4a5a8da0fd7c2b7da8d64004d052e9"
+      },
+      "result": {
+        "error": "Doppelte Artikelnummer innerhalb derselben Datei"
+      }
+    },
+    {
+      "status": 201,
+      "command": {
+        "request_id": "3e18d3e088054219bf0bba073f59034d",
+        "filename": "Synthetischer-Katalog.csv",
+        "content_base64_sha256": "55e3c79eb62a1a2d12e6be695dd257e6355495f01cc1952a92dff734c5328506"
+      },
+      "result": {
+        "id": "817a0b13c942468484dd93abc6df5c25",
+        "adapter_id": "e9ea8fd05934473190abfae9ed2a59be",
+        "status": "staged",
+        "source_sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955",
+        "row_count": 2,
+        "original": {
+          "available": true,
+          "filename": "Synthetischer-Katalog.csv",
+          "sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955",
+          "size": 151
+        }
+      }
+    },
+    {
+      "status": 201,
+      "command": {
+        "request_id": "3e18d3e088054219bf0bba073f59034d",
+        "filename": "Synthetischer-Katalog.csv",
+        "content_base64_sha256": "55e3c79eb62a1a2d12e6be695dd257e6355495f01cc1952a92dff734c5328506"
+      },
+      "result": {
+        "id": "817a0b13c942468484dd93abc6df5c25",
+        "adapter_id": "e9ea8fd05934473190abfae9ed2a59be",
+        "status": "staged",
+        "source_sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955",
+        "row_count": 2,
+        "original": {
+          "available": true,
+          "filename": "Synthetischer-Katalog.csv",
+          "sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955",
+          "size": 151
+        }
+      }
+    },
+    {
+      "status": 201,
+      "command": {
+        "request_id": "34e83e7fff0a47adbd5476a64501deb0",
+        "filename": "Geänderte-Preise.csv",
+        "content_base64_sha256": "0ec7661567bfaca999c6a085372b171c8b19db7760ba72f84b4f53534c665b60"
+      },
+      "result": {
+        "id": "d27379b7b85e4a6aad24c07a87c8a9ac",
+        "adapter_id": "e9ea8fd05934473190abfae9ed2a59be",
+        "status": "staged",
+        "source_sha256": "2de25f7d7f9f6a84e98b7d0f5f4a009076a90ab63b873d22ed8767edfb999aed",
+        "row_count": 2,
+        "original": {
+          "available": true,
+          "filename": "Geänderte-Preise.csv",
+          "sha256": "2de25f7d7f9f6a84e98b7d0f5f4a009076a90ab63b873d22ed8767edfb999aed",
+          "size": 151
+        }
+      }
+    },
+    {
+      "status": 201,
+      "command": {
+        "request_id": "0f30cb244e1d4c9aaa57b026e97db8a3",
+        "filename": "Unveränderter-Katalog.csv",
+        "content_base64_sha256": "0ec7661567bfaca999c6a085372b171c8b19db7760ba72f84b4f53534c665b60"
+      },
+      "result": {
+        "id": "7018da586eeb470fa3f362b472d192c8",
+        "adapter_id": "e9ea8fd05934473190abfae9ed2a59be",
+        "status": "staged",
+        "source_sha256": "2de25f7d7f9f6a84e98b7d0f5f4a009076a90ab63b873d22ed8767edfb999aed",
+        "row_count": 2,
+        "original": {
+          "available": true,
+          "filename": "Unveränderter-Katalog.csv",
+          "sha256": "2de25f7d7f9f6a84e98b7d0f5f4a009076a90ab63b873d22ed8767edfb999aed",
+          "size": 151
+        }
+      }
+    },
+    {
+      "status": 201,
+      "command": {
+        "request_id": "6a8f15b6645841fd8ebf3a6ff73f6957",
+        "filename": "DATANORM.001",
+        "content_base64_sha256": "9b587ee8e8f2aaaa3c07015ede1d85eb9e4c07913cb6b5a7d5f72c6d051abb2a"
+      },
+      "result": {
+        "id": "5bc0f7b60d514c7dafe41353fc6c32a7",
+        "adapter_id": "51138d7e832b4041b0fe1840bcd034c7",
+        "status": "staged",
+        "source_sha256": "72c9168f638d643bc83354bc579748b39df4e7768a9c8536dc605cd87fb61f75",
+        "row_count": 1,
+        "original": {
+          "available": true,
+          "filename": "DATANORM.001",
+          "sha256": "72c9168f638d643bc83354bc579748b39df4e7768a9c8536dc605cd87fb61f75",
+          "size": 46
+        }
+      }
+    },
+    {
+      "status": 201,
+      "command": {
+        "request_id": "f7aaf9eb63a645e1a6ff18bd86a4f3d9",
+        "filename": "Grenze-2MiB.csv",
+        "content_base64_sha256": "5e0d952520dd9c06d4b9a2a11515563e27baf1552e25955a562bc42b15bb4f51"
+      },
+      "result": {
+        "id": "ef62e32543314f94aa7c6f26a09102f7",
+        "adapter_id": "e9ea8fd05934473190abfae9ed2a59be",
+        "status": "staged",
+        "source_sha256": "c7dbd7ac169f2b44e6a07db3ec5870579b59524b1b8c3f8f510715f6eb2c727c",
+        "row_count": 2000,
+        "original": {
+          "available": true,
+          "filename": "Grenze-2MiB.csv",
+          "sha256": "c7dbd7ac169f2b44e6a07db3ec5870579b59524b1b8c3f8f510715f6eb2c727c",
+          "size": 2097152
+        }
+      }
+    },
+    {
+      "status": 201,
+      "command": {
+        "request_id": "18f45558dcde455da7e1b8d3dfdac32e",
+        "filename": "Rechteprüfung.csv",
+        "content_base64_sha256": "55e3c79eb62a1a2d12e6be695dd257e6355495f01cc1952a92dff734c5328506"
+      },
+      "result": {
+        "id": "0d4fd67b0ed24798bb80d333fd1385ed",
+        "adapter_id": "e9ea8fd05934473190abfae9ed2a59be",
+        "status": "staged",
+        "source_sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955",
+        "row_count": 2,
+        "original": {
+          "available": true,
+          "filename": "Rechteprüfung.csv",
+          "sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955",
+          "size": 151
+        }
+      }
+    }
+  ],
+  "applies": [
+    {
+      "status": 200,
+      "command": {
+        "confirmed": true,
+        "request_id": "c89afdf356a54a1bb39ad860ff8ee9db"
+      },
+      "result": {
+        "id": "817a0b13c942468484dd93abc6df5c25",
+        "status": "applied",
+        "source_sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955",
+        "acceptance": {
+          "articles": [
+            {
+              "article_id": "3d88abfb4ae54a0b90487621ac659f66",
+              "revision": 1
+            },
+            {
+              "article_id": "bc6b43f582254e629196516dc005585d",
+              "revision": 1
+            }
+          ],
+          "confirmed": true,
+          "created_at": "2026-11-04T08:06:10+00:00",
+          "created_by": "e30bcc9cac70404383831144040406d4",
+          "original_available": true,
+          "price_mapping": {},
+          "request_id": "c89afdf356a54a1bb39ad860ff8ee9db",
+          "request_sha256": "2d6fb4b2cb19be22498eee62ef29962cac65109626ed8a60533a49613e3a6996",
+          "rows_sha256": "10626afd67c0eb856cc96fb628739189ba74bec989669cbdf7a3a862cf185111",
+          "run_id": "817a0b13c942468484dd93abc6df5c25",
+          "sha256": "007ab8f2594c4562a7d0b0cd663aeacb70bd56730923396f7a069f8e656485f6",
+          "source_sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955"
+        }
+      }
+    },
+    {
+      "status": 200,
+      "command": {
+        "confirmed": true,
+        "request_id": "c89afdf356a54a1bb39ad860ff8ee9db"
+      },
+      "result": {
+        "id": "817a0b13c942468484dd93abc6df5c25",
+        "status": "applied",
+        "source_sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955",
+        "acceptance": {
+          "articles": [
+            {
+              "article_id": "3d88abfb4ae54a0b90487621ac659f66",
+              "revision": 1
+            },
+            {
+              "article_id": "bc6b43f582254e629196516dc005585d",
+              "revision": 1
+            }
+          ],
+          "confirmed": true,
+          "created_at": "2026-11-04T08:06:10+00:00",
+          "created_by": "e30bcc9cac70404383831144040406d4",
+          "original_available": true,
+          "price_mapping": {},
+          "request_id": "c89afdf356a54a1bb39ad860ff8ee9db",
+          "request_sha256": "2d6fb4b2cb19be22498eee62ef29962cac65109626ed8a60533a49613e3a6996",
+          "rows_sha256": "10626afd67c0eb856cc96fb628739189ba74bec989669cbdf7a3a862cf185111",
+          "run_id": "817a0b13c942468484dd93abc6df5c25",
+          "sha256": "007ab8f2594c4562a7d0b0cd663aeacb70bd56730923396f7a069f8e656485f6",
+          "source_sha256": "5effe9a60998f5c4e468750a0cc02242471e43f9193a60b218d2b9268bca2955"
+        }
+      }
+    },
+    {
+      "status": 200,
+      "command": {
+        "confirmed": true,
+        "request_id": "27ab9b786cc04b0d9959405fa3bad25c"
+      },
+      "result": {
+        "id": "d27379b7b85e4a6aad24c07a87c8a9ac",
+        "status": "applied",
+        "source_sha256": "2de25f7d7f9f6a84e98b7d0f5f4a009076a90ab63b873d22ed8767edfb999aed",
+        "acceptance": {
+          "articles": [
+            {
+              "article_id": "3d88abfb4ae54a0b90487621ac659f66",
+              "revision": 2
+            },
+            {
+              "article_id": "3649deaea2bb4b21a5ee119521135dc0",
+              "revision": 1
+            }
+          ],
+          "confirmed": true,
+          "created_at": "2026-11-04T08:06:11+00:00",
+          "created_by": "e30bcc9cac70404383831144040406d4",
+          "original_available": true,
+          "price_mapping": {},
+          "request_id": "27ab9b786cc04b0d9959405fa3bad25c",
+          "request_sha256": "07c2e8e9fd34932b09a673d17b36789f921b96fe0c2cf62047f3c9aa918585bb",
+          "rows_sha256": "f2d25ca0e0f9c0c8aa7a6db995960a0c62793606e90f4360e54d51817b4051ae",
+          "run_id": "d27379b7b85e4a6aad24c07a87c8a9ac",
+          "sha256": "a755c565fe29dea32bfe5f695e9c1e6106f0e771378d4b6b696725f13e08b6e4",
+          "source_sha256": "2de25f7d7f9f6a84e98b7d0f5f4a009076a90ab63b873d22ed8767edfb999aed"
+        }
+      }
+    },
+    {
+      "status": 200,
+      "command": {
+        "confirmed": true,
+        "request_id": "374b87a455d143b481fc184d1c3d8e75"
+      },
+      "result": {
+        "id": "7018da586eeb470fa3f362b472d192c8",
+        "status": "applied",
+        "source_sha256": "2de25f7d7f9f6a84e98b7d0f5f4a009076a90ab63b873d22ed8767edfb999aed",
+        "acceptance": {
+          "articles": [
+            {
+              "article_id": "3d88abfb4ae54a0b90487621ac659f66",
+              "revision": 3
+            },
+            {
+              "article_id": "3649deaea2bb4b21a5ee119521135dc0",
+              "revision": 1
+            }
+          ],
+          "confirmed": true,
+          "created_at": "2026-11-04T08:06:11+00:00",
+          "created_by": "e30bcc9cac70404383831144040406d4",
+          "original_available": true,
+          "price_mapping": {},
+          "request_id": "374b87a455d143b481fc184d1c3d8e75",
+          "request_sha256": "47f3f5a97563b0d270a07b630898c339501b2746fd0d15a6afb50109a542f8dc",
+          "rows_sha256": "f2d25ca0e0f9c0c8aa7a6db995960a0c62793606e90f4360e54d51817b4051ae",
+          "run_id": "7018da586eeb470fa3f362b472d192c8",
+          "sha256": "022f35a1a533e1ef29dd5c88d111e3989581c56bd9e1f1414787e31b5b692f5c",
+          "source_sha256": "2de25f7d7f9f6a84e98b7d0f5f4a009076a90ab63b873d22ed8767edfb999aed"
+        }
+      }
+    },
+    {
+      "status": 200,
+      "command": {
+        "confirmed": true,
+        "target_price": "purchase_net",
+        "price_scale": "0.01",
+        "tax_rate": "19",
+        "request_id": "89b1719da7e44d2ea4531323c1abda97"
+      },
+      "result": {
+        "id": "5bc0f7b60d514c7dafe41353fc6c32a7",
+        "status": "applied",
+        "source_sha256": "72c9168f638d643bc83354bc579748b39df4e7768a9c8536dc605cd87fb61f75",
+        "acceptance": {
+          "articles": [
+            {
+              "article_id": "7fb3e365d462454ea20520f7553e363d",
+              "revision": 1
+            }
+          ],
+          "confirmed": true,
+          "created_at": "2026-11-04T08:06:12+00:00",
+          "created_by": "e30bcc9cac70404383831144040406d4",
+          "original_available": true,
+          "price_mapping": {
+            "price_scale": "0.01",
+            "target_price": "purchase_net",
+            "tax_rate": "19"
+          },
+          "request_id": "89b1719da7e44d2ea4531323c1abda97",
+          "request_sha256": "3ede2a8057c5cb0ef43f5eb609d511a9f499feb69009af06673477d2e5021ef6",
+          "rows_sha256": "adf280c61fd9361090cb9aa2969097b4a3cd95bd72e71947f8250550d1b93206",
+          "run_id": "5bc0f7b60d514c7dafe41353fc6c32a7",
+          "sha256": "f0e0915bcd2a9e181ba74a22d3a3c47dc8d146422268ae8a30c91cc5fc680645",
+          "source_sha256": "72c9168f638d643bc83354bc579748b39df4e7768a9c8536dc605cd87fb61f75"
+        }
+      }
+    }
+  ]
+}

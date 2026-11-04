@@ -190,7 +190,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                  'project-economics.js': 'text/javascript', 'asset-provenance.js': 'text/javascript',
                  'customer-workspace.html': 'text/html', 'customer-workspace.js': 'text/javascript',
                  'customer-workspace-staff.js': 'text/javascript',
-                 'personnel-workflow.js': 'text/javascript', 'accounting-euer.js': 'text/javascript',
+                 'personnel-workflow.js': 'text/javascript', 'accounting-euer.js': 'text/javascript', 'accounting-openings.js': 'text/javascript',
                  'assistant.js': 'text/javascript',
                  'payroll.js': 'text/javascript',
                  'payroll-facts.js': 'text/javascript',
@@ -216,6 +216,7 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                  'bank-reconciliation.js': 'text/javascript',
                  'resource-custody.js': 'text/javascript',
                  'purchase-changes.js': 'text/javascript',
+                 'catalog-imports.js': 'text/javascript',
                  'company-handover.js': 'text/javascript',
                  'contact.html': 'text/html', 'contact.js': 'text/javascript',
                  'portal.html': 'text/html', 'portal.js': 'text/javascript', 'portal.css': 'text/css'}
@@ -402,9 +403,9 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
         path = '/' + path
         if path == '/business/assistant/speech/transcribe' and request.method == 'POST':
             request.max_content_length = 2_600_000
-        if request.method == 'POST' and re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files)', path):
+        if request.method == 'POST' and re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import)', path):
             request.max_content_length = 2_850_000
-        if request.method == 'POST' and path in ('/business/bank/import/preview', '/business/bank/statements'):
+        if request.method == 'POST' and path in ('/business/bank/import/preview', '/business/bank/statements', '/business/accounting/opening-balances/originals'):
             request.max_content_length = 7_100_000
         methods = (METHODS.get(path) or
                    next((allowed for pattern, allowed in PATTERNS if re.fullmatch(pattern, path)), None) or
@@ -438,8 +439,8 @@ def create_app(*, office=None, key=None, host=None, storage=None, onedrive=None,
                 raise Problem(415, 'JSON-Erfassung erwartet.')
             data = business_api.decode_offline_report(request.get_data(cache=False),
                 max_bytes=(2_600_000 if path == '/business/assistant/speech/transcribe' else
-                    2_850_000 if re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files)', path) else
-                    7_100_000 if path in ('/business/bank/import/preview', '/business/bank/statements') else 1_000_000))
+                    2_850_000 if re.fullmatch(r'/business/(?:(?:migrations|resource-custody)/[a-f0-9]{32}/files|purchasing/orders/[a-f0-9]{32}/change-files|adapters/[a-f0-9]{32}/import)', path) else
+                    7_100_000 if path in ('/business/bank/import/preview', '/business/bank/statements', '/business/accounting/opening-balances/originals') else 1_000_000))
         else:
             data = body() if request.method == 'POST' else (
                 business_api.query_data(request.args.items(multi=True)) if path.startswith('/business/') else {})

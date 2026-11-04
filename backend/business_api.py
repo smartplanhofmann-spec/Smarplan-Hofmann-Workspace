@@ -12,11 +12,11 @@ from core import Problem
 MODULES = (
     'business_foundation', 'business_documents', 'business_finance',
     'business_planning', 'business_time', 'business_operations',
-    'business_inventory', 'business_maintenance', 'business_adapters', 'business_organization', 'business_purchasing', 'business_portal',
+    'business_inventory', 'business_maintenance', 'business_adapters', 'business_catalog_imports', 'business_organization', 'business_purchasing', 'business_portal',
     'business_accounting', 'business_accounting_allocations', 'business_accounting_components', 'business_accounting_refunds', 'business_accounting_capacity',
     'business_accounting_refunds_v2',
     'business_accounting_profile',
-    'business_project_economics', 'business_asset_provenance', 'business_customer_workspace', 'business_personnel_workflow', 'business_accounting_euer', 'business_assistant', 'business_payroll', 'business_inventory_counts', 'business_sales', 'business_payroll_accounts', 'business_assistant_speech', 'business_company_handover', 'business_migrations', 'business_custom_fields', 'business_privacy_cases', 'business_payroll_cash', 'business_service', 'business_bank_reconciliation', 'business_resource_custody', 'business_purchase_changes', 'business_payroll_facts', 'business_travel_allowances', 'business_payroll_entitlements', 'business_payroll_calculation_cases', 'business_payroll_annual_basis', 'business_payroll_wage_interruptions', 'business_payroll_oneoff_cases',
+    'business_project_economics', 'business_asset_provenance', 'business_customer_workspace', 'business_personnel_workflow', 'business_accounting_euer', 'business_assistant', 'business_payroll', 'business_inventory_counts', 'business_sales', 'business_payroll_accounts', 'business_assistant_speech', 'business_company_handover', 'business_migrations', 'business_custom_fields', 'business_privacy_cases', 'business_payroll_cash', 'business_service', 'business_bank_reconciliation', 'business_resource_custody', 'business_purchase_changes', 'business_payroll_facts', 'business_travel_allowances', 'business_payroll_entitlements', 'business_payroll_calculation_cases', 'business_payroll_annual_basis', 'business_payroll_wage_interruptions', 'business_payroll_oneoff_cases', 'business_accounting_openings',
 )
 
 
@@ -104,8 +104,8 @@ def strict_workflow_path(path):
     if not isinstance(path, str):
         return False
     return re.fullmatch(
-        r'/business/(?:(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|assistant|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
-        r'finance/receipts(?:/[a-f0-9]{32}(?:/original)?)?|'
+        r'/business/(?:(?:project-economics|customer-workspace|receipt-media|personnel|payroll|accounting/euer|accounting/opening-balances|assistant|sales|company-handover|migrations|custom-fields|privacy/cases|service|bank|resource-custody)(?:/.*)?|overview/metrics|inventory/(?:counts(?:/.*)?|count-sources)|'
+        r'finance/receipts(?:/[a-f0-9]{32}(?:/original)?)?|adapters(?:/.*)?|'
         r'assets/(?:from-delivery|origin-sources|[a-f0-9]{32}/origin)|'
         r'purchasing/orders/[a-f0-9]{32}/(?:changes|change-files(?:/[a-f0-9]{32}/original)?|amendments(?:/preview)?|supplier-returns(?:/preview)?)|'
         r'purchasing/receipts/[a-f0-9]{32}/document)', path) is not None
@@ -273,9 +273,11 @@ def _dispatch(office, actor, path, method, data, *, offline=False, offline_capab
             and re.fullmatch(r'/portal/grants/[a-f0-9]{32}/revoke', relative) is not None
             or module.__name__ == 'business_customer_workspace'
             and re.fullmatch(r'/customer-workspace/(?:grants|files)/[a-f0-9]{32}/revoke', relative) is not None))
-        if module.__name__ not in active and not ((method == 'GET' or security_revoke) and module.__name__ in readable):
+        catalog_preview = (method == 'POST' and module.__name__ == 'business_catalog_imports'
+                           and re.fullmatch(r'/adapters/imports/[a-f0-9]{32}/catalog-preview', relative) is not None)
+        if module.__name__ not in active and not ((method == 'GET' or security_revoke or catalog_preview) and module.__name__ in readable):
             raise Problem(409, 'Dieses Modul ist im aktuellen Betriebsmodus nicht schreibend freigegeben.')
-        if method != 'GET' and 'business_organization' in readable:
+        if method != 'GET' and not catalog_preview and 'business_organization' in readable:
             from business_organization import require_active
             require_active(office, actor, relative, module.__name__, data)
         result = handler(office, actor, relative, method, data)

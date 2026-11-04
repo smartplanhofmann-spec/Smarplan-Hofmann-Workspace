@@ -1,0 +1,52 @@
+test_counterposting_correction_lock_and_reopening_preserve_full_history (test_business_accounting_euer.EuerWorkflowTests.test_counterposting_correction_lock_and_reopening_preserve_full_history) ... ok
+test_duplicate_original_and_movement_identity_are_rejected_cross_module (test_business_accounting_euer.EuerWorkflowTests.test_duplicate_original_and_movement_identity_are_rejected_cross_module) ... ok
+test_duplicate_payment_original_does_not_reveal_private_historical_binding (test_business_accounting_euer.EuerWorkflowTests.test_duplicate_payment_original_does_not_reveal_private_historical_binding) ... ok
+test_external_payment_original_stays_distinct_from_supplier_payables_after_counterposting (test_business_accounting_euer.EuerWorkflowTests.test_external_payment_original_stays_distinct_from_supplier_payables_after_counterposting) ... ok
+test_fresh_rights_after_lost_ack_and_incomplete_year_coverage (test_business_accounting_euer.EuerWorkflowTests.test_fresh_rights_after_lost_ack_and_incomplete_year_coverage) ... ok
+test_missing_review_decision_profile_or_components_never_becomes_zero (test_business_accounting_euer.EuerWorkflowTests.test_missing_review_decision_profile_or_components_never_becomes_zero) ... ok
+test_new_asset_linear_monthly_basis_and_no_double_cash_expense (test_business_accounting_euer.EuerWorkflowTests.test_new_asset_linear_monthly_basis_and_no_double_cash_expense) ... ok
+test_new_review_of_identical_amounts_can_be_explicitly_corrected_without_rewriting_cash (test_business_accounting_euer.EuerWorkflowTests.test_new_review_of_identical_amounts_can_be_explicitly_corrected_without_rewriting_cash) ... ok
+test_nfkc_whitespace_cash_identity_blocks_different_original_across_writers (test_business_accounting_euer.EuerWorkflowTests.test_nfkc_whitespace_cash_identity_blocks_different_original_across_writers) ... ok
+test_official_cash_vat_reference_closed_journey_and_exact_frozen_export (test_business_accounting_euer.EuerWorkflowTests.test_official_cash_vat_reference_closed_journey_and_exact_frozen_export) ... ok
+test_original_reused_and_mixed_refund_cents_flow_unchanged_into_tax_journal (test_business_accounting_euer.EuerWorkflowTests.test_original_reused_and_mixed_refund_cents_flow_unchanged_into_tax_journal) ... ok
+test_registered_asset_and_already_expensed_acquisition_cannot_double_deduct (test_business_accounting_euer.EuerWorkflowTests.test_registered_asset_and_already_expensed_acquisition_cannot_double_deduct) ... ok
+test_rejected_later_review_and_partial_vat_claim_never_hide_incomplete_tax (test_business_accounting_euer.EuerWorkflowTests.test_rejected_later_review_and_partial_vat_claim_never_hide_incomplete_tax) ... ok
+test_replay_rights_conflict_markers_atomic_rollback_and_immutable_guards (test_business_accounting_euer.EuerWorkflowTests.test_replay_rights_conflict_markers_atomic_rollback_and_immutable_guards) ... ok
+test_reviewed_private_nondeductible_and_tax_components_balance_exactly (test_business_accounting_euer.EuerWorkflowTests.test_reviewed_private_nondeductible_and_tax_components_balance_exactly) ... ok
+test_ten_day_exception_requires_real_due_date_and_separate_vat_period (test_business_accounting_euer.EuerWorkflowTests.test_ten_day_exception_requires_real_due_date_and_separate_vat_period) ... ok
+test_transport_shapes_preserve_known_uncertainty_contract (test_business_accounting_euer.EuerWorkflowTests.test_transport_shapes_preserve_known_uncertainty_contract) ... ok
+test_unpaid_invoice_input_vat_is_separate_from_later_cash_year (test_business_accounting_euer.EuerWorkflowTests.test_unpaid_invoice_input_vat_is_separate_from_later_cash_year) ... ok
+test_1000_plus_actual_119_minus_actual_59_50_is_1059_50_without_euer_income (test_business_accounting_openings.OpeningWorkflow.test_1000_plus_actual_119_minus_actual_59_50_is_1059_50_without_euer_income) ... ok
+test_bank_negative_cash_nonnegative_and_exact_signed_cent_contract (test_business_accounting_openings.OpeningWorkflow.test_bank_negative_cash_nonnegative_and_exact_signed_cent_contract) ... ok
+test_binary_and_receipt_tampering_are_not_hidden_by_replay_or_restore (test_business_accounting_openings.OpeningWorkflow.test_binary_and_receipt_tampering_are_not_hidden_by_replay_or_restore) ... ok
+test_correction_void_and_original_replay_preserve_previous_history (test_business_accounting_openings.OpeningWorkflow.test_correction_void_and_original_replay_preserve_previous_history) ... ok
+test_existing_bank_opening_and_previous_closing_are_derived_exactly (test_business_accounting_openings.OpeningWorkflow.test_existing_bank_opening_and_previous_closing_are_derived_exactly) ... ok
+test_failed_audit_rolls_back_balance_receipt_and_all_cash_tables (test_business_accounting_openings.OpeningWorkflow.test_failed_audit_rolls_back_balance_receipt_and_all_cash_tables) ... ok
+test_future_stichtag_and_wrong_date_do_not_create_a_real_balance (test_business_accounting_openings.OpeningWorkflow.test_future_stichtag_and_wrong_date_do_not_create_a_real_balance) ... ok
+test_known_permission_revocation_blocks_replay_and_originals_and_restore_blocks_new_commands (test_business_accounting_openings.OpeningWorkflow.test_known_permission_revocation_blocks_replay_and_originals_and_restore_blocks_new_commands) ... ERROR
+test_later_closed_euer_period_blocks_restatement_not_read_only_original_replay (test_business_accounting_openings.OpeningWorkflow.test_later_closed_euer_period_blocks_restatement_not_read_only_original_replay) ... ok
+test_no_opening_is_unknown_but_explicit_zero_is_a_real_evidenced_state (test_business_accounting_openings.OpeningWorkflow.test_no_opening_is_unknown_but_explicit_zero_is_a_real_evidenced_state) ... ok
+test_original_is_retained_account_bound_deduplicated_and_private (test_business_accounting_openings.OpeningWorkflow.test_original_is_retained_account_bound_deduplicated_and_private) ... ok
+test_present_bank_connection_blocks_conflicting_manual_original_and_later_conflict_is_visible (test_business_accounting_openings.OpeningWorkflow.test_present_bank_connection_blocks_conflicting_manual_original_and_later_conflict_is_visible) ... ok
+test_profile_and_account_changes_require_fresh_explicit_correction_but_not_historical_replay (test_business_accounting_openings.OpeningWorkflow.test_profile_and_account_changes_require_fresh_explicit_correction_but_not_historical_replay) ... ok
+test_stale_preview_and_request_id_changes_cannot_overwrite_a_committed_balance (test_business_accounting_openings.OpeningWorkflow.test_stale_preview_and_request_id_changes_cannot_overwrite_a_committed_balance) ... ok
+test_start_day_is_included_earlier_cash_is_not_added_twice (test_business_accounting_openings.OpeningWorkflow.test_start_day_is_included_earlier_cash_is_not_added_twice) ... ok
+test_unknown_unimported_payment_remains_visible_and_prevents_complete_liquidity (test_business_accounting_openings.OpeningWorkflow.test_unknown_unimported_payment_remains_visible_and_prevents_complete_liquidity) ... ok
+
+======================================================================
+ERROR: test_known_permission_revocation_blocks_replay_and_originals_and_restore_blocks_new_commands (test_business_accounting_openings.OpeningWorkflow.test_known_permission_revocation_blocks_replay_and_originals_and_restore_blocks_new_commands)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-financial-opening-20261104/backend/test_business_accounting_openings.py", line 230, in test_known_permission_revocation_blocks_replay_and_originals_and_restore_blocks_new_commands
+    f.grant(self.owner, 'accounting.admin', effect='deny')
+  File "/workspace/smartplan-financial-opening-20261104/backend/test_business_accounting.py", line 70, in grant
+    return BusinessFoundation(self.office).save_grant(self.owner, self.legacy_req(user_id=actor['id'], permission=permission,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-financial-opening-20261104/backend/business_foundation.py", line 246, in save_grant
+    raise Problem(400, 'Geschäftsführung behält vollständige Fachrechte')
+core.Problem: (400, 'Geschäftsführung behält vollständige Fachrechte')
+
+----------------------------------------------------------------------
+Ran 34 tests in 20.014s
+
+FAILED (errors=1)

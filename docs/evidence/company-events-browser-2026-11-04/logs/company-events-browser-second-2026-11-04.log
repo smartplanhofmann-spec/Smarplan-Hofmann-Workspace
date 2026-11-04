@@ -1,0 +1,35 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('dialog', { name: 'Unternehmensereignisse', exact: true }) to be visible[22m
+
+    at createRule (/workspace/smartplan-company-events-20261104/web/office/tests/company-events-flow.cjs:12:1677)
+    at async Object.companyEventsFlow (/workspace/smartplan-company-events-20261104/web/office/tests/company-events-flow.cjs:20:108)
+    at async main (/workspace/smartplan-company-events-20261104/web/office/tests/e2e.cjs:131:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: [
+  'Keine sichere Antwort erhalten. Verbindung prüfen und dieselbe Eingabe erneut senden.'
+]
+Page errors: []
+Browser console errors: [ 'Failed to load resource: net::ERR_FAILED' ]
+Fixture log tail:
+0 -
+127.0.0.1 - - [04/Nov/2026 11:13:18] "GET /api/v1/me HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:18] "[35m[1mPOST /api/v1/projects/039c766b8d2e46ad9b450d47c40a37f3/tasks HTTP/1.1[0m" 201 -
+127.0.0.1 - - [04/Nov/2026 11:13:18] "[35m[1mPOST /api/v1/projects/6afa8967656c41628036a7ed7705a718/tasks HTTP/1.1[0m" 201 -
+127.0.0.1 - - [04/Nov/2026 11:13:18] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:18] "GET /api/v1/business/company-events/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:18] "GET /api/v1/business/company-events/plans HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:18] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:18] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:19] "GET /api/v1/business/company-events/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:19] "GET /api/v1/business/company-events/rules HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:19] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:19] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:19] "GET /api/v1/users HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:19] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:19] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:13:19] "POST /api/v1/business/company-events/rules HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

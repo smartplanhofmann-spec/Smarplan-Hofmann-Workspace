@@ -1,0 +1,17 @@
+--- freeze/business_company_event_contract.dart
++++ reviewed/business_company_event_contract.dart
+@@ -557,6 +557,14 @@
+       _identifier(result['id']);
+     }
+   }
++  if (v['status'] == 'succeeded') {
++    _require(
++      v['execution'] != null &&
++          v['outcome'] is Map &&
++          v['outcome']['status'] == 'succeeded',
++      'Ein erfolgreicher Status benötigt ein bestätigtes Ausführungsergebnis.',
++    );
++  }
+   return v;
+ }
+ 

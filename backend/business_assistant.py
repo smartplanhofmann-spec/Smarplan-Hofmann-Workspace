@@ -431,6 +431,10 @@ class Assistant:
     def _authorize_execution(self, actor, plan_id, *, require_transport=True):
         fresh, row, value, context, _ = self._plan_access(actor, plan_id, current=True)
         self._action_gate(fresh, value)
+        from business_schema import _tables
+        if 'business_company_event_rules' in _tables(self.office):
+            from business_company_events import require_assistant_event_policy
+            require_assistant_event_policy(self.office, fresh, value, context)
         if self.db.execute('SELECT 1 FROM business_assistant_suspensions WHERE plan_id=?', (plan_id,)).fetchone():
             raise Problem(409, 'Dieser offene Plan wurde bei Wiederherstellung gesperrt; neu prüfen.')
         policy = self._evaluated_policy(fresh, value['project_id'], value['trigger'], value['action'], value['parameters'])
@@ -708,7 +712,12 @@ def require_send_policy(office, actor, project_id, action, target_id, request_id
     identifier(project_id); identifier(target_id); identifier(request_id)
     with transaction(office):
         from business_schema import _tables
-        if 'business_assistant_rules' not in _tables(office):
+        tables = _tables(office)
+        if 'business_company_event_rules' in tables:
+            from business_company_events import require_send_policy as company_send_policy
+            if company_send_policy(office, actor, project_id, action, target_id, request_id):
+                return
+        if 'business_assistant_rules' not in tables:
             return
         api = Assistant(office)
         field = 'document_id' if action == 'document.email' else 'outbox_id'

@@ -1,0 +1,51 @@
+{
+  "recorded_at_utc": "2026-11-04T10:32:58.342868+00:00",
+  "prior_manifest": {
+    "path": "docs/evidence/company-events-independent-2026-11-04/manifest.json",
+    "size": 4948,
+    "sha256": "e4d8646014befa9fedbe3dd4146363ac47092a7f8d0fef472b28d05fa9c337d1"
+  },
+  "validation": {
+    "passed": 35,
+    "failed": 0,
+    "independent": 13,
+    "owner_targeted": 22,
+    "exact_runtime_stable_during_test": true
+  },
+  "unchanged_original_test_prefix": {
+    "size": 11819,
+    "sha256": "df216c165b16933af70ecee0cc9debd880c6fd601c2a4571f238a45d371c03e2"
+  },
+  "reviewed_files": {
+    "web/office/company-events.js": {
+      "size": 29282,
+      "sha256": "76c80e5baba621f8c240c9b1cedf272ac09fcb636432fd5d91f54db006368b1a"
+    },
+    "web/office/company-events-contract.js": {
+      "size": 17921,
+      "sha256": "73d9ff6a46be4dfc99435c986f34bf04f894f79a28dcc1eb36ccbdf6b0794c76"
+    },
+    "web/office/office.js": {
+      "size": 344087,
+      "sha256": "c17ccb0ee306b0b5ffabdc65ab958b732ecd5206565c13846a78bbe85e7bc195"
+    },
+    "web/office/tests/company-events-independent-review.test.mjs": {
+      "size": 12913,
+      "sha256": "74b93f3df83ef47a3ecb14a2cbfc9b993b876cd95af6c69a15e3df0acde738a8"
+    },
+    "docs/fixtures/company_events_2026.json": {
+      "size": 262028,
+      "sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20"
+    }
+  },
+  "evidence": {
+    "docs/evidence/company-events-independent-2026-11-04/unconfirmed-addendum-35.txt": {
+      "size": 3327,
+      "sha256": "eb53842957fd19730a58e841338716966775860a15f37ea72b3a81d723a01ce2"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/UNCONFIRMED_ADDENDUM.md": {
+      "size": 1604,
+      "sha256": "992e2d2cc74268ea8d012f6881dc685e742b45b71cdf0e2bd3e416625f36492f"
+    }
+  }
+}

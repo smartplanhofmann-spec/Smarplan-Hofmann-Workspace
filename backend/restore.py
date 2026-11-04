@@ -25,6 +25,8 @@ def restore(source, destination):
             sanitize_customer_workspace(database)
             from business_assistant import sanitize_after_restore as sanitize_assistant
             sanitize_assistant(database)
+            from business_company_events import sanitize_after_restore as sanitize_company_events
+            sanitize_company_events(database)
             from business_assistant_speech import sanitize_after_restore as sanitize_speech
             sanitize_speech(database)
             if database.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='business_schema_state'").fetchone():

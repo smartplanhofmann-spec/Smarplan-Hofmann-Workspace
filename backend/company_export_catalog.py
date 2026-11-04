@@ -152,6 +152,16 @@ COLUMNS = {
     'business_assistant_outcomes': 'plan_id,status,payload_json,sha256,created_at',
     'business_assistant_plans': 'id,context_id,project_id,created_by,payload_json,sha256,created_at',
     'business_assistant_requests': 'user_id,request_id,operation,request_json,request_hash,result_json',
+    'business_company_event_rules': 'id,revision,payload_json,sha256,created_by,created_at',
+    'business_company_event_observations': 'id,project_id,occurrence_key,payload_json,sha256,created_by,created_at',
+    'business_company_event_plans': 'id,event_id,project_id,action_key,payload_json,sha256,created_by,created_at',
+    'business_company_event_runs': 'id,payload_json,sha256,created_by,created_at',
+    'business_company_event_run_results': 'run_id,payload_json,sha256,created_at',
+    'business_company_event_decisions': 'plan_id,decision,plan_sha256,reason,created_by,created_at',
+    'business_company_event_executions': 'plan_id,action_key,domain_request_id,created_by,created_at',
+    'business_company_event_outcomes': 'plan_id,status,payload_json,sha256,created_at',
+    'business_company_event_requests': 'user_id,request_id,operation,request_json,request_hash,result_json',
+    'business_company_event_suspensions': 'plan_id,reason,created_at',
     'business_assistant_rules': 'id,revision,project_id,payload_json,sha256,created_by,created_at',
     'business_assistant_suspensions': 'plan_id,reason,created_at',
     'business_budget_versions': 'project_id,revision,payload_json',
@@ -389,6 +399,11 @@ def policy(table):
     if table=='business_payroll_account_requests':
         result['purpose']='Technical retry receipts containing personal payroll account result snapshots'
         result['retention_basis']='Linked payroll evidence and retry purpose; source-dependent review, no independent blanket period'
+    if table.startswith('business_company_event_'):
+        result['sensitive']=True
+        result['purpose']='Company event rules, explicitly selected business-source observations and actual action/approval evidence'
+        result['retention_basis']='Follow the retained source and action evidence for the specific record; no independent blanket retention period'
+        result['source_access']='Current assistant and actual project/source rights; company rule/run administration additionally requires settings.manage. No personnel or individual payroll source.'
     if table.startswith('business_custom_field_'):
         result['sensitive']=True
         result['purpose']='Versioned customer/project/asset field definitions and values; may contain confidential personal free text'

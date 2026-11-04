@@ -1,0 +1,32 @@
+✔ money and quantities preserve server decimal strings in German display (11.124386ms)
+✔ requests stay on same origin, omit cookies, refuse redirects and carry memory bearer (65.356908ms)
+✔ the browser native fetch receiver stays bound to the global object (0.67094ms)
+✔ login has no stale bearer and logout erases memory authorization (5.104074ms)
+✔ clear aborts outstanding requests and refuses a response from the previous session (0.787285ms)
+✔ a lost mutation response retries the exact request id and body (0.967967ms)
+✔ uncertain operation cannot silently change its target or payload (0.382886ms)
+✔ an uncertain saved form can be explicitly retried after its dialog closes (1.384153ms)
+✔ a definite validation failure allows a corrected fresh operation (4.126642ms)
+✔ streaming and advertised response bounds protect memory (1.347909ms)
+✔ an oversized accepted response retains the original nonce instead of claiming request rejection (2.24499ms)
+✔ bounded large bank DTOs leave ordinary JSON and original downloads at their own limits (97.130245ms)
+✔ HTML proxy errors never enter the user-facing error message (1.093366ms)
+✔ binary downloads retain bytes and do not put bearer into a URL (0.606553ms)
+✔ browser source has eleven real navigation sections including the assistant and no persistent credential or unsafe HTML writer (32.814248ms)
+✔ original generated request id reaches async receipt validation; foreign valid acceptance preserves pending (154.598412ms)
+✔ validator gets isolated original-body copy; validator mutation cannot change later exact replay (2.249347ms)
+✔ late async validator cannot clear new-session operation with same key or receive its body (3.614541ms)
+✔ existing synchronous result-only validator still accepts and rejects without clearing failed operation (2.59053ms)
+✔ uncertain workflow command retains its exact nonce: /business/assistant/plans (82.270269ms)
+✔ uncertain workflow command retains its exact nonce: /business/payroll/runs (9.782517ms)
+✔ uncertain workflow command retains its exact nonce: /business/customer-workspace/publications (1.085334ms)
+✔ uncertain workflow command retains its exact nonce: /business/personnel/expenses (5.488612ms)
+✔ uncertain workflow command retains its exact nonce: /business/accounting/euer/confirm (3.836505ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 568.512581

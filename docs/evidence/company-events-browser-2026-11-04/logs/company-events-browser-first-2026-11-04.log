@@ -1,0 +1,40 @@
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+Error: Fixture exited: Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/web/office/tests/serve_fixture.py", line 447, in <module>
+    main()
+  File "/workspace/smartplan-company-events-20261104/web/office/tests/serve_fixture.py", line 395, in main
+    app = create_app(office=office, key=fixture_key, host='127.0.0.1',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/web.py", line 149, in create_app
+    instance = verify_instance(office, instance_id if instance_id is not None else
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/instance.py", line 106, in verify
+    expected = _values(instance_id, host, key, server)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/instance.py", line 54, in _values
+    _fail()
+  File "/workspace/smartplan-company-events-20261104/backend/online/instance.py", line 29, in _fail
+    raise InstanceConfigurationError(ERROR)
+online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+
+    at main (/workspace/smartplan-company-events-20261104/web/office/tests/e2e.cjs:63:189)
+Fixture log tail:
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/web/office/tests/serve_fixture.py", line 447, in <module>
+    main()
+  File "/workspace/smartplan-company-events-20261104/web/office/tests/serve_fixture.py", line 395, in main
+    app = create_app(office=office, key=fixture_key, host='127.0.0.1',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/web.py", line 149, in create_app
+    instance = verify_instance(office, instance_id if instance_id is not None else
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/instance.py", line 106, in verify
+    expected = _values(instance_id, host, key, server)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/instance.py", line 54, in _values
+    _fail()
+  File "/workspace/smartplan-company-events-20261104/backend/online/instance.py", line 29, in _fail
+    raise InstanceConfigurationError(ERROR)
+online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+
+SMARTPLAN_BROWSER_FAILURE_END

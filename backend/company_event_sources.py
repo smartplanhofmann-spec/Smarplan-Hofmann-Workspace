@@ -1,0 +1,257 @@
+"""Closed company event observations. No caller-supplied facts or tenant IDs."""
+from datetime import date, timedelta
+import re
+
+from core import Problem
+from business_assistant_sources import resolve, sha, parameters, ACTIONS
+from business_operations import identifier, text
+
+TRIGGERS = {
+    'task.overdue': 'task', 'payment.overdue': 'open_item',
+    'cost.threshold': 'costs', 'communication.received': 'communication',
+    'document.finalized': 'document', 'dunning.ready': 'dunning',
+}
+FACTS = {
+    'task.overdue': {'overdue_days': int, 'source_status': str},
+    'payment.overdue': {'overdue_days': int, 'open_minor': str},
+    'cost.threshold': {'total_cost_minor': str, 'costs_complete': bool},
+    'communication.received': {'source_status': str},
+    'document.finalized': {'document_kind': str},
+    'dunning.ready': {'level': int},
+}
+COMPATIBLE = {
+    'task.create': tuple(TRIGGERS), 'offer.draft': ('communication.received',),
+    'document.email': ('document.finalized',), 'dunning.email': ('dunning.ready',),
+    'supplier.order': (), 'payment.execute': ('payment.overdue',),
+}
+
+
+def shape(value, fields):
+    if not isinstance(value, dict) or set(value) != set(fields):
+        raise Problem(400, 'Genau die vorgesehenen Ereignisfelder angeben.')
+
+
+def conditions(trigger, value):
+    if not isinstance(value, list) or len(value) > 8:
+        raise Problem(400, 'Höchstens acht belegte Bedingungen angeben.')
+    for item in value:
+        shape(item, ('field', 'operator', 'value'))
+        kind = FACTS[trigger].get(item['field']) if isinstance(item['field'], str) else None
+        if (kind is None or type(item['value']) is not kind or
+                item['operator'] not in ('eq', 'gte', 'lte') or
+                kind in (str, bool) and not item['field'].endswith('_minor') and item['operator'] != 'eq' or
+                kind is int and not 0 <= item['value'] <= 1000000 or
+                kind is str and len(item['value']) > 100 or
+                item['field'].endswith('_minor') and not re.fullmatch(r'0|[1-9][0-9]{0,39}',item['value'])):
+            raise Problem(400, 'Typisierte Bedingung dieses Auslösers erforderlich.')
+    return value
+
+
+def template(trigger, action, value):
+    if action not in ACTIONS or trigger not in COMPATIBLE[action]:
+        raise Problem(400, 'Aktion passt nicht zum belegten Ereignisziel.')
+    if action == 'task.create':
+        shape(value, ('title', 'details', 'priority', 'due_days'))
+        if value['priority'] not in ('normal', 'high'):
+            raise Problem(400, 'Gültige Aufgabenpriorität erforderlich.')
+        result = dict(title=text(value['title'], 'Aufgabe', 200, required=True),
+                      details=text(value['details'], 'Beschreibung', 10000),
+                      priority=value['priority'], due_days=value['due_days'])
+    elif action == 'offer.draft':
+        shape(value, ('title', 'due_days', 'positions'))
+        if not isinstance(value['positions'], list) or not 1 <= len(value['positions']) <= 6:
+            raise Problem(400, 'Eine bis sechs ausdrücklich ausgewählte Artikelpositionen erforderlich.')
+        for item in value['positions']:
+            shape(item, ('article_id', 'article_revision', 'quantity'))
+            identifier(item['article_id'])
+            if (type(item['article_revision']) is not int or item['article_revision'] < 1 or
+                    not isinstance(item['quantity'], str) or
+                    not re.fullmatch(r'\d{1,6}(?:\.\d{1,4})?', item['quantity']) or
+                    not any(c in '123456789' for c in item['quantity'])):
+                raise Problem(400, 'Aktuelle Artikelrevision und positive Menge erforderlich.')
+        result = dict(title=text(value['title'], 'Angebot', 300, required=True),
+                      due_days=value['due_days'], positions=value['positions'])
+    else:
+        shape(value, ())
+        return {}
+    if (result['due_days'] is None and action != 'task.create' or
+            result['due_days'] is not None and
+            (type(result['due_days']) is not int or not 0 <= result['due_days'] <= 365)):
+        raise Problem(400, 'Fälligkeit als 0 bis 365 Tage, bei Aufgaben auch ohne Datum, angeben.')
+    return result
+
+
+def event_values(trigger, source):
+    """Reproducible facts and occurrence identity from one exact source."""
+    kind, value = source['descriptor']['kind'], source['data']
+    if TRIGGERS.get(trigger) != kind:
+        raise Problem(409, 'Ereignisauslöser und Quelle passen nicht zusammen.')
+    object_id = source['descriptor']['id']
+    if trigger == 'task.overdue':
+        active = value['overdue_days'] > 0 and value['status'] not in ('done', 'cancelled')
+        facts = dict(overdue_days=value['overdue_days'], source_status=value['status'])
+        occurrence = [object_id, value['due_date']]
+    elif trigger == 'payment.overdue':
+        active = value['overdue_days'] > 0 and int(value['open_minor']) > 0
+        facts = dict(overdue_days=value['overdue_days'], open_minor=value['open_minor'])
+        occurrence = [object_id, value['due_date']]
+    elif trigger == 'cost.threshold':
+        active = True
+        facts = dict(total_cost_minor=value['total_cost_minor'],
+                     costs_complete=value['result']['complete_for_recorded_sources'])
+        occurrence = [object_id, sha(value)]
+    elif trigger == 'communication.received':
+        active, facts, occurrence = True, dict(source_status=value['status']), [object_id]
+    elif trigger == 'document.finalized':
+        active = value['status'] == 'final'
+        facts, occurrence = dict(document_kind=value['kind']), [object_id, value['revision']]
+    else:
+        active, facts = True, dict(level=value['level'])
+        occurrence = [object_id, value['operation_id']]
+    return active, facts, occurrence
+
+
+def read_source(office, actor, project, descriptor, today):
+    source=resolve(office,actor,project,descriptor,today)
+    # Money-derived integers are exact strings at the new JSON boundary.
+    # The original assistant projection remains untouched.
+    for field in ('open_minor','total_cost_minor'):
+        if field in source['data']: source['data'][field]=str(source['data'][field])
+    source['sha256']=sha(source['data'])
+    return source
+
+
+def observe(office, actor, project, trigger, object_id, today, identity):
+    source = read_source(office, actor, project, dict(kind=TRIGGERS[trigger], id=object_id), today)
+    active, facts, occurrence = event_values(trigger, source)
+    value = dict(schema_version=1, identity=identity, project_id=project, trigger=trigger,
+                 as_of=today, source=source, facts=facts, active=active,
+                 occurrence_key=sha([identity, project, trigger, occurrence]))
+    return value
+
+
+def candidates(office, actor, triggers):
+    """Only identifiers are selected before normal project/source authorization."""
+    result = []
+    # A configured follow-up task must not recursively manufacture a new
+    # follow-up every time its own deadline passes. Manual new tasks remain
+    # real sources; automated products retain their original event linkage.
+    import json
+    generated={json.loads(row['payload_json'])['id'] for row in office.db.execute(
+        "SELECT o.payload_json FROM business_company_event_outcomes o JOIN business_company_event_plans p ON p.id=o.plan_id WHERE o.status='succeeded'").fetchall()
+        if isinstance(json.loads(row['payload_json']),dict) and 'id' in json.loads(row['payload_json'])}
+    for project in office.projects(actor):
+        project_id = project['id']
+        for trigger in triggers:
+            if trigger == 'cost.threshold':
+                ids = [project_id]
+            else:
+                sql = {
+                    'task.overdue': "SELECT id FROM workspace_items WHERE project_id=? AND kind='tasks'",
+                    'payment.overdue': "SELECT id FROM business_documents WHERE project_id=? AND kind IN ('invoice','advance_invoice','cumulative_invoice','final_invoice') AND status='final'",
+                    'communication.received': 'SELECT id FROM inquiries WHERE project_id=?',
+                    'document.finalized': "SELECT id FROM business_documents WHERE project_id=? AND status='final'",
+                    'dunning.ready': 'SELECT o.id FROM business_finance_outbox o JOIN business_dunning_approvals a ON a.id=o.approval_id JOIN business_documents d ON d.id=a.document_id WHERE d.project_id=?',
+                }[trigger]
+                ids = [row['id'] for row in office.db.execute(sql, (project_id,)).fetchall()]
+            for object_id in ids:
+                if trigger=='task.overdue' and object_id in generated: continue
+                result.append((project_id+':'+trigger+':'+object_id, project_id, trigger, object_id))
+    return sorted(result)
+
+
+def match(rule, event):
+    if (not rule['enabled'] or rule['trigger'] != event['trigger'] or
+            rule['project_ids'] is not None and event['project_id'] not in rule['project_ids']):
+        return 'unmatched'
+    if not event['active']:
+        return 'unmatched'
+    unknown = event['trigger'] == 'cost.threshold' and not event['facts']['costs_complete']
+    for item in rule['conditions']:
+        actual, expected = event['facts'].get(item['field']), item['value']
+        if actual is not None and item['field'].endswith('_minor'):
+            actual,expected=int(actual),int(expected)
+        if actual is None:
+            unknown = True
+        elif not {'eq': lambda: actual == expected, 'gte': lambda: actual >= expected,
+                  'lte': lambda: actual <= expected}[item['operator']]():
+            return 'unmatched'
+    return 'uncheckable' if unknown else 'matched'
+
+
+def policy(rules, event, action):
+    applicable = [rule for rule in rules if rule['action'] == action and
+                  rule['trigger'] == event['trigger'] and
+                  (rule['project_ids'] is None or event['project_id'] in rule['project_ids'])]
+    matching = [rule for rule in applicable if match(rule, event) == 'matched']
+    unknown = [rule for rule in applicable if match(rule, event) == 'uncheckable']
+    mode = max((rule['mode'] for rule in matching), key={'auto': 0, 'approval': 1, 'deny': 2}.get, default='deny')
+    selected = [rule for rule in matching if rule['mode'] == mode]
+    owners = {rule['responsible_id'] for rule in selected}
+    templates = {sha(rule['template']) for rule in selected}
+    ambiguous = len(owners) > 1 or len(templates) > 1
+    if unknown or ambiguous:
+        mode = 'deny'
+    return dict(mode=mode, responsible_id=next(iter(owners)) if len(owners) == 1 else None,
+                template=selected[0]['template'] if len(templates) == 1 else None,
+                reason='uncheckable_conditions' if unknown else 'ambiguous_rules' if ambiguous else
+                       'matched_rule' if matching else 'no_matching_permission',
+                matched_rules=[dict(id=r['id'], revision=r['revision']) for r in matching],
+                uncheckable_rules=[dict(id=r['id'], revision=r['revision']) for r in unknown],
+                rule_versions=[dict(id=r['id'], revision=r['revision'], sha256=sha(r)) for r in applicable])
+
+
+def combine_policy(company, project_policies):
+    result=dict(company,company_mode=company['mode'],project_policies=project_policies)
+    for item in project_policies:
+        value=item['policy']
+        if not value['matched_rules'] and not value['uncheckable_rules']: continue
+        if value['mode']=='deny' or value['responsible_id']!=company['responsible_id']:
+            result.update(mode='deny',reason='project_rule_denies_or_responsibility_differs')
+        elif value['mode']=='approval' and result['mode']=='auto':
+            result.update(mode='approval',reason='project_rule_requires_approval')
+    return result
+
+
+def project_policy_projection(value):
+    """Exact JSON-friendly money projection, leaving the legacy record alone."""
+    if isinstance(value,list): return [project_policy_projection(v) for v in value]
+    if isinstance(value,dict):
+        return {key:str(item) if key.endswith('_minor') and type(item) is int else project_policy_projection(item)
+                for key,item in value.items()}
+    return value
+
+
+def action_context(office, actor, event, action, value):
+    sources = [event['source']]
+    project, today = event['project_id'], event['as_of']
+    context = dict(project_id=project, sources=sources)
+    if action in ('task.create', 'offer.draft'):
+        due = None if value['due_days'] is None else (date.fromisoformat(today)+timedelta(days=value['due_days'])).isoformat()
+        if action == 'task.create':
+            raw = dict(title=value['title'], details=value['details'], priority=value['priority'], due_date=due)
+        else:
+            sources.append(resolve(office, actor, project, dict(kind='project', id=project), today))
+            for article in sorted({item['article_id'] for item in value['positions']}):
+                sources.append(resolve(office, actor, project, dict(kind='article', id=article), today))
+            raw = dict(title=value['title'], issue_date=today, due_date=due, positions=value['positions'])
+    else:
+        raw = {('outbox_id' if action == 'dunning.email' else 'document_id'): event['source']['descriptor']['id']}
+    normalized = parameters(action, raw, context)
+    if action == 'offer.draft':
+        # Validate the same price contract as the real document before offering
+        # execution. A dated catalog price needs an explicit original selection.
+        from business_documents import Documents
+        Documents(office)._positions(
+            normalized['positions'], actor=actor, project_id=project, persist=False)
+    return context, normalized
+
+
+def recorded_parameters(event, action, value):
+    """Recover fixed rule arguments without reading today's mutable sources."""
+    if action in ('task.create','offer.draft'):
+        due=None if value['due_days'] is None else (date.fromisoformat(event['as_of'])+timedelta(days=value['due_days'])).isoformat()
+        if action=='task.create':
+            return dict(title=value['title'],details=value['details'],priority=value['priority'],due_date=due)
+        return dict(title=value['title'],issue_date=event['as_of'],due_date=due,positions=value['positions'])
+    return {('outbox_id' if action=='dunning.email' else 'document_id'):event['source']['descriptor']['id']}

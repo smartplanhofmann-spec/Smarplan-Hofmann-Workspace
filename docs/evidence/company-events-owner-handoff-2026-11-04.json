@@ -1,0 +1,1063 @@
+{
+  "schema_version": 1,
+  "workspace": "/workspace/smartplan-company-events-20261104",
+  "baseline_commit": "4c2f0086b4a9979b7cbe9d261fc22a97cd046913",
+  "target_reference_commit": "b0b96024f0a7cf2c7097fb3b77c64032265850a5",
+  "runtime_overlays": [],
+  "native_baseline_record": "work/verification/company-events-native-baseline.json",
+  "status": "final",
+  "no_commits_no_production_contact": true,
+  "special_merge_notes": [
+    "business_assistant.py includes both existing standalone cost fix and new company gates; never overwrite the newer target module.",
+    "Preserve target Source5, historical assets, dated catalog V2, current financial horizons and all target operator documents.",
+    "Existing docs are only from this isolated baseline; new unique event docs do not replace root progress documents."
+  ],
+  "excluded_pending_paths": [],
+  "file_count": 116,
+  "files": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "bytes": 48597,
+      "sha256": "c4b60fc9a07b3be781df4d89537a8c5c04123a3eb91dd203beae7725920f69a7",
+      "baseline_sha256": "16e822b67a0b20977a6ec34a9d5913a6335e770e498a65cb07f47bd3a930a7aa",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "app/lib/business_assistant.dart",
+      "bytes": 57687,
+      "sha256": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+      "baseline_sha256": "355ec2d966ae33088a5b011630d9f4f3702e9e0950df1e89bbae89db89b136ab",
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "app/lib/business_company_event_contract.dart",
+      "bytes": 23572,
+      "sha256": "977def401a70c4a11f240f6c2c8a15ce0b81756288b580e9bb16ca45f9b1c2e6",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "app/lib/business_company_events.dart",
+      "bytes": 50028,
+      "sha256": "7f05b2bb24bf34f8dfc1208683f4e0119425f55dd2a692528e81219ddfa60782",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "bytes": 100421,
+      "sha256": "7a063682878504f91dc2b1d366ae0e1525ede2dac0af2715c21c8e23a5ba5fac",
+      "baseline_sha256": "7c2252942c2f90a4b949138b209f7f4675e0a0af60a2c36c9ba3a9d3d3c5f5e6",
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "app/test/business_company_event_contract_test.dart",
+      "bytes": 5956,
+      "sha256": "7021dd3c8400cb5f84007491415e4162f54d382c29d5e9eda1390be0a1ae2417",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "app/test/business_company_events_http_test.dart",
+      "bytes": 8791,
+      "sha256": "3f84f329756b1f8161cb406a270b079ef25ba8497a9739953e45fb53e2f643bd",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "app/test/business_company_events_independent_review_test.dart",
+      "bytes": 11751,
+      "sha256": "c1d9a9cb91174925c303af054dc1dd60a53e5ee86c23d1f1306d3968d217eba5",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "app/test/business_company_events_test.dart",
+      "bytes": 27551,
+      "sha256": "6e560817e0074321f412f7a084a414bbf0465ca952f1db730bd4bb425de4ebee",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "app/test/fixtures/company_events_2026.json",
+      "bytes": 262028,
+      "sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/business_api.py",
+      "bytes": 22435,
+      "sha256": "78c8c6bd62217b9cd38edb12153483db9c182f98e1ed8465eda575e8ad1abb6d",
+      "baseline_sha256": "5cd6570e586ae34fcb20df53910ca9280eca9ec24acaf715bbfa7696b8a5c626",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "backend/business_assistant.py",
+      "bytes": 66866,
+      "sha256": "83099731d683cd828188b8ef8c631e1931d085587418b43849158073f6149813",
+      "baseline_sha256": "7179ffa3867b991c6f162f647593ef903f552d074ea731717fa70bf7ac2c8232",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "backend/business_assistant_sources.py",
+      "bytes": 16372,
+      "sha256": "74dbc22004f041dc4b3e47928c1ae3f72e0b4defe9a29432bbf48811d0aee9df",
+      "baseline_sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "category": "standalone_cost_fix_already_in_target",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "target_already_contains_separate_cost_fix_verify_only"
+    },
+    {
+      "path": "backend/business_company_events.py",
+      "bytes": 60388,
+      "sha256": "1cdf6d30aa3b2764cd5c036d9af55fd2a68c89e8cc6d671d4233a2c812ad2fdd",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "bytes": 81311,
+      "sha256": "58f962fdada8670c39a3992e46ac394cdea616b3115b2cdde0c0ba4b29705e0f",
+      "baseline_sha256": "2ec66dd6c8299f17fa8abddc1bd0e5e987adb7d943b79b0f52f34093ab3699c4",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "backend/company_event_sources.py",
+      "bytes": 14032,
+      "sha256": "61b3bbe6e82fad86679452a1ebb217e0a40644e7403d5e77d851222e1021bdbd",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/company_event_worker.py",
+      "bytes": 1127,
+      "sha256": "7bc9bacba9bbad1f97a289680307c97893bad13412079cd86298a3e423354c8a",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "bytes": 45956,
+      "sha256": "12103fdf1627a4b47e708ae8b80d3eb821f647e103e97de0dc15f0025bcc4c41",
+      "baseline_sha256": "290089235d06378ed2fc9172efb54123cbba3d16a215868070d2bcc644a1e90b",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "backend/online/restore.py",
+      "bytes": 9337,
+      "sha256": "17e6a353d347e624b747c8c27c55227ae3e9639ac50718a6f98b63b2acc16f83",
+      "baseline_sha256": "1f9ea2b985e6b090949d2e013a315d1f0d4c44b90a94efbf7aad4b4e68f262dd",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "backend/online/test_company_events_http.py",
+      "bytes": 5809,
+      "sha256": "3b85f572581baa0b1d5fd002310ede8d4058e292a60d4030c0352b8da02efc4d",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/online/test_company_events_pg.py",
+      "bytes": 9684,
+      "sha256": "78a8a7fdb04d6719f3bf99022c229dce6aec3d6a4326df4abce36a9f6c8c6230",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/online/web.py",
+      "bytes": 28917,
+      "sha256": "ae4bd57b8fdefcf87cebd5d8ff8ec41b4cf9d20a59574dc72fe9539888aa74c0",
+      "baseline_sha256": "612ea3d8bce51d0d83910e9b6c553a22a32e223ddf287f77153dd62e9272e856",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "backend/restore.py",
+      "bytes": 2612,
+      "sha256": "17b4214ae4d107a041231e9f0d61e46c7b4f0266de486fc78092199dc5fcc933",
+      "baseline_sha256": "c182e5a0eb150896c966cee3e4402ac4d05f9da1f50cc13261be1d33884477fa",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "backend/test_assistant_cost_total_v2.py",
+      "bytes": 5447,
+      "sha256": "09bf4268022996249c807e3edde4e188746da1febcf2f1961b4d7060b427b0f1",
+      "baseline_sha256": null,
+      "category": "standalone_cost_fix_already_in_target",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "target_already_contains_separate_cost_fix_verify_only"
+    },
+    {
+      "path": "backend/test_business_company_events.py",
+      "bytes": 15910,
+      "sha256": "e05fbb61ee6d09aad0239bf497ad8242a75c585caf63792c80b394aa66c4999d",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/test_business_company_events_independent_review.py",
+      "bytes": 17238,
+      "sha256": "4c4d3de94f5b82843db8a130be83e880b6f798ebcbe0c584bc9bfd6b31e38317",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/test_company_event_registration.py",
+      "bytes": 4783,
+      "sha256": "dedaba1c5aed3959e91e1c0dde7033ca6f3589fc63a960e16d09664e1ef617bc",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/test_company_event_restore_worker.py",
+      "bytes": 9644,
+      "sha256": "56aa55a8be9775a47acd8bae4a738a97eade244ca70719de8dabc585a68cc750",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "backend/test_company_event_worker_cli.py",
+      "bytes": 2846,
+      "sha256": "edad3a19553c2ec72e43103cca7c7610420cdaae37497ccf544249149b905070",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/CRM_ERP_ASSISTENT_KOSTENSUMME_V2_2026-11-04.md",
+      "bytes": 2340,
+      "sha256": "5861668dc4aeca24cd824fc6d47dc9ac363c0497555d071afccbe6a335172ba9",
+      "baseline_sha256": null,
+      "category": "standalone_cost_fix_already_in_target",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "target_already_contains_separate_cost_fix_verify_only"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_API_2026.md",
+      "bytes": 10432,
+      "sha256": "d4d3d6b9e044b169659344da6887db48348683b7e1a65180b516718e55f63de3",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_BROWSER_2026-11-04.md",
+      "bytes": 7417,
+      "sha256": "e0358337fbee73de73a9d0518dc148e7c93d717f1b5cc61c3267a81863a3aade",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_FORTSCHRITT_2026-11-04.md",
+      "bytes": 7383,
+      "sha256": "e3b688bc7749f7624864158942ae4a9cafe8ac1b64d76257a07d18412042e15b",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_INTEGRATION_2026-11-04.md",
+      "bytes": 6428,
+      "sha256": "056fa83e168da14860f423cf555e41dec6f115da768661aa0400103743ba3b39",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_NATIVE_2026-11-04.md",
+      "bytes": 11148,
+      "sha256": "3c8e1f1f245c6b7cd0248b1bac2ed0e67dfd4722f3aefdcd6f5c7db5cbf7448f",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_VERTRAG_2026-11-04.md",
+      "bytes": 7407,
+      "sha256": "557ca1237639724d4758609c0578ccceac1e03761b22caed2fbe73d87be38365",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/actual-cost-counterexample-first.txt",
+      "bytes": 1013,
+      "sha256": "aa28b8e1995dfee97c94c525718f918fa44ee0bcbfd6a423e693219c731e5249",
+      "baseline_sha256": null,
+      "category": "standalone_cost_fix_already_in_target",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "target_already_contains_separate_cost_fix_verify_only"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/legacy-assistant-sources-4c2f008.txt",
+      "bytes": 15585,
+      "sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "baseline_sha256": null,
+      "category": "standalone_cost_fix_already_in_target",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "target_already_contains_separate_cost_fix_verify_only"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/manifest.json",
+      "bytes": 1897,
+      "sha256": "ef342164e98948829c94bb2fcccec30c7a8c77ed92ab24b112e818eace8279f8",
+      "baseline_sha256": null,
+      "category": "standalone_cost_fix_already_in_target",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "target_already_contains_separate_cost_fix_verify_only"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/runtime.patch",
+      "bytes": 3290,
+      "sha256": "4a0b14563b1b5142d5d8aed273682cc9147d761d01c562b0abe65b0d2b5c0ec0",
+      "baseline_sha256": null,
+      "category": "standalone_cost_fix_already_in_target",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "target_already_contains_separate_cost_fix_verify_only"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/standalone-and-existing-final.txt",
+      "bytes": 4013,
+      "sha256": "720acca1d5780f5b87331557015bb4f333c368400f239fb7cf855932fd8e6ac7",
+      "baseline_sha256": null,
+      "category": "standalone_cost_fix_already_in_target",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "target_already_contains_separate_cost_fix_verify_only"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/backend-domain-http-final.txt",
+      "bytes": 8599,
+      "sha256": "906a0360bde55a1f8792b0c20cea79557066a07f2a505928d6b205012ccec9d3",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/backend-existing-gates-final.txt",
+      "bytes": 15230,
+      "sha256": "2adf4ba8483c2e495c87f3a1296a9b58103fcb4192f2ca3f5e5b8228243323c6",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/gates-harness-first.txt",
+      "bytes": 17136,
+      "sha256": "d4100521a3e9e92bb40142fe7e69bd087ed81bc5ca11773d365bead692723b3a",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/gates-harness-second.txt",
+      "bytes": 14524,
+      "sha256": "4efa76fc7815400bc31a826535cfc972e30bd00ca4b0a1dec00c800113d6e394",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/legacy-assistant-source-origin.json",
+      "bytes": 268,
+      "sha256": "45e0abc9d262708785621d2fe84b6a32870281f42a49242d197d70f5bb9d47d0",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/legacy-assistant-sources-4c2f008.txt",
+      "bytes": 15585,
+      "sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/manifest.json",
+      "bytes": 8721,
+      "sha256": "bcb001825242e21ef942d4362ac11c5372f8dcdd44fc889d1e8a641f71ef7356",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/original-approval-counterexample-first.txt",
+      "bytes": 1206,
+      "sha256": "3c2a6d71432d3cdc7f045c1711f47908d4016843cff5793172077e583ebb9951",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/packages-client-handoff-final.txt",
+      "bytes": 3603,
+      "sha256": "cc26ce981603bf14097f4d63d1a3b835c57c4cbca627d766d22efb22c0a9c57e",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/packages-final.txt",
+      "bytes": 3603,
+      "sha256": "f8b9f5eb5e88454f80dc7fc9d0464be9a330598b8929baaf2aeba157ea7d0e08",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/packages-harness-first.txt",
+      "bytes": 4323,
+      "sha256": "2551c558be149695cec73ebe8edbdb60c05f6d392a9a92c3e37fe0a35fc00e21",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/postgres-final.txt",
+      "bytes": 776,
+      "sha256": "62f6b7d3d4bd8471cbf557a3fa5f24ae31237ef40d141d9dde6d648cfc0154ea",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/postgres-fixture-second.txt",
+      "bytes": 4256,
+      "sha256": "24ba7133545b65634a82061798ca7716a4fd16f636178ed1e87ffefc2fa5f231",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/postgres-product-prefix-first.txt",
+      "bytes": 3786,
+      "sha256": "1feb377cee4f89959ec78b300cd27b1e1fd6e8a99a6813515624e4bc34e3f27b",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/restore-worker-fixture-first.txt",
+      "bytes": 3935,
+      "sha256": "335000d74b90f25ffe0c944503547bfa4fc99e3b4c4595c11ba86f33b919221e",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/worker-instance-final.txt",
+      "bytes": 4049,
+      "sha256": "376d6da6afc2e1b30bc43641f1246ad34a162e848cd6a18c12d9bc56e3b6dff5",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/worker-instance-first.txt",
+      "bytes": 1774,
+      "sha256": "a75c3b82082c3a770f7da7ae50945c0c901562e4bb8b327486ab2af9dca9bd96",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04.json",
+      "bytes": 23521,
+      "sha256": "abb67ed22885fb4c323a043fe29f9809d8d1ef5a76bbfb5e1989648876d89da3",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/README.md",
+      "bytes": 3050,
+      "sha256": "def00e4df0bbd2353906e62a52b1e288811d18545652468d46cd897c24610498",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/browser-final/company-events-history.png",
+      "bytes": 246617,
+      "sha256": "ece16a4a587dbf087e34795c1c27be6fb89f3d5e337e1018bcffa295b64d3653",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/browser-final/company-events-http-records.json",
+      "bytes": 315335,
+      "sha256": "0da5d29133e7906b19e545795f4b71a3d246c558c3d482b8e3a8002b5d324aa8",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/browser-final/company-events-mobile.png",
+      "bytes": 148856,
+      "sha256": "ddac580d80e781a093f553768fe211a32d8b14b20d0ca3be64caab14b90d8325",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/shared-browser-hooks.patch",
+      "bytes": 24310,
+      "sha256": "d0b731b292097eba0367f353925e6a2d11dd2cefbca8052e2ac5fb2cdc3ed81b",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/README.md",
+      "bytes": 5253,
+      "sha256": "598dd3de6e2eae678cfd6005c25246963dd951a67fb81392e87e86d6d1f7ec6a",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/UNCONFIRMED_ADDENDUM.md",
+      "bytes": 1604,
+      "sha256": "992e2d2cc74268ea8d012f6881dc685e742b45b71cdf0e2bd3e416625f36492f",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/after-stale-error-fix-12.txt",
+      "bytes": 1196,
+      "sha256": "8359c4cd75c4fd6cfd0222138e9fec616db68d161f51d79c925d828852e8c1ef",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/before-stale-error-fix.txt",
+      "bytes": 5926,
+      "sha256": "8e6c73bb0a0a278763e195ae72d5a099d6dfdd2995973a2409a8f094fb5ee412",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/before-stale-error-hashes.json",
+      "bytes": 752,
+      "sha256": "3b41bad9f36eac9225f3f5f34f8f7d44debd04c7eb2150734362f384f661bec4",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-context-results.json",
+      "bytes": 327,
+      "sha256": "ecca23ba98be659006202ab801415df5580c4a5535b1d2ff41cbafa7011ea46a",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-dialog-error.png",
+      "bytes": 141535,
+      "sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-dialog-success.png",
+      "bytes": 141535,
+      "sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-project-error.png",
+      "bytes": 177730,
+      "sha256": "60baad4519bb0e323422b8c8faddf92d3f0d13d33c4a92d983c0c7f8d830ab58",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-during-owner-edit.txt",
+      "bytes": 2324,
+      "sha256": "f75ee73b533c9735ffa40db4fe91557042d8ffce029b86d0ab94df617d4580b5",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/final-browser.txt",
+      "bytes": 305,
+      "sha256": "02e5767a2da29402cb6fbd9d8f64cc1832a85be3fe58e2754788049e4f8e45e1",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/final-node-32.txt",
+      "bytes": 3038,
+      "sha256": "b459b49ccdfe3b5fc3a435f83e7cfe793fc26cb964f47a202b3afdd6475b42e1",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/manifest.json",
+      "bytes": 4948,
+      "sha256": "e4d8646014befa9fedbe3dd4146363ac47092a7f8d0fef472b28d05fa9c337d1",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/unconfirmed-addendum-35.txt",
+      "bytes": 3327,
+      "sha256": "eb53842957fd19730a58e841338716966775860a15f37ea72b3a81d723a01ce2",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/unconfirmed-addendum-manifest.json",
+      "bytes": 1791,
+      "sha256": "a98f69ddac7ace4cf5f6841e28bb0be68b4b14b4deb0fd5730f274428590f141",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/analyze-final.txt",
+      "bytes": 96,
+      "sha256": "f35c92761711ec44fbbe44641c5d2f62aaf6d92851e334db8eba790ac6fc1bb1",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/handoff.json",
+      "bytes": 5322,
+      "sha256": "fa00c556a991bee7395ff458ce49a1af9e56a5f48fda4bd636dd4c4d54e3459c",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/regression-final.txt",
+      "bytes": 26664,
+      "sha256": "36379f85230846bc03135be8ee90a20155bc340c924fa5e3bc960bc694fb7f7d",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/regression-preflight-first.txt",
+      "bytes": 28958,
+      "sha256": "0f42f2f5abb862021b3a1a2a2d06d78edb8071c011405de4e4bf48aef2956daf",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/route-before.txt",
+      "bytes": 2383,
+      "sha256": "3cdc5dbc88eea31eb366e8eb22c659340d4c97e3605706381813182c47e54fb7",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/status-fix-analyze.txt",
+      "bytes": 67,
+      "sha256": "65d389a9af2f04f6e6da6cff1e810a4ef17aa762ed5fc92fe1712b58d1210ff2",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/status-fix-tests.txt",
+      "bytes": 10547,
+      "sha256": "6d4a0c6b26e2513dd1bee2004c5f5f7d470f25db1d08d9ba0270c70b7b9c157e",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/targeted-final.txt",
+      "bytes": 9896,
+      "sha256": "8a6431a5362aa3696dfed88eb685db7d6771fa8d8b569217f29d61b80146e1c3",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/targeted-first.txt",
+      "bytes": 4190,
+      "sha256": "6eabeb334261eff50da9bda78fa4d30776218037f61e2664cac893b59be32de9",
+      "baseline_sha256": null,
+      "category": "native",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/README.md",
+      "bytes": 6665,
+      "sha256": "c3b885cd62cf4498322c1e84324ecb3034a26b578e9699304c97a70e9fff6dcc",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/analyze-final.txt",
+      "bytes": 102,
+      "sha256": "333834a2018f1a5fbe5530229b699e09a629d2b3ca67413919751d8fa651b1bb",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/before-hashes.json",
+      "bytes": 690,
+      "sha256": "56d510d97cd10be87273e198ca3bb3ea949f85719f521c875da77539cf487dfc",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/before-status-outcome-fix.txt",
+      "bytes": 8906,
+      "sha256": "69ace47c5c30fd8d54bccbea7374db684ac46d828684aa2285df640cd87fcc50",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/combined-final.txt",
+      "bytes": 13395,
+      "sha256": "aef69e48ff3d83443e26669676ddfb8f12c22c3b5903369a2955e5f1ce19a6b1",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/contract-before-fix.txt",
+      "bytes": 23314,
+      "sha256": "8909b2f77f5674ff97ca1a58eb3a10d39b0db9ea1fae609f8cee92b69165b7ad",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/first-independent-after-fix.txt",
+      "bytes": 1224,
+      "sha256": "4c72dd1bb748356f6bc9f45cf3b35a013d8dd0905913e5c1a64fa3ceb404ccb1",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/manifest.json",
+      "bytes": 4298,
+      "sha256": "6f0d73ff0a41d1f5f72a411bd9a3fd1bf960e47d3e946aa1d4310c4ad057f7f4",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/status-outcome-owner-fix.diff",
+      "bytes": 449,
+      "sha256": "aa0d144671676d790e8e30d4a2a8dd0b7309c914a6f54e23b22c3b850eda77b7",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/widget-before-status-outcome-fix.txt",
+      "bytes": 2468,
+      "sha256": "0646ed9cc31bb2efc0d7877d5f593233f44fe0c1e684e79e65c30ed7380bbb37",
+      "baseline_sha256": null,
+      "category": "native_review_followup",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "docs/fixtures/company_events_2026.json",
+      "bytes": 262028,
+      "sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "scripts/generate-company-events-fixture.py",
+      "bytes": 5232,
+      "sha256": "8e4e8709179f97bbf496cad20a4af7fe5e3e4ad43b7fa8f5fd5a822df0e1bf9b",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "scripts/native-release.py",
+      "bytes": 22735,
+      "sha256": "85e5e8ffe6d05773b895ebd15185491f3054214d96e7f1450b325c6c03e42b42",
+      "baseline_sha256": "4f6893b843cbaf279ea3f7c293d749f809f32a2f6c5a167c6bf99a1fec077fcb",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "bytes": 13371,
+      "sha256": "68bc8cd6df5057cfc810c3ba7cac621270c4687d4c777e1a58d7f6f498043a87",
+      "baseline_sha256": "a779bfa302010f033701ce90f971b7ccf19ba16b7f5c784ec3b734c0e53e89f3",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "scripts/process-company-events.py",
+      "bytes": 2110,
+      "sha256": "10338670e665fb436bb37c03ff045176fc7c2931bc1314f50c059036662a5504",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/company-events-contract.js",
+      "bytes": 17921,
+      "sha256": "73d9ff6a46be4dfc99435c986f34bf04f894f79a28dcc1eb36ccbdf6b0794c76",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/company-events.js",
+      "bytes": 29282,
+      "sha256": "76c80e5baba621f8c240c9b1cedf272ac09fcb636432fd5d91f54db006368b1a",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/office.css",
+      "bytes": 21905,
+      "sha256": "b783cda809bb19a52282afa2927d62de214cae9ea762d9b704160cec0c349685",
+      "baseline_sha256": "14218f6305e1f243bc397a8f4635b8f21666ff9e7d9f4a095877e06e32a70840",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "web/office/office.js",
+      "bytes": 344087,
+      "sha256": "c17ccb0ee306b0b5ffabdc65ab958b732ecd5206565c13846a78bbe85e7bc195",
+      "baseline_sha256": "b8a7a3859d3ac778071729bbc9ea15de1f2fb3911cb6ff9d03e9698dcb8c146d",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "web/office/tests/company-events-access.test.mjs",
+      "bytes": 3924,
+      "sha256": "353b98af228b1c8af0f31c8ad92b99e5f8303cf24537e4c05b44c6b2fc8973b6",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/tests/company-events-contract.test.mjs",
+      "bytes": 3793,
+      "sha256": "6ae20db33104e17736322e5191002d020006d2a666c8c78e9ea69524f2952c37",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/tests/company-events-flow.cjs",
+      "bytes": 16238,
+      "sha256": "cc363df30329883da6bf7d76ba3293c22a7a0fd1f56cbd6fffea363ce55b7462",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/tests/company-events-independent-browser.cjs",
+      "bytes": 3217,
+      "sha256": "f67f6a65c178257b62b0b4af0e5d5449fc546828b550b803a9d6366f3ea4797d",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/tests/company-events-independent-preload.cjs",
+      "bytes": 459,
+      "sha256": "c78f90677a578956a78a7ea70c0ba735856a472b15490c026708a55876428855",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/tests/company-events-independent-review.test.mjs",
+      "bytes": 12913,
+      "sha256": "74b93f3df83ef47a3ecb14a2cbfc9b993b876cd95af6c69a15e3df0acde738a8",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/tests/company-events-session.test.mjs",
+      "bytes": 4727,
+      "sha256": "15f5a8d40c49acdff024b59f0f7a8b234126e83680bb80336d6358a0b738163c",
+      "baseline_sha256": null,
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "new_file_hash_verified_copy"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "bytes": 46325,
+      "sha256": "22bf05642038d32642862dd58699208d0cac18464479d7b2c58da19f9a478873",
+      "baseline_sha256": "2683a02c519cb098fe4cec47d844f934698eeff35d7473421b6c3a53380f3ff0",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    },
+    {
+      "path": "web/office/tests/serve_fixture.py",
+      "bytes": 33668,
+      "sha256": "de011d9487e919fc5e9670428c19e48c2e90e56c7d220ae21e3f8abfa4a10dc2",
+      "baseline_sha256": "69bcc6d18f5781544daa7f1c658d3eec0fb6fbe014ff0b4926621ff32b5de885",
+      "category": "backend_browser_and_support",
+      "status": "ready_for_targeted_integration",
+      "merge_policy": "targeted_three_way_merge_preserve_newer_target_hooks"
+    }
+  ]
+}

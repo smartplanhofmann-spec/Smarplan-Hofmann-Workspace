@@ -1,0 +1,40 @@
+✔ historical read remains available while readonly mode prevents writes (1.855121ms)
+✔ actual financial event fails current source check although assistant and settings rights remain (24.241156ms)
+✔ actual task event fails current documents check while company administration remains permitted (0.793964ms)
+✔ historical scan rechecks every linked actual event instead of authorizing only settings (0.621906ms)
+✔ unknown execution receipt stays pending when exact retry has lost domain rights (14.466668ms)
+✔ pending command with wrong plan source hash never reaches replay (2.036595ms)
+✔ actual dispatcher company-event fixture: auto (14.983305ms)
+✔ actual dispatcher company-event fixture: approval (6.137907ms)
+✔ actual dispatcher company-event fixture: deny (2.348204ms)
+✔ actual dispatcher company-event fixture: project_approval (4.384728ms)
+✔ actual dispatcher company-event fixture: external_unknown (4.042633ms)
+✔ foreign fully valid run receipt cannot confirm original scan (0.757259ms)
+✔ changed original event, plan or source cannot pass preserved source hash (1.700048ms)
+✔ project-policy text and visible projection both bind unchanged historical original (0.815477ms)
+✔ large monetary conditions keep exact cents; money is never rounded (0.860245ms)
+✔ recomputed acceptance hash alone cannot replace the selected plan (1.412686ms)
+✔ independent initial event list success cannot cross other (39.489575ms)
+✔ independent initial event list error cannot cross other (2.180091ms)
+✔ independent initial event list success cannot cross project (2.503757ms)
+✔ independent initial event list error cannot cross project (0.742818ms)
+✔ independent initial event list success cannot cross session (0.860715ms)
+✔ independent initial event list error cannot cross session (0.626863ms)
+✔ independent held original loses project source permission: approval (6.144275ms)
+✔ independent held original loses project source permission: external_unknown (5.052252ms)
+✔ independent global source access does not substitute for revoked project rights (1.620208ms)
+✔ independent accepted decision after dialog replacement consumes exact receipt but cannot reopen plan (9.812095ms)
+✔ independent two lost decisions resolve only their own original operation and cannot reveal body in pending list (5.612846ms)
+✔ independent correctly hashed foreign plan receipt cannot acknowledge original operation (3.628209ms)
+✔ original generated request id reaches async receipt validation; foreign valid acceptance preserves pending (22.151632ms)
+✔ validator gets isolated original-body copy; validator mutation cannot change later exact replay (1.35564ms)
+✔ late async validator cannot clear new-session operation with same key or receive its body (1.040545ms)
+✔ existing synchronous result-only validator still accepts and rejects without clearing failed operation (0.847214ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 238.896854

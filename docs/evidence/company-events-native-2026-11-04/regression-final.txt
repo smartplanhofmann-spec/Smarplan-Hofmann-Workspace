@@ -1,0 +1,152 @@
+00:00 +0: loading /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart
+00:00 +0: /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart: actual auto hashes, rules, histories and original command receipts
+00:00 +1: /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart: actual approval hashes, rules, histories and original command receipts
+00:00 +2: /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart: actual deny hashes, rules, histories and original command receipts
+00:00 +3: /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart: actual project_approval hashes, rules, histories and original command receipts
+00:00 +4: /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart: actual external_unknown hashes, rules, histories and original command receipts
+00:00 +5: /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart: actual external_unconfirmed hashes, rules, histories and original command receipts
+00:00 +6: /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart: exact 40-digit cents never pass through double or native integer
+00:00 +7: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:00 +8: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:00 +9: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:00 +10: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:00 +11: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:01 +12: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +13: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +14: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +15: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +16: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +17: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +18: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +19: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +20: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +21: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +22: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +23: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +24: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +25: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:02 +26: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:02 +27: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:02 +28: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: rule creation, history and scan all require explicit confirmations
+00:02 +29: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: rule creation, history and scan all require explicit confirmations
+00:02 +30: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: rule creation, history and scan all require explicit confirmations
+00:02 +31: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: rule creation, history and scan all require explicit confirmations
+00:03 +32: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: unconfigured provider is explicit and no chat request is invented (variant: TargetPlatform.windows)
+00:03 +33: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: unconfigured provider is explicit and no chat request is invented (variant: TargetPlatform.windows)
+00:04 +34: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: unconfigured provider is explicit and no chat request is invented (variant: TargetPlatform.windows)
+00:04 +35: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after session
+00:04 +36: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:04 +37: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:04 +38: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:04 +39: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:04 +40: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:04 +41: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: lost context ACK locks original input, survives rights and generation changes and creates once (variant: TargetPlatform.windows)
+00:04 +42: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after read
+00:04 +43: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:05 +44: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:05 +45: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:05 +46: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:05 +47: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:05 +48: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:05 +49: /workspace/smartplan-company-events-20261104/app/test/business_assistant_test.dart: native versioned rule editor submits typed evidence and explicit approval (variant: TargetPlatform.windows)
+00:05 +50: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after session
+00:06 +51: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after session
+00:06 +52: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after session
+00:06 +53: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after session
+00:06 +54: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after background
+00:06 +55: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after background
+00:06 +56: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after background
+00:06 +57: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after background
+00:06 +58: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after background
+00:06 +59: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after background
+00:06 +60: /workspace/smartplan-company-events-20261104/app/test/business_session_test.dart: Read-only return mode keeps archives visible and refuses every command
+00:06 +61: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after background
+00:07 +62: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after generation
+00:07 +63: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after generation
+00:07 +64: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after read
+00:08 +65: /workspace/smartplan-company-events-20261104/app/test/business_shell_widget_test.dart: Real business dashboard renders at 1200.0
+00:08 +66: /workspace/smartplan-company-events-20261104/app/test/business_shell_widget_test.dart: Real business dashboard renders at 1200.0
+00:08 +67: /workspace/smartplan-company-events-20261104/app/test/business_shell_widget_test.dart: Real business dashboard renders at 1200.0
+00:09 +68: /workspace/smartplan-company-events-20261104/app/test/business_shell_widget_test.dart: Real business dashboard renders at 1200.0
+00:09 +69: /workspace/smartplan-company-events-20261104/app/test/business_shell_widget_test.dart: Real business dashboard renders at 1200.0
+00:09 +70: /workspace/smartplan-company-events-20261104/app/test/business_shell_widget_test.dart: Real business dashboard renders at 1200.0
+00:09 +71: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after session
+00:09 +72: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after session
+00:09 +73: /workspace/smartplan-company-events-20261104/app/test/business_shell_widget_test.dart: Finance stays absent without finance permission, even when module exists
+00:10 +74: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after background
+00:10 +75: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after generation
+00:10 +76: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after approve
+00:11 +77: /workspace/smartplan-company-events-20261104/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:12 +78: /workspace/smartplan-company-events-20261104/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:12 +79: /workspace/smartplan-company-events-20261104/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:12 +80: /workspace/smartplan-company-events-20261104/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:12 +81: /workspace/smartplan-company-events-20261104/app/test/business_editor_context_test.dart: editor transfers only its listener on session replacement
+00:12 +82: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Navigation follows company suggestions without granting finance access
+00:12 +83: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Navigation follows company suggestions without granting finance access
+00:13 +84: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Navigation follows company suggestions without granting finance access
+00:13 +85: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Navigation follows company suggestions without granting finance access
+00:13 +86: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Navigation follows company suggestions without granting finance access
+00:13 +87: /workspace/smartplan-company-events-20261104/app/test/business_editor_context_test.dart: editor ignores late success after pendingSession replacement
+00:13 +88: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Authorized hidden history remains reachable without settings permission
+00:13 +89: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Authorized hidden history remains reachable without settings permission
+00:13 +90: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Authorized hidden history remains reachable without settings permission
+00:13 +91: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Authorized hidden history remains reachable without settings permission
+00:14 +92: /workspace/smartplan-company-events-20261104/app/test/business_editor_context_test.dart: editor ignores late success after pendingKey replacement
+00:14 +93: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+00:14 +94: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+00:14 +95: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+00:14 +96: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+00:14 +97: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+00:14 +98: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+00:14 +99: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+00:15 +100: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 390.0
+00:15 +101: /workspace/smartplan-company-events-20261104/app/test/business_editor_context_test.dart: pre-command changed-body conflict cannot overwrite the existing pending draft
+00:15 +102: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Company settings preserve manual choices and exact retry at width 1200.0
+00:15 +103: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: Read-only configuration exposes authorized hidden history without saving
+00:15 +104: /workspace/smartplan-company-events-20261104/app/test/business_organization_test.dart: (tearDownAll)
+00:16 +104: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: csv_create
+00:16 +105: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: csv_update
+00:16 +106: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: csv_noop_preserves_unknown_cost
+00:16 +107: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: datanorm_create_half_up
+00:16 +108: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: actual backend preview and digest: datanorm_update_preserves_sales_price
+00:16 +109: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: preview rejects altered original, mapping, article revision, hash and forged exact price
+00:16 +110: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: DATANORM is decimal exact and does not infer price scale or VAT
+00:16 +111: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: only exact catalog JSON paths receive a 32 MiB response allowance
+00:16 +112: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: catalog command retains exact nonce on uncertain 0 across a fresh generation
+00:16 +113: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: catalog command retains exact nonce on uncertain 403 across a fresh generation
+00:16 +114: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: catalog command retains exact nonce on uncertain 404 across a fresh generation
+00:16 +115: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: catalog command retains exact nonce on uncertain 409 across a fresh generation
+00:16 +116: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: catalog replay verifies fresh read authority before another POST
+00:16 +117: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: catalog replay verifies fresh write authority before another POST
+00:16 +118: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: catalog replay verifies fresh module authority before another POST
+00:16 +119: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: real file bytes, bound CSV preview, explicit confirmation, history and original export
+00:17 +120: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: lost import ACK survives page disposal with exact original request_id and bytes
+00:18 +121: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: lost acceptance ACK reopens applied history and repeats the identical confirmation
+00:18 +122: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: existing no-op keeps unknown cost and does not promise a new article revision
+00:18 +123: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: readonly and module-off retain genuine inspection without acceptance controls
+00:18 +124: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after write changes
+00:18 +125: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after module changes
+00:18 +126: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after read changes
+00:19 +127: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: late native server preview cannot refill after generation changes
+00:19 +128: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: session replacement detaches old listener and suppresses its late private error
+00:19 +129: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: background invalidates a late file picker result before upload
+00:19 +130: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: background invalidates a late file picker error before upload
+00:19 +131: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: withdrawn original download cannot reach the native exporter
+00:19 +132: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: native catalog preview fits a 390-pixel viewport
+00:19 +133: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: existing adapter page routes catalogs to evidence workflow and keeps GAEB import
+00:19 +134: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: adapter replacement while picker is pending suppresses the late private error
+00:19 +135: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: session replacement while picker is pending suppresses the late private error
+00:20 +136: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: adapter replacement while preview is pending suppresses the late private error
+00:20 +137: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: session replacement while preview is pending suppresses the late private error
+00:20 +138: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: adapter replacement while accept is pending suppresses the late private error
+00:20 +139: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: session replacement while accept is pending suppresses the late private error
+00:20 +140: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: accepted original ACK after adapter replacement resolves only its captured command
+00:20 +141: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: late preview failure after background does not reappear on resume
+00:20 +142: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: oversize file is rejected before a catalog import command exists
+00:21 +143: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: DATANORM native mapping starts empty and requires a new preview after edits
+00:21 +144: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: a changed original is rejected before any native exporter sees its bytes
+00:21 +145: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: list navigation closes catalog when the parent session is replaced
+00:22 +146: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: detail navigation closes catalog when the parent session is replaced
+00:22 +147: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: actual HTTP enforces exact 32 MiB catalog and unchanged 20 MiB ordinary JSON boundaries
+00:23 +148: /workspace/smartplan-company-events-20261104/app/test/business_catalog_imports_test.dart: actual native HTTP imports original bytes, binds preview, replays both lost ACKs and reads 2 MiB Unicode catalog
+00:25 +149: All tests passed!

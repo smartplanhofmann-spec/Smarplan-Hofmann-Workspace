@@ -96,9 +96,11 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
    sind [gemeinsam geprüft](CRM_ERP_ANLAGEN_GESAMTPRUEFUNG_2026-11-04.md).
    Die zeitgebundenen Preise sind [gemeinsam geprüft](CRM_ERP_KATALOG_V2_GESAMTPRUEFUNG_2026-11-04.md). Belegte
    historische offene Posten erhalten aktuell ihre tatsächlichen Zahlungswege
-   zu EÜR, Bankabgleich und Liquidität. Die Erweiterung der unternehmensweiten Ereignisregeln ist im
-   eigenen Arbeitsstand begonnen; sie ist noch kein geprüfter Bestandteil
-   des Hauptprojekts.
+   zu EÜR, Bankabgleich und Liquidität. Die unternehmensweiten Ereignisregeln sind mit beiden Clients,
+   Instanzworker und gemeinsamem Restore [geprüft](CRM_ERP_EREIGNISSE_GESAMTPRUEFUNG_2026-11-04.md).
+   Die folgende Altpostenintegration erhält diese Regeln und die datierten
+   Preise. Unterjährige Jahresvorträge und das ergänzende Original-/Journalpaket
+   entstehen danach auf dem jeweiligen nachgewiesenen Finanzhorizont.
 
 Die v5-Zusammenrechnung mehrerer belegter Entgelt-/SV-Abschnitte mit
 Anspruchsbausteinen und Reise-Lohnübergabe sowie der eigene v5-Mitarbeiterbeleg

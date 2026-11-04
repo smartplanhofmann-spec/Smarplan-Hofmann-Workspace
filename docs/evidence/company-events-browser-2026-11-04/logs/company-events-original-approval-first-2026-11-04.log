@@ -1,0 +1,17 @@
+test_missing_original_approval_receipt_blocks_fresh_execution (test_company_event_restore_worker.CompanyEventRestoreWorkerTests.test_missing_original_approval_receipt_blocks_fresh_execution) ... FAIL
+
+======================================================================
+FAIL: test_missing_original_approval_receipt_blocks_fresh_execution (test_company_event_restore_worker.CompanyEventRestoreWorkerTests.test_missing_original_approval_receipt_blocks_fresh_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/test_company_event_restore_worker.py", line 98, in test_missing_original_approval_receipt_blocks_fresh_execution
+    self.problem(409,self.api.execute,self.owner,plan['id'],request(plan_sha256=plan['sha256'],confirmation=True))
+  File "/workspace/smartplan-company-events-20261104/backend/test_business_assistant.py", line 71, in problem
+    with self.assertRaises(Problem) as caught:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Problem not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.333s
+
+FAILED (failures=1)

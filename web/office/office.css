@@ -48,3 +48,5 @@
 .purchase-change-workspace .table-scroll{max-width:100%;min-width:0;overflow-x:auto}.purchase-change-workspace table{min-width:780px;table-layout:auto}.purchase-change-workspace th,.purchase-change-workspace td{overflow-wrap:normal;word-break:normal;white-space:normal;min-width:90px}.purchase-change-workspace td:first-child{min-width:170px}.purchase-change-workspace .list-row{flex-wrap:wrap}
 /* Payroll evidence stays legible inside nested cards on narrow screens. */
 @media(max-width:560px){[data-payroll] .panel{padding:12px}[data-payroll] table{table-layout:fixed}[data-payroll] td,[data-payroll] th{overflow-wrap:anywhere;padding:10px 7px}}
+
+.company-events-workspace{min-width:0;overflow-wrap:anywhere}.company-events-workspace pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.8rem}.company-events-workspace .list-row{min-width:0}.company-events-workspace .assistant-hash{overflow-wrap:anywhere}.company-events-workspace [hidden]{display:none!important}@media(max-width:600px){.company-events-workspace .list-row{flex-wrap:wrap}.company-events-workspace .actions{flex-wrap:wrap}}

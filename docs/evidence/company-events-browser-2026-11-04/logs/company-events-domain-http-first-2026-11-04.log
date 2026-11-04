@@ -1,0 +1,15 @@
+test_approval_binds_source_rule_actor_and_one_real_task (test_business_company_events.CompanyEventTests.test_approval_binds_source_rule_actor_and_one_real_task) ... ok
+test_company_rule_is_not_responsible_project_permission (test_business_company_events.CompanyEventTests.test_company_rule_is_not_responsible_project_permission) ... ok
+test_company_scan_executes_two_projects_once_across_retries_rule_versions_and_days (test_business_company_events.CompanyEventTests.test_company_scan_executes_two_projects_once_across_retries_rule_versions_and_days) ... ok
+test_deny_wins_and_input_text_cannot_select_actions_or_change_scope (test_business_company_events.CompanyEventTests.test_deny_wins_and_input_text_cannot_select_actions_or_change_scope) ... ok
+test_native_final_document_send_requires_exact_event_claim_and_never_resends (test_business_company_events.CompanyEventTests.test_native_final_document_send_requires_exact_event_claim_and_never_resends) ... ok
+test_overdue_threshold_is_rechecked_without_daily_duplicate (test_business_company_events.CompanyEventTests.test_overdue_threshold_is_rechecked_without_daily_duplicate) ... ok
+test_source_change_needs_new_plan_while_old_decision_cannot_authorize (test_business_company_events.CompanyEventTests.test_source_change_needs_new_plan_while_old_decision_cannot_authorize) ... ok
+test_distinct_runs_have_distinct_bound_receipts_and_unmet_observations_remain_listed (online.test_company_events_http.CompanyEventsHTTPTests.test_distinct_runs_have_distinct_bound_receipts_and_unmet_observations_remain_listed) ... ok
+test_http_scan_approval_execution_and_all_original_acceptances (online.test_company_events_http.CompanyEventsHTTPTests.test_http_scan_approval_execution_and_all_original_acceptances) ... ok
+test_strict_shapes_duplicate_json_filters_public_and_offline_tokens (online.test_company_events_http.CompanyEventsHTTPTests.test_strict_shapes_duplicate_json_filters_public_and_offline_tokens) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 2.748s
+
+OK

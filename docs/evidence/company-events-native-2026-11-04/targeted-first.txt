@@ -1,0 +1,27 @@
+00:00 +0: loading /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart
+00:00 +0: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:01 +1: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:02 +2: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: only bound company commands retry original receipt through generation and rights changes
+00:02 +3: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: concurrent same-intent calls share one future and one original nonce
+00:02 +4: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: wrong receipt remains pending; later exact accepted claim may clear without outcome
+00:02 +5: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: plan replay rechecks project source, approval and actor rather than global permissions
+00:02 +6: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: 390px actual approval plan original and execution state
+00:02 +7: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: 390px actual external_unknown plan original and execution state
+00:02 +8: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: 390px actual external_unconfirmed plan original and execution state
+00:03 +9: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: rule creation, history and scan all require explicit confirmations
+00:04 +10: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: lost ACK survives closing page and repeats exact original body
+00:04 +11: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after session
+00:04 +12: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after session
+00:05 +13: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after background
+00:05 +14: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after background
+00:05 +15: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after generation
+00:05 +16: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after generation
+00:05 +17: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after read
+00:05 +18: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after read
+00:05 +19: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after write
+00:06 +20: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after write
+00:06 +21: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after source
+00:06 +22: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after source
+00:06 +23: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: approve-only withdrawal closes a private reason editor with read retained
+00:06 +24: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: silent source right loss after held GET is checked before disclosure
+00:06 +25: All tests passed!

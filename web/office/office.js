@@ -29,6 +29,7 @@ import {assetProvenanceUi} from './asset-provenance.js';
 import {personnelWorkflowUi} from './personnel-workflow.js';
 import {travelAllowancesUi} from './travel-allowances.js';
 import {assistantUi} from './assistant.js';
+import {companyEventsUi,companyEventRights,companyEventPendingAuthorize} from './company-events.js';
 import {payrollPendingAuthorize,payrollUi} from './payroll.js';
 import {renderCompanyOverview} from './company-overview.js';
 import {migrationPendingAuthorize,migrationsUi} from './migrations.js';
@@ -954,6 +955,7 @@ export class OfficeApi {
       if(old&&datedConsumerCommand(key,path,operation.body))await datedConsumerPendingAuthorize(this,{key,path});
       if(old&&key.startsWith('catalog-'))await catalogPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/assistant/'))await assistantPendingAuthorize(this,{key,path});
+      if(old&&path.startsWith('/business/company-events/'))await companyEventPendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/payroll/cash/'))await payrollCashPendingAuthorize(this,{key,path});
       if(old&&key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))await purchaseChangePendingAuthorize(this,{key,path});
       if(old&&path.startsWith('/business/accounting/historical-assets'))await assetPendingAuthorize(this,{key,path});
@@ -978,11 +980,11 @@ export class OfficeApi {
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
       const result = await this.post(path, operation.body);
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
-      if(operation.validate)await operation.validate(result);
+      if(operation.validate)await operation.validate(result,JSON.parse(JSON.stringify(operation.body)));
       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
       this.#pending.delete(key); return result;
     } catch (error) {
-      const protectedAccounting=path.startsWith('/business/accounting/historical-assets')||datedConsumerCommand(key,path,operation.body)||path.startsWith('/business/catalog-prices/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
+      const protectedAccounting=path.startsWith('/business/company-events/')||path.startsWith('/business/accounting/historical-assets')||datedConsumerCommand(key,path,operation.body)||path.startsWith('/business/catalog-prices/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
       const uncertainAccounting=protectedAccounting&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted');
       if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
       throw error;
@@ -1102,6 +1104,10 @@ const assistantWorkspace=assistantUi({el,button,field,form,dialog,closeModal,pan
   speechAvailable:()=>state.features.has('assistant_speech')&&state.capabilities.has('business_assistant_speech'),
   userId:()=>state.user?.id,stamp:()=>`${api.generation}/${state.render}`});
 
+const companyEvents=companyEventsUi({el,button,field,form,dialog,closeModal,panel,rows,row,notice,table,api,biz,action,formatDate,requestId,updatePending,
+  stamp:()=>`${api.generation}/${state.render}/${dialogGeneration}`,projects:()=>state.projects,userId:()=>state.user?.id,
+  openTask:async(project,id)=>{await api.get(`/projects/${project}/tasks/${id}`);closeModal();openProject(project,'tasks');}});
+
 function migrationsAllowed(){return state.user?.role==='owner'&&state.features.has('file_migrations')&&state.capabilities.has('business_migrations')&&['settings.manage','contacts.read','finance.read','documents.read'].every(right=>state.globalPermissions.has(right));}
 const fileMigrations=migrationsUi({el,button,field,form,dialog,closeModal,panel,rows,row,notice,table,api,biz,query,action,mutation,
   openProject:async projectId=>{const projects=collection(await api.get('/projects'));if(!projects.some(value=>value.id===projectId))throw new Error('Projektbezug ist nicht mehr freigegeben.');state.projects=projects;closeModal();openProject(projectId);},
@@ -1204,7 +1210,7 @@ function form(title, fields, save, {description, submit='Speichern', after=()=>r
   section.controls=controls; return section;
 }
 function dialog(title, content, description = '') {
-  closeModal({keepWageInterruptions:content?.matches?.('[data-wage-interruptions]')===true,keepAnnualBasis:content?.matches?.('[data-payroll-annual-basis]')===true,keepOneOffCases:content?.matches?.('[data-payroll-oneoff-cases]')===true,keepMultipleCases:content?.matches?.('[data-payroll-multiple-cases]')===true}); const previous=document.activeElement;
+  closeModal({keepWageInterruptions:content?.matches?.('[data-wage-interruptions]')===true,keepAnnualBasis:content?.matches?.('[data-payroll-annual-basis]')===true,keepOneOffCases:content?.matches?.('[data-payroll-oneoff-cases]')===true,keepMultipleCases:content?.matches?.('[data-payroll-multiple-cases]')===true,keepCompanyEvents:content?.matches?.('[data-company-events]')===true}); const previous=document.activeElement;
   const close=button('×',()=>closeModal(),'icon'); close.className='modal-close'; close.setAttribute('aria-label','Dialog schließen');
   const box=el('section',{class:'modal',role:'dialog','aria-modal':'true','aria-label':title,tabIndex:-1},el('div',{class:'modal-head'},el('div',{},el('h2',{},title),description?el('p',{class:'muted'},description):null),close),content);
   modal=el('div',{class:'modal-backdrop'},box); modal.previous=previous;
@@ -1220,7 +1226,7 @@ function dialog(title, content, description = '') {
   });
   document.body.append(modal); box.focus(); return box;
 }
-function closeModal({keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false}={}) { dialogGeneration++; if(modal) { if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
+function closeModal({keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepMultipleCases=false,keepCompanyEvents=false}={}) { dialogGeneration++; if(modal) { if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-historical-assets]'))historicalWorkspace.clear();if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases,keepMultipleCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
 async function download(path,filename) { const blob=await api.binary(path),url=objectUrl(blob),link=el('a',{href:url,download:filename,rel:'noopener'}); document.body.append(link); link.click(); link.remove(); }
 function jsonDownload(value,filename) { const link=el('a',{href:objectUrl(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),download:filename}); document.body.append(link); link.click(); link.remove(); }
 function mutation(key,path,data,options) {
@@ -1288,7 +1294,7 @@ async function startSession() {
   if(!state.projects.some(project=>project.id===state.projectId))state.projectId='';
   state.section='overview'; buildShell(); await refresh();
 }
-function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();photoUploads.clear();projectEconomics.clear();assistantWorkspace.clear();accountingEuer.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
+function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();photoUploads.clear();projectEconomics.clear();assistantWorkspace.clear();companyEvents.clear();accountingEuer.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
 function buildShell() {
   root.replaceChildren(); shell=el('div',{class:'shell'});
   const nav=el('nav',{class:'navigation','aria-label':'Hauptnavigation'},NAV.filter(([id])=>sectionAllowed(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id)},el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label)));
@@ -1316,6 +1322,7 @@ function updatePending() { const button_=root?.querySelector('[data-pending-indi
 function operationLabel(path) {
   if(path===biz('/accounting/historical-assets/originals'))return 'Historisches Anlagenoriginal speichern';
   if(path===biz('/accounting/historical-assets/confirm'))return 'Historischen Anlagenvortrag bestätigen';
+  if(path.startsWith('/business/company-events/'))return 'Unternehmensereignisauftrag unverändert prüfen';
   if(path===biz('/accounting/opening-balances/originals'))return 'Anfangsbestandsoriginal speichern';
   if(path===biz('/accounting/opening-balances/confirm'))return 'Anfangsbestandsfassung bestätigen';
   if(path==='/business/bank/accounts')return 'Bankkontozuordnung speichern';
@@ -1420,6 +1427,7 @@ async function refresh() {
     if(modal?.querySelector('[data-service-case],[data-resource-custody],[data-purchase-change]'))closeModal();
     if(modal?.querySelector('[data-custom-fields]'))closeModal();
     if(modal?.querySelector('[data-assistant-project]'))closeModal();
+    if(modal?.querySelector('[data-company-events]'))closeModal();
     if(!state.features.has('assistant_workflow')||!has('assistant.use'))assistantWorkspace.clear();
     const originDetail=modal?.querySelector('[data-asset-origin-detail]');
     if(originDetail&&!assetOrigins.allowed(originDetail.getAttribute('data-asset-origin-detail')))closeModal();
@@ -1434,7 +1442,7 @@ async function refresh() {
 
 async function serviceView(){return el('div',{class:'stack'},heading('Kundenservice','Anliegen, Reklamationen und Wartung mit Zuständigkeit, Wiedervorlage und unveränderlichem Verlauf.'),await customerService.view({project_id:state.projectId||null}));}
 
-async function assistantView(){return el('div',{class:'stack'},heading('Assistent','Belegte Projektquellen, konkrete Aufträge und nachvollziehbare Unternehmensregeln.'),await assistantWorkspace.view(state.projectId));}
+async function assistantView(){return el('div',{class:'stack'},heading('Assistent','Belegte Projektquellen, konkrete Aufträge und nachvollziehbare Unternehmensregeln.'),companyEventRights({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly}).read?panel('Unternehmensereignisse',el('p',{},'Regeln über betroffene Projekte, belegte Ereignisse und konkrete Freigaben.'),button('Unternehmensereignisse öffnen',()=>action(()=>companyEvents.open()),'primary')):null,await assistantWorkspace.view(state.projectId));}
 
 async function overviewView() {
   const data=await api.get(biz('/overview'));
@@ -2799,7 +2807,7 @@ if(typeof document!=='undefined') {
     addEventListener('online',networkState);addEventListener('offline',networkState);
     matchMedia('(max-width:760px)').addEventListener('change',updateDrawer);
     addEventListener('beforeunload',event=>{if(api.pendingCount){event.preventDefault();event.returnValue='';}});
-    document.addEventListener('visibilitychange',()=>{if(document.hidden&&modal?.querySelector('[data-accounting-openings], [data-historical-assets]'))closeModal();});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden){companyEvents.clear();if(modal?.querySelector('[data-accounting-openings], [data-historical-assets], [data-company-events]'))closeModal();}});
     addEventListener('pagehide',()=>endSession());
   }
 }

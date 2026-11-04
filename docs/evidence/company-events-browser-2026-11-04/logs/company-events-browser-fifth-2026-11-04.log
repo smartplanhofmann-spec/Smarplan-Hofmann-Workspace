@@ -1,0 +1,36 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(await page.getByRole('button',{name:'Originalereignis ansehen',exact:true}).count())
+
+    at Object.companyEventsFlow (/workspace/smartplan-company-events-20261104/web/office/tests/company-events-flow.cjs:29:573)
+    at async main (/workspace/smartplan-company-events-20261104/web/office/tests/e2e.cjs:131:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED'
+]
+Fixture log tail:
+pi/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/company-events/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/company-events/rules HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/company-events/rules/78f05fb5b676479da7660b966db99962/history HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/company-events/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/company-events/plans HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/capabilities?project_id=88ae6ef5fe4e4c3a89f4aaf02d179bd5 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:18:09] "GET /api/v1/business/company-events/status HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

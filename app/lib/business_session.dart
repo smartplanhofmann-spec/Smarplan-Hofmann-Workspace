@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'api.dart';
+import 'business_company_event_contract.dart';
 import 'offline_vault.dart' show offlineId;
 
 /// A failed response belongs to one exact command, even if its UI key is reused.
@@ -96,6 +97,18 @@ bool _datedCatalogConsumer(
       values['items'] is List &&
       (values['items'] as List).any(bound);
   return document || order;
+}
+
+bool _companyEventCommand(
+  String key,
+  String path,
+  Map<String, dynamic> values,
+) {
+  try {
+    return key == companyEventCommandKey(path, values);
+  } on ApiException {
+    return false;
+  }
 }
 
 /// An early client hint only; the server checks the same module on every write.
@@ -283,6 +296,330 @@ class BusinessSession extends ChangeNotifier {
       !organizationSections.contains(section) ||
       organizationModules[section]?['enabled'] == true;
   bool pending(String key) => _pending.containsKey(key);
+
+  /// Only the closed company-event endpoints preserve their original request.
+  List<({String key, String path})> get pendingCompanyEventCommands => !allowed
+      ? const []
+      : List.unmodifiable(
+          _pending.entries
+              .where(
+                (e) => _companyEventCommand(e.key, e.value.path, e.value.body),
+              )
+              .map((e) => (key: e.key, path: e.value.path)),
+        );
+
+  void _requireCompanyEventRights({bool manage = false, bool write = false}) {
+    if (projectId != null ||
+        !hasFeature('company_event_rules') ||
+        !hasModule('company_events') ||
+        !can('assistant.use') ||
+        manage && !can('settings.manage') ||
+        write && !canWrite('assistant.use')) {
+      throw const ApiException(
+        403,
+        'Aktuelle Rechte für Unternehmensereignisse fehlen.',
+      );
+    }
+  }
+
+  /// Recheck every disclosed original after a held response, including embedded
+  /// historical project-policy evidence. No global grant substitutes a project grant.
+  Future<Set<String>> authorizeCompanyEventData(dynamic raw) async {
+    final epoch = _epoch, capturedGeneration = generation;
+    _guard(epoch);
+    _requireCompanyEventRights();
+    final required = <String, Set<String>>{};
+    var ownerRequired = false, globalFinance = false;
+    void add(String project, String permission) {
+      if (!RegExp(r'^[a-f0-9]{32}$').hasMatch(project)) {
+        throw const ApiException(0, 'Ungültige Projektquelle.');
+      }
+      required.putIfAbsent(project, () => <String>{}).add(permission);
+    }
+
+    void source(String project, Map<String, dynamic> item) {
+      final kind = item['descriptor']?['kind'];
+      if (['project', 'task'].contains(kind)) {
+        add(project, 'documents.read');
+      } else if ([
+        'open_item',
+        'costs',
+        'document',
+        'dunning',
+        'article',
+      ].contains(kind)) {
+        add(project, 'finance.read');
+        if (kind == 'article') globalFinance = true;
+      } else if (kind == 'communication') {
+        add(project, 'assistant.use');
+        ownerRequired = true;
+      } else {
+        throw const ApiException(0, 'Unbekannte Unternehmensereignisquelle.');
+      }
+    }
+
+    Future<void> inspect(Map<String, dynamic> item) async {
+      if (item['project_id'] is String && item['source'] is Map) {
+        source(item['project_id'], companyEventMap(item['source']));
+      } else if (item['project_id'] is String && item['context'] is Map) {
+        for (final row in businessItems(item['context']['sources'])) {
+          source(item['project_id'], row);
+        }
+        for (final rule in businessItems(item['policy']['project_policies'])) {
+          for (final evidence in businessItems(
+            rule['policy']['evidence'] ?? [],
+          )) {
+            if (evidence['permission'] is! String) {
+              throw const ApiException(0, 'Ungültiger Projektregelnachweis.');
+            }
+            add(item['project_id'], evidence['permission']);
+          }
+        }
+      } else if (item['items'] is List) {
+        for (final row in businessItems(item['items'])) {
+          if (row['event_id'] is String && row['plan_ids'] is List) {
+            final event = companyEventObservation(
+              await read('$companyEventBase/events/${row['event_id']}'),
+            );
+            _guard(epoch);
+            await inspect(event);
+          } else {
+            await inspect(row);
+          }
+        }
+      }
+    }
+
+    await inspect(companyEventMap(raw));
+    for (final entry in required.entries) {
+      final scope = sharedProjectSession(entry.key);
+      await scope.load();
+      _guard(epoch);
+      _requireCompanyEventRights();
+      if (scope.error != null ||
+          scope.loading ||
+          !scope.hasFeature('company_event_rules') ||
+          !scope.hasModule('company_events') ||
+          !scope.can('assistant.use') ||
+          !entry.value.every(scope.can)) {
+        throw const ApiException(
+          403,
+          'Die aktuellen Projekt- und Originalquellenrechte fehlen.',
+        );
+      }
+    }
+    if (globalFinance) {
+      await load();
+      _guard(epoch);
+      if (error != null || loading || !can('finance.read')) {
+        throw const ApiException(
+          403,
+          'Aktuelle Leserechte für Artikelquellen fehlen.',
+        );
+      }
+    }
+    if (ownerRequired) {
+      final actor = businessMap(await legacyRead('/api/me'));
+      if (actor['role'] != 'owner') {
+        throw const ApiException(
+          403,
+          'Aktuelle Berechtigung für Anfrageoriginale fehlt.',
+        );
+      }
+    }
+    _guard(epoch);
+    _requireCompanyEventRights();
+    for (final entry in required.entries) {
+      final scope = sharedProjectSession(entry.key);
+      if (!scope.can('assistant.use') ||
+          !scope.hasFeature('company_event_rules') ||
+          !scope.hasModule('company_events') ||
+          !entry.value.every(scope.can)) {
+        throw const ApiException(
+          403,
+          'Die Originalquellenrechte wurden während der Prüfung entzogen.',
+        );
+      }
+    }
+    if (generation != capturedGeneration) {
+      throw const ApiException(
+        0,
+        'Der freigegebene Funktionsstand hat sich geändert.',
+      );
+    }
+    return required.keys.toSet();
+  }
+
+  Future<void> _authorizeCompanyEventCommand(
+    String path,
+    Map<String, dynamic> values,
+  ) async {
+    final epoch = _epoch;
+    _guard(epoch);
+    final operation = companyEventOperation(path);
+    await load();
+    _guard(epoch);
+    if (error != null || loading) {
+      throw const ApiException(
+        0,
+        'Aktuelle Unternehmensrechte konnten nicht geprüft werden.',
+      );
+    }
+    _requireCompanyEventRights(
+      manage: operation == 'rule' || operation == 'scan',
+      write: true,
+    );
+    if (operation == 'rule' || operation == 'scan') return;
+    final capturedGeneration = generation;
+    final plan = companyEventPlan(
+      await read('$companyEventBase/plans/${operation.split(':')[1]}'),
+    );
+    if (plan['sha256'] != values['plan_sha256']) {
+      throw const ApiException(
+        409,
+        'Der Auftrag gehört zu einer anderen Planfassung.',
+      );
+    }
+    await authorizeCompanyEventData(plan);
+    final scope = sharedProjectSession(plan['project_id']);
+    final needed = plan['action'] == 'task.create'
+        ? ['projects.manage']
+        : plan['action'] == 'offer.draft'
+        ? ['finance.read', 'finance.write']
+        : ['finance.read', 'finance.approve'];
+    if (!scope.canWrite('assistant.use') ||
+        !needed.every(scope.canWrite) ||
+        (!operation.startsWith('execute:') &&
+            !scope.canWrite('assistant.approve')) ||
+        plan['action'] != 'task.create' &&
+            (!scope.sectionEnabled('finance') ||
+                !scope.sectionEnabled('documents'))) {
+      throw const ApiException(
+        403,
+        'Aktuelle Fach-, Modul- oder Freigaberechte fehlen. Der Originalauftrag bleibt erhalten.',
+      );
+    }
+    final actor = businessMap(await legacyRead('/api/me'));
+    _guard(epoch);
+    _requireCompanyEventRights(write: true);
+    if (generation != capturedGeneration) {
+      throw const ApiException(
+        0,
+        'Der Funktionsstand hat sich während der Ereignisprüfung geändert.',
+      );
+    }
+    if (!scope.canWrite('assistant.use') ||
+        !needed.every(scope.canWrite) ||
+        (!operation.startsWith('execute:') &&
+            !scope.canWrite('assistant.approve')) ||
+        plan['action'] != 'task.create' &&
+            (!scope.sectionEnabled('finance') ||
+                !scope.sectionEnabled('documents'))) {
+      throw const ApiException(
+        403,
+        'Die Fachrechte wurden während der Zuständigkeitsprüfung entzogen.',
+      );
+    }
+    if (actor['id'] != plan['policy']['responsible_id']) {
+      throw const ApiException(
+        403,
+        'Nur die aktuell zuständige Person darf diesen Auftrag bestätigen.',
+      );
+    }
+  }
+
+  final _companyEventFlights =
+      <String, ({String path, String values, Future<dynamic> future})>{};
+
+  Future<dynamic> companyEventCommand(
+    String path,
+    Map<String, dynamic> values, {
+    bool Function()? stillCurrent,
+  }) {
+    final copied = companyEventMap(jsonDecode(jsonEncode(values)));
+    final key = companyEventCommandKey(path, copied),
+        serialized = companyEventCanonical(copied);
+    final flight = _companyEventFlights[key];
+    if (flight != null) {
+      if (flight.path != path || flight.values != serialized) {
+        throw const ApiException(
+          409,
+          'Der ursprüngliche Ereignisauftrag wird noch übertragen.',
+        );
+      }
+      return flight.future;
+    }
+    final original = _pending[key];
+    Future<dynamic> send() async {
+      if (stillCurrent != null && !stillCurrent()) {
+        throw const ApiException(
+          0,
+          'Die Ereigniserfassung wurde bereits geschlossen.',
+        );
+      }
+      await _authorizeCompanyEventCommand(path, copied);
+      if (stillCurrent != null && !stillCurrent()) {
+        throw const ApiException(
+          0,
+          'Die Ereigniserfassung wurde während der Rechteprüfung geschlossen.',
+        );
+      }
+      if (original != null &&
+          _pending[key]?.body['request_id'] != original.body['request_id']) {
+        throw const ApiException(
+          0,
+          'Der frühere Ereignisauftrag wurde inzwischen beantwortet.',
+        );
+      }
+      return _command(
+        key,
+        path,
+        copied,
+        documentaryRetry: original != null,
+        validateResult: (raw) {
+          final exact = _pending[key];
+          if (exact == null || exact.path != path) {
+            throw const ApiException(
+              0,
+              'Die ursprüngliche Ereignisübertragung ist nicht mehr verfügbar.',
+            );
+          }
+          companyEventReceipt(path, exact.body, raw);
+        },
+      );
+    }
+
+    late final Future<dynamic> future;
+    future = send().whenComplete(() {
+      if (identical(_companyEventFlights[key]?.future, future))
+        _companyEventFlights.remove(key);
+    });
+    _companyEventFlights[key] = (
+      path: path,
+      values: serialized,
+      future: future,
+    );
+    return future;
+  }
+
+  Future<dynamic> repeatCompanyEventCommand(
+    String key, {
+    bool Function()? stillCurrent,
+  }) {
+    final stored = _pending[key];
+    if (stored == null ||
+        !_companyEventCommand(key, stored.path, stored.body)) {
+      throw const ApiException(
+        409,
+        'Kein unveränderter offener Unternehmensereignisauftrag verfügbar.',
+      );
+    }
+    return companyEventCommand(
+      stored.path,
+      companyEventMap(jsonDecode(stored.values)),
+      stillCurrent: stillCurrent,
+    );
+  }
 
   /// Only opaque command keys, never private bank bodies. Navigation must not
   /// allocate a new nonce for an existing uncertain import or reconciliation.
@@ -2530,6 +2867,7 @@ class BusinessSession extends ChangeNotifier {
     final documentaryCommand =
         _datedCatalogConsumer(key, path, values) ||
         _catalogPricesCommand(key, path) ||
+        _companyEventCommand(key, path, values) ||
         _catalogCommand(key, path) ||
         (key.startsWith('historical-asset-') &&
             const [

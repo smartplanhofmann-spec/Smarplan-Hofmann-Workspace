@@ -1,0 +1,1084 @@
+{
+  "baseline_commit": "b0b96024f0a7cf2c7097fb3b77c64032265850a5",
+  "owner_file_count": 116,
+  "owner_files": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "owner_sha256": "c4b60fc9a07b3be781df4d89537a8c5c04123a3eb91dd203beae7725920f69a7",
+      "actual_sha256": "7cae0a485f383a35f71e4ce51a32b5c73be16494b871da86301ef2849c1cc318",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "conflict"
+    },
+    {
+      "path": "app/lib/business_assistant.dart",
+      "owner_sha256": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+      "actual_sha256": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "clean replace"
+    },
+    {
+      "path": "app/lib/business_company_event_contract.dart",
+      "owner_sha256": "977def401a70c4a11f240f6c2c8a15ce0b81756288b580e9bb16ca45f9b1c2e6",
+      "actual_sha256": "977def401a70c4a11f240f6c2c8a15ce0b81756288b580e9bb16ca45f9b1c2e6",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "app/lib/business_company_events.dart",
+      "owner_sha256": "7f05b2bb24bf34f8dfc1208683f4e0119425f55dd2a692528e81219ddfa60782",
+      "actual_sha256": "7f05b2bb24bf34f8dfc1208683f4e0119425f55dd2a692528e81219ddfa60782",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "owner_sha256": "7a063682878504f91dc2b1d366ae0e1525ede2dac0af2715c21c8e23a5ba5fac",
+      "actual_sha256": "106dc7726f26785d8f443f3a023f7f5ac3fc5c005f608ff8921ce2d3978cdfea",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "conflict"
+    },
+    {
+      "path": "app/test/business_company_event_contract_test.dart",
+      "owner_sha256": "7021dd3c8400cb5f84007491415e4162f54d382c29d5e9eda1390be0a1ae2417",
+      "actual_sha256": "7021dd3c8400cb5f84007491415e4162f54d382c29d5e9eda1390be0a1ae2417",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "app/test/business_company_events_http_test.dart",
+      "owner_sha256": "3f84f329756b1f8161cb406a270b079ef25ba8497a9739953e45fb53e2f643bd",
+      "actual_sha256": "3f84f329756b1f8161cb406a270b079ef25ba8497a9739953e45fb53e2f643bd",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "app/test/business_company_events_independent_review_test.dart",
+      "owner_sha256": "c1d9a9cb91174925c303af054dc1dd60a53e5ee86c23d1f1306d3968d217eba5",
+      "actual_sha256": "c1d9a9cb91174925c303af054dc1dd60a53e5ee86c23d1f1306d3968d217eba5",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "app/test/business_company_events_test.dart",
+      "owner_sha256": "6e560817e0074321f412f7a084a414bbf0465ca952f1db730bd4bb425de4ebee",
+      "actual_sha256": "6e560817e0074321f412f7a084a414bbf0465ca952f1db730bd4bb425de4ebee",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "app/test/fixtures/company_events_2026.json",
+      "owner_sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20",
+      "actual_sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/business_api.py",
+      "owner_sha256": "78c8c6bd62217b9cd38edb12153483db9c182f98e1ed8465eda575e8ad1abb6d",
+      "actual_sha256": "0549d1e61bef358d9c105b0b078bb4cf910046d3a35dfe86ed36f269f490938a",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "conflict"
+    },
+    {
+      "path": "backend/business_assistant.py",
+      "owner_sha256": "83099731d683cd828188b8ef8c631e1931d085587418b43849158073f6149813",
+      "actual_sha256": "83099731d683cd828188b8ef8c631e1931d085587418b43849158073f6149813",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "clean merge"
+    },
+    {
+      "path": "backend/business_assistant_sources.py",
+      "owner_sha256": "74dbc22004f041dc4b3e47928c1ae3f72e0b4defe9a29432bbf48811d0aee9df",
+      "actual_sha256": "74dbc22004f041dc4b3e47928c1ae3f72e0b4defe9a29432bbf48811d0aee9df",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "already"
+    },
+    {
+      "path": "backend/business_company_events.py",
+      "owner_sha256": "1cdf6d30aa3b2764cd5c036d9af55fd2a68c89e8cc6d671d4233a2c812ad2fdd",
+      "actual_sha256": "1cdf6d30aa3b2764cd5c036d9af55fd2a68c89e8cc6d671d4233a2c812ad2fdd",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/business_schema.py",
+      "owner_sha256": "58f962fdada8670c39a3992e46ac394cdea616b3115b2cdde0c0ba4b29705e0f",
+      "actual_sha256": "65813c991df763b2df09d60bf77fa52cf80c28030404d298c7171b95a9c4fe47",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "conflict"
+    },
+    {
+      "path": "backend/company_event_sources.py",
+      "owner_sha256": "61b3bbe6e82fad86679452a1ebb217e0a40644e7403d5e77d851222e1021bdbd",
+      "actual_sha256": "27257d83a8ef775aedc6324813cc8c4ce871ec01bbf70cc9e02b1d7d6bf76056",
+      "owner_exact": false,
+      "resolution_exact": false,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/company_event_worker.py",
+      "owner_sha256": "7bc9bacba9bbad1f97a289680307c97893bad13412079cd86298a3e423354c8a",
+      "actual_sha256": "7bc9bacba9bbad1f97a289680307c97893bad13412079cd86298a3e423354c8a",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/company_export_catalog.py",
+      "owner_sha256": "12103fdf1627a4b47e708ae8b80d3eb821f647e103e97de0dc15f0025bcc4c41",
+      "actual_sha256": "d2c52b1033e1395b895fdbd7b7b869596e18a0555c334fbf9cdf1e8c1e850c8b",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "clean merge"
+    },
+    {
+      "path": "backend/online/restore.py",
+      "owner_sha256": "17e6a353d347e624b747c8c27c55227ae3e9639ac50718a6f98b63b2acc16f83",
+      "actual_sha256": "17e6a353d347e624b747c8c27c55227ae3e9639ac50718a6f98b63b2acc16f83",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "clean replace"
+    },
+    {
+      "path": "backend/online/test_company_events_http.py",
+      "owner_sha256": "3b85f572581baa0b1d5fd002310ede8d4058e292a60d4030c0352b8da02efc4d",
+      "actual_sha256": "3b85f572581baa0b1d5fd002310ede8d4058e292a60d4030c0352b8da02efc4d",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/online/test_company_events_pg.py",
+      "owner_sha256": "78a8a7fdb04d6719f3bf99022c229dce6aec3d6a4326df4abce36a9f6c8c6230",
+      "actual_sha256": "78a8a7fdb04d6719f3bf99022c229dce6aec3d6a4326df4abce36a9f6c8c6230",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/online/web.py",
+      "owner_sha256": "ae4bd57b8fdefcf87cebd5d8ff8ec41b4cf9d20a59574dc72fe9539888aa74c0",
+      "actual_sha256": "4d01893f39483e8c44ceaeac8082bb54021e991d4ccc8777e1786f734ab6101f",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "conflict"
+    },
+    {
+      "path": "backend/restore.py",
+      "owner_sha256": "17b4214ae4d107a041231e9f0d61e46c7b4f0266de486fc78092199dc5fcc933",
+      "actual_sha256": "17b4214ae4d107a041231e9f0d61e46c7b4f0266de486fc78092199dc5fcc933",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "clean replace"
+    },
+    {
+      "path": "backend/test_assistant_cost_total_v2.py",
+      "owner_sha256": "09bf4268022996249c807e3edde4e188746da1febcf2f1961b4d7060b427b0f1",
+      "actual_sha256": "09bf4268022996249c807e3edde4e188746da1febcf2f1961b4d7060b427b0f1",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "already"
+    },
+    {
+      "path": "backend/test_business_company_events.py",
+      "owner_sha256": "e05fbb61ee6d09aad0239bf497ad8242a75c585caf63792c80b394aa66c4999d",
+      "actual_sha256": "e05fbb61ee6d09aad0239bf497ad8242a75c585caf63792c80b394aa66c4999d",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/test_business_company_events_independent_review.py",
+      "owner_sha256": "4c4d3de94f5b82843db8a130be83e880b6f798ebcbe0c584bc9bfd6b31e38317",
+      "actual_sha256": "4c4d3de94f5b82843db8a130be83e880b6f798ebcbe0c584bc9bfd6b31e38317",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/test_company_event_registration.py",
+      "owner_sha256": "dedaba1c5aed3959e91e1c0dde7033ca6f3589fc63a960e16d09664e1ef617bc",
+      "actual_sha256": "dedaba1c5aed3959e91e1c0dde7033ca6f3589fc63a960e16d09664e1ef617bc",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/test_company_event_restore_worker.py",
+      "owner_sha256": "56aa55a8be9775a47acd8bae4a738a97eade244ca70719de8dabc585a68cc750",
+      "actual_sha256": "56aa55a8be9775a47acd8bae4a738a97eade244ca70719de8dabc585a68cc750",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "backend/test_company_event_worker_cli.py",
+      "owner_sha256": "edad3a19553c2ec72e43103cca7c7610420cdaae37497ccf544249149b905070",
+      "actual_sha256": "edad3a19553c2ec72e43103cca7c7610420cdaae37497ccf544249149b905070",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/CRM_ERP_ASSISTENT_KOSTENSUMME_V2_2026-11-04.md",
+      "owner_sha256": "5861668dc4aeca24cd824fc6d47dc9ac363c0497555d071afccbe6a335172ba9",
+      "actual_sha256": "5861668dc4aeca24cd824fc6d47dc9ac363c0497555d071afccbe6a335172ba9",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "already"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_API_2026.md",
+      "owner_sha256": "d4d3d6b9e044b169659344da6887db48348683b7e1a65180b516718e55f63de3",
+      "actual_sha256": "d4d3d6b9e044b169659344da6887db48348683b7e1a65180b516718e55f63de3",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_BROWSER_2026-11-04.md",
+      "owner_sha256": "e0358337fbee73de73a9d0518dc148e7c93d717f1b5cc61c3267a81863a3aade",
+      "actual_sha256": "e0358337fbee73de73a9d0518dc148e7c93d717f1b5cc61c3267a81863a3aade",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_FORTSCHRITT_2026-11-04.md",
+      "owner_sha256": "e3b688bc7749f7624864158942ae4a9cafe8ac1b64d76257a07d18412042e15b",
+      "actual_sha256": "e3b688bc7749f7624864158942ae4a9cafe8ac1b64d76257a07d18412042e15b",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_INTEGRATION_2026-11-04.md",
+      "owner_sha256": "056fa83e168da14860f423cf555e41dec6f115da768661aa0400103743ba3b39",
+      "actual_sha256": "056fa83e168da14860f423cf555e41dec6f115da768661aa0400103743ba3b39",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_NATIVE_2026-11-04.md",
+      "owner_sha256": "3c8e1f1f245c6b7cd0248b1bac2ed0e67dfd4722f3aefdcd6f5c7db5cbf7448f",
+      "actual_sha256": "3c8e1f1f245c6b7cd0248b1bac2ed0e67dfd4722f3aefdcd6f5c7db5cbf7448f",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_VERTRAG_2026-11-04.md",
+      "owner_sha256": "557ca1237639724d4758609c0578ccceac1e03761b22caed2fbe73d87be38365",
+      "actual_sha256": "557ca1237639724d4758609c0578ccceac1e03761b22caed2fbe73d87be38365",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/actual-cost-counterexample-first.txt",
+      "owner_sha256": "aa28b8e1995dfee97c94c525718f918fa44ee0bcbfd6a423e693219c731e5249",
+      "actual_sha256": "aa28b8e1995dfee97c94c525718f918fa44ee0bcbfd6a423e693219c731e5249",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "already"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/legacy-assistant-sources-4c2f008.txt",
+      "owner_sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "actual_sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "already"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/manifest.json",
+      "owner_sha256": "ef342164e98948829c94bb2fcccec30c7a8c77ed92ab24b112e818eace8279f8",
+      "actual_sha256": "ef342164e98948829c94bb2fcccec30c7a8c77ed92ab24b112e818eace8279f8",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "already"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/runtime.patch",
+      "owner_sha256": "4a0b14563b1b5142d5d8aed273682cc9147d761d01c562b0abe65b0d2b5c0ec0",
+      "actual_sha256": "4a0b14563b1b5142d5d8aed273682cc9147d761d01c562b0abe65b0d2b5c0ec0",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "already"
+    },
+    {
+      "path": "docs/evidence/assistant-cost-total-v2-2026-11-04/standalone-and-existing-final.txt",
+      "owner_sha256": "720acca1d5780f5b87331557015bb4f333c368400f239fb7cf855932fd8e6ac7",
+      "actual_sha256": "720acca1d5780f5b87331557015bb4f333c368400f239fb7cf855932fd8e6ac7",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "already"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/backend-domain-http-final.txt",
+      "owner_sha256": "906a0360bde55a1f8792b0c20cea79557066a07f2a505928d6b205012ccec9d3",
+      "actual_sha256": "906a0360bde55a1f8792b0c20cea79557066a07f2a505928d6b205012ccec9d3",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/backend-existing-gates-final.txt",
+      "owner_sha256": "2adf4ba8483c2e495c87f3a1296a9b58103fcb4192f2ca3f5e5b8228243323c6",
+      "actual_sha256": "2adf4ba8483c2e495c87f3a1296a9b58103fcb4192f2ca3f5e5b8228243323c6",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/gates-harness-first.txt",
+      "owner_sha256": "d4100521a3e9e92bb40142fe7e69bd087ed81bc5ca11773d365bead692723b3a",
+      "actual_sha256": "d4100521a3e9e92bb40142fe7e69bd087ed81bc5ca11773d365bead692723b3a",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/gates-harness-second.txt",
+      "owner_sha256": "4efa76fc7815400bc31a826535cfc972e30bd00ca4b0a1dec00c800113d6e394",
+      "actual_sha256": "4efa76fc7815400bc31a826535cfc972e30bd00ca4b0a1dec00c800113d6e394",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/legacy-assistant-source-origin.json",
+      "owner_sha256": "45e0abc9d262708785621d2fe84b6a32870281f42a49242d197d70f5bb9d47d0",
+      "actual_sha256": "45e0abc9d262708785621d2fe84b6a32870281f42a49242d197d70f5bb9d47d0",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/legacy-assistant-sources-4c2f008.txt",
+      "owner_sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "actual_sha256": "1d43f2330f67cf186c763146bdb3ec5234ce2e979a9601f23191d44d4dc1f444",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/manifest.json",
+      "owner_sha256": "bcb001825242e21ef942d4362ac11c5372f8dcdd44fc889d1e8a641f71ef7356",
+      "actual_sha256": "bcb001825242e21ef942d4362ac11c5372f8dcdd44fc889d1e8a641f71ef7356",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/original-approval-counterexample-first.txt",
+      "owner_sha256": "3c2a6d71432d3cdc7f045c1711f47908d4016843cff5793172077e583ebb9951",
+      "actual_sha256": "3c2a6d71432d3cdc7f045c1711f47908d4016843cff5793172077e583ebb9951",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/packages-client-handoff-final.txt",
+      "owner_sha256": "cc26ce981603bf14097f4d63d1a3b835c57c4cbca627d766d22efb22c0a9c57e",
+      "actual_sha256": "cc26ce981603bf14097f4d63d1a3b835c57c4cbca627d766d22efb22c0a9c57e",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/packages-final.txt",
+      "owner_sha256": "f8b9f5eb5e88454f80dc7fc9d0464be9a330598b8929baaf2aeba157ea7d0e08",
+      "actual_sha256": "f8b9f5eb5e88454f80dc7fc9d0464be9a330598b8929baaf2aeba157ea7d0e08",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/packages-harness-first.txt",
+      "owner_sha256": "2551c558be149695cec73ebe8edbdb60c05f6d392a9a92c3e37fe0a35fc00e21",
+      "actual_sha256": "2551c558be149695cec73ebe8edbdb60c05f6d392a9a92c3e37fe0a35fc00e21",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/postgres-final.txt",
+      "owner_sha256": "62f6b7d3d4bd8471cbf557a3fa5f24ae31237ef40d141d9dde6d648cfc0154ea",
+      "actual_sha256": "62f6b7d3d4bd8471cbf557a3fa5f24ae31237ef40d141d9dde6d648cfc0154ea",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/postgres-fixture-second.txt",
+      "owner_sha256": "24ba7133545b65634a82061798ca7716a4fd16f636178ed1e87ffefc2fa5f231",
+      "actual_sha256": "24ba7133545b65634a82061798ca7716a4fd16f636178ed1e87ffefc2fa5f231",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/postgres-product-prefix-first.txt",
+      "owner_sha256": "1feb377cee4f89959ec78b300cd27b1e1fd6e8a99a6813515624e4bc34e3f27b",
+      "actual_sha256": "1feb377cee4f89959ec78b300cd27b1e1fd6e8a99a6813515624e4bc34e3f27b",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/restore-worker-fixture-first.txt",
+      "owner_sha256": "335000d74b90f25ffe0c944503547bfa4fc99e3b4c4595c11ba86f33b919221e",
+      "actual_sha256": "335000d74b90f25ffe0c944503547bfa4fc99e3b4c4595c11ba86f33b919221e",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/worker-instance-final.txt",
+      "owner_sha256": "376d6da6afc2e1b30bc43641f1246ad34a162e848cd6a18c12d9bc56e3b6dff5",
+      "actual_sha256": "376d6da6afc2e1b30bc43641f1246ad34a162e848cd6a18c12d9bc56e3b6dff5",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/worker-instance-first.txt",
+      "owner_sha256": "a75c3b82082c3a770f7da7ae50945c0c901562e4bb8b327486ab2af9dca9bd96",
+      "actual_sha256": "a75c3b82082c3a770f7da7ae50945c0c901562e4bb8b327486ab2af9dca9bd96",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04.json",
+      "owner_sha256": "abb67ed22885fb4c323a043fe29f9809d8d1ef5a76bbfb5e1989648876d89da3",
+      "actual_sha256": "abb67ed22885fb4c323a043fe29f9809d8d1ef5a76bbfb5e1989648876d89da3",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/README.md",
+      "owner_sha256": "def00e4df0bbd2353906e62a52b1e288811d18545652468d46cd897c24610498",
+      "actual_sha256": "def00e4df0bbd2353906e62a52b1e288811d18545652468d46cd897c24610498",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/browser-final/company-events-history.png",
+      "owner_sha256": "ece16a4a587dbf087e34795c1c27be6fb89f3d5e337e1018bcffa295b64d3653",
+      "actual_sha256": "ece16a4a587dbf087e34795c1c27be6fb89f3d5e337e1018bcffa295b64d3653",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/browser-final/company-events-http-records.json",
+      "owner_sha256": "0da5d29133e7906b19e545795f4b71a3d246c558c3d482b8e3a8002b5d324aa8",
+      "actual_sha256": "0da5d29133e7906b19e545795f4b71a3d246c558c3d482b8e3a8002b5d324aa8",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/browser-final/company-events-mobile.png",
+      "owner_sha256": "ddac580d80e781a093f553768fe211a32d8b14b20d0ca3be64caab14b90d8325",
+      "actual_sha256": "ddac580d80e781a093f553768fe211a32d8b14b20d0ca3be64caab14b90d8325",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/shared-browser-hooks.patch",
+      "owner_sha256": "d0b731b292097eba0367f353925e6a2d11dd2cefbca8052e2ac5fb2cdc3ed81b",
+      "actual_sha256": "d0b731b292097eba0367f353925e6a2d11dd2cefbca8052e2ac5fb2cdc3ed81b",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/README.md",
+      "owner_sha256": "598dd3de6e2eae678cfd6005c25246963dd951a67fb81392e87e86d6d1f7ec6a",
+      "actual_sha256": "598dd3de6e2eae678cfd6005c25246963dd951a67fb81392e87e86d6d1f7ec6a",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/UNCONFIRMED_ADDENDUM.md",
+      "owner_sha256": "992e2d2cc74268ea8d012f6881dc685e742b45b71cdf0e2bd3e416625f36492f",
+      "actual_sha256": "992e2d2cc74268ea8d012f6881dc685e742b45b71cdf0e2bd3e416625f36492f",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/after-stale-error-fix-12.txt",
+      "owner_sha256": "8359c4cd75c4fd6cfd0222138e9fec616db68d161f51d79c925d828852e8c1ef",
+      "actual_sha256": "8359c4cd75c4fd6cfd0222138e9fec616db68d161f51d79c925d828852e8c1ef",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/before-stale-error-fix.txt",
+      "owner_sha256": "8e6c73bb0a0a278763e195ae72d5a099d6dfdd2995973a2409a8f094fb5ee412",
+      "actual_sha256": "8e6c73bb0a0a278763e195ae72d5a099d6dfdd2995973a2409a8f094fb5ee412",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/before-stale-error-hashes.json",
+      "owner_sha256": "3b41bad9f36eac9225f3f5f34f8f7d44debd04c7eb2150734362f384f661bec4",
+      "actual_sha256": "3b41bad9f36eac9225f3f5f34f8f7d44debd04c7eb2150734362f384f661bec4",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-context-results.json",
+      "owner_sha256": "ecca23ba98be659006202ab801415df5580c4a5535b1d2ff41cbafa7011ea46a",
+      "actual_sha256": "ecca23ba98be659006202ab801415df5580c4a5535b1d2ff41cbafa7011ea46a",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-dialog-error.png",
+      "owner_sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055",
+      "actual_sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-dialog-success.png",
+      "owner_sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055",
+      "actual_sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-project-error.png",
+      "owner_sha256": "60baad4519bb0e323422b8c8faddf92d3f0d13d33c4a92d983c0c7f8d830ab58",
+      "actual_sha256": "60baad4519bb0e323422b8c8faddf92d3f0d13d33c4a92d983c0c7f8d830ab58",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/browser-during-owner-edit.txt",
+      "owner_sha256": "f75ee73b533c9735ffa40db4fe91557042d8ffce029b86d0ab94df617d4580b5",
+      "actual_sha256": "f75ee73b533c9735ffa40db4fe91557042d8ffce029b86d0ab94df617d4580b5",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/final-browser.txt",
+      "owner_sha256": "02e5767a2da29402cb6fbd9d8f64cc1832a85be3fe58e2754788049e4f8e45e1",
+      "actual_sha256": "02e5767a2da29402cb6fbd9d8f64cc1832a85be3fe58e2754788049e4f8e45e1",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/final-node-32.txt",
+      "owner_sha256": "b459b49ccdfe3b5fc3a435f83e7cfe793fc26cb964f47a202b3afdd6475b42e1",
+      "actual_sha256": "b459b49ccdfe3b5fc3a435f83e7cfe793fc26cb964f47a202b3afdd6475b42e1",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/manifest.json",
+      "owner_sha256": "e4d8646014befa9fedbe3dd4146363ac47092a7f8d0fef472b28d05fa9c337d1",
+      "actual_sha256": "e4d8646014befa9fedbe3dd4146363ac47092a7f8d0fef472b28d05fa9c337d1",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/unconfirmed-addendum-35.txt",
+      "owner_sha256": "eb53842957fd19730a58e841338716966775860a15f37ea72b3a81d723a01ce2",
+      "actual_sha256": "eb53842957fd19730a58e841338716966775860a15f37ea72b3a81d723a01ce2",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-independent-2026-11-04/unconfirmed-addendum-manifest.json",
+      "owner_sha256": "a98f69ddac7ace4cf5f6841e28bb0be68b4b14b4deb0fd5730f274428590f141",
+      "actual_sha256": "a98f69ddac7ace4cf5f6841e28bb0be68b4b14b4deb0fd5730f274428590f141",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/analyze-final.txt",
+      "owner_sha256": "f35c92761711ec44fbbe44641c5d2f62aaf6d92851e334db8eba790ac6fc1bb1",
+      "actual_sha256": "f35c92761711ec44fbbe44641c5d2f62aaf6d92851e334db8eba790ac6fc1bb1",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/handoff.json",
+      "owner_sha256": "fa00c556a991bee7395ff458ce49a1af9e56a5f48fda4bd636dd4c4d54e3459c",
+      "actual_sha256": "fa00c556a991bee7395ff458ce49a1af9e56a5f48fda4bd636dd4c4d54e3459c",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/regression-final.txt",
+      "owner_sha256": "36379f85230846bc03135be8ee90a20155bc340c924fa5e3bc960bc694fb7f7d",
+      "actual_sha256": "36379f85230846bc03135be8ee90a20155bc340c924fa5e3bc960bc694fb7f7d",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/regression-preflight-first.txt",
+      "owner_sha256": "0f42f2f5abb862021b3a1a2a2d06d78edb8071c011405de4e4bf48aef2956daf",
+      "actual_sha256": "0f42f2f5abb862021b3a1a2a2d06d78edb8071c011405de4e4bf48aef2956daf",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/route-before.txt",
+      "owner_sha256": "3cdc5dbc88eea31eb366e8eb22c659340d4c97e3605706381813182c47e54fb7",
+      "actual_sha256": "3cdc5dbc88eea31eb366e8eb22c659340d4c97e3605706381813182c47e54fb7",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/status-fix-analyze.txt",
+      "owner_sha256": "65d389a9af2f04f6e6da6cff1e810a4ef17aa762ed5fc92fe1712b58d1210ff2",
+      "actual_sha256": "65d389a9af2f04f6e6da6cff1e810a4ef17aa762ed5fc92fe1712b58d1210ff2",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/status-fix-tests.txt",
+      "owner_sha256": "6d4a0c6b26e2513dd1bee2004c5f5f7d470f25db1d08d9ba0270c70b7b9c157e",
+      "actual_sha256": "6d4a0c6b26e2513dd1bee2004c5f5f7d470f25db1d08d9ba0270c70b7b9c157e",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/targeted-final.txt",
+      "owner_sha256": "8a6431a5362aa3696dfed88eb685db7d6771fa8d8b569217f29d61b80146e1c3",
+      "actual_sha256": "8a6431a5362aa3696dfed88eb685db7d6771fa8d8b569217f29d61b80146e1c3",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/targeted-first.txt",
+      "owner_sha256": "6eabeb334261eff50da9bda78fa4d30776218037f61e2664cac893b59be32de9",
+      "actual_sha256": "6eabeb334261eff50da9bda78fa4d30776218037f61e2664cac893b59be32de9",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/README.md",
+      "owner_sha256": "c3b885cd62cf4498322c1e84324ecb3034a26b578e9699304c97a70e9fff6dcc",
+      "actual_sha256": "c3b885cd62cf4498322c1e84324ecb3034a26b578e9699304c97a70e9fff6dcc",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/analyze-final.txt",
+      "owner_sha256": "333834a2018f1a5fbe5530229b699e09a629d2b3ca67413919751d8fa651b1bb",
+      "actual_sha256": "333834a2018f1a5fbe5530229b699e09a629d2b3ca67413919751d8fa651b1bb",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/before-hashes.json",
+      "owner_sha256": "56d510d97cd10be87273e198ca3bb3ea949f85719f521c875da77539cf487dfc",
+      "actual_sha256": "56d510d97cd10be87273e198ca3bb3ea949f85719f521c875da77539cf487dfc",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/before-status-outcome-fix.txt",
+      "owner_sha256": "69ace47c5c30fd8d54bccbea7374db684ac46d828684aa2285df640cd87fcc50",
+      "actual_sha256": "69ace47c5c30fd8d54bccbea7374db684ac46d828684aa2285df640cd87fcc50",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/combined-final.txt",
+      "owner_sha256": "aef69e48ff3d83443e26669676ddfb8f12c22c3b5903369a2955e5f1ce19a6b1",
+      "actual_sha256": "aef69e48ff3d83443e26669676ddfb8f12c22c3b5903369a2955e5f1ce19a6b1",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/contract-before-fix.txt",
+      "owner_sha256": "8909b2f77f5674ff97ca1a58eb3a10d39b0db9ea1fae609f8cee92b69165b7ad",
+      "actual_sha256": "8909b2f77f5674ff97ca1a58eb3a10d39b0db9ea1fae609f8cee92b69165b7ad",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/first-independent-after-fix.txt",
+      "owner_sha256": "4c72dd1bb748356f6bc9f45cf3b35a013d8dd0905913e5c1a64fa3ceb404ccb1",
+      "actual_sha256": "4c72dd1bb748356f6bc9f45cf3b35a013d8dd0905913e5c1a64fa3ceb404ccb1",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/manifest.json",
+      "owner_sha256": "6f0d73ff0a41d1f5f72a411bd9a3fd1bf960e47d3e946aa1d4310c4ad057f7f4",
+      "actual_sha256": "6f0d73ff0a41d1f5f72a411bd9a3fd1bf960e47d3e946aa1d4310c4ad057f7f4",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/status-outcome-owner-fix.diff",
+      "owner_sha256": "aa0d144671676d790e8e30d4a2a8dd0b7309c914a6f54e23b22c3b850eda77b7",
+      "actual_sha256": "aa0d144671676d790e8e30d4a2a8dd0b7309c914a6f54e23b22c3b850eda77b7",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/evidence/company-events-native-independent-2026-11-04/widget-before-status-outcome-fix.txt",
+      "owner_sha256": "0646ed9cc31bb2efc0d7877d5f593233f44fe0c1e684e79e65c30ed7380bbb37",
+      "actual_sha256": "0646ed9cc31bb2efc0d7877d5f593233f44fe0c1e684e79e65c30ed7380bbb37",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "docs/fixtures/company_events_2026.json",
+      "owner_sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20",
+      "actual_sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "scripts/generate-company-events-fixture.py",
+      "owner_sha256": "8e4e8709179f97bbf496cad20a4af7fe5e3e4ad43b7fa8f5fd5a822df0e1bf9b",
+      "actual_sha256": "8e4e8709179f97bbf496cad20a4af7fe5e3e4ad43b7fa8f5fd5a822df0e1bf9b",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "scripts/native-release.py",
+      "owner_sha256": "85e5e8ffe6d05773b895ebd15185491f3054214d96e7f1450b325c6c03e42b42",
+      "actual_sha256": "1b03315dbe1d0b6ce26397c3b059f0a3d37209c124a4ee0c8045e6587712c217",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "conflict"
+    },
+    {
+      "path": "scripts/package-windows-support.py",
+      "owner_sha256": "68bc8cd6df5057cfc810c3ba7cac621270c4687d4c777e1a58d7f6f498043a87",
+      "actual_sha256": "58ab5bcaf69c69efc08d7a8a6cc3f9792aa6f0c55483e95523fe373eb5e88548",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "conflict"
+    },
+    {
+      "path": "scripts/process-company-events.py",
+      "owner_sha256": "10338670e665fb436bb37c03ff045176fc7c2931bc1314f50c059036662a5504",
+      "actual_sha256": "10338670e665fb436bb37c03ff045176fc7c2931bc1314f50c059036662a5504",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/company-events-contract.js",
+      "owner_sha256": "73d9ff6a46be4dfc99435c986f34bf04f894f79a28dcc1eb36ccbdf6b0794c76",
+      "actual_sha256": "73d9ff6a46be4dfc99435c986f34bf04f894f79a28dcc1eb36ccbdf6b0794c76",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/company-events.js",
+      "owner_sha256": "76c80e5baba621f8c240c9b1cedf272ac09fcb636432fd5d91f54db006368b1a",
+      "actual_sha256": "76c80e5baba621f8c240c9b1cedf272ac09fcb636432fd5d91f54db006368b1a",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/office.css",
+      "owner_sha256": "b783cda809bb19a52282afa2927d62de214cae9ea762d9b704160cec0c349685",
+      "actual_sha256": "b783cda809bb19a52282afa2927d62de214cae9ea762d9b704160cec0c349685",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "clean replace"
+    },
+    {
+      "path": "web/office/office.js",
+      "owner_sha256": "c17ccb0ee306b0b5ffabdc65ab958b732ecd5206565c13846a78bbe85e7bc195",
+      "actual_sha256": "dce3ead112a1c089cc962e66e762da989de1e4feafbfba18cfae5724db77579d",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "conflict"
+    },
+    {
+      "path": "web/office/tests/company-events-access.test.mjs",
+      "owner_sha256": "353b98af228b1c8af0f31c8ad92b99e5f8303cf24537e4c05b44c6b2fc8973b6",
+      "actual_sha256": "353b98af228b1c8af0f31c8ad92b99e5f8303cf24537e4c05b44c6b2fc8973b6",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/tests/company-events-contract.test.mjs",
+      "owner_sha256": "6ae20db33104e17736322e5191002d020006d2a666c8c78e9ea69524f2952c37",
+      "actual_sha256": "6ae20db33104e17736322e5191002d020006d2a666c8c78e9ea69524f2952c37",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/tests/company-events-flow.cjs",
+      "owner_sha256": "cc363df30329883da6bf7d76ba3293c22a7a0fd1f56cbd6fffea363ce55b7462",
+      "actual_sha256": "cc363df30329883da6bf7d76ba3293c22a7a0fd1f56cbd6fffea363ce55b7462",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/tests/company-events-independent-browser.cjs",
+      "owner_sha256": "f67f6a65c178257b62b0b4af0e5d5449fc546828b550b803a9d6366f3ea4797d",
+      "actual_sha256": "f67f6a65c178257b62b0b4af0e5d5449fc546828b550b803a9d6366f3ea4797d",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/tests/company-events-independent-preload.cjs",
+      "owner_sha256": "c78f90677a578956a78a7ea70c0ba735856a472b15490c026708a55876428855",
+      "actual_sha256": "c78f90677a578956a78a7ea70c0ba735856a472b15490c026708a55876428855",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/tests/company-events-independent-review.test.mjs",
+      "owner_sha256": "74b93f3df83ef47a3ecb14a2cbfc9b993b876cd95af6c69a15e3df0acde738a8",
+      "actual_sha256": "74b93f3df83ef47a3ecb14a2cbfc9b993b876cd95af6c69a15e3df0acde738a8",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/tests/company-events-session.test.mjs",
+      "owner_sha256": "15f5a8d40c49acdff024b59f0f7a8b234126e83680bb80336d6358a0b738163c",
+      "actual_sha256": "15f5a8d40c49acdff024b59f0f7a8b234126e83680bb80336d6358a0b738163c",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "new"
+    },
+    {
+      "path": "web/office/tests/e2e.cjs",
+      "owner_sha256": "22bf05642038d32642862dd58699208d0cac18464479d7b2c58da19f9a478873",
+      "actual_sha256": "39181461958b87445cf823a5ba630e084762ff0184a18b2420ea500929df27ad",
+      "owner_exact": false,
+      "resolution_exact": true,
+      "resolution_kind": "conflict"
+    },
+    {
+      "path": "web/office/tests/serve_fixture.py",
+      "owner_sha256": "de011d9487e919fc5e9670428c19e48c2e90e56c7d220ae21e3f8abfa4a10dc2",
+      "actual_sha256": "de011d9487e919fc5e9670428c19e48c2e90e56c7d220ae21e3f8abfa4a10dc2",
+      "owner_exact": true,
+      "resolution_exact": true,
+      "resolution_kind": "clean replace"
+    }
+  ],
+  "package_registration": {
+    "scripts/native-release.py": {
+      "BACKEND_FILES": {
+        "before_count": 131,
+        "after_count": 134,
+        "lost": [],
+        "added": [
+          "business_company_events.py",
+          "company_event_sources.py",
+          "company_event_worker.py"
+        ],
+        "original_order_preserved": true
+      },
+      "WINDOWS_DLLS": {
+        "before_count": 13,
+        "after_count": 13,
+        "lost": [],
+        "added": [],
+        "original_order_preserved": true
+      },
+      "OFFLINE_INSTALLER_FILES": {
+        "before_count": 2,
+        "after_count": 2,
+        "lost": [],
+        "added": [],
+        "original_order_preserved": true
+      },
+      "OPERATOR_FILES": {
+        "before_count": 138,
+        "after_count": 150,
+        "lost": [],
+        "added": [
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_API_2026.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_BROWSER_2026-11-04.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_FORTSCHRITT_2026-11-04.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_INTEGRATION_2026-11-04.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_NATIVE_2026-11-04.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_VERTRAG_2026-11-04.md",
+          "docs/evidence/company-events-2026-11-04/manifest.json",
+          "docs/evidence/company-events-browser-2026-11-04.json",
+          "docs/evidence/company-events-native-2026-11-04/handoff.json",
+          "docs/evidence/company-events-native-independent-2026-11-04/README.md",
+          "docs/evidence/company-events-native-independent-2026-11-04/manifest.json",
+          "scripts/process-company-events.py"
+        ],
+        "original_order_preserved": true
+      }
+    },
+    "scripts/package-windows-support.py": {
+      "BACKEND_FILES": {
+        "before_count": 131,
+        "after_count": 134,
+        "lost": [],
+        "added": [
+          "business_company_events.py",
+          "company_event_sources.py",
+          "company_event_worker.py"
+        ],
+        "original_order_preserved": true
+      },
+      "WINDOWS_FILES": {
+        "before_count": 5,
+        "after_count": 5,
+        "lost": [],
+        "added": [],
+        "original_order_preserved": true
+      },
+      "OFFLINE_INSTALLER_FILES": {
+        "before_count": 2,
+        "after_count": 2,
+        "lost": [],
+        "added": [],
+        "original_order_preserved": true
+      },
+      "OPERATOR_FILES": {
+        "before_count": 138,
+        "after_count": 150,
+        "lost": [],
+        "added": [
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_API_2026.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_BROWSER_2026-11-04.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_FORTSCHRITT_2026-11-04.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_INTEGRATION_2026-11-04.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_NATIVE_2026-11-04.md",
+          "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_VERTRAG_2026-11-04.md",
+          "docs/evidence/company-events-2026-11-04/manifest.json",
+          "docs/evidence/company-events-browser-2026-11-04.json",
+          "docs/evidence/company-events-native-2026-11-04/handoff.json",
+          "docs/evidence/company-events-native-independent-2026-11-04/README.md",
+          "docs/evidence/company-events-native-independent-2026-11-04/manifest.json",
+          "scripts/process-company-events.py"
+        ],
+        "original_order_preserved": true
+      }
+    }
+  },
+  "unchanged_cross_feature_dependencies": {
+    "app/lib/api.dart": {
+      "baseline_sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+      "actual_sha256": "fa1df004434d39e78431ef11b240d9fd9e4216b79189f4f34dae5b3d0678b3eb",
+      "equal": true
+    },
+    "app/lib/business_widgets.dart": {
+      "baseline_sha256": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+      "actual_sha256": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+      "equal": true
+    },
+    "backend/business_catalog_prices.py": {
+      "baseline_sha256": "7c5e5fe1a5cad1f4629368b461ec0be55a111a4ecde075a2ca7123037289c1f7",
+      "actual_sha256": "7c5e5fe1a5cad1f4629368b461ec0be55a111a4ecde075a2ca7123037289c1f7",
+      "equal": true
+    },
+    "backend/business_documents.py": {
+      "baseline_sha256": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+      "actual_sha256": "3e9454dd66b80e5fa7c1221a582455cf61669bc83d539ff871409e5339d0bccc",
+      "equal": true
+    },
+    "backend/business_pricing.py": {
+      "baseline_sha256": "4970e0d916a05b3c4559b6fd1385c1da88ea08b6b89f25b01b4020c40f14aaf9",
+      "actual_sha256": "4970e0d916a05b3c4559b6fd1385c1da88ea08b6b89f25b01b4020c40f14aaf9",
+      "equal": true
+    },
+    "backend/business_payroll_multiple_cases.py": {
+      "baseline_sha256": "3952ffe27f514577e87e84bf6842cb978b7846990f279c22038c0b0842d984af",
+      "actual_sha256": "3952ffe27f514577e87e84bf6842cb978b7846990f279c22038c0b0842d984af",
+      "equal": true
+    },
+    "web/office/catalog-prices.js": {
+      "baseline_sha256": "4588b266cb8728a9ad67378215ffe4040ccabb3d0b8210299ef67b17512c4935",
+      "actual_sha256": "4588b266cb8728a9ad67378215ffe4040ccabb3d0b8210299ef67b17512c4935",
+      "equal": true
+    },
+    "web/office/accounting-historical-assets.js": {
+      "baseline_sha256": "20b6ad6eef8ace5a67b04ab8f0b6ea265da9e4edb0cf3fb3b9c18d9f4ebacdf8",
+      "actual_sha256": "20b6ad6eef8ace5a67b04ab8f0b6ea265da9e4edb0cf3fb3b9c18d9f4ebacdf8",
+      "equal": true
+    },
+    "web/office/payroll-multiple-cases.js": {
+      "baseline_sha256": "61d9995c8863facf518c348ad1138ac1c54c749e6128a96d39c23ec3a02d46fa",
+      "actual_sha256": "61d9995c8863facf518c348ad1138ac1c54c749e6128a96d39c23ec3a02d46fa",
+      "equal": true
+    }
+  },
+  "schema_top_level_functions_classes_changed": [],
+  "source_policy_exception": "company_event_sources.py root validated canonical dated-price boundary; explicit reviewed addition",
+  "confirmed_browser_findings": [
+    "held initial read after visibilitychange before first dialog",
+    "status succeeded without outcome accepted and visibly rendered"
+  ],
+  "runtime_changes_by_reviewer": []
+}

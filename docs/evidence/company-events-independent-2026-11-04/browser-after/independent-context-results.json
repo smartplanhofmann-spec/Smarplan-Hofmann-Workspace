@@ -1,0 +1,17 @@
+[
+  {
+    "mode": "dialog-success",
+    "privateErrorVisible": false,
+    "currentContextPreserved": true
+  },
+  {
+    "mode": "dialog-error",
+    "privateErrorVisible": false,
+    "currentContextPreserved": true
+  },
+  {
+    "mode": "project-error",
+    "privateErrorVisible": false,
+    "currentContextPreserved": true
+  }
+]

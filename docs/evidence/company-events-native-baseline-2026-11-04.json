@@ -1,0 +1,11 @@
+{
+  "created_at_utc": "2026-11-04T10:24:10.944515+00:00",
+  "head": "4c2f0086b4a9979b7cbe9d261fc22a97cd046913",
+  "files": {
+    "app/lib/business_session.dart": "7c2252942c2f90a4b949138b209f7f4675e0a0af60a2c36c9ba3a9d3d3c5f5e6",
+    "app/lib/business_assistant.dart": "355ec2d966ae33088a5b011630d9f4f3702e9e0950df1e89bbae89db89b136ab",
+    "app/lib/api.dart": "d1241f02b7f7163bae00ec1c6a5cfa2ae42c5a1b5ca505218fe25c1efac501b8",
+    "app/lib/business_widgets.dart": "35d3beafdbfa00aee6a963642ce4ffeb699d64347aba3d8ac6d537fae67397c6",
+    "app/test/fixtures/company_events_2026.json": "94b44cc344e7f1e7816fe83adfb49e74718cf54ef42251c3c18bf35cb2928c23"
+  }
+}

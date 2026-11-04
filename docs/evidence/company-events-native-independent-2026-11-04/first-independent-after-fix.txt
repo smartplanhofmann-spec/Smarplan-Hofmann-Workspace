@@ -1,0 +1,15 @@
+00:00 +0: loading /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart
+00:00 +0: unconfirmed original execution cannot be relabelled as succeeded without an outcome
+00:00 +1: contradictory accepted claim never renders a successful action in the native overview
+00:00 +2: project-only source withdrawal clears private editor while global rights remain
+00:01 +3: project-only approve withdrawal clears private editor while global rights remain
+00:01 +4: project write right disappearing during actor read prevents a fresh command
+00:01 +5: older plan success cannot replace or erase a newly entered rule
+00:02 +6: older plan error cannot replace or erase a newly entered rule
+00:02 +7: late approval success belongs to its original pending operation and preserves newer editor
+00:02 +8: late approval error belongs to its original pending operation and preserves newer editor
+00:03 +9: private rule draft is erased after session
+00:03 +10: private rule draft is erased after background
+00:03 +11: private rule draft is erased after manager
+00:03 +12: three pending operation kinds preserve distinct original bodies and reject crossed receipts
+00:04 +13: All tests passed!

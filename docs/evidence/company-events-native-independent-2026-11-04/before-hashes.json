@@ -1,0 +1,8 @@
+{
+  "app/lib/business_company_event_contract.dart": "8909b2f77f5674ff97ca1a58eb3a10d39b0db9ea1fae609f8cee92b69165b7ad",
+  "app/lib/business_company_events.dart": "7f05b2bb24bf34f8dfc1208683f4e0119425f55dd2a692528e81219ddfa60782",
+  "app/lib/business_session.dart": "7a063682878504f91dc2b1d366ae0e1525ede2dac0af2715c21c8e23a5ba5fac",
+  "app/lib/business_assistant.dart": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+  "app/test/business_company_events_independent_review_test.dart": "64405347c8724240a8fa06c50e971fd4e22097a9ad8056bcb3d7a2ecd745fd87",
+  "app/test/fixtures/company_events_2026.json": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20"
+}

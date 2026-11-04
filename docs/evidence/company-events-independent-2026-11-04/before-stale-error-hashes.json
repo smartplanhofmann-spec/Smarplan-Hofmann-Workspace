@@ -1,0 +1,22 @@
+{
+  "web/office/company-events.js": {
+    "sha256": "226437144f945942e755a86275b375801876555867a238196316fa95b1158ee1",
+    "size": 28456
+  },
+  "web/office/company-events-contract.js": {
+    "sha256": "7d7aac5ff9e52ddc5d272bc67914b96f48eae63f7106ada540e1049bd343a68d",
+    "size": 17816
+  },
+  "web/office/office.js": {
+    "sha256": "c17ccb0ee306b0b5ffabdc65ab958b732ecd5206565c13846a78bbe85e7bc195",
+    "size": 344087
+  },
+  "web/office/tests/company-events-independent-review.test.mjs": {
+    "sha256": "df216c165b16933af70ecee0cc9debd880c6fd601c2a4571f238a45d371c03e2",
+    "size": 11819
+  },
+  "docs/fixtures/company_events_2026.json": {
+    "sha256": "94b44cc344e7f1e7816fe83adfb49e74718cf54ef42251c3c18bf35cb2928c23",
+    "size": 206472
+  }
+}

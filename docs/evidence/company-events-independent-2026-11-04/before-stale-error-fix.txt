@@ -1,0 +1,98 @@
+✔ independent initial event list success cannot cross other (43.971567ms)
+✖ independent initial event list error cannot cross other (3.64444ms)
+✔ independent initial event list success cannot cross project (3.887867ms)
+✖ independent initial event list error cannot cross project (1.408311ms)
+✔ independent initial event list success cannot cross session (0.773695ms)
+✔ independent initial event list error cannot cross session (0.558601ms)
+✔ independent held original loses project source permission: approval (7.397293ms)
+✔ independent held original loses project source permission: external_unknown (2.942512ms)
+✔ independent global source access does not substitute for revoked project rights (1.336603ms)
+✔ independent accepted decision after dialog replacement consumes exact receipt but cannot reopen plan (11.860487ms)
+✔ independent two lost decisions resolve only their own original operation and cannot reveal body in pending list (6.536616ms)
+✔ independent correctly hashed foreign plan receipt cannot acknowledge original operation (3.475355ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 10
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 211.426634
+
+✖ failing tests:
+
+test at web/office/tests/company-events-independent-review.test.mjs:60:82
+✖ independent initial event list error cannot cross other (3.64444ms)
+  AssertionError [ERR_ASSERTION]: late errors must not be inserted in the current page
+  + actual - expected
+  
+  + [
+  +   ApiError: PRIVATE OLD PLAN FAILURE 148378dcac1d31b2e8ea4199a84f6616
+  +       at OfficeApi.request (file:///workspace/smartplan-company-events-20261104/web/office/office.js:929:15)
+  +       at async Object.open (file:///workspace/smartplan-company-events-20261104/web/office/company-events.js:34:614)
+  +       at async Object.action (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:44:37)
+  +       at async TestContext.<anonymous> (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:62:108)
+  +       at async Test.run (node:internal/test_runner/test:1389:7)
+  +       at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+  +     requestResolution: null,
+  +     status: 409
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:64:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [
+      ApiError: PRIVATE OLD PLAN FAILURE 148378dcac1d31b2e8ea4199a84f6616
+          at OfficeApi.request (file:///workspace/smartplan-company-events-20261104/web/office/office.js:929:15)
+          at async Object.open (file:///workspace/smartplan-company-events-20261104/web/office/company-events.js:34:614)
+          at async Object.action (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:44:37)
+          at async TestContext.<anonymous> (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:62:108)
+          at async Test.run (node:internal/test_runner/test:1389:7)
+          at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+    ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at web/office/tests/company-events-independent-review.test.mjs:60:82
+✖ independent initial event list error cannot cross project (1.408311ms)
+  AssertionError [ERR_ASSERTION]: late errors must not be inserted in the current page
+  + actual - expected
+  
+  + [
+  +   ApiError: PRIVATE OLD PLAN FAILURE 148378dcac1d31b2e8ea4199a84f6616
+  +       at OfficeApi.request (file:///workspace/smartplan-company-events-20261104/web/office/office.js:929:15)
+  +       at async Object.open (file:///workspace/smartplan-company-events-20261104/web/office/company-events.js:34:614)
+  +       at async Object.action (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:44:37)
+  +       at async TestContext.<anonymous> (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:62:108)
+  +       at async Test.run (node:internal/test_runner/test:1389:7)
+  +       at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+  +     requestResolution: null,
+  +     status: 409
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:64:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [
+      ApiError: PRIVATE OLD PLAN FAILURE 148378dcac1d31b2e8ea4199a84f6616
+          at OfficeApi.request (file:///workspace/smartplan-company-events-20261104/web/office/office.js:929:15)
+          at async Object.open (file:///workspace/smartplan-company-events-20261104/web/office/company-events.js:34:614)
+          at async Object.action (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:44:37)
+          at async TestContext.<anonymous> (file:///workspace/smartplan-company-events-20261104/web/office/tests/company-events-independent-review.test.mjs:62:108)
+          at async Test.run (node:internal/test_runner/test:1389:7)
+          at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+    ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

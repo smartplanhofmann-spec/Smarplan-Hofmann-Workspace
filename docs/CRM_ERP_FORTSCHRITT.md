@@ -1946,3 +1946,25 @@ auf ein Jahr begrenztes Original-/Journalpaket. Die getrennte SV-Gruppengrundlag
 hat einen korrigierten unabhängigen Gegenfall, bleibt aber ohne freigegebene
 Mehrfachbonus-Steuer-/Nettoberechnung. Kein vollständiger Buchhaltungsabschluss,
 keine Produktivfreigabe und kein belastbarer Gesamt-Endtermin werden behauptet.
+
+## 04.11.2026 – Gemeinsame Ereignisregeln auf Source5, Anlagen und Katalog V2
+
+Die [gemeinsame Prüfung](CRM_ERP_EREIGNISSE_GESAMTPRUEFUNG_2026-11-04.md)
+auf Basis `b0b9602` besteht 1.778 Backendfälle bei einem Windows-Skip,
+1.386 Flutter- und 647 Nodefälle, vollständige Analyse ohne Befund,
+16 Paketprüfungen und vier tatsächliche PostgreSQLfälle. Der zusätzliche
+befüllte Restore erhält gleichzeitig Lohn-, Katalog-, Anlagen-, Anfangssaldo-,
+EÜR- und Ereignisoriginale. Bestehende Finanzhorizonte13/14 bleiben erhalten.
+
+Der unabhängige Review reproduzierte eine falsche Browsererfolgsanzeige ohne
+Ergebnis und eine späte private Erstanzeige nach Hintergrundwechsel. Beide
+engen Korrekturen bestehen die unveränderten Gegenfälle, vier echte
+Hintergrund-/Rückkehrvarianten und den erneuten tatsächlichen Ereignisflow.
+Ein V2-Artikel ohne konkrete Preiswahl wird jetzt schon bei der Vorbereitung
+gesperrt, während alte unveränderte Artikel genau einen richtigen Entwurf
+liefern. Originale Rotbelege, eine korrigierte zusätzliche PG-Fixture und ein
+vor Start abgewiesener falsch benannter Browserworkflow bleiben dokumentiert.
+
+Historische offene Posten, Jahresvorträge, Original-/Journalpakete und weitere
+Lohn-/Steuerkorrekturen laufen weiter. Kein Gesamtabschluss, produktiver
+Rollout oder unabhängiger Fachnachweis wird aus diesem Checkpoint abgeleitet.

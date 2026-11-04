@@ -1,0 +1,11 @@
+test_actual_restore_keeps_completed_claim_and_reprepares_only_unstarted_plan (test_company_event_restore_worker.CompanyEventRestoreWorkerTests.test_actual_restore_keeps_completed_claim_and_reprepares_only_unstarted_plan) ... ok
+test_immutable_scans_and_claims_cannot_be_replaced (test_company_event_restore_worker.CompanyEventRestoreWorkerTests.test_immutable_scans_and_claims_cannot_be_replaced) ... ok
+test_missing_original_execution_receipt_blocks_live_known_replay_and_history (test_company_event_restore_worker.CompanyEventRestoreWorkerTests.test_missing_original_execution_receipt_blocks_live_known_replay_and_history) ... ok
+test_process_exit_after_committed_external_claim_never_repeats_transport (test_company_event_restore_worker.CompanyEventRestoreWorkerTests.test_process_exit_after_committed_external_claim_never_repeats_transport) ... ok
+test_real_internal_effect_rolls_back_with_failed_acceptance_and_new_scan_can_retry (test_company_event_restore_worker.CompanyEventRestoreWorkerTests.test_real_internal_effect_rolls_back_with_failed_acceptance_and_new_scan_can_retry) ... ok
+test_worker_pages_resume_original_commands_and_never_duplicate_products (test_company_event_restore_worker.CompanyEventRestoreWorkerTests.test_worker_pages_resume_original_commands_and_never_duplicate_products) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.255s
+
+OK

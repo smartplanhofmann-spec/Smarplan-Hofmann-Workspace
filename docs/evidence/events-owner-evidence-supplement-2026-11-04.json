@@ -1,0 +1,286 @@
+{
+  "reason": "Owner handoff omitted ignored raw logs already hash-bound in its browser evidence manifest. Copied the original bytes after hash verification; no runtime change.",
+  "source_manifest": "docs/evidence/company-events-browser-2026-11-04.json",
+  "files": [
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-actual-cost-domain-first-2026-11-04.log",
+      "sha256": "aa28b8e1995dfee97c94c525718f918fa44ee0bcbfd6a423e693219c731e5249",
+      "bytes": 1013
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-actual-cost-first-2026-11-04.log",
+      "sha256": "2e99a048a9fae3c16cd30134cf9ea7ad630fb3a8fa6082bfa16d56949bbfd866",
+      "bytes": 1138
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-assistant-first-2026-11-04.log",
+      "sha256": "20772cca3bd8e74a3e766a1e70c21239e2a8775421f60d14d83c101613121742",
+      "bytes": 4811
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-checkpoint-first-2026-11-04.log",
+      "sha256": "77b75fa839a8e46e8d8088b442d740739a3d8864a1b9462e90038262a95bdd79",
+      "bytes": 7940
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-existing-gates-actual-final-2026-11-04.log",
+      "sha256": "4efa76fc7815400bc31a826535cfc972e30bd00ca4b0a1dec00c800113d6e394",
+      "bytes": 14524
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-existing-gates-final-2026-11-04.log",
+      "sha256": "d4100521a3e9e92bb40142fe7e69bd087ed81bc5ca11773d365bead692723b3a",
+      "bytes": 17136
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-existing-gates-verified-final-2026-11-04.log",
+      "sha256": "2adf4ba8483c2e495c87f3a1296a9b58103fcb4192f2ca3f5e5b8228243323c6",
+      "bytes": 15230
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-original-approval-final-2026-11-04.log",
+      "sha256": "906a0360bde55a1f8792b0c20cea79557066a07f2a505928d6b205012ccec9d3",
+      "bytes": 8599
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-candidate-2026-11-04.log",
+      "sha256": "bd691f7412c8bd1fa82cd8dbff06f4b83aa3a513faec6affa173abbcd3a29a32",
+      "bytes": 377
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-contract-first-2026-11-04.log",
+      "sha256": "8cb63b175a998ba953079f2794a2b79778e5bcb36b591a67cba2de9584e88ead",
+      "bytes": 895
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-fifth-2026-11-04.log",
+      "sha256": "3eabcd3c5ae87262d54b1e7792e0d7ab69d3784eea9cba8c9a060f5bfd11097e",
+      "bytes": 2583
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-final-2026-11-04.log",
+      "sha256": "bd691f7412c8bd1fa82cd8dbff06f4b83aa3a513faec6affa173abbcd3a29a32",
+      "bytes": 377
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-first-2026-11-04.log",
+      "sha256": "e35f45518d4fcb1534b09a728bb3a78f12842ac24536d7041e24cf19ac75cac1",
+      "bytes": 2756
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-focused-first-2026-11-04.log",
+      "sha256": "36a81d9e61c08d61d0f762017bb9ea68ba8276d4c0bcc44d378ecba86cc3ef35",
+      "bytes": 3239
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-focused-second-2026-11-04.log",
+      "sha256": "4c67baff441ded495bdf4ba9ee73fcb9a4147e7ec3de0b6cd51e1f08782c51b3",
+      "bytes": 3841
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-fourth-2026-11-04.log",
+      "sha256": "b6f13d5c57d8a4d64e01b02ce85f965258b6b13ef76edecebdc6bc76c8983251",
+      "bytes": 2647
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-offer-first-2026-11-04.log",
+      "sha256": "bd691f7412c8bd1fa82cd8dbff06f4b83aa3a513faec6affa173abbcd3a29a32",
+      "bytes": 377
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-second-2026-11-04.log",
+      "sha256": "4a4348db6b4e69c0945af8fa67b42b102c6c333b0fe78fe7304ab5cbc5b40c5d",
+      "bytes": 2643
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-sixth-2026-11-04.log",
+      "sha256": "ab04a77ff9be33fc064fbd6c208def98f8b94da3a09ceed4328b762074adb42a",
+      "bytes": 343
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-third-2026-11-04.log",
+      "sha256": "7898cc3788874f3af92e7ac7a393115ed4eee98508cd17e14a99ca456fc9be51",
+      "bytes": 3767
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-domain-first-2026-11-04.log",
+      "sha256": "3cb867178481b464105f32e3cd6a8708e987dde6d1164fb0cd2a9687c67a5822",
+      "bytes": 3258
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-domain-http-first-2026-11-04.log",
+      "sha256": "0bc773753d74e968ebc23ca778edd154fd09294d6c4113f4b5dba6946aa3d8dc",
+      "bytes": 2055
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-domain-http-policy-cost-2026-11-04.log",
+      "sha256": "b5e3a9c2ce3a5e21ae16d06c1edb35fa2a122e22524e75d541db2f3aaf54212d",
+      "bytes": 9076
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-fixture-first-2026-11-04.log",
+      "sha256": "64c9ec983cf9731c3157999c90662f0bcfb7da136339c8afcd4b4a85b3fb13ac",
+      "bytes": 96
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-committed-fixture-2026-11-04.log",
+      "sha256": "b6c918cf795a4a789a2e71b04913650d779a284d4cadd0ed1fc84bda0a7caa0b",
+      "bytes": 3665
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-final-current-2026-11-04.log",
+      "sha256": "86dc907498b395fe0c1c8077f234341b07fc0c99c9bfe8c3411b2f427253af4b",
+      "bytes": 3665
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-first-2026-11-04.log",
+      "sha256": "3197aa45290b2ea7b9b2e7102615b9eae77850e1192730ee1f544414aba0d8d0",
+      "bytes": 2035
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-kernel-final-2026-11-04.log",
+      "sha256": "a548648b19b6718fdcf913a72777caa7e409547f3a70a8987a9d8c735333fb5a",
+      "bytes": 3665
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-money-final-2026-11-04.log",
+      "sha256": "a959dc96060a68d5ff7a528f04da58533f49ae430324666e2a8923bb1afb68bc",
+      "bytes": 3181
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-owner-fix-first-2026-11-04.log",
+      "sha256": "67932291e80a6b7e322ce696ef764cda8378a72cf64a1947f2a53f0ac6108a2a",
+      "bytes": 1240
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-owner-fix-second-2026-11-04.log",
+      "sha256": "dc806c149f586fdcf8519e63487d2ca46312337749fa6ac8f00e14d621dc85cc",
+      "bytes": 1196
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-policy-final-2026-11-04.log",
+      "sha256": "1dc160441c5bef4fd4929ce470447a31dfbbf916ce8ab1668b89f126996aee8d",
+      "bytes": 2926
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-policy-fixed-2026-11-04.log",
+      "sha256": "6dd0e7e54e695ad65df66dabc64c1ca0e4b96c4affc6b9526ba2f4dbe4dc2f76",
+      "bytes": 4360
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-policy-updated-2026-11-04.log",
+      "sha256": "3dd554d61318b68f451016c280a0b66636fb34fa8878df6fa5a23725d6d7d997",
+      "bytes": 4366
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-source-issue-first-2026-11-04.log",
+      "sha256": "2d039a7af1bb2deac8d929c2709ec815286691b73134e592d713f679f3a8ca6b",
+      "bytes": 1740
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-trigger-first-2026-11-04.log",
+      "sha256": "ba8fefccf2241d70d65e1c38f0af531d16d97d0bee2968175caca62c09923b71",
+      "bytes": 3005
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-legacy-assistant-browser-2026-11-04.log",
+      "sha256": "1fd1adefada109ffdc8d8093c618adfabc3ea18025e8cfaff27b71cf8f523d47",
+      "bytes": 447
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-legacy-assistant-final-2026-11-04.log",
+      "sha256": "1fd1adefada109ffdc8d8093c618adfabc3ea18025e8cfaff27b71cf8f523d47",
+      "bytes": 447
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-node-all-candidate-2026-11-04.log",
+      "sha256": "80f158bea1dd10c8096c4e5f1e001f5cbee5e063f67857df8ce7577913ddf51c",
+      "bytes": 62122
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-node-final-2026-11-04.log",
+      "sha256": "fe166a025d2d9e5251b718e35a9b30dc1160f826e346dd2e748037eb0af39600",
+      "bytes": 57582
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-original-approval-first-2026-11-04.log",
+      "sha256": "3c2a6d71432d3cdc7f045c1711f47908d4016843cff5793172077e583ebb9951",
+      "bytes": 1206
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-original-proof-first-2026-11-04.log",
+      "sha256": "7d6cd1ed82dc5ee8ce39ea899633c20e212885d9870aa1dec8a16887487d11da",
+      "bytes": 2849
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-packages-first-2026-11-04.log",
+      "sha256": "2551c558be149695cec73ebe8edbdb60c05f6d392a9a92c3e37fe0a35fc00e21",
+      "bytes": 4323
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-packages-interpreter-final-2026-11-04.log",
+      "sha256": "f8b9f5eb5e88454f80dc7fc9d0464be9a330598b8929baaf2aeba157ea7d0e08",
+      "bytes": 3603
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-pg-first-2026-11-04.log",
+      "sha256": "1feb377cee4f89959ec78b300cd27b1e1fd6e8a99a6813515624e4bc34e3f27b",
+      "bytes": 3786
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-pg-second-2026-11-04.log",
+      "sha256": "24ba7133545b65634a82061798ca7716a4fd16f636178ed1e87ffefc2fa5f231",
+      "bytes": 4256
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-pg-third-2026-11-04.log",
+      "sha256": "62f6b7d3d4bd8471cbf557a3fa5f24ae31237ef40d141d9dde6d648cfc0154ea",
+      "bytes": 776
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-project-policy-first-2026-11-04.log",
+      "sha256": "acbae520ed83ec2bd5dfe228d90a50c629830a3f1237b784a03246c6b8698045",
+      "bytes": 7192
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-registration-export-first-2026-11-04.log",
+      "sha256": "923738df8775cc498e393e7dac6eb9d99244fa22391d349914629c7fa881380c",
+      "bytes": 7328
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-restore-worker-committed-2026-11-04.log",
+      "sha256": "ebeb78cd6783cefb9735f81d61c9a3b98379b7d42f78bdefda7b8d2a06a49647",
+      "bytes": 948
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-restore-worker-crash-final-2026-11-04.log",
+      "sha256": "37b4b9cf4eb9fd712e777ffb407adae603fc193364bdbbbb10e10daa063de3e9",
+      "bytes": 1408
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-restore-worker-first-2026-11-04.log",
+      "sha256": "335000d74b90f25ffe0c944503547bfa4fc99e3b4c4595c11ba86f33b919221e",
+      "bytes": 3935
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-session-hook-first-2026-11-04.log",
+      "sha256": "98f595df19e0a77f98b638ed453125508618a1899f6b9595818d3be9852a035f",
+      "bytes": 580
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-session-hook-regression-2026-11-04.log",
+      "sha256": "e4e84a4a3348797db32cb0286e4a22f17c6ac80dc7f8c2edc5153e63c7430cc0",
+      "bytes": 2465
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-source-boundary-fixed-2026-11-04.log",
+      "sha256": "c664bfb0bb44425eea978607114af3d19a8b201e98afa6e2a6a1f8c75fe0accd",
+      "bytes": 4804
+    },
+    {
+      "path": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-unconfirmed-followup-2026-11-04.log",
+      "sha256": "b106283b94e390a08dbbbe5d3127652e9c29d60d0734d965218fc1ab2454443f",
+      "bytes": 3222
+    }
+  ]
+}

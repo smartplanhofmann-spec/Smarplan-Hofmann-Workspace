@@ -1,0 +1,42 @@
+✔ money and quantities preserve server decimal strings in German display (2.223345ms)
+✔ requests stay on same origin, omit cookies, refuse redirects and carry memory bearer (24.624194ms)
+✔ the browser native fetch receiver stays bound to the global object (0.49019ms)
+✔ login has no stale bearer and logout erases memory authorization (0.781089ms)
+✔ clear aborts outstanding requests and refuses a response from the previous session (0.433935ms)
+✔ a lost mutation response retries the exact request id and body (0.931566ms)
+✔ uncertain operation cannot silently change its target or payload (0.434435ms)
+✔ an uncertain saved form can be explicitly retried after its dialog closes (0.900309ms)
+✔ a definite validation failure allows a corrected fresh operation (0.888451ms)
+✔ streaming and advertised response bounds protect memory (1.241573ms)
+✔ an oversized accepted response retains the original nonce instead of claiming request rejection (0.83508ms)
+✔ bounded large bank DTOs leave ordinary JSON and original downloads at their own limits (47.298378ms)
+✔ HTML proxy errors never enter the user-facing error message (0.361656ms)
+✔ binary downloads retain bytes and do not put bearer into a URL (0.627207ms)
+✔ browser source has eleven real navigation sections including the assistant and no persistent credential or unsafe HTML writer (11.837566ms)
+✔ actual dispatcher company-event fixture: auto (17.304376ms)
+✔ actual dispatcher company-event fixture: approval (4.098966ms)
+✔ actual dispatcher company-event fixture: deny (4.26048ms)
+✔ actual dispatcher company-event fixture: project_approval (5.263995ms)
+✔ actual dispatcher company-event fixture: external_unknown (3.40565ms)
+✔ foreign fully valid run receipt cannot confirm original scan (0.774609ms)
+✔ changed original event, plan or source cannot pass preserved source hash (1.933128ms)
+✔ project-policy text and visible projection both bind unchanged historical original (1.085979ms)
+✔ large monetary conditions keep exact cents; money is never rounded (0.951015ms)
+✔ recomputed acceptance hash alone cannot replace the selected plan (1.327524ms)
+✔ original generated request id reaches async receipt validation; foreign valid acceptance preserves pending (27.686085ms)
+✔ validator gets isolated original-body copy; validator mutation cannot change later exact replay (1.346572ms)
+✔ late async validator cannot clear new-session operation with same key or receive its body (1.077436ms)
+✔ existing synchronous result-only validator still accepts and rejects without clearing failed operation (1.025017ms)
+✔ uncertain workflow command retains its exact nonce: /business/assistant/plans (28.678634ms)
+✔ uncertain workflow command retains its exact nonce: /business/payroll/runs (3.242413ms)
+✔ uncertain workflow command retains its exact nonce: /business/customer-workspace/publications (1.54987ms)
+✔ uncertain workflow command retains its exact nonce: /business/personnel/expenses (1.19911ms)
+✔ uncertain workflow command retains its exact nonce: /business/accounting/euer/confirm (2.552573ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 296.004102

@@ -1,0 +1,48 @@
+test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport (online.test_company_events_pg.CompanyEventsPostgres.test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport) ... ok
+test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending (online.test_company_events_pg.CompanyEventsPostgres.test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending) ... ERROR
+test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance (online.test_company_events_pg.CompanyEventsPostgres.test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance) ... ERROR
+
+======================================================================
+ERROR: test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending (online.test_company_events_pg.CompanyEventsPostgres.test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_company_events_pg.py", line 115, in test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending
+    with disposable_restore(self.runtime) as (target,runtime,report):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_postgres_accounting_components_integration.py", line 67, in disposable_restore
+    report = restore(backup(journey.DSN, directory), journey.DSN, target,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/restore.py", line 60, in restore
+    no_other_clients(active_dsn)
+  File "/workspace/smartplan-company-events-20261104/backend/online/release.py", line 72, in no_other_clients
+    raise RuntimeError('Andere Datenbankverbindungen aktiv. Dienste/Verwaltung geordnet anhalten; keine fremden Prozesse beenden.')
+RuntimeError: Andere Datenbankverbindungen aktiv. Dienste/Verwaltung geordnet anhalten; keine fremden Prozesse beenden.
+
+======================================================================
+ERROR: test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance (online.test_company_events_pg.CompanyEventsPostgres.test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_company_events_pg.py", line 76, in test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance
+    self.reopen()
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_customer_execution_journey_pg.py", line 75, in reopen
+    self.app = create_app(office=self.office, key=self.key, host='office.example.test',
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/web.py", line 149, in create_app
+    instance = verify_instance(office, instance_id if instance_id is not None else
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/instance.py", line 106, in verify
+    expected = _values(instance_id, host, key, server)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/online/instance.py", line 54, in _values
+    _fail()
+  File "/workspace/smartplan-company-events-20261104/backend/online/instance.py", line 29, in _fail
+    raise InstanceConfigurationError(ERROR)
+online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+
+----------------------------------------------------------------------
+Ran 3 tests in 7.244s
+
+FAILED (errors=2)

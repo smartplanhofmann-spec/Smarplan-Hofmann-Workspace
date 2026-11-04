@@ -356,6 +356,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--ready-file', required=True, type=Path)
     parser.add_argument('--port', type=int, default=0)
+    parser.add_argument('--synthetic-company-events', action='store_true', help='Bind only the disposable company event fixture')
     parser.add_argument('--synthetic-speech', action='store_true', help='Inject the explicit test-only local speech transport')
     parser.add_argument('--synthetic-handover', action='store_true', help='Bind only the disposable company archive fixture')
     parser.add_argument('--synthetic-payroll-cash', action='store_true', help='Seed only the payroll workflow financial sources')
@@ -381,7 +382,7 @@ def main():
             ''')
             metadata = seed(office, directory, payroll_cash=args.synthetic_payroll_cash)
             fixture_key = Fernet.generate_key()
-            if args.synthetic_handover:
+            if args.synthetic_handover or args.synthetic_company_events:
                 from online.instance import bind
                 from online.storage import Storage
                 fixture_instance = uuid.uuid4().hex
@@ -389,7 +390,7 @@ def main():
                 bind(office, fixture_instance, '127.0.0.1', fixture_key, storage)
                 metadata['handover_instance_id'] = fixture_instance
             app = create_app(office=office, key=fixture_key, host='127.0.0.1',
-                **({'storage':storage,'instance_id':fixture_instance} if args.synthetic_handover else {}))
+                **({'storage':storage,'instance_id':fixture_instance} if args.synthetic_handover or args.synthetic_company_events else {}))
             original_unexpected = app.error_handler_spec[None][None][Exception]
             def synthetic_exception_diagnostic(error):
                 response = original_unexpected(error)

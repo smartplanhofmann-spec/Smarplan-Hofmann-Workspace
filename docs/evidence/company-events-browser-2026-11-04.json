@@ -1,0 +1,481 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-04T10:38:31.692664+00:00",
+  "workspace": "/workspace/smartplan-company-events-20261104",
+  "baseline_commit": "4c2f0086b4a9979b7cbe9d261fc22a97cd046913",
+  "scope": "Company-event browser implementation plus independent backend counterexamples; no overall goal or production completion claim",
+  "requirements": [
+    "CRM_ERP_Gesamtziel.txt section10",
+    "CRM_ERP_Gesamtziel.txt acceptanceE"
+  ],
+  "validation": {
+    "full_named_node": {
+      "passed": 557,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "log": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-node-final-2026-11-04.log"
+    },
+    "focused_node_included_in_full": {
+      "passed": 35,
+      "owner": 22,
+      "independent": 13
+    },
+    "independent_backend": {
+      "passed": 16,
+      "failed": 0,
+      "exit_code": 0,
+      "log": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-kernel-final-2026-11-04.log"
+    },
+    "actual_company_events_browser": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-final-2026-11-04.log",
+      "lost_ack_original_replays": 4,
+      "real_offer_net": "199.75",
+      "real_offer_unit_price": "79.90",
+      "real_offer_quantity": "2.5",
+      "viewport_width": 390,
+      "actual_permission_revocation": true,
+      "sandbox_verified": true
+    },
+    "actual_legacy_assistant_browser": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "docs/evidence/company-events-browser-2026-11-04/logs/company-events-legacy-assistant-final-2026-11-04.log",
+      "sandbox_verified": true
+    },
+    "independent_actual_browser": {
+      "passed": 3,
+      "failed": 0,
+      "manifest": "docs/evidence/company-events-independent-2026-11-04/manifest.json"
+    },
+    "unconfirmed_execution_ui": {
+      "passed": true,
+      "post_count": 0,
+      "no_success_claim": true,
+      "no_execute_button": true,
+      "manifest": "docs/evidence/company-events-independent-2026-11-04/unconfirmed-addendum-manifest.json"
+    }
+  },
+  "owned_files": {
+    "web/office/company-events-contract.js": {
+      "size": 17921,
+      "sha256": "73d9ff6a46be4dfc99435c986f34bf04f894f79a28dcc1eb36ccbdf6b0794c76"
+    },
+    "web/office/company-events.js": {
+      "size": 29282,
+      "sha256": "76c80e5baba621f8c240c9b1cedf272ac09fcb636432fd5d91f54db006368b1a"
+    },
+    "web/office/office.js": {
+      "size": 344087,
+      "sha256": "c17ccb0ee306b0b5ffabdc65ab958b732ecd5206565c13846a78bbe85e7bc195"
+    },
+    "web/office/office.css": {
+      "size": 21905,
+      "sha256": "b783cda809bb19a52282afa2927d62de214cae9ea762d9b704160cec0c349685"
+    },
+    "web/office/tests/company-events-contract.test.mjs": {
+      "size": 3793,
+      "sha256": "6ae20db33104e17736322e5191002d020006d2a666c8c78e9ea69524f2952c37"
+    },
+    "web/office/tests/company-events-session.test.mjs": {
+      "size": 4727,
+      "sha256": "15f5a8d40c49acdff024b59f0f7a8b234126e83680bb80336d6358a0b738163c"
+    },
+    "web/office/tests/company-events-access.test.mjs": {
+      "size": 3924,
+      "sha256": "353b98af228b1c8af0f31c8ad92b99e5f8303cf24537e4c05b44c6b2fc8973b6"
+    },
+    "web/office/tests/company-events-flow.cjs": {
+      "size": 16238,
+      "sha256": "cc363df30329883da6bf7d76ba3293c22a7a0fd1f56cbd6fffea363ce55b7462"
+    },
+    "web/office/tests/e2e.cjs": {
+      "size": 46325,
+      "sha256": "22bf05642038d32642862dd58699208d0cac18464479d7b2c58da19f9a478873"
+    },
+    "web/office/tests/serve_fixture.py": {
+      "size": 33668,
+      "sha256": "de011d9487e919fc5e9670428c19e48c2e90e56c7d220ae21e3f8abfa4a10dc2"
+    },
+    "backend/test_business_company_events_independent_review.py": {
+      "size": 17238,
+      "sha256": "4c4d3de94f5b82843db8a130be83e880b6f798ebcbe0c584bc9bfd6b31e38317"
+    },
+    "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_BROWSER_2026-11-04.md": {
+      "size": 7417,
+      "sha256": "e0358337fbee73de73a9d0518dc148e7c93d717f1b5cc61c3267a81863a3aade"
+    }
+  },
+  "independent_review_files": {
+    "web/office/tests/company-events-independent-review.test.mjs": {
+      "size": 12913,
+      "sha256": "74b93f3df83ef47a3ecb14a2cbfc9b993b876cd95af6c69a15e3df0acde738a8"
+    },
+    "web/office/tests/company-events-independent-browser.cjs": {
+      "size": 3217,
+      "sha256": "f67f6a65c178257b62b0b4af0e5d5449fc546828b550b803a9d6366f3ea4797d"
+    },
+    "web/office/tests/company-events-independent-preload.cjs": {
+      "size": 459,
+      "sha256": "c78f90677a578956a78a7ea70c0ba735856a472b15490c026708a55876428855"
+    }
+  },
+  "shared_and_backend_reference_files": {
+    ".github/workflows/checks.yml": {
+      "size": 48022,
+      "sha256": "c637fb402840ea8c615d96148428935458fe85c5cb3561121b155d6f9ec4469f"
+    },
+    "backend/online/web.py": {
+      "size": 28917,
+      "sha256": "ae4bd57b8fdefcf87cebd5d8ff8ec41b4cf9d20a59574dc72fe9539888aa74c0"
+    },
+    "backend/business_company_events.py": {
+      "size": 60388,
+      "sha256": "1cdf6d30aa3b2764cd5c036d9af55fd2a68c89e8cc6d671d4233a2c812ad2fdd"
+    },
+    "backend/company_event_sources.py": {
+      "size": 14032,
+      "sha256": "61b3bbe6e82fad86679452a1ebb217e0a40644e7403d5e77d851222e1021bdbd"
+    },
+    "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_API_2026.md": {
+      "size": 10432,
+      "sha256": "d4d3d6b9e044b169659344da6887db48348683b7e1a65180b516718e55f63de3"
+    },
+    "docs/fixtures/company_events_2026.json": {
+      "size": 262028,
+      "sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20"
+    },
+    "app/test/fixtures/company_events_2026.json": {
+      "size": 262028,
+      "sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20"
+    },
+    "CRM_ERP_Gesamtziel.txt": {
+      "size": 23863,
+      "sha256": "a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5"
+    }
+  },
+  "independent_evidence": {
+    "docs/evidence/company-events-independent-2026-11-04/README.md": {
+      "size": 5253,
+      "sha256": "598dd3de6e2eae678cfd6005c25246963dd951a67fb81392e87e86d6d1f7ec6a"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/UNCONFIRMED_ADDENDUM.md": {
+      "size": 1604,
+      "sha256": "992e2d2cc74268ea8d012f6881dc685e742b45b71cdf0e2bd3e416625f36492f"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/after-stale-error-fix-12.txt": {
+      "size": 1196,
+      "sha256": "8359c4cd75c4fd6cfd0222138e9fec616db68d161f51d79c925d828852e8c1ef"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/before-stale-error-fix.txt": {
+      "size": 5926,
+      "sha256": "8e6c73bb0a0a278763e195ae72d5a099d6dfdd2995973a2409a8f094fb5ee412"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/before-stale-error-hashes.json": {
+      "size": 752,
+      "sha256": "3b41bad9f36eac9225f3f5f34f8f7d44debd04c7eb2150734362f384f661bec4"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-context-results.json": {
+      "size": 327,
+      "sha256": "ecca23ba98be659006202ab801415df5580c4a5535b1d2ff41cbafa7011ea46a"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-dialog-error.png": {
+      "size": 141535,
+      "sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-dialog-success.png": {
+      "size": 141535,
+      "sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-project-error.png": {
+      "size": 177730,
+      "sha256": "60baad4519bb0e323422b8c8faddf92d3f0d13d33c4a92d983c0c7f8d830ab58"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-during-owner-edit.txt": {
+      "size": 2324,
+      "sha256": "f75ee73b533c9735ffa40db4fe91557042d8ffce029b86d0ab94df617d4580b5"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/final-browser.txt": {
+      "size": 305,
+      "sha256": "02e5767a2da29402cb6fbd9d8f64cc1832a85be3fe58e2754788049e4f8e45e1"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/final-node-32.txt": {
+      "size": 3038,
+      "sha256": "b459b49ccdfe3b5fc3a435f83e7cfe793fc26cb964f47a202b3afdd6475b42e1"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/manifest.json": {
+      "size": 4948,
+      "sha256": "e4d8646014befa9fedbe3dd4146363ac47092a7f8d0fef472b28d05fa9c337d1"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/unconfirmed-addendum-35.txt": {
+      "size": 3327,
+      "sha256": "eb53842957fd19730a58e841338716966775860a15f37ea72b3a81d723a01ce2"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/unconfirmed-addendum-manifest.json": {
+      "size": 1791,
+      "sha256": "a98f69ddac7ace4cf5f6841e28bb0be68b4b14b4deb0fd5730f274428590f141"
+    }
+  },
+  "own_evidence": {
+    "docs/evidence/company-events-browser-2026-11-04/README.md": {
+      "size": 3050,
+      "sha256": "def00e4df0bbd2353906e62a52b1e288811d18545652468d46cd897c24610498"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/browser-final/company-events-history.png": {
+      "size": 246617,
+      "sha256": "ece16a4a587dbf087e34795c1c27be6fb89f3d5e337e1018bcffa295b64d3653"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/browser-final/company-events-http-records.json": {
+      "size": 315335,
+      "sha256": "0da5d29133e7906b19e545795f4b71a3d246c558c3d482b8e3a8002b5d324aa8"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/browser-final/company-events-mobile.png": {
+      "size": 148856,
+      "sha256": "ddac580d80e781a093f553768fe211a32d8b14b20d0ca3be64caab14b90d8325"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-actual-cost-domain-first-2026-11-04.log": {
+      "size": 1013,
+      "sha256": "aa28b8e1995dfee97c94c525718f918fa44ee0bcbfd6a423e693219c731e5249"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-actual-cost-first-2026-11-04.log": {
+      "size": 1138,
+      "sha256": "2e99a048a9fae3c16cd30134cf9ea7ad630fb3a8fa6082bfa16d56949bbfd866"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-assistant-first-2026-11-04.log": {
+      "size": 4811,
+      "sha256": "20772cca3bd8e74a3e766a1e70c21239e2a8775421f60d14d83c101613121742"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-checkpoint-first-2026-11-04.log": {
+      "size": 7940,
+      "sha256": "77b75fa839a8e46e8d8088b442d740739a3d8864a1b9462e90038262a95bdd79"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-existing-gates-actual-final-2026-11-04.log": {
+      "size": 14524,
+      "sha256": "4efa76fc7815400bc31a826535cfc972e30bd00ca4b0a1dec00c800113d6e394"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-existing-gates-final-2026-11-04.log": {
+      "size": 17136,
+      "sha256": "d4100521a3e9e92bb40142fe7e69bd087ed81bc5ca11773d365bead692723b3a"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-existing-gates-verified-final-2026-11-04.log": {
+      "size": 15230,
+      "sha256": "2adf4ba8483c2e495c87f3a1296a9b58103fcb4192f2ca3f5e5b8228243323c6"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-backend-original-approval-final-2026-11-04.log": {
+      "size": 8599,
+      "sha256": "906a0360bde55a1f8792b0c20cea79557066a07f2a505928d6b205012ccec9d3"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-candidate-2026-11-04.log": {
+      "size": 377,
+      "sha256": "bd691f7412c8bd1fa82cd8dbff06f4b83aa3a513faec6affa173abbcd3a29a32"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-contract-first-2026-11-04.log": {
+      "size": 895,
+      "sha256": "8cb63b175a998ba953079f2794a2b79778e5bcb36b591a67cba2de9584e88ead"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-fifth-2026-11-04.log": {
+      "size": 2583,
+      "sha256": "3eabcd3c5ae87262d54b1e7792e0d7ab69d3784eea9cba8c9a060f5bfd11097e"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-final-2026-11-04.log": {
+      "size": 377,
+      "sha256": "bd691f7412c8bd1fa82cd8dbff06f4b83aa3a513faec6affa173abbcd3a29a32"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-first-2026-11-04.log": {
+      "size": 2756,
+      "sha256": "e35f45518d4fcb1534b09a728bb3a78f12842ac24536d7041e24cf19ac75cac1"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-focused-first-2026-11-04.log": {
+      "size": 3239,
+      "sha256": "36a81d9e61c08d61d0f762017bb9ea68ba8276d4c0bcc44d378ecba86cc3ef35"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-focused-second-2026-11-04.log": {
+      "size": 3841,
+      "sha256": "4c67baff441ded495bdf4ba9ee73fcb9a4147e7ec3de0b6cd51e1f08782c51b3"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-fourth-2026-11-04.log": {
+      "size": 2647,
+      "sha256": "b6f13d5c57d8a4d64e01b02ce85f965258b6b13ef76edecebdc6bc76c8983251"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-offer-first-2026-11-04.log": {
+      "size": 377,
+      "sha256": "bd691f7412c8bd1fa82cd8dbff06f4b83aa3a513faec6affa173abbcd3a29a32"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-second-2026-11-04.log": {
+      "size": 2643,
+      "sha256": "4a4348db6b4e69c0945af8fa67b42b102c6c333b0fe78fe7304ab5cbc5b40c5d"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-sixth-2026-11-04.log": {
+      "size": 343,
+      "sha256": "ab04a77ff9be33fc064fbd6c208def98f8b94da3a09ceed4328b762074adb42a"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-browser-third-2026-11-04.log": {
+      "size": 3767,
+      "sha256": "7898cc3788874f3af92e7ac7a393115ed4eee98508cd17e14a99ca456fc9be51"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-domain-first-2026-11-04.log": {
+      "size": 3258,
+      "sha256": "3cb867178481b464105f32e3cd6a8708e987dde6d1164fb0cd2a9687c67a5822"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-domain-http-first-2026-11-04.log": {
+      "size": 2055,
+      "sha256": "0bc773753d74e968ebc23ca778edd154fd09294d6c4113f4b5dba6946aa3d8dc"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-domain-http-policy-cost-2026-11-04.log": {
+      "size": 9076,
+      "sha256": "b5e3a9c2ce3a5e21ae16d06c1edb35fa2a122e22524e75d541db2f3aaf54212d"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-fixture-first-2026-11-04.log": {
+      "size": 96,
+      "sha256": "64c9ec983cf9731c3157999c90662f0bcfb7da136339c8afcd4b4a85b3fb13ac"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-committed-fixture-2026-11-04.log": {
+      "size": 3665,
+      "sha256": "b6c918cf795a4a789a2e71b04913650d779a284d4cadd0ed1fc84bda0a7caa0b"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-final-current-2026-11-04.log": {
+      "size": 3665,
+      "sha256": "86dc907498b395fe0c1c8077f234341b07fc0c99c9bfe8c3411b2f427253af4b"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-first-2026-11-04.log": {
+      "size": 2035,
+      "sha256": "3197aa45290b2ea7b9b2e7102615b9eae77850e1192730ee1f544414aba0d8d0"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-kernel-final-2026-11-04.log": {
+      "size": 3665,
+      "sha256": "a548648b19b6718fdcf913a72777caa7e409547f3a70a8987a9d8c735333fb5a"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-money-final-2026-11-04.log": {
+      "size": 3181,
+      "sha256": "a959dc96060a68d5ff7a528f04da58533f49ae430324666e2a8923bb1afb68bc"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-owner-fix-first-2026-11-04.log": {
+      "size": 1240,
+      "sha256": "67932291e80a6b7e322ce696ef764cda8378a72cf64a1947f2a53f0ac6108a2a"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-owner-fix-second-2026-11-04.log": {
+      "size": 1196,
+      "sha256": "dc806c149f586fdcf8519e63487d2ca46312337749fa6ac8f00e14d621dc85cc"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-policy-final-2026-11-04.log": {
+      "size": 2926,
+      "sha256": "1dc160441c5bef4fd4929ce470447a31dfbbf916ce8ab1668b89f126996aee8d"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-policy-fixed-2026-11-04.log": {
+      "size": 4360,
+      "sha256": "6dd0e7e54e695ad65df66dabc64c1ca0e4b96c4affc6b9526ba2f4dbe4dc2f76"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-policy-updated-2026-11-04.log": {
+      "size": 4366,
+      "sha256": "3dd554d61318b68f451016c280a0b66636fb34fa8878df6fa5a23725d6d7d997"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-source-issue-first-2026-11-04.log": {
+      "size": 1740,
+      "sha256": "2d039a7af1bb2deac8d929c2709ec815286691b73134e592d713f679f3a8ca6b"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-independent-trigger-first-2026-11-04.log": {
+      "size": 3005,
+      "sha256": "ba8fefccf2241d70d65e1c38f0af531d16d97d0bee2968175caca62c09923b71"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-legacy-assistant-browser-2026-11-04.log": {
+      "size": 447,
+      "sha256": "1fd1adefada109ffdc8d8093c618adfabc3ea18025e8cfaff27b71cf8f523d47"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-legacy-assistant-final-2026-11-04.log": {
+      "size": 447,
+      "sha256": "1fd1adefada109ffdc8d8093c618adfabc3ea18025e8cfaff27b71cf8f523d47"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-node-all-candidate-2026-11-04.log": {
+      "size": 62122,
+      "sha256": "80f158bea1dd10c8096c4e5f1e001f5cbee5e063f67857df8ce7577913ddf51c"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-node-final-2026-11-04.log": {
+      "size": 57582,
+      "sha256": "fe166a025d2d9e5251b718e35a9b30dc1160f826e346dd2e748037eb0af39600"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-original-approval-first-2026-11-04.log": {
+      "size": 1206,
+      "sha256": "3c2a6d71432d3cdc7f045c1711f47908d4016843cff5793172077e583ebb9951"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-original-proof-first-2026-11-04.log": {
+      "size": 2849,
+      "sha256": "7d6cd1ed82dc5ee8ce39ea899633c20e212885d9870aa1dec8a16887487d11da"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-packages-first-2026-11-04.log": {
+      "size": 4323,
+      "sha256": "2551c558be149695cec73ebe8edbdb60c05f6d392a9a92c3e37fe0a35fc00e21"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-packages-interpreter-final-2026-11-04.log": {
+      "size": 3603,
+      "sha256": "f8b9f5eb5e88454f80dc7fc9d0464be9a330598b8929baaf2aeba157ea7d0e08"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-pg-first-2026-11-04.log": {
+      "size": 3786,
+      "sha256": "1feb377cee4f89959ec78b300cd27b1e1fd6e8a99a6813515624e4bc34e3f27b"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-pg-second-2026-11-04.log": {
+      "size": 4256,
+      "sha256": "24ba7133545b65634a82061798ca7716a4fd16f636178ed1e87ffefc2fa5f231"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-pg-third-2026-11-04.log": {
+      "size": 776,
+      "sha256": "62f6b7d3d4bd8471cbf557a3fa5f24ae31237ef40d141d9dde6d648cfc0154ea"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-project-policy-first-2026-11-04.log": {
+      "size": 7192,
+      "sha256": "acbae520ed83ec2bd5dfe228d90a50c629830a3f1237b784a03246c6b8698045"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-registration-export-first-2026-11-04.log": {
+      "size": 7328,
+      "sha256": "923738df8775cc498e393e7dac6eb9d99244fa22391d349914629c7fa881380c"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-restore-worker-committed-2026-11-04.log": {
+      "size": 948,
+      "sha256": "ebeb78cd6783cefb9735f81d61c9a3b98379b7d42f78bdefda7b8d2a06a49647"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-restore-worker-crash-final-2026-11-04.log": {
+      "size": 1408,
+      "sha256": "37b4b9cf4eb9fd712e777ffb407adae603fc193364bdbbbb10e10daa063de3e9"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-restore-worker-first-2026-11-04.log": {
+      "size": 3935,
+      "sha256": "335000d74b90f25ffe0c944503547bfa4fc99e3b4c4595c11ba86f33b919221e"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-session-hook-first-2026-11-04.log": {
+      "size": 580,
+      "sha256": "98f595df19e0a77f98b638ed453125508618a1899f6b9595818d3be9852a035f"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-session-hook-regression-2026-11-04.log": {
+      "size": 2465,
+      "sha256": "e4e84a4a3348797db32cb0286e4a22f17c6ac80dc7f8c2edc5153e63c7430cc0"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-source-boundary-fixed-2026-11-04.log": {
+      "size": 4804,
+      "sha256": "c664bfb0bb44425eea978607114af3d19a8b201e98afa6e2a6a1f8c75fe0accd"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/logs/company-events-unconfirmed-followup-2026-11-04.log": {
+      "size": 3222,
+      "sha256": "b106283b94e390a08dbbbe5d3127652e9c29d60d0734d965218fc1ab2454443f"
+    },
+    "docs/evidence/company-events-browser-2026-11-04/shared-browser-hooks.patch": {
+      "size": 24310,
+      "sha256": "d0b731b292097eba0367f353925e6a2d11dd2cefbca8052e2ac5fb2cdc3ed81b"
+    }
+  },
+  "merge_instructions": [
+    "Preserve current Source5/Opening/Assets OfficeApi, global hooks and E2E registrations; this tree baseline is4c2f008.",
+    "Keep existing await validator and post-await session generation + identical pending operation guard; new second argument is isolated original body.",
+    "Merge one dialogGeneration counter and all keep-options, never replace latest office.js wholesale.",
+    "Shared CI owner contribution is only company-events browser line; Backend owner handles remainder.",
+    "Backend/API/fixture and Native integration have separate owners and manifests."
+  ],
+  "limits": [
+    "No production deployment, real customer data, external model call, delivery or payment.",
+    "No claim of full goal completion or all-client release; root integration and native scope remain separate.",
+    "Real browser evidence uses local HTTP fixture; production TLS/origin validation is separate."
+  ],
+  "unresolved_findings_in_scope": [],
+  "commits_created": false
+}

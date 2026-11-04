@@ -1,0 +1,44 @@
+test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport (online.test_company_events_pg.CompanyEventsPostgres.test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport) ... ERROR
+test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending (online.test_company_events_pg.CompanyEventsPostgres.test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending) ... ERROR
+test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance (online.test_company_events_pg.CompanyEventsPostgres.test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance) ... ERROR
+
+======================================================================
+ERROR: test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport (online.test_company_events_pg.CompanyEventsPostgres.test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_company_events_pg.py", line 36, in setUp
+    journey.CustomerExecutionJourneyPostgres.setUp(self)
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_customer_execution_journey_pg.py", line 60, in setUp
+    release.secure_database(fixture.DSN, test_mode=True)
+  File "/workspace/smartplan-company-events-20261104/backend/online/release.py", line 194, in secure_database
+    raise ValueError('Unbekannte Funktionsownership zuerst prüfen.')
+ValueError: Unbekannte Funktionsownership zuerst prüfen.
+
+======================================================================
+ERROR: test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending (online.test_company_events_pg.CompanyEventsPostgres.test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_company_events_pg.py", line 36, in setUp
+    journey.CustomerExecutionJourneyPostgres.setUp(self)
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_customer_execution_journey_pg.py", line 60, in setUp
+    release.secure_database(fixture.DSN, test_mode=True)
+  File "/workspace/smartplan-company-events-20261104/backend/online/release.py", line 194, in secure_database
+    raise ValueError('Unbekannte Funktionsownership zuerst prüfen.')
+ValueError: Unbekannte Funktionsownership zuerst prüfen.
+
+======================================================================
+ERROR: test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance (online.test_company_events_pg.CompanyEventsPostgres.test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_company_events_pg.py", line 36, in setUp
+    journey.CustomerExecutionJourneyPostgres.setUp(self)
+  File "/workspace/smartplan-company-events-20261104/backend/online/test_customer_execution_journey_pg.py", line 60, in setUp
+    release.secure_database(fixture.DSN, test_mode=True)
+  File "/workspace/smartplan-company-events-20261104/backend/online/release.py", line 194, in secure_database
+    raise ValueError('Unbekannte Funktionsownership zuerst prüfen.')
+ValueError: Unbekannte Funktionsownership zuerst prüfen.
+
+----------------------------------------------------------------------
+Ran 3 tests in 4.577s
+
+FAILED (errors=3)

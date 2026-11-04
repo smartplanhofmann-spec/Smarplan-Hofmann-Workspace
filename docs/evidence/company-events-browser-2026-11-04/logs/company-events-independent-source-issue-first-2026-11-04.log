@@ -1,0 +1,14 @@
+test_scanner_without_finance_right_cannot_receive_hidden_document_identifier_in_issue (test_business_company_events_independent_review.CompanyEventIndependentReview.test_scanner_without_finance_right_cannot_receive_hidden_document_identifier_in_issue) ... FAIL
+
+======================================================================
+FAIL: test_scanner_without_finance_right_cannot_receive_hidden_document_identifier_in_issue (test_business_company_events_independent_review.CompanyEventIndependentReview.test_scanner_without_finance_right_cannot_receive_hidden_document_identifier_in_issue)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/test_business_company_events_independent_review.py", line 266, in test_scanner_without_finance_right_cannot_receive_hidden_document_identifier_in_issue
+    self.assertNotIn(document['id'], str(run))
+AssertionError: 'ac1ce5c2d8bf47d1aef07b218b5485af' unexpectedly found in "{'after': None, 'as_of': '2026-11-03', 'complete': False, 'identity': {'instance_id': 'd34d46f808bf426083f809cb96c78b9d'}, 'issues': [{'code': 'source_unavailable', 'cursor': '651901c3babe4bf79c8685b421b3c929:document.finalized:ac1ce5c2d8bf47d1aef07b218b5485af', 'status_code': 403}], 'items': [], 'limit': 100, 'next_after': None, 'scanned_count': 1, 'schema_version': 1, 'timezone': 'Europe/Berlin', 'id': '008bad5d1c124e938770aa9796df96f9', 'sha256': 'f3debaec0a764e6a164edf7ebd671bec01a1673de21268ac2c57a3109638c764', 'created_at': '2026-11-03T12:00:00+00:00', 'processing': {'items': []}}"
+
+----------------------------------------------------------------------
+Ran 1 test in 0.700s
+
+FAILED (failures=1)

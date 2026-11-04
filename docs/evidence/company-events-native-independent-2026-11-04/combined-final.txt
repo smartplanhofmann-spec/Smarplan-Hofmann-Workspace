@@ -1,0 +1,76 @@
+00:00 +0: loading /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart
+00:00 +0: /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart: actual auto hashes, rules, histories and original command receipts
+00:00 +1: /workspace/smartplan-company-events-20261104/app/test/business_company_event_contract_test.dart: actual auto hashes, rules, histories and original command receipts
+00:00 +2: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +3: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +4: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +5: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +6: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +7: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +8: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +9: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +10: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +11: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +12: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: contradictory accepted claim never renders a successful action in the native overview
+00:00 +13: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:00 +14: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:01 +15: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:01 +16: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:01 +17: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: assistant entry closes its private route when parent session is replaced
+00:01 +18: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:01 +19: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:01 +20: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:01 +21: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:01 +22: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:01 +23: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:01 +24: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:01 +25: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:02 +26: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:02 +27: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:02 +28: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:02 +29: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:02 +30: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan success cannot replace or erase a newly entered rule
+00:02 +31: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: 390px actual approval plan original and execution state
+00:02 +32: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: older plan error cannot replace or erase a newly entered rule
+00:02 +33: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: 390px actual external_unknown plan original and execution state
+00:02 +34: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: late approval success belongs to its original pending operation and preserves newer editor
+00:02 +35: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: late approval success belongs to its original pending operation and preserves newer editor
+00:02 +36: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: rule creation, history and scan all require explicit confirmations
+00:03 +37: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: late approval error belongs to its original pending operation and preserves newer editor
+00:03 +38: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: lost ACK survives closing page and repeats exact original body
+00:03 +39: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: lost ACK survives closing page and repeats exact original body
+00:03 +40: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: private rule draft is erased after background
+00:03 +41: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after session
+00:03 +42: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: private rule draft is erased after manager
+00:04 +43: /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: private rule draft is erased after manager
+00:04 +44: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after background
+00:04 +45: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after background
+00:04 +46: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after background
+00:04 +47: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after generation
+00:04 +48: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after generation
+00:04 +49: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after read
+00:04 +50: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan error discarded after read
+00:04 +51: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: late private plan success discarded after write
+00:04 +52: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:05 +53: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:05 +54: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:05 +55: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:05 +56: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:05 +57: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:06 +58: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:06 +59: /workspace/smartplan-company-events-20261104/app/test/business_company_events_http_test.dart: actual HTTP creates a bound rule, replays all lost ACKs, approves one plan and creates exactly one task
+00:06 +60: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after background
+00:06 +61: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after background
+00:07 +62: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after generation
+00:07 +63: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after generation
+00:07 +64: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after read
+00:08 +65: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after read
+00:08 +66: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after approve
+00:09 +67: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after approve
+00:09 +68: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval success never restores private page after module
+00:09 +69: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held approval error never restores private page after module
+00:09 +70: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after session
+00:09 +71: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after background
+00:10 +72: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after generation
+00:10 +73: /workspace/smartplan-company-events-20261104/app/test/business_company_events_test.dart: held authorization cannot start a new POST after approve
+00:10 +74: All tests passed!

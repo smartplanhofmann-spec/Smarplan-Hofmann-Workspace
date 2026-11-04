@@ -1,0 +1,9 @@
+test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport (online.test_company_events_pg.CompanyEventsPostgres.test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport) ... ok
+test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending (online.test_company_events_pg.CompanyEventsPostgres.test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending) ... ok
+test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance (online.test_company_events_pg.CompanyEventsPostgres.test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance) ... ok
+test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope (online.test_events_catalog_assets_source5_restore_pg.EventsCatalogAssetsSource5Restore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 63.308s
+
+OK

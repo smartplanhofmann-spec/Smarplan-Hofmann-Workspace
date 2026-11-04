@@ -1,0 +1,20 @@
+✔ independent initial event list success cannot cross other (31.327031ms)
+✔ independent initial event list error cannot cross other (1.200837ms)
+✔ independent initial event list success cannot cross project (2.010927ms)
+✔ independent initial event list error cannot cross project (0.73726ms)
+✔ independent initial event list success cannot cross session (0.61776ms)
+✔ independent initial event list error cannot cross session (0.422116ms)
+✔ independent held original loses project source permission: approval (5.402604ms)
+✔ independent held original loses project source permission: external_unknown (3.083602ms)
+✔ independent global source access does not substitute for revoked project rights (1.032073ms)
+✔ independent accepted decision after dialog replacement consumes exact receipt but cannot reopen plan (14.980943ms)
+✔ independent two lost decisions resolve only their own original operation and cannot reveal body in pending list (5.002371ms)
+✔ independent correctly hashed foreign plan receipt cannot acknowledge original operation (3.924938ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 182.333209

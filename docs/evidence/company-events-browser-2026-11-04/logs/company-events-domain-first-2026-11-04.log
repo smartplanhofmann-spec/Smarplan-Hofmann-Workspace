@@ -1,0 +1,33 @@
+test_approval_binds_source_rule_actor_and_one_real_task (test_business_company_events.CompanyEventTests.test_approval_binds_source_rule_actor_and_one_real_task) ... ok
+test_company_rule_is_not_responsible_project_permission (test_business_company_events.CompanyEventTests.test_company_rule_is_not_responsible_project_permission) ... ok
+test_company_scan_executes_two_projects_once_across_retries_rule_versions_and_days (test_business_company_events.CompanyEventTests.test_company_scan_executes_two_projects_once_across_retries_rule_versions_and_days) ... ok
+test_deny_wins_and_input_text_cannot_select_actions_or_change_scope (test_business_company_events.CompanyEventTests.test_deny_wins_and_input_text_cannot_select_actions_or_change_scope) ... ERROR
+test_native_final_document_send_requires_exact_event_claim_and_never_resends (test_business_company_events.CompanyEventTests.test_native_final_document_send_requires_exact_event_claim_and_never_resends) ... ok
+test_overdue_threshold_is_rechecked_without_daily_duplicate (test_business_company_events.CompanyEventTests.test_overdue_threshold_is_rechecked_without_daily_duplicate) ... ok
+test_source_change_needs_new_plan_while_old_decision_cannot_authorize (test_business_company_events.CompanyEventTests.test_source_change_needs_new_plan_while_old_decision_cannot_authorize) ... ok
+
+======================================================================
+ERROR: test_deny_wins_and_input_text_cannot_select_actions_or_change_scope (test_business_company_events.CompanyEventTests.test_deny_wins_and_input_text_cannot_select_actions_or_change_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/core.py", line 278, in insert_customer
+    self.db.execute("INSERT INTO customers VALUES(?,?,?,?,?,?,?,?,?,?,?)", (
+sqlite3.IntegrityError: UNIQUE constraint failed: customers.dedupe_key
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/test_business_company_events.py", line 88, in test_deny_wins_and_input_text_cannot_select_actions_or_change_scope
+    conversion=Inquiries(self.office).convert(self.owner,inquiry['id'],request(revision=inquiry['revision'],project_name='Synthetic inbound',customer=dict(name='Synthetic customer')))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/inquiries.py", line 520, in convert
+    customer_id = self.office.insert_customer(customer)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/smartplan-company-events-20261104/backend/core.py", line 283, in insert_customer
+    raise Problem(409, "Kunde mit diesem Namen und dieser Adresse existiert bereits; auch archivierte Kunden prüfen")
+core.Problem: (409, 'Kunde mit diesem Namen und dieser Adresse existiert bereits; auch archivierte Kunden prüfen')
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.633s
+
+FAILED (errors=1)

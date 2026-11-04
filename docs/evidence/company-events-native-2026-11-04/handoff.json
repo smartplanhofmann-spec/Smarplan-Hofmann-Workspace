@@ -1,0 +1,148 @@
+{
+  "frozen_at_utc": "2026-11-04T11:03:17.071257+00:00",
+  "tree": "/workspace/smartplan-company-events-20261104",
+  "baseline_commit": "4c2f0086b4a9979b7cbe9d261fc22a97cd046913",
+  "new_tests": 60,
+  "combined_tests": 149,
+  "analyzer_issues": 0,
+  "runtime_files": [
+    "app/lib/business_company_event_contract.dart",
+    "app/lib/business_company_events.dart",
+    "app/lib/business_session.dart",
+    "app/lib/business_assistant.dart"
+  ],
+  "test_files": [
+    "app/test/business_company_event_contract_test.dart",
+    "app/test/business_company_events_test.dart",
+    "app/test/business_company_events_http_test.dart"
+  ],
+  "shared_merge_files": [
+    "app/lib/business_session.dart",
+    "app/lib/business_assistant.dart"
+  ],
+  "unchanged_checked": [
+    "app/lib/api.dart",
+    "app/lib/business_widgets.dart"
+  ],
+  "backend_fixture_dependency": {
+    "paths": [
+      "docs/fixtures/company_events_2026.json",
+      "app/test/fixtures/company_events_2026.json"
+    ],
+    "sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20",
+    "owned_by": "overall_completion_review"
+  },
+  "files": [
+    {
+      "path": "app/lib/business_company_event_contract.dart",
+      "bytes": 23572,
+      "sha256": "977def401a70c4a11f240f6c2c8a15ce0b81756288b580e9bb16ca45f9b1c2e6",
+      "baseline_sha256": null
+    },
+    {
+      "path": "app/lib/business_company_events.dart",
+      "bytes": 50028,
+      "sha256": "7f05b2bb24bf34f8dfc1208683f4e0119425f55dd2a692528e81219ddfa60782",
+      "baseline_sha256": null
+    },
+    {
+      "path": "app/lib/business_session.dart",
+      "bytes": 100421,
+      "sha256": "7a063682878504f91dc2b1d366ae0e1525ede2dac0af2715c21c8e23a5ba5fac",
+      "baseline_sha256": "7c2252942c2f90a4b949138b209f7f4675e0a0af60a2c36c9ba3a9d3d3c5f5e6"
+    },
+    {
+      "path": "app/lib/business_assistant.dart",
+      "bytes": 57687,
+      "sha256": "f10901f07ad9a6a452fd321e0c01673edb3a488609023f4c14337af40f8e0e8d",
+      "baseline_sha256": "355ec2d966ae33088a5b011630d9f4f3702e9e0950df1e89bbae89db89b136ab"
+    },
+    {
+      "path": "app/test/business_company_event_contract_test.dart",
+      "bytes": 5956,
+      "sha256": "7021dd3c8400cb5f84007491415e4162f54d382c29d5e9eda1390be0a1ae2417",
+      "baseline_sha256": null
+    },
+    {
+      "path": "app/test/business_company_events_test.dart",
+      "bytes": 27551,
+      "sha256": "6e560817e0074321f412f7a084a414bbf0465ca952f1db730bd4bb425de4ebee",
+      "baseline_sha256": null
+    },
+    {
+      "path": "app/test/business_company_events_http_test.dart",
+      "bytes": 8791,
+      "sha256": "3f84f329756b1f8161cb406a270b079ef25ba8497a9739953e45fb53e2f643bd",
+      "baseline_sha256": null
+    },
+    {
+      "path": "docs/CRM_ERP_UNTERNEHMENSEREIGNISSE_NATIVE_2026-11-04.md",
+      "bytes": 11148,
+      "sha256": "3c8e1f1f245c6b7cd0248b1bac2ed0e67dfd4722f3aefdcd6f5c7db5cbf7448f",
+      "baseline_sha256": null
+    },
+    {
+      "path": "work/verification/company-events-native-baseline.json",
+      "bytes": 657,
+      "sha256": "57eff5bac54410a312554ced1e5a2a84320f06e12bb8fe83c2e8fef92a09e52a",
+      "baseline_sha256": null
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/analyze-final.txt",
+      "bytes": 96,
+      "sha256": "f35c92761711ec44fbbe44641c5d2f62aaf6d92851e334db8eba790ac6fc1bb1",
+      "baseline_sha256": null
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/regression-final.txt",
+      "bytes": 26664,
+      "sha256": "36379f85230846bc03135be8ee90a20155bc340c924fa5e3bc960bc694fb7f7d",
+      "baseline_sha256": null
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/regression-preflight-first.txt",
+      "bytes": 28958,
+      "sha256": "0f42f2f5abb862021b3a1a2a2d06d78edb8071c011405de4e4bf48aef2956daf",
+      "baseline_sha256": null
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/route-before.txt",
+      "bytes": 2383,
+      "sha256": "3cdc5dbc88eea31eb366e8eb22c659340d4c97e3605706381813182c47e54fb7",
+      "baseline_sha256": null
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/targeted-final.txt",
+      "bytes": 9896,
+      "sha256": "8a6431a5362aa3696dfed88eb685db7d6771fa8d8b569217f29d61b80146e1c3",
+      "baseline_sha256": null
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/targeted-first.txt",
+      "bytes": 4190,
+      "sha256": "6eabeb334261eff50da9bda78fa4d30776218037f61e2664cac893b59be32de9",
+      "baseline_sha256": null
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/status-fix-tests.txt",
+      "baseline_sha256": null,
+      "bytes": 10547,
+      "sha256": "6d4a0c6b26e2513dd1bee2004c5f5f7d470f25db1d08d9ba0270c70b7b9c157e"
+    },
+    {
+      "path": "docs/evidence/company-events-native-2026-11-04/status-fix-analyze.txt",
+      "baseline_sha256": null,
+      "bytes": 67,
+      "sha256": "65d389a9af2f04f6e6da6cff1e810a4ef17aa762ed5fc92fe1712b58d1210ff2"
+    }
+  ],
+  "previous_manifest_sha256": "9b737c632ad28623372a6b6d0d48c99247697239598e6460d54c94d2a6bff58f",
+  "status_fix_recheck": {
+    "own_tests": 60,
+    "analyzer_issues": 0,
+    "changed_runtime": [
+      "app/lib/business_company_event_contract.dart"
+    ],
+    "independent_review": "separate reviewer evidence"
+  }
+}

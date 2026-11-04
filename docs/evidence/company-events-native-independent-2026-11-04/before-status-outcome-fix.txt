@@ -1,0 +1,146 @@
+00:00 +0: loading /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart
+00:00 +0: unconfirmed original execution cannot be relabelled as succeeded without an outcome
+00:00 +0 -1: unconfirmed original execution cannot be relabelled as succeeded without an outcome [E]
+  Expected: throws <Instance of 'ApiException'>
+    Actual: <Closure: () => Map<String, dynamic>>
+     Which: returned {
+                       'action': 'document.email',
+                       'action_key': '5023cb0042d794818132bb0f89ed10ad1c18a5bbf2dced9f7ca1b360b4db9ae4',
+                       'context': {
+                         'project_id': '2f579081c0894d649b991395060f2a05',
+                         'sources': [
+                           {
+                             'data': {
+                               'due_date': '2026-11-17',
+                               'email_preview': {
+                                 'attachments': [
+                                   {
+                                     'filename': 'AN-2026-000001.pdf',
+                                     'media_type': 'application/pdf',
+                                     'sha256': '222f3008e565b34f57d2182f8bf560a10a01c460b5ec171f9c0e1c903a1001bb'
+                                   }
+                                 ],
+                                 'confirmation_required': true,
+                                 'document_id': '9c4c42dc85334c4c9bab3ed6d1c3b877',
+                                 'document_sha256': 'fe4f0ebc903b256a451d58e4e69aafd88c51c84fa7b408b1635274f852aa19b2',
+                                 'preview_sha256': '338c8a10327812f2da0b1c91cd3f83a15a6d2f552162613a1d60e53c27fa1ebf',
+                                 'recipient': 'customer@example.test',
+                                 'recipient_delivery_confirmed': false,
+                                 'sender': 'seller@example.test',
+                                 'sender_configured': false,
+                                 'subject': 'Angebot AN-2026-000001',
+                                 'text': 'Guten Tag,\n'
+                                   '\n'
+                                   'anbei erhalten Sie Angebot AN-2026-000001.\n'
+                                   '\n'
+                                   'Synthetic seller'
+                               },
+                               'id': '9c4c42dc85334c4c9bab3ed6d1c3b877',
+                               'issue_date': '2026-11-03',
+                               'kind': 'offer',
+                               'number': 'AN-2026-000001',
+                               'project_id': '2f579081c0894d649b991395060f2a05',
+                               'revision': 2,
+                               'status': 'final',
+                               'title': 'Synthetic offer',
+                               'totals': {
+                                 'by_kind': {
+                                   'labor': {'gross': '0.00', 'net': '0.00', 'tax': '0.00'},
+                                   'machine': {'gross': '0.00', 'net': '0.00', 'tax': '0.00'},
+                                   'material': {'gross': '0.00', 'net': '0.00', 'tax': '0.00'},
+                                   'service': {'gross': '59.50', 'net': '50.00', 'tax': '9.50'}
+                                 },
+                                 'gross': '59.50',
+                                 'labor_gross': '0.00',
+                                 'labor_net': '0.00',
+                                 'labor_tax': '0.00',
+                                 'material_gross': '0.00',
+                                 'material_net': '0.00',
+                                 'material_tax': '0.00',
+                                 'net': '50.00',
+                                 'payable': '59.50',
+                                 'tax': '9.50',
+                                 'tax_breakdown': [
+                                   {
+                                     'category': 'S',
+                                     'net': '50.00',
+                                     'rate': '19',
+                                     'reason': '',
+                                     'tax': '9.50'
+                                   }
+                                 ]
+                               }
+                             },
+                             'descriptor': {'id': '9c4c42dc85334c4c9bab3ed6d1c3b877', 'kind': 'document'},
+                             'sha256': 'e71f8bed64de42e6e8e69aa78f16f38043c8754bd820327217b9baac189e4e6a',
+                             'source_id': 'document:9c4c42dc85334c4c9bab3ed6d1c3b877'
+                           }
+                         ]
+                       },
+                       'event_id': '3632cc62d73600acbe0324678eb3b8e4',
+                       'event_sha256': '3632cc62d73600acbe0324678eb3b8e4c19b1fe767d4855e7efa2e834b9d80dd',
+                       'parameters': {'document_id': '9c4c42dc85334c4c9bab3ed6d1c3b877'},
+                       'policy': {
+                         'company_mode': 'approval',
+                         'matched_rules': [{'id': '372f4120dc55450ba3c298e767339e71', 'revision': 1}],
+                         'mode': 'approval',
+                         'project_policies': [],
+                         'reason': 'matched_rule',
+                         'responsible_id': '718670d81c5140cb8e9032805a2c5923',
+                         'rule_versions': [
+                           {
+                             'id': '372f4120dc55450ba3c298e767339e71',
+                             'revision': 1,
+                             'sha256': '141fb60896898e9fcaae46995dcbeaae5be9bd8281c998f4c772d25594aae92b'
+                           }
+                         ],
+                         'template': {},
+                         'uncheckable_rules': []
+                       },
+                       'preparation_error': null,
+                       'project_id': '2f579081c0894d649b991395060f2a05',
+                       'schema_version': 1,
+                       'id': 'e8a9ba01212e55f1afda4876f4c991a6',
+                       'sha256': 'e8a9ba01212e55f1afda4876f4c991a6592cfa4259aa858c88238a03045f6ae9',
+                       'created_at': '2026-11-03T12:00:00+00:00',
+                       'source_current': true,
+                       'status': 'succeeded',
+                       'can_execute': false,
+                       'blocked': null,
+                       'decision': {
+                         'plan_id': 'e8a9ba01212e55f1afda4876f4c991a6',
+                         'decision': 'approved',
+                         'plan_sha256': 'e8a9ba01212e55f1afda4876f4c991a6592cfa4259aa858c88238a03045f6ae9',
+                         'reason': 'Reviewed exact source, policy and action',
+                         'created_by': '718670d81c5140cb8e9032805a2c5923',
+                         'created_at': '2026-11-03T12:00:00+00:00'
+                       },
+                       'execution': {
+                         'plan_id': 'e8a9ba01212e55f1afda4876f4c991a6',
+                         'action_key': '5023cb0042d794818132bb0f89ed10ad1c18a5bbf2dced9f7ca1b360b4db9ae4',
+                         'domain_request_id': '3229659a396a4f32be3020088a6acfa2',
+                         'created_by': '718670d81c5140cb8e9032805a2c5923',
+                         'created_at': '2026-11-03T12:00:00+00:00'
+                       },
+                       'outcome': null
+                     }
+  
+  package:matcher                                                 expect
+  package:flutter_test/src/widget_tester.dart 473:18              expect
+  test/business_company_events_independent_review_test.dart 48:5  main.<fn>
+  
+00:00 +0 -1: project-only source withdrawal clears private editor while global rights remain
+00:01 +1 -1: project-only approve withdrawal clears private editor while global rights remain
+00:01 +2 -1: project write right disappearing during actor read prevents a fresh command
+00:01 +3 -1: older plan success cannot replace or erase a newly entered rule
+00:01 +4 -1: older plan error cannot replace or erase a newly entered rule
+00:02 +5 -1: late approval success belongs to its original pending operation and preserves newer editor
+00:02 +6 -1: late approval error belongs to its original pending operation and preserves newer editor
+00:03 +7 -1: private rule draft is erased after session
+00:03 +8 -1: private rule draft is erased after background
+00:03 +9 -1: private rule draft is erased after manager
+00:03 +10 -1: three pending operation kinds preserve distinct original bodies and reject crossed receipts
+00:03 +11 -1: Some tests failed.
+
+Failing tests:
+  /workspace/smartplan-company-events-20261104/app/test/business_company_events_independent_review_test.dart: unconfirmed original execution cannot be relabelled as succeeded without an outcome

@@ -1,0 +1,68 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Synthetischer ursprünglicher Anlass/. Input:
+
+'Ereignisplan · Aufgabe anlegen\n' +
+  '\n' +
+  'Freigabe und Ausführung binden genau diese Ereignisquelle, Regelstände und Zuständigkeit.\n' +
+  '\n' +
+  '×\n' +
+  'Freigabe offen\n' +
+  'Freigabe des exakten Ereignisplans fehlt.\n' +
+  'Konkreter Auftrag\tWert\n' +
+  'Aktion\tAufgabe anlegen\n' +
+  'Projekt\tSynthetic Workshop\n' +
+  'Zuständig\tSie\n' +
+  'Unternehmensregel\tFreigabe erforderlich\n' +
+  'Wirksame Entscheidung\tFreigabe erforderlich\n' +
+  'Beschreibung\tNur der fest gespeicherte Regeltext wird zur Aufgabe.\n' +
+  'Fällig am\tNicht angegeben\n' +
+  'Priorität\tnormal\n' +
+  'Titel\tSynthetische belegte Ereignisaufgabe\n' +
+  'Belegte Grundlage\n' +
+  'Belegtes Ereignis\tWert\n' +
+  'Auslöser\tÜberfällige Aufgabe\n' +
+  'Projekt\tSynthetic Workshop\n' +
+  'Abfragedatum\t04.11.2026\n' +
+  'Überfälligkeit in Tagen\t307\n' +
+  'Quellenstatus\ttodo\n' +
+  'Unveränderte Originalquelle ansehen\n' +
+  '\n' +
+  'Quellennachweis: c55ef48b5f357e46c269379e0b7dc769fd26c3f9d728627ceabb982d93bb7c7d\n' +
+  '\n' +
+  'Gebundene Regeln\n' +
+  '\n' +
+  'Unternehmensregel 7d7f957ebfc644699b1a731ff61700fe · Fassung 1 · 934999547794c78b67f49b64fddafb58ba711de06ddf0088fd18f77fabaa1d21\n' +
+  '\n' +
+  'Diesen Ereignisplan freigeben\n' +
+  'Ereignisplan ablehnen\n' +
+  'Zur Aktionsübersicht'
+
+    at Object.companyEventsFlow (/workspace/smartplan-company-events-20261104/web/office/tests/company-events-flow.cjs:22:12)
+    at async main (/workspace/smartplan-company-events-20261104/web/office/tests/e2e.cjs:131:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: [
+  'Failed to load resource: net::ERR_FAILED',
+  'Failed to load resource: net::ERR_FAILED'
+]
+Fixture log tail:
+ans HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/company-events/plans HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/company-events/plans HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/company-events/status HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/company-events/plans HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/company-events/plans/58ca82a604454f8a50ec5112daca03a8 HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/company-events/events/b4007614ecdfdc17a7989e523585d5cf HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/capabilities HTTP/1.1" 200 -
+127.0.0.1 - - [04/Nov/2026 11:14:44] "GET /api/v1/business/capabilities?project_id=cf8cec79d444490e8bb69dfef73e7dd4 HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

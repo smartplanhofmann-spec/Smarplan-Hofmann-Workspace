@@ -1,0 +1,127 @@
+{
+  "recorded_at_utc": "2026-11-04T10:30:52.332863+00:00",
+  "workspace": "/workspace/smartplan-company-events-20261104",
+  "reviewer_product_changes": [],
+  "owner_changed_since_red": [
+    "web/office/company-events.js",
+    "web/office/company-events-contract.js",
+    "docs/fixtures/company_events_2026.json"
+  ],
+  "independent_tests_unchanged_red_to_green": true,
+  "validation": {
+    "node_independent": {
+      "passed": 12,
+      "failed": 0
+    },
+    "node_combined": {
+      "passed": 32,
+      "failed": 0
+    },
+    "actual_browser": {
+      "passed": 3,
+      "failed": 0,
+      "sandbox_verified": true,
+      "business_mutations": 0
+    },
+    "syntax_checks": {
+      "files": 3,
+      "errors": 0
+    }
+  },
+  "reviewed_files": {
+    "web/office/company-events.js": {
+      "size": 29282,
+      "sha256": "76c80e5baba621f8c240c9b1cedf272ac09fcb636432fd5d91f54db006368b1a"
+    },
+    "web/office/company-events-contract.js": {
+      "size": 17921,
+      "sha256": "73d9ff6a46be4dfc99435c986f34bf04f894f79a28dcc1eb36ccbdf6b0794c76"
+    },
+    "web/office/office.js": {
+      "size": 344087,
+      "sha256": "c17ccb0ee306b0b5ffabdc65ab958b732ecd5206565c13846a78bbe85e7bc195"
+    },
+    "web/office/tests/company-events-independent-review.test.mjs": {
+      "size": 11819,
+      "sha256": "df216c165b16933af70ecee0cc9debd880c6fd601c2a4571f238a45d371c03e2"
+    },
+    "web/office/tests/company-events-independent-browser.cjs": {
+      "size": 3217,
+      "sha256": "f67f6a65c178257b62b0b4af0e5d5449fc546828b550b803a9d6366f3ea4797d"
+    },
+    "web/office/tests/company-events-independent-preload.cjs": {
+      "size": 459,
+      "sha256": "c78f90677a578956a78a7ea70c0ba735856a472b15490c026708a55876428855"
+    },
+    "web/office/tests/company-events-contract.test.mjs": {
+      "size": 3793,
+      "sha256": "6ae20db33104e17736322e5191002d020006d2a666c8c78e9ea69524f2952c37"
+    },
+    "web/office/tests/company-events-access.test.mjs": {
+      "size": 3924,
+      "sha256": "353b98af228b1c8af0f31c8ad92b99e5f8303cf24537e4c05b44c6b2fc8973b6"
+    },
+    "web/office/tests/company-events-session.test.mjs": {
+      "size": 4727,
+      "sha256": "15f5a8d40c49acdff024b59f0f7a8b234126e83680bb80336d6358a0b738163c"
+    },
+    "web/office/tests/e2e.cjs": {
+      "size": 46325,
+      "sha256": "22bf05642038d32642862dd58699208d0cac18464479d7b2c58da19f9a478873"
+    },
+    "web/office/tests/serve_fixture.py": {
+      "size": 33668,
+      "sha256": "de011d9487e919fc5e9670428c19e48c2e90e56c7d220ae21e3f8abfa4a10dc2"
+    },
+    "docs/fixtures/company_events_2026.json": {
+      "size": 262028,
+      "sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20"
+    }
+  },
+  "evidence_files": {
+    "docs/evidence/company-events-independent-2026-11-04/README.md": {
+      "size": 5253,
+      "sha256": "598dd3de6e2eae678cfd6005c25246963dd951a67fb81392e87e86d6d1f7ec6a"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/after-stale-error-fix-12.txt": {
+      "size": 1196,
+      "sha256": "8359c4cd75c4fd6cfd0222138e9fec616db68d161f51d79c925d828852e8c1ef"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/before-stale-error-fix.txt": {
+      "size": 5926,
+      "sha256": "8e6c73bb0a0a278763e195ae72d5a099d6dfdd2995973a2409a8f094fb5ee412"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/before-stale-error-hashes.json": {
+      "size": 752,
+      "sha256": "3b41bad9f36eac9225f3f5f34f8f7d44debd04c7eb2150734362f384f661bec4"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-context-results.json": {
+      "size": 327,
+      "sha256": "ecca23ba98be659006202ab801415df5580c4a5535b1d2ff41cbafa7011ea46a"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-dialog-error.png": {
+      "size": 141535,
+      "sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-dialog-success.png": {
+      "size": 141535,
+      "sha256": "c49a0daa7dcb822924634a021a819abd6fbf5ee0d30db66079ba3c9ab4458055"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-after/independent-project-error.png": {
+      "size": 177730,
+      "sha256": "60baad4519bb0e323422b8c8faddf92d3f0d13d33c4a92d983c0c7f8d830ab58"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/browser-during-owner-edit.txt": {
+      "size": 2324,
+      "sha256": "f75ee73b533c9735ffa40db4fe91557042d8ffce029b86d0ab94df617d4580b5"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/final-browser.txt": {
+      "size": 305,
+      "sha256": "02e5767a2da29402cb6fbd9d8f64cc1832a85be3fe58e2754788049e4f8e45e1"
+    },
+    "docs/evidence/company-events-independent-2026-11-04/final-node-32.txt": {
+      "size": 3038,
+      "sha256": "b459b49ccdfe3b5fc3a435f83e7cfe793fc26cb964f47a202b3afdd6475b42e1"
+    }
+  }
+}

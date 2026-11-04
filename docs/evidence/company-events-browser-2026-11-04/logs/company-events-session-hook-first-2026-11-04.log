@@ -1,0 +1,12 @@
+✔ original generated request id reaches async receipt validation; foreign valid acceptance preserves pending (38.058914ms)
+✔ validator gets isolated original-body copy; validator mutation cannot change later exact replay (1.648001ms)
+✔ late async validator cannot clear new-session operation with same key or receive its body (1.440048ms)
+✔ existing synchronous result-only validator still accepts and rejects without clearing failed operation (0.929199ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 167.348895

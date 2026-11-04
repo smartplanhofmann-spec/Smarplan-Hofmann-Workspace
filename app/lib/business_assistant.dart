@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'api.dart';
 import 'business_session.dart';
+import 'business_company_events.dart';
 import 'business_speech.dart';
 import 'business_widgets.dart';
 import 'design.dart';
@@ -1464,6 +1465,7 @@ class _BusinessAssistantPageState extends State<BusinessAssistantPage> {
       const Text(
         'Belegte Projektquellen, konkrete Aufträge und nachvollziehbare Unternehmensregeln.',
       ),
+      BusinessCompanyEventsEntry(session: widget.session),
       if (widget.session.projectId == null)
         DropdownButtonFormField<String>(
           initialValue: project,

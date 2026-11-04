@@ -86,6 +86,8 @@ def restore(source, active_dsn, target_dsn, *, privileged_operator=False, test_m
             sanitize_customer_workspace(office.db)
             from business_assistant import sanitize_after_restore as sanitize_assistant
             sanitize_assistant(office.db)
+            from business_company_events import sanitize_after_restore as sanitize_company_events
+            sanitize_company_events(office.db)
             from business_assistant_speech import sanitize_after_restore as sanitize_speech
             sanitize_speech(office.db)
             restore_id = uuid.uuid4().hex

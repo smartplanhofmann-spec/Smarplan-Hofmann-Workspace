@@ -1,0 +1,7 @@
+# Enger Nachtrag: angenommener Ausführungsanspruch ohne Ergebnis
+
+Der bereits abgeschlossene unabhängige Kontextreview und dessen `manifest.json` bleiben unverändert. Nach diesem Abschluss hat der Owner die tatsächliche Fixture `external_unconfirmed` ergänzt: `BaseException` nach gespeicherter Ausführungsannahme, exakte ursprüngliche Execute-Quittung, `execution` vorhanden, `status=unconfirmed`, `outcome=null`, `can_execute=false`. Dies ist eine gültige Annahme des ursprünglichen Auftrags; ein fachlicher Erfolg ist damit nicht bestätigt.
+
+Ein einziger unabhängiger UI-Gegenfall wurde an die bestehende Reviewdatei angehängt. Der frühere Dateiinhalt bleibt als bytegleich geprüfter Präfix erhalten (Länge und SHA im Addendum-Manifest). Der neue Fall liest die unveränderte tatsächliche `plan_after`-Antwort und die echte Execute-Replay-Quittung. Er bestätigt den deutlichen ungeklärten Status, keinen Erfolgstext, keinen Ausführungsbutton und null POSTs.
+
+**35/35 grün** im gezielten gemeinsamen Lauf, davon **13 eigene** (die früheren zwölf plus dieser Nachtrag). Alle drei Produktdateien, die Testdatei und die tatsächliche Fixture wurden vor/nach diesem Lauf auf Bytegleichheit geprüft. Die endgültigen Hashes stehen in `unconfirmed-addendum-manifest.json`. Dieser Nachtrag ändert keinen bisherigen Nachweis und keinen Produktcode durch den Reviewer. Der tatsächliche Browser-Kontextlauf des vorigen Reviewabschlusses bleibt der gesonderte Nachweis seiner drei ausgeführten Fälle; die neue ungeklärte Planansicht wurde hier mit dem unabhängigen UI-Host geprüft.

@@ -1,0 +1,15 @@
+test_verified_actual_project_cost_is_not_double_counted_by_event_threshold (test_business_company_events.CompanyEventTests.test_verified_actual_project_cost_is_not_double_counted_by_event_threshold) ... ERROR
+
+======================================================================
+ERROR: test_verified_actual_project_cost_is_not_double_counted_by_event_threshold (test_business_company_events.CompanyEventTests.test_verified_actual_project_cost_is_not_double_counted_by_event_threshold)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-20261104/backend/test_business_company_events.py", line 152, in test_verified_actual_project_cost_is_not_double_counted_by_event_threshold
+    reviewed=finance.review_receipt(self.owner,original['id'],request(revision=original['revision'],vendor='Synthetic supplier',
+                                                                               ~~~~~~~~^^^^^^^^^^^^
+KeyError: 'revision'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.725s
+
+FAILED (errors=1)

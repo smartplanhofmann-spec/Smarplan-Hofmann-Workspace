@@ -1,0 +1,187 @@
+diff --git a/web/office/office.css b/web/office/office.css
+index bc46fb7..67589ab 100644
+--- a/web/office/office.css
++++ b/web/office/office.css
+@@ -48,3 +48,5 @@
+ .purchase-change-workspace .table-scroll{max-width:100%;min-width:0;overflow-x:auto}.purchase-change-workspace table{min-width:780px;table-layout:auto}.purchase-change-workspace th,.purchase-change-workspace td{overflow-wrap:normal;word-break:normal;white-space:normal;min-width:90px}.purchase-change-workspace td:first-child{min-width:170px}.purchase-change-workspace .list-row{flex-wrap:wrap}
+ /* Payroll evidence stays legible inside nested cards on narrow screens. */
+ @media(max-width:560px){[data-payroll] .panel{padding:12px}[data-payroll] table{table-layout:fixed}[data-payroll] td,[data-payroll] th{overflow-wrap:anywhere;padding:10px 7px}}
++
++.company-events-workspace{min-width:0;overflow-wrap:anywhere}.company-events-workspace pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.8rem}.company-events-workspace .list-row{min-width:0}.company-events-workspace .assistant-hash{overflow-wrap:anywhere}.company-events-workspace [hidden]{display:none!important}@media(max-width:600px){.company-events-workspace .list-row{flex-wrap:wrap}.company-events-workspace .actions{flex-wrap:wrap}}
+diff --git a/web/office/office.js b/web/office/office.js
+index c1eeb7d..e2c429e 100644
+--- a/web/office/office.js
++++ b/web/office/office.js
+@@ -25,6 +25,7 @@ import {assetProvenanceUi} from './asset-provenance.js';
+ import {personnelWorkflowUi} from './personnel-workflow.js';
+ import {travelAllowancesUi} from './travel-allowances.js';
+ import {assistantUi} from './assistant.js';
++import {companyEventsUi,companyEventRights,companyEventPendingAuthorize} from './company-events.js';
+ import {payrollPendingAuthorize,payrollUi} from './payroll.js';
+ import {renderCompanyOverview} from './company-overview.js';
+ import {migrationPendingAuthorize,migrationsUi} from './migrations.js';
+@@ -946,6 +947,7 @@ export class OfficeApi {
+     try {
+       if(old&&key.startsWith('catalog-'))await catalogPendingAuthorize(this,{key,path});
+       if(old&&path.startsWith('/business/assistant/'))await assistantPendingAuthorize(this,{key,path});
++      if(old&&path.startsWith('/business/company-events/'))await companyEventPendingAuthorize(this,{key,path});
+       if(old&&path.startsWith('/business/payroll/cash/'))await payrollCashPendingAuthorize(this,{key,path});
+       if(old&&key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))await purchaseChangePendingAuthorize(this,{key,path});
+       if(old&&path.startsWith('/business/accounting/opening-balances'))await openingPendingAuthorize(this,{key,path});
+@@ -968,11 +970,11 @@ export class OfficeApi {
+       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
+       const result = await this.post(path, operation.body);
+       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
+-      if(operation.validate)await operation.validate(result);
++      if(operation.validate)await operation.validate(result,JSON.parse(JSON.stringify(operation.body)));
+       if(generation!==this.#generation||this.#pending.get(key)!==operation)throw new StaleSession();
+       this.#pending.delete(key); return result;
+     } catch (error) {
+-      const protectedAccounting=key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
++      const protectedAccounting=path.startsWith('/business/company-events/')||key.startsWith('catalog-')||path.startsWith('/business/accounting/opening-balances')||(key.startsWith('purchase-change-')&&/^\/business\/purchasing\/orders\/[a-f0-9]{32}\/(?:change-files|amendments|supplier-returns)$/.test(path))||path.startsWith('/business/bank/')||path.startsWith('/business/resource-custody/')||path.startsWith('/business/service/cases')||path.startsWith('/business/custom-fields/')||path==='/business/migrations'||path.startsWith('/business/migrations/')||path.startsWith('/business/company-handover/')||path.startsWith('/business/sales/')||path==='/business/inventory/counts'||path.startsWith('/business/inventory/counts/')||path.startsWith('/business/assistant/')||path.startsWith('/business/payroll/')||path.startsWith('/business/customer-workspace/')||path.startsWith('/business/personnel/')||path==='/business/accounting/euer/confirm'||path==='/business/finance/receipts'||/^\/business\/finance\/receipts\/[a-f0-9]{32}$/.test(path)||path==='/business/receipt-media'||/^\/business\/receipt-media\/[a-f0-9]{32}\/complete$/.test(path)||path==='/business/project-economics/confirm'||path==='/business/accounting/profile/confirm'||/^\/business\/accounting\/(?:components|refunds)\/(?:v2\/)?events\/[0-9a-f]{32}\/confirm$/.test(path);
+       const uncertainAccounting=protectedAccounting&&([403,404].includes(error.status)||error.status===409&&error.requestResolution!=='not_accepted');
+       if (generation===this.#generation && this.#pending.get(key)===operation && error instanceof ApiError && error.status >= 400 && error.status < 500 && error.status !== 423 && error.status !== 429 && !uncertainAccounting) this.#pending.delete(key);
+       throw error;
+@@ -1014,6 +1016,7 @@ const api = new OfficeApi();
+ const refundPendingSources=new Map();
+ const state = {financeTab:'payments',accounting:{tab:'events',payments:0,receipts:0,events:0,accounts:0},section:'overview', projectId:'', tab:'overview', user:null, projects:[], permissions:new Set(), globalPermissions:new Set(), capabilities:new Set(), features:new Set(), organization:null, openedHiddenSection:null, readonly:true, planning:{mode:'week',anchor:dateInput(),years:3}, render:0, urls:new Set(), deviceId:'browser-'+requestId()};
+ let root, main, shell, banner, modal;
++let dialogGeneration=0;
+ const has = permission => state.permissions.has(permission);
+ const canWrite = (permission,section=state.section) => has(permission) && !state.readonly && organizationModuleEnabled(section,state.organization);
+ const biz = path => '/business' + path;
+@@ -1080,6 +1083,10 @@ const assistantWorkspace=assistantUi({el,button,field,form,dialog,closeModal,pan
+   speechAvailable:()=>state.features.has('assistant_speech')&&state.capabilities.has('business_assistant_speech'),
+   userId:()=>state.user?.id,stamp:()=>`${api.generation}/${state.render}`});
+ 
++const companyEvents=companyEventsUi({el,button,field,form,dialog,closeModal,panel,rows,row,notice,table,api,biz,action,formatDate,requestId,updatePending,
++  stamp:()=>`${api.generation}/${state.render}/${dialogGeneration}`,projects:()=>state.projects,userId:()=>state.user?.id,
++  openTask:async(project,id)=>{await api.get(`/projects/${project}/tasks/${id}`);closeModal();openProject(project,'tasks');}});
++
+ function migrationsAllowed(){return state.user?.role==='owner'&&state.features.has('file_migrations')&&state.capabilities.has('business_migrations')&&['settings.manage','contacts.read','finance.read','documents.read'].every(right=>state.globalPermissions.has(right));}
+ const fileMigrations=migrationsUi({el,button,field,form,dialog,closeModal,panel,rows,row,notice,table,api,biz,query,action,mutation,
+   openProject:async projectId=>{const projects=collection(await api.get('/projects'));if(!projects.some(value=>value.id===projectId))throw new Error('Projektbezug ist nicht mehr freigegeben.');state.projects=projects;closeModal();openProject(projectId);},
+@@ -1182,7 +1189,7 @@ function form(title, fields, save, {description, submit='Speichern', after=()=>r
+   section.controls=controls; return section;
+ }
+ function dialog(title, content, description = '') {
+-  closeModal({keepWageInterruptions:content?.matches?.('[data-wage-interruptions]')===true,keepAnnualBasis:content?.matches?.('[data-payroll-annual-basis]')===true,keepOneOffCases:content?.matches?.('[data-payroll-oneoff-cases]')===true}); const previous=document.activeElement;
++  closeModal({keepWageInterruptions:content?.matches?.('[data-wage-interruptions]')===true,keepAnnualBasis:content?.matches?.('[data-payroll-annual-basis]')===true,keepOneOffCases:content?.matches?.('[data-payroll-oneoff-cases]')===true,keepCompanyEvents:content?.matches?.('[data-company-events]')===true}); const previous=document.activeElement;
+   const close=button('×',()=>closeModal(),'icon'); close.className='modal-close'; close.setAttribute('aria-label','Dialog schließen');
+   const box=el('section',{class:'modal',role:'dialog','aria-modal':'true','aria-label':title,tabIndex:-1},el('div',{class:'modal-head'},el('div',{},el('h2',{},title),description?el('p',{class:'muted'},description):null),close),content);
+   modal=el('div',{class:'modal-backdrop'},box); modal.previous=previous;
+@@ -1198,7 +1205,7 @@ function dialog(title, content, description = '') {
+   });
+   document.body.append(modal); box.focus(); return box;
+ }
+-function closeModal({keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false}={}) { if(modal) { if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
++function closeModal({keepWageInterruptions=false,keepAnnualBasis=false,keepOneOffCases=false,keepCompanyEvents=false}={}) { dialogGeneration++;if(modal) { if(!keepCompanyEvents&&modal.querySelector('[data-company-events]'))companyEvents.clear(); if(modal.querySelector('[data-accounting-openings]'))openingWorkspace.clear();if(modal.querySelector('[data-payroll]'))payrollWorkspace.clear({keepWageInterruptions,keepAnnualBasis,keepOneOffCases});const previous=modal.previous;modal.querySelectorAll('canvas').forEach(canvas=>canvas.disconnect?.());modal.remove();modal=null;previous?.focus(); } }
+ async function download(path,filename) { const blob=await api.binary(path),url=objectUrl(blob),link=el('a',{href:url,download:filename,rel:'noopener'}); document.body.append(link); link.click(); link.remove(); }
+ function jsonDownload(value,filename) { const link=el('a',{href:objectUrl(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),download:filename}); document.body.append(link); link.click(); link.remove(); }
+ function mutation(key,path,data,options) {
+@@ -1262,7 +1269,7 @@ async function startSession() {
+   if(!state.projects.some(project=>project.id===state.projectId))state.projectId='';
+   state.section='overview'; buildShell(); await refresh();
+ }
+-function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();photoUploads.clear();projectEconomics.clear();assistantWorkspace.clear();accountingEuer.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
++function endSession() { state.financeTab='payments';state.accounting={tab:'events',payments:0,receipts:0,events:0,accounts:0};api.clear();photoUploads.clear();projectEconomics.clear();assistantWorkspace.clear();companyEvents.clear();accountingEuer.clear();state.render++;state.projects=[];state.projectId='';state.metadata=null;state.employeeId=null;state.newTimeEntryId=null;state.permissions.clear();state.globalPermissions.clear();state.capabilities.clear();state.features.clear();state.organization=null;state.openedHiddenSection=null;state.readonly=true;state.planning={mode:'week',anchor:dateInput(),years:3};loginScreen(); }
+ function buildShell() {
+   root.replaceChildren(); shell=el('div',{class:'shell'});
+   const nav=el('nav',{class:'navigation','aria-label':'Hauptnavigation'},NAV.filter(([id])=>sectionAllowed(id)).map(([id,label,glyph])=>el('button',{type:'button',class:'nav-button','data-section':id,'aria-current':id===state.section?'page':undefined,onClick:()=>navigate(id)},el('span',{class:'nav-glyph','aria-hidden':'true'},glyph),label)));
+@@ -1288,6 +1295,7 @@ function updateDrawer() {
+ function networkState() { if(!banner)return;banner.replaceChildren(...(navigator.onLine?[]:[notice('Keine Internetverbindung. Browseränderungen werden erst nach bestätigter Serverantwort gespeichert. Dieses Fenster geöffnet lassen.','warn')])); }
+ function updatePending() { const button_=root?.querySelector('[data-pending-indicator]');if(button_){button_.hidden=api.pendingCount===0;button_.textContent=api.pendingCount+' Antwort'+(api.pendingCount===1?'':'en')+' offen';} }
+ function operationLabel(path) {
++  if(path.startsWith('/business/company-events/'))return 'Unternehmensereignisauftrag unverändert prüfen';
+   if(path===biz('/accounting/opening-balances/originals'))return 'Anfangsbestandsoriginal speichern';
+   if(path===biz('/accounting/opening-balances/confirm'))return 'Anfangsbestandsfassung bestätigen';
+   if(path==='/business/bank/accounts')return 'Bankkontozuordnung speichern';
+@@ -1390,6 +1398,7 @@ async function refresh() {
+     if(modal?.querySelector('[data-service-case],[data-resource-custody],[data-purchase-change]'))closeModal();
+     if(modal?.querySelector('[data-custom-fields]'))closeModal();
+     if(modal?.querySelector('[data-assistant-project]'))closeModal();
++    if(modal?.querySelector('[data-company-events]'))closeModal();
+     if(!state.features.has('assistant_workflow')||!has('assistant.use'))assistantWorkspace.clear();
+     const originDetail=modal?.querySelector('[data-asset-origin-detail]');
+     if(originDetail&&!assetOrigins.allowed(originDetail.getAttribute('data-asset-origin-detail')))closeModal();
+@@ -1404,7 +1413,7 @@ async function refresh() {
+ 
+ async function serviceView(){return el('div',{class:'stack'},heading('Kundenservice','Anliegen, Reklamationen und Wartung mit Zuständigkeit, Wiedervorlage und unveränderlichem Verlauf.'),await customerService.view({project_id:state.projectId||null}));}
+ 
+-async function assistantView(){return el('div',{class:'stack'},heading('Assistent','Belegte Projektquellen, konkrete Aufträge und nachvollziehbare Unternehmensregeln.'),await assistantWorkspace.view(state.projectId));}
++async function assistantView(){return el('div',{class:'stack'},heading('Assistent','Belegte Projektquellen, konkrete Aufträge und nachvollziehbare Unternehmensregeln.'),companyEventRights({features:[...state.features],capabilities:[...state.capabilities],permissions:[...state.globalPermissions],readonly:state.readonly}).read?panel('Unternehmensereignisse',el('p',{},'Regeln über betroffene Projekte, belegte Ereignisse und konkrete Freigaben.'),button('Unternehmensereignisse öffnen',()=>action(()=>companyEvents.open()),'primary')):null,await assistantWorkspace.view(state.projectId));}
+ 
+ async function overviewView() {
+   const data=await api.get(biz('/overview'));
+@@ -2752,7 +2761,7 @@ if(typeof document!=='undefined') {
+     addEventListener('online',networkState);addEventListener('offline',networkState);
+     matchMedia('(max-width:760px)').addEventListener('change',updateDrawer);
+     addEventListener('beforeunload',event=>{if(api.pendingCount){event.preventDefault();event.returnValue='';}});
+-    document.addEventListener('visibilitychange',()=>{if(document.hidden&&modal?.querySelector('[data-accounting-openings]'))closeModal();});
++    document.addEventListener('visibilitychange',()=>{if(document.hidden&&modal?.querySelector('[data-accounting-openings],[data-company-events]'))closeModal();});
+     addEventListener('pagehide',()=>endSession());
+   }
+ }
+diff --git a/web/office/tests/e2e.cjs b/web/office/tests/e2e.cjs
+index 28e15e1..503dc42 100644
+--- a/web/office/tests/e2e.cjs
++++ b/web/office/tests/e2e.cjs
+@@ -49,7 +49,7 @@ async function ready(page){await page.locator('main .loading').waitFor({state:'d
+ async function navigate(page,name){if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);}
+ async function main(){
+   const workflow=process.env.SMARTPLAN_BROWSER_WORKFLOW;
+-  assert.ok(workflow===undefined||['catalog-imports','accounting-openings','payroll-oneoff-cases','payroll-zero-account','payroll-annual-basis','payroll-wage-interruptions','payroll-calculation-cases','travel-v3','payroll-travel-tax-policies','payroll-entitlements','travel-allowances','payroll-statements','payroll-periods','purchase-changes','payroll-transition','bank-reconciliation','resource-custody','accessibility','privacy-cases','service','custom-fields','migrations','payroll-cash','company-handover','speech','sales','company-overview','inventory-counts','invoice-chain','payroll','assistant','personnel-workflow','asset-provenance','project-economics','accounting-allocation','accounting-components','accounting-refunds','accounting-capacity','accounting-refunds-v2','accounting-profile'].includes(workflow),'Unsupported targeted browser workflow');
++  assert.ok(workflow===undefined||['company-events','catalog-imports','accounting-openings','payroll-oneoff-cases','payroll-zero-account','payroll-annual-basis','payroll-wage-interruptions','payroll-calculation-cases','travel-v3','payroll-travel-tax-policies','payroll-entitlements','travel-allowances','payroll-statements','payroll-periods','purchase-changes','payroll-transition','bank-reconciliation','resource-custody','accessibility','privacy-cases','service','custom-fields','migrations','payroll-cash','company-handover','speech','sales','company-overview','inventory-counts','invoice-chain','payroll','assistant','personnel-workflow','asset-provenance','project-economics','accounting-allocation','accounting-components','accounting-refunds','accounting-capacity','accounting-refunds-v2','accounting-profile'].includes(workflow),'Unsupported targeted browser workflow');
+   const {chromium}=require('playwright');
+   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'smartplan-browser-e2e-')),readyFile=path.join(directory,'ready.json');
+   const screenshots=process.env.SMARTPLAN_BROWSER_SCREENSHOT_DIR||directory;
+@@ -57,7 +57,7 @@ async function main(){
+   try{
+     await fs.mkdir(screenshots,{recursive:true,mode:0o700});
+     const python=process.env.SMARTPLAN_BROWSER_TEST_PYTHON||'python3';
+-    server=spawn(python,[path.join(__dirname,'serve_fixture.py'),'--ready-file',readyFile,...(workflow==='speech'?['--synthetic-speech']:[]),...(['payroll-cash','travel-allowances','travel-v3'].includes(workflow)?['--synthetic-payroll-cash']:[]),...(['company-handover','payroll-cash','travel-allowances','travel-v3'].includes(workflow)?['--synthetic-handover']:[])],{env:{PATH:process.env.PATH,LANG:'C.UTF-8',TZ:'Europe/Berlin',PYTHONDONTWRITEBYTECODE:'1'},stdio:['ignore','pipe','pipe']});
++    server=spawn(python,[path.join(__dirname,'serve_fixture.py'),'--ready-file',readyFile,...(workflow==='speech'?['--synthetic-speech']:[]),...(workflow==='company-events'?['--synthetic-company-events']:[]),...(['payroll-cash','travel-allowances','travel-v3'].includes(workflow)?['--synthetic-payroll-cash']:[]),...(['company-handover','payroll-cash','travel-allowances','travel-v3'].includes(workflow)?['--synthetic-handover']:[])],{env:{PATH:process.env.PATH,LANG:'C.UTF-8',TZ:'Europe/Berlin',PYTHONDONTWRITEBYTECODE:'1'},stdio:['ignore','pipe','pipe']});
+     for(const stream of [server.stdout,server.stderr])stream.on('data',chunk=>{output=(output+chunk.toString()).slice(-15000);});
+     let fixture;
+     for(let index=0;index<300;index++){try{fixture=JSON.parse(await fs.readFile(readyFile,'utf8'));break;}catch(error){if(error.code!=='ENOENT')throw error;if(server.exitCode!==null)throw new Error('Fixture exited: '+output);await delay(50);}}
+@@ -127,6 +127,10 @@ async function main(){
+       await require('./payroll-calculation-cases-flow.cjs').payrollCalculationCasesFlow({page,context,navigate,ready,fixture,screenshots});
+       assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted payroll calculation cases workflow passed');return;
+     }
++    if(workflow==='company-events'){
++      await require('./company-events-flow.cjs').companyEventsFlow({page,context,navigate,ready,login,fixture,screenshots});
++      assert.deepEqual(pageErrors,[]);console.log('1 targeted company-events browser workflow passed');return;
++    }
+     if(workflow==='payroll-entitlements'){
+       await require('./payroll-entitlements-flow.cjs').payrollEntitlementsFlow({page,context,navigate,ready,fixture,screenshots});
+       assert.deepEqual(pageErrors,[],'browser runtime errors');console.log('1 targeted payroll entitlements workflow passed');return;
+diff --git a/web/office/tests/serve_fixture.py b/web/office/tests/serve_fixture.py
+index 70e87a2..aaf2324 100644
+--- a/web/office/tests/serve_fixture.py
++++ b/web/office/tests/serve_fixture.py
+@@ -356,6 +356,7 @@ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--ready-file', required=True, type=Path)
+     parser.add_argument('--port', type=int, default=0)
++    parser.add_argument('--synthetic-company-events', action='store_true', help='Bind only the disposable company event fixture')
+     parser.add_argument('--synthetic-speech', action='store_true', help='Inject the explicit test-only local speech transport')
+     parser.add_argument('--synthetic-handover', action='store_true', help='Bind only the disposable company archive fixture')
+     parser.add_argument('--synthetic-payroll-cash', action='store_true', help='Seed only the payroll workflow financial sources')
+@@ -381,7 +382,7 @@ def main():
+             ''')
+             metadata = seed(office, directory, payroll_cash=args.synthetic_payroll_cash)
+             fixture_key = Fernet.generate_key()
+-            if args.synthetic_handover:
++            if args.synthetic_handover or args.synthetic_company_events:
+                 from online.instance import bind
+                 from online.storage import Storage
+                 fixture_instance = uuid.uuid4().hex
+@@ -389,7 +390,7 @@ def main():
+                 bind(office, fixture_instance, '127.0.0.1', fixture_key, storage)
+                 metadata['handover_instance_id'] = fixture_instance
+             app = create_app(office=office, key=fixture_key, host='127.0.0.1',
+-                **({'storage':storage,'instance_id':fixture_instance} if args.synthetic_handover else {}))
++                **({'storage':storage,'instance_id':fixture_instance} if args.synthetic_handover or args.synthetic_company_events else {}))
+             original_unexpected = app.error_handler_spec[None][None][Exception]
+             def synthetic_exception_diagnostic(error):
+                 response = original_unexpected(error)

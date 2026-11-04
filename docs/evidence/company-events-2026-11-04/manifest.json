@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "baseline": "4c2f008",
+  "workspace": "/workspace/smartplan-company-events-20261104",
+  "status": "backend_browser_native_verified_target_integration_pending",
+  "no_production_contact": true,
+  "not_full_goal_completion": true,
+  "checks": {
+    "new_domain_http_independent": 40,
+    "combined_current_and_legacy": 75,
+    "packages": 16,
+    "counts_overlap": true,
+    "postgres": {
+      "passed": 3,
+      "seconds": 10.516,
+      "scope": "Guarded synthetic loopback PostgreSQL 55433, actual bound company, two connections, runtime immutability, native delivery, populated backup/restore; no production",
+      "cleanup": {
+        "databases": [
+          "smartplan_check"
+        ],
+        "other_connections": 0
+      }
+    },
+    "browser": {
+      "manifest": "docs/evidence/company-events-browser-2026-11-04.json",
+      "node_passed": 557,
+      "real_flows": [
+        "company-events",
+        "assistant"
+      ]
+    },
+    "native": {
+      "owner_manifest": "docs/evidence/company-events-native-2026-11-04/handoff.json",
+      "owner_tests_passed": 149,
+      "independent_manifest": "docs/evidence/company-events-native-independent-2026-11-04/manifest.json",
+      "independent_combined_passed": 74,
+      "independent_new_cases": 14,
+      "note": "Latest reader-only fix passed 60 owner and 14 independent cases; counts overlap, prior existing 89 cases unchanged."
+    },
+    "worker_instance_followup": {
+      "passed": 19,
+      "new_cli": 2,
+      "seconds": 6.66,
+      "scope": "Actual CLI with only DB constructor substituted by real temporary SQLite Office; source/domain actions and existing instance guard real; 7 existing event restore and 10 existing company isolation tests"
+    },
+    "packages_final_seconds": 5.862
+  },
+  "files": [
+    {
+      "path": "docs/evidence/company-events-2026-11-04/backend-domain-http-final.txt",
+      "sha256": "906a0360bde55a1f8792b0c20cea79557066a07f2a505928d6b205012ccec9d3",
+      "bytes": 8599,
+      "status": "passed",
+      "scope": "40/40 new and independent cases"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/backend-existing-gates-final.txt",
+      "sha256": "2adf4ba8483c2e495c87f3a1296a9b58103fcb4192f2ca3f5e5b8228243323c6",
+      "bytes": 15230,
+      "status": "passed",
+      "scope": "75/75 including actual loopback HTTP/TLS-SMTP and legacy assistant"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/packages-final.txt",
+      "sha256": "f8b9f5eb5e88454f80dc7fc9d0464be9a330598b8929baaf2aeba157ea7d0e08",
+      "bytes": 3603,
+      "status": "passed",
+      "scope": "16/16 actual source archives and import"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/original-approval-counterexample-first.txt",
+      "sha256": "3c2a6d71432d3cdc7f045c1711f47908d4016843cff5793172077e583ebb9951",
+      "bytes": 1206,
+      "status": "expected_failed_counterexample",
+      "scope": "Missing original approval receipt allowed actual effect before fix"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/restore-worker-fixture-first.txt",
+      "sha256": "335000d74b90f25ffe0c944503547bfa4fc99e3b4c4595c11ba86f33b919221e",
+      "bytes": 3935,
+      "status": "fixture_failure",
+      "scope": "Uncommitted native source setup; corrected caller transaction"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/gates-harness-first.txt",
+      "sha256": "d4100521a3e9e92bb40142fe7e69bd087ed81bc5ca11773d365bead692723b3a",
+      "bytes": 17136,
+      "status": "harness_failure",
+      "scope": "Loopback sandbox and wrong test imports; no product failure"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/gates-harness-second.txt",
+      "sha256": "4efa76fc7815400bc31a826535cfc972e30bd00ca4b0a1dec00c800113d6e394",
+      "bytes": 14524,
+      "status": "harness_failure",
+      "scope": "Missing business_tests import path"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/packages-harness-first.txt",
+      "sha256": "2551c558be149695cec73ebe8edbdb60c05f6d392a9a92c3e37fe0a35fc00e21",
+      "bytes": 4323,
+      "status": "harness_failure",
+      "scope": "Isolated backend interpreter link absent"
+    },
+    {
+      "path": "backend/business_company_events.py",
+      "sha256": "1cdf6d30aa3b2764cd5c036d9af55fd2a68c89e8cc6d671d4233a2c812ad2fdd",
+      "bytes": 60388
+    },
+    {
+      "path": "backend/company_event_sources.py",
+      "sha256": "61b3bbe6e82fad86679452a1ebb217e0a40644e7403d5e77d851222e1021bdbd",
+      "bytes": 14032
+    },
+    {
+      "path": "backend/company_event_worker.py",
+      "sha256": "7bc9bacba9bbad1f97a289680307c97893bad13412079cd86298a3e423354c8a",
+      "bytes": 1127
+    },
+    {
+      "path": "backend/test_business_company_events.py",
+      "sha256": "e05fbb61ee6d09aad0239bf497ad8242a75c585caf63792c80b394aa66c4999d",
+      "bytes": 15910
+    },
+    {
+      "path": "backend/test_company_event_restore_worker.py",
+      "sha256": "56aa55a8be9775a47acd8bae4a738a97eade244ca70719de8dabc585a68cc750",
+      "bytes": 9644
+    },
+    {
+      "path": "backend/test_company_event_registration.py",
+      "sha256": "dedaba1c5aed3959e91e1c0dde7033ca6f3589fc63a960e16d09664e1ef617bc",
+      "bytes": 4783
+    },
+    {
+      "path": "backend/online/test_company_events_http.py",
+      "sha256": "3b85f572581baa0b1d5fd002310ede8d4058e292a60d4030c0352b8da02efc4d",
+      "bytes": 5809
+    },
+    {
+      "path": "backend/online/test_company_events_pg.py",
+      "sha256": "78a8a7fdb04d6719f3bf99022c229dce6aec3d6a4326df4abce36a9f6c8c6230",
+      "bytes": 9684
+    },
+    {
+      "path": "scripts/process-company-events.py",
+      "sha256": "10338670e665fb436bb37c03ff045176fc7c2931bc1314f50c059036662a5504",
+      "bytes": 2110
+    },
+    {
+      "path": "scripts/generate-company-events-fixture.py",
+      "sha256": "8e4e8709179f97bbf496cad20a4af7fe5e3e4ad43b7fa8f5fd5a822df0e1bf9b",
+      "bytes": 5232
+    },
+    {
+      "path": "docs/fixtures/company_events_2026.json",
+      "sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20",
+      "bytes": 262028
+    },
+    {
+      "path": "app/test/fixtures/company_events_2026.json",
+      "sha256": "2b10534178c4efef9c6ea6ed69b626b675617b3da6e6d2168915d5394bc29f20",
+      "bytes": 262028
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/postgres-product-prefix-first.txt",
+      "sha256": "1feb377cee4f89959ec78b300cd27b1e1fd6e8a99a6813515624e4bc34e3f27b",
+      "bytes": 3786,
+      "status": "product_failure_fixed",
+      "scope": "New trigger-function name outside existing strict ownership prefix"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/postgres-fixture-second.txt",
+      "sha256": "24ba7133545b65634a82061798ca7716a4fd16f636178ed1e87ffefc2fa5f231",
+      "bytes": 4256,
+      "status": "fixture_failure_fixed",
+      "scope": "Actual instance marker required on restart; close own connection before restore"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/postgres-final.txt",
+      "sha256": "62f6b7d3d4bd8471cbf557a3fa5f24ae31237ef40d141d9dde6d648cfc0154ea",
+      "bytes": 776,
+      "status": "passed",
+      "scope": "3/3 actual concurrency, all table ACLs, native dunning, populated restore"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/worker-instance-first.txt",
+      "bytes": 1774,
+      "sha256": "a75c3b82082c3a770f7da7ae50945c0c901562e4bb8b327486ab2af9dca9bd96",
+      "status": "product_failure_fixed"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/worker-instance-final.txt",
+      "bytes": 4049,
+      "sha256": "376d6da6afc2e1b30bc43641f1246ad34a162e848cd6a18c12d9bc56e3b6dff5",
+      "status": "passed"
+    },
+    {
+      "path": "backend/test_company_event_worker_cli.py",
+      "bytes": 2846,
+      "sha256": "edad3a19553c2ec72e43103cca7c7610420cdaae37497ccf544249149b905070"
+    },
+    {
+      "path": "docs/evidence/company-events-2026-11-04/packages-client-handoff-final.txt",
+      "sha256": "cc26ce981603bf14097f4d63d1a3b835c57c4cbca627d766d22efb22c0a9c57e",
+      "bytes": 3603,
+      "status": "passed",
+      "scope": "16/16 final operator packages including all owner and independent client documents; 5.862s"
+    }
+  ],
+  "check_sequence_note": "The 75-case SQLite/HTTP and 16-package checks precede only a PostgreSQL guard-function prefix correction. All three actual PostgreSQL cases use the corrected function; fixtures were corrected without runtime security relaxation. Later CLI-only change invokes existing fixed instance/host guard before processing; 19 dedicated instance/restore/CLI cases passed. HTTP/fixtures unaffected."
+}

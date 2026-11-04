@@ -1,0 +1,19 @@
+test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport (online.test_company_events_pg.CompanyEventsPostgres.test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport) ... ok
+test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending (online.test_company_events_pg.CompanyEventsPostgres.test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending) ... ok
+test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance (online.test_company_events_pg.CompanyEventsPostgres.test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance) ... ok
+test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope (online.test_events_catalog_assets_source5_restore_pg.EventsCatalogAssetsSource5Restore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope) ... FAIL
+
+======================================================================
+FAIL: test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope (online.test_events_catalog_assets_source5_restore_pg.EventsCatalogAssetsSource5Restore.test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/smartplan-company-events-integration-20261104/backend/online/test_events_catalog_assets_source5_restore_pg.py", line 92, in test_populated_shared_restore_preserves_all_originals_and_requires_complete_financial_scope
+    f.call('POST', '/business/company-events/rules', payroll_fixture.req(
+  File "/workspace/smartplan-company-events-integration-20261104/backend/online/test_customer_execution_journey_pg.py", line 89, in call
+    self.assertEqual(response.status_code, status, (method, path, response.status_code))
+AssertionError: 409 != 200 : ('POST', '/business/company-events/rules', 409)
+
+----------------------------------------------------------------------
+Ran 4 tests in 31.279s
+
+FAILED (failures=1)

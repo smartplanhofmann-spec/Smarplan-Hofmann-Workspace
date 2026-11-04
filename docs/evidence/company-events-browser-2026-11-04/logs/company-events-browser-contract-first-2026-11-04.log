@@ -1,0 +1,18 @@
+✔ actual dispatcher company-event fixture: auto (36.539317ms)
+✔ actual dispatcher company-event fixture: approval (11.597159ms)
+✔ actual dispatcher company-event fixture: deny (7.318818ms)
+✔ actual dispatcher company-event fixture: project_approval (12.74057ms)
+✔ actual dispatcher company-event fixture: external_unknown (9.890259ms)
+✔ foreign fully valid run receipt cannot confirm original scan (1.494751ms)
+✔ changed original event, plan or source cannot pass preserved source hash (2.572502ms)
+✔ project-policy text and visible projection both bind unchanged historical original (2.68378ms)
+✔ large monetary conditions keep exact cents; money is never rounded (1.679619ms)
+✔ recomputed acceptance hash alone cannot replace the selected plan (2.68366ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 274.362181

@@ -4,7 +4,10 @@ Entwicklungsstand, keine Produktivfreigabe. Projekt:
 `/workspace/Smarplan-Hofmann-Workspace`, Branch `work`.
 Das vollständige Gesamtziel und die Abnahmen A–G bleiben bestehen.
 
-Aktueller gemeinsamer Nachweis: **Anfangssalden und Katalogoriginale auf Source4**
+Dieser Bericht hält historische Zwischenstände fest. Der fortgeschriebene
+[aktuelle Status](CRM_ERP_STATUS_AKTUELL.md) enthält die neueren Integrationen.
+
+Damals gemeinsamer Nachweis: **Anfangssalden und Katalogoriginale auf Source4**
 mit 1.565 bestandenen Backend-, 522 Node- und 1.118 Fluttertests sowie 16
 Paketprüfungen. [Prüfumfang, tatsächliche Restore-/Browserabläufe und Grenzen](CRM_ERP_ANFANGSSALDEN_KATALOG_GESAMTPRUEFUNG_2026-11-04.md).
 Source5, historische Anlagen und datierte Katalogpreise laufen getrennt weiter.

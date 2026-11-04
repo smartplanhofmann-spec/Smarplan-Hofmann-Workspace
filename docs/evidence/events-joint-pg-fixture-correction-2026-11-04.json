@@ -1,0 +1,8 @@
+{
+  "path": "backend/online/test_events_catalog_assets_source5_restore_pg.py",
+  "before_sha256": "eaa89ae07ed1c6df3238722ad27a6c8b20da26d5137ba7677f833b37d4274541",
+  "after_sha256": "96f72edf8f245f88b8240db67c90e2bdf1f3f2d85fb4e0783128802225415ea3",
+  "reason": "Initial added joint fixture omitted the required actual instance binding; real rule write correctly failed 409. Also corrected unused direct approval method to the existing decide API. Product sources unchanged. This online-only PG fixture is not imported by backend discovery or Flutter tests.",
+  "before_source": "events-joint-pg-fixture-first-2026-11-04.txt",
+  "first_log": "events-integrated-postgres-first-2026-11-04.txt"
+}

@@ -1,0 +1,19 @@
+{"case":"actual unconfirmed original with only projected status changed","sameExecution":true,"outcome":null,"readerAcceptedStatus":"succeeded","successLabel":"Erfolgreich ausgeführt","falseSuccessVisible":true,"errors":0}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: An original unconfirmed execution without outcome must not be rendered as successful
+
+true !== false
+
+    at file:///tmp/events-merge-status-review.mjs:65:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

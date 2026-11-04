@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+historical assets: actual MFA/HTTP Unicode identity, original and confirmation lost-ACK exact replay, finance pause, original SHA, unchanged pre-AfA EÜR, real AfA and counterposting, correction/void, delayed preview after close, mobile390 and fresh financial-read revocation passed
+1 targeted historical assets workflow passed

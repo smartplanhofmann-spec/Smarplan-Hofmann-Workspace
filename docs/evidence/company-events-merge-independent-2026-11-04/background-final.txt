@@ -1,0 +1,6 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+{"case":"held initial event list after actual DOM visibility handler","returnedToForeground":false,"response":"success","hidden":true,"dialogs":0,"privateErrorVisible":false}
+{"case":"held initial event list after actual DOM visibility handler","returnedToForeground":false,"response":"error","hidden":true,"dialogs":0,"privateErrorVisible":false}
+{"case":"held initial event list after actual DOM visibility handler","returnedToForeground":true,"response":"success","hidden":false,"dialogs":0,"privateErrorVisible":false}
+{"case":"held initial event list after actual DOM visibility handler","returnedToForeground":true,"response":"error","hidden":false,"dialogs":0,"privateErrorVisible":false}
+1 targeted company-events browser workflow passed

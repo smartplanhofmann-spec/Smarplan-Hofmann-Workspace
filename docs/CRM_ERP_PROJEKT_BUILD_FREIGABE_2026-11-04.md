@@ -2,19 +2,35 @@
 
 **Aktuell nach ausdrücklicher Zustimmung:** Upload erfolgreich. Der neue
 Branch `codex/testupdate-0.7-projects-20261104` enthält den Quellstand 0.13.0
-und nachfolgende gezielte CI-Korrekturen. Auf `112bc91` bestehen erneut
-1.621 Linux-App-Tests und der tatsächliche iOS-Simulatorbuild; Windows-App-Tests
-sind erfolgreich. Der anschließende lokale Python-Prüfschritt wird dem
-unterstützten Windows-Profil zugeordnet. Aktuelle EXE-/installierbare iPhone-
-Pakete sind noch nicht belegt. Die vorherigen ARM64-Runnerabbrüche sind durch
-den tatsächlich gestarteten Intel-Runner behoben.
+und nachfolgende gezielte CI-Korrekturen. Der tatsächliche Windows-Job auf
+`70b5cb28d2afa43e37715222e34ab62abd55db82` ist vollständig erfolgreich:
+1.593 App-Tests, drei echte PDF-Engine-Tests, 79 lokale Backendfälle ohne Skip,
+beide Releasepakete und deren natives Quell-/Dateimanifest geprüft.
+
+**[Windows-Online-Paket 0.13.0 herunterladen](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41929317907/artifacts/13372157359)**
+(21.831.095 Byte; GitHub-Artefakt 13372157359). Vollständig entpacken und
+smartplan_office.exe öffnen. Dieses Paket enthält keinen lokalen Pythonserver.
+[Metadaten und Digests beider Programme](evidence/project-native-ci-2026-11-04/windows-artifacts.json)
+und der [tatsächliche Windows-Lauf](evidence/project-native-ci-2026-11-04/current-windows.log)
+sind erhalten. Die ZIP-Inhaltsprüfung erfolgte im Windows-CI; die ZIP wurde in
+dieser Cloud nicht zusätzlich lokal entpackt. Die spätere lokale Geräteabnahme
+und der gemeinsame Serverabgleich sind weiterhin offen.
+
+Linux-App-/Backend-Gesamtlauf und echter Simulatorbuild sind erfolgreich.
+Der vollständige iPhone-Prüflauf fand drei Temp-Pfadfehler; die vier betroffenen
+Fixturestellen bestehen nach Korrektur unter einer reproduzierten Symlink-
+Tempumgebung. Der Browser-Einkaufsfallback ist gezielt nachgeprüft. Beide
+vollständigen Remote-Nachprüfungen stehen noch aus. 367 App-/Backend-Paketquellen
+sind bytegleich mit dem tatsächlichen Windows-Build; neuere Änderungen betreffen
+Tests und Nachweise. Ein installierbarer aktueller iPhone-Build ist noch offen.
 [Fortlaufender CI-Nachweis](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md).
 
 **Erste Veröffentlichung:** GitHub hat für `8e320bd` die
 [Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157732)
 und den [iPhone-Prüfbuild](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157953)
 automatisch gestartet. Die nachstehende Ablehnung ist der erhaltene Verlauf
-vor dieser Zustimmung. Fertige aktuelle Binärartefakte sind noch nicht belegt.
+vor dieser Zustimmung. Zu diesem ersten Zeitpunkt waren aktuelle Binärartefakte
+noch nicht belegt.
 
 ## Verlauf vor der Zustimmung
 

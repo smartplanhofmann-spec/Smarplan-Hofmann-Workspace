@@ -1,0 +1,64 @@
+{
+  "run_id": 41929317907,
+  "job_id": 126922201619,
+  "source_commit": "70b5cb28d2afa43e37715222e34ab62abd55db82",
+  "version": "0.13.0",
+  "job_result": "success",
+  "checks": {
+    "windows_flutter_tests": 1593,
+    "native_pdf_tests": 3,
+    "portable_backend_tests": 79,
+    "portable_backend_skips": 0,
+    "native_manifest_validation": "passed for local and online packages"
+  },
+  "artifacts": [
+    {
+      "id": 13372157359,
+      "name": "Smartplan-Office-Windows-Online-Pilot",
+      "size_in_bytes": 21831095,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13372157359",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13372157359/zip",
+      "expired": false,
+      "created_at": "2026-11-04T23:16:25Z",
+      "expires_at": "2026-11-18T23:16:23Z",
+      "updated_at": "2026-11-04T23:16:25Z",
+      "digest": "sha256:15218416a67c238dd46f2be07c4404b61c7e480efbc3e94d817194c541d85540",
+      "workflow_run": {
+        "id": 41929317907,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "70b5cb28d2afa43e37715222e34ab62abd55db82"
+      }
+    },
+    {
+      "id": 13372112787,
+      "name": "Smartplan-Office-Windows",
+      "size_in_bytes": 36119068,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13372112787",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13372112787/zip",
+      "expired": false,
+      "created_at": "2026-11-04T23:15:02Z",
+      "expires_at": "2026-11-18T23:14:59Z",
+      "updated_at": "2026-11-04T23:15:02Z",
+      "digest": "sha256:98eed85bd075115ad6041eade93f5f64ae18f99ccd9bdeb85c64b6d8916808d4",
+      "workflow_run": {
+        "id": 41929317907,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "70b5cb28d2afa43e37715222e34ab62abd55db82"
+      }
+    }
+  ],
+  "inspection": {
+    "github_download_reference_obtained": true,
+    "local_zip_inspection": false,
+    "manifest_verification": "executed by actual Windows CI native-release.py; see current-windows.log"
+  },
+  "remaining": [
+    "Shared server comparison/update",
+    "Actual device acceptance",
+    "Current signed iPhone distribution"
+  ]
+}

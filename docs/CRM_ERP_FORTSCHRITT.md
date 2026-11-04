@@ -2246,3 +2246,16 @@ die neue preisfreie Artikelreferenz-Fähigkeit. Dieser prüft jetzt sowohl die
 angebotene Referenzsuche als auch den vollständigen Legacy-Fallback, weiterhin
 ohne finanzielle Katalogabfragen. Der gesamte vorhandene Einkaufsablauf besteht
 gezielt im echten sandboxierten Chromium. Keine Produktänderung dafür.
+
+
+## 04.11.2026 – Windows 0.13.0 tatsächlich gebaut und veröffentlicht
+
+Windows-Job 126922201619 auf 70b5cb2 ist vollständig erfolgreich: 1.593 Appfälle,
+drei echte native PDF-Fälle und 79 portable Python-Backendfälle ohne Skip.
+Lokales und separates Onlineprogramm sind kompiliert und mit dem nativen
+Quell-/Dateimanifest validiert. Das Online-Artefakt 13372157359 ist tatsächlich
+verfügbar und im [aktuellen Buildstatus](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md)
+verlinkt. Eine zusätzliche lokale ZIP-Entpackprüfung oder Geräteabnahme wird
+nicht behauptet. 367 App-/Backend-Paketquellen sind gegenüber den folgenden
+reinen Fixture-/Prüfnachweiskorrekturen bytegleich. iPhone-Releaseprüfung,
+Serverabgleich und reale Geräteabnahme bleiben offen.

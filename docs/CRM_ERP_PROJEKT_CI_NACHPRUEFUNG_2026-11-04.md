@@ -99,5 +99,19 @@ sandboxiertem Chromium und Testbackend.
 [Quellhashes, Erstfehler und tatsächliche Nachläufe](evidence/project-native-ci-2026-11-04/platform-ci-preparation.json)
 liegen im Repository. Der macOS-Simulatorjob und der unsignierte iPhone-Job der
 fünften Runde wurden vor Zuteilung eines Runners abgebrochen; ein aktuelles
-iPhone-Artefakt liegt daraus nicht vor. Die Ursache der Runner-Abbrüche ist noch
-nicht belegt. Keine aktuelle Windows-/iPhone-Auslieferung wird behauptet.
+iPhone-Artefakt liegt daraus nicht vor. Keine aktuelle Windows-/iPhone-
+Auslieferung wird behauptet.
+
+Die nachfolgend gelesenen echten [GitHub-Annotations](evidence/project-native-ci-2026-11-04/mac-runner-annotations.json)
+benennen mehrfach ARM64-Kapazitätsengpässe und einen nicht zugeteilten Hosted
+Runner. Simulator und unsignierter iPhone-Prüfjob verwenden deshalb den in der
+[offiziellen Runnerliste](evidence/project-native-ci-2026-11-04/runner-images-available.md)
+ausgewiesenen Standardrunner `macos-26-intel`. Der signierte Uploadjob und seine
+ausdrückliche Freigabebedingung sind unverändert. Die tatsächliche Zuteilung
+und der Build müssen in der nächsten Runde bestätigt werden.
+
+Der vollständige Abgleich aller App-Prozessstarts fand zusätzlich zwei reine
+HTTP-Bibliotheken für Altposten und Altanlagen, die die POSIX-Fixture lediglich
+importieren. Auch sie tragen nun denselben Tag: insgesamt 25 Bibliotheken plus
+ein Einzelfall. Ihre beiden unveränderten echten HTTP-Abläufe bestehen unter
+Linux; portable lokale Backendtests bleiben ausdrücklich unmarkiert.

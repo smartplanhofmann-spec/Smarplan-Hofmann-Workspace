@@ -1,0 +1,4 @@
+00:00 +0: loading /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_open_items_http_widget_test.dart
+00:00 +0: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_open_items_http_widget_test.dart: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss
+00:39 +1: /workspace/Smarplan-Hofmann-Workspace/app/test/business_accounting_open_items_http_widget_test.dart: actual opening-item 390px HTTP original import, prior cents, two rest payments, lost ACK, EÜR, correction, void and access loss
+01:09 +2: All tests passed!

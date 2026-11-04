@@ -31,7 +31,7 @@ jobs:
   unsigned:
     name: Online-Release ohne Apple-Zugang pruefen
     if: github.ref == 'refs/heads/codex/smartplan-office-0.2' || startsWith(github.ref, 'refs/heads/codex/testupdate-0.7-')
-    runs-on: macos-latest
+    runs-on: macos-26-intel
     timeout-minutes: 60
     defaults:
       run:

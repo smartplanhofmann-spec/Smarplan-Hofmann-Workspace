@@ -1,0 +1,102 @@
+{
+  "126895596253": [
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/c437ddcd5ad3daf1fb89a6923aee57d1c664c11e/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "failure",
+      "title": "",
+      "message": "The job was not acquired by Runner of type hosted even after multiple attempts",
+      "raw_details": ""
+    },
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/c437ddcd5ad3daf1fb89a6923aee57d1c664c11e/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "notice",
+      "title": "",
+      "message": "Due to capacity constraints, jobs targeting macOS arm64 runners may experience longer queue times.",
+      "raw_details": ""
+    },
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/c437ddcd5ad3daf1fb89a6923aee57d1c664c11e/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "notice",
+      "title": "",
+      "message": "Due to capacity constraints, jobs targeting macOS arm64 runners may experience longer queue times.",
+      "raw_details": ""
+    },
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/c437ddcd5ad3daf1fb89a6923aee57d1c664c11e/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "notice",
+      "title": "",
+      "message": "Due to capacity constraints, jobs targeting macOS arm64 runners may experience longer queue times.",
+      "raw_details": ""
+    }
+  ],
+  "126894899265": [
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/c437ddcd5ad3daf1fb89a6923aee57d1c664c11e/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "failure",
+      "title": "",
+      "message": "The job was not acquired by Runner of type hosted even after multiple attempts",
+      "raw_details": ""
+    },
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/c437ddcd5ad3daf1fb89a6923aee57d1c664c11e/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "notice",
+      "title": "",
+      "message": "Due to capacity constraints, jobs targeting macOS arm64 runners may experience longer queue times.",
+      "raw_details": ""
+    },
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/c437ddcd5ad3daf1fb89a6923aee57d1c664c11e/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "notice",
+      "title": "",
+      "message": "Due to capacity constraints, jobs targeting macOS arm64 runners may experience longer queue times.",
+      "raw_details": ""
+    },
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/blob/c437ddcd5ad3daf1fb89a6923aee57d1c664c11e/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "notice",
+      "title": "",
+      "message": "Due to capacity constraints, jobs targeting macOS arm64 runners may experience longer queue times.",
+      "raw_details": ""
+    }
+  ]
+}

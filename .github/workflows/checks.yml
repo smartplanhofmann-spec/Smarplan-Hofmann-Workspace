@@ -346,7 +346,7 @@ jobs:
         include:
           - os: windows-latest
             command: flutter build windows --release
-          - os: macos-latest
+          - os: macos-26-intel
             command: flutter build ios --simulator --debug --dart-define=API_URL=https://office.smartplan-hofmann.de --dart-define=API_VERSION=v1
     runs-on: ${{ matrix.os }}
     defaults:

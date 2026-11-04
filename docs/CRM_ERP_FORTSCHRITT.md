@@ -2207,3 +2207,9 @@ POSIX-HTTP-Fall, 18 Backendfälle, vollständiger Chromium-Komponentenablauf und
 Analyse ohne Befunde bestanden. [Details und Belege](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md).
 Aktuelle native Binärartefakte, gemeinsamer Serverstand und Geräteabnahme stehen
 weiter aus; macOS-/iPhone-Jobs wurden vor Runner-Zuteilung abgebrochen.
+
+Die GitHub-Annotations bestätigen ARM64-Kapazitätsengpässe. Die unsignierten
+macOS-Prüfjobs verwenden nun den offiziell verfügbaren macos-26-intel-Runner;
+der signierte Upload bleibt unverändert. Zwei indirekt eingebundene POSIX-
+HTTP-Fixtures sind ebenfalls markiert und mit beiden echten Abläufen positiv
+nachgeprüft. Die tatsächlichen Builds bleiben bis zum CI-Ergebnis offen.

@@ -1,0 +1,49 @@
+{
+  "base_commit": "19640a49c51d737ce39cea91d09c57919bbe9e86",
+  "sources": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "sha256": "cdf6b356a57d577c8f21a798b3271a84f996d918dd3eade845f7c99749470402"
+    },
+    {
+      "path": ".github/workflows/ios-testflight.yml",
+      "sha256": "137b00c53e621856563a89aa50de795229bc87ffad93536d2732f98a370133b8"
+    },
+    {
+      "path": "app/test/business_accounting_open_items_http_widget_test.dart",
+      "sha256": "692742107ff23b6b36d60623e02a67f55f04ca14a58fa82f626563f6d2aecb8e"
+    },
+    {
+      "path": "app/test/business_accounting_historical_assets_http_widget_test.dart",
+      "sha256": "18bc4ad3214607422ec042fa038265812cafddffc0a9623dffc2cd35d45b72de"
+    }
+  ],
+  "proofs": [
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/posix-inherited-http.txt",
+      "sha256": "36fb361d8bbed4406aa7cca02fa6addd9cc2cdef855f57a2486826e2685a80f5"
+    },
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/mac-runner-annotations.json",
+      "sha256": "ab618a1e64cfd5028651ddd528c8cd69cf151e606d54e7841fe047a11be78c99"
+    },
+    {
+      "path": "docs/evidence/project-native-ci-2026-11-04/runner-images-available.md",
+      "sha256": "3892d1230dfdf80806302bfdf75a35853ac1870530a82f45418f97c66ebf52fb"
+    }
+  ],
+  "tests": {
+    "actual_inherited_HTTP": 2,
+    "result": "passed"
+  },
+  "runner_selection": {
+    "source": "https://raw.githubusercontent.com/actions/runner-images/main/README.md",
+    "label": "macos-26-intel",
+    "signed_job_unchanged": true
+  },
+  "final_posix_test_scope": {
+    "whole_libraries": 25,
+    "case_in_mixed_library": 1,
+    "two_portable_backend_libraries_retained": true
+  }
+}

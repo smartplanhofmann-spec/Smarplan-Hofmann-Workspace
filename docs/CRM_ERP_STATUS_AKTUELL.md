@@ -1,5 +1,10 @@
 # Aktueller Stand der CRM-/ERP-Entwicklung
 
+**Auslieferungsstand:** Lokale Version 0.13.0 ist geprüft. Der tatsächliche
+GitHub-Push für neue App-Builds wurde durch die automatische Freigabeprüfung
+vor Ausführung abgelehnt und wartet auf ausdrückliche Zustimmung zur externen
+Veröffentlichung. [Konkrete Aktion und Buildstatus](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md).
+
 Der aktuelle [Projekt-Integrationsstand 0.13.0](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)
 verbindet Kunden, Belege, Material, Zeiten und Navigation mit eigenen Prüfnachweisen.
 Aktuelle App-Builds, Serverabgleich und Geräteabnahme folgen als Auslieferungsschritt.

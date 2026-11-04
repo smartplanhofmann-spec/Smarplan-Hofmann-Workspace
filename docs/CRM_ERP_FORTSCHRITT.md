@@ -2129,3 +2129,14 @@ Version 0.13.0+130 und automatische iPhone-Buildnummer sind geprüft.
 Der lokale Quellblock ist abgeschlossen; aktuelle native Auslieferung,
 Serverabgleich und reale Geräteabnahme sind noch offen. Lohn und Buchhaltung
 bleiben gemäß Nutzerpriorität zurückgestellt.
+
+
+## 04.11.2026 – Lokaler Projektcheckpoint gesichert; Remote-Build wartet auf Zustimmung
+
+Produktcommit `35c5727` ist sauber im Hauptrepository integriert. Nach erfolgreichem
+Git-Dry-Run hat die automatische Freigabeprüfung den tatsächlichen Upload zum
+öffentlichen GitHub-Ziel vor der Ausführung abgelehnt: Die bisherige
+Entwicklungsfreigabe umfasst diese Veröffentlichung nicht ausdrücklich.
+[Zielbranch, Zweck und Umfang](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md)
+sind konkret dokumentiert. Kein Remote-Push, neuer Build, TestFlight-Upload oder
+Serverupdate ist erfolgt. Weitere externe Ausführung wartet auf Nutzerzustimmung.

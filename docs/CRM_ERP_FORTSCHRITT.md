@@ -2435,3 +2435,25 @@ und installierter Quellstand müssen jetzt mit lesenden Befehlen erfasst werden.
 [Beobachteter Status](evidence/project-update-forward-2026-11-05/observed-activation-failure.json).
 Der Cloud-Assistent hat keine direkten Serveraktionen ausgeführt; die
 Tatsachen stammen aus der vom Nutzer übermittelten SSH-Ausgabe.
+
+
+## 05.11.2026 – Parser-Startblockade bestätigt: Pillow 12.3.0 statt 13.0.0
+
+Die neue Nutzerausgabe bestätigt installierten Commit a93cb4d und /ready mit
+Datenbank ok, Schema 7 im Businessmodus. Der separate Parser verwendet Pillow
+12.3.0 statt der vom aktiven Quellstand verlangten 13.0.0; NumPy, OpenCV und
+pypdfium2 stimmen genau überein. Der unveränderte Sandbox-Starttest vergleicht
+alle Versionen mit dem Quell-Lock und verweigert daher den Start.
+[Erfasste Metadaten](evidence/project-update-forward-2026-11-05/confirmed-parser-package-mismatch.json).
+
+Die [manuelle Parser-Reparatur](CRM_ERP_PLANIMPORT_REPARATUR_0_13.md) ist konkret
+vorbereitet: Sperre und Aktivierungsbindung prüfen, nur Importdienst stoppen,
+Parser-Venv privat sichern, genau Pillow 13.0.0 ohne zusätzliche Paketänderungen
+installieren, pip check und tatsächlichen systemd-/Sandbox-Start ausführen.
+Keine API-/Datenbankumschaltung und kein Journalabschluss in diesem Block.
+Seine Shellsyntax wird geprüft; seine tatsächliche Ausführung ist nicht
+behauptet. Der Incident zeigt zugleich die noch offene Operatorlücke der
+getrennten Parser-Abhängigkeiten beim API-Update. Diese muss künftig vor der
+Aktivierung abgefangen werden; ein Bereitschaftssignal der API ersetzt den
+Parsertest nicht. Die neue Datenbank und alle möglichen neuen Schreibvorgänge
+werden weiterhin erhalten.

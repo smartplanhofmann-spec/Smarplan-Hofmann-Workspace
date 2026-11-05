@@ -1,0 +1,33 @@
+{
+  "source": "User screenshot of read-only API and package metadata checks",
+  "installed_source_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "readiness": {
+    "status": "ok",
+    "database": "ok",
+    "schema_version": 7,
+    "compatibility_mode": "business",
+    "version": "0.12.0-online-pilot"
+  },
+  "parser_packages": {
+    "numpy": {
+      "installed": "2.3.5",
+      "required": "2.3.5"
+    },
+    "opencv-python-headless": {
+      "installed": "4.13.0.92",
+      "required": "4.13.0.92"
+    },
+    "pillow": {
+      "installed": "12.3.0",
+      "required": "13.0.0"
+    },
+    "pypdfium2": {
+      "installed": "5.14.0",
+      "required": "5.14.0"
+    }
+  },
+  "confirmed_startup_blocker": "sandbox_probe rejects any installed parser dependency version differing from the installed source lock",
+  "other_possible_failures_excluded": false,
+  "repair_executed_by_cloud_assistant": false,
+  "pending_update_journal_cleared": false
+}

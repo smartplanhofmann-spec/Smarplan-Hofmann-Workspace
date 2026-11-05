@@ -1,3 +1,14 @@
+# Aktueller Befund: Parser-Pillow passt nicht zum aktivierten Quellstand
+
+Installierter A93-Commit und API-/Datenbankbereitschaft sind inzwischen vom
+Nutzer bestätigt. Der Parser besitzt Pillow 12.3.0 statt benötigter 13.0.0;
+die anderen drei gesperrten Parserpakete stimmen überein. Die konkrete
+[gesicherte Parser-Reparatur](CRM_ERP_PLANIMPORT_REPARATUR_0_13.md) ist vorbereitet.
+Die normale Sandboxprüfung bleibt aktiv. Der Vorgang ist noch nicht als
+erfolgreich abgeschlossen bestätigt; Journal und neue Datenbank bleiben bestehen.
+
+## Verlauf und bisherige Updatebefehle
+
 # Aktueller Stand: Aktivierungsgrenze überschritten, Planimport gestört
 
 Der Nutzer bestätigt nach dem erneuten Versuch den Abbruch **nach** der

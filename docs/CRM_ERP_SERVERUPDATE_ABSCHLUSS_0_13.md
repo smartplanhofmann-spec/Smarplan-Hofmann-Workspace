@@ -1,12 +1,23 @@
 # Kontrollierter Abschluss nach der Parserreparatur
 
+**Tatsächlich abgeschlossen:** Der Nutzer bestätigt am 05.11.2026 mit seiner
+SSH-Ausgabe die Prüfsumme des Helfers, erfolgreichen Abschluss auf a93cb4d,
+drei aktive Dienste, aktuelle Sandbox-/Datenbankbindung und aktiven
+Sicherungstimer. UPDATE_IN_PROGRESS ist entfernt; Journal und Sicherungen
+bleiben erhalten. [Erfasste Ausgabe](evidence/project-update-forward-2026-11-05/observed-update-completion-success.json).
+Der Cloud-Assistent hat den Server nicht direkt bedient. Keine erneute
+Ausführung ist für diesen Vorgang erforderlich. Kunden-/Gerätetests folgen
+separat; ein aktiver Sicherungstimer ist kein Nachweis eines neuen Backuplaufs.
+
+## Vorbereitung und Prüfungsumfang vor diesem Abschluss
+
 Der Nutzer bestätigt im tatsächlichen SSH-Terminal am 05.11.2026 um 20:23 UTC:
 Sandbox-Startprüfung bestanden, Importcontroller anschließend mehrfach idle,
 drei aktive Dienste und API-/Datenbankbereitschaft ok im Businessmodus mit
 Schema 7. Die Kennung 0.12.0-online-pilot ist die beibehaltene API-Kompatibilität.
 [Erfasster Befund](evidence/project-update-forward-2026-11-05/observed-parser-repair-success.json).
-Das ist noch kein Nachweis eines formal abgeschlossenen Updatejournals oder
-einer vollständigen Kunden-/Geräteabnahme.
+Dieser frühere Parserbefund allein belegte noch keinen formalen Updateabschluss
+und keine vollständige Kunden-/Geräteabnahme.
 
 Der vorbereitete [Abschlusshelfer](../deploy/hetzner/online/complete-online-update.py)
 wird mit dem installierten API-Python als root und einem ausdrücklich benannten
@@ -47,7 +58,8 @@ neu geprüft, ohne wieder eine Updatesperre anzulegen.
 Lokale Prüfungen: echte temporäre Dateien, Dateirechte, flock, atomare Schreib-
 und Fehlerpfade sowie ein echter synthetischer Prozess für die /proc-Bindung.
 Systemd, HTTP und Paketversionen bleiben in diesen Tests simulierte Grenzen.
-Die tatsächliche Ausführung des Abschlusshelfers auf dem Server ist noch offen.
+Die tatsächliche Ausführung war zu diesem Prüfstand noch offen; sie ist
+inzwischen durch die Nutzerausgabe am Dateianfang bestätigt.
 
 Gezielt sind 22 Fälle bestanden; der gesamte Operatorlauf besteht mit 82 Fällen
 ohne Skip in 231 Sekunden. [Prüfnachweis](evidence/project-update-forward-2026-11-05/forward-completion-verification.json).

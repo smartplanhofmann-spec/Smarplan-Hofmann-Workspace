@@ -3,9 +3,11 @@
 Der Nutzer bestätigt am 05.11.2026 um 20:23 UTC die bestandene Sandboxprüfung,
 anschließend mehrfach idle im aktuellen Importcontroller, drei aktive Dienste
 und API-/Datenbankbereitschaft ok. [Erfasster Befund](evidence/project-update-forward-2026-11-05/observed-parser-repair-success.json).
-Den nachstehenden Reparaturblock nicht erneut ausführen. Der noch offene
-[Updateabschluss](CRM_ERP_SERVERUPDATE_ABSCHLUSS_0_13.md) wird separat geprüft;
-die Datenbank wird nicht zurückgeschaltet.
+Den nachstehenden Reparaturblock nicht erneut ausführen. Der separate
+[Updateabschluss](CRM_ERP_SERVERUPDATE_ABSCHLUSS_0_13.md) ist inzwischen
+ebenfalls durch die tatsächliche SSH-Ausgabe bestätigt: drei Dienste und
+Sicherungstimer aktiv, aktuelle Sandbox-/Datenbankbindung geprüft und
+Aktivierungsmarker entfernt. Die Datenbank wurde nicht zurückgeschaltet.
 
 # Korrektur des Journalpfads im früheren Reparaturblock
 

@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-05",
+  "source": "User-provided screenshot of the real SSH terminal on smartplan-test; no direct cloud server request",
+  "screenshot_clock": {
+    "local_time": "21:55",
+    "timezone": "Europe/Berlin",
+    "precision": "minute; screenshot clock, not an exact execution timestamp"
+  },
+  "deployed_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "helper_source_commit": "f02e92ccecfce178ad8dc5b0b4372ae9e1ede9a0",
+  "helper_sha256": "8029f47114144924f496d280a6158d9c32d822701ed9131fb7a21c37c1210e91",
+  "helper_checksum_result": "OK",
+  "reported_completion": "Update kontrolliert abgeschlossen: a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "all_three_services_active": true,
+  "current_sandbox_verified": true,
+  "process_database_binding_verified": true,
+  "backup_timer": "active",
+  "update_in_progress_removed": true,
+  "journal_and_backups_retained": true,
+  "exact_update_id": null,
+  "exact_candidate_database_name": null,
+  "exact_parser_backup_path": null,
+  "scope": "Actual completion helper execution confirmed. Successful completion implies its documented live checks passed; private forward-verification.json was not directly read by the cloud assistant.",
+  "not_claimed": [
+    "A successful scheduled backup or restore on this server",
+    "Customer workflow acceptance in browser or Windows",
+    "Installable signed iPhone distribution",
+    "Completion of the entire CRM/ERP"
+  ]
+}

@@ -24,10 +24,12 @@ Er ist nicht installierbar. Der signierte TestFlight-Uploadjob blieb übersprung
 Die einzige folgende Quelländerung betrifft den Browser-Testhelfer; sämtliche
 Produktquellen bleiben bytegleich zum tatsächlich gebauten a93cb4d.
 [Reproduktion, Nachläufe und Quellbindung](evidence/project-browser-navigation-2026-11-05/verification.json).
-Laut den vom Nutzer übermittelten SSH-Ausgaben laufen Checkout und installierter
-Server noch auf **6371da1ec3641818b158ce3d3e132be674bc397e**. Beide Dienste
-sind aktiv, die Datenbank meldet ok, der Checkout ist sauber und rund 33 GB
-sind frei. Ein Serverupdate und eine gemeinsame Geräteabnahme stehen noch aus.
+Der Nutzer bestätigt inzwischen den [tatsächlichen Serverupdate-Abschluss](CRM_ERP_SERVERUPDATE_ABSCHLUSS_0_13.md)
+auf **a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5**: API, HTTPS und Importdienst
+sowie Sicherungstimer aktiv, aktuelle Sandbox und Datenbankzuordnung geprüft,
+Aktivierungsmarker entfernt. Der frühere Stand 6371da1e ist damit historisch.
+Die gemeinsame Browser-/Windows-Geräteabnahme und signierte iPhone-Verteilung
+stehen weiterhin aus. Die folgenden älteren Build-/Betriebsstände sind Verlauf.
 
 ## Vorheriger Buildstand und Verlauf
 

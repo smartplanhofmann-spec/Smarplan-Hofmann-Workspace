@@ -2509,3 +2509,33 @@ Socketverbindung und weiterhin netzlosem Testcontainer wird erneut geprüft.
 Die tatsächliche Ausführung des Abschlusshelfers und die Kunden-/Geräteabnahme
 sind noch nicht bestätigt. Die automatische Parser-Kompatibilitätsprüfung
 vor künftiger API-Aktivierung bleibt Entwicklungsarbeit.
+
+
+## 05.11.2026 – Kontrollierter Serverupdate-Abschluss tatsächlich bestätigt
+
+Die neue Nutzerausgabe aus dem realen SSH-Terminal bestätigt den ausgeführten
+Abschlusshelfer aus f02e92c mit passender SHA-256-Prüfsumme. Der installierte
+Stand a93cb4d ist kontrolliert abgeschlossen. Alle drei Dienste sind aktiv,
+aktuelle Sandbox und Prozess-/Datenbankbindung sind bestätigt; auch der
+Sicherungstimer ist aktiv. UPDATE_IN_PROGRESS ist entfernt. Journal,
+Originaldatenbank, Kandidatendatenbank, frühere Releases und Sicherungen
+werden durch diesen Helfer nicht gelöscht oder zurückgespielt.
+[Erfasster Abschluss](evidence/project-update-forward-2026-11-05/observed-update-completion-success.json).
+Die sichtbare Windows-Uhr zeigt 21:55 Uhr Europe/Berlin; das ist die
+Screenshotzeit mit Minutenauflösung und kein exakter Ausführungszeitstempel.
+
+Der erste Aufruf war wegen eines führenden Schrägstrichs vor bash vor jeder
+Ausführung abgebrochen. Nach Entfernung dieses Tippfehlers wird der feste
+Helfer abgerufen, seine Prüfsumme bestätigt und der Abschluss erfolgreich
+gemeldet. Der Cloud-Assistent hat den Server nicht direkt bedient und das
+private Prüfprotokoll nicht selbst gelesen. Ein aktiver Sicherungstimer
+belegt keinen neuen tatsächlich abgeschlossenen Backup-/Restorelauf.
+
+Aktuelle Anforderungs-, Plan-, Build- und Betriebsdokumente sind auf diesen
+bestätigten Zustand abgeglichen. Die Kundentestanleitung beginnt jetzt mit
+Browser und passendem Windows-Online-Paket; frühere Updatebefehle sind Verlauf.
+Die 20 tatsächlichen Gerätefälle werden unverändert nicht als bestanden
+markiert. Signierte iPhone-Verteilung und spätere iPhone-Abnahme bleiben offen.
+Diese Dokumentationsänderung verändert keinen Produktcode und erfordert
+keinen erneuten Serverrollout. Die automatische Parser-Kompatibilitätsprüfung
+vor zukünftigen API-Updates bleibt der nächste unabhängige Operatorpunkt.

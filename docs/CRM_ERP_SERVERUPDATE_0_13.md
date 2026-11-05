@@ -1,4 +1,19 @@
-# Aktueller Stand: Parser repariert, kontrollierter Updateabschluss vorbereitet
+# Aktueller Stand: Serverupdate kontrolliert abgeschlossen
+
+Der Nutzer bestätigt am 05.11.2026 im tatsächlichen SSH-Fenster den erfolgreichen
+Abschluss auf **a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5**: Alle drei Dienste
+und der Sicherungstimer sind aktiv, aktuelle Sandbox und Prozess-/Datenbankbindung
+sind geprüft, UPDATE_IN_PROGRESS ist entfernt. Journal und Sicherungen bleiben
+erhalten. Der fest gebundene Abschlusshelfer wurde vor Ausführung per SHA-256
+bestätigt. [Erfasster Abschluss](evidence/project-update-forward-2026-11-05/observed-update-completion-success.json).
+
+Keine weiteren Reparatur- oder Updatebefehle sind für diesen Vorgang nötig.
+Es folgt der [gemeinsame Browser-/Windows-Kundentest](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13.md).
+Die nachstehenden Befehle sind historischer Verlauf und keine Startanweisung.
+
+## Verlauf vor dem bestätigten Abschluss
+
+# Vorheriger Stand: Parser repariert, kontrollierter Updateabschluss vorbereitet
 
 Der Nutzer bestätigt um 20:23 UTC den bestandenen Sandbox-Starttest, den
 anschließend laufenden Importcontroller, drei aktive Dienste und Datenbank ok.

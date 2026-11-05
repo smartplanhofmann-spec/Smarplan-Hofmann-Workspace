@@ -46,7 +46,16 @@ async function login(page,email,recovery){
   await page.getByRole('heading',{name:'Guten Tag.',exact:true}).waitFor();return codes;
 }
 async function ready(page){await page.locator('main .loading').waitFor({state:'detached'});const errors=await page.locator('main [role=alert]').allTextContents();assert.deepEqual(errors,[]);}
-async function navigate(page,name){if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);}
+async function navigate(page,name){
+  // CSS can switch viewports before the application's media change event.
+  // Wait for the real drawer state before choosing desktop or mobile controls.
+  await page.waitForFunction(()=>{
+    const sidebar=document.querySelector('.sidebar'),shell=sidebar?.closest('.shell');
+    return !!shell&&sidebar.inert===(matchMedia('(max-width:760px)').matches&&!shell.classList.contains('menu-open'));
+  });
+  if(await page.locator('.sidebar').evaluate(sidebar=>sidebar.inert))await page.getByRole('button',{name:'Navigation öffnen',exact:true}).click();
+  await page.locator('.navigation').getByRole('button',{name,exact:true}).click();await ready(page);
+}
 async function main(){
   const workflow=process.env.SMARTPLAN_BROWSER_WORKFLOW;
   assert.ok(workflow===undefined||['time-tracking', 'accounting-open-items', 'company-events', 'catalog-prices', 'historical-assets', 'payroll-multiple-cases', 'catalog-imports', 'accounting-openings', 'payroll-oneoff-cases', 'payroll-zero-account', 'payroll-annual-basis', 'payroll-wage-interruptions', 'payroll-calculation-cases', 'travel-v3', 'payroll-travel-tax-policies', 'payroll-entitlements', 'travel-allowances', 'payroll-statements', 'payroll-periods', 'purchase-changes', 'payroll-transition', 'bank-reconciliation', 'resource-custody', 'accessibility', 'privacy-cases', 'service', 'custom-fields', 'migrations', 'payroll-cash', 'company-handover', 'speech', 'sales', 'company-overview', 'inventory-counts', 'invoice-chain', 'payroll', 'assistant', 'personnel-workflow', 'asset-provenance', 'project-economics', 'accounting-allocation', 'accounting-components', 'accounting-refunds', 'accounting-capacity', 'accounting-refunds-v2', 'accounting-profile', 'inventory-article-refs', 'project-customer', 'purchasing-catalog'].includes(workflow),'Unsupported targeted browser workflow');

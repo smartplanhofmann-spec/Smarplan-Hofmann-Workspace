@@ -1,0 +1,30 @@
+Controlled real drawer media event delay: 250 ms; phase=before
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+SMARTPLAN_BROWSER_FAILURE_BEGIN
+locator.click: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('button', { name: 'Navigation öffnen', exact: true })[22m
+
+    at navigate (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:49:172)
+    at async Object.projectCustomerFlow (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/project-customer-flow.cjs:101:5)
+    at async main (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/e2e.cjs:113:7)
+Browser launch context: {"browser":"/usr/lib/chromium/chromium","uid":1000,"apparmor_enabled":"unavailable","apparmor_profile":"kernel\u0000","apparmor_restrict_unprivileged_userns":"unavailable","unprivileged_userns_clone":"unavailable","max_user_namespaces":"71955"}
+Visible alerts: []
+Page errors: []
+Browser console errors: []
+Fixture log tail:
+ilities HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/overview HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/projects/422ac50d21d34aff97fe8da990e95978/profile HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/projects/422ac50d21d34aff97fe8da990e95978/profile HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/capabilities?project_id=422ac50d21d34aff97fe8da990e95978 HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/customer-workspace?project_id=422ac50d21d34aff97fe8da990e95978 HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/documents?project_id=422ac50d21d34aff97fe8da990e95978 HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/service-reports?project_id=422ac50d21d34aff97fe8da990e95978 HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/documents/498ab4ae38434abe92cd9a3f179dbc71 HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "POST /api/v1/business/documents/498ab4ae38434abe92cd9a3f179dbc71/convert HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/documents/dce6f17fa5a04a15b998b47c4da4d21b HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "POST /api/v1/business/documents/dce6f17fa5a04a15b998b47c4da4d21b/convert HTTP/1.1" 200 -
+127.0.0.1 - - [05/Nov/2026 06:28:28] "GET /api/v1/business/documents/9dc5dd75e14542b1be924935f5efeee6 HTTP/1.1" 200 -
+
+SMARTPLAN_BROWSER_FAILURE_END

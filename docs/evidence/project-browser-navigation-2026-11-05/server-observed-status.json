@@ -1,0 +1,41 @@
+{
+  "reported_via": "User-provided screenshots from SSH terminal",
+  "server": "office.smartplan-hofmann.de",
+  "ssh_prompt": "root@smartplan-test",
+  "checkout_commit": "6371da1ec3641818b158ce3d3e132be674bc397e",
+  "installed_source_commit": "6371da1ec3641818b158ce3d3e132be674bc397e",
+  "checkout_status": "HEAD (no branch), no changed paths listed",
+  "services": {
+    "smartplan-online.service": {
+      "ActiveState": "active",
+      "SubState": "running"
+    },
+    "smartplan-https.service": {
+      "ActiveState": "active",
+      "SubState": "running"
+    }
+  },
+  "health": {
+    "status": "ok",
+    "database": "ok",
+    "schema_version": 7,
+    "compatibility_mode": "business",
+    "version": "0.12.0-online-pilot"
+  },
+  "filesystem": {
+    "device": "/dev/sda1",
+    "size": "38G",
+    "used": "3.6G",
+    "available": "33G",
+    "used_percent": "10%",
+    "mountpoint": "/",
+    "paths_checked": [
+      "/opt/smartplan-online",
+      "/var/lib/postgresql"
+    ]
+  },
+  "interpretation": "Existing checkout and installed commit match. Clean detached checkout is expected for a pinned release. Health compatibility version is not an app version.",
+  "server_updated_by_assistant": false,
+  "actual_network_access_from_cloud": false,
+  "source_read_only_commit_metadata": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/commit/6371da1ec3641818b158ce3d3e132be674bc397e"
+}

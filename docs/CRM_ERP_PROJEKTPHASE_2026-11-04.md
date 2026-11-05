@@ -62,7 +62,7 @@ bleibt ein Ziel; die vollständige Fertigstellung wird nicht ungeprüft zugesagt
 Die genannten Korrekturen sind im [gemeinsamen Stand 0.13.0](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)
 integriert und mit abgegrenzten gemeinsamen Läufen nachgeprüft. Windows 0.13.0
 ist tatsächlich gebaut und als Online-Programm verfügbar; auch der unsignierte
-iPhone-Gerätebuild 167 ist erfolgreich. Die [Buildnachweise](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md)
+iPhone-Gerätebuild 168 ist erfolgreich. Die [Buildnachweise](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md)
 trennen diese Erfolge vom noch offenen signierten iPhone-Paket, dem
 Serverabgleich und der realen Gerätebedienung. Die [abschließenden lokalen Nachprüfungen](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md)
 sind abgeschlossen; die erneute Remote-CI auf a93cb4d läuft separat.

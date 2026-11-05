@@ -76,7 +76,7 @@ Die Quellkorrekturen der Pakete 1–4 sind im Projektstand 0.13.0 integriert und
 automatisch geprüft; ihre gemeinsame Geräteabnahme bleibt Bestandteil von 5.
 Der Windows-Teil von 5 ist mit tatsächlichen lokalen und Online-Releasepaketen,
 1.593 Windows-Appfällen, drei PDF-Engine-Fällen und 79 Backendfällen ohne Skip
-belegt. Die korrigierte macOS-Prüfung und der unsignierte iPhone-Build 167
+belegt. Die korrigierte macOS-Prüfung und der unsignierte iPhone-Build 168
 sind ebenfalls erfolgreich. Offen bleiben die installierbare signierte Verteilung,
 der nachgewiesene Serverabgleich und die gemeinsame Gerätefolge. [Nur lesende Serverbefehle und Geräteprotokoll](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13.md)
 sind vorbereitet. Kein laufender Server wurde bereits aktualisiert.

@@ -1,0 +1,165 @@
+{
+  "source_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "jobs": [
+    {
+      "id": 126973770962,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126973771095,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126973771153,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126973771183,
+      "name": "online-api",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126973771222,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126973771285,
+      "name": "business-services",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 126973771392,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126973771404,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "ios_jobs": [
+    {
+      "id": 126973771083,
+      "name": "Online-Release ohne Apple-Zugang pruefen",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126985875918,
+      "name": "Ausdruecklich angeforderten TestFlight-Upload ausfuehren",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13379710379,
+      "name": "Smartplan-Office-Windows-Online-Pilot",
+      "size_in_bytes": 21831088,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13379710379",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13379710379/zip",
+      "expired": false,
+      "created_at": "2026-11-05T01:12:32Z",
+      "expires_at": "2026-11-19T01:12:29Z",
+      "updated_at": "2026-11-05T01:12:32Z",
+      "digest": "sha256:327b951a4bcd43f5660ad8ff3a4c58eac2ea6097664df826ad161c506c09aa03",
+      "workflow_run": {
+        "id": 41944665296,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5"
+      }
+    },
+    {
+      "id": 13378876913,
+      "name": "Smartplan-Office-Windows",
+      "size_in_bytes": 36119066,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13378876913",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13378876913/zip",
+      "expired": false,
+      "created_at": "2026-11-05T01:11:08Z",
+      "expires_at": "2026-11-19T01:11:04Z",
+      "updated_at": "2026-11-05T01:11:08Z",
+      "digest": "sha256:bc763fe6e8cb0db179e6d3fb7e49dd5a98c6811e83303e553dac478d23c53d78",
+      "workflow_run": {
+        "id": 41944665296,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5"
+      }
+    },
+    {
+      "id": 13378418804,
+      "name": "Smartplan-UI-Previews",
+      "size_in_bytes": 1001298,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13378418804",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13378418804/zip",
+      "expired": false,
+      "created_at": "2026-11-05T01:03:32Z",
+      "expires_at": "2026-11-19T01:03:31Z",
+      "updated_at": "2026-11-05T01:03:32Z",
+      "digest": "sha256:0bb567098974fd796821b4ec1cd630829d1cf44b1f4e4356d7466716aec4c26b",
+      "workflow_run": {
+        "id": 41944665296,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5"
+      }
+    },
+    {
+      "id": 13377847692,
+      "name": "Smartplan-Windows-Start-und-Sicherung",
+      "size_in_bytes": 15455479,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13377847692",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13377847692/zip",
+      "expired": false,
+      "created_at": "2026-11-05T00:54:26Z",
+      "expires_at": "2026-11-19T00:54:25Z",
+      "updated_at": "2026-11-05T00:54:26Z",
+      "digest": "sha256:57802da35c03885381b5a486fb9f9ae14b7a2b81c7ae1237308142c4f853a93e",
+      "workflow_run": {
+        "id": 41944665296,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5"
+      }
+    },
+    {
+      "id": 13380230531,
+      "name": "Smartplan-Office-iOS-UNSIGNED-168",
+      "size_in_bytes": 14666899,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13380230531",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13380230531/zip",
+      "expired": false,
+      "created_at": "2026-11-05T01:24:18Z",
+      "expires_at": "2026-11-19T01:24:15Z",
+      "updated_at": "2026-11-05T01:24:18Z",
+      "digest": "sha256:b9b49ca01c33f72619097076d2fa7c25af1fee613c5e68b07a25cef0ee1040ca",
+      "workflow_run": {
+        "id": 41944665234,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5"
+      }
+    }
+  ],
+  "note": "The browser job failed at a viewport-transition race in its navigation helper. Other jobs succeeded; no green overall remote run claimed."
+}

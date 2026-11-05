@@ -1,0 +1,70 @@
+{
+  "baseline_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "change": "Wait for the real media-query/drawer state before selecting a desktop or mobile navigation control. No application, backend, CSS or sandbox changes.",
+  "deterministic_reproduction": {
+    "real_media_callback_delay_ms": 250,
+    "before_exit_code": 1,
+    "same_CI_failure": "Navigation \u00f6ffnen click times out after mobile-to-desktop transition",
+    "after_exit_code": 0,
+    "real_HTTP_forms_MFA_and_all_original_assertions_preserved": true
+  },
+  "ordinary_existing_workflows": {
+    "project-customer": {
+      "exit_code": 0
+    },
+    "company-overview": {
+      "exit_code": 0
+    },
+    "purchasing-catalog": {
+      "exit_code": 0
+    },
+    "accessibility": {
+      "exit_code": 0
+    }
+  },
+  "node": {
+    "passed": 856,
+    "failed": 0,
+    "skipped": 0
+  },
+  "tracked_code_changes": [
+    "web/office/tests/e2e.cjs"
+  ],
+  "all_product_sources_unchanged_from_successfully_built_A93": true,
+  "helper_sha256": "68a6adf4228fa4d41fae30838cd06566f2276b7273a5ddba814748bd83568181",
+  "driver_initial_errors": "The first driver attempt used the wrong root; the second retained the original main guard and ran no product tests. Neither is counted as a successful test. The final before/after receipts execute the actual main workflow.",
+  "proof_sha256": {
+    "before.txt": "89eb01af7656aefd59d84f4a28cd2dfe9ddedffe967fd9899c1d7ba3e9571f18",
+    "project-customer.txt": "bd380f2f498588f9af83086c9e547dc7cfacc8be916de4b22a38b5b8ea6c8597",
+    "after.txt": "714ea97c028151592146379ebedccb43b404b4af5990b9942bb6329e06c38506",
+    "ci-browser-a93.log": "a2b1cad7af6f377442578282aa736943b8cec8aad652a516e221294604c7e9c2",
+    "company-overview.txt": "620f022b946e7969aec0ee1abbae1b209e5caa4b4dc7675244fd8cd9028a0502",
+    "server-observed-status.json": "53bb361adabdbe826b1b9101b7f2dbbdbbc8dee80e84569bec98788bc8b6105e",
+    "drawer-race.cjs": "28365b82266272b843885ddbd7844ada06b40572fb561cf5fa11622e54881ce7",
+    "accessibility.txt": "1242ff389f9b1585aa0db3f51b6239534ccabca19fe26743526315620bb8eedf",
+    "driver-path-first-attempt.txt": "366780b487aa22ce201ca7c456f1912710ea88e011154c51792935610838987b",
+    "node-tests.txt": "45ed6f213c093633a9b8dfaed0af3ce4e7b07ef7c5e078ea8ad2a6134f3628d6",
+    "purchasing-catalog.txt": "fa3d9ead809ab48c767f2dbf906f82ce3e6103bc3958927d89d3cba0e9b487f8",
+    "ci-a93-status.json": "89615e020f6fe80c4e5f0bac5e2d6212585509a1cd5ab67be4be5f2541150397",
+    "before-screenshots/project-customer-invoice-draft-desktop.png": "08fd6949cc7038cdbf84126a18a46d369954e4674d187e6521b75d3e597b583c",
+    "before-screenshots/project-customer-invoice-draft-mobile.png": "18e2add7343886388dd0398c5d63ed5f53dbfe19e5f5519bb7b0ce9ad76da249",
+    "before-screenshots/project-customer-retry.json": "7e504f4f3744e189c2702e5f00282a54ee8c233133ddbbabadaaa05dca6738ae",
+    "before-screenshots/project-customer-http.json": "f5522524a94d19ea612daff2f87c59d6e076959b24d6a461fecfa6a1482907ea",
+    "project-customer-screenshots/project-create-retry-confirmed.png": "dae7cc6c30d48a8860c1309c04f2290c7de4f8b8f9939748291198b45b59c387",
+    "project-customer-screenshots/project-customer-invoice-draft-desktop.png": "08fd6949cc7038cdbf84126a18a46d369954e4674d187e6521b75d3e597b583c",
+    "project-customer-screenshots/project-customer-invoice-draft-mobile.png": "18e2add7343886388dd0398c5d63ed5f53dbfe19e5f5519bb7b0ce9ad76da249",
+    "project-customer-screenshots/project-customer-retry.json": "7a76648923588eb56dbf838d5b25f0108f6c3d83184e1783892f5207f05e1831",
+    "project-customer-screenshots/project-customer-http.json": "5d2830567bde67585f40f970a2b68d6e5041efe8ad12f52dbde6d1c73cab9f68",
+    "project-customer-screenshots/project-create-lost-response.png": "cb9a276d96c090f867c473d2126319248be873c045c8a60e534dfb25163395b3",
+    "after-screenshots/project-create-retry-confirmed.png": "dae7cc6c30d48a8860c1309c04f2290c7de4f8b8f9939748291198b45b59c387",
+    "after-screenshots/project-customer-invoice-draft-desktop.png": "08fd6949cc7038cdbf84126a18a46d369954e4674d187e6521b75d3e597b583c",
+    "after-screenshots/project-customer-invoice-draft-mobile.png": "18e2add7343886388dd0398c5d63ed5f53dbfe19e5f5519bb7b0ce9ad76da249",
+    "after-screenshots/project-customer-retry.json": "581e84d5266c94b571f761e0116431e9db870511ad8b729b9e399cd473844f27",
+    "after-screenshots/project-customer-http.json": "a2daf229fed1eefd9c7417b4091e8b226ee05b0733f68bc72824d2028a9e9f99",
+    "after-screenshots/project-create-lost-response.png": "cb9a276d96c090f867c473d2126319248be873c045c8a60e534dfb25163395b3",
+    "company-overview-screenshots/company-overview-mobile.png": "1270883ad330c2bcbf6bb9767ceb811a77ba25cdd3811a8ba06e5d562b9d9580",
+    "purchasing-catalog-screenshots/purchasing-catalog-desktop.png": "d7e979f28cbe12e36f53aec65a80c22d9d0e375ba7f5be6b33ad246ffae54b8b",
+    "purchasing-catalog-screenshots/purchasing-catalog-mobile.png": "dae46e3db21a4dd4df89b8849443c66933a0a2b2de9e921f670dd2fdcb76a388",
+    "accessibility-screenshots/accessibility-report.json": "7ea283fbcaa0ebfb4951e231e3a555104bd14f57658abf6345c6213b7d227a7b"
+  }
+}

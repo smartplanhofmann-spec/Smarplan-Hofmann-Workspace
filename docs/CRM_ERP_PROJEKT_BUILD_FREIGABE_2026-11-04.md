@@ -1,3 +1,36 @@
+# Neuester geprüfter Buildstand am 05.11.2026
+
+Auf **a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5** sind Windows, iPhone-
+Prüfbuild, iOS-Simulator, Linux-App, Backend, PostgreSQL-Online-API,
+Update/Recovery und HTTPS-Setup erfolgreich. Der Gesamtworkflow enthält
+weiterhin einen roten Browserjob wegen eines inzwischen lokal reproduzierten
+und korrigierten Navigations-Testhelfer-Rennens; eine grüne Remote-Gesamtprüfung
+wird nicht behauptet.
+
+**[Neuestes Windows-Online-Paket 0.13.0 herunterladen](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41944665296/artifacts/13379710379)**
+
+21.831.088 Byte; SHA-256
+`327b951a4bcd43f5660ad8ff3a4c58eac2ea6097664df826ad161c506c09aa03`.
+Vollständig entpacken und smartplan_office.exe öffnen. Die native Anwendung,
+der Backendstand und die Daten im ZIP sind nicht lokal auf einem Windowsgerät
+abgenommen; die Paketprüfung stammt aus dem tatsächlichen Windows-CI.
+
+Der neueste unsignierte iPhone-Gerätebuild ist **0.13.0 Build 168**,
+Artefakt 13380230531 mit 14.666.899 Byte und SHA-256
+`b9b49ca01c33f72619097076d2fa7c25af1fee613c5e68b07a25cef0ee1040ca`.
+Er ist nicht installierbar. Der signierte TestFlight-Uploadjob blieb übersprungen.
+[Jobstatus und vollständige Artefaktmetadaten](evidence/project-browser-navigation-2026-11-05/ci-a93-status.json).
+
+Die einzige folgende Quelländerung betrifft den Browser-Testhelfer; sämtliche
+Produktquellen bleiben bytegleich zum tatsächlich gebauten a93cb4d.
+[Reproduktion, Nachläufe und Quellbindung](evidence/project-browser-navigation-2026-11-05/verification.json).
+Laut den vom Nutzer übermittelten SSH-Ausgaben laufen Checkout und installierter
+Server noch auf **6371da1ec3641818b158ce3d3e132be674bc397e**. Beide Dienste
+sind aktiv, die Datenbank meldet ok, der Checkout ist sauber und rund 33 GB
+sind frei. Ein Serverupdate und eine gemeinsame Geräteabnahme stehen noch aus.
+
+## Vorheriger Buildstand und Verlauf
+
 # Aktueller Buildstatus: Windows gebaut, iPhone-Prüfbuild erfolgreich
 
 Stand 05.11.2026: Der ausdrücklich freigegebene Branch

@@ -1,0 +1,676 @@
+{
+  "reports": [
+    {
+      "name": "login",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [],
+      "passed_rules": 20
+    },
+    {
+      "name": "desktop:Übersicht",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22
+    },
+    {
+      "name": "desktop:Anfragen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19
+    },
+    {
+      "name": "desktop:Projekte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19
+    },
+    {
+      "name": "desktop:Kontakte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19
+    },
+    {
+      "name": "desktop:Einsatzplanung",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 24
+    },
+    {
+      "name": "desktop:Dokumente",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19
+    },
+    {
+      "name": "desktop:Finanzen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            [
+              ".tabs"
+            ]
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19
+    },
+    {
+      "name": "desktop:Material",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 24
+    },
+    {
+      "name": "desktop:Personal",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19
+    },
+    {
+      "name": "desktop:Assistent",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22
+    },
+    {
+      "name": "desktop:Kundenservice",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25
+    },
+    {
+      "name": "desktop:Einstellungen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25
+    },
+    {
+      "name": "desktop:Kontaktformular",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[data-section=\"overview\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"projects\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"contacts\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"planning\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"documents\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"material\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"personnel\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"assistant\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[data-section=\"service\"] > .nav-glyph[aria-hidden=\"true\"]"
+            ],
+            [
+              "#field-2990310f8fd440a2a63c68061b4a092b"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25
+    },
+    {
+      "name": "mobile:Übersicht",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 22
+    },
+    {
+      "name": "mobile:Kontakte",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19
+    },
+    {
+      "name": "mobile:Finanzen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": [
+            [
+              ".tabs"
+            ]
+          ]
+        },
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 19
+    },
+    {
+      "name": "mobile:Einstellungen",
+      "engine": {
+        "name": "axe-core",
+        "version": "4.14.0"
+      },
+      "violations": [],
+      "manual_review": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              ".icon"
+            ]
+          ]
+        }
+      ],
+      "passed_rules": 25
+    }
+  ],
+  "keyboard_trapped": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "focus_restored": true,
+  "limits": "Rendered sampled views only; no native-device or complete human accessibility approval"
+}

@@ -285,8 +285,11 @@ Der [gezielte vollständige Release-Lauf](evidence/project-native-ci-2026-11-04/
 besteht alle 23 Fälle. Die [korrigierte Provisionierungssuite](evidence/project-native-ci-2026-11-04/provisioning-final/result.json)
 besteht 22 Fälle mit einem ausdrücklichen UID-Akzeptanz-Skip; echte HTTP-Prozesse,
 MFA, Rollenabweichung, gebundene Ablage und Dump/Restore sind enthalten. Der
-längere vollständige Online-Business-Nachlauf läuft zum Zeitpunkt dieser
-Veröffentlichung noch und wird mit eigener Abschlussquittung ergänzt.
+längere vollständige Online-Business-Nachlauf ist abgeschlossen: alle 136 Fälle,
+der vollständige Finanz-Restorefall, die HTTPS-/MFA-/PDF-/Ablage-/Neustartkette
+und der echte TLS-Wartungsfall bestehen. Der ursprüngliche Provisionierungsfehler
+im kombinierten Lauf ist durch die separat erfolgreiche endgültige Suite
+nachgeprüft; der rote Erstlauf bleibt unverändert erhalten.
 
 
 [Abschlussmanifest mit Quellen, allen vollständigen Logs, Ausnahmen und Hashes](evidence/project-native-ci-2026-11-04/final/verification-summary.json)
@@ -307,3 +310,21 @@ Nachprüfung noch. [Gelesener Status mit Zeitpunkt](evidence/project-native-ci-2
 Eine grüne neue Remote-Gesamtprüfung wird nicht vorweggenommen. Die anschließende
 reine Nachweisdokumentation ändert keine Produktquelle und startet die laufenden
 Builds nicht erneut.
+
+
+## 05.11.2026 – Remote-Folgeergebnis und Viewport-Rennen des Browserhelfers
+
+Der Folgeworkflow auf a93cb4d besteht alle Jobs außer business-services.
+Auch der iPhone-Prüfjob ist erfolgreich (Build 168), sein signierter Upload
+bleibt übersprungen. Der Browserjob erreicht nach erfolgreichem Hauptablauf,
+Altposten, Wirtschaftlichkeit, Geräten, Personal, Reisen und Vertrieb die
+Kunden-/Projektkette und wartet nach einem Viewportwechsel auf eine bereits
+per CSS verborgene mobile Navigationsschaltfläche. Der Testhelfer hatte den
+vor dem echten Media-Callback noch alten inert-Zustand gelesen. Er wartet
+nun auf den realen Medien-/Drawerzustand; Produktcode und Assertions sind
+unverändert. Der Fehler ist mit 250 ms verzögertem echtem Callback im
+bestehenden vollständigen Kundenablauf reproduziert und anschließend
+geschlossen. Vier bestehende Bedienabläufe einschließlich 18 Accessibility-
+Ansichten sowie 856 Node-Fälle bestehen. [Vollständiger roter CI-Lauf, echter
+Serverstatus, Vorher/Nachher und Quellbindung](evidence/project-browser-navigation-2026-11-05/verification.json).
+Eine neue grüne Remote-Gesamtprüfung wird daraus nicht abgeleitet.

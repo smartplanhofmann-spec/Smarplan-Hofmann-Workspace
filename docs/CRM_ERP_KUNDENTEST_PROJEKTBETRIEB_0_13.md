@@ -52,6 +52,39 @@ Aktivierung der bestehenden Anlage werden nicht wiederholt; das spätere Update
 verwendet den vorhandenen geprüften Ablauf für eine getrennte Datenbankkopie.
 Die obigen Befehle lesen keine Passwörter, Token oder service.env-Datei.
 
+## Bestätigter Serverstand am 05.11.2026 und Quellvorbereitung
+
+Die vom Nutzer übermittelten SSH-Ausgaben bestätigen Checkout und installierten
+Stand `6371da1ec3641818b158ce3d3e132be674bc397e`, einen sauberen detached HEAD,
+aktive API-/HTTPS-Dienste, Datenbank ok im Businessmodus und etwa 33 GB freien
+Speicher. [Erfasster Status](evidence/project-browser-navigation-2026-11-05/server-observed-status.json).
+
+Der bereits tatsächlich gebaute Folgequellstand ist
+`a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5`. Sämtliche Server-, Windows-,
+iPhone-, Simulator-, Linux-App-, Update- und HTTPS-Jobs sind erfolgreich.
+Der Browserjob hatte einen reproduzierten und lokal korrigierten Testhelfer-
+Zeitablauf; eine grüne Remote-Gesamtprüfung wird nicht vorweggenommen.
+Die einzige folgende Codeänderung betrifft diesen Helfer; Produktquellen
+bleiben bytegleich. Diese Vorbereitung stellt ausschließlich den festen
+Quellstand im Checkout bereit. Die separate installierte Serverkopie wird
+durch den vorhandenen Updateablauf mit Sicherung, Kandidatendatenbank und
+Wartungsfenster umgeschaltet.
+
+Im bereits verbundenen SSH-Fenster:
+
+```bash
+cd /opt/smartplan-test &&
+git fetch origin codex/testupdate-0.7-projects-20261104 &&
+git switch --detach a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5 &&
+git status --short --branch
+```
+
+Bei diesem Stand verbleibt der Server bis zur ausdrücklichen koordinierten
+Umschaltung auf seiner zuvor installierten Version. Vor einer Umschaltung
+unbekannte lokale Änderungen oder einen fehlgeschlagenen Quellabruf zuerst
+prüfen; keine Dateien blind verwerfen. Der Cloud-Assistent hat auf dem Server
+keinen dieser Befehle selbst ausgeführt.
+
 ## Gemeinsame Bedienfolge
 
 1. **Kunde und Projekt:** Im Browser einen Testkunden mit vollständiger

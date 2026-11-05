@@ -1,0 +1,503 @@
+[
+  {
+    "path": "/api/v1/business/contacts",
+    "body": {
+      "name": "Projektfluss Kundin",
+      "entity_type": "company",
+      "kinds": [
+        "customer"
+      ],
+      "contact": "",
+      "email": "projektfluss@example.test",
+      "phone": "",
+      "address": "Prüfstraße 8, 10115 Berlin",
+      "notes": "",
+      "addresses": [
+        {
+          "purpose": "billing",
+          "label": "",
+          "street": "Prüfstraße 8",
+          "postal_code": "10115",
+          "city": "Berlin",
+          "country": "DE"
+        }
+      ],
+      "request_id": "9e063efed8274990894a0e1402831621"
+    },
+    "rawBody": "{\"name\":\"Projektfluss Kundin\",\"entity_type\":\"company\",\"kinds\":[\"customer\"],\"contact\":\"\",\"email\":\"projektfluss@example.test\",\"phone\":\"\",\"address\":\"Prüfstraße 8, 10115 Berlin\",\"notes\":\"\",\"addresses\":[{\"purpose\":\"billing\",\"label\":\"\",\"street\":\"Prüfstraße 8\",\"postal_code\":\"10115\",\"city\":\"Berlin\",\"country\":\"DE\"}],\"request_id\":\"9e063efed8274990894a0e1402831621\"}",
+    "status": 201,
+    "value": {
+      "active": true,
+      "address": "Prüfstraße 8, 10115 Berlin",
+      "addresses": [
+        {
+          "city": "Berlin",
+          "country": "DE",
+          "id": "bfcb8050ec34483bb59861f6b6cb833d",
+          "label": "",
+          "postal_code": "10115",
+          "purpose": "billing",
+          "street": "Prüfstraße 8"
+        }
+      ],
+      "contact": "",
+      "created_at": "2026-11-05T05:28:27+00:00",
+      "email": "projektfluss@example.test",
+      "entity_type": "company",
+      "erased_at": null,
+      "id": "f48260b1109e4de186271c93c1197527",
+      "kinds": [
+        "customer"
+      ],
+      "name": "Projektfluss Kundin",
+      "notes": "",
+      "persons": [],
+      "phone": "",
+      "revision": 1,
+      "tags": [],
+      "updated_at": "2026-11-05T05:28:27+00:00"
+    }
+  },
+  {
+    "path": "/api/v1/business/contacts/f48260b1109e4de186271c93c1197527",
+    "body": {
+      "name": "Projektfluss Kundin",
+      "entity_type": "company",
+      "kinds": [
+        "customer"
+      ],
+      "contact": "",
+      "email": "projektfluss@example.test",
+      "phone": "+49 30 123456",
+      "address": "Prüfstraße 8, 10115 Berlin",
+      "notes": "",
+      "addresses": [
+        {
+          "id": "bfcb8050ec34483bb59861f6b6cb833d",
+          "purpose": "billing",
+          "label": "",
+          "street": "Prüfstraße 8",
+          "postal_code": "10115",
+          "city": "Berlin",
+          "country": "DE"
+        },
+        {
+          "purpose": "delivery",
+          "label": "",
+          "street": "Lieferstraße 20",
+          "postal_code": "10117",
+          "city": "Berlin",
+          "country": "DE"
+        }
+      ],
+      "revision": 1,
+      "request_id": "95beb6f60f2c46aea565ca710fd7a6d4"
+    },
+    "rawBody": "{\"name\":\"Projektfluss Kundin\",\"entity_type\":\"company\",\"kinds\":[\"customer\"],\"contact\":\"\",\"email\":\"projektfluss@example.test\",\"phone\":\"+49 30 123456\",\"address\":\"Prüfstraße 8, 10115 Berlin\",\"notes\":\"\",\"addresses\":[{\"id\":\"bfcb8050ec34483bb59861f6b6cb833d\",\"purpose\":\"billing\",\"label\":\"\",\"street\":\"Prüfstraße 8\",\"postal_code\":\"10115\",\"city\":\"Berlin\",\"country\":\"DE\"},{\"purpose\":\"delivery\",\"label\":\"\",\"street\":\"Lieferstraße 20\",\"postal_code\":\"10117\",\"city\":\"Berlin\",\"country\":\"DE\"}],\"revision\":1,\"request_id\":\"95beb6f60f2c46aea565ca710fd7a6d4\"}",
+    "status": 200,
+    "value": {
+      "active": true,
+      "address": "Prüfstraße 8, 10115 Berlin",
+      "addresses": [
+        {
+          "city": "Berlin",
+          "country": "DE",
+          "id": "bfcb8050ec34483bb59861f6b6cb833d",
+          "label": "",
+          "postal_code": "10115",
+          "purpose": "billing",
+          "street": "Prüfstraße 8"
+        },
+        {
+          "city": "Berlin",
+          "country": "DE",
+          "id": "9453b3b2497f426ab4eff4a282f423fe",
+          "label": "",
+          "postal_code": "10117",
+          "purpose": "delivery",
+          "street": "Lieferstraße 20"
+        }
+      ],
+      "contact": "",
+      "created_at": "2026-11-05T05:28:27+00:00",
+      "email": "projektfluss@example.test",
+      "entity_type": "company",
+      "erased_at": null,
+      "id": "f48260b1109e4de186271c93c1197527",
+      "kinds": [
+        "customer"
+      ],
+      "name": "Projektfluss Kundin",
+      "notes": "",
+      "persons": [],
+      "phone": "+49 30 123456",
+      "revision": 2,
+      "tags": [],
+      "updated_at": "2026-11-05T05:28:27+00:00"
+    }
+  },
+  {
+    "path": "/api/v1/projects",
+    "body": {
+      "name": "Projektfluss Vorhaben",
+      "customer_id": "f48260b1109e4de186271c93c1197527",
+      "request_id": "0f5dee04967a45448ad9a64c03b6facb"
+    },
+    "rawBody": "{\"name\":\"Projektfluss Vorhaben\",\"customer_id\":\"f48260b1109e4de186271c93c1197527\",\"request_id\":\"0f5dee04967a45448ad9a64c03b6facb\"}",
+    "status": 201,
+    "value": {
+      "id": "0c796231a0d64d239f9593a022595b13"
+    }
+  },
+  {
+    "path": "/api/v1/business/documents",
+    "body": {
+      "project_id": "0c796231a0d64d239f9593a022595b13",
+      "kind": "offer",
+      "title": "Projektfluss Angebot",
+      "issue_date": "2026-11-05",
+      "due_date": "2026-11-05",
+      "intro": "",
+      "notes": "",
+      "positions": [
+        {
+          "description": "Projektleistung",
+          "quantity": "2",
+          "unit": "HUR",
+          "unit_price_net": "50",
+          "price_base_quantity": "1",
+          "tax_rate": "19",
+          "kind": "service"
+        }
+      ],
+      "request_id": "448cdc9bbdc34143ae92e11280a1ef70"
+    },
+    "rawBody": "{\"project_id\":\"0c796231a0d64d239f9593a022595b13\",\"kind\":\"offer\",\"title\":\"Projektfluss Angebot\",\"issue_date\":\"2026-11-05\",\"due_date\":\"2026-11-05\",\"intro\":\"\",\"notes\":\"\",\"positions\":[{\"description\":\"Projektleistung\",\"quantity\":\"2\",\"unit\":\"HUR\",\"unit_price_net\":\"50\",\"price_base_quantity\":\"1\",\"tax_rate\":\"19\",\"kind\":\"service\"}],\"request_id\":\"448cdc9bbdc34143ae92e11280a1ef70\"}",
+    "status": 200,
+    "value": {
+      "buyer": {
+        "address_line": "Prüfstraße 8",
+        "city": "Berlin",
+        "contact_name": "",
+        "country": "DE",
+        "email": "projektfluss@example.test",
+        "endpoint_id": "",
+        "endpoint_scheme": "",
+        "name": "Projektfluss Kundin",
+        "postal_code": "10115",
+        "vat_id": ""
+      },
+      "buyer_reference": "",
+      "currency": "EUR",
+      "customer_id": "f48260b1109e4de186271c93c1197527",
+      "due_date": "2026-11-05",
+      "finalized_at": null,
+      "id": "48c53edfd38c48b4bdebd22089845622",
+      "intro": "",
+      "issue_date": "2026-11-05",
+      "kind": "offer",
+      "notes": "",
+      "number": null,
+      "payload_sha256": "e7b61f086a604ce9e565b28eae608cf53256e43a0957a07744590211ba867460",
+      "positions": [
+        {
+          "description": "Projektleistung",
+          "discount_percent": "0",
+          "id": "39004f0812a246568cda499580e083ae",
+          "index": 1,
+          "kind": "service",
+          "net": "100.00",
+          "price_base_quantity": "1",
+          "quantity": "2",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "HUR",
+          "unit_price_net": "50"
+        }
+      ],
+      "previous_document_ids": [],
+      "project_id": "0c796231a0d64d239f9593a022595b13",
+      "revision": 1,
+      "status": "draft",
+      "title": "Projektfluss Angebot",
+      "totals": {
+        "by_kind": {
+          "labor": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "machine": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "material": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "service": {
+            "gross": "119.00",
+            "net": "100.00",
+            "tax": "19.00"
+          }
+        },
+        "gross": "119.00",
+        "labor_gross": "0.00",
+        "labor_net": "0.00",
+        "labor_tax": "0.00",
+        "material_gross": "0.00",
+        "material_net": "0.00",
+        "material_tax": "0.00",
+        "net": "100.00",
+        "payable": "119.00",
+        "tax": "19.00",
+        "tax_breakdown": [
+          {
+            "category": "S",
+            "net": "100.00",
+            "rate": "19",
+            "reason": "",
+            "tax": "19.00"
+          }
+        ]
+      },
+      "updated_at": "2026-11-05T05:28:28+00:00"
+    }
+  },
+  {
+    "path": "/api/v1/business/documents/48c53edfd38c48b4bdebd22089845622/convert",
+    "body": {
+      "revision": 1,
+      "target_kind": "order_confirmation",
+      "request_id": "fea77c435adf4dc2a3ddf5576a9ff3dd"
+    },
+    "rawBody": "{\"revision\":1,\"target_kind\":\"order_confirmation\",\"request_id\":\"fea77c435adf4dc2a3ddf5576a9ff3dd\"}",
+    "status": 200,
+    "value": {
+      "buyer": {
+        "address_line": "Prüfstraße 8",
+        "city": "Berlin",
+        "contact_name": "",
+        "country": "DE",
+        "email": "projektfluss@example.test",
+        "endpoint_id": "",
+        "endpoint_scheme": "",
+        "name": "Projektfluss Kundin",
+        "postal_code": "10115",
+        "vat_id": ""
+      },
+      "buyer_reference": "",
+      "converted_from": "48c53edfd38c48b4bdebd22089845622",
+      "currency": "EUR",
+      "customer_id": "f48260b1109e4de186271c93c1197527",
+      "due_date": "2026-11-05",
+      "finalized_at": null,
+      "id": "a48710a5480948ae8df5780bde59c0fa",
+      "intro": "",
+      "issue_date": "2026-11-05",
+      "kind": "order_confirmation",
+      "notes": "",
+      "number": null,
+      "payload_sha256": "626c209dd6dab5255347db0cdf15fc8b0767a2cfa0854183da1d884472f3034e",
+      "positions": [
+        {
+          "description": "Projektleistung",
+          "discount_percent": "0",
+          "id": "39004f0812a246568cda499580e083ae",
+          "index": 1,
+          "kind": "service",
+          "net": "100.00",
+          "price_base_quantity": "1",
+          "quantity": "2",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "HUR",
+          "unit_price_net": "50"
+        }
+      ],
+      "previous_document_ids": [],
+      "project_id": "0c796231a0d64d239f9593a022595b13",
+      "revision": 1,
+      "status": "draft",
+      "title": "Auftragsbestätigung",
+      "totals": {
+        "by_kind": {
+          "labor": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "machine": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "material": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "service": {
+            "gross": "119.00",
+            "net": "100.00",
+            "tax": "19.00"
+          }
+        },
+        "gross": "119.00",
+        "labor_gross": "0.00",
+        "labor_net": "0.00",
+        "labor_tax": "0.00",
+        "material_gross": "0.00",
+        "material_net": "0.00",
+        "material_tax": "0.00",
+        "net": "100.00",
+        "payable": "119.00",
+        "tax": "19.00",
+        "tax_breakdown": [
+          {
+            "category": "S",
+            "net": "100.00",
+            "rate": "19",
+            "reason": "",
+            "tax": "19.00"
+          }
+        ]
+      },
+      "updated_at": "2026-11-05T05:28:29+00:00"
+    }
+  },
+  {
+    "path": "/api/v1/business/documents/a48710a5480948ae8df5780bde59c0fa/convert",
+    "body": {
+      "revision": 1,
+      "target_kind": "invoice",
+      "request_id": "d8914518ebf74a46a492c0c273df1c17"
+    },
+    "rawBody": "{\"revision\":1,\"target_kind\":\"invoice\",\"request_id\":\"d8914518ebf74a46a492c0c273df1c17\"}",
+    "status": 200,
+    "value": {
+      "buyer": {
+        "address_line": "Prüfstraße 8",
+        "city": "Berlin",
+        "contact_name": "",
+        "country": "DE",
+        "email": "projektfluss@example.test",
+        "endpoint_id": "",
+        "endpoint_scheme": "",
+        "name": "Projektfluss Kundin",
+        "postal_code": "10115",
+        "vat_id": ""
+      },
+      "buyer_reference": "",
+      "converted_from": "a48710a5480948ae8df5780bde59c0fa",
+      "currency": "EUR",
+      "customer_id": "f48260b1109e4de186271c93c1197527",
+      "due_date": "2026-11-05",
+      "finalized_at": null,
+      "id": "4ad9ca4922a443348c6d1fee6f16bca9",
+      "intro": "",
+      "issue_date": "2026-11-05",
+      "kind": "invoice",
+      "notes": "",
+      "number": null,
+      "payload_sha256": "fbce7378503896a7d4bc1229ba0ee1fa79c8e2cbf63e142a9185294599e997e0",
+      "positions": [
+        {
+          "description": "Projektleistung",
+          "discount_percent": "0",
+          "id": "39004f0812a246568cda499580e083ae",
+          "index": 1,
+          "kind": "service",
+          "net": "100.00",
+          "price_base_quantity": "1",
+          "quantity": "2",
+          "tax_category": "S",
+          "tax_exemption_reason": "",
+          "tax_rate": "19",
+          "unit": "HUR",
+          "unit_price_net": "50"
+        }
+      ],
+      "previous_document_ids": [],
+      "project_id": "0c796231a0d64d239f9593a022595b13",
+      "revision": 1,
+      "status": "draft",
+      "title": "Rechnung",
+      "totals": {
+        "by_kind": {
+          "labor": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "machine": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "material": {
+            "gross": "0.00",
+            "net": "0.00",
+            "tax": "0.00"
+          },
+          "service": {
+            "gross": "119.00",
+            "net": "100.00",
+            "tax": "19.00"
+          }
+        },
+        "gross": "119.00",
+        "labor_gross": "0.00",
+        "labor_net": "0.00",
+        "labor_tax": "0.00",
+        "material_gross": "0.00",
+        "material_net": "0.00",
+        "material_tax": "0.00",
+        "net": "100.00",
+        "payable": "119.00",
+        "tax": "19.00",
+        "tax_breakdown": [
+          {
+            "category": "S",
+            "net": "100.00",
+            "rate": "19",
+            "reason": "",
+            "tax": "19.00"
+          }
+        ]
+      },
+      "updated_at": "2026-11-05T05:28:29+00:00"
+    }
+  },
+  {
+    "path": "/api/v1/projects",
+    "body": {
+      "name": "Projektfluss Folgevorhaben",
+      "customer_id": "f48260b1109e4de186271c93c1197527",
+      "request_id": "60210ef25d324d6ab8c0bccdcb6e58dc"
+    },
+    "rawBody": "{\"name\":\"Projektfluss Folgevorhaben\",\"customer_id\":\"f48260b1109e4de186271c93c1197527\",\"request_id\":\"60210ef25d324d6ab8c0bccdcb6e58dc\"}",
+    "status": 201,
+    "value": {
+      "id": "8bfe69f8448446ecb77ebeee39bbd9f8"
+    },
+    "delivery": "aborted_after_server_acceptance"
+  },
+  {
+    "path": "/api/v1/projects",
+    "body": {
+      "name": "Projektfluss Folgevorhaben",
+      "customer_id": "f48260b1109e4de186271c93c1197527",
+      "request_id": "60210ef25d324d6ab8c0bccdcb6e58dc"
+    },
+    "rawBody": "{\"name\":\"Projektfluss Folgevorhaben\",\"customer_id\":\"f48260b1109e4de186271c93c1197527\",\"request_id\":\"60210ef25d324d6ab8c0bccdcb6e58dc\"}",
+    "status": 201,
+    "value": {
+      "id": "8bfe69f8448446ecb77ebeee39bbd9f8"
+    }
+  }
+]

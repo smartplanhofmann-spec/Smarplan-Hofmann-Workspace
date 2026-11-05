@@ -2313,3 +2313,38 @@ Merge, Produktivupdate oder TestFlight-Upload wurde ausgeführt. Löhne und
 Buchhaltung bleiben entsprechend der Nutzerentscheidung zurückgestellt.
 Das Originalziel bleibt unverändert: 23.863 Bytes, SHA-256
 `a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5`.
+
+
+## 05.11.2026 – Serverstatus vom Nutzer und bestätigte Folgebuilds
+
+Die Screenshots aus dem tatsächlichen SSH-Fenster bestätigen einen sauberen
+festen Checkout und denselben installierten Stand 6371da1e, zwei laufende
+Dienste, Datenbank ok, Schema 7 im Businessmodus und etwa 33 GB freien Speicher.
+[Transkribierter Status](evidence/project-browser-navigation-2026-11-05/server-observed-status.json).
+Es gab keinen direkten Cloudzugriff und noch kein Serverupdate.
+
+Der Remote-Lauf auf a93cb4d ist inzwischen abgeschlossen: alle Server-,
+Windows-, iPhone-, Simulator-, Linux-App-, Update- und HTTPS-Jobs erfolgreich.
+Aktuelles Windows-Online-Artefakt: 13379710379; unsigniertes iPhone-Artefakt:
+13380230531, Build 168. Signierter Upload weiterhin übersprungen.
+Der Browserjob besteht Hauptablauf, Altposten, Wirtschaftlichkeit, Geräte,
+Personal, Reise und Vertrieb, stoppt danach im Projekt-/Kundenablauf bei einem
+Viewport-Rennen des Testhelfers. Nach Verbreiterung von 390 auf 1440 px kann
+CSS bereits die mobile Schaltfläche verbergen, während der Media-Callback den
+inert-Zustand der Seitenleiste noch nicht aktualisiert hat. Der Helfer wartet
+jetzt auf den tatsächlichen Medien-/Drawerzustand, bevor er den Navigationsweg
+wählt. Produkt-JavaScript, CSS, API, Assertions und Sandbox bleiben unverändert.
+
+Der bestehende komplette Kunden-/Projekt-/Angebots-/Auftrags-/Rechnungsentwurf-
+und Wiederholungsablauf reproduziert mit um 250 ms verzögertem echtem Callback
+vorher genau den CI-Timeout und besteht danach. Auch ohne Verzögerung bestehen
+Kundenprojekt, Übersicht, Einkauf und Barrierefreiheit (18 gerenderte Ansichten)
+sowie die gesamten 856 Node-Fälle ohne Fehler oder Skip. Die ersten zwei
+Treiber-Einrichtungsversuche liefen vor Produktprüfungen aus und werden nicht
+als bestandene Tests gezählt. [Nachweise und Quellbindungen](evidence/project-browser-navigation-2026-11-05/verification.json).
+
+Die Anwendung bleibt bytegleich zum tatsächlich gebauten Stand a93cb4d.
+Vor einer koordinierten Serverumschaltung wird der feste Quellstand im
+Servercheckout bereitgestellt. Die vorhandene Aktualisierung nutzt Sicherung,
+Kandidatendatenbank und Wartungsfenster; ein bloßer Checkout schaltet die
+laufende Installation nicht um.

@@ -2259,3 +2259,57 @@ verlinkt. Eine zusätzliche lokale ZIP-Entpackprüfung oder Geräteabnahme wird
 nicht behauptet. 367 App-/Backend-Paketquellen sind gegenüber den folgenden
 reinen Fixture-/Prüfnachweiskorrekturen bytegleich. iPhone-Releaseprüfung,
 Serverabgleich und reale Geräteabnahme bleiben offen.
+
+
+## 05.11.2026 – Browser-/Serverabschluss, iPhone-Prüfbuild und autorisierter Testbranch
+
+Der geprüfte Korrekturstand **a93cb4d** ist auf
+`codex/testupdate-0.7-projects-20261104` veröffentlicht. Ein kurz nachlaufender
+PostgreSQL-Migrationsbackend führte nach ordnungsgemäßem Verbindungsende zu
+sporadischer Betreiberablehnung. Der Guard prüft jetzt bis zu fünfmal im
+Abstand von 50 ms nach; fortbestehende Verbindungen sperren unverändert und
+werden niemals beendet. Zwei echte PostgreSQL-Regressionen belegen beides.
+Kalender-Zeitzone, Restore-Stichtag, Kundenfeld und Antwortbeobachtung sind
+gezielt korrigierte Tests; eine zusätzliche Provisionierungsfixture deklariert
+ihre zuvor nur durch frühere Suiten vorhandene Altsystemrolle selbst.
+
+Tatsächliche Nachweise:
+
+- 856 Node-Fälle und 48 unterschiedliche bestehende Browserabläufe aufgeteilt
+  nachgewiesen: zwei frühere CI-Abläufe, der korrigierte Wirtschaftlichkeitsfall
+  und 45 weitere lokale Abläufe einschließlich separater Übersichts-Nachprüfung.
+- Alle 136 Online-Business-Fälle, alle 23 Release-Fälle und die endgültige
+  Provisionierung mit 22 bestandenen Fällen plus einem ausgewiesenen UID-Skip.
+- Vollständiger Finanz-Restorefall, echte HTTPS-/MFA-/PDF-/Ablage-/Neustartkette
+  und echte TLS-Wartung bestanden. Elf weitere bestehende Online-Gruppen waren
+  zuvor vollständig erfolgreich; rote Erstläufe bleiben mit ihrer jeweiligen
+  gezielten Nachprüfung erhalten. Keine Testzahlen werden zu einzigartigen
+  Gesamt-Abnahmefällen addiert.
+- Tatsächlicher Windows-Build auf bd8caef: 1.593 App-Fälle, drei native PDF-Fälle,
+  79 portable Backendfälle ohne Skip sowie lokale und Online-Releasepakete.
+- Tatsächlicher iPhone-Gerätebuild auf bd8caef: 0.13.0 Build 167, 1.616 App-Fälle
+  bestanden, fünf Plattform-Skips, drei native PDF-Fälle und Analyse ohne Befund.
+  Unsigniert, deshalb nicht installierbar und kein TestFlight-Upload.
+
+[Abschlussmanifest](evidence/project-native-ci-2026-11-04/final/verification-summary.json),
+[CI-Nachprüfung](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md) und
+[Downloads/Buildstatus](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md) dokumentieren
+Quellbindungen, Rohlogs und Grenzen. Alle eigenen Testdatenbankcontainer sind
+entfernt; der vorhandene Hostcluster 55433 blieb unberührt. Ein Speicherengpass
+wurde durch gezieltes Entfernen eigener abgeschlossener Testimages behoben.
+
+Die neue Remote-CI auf a93cb4d läuft bei dieser Abschlussdokumentation noch;
+Update-/Recovery- und HTTPS-Setupjob sind bereits erfolgreich. Die späteren
+Nachweise ändern keine Produktquelle und lösen keine erneuten Builds aus.
+366 von 367 zuvor gebundenen Produktpfaden bleiben bytegleich zum gebauten
+nativen Stand; geändert ist ausschließlich der separat getestete Online-Guard.
+
+**Noch offen für den gemeinsamen Kundentest:** nachgewiesener installierter
+Office-Serverstand mit abgestimmtem Update, signierte installierbare iPhone-
+Verteilung und die 20 tatsächlichen Geräte-/Bedienfälle. In dieser Cloud ist
+kein Zugang zum laufenden Server konfiguriert. Die [vorbereiteten Statusbefehle](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13.md)
+lesen ausschließlich Dienstzustand, Quellkennung und Health. Kein Defaultbranch-
+Merge, Produktivupdate oder TestFlight-Upload wurde ausgeführt. Löhne und
+Buchhaltung bleiben entsprechend der Nutzerentscheidung zurückgestellt.
+Das Originalziel bleibt unverändert: 23.863 Bytes, SHA-256
+`a4dea28f6de4afd3e36d1549441aad91ce16dad374f56097979cc2d79b07fbf5`.

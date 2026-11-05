@@ -1,0 +1,25 @@
+{
+  "images": [
+    {
+      "tag": "smartplan-online-checks:59e5217ab5d7",
+      "id": "sha256:c321fd4ec69f799dd764f387c2974d634023c901bf91ef7be3359f18567aae02",
+      "use": "Original isolated attempts; removed after completion to recover disk space",
+      "removed_after_completed_checks": true
+    },
+    {
+      "tag": "smartplan-online-checks:connection-recheck",
+      "id": "sha256:1dea67115db66db4634f42fcb6dffacb9a2006611f096f827b813fdb39afc8c2",
+      "use": "Guard correction, online-final; before the last provisioning-only fixture correction",
+      "removed_after_completed_checks": true
+    },
+    {
+      "tag": "smartplan-online-checks:provisioning-fixture-recheck",
+      "id": "sha256:4de139359c7963ba37756b190c2ab59c480d96deb847cef503f25a19e0c63011",
+      "use": "Final corrected provisioning suite",
+      "removed_after_completed_checks": true
+    }
+  ],
+  "disk_pressure_resolved_by": "Removed only own completed old test image; no general Docker prune or foreign resources modified",
+  "test_runner_recipe": "../online-followup/test-runner.Dockerfile",
+  "cleanup_log": "test-image-cleanup.txt"
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "-v",
+      "online.test_release"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 54.031,
+    "log": "1-tests.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_provisioning*.py",
+      "-v"
+    ],
+    "exit_code": 1,
+    "duration_seconds": 27.683,
+    "log": "2-tests.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_business*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 670.846,
+    "log": "3-tests.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "-v",
+      "online.test_year_values_full_financial_restore_pg"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 25.256,
+    "log": "4-tests.txt"
+  },
+  {
+    "command": [
+      "python",
+      "backend/online/test_runtime.py"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 20.163,
+    "log": "5-tests.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_release_tls.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 3.561,
+    "log": "6-tests.txt"
+  }
+]

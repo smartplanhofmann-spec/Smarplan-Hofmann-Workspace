@@ -287,3 +287,23 @@ besteht 22 Fälle mit einem ausdrücklichen UID-Akzeptanz-Skip; echte HTTP-Proze
 MFA, Rollenabweichung, gebundene Ablage und Dump/Restore sind enthalten. Der
 längere vollständige Online-Business-Nachlauf läuft zum Zeitpunkt dieser
 Veröffentlichung noch und wird mit eigener Abschlussquittung ergänzt.
+
+
+[Abschlussmanifest mit Quellen, allen vollständigen Logs, Ausnahmen und Hashes](evidence/project-native-ci-2026-11-04/final/verification-summary.json)
+und [vollständiger letzter Serverlauf](evidence/project-native-ci-2026-11-04/online-final/result.json)
+sind erhalten. Während des langen Laufs änderte sich nur die bereits beendete
+Provisionierungsfixture; ihr Nachlauf bindet den endgültigen Quellstand separat.
+Von 367 zuvor gebundenen Paketquellen bleiben 366 bytegleich, einschließlich
+sämtlicher nativer App-Produktquellen. Ausschließlich der spätere Online-
+Server-Guard unterscheidet sich vom älteren nativen Buildstand.
+
+Quellkorrekturen und die bis dahin fertigen Nachweise sind als **a93cb4d** auf
+dem ausdrücklich autorisierten Testbranch veröffentlicht. Der neue
+[Development-Lauf 41944665296](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41944665296)
+und [iPhone-Prüflauf 41944665234](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41944665234)
+sind tatsächlich gestartet. Update-/Recovery-Prüfung und HTTPS-Setup sind dort
+bereits erfolgreich; die übrigen Jobs laufen bei Abschluss dieser lokalen
+Nachprüfung noch. [Gelesener Status mit Zeitpunkt](evidence/project-native-ci-2026-11-04/final/current-ci-status.json).
+Eine grüne neue Remote-Gesamtprüfung wird nicht vorweggenommen. Die anschließende
+reine Nachweisdokumentation ändert keine Produktquelle und startet die laufenden
+Builds nicht erneut.

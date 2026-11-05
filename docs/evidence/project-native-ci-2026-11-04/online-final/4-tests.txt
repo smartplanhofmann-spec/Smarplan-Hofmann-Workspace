@@ -1,0 +1,7 @@
+
+test_one_filled_restore_keeps_old_v1_new_v2_original_year_cents_and_existing_families (online.test_year_values_full_financial_restore_pg.YearValuesFullFinancialRestore.test_one_filled_restore_keeps_old_v1_new_v2_original_year_cents_and_existing_families) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 22.269s
+
+OK

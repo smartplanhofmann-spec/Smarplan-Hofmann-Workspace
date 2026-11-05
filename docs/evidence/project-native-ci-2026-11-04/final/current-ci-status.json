@@ -1,0 +1,73 @@
+{
+  "verified_product_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "checked_at_utc": "2026-11-05 01:01:19 UTC",
+  "runs": [
+    {
+      "id": 41944665296,
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41944665296",
+      "jobs": [
+        {
+          "id": 126973770962,
+          "name": "update-flow",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 126973771095,
+          "name": "native-build (windows-latest, flutter build windows --release)",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 126973771153,
+          "name": "flutter",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 126973771183,
+          "name": "online-api",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 126973771222,
+          "name": "https-setup",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 126973771285,
+          "name": "business-services",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 126973771392,
+          "name": "backend",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 126973771404,
+          "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "id": 41944665234,
+      "url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41944665234",
+      "jobs": [
+        {
+          "id": 126973771083,
+          "name": "Online-Release ohne Apple-Zugang pruefen",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ]
+    }
+  ],
+  "overall_remote_success_claimed": false
+}

@@ -1,6 +1,6 @@
 # Projektbetrieb: aktueller Fertigstellungsumfang
 
-Stand: 04.11.2026. Ausgangspunkt ist `c875ea5` im Hauptprojekt
+Stand: 05.11.2026. Historischer Ausgangspunkt ist `c875ea5` im Hauptprojekt
 `/workspace/Smarplan-Hofmann-Workspace`. Die letzte Nutzerentscheidung ersetzt
 die bisherige Reihenfolge: **zuerst den Projektbetrieb einschließlich Angeboten,
 Rechnungen und Zeiterfassung in Browser, mobiler App und Windows-App abschließen;
@@ -8,7 +8,7 @@ Lohnabrechnung und Buchhaltung zurückstellen.** Das ursprüngliche
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt) bleibt bytegleich erhalten.
 
 Die mobile Auslieferung folgt dem vorhandenen iPhone-/TestFlight-Weg. Ein neuer
-Androidumfang wurde nicht vereinbart. Rechnungen einschließlich Preisen,+Steuern, Nummerierung, Original-PDF, Korrekturen und projektbezogenen offenen
+Androidumfang wurde nicht vereinbart. Rechnungen einschließlich Preisen, Steuern, Nummerierung, Original-PDF, Korrekturen und projektbezogenen offenen
 Zahlungen gehören ausdrücklich zu dieser Phase. EÜR, steuerlicher Abschluss,
 Bankautomatisierung und neue Lohnfälle werden nicht weiter vorgezogen.
 Vorhandene Daten und Funktionen bleiben erhalten; Zurückstellen löscht und
@@ -60,8 +60,12 @@ bleibt ein Ziel; die vollständige Fertigstellung wird nicht ungeprüft zugesagt
 ## Aktueller Abschluss des Quellblocks
 
 Die genannten Korrekturen sind im [gemeinsamen Stand 0.13.0](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)
-integriert und mit abgegrenzten gemeinsamen Läufen nachgeprüft. Aktuelle native
-Builds, Serverabgleich und reale Gerätebedienung stehen als nächste Schritte aus.
+integriert und mit abgegrenzten gemeinsamen Läufen nachgeprüft. Windows 0.13.0
+ist tatsächlich gebaut und als Online-Programm verfügbar; auch der unsignierte
+iPhone-Gerätebuild 167 ist erfolgreich. Die [Buildnachweise](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md)
+trennen diese Erfolge vom noch offenen signierten iPhone-Paket, dem
+Serverabgleich und der realen Gerätebedienung. Die [abschließenden lokalen Nachprüfungen](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md)
+sind abgeschlossen; die erneute Remote-CI auf a93cb4d läuft separat.
 
 ## Zurückgestellte Arbeit erhalten
 

@@ -1,0 +1,7 @@
+
+test_https_mfa_pdf_and_worker_restart (__main__.RuntimeTest.test_https_mfa_pdf_and_worker_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 14.445s
+
+OK

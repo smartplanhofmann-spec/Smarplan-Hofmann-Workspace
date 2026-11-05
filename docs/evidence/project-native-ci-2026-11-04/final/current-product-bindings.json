@@ -1,0 +1,14 @@
+{
+  "built_source_commit": "bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806",
+  "reviewed_source_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "bound_product_paths": 367,
+  "unchanged_product_paths": 366,
+  "changed_product_paths": {
+    "backend/online/release.py": {
+      "built_sha256": "67fa05a21bf19cb9dab81f0eedce3903c264b16296aee204705412c7a5706e63",
+      "current_sha256": "75cfc4203d5251187847ca0decba0050eeb84f8435bc1667f4faafc06ec2e48f"
+    }
+  },
+  "native_app_product_paths_unchanged": true,
+  "note": "Native app sources are unchanged. The later online-server operator guard differs and is separately tested. No full package byte identity to the older Windows/iPhone builds is claimed."
+}

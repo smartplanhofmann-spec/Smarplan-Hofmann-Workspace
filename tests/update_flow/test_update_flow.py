@@ -199,6 +199,10 @@ class UpdateFlowTests(OperatorFlowFixture, unittest.TestCase):
         self.assertTrue(prepared['flags']['--privileged-operator'])
         self.assertTrue((APP / 'app/web/office/index.html').is_file())
         self.assertEqual(next(e for e in events if e['event'] == 'archive')['paths'], ['backend', 'web'])
+        self.assertEqual(next(e for e in events if e['event'] == 'archive')['tar_umask'], 0o022)
+        for item in Path(metadata['new_release']).rglob('*'):
+            if not item.is_symlink():
+                self.assertEqual(item.stat().st_mode & 0o022, 0, str(item))
 
     def test_exact_legacy_caddy_is_migrated_only_after_candidate_verification(self):
         old = CHECKOUT / 'deploy/hetzner/online/Caddyfile.v0.11'

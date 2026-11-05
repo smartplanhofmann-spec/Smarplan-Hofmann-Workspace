@@ -60,3 +60,12 @@ Erkennungsabnahme auf einem echten Server.
 
 Die Stubs enthalten nur fiktive Daten. Sie öffnen keine realen Dienstverbindungen
 und lesen keine Zugangsdaten des Hostsystems.
+
+
+Der Git-Archivstub bildet den echten Default tar.umask=0002 einschließlich
+0775-Verzeichnisheadern und 0664-Dateien ab und verarbeitet die explizite
+Archivauswahl 0022. Der Root-Extraktionsweg darf keine Gruppen-/Fremdschreibrechte
+in den neuen Releasepfaden erhalten. Die frühere ausschließlich 0644 liefernde
+Archivgrenze hatte diesen realen Betreiberfehler verdeckt. Tatsächliche Git-
+Archive und GNU-tar-Rootextraktion sind zusätzlich in
+`docs/evidence/project-update-permissions-2026-11-05/` dokumentiert.

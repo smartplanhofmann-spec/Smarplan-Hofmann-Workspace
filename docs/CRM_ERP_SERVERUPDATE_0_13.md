@@ -1,3 +1,46 @@
+# Aktueller Stand nach dem Berechtigungsabbruch
+
+Das erste Update auf a93cb4d wurde am 05.11.2026 bei der Release-Rechteprüfung
+abgebrochen. Der Nutzer bestätigt danach zwei aktive Dienste und den weiterhin
+installierten Stand 6371da1e. Das neue Release enthielt root-eigene 0775-
+Verzeichnisse und 0664-Dateien. [Tatsächlicher Fehler und Nachprüfung](evidence/project-update-permissions-2026-11-05/verification.json).
+Git archive erzeugte diese Rechte mit seiner Standardmaske 0002; root-tar
+übernahm sie trotz Shell-umask 0022. Der Guard arbeitet korrekt und bleibt aktiv.
+Die unten archivierte erste Befehlsfolge nicht unverändert erneut ausführen:
+ihr Sicherungsbranch wurde vor Beginn des ersten Versuchs bereits angelegt.
+
+## Vorbereiteter erneuter Versuch
+
+**Der folgende Block startet erneut die koordinierte Serverumstellung.**
+Er prüft den festen Zielcommit und den vorhandenen Sicherungsbranch. Die
+repository-lokale Archivmaske wird auf 0022 eingeschränkt; das ist für den
+bereits gebauten und ausgecheckten A93-Stand ausreichend und mit echtem Git
+sowie GNU tar als root geprüft. Der dauerhafte Quellfix erzwingt zusätzlich
+umask-beachtende Extraktion in Update und Erstinstallation. Kein pauschales
+chmod und keine Änderung der Schutzprüfung sind nötig. Vorhandene Journale
+oder fehlgeschlagene Releases werden nicht manuell entfernt.
+
+```bash
+cd /opt/smartplan-test &&
+test "$(git rev-parse HEAD)" = a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5 &&
+test "$(git rev-parse backup/server-before-0.13-20261105)" = 6371da1ec3641818b158ce3d3e132be674bc397e &&
+git config --local tar.umask 0022 &&
+bash deploy/hetzner/online/update-online.sh &&
+systemctl is-active smartplan-online.service smartplan-https.service &&
+cat /opt/smartplan-online/SOURCE_COMMIT &&
+curl --fail --silent --show-error --max-time 15 https://office.smartplan-hofmann.de/ready
+```
+
+Das SSH-Fenster geöffnet lassen. Anschließend werden Testupdate aktiviert:
+a93cb4d..., zwei active-Zeilen, der volle installierte Zielcommit und /ready
+mit Datenbank ok erwartet. Die Backend-Kompatibilitätskennung darf weiterhin
+0.12.0-online-pilot lauten. Bei einem erneuten Abbruch die letzten Ausgabezeilen
+prüfen; nicht blind Journale löschen oder auf eine alte Datenbank wechseln.
+Eine erfolgreiche tatsächliche Serverumstellung ist erst mit deren Ausgabe
+bestätigt und wird hier noch nicht behauptet.
+
+## Ursprüngliche Vorbereitung und erster Versuch
+
 # Vorbereitete Serverumstellung auf 0.13.0
 
 Der Nutzer hat den sauberen Servercheckout a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5

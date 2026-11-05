@@ -2377,3 +2377,45 @@ Die beiden Codeänderungen nach dem tatsächlich gebauten a93cb4d betreffen nur
 Browser- und App-Testhelfer; sämtliche Produktquellen bleiben bytegleich.
 Der vorbereitete manuelle Updateblock startet eine koordinierte Umschaltung;
 seine Ausführung ist bis zur tatsächlichen Serverausgabe nicht behauptet.
+
+
+## 05.11.2026 – Tatsächlicher Updateabbruch: Git-/Root-Tar-Rechte
+
+Der Nutzer hat den vorbereiteten Updateblock tatsächlich gestartet. Das
+Archivrelease a93cb4d02eab-20261105T180026-10038 erreicht die Berechtigungsprüfung
+und bricht dort ab. Die anschließende Rückkehr wird per SSH-Ausgabe bestätigt:
+beide Dienste active und installierter alter Commit 6371da1e. Das neue
+Backendverzeichnis hat 0775, release.py 0664, jeweils root:root. Die einzelne
+vorangehende curl-Verbindungsablehnung trat während des Proxyneustarts auf;
+der Ablauf erreichte danach die spätere Rechteprüfung. Diese liegt vor
+Kandidatenerstellung und Backupvorbereitung; die generische Rückkehrmeldung
+allein beweist daher keine schon erstellte Kandidatendatenbank oder Sicherung.
+
+Ursache ist der vorgeschlagene Updateablauf: Git archive nutzt standardmäßig
+tar.umask 0002 und schreibt 0775/0664 in Header. Root-tar übernimmt diese Rechte
+trotz Shell-umask 0022. Update und Erstinstallation erzwingen nun explizit
+Git-Archivmaske 0022 und --no-same-permissions. Der unveränderte Guard nennt
+zusätzlich Pfad und Modus. Die Testgrenze verwendete bisher künstlich sichere
+0644-Dateien ohne Verzeichnisheader. Mit dem realistischen Git-Default scheitert
+der bestehende Erfolgsfall vor dem Fix exakt wie beim Nutzer und führt die
+Rückkehr aus; nach dem Fix bestehen sämtliche 60 Update-/Operator-/Workerfälle.
+Eine zusätzliche Assertion prüft alle neu erzeugten Releasepfade auf fehlende
+Gruppen-/Fremdschreibrechte.
+
+Vier weitere Prüfungen extrahieren tatsächliche Git-Archive als UID 0 mit
+GNU tar: Default ist beschreibbar, repository-lokale Maske, eingeschränkte
+Extraktion und beide Maßnahmen gemeinsam sind jeweils sicher. Die ursprüngliche
+Execute-Bit-Annahme des separaten Probetreibers war falsch: Die ausgewählten
+Shellquellen sind im Git 0644. Der Nachlauf vergleicht korrekt mit deren
+Originalmodi. Keine Schutzprüfung abgeschaltet, kein pauschales chmod, keine
+anderen Container oder Hostaccounts verändert.
+[Reproduktion, vollständiger 60er-Lauf, echte Archive und Quellbindungen](evidence/project-update-permissions-2026-11-05/verification.json).
+
+Für den schon fest ausgecheckten A93-Stand ist der [korrigierte erneute
+Updateblock](CRM_ERP_SERVERUPDATE_0_13.md) vorbereitet: vorhandenen Sicherungs-
+branch prüfen, Git-Archivmaske nur in diesem Repository auf 0022 setzen und
+den bestehenden koordinierten Ablauf erneut ausführen. Der reale Root-Test
+prüft genau diese Variante. Die tatsächliche Wiederholung und erfolgreiche
+Serverumschaltung sind noch nicht beobachtet. Apps und Backend bleiben an
+den bereits gebauten A93-Stand gebunden; geändert werden Operatorpfade und
+Prüfnachweise. Neue externe Remote-CI-Ergebnisse werden nicht vorweggenommen.

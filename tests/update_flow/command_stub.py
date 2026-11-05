@@ -117,14 +117,22 @@ if command == 'git':
         print('a' * 40)
         sys.exit(0)
     if 'archive' in args:
-        event('archive', paths=args[args.index('archive') + 2:])
+        archive_umask = 0o002  # Actual git archive default, including directory headers.
+        for index, argument in enumerate(args[:-1]):
+            if argument == '-c' and args[index + 1].startswith('tar.umask='):
+                archive_umask = int(args[index + 1].split('=', 1)[1], 8)
+        event('archive', paths=args[args.index('archive') + 2:], tar_umask=archive_umask)
         with tarfile.open(fileobj=sys.stdout.buffer, mode='w|') as archive:
+            for name in ('backend', 'backend/online', 'web', 'web/office'):
+                info = tarfile.TarInfo(name + '/')
+                info.type, info.mode = tarfile.DIRTYPE, 0o777 & ~archive_umask
+                archive.addfile(info)
             for name, data in {'backend/generation': b'new\n', 'backend/online/requirements.lock': b'',
                                'backend/online/release.py': b'# Synthetic boundary\n',
                                'backend/business_schema.py': b'# Synthetic boundary\n',
                                'web/office/index.html': b'<title>Synthetic office fixture</title>'}.items():
                 info = tarfile.TarInfo(name)
-                info.size, info.mode = len(data), 0o644
+                info.size, info.mode = len(data), 0o666 & ~archive_umask
                 archive.addfile(info, io.BytesIO(data))
         sys.exit(0)
 elif command == 'runuser':

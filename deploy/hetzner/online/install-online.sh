@@ -37,7 +37,8 @@ smartplan_listen="$(runuser -u postgres -- psql --no-psqlrc -Atqc 'SHOW listen_a
 install -d -m 0755 /opt/smartplan-online /opt/smartplan-online/app
 (
   umask 0022
-  git -C "$smartplan_repo" archive HEAD backend | tar -x -C /opt/smartplan-online/app
+  git -c tar.umask=0022 -C "$smartplan_repo" archive HEAD backend |
+    tar -x --no-same-permissions -C /opt/smartplan-online/app
   python3 -m venv /opt/smartplan-online/venv
   /opt/smartplan-online/venv/bin/python -m pip install --requirement /opt/smartplan-online/app/backend/online/requirements.lock
   /opt/smartplan-online/venv/bin/python -m pip check

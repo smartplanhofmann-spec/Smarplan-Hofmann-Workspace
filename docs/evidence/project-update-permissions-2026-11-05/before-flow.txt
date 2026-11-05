@@ -1,0 +1,16 @@
+test_success_preserves_original_and_reopens_candidate_only_after_verification (test_update_flow.UpdateFlowTests.test_success_preserves_original_and_reopens_candidate_only_after_verification) ... FAIL
+
+======================================================================
+FAIL: test_success_preserves_original_and_reopens_candidate_only_after_verification (test_update_flow.UpdateFlowTests.test_success_preserves_original_and_reopens_candidate_only_after_verification)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/source/tests/update_flow/test_update_flow.py", line 168, in test_success_preserves_original_and_reopens_candidate_only_after_verification
+    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 1 != 0 : Release darf nicht durch Gruppe oder andere Benutzer verändert werden.
+Vorheriger Stand mit unveränderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.
+
+
+----------------------------------------------------------------------
+Ran 1 test in 3.569s
+
+FAILED (failures=1)

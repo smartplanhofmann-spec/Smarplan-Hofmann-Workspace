@@ -19,7 +19,7 @@ for smartplan_path in "$smartplan_release" "$smartplan_release/venv" "$smartplan
     "$smartplan_backend/online" "$smartplan_backend/online/release.py" "$smartplan_backend/business_schema.py"; do
   [[ -e "$smartplan_path" && "$(stat -Lc %u -- "$smartplan_path")" == 0 ]] || fail 'Release muss vollständig root gehören.'
   smartplan_mode="$(stat -Lc %a -- "$smartplan_path")"
-  (( (8#$smartplan_mode & 0022) == 0 )) || fail 'Release darf nicht durch Gruppe oder andere Benutzer verändert werden.'
+  (( (8#$smartplan_mode & 0022) == 0 )) || fail "Release darf nicht durch Gruppe oder andere Benutzer verändert werden: $smartplan_path (Modus $smartplan_mode)."
 done
 [[ -x "$smartplan_python" && -f "$smartplan_backend/online/release.py" ]] || fail 'Vorbereiteter Operatorruntime fehlt.'
 if (( smartplan_inherited_lock )); then

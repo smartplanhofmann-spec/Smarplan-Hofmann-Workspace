@@ -1,0 +1,25 @@
+{
+  "source": "User SSH screenshots",
+  "failed_update_id": "a93cb4d02eab-20261105T180026-10038",
+  "target_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "installed_commit_after_rollback": "6371da1ec3641818b158ce3d3e132be674bc397e",
+  "services_after_rollback": {
+    "smartplan-online.service": "active",
+    "smartplan-https.service": "active"
+  },
+  "observed_release_modes": {
+    "app/backend": {
+      "mode": "0775",
+      "owner": "root:root"
+    },
+    "app/backend/online/release.py": {
+      "mode": "0664",
+      "owner": "root:root"
+    }
+  },
+  "abort_reason": "Release darf nicht durch Gruppe oder andere Benutzer ver\u00e4ndert werden.",
+  "rollback_message": "Vorheriger Stand mit unver\u00e4nderter Originaldatenbank wiederhergestellt. Kandidat und Sicherung bleiben erhalten.",
+  "first_curl_connection_refusal": "Transient during proxy restart: script proceeded past the maintenance probe and failed at the later file-mode guard.",
+  "no_database_migration_or_candidate_backup_claimed": "The release-mode guard is reached before candidate creation and backup preparation; generic cleanup wording alone is not evidence that those artifacts already exist.",
+  "actual_cloud_server_access": false
+}

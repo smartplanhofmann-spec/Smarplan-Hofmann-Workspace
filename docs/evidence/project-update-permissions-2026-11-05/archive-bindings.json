@@ -1,0 +1,14 @@
+{
+  "source_commit": "a93cb4d02eab610e5f2a8b07fbd1ee51ae99c3e5",
+  "archived_paths": [
+    "backend/online/release.py",
+    "deploy/hetzner/online/update-online.sh"
+  ],
+  "default_git_tar_umask": "0002",
+  "restricted_git_tar_umask": "0022",
+  "archives": {
+    "default.tar": "d8fd259afffbb577e109c8a7d7eaaff9908edbdfb3a395860494adb693a70e5a",
+    "restricted.tar": "3ec6da97a43b1acb7c4f4996d5c1a00a3bc885fa8025be9628131d10d3baefcc"
+  },
+  "archives_location": "Ignored work/verification/update-archive-regression; actual Git archive output, no fabricated tar headers"
+}

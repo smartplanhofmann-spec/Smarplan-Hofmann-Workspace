@@ -1,0 +1,121 @@
+{
+  "base_commit": "8f95b5505425af671f95687f28b46a5a48e16edd",
+  "actual_root_git_tar_cases": [
+    {
+      "case": "original",
+      "root_uid": 0,
+      "process_umask": "0022",
+      "modes": {
+        "backend": "0775",
+        "deploy": "0775",
+        "backend/online": "0775",
+        "deploy/hetzner": "0775",
+        "backend/online/release.py": "0664",
+        "deploy/hetzner/online": "0775",
+        "deploy/hetzner/online/update-online.sh": "0664"
+      },
+      "group_or_other_writable": [
+        "backend",
+        "deploy",
+        "backend/online",
+        "deploy/hetzner",
+        "backend/online/release.py",
+        "deploy/hetzner/online",
+        "deploy/hetzner/online/update-online.sh"
+      ],
+      "source_executable_mask": "000",
+      "source_execute_bits_preserved": true
+    },
+    {
+      "case": "repository_mask",
+      "root_uid": 0,
+      "process_umask": "0022",
+      "modes": {
+        "backend": "0755",
+        "deploy": "0755",
+        "backend/online": "0755",
+        "deploy/hetzner": "0755",
+        "backend/online/release.py": "0644",
+        "deploy/hetzner/online": "0755",
+        "deploy/hetzner/online/update-online.sh": "0644"
+      },
+      "group_or_other_writable": [],
+      "source_executable_mask": "000",
+      "source_execute_bits_preserved": true
+    },
+    {
+      "case": "extract_mask",
+      "root_uid": 0,
+      "process_umask": "0022",
+      "modes": {
+        "backend": "0755",
+        "deploy": "0755",
+        "backend/online": "0755",
+        "deploy/hetzner": "0755",
+        "backend/online/release.py": "0644",
+        "deploy/hetzner/online": "0755",
+        "deploy/hetzner/online/update-online.sh": "0644"
+      },
+      "group_or_other_writable": [],
+      "source_executable_mask": "000",
+      "source_execute_bits_preserved": true
+    },
+    {
+      "case": "both",
+      "root_uid": 0,
+      "process_umask": "0022",
+      "modes": {
+        "backend": "0755",
+        "deploy": "0755",
+        "backend/online": "0755",
+        "deploy/hetzner": "0755",
+        "backend/online/release.py": "0644",
+        "deploy/hetzner/online": "0755",
+        "deploy/hetzner/online/update-online.sh": "0644"
+      },
+      "group_or_other_writable": [],
+      "source_executable_mask": "000",
+      "source_execute_bits_preserved": true
+    }
+  ],
+  "original_operator_success_case": {
+    "exit_code": 1,
+    "matches_user_error": true,
+    "rollback_executed": true
+  },
+  "corrected_full_update_flow": {
+    "exit_code": 0,
+    "tests": 60,
+    "skipped": 0,
+    "backend_services_and_DB_boundaries_simulated": true,
+    "root_filesystem_GNU_tar_and_shell_traps_real": true
+  },
+  "new_install_pipeline": "Same archive restrictions, bash syntax checked; the full update-flow suite does not claim to exercise initial server installation. Root archive primitive separately proves permission behavior.",
+  "permanent_fix": [
+    "Explicit tar.umask=0022 on git archive",
+    "Root extraction with --no-same-permissions under umask 0022",
+    "Realistic Git tar-header fixture",
+    "Error names rejected path and mode"
+  ],
+  "guard_disabled": false,
+  "blanket_chmod_used": false,
+  "existing_failed_releases_removed": false,
+  "user_retry_on_pinned_a93": "Repository-local git config tar.umask 0022, then the unchanged coordinated updater. This exact root archive-mask variant passes the real Git/GNU tar check.",
+  "sources_sha256": {
+    "deploy/hetzner/online/update-online.sh": "551b95df6d5433ade56db294bc25eca8fbc53150f237d6f270c1d5bc30a0cca0",
+    "deploy/hetzner/online/install-online.sh": "589fc843f1efb536f11017d9b2686ab3d43fc6c17d1e1164bb7880f4b1b40c72",
+    "deploy/hetzner/online/prepare-business-security.sh": "f1ebf68ae3612ce14de38b59e3057ebb9dec6cc1b7f4f3a32abbe10ade7edf83",
+    "tests/update_flow/command_stub.py": "796a26ac65ec03a56e91670b45e324f49b90c98ac796a70ca4e548b46cbfdca7",
+    "tests/update_flow/test_update_flow.py": "d26e1e688289f899084b09a8b5856d1c05f9f67936ddd0839e6b9e9b1f3e3387"
+  },
+  "proof_sha256": {
+    "real-git-tar.py": "9bd943196d3f16cc575604f981e99d5811c4b33d0353a695c4b61b933e4cdeb4",
+    "before-flow.txt": "ee4c2f7a27ae65b09aee862a57bf065e9d138fb17d3ddfdaaef43c37420fdc91",
+    "README.md": "cca1f498b864126cad140f5622e84a64e4f4ffc3e7e78085acf335675e9193c2",
+    "real-git-tar-result.json": "a9a0d0536d4b73adb655999591ee7ea14057d20e72a5f952bc97d7d0fa790208",
+    "after-full-flow.txt": "bf053eeb18ea0c1cdfad2aec883ce6133f9fcaa056325479cab881b275e39b21",
+    "archive-bindings.json": "0e3bc9f621191cde3af91c0810a8a76115054b6e13a2f07c583faf366cabb8b7",
+    "server-observed-failure.json": "a63cf6dff933f12e960b12befa07841ddd2567826e556e5665d69574a4c75b65"
+  },
+  "actual_server_retry_observed": false
+}

@@ -1,0 +1,78 @@
+[
+  {
+    "case": "original",
+    "root_uid": 0,
+    "process_umask": "0022",
+    "modes": {
+      "backend": "0775",
+      "deploy": "0775",
+      "backend/online": "0775",
+      "deploy/hetzner": "0775",
+      "backend/online/release.py": "0664",
+      "deploy/hetzner/online": "0775",
+      "deploy/hetzner/online/update-online.sh": "0664"
+    },
+    "group_or_other_writable": [
+      "backend",
+      "deploy",
+      "backend/online",
+      "deploy/hetzner",
+      "backend/online/release.py",
+      "deploy/hetzner/online",
+      "deploy/hetzner/online/update-online.sh"
+    ],
+    "source_executable_mask": "000",
+    "source_execute_bits_preserved": true
+  },
+  {
+    "case": "repository_mask",
+    "root_uid": 0,
+    "process_umask": "0022",
+    "modes": {
+      "backend": "0755",
+      "deploy": "0755",
+      "backend/online": "0755",
+      "deploy/hetzner": "0755",
+      "backend/online/release.py": "0644",
+      "deploy/hetzner/online": "0755",
+      "deploy/hetzner/online/update-online.sh": "0644"
+    },
+    "group_or_other_writable": [],
+    "source_executable_mask": "000",
+    "source_execute_bits_preserved": true
+  },
+  {
+    "case": "extract_mask",
+    "root_uid": 0,
+    "process_umask": "0022",
+    "modes": {
+      "backend": "0755",
+      "deploy": "0755",
+      "backend/online": "0755",
+      "deploy/hetzner": "0755",
+      "backend/online/release.py": "0644",
+      "deploy/hetzner/online": "0755",
+      "deploy/hetzner/online/update-online.sh": "0644"
+    },
+    "group_or_other_writable": [],
+    "source_executable_mask": "000",
+    "source_execute_bits_preserved": true
+  },
+  {
+    "case": "both",
+    "root_uid": 0,
+    "process_umask": "0022",
+    "modes": {
+      "backend": "0755",
+      "deploy": "0755",
+      "backend/online": "0755",
+      "deploy/hetzner": "0755",
+      "backend/online/release.py": "0644",
+      "deploy/hetzner/online": "0755",
+      "deploy/hetzner/online/update-online.sh": "0644"
+    },
+    "group_or_other_writable": [],
+    "source_executable_mask": "000",
+    "source_execute_bits_preserved": true
+  }
+]

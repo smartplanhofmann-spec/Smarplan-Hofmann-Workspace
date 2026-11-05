@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+personnel: private original, employee expense, independent approval, reimbursement/repayment, correction, approved time, frozen month, exact lost-ACK retry after changed source and historical PDF/CSV/JSON passed
+1 targeted personnel workflow passed (real owner/employee MFA, original expense and month UI; synthetic local sources)

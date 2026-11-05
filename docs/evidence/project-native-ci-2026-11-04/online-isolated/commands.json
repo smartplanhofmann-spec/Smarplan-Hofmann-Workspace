@@ -1,0 +1,55 @@
+[
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "-v",
+      "online.test_year_values_full_financial_restore_pg"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 27.093,
+    "log": "1-tests.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_provisioning*.py",
+      "-v"
+    ],
+    "exit_code": 1,
+    "duration_seconds": 20.232,
+    "log": "2-tests.txt"
+  },
+  {
+    "command": [
+      "python",
+      "backend/online/test_runtime.py"
+    ],
+    "exit_code": 1,
+    "duration_seconds": 11.328,
+    "log": "3-tests.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_release_tls.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 6.111,
+    "log": "4-tests.txt"
+  }
+]

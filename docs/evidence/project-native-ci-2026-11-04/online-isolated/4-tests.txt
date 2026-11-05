@@ -1,0 +1,7 @@
+
+test_real_restart_gates_get_and_post_then_reload_restores_upstream (test_release_tls.ReleaseMaintenanceTlsTest.test_real_restart_gates_get_and_post_then_reload_restores_upstream) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.457s
+
+OK

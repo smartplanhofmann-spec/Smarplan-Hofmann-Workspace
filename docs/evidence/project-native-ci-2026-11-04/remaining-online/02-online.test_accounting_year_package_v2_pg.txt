@@ -1,0 +1,6 @@
+test_actual_historical_journal_zip_is_identical_after_populated_restore (online.test_accounting_year_package_v2_pg.YearPackageCarryoverPostgres.test_actual_historical_journal_zip_is_identical_after_populated_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 8.524s
+
+OK

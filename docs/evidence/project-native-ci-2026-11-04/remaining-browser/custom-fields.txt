@@ -1,0 +1,2 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+1 targeted custom fields workflow passed (real MFA/HTTP, typed revisions and original retry)

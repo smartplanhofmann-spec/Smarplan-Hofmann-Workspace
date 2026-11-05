@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+migrations: real owner MFA/HTTP original upload and hash-preserving download, explicit CSV mappings, customer duplicate link, historical duplicate exclusion, exact source/selected totals, atomic apply, lost acknowledgement exact nonce, no second customer, bound project/archive and separate reconciliation passed
+1 targeted migration workflow passed (real owner MFA/HTTP, synthetic files, no provider network)

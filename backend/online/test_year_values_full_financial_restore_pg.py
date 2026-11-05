@@ -176,7 +176,8 @@ class YearValuesFullFinancialRestore(unittest.TestCase):
         self.assertEqual([(p['date'], p['amount']) for p in year_post['postings']],
                          [('2026-08-20','-50.00'),('2026-08-20','-9.50'),('2026-06-11','-19.00')])
         self.assertFalse(any(p['ledger']=='vat' and p['category']=='input_vat' for p in old_post['postings']+carry_post['postings']))
-        liquidity = openings.OpeningBalances(f.office).liquidity(f.owner, '2026-11-04')
+        liquidity_day = max(old_payment_command['payload']['date'], carry_payment_command['payload']['date'])
+        liquidity = openings.OpeningBalances(f.office).liquidity(f.owner, liquidity_day)
         money = next(row for row in liquidity['accounts'] if row['account']['id']==f.account['id'])
         self.assertEqual((money['opening_balance'], money['outflows'], money['calculated_balance']), ('1000.00','178.50','821.50'))
         self.assertEqual(EuerAccounting(f.office).exported(f.owner, export['id']), artifact)
@@ -265,7 +266,7 @@ class YearValuesFullFinancialRestore(unittest.TestCase):
                 self.assertEqual(EuerAccounting(restored).exported(f.owner, v2_export['id']), v2_artifact)
                 self.assertEqual(EuerAccounting(restored).year_evidence(f.owner, v2_export['id']), v2_metadata)
                 self.assertEqual(bytes(EuerAccounting(restored).year_evidence(f.owner, v2_export['id'], archive=True)), v2_archive)
-                self.assertFalse(openings.OpeningBalances(restored).liquidity(f.owner, '2026-11-04')['complete_for_recorded_accounts'])
+                self.assertFalse(openings.OpeningBalances(restored).liquidity(f.owner, liquidity_day)['complete_for_recorded_accounts'])
                 with self.assertRaises(Problem) as denied_year:
                     YearValues(restored).confirm(f.owner, year_command)
                 self.assertEqual(denied_year.exception.status, 409)
@@ -304,7 +305,7 @@ class YearValuesFullFinancialRestore(unittest.TestCase):
                 self.assertEqual(EuerAccounting(restored).year_evidence(f.owner, v2_export['id']), v2_metadata)
                 self.assertEqual(bytes(EuerAccounting(restored).year_evidence(f.owner, v2_export['id'], archive=True)), v2_archive)
                 self.assertEqual(year_horizon(restored), original_year_scope)
-                self.assertEqual(openings.OpeningBalances(restored).liquidity(f.owner, '2026-11-04'), liquidity)
+                self.assertEqual(openings.OpeningBalances(restored).liquidity(f.owner, liquidity_day), liquidity)
                 self.assertEqual(assets.HistoricalAssets(restored).confirm(f.owner, asset_command), asset)
                 self.assertEqual(openings.OpeningBalances(restored).confirm(f.owner, opening_command), opening)
                 self.assertEqual(OpeningItems(restored).confirm(f.owner, old_item_command), old_item)

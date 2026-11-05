@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+invoice chain: exact lost-reply conversion, editable cumulative draft with preserved predecessor, final contract/increment distinction and mobile layout passed
+1 targeted invoice-chain workflow passed (real MFA/HTTP/draft conversions; synthetic archived invoices)

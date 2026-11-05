@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+travel v3: actual MFA/HTTP, typed original programme with explicit reviews, 2/3 share before meals, independent 600-cent expense, foreign approval, 1000-cent actual payment, original JSON bytes/SHA256 before and after correction, unchanged history and mobile390 passed
+1 targeted travel v3 workflow passed

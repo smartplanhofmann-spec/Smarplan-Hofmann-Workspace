@@ -1,0 +1,11 @@
+test_distinct_runs_have_distinct_bound_receipts_and_unmet_observations_remain_listed (test_company_events_http.CompanyEventsHTTPTests.test_distinct_runs_have_distinct_bound_receipts_and_unmet_observations_remain_listed) ... ok
+test_http_scan_approval_execution_and_all_original_acceptances (test_company_events_http.CompanyEventsHTTPTests.test_http_scan_approval_execution_and_all_original_acceptances) ... ok
+test_strict_shapes_duplicate_json_filters_public_and_offline_tokens (test_company_events_http.CompanyEventsHTTPTests.test_strict_shapes_duplicate_json_filters_public_and_offline_tokens) ... ok
+test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport (test_company_events_pg.CompanyEventsPostgres.test_actual_invoice_and_dunning_sources_use_native_gates_and_one_synthetic_transport) ... ok
+test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending (test_company_events_pg.CompanyEventsPostgres.test_populated_restore_preserves_claims_and_exact_receipts_and_suspends_pending) ... ok
+test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance (test_company_events_pg.CompanyEventsPostgres.test_two_connections_claim_one_actual_task_and_restart_preserves_exact_acceptance) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 16.170s
+
+OK

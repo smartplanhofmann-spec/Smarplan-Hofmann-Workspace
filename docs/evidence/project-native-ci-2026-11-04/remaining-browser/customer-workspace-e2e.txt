@@ -1,0 +1,1 @@
+PASS: real MFA, scoped internal/public project, explicit text/files, original hashes, lost grant/session/upload/acceptance replies, protected adoption, project switch, file revoke and grant revoke during module pause; desktop/mobile. Synthetic loopback fixture; deployment TLS and live mail not exercised.

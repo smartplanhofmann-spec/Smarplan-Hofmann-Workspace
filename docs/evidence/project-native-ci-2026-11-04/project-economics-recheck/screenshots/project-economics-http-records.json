@@ -1,0 +1,1979 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "budget": {
+        "approved_changes_net": "0.00",
+        "base_net": "0.00",
+        "remaining_net": null,
+        "revision": 0,
+        "total_net": "0.00"
+      },
+      "costs": {
+        "external_service_net": "0.00",
+        "labor_net": "0.00",
+        "machine_net": "0.00",
+        "material_net": "0.00",
+        "other_net": "0.00",
+        "total_net": "0.00"
+      },
+      "currency": "EUR",
+      "issues": [],
+      "payments": {
+        "cash_balance_gross": "0.00",
+        "complete": true,
+        "net_inflow_gross": "0.00",
+        "open_gross": "0.00",
+        "receipts_gross": "0.00",
+        "refunds_gross": "0.00",
+        "supplier_outflows_gross": "0.00"
+      },
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "result": {
+        "complete_for_recorded_sources": true,
+        "document_net_contribution": "0.00",
+        "scope": "recorded_sources_only"
+      },
+      "revenue": {
+        "credited_gross": "0.00",
+        "credited_net": "0.00",
+        "invoiced_gross": "0.00",
+        "invoiced_net": "0.00",
+        "revenue_net": "0.00"
+      },
+      "sources": {
+        "approved_changes": [],
+        "approved_times": [],
+        "documents": [],
+        "material_movements": [],
+        "payment_allocations": [],
+        "receipt_allocations": [],
+        "supplier_payments": []
+      },
+      "tax_result_available": false,
+      "valuation_basis": "document_net"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": []
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "budget": {
+        "approved_changes_net": "0.00",
+        "base_net": "0.00",
+        "remaining_net": null,
+        "revision": 0,
+        "total_net": "0.00"
+      },
+      "costs": {
+        "external_service_net": "0.00",
+        "labor_net": "0.00",
+        "machine_net": "0.00",
+        "material_net": "0.00",
+        "other_net": "0.00",
+        "total_net": "0.00"
+      },
+      "currency": "EUR",
+      "issues": [
+        {
+          "code": "receipt_unreviewed",
+          "message": "Eingangsbeleg prüfen oder seine Kosteneinordnung mit der aktuellen Belegprüfung abgleichen.",
+          "source_id": "931e2e1878324243ac41a22408cc86be",
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be"
+        }
+      ],
+      "payments": {
+        "cash_balance_gross": "0.00",
+        "complete": true,
+        "net_inflow_gross": "0.00",
+        "open_gross": "0.00",
+        "receipts_gross": "0.00",
+        "refunds_gross": "0.00",
+        "supplier_outflows_gross": "0.00"
+      },
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "result": {
+        "complete_for_recorded_sources": false,
+        "document_net_contribution": null,
+        "scope": "recorded_sources_only"
+      },
+      "revenue": {
+        "credited_gross": "0.00",
+        "credited_net": "0.00",
+        "invoiced_gross": "0.00",
+        "invoiced_net": "0.00",
+        "revenue_net": "0.00"
+      },
+      "sources": {
+        "approved_changes": [],
+        "approved_times": [],
+        "documents": [],
+        "material_movements": [],
+        "payment_allocations": [],
+        "receipt_allocations": [],
+        "supplier_payments": []
+      },
+      "tax_result_available": false,
+      "valuation_basis": "document_net"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 0,
+          "classification_status": "unreviewed",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "filename": "synthetic-photo.png",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "latest_entry": null,
+          "media_type": "image/png",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 0,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": null,
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "needs_review",
+          "suggestion": {}
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "budget": {
+        "approved_changes_net": "0.00",
+        "base_net": "0.00",
+        "remaining_net": null,
+        "revision": 0,
+        "total_net": "0.00"
+      },
+      "costs": {
+        "external_service_net": "0.00",
+        "labor_net": "0.00",
+        "machine_net": "0.00",
+        "material_net": "0.00",
+        "other_net": "0.00",
+        "total_net": "0.00"
+      },
+      "currency": "EUR",
+      "issues": [
+        {
+          "code": "receipt_unclassified",
+          "message": "Eingangsbeleg prüfen oder seine Kosteneinordnung mit der aktuellen Belegprüfung abgleichen.",
+          "source_id": "931e2e1878324243ac41a22408cc86be",
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be"
+        }
+      ],
+      "payments": {
+        "cash_balance_gross": "0.00",
+        "complete": true,
+        "net_inflow_gross": "0.00",
+        "open_gross": "0.00",
+        "receipts_gross": "0.00",
+        "refunds_gross": "0.00",
+        "supplier_outflows_gross": "0.00"
+      },
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "result": {
+        "complete_for_recorded_sources": false,
+        "document_net_contribution": null,
+        "scope": "recorded_sources_only"
+      },
+      "revenue": {
+        "credited_gross": "0.00",
+        "credited_net": "0.00",
+        "invoiced_gross": "0.00",
+        "invoiced_net": "0.00",
+        "revenue_net": "0.00"
+      },
+      "sources": {
+        "approved_changes": [],
+        "approved_times": [],
+        "documents": [],
+        "material_movements": [],
+        "payment_allocations": [],
+        "receipt_allocations": [],
+        "supplier_payments": []
+      },
+      "tax_result_available": false,
+      "valuation_basis": "document_net"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 0,
+          "classification_status": "unclassified",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "currency": "EUR",
+          "filename": "synthetic-photo.png",
+          "gross": "119.00",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "invoice_number": "SYN-ECO-1",
+          "issue_date": "2026-11-03",
+          "latest_entry": null,
+          "media_type": "image/png",
+          "net": "100.00",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 1,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "119.00",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "100.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 1,
+            "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+            "review_status": "reviewed",
+            "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "19.00",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "reviewed",
+          "suggestion": {},
+          "tax": "19.00",
+          "vendor": "Synthetische Fremdleistung"
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 0,
+          "classification_status": "unclassified",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "currency": "EUR",
+          "filename": "synthetic-photo.png",
+          "gross": "119.00",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "invoice_number": "SYN-ECO-1",
+          "issue_date": "2026-11-03",
+          "latest_entry": null,
+          "media_type": "image/png",
+          "net": "100.00",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 1,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "119.00",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "100.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 1,
+            "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+            "review_status": "reviewed",
+            "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "19.00",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "reviewed",
+          "suggestion": {},
+          "tax": "19.00",
+          "vendor": "Synthetische Fremdleistung"
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/business/project-economics/preview",
+    "query": "",
+    "body": {
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source_revision": 1,
+      "expected_revision": 0,
+      "allocations": [
+        {
+          "category": "external_service",
+          "amount_net": "100.00"
+        }
+      ],
+      "reason": "Vollständige Fremdleistung laut Original."
+    },
+    "status": 200,
+    "value": {
+      "allocations": [
+        {
+          "amount_net": "100.00",
+          "category": "external_service"
+        }
+      ],
+      "expected_revision": 0,
+      "preview_hash": "42c331b73649127a48b7ddaae1954bdcaba2884d53bd5ac434adf02042cf9fae",
+      "previous_entry_id": null,
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "reason": "Vollständige Fremdleistung laut Original.",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source": {
+        "currency": "EUR",
+        "filename": "synthetic-photo.png",
+        "gross": "119.00",
+        "invoice_number": "SYN-ECO-1",
+        "issue_date": "2026-11-03",
+        "net": "100.00",
+        "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+        "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+        "receipt_id": "931e2e1878324243ac41a22408cc86be",
+        "review_revision": 1,
+        "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+        "review_status": "reviewed",
+        "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+        "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+        "tax": "19.00",
+        "vendor": "Synthetische Fremdleistung"
+      },
+      "source_revision": 1
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/business/project-economics/confirm",
+    "query": "",
+    "body": {
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source_revision": 1,
+      "expected_revision": 0,
+      "allocations": [
+        {
+          "category": "external_service",
+          "amount_net": "100.00"
+        }
+      ],
+      "reason": "Vollständige Fremdleistung laut Original.",
+      "preview_hash": "42c331b73649127a48b7ddaae1954bdcaba2884d53bd5ac434adf02042cf9fae",
+      "request_id": "d4de07199f884c42a442850df9fb3da1"
+    },
+    "status": 201,
+    "value": {
+      "allocations": [
+        {
+          "amount_net": "100.00",
+          "category": "external_service"
+        }
+      ],
+      "created_at": "2026-11-04T23:41:37+00:00",
+      "created_by": "d3db79856dfe47f881bedac5435554fe",
+      "entry_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+      "id": "ccbe213121a84a02965d8ad6d0841a01",
+      "preview_hash": "42c331b73649127a48b7ddaae1954bdcaba2884d53bd5ac434adf02042cf9fae",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "reason": "Vollständige Fremdleistung laut Original.",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "revision": 1,
+      "source": {
+        "currency": "EUR",
+        "filename": "synthetic-photo.png",
+        "gross": "119.00",
+        "invoice_number": "SYN-ECO-1",
+        "issue_date": "2026-11-03",
+        "net": "100.00",
+        "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+        "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+        "receipt_id": "931e2e1878324243ac41a22408cc86be",
+        "review_revision": 1,
+        "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+        "review_status": "reviewed",
+        "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+        "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+        "tax": "19.00",
+        "vendor": "Synthetische Fremdleistung"
+      },
+      "source_revision": 1
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/business/project-economics/confirm",
+    "query": "",
+    "body": {
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source_revision": 1,
+      "expected_revision": 0,
+      "allocations": [
+        {
+          "category": "external_service",
+          "amount_net": "100.00"
+        }
+      ],
+      "reason": "Vollständige Fremdleistung laut Original.",
+      "preview_hash": "42c331b73649127a48b7ddaae1954bdcaba2884d53bd5ac434adf02042cf9fae",
+      "request_id": "d4de07199f884c42a442850df9fb3da1"
+    },
+    "status": 201,
+    "value": {
+      "allocations": [
+        {
+          "amount_net": "100.00",
+          "category": "external_service"
+        }
+      ],
+      "created_at": "2026-11-04T23:41:37+00:00",
+      "created_by": "d3db79856dfe47f881bedac5435554fe",
+      "entry_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+      "id": "ccbe213121a84a02965d8ad6d0841a01",
+      "preview_hash": "42c331b73649127a48b7ddaae1954bdcaba2884d53bd5ac434adf02042cf9fae",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "reason": "Vollständige Fremdleistung laut Original.",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "revision": 1,
+      "source": {
+        "currency": "EUR",
+        "filename": "synthetic-photo.png",
+        "gross": "119.00",
+        "invoice_number": "SYN-ECO-1",
+        "issue_date": "2026-11-03",
+        "net": "100.00",
+        "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+        "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+        "receipt_id": "931e2e1878324243ac41a22408cc86be",
+        "review_revision": 1,
+        "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+        "review_status": "reviewed",
+        "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+        "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+        "tax": "19.00",
+        "vendor": "Synthetische Fremdleistung"
+      },
+      "source_revision": 1
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "budget": {
+        "approved_changes_net": "0.00",
+        "base_net": "0.00",
+        "remaining_net": null,
+        "revision": 0,
+        "total_net": "0.00"
+      },
+      "costs": {
+        "external_service_net": "100.00",
+        "labor_net": "0.00",
+        "machine_net": "0.00",
+        "material_net": "0.00",
+        "other_net": "0.00",
+        "total_net": "100.00"
+      },
+      "currency": "EUR",
+      "issues": [],
+      "payments": {
+        "cash_balance_gross": "0.00",
+        "complete": true,
+        "net_inflow_gross": "0.00",
+        "open_gross": "0.00",
+        "receipts_gross": "0.00",
+        "refunds_gross": "0.00",
+        "supplier_outflows_gross": "0.00"
+      },
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "result": {
+        "complete_for_recorded_sources": true,
+        "document_net_contribution": "-100.00",
+        "scope": "recorded_sources_only"
+      },
+      "revenue": {
+        "credited_gross": "0.00",
+        "credited_net": "0.00",
+        "invoiced_gross": "0.00",
+        "invoiced_net": "0.00",
+        "revenue_net": "0.00"
+      },
+      "sources": {
+        "approved_changes": [],
+        "approved_times": [],
+        "documents": [],
+        "material_movements": [],
+        "payment_allocations": [],
+        "receipt_allocations": [
+          {
+            "amount_net": "100.00",
+            "category": "external_service",
+            "classification_status": "current",
+            "entry_id": "ccbe213121a84a02965d8ad6d0841a01",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 1,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 1,
+            "vendor": "Synthetische Fremdleistung"
+          }
+        ],
+        "supplier_payments": []
+      },
+      "tax_result_available": false,
+      "valuation_basis": "document_net"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 1,
+          "classification_status": "current",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "currency": "EUR",
+          "filename": "synthetic-photo.png",
+          "gross": "119.00",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "invoice_number": "SYN-ECO-1",
+          "issue_date": "2026-11-03",
+          "latest_entry": {
+            "allocations": [
+              {
+                "amount_net": "100.00",
+                "category": "external_service"
+              }
+            ],
+            "created_at": "2026-11-04T23:41:37+00:00",
+            "created_by": "d3db79856dfe47f881bedac5435554fe",
+            "entry_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+            "id": "ccbe213121a84a02965d8ad6d0841a01",
+            "preview_hash": "42c331b73649127a48b7ddaae1954bdcaba2884d53bd5ac434adf02042cf9fae",
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "reason": "Vollständige Fremdleistung laut Original.",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 1,
+            "source": {
+              "currency": "EUR",
+              "filename": "synthetic-photo.png",
+              "gross": "119.00",
+              "invoice_number": "SYN-ECO-1",
+              "issue_date": "2026-11-03",
+              "net": "100.00",
+              "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+              "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+              "receipt_id": "931e2e1878324243ac41a22408cc86be",
+              "review_revision": 1,
+              "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+              "review_status": "reviewed",
+              "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+              "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+              "tax": "19.00",
+              "vendor": "Synthetische Fremdleistung"
+            },
+            "source_revision": 1
+          },
+          "media_type": "image/png",
+          "net": "100.00",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 1,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "119.00",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "100.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 1,
+            "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+            "review_status": "reviewed",
+            "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "19.00",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "reviewed",
+          "suggestion": {},
+          "tax": "19.00",
+          "vendor": "Synthetische Fremdleistung"
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 1,
+          "classification_status": "current",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "currency": "EUR",
+          "filename": "synthetic-photo.png",
+          "gross": "119.00",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "invoice_number": "SYN-ECO-1",
+          "issue_date": "2026-11-03",
+          "latest_entry": {
+            "allocations": [
+              {
+                "amount_net": "100.00",
+                "category": "external_service"
+              }
+            ],
+            "created_at": "2026-11-04T23:41:37+00:00",
+            "created_by": "d3db79856dfe47f881bedac5435554fe",
+            "entry_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+            "id": "ccbe213121a84a02965d8ad6d0841a01",
+            "preview_hash": "42c331b73649127a48b7ddaae1954bdcaba2884d53bd5ac434adf02042cf9fae",
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "reason": "Vollständige Fremdleistung laut Original.",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 1,
+            "source": {
+              "currency": "EUR",
+              "filename": "synthetic-photo.png",
+              "gross": "119.00",
+              "invoice_number": "SYN-ECO-1",
+              "issue_date": "2026-11-03",
+              "net": "100.00",
+              "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+              "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+              "receipt_id": "931e2e1878324243ac41a22408cc86be",
+              "review_revision": 1,
+              "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+              "review_status": "reviewed",
+              "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+              "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+              "tax": "19.00",
+              "vendor": "Synthetische Fremdleistung"
+            },
+            "source_revision": 1
+          },
+          "media_type": "image/png",
+          "net": "100.00",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 1,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "119.00",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "100.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 1,
+            "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+            "review_status": "reviewed",
+            "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "19.00",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "reviewed",
+          "suggestion": {},
+          "tax": "19.00",
+          "vendor": "Synthetische Fremdleistung"
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/business/project-economics/preview",
+    "query": "",
+    "body": {
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source_revision": 1,
+      "expected_revision": 1,
+      "allocations": [
+        {
+          "category": "external_service",
+          "amount_net": "60.00"
+        },
+        {
+          "category": "other",
+          "amount_net": "40.00"
+        }
+      ],
+      "reason": "Getrennte belegte Leistungs- und Auslagenanteile."
+    },
+    "status": 200,
+    "value": {
+      "allocations": [
+        {
+          "amount_net": "60.00",
+          "category": "external_service"
+        },
+        {
+          "amount_net": "40.00",
+          "category": "other"
+        }
+      ],
+      "expected_revision": 1,
+      "preview_hash": "c6f701c6225d47fda2455cc12b2c0de9fc42a6a85b7f6fe1b561d44101f7a3cf",
+      "previous_entry_id": "ccbe213121a84a02965d8ad6d0841a01",
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "reason": "Getrennte belegte Leistungs- und Auslagenanteile.",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source": {
+        "currency": "EUR",
+        "filename": "synthetic-photo.png",
+        "gross": "119.00",
+        "invoice_number": "SYN-ECO-1",
+        "issue_date": "2026-11-03",
+        "net": "100.00",
+        "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+        "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+        "receipt_id": "931e2e1878324243ac41a22408cc86be",
+        "review_revision": 1,
+        "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+        "review_status": "reviewed",
+        "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+        "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+        "tax": "19.00",
+        "vendor": "Synthetische Fremdleistung"
+      },
+      "source_revision": 1
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/business/project-economics/confirm",
+    "query": "",
+    "body": {
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source_revision": 1,
+      "expected_revision": 1,
+      "allocations": [
+        {
+          "category": "external_service",
+          "amount_net": "60.00"
+        },
+        {
+          "category": "other",
+          "amount_net": "40.00"
+        }
+      ],
+      "reason": "Getrennte belegte Leistungs- und Auslagenanteile.",
+      "preview_hash": "c6f701c6225d47fda2455cc12b2c0de9fc42a6a85b7f6fe1b561d44101f7a3cf",
+      "request_id": "b42f4124dad54f73a7ca368ae7a9cfd1"
+    },
+    "status": 201,
+    "value": {
+      "allocations": [
+        {
+          "amount_net": "60.00",
+          "category": "external_service"
+        },
+        {
+          "amount_net": "40.00",
+          "category": "other"
+        }
+      ],
+      "created_at": "2026-11-04T23:41:38+00:00",
+      "created_by": "d3db79856dfe47f881bedac5435554fe",
+      "entry_hash": "f8d0163835cb1d670786f457790d387db75c8822c8cc8ceea21d08ff5c995168",
+      "id": "9eefa93b19a241eea768491fbd353d76",
+      "preview_hash": "c6f701c6225d47fda2455cc12b2c0de9fc42a6a85b7f6fe1b561d44101f7a3cf",
+      "previous_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "reason": "Getrennte belegte Leistungs- und Auslagenanteile.",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "revision": 2,
+      "source": {
+        "currency": "EUR",
+        "filename": "synthetic-photo.png",
+        "gross": "119.00",
+        "invoice_number": "SYN-ECO-1",
+        "issue_date": "2026-11-03",
+        "net": "100.00",
+        "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+        "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+        "receipt_id": "931e2e1878324243ac41a22408cc86be",
+        "review_revision": 1,
+        "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+        "review_status": "reviewed",
+        "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+        "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+        "tax": "19.00",
+        "vendor": "Synthetische Fremdleistung"
+      },
+      "source_revision": 1
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "budget": {
+        "approved_changes_net": "0.00",
+        "base_net": "0.00",
+        "remaining_net": null,
+        "revision": 0,
+        "total_net": "0.00"
+      },
+      "costs": {
+        "external_service_net": "60.00",
+        "labor_net": "0.00",
+        "machine_net": "0.00",
+        "material_net": "0.00",
+        "other_net": "40.00",
+        "total_net": "100.00"
+      },
+      "currency": "EUR",
+      "issues": [],
+      "payments": {
+        "cash_balance_gross": "0.00",
+        "complete": true,
+        "net_inflow_gross": "0.00",
+        "open_gross": "0.00",
+        "receipts_gross": "0.00",
+        "refunds_gross": "0.00",
+        "supplier_outflows_gross": "0.00"
+      },
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "result": {
+        "complete_for_recorded_sources": true,
+        "document_net_contribution": "-100.00",
+        "scope": "recorded_sources_only"
+      },
+      "revenue": {
+        "credited_gross": "0.00",
+        "credited_net": "0.00",
+        "invoiced_gross": "0.00",
+        "invoiced_net": "0.00",
+        "revenue_net": "0.00"
+      },
+      "sources": {
+        "approved_changes": [],
+        "approved_times": [],
+        "documents": [],
+        "material_movements": [],
+        "payment_allocations": [],
+        "receipt_allocations": [
+          {
+            "amount_net": "60.00",
+            "category": "external_service",
+            "classification_status": "current",
+            "entry_id": "9eefa93b19a241eea768491fbd353d76",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 2,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 1,
+            "vendor": "Synthetische Fremdleistung"
+          },
+          {
+            "amount_net": "40.00",
+            "category": "other",
+            "classification_status": "current",
+            "entry_id": "9eefa93b19a241eea768491fbd353d76",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 2,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 1,
+            "vendor": "Synthetische Fremdleistung"
+          }
+        ],
+        "supplier_payments": []
+      },
+      "tax_result_available": false,
+      "valuation_basis": "document_net"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 2,
+          "classification_status": "current",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "currency": "EUR",
+          "filename": "synthetic-photo.png",
+          "gross": "119.00",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "invoice_number": "SYN-ECO-1",
+          "issue_date": "2026-11-03",
+          "latest_entry": {
+            "allocations": [
+              {
+                "amount_net": "60.00",
+                "category": "external_service"
+              },
+              {
+                "amount_net": "40.00",
+                "category": "other"
+              }
+            ],
+            "created_at": "2026-11-04T23:41:38+00:00",
+            "created_by": "d3db79856dfe47f881bedac5435554fe",
+            "entry_hash": "f8d0163835cb1d670786f457790d387db75c8822c8cc8ceea21d08ff5c995168",
+            "id": "9eefa93b19a241eea768491fbd353d76",
+            "preview_hash": "c6f701c6225d47fda2455cc12b2c0de9fc42a6a85b7f6fe1b561d44101f7a3cf",
+            "previous_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "reason": "Getrennte belegte Leistungs- und Auslagenanteile.",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 2,
+            "source": {
+              "currency": "EUR",
+              "filename": "synthetic-photo.png",
+              "gross": "119.00",
+              "invoice_number": "SYN-ECO-1",
+              "issue_date": "2026-11-03",
+              "net": "100.00",
+              "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+              "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+              "receipt_id": "931e2e1878324243ac41a22408cc86be",
+              "review_revision": 1,
+              "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+              "review_status": "reviewed",
+              "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+              "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+              "tax": "19.00",
+              "vendor": "Synthetische Fremdleistung"
+            },
+            "source_revision": 1
+          },
+          "media_type": "image/png",
+          "net": "100.00",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 1,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "119.00",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "100.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 1,
+            "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+            "review_status": "reviewed",
+            "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "19.00",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "reviewed",
+          "suggestion": {},
+          "tax": "19.00",
+          "vendor": "Synthetische Fremdleistung"
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/receipts/931e2e1878324243ac41a22408cc86be",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "allocations": [
+            {
+              "amount_net": "100.00",
+              "category": "external_service"
+            }
+          ],
+          "created_at": "2026-11-04T23:41:37+00:00",
+          "created_by": "d3db79856dfe47f881bedac5435554fe",
+          "entry_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+          "id": "ccbe213121a84a02965d8ad6d0841a01",
+          "preview_hash": "42c331b73649127a48b7ddaae1954bdcaba2884d53bd5ac434adf02042cf9fae",
+          "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "reason": "Vollständige Fremdleistung laut Original.",
+          "receipt_id": "931e2e1878324243ac41a22408cc86be",
+          "revision": 1,
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "119.00",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "100.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 1,
+            "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+            "review_status": "reviewed",
+            "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "19.00",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_revision": 1
+        },
+        {
+          "allocations": [
+            {
+              "amount_net": "60.00",
+              "category": "external_service"
+            },
+            {
+              "amount_net": "40.00",
+              "category": "other"
+            }
+          ],
+          "created_at": "2026-11-04T23:41:38+00:00",
+          "created_by": "d3db79856dfe47f881bedac5435554fe",
+          "entry_hash": "f8d0163835cb1d670786f457790d387db75c8822c8cc8ceea21d08ff5c995168",
+          "id": "9eefa93b19a241eea768491fbd353d76",
+          "preview_hash": "c6f701c6225d47fda2455cc12b2c0de9fc42a6a85b7f6fe1b561d44101f7a3cf",
+          "previous_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "reason": "Getrennte belegte Leistungs- und Auslagenanteile.",
+          "receipt_id": "931e2e1878324243ac41a22408cc86be",
+          "revision": 2,
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "119.00",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "100.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 1,
+            "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+            "review_status": "reviewed",
+            "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "19.00",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_revision": 1
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "budget": {
+        "approved_changes_net": "0.00",
+        "base_net": "0.00",
+        "remaining_net": null,
+        "revision": 0,
+        "total_net": "0.00"
+      },
+      "costs": {
+        "external_service_net": "60.00",
+        "labor_net": "0.00",
+        "machine_net": "0.00",
+        "material_net": "0.00",
+        "other_net": "40.00",
+        "total_net": "100.00"
+      },
+      "currency": "EUR",
+      "issues": [
+        {
+          "code": "receipt_source_changed",
+          "message": "Eingangsbeleg prüfen oder seine Kosteneinordnung mit der aktuellen Belegprüfung abgleichen.",
+          "source_id": "931e2e1878324243ac41a22408cc86be",
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be"
+        }
+      ],
+      "payments": {
+        "cash_balance_gross": "0.00",
+        "complete": true,
+        "net_inflow_gross": "0.00",
+        "open_gross": "0.00",
+        "receipts_gross": "0.00",
+        "refunds_gross": "0.00",
+        "supplier_outflows_gross": "0.00"
+      },
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "result": {
+        "complete_for_recorded_sources": false,
+        "document_net_contribution": null,
+        "scope": "recorded_sources_only"
+      },
+      "revenue": {
+        "credited_gross": "0.00",
+        "credited_net": "0.00",
+        "invoiced_gross": "0.00",
+        "invoiced_net": "0.00",
+        "revenue_net": "0.00"
+      },
+      "sources": {
+        "approved_changes": [],
+        "approved_times": [],
+        "documents": [],
+        "material_movements": [],
+        "payment_allocations": [],
+        "receipt_allocations": [
+          {
+            "amount_net": "60.00",
+            "category": "external_service",
+            "classification_status": "source_changed",
+            "entry_id": "9eefa93b19a241eea768491fbd353d76",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 2,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 1,
+            "vendor": "Synthetische Fremdleistung"
+          },
+          {
+            "amount_net": "40.00",
+            "category": "other",
+            "classification_status": "source_changed",
+            "entry_id": "9eefa93b19a241eea768491fbd353d76",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 2,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 1,
+            "vendor": "Synthetische Fremdleistung"
+          }
+        ],
+        "supplier_payments": []
+      },
+      "tax_result_available": false,
+      "valuation_basis": "document_net"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 2,
+          "classification_status": "source_changed",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "currency": "EUR",
+          "filename": "synthetic-photo.png",
+          "gross": "130.90",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "invoice_number": "SYN-ECO-1",
+          "issue_date": "2026-11-03",
+          "latest_entry": {
+            "allocations": [
+              {
+                "amount_net": "60.00",
+                "category": "external_service"
+              },
+              {
+                "amount_net": "40.00",
+                "category": "other"
+              }
+            ],
+            "created_at": "2026-11-04T23:41:38+00:00",
+            "created_by": "d3db79856dfe47f881bedac5435554fe",
+            "entry_hash": "f8d0163835cb1d670786f457790d387db75c8822c8cc8ceea21d08ff5c995168",
+            "id": "9eefa93b19a241eea768491fbd353d76",
+            "preview_hash": "c6f701c6225d47fda2455cc12b2c0de9fc42a6a85b7f6fe1b561d44101f7a3cf",
+            "previous_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "reason": "Getrennte belegte Leistungs- und Auslagenanteile.",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 2,
+            "source": {
+              "currency": "EUR",
+              "filename": "synthetic-photo.png",
+              "gross": "119.00",
+              "invoice_number": "SYN-ECO-1",
+              "issue_date": "2026-11-03",
+              "net": "100.00",
+              "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+              "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+              "receipt_id": "931e2e1878324243ac41a22408cc86be",
+              "review_revision": 1,
+              "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+              "review_status": "reviewed",
+              "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+              "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+              "tax": "19.00",
+              "vendor": "Synthetische Fremdleistung"
+            },
+            "source_revision": 1
+          },
+          "media_type": "image/png",
+          "net": "110.00",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 2,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "130.90",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "110.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 2,
+            "review_sha256": "dd7406774ae8ba2a2fe3e648f9d252cb209aaf5857e0755b774e5b40ed8b5563",
+            "review_status": "reviewed",
+            "source_hash": "841c5cc76cbc2b48d14493cbea3514018a90b759ef6abe86b9bb2f2f22856610",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "20.90",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "reviewed",
+          "suggestion": {},
+          "tax": "20.90",
+          "vendor": "Synthetische Fremdleistung"
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 2,
+          "classification_status": "source_changed",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "currency": "EUR",
+          "filename": "synthetic-photo.png",
+          "gross": "130.90",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "invoice_number": "SYN-ECO-1",
+          "issue_date": "2026-11-03",
+          "latest_entry": {
+            "allocations": [
+              {
+                "amount_net": "60.00",
+                "category": "external_service"
+              },
+              {
+                "amount_net": "40.00",
+                "category": "other"
+              }
+            ],
+            "created_at": "2026-11-04T23:41:38+00:00",
+            "created_by": "d3db79856dfe47f881bedac5435554fe",
+            "entry_hash": "f8d0163835cb1d670786f457790d387db75c8822c8cc8ceea21d08ff5c995168",
+            "id": "9eefa93b19a241eea768491fbd353d76",
+            "preview_hash": "c6f701c6225d47fda2455cc12b2c0de9fc42a6a85b7f6fe1b561d44101f7a3cf",
+            "previous_hash": "fa8f417629d09b15bd682685ece07016bea68473730c07f14df86f23ad361ece",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "reason": "Getrennte belegte Leistungs- und Auslagenanteile.",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 2,
+            "source": {
+              "currency": "EUR",
+              "filename": "synthetic-photo.png",
+              "gross": "119.00",
+              "invoice_number": "SYN-ECO-1",
+              "issue_date": "2026-11-03",
+              "net": "100.00",
+              "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+              "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+              "receipt_id": "931e2e1878324243ac41a22408cc86be",
+              "review_revision": 1,
+              "review_sha256": "dafac959c916eabfa9ec418c5490d86bd97e9e3079db84663b9815f91f33c2f3",
+              "review_status": "reviewed",
+              "source_hash": "db11948c386d575db88bd242405f0e3739fb37d0131ba6f0469bc18e7c6827b9",
+              "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+              "tax": "19.00",
+              "vendor": "Synthetische Fremdleistung"
+            },
+            "source_revision": 1
+          },
+          "media_type": "image/png",
+          "net": "110.00",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 2,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "130.90",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "110.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 2,
+            "review_sha256": "dd7406774ae8ba2a2fe3e648f9d252cb209aaf5857e0755b774e5b40ed8b5563",
+            "review_status": "reviewed",
+            "source_hash": "841c5cc76cbc2b48d14493cbea3514018a90b759ef6abe86b9bb2f2f22856610",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "20.90",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "reviewed",
+          "suggestion": {},
+          "tax": "20.90",
+          "vendor": "Synthetische Fremdleistung"
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/business/project-economics/preview",
+    "query": "",
+    "body": {
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source_revision": 2,
+      "expected_revision": 2,
+      "allocations": [
+        {
+          "category": "external_service",
+          "amount_net": "70.00"
+        },
+        {
+          "category": "other",
+          "amount_net": "40.00"
+        }
+      ],
+      "reason": "Geänderte Belegprüfung ausdrücklich übernommen."
+    },
+    "status": 200,
+    "value": {
+      "allocations": [
+        {
+          "amount_net": "70.00",
+          "category": "external_service"
+        },
+        {
+          "amount_net": "40.00",
+          "category": "other"
+        }
+      ],
+      "expected_revision": 2,
+      "preview_hash": "ef7d8b90b65b33ce4ea7480312e7cc01f3f4f79e70e57a6a143bf557c21bcd35",
+      "previous_entry_id": "9eefa93b19a241eea768491fbd353d76",
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "reason": "Geänderte Belegprüfung ausdrücklich übernommen.",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source": {
+        "currency": "EUR",
+        "filename": "synthetic-photo.png",
+        "gross": "130.90",
+        "invoice_number": "SYN-ECO-1",
+        "issue_date": "2026-11-03",
+        "net": "110.00",
+        "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+        "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+        "receipt_id": "931e2e1878324243ac41a22408cc86be",
+        "review_revision": 2,
+        "review_sha256": "dd7406774ae8ba2a2fe3e648f9d252cb209aaf5857e0755b774e5b40ed8b5563",
+        "review_status": "reviewed",
+        "source_hash": "841c5cc76cbc2b48d14493cbea3514018a90b759ef6abe86b9bb2f2f22856610",
+        "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+        "tax": "20.90",
+        "vendor": "Synthetische Fremdleistung"
+      },
+      "source_revision": 2
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/business/project-economics/confirm",
+    "query": "",
+    "body": {
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "source_revision": 2,
+      "expected_revision": 2,
+      "allocations": [
+        {
+          "category": "external_service",
+          "amount_net": "70.00"
+        },
+        {
+          "category": "other",
+          "amount_net": "40.00"
+        }
+      ],
+      "reason": "Geänderte Belegprüfung ausdrücklich übernommen.",
+      "preview_hash": "ef7d8b90b65b33ce4ea7480312e7cc01f3f4f79e70e57a6a143bf557c21bcd35",
+      "request_id": "56dc7536196c4a2caa4d44adb442b2f3"
+    },
+    "status": 201,
+    "value": {
+      "allocations": [
+        {
+          "amount_net": "70.00",
+          "category": "external_service"
+        },
+        {
+          "amount_net": "40.00",
+          "category": "other"
+        }
+      ],
+      "created_at": "2026-11-04T23:41:39+00:00",
+      "created_by": "d3db79856dfe47f881bedac5435554fe",
+      "entry_hash": "184097d0acaedbdbffea20a4a55e84e77ec8f6f1532002d41bb6e9709bf70156",
+      "id": "eed6f0c8015c4d98bf394e45cf2f3809",
+      "preview_hash": "ef7d8b90b65b33ce4ea7480312e7cc01f3f4f79e70e57a6a143bf557c21bcd35",
+      "previous_hash": "f8d0163835cb1d670786f457790d387db75c8822c8cc8ceea21d08ff5c995168",
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "reason": "Geänderte Belegprüfung ausdrücklich übernommen.",
+      "receipt_id": "931e2e1878324243ac41a22408cc86be",
+      "revision": 3,
+      "source": {
+        "currency": "EUR",
+        "filename": "synthetic-photo.png",
+        "gross": "130.90",
+        "invoice_number": "SYN-ECO-1",
+        "issue_date": "2026-11-03",
+        "net": "110.00",
+        "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+        "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+        "receipt_id": "931e2e1878324243ac41a22408cc86be",
+        "review_revision": 2,
+        "review_sha256": "dd7406774ae8ba2a2fe3e648f9d252cb209aaf5857e0755b774e5b40ed8b5563",
+        "review_status": "reviewed",
+        "source_hash": "841c5cc76cbc2b48d14493cbea3514018a90b759ef6abe86b9bb2f2f22856610",
+        "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+        "tax": "20.90",
+        "vendor": "Synthetische Fremdleistung"
+      },
+      "source_revision": 2
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "budget": {
+        "approved_changes_net": "0.00",
+        "base_net": "0.00",
+        "remaining_net": null,
+        "revision": 0,
+        "total_net": "0.00"
+      },
+      "costs": {
+        "external_service_net": "70.00",
+        "labor_net": "0.00",
+        "machine_net": "0.00",
+        "material_net": "0.00",
+        "other_net": "40.00",
+        "total_net": "110.00"
+      },
+      "currency": "EUR",
+      "issues": [],
+      "payments": {
+        "cash_balance_gross": "0.00",
+        "complete": true,
+        "net_inflow_gross": "0.00",
+        "open_gross": "0.00",
+        "receipts_gross": "0.00",
+        "refunds_gross": "0.00",
+        "supplier_outflows_gross": "0.00"
+      },
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "result": {
+        "complete_for_recorded_sources": true,
+        "document_net_contribution": "-110.00",
+        "scope": "recorded_sources_only"
+      },
+      "revenue": {
+        "credited_gross": "0.00",
+        "credited_net": "0.00",
+        "invoiced_gross": "0.00",
+        "invoiced_net": "0.00",
+        "revenue_net": "0.00"
+      },
+      "sources": {
+        "approved_changes": [],
+        "approved_times": [],
+        "documents": [],
+        "material_movements": [],
+        "payment_allocations": [],
+        "receipt_allocations": [
+          {
+            "amount_net": "70.00",
+            "category": "external_service",
+            "classification_status": "current",
+            "entry_id": "eed6f0c8015c4d98bf394e45cf2f3809",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 3,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 2,
+            "vendor": "Synthetische Fremdleistung"
+          },
+          {
+            "amount_net": "40.00",
+            "category": "other",
+            "classification_status": "current",
+            "entry_id": "eed6f0c8015c4d98bf394e45cf2f3809",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 3,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 2,
+            "vendor": "Synthetische Fremdleistung"
+          }
+        ],
+        "supplier_payments": []
+      },
+      "tax_result_available": false,
+      "valuation_basis": "document_net"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 3,
+          "classification_status": "current",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "currency": "EUR",
+          "filename": "synthetic-photo.png",
+          "gross": "130.90",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "invoice_number": "SYN-ECO-1",
+          "issue_date": "2026-11-03",
+          "latest_entry": {
+            "allocations": [
+              {
+                "amount_net": "70.00",
+                "category": "external_service"
+              },
+              {
+                "amount_net": "40.00",
+                "category": "other"
+              }
+            ],
+            "created_at": "2026-11-04T23:41:39+00:00",
+            "created_by": "d3db79856dfe47f881bedac5435554fe",
+            "entry_hash": "184097d0acaedbdbffea20a4a55e84e77ec8f6f1532002d41bb6e9709bf70156",
+            "id": "eed6f0c8015c4d98bf394e45cf2f3809",
+            "preview_hash": "ef7d8b90b65b33ce4ea7480312e7cc01f3f4f79e70e57a6a143bf557c21bcd35",
+            "previous_hash": "f8d0163835cb1d670786f457790d387db75c8822c8cc8ceea21d08ff5c995168",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "reason": "Geänderte Belegprüfung ausdrücklich übernommen.",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 3,
+            "source": {
+              "currency": "EUR",
+              "filename": "synthetic-photo.png",
+              "gross": "130.90",
+              "invoice_number": "SYN-ECO-1",
+              "issue_date": "2026-11-03",
+              "net": "110.00",
+              "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+              "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+              "receipt_id": "931e2e1878324243ac41a22408cc86be",
+              "review_revision": 2,
+              "review_sha256": "dd7406774ae8ba2a2fe3e648f9d252cb209aaf5857e0755b774e5b40ed8b5563",
+              "review_status": "reviewed",
+              "source_hash": "841c5cc76cbc2b48d14493cbea3514018a90b759ef6abe86b9bb2f2f22856610",
+              "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+              "tax": "20.90",
+              "vendor": "Synthetische Fremdleistung"
+            },
+            "source_revision": 2
+          },
+          "media_type": "image/png",
+          "net": "110.00",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 2,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "130.90",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "110.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 2,
+            "review_sha256": "dd7406774ae8ba2a2fe3e648f9d252cb209aaf5857e0755b774e5b40ed8b5563",
+            "review_status": "reviewed",
+            "source_hash": "841c5cc76cbc2b48d14493cbea3514018a90b759ef6abe86b9bb2f2f22856610",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "20.90",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "reviewed",
+          "suggestion": {},
+          "tax": "20.90",
+          "vendor": "Synthetische Fremdleistung"
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "budget": {
+        "approved_changes_net": "0.00",
+        "base_net": "200.00",
+        "remaining_net": "90.00",
+        "revision": 1,
+        "total_net": "200.00"
+      },
+      "costs": {
+        "external_service_net": "70.00",
+        "labor_net": "0.00",
+        "machine_net": "0.00",
+        "material_net": "0.00",
+        "other_net": "40.00",
+        "total_net": "110.00"
+      },
+      "currency": "EUR",
+      "issues": [],
+      "payments": {
+        "cash_balance_gross": "0.00",
+        "complete": true,
+        "net_inflow_gross": "0.00",
+        "open_gross": "0.00",
+        "receipts_gross": "0.00",
+        "refunds_gross": "0.00",
+        "supplier_outflows_gross": "0.00"
+      },
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "result": {
+        "complete_for_recorded_sources": true,
+        "document_net_contribution": "-110.00",
+        "scope": "recorded_sources_only"
+      },
+      "revenue": {
+        "credited_gross": "0.00",
+        "credited_net": "0.00",
+        "invoiced_gross": "0.00",
+        "invoiced_net": "0.00",
+        "revenue_net": "0.00"
+      },
+      "sources": {
+        "approved_changes": [],
+        "approved_times": [],
+        "documents": [],
+        "material_movements": [],
+        "payment_allocations": [],
+        "receipt_allocations": [
+          {
+            "amount_net": "70.00",
+            "category": "external_service",
+            "classification_status": "current",
+            "entry_id": "eed6f0c8015c4d98bf394e45cf2f3809",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 3,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 2,
+            "vendor": "Synthetische Fremdleistung"
+          },
+          {
+            "amount_net": "40.00",
+            "category": "other",
+            "classification_status": "current",
+            "entry_id": "eed6f0c8015c4d98bf394e45cf2f3809",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 3,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 2,
+            "vendor": "Synthetische Fremdleistung"
+          }
+        ],
+        "supplier_payments": []
+      },
+      "tax_result_available": false,
+      "valuation_basis": "document_net"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics/sources",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "items": [
+        {
+          "classification_revision": 3,
+          "classification_status": "current",
+          "created_at": "2026-11-04T23:41:36.429733+00:00",
+          "currency": "EUR",
+          "filename": "synthetic-photo.png",
+          "gross": "130.90",
+          "id": "931e2e1878324243ac41a22408cc86be",
+          "invoice_number": "SYN-ECO-1",
+          "issue_date": "2026-11-03",
+          "latest_entry": {
+            "allocations": [
+              {
+                "amount_net": "70.00",
+                "category": "external_service"
+              },
+              {
+                "amount_net": "40.00",
+                "category": "other"
+              }
+            ],
+            "created_at": "2026-11-04T23:41:39+00:00",
+            "created_by": "d3db79856dfe47f881bedac5435554fe",
+            "entry_hash": "184097d0acaedbdbffea20a4a55e84e77ec8f6f1532002d41bb6e9709bf70156",
+            "id": "eed6f0c8015c4d98bf394e45cf2f3809",
+            "preview_hash": "ef7d8b90b65b33ce4ea7480312e7cc01f3f4f79e70e57a6a143bf557c21bcd35",
+            "previous_hash": "f8d0163835cb1d670786f457790d387db75c8822c8cc8ceea21d08ff5c995168",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "reason": "Geänderte Belegprüfung ausdrücklich übernommen.",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 3,
+            "source": {
+              "currency": "EUR",
+              "filename": "synthetic-photo.png",
+              "gross": "130.90",
+              "invoice_number": "SYN-ECO-1",
+              "issue_date": "2026-11-03",
+              "net": "110.00",
+              "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+              "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+              "receipt_id": "931e2e1878324243ac41a22408cc86be",
+              "review_revision": 2,
+              "review_sha256": "dd7406774ae8ba2a2fe3e648f9d252cb209aaf5857e0755b774e5b40ed8b5563",
+              "review_status": "reviewed",
+              "source_hash": "841c5cc76cbc2b48d14493cbea3514018a90b759ef6abe86b9bb2f2f22856610",
+              "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+              "tax": "20.90",
+              "vendor": "Synthetische Fremdleistung"
+            },
+            "source_revision": 2
+          },
+          "media_type": "image/png",
+          "net": "110.00",
+          "note": "Synthetischer Originalbeleg zur erbrachten Fremdleistung.",
+          "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+          "revision": 2,
+          "sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+          "source": {
+            "currency": "EUR",
+            "filename": "synthetic-photo.png",
+            "gross": "130.90",
+            "invoice_number": "SYN-ECO-1",
+            "issue_date": "2026-11-03",
+            "net": "110.00",
+            "original_sha256": "5f6c462a1856afa041fc299e930a5f3c4685788517dab26309059754285ea832",
+            "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "review_revision": 2,
+            "review_sha256": "dd7406774ae8ba2a2fe3e648f9d252cb209aaf5857e0755b774e5b40ed8b5563",
+            "review_status": "reviewed",
+            "source_hash": "841c5cc76cbc2b48d14493cbea3514018a90b759ef6abe86b9bb2f2f22856610",
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "tax": "20.90",
+            "vendor": "Synthetische Fremdleistung"
+          },
+          "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+          "status": "reviewed",
+          "suggestion": {},
+          "tax": "20.90",
+          "vendor": "Synthetische Fremdleistung"
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/business/project-economics",
+    "query": "?project_id=e7b19210d0a74be8965f0dd3c522cd76",
+    "body": null,
+    "status": 200,
+    "value": {
+      "budget": {
+        "approved_changes_net": "0.00",
+        "base_net": "200.00",
+        "remaining_net": "90.00",
+        "revision": 1,
+        "total_net": "200.00"
+      },
+      "costs": {
+        "external_service_net": "70.00",
+        "labor_net": "0.00",
+        "machine_net": "0.00",
+        "material_net": "0.00",
+        "other_net": "40.00",
+        "total_net": "110.00"
+      },
+      "currency": "EUR",
+      "issues": [],
+      "payments": {
+        "cash_balance_gross": "0.00",
+        "complete": true,
+        "net_inflow_gross": "0.00",
+        "open_gross": "0.00",
+        "receipts_gross": "0.00",
+        "refunds_gross": "0.00",
+        "supplier_outflows_gross": "0.00"
+      },
+      "project_id": "e7b19210d0a74be8965f0dd3c522cd76",
+      "result": {
+        "complete_for_recorded_sources": true,
+        "document_net_contribution": "-110.00",
+        "scope": "recorded_sources_only"
+      },
+      "revenue": {
+        "credited_gross": "0.00",
+        "credited_net": "0.00",
+        "invoiced_gross": "0.00",
+        "invoiced_net": "0.00",
+        "revenue_net": "0.00"
+      },
+      "sources": {
+        "approved_changes": [],
+        "approved_times": [],
+        "documents": [],
+        "material_movements": [],
+        "payment_allocations": [],
+        "receipt_allocations": [
+          {
+            "amount_net": "70.00",
+            "category": "external_service",
+            "classification_status": "current",
+            "entry_id": "eed6f0c8015c4d98bf394e45cf2f3809",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 3,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 2,
+            "vendor": "Synthetische Fremdleistung"
+          },
+          {
+            "amount_net": "40.00",
+            "category": "other",
+            "classification_status": "current",
+            "entry_id": "eed6f0c8015c4d98bf394e45cf2f3809",
+            "invoice_number": "SYN-ECO-1",
+            "receipt_id": "931e2e1878324243ac41a22408cc86be",
+            "revision": 3,
+            "source_path": "/finance/receipts/931e2e1878324243ac41a22408cc86be",
+            "source_revision": 2,
+            "vendor": "Synthetische Fremdleistung"
+          }
+        ],
+        "supplier_payments": []
+      },
+      "tax_result_available": false,
+      "valuation_basis": "document_net"
+    }
+  }
+]

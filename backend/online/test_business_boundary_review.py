@@ -15,6 +15,7 @@ import threading
 import unittest
 from unittest.mock import patch
 import uuid
+from zoneinfo import ZoneInfo
 
 import business_api
 from business_schema import set_mode
@@ -210,7 +211,7 @@ class BusinessBoundaryReviewTests(attachment_fixture.AttachmentHttpFlow, unittes
         self.assertNotIn('hourly_cost_minor', json.dumps(calendar))
 
     def test_project_planning_deny_also_filters_global_calendar_collection(self):
-        tomorrow = datetime.now(timezone.utc) + timedelta(days=1)
+        tomorrow = datetime.now(ZoneInfo('Europe/Berlin')) + timedelta(days=1)
         item = self.call('POST', '/business/appointments', {'request_id': rid(), 'project_id': self.project,
             'title': 'Synthetic denied-project visit', 'start_at': tomorrow.isoformat(),
             'end_at': (tomorrow + timedelta(hours=1)).isoformat(), 'employee_ids': [self.employee['id']],

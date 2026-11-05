@@ -1,0 +1,6 @@
+test_project_planning_deny_also_filters_global_calendar_collection (online.test_business_boundary_review.BusinessBoundaryReviewTests.test_project_planning_deny_also_filters_global_calendar_collection) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.415s
+
+OK

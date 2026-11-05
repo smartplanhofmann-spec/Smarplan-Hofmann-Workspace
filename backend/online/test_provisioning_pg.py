@@ -134,6 +134,11 @@ class ProvisioningPostgres(unittest.TestCase):
                     with self.assertRaises(Problem):business_schema.require_runtime_security(office)
                 finally:office.db.close()
             admin.execute(sql.SQL('REVOKE CONNECT ON DATABASE {} FROM {}').format(sql.Identifier(b.database),sql.Identifier(a.runtime)))
+            # This negative legacy-scope check must also run in a fresh
+            # disposable cluster, without earlier release suites creating it.
+            if not admin.execute("SELECT 1 FROM pg_roles WHERE rolname='smartplan-migrator'").fetchone():
+                admin.execute('CREATE ROLE "smartplan-migrator" NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS')
+                self.roles.append('smartplan-migrator')
             legacy='legacy_company_test_'+uuid.uuid4().hex[:12];self.databases.append(legacy)
             admin.execute(sql.SQL('CREATE DATABASE {} OWNER "smartplan-migrator"').format(sql.Identifier(legacy)))
             admin.execute(sql.SQL('REVOKE ALL ON DATABASE {} FROM PUBLIC').format(sql.Identifier(legacy)))

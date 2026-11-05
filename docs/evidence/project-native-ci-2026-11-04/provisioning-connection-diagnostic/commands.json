@@ -1,0 +1,12 @@
+[
+  {
+    "command": [
+      "python",
+      "-c",
+      "import json,time,unittest,psycopg\nfrom online import release\noriginal=release.no_other_clients\ndef probe(dsn):\n try:return original(dsn)\n except RuntimeError:\n  snapshots=[]\n  for delay in (0,.05,.2):\n   time.sleep(delay)\n   with psycopg.connect(dsn) as c:\n    rows=c.execute(\"SELECT pid,state FROM pg_stat_activity WHERE datname=current_database() AND backend_type='client backend' AND pid<>pg_backend_pid()\").fetchall()\n    snapshots.append({'delay':delay,'other_clients':rows})\n  print('SYNTHETIC_CONNECTION_DIAGNOSTIC '+json.dumps(snapshots),flush=True)\n  raise\nrelease.no_other_clients=probe\nsuite=unittest.defaultTestLoader.loadTestsFromName('online.test_provisioning_pg')\nr=unittest.TextTestRunner(verbosity=2).run(suite)\nraise SystemExit(not r.wasSuccessful())\n"
+    ],
+    "exit_code": 1,
+    "duration_seconds": 18.875,
+    "log": "1-tests.txt"
+  }
+]

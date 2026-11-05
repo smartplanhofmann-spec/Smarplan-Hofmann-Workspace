@@ -1,0 +1,183 @@
+{
+  "source_commit": "bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806",
+  "product_version": "0.13.0+130",
+  "checked_at_utc": "2026-11-05 00:45:00 UTC",
+  "jobs": [
+    {
+      "id": 126934277235,
+      "run_id": 41932861640,
+      "name": "update-flow",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126934277639,
+      "run_id": 41932861640,
+      "name": "native-build (macos-26-intel, flutter build ios --simulator --debug --dart-define=API_URL=https:/...",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126934277782,
+      "run_id": 41932861640,
+      "name": "flutter",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126934277804,
+      "run_id": 41932861640,
+      "name": "https-setup",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126934277834,
+      "run_id": 41932861640,
+      "name": "online-api",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 126934277849,
+      "run_id": 41932861640,
+      "name": "business-services",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 126934277970,
+      "run_id": 41932861640,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126934277996,
+      "run_id": 41932861640,
+      "name": "native-build (windows-latest, flutter build windows --release)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126933889419,
+      "run_id": 41932861659,
+      "name": "Online-Release ohne Apple-Zugang pruefen",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126947944249,
+      "run_id": 41932861659,
+      "name": "Ausdruecklich angeforderten TestFlight-Upload ausfuehren",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13374016008,
+      "name": "Smartplan-Office-Windows",
+      "size_in_bytes": 36119070,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13374016008",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13374016008/zip",
+      "expired": false,
+      "created_at": "2026-11-04T23:39:18Z",
+      "expires_at": "2026-11-18T23:39:14Z",
+      "updated_at": "2026-11-04T23:39:18Z",
+      "digest": "sha256:82b24dbc225db8401bc74165162ecb6100e2b33f558a1f65d9421ae3192c9153",
+      "workflow_run": {
+        "id": 41932861640,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806"
+      },
+      "stable_download_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41932861640/artifacts/13374016008"
+    },
+    {
+      "id": 13373951873,
+      "name": "Smartplan-Office-Windows-Online-Pilot",
+      "size_in_bytes": 21831091,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13373951873",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13373951873/zip",
+      "expired": false,
+      "created_at": "2026-11-04T23:40:42Z",
+      "expires_at": "2026-11-18T23:40:38Z",
+      "updated_at": "2026-11-04T23:40:42Z",
+      "digest": "sha256:a91aaed307be58a22d4fc06272c662c68632346627b1221d15b84b1b32999f7f",
+      "workflow_run": {
+        "id": 41932861640,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806"
+      },
+      "stable_download_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41932861640/artifacts/13373951873"
+    },
+    {
+      "id": 13373117228,
+      "name": "Smartplan-UI-Previews",
+      "size_in_bytes": 1001575,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13373117228",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13373117228/zip",
+      "expired": false,
+      "created_at": "2026-11-04T23:30:30Z",
+      "expires_at": "2026-11-18T23:30:29Z",
+      "updated_at": "2026-11-04T23:30:30Z",
+      "digest": "sha256:f5f2ed7f4ac1551386430fc607cd7b8525458a1dd00e69285292a9635fc2a2f7",
+      "workflow_run": {
+        "id": 41932861640,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806"
+      },
+      "stable_download_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41932861640/artifacts/13373117228"
+    },
+    {
+      "id": 13371544571,
+      "name": "Smartplan-Windows-Start-und-Sicherung",
+      "size_in_bytes": 15455479,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13371544571",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13371544571/zip",
+      "expired": false,
+      "created_at": "2026-11-04T23:21:43Z",
+      "expires_at": "2026-11-18T23:21:40Z",
+      "updated_at": "2026-11-04T23:21:43Z",
+      "digest": "sha256:47f98049548fc897f592ffe378e28c4579c2c439f241e0b0fee34d0104a7c5c4",
+      "workflow_run": {
+        "id": 41932861640,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806"
+      },
+      "stable_download_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41932861640/artifacts/13371544571"
+    },
+    {
+      "id": 13373843589,
+      "name": "Smartplan-Office-iOS-UNSIGNED-167",
+      "size_in_bytes": 14666907,
+      "url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13373843589",
+      "archive_download_url": "https://api.github.com/repos/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/artifacts/13373843589/zip",
+      "expired": false,
+      "created_at": "2026-11-04T23:51:51Z",
+      "expires_at": "2026-11-18T23:51:49Z",
+      "updated_at": "2026-11-04T23:51:51Z",
+      "digest": "sha256:bfa2706b0bc7578dfc23457db29505451d8e5c2b10493eb2eadb0e4e843cb6ac",
+      "workflow_run": {
+        "id": 41932861659,
+        "repository_id": 1418615874,
+        "head_repository_id": 1418615874,
+        "head_branch": "codex/testupdate-0.7-projects-20261104",
+        "head_sha": "bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806"
+      },
+      "stable_download_url": "https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41932861659/artifacts/13373843589"
+    }
+  ],
+  "signed_testflight_uploaded": false,
+  "windows_zip_locally_extracted": false,
+  "device_acceptance_complete": false,
+  "production_deployment_executed": false
+}

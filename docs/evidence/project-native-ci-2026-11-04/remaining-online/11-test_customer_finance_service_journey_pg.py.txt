@@ -1,0 +1,6 @@
+test_same_order_economics_euer_delivery_count_service_and_originals_survive_real_restore (test_customer_finance_service_journey_pg.CustomerFinanceServiceJourneyPostgres.test_same_order_economics_euer_delivery_count_service_and_originals_survive_real_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 39.466s
+
+OK

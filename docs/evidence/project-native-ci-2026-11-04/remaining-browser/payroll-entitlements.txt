@@ -1,0 +1,4 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll entitlements: actual MFA/HTTP, empty typed fields, exact personnel sources, explicit unpaid facts, checked statutory deadline, original download, exact lost-ACK replay, historical void and mobile390 passed
+payroll sickness: actual v3 overlapping causes and v4 preemployment onset created through typed forms, explicit evidence/recovery, exact checked phases accepted and mobile390 passed
+1 targeted payroll entitlements workflow passed

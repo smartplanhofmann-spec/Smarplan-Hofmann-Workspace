@@ -1,0 +1,16 @@
+test_exact_fields_duplicate_json_public_tokens_and_foreign_sources_are_closed (test_assistant_http.AssistantHTTPTests.test_exact_fields_duplicate_json_public_tokens_and_foreign_sources_are_closed) ... ok
+test_request_collision_remains_unknown_while_proven_unaccepted_rule_revision_is_marked (test_assistant_http.AssistantHTTPTests.test_request_collision_remains_unknown_while_proven_unaccepted_rule_revision_is_marked) ... ok
+test_source_query_is_strict_bounded_and_paginated (test_assistant_http.AssistantHTTPTests.test_source_query_is_strict_bounded_and_paginated) ... ok
+test_whole_source_rule_approval_real_action_and_receipt_history (test_assistant_http.AssistantHTTPTests.test_whole_source_rule_approval_real_action_and_receipt_history) ... ok
+test_actual_backup_restore_preserves_completed_actions_and_suspends_pending_plan (test_assistant_pg.AssistantPostgres.test_actual_backup_restore_preserves_completed_actions_and_suspends_pending_plan) ... ok
+test_actual_http_fresh_rights_restart_and_append_only_runtime_acl (test_assistant_pg.AssistantPostgres.test_actual_http_fresh_rights_restart_and_append_only_runtime_acl) ... ok
+test_dunning_policy_passes_both_native_gates_one_transport_and_exact_retry (test_assistant_pg.AssistantPostgres.test_dunning_policy_passes_both_native_gates_one_transport_and_exact_retry) ... ok
+test_dunning_rule_change_after_claim_blocks_transport_and_preserves_receipt (test_assistant_pg.AssistantPostgres.test_dunning_rule_change_after_claim_blocks_transport_and_preserves_receipt) ... ok
+test_speech_limit_does_not_expand_other_routes_and_strict_json_is_retained (test_assistant_speech_http.SpeechHTTP.test_speech_limit_does_not_expand_other_routes_and_strict_json_is_retained) ... ok
+test_valid_sixty_second_audio_above_one_megabyte_and_lost_reply_status (test_assistant_speech_http.SpeechHTTP.test_valid_sixty_second_audio_above_one_megabyte_and_lost_reply_status) ... ok
+test_real_bound_mfa_http_runtime_acl_restart_and_dump_restore (test_assistant_speech_pg.SpeechPostgres.test_real_bound_mfa_http_runtime_acl_restart_and_dump_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 27.131s
+
+OK

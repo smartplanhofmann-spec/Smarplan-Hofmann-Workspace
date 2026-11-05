@@ -2,7 +2,9 @@
 
 Der aktuelle [Projekt-Integrationsstand 0.13.0](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)
 verbindet Kunden, Belege, Material, Zeiten und Navigation mit eigenen Prüfnachweisen.
-Aktuelle App-Builds, Serverabgleich und Geräteabnahme folgen als Auslieferungsschritt.
+Das [Windowsprogramm 0.13.0](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md) ist
+tatsächlich gebaut und geprüft. Ein unsignierter iPhone-Gerätebuild ist ebenfalls erfolgreich; Signierung,
+Serverabgleich und Geräteabnahme bleiben als Auslieferungsschritte offen.
 
 **Aktuelle Nutzerpriorität vom 04.11.2026:** Zuerst Projektbetrieb, Angebote,
 Rechnungen und Stunden in Browser, mobiler App und Windows-App fertigstellen.
@@ -69,6 +71,15 @@ ohne Befund; [aktueller Nachweis](CRM_ERP_KATALOG_NATIVE_2026-11-04.md).
 3. Stunden mit Freigabe/Korrektur sowie zuverlässiger App-Offlinesynchronisation.
 4. Sichere Projektregister, Planbearbeitung und Rücknavigation.
 5. Gemeinsame Regressionen und aktuelle Windows-/iPhone-Builds mit Serverabgleich.
+
+Die Quellkorrekturen der Pakete 1–4 sind im Projektstand 0.13.0 integriert und
+automatisch geprüft; ihre gemeinsame Geräteabnahme bleibt Bestandteil von 5.
+Der Windows-Teil von 5 ist mit tatsächlichen lokalen und Online-Releasepaketen,
+1.593 Windows-Appfällen, drei PDF-Engine-Fällen und 79 Backendfällen ohne Skip
+belegt. Die korrigierte macOS-Prüfung und der unsignierte iPhone-Build 167
+sind ebenfalls erfolgreich. Offen bleiben die installierbare signierte Verteilung,
+der nachgewiesene Serverabgleich und die gemeinsame Gerätefolge. [Nur lesende Serverbefehle und Geräteprotokoll](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13.md)
+sind vorbereitet. Kein laufender Server wurde bereits aktualisiert.
 
 Prüffälle, konkrete Lücken und Grenzen stehen im
 [aktuellen Phasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md).

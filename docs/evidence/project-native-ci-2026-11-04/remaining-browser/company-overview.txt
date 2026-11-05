@@ -1,0 +1,13 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+response.json: Protocol error (Network.getResponseBody): No data found for resource with given identifier
+Response body is not available for a response that was navigated away from. Read response.body() before triggering any navigation.
+    at _Page.capture (/workspace/Smarplan-Hofmann-Workspace/web/office/tests/company-overview-flow.cjs:6:130) {
+  log: [],
+  name: 'Error'
+}
+
+Node.js v24.19.0

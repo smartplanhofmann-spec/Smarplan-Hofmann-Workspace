@@ -32,7 +32,8 @@ async function projectEconomicsFlow({page,context,navigate,ready,fixture,screens
     await page.getByLabel('Aktuelles Projekt').selectOption('');await ready(page);await navigate(page,'Projekte');
     await page.getByRole('button',{name:'Neues Projekt',exact:true}).click();
     await page.getByLabel('Projektname',{exact:true}).fill('Synthetische Projektwirtschaftlichkeit');
-    await page.getByLabel('Kunde / Auftraggeber',{exact:true}).fill('Synthetischer Wirtschaftlichkeitskunde');
+    assert.equal(await page.getByRole('dialog').getByLabel('Kunde auswählen',{exact:true}).inputValue(),'');
+    await page.getByRole('dialog').getByLabel('Neuer Kunde / Auftraggeber',{exact:true}).fill('Synthetischer Wirtschaftlichkeitskunde');
     await page.getByRole('button',{name:'Projekt anlegen',exact:true}).click();await ready(page);
     await page.getByRole('tab',{name:'Wirtschaftlichkeit',exact:true}).click();await ready(page);
     await page.getByRole('button',{name:'Projektbeleg erfassen',exact:true}).click();

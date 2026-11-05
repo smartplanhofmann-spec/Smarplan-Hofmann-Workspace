@@ -1,0 +1,15 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+            environment-variable.
+
+Sending build context to Docker daemon    165MB
+Step 1/14 : FROM python:3.12-slim AS python_runtime
+ ---> a33c10a97f11
+Step 2/14 : FROM postgres:16
+ ---> 74d436cb49d3
+Step 3/14 : COPY --from=python_runtime /usr/local/ /usr/local/
+ ---> 1c3ea44cbe12
+Step 4/14 : COPY --from=python_runtime /usr/lib/x86_64-linux-gnu/libsqlite3.so.* /usr/lib/x86_64-linux-gnu/
+ ---> a4507308703f
+Step 5/14 : COPY --from=python_runtime /usr/lib/x86_64-linux-gnu/libexpat.so.* /usr/lib/x86_64-linux-gnu/
+COPY failed: no source files were specified

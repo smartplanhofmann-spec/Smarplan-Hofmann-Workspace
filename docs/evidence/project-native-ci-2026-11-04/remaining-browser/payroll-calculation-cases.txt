@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll source3: actual MFA/HTTP typed canonical case, independent partial gross, two exact accepted lost-ACK retries, source3 PAP run, original/PDF checksums, annual ledger, narrow own v2 projection, history and mobile390 passed
+1 targeted payroll calculation cases workflow passed

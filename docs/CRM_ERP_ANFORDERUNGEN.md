@@ -2,7 +2,9 @@
 
 Der aktuelle [Projekt-Integrationsstand 0.13.0](CRM_ERP_PROJEKTBETRIEB_INTEGRATION_2026-11-04.md)
 verbindet Kunden, Belege, Material, Zeiten und Navigation mit eigenen Prüfnachweisen.
-Aktuelle App-Builds, Serverabgleich und Geräteabnahme folgen als Auslieferungsschritt.
+Das [Windowsprogramm 0.13.0](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md) ist
+tatsächlich gebaut und geprüft. Ein unsignierter iPhone-Gerätebuild ist ebenfalls erfolgreich; Signierung,
+Serverabgleich und Geräteabnahme bleiben als Auslieferungsschritte offen.
 
 **Aktuelle Nutzerpriorität vom 04.11.2026:** Zuerst Projektbetrieb, Angebote,
 Rechnungen und Stunden in Browser, mobiler App und Windows-App fertigstellen.
@@ -10,7 +12,7 @@ Lohnabrechnung und Buchhaltung sind zurückgestellt. Maßgeblich für die
 laufende Reihenfolge ist der [Projektphasenplan](CRM_ERP_PROJEKTPHASE_2026-11-04.md);
 historische Lohn-/Buchhaltungsnachweise bleiben erhalten.
 
-Stand: 04.11.2026. Quelle ist das unveränderte
+Stand: 05.11.2026. Quelle ist das unveränderte
 [Gesamtziel](../CRM_ERP_Gesamtziel.txt). Die integrierte Basis `4c2f008` und
 nachfolgende Änderungen sind im [Fortschritt](CRM_ERP_FORTSCHRITT.md)
 mit ihren eigenen Prüfnachweisen dokumentiert. Diese Matrix bewertet den
@@ -107,7 +109,7 @@ Quellenpakete, produktive Isolations- und Gesamtabnahmen bleiben offen.
 | R11.03 | 11: Offlineberichte/Protokolle mit vollständigem synchronisiertem Ablauf | offen | Integrierte [Offline-Serviceprotokolle](CRM_ERP_OFFLINE_SERVICEBERICHTE.md) mit verschlüsseltem Neustart, identischer Wiederholung, unverändertem Archiv/PDF und echten HTTP-/Restoreprüfungen umgesetzt und geprüft. Historische Protokolle, weitere Dokumentarten, fachliche Konfliktklärung und reale Geräteabnahme nicht damit insgesamt geschlossen. |
 | R11.04 | 11: Gemeinsamer Serverkern, Backup/Restore, Update und Betriebsanleitungen | implementiert | [Betrieb](BETRIEB_BUSINESS_UPDATE.md), [Release](../backend/online/release.py), [Restore](../backend/online/restore.py). Neuer Gesamtumfang benötigt erweiterte Abnahme F. |
 | R11.05 | 11: Neue Kundenunternehmen einrichten, exportieren und geordnet verlassen | implementiert | Modulkonfiguration und feste Instanzbindung sowie [Facharchiv und Übergabeprüfung](CRM_ERP_UNTERNEHMENSEXPORT.md) vorhanden und mit tatsächlichem ZIP/Prüfer, Originalen, PostgreSQL/Restore und beiden Clients getestet. [Zusätzliche Unternehmensprovisionierung](CRM_ERP_PROVISIONIERUNG.md) ist lokal mit getrennten Rollen, Ablagen, UID-Grenzen und Wiederherstellung geprüft. Tatsächliche Hostinstallation, echte Übergabe und autorisierte Stilllegung bleiben gesondert offen. |
-| R11.06 | 11: Tatsächliche Windows-/iPhone-Installation, Updates, Gerätefunktionen und Verteilung | extern_blockiert | Reale Zielgeräte und verfügbare Signier-/Verteilwege prüfen. Cloud-/Simulatorprüfungen ersetzen diese Abnahme nicht. Keine neuen kostenpflichtigen Dienste implizit bestellen. |
+| R11.06 | 11: Tatsächliche Windows-/iPhone-Installation, Updates, Gerätefunktionen und Verteilung | extern_blockiert | [Windows 0.13.0 tatsächlich kompiliert und paketgeprüft](CRM_ERP_PROJEKT_BUILD_FREIGABE_2026-11-04.md); Online-EXE-Artefakt verfügbar. iPhone-Gerätebuild 167 unsigniert erfolgreich; installierbare Verteilung und tatsächliche Geräte-/Serverabnahme fehlen noch. [20 ungeprüfte Gerätefälle](CRM_ERP_KUNDENTEST_PROTOKOLL_0_13.csv) sind vorbereitet. Cloud-/Simulatorprüfungen ersetzen diese Abnahme nicht. Keine neuen kostenpflichtigen Dienste implizit bestellen. |
 | R12.01 | 12: Erweiterbare Import-/Exportadapter und vorhandene Providergrenzen | implementiert | [Adapters](../backend/business_adapters.py), [Integrationsvertrag](../backend/online/INTEGRATIONEN.md). Nur konkret unterstützte Profile bewerten. |
 | R12.02 | 12: HERO-/sevDesk-Migration mit Vorschau, Zuordnung, Dubletten, Fehlern und Gesamtabgleich | implementiert | [Kontrollierter Dateiimport](CRM_ERP_DATEIMIGRATION.md) mit eigenem ausdrücklich benanntem CSV-/JSON-Format, unveränderten Originalen, Vorschau, Zuordnungen, Dubletten, bestätigter Übernahme und Betragsabgleich ist in Backend/PG/Restore/Browser/Flutter getestet. Historische Belege erzeugen keine neuen Rechnungen oder Zahlungen. Tatsächliche HERO-/sevDesk-Exportdateien und deren vollständiger Abgleich fehlen weiter; keine erfundene Herstellerkompatibilität. |
 | R12.03 | 12: Verifizierte offizielle Export-/API-Wege und Testzugänge | extern_blockiert | Je ausgewähltem Anbieter tatsächlichen Exportumfang, Authentifizierung und Zugänge belegen; keine API-Funktionen erfinden. |

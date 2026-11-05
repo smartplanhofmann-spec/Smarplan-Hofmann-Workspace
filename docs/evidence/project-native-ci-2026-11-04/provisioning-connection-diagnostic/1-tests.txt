@@ -1,0 +1,42 @@
+SYNTHETIC_CONNECTION_DIAGNOSTIC [{"delay": 0, "other_clients": []}, {"delay": 0.05, "other_clients": []}, {"delay": 0.2, "other_clients": []}]
+SYNTHETIC_CONNECTION_DIAGNOSTIC [{"delay": 0, "other_clients": [[147, "idle"]]}, {"delay": 0.05, "other_clients": [[147, "idle"]]}, {"delay": 0.2, "other_clients": [[147, "idle"]]}]
+SYNTHETIC_CONNECTION_DIAGNOSTIC [{"delay": 0, "other_clients": []}, {"delay": 0.05, "other_clients": []}, {"delay": 0.2, "other_clients": []}]
+
+test_actual_backup_restore_binding_foreign_dump_and_missing_checkpoint_fail_closed (online.test_provisioning_pg.ProvisioningPostgres.test_actual_backup_restore_binding_foreign_dump_and_missing_checkpoint_fail_closed) ... ERROR
+test_repeat_preparation_and_initial_bind_cleanup_never_migrate_running_company (online.test_provisioning_pg.ProvisioningPostgres.test_repeat_preparation_and_initial_bind_cleanup_never_migrate_running_company) ... ok
+test_two_real_http_processes_mfa_objects_storage_and_current_role_drift (online.test_provisioning_pg.ProvisioningPostgres.test_two_real_http_processes_mfa_objects_storage_and_current_role_drift) ... ERROR
+
+======================================================================
+ERROR: test_actual_backup_restore_binding_foreign_dump_and_missing_checkpoint_fail_closed (online.test_provisioning_pg.ProvisioningPostgres.test_actual_backup_restore_binding_foreign_dump_and_missing_checkpoint_fail_closed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/backend/online/test_provisioning_pg.py", line 64, in setUp
+    p.prepare_database(item,DSN,test_mode=True,runtime_password=password)
+  File "/work/backend/online/provisioning.py", line 353, in prepare_database
+    secure_database(security_dsn,test_mode=test_mode,instance_roles=roles)
+  File "/work/backend/online/release.py", line 159, in secure_database
+    no_other_clients(dsn)
+  File "<string>", line 5, in probe
+  File "/work/backend/online/release.py", line 72, in no_other_clients
+    raise RuntimeError('Andere Datenbankverbindungen aktiv. Dienste/Verwaltung geordnet anhalten; keine fremden Prozesse beenden.')
+RuntimeError: Andere Datenbankverbindungen aktiv. Dienste/Verwaltung geordnet anhalten; keine fremden Prozesse beenden.
+
+======================================================================
+ERROR: test_two_real_http_processes_mfa_objects_storage_and_current_role_drift (online.test_provisioning_pg.ProvisioningPostgres.test_two_real_http_processes_mfa_objects_storage_and_current_role_drift)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/backend/online/test_provisioning_pg.py", line 64, in setUp
+    p.prepare_database(item,DSN,test_mode=True,runtime_password=password)
+  File "/work/backend/online/provisioning.py", line 353, in prepare_database
+    secure_database(security_dsn,test_mode=test_mode,instance_roles=roles)
+  File "/work/backend/online/release.py", line 159, in secure_database
+    no_other_clients(dsn)
+  File "<string>", line 5, in probe
+  File "/work/backend/online/release.py", line 72, in no_other_clients
+    raise RuntimeError('Andere Datenbankverbindungen aktiv. Dienste/Verwaltung geordnet anhalten; keine fremden Prozesse beenden.')
+RuntimeError: Andere Datenbankverbindungen aktiv. Dienste/Verwaltung geordnet anhalten; keine fremden Prozesse beenden.
+
+----------------------------------------------------------------------
+Ran 3 tests in 12.977s
+
+FAILED (errors=2)

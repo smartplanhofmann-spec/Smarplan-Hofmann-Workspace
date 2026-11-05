@@ -10,6 +10,7 @@ import shlex
 import stat
 import struct
 import tempfile
+import threading
 import unittest
 import zlib
 from types import SimpleNamespace
@@ -223,6 +224,29 @@ class ReleaseGuards(unittest.TestCase):
                         release.check_capacity('/does-not-exist', '/does-not-exist-either', size)
             usage.assert_not_called()
             connect.assert_not_called()
+
+
+@unittest.skipUnless(DSN, 'Disposable SMARTPLAN_TEST_DSN required')
+class ConnectionQuiescence(unittest.TestCase):
+    def setUp(self):
+        release.validate_dsns(DSN, CANDIDATE, test_mode=True)
+
+    def test_naturally_disconnecting_client_allows_preparation(self):
+        other = psycopg.connect(DSN)
+        self.addCleanup(other.close)
+        disconnect = threading.Timer(.1, other.close)
+        disconnect.start()
+        try:
+            release.no_other_clients(DSN)
+            self.assertTrue(other.closed)
+        finally:
+            disconnect.join(timeout=5)
+
+    def test_connected_client_still_blocks_and_is_never_terminated(self):
+        with psycopg.connect(DSN) as other:
+            with self.assertRaisesRegex(RuntimeError, 'Andere Datenbankverbindungen aktiv'):
+                release.no_other_clients(DSN)
+            self.assertEqual(other.execute('SELECT 1').fetchone(), (1,))
 
 
 @unittest.skipUnless(DSN, 'Disposable SMARTPLAN_TEST_DSN required')

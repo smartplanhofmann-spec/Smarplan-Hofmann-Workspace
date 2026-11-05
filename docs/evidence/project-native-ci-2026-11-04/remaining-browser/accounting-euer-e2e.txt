@@ -1,0 +1,2 @@
+EÜR browser: explicit profile, documentary sources, separate VAT/cash, real lost ACK replay, correction, asset/AfA, reversal, period close/reopen and frozen JSON/CSV passed
+1 EÜR browser workflow passed (real MFA/HTTP, synthetic documented source archive, no production tax-return claim)

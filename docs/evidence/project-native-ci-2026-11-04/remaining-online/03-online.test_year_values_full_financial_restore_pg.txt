@@ -1,0 +1,25 @@
+test_one_filled_restore_keeps_old_v1_new_v2_original_year_cents_and_existing_families (online.test_year_values_full_financial_restore_pg.YearValuesFullFinancialRestore.test_one_filled_restore_keeps_old_v1_new_v2_original_year_cents_and_existing_families) ... FAIL
+
+======================================================================
+FAIL: test_one_filled_restore_keeps_old_v1_new_v2_original_year_cents_and_existing_families (online.test_year_values_full_financial_restore_pg.YearValuesFullFinancialRestore.test_one_filled_restore_keeps_old_v1_new_v2_original_year_cents_and_existing_families)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_year_values_full_financial_restore_pg.py", line 181, in test_one_filled_restore_keeps_old_v1_new_v2_original_year_cents_and_existing_families
+    self.assertEqual((money['opening_balance'], money['outflows'], money['calculated_balance']), ('1000.00','178.50','821.50'))
+AssertionError: Tuples differ: ('1000.00', '0.00', '1000.00') != ('1000.00', '178.50', '821.50')
+
+First differing element 1:
+'0.00'
+'178.50'
+
+- ('1000.00', '0.00', '1000.00')
+?              ^ ^      --- ^
+
++ ('1000.00', '178.50', '821.50')
+?              ^^^ ^     ++  ^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 11.048s
+
+FAILED (failures=1)

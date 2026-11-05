@@ -1,0 +1,161 @@
+
+test_https_mfa_pdf_and_worker_restart (__main__.RuntimeTest.test_https_mfa_pdf_and_worker_restart) ... FAIL
+
+======================================================================
+FAIL: test_https_mfa_pdf_and_worker_restart (__main__.RuntimeTest.test_https_mfa_pdf_and_worker_restart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/backend/online/test_runtime.py", line 117, in test_https_mfa_pdf_and_worker_restart
+    health = json.loads(request('/ready'))
+                        ^^^^^^^^^^^^^^^^^
+  File "/work/backend/online/test_runtime.py", line 110, in request
+    self.assertEqual(response.status, expected, repr(payload[:200]))
+AssertionError: 502 != 200 : b''
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/work/backend/online/test_runtime.py", line 123, in test_https_mfa_pdf_and_worker_restart
+    self.fail(log.read())
+AssertionError: {"level":"info","ts":1793839253.4444883,"msg":"maxprocs: Leaving GOMAXPROCS=5: CPU quota undefined"}
+{"level":"info","ts":1793839253.4445033,"msg":"GOMEMLIMIT is updated","GOMEMLIMIT":16994396160,"previous":9223372036854775807}
+{"level":"info","ts":1793839253.4445066,"msg":"using config from file","file":"/tmp/smartplan-runtime-tihq3l7r/Caddyfile"}
+{"level":"info","ts":1793839253.4445078,"msg":"adapted config to JSON","adapter":"caddyfile"}
+{"level":"warn","ts":1793839253.4445088,"msg":"Caddyfile input is not formatted; run 'caddy fmt --overwrite' to fix inconsistencies","adapter":"caddyfile","file":"/tmp/smartplan-runtime-tihq3l7r/Caddyfile","line":31}
+{"level":"info","ts":1793839253.446326,"logger":"admin","msg":"admin endpoint started","address":"unix//tmp/smartplan-runtime-tihq3l7r/admin.sock","enforce_origin":false,"origins":[]}
+{"level":"warn","ts":1793839253.4463327,"logger":"admin","msg":"admin endpoint on open interface; host checking disabled","address":"unix//tmp/smartplan-runtime-tihq3l7r/admin.sock"}
+{"level":"info","ts":1793839253.4464731,"logger":"http.auto_https","msg":"enabling automatic HTTP->HTTPS redirects","server_name":"srv0"}
+{"level":"info","ts":1793839253.4471912,"logger":"tls.cache.maintenance","msg":"started background certificate maintenance","cache":"0x2649bd4cef00"}
+{"level":"info","ts":1793839253.4474573,"logger":"pki.ca.local","msg":"root certificate trust store installation disabled; unconfigured clients may show warnings","path":"storage:pki/authorities/local/root.crt"}
+{"level":"info","ts":1793839253.4478052,"logger":"http.log","msg":"server running","name":"srv0","protocols":["h1","h2"]}
+{"level":"warn","ts":1793839253.4478507,"logger":"http","msg":"HTTP/2 skipped because it requires TLS","network":"tcp","addr":"127.0.0.1:53175"}
+{"level":"warn","ts":1793839253.4478543,"logger":"http","msg":"HTTP/3 skipped because it requires TLS","network":"tcp","addr":"127.0.0.1:53175"}
+{"level":"info","ts":1793839253.4478564,"logger":"http.log","msg":"server running","name":"remaining_auto_https_redirects","protocols":["h1","h2","h3"]}
+{"level":"info","ts":1793839253.4478595,"logger":"http","msg":"enabling automatic TLS certificate management","domains":["localhost"]}
+{"level":"info","ts":1793839253.4479268,"msg":"autosaved config (load with --resume flag)","file":"/tmp/smartplan-runtime-tihq3l7r/config/caddy/autosave.json"}
+{"level":"info","ts":1793839253.4479308,"msg":"serving initial configuration"}
+{"level":"info","ts":1793839253.4480915,"logger":"tls","msg":"cleaning storage unit","storage":"FileStorage:/tmp/smartplan-runtime-tihq3l7r/state/caddy"}
+{"level":"info","ts":1793839253.448177,"logger":"tls","msg":"finished cleaning storage units"}
+{"level":"info","ts":1793839253.4482493,"logger":"tls.obtain","msg":"acquiring lock","identifier":"localhost"}
+{"level":"info","ts":1793839253.4483054,"logger":"tls.obtain","msg":"lock acquired","identifier":"localhost"}
+{"level":"info","ts":1793839253.4483333,"logger":"tls.obtain","msg":"obtaining certificate","identifier":"localhost"}
+{"level":"info","ts":1793839253.4492967,"logger":"tls.obtain","msg":"certificate obtained successfully","identifier":"localhost","issuer":"local"}
+{"level":"info","ts":1793839253.4493325,"logger":"tls.obtain","msg":"releasing lock","identifier":"localhost"}
+[2026-11-05 00:40:53 +0000] [7] [INFO] Starting gunicorn 26.2.0
+[2026-11-05 00:40:53 +0000] [7] [INFO] Listening at: http://127.0.0.1:54735 (7)
+[2026-11-05 00:40:53 +0000] [7] [INFO] Using worker: gthread
+[2026-11-05 00:40:53 +0000] [17] [INFO] Booting worker with pid: 17
+[2026-11-05 00:40:53 +0000] [18] [INFO] Booting worker with pid: 18
+[2026-11-05 00:40:53 +0000] [7] [INFO] Control socket listening at /tmp/.gunicorn/gunicorn.ctl
+[2026-11-05 00:40:54 +0000] [17] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/arbiter.py", line 753, in spawn_worker
+    worker.init_process()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/workers/gthread.py", line 274, in init_process
+    super().init_process()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/workers/base.py", line 137, in init_process
+    self.load_wsgi()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/workers/base.py", line 149, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/util.py", line 473, in import_app
+    app = app(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/work/backend/online/web.py", line 149, in create_app
+    instance = verify_instance(office, instance_id if instance_id is not None else
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/backend/online/instance.py", line 106, in verify
+    expected = _values(instance_id, host, key, server)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/backend/online/instance.py", line 54, in _values
+    _fail()
+  File "/work/backend/online/instance.py", line 29, in _fail
+    raise InstanceConfigurationError(ERROR)
+online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+[2026-11-05 00:40:54 +0000] [17] [INFO] Worker exiting (pid: 17)
+[2026-11-05 00:40:54 +0000] [7] [ERROR] Worker (pid:17) exited with code 3.
+[2026-11-05 00:40:54 +0000] [18] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/arbiter.py", line 753, in spawn_worker
+    worker.init_process()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/workers/gthread.py", line 274, in init_process
+    super().init_process()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/workers/base.py", line 137, in init_process
+    self.load_wsgi()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/workers/base.py", line 149, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/util.py", line 473, in import_app
+    app = app(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/work/backend/online/web.py", line 149, in create_app
+    instance = verify_instance(office, instance_id if instance_id is not None else
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/backend/online/instance.py", line 106, in verify
+    expected = _values(instance_id, host, key, server)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/backend/online/instance.py", line 54, in _values
+    _fail()
+  File "/work/backend/online/instance.py", line 29, in _fail
+    raise InstanceConfigurationError(ERROR)
+online.instance.InstanceConfigurationError: Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+Unternehmensinstanz stimmt nicht mit Datenbank, Host, Schlüssel oder Serverablage überein.
+[2026-11-05 00:40:54 +0000] [18] [INFO] Worker exiting (pid: 18)
+[2026-11-05 00:40:55 +0000] [7] [ERROR] Worker (pid:18) exited with code 3.
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/arbiter.py", line 271, in run
+    handler()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/arbiter.py", line 300, in handle_chld
+    self.reap_workers()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/arbiter.py", line 684, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/__main__.py", line 10, in <module>
+    run(prog="gunicorn")
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 66, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]", prog=prog).run()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/app/base.py", line 235, in run
+    super().run()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/app/base.py", line 71, in run
+    Arbiter(self).run()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/arbiter.py", line 279, in run
+    self.halt(reason=inst.reason, exit_status=inst.exit_status)
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/arbiter.py", line 406, in halt
+    self.stop()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/arbiter.py", line 486, in stop
+    self.reap_workers()
+  File "/usr/local/lib/python3.12/site-packages/gunicorn/arbiter.py", line 684, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+{"level":"error","ts":1793839256.6513538,"logger":"http.log.error","msg":"dial tcp 127.0.0.1:54735: connect: connection refused","request":{"remote_ip":"127.0.0.1","remote_port":"53212","client_ip":"127.0.0.1","proto":"HTTP/1.1","method":"GET","host":"localhost:48255","uri":"/ready","headers":{"Accept-Encoding":["identity"],"Content-Type":["application/json"]},"tls":{"resumed":false,"version":772,"cipher_suite":4865,"proto":"","server_name":"localhost","ech":false}},"duration":3.132741455,"status":502,"err_id":"hq6fcc6f2","err_trace":"reverseproxy.statusError (reverseproxy.go:1695)"}
+
+
+----------------------------------------------------------------------
+Ran 1 test in 5.853s
+
+FAILED (failures=1)

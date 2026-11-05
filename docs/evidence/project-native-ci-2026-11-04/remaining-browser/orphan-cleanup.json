@@ -1,0 +1,10 @@
+{
+  "terminated_owned_fixture_processes": [
+    {
+      "pid": 2923614,
+      "fixture": "serve_fixture.py",
+      "verified_owned_batch_window": true
+    }
+  ],
+  "credential_values_read_or_printed": false
+}

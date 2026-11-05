@@ -1,0 +1,823 @@
+{
+  "base_commit": "bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806",
+  "complete": true,
+  "workers": 3,
+  "tests": 45,
+  "source_sha256": {
+    "web/office/.gitignore": "a305958521f5e61b8274ed12814e86b9028f06fab15092ed08e355d1845684bc",
+    "web/office/README.md": "8ebeed3b14d8e653ffacf5bcd304caddeaf13fc2a8dd0843496eadf58cd0d133",
+    "web/office/accounting-euer.js": "e9a792a3ecf40b7a790acc7a8cd245a53c64530d2a81453f12ad97c93a6b72b2",
+    "web/office/accounting-historical-assets-contract.js": "d8a55c99110950a149e891af200cd711bdac891e9a7cc49bceaca2be0452f162",
+    "web/office/accounting-historical-assets.js": "20b6ad6eef8ace5a67b04ab8f0b6ea265da9e4edb0cf3fb3b9c18d9f4ebacdf8",
+    "web/office/accounting-open-items-contract.js": "01abeaa8b778108dc22e75522f7fb6e9799ce015f8e90509e5c01c9c5087b4c1",
+    "web/office/accounting-open-items.js": "0724a14408e88e7cfbe60eefe756418ba8e7a196ed217e2839327ec90500598e",
+    "web/office/accounting-openings.js": "c4940ac0e525329ab9a743a03c45b526d0187494b67adc999f211ab663f643bb",
+    "web/office/accounting-year-package-contract.js": "4459c3580c3da8ede338d33ec567901d8117620e99c6670c1c74e8b639cc4b73",
+    "web/office/accounting-year-package.js": "1f27716c37b88f99df5bd11f897845f2d321c7180b1d4644296d77c24341a3ee",
+    "web/office/accounting-year-values-contract.js": "a701fdbd31e39454c97fa3da9cbf3ad292510b13f5fa537ad2d50e19c745b114",
+    "web/office/accounting-year-values.js": "daeb81263feb4b5e580638282d46811e47391efc6ee3ea65dac344e114517a4b",
+    "web/office/asset-provenance.js": "c45c90010e6c69c0cb86afefe7d939cd2d7c2e4dd21d3eaad08741a6b50065b1",
+    "web/office/assistant.js": "af6a532772ef31863254d853f043eba7332d5384fdb329128eec13fea31f9539",
+    "web/office/bank-reconciliation.js": "55ef92b21f54cb6fb1e361a530a944e84fa1470c71f572c79f3d726ece598647",
+    "web/office/catalog-imports.js": "813ee87aec7a50ce4eccade41727156e4f140cf085bad6268056b3402f063cdf",
+    "web/office/catalog-prices.js": "4588b266cb8728a9ad67378215ffe4040ccabb3d0b8210299ef67b17512c4935",
+    "web/office/company-events-contract.js": "5e70f7bb8e51338b205c5218cd85419faddaa75d05b98a9273e5009317600746",
+    "web/office/company-events.js": "76c80e5baba621f8c240c9b1cedf272ac09fcb636432fd5d91f54db006368b1a",
+    "web/office/company-handover.js": "7b155ac7cfa4977c33be33c4d34021959cca9d6448dc2021538b37e989bd8bbf",
+    "web/office/company-overview.js": "c02112a520bee6b518ebeddbae9a90d26717d1cf30063a740095e7356b44c5dd",
+    "web/office/contact.html": "1e39759df8b901f0c90a215fdad8e49770c63bdc88acf4e929b664c11700f143",
+    "web/office/contact.js": "ddbf79c55c287f35886d21d7d7897d4fbb9584eab21547879d4dece5ae35bf52",
+    "web/office/custom-fields.js": "b63d98a4c16a1660072cc320433c616d9f605ec682db3aca943c7128b66c8966",
+    "web/office/customer-workspace-staff.js": "75ef2e183651a4bdd6cc59bb9f6e87b22495aca702b524c451e5f06ed7df12a1",
+    "web/office/customer-workspace.html": "280d7e3b3b32e2266c56991635f71f969054914a78f251ee3587014eb5a40cad",
+    "web/office/customer-workspace.js": "930201dea32c50b7e394bd84743104d233fd88278f9e51f6f1321c7bb2198e6c",
+    "web/office/index.html": "9e45c5e81f1b2f3cf8a9028d782f2b71e11b3c41b3a199cbf97118eeab228021",
+    "web/office/inventory-counts.js": "32539a87728f1f15803a2b0fb27a1d7e9289e1fafc8f33df8c4290bb3e6fcf12",
+    "web/office/migrations.js": "2388d84e73bb736ecbc1c8267ebe0c1534b5e0e9e6cf6f7c45388002e4581314",
+    "web/office/office.css": "5df39fa68d4fc52d5f499f2d2578c6e9fa34db77dc0967cc615939e6e85eb400",
+    "web/office/office.js": "74214ce23be56e72d0bb5e8426b478dc29e6eb5854c87b4a54fa863bf12c89c4",
+    "web/office/package-lock.json": "0dbc7a0378910fe9d75f07d731833b330068b6bd179cb773cc728f8612339f8e",
+    "web/office/package.json": "88da22eb95d36a862a7279dafe7ff95e035ded4dfed05d880b7dd018f9e5996d",
+    "web/office/payroll-accounts.js": "bd33519efdf4a88cef3c4829a3f9130f3acc87a25a53798e09923facfed2908c",
+    "web/office/payroll-annual-basis.js": "6b53d8cc3d97651e1b264ba10ff4e33cd0e1f1d9844791373b754ef8f4d04238",
+    "web/office/payroll-calculation-cases.js": "0a04e67215299b8de95cf2c230480cd79a913fdda4c6c089bf5802a0a7b69238",
+    "web/office/payroll-cash.js": "91e00cfc0481cbfe480fbdd85c3a82a6f379f5af387ad245e038d9676f63b748",
+    "web/office/payroll-entitlements.js": "4fde2017bcb616fbe4b6cb81f71b72ed711f24f13212e0c36192a35822086962",
+    "web/office/payroll-facts.js": "bc0cdb662359c1815a915935f67c2df4c50b3176b786fc90c59a2f0331dbe8cd",
+    "web/office/payroll-multiple-cases.js": "61d9995c8863facf518c348ad1138ac1c54c749e6128a96d39c23ec3a02d46fa",
+    "web/office/payroll-oneoff-cases.js": "8777a1594027ecb971287c1cfdea332189dbf91ff179ceda3f0990d0bfaa2eb8",
+    "web/office/payroll-statements.js": "acb865fe6a6c1a2fab27b289c6b9b4ce92c95c9396a85511e8e500c084733e6b",
+    "web/office/payroll-travel-tax-policies.js": "c0f81fb9c21a403647fb773da68cc43bbd9876af6ec933ec8414ca13633ed6f2",
+    "web/office/payroll-wage-interruptions.js": "043e078b7c9752ea06a5e9d0c90b2d45065dccf0aef2ad9a7aacd8ed659203d5",
+    "web/office/payroll.js": "83d23c21a7141ffd6a5720b0a86de33468cba630a8d79bb7f58d239fd92c3ef6",
+    "web/office/personnel-workflow.js": "6351784f0a7882a4c4525ca296c84bf6f4d6db11465555c367397cb4b4f34fee",
+    "web/office/portal.css": "c2887fa779f6889dd0e9acaeb7a2cda31fd0d937a7e887f6425acb605ebbe968",
+    "web/office/portal.html": "bc366836695680d8555397433917af49c874f7a9f37648326cc17c30b809ff09",
+    "web/office/portal.js": "feb121fa2c48b50b89c2f26278cfe197a9756f08985e2b687b0277871bf7911a",
+    "web/office/privacy-cases.js": "93343bea783af34beb6f569770a49de5dbfaf231322118d5b3f1affcc717813a",
+    "web/office/project-economics.js": "68ff718a629338b864ed798b22bea26c8d9bb31084aa743cc50e752778dae41f",
+    "web/office/purchase-changes.js": "86e4ac1f710bbf287334aa0c7d934567575ae760951da74e32bb0010bd50bd9a",
+    "web/office/resource-custody.js": "7624feff4ed42abec0a1ddf8c8aa0dae2ca56442ff5a134cb060c8e5f8b2ccc6",
+    "web/office/sales.js": "9ccfe223743ab70771542db34b86e3ee02f7c6abdfbcf4b2939cfe81c5ecb462",
+    "web/office/service.js": "11f2a4676683e1b913c379af98f62ea63d4ebfa434093ee9789d648d039ace16",
+    "web/office/speech.js": "b7c3bfcfbc64eadb97ad692227beaec0c815607796e71f7598dfb00840117423",
+    "web/office/tests/accessibility-flow.cjs": "28275804440fb322c5cba9e29ee6331cc03bb3746a2b92d5e26449cfa6aef367",
+    "web/office/tests/accounting-allocation-flow.cjs": "ea33d2b7e6ce8acae7b5a82e602285553ecd857629a6b3d6a6cceedcf551112b",
+    "web/office/tests/accounting-allocation.test.mjs": "0b6659b0beb4390b58da2eed6fbbaea3fc7a563b93840e9dc5ce41e3345812f6",
+    "web/office/tests/accounting-euer-e2e.cjs": "fe8a258d06bda9576f66b358dcf33a9bfd667024520417f5e6c9cc173a493e5b",
+    "web/office/tests/accounting-euer-fixture.py": "56804906b68911c0adfe64c8d6d90f8968a25acbbb22fad58dec3286fb23fc36",
+    "web/office/tests/accounting-euer-flow.cjs": "834f4512ba531ee47270a848b6e1fa2e453316de9ee0976e8bb70163fd427749",
+    "web/office/tests/accounting-euer-legacy-context-fixture.py": "74c1eb4476d0204c586336a7fdbb9dfeb929d88256a864fe8fc71b63625fe48f",
+    "web/office/tests/accounting-euer-legacy-context.test.mjs": "76869182b8e1dafb59388ef72884820f834e0c9a295bc1bd042c605cf4a4d1df",
+    "web/office/tests/accounting-euer.test.mjs": "4e2d2339a93a1efb4e1d192b8401b8902ac51a0ea5aa7d0874bdfd6a49db743e",
+    "web/office/tests/accounting-flow.cjs": "7ba08eadeeda4222b871113a9239560f951463d626f78ad1118088b478f683ea",
+    "web/office/tests/accounting-historical-assets-context.test.mjs": "0331e5b7fc004e9fef44673726b4ddc6c5431ce0ea16ecba46558010c015eb44",
+    "web/office/tests/accounting-historical-assets-flow.cjs": "27248284cec746155fee15ae3b1058453ba71a682c4d588c344ab7b2a3ec8b49",
+    "web/office/tests/accounting-historical-assets-independent-flow.cjs": "03e63bc24482985f8c61364f9cad412de4c50bc8ad05fcd7b3a2abeb69462d71",
+    "web/office/tests/accounting-historical-assets-independent-preload.cjs": "c2266c82be5bad25c867ba4aade0b4ded167a752d7e77319fe6c2e1875b11007",
+    "web/office/tests/accounting-historical-assets-independent-review.test.mjs": "38949580392b214ed1de9f055a248d08b487586e327fae4b1f000ec98d4a1c7d",
+    "web/office/tests/accounting-historical-assets.test.mjs": "fb056eb6a7b394c16e010b7f655c6c439f24871e37c59dee5bd701a048b66576",
+    "web/office/tests/accounting-open-items-context.test.mjs": "c38130e349b89a0921e65358ef90d447ab6fb49e6d4eb352e4f67f15615f7680",
+    "web/office/tests/accounting-open-items-contract.test.mjs": "0b2cd07f111eccb87f2122ace6785e95885db3b499780c4f81cf0bc62b03876a",
+    "web/office/tests/accounting-open-items-flow.cjs": "8d88fe10af184b310eb15ec172360b310a7d3360f94b01f2d1a52d1d7a20367c",
+    "web/office/tests/accounting-open-items-independent-bank-fixture.py": "95f697f2843c85ea1a02c10aacc60f65ad3bc208057a2f54cd51e3c987f89544",
+    "web/office/tests/accounting-open-items-independent.test.mjs": "071714b8b533efbac789853a38ed429f29fee9c01a5de6a43a59bdcc760efcad",
+    "web/office/tests/accounting-openings-context-review.test.mjs": "6ae41a0bdeb70b4ba4c50234eb777428f8b37c20224f3ef27494953a8afa179e",
+    "web/office/tests/accounting-openings-flow.cjs": "64a218b3929b5abfde0103a5f00522466f898b2ef4f45d1d79fb80d1cc786a52",
+    "web/office/tests/accounting-openings.test.mjs": "1405b3e87f09be4d3c4a68fd200f893e34053da8cce4ae0cf9d22ebd00686352",
+    "web/office/tests/accounting-year-package-e2e.cjs": "fb25428561dd42474b6d5b1157c7780f7e62548edd09c485a925b3ce7dac36b9",
+    "web/office/tests/accounting-year-package-fixture.py": "9b00bf8868e86d32c06aaed051ccb802f2da8ed6e10fe00c7491bae1f42eb6cb",
+    "web/office/tests/accounting-year-package-flow.cjs": "3a90ad6202a77dd3e4901c1896c86d25967aa683b2942595bdac03acfbb8a34e",
+    "web/office/tests/accounting-year-package-independent-archive-addendum.py": "078a4319232a332a21a90881e869379c3a1f3716a14f67217f5c9ff7154c7234",
+    "web/office/tests/accounting-year-package-independent-archive-check.py": "1fa73b21be35e64f44d77a2db289aef29f1142e5a6d29ad8c713c798da9c6596",
+    "web/office/tests/accounting-year-package-independent-browser.cjs": "c5ce1b6e28cbdde1f2e6244e761eb7ddd1ca33039ee07e102d79a64a7e1d5361",
+    "web/office/tests/accounting-year-package-independent-fixture.py": "a396112ef00bec582b6f3105a6e920b19c81f16b5333d3ffc5231498ee7b689a",
+    "web/office/tests/accounting-year-package-independent-preload.cjs": "009170b34f5d5ab09ed1e9cfac97f164aed9eedc7057bc84605e8dc93b529ee4",
+    "web/office/tests/accounting-year-package-independent.test.mjs": "871c2cda9fff34c88bde693d7caccc98185a6fd8e289feed621f086322145103",
+    "web/office/tests/accounting-year-package-v2-e2e.cjs": "b07d9e60c209d7fec78ac6eca8e553682bf89076805c3af5e6f3c7d015780a4f",
+    "web/office/tests/accounting-year-package-v2-fixture.py": "8ab2e0461f2e99b53a3d5146ed12b3a8e7ce389c69ea1d045e53437ec9669559",
+    "web/office/tests/accounting-year-package-v2-flow.cjs": "378343158b1b255977375007751fa428c6a77eda92bf04b5231a23622b12d04c",
+    "web/office/tests/accounting-year-package-v2-independent-review.test.mjs": "01eef2af9c759d5bab53918cfb30ccc8d0b6307e1b58979a34a06b9b25fd15d6",
+    "web/office/tests/accounting-year-package-v2.test.mjs": "85f6df1a04c03628576d0eb2b29915423fc6458eace05f1851a925aba27d1073",
+    "web/office/tests/accounting-year-package.test.mjs": "1b5c91f1f7774971f29c105789c1f085ffec44473c4796af192b666e333be50c",
+    "web/office/tests/accounting-year-values-browser-fixture.py": "176d257b0d7119fa634a63ba672401a0cc55a6dc30ffdfbfeb727c0e16b2a068",
+    "web/office/tests/accounting-year-values-contract.test.mjs": "045d483d6b591c89f4826014d47ef2a3e0cb3ff177e54baa4198255e4a12bab3",
+    "web/office/tests/accounting-year-values-e2e.cjs": "1e2a65310d8a2ae2435be773632d0559df9d2564a03bdf43ef913cbf6fd40b71",
+    "web/office/tests/accounting-year-values-flow.cjs": "e75f4c1790dfcd6825f5aa6b8c1b3d14379101b1843d47c5b2653ca7ed7f7f74",
+    "web/office/tests/accounting-year-values-independent-harness.mjs": "a292a21c019ffe7480e3e3f73fad3794274728f560f54cc0cc17fa83b3124766",
+    "web/office/tests/accounting-year-values-independent-lifecycle.test.mjs": "f60f30f62b22a96965bb10aa82eaf4df03eb2974830c9378344b7f2bdff6b024",
+    "web/office/tests/accounting-year-values-independent.test.mjs": "f0cf34715601a1315ef9e15ee3df31102da4ad16721319ec49f5900ea873f4f1",
+    "web/office/tests/accounting-year-values-profile-void-e2e.cjs": "2dd9b093046831a1c808bf58595a6a3e9e87ba1e9337efe512f6786df2488041",
+    "web/office/tests/accounting-year-values-profile-void-flow.cjs": "b7f9b32e77b4f7f4f700b4e5077fc40a85c2a52175fb55d8b85f4d4ddbeb522c",
+    "web/office/tests/accounting-year-values-profile-void-independent.test.mjs": "013887e4583a4dbc71ab99a3ea98b60e816f85c9a0027a22117bd40c2089ca3b",
+    "web/office/tests/accounting-year-values-ui-fixture.py": "c5641f8832a7f3c0ba192cbc14e541f66c3a8542bf1342ed587a460279b80368",
+    "web/office/tests/accounting-year-values.test.mjs": "8e7650ab5051004178296b0ca070834b8ce46ba19c322298be1aa7e980f30eca",
+    "web/office/tests/accounting.test.mjs": "1dc4ff7a746a0d7a1d09bb3b560f63e28ea23e90983de2378e73f0071f47f68c",
+    "web/office/tests/asset-provenance-flow.cjs": "44fa79150ecdc706670bddf7735a20d9d6dd9bafcc570975f0b9916dd046b2da",
+    "web/office/tests/asset-provenance.test.mjs": "f8afe8449274de87ecd0e0122030c79ede2deb0bfbf0a9ef0c50e7f86bffd1bb",
+    "web/office/tests/assistant-flow.cjs": "4c995cac44cb0556e534d6e4ff039b0a325e7f451b463fd664521f2305ddadcb",
+    "web/office/tests/assistant.test.mjs": "d985d5c03ed662e40c8f3f06153b0ae048ec6e82a388979c1246288b4dab5977",
+    "web/office/tests/bank-reconciliation-flow.cjs": "78c40baf6c05fe12e05278d2efd484355cd0c1f7b26d315283d191c7e0349d8a",
+    "web/office/tests/bank-reconciliation.test.mjs": "9cab417aeb5490157c9766f534ed86d1e39949da2057fa7cb30d0adf8842c317",
+    "web/office/tests/capacity-flow.cjs": "ec27fff0add85200af7896f023683c7dfa26f139f774f1bbabac6c16c297d53b",
+    "web/office/tests/capacity.test.mjs": "7c31cc3f44cce433a9046d55396937c8666e13d37465cd475813880f00fbe4d3",
+    "web/office/tests/catalog-imports-flow.cjs": "33a71ee95808b9878344088823abda9f9a8c0477ae33e089c0ec34a545a6bc58",
+    "web/office/tests/catalog-imports-review.test.mjs": "803f1c8df64587b37f89765b32927f63045d2df8def34bc000299db94383553f",
+    "web/office/tests/catalog-imports.test.mjs": "4715d83b904d1746a46855d95bc12a5497ff6122acd3effcaa43b96c6d3cb948",
+    "web/office/tests/catalog-prices-flow.cjs": "1cac801c493efb1129a5d7d2133408c4d99352d3bb5b5e5406f54779f46b23bf",
+    "web/office/tests/catalog-prices-lifecycle.test.mjs": "446075ad66d030c01b0eee727d074ef30a69de01902c7e5b4d264d8f7d3b297f",
+    "web/office/tests/catalog-prices.test.mjs": "0c17615876becce0f3aaa76d0f0c1bea378fdc875b64d3ffb970ec525781e05d",
+    "web/office/tests/client.test.mjs": "05c2923db87abc3bd3e3a6909208b08fc453fdf1ae79a5b6219516d6319ab306",
+    "web/office/tests/company-assistant-isolation-independent.test.mjs": "c87cd009ee48e689e0efab84dbb4cb5048845d185589c99f560cd921a794da83",
+    "web/office/tests/company-events-access.test.mjs": "353b98af228b1c8af0f31c8ad92b99e5f8303cf24537e4c05b44c6b2fc8973b6",
+    "web/office/tests/company-events-contract.test.mjs": "6ae20db33104e17736322e5191002d020006d2a666c8c78e9ea69524f2952c37",
+    "web/office/tests/company-events-flow.cjs": "cc363df30329883da6bf7d76ba3293c22a7a0fd1f56cbd6fffea363ce55b7462",
+    "web/office/tests/company-events-independent-browser.cjs": "f67f6a65c178257b62b0b4af0e5d5449fc546828b550b803a9d6366f3ea4797d",
+    "web/office/tests/company-events-independent-preload.cjs": "c78f90677a578956a78a7ea70c0ba735856a472b15490c026708a55876428855",
+    "web/office/tests/company-events-independent-review.test.mjs": "74b93f3df83ef47a3ecb14a2cbfc9b993b876cd95af6c69a15e3df0acde738a8",
+    "web/office/tests/company-events-merge-review.test.mjs": "b790327a322b5a985430cbca650c3dcde226389d1e1efff29901f1b122cd2ffb",
+    "web/office/tests/company-events-session.test.mjs": "15f5a8d40c49acdff024b59f0f7a8b234126e83680bb80336d6358a0b738163c",
+    "web/office/tests/company-handover-flow.cjs": "06ca21fe3ebb081fc09cbcd0c8c5b304a89bf8c2f1e439f8cbaf82b949b6d913",
+    "web/office/tests/company-handover.test.mjs": "1944275095bc35d9968edebabf5675f3a5c191b54887765702255456059ea7cf",
+    "web/office/tests/company-overview-flow.cjs": "517ac4fd887c1c89b1016ff197f09ed33ab08c2abaf6759410ca26498768d97a",
+    "web/office/tests/company-overview.test.mjs": "7b97e3c7f6a35ddb1f82b3b0186de8b97d80ebc97a033dc78ca09b2ed2bb6019",
+    "web/office/tests/component-flow.cjs": "e64bc3df1b9655253274d198da4ed13c127f48c5dfec278422e960597ec3d8b1",
+    "web/office/tests/component.test.mjs": "6e5f023f411ae1f05903885fd09d146e4b2a16f73e88456270f93005518bd442",
+    "web/office/tests/contact.test.mjs": "61e317931ff03708f6f16249377f5eadb5210b9d3dce54f92c9b0f4df9ce1df1",
+    "web/office/tests/custom-fields-flow.cjs": "be966271d79ae3b071379bde9ae8e3cb4782d10e5892e9497738f1a59bb88909",
+    "web/office/tests/custom-fields.test.mjs": "2752467bbd2e54317c5efc769fcf93f1e4d84df04864cde6d757c2825967b5e5",
+    "web/office/tests/customer-workspace-e2e.cjs": "a480cb821c47a50f60a5d0f55fdefd9f32ecd886a996afd305c102b296cef611",
+    "web/office/tests/customer-workspace-staff.test.mjs": "b18142da032ca341afac69fa17d433dbb0c71fcee29f88d75400daf0df4fda1f",
+    "web/office/tests/customer-workspace.test.mjs": "1f722c9d2495f4922a336ba845612262da3362047be667212e81049cac7aef1c",
+    "web/office/tests/customer_workspace_fixture.py": "31577d8ddb1fce363d42cc7adbd33b2f07c09aa2d8a8562bfd6704d87123dc2f",
+    "web/office/tests/e2e-diagnostics.test.mjs": "816ce154077eacb43a35fd8ae56cf0fa15c09e0abac497d77996578bd3be116c",
+    "web/office/tests/e2e.cjs": "e7ae08396c5a86146469ddd95005de64c453007d015445d1cc24a126a9ed6060",
+    "web/office/tests/fixtures/accounting-euer-legacy-context.json": "5f46a17678fbffb114edc9ab855eec73fd9e4c7bf78c43c4ed60d7237a5b3a70",
+    "web/office/tests/fixtures/accounting-euer-legacy-followups.json": "d3563bc37aa550653c45cbaeb74a4a7373d23e63ce1da772b88ae80aad0b7b81",
+    "web/office/tests/fixtures/accounting-open-items-independent-bank.json": "71626323f37f98deb004d77596e59badc4b9148bc0997fa6b8b786aba1180f0f",
+    "web/office/tests/fixtures/accounting-year-package-independent.json": "643710c61e6da8dba3b27e9ade57d0e487514c5adeb1799f4f7b0946b76678de",
+    "web/office/tests/fixtures/accounting-year-values-euer-ui.json": "a3fd1e91e6e913b965693efe1eff69c55c42b26a5ee082720aedea6051a0926a",
+    "web/office/tests/fixtures/accounting-year-values-ui.json": "819ddc38cbd80bb79b97fc277d0c7380393f8c5da514b384abf5c28951403b4c",
+    "web/office/tests/fixtures/catalog-import-previews.json": "d4aefd5f323343f5f38ee39478898f87617eddbd1adeae84ca701e33bbedd6de",
+    "web/office/tests/fixtures/catalog-prices-v2.json": "b1a173038ddebe152da4b5d570c38bb58538746b6074888c16fc28a54f2ddf27",
+    "web/office/tests/inventory-article-refs-flow.cjs": "cd406ae7d1ecc3a1c5afb96bd1aee7807932c34730d29c95d50eaec6c58277e8",
+    "web/office/tests/inventory-article-refs.test.mjs": "05ad35acc7411f46227ce85609aa281bebad973b31c193ae067a68ffc865c775",
+    "web/office/tests/inventory-counts-flow.cjs": "a07ba2f5a50f22ba1d2e1ad3249d2eb85db55f674ad972af69ee9ebe8d2b2ddb",
+    "web/office/tests/inventory-counts.test.mjs": "06c54adf7db0560b943229a658b99f3a58fc0a6e231e35969759b22fd3066918",
+    "web/office/tests/invoice-chain-flow.cjs": "0b8ef18d4389d0a0a4089576ff3c2ad9126294489c23fd0607d5c84256012f4b",
+    "web/office/tests/migrations-flow.cjs": "4eb09d34c6645b47e36d5b22f1e69775c647a05031b74afa7d565eefceac3d16",
+    "web/office/tests/migrations.test.mjs": "c55d51576ea9f12be078d8404d76fe774feccca5531ed08e10052b5c55d84c96",
+    "web/office/tests/organization.test.mjs": "7618734930735ac474a82a3ee3b482dd1159eceb6389be834b18d2fda84f9a03",
+    "web/office/tests/payroll-accounts.test.mjs": "f595871409067c997345298b412783fbc89dc2527c51ed748e9f032b37d9254d",
+    "web/office/tests/payroll-annual-basis-flow.cjs": "75bba2fc57ee16e0c7ee82e67b7a5dd4993badf52f541a7197f949f4c9aa51c3",
+    "web/office/tests/payroll-annual-basis-session-review.test.mjs": "46633ba647ddcdef3f575db1dcabd7f83ef6ada502de37489d3e17640a95a5d2",
+    "web/office/tests/payroll-annual-basis.test.mjs": "500196572408529a692100ce2ad9f6112d687ec32156e098aaf62693ee27a8c0",
+    "web/office/tests/payroll-calculation-cases-flow.cjs": "65809f2a4ddb4cf348d2636dfadab95238532170929c2a236e76be40c8be8d7e",
+    "web/office/tests/payroll-calculation-cases-session-retry.test.mjs": "e8f6273693cfc9af6dc49a8b3ea32678fe80d7cb4ca3452dc03a92a48299c530",
+    "web/office/tests/payroll-calculation-cases.test.mjs": "d72573eb9eb1bc3c9052363c1fa710f1c7c5dcded5c826b81927da36f48c4ba3",
+    "web/office/tests/payroll-cash-flow.cjs": "a68232fd2722ccb396bdcea87ea6047499335d8f498ec37ae0a96b2c0faeeb9b",
+    "web/office/tests/payroll-cash.test.mjs": "bd62a676e9d11e7621c36a296c9b909591ad3d59a81fa06f9d68085afbc84664",
+    "web/office/tests/payroll-entitlements-flow.cjs": "d7b6136a030e6d9bf37c35954768f02a870e0aac56578e4fbcbfa45758dcc845",
+    "web/office/tests/payroll-entitlements-session-retry.test.mjs": "66520d29e9fc5335f813f4686ee20629e1e0c29c1244908003a4ab69d21ec580",
+    "web/office/tests/payroll-entitlements.test.mjs": "40b5d83be06ffec13fe1d8a4fdcf505e1f1926a8fc71b5d1999e6d220643f9ee",
+    "web/office/tests/payroll-facts-session-retry.test.mjs": "cb1b0a9b04126822db76495f7a16e70cf036ab258b34c7478baa0556f893d302",
+    "web/office/tests/payroll-facts.test.mjs": "a76a2220d401aa1912e87c8bcb8bf3c52a8e6bb8c50b3ef252d30f944acb6eb1",
+    "web/office/tests/payroll-flow.cjs": "0c8edff639f94e2051b263c0add78faa5db32eb96eb0c04c0c14d35a1e32f804",
+    "web/office/tests/payroll-multiple-cases-flow.cjs": "b6a3699acdf65708047a92a0b9aaa5d461d0bae9593ce56f0e83e72537c63b21",
+    "web/office/tests/payroll-multiple-cases.test.mjs": "64b3baf6b71947793fc8e3215bfddc841462b7622bd4e07f7475f9903bd61087",
+    "web/office/tests/payroll-multiple-context.test.mjs": "6dc807d2fac30622f80357892f97f4cba52254cb9d935cf4c8db32226a06931e",
+    "web/office/tests/payroll-multiple-format-review.test.mjs": "f06c50578299f29ffab269be1b63fb52f27d9617be7bf340656f0a4885f5c1b5",
+    "web/office/tests/payroll-multiple-own-flow.cjs": "1623d635a3eb1f8d9cfba3fbd70da715dee9d9a6538b96e7c84f8429f989096c",
+    "web/office/tests/payroll-multiple-runs.test.mjs": "a3c1f808033679a6535ebdaff6de7a7378ca4bfce96ddcf02ac067e7780d3d61",
+    "web/office/tests/payroll-multiple-session.test.mjs": "045f8a9c8e11e2dc636d8bf835f691f25d0d2176e3b9ac7f290e2e4538e97cc7",
+    "web/office/tests/payroll-oneoff-cases-flow.cjs": "83e8337d9628993972571a796595532cbcd724a9b799e5b655b109b9aa91b496",
+    "web/office/tests/payroll-oneoff-cases-session-review.test.mjs": "ab46d6663ccfb7e9b0375b85c6fd9baceb5ced799cb571ad863c868f8a280603",
+    "web/office/tests/payroll-oneoff-cases.test.mjs": "92a3670b19a84e7c123f113873f2481fca920c088fd1877b3c9e21168277af1b",
+    "web/office/tests/payroll-oneoff-own-flow.cjs": "f93b865c98201f24367d9503aec5c4da10bcc37e0d9af2b985663fae90b92d44",
+    "web/office/tests/payroll-oneoff-runs.test.mjs": "0f7a39552a6868c2149f05ebdfbaadeb12c5853b5a2406d1ae22b7d0e2225b4e",
+    "web/office/tests/payroll-periods-flow.cjs": "41534434b692d1012fe5aed05dfa43c86d05ca388f10de556584d9bcf1c92633",
+    "web/office/tests/payroll-protected-session-review.test.mjs": "b7c48ad76dc612683c59ae6fdbaa263f811c31b18c27a16db58eb1100a172a29",
+    "web/office/tests/payroll-sickness-phases.test.mjs": "15bb11e0b51c2c7c9d76c071b21eaab881cd13bbec44a083ddada5856d8b7e35",
+    "web/office/tests/payroll-statements-flow.cjs": "11756aef42fb3c323665a441de3ffeb967dd8ed4bfe5820066886cdb331fc6d3",
+    "web/office/tests/payroll-statements-v5.test.mjs": "6bfe9c716c293a0f4c87a3e21addc94b695d45631147929d05277408e340ba26",
+    "web/office/tests/payroll-statements-v6.test.mjs": "e0691ce241ccf5aa7094b988a65b1ecd89bfc9df1a141f26305e5a67fa536a44",
+    "web/office/tests/payroll-statements-v7.test.mjs": "054a5c86084e0e15a7a7eefb67f08d46e83901cb9629b41aa97b91eef6160560",
+    "web/office/tests/payroll-statements.test.mjs": "b55ba4e494fce144de0c55773cffe2c62ac147781d5d1ed6767969fcf409de57",
+    "web/office/tests/payroll-transition-flow.cjs": "c018fa1c6c53c8a89b75afb1963c5ce5db17df81d08b2de906bad9168293570a",
+    "web/office/tests/payroll-transition.test.mjs": "b644dac9686b1ffd5f8e84ecb460a20f3a221f0221559c8e671c736ed4035aac",
+    "web/office/tests/payroll-travel-tax-policies-flow.cjs": "b457c28be529e80243a17c8198188f7c88e2dd299165c787c1d409740e2ac326",
+    "web/office/tests/payroll-travel-tax-policies.test.mjs": "b14b70d0d297c60b3b4acc64e30a320fed94ff5b9e5be189201664bce0206354",
+    "web/office/tests/payroll-travel-tax-policy-session-retry.test.mjs": "3a6ae88965f737691550bfa96a890d70d2bf336927fbdd1359ef15ae92a55cf2",
+    "web/office/tests/payroll-wage-interruptions-flow.cjs": "4eb19af2175dd01ddfc8267bd1548547028ac0b1f61b4ded05e0391b268d60ee",
+    "web/office/tests/payroll-wage-interruptions-session-review.test.mjs": "4b6216363be8c9793d35bcadc941fcdef6fa6c397aa48df1b33631caac89f469",
+    "web/office/tests/payroll-wage-interruptions.test.mjs": "9eb6fb0398ef68e51d8e42ced8a7ca622f90ad1a0857955cd6a16aa92534d848",
+    "web/office/tests/payroll-zero-account-flow.cjs": "08fb0156dffd6660b548d83f7d960805a06ac6fb3133adeac12ad9802f13605d",
+    "web/office/tests/payroll-zero-account.test.mjs": "cbc9ca7ebfadbb1f3a79a95c53328361f14596b2d4afca4e0776ba77d74a3c0c",
+    "web/office/tests/payroll.test.mjs": "dc330f0404b418011f3b1e5e027456e0579e6300ce7e2b5e9be9b25b64c9fab6",
+    "web/office/tests/payroll_period_fixture.py": "6b53bf76ea04ec3d7d77c41642e32e095188726a207318b6ac8a820cc776bf46",
+    "web/office/tests/payroll_statement_fixture.py": "5d0eff4254b9474bf59dfc82d2064f030d4ef904fa8fa39e96271065dd6cc375",
+    "web/office/tests/payroll_travel_tax_policy_fixture.py": "cdd4877a972ff07b3622859a116edc7662f96d0d614930bcc0519830706afa0f",
+    "web/office/tests/personnel-workflow-flow.cjs": "900d744d4d342251f7f87caad1fab7df30ec7cc9570f0ec4fb17d08b928b7735",
+    "web/office/tests/personnel-workflow.test.mjs": "6978050c335f214093338535f4aabcfdf7dc456f18876933e9135bf60c667bee",
+    "web/office/tests/planning.test.mjs": "5658f20c40e4ed6819edd8383b6d7ed27b9a6549ee60f1ea14969f934c2f1d0e",
+    "web/office/tests/portal-flow.cjs": "6613550f5f799dc7108c1d1cfc0696c748d3498cb999106f42990af4e1458ef0",
+    "web/office/tests/portal-staff.test.mjs": "d871c22703b5d64d3fc386efa87b7d3cf61d20f2d2d830081ae8aa7e92b5e6e0",
+    "web/office/tests/portal.test.mjs": "b7d64c08c944edf035e8331c80b17d7b4dd30e688f1b6d1ac85af7ebf9fef9bc",
+    "web/office/tests/privacy-cases-flow.cjs": "e97eba74853a3abbb66ef0e18f6f6c9df3902a50a1f1267dbc78d2bdb9275e48",
+    "web/office/tests/privacy-cases.test.mjs": "203990a69d1ca4fe023357cd4acd6384246117a41abc79a23d4f93e55831fd4a",
+    "web/office/tests/profile-flow.cjs": "f91aeec34e2d5ac08cf73480ae681946cde6a2e93c9341d5e38aaa9742b6565b",
+    "web/office/tests/profile.test.mjs": "12b9828855f9d14b8896534798cf3a8c7a3ed6b550552fa516a46b0d4551e20e",
+    "web/office/tests/project-customer-flow.cjs": "df2a72b481e78d9cec6488049c322d7dff7a9c1ef159b8a6ac2fa43dc49d3018",
+    "web/office/tests/project-economics-flow.cjs": "223f9ffe04e8d9c1c2d7eb71f81084f3a3bd2d66d17c1fcf0bd4f538a14f9a49",
+    "web/office/tests/project-economics.test.mjs": "cac5e2471ad9535450c3e3a49306c844c862bf94055c5ac6cb9312c7ca869c52",
+    "web/office/tests/purchase-changes-flow.cjs": "39c4e0c5902eefe810b563118910182afe50379b92fa4f22be1d66df40d701af",
+    "web/office/tests/purchase-changes.test.mjs": "ebee62a6c25b0f07d8e950316a02b35c17b0debd52ec15087f817d58a12572c8",
+    "web/office/tests/purchasing-catalog.test.mjs": "955d63b798a083a4a67950d0f93e861422d25288c1d6d4e4b6cf37e56a959ea8",
+    "web/office/tests/purchasing-flow.cjs": "35b1539b77ed826edfc575ab901f32e2ca5678cb86da23fc161f5a7a8fb3617e",
+    "web/office/tests/purchasing.test.mjs": "d9dc42c799f2970d7ef938c403f61126bf5cf580495ff30fa7342a169792658a",
+    "web/office/tests/refund-flow.cjs": "2cdf24cd87bafd093f7f0e54621ddae31818f10175535e0086eb83d3a3875270",
+    "web/office/tests/refund-v2-flow.cjs": "4fda9c06ec02d570632724ddf82a1d6dcda5bdded7a071445bb23dd37f913107",
+    "web/office/tests/refund-v2.test.mjs": "f72c6615f27337a9ec2cd1242497b5c23e2b89d40e8700b131eddf4a4d277d62",
+    "web/office/tests/refund.test.mjs": "ab38cc9ec81d6e52142d453e955912eb2492dc161669d8597a2adad4af412cdf",
+    "web/office/tests/resource-custody-flow.cjs": "f063ba1e8e72ec4a39e5dd4ddc423b4516887bf1dde3b3582eeabf90baa7f216",
+    "web/office/tests/resource-custody.test.mjs": "13a66cae6243bafacc3eefe541e3ed6f7b4beef07319d879ecdb33d1b4d7915f",
+    "web/office/tests/sales-flow.cjs": "6fb4ad8c2a32a39ace3302be432872f3e0182c5866bc623b408360afd6895213",
+    "web/office/tests/sales.test.mjs": "643a393a18108bde20781a433bff10d8abb296274cfd648c20d94bcddf6445d3",
+    "web/office/tests/serve_fixture.py": "de011d9487e919fc5e9670428c19e48c2e90e56c7d220ae21e3f8abfa4a10dc2",
+    "web/office/tests/service-flow.cjs": "93fb6c5b7e43b1c55497410a6de47a14e574138d192ec5b98f0642d8e7a122f0",
+    "web/office/tests/service.test.mjs": "ac0661b6e1a6105b9a06f98cae735b7e8f98acf6909157964b4d48d15ed664de",
+    "web/office/tests/speech-flow.cjs": "5cf462e408bdc44add4b678954c4db73fae31c8e23432e85bfca3d7abcf78a0e",
+    "web/office/tests/speech.test.mjs": "68e2172ba7c914914c0df09daf8336844013262523a716e168c2763e523e5c2e",
+    "web/office/tests/time-tracking-flow.cjs": "31e7a6ec40ac099315ab3cccec350a08ead1ff9e2ea1a00a29823d6a99ca42a0",
+    "web/office/tests/time-tracking.test.mjs": "75b07bd3e6015e59259f2d43f8b25efbb0bca6a01b21c8823fc7c670aa17189b",
+    "web/office/tests/travel-allowances-flow.cjs": "c05ab2a6e20cb359f262945f055b6ee5cf8517fe089829cf043d0e74540d243c",
+    "web/office/tests/travel-allowances.test.mjs": "9f047730c627113f9e70ebd7a92fb8cc67b458ca3b7a5eb369bd1803e50bb8fd",
+    "web/office/tests/travel-cash.test.mjs": "956f047f29d884ad5a2c5e82e31b6ba5fb4595d29cb25d5fb5b98466fe795b67",
+    "web/office/tests/travel-legacy-flow.cjs": "70caaba04dfca20577049b132415ee17eebd5a7b011bc500167760b67cc3b423",
+    "web/office/tests/travel-v3-flow.cjs": "a34d16063faca2509753bcdb557c168831666ecf34cf464e8f036f796195ac36",
+    "web/office/tests/travel-v3.test.mjs": "44150972b15ab88b901501dba933d5dd90369230226531018a5919fbf5c67016",
+    "web/office/tests/travel_fixture.py": "4b8561e283f81468652b4d8767da51a7379c55ea4c006f2456cf5d15fc1b6417",
+    "web/office/tests/travel_v3_fixture.py": "9f1960960b20f66c474863f4099e6074fb8e42c8610655d489320da5e12c9d4a",
+    "web/office/tests/workflow-retry.test.mjs": "c21a69deabc1142bc4d9fe7654fae02c817cd5d912b5a00b32c0e64370889137",
+    "web/office/time-tracking.js": "661664a91038c9fa6c55f68a680a299c933935b035b3ae3a3f434072b895d316",
+    "web/office/travel-allowances.js": "c66e021bf9e46c90d07bcbcac89d4123ea9dddf1a8d4959ca4b0c230050b723d",
+    "web/office/travel-cash.js": "f686270f3263b46a0293609fb89b1244a97a8a3e1fe0392831d7d8fb0732774e"
+  },
+  "not_repeated": [
+    "main browser flow passed in CI bd8caef",
+    "accounting-openings passed in CI bd8caef",
+    "project-economics passed separately with current selector fix"
+  ],
+  "screenshots_root": "/workspace/Smarplan-Hofmann-Workspace/work/verification/remaining-browser-bd8caef",
+  "results": [
+    {
+      "name": "asset-provenance",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 13.959,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/asset-provenance.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/asset-provenance/asset-provenance-mobile.png": "edd86097cf4996c85d39d101e49c52e33653daef55c73bce0fafe2d9ae1ff70c",
+        "work/verification/remaining-browser-bd8caef/asset-provenance/asset-provenance-desktop.png": "53a73b72accb6b3c0dee62fced0221fd1b5a65120eecee144d9dd29a34771c00",
+        "work/verification/remaining-browser-bd8caef/asset-provenance/asset-provenance-http-records.json": "0b9f9a62b4907e0992e33c2f35d9bc93a300a5b0f89f0fae76d3dd91764e600b"
+      }
+    },
+    {
+      "name": "travel-v3",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 54.117,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/travel-v3.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/travel-v3/travel-v3-mobile.png": "1b52dfef01a1c559e97c46f800e7a7e8574d478defc88d42b909dcc00c134ac7",
+        "work/verification/remaining-browser-bd8caef/travel-v3/travel-v3-synthetic-commands.json": "c230f6e6aac8626516994d06d20a9fabe32703de862056b134116e151a533603"
+      }
+    },
+    {
+      "name": "sales",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 11.169,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/sales.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/sales/sales-mobile.png": "00f8e707e18f746289e78dbe7f6a92baa8a3904a9604a94d37f2394487d3b153",
+        "work/verification/remaining-browser-bd8caef/sales/sales-desktop.png": "38a6bb00f85f89f90c92e6a6be9e471460a830d6bb66dcabe86438d853ccc5a2",
+        "work/verification/remaining-browser-bd8caef/sales/sales-commands.json": "1e0e4c05b534a694018a823434a0c900a849fcbf828ccccb8fa589af2d2fdde0"
+      }
+    },
+    {
+      "name": "personnel-workflow",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 86.452,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/personnel-workflow.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/personnel-workflow/personnel-month-history-desktop.png": "00894e8db20972e634da7097192f2d3bbadbe3424674ef1f7e35ed6721a72d41",
+        "work/verification/remaining-browser-bd8caef/personnel-workflow/personnel-month-history-mobile.png": "eb27aca0475fb3f7425e42ae6cbd16c45274eb2a211ec1f74e5e13ea845e6475",
+        "work/verification/remaining-browser-bd8caef/personnel-workflow/personnel-workflow-http-records.json": "c1f2a5bf4966e27db810207510bb4069a4c834c394fb3c37fdd9bb73ccb00eee"
+      }
+    },
+    {
+      "name": "project-customer",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 11.488,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/project-customer.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/project-customer/project-create-retry-confirmed.png": "dae7cc6c30d48a8860c1309c04f2290c7de4f8b8f9939748291198b45b59c387",
+        "work/verification/remaining-browser-bd8caef/project-customer/project-customer-invoice-draft-desktop.png": "08fd6949cc7038cdbf84126a18a46d369954e4674d187e6521b75d3e597b583c",
+        "work/verification/remaining-browser-bd8caef/project-customer/project-customer-invoice-draft-mobile.png": "18e2add7343886388dd0398c5d63ed5f53dbfe19e5f5519bb7b0ce9ad76da249",
+        "work/verification/remaining-browser-bd8caef/project-customer/project-customer-retry.json": "a16cf04b65c0f900d4bba22c1d61938e178d89b252a830b65845dc469d0f7c12",
+        "work/verification/remaining-browser-bd8caef/project-customer/project-customer-http.json": "6912ad91ecf9202dd4b26be2ad0cc4c2339bd3f896881c275a3d8da4044b43f2",
+        "work/verification/remaining-browser-bd8caef/project-customer/project-create-lost-response.png": "cb9a276d96c090f867c473d2126319248be873c045c8a60e534dfb25163395b3"
+      }
+    },
+    {
+      "name": "inventory-article-refs",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 10.248,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/inventory-article-refs.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/inventory-article-refs/warehouse-article-refs-mobile.png": "f8606b033c0c44baa6417eb227cffbfee9bfc2b4666f222ed2c34f52631fec75",
+        "work/verification/remaining-browser-bd8caef/inventory-article-refs/warehouse-article-refs-desktop.png": "5c32c9c97f145fd7e0271b83d0de0c1693132912f01da34a5308ab52e91d9baf",
+        "work/verification/remaining-browser-bd8caef/inventory-article-refs/warehouse-article-refs-http.json": "9e0fdd8526662687ed2cae688b4509d7c720a7fab8bc9a37b19baf84b12f234e"
+      }
+    },
+    {
+      "name": "time-tracking",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 11.376,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/time-tracking.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/time-tracking/time-correction-mobile.png": "ba3b7c0a86bb6c7ed7806925af922d25e59141d5fa61d1f7ce0cb0b622e82e23",
+        "work/verification/remaining-browser-bd8caef/time-tracking/time-correction-desktop.png": "c6f78a669ed714f1b7de3dead6e2af68be0e3760d4b8cbd5b73e59f4dc4b770b",
+        "work/verification/remaining-browser-bd8caef/time-tracking/time-correction-result.json": "99019d9215120b944709f65312379457a9c5f3e4978b5066da5a5eac2f281e4a"
+      }
+    },
+    {
+      "name": "payroll-transition",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 17.279,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-transition.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-transition/payroll-transition-desktop.png": "86f5e2e2d4655de0029e5351e433188e28bc3abdfcb70ccb78787c2046ee2e38",
+        "work/verification/remaining-browser-bd8caef/payroll-transition/payroll-transition-mobile.png": "852db9a96a430c65c69fffea2b70da803ddb655af024e4f8d5911c8cd1400b33",
+        "work/verification/remaining-browser-bd8caef/payroll-transition/payroll-transition-synthetic-commands.json": "9c8dc298778da9ea24c13862290c474c33d14b8be4869670ba4588ed0365ab03"
+      }
+    },
+    {
+      "name": "payroll",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 25.785,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll/payroll-history-mobile.png": "e2927d67cdf3084f4dd9aee616b3523aaea9906eb8bac700cdcd226f531fbcdb",
+        "work/verification/remaining-browser-bd8caef/payroll/payroll-year-desktop.png": "02693626f754c61a93c573fc521860a87f25a679b8ad5d5797e6760b400c20ef",
+        "work/verification/remaining-browser-bd8caef/payroll/payroll-history-desktop.png": "fcf7ddf714632349f5d3abd805bb449aa58229b005cff4e0507fa7ab1b3c5825",
+        "work/verification/remaining-browser-bd8caef/payroll/payroll-http-records.json": "7a040f19218fd425961c7612ec3855bc4cf39b7ab28a0bddbe94093e8a2e05c5",
+        "work/verification/remaining-browser-bd8caef/payroll/payroll-account-mobile.png": "206fe84738e18172042ed7e0fb802afd8c3996171e0690275277dfa33a7d4a6c",
+        "work/verification/remaining-browser-bd8caef/payroll/payroll-account-complete.png": "ea828d63558d1b4bae6975126f4fa52c1c912ac43f58660b0fb0161a8c895e34"
+      }
+    },
+    {
+      "name": "payroll-periods",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 18.449,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-periods.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-periods/payroll-periods-mobile.png": "07fe4833a6fc4a3bcfd1540c5058eedfe934ff8b8cd562aa14946cb52a33752b",
+        "work/verification/remaining-browser-bd8caef/payroll-periods/payroll-periods-desktop.png": "ed9cf116c32dcbe14d98baea172087b01420fc281f7dd76fac6c738164a9a15c",
+        "work/verification/remaining-browser-bd8caef/payroll-periods/payroll-periods-synthetic-commands.json": "8244afab40c30881c07b14c24fb17aa1fb4810aaaad4cff5cac1d336813535a0"
+      }
+    },
+    {
+      "name": "payroll-entitlements",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 16.033,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-entitlements.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-entitlements/payroll-sickness-phases-v3-mobile.png": "7ba08db5c45351206d595e2829d579505e881b1eb117fa9091e47441c613fce8",
+        "work/verification/remaining-browser-bd8caef/payroll-entitlements/payroll-sickness-start-v4-mobile.png": "1fbe92669da17cea6858eaf059d54f8050b531b164396c9ca2efe27e6351a368",
+        "work/verification/remaining-browser-bd8caef/payroll-entitlements/payroll-entitlements-synthetic-commands.json": "20bbdc6c519103d3730b9444d65511d5bb65d202583e5b9032d720945d01368e",
+        "work/verification/remaining-browser-bd8caef/payroll-entitlements/payroll-entitlements-mobile.png": "62f1e8137c780adf0fdea1b7a7c444cba0f8cf8ae4525ab4dd2d0a62936d9919"
+      }
+    },
+    {
+      "name": "payroll-travel-tax-policies",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 12.454,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-travel-tax-policies.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-travel-tax-policies/payroll-travel-policy-synthetic-commands.json": "c0379626311451322ede1a62db159bd9a0bd1b3f9a8acfe96764c3351781911e",
+        "work/verification/remaining-browser-bd8caef/payroll-travel-tax-policies/payroll-travel-policy-mobile.png": "f49abcdc9c9f354056e154a470f545aee43acf66b3406a3aa79838d678f43240"
+      }
+    },
+    {
+      "name": "payroll-calculation-cases",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 14.805,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-calculation-cases.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-calculation-cases/payroll-calculation-cases-synthetic-commands.json": "d278a4416fc4949d1f9850307e66f8219b7d52042911e9c018919aaf6c24ef90",
+        "work/verification/remaining-browser-bd8caef/payroll-calculation-cases/payroll-calculation-own-mobile.png": "a80ed8be4db2141c16e759d1b555ec10878b576f55cd8a8a3892b3d3abaf9c21",
+        "work/verification/remaining-browser-bd8caef/payroll-calculation-cases/payroll-calculation-cases-mobile.png": "b7cc98fdc59565370fa1a1fbdc44f7c02c1132776cbdd1ccb5b7a63dc8f0c493"
+      }
+    },
+    {
+      "name": "payroll-wage-interruptions",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 17.681,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-wage-interruptions.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-wage-interruptions/payroll-wage-interruptions-mobile.png": "da4fe6e1610de99b76f995c57b37d94a3f371b963a0acb436ac494bfb053859d",
+        "work/verification/remaining-browser-bd8caef/payroll-wage-interruptions/payroll-wage-interruptions-synthetic-commands.json": "07ebdba96b54f2927a1b244591483aef4377a08ec05d6f731e7ba30be844f459"
+      }
+    },
+    {
+      "name": "payroll-annual-basis",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 19.291,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-annual-basis.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-annual-basis/payroll-annual-basis-synthetic-commands.json": "5110be3c158febe90973e5d9bdbabb11aedf4eaca975e103681db53536595da7",
+        "work/verification/remaining-browser-bd8caef/payroll-annual-basis/payroll-annual-basis-mobile.png": "31a2db7bbaa90e01b8cd45d2a139456f3ea96716e40f01421132e54fbb6e3640"
+      }
+    },
+    {
+      "name": "payroll-zero-account",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 13.858,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-zero-account.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-zero-account/payroll-zero-account-synthetic-commands.json": "560c7284046191683484a998072559047020edf0facda0736816dd7026eae7e8",
+        "work/verification/remaining-browser-bd8caef/payroll-zero-account/payroll-zero-account-mobile.png": "925a3d3b3385c6d185d15602484c4ef9ac5b1aebae23c6ec26f85627e3d3c974"
+      }
+    },
+    {
+      "name": "travel-allowances",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 198.498,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/travel-allowances.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/travel-allowances/travel-overview-mobile.png": "38797a0e50ac88d0c9bb40d3656ea5b2e9c15f9cc3bd7fe5bfb34c884cfc540a",
+        "work/verification/remaining-browser-bd8caef/travel-allowances/travel-overview-desktop.png": "34adf412061323673b1ba5742cb9a570e70f53011d6e86c3706918b6e123978d",
+        "work/verification/remaining-browser-bd8caef/travel-allowances/travel-synthetic-commands.json": "5dfb263bb53626e8649179d6c0f38f69bc14c9e94abb14e7e9cb4fe4e821a73a"
+      }
+    },
+    {
+      "name": "payroll-oneoff-cases",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 31.064,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-oneoff-cases.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-oneoff-cases/payroll-oneoff-cases-synthetic-commands.json": "97b870ec86962c1d3f8f6dc2b9de430f17d45cfc91c5cdd43a7c84ea09e5cd68",
+        "work/verification/remaining-browser-bd8caef/payroll-oneoff-cases/payroll-oneoff-cases-mobile.png": "6c2dd1a8cf7d52a44243cea0c8c4a3587dc7a17ffabdfa33ff69716bff25795b",
+        "work/verification/remaining-browser-bd8caef/payroll-oneoff-cases/payroll-oneoff-own-mobile.png": "1e7477390d661200a17ef0d914e66e53a2225d732741b54eff750a201224444c"
+      }
+    },
+    {
+      "name": "payroll-statements",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 20.87,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-statements.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-statements/payroll-statement-own-mobile.png": "222d7a6f40fe7f2f99b7b08a46d842b76fcb6279a0f3f44a2504d6e1d67c98a1",
+        "work/verification/remaining-browser-bd8caef/payroll-statements/payroll-periods-mobile.png": "07fe4833a6fc4a3bcfd1540c5058eedfe934ff8b8cd562aa14946cb52a33752b",
+        "work/verification/remaining-browser-bd8caef/payroll-statements/payroll-periods-desktop.png": "ed9cf116c32dcbe14d98baea172087b01420fc281f7dd76fac6c738164a9a15c",
+        "work/verification/remaining-browser-bd8caef/payroll-statements/payroll-periods-synthetic-commands.json": "f23d39342aa7b9d517cbced7bfb56c44f306c3cb1b8654d77aa1cb49711a905a"
+      }
+    },
+    {
+      "name": "payroll-multiple-cases",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 40.752,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-multiple-cases.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-multiple-cases/payroll-multiple-cases-synthetic-commands.json": "5ba4e627a79106e415bf61ce4f4165fb3639c43bfd3265e95e00e861bbebaebe",
+        "work/verification/remaining-browser-bd8caef/payroll-multiple-cases/payroll-multiple-own-mobile.png": "1e7477390d661200a17ef0d914e66e53a2225d732741b54eff750a201224444c",
+        "work/verification/remaining-browser-bd8caef/payroll-multiple-cases/payroll-multiple-cases-mobile.png": "2195936a252a5387c2601682aa3d5e31044301697f68d872880fe1f9e5f9b9c8"
+      }
+    },
+    {
+      "name": "assistant",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 21.6,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/assistant.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/assistant/assistant-mobile.png": "9f56dd0d33d60e981a7a68d2e053ccdbbca7104671379e524e2b3c8615f7e75b",
+        "work/verification/remaining-browser-bd8caef/assistant/assistant-http-records.json": "ebef8e88e07985ed2fbd03a8e19703fb2aa36b404570df3b8901622f048f707d",
+        "work/verification/remaining-browser-bd8caef/assistant/assistant-desktop.png": "e7a50777aabe3143682e3e8b88bdf3be3f00d3b2b099ab587598a5a5284b16e9"
+      }
+    },
+    {
+      "name": "speech",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 13.688,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/speech.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/speech/speech-draft-desktop.png": "5e2e36592e6401a183008d1ad7fb4bc8184ef22405bc7f77fad517f1a4dd6560",
+        "work/verification/remaining-browser-bd8caef/speech/speech-http-metadata.json": "e2ce4895d5f04860e401e2895300987f0f9f37b88da0d6084dacaeab2fcd30b6"
+      }
+    },
+    {
+      "name": "company-handover",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 15.708,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/company-handover.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/company-handover/synthetic-company.zip": "4491c44390af7b1b16f618af2de62101660bab17a8b0852452faf9259044bf93",
+        "work/verification/remaining-browser-bd8caef/company-handover/handover-mobile.png": "318cbde345bd67d0e1003081dc37fea4a8a048f31906672309956af2804e4aa4",
+        "work/verification/remaining-browser-bd8caef/company-handover/handover-synthetic-commands.json": "d7e97212a68037ff29238d99d71f87a90b96b8d034305e7bdd1eb32ce9ad2c57",
+        "work/verification/remaining-browser-bd8caef/company-handover/handover-desktop.png": "f94b5c9f9ab2a50c6d2436ffde4593f7991dbecb3ccf7b607458210c0a42e72a"
+      }
+    },
+    {
+      "name": "company-events",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 25.053,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/company-events.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/company-events/company-events-http-records.json": "dcce4995f31662e00423eeefead241e96066f6e0b5d76a1a9d0790290e69e3b5",
+        "work/verification/remaining-browser-bd8caef/company-events/company-events-history.png": "11ff75f3e1a0f46c3f4cc71625d82d483f9a12ea1c9a2bee45525ca96afee55a",
+        "work/verification/remaining-browser-bd8caef/company-events/company-events-mobile.png": "19d6327dba3c0d502d352039af88534dcd6ff91bd8d1439ff93056741e0264d7"
+      }
+    },
+    {
+      "name": "migrations",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 14.188,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/migrations.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/migrations/migrations-report-mobile.png": "ceca698a88cddb48939fac2226ea20d05917a72735b068df3c693dd6018a00b0",
+        "work/verification/remaining-browser-bd8caef/migrations/migrations-preview-desktop.png": "6f879b161553f2951f3c386370abc9ccaabcaa7cd74298a41598d72649f13729",
+        "work/verification/remaining-browser-bd8caef/migrations/migrations-http-receipts.json": "263a8d54a75207848129d61f8014216f2087ff14090aff200643f1934b75940b"
+      }
+    },
+    {
+      "name": "custom-fields",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 16.642,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/custom-fields.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/custom-fields/custom-fields-mobile.png": "c946cd9f8af6290cb33f53e761097baff73e11e53fee1e4781757ece360dec97",
+        "work/verification/remaining-browser-bd8caef/custom-fields/custom-fields-project.png": "523e833b0a6cd91d9912df7e34115f2549f6e54f289965370cfd18b320d0c8f0"
+      }
+    },
+    {
+      "name": "service",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 19.005,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/service.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/service/service-case-mobile.png": "f65c88cdf851cd0428340c91926115932fb6c89377f872dfdf412205aa71c7fc",
+        "work/verification/remaining-browser-bd8caef/service/service-history-desktop.png": "5139854780b72a021b2b7dd356d0f31c11b27f19ed129313ae6a3b825be1de44",
+        "work/verification/remaining-browser-bd8caef/service/service-dispatch-receipts.json": "31c9ce7e7ca9d5b860a463aa4da227a2cbffffad0502d65f833fdf3bb9b67c27"
+      }
+    },
+    {
+      "name": "privacy-cases",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 15.607,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/privacy-cases.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/privacy-cases/privacy-case-desktop.png": "625981987269af1289281edcd3931340b651b2d1a835bc33a71630083f016066",
+        "work/verification/remaining-browser-bd8caef/privacy-cases/privacy-case-mobile.png": "59b1f5e491cbdecff9d1ff2459e51e1bdb763623ab018d5f124183e211f185d9"
+      }
+    },
+    {
+      "name": "historical-assets",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 25.767,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/historical-assets.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/historical-assets/historical-assets-synthetic-commands.json": "7e15587c79b70a566a92748b33c6ee733d9bb7d78afa5ab16072eba02b0f3c8e",
+        "work/verification/remaining-browser-bd8caef/historical-assets/historical-assets-mobile.png": "8cd266f41bcfbe225cf53cecaea48cb4ac921f4b974889a6a92fbf0acaf05048"
+      }
+    },
+    {
+      "name": "payroll-cash",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 42.133,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/payroll-cash.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/payroll-cash/payroll-history-mobile.png": "e2927d67cdf3084f4dd9aee616b3523aaea9906eb8bac700cdcd226f531fbcdb",
+        "work/verification/remaining-browser-bd8caef/payroll-cash/payroll-cash-synthetic-commands.json": "b313d534e5e7a01a09d58486a207b2dcd156ddcfc930e3b5e1a43531964a131e",
+        "work/verification/remaining-browser-bd8caef/payroll-cash/payroll-year-desktop.png": "02693626f754c61a93c573fc521860a87f25a679b8ad5d5797e6760b400c20ef",
+        "work/verification/remaining-browser-bd8caef/payroll-cash/payroll-history-desktop.png": "fcf7ddf714632349f5d3abd805bb449aa58229b005cff4e0507fa7ab1b3c5825",
+        "work/verification/remaining-browser-bd8caef/payroll-cash/payroll-cash-euer-mobile.png": "4c5f201fa448c2faa89e5a17db27bd4671e6a5c65c7cbe358517a9c4f1ab674c",
+        "work/verification/remaining-browser-bd8caef/payroll-cash/payroll-cash-euer-desktop.png": "c41078f5c70169295dfb0ce676b8422fd5b922edb3c864c2a5b7006c82456dc8",
+        "work/verification/remaining-browser-bd8caef/payroll-cash/payroll-http-records.json": "c207a7c9a8b23710bcc0a7409ac0f15576226ebc7e6a190df99c239490b59e7b",
+        "work/verification/remaining-browser-bd8caef/payroll-cash/payroll-account-mobile.png": "206fe84738e18172042ed7e0fb802afd8c3996171e0690275277dfa33a7d4a6c",
+        "work/verification/remaining-browser-bd8caef/payroll-cash/payroll-account-complete.png": "ea828d63558d1b4bae6975126f4fa52c1c912ac43f58660b0fb0161a8c895e34"
+      }
+    },
+    {
+      "name": "accounting-open-items",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 44.423,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/accounting-open-items.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/accounting-open-items/opening-items-mobile.png": "92059c4e9c5b9406e39fa36089da5768674942f1aabf07f0e5f02574cfaab024",
+        "work/verification/remaining-browser-bd8caef/accounting-open-items/opening-items-payment-history.png": "c81319d8729c004930c1e060af783e7b129422888f50e7546b2db21e63421189",
+        "work/verification/remaining-browser-bd8caef/accounting-open-items/opening-items-synthetic-http.json": "ac3349cdd848a377ca91b8cb12fc52155edf1cab853365d178550144cc32e88a"
+      }
+    },
+    {
+      "name": "resource-custody",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 13.708,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/resource-custody.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/resource-custody/resource-custody-receipts.json": "8cfd106a737fcfac445237f5998e212655538097c86da6c027319467b6964a62",
+        "work/verification/remaining-browser-bd8caef/resource-custody/resource-custody-history-desktop.png": "09f15ea3ef6363ecf15ea37bc5866c88d17be1a0e80c8fcef9ec35a7c44701bb",
+        "work/verification/remaining-browser-bd8caef/resource-custody/resource-custody-mobile.png": "82de8afe19b3eac2367c79450cfe3f8bff267ffe4900dbd2d202b8e854d63322"
+      }
+    },
+    {
+      "name": "bank-reconciliation",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 24.6,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/bank-reconciliation.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/bank-reconciliation/bank-report-mobile.png": "e7c9b611ad524480f72d2c7744eba5f6ee913c021f2ae0431975df101dddf231",
+        "work/verification/remaining-browser-bd8caef/bank-reconciliation/bank-report-desktop.png": "17e60c8fcb961b2461f2fc8da77f5d1bb4b68e4340fb01392d7665d421a40987",
+        "work/verification/remaining-browser-bd8caef/bank-reconciliation/bank-synthetic-commands.json": "91b9a8bec7cff2a54dfec1cb8a3385035439464be85f9ba28b949ca04e26fd50"
+      }
+    },
+    {
+      "name": "purchase-changes",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 13.677,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/purchase-changes.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/purchase-changes/purchase-changes-receipts.json": "8865f0aa9cd0bff5479c16c028830f3f2ad54c909a0708f813ce2000a454068c",
+        "work/verification/remaining-browser-bd8caef/purchase-changes/purchase-changes-desktop.png": "63678d1ecebee8edb00ac8e3bcec47b530b21c1a791c2b5474b77cf6bdfa690c",
+        "work/verification/remaining-browser-bd8caef/purchase-changes/purchase-changes-mobile.png": "98f8e85b01677e8328275b728d5586b6f8b906e9539a5e6f8a9385f56e0a1c09"
+      }
+    },
+    {
+      "name": "catalog-prices",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 18.002,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/catalog-prices.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/catalog-prices/catalog-v2-evidence.json": "1544a6edff21b9eb7865a6c0d910ca1b04f817db700483fddb2a8dcee18bf97e",
+        "work/verification/remaining-browser-bd8caef/catalog-prices/catalog-v2-preview-390px.png": "4c6e46ddfc0e949f1e834196b5fabca3766fdc14b86ba1b42783776c1c3a1d0b",
+        "work/verification/remaining-browser-bd8caef/catalog-prices/catalog-v2-preview-desktop.png": "b40f2d79187b60fed313d571a12a2ca5a23f5643b0f6530d6c9f94c58d273b73"
+      }
+    },
+    {
+      "name": "catalog-imports",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 21.829,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/catalog-imports.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/catalog-imports/catalog-preview-390px.png": "c1da733edfd4a9a7c5aacffeaf5500cf0b326957b6564634174789ce97b4ee82",
+        "work/verification/remaining-browser-bd8caef/catalog-imports/catalog-preview-desktop.png": "3bb3b91a6ea52dcd24e6b19827730427ffc6dd2697721aedaca8e4032bde2a34",
+        "work/verification/remaining-browser-bd8caef/catalog-imports/catalog-imports-receipts.json": "f67b3b41d405c40feb6a3c57efbf19983c7c3b10922b6e6a5275d650cc76facb"
+      }
+    },
+    {
+      "name": "invoice-chain",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 10.909,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/invoice-chain.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/invoice-chain/invoice-chain-desktop.png": "f43752bde901b86a5920325f1dbdebc9f23da9f6e40790b87274f852c258f991",
+        "work/verification/remaining-browser-bd8caef/invoice-chain/invoice-chain-http-records.json": "31dd4dad47daef5719261782353e0ac7fd8ccb9ee676433eca08b9b06e594178",
+        "work/verification/remaining-browser-bd8caef/invoice-chain/invoice-chain-mobile.png": "12169055ddd92e30b73fb57c058b5dae6edd6701ccb003c628f0ddc4d1e13cc6"
+      }
+    },
+    {
+      "name": "company-overview",
+      "exit_code": 1,
+      "timed_out": false,
+      "duration_seconds": 3.889,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/company-overview.txt",
+      "artifacts": {}
+    },
+    {
+      "name": "inventory-counts",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 13.072,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/inventory-counts.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/inventory-counts/inventory-counts-mobile.png": "832c2fff4e02b4b9b4b206cc738401caa21a32c78a06e62219a5693555ee54f9",
+        "work/verification/remaining-browser-bd8caef/inventory-counts/inventory-counts-desktop.png": "1056207bb2ef57ff62224961b21f3d86029d815294ef0bc97ffed315e669dee7"
+      }
+    },
+    {
+      "name": "accessibility",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 25.165,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/accessibility.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/accessibility/accessibility-report.json": "3d2404d83abe5a44178f2016008bd22a9b9350e21d771162eff4bd59c8ca548f"
+      }
+    },
+    {
+      "name": "accounting-year-package-e2e",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 16.069,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/accounting-year-package-e2e.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/accounting-year-package-e2e/year-package-http-records.json": "98e267ccffb2cf600d5c7e573dfdbfcd72810ddc8131281a1328958816276a7d",
+        "work/verification/remaining-browser-bd8caef/accounting-year-package-e2e/actual-year-package.zip": "a6fd521ee2235587b2ba1dbc7ef760636124b3760113d47c8e9eb12b0ee32c4b",
+        "work/verification/remaining-browser-bd8caef/accounting-year-package-e2e/year-package-incomplete-mobile.png": "d1464e42b38d176dab1dac4c6822702e40e14dd32845451ca05c0905a8bc9c01",
+        "work/verification/remaining-browser-bd8caef/accounting-year-package-e2e/actual-year-package-offline-check.json": "0aa11711c64dc39fb89f9be33f82b5fcc40eb2a3234666d9fab0c7b8241d7382"
+      }
+    },
+    {
+      "name": "accounting-euer-e2e",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 27.007,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/accounting-euer-e2e.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/accounting-euer-e2e/accounting-euer-mobile.png": "8f405336d77991795470a78b753b30daf56ed320e1d46d545c48c26b3f3d5f19",
+        "work/verification/remaining-browser-bd8caef/accounting-euer-e2e/accounting-euer-desktop-viewport.png": "e80c2e52a60065e6f1ed429cf3a552fc1983ca6ca8f8570da53b3af86565a180",
+        "work/verification/remaining-browser-bd8caef/accounting-euer-e2e/accounting-euer-http-records.json": "2a60e2572b6c81e3ae16e49fb87bb685c8cea743598612e5b12afc571560d756",
+        "work/verification/remaining-browser-bd8caef/accounting-euer-e2e/accounting-euer-mobile-viewport.png": "d3d05ba0d78ee0d207af5390ea3c97a2a84a1590ea1632c073df88272859a022",
+        "work/verification/remaining-browser-bd8caef/accounting-euer-e2e/accounting-euer-desktop.png": "bb574b761ee1efadca4b51f7bccbe11f5f30e49bfed1726141292904e56b47a6"
+      }
+    },
+    {
+      "name": "accounting-year-package-v2-e2e",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 14.04,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/accounting-year-package-v2-e2e.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/accounting-year-package-v2-e2e/year-package-http-records.json": "38b3a54d4d484613b251fb0f4e6726190291e0adb269870da71b7fab9aa3024e",
+        "work/verification/remaining-browser-bd8caef/accounting-year-package-v2-e2e/actual-year-package.zip": "dc8a32f5db7b0e2279958d093b424d52ef4bf879d9688028546917c8b8eff173",
+        "work/verification/remaining-browser-bd8caef/accounting-year-package-v2-e2e/year-package-incomplete-mobile.png": "08f074669d1bec19db682941b31fc7cffe08be242e7de3f08360987a26fbc607",
+        "work/verification/remaining-browser-bd8caef/accounting-year-package-v2-e2e/actual-year-package-offline-check.json": "4e477c3d5c9f6daabaf479adb4bc3e21c6ea2c6b5a27ad4cfa8de84610bdc38f"
+      }
+    },
+    {
+      "name": "customer-workspace-e2e",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 36.481,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/customer-workspace-e2e.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/customer-workspace-e2e/customer-workspace-staff.png": "244064f76aaf6f3052bbf1cd588d01c5fe72a0fd8abf40f90b27e953c1e84d1a",
+        "work/verification/remaining-browser-bd8caef/customer-workspace-e2e/customer-workspace-mobile.png": "379956d8dc95daf0cbc91b0c0d843d3d6da108109495f92409c12ff188b7d676",
+        "work/verification/remaining-browser-bd8caef/customer-workspace-e2e/customer-workspace-desktop.png": "469d0d316502afc9e6567ff41fcd9310b2ff05f71448879eba1bf40f588baada",
+        "work/verification/remaining-browser-bd8caef/customer-workspace-e2e/customer-workspace-staff-mobile.png": "0739067978ba4a7aa14afcaf562179063664d67ff841cfa2cb4be3bbe93c569d"
+      }
+    },
+    {
+      "name": "accounting-year-values-profile-void-e2e",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_seconds": 23.597,
+      "log": "docs/evidence/project-native-ci-2026-11-04/remaining-browser/accounting-year-values-profile-void-e2e.txt",
+      "artifacts": {
+        "work/verification/remaining-browser-bd8caef/accounting-year-values-profile-void-e2e/year-values-mobile.png": "201095ae867e619910323b02c4b9c43e441f4adb2640258a24a82a847643984d",
+        "work/verification/remaining-browser-bd8caef/accounting-year-values-profile-void-e2e/year-values-final-ui.png": "ba4e7b59fb3641ca18cebf8c7e78dc38e5bf0e1de7bff5e855f6abd06af3b931",
+        "work/verification/remaining-browser-bd8caef/accounting-year-values-profile-void-e2e/downloaded-year-journal.pdf": "493c8e3dfebca09b2b2ffcd56d817ae7f3ace92b636e145bc09198e44f4fac53",
+        "work/verification/remaining-browser-bd8caef/accounting-year-values-profile-void-e2e/year-values-http-records.json": "6353679584e79151dc36c2400f326644b2801e9bfbb8714eb9eecc2f9ab43731",
+        "work/verification/remaining-browser-bd8caef/accounting-year-values-profile-void-e2e/year-values-profile-void-originals.json": "3a574df3213eeefb6d5bbb31322cbfe176df824d72228f2c859b5197e56033ce",
+        "work/verification/remaining-browser-bd8caef/accounting-year-values-profile-void-e2e/year-values-final-ui.txt": "189165cbfb9a87109c714628706849f99191699815a54dcc7950bf0c3a770052"
+      }
+    }
+  ],
+  "duration_seconds": 399.089,
+  "sources_unchanged": true
+}

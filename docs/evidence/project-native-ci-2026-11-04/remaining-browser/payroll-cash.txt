@@ -1,0 +1,4 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll: explicit profile UI, exact minijob preview, lost ACK original retry, correction delta, historical PDF/JSON integrity, regular PAP full-scope UI (782.41 tax, 3130.09 net), yearly latest-revision totals with missing months and exact PDF/CSV/JSON export, explicit identity/payment proofs with lost-ACK retry, two payment parts, external carryover and complete supported employment account, own-read separation and responsive history passed
+payroll cash: actual payment parts, explicit remittance and private original, exact lost-ACK retries, public finance classification without personnel data, explicit void/correction without refund, immutable prior source and mobile view passed
+1 targeted actual payroll cash/EÜR workflow passed (private actual payments, public financial classification and original retries)

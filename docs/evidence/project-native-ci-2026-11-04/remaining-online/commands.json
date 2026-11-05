@@ -1,0 +1,202 @@
+[
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_year_package_pg.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 12.157,
+    "log": "01-test_accounting_year_package_pg.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "-v",
+      "online.test_accounting_year_package_v2_pg"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 8.948,
+    "log": "02-online.test_accounting_year_package_v2_pg.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "-v",
+      "online.test_year_values_full_financial_restore_pg"
+    ],
+    "exit_code": 1,
+    "duration_seconds": 11.5,
+    "log": "03-online.test_year_values_full_financial_restore_pg.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_open_items_pg.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 17.004,
+    "log": "04-test_accounting_open_items_pg.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_accounting_year_openings_pg.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 18.723,
+    "log": "05-test_accounting_year_openings_pg.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_customer_workspace*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 13.872,
+    "log": "06-test_customer_workspaceall.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_assistant*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 27.56,
+    "log": "07-test_assistantall.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_company_events*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 16.572,
+    "log": "08-test_company_eventsall.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_company_handover*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 1.567,
+    "log": "09-test_company_handoverall.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_customer_execution_journey_pg.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 4.816,
+    "log": "10-test_customer_execution_journey_pg.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_customer_finance_service_journey_pg.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 39.863,
+    "log": "11-test_customer_finance_service_journey_pg.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_release_business.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 51.91,
+    "log": "12-test_release_business.py.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "backend/online",
+      "-p",
+      "test_provisioning*.py",
+      "-v"
+    ],
+    "exit_code": 1,
+    "duration_seconds": 0.317,
+    "log": "13-test_provisioningall.py.txt"
+  }
+]

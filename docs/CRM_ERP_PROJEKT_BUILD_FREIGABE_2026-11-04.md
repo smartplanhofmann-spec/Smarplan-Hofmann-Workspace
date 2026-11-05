@@ -1,29 +1,53 @@
-# Aktueller Buildstatus: Veröffentlichung autorisiert, CI-Nachprüfung läuft
+# Aktueller Buildstatus: Windows gebaut, iPhone-Prüfbuild erfolgreich
 
-**Aktuell nach ausdrücklicher Zustimmung:** Upload erfolgreich. Der neue
-Branch `codex/testupdate-0.7-projects-20261104` enthält den Quellstand 0.13.0
-und nachfolgende gezielte CI-Korrekturen. Der tatsächliche Windows-Job auf
-`70b5cb28d2afa43e37715222e34ab62abd55db82` ist vollständig erfolgreich:
-1.593 App-Tests, drei echte PDF-Engine-Tests, 79 lokale Backendfälle ohne Skip,
-beide Releasepakete und deren natives Quell-/Dateimanifest geprüft.
+Stand 05.11.2026: Der ausdrücklich freigegebene Branch
+`codex/testupdate-0.7-projects-20261104` enthält Version **0.13.0+130**.
+Auf dem Quellstand `bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806` sind beide
+Windows-Pakete, der iOS-Simulator und der unsignierte iPhone-Gerätebuild
+nachweislich erfolgreich gebaut.
 
-**[Windows-Online-Paket 0.13.0 herunterladen](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41929317907/artifacts/13372157359)**
-(21.831.095 Byte; GitHub-Artefakt 13372157359). Vollständig entpacken und
-smartplan_office.exe öffnen. Dieses Paket enthält keinen lokalen Pythonserver.
-[Metadaten und Digests beider Programme](evidence/project-native-ci-2026-11-04/windows-artifacts.json)
-und der [tatsächliche Windows-Lauf](evidence/project-native-ci-2026-11-04/current-windows.log)
-sind erhalten. Die ZIP-Inhaltsprüfung erfolgte im Windows-CI; die ZIP wurde in
-dieser Cloud nicht zusätzlich lokal entpackt. Die spätere lokale Geräteabnahme
-und der gemeinsame Serverabgleich sind weiterhin offen.
+**[Windows-Online-Paket 0.13.0 herunterladen](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41932861640/artifacts/13373951873)**
 
-Linux-App-/Backend-Gesamtlauf und echter Simulatorbuild sind erfolgreich.
-Der vollständige iPhone-Prüflauf fand drei Temp-Pfadfehler; die vier betroffenen
-Fixturestellen bestehen nach Korrektur unter einer reproduzierten Symlink-
-Tempumgebung. Der Browser-Einkaufsfallback ist gezielt nachgeprüft. Beide
-vollständigen Remote-Nachprüfungen stehen noch aus. 367 App-/Backend-Paketquellen
-sind bytegleich mit dem tatsächlichen Windows-Build; neuere Änderungen betreffen
-Tests und Nachweise. Ein installierbarer aktueller iPhone-Build ist noch offen.
-[Fortlaufender CI-Nachweis](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md).
+Das ZIP vollständig entpacken und **smartplan_office.exe** öffnen. Das
+Online-Paket enthält keinen lokalen Pythonserver. Größe: 21.831.091 Byte;
+SHA-256: `a91aaed307be58a22d4fc06272c662c68632346627b1221d15b84b1b32999f7f`.
+Das getrennte lokale Windows-Paket ist im selben Lauf als Artefakt
+13374016008 vorhanden; es ersetzt keinen gemeinsamen Online-Server.
+
+Der tatsächliche Windows-Job 126934277996 besteht 1.593 App-Tests, drei
+native PDF-Engine-Fälle und 79 portable Backendfälle ohne Skip. Beide
+Releasepakete und ihre nativen Quell-/Dateimanifeste sind im Windows-CI
+geprüft. Die ZIP wurde in dieser Cloud nicht zusätzlich lokal entpackt
+oder als Windowsprogramm ausgeführt.
+
+Der tatsächliche iPhone-Job 126933889419 besteht die Analyse, 1.616 App-Fälle
+mit fünf ausgewiesenen Plattform-Skips und drei native PDF-Fälle. Der
+Gerätebuild **0.13.0, Build 167** und sein iPhone-/iPad-Manifest sind erfolgreich.
+[Unsigniertes Prüfartefakt](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41932861659/artifacts/13373843589):
+14.666.907 Byte, SHA-256
+`bfa2706b0bc7578dfc23457db29505451d8e5c2b10493eb2eadb0e4e843cb6ac`.
+**Dieses Artefakt ist nicht auf dem iPhone installierbar.** Die Signierung und
+der TestFlight-Upload sind noch offen; der geschützte Uploadjob blieb
+übersprungen. Die tatsächliche Geräteabnahme ist nicht durchgeführt.
+
+[GitHub-Jobstatus und Artefaktmetadaten](evidence/project-native-ci-2026-11-04/final/delivery-status.json)
+sowie die vollständigen [Windows-](evidence/project-native-ci-2026-11-04/final/windows-bd8caef.log)
+und [iPhone-Logs](evidence/project-native-ci-2026-11-04/final/ios-bd8caef.log)
+sind archiviert. Der Gesamt-CI-Lauf auf diesem Commit war wegen zweier
+nachfolgend korrigierter Testannahmen nicht vollständig grün; erfolgreiche
+native Teiljobs werden deshalb getrennt ausgewiesen. Die aktuellen
+[Nachprüfungen](CRM_ERP_PROJEKT_CI_NACHPRUEFUNG_2026-11-04.md) dokumentieren auch
+die späteren Testkorrekturen und den Server-Guard gegen kurz nachlaufende
+PostgreSQL-Verbindungen. Diese spätere Serveränderung ist kein Bestandteil
+des bereits gebauten Serverstands.
+
+Für den gemeinsamen Kundentest fehlen der nachgewiesene installierte
+Serverstand, der installierbare iPhone-Build und die 20 tatsächlichen
+Geräte-/Bedienprüfungen. Die [Testanleitung](CRM_ERP_KUNDENTEST_PROJEKTBETRIEB_0_13.md)
+enthält die vorbereiteten Schritte und lesenden Serverbefehle. In der
+Cloud ist kein Zugang zum laufenden Office-Server eingerichtet; ein
+Serverupdate wurde nicht ausgeführt. Löhne und Buchhaltung bleiben
+entsprechend der Nutzerentscheidung zurückgestellt.
 
 **Erste Veröffentlichung:** GitHub hat für `8e320bd` die
 [Development checks](https://github.com/smartplanhofmann-spec/Smarplan-Hofmann-Workspace/actions/runs/41915157732)

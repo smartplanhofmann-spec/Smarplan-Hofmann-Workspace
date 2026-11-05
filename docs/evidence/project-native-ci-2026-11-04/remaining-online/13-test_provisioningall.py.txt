@@ -1,0 +1,58 @@
+test_bundle_rejects_links_foreign_manifest_and_concurrent_reservation (test_provisioning.ProvisioningTests.test_bundle_rejects_links_foreign_manifest_and_concurrent_reservation) ... ok
+test_bundle_retries_exact_bytes_and_preserves_partial_artifacts (test_provisioning.ProvisioningTests.test_bundle_retries_exact_bytes_and_preserves_partial_artifacts) ... ok
+test_company_dsn_scope_is_explicit_and_legacy_scope_stays_fixed (test_provisioning.ProvisioningTests.test_company_dsn_scope_is_explicit_and_legacy_scope_stays_fixed) ... ok
+test_exact_manifest_no_untrusted_selector_or_shell_values (test_provisioning.ProvisioningTests.test_exact_manifest_no_untrusted_selector_or_shell_values) ... ok
+test_listener_acceptance_proves_actual_pid_socket_ownership (test_provisioning.ProvisioningTests.test_listener_acceptance_proves_actual_pid_socket_ownership) ... ok
+test_operator_binding_always_revokes_after_runtime_failure (test_provisioning.ProvisioningTests.test_operator_binding_always_revokes_after_runtime_failure) ... ok
+test_operator_test_guard_rejects_real_names_ports_hosts_and_credentials_options (test_provisioning.ProvisioningTests.test_operator_test_guard_rejects_real_names_ports_hosts_and_credentials_options) ... ok
+test_plan_is_deterministic_has_no_credentials_and_never_activates_publicly (test_provisioning.ProvisioningTests.test_plan_is_deterministic_has_no_credentials_and_never_activates_publicly) ... ok
+test_private_operator_umask_does_not_hide_required_runtime_group_configuration (test_provisioning.ProvisioningTests.test_private_operator_umask_does_not_hide_required_runtime_group_configuration) ... ok
+test_privileged_commands_do_not_inherit_path_or_python_selectors (test_provisioning.ProvisioningTests.test_privileged_commands_do_not_inherit_path_or_python_selectors) ... ok
+test_protected_role_file_uses_explicit_synthetic_trust_root_without_weakening_production (test_provisioning.ProvisioningTests.test_protected_role_file_uses_explicit_synthetic_trust_root_without_weakening_production) ... ok
+test_resource_collisions_are_rejected_but_exact_retry_is_allowed (test_provisioning.ProvisioningTests.test_resource_collisions_are_rejected_but_exact_retry_is_allowed) ... ok
+test_role_file_must_match_fixed_process_instance (test_provisioning.ProvisioningTests.test_role_file_must_match_fixed_process_instance) ... ok
+test_roles_are_immutable_exact_and_never_derived_from_runtime_dsn (test_provisioning.ProvisioningTests.test_roles_are_immutable_exact_and_never_derived_from_runtime_dsn) ... ok
+test_runtime_secret_resume_keeps_keys_and_never_replaces_missing_confirmed_key (test_provisioning.ProvisioningTests.test_runtime_secret_resume_keeps_keys_and_never_replaces_missing_confirmed_key) ... ok
+test_actual_backup_restore_binding_foreign_dump_and_missing_checkpoint_fail_closed (test_provisioning_pg.ProvisioningPostgres.test_actual_backup_restore_binding_foreign_dump_and_missing_checkpoint_fail_closed) ... ERROR
+test_repeat_preparation_and_initial_bind_cleanup_never_migrate_running_company (test_provisioning_pg.ProvisioningPostgres.test_repeat_preparation_and_initial_bind_cleanup_never_migrate_running_company) ... ERROR
+test_two_real_http_processes_mfa_objects_storage_and_current_role_drift (test_provisioning_pg.ProvisioningPostgres.test_two_real_http_processes_mfa_objects_storage_and_current_role_drift) ... ERROR
+test_bundle_rejects_private_directory_under_renameable_parent (test_provisioning_security_review.ProvisioningFilesystemReview.test_bundle_rejects_private_directory_under_renameable_parent) ... ok
+test_complete_release_checks_transitive_modules_and_dependencies (test_provisioning_security_review.ProvisioningFilesystemReview.test_complete_release_checks_transitive_modules_and_dependencies) ... ok
+test_real_loopback_listener_must_belong_to_reported_own_process (test_provisioning_security_review.ProvisioningFilesystemReview.test_real_loopback_listener_must_belong_to_reported_own_process) ... ok
+test_release_cannot_hide_dependency_directory_outside_verified_tree (test_provisioning_security_review.ProvisioningFilesystemReview.test_release_cannot_hide_dependency_directory_outside_verified_tree) ... ok
+test_two_runtime_uids_cannot_read_write_or_replace_foreign_private_files (test_provisioning_uid.CompanyUidIsolation.test_two_runtime_uids_cannot_read_write_or_replace_foreign_private_files) ... skipped 'Explicit disposable container UID acceptance required'
+
+======================================================================
+ERROR: test_actual_backup_restore_binding_foreign_dump_and_missing_checkpoint_fail_closed (test_provisioning_pg.ProvisioningPostgres.test_actual_backup_restore_binding_foreign_dump_and_missing_checkpoint_fail_closed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_provisioning_pg.py", line 61, in setUp
+    p._operator_dsn(item,DSN,test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/provisioning.py", line 306, in _operator_dsn
+    raise ValueError('Provisionierungstest ausschließlich im reservierten Einwegcluster 55433.')
+ValueError: Provisionierungstest ausschließlich im reservierten Einwegcluster 55433.
+
+======================================================================
+ERROR: test_repeat_preparation_and_initial_bind_cleanup_never_migrate_running_company (test_provisioning_pg.ProvisioningPostgres.test_repeat_preparation_and_initial_bind_cleanup_never_migrate_running_company)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_provisioning_pg.py", line 61, in setUp
+    p._operator_dsn(item,DSN,test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/provisioning.py", line 306, in _operator_dsn
+    raise ValueError('Provisionierungstest ausschließlich im reservierten Einwegcluster 55433.')
+ValueError: Provisionierungstest ausschließlich im reservierten Einwegcluster 55433.
+
+======================================================================
+ERROR: test_two_real_http_processes_mfa_objects_storage_and_current_role_drift (test_provisioning_pg.ProvisioningPostgres.test_two_real_http_processes_mfa_objects_storage_and_current_role_drift)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/test_provisioning_pg.py", line 61, in setUp
+    p._operator_dsn(item,DSN,test_mode=True)
+  File "/workspace/Smarplan-Hofmann-Workspace/backend/online/provisioning.py", line 306, in _operator_dsn
+    raise ValueError('Provisionierungstest ausschließlich im reservierten Einwegcluster 55433.')
+ValueError: Provisionierungstest ausschließlich im reservierten Einwegcluster 55433.
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.052s
+
+FAILED (errors=3, skipped=1)

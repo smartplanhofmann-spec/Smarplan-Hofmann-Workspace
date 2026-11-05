@@ -1,0 +1,31 @@
+{
+  "phase": "before",
+  "source_commit": "bd8caef6ffcfa0cdf6bbd4314ddb393ad49dd806",
+  "duration_seconds": 1.136,
+  "results": [
+    {
+      "utc": "2026-11-04T12:30:00+00:00",
+      "success": true,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "utc": "2026-11-04T22:30:00+00:00",
+      "success": true,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "utc": "2026-11-04T23:30:00+00:00",
+      "success": false,
+      "failures": 1,
+      "errors": 0
+    }
+  ],
+  "source_sha256": {
+    "backend/online/test_business_boundary_review.py": "857be3cb495a77ef5495ee9347a73b4674439bbfccddbd09b5f116700e288182",
+    "backend/business_planning.py": "5ffa25178fae0a0d6987261f2b6bd78cd0fae76f8e70df81fa682f3ec69ca63f"
+  },
+  "real_HTTP_and_ACL": true,
+  "clock_replaced_only_in_test_module": true
+}

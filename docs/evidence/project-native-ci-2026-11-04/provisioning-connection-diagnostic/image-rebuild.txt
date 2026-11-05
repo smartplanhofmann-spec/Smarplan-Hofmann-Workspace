@@ -1,0 +1,84 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 765B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/postgres:16
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [python_runtime 1/1] FROM docker.io/library/python:3.12-slim
+#5 DONE 0.1s
+
+#6 [internal] load build context
+#6 ...
+
+#7 [stage-1 1/9] FROM docker.io/library/postgres:16
+#7 DONE 0.2s
+
+#6 [internal] load build context
+#6 transferring context: 145.77MB 1.0s done
+#6 DONE 1.0s
+
+#8 [stage-1 2/9] COPY --from=python_runtime /usr/local/ /usr/local/
+#8 DONE 2.2s
+
+#9 [stage-1 3/9] COPY --from=python_runtime /usr/lib/x86_64-linux-gnu/libsqlite3.so.* /usr/lib/x86_64-linux-gnu/
+#9 DONE 2.1s
+
+#10 [stage-1 4/9] COPY wheels /wheels
+#10 DONE 1.9s
+
+#11 [stage-1 5/9] COPY requirements.lock /requirements.lock
+#11 DONE 1.6s
+
+#12 [stage-1 6/9] RUN ldconfig && python -c "import ssl,sqlite3,ctypes,lzma,bz2,xml.parsers.expat" && python -m pip install --disable-pip-version-check --no-index --find-links=/wheels -r /requirements.lock && python -m pip check && rm -rf /wheels
+#12 1.342 ldconfig: /lib/x86_64-linux-gnu/libsqlite3.so.0 is not a symbolic link
+#12 1.342 
+#12 2.502 Looking in links: /wheels
+#12 2.508 Processing /wheels/blinker-1.9.0-py3-none-any.whl (from -r /requirements.lock (line 1))
+#12 2.513 Processing /wheels/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r /requirements.lock (line 2))
+#12 2.516 Processing /wheels/charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r /requirements.lock (line 3))
+#12 2.520 Processing /wheels/click-8.5.0-py3-none-any.whl (from -r /requirements.lock (line 4))
+#12 2.521 Processing /wheels/cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl (from -r /requirements.lock (line 5))
+#12 2.537 Processing /wheels/flask-3.1.3-py3-none-any.whl (from -r /requirements.lock (line 6))
+#12 2.539 Processing /wheels/gunicorn-26.2.0-py3-none-any.whl (from -r /requirements.lock (line 7))
+#12 2.543 Processing /wheels/itsdangerous-2.2.0-py3-none-any.whl (from -r /requirements.lock (line 8))
+#12 2.545 Processing /wheels/jinja2-3.1.6-py3-none-any.whl (from -r /requirements.lock (line 9))
+#12 2.547 Processing /wheels/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r /requirements.lock (line 10))
+#12 2.549 Processing /wheels/pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from -r /requirements.lock (line 11))
+#12 2.559 Processing /wheels/psycopg-3.3.6-py3-none-any.whl (from -r /requirements.lock (line 12))
+#12 2.564 Processing /wheels/psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r /requirements.lock (line 13))
+#12 2.571 Processing /wheels/pycparser-3.11-py3-none-any.whl (from -r /requirements.lock (line 14))
+#12 2.573 Processing /wheels/reportlab-4.5.1-py3-none-any.whl (from -r /requirements.lock (line 15))
+#12 2.578 Processing /wheels/typing_extensions-4.16.0-py3-none-any.whl (from -r /requirements.lock (line 16))
+#12 2.580 Processing /wheels/tzdata-2026.5-py2.py3-none-any.whl (from -r /requirements.lock (line 17))
+#12 2.585 Processing /wheels/werkzeug-3.1.9-py3-none-any.whl (from -r /requirements.lock (line 18))
+#12 2.627 Installing collected packages: tzdata, typing_extensions, pycparser, psycopg-binary, pillow, MarkupSafe, itsdangerous, gunicorn, click, charset-normalizer, blinker, Werkzeug, reportlab, psycopg, Jinja2, cffi, Flask, cryptography
+#12 5.358 Successfully installed Flask-3.1.3 Jinja2-3.1.6 MarkupSafe-3.0.4 Werkzeug-3.1.9 blinker-1.9.0 cffi-2.1.1 charset-normalizer-3.5.2 click-8.5.0 cryptography-50.0.0 gunicorn-26.2.0 itsdangerous-2.2.0 pillow-13.0.0 psycopg-3.3.6 psycopg-binary-3.3.6 pycparser-3.11 reportlab-4.5.1 typing_extensions-4.16.0 tzdata-2026.5
+#12 5.359 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#12 5.829 No broken requirements found.
+#12 DONE 5.9s
+
+#13 [stage-1 7/9] COPY --chown=postgres:postgres source/ /work/
+#13 DONE 1.7s
+
+#14 [stage-1 8/9] COPY --chown=postgres:postgres caddy/caddy /work/caddy
+#14 DONE 0.9s
+
+#15 [stage-1 9/9] WORKDIR /work
+#15 DONE 0.8s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 1.2s done
+#16 writing image sha256:1dea67115db66db4634f42fcb6dffacb9a2006611f096f827b813fdb39afc8c2 done
+#16 naming to docker.io/library/smartplan-online-checks:connection-recheck done
+#16 DONE 1.2s

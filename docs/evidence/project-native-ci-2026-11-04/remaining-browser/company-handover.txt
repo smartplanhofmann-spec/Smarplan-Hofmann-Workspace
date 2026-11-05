@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+handover: explicit owner inventory, collapsed exclusions, sensitive confirmations, lost export/review ACK exact retries, independent ZIP verification, partial/final operator attestations, historical bytes, non-owner denial and responsive UI passed
+1 targeted company handover workflow passed (owner MFA, immutable ZIP proof, original retry and explicit exit review)

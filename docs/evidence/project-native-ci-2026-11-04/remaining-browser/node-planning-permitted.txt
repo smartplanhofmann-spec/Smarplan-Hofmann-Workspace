@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: calendar selection covers December, the following January, leap February and whole years
+ok 1 - calendar selection covers December, the following January, leap February and whole years
+  ---
+  duration_ms: 1.921882
+  type: 'test'
+  ...
+# Subtest: weeks and navigation remain calendar days across year and daylight-saving boundaries
+ok 2 - weeks and navigation remain calendar days across year and daylight-saving boundaries
+  ---
+  duration_ms: 0.287743
+  type: 'test'
+  ...
+# Subtest: multiple years stay within the server calendar limit and reject impossible dates
+ok 3 - multiple years stay within the server calendar limit and reject impossible dates
+  ---
+  duration_ms: 0.572331
+  type: 'test'
+  ...
+# Subtest: project bars include both bounds, retain one-day projects, and clip only the visible part
+ok 4 - project bars include both bounds, retain one-day projects, and clip only the visible part
+  ---
+  duration_ms: 0.470728
+  type: 'test'
+  ...
+# Subtest: missing or invalid project bounds and projects outside the window never produce bars
+ok 5 - missing or invalid project bounds and projects outside the window never produce bars
+  ---
+  duration_ms: 0.217657
+  type: 'test'
+  ...
+# Subtest: timeline headers expose actual days and all months across the year boundary
+ok 6 - timeline headers expose actual days and all months across the year boundary
+  ---
+  duration_ms: 21.955082
+  type: 'test'
+  ...
+# Subtest: calendar math and project clipping are identical in Berlin, Los Angeles and Auckland
+ok 7 - calendar math and project clipping are identical in Berlin, Los Angeles and Auckland
+  ---
+  duration_ms: 302.538194
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 456.847212

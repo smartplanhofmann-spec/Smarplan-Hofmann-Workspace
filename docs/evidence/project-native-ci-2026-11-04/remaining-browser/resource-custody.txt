@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+resource custody: native canonical creation, versioned profile, explicit requirement, original hash, actual inspection, lost issue ACK exact replay, project/employee period holds, native planner enforcement, damaged return, immutable correction and original download passed
+1 targeted resource custody workflow passed (real MFA/HTTP, native resource, inspection, custody and planning)

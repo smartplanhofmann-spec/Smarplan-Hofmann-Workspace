@@ -14,6 +14,7 @@ import shlex
 import shutil
 import stat
 import tempfile
+import time
 
 import psycopg
 from psycopg import sql
@@ -65,11 +66,18 @@ def validate_dsns(active_dsn, candidate_dsn, *, test_mode=False, instance_roles=
 
 
 def no_other_clients(dsn):
-    with psycopg.connect(dsn, connect_timeout=5) as connection:
-        count = connection.execute("SELECT COUNT(*) FROM pg_stat_activity WHERE datname=current_database() "
-                                   "AND backend_type='client backend' AND pid<>pg_backend_pid()").fetchone()[0]
-        if count:
-            raise RuntimeError('Andere Datenbankverbindungen aktiv. Dienste/Verwaltung geordnet anhalten; keine fremden Prozesse beenden.')
+    # A closed migration connection can remain visible briefly while its
+    # PostgreSQL backend exits. Recheck fresh snapshots for at most 250 ms;
+    # never terminate clients or proceed while any client remains connected.
+    with psycopg.connect(dsn, connect_timeout=5, autocommit=True) as connection:
+        for attempt in range(6):
+            count = connection.execute("SELECT COUNT(*) FROM pg_stat_activity WHERE datname=current_database() "
+                                       "AND backend_type='client backend' AND pid<>pg_backend_pid()").fetchone()[0]
+            if not count:
+                return
+            if attempt < 5:
+                time.sleep(.05)
+        raise RuntimeError('Andere Datenbankverbindungen aktiv. Dienste/Verwaltung geordnet anhalten; keine fremden Prozesse beenden.')
 
 
 def public_tables(connection):

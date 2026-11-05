@@ -195,3 +195,95 @@ ausführbar und besteht mit echtem Testbackend und sandboxiertem Chromium.
 Produktcode wurde dafür nicht geändert. [Lauf, Screenshots und Quellen](evidence/project-native-ci-2026-11-04/purchasing-fallback/result.json)
 und der ursprüngliche [vollständige CI-Fehlerlauf](evidence/project-native-ci-2026-11-04/browser-70b5-failed.log)
 sind erhalten. Der vollständige nachfolgende CI-Browserlauf steht noch aus.
+
+## 05.11.2026 – Tatsächliche Windows-/iPhone-Builds und vollständige Browserauswahl
+
+Auf `bd8caef` bestehen Windows, Linux-App, Linux-Backend und iOS-Simulator.
+Windows: 1.593 App-Fälle, drei native PDF-Fälle und 79 portable Backendfälle
+ohne Skip; beide Releasepakete sind veröffentlicht. iPhone: 1.616 bestandene
+App-Fälle, fünf ausgewiesene Plattform-Skips, drei native PDF-Fälle und Analyse
+ohne Befund; tatsächlicher unsignierter Gerätebuild 0.13.0 Build 167 erfolgreich.
+[Metadaten, Job-IDs, Digests und Downloadziele](evidence/project-native-ci-2026-11-04/final/delivery-status.json)
+sind erhalten. Das iPhone-Artefakt ist nicht installierbar; Signierung,
+TestFlight, gemeinsame Geräteabnahme und laufender Serverabgleich fehlen.
+
+Der Linux-Backendlauf enthält 1.924 Fälle: 1.921 bestanden und drei erläuterte
+Skips. Linux-Flutter besteht 1.621 Fälle sowie drei separate echte PDF-Fälle;
+Analyse ohne Befund. Die neuen späteren Server-Guard-Tests gehören nicht zu
+diesen historischen Zahlen. Die sechs vollständigen CI-Logs unter
+`evidence/project-native-ci-2026-11-04/final/` bleiben unverändert erhalten,
+einschließlich beider roten Gesamtjobs.
+
+Der ursprüngliche Browserjob besteht Hauptablauf und Altposten, stoppt dann
+an einer veralteten Kundenfeldbezeichnung im Wirtschaftlichkeitstest. Dieser
+verwendet jetzt den bestehenden neuen Kundenauswahlvertrag und besteht mit
+allen Original-, Antwortverlust-, Korrektur-, Historien- und Budgetprüfungen.
+Die übrigen 45 bestehenden Browserabläufe wurden mit drei unabhängigen lokalen
+Fixtures und vollständig sandboxiertem Chromium ausgeführt: 44 bestanden,
+Unternehmensübersicht zunächst wegen einer nach Navigation verlorenen CDP-
+Antwort. Deren Beobachter liest jetzt die echte API-Antwort vor unverändertem
+Weiterreichen; der ganze bestehende Übersichtsablauf besteht anschließend.
+Damit sind die **48 verschiedenen CI-Browserabläufe aufgeteilt nachgewiesen**;
+das ist kein einzelner grüner Remote-Gesamtlauf. Die 856 Node-Fälle bestehen
+vollständig mit der für ihre Kindprozesse nötigen lokalen Ausführungsberechtigung.
+Der erste eingeschränkte EPERM-Lauf bleibt als Umgebungsfehler erhalten.
+
+[45er-Lauf und Bildhashes](evidence/project-native-ci-2026-11-04/remaining-browser/result.json),
+[Wirtschaftlichkeit](evidence/project-native-ci-2026-11-04/project-economics-recheck/browser.txt),
+[Unternehmensübersicht](evidence/project-native-ci-2026-11-04/company-overview-recheck/browser.txt)
+und [Node-Gesamtlauf](evidence/project-native-ci-2026-11-04/remaining-browser/node-tests-permitted.txt)
+sind archiviert. Die Bilder der 45er-Auswahl liegen im ignorierten Arbeitsordner
+und sind im Ergebnis durch SHA-256 gebunden; die gezielten Nachprüfungsbilder
+liegen direkt bei den Repository-Nachweisen.
+
+## Kalenderdatum, Restore-Stichtag und kurz nachlaufende PostgreSQL-Verbindungen
+
+Die Berechtigungs-Kalenderfixture verwendete UTC, während die Kalenderansicht
+Arbeitstage in Europe/Berlin abgrenzt. Kurz vor UTC-Mitternacht suchte sie den
+Termin dadurch am falschen Tag. Die Fixture verwendet jetzt dieselbe Zeitzone.
+Die bestehende echte HTTP-/ACL-Prüfung scheitert vor der Korrektur gezielt bei
+23:30 UTC und besteht danach bei 12:30, 22:30 und 23:30 UTC. Alle elf Fälle des
+Moduls bestehen. Die Kalender-/Berechtigungsruntime ist unverändert.
+[Vorher/Nachher und vollständiges Modul](evidence/project-native-ci-2026-11-04/calendar-date-boundary/after-result.json).
+
+Der vorhandene vollständige Finanz-Restorefall fragte die Liquidität fest zum
+04.11. ab, obwohl seine synthetischen Zahlungen inzwischen am 05.11. erstellt
+wurden. Seine drei Abfragen verwenden jetzt denselben tatsächlichen Zahltag.
+Beträge, gebundene Originale und Restore-/Reconciliation-Assertions bleiben
+unverändert; der ganze PostgreSQL-Fall besteht nach Korrektur.
+Buchhaltung bleibt fachlich zurückgestellt; dies sind Bestandserhalt-Prüfungen.
+
+Die Nachprüfung aller nach dem Kalenderfehler in CI ausgelassenen Online-
+Befehle besteht zunächst elf von 13 Gruppen, darunter beide vollständigen
+Projekt-/Kundenketten mit PostgreSQL, MFA, Rechnung und Dienstneustart bzw.
+Dump/Restore. Die zwei übrigen Gruppen sind separat nachgeprüft. Der erste
+Versuch einer Namespace-Beobachtung scheiterte vor Testausführung an einer
+OS-Berechtigung; Originalquittung und korrigierte Einordnung bleiben erhalten.
+Danach laufen die Prüfungen ausschließlich über Docker in eigenen privaten
+Offline-Netzen ohne veröffentlichten Hostport 55433 und als unprivilegierter
+Benutzer. Kein bestehender Hostcluster wurde berührt.
+
+Dabei reproduzierte sich ein echter Betreiber-Guard-Fehler: Eine gerade
+ordnungsgemäß geschlossene Migrationsverbindung war für einen kurzen Moment
+noch in pg_stat_activity sichtbar. Ein rein lesender Diagnoselauf zeigt nach
+der Ablehnung bereits keine fremde Verbindung mehr. `no_other_clients`
+prüft jetzt frische Snapshots bis höchstens 250 ms nach; aktive Verbindungen
+sperren weiterhin, keine Verbindung wird beendet. Zwei neue reale PostgreSQL-
+Fälle belegen natürliches Abmelden und fortbestehende Sperre samt weiter
+benutzbarer fremder Verbindung. Die vollständige Releasegruppe besteht mit
+23 Fällen. Dies ist die einzige spätere Änderung der Server-Fachquellen;
+der bereits gebaute native Quellstand enthält diese Serveränderung noch nicht.
+
+Eine Provisionierungsfixture verlangte außerdem eine zuvor von anderen
+Suites angelegte Altsystemrolle. Sie legt diese ausschließlich bei Fehlen im
+bereits geschützten synthetischen Cluster selbst an und entfernt nur ihre
+eigene Rolle am Ende. Alle negativen Rollen-/Fremddatenbankprüfungen bleiben
+erhalten. Die unabhängige tatsächliche UID-Isolation bleibt separat und wird
+hier ausdrücklich nicht als durchgeführt ausgegeben.
+
+Der [gezielte vollständige Release-Lauf](evidence/project-native-ci-2026-11-04/online-final/1-tests.txt)
+besteht alle 23 Fälle. Die [korrigierte Provisionierungssuite](evidence/project-native-ci-2026-11-04/provisioning-final/result.json)
+besteht 22 Fälle mit einem ausdrücklichen UID-Akzeptanz-Skip; echte HTTP-Prozesse,
+MFA, Rollenabweichung, gebundene Ablage und Dump/Restore sind enthalten. Der
+längere vollständige Online-Business-Nachlauf läuft zum Zeitpunkt dieser
+Veröffentlichung noch und wird mit eigener Abschlussquittung ergänzt.

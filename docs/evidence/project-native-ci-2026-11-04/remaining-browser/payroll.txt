@@ -1,0 +1,3 @@
+browser: namespace, PID, network and seccomp sandboxes verified before application access
+payroll: explicit profile UI, exact minijob preview, lost ACK original retry, correction delta, historical PDF/JSON integrity, regular PAP full-scope UI (782.41 tax, 3130.09 net), yearly latest-revision totals with missing months and exact PDF/CSV/JSON export, explicit identity/payment proofs with lost-ACK retry, two payment parts, external carryover and complete supported employment account, own-read separation and responsive history passed
+1 targeted payroll workflow passed (real owner/employee MFA and payroll UI; synthetic HR sources)

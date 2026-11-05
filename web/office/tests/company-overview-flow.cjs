@@ -1,11 +1,17 @@
 const assert=require('node:assert/strict');
 const path=require('node:path');
-async function companyOverviewFlow({page,navigate,ready,fixture,screenshots}) {
-  const reads=[];
-  const capture=async response=>{
-    if(new URL(response.url()).pathname==='/api/v1/business/overview/metrics'&&response.status()===200)reads.push(await response.json());
+async function companyOverviewFlow({page,context,navigate,ready,fixture,screenshots}) {
+  const reads=[],errors=[],pattern='**/api/v1/business/overview/metrics*';
+  // Capture the real body before forwarding it: CDP can discard response
+  // bodies after navigation. The application receives the unchanged response.
+  const capture=async route=>{
+    try{
+      assert.equal(new URL(route.request().url()).origin,fixture.base_url);
+      const response=await route.fetch({maxRedirects:0});assert.equal(response.status(),200);
+      reads.push(await response.json());await route.fulfill({response});
+    }catch(error){errors.push(error.message);await route.abort('failed').catch(()=>{});}
   };
-  page.on('response',capture);
+  await context.route(pattern,capture);
   try {
     await navigate(page,'Übersicht');await ready(page);
     const area=page.getByRole('region',{name:'Unternehmenskennzahlen'});await area.waitFor();
@@ -23,6 +29,7 @@ async function companyOverviewFlow({page,navigate,ready,fixture,screenshots}) {
     await page.waitForFunction(()=>document.querySelector('.sidebar').getBoundingClientRect().right<=1);
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
     await page.screenshot({path:path.join(screenshots,'company-overview-mobile.png'),fullPage:true});
-  } finally {page.off('response',capture);}
+    assert.deepEqual(errors,[]);
+  } finally {await context.unroute(pattern,capture);}
 }
 module.exports={companyOverviewFlow};

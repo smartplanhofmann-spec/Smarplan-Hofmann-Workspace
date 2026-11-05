@@ -1,0 +1,6 @@
+test_inquiry_catalog_portal_execution_capture_invoice_and_settlement_survive_restart (test_customer_execution_journey_pg.CustomerExecutionJourneyPostgres.test_inquiry_catalog_portal_execution_capture_invoice_and_settlement_survive_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 4.490s
+
+OK
